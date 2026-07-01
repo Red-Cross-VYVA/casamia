@@ -1,0 +1,418 @@
+{
+  "languageSwitcher": {
+    "aria": "Choose language",
+    "changeTo": "Switch to {{language}}"
+  },
+  "common": {
+    "close": "Close",
+    "imageFallback": "Image unavailable",
+    "learnMore": "Learn more",
+    "selectedPhotos": "Selected photos"
+  },
+  "nav": {
+    "howItWorks": "How It Works",
+    "plans": "Plans",
+    "grants": "Grants",
+    "contact": "Contact",
+    "cta": "Choose a Plan",
+    "phone": "+34 900 000 000",
+    "menu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "badge": "Home safety specialists · All Spain",
+    "line1": "Home Safe",
+    "line2": "Home.",
+    "sub": "Prevention is the best cure. Upload a few photos of your home and get a free instant safety assessment and cost estimate.",
+    "uploadLabel": "Upload photos of your home",
+    "uploadRooms": "Bathroom · Kitchen · Stairway · Living room",
+    "cta": "Get My Free Estimate",
+    "micro": "Free · No commitment · Results in seconds"
+  },
+  "alts": {
+    "logo": "CasaMia logo",
+    "hero": "Senior couple hugging at home",
+    "finalCta": "Senior couple preparing vegetables in a safe kitchen",
+    "gallery": [
+      "Accessible bathroom with safety adaptations",
+      "Home safety devices for seniors",
+      "Smart home safety technology"
+    ]
+  },
+  "grantStamp": {
+    "line1": "GRANTS UP TO",
+    "shortLine1": "UP TO",
+    "stat": "90%",
+    "line2": "COVERED",
+    "helper": "We handle the filing.",
+    "ribbonHelper": "Grant filing included",
+    "badgeLabel": "GRANTS",
+    "badgeHelper": "Filing included"
+  },
+  "prevention": {
+    "badge": "Why it matters",
+    "stat": "8 in 10",
+    "sub": "senior falls are preventable.",
+    "body": "Falls are the leading cause of injury in adults over 65 — and most happen at home. The right adaptations take less than a day to install and can change everything.",
+    "stats": [
+      { "value": "78%", "label": "of homes in Spain\nnot adapted" },
+      { "value": "9.93M", "label": "seniors in Spain,\ngrowing every year" },
+      { "value": "€6,000", "label": "average government\ngrant to cover costs" }
+    ]
+  },
+  "offer": {
+    "badge": "WHAT WE OFFER",
+    "line1": "One company.",
+    "line2": "Everything you need.",
+    "cards": [
+      {
+        "icon": "A",
+        "title": "Home Assessment",
+        "desc": "Upload photos of any room. We identify every hazard and give you a personalised cost estimate — free, with no commitment."
+      },
+      {
+        "icon": "I",
+        "title": "Professional Installation",
+        "desc": "Certified experts adapt your entire home in a single visit — grab bars, non-slip flooring, wider doorways, lighting, and more."
+      },
+      {
+        "icon": "S",
+        "title": "Smart Home Technology",
+        "desc": "Voice controls, smart locks, fall detection, and 24/7 emergency alerts — all installed and working from day one."
+      },
+      {
+        "icon": "G",
+        "title": "Grant Management",
+        "desc": "We file everything with Plan Adapta on your behalf. Grants cover up to 90% of costs. You just sign."
+      }
+    ],
+    "health": {
+      "icon": "H",
+      "title": "Health & Vitals Monitoring",
+      "desc": "Blood pressure, heart rate, medication reminders, family alerts. Peace of mind wherever you are.",
+      "badge": "Premium only"
+    }
+  },
+  "gallery": {
+    "badge": "What a safer home looks like",
+    "title": "See the difference we make.",
+    "items": [
+      {
+        "title": "Bathroom Safety",
+        "desc": "Grab bars, non-slip surfaces, accessible shower, raised toilet seat."
+      },
+      {
+        "title": "Safety Adaptations",
+        "desc": "Handrails, stair treads, motion lighting, fall detection sensors."
+      },
+      {
+        "title": "Smart Technology",
+        "desc": "Voice controls, vitals monitoring, emergency call, family alerts."
+      }
+    ]
+  },
+  "plans": {
+    "title1": "Simple plans,",
+    "title2": "total peace of mind.",
+    "sub": "Free home assessment + grant filing included in every plan",
+    "popular": "Most Popular",
+    "perUnit": "one-time",
+    "cta": "Get This Plan",
+    "detailsCta": "See Full Details",
+    "items": [
+      {
+        "id": "essential",
+        "name": "Essential",
+        "price": "€269",
+        "desc": "Entry, living room & stairway. The essential safety upgrades.",
+        "features": [
+          "Free home assessment",
+          "Grab bars & non-slip flooring",
+          "Motion-activated lighting",
+          "Stairway handrails & treads",
+          "Grant filing managed for you"
+        ]
+      },
+      {
+        "id": "advanced",
+        "name": "Advanced",
+        "price": "€1,149",
+        "desc": "Every room adapted, smart access & emergency systems.",
+        "features": [
+          "Everything in Essential",
+          "All rooms fully adapted",
+          "Smart door lock",
+          "Emergency call button",
+          "Stair & hallway safety",
+          "Furniture optimisation",
+          "Grant filing managed for you"
+        ],
+        "popular": true
+      },
+      {
+        "id": "premium",
+        "name": "Premium",
+        "price": "€1,449",
+        "desc": "Full smart home + health monitoring in every room.",
+        "features": [
+          "Everything in Advanced",
+          "Health & vitals monitoring",
+          "Fall detection sensors",
+          "24/7 family & emergency alerts",
+          "Voice-activated controls"
+        ]
+      }
+    ]
+  },
+  "grants": {
+    "badge": "Government Grants",
+    "title": "The government pays up to 90%.",
+    "sub": "We file everything. You sign once.",
+    "body": "Plan Adapta grants cover up to €6,000 for accessibility works. CasaMia manages your complete application — no charge, no hassle.",
+    "cta": "Check My Grant Eligibility",
+    "stats": [
+      {
+        "value": "€6,000",
+        "label": "Average grant amount",
+        "sub": "For direct accessibility works"
+      },
+      {
+        "value": "90%",
+        "label": "Maximum cost coverage",
+        "sub": "For people with recognised disability"
+      },
+      {
+        "value": "0 forms",
+        "label": "Paperwork for you to file",
+        "sub": "We handle the entire application"
+      }
+    ]
+  },
+  "eurosafe": {
+    "prefix": "IN PARTNERSHIP WITH",
+    "logo": "EuroSafe",
+    "desc": "Committed to reducing home accidents and improving senior safety across Europe."
+  },
+  "finalCta": {
+    "title": "Your parents' home,\nmade safe.",
+    "body": "Upload a few photos today. Find out exactly what your home needs and how little it could cost after grants.",
+    "cta": "Get My Free Estimate"
+  },
+  "footer": {
+    "tagline": "Helping families across Europe age gracefully at home.",
+    "phone": "+34 900 000 000",
+    "company": {
+      "title": "Company",
+      "links": ["How It Works", "Plans", "Grants", "Contact"]
+    },
+    "legal": {
+      "title": "Legal",
+      "links": ["Privacy Policy", "Cookie Policy", "Terms"]
+    },
+    "support": {
+      "title": "Support",
+      "links": ["FAQ", "Grants Guide", "Book a Call", "About Us"]
+    },
+    "copyright": "© 2026 CasaMia. All rights reserved."
+  },
+  "estimator": {
+    "loading": "Analysing your home...",
+    "errorTitle": "Something went wrong",
+    "errorBody": "We couldn't analyse your photos. Please try again or call us on +34 900 000 000.",
+    "noFiles": "Please add at least one photo of your home first.",
+    "noKey": "Add VITE_ANTHROPIC_API_KEY to your environment to enable live photo analysis.",
+    "resultsTitle": "Your home safety estimate",
+    "hazardsLabel": "Issues identified",
+    "planLabel": "Recommended plan",
+    "costLabel": "Estimated cost",
+    "afterGrantsLabel": "After government grants",
+    "cta": "Get This Plan",
+    "chooseFiles": "Choose photos",
+    "removeFile": "Remove {{file}}",
+    "beforeGrants": "Before grants",
+    "afterGrants": "After grants",
+    "workflow": {
+      "kicker": "Free home safety estimate",
+      "title": "Send photos. Get a safer-home plan.",
+      "progress": "Estimate progress",
+      "steps": ["Photos", "Home", "Contact", "Result"],
+      "back": "Back",
+      "continue": "Continue",
+      "createEstimate": "Create my estimate",
+      "choose": "Choose one",
+      "photos": {
+        "title": "Upload the rooms that worry you.",
+        "body": "Add up to 8 photos. Wide room shots are best: bathroom, stairs, entrance, kitchen, bedroom, and main walking routes.",
+        "add": "Add more photos",
+        "rules": "JPG, PNG or WebP. Up to 8 photos, 8MB each.",
+        "roomLabel": "Room",
+        "remove": "Remove",
+        "empty": "No photos selected yet. Add at least one photo to continue.",
+        "description": "Anything we should know?",
+        "descriptionPlaceholder": "Example: my mother uses a walker, the bathroom floor is slippery, the stairs have poor lighting..."
+      },
+      "home": {
+        "title": "Tell us where and what to check.",
+        "body": "The postcode and home context help CasaMia prepare the right plan and later verify possible regional grant options.",
+        "region": "Autonomous community",
+        "postcode": "Postcode",
+        "homeType": "Home type",
+        "concern": "Main concern",
+        "urgency": "Timing",
+        "regionalNote": "Grant support in Spain depends on regional calls, documentation, and the final adaptation scope."
+      },
+      "contact": {
+        "title": "Where should we send the estimate?",
+        "body": "CasaMia captures this before analysis so the report can be delivered and followed up properly.",
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "email": "Email",
+        "phone": "Phone",
+        "emailDelivery": "Email full report",
+        "emailDeliveryBody": "Best for the complete estimate and secure report link.",
+        "whatsappDelivery": "WhatsApp secure link",
+        "whatsappDeliveryBody": "Short message only. Sensitive details stay on the report page.",
+        "consent": "I agree CasaMia can process my home photos, safety information, and contact details to prepare and send my estimate."
+      },
+      "result": {
+        "loadingTitle": "Preparing your estimate...",
+        "loadingBody": "We are creating the lead, reviewing the home context, and preparing the report link.",
+        "retry": "Try again",
+        "kicker": "Estimate ready",
+        "title": "Your home safety estimate",
+        "costRange": "Estimated cost range",
+        "grantRange": "Possible grant range",
+        "confidence": "confidence",
+        "deliveryTitle": "Delivery status",
+        "emailQueued": "The full report is ready to send by email.",
+        "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
+        "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
+        "viewReport": "View report page"
+      },
+      "errors": {
+        "heic": "HEIC photos are not supported yet. Please upload JPG, PNG or WebP.",
+        "unsupported": "{{file}} is not a supported image type.",
+        "tooLarge": "{{file}} is larger than 8MB.",
+        "maxPhotos": "You can upload up to {{count}} photos.",
+        "submit": "We could not create the estimate. The lead details are still safe in the form; please try again."
+      },
+      "rooms": [
+        { "value": "Bathroom", "label": "Bathroom" },
+        { "value": "Kitchen", "label": "Kitchen" },
+        { "value": "Stairs", "label": "Stairs" },
+        { "value": "Living room", "label": "Living room" },
+        { "value": "Bedroom", "label": "Bedroom" },
+        { "value": "Entrance", "label": "Entrance" },
+        { "value": "Other", "label": "Other" }
+      ],
+      "regions": [
+        { "value": "Andalucia", "label": "Andalucia" },
+        { "value": "Balearic Islands", "label": "Balearic Islands" },
+        { "value": "Canary Islands", "label": "Canary Islands" },
+        { "value": "Catalonia", "label": "Catalonia" },
+        { "value": "Community of Madrid", "label": "Community of Madrid" },
+        { "value": "Comunidad Valenciana", "label": "Comunidad Valenciana" },
+        { "value": "Galicia", "label": "Galicia" },
+        { "value": "Other Spain", "label": "Other Spain" }
+      ],
+      "homeTypes": [
+        { "value": "Apartment", "label": "Apartment" },
+        { "value": "Townhouse", "label": "Townhouse" },
+        { "value": "Villa or detached home", "label": "Villa or detached home" },
+        { "value": "Residential building community", "label": "Residential building community" }
+      ],
+      "concerns": [
+        { "value": "Falls or slipping", "label": "Falls or slipping" },
+        { "value": "Bathroom safety", "label": "Bathroom safety" },
+        { "value": "Stairs or access", "label": "Stairs or access" },
+        { "value": "Emergency alerts", "label": "Emergency alerts" },
+        { "value": "Smart home support", "label": "Smart home support" },
+        { "value": "Not sure yet", "label": "Not sure yet" }
+      ],
+      "urgencies": [
+        { "value": "Urgent", "label": "Urgent" },
+        { "value": "Within 1 month", "label": "Within 1 month" },
+        { "value": "Within 3 months", "label": "Within 3 months" },
+        { "value": "Planning ahead", "label": "Planning ahead" }
+      ]
+    },
+    "report": {
+      "back": "Start a new estimate",
+      "title": "Your CasaMia safety report.",
+      "intro": "This secure report summarises the estimate without exposing private photo URLs.",
+      "loading": "Loading report...",
+      "notFoundTitle": "Report not found",
+      "notFoundBody": "This link may have expired or the report may only exist on the original device in demo mode.",
+      "summaryLabel": "Recommended plan",
+      "privateLabel": "Private by design",
+      "privateBody": "Photo files remain private. This page only shows the safety findings and estimate summary.",
+      "photoCount": "Photos reviewed",
+      "postcode": "Postcode",
+      "expires": "Link expires"
+    }
+  },
+  "pages": {
+    "howItWorks": {
+      "title": "A safer home in three clear steps.",
+      "intro": "CasaMia keeps the process simple: upload photos, receive a tailored plan, and let certified installers handle the adaptations.",
+      "steps": [
+        {
+          "title": "Upload your home photos",
+          "desc": "Send photos of bathrooms, kitchens, stairs, bedrooms, entrances, and living spaces. We look for hazards that commonly cause falls or emergency delays."
+        },
+        {
+          "title": "Receive your estimate",
+          "desc": "The estimator identifies risks, recommends the right plan, and shows the likely cost before and after available grants."
+        },
+        {
+          "title": "Install and file grants",
+          "desc": "Our team installs the agreed adaptations and manages Plan Adapta paperwork so your family does not have to chase forms."
+        }
+      ],
+      "cta": "Start with a free estimate"
+    },
+    "plans": {
+      "title": "Compare every CasaMia plan.",
+      "intro": "Each plan includes assessment and grant filing. Choose the level of adaptation that matches the home and the family support needed.",
+      "comparisonTitle": "Plan comparison",
+      "headers": ["Feature", "Essential", "Advanced", "Premium"],
+      "rows": [
+        ["Photo assessment", "Included", "Included", "Included"],
+        ["All-room adaptation", "Entry areas", "Included", "Included"],
+        ["Smart access", "Optional", "Included", "Included"],
+        ["Health monitoring", "Not included", "Optional", "Included"],
+        ["Family alerts", "Basic", "Emergency", "24/7"]
+      ]
+    },
+    "grants": {
+      "title": "Grant support without the paperwork maze.",
+      "intro": "Plan Adapta can cover a significant part of accessibility works. CasaMia prepares, files, and follows up on the application for you.",
+      "eligibilityTitle": "Typical eligibility signals",
+      "eligibility": [
+        "The home is in Spain and needs accessibility or safety improvements.",
+        "The resident is over 65, has mobility needs, or has a recognised disability.",
+        "The work improves daily safety: bathrooms, stairs, access, doors, lighting, or emergency systems."
+      ],
+      "processTitle": "What we manage",
+      "process": [
+        "Collecting the required home and resident details.",
+        "Preparing the accessibility work documentation.",
+        "Filing with the relevant grant channel and tracking progress."
+      ]
+    },
+    "contact": {
+      "title": "Talk to CasaMia.",
+      "intro": "Tell us about the home and we will help you choose the safest next step.",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "plan": "Which plan are you interested in?",
+        "message": "Message"
+      },
+      "planOptions": ["Essential", "Advanced", "Premium", "Not sure yet"],
+      "submit": "Send Message",
+      "success": "Thank you. CasaMia will follow up shortly."
+    }
+  }
+}

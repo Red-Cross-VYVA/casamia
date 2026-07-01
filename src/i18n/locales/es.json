@@ -1,0 +1,418 @@
+{
+  "languageSwitcher": {
+    "aria": "Elegir idioma",
+    "changeTo": "Cambiar a {{language}}"
+  },
+  "common": {
+    "close": "Cerrar",
+    "imageFallback": "Imagen no disponible",
+    "learnMore": "Más información",
+    "selectedPhotos": "Fotos seleccionadas"
+  },
+  "nav": {
+    "howItWorks": "Cómo Funciona",
+    "plans": "Planes",
+    "grants": "Ayudas",
+    "contact": "Contacto",
+    "cta": "Elegir un Plan",
+    "phone": "+34 900 000 000",
+    "menu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "hero": {
+    "badge": "Especialistas en seguridad del hogar · Toda España",
+    "line1": "Home Safe",
+    "line2": "Home.",
+    "sub": "Prevenir es la mejor cura. Sube fotos de tu hogar y obtén una evaluación de seguridad y estimación de costes gratuita e instantánea.",
+    "uploadLabel": "Sube fotos de tu hogar",
+    "uploadRooms": "Baño · Cocina · Escalera · Salón",
+    "cta": "Obtener Mi Estimación Gratuita",
+    "micro": "Gratis · Sin compromiso · Resultados en segundos"
+  },
+  "alts": {
+    "logo": "Logotipo de CasaMia",
+    "hero": "Pareja mayor abrazándose en casa",
+    "finalCta": "Pareja mayor preparando verduras en una cocina segura",
+    "gallery": [
+      "Baño accesible con adaptaciones de seguridad",
+      "Dispositivos de seguridad en el hogar para mayores",
+      "Tecnología inteligente de seguridad en el hogar"
+    ]
+  },
+  "grantStamp": {
+    "line1": "AYUDAS HASTA",
+    "shortLine1": "HASTA",
+    "stat": "90%",
+    "line2": "CUBIERTO",
+    "helper": "Gestionamos la solicitud.",
+    "ribbonHelper": "Ayuda y gestion incluidas",
+    "badgeLabel": "AYUDAS",
+    "badgeHelper": "Gestion incluida"
+  },
+  "prevention": {
+    "badge": "Por qué importa",
+    "stat": "8 de cada 10",
+    "sub": "caídas de mayores son prevenibles.",
+    "body": "Las caídas son la principal causa de lesiones en adultos mayores de 65 años, y la mayoría ocurren en casa. Las adaptaciones adecuadas se instalan en menos de un día y pueden cambiarlo todo.",
+    "stats": [
+      { "value": "78%", "label": "de hogares en España\nno adaptados" },
+      { "value": "9,93M", "label": "mayores en España,\ncada año más" },
+      { "value": "€6.000", "label": "ayuda media del gobierno\npara cubrir costes" }
+    ]
+  },
+  "offer": {
+    "badge": "QUÉ OFRECEMOS",
+    "line1": "Una empresa.",
+    "line2": "Todo lo que necesitas.",
+    "cards": [
+      {
+        "icon": "A",
+        "title": "Evaluación del Hogar",
+        "desc": "Sube fotos de cualquier estancia. Identificamos cada riesgo y te damos una estimación personalizada gratuita y sin compromiso."
+      },
+      {
+        "icon": "I",
+        "title": "Instalación Profesional",
+        "desc": "Expertos certificados adaptan toda tu vivienda en una sola visita: barras, suelos antideslizantes, puertas más anchas, iluminación y más."
+      },
+      {
+        "icon": "S",
+        "title": "Tecnología Smart Home",
+        "desc": "Controles por voz, cerraduras inteligentes, detección de caídas y alertas de emergencia 24/7, todo instalado y funcionando desde el primer día."
+      },
+      {
+        "icon": "G",
+        "title": "Gestión de Ayudas",
+        "desc": "Presentamos todo ante Plan Adapta en tu nombre. Las ayudas cubren hasta el 90% de los costes. Tú solo firmas."
+      }
+    ],
+    "health": {
+      "icon": "H",
+      "title": "Monitorización de Salud y Constantes",
+      "desc": "Presión arterial, frecuencia cardiaca, recordatorios de medicación y alertas familiares. Tranquilidad estés donde estés.",
+      "badge": "Solo Premium"
+    }
+  },
+  "gallery": {
+    "badge": "Cómo se ve un hogar más seguro",
+    "title": "Mira la diferencia que hacemos.",
+    "items": [
+      {
+        "title": "Seguridad en el Baño",
+        "desc": "Barras de apoyo, superficies antideslizantes, ducha accesible y asiento elevado."
+      },
+      {
+        "title": "Adaptaciones de Seguridad",
+        "desc": "Pasamanos, bandas de escalera, iluminación con movimiento y sensores de caída."
+      },
+      {
+        "title": "Tecnología Inteligente",
+        "desc": "Controles por voz, monitorización de constantes, llamada de emergencia y alertas familiares."
+      }
+    ]
+  },
+  "plans": {
+    "title1": "Planes sencillos,",
+    "title2": "total tranquilidad.",
+    "sub": "Evaluación gratuita + gestión de ayudas incluida en cada plan",
+    "popular": "Más Popular",
+    "perUnit": "pago único",
+    "cta": "Elegir Este Plan",
+    "detailsCta": "Ver Detalles",
+    "items": [
+      {
+        "id": "essential",
+        "name": "Essential",
+        "price": "€269",
+        "desc": "Entrada, salón y escalera. Las mejoras esenciales de seguridad.",
+        "features": [
+          "Evaluación gratuita del hogar",
+          "Barras de apoyo y suelo antideslizante",
+          "Iluminación con sensor de movimiento",
+          "Pasamanos y bandas en escaleras",
+          "Gestión de ayudas incluida"
+        ]
+      },
+      {
+        "id": "advanced",
+        "name": "Advanced",
+        "price": "€1.149",
+        "desc": "Todas las estancias adaptadas, acceso inteligente y sistemas de emergencia.",
+        "features": [
+          "Todo lo de Essential",
+          "Todas las estancias adaptadas",
+          "Cerradura inteligente",
+          "Botón de emergencia",
+          "Seguridad en escaleras y pasillos",
+          "Optimización del mobiliario",
+          "Gestión de ayudas incluida"
+        ],
+        "popular": true
+      },
+      {
+        "id": "premium",
+        "name": "Premium",
+        "price": "€1.449",
+        "desc": "Smart home completo + monitorización de salud en cada estancia.",
+        "features": [
+          "Todo lo de Advanced",
+          "Monitorización de salud y constantes",
+          "Sensores de detección de caídas",
+          "Alertas familiares y de emergencia 24/7",
+          "Controles activados por voz"
+        ]
+      }
+    ]
+  },
+  "grants": {
+    "badge": "Ayudas Públicas",
+    "title": "El gobierno paga hasta el 90%.",
+    "sub": "Nosotros gestionamos todo. Tú solo firmas.",
+    "body": "Las ayudas Plan Adapta cubren hasta €6.000 para obras de accesibilidad. CasaMia gestiona toda tu solicitud, sin coste y sin complicaciones.",
+    "cta": "Comprobar Mi Elegibilidad",
+    "stats": [
+      {
+        "value": "€6.000",
+        "label": "Ayuda media",
+        "sub": "Para obras directas de accesibilidad"
+      },
+      {
+        "value": "90%",
+        "label": "Cobertura máxima",
+        "sub": "Para personas con discapacidad reconocida"
+      },
+      {
+        "value": "0 formularios",
+        "label": "Papeleo que debes presentar",
+        "sub": "Nosotros gestionamos toda la solicitud"
+      }
+    ]
+  },
+  "eurosafe": {
+    "prefix": "EN COLABORACIÓN CON",
+    "logo": "EuroSafe",
+    "desc": "Comprometidos con reducir accidentes en el hogar y mejorar la seguridad de los mayores en toda Europa."
+  },
+  "finalCta": {
+    "title": "El hogar de tus padres,\nhecho seguro.",
+    "body": "Sube unas fotos hoy. Descubre exactamente qué necesita tu hogar y cuánto podría costar después de las ayudas.",
+    "cta": "Obtener Mi Estimación Gratuita"
+  },
+  "footer": {
+    "tagline": "Ayudamos a familias de toda Europa a envejecer con tranquilidad en casa.",
+    "phone": "+34 900 000 000",
+    "company": {
+      "title": "Empresa",
+      "links": ["Cómo Funciona", "Planes", "Ayudas", "Contacto"]
+    },
+    "legal": {
+      "title": "Legal",
+      "links": ["Política de Privacidad", "Política de Cookies", "Términos"]
+    },
+    "support": {
+      "title": "Soporte",
+      "links": ["FAQ", "Guía de Ayudas", "Reservar Llamada", "Sobre Nosotros"]
+    },
+    "copyright": "© 2026 CasaMia. Todos los derechos reservados."
+  },
+  "estimator": {
+    "loading": "Analizando tu hogar...",
+    "errorTitle": "Algo salió mal",
+    "errorBody": "No pudimos analizar tus fotos. Inténtalo de nuevo o llámanos al +34 900 000 000.",
+    "noFiles": "Añade al menos una foto de tu hogar primero.",
+    "noKey": "Añade VITE_ANTHROPIC_API_KEY a tu entorno para activar el análisis de fotos.",
+    "resultsTitle": "Tu estimación de seguridad",
+    "hazardsLabel": "Problemas identificados",
+    "planLabel": "Plan recomendado",
+    "costLabel": "Coste estimado",
+    "afterGrantsLabel": "Después de ayudas públicas",
+    "cta": "Elegir Este Plan",
+    "chooseFiles": "Elegir fotos",
+    "removeFile": "Eliminar {{file}}",
+    "beforeGrants": "Antes de ayudas",
+    "afterGrants": "Después de ayudas",
+    "workflow": {
+      "kicker": "Estimación gratuita de seguridad",
+      "title": "Envía fotos. Recibe un plan para un hogar más seguro.",
+      "progress": "Progreso de la estimación",
+      "steps": ["Fotos", "Hogar", "Contacto", "Resultado"],
+      "back": "Atrás",
+      "continue": "Continuar",
+      "createEstimate": "Crear mi estimación",
+      "choose": "Elige una opción",
+      "photos": {
+        "title": "Sube las estancias que te preocupan.",
+        "body": "Añade hasta 8 fotos. Lo mejor son fotos amplias: baño, escalera, entrada, cocina, dormitorio y zonas de paso.",
+        "add": "Añadir más fotos",
+        "rules": "JPG, PNG o WebP. Hasta 8 fotos, 8MB cada una.",
+        "roomLabel": "Estancia",
+        "remove": "Eliminar",
+        "empty": "Aún no hay fotos seleccionadas. Añade al menos una foto para continuar.",
+        "description": "¿Algo que debamos saber?",
+        "descriptionPlaceholder": "Ejemplo: mi madre usa andador, el suelo del baño resbala, la escalera tiene poca luz..."
+      },
+      "home": {
+        "title": "Dinos dónde y qué debemos revisar.",
+        "body": "El código postal y el contexto de la vivienda ayudan a CasaMia a preparar el plan adecuado y verificar posibles ayudas regionales.",
+        "region": "Comunidad autónoma",
+        "postcode": "Código postal",
+        "homeType": "Tipo de vivienda",
+        "concern": "Preocupación principal",
+        "urgency": "Plazo",
+        "regionalNote": "Las ayudas en España dependen de convocatorias regionales, documentación y el alcance final de la adaptación."
+      },
+      "contact": {
+        "title": "¿Dónde enviamos la estimación?",
+        "body": "CasaMia recoge estos datos antes del análisis para poder entregar el informe y hacer seguimiento correctamente.",
+        "name": "Nombre",
+        "namePlaceholder": "Tu nombre",
+        "email": "Email",
+        "phone": "Teléfono",
+        "emailDelivery": "Enviar informe por email",
+        "emailDeliveryBody": "Ideal para recibir la estimación completa y el enlace seguro.",
+        "whatsappDelivery": "Enlace seguro por WhatsApp",
+        "whatsappDeliveryBody": "Mensaje breve solamente. Los detalles sensibles quedan en el informe.",
+        "consent": "Acepto que CasaMia procese las fotos de mi hogar, la información de seguridad y mis datos de contacto para preparar y enviar mi estimación."
+      },
+      "result": {
+        "loadingTitle": "Preparando tu estimación...",
+        "loadingBody": "Estamos creando el lead, revisando el contexto de la vivienda y preparando el enlace del informe.",
+        "retry": "Intentar de nuevo",
+        "kicker": "Estimación lista",
+        "title": "Tu estimación de seguridad",
+        "costRange": "Rango de coste estimado",
+        "grantRange": "Posible rango de ayudas",
+        "confidence": "confianza",
+        "deliveryTitle": "Estado del envío",
+        "emailQueued": "El informe completo está listo para enviarse por email.",
+        "whatsappQueued": "El WhatsApp incluirá solamente un enlace seguro al informe.",
+        "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
+        "viewReport": "Ver página del informe"
+      },
+      "errors": {
+        "heic": "Las fotos HEIC aún no son compatibles. Sube JPG, PNG o WebP.",
+        "unsupported": "{{file}} no es un tipo de imagen compatible.",
+        "tooLarge": "{{file}} supera los 8MB.",
+        "maxPhotos": "Puedes subir hasta {{count}} fotos.",
+        "submit": "No pudimos crear la estimación. Los datos siguen seguros en el formulario; inténtalo de nuevo."
+      },
+      "rooms": [
+        { "value": "Bathroom", "label": "Baño" },
+        { "value": "Kitchen", "label": "Cocina" },
+        { "value": "Stairs", "label": "Escalera" },
+        { "value": "Living room", "label": "Salón" },
+        { "value": "Bedroom", "label": "Dormitorio" },
+        { "value": "Entrance", "label": "Entrada" },
+        { "value": "Other", "label": "Otro" }
+      ],
+      "regions": [
+        { "value": "Andalucia", "label": "Andalucía" },
+        { "value": "Balearic Islands", "label": "Islas Baleares" },
+        { "value": "Canary Islands", "label": "Canarias" },
+        { "value": "Catalonia", "label": "Cataluña" },
+        { "value": "Community of Madrid", "label": "Comunidad de Madrid" },
+        { "value": "Comunidad Valenciana", "label": "Comunidad Valenciana" },
+        { "value": "Galicia", "label": "Galicia" },
+        { "value": "Other Spain", "label": "Otra zona de España" }
+      ],
+      "homeTypes": [
+        { "value": "Apartment", "label": "Piso" },
+        { "value": "Townhouse", "label": "Adosado" },
+        { "value": "Villa or detached home", "label": "Chalet o vivienda independiente" },
+        { "value": "Residential building community", "label": "Comunidad de propietarios" }
+      ],
+      "concerns": [
+        { "value": "Falls or slipping", "label": "Caídas o resbalones" },
+        { "value": "Bathroom safety", "label": "Seguridad en el baño" },
+        { "value": "Stairs or access", "label": "Escaleras o acceso" },
+        { "value": "Emergency alerts", "label": "Alertas de emergencia" },
+        { "value": "Smart home support", "label": "Apoyo smart home" },
+        { "value": "Not sure yet", "label": "Aún no lo sé" }
+      ],
+      "urgencies": [
+        { "value": "Urgent", "label": "Urgente" },
+        { "value": "Within 1 month", "label": "En 1 mes" },
+        { "value": "Within 3 months", "label": "En 3 meses" },
+        { "value": "Planning ahead", "label": "Planificando" }
+      ]
+    },
+    "report": {
+      "back": "Crear nueva estimación",
+      "title": "Tu informe de seguridad CasaMia.",
+      "intro": "Este informe seguro resume la estimación sin exponer URLs privadas de fotos.",
+      "loading": "Cargando informe...",
+      "notFoundTitle": "Informe no encontrado",
+      "notFoundBody": "Puede que el enlace haya caducado o que el informe solo exista en el dispositivo original en modo demo.",
+      "summaryLabel": "Plan recomendado",
+      "privateLabel": "Privado por diseño",
+      "privateBody": "Los archivos de fotos permanecen privados. Esta página solo muestra los hallazgos de seguridad y el resumen de la estimación.",
+      "photoCount": "Fotos revisadas",
+      "postcode": "Código postal",
+      "expires": "El enlace caduca"
+    }
+  },
+  "pages": {
+    "howItWorks": {
+      "title": "Un hogar más seguro en tres pasos claros.",
+      "intro": "CasaMia simplifica el proceso: sube fotos, recibe un plan personalizado y deja que instaladores certificados se encarguen de las adaptaciones.",
+      "steps": [
+        {
+          "title": "Sube fotos de tu vivienda",
+          "desc": "Envía fotos de baños, cocina, escaleras, dormitorios, entradas y zonas de estar. Buscamos riesgos que suelen causar caídas o retrasos ante emergencias."
+        },
+        {
+          "title": "Recibe tu estimación",
+          "desc": "El estimador identifica riesgos, recomienda el plan adecuado y muestra el coste probable antes y después de las ayudas disponibles."
+        },
+        {
+          "title": "Instalamos y tramitamos ayudas",
+          "desc": "Nuestro equipo instala las adaptaciones acordadas y gestiona el papeleo de Plan Adapta para que tu familia no tenga que perseguir formularios."
+        }
+      ],
+      "cta": "Empezar con una estimación gratuita"
+    },
+    "plans": {
+      "title": "Compara todos los planes CasaMia.",
+      "intro": "Cada plan incluye evaluación y gestión de ayudas. Elige el nivel de adaptación que encaja con la vivienda y el apoyo familiar necesario.",
+      "comparisonTitle": "Comparativa de planes",
+      "headers": ["Prestación", "Essential", "Advanced", "Premium"],
+      "rows": [
+        ["Evaluación por fotos", "Incluida", "Incluida", "Incluida"],
+        ["Adaptación de toda la vivienda", "Zonas de entrada", "Incluida", "Incluida"],
+        ["Acceso inteligente", "Opcional", "Incluido", "Incluido"],
+        ["Monitorización de salud", "No incluida", "Opcional", "Incluida"],
+        ["Alertas familiares", "Básicas", "Emergencia", "24/7"]
+      ]
+    },
+    "grants": {
+      "title": "Ayudas sin laberinto de papeleo.",
+      "intro": "Plan Adapta puede cubrir una parte importante de las obras de accesibilidad. CasaMia prepara, presenta y hace seguimiento de la solicitud por ti.",
+      "eligibilityTitle": "Señales habituales de elegibilidad",
+      "eligibility": [
+        "La vivienda está en España y necesita mejoras de accesibilidad o seguridad.",
+        "La persona residente tiene más de 65 años, movilidad reducida o discapacidad reconocida.",
+        "La actuación mejora la seguridad diaria: baños, escaleras, accesos, puertas, iluminación o sistemas de emergencia."
+      ],
+      "processTitle": "Qué gestionamos",
+      "process": [
+        "Recopilar la información necesaria de la vivienda y la persona residente.",
+        "Preparar la documentación de las obras de accesibilidad.",
+        "Presentar la solicitud en el canal correspondiente y hacer seguimiento."
+      ]
+    },
+    "contact": {
+      "title": "Habla con CasaMia.",
+      "intro": "Cuéntanos cómo es la vivienda y te ayudaremos a elegir el siguiente paso más seguro.",
+      "fields": {
+        "name": "Nombre",
+        "email": "Email",
+        "phone": "Teléfono",
+        "plan": "¿Qué plan te interesa?",
+        "message": "Mensaje"
+      },
+      "planOptions": ["Essential", "Advanced", "Premium", "Aún no lo sé"],
+      "submit": "Enviar Mensaje",
+      "success": "Gracias. CasaMia se pondrá en contacto contigo pronto."
+    }
+  }
+}

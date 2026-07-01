@@ -1,0 +1,299 @@
+{
+  "languageSwitcher": {
+    "aria": "Taal kiezen",
+    "changeTo": "Overschakelen naar {{language}}"
+  },
+  "common": {
+    "close": "Sluiten",
+    "imageFallback": "Afbeelding niet beschikbaar",
+    "learnMore": "Meer informatie",
+    "selectedPhotos": "Geselecteerde foto's"
+  },
+  "nav": {
+    "howItWorks": "Zo Werkt Het",
+    "plans": "Pakketten",
+    "grants": "Subsidies",
+    "contact": "Contact",
+    "cta": "Kies een Pakket",
+    "phone": "+34 900 000 000",
+    "menu": "Menu openen",
+    "closeMenu": "Menu sluiten"
+  },
+  "hero": {
+    "badge": "Specialisten in woningveiligheid · Heel Spanje",
+    "line1": "Home Safe",
+    "line2": "Home.",
+    "sub": "Voorkomen is beter dan genezen. Upload foto's van uw woning en ontvang een gratis, directe veiligheidsbeoordeling en kostenraming.",
+    "uploadLabel": "Upload foto's van uw woning",
+    "uploadRooms": "Badkamer · Keuken · Trap · Woonkamer",
+    "cta": "Mijn Gratis Schatting Ontvangen",
+    "micro": "Gratis · Zonder verplichting · Resultaat in seconden"
+  },
+  "alts": {
+    "logo": "CasaMia-logo",
+    "hero": "Seniorenpaar dat elkaar thuis omhelst",
+    "finalCta": "Seniorenpaar dat groenten snijdt in een veilige keuken",
+    "gallery": [
+      "Toegankelijke badkamer met veiligheidsaanpassingen",
+      "Veiligheidsapparaten voor senioren thuis",
+      "Slimme woningveiligheidstechnologie"
+    ]
+  },
+  "grantStamp": {
+    "line1": "SUBSIDIES TOT",
+    "shortLine1": "TOT",
+    "stat": "90%",
+    "line2": "GEDEKT",
+    "helper": "Wij regelen de aanvraag.",
+    "ribbonHelper": "Aanvraag inbegrepen",
+    "badgeLabel": "SUBSIDIE",
+    "badgeHelper": "Aanvraag inbegrepen"
+  },
+  "prevention": {
+    "badge": "Waarom het belangrijk is",
+    "stat": "8 op de 10",
+    "sub": "valpartijen bij senioren zijn vermijdbaar.",
+    "body": "Vallen is de belangrijkste oorzaak van letsel bij volwassenen boven 65 jaar, en de meeste valpartijen gebeuren thuis. De juiste aanpassingen kosten minder dan een dag om te installeren en kunnen alles veranderen.",
+    "stats": [
+      { "value": "78%", "label": "van de woningen in Spanje\nis niet aangepast" },
+      { "value": "9,93M", "label": "senioren in Spanje,\nelk jaar groeiend" },
+      { "value": "€6.000", "label": "gemiddelde overheidssubsidie\nom kosten te dekken" }
+    ]
+  },
+  "offer": {
+    "badge": "WAT WIJ BIEDEN",
+    "line1": "Eén bedrijf.",
+    "line2": "Alles wat u nodig heeft.",
+    "cards": [
+      {
+        "icon": "A",
+        "title": "Woningbeoordeling",
+        "desc": "Upload foto's van elke kamer. Wij identificeren elk risico en geven u een persoonlijke kostenraming, gratis en zonder verplichting."
+      },
+      {
+        "icon": "I",
+        "title": "Professionele Installatie",
+        "desc": "Gecertificeerde experts passen uw hele woning in één bezoek aan: beugels, antislipvloeren, bredere deuren, verlichting en meer."
+      },
+      {
+        "icon": "S",
+        "title": "Smart-Home Technologie",
+        "desc": "Spraakbediening, slimme sloten, valdetectie en 24/7 noodmeldingen, allemaal geïnstalleerd en werkend vanaf dag één."
+      },
+      {
+        "icon": "G",
+        "title": "Subsidiebeheer",
+        "desc": "Wij dienen alles namens u in bij Plan Adapta. Subsidies dekken tot 90% van de kosten. U hoeft alleen te tekenen."
+      }
+    ],
+    "health": {
+      "icon": "H",
+      "title": "Gezondheids- en Vitaliteitsmonitoring",
+      "desc": "Bloeddruk, hartslag, medicatieherinneringen, gezinsmeldingen. Gemoedsrust waar u ook bent.",
+      "badge": "Alleen Premium"
+    }
+  },
+  "gallery": {
+    "badge": "Zo ziet een veiliger huis eruit",
+    "title": "Zie het verschil dat we maken.",
+    "items": [
+      {
+        "title": "Badkamerveiligheid",
+        "desc": "Beugels, antislipoppervlakken, toegankelijke douche, verhoogde toiletzitting."
+      },
+      {
+        "title": "Veiligheidsaanpassingen",
+        "desc": "Leuningen, traptredenstrips, bewegingsverlichting, valdetectiesensoren."
+      },
+      {
+        "title": "Slimme Technologie",
+        "desc": "Spraakbediening, vitale monitoring, noodoproep, gezinsmeldingen."
+      }
+    ]
+  },
+  "plans": {
+    "title1": "Eenvoudige pakketten,",
+    "title2": "totale gemoedsrust.",
+    "sub": "Gratis woningbeoordeling + subsidieaanvraag inbegrepen in elk pakket",
+    "popular": "Meest Populair",
+    "perUnit": "eenmalig",
+    "cta": "Kies Dit Pakket",
+    "detailsCta": "Bekijk Details",
+    "items": [
+      {
+        "id": "essential",
+        "name": "Essential",
+        "price": "€269",
+        "desc": "Entree, woonkamer en trap. De essentiële veiligheidsupgrades.",
+        "features": [
+          "Gratis woningbeoordeling",
+          "Beugels en antislipvloeren",
+          "Bewegingsgeactiveerde verlichting",
+          "Leuningen en traptredenstrips",
+          "Subsidieaanvraag voor u beheerd"
+        ]
+      },
+      {
+        "id": "advanced",
+        "name": "Advanced",
+        "price": "€1.149",
+        "desc": "Elke kamer aangepast, slimme toegang en noodsystemen.",
+        "features": [
+          "Alles in Essential",
+          "Alle kamers volledig aangepast",
+          "Slim deurslot",
+          "Noodknop",
+          "Trap- en gangveiligheid",
+          "Meubeloptimalisatie",
+          "Subsidieaanvraag voor u beheerd"
+        ],
+        "popular": true
+      },
+      {
+        "id": "premium",
+        "name": "Premium",
+        "price": "€1.449",
+        "desc": "Volledig smart home + gezondheidsmonitoring in elke kamer.",
+        "features": [
+          "Alles in Advanced",
+          "Gezondheids- en vitaliteitsmonitoring",
+          "Valdetectiesensoren",
+          "24/7 familie- en noodmeldingen",
+          "Spraakgestuurde bediening"
+        ]
+      }
+    ]
+  },
+  "grants": {
+    "badge": "Overheidssubsidies",
+    "title": "De overheid betaalt tot 90%.",
+    "sub": "Wij regelen alles. U ondertekent één keer.",
+    "body": "Plan Adapta-subsidies dekken tot €6.000 voor toegankelijkheidswerken. CasaMia beheert uw volledige aanvraag, zonder kosten en zonder gedoe.",
+    "cta": "Controleer Mijn Subsidiekans",
+    "stats": [
+      {
+        "value": "€6.000",
+        "label": "Gemiddeld subsidiebedrag",
+        "sub": "Voor directe toegankelijkheidswerken"
+      },
+      {
+        "value": "90%",
+        "label": "Maximale kostendekking",
+        "sub": "Voor mensen met erkende beperking"
+      },
+      {
+        "value": "0 formulieren",
+        "label": "Papierwerk voor u",
+        "sub": "Wij behandelen de volledige aanvraag"
+      }
+    ]
+  },
+  "eurosafe": {
+    "prefix": "IN SAMENWERKING MET",
+    "logo": "EuroSafe",
+    "desc": "Toegewijd aan het verminderen van ongevallen thuis en het verbeteren van seniorenveiligheid in heel Europa."
+  },
+  "finalCta": {
+    "title": "Het huis van uw ouders,\nveilig gemaakt.",
+    "body": "Upload vandaag een paar foto's. Ontdek precies wat uw woning nodig heeft en hoe weinig het kan kosten na subsidies.",
+    "cta": "Mijn Gratis Schatting Ontvangen"
+  },
+  "footer": {
+    "tagline": "Wij helpen families in heel Europa veilig en waardig thuis ouder te worden.",
+    "phone": "+34 900 000 000",
+    "company": {
+      "title": "Bedrijf",
+      "links": ["Zo Werkt Het", "Pakketten", "Subsidies", "Contact"]
+    },
+    "legal": {
+      "title": "Juridisch",
+      "links": ["Privacybeleid", "Cookiebeleid", "Voorwaarden"]
+    },
+    "support": {
+      "title": "Support",
+      "links": ["FAQ", "Subsidiegids", "Belafspraak", "Over Ons"]
+    },
+    "copyright": "© 2026 CasaMia. Alle rechten voorbehouden."
+  },
+  "estimator": {
+    "loading": "Uw woning wordt geanalyseerd...",
+    "errorTitle": "Er ging iets mis",
+    "errorBody": "We konden uw foto's niet analyseren. Probeer het opnieuw of bel ons op +34 900 000 000.",
+    "noFiles": "Voeg eerst minstens één foto van uw woning toe.",
+    "noKey": "Voeg VITE_ANTHROPIC_API_KEY toe aan uw omgeving om live fotoanalyse in te schakelen.",
+    "resultsTitle": "Uw woningveiligheidsschatting",
+    "hazardsLabel": "Geïdentificeerde problemen",
+    "planLabel": "Aanbevolen pakket",
+    "costLabel": "Geschatte kosten",
+    "afterGrantsLabel": "Na overheidssubsidies",
+    "cta": "Kies Dit Pakket",
+    "chooseFiles": "Foto's kiezen",
+    "removeFile": "{{file}} verwijderen",
+    "beforeGrants": "Voor subsidies",
+    "afterGrants": "Na subsidies"
+  },
+  "pages": {
+    "howItWorks": {
+      "title": "Een veiliger huis in drie duidelijke stappen.",
+      "intro": "CasaMia houdt het proces eenvoudig: upload foto's, ontvang een persoonlijk plan en laat gecertificeerde installateurs de aanpassingen uitvoeren.",
+      "steps": [
+        {
+          "title": "Upload uw woningfoto's",
+          "desc": "Stuur foto's van badkamers, keukens, trappen, slaapkamers, ingangen en woonruimtes. Wij zoeken naar risico's die vaak vallen of noodvertragingen veroorzaken."
+        },
+        {
+          "title": "Ontvang uw schatting",
+          "desc": "De schatter identificeert risico's, beveelt het juiste pakket aan en toont de waarschijnlijke kosten vóór en na beschikbare subsidies."
+        },
+        {
+          "title": "Installatie en subsidieaanvraag",
+          "desc": "Ons team installeert de afgesproken aanpassingen en beheert het Plan Adapta-papierwerk, zodat uw familie geen formulieren hoeft op te volgen."
+        }
+      ],
+      "cta": "Start met een gratis schatting"
+    },
+    "plans": {
+      "title": "Vergelijk elk CasaMia-pakket.",
+      "intro": "Elk pakket bevat beoordeling en subsidieaanvraag. Kies het aanpassingsniveau dat past bij de woning en de benodigde familieondersteuning.",
+      "comparisonTitle": "Pakketvergelijking",
+      "headers": ["Functie", "Essential", "Advanced", "Premium"],
+      "rows": [
+        ["Fotobeoordeling", "Inbegrepen", "Inbegrepen", "Inbegrepen"],
+        ["Aanpassing alle kamers", "Entreezones", "Inbegrepen", "Inbegrepen"],
+        ["Slimme toegang", "Optioneel", "Inbegrepen", "Inbegrepen"],
+        ["Gezondheidsmonitoring", "Niet inbegrepen", "Optioneel", "Inbegrepen"],
+        ["Gezinsmeldingen", "Basis", "Nood", "24/7"]
+      ]
+    },
+    "grants": {
+      "title": "Subsidiehulp zonder papierwerkdoolhof.",
+      "intro": "Plan Adapta kan een aanzienlijk deel van toegankelijkheidswerken dekken. CasaMia bereidt uw aanvraag voor, dient die in en volgt die op.",
+      "eligibilityTitle": "Typische signalen voor geschiktheid",
+      "eligibility": [
+        "De woning staat in Spanje en heeft toegankelijkheids- of veiligheidsverbeteringen nodig.",
+        "De bewoner is ouder dan 65, heeft mobiliteitsbehoeften of een erkende beperking.",
+        "Het werk verbetert de dagelijkse veiligheid: badkamers, trappen, toegang, deuren, verlichting of noodsystemen."
+      ],
+      "processTitle": "Wat wij beheren",
+      "process": [
+        "Verzamelen van de vereiste woning- en bewonersgegevens.",
+        "Voorbereiden van de documentatie voor toegankelijkheidswerken.",
+        "Indienen via het relevante subsidiekanaal en opvolgen."
+      ]
+    },
+    "contact": {
+      "title": "Praat met CasaMia.",
+      "intro": "Vertel ons over de woning en wij helpen u de veiligste volgende stap te kiezen.",
+      "fields": {
+        "name": "Naam",
+        "email": "E-mail",
+        "phone": "Telefoon",
+        "plan": "Welk pakket interesseert u?",
+        "message": "Bericht"
+      },
+      "planOptions": ["Essential", "Advanced", "Premium", "Nog niet zeker"],
+      "submit": "Bericht Verzenden",
+      "success": "Dank u. CasaMia neemt binnenkort contact met u op."
+    }
+  }
+}

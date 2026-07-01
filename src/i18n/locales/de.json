@@ -1,0 +1,299 @@
+{
+  "languageSwitcher": {
+    "aria": "Sprache wählen",
+    "changeTo": "Zu {{language}} wechseln"
+  },
+  "common": {
+    "close": "Schließen",
+    "imageFallback": "Bild nicht verfügbar",
+    "learnMore": "Mehr erfahren",
+    "selectedPhotos": "Ausgewählte Fotos"
+  },
+  "nav": {
+    "howItWorks": "So Funktioniert Es",
+    "plans": "Pakete",
+    "grants": "Zuschüsse",
+    "contact": "Kontakt",
+    "cta": "Paket Wählen",
+    "phone": "+34 900 000 000",
+    "menu": "Menü öffnen",
+    "closeMenu": "Menü schließen"
+  },
+  "hero": {
+    "badge": "Spezialisten für häusliche Sicherheit · Ganz Spanien",
+    "line1": "Home Safe",
+    "line2": "Home.",
+    "sub": "Vorbeugen ist besser als heilen. Laden Sie Fotos Ihres Zuhauses hoch und erhalten Sie eine kostenlose Sicherheitsbewertung und Kostenschätzung.",
+    "uploadLabel": "Fotos Ihres Zuhauses hochladen",
+    "uploadRooms": "Bad · Küche · Treppe · Wohnzimmer",
+    "cta": "Meine Kostenlose Schätzung Erhalten",
+    "micro": "Kostenlos · Unverbindlich · Ergebnisse in Sekunden"
+  },
+  "alts": {
+    "logo": "CasaMia Logo",
+    "hero": "Seniorenpaar umarmt sich zu Hause",
+    "finalCta": "Seniorenpaar bereitet Gemüse in einer sicheren Küche zu",
+    "gallery": [
+      "Barrierefreies Bad mit Sicherheitsanpassungen",
+      "Sicherheitsgeräte für Senioren im Zuhause",
+      "Smarte Sicherheitstechnologie für das Zuhause"
+    ]
+  },
+  "grantStamp": {
+    "line1": "ZUSCHÜSSE BIS",
+    "shortLine1": "BIS ZU",
+    "stat": "90%",
+    "line2": "GEDECKT",
+    "helper": "Wir übernehmen den Antrag.",
+    "ribbonHelper": "Antrag inklusive",
+    "badgeLabel": "ZUSCHUSS",
+    "badgeHelper": "Antrag inklusive"
+  },
+  "prevention": {
+    "badge": "Warum es wichtig ist",
+    "stat": "8 von 10",
+    "sub": "Stürze bei Senioren sind vermeidbar.",
+    "body": "Stürze sind die häufigste Verletzungsursache bei Erwachsenen über 65, und die meisten passieren zu Hause. Die richtigen Anpassungen sind in weniger als einem Tag installiert und können alles verändern.",
+    "stats": [
+      { "value": "78%", "label": "der Haushalte in Spanien\nsind nicht angepasst" },
+      { "value": "9,93 Mio.", "label": "Senioren in Spanien,\njedes Jahr mehr" },
+      { "value": "€6.000", "label": "durchschnittlicher staatlicher\nZuschuss zur Kostendeckung" }
+    ]
+  },
+  "offer": {
+    "badge": "WAS WIR ANBIETEN",
+    "line1": "Ein Unternehmen.",
+    "line2": "Alles, was Sie brauchen.",
+    "cards": [
+      {
+        "icon": "A",
+        "title": "Hausbewertung",
+        "desc": "Laden Sie Fotos eines beliebigen Raums hoch. Wir erkennen jede Gefahr und geben Ihnen eine persönliche Kostenschätzung, kostenlos und unverbindlich."
+      },
+      {
+        "icon": "I",
+        "title": "Professionelle Installation",
+        "desc": "Zertifizierte Experten passen Ihr gesamtes Zuhause in einem Besuch an: Haltegriffe, rutschfeste Böden, breitere Türen, Beleuchtung und mehr."
+      },
+      {
+        "icon": "S",
+        "title": "Smart-Home-Technologie",
+        "desc": "Sprachsteuerung, smarte Schlösser, Sturzerkennung und 24/7-Notfallalarme, alles ab dem ersten Tag installiert und funktionsfähig."
+      },
+      {
+        "icon": "G",
+        "title": "Zuschussmanagement",
+        "desc": "Wir reichen alles für Plan Adapta in Ihrem Namen ein. Zuschüsse decken bis zu 90% der Kosten. Sie unterschreiben nur."
+      }
+    ],
+    "health": {
+      "icon": "H",
+      "title": "Gesundheits- und Vitalwertüberwachung",
+      "desc": "Blutdruck, Herzfrequenz, Medikamentenerinnerungen, Familienalarme. Sicherheit, wo immer Sie sind.",
+      "badge": "Nur Premium"
+    }
+  },
+  "gallery": {
+    "badge": "So sieht ein sichereres Zuhause aus",
+    "title": "Sehen Sie den Unterschied.",
+    "items": [
+      {
+        "title": "Sicherheit im Bad",
+        "desc": "Haltegriffe, rutschfeste Oberflächen, zugängliche Dusche, erhöhter Toilettensitz."
+      },
+      {
+        "title": "Sicherheitsanpassungen",
+        "desc": "Handläufe, Treppenstreifen, Bewegungslicht, Sturzerkennungssensoren."
+      },
+      {
+        "title": "Smarte Technologie",
+        "desc": "Sprachsteuerung, Vitalwertüberwachung, Notruf, Familienalarme."
+      }
+    ]
+  },
+  "plans": {
+    "title1": "Einfache Pakete,",
+    "title2": "totale Sicherheit.",
+    "sub": "Kostenlose Hausbewertung + Zuschussantrag in jedem Paket enthalten",
+    "popular": "Am Beliebtesten",
+    "perUnit": "einmalig",
+    "cta": "Dieses Paket Wählen",
+    "detailsCta": "Details Ansehen",
+    "items": [
+      {
+        "id": "essential",
+        "name": "Essential",
+        "price": "€269",
+        "desc": "Eingang, Wohnzimmer und Treppenhaus. Die wichtigsten Sicherheitsverbesserungen.",
+        "features": [
+          "Kostenlose Hausbewertung",
+          "Haltegriffe und rutschfeste Böden",
+          "Bewegungsaktivierte Beleuchtung",
+          "Handläufe und Treppenstreifen",
+          "Zuschussantrag wird für Sie verwaltet"
+        ]
+      },
+      {
+        "id": "advanced",
+        "name": "Advanced",
+        "price": "€1.149",
+        "desc": "Jeder Raum angepasst, smarter Zugang und Notfallsysteme.",
+        "features": [
+          "Alles aus Essential",
+          "Alle Räume vollständig angepasst",
+          "Smartes Türschloss",
+          "Notfallknopf",
+          "Sicherheit für Treppen und Flure",
+          "Möbeloptimierung",
+          "Zuschussantrag wird für Sie verwaltet"
+        ],
+        "popular": true
+      },
+      {
+        "id": "premium",
+        "name": "Premium",
+        "price": "€1.449",
+        "desc": "Vollständiges Smart Home + Gesundheitsüberwachung in jedem Raum.",
+        "features": [
+          "Alles aus Advanced",
+          "Gesundheits- und Vitalwertüberwachung",
+          "Sturzerkennungssensoren",
+          "24/7 Familien- und Notfallalarme",
+          "Sprachaktivierte Steuerung"
+        ]
+      }
+    ]
+  },
+  "grants": {
+    "badge": "Staatliche Zuschüsse",
+    "title": "Der Staat übernimmt bis zu 90%.",
+    "sub": "Wir erledigen alles. Sie unterschreiben einmal.",
+    "body": "Plan-Adapta-Zuschüsse decken bis zu €6.000 für Barrierefreiheitsarbeiten. CasaMia verwaltet Ihren kompletten Antrag, ohne Gebühr und ohne Aufwand.",
+    "cta": "Meine Förderfähigkeit Prüfen",
+    "stats": [
+      {
+        "value": "€6.000",
+        "label": "Durchschnittlicher Zuschuss",
+        "sub": "Für direkte Barrierefreiheitsarbeiten"
+      },
+      {
+        "value": "90%",
+        "label": "Maximale Kostendeckung",
+        "sub": "Für Menschen mit anerkannter Behinderung"
+      },
+      {
+        "value": "0 Formulare",
+        "label": "Papierarbeit für Sie",
+        "sub": "Wir übernehmen den gesamten Antrag"
+      }
+    ]
+  },
+  "eurosafe": {
+    "prefix": "IN PARTNERSCHAFT MIT",
+    "logo": "EuroSafe",
+    "desc": "Engagiert für weniger Unfälle zu Hause und mehr Seniorensicherheit in ganz Europa."
+  },
+  "finalCta": {
+    "title": "Das Zuhause Ihrer Eltern,\nsicher gemacht.",
+    "body": "Laden Sie heute ein paar Fotos hoch. Erfahren Sie genau, was Ihr Zuhause braucht und wie wenig es nach Zuschüssen kosten könnte.",
+    "cta": "Meine Kostenlose Schätzung Erhalten"
+  },
+  "footer": {
+    "tagline": "Wir helfen Familien in ganz Europa, sicher und würdevoll zu Hause älter zu werden.",
+    "phone": "+34 900 000 000",
+    "company": {
+      "title": "Unternehmen",
+      "links": ["So Funktioniert Es", "Pakete", "Zuschüsse", "Kontakt"]
+    },
+    "legal": {
+      "title": "Rechtliches",
+      "links": ["Datenschutz", "Cookie-Richtlinie", "Bedingungen"]
+    },
+    "support": {
+      "title": "Support",
+      "links": ["FAQ", "Zuschussleitfaden", "Anruf Buchen", "Über Uns"]
+    },
+    "copyright": "© 2026 CasaMia. Alle Rechte vorbehalten."
+  },
+  "estimator": {
+    "loading": "Ihr Zuhause wird analysiert...",
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "errorBody": "Wir konnten Ihre Fotos nicht analysieren. Bitte versuchen Sie es erneut oder rufen Sie uns unter +34 900 000 000 an.",
+    "noFiles": "Bitte fügen Sie zuerst mindestens ein Foto Ihres Zuhauses hinzu.",
+    "noKey": "Fügen Sie VITE_ANTHROPIC_API_KEY zu Ihrer Umgebung hinzu, um die Live-Fotoanalyse zu aktivieren.",
+    "resultsTitle": "Ihre Sicherheitsschätzung",
+    "hazardsLabel": "Erkannte Probleme",
+    "planLabel": "Empfohlenes Paket",
+    "costLabel": "Geschätzte Kosten",
+    "afterGrantsLabel": "Nach staatlichen Zuschüssen",
+    "cta": "Dieses Paket Wählen",
+    "chooseFiles": "Fotos auswählen",
+    "removeFile": "{{file}} entfernen",
+    "beforeGrants": "Vor Zuschüssen",
+    "afterGrants": "Nach Zuschüssen"
+  },
+  "pages": {
+    "howItWorks": {
+      "title": "Ein sichereres Zuhause in drei klaren Schritten.",
+      "intro": "CasaMia macht den Ablauf einfach: Fotos hochladen, einen maßgeschneiderten Plan erhalten und zertifizierte Installateure die Anpassungen durchführen lassen.",
+      "steps": [
+        {
+          "title": "Fotos Ihres Zuhauses hochladen",
+          "desc": "Senden Sie Fotos von Bädern, Küchen, Treppen, Schlafzimmern, Eingängen und Wohnbereichen. Wir suchen nach Gefahren, die häufig Stürze oder Notfallverzögerungen verursachen."
+        },
+        {
+          "title": "Schätzung erhalten",
+          "desc": "Der Schätzer erkennt Risiken, empfiehlt das passende Paket und zeigt die voraussichtlichen Kosten vor und nach verfügbaren Zuschüssen."
+        },
+        {
+          "title": "Installieren und Zuschüsse einreichen",
+          "desc": "Unser Team installiert die vereinbarten Anpassungen und verwaltet die Plan-Adapta-Unterlagen, damit Ihre Familie keine Formulare verfolgen muss."
+        }
+      ],
+      "cta": "Mit einer kostenlosen Schätzung starten"
+    },
+    "plans": {
+      "title": "Vergleichen Sie alle CasaMia-Pakete.",
+      "intro": "Jedes Paket enthält Bewertung und Zuschussmanagement. Wählen Sie den Anpassungsgrad, der zum Zuhause und zur benötigten Familienunterstützung passt.",
+      "comparisonTitle": "Paketvergleich",
+      "headers": ["Leistung", "Essential", "Advanced", "Premium"],
+      "rows": [
+        ["Fotobewertung", "Enthalten", "Enthalten", "Enthalten"],
+        ["Anpassung aller Räume", "Eingangsbereiche", "Enthalten", "Enthalten"],
+        ["Smarter Zugang", "Optional", "Enthalten", "Enthalten"],
+        ["Gesundheitsüberwachung", "Nicht enthalten", "Optional", "Enthalten"],
+        ["Familienalarme", "Basis", "Notfall", "24/7"]
+      ]
+    },
+    "grants": {
+      "title": "Zuschusshilfe ohne Papierkram-Labyrinth.",
+      "intro": "Plan Adapta kann einen erheblichen Teil der Barrierefreiheitsarbeiten abdecken. CasaMia bereitet den Antrag vor, reicht ihn ein und verfolgt ihn für Sie.",
+      "eligibilityTitle": "Typische Hinweise auf Förderfähigkeit",
+      "eligibility": [
+        "Das Zuhause liegt in Spanien und benötigt Verbesserungen bei Barrierefreiheit oder Sicherheit.",
+        "Die dort lebende Person ist über 65, hat Mobilitätsbedarf oder eine anerkannte Behinderung.",
+        "Die Arbeiten verbessern die tägliche Sicherheit: Bäder, Treppen, Zugänge, Türen, Beleuchtung oder Notfallsysteme."
+      ],
+      "processTitle": "Was wir verwalten",
+      "process": [
+        "Erfassung der erforderlichen Angaben zu Zuhause und Bewohner.",
+        "Vorbereitung der Dokumentation für Barrierefreiheitsarbeiten.",
+        "Einreichung beim passenden Zuschusskanal und Nachverfolgung."
+      ]
+    },
+    "contact": {
+      "title": "Sprechen Sie mit CasaMia.",
+      "intro": "Erzählen Sie uns vom Zuhause, und wir helfen Ihnen, den sichersten nächsten Schritt zu wählen.",
+      "fields": {
+        "name": "Name",
+        "email": "E-Mail",
+        "phone": "Telefon",
+        "plan": "Welches Paket interessiert Sie?",
+        "message": "Nachricht"
+      },
+      "planOptions": ["Essential", "Advanced", "Premium", "Noch unsicher"],
+      "submit": "Nachricht Senden",
+      "success": "Vielen Dank. CasaMia meldet sich in Kürze."
+    }
+  }
+}

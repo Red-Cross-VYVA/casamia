@@ -1,0 +1,299 @@
+{
+  "languageSwitcher": {
+    "aria": "Choisir la langue",
+    "changeTo": "Passer à {{language}}"
+  },
+  "common": {
+    "close": "Fermer",
+    "imageFallback": "Image indisponible",
+    "learnMore": "En savoir plus",
+    "selectedPhotos": "Photos sélectionnées"
+  },
+  "nav": {
+    "howItWorks": "Fonctionnement",
+    "plans": "Formules",
+    "grants": "Aides",
+    "contact": "Contact",
+    "cta": "Choisir une Formule",
+    "phone": "+34 900 000 000",
+    "menu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
+  },
+  "hero": {
+    "badge": "Spécialistes de la sécurité à domicile · Toute l'Espagne",
+    "line1": "Home Safe",
+    "line2": "Home.",
+    "sub": "Mieux vaut prévenir que guérir. Téléchargez des photos de votre domicile et obtenez une évaluation de sécurité et une estimation des coûts gratuites et instantanées.",
+    "uploadLabel": "Téléchargez des photos de votre domicile",
+    "uploadRooms": "Salle de bain · Cuisine · Escalier · Salon",
+    "cta": "Obtenir Mon Estimation Gratuite",
+    "micro": "Gratuit · Sans engagement · Résultats en quelques secondes"
+  },
+  "alts": {
+    "logo": "Logo CasaMia",
+    "hero": "Couple senior s'embrassant à la maison",
+    "finalCta": "Couple senior préparant des légumes dans une cuisine sécurisée",
+    "gallery": [
+      "Salle de bain accessible avec adaptations de sécurité",
+      "Dispositifs de sécurité à domicile pour seniors",
+      "Technologie intelligente de sécurité à domicile"
+    ]
+  },
+  "grantStamp": {
+    "line1": "AIDES JUSQU'À",
+    "shortLine1": "JUSQU'À",
+    "stat": "90%",
+    "line2": "COUVERT",
+    "helper": "Nous gérons le dossier.",
+    "ribbonHelper": "Aide et dossier inclus",
+    "badgeLabel": "AIDES",
+    "badgeHelper": "Dossier inclus"
+  },
+  "prevention": {
+    "badge": "Pourquoi c'est important",
+    "stat": "8 sur 10",
+    "sub": "chutes de seniors sont évitables.",
+    "body": "Les chutes sont la première cause de blessure chez les adultes de plus de 65 ans, et la plupart surviennent à domicile. Les bonnes adaptations s'installent en moins d'une journée et peuvent tout changer.",
+    "stats": [
+      { "value": "78%", "label": "des logements en Espagne\nne sont pas adaptés" },
+      { "value": "9,93M", "label": "de seniors en Espagne,\nen hausse chaque année" },
+      { "value": "€6 000", "label": "aide publique moyenne\npour couvrir les coûts" }
+    ]
+  },
+  "offer": {
+    "badge": "CE QUE NOUS OFFRONS",
+    "line1": "Une seule entreprise.",
+    "line2": "Tout ce dont vous avez besoin.",
+    "cards": [
+      {
+        "icon": "A",
+        "title": "Évaluation du Domicile",
+        "desc": "Téléchargez des photos de n'importe quelle pièce. Nous identifions chaque risque et vous donnons une estimation personnalisée, gratuite et sans engagement."
+      },
+      {
+        "icon": "I",
+        "title": "Installation Professionnelle",
+        "desc": "Des experts certifiés adaptent tout votre domicile en une seule visite : barres d'appui, sols antidérapants, portes élargies, éclairage et plus encore."
+      },
+      {
+        "icon": "S",
+        "title": "Technologie Smart Home",
+        "desc": "Commandes vocales, serrures intelligentes, détection de chute et alertes d'urgence 24/7, installées et opérationnelles dès le premier jour."
+      },
+      {
+        "icon": "G",
+        "title": "Gestion des Aides",
+        "desc": "Nous déposons tout auprès de Plan Adapta en votre nom. Les aides couvrent jusqu'à 90% des coûts. Vous signez simplement."
+      }
+    ],
+    "health": {
+      "icon": "H",
+      "title": "Suivi Santé et Constantes",
+      "desc": "Tension artérielle, fréquence cardiaque, rappels de médicaments, alertes familiales. La tranquillité où que vous soyez.",
+      "badge": "Premium seulement"
+    }
+  },
+  "gallery": {
+    "badge": "À quoi ressemble un domicile plus sûr",
+    "title": "Voyez la différence que nous faisons.",
+    "items": [
+      {
+        "title": "Sécurité de la Salle de Bain",
+        "desc": "Barres d'appui, surfaces antidérapantes, douche accessible, rehausseur de toilettes."
+      },
+      {
+        "title": "Adaptations de Sécurité",
+        "desc": "Mains courantes, bandes d'escalier, éclairage à détection, capteurs de chute."
+      },
+      {
+        "title": "Technologie Intelligente",
+        "desc": "Commandes vocales, suivi des constantes, appel d'urgence, alertes familiales."
+      }
+    ]
+  },
+  "plans": {
+    "title1": "Des formules simples,",
+    "title2": "une tranquillité totale.",
+    "sub": "Évaluation gratuite + dépôt des aides inclus dans chaque formule",
+    "popular": "La Plus Populaire",
+    "perUnit": "paiement unique",
+    "cta": "Choisir Cette Formule",
+    "detailsCta": "Voir les Détails",
+    "items": [
+      {
+        "id": "essential",
+        "name": "Essential",
+        "price": "€269",
+        "desc": "Entrée, salon et escalier. Les améliorations de sécurité essentielles.",
+        "features": [
+          "Évaluation gratuite du domicile",
+          "Barres d'appui et sol antidérapant",
+          "Éclairage à détection de mouvement",
+          "Mains courantes et bandes d'escalier",
+          "Dépôt des aides géré pour vous"
+        ]
+      },
+      {
+        "id": "advanced",
+        "name": "Advanced",
+        "price": "€1 149",
+        "desc": "Toutes les pièces adaptées, accès intelligent et systèmes d'urgence.",
+        "features": [
+          "Tout ce qui est inclus dans Essential",
+          "Toutes les pièces entièrement adaptées",
+          "Serrure intelligente",
+          "Bouton d'appel d'urgence",
+          "Sécurité escalier et couloir",
+          "Optimisation du mobilier",
+          "Dépôt des aides géré pour vous"
+        ],
+        "popular": true
+      },
+      {
+        "id": "premium",
+        "name": "Premium",
+        "price": "€1 449",
+        "desc": "Smart home complet + suivi santé dans chaque pièce.",
+        "features": [
+          "Tout ce qui est inclus dans Advanced",
+          "Suivi santé et constantes",
+          "Capteurs de détection de chute",
+          "Alertes famille et urgence 24/7",
+          "Commandes activées par la voix"
+        ]
+      }
+    ]
+  },
+  "grants": {
+    "badge": "Aides Publiques",
+    "title": "Le gouvernement paie jusqu'à 90%.",
+    "sub": "Nous gérons tout. Vous signez une fois.",
+    "body": "Les aides Plan Adapta couvrent jusqu'à €6 000 pour les travaux d'accessibilité. CasaMia gère votre demande complète, sans frais et sans tracas.",
+    "cta": "Vérifier Mon Éligibilité",
+    "stats": [
+      {
+        "value": "€6 000",
+        "label": "Montant moyen d'aide",
+        "sub": "Pour les travaux directs d'accessibilité"
+      },
+      {
+        "value": "90%",
+        "label": "Couverture maximale",
+        "sub": "Pour les personnes avec handicap reconnu"
+      },
+      {
+        "value": "0 formulaire",
+        "label": "Dossier à déposer vous-même",
+        "sub": "Nous gérons toute la demande"
+      }
+    ]
+  },
+  "eurosafe": {
+    "prefix": "EN PARTENARIAT AVEC",
+    "logo": "EuroSafe",
+    "desc": "Engagés à réduire les accidents domestiques et à améliorer la sécurité des seniors en Europe."
+  },
+  "finalCta": {
+    "title": "Le domicile de vos parents,\nsécurisé.",
+    "body": "Téléchargez quelques photos aujourd'hui. Découvrez exactement ce dont votre domicile a besoin et combien cela pourrait coûter après les aides.",
+    "cta": "Obtenir Mon Estimation Gratuite"
+  },
+  "footer": {
+    "tagline": "Nous aidons les familles en Europe à vieillir sereinement chez elles.",
+    "phone": "+34 900 000 000",
+    "company": {
+      "title": "Entreprise",
+      "links": ["Fonctionnement", "Formules", "Aides", "Contact"]
+    },
+    "legal": {
+      "title": "Légal",
+      "links": ["Confidentialité", "Politique Cookies", "Conditions"]
+    },
+    "support": {
+      "title": "Support",
+      "links": ["FAQ", "Guide des Aides", "Réserver un Appel", "À Propos"]
+    },
+    "copyright": "© 2026 CasaMia. Tous droits réservés."
+  },
+  "estimator": {
+    "loading": "Analyse de votre domicile...",
+    "errorTitle": "Un problème est survenu",
+    "errorBody": "Nous n'avons pas pu analyser vos photos. Veuillez réessayer ou nous appeler au +34 900 000 000.",
+    "noFiles": "Ajoutez d'abord au moins une photo de votre domicile.",
+    "noKey": "Ajoutez VITE_ANTHROPIC_API_KEY à votre environnement pour activer l'analyse photo en direct.",
+    "resultsTitle": "Votre estimation de sécurité",
+    "hazardsLabel": "Problèmes identifiés",
+    "planLabel": "Formule recommandée",
+    "costLabel": "Coût estimé",
+    "afterGrantsLabel": "Après aides publiques",
+    "cta": "Choisir Cette Formule",
+    "chooseFiles": "Choisir des photos",
+    "removeFile": "Supprimer {{file}}",
+    "beforeGrants": "Avant aides",
+    "afterGrants": "Après aides"
+  },
+  "pages": {
+    "howItWorks": {
+      "title": "Un domicile plus sûr en trois étapes claires.",
+      "intro": "CasaMia simplifie le parcours : téléchargez des photos, recevez un plan personnalisé et laissez des installateurs certifiés réaliser les adaptations.",
+      "steps": [
+        {
+          "title": "Téléchargez vos photos",
+          "desc": "Envoyez des photos des salles de bain, cuisines, escaliers, chambres, entrées et pièces de vie. Nous repérons les risques qui causent souvent des chutes ou retardent les urgences."
+        },
+        {
+          "title": "Recevez votre estimation",
+          "desc": "L'estimateur identifie les risques, recommande la bonne formule et montre le coût probable avant et après les aides disponibles."
+        },
+        {
+          "title": "Installation et dépôt des aides",
+          "desc": "Notre équipe installe les adaptations convenues et gère les documents Plan Adapta pour que votre famille n'ait pas à suivre les formulaires."
+        }
+      ],
+      "cta": "Commencer par une estimation gratuite"
+    },
+    "plans": {
+      "title": "Comparez toutes les formules CasaMia.",
+      "intro": "Chaque formule inclut l'évaluation et la gestion des aides. Choisissez le niveau d'adaptation adapté au domicile et au soutien familial nécessaire.",
+      "comparisonTitle": "Comparatif des formules",
+      "headers": ["Fonctionnalité", "Essential", "Advanced", "Premium"],
+      "rows": [
+        ["Évaluation photo", "Incluse", "Incluse", "Incluse"],
+        ["Adaptation de toutes les pièces", "Zones d'entrée", "Incluse", "Incluse"],
+        ["Accès intelligent", "Optionnel", "Inclus", "Inclus"],
+        ["Suivi santé", "Non inclus", "Optionnel", "Inclus"],
+        ["Alertes familiales", "Basique", "Urgence", "24/7"]
+      ]
+    },
+    "grants": {
+      "title": "Un accompagnement aux aides sans labyrinthe administratif.",
+      "intro": "Plan Adapta peut couvrir une part importante des travaux d'accessibilité. CasaMia prépare, dépose et suit la demande pour vous.",
+      "eligibilityTitle": "Signaux habituels d'éligibilité",
+      "eligibility": [
+        "Le domicile est en Espagne et nécessite des améliorations d'accessibilité ou de sécurité.",
+        "La personne résidente a plus de 65 ans, des besoins de mobilité ou un handicap reconnu.",
+        "Les travaux améliorent la sécurité quotidienne : salles de bain, escaliers, accès, portes, éclairage ou systèmes d'urgence."
+      ],
+      "processTitle": "Ce que nous gérons",
+      "process": [
+        "Collecte des informations nécessaires sur le domicile et le résident.",
+        "Préparation du dossier des travaux d'accessibilité.",
+        "Dépôt auprès du canal d'aide concerné et suivi."
+      ]
+    },
+    "contact": {
+      "title": "Parlez à CasaMia.",
+      "intro": "Décrivez-nous le domicile et nous vous aiderons à choisir l'étape la plus sûre.",
+      "fields": {
+        "name": "Nom",
+        "email": "E-mail",
+        "phone": "Téléphone",
+        "plan": "Quelle formule vous intéresse ?",
+        "message": "Message"
+      },
+      "planOptions": ["Essential", "Advanced", "Premium", "Pas encore sûr"],
+      "submit": "Envoyer le Message",
+      "success": "Merci. CasaMia vous recontactera bientôt."
+    }
+  }
+}
