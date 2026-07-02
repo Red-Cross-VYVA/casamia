@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { TrustBar } from '../components/TrustBar'
+
 export function ContactPage() {
   const { t } = useTranslation()
   const [submitted, setSubmitted] = useState(false)
@@ -16,6 +18,8 @@ export function ContactPage() {
           </p>
         </div>
       </section>
+
+      <TrustBar />
 
       <section className="section-pad bg-white">
         <div className="site-shell max-w-4xl">

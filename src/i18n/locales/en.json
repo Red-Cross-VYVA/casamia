@@ -13,21 +13,198 @@
     "howItWorks": "How It Works",
     "plans": "Plans",
     "grants": "Grants",
+    "about": "About",
+    "whyCasamia": "Why CasaMia",
+    "freeAssessment": "Free Assessment",
     "contact": "Contact",
-    "cta": "Choose a Plan",
+    "cta": "Book Free Assessment",
     "phone": "+34 900 000 000",
     "menu": "Open menu",
     "closeMenu": "Close menu"
   },
   "hero": {
     "badge": "Home safety specialists · All Spain",
-    "line1": "Home Safe",
+    "line1": "Home, Safe",
     "line2": "Home.",
-    "sub": "Prevention is the best cure. Upload a few photos of your home and get a free instant safety assessment and cost estimate.",
-    "uploadLabel": "Upload photos of your home",
+    "sub": "Upload photos of each room and receive a free safety report with the risks found in every photo.",
+    "uploadLabel": "Is your home safe? Find out for free.",
     "uploadRooms": "Bathroom · Kitchen · Stairway · Living room",
-    "cta": "Get My Free Estimate",
-    "micro": "Free · No commitment · Results in seconds"
+    "uploadReport": "Free report: risks in every photo",
+    "uploadNote": "Bathroom, kitchen, stairs or living room: we flag the dangers and what to adapt first.",
+    "selectedHelp": "Next: label each room and choose where to receive the report.",
+    "cta": "Find Out for Free",
+    "micro": "Upload photos · No commitment",
+    "safetyCheck": {
+      "title": "Is your home safe?",
+      "body": "Spot hidden dangers before a fall happens.",
+      "cta": "See free report"
+    },
+    "grantCheck": {
+      "title": "Could you receive grants?",
+      "body": "Find out if support could reduce adaptation costs.",
+      "cta": "Check free eligibility"
+    }
+  },
+  "reportDelivery": {
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "phone": "Phone",
+    "emailDelivery": "Email report",
+    "emailDeliveryBody": "Best for the complete secure report link.",
+    "whatsappDelivery": "WhatsApp link",
+    "whatsappDeliveryBody": "Short message only. Sensitive details stay in the report.",
+    "sendSuccess": "Report delivery queued."
+  },
+  "assessment": {
+    "metaTitle": "Free Home Safety Assessment",
+    "hero": {
+      "title": "Is Your Home Safe for Aging in Place?",
+      "subtitle": "Book a free home safety assessment and let CasaMia identify potential hazards, fall risks, and comfort improvements tailored to your home.",
+      "cta": "Book Free Assessment",
+      "reassurance": "No obligation. No pressure. Just expert guidance for a safer home.",
+      "panelTitle": "A practical expert review before you decide anything.",
+      "panelBody": "We look at the rooms, routines, and risk moments that matter most for safer daily living."
+    },
+    "benefits": {
+      "title": "What You'll Gain",
+      "items": [
+        {
+          "title": "Identify hidden fall risks",
+          "body": "Spot small hazards that are easy to miss but can lead to slips, trips, or avoidable accidents."
+        },
+        {
+          "title": "Improve safety and comfort",
+          "body": "Understand which changes can make movement easier, calmer, and more secure."
+        },
+        {
+          "title": "Support independent living",
+          "body": "Create a safer home environment that helps seniors keep daily routines with confidence."
+        },
+        {
+          "title": "Get expert recommendations",
+          "body": "Receive practical guidance from people who understand aging-in-place safety."
+        },
+        {
+          "title": "Plan home modifications with confidence",
+          "body": "Know what matters first before choosing equipment, installation, or package level."
+        },
+        {
+          "title": "Peace of mind for the whole family",
+          "body": "Give relatives a clearer picture of the home and the next safest step."
+        }
+      ]
+    },
+    "included": {
+      "title": "What's Included in Your Free Assessment",
+      "body": "A focused home safety review designed to give you clear, useful next steps without pressure.",
+      "items": [
+        {
+          "title": "Room-by-room safety inspection",
+          "body": "We review the spaces where daily movement, transfers, and routines happen."
+        },
+        {
+          "title": "Fall-risk and accessibility review",
+          "body": "We look at common risk points such as slippery surfaces, poor lighting, steps, and access."
+        },
+        {
+          "title": "Bathroom, stairway, entrance, kitchen, and outdoor safety check",
+          "body": "High-risk zones are checked for practical safety and comfort improvements."
+        },
+        {
+          "title": "Personalized recommendations",
+          "body": "Your assessment focuses on the home, the person, and the changes that would help most."
+        },
+        {
+          "title": "Clear next-step proposal if improvements are needed",
+          "body": "If adaptations are useful, we explain the recommended scope and the next step clearly."
+        }
+      ]
+    },
+    "how": {
+      "title": "How It Works",
+      "items": [
+        {
+          "title": "Book Your Free Assessment",
+          "body": "Share your contact details, preferred timing, and any concerns about the home."
+        },
+        {
+          "title": "We Inspect Your Home",
+          "body": "A CasaMia representative reviews the key rooms and safety moments."
+        },
+        {
+          "title": "You Receive Expert Recommendations",
+          "body": "You get clear guidance on risks, priorities, and possible next steps."
+        }
+      ]
+    },
+    "formSection": {
+      "title": "Book Your Free Home Safety Assessment",
+      "body": "Tell us where the home is and how you prefer to be contacted. A CasaMia support representative will follow up to arrange the inspection visit."
+    },
+    "form": {
+      "title": "Assessment request",
+      "intro": "Fields marked with * are required. Please provide either a phone number or email address.",
+      "fields": {
+        "name": "Full name",
+        "phone": "Phone number",
+        "email": "Email address",
+        "city": "City / Area",
+        "contactMethod": "Preferred contact method",
+        "date": "Preferred assessment date",
+        "message": "Message / specific concerns",
+        "selectedPlan": "Selected plan"
+      },
+      "contactOptions": [
+        {
+          "value": "phone",
+          "label": "Phone"
+        },
+        {
+          "value": "whatsapp",
+          "label": "WhatsApp"
+        },
+        {
+          "value": "email",
+          "label": "Email"
+        }
+      ],
+      "submit": "Submit Request",
+      "submitting": "Submitting request...",
+      "success": "Thank you. Your request has been received. A CasaMia customer support representative will contact you shortly to schedule your home inspection visit at a time that suits you. Alternatively, you can schedule it yourself using the button below.",
+      "schedule": "Schedule Inspection",
+      "error": "We couldn't submit your request. Please try again or contact CasaMia by phone.",
+      "consent": "I agree to be contacted by Casamia regarding my home safety assessment request.",
+      "privacy": "Your information is only used to schedule your assessment. We never sell your data.",
+      "errors": {
+        "name": "Please enter your full name.",
+        "contact": "Please enter a phone number or email address.",
+        "city": "Please enter your city or area.",
+        "consent": "Please agree to be contacted about your assessment request."
+      },
+      "planOptions": [
+        {
+          "value": "not-sure",
+          "label": "Not sure yet"
+        },
+        {
+          "value": "home-assessment",
+          "label": "Home Assessment Plan"
+        },
+        {
+          "value": "home-safety",
+          "label": "Home Safety Plan"
+        },
+        {
+          "value": "smart-safety",
+          "label": "Smart Safety Plan"
+        }
+      ],
+      "successWithPlan": "Thank you. Your request for the {{plan}} has been received. A Casamia representative will contact you shortly."
+    },
+    "final": {
+      "title": "Take the first step toward a safer home."
+    }
   },
   "alts": {
     "logo": "CasaMia logo",
@@ -55,9 +232,18 @@
     "sub": "senior falls are preventable.",
     "body": "Falls are the leading cause of injury in adults over 65 — and most happen at home. The right adaptations take less than a day to install and can change everything.",
     "stats": [
-      { "value": "78%", "label": "of homes in Spain\nnot adapted" },
-      { "value": "9.93M", "label": "seniors in Spain,\ngrowing every year" },
-      { "value": "€6,000", "label": "average government\ngrant to cover costs" }
+      {
+        "value": "78%",
+        "label": "of homes in Spain\nnot adapted"
+      },
+      {
+        "value": "9.93M",
+        "label": "seniors in Spain,\ngrowing every year"
+      },
+      {
+        "value": "€6,000",
+        "label": "average government\ngrant to cover costs"
+      }
     ]
   },
   "offer": {
@@ -203,15 +389,29 @@
     "phone": "+34 900 000 000",
     "company": {
       "title": "Company",
-      "links": ["How It Works", "Plans", "Grants", "Contact"]
+      "links": [
+        "How It Works",
+        "Plans",
+        "Grants",
+        "Contact"
+      ]
     },
     "legal": {
       "title": "Legal",
-      "links": ["Privacy Policy", "Cookie Policy", "Terms"]
+      "links": [
+        "Privacy Policy",
+        "Cookie Policy",
+        "Terms"
+      ]
     },
     "support": {
       "title": "Support",
-      "links": ["FAQ", "Grants Guide", "Book a Call", "About Us"]
+      "links": [
+        "FAQ",
+        "Grants Guide",
+        "Book a Call",
+        "About Us"
+      ]
     },
     "copyright": "© 2026 CasaMia. All rights reserved."
   },
@@ -232,17 +432,24 @@
     "beforeGrants": "Before grants",
     "afterGrants": "After grants",
     "workflow": {
-      "kicker": "Free home safety estimate",
-      "title": "Send photos. Get a safer-home plan.",
-      "progress": "Estimate progress",
-      "steps": ["Photos", "Home", "Contact", "Result"],
+      "kicker": "Free room safety report",
+      "title": "Review your home safety.",
+      "progress": "Report progress",
+      "steps": [
+        "Photos",
+        "Context",
+        "Report",
+        "Send"
+      ],
       "back": "Back",
       "continue": "Continue",
-      "createEstimate": "Create my estimate",
+      "createEstimate": "See my free report",
+      "sendThisReport": "Send me this report",
+      "sendReport": "Send report",
       "choose": "Choose one",
       "photos": {
-        "title": "Upload the rooms that worry you.",
-        "body": "Add up to 8 photos. Wide room shots are best: bathroom, stairs, entrance, kitchen, bedroom, and main walking routes.",
+        "title": "Start with the key rooms.",
+        "body": "Add 1-8 wide photos of the bathroom, stairs, entrance, kitchen, bedroom, or walking routes. Each photo becomes a room finding in your report.",
         "add": "Add more photos",
         "rules": "JPG, PNG or WebP. Up to 8 photos, 8MB each.",
         "roomLabel": "Room",
@@ -252,18 +459,19 @@
         "descriptionPlaceholder": "Example: my mother uses a walker, the bathroom floor is slippery, the stairs have poor lighting..."
       },
       "home": {
-        "title": "Tell us where and what to check.",
-        "body": "The postcode and home context help CasaMia prepare the right plan and later verify possible regional grant options.",
+        "title": "Tell us what worries you.",
+        "body": "We only need practical context to read the photos better and prioritise the real risks in the home.",
         "region": "Autonomous community",
         "postcode": "Postcode",
         "homeType": "Home type",
-        "concern": "Main concern",
-        "urgency": "Timing",
-        "regionalNote": "Grant support in Spain depends on regional calls, documentation, and the final adaptation scope."
+        "concern": "What worries you",
+        "urgency": "Priority",
+        "regionalNote": "No documents or medical details are needed. If there were recent falls, reduced mobility, or one especially risky area, add that in the notes."
       },
       "contact": {
-        "title": "Where should we send the estimate?",
-        "body": "CasaMia captures this before analysis so the report can be delivered and followed up properly.",
+        "title": "Send your safety report",
+        "body": "Choose email, WhatsApp, or both so CasaMia can send your secure report link.",
+        "deliveryIntro": "Your report is already visible above. Add your details only if you want CasaMia to send or follow up on it.",
         "name": "Name",
         "namePlaceholder": "Your name",
         "email": "Email",
@@ -272,18 +480,22 @@
         "emailDeliveryBody": "Best for the complete estimate and secure report link.",
         "whatsappDelivery": "WhatsApp secure link",
         "whatsappDeliveryBody": "Short message only. Sensitive details stay on the report page.",
-        "consent": "I agree CasaMia can process my home photos, safety information, and contact details to prepare and send my estimate."
+        "consent": "I agree CasaMia can process my home photos, safety information, and contact details to prepare and send my free safety report."
       },
       "result": {
-        "loadingTitle": "Preparing your estimate...",
-        "loadingBody": "We are creating the lead, reviewing the home context, and preparing the report link.",
+        "loadingTitle": "Preparing your safety report...",
+        "loadingBody": "We are saving the request, reviewing each room photo, and preparing the secure report link.",
         "retry": "Try again",
-        "kicker": "Estimate ready",
-        "title": "Your home safety estimate",
+        "kicker": "Report ready",
+        "title": "Your room-by-room safety report",
         "costRange": "Estimated cost range",
         "grantRange": "Possible grant range",
+        "safetyPriority": "Safety priority",
+        "priorityHigh": "High",
+        "priorityMedium": "Medium",
         "confidence": "confidence",
         "deliveryTitle": "Delivery status",
+        "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
         "emailQueued": "The full report is ready to send by email.",
         "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
@@ -294,46 +506,134 @@
         "unsupported": "{{file}} is not a supported image type.",
         "tooLarge": "{{file}} is larger than 8MB.",
         "maxPhotos": "You can upload up to {{count}} photos.",
-        "submit": "We could not create the estimate. The lead details are still safe in the form; please try again."
+        "submit": "We could not create the report. Please try again.",
+        "delivery": "We could not queue the report delivery. Please try again."
       },
       "rooms": [
-        { "value": "Bathroom", "label": "Bathroom" },
-        { "value": "Kitchen", "label": "Kitchen" },
-        { "value": "Stairs", "label": "Stairs" },
-        { "value": "Living room", "label": "Living room" },
-        { "value": "Bedroom", "label": "Bedroom" },
-        { "value": "Entrance", "label": "Entrance" },
-        { "value": "Other", "label": "Other" }
+        {
+          "value": "Bathroom",
+          "label": "Bathroom"
+        },
+        {
+          "value": "Kitchen",
+          "label": "Kitchen"
+        },
+        {
+          "value": "Stairs",
+          "label": "Stairs"
+        },
+        {
+          "value": "Living room",
+          "label": "Living room"
+        },
+        {
+          "value": "Bedroom",
+          "label": "Bedroom"
+        },
+        {
+          "value": "Entrance",
+          "label": "Entrance"
+        },
+        {
+          "value": "Other",
+          "label": "Other"
+        }
       ],
       "regions": [
-        { "value": "Andalucia", "label": "Andalucia" },
-        { "value": "Balearic Islands", "label": "Balearic Islands" },
-        { "value": "Canary Islands", "label": "Canary Islands" },
-        { "value": "Catalonia", "label": "Catalonia" },
-        { "value": "Community of Madrid", "label": "Community of Madrid" },
-        { "value": "Comunidad Valenciana", "label": "Comunidad Valenciana" },
-        { "value": "Galicia", "label": "Galicia" },
-        { "value": "Other Spain", "label": "Other Spain" }
+        {
+          "value": "Andalucia",
+          "label": "Andalucia"
+        },
+        {
+          "value": "Balearic Islands",
+          "label": "Balearic Islands"
+        },
+        {
+          "value": "Canary Islands",
+          "label": "Canary Islands"
+        },
+        {
+          "value": "Catalonia",
+          "label": "Catalonia"
+        },
+        {
+          "value": "Community of Madrid",
+          "label": "Community of Madrid"
+        },
+        {
+          "value": "Comunidad Valenciana",
+          "label": "Comunidad Valenciana"
+        },
+        {
+          "value": "Galicia",
+          "label": "Galicia"
+        },
+        {
+          "value": "Other Spain",
+          "label": "Other Spain"
+        }
       ],
       "homeTypes": [
-        { "value": "Apartment", "label": "Apartment" },
-        { "value": "Townhouse", "label": "Townhouse" },
-        { "value": "Villa or detached home", "label": "Villa or detached home" },
-        { "value": "Residential building community", "label": "Residential building community" }
+        {
+          "value": "Apartment",
+          "label": "Apartment"
+        },
+        {
+          "value": "Townhouse",
+          "label": "Townhouse"
+        },
+        {
+          "value": "Villa or detached home",
+          "label": "Villa or detached home"
+        },
+        {
+          "value": "Residential building community",
+          "label": "Residential building community"
+        }
       ],
       "concerns": [
-        { "value": "Falls or slipping", "label": "Falls or slipping" },
-        { "value": "Bathroom safety", "label": "Bathroom safety" },
-        { "value": "Stairs or access", "label": "Stairs or access" },
-        { "value": "Emergency alerts", "label": "Emergency alerts" },
-        { "value": "Smart home support", "label": "Smart home support" },
-        { "value": "Not sure yet", "label": "Not sure yet" }
+        {
+          "value": "Falls or slipping",
+          "label": "Falls or slipping"
+        },
+        {
+          "value": "Bathroom safety",
+          "label": "Bathroom safety"
+        },
+        {
+          "value": "Stairs or access",
+          "label": "Stairs or access"
+        },
+        {
+          "value": "Emergency alerts",
+          "label": "Emergency alerts"
+        },
+        {
+          "value": "Smart home support",
+          "label": "Smart home support"
+        },
+        {
+          "value": "Not sure yet",
+          "label": "Not sure yet"
+        }
       ],
       "urgencies": [
-        { "value": "Urgent", "label": "Urgent" },
-        { "value": "Within 1 month", "label": "Within 1 month" },
-        { "value": "Within 3 months", "label": "Within 3 months" },
-        { "value": "Planning ahead", "label": "Planning ahead" }
+        {
+          "value": "Urgent",
+          "label": "Immediate risk"
+        },
+        {
+          "value": "Within 1 month",
+          "label": "As soon as possible"
+        },
+        {
+          "value": "Within 3 months",
+          "label": "I want to prevent problems"
+        },
+        {
+          "value": "Planning ahead",
+          "label": "Planning ahead"
+        }
       ]
     },
     "report": {
@@ -372,17 +672,252 @@
       "cta": "Start with a free estimate"
     },
     "plans": {
-      "title": "Compare every CasaMia plan.",
-      "intro": "Each plan includes assessment and grant filing. Choose the level of adaptation that matches the home and the family support needed.",
-      "comparisonTitle": "Plan comparison",
-      "headers": ["Feature", "Essential", "Advanced", "Premium"],
-      "rows": [
-        ["Photo assessment", "Included", "Included", "Included"],
-        ["All-room adaptation", "Entry areas", "Included", "Included"],
-        ["Smart access", "Optional", "Included", "Included"],
-        ["Health monitoring", "Not included", "Optional", "Included"],
-        ["Family alerts", "Basic", "Emergency", "24/7"]
-      ]
+      "metaTitle": "Plans and Pricing",
+      "hero": {
+        "title": "Choose the Right Safety Plan for Your Home",
+        "subtitle": "Whether you need expert guidance, practical home modifications, or smart safety technology, CasaMia helps you create a safer and more comfortable home for aging in place.",
+        "primaryCta": "Book Free Assessment",
+        "secondaryCta": "Compare Plans"
+      },
+      "explainer": {
+        "title": "Three clear ways to start",
+        "body": "Start with clarity, move into practical adaptations, or add connected technology for extra reassurance. Every path begins with understanding the home first."
+      },
+      "cardsTitle": "Choose the level of support you need.",
+      "cardsIntro": "Each plan is designed around a different family need: advice only, practical safety improvements, or a more connected aging-in-place setup.",
+      "bestForLabel": "Best for",
+      "cards": [
+        {
+          "id": "home-assessment",
+          "name": "Home Assessment Plan",
+          "description": "An expert room-by-room inspection of your home with a clear safety report and personalized recommendations.",
+          "bestFor": "Families who want expert clarity before starting any work.",
+          "deliverables": [
+            "Qualified home safety inspection",
+            "Room-by-room hazard review",
+            "Fall-risk and accessibility check",
+            "Personalized safety report",
+            "Recommended next steps"
+          ],
+          "cta": "Book Assessment"
+        },
+        {
+          "id": "home-safety",
+          "name": "Home Safety Plan",
+          "description": "Assessment plus professional installation of essential safety features and home modifications.",
+          "bestFor": "Seniors who need practical safety improvements at home.",
+          "deliverables": [
+            "Everything in Home Assessment",
+            "Grab bars and handrails",
+            "Anti-slip solutions",
+            "Lighting improvements",
+            "Bathroom, stairway, entryway, and kitchen adaptations where needed",
+            "Professional installation partners"
+          ],
+          "cta": "Request Home Safety Plan"
+        },
+        {
+          "id": "smart-safety",
+          "name": "Smart Safety Plan",
+          "description": "Full home safety improvements combined with smart technology for added monitoring, alerts, and peace of mind.",
+          "bestFor": "Families who want extra reassurance and connected aging-in-place support.",
+          "deliverables": [
+            "Everything in Home Safety",
+            "Smart lighting and sensors",
+            "Emergency response devices",
+            "Water/leak sensors",
+            "Security and access devices",
+            "Health monitoring setup where applicable",
+            "User setup and handover"
+          ],
+          "cta": "Request Smart Safety Plan"
+        }
+      ],
+      "comparison": {
+        "title": "Compare Plans",
+        "intro": "Use this table to see what each plan includes before booking your free assessment.",
+        "headers": [
+          "Feature",
+          "Home Assessment",
+          "Home Safety",
+          "Smart Safety"
+        ],
+        "status": {
+          "included": "Included",
+          "notIncluded": "Not included",
+          "whereNeeded": "Where needed",
+          "optional": "Available option",
+          "recommendationsOnly": "Recommendations only"
+        },
+        "rows": [
+          {
+            "feature": "Expert home inspection",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Room-by-room safety report",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Fall-risk assessment",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Personalized recommendations",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Safety product installation",
+            "assessment": "notIncluded",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Home modifications/reforms",
+            "assessment": "notIncluded",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Bathroom safety improvements",
+            "assessment": "recommendationsOnly",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Stairway/entryway improvements",
+            "assessment": "recommendationsOnly",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Smart lighting",
+            "assessment": "notIncluded",
+            "safety": "optional",
+            "smart": "included"
+          },
+          {
+            "feature": "Motion/water sensors",
+            "assessment": "notIncluded",
+            "safety": "notIncluded",
+            "smart": "included"
+          },
+          {
+            "feature": "Emergency response devices",
+            "assessment": "notIncluded",
+            "safety": "optional",
+            "smart": "included"
+          },
+          {
+            "feature": "Health monitoring setup",
+            "assessment": "notIncluded",
+            "safety": "notIncluded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "User training/handover",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Ongoing support options",
+            "assessment": "optional",
+            "safety": "optional",
+            "smart": "optional"
+          }
+        ]
+      },
+      "payment": {
+        "title": "Simple & Transparent Payment Terms",
+        "body": "We keep payments clear and fair. Assessment services are paid at booking. For installation plans, you pay 50% to get started and 50% only upon completion and customer acceptance.",
+        "items": [
+          {
+            "title": "Home Assessment Plan",
+            "body": "100% payable upon booking."
+          },
+          {
+            "title": "Home Safety Plan",
+            "body": "50% deposit upon quotation acceptance, 50% upon completion and customer acceptance."
+          },
+          {
+            "title": "Smart Safety Plan",
+            "body": "50% deposit upon quotation acceptance, 50% upon completion, system commissioning, and customer acceptance."
+          }
+        ],
+        "reassurance": "No hidden fees. No work begins without your approval. You receive a clear proposal before installation."
+      },
+      "next": {
+        "title": "What Happens After You Choose a Plan?",
+        "steps": [
+          {
+            "title": "We contact you",
+            "body": "A CasaMia representative gets in touch to understand your needs and schedule the visit."
+          },
+          {
+            "title": "We assess your home",
+            "body": "Our qualified safety team performs a room-by-room inspection and identifies risks."
+          },
+          {
+            "title": "You receive a proposal",
+            "body": "We provide clear recommendations, pricing, and next steps before any work begins."
+          },
+          {
+            "title": "We deliver the solution",
+            "body": "If you approve, our team coordinates products, installers, and final handover."
+          }
+        ]
+      },
+      "faq": {
+        "title": "Questions families ask before choosing a plan.",
+        "items": [
+          {
+            "question": "Which plan should I choose?",
+            "answer": "If you are unsure, start with the free assessment. We will help you understand whether you need advice only, practical adaptations, or a smart safety setup."
+          },
+          {
+            "question": "Is the free assessment really free?",
+            "answer": "Yes. The initial assessment request is free and there is no obligation to proceed with installation."
+          },
+          {
+            "question": "Do I have to proceed with installation after the assessment?",
+            "answer": "No. You receive recommendations first, then decide what feels right for the home and family."
+          },
+          {
+            "question": "Are installers insured?",
+            "answer": "CasaMia works with trusted installation partners and structures projects around insured professional work."
+          },
+          {
+            "question": "When do I pay?",
+            "answer": "Assessment-only services are paid at booking. Installation plans use a clear 50% deposit and 50% final payment after completion and customer acceptance."
+          },
+          {
+            "question": "Can the plan be customized?",
+            "answer": "Yes. The final scope is tailored to the home, the resident, and the safety priorities found during assessment."
+          },
+          {
+            "question": "Do you support smart safety devices?",
+            "answer": "Yes. The Smart Safety Plan can include sensors, emergency response devices, smart lighting, access devices, and setup support where appropriate."
+          },
+          {
+            "question": "What happens after the work is completed?",
+            "answer": "We complete a handover, confirm the customer accepts the work, and explain any support options for future needs."
+          }
+        ]
+      },
+      "final": {
+        "title": "Start with the right plan for a safer home.",
+        "body": "Book your free assessment and let CasaMia help you decide the safest, clearest next step.",
+        "cta": "Request a Safety Proposal"
+      }
     },
     "grants": {
       "title": "Grant support without the paperwork maze.",
@@ -410,7 +945,12 @@
         "plan": "Which plan are you interested in?",
         "message": "Message"
       },
-      "planOptions": ["Essential", "Advanced", "Premium", "Not sure yet"],
+      "planOptions": [
+        "Essential",
+        "Advanced",
+        "Premium",
+        "Not sure yet"
+      ],
       "submit": "Send Message",
       "success": "Thank you. CasaMia will follow up shortly."
     }

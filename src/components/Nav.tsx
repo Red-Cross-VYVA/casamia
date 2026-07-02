@@ -3,19 +3,21 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
-import { IMAGE_URLS } from '../constants/shopify'
+import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Nav() {
   const { t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [logoFailed, setLogoFailed] = useState(false)
 
   const links = [
     { label: t('nav.howItWorks'), to: '/#how-it-works' },
     { label: t('nav.plans'), to: '/#plans' },
     { label: t('nav.grants'), to: '/#grants' },
+    { label: t('nav.about', { defaultValue: 'About' }), to: '/about' },
+    { label: t('nav.whyCasamia', { defaultValue: 'Why CasaMia' }), to: '/why-casamia' },
+    { label: t('nav.freeAssessment', { defaultValue: 'Free Assessment' }), to: '/free-home-safety-assessment' },
     { label: t('nav.contact'), to: '/#contact' },
   ]
 
@@ -25,21 +27,12 @@ export function Nav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
-      <nav className="site-shell flex min-h-16 items-center justify-between gap-6">
+      <nav className="site-shell flex min-h-16 items-center justify-between gap-4">
         <Link className="flex shrink-0 items-center gap-3" to="/#top" aria-label="CasaMia">
-          {logoFailed ? (
-            <span className="font-display text-2xl font-black text-navy">CasaMia</span>
-          ) : (
-            <img
-              src={IMAGE_URLS.logo}
-              alt={t('alts.logo')}
-              className="h-9 w-auto"
-              onError={() => setLogoFailed(true)}
-            />
-          )}
+          <BrandLogo />
         </Link>
 
-        <div className="hidden items-center gap-9 lg:flex">
+        <div className="hidden items-center gap-7 xl:flex 2xl:gap-9">
           {links.map((link) => (
             <Link key={link.to} className="nav-link" to={link.to}>
               {link.label}
@@ -47,15 +40,15 @@ export function Nav() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-5 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex 2xl:gap-5">
           <a
-            className="inline-flex items-center gap-2 text-sm font-bold text-navy"
+            className="inline-flex min-w-max items-center gap-2 whitespace-nowrap text-sm font-extrabold text-navy"
             href={`tel:${t('nav.phone').replaceAll(' ', '')}`}
           >
             <Phone size={17} aria-hidden="true" />
             {t('nav.phone')}
           </a>
-          <Link className="btn btn-green min-h-0 px-5 py-2 text-sm" to="/#plans">
+          <Link className="btn btn-green min-h-0 min-w-max whitespace-nowrap px-6 py-2 text-sm" to="/free-home-safety-assessment">
             {t('nav.cta')}
           </Link>
           <LanguageSwitcher compact />
@@ -63,7 +56,7 @@ export function Nav() {
 
         <button
           type="button"
-          className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-full bg-light-blue text-navy lg:hidden"
+          className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-full bg-light-blue text-navy xl:hidden"
           aria-label={mobileOpen ? t('nav.closeMenu') : t('nav.menu')}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((open) => !open)}
@@ -73,7 +66,7 @@ export function Nav() {
       </nav>
 
       {mobileOpen ? (
-        <div className="border-t border-border bg-white px-5 py-5 shadow-soft lg:hidden">
+        <div className="border-t border-border bg-white px-5 py-5 shadow-soft xl:hidden">
           <div className="mx-auto flex max-w-site flex-col gap-4">
             {links.map((link) => (
               <Link key={link.to} className="nav-link min-h-12 py-2 text-lg" to={link.to}>
@@ -83,7 +76,7 @@ export function Nav() {
             <a className="nav-link min-h-12 py-2 text-lg" href={`tel:${t('nav.phone').replaceAll(' ', '')}`}>
               {t('nav.phone')}
             </a>
-            <Link className="btn btn-green w-full" to="/#plans">
+            <Link className="btn btn-green w-full" to="/free-home-safety-assessment">
               {t('nav.cta')}
             </Link>
             <LanguageSwitcher />

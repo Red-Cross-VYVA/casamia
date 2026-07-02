@@ -9,14 +9,19 @@ import {
 
 import { Footer } from './components/Footer'
 import { Nav } from './components/Nav'
+import { AboutPage } from './pages/AboutPage'
 import { ContactPage } from './pages/ContactPage'
 import { EstimateReportPage } from './pages/EstimateReportPage'
+import { FreeHomeSafetyAssessmentPage } from './pages/FreeHomeSafetyAssessmentPage'
 import { GrantEligibilityPage } from './pages/GrantEligibilityPage'
 import { GrantsPage } from './pages/GrantsPage'
 import { HomePage } from './pages/HomePage'
 import { HowItWorksPage } from './pages/HowItWorksPage'
+import { OrderPage } from './pages/OrderPage'
 import { PlanDetailPage } from './pages/PlanDetailPage'
 import { PlansPage } from './pages/PlansPage'
+import { TechPage } from './pages/TechPage'
+import { WhyCasamiaPage } from './pages/WhyCasamiaPage'
 
 function ScrollManager() {
   const location = useLocation()
@@ -48,6 +53,11 @@ function AppRoutes() {
           <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/plans" element={<PlansPage />} />
           <Route path="/plans/:planId" element={<PlanDetailPage />} />
+          <Route path="/tech" element={<TechPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/order" element={<OrderPage />} />
+          <Route path="/why-casamia" element={<WhyCasamiaPage />} />
+          <Route path="/free-home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
           <Route path="/grants" element={<GrantsPage />} />
           <Route path="/grant-check" element={<GrantEligibilityPage />} />
           <Route path="/estimate/:token" element={<EstimateReportPage />} />

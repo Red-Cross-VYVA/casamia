@@ -12,14 +12,6 @@ export type EstimatePhotoInput = {
 
 export type EstimateWorkflowInput = {
   locale: string
-  contact: {
-    name: string
-    email: string
-    phone: string
-    deliveryEmail: boolean
-    deliveryWhatsapp: boolean
-    consentAt: string
-  }
   context: {
     region: string
     postcode: string
@@ -29,6 +21,27 @@ export type EstimateWorkflowInput = {
     description: string
   }
   photos: EstimatePhotoInput[]
+}
+
+export type ReportDeliveryContact = {
+  name: string
+  email: string
+  phone: string
+  deliveryEmail: boolean
+  deliveryWhatsapp: boolean
+  consentAt: string
+}
+
+export type ReportDeliveryInput = {
+  reportType: 'safety' | 'grant'
+  token: string
+  contact: ReportDeliveryContact
+  reportTitle: string
+  reportUrl?: string
+}
+
+type LegacyEstimateWorkflowInput = EstimateWorkflowInput & {
+  contact: ReportDeliveryContact
 }
 
 export type EstimateHazard = {
@@ -86,15 +99,55 @@ type IntakeResponse = {
 
 const REPORT_STORAGE_PREFIX = 'casamia-estimate-report-'
 const LEAD_STORAGE_KEY = 'casamia-estimate-leads'
+const DELIVERY_STORAGE_KEY = 'casamia-report-deliveries'
 
 const apiBase = (import.meta.env.VITE_ESTIMATE_API_URL ?? '').replace(/\/$/, '')
 
-export async function submitEstimateWorkflow(input: EstimateWorkflowInput) {
+export async function generateSafetyReport(input: EstimateWorkflowInput) {
   if (apiBase) {
     return submitViaApi(input)
   }
 
   return submitLocalDemo(input)
+}
+
+export async function sendReportDelivery(input: ReportDeliveryInput) {
+  if (apiBase) {
+    const response = await fetch(`${apiBase}/api/report-delivery`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(input),
+    })
+
+    if (!response.ok) {
+      throw new Error('Could not queue report delivery.')
+    }
+
+    return (await response.json()) as {
+      email: DeliveryChannelStatus
+      whatsapp: DeliveryChannelStatus
+    }
+  }
+
+  return queueLocalReportDelivery(input)
+}
+
+export async function submitEstimateWorkflow(input: LegacyEstimateWorkflowInput) {
+  if (apiBase) {
+    return submitViaApi(input)
+  }
+
+  const report = await submitLocalDemo(input)
+
+  await sendReportDelivery({
+    reportType: 'safety',
+    token: report.token,
+    reportTitle: report.recommendedPlan,
+    reportUrl: report.reportUrl,
+    contact: input.contact,
+  })
+
+  return loadEstimateReport(report.token)
 }
 
 export async function loadEstimateReport(token: string) {
@@ -122,7 +175,6 @@ async function submitViaApi(input: EstimateWorkflowInput) {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
-      contact: input.contact,
       context: input.context,
       photos: input.photos.map(({ file, id, room }) => ({
         id,
@@ -183,7 +235,6 @@ async function submitLocalDemo(input: EstimateWorkflowInput) {
   const createdAt = new Date()
   const expiresAt = new Date(createdAt)
   expiresAt.setDate(createdAt.getDate() + 30)
-  persistLocalLeadIntake(input, token, createdAt.toISOString())
 
   await new Promise((resolve) => window.setTimeout(resolve, 900))
 
@@ -200,7 +251,7 @@ function buildLocalReport(
   expiresAt: string,
 ): EstimateReport {
   const rooms = Array.from(new Set(input.photos.map((photo) => photo.room).filter(Boolean)))
-  const hazards = buildHazards(input, rooms)
+  const hazards = buildPhotoHazards(input)
   const highRiskCount = hazards.filter((hazard) => hazard.severity === 'high').length
   const plan = choosePlan(input, hazards.length, highRiskCount)
   const recommendedPlanId = plan.toLowerCase() as PlanId
@@ -213,33 +264,29 @@ function buildLocalReport(
     min: Math.round(estimatedCostRange.min * 0.35),
     max: Math.round(estimatedCostRange.max * 0.78),
   }
-  const preferredChannels = [
-    input.contact.deliveryEmail ? 'email' : '',
-    input.contact.deliveryWhatsapp ? 'whatsapp' : '',
-  ].filter(Boolean)
 
   return {
     token,
     createdAt,
     expiresAt,
     reportUrl: `${window.location.origin}/estimate/${token}`,
-    summary: buildSummary(input, plan, hazards.length),
+    summary: buildReportSummary(input, plan, hazards.length),
     recommendedPlan: plan,
     recommendedPlanId,
     estimatedCostRange,
     grantEstimateRange,
     confidence: Math.min(94, 62 + input.photos.length * 5 + highRiskCount * 6),
     hazards,
-    followUpQuestions: buildFollowUpQuestions(input),
+    followUpQuestions: buildReportFollowUpQuestions(input),
     delivery: {
-      email: input.contact.deliveryEmail ? 'queued' : 'not_requested',
-      whatsapp: input.contact.deliveryWhatsapp ? 'queued' : 'not_requested',
+      email: 'not_requested',
+      whatsapp: 'not_requested',
     },
     lead: {
-      name: input.contact.name,
-      email: input.contact.email,
-      phone: input.contact.phone,
-      preferredChannels,
+      name: '',
+      email: '',
+      phone: '',
+      preferredChannels: [],
     },
     context: {
       ...input.context,
@@ -324,7 +371,7 @@ function buildSummary(input: EstimateWorkflowInput, plan: EstimatePlanName, haza
   const location = input.context.postcode ? ` in ${input.context.postcode}` : ''
   const plural = hazardCount === 1 ? 'risk area' : 'risk areas'
 
-  return `Based on the photos and context${location}, CasaMia found ${hazardCount} likely ${plural}. The ${plan} plan is the best starting point for a safer home assessment. Possible grants still need regional verification.`
+  return `Based on the photos and context${location}, CasaMia found ${hazardCount} likely ${plural}. The ${plan} plan is the best starting point for a focused home safety review.`
 }
 
 function buildFollowUpQuestions(input: EstimateWorkflowInput) {
@@ -333,70 +380,245 @@ function buildFollowUpQuestions(input: EstimateWorkflowInput) {
     'Is the resident already using mobility support such as a cane, walker, or wheelchair?',
   ]
 
-  if (!input.context.region) {
-    questions.push('Which autonomous community should CasaMia check for current grant calls?')
-  }
-
   if (input.context.urgency === 'Urgent') {
-    questions.push('Is there an immediate fall or access risk that should be handled before grant paperwork?')
+    questions.push('Is there an immediate fall or access risk that should be handled first?')
   }
 
   return questions
 }
 
-function persistLocalLeadIntake(input: EstimateWorkflowInput, token: string, createdAt: string) {
-  const current = JSON.parse(window.localStorage.getItem(LEAD_STORAGE_KEY) ?? '[]') as Array<unknown>
-  window.localStorage.setItem(
-    LEAD_STORAGE_KEY,
-    JSON.stringify([
-      {
-        token,
-        createdAt,
-        status: 'intake_created',
-        name: input.contact.name,
-        email: input.contact.email,
-        phone: input.contact.phone,
-        postcode: input.context.postcode,
-        photoCount: input.photos.length,
-        preferredChannels: [
-          input.contact.deliveryEmail ? 'email' : '',
-          input.contact.deliveryWhatsapp ? 'whatsapp' : '',
-        ].filter(Boolean),
-      },
-      ...current,
-    ].slice(0, 50)),
-  )
+function buildPhotoHazards(input: EstimateWorkflowInput) {
+  if (input.photos.length === 0) {
+    return buildHazards(input, [])
+  }
+
+  const photos = input.photos
+  const description = normaliseText(input.context.description)
+  const concern = normaliseText(input.context.mainConcern)
+  const isFallConcern =
+    concern.includes('fall') ||
+    concern.includes('caida') ||
+    description.includes('fall') ||
+    description.includes('caida')
+
+  const hazards = photos.map((photo, index): EstimateHazard => {
+    const room = photo.room || 'General'
+    const roomKey = normaliseText(room)
+    const roomLabel = formatPhotoRoom(input.locale, room, index)
+
+    if (roomKey.includes('bath') || roomKey.includes('bano')) {
+      return {
+        room: roomLabel,
+        issue: localiseReportText(input.locale, {
+          en: 'Wet floors, shower transfers, and toilet access may create a high fall risk.',
+          es: 'El suelo mojado, la entrada a la ducha y el acceso al inodoro pueden crear alto riesgo de caída.',
+        }),
+        severity: 'high',
+        recommendation: localiseReportText(input.locale, {
+          en: 'Prioritise grab bars, non-slip flooring, better lighting, and an accessible shower review.',
+          es: 'Priorizar barras de apoyo, suelo antideslizante, mejor iluminación y revisión de ducha accesible.',
+        }),
+      }
+    }
+
+    if (roomKey.includes('stair') || roomKey.includes('escalera') || concern.includes('stair')) {
+      return {
+        room: roomLabel,
+        issue: localiseReportText(input.locale, {
+          en: 'Steps and level changes may need stronger hand support, contrast, and visibility.',
+          es: 'Los escalones y desniveles pueden necesitar más apoyo, contraste visual y visibilidad.',
+        }),
+        severity: 'high',
+        recommendation: localiseReportText(input.locale, {
+          en: 'Fit handrails, anti-slip stair treads, contrast strips, and motion-activated lighting.',
+          es: 'Instalar pasamanos, huellas antideslizantes, bandas de contraste e iluminación con sensor.',
+        }),
+      }
+    }
+
+    if (roomKey.includes('kitchen') || roomKey.includes('cocina')) {
+      return {
+        room: roomLabel,
+        issue: localiseReportText(input.locale, {
+          en: 'Reach, heat, appliance use, and floor-slip risks should be checked in this area.',
+          es: 'Conviene revisar alcance, calor, uso de electrodomésticos y riesgo de resbalones en esta zona.',
+        }),
+        severity: isFallConcern ? 'high' : 'medium',
+        recommendation: localiseReportText(input.locale, {
+          en: 'Review pull-out storage, anti-fatigue mats, stove alarms, clearer pathways, and task lighting.',
+          es: 'Revisar almacenamiento extraíble, alfombrillas seguras, alarmas de cocina, pasos despejados e iluminación de trabajo.',
+        }),
+      }
+    }
+
+    return {
+      room: roomLabel,
+      issue: localiseReportText(input.locale, {
+        en: 'This room may contain trip, lighting, furniture-clearance, or emergency-access risks.',
+        es: 'Esta estancia puede tener riesgos de tropiezo, poca iluminación, falta de espacio o acceso difícil en emergencia.',
+      }),
+      severity: isFallConcern ? 'high' : 'medium',
+      recommendation: localiseReportText(input.locale, {
+        en: 'Check clear walking routes, remove loose rugs, add motion lighting, and improve reachable support points.',
+        es: 'Revisar pasos despejados, retirar alfombras sueltas, añadir iluminación con sensor y mejorar puntos de apoyo.',
+      }),
+    }
+  })
+
+  if ((concern.includes('emergency') || concern.includes('urgencia') || description.includes('caida')) && hazards.length > 0) {
+    hazards[0] = {
+      ...hazards[0],
+      severity: 'high',
+      recommendation: `${hazards[0].recommendation} ${localiseReportText(input.locale, {
+        en: 'Include emergency call buttons or family alerts in the next review.',
+        es: 'Incluir botones de emergencia o avisos familiares en la siguiente revisión.',
+      })}`,
+    }
+  }
+
+  return hazards
+}
+
+function buildReportSummary(input: EstimateWorkflowInput, plan: EstimatePlanName, hazardCount: number) {
+  if (input.locale.startsWith('es')) {
+    const location = input.context.postcode ? ` en ${input.context.postcode}` : ''
+    const plural = hazardCount === 1 ? 'zona de riesgo probable' : 'zonas de riesgo probables'
+
+    return `Según las fotos y el contexto${location}, CasaMia ha detectado ${hazardCount} ${plural}. El plan ${plan} es el mejor punto de partida para una revisión enfocada en la seguridad del hogar.`
+  }
+
+  return buildSummary(input, plan, hazardCount)
+}
+
+function buildReportFollowUpQuestions(input: EstimateWorkflowInput) {
+  if (input.locale.startsWith('es')) {
+    const questions = [
+      '¿Puede CasaMia revisar fotos más amplias de la entrada, el baño y el recorrido principal?',
+      '¿La persona usa bastón, andador, silla de ruedas u otro apoyo de movilidad?',
+    ]
+
+    if (input.context.urgency === 'Urgent') {
+      questions.push('¿Existe un riesgo inmediato de caída o acceso que convenga resolver primero?')
+    }
+
+    return questions
+  }
+
+  return buildFollowUpQuestions(input)
+}
+
+function localiseReportText(locale: string, text: { en: string; es: string }) {
+  return locale.startsWith('es') ? text.es : text.en
+}
+
+function formatPhotoRoom(locale: string, room: string, index: number) {
+  const prefix = locale.startsWith('es') ? 'Foto' : 'Photo'
+  return `${prefix} ${index + 1} · ${localiseRoom(locale, room || 'General')}`
+}
+
+function localiseRoom(locale: string, room: string) {
+  if (!locale.startsWith('es')) {
+    return room || 'General'
+  }
+
+  const roomKey = normaliseText(room)
+  const rooms: Record<string, string> = {
+    bath: 'Baño',
+    bathroom: 'Baño',
+    kitchen: 'Cocina',
+    stair: 'Escalera',
+    stairs: 'Escalera',
+    bedroom: 'Dormitorio',
+    entrance: 'Entrada',
+    'living room': 'Salón',
+    other: 'Otra estancia',
+    general: 'General',
+  }
+
+  return rooms[roomKey] ?? room
+}
+
+function normaliseText(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
 }
 
 function persistLocalReport(report: EstimateReport) {
   window.localStorage.setItem(`${REPORT_STORAGE_PREFIX}${report.token}`, JSON.stringify(report))
+}
 
-  const current = JSON.parse(window.localStorage.getItem(LEAD_STORAGE_KEY) ?? '[]') as Array<unknown>
+function queueLocalReportDelivery(input: ReportDeliveryInput) {
+  const delivery = {
+    email: input.contact.deliveryEmail ? 'queued' : 'not_requested',
+    whatsapp: input.contact.deliveryWhatsapp ? 'queued' : 'not_requested',
+  } satisfies {
+    email: DeliveryChannelStatus
+    whatsapp: DeliveryChannelStatus
+  }
+  const preferredChannels = [
+    input.contact.deliveryEmail ? 'email' : '',
+    input.contact.deliveryWhatsapp ? 'whatsapp' : '',
+  ].filter(Boolean)
+  const currentDeliveries = JSON.parse(window.localStorage.getItem(DELIVERY_STORAGE_KEY) ?? '[]') as Array<unknown>
+  const currentLeads = JSON.parse(window.localStorage.getItem(LEAD_STORAGE_KEY) ?? '[]') as Array<unknown>
+
+  window.localStorage.setItem(
+    DELIVERY_STORAGE_KEY,
+    JSON.stringify([
+      {
+        token: input.token,
+        reportType: input.reportType,
+        reportTitle: input.reportTitle,
+        reportUrl: input.reportUrl,
+        queuedAt: new Date().toISOString(),
+        name: input.contact.name,
+        email: input.contact.email,
+        phone: input.contact.phone,
+        preferredChannels,
+        delivery,
+      },
+      ...currentDeliveries,
+    ].slice(0, 50)),
+  )
+
   window.localStorage.setItem(
     LEAD_STORAGE_KEY,
-    JSON.stringify(
-      current.map((lead) => {
-        if (!lead || typeof lead !== 'object' || !('token' in lead) || lead.token !== report.token) {
-          return lead
-        }
-
-        return {
-          ...lead,
-          status: 'estimate_ready',
-          recommendedPlan: report.recommendedPlan,
-        }
-      }).concat(current.some((lead) => Boolean(lead && typeof lead === 'object' && 'token' in lead && lead.token === report.token)) ? [] : [{
-        token: report.token,
-        createdAt: report.createdAt,
-        status: 'estimate_ready',
-        name: report.lead.name,
-        email: report.lead.email,
-        phone: report.lead.phone,
-        postcode: report.context.postcode,
-        recommendedPlan: report.recommendedPlan,
-      }]).slice(0, 50),
-    ),
+    JSON.stringify([
+      {
+        token: input.token,
+        reportType: input.reportType,
+        status: 'delivery_queued',
+        createdAt: new Date().toISOString(),
+        name: input.contact.name,
+        email: input.contact.email,
+        phone: input.contact.phone,
+        preferredChannels,
+      },
+      ...currentLeads,
+    ].slice(0, 50)),
   )
+
+  if (input.reportType === 'safety') {
+    const raw = window.localStorage.getItem(`${REPORT_STORAGE_PREFIX}${input.token}`)
+
+    if (raw) {
+      const report = JSON.parse(raw) as EstimateReport
+      persistLocalReport({
+        ...report,
+        delivery,
+        lead: {
+          name: input.contact.name,
+          email: input.contact.email,
+          phone: input.contact.phone,
+          preferredChannels,
+        },
+      })
+    }
+  }
+
+  return delivery
 }
 
 function createToken() {

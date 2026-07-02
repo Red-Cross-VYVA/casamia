@@ -13,21 +13,198 @@
     "howItWorks": "Cómo Funciona",
     "plans": "Planes",
     "grants": "Ayudas",
+    "about": "Nosotros",
+    "whyCasamia": "Por qué CasaMia",
+    "freeAssessment": "Evaluación Gratis",
     "contact": "Contacto",
-    "cta": "Elegir un Plan",
+    "cta": "Reservar evaluación gratis",
     "phone": "+34 900 000 000",
     "menu": "Abrir menú",
     "closeMenu": "Cerrar menú"
   },
   "hero": {
     "badge": "Especialistas en seguridad del hogar · Toda España",
-    "line1": "Home Safe",
-    "line2": "Home.",
-    "sub": "Prevenir es la mejor cura. Sube fotos de tu hogar y obtén una evaluación de seguridad y estimación de costes gratuita e instantánea.",
-    "uploadLabel": "Sube fotos de tu hogar",
+    "line1": "Hogar, seguro",
+    "line2": "hogar.",
+    "sub": "Sube fotos de cada estancia y recibe gratis un informe de seguridad con los riesgos detectados en cada foto.",
+    "uploadLabel": "¿Tu hogar es seguro? Descúbrelo gratis.",
     "uploadRooms": "Baño · Cocina · Escalera · Salón",
-    "cta": "Obtener Mi Estimación Gratuita",
-    "micro": "Gratis · Sin compromiso · Resultados en segundos"
+    "uploadReport": "Informe gratis: riesgos por cada foto",
+    "uploadNote": "Baño, cocina, escalera o salón: señalamos peligros y qué adaptar primero.",
+    "selectedHelp": "Siguiente: etiqueta cada estancia y elige dónde recibir el informe.",
+    "cta": "Descubrirlo gratis",
+    "micro": "Sube fotos · Sin compromiso",
+    "safetyCheck": {
+      "title": "¿Tu hogar es seguro?",
+      "body": "Detecta peligros ocultos antes de una caída.",
+      "cta": "Ver informe gratis"
+    },
+    "grantCheck": {
+      "title": "¿Puedes recibir ayudas?",
+      "body": "Descubre si puedes reducir el coste de adaptar tu hogar.",
+      "cta": "Comprobar gratis"
+    }
+  },
+  "reportDelivery": {
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "email": "Email",
+    "phone": "Teléfono",
+    "emailDelivery": "Enviar por email",
+    "emailDeliveryBody": "Ideal para recibir el enlace seguro del informe completo.",
+    "whatsappDelivery": "Enlace por WhatsApp",
+    "whatsappDeliveryBody": "Mensaje breve solamente. Los detalles sensibles quedan en el informe.",
+    "sendSuccess": "Envío del informe preparado."
+  },
+  "assessment": {
+    "metaTitle": "Evaluación gratuita de seguridad del hogar",
+    "hero": {
+      "title": "¿Tu hogar es seguro para envejecer en casa?",
+      "subtitle": "Reserva una evaluación gratuita de seguridad y deja que CasaMia identifique riesgos, posibles caídas y mejoras de comodidad adaptadas a tu vivienda.",
+      "cta": "Reservar evaluación gratis",
+      "reassurance": "Sin compromiso. Sin presión. Solo orientación experta para un hogar más seguro.",
+      "panelTitle": "Una revisión práctica antes de decidir nada.",
+      "panelBody": "Revisamos las estancias, rutinas y momentos de riesgo que más importan para vivir con más seguridad."
+    },
+    "benefits": {
+      "title": "Qué conseguirás",
+      "items": [
+        {
+          "title": "Detectar riesgos ocultos de caída",
+          "body": "Identifica pequeños peligros que suelen pasar desapercibidos y pueden causar resbalones, tropiezos o accidentes evitables."
+        },
+        {
+          "title": "Mejorar seguridad y comodidad",
+          "body": "Entiende qué cambios pueden hacer que moverse por casa sea más fácil, tranquilo y seguro."
+        },
+        {
+          "title": "Apoyar la vida independiente",
+          "body": "Crea un entorno más seguro que ayude a mantener rutinas diarias con confianza."
+        },
+        {
+          "title": "Recibir recomendaciones expertas",
+          "body": "Obtén orientación práctica de personas que entienden la seguridad para envejecer en casa."
+        },
+        {
+          "title": "Planificar adaptaciones con confianza",
+          "body": "Sabe qué importa primero antes de elegir equipamiento, instalación o paquete."
+        },
+        {
+          "title": "Tranquilidad para toda la familia",
+          "body": "Da a los familiares una visión más clara del hogar y del siguiente paso más seguro."
+        }
+      ]
+    },
+    "included": {
+      "title": "Qué incluye tu evaluación gratuita",
+      "body": "Una revisión enfocada de seguridad del hogar, pensada para darte próximos pasos claros y útiles sin presión.",
+      "items": [
+        {
+          "title": "Inspección de seguridad estancia por estancia",
+          "body": "Revisamos los espacios donde ocurren los movimientos, transferencias y rutinas diarias."
+        },
+        {
+          "title": "Revisión de riesgo de caída y accesibilidad",
+          "body": "Analizamos puntos comunes como superficies resbaladizas, mala iluminación, escalones y accesos."
+        },
+        {
+          "title": "Baño, escaleras, entrada, cocina y zonas exteriores",
+          "body": "Las zonas de mayor riesgo se revisan para detectar mejoras prácticas de seguridad y comodidad."
+        },
+        {
+          "title": "Recomendaciones personalizadas",
+          "body": "La evaluación se adapta a la vivienda, la persona y los cambios que más ayudarían."
+        },
+        {
+          "title": "Propuesta clara si hacen falta mejoras",
+          "body": "Si conviene adaptar algo, explicamos el alcance recomendado y el siguiente paso con claridad."
+        }
+      ]
+    },
+    "how": {
+      "title": "Cómo funciona",
+      "items": [
+        {
+          "title": "Reserva tu evaluación gratuita",
+          "body": "Comparte tus datos, horario preferido y cualquier preocupación sobre la vivienda."
+        },
+        {
+          "title": "Inspeccionamos tu hogar",
+          "body": "Un representante de CasaMia revisa las estancias clave y los momentos de riesgo."
+        },
+        {
+          "title": "Recibes recomendaciones expertas",
+          "body": "Obtienes orientación clara sobre riesgos, prioridades y posibles próximos pasos."
+        }
+      ]
+    },
+    "formSection": {
+      "title": "Reserva tu evaluación gratuita de seguridad",
+      "body": "Cuéntanos dónde está la vivienda y cómo prefieres que contactemos. Un representante de soporte de CasaMia te llamará para organizar la visita de inspección."
+    },
+    "form": {
+      "title": "Solicitud de evaluación",
+      "intro": "Los campos marcados con * son obligatorios. Indica teléfono o email.",
+      "fields": {
+        "name": "Nombre completo",
+        "phone": "Teléfono",
+        "email": "Email",
+        "city": "Ciudad / zona",
+        "contactMethod": "Método de contacto preferido",
+        "date": "Fecha preferida de evaluación",
+        "message": "Mensaje / preocupaciones concretas",
+        "selectedPlan": "Plan seleccionado"
+      },
+      "contactOptions": [
+        {
+          "value": "phone",
+          "label": "Teléfono"
+        },
+        {
+          "value": "whatsapp",
+          "label": "WhatsApp"
+        },
+        {
+          "value": "email",
+          "label": "Email"
+        }
+      ],
+      "submit": "Enviar solicitud",
+      "success": "Gracias. Hemos recibido tu solicitud. Un representante de atención al cliente de CasaMia contactará contigo en breve para programar la visita de inspección del hogar en el horario que mejor te venga. También puedes programarla tú mismo usando el botón de abajo.",
+      "schedule": "Programar inspección",
+      "errors": {
+        "name": "Introduce tu nombre completo.",
+        "contact": "Introduce un teléfono o email.",
+        "city": "Introduce tu ciudad o zona.",
+        "consent": "Acepta que podamos contactarte sobre tu solicitud de evaluación."
+      },
+      "submitting": "Enviando solicitud...",
+      "error": "No pudimos enviar tu solicitud. Inténtalo de nuevo o contacta con CasaMia por teléfono.",
+      "consent": "Acepto que Casamia contacte conmigo sobre mi solicitud de evaluación de seguridad del hogar.",
+      "privacy": "Tu información solo se usa para programar tu evaluación. Nunca vendemos tus datos.",
+      "planOptions": [
+        {
+          "value": "not-sure",
+          "label": "Aún no lo sé"
+        },
+        {
+          "value": "home-assessment",
+          "label": "Plan Evaluación del Hogar"
+        },
+        {
+          "value": "home-safety",
+          "label": "Plan Seguridad del Hogar"
+        },
+        {
+          "value": "smart-safety",
+          "label": "Plan Seguridad Smart"
+        }
+      ],
+      "successWithPlan": "Gracias. Hemos recibido tu solicitud para el {{plan}}. Un representante de Casamia contactará contigo en breve."
+    },
+    "final": {
+      "title": "Da el primer paso hacia un hogar más seguro."
+    }
   },
   "alts": {
     "logo": "Logotipo de CasaMia",
@@ -45,9 +222,9 @@
     "stat": "90%",
     "line2": "CUBIERTO",
     "helper": "Gestionamos la solicitud.",
-    "ribbonHelper": "Ayuda y gestion incluidas",
+    "ribbonHelper": "Ayuda y gestión incluidas",
     "badgeLabel": "AYUDAS",
-    "badgeHelper": "Gestion incluida"
+    "badgeHelper": "Gestión incluida"
   },
   "prevention": {
     "badge": "Por qué importa",
@@ -55,9 +232,18 @@
     "sub": "caídas de mayores son prevenibles.",
     "body": "Las caídas son la principal causa de lesiones en adultos mayores de 65 años, y la mayoría ocurren en casa. Las adaptaciones adecuadas se instalan en menos de un día y pueden cambiarlo todo.",
     "stats": [
-      { "value": "78%", "label": "de hogares en España\nno adaptados" },
-      { "value": "9,93M", "label": "mayores en España,\ncada año más" },
-      { "value": "€6.000", "label": "ayuda media del gobierno\npara cubrir costes" }
+      {
+        "value": "78%",
+        "label": "de hogares en España\nno adaptados"
+      },
+      {
+        "value": "9,93M",
+        "label": "mayores en España,\ncada año más"
+      },
+      {
+        "value": "€6.000",
+        "label": "ayuda media del gobierno\npara cubrir costes"
+      }
     ]
   },
   "offer": {
@@ -196,22 +382,36 @@
   "finalCta": {
     "title": "El hogar de tus padres,\nhecho seguro.",
     "body": "Sube unas fotos hoy. Descubre exactamente qué necesita tu hogar y cuánto podría costar después de las ayudas.",
-    "cta": "Obtener Mi Estimación Gratuita"
+    "cta": "Obtener estimación gratis"
   },
   "footer": {
     "tagline": "Ayudamos a familias de toda Europa a envejecer con tranquilidad en casa.",
     "phone": "+34 900 000 000",
     "company": {
       "title": "Empresa",
-      "links": ["Cómo Funciona", "Planes", "Ayudas", "Contacto"]
+      "links": [
+        "Cómo Funciona",
+        "Planes",
+        "Ayudas",
+        "Contacto"
+      ]
     },
     "legal": {
       "title": "Legal",
-      "links": ["Política de Privacidad", "Política de Cookies", "Términos"]
+      "links": [
+        "Política de Privacidad",
+        "Política de Cookies",
+        "Términos"
+      ]
     },
     "support": {
       "title": "Soporte",
-      "links": ["FAQ", "Guía de Ayudas", "Reservar Llamada", "Sobre Nosotros"]
+      "links": [
+        "FAQ",
+        "Guía de Ayudas",
+        "Reservar Llamada",
+        "Sobre Nosotros"
+      ]
     },
     "copyright": "© 2026 CasaMia. Todos los derechos reservados."
   },
@@ -232,17 +432,24 @@
     "beforeGrants": "Antes de ayudas",
     "afterGrants": "Después de ayudas",
     "workflow": {
-      "kicker": "Estimación gratuita de seguridad",
-      "title": "Envía fotos. Recibe un plan para un hogar más seguro.",
-      "progress": "Progreso de la estimación",
-      "steps": ["Fotos", "Hogar", "Contacto", "Resultado"],
+      "kicker": "Informe gratuito de seguridad",
+      "title": "Revisa la seguridad de tu hogar.",
+      "progress": "Progreso del informe",
+      "steps": [
+        "Fotos",
+        "Contexto",
+        "Informe",
+        "Enviar"
+      ],
       "back": "Atrás",
       "continue": "Continuar",
-      "createEstimate": "Crear mi estimación",
+      "createEstimate": "Ver mi informe gratis",
+      "sendThisReport": "Enviarme este informe",
+      "sendReport": "Enviar informe",
       "choose": "Elige una opción",
       "photos": {
-        "title": "Sube las estancias que te preocupan.",
-        "body": "Añade hasta 8 fotos. Lo mejor son fotos amplias: baño, escalera, entrada, cocina, dormitorio y zonas de paso.",
+        "title": "Empieza con las estancias clave.",
+        "body": "Añade entre 1 y 8 fotos amplias de baño, escalera, entrada, cocina, dormitorio o zonas de paso. Cada foto se revisa como una estancia del informe.",
         "add": "Añadir más fotos",
         "rules": "JPG, PNG o WebP. Hasta 8 fotos, 8MB cada una.",
         "roomLabel": "Estancia",
@@ -252,18 +459,19 @@
         "descriptionPlaceholder": "Ejemplo: mi madre usa andador, el suelo del baño resbala, la escalera tiene poca luz..."
       },
       "home": {
-        "title": "Dinos dónde y qué debemos revisar.",
-        "body": "El código postal y el contexto de la vivienda ayudan a CasaMia a preparar el plan adecuado y verificar posibles ayudas regionales.",
+        "title": "Cuéntanos qué te preocupa.",
+        "body": "Solo necesitamos contexto práctico para leer mejor las fotos y priorizar los riesgos reales de la vivienda.",
         "region": "Comunidad autónoma",
         "postcode": "Código postal",
         "homeType": "Tipo de vivienda",
-        "concern": "Preocupación principal",
-        "urgency": "Plazo",
-        "regionalNote": "Las ayudas en España dependen de convocatorias regionales, documentación y el alcance final de la adaptación."
+        "concern": "Qué te preocupa",
+        "urgency": "Prioridad",
+        "regionalNote": "No hace falta compartir documentos ni datos médicos. Si hay caídas recientes, poca movilidad o una zona especialmente peligrosa, indícalo en las notas."
       },
       "contact": {
-        "title": "¿Dónde enviamos la estimación?",
-        "body": "CasaMia recoge estos datos antes del análisis para poder entregar el informe y hacer seguimiento correctamente.",
+        "title": "Envía tu informe de seguridad",
+        "body": "Elige email, WhatsApp o ambos para recibir el enlace seguro del informe.",
+        "deliveryIntro": "Tu informe ya está visible. Añade tus datos solo si quieres que CasaMia te lo envíe o haga seguimiento.",
         "name": "Nombre",
         "namePlaceholder": "Tu nombre",
         "email": "Email",
@@ -272,18 +480,22 @@
         "emailDeliveryBody": "Ideal para recibir la estimación completa y el enlace seguro.",
         "whatsappDelivery": "Enlace seguro por WhatsApp",
         "whatsappDeliveryBody": "Mensaje breve solamente. Los detalles sensibles quedan en el informe.",
-        "consent": "Acepto que CasaMia procese las fotos de mi hogar, la información de seguridad y mis datos de contacto para preparar y enviar mi estimación."
+        "consent": "Acepto que CasaMia procese las fotos de mi hogar, la información de seguridad y mis datos de contacto para preparar y enviar mi informe gratuito de seguridad."
       },
       "result": {
-        "loadingTitle": "Preparando tu estimación...",
-        "loadingBody": "Estamos creando el lead, revisando el contexto de la vivienda y preparando el enlace del informe.",
+        "loadingTitle": "Preparando tu informe de seguridad...",
+        "loadingBody": "Estamos guardando la solicitud, revisando cada foto por estancia y preparando el enlace seguro del informe.",
         "retry": "Intentar de nuevo",
-        "kicker": "Estimación lista",
-        "title": "Tu estimación de seguridad",
+        "kicker": "Informe listo",
+        "title": "Tu informe de seguridad por estancia",
         "costRange": "Rango de coste estimado",
         "grantRange": "Posible rango de ayudas",
+        "safetyPriority": "Prioridad de seguridad",
+        "priorityHigh": "Alta",
+        "priorityMedium": "Media",
         "confidence": "confianza",
         "deliveryTitle": "Estado del envío",
+        "readyToSend": "¿Quieres guardarlo? En el siguiente paso puedes recibir el enlace seguro por email o WhatsApp.",
         "emailQueued": "El informe completo está listo para enviarse por email.",
         "whatsappQueued": "El WhatsApp incluirá solamente un enlace seguro al informe.",
         "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
@@ -294,46 +506,134 @@
         "unsupported": "{{file}} no es un tipo de imagen compatible.",
         "tooLarge": "{{file}} supera los 8MB.",
         "maxPhotos": "Puedes subir hasta {{count}} fotos.",
-        "submit": "No pudimos crear la estimación. Los datos siguen seguros en el formulario; inténtalo de nuevo."
+        "submit": "No pudimos crear el informe. Inténtalo de nuevo.",
+        "delivery": "No pudimos preparar el envío del informe. Inténtalo de nuevo."
       },
       "rooms": [
-        { "value": "Bathroom", "label": "Baño" },
-        { "value": "Kitchen", "label": "Cocina" },
-        { "value": "Stairs", "label": "Escalera" },
-        { "value": "Living room", "label": "Salón" },
-        { "value": "Bedroom", "label": "Dormitorio" },
-        { "value": "Entrance", "label": "Entrada" },
-        { "value": "Other", "label": "Otro" }
+        {
+          "value": "Bathroom",
+          "label": "Baño"
+        },
+        {
+          "value": "Kitchen",
+          "label": "Cocina"
+        },
+        {
+          "value": "Stairs",
+          "label": "Escalera"
+        },
+        {
+          "value": "Living room",
+          "label": "Salón"
+        },
+        {
+          "value": "Bedroom",
+          "label": "Dormitorio"
+        },
+        {
+          "value": "Entrance",
+          "label": "Entrada"
+        },
+        {
+          "value": "Other",
+          "label": "Otro"
+        }
       ],
       "regions": [
-        { "value": "Andalucia", "label": "Andalucía" },
-        { "value": "Balearic Islands", "label": "Islas Baleares" },
-        { "value": "Canary Islands", "label": "Canarias" },
-        { "value": "Catalonia", "label": "Cataluña" },
-        { "value": "Community of Madrid", "label": "Comunidad de Madrid" },
-        { "value": "Comunidad Valenciana", "label": "Comunidad Valenciana" },
-        { "value": "Galicia", "label": "Galicia" },
-        { "value": "Other Spain", "label": "Otra zona de España" }
+        {
+          "value": "Andalucia",
+          "label": "Andalucía"
+        },
+        {
+          "value": "Balearic Islands",
+          "label": "Islas Baleares"
+        },
+        {
+          "value": "Canary Islands",
+          "label": "Canarias"
+        },
+        {
+          "value": "Catalonia",
+          "label": "Cataluña"
+        },
+        {
+          "value": "Community of Madrid",
+          "label": "Comunidad de Madrid"
+        },
+        {
+          "value": "Comunidad Valenciana",
+          "label": "Comunidad Valenciana"
+        },
+        {
+          "value": "Galicia",
+          "label": "Galicia"
+        },
+        {
+          "value": "Other Spain",
+          "label": "Otra zona de España"
+        }
       ],
       "homeTypes": [
-        { "value": "Apartment", "label": "Piso" },
-        { "value": "Townhouse", "label": "Adosado" },
-        { "value": "Villa or detached home", "label": "Chalet o vivienda independiente" },
-        { "value": "Residential building community", "label": "Comunidad de propietarios" }
+        {
+          "value": "Apartment",
+          "label": "Piso"
+        },
+        {
+          "value": "Townhouse",
+          "label": "Adosado"
+        },
+        {
+          "value": "Villa or detached home",
+          "label": "Chalet o vivienda independiente"
+        },
+        {
+          "value": "Residential building community",
+          "label": "Comunidad de propietarios"
+        }
       ],
       "concerns": [
-        { "value": "Falls or slipping", "label": "Caídas o resbalones" },
-        { "value": "Bathroom safety", "label": "Seguridad en el baño" },
-        { "value": "Stairs or access", "label": "Escaleras o acceso" },
-        { "value": "Emergency alerts", "label": "Alertas de emergencia" },
-        { "value": "Smart home support", "label": "Apoyo smart home" },
-        { "value": "Not sure yet", "label": "Aún no lo sé" }
+        {
+          "value": "Falls or slipping",
+          "label": "Caídas o resbalones"
+        },
+        {
+          "value": "Bathroom safety",
+          "label": "Seguridad en el baño"
+        },
+        {
+          "value": "Stairs or access",
+          "label": "Escaleras o acceso"
+        },
+        {
+          "value": "Emergency alerts",
+          "label": "Alertas de emergencia"
+        },
+        {
+          "value": "Smart home support",
+          "label": "Apoyo smart home"
+        },
+        {
+          "value": "Not sure yet",
+          "label": "Aún no lo sé"
+        }
       ],
       "urgencies": [
-        { "value": "Urgent", "label": "Urgente" },
-        { "value": "Within 1 month", "label": "En 1 mes" },
-        { "value": "Within 3 months", "label": "En 3 meses" },
-        { "value": "Planning ahead", "label": "Planificando" }
+        {
+          "value": "Urgent",
+          "label": "Riesgo inmediato"
+        },
+        {
+          "value": "Within 1 month",
+          "label": "Lo antes posible"
+        },
+        {
+          "value": "Within 3 months",
+          "label": "Quiero prevenir"
+        },
+        {
+          "value": "Planning ahead",
+          "label": "Planificando"
+        }
       ]
     },
     "report": {
@@ -372,17 +672,252 @@
       "cta": "Empezar con una estimación gratuita"
     },
     "plans": {
-      "title": "Compara todos los planes CasaMia.",
-      "intro": "Cada plan incluye evaluación y gestión de ayudas. Elige el nivel de adaptación que encaja con la vivienda y el apoyo familiar necesario.",
-      "comparisonTitle": "Comparativa de planes",
-      "headers": ["Prestación", "Essential", "Advanced", "Premium"],
-      "rows": [
-        ["Evaluación por fotos", "Incluida", "Incluida", "Incluida"],
-        ["Adaptación de toda la vivienda", "Zonas de entrada", "Incluida", "Incluida"],
-        ["Acceso inteligente", "Opcional", "Incluido", "Incluido"],
-        ["Monitorización de salud", "No incluida", "Opcional", "Incluida"],
-        ["Alertas familiares", "Básicas", "Emergencia", "24/7"]
-      ]
+      "metaTitle": "Planes y precios",
+      "hero": {
+        "title": "Elige el plan de seguridad adecuado para tu hogar",
+        "subtitle": "Tanto si necesitas orientación experta, adaptaciones prácticas o tecnología de seguridad inteligente, CasaMia te ayuda a crear un hogar más seguro y cómodo para envejecer en casa.",
+        "primaryCta": "Reservar evaluación gratis",
+        "secondaryCta": "Comparar planes"
+      },
+      "explainer": {
+        "title": "Tres formas claras de empezar",
+        "body": "Empieza con claridad, pasa a adaptaciones prácticas o añade tecnología conectada para más tranquilidad. Todo empieza por entender la vivienda."
+      },
+      "cardsTitle": "Elige el nivel de apoyo que necesitas.",
+      "cardsIntro": "Cada plan responde a una necesidad distinta: solo asesoramiento, mejoras prácticas de seguridad o una vivienda más conectada para envejecer en casa.",
+      "bestForLabel": "Ideal para",
+      "cards": [
+        {
+          "id": "home-assessment",
+          "name": "Plan Evaluación del Hogar",
+          "description": "Una inspección experta estancia por estancia con un informe claro de seguridad y recomendaciones personalizadas.",
+          "bestFor": "Familias que quieren claridad experta antes de empezar cualquier obra.",
+          "deliverables": [
+            "Inspección cualificada de seguridad del hogar",
+            "Revisión de riesgos estancia por estancia",
+            "Chequeo de riesgo de caída y accesibilidad",
+            "Informe personalizado de seguridad",
+            "Próximos pasos recomendados"
+          ],
+          "cta": "Reservar evaluación"
+        },
+        {
+          "id": "home-safety",
+          "name": "Plan Seguridad del Hogar",
+          "description": "Evaluación más instalación profesional de elementos esenciales de seguridad y adaptaciones del hogar.",
+          "bestFor": "Personas mayores que necesitan mejoras prácticas de seguridad en casa.",
+          "deliverables": [
+            "Todo lo del Plan Evaluación",
+            "Barras de apoyo y pasamanos",
+            "Soluciones antideslizantes",
+            "Mejoras de iluminación",
+            "Adaptaciones en baño, escaleras, entrada y cocina donde haga falta",
+            "Partners profesionales de instalación"
+          ],
+          "cta": "Solicitar Plan Seguridad"
+        },
+        {
+          "id": "smart-safety",
+          "name": "Plan Seguridad Smart",
+          "description": "Mejoras completas de seguridad combinadas con tecnología inteligente para más alertas, seguimiento y tranquilidad.",
+          "bestFor": "Familias que quieren más tranquilidad y apoyo conectado para envejecer en casa.",
+          "deliverables": [
+            "Todo lo del Plan Seguridad",
+            "Iluminación y sensores inteligentes",
+            "Dispositivos de respuesta de emergencia",
+            "Sensores de agua y fugas",
+            "Dispositivos de seguridad y acceso",
+            "Configuración de monitorización de salud cuando aplique",
+            "Configuración y entrega al usuario"
+          ],
+          "cta": "Solicitar Plan Smart"
+        }
+      ],
+      "comparison": {
+        "title": "Comparar planes",
+        "intro": "Usa esta tabla para ver qué incluye cada plan antes de reservar tu evaluación gratuita.",
+        "headers": [
+          "Prestación",
+          "Evaluación del Hogar",
+          "Seguridad del Hogar",
+          "Seguridad Smart"
+        ],
+        "status": {
+          "included": "Incluido",
+          "notIncluded": "No incluido",
+          "whereNeeded": "Según necesidad",
+          "optional": "Opción disponible",
+          "recommendationsOnly": "Solo recomendaciones"
+        },
+        "rows": [
+          {
+            "feature": "Inspección experta del hogar",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Informe de seguridad estancia por estancia",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Evaluación de riesgo de caída",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Recomendaciones personalizadas",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Instalación de productos de seguridad",
+            "assessment": "notIncluded",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Adaptaciones y reformas del hogar",
+            "assessment": "notIncluded",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Mejoras de seguridad en baño",
+            "assessment": "recommendationsOnly",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Mejoras en escaleras y entrada",
+            "assessment": "recommendationsOnly",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Iluminación inteligente",
+            "assessment": "notIncluded",
+            "safety": "optional",
+            "smart": "included"
+          },
+          {
+            "feature": "Sensores de movimiento/agua",
+            "assessment": "notIncluded",
+            "safety": "notIncluded",
+            "smart": "included"
+          },
+          {
+            "feature": "Dispositivos de respuesta de emergencia",
+            "assessment": "notIncluded",
+            "safety": "optional",
+            "smart": "included"
+          },
+          {
+            "feature": "Configuración de monitorización de salud",
+            "assessment": "notIncluded",
+            "safety": "notIncluded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Formación y entrega al usuario",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Opciones de soporte continuo",
+            "assessment": "optional",
+            "safety": "optional",
+            "smart": "optional"
+          }
+        ]
+      },
+      "payment": {
+        "title": "Condiciones de pago simples y transparentes",
+        "body": "Mantenemos los pagos claros y justos. Los servicios de evaluación se pagan al reservar. En los planes con instalación, pagas el 50% para empezar y el 50% solo al finalizar y tras la aceptación del cliente.",
+        "items": [
+          {
+            "title": "Plan Evaluación del Hogar",
+            "body": "100% pagadero al reservar."
+          },
+          {
+            "title": "Plan Seguridad del Hogar",
+            "body": "50% de depósito al aceptar el presupuesto y 50% al finalizar y tras la aceptación del cliente."
+          },
+          {
+            "title": "Plan Seguridad Smart",
+            "body": "50% de depósito al aceptar el presupuesto y 50% al finalizar, poner en marcha el sistema y recibir la aceptación del cliente."
+          }
+        ],
+        "reassurance": "Sin costes ocultos. Ningún trabajo empieza sin tu aprobación. Recibes una propuesta clara antes de la instalación."
+      },
+      "next": {
+        "title": "¿Qué ocurre después de elegir un plan?",
+        "steps": [
+          {
+            "title": "Contactamos contigo",
+            "body": "Un representante de CasaMia se pone en contacto para entender tus necesidades y programar la visita."
+          },
+          {
+            "title": "Evaluamos tu hogar",
+            "body": "Nuestro equipo cualificado revisa estancia por estancia e identifica riesgos."
+          },
+          {
+            "title": "Recibes una propuesta",
+            "body": "Te damos recomendaciones claras, precio y próximos pasos antes de iniciar cualquier trabajo."
+          },
+          {
+            "title": "Entregamos la solución",
+            "body": "Si apruebas la propuesta, coordinamos productos, instaladores y entrega final."
+          }
+        ]
+      },
+      "faq": {
+        "title": "Preguntas habituales antes de elegir un plan.",
+        "items": [
+          {
+            "question": "¿Qué plan debería elegir?",
+            "answer": "Si no lo tienes claro, empieza con la evaluación gratuita. Te ayudamos a entender si necesitas solo orientación, adaptaciones prácticas o una solución smart."
+          },
+          {
+            "question": "¿La evaluación gratuita es realmente gratis?",
+            "answer": "Sí. La solicitud inicial de evaluación es gratuita y no tienes obligación de continuar con instalación."
+          },
+          {
+            "question": "¿Tengo que hacer instalación después de la evaluación?",
+            "answer": "No. Primero recibes recomendaciones y después decides qué encaja con la vivienda y la familia."
+          },
+          {
+            "question": "¿Los instaladores están asegurados?",
+            "answer": "CasaMia trabaja con partners de instalación de confianza y estructura los proyectos con trabajo profesional asegurado."
+          },
+          {
+            "question": "¿Cuándo pago?",
+            "answer": "Los servicios solo de evaluación se pagan al reservar. Los planes con instalación tienen un 50% de depósito y un 50% final tras completar el trabajo y recibir la aceptación del cliente."
+          },
+          {
+            "question": "¿El plan se puede personalizar?",
+            "answer": "Sí. El alcance final se adapta a la vivienda, la persona y las prioridades de seguridad detectadas durante la evaluación."
+          },
+          {
+            "question": "¿Incluís dispositivos inteligentes de seguridad?",
+            "answer": "Sí. El Plan Seguridad Smart puede incluir sensores, dispositivos de emergencia, iluminación inteligente, dispositivos de acceso y ayuda con la configuración cuando corresponda."
+          },
+          {
+            "question": "¿Qué pasa cuando termina el trabajo?",
+            "answer": "Realizamos la entrega, confirmamos la aceptación del cliente y explicamos las opciones de soporte para necesidades futuras."
+          }
+        ]
+      },
+      "final": {
+        "title": "Empieza con el plan adecuado para un hogar más seguro.",
+        "body": "Reserva tu evaluación gratuita y deja que CasaMia te ayude a decidir el siguiente paso más seguro y claro.",
+        "cta": "Solicitar propuesta de seguridad"
+      }
     },
     "grants": {
       "title": "Ayudas sin laberinto de papeleo.",
@@ -410,7 +945,12 @@
         "plan": "¿Qué plan te interesa?",
         "message": "Mensaje"
       },
-      "planOptions": ["Essential", "Advanced", "Premium", "Aún no lo sé"],
+      "planOptions": [
+        "Essential",
+        "Advanced",
+        "Premium",
+        "Aún no lo sé"
+      ],
       "submit": "Enviar Mensaje",
       "success": "Gracias. CasaMia se pondrá en contacto contigo pronto."
     }

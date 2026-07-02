@@ -18,7 +18,7 @@ export function FinalCTA() {
           <p className="mt-6 max-w-2xl text-xl leading-relaxed text-white/90">
             {t('finalCta.body')}
           </p>
-          <Link className="btn btn-white mt-8" to="/#estimate-upload">
+          <Link className="btn btn-white mt-8" to="/free-home-safety-assessment">
             {t('finalCta.cta')}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>

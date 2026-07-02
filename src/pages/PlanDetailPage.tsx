@@ -5,6 +5,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import { PLAN_DETAILS, PLAN_DETAIL_LIST } from '../constants/planDetails'
 import type { PlanId } from '../constants/shopify'
 import { SafeImage } from '../components/SafeImage'
+import { TrustBar } from '../components/TrustBar'
 
 function isPlanId(value: string | undefined): value is PlanId {
   return value === 'essential' || value === 'advanced' || value === 'premium'
@@ -95,6 +96,8 @@ export function PlanDetailPage() {
         </div>
       </section>
 
+      <TrustBar />
+
       <section className="section-pad bg-white">
         <div className="site-shell">
           <div className="walkthrough-intro gap-10">
@@ -173,7 +176,7 @@ export function PlanDetailPage() {
                 Start with the free home assessment. CasaMia reviews the home, confirms the right adaptations, and helps with grant filing before installation.
               </p>
             </div>
-            <Link className="btn btn-white shrink-0" to="/contact">
+            <Link className="btn btn-white shrink-0" to="/free-home-safety-assessment">
               Book free assessment
               <ArrowRight size={20} aria-hidden="true" />
             </Link>

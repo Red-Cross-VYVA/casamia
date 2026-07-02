@@ -13,21 +13,48 @@
     "howItWorks": "So Funktioniert Es",
     "plans": "Pakete",
     "grants": "Zuschüsse",
+    "about": "Über Uns",
+    "whyCasamia": "Warum CasaMia",
+    "freeAssessment": "Free Assessment",
     "contact": "Kontakt",
-    "cta": "Paket Wählen",
+    "cta": "Book Free Assessment",
     "phone": "+34 900 000 000",
     "menu": "Menü öffnen",
     "closeMenu": "Menü schließen"
   },
   "hero": {
     "badge": "Spezialisten für häusliche Sicherheit · Ganz Spanien",
-    "line1": "Home Safe",
-    "line2": "Home.",
-    "sub": "Vorbeugen ist besser als heilen. Laden Sie Fotos Ihres Zuhauses hoch und erhalten Sie eine kostenlose Sicherheitsbewertung und Kostenschätzung.",
-    "uploadLabel": "Fotos Ihres Zuhauses hochladen",
+    "line1": "Trautes Heim,",
+    "line2": "sicheres Heim.",
+    "sub": "Laden Sie Fotos jedes Raums hoch und erhalten Sie kostenlos einen Sicherheitsbericht mit den Risiken auf jedem Foto.",
+    "uploadLabel": "Ist Ihr Zuhause sicher? Finden Sie es gratis heraus.",
     "uploadRooms": "Bad · Küche · Treppe · Wohnzimmer",
-    "cta": "Meine Kostenlose Schätzung Erhalten",
-    "micro": "Kostenlos · Unverbindlich · Ergebnisse in Sekunden"
+    "uploadReport": "Kostenloser Bericht: Risiken pro Foto",
+    "uploadNote": "Bad, Küche, Treppe oder Wohnzimmer: Wir markieren Gefahren und was zuerst angepasst werden sollte.",
+    "selectedHelp": "Nächster Schritt: Raum beschriften und auswählen, wohin der Bericht gesendet werden soll.",
+    "cta": "Gratis herausfinden",
+    "micro": "Fotos hochladen · Unverbindlich",
+    "safetyCheck": {
+      "title": "Ist Ihr Zuhause sicher?",
+      "body": "Erkennen Sie versteckte Gefahren, bevor ein Sturz passiert.",
+      "cta": "Kostenlosen Bericht ansehen"
+    },
+    "grantCheck": {
+      "title": "Könnten Sie Zuschüsse erhalten?",
+      "body": "Erfahren Sie, ob Förderung die Anpassungskosten senken kann.",
+      "cta": "Förderfähigkeit prüfen"
+    }
+  },
+  "reportDelivery": {
+    "name": "Name",
+    "namePlaceholder": "Ihr Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "emailDelivery": "Bericht per E-Mail",
+    "emailDeliveryBody": "Ideal für den vollständigen sicheren Berichtslink.",
+    "whatsappDelivery": "WhatsApp-Link",
+    "whatsappDeliveryBody": "Nur eine kurze Nachricht. Sensible Details bleiben im Bericht.",
+    "sendSuccess": "Berichtsversand vorbereitet."
   },
   "alts": {
     "logo": "CasaMia Logo",
@@ -55,9 +82,18 @@
     "sub": "Stürze bei Senioren sind vermeidbar.",
     "body": "Stürze sind die häufigste Verletzungsursache bei Erwachsenen über 65, und die meisten passieren zu Hause. Die richtigen Anpassungen sind in weniger als einem Tag installiert und können alles verändern.",
     "stats": [
-      { "value": "78%", "label": "der Haushalte in Spanien\nsind nicht angepasst" },
-      { "value": "9,93 Mio.", "label": "Senioren in Spanien,\njedes Jahr mehr" },
-      { "value": "€6.000", "label": "durchschnittlicher staatlicher\nZuschuss zur Kostendeckung" }
+      {
+        "value": "78%",
+        "label": "der Haushalte in Spanien\nsind nicht angepasst"
+      },
+      {
+        "value": "9,93 Mio.",
+        "label": "Senioren in Spanien,\njedes Jahr mehr"
+      },
+      {
+        "value": "€6.000",
+        "label": "durchschnittlicher staatlicher\nZuschuss zur Kostendeckung"
+      }
     ]
   },
   "offer": {
@@ -203,15 +239,29 @@
     "phone": "+34 900 000 000",
     "company": {
       "title": "Unternehmen",
-      "links": ["So Funktioniert Es", "Pakete", "Zuschüsse", "Kontakt"]
+      "links": [
+        "So Funktioniert Es",
+        "Pakete",
+        "Zuschüsse",
+        "Kontakt"
+      ]
     },
     "legal": {
       "title": "Rechtliches",
-      "links": ["Datenschutz", "Cookie-Richtlinie", "Bedingungen"]
+      "links": [
+        "Datenschutz",
+        "Cookie-Richtlinie",
+        "Bedingungen"
+      ]
     },
     "support": {
       "title": "Support",
-      "links": ["FAQ", "Zuschussleitfaden", "Anruf Buchen", "Über Uns"]
+      "links": [
+        "FAQ",
+        "Zuschussleitfaden",
+        "Anruf Buchen",
+        "Über Uns"
+      ]
     },
     "copyright": "© 2026 CasaMia. Alle Rechte vorbehalten."
   },
@@ -253,17 +303,252 @@
       "cta": "Mit einer kostenlosen Schätzung starten"
     },
     "plans": {
-      "title": "Vergleichen Sie alle CasaMia-Pakete.",
-      "intro": "Jedes Paket enthält Bewertung und Zuschussmanagement. Wählen Sie den Anpassungsgrad, der zum Zuhause und zur benötigten Familienunterstützung passt.",
-      "comparisonTitle": "Paketvergleich",
-      "headers": ["Leistung", "Essential", "Advanced", "Premium"],
-      "rows": [
-        ["Fotobewertung", "Enthalten", "Enthalten", "Enthalten"],
-        ["Anpassung aller Räume", "Eingangsbereiche", "Enthalten", "Enthalten"],
-        ["Smarter Zugang", "Optional", "Enthalten", "Enthalten"],
-        ["Gesundheitsüberwachung", "Nicht enthalten", "Optional", "Enthalten"],
-        ["Familienalarme", "Basis", "Notfall", "24/7"]
-      ]
+      "metaTitle": "Plans and Pricing",
+      "hero": {
+        "title": "Choose the Right Safety Plan for Your Home",
+        "subtitle": "Whether you need expert guidance, practical home modifications, or smart safety technology, CasaMia helps you create a safer and more comfortable home for aging in place.",
+        "primaryCta": "Book Free Assessment",
+        "secondaryCta": "Compare Plans"
+      },
+      "explainer": {
+        "title": "Three clear ways to start",
+        "body": "Start with clarity, move into practical adaptations, or add connected technology for extra reassurance. Every path begins with understanding the home first."
+      },
+      "cardsTitle": "Choose the level of support you need.",
+      "cardsIntro": "Each plan is designed around a different family need: advice only, practical safety improvements, or a more connected aging-in-place setup.",
+      "bestForLabel": "Best for",
+      "cards": [
+        {
+          "id": "home-assessment",
+          "name": "Home Assessment Plan",
+          "description": "An expert room-by-room inspection of your home with a clear safety report and personalized recommendations.",
+          "bestFor": "Families who want expert clarity before starting any work.",
+          "deliverables": [
+            "Qualified home safety inspection",
+            "Room-by-room hazard review",
+            "Fall-risk and accessibility check",
+            "Personalized safety report",
+            "Recommended next steps"
+          ],
+          "cta": "Book Assessment"
+        },
+        {
+          "id": "home-safety",
+          "name": "Home Safety Plan",
+          "description": "Assessment plus professional installation of essential safety features and home modifications.",
+          "bestFor": "Seniors who need practical safety improvements at home.",
+          "deliverables": [
+            "Everything in Home Assessment",
+            "Grab bars and handrails",
+            "Anti-slip solutions",
+            "Lighting improvements",
+            "Bathroom, stairway, entryway, and kitchen adaptations where needed",
+            "Professional installation partners"
+          ],
+          "cta": "Request Home Safety Plan"
+        },
+        {
+          "id": "smart-safety",
+          "name": "Smart Safety Plan",
+          "description": "Full home safety improvements combined with smart technology for added monitoring, alerts, and peace of mind.",
+          "bestFor": "Families who want extra reassurance and connected aging-in-place support.",
+          "deliverables": [
+            "Everything in Home Safety",
+            "Smart lighting and sensors",
+            "Emergency response devices",
+            "Water/leak sensors",
+            "Security and access devices",
+            "Health monitoring setup where applicable",
+            "User setup and handover"
+          ],
+          "cta": "Request Smart Safety Plan"
+        }
+      ],
+      "comparison": {
+        "title": "Compare Plans",
+        "intro": "Use this table to see what each plan includes before booking your free assessment.",
+        "headers": [
+          "Feature",
+          "Home Assessment",
+          "Home Safety",
+          "Smart Safety"
+        ],
+        "status": {
+          "included": "Included",
+          "notIncluded": "Not included",
+          "whereNeeded": "Where needed",
+          "optional": "Available option",
+          "recommendationsOnly": "Recommendations only"
+        },
+        "rows": [
+          {
+            "feature": "Expert home inspection",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Room-by-room safety report",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Fall-risk assessment",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Personalized recommendations",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Safety product installation",
+            "assessment": "notIncluded",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Home modifications/reforms",
+            "assessment": "notIncluded",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Bathroom safety improvements",
+            "assessment": "recommendationsOnly",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Stairway/entryway improvements",
+            "assessment": "recommendationsOnly",
+            "safety": "whereNeeded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "Smart lighting",
+            "assessment": "notIncluded",
+            "safety": "optional",
+            "smart": "included"
+          },
+          {
+            "feature": "Motion/water sensors",
+            "assessment": "notIncluded",
+            "safety": "notIncluded",
+            "smart": "included"
+          },
+          {
+            "feature": "Emergency response devices",
+            "assessment": "notIncluded",
+            "safety": "optional",
+            "smart": "included"
+          },
+          {
+            "feature": "Health monitoring setup",
+            "assessment": "notIncluded",
+            "safety": "notIncluded",
+            "smart": "whereNeeded"
+          },
+          {
+            "feature": "User training/handover",
+            "assessment": "included",
+            "safety": "included",
+            "smart": "included"
+          },
+          {
+            "feature": "Ongoing support options",
+            "assessment": "optional",
+            "safety": "optional",
+            "smart": "optional"
+          }
+        ]
+      },
+      "payment": {
+        "title": "Simple & Transparent Payment Terms",
+        "body": "We keep payments clear and fair. Assessment services are paid at booking. For installation plans, you pay 50% to get started and 50% only upon completion and customer acceptance.",
+        "items": [
+          {
+            "title": "Home Assessment Plan",
+            "body": "100% payable upon booking."
+          },
+          {
+            "title": "Home Safety Plan",
+            "body": "50% deposit upon quotation acceptance, 50% upon completion and customer acceptance."
+          },
+          {
+            "title": "Smart Safety Plan",
+            "body": "50% deposit upon quotation acceptance, 50% upon completion, system commissioning, and customer acceptance."
+          }
+        ],
+        "reassurance": "No hidden fees. No work begins without your approval. You receive a clear proposal before installation."
+      },
+      "next": {
+        "title": "What Happens After You Choose a Plan?",
+        "steps": [
+          {
+            "title": "We contact you",
+            "body": "A CasaMia representative gets in touch to understand your needs and schedule the visit."
+          },
+          {
+            "title": "We assess your home",
+            "body": "Our qualified safety team performs a room-by-room inspection and identifies risks."
+          },
+          {
+            "title": "You receive a proposal",
+            "body": "We provide clear recommendations, pricing, and next steps before any work begins."
+          },
+          {
+            "title": "We deliver the solution",
+            "body": "If you approve, our team coordinates products, installers, and final handover."
+          }
+        ]
+      },
+      "faq": {
+        "title": "Questions families ask before choosing a plan.",
+        "items": [
+          {
+            "question": "Which plan should I choose?",
+            "answer": "If you are unsure, start with the free assessment. We will help you understand whether you need advice only, practical adaptations, or a smart safety setup."
+          },
+          {
+            "question": "Is the free assessment really free?",
+            "answer": "Yes. The initial assessment request is free and there is no obligation to proceed with installation."
+          },
+          {
+            "question": "Do I have to proceed with installation after the assessment?",
+            "answer": "No. You receive recommendations first, then decide what feels right for the home and family."
+          },
+          {
+            "question": "Are installers insured?",
+            "answer": "CasaMia works with trusted installation partners and structures projects around insured professional work."
+          },
+          {
+            "question": "When do I pay?",
+            "answer": "Assessment-only services are paid at booking. Installation plans use a clear 50% deposit and 50% final payment after completion and customer acceptance."
+          },
+          {
+            "question": "Can the plan be customized?",
+            "answer": "Yes. The final scope is tailored to the home, the resident, and the safety priorities found during assessment."
+          },
+          {
+            "question": "Do you support smart safety devices?",
+            "answer": "Yes. The Smart Safety Plan can include sensors, emergency response devices, smart lighting, access devices, and setup support where appropriate."
+          },
+          {
+            "question": "What happens after the work is completed?",
+            "answer": "We complete a handover, confirm the customer accepts the work, and explain any support options for future needs."
+          }
+        ]
+      },
+      "final": {
+        "title": "Start with the right plan for a safer home.",
+        "body": "Book your free assessment and let CasaMia help you decide the safest, clearest next step.",
+        "cta": "Request a Safety Proposal"
+      }
     },
     "grants": {
       "title": "Zuschusshilfe ohne Papierkram-Labyrinth.",
@@ -291,9 +576,47 @@
         "plan": "Welches Paket interessiert Sie?",
         "message": "Nachricht"
       },
-      "planOptions": ["Essential", "Advanced", "Premium", "Noch unsicher"],
+      "planOptions": [
+        "Essential",
+        "Advanced",
+        "Premium",
+        "Noch unsicher"
+      ],
       "submit": "Nachricht Senden",
       "success": "Vielen Dank. CasaMia meldet sich in Kürze."
+    }
+  },
+  "assessment": {
+    "form": {
+      "errors": {
+        "consent": "Bitte stimmen Sie zu, zur Anfrage Ihrer Bewertung kontaktiert zu werden."
+      },
+      "submitting": "Anfrage wird gesendet...",
+      "error": "Wir konnten Ihre Anfrage nicht senden. Bitte versuchen Sie es erneut oder kontaktieren Sie CasaMia telefonisch.",
+      "consent": "Ich bin damit einverstanden, dass Casamia mich zu meiner Anfrage für eine Sicherheitsbewertung zu Hause kontaktiert.",
+      "privacy": "Ihre Informationen werden nur verwendet, um Ihre Bewertung zu planen. Wir verkaufen Ihre Daten niemals.",
+      "fields": {
+        "selectedPlan": "Selected plan"
+      },
+      "planOptions": [
+        {
+          "value": "not-sure",
+          "label": "Not sure yet"
+        },
+        {
+          "value": "home-assessment",
+          "label": "Home Assessment Plan"
+        },
+        {
+          "value": "home-safety",
+          "label": "Home Safety Plan"
+        },
+        {
+          "value": "smart-safety",
+          "label": "Smart Safety Plan"
+        }
+      ],
+      "successWithPlan": "Thank you. Your request for the {{plan}} has been received. A Casamia representative will contact you shortly."
     }
   }
 }
