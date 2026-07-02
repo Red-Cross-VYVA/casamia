@@ -6,10 +6,29 @@ import { Link, useLocation } from 'react-router-dom'
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
+const planAssessmentMap: Record<string, string> = {
+  advanced: 'home-safety',
+  essential: 'home-assessment',
+  premium: 'smart-safety',
+  'home-assessment': 'home-assessment',
+  'home-safety': 'home-safety',
+  'smart-safety': 'smart-safety',
+}
+
+function getAssessmentPath(pathname: string) {
+  const planId = pathname.match(/^\/plans\/([^/]+)/)?.[1]
+  const selectedPlan = planId ? planAssessmentMap[planId] : undefined
+
+  return selectedPlan
+    ? `/free-home-safety-assessment?plan=${selectedPlan}`
+    : '/free-home-safety-assessment'
+}
+
 export function Nav() {
   const { t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const assessmentPath = getAssessmentPath(location.pathname)
 
   const links = [
     { label: t('nav.howItWorks'), to: '/#how-it-works' },
@@ -17,7 +36,7 @@ export function Nav() {
     { label: t('nav.grants'), to: '/#grants' },
     { label: t('nav.about', { defaultValue: 'About' }), to: '/about' },
     { label: t('nav.whyCasamia', { defaultValue: 'Why CasaMia' }), to: '/why-casamia' },
-    { label: t('nav.freeAssessment', { defaultValue: 'Free Assessment' }), to: '/free-home-safety-assessment' },
+    { label: t('nav.freeAssessment', { defaultValue: 'Free Assessment' }), to: assessmentPath },
     { label: t('nav.contact'), to: '/#contact' },
   ]
 
@@ -48,7 +67,7 @@ export function Nav() {
             <Phone size={17} aria-hidden="true" />
             {t('nav.phone')}
           </a>
-          <Link className="btn btn-green min-h-0 min-w-max whitespace-nowrap px-6 py-2 text-sm" to="/free-home-safety-assessment">
+          <Link className="btn btn-green min-h-0 min-w-max whitespace-nowrap px-6 py-2 text-sm" to={assessmentPath}>
             {t('nav.cta')}
           </Link>
           <LanguageSwitcher compact />
@@ -76,7 +95,7 @@ export function Nav() {
             <a className="nav-link min-h-12 py-2 text-lg" href={`tel:${t('nav.phone').replaceAll(' ', '')}`}>
               {t('nav.phone')}
             </a>
-            <Link className="btn btn-green w-full" to="/free-home-safety-assessment">
+            <Link className="btn btn-green w-full" to={assessmentPath}>
               {t('nav.cta')}
             </Link>
             <LanguageSwitcher />

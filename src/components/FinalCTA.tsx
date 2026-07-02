@@ -5,7 +5,19 @@ import { Link } from 'react-router-dom'
 import { IMAGE_URLS } from '../constants/shopify'
 import { SafeImage } from './SafeImage'
 
-export function FinalCTA() {
+type FinalCTAProps = {
+  title?: string
+  body?: string
+  cta?: string
+  to?: string
+}
+
+export function FinalCTA({
+  title,
+  body,
+  cta,
+  to = '/free-home-safety-assessment',
+}: FinalCTAProps) {
   const { t } = useTranslation()
 
   return (
@@ -13,13 +25,13 @@ export function FinalCTA() {
       <div className="final-grid site-shell items-center gap-16">
         <div>
           <h2 className="whitespace-pre-line font-display text-5xl font-bold leading-tight md:text-6xl">
-            {t('finalCta.title')}
+            {title ?? t('finalCta.title')}
           </h2>
           <p className="mt-6 max-w-2xl text-xl leading-relaxed text-white/90">
-            {t('finalCta.body')}
+            {body ?? t('finalCta.body')}
           </p>
-          <Link className="btn btn-white mt-8" to="/free-home-safety-assessment">
-            {t('finalCta.cta')}
+          <Link className="btn btn-white mt-8" to={to}>
+            {cta ?? t('finalCta.cta')}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
         </div>

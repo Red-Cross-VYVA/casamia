@@ -178,6 +178,12 @@ function TechIcon({ type }: { type: 'shield' | 'home' | 'heart' }) {
   return <ShieldCheck size={26} aria-hidden="true" />
 }
 
+const planRouteMap: Record<string, string> = {
+  advanced: 'home-safety',
+  essential: 'home-assessment',
+  premium: 'smart-safety',
+}
+
 export function TechPage() {
   const { i18n } = useTranslation()
   const copy = getTechCopy(i18n.language)
@@ -307,7 +313,7 @@ export function TechPage() {
                   ))}
                 </div>
 
-                <Link className="btn btn-navy mt-8" to={`/plans/${plan.id}`}>
+                <Link className="btn btn-navy mt-8" to={`/plans/${planRouteMap[plan.id] ?? plan.id}`}>
                   {copy.viewPlan}
                   <ArrowRight size={20} aria-hidden="true" />
                 </Link>

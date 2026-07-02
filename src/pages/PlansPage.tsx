@@ -125,7 +125,7 @@ export function PlansPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link className="btn btn-navy" to={`/free-home-safety-assessment?plan=${plan.id}`}>
+                  <Link className="btn btn-navy" to={`/plans/${plan.id}`}>
                     {plan.cta}
                     <ArrowRight size={20} aria-hidden="true" />
                   </Link>

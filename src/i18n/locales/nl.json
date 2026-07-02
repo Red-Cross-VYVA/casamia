@@ -330,7 +330,7 @@
             "Personalized safety report",
             "Recommended next steps"
           ],
-          "cta": "Book Assessment"
+          "cta": "View Home Assessment Plan"
         },
         {
           "id": "home-safety",
@@ -345,7 +345,7 @@
             "Bathroom, stairway, entryway, and kitchen adaptations where needed",
             "Professional installation partners"
           ],
-          "cta": "Request Home Safety Plan"
+          "cta": "View Home Safety Plan"
         },
         {
           "id": "smart-safety",
@@ -361,7 +361,7 @@
             "Health monitoring setup where applicable",
             "User setup and handover"
           ],
-          "cta": "Request Smart Safety Plan"
+          "cta": "View Smart Safety Plan"
         }
       ],
       "comparison": {
@@ -584,6 +584,466 @@
       ],
       "submit": "Bericht Verzenden",
       "success": "Dank u. CasaMia neemt binnenkort contact met u op."
+    },
+    "planDetail": {
+      "metaTitleSuffix": "CasaMia Plan",
+      "backToPlans": "Back to plans",
+      "comparePlans": "Compare Plans",
+      "primaryCta": "Book Free Assessment",
+      "whoTitle": "Who this plan is for",
+      "includedTitle": "What's included",
+      "roomTitle": "Room-by-room improvements",
+      "processTitle": "Our process",
+      "deliverablesTitle": "What You'll Receive",
+      "paymentTitle": "Payment terms",
+      "paymentReassurance": "No hidden fees. No unexpected costs.",
+      "faqTitle": "Questions families ask",
+      "finalTitle": "Ready to make your home safer?",
+      "finalBody": "Book your Free Home Safety Assessment today and receive personalised recommendations from our qualified safety experts.",
+      "finalCta": "Book Free Assessment",
+      "plans": [
+        {
+          "id": "home-assessment",
+          "title": "Home Assessment Plan",
+          "subtitle": "A qualified home safety inspection that helps families understand risks, priorities and next steps before starting any work.",
+          "heroPoints": [
+            "Expert safety review",
+            "Written recommendations",
+            "Clear next steps"
+          ],
+          "who": [
+            "Families who want clarity before committing to adaptations",
+            "Seniors wishing to age in place safely",
+            "People recovering from surgery or a health event",
+            "Individuals with reduced mobility or new accessibility needs"
+          ],
+          "includedIntro": "A focused professional assessment before any installation decisions are made.",
+          "included": [
+            {
+              "icon": "inspection",
+              "title": "Qualified Home Safety Inspection",
+              "body": "A trained CasaMia safety specialist reviews the home with fall risk, access, lighting and daily movement in mind."
+            },
+            {
+              "icon": "room",
+              "title": "Room-by-Room Assessment",
+              "body": "Bathrooms, kitchens, bedrooms, living spaces, entrances and stairs are reviewed in a practical sequence."
+            },
+            {
+              "icon": "fall",
+              "title": "Fall Risk Evaluation",
+              "body": "We identify trip hazards, slippery surfaces, poor lighting, unstable supports and unsafe movement paths."
+            },
+            {
+              "icon": "accessibility",
+              "title": "Accessibility Review",
+              "body": "We check whether daily routines can be completed comfortably with current mobility and support needs."
+            },
+            {
+              "icon": "report",
+              "title": "Personalised Safety Report",
+              "body": "You receive a clear written report that explains the priority risks and recommended improvements."
+            },
+            {
+              "icon": "recommendation",
+              "title": "Recommendations",
+              "body": "CasaMia explains which adaptations matter first, which are optional and what to consider later."
+            }
+          ],
+          "rooms": [
+            {
+              "icon": "bathroom",
+              "title": "Bathroom",
+              "body": "Review slip risk, grab bar placement, shower access, toilet height and safe movement in wet areas."
+            },
+            {
+              "icon": "kitchen",
+              "title": "Kitchen",
+              "body": "Check reach, lighting, floor safety, appliance access and daily task flow."
+            },
+            {
+              "icon": "bedroom",
+              "title": "Bedroom",
+              "body": "Assess bed access, night lighting, floor clearance and safer night-time routes."
+            },
+            {
+              "icon": "living",
+              "title": "Living Room",
+              "body": "Review furniture layout, rug edges, seating height, cable hazards and movement space."
+            },
+            {
+              "icon": "stairway",
+              "title": "Stairways",
+              "body": "Evaluate rails, treads, lighting, step contrast and safe support points."
+            },
+            {
+              "icon": "entrance",
+              "title": "Entrance",
+              "body": "Check thresholds, doors, mats, lighting, key access and visitor entry routines."
+            },
+            {
+              "icon": "outdoor",
+              "title": "Outdoor Areas",
+              "body": "Look at paths, steps, handholds, lighting and weather-related slip risk."
+            }
+          ],
+          "process": [
+            {
+              "title": "Home Assessment",
+              "body": "We inspect the home, listen to the family and identify practical safety priorities."
+            },
+            {
+              "title": "Proposal & Approval",
+              "body": "You receive a clear report and recommendations before deciding what to do next."
+            },
+            {
+              "title": "Professional Installation & Handover",
+              "body": "If you proceed, CasaMia coordinates the right products, installers and final walkthrough."
+            }
+          ],
+          "deliverables": [
+            "Professional inspection",
+            "Written safety report",
+            "Room-by-room priorities",
+            "Recommended product and adaptation list",
+            "Clear proposal if improvements are needed",
+            "Family-friendly explanation of next steps",
+            "Aftercare guidance"
+          ],
+          "payment": {
+            "terms": [
+              "100% payable upon booking."
+            ],
+            "note": "The assessment is a standalone service. You decide afterwards whether to proceed with any recommended work."
+          },
+          "faqs": [
+            {
+              "question": "Do I have to proceed with installation?",
+              "answer": "No. The assessment gives you clarity first. You can decide later whether to proceed with any recommended adaptations."
+            },
+            {
+              "question": "How long does the inspection take?",
+              "answer": "Most visits take around 60 to 90 minutes, depending on the size of the home and the number of areas reviewed."
+            },
+            {
+              "question": "Will I receive a written report?",
+              "answer": "Yes. You receive a clear report with risks, priorities and recommended next steps."
+            },
+            {
+              "question": "Can family members attend?",
+              "answer": "Yes. We encourage family members or caregivers to join so everyone understands the recommendations."
+            }
+          ]
+        },
+        {
+          "id": "home-safety",
+          "title": "Home Safety Plan",
+          "subtitle": "Professional home modifications that help seniors live safely, independently and comfortably at home.",
+          "heroPoints": [
+            "Essential adaptations",
+            "Professional installation",
+            "Customer acceptance walkthrough"
+          ],
+          "who": [
+            "Seniors wishing to age in place",
+            "Families caring for elderly parents",
+            "People recovering from surgery",
+            "Individuals with reduced mobility"
+          ],
+          "includedIntro": "Everything in the Home Assessment Plan, plus practical safety products and professional installation.",
+          "included": [
+            {
+              "icon": "inspection",
+              "title": "Everything in Home Assessment",
+              "body": "Qualified inspection, room-by-room review, fall risk evaluation and written recommendations are included first."
+            },
+            {
+              "icon": "grab",
+              "title": "Grab Bars",
+              "body": "Secure support points in bathrooms, corridors or other high-risk areas where balance support is needed."
+            },
+            {
+              "icon": "handrail",
+              "title": "Handrails",
+              "body": "Stable rails for stairs, entrances or transitional spaces to make movement safer."
+            },
+            {
+              "icon": "flooring",
+              "title": "Anti-slip Flooring",
+              "body": "Anti-slip surfaces, mats or treads in wet, smooth or high-traffic zones."
+            },
+            {
+              "icon": "bathroom",
+              "title": "Bathroom Improvements",
+              "body": "Support bars, safer shower access, toilet support, slip reduction and safer fixtures where needed."
+            },
+            {
+              "icon": "kitchen",
+              "title": "Kitchen Improvements",
+              "body": "Safer reach, lighting, access, surfaces and layout recommendations for daily tasks."
+            },
+            {
+              "icon": "stairway",
+              "title": "Stairway Safety",
+              "body": "Treads, rails, lighting and visual contrast to reduce stair-related risk."
+            },
+            {
+              "icon": "entrance",
+              "title": "Entryway Improvements",
+              "body": "Threshold, lighting, mat, door and access improvements for safer arrivals and exits."
+            },
+            {
+              "icon": "anchor",
+              "title": "Furniture Anchoring",
+              "body": "Secure unstable furniture and improve layout to reduce trip, tip and obstruction risks."
+            },
+            {
+              "icon": "installation",
+              "title": "Professional Installation",
+              "body": "CasaMia coordinates trusted installers and completes a customer acceptance walkthrough."
+            }
+          ],
+          "rooms": [
+            {
+              "icon": "bathroom",
+              "title": "Bathroom",
+              "body": "Install grab bars, reduce slip risk, improve shower access and make toilet transfers safer."
+            },
+            {
+              "icon": "kitchen",
+              "title": "Kitchen",
+              "body": "Improve reach, lighting, anti-slip surfaces and access around daily cooking routines."
+            },
+            {
+              "icon": "bedroom",
+              "title": "Bedroom",
+              "body": "Improve safe bed access, night lighting, furniture clearance and emergency reach points."
+            },
+            {
+              "icon": "living",
+              "title": "Living Room",
+              "body": "Rework furniture flow, secure rugs, manage cables and create safer walking paths."
+            },
+            {
+              "icon": "stairway",
+              "title": "Stairways",
+              "body": "Add or improve handrails, treads, lighting and step contrast for safer movement."
+            },
+            {
+              "icon": "entrance",
+              "title": "Entrance",
+              "body": "Adapt thresholds, mats, lighting, doors and support points for safer entry and exit."
+            },
+            {
+              "icon": "outdoor",
+              "title": "Outdoor Areas",
+              "body": "Address exterior steps, rails, path lighting and weather-related slip risk."
+            }
+          ],
+          "process": [
+            {
+              "title": "Home Assessment",
+              "body": "We inspect the home and identify the practical adaptations that should come first."
+            },
+            {
+              "title": "Proposal & Approval",
+              "body": "You approve the recommended scope and pricing before any installation begins."
+            },
+            {
+              "title": "Professional Installation & Handover",
+              "body": "Trusted installers complete the work and CasaMia walks you through the finished improvements."
+            }
+          ],
+          "deliverables": [
+            "Professional inspection",
+            "Written report",
+            "Qualified installers",
+            "Premium safety products",
+            "Manufacturer warranties where applicable",
+            "Customer acceptance walkthrough",
+            "Aftercare support"
+          ],
+          "payment": {
+            "terms": [
+              "50% deposit upon approval.",
+              "50% upon completion and customer acceptance."
+            ],
+            "note": "You see the scope before work begins and only pay the final balance after the completed work is reviewed."
+          },
+          "faqs": [
+            {
+              "question": "How long do installations take?",
+              "answer": "Many safety upgrades can be completed in a day, while larger adaptation scopes depend on the home and selected products."
+            },
+            {
+              "question": "Who carries out the work?",
+              "answer": "CasaMia coordinates trusted installation partners who understand senior safety, access and respectful in-home work."
+            },
+            {
+              "question": "Are products guaranteed?",
+              "answer": "Products are selected for quality and durability, with manufacturer warranties where applicable."
+            },
+            {
+              "question": "Can I choose which recommendations to proceed with?",
+              "answer": "Yes. You approve the final scope before any installation work begins."
+            }
+          ]
+        },
+        {
+          "id": "smart-safety",
+          "title": "Smart Safety Plan",
+          "subtitle": "A connected safety setup that combines home adaptations, smart devices and family reassurance for aging in place.",
+          "heroPoints": [
+            "Connected safety devices",
+            "Monitoring readiness",
+            "Training and handover"
+          ],
+          "who": [
+            "Families who want extra reassurance",
+            "Seniors who benefit from alerts and connected support",
+            "Homes where movement, water, smoke or access risks need monitoring",
+            "Caregivers who want a smarter safety layer after physical adaptations"
+          ],
+          "includedIntro": "Everything in the Home Safety Plan, plus smart safety technology, setup and user training.",
+          "included": [
+            {
+              "icon": "inspection",
+              "title": "Everything in Home Safety",
+              "body": "Assessment, practical adaptations, installation coordination and customer acceptance are included first."
+            },
+            {
+              "icon": "lighting",
+              "title": "Smart Lighting",
+              "body": "Motion or schedule-based lighting to reduce night-time risk and make daily movement easier."
+            },
+            {
+              "icon": "motion",
+              "title": "Motion Sensors",
+              "body": "Sensors that support safer routines and can help families understand movement patterns."
+            },
+            {
+              "icon": "water",
+              "title": "Water Leak Sensors",
+              "body": "Leak detection in kitchens, bathrooms or utility areas where water risk matters."
+            },
+            {
+              "icon": "smoke",
+              "title": "Smoke Detection",
+              "body": "Connected smoke detection options to support earlier alerts and family awareness."
+            },
+            {
+              "icon": "doorbell",
+              "title": "Smart Doorbells",
+              "body": "Visitor communication and access support that reduces rushed movement to the entrance."
+            },
+            {
+              "icon": "emergency",
+              "title": "Emergency Response Devices",
+              "body": "Wearable or wall-mounted call options to keep help easier to reach."
+            },
+            {
+              "icon": "health",
+              "title": "Health Monitoring Setup",
+              "body": "Support for compatible monitoring devices where the family wants an added layer of insight."
+            },
+            {
+              "icon": "settings",
+              "title": "Smart Home Configuration",
+              "body": "CasaMia configures compatible devices, routines and alerts around the home setup."
+            },
+            {
+              "icon": "training",
+              "title": "User Training",
+              "body": "We explain the system clearly so seniors and family members know how to use it."
+            }
+          ],
+          "rooms": [
+            {
+              "icon": "bathroom",
+              "title": "Bathroom",
+              "body": "Combine grip support with leak alerts, motion lighting and safer water-use routines."
+            },
+            {
+              "icon": "kitchen",
+              "title": "Kitchen",
+              "body": "Add leak alerts, lighting, smart plugs or appliance safety support where appropriate."
+            },
+            {
+              "icon": "bedroom",
+              "title": "Bedroom",
+              "body": "Use bedside emergency devices, night lighting and routines that support safer movement after dark."
+            },
+            {
+              "icon": "living",
+              "title": "Living Room",
+              "body": "Configure lighting, voice control and emergency access around the main daily living space."
+            },
+            {
+              "icon": "stairway",
+              "title": "Stairways",
+              "body": "Improve lighting, hand support and movement awareness in one of the highest-risk areas."
+            },
+            {
+              "icon": "entrance",
+              "title": "Entrance",
+              "body": "Use smart doorbells, access devices, lighting and safer entry routines."
+            },
+            {
+              "icon": "outdoor",
+              "title": "Outdoor Areas",
+              "body": "Support exterior movement with lighting, access checks and monitoring where useful."
+            }
+          ],
+          "process": [
+            {
+              "title": "Home Assessment",
+              "body": "We review both physical risks and the home connectivity needed for smart safety devices."
+            },
+            {
+              "title": "Proposal & Approval",
+              "body": "You approve the adaptations, devices, setup requirements and pricing before work begins."
+            },
+            {
+              "title": "Professional Installation & Handover",
+              "body": "CasaMia installs, configures, commissions and trains the household on the final system."
+            }
+          ],
+          "deliverables": [
+            "Professional inspection",
+            "Written safety report",
+            "Qualified installers",
+            "Premium safety products and smart devices",
+            "Manufacturer warranties where applicable",
+            "Configuration and commissioning",
+            "User training and aftercare support"
+          ],
+          "payment": {
+            "terms": [
+              "50% deposit upon approval.",
+              "50% upon completion, commissioning and customer acceptance."
+            ],
+            "note": "Final payment is only due after the system has been installed, configured and accepted by the customer."
+          },
+          "faqs": [
+            {
+              "question": "Can I control everything from my phone?",
+              "answer": "Many devices can be controlled from a phone when compatible, but CasaMia keeps the setup practical and easy to use."
+            },
+            {
+              "question": "Do smart devices require Wi-Fi?",
+              "answer": "Most smart devices require reliable Wi-Fi or connectivity. We review this during the assessment before recommending devices."
+            },
+            {
+              "question": "Will you train me to use the system?",
+              "answer": "Yes. Training and handover are part of the Smart Safety Plan."
+            },
+            {
+              "question": "Can additional devices be added later?",
+              "answer": "Yes. The system can usually be expanded later as needs change, subject to compatibility."
+            }
+          ]
+        }
+      ]
     }
   },
   "assessment": {

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import {
   BrowserRouter,
   Navigate,
@@ -7,21 +7,37 @@ import {
   useLocation,
 } from 'react-router-dom'
 
+import { BrandLogo } from './components/BrandLogo'
 import { Footer } from './components/Footer'
 import { Nav } from './components/Nav'
-import { AboutPage } from './pages/AboutPage'
-import { ContactPage } from './pages/ContactPage'
-import { EstimateReportPage } from './pages/EstimateReportPage'
-import { FreeHomeSafetyAssessmentPage } from './pages/FreeHomeSafetyAssessmentPage'
-import { GrantEligibilityPage } from './pages/GrantEligibilityPage'
-import { GrantsPage } from './pages/GrantsPage'
-import { HomePage } from './pages/HomePage'
-import { HowItWorksPage } from './pages/HowItWorksPage'
-import { OrderPage } from './pages/OrderPage'
-import { PlanDetailPage } from './pages/PlanDetailPage'
-import { PlansPage } from './pages/PlansPage'
-import { TechPage } from './pages/TechPage'
-import { WhyCasamiaPage } from './pages/WhyCasamiaPage'
+
+const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
+const ContactPage = lazy(() => import('./pages/ContactPage').then(({ ContactPage }) => ({ default: ContactPage })))
+const EstimateReportPage = lazy(() =>
+  import('./pages/EstimateReportPage').then(({ EstimateReportPage }) => ({ default: EstimateReportPage })),
+)
+const FreeHomeSafetyAssessmentPage = lazy(() =>
+  import('./pages/FreeHomeSafetyAssessmentPage').then(({ FreeHomeSafetyAssessmentPage }) => ({
+    default: FreeHomeSafetyAssessmentPage,
+  })),
+)
+const GrantEligibilityPage = lazy(() =>
+  import('./pages/GrantEligibilityPage').then(({ GrantEligibilityPage }) => ({ default: GrantEligibilityPage })),
+)
+const GrantsPage = lazy(() => import('./pages/GrantsPage').then(({ GrantsPage }) => ({ default: GrantsPage })))
+const HomePage = lazy(() => import('./pages/HomePage').then(({ HomePage }) => ({ default: HomePage })))
+const HowItWorksPage = lazy(() =>
+  import('./pages/HowItWorksPage').then(({ HowItWorksPage }) => ({ default: HowItWorksPage })),
+)
+const OrderPage = lazy(() => import('./pages/OrderPage').then(({ OrderPage }) => ({ default: OrderPage })))
+const PlanDetailPage = lazy(() =>
+  import('./pages/PlanDetailPage').then(({ PlanDetailPage }) => ({ default: PlanDetailPage })),
+)
+const PlansPage = lazy(() => import('./pages/PlansPage').then(({ PlansPage }) => ({ default: PlansPage })))
+const TechPage = lazy(() => import('./pages/TechPage').then(({ TechPage }) => ({ default: TechPage })))
+const WhyCasamiaPage = lazy(() =>
+  import('./pages/WhyCasamiaPage').then(({ WhyCasamiaPage }) => ({ default: WhyCasamiaPage })),
+)
 
 function ScrollManager() {
   const location = useLocation()
@@ -42,28 +58,48 @@ function ScrollManager() {
   return null
 }
 
+function RouteLoadingFallback() {
+  return (
+    <div className="site-shell flex min-h-[55vh] items-center justify-center py-20">
+      <div
+        className="flex flex-col items-center gap-4 rounded-lg border border-border bg-white px-8 py-7 text-center shadow-soft"
+        role="status"
+        aria-live="polite"
+      >
+        <BrandLogo />
+        <span className="inline-flex items-center gap-2 text-sm font-extrabold uppercase text-navy">
+          <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-green" aria-hidden="true" />
+          Loading
+        </span>
+      </div>
+    </div>
+  )
+}
+
 function AppRoutes() {
   return (
     <>
       <ScrollManager />
       <Nav />
       <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/how-it-works" element={<HowItWorksPage />} />
-          <Route path="/plans" element={<PlansPage />} />
-          <Route path="/plans/:planId" element={<PlanDetailPage />} />
-          <Route path="/tech" element={<TechPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/order" element={<OrderPage />} />
-          <Route path="/why-casamia" element={<WhyCasamiaPage />} />
-          <Route path="/free-home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
-          <Route path="/grants" element={<GrantsPage />} />
-          <Route path="/grant-check" element={<GrantEligibilityPage />} />
-          <Route path="/estimate/:token" element={<EstimateReportPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <Suspense fallback={<RouteLoadingFallback />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/plans" element={<PlansPage />} />
+            <Route path="/plans/:planId" element={<PlanDetailPage />} />
+            <Route path="/tech" element={<TechPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/order" element={<OrderPage />} />
+            <Route path="/why-casamia" element={<WhyCasamiaPage />} />
+            <Route path="/free-home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
+            <Route path="/grants" element={<GrantsPage />} />
+            <Route path="/grant-check" element={<GrantEligibilityPage />} />
+            <Route path="/estimate/:token" element={<EstimateReportPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </>

@@ -1,3 +1,4 @@
+import { buildAssessmentCustomerConfirmation } from './customerConfirmationTemplate'
 import { buildAssessmentLeadNotification } from './leadNotificationTemplate'
 
 export type AssessmentRequestInput = {
@@ -27,6 +28,7 @@ export async function submitAssessmentRequest(input: AssessmentRequestInput) {
     ...input,
     submittedAt,
   })
+  const customerConfirmation = buildAssessmentCustomerConfirmation(input)
 
   const response = await fetch(assessmentEndpoint, {
     method: 'POST',
@@ -38,6 +40,7 @@ export async function submitAssessmentRequest(input: AssessmentRequestInput) {
       type: 'free_home_safety_assessment',
       ...input,
       notification,
+      customerConfirmation,
     }),
   })
 
