@@ -421,8 +421,8 @@
     "errorBody": "No pudimos analizar tus fotos. Inténtalo de nuevo o llámanos al +34 900 000 000.",
     "noFiles": "Añade al menos una foto de tu hogar primero.",
     "noKey": "Añade VITE_ANTHROPIC_API_KEY a tu entorno para activar el análisis de fotos.",
-    "resultsTitle": "Tu estimación de seguridad",
-    "hazardsLabel": "Problemas identificados",
+    "resultsTitle": "Tu informe de seguridad por estancia",
+    "hazardsLabel": "Posibles riesgos identificados",
     "planLabel": "Plan recomendado",
     "costLabel": "Coste estimado",
     "afterGrantsLabel": "Después de ayudas públicas",
@@ -477,7 +477,7 @@
         "email": "Email",
         "phone": "Teléfono",
         "emailDelivery": "Enviar informe por email",
-        "emailDeliveryBody": "Ideal para recibir la estimación completa y el enlace seguro.",
+        "emailDeliveryBody": "Ideal para recibir el informe de seguridad completo y el enlace seguro.",
         "whatsappDelivery": "Enlace seguro por WhatsApp",
         "whatsappDeliveryBody": "Mensaje breve solamente. Los detalles sensibles quedan en el informe.",
         "consent": "Acepto que CasaMia procese las fotos de mi hogar, la información de seguridad y mis datos de contacto para preparar y enviar mi informe gratuito de seguridad."
@@ -488,18 +488,41 @@
         "retry": "Intentar de nuevo",
         "kicker": "Informe listo",
         "title": "Tu informe de seguridad por estancia",
-        "costRange": "Rango de coste estimado",
-        "grantRange": "Posible rango de ayudas",
-        "safetyPriority": "Prioridad de seguridad",
+        "reportTitle": "Informe de seguridad",
+        "photosReviewed": "Fotos revisadas",
+        "risksFound": "Riesgos detectados",
+        "preventionPriority": "Prioridad preventiva",
         "priorityHigh": "Alta",
         "priorityMedium": "Media",
         "confidence": "confianza",
+        "mitigationTitle": "Cómo CasaMia puede reducir estos riesgos",
+        "preventionStats": {
+          "title": "Por qué la prevención importa",
+          "items": [
+            {
+              "value": "26%",
+              "label": "menos caídas cuando se revisan y reducen los riesgos del hogar en personas mayores con riesgo.",
+              "source": "Cochrane, 2023"
+            },
+            {
+              "value": "Hogar",
+              "label": "la mayoría de las caídas en personas mayores ocurren en casa, por eso conviene revisar cada estancia.",
+              "source": "Cochrane, 2023"
+            },
+            {
+              "value": "37,3M",
+              "label": "caídas al año requieren atención médica en todo el mundo.",
+              "source": "OMS"
+            }
+          ]
+        },
         "deliveryTitle": "Estado del envío",
         "readyToSend": "¿Quieres guardarlo? En el siguiente paso puedes recibir el enlace seguro por email o WhatsApp.",
         "emailQueued": "El informe completo está listo para enviarse por email.",
         "whatsappQueued": "El WhatsApp incluirá solamente un enlace seguro al informe.",
         "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
-        "viewReport": "Ver página del informe"
+        "viewReport": "Ver página del informe",
+        "bookAssessment": "Reservar evaluación gratis"
       },
       "errors": {
         "heic": "Las fotos HEIC aún no son compatibles. Sube JPG, PNG o WebP.",
@@ -637,15 +660,16 @@
       ]
     },
     "report": {
-      "back": "Crear nueva estimación",
+      "back": "Crear nuevo informe de seguridad",
       "title": "Tu informe de seguridad CasaMia.",
-      "intro": "Este informe seguro resume la estimación sin exponer URLs privadas de fotos.",
+      "intro": "Este informe seguro resume los posibles riesgos detectados y las medidas preventivas sin exponer URLs privadas de fotos.",
       "loading": "Cargando informe...",
       "notFoundTitle": "Informe no encontrado",
       "notFoundBody": "Puede que el enlace haya caducado o que el informe solo exista en el dispositivo original en modo demo.",
-      "summaryLabel": "Plan recomendado",
+      "summaryLabel": "Resumen de seguridad",
+      "findingsTitle": "Hallazgos por estancia",
       "privateLabel": "Privado por diseño",
-      "privateBody": "Los archivos de fotos permanecen privados. Esta página solo muestra los hallazgos de seguridad y el resumen de la estimación.",
+      "privateBody": "Los archivos de fotos permanecen privados. Esta página solo muestra hallazgos de seguridad, medidas de mitigación y evidencia preventiva.",
       "photoCount": "Fotos revisadas",
       "postcode": "Código postal",
       "expires": "El enlace caduca"

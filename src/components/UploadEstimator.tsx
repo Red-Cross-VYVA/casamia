@@ -14,7 +14,6 @@ import {
 } from 'lucide-react'
 import {
   useEffect,
-  useMemo,
   useRef,
   useState,
   type ChangeEvent,
@@ -26,12 +25,12 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { ReportDeliveryForm } from './ReportDeliveryForm'
-import { PLAN_URLS } from '../constants/shopify'
 import {
   generateSafetyReport,
   sendReportDelivery,
   type DeliveryChannelStatus,
   type EstimatePhotoInput,
+  type EstimatePreventionStat,
   type EstimateReport,
 } from '../services/estimateWorkflow'
 import { isReportDeliveryReady, type ReportDeliveryFormValue } from '../utils/reportDelivery'
@@ -135,16 +134,6 @@ export function UploadEstimator() {
   const [report, setReport] = useState<EstimateReport | null>(null)
   const [errorMessage, setErrorMessage] = useState('')
   const [fileMessage, setFileMessage] = useState('')
-
-  const formatter = useMemo(
-    () =>
-      new Intl.NumberFormat(i18n.language, {
-        style: 'currency',
-        currency: 'EUR',
-        maximumFractionDigits: 0,
-      }),
-    [i18n.language],
-  )
 
   const rooms = getOptions(t('estimator.workflow.rooms', { returnObjects: true }), fallbackRooms)
   const homeTypes = getOptions(t('estimator.workflow.homeTypes', { returnObjects: true }), fallbackHomeTypes)
@@ -311,7 +300,7 @@ export function UploadEstimator() {
       const result = await sendReportDelivery({
         reportType: 'safety',
         token: report.token,
-        reportTitle: report.recommendedPlan,
+        reportTitle: t('estimator.workflow.result.reportTitle'),
         reportUrl: report.reportUrl,
         contact: {
           name: form.name,
@@ -446,7 +435,6 @@ export function UploadEstimator() {
               {step === 2 ? (
                 <ResultStep
                   errorMessage={errorMessage}
-                  formatter={formatter}
                   report={report}
                   status={status}
                   onRetry={() => {
@@ -694,13 +682,11 @@ function ResultStep({
   status,
   errorMessage,
   report,
-  formatter,
   onRetry,
 }: {
   status: SubmissionStatus
   errorMessage: string
   report: EstimateReport | null
-  formatter: Intl.NumberFormat
   onRetry: () => void
 }) {
   const { t } = useTranslation()
@@ -733,6 +719,10 @@ function ResultStep({
   }
 
   const hasHighPriorityRisk = report.hazards.some((hazard) => hazard.severity === 'high')
+  const preventionStats = getPreventionStats(
+    report,
+    t('estimator.workflow.result.preventionStats.items', { returnObjects: true }),
+  )
 
   return (
     <section className="estimate-result-layout">
@@ -741,13 +731,10 @@ function ResultStep({
         <h3>{t('estimator.workflow.result.title')}</h3>
         <p>{report.summary}</p>
         <div className="estimate-result-metrics">
-          <Metric label={t('estimator.planLabel')} value={report.recommendedPlan} />
+          <Metric label={t('estimator.workflow.result.photosReviewed')} value={`${report.context.photoCount}`} />
+          <Metric label={t('estimator.workflow.result.risksFound')} value={`${report.hazards.length}`} />
           <Metric
-            label={t('estimator.workflow.result.costRange')}
-            value={`${formatter.format(report.estimatedCostRange.min)} - ${formatter.format(report.estimatedCostRange.max)}`}
-          />
-          <Metric
-            label={t('estimator.workflow.result.safetyPriority')}
+            label={t('estimator.workflow.result.preventionPriority')}
             value={t(
               hasHighPriorityRisk
                 ? 'estimator.workflow.result.priorityHigh'
@@ -763,11 +750,36 @@ function ResultStep({
               <li key={`${hazard.room}-${hazard.issue}`}>
                 <Check size={17} aria-hidden="true" />
                 <span>
-                  <strong>{hazard.room}:</strong> {hazard.issue} {hazard.recommendation}
+                  <strong>{hazard.room}:</strong> {hazard.issue}
                 </span>
               </li>
             ))}
           </ul>
+        </div>
+        <div className="estimate-result-section">
+          <h4>{t('estimator.workflow.result.mitigationTitle')}</h4>
+          <ul>
+            {report.hazards.map((hazard) => (
+              <li key={`${hazard.room}-${hazard.recommendation}`}>
+                <ShieldCheck size={17} aria-hidden="true" />
+                <span>
+                  <strong>{hazard.room}:</strong> {hazard.recommendation}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="estimate-result-section">
+          <h4>{t('estimator.workflow.result.preventionStats.title')}</h4>
+          <div className="estimate-evidence-grid">
+            {preventionStats.map((stat) => (
+              <article key={`${stat.value}-${stat.source}`}>
+                <strong>{stat.value}</strong>
+                <p>{stat.label}</p>
+                <small>{stat.source}</small>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
       <aside className="estimate-result-side">
@@ -790,10 +802,10 @@ function ResultStep({
             <FileText size={19} aria-hidden="true" />
             {t('estimator.workflow.result.viewReport')}
           </Link>
-          <a className="btn btn-green" href={PLAN_URLS[report.recommendedPlanId]} target="_blank" rel="noreferrer">
-            {t('estimator.cta')}
+          <Link className="btn btn-green" to="/free-home-safety-assessment">
+            {t('estimator.workflow.result.bookAssessment')}
             <ArrowRight size={20} aria-hidden="true" />
-          </a>
+          </Link>
         </div>
       </aside>
     </section>
@@ -912,6 +924,32 @@ function MultiSelectField({
         })}
       </div>
     </fieldset>
+  )
+}
+
+function getPreventionStats(report: EstimateReport, translatedStats: unknown) {
+  if (report.preventionStats?.length) {
+    return report.preventionStats
+  }
+
+  if (Array.isArray(translatedStats)) {
+    return translatedStats.filter(isPreventionStat)
+  }
+
+  return []
+}
+
+function isPreventionStat(value: unknown): value is EstimatePreventionStat {
+  if (!value || typeof value !== 'object') {
+    return false
+  }
+
+  const stat = value as Record<string, unknown>
+
+  return (
+    typeof stat.value === 'string' &&
+    typeof stat.label === 'string' &&
+    typeof stat.source === 'string'
   )
 }
 

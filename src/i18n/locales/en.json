@@ -421,8 +421,8 @@
     "errorBody": "We couldn't analyse your photos. Please try again or call us on +34 900 000 000.",
     "noFiles": "Please add at least one photo of your home first.",
     "noKey": "Add VITE_ANTHROPIC_API_KEY to your environment to enable live photo analysis.",
-    "resultsTitle": "Your home safety estimate",
-    "hazardsLabel": "Issues identified",
+    "resultsTitle": "Your room-by-room safety report",
+    "hazardsLabel": "Potential issues identified",
     "planLabel": "Recommended plan",
     "costLabel": "Estimated cost",
     "afterGrantsLabel": "After government grants",
@@ -477,7 +477,7 @@
         "email": "Email",
         "phone": "Phone",
         "emailDelivery": "Email full report",
-        "emailDeliveryBody": "Best for the complete estimate and secure report link.",
+        "emailDeliveryBody": "Best for the complete safety report and secure link.",
         "whatsappDelivery": "WhatsApp secure link",
         "whatsappDeliveryBody": "Short message only. Sensitive details stay on the report page.",
         "consent": "I agree CasaMia can process my home photos, safety information, and contact details to prepare and send my free safety report."
@@ -488,18 +488,41 @@
         "retry": "Try again",
         "kicker": "Report ready",
         "title": "Your room-by-room safety report",
-        "costRange": "Estimated cost range",
-        "grantRange": "Possible grant range",
-        "safetyPriority": "Safety priority",
+        "reportTitle": "Safety Report",
+        "photosReviewed": "Photos reviewed",
+        "risksFound": "Risks found",
+        "preventionPriority": "Prevention priority",
         "priorityHigh": "High",
         "priorityMedium": "Medium",
         "confidence": "confidence",
+        "mitigationTitle": "How CasaMia can reduce these risks",
+        "preventionStats": {
+          "title": "Why prevention matters",
+          "items": [
+            {
+              "value": "26%",
+              "label": "fewer falls when home hazards are assessed and reduced for older people at risk.",
+              "source": "Cochrane, 2023"
+            },
+            {
+              "value": "Home",
+              "label": "is where most older-adult falls happen, which makes room-by-room prevention valuable.",
+              "source": "Cochrane, 2023"
+            },
+            {
+              "value": "37.3M",
+              "label": "falls worldwide require medical attention each year.",
+              "source": "WHO"
+            }
+          ]
+        },
         "deliveryTitle": "Delivery status",
         "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
         "emailQueued": "The full report is ready to send by email.",
         "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
-        "viewReport": "View report page"
+        "viewReport": "View report page",
+        "bookAssessment": "Book free assessment"
       },
       "errors": {
         "heic": "HEIC photos are not supported yet. Please upload JPG, PNG or WebP.",
@@ -637,15 +660,16 @@
       ]
     },
     "report": {
-      "back": "Start a new estimate",
+      "back": "Start a new safety report",
       "title": "Your CasaMia safety report.",
-      "intro": "This secure report summarises the estimate without exposing private photo URLs.",
+      "intro": "This secure report summarises the potential safety issues and preventive steps without exposing private photo URLs.",
       "loading": "Loading report...",
       "notFoundTitle": "Report not found",
       "notFoundBody": "This link may have expired or the report may only exist on the original device in demo mode.",
-      "summaryLabel": "Recommended plan",
+      "summaryLabel": "Safety summary",
+      "findingsTitle": "Room-by-room findings",
       "privateLabel": "Private by design",
-      "privateBody": "Photo files remain private. This page only shows the safety findings and estimate summary.",
+      "privateBody": "Photo files remain private. This page only shows the safety findings, mitigation guidance, and prevention evidence.",
       "photoCount": "Photos reviewed",
       "postcode": "Postcode",
       "expires": "Link expires"

@@ -43,8 +43,8 @@ type Result = {
   score: number
   tone: 'strong' | 'review' | 'watch'
   reasons: string[]
-  documents: string[]
-  nextSteps: string[]
+  managedByCasamia: string[]
+  neededFromUser: string[]
 }
 
 type Option = {
@@ -294,13 +294,23 @@ export function GrantEligibilityPage() {
                   title={result.title}
                   intro={result.summary}
                 >
-                  <div className="grant-inline-result">
+                  <div className="grant-inline-result grant-report-handoff">
                     <div className="grant-result-score">
                       <span>{result.score}%</span>
                       <small>{copy.result.readiness}</small>
                     </div>
-                    <ResultList title={copy.result.reasonsTitle} icon={<Sparkles size={18} aria-hidden="true" />} items={result.reasons} />
-                    <ResultList title={copy.result.documentsTitle} icon={<FileText size={18} aria-hidden="true" />} items={result.documents} />
+                    <div className="grant-handoff-copy">
+                      <h3>{copy.result.handoffTitle}</h3>
+                      <p>{copy.result.handoffBody}</p>
+                      <ul>
+                        {copy.result.handoffPoints.map((point) => (
+                          <li key={point}>
+                            <Check size={16} aria-hidden="true" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </StepCard>
               ) : null}
@@ -376,7 +386,8 @@ export function GrantEligibilityPage() {
             <p className="mt-4 text-text-mid">{result.summary}</p>
 
             <ResultList title={copy.result.reasonsTitle} icon={<Sparkles size={18} aria-hidden="true" />} items={result.reasons} />
-            <ResultList title={copy.result.documentsTitle} icon={<FileText size={18} aria-hidden="true" />} items={result.documents} />
+            <ResultList title={copy.result.managedTitle} icon={<ClipboardCheck size={18} aria-hidden="true" />} items={result.managedByCasamia} />
+            <ResultList title={copy.result.neededTitle} icon={<FileText size={18} aria-hidden="true" />} items={result.neededFromUser} />
 
             {step >= 3 ? (
               <div className="grant-submitted">
@@ -535,7 +546,7 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
   const calculation = copy.calculation
   let score = 18
   const reasons: string[] = []
-  const documents = [...calculation.documents.base]
+  const neededFromUser = [...calculation.neededFromUser.base]
 
   if (form.region) {
     score += 8
@@ -558,11 +569,11 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
   if (form.recognisedStatus === 'Recognised disability or dependency') {
     score += 18
     reasons.push(calculation.reasons.recognisedStatus)
-    documents.push(calculation.documents.disability)
+    neededFromUser.push(calculation.neededFromUser.disability)
   } else if (form.recognisedStatus === 'Application in progress') {
     score += 11
     reasons.push(calculation.reasons.statusInProgress)
-    documents.push(calculation.documents.statusInProgress)
+    neededFromUser.push(calculation.neededFromUser.statusInProgress)
   } else if (form.recognisedStatus === 'Prefer not to say') {
     score += 4
     reasons.push(calculation.reasons.privateStatus)
@@ -590,11 +601,11 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
   } else if (form.ownership === 'Rented home') {
     score += 3
     reasons.push(calculation.reasons.rented)
-    documents.push(calculation.documents.landlord)
+    neededFromUser.push(calculation.neededFromUser.landlord)
   } else if (form.ownership === 'Community building works') {
     score += 6
     reasons.push(calculation.reasons.community)
-    documents.push(calculation.documents.community)
+    neededFromUser.push(calculation.neededFromUser.community)
   }
 
   if (form.timeline === 'As soon as possible' || form.timeline === 'Within 1 month') {
@@ -603,7 +614,7 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
   }
 
   const readiness = Math.min(96, score)
-  const baseNextSteps = calculation.nextSteps.base
+  const baseManagement = calculation.casamiaManagement.base
 
   if (readiness >= 72) {
     return {
@@ -612,8 +623,8 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
       score: readiness,
       tone: 'strong',
       reasons,
-      documents,
-      nextSteps: baseNextSteps,
+      managedByCasamia: baseManagement,
+      neededFromUser,
     }
   }
 
@@ -624,8 +635,8 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
       score: readiness,
       tone: 'review',
       reasons,
-      documents,
-      nextSteps: baseNextSteps,
+      managedByCasamia: baseManagement,
+      neededFromUser,
     }
   }
 
@@ -635,8 +646,8 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
     score: readiness,
     tone: 'watch',
     reasons,
-    documents,
-    nextSteps: calculation.nextSteps.watch,
+    managedByCasamia: calculation.casamiaManagement.watch,
+    neededFromUser,
   }
 }
 
@@ -833,10 +844,19 @@ function getGrantCopy(language: string) {
         readiness: 'preparación',
         instantReport: 'Informe instantáneo',
         reasonsTitle: 'Por qué aparece este resultado',
-        documentsTitle: 'Documentos útiles',
+        managedTitle: 'Qué gestionará CasaMia',
+        neededTitle: 'Qué necesitamos de ti',
+        handoffTitle: 'El informe ya tiene lo esencial.',
+        handoffBody:
+          'En el siguiente paso puedes enviarlo por email o WhatsApp. CasaMia usará estos datos para revisar la vía de ayuda y decirte exactamente qué falta.',
+        handoffPoints: [
+          'No pedimos certificados ahora si no los tienes.',
+          'No presentamos nada sin revisar la convocatoria y confirmarlo contigo.',
+          'El seguimiento se centra en permisos, alcance y documentación real.',
+        ],
         readyTitle: 'Tu informe está listo.',
         readyBody: (region: string) =>
-          `CasaMia puede verificar convocatorias abiertas para ${region} y enviarte la lista de documentos si eliges recibirlo.`,
+          `CasaMia puede revisar la vía de ayuda para ${region} y enviarte un resumen claro de lo que falta si eliges recibirlo.`,
         placeholder:
           'Responde las preguntas para ver tu informe de elegibilidad. No necesitas subir fotos.',
         detailsSummary: 'Ver resumen del informe',
@@ -874,16 +894,16 @@ function getGrantCopy(language: string) {
         yourRegion: 'tu comunidad',
       },
       calculation: {
-        documents: {
+        neededFromUser: {
           base: [
-            'Descripción sencilla de las adaptaciones necesarias.',
-            'Presupuesto u orientación de trabajos, si ya existe.',
-            'Prueba de residencia o uso principal de la vivienda cuando se solicite.',
+            'Código postal y municipio exacto de la vivienda.',
+            'Situación de la vivienda: propiedad, alquiler, familiar o comunidad de vecinos.',
+            'Quién vive en la vivienda y qué dificultad práctica tiene: baño, acceso, escaleras, suelo o iluminación.',
           ],
-          disability: 'Certificado de discapacidad o resolución de dependencia, si está disponible.',
-          statusInProgress: 'Justificante de solicitud de discapacidad o dependencia en trámite.',
-          landlord: 'Autorización del propietario si la vivienda es alquilada.',
-          community: 'Aprobación de la comunidad o acta si las obras son en zonas comunes.',
+          disability: 'Certificado de discapacidad o resolución de dependencia, solo si ya lo tienes.',
+          statusInProgress: 'Justificante de solicitud de discapacidad o dependencia en trámite, si existe.',
+          landlord: 'Contacto o autorización del propietario si la vivienda es alquilada.',
+          community: 'Administrador, presidente o acta de comunidad si la mejora afecta zonas comunes.',
         },
         reasons: {
           region: (region: string) => `${region} puede revisarse frente a convocatorias regionales o municipales.`,
@@ -903,16 +923,17 @@ function getGrantCopy(language: string) {
           community: 'Las obras en zonas comunes pueden requerir aprobación de la comunidad.',
           urgent: 'Un plazo cercano ayuda a priorizar convocatorias y preparación documental.',
         },
-        nextSteps: {
+        casamiaManagement: {
           base: [
-            'Confirmar si hay una convocatoria relevante para el código postal y la comunidad autónoma.',
-            'Definir qué trabajos son accesibilidad, seguridad o soporte inteligente.',
-            'Preparar una lista limpia de documentos antes de presentar cualquier solicitud.',
+            'Verificar la convocatoria activa para tu comunidad, municipio y tipo de vivienda.',
+            'Clasificar las mejoras como accesibilidad, seguridad preventiva o soporte inteligente.',
+            'Preparar la lista final de documentos y el orden correcto antes de presentar nada.',
+            'Convertir la necesidad en una propuesta clara para que sepas qué se solicita y por qué.',
           ],
           watch: [
-            'Empezar con una evaluación gratuita de seguridad para aclarar el alcance.',
-            'Recoger datos pendientes solo si una vía de ayuda los exige.',
-            'Mantener la vivienda en seguimiento para futuras convocatorias regionales.',
+            'Hacer una evaluación gratuita de seguridad para definir el alcance real.',
+            'Completar solo los datos mínimos que una ayuda concreta pueda exigir.',
+            'Mantener la vivienda en seguimiento y avisarte si aparece una convocatoria relevante.',
           ],
         },
         results: {
@@ -1050,10 +1071,19 @@ function getGrantCopy(language: string) {
       readiness: 'readiness',
       instantReport: 'Instant report',
       reasonsTitle: 'Why this result appears',
-      documentsTitle: 'Useful documents to prepare',
+      managedTitle: 'What CasaMia will manage',
+      neededTitle: 'What we need from you',
+      handoffTitle: 'The report now has the essentials.',
+      handoffBody:
+        'In the next step you can send it by email or WhatsApp. CasaMia will use these details to review the grant route and tell you exactly what is still missing.',
+      handoffPoints: [
+        'We do not ask for certificates now if you do not already have them.',
+        'Nothing is filed before the call is checked and confirmed with you.',
+        'Follow-up focuses on permissions, scope, and real documentation.',
+      ],
       readyTitle: 'Your report is ready.',
       readyBody: (region: string) =>
-        `CasaMia can verify open calls for ${region} and send the right document checklist if you choose delivery.`,
+        `CasaMia can review the grant route for ${region} and send a clear summary of what is still needed if you choose delivery.`,
       placeholder: 'Answer the questions to see your eligibility report. No photos needed.',
       detailsSummary: 'View report summary',
     },
@@ -1090,16 +1120,16 @@ function getGrantCopy(language: string) {
       yourRegion: 'your region',
     },
     calculation: {
-      documents: {
+      neededFromUser: {
         base: [
-          'A simple description of the adaptations needed.',
-          'A quote or work description for the proposed adaptations, if available.',
-          'Proof that the home is in Spain and used as the main residence where required.',
+          'The exact postcode and municipality of the home.',
+          'The housing situation: owned, rented, family-owned, or building community.',
+          'Who lives in the home and the practical difficulty: bathroom, access, stairs, flooring, or lighting.',
         ],
-        disability: 'Disability certificate or dependency resolution, if available.',
-        statusInProgress: 'Any proof that a disability or dependency application is in progress.',
-        landlord: 'Landlord authorisation, if the home is rented.',
-        community: 'Community approval or meeting minutes if shared building works are involved.',
+        disability: 'Disability certificate or dependency resolution, only if you already have it.',
+        statusInProgress: 'Proof that a disability or dependency application is in progress, if it exists.',
+        landlord: 'Landlord contact or authorisation if the home is rented.',
+        community: 'Building administrator, president, or meeting minutes if shared areas are involved.',
       },
       reasons: {
         region: (region: string) => `${region} can be checked against regional and municipal accessibility calls.`,
@@ -1119,16 +1149,17 @@ function getGrantCopy(language: string) {
         community: 'Community building works may need building community approval before filing.',
         urgent: 'A near-term timeline helps CasaMia prioritise call deadlines and document prep.',
       },
-      nextSteps: {
+      casamiaManagement: {
         base: [
-          'Confirm whether a relevant call is open for the postcode and autonomous community.',
-          'Define which works are accessibility, safety, or smart-home support.',
-          'Prepare a clean document checklist before any application is filed.',
+          'Verify the active call for your region, municipality, and home type.',
+          'Classify the improvements as accessibility, preventive safety, or smart support.',
+          'Prepare the final document list and correct order before anything is filed.',
+          'Turn the need into a clear proposal so you know what is being requested and why.',
         ],
         watch: [
-          'Start with a free home safety assessment so the work scope is clear.',
-          'Collect missing resident or property details only if a funding route requires them.',
-          'Keep the home on a regional grant watch list for future calls.',
+          'Start with a free home safety assessment so the real scope is clear.',
+          'Collect only the minimum details a specific funding route may require.',
+          'Keep the home on a regional watch list and notify you if a relevant call appears.',
         ],
       },
       results: {

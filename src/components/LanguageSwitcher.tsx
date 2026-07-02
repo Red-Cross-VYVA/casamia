@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 
 const languages = [
   { code: 'en', flag: 'GB', label: 'English' },
-  { code: 'es', flag: 'ES', label: 'Español' },
+  { code: 'es', flag: 'ES', label: 'Espa\u00f1ol' },
   { code: 'de', flag: 'DE', label: 'Deutsch' },
-  { code: 'fr', flag: 'FR', label: 'Français' },
+  { code: 'fr', flag: 'FR', label: 'Fran\u00e7ais' },
   { code: 'nl', flag: 'NL', label: 'Nederlands' },
 ] as const
 

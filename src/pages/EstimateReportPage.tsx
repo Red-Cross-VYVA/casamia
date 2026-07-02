@@ -1,10 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowRight, Check, FileText, LoaderCircle, ShieldCheck } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { PLAN_URLS } from '../constants/shopify'
-import { loadEstimateReport, type EstimateReport } from '../services/estimateWorkflow'
+import {
+  loadEstimateReport,
+  type EstimatePreventionStat,
+  type EstimateReport,
+} from '../services/estimateWorkflow'
 
 type ReportStatus = 'loading' | 'success' | 'error'
 
@@ -13,16 +16,6 @@ export function EstimateReportPage() {
   const { token = '' } = useParams()
   const [status, setStatus] = useState<ReportStatus>('loading')
   const [report, setReport] = useState<EstimateReport | null>(null)
-
-  const formatter = useMemo(
-    () =>
-      new Intl.NumberFormat(i18n.language, {
-        style: 'currency',
-        currency: 'EUR',
-        maximumFractionDigits: 0,
-      }),
-    [i18n.language],
-  )
 
   useEffect(() => {
     let active = true
@@ -90,24 +83,26 @@ export function EstimateReportPage() {
             <div className="estimate-report-grid">
               <article className="estimate-report-card">
                 <p className="estimate-wizard-kicker">{t('estimator.report.summaryLabel')}</p>
-                <h2>{report.recommendedPlan}</h2>
+                <h2>{t('estimator.report.findingsTitle')}</h2>
                 <p>{report.summary}</p>
                 <div className="estimate-result-metrics">
                   <div>
-                    <p>{t('estimator.workflow.result.costRange')}</p>
-                    <strong>
-                      {formatter.format(report.estimatedCostRange.min)} - {formatter.format(report.estimatedCostRange.max)}
-                    </strong>
-                  </div>
-                  <div className="is-accent">
-                    <p>{t('estimator.workflow.result.grantRange')}</p>
-                    <strong>
-                      {formatter.format(report.grantEstimateRange.min)} - {formatter.format(report.grantEstimateRange.max)}
-                    </strong>
+                    <p>{t('estimator.workflow.result.photosReviewed')}</p>
+                    <strong>{report.context.photoCount}</strong>
                   </div>
                   <div>
-                    <p>{t('estimator.workflow.result.confidence')}</p>
-                    <strong>{report.confidence}%</strong>
+                    <p>{t('estimator.workflow.result.risksFound')}</p>
+                    <strong>{report.hazards.length}</strong>
+                  </div>
+                  <div className="is-accent">
+                    <p>{t('estimator.workflow.result.preventionPriority')}</p>
+                    <strong>
+                      {t(
+                        report.hazards.some((hazard) => hazard.severity === 'high')
+                          ? 'estimator.workflow.result.priorityHigh'
+                          : 'estimator.workflow.result.priorityMedium',
+                      )}
+                    </strong>
                   </div>
                 </div>
                 <div className="estimate-result-section">
@@ -117,11 +112,39 @@ export function EstimateReportPage() {
                       <li key={`${hazard.room}-${hazard.issue}`}>
                         <Check size={17} aria-hidden="true" />
                         <span>
-                          <strong>{hazard.room}:</strong> {hazard.issue} {hazard.recommendation}
+                          <strong>{hazard.room}:</strong> {hazard.issue}
                         </span>
                       </li>
                     ))}
                   </ul>
+                </div>
+                <div className="estimate-result-section">
+                  <h4>{t('estimator.workflow.result.mitigationTitle')}</h4>
+                  <ul>
+                    {report.hazards.map((hazard) => (
+                      <li key={`${hazard.room}-${hazard.recommendation}`}>
+                        <ShieldCheck size={17} aria-hidden="true" />
+                        <span>
+                          <strong>{hazard.room}:</strong> {hazard.recommendation}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="estimate-result-section">
+                  <h4>{t('estimator.workflow.result.preventionStats.title')}</h4>
+                  <div className="estimate-evidence-grid">
+                    {getPreventionStats(
+                      report,
+                      t('estimator.workflow.result.preventionStats.items', { returnObjects: true }),
+                    ).map((stat) => (
+                      <article key={`${stat.value}-${stat.source}`}>
+                        <strong>{stat.value}</strong>
+                        <p>{stat.label}</p>
+                        <small>{stat.source}</small>
+                      </article>
+                    ))}
+                  </div>
                 </div>
               </article>
 
@@ -142,15 +165,41 @@ export function EstimateReportPage() {
                     <dd>{new Date(report.expiresAt).toLocaleDateString(i18n.language)}</dd>
                   </div>
                 </dl>
-                <a className="btn btn-green w-full" href={PLAN_URLS[report.recommendedPlanId]} target="_blank" rel="noreferrer">
-                  {t('estimator.cta')}
+                <Link className="btn btn-green w-full" to="/free-home-safety-assessment">
+                  {t('estimator.workflow.result.bookAssessment')}
                   <ArrowRight size={20} aria-hidden="true" />
-                </a>
+                </Link>
               </aside>
             </div>
           ) : null}
         </div>
       </section>
     </>
+  )
+}
+
+function getPreventionStats(report: EstimateReport, translatedStats: unknown) {
+  if (report.preventionStats?.length) {
+    return report.preventionStats
+  }
+
+  if (Array.isArray(translatedStats)) {
+    return translatedStats.filter(isPreventionStat)
+  }
+
+  return []
+}
+
+function isPreventionStat(value: unknown): value is EstimatePreventionStat {
+  if (!value || typeof value !== 'object') {
+    return false
+  }
+
+  const stat = value as Record<string, unknown>
+
+  return (
+    typeof stat.value === 'string' &&
+    typeof stat.label === 'string' &&
+    typeof stat.source === 'string'
   )
 }

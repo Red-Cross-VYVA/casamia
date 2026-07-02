@@ -1,6 +1,3 @@
-import { PLAN_PRICES, type PlanId } from '../constants/shopify'
-
-export type EstimatePlanName = 'Essential' | 'Advanced' | 'Premium'
 export type EstimateSeverity = 'low' | 'medium' | 'high'
 export type DeliveryChannelStatus = 'queued' | 'sent' | 'not_requested' | 'failed'
 
@@ -51,9 +48,10 @@ export type EstimateHazard = {
   recommendation: string
 }
 
-export type MoneyRange = {
-  min: number
-  max: number
+export type EstimatePreventionStat = {
+  value: string
+  label: string
+  source: string
 }
 
 export type EstimateReport = {
@@ -62,12 +60,9 @@ export type EstimateReport = {
   expiresAt: string
   reportUrl: string
   summary: string
-  recommendedPlan: EstimatePlanName
-  recommendedPlanId: PlanId
-  estimatedCostRange: MoneyRange
-  grantEstimateRange: MoneyRange
   confidence: number
   hazards: EstimateHazard[]
+  preventionStats?: EstimatePreventionStat[]
   followUpQuestions: string[]
   delivery: {
     email: DeliveryChannelStatus
@@ -142,7 +137,7 @@ export async function submitEstimateWorkflow(input: LegacyEstimateWorkflowInput)
   await sendReportDelivery({
     reportType: 'safety',
     token: report.token,
-    reportTitle: report.recommendedPlan,
+    reportTitle: 'Safety Report',
     reportUrl: report.reportUrl,
     contact: input.contact,
   })
@@ -253,30 +248,16 @@ function buildLocalReport(
   const rooms = Array.from(new Set(input.photos.map((photo) => photo.room).filter(Boolean)))
   const hazards = buildPhotoHazards(input)
   const highRiskCount = hazards.filter((hazard) => hazard.severity === 'high').length
-  const plan = choosePlan(input, hazards.length, highRiskCount)
-  const recommendedPlanId = plan.toLowerCase() as PlanId
-  const basePrice = PLAN_PRICES[recommendedPlanId]
-  const estimatedCostRange = {
-    min: Math.max(220, Math.round(basePrice * 0.82)),
-    max: Math.round(basePrice * 1.22),
-  }
-  const grantEstimateRange = {
-    min: Math.round(estimatedCostRange.min * 0.35),
-    max: Math.round(estimatedCostRange.max * 0.78),
-  }
 
   return {
     token,
     createdAt,
     expiresAt,
     reportUrl: `${window.location.origin}/estimate/${token}`,
-    summary: buildReportSummary(input, plan, hazards.length),
-    recommendedPlan: plan,
-    recommendedPlanId,
-    estimatedCostRange,
-    grantEstimateRange,
+    summary: buildReportSummary(input, hazards.length),
     confidence: Math.min(94, 62 + input.photos.length * 5 + highRiskCount * 6),
     hazards,
+    preventionStats: buildPreventionStats(input.locale),
     followUpQuestions: buildReportFollowUpQuestions(input),
     delivery: {
       email: 'not_requested',
@@ -351,27 +332,11 @@ function buildHazards(input: EstimateWorkflowInput, rooms: string[]) {
   return hazards
 }
 
-function choosePlan(input: EstimateWorkflowInput, hazardCount: number, highRiskCount: number): EstimatePlanName {
-  if (
-    input.context.mainConcern.includes('Emergency') ||
-    input.context.mainConcern.includes('Smart') ||
-    highRiskCount >= 3
-  ) {
-    return 'Premium'
-  }
-
-  if (hazardCount >= 2 || input.photos.length >= 3) {
-    return 'Advanced'
-  }
-
-  return 'Essential'
-}
-
-function buildSummary(input: EstimateWorkflowInput, plan: EstimatePlanName, hazardCount: number) {
+function buildSummary(input: EstimateWorkflowInput, hazardCount: number) {
   const location = input.context.postcode ? ` in ${input.context.postcode}` : ''
   const plural = hazardCount === 1 ? 'risk area' : 'risk areas'
 
-  return `Based on the photos and context${location}, CasaMia found ${hazardCount} likely ${plural}. The ${plan} plan is the best starting point for a focused home safety review.`
+  return `Based on the photos and context${location}, CasaMia found ${hazardCount} possible ${plural}. This report highlights what to review first and how CasaMia can help reduce the risk.`
 }
 
 function buildFollowUpQuestions(input: EstimateWorkflowInput) {
@@ -479,15 +444,55 @@ function buildPhotoHazards(input: EstimateWorkflowInput) {
   return hazards
 }
 
-function buildReportSummary(input: EstimateWorkflowInput, plan: EstimatePlanName, hazardCount: number) {
+function buildReportSummary(input: EstimateWorkflowInput, hazardCount: number) {
   if (input.locale.startsWith('es')) {
     const location = input.context.postcode ? ` en ${input.context.postcode}` : ''
-    const plural = hazardCount === 1 ? 'zona de riesgo probable' : 'zonas de riesgo probables'
+    const plural = hazardCount === 1 ? 'posible zona de riesgo' : 'posibles zonas de riesgo'
 
-    return `Según las fotos y el contexto${location}, CasaMia ha detectado ${hazardCount} ${plural}. El plan ${plan} es el mejor punto de partida para una revisión enfocada en la seguridad del hogar.`
+    return `Según las fotos y el contexto${location}, CasaMia ha detectado ${hazardCount} ${plural}. Este informe señala qué revisar primero y cómo CasaMia puede ayudar a reducir el riesgo.`
   }
 
-  return buildSummary(input, plan, hazardCount)
+  return buildSummary(input, hazardCount)
+}
+
+function buildPreventionStats(locale: string): EstimatePreventionStat[] {
+  if (locale.startsWith('es')) {
+    return [
+      {
+        value: '26%',
+        label: 'menos caídas cuando se revisan y reducen los riesgos del hogar en personas mayores con riesgo.',
+        source: 'Cochrane, 2023',
+      },
+      {
+        value: 'Hogar',
+        label: 'la mayoría de las caídas en personas mayores ocurren en casa, por eso conviene revisar cada estancia.',
+        source: 'Cochrane, 2023',
+      },
+      {
+        value: '37,3M',
+        label: 'caídas al año requieren atención médica en todo el mundo.',
+        source: 'OMS',
+      },
+    ]
+  }
+
+  return [
+    {
+      value: '26%',
+      label: 'fewer falls when home hazards are assessed and reduced for older people at risk.',
+      source: 'Cochrane, 2023',
+    },
+    {
+      value: 'Home',
+      label: 'is where most older-adult falls happen, which makes room-by-room prevention valuable.',
+      source: 'Cochrane, 2023',
+    },
+    {
+      value: '37.3M',
+      label: 'falls worldwide require medical attention each year.',
+      source: 'WHO',
+    },
+  ]
 }
 
 function buildReportFollowUpQuestions(input: EstimateWorkflowInput) {
