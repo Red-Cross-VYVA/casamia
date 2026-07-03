@@ -305,16 +305,53 @@ export function getEstimateRiskAssessment(
   const riskLevel = isEstimateRiskLevel(report.riskLevel)
     ? report.riskLevel
     : getRiskLevel(riskScore)
-  const riskFactors =
+  const baseRiskFactors =
     Array.isArray(report.riskFactors) && report.riskFactors.length > 0
       ? report.riskFactors
       : buildFallbackRiskFactors(report, locale)
+  const riskFactors = augmentRiskFactors(report, baseRiskFactors, riskLevel, locale)
 
   return {
     riskScore,
     riskLevel,
     riskFactors,
   }
+}
+
+function augmentRiskFactors(
+  report: EstimateReport,
+  factors: string[],
+  riskLevel: EstimateRiskLevel,
+  locale: string,
+) {
+  if (riskLevel !== 'high' && riskLevel !== 'elevated') {
+    return factors
+  }
+
+  const hazardCount = report.hazards.length
+
+  if (hazardCount > 2) {
+    return factors
+  }
+
+  const alreadyExplainsCount = factors.some((factor) =>
+    includesAny(normaliseText(factor), ['possible issue', 'posible riesgo']),
+  )
+
+  if (alreadyExplainsCount) {
+    return factors
+  }
+
+  return prioritiseRiskFactors(
+    [
+      ...factors,
+      localiseReportText(locale, {
+        en: `${hazardCount} possible ${hazardCount === 1 ? 'issue was' : 'issues were'} found, but the level is ${riskLevel === 'high' ? 'high' : 'elevated'} because severity, room type, mobility profile, urgency, and notes are weighted together.`,
+        es: `Se ${hazardCount === 1 ? 'ha detectado' : 'han detectado'} ${hazardCount} posible${hazardCount === 1 ? '' : 's'} riesgo${hazardCount === 1 ? '' : 's'}, pero el nivel es ${riskLevel === 'high' ? 'alto' : 'elevado'} porque se ponderan juntos gravedad, estancia, movilidad, prioridad y notas.`,
+      }),
+    ],
+    riskLevel,
+  ).slice(0, 5)
 }
 
 function buildRiskAssessment(
@@ -532,12 +569,45 @@ function buildRiskAssessment(
   }
 
   const riskScore = clampRiskScore(score)
+  const riskLevel = getRiskLevel(riskScore)
+
+  if ((riskLevel === 'high' || riskLevel === 'elevated') && hazards.length <= 2) {
+    factors.add(
+      localiseReportText(input.locale, {
+        en: `${hazards.length} possible ${hazards.length === 1 ? 'issue was' : 'issues were'} found, but the level is ${riskLevel === 'high' ? 'high' : 'elevated'} because severity, room type, mobility profile, urgency, and notes are weighted together.`,
+        es: `Se ${hazards.length === 1 ? 'ha detectado' : 'han detectado'} ${hazards.length} posible${hazards.length === 1 ? '' : 's'} riesgo${hazards.length === 1 ? '' : 's'}, pero el nivel es ${riskLevel === 'high' ? 'alto' : 'elevado'} porque se ponderan juntos gravedad, estancia, movilidad, prioridad y notas.`,
+      }),
+    )
+  }
 
   return {
     riskScore,
-    riskLevel: getRiskLevel(riskScore),
-    riskFactors: Array.from(factors).slice(0, 5),
+    riskLevel,
+    riskFactors: prioritiseRiskFactors(Array.from(factors), riskLevel).slice(0, 5),
   }
+}
+
+function prioritiseRiskFactors(factors: string[], riskLevel: EstimateRiskLevel) {
+  if (riskLevel !== 'high' && riskLevel !== 'elevated') {
+    return factors
+  }
+
+  return [...factors].sort((left, right) => {
+    const leftIsCountExplanation = includesAny(normaliseText(left), [
+      'possible issue',
+      'posible riesgo',
+    ])
+    const rightIsCountExplanation = includesAny(normaliseText(right), [
+      'possible issue',
+      'posible riesgo',
+    ])
+
+    if (leftIsCountExplanation === rightIsCountExplanation) {
+      return 0
+    }
+
+    return leftIsCountExplanation ? -1 : 1
+  })
 }
 
 function deriveRiskScoreFromReport(report: EstimateReport) {

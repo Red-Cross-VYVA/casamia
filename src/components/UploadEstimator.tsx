@@ -33,6 +33,7 @@ import {
   type EstimatePhotoInput,
   type EstimatePreventionStat,
   type EstimateReport,
+  type EstimateRiskLevel,
 } from '../services/estimateWorkflow'
 import { isReportDeliveryReady, type ReportDeliveryFormValue } from '../utils/reportDelivery'
 
@@ -764,6 +765,7 @@ function ResultStep({
                 : 'estimator.workflow.result.priorityMedium',
             )}
             accent
+            riskLevel={risk.riskLevel}
           />
         </div>
         <div className="estimate-result-section">
@@ -806,7 +808,7 @@ function ResultStep({
         </div>
       </div>
       <aside className="estimate-result-side">
-        <div className="estimate-risk-score">
+        <div className={`estimate-risk-score ${getRiskToneClass(risk.riskLevel)}`}>
           <span>{risk.riskScore}%</span>
           <small>{t(`estimator.workflow.result.riskLevels.${risk.riskLevel}`)}</small>
         </div>
@@ -964,13 +966,32 @@ function isPreventionStat(value: unknown): value is EstimatePreventionStat {
   )
 }
 
-function Metric({ label, value, accent = false }: { label: string; value: string; accent?: boolean }) {
+function Metric({
+  label,
+  value,
+  accent = false,
+  riskLevel,
+}: {
+  label: string
+  value: string
+  accent?: boolean
+  riskLevel?: EstimateRiskLevel
+}) {
+  const className = [
+    accent ? 'is-accent' : '',
+    riskLevel ? getRiskToneClass(riskLevel) : '',
+  ].filter(Boolean).join(' ')
+
   return (
-    <div className={accent ? 'is-accent' : ''}>
+    <div className={className}>
       <p>{label}</p>
       <strong>{value}</strong>
     </div>
   )
+}
+
+function getRiskToneClass(riskLevel: EstimateRiskLevel) {
+  return `risk-${riskLevel}`
 }
 
 function splitMultiValue(value: string) {

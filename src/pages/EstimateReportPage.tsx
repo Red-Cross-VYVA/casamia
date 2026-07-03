@@ -8,6 +8,7 @@ import {
   loadEstimateReport,
   type EstimatePreventionStat,
   type EstimateReport,
+  type EstimateRiskLevel,
 } from '../services/estimateWorkflow'
 
 type ReportStatus = 'loading' | 'success' | 'error'
@@ -96,7 +97,7 @@ export function EstimateReportPage() {
                     <p>{t('estimator.workflow.result.risksFound')}</p>
                     <strong>{report.hazards.length}</strong>
                   </div>
-                  <div className="is-accent">
+                  <div className={`is-accent ${risk ? getRiskToneClass(risk.riskLevel) : ''}`}>
                     <p>{t('estimator.workflow.result.preventionPriority')}</p>
                     <strong>
                       {t(
@@ -153,7 +154,7 @@ export function EstimateReportPage() {
               <aside className="estimate-report-side">
                 {risk ? (
                   <>
-                    <div className="estimate-risk-score">
+                    <div className={`estimate-risk-score ${getRiskToneClass(risk.riskLevel)}`}>
                       <span>{risk.riskScore}%</span>
                       <small>{t(`estimator.workflow.result.riskLevels.${risk.riskLevel}`)}</small>
                     </div>
@@ -196,6 +197,10 @@ export function EstimateReportPage() {
       </section>
     </>
   )
+}
+
+function getRiskToneClass(riskLevel: EstimateRiskLevel) {
+  return `risk-${riskLevel}`
 }
 
 function getPreventionStats(report: EstimateReport, translatedStats: unknown) {
