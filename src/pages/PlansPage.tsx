@@ -74,7 +74,7 @@ export function PlansPage() {
             <h1>{t('pages.plans.hero.title')}</h1>
             <p>{t('pages.plans.hero.subtitle')}</p>
             <div className="plans-hero-actions">
-              <Link className="btn btn-green" to="/free-home-safety-assessment">
+              <Link className="btn btn-green" to="/home-safety-assessment">
                 {t('pages.plans.hero.primaryCta')}
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
@@ -233,7 +233,7 @@ export function PlansPage() {
               <h2>{t('pages.plans.final.title')}</h2>
               <p>{t('pages.plans.final.body')}</p>
             </div>
-            <Link className="btn btn-green" to="/free-home-safety-assessment">
+            <Link className="btn btn-green" to="/home-safety-assessment">
               {t('pages.plans.final.cta')}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>

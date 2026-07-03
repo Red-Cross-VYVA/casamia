@@ -174,7 +174,7 @@ export function PlanDetailPage() {
   }
 
   const PlanIcon = planIconMap[plan.id]
-  const assessmentPath = `/free-home-safety-assessment?plan=${plan.id}`
+  const assessmentPath = `/home-safety-assessment?plan=${plan.id}`
   const otherPlans = copy.plans.filter((item) => item.id !== plan.id)
 
   return (

@@ -20,8 +20,8 @@ function getAssessmentPath(pathname: string) {
   const selectedPlan = planId ? planAssessmentMap[planId] : undefined
 
   return selectedPlan
-    ? `/free-home-safety-assessment?plan=${selectedPlan}`
-    : '/free-home-safety-assessment'
+    ? `/home-safety-assessment?plan=${selectedPlan}`
+    : '/home-safety-assessment'
 }
 
 export function Nav() {
@@ -36,7 +36,7 @@ export function Nav() {
     { label: t('nav.grants'), to: '/#grants' },
     { label: t('nav.about', { defaultValue: 'About' }), to: '/about' },
     { label: t('nav.whyCasamia', { defaultValue: 'Why CasaMia' }), to: '/why-casamia' },
-    { label: t('nav.freeAssessment', { defaultValue: 'Free Assessment' }), to: assessmentPath },
+    { label: t('nav.freeAssessment', { defaultValue: 'In-Home Visit' }), to: assessmentPath },
     { label: t('nav.contact'), to: '/#contact' },
   ]
   const desktopLinks = links.filter((link) => link.to !== assessmentPath)

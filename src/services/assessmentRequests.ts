@@ -17,6 +17,7 @@ export type AssessmentRequestInput = {
 const assessmentSubmitUrl = (import.meta.env.VITE_ASSESSMENT_SUBMIT_URL ?? '').trim()
 const estimateApiBase = (import.meta.env.VITE_ESTIMATE_API_URL ?? '').replace(/\/$/, '')
 const assessmentEndpoint = assessmentSubmitUrl || (estimateApiBase ? `${estimateApiBase}/api/assessment-request` : '')
+const ASSESSMENT_VISIT_FEE = '€89'
 
 export async function submitAssessmentRequest(input: AssessmentRequestInput) {
   if (!assessmentEndpoint) {
@@ -37,7 +38,8 @@ export async function submitAssessmentRequest(input: AssessmentRequestInput) {
     },
     body: JSON.stringify({
       submittedAt,
-      type: 'free_home_safety_assessment',
+      type: 'home_safety_assessment_visit',
+      assessmentVisitFee: ASSESSMENT_VISIT_FEE,
       ...input,
       notification,
       customerConfirmation,

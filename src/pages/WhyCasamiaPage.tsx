@@ -79,8 +79,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     ],
     ctaTitle: 'Ready to make your home safer?',
     ctaBody:
-      'Book your free home safety assessment and receive expert recommendations tailored to your home.',
-    ctaButton: 'Book Free Assessment',
+      'Request a €89 in-home safety assessment visit and receive expert recommendations tailored to your home.',
+    ctaButton: 'Request In-Home Assessment',
   },
   es: {
     eyebrow: 'Por qué CasaMia',
@@ -133,8 +133,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     ],
     ctaTitle: '¿Listo para hacer tu hogar más seguro?',
     ctaBody:
-      'Reserva tu evaluación gratuita de seguridad y recibe recomendaciones expertas adaptadas a tu vivienda.',
-    ctaButton: 'Reservar evaluación gratuita',
+      'Solicita una visita de evaluación a domicilio de 89 € y recibe recomendaciones expertas adaptadas a tu vivienda.',
+    ctaButton: 'Solicitar evaluación a domicilio',
   },
 }
 
@@ -177,7 +177,7 @@ export function WhyCasamiaPage() {
           <span className="eyebrow">{copy.eyebrow}</span>
           <h1>{copy.headline}</h1>
           <p>{copy.intro}</p>
-          <Link className="btn btn-green mt-8" to="/free-home-safety-assessment">
+          <Link className="btn btn-green mt-8" to="/home-safety-assessment">
             {copy.ctaButton}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
@@ -219,7 +219,7 @@ export function WhyCasamiaPage() {
               <h2>{copy.ctaTitle}</h2>
               <p>{copy.ctaBody}</p>
             </div>
-            <Link className="btn btn-green" to="/free-home-safety-assessment">
+            <Link className="btn btn-green" to="/home-safety-assessment">
               {copy.ctaButton}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>

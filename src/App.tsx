@@ -76,6 +76,12 @@ function RouteLoadingFallback() {
   )
 }
 
+function LegacyAssessmentRedirect() {
+  const location = useLocation()
+
+  return <Navigate to={`/home-safety-assessment${location.search}${location.hash}`} replace />
+}
+
 function AppRoutes() {
   return (
     <>
@@ -92,7 +98,8 @@ function AppRoutes() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
             <Route path="/why-casamia" element={<WhyCasamiaPage />} />
-            <Route path="/free-home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
+            <Route path="/home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
+            <Route path="/free-home-safety-assessment" element={<LegacyAssessmentRedirect />} />
             <Route path="/grants" element={<GrantsPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />

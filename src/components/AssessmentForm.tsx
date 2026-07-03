@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
 import { submitAssessmentRequest } from '../services/assessmentRequests'
+import { PhoneNumberField } from './PhoneNumberField'
 
 const DEFAULT_PLAN_VALUE = 'not-sure'
 const KNOWN_PLAN_VALUES = new Set(['home-assessment', 'home-safety', 'smart-safety'])
@@ -129,7 +130,7 @@ export function AssessmentForm() {
         preferredDate: values.date,
         message: values.message.trim(),
         consentAt: new Date().toISOString(),
-        source: 'free-home-safety-assessment',
+        source: 'home-safety-assessment',
       })
       setSubmittedPlan(values.selectedPlan)
       setSubmitted(true)
@@ -174,15 +175,12 @@ export function AssessmentForm() {
           />
         </FormField>
 
-        <FormField label={t('assessment.form.fields.phone')}>
-          <input
-            autoComplete="tel"
-            name="phone"
-            onChange={(event) => updateValue('phone', event.target.value)}
-            type="tel"
-            value={values.phone}
-          />
-        </FormField>
+        <PhoneNumberField
+          className="assessment-field"
+          label={t('assessment.form.fields.phone')}
+          value={values.phone}
+          onChange={(nextValue) => updateValue('phone', nextValue)}
+        />
 
         <FormField error={errors.contact} label={t('assessment.form.fields.email')}>
           <input
@@ -296,7 +294,7 @@ export function AssessmentForm() {
           </p>
           <a
             className="btn btn-navy"
-            href="https://wa.me/34900000000?text=I%20would%20like%20to%20schedule%20my%20CasaMia%20home%20safety%20inspection."
+            href="https://wa.me/34900000000?text=I%20would%20like%20to%20request%20a%20CasaMia%20in-home%20safety%20assessment%20visit%20for%2089%20euros."
             rel="noreferrer"
             target="_blank"
           >

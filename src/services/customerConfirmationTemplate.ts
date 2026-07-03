@@ -21,8 +21,9 @@ type CustomerDetail = {
 }
 
 const NOT_SURE_PLAN = 'Not sure yet'
+const ASSESSMENT_VISIT_FEE = '€89'
 const SCHEDULE_INSPECTION_URL =
-  'https://wa.me/34900000000?text=I%20would%20like%20to%20schedule%20my%20CasaMia%20home%20safety%20inspection.'
+  'https://wa.me/34900000000?text=I%20would%20like%20to%20request%20a%20CasaMia%20in-home%20safety%20assessment%20visit%20for%2089%20euros.'
 const CASAMIA_WEBSITE_URL = 'https://casamia-seniors.myshopify.com/'
 const CASAMIA_PHONE = '+34 900 000 000'
 
@@ -43,10 +44,10 @@ export function buildAssessmentCustomerConfirmation(
 
 function buildSubject(selectedPlan: string) {
   if (selectedPlan && selectedPlan !== NOT_SURE_PLAN) {
-    return `Your Casamia ${selectedPlan} Request Has Been Received`
+    return `Your Casamia ${selectedPlan} Assessment Visit Request Has Been Received`
   }
 
-  return 'Your Casamia Home Safety Assessment Request Has Been Received'
+  return 'Your Casamia In-Home Safety Assessment Request Has Been Received'
 }
 
 function buildCustomerDetails(
@@ -55,6 +56,7 @@ function buildCustomerDetails(
 ): CustomerDetail[] {
   return [
     { label: 'Selected plan', value: selectedPlan },
+    { label: 'Assessment visit fee', value: ASSESSMENT_VISIT_FEE },
     { label: 'Full name', value: cleanText(payload.name) || 'Not provided' },
     { label: 'Phone', value: cleanText(payload.phone) || 'Not provided' },
     { label: 'Email', value: cleanText(payload.email) || 'Not provided' },
@@ -82,20 +84,20 @@ function buildPlainText(details: CustomerDetail[], reassurance: string) {
     '',
     'What Happens Next',
     '1. A Casamia representative will contact you shortly.',
-    '2. We will confirm your needs and agree on a convenient inspection time.',
-    '3. Our qualified safety team will visit your home and assess it room by room.',
+    `2. We will confirm your needs, local availability, and the ${ASSESSMENT_VISIT_FEE} assessment visit before booking.`,
+    '3. If you choose to proceed, our safety team will visit your home and assess it room by room.',
     '4. You will receive expert recommendations and clear next steps.',
     '',
     reassurance,
     '',
-    'If you prefer, you can schedule your inspection directly using the link below.',
-    `Schedule Inspection: ${SCHEDULE_INSPECTION_URL}`,
+    'If you prefer, you can request the assessment visit directly using the link below.',
+    `Request Assessment Visit: ${SCHEDULE_INSPECTION_URL}`,
     '',
     'The Casamia team',
     CASAMIA_WEBSITE_URL,
     CASAMIA_PHONE,
     '',
-    'Your information will only be used to process your request and contact you about your Casamia home safety assessment.',
+    'Your information will only be used to process your request and contact you about your Casamia in-home safety assessment visit.',
   ].join('\n')
 }
 
@@ -137,8 +139,8 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
             <h2 style="margin: 0 0 12px; color: #102235; font-size: 19px;">What Happens Next</h2>
             <ol style="margin: 0; padding-left: 22px; color: #26384a; font-size: 15px; line-height: 1.65;">
               <li>A Casamia representative will contact you shortly.</li>
-              <li>We will confirm your needs and agree on a convenient inspection time.</li>
-              <li>Our qualified safety team will visit your home and assess it room by room.</li>
+              <li>We will confirm your needs, local availability, and the ${ASSESSMENT_VISIT_FEE} assessment visit before booking.</li>
+              <li>If you choose to proceed, our safety team will visit your home and assess it room by room.</li>
               <li>You will receive expert recommendations and clear next steps.</li>
             </ol>
           </section>
@@ -150,15 +152,15 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
           </section>
 
           <section style="margin-top: 26px; padding: 22px; background: #f4f8fb; border-radius: 10px; text-align: center;">
-            <p style="margin: 0 0 16px; color: #26384a; font-size: 15px; line-height: 1.55;">If you prefer, you can schedule your inspection directly using the link below.</p>
-            <a href="${SCHEDULE_INSPECTION_URL}" style="display: inline-block; padding: 13px 20px; background: #7fbe3b; color: #ffffff; border-radius: 999px; font-weight: 700; text-decoration: none;">Schedule Inspection</a>
+            <p style="margin: 0 0 16px; color: #26384a; font-size: 15px; line-height: 1.55;">If you prefer, you can request the assessment visit directly using the link below.</p>
+            <a href="${SCHEDULE_INSPECTION_URL}" style="display: inline-block; padding: 13px 20px; background: #7fbe3b; color: #ffffff; border-radius: 999px; font-weight: 700; text-decoration: none;">Request Assessment Visit</a>
           </section>
 
           <footer style="margin-top: 28px; padding-top: 20px; border-top: 1px solid #d8e5ef; color: #5b6d7d; font-size: 13px; line-height: 1.55;">
             <p style="margin: 0 0 8px; color: #102235; font-weight: 700;">The Casamia team</p>
             <p style="margin: 0;"><a href="${CASAMIA_WEBSITE_URL}" style="color: #0f6286;">${CASAMIA_WEBSITE_URL}</a></p>
             <p style="margin: 4px 0 0;">${CASAMIA_PHONE}</p>
-            <p style="margin: 16px 0 0;">Your information will only be used to process your request and contact you about your Casamia home safety assessment.</p>
+            <p style="margin: 16px 0 0;">Your information will only be used to process your request and contact you about your Casamia in-home safety assessment visit.</p>
           </footer>
         </div>
       </section>
@@ -189,18 +191,18 @@ function getPlanReassurance(value?: string) {
   const planKey = getPlanKey(value)
 
   if (planKey === 'home-assessment') {
-    return "Your request is focused on inspection and reporting. We'll help you understand the safety risks in your home before you decide on any improvements."
+    return `Your request is focused on an in-home inspection and report. The assessment visit costs ${ASSESSMENT_VISIT_FEE}, credited toward your CasaMia plan if you proceed.`
   }
 
   if (planKey === 'home-safety') {
-    return "Your request includes practical home safety improvements. After the assessment, we'll prepare a clear proposal before any installation or modification begins."
+    return `Your request includes practical home safety improvements. After the ${ASSESSMENT_VISIT_FEE} assessment visit, we'll prepare a clear proposal before any installation or modification begins.`
   }
 
   if (planKey === 'smart-safety') {
-    return "Your request includes smart safety technology. We'll review your home, connectivity needs, monitoring preferences, and suitable devices before recommending a solution."
+    return `Your request includes smart safety technology. During the ${ASSESSMENT_VISIT_FEE} assessment visit, we'll review your home, connectivity needs, monitoring preferences, and suitable devices before recommending a solution.`
   }
 
-  return 'No problem if you are not sure which plan is right. Our team will guide you toward the best option for your home and needs.'
+  return `No problem if you are not sure which plan is right. Our team will explain the ${ASSESSMENT_VISIT_FEE} assessment visit and guide you toward the best option for your home and needs.`
 }
 
 function getPlanKey(value?: string) {

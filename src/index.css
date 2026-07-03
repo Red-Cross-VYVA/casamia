@@ -2618,6 +2618,97 @@ img {
   color: var(--green);
 }
 
+.assessment-fee-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  margin-top: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 16px;
+}
+
+.assessment-fee-card svg {
+  color: var(--gold);
+}
+
+.assessment-fee-card small {
+  display: block;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.assessment-fee-card strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--white);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.assessment-pricing-strip {
+  background: var(--white);
+  padding: 28px 0;
+}
+
+.assessment-pricing-panel {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  border: 1px solid rgba(200, 220, 232, 0.9);
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(234, 245, 252, 0.82), rgba(255, 255, 255, 0.98));
+  padding-top: clamp(22px, 4vw, 34px);
+  padding-bottom: clamp(22px, 4vw, 34px);
+  box-shadow: 0 18px 52px rgba(13, 30, 46, 0.08);
+}
+
+.assessment-pricing-panel h2 {
+  margin-top: 6px;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.08;
+}
+
+.assessment-pricing-panel p {
+  max-width: 760px;
+  margin-top: 12px;
+  color: var(--text-mid);
+  font-size: 18px;
+  line-height: 1.58;
+}
+
+.assessment-pricing-panel ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.assessment-pricing-panel li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  color: var(--text-dark);
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.assessment-pricing-panel li svg {
+  margin-top: 2px;
+  color: var(--green);
+}
+
 .assessment-benefits,
 .assessment-how {
   background: var(--white);
@@ -4478,6 +4569,57 @@ img {
   resize: vertical;
 }
 
+.phone-number-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+}
+
+.assessment-field .phone-number-field {
+  border-radius: 12px;
+  background: var(--white);
+}
+
+.phone-number-field:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(125, 184, 65, 0.16);
+}
+
+.phone-number-prefix {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  border-right: 1px solid var(--border);
+  background: rgba(234, 245, 252, 0.86);
+  padding: 0 14px;
+  color: var(--navy);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.assessment-field .phone-number-prefix {
+  min-height: 52px;
+}
+
+.phone-number-field input {
+  width: 100%;
+  min-height: 54px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0 15px !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.assessment-field .phone-number-field input {
+  min-height: 52px;
+}
+
 .estimate-multiselect {
   display: grid;
   grid-column: 1 / -1;
@@ -5284,6 +5426,10 @@ img {
 
   .assessment-hero-grid {
     grid-template-columns: minmax(0, 1fr) minmax(360px, 0.52fr);
+  }
+
+  .assessment-pricing-panel {
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.48fr);
   }
 
   .assessment-benefit-grid {

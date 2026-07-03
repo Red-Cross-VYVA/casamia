@@ -15,9 +15,9 @@
     "grants": "Grants",
     "about": "About",
     "whyCasamia": "Why CasaMia",
-    "freeAssessment": "Free Assessment",
+    "freeAssessment": "In-Home Visit",
     "contact": "Contact",
-    "cta": "Book Free Assessment",
+    "cta": "Book Visit",
     "phone": "+34 900 000 000",
     "menu": "Open menu",
     "closeMenu": "Close menu"
@@ -58,14 +58,26 @@
     "sendSuccess": "Report delivery queued."
   },
   "assessment": {
-    "metaTitle": "Free Home Safety Assessment",
+    "metaTitle": "In-Home Safety Assessment",
     "hero": {
-      "title": "Is Your Home Safe for Aging in Place?",
-      "subtitle": "Book a free home safety assessment and let CasaMia identify potential hazards, fall risks, and comfort improvements tailored to your home.",
-      "cta": "Book Free Assessment",
-      "reassurance": "No obligation. No pressure. Just expert guidance for a safer home.",
-      "panelTitle": "A practical expert review before you decide anything.",
-      "panelBody": "We look at the rooms, routines, and risk moments that matter most for safer daily living."
+      "title": "Book a Professional In-Home Safety Assessment",
+      "subtitle": "Request a €89 CasaMia home visit to review fall risks, accessibility needs, and practical improvements before you choose any work.",
+      "cta": "Request In-Home Assessment",
+      "secondaryCta": "Start Free Online Safety Report",
+      "reassurance": "The €89 visit fee is credited toward your CasaMia plan if you proceed.",
+      "panelTitle": "A €89 expert visit, credited if you continue.",
+      "panelBody": "We confirm availability and scope before the appointment so there are no surprises."
+    },
+    "pricing": {
+      "title": "Paid visit, credited toward your plan",
+      "feeLabel": "Assessment visit fee",
+      "fee": "€89",
+      "body": "In-home assessments require travel and specialist time, so the visit costs €89. If you proceed with a CasaMia package, the assessment fee is credited toward your plan.",
+      "points": [
+        "Free online safety report available first",
+        "Fixed €89 assessment visit",
+        "€89 credited if you proceed with a package"
+      ]
     },
     "benefits": {
       "title": "What You'll Gain",
@@ -97,8 +109,8 @@
       ]
     },
     "included": {
-      "title": "What's Included in Your Free Assessment",
-      "body": "A focused home safety review designed to give you clear, useful next steps without pressure.",
+      "title": "What's Included in the In-Home Assessment",
+      "body": "A focused home safety visit designed to give you clear, useful next steps before any installation decision.",
       "items": [
         {
           "title": "Room-by-room safety inspection",
@@ -118,7 +130,7 @@
         },
         {
           "title": "Clear next-step proposal if improvements are needed",
-          "body": "If adaptations are useful, we explain the recommended scope and the next step clearly."
+          "body": "If adaptations are useful, we explain the recommended scope, products, and next step clearly."
         }
       ]
     },
@@ -126,25 +138,25 @@
       "title": "How It Works",
       "items": [
         {
-          "title": "Book Your Free Assessment",
-          "body": "Share your contact details, preferred timing, and any concerns about the home."
+          "title": "Request the Visit",
+          "body": "Share the home location, preferred timing, selected plan, and any concerns."
         },
         {
-          "title": "We Inspect Your Home",
-          "body": "A CasaMia representative reviews the key rooms and safety moments."
+          "title": "We Confirm Availability",
+          "body": "CasaMia confirms the appointment, the €89 visit fee, and what will be reviewed before booking."
         },
         {
-          "title": "You Receive Expert Recommendations",
-          "body": "You get clear guidance on risks, priorities, and possible next steps."
+          "title": "You Receive Recommendations",
+          "body": "After the visit, you receive clear guidance on risks, priorities, and next steps."
         }
       ]
     },
     "formSection": {
-      "title": "Book Your Free Home Safety Assessment",
-      "body": "Tell us where the home is and how you prefer to be contacted. A CasaMia support representative will follow up to arrange the inspection visit."
+      "title": "Request Your In-Home Assessment Visit",
+      "body": "Tell us where the home is and how you prefer to be contacted. A CasaMia representative will confirm availability and a suitable appointment time for the €89 visit."
     },
     "form": {
-      "title": "Assessment request",
+      "title": "In-home assessment request",
       "intro": "Fields marked with * are required. Please provide either a phone number or email address.",
       "fields": {
         "name": "Full name",
@@ -172,11 +184,11 @@
       ],
       "submit": "Submit Request",
       "submitting": "Submitting request...",
-      "success": "Thank you. Your request has been received. A CasaMia customer support representative will contact you shortly to schedule your home inspection visit at a time that suits you. Alternatively, you can schedule it yourself using the button below.",
-      "schedule": "Schedule Inspection",
+      "success": "Thank you. Your request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the €89 assessment visit.",
+      "schedule": "Request Appointment",
       "error": "We couldn't submit your request. Please try again or contact CasaMia by phone.",
-      "consent": "I agree to be contacted by Casamia regarding my home safety assessment request.",
-      "privacy": "Your information is only used to schedule your assessment. We never sell your data.",
+      "consent": "I agree to be contacted by Casamia regarding my in-home safety assessment request.",
+      "privacy": "Your information is only used to arrange your assessment visit. We never sell your data.",
       "errors": {
         "name": "Please enter your full name.",
         "contact": "Please enter a phone number or email address.",
@@ -201,10 +213,10 @@
           "label": "Smart Safety Plan"
         }
       ],
-      "successWithPlan": "Thank you. Your request for the {{plan}} has been received. A Casamia representative will contact you shortly."
+      "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A Casamia representative will contact you shortly to confirm availability and an appointment time for the €89 assessment visit."
     },
     "final": {
-      "title": "Take the first step toward a safer home."
+      "title": "Ready for a professional visit?"
     }
   },
   "alts": {
@@ -301,7 +313,7 @@
   "plans": {
     "title1": "Simple plans,",
     "title2": "total peace of mind.",
-    "sub": "Free home assessment + grant filing included in every plan",
+    "sub": "Free online safety report available - €89 in-home assessment credited toward your plan",
     "popular": "Most Popular",
     "perUnit": "one-time",
     "cta": "Get This Plan",
@@ -313,7 +325,7 @@
         "price": "€269",
         "desc": "Entry, living room & stairway. The essential safety upgrades.",
         "features": [
-          "Free home assessment",
+          "€89 in-home assessment credited toward your plan",
           "Grab bars & non-slip flooring",
           "Motion-activated lighting",
           "Stairway handrails & treads",
@@ -382,8 +394,8 @@
   },
   "finalCta": {
     "title": "Your parents' home,\nmade safe.",
-    "body": "Upload a few photos today. Find out exactly what your home needs and how little it could cost after grants.",
-    "cta": "Get My Free Estimate"
+    "body": "Upload a few photos today. Get a free online safety report showing potential room risks and what to adapt first.",
+    "cta": "Get My Free Report"
   },
   "footer": {
     "tagline": "Helping families across Europe age gracefully at home.",
@@ -531,7 +543,7 @@
         "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
         "viewReport": "View report page",
-        "bookAssessment": "Book free assessment"
+        "bookAssessment": "Book in-home assessment"
       },
       "errors": {
         "heic": "HEIC photos are not supported yet. Please upload JPG, PNG or WebP.",
@@ -735,7 +747,7 @@
       "hero": {
         "title": "Choose the Right Safety Plan for Your Home",
         "subtitle": "Whether you need expert guidance, practical home modifications, or smart safety technology, CasaMia helps you create a safer and more comfortable home for aging in place.",
-        "primaryCta": "Book Free Assessment",
+        "primaryCta": "Book In-Home Assessment",
         "secondaryCta": "Compare Plans"
       },
       "explainer": {
@@ -794,7 +806,7 @@
       ],
       "comparison": {
         "title": "Compare Plans",
-        "intro": "Use this table to see what each plan includes before booking your free assessment.",
+        "intro": "Use this table to see what each plan includes before requesting an in-home assessment.",
         "headers": [
           "Feature",
           "Home Assessment",
@@ -940,11 +952,11 @@
         "items": [
           {
             "question": "Which plan should I choose?",
-            "answer": "If you are unsure, start with the free assessment. We will help you understand whether you need advice only, practical adaptations, or a smart safety setup."
+            "answer": "If you are unsure, start with the free online safety report. If you need a professional visit, CasaMia will confirm the in-home assessment fee before booking."
           },
           {
-            "question": "Is the free assessment really free?",
-            "answer": "Yes. The initial assessment request is free and there is no obligation to proceed with installation."
+            "question": "Is the online safety report really free?",
+            "answer": "Yes. The online photo-based safety report is free. A professional in-home assessment visit costs €89, credited toward your CasaMia plan if you proceed."
           },
           {
             "question": "Do I have to proceed with installation after the assessment?",
@@ -974,7 +986,7 @@
       },
       "final": {
         "title": "Start with the right plan for a safer home.",
-        "body": "Book your free assessment and let CasaMia help you decide the safest, clearest next step.",
+        "body": "Request a €89 in-home assessment visit and let CasaMia help you decide the safest, clearest next step.",
         "cta": "Request a Safety Proposal"
       }
     },
@@ -1017,7 +1029,7 @@
       "metaTitleSuffix": "CasaMia Plan",
       "backToPlans": "Back to plans",
       "comparePlans": "Compare Plans",
-      "primaryCta": "Book Free Assessment",
+      "primaryCta": "Book In-Home Assessment",
       "whoTitle": "Who this plan is for",
       "includedTitle": "What's included",
       "roomTitle": "Room-by-room improvements",
@@ -1027,8 +1039,8 @@
       "paymentReassurance": "No hidden fees. No unexpected costs.",
       "faqTitle": "Questions families ask",
       "finalTitle": "Ready to make your home safer?",
-      "finalBody": "Book your Free Home Safety Assessment today and receive personalised recommendations from our qualified safety experts.",
-      "finalCta": "Book Free Assessment",
+      "finalBody": "Request a €89 in-home assessment visit and receive personalised recommendations from our qualified safety experts.",
+      "finalCta": "Book In-Home Assessment",
       "plans": [
         {
           "id": "home-assessment",

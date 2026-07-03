@@ -11,7 +11,7 @@ export function Footer() {
   const legalLinks = t('footer.legal.links', { returnObjects: true }) as string[]
   const supportLinks = t('footer.support.links', { returnObjects: true }) as string[]
   const companyTargets = ['/#how-it-works', '/#plans', '/#grants', '/#contact']
-  const supportTargets = ['/contact', '/grants', '/free-home-safety-assessment', '/about']
+  const supportTargets = ['/contact', '/grants', '/home-safety-assessment', '/about']
 
   return (
     <footer className="bg-ink text-white">

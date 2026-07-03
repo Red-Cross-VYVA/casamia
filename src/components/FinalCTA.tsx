@@ -16,7 +16,7 @@ export function FinalCTA({
   title,
   body,
   cta,
-  to = '/free-home-safety-assessment',
+  to = '/#top',
 }: FinalCTAProps) {
   const { t } = useTranslation()
 

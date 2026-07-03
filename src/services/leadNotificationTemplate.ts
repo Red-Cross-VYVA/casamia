@@ -24,6 +24,7 @@ type LeadDetail = {
 
 const PLAN_NOT_SELECTED = 'Plan Not Selected'
 const NOT_SURE_PLAN = 'Not sure yet'
+const ASSESSMENT_VISIT_FEE = '€89'
 
 export function buildAssessmentLeadNotification(
   payload: AssessmentLeadNotificationPayload,
@@ -47,6 +48,7 @@ function buildLeadDetails(
 ): LeadDetail[] {
   return [
     { label: 'Selected plan', value: selectedPlan },
+    { label: 'Assessment visit fee', value: ASSESSMENT_VISIT_FEE },
     { label: 'Full name', value: cleanText(payload.name) || 'Not provided' },
     { label: 'Phone', value: cleanText(payload.phone) || 'Not provided' },
     { label: 'Email', value: cleanText(payload.email) || 'Not provided' },
@@ -67,7 +69,7 @@ function buildLeadDetails(
 
 function buildPlainText(details: LeadDetail[], recommendedNextAction: string) {
   return [
-    'New Free Home Safety Assessment Request',
+    'New In-Home Safety Assessment Visit Request',
     '',
     'Lead details:',
     ...details.map((detail) => `${detail.label}: ${detail.value}`),
@@ -104,7 +106,7 @@ function buildHtml(
       <section style="background: #ffffff; border: 1px solid #d8e5ef; border-radius: 12px; overflow: hidden;">
         <header style="padding: 28px 30px; background: #0f6286; color: #ffffff;">
           <p style="margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Casamia Lead Notification</p>
-          <h1 style="margin: 0; font-size: 26px; line-height: 1.2;">New Free Home Safety Assessment Request</h1>
+          <h1 style="margin: 0; font-size: 26px; line-height: 1.2;">New In-Home Safety Assessment Visit Request</h1>
         </header>
 
         <div style="padding: 28px 30px;">
@@ -193,18 +195,18 @@ function getRecommendedNextAction(value?: string) {
   const planKey = getPlanKey(value)
 
   if (planKey === 'home-assessment') {
-    return 'Call or message the customer to confirm the inspection visit and explain what the assessment includes.'
+    return `Call or message the customer to confirm local availability, the ${ASSESSMENT_VISIT_FEE} assessment visit, and what the in-home assessment includes.`
   }
 
   if (planKey === 'home-safety') {
-    return 'Confirm the inspection visit and prepare to discuss likely installation needs after the assessment.'
+    return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit, explain that the fee is credited if they proceed, and prepare to discuss likely installation needs after the visit.`
   }
 
   if (planKey === 'smart-safety') {
-    return 'Confirm the inspection visit and prepare to discuss smart safety devices, monitoring needs, and connectivity requirements.'
+    return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit and prepare to discuss smart safety devices, monitoring needs, and connectivity requirements.`
   }
 
-  return 'Contact the customer to understand their needs and guide them toward the right Casamia plan.'
+  return `Contact the customer to understand their needs, explain the ${ASSESSMENT_VISIT_FEE} in-home assessment fee, and guide them toward the right Casamia plan.`
 }
 
 function getPlanKey(value?: string) {

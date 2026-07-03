@@ -950,7 +950,7 @@ function getGrantCopy(language: string) {
             'Convertir la necesidad en una propuesta clara para que sepas qué se solicita y por qué.',
           ],
           watch: [
-            'Hacer una evaluación gratuita de seguridad para definir el alcance real.',
+            'Empezar con el informe online gratuito para aclarar el alcance inicial.',
             'Completar solo los datos mínimos que una ayuda concreta pueda exigir.',
             'Mantener la vivienda en seguimiento y avisarte si aparece una convocatoria relevante.',
           ],
@@ -1180,7 +1180,7 @@ function getGrantCopy(language: string) {
           'Turn the need into a clear proposal so you know what is being requested and why.',
         ],
         watch: [
-          'Start with a free home safety assessment so the real scope is clear.',
+          'Start with the free online safety report so the initial scope is clearer.',
           'Collect only the minimum details a specific funding route may require.',
           'Keep the home on a regional watch list and notify you if a relevant call appears.',
         ],

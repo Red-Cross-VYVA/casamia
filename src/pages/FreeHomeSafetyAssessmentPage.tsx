@@ -8,6 +8,7 @@ import {
   SmilePlus,
   Stethoscope,
   UsersRound,
+  WalletCards,
 } from 'lucide-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -30,6 +31,14 @@ type StepItem = {
   body: string
 }
 
+type PricingCopy = {
+  title: string
+  feeLabel: string
+  fee: string
+  body: string
+  points: string[]
+}
+
 const benefitIcons = [ShieldCheck, SmilePlus, Home, Stethoscope, ClipboardCheck, UsersRound]
 
 export function FreeHomeSafetyAssessmentPage() {
@@ -37,6 +46,7 @@ export function FreeHomeSafetyAssessmentPage() {
   const benefits = t('assessment.benefits.items', { returnObjects: true }) as BenefitItem[]
   const included = t('assessment.included.items', { returnObjects: true }) as IncludedItem[]
   const steps = t('assessment.how.items', { returnObjects: true }) as StepItem[]
+  const pricing = t('assessment.pricing', { returnObjects: true }) as PricingCopy
 
   useEffect(() => {
     document.title = `${t('assessment.metaTitle')} | CasaMia`
@@ -54,6 +64,9 @@ export function FreeHomeSafetyAssessmentPage() {
                 {t('assessment.hero.cta')}
                 <ArrowRight size={20} aria-hidden="true" />
               </a>
+              <a className="btn btn-white" href="/#top">
+                {t('assessment.hero.secondaryCta')}
+              </a>
               <span>{t('assessment.hero.reassurance')}</span>
             </div>
           </div>
@@ -64,6 +77,13 @@ export function FreeHomeSafetyAssessmentPage() {
             </span>
             <h2>{t('assessment.hero.panelTitle')}</h2>
             <p>{t('assessment.hero.panelBody')}</p>
+            <div className="assessment-fee-card">
+              <WalletCards size={24} aria-hidden="true" />
+              <div>
+                <small>{pricing.feeLabel}</small>
+                <strong>{pricing.fee}</strong>
+              </div>
+            </div>
             <ul>
               {included.slice(0, 3).map((item) => (
                 <li key={item.title}>
@@ -77,6 +97,24 @@ export function FreeHomeSafetyAssessmentPage() {
       </section>
 
       <TrustBar />
+
+      <section className="assessment-pricing-strip">
+        <div className="assessment-pricing-panel site-shell">
+          <div>
+            <p className="eyebrow">{pricing.feeLabel}</p>
+            <h2>{pricing.title}</h2>
+            <p>{pricing.body}</p>
+          </div>
+          <ul>
+            {pricing.points.map((point) => (
+              <li key={point}>
+                <CheckCircle2 size={18} aria-hidden="true" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section className="assessment-benefits section-pad">
         <div className="site-shell">

@@ -15,9 +15,9 @@
     "grants": "Ayudas",
     "about": "Nosotros",
     "whyCasamia": "Por qué CasaMia",
-    "freeAssessment": "Evaluación Gratis",
+    "freeAssessment": "Visita a domicilio",
     "contact": "Contacto",
-    "cta": "Reservar evaluación gratis",
+    "cta": "Reservar visita",
     "phone": "+34 900 000 000",
     "menu": "Abrir menú",
     "closeMenu": "Cerrar menú"
@@ -58,14 +58,26 @@
     "sendSuccess": "Envío del informe preparado."
   },
   "assessment": {
-    "metaTitle": "Evaluación gratuita de seguridad del hogar",
+    "metaTitle": "Evaluación a domicilio de seguridad del hogar",
     "hero": {
-      "title": "¿Tu hogar es seguro para envejecer en casa?",
-      "subtitle": "Reserva una evaluación gratuita de seguridad y deja que CasaMia identifique riesgos, posibles caídas y mejoras de comodidad adaptadas a tu vivienda.",
-      "cta": "Reservar evaluación gratis",
-      "reassurance": "Sin compromiso. Sin presión. Solo orientación experta para un hogar más seguro.",
-      "panelTitle": "Una revisión práctica antes de decidir nada.",
-      "panelBody": "Revisamos las estancias, rutinas y momentos de riesgo que más importan para vivir con más seguridad."
+      "title": "Reserva una evaluación profesional a domicilio",
+      "subtitle": "Solicita una visita de CasaMia por 89 € para revisar riesgos de caída, accesibilidad y mejoras prácticas antes de decidir cualquier trabajo.",
+      "cta": "Solicitar evaluación a domicilio",
+      "secondaryCta": "Empezar informe online gratis",
+      "reassurance": "La tarifa de 89 € se descuenta de tu plan CasaMia si continúas.",
+      "panelTitle": "Una visita experta de 89 €, descontable si continúas.",
+      "panelBody": "Confirmamos disponibilidad y alcance antes de la cita para que no haya sorpresas."
+    },
+    "pricing": {
+      "title": "Visita de 89 €, descontable de tu plan",
+      "feeLabel": "Tarifa de visita de evaluación",
+      "fee": "89 €",
+      "body": "Las evaluaciones a domicilio requieren desplazamiento y tiempo especializado, por eso la visita cuesta 89 €. Si contratas un paquete CasaMia, la tarifa de evaluación se descuenta de tu plan.",
+      "points": [
+        "Informe online gratis disponible primero",
+        "Visita de evaluación con tarifa fija de 89 €",
+        "Los 89 € se descuentan si contratas un paquete"
+      ]
     },
     "benefits": {
       "title": "Qué conseguirás",
@@ -97,8 +109,8 @@
       ]
     },
     "included": {
-      "title": "Qué incluye tu evaluación gratuita",
-      "body": "Una revisión enfocada de seguridad del hogar, pensada para darte próximos pasos claros y útiles sin presión.",
+      "title": "Qué incluye la evaluación a domicilio",
+      "body": "Una visita enfocada de seguridad del hogar, pensada para darte próximos pasos claros antes de decidir cualquier instalación.",
       "items": [
         {
           "title": "Inspección de seguridad estancia por estancia",
@@ -118,7 +130,7 @@
         },
         {
           "title": "Propuesta clara si hacen falta mejoras",
-          "body": "Si conviene adaptar algo, explicamos el alcance recomendado y el siguiente paso con claridad."
+          "body": "Si conviene adaptar algo, explicamos alcance recomendado, productos y siguiente paso con claridad."
         }
       ]
     },
@@ -126,25 +138,25 @@
       "title": "Cómo funciona",
       "items": [
         {
-          "title": "Reserva tu evaluación gratuita",
-          "body": "Comparte tus datos, horario preferido y cualquier preocupación sobre la vivienda."
+          "title": "Solicita la visita",
+          "body": "Comparte la ubicación, horario preferido, plan seleccionado y cualquier preocupación."
         },
         {
-          "title": "Inspeccionamos tu hogar",
-          "body": "Un representante de CasaMia revisa las estancias clave y los momentos de riesgo."
+          "title": "Confirmamos disponibilidad",
+          "body": "CasaMia confirma la cita, la tarifa de 89 € y qué se revisará antes de reservar."
         },
         {
-          "title": "Recibes recomendaciones expertas",
-          "body": "Obtienes orientación clara sobre riesgos, prioridades y posibles próximos pasos."
+          "title": "Recibes recomendaciones",
+          "body": "Tras la visita, recibes orientación clara sobre riesgos, prioridades y próximos pasos."
         }
       ]
     },
     "formSection": {
-      "title": "Reserva tu evaluación gratuita de seguridad",
-      "body": "Cuéntanos dónde está la vivienda y cómo prefieres que contactemos. Un representante de soporte de CasaMia te llamará para organizar la visita de inspección."
+      "title": "Solicita tu visita de evaluación a domicilio",
+      "body": "Cuéntanos dónde está la vivienda y cómo prefieres que contactemos. Un representante de CasaMia confirmará disponibilidad y una cita adecuada para la visita de 89 €."
     },
     "form": {
-      "title": "Solicitud de evaluación",
+      "title": "Solicitud de evaluación a domicilio",
       "intro": "Los campos marcados con * son obligatorios. Indica teléfono o email.",
       "fields": {
         "name": "Nombre completo",
@@ -171,18 +183,18 @@
         }
       ],
       "submit": "Enviar solicitud",
-      "success": "Gracias. Hemos recibido tu solicitud. Un representante de atención al cliente de CasaMia contactará contigo en breve para programar la visita de inspección del hogar en el horario que mejor te venga. También puedes programarla tú mismo usando el botón de abajo.",
-      "schedule": "Programar inspección",
+      "submitting": "Enviando solicitud...",
+      "success": "Gracias. Hemos recibido tu solicitud. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita que encaje contigo para la visita de evaluación de 89 €.",
+      "schedule": "Solicitar cita",
+      "error": "No pudimos enviar tu solicitud. Inténtalo de nuevo o contacta con CasaMia por teléfono.",
+      "consent": "Acepto que Casamia contacte conmigo sobre mi solicitud de evaluación de seguridad a domicilio.",
+      "privacy": "Tu información solo se usa para organizar tu visita de evaluación. Nunca vendemos tus datos.",
       "errors": {
         "name": "Introduce tu nombre completo.",
         "contact": "Introduce un teléfono o email.",
         "city": "Introduce tu ciudad o zona.",
         "consent": "Acepta que podamos contactarte sobre tu solicitud de evaluación."
       },
-      "submitting": "Enviando solicitud...",
-      "error": "No pudimos enviar tu solicitud. Inténtalo de nuevo o contacta con CasaMia por teléfono.",
-      "consent": "Acepto que Casamia contacte conmigo sobre mi solicitud de evaluación de seguridad del hogar.",
-      "privacy": "Tu información solo se usa para programar tu evaluación. Nunca vendemos tus datos.",
       "planOptions": [
         {
           "value": "not-sure",
@@ -201,10 +213,10 @@
           "label": "Plan Seguridad Smart"
         }
       ],
-      "successWithPlan": "Gracias. Hemos recibido tu solicitud para el {{plan}}. Un representante de Casamia contactará contigo en breve."
+      "successWithPlan": "Gracias. Hemos recibido tu solicitud de visita para {{plan}}. Un representante de Casamia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de 89 €."
     },
     "final": {
-      "title": "Da el primer paso hacia un hogar más seguro."
+      "title": "¿Listo para una visita profesional?"
     }
   },
   "alts": {
@@ -301,7 +313,7 @@
   "plans": {
     "title1": "Planes sencillos,",
     "title2": "total tranquilidad.",
-    "sub": "Evaluación gratuita + gestión de ayudas incluida en cada plan",
+    "sub": "Informe online gratis disponible - evaluación a domicilio de 89 € descontable de tu plan",
     "popular": "Más Popular",
     "perUnit": "pago único",
     "cta": "Elegir Este Plan",
@@ -313,7 +325,7 @@
         "price": "€269",
         "desc": "Entrada, salón y escalera. Las mejoras esenciales de seguridad.",
         "features": [
-          "Evaluación gratuita del hogar",
+          "Evaluación a domicilio de 89 € descontable de tu plan",
           "Barras de apoyo y suelo antideslizante",
           "Iluminación con sensor de movimiento",
           "Pasamanos y bandas en escaleras",
@@ -382,8 +394,8 @@
   },
   "finalCta": {
     "title": "El hogar de tus padres,\nhecho seguro.",
-    "body": "Sube unas fotos hoy. Descubre exactamente qué necesita tu hogar y cuánto podría costar después de las ayudas.",
-    "cta": "Obtener estimación gratis"
+    "body": "Sube unas fotos hoy. Recibe gratis un informe online de seguridad con posibles riesgos por estancia y qué adaptar primero.",
+    "cta": "Obtener informe gratis"
   },
   "footer": {
     "tagline": "Ayudamos a familias de toda Europa a envejecer con tranquilidad en casa.",
@@ -531,7 +543,7 @@
         "whatsappQueued": "El WhatsApp incluirá solamente un enlace seguro al informe.",
         "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
         "viewReport": "Ver página del informe",
-        "bookAssessment": "Reservar evaluación gratis"
+        "bookAssessment": "Reservar evaluación a domicilio"
       },
       "errors": {
         "heic": "Las fotos HEIC aún no son compatibles. Sube JPG, PNG o WebP.",
@@ -735,7 +747,7 @@
       "hero": {
         "title": "Elige el plan de seguridad adecuado para tu hogar",
         "subtitle": "Tanto si necesitas orientación experta, adaptaciones prácticas o tecnología de seguridad inteligente, CasaMia te ayuda a crear un hogar más seguro y cómodo para envejecer en casa.",
-        "primaryCta": "Reservar evaluación gratis",
+        "primaryCta": "Reservar evaluación a domicilio",
         "secondaryCta": "Comparar planes"
       },
       "explainer": {
@@ -794,7 +806,7 @@
       ],
       "comparison": {
         "title": "Comparar planes",
-        "intro": "Usa esta tabla para ver qué incluye cada plan antes de reservar tu evaluación gratuita.",
+        "intro": "Usa esta tabla para ver qué incluye cada plan antes de solicitar una evaluación a domicilio.",
         "headers": [
           "Prestación",
           "Evaluación del Hogar",
@@ -940,11 +952,11 @@
         "items": [
           {
             "question": "¿Qué plan debería elegir?",
-            "answer": "Si no lo tienes claro, empieza con la evaluación gratuita. Te ayudamos a entender si necesitas solo orientación, adaptaciones prácticas o una solución smart."
+            "answer": "Si no lo tienes claro, empieza con el informe online gratis. Si necesitas una visita profesional, la evaluación a domicilio cuesta 89 € y CasaMia confirmará disponibilidad antes de reservar."
           },
           {
-            "question": "¿La evaluación gratuita es realmente gratis?",
-            "answer": "Sí. La solicitud inicial de evaluación es gratuita y no tienes obligación de continuar con instalación."
+            "question": "¿El informe online de seguridad es realmente gratis?",
+            "answer": "Sí. El informe online basado en fotos es gratis. La evaluación profesional a domicilio cuesta 89 €, descontables de tu plan CasaMia si continúas."
           },
           {
             "question": "¿Tengo que hacer instalación después de la evaluación?",
@@ -974,7 +986,7 @@
       },
       "final": {
         "title": "Empieza con el plan adecuado para un hogar más seguro.",
-        "body": "Reserva tu evaluación gratuita y deja que CasaMia te ayude a decidir el siguiente paso más seguro y claro.",
+        "body": "Solicita una visita de evaluación a domicilio de 89 € y deja que CasaMia te ayude a decidir el siguiente paso más seguro y claro.",
         "cta": "Solicitar propuesta de seguridad"
       }
     },
@@ -1017,7 +1029,7 @@
       "metaTitleSuffix": "Plan CasaMia",
       "backToPlans": "Volver a planes",
       "comparePlans": "Comparar planes",
-      "primaryCta": "Reservar evaluación gratis",
+      "primaryCta": "Reservar evaluación a domicilio",
       "whoTitle": "Para quién es este plan",
       "includedTitle": "Qué incluye",
       "roomTitle": "Mejoras estancia por estancia",
@@ -1027,8 +1039,8 @@
       "paymentReassurance": "Sin costes ocultos. Sin gastos inesperados.",
       "faqTitle": "Preguntas frecuentes",
       "finalTitle": "¿Listo para hacer tu hogar más seguro?",
-      "finalBody": "Reserva hoy tu Evaluación Gratuita de Seguridad del Hogar y recibe recomendaciones personalizadas de nuestros expertos cualificados.",
-      "finalCta": "Reservar evaluación gratis",
+      "finalBody": "Solicita una visita de evaluación a domicilio de 89 € y recibe recomendaciones personalizadas de nuestros expertos cualificados.",
+      "finalCta": "Reservar evaluación a domicilio",
       "plans": [
         {
           "id": "home-assessment",

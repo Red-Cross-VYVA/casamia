@@ -186,7 +186,7 @@ export function EstimateReportPage() {
                     <dd>{new Date(report.expiresAt).toLocaleDateString(i18n.language)}</dd>
                   </div>
                 </dl>
-                <Link className="btn btn-green w-full" to="/free-home-safety-assessment">
+                <Link className="btn btn-green w-full" to="/home-safety-assessment">
                   {t('estimator.workflow.result.bookAssessment')}
                   <ArrowRight size={20} aria-hidden="true" />
                 </Link>

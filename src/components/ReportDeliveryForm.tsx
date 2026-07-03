@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { ReportDeliveryFormValue } from '../utils/reportDelivery'
+import { PhoneNumberField } from './PhoneNumberField'
 
 type ReportDeliveryFormProps = {
   value: ReportDeliveryFormValue
@@ -38,11 +39,9 @@ export function ReportDeliveryForm({
           placeholder="you@example.com"
           onChange={(nextValue) => onChange('email', nextValue)}
         />
-        <TextField
+        <PhoneNumberField
           label={t('reportDelivery.phone')}
-          type="tel"
           value={value.phone}
-          placeholder="+34 ..."
           onChange={(nextValue) => onChange('phone', nextValue)}
         />
         {showPostcode ? (
