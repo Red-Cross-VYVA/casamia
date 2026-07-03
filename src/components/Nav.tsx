@@ -33,6 +33,7 @@ export function Nav() {
   const links = [
     { label: t('nav.howItWorks'), to: '/#how-it-works' },
     { label: t('nav.plans'), to: '/#plans' },
+    { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
     { label: t('nav.grants'), to: '/#grants' },
     { label: t('nav.about', { defaultValue: 'About' }), to: '/about' },
     { label: t('nav.whyCasamia', { defaultValue: 'Why CasaMia' }), to: '/why-casamia' },

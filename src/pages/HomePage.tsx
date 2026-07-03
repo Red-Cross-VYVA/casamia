@@ -1,3 +1,4 @@
+import { BeforeAfterPreview } from '../components/BeforeAfterPreview'
 import { EuroSafe } from '../components/EuroSafe'
 import { FinalCTA } from '../components/FinalCTA'
 import { Grants } from '../components/Grants'
@@ -18,6 +19,7 @@ export function HomePage() {
       <WhatWeOffer />
       <TrustSection />
       <SolutionGallery />
+      <BeforeAfterPreview />
       <Plans />
       <Grants />
       <EuroSafe />

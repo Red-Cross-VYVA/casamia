@@ -20,7 +20,8 @@
     "cta": "Book Visit",
     "phone": "+34 900 000 000",
     "menu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "beforeAfter": "Before & After"
   },
   "hero": {
     "badge": "Home safety specialists · All Spain",
@@ -411,6 +412,7 @@
       "links": [
         "How It Works",
         "Plans",
+        "Before & After",
         "Grants",
         "Contact"
       ]
@@ -1608,5 +1610,74 @@
         "cta": "Learn more about our Grant Terms →"
       }
     }
+  },
+  "beforeAfter": {
+    "preview": {
+      "title": "Real Homes. Real Improvements. Real Peace of Mind.",
+      "body": "See how Casamia transforms everyday homes into safer, more accessible spaces for aging in place.",
+      "viewCta": "View Transformations →",
+      "assessmentCta": "Book Free Assessment"
+    },
+    "page": {
+      "title": "Before & After",
+      "body": "Explore practical safety upgrades that make everyday movement easier, calmer, and more secure at home.",
+      "compareCta": "Compare Plans"
+    },
+    "labels": {
+      "before": "Before",
+      "after": "After"
+    },
+    "cardCta": "Request Similar Upgrade",
+    "disclaimer": "Images are for illustration purposes. Every home is assessed individually and recommended improvements may vary.",
+    "transformations": [
+      {
+        "title": "Bathroom Safety Upgrade",
+        "benefits": [
+          "Grab bars where support is needed",
+          "Anti-slip surfaces for wet zones",
+          "Safer shower and toilet transfers"
+        ]
+      },
+      {
+        "title": "Safer Stairs",
+        "benefits": [
+          "Continuous handrail support",
+          "Improved step visibility",
+          "Reduced slip and trip risk"
+        ]
+      },
+      {
+        "title": "Easy & Safe Entry",
+        "benefits": [
+          "Thresholds made easier to cross",
+          "Better lighting at the entrance",
+          "Support points for arrival and exit"
+        ]
+      },
+      {
+        "title": "Safer, Smarter Kitchen",
+        "benefits": [
+          "Clearer movement routes",
+          "Safer reach for daily items",
+          "Lighting and appliance safety improvements"
+        ]
+      },
+      {
+        "title": "Outdoor Safety Improvements",
+        "benefits": [
+          "Safer paths and exterior steps",
+          "Weather-aware slip reduction",
+          "Improved exterior visibility"
+        ]
+      },
+      {
+        "title": "Smart Safety Upgrade",
+        "benefits": [
+          "Motion lighting and alerts",
+          "Smart sensors for extra reassurance",
+          "Simple handover for the household"
+        ]
+      }
+    ]
   }
 }

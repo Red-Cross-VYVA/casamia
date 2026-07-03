@@ -10,7 +10,7 @@ export function Footer() {
   const companyLinks = t('footer.company.links', { returnObjects: true }) as string[]
   const legalLinks = t('footer.legal.links', { returnObjects: true }) as string[]
   const supportLinks = t('footer.support.links', { returnObjects: true }) as string[]
-  const companyTargets = ['/#how-it-works', '/#plans', '/#grants', '/#contact']
+  const companyTargets = ['/#how-it-works', '/#plans', '/before-after', '/#grants', '/#contact']
   const legalTargets = ['/contact', '/contact', '/terms-and-conditions']
   const supportTargets = ['/contact', '/plan-adapta', '/home-safety-assessment', '/about']
 

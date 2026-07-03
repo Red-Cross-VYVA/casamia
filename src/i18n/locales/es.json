@@ -20,7 +20,8 @@
     "cta": "Reservar visita",
     "phone": "+34 900 000 000",
     "menu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "beforeAfter": "Antes y después"
   },
   "hero": {
     "badge": "Especialistas en seguridad del hogar · Toda España",
@@ -411,6 +412,7 @@
       "links": [
         "Cómo Funciona",
         "Planes",
+        "Antes y después",
         "Ayudas",
         "Contacto"
       ]
@@ -1608,5 +1610,74 @@
         "cta": "Más información sobre las condiciones de ayudas →"
       }
     }
+  },
+  "beforeAfter": {
+    "preview": {
+      "title": "Hogares reales. Mejoras reales. Tranquilidad real.",
+      "body": "Mira cómo Casamia transforma hogares cotidianos en espacios más seguros y accesibles para envejecer en casa.",
+      "viewCta": "Ver transformaciones →",
+      "assessmentCta": "Reservar evaluación gratis"
+    },
+    "page": {
+      "title": "Antes y después",
+      "body": "Explora mejoras prácticas de seguridad que hacen que moverse por casa sea más fácil, tranquilo y seguro.",
+      "compareCta": "Comparar planes"
+    },
+    "labels": {
+      "before": "Antes",
+      "after": "Después"
+    },
+    "cardCta": "Solicitar una mejora similar",
+    "disclaimer": "Las imágenes son ilustrativas. Cada hogar se evalúa individualmente y las mejoras recomendadas pueden variar.",
+    "transformations": [
+      {
+        "title": "Mejora de seguridad en baño",
+        "benefits": [
+          "Barras de apoyo donde se necesitan",
+          "Superficies antideslizantes en zonas húmedas",
+          "Transferencias más seguras en ducha e inodoro"
+        ]
+      },
+      {
+        "title": "Escaleras más seguras",
+        "benefits": [
+          "Apoyo continuo con pasamanos",
+          "Mejor visibilidad de los peldaños",
+          "Menor riesgo de resbalones y tropiezos"
+        ]
+      },
+      {
+        "title": "Entrada fácil y segura",
+        "benefits": [
+          "Umbrales más fáciles de cruzar",
+          "Mejor iluminación en la entrada",
+          "Puntos de apoyo para entrar y salir"
+        ]
+      },
+      {
+        "title": "Cocina más segura e inteligente",
+        "benefits": [
+          "Rutas de movimiento más despejadas",
+          "Acceso más seguro a objetos diarios",
+          "Mejoras de iluminación y seguridad de aparatos"
+        ]
+      },
+      {
+        "title": "Mejoras de seguridad exterior",
+        "benefits": [
+          "Caminos y escalones exteriores más seguros",
+          "Reducción de resbalones por clima",
+          "Mejor visibilidad exterior"
+        ]
+      },
+      {
+        "title": "Mejora de seguridad inteligente",
+        "benefits": [
+          "Iluminación con movimiento y alertas",
+          "Sensores inteligentes para mayor tranquilidad",
+          "Entrega sencilla para toda la familia"
+        ]
+      }
+    ]
   }
 }
