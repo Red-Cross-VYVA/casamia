@@ -30,6 +30,9 @@ const HowItWorksPage = lazy(() =>
   import('./pages/HowItWorksPage').then(({ HowItWorksPage }) => ({ default: HowItWorksPage })),
 )
 const OrderPage = lazy(() => import('./pages/OrderPage').then(({ OrderPage }) => ({ default: OrderPage })))
+const PlanAdaptaPage = lazy(() =>
+  import('./pages/PlanAdaptaPage').then(({ PlanAdaptaPage }) => ({ default: PlanAdaptaPage })),
+)
 const PlanDetailPage = lazy(() =>
   import('./pages/PlanDetailPage').then(({ PlanDetailPage }) => ({ default: PlanDetailPage })),
 )
@@ -100,6 +103,7 @@ function AppRoutes() {
             <Route path="/tech" element={<TechPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
+            <Route path="/plan-adapta" element={<PlanAdaptaPage />} />
             <Route path="/why-casamia" element={<WhyCasamiaPage />} />
             <Route path="/home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
             <Route path="/free-home-safety-assessment" element={<LegacyAssessmentRedirect />} />

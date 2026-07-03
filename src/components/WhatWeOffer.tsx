@@ -47,7 +47,7 @@ export function WhatWeOffer() {
                 {card.icon === 'G' && card.termsLink ? (
                   <Link
                     className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-navy transition hover:text-green"
-                    to="/terms-and-conditions#grant-management"
+                    to="/plan-adapta"
                   >
                     {card.termsLink}
                     <ArrowRight size={16} aria-hidden="true" />

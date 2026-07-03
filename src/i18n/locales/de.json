@@ -124,7 +124,7 @@
           "Subject to eligibility, government grants may cover up to 90% of approved home improvement costs.",
           "Grant approval is determined solely by the relevant authority and cannot be guaranteed by Casamia."
         ],
-        "termsLink": "Learn more about our Grant Terms →",
+        "termsLink": "Learn more about Plan Adapta →",
         "disclaimer": "Grant availability, eligibility criteria and funding levels are subject to government policies and may change without notice."
       }
     ],
@@ -264,7 +264,7 @@
       "title": "Support",
       "links": [
         "FAQ",
-        "Zuschussleitfaden",
+        "Plan Adapta",
         "Anruf Buchen",
         "Über Uns"
       ]
@@ -1116,6 +1116,98 @@
           "Customers remain responsible for providing accurate information.",
           "Casamia is not responsible for delays or decisions made by the granting authority."
         ]
+      }
+    },
+    "planAdapta": {
+      "hero": {
+        "title": "Plan Adapta Grant Support",
+        "subtitle": "Casamia helps you manage the application process for home safety and accessibility grants, from documentation to submission.",
+        "cta": "Book Free Assessment",
+        "panelTitle": "Administrative support from start to submission",
+        "panelBody": "We help families understand what may be needed, prepare the application file, and coordinate next steps where authorised."
+      },
+      "what": {
+        "kicker": "What is Plan Adapta?",
+        "title": "Support for safer, more accessible homes.",
+        "body": "Plan Adapta may support eligible home adaptations that improve accessibility, safety, and independent living. Available support depends on the relevant authority, open calls, eligibility criteria, documentation, and the approved scope of works."
+      },
+      "help": {
+        "kicker": "How Casamia helps",
+        "title": "We make the application process easier to manage.",
+        "items": [
+          {
+            "title": "Eligibility guidance",
+            "body": "We help review the basic conditions that may affect whether a household can apply."
+          },
+          {
+            "title": "Documentation preparation",
+            "body": "We help organize the required documents and make the application file clearer before submission."
+          },
+          {
+            "title": "Application support",
+            "body": "We support completion of the forms and the administrative steps required for the application."
+          },
+          {
+            "title": "Coordination with authorities where authorised",
+            "body": "Where the customer authorises it, Casamia can liaise with the relevant authority about the application."
+          },
+          {
+            "title": "Proposal preparation",
+            "body": "We prepare practical recommendations and proposals that explain the recommended safety and accessibility works."
+          },
+          {
+            "title": "Follow-up support",
+            "body": "We help track next steps and keep the customer informed while the application is being reviewed."
+          }
+        ]
+      },
+      "disclaimer": {
+        "title": "Important disclaimer",
+        "body": "Grant approval is determined solely by the relevant authority. Casamia cannot guarantee eligibility, approval, funding level, or processing time."
+      },
+      "improvements": {
+        "kicker": "Typical eligible improvements",
+        "title": "Adaptations that may support safer living.",
+        "items": [
+          "Bathroom safety adaptations",
+          "Ramps and threshold improvements",
+          "Doorway widening",
+          "Handrails and grab bars",
+          "Anti-slip flooring",
+          "Accessibility improvements",
+          "Mobility-support modifications"
+        ]
+      },
+      "process": {
+        "kicker": "How it works",
+        "title": "From assessment to grant support.",
+        "steps": [
+          {
+            "title": "Book your free assessment",
+            "body": "Start by requesting a CasaMia assessment so we can understand the home and the likely adaptation needs."
+          },
+          {
+            "title": "We inspect your home",
+            "body": "A CasaMia specialist reviews the relevant rooms, access points, and safety concerns."
+          },
+          {
+            "title": "We prepare recommendations",
+            "body": "You receive clear recommendations and a proposal for the improvements that may be relevant."
+          },
+          {
+            "title": "We support your grant application",
+            "body": "Where applicable, Casamia helps prepare and submit the required documentation."
+          },
+          {
+            "title": "Once approved, we coordinate the works",
+            "body": "If the authority approves the application, we coordinate the approved safety and accessibility works."
+          }
+        ]
+      },
+      "terms": {
+        "title": "Grant terms and responsibilities",
+        "body": "Casamia provides grant management assistance as an administrative service only. The final grant decision always belongs to the relevant authority.",
+        "cta": "Learn more about our Grant Terms →"
       }
     }
   },

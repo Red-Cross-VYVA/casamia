@@ -287,7 +287,7 @@
           "Sujeto a elegibilidad, las ayudas públicas pueden cubrir hasta el 90% de los costes aprobados de mejora del hogar.",
           "La aprobación de la ayuda depende exclusivamente de la autoridad competente y Casamia no puede garantizarla."
         ],
-        "termsLink": "Más información sobre las condiciones de ayudas →",
+        "termsLink": "Más información sobre Plan Adapta →",
         "disclaimer": "La disponibilidad, los criterios de elegibilidad y los niveles de financiación de las ayudas están sujetos a políticas públicas y pueden cambiar sin previo aviso."
       }
     ],
@@ -427,7 +427,7 @@
       "title": "Soporte",
       "links": [
         "FAQ",
-        "Guía de Ayudas",
+        "Plan Adapta",
         "Reservar Llamada",
         "Sobre Nosotros"
       ]
@@ -1514,6 +1514,98 @@
           "Los clientes siguen siendo responsables de proporcionar información precisa.",
           "Casamia no se responsabiliza de retrasos o decisiones tomadas por la autoridad concedente."
         ]
+      }
+    },
+    "planAdapta": {
+      "hero": {
+        "title": "Soporte para ayudas Plan Adapta",
+        "subtitle": "Casamia te ayuda a gestionar el proceso de solicitud de ayudas para seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
+        "cta": "Reservar evaluación gratis",
+        "panelTitle": "Apoyo administrativo desde el inicio hasta la presentación",
+        "panelBody": "Ayudamos a las familias a entender qué puede ser necesario, preparar el expediente y coordinar los siguientes pasos cuando exista autorización."
+      },
+      "what": {
+        "kicker": "Qué es Plan Adapta",
+        "title": "Apoyo para hogares más seguros y accesibles.",
+        "body": "Plan Adapta puede apoyar adaptaciones del hogar elegibles que mejoran la accesibilidad, la seguridad y la vida independiente. La ayuda disponible depende de la autoridad competente, convocatorias abiertas, criterios de elegibilidad, documentación y alcance aprobado de las obras."
+      },
+      "help": {
+        "kicker": "Cómo ayuda Casamia",
+        "title": "Hacemos que el proceso de solicitud sea más fácil de gestionar.",
+        "items": [
+          {
+            "title": "Orientación de elegibilidad",
+            "body": "Ayudamos a revisar las condiciones básicas que pueden influir en si un hogar puede solicitar la ayuda."
+          },
+          {
+            "title": "Preparación de documentación",
+            "body": "Ayudamos a organizar los documentos necesarios y a preparar un expediente más claro antes de la presentación."
+          },
+          {
+            "title": "Soporte de solicitud",
+            "body": "Apoyamos la cumplimentación de formularios y los pasos administrativos necesarios para la solicitud."
+          },
+          {
+            "title": "Coordinación con autoridades cuando exista autorización",
+            "body": "Cuando el cliente lo autorice, Casamia puede comunicarse con la autoridad competente sobre la solicitud."
+          },
+          {
+            "title": "Preparación de propuesta",
+            "body": "Preparamos recomendaciones prácticas y propuestas que explican las obras de seguridad y accesibilidad recomendadas."
+          },
+          {
+            "title": "Seguimiento",
+            "body": "Ayudamos a seguir los próximos pasos y mantener informado al cliente mientras se revisa la solicitud."
+          }
+        ]
+      },
+      "disclaimer": {
+        "title": "Aviso importante",
+        "body": "La aprobación de la ayuda depende exclusivamente de la autoridad competente. Casamia no puede garantizar elegibilidad, aprobación, nivel de financiación ni plazo de tramitación."
+      },
+      "improvements": {
+        "kicker": "Mejoras típicamente elegibles",
+        "title": "Adaptaciones que pueden favorecer una vida más segura.",
+        "items": [
+          "Adaptaciones de seguridad en baño",
+          "Rampas y mejoras de umbrales",
+          "Ampliación de puertas",
+          "Pasamanos y barras de apoyo",
+          "Suelos antideslizantes",
+          "Mejoras de accesibilidad",
+          "Modificaciones de apoyo a la movilidad"
+        ]
+      },
+      "process": {
+        "kicker": "Cómo funciona",
+        "title": "De la evaluación al soporte de ayudas.",
+        "steps": [
+          {
+            "title": "Reserva tu evaluación gratis",
+            "body": "Empieza solicitando una evaluación de CasaMia para entender la vivienda y las posibles necesidades de adaptación."
+          },
+          {
+            "title": "Inspeccionamos tu hogar",
+            "body": "Un especialista de CasaMia revisa las estancias, accesos y preocupaciones de seguridad relevantes."
+          },
+          {
+            "title": "Preparamos recomendaciones",
+            "body": "Recibes recomendaciones claras y una propuesta de las mejoras que pueden ser relevantes."
+          },
+          {
+            "title": "Apoyamos tu solicitud de ayuda",
+            "body": "Cuando corresponda, Casamia ayuda a preparar y presentar la documentación requerida."
+          },
+          {
+            "title": "Una vez aprobada, coordinamos las obras",
+            "body": "Si la autoridad aprueba la solicitud, coordinamos las obras de seguridad y accesibilidad aprobadas."
+          }
+        ]
+      },
+      "terms": {
+        "title": "Condiciones y responsabilidades de ayudas",
+        "body": "Casamia presta asistencia en la gestión de ayudas únicamente como servicio administrativo. La decisión final siempre corresponde a la autoridad competente.",
+        "cta": "Más información sobre las condiciones de ayudas →"
       }
     }
   }
