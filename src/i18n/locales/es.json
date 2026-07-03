@@ -281,8 +281,14 @@
       },
       {
         "icon": "G",
-        "title": "Gestión de Ayudas",
-        "desc": "Presentamos todo ante Plan Adapta en tu nombre. Las ayudas cubren hasta el 90% de los costes. Tú solo firmas."
+        "title": "Gestión de ayudas",
+        "desc": [
+          "Gestionamos el proceso de solicitud de ayudas en tu nombre, incluida la preparación y presentación de la documentación requerida cuando corresponda.",
+          "Sujeto a elegibilidad, las ayudas públicas pueden cubrir hasta el 90% de los costes aprobados de mejora del hogar.",
+          "La aprobación de la ayuda depende exclusivamente de la autoridad competente y Casamia no puede garantizarla."
+        ],
+        "termsLink": "Más información sobre las condiciones de ayudas →",
+        "disclaimer": "La disponibilidad, los criterios de elegibilidad y los niveles de financiación de las ayudas están sujetos a políticas públicas y pueden cambiar sin previo aviso."
       }
     ],
     "health": {
@@ -1484,6 +1490,31 @@
           ]
         }
       ]
+    },
+    "terms": {
+      "title": "Términos y condiciones",
+      "intro": "Condiciones importantes sobre los servicios de CasaMia, el soporte y la gestión administrativa de ayudas.",
+      "grantManagement": {
+        "kicker": "Gestión de ayudas",
+        "title": "Condiciones de gestión de ayudas",
+        "body": "Casamia presta asistencia en la gestión de ayudas únicamente como servicio administrativo.",
+        "serviceTitle": "Nuestro servicio puede incluir",
+        "services": [
+          "Evaluar la elegibilidad",
+          "Preparar documentación",
+          "Completar formularios de solicitud",
+          "Presentar solicitudes en nombre de los clientes",
+          "Comunicarse con la autoridad competente cuando exista autorización"
+        ],
+        "importantTitle": "Importante",
+        "important": [
+          "La aprobación de ayudas queda enteramente a discreción de la autoridad competente.",
+          "Casamia no puede garantizar la aprobación ni la elegibilidad.",
+          "Los porcentajes estimados de ayuda son solo indicativos.",
+          "Los clientes siguen siendo responsables de proporcionar información precisa.",
+          "Casamia no se responsabiliza de retrasos o decisiones tomadas por la autoridad concedente."
+        ]
+      }
     }
   }
 }

@@ -11,6 +11,7 @@ export function Footer() {
   const legalLinks = t('footer.legal.links', { returnObjects: true }) as string[]
   const supportLinks = t('footer.support.links', { returnObjects: true }) as string[]
   const companyTargets = ['/#how-it-works', '/#plans', '/#grants', '/#contact']
+  const legalTargets = ['/contact', '/contact', '/terms-and-conditions']
   const supportTargets = ['/contact', '/grants', '/home-safety-assessment', '/about']
 
   return (
@@ -35,8 +36,8 @@ export function Footer() {
         </FooterColumn>
 
         <FooterColumn title={t('footer.legal.title')}>
-          {legalLinks.map((link) => (
-            <Link className="transition hover:text-green" key={link} to="/contact">
+          {legalLinks.map((link, index) => (
+            <Link className="transition hover:text-green" key={link} to={legalTargets[index] ?? '/contact'}>
               {link}
             </Link>
           ))}

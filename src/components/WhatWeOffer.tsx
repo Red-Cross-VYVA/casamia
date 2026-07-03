@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom'
 type OfferCard = {
   icon: string
   title: string
-  desc: string
+  desc: string | string[]
+  termsLink?: string
+  disclaimer?: string
 }
 
 export function WhatWeOffer() {
@@ -35,7 +37,27 @@ export function WhatWeOffer() {
                 <h3 className="font-display text-3xl font-bold leading-tight text-text-dark">
                   {card.title}
                 </h3>
-                <p className="mt-3 text-text-mid">{card.desc}</p>
+                <div className="mt-3 space-y-3 text-text-mid">
+                  {Array.isArray(card.desc) ? (
+                    card.desc.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+                  ) : (
+                    <p>{card.desc}</p>
+                  )}
+                </div>
+                {card.icon === 'G' && card.termsLink ? (
+                  <Link
+                    className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-navy transition hover:text-green"
+                    to="/terms-and-conditions#grant-management"
+                  >
+                    {card.termsLink}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                ) : null}
+                {card.icon === 'G' && card.disclaimer ? (
+                  <p className="mt-4 border-t border-border pt-4 text-sm leading-relaxed text-text-muted">
+                    {card.disclaimer}
+                  </p>
+                ) : null}
                 {card.icon === 'S' ? (
                   <span className="offer-card-cta">
                     {t('common.learnMore')}

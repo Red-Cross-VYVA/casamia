@@ -7,6 +7,7 @@ export default {
         navy: 'var(--navy)',
         blue: 'var(--blue)',
         green: 'var(--green)',
+        gold: 'var(--gold)',
         'light-blue': 'var(--light-blue)',
         'pale-blue': 'var(--pale-blue)',
         'text-dark': 'var(--text-dark)',

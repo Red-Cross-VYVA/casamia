@@ -35,6 +35,9 @@ const PlanDetailPage = lazy(() =>
 )
 const PlansPage = lazy(() => import('./pages/PlansPage').then(({ PlansPage }) => ({ default: PlansPage })))
 const TechPage = lazy(() => import('./pages/TechPage').then(({ TechPage }) => ({ default: TechPage })))
+const TermsAndConditionsPage = lazy(() =>
+  import('./pages/TermsAndConditionsPage').then(({ TermsAndConditionsPage }) => ({ default: TermsAndConditionsPage })),
+)
 const WhyCasamiaPage = lazy(() =>
   import('./pages/WhyCasamiaPage').then(({ WhyCasamiaPage }) => ({ default: WhyCasamiaPage })),
 )
@@ -103,6 +106,7 @@ function AppRoutes() {
             <Route path="/grants" element={<GrantsPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

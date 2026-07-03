@@ -118,8 +118,14 @@
       },
       {
         "icon": "G",
-        "title": "Gestion des Aides",
-        "desc": "Nous déposons tout auprès de Plan Adapta en votre nom. Les aides couvrent jusqu'à 90% des coûts. Vous signez simplement."
+        "title": "Grant Management",
+        "desc": [
+          "We handle the grant application process on your behalf, including preparing and submitting the required documentation where applicable.",
+          "Subject to eligibility, government grants may cover up to 90% of approved home improvement costs.",
+          "Grant approval is determined solely by the relevant authority and cannot be guaranteed by Casamia."
+        ],
+        "termsLink": "Learn more about our Grant Terms →",
+        "disclaimer": "Grant availability, eligibility criteria and funding levels are subject to government policies and may change without notice."
       }
     ],
     "health": {
@@ -1086,6 +1092,31 @@
           ]
         }
       ]
+    },
+    "terms": {
+      "title": "Terms & Conditions",
+      "intro": "Important terms for CasaMia services, support and grant-management assistance.",
+      "grantManagement": {
+        "kicker": "Grant Management",
+        "title": "Grant Management Terms",
+        "body": "Casamia provides grant management assistance as an administrative service only.",
+        "serviceTitle": "Our service may include",
+        "services": [
+          "Assessing eligibility",
+          "Preparing documentation",
+          "Completing application forms",
+          "Submitting applications on behalf of customers",
+          "Liaising with the relevant authority where authorised"
+        ],
+        "importantTitle": "Important",
+        "important": [
+          "Grant approval is entirely at the discretion of the relevant authority.",
+          "Casamia cannot guarantee approval or eligibility.",
+          "Estimated grant percentages are indicative only.",
+          "Customers remain responsible for providing accurate information.",
+          "Casamia is not responsible for delays or decisions made by the granting authority."
+        ]
+      }
     }
   },
   "assessment": {
