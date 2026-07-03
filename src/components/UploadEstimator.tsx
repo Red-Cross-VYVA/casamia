@@ -27,6 +27,7 @@ import { Link } from 'react-router-dom'
 import { ReportDeliveryForm } from './ReportDeliveryForm'
 import {
   generateSafetyReport,
+  getEstimateRiskAssessment,
   sendReportDelivery,
   type DeliveryChannelStatus,
   type EstimatePhotoInput,
@@ -55,6 +56,7 @@ type EstimateForm = ReportDeliveryFormValue & {
   homeType: string
   mainConcern: string
   urgency: string
+  mobilityProfile: string
   name: string
   email: string
   phone: string
@@ -74,6 +76,7 @@ const initialForm: EstimateForm = {
   homeType: '',
   mainConcern: '',
   urgency: '',
+  mobilityProfile: '',
   name: '',
   email: '',
   phone: '',
@@ -115,7 +118,16 @@ const fallbackUrgencies: Option[] = [
   { value: 'Planning ahead', label: 'Planning ahead' },
 ]
 
-const fallbackStepLabels = ['Photos', 'Home', 'Report', 'Send']
+const fallbackMobilityProfiles: Option[] = [
+  { value: 'No major mobility concern', label: 'No major mobility concern' },
+  { value: 'Occasional balance concern', label: 'Occasional balance concern' },
+  { value: 'Uses cane or walker', label: 'Uses cane or walker' },
+  { value: 'Wheelchair or reduced mobility', label: 'Wheelchair or reduced mobility' },
+  { value: 'Recent fall', label: 'Recent fall' },
+  { value: 'Not sure yet', label: 'Not sure yet' },
+]
+
+const fallbackStepLabels = ['Photos', 'Home', 'Contact', 'Report']
 
 export function UploadEstimator() {
   const { i18n, t } = useTranslation()
@@ -139,6 +151,10 @@ export function UploadEstimator() {
   const homeTypes = getOptions(t('estimator.workflow.homeTypes', { returnObjects: true }), fallbackHomeTypes)
   const concerns = getOptions(t('estimator.workflow.concerns', { returnObjects: true }), fallbackConcerns)
   const urgencies = getOptions(t('estimator.workflow.urgencies', { returnObjects: true }), fallbackUrgencies)
+  const mobilityProfiles = getOptions(
+    t('estimator.workflow.mobilityProfiles', { returnObjects: true }),
+    fallbackMobilityProfiles,
+  )
   const stepLabels = getStringArray(t('estimator.workflow.steps', { returnObjects: true }), fallbackStepLabels)
   const canContinue = getStepCompletion(step, photos, form, status, deliveryStatus, report)
   const currentStepLabel = stepLabels[step] ?? ''
@@ -248,27 +264,23 @@ export function UploadEstimator() {
     }
 
     if (step === 1) {
-      void createEstimate()
+      setStep(2)
       return
     }
 
     if (step === 2) {
-      setStep(3)
-      return
-    }
-
-    if (step === 3) {
-      void sendDelivery()
+      void createAndSendReport()
     }
   }
 
-  async function createEstimate() {
+  async function createAndSendReport() {
     try {
       setStatus('loading')
-      setStep(2)
+      setDeliveryStatus('loading')
+      setStep(3)
       setErrorMessage('')
       setDelivery(null)
-      setDeliveryStatus('idle')
+      setReport(null)
       const result = await generateSafetyReport({
         locale: i18n.language,
         context: {
@@ -277,45 +289,53 @@ export function UploadEstimator() {
           homeType: form.homeType,
           mainConcern: form.mainConcern,
           urgency: form.urgency,
+          mobilityProfile: form.mobilityProfile,
           description: form.description,
         },
         photos,
       })
-      setReport(result)
-      setStatus('success')
+
+      try {
+        const deliveryResult = await sendReportDelivery({
+          reportType: 'safety',
+          token: result.token,
+          reportTitle: t('estimator.workflow.result.reportTitle'),
+          reportUrl: result.reportUrl,
+          contact: {
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            deliveryEmail: form.deliveryEmail,
+            deliveryWhatsapp: form.deliveryWhatsapp,
+            consentAt: new Date().toISOString(),
+          },
+        })
+
+        setReport({
+          ...result,
+          delivery: deliveryResult,
+          lead: {
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            preferredChannels: [
+              form.deliveryEmail ? 'email' : '',
+              form.deliveryWhatsapp ? 'whatsapp' : '',
+            ].filter(Boolean),
+          },
+        })
+        setDelivery(deliveryResult)
+        setDeliveryStatus('success')
+        setStatus('success')
+      } catch {
+        setStatus('error')
+        setDeliveryStatus('error')
+        setErrorMessage(t('estimator.workflow.errors.delivery'))
+      }
     } catch {
+      setDeliveryStatus('idle')
       setStatus('error')
       setErrorMessage(t('estimator.workflow.errors.submit'))
-    }
-  }
-
-  async function sendDelivery() {
-    if (!report) {
-      return
-    }
-
-    try {
-      setDeliveryStatus('loading')
-      setErrorMessage('')
-      const result = await sendReportDelivery({
-        reportType: 'safety',
-        token: report.token,
-        reportTitle: t('estimator.workflow.result.reportTitle'),
-        reportUrl: report.reportUrl,
-        contact: {
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          deliveryEmail: form.deliveryEmail,
-          deliveryWhatsapp: form.deliveryWhatsapp,
-          consentAt: new Date().toISOString(),
-        },
-      })
-      setDelivery(result)
-      setDeliveryStatus('success')
-    } catch {
-      setDeliveryStatus('error')
-      setErrorMessage(t('estimator.workflow.errors.delivery'))
     }
   }
 
@@ -428,23 +448,12 @@ export function UploadEstimator() {
                   homeTypes={homeTypes}
                   concerns={concerns}
                   urgencies={urgencies}
+                  mobilityProfiles={mobilityProfiles}
                   onChange={updateForm}
                 />
               ) : null}
 
               {step === 2 ? (
-                <ResultStep
-                  errorMessage={errorMessage}
-                  report={report}
-                  status={status}
-                  onRetry={() => {
-                    setStep(1)
-                    setStatus('idle')
-                  }}
-                />
-              ) : null}
-
-              {step === 3 ? (
                 <DeliveryStep
                   delivery={delivery}
                   deliveryStatus={deliveryStatus}
@@ -453,9 +462,22 @@ export function UploadEstimator() {
                   onChange={updateForm}
                 />
               ) : null}
+
+              {step === 3 ? (
+                <ResultStep
+                  errorMessage={errorMessage}
+                  report={report}
+                  status={status}
+                  onRetry={() => {
+                    setStep(2)
+                    setStatus('idle')
+                    setDeliveryStatus('idle')
+                  }}
+                />
+              ) : null}
             </div>
 
-            {step <= 3 ? (
+            {step < 3 ? (
               <div className={`estimate-wizard-footer ${step === 0 ? 'is-single-action' : ''}`}>
                 {step > 0 ? (
                   <button
@@ -474,14 +496,10 @@ export function UploadEstimator() {
                   disabled={!canContinue || deliveryStatus === 'success'}
                   onClick={goNext}
                 >
-                  {step === 1
+                  {step === 2
                     ? t('estimator.workflow.createEstimate')
-                    : step === 2
-                      ? t('estimator.workflow.sendThisReport')
-                      : step === 3
-                        ? t('estimator.workflow.sendReport')
-                        : t('estimator.workflow.continue')}
-                  {step === 1 || step === 3 ? (
+                    : t('estimator.workflow.continue')}
+                  {step === 2 ? (
                     <ClipboardCheck size={20} aria-hidden="true" />
                   ) : (
                     <ArrowRight size={20} aria-hidden="true" />
@@ -578,12 +596,14 @@ function HomeContextStep({
   homeTypes,
   concerns,
   urgencies,
+  mobilityProfiles,
   onChange,
 }: {
   form: EstimateForm
   homeTypes: Option[]
   concerns: Option[]
   urgencies: Option[]
+  mobilityProfiles: Option[]
   onChange: (field: keyof EstimateForm, value: string | boolean) => void
 }) {
   const { t } = useTranslation()
@@ -596,12 +616,6 @@ function HomeContextStep({
         body={t('estimator.workflow.home.body')}
       />
       <div className="estimate-form-grid">
-        <MultiSelectField
-          label={t('estimator.workflow.home.concern')}
-          values={splitMultiValue(form.mainConcern)}
-          options={concerns}
-          onChange={(values) => onChange('mainConcern', serialiseConcernValues(values))}
-        />
         <SelectField
           label={t('estimator.workflow.home.homeType')}
           value={form.homeType}
@@ -609,11 +623,11 @@ function HomeContextStep({
           placeholder={t('estimator.workflow.choose')}
           onChange={(value) => onChange('homeType', value)}
         />
-        <TextField
-          label={t('estimator.workflow.home.postcode')}
-          value={form.postcode}
-          placeholder="28013"
-          onChange={(value) => onChange('postcode', value)}
+        <MultiSelectField
+          label={t('estimator.workflow.home.concern')}
+          values={splitMultiValue(form.mainConcern)}
+          options={concerns}
+          onChange={(values) => onChange('mainConcern', serialiseConcernValues(values))}
         />
         <SelectField
           label={t('estimator.workflow.home.urgency')}
@@ -621,6 +635,13 @@ function HomeContextStep({
           options={urgencies}
           placeholder={t('estimator.workflow.choose')}
           onChange={(value) => onChange('urgency', value)}
+        />
+        <SelectField
+          label={t('estimator.workflow.home.mobilityProfile')}
+          value={form.mobilityProfile}
+          options={mobilityProfiles}
+          placeholder={t('estimator.workflow.choose')}
+          onChange={(value) => onChange('mobilityProfile', value)}
         />
         <div className="estimate-context-note">
           <ShieldCheck size={20} aria-hidden="true" />
@@ -660,6 +681,7 @@ function DeliveryStep({
         value={form}
         consentText={t('estimator.workflow.contact.consent')}
         intro={t('estimator.workflow.contact.deliveryIntro')}
+        showPostcode
         onChange={onChange}
       />
       {deliveryStatus === 'success' && delivery ? (
@@ -689,7 +711,7 @@ function ResultStep({
   report: EstimateReport | null
   onRetry: () => void
 }) {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   if (status === 'loading') {
     return (
@@ -719,6 +741,7 @@ function ResultStep({
   }
 
   const hasHighPriorityRisk = report.hazards.some((hazard) => hazard.severity === 'high')
+  const risk = getEstimateRiskAssessment(report, i18n.language)
   const preventionStats = getPreventionStats(
     report,
     t('estimator.workflow.result.preventionStats.items', { returnObjects: true }),
@@ -783,9 +806,23 @@ function ResultStep({
         </div>
       </div>
       <aside className="estimate-result-side">
-        <div className="estimate-confidence">
-          <span>{report.confidence}%</span>
-          <small>{t('estimator.workflow.result.confidence')}</small>
+        <div className="estimate-risk-score">
+          <span>{risk.riskScore}%</span>
+          <small>{t(`estimator.workflow.result.riskLevels.${risk.riskLevel}`)}</small>
+        </div>
+        <p className="mt-4 text-sm font-semibold text-text-mid">
+          {t('estimator.workflow.result.riskHelper')}
+        </p>
+        <div className="estimate-result-section estimate-risk-factors">
+          <h4>{t('estimator.workflow.result.riskReasonsTitle')}</h4>
+          <ul>
+            {risk.riskFactors.map((factor) => (
+              <li key={factor}>
+                <Check size={17} aria-hidden="true" />
+                <span>{factor}</span>
+              </li>
+            ))}
+          </ul>
         </div>
         <p className="font-bold text-navy">{t('estimator.workflow.result.deliveryTitle')}</p>
         <p className="mt-2 text-sm text-text-mid">
@@ -819,32 +856,6 @@ function StepIntro({ icon, title, body }: { icon: ReactNode; title: string; body
       <h3>{title}</h3>
       <p>{body}</p>
     </div>
-  )
-}
-
-function TextField({
-  label,
-  value,
-  onChange,
-  placeholder,
-  type = 'text',
-}: {
-  label: string
-  value: string
-  onChange: (value: string) => void
-  placeholder?: string
-  type?: string
-}) {
-  return (
-    <label className="estimate-field">
-      {label}
-      <input
-        value={value}
-        type={type}
-        placeholder={placeholder}
-        onChange={(event) => onChange(event.target.value)}
-      />
-    </label>
   )
 }
 
@@ -990,15 +1001,15 @@ function getStepCompletion(
   }
 
   if (step === 1) {
-    return Boolean(form.postcode && form.homeType && form.mainConcern && form.urgency)
+    return Boolean(form.homeType && form.mainConcern && form.urgency && form.mobilityProfile)
   }
 
   if (step === 2) {
-    return Boolean(report && status === 'success')
+    return Boolean(form.postcode && isReportDeliveryReady(form))
   }
 
   if (step === 3) {
-    return isReportDeliveryReady(form)
+    return Boolean(report && status === 'success')
   }
 
   return true

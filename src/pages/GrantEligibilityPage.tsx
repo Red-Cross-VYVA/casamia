@@ -144,16 +144,31 @@ export function GrantEligibilityPage() {
     <>
       <section className="grant-check-hero page-hero">
         <div className="page-hero-inner">
-          <Link className="inline-flex items-center gap-2 text-sm font-bold uppercase text-navy" to="/#grants">
-            <ArrowLeft size={18} aria-hidden="true" />
-            {copy.hero.back}
-          </Link>
-          <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-end">
-            <div>
+          <div className="grant-hero-card">
+            <div className="grant-hero-main">
+              <Link className="grant-back-link" to="/#grants">
+                <ArrowLeft size={18} aria-hidden="true" />
+                {copy.hero.back}
+              </Link>
               <h1 className="display-title">{copy.hero.title}</h1>
               <p className="mt-5 max-w-3xl text-xl text-text-mid">
                 {copy.hero.intro}
               </p>
+              <div className="grant-hero-actions">
+                <a className="btn btn-green" href="#grant-check-wizard">
+                  {copy.actions.startNow}
+                  <ArrowRight size={20} aria-hidden="true" />
+                </a>
+                <span>{copy.hero.helper}</span>
+              </div>
+              <div className="grant-hero-points" aria-label={copy.hero.pointsLabel}>
+                {copy.hero.points.map((point) => (
+                  <span key={point}>
+                    <Check size={16} aria-hidden="true" />
+                    {point}
+                  </span>
+                ))}
+              </div>
             </div>
             <aside className="grant-check-note">
               <ShieldCheck className="text-green" size={26} aria-hidden="true" />
@@ -164,7 +179,7 @@ export function GrantEligibilityPage() {
       </section>
 
       <section className="grant-check-section section-pad bg-white">
-        <div className="site-shell grant-check-shell">
+        <div className="site-shell grant-check-shell" id="grant-check-wizard">
           <div className="grant-check-panel">
             <div className="grant-progress" aria-label={copy.progressLabel}>
               {copy.progress.map((label, index) => (
@@ -736,6 +751,9 @@ function getGrantCopy(language: string) {
           'Responde unas preguntas, sin subir fotos, y recibe un informe práctico sobre tu preparación para posibles ayudas.',
         note:
           'No es una aprobación de ayudas. Las opciones dependen de la comunidad autónoma, convocatorias abiertas, vivienda y documentación.',
+        helper: 'Tarda unos minutos y no necesitas documentos para empezar.',
+        pointsLabel: 'Qué incluye el check',
+        points: ['Sin subir fotos', 'Informe inmediato', 'Próximos pasos claros'],
       },
       progressLabel: 'Progreso de elegibilidad',
       progress: ['Vivienda', 'Persona', 'Necesidades', 'Informe', 'Enviar'],
@@ -864,6 +882,7 @@ function getGrantCopy(language: string) {
       actions: {
         back: 'Atrás',
         continue: 'Continuar',
+        startNow: 'Empezar ahora',
         sendThisReport: 'Enviar este informe',
         sendReport: 'Enviar informe',
         sending: 'Preparando envío',
@@ -965,6 +984,9 @@ function getGrantCopy(language: string) {
         'Answer a few questions, with no photo upload, and get a practical readiness report for possible accessibility grants.',
       note:
         'This is not a grant approval. Support depends on your autonomous community, open calls, home details, and documentation.',
+      helper: 'Takes a few minutes and you do not need documents to start.',
+      pointsLabel: 'What the check includes',
+      points: ['No photo upload', 'Instant report', 'Clear next steps'],
     },
     progressLabel: 'Grant check progress',
     progress: ['Home', 'Resident', 'Needs', 'Report', 'Send'],
@@ -1090,6 +1112,7 @@ function getGrantCopy(language: string) {
     actions: {
       back: 'Back',
       continue: 'Continue',
+      startNow: 'Start now',
       sendThisReport: 'Send this report',
       sendReport: 'Send report',
       sending: 'Preparing delivery',

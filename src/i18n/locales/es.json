@@ -50,6 +50,7 @@
     "namePlaceholder": "Tu nombre",
     "email": "Email",
     "phone": "Teléfono",
+    "postcode": "Código postal",
     "emailDelivery": "Enviar por email",
     "emailDeliveryBody": "Ideal para recibir el enlace seguro del informe completo.",
     "whatsappDelivery": "Enlace por WhatsApp",
@@ -438,12 +439,12 @@
       "steps": [
         "Fotos",
         "Contexto",
-        "Informe",
-        "Enviar"
+        "Contacto",
+        "Informe"
       ],
       "back": "Atrás",
       "continue": "Continuar",
-      "createEstimate": "Ver mi informe gratis",
+      "createEstimate": "Crear y enviar mi informe",
       "sendThisReport": "Enviarme este informe",
       "sendReport": "Enviar informe",
       "choose": "Elige una opción",
@@ -465,13 +466,14 @@
         "postcode": "Código postal",
         "homeType": "Tipo de vivienda",
         "concern": "Qué te preocupa",
+        "mobilityProfile": "Perfil de movilidad",
         "urgency": "Prioridad",
         "regionalNote": "No hace falta compartir documentos ni datos médicos. Si hay caídas recientes, poca movilidad o una zona especialmente peligrosa, indícalo en las notas."
       },
       "contact": {
-        "title": "Envía tu informe de seguridad",
-        "body": "Elige email, WhatsApp o ambos para recibir el enlace seguro del informe.",
-        "deliveryIntro": "Tu informe ya está visible. Añade tus datos solo si quieres que CasaMia te lo envíe o haga seguimiento.",
+        "title": "¿Dónde enviamos tu informe?",
+        "body": "Déjanos tu nombre y al menos un contacto para preparar tu informe y enviarte el enlace seguro.",
+        "deliveryIntro": "Usaremos estos datos solo para enviarte el informe de seguridad y, si lo pides, hacer seguimiento contigo.",
         "name": "Nombre",
         "namePlaceholder": "Tu nombre",
         "email": "Email",
@@ -484,7 +486,7 @@
       },
       "result": {
         "loadingTitle": "Preparando tu informe de seguridad...",
-        "loadingBody": "Estamos guardando la solicitud, revisando cada foto por estancia y preparando el enlace seguro del informe.",
+        "loadingBody": "Estamos revisando cada foto por estancia y preparando el enlace seguro para enviártelo.",
         "retry": "Intentar de nuevo",
         "kicker": "Informe listo",
         "title": "Tu informe de seguridad por estancia",
@@ -494,7 +496,14 @@
         "preventionPriority": "Prioridad preventiva",
         "priorityHigh": "Alta",
         "priorityMedium": "Media",
-        "confidence": "confianza",
+        "riskHelper": "Basado en fotos, riesgos por estancia, perfil de movilidad, prioridad y notas.",
+        "riskReasonsTitle": "Por qué aparece este nivel de riesgo",
+        "riskLevels": {
+          "low": "Riesgo bajo",
+          "moderate": "Riesgo medio",
+          "elevated": "Riesgo elevado",
+          "high": "Riesgo alto"
+        },
         "mitigationTitle": "Cómo CasaMia puede reducir estos riesgos",
         "preventionStats": {
           "title": "Por qué la prevención importa",
@@ -656,6 +665,32 @@
         {
           "value": "Planning ahead",
           "label": "Planificando"
+        }
+      ],
+      "mobilityProfiles": [
+        {
+          "value": "No major mobility concern",
+          "label": "Sin problema importante de movilidad"
+        },
+        {
+          "value": "Occasional balance concern",
+          "label": "Equilibrio o movilidad ocasional"
+        },
+        {
+          "value": "Uses cane or walker",
+          "label": "Usa bastón o andador"
+        },
+        {
+          "value": "Wheelchair or reduced mobility",
+          "label": "Silla de ruedas o movilidad reducida"
+        },
+        {
+          "value": "Recent fall",
+          "label": "Caída reciente"
+        },
+        {
+          "value": "Not sure yet",
+          "label": "Aún no lo sé"
         }
       ]
     },

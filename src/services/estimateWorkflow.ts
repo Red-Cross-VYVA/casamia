@@ -1,4 +1,5 @@
 export type EstimateSeverity = 'low' | 'medium' | 'high'
+export type EstimateRiskLevel = 'low' | 'moderate' | 'elevated' | 'high'
 export type DeliveryChannelStatus = 'queued' | 'sent' | 'not_requested' | 'failed'
 
 export type EstimatePhotoInput = {
@@ -15,6 +16,7 @@ export type EstimateWorkflowInput = {
     homeType: string
     mainConcern: string
     urgency: string
+    mobilityProfile: string
     description: string
   }
   photos: EstimatePhotoInput[]
@@ -60,7 +62,10 @@ export type EstimateReport = {
   expiresAt: string
   reportUrl: string
   summary: string
-  confidence: number
+  confidence?: number
+  riskScore: number
+  riskLevel: EstimateRiskLevel
+  riskFactors: string[]
   hazards: EstimateHazard[]
   preventionStats?: EstimatePreventionStat[]
   followUpQuestions: string[]
@@ -79,6 +84,12 @@ export type EstimateReport = {
     rooms: string[]
   }
   backendMode: 'api' | 'local-demo'
+}
+
+export type EstimateRiskAssessment = {
+  riskScore: number
+  riskLevel: EstimateRiskLevel
+  riskFactors: string[]
 }
 
 type IntakeResponse = {
@@ -247,7 +258,7 @@ function buildLocalReport(
 ): EstimateReport {
   const rooms = Array.from(new Set(input.photos.map((photo) => photo.room).filter(Boolean)))
   const hazards = buildPhotoHazards(input)
-  const highRiskCount = hazards.filter((hazard) => hazard.severity === 'high').length
+  const riskAssessment = buildRiskAssessment(input, hazards)
 
   return {
     token,
@@ -255,7 +266,9 @@ function buildLocalReport(
     expiresAt,
     reportUrl: `${window.location.origin}/estimate/${token}`,
     summary: buildReportSummary(input, hazards.length),
-    confidence: Math.min(94, 62 + input.photos.length * 5 + highRiskCount * 6),
+    riskScore: riskAssessment.riskScore,
+    riskLevel: riskAssessment.riskLevel,
+    riskFactors: riskAssessment.riskFactors,
     hazards,
     preventionStats: buildPreventionStats(input.locale),
     followUpQuestions: buildReportFollowUpQuestions(input),
@@ -276,6 +289,345 @@ function buildLocalReport(
     },
     backendMode: 'local-demo',
   }
+}
+
+export function getEstimateRiskAssessment(
+  report: EstimateReport,
+  locale = 'en',
+): EstimateRiskAssessment {
+  const score =
+    typeof report.riskScore === 'number'
+      ? report.riskScore
+      : typeof report.confidence === 'number'
+        ? report.confidence
+        : deriveRiskScoreFromReport(report)
+  const riskScore = clampRiskScore(score)
+  const riskLevel = isEstimateRiskLevel(report.riskLevel)
+    ? report.riskLevel
+    : getRiskLevel(riskScore)
+  const riskFactors =
+    Array.isArray(report.riskFactors) && report.riskFactors.length > 0
+      ? report.riskFactors
+      : buildFallbackRiskFactors(report, locale)
+
+  return {
+    riskScore,
+    riskLevel,
+    riskFactors,
+  }
+}
+
+function buildRiskAssessment(
+  input: EstimateWorkflowInput,
+  hazards: EstimateHazard[],
+): EstimateRiskAssessment {
+  const factors = new Set<string>()
+  const roomText = normaliseText(input.photos.map((photo) => photo.room).join(' '))
+  const concernText = normaliseText(input.context.mainConcern)
+  const urgencyText = normaliseText(input.context.urgency)
+  const mobilityText = normaliseText(input.context.mobilityProfile)
+  const notesText = normaliseText(input.context.description)
+  let score = 12 + Math.min(20, input.photos.length * 4)
+
+  const add = (points: number, factor?: string) => {
+    score += points
+
+    if (factor) {
+      factors.add(factor)
+    }
+  }
+
+  const highSeverityCount = hazards.filter((hazard) => hazard.severity === 'high').length
+  const mediumSeverityCount = hazards.filter((hazard) => hazard.severity === 'medium').length
+
+  if (highSeverityCount > 0) {
+    add(
+      Math.min(36, highSeverityCount * 18),
+      localiseReportText(input.locale, {
+        en: 'High-priority room findings increase the overall home safety risk.',
+        es: 'Los hallazgos de alta prioridad elevan el nivel de riesgo de seguridad del hogar.',
+      }),
+    )
+  }
+
+  if (mediumSeverityCount > 0) {
+    add(Math.min(18, mediumSeverityCount * 9))
+  }
+
+  if (roomText.includes('bath') || roomText.includes('bano')) {
+    add(
+      12,
+      localiseReportText(input.locale, {
+        en: 'Bathroom photos suggest wet-floor or transfer risks should be reviewed first.',
+        es: 'Las fotos del baño sugieren revisar primero riesgos de suelo mojado o transferencias.',
+      }),
+    )
+  }
+
+  if (roomText.includes('stair') || roomText.includes('escalera')) {
+    add(
+      12,
+      localiseReportText(input.locale, {
+        en: 'Stairs or level changes increase fall-prevention priority.',
+        es: 'Escaleras o desniveles aumentan la prioridad preventiva frente a caídas.',
+      }),
+    )
+  }
+
+  if (roomText.includes('entrance') || roomText.includes('entrada') || roomText.includes('access')) {
+    add(
+      8,
+      localiseReportText(input.locale, {
+        en: 'Entrance or access photos indicate the main route into the home should be checked.',
+        es: 'Las fotos de entrada o acceso indican que conviene revisar el recorrido principal.',
+      }),
+    )
+  }
+
+  if (includesAny(concernText, ['fall', 'slip', 'caida', 'resbal'])) {
+    add(
+      16,
+      localiseReportText(input.locale, {
+        en: 'Fall or slipping concerns raise the risk level.',
+        es: 'La preocupación por caídas o resbalones sube el nivel de riesgo.',
+      }),
+    )
+  }
+
+  if (includesAny(concernText, ['bath', 'bano'])) {
+    add(
+      10,
+      localiseReportText(input.locale, {
+        en: 'Bathroom safety was selected as a priority concern.',
+        es: 'La seguridad en el baño se ha seleccionado como preocupación prioritaria.',
+      }),
+    )
+  }
+
+  if (includesAny(concernText, ['stair', 'access', 'escalera', 'acceso'])) {
+    add(
+      10,
+      localiseReportText(input.locale, {
+        en: 'Stairs or access were selected as priority concerns.',
+        es: 'Escaleras o acceso se han seleccionado como preocupaciones prioritarias.',
+      }),
+    )
+  }
+
+  if (includesAny(concernText, ['emergency', 'alert', 'emergencia', 'alerta'])) {
+    add(
+      8,
+      localiseReportText(input.locale, {
+        en: 'Emergency alert concerns suggest response time should be reviewed.',
+        es: 'Las alertas de emergencia sugieren revisar tiempos de respuesta y aviso.',
+      }),
+    )
+  }
+
+  if (urgencyText.includes('urgent')) {
+    add(
+      12,
+      localiseReportText(input.locale, {
+        en: 'The requested priority indicates an immediate safety concern.',
+        es: 'La prioridad indicada señala una preocupación de seguridad inmediata.',
+      }),
+    )
+  } else if (urgencyText.includes('month')) {
+    add(8)
+  }
+
+  if (mobilityText.includes('recent fall')) {
+    add(
+      34,
+      localiseReportText(input.locale, {
+        en: 'Recent falls make preventive action more urgent.',
+        es: 'Las caídas recientes hacen más urgente la acción preventiva.',
+      }),
+    )
+  } else if (includesAny(mobilityText, ['wheelchair', 'reduced'])) {
+    add(
+      18,
+      localiseReportText(input.locale, {
+        en: 'Reduced mobility increases the need for safer access and support points.',
+        es: 'La movilidad reducida aumenta la necesidad de accesos y puntos de apoyo seguros.',
+      }),
+    )
+  } else if (includesAny(mobilityText, ['cane', 'walker'])) {
+    add(
+      16,
+      localiseReportText(input.locale, {
+        en: 'Use of a cane or walker increases fall-prevention priority.',
+        es: 'El uso de bastón o andador aumenta la prioridad preventiva frente a caídas.',
+      }),
+    )
+  } else if (mobilityText.includes('occasional')) {
+    add(
+      10,
+      localiseReportText(input.locale, {
+        en: 'Balance concerns increase the preventive risk level.',
+        es: 'Los problemas de equilibrio aumentan el nivel de riesgo preventivo.',
+      }),
+    )
+  } else if (mobilityText.includes('not sure')) {
+    add(4)
+  }
+
+  if (includesAny(notesText, ['fall', 'caida'])) {
+    add(
+      10,
+      localiseReportText(input.locale, {
+        en: 'The notes mention fall concerns.',
+        es: 'Las notas mencionan preocupación por caídas.',
+      }),
+    )
+  }
+
+  if (includesAny(notesText, ['walker', 'andador', 'cane', 'baston', 'wheelchair', 'silla'])) {
+    add(
+      8,
+      localiseReportText(input.locale, {
+        en: 'The notes mention mobility support needs.',
+        es: 'Las notas mencionan necesidades de apoyo a la movilidad.',
+      }),
+    )
+  }
+
+  if (includesAny(notesText, ['slippery', 'slip', 'resbala', 'resbal'])) {
+    add(
+      8,
+      localiseReportText(input.locale, {
+        en: 'The notes mention slippery surfaces.',
+        es: 'Las notas mencionan superficies resbaladizas.',
+      }),
+    )
+  }
+
+  if (includesAny(notesText, ['poor lighting', 'dark', 'poca luz', 'iluminacion'])) {
+    add(
+      8,
+      localiseReportText(input.locale, {
+        en: 'The notes mention poor lighting or visibility.',
+        es: 'Las notas mencionan poca luz o falta de visibilidad.',
+      }),
+    )
+  }
+
+  if (includesAny(notesText, ['difficult access', 'hard to access', 'acceso dificil'])) {
+    add(
+      6,
+      localiseReportText(input.locale, {
+        en: 'The notes mention difficult access.',
+        es: 'Las notas mencionan dificultad de acceso.',
+      }),
+    )
+  }
+
+  if (factors.size === 0) {
+    factors.add(
+      localiseReportText(input.locale, {
+        en: 'Room photos and home context create the starting safety risk level.',
+        es: 'Las fotos y el contexto del hogar crean el nivel inicial de riesgo.',
+      }),
+    )
+  }
+
+  const riskScore = clampRiskScore(score)
+
+  return {
+    riskScore,
+    riskLevel: getRiskLevel(riskScore),
+    riskFactors: Array.from(factors).slice(0, 5),
+  }
+}
+
+function deriveRiskScoreFromReport(report: EstimateReport) {
+  const photoCount = report.context?.photoCount ?? 0
+  const highSeverityCount = report.hazards.filter((hazard) => hazard.severity === 'high').length
+  const mediumSeverityCount = report.hazards.filter((hazard) => hazard.severity === 'medium').length
+  const roomText = normaliseText(report.hazards.map((hazard) => hazard.room).join(' '))
+  const contextText = normaliseText(
+    [
+      report.context?.mainConcern,
+      report.context?.urgency,
+      report.context?.mobilityProfile,
+      report.context?.description,
+    ].join(' '),
+  )
+  let score = 12 + Math.min(20, photoCount * 4)
+
+  score += Math.min(36, highSeverityCount * 18)
+  score += Math.min(18, mediumSeverityCount * 9)
+
+  if (includesAny(roomText, ['bath', 'bano'])) {
+    score += 12
+  }
+
+  if (includesAny(roomText, ['stair', 'escalera'])) {
+    score += 12
+  }
+
+  if (includesAny(roomText, ['entrance', 'entrada', 'access'])) {
+    score += 8
+  }
+
+  if (includesAny(contextText, ['fall', 'slip', 'caida', 'resbal'])) {
+    score += 14
+  }
+
+  if (includesAny(contextText, ['walker', 'andador', 'cane', 'baston', 'wheelchair', 'silla'])) {
+    score += 14
+  }
+
+  return score
+}
+
+function buildFallbackRiskFactors(report: EstimateReport, locale: string) {
+  const sourceHazards = [
+    ...report.hazards.filter((hazard) => hazard.severity === 'high'),
+    ...report.hazards.filter((hazard) => hazard.severity !== 'high'),
+  ]
+  const factors = sourceHazards
+    .slice(0, 3)
+    .map((hazard) => `${hazard.room}: ${hazard.issue}`)
+
+  if (factors.length > 0) {
+    return factors
+  }
+
+  return [
+    localiseReportText(locale, {
+      en: 'Room photos and home context create the starting safety risk level.',
+      es: 'Las fotos y el contexto del hogar crean el nivel inicial de riesgo.',
+    }),
+  ]
+}
+
+function clampRiskScore(score: number) {
+  return Math.max(0, Math.min(96, Math.round(score)))
+}
+
+function getRiskLevel(score: number): EstimateRiskLevel {
+  if (score >= 80) {
+    return 'high'
+  }
+
+  if (score >= 60) {
+    return 'elevated'
+  }
+
+  if (score >= 40) {
+    return 'moderate'
+  }
+
+  return 'low'
+}
+
+function isEstimateRiskLevel(value: unknown): value is EstimateRiskLevel {
+  return value === 'low' || value === 'moderate' || value === 'elevated' || value === 'high'
+}
+
+function includesAny(value: string, terms: string[]) {
+  return terms.some((term) => value.includes(term))
 }
 
 function buildHazards(input: EstimateWorkflowInput, rooms: string[]) {
@@ -332,11 +684,10 @@ function buildHazards(input: EstimateWorkflowInput, rooms: string[]) {
   return hazards
 }
 
-function buildSummary(input: EstimateWorkflowInput, hazardCount: number) {
-  const location = input.context.postcode ? ` in ${input.context.postcode}` : ''
+function buildSummary(hazardCount: number) {
   const plural = hazardCount === 1 ? 'risk area' : 'risk areas'
 
-  return `Based on the photos and context${location}, CasaMia found ${hazardCount} possible ${plural}. This report highlights what to review first and how CasaMia can help reduce the risk.`
+  return `Based on the photos and home context, CasaMia found ${hazardCount} possible ${plural}. This report highlights what to review first and how CasaMia can help reduce the risk.`
 }
 
 function buildFollowUpQuestions(input: EstimateWorkflowInput) {
@@ -446,13 +797,12 @@ function buildPhotoHazards(input: EstimateWorkflowInput) {
 
 function buildReportSummary(input: EstimateWorkflowInput, hazardCount: number) {
   if (input.locale.startsWith('es')) {
-    const location = input.context.postcode ? ` en ${input.context.postcode}` : ''
     const plural = hazardCount === 1 ? 'posible zona de riesgo' : 'posibles zonas de riesgo'
 
-    return `Según las fotos y el contexto${location}, CasaMia ha detectado ${hazardCount} ${plural}. Este informe señala qué revisar primero y cómo CasaMia puede ayudar a reducir el riesgo.`
+    return `Según las fotos y el contexto del hogar, CasaMia ha detectado ${hazardCount} ${plural}. Este informe señala qué revisar primero y cómo CasaMia puede ayudar a reducir el riesgo.`
   }
 
-  return buildSummary(input, hazardCount)
+  return buildSummary(hazardCount)
 }
 
 function buildPreventionStats(locale: string): EstimatePreventionStat[] {

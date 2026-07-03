@@ -50,6 +50,7 @@
     "namePlaceholder": "Your name",
     "email": "Email",
     "phone": "Phone",
+    "postcode": "Postcode",
     "emailDelivery": "Email report",
     "emailDeliveryBody": "Best for the complete secure report link.",
     "whatsappDelivery": "WhatsApp link",
@@ -438,12 +439,12 @@
       "steps": [
         "Photos",
         "Context",
-        "Report",
-        "Send"
+        "Contact",
+        "Report"
       ],
       "back": "Back",
       "continue": "Continue",
-      "createEstimate": "See my free report",
+      "createEstimate": "Create and send my report",
       "sendThisReport": "Send me this report",
       "sendReport": "Send report",
       "choose": "Choose one",
@@ -465,13 +466,14 @@
         "postcode": "Postcode",
         "homeType": "Home type",
         "concern": "What worries you",
+        "mobilityProfile": "Mobility profile",
         "urgency": "Priority",
         "regionalNote": "No documents or medical details are needed. If there were recent falls, reduced mobility, or one especially risky area, add that in the notes."
       },
       "contact": {
-        "title": "Send your safety report",
-        "body": "Choose email, WhatsApp, or both so CasaMia can send your secure report link.",
-        "deliveryIntro": "Your report is already visible above. Add your details only if you want CasaMia to send or follow up on it.",
+        "title": "Where should we send your report?",
+        "body": "Leave your name and at least one contact method so we can prepare your report and send the secure link.",
+        "deliveryIntro": "We use these details only to send your safety report and, if requested, follow up with you.",
         "name": "Name",
         "namePlaceholder": "Your name",
         "email": "Email",
@@ -484,7 +486,7 @@
       },
       "result": {
         "loadingTitle": "Preparing your safety report...",
-        "loadingBody": "We are saving the request, reviewing each room photo, and preparing the secure report link.",
+        "loadingBody": "We are reviewing each room photo and preparing the secure link so we can send it to you.",
         "retry": "Try again",
         "kicker": "Report ready",
         "title": "Your room-by-room safety report",
@@ -494,7 +496,14 @@
         "preventionPriority": "Prevention priority",
         "priorityHigh": "High",
         "priorityMedium": "Medium",
-        "confidence": "confidence",
+        "riskHelper": "Based on photos, room risks, mobility profile, urgency, and notes.",
+        "riskReasonsTitle": "Why this risk level",
+        "riskLevels": {
+          "low": "Low risk",
+          "moderate": "Moderate risk",
+          "elevated": "Elevated risk",
+          "high": "High risk"
+        },
         "mitigationTitle": "How CasaMia can reduce these risks",
         "preventionStats": {
           "title": "Why prevention matters",
@@ -656,6 +665,32 @@
         {
           "value": "Planning ahead",
           "label": "Planning ahead"
+        }
+      ],
+      "mobilityProfiles": [
+        {
+          "value": "No major mobility concern",
+          "label": "No major mobility concern"
+        },
+        {
+          "value": "Occasional balance concern",
+          "label": "Occasional balance concern"
+        },
+        {
+          "value": "Uses cane or walker",
+          "label": "Uses cane or walker"
+        },
+        {
+          "value": "Wheelchair or reduced mobility",
+          "label": "Wheelchair or reduced mobility"
+        },
+        {
+          "value": "Recent fall",
+          "label": "Recent fall"
+        },
+        {
+          "value": "Not sure yet",
+          "label": "Not sure yet"
         }
       ]
     },

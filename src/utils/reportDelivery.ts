@@ -2,6 +2,7 @@ export type ReportDeliveryFormValue = {
   name: string
   email: string
   phone: string
+  postcode?: string
   deliveryEmail: boolean
   deliveryWhatsapp: boolean
   consent: boolean

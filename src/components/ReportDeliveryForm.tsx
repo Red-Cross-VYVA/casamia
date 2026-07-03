@@ -8,6 +8,7 @@ type ReportDeliveryFormProps = {
   value: ReportDeliveryFormValue
   consentText: string
   intro?: string
+  showPostcode?: boolean
   onChange: (field: keyof ReportDeliveryFormValue, value: string | boolean) => void
 }
 
@@ -15,6 +16,7 @@ export function ReportDeliveryForm({
   value,
   consentText,
   intro,
+  showPostcode = false,
   onChange,
 }: ReportDeliveryFormProps) {
   const { t } = useTranslation()
@@ -43,6 +45,14 @@ export function ReportDeliveryForm({
           placeholder="+34 ..."
           onChange={(nextValue) => onChange('phone', nextValue)}
         />
+        {showPostcode ? (
+          <TextField
+            label={t('reportDelivery.postcode')}
+            value={value.postcode ?? ''}
+            placeholder="28013"
+            onChange={(nextValue) => onChange('postcode', nextValue)}
+          />
+        ) : null}
       </div>
       <div className="estimate-delivery-grid">
         <ToggleCard

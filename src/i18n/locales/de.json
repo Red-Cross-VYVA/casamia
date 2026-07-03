@@ -280,7 +280,48 @@
     "chooseFiles": "Fotos auswählen",
     "removeFile": "{{file}} entfernen",
     "beforeGrants": "Vor Zuschüssen",
-    "afterGrants": "Nach Zuschüssen"
+    "afterGrants": "Nach Zuschüssen",
+    "workflow": {
+      "home": {
+        "mobilityProfile": "Mobility profile"
+      },
+      "result": {
+        "riskHelper": "Based on photos, room risks, mobility profile, urgency, and notes.",
+        "riskReasonsTitle": "Why this risk level",
+        "riskLevels": {
+          "low": "Low risk",
+          "moderate": "Moderate risk",
+          "elevated": "Elevated risk",
+          "high": "High risk"
+        }
+      },
+      "mobilityProfiles": [
+        {
+          "value": "No major mobility concern",
+          "label": "No major mobility concern"
+        },
+        {
+          "value": "Occasional balance concern",
+          "label": "Occasional balance concern"
+        },
+        {
+          "value": "Uses cane or walker",
+          "label": "Uses cane or walker"
+        },
+        {
+          "value": "Wheelchair or reduced mobility",
+          "label": "Wheelchair or reduced mobility"
+        },
+        {
+          "value": "Recent fall",
+          "label": "Recent fall"
+        },
+        {
+          "value": "Not sure yet",
+          "label": "Not sure yet"
+        }
+      ]
+    }
   },
   "pages": {
     "howItWorks": {

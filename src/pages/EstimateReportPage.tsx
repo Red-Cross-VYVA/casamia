@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import {
+  getEstimateRiskAssessment,
   loadEstimateReport,
   type EstimatePreventionStat,
   type EstimateReport,
@@ -16,6 +17,7 @@ export function EstimateReportPage() {
   const { token = '' } = useParams()
   const [status, setStatus] = useState<ReportStatus>('loading')
   const [report, setReport] = useState<EstimateReport | null>(null)
+  const risk = report ? getEstimateRiskAssessment(report, i18n.language) : null
 
   useEffect(() => {
     let active = true
@@ -149,16 +151,34 @@ export function EstimateReportPage() {
               </article>
 
               <aside className="estimate-report-side">
+                {risk ? (
+                  <>
+                    <div className="estimate-risk-score">
+                      <span>{risk.riskScore}%</span>
+                      <small>{t(`estimator.workflow.result.riskLevels.${risk.riskLevel}`)}</small>
+                    </div>
+                    <p className="mt-4 text-sm font-semibold text-text-mid">
+                      {t('estimator.workflow.result.riskHelper')}
+                    </p>
+                    <div className="estimate-result-section estimate-risk-factors">
+                      <h4>{t('estimator.workflow.result.riskReasonsTitle')}</h4>
+                      <ul>
+                        {risk.riskFactors.map((factor) => (
+                          <li key={factor}>
+                            <Check size={17} aria-hidden="true" />
+                            <span>{factor}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </>
+                ) : null}
                 <p className="font-bold uppercase text-green">{t('estimator.report.privateLabel')}</p>
                 <p className="mt-3 text-text-mid">{t('estimator.report.privateBody')}</p>
                 <dl>
                   <div>
                     <dt>{t('estimator.report.photoCount')}</dt>
                     <dd>{report.context.photoCount}</dd>
-                  </div>
-                  <div>
-                    <dt>{t('estimator.report.postcode')}</dt>
-                    <dd>{report.context.postcode || '-'}</dd>
                   </div>
                   <div>
                     <dt>{t('estimator.report.expires')}</dt>
