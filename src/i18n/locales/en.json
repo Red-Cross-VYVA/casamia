@@ -268,7 +268,7 @@
       {
         "icon": "A",
         "title": "Home Assessment",
-        "desc": "Upload photos of any room. We identify every hazard and give you a personalised cost estimate — free, with no commitment."
+        "desc": "Upload photos of any room. We identify visible safety risks and give you a free room-by-room safety report."
       },
       {
         "icon": "I",
@@ -740,15 +740,15 @@
           "desc": "Send photos of bathrooms, kitchens, stairs, bedrooms, entrances, and living spaces. We look for hazards that commonly cause falls or emergency delays."
         },
         {
-          "title": "Receive your estimate",
-          "desc": "The estimator identifies risks, recommends the right plan, and shows the likely cost before and after available grants."
+          "title": "Receive your safety report",
+          "desc": "The report highlights potential room risks, explains what to review first, and shows how CasaMia can help reduce those risks."
         },
         {
           "title": "Install and file grants",
           "desc": "Our team installs the agreed adaptations and manages Plan Adapta paperwork so your family does not have to chase forms."
         }
       ],
-      "cta": "Start with a free estimate"
+      "cta": "Start with a free safety report"
     },
     "plans": {
       "metaTitle": "Plans and Pricing",

@@ -268,7 +268,7 @@
       {
         "icon": "A",
         "title": "Evaluación del Hogar",
-        "desc": "Sube fotos de cualquier estancia. Identificamos cada riesgo y te damos una estimación personalizada gratuita y sin compromiso."
+        "desc": "Sube fotos de cualquier estancia. Identificamos riesgos visibles y te damos gratis un informe de seguridad por estancia."
       },
       {
         "icon": "I",
@@ -740,15 +740,15 @@
           "desc": "Envía fotos de baños, cocina, escaleras, dormitorios, entradas y zonas de estar. Buscamos riesgos que suelen causar caídas o retrasos ante emergencias."
         },
         {
-          "title": "Recibe tu estimación",
-          "desc": "El estimador identifica riesgos, recomienda el plan adecuado y muestra el coste probable antes y después de las ayudas disponibles."
+          "title": "Recibe tu informe de seguridad",
+          "desc": "El informe señala posibles riesgos por estancia, qué revisar primero y cómo CasaMia puede ayudar a reducirlos."
         },
         {
           "title": "Instalamos y tramitamos ayudas",
           "desc": "Nuestro equipo instala las adaptaciones acordadas y gestiona el papeleo de Plan Adapta para que tu familia no tenga que perseguir formularios."
         }
       ],
-      "cta": "Empezar con una estimación gratuita"
+      "cta": "Empezar con un informe gratis"
     },
     "plans": {
       "metaTitle": "Planes y precios",

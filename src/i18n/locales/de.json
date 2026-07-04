@@ -105,7 +105,7 @@
       {
         "icon": "A",
         "title": "Hausbewertung",
-        "desc": "Laden Sie Fotos eines beliebigen Raums hoch. Wir erkennen jede Gefahr und geben Ihnen eine persönliche Kostenschätzung, kostenlos und unverbindlich."
+        "desc": "Laden Sie Fotos eines beliebigen Raums hoch. Wir erkennen sichtbare Sicherheitsrisiken und geben Ihnen kostenlos einen Bericht pro Raum."
       },
       {
         "icon": "I",
@@ -342,15 +342,15 @@
           "desc": "Senden Sie Fotos von Bädern, Küchen, Treppen, Schlafzimmern, Eingängen und Wohnbereichen. Wir suchen nach Gefahren, die häufig Stürze oder Notfallverzögerungen verursachen."
         },
         {
-          "title": "Schätzung erhalten",
-          "desc": "Der Schätzer erkennt Risiken, empfiehlt das passende Paket und zeigt die voraussichtlichen Kosten vor und nach verfügbaren Zuschüssen."
+          "title": "Sicherheitsbericht erhalten",
+          "desc": "Der Bericht zeigt mögliche Risiken pro Raum, was zuerst geprüft werden sollte und wie CasaMia helfen kann, diese Risiken zu reduzieren."
         },
         {
           "title": "Installieren und Zuschüsse einreichen",
           "desc": "Unser Team installiert die vereinbarten Anpassungen und verwaltet die Plan-Adapta-Unterlagen, damit Ihre Familie keine Formulare verfolgen muss."
         }
       ],
-      "cta": "Mit einer kostenlosen Schätzung starten"
+      "cta": "Mit einem kostenlosen Sicherheitsbericht starten"
     },
     "plans": {
       "metaTitle": "Plans and Pricing",

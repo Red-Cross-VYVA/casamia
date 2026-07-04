@@ -105,7 +105,7 @@
       {
         "icon": "A",
         "title": "Woningbeoordeling",
-        "desc": "Upload foto's van elke kamer. Wij identificeren elk risico en geven u een persoonlijke kostenraming, gratis en zonder verplichting."
+        "desc": "Upload foto's van elke kamer. Wij identificeren zichtbare veiligheidsrisico's en geven u gratis een veiligheidsrapport per kamer."
       },
       {
         "icon": "I",
@@ -342,8 +342,8 @@
           "desc": "Stuur foto's van badkamers, keukens, trappen, slaapkamers, ingangen en woonruimtes. Wij zoeken naar risico's die vaak vallen of noodvertragingen veroorzaken."
         },
         {
-          "title": "Ontvang uw schatting",
-          "desc": "De schatter identificeert risico's, beveelt het juiste pakket aan en toont de waarschijnlijke kosten vóór en na beschikbare subsidies."
+          "title": "Ontvang uw veiligheidsrapport",
+          "desc": "Het rapport toont mogelijke risico's per kamer, wat eerst moet worden gecontroleerd en hoe CasaMia kan helpen die risico's te verminderen."
         },
         {
           "title": "Installatie en subsidieaanvraag",

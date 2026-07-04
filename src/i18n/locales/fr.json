@@ -105,7 +105,7 @@
       {
         "icon": "A",
         "title": "Évaluation du Domicile",
-        "desc": "Téléchargez des photos de n'importe quelle pièce. Nous identifions chaque risque et vous donnons une estimation personnalisée, gratuite et sans engagement."
+        "desc": "Téléchargez des photos de n'importe quelle pièce. Nous identifions les risques visibles et vous remettons gratuitement un rapport de sécurité pièce par pièce."
       },
       {
         "icon": "I",
@@ -342,15 +342,15 @@
           "desc": "Envoyez des photos des salles de bain, cuisines, escaliers, chambres, entrées et pièces de vie. Nous repérons les risques qui causent souvent des chutes ou retardent les urgences."
         },
         {
-          "title": "Recevez votre estimation",
-          "desc": "L'estimateur identifie les risques, recommande la bonne formule et montre le coût probable avant et après les aides disponibles."
+          "title": "Recevez votre rapport de sécurité",
+          "desc": "Le rapport met en évidence les risques possibles par pièce, ce qu'il faut vérifier en premier et comment CasaMia peut aider à les réduire."
         },
         {
           "title": "Installation et dépôt des aides",
           "desc": "Notre équipe installe les adaptations convenues et gère les documents Plan Adapta pour que votre famille n'ait pas à suivre les formulaires."
         }
       ],
-      "cta": "Commencer par une estimation gratuite"
+      "cta": "Commencer par un rapport gratuit"
     },
     "plans": {
       "metaTitle": "Plans and Pricing",
