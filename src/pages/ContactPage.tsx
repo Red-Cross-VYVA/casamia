@@ -1,10 +1,48 @@
-import { useState } from 'react'
+import { AlertCircle, LoaderCircle } from 'lucide-react'
+import { type FormEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { TrustBar } from '../components/TrustBar'
+import { submitContactRequest } from '../services/contactRequests'
 
 export function ContactPage() {
   const { t } = useTranslation()
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const planOptions = t('pages.contact.planOptions', { returnObjects: true }) as string[]
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    if (isSubmitting) {
+      return
+    }
+
+    const formData = new FormData(event.currentTarget)
+
+    setIsSubmitting(true)
+    setSubmitError('')
+    setSubmitted(false)
+
+    try {
+      await submitContactRequest({
+        name: String(formData.get('name') ?? '').trim(),
+        email: String(formData.get('email') ?? '').trim(),
+        phone: String(formData.get('phone') ?? '').trim(),
+        plan: String(formData.get('plan') ?? '').trim(),
+        message: String(formData.get('message') ?? '').trim(),
+        source: 'contact-page',
+      })
+      event.currentTarget.reset()
+      setSubmitted(true)
+    } catch (error) {
+      console.error('CasaMia contact request failed', error)
+      setSubmitError(t('pages.contact.error'))
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <>
@@ -17,14 +55,13 @@ export function ContactPage() {
         </div>
       </section>
 
+      <TrustBar />
+
       <section className="section-pad bg-white">
         <div className="site-shell max-w-4xl">
           <form
             className="grid gap-5 rounded-lg border border-border bg-light-blue p-6 shadow-soft md:p-8"
-            onSubmit={(event) => {
-              event.preventDefault()
-              setSubmitted(true)
-            }}
+            onSubmit={handleSubmit}
           >
             <div className="grid gap-5 md:grid-cols-2">
               <Field label={t('pages.contact.fields.name')} name="name" required />
@@ -32,7 +69,10 @@ export function ContactPage() {
               <Field label={t('pages.contact.fields.phone')} name="phone" type="tel" />
               <label className="grid gap-2 font-bold text-text-dark">
                 {t('pages.contact.fields.plan')}
-                <select className="min-h-12 rounded-lg border border-border bg-white px-4 text-text-mid">
+                <select
+                  className="min-h-12 rounded-lg border border-border bg-white px-4 text-text-mid"
+                  name="plan"
+                >
                   {planOptions.map((option) => (
                     <option key={option}>{option}</option>
                   ))}
@@ -47,9 +87,16 @@ export function ContactPage() {
                 required
               />
             </label>
-            <button className="btn btn-green w-fit" type="submit">
-              {t('pages.contact.submit')}
+            <button className="btn btn-green w-fit" disabled={isSubmitting} type="submit">
+              {isSubmitting ? t('pages.contact.submitting') : t('pages.contact.submit')}
+              {isSubmitting ? <LoaderCircle className="animate-spin" size={20} aria-hidden="true" /> : null}
             </button>
+            {submitError ? (
+              <p className="flex items-start gap-3 rounded-lg bg-white p-4 font-bold text-red-700">
+                <AlertCircle className="mt-0.5 shrink-0" size={20} aria-hidden="true" />
+                {submitError}
+              </p>
+            ) : null}
             {submitted ? (
               <p className="rounded-lg bg-white p-4 font-bold text-navy">
                 {t('pages.contact.success')}
