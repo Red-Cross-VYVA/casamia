@@ -1,5 +1,6 @@
 import { buildAssessmentCustomerConfirmation } from './customerConfirmationTemplate'
 import { buildAssessmentLeadNotification } from './leadNotificationTemplate'
+import { getPublicSiteApiBaseUrl } from './publicSiteApi'
 
 export type AssessmentRequestInput = {
   name: string
@@ -15,8 +16,9 @@ export type AssessmentRequestInput = {
 }
 
 const assessmentSubmitUrl = (import.meta.env.VITE_ASSESSMENT_SUBMIT_URL ?? '').trim()
-const estimateApiBase = (import.meta.env.VITE_ESTIMATE_API_URL ?? '').replace(/\/$/, '')
-const assessmentEndpoint = assessmentSubmitUrl || (estimateApiBase ? `${estimateApiBase}/api/assessment-request` : '')
+const publicApiBase = getPublicSiteApiBaseUrl()
+const assessmentEndpoint =
+  assessmentSubmitUrl || (publicApiBase ? `${publicApiBase}/api/public/assessment-requests` : '')
 const ASSESSMENT_VISIT_FEE = '€89'
 
 export async function submitAssessmentRequest(input: AssessmentRequestInput) {
@@ -40,6 +42,15 @@ export async function submitAssessmentRequest(input: AssessmentRequestInput) {
       submittedAt,
       type: 'home_safety_assessment_visit',
       assessmentVisitFee: ASSESSMENT_VISIT_FEE,
+      customer_name: input.name,
+      customer_email: input.email,
+      customer_phone: input.phone,
+      city_area: input.city,
+      preferred_contact_method: input.preferredContactMethod,
+      preferred_assessment_date: input.preferredDate,
+      selected_plan: input.selectedPlan,
+      consent_at: input.consentAt,
+      status: 'New',
       ...input,
       notification,
       customerConfirmation,

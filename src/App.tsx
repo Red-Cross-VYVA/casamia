@@ -32,6 +32,26 @@ const HomePage = lazy(() => import('./pages/HomePage').then(({ HomePage }) => ({
 const HowItWorksPage = lazy(() =>
   import('./pages/HowItWorksPage').then(({ HowItWorksPage }) => ({ default: HowItWorksPage })),
 )
+const InspectionReportPage = lazy(() =>
+  import('./pages/internal/InspectionReportPage').then(({ InspectionReportPage }) => ({
+    default: InspectionReportPage,
+  })),
+)
+const InternalDashboardPage = lazy(() =>
+  import('./pages/internal/InternalDashboardPage').then(({ InternalDashboardPage }) => ({
+    default: InternalDashboardPage,
+  })),
+)
+const InternalProposalsPage = lazy(() =>
+  import('./pages/internal/InternalProposalsPage').then(({ InternalProposalsPage }) => ({
+    default: InternalProposalsPage,
+  })),
+)
+const InternalVisitsPage = lazy(() =>
+  import('./pages/internal/InternalVisitsPage').then(({ InternalVisitsPage }) => ({
+    default: InternalVisitsPage,
+  })),
+)
 const OrderPage = lazy(() => import('./pages/OrderPage').then(({ OrderPage }) => ({ default: OrderPage })))
 const PlanAdaptaPage = lazy(() =>
   import('./pages/PlanAdaptaPage').then(({ PlanAdaptaPage }) => ({ default: PlanAdaptaPage })),
@@ -40,6 +60,19 @@ const PlanDetailPage = lazy(() =>
   import('./pages/PlanDetailPage').then(({ PlanDetailPage }) => ({ default: PlanDetailPage })),
 )
 const PlansPage = lazy(() => import('./pages/PlansPage').then(({ PlansPage }) => ({ default: PlansPage })))
+const ProposalDetailPage = lazy(() =>
+  import('./pages/internal/ProposalDetailPage').then(({ ProposalDetailPage }) => ({
+    default: ProposalDetailPage,
+  })),
+)
+const ProposalGeneratorPage = lazy(() =>
+  import('./pages/internal/ProposalGeneratorPage').then(({ ProposalGeneratorPage }) => ({
+    default: ProposalGeneratorPage,
+  })),
+)
+const PublicProposalPage = lazy(() =>
+  import('./pages/PublicProposalPage').then(({ PublicProposalPage }) => ({ default: PublicProposalPage })),
+)
 const TechPage = lazy(() => import('./pages/TechPage').then(({ TechPage }) => ({ default: TechPage })))
 const TermsAndConditionsPage = lazy(() =>
   import('./pages/TermsAndConditionsPage').then(({ TermsAndConditionsPage }) => ({ default: TermsAndConditionsPage })),
@@ -92,10 +125,13 @@ function LegacyAssessmentRedirect() {
 }
 
 function AppRoutes() {
+  const location = useLocation()
+  const isInternalRoute = location.pathname.startsWith('/internal')
+
   return (
     <>
       <ScrollManager />
-      <Nav />
+      {isInternalRoute ? null : <Nav />}
       <main>
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
@@ -114,13 +150,20 @@ function AppRoutes() {
             <Route path="/grants" element={<GrantsPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />
+            <Route path="/proposal/:token" element={<PublicProposalPage />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
+            <Route path="/internal" element={<InternalDashboardPage />} />
+            <Route path="/internal/visits" element={<InternalVisitsPage />} />
+            <Route path="/internal/inspection-report" element={<InspectionReportPage />} />
+            <Route path="/internal/proposals" element={<InternalProposalsPage />} />
+            <Route path="/internal/proposal-generator" element={<ProposalGeneratorPage />} />
+            <Route path="/internal/proposals/:proposalId" element={<ProposalDetailPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </main>
-      <Footer />
+      {isInternalRoute ? null : <Footer />}
     </>
   )
 }

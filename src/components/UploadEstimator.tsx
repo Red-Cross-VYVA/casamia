@@ -302,6 +302,7 @@ export function UploadEstimator() {
           token: result.token,
           reportTitle: t('estimator.workflow.result.reportTitle'),
           reportUrl: result.reportUrl,
+          report: result,
           contact: {
             name: form.name,
             email: form.email,

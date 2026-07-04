@@ -111,6 +111,11 @@ export function GrantEligibilityPage() {
         token: reportToken,
         reportTitle: result.title,
         reportUrl: `${window.location.origin}/grant-check?report=${reportToken}`,
+        grantReport: {
+          form,
+          result,
+          summary: reportSummary,
+        },
         contact: {
           name: form.name,
           email: form.email,

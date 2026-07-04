@@ -633,6 +633,8 @@
         "Pas encore sûr"
       ],
       "submit": "Envoyer le Message",
+      "submitting": "Envoi...",
+      "error": "Nous n'avons pas pu envoyer votre message. Veuillez réessayer ou contacter CasaMia par téléphone.",
       "success": "Merci. CasaMia vous recontactera bientôt."
     },
     "planDetail": {

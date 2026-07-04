@@ -633,6 +633,8 @@
         "Nog niet zeker"
       ],
       "submit": "Bericht Verzenden",
+      "submitting": "Verzenden...",
+      "error": "We konden uw bericht niet verzenden. Probeer het opnieuw of neem telefonisch contact op met CasaMia.",
       "success": "Dank u. CasaMia neemt binnenkort contact met u op."
     },
     "planDetail": {

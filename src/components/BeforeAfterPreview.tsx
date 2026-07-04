@@ -66,8 +66,8 @@ export function BeforeAfterCard({
   labels: { before: string; after: string }
 }) {
   return (
-    <article className="overflow-hidden rounded-lg border border-border bg-white shadow-soft">
-      <div className="grid min-h-64 grid-cols-2 bg-light-blue">
+    <article className="before-after-card overflow-hidden rounded-lg border border-border bg-white shadow-soft">
+      <div className="before-after-visual grid grid-cols-2 bg-light-blue">
         <BeforeAfterImage
           alt={`${labels.before}: ${item.title}`}
           label={labels.before}
@@ -80,9 +80,9 @@ export function BeforeAfterCard({
         />
       </div>
 
-      <div className="p-6">
+      <div className="p-5 md:p-6">
         <h3 className="font-display text-2xl font-bold leading-tight text-text-dark">{item.title}</h3>
-        <ul className="mt-5 space-y-3">
+        <ul className="mt-4 space-y-3">
           {item.benefits.map((benefit) => (
             <li className="flex gap-3 text-text-mid" key={benefit}>
               <CheckCircle2 className="mt-0.5 shrink-0 text-green" size={18} aria-hidden="true" />
@@ -112,13 +112,13 @@ function BeforeAfterImage({
   src: string
 }) {
   return (
-    <div className="relative min-h-64 overflow-hidden border-r border-white/60 last:border-r-0">
+    <div className="before-after-image relative overflow-hidden border-r border-white/60 last:border-r-0">
       <SafeImage
         src={src}
         alt={alt}
         fallbackLabel={label}
-        className="h-full"
-        imgClassName="h-full w-full object-cover"
+        className="h-full w-full"
+        imgClassName="before-after-image-media h-full w-full object-cover"
       />
       <span className="absolute left-3 top-3 rounded-full bg-navy px-3 py-1 text-xs font-extrabold uppercase text-white shadow-soft">
         {label}

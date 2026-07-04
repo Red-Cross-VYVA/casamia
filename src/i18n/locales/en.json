@@ -1031,6 +1031,8 @@
         "Not sure yet"
       ],
       "submit": "Send Message",
+      "submitting": "Sending...",
+      "error": "We could not send your message. Please try again or contact CasaMia by phone.",
       "success": "Thank you. CasaMia will follow up shortly."
     },
     "planDetail": {

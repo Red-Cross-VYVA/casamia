@@ -1031,6 +1031,8 @@
         "Aún no lo sé"
       ],
       "submit": "Enviar Mensaje",
+      "submitting": "Enviando...",
+      "error": "No pudimos enviar tu mensaje. Inténtalo de nuevo o contacta con CasaMia por teléfono.",
       "success": "Gracias. CasaMia se pondrá en contacto contigo pronto."
     },
     "planDetail": {

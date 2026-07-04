@@ -1,3 +1,10 @@
+import {
+  getPublicSiteApiBaseUrl,
+  getPublicSiteJson,
+  hasPublicSiteApi,
+  postPublicSiteJson,
+} from './publicSiteApi'
+
 export type EstimateSeverity = 'low' | 'medium' | 'high'
 export type EstimateRiskLevel = 'low' | 'moderate' | 'elevated' | 'high'
 export type DeliveryChannelStatus = 'queued' | 'sent' | 'not_requested' | 'failed'
@@ -37,6 +44,8 @@ export type ReportDeliveryInput = {
   contact: ReportDeliveryContact
   reportTitle: string
   reportUrl?: string
+  report?: EstimateReport
+  grantReport?: Record<string, unknown>
 }
 
 type LegacyEstimateWorkflowInput = EstimateWorkflowInput & {
@@ -108,6 +117,7 @@ const LEAD_STORAGE_KEY = 'casamia-estimate-leads'
 const DELIVERY_STORAGE_KEY = 'casamia-report-deliveries'
 
 const apiBase = (import.meta.env.VITE_ESTIMATE_API_URL ?? '').replace(/\/$/, '')
+const publicApiBase = getPublicSiteApiBaseUrl()
 
 export async function generateSafetyReport(input: EstimateWorkflowInput) {
   if (apiBase) {
@@ -130,6 +140,18 @@ export async function sendReportDelivery(input: ReportDeliveryInput) {
     }
 
     return (await response.json()) as {
+      email: DeliveryChannelStatus
+      whatsapp: DeliveryChannelStatus
+    }
+  }
+
+  if (hasPublicSiteApi()) {
+    await saveReportToPublicApi(input)
+
+    return {
+      email: input.contact.deliveryEmail ? 'queued' : 'not_requested',
+      whatsapp: input.contact.deliveryWhatsapp ? 'queued' : 'not_requested',
+    } satisfies {
       email: DeliveryChannelStatus
       whatsapp: DeliveryChannelStatus
     }
@@ -165,6 +187,14 @@ export async function loadEstimateReport(token: string) {
     }
 
     return (await response.json()) as EstimateReport
+  }
+
+  if (publicApiBase) {
+    try {
+      return await loadPublicSafetyReport(token)
+    } catch {
+      // Fall through to the local demo report below.
+    }
   }
 
   const raw = window.localStorage.getItem(`${REPORT_STORAGE_PREFIX}${token}`)
@@ -248,6 +278,198 @@ async function submitLocalDemo(input: EstimateWorkflowInput) {
   persistLocalReport(report)
 
   return report
+}
+
+async function saveReportToPublicApi(input: ReportDeliveryInput) {
+  const path =
+    input.reportType === 'safety'
+      ? '/api/public/safety-reports'
+      : '/api/public/grant-reports'
+
+  await postPublicSiteJson(path, buildPublicReportPayload(input))
+}
+
+function buildPublicReportPayload(input: ReportDeliveryInput) {
+  const preferredChannels = [
+    input.contact.deliveryEmail ? 'email' : '',
+    input.contact.deliveryWhatsapp ? 'whatsapp' : '',
+  ].filter(Boolean)
+  const basePayload = {
+    public_token: input.token,
+    token: input.token,
+    report_url: input.reportUrl,
+    report_title: input.reportTitle,
+    customer_name: input.contact.name,
+    customer_email: input.contact.email,
+    customer_phone: input.contact.phone,
+    delivery_email: input.contact.deliveryEmail,
+    delivery_whatsapp: input.contact.deliveryWhatsapp,
+    preferred_channels: preferredChannels,
+    consent_at: input.contact.consentAt,
+    submitted_at: new Date().toISOString(),
+    status: 'New',
+  }
+
+  if (input.reportType === 'safety') {
+    const report = input.report
+
+    return {
+      ...basePayload,
+      type: 'safety_report',
+      context: report?.context,
+      risk_score: report?.riskScore,
+      risk_level: report?.riskLevel,
+      summary: report?.summary,
+      recommendations: {
+        summary: report?.summary,
+        riskScore: report?.riskScore,
+        riskLevel: report?.riskLevel,
+        riskFactors: report?.riskFactors ?? [],
+        hazards: report?.hazards ?? [],
+        preventionStats: report?.preventionStats ?? [],
+        followUpQuestions: report?.followUpQuestions ?? [],
+      },
+    }
+  }
+
+  return {
+    ...basePayload,
+    type: 'grant_report',
+    recommendations: input.grantReport ?? {
+      title: input.reportTitle,
+      reportUrl: input.reportUrl,
+    },
+  }
+}
+
+async function loadPublicSafetyReport(token: string) {
+  const raw = await getPublicSiteJson<Record<string, unknown>>(
+    `/api/public/safety-reports/${encodeURIComponent(token)}`,
+  )
+
+  return normalisePublicSafetyReport(raw, token)
+}
+
+function normalisePublicSafetyReport(raw: Record<string, unknown>, token: string): EstimateReport {
+  const recommendations = getRecord(raw.recommendations) ?? getRecord(raw.report) ?? raw
+  const context = getRecord(raw.context) ?? getRecord(recommendations.context)
+  const hazards = getArray(recommendations.hazards).filter(isEstimateHazard)
+  const preventionStats = getArray(recommendations.preventionStats ?? recommendations.prevention_stats)
+    .filter(isEstimatePreventionStat)
+  const riskScore = clampRiskScore(
+    safeNumber(
+      recommendations.riskScore ??
+        recommendations.risk_score ??
+        raw.risk_score ??
+        raw.riskScore ??
+        0,
+    ),
+  )
+  const riskLevel = isEstimateRiskLevel(recommendations.riskLevel ?? recommendations.risk_level)
+    ? (recommendations.riskLevel ?? recommendations.risk_level) as EstimateRiskLevel
+    : getRiskLevel(riskScore)
+  const reportToken = safeString(raw.public_token ?? raw.token, token)
+  const createdAt = safeString(raw.created_at ?? raw.createdAt, new Date().toISOString())
+  const expiresAt = safeString(raw.expires_at ?? raw.expiresAt, getDefaultExpiry(createdAt))
+
+  return {
+    token: reportToken,
+    createdAt,
+    expiresAt,
+    reportUrl: `${window.location.origin}/estimate/${reportToken}`,
+    summary: safeString(
+      recommendations.summary ?? raw.summary,
+      'CasaMia prepared this room-by-room safety report from the submitted home context.',
+    ),
+    riskScore,
+    riskLevel,
+    riskFactors: getArray(recommendations.riskFactors ?? recommendations.risk_factors)
+      .map((item) => safeString(item))
+      .filter(Boolean),
+    hazards,
+    preventionStats,
+    followUpQuestions: getArray(
+      recommendations.followUpQuestions ?? recommendations.follow_up_questions,
+    )
+      .map((item) => safeString(item))
+      .filter(Boolean),
+    delivery: {
+      email: 'sent',
+      whatsapp: 'not_requested',
+    },
+    lead: {
+      name: safeString(raw.customer_name ?? raw.name),
+      email: '',
+      phone: safeString(raw.customer_phone ?? raw.phone),
+      preferredChannels: [],
+    },
+    context: {
+      region: safeString(context?.region),
+      postcode: safeString(context?.postcode),
+      homeType: safeString(context?.homeType ?? context?.home_type),
+      mainConcern: safeString(context?.mainConcern ?? context?.main_concern),
+      urgency: safeString(context?.urgency),
+      mobilityProfile: safeString(context?.mobilityProfile ?? context?.mobility_profile),
+      description: safeString(context?.description),
+      photoCount: safeNumber(context?.photoCount ?? context?.photo_count),
+      rooms: getArray(context?.rooms).map((item) => safeString(item)).filter(Boolean),
+    },
+    backendMode: 'api',
+  }
+}
+
+function getRecord(value: unknown) {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : null
+}
+
+function getArray(value: unknown) {
+  return Array.isArray(value) ? value : []
+}
+
+function isEstimateHazard(value: unknown): value is EstimateHazard {
+  const hazard = getRecord(value)
+
+  return Boolean(
+    hazard &&
+      typeof hazard.room === 'string' &&
+      typeof hazard.issue === 'string' &&
+      isEstimateSeverity(hazard.severity) &&
+      typeof hazard.recommendation === 'string',
+  )
+}
+
+function isEstimatePreventionStat(value: unknown): value is EstimatePreventionStat {
+  const stat = getRecord(value)
+
+  return Boolean(
+    stat &&
+      typeof stat.value === 'string' &&
+      typeof stat.label === 'string' &&
+      typeof stat.source === 'string',
+  )
+}
+
+function isEstimateSeverity(value: unknown): value is EstimateSeverity {
+  return value === 'low' || value === 'medium' || value === 'high'
+}
+
+function safeString(value: unknown, fallback = '') {
+  return typeof value === 'string' ? value : fallback
+}
+
+function safeNumber(value: unknown) {
+  const parsed = typeof value === 'number' ? value : Number.parseFloat(String(value ?? '0'))
+
+  return Number.isFinite(parsed) ? parsed : 0
+}
+
+function getDefaultExpiry(createdAt: string) {
+  const expiresAt = new Date(createdAt)
+  expiresAt.setDate(expiresAt.getDate() + 30)
+
+  return expiresAt.toISOString()
 }
 
 function buildLocalReport(
