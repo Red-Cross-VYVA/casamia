@@ -27,7 +27,7 @@
     "badge": "Especialistas en seguridad del hogar · Toda España",
     "line1": "Hogar, seguro",
     "line2": "hogar.",
-    "sub": "Sube fotos de cada estancia y recibe gratis un informe de seguridad con los riesgos detectados en cada foto.",
+    "sub": "Elige la herramienta gratuita que necesitas hoy: informe de seguridad del hogar o revisión de ayudas.",
     "uploadLabel": "¿Tu hogar es seguro? Descúbrelo gratis.",
     "uploadRooms": "Baño · Cocina · Escalera · Salón",
     "uploadReport": "Informe gratis: riesgos por cada foto",
@@ -36,14 +36,14 @@
     "cta": "Descubrirlo gratis",
     "micro": "Sube fotos · Sin compromiso",
     "safetyCheck": {
-      "title": "¿Tu hogar es seguro?",
-      "body": "Detecta peligros ocultos antes de una caída.",
-      "cta": "Ver informe gratis"
+      "title": "Informe de seguridad gratuito",
+      "body": "Descubre riesgos ocultos en casa y qué revisar primero.",
+      "cta": "Empezar informe"
     },
     "grantCheck": {
-      "title": "¿Puedes recibir ayudas?",
-      "body": "Descubre si puedes reducir el coste de adaptar tu hogar.",
-      "cta": "Comprobar gratis"
+      "title": "Comprobar ayudas",
+      "body": "Ve si podrías optar a apoyo antes de planificar obras.",
+      "cta": "Comprobar elegibilidad"
     }
   },
   "reportDelivery": {

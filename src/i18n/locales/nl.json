@@ -27,7 +27,7 @@
     "badge": "Specialisten in woningveiligheid · Heel Spanje",
     "line1": "Thuis, veilig",
     "line2": "thuis.",
-    "sub": "Upload foto's van elke kamer en ontvang gratis een veiligheidsrapport met de risico's in elke foto.",
+    "sub": "Choose the free check you need today: a home safety report or a grant eligibility review.",
     "uploadLabel": "Is uw huis veilig? Ontdek het gratis.",
     "uploadRooms": "Badkamer · Keuken · Trap · Woonkamer",
     "uploadReport": "Gratis rapport: risico's per foto",
@@ -36,14 +36,14 @@
     "cta": "Gratis ontdekken",
     "micro": "Upload foto's · Zonder verplichting",
     "safetyCheck": {
-      "title": "Is uw huis veilig?",
-      "body": "Ontdek verborgen gevaren voordat er een val gebeurt.",
-      "cta": "Gratis rapport bekijken"
+      "title": "Free Safety Report",
+      "body": "Find hidden risks at home and what to review first.",
+      "cta": "Start safety report"
     },
     "grantCheck": {
-      "title": "Kunt u subsidies krijgen?",
-      "body": "Ontdek of steun de aanpassingskosten kan verlagen.",
-      "cta": "Geschiktheid checken"
+      "title": "Grant Eligibility Check",
+      "body": "See whether support may apply before you plan works.",
+      "cta": "Check eligibility"
     }
   },
   "reportDelivery": {

@@ -27,7 +27,7 @@
     "badge": "Home safety specialists · All Spain",
     "line1": "Home, Safe",
     "line2": "Home.",
-    "sub": "Upload photos of each room and receive a free safety report with the risks found in every photo.",
+    "sub": "Choose the free check you need today: a home safety report or a grant eligibility review.",
     "uploadLabel": "Is your home safe? Find out for free.",
     "uploadRooms": "Bathroom · Kitchen · Stairway · Living room",
     "uploadReport": "Free report: risks in every photo",
@@ -36,14 +36,14 @@
     "cta": "Find Out for Free",
     "micro": "Upload photos · No commitment",
     "safetyCheck": {
-      "title": "Is your home safe?",
-      "body": "Spot hidden dangers before a fall happens.",
-      "cta": "See free report"
+      "title": "Free Safety Report",
+      "body": "Find hidden risks at home and what to review first.",
+      "cta": "Start safety report"
     },
     "grantCheck": {
-      "title": "Could you receive grants?",
-      "body": "Find out if support could reduce adaptation costs.",
-      "cta": "Check free eligibility"
+      "title": "Grant Eligibility Check",
+      "body": "See whether support may apply before you plan works.",
+      "cta": "Check eligibility"
     }
   },
   "reportDelivery": {

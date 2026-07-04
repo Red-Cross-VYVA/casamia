@@ -27,7 +27,7 @@
     "badge": "Spécialistes de la sécurité à domicile · Toute l'Espagne",
     "line1": "Foyer, doux foyer",
     "line2": "sécurisé.",
-    "sub": "Téléchargez des photos de chaque pièce et recevez gratuitement un rapport de sécurité avec les risques détectés sur chaque photo.",
+    "sub": "Choose the free check you need today: a home safety report or a grant eligibility review.",
     "uploadLabel": "Votre foyer est-il sûr ? Découvrez-le gratuitement.",
     "uploadRooms": "Salle de bain · Cuisine · Escalier · Salon",
     "uploadReport": "Rapport gratuit : risques par photo",
@@ -36,14 +36,14 @@
     "cta": "Découvrir gratuitement",
     "micro": "Téléchargez vos photos · Sans engagement",
     "safetyCheck": {
-      "title": "Votre foyer est-il sûr ?",
-      "body": "Repérez les dangers cachés avant une chute.",
-      "cta": "Voir le rapport gratuit"
+      "title": "Free Safety Report",
+      "body": "Find hidden risks at home and what to review first.",
+      "cta": "Start safety report"
     },
     "grantCheck": {
-      "title": "Pouvez-vous recevoir des aides ?",
-      "body": "Découvrez si une aide peut réduire le coût des adaptations.",
-      "cta": "Vérifier l'éligibilité"
+      "title": "Grant Eligibility Check",
+      "body": "See whether support may apply before you plan works.",
+      "cta": "Check eligibility"
     }
   },
   "reportDelivery": {
