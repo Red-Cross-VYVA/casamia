@@ -27,7 +27,7 @@
     "badge": "Especialistas en seguridad del hogar · Toda España",
     "line1": "Hogar, seguro",
     "line2": "hogar.",
-    "sub": "Elige la herramienta gratuita que necesitas hoy: informe de seguridad del hogar o revisión de ayudas.",
+    "sub": "Empieza con la herramienta gratuita adecuada: descubre riesgos en casa o comprueba si podrías acceder a ayudas.",
     "uploadLabel": "¿Tu hogar es seguro? Descúbrelo gratis.",
     "uploadRooms": "Baño · Cocina · Escalera · Salón",
     "uploadReport": "Informe gratis: riesgos por cada foto",
@@ -36,12 +36,12 @@
     "cta": "Descubrirlo gratis",
     "micro": "Sube fotos · Sin compromiso",
     "safetyCheck": {
-      "title": "Informe de seguridad gratuito",
+      "title": "Informe de seguridad",
       "body": "Descubre riesgos ocultos en casa y qué revisar primero.",
-      "cta": "Empezar informe"
+      "cta": "Empezar informe gratis"
     },
     "grantCheck": {
-      "title": "Comprobar ayudas",
+      "title": "Elegibilidad de ayudas",
       "body": "Ve si podrías optar a apoyo antes de planificar obras.",
       "cta": "Comprobar elegibilidad"
     }
@@ -1623,6 +1623,9 @@
     "page": {
       "title": "Antes y después",
       "body": "Explora mejoras prácticas de seguridad que hacen que moverse por casa sea más fácil, tranquilo y seguro.",
+      "galleryCta": "Ver galería",
+      "galleryTitle": "De riesgos cotidianos a rutinas más seguras",
+      "galleryBody": "Cada transformación muestra el tipo de problema que Casamia revisa y la mejora práctica que podemos proponer tras una evaluación de seguridad del hogar.",
       "compareCta": "Comparar planes"
     },
     "labels": {
@@ -1634,6 +1637,8 @@
     "transformations": [
       {
         "title": "Mejora de seguridad en baño",
+        "before": "Transferencias en suelo mojado con poco apoyo junto a ducha o inodoro.",
+        "after": "Puntos de apoyo claros, superficies antideslizantes y movimiento diario más seguro.",
         "benefits": [
           "Barras de apoyo donde se necesitan",
           "Superficies antideslizantes en zonas húmedas",
@@ -1642,6 +1647,8 @@
       },
       {
         "title": "Escaleras más seguras",
+        "before": "Peldaños inseguros por falta de apoyo, contraste o iluminación.",
+        "after": "Pasamanos continuos, bordes más visibles y desplazamiento más seguro entre plantas.",
         "benefits": [
           "Apoyo continuo con pasamanos",
           "Mejor visibilidad de los peldaños",
@@ -1650,6 +1657,8 @@
       },
       {
         "title": "Entrada fácil y segura",
+        "before": "Umbrales elevados, accesos estrechos o poca iluminación al entrar.",
+        "after": "Una entrada más fluida, mejor iluminada y con apoyo donde se necesita equilibrio.",
         "benefits": [
           "Umbrales más fáciles de cruzar",
           "Mejor iluminación en la entrada",
@@ -1658,6 +1667,8 @@
       },
       {
         "title": "Cocina más segura e inteligente",
+        "before": "Objetos diarios difíciles de alcanzar y zonas de paso que se pueden bloquear.",
+        "after": "Alcance más seguro, circulación despejada y mejoras prácticas de luz o electrodomésticos.",
         "benefits": [
           "Rutas de movimiento más despejadas",
           "Acceso más seguro a objetos diarios",
@@ -1666,6 +1677,8 @@
       },
       {
         "title": "Mejoras de seguridad exterior",
+        "before": "Caminos, escalones o terrazas exteriores con riesgo en poca luz o lluvia.",
+        "after": "Movimiento exterior más estable con mejor visibilidad y reducción de resbalones.",
         "benefits": [
           "Caminos y escalones exteriores más seguros",
           "Reducción de resbalones por clima",
@@ -1674,6 +1687,8 @@
       },
       {
         "title": "Mejora de seguridad inteligente",
+        "before": "La familia tiene poca visibilidad cuando algo cambia en casa.",
+        "after": "Sensores, alertas e iluminación sencillos aportan tranquilidad sin complicaciones.",
         "benefits": [
           "Iluminación con movimiento y alertas",
           "Sensores inteligentes para mayor tranquilidad",

@@ -32,15 +32,14 @@ export function Nav() {
 
   const links = [
     { label: t('nav.howItWorks'), to: '/#how-it-works' },
-    { label: t('nav.plans'), to: '/#plans' },
-    { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
+    { label: t('nav.services', { defaultValue: 'Services' }), to: '/services' },
+    { label: t('nav.plans'), to: '/plans' },
     { label: t('nav.grants'), to: '/#grants' },
-    { label: t('nav.about', { defaultValue: 'About' }), to: '/about' },
+    { label: t('nav.resources', { defaultValue: 'Resources' }), to: '/resources' },
     { label: t('nav.whyCasamia', { defaultValue: 'Why CasaMia' }), to: '/why-casamia' },
-    { label: t('nav.freeAssessment', { defaultValue: 'In-Home Visit' }), to: assessmentPath },
     { label: t('nav.contact'), to: '/#contact' },
   ]
-  const desktopLinks = links.filter((link) => link.to !== assessmentPath)
+  const desktopLinks = links
 
   useEffect(() => {
     setMobileOpen(false)
