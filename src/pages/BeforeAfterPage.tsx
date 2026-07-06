@@ -40,7 +40,7 @@ export function BeforeAfterPage() {
       <section className="section-pad bg-white">
         <div className="site-shell">
           <div className="grid gap-8 lg:grid-cols-2">
-            {transformations.map((item, index) => (
+            {transformations.slice(0, beforeAfterImagePairs.length).map((item, index) => (
               <BeforeAfterCard
                 cta={t('beforeAfter.cardCta')}
                 imagePair={beforeAfterImagePairs[index]}

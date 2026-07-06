@@ -88,6 +88,7 @@ export function GrantEligibilityPage() {
 
   const result = useMemo(() => calculateResult(form, copy), [form, copy])
   const canContinue = getStepCompletion(step, form)
+  const blockedReason = canContinue ? '' : getGrantBlockedReason(step, form, copy)
 
   function updateField<Field extends keyof FormState>(field: Field, value: FormState[Field]) {
     setForm((current) => ({ ...current, [field]: value }))
@@ -292,17 +293,24 @@ export function GrantEligibilityPage() {
                   intro={copy.steps.needs.intro}
                 >
                   <div className="grant-choice-grid">
-                    {copy.options.needs.map((need) => (
-                      <button
-                        className={`grant-choice ${form.needs.includes(need.value) ? 'is-selected' : ''}`}
-                        key={need.value}
-                        onClick={() => toggleNeed(need.value)}
-                        type="button"
-                      >
-                        <Check size={18} aria-hidden="true" />
-                        {need.label}
-                      </button>
-                    ))}
+                    {copy.options.needs.map((need) => {
+                      const isSelected = form.needs.includes(need.value)
+
+                      return (
+                        <button
+                          aria-pressed={isSelected}
+                          className={`grant-choice ${isSelected ? 'is-selected' : ''}`}
+                          key={need.value}
+                          onClick={() => toggleNeed(need.value)}
+                          type="button"
+                        >
+                          <span className="grant-choice-marker" aria-hidden="true">
+                            {isSelected ? <Check size={16} /> : null}
+                          </span>
+                          {need.label}
+                        </button>
+                      )
+                    })}
                   </div>
                 </StepCard>
               ) : null}
@@ -367,10 +375,16 @@ export function GrantEligibilityPage() {
                 >
                   {copy.actions.back}
                 </button>
+                {blockedReason ? (
+                  <p className="wizard-action-hint" role="status">
+                    {blockedReason}
+                  </p>
+                ) : null}
                 {step < 4 ? (
                   <button
                     className="btn btn-navy"
                     disabled={!canContinue}
+                    title={blockedReason || undefined}
                     onClick={() => setStep((current) => Math.min(4, current + 1))}
                     type="button"
                   >
@@ -385,6 +399,7 @@ export function GrantEligibilityPage() {
                   <button
                     className="btn btn-green"
                     disabled={!canContinue || deliveryStatus === 'loading' || deliveryStatus === 'success'}
+                    title={blockedReason || undefined}
                     onClick={sendGrantReport}
                     type="button"
                   >
@@ -560,6 +575,36 @@ function getStepCompletion(step: number, form: FormState) {
   }
 
   return isReportDeliveryReady(form)
+}
+
+function getGrantBlockedReason(step: number, form: FormState, copy: GrantCopy) {
+  if (step === 0) {
+    const missing = [
+      form.region ? '' : copy.fields.region,
+      form.postcode ? '' : copy.fields.postcode,
+      form.homeType ? '' : copy.fields.homeType,
+      form.ownership ? '' : copy.fields.ownership,
+    ].filter(Boolean)
+
+    return copy.validation.completeFields(missing.join(', '))
+  }
+
+  if (step === 1) {
+    const missing = [
+      form.residentAge ? '' : copy.fields.residentAge,
+      form.mobility ? '' : copy.fields.mobility,
+      form.recognisedStatus ? '' : copy.fields.recognisedStatus,
+      form.timeline ? '' : copy.fields.timeline,
+    ].filter(Boolean)
+
+    return copy.validation.completeFields(missing.join(', '))
+  }
+
+  if (step === 2) {
+    return copy.validation.needs
+  }
+
+  return copy.validation.contact
 }
 
 function calculateResult(form: FormState, copy: GrantCopy): Result {
@@ -892,6 +937,12 @@ function getGrantCopy(language: string) {
         sendReport: 'Enviar informe',
         sending: 'Preparando envío',
       },
+      validation: {
+        completeFields: (fields: string) => `Completa: ${fields}.`,
+        needs: 'Selecciona al menos una necesidad para continuar.',
+        contact:
+          'Añade tus datos, elige un método de envío y acepta el consentimiento para continuar.',
+      },
       delivery: {
         email: 'El informe completo queda preparado para enviarse por email.',
         whatsapp: 'El WhatsApp incluirá solo un enlace seguro al informe.',
@@ -1121,6 +1172,11 @@ function getGrantCopy(language: string) {
       sendThisReport: 'Send this report',
       sendReport: 'Send report',
       sending: 'Preparing delivery',
+    },
+    validation: {
+      completeFields: (fields: string) => `Complete: ${fields}.`,
+      needs: 'Select at least one need to continue.',
+      contact: 'Add contact details, choose a delivery method, and accept consent to continue.',
     },
     delivery: {
       email: 'The full report is ready to send by email.',

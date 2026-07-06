@@ -34,6 +34,7 @@ export function Hero() {
               alt={t('alts.hero')}
               className="hero-photo-frame overflow-hidden shadow-soft"
               imgClassName="hero-photo-img h-full w-full object-cover"
+              loading="eager"
             />
           </div>
           <GrantStamp />

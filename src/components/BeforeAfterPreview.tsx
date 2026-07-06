@@ -36,7 +36,7 @@ export function BeforeAfterPreview() {
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {transformations.slice(0, 3).map((item, index) => (
+          {transformations.slice(0, beforeAfterImagePairs.length).map((item, index) => (
             <BeforeAfterCard
               cta={t('beforeAfter.cardCta')}
               item={item}

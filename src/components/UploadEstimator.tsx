@@ -158,6 +158,9 @@ export function UploadEstimator() {
   )
   const stepLabels = getStringArray(t('estimator.workflow.steps', { returnObjects: true }), fallbackStepLabels)
   const canContinue = getStepCompletion(step, photos, form, status, deliveryStatus, report)
+  const blockedReason = canContinue
+    ? ''
+    : getWorkflowBlockedReason(step, photos, form, status, deliveryStatus, t)
   const currentStepLabel = stepLabels[step] ?? ''
   const stepCounter = i18n.language.startsWith('es')
     ? `Paso ${step + 1} de ${stepLabels.length}`
@@ -492,10 +495,16 @@ export function UploadEstimator() {
                     {t('estimator.workflow.back')}
                   </button>
                 ) : null}
+                {blockedReason ? (
+                  <p className="wizard-action-hint" role="status">
+                    {blockedReason}
+                  </p>
+                ) : null}
                 <button
                   type="button"
                   className="btn btn-navy"
                   disabled={!canContinue || deliveryStatus === 'success'}
+                  title={blockedReason || undefined}
                   onClick={goNext}
                 >
                   {step === 2
@@ -1035,6 +1044,46 @@ function getStepCompletion(
   }
 
   return true
+}
+
+function getWorkflowBlockedReason(
+  step: WizardStep,
+  photos: EstimatePhoto[],
+  form: EstimateForm,
+  status: SubmissionStatus,
+  deliveryStatus: DeliveryStatus,
+  t: ReturnType<typeof useTranslation>['t'],
+) {
+  if (status === 'loading' || deliveryStatus === 'loading') {
+    return t('estimator.workflow.validation.loading')
+  }
+
+  if (step === 0 && photos.length === 0) {
+    return t('estimator.workflow.validation.photos')
+  }
+
+  if (step === 1) {
+    const missing = [
+      form.homeType ? '' : t('estimator.workflow.home.homeType'),
+      form.mainConcern ? '' : t('estimator.workflow.home.concern'),
+      form.urgency ? '' : t('estimator.workflow.home.urgency'),
+      form.mobilityProfile ? '' : t('estimator.workflow.home.mobilityProfile'),
+    ].filter(Boolean)
+
+    if (missing.length > 0) {
+      return t('estimator.workflow.validation.home', { fields: missing.join(', ') })
+    }
+  }
+
+  if (step === 2) {
+    if (!form.postcode) {
+      return t('estimator.workflow.validation.postcode')
+    }
+
+    return t('estimator.workflow.validation.contact')
+  }
+
+  return ''
 }
 
 function isAcceptedImage(file: File) {

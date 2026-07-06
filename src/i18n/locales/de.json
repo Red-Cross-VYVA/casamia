@@ -55,7 +55,8 @@
     "emailDeliveryBody": "Ideal für den vollständigen sicheren Berichtslink.",
     "whatsappDelivery": "WhatsApp-Link",
     "whatsappDeliveryBody": "Nur eine kurze Nachricht. Sensible Details bleiben im Bericht.",
-    "sendSuccess": "Berichtsversand vorbereitet."
+    "sendSuccess": "Berichtsversand vorbereitet.",
+    "postcode": "Postcode"
   },
   "alts": {
     "logo": "CasaMia Logo",
@@ -291,7 +292,15 @@
     "afterGrants": "Nach Zuschüssen",
     "workflow": {
       "home": {
-        "mobilityProfile": "Mobility profile"
+        "mobilityProfile": "Mobility profile",
+        "title": "Tell us what worries you.",
+        "body": "We only need practical context to read the photos better and prioritise the real risks in the home.",
+        "region": "Autonomous community",
+        "postcode": "Postcode",
+        "homeType": "Home type",
+        "concern": "What worries you",
+        "urgency": "Priority",
+        "regionalNote": "No documents or medical details are needed. If there were recent falls, reduced mobility, or one especially risky area, add that in the notes."
       },
       "result": {
         "riskHelper": "Based on photos, room risks, mobility profile, urgency, and notes.",
@@ -302,7 +311,45 @@
           "elevated": "Elevated risk",
           "high": "High risk"
         },
-        "bookAssessment": "Book in-home assessment"
+        "bookAssessment": "Book in-home assessment",
+        "loadingTitle": "Preparing your safety report...",
+        "loadingBody": "We are reviewing each room photo and preparing the secure link so we can send it to you.",
+        "retry": "Try again",
+        "kicker": "Report ready",
+        "title": "Your room-by-room safety report",
+        "reportTitle": "Safety Report",
+        "photosReviewed": "Photos reviewed",
+        "risksFound": "Risks found",
+        "preventionPriority": "Prevention priority",
+        "priorityHigh": "High",
+        "priorityMedium": "Medium",
+        "mitigationTitle": "How CasaMia can reduce these risks",
+        "preventionStats": {
+          "title": "Why prevention matters",
+          "items": [
+            {
+              "value": "26%",
+              "label": "fewer falls when home hazards are assessed and reduced for older people at risk.",
+              "source": "Cochrane, 2023"
+            },
+            {
+              "value": "Home",
+              "label": "is where most older-adult falls happen, which makes room-by-room prevention valuable.",
+              "source": "Cochrane, 2023"
+            },
+            {
+              "value": "37.3M",
+              "label": "falls worldwide require medical attention each year.",
+              "source": "WHO"
+            }
+          ]
+        },
+        "deliveryTitle": "Delivery status",
+        "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
+        "emailQueued": "The full report is ready to send by email.",
+        "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
+        "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
+        "viewReport": "View report page"
       },
       "mobilityProfiles": [
         {
@@ -329,7 +376,203 @@
           "value": "Not sure yet",
           "label": "Not sure yet"
         }
-      ]
+      ],
+      "kicker": "Free room safety report",
+      "title": "Review your home safety.",
+      "progress": "Report progress",
+      "steps": [
+        "Photos",
+        "Context",
+        "Contact",
+        "Report"
+      ],
+      "back": "Back",
+      "continue": "Continue",
+      "createEstimate": "Create and send my report",
+      "sendThisReport": "Send me this report",
+      "sendReport": "Send report",
+      "choose": "Choose one",
+      "photos": {
+        "title": "Start with the key rooms.",
+        "body": "Add 1-8 wide photos of the bathroom, stairs, entrance, kitchen, bedroom, or walking routes. Each photo becomes a room finding in your report.",
+        "add": "Add more photos",
+        "rules": "JPG, PNG or WebP. Up to 8 photos, 8MB each.",
+        "roomLabel": "Room",
+        "remove": "Remove",
+        "empty": "No photos selected yet. Add at least one photo to continue.",
+        "description": "Anything we should know?",
+        "descriptionPlaceholder": "Example: my mother uses a walker, the bathroom floor is slippery, the stairs have poor lighting..."
+      },
+      "contact": {
+        "title": "Where should we send your report?",
+        "body": "Leave your name and at least one contact method so we can prepare your report and send the secure link.",
+        "deliveryIntro": "We use these details only to send your safety report and, if requested, follow up with you.",
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "email": "Email",
+        "phone": "Phone",
+        "emailDelivery": "Email full report",
+        "emailDeliveryBody": "Best for the complete safety report and secure link.",
+        "whatsappDelivery": "WhatsApp secure link",
+        "whatsappDeliveryBody": "Short message only. Sensitive details stay on the report page.",
+        "consent": "I agree CasaMia can process my home photos, safety information, and contact details to prepare and send my free safety report."
+      },
+      "errors": {
+        "heic": "HEIC photos are not supported yet. Please upload JPG, PNG or WebP.",
+        "unsupported": "{{file}} is not a supported image type.",
+        "tooLarge": "{{file}} is larger than 8MB.",
+        "maxPhotos": "You can upload up to {{count}} photos.",
+        "submit": "We could not create the report. Please try again.",
+        "delivery": "We could not queue the report delivery. Please try again."
+      },
+      "rooms": [
+        {
+          "value": "Bathroom",
+          "label": "Bathroom"
+        },
+        {
+          "value": "Kitchen",
+          "label": "Kitchen"
+        },
+        {
+          "value": "Stairs",
+          "label": "Stairs"
+        },
+        {
+          "value": "Living room",
+          "label": "Living room"
+        },
+        {
+          "value": "Bedroom",
+          "label": "Bedroom"
+        },
+        {
+          "value": "Entrance",
+          "label": "Entrance"
+        },
+        {
+          "value": "Other",
+          "label": "Other"
+        }
+      ],
+      "regions": [
+        {
+          "value": "Andalucia",
+          "label": "Andalucia"
+        },
+        {
+          "value": "Balearic Islands",
+          "label": "Balearic Islands"
+        },
+        {
+          "value": "Canary Islands",
+          "label": "Canary Islands"
+        },
+        {
+          "value": "Catalonia",
+          "label": "Catalonia"
+        },
+        {
+          "value": "Community of Madrid",
+          "label": "Community of Madrid"
+        },
+        {
+          "value": "Comunidad Valenciana",
+          "label": "Comunidad Valenciana"
+        },
+        {
+          "value": "Galicia",
+          "label": "Galicia"
+        },
+        {
+          "value": "Other Spain",
+          "label": "Other Spain"
+        }
+      ],
+      "homeTypes": [
+        {
+          "value": "Apartment",
+          "label": "Apartment"
+        },
+        {
+          "value": "Townhouse",
+          "label": "Townhouse"
+        },
+        {
+          "value": "Villa or detached home",
+          "label": "Villa or detached home"
+        },
+        {
+          "value": "Residential building community",
+          "label": "Residential building community"
+        }
+      ],
+      "concerns": [
+        {
+          "value": "Falls or slipping",
+          "label": "Falls or slipping"
+        },
+        {
+          "value": "Bathroom safety",
+          "label": "Bathroom safety"
+        },
+        {
+          "value": "Stairs or access",
+          "label": "Stairs or access"
+        },
+        {
+          "value": "Emergency alerts",
+          "label": "Emergency alerts"
+        },
+        {
+          "value": "Smart home support",
+          "label": "Smart home support"
+        },
+        {
+          "value": "Not sure yet",
+          "label": "Not sure yet"
+        }
+      ],
+      "urgencies": [
+        {
+          "value": "Urgent",
+          "label": "Immediate risk"
+        },
+        {
+          "value": "Within 1 month",
+          "label": "As soon as possible"
+        },
+        {
+          "value": "Within 3 months",
+          "label": "I want to prevent problems"
+        },
+        {
+          "value": "Planning ahead",
+          "label": "Planning ahead"
+        }
+      ],
+      "validation": {
+        "loading": "Please wait while CasaMia prepares your report.",
+        "photos": "Add at least one home photo to continue.",
+        "home": "Complete: {{fields}}.",
+        "postcode": "Add your postcode before creating the report.",
+        "contact": "Add contact details, choose a delivery method, and accept consent to continue."
+      }
+    },
+    "report": {
+      "back": "Start a new safety report",
+      "title": "Your CasaMia safety report.",
+      "intro": "This secure report summarises the potential safety issues and preventive steps without exposing private photo URLs.",
+      "loading": "Loading report...",
+      "notFoundTitle": "Report not found",
+      "notFoundBody": "This link may have expired or the report may only exist on the original device in demo mode.",
+      "summaryLabel": "Safety summary",
+      "findingsTitle": "Room-by-room findings",
+      "privateLabel": "Private by design",
+      "privateBody": "Photo files remain private. This page only shows the safety findings, mitigation guidance, and prevention evidence.",
+      "photoCount": "Photos reviewed",
+      "postcode": "Postcode",
+      "expires": "Link expires"
     }
   },
   "pages": {

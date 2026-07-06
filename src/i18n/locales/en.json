@@ -712,7 +712,14 @@
           "value": "Not sure yet",
           "label": "Not sure yet"
         }
-      ]
+      ],
+      "validation": {
+        "loading": "Please wait while CasaMia prepares your report.",
+        "photos": "Add at least one home photo to continue.",
+        "home": "Complete: {{fields}}.",
+        "postcode": "Add your postcode before creating the report.",
+        "contact": "Add contact details, choose a delivery method, and accept consent to continue."
+      }
     },
     "report": {
       "back": "Start a new safety report",

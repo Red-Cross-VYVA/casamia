@@ -712,7 +712,14 @@
           "value": "Not sure yet",
           "label": "Aún no lo sé"
         }
-      ]
+      ],
+      "validation": {
+        "loading": "Espera mientras CasaMia prepara tu informe.",
+        "photos": "Añade al menos una foto de la vivienda para continuar.",
+        "home": "Completa: {{fields}}.",
+        "postcode": "Añade tu código postal antes de crear el informe.",
+        "contact": "Añade tus datos, elige un método de envío y acepta el consentimiento para continuar."
+      }
     },
     "report": {
       "back": "Crear nuevo informe de seguridad",

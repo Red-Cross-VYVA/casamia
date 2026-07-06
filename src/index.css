@@ -275,22 +275,23 @@ img {
 }
 
 .before-after-visual {
-  grid-template-columns: 1fr !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   height: auto;
   border-bottom: 1px solid var(--border);
 }
 
 .before-after-image {
-  height: clamp(150px, 16vw, 190px);
-  border-right: 0 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.72);
+  aspect-ratio: 4 / 3;
+  height: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.72);
+  border-bottom: 0;
   background:
     linear-gradient(135deg, rgba(31, 103, 146, 0.08), rgba(120, 190, 55, 0.07)),
     var(--light-blue);
 }
 
 .before-after-image:last-child {
-  border-bottom: 0;
+  border-right: 0;
 }
 
 .before-after-image::after {
@@ -302,9 +303,32 @@ img {
 }
 
 .before-after-image-media {
-  transform: scale(1.08);
+  transform: none;
   transform-origin: center center;
   filter: saturate(0.96) contrast(1.02);
+}
+
+@media (max-width: 520px) {
+  .before-after-visual {
+    grid-template-columns: 1fr !important;
+  }
+
+  .before-after-image {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.72);
+  }
+
+  .before-after-image:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .wizard-action-hint {
+    flex-basis: 100%;
+    width: 100%;
+    text-align: left;
+  }
 }
 
 .site-header-menu-button {
@@ -4011,9 +4035,21 @@ img {
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
-.grant-choice svg {
+.grant-choice-marker {
+  display: inline-flex;
   flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(31, 103, 146, 0.35);
+  border-radius: 999px;
   color: var(--text-muted);
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.grant-choice-marker svg {
+  flex: 0 0 auto;
 }
 
 .grant-choice.is-selected {
@@ -4022,13 +4058,25 @@ img {
   color: var(--navy);
 }
 
-.grant-choice.is-selected svg {
-  color: var(--green);
+.grant-choice.is-selected .grant-choice-marker {
+  border-color: var(--green);
+  background: var(--green);
+  color: white;
 }
 
 .grant-choice:hover {
   transform: translateY(-2px);
   border-color: rgba(58, 159, 212, 0.5);
+}
+
+.wizard-action-hint {
+  flex: 1 1 220px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
 }
 
 .grant-consent {
