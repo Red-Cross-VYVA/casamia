@@ -27,7 +27,7 @@
     "badge": "Home safety specialists · All Spain",
     "line1": "Home, Safe",
     "line2": "Home.",
-    "sub": "Upload photos of each room and receive a free safety report with the risks found in every photo.",
+    "sub": "Start with the right free check: discover home safety risks or see whether grant support may apply.",
     "uploadLabel": "Is your home safe? Find out for free.",
     "uploadRooms": "Bathroom · Kitchen · Stairway · Living room",
     "uploadReport": "Free report: risks in every photo",
@@ -36,14 +36,14 @@
     "cta": "Find Out for Free",
     "micro": "Upload photos · No commitment",
     "safetyCheck": {
-      "title": "Is your home safe?",
-      "body": "Spot hidden dangers before a fall happens.",
-      "cta": "See free report"
+      "title": "Safety Report",
+      "body": "Find hidden risks at home and what to review first.",
+      "cta": "Start free report"
     },
     "grantCheck": {
-      "title": "Could you receive grants?",
-      "body": "Find out if support could reduce adaptation costs.",
-      "cta": "Check free eligibility"
+      "title": "Grant Eligibility",
+      "body": "See whether support may apply before you plan works.",
+      "cta": "Check eligibility"
     }
   },
   "reportDelivery": {
@@ -268,7 +268,7 @@
       {
         "icon": "A",
         "title": "Home Assessment",
-        "desc": "Upload photos of any room. We identify every hazard and give you a personalised cost estimate — free, with no commitment."
+        "desc": "Upload photos of any room. We identify visible safety risks and give you a free room-by-room safety report."
       },
       {
         "icon": "I",
@@ -740,15 +740,15 @@
           "desc": "Send photos of bathrooms, kitchens, stairs, bedrooms, entrances, and living spaces. We look for hazards that commonly cause falls or emergency delays."
         },
         {
-          "title": "Receive your estimate",
-          "desc": "The estimator identifies risks, recommends the right plan, and shows the likely cost before and after available grants."
+          "title": "Receive your safety report",
+          "desc": "The report highlights potential room risks, explains what to review first, and shows how CasaMia can help reduce those risks."
         },
         {
           "title": "Install and file grants",
           "desc": "Our team installs the agreed adaptations and manages Plan Adapta paperwork so your family does not have to chase forms."
         }
       ],
-      "cta": "Start with a free estimate"
+      "cta": "Start with a free safety report"
     },
     "plans": {
       "metaTitle": "Plans and Pricing",
@@ -1623,6 +1623,9 @@
     "page": {
       "title": "Before & After",
       "body": "Explore practical safety upgrades that make everyday movement easier, calmer, and more secure at home.",
+      "galleryCta": "View Gallery",
+      "galleryTitle": "From everyday risk to safer daily routines",
+      "galleryBody": "Each transformation shows the kind of problem Casamia looks for and the practical improvement we can deliver after a home safety assessment.",
       "compareCta": "Compare Plans"
     },
     "labels": {
@@ -1634,6 +1637,8 @@
     "transformations": [
       {
         "title": "Bathroom Safety Upgrade",
+        "before": "Wet-floor transfers with little support around the shower or toilet.",
+        "after": "Clear support points, anti-slip surfaces, and safer daily bathroom movement.",
         "benefits": [
           "Grab bars where support is needed",
           "Anti-slip surfaces for wet zones",
@@ -1642,6 +1647,8 @@
       },
       {
         "title": "Safer Stairs",
+        "before": "Steps that feel uncertain because support, contrast, or lighting is limited.",
+        "after": "Continuous handrails, clearer step edges, and safer movement between floors.",
         "benefits": [
           "Continuous handrail support",
           "Improved step visibility",
@@ -1650,6 +1657,8 @@
       },
       {
         "title": "Easy & Safe Entry",
+        "before": "Raised thresholds, narrow entry points, or poor lighting at arrival.",
+        "after": "A smoother, better-lit entrance with support where balance is needed.",
         "benefits": [
           "Thresholds made easier to cross",
           "Better lighting at the entrance",
@@ -1658,6 +1667,8 @@
       },
       {
         "title": "Safer, Smarter Kitchen",
+        "before": "Daily items are hard to reach and movement routes can become cluttered.",
+        "after": "Safer reach, clearer circulation, and practical lighting or appliance safeguards.",
         "benefits": [
           "Clearer movement routes",
           "Safer reach for daily items",
@@ -1666,6 +1677,8 @@
       },
       {
         "title": "Outdoor Safety Improvements",
+        "before": "Exterior paths, steps, or terraces become risky in low light or wet weather.",
+        "after": "More stable outdoor movement with improved visibility and slip reduction.",
         "benefits": [
           "Safer paths and exterior steps",
           "Weather-aware slip reduction",
@@ -1674,6 +1687,8 @@
       },
       {
         "title": "Smart Safety Upgrade",
+        "before": "Family members have limited visibility when something changes at home.",
+        "after": "Simple sensors, alerts, and lighting provide extra reassurance without complexity.",
         "benefits": [
           "Motion lighting and alerts",
           "Smart sensors for extra reassurance",

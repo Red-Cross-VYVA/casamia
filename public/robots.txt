@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /internal/
+Disallow: /estimate/
+Disallow: /proposal/
+
+Sitemap: https://casamia.es/sitemap.xml

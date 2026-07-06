@@ -73,6 +73,18 @@ const ProposalGeneratorPage = lazy(() =>
 const PublicProposalPage = lazy(() =>
   import('./pages/PublicProposalPage').then(({ PublicProposalPage }) => ({ default: PublicProposalPage })),
 )
+const ResourceArticlePage = lazy(() =>
+  import('./pages/ResourceArticlePage').then(({ ResourceArticlePage }) => ({ default: ResourceArticlePage })),
+)
+const ResourcesPage = lazy(() =>
+  import('./pages/ResourcesPage').then(({ ResourcesPage }) => ({ default: ResourcesPage })),
+)
+const ServiceDetailPage = lazy(() =>
+  import('./pages/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })),
+)
+const ServicesPage = lazy(() =>
+  import('./pages/ServicesPage').then(({ ServicesPage }) => ({ default: ServicesPage })),
+)
 const TechPage = lazy(() => import('./pages/TechPage').then(({ TechPage }) => ({ default: TechPage })))
 const TermsAndConditionsPage = lazy(() =>
   import('./pages/TermsAndConditionsPage').then(({ TermsAndConditionsPage }) => ({ default: TermsAndConditionsPage })),
@@ -140,6 +152,10 @@ function AppRoutes() {
             <Route path="/plans" element={<PlansPage />} />
             <Route path="/plans/:planId" element={<PlanDetailPage />} />
             <Route path="/before-after" element={<BeforeAfterPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+            <Route path="/resources" element={<ResourcesPage />} />
+            <Route path="/resources/:articleId" element={<ResourceArticlePage />} />
             <Route path="/tech" element={<TechPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
@@ -147,6 +163,8 @@ function AppRoutes() {
             <Route path="/why-casamia" element={<WhyCasamiaPage />} />
             <Route path="/home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
             <Route path="/free-home-safety-assessment" element={<LegacyAssessmentRedirect />} />
+            <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
+            <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
             <Route path="/grants" element={<GrantsPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />

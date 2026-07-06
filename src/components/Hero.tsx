@@ -18,6 +18,7 @@ export function Hero() {
           </p>
           <h1 className="hero-title mt-8" aria-label={`${t('hero.line1')} ${t('hero.line2')}`}>
             <span className="block">{t('hero.line1')}</span>
+            {' '}
             <span className="home-accent block">{t('hero.line2')}</span>
           </h1>
           <div className="hero-underline" aria-hidden="true" />
