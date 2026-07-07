@@ -15,12 +15,12 @@ export function ServicesPreview() {
           </h2>
           <p>
             CasaMia focuses on practical changes families can understand: safer bathrooms,
-            stairs, entrances, kitchens, and smart safety where it genuinely helps.
+            stairs, entrances, bedrooms, kitchens, and smart safety where it genuinely helps.
           </p>
         </div>
 
         <div className="services-preview-grid">
-          {primaryServices.slice(0, 5).map((service) => (
+          {primaryServices.map((service) => (
             <Link className="services-preview-card" key={service.id} to={service.path}>
               <ServiceIcon icon={service.icon} size={25} />
               <h3>{service.shortTitle}</h3>

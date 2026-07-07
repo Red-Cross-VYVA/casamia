@@ -40,7 +40,7 @@ export function ServicesPage() {
     <>
       <SEO
         title="Senior Home Safety Services in Spain"
-        description="Explore CasaMia home safety services for seniors, including bathroom safety, stair safety, entrance accessibility, kitchen safety, and smart home safety."
+        description="Explore CasaMia home safety services for seniors, including bathroom safety, stair safety, entrance accessibility, kitchen safety, bedroom safety, and smart home safety."
         path="/services"
         schema={{
           '@context': 'https://schema.org',
@@ -199,11 +199,11 @@ export function ServicesPage() {
           <div className="services-support-band">
             <div>
               <Sparkles size={24} aria-hidden="true" />
-              <h2>Need kitchen or smart safety support too?</h2>
+              <h2>Need kitchen, bedroom or smart safety support too?</h2>
               <p>
-                CasaMia also reviews daily routines, appliance risks, connected
-                sensors, VYVA assistance, and family alerts as part of the broader
-                home safety picture.
+                CasaMia also reviews daily routines, appliance risks, bed transfers,
+                night-time movement, connected sensors, VYVA assistance, and family
+                alerts as part of the broader home safety picture.
               </p>
             </div>
             <div className="services-support-links">

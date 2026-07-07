@@ -3018,7 +3018,16 @@ img {
   margin-top: 48px;
 }
 
+.service-detail-benefit-grid {
+  display: grid;
+  gap: 20px;
+  margin-top: 48px;
+}
+
 .service-detail-check-grid article,
+.service-detail-benefit-grid article,
+.service-detail-inclusion-panel,
+.service-detail-reassurance-card,
 .service-detail-step-grid article {
   border: 1px solid rgba(200, 220, 232, 0.88);
   border-radius: 12px;
@@ -3028,6 +3037,9 @@ img {
 }
 
 .service-detail-check-grid h3,
+.service-detail-benefit-grid h3,
+.service-detail-inclusion-panel h2,
+.service-detail-reassurance-card h3,
 .service-detail-step-grid h3,
 .service-detail-related-grid h3 {
   color: var(--text-dark);
@@ -3035,6 +3047,105 @@ img {
   font-size: 30px;
   font-weight: 700;
   line-height: 1.12;
+}
+
+.service-detail-benefit-grid article {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-detail-benefit-grid article::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+}
+
+.service-detail-benefit-grid article > span {
+  display: inline-flex;
+  min-width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--pale-blue);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.service-detail-benefit-grid h3 {
+  margin-top: 22px;
+}
+
+.service-detail-benefit-grid p {
+  margin-top: 12px;
+  color: var(--text-mid);
+  font-size: 16px;
+  line-height: 1.58;
+}
+
+.service-detail-inclusion-panel {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+  background:
+    linear-gradient(145deg, rgba(234, 245, 252, 0.78), transparent 46%),
+    var(--white);
+}
+
+.service-detail-inclusion-copy h2 {
+  margin-top: 16px;
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 0.98;
+}
+
+.service-detail-inclusion-copy p:not(.eyebrow) {
+  max-width: 680px;
+  margin-top: 18px;
+  color: var(--text-mid);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.service-detail-inclusion-list {
+  border-radius: 10px;
+  background: rgba(234, 245, 252, 0.78);
+  padding: clamp(18px, 3vw, 26px);
+}
+
+.service-detail-inclusion-list .seo-check-list {
+  margin-top: 0;
+}
+
+.service-detail-reassurance-card {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  margin-top: 24px;
+  border-color: rgba(125, 184, 65, 0.38);
+  background:
+    radial-gradient(circle at 92% 12%, rgba(125, 184, 65, 0.18), transparent 28%),
+    var(--white);
+}
+
+.service-detail-reassurance-card h3 {
+  margin-top: 12px;
+  font-size: clamp(30px, 3.6vw, 44px);
+}
+
+.service-detail-reassurance-card p:not(.eyebrow) {
+  max-width: 760px;
+  margin-top: 12px;
+  color: var(--text-mid);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.service-detail-reassurance-card .seo-check-list {
+  margin-top: 0;
 }
 
 .seo-check-list {
@@ -7118,6 +7229,18 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .service-detail-benefit-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .service-detail-inclusion-panel {
+    grid-template-columns: minmax(0, 0.86fr) minmax(380px, 0.72fr);
+  }
+
+  .service-detail-reassurance-card {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.48fr);
+  }
+
   .service-detail-step-grid,
   .service-detail-related-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -7252,6 +7375,10 @@ img {
 
   .service-detail-step-grid,
   .service-detail-related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-detail-benefit-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -7590,9 +7717,34 @@ img {
   }
 
   .service-detail-check-grid article,
+  .service-detail-benefit-grid article,
+  .service-detail-inclusion-panel,
+  .service-detail-reassurance-card,
   .service-detail-step-grid article,
   .service-detail-related-grid a > div {
     padding: 22px;
+  }
+
+  .service-detail-benefit-grid,
+  .service-detail-check-grid,
+  .service-detail-step-grid,
+  .service-detail-related-grid {
+    margin-top: 34px;
+  }
+
+  .service-detail-inclusion-copy h2,
+  .service-detail-reassurance-card h3 {
+    font-size: 34px;
+  }
+
+  .service-detail-inclusion-copy p:not(.eyebrow),
+  .service-detail-reassurance-card p:not(.eyebrow) {
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .service-detail-inclusion-list {
+    padding: 18px;
   }
 
   .service-detail-related-header {
