@@ -8,7 +8,14 @@ import { submitAssessmentRequest } from '../services/assessmentRequests'
 import { PhoneNumberField } from './PhoneNumberField'
 
 const DEFAULT_PLAN_VALUE = 'not-sure'
-const KNOWN_PLAN_VALUES = new Set(['home-assessment', 'home-safety', 'smart-safety'])
+const KNOWN_PLAN_VALUES = new Set([
+  'home-assessment',
+  'home-safety',
+  'smart-safety',
+  'essential',
+  'advanced',
+  'premium',
+])
 
 type AssessmentFormValues = {
   name: string

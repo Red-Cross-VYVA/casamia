@@ -7,6 +7,7 @@ type SafeImageProps = {
   className?: string
   imgClassName?: string
   fallbackLabel?: string
+  loading?: 'eager' | 'lazy'
 }
 
 export function SafeImage({
@@ -15,6 +16,7 @@ export function SafeImage({
   className = '',
   imgClassName = '',
   fallbackLabel,
+  loading = 'lazy',
 }: SafeImageProps) {
   const { t } = useTranslation()
   const [failed, setFailed] = useState(false)
@@ -28,7 +30,8 @@ export function SafeImage({
           src={src}
           alt={alt}
           className={imgClassName}
-          loading="eager"
+          loading={loading}
+          decoding="async"
           onError={() => setFailed(true)}
         />
       )}

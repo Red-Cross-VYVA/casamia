@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { IMAGE_URLS } from '../constants/shopify'
 import { SafeImage } from './SafeImage'
+import { trackEvent } from '../utils/analytics'
 
 type FinalCTAProps = {
   title?: string
@@ -30,7 +31,11 @@ export function FinalCTA({
           <p className="mt-6 max-w-2xl text-xl leading-relaxed text-white/90">
             {body ?? t('finalCta.body')}
           </p>
-          <Link className="btn btn-white mt-8" to={to}>
+          <Link
+            className="btn btn-white mt-8"
+            to={to}
+            onClick={() => trackEvent('cta_click', { location: 'final_cta', target: to })}
+          >
             {cta ?? t('finalCta.cta')}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>

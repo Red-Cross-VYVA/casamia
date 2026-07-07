@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   ArrowLeft,
   ArrowRight,
@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom'
 import { ReportDeliveryForm } from '../components/ReportDeliveryForm'
 import { sendReportDelivery, type DeliveryChannelStatus } from '../services/estimateWorkflow'
 import { isReportDeliveryReady } from '../utils/reportDelivery'
+import { trackEvent } from '../utils/analytics'
 
 type FormState = {
   region: string
@@ -69,6 +70,7 @@ const initialForm: FormState = {
   deliveryWhatsapp: false,
   consent: false,
 }
+const grantDraftStorageKey = 'casamia-grant-check-draft'
 
 export function GrantEligibilityPage() {
   const { i18n } = useTranslation()
@@ -76,8 +78,8 @@ export function GrantEligibilityPage() {
     i18n.language,
     i18n.resolvedLanguage,
   ])
-  const [form, setForm] = useState<FormState>(initialForm)
-  const [step, setStep] = useState(0)
+  const [form, setForm] = useState<FormState>(() => getSavedGrantForm())
+  const [step, setStep] = useState(() => getSavedGrantStep())
   const [deliveryStatus, setDeliveryStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [delivery, setDelivery] = useState<{
     email: DeliveryChannelStatus
@@ -88,6 +90,18 @@ export function GrantEligibilityPage() {
 
   const result = useMemo(() => calculateResult(form, copy), [form, copy])
   const canContinue = getStepCompletion(step, form)
+  const blockedReason = canContinue ? '' : getGrantBlockedReason(step, form, copy)
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      grantDraftStorageKey,
+      JSON.stringify({
+        form,
+        step: Math.min(step, 4),
+        updatedAt: new Date().toISOString(),
+      }),
+    )
+  }, [form, step])
 
   function updateField<Field extends keyof FormState>(field: Field, value: FormState[Field]) {
     setForm((current) => ({ ...current, [field]: value }))
@@ -106,6 +120,7 @@ export function GrantEligibilityPage() {
     try {
       setDeliveryStatus('loading')
       setErrorMessage('')
+      trackEvent('form_submit', { form: 'grant_check' })
       const queued = await sendReportDelivery({
         reportType: 'grant',
         token: reportToken,
@@ -127,6 +142,8 @@ export function GrantEligibilityPage() {
       })
       setDelivery(queued)
       setDeliveryStatus('success')
+      window.localStorage.removeItem(grantDraftStorageKey)
+      trackEvent('form_complete', { form: 'grant_check', delivery: 'success' })
     } catch {
       setDeliveryStatus('error')
       setErrorMessage(copy.errors.delivery)
@@ -160,7 +177,11 @@ export function GrantEligibilityPage() {
                 {copy.hero.intro}
               </p>
               <div className="grant-hero-actions">
-                <a className="btn btn-green" href="#grant-check-wizard">
+                <a
+                  className="btn btn-green"
+                  href="#grant-check-wizard"
+                  onClick={() => trackEvent('form_start', { form: 'grant_check' })}
+                >
                   {copy.actions.startNow}
                   <ArrowRight size={20} aria-hidden="true" />
                 </a>
@@ -292,17 +313,24 @@ export function GrantEligibilityPage() {
                   intro={copy.steps.needs.intro}
                 >
                   <div className="grant-choice-grid">
-                    {copy.options.needs.map((need) => (
-                      <button
-                        className={`grant-choice ${form.needs.includes(need.value) ? 'is-selected' : ''}`}
-                        key={need.value}
-                        onClick={() => toggleNeed(need.value)}
-                        type="button"
-                      >
-                        <Check size={18} aria-hidden="true" />
-                        {need.label}
-                      </button>
-                    ))}
+                    {copy.options.needs.map((need) => {
+                      const isSelected = form.needs.includes(need.value)
+
+                      return (
+                        <button
+                          aria-pressed={isSelected}
+                          className={`grant-choice ${isSelected ? 'is-selected' : ''}`}
+                          key={need.value}
+                          onClick={() => toggleNeed(need.value)}
+                          type="button"
+                        >
+                          <span className="grant-choice-marker" aria-hidden="true">
+                            {isSelected ? <Check size={16} /> : null}
+                          </span>
+                          {need.label}
+                        </button>
+                      )
+                    })}
                   </div>
                 </StepCard>
               ) : null}
@@ -367,11 +395,20 @@ export function GrantEligibilityPage() {
                 >
                   {copy.actions.back}
                 </button>
+                {blockedReason ? (
+                  <p className="wizard-action-hint" role="status">
+                    {blockedReason}
+                  </p>
+                ) : null}
                 {step < 4 ? (
                   <button
                     className="btn btn-navy"
                     disabled={!canContinue}
-                    onClick={() => setStep((current) => Math.min(4, current + 1))}
+                    title={blockedReason || undefined}
+                    onClick={() => {
+                      trackEvent('form_step_complete', { form: 'grant_check', step })
+                      setStep((current) => Math.min(4, current + 1))
+                    }}
                     type="button"
                   >
                     {step === 3 ? copy.actions.sendThisReport : copy.actions.continue}
@@ -385,6 +422,7 @@ export function GrantEligibilityPage() {
                   <button
                     className="btn btn-green"
                     disabled={!canContinue || deliveryStatus === 'loading' || deliveryStatus === 'success'}
+                    title={blockedReason || undefined}
                     onClick={sendGrantReport}
                     type="button"
                   >
@@ -562,6 +600,36 @@ function getStepCompletion(step: number, form: FormState) {
   return isReportDeliveryReady(form)
 }
 
+function getGrantBlockedReason(step: number, form: FormState, copy: GrantCopy) {
+  if (step === 0) {
+    const missing = [
+      form.region ? '' : copy.fields.region,
+      form.postcode ? '' : copy.fields.postcode,
+      form.homeType ? '' : copy.fields.homeType,
+      form.ownership ? '' : copy.fields.ownership,
+    ].filter(Boolean)
+
+    return copy.validation.completeFields(missing.join(', '))
+  }
+
+  if (step === 1) {
+    const missing = [
+      form.residentAge ? '' : copy.fields.residentAge,
+      form.mobility ? '' : copy.fields.mobility,
+      form.recognisedStatus ? '' : copy.fields.recognisedStatus,
+      form.timeline ? '' : copy.fields.timeline,
+    ].filter(Boolean)
+
+    return copy.validation.completeFields(missing.join(', '))
+  }
+
+  if (step === 2) {
+    return copy.validation.needs
+  }
+
+  return copy.validation.contact
+}
+
 function calculateResult(form: FormState, copy: GrantCopy): Result {
   const calculation = copy.calculation
   let score = 18
@@ -722,6 +790,33 @@ function formatGrantNeeds(values: string[], options: Option[], empty: string) {
   }
 
   return values.map((value) => formatGrantValue(value, options, empty)).join(', ')
+}
+
+function getSavedGrantForm() {
+  try {
+    const draft = JSON.parse(window.localStorage.getItem(grantDraftStorageKey) ?? '{}') as {
+      form?: Partial<FormState>
+    }
+
+    return {
+      ...initialForm,
+      ...draft.form,
+    }
+  } catch {
+    return initialForm
+  }
+}
+
+function getSavedGrantStep() {
+  try {
+    const draft = JSON.parse(window.localStorage.getItem(grantDraftStorageKey) ?? '{}') as {
+      step?: number
+    }
+
+    return typeof draft.step === 'number' ? Math.min(4, Math.max(0, draft.step)) : 0
+  } catch {
+    return 0
+  }
 }
 
 function getGrantCopy(language: string) {
@@ -891,6 +986,12 @@ function getGrantCopy(language: string) {
         sendThisReport: 'Enviar este informe',
         sendReport: 'Enviar informe',
         sending: 'Preparando envío',
+      },
+      validation: {
+        completeFields: (fields: string) => `Completa: ${fields}.`,
+        needs: 'Selecciona al menos una necesidad para continuar.',
+        contact:
+          'Añade tus datos, elige un método de envío y acepta el consentimiento para continuar.',
       },
       delivery: {
         email: 'El informe completo queda preparado para enviarse por email.',
@@ -1121,6 +1222,11 @@ function getGrantCopy(language: string) {
       sendThisReport: 'Send this report',
       sendReport: 'Send report',
       sending: 'Preparing delivery',
+    },
+    validation: {
+      completeFields: (fields: string) => `Complete: ${fields}.`,
+      needs: 'Select at least one need to continue.',
+      contact: 'Add contact details, choose a delivery method, and accept consent to continue.',
     },
     delivery: {
       email: 'The full report is ready to send by email.',

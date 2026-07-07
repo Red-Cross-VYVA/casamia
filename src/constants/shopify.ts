@@ -22,8 +22,11 @@ export const IMAGE_URLS = {
   finalCta:
     'https://casamia-seniors.myshopify.com/cdn/shop/files/adorable-elderly-couple-cutting-vegetables.jpg',
   gallery: [
-    'https://casamia-seniors.myshopify.com/cdn/shop/files/elderly-friendly-toilet-design-in-bathroom.jpg',
-    'https://casamia-seniors.myshopify.com/cdn/shop/files/Safety-Devices-for-Elderly-People-Arlington-VA.png',
+    '/images/solutions/bathroom-safety.jpg',
+    '/images/solutions/stairs-hallways.jpg',
+    '/images/solutions/entrance-access.jpg',
+    'https://casamia-seniors.myshopify.com/cdn/shop/files/adorable-elderly-couple-cutting-vegetables.jpg',
     'https://casamia-seniors.myshopify.com/cdn/shop/files/AdobeStock_423763182-scaled.jpg',
+    'https://casamia-seniors.myshopify.com/cdn/shop/files/beautiful-senior-man-woman-hugging.jpg',
   ],
 } as const

@@ -55,16 +55,20 @@
     "emailDeliveryBody": "Beste voor de volledige veilige rapportlink.",
     "whatsappDelivery": "WhatsApp-link",
     "whatsappDeliveryBody": "Alleen een kort bericht. Gevoelige details blijven in het rapport.",
-    "sendSuccess": "Rapportverzending voorbereid."
+    "sendSuccess": "Rapportverzending voorbereid.",
+    "postcode": "Postcode"
   },
   "alts": {
     "logo": "CasaMia-logo",
     "hero": "Seniorenpaar dat elkaar thuis omhelst",
     "finalCta": "Seniorenpaar dat groenten snijdt in een veilige keuken",
     "gallery": [
-      "Toegankelijke badkamer met veiligheidsaanpassingen",
-      "Veiligheidsapparaten voor senioren thuis",
-      "Slimme woningveiligheidstechnologie"
+      "Accessible bathroom with safety support features",
+      "Staircase with handrails and anti-slip tread support",
+      "Home entrance with safer access support",
+      "Kitchen and daily routine space for older adults",
+      "Smart home safety technology for independent living",
+      "Older couple in a comfortable living area at home"
     ]
   },
   "grantStamp": {
@@ -137,22 +141,72 @@
     }
   },
   "gallery": {
-    "badge": "Zo ziet een veiliger huis eruit",
-    "title": "Zie het verschil dat we maken.",
+    "badge": "Safer spaces, room by room",
+    "title": "Solution ideas for every part of the home.",
     "items": [
       {
-        "title": "Badkamerveiligheid",
-        "desc": "Beugels, antislipoppervlakken, toegankelijke douche, verhoogde toiletzitting."
+        "title": "Bathroom Safety",
+        "desc": "Grab bars, non-slip surfaces, walk-in access, shower seats and safer toilet support.",
+        "features": [
+          "Grab bars",
+          "Walk-in shower",
+          "Raised toilet"
+        ]
       },
       {
-        "title": "Veiligheidsaanpassingen",
-        "desc": "Leuningen, traptredenstrips, bewegingsverlichting, valdetectiesensoren."
+        "title": "Stairs & Hallways",
+        "desc": "Continuous handrails, stair treads, edge contrast and lighting for safer movement between floors.",
+        "features": [
+          "Handrails",
+          "Anti-slip treads",
+          "Motion lighting"
+        ]
       },
       {
-        "title": "Slimme Technologie",
-        "desc": "Spraakbediening, vitale monitoring, noodoproep, gezinsmeldingen."
+        "title": "Entrances & Thresholds",
+        "desc": "Lower thresholds, secure ramp options, handrails and lighting that make entry safer every day.",
+        "features": [
+          "Low thresholds",
+          "Access support",
+          "Entry lighting"
+        ]
+      },
+      {
+        "title": "Kitchen Safety",
+        "desc": "Safer work zones, reachable storage, anti-slip flooring, appliance support and leak alerts.",
+        "features": [
+          "Reachable storage",
+          "Anti-slip floor",
+          "Leak alerts"
+        ]
+      },
+      {
+        "title": "Smart Technology",
+        "desc": "Voice controls, vitals monitoring, emergency calling, fall detection and family alerts.",
+        "features": [
+          "Voice control",
+          "Fall detection",
+          "Family alerts"
+        ],
+        "link": "/tech"
+      },
+      {
+        "title": "Living Areas",
+        "desc": "Clearer circulation, safer seating, lighting routines and simple supports for everyday independence.",
+        "features": [
+          "Clear pathways",
+          "Safer seating",
+          "Daily routines"
+        ]
       }
-    ]
+    ],
+    "intro": "Browse the spaces and safety layers CasaMia can help with: bathrooms, stairs, entrances, kitchens, smart devices and everyday living areas.",
+    "controlsLabel": "Gallery controls",
+    "previous": "Show previous spaces",
+    "next": "Show next spaces",
+    "featuresLabel": "Included features",
+    "dotsLabel": "Choose gallery starting point",
+    "showItem": "Start gallery with {{title}}"
   },
   "plans": {
     "title1": "Eenvoudige pakketten,",
@@ -291,7 +345,15 @@
     "afterGrants": "Na subsidies",
     "workflow": {
       "home": {
-        "mobilityProfile": "Mobility profile"
+        "mobilityProfile": "Mobility profile",
+        "title": "Tell us what worries you.",
+        "body": "We only need practical context to read the photos better and prioritise the real risks in the home.",
+        "region": "Autonomous community",
+        "postcode": "Postcode",
+        "homeType": "Home type",
+        "concern": "What worries you",
+        "urgency": "Priority",
+        "regionalNote": "No documents or medical details are needed. If there were recent falls, reduced mobility, or one especially risky area, add that in the notes."
       },
       "result": {
         "riskHelper": "Based on photos, room risks, mobility profile, urgency, and notes.",
@@ -302,7 +364,45 @@
           "elevated": "Elevated risk",
           "high": "High risk"
         },
-        "bookAssessment": "Book in-home assessment"
+        "bookAssessment": "Book in-home assessment",
+        "loadingTitle": "Preparing your safety report...",
+        "loadingBody": "We are reviewing each room photo and preparing the secure link so we can send it to you.",
+        "retry": "Try again",
+        "kicker": "Report ready",
+        "title": "Your room-by-room safety report",
+        "reportTitle": "Safety Report",
+        "photosReviewed": "Photos reviewed",
+        "risksFound": "Risks found",
+        "preventionPriority": "Prevention priority",
+        "priorityHigh": "High",
+        "priorityMedium": "Medium",
+        "mitigationTitle": "How CasaMia can reduce these risks",
+        "preventionStats": {
+          "title": "Why prevention matters",
+          "items": [
+            {
+              "value": "26%",
+              "label": "fewer falls when home hazards are assessed and reduced for older people at risk.",
+              "source": "Cochrane, 2023"
+            },
+            {
+              "value": "Home",
+              "label": "is where most older-adult falls happen, which makes room-by-room prevention valuable.",
+              "source": "Cochrane, 2023"
+            },
+            {
+              "value": "37.3M",
+              "label": "falls worldwide require medical attention each year.",
+              "source": "WHO"
+            }
+          ]
+        },
+        "deliveryTitle": "Delivery status",
+        "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
+        "emailQueued": "The full report is ready to send by email.",
+        "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
+        "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
+        "viewReport": "View report page"
       },
       "mobilityProfiles": [
         {
@@ -329,7 +429,203 @@
           "value": "Not sure yet",
           "label": "Not sure yet"
         }
-      ]
+      ],
+      "kicker": "Free room safety report",
+      "title": "Review your home safety.",
+      "progress": "Report progress",
+      "steps": [
+        "Photos",
+        "Context",
+        "Contact",
+        "Report"
+      ],
+      "back": "Back",
+      "continue": "Continue",
+      "createEstimate": "Create and send my report",
+      "sendThisReport": "Send me this report",
+      "sendReport": "Send report",
+      "choose": "Choose one",
+      "photos": {
+        "title": "Start with the key rooms.",
+        "body": "Add 1-8 wide photos of the bathroom, stairs, entrance, kitchen, bedroom, or walking routes. Each photo becomes a room finding in your report.",
+        "add": "Add more photos",
+        "rules": "JPG, PNG or WebP. Up to 8 photos, 8MB each.",
+        "roomLabel": "Room",
+        "remove": "Remove",
+        "empty": "No photos selected yet. Add at least one photo to continue.",
+        "description": "Anything we should know?",
+        "descriptionPlaceholder": "Example: my mother uses a walker, the bathroom floor is slippery, the stairs have poor lighting..."
+      },
+      "contact": {
+        "title": "Where should we send your report?",
+        "body": "Leave your name and at least one contact method so we can prepare your report and send the secure link.",
+        "deliveryIntro": "We use these details only to send your safety report and, if requested, follow up with you.",
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "email": "Email",
+        "phone": "Phone",
+        "emailDelivery": "Email full report",
+        "emailDeliveryBody": "Best for the complete safety report and secure link.",
+        "whatsappDelivery": "WhatsApp secure link",
+        "whatsappDeliveryBody": "Short message only. Sensitive details stay on the report page.",
+        "consent": "I agree CasaMia can process my home photos, safety information, and contact details to prepare and send my free safety report."
+      },
+      "errors": {
+        "heic": "HEIC photos are not supported yet. Please upload JPG, PNG or WebP.",
+        "unsupported": "{{file}} is not a supported image type.",
+        "tooLarge": "{{file}} is larger than 8MB.",
+        "maxPhotos": "You can upload up to {{count}} photos.",
+        "submit": "We could not create the report. Please try again.",
+        "delivery": "We could not queue the report delivery. Please try again."
+      },
+      "rooms": [
+        {
+          "value": "Bathroom",
+          "label": "Bathroom"
+        },
+        {
+          "value": "Kitchen",
+          "label": "Kitchen"
+        },
+        {
+          "value": "Stairs",
+          "label": "Stairs"
+        },
+        {
+          "value": "Living room",
+          "label": "Living room"
+        },
+        {
+          "value": "Bedroom",
+          "label": "Bedroom"
+        },
+        {
+          "value": "Entrance",
+          "label": "Entrance"
+        },
+        {
+          "value": "Other",
+          "label": "Other"
+        }
+      ],
+      "regions": [
+        {
+          "value": "Andalucia",
+          "label": "Andalucia"
+        },
+        {
+          "value": "Balearic Islands",
+          "label": "Balearic Islands"
+        },
+        {
+          "value": "Canary Islands",
+          "label": "Canary Islands"
+        },
+        {
+          "value": "Catalonia",
+          "label": "Catalonia"
+        },
+        {
+          "value": "Community of Madrid",
+          "label": "Community of Madrid"
+        },
+        {
+          "value": "Comunidad Valenciana",
+          "label": "Comunidad Valenciana"
+        },
+        {
+          "value": "Galicia",
+          "label": "Galicia"
+        },
+        {
+          "value": "Other Spain",
+          "label": "Other Spain"
+        }
+      ],
+      "homeTypes": [
+        {
+          "value": "Apartment",
+          "label": "Apartment"
+        },
+        {
+          "value": "Townhouse",
+          "label": "Townhouse"
+        },
+        {
+          "value": "Villa or detached home",
+          "label": "Villa or detached home"
+        },
+        {
+          "value": "Residential building community",
+          "label": "Residential building community"
+        }
+      ],
+      "concerns": [
+        {
+          "value": "Falls or slipping",
+          "label": "Falls or slipping"
+        },
+        {
+          "value": "Bathroom safety",
+          "label": "Bathroom safety"
+        },
+        {
+          "value": "Stairs or access",
+          "label": "Stairs or access"
+        },
+        {
+          "value": "Emergency alerts",
+          "label": "Emergency alerts"
+        },
+        {
+          "value": "Smart home support",
+          "label": "Smart home support"
+        },
+        {
+          "value": "Not sure yet",
+          "label": "Not sure yet"
+        }
+      ],
+      "urgencies": [
+        {
+          "value": "Urgent",
+          "label": "Immediate risk"
+        },
+        {
+          "value": "Within 1 month",
+          "label": "As soon as possible"
+        },
+        {
+          "value": "Within 3 months",
+          "label": "I want to prevent problems"
+        },
+        {
+          "value": "Planning ahead",
+          "label": "Planning ahead"
+        }
+      ],
+      "validation": {
+        "loading": "Please wait while CasaMia prepares your report.",
+        "photos": "Add at least one home photo to continue.",
+        "home": "Complete: {{fields}}.",
+        "postcode": "Add your postcode before creating the report.",
+        "contact": "Add contact details, choose a delivery method, and accept consent to continue."
+      }
+    },
+    "report": {
+      "back": "Start a new safety report",
+      "title": "Your CasaMia safety report.",
+      "intro": "This secure report summarises the potential safety issues and preventive steps without exposing private photo URLs.",
+      "loading": "Loading report...",
+      "notFoundTitle": "Report not found",
+      "notFoundBody": "This link may have expired or the report may only exist on the original device in demo mode.",
+      "summaryLabel": "Safety summary",
+      "findingsTitle": "Room-by-room findings",
+      "privateLabel": "Private by design",
+      "privateBody": "Photo files remain private. This page only shows the safety findings, mitigation guidance, and prevention evidence.",
+      "photoCount": "Photos reviewed",
+      "postcode": "Postcode",
+      "expires": "Link expires"
     }
   },
   "pages": {
@@ -364,174 +660,177 @@
         "title": "Three clear ways to start",
         "body": "Start with clarity, move into practical adaptations, or add connected technology for extra reassurance. Every path begins with understanding the home first."
       },
-      "cardsTitle": "Choose the level of support you need.",
-      "cardsIntro": "Each plan is designed around a different family need: advice only, practical safety improvements, or a more connected aging-in-place setup.",
+      "cardsTitle": "Compare the three CasaMia packages.",
+      "cardsIntro": "The in-home assessment is the starting point. These are the three comparable solution packages you can choose from after the home is reviewed.",
       "bestForLabel": "Best for",
       "cards": [
         {
-          "id": "home-assessment",
-          "name": "Home Assessment Plan",
-          "description": "An expert room-by-room inspection of your home with a clear safety report and personalized recommendations.",
-          "bestFor": "Families who want expert clarity before starting any work.",
+          "id": "essential",
+          "name": "Essential",
+          "price": "?269",
+          "description": "Focused safety improvements for the highest-risk everyday areas: entrance, living room and stairs.",
+          "bestFor": "Families who need practical safety upgrades without a full-home project.",
           "deliverables": [
-            "Qualified home safety inspection",
-            "Room-by-room hazard review",
-            "Fall-risk and accessibility check",
-            "Personalized safety report",
-            "Recommended next steps"
+            "?89 in-home assessment credited toward your package",
+            "Grab bars and basic support points",
+            "Anti-slip floor support where needed",
+            "Motion lighting for key movement areas",
+            "Stairway handrails and tread support"
           ],
-          "cta": "View Home Assessment Plan"
+          "cta": "Request Essential"
         },
         {
-          "id": "home-safety",
-          "name": "Home Safety Plan",
-          "description": "Assessment plus professional installation of essential safety features and home modifications.",
-          "bestFor": "Seniors who need practical safety improvements at home.",
+          "id": "advanced",
+          "name": "Advanced",
+          "price": "?1,149",
+          "description": "A broader home safety package covering multiple rooms, access points and daily routines.",
+          "bestFor": "Seniors who need coordinated safety improvements across the home.",
           "deliverables": [
-            "Everything in Home Assessment",
-            "Grab bars and handrails",
-            "Anti-slip solutions",
-            "Lighting improvements",
-            "Bathroom, stairway, entryway, and kitchen adaptations where needed",
-            "Professional installation partners"
+            "Everything in Essential",
+            "Bathroom, kitchen, entrance and stair adaptations",
+            "Emergency call button",
+            "Smart access support",
+            "Furniture and movement-flow optimisation",
+            "Professional installation coordination"
           ],
-          "cta": "View Home Safety Plan"
+          "cta": "Request Advanced",
+          "featured": true
         },
         {
-          "id": "smart-safety",
-          "name": "Smart Safety Plan",
-          "description": "Full home safety improvements combined with smart technology for added monitoring, alerts, and peace of mind.",
-          "bestFor": "Families who want extra reassurance and connected aging-in-place support.",
+          "id": "premium",
+          "name": "Premium",
+          "price": "?1,449",
+          "description": "Full safety adaptation plus connected smart support, monitoring and family reassurance.",
+          "bestFor": "Families who want the strongest safety layer for aging in place.",
           "deliverables": [
-            "Everything in Home Safety",
-            "Smart lighting and sensors",
-            "Emergency response devices",
-            "Water/leak sensors",
-            "Security and access devices",
-            "Health monitoring setup where applicable",
-            "User setup and handover"
+            "Everything in Advanced",
+            "Fall detection sensors",
+            "Health and vitals monitoring setup",
+            "Voice-activated controls",
+            "24/7 family and emergency alerts",
+            "Smart handover and user training"
           ],
-          "cta": "View Smart Safety Plan"
+          "cta": "Request Premium"
         }
       ],
       "comparison": {
-        "title": "Compare Plans",
-        "intro": "Use this table to see what each plan includes before requesting an in-home assessment.",
+        "title": "Compare Packages",
+        "intro": "The assessment helps define the exact scope. This table compares the three solution packages, not the assessment visit itself.",
         "headers": [
           "Feature",
-          "Home Assessment",
-          "Home Safety",
-          "Smart Safety"
+          "Essential",
+          "Advanced",
+          "Premium"
         ],
         "status": {
           "included": "Included",
           "notIncluded": "Not included",
           "whereNeeded": "Where needed",
           "optional": "Available option",
-          "recommendationsOnly": "Recommendations only"
+          "recommendationsOnly": "Assessment-led"
         },
         "rows": [
           {
-            "feature": "Expert home inspection",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "?89 assessment credited toward package",
+            "essential": "included",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Room-by-room safety report",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Room-by-room safety recommendations",
+            "essential": "included",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Fall-risk assessment",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Grab bars and support points",
+            "essential": "included",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Personalized recommendations",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Anti-slip safety improvements",
+            "essential": "whereNeeded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Safety product installation",
-            "assessment": "notIncluded",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Stairway and hallway support",
+            "essential": "whereNeeded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Home modifications/reforms",
-            "assessment": "notIncluded",
-            "safety": "whereNeeded",
-            "smart": "whereNeeded"
+            "feature": "Bathroom and kitchen adaptations",
+            "essential": "optional",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Bathroom safety improvements",
-            "assessment": "recommendationsOnly",
-            "safety": "whereNeeded",
-            "smart": "whereNeeded"
+            "feature": "Entryway and threshold support",
+            "essential": "whereNeeded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Stairway/entryway improvements",
-            "assessment": "recommendationsOnly",
-            "safety": "whereNeeded",
-            "smart": "whereNeeded"
+            "feature": "Furniture and movement-flow optimisation",
+            "essential": "optional",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Smart lighting",
-            "assessment": "notIncluded",
-            "safety": "optional",
-            "smart": "included"
+            "feature": "Smart access devices",
+            "essential": "notIncluded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Motion/water sensors",
-            "assessment": "notIncluded",
-            "safety": "notIncluded",
-            "smart": "included"
+            "feature": "Emergency response device",
+            "essential": "notIncluded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Emergency response devices",
-            "assessment": "notIncluded",
-            "safety": "optional",
-            "smart": "included"
+            "feature": "Fall detection sensors",
+            "essential": "notIncluded",
+            "advanced": "optional",
+            "premium": "included"
           },
           {
-            "feature": "Health monitoring setup",
-            "assessment": "notIncluded",
-            "safety": "notIncluded",
-            "smart": "whereNeeded"
+            "feature": "Health and vitals monitoring",
+            "essential": "notIncluded",
+            "advanced": "notIncluded",
+            "premium": "included"
           },
           {
-            "feature": "User training/handover",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Voice controls and smart routines",
+            "essential": "notIncluded",
+            "advanced": "optional",
+            "premium": "included"
           },
           {
-            "feature": "Ongoing support options",
-            "assessment": "optional",
-            "safety": "optional",
-            "smart": "optional"
+            "feature": "Smart setup and user training",
+            "essential": "notIncluded",
+            "advanced": "whereNeeded",
+            "premium": "included"
           }
         ]
       },
       "payment": {
         "title": "Simple & Transparent Payment Terms",
-        "body": "We keep payments clear and fair. Assessment services are paid at booking. For installation plans, you pay 50% to get started and 50% only upon completion and customer acceptance.",
+        "body": "We keep payments clear and fair. The in-home assessment is paid at booking and credited toward your chosen package. For package work, you pay 50% to get started and 50% only upon completion and customer acceptance.",
         "items": [
           {
-            "title": "Home Assessment Plan",
-            "body": "100% payable upon booking."
+            "title": "Essential",
+            "body": "?89 assessment credited toward the package, then 50% deposit and 50% upon completion."
           },
           {
-            "title": "Home Safety Plan",
-            "body": "50% deposit upon quotation acceptance, 50% upon completion and customer acceptance."
+            "title": "Advanced",
+            "body": "?89 assessment credited toward the package, then 50% deposit and 50% upon completion."
           },
           {
-            "title": "Smart Safety Plan",
-            "body": "50% deposit upon quotation acceptance, 50% upon completion, system commissioning, and customer acceptance."
+            "title": "Premium",
+            "body": "?89 assessment credited toward the package, then 50% deposit and 50% after system setup, handover and customer acceptance."
           }
         ],
         "reassurance": "No hidden fees. No work begins without your approval. You receive a clear proposal before installation."
@@ -1359,8 +1658,20 @@
           "label": "Not sure yet"
         },
         {
+          "value": "essential",
+          "label": "Essential package"
+        },
+        {
+          "value": "advanced",
+          "label": "Advanced package"
+        },
+        {
+          "value": "premium",
+          "label": "Premium package"
+        },
+        {
           "value": "home-assessment",
-          "label": "Home Assessment Plan"
+          "label": "In-home assessment only"
         },
         {
           "value": "home-safety",
@@ -1458,6 +1769,45 @@
           "Smart sensors for extra reassurance",
           "Simple handover for the household"
         ]
+      }
+    ]
+  },
+  "stickyCta": {
+    "aria": "Quick actions",
+    "freeReport": "Free report",
+    "bookVisit": "Book visit"
+  },
+  "sampleReport": {
+    "kicker": "Sample report",
+    "title": "Show people exactly what they get.",
+    "body": "A clearer preview turns the free photo check into something concrete: risks, priorities, and the next safest action for each home.",
+    "primaryCta": "Start free report",
+    "secondaryCta": "Check grants",
+    "previewLabel": "Preview of a CasaMia safety report",
+    "card": {
+      "kicker": "Bathroom review",
+      "title": "Safety score: medium risk",
+      "score": "72",
+      "scoreLabel": "Priority score based on the photos shared",
+      "riskTitle": "Main risk found",
+      "riskBody": "High bathtub edge and no continuous support near the shower area.",
+      "actionTitle": "Recommended first step",
+      "actionBody": "Add grab bars and a secure bath transfer seat before bigger changes.",
+      "nextTitle": "Next CasaMia action",
+      "nextBody": "Share the report with the family and request an in-home assessment if needed."
+    },
+    "points": [
+      {
+        "value": "3",
+        "label": "risks ranked"
+      },
+      {
+        "value": "24h",
+        "label": "usual reply"
+      },
+      {
+        "value": "0?",
+        "label": "online check"
       }
     ]
   }

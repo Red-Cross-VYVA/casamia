@@ -202,8 +202,20 @@
           "label": "Aún no lo sé"
         },
         {
+          "value": "essential",
+          "label": "Paquete Essential"
+        },
+        {
+          "value": "advanced",
+          "label": "Paquete Advanced"
+        },
+        {
+          "value": "premium",
+          "label": "Paquete Premium"
+        },
+        {
           "value": "home-assessment",
-          "label": "Plan Evaluación del Hogar"
+          "label": "Solo evaluación a domicilio"
         },
         {
           "value": "home-safety",
@@ -225,9 +237,12 @@
     "hero": "Pareja mayor abrazándose en casa",
     "finalCta": "Pareja mayor preparando verduras en una cocina segura",
     "gallery": [
-      "Baño accesible con adaptaciones de seguridad",
-      "Dispositivos de seguridad en el hogar para mayores",
-      "Tecnología inteligente de seguridad en el hogar"
+      "Baño accesible con apoyos de seguridad",
+      "Escalera con pasamanos y apoyo antideslizante",
+      "Entrada de vivienda con acceso más seguro",
+      "Cocina y espacio de rutina diaria para personas mayores",
+      "Tecnología inteligente de seguridad para vivir con más independencia",
+      "Pareja mayor en una zona de estar cómoda en casa"
     ]
   },
   "grantStamp": {
@@ -300,22 +315,72 @@
     }
   },
   "gallery": {
-    "badge": "Cómo se ve un hogar más seguro",
-    "title": "Mira la diferencia que hacemos.",
+    "badge": "Espacios más seguros, estancia por estancia",
+    "title": "Ideas de solución para cada zona del hogar.",
     "items": [
       {
-        "title": "Seguridad en el Baño",
-        "desc": "Barras de apoyo, superficies antideslizantes, ducha accesible y asiento elevado."
+        "title": "Seguridad en el baño",
+        "desc": "Barras de apoyo, superficies antideslizantes, acceso cómodo a ducha, asiento y apoyo en WC.",
+        "features": [
+          "Barras de apoyo",
+          "Ducha accesible",
+          "WC elevado"
+        ]
       },
       {
-        "title": "Adaptaciones de Seguridad",
-        "desc": "Pasamanos, bandas de escalera, iluminación con movimiento y sensores de caída."
+        "title": "Escaleras y pasillos",
+        "desc": "Pasamanos continuos, bandas antideslizantes, contraste en bordes e iluminación para moverse con más seguridad.",
+        "features": [
+          "Pasamanos",
+          "Bandas antideslizantes",
+          "Luz con sensor"
+        ]
       },
       {
-        "title": "Tecnología Inteligente",
-        "desc": "Controles por voz, monitorización de constantes, llamada de emergencia y alertas familiares."
+        "title": "Entradas y umbrales",
+        "desc": "Umbrales más bajos, opciones de apoyo de acceso, pasamanos e iluminación para entrar con más confianza.",
+        "features": [
+          "Umbrales bajos",
+          "Apoyo de acceso",
+          "Luz de entrada"
+        ]
+      },
+      {
+        "title": "Seguridad en cocina",
+        "desc": "Zonas de trabajo más seguras, almacenamiento accesible, suelo antideslizante, apoyo en electrodomésticos y alertas de fuga.",
+        "features": [
+          "Almacenaje accesible",
+          "Suelo antideslizante",
+          "Alertas de fuga"
+        ]
+      },
+      {
+        "title": "Tecnología inteligente",
+        "desc": "Control por voz, monitorización de constantes, llamada de emergencia, detección de caídas y alertas familiares.",
+        "features": [
+          "Control por voz",
+          "Detección de caídas",
+          "Alertas familiares"
+        ],
+        "link": "/tech"
+      },
+      {
+        "title": "Zonas de estar",
+        "desc": "Circulación más clara, asientos más seguros, rutinas de iluminación y apoyos sencillos para la vida diaria.",
+        "features": [
+          "Pasos despejados",
+          "Asientos seguros",
+          "Rutinas diarias"
+        ]
       }
-    ]
+    ],
+    "intro": "Mira las estancias y capas de seguridad en las que CasaMia puede ayudar: baños, escaleras, entradas, cocinas, dispositivos inteligentes y zonas de vida diaria.",
+    "controlsLabel": "Controles de la galería",
+    "previous": "Mostrar espacios anteriores",
+    "next": "Mostrar espacios siguientes",
+    "featuresLabel": "Mejoras incluidas",
+    "dotsLabel": "Elegir punto de inicio de la galería",
+    "showItem": "Empezar la galería con {{title}}"
   },
   "plans": {
     "title1": "Planes sencillos,",
@@ -712,7 +777,14 @@
           "value": "Not sure yet",
           "label": "Aún no lo sé"
         }
-      ]
+      ],
+      "validation": {
+        "loading": "Espera mientras CasaMia prepara tu informe.",
+        "photos": "Añade al menos una foto de la vivienda para continuar.",
+        "home": "Completa: {{fields}}.",
+        "postcode": "Añade tu código postal antes de crear el informe.",
+        "contact": "Añade tus datos, elige un método de envío y acepta el consentimiento para continuar."
+      }
     },
     "report": {
       "back": "Crear nuevo informe de seguridad",
@@ -762,174 +834,177 @@
         "title": "Tres formas claras de empezar",
         "body": "Empieza con claridad, pasa a adaptaciones prácticas o añade tecnología conectada para más tranquilidad. Todo empieza por entender la vivienda."
       },
-      "cardsTitle": "Elige el nivel de apoyo que necesitas.",
-      "cardsIntro": "Cada plan responde a una necesidad distinta: solo asesoramiento, mejoras prácticas de seguridad o una vivienda más conectada para envejecer en casa.",
+      "cardsTitle": "Compara los tres paquetes CasaMia.",
+      "cardsIntro": "La evaluación a domicilio es el punto de partida. Estos son los tres paquetes comparables que puedes elegir después de revisar la vivienda.",
       "bestForLabel": "Ideal para",
       "cards": [
         {
-          "id": "home-assessment",
-          "name": "Plan Evaluación del Hogar",
-          "description": "Una inspección experta estancia por estancia con un informe claro de seguridad y recomendaciones personalizadas.",
-          "bestFor": "Familias que quieren claridad experta antes de empezar cualquier obra.",
+          "id": "essential",
+          "name": "Essential",
+          "price": "€269",
+          "description": "Mejoras de seguridad enfocadas en las zonas de mayor riesgo: entrada, salón y escaleras.",
+          "bestFor": "Familias que necesitan mejoras prácticas sin hacer un proyecto completo en toda la vivienda.",
           "deliverables": [
-            "Inspección cualificada de seguridad del hogar",
-            "Revisión de riesgos estancia por estancia",
-            "Chequeo de riesgo de caída y accesibilidad",
-            "Informe personalizado de seguridad",
-            "Próximos pasos recomendados"
+            "Evaluación de 89 € descontada del paquete",
+            "Barras de apoyo y puntos básicos de soporte",
+            "Apoyo antideslizante donde haga falta",
+            "Iluminación con sensor en zonas clave",
+            "Pasamanos y apoyo en escaleras"
           ],
-          "cta": "Ver Plan Evaluación"
+          "cta": "Solicitar Essential"
         },
         {
-          "id": "home-safety",
-          "name": "Plan Seguridad del Hogar",
-          "description": "Evaluación más instalación profesional de elementos esenciales de seguridad y adaptaciones del hogar.",
-          "bestFor": "Personas mayores que necesitan mejoras prácticas de seguridad en casa.",
+          "id": "advanced",
+          "name": "Advanced",
+          "price": "€1.149",
+          "description": "Un paquete más completo para varias estancias, accesos y rutinas diarias.",
+          "bestFor": "Personas mayores que necesitan mejoras coordinadas de seguridad en casa.",
           "deliverables": [
-            "Todo lo del Plan Evaluación",
-            "Barras de apoyo y pasamanos",
-            "Soluciones antideslizantes",
-            "Mejoras de iluminación",
-            "Adaptaciones en baño, escaleras, entrada y cocina donde haga falta",
-            "Partners profesionales de instalación"
+            "Todo lo de Essential",
+            "Adaptaciones en baño, cocina, entrada y escaleras",
+            "Botón de emergencia",
+            "Apoyo de acceso inteligente",
+            "Optimización de mobiliario y circulación",
+            "Coordinación de instalación profesional"
           ],
-          "cta": "Ver Plan Seguridad"
+          "cta": "Solicitar Advanced",
+          "featured": true
         },
         {
-          "id": "smart-safety",
-          "name": "Plan Seguridad Smart",
-          "description": "Mejoras completas de seguridad combinadas con tecnología inteligente para más alertas, seguimiento y tranquilidad.",
-          "bestFor": "Familias que quieren más tranquilidad y apoyo conectado para envejecer en casa.",
+          "id": "premium",
+          "name": "Premium",
+          "price": "€1.449",
+          "description": "Adaptación completa de seguridad más apoyo inteligente, monitorización y tranquilidad familiar.",
+          "bestFor": "Familias que quieren la capa de seguridad más completa para envejecer en casa.",
           "deliverables": [
-            "Todo lo del Plan Seguridad",
-            "Iluminación y sensores inteligentes",
-            "Dispositivos de respuesta de emergencia",
-            "Sensores de agua y fugas",
-            "Dispositivos de seguridad y acceso",
-            "Configuración de monitorización de salud cuando aplique",
-            "Configuración y entrega al usuario"
+            "Todo lo de Advanced",
+            "Sensores de detección de caídas",
+            "Configuración de monitorización de salud",
+            "Controles activados por voz",
+            "Alertas familiares y de emergencia 24/7",
+            "Configuración smart y formación al usuario"
           ],
-          "cta": "Ver Plan Smart"
+          "cta": "Solicitar Premium"
         }
       ],
       "comparison": {
-        "title": "Comparar planes",
-        "intro": "Usa esta tabla para ver qué incluye cada plan antes de solicitar una evaluación a domicilio.",
+        "title": "Comparar paquetes",
+        "intro": "La evaluación ayuda a definir el alcance exacto. Esta tabla compara los tres paquetes de solución, no la visita de evaluación.",
         "headers": [
           "Prestación",
-          "Evaluación del Hogar",
-          "Seguridad del Hogar",
-          "Seguridad Smart"
+          "Essential",
+          "Advanced",
+          "Premium"
         ],
         "status": {
           "included": "Incluido",
           "notIncluded": "No incluido",
           "whereNeeded": "Según necesidad",
           "optional": "Opción disponible",
-          "recommendationsOnly": "Solo recomendaciones"
+          "recommendationsOnly": "Según evaluación"
         },
         "rows": [
           {
-            "feature": "Inspección experta del hogar",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Evaluación de 89 € descontada del paquete",
+            "essential": "included",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Informe de seguridad estancia por estancia",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Recomendaciones de seguridad estancia por estancia",
+            "essential": "included",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Evaluación de riesgo de caída",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Barras de apoyo y puntos de soporte",
+            "essential": "included",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Recomendaciones personalizadas",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Mejoras antideslizantes",
+            "essential": "whereNeeded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Instalación de productos de seguridad",
-            "assessment": "notIncluded",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Apoyo en escaleras y pasillos",
+            "essential": "whereNeeded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Adaptaciones y reformas del hogar",
-            "assessment": "notIncluded",
-            "safety": "whereNeeded",
-            "smart": "whereNeeded"
+            "feature": "Adaptaciones en baño y cocina",
+            "essential": "optional",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Mejoras de seguridad en baño",
-            "assessment": "recommendationsOnly",
-            "safety": "whereNeeded",
-            "smart": "whereNeeded"
+            "feature": "Apoyo en entradas y umbrales",
+            "essential": "whereNeeded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Mejoras en escaleras y entrada",
-            "assessment": "recommendationsOnly",
-            "safety": "whereNeeded",
-            "smart": "whereNeeded"
+            "feature": "Optimización de mobiliario y circulación",
+            "essential": "optional",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Iluminación inteligente",
-            "assessment": "notIncluded",
-            "safety": "optional",
-            "smart": "included"
+            "feature": "Dispositivos de acceso inteligente",
+            "essential": "notIncluded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Sensores de movimiento/agua",
-            "assessment": "notIncluded",
-            "safety": "notIncluded",
-            "smart": "included"
+            "feature": "Dispositivo de respuesta de emergencia",
+            "essential": "notIncluded",
+            "advanced": "included",
+            "premium": "included"
           },
           {
-            "feature": "Dispositivos de respuesta de emergencia",
-            "assessment": "notIncluded",
-            "safety": "optional",
-            "smart": "included"
+            "feature": "Sensores de detección de caídas",
+            "essential": "notIncluded",
+            "advanced": "optional",
+            "premium": "included"
           },
           {
-            "feature": "Configuración de monitorización de salud",
-            "assessment": "notIncluded",
-            "safety": "notIncluded",
-            "smart": "whereNeeded"
+            "feature": "Monitorización de salud y constantes",
+            "essential": "notIncluded",
+            "advanced": "notIncluded",
+            "premium": "included"
           },
           {
-            "feature": "Formación y entrega al usuario",
-            "assessment": "included",
-            "safety": "included",
-            "smart": "included"
+            "feature": "Control por voz y rutinas smart",
+            "essential": "notIncluded",
+            "advanced": "optional",
+            "premium": "included"
           },
           {
-            "feature": "Opciones de soporte continuo",
-            "assessment": "optional",
-            "safety": "optional",
-            "smart": "optional"
+            "feature": "Configuración smart y formación",
+            "essential": "notIncluded",
+            "advanced": "whereNeeded",
+            "premium": "included"
           }
         ]
       },
       "payment": {
         "title": "Condiciones de pago simples y transparentes",
-        "body": "Mantenemos los pagos claros y justos. Los servicios de evaluación se pagan al reservar. En los planes con instalación, pagas el 50% para empezar y el 50% solo al finalizar y tras la aceptación del cliente.",
+        "body": "Mantenemos los pagos claros y justos. La evaluación a domicilio se paga al reservar y se descuenta del paquete elegido. En el trabajo del paquete, pagas el 50% para empezar y el 50% solo al finalizar y tras la aceptación del cliente.",
         "items": [
           {
-            "title": "Plan Evaluación del Hogar",
-            "body": "100% pagadero al reservar."
+            "title": "Essential",
+            "body": "Evaluación de 89 € descontada del paquete, después 50% de depósito y 50% al finalizar."
           },
           {
-            "title": "Plan Seguridad del Hogar",
-            "body": "50% de depósito al aceptar el presupuesto y 50% al finalizar y tras la aceptación del cliente."
+            "title": "Advanced",
+            "body": "Evaluación de 89 € descontada del paquete, después 50% de depósito y 50% al finalizar."
           },
           {
-            "title": "Plan Seguridad Smart",
-            "body": "50% de depósito al aceptar el presupuesto y 50% al finalizar, poner en marcha el sistema y recibir la aceptación del cliente."
+            "title": "Premium",
+            "body": "Evaluación de 89 € descontada del paquete, después 50% de depósito y 50% tras configuración, entrega y aceptación del cliente."
           }
         ],
         "reassurance": "Sin costes ocultos. Ningún trabajo empieza sin tu aprobación. Recibes una propuesta clara antes de la instalación."
@@ -1694,6 +1769,45 @@
           "Sensores inteligentes para mayor tranquilidad",
           "Entrega sencilla para toda la familia"
         ]
+      }
+    ]
+  },
+  "stickyCta": {
+    "aria": "Acciones rápidas",
+    "freeReport": "Informe gratis",
+    "bookVisit": "Reservar visita"
+  },
+  "sampleReport": {
+    "kicker": "Ejemplo de informe",
+    "title": "Muestra claramente qué recibe cada familia.",
+    "body": "Una vista previa concreta convierte la revisión gratuita en algo fácil de entender: riesgos, prioridades y el siguiente paso más seguro para la vivienda.",
+    "primaryCta": "Empezar informe gratis",
+    "secondaryCta": "Ver ayudas",
+    "previewLabel": "Vista previa de un informe de seguridad CasaMia",
+    "card": {
+      "kicker": "Revisión del baño",
+      "title": "Puntuación: riesgo medio",
+      "score": "72",
+      "scoreLabel": "Prioridad calculada según las fotos enviadas",
+      "riskTitle": "Riesgo principal detectado",
+      "riskBody": "Borde de bañera alto y falta de apoyo continuo junto a la ducha.",
+      "actionTitle": "Primer paso recomendado",
+      "actionBody": "Instalar barras de apoyo y un asiento seguro antes de cambios mayores.",
+      "nextTitle": "Siguiente acción CasaMia",
+      "nextBody": "Compartir el informe con la familia y pedir una visita si hace falta."
+    },
+    "points": [
+      {
+        "value": "3",
+        "label": "riesgos ordenados"
+      },
+      {
+        "value": "24h",
+        "label": "respuesta habitual"
+      },
+      {
+        "value": "0€",
+        "label": "revisión online"
       }
     ]
   }

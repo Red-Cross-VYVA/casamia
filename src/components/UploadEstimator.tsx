@@ -36,6 +36,7 @@ import {
   type EstimateRiskLevel,
 } from '../services/estimateWorkflow'
 import { isReportDeliveryReady, type ReportDeliveryFormValue } from '../utils/reportDelivery'
+import { trackEvent } from '../utils/analytics'
 
 type WizardStep = 0 | 1 | 2 | 3
 type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error'
@@ -129,15 +130,16 @@ const fallbackMobilityProfiles: Option[] = [
 ]
 
 const fallbackStepLabels = ['Photos', 'Home', 'Contact', 'Report']
+const estimatorDraftStorageKey = 'casamia-estimator-draft'
 
 export function UploadEstimator() {
   const { i18n, t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
   const photosRef = useRef<EstimatePhoto[]>([])
   const [photos, setPhotos] = useState<EstimatePhoto[]>([])
-  const [form, setForm] = useState<EstimateForm>(initialForm)
+  const [form, setForm] = useState<EstimateForm>(() => getSavedEstimatorForm())
   const [wizardOpen, setWizardOpen] = useState(false)
-  const [step, setStep] = useState<WizardStep>(0)
+  const [step, setStep] = useState<WizardStep>(() => getSavedEstimatorStep())
   const [status, setStatus] = useState<SubmissionStatus>('idle')
   const [deliveryStatus, setDeliveryStatus] = useState<DeliveryStatus>('idle')
   const [delivery, setDelivery] = useState<{
@@ -158,6 +160,9 @@ export function UploadEstimator() {
   )
   const stepLabels = getStringArray(t('estimator.workflow.steps', { returnObjects: true }), fallbackStepLabels)
   const canContinue = getStepCompletion(step, photos, form, status, deliveryStatus, report)
+  const blockedReason = canContinue
+    ? ''
+    : getWorkflowBlockedReason(step, photos, form, status, deliveryStatus, t)
   const currentStepLabel = stepLabels[step] ?? ''
   const stepCounter = i18n.language.startsWith('es')
     ? `Paso ${step + 1} de ${stepLabels.length}`
@@ -166,6 +171,17 @@ export function UploadEstimator() {
   useEffect(() => {
     photosRef.current = photos
   }, [photos])
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      estimatorDraftStorageKey,
+      JSON.stringify({
+        form,
+        step: Math.min(step, 2),
+        updatedAt: new Date().toISOString(),
+      }),
+    )
+  }, [form, step])
 
   useEffect(() => {
     return () => {
@@ -251,7 +267,8 @@ export function UploadEstimator() {
 
   function openWizard() {
     setWizardOpen(true)
-    setStep(0)
+    setStep((current) => (current < 3 ? current : 0))
+    trackEvent('form_start', { form: 'safety_report' })
   }
 
   function closeWizard() {
@@ -260,16 +277,19 @@ export function UploadEstimator() {
 
   function goNext() {
     if (step === 0) {
+      trackEvent('form_step_complete', { form: 'safety_report', step: 'photos' })
       setStep(1)
       return
     }
 
     if (step === 1) {
+      trackEvent('form_step_complete', { form: 'safety_report', step: 'home_context' })
       setStep(2)
       return
     }
 
     if (step === 2) {
+      trackEvent('form_submit', { form: 'safety_report' })
       void createAndSendReport()
     }
   }
@@ -329,6 +349,8 @@ export function UploadEstimator() {
         setDelivery(deliveryResult)
         setDeliveryStatus('success')
         setStatus('success')
+        window.localStorage.removeItem(estimatorDraftStorageKey)
+        trackEvent('form_complete', { form: 'safety_report', delivery: 'success' })
       } catch {
         setStatus('error')
         setDeliveryStatus('error')
@@ -492,10 +514,16 @@ export function UploadEstimator() {
                     {t('estimator.workflow.back')}
                   </button>
                 ) : null}
+                {blockedReason ? (
+                  <p className="wizard-action-hint" role="status">
+                    {blockedReason}
+                  </p>
+                ) : null}
                 <button
                   type="button"
                   className="btn btn-navy"
                   disabled={!canContinue || deliveryStatus === 'success'}
+                  title={blockedReason || undefined}
                   onClick={goNext}
                 >
                   {step === 2
@@ -1037,6 +1065,46 @@ function getStepCompletion(
   return true
 }
 
+function getWorkflowBlockedReason(
+  step: WizardStep,
+  photos: EstimatePhoto[],
+  form: EstimateForm,
+  status: SubmissionStatus,
+  deliveryStatus: DeliveryStatus,
+  t: ReturnType<typeof useTranslation>['t'],
+) {
+  if (status === 'loading' || deliveryStatus === 'loading') {
+    return t('estimator.workflow.validation.loading')
+  }
+
+  if (step === 0 && photos.length === 0) {
+    return t('estimator.workflow.validation.photos')
+  }
+
+  if (step === 1) {
+    const missing = [
+      form.homeType ? '' : t('estimator.workflow.home.homeType'),
+      form.mainConcern ? '' : t('estimator.workflow.home.concern'),
+      form.urgency ? '' : t('estimator.workflow.home.urgency'),
+      form.mobilityProfile ? '' : t('estimator.workflow.home.mobilityProfile'),
+    ].filter(Boolean)
+
+    if (missing.length > 0) {
+      return t('estimator.workflow.validation.home', { fields: missing.join(', ') })
+    }
+  }
+
+  if (step === 2) {
+    if (!form.postcode) {
+      return t('estimator.workflow.validation.postcode')
+    }
+
+    return t('estimator.workflow.validation.contact')
+  }
+
+  return ''
+}
+
 function isAcceptedImage(file: File) {
   return acceptedMimeTypes.has(file.type) || /\.(jpe?g|png|webp)$/i.test(file.name)
 }
@@ -1116,4 +1184,31 @@ function buildDeliveryMessage(
   }
 
   return parts.join(' ')
+}
+
+function getSavedEstimatorForm() {
+  try {
+    const draft = JSON.parse(window.localStorage.getItem(estimatorDraftStorageKey) ?? '{}') as {
+      form?: Partial<EstimateForm>
+    }
+
+    return {
+      ...initialForm,
+      ...draft.form,
+    }
+  } catch {
+    return initialForm
+  }
+}
+
+function getSavedEstimatorStep(): WizardStep {
+  try {
+    const draft = JSON.parse(window.localStorage.getItem(estimatorDraftStorageKey) ?? '{}') as {
+      step?: number
+    }
+
+    return draft.step === 1 || draft.step === 2 ? draft.step : 0
+  } catch {
+    return 0
+  }
 }

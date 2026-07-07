@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import { trackEvent } from '../utils/analytics'
 
 const planAssessmentMap: Record<string, string> = {
   advanced: 'home-safety',
@@ -64,11 +65,16 @@ export function Nav() {
           <a
             className="site-header-phone"
             href={`tel:${t('nav.phone').replaceAll(' ', '')}`}
+            onClick={() => trackEvent('cta_click', { location: 'nav', target: 'phone' })}
           >
             <Phone size={17} aria-hidden="true" />
             {t('nav.phone')}
           </a>
-          <Link className="site-header-cta btn btn-green" to={assessmentPath}>
+          <Link
+            className="site-header-cta btn btn-green"
+            to={assessmentPath}
+            onClick={() => trackEvent('cta_click', { location: 'nav', target: 'book_visit' })}
+          >
             {t('nav.cta')}
           </Link>
           <LanguageSwitcher compact />
@@ -96,7 +102,11 @@ export function Nav() {
             <a className="nav-link min-h-12 py-2 text-lg" href={`tel:${t('nav.phone').replaceAll(' ', '')}`}>
               {t('nav.phone')}
             </a>
-            <Link className="btn btn-green w-full" to={assessmentPath}>
+            <Link
+              className="btn btn-green w-full"
+              to={assessmentPath}
+              onClick={() => trackEvent('cta_click', { location: 'mobile_nav', target: 'book_visit' })}
+            >
               {t('nav.cta')}
             </Link>
             <LanguageSwitcher />
