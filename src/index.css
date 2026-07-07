@@ -1789,11 +1789,71 @@ img {
   padding-bottom: 96px;
 }
 
+.tech-hero-copy h1 {
+  margin-top: 24px;
+  color: var(--white);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(46px, 7vw, 76px);
+  font-weight: 900;
+  line-height: 0.98;
+  text-wrap: balance;
+  text-shadow: 0 18px 46px rgba(2, 20, 34, 0.32);
+}
+
+.tech-hero-copy p {
+  max-width: 720px;
+  margin-top: 26px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 20px;
+  line-height: 1.62;
+}
+
+.tech-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.tech-hero-visual {
+  position: relative;
+}
+
 .tech-hero-media {
   min-height: 420px;
   border: 9px solid rgba(255, 255, 255, 0.16);
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 42px 96px rgba(2, 20, 34, 0.42);
+}
+
+.tech-hero-signal {
+  position: absolute;
+  right: clamp(14px, 3vw, 28px);
+  bottom: clamp(14px, 3vw, 28px);
+  left: clamp(14px, 3vw, 28px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tech-hero-signal span {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: var(--white);
+  background: rgba(4, 33, 52, 0.76);
+  font-size: 14px;
+  font-weight: 900;
+  box-shadow: 0 14px 34px rgba(2, 20, 34, 0.26);
+  backdrop-filter: blur(10px);
+}
+
+.tech-hero-signal svg {
+  color: var(--green);
 }
 
 .tech-system-grid {
@@ -1868,13 +1928,26 @@ img {
 
 .tech-room-item {
   padding: 26px;
-  border-left: 6px solid var(--green);
+  border: 1px solid rgba(200, 220, 232, 0.9);
+  border-top: 6px solid var(--green);
   border-radius: 10px;
   background: var(--white);
   box-shadow: 0 18px 46px rgba(13, 30, 46, 0.08);
 }
 
+.tech-room-icon {
+  display: inline-flex;
+  width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: var(--navy);
+  background: var(--pale-blue);
+}
+
 .tech-room-item h3 {
+  margin-top: 18px;
   color: var(--text-dark);
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 28px;
@@ -1885,6 +1958,414 @@ img {
 .tech-room-item p {
   margin-top: 8px;
   color: var(--text-mid);
+}
+
+.tech-setup-intro {
+  display: grid;
+  gap: clamp(32px, 6vw, 78px);
+  align-items: start;
+}
+
+.tech-privacy-panel {
+  border: 1px solid rgba(200, 220, 232, 0.95);
+  border-radius: 12px;
+  padding: clamp(24px, 4vw, 38px);
+  background:
+    linear-gradient(145deg, rgba(235, 247, 253, 0.92), rgba(255, 255, 255, 0.94));
+  box-shadow: 0 24px 68px rgba(13, 30, 46, 0.1);
+}
+
+.tech-privacy-panel h3 {
+  margin-top: 12px;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.tech-privacy-list {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.tech-privacy-list article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.tech-privacy-list article > span {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--white);
+  background: var(--navy);
+}
+
+.tech-privacy-list h4 {
+  color: var(--text-dark);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.tech-privacy-list p {
+  margin-top: 4px;
+  color: var(--text-mid);
+}
+
+.tech-setup-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.tech-setup-step {
+  min-height: 100%;
+  border: 1px solid rgba(200, 220, 232, 0.92);
+  border-radius: 10px;
+  padding: 26px;
+  background: var(--white);
+  box-shadow: 0 18px 46px rgba(13, 30, 46, 0.08);
+}
+
+.tech-setup-step span {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.tech-setup-step h3 {
+  margin-top: 14px;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.tech-setup-step p {
+  margin-top: 10px;
+  color: var(--text-mid);
+}
+
+.tech-device-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.tech-device-card {
+  display: grid;
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(200, 220, 232, 0.9);
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: 0 20px 54px rgba(13, 30, 46, 0.09);
+}
+
+.tech-device-image {
+  height: 210px;
+  padding: 24px;
+  background: linear-gradient(145deg, rgba(235, 247, 253, 0.9), rgba(255, 255, 255, 0.96));
+}
+
+.tech-device-card > div:not(.tech-device-image) {
+  padding: 24px;
+}
+
+.tech-device-card h3 {
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.tech-device-card p {
+  margin-top: 10px;
+  color: var(--text-mid);
+}
+
+.tech-platform-grid {
+  display: grid;
+  gap: 28px;
+}
+
+.tech-platform-card {
+  display: grid;
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(200, 220, 232, 0.9);
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: 0 24px 68px rgba(13, 30, 46, 0.1);
+}
+
+.tech-platform-visual {
+  display: flex;
+  min-height: 360px;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 42px);
+  background:
+    radial-gradient(circle at 18% 18%, rgba(125, 184, 65, 0.2), transparent 28%),
+    radial-gradient(circle at 82% 20%, rgba(84, 189, 232, 0.3), transparent 30%),
+    linear-gradient(135deg, #08253e 0%, #0d628a 100%);
+}
+
+.tech-platform-copy {
+  padding: clamp(24px, 4vw, 38px);
+}
+
+.tech-platform-copy > p {
+  margin: 0;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tech-platform-copy h3 {
+  margin-top: 10px;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+.tech-platform-copy > span {
+  display: block;
+  margin-top: 14px;
+  color: var(--text-mid);
+  font-size: 18px;
+  line-height: 1.58;
+}
+
+.tech-platform-copy ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tech-platform-copy li {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 8px 13px;
+  color: var(--navy);
+  background: var(--pale-blue);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.tech-platform-copy li svg {
+  color: var(--green);
+}
+
+.tech-dashboard-preview {
+  width: min(100%, 560px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  padding: 18px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(232, 246, 253, 0.88));
+  box-shadow: 0 30px 80px rgba(2, 20, 34, 0.32);
+}
+
+.tech-dashboard-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.tech-dashboard-topbar span,
+.tech-dashboard-status {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tech-dashboard-topbar strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-dark);
+  font-size: 23px;
+  line-height: 1.1;
+}
+
+.tech-dashboard-status {
+  border-radius: 999px;
+  padding: 7px 11px;
+  color: var(--white);
+  background: var(--green);
+}
+
+.tech-dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.tech-dashboard-metrics span {
+  border: 1px solid rgba(200, 220, 232, 0.85);
+  border-radius: 12px;
+  padding: 14px;
+  color: var(--text-muted);
+  background: var(--white);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tech-dashboard-metrics strong {
+  display: block;
+  color: var(--navy);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.tech-dashboard-chart {
+  display: flex;
+  height: 130px;
+  align-items: end;
+  gap: 12px;
+  margin-top: 20px;
+  border-radius: 14px;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(234, 245, 252, 0.7), rgba(255, 255, 255, 0.96));
+}
+
+.tech-dashboard-chart span {
+  flex: 1 1 0;
+  min-width: 16px;
+  border-radius: 999px 999px 4px 4px;
+  background: linear-gradient(180deg, var(--green), var(--blue));
+}
+
+.tech-dashboard-alerts {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.tech-dashboard-alerts p {
+  border-left: 4px solid var(--green);
+  border-radius: 10px;
+  padding: 11px 12px;
+  color: var(--text-muted);
+  background: var(--white);
+  font-size: 13px;
+}
+
+.tech-dashboard-alerts strong {
+  display: block;
+  color: var(--text-dark);
+  font-size: 14px;
+}
+
+.tech-vyva-phone {
+  width: min(100%, 280px);
+  border-radius: 36px;
+  padding: 11px;
+  background: #102235;
+  box-shadow: 0 30px 80px rgba(2, 20, 34, 0.34);
+}
+
+.tech-vyva-phone-screen {
+  min-height: 520px;
+  border-radius: 28px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(125, 184, 65, 0.24), transparent 30%),
+    linear-gradient(180deg, #f8fcff 0%, #eaf5fc 100%);
+}
+
+.tech-vyva-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.tech-vyva-header strong {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.tech-vyva-orb {
+  display: flex;
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tech-vyva-orb span {
+  width: 92px;
+  height: 92px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.94), transparent 24%),
+    linear-gradient(135deg, var(--green), var(--blue));
+  box-shadow:
+    0 0 0 16px rgba(84, 189, 232, 0.16),
+    0 18px 48px rgba(27, 94, 138, 0.26);
+}
+
+.tech-vyva-message {
+  max-width: 92%;
+  border-radius: 16px;
+  padding: 13px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.tech-vyva-message.is-vyva {
+  color: var(--text-dark);
+  background: var(--white);
+}
+
+.tech-vyva-message.is-user {
+  margin-top: 12px;
+  margin-left: auto;
+  color: var(--white);
+  background: var(--navy);
+}
+
+.tech-vyva-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.tech-vyva-actions span {
+  border-radius: 999px;
+  padding: 9px 8px;
+  text-align: center;
+  color: var(--navy);
+  background: var(--white);
+  font-size: 11px;
+  font-weight: 900;
 }
 
 .tech-package-stack {
@@ -5852,11 +6333,24 @@ img {
   }
 
   .tech-system-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .tech-room-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .tech-setup-intro {
+    grid-template-columns: minmax(0, 0.88fr) minmax(420px, 0.72fr);
+  }
+
+  .tech-setup-grid,
+  .tech-device-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .tech-platform-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .tech-inclusion-grid {
@@ -5956,6 +6450,19 @@ img {
 }
 
 @media (min-width: 1024px) and (max-width: 1199px) {
+  .tech-hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.86fr);
+    gap: 42px;
+  }
+
+  .tech-system-grid,
+  .tech-room-grid,
+  .tech-setup-grid,
+  .tech-device-grid,
+  .tech-platform-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero-grid {
     grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
     gap: 44px;
@@ -6078,15 +6585,66 @@ img {
     padding-bottom: 58px;
   }
 
+  .tech-hero-copy h1 {
+    font-size: 42px;
+  }
+
+  .tech-hero-copy p {
+    font-size: 18px;
+  }
+
+  .tech-hero-actions {
+    flex-direction: column;
+  }
+
   .tech-hero-media {
     min-height: 280px;
     border-width: 6px;
   }
 
+  .tech-hero-signal {
+    position: static;
+    margin-top: 14px;
+  }
+
+  .tech-hero-signal span {
+    color: var(--navy);
+    background: var(--white);
+  }
+
   .tech-system-card,
   .tech-room-item,
+  .tech-setup-step,
+  .tech-device-card > div:not(.tech-device-image),
+  .tech-platform-copy,
+  .tech-platform-visual,
+  .tech-privacy-panel,
   .tech-package-card {
     padding: 22px;
+  }
+
+  .tech-platform-visual {
+    min-height: 280px;
+  }
+
+  .tech-dashboard-preview {
+    padding: 14px;
+  }
+
+  .tech-dashboard-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-vyva-phone {
+    width: min(100%, 240px);
+  }
+
+  .tech-vyva-phone-screen {
+    min-height: 430px;
+  }
+
+  .tech-device-image {
+    height: 180px;
   }
 
   .tech-package-header,

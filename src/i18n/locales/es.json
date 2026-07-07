@@ -1417,9 +1417,10 @@
         {
           "id": "smart-safety",
           "title": "Plan Seguridad Smart",
-          "subtitle": "Una solución conectada que combina adaptaciones del hogar, dispositivos inteligentes y tranquilidad familiar para envejecer en casa.",
+          "subtitle": "Una solución conectada que combina adaptaciones del hogar, dispositivos inteligentes, el asistente VYVA y tranquilidad familiar para envejecer en casa.",
           "heroPoints": [
             "Dispositivos conectados",
+            "App VYVA: 1 año incluido",
             "Preparado para monitorización",
             "Formación y entrega"
           ],
@@ -1429,7 +1430,7 @@
             "Viviendas con riesgos de movimiento, agua, humo o acceso que conviene monitorizar",
             "Cuidadores que quieren una capa inteligente después de las adaptaciones físicas"
           ],
-          "includedIntro": "Todo lo del Plan Seguridad del Hogar, más tecnología smart, configuración y formación.",
+          "includedIntro": "Todo lo del Plan Seguridad del Hogar, más tecnología smart, acceso a VYVA, configuración y formación.",
           "included": [
             {
               "icon": "inspection",
@@ -1470,6 +1471,11 @@
               "icon": "health",
               "title": "Configuración de monitorización de salud",
               "body": "Apoyo con dispositivos compatibles cuando la familia quiere una capa adicional de información."
+            },
+            {
+              "icon": "health",
+              "title": "Asistente VYVA + suscripción de 1 año",
+              "body": "Incluye un año de suscripción VYVA para recordatorios por voz, checks de bienestar, alertas a cuidadores y un panel familiar más claro."
             },
             {
               "icon": "settings",
@@ -1538,6 +1544,7 @@
             "Informe de seguridad por escrito",
             "Instaladores cualificados",
             "Productos premium y dispositivos smart",
+            "Un año gratis de suscripción VYVA",
             "Garantías del fabricante cuando aplique",
             "Configuración y puesta en marcha",
             "Formación y soporte posterior"
