@@ -667,7 +667,7 @@
         {
           "id": "essential",
           "name": "Essential",
-          "price": "?269",
+          "price": "€269",
           "description": "Focused safety improvements for the highest-risk everyday areas: entrance, living room and stairs.",
           "bestFor": "Families who need practical safety upgrades without a full-home project.",
           "deliverables": [
@@ -682,7 +682,7 @@
         {
           "id": "advanced",
           "name": "Advanced",
-          "price": "?1,149",
+          "price": "€1,149",
           "description": "A broader home safety package covering multiple rooms, access points and daily routines.",
           "bestFor": "Seniors who need coordinated safety improvements across the home.",
           "deliverables": [
@@ -699,7 +699,7 @@
         {
           "id": "premium",
           "name": "Premium",
-          "price": "?1,449",
+          "price": "€1,449",
           "description": "Full safety adaptation plus connected smart support, monitoring and family reassurance.",
           "bestFor": "Families who want the strongest safety layer for aging in place.",
           "deliverables": [

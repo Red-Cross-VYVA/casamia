@@ -8,7 +8,7 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 export function Footer() {
   const { t } = useTranslation()
   const companyLinks = [
-    { label: t('nav.howItWorks'), to: '/#how-it-works' },
+    { label: t('nav.howItWorks'), to: '/how-it-works' },
     { label: t('nav.services', { defaultValue: 'Services' }), to: '/services' },
     { label: t('nav.plans'), to: '/plans' },
     { label: t('nav.grants'), to: '/grants' },
