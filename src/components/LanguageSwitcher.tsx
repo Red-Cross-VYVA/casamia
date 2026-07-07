@@ -2,6 +2,8 @@ import { ChevronDown } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { trackEvent } from '../utils/analytics'
+
 const languages = [
   { code: 'en', flag: 'GB', label: 'English' },
   { code: 'es', flag: 'ES', label: 'Espa\u00f1ol' },
@@ -89,6 +91,10 @@ export function LanguageSwitcher({
                 aria-selected={isActive}
                 role="option"
                 onClick={() => {
+                  trackEvent('language_change', {
+                    from: i18n.language,
+                    to: language.code,
+                  })
                   void i18n.changeLanguage(language.code)
                   setOpen(false)
                 }}

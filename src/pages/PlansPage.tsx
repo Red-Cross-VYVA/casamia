@@ -17,17 +17,19 @@ import { TrustSection } from '../components/TrustSection'
 type PlanCard = {
   id: string
   name: string
+  price?: string
   description: string
   bestFor: string
   deliverables: string[]
   cta: string
+  featured?: boolean
 }
 
 type ComparisonRow = {
   feature: string
-  assessment: ComparisonStatus
-  safety: ComparisonStatus
-  smart: ComparisonStatus
+  essential: ComparisonStatus
+  advanced: ComparisonStatus
+  premium: ComparisonStatus
 }
 
 type ComparisonStatus = 'included' | 'notIncluded' | 'whereNeeded' | 'optional' | 'recommendationsOnly'
@@ -107,11 +109,12 @@ export function PlansPage() {
               const Icon = planIcons[index] ?? ClipboardCheck
 
               return (
-                <article className="plans-choice-card" key={plan.id}>
+                <article className={`plans-choice-card ${plan.featured ? 'is-featured' : ''}`} key={plan.id}>
                   <span className="plans-choice-icon">
                     <Icon size={26} aria-hidden="true" />
                   </span>
                   <h3>{plan.name}</h3>
+                  {plan.price ? <p className="plans-choice-price">{plan.price}</p> : null}
                   <p className="plans-choice-description">{plan.description}</p>
                   <div className="plans-best-for">
                     <strong>{t('pages.plans.bestForLabel')}</strong>
@@ -125,7 +128,7 @@ export function PlansPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link className="btn btn-navy" to={`/plans/${plan.id}`}>
+                  <Link className="btn btn-navy" to={`/home-safety-assessment?plan=${plan.id}`}>
                     {plan.cta}
                     <ArrowRight size={20} aria-hidden="true" />
                   </Link>
@@ -157,9 +160,9 @@ export function PlansPage() {
                 {comparisonRows.map((row) => (
                   <tr key={row.feature}>
                     <th scope="row">{row.feature}</th>
-                    <ComparisonCell label={statusLabels[row.assessment]} status={row.assessment} />
-                    <ComparisonCell label={statusLabels[row.safety]} status={row.safety} />
-                    <ComparisonCell label={statusLabels[row.smart]} status={row.smart} />
+                    <ComparisonCell label={statusLabels[row.essential]} status={row.essential} />
+                    <ComparisonCell label={statusLabels[row.advanced]} status={row.advanced} />
+                    <ComparisonCell label={statusLabels[row.premium]} status={row.premium} />
                   </tr>
                 ))}
               </tbody>

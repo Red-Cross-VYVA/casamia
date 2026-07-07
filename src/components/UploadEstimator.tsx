@@ -36,6 +36,7 @@ import {
   type EstimateRiskLevel,
 } from '../services/estimateWorkflow'
 import { isReportDeliveryReady, type ReportDeliveryFormValue } from '../utils/reportDelivery'
+import { trackEvent } from '../utils/analytics'
 
 type WizardStep = 0 | 1 | 2 | 3
 type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error'
@@ -129,15 +130,16 @@ const fallbackMobilityProfiles: Option[] = [
 ]
 
 const fallbackStepLabels = ['Photos', 'Home', 'Contact', 'Report']
+const estimatorDraftStorageKey = 'casamia-estimator-draft'
 
 export function UploadEstimator() {
   const { i18n, t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
   const photosRef = useRef<EstimatePhoto[]>([])
   const [photos, setPhotos] = useState<EstimatePhoto[]>([])
-  const [form, setForm] = useState<EstimateForm>(initialForm)
+  const [form, setForm] = useState<EstimateForm>(() => getSavedEstimatorForm())
   const [wizardOpen, setWizardOpen] = useState(false)
-  const [step, setStep] = useState<WizardStep>(0)
+  const [step, setStep] = useState<WizardStep>(() => getSavedEstimatorStep())
   const [status, setStatus] = useState<SubmissionStatus>('idle')
   const [deliveryStatus, setDeliveryStatus] = useState<DeliveryStatus>('idle')
   const [delivery, setDelivery] = useState<{
@@ -169,6 +171,17 @@ export function UploadEstimator() {
   useEffect(() => {
     photosRef.current = photos
   }, [photos])
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      estimatorDraftStorageKey,
+      JSON.stringify({
+        form,
+        step: Math.min(step, 2),
+        updatedAt: new Date().toISOString(),
+      }),
+    )
+  }, [form, step])
 
   useEffect(() => {
     return () => {
@@ -254,7 +267,8 @@ export function UploadEstimator() {
 
   function openWizard() {
     setWizardOpen(true)
-    setStep(0)
+    setStep((current) => (current < 3 ? current : 0))
+    trackEvent('form_start', { form: 'safety_report' })
   }
 
   function closeWizard() {
@@ -263,16 +277,19 @@ export function UploadEstimator() {
 
   function goNext() {
     if (step === 0) {
+      trackEvent('form_step_complete', { form: 'safety_report', step: 'photos' })
       setStep(1)
       return
     }
 
     if (step === 1) {
+      trackEvent('form_step_complete', { form: 'safety_report', step: 'home_context' })
       setStep(2)
       return
     }
 
     if (step === 2) {
+      trackEvent('form_submit', { form: 'safety_report' })
       void createAndSendReport()
     }
   }
@@ -332,6 +349,8 @@ export function UploadEstimator() {
         setDelivery(deliveryResult)
         setDeliveryStatus('success')
         setStatus('success')
+        window.localStorage.removeItem(estimatorDraftStorageKey)
+        trackEvent('form_complete', { form: 'safety_report', delivery: 'success' })
       } catch {
         setStatus('error')
         setDeliveryStatus('error')
@@ -1165,4 +1184,31 @@ function buildDeliveryMessage(
   }
 
   return parts.join(' ')
+}
+
+function getSavedEstimatorForm() {
+  try {
+    const draft = JSON.parse(window.localStorage.getItem(estimatorDraftStorageKey) ?? '{}') as {
+      form?: Partial<EstimateForm>
+    }
+
+    return {
+      ...initialForm,
+      ...draft.form,
+    }
+  } catch {
+    return initialForm
+  }
+}
+
+function getSavedEstimatorStep(): WizardStep {
+  try {
+    const draft = JSON.parse(window.localStorage.getItem(estimatorDraftStorageKey) ?? '{}') as {
+      step?: number
+    }
+
+    return draft.step === 1 || draft.step === 2 ? draft.step : 0
+  } catch {
+    return 0
+  }
 }

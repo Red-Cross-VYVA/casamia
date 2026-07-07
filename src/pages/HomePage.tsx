@@ -5,6 +5,7 @@ import { Grants } from '../components/Grants'
 import { Hero } from '../components/Hero'
 import { Plans } from '../components/Plans'
 import { Prevention } from '../components/Prevention'
+import { SampleReportPreview } from '../components/SampleReportPreview'
 import { SolutionGallery } from '../components/SolutionGallery'
 import { TrustBar } from '../components/TrustBar'
 import { TrustSection } from '../components/TrustSection'
@@ -17,6 +18,7 @@ export function HomePage() {
       <TrustBar />
       <Prevention />
       <WhatWeOffer />
+      <SampleReportPreview />
       <TrustSection />
       <SolutionGallery />
       <BeforeAfterPreview />
