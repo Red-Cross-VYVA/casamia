@@ -19,6 +19,8 @@ export const IMAGE_URLS = {
   logo: 'https://casamia-seniors.myshopify.com/cdn/shop/files/logo6---new---2_4db7fe7b-ee6b-4442-a58d-11aeec884400.png',
   hero:
     'https://casamia-seniors.myshopify.com/cdn/shop/files/beautiful-senior-man-woman-hugging.jpg',
+  techHero:
+    'https://casamia-seniors.myshopify.com/cdn/shop/files/AdobeStock_423763182-scaled.jpg',
   finalCta:
     'https://casamia-seniors.myshopify.com/cdn/shop/files/adorable-elderly-couple-cutting-vegetables.jpg',
   gallery: [

@@ -17,10 +17,10 @@ export function HomePage() {
       <Hero />
       <TrustBar />
       <Prevention />
+      <SolutionGallery />
       <WhatWeOffer />
       <SampleReportPreview />
       <TrustSection />
-      <SolutionGallery />
       <BeforeAfterPreview />
       <Plans />
       <Grants />

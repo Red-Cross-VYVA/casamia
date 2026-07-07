@@ -226,7 +226,7 @@ export const PLAN_DETAILS: Record<PlanId, PlanDetail> = {
     handle: 'premium-home-safety-plan',
     url: PLAN_URLS.premium,
     summary:
-      'The all-inclusive package for whole-home safety, accessibility, smart home control, health monitoring, fall detection, emergency response, and ongoing support.',
+      'The all-inclusive package for whole-home safety, accessibility, smart home control, VYVA assistant access, health monitoring, fall detection, emergency response, and ongoing support.',
     bestFor: [
       'Families who want the most complete safety coverage across the whole home',
       'Seniors who benefit from smart controls, health monitoring, and emergency response',
@@ -235,6 +235,7 @@ export const PLAN_DETAILS: Record<PlanId, PlanDetail> = {
     outcomes: [
       'Full-room safety coverage across living areas, kitchen, bathroom, bedroom, entries, and stairs',
       'Smart home controls for lighting, appliances, locks, and everyday routines',
+      'VYVA app and caregiver dashboard access with the first-year subscription included',
       'Health and vitals monitoring with caregiver alert potential',
       'Fall detection, emergency buttons, and leak/safety sensors in high-risk areas',
     ],
@@ -290,6 +291,7 @@ export const PLAN_DETAILS: Record<PlanId, PlanDetail> = {
           'Thorough safety and comfort assessment',
           'Extensive modifications throughout the home',
           'Advanced smart home integrations',
+          'VYVA app and caregiver dashboard setup with one-year subscription included',
           'Ongoing support and maintenance included in the package',
         ],
       },

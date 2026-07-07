@@ -316,7 +316,7 @@
   },
   "gallery": {
     "badge": "Safer spaces, room by room",
-    "title": "Solution ideas for every part of the home.",
+    "title": "Make each daily routine safer, room by room.",
     "items": [
       {
         "title": "Bathroom Safety",
@@ -374,7 +374,7 @@
         ]
       }
     ],
-    "intro": "Browse the spaces and safety layers CasaMia can help with: bathrooms, stairs, entrances, kitchens, smart devices and everyday living areas.",
+    "intro": "See how CasaMia supports the places families worry about most: bathrooms, stairs, entrances, kitchens, smart safety and everyday living areas.",
     "controlsLabel": "Gallery controls",
     "previous": "Show previous spaces",
     "next": "Show next spaces",
@@ -1417,9 +1417,10 @@
         {
           "id": "smart-safety",
           "title": "Smart Safety Plan",
-          "subtitle": "A connected safety setup that combines home adaptations, smart devices and family reassurance for aging in place.",
+          "subtitle": "A connected safety setup that combines home adaptations, smart devices, the VYVA assistant and family reassurance for aging in place.",
           "heroPoints": [
             "Connected safety devices",
+            "VYVA app: 1 year included",
             "Monitoring readiness",
             "Training and handover"
           ],
@@ -1429,7 +1430,7 @@
             "Homes where movement, water, smoke or access risks need monitoring",
             "Caregivers who want a smarter safety layer after physical adaptations"
           ],
-          "includedIntro": "Everything in the Home Safety Plan, plus smart safety technology, setup and user training.",
+          "includedIntro": "Everything in the Home Safety Plan, plus smart safety technology, VYVA access, setup and user training.",
           "included": [
             {
               "icon": "inspection",
@@ -1470,6 +1471,11 @@
               "icon": "health",
               "title": "Health Monitoring Setup",
               "body": "Support for compatible monitoring devices where the family wants an added layer of insight."
+            },
+            {
+              "icon": "health",
+              "title": "VYVA Assistant + 1-Year Subscription",
+              "body": "Includes one year of VYVA subscription access for voice reminders, wellbeing check-ins, caregiver alerts and a clearer family dashboard."
             },
             {
               "icon": "settings",
@@ -1538,6 +1544,7 @@
             "Written safety report",
             "Qualified installers",
             "Premium safety products and smart devices",
+            "One year free VYVA subscription",
             "Manufacturer warranties where applicable",
             "Configuration and commissioning",
             "User training and aftercare support"
