@@ -1,12 +1,29 @@
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import {
+  ArrowRight,
+  ArrowUpDown,
+  Bath,
+  CheckCircle2,
+  CookingPot,
+  DoorOpen,
+  Home,
+  Lightbulb,
+  ShieldCheck,
+  Smartphone,
+  type LucideIcon,
+} from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import {
-  beforeAfterImagePairs,
-  type BeforeAfterTransformation,
-} from '../constants/beforeAfter'
-import { SafeImage } from './SafeImage'
+import { type BeforeAfterTransformation } from '../constants/beforeAfter'
+
+const transformationIcons: LucideIcon[] = [
+  Bath,
+  ArrowUpDown,
+  DoorOpen,
+  CookingPot,
+  Home,
+  Smartphone,
+]
 
 export function BeforeAfterPreview() {
   const { t } = useTranslation()
@@ -29,7 +46,7 @@ export function BeforeAfterPreview() {
               {t('beforeAfter.preview.viewCta')}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
-            <Link className="btn btn-green" to="/free-home-safety-assessment">
+            <Link className="btn btn-green" to="/home-safety-assessment">
               {t('beforeAfter.preview.assessmentCta')}
             </Link>
           </div>
@@ -45,7 +62,7 @@ export function BeforeAfterPreview() {
                 before: t('beforeAfter.labels.before'),
                 after: t('beforeAfter.labels.after'),
               }}
-              imagePair={beforeAfterImagePairs[index]}
+              variantIndex={index}
             />
           ))}
         </div>
@@ -56,44 +73,32 @@ export function BeforeAfterPreview() {
 
 export function BeforeAfterCard({
   cta,
-  imagePair,
   item,
   labels,
+  variantIndex = 0,
 }: {
   cta: string
-  imagePair: { before: string; after: string }
   item: BeforeAfterTransformation
   labels: { before: string; after: string }
+  variantIndex?: number
 }) {
-  return (
-    <article className="before-after-card overflow-hidden rounded-lg border border-border bg-white shadow-soft">
-      <div className="before-after-visual grid grid-cols-2 bg-light-blue">
-        <BeforeAfterImage
-          alt={`${labels.before}: ${item.title}`}
-          label={labels.before}
-          src={imagePair.before}
-        />
-        <BeforeAfterImage
-          alt={`${labels.after}: ${item.title}`}
-          label={labels.after}
-          src={imagePair.after}
-        />
-      </div>
+  const Icon = transformationIcons[variantIndex] ?? ShieldCheck
 
-      <div className="p-5 md:p-6">
-        <h3 className="font-display text-2xl font-bold leading-tight text-text-dark">{item.title}</h3>
-        <ul className="mt-4 space-y-3">
+  return (
+    <article className="before-after-card">
+      <TransformationVisual icon={Icon} item={item} labels={labels} compact />
+
+      <div className="before-after-card-content">
+        <h3>{item.title}</h3>
+        <ul>
           {item.benefits.map((benefit) => (
-            <li className="flex gap-3 text-text-mid" key={benefit}>
-              <CheckCircle2 className="mt-0.5 shrink-0 text-green" size={18} aria-hidden="true" />
+            <li key={benefit}>
+              <CheckCircle2 size={18} aria-hidden="true" />
               <span>{benefit}</span>
             </li>
           ))}
         </ul>
-        <Link
-          className="mt-6 inline-flex items-center gap-2 text-sm font-extrabold text-navy transition hover:text-green"
-          to="/free-home-safety-assessment"
-        >
+        <Link className="before-after-card-link" to="/home-safety-assessment">
           {cta}
           <ArrowRight size={17} aria-hidden="true" />
         </Link>
@@ -102,27 +107,83 @@ export function BeforeAfterCard({
   )
 }
 
-function BeforeAfterImage({
-  alt,
-  label,
-  src,
+export function BeforeAfterFeature({
+  cta,
+  item,
+  labels,
 }: {
-  alt: string
-  label: string
-  src: string
+  cta: string
+  item: BeforeAfterTransformation
+  labels: { before: string; after: string }
 }) {
   return (
-    <div className="before-after-image relative overflow-hidden border-r border-white/60 last:border-r-0">
-      <SafeImage
-        src={src}
-        alt={alt}
-        fallbackLabel={label}
-        className="h-full w-full"
-        imgClassName="before-after-image-media h-full w-full object-cover"
-      />
-      <span className="absolute left-3 top-3 rounded-full bg-navy px-3 py-1 text-xs font-extrabold uppercase text-white shadow-soft">
-        {label}
-      </span>
+    <article className="before-after-feature">
+      <div className="before-after-feature-copy">
+        <span>{item.title}</span>
+        <h3>{item.after}</h3>
+        <p>{item.before}</p>
+        <ul>
+          {item.benefits.map((benefit) => (
+            <li key={benefit}>
+              <CheckCircle2 size={18} aria-hidden="true" />
+              <span>{benefit}</span>
+            </li>
+          ))}
+        </ul>
+        <Link className="btn btn-green" to="/home-safety-assessment">
+          {cta}
+          <ArrowRight size={18} aria-hidden="true" />
+        </Link>
+      </div>
+      <TransformationVisual icon={Bath} item={item} labels={labels} featured />
+    </article>
+  )
+}
+
+function TransformationVisual({
+  compact = false,
+  featured = false,
+  icon: Icon,
+  item,
+  labels,
+}: {
+  compact?: boolean
+  featured?: boolean
+  icon: LucideIcon
+  item: BeforeAfterTransformation
+  labels: { before: string; after: string }
+}) {
+  return (
+    <div
+      className={[
+        'before-after-visual',
+        compact ? 'is-compact' : '',
+        featured ? 'is-featured' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      <div className="before-after-visual-room">
+        <span>
+          <Icon size={featured ? 34 : 28} aria-hidden="true" />
+        </span>
+        <strong>{item.title}</strong>
+      </div>
+
+      <div className="before-after-visual-states">
+        <div className="before-after-state is-before">
+          <span>{labels.before}</span>
+          <p>{item.before}</p>
+        </div>
+        <div className="before-after-transition" aria-hidden="true">
+          <Lightbulb size={18} />
+          <span>CasaMia</span>
+        </div>
+        <div className="before-after-state is-after">
+          <span>{labels.after}</span>
+          <p>{item.after}</p>
+        </div>
+      </div>
     </div>
   )
 }

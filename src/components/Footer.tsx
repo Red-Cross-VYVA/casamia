@@ -7,12 +7,26 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Footer() {
   const { t } = useTranslation()
-  const companyLinks = t('footer.company.links', { returnObjects: true }) as string[]
-  const legalLinks = t('footer.legal.links', { returnObjects: true }) as string[]
-  const supportLinks = t('footer.support.links', { returnObjects: true }) as string[]
-  const companyTargets = ['/#how-it-works', '/#plans', '/before-after', '/#grants', '/#contact']
-  const legalTargets = ['/contact', '/contact', '/terms-and-conditions']
-  const supportTargets = ['/contact', '/plan-adapta', '/home-safety-assessment', '/about']
+  const companyLinks = [
+    { label: t('nav.howItWorks'), to: '/#how-it-works' },
+    { label: t('nav.services', { defaultValue: 'Services' }), to: '/services' },
+    { label: t('nav.plans'), to: '/plans' },
+    { label: t('nav.grants'), to: '/grants' },
+    { label: t('nav.whyCasamia', { defaultValue: 'Why CasaMia' }), to: '/why-casamia' },
+    { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
+  ]
+  const legalLinks = [
+    { label: t('footer.legal.privacy', { defaultValue: 'Privacy Policy' }), to: '/contact' },
+    { label: t('footer.legal.cookies', { defaultValue: 'Cookie Policy' }), to: '/contact' },
+    { label: t('footer.legal.terms', { defaultValue: 'Terms' }), to: '/terms-and-conditions' },
+  ]
+  const supportLinks = [
+    { label: t('nav.resources', { defaultValue: 'Resources' }), to: '/resources' },
+    { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
+    { label: 'Plan Adapta', to: '/plan-adapta' },
+    { label: t('nav.freeAssessment', { defaultValue: 'Book Visit' }), to: '/home-safety-assessment' },
+    { label: t('nav.contact'), to: '/contact' },
+  ]
 
   return (
     <footer className="bg-ink text-white">
@@ -28,25 +42,25 @@ export function Footer() {
         </div>
 
         <FooterColumn title={t('footer.company.title')}>
-          {companyLinks.map((link, index) => (
-            <Link className="transition hover:text-green" key={link} to={companyTargets[index]}>
-              {link}
+          {companyLinks.map((link) => (
+            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+              {link.label}
             </Link>
           ))}
         </FooterColumn>
 
         <FooterColumn title={t('footer.legal.title')}>
-          {legalLinks.map((link, index) => (
-            <Link className="transition hover:text-green" key={link} to={legalTargets[index] ?? '/contact'}>
-              {link}
+          {legalLinks.map((link) => (
+            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+              {link.label}
             </Link>
           ))}
         </FooterColumn>
 
         <FooterColumn title={t('footer.support.title')}>
-          {supportLinks.map((link, index) => (
-            <Link className="transition hover:text-green" key={link} to={supportTargets[index] ?? '/contact'}>
-              {link}
+          {supportLinks.map((link) => (
+            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+              {link.label}
             </Link>
           ))}
         </FooterColumn>

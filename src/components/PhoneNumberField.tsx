@@ -41,7 +41,12 @@ export function PhoneNumberField({
 }
 
 function getSpanishLocalNumber(value: string) {
+  const trimmed = value.trim()
   const digits = value.replace(/\D/g, '')
+
+  if (trimmed.startsWith('+34')) {
+    return digits.slice(2, 2 + SPAIN_LOCAL_NUMBER_LENGTH)
+  }
 
   if (digits.startsWith('0034')) {
     return digits.slice(4, 4 + SPAIN_LOCAL_NUMBER_LENGTH)
