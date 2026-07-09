@@ -10,11 +10,14 @@
     "selectedPhotos": "Photos sélectionnées"
   },
   "nav": {
-    "howItWorks": "Fonctionnement",
+    "home": "Accueil",
+    "howItWorks": "Parcours",
+    "services": "Solutions",
     "plans": "Formules",
     "grants": "Aides",
+    "resources": "Guides",
     "about": "À Propos",
-    "whyCasamia": "Pourquoi CasaMia",
+    "whyCasamia": "Pourquoi nous",
     "freeAssessment": "In-Home Visit",
     "contact": "Contact",
     "cta": "Book Visit",

@@ -8,11 +8,12 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 export function Footer() {
   const { t } = useTranslation()
   const companyLinks = [
+    { label: t('nav.home', { defaultValue: 'Home' }), to: '/' },
     { label: t('nav.howItWorks'), to: '/how-it-works' },
-    { label: t('nav.services', { defaultValue: 'Services' }), to: '/services' },
+    { label: t('nav.services', { defaultValue: 'Solutions' }), to: '/services' },
     { label: t('nav.plans'), to: '/plans' },
     { label: t('nav.grants'), to: '/grants' },
-    { label: t('nav.whyCasamia', { defaultValue: 'Why CasaMia' }), to: '/why-casamia' },
+    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-casamia' },
     { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
   ]
   const legalLinks = [
@@ -21,7 +22,7 @@ export function Footer() {
     { label: t('footer.legal.terms', { defaultValue: 'Terms' }), to: '/terms-and-conditions' },
   ]
   const supportLinks = [
-    { label: t('nav.resources', { defaultValue: 'Resources' }), to: '/resources' },
+    { label: t('nav.resources', { defaultValue: 'Guides' }), to: '/resources' },
     { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
     { label: 'Plan Adapta', to: '/plan-adapta' },
     { label: t('nav.freeAssessment', { defaultValue: 'Book Visit' }), to: '/home-safety-assessment' },
