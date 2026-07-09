@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
@@ -38,7 +38,8 @@ export function ResourceArticlePage() {
         <header className="resource-article-hero bg-light-blue">
           <div className="site-shell">
             <Link className="seo-back-link" to="/resources">
-              ← Resources
+              <ArrowLeft size={18} aria-hidden="true" />
+              Resources
             </Link>
             <h1>{article.title}</h1>
             <p>{article.intro}</p>

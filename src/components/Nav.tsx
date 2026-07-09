@@ -16,6 +16,12 @@ const planAssessmentMap: Record<string, string> = {
   'smart-safety': 'smart-safety',
 }
 
+type HeaderLink = {
+  label: string
+  to: string
+  match: string[]
+}
+
 function getAssessmentPath(pathname: string) {
   const planId = pathname.match(/^\/plans\/([^/]+)/)?.[1]
   const selectedPlan = planId ? planAssessmentMap[planId] : undefined
@@ -25,20 +31,25 @@ function getAssessmentPath(pathname: string) {
     : '/home-safety-assessment'
 }
 
+function isActiveLink(pathname: string, link: HeaderLink) {
+  return link.match.some((matchPath) => pathname === matchPath || pathname.startsWith(`${matchPath}/`))
+}
+
 export function Nav() {
   const { t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const assessmentPath = getAssessmentPath(location.pathname)
 
-  const links = [
-    { label: t('nav.howItWorks'), to: '/#how-it-works' },
-    { label: t('nav.services', { defaultValue: 'Services' }), to: '/services' },
-    { label: t('nav.plans'), to: '/plans' },
-    { label: t('nav.grants'), to: '/#grants' },
-    { label: t('nav.resources', { defaultValue: 'Resources' }), to: '/resources' },
-    { label: t('nav.whyCasamia', { defaultValue: 'Why CasaMia' }), to: '/why-casamia' },
-    { label: t('nav.contact'), to: '/#contact' },
+  const links: HeaderLink[] = [
+    { label: t('nav.home', { defaultValue: 'Home' }), to: '/', match: ['/'] },
+    { label: t('nav.howItWorks'), to: '/how-it-works', match: ['/how-it-works'] },
+    { label: t('nav.services', { defaultValue: 'Solutions' }), to: '/services', match: ['/services'] },
+    { label: t('nav.plans'), to: '/plans', match: ['/plans'] },
+    { label: t('nav.grants'), to: '/grants', match: ['/grants', '/grant-check', '/plan-adapta'] },
+    { label: t('nav.resources', { defaultValue: 'Guides' }), to: '/resources', match: ['/resources'] },
+    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-casamia', match: ['/why-casamia'] },
+    { label: t('nav.contact'), to: '/contact', match: ['/contact'] },
   ]
   const desktopLinks = links
 
@@ -54,11 +65,20 @@ export function Nav() {
         </Link>
 
         <div className="site-header-links">
-          {desktopLinks.map((link) => (
-            <Link key={link.to} className="nav-link" to={link.to}>
-              {link.label}
-            </Link>
-          ))}
+          {desktopLinks.map((link) => {
+            const active = isActiveLink(location.pathname, link)
+
+            return (
+              <Link
+                key={link.to}
+                aria-current={active ? 'page' : undefined}
+                className={`nav-link${active ? ' is-active' : ''}`}
+                to={link.to}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
         </div>
 
         <div className="site-header-actions">
@@ -94,11 +114,20 @@ export function Nav() {
       {mobileOpen ? (
         <div className="site-mobile-menu">
           <div className="site-mobile-menu-inner">
-            {links.map((link) => (
-              <Link key={link.to} className="nav-link min-h-12 py-2 text-lg" to={link.to}>
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const active = isActiveLink(location.pathname, link)
+
+              return (
+                <Link
+                  key={link.to}
+                  aria-current={active ? 'page' : undefined}
+                  className={`nav-link min-h-12 py-2 text-lg${active ? ' is-active' : ''}`}
+                  to={link.to}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
             <a className="nav-link min-h-12 py-2 text-lg" href={`tel:${t('nav.phone').replaceAll(' ', '')}`}>
               {t('nav.phone')}
             </a>

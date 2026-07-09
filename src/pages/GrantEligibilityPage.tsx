@@ -168,7 +168,7 @@ export function GrantEligibilityPage() {
         <div className="page-hero-inner">
           <div className="grant-hero-card">
             <div className="grant-hero-main">
-              <Link className="grant-back-link" to="/#grants">
+              <Link className="grant-back-link" to="/grants">
                 <ArrowLeft size={18} aria-hidden="true" />
                 {copy.hero.back}
               </Link>

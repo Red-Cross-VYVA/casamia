@@ -10,11 +10,14 @@
     "selectedPhotos": "Selected photos"
   },
   "nav": {
-    "howItWorks": "How It Works",
+    "home": "Home",
+    "howItWorks": "Process",
+    "services": "Solutions",
     "plans": "Plans",
     "grants": "Grants",
+    "resources": "Guides",
     "about": "About",
-    "whyCasamia": "Why CasaMia",
+    "whyCasamia": "Why us",
     "freeAssessment": "In-Home Visit",
     "contact": "Contact",
     "cta": "Book Visit",
@@ -841,11 +844,11 @@
         {
           "id": "essential",
           "name": "Essential",
-          "price": "?269",
+          "price": "€269",
           "description": "Focused safety improvements for the highest-risk everyday areas: entrance, living room and stairs.",
           "bestFor": "Families who need practical safety upgrades without a full-home project.",
           "deliverables": [
-            "?89 in-home assessment credited toward your package",
+            "€89 in-home assessment credited toward your package",
             "Grab bars and basic support points",
             "Anti-slip floor support where needed",
             "Motion lighting for key movement areas",
@@ -856,7 +859,7 @@
         {
           "id": "advanced",
           "name": "Advanced",
-          "price": "?1,149",
+          "price": "€1,149",
           "description": "A broader home safety package covering multiple rooms, access points and daily routines.",
           "bestFor": "Seniors who need coordinated safety improvements across the home.",
           "deliverables": [
@@ -873,7 +876,7 @@
         {
           "id": "premium",
           "name": "Premium",
-          "price": "?1,449",
+          "price": "€1,449",
           "description": "Full safety adaptation plus connected smart support, monitoring and family reassurance.",
           "bestFor": "Families who want the strongest safety layer for aging in place.",
           "deliverables": [
@@ -905,7 +908,7 @@
         },
         "rows": [
           {
-            "feature": "?89 assessment credited toward package",
+            "feature": "€89 assessment credited toward package",
             "essential": "included",
             "advanced": "included",
             "premium": "included"
@@ -996,15 +999,15 @@
         "items": [
           {
             "title": "Essential",
-            "body": "?89 assessment credited toward the package, then 50% deposit and 50% upon completion."
+            "body": "€89 assessment credited toward the package, then 50% deposit and 50% upon completion."
           },
           {
             "title": "Advanced",
-            "body": "?89 assessment credited toward the package, then 50% deposit and 50% upon completion."
+            "body": "€89 assessment credited toward the package, then 50% deposit and 50% upon completion."
           },
           {
             "title": "Premium",
-            "body": "?89 assessment credited toward the package, then 50% deposit and 50% after system setup, handover and customer acceptance."
+            "body": "€89 assessment credited toward the package, then 50% deposit and 50% after system setup, handover and customer acceptance."
           }
         ],
         "reassurance": "No hidden fees. No work begins without your approval. You receive a clear proposal before installation."

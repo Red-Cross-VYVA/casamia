@@ -1,6 +1,7 @@
 import {
   ArrowUpDown,
   Bath,
+  BedDouble,
   BookOpen,
   CheckCircle2,
   CookingPot,
@@ -16,6 +17,7 @@ import type { ServiceIconId } from '../constants/siteContent'
 
 const serviceIconMap: Record<ServiceIconId, LucideIcon> = {
   bath: Bath,
+  bedroom: BedDouble,
   book: BookOpen,
   check: CheckCircle2,
   door: DoorOpen,

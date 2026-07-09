@@ -1,5 +1,6 @@
 export type ServiceIconId =
   | 'bath'
+  | 'bedroom'
   | 'book'
   | 'check'
   | 'door'
@@ -96,6 +97,20 @@ export const primaryServices: ServicePageContent[] = [
     icon: 'kitchen',
     risks: ['Hard-to-reach daily items', 'Cluttered movement routes', 'Poor task lighting'],
     improvements: ['Safer storage and reach', 'Clearer circulation', 'Lighting and appliance safeguards'],
+    ctaPlan: 'home-safety',
+  },
+  {
+    id: 'bedroom-safety',
+    path: '/services/bedroom-safety',
+    title: 'Bedroom Safety for Seniors',
+    shortTitle: 'Bedroom Safety',
+    description:
+      'Make bedrooms safer for older adults with easier bed transfers, night lighting, clear walking routes, bedside support, and emergency reach points.',
+    intro:
+      'Bedrooms need to support safe rest and safe movement, especially at night when low light, fatigue, and urgent routines can increase fall risk.',
+    icon: 'bedroom',
+    risks: ['Difficult bed transfers', 'Dark night-time routes', 'Emergency help out of reach'],
+    improvements: ['Bedside support and transfer aids', 'Motion night lighting', 'Clear routes and emergency reach points'],
     ctaPlan: 'home-safety',
   },
   {
