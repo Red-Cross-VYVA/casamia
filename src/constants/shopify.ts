@@ -24,11 +24,11 @@ export const IMAGE_URLS = {
   finalCta:
     'https://casamia-seniors.myshopify.com/cdn/shop/files/adorable-elderly-couple-cutting-vegetables.jpg',
   gallery: [
-    '/images/solutions/bathroom-safety.jpg',
-    '/images/solutions/stairs-hallways.jpg',
-    '/images/solutions/entrance-access.jpg',
-    'https://casamia-seniors.myshopify.com/cdn/shop/files/adorable-elderly-couple-cutting-vegetables.jpg',
-    'https://casamia-seniors.myshopify.com/cdn/shop/files/AdobeStock_423763182-scaled.jpg',
+    '/images/solutions/small-bathroom-with-window-apartment.jpg',
+    'https://www.lifemark.ca/document/users/guillaume.morissette%40lifemark.ca/blog_fallhome03.jpg',
+    '/images/solutions/portrait-lovely-couple-together.jpg',
+    '/images/solutions/front-view-adorable-couple-kitchen.jpg',
+    '/images/solutions/close-up-senior-couple-together-love.jpg',
     'https://casamia-seniors.myshopify.com/cdn/shop/files/beautiful-senior-man-woman-hugging.jpg',
   ],
 } as const

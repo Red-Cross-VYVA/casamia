@@ -39,12 +39,12 @@
     "cta": "Descubrirlo gratis",
     "micro": "Sube fotos · Sin compromiso",
     "safetyCheck": {
-      "title": "Informe de seguridad",
+      "title": "Informe gratis",
       "body": "Descubre riesgos ocultos en casa y qué revisar primero.",
       "cta": "Empezar informe gratis"
     },
     "grantCheck": {
-      "title": "Elegibilidad de ayudas",
+      "title": "Comprobar ayudas",
       "body": "Ve si podrías optar a apoyo antes de planificar obras.",
       "cta": "Comprobar elegibilidad"
     }
@@ -191,7 +191,7 @@
       "success": "Gracias. Hemos recibido tu solicitud. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita que encaje contigo para la visita de evaluación de 89 €.",
       "schedule": "Solicitar cita",
       "error": "No pudimos enviar tu solicitud. Inténtalo de nuevo o contacta con CasaMia por teléfono.",
-      "consent": "Acepto que Casamia contacte conmigo sobre mi solicitud de evaluación de seguridad a domicilio.",
+      "consent": "Acepto que CasaMia contacte conmigo sobre mi solicitud de evaluación de seguridad a domicilio.",
       "privacy": "Tu información solo se usa para organizar tu visita de evaluación. Nunca vendemos tus datos.",
       "errors": {
         "name": "Introduce tu nombre completo.",
@@ -229,7 +229,7 @@
           "label": "Plan Seguridad Smart"
         }
       ],
-      "successWithPlan": "Gracias. Hemos recibido tu solicitud de visita para {{plan}}. Un representante de Casamia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de 89 €."
+      "successWithPlan": "Gracias. Hemos recibido tu solicitud de visita para {{plan}}. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de 89 €."
     },
     "final": {
       "title": "¿Listo para una visita profesional?"
@@ -240,11 +240,11 @@
     "hero": "Pareja mayor abrazándose en casa",
     "finalCta": "Pareja mayor preparando verduras en una cocina segura",
     "gallery": [
-      "Baño accesible con apoyos de seguridad",
-      "Escalera con pasamanos y apoyo antideslizante",
-      "Entrada de vivienda con acceso más seguro",
-      "Cocina y espacio de rutina diaria para personas mayores",
-      "Tecnología inteligente de seguridad para vivir con más independencia",
+      "Baño pequeño con ventana, lavabo y bañera",
+      "Pareja mayor usando pasamanos en las escaleras de casa",
+      "Persona mayor moviéndose con seguridad cerca de una entrada",
+      "Pareja mayor en una cocina segura en casa",
+      "Pareja mayor descansando junta en un dormitorio seguro",
       "Pareja mayor en una zona de estar cómoda en casa"
     ]
   },
@@ -296,16 +296,12 @@
       {
         "icon": "S",
         "title": "Tecnología Smart Home",
-        "desc": "Controles por voz, cerraduras inteligentes, detección de caídas y alertas de emergencia 24/7, todo instalado y funcionando desde el primer día."
+        "desc": "Controles por voz, cerraduras inteligentes, detección de caídas, detección de constantes vitales y alertas 24/7, todo instalado desde el primer día."
       },
       {
         "icon": "G",
         "title": "Gestión de ayudas",
-        "desc": [
-          "Gestionamos el proceso de solicitud de ayudas en tu nombre, incluida la preparación y presentación de la documentación requerida cuando corresponda.",
-          "Sujeto a elegibilidad, las ayudas públicas pueden cubrir hasta el 90% de los costes aprobados de mejora del hogar.",
-          "La aprobación de la ayuda depende exclusivamente de la autoridad competente y Casamia no puede garantizarla."
-        ],
+        "desc": "Preparamos y presentamos el expediente de ayuda para obras elegibles, y te mantenemos informado durante la revisión. El apoyo público puede cubrir hasta el 90% de costes aprobados, sujeto a aprobación oficial.",
         "termsLink": "Más información sobre Plan Adapta →",
         "disclaimer": "La disponibilidad, los criterios de elegibilidad y los niveles de financiación de las ayudas están sujetos a políticas públicas y pueden cambiar sin previo aviso."
       }
@@ -358,14 +354,13 @@
         ]
       },
       {
-        "title": "Tecnología inteligente",
-        "desc": "Control por voz, monitorización de constantes, llamada de emergencia, detección de caídas y alertas familiares.",
+        "title": "Seguridad en dormitorio",
+        "desc": "Acceso más seguro a la cama, rutas nocturnas claras, apoyo junto a la cama, rutinas de iluminación y ayuda al alcance.",
         "features": [
-          "Control por voz",
-          "Detección de caídas",
-          "Alertas familiares"
-        ],
-        "link": "/tech"
+          "Acceso a la cama",
+          "Luz nocturna",
+          "Ayuda al alcance"
+        ]
       },
       {
         "title": "Zonas de estar",
@@ -377,7 +372,7 @@
         ]
       }
     ],
-    "intro": "Mira cómo CasaMia refuerza las zonas que más preocupan a las familias: baños, escaleras, entradas, cocinas, seguridad inteligente y espacios de vida diaria.",
+    "intro": "Mira cómo CasaMia refuerza las zonas que más preocupan a las familias: baños, escaleras, entradas, cocinas, dormitorios y espacios de vida diaria.",
     "controlsLabel": "Controles de la galería",
     "previous": "Mostrar espacios anteriores",
     "next": "Mostrar espacios siguientes",
@@ -439,28 +434,29 @@
     ]
   },
   "grants": {
-    "badge": "Ayudas Públicas",
-    "title": "El gobierno paga hasta el 90%.",
-    "sub": "Nosotros gestionamos todo. Tú solo firmas.",
-    "body": "Las ayudas Plan Adapta cubren hasta €6.000 para obras de accesibilidad. CasaMia gestiona toda tu solicitud, sin coste y sin complicaciones.",
-    "cta": "Comprobar Mi Elegibilidad",
+    "badge": "Ayudas y asistencia",
+    "title": "Las ayudas p?blicas pueden apoyar obras elegibles.",
+    "sub": "La disponibilidad y aprobaci?n dependen del programa p?blico.",
+    "body": "CasaMia puede ayudar a identificar programas que podr?an ser relevantes para tu proyecto. Cualquier revisi?n inicial de elegibilidad es solo indicativa; la autoridad p?blica competente toma la decisi?n final.",
+    "cta": "Comprobar posibles ayudas",
     "stats": [
       {
-        "value": "€6.000",
-        "label": "Ayuda media",
-        "sub": "Para obras directas de accesibilidad"
+        "value": "Fuente oficial",
+        "label": "Necesaria antes de basarse en un programa",
+        "sub": "Comprueba siempre la p?gina de la autoridad antes de decidir"
       },
       {
-        "value": "90%",
-        "label": "Cobertura máxima",
-        "sub": "Para personas con discapacidad reconocida"
+        "value": "Solo indicativo",
+        "label": "Revisi?n inicial de elegibilidad",
+        "sub": "La autoridad decide aprobaci?n e importe"
       },
       {
-        "value": "0 formularios",
-        "label": "Papeleo que debes presentar",
-        "sub": "Nosotros gestionamos toda la solicitud"
+        "value": "Mandato separado",
+        "label": "Necesario para presentar en representaci?n",
+        "sub": "El soporte de ayudas es independiente del contrato de instalaci?n"
       }
-    ]
+    ],
+    "disclaimer": "La disponibilidad, los criterios de elegibilidad, los importes y los plazos pueden cambiar. CasaMia no concede ayudas ni puede garantizar aprobaci?n."
   },
   "eurosafe": {
     "prefix": "EN COLABORACIÓN CON",
@@ -514,12 +510,12 @@
     "hazardsLabel": "Posibles riesgos identificados",
     "planLabel": "Plan recomendado",
     "costLabel": "Coste estimado",
-    "afterGrantsLabel": "Después de ayudas públicas",
+    "afterGrantsLabel": "Posible ayuda no confirmada",
     "cta": "Elegir Este Plan",
     "chooseFiles": "Elegir fotos",
     "removeFile": "Eliminar {{file}}",
     "beforeGrants": "Antes de ayudas",
-    "afterGrants": "Después de ayudas",
+    "afterGrants": "Ayuda posible",
     "workflow": {
       "kicker": "Informe gratuito de seguridad",
       "title": "Revisa la seguridad de tu hogar.",
@@ -1586,7 +1582,7 @@
       "grantManagement": {
         "kicker": "Gestión de ayudas",
         "title": "Condiciones de gestión de ayudas",
-        "body": "Casamia presta asistencia en la gestión de ayudas únicamente como servicio administrativo.",
+        "body": "CasaMia presta asistencia en la gestión de ayudas únicamente como servicio administrativo.",
         "serviceTitle": "Nuestro servicio puede incluir",
         "services": [
           "Evaluar la elegibilidad",
@@ -1598,17 +1594,17 @@
         "importantTitle": "Importante",
         "important": [
           "La aprobación de ayudas queda enteramente a discreción de la autoridad competente.",
-          "Casamia no puede garantizar la aprobación ni la elegibilidad.",
+          "CasaMia no puede garantizar la aprobación ni la elegibilidad.",
           "Los porcentajes estimados de ayuda son solo indicativos.",
           "Los clientes siguen siendo responsables de proporcionar información precisa.",
-          "Casamia no se responsabiliza de retrasos o decisiones tomadas por la autoridad concedente."
+          "CasaMia no se responsabiliza de retrasos o decisiones tomadas por la autoridad concedente."
         ]
       }
     },
     "planAdapta": {
       "hero": {
         "title": "Soporte para ayudas Plan Adapta",
-        "subtitle": "Casamia te ayuda a gestionar el proceso de solicitud de ayudas para seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
+        "subtitle": "CasaMia te ayuda a gestionar el proceso de solicitud de ayudas para seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
         "cta": "Reservar evaluación gratis",
         "panelTitle": "Apoyo administrativo desde el inicio hasta la presentación",
         "panelBody": "Ayudamos a las familias a entender qué puede ser necesario, preparar el expediente y coordinar los siguientes pasos cuando exista autorización."
@@ -1619,7 +1615,7 @@
         "body": "Plan Adapta puede apoyar adaptaciones del hogar elegibles que mejoran la accesibilidad, la seguridad y la vida independiente. La ayuda disponible depende de la autoridad competente, convocatorias abiertas, criterios de elegibilidad, documentación y alcance aprobado de las obras."
       },
       "help": {
-        "kicker": "Cómo ayuda Casamia",
+        "kicker": "Cómo ayuda CasaMia",
         "title": "Hacemos que el proceso de solicitud sea más fácil de gestionar.",
         "items": [
           {
@@ -1636,7 +1632,7 @@
           },
           {
             "title": "Coordinación con autoridades cuando exista autorización",
-            "body": "Cuando el cliente lo autorice, Casamia puede comunicarse con la autoridad competente sobre la solicitud."
+            "body": "Cuando el cliente lo autorice, CasaMia puede comunicarse con la autoridad competente sobre la solicitud."
           },
           {
             "title": "Preparación de propuesta",
@@ -1650,7 +1646,7 @@
       },
       "disclaimer": {
         "title": "Aviso importante",
-        "body": "La aprobación de la ayuda depende exclusivamente de la autoridad competente. Casamia no puede garantizar elegibilidad, aprobación, nivel de financiación ni plazo de tramitación."
+        "body": "La aprobación de la ayuda depende exclusivamente de la autoridad competente. CasaMia no puede garantizar elegibilidad, aprobación, nivel de financiación ni plazo de tramitación."
       },
       "improvements": {
         "kicker": "Mejoras típicamente elegibles",
@@ -1683,7 +1679,7 @@
           },
           {
             "title": "Apoyamos tu solicitud de ayuda",
-            "body": "Cuando corresponda, Casamia ayuda a preparar y presentar la documentación requerida."
+            "body": "Cuando corresponda, CasaMia ayuda a preparar y presentar la documentación requerida."
           },
           {
             "title": "Una vez aprobada, coordinamos las obras",
@@ -1693,7 +1689,7 @@
       },
       "terms": {
         "title": "Condiciones y responsabilidades de ayudas",
-        "body": "Casamia presta asistencia en la gestión de ayudas únicamente como servicio administrativo. La decisión final siempre corresponde a la autoridad competente.",
+        "body": "CasaMia presta asistencia en la gestión de ayudas únicamente como servicio administrativo. La decisión final siempre corresponde a la autoridad competente.",
         "cta": "Más información sobre las condiciones de ayudas →"
       }
     }
@@ -1701,7 +1697,7 @@
   "beforeAfter": {
     "preview": {
       "title": "Hogares reales. Mejoras reales. Tranquilidad real.",
-      "body": "Mira cómo Casamia transforma hogares cotidianos en espacios más seguros y accesibles para envejecer en casa.",
+      "body": "Mira cómo CasaMia revisa los espacios clave del hogar: baño, escaleras, entrada, cocina, dormitorio y salón.",
       "viewCta": "Ver transformaciones →",
       "assessmentCta": "Reservar evaluación gratis"
     },
@@ -1710,12 +1706,13 @@
       "body": "Explora mejoras prácticas de seguridad que hacen que moverse por casa sea más fácil, tranquilo y seguro.",
       "galleryCta": "Ver galería",
       "galleryTitle": "De riesgos cotidianos a rutinas más seguras",
-      "galleryBody": "Cada transformación muestra el tipo de problema que Casamia revisa y la mejora práctica que podemos proponer tras una evaluación de seguridad del hogar.",
+      "galleryBody": "Cada transformación muestra el tipo de problema que CasaMia revisa y la mejora práctica que podemos proponer tras una evaluación de seguridad del hogar.",
       "compareCta": "Comparar planes"
     },
     "labels": {
       "before": "Antes",
-      "after": "Después"
+      "after": "Después",
+      "focus": "Enfoque de seguridad"
     },
     "cardCta": "Solicitar una mejora similar",
     "disclaimer": "Las imágenes son ilustrativas. Cada hogar se evalúa individualmente y las mejoras recomendadas pueden variar.",
@@ -1751,33 +1748,33 @@
         ]
       },
       {
-        "title": "Cocina más segura e inteligente",
-        "before": "Objetos diarios difíciles de alcanzar y zonas de paso que se pueden bloquear.",
-        "after": "Alcance más seguro, circulación despejada y mejoras prácticas de luz o electrodomésticos.",
+        "title": "Mejora de seguridad en cocina",
+        "before": "Las rutinas de cocina pueden implicar alcances incómodos, zonas resbaladizas, calor o pasos bloqueados.",
+        "after": "Zonas de trabajo más claras, alcance seguro, suelo antideslizante, luz y protección de electrodomésticos.",
         "benefits": [
-          "Rutas de movimiento más despejadas",
           "Acceso más seguro a objetos diarios",
-          "Mejoras de iluminación y seguridad de aparatos"
+          "Zonas de trabajo y paso despejadas",
+          "Protección ante aparatos y fugas"
         ]
       },
       {
-        "title": "Mejoras de seguridad exterior",
-        "before": "Caminos, escalones o terrazas exteriores con riesgo en poca luz o lluvia.",
-        "after": "Movimiento exterior más estable con mejor visibilidad y reducción de resbalones.",
+        "title": "Mejora de seguridad en dormitorio",
+        "before": "Entrar y salir de la cama puede ser difícil si falta luz, apoyo o espacio libre.",
+        "after": "Mejor luz junto a la cama, rutas despejadas, apoyo estable y movimientos nocturnos más tranquilos.",
         "benefits": [
-          "Caminos y escalones exteriores más seguros",
-          "Reducción de resbalones por clima",
-          "Mejor visibilidad exterior"
+          "Apoyo junto a la cama si hace falta",
+          "Ruta despejada hacia el baño",
+          "Luz nocturna y menos tropiezos"
         ]
       },
       {
-        "title": "Mejora de seguridad inteligente",
-        "before": "La familia tiene poca visibilidad cuando algo cambia en casa.",
-        "after": "Sensores, alertas e iluminación sencillos aportan tranquilidad sin complicaciones.",
+        "title": "Seguridad en salón",
+        "before": "Sillas, alfombras, cables y pasos estrechos pueden hacer menos seguros los movimientos diarios.",
+        "after": "Circulación más clara, asientos más seguros y apoyos sencillos para la independencia diaria.",
         "benefits": [
-          "Iluminación con movimiento y alertas",
-          "Sensores inteligentes para mayor tranquilidad",
-          "Entrega sencilla para toda la familia"
+          "Asientos y transferencias más seguros",
+          "Rutas de paso más despejadas",
+          "Menos riesgos por alfombras y cables"
         ]
       }
     ]
@@ -1788,23 +1785,25 @@
     "bookVisit": "Reservar visita"
   },
   "sampleReport": {
-    "kicker": "Ejemplo de informe",
-    "title": "Muestra claramente qué recibe cada familia.",
-    "body": "Una vista previa concreta convierte la revisión gratuita en algo fácil de entender: riesgos, prioridades y el siguiente paso más seguro para la vivienda.",
+    "kicker": "Informe de seguridad gratis",
+    "title": "Sabe qué mejorar primero.",
+    "body": "Sube unas fotos y recibe un informe claro: qué parece arriesgado, por qué importa y qué cambios ayudan antes a vivir con más seguridad.",
     "primaryCta": "Empezar informe gratis",
-    "secondaryCta": "Ver ayudas",
+    "secondaryCta": "Comprobar ayudas",
     "previewLabel": "Vista previa de un informe de seguridad CasaMia",
     "card": {
-      "kicker": "Revisión del baño",
-      "title": "Puntuación: riesgo medio",
-      "score": "72",
-      "scoreLabel": "Prioridad calculada según las fotos enviadas",
-      "riskTitle": "Riesgo principal detectado",
-      "riskBody": "Borde de bañera alto y falta de apoyo continuo junto a la ducha.",
-      "actionTitle": "Primer paso recomendado",
-      "actionBody": "Instalar barras de apoyo y un asiento seguro antes de cambios mayores.",
-      "nextTitle": "Siguiente acción CasaMia",
-      "nextBody": "Compartir el informe con la familia y pedir una visita si hace falta."
+      "kicker": "Ejemplo: baño",
+      "title": "Riesgo prioritario en el baño",
+      "score": "86",
+      "scoreLabel": "Riesgo prioritario según tus fotos",
+      "visualAlt": "Foto del baño con el riesgo del borde de la bañera marcado",
+      "visualLabel": "Borde alto",
+      "riskTitle": "Qué parece arriesgado",
+      "riskBody": "El borde de la bañera es alto y falta apoyo continuo junto a la ducha.",
+      "actionTitle": "Qué hacer primero",
+      "actionBody": "Empezar con barras de apoyo y un asiento seguro antes de planificar obras mayores.",
+      "nextTitle": "Tu siguiente paso",
+      "nextBody": "Usa el informe para hablar con la familia, comprobar ayudas o reservar una visita a domicilio."
     },
     "points": [
       {

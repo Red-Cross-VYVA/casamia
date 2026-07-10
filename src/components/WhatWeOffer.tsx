@@ -1,4 +1,4 @@
-import { ArrowRight, HeartPulse } from 'lucide-react'
+import { ArrowRight, BadgeEuro, Camera, HeartPulse, MonitorCheck, Wrench } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -9,6 +9,13 @@ type OfferCard = {
   termsLink?: string
   disclaimer?: string
 }
+
+const offerVisuals = [
+  { Icon: Camera, className: 'is-assessment' },
+  { Icon: Wrench, className: 'is-installation' },
+  { Icon: MonitorCheck, className: 'is-smart' },
+  { Icon: BadgeEuro, className: 'is-grant' },
+]
 
 export function WhatWeOffer() {
   const { t } = useTranslation()
@@ -24,15 +31,13 @@ export function WhatWeOffer() {
         </h2>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:gap-8">
-          {cards.map((card) => {
+          {cards.map((card, index) => {
+            const visual = offerVisuals[index] ?? offerVisuals[0]
+            const Icon = visual.Icon
             const cardContent = (
               <>
-                <div
-                  className={`mb-5 flex h-14 w-14 items-center justify-center rounded-lg text-xl font-black text-white ${
-                    card.icon === 'G' ? 'bg-green' : 'bg-navy'
-                  }`}
-                >
-                  {card.icon}
+                <div className={`offer-card-icon ${visual.className}`}>
+                  <Icon size={29} strokeWidth={2.3} aria-hidden="true" />
                 </div>
                 <h3 className="font-display text-3xl font-bold leading-tight text-text-dark">
                   {card.title}
@@ -52,11 +57,6 @@ export function WhatWeOffer() {
                     {card.termsLink}
                     <ArrowRight size={16} aria-hidden="true" />
                   </Link>
-                ) : null}
-                {card.icon === 'G' && card.disclaimer ? (
-                  <p className="mt-4 border-t border-border pt-4 text-sm leading-relaxed text-text-muted">
-                    {card.disclaimer}
-                  </p>
                 ) : null}
                 {card.icon === 'S' ? (
                   <span className="offer-card-cta">

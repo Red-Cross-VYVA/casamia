@@ -1,8 +1,10 @@
 import { AlertTriangle, ArrowRight, ClipboardCheck, Home, ShieldCheck } from 'lucide-react'
+import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { trackEvent } from '../utils/analytics'
+import { requestSafetyReportModal } from '../utils/safetyReportModal'
 
 type ReportPoint = {
   label: string
@@ -11,7 +13,17 @@ type ReportPoint = {
 
 export function SampleReportPreview() {
   const { t } = useTranslation()
+  const location = useLocation()
   const points = t('sampleReport.points', { returnObjects: true }) as ReportPoint[]
+
+  function handleFreeReportClick(event: MouseEvent<HTMLAnchorElement>) {
+    trackEvent('cta_click', { location: 'sample_report', target: 'free_report' })
+    requestSafetyReportModal()
+
+    if (location.pathname === '/') {
+      event.preventDefault()
+    }
+  }
 
   return (
     <section className="sample-report-section section-pad bg-white">
@@ -26,7 +38,7 @@ export function SampleReportPreview() {
             <Link
               className="btn btn-green"
               to="/#top"
-              onClick={() => trackEvent('cta_click', { location: 'sample_report', target: 'free_report' })}
+              onClick={handleFreeReportClick}
             >
               {t('sampleReport.primaryCta')}
               <ArrowRight size={20} aria-hidden="true" />
@@ -51,27 +63,49 @@ export function SampleReportPreview() {
               <h3>{t('sampleReport.card.title')}</h3>
             </div>
           </div>
+          <div className="sample-report-visual">
+            <img
+              src="/images/solutions/small-bathroom-with-window-apartment.jpg"
+              alt={t('sampleReport.card.visualAlt')}
+            />
+            <span className="sample-report-risk-marker" aria-hidden="true" />
+            <span className="sample-report-risk-callout">
+              <AlertTriangle size={15} aria-hidden="true" />
+              {t('sampleReport.card.visualLabel')}
+            </span>
+          </div>
           <div className="sample-report-risk">
             <strong>{t('sampleReport.card.score')}</strong>
             <span>{t('sampleReport.card.scoreLabel')}</span>
           </div>
           <div className="sample-report-list">
-            <article>
-              <AlertTriangle size={18} aria-hidden="true" />
+            <article className="is-risk">
+              <span className="sample-report-row-visual is-risk" aria-hidden="true">
+                <img src="/images/solutions/small-bathroom-with-window-apartment.jpg" alt="" />
+                <span className="sample-report-row-risk-pin" />
+              </span>
               <div>
                 <h4>{t('sampleReport.card.riskTitle')}</h4>
                 <p>{t('sampleReport.card.riskBody')}</p>
               </div>
             </article>
             <article>
-              <ShieldCheck size={18} aria-hidden="true" />
+              <span className="sample-report-row-visual is-action" aria-hidden="true">
+                <ShieldCheck size={19} />
+                <span className="sample-report-mini-bar" />
+                <span className="sample-report-mini-seat" />
+              </span>
               <div>
                 <h4>{t('sampleReport.card.actionTitle')}</h4>
                 <p>{t('sampleReport.card.actionBody')}</p>
               </div>
             </article>
             <article>
-              <Home size={18} aria-hidden="true" />
+              <span className="sample-report-row-visual is-next" aria-hidden="true">
+                <Home size={19} />
+                <span className="sample-report-mini-report" />
+                <span className="sample-report-mini-check" />
+              </span>
               <div>
                 <h4>{t('sampleReport.card.nextTitle')}</h4>
                 <p>{t('sampleReport.card.nextBody')}</p>

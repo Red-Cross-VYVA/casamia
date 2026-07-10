@@ -1,17 +1,22 @@
-const SPAIN_DIAL_CODE = '+34'
-const SPAIN_LOCAL_NUMBER_LENGTH = 9
+import { formatSpanishLocalNumber, getSpanishLocalNumber, SPAIN_DIAL_CODE } from '../utils/phone'
 
 type PhoneNumberFieldProps = {
+  error?: string
+  helperText?: string
   label?: string
   name?: string
+  required?: boolean
   value: string
   className?: string
   onChange: (value: string) => void
 }
 
 export function PhoneNumberField({
+  error,
+  helperText = 'Spanish number, 9 digits. Example: +34 600 000 000',
   label,
   name = 'phone',
+  required,
   value,
   className = 'estimate-field',
   onChange,
@@ -20,10 +25,17 @@ export function PhoneNumberField({
 
   return (
     <label className={className}>
-      {label ? <span>{label}</span> : null}
+      {label ? (
+        <span>
+          {label}
+          {required ? <strong> *</strong> : null}
+        </span>
+      ) : null}
       <span className="phone-number-field">
         <span className="phone-number-prefix">{SPAIN_DIAL_CODE}</span>
         <input
+          aria-invalid={Boolean(error)}
+          aria-required={required}
           autoComplete="tel-national"
           inputMode="tel"
           name={name}
@@ -36,29 +48,7 @@ export function PhoneNumberField({
           }}
         />
       </span>
+      {error ? <small>{error}</small> : <small className="phone-number-help">{helperText}</small>}
     </label>
   )
-}
-
-function getSpanishLocalNumber(value: string) {
-  const trimmed = value.trim()
-  const digits = value.replace(/\D/g, '')
-
-  if (trimmed.startsWith('+34')) {
-    return digits.slice(2, 2 + SPAIN_LOCAL_NUMBER_LENGTH)
-  }
-
-  if (digits.startsWith('0034')) {
-    return digits.slice(4, 4 + SPAIN_LOCAL_NUMBER_LENGTH)
-  }
-
-  if (digits.startsWith('34') && digits.length > SPAIN_LOCAL_NUMBER_LENGTH) {
-    return digits.slice(2, 2 + SPAIN_LOCAL_NUMBER_LENGTH)
-  }
-
-  return digits.slice(0, SPAIN_LOCAL_NUMBER_LENGTH)
-}
-
-function formatSpanishLocalNumber(value: string) {
-  return value.replace(/(\d{3})(?=\d)/g, '$1 ').trim()
 }

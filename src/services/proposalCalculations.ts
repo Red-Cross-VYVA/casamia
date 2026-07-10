@@ -101,7 +101,7 @@ export const serviceSuggestions = [
 ]
 
 export const defaultGrantNote =
-  'Casamia may support the grant application process where applicable. Grant approval is determined solely by the relevant authority and cannot be guaranteed.'
+  'CasaMia may support the grant application process where applicable. Grant approval is determined solely by the relevant authority and cannot be guaranteed.'
 
 export const hiddenFeeReassurance = 'No hidden fees. No work begins without customer approval.'
 

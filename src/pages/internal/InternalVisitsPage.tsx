@@ -45,7 +45,7 @@ const visits: Visit[] = [
 
 export function InternalVisitsPage() {
   useEffect(() => {
-    document.title = "Today's Visits | Casamia Operations"
+    document.title = "Today's Visits | CasaMia Operations"
   }, [])
 
   return (

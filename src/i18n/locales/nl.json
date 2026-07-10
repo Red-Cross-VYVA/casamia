@@ -39,12 +39,12 @@
     "cta": "Gratis ontdekken",
     "micro": "Upload foto's · Zonder verplichting",
     "safetyCheck": {
-      "title": "Safety Report",
+      "title": "Free Safety Report",
       "body": "Find hidden risks at home and what to review first.",
       "cta": "Start free report"
     },
     "grantCheck": {
-      "title": "Grant Eligibility",
+      "title": "Grant Check",
       "body": "See whether support may apply before you plan works.",
       "cta": "Check eligibility"
     }
@@ -66,11 +66,11 @@
     "hero": "Seniorenpaar dat elkaar thuis omhelst",
     "finalCta": "Seniorenpaar dat groenten snijdt in een veilige keuken",
     "gallery": [
-      "Accessible bathroom with safety support features",
-      "Staircase with handrails and anti-slip tread support",
-      "Home entrance with safer access support",
-      "Kitchen and daily routine space for older adults",
-      "Smart home safety technology for independent living",
+      "Small bathroom with window, sink and bathtub",
+      "Senior couple using stair handrail support at home",
+      "Older adult moving safely near a home entry",
+      "Senior couple in a safe kitchen at home",
+      "Senior couple resting together in a safe bedroom",
       "Older couple in a comfortable living area at home"
     ]
   },
@@ -122,16 +122,12 @@
       {
         "icon": "S",
         "title": "Smart-Home Technologie",
-        "desc": "Spraakbediening, slimme sloten, valdetectie en 24/7 noodmeldingen, allemaal geïnstalleerd en werkend vanaf dag één."
+        "desc": "Spraakbediening, slimme sloten, valdetectie, detectie van vitale waarden en 24/7 noodmeldingen, allemaal geïnstalleerd vanaf dag één."
       },
       {
         "icon": "G",
         "title": "Grant Management",
-        "desc": [
-          "We handle the grant application process on your behalf, including preparing and submitting the required documentation where applicable.",
-          "Subject to eligibility, government grants may cover up to 90% of approved home improvement costs.",
-          "Grant approval is determined solely by the relevant authority and cannot be guaranteed by Casamia."
-        ],
+        "desc": "We prepare and submit the grant file for eligible works, then keep you updated while the authority reviews it. Public support may cover up to 90% of approved costs, subject to official approval.",
         "termsLink": "Learn more about Plan Adapta →",
         "disclaimer": "Grant availability, eligibility criteria and funding levels are subject to government policies and may change without notice."
       }
@@ -184,14 +180,13 @@
         ]
       },
       {
-        "title": "Smart Technology",
-        "desc": "Voice controls, vitals monitoring, emergency calling, fall detection and family alerts.",
+        "title": "Bedroom Safety",
+        "desc": "Safer bed access, clearer night routes, bedside support, lighting routines and help within reach.",
         "features": [
-          "Voice control",
-          "Fall detection",
-          "Family alerts"
-        ],
-        "link": "/tech"
+          "Bed access",
+          "Night lighting",
+          "Help within reach"
+        ]
       },
       {
         "title": "Living Areas",
@@ -203,7 +198,7 @@
         ]
       }
     ],
-    "intro": "See how CasaMia supports the places families worry about most: bathrooms, stairs, entrances, kitchens, smart safety and everyday living areas.",
+    "intro": "See how CasaMia supports the places families worry about most: bathrooms, stairs, entrances, kitchens, bedrooms and everyday living areas.",
     "controlsLabel": "Gallery controls",
     "previous": "Show previous spaces",
     "next": "Show next spaces",
@@ -265,28 +260,29 @@
     ]
   },
   "grants": {
-    "badge": "Overheidssubsidies",
-    "title": "De overheid betaalt tot 90%.",
-    "sub": "Wij regelen alles. U ondertekent één keer.",
-    "body": "Plan Adapta-subsidies dekken tot €6.000 voor toegankelijkheidswerken. CasaMia beheert uw volledige aanvraag, zonder kosten en zonder gedoe.",
-    "cta": "Controleer Mijn Subsidiekans",
+    "badge": "Grants and assistance",
+    "title": "Public grants may help with eligible works.",
+    "sub": "Availability and approval depend on the public programme.",
+    "body": "CasaMia can help identify programmes that may be relevant to your project. Any initial eligibility assessment is indicative only, and the responsible public authority makes the final decision.",
+    "cta": "Check possible assistance",
     "stats": [
       {
-        "value": "€6.000",
-        "label": "Gemiddeld subsidiebedrag",
-        "sub": "Voor directe toegankelijkheidswerken"
+        "value": "Official source",
+        "label": "Required before relying on a programme",
+        "sub": "Always check the authority page before making decisions"
       },
       {
-        "value": "90%",
-        "label": "Maximale kostendekking",
-        "sub": "Voor mensen met erkende beperking"
+        "value": "Indicative only",
+        "label": "Initial eligibility screening",
+        "sub": "The authority decides approval and funding level"
       },
       {
-        "value": "0 formulieren",
-        "label": "Papierwerk voor u",
-        "sub": "Wij behandelen de volledige aanvraag"
+        "value": "Separate mandate",
+        "label": "Needed for representative submission",
+        "sub": "Grant support is separate from the installation contract"
       }
-    ]
+    ],
+    "disclaimer": "Grant availability, eligibility criteria, funding levels and deadlines may change. CasaMia does not award grants and cannot guarantee approval."
   },
   "eurosafe": {
     "prefix": "IN SAMENWERKING MET",
@@ -340,12 +336,12 @@
     "hazardsLabel": "Geïdentificeerde problemen",
     "planLabel": "Aanbevolen pakket",
     "costLabel": "Geschatte kosten",
-    "afterGrantsLabel": "Na overheidssubsidies",
+    "afterGrantsLabel": "Possible assistance, not confirmed",
     "cta": "Kies Dit Pakket",
     "chooseFiles": "Foto's kiezen",
     "removeFile": "{{file}} verwijderen",
     "beforeGrants": "Voor subsidies",
-    "afterGrants": "Na subsidies",
+    "afterGrants": "Possible assistance",
     "workflow": {
       "home": {
         "mobilityProfile": "Mobility profile",
@@ -1412,7 +1408,7 @@
       "grantManagement": {
         "kicker": "Grant Management",
         "title": "Grant Management Terms",
-        "body": "Casamia provides grant management assistance as an administrative service only.",
+        "body": "CasaMia provides grant management assistance as an administrative service only.",
         "serviceTitle": "Our service may include",
         "services": [
           "Assessing eligibility",
@@ -1424,17 +1420,17 @@
         "importantTitle": "Important",
         "important": [
           "Grant approval is entirely at the discretion of the relevant authority.",
-          "Casamia cannot guarantee approval or eligibility.",
+          "CasaMia cannot guarantee approval or eligibility.",
           "Estimated grant percentages are indicative only.",
           "Customers remain responsible for providing accurate information.",
-          "Casamia is not responsible for delays or decisions made by the granting authority."
+          "CasaMia is not responsible for delays or decisions made by the granting authority."
         ]
       }
     },
     "planAdapta": {
       "hero": {
         "title": "Plan Adapta Grant Support",
-        "subtitle": "Casamia helps you manage the application process for home safety and accessibility grants, from documentation to submission.",
+        "subtitle": "CasaMia helps you manage the application process for home safety and accessibility grants, from documentation to submission.",
         "cta": "Book Free Assessment",
         "panelTitle": "Administrative support from start to submission",
         "panelBody": "We help families understand what may be needed, prepare the application file, and coordinate next steps where authorised."
@@ -1445,7 +1441,7 @@
         "body": "Plan Adapta may support eligible home adaptations that improve accessibility, safety, and independent living. Available support depends on the relevant authority, open calls, eligibility criteria, documentation, and the approved scope of works."
       },
       "help": {
-        "kicker": "How Casamia helps",
+        "kicker": "How CasaMia helps",
         "title": "We make the application process easier to manage.",
         "items": [
           {
@@ -1462,7 +1458,7 @@
           },
           {
             "title": "Coordination with authorities where authorised",
-            "body": "Where the customer authorises it, Casamia can liaise with the relevant authority about the application."
+            "body": "Where the customer authorises it, CasaMia can liaise with the relevant authority about the application."
           },
           {
             "title": "Proposal preparation",
@@ -1476,7 +1472,7 @@
       },
       "disclaimer": {
         "title": "Important disclaimer",
-        "body": "Grant approval is determined solely by the relevant authority. Casamia cannot guarantee eligibility, approval, funding level, or processing time."
+        "body": "Grant approval is determined solely by the relevant authority. CasaMia cannot guarantee eligibility, approval, funding level, or processing time."
       },
       "improvements": {
         "kicker": "Typical eligible improvements",
@@ -1509,7 +1505,7 @@
           },
           {
             "title": "We support your grant application",
-            "body": "Where applicable, Casamia helps prepare and submit the required documentation."
+            "body": "Where applicable, CasaMia helps prepare and submit the required documentation."
           },
           {
             "title": "Once approved, we coordinate the works",
@@ -1519,7 +1515,7 @@
       },
       "terms": {
         "title": "Grant terms and responsibilities",
-        "body": "Casamia provides grant management assistance as an administrative service only. The final grant decision always belongs to the relevant authority.",
+        "body": "CasaMia provides grant management assistance as an administrative service only. The final grant decision always belongs to the relevant authority.",
         "cta": "Learn more about our Grant Terms →"
       }
     }
@@ -1654,7 +1650,7 @@
       "success": "Thank you. Your request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the €89 assessment visit.",
       "schedule": "Request Appointment",
       "error": "We couldn't submit your request. Please try again or contact CasaMia by phone.",
-      "consent": "I agree to be contacted by Casamia regarding my in-home safety assessment request.",
+      "consent": "I agree to be contacted by CasaMia regarding my in-home safety assessment request.",
       "privacy": "Your information is only used to arrange your assessment visit. We never sell your data.",
       "errors": {
         "name": "Please enter your full name.",
@@ -1692,7 +1688,7 @@
           "label": "Smart Safety Plan"
         }
       ],
-      "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A Casamia representative will contact you shortly to confirm availability and an appointment time for the €89 assessment visit."
+      "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the €89 assessment visit."
     },
     "final": {
       "title": "Ready for a professional visit?"
@@ -1701,7 +1697,7 @@
   "beforeAfter": {
     "preview": {
       "title": "Real Homes. Real Improvements. Real Peace of Mind.",
-      "body": "See how Casamia transforms everyday homes into safer, more accessible spaces for aging in place.",
+      "body": "See how CasaMia reviews the key spaces at home: bathroom, stairs, entry, kitchen, bedroom and living areas.",
       "viewCta": "View Transformations →",
       "assessmentCta": "Book Free Assessment"
     },
@@ -1710,12 +1706,13 @@
       "body": "Explore practical safety upgrades that make everyday movement easier, calmer, and more secure at home.",
       "galleryCta": "View Gallery",
       "galleryTitle": "From everyday risk to safer daily routines",
-      "galleryBody": "Each transformation shows the kind of problem Casamia looks for and the practical improvement we can deliver after a home safety assessment.",
+      "galleryBody": "Each transformation shows the kind of problem CasaMia looks for and the practical improvement we can deliver after a home safety assessment.",
       "compareCta": "Compare Plans"
     },
     "labels": {
       "before": "Before",
-      "after": "After"
+      "after": "After",
+      "focus": "Safety focus"
     },
     "cardCta": "Request Similar Upgrade",
     "disclaimer": "Images are for illustration purposes. Every home is assessed individually and recommended improvements may vary.",
@@ -1751,33 +1748,33 @@
         ]
       },
       {
-        "title": "Safer, Smarter Kitchen",
-        "before": "Daily items are hard to reach and movement routes can become cluttered.",
-        "after": "Safer reach, clearer circulation, and practical lighting or appliance safeguards.",
+        "title": "Kitchen Safety Upgrade",
+        "before": "Busy kitchen routines can mean awkward reach, slippery zones, hot surfaces or cluttered movement routes.",
+        "after": "Clearer work zones, safer reach, anti-slip flooring, lighting and appliance safeguards.",
         "benefits": [
-          "Clearer movement routes",
           "Safer reach for daily items",
-          "Lighting and appliance safety improvements"
+          "Clearer work zones and routes",
+          "Appliance and leak-risk safeguards"
         ]
       },
       {
-        "title": "Outdoor Safety Improvements",
-        "before": "Exterior paths, steps, or terraces become risky in low light or wet weather.",
-        "after": "More stable outdoor movement with improved visibility and slip reduction.",
+        "title": "Bedroom Safety Upgrade",
+        "before": "Getting in and out of bed can be harder when lighting, support or floor space is limited.",
+        "after": "Better bedside lighting, clear routes, stable support and calmer night-time movement.",
         "benefits": [
-          "Safer paths and exterior steps",
-          "Weather-aware slip reduction",
-          "Improved exterior visibility"
+          "Bedside support where needed",
+          "Clear route to the bathroom",
+          "Night lighting and trip reduction"
         ]
       },
       {
-        "title": "Smart Safety Upgrade",
-        "before": "Family members have limited visibility when something changes at home.",
-        "after": "Simple sensors, alerts, and lighting provide extra reassurance without complexity.",
+        "title": "Living Area Safety",
+        "before": "Chairs, rugs, cables and tight routes can make everyday sitting and movement less secure.",
+        "after": "Clearer circulation, safer seating height and simple supports for daily independence.",
         "benefits": [
-          "Motion lighting and alerts",
-          "Smart sensors for extra reassurance",
-          "Simple handover for the household"
+          "Safer seating and transfers",
+          "Clearer walking routes",
+          "Reduced rug and cable trip risks"
         ]
       }
     ]
@@ -1788,23 +1785,25 @@
     "bookVisit": "Book visit"
   },
   "sampleReport": {
-    "kicker": "Sample report",
-    "title": "Show people exactly what they get.",
-    "body": "A clearer preview turns the free photo check into something concrete: risks, priorities, and the next safest action for each home.",
+    "kicker": "Free safety report",
+    "title": "Know what to fix first.",
+    "body": "Upload a few photos and get a clear home safety report: what looks risky, why it matters, and the first changes that make daily life safer.",
     "primaryCta": "Start free report",
-    "secondaryCta": "Check grants",
+    "secondaryCta": "Check grant support",
     "previewLabel": "Preview of a CasaMia safety report",
     "card": {
-      "kicker": "Bathroom review",
-      "title": "Safety score: medium risk",
-      "score": "72",
-      "scoreLabel": "Priority score based on the photos shared",
-      "riskTitle": "Main risk found",
-      "riskBody": "High bathtub edge and no continuous support near the shower area.",
-      "actionTitle": "Recommended first step",
-      "actionBody": "Add grab bars and a secure bath transfer seat before bigger changes.",
-      "nextTitle": "Next CasaMia action",
-      "nextBody": "Share the report with the family and request an in-home assessment if needed."
+      "kicker": "Example: bathroom",
+      "title": "High-priority bathroom risk",
+      "score": "86",
+      "scoreLabel": "High priority risk from your photos",
+      "visualAlt": "Bathroom photo with the bath edge risk highlighted",
+      "visualLabel": "High bath edge",
+      "riskTitle": "What looks risky",
+      "riskBody": "The bath edge is high and there is no continuous hand support near the shower.",
+      "actionTitle": "What to do first",
+      "actionBody": "Start with grab bars and a secure bath transfer seat before planning larger works.",
+      "nextTitle": "Your next step",
+      "nextBody": "Use the report to talk with family, check grant support, or book an in-home assessment."
     },
     "points": [
       {
@@ -1816,7 +1815,7 @@
         "label": "usual reply"
       },
       {
-        "value": "0?",
+        "value": "Free",
         "label": "online check"
       }
     ]

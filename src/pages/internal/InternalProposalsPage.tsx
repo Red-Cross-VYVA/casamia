@@ -14,7 +14,7 @@ export function InternalProposalsPage() {
   const [sourceMessage, setSourceMessage] = useState(getProposalApiStatus())
 
   useEffect(() => {
-    document.title = 'Proposals | Casamia Operations'
+    document.title = 'Proposals | CasaMia Operations'
 
     loadProposalsWithFallback().then((result) => {
       setProposals(result.proposals)

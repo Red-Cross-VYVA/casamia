@@ -31,7 +31,7 @@ export function buildAssessmentLeadNotification(
 ): LeadNotification {
   const selectedPlan = getNotificationPlanLabel(payload.selectedPlan)
   const customerName = cleanText(payload.name) || 'Unknown Customer'
-  const subject = `New Casamia Assessment Lead \u2014 ${selectedPlan} \u2014 ${customerName}`
+  const subject = `New CasaMia Assessment Lead \u2014 ${selectedPlan} \u2014 ${customerName}`
   const recommendedNextAction = getRecommendedNextAction(payload.selectedPlan)
   const details = buildLeadDetails(payload, selectedPlan)
 
@@ -105,7 +105,7 @@ function buildHtml(
     <main style="max-width: 720px; margin: 0 auto; padding: 28px 16px;">
       <section style="background: #ffffff; border: 1px solid #d8e5ef; border-radius: 12px; overflow: hidden;">
         <header style="padding: 28px 30px; background: #0f6286; color: #ffffff;">
-          <p style="margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Casamia Lead Notification</p>
+          <p style="margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">CasaMia Lead Notification</p>
           <h1 style="margin: 0; font-size: 26px; line-height: 1.2;">New In-Home Safety Assessment Visit Request</h1>
         </header>
 
@@ -206,7 +206,7 @@ function getRecommendedNextAction(value?: string) {
     return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit and prepare to discuss smart safety devices, monitoring needs, and connectivity requirements.`
   }
 
-  return `Contact the customer to understand their needs, explain the ${ASSESSMENT_VISIT_FEE} in-home assessment fee, and guide them toward the right Casamia plan.`
+  return `Contact the customer to understand their needs, explain the ${ASSESSMENT_VISIT_FEE} in-home assessment fee, and guide them toward the right CasaMia plan.`
 }
 
 function getPlanKey(value?: string) {

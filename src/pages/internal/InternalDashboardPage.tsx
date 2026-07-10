@@ -6,6 +6,7 @@ import {
   FileText,
   Hammer,
   Inbox,
+  Network,
 } from 'lucide-react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
@@ -20,16 +21,17 @@ const stats = [
   { label: 'Proposals Pending', value: '5', icon: FileText, accent: 'gold' as const },
   { label: 'Installations Scheduled', value: '9', icon: Hammer, accent: 'blue' as const },
   { label: 'Grant Applications', value: '11', icon: ClipboardCheck, accent: 'green' as const },
+  { label: 'Provider Leads', value: '0', icon: Network, accent: 'navy' as const },
 ]
 
 export function InternalDashboardPage() {
   useEffect(() => {
-    document.title = 'Casamia Operations | Internal'
+    document.title = 'CasaMia Operations | Internal'
   }, [])
 
   return (
     <InternalLayout
-      title="Casamia Operations"
+      title="CasaMia Operations"
       subtitle="A private workspace for managing inspection visits, safety reports, proposals, installations, and grant-support tasks."
       actions={
         <>
@@ -39,6 +41,10 @@ export function InternalDashboardPage() {
           </Link>
           <Link className="btn btn-green" to="/internal/inspection-report">
             Create Inspection Report
+            <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+          <Link className="btn btn-white" to="/internal/provider-partners">
+            Provider Leads
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </>
@@ -64,6 +70,7 @@ export function InternalDashboardPage() {
               'Complete two high-priority bathroom reports before 14:00.',
               'Review three pending grant application document packs.',
               'Confirm installer availability for Smart Safety follow-ups.',
+              'Invite two provider partners in priority cities with weak coverage.',
             ].map((item, index) => (
               <div className="rounded-lg bg-light-blue p-5" key={item}>
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-green text-sm font-black text-white">

@@ -3,15 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import {
-  beforeAfterImagePairs,
+  beforeAfterVisuals,
+  type BeforeAfterVisual,
   type BeforeAfterTransformation,
 } from '../constants/beforeAfter'
 import { SafeImage } from './SafeImage'
-
-type BeforeAfterImagePair = {
-  before: string
-  after: string
-}
 
 export function BeforeAfterPreview() {
   const { t } = useTranslation()
@@ -41,16 +37,17 @@ export function BeforeAfterPreview() {
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {transformations.slice(0, beforeAfterImagePairs.length).map((item, index) => (
+          {transformations.slice(0, beforeAfterVisuals.length).map((item, index) => (
             <BeforeAfterCard
               cta={t('beforeAfter.cardCta')}
-              imagePair={beforeAfterImagePairs[index]}
               item={item}
               key={item.title}
               labels={{
                 before: t('beforeAfter.labels.before'),
                 after: t('beforeAfter.labels.after'),
+                focus: t('beforeAfter.labels.focus'),
               }}
+              visual={beforeAfterVisuals[index]}
             />
           ))}
         </div>
@@ -61,39 +58,47 @@ export function BeforeAfterPreview() {
 
 export function BeforeAfterCard({
   cta,
-  imagePair,
   item,
   labels,
+  visual,
 }: {
   cta: string
-  imagePair: BeforeAfterImagePair
   item: BeforeAfterTransformation
-  labels: { before: string; after: string }
+  labels: { before: string; after: string; focus: string }
+  visual: BeforeAfterVisual
 }) {
+  const isComparison = visual.mode === 'compare' && Boolean(visual.after)
+
   return (
     <article className="before-after-card overflow-hidden rounded-lg border border-border bg-white shadow-soft">
       <div className="before-after-visual">
-        <figure className="before-after-image">
+        <figure className={`before-after-image before-after-fade-frame ${isComparison ? 'is-comparison' : 'is-focus'}`}>
           <SafeImage
-            alt={`${item.title} - ${labels.before}`}
-            className="h-full"
+            alt={`${item.title} - ${isComparison ? labels.before : labels.focus}`}
+            className="before-after-layer h-full"
             imgClassName="before-after-image-media h-full w-full object-cover"
-            src={imagePair.before}
+            src={visual.before}
           />
-          <figcaption className="absolute left-4 top-4 rounded-full bg-navy px-4 py-2 text-xs font-black uppercase text-white">
-            {labels.before}
-          </figcaption>
-        </figure>
-        <figure className="before-after-image">
-          <SafeImage
-            alt={`${item.title} - ${labels.after}`}
-            className="h-full"
-            imgClassName="before-after-image-media h-full w-full object-cover"
-            src={imagePair.after}
-          />
-          <figcaption className="absolute left-4 top-4 rounded-full bg-green px-4 py-2 text-xs font-black uppercase text-white">
-            {labels.after}
-          </figcaption>
+          {isComparison && visual.after ? (
+            <>
+              <SafeImage
+                alt={`${item.title} - ${labels.after}`}
+                className="before-after-layer before-after-layer-after h-full"
+                imgClassName="before-after-image-media h-full w-full object-cover"
+                src={visual.after}
+              />
+              <figcaption className="before-after-badge before-after-badge-before rounded-full bg-navy px-4 py-2 text-xs font-black uppercase text-white">
+                {labels.before}
+              </figcaption>
+              <figcaption className="before-after-badge before-after-badge-after rounded-full bg-green px-4 py-2 text-xs font-black uppercase text-white">
+                {labels.after}
+              </figcaption>
+            </>
+          ) : (
+            <figcaption className="before-after-badge before-after-badge-focus rounded-full bg-navy px-4 py-2 text-xs font-black uppercase text-white">
+              {labels.focus}
+            </figcaption>
+          )}
         </figure>
       </div>
 

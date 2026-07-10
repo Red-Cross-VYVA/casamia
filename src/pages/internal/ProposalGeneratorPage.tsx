@@ -95,7 +95,7 @@ const categoryByRoom: Record<string, ProposalCategory> = {
 }
 
 function readInspectionDraft() {
-  const raw = window.localStorage.getItem('casamia_current_inspection_report')
+  const raw = window.localStorage.getItem('CasaMia_current_inspection_report')
 
   if (!raw) {
     return null
@@ -151,7 +151,7 @@ function createProposalFromInspection() {
       ? (inspection.summary?.riskLevel as ProposalData['overallRiskLevel'])
       : 'Moderate',
     phone: inspection.customer?.phone ?? '',
-    preparedBy: inspection.summary?.inspectorName || 'Casamia Operations',
+    preparedBy: inspection.summary?.inspectorName || 'CasaMia Operations',
     safetyScore: inspection.summary?.safetyScore ?? '7',
     selectedPlan,
   })
@@ -180,7 +180,7 @@ export function ProposalGeneratorPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
-    document.title = 'Proposal Generator | Casamia Operations'
+    document.title = 'Proposal Generator | CasaMia Operations'
   }, [])
 
   useEffect(() => {

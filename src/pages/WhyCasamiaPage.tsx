@@ -1,9 +1,12 @@
 import {
   ArrowRight,
   BadgeCheck,
+  CalendarCheck,
   CheckCircle2,
   ClipboardCheck,
+  FileText,
   Handshake,
+  Home,
   ShieldCheck,
   Tags,
 } from 'lucide-react'
@@ -16,6 +19,19 @@ type WhyCasamiaCopy = {
   eyebrow: string
   headline: string
   intro: string
+  heroProof: Array<{
+    value: string
+    label: string
+  }>
+  promiseTitle: string
+  promiseBody: string
+  promisePoints: string[]
+  processEyebrow: string
+  processTitle: string
+  processSteps: Array<{
+    title: string
+    body: string
+  }>
   sections: Array<{
     icon: 'inspectors' | 'partners' | 'insured' | 'products' | 'pricing' | 'acceptance'
     title: string
@@ -33,6 +49,39 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     headline: 'Why Families Trust CasaMia',
     intro:
       'Choosing a home safety partner means trusting someone with your home, your comfort, and your loved ones. CasaMia combines qualified inspections, trusted installation partners, transparent pricing, and careful follow-through to help seniors age in place with confidence.',
+    heroProof: [
+      { value: 'Room-by-room', label: 'risk review before recommendations' },
+      { value: 'Clear scope', label: 'before any installation is agreed' },
+      { value: 'Final acceptance', label: 'before the remaining balance is due' },
+    ],
+    promiseTitle: 'A careful, accountable way to adapt the home.',
+    promiseBody:
+      'CasaMia is built for families who need practical changes without pressure, guesswork, or confusing handovers. Every recommendation starts with the resident, the home, and the daily routine.',
+    promisePoints: [
+      'We explain why each adaptation is recommended.',
+      'We separate urgent safety priorities from nice-to-have improvements.',
+      'We keep the family informed from first review to completion.',
+    ],
+    processEyebrow: 'CasaMia method',
+    processTitle: 'How trust is built into the work',
+    processSteps: [
+      {
+        title: 'Assess first',
+        body: 'We review rooms, routes, mobility needs, lighting, access, and transfer points before suggesting products.',
+      },
+      {
+        title: 'Agree the scope',
+        body: 'You see the plan, priorities, likely cost, and timing before committing to installation.',
+      },
+      {
+        title: 'Coordinate delivery',
+        body: 'CasaMia keeps the installer brief, family updates, and handover details together.',
+      },
+      {
+        title: 'Confirm acceptance',
+        body: 'The final balance is paid only after the completed work has been reviewed and accepted.',
+      },
+    ],
     sections: [
       {
         icon: 'inspectors',
@@ -87,6 +136,39 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     headline: 'Por qué las familias confían en CasaMia',
     intro:
       'Elegir un partner de seguridad para el hogar significa confiarle tu casa, tu comodidad y a tus seres queridos. CasaMia combina inspecciones cualificadas, partners de instalación de confianza, precios transparentes y seguimiento cuidadoso para ayudar a las personas mayores a vivir en casa con más seguridad.',
+    heroProof: [
+      { value: 'Estancia por estancia', label: 'revisiÃ³n de riesgos antes de recomendar' },
+      { value: 'Alcance claro', label: 'antes de acordar cualquier instalaciÃ³n' },
+      { value: 'AceptaciÃ³n final', label: 'antes del pago restante' },
+    ],
+    promiseTitle: 'Una forma cuidadosa y responsable de adaptar el hogar.',
+    promiseBody:
+      'CasaMia estÃ¡ pensada para familias que necesitan cambios prÃ¡cticos sin presiÃ³n, dudas ni entregas confusas. Cada recomendaciÃ³n empieza por la persona, la vivienda y la rutina diaria.',
+    promisePoints: [
+      'Explicamos por quÃ© se recomienda cada adaptaciÃ³n.',
+      'Separamos prioridades urgentes de mejoras opcionales.',
+      'Mantenemos informada a la familia desde la revisiÃ³n hasta la finalizaciÃ³n.',
+    ],
+    processEyebrow: 'MÃ©todo CasaMia',
+    processTitle: 'CÃ³mo incorporamos confianza al trabajo',
+    processSteps: [
+      {
+        title: 'Evaluar primero',
+        body: 'Revisamos estancias, recorridos, movilidad, iluminaciÃ³n, accesos y puntos de transferencia antes de proponer productos.',
+      },
+      {
+        title: 'Acordar el alcance',
+        body: 'Ves el plan, prioridades, coste aproximado y tiempos antes de comprometerte con la instalaciÃ³n.',
+      },
+      {
+        title: 'Coordinar la entrega',
+        body: 'CasaMia mantiene juntos el briefing del instalador, las actualizaciones familiares y la entrega.',
+      },
+      {
+        title: 'Confirmar aceptaciÃ³n',
+        body: 'El pago restante se realiza solo despuÃ©s de revisar y aceptar el trabajo completado.',
+      },
+    ],
     sections: [
       {
         icon: 'inspectors',
@@ -173,18 +255,71 @@ export function WhyCasamiaPage() {
   return (
     <>
       <section className="why-casamia-hero">
-        <div className="site-shell">
-          <span className="eyebrow">{copy.eyebrow}</span>
-          <h1>{copy.headline}</h1>
-          <p>{copy.intro}</p>
-          <Link className="btn btn-green mt-8" to="/home-safety-assessment">
-            {copy.ctaButton}
-            <ArrowRight size={20} aria-hidden="true" />
-          </Link>
+        <div className="why-hero-grid site-shell">
+          <div>
+            <span className="eyebrow">{copy.eyebrow}</span>
+            <h1>{copy.headline}</h1>
+            <p>{copy.intro}</p>
+            <Link className="btn btn-green mt-8" to="/home-safety-assessment">
+              {copy.ctaButton}
+              <ArrowRight size={20} aria-hidden="true" />
+            </Link>
+          </div>
+          <aside className="why-hero-proof" aria-label="CasaMia trust proof">
+            {copy.heroProof.map((proof) => (
+              <div key={proof.value}>
+                <strong>{proof.value}</strong>
+                <span>{proof.label}</span>
+              </div>
+            ))}
+          </aside>
         </div>
       </section>
 
       <TrustBar />
+
+      <section className="why-promise-section section-pad">
+        <div className="why-promise-grid site-shell">
+          <div>
+            <p className="eyebrow">{copy.eyebrow}</p>
+            <h2>{copy.promiseTitle}</h2>
+            <p>{copy.promiseBody}</p>
+          </div>
+          <ul>
+            {copy.promisePoints.map((point) => (
+              <li key={point}>
+                <CheckCircle2 size={18} aria-hidden="true" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="why-process-section">
+        <div className="site-shell">
+          <div className="why-section-heading">
+            <p className="eyebrow">{copy.processEyebrow}</p>
+            <h2>{copy.processTitle}</h2>
+          </div>
+          <div className="why-process-grid">
+            {copy.processSteps.map((step, index) => {
+              const StepIcon = [ClipboardCheck, FileText, Home, CalendarCheck][index] ?? ClipboardCheck
+
+              return (
+                <article className="why-process-card" key={step.title}>
+                  <span>
+                    <StepIcon size={23} aria-hidden="true" />
+                  </span>
+                  <small>{String(index + 1).padStart(2, '0')}</small>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
 
       <section className="why-proof-section section-pad">
         <div className="site-shell">

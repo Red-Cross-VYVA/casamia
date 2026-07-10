@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
 import { submitAssessmentRequest } from '../services/assessmentRequests'
+import { isValidSpanishPhoneNumber } from '../utils/phone'
 import { PhoneNumberField } from './PhoneNumberField'
 
 const DEFAULT_PLAN_VALUE = 'not-sure'
@@ -29,7 +30,7 @@ type AssessmentFormValues = {
   consent: boolean
 }
 
-type AssessmentFormErrors = Partial<Record<'name' | 'contact' | 'city' | 'consent', string>>
+type AssessmentFormErrors = Partial<Record<'name' | 'contact' | 'phone' | 'email' | 'city' | 'consent', string>>
 
 const initialValues: AssessmentFormValues = {
   name: '',
@@ -43,7 +44,15 @@ const initialValues: AssessmentFormValues = {
   consent: false,
 }
 
-export function AssessmentForm() {
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+}
+
+type AssessmentFormProps = {
+  mode?: 'default' | 'checkout'
+}
+
+export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const planFromUrl = normalizePlanValue(searchParams.get('plan'))
@@ -72,6 +81,7 @@ export function AssessmentForm() {
     () => getPlanLabel(submittedPlan, planOptions),
     [planOptions, submittedPlan],
   )
+  const isCheckout = mode === 'checkout'
 
   useEffect(() => {
     setValues((current) => {
@@ -98,6 +108,14 @@ export function AssessmentForm() {
 
     if (!values.phone.trim() && !values.email.trim()) {
       nextErrors.contact = t('assessment.form.errors.contact')
+    }
+
+    if (values.phone.trim() && !isValidSpanishPhoneNumber(values.phone)) {
+      nextErrors.phone = 'Enter a Spanish phone number with 9 digits.'
+    }
+
+    if (values.email.trim() && !isValidEmail(values.email)) {
+      nextErrors.email = 'Enter a valid email address.'
     }
 
     if (!values.city.trim()) {
@@ -155,16 +173,30 @@ export function AssessmentForm() {
   }
 
   return (
-    <div className="assessment-form-card" id="assessment-form">
+    <div className={`assessment-form-card ${isCheckout ? 'is-checkout' : ''}`} id="assessment-form">
       <div className="assessment-form-heading">
         <span>
           <CalendarClock size={24} aria-hidden="true" />
         </span>
         <div>
-          <h2>{t('assessment.form.title')}</h2>
-          <p>{t('assessment.form.intro')}</p>
+          <h2>{isCheckout ? 'Confirm your request' : t('assessment.form.title')}</h2>
+          <p>
+            {isCheckout
+              ? `We have selected ${selectedPlanLabel}. Add your details and CasaMia will confirm the visit before booking.`
+              : t('assessment.form.intro')}
+          </p>
         </div>
       </div>
+
+      {isCheckout ? (
+        <div className="assessment-selected-plan">
+          <CheckCircle2 size={19} aria-hidden="true" />
+          <div>
+            <span>Selected package</span>
+            <strong>{selectedPlanLabel}</strong>
+          </div>
+        </div>
+      ) : null}
 
       <form className="assessment-form" noValidate onSubmit={handleSubmit}>
         <FormField
@@ -184,13 +216,16 @@ export function AssessmentForm() {
 
         <PhoneNumberField
           className="assessment-field"
+          error={errors.phone ?? errors.contact}
           label={t('assessment.form.fields.phone')}
+          required
           value={values.phone}
           onChange={(nextValue) => updateValue('phone', nextValue)}
         />
 
-        <FormField error={errors.contact} label={t('assessment.form.fields.email')}>
+        <FormField error={errors.email ?? errors.contact} label={t('assessment.form.fields.email')} required>
           <input
+            aria-required="true"
             autoComplete="email"
             name="email"
             onChange={(event) => updateValue('email', event.target.value)}
@@ -282,7 +317,11 @@ export function AssessmentForm() {
         ) : null}
 
         <button className="btn btn-green assessment-submit" disabled={isSubmitting} type="submit">
-          {isSubmitting ? t('assessment.form.submitting') : t('assessment.form.submit')}
+          {isSubmitting
+            ? t('assessment.form.submitting')
+            : isCheckout
+              ? `Confirm ${selectedPlanLabel} request`
+              : t('assessment.form.submit')}
           {isSubmitting ? (
             <LoaderCircle className="assessment-loading-icon" size={20} aria-hidden="true" />
           ) : (

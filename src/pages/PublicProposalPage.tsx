@@ -16,7 +16,7 @@ export function PublicProposalPage() {
   const [proposal, setProposal] = useState<ProposalData | null>(null)
 
   useEffect(() => {
-    document.title = 'Your Casamia Proposal'
+    document.title = 'Your CasaMia Proposal'
     setIsLoading(true)
     setError('')
 
@@ -26,7 +26,7 @@ export function PublicProposalPage() {
         setAcceptedBy(loadedProposal.customerName)
       })
       .catch(() => {
-        setError('We could not load this proposal link. Please contact Casamia for assistance.')
+        setError('We could not load this proposal link. Please contact CasaMia for assistance.')
       })
       .finally(() => setIsLoading(false))
   }, [token])
@@ -48,7 +48,7 @@ export function PublicProposalPage() {
 
       setIsAccepted(true)
     } catch {
-      setError('We could not accept this proposal online. Please contact Casamia and we will help you.')
+      setError('We could not accept this proposal online. Please contact CasaMia and we will help you.')
     } finally {
       setIsAccepting(false)
     }
@@ -73,7 +73,7 @@ export function PublicProposalPage() {
           <h1 className="mt-5 font-display text-4xl font-bold text-text-dark">Proposal link unavailable</h1>
           <p className="mt-4 text-text-mid">{error}</p>
           <Link className="btn btn-green mt-6" to="/contact">
-            Contact Casamia
+            Contact CasaMia
           </Link>
         </div>
       </main>
@@ -90,7 +90,7 @@ export function PublicProposalPage() {
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
           <div>
             <h1 className="font-display text-5xl font-bold leading-tight text-text-dark">
-              Your Casamia proposal is ready
+              Your CasaMia proposal is ready
             </h1>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-mid">
               Review the recommended works, payment terms, and next steps. When everything looks right,
@@ -115,7 +115,7 @@ export function PublicProposalPage() {
               <CheckCircle2 className="text-green" size={34} aria-hidden="true" />
               <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">Proposal accepted</h2>
               <p className="mt-2 text-text-mid">
-                Thank you. Casamia will contact you shortly to confirm next steps.
+                Thank you. CasaMia will contact you shortly to confirm next steps.
               </p>
             </div>
           ) : (

@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { trackEvent } from '../utils/analytics'
 
 const languages = [
-  { code: 'en', flag: 'GB', label: 'English' },
-  { code: 'es', flag: 'ES', label: 'Espa\u00f1ol' },
-  { code: 'de', flag: 'DE', label: 'Deutsch' },
-  { code: 'fr', flag: 'FR', label: 'Fran\u00e7ais' },
-  { code: 'nl', flag: 'NL', label: 'Nederlands' },
+  { code: 'en', shortLabel: 'EN', label: 'English' },
+  { code: 'es', shortLabel: 'ES', label: 'Espa\u00f1ol' },
+  { code: 'de', shortLabel: 'DE', label: 'Deutsch' },
+  { code: 'fr', shortLabel: 'FR', label: 'Fran\u00e7ais' },
+  { code: 'nl', shortLabel: 'NL', label: 'Nederlands' },
 ] as const
 
 type LanguageSwitcherProps = {
@@ -59,10 +59,7 @@ export function LanguageSwitcher({
         aria-label={t('languageSwitcher.aria')}
         onClick={() => setOpen((isOpen) => !isOpen)}
       >
-        <span aria-hidden="true" className="text-xs">
-          {currentLanguage.flag}
-        </span>
-        <span>{currentLanguage.code.toUpperCase()}</span>
+        <span>{compact ? currentLanguage.shortLabel : currentLanguage.label}</span>
         <ChevronDown size={15} aria-hidden="true" />
       </button>
 
@@ -99,9 +96,6 @@ export function LanguageSwitcher({
                   setOpen(false)
                 }}
               >
-                <span aria-hidden="true" className="w-6 text-xs">
-                  {language.flag}
-                </span>
                 <span>{language.label}</span>
               </button>
             )

@@ -9,7 +9,7 @@ import {
   type ProposalPlan,
 } from './proposalCalculations'
 
-const proposalStorageKey = 'casamia_internal_proposals_v1'
+const proposalStorageKey = 'CasaMia_internal_proposals_v1'
 
 function getStorage() {
   if (typeof window === 'undefined') {
@@ -64,7 +64,7 @@ export function createEmptyProposal(patch: Partial<ProposalData> = {}): Proposal
     customerName: '',
     email: '',
     executiveSummary:
-      'Casamia reviewed the home safety priorities and prepared this proposal to reduce risk, improve comfort, and support safer independent living.',
+      'CasaMia reviewed the home safety priorities and prepared this proposal to reduce risk, improve comfort, and support safer independent living.',
     grantEligibilityNote: defaultGrantNote,
     grantSupportRequired: false,
     id: createProposalId(),
@@ -73,7 +73,7 @@ export function createEmptyProposal(patch: Partial<ProposalData> = {}): Proposal
     overallRiskLevel: 'Moderate',
     paymentTerms: getDefaultPaymentTerms(selectedPlan),
     phone: '',
-    preparedBy: 'Casamia Operations',
+    preparedBy: 'CasaMia Operations',
     proposalDate: today,
     safetyScore: '7',
     selectedPlan,
