@@ -21,6 +21,7 @@ export function Footer() {
   const legalLinks = legalRouteLabels
   const supportLinks = [
     { label: t('nav.resources', { defaultValue: 'Guides' }), to: '/resources' },
+    { label: 'Blog', to: '/blog' },
     { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
     { label: 'Plan Adapta', to: '/plan-adapta' },
     { label: t('nav.freeAssessment', { defaultValue: 'Book Visit' }), to: '/home-safety-assessment' },

@@ -43,11 +43,12 @@ export function Nav() {
 
   const links: HeaderLink[] = [
     { label: t('nav.home', { defaultValue: 'Home' }), to: '/', match: ['/'] },
-    { label: t('nav.howItWorks'), to: '/how-it-works', match: ['/how-it-works'] },
     { label: t('nav.services', { defaultValue: 'Solutions' }), to: '/services', match: ['/services'] },
+    { label: t('nav.howItWorks'), to: '/how-it-works', match: ['/how-it-works'] },
     { label: t('nav.plans'), to: '/plans', match: ['/plans'] },
     { label: t('nav.grants'), to: '/grants', match: ['/grants', '/grant-check', '/plan-adapta'] },
     { label: t('nav.resources', { defaultValue: 'Guides' }), to: '/resources', match: ['/resources'] },
+    { label: 'Blog', to: '/blog', match: ['/blog'] },
     { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-casamia', match: ['/why-casamia'] },
     { label: t('nav.contact'), to: '/contact', match: ['/contact'] },
   ]

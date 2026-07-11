@@ -17,6 +17,10 @@ const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) =>
 const BeforeAfterPage = lazy(() =>
   import('./pages/BeforeAfterPage').then(({ BeforeAfterPage }) => ({ default: BeforeAfterPage })),
 )
+const BlogArticlePage = lazy(() =>
+  import('./pages/BlogArticlePage').then(({ BlogArticlePage }) => ({ default: BlogArticlePage })),
+)
+const BlogPage = lazy(() => import('./pages/BlogPage').then(({ BlogPage }) => ({ default: BlogPage })))
 const ContactPage = lazy(() => import('./pages/ContactPage').then(({ ContactPage }) => ({ default: ContactPage })))
 const EstimateReportPage = lazy(() =>
   import('./pages/EstimateReportPage').then(({ EstimateReportPage }) => ({ default: EstimateReportPage })),
@@ -173,6 +177,8 @@ function AppRoutes() {
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/resources/:articleId" element={<ResourceArticlePage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:articleId" element={<BlogArticlePage />} />
             <Route path="/tech" element={<TechPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
