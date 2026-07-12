@@ -1,4 +1,5 @@
 import {
+  ArrowLeft,
   ArrowRight,
   BadgeCheck,
   Camera,
@@ -15,6 +16,7 @@ import {
   type LucideIcon,
   Wrench,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -48,10 +50,6 @@ type HowCopy = {
   primaryCta: string
   secondaryCta: string
   heroAlt: string
-  heroStats: Array<{
-    value: string
-    label: string
-  }>
   statusTitle: string
   statusRows: Array<{
     label: string
@@ -136,11 +134,6 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     primaryCta: 'Start Free Safety Report',
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'Older couple preparing food together at home',
-    heroStats: [
-      { value: '4', label: 'clear steps' },
-      { value: '6', label: 'room checks' },
-      { value: '1', label: 'tracked request' },
-    ],
     statusTitle: 'Request tracking',
     statusRows: [
       { label: 'Photos or visit', value: 'Received' },
@@ -176,9 +169,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'Install and support',
-        body: 'We coordinate installation, handover, VYVA support where chosen, and follow-up.',
+        body: 'We coordinate the installer, confirm the work is completed, and keep the family updated on next steps.',
         tag: 'Support',
-        proof: 'Handover and follow-up tracked',
+        proof: 'Installer and family updates tracked',
       },
     ],
     reviewEyebrow: 'Room-by-room',
@@ -274,6 +267,11 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         title: 'Smart support',
         body: 'VYVA, alerts, and setup.',
       },
+      {
+        icon: 'badge',
+        title: 'Grant management',
+        body: 'Eligibility, documents, and follow-up.',
+      },
     ],
     nextEyebrow: 'Choose your path',
     nextTitle: 'Start where you are.',
@@ -324,11 +322,6 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     primaryCta: 'Empezar informe gratis',
     secondaryCta: 'Reservar visita',
     heroAlt: 'Pareja mayor preparando comida juntos en casa',
-    heroStats: [
-      { value: '4', label: 'fases claras' },
-      { value: '6', label: 'revisiones' },
-      { value: '1', label: 'solicitud trazada' },
-    ],
     statusTitle: 'Seguimiento',
     statusRows: [
       { label: 'Fotos o visita', value: 'Recibido' },
@@ -364,9 +357,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'Instalaci\u00f3n y apoyo',
-        body: 'Coordinamos instalaci\u00f3n, entrega, soporte VYVA si se elige y seguimiento.',
+        body: 'Coordinamos al instalador, confirmamos el trabajo realizado y mantenemos informada a la familia.',
         tag: 'Apoyo',
-        proof: 'Entrega y seguimiento trazados',
+        proof: 'Instalador y familia informados',
       },
     ],
     reviewEyebrow: 'Estancia por estancia',
@@ -462,6 +455,11 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         title: 'Soporte smart',
         body: 'VYVA y alertas.',
       },
+      {
+        icon: 'badge',
+        title: 'Gestión de ayudas',
+        body: 'Elegibilidad, documentos y seguimiento.',
+      },
     ],
     nextEyebrow: 'Elige tu camino',
     nextTitle: 'Empieza donde est\u00e1s.',
@@ -514,6 +512,70 @@ function getVisual(key: string) {
 export function HowItWorksPage() {
   const { i18n } = useTranslation()
   const copy = getHowCopy(i18n.language)
+  const [activeReviewIndex, setActiveReviewIndex] = useState(0)
+  const activeReviewArea = copy.reviewAreas[activeReviewIndex] ?? copy.reviewAreas[0]
+  const ActiveReviewIcon = activeReviewArea ? howIcons[activeReviewArea.icon] : ShieldCheck
+  const contractorModel = i18n.language.startsWith('es')
+    ? {
+        body:
+          'Contratas directamente con CasaMia. CasaMia evalua tus necesidades, prepara el proyecto, cobra los pagos, coordina el trabajo y sigue siendo responsable de completar el servicio contratado. Podemos designar a un profesional local verificado para realizar la instalacion como subcontratista de CasaMia.',
+        journey: [
+          'Evaluacion de seguridad del hogar',
+          'Propuesta escrita y alcance definido',
+          'Aprobacion del cliente',
+          'Pago inicial del 50%',
+          'Asignacion de profesional local cualificado',
+          'Instalacion y pruebas de seguridad',
+          'Acta de instalacion y aceptacion',
+          'Pago final del 50%',
+          'Garantias y posventa gestionadas por CasaMia',
+        ],
+        title: 'Tu contrato es con CasaMia',
+        warning:
+          'Nunca pagues directamente a un instalador. Los tecnicos y subcontratistas de CasaMia no estan autorizados a pedir efectivo, anticipos, propinas ni pagos por trabajos adicionales.',
+      }
+    : {
+        body:
+          'You contract directly with CasaMia. CasaMia assesses your requirements, prepares the project, collects payment, coordinates the work and remains responsible for completing the contracted service. We may appoint a vetted local professional to carry out the installation as CasaMia subcontractor.',
+        journey: [
+          'Home-safety assessment',
+          'Written proposal and defined scope',
+          'Customer approval',
+          'Initial 50% payment',
+          'Appointment of a qualified local provider',
+          'Installation and safety testing',
+          'Installation acceptance record',
+          'Final 50% payment',
+          'CasaMia-managed guarantees and aftercare',
+        ],
+        title: 'Your contract is with CasaMia',
+        warning:
+          'Never pay an installer directly. CasaMia technicians and subcontractors are not authorised to request cash, deposits, tips or payments for additional work.',
+      }
+
+  useEffect(() => {
+    if (copy.reviewAreas.length < 2) {
+      return
+    }
+
+    const timer = window.setInterval(() => {
+      setActiveReviewIndex((current) => (current + 1) % copy.reviewAreas.length)
+    }, 5200)
+
+    return () => window.clearInterval(timer)
+  }, [copy.reviewAreas.length])
+
+  useEffect(() => {
+    setActiveReviewIndex(0)
+  }, [i18n.language])
+
+  function showPreviousReviewArea() {
+    setActiveReviewIndex((current) => (current - 1 + copy.reviewAreas.length) % copy.reviewAreas.length)
+  }
+
+  function showNextReviewArea() {
+    setActiveReviewIndex((current) => (current + 1) % copy.reviewAreas.length)
+  }
 
   return (
     <>
@@ -552,14 +614,6 @@ export function HowItWorksPage() {
                 {copy.secondaryCta}
               </Link>
             </div>
-            <div className="how-hero-stats">
-              {copy.heroStats.map((stat) => (
-                <div key={stat.label}>
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="how-hero-visual">
@@ -587,6 +641,24 @@ export function HowItWorksPage() {
       </section>
 
       <TrustBar />
+
+      <section className="how-contract-section">
+        <div className="how-contract-panel site-shell">
+          <div>
+            <p className="eyebrow">Contracting model</p>
+            <h2>{contractorModel.title}</h2>
+            <p>{contractorModel.body}</p>
+          </div>
+          <ol>
+            {contractorModel.journey.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ol>
+          <div className="how-contract-warning" role="note">
+            <strong>{contractorModel.warning}</strong>
+          </div>
+        </div>
+      </section>
 
       <section className="how-process-section">
         <div className="site-shell">
@@ -635,29 +707,51 @@ export function HowItWorksPage() {
             </Link>
           </div>
 
-          <div className="how-review-grid">
-            {copy.reviewAreas.map((area) => {
-              const Icon = howIcons[area.icon]
+          {activeReviewArea ? (
+            <div className="how-review-gallery" aria-live="polite">
+              <div className="how-review-gallery-stage">
+                <SafeImage
+                  src={getVisual(activeReviewArea.visualKey)}
+                  alt={activeReviewArea.alt}
+                  className="how-review-gallery-image"
+                  imgClassName="h-full w-full object-cover"
+                />
+                <div className="how-review-gallery-caption">
+                  <p className="how-review-gallery-count">
+                    {activeReviewIndex + 1} / {copy.reviewAreas.length}
+                  </p>
+                  <span>
+                    <ActiveReviewIcon size={20} aria-hidden="true" />
+                  </span>
+                  <h3>{activeReviewArea.title}</h3>
+                  <p>{activeReviewArea.body}</p>
+                </div>
+                <div className="how-review-gallery-controls" aria-label={copy.reviewEyebrow}>
+                  <button type="button" onClick={showPreviousReviewArea} aria-label="Show previous room">
+                    <ArrowLeft size={20} aria-hidden="true" />
+                  </button>
+                  <button type="button" onClick={showNextReviewArea} aria-label="Show next room">
+                    <ArrowRight size={20} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
 
-              return (
-                <article key={area.title}>
-                  <SafeImage
-                    src={getVisual(area.visualKey)}
-                    alt={area.alt}
-                    className="how-review-image"
-                    imgClassName="h-full w-full object-cover"
-                  />
-                  <div className="how-review-content">
-                    <span>
-                      <Icon size={20} aria-hidden="true" />
-                    </span>
-                    <h3>{area.title}</h3>
-                    <p>{area.body}</p>
-                  </div>
-                </article>
-              )
-            })}
-          </div>
+              <div className="how-review-gallery-thumbnails" aria-label={copy.reviewEyebrow}>
+                {copy.reviewAreas.map((area, index) => (
+                  <button
+                    className={index === activeReviewIndex ? 'is-active' : ''}
+                    key={area.title}
+                    type="button"
+                    onClick={() => setActiveReviewIndex(index)}
+                    aria-label={area.title}
+                  >
+                    <img src={getVisual(area.visualKey)} alt="" />
+                    <span>{area.title}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 

@@ -1,3 +1,5 @@
+import { hasCookieConsent } from './cookieConsent'
+
 type AnalyticsPayload = Record<string, string | number | boolean | null | undefined>
 
 declare global {
@@ -13,5 +15,7 @@ export function trackEvent(event: string, payload: AnalyticsPayload = {}) {
   }
 
   window.dispatchEvent(new CustomEvent('casamia:analytics', { detail }))
-  window.dataLayer?.push(detail)
+  if (hasCookieConsent('analytics')) {
+    window.dataLayer?.push(detail)
+  }
 }

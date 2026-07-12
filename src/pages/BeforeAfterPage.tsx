@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { BeforeAfterCard } from '../components/BeforeAfterPreview'
 import {
-  beforeAfterImagePairs,
+  beforeAfterVisuals,
   type BeforeAfterTransformation,
 } from '../constants/beforeAfter'
 
@@ -40,16 +40,17 @@ export function BeforeAfterPage() {
       <section className="section-pad bg-white">
         <div className="site-shell">
           <div className="grid gap-8 lg:grid-cols-2">
-            {transformations.slice(0, beforeAfterImagePairs.length).map((item, index) => (
+            {transformations.slice(0, beforeAfterVisuals.length).map((item, index) => (
               <BeforeAfterCard
                 cta={t('beforeAfter.cardCta')}
-                imagePair={beforeAfterImagePairs[index]}
                 item={item}
                 key={item.title}
                 labels={{
                   before: t('beforeAfter.labels.before'),
                   after: t('beforeAfter.labels.after'),
+                  focus: t('beforeAfter.labels.focus'),
                 }}
+                visual={beforeAfterVisuals[index]}
               />
             ))}
           </div>

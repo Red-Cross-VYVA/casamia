@@ -24,8 +24,8 @@ const NOT_SURE_PLAN = 'Not sure yet'
 const ASSESSMENT_VISIT_FEE = '€89'
 const SCHEDULE_INSPECTION_URL =
   'https://wa.me/34900000000?text=I%20would%20like%20to%20request%20a%20CasaMia%20in-home%20safety%20assessment%20visit%20for%2089%20euros.'
-const CASAMIA_WEBSITE_URL = 'https://casamia-seniors.myshopify.com/'
-const CASAMIA_PHONE = '+34 900 000 000'
+const CasaMia_WEBSITE_URL = 'https://CasaMia-seniors.myshopify.com/'
+const CasaMia_PHONE = '+34 900 000 000'
 
 export function buildAssessmentCustomerConfirmation(
   payload: AssessmentCustomerConfirmationPayload,
@@ -44,10 +44,10 @@ export function buildAssessmentCustomerConfirmation(
 
 function buildSubject(selectedPlan: string) {
   if (selectedPlan && selectedPlan !== NOT_SURE_PLAN) {
-    return `Your Casamia ${selectedPlan} Assessment Visit Request Has Been Received`
+    return `Your CasaMia ${selectedPlan} Assessment Visit Request Has Been Received`
   }
 
-  return 'Your Casamia In-Home Safety Assessment Request Has Been Received'
+  return 'Your CasaMia In-Home Safety Assessment Request Has Been Received'
 }
 
 function buildCustomerDetails(
@@ -75,7 +75,7 @@ function buildCustomerDetails(
 
 function buildPlainText(details: CustomerDetail[], reassurance: string) {
   return [
-    'Thank you for contacting Casamia',
+    'Thank you for contacting CasaMia',
     '',
     "We've received your request and our team will review your details shortly.",
     '',
@@ -83,7 +83,7 @@ function buildPlainText(details: CustomerDetail[], reassurance: string) {
     ...details.map((detail) => `${detail.label}: ${detail.value}`),
     '',
     'What Happens Next',
-    '1. A Casamia representative will contact you shortly.',
+    '1. A CasaMia representative will contact you shortly.',
     `2. We will confirm your needs, local availability, and the ${ASSESSMENT_VISIT_FEE} assessment visit before booking.`,
     '3. If you choose to proceed, our safety team will visit your home and assess it room by room.',
     '4. You will receive expert recommendations and clear next steps.',
@@ -93,11 +93,11 @@ function buildPlainText(details: CustomerDetail[], reassurance: string) {
     'If you prefer, you can request the assessment visit directly using the link below.',
     `Request Assessment Visit: ${SCHEDULE_INSPECTION_URL}`,
     '',
-    'The Casamia team',
-    CASAMIA_WEBSITE_URL,
-    CASAMIA_PHONE,
+    'The CasaMia team',
+    CasaMia_WEBSITE_URL,
+    CasaMia_PHONE,
     '',
-    'Your information will only be used to process your request and contact you about your Casamia in-home safety assessment visit.',
+    'Your information will only be used to process your request and contact you about your CasaMia in-home safety assessment visit.',
   ].join('\n')
 }
 
@@ -122,8 +122,8 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
     <main style="max-width: 720px; margin: 0 auto; padding: 28px 16px;">
       <section style="background: #ffffff; border: 1px solid #d8e5ef; border-radius: 12px; overflow: hidden;">
         <header style="padding: 30px; background: #0f6286; color: #ffffff;">
-          <p style="margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Casamia</p>
-          <h1 style="margin: 0; font-size: 28px; line-height: 1.2;">Thank you for contacting Casamia</h1>
+          <p style="margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">CasaMia</p>
+          <h1 style="margin: 0; font-size: 28px; line-height: 1.2;">Thank you for contacting CasaMia</h1>
           <p style="margin: 12px 0 0; color: rgba(255,255,255,0.88); font-size: 16px; line-height: 1.55;">We've received your request and our team will review your details shortly.</p>
         </header>
 
@@ -138,7 +138,7 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
           <section style="margin-top: 26px;">
             <h2 style="margin: 0 0 12px; color: #102235; font-size: 19px;">What Happens Next</h2>
             <ol style="margin: 0; padding-left: 22px; color: #26384a; font-size: 15px; line-height: 1.65;">
-              <li>A Casamia representative will contact you shortly.</li>
+              <li>A CasaMia representative will contact you shortly.</li>
               <li>We will confirm your needs, local availability, and the ${ASSESSMENT_VISIT_FEE} assessment visit before booking.</li>
               <li>If you choose to proceed, our safety team will visit your home and assess it room by room.</li>
               <li>You will receive expert recommendations and clear next steps.</li>
@@ -157,10 +157,10 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
           </section>
 
           <footer style="margin-top: 28px; padding-top: 20px; border-top: 1px solid #d8e5ef; color: #5b6d7d; font-size: 13px; line-height: 1.55;">
-            <p style="margin: 0 0 8px; color: #102235; font-weight: 700;">The Casamia team</p>
-            <p style="margin: 0;"><a href="${CASAMIA_WEBSITE_URL}" style="color: #0f6286;">${CASAMIA_WEBSITE_URL}</a></p>
-            <p style="margin: 4px 0 0;">${CASAMIA_PHONE}</p>
-            <p style="margin: 16px 0 0;">Your information will only be used to process your request and contact you about your Casamia in-home safety assessment visit.</p>
+            <p style="margin: 0 0 8px; color: #102235; font-weight: 700;">The CasaMia team</p>
+            <p style="margin: 0;"><a href="${CasaMia_WEBSITE_URL}" style="color: #0f6286;">${CasaMia_WEBSITE_URL}</a></p>
+            <p style="margin: 4px 0 0;">${CasaMia_PHONE}</p>
+            <p style="margin: 16px 0 0;">Your information will only be used to process your request and contact you about your CasaMia in-home safety assessment visit.</p>
           </footer>
         </div>
       </section>

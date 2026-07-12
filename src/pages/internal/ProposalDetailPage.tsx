@@ -16,8 +16,8 @@ export function ProposalDetailPage() {
 
   useEffect(() => {
     document.title = proposal
-      ? `${proposal.id} | Casamia Proposal`
-      : 'Proposal Not Found | Casamia Operations'
+      ? `${proposal.id} | CasaMia Proposal`
+      : 'Proposal Not Found | CasaMia Operations'
   }, [proposal])
 
   useEffect(() => {

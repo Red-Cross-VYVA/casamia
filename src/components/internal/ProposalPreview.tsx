@@ -157,7 +157,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
           </div>
           <div className="rounded-lg bg-navy p-5 text-white">
             <PreviewRow label="Subtotal" value={formatCurrency(totals.subtotal)} inverse />
-            <PreviewRow label="Grant eligible" value={formatCurrency(totals.grantEligibleAmount)} inverse />
+            <PreviewRow label="Potentially grant-relevant amount" value={formatCurrency(totals.grantEligibleAmount)} inverse />
             <PreviewRow label="Deposit due" value={formatCurrency(totals.depositDue)} inverse />
             <PreviewRow label="Balance due" value={formatCurrency(totals.balanceDue)} inverse />
             <div className="mt-4 border-t border-white/15 pt-4">

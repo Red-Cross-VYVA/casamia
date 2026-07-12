@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:production": "npm run validate:legal-config && npm run build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node scripts/legal-launch-checks.mjs",
+    "validate:legal-config": "node scripts/validate-legal-config.mjs"
   },
   "dependencies": {
     "i18next": "^26.3.2",

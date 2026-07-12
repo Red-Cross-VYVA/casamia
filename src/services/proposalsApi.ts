@@ -253,7 +253,7 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
     overallRiskLevel: (safeText(raw.overall_risk_level, 'Moderate') || 'Moderate') as ProposalData['overallRiskLevel'],
     paymentTerms: safeText(raw.payment_terms, getDefaultPaymentTerms(selectedPlan)),
     phone: safeText(raw.customer_phone ?? raw.phone),
-    preparedBy: safeText(raw.prepared_by, 'Casamia Operations'),
+    preparedBy: safeText(raw.prepared_by, 'CasaMia Operations'),
     proposalDate: safeText(raw.proposal_date, new Date().toISOString().slice(0, 10)),
     publicToken: safeText(raw.public_token),
     safetyScore: String(raw.safety_score ?? '7'),

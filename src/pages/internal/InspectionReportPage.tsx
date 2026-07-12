@@ -31,7 +31,7 @@ type ReportDraft = {
   summary: InspectionSummary
 }
 
-const draftStorageKey = 'casamia-internal-inspection-report-v1'
+const draftStorageKey = 'CasaMia-internal-inspection-report-v1'
 
 const planOptions = [
   'Home Assessment Plan',
@@ -272,7 +272,7 @@ export function InspectionReportPage() {
   }
 
   function generateProposal() {
-    window.localStorage.setItem('casamia_current_inspection_report', JSON.stringify(draft))
+    window.localStorage.setItem('CasaMia_current_inspection_report', JSON.stringify(draft))
     navigate('/internal/proposal-generator?fromInspection=true')
   }
 
@@ -438,7 +438,7 @@ export function InspectionReportPage() {
           </section>
 
           <section className="rounded-lg border border-border bg-white p-6 shadow-soft">
-            <h2 className="font-display text-3xl font-bold text-text-dark">Recommended Casamia Plan</h2>
+            <h2 className="font-display text-3xl font-bold text-text-dark">Recommended CasaMia Plan</h2>
             <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.42fr)]">
               <div className="rounded-lg bg-light-blue p-5">
                 <p className="text-sm font-black uppercase text-text-muted">Recommended Plan</p>

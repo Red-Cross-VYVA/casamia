@@ -6,7 +6,7 @@ const publicApiBaseUrl = (
 ).replace(/\/$/, '')
 
 export function hasPublicSiteApi() {
-  return Boolean(publicApiBaseUrl)
+  return Boolean(publicApiBaseUrl) || import.meta.env.PROD
 }
 
 export function getPublicSiteApiBaseUrl() {
@@ -18,7 +18,7 @@ export async function postPublicSiteJson<T>(
   payload: unknown,
   init: RequestInit = {},
 ) {
-  if (!publicApiBaseUrl) {
+  if (!hasPublicSiteApi()) {
     throw new Error('Public website API URL is not configured.')
   }
 
@@ -40,7 +40,7 @@ export async function postPublicSiteJson<T>(
 }
 
 export async function getPublicSiteJson<T>(path: string, init: RequestInit = {}) {
-  if (!publicApiBaseUrl) {
+  if (!hasPublicSiteApi()) {
     throw new Error('Public website API URL is not configured.')
   }
 

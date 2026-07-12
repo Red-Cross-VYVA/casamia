@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 
 import { BrandLogo } from './components/BrandLogo'
+import { CookieConsent } from './components/CookieConsent'
 import { Footer } from './components/Footer'
 import { Nav } from './components/Nav'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
@@ -16,6 +17,10 @@ const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) =>
 const BeforeAfterPage = lazy(() =>
   import('./pages/BeforeAfterPage').then(({ BeforeAfterPage }) => ({ default: BeforeAfterPage })),
 )
+const BlogArticlePage = lazy(() =>
+  import('./pages/BlogArticlePage').then(({ BlogArticlePage }) => ({ default: BlogArticlePage })),
+)
+const BlogPage = lazy(() => import('./pages/BlogPage').then(({ BlogPage }) => ({ default: BlogPage })))
 const ContactPage = lazy(() => import('./pages/ContactPage').then(({ ContactPage }) => ({ default: ContactPage })))
 const EstimateReportPage = lazy(() =>
   import('./pages/EstimateReportPage').then(({ EstimateReportPage }) => ({ default: EstimateReportPage })),
@@ -33,6 +38,9 @@ const HomePage = lazy(() => import('./pages/HomePage').then(({ HomePage }) => ({
 const HowItWorksPage = lazy(() =>
   import('./pages/HowItWorksPage').then(({ HowItWorksPage }) => ({ default: HowItWorksPage })),
 )
+const LegalDocumentPage = lazy(() =>
+  import('./pages/LegalDocumentPage').then(({ LegalDocumentPage }) => ({ default: LegalDocumentPage })),
+)
 const InspectionReportPage = lazy(() =>
   import('./pages/internal/InspectionReportPage').then(({ InspectionReportPage }) => ({
     default: InspectionReportPage,
@@ -48,6 +56,11 @@ const InternalProposalsPage = lazy(() =>
     default: InternalProposalsPage,
   })),
 )
+const InternalProviderPartnersPage = lazy(() =>
+  import('./pages/internal/InternalProviderPartnersPage').then(({ InternalProviderPartnersPage }) => ({
+    default: InternalProviderPartnersPage,
+  })),
+)
 const InternalVisitsPage = lazy(() =>
   import('./pages/internal/InternalVisitsPage').then(({ InternalVisitsPage }) => ({
     default: InternalVisitsPage,
@@ -61,6 +74,9 @@ const PlanDetailPage = lazy(() =>
   import('./pages/PlanDetailPage').then(({ PlanDetailPage }) => ({ default: PlanDetailPage })),
 )
 const PlansPage = lazy(() => import('./pages/PlansPage').then(({ PlansPage }) => ({ default: PlansPage })))
+const ProviderPartnersPage = lazy(() =>
+  import('./pages/ProviderPartnersPage').then(({ ProviderPartnersPage }) => ({ default: ProviderPartnersPage })),
+)
 const ProposalDetailPage = lazy(() =>
   import('./pages/internal/ProposalDetailPage').then(({ ProposalDetailPage }) => ({
     default: ProposalDetailPage,
@@ -92,6 +108,9 @@ const TermsAndConditionsPage = lazy(() =>
 )
 const WhyCasamiaPage = lazy(() =>
   import('./pages/WhyCasamiaPage').then(({ WhyCasamiaPage }) => ({ default: WhyCasamiaPage })),
+)
+const WithdrawalFormPage = lazy(() =>
+  import('./pages/WithdrawalFormPage').then(({ WithdrawalFormPage }) => ({ default: WithdrawalFormPage })),
 )
 
 function ScrollManager() {
@@ -152,11 +171,14 @@ function AppRoutes() {
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/plans" element={<PlansPage />} />
             <Route path="/plans/:planId" element={<PlanDetailPage />} />
+            <Route path="/provider-partners" element={<ProviderPartnersPage />} />
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/resources/:articleId" element={<ResourceArticlePage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:articleId" element={<BlogArticlePage />} />
             <Route path="/tech" element={<TechPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
@@ -171,10 +193,20 @@ function AppRoutes() {
             <Route path="/estimate/:token" element={<EstimateReportPage />} />
             <Route path="/proposal/:token" element={<PublicProposalPage />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
+            <Route path="/legal-notice" element={<LegalDocumentPage documentId="legal-notice" />} />
+            <Route path="/general-customer-terms" element={<LegalDocumentPage documentId="general-customer-terms" />} />
+            <Route path="/privacy-policy" element={<LegalDocumentPage documentId="privacy-policy" />} />
+            <Route path="/cookie-policy" element={<LegalDocumentPage documentId="cookie-policy" />} />
+            <Route path="/withdrawal-cancellation" element={<LegalDocumentPage documentId="withdrawal-cancellation" />} />
+            <Route path="/withdrawal-form" element={<WithdrawalFormPage />} />
+            <Route path="/guarantees-aftercare" element={<LegalDocumentPage documentId="guarantees-aftercare" />} />
+            <Route path="/complaints-contact" element={<LegalDocumentPage documentId="complaints-contact" />} />
+            <Route path="/accessibility-statement" element={<LegalDocumentPage documentId="accessibility-statement" />} />
             <Route path="/internal" element={<InternalDashboardPage />} />
             <Route path="/internal/visits" element={<InternalVisitsPage />} />
             <Route path="/internal/inspection-report" element={<InspectionReportPage />} />
             <Route path="/internal/proposals" element={<InternalProposalsPage />} />
+            <Route path="/internal/provider-partners" element={<InternalProviderPartnersPage />} />
             <Route path="/internal/proposal-generator" element={<ProposalGeneratorPage />} />
             <Route path="/internal/proposals/:proposalId" element={<ProposalDetailPage />} />
             <Route path="/contact" element={<ContactPage />} />
@@ -183,6 +215,7 @@ function AppRoutes() {
         </Suspense>
       </main>
       {isInternalRoute ? null : <Footer />}
+      {isInternalRoute ? null : <CookieConsent />}
       {isInternalRoute ? null : <StickyMobileCTA />}
     </>
   )

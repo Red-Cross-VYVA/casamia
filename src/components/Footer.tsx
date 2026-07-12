@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import { legalRouteLabels } from '../constants/legalDocuments'
 
 export function Footer() {
   const { t } = useTranslation()
@@ -13,16 +14,14 @@ export function Footer() {
     { label: t('nav.services', { defaultValue: 'Solutions' }), to: '/services' },
     { label: t('nav.plans'), to: '/plans' },
     { label: t('nav.grants'), to: '/grants' },
+    { label: 'Provider Partners', to: '/provider-partners' },
     { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-casamia' },
     { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
   ]
-  const legalLinks = [
-    { label: t('footer.legal.privacy', { defaultValue: 'Privacy Policy' }), to: '/contact' },
-    { label: t('footer.legal.cookies', { defaultValue: 'Cookie Policy' }), to: '/contact' },
-    { label: t('footer.legal.terms', { defaultValue: 'Terms' }), to: '/terms-and-conditions' },
-  ]
+  const legalLinks = legalRouteLabels
   const supportLinks = [
     { label: t('nav.resources', { defaultValue: 'Guides' }), to: '/resources' },
+    { label: 'Blog', to: '/blog' },
     { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
     { label: 'Plan Adapta', to: '/plan-adapta' },
     { label: t('nav.freeAssessment', { defaultValue: 'Book Visit' }), to: '/home-safety-assessment' },
@@ -52,7 +51,7 @@ export function Footer() {
 
         <FooterColumn title={t('footer.legal.title')}>
           {legalLinks.map((link) => (
-            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+            <Link className="transition hover:text-green" key={`${link.path}-${link.label}`} to={link.path}>
               {link.label}
             </Link>
           ))}
@@ -70,7 +69,16 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="site-shell flex flex-col items-start justify-between gap-5 py-6 md:flex-row md:items-center">
           <p className="text-sm text-white/60">{t('footer.copyright')}</p>
-          <LanguageSwitcher compact inverted />
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              className="footer-cookie-button"
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('casamia:open-cookie-preferences'))}
+            >
+              Cookie preferences
+            </button>
+            <LanguageSwitcher compact inverted />
+          </div>
         </div>
       </div>
     </footer>

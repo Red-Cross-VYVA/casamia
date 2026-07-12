@@ -13,13 +13,27 @@ type GalleryItem = {
   link?: string
 }
 
+type GalleryEntry = {
+  index: number
+  item: GalleryItem
+}
+
 export function SolutionGallery() {
   const { t } = useTranslation()
   const items = t('gallery.items', { returnObjects: true }) as GalleryItem[]
   const alts = t('alts.gallery', { returnObjects: true }) as string[]
   const [activeIndex, setActiveIndex] = useState(0)
   const visibleItems = useMemo(
-    () => items.map((_, offset) => items[(activeIndex + offset) % items.length]).filter(Boolean).slice(0, 3),
+    () =>
+      items
+        .map((_, offset) => {
+          const index = (activeIndex + offset) % items.length
+          const item = items[index]
+
+          return item ? { index, item } : null
+        })
+        .filter((entry): entry is GalleryEntry => Boolean(entry))
+        .slice(0, 3),
     [activeIndex, items],
   )
 
@@ -64,8 +78,7 @@ export function SolutionGallery() {
         </div>
 
         <div className="solution-carousel" aria-live="polite">
-          {visibleItems.map((item) => {
-            const index = items.findIndex((galleryItem) => galleryItem.title === item.title)
+          {visibleItems.map(({ index, item }) => {
             const isLinked = Boolean(item.link)
             const cardContent = (
               <>
@@ -98,7 +111,7 @@ export function SolutionGallery() {
             return isLinked ? (
               <Link
                 className="solution-card solution-card-link overflow-hidden rounded-lg border border-border bg-white shadow-soft"
-                key={item.title}
+                key={`${item.title}-${index}`}
                 to={item.link ?? '/tech'}
               >
                 {cardContent}
@@ -106,7 +119,7 @@ export function SolutionGallery() {
             ) : (
               <article
                 className="solution-card overflow-hidden rounded-lg border border-border bg-white shadow-soft"
-                key={item.title}
+                key={`${item.title}-${index}`}
               >
                 {cardContent}
               </article>
@@ -118,7 +131,7 @@ export function SolutionGallery() {
           {items.map((item, index) => (
             <button
               className={index === activeIndex ? 'is-active' : ''}
-              key={item.title}
+              key={`${item.title}-${index}`}
               type="button"
               onClick={() => setActiveIndex(index)}
               aria-label={t('gallery.showItem', { title: item.title })}

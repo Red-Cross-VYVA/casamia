@@ -33,6 +33,9 @@ export function Grants() {
             {t('grants.cta')}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
+          <p className="mt-4 max-w-2xl text-sm font-bold leading-relaxed text-white/65">
+            {t('grants.disclaimer')}
+          </p>
         </div>
 
         <div className="space-y-4">

@@ -1,9 +1,11 @@
 import {
   ArrowRight,
+  BadgeEuro,
   Camera,
   Check,
   ChevronLeft,
   ClipboardCheck,
+  FileCheck,
   FileText,
   Home,
   LoaderCircle,
@@ -37,6 +39,7 @@ import {
 } from '../services/estimateWorkflow'
 import { isReportDeliveryReady, type ReportDeliveryFormValue } from '../utils/reportDelivery'
 import { trackEvent } from '../utils/analytics'
+import { consumeSafetyReportModalRequest, safetyReportModalEvent } from '../utils/safetyReportModal'
 
 type WizardStep = 0 | 1 | 2 | 3
 type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error'
@@ -186,6 +189,23 @@ export function UploadEstimator() {
   useEffect(() => {
     return () => {
       photosRef.current.forEach((photo) => URL.revokeObjectURL(photo.previewUrl))
+    }
+  }, [])
+
+  useEffect(() => {
+    function handleOpenSafetyReport() {
+      consumeSafetyReportModalRequest()
+      openWizard()
+    }
+
+    window.addEventListener(safetyReportModalEvent, handleOpenSafetyReport)
+
+    if (consumeSafetyReportModalRequest()) {
+      handleOpenSafetyReport()
+    }
+
+    return () => {
+      window.removeEventListener(safetyReportModalEvent, handleOpenSafetyReport)
     }
   }, [])
 
@@ -367,26 +387,22 @@ export function UploadEstimator() {
     <div className="hero-estimator mt-10 max-w-xl" id="estimate-upload">
       <div className="free-check-grid">
         <button type="button" className="free-check-card is-primary" onClick={openWizard}>
-          <span className="free-check-icon">
-            <Upload size={22} aria-hidden="true" />
+          <span className="free-check-icon is-report">
+            <FileCheck size={23} aria-hidden="true" />
           </span>
           <span className="free-check-copy">
             <strong>{t('hero.safetyCheck.title')}</strong>
-            <small>{t('hero.safetyCheck.body')}</small>
-            <span>{t('hero.safetyCheck.cta')}</span>
           </span>
           <span className="free-check-arrow" aria-hidden="true">
             <ArrowRight size={20} />
           </span>
         </button>
-        <Link className="free-check-card" to="/grant-check">
-          <span className="free-check-icon is-gold">
-            <ClipboardCheck size={22} aria-hidden="true" />
+        <Link className="free-check-card is-grant" to="/grant-check">
+          <span className="free-check-icon is-grant">
+            <BadgeEuro size={23} aria-hidden="true" />
           </span>
           <span className="free-check-copy">
             <strong>{t('hero.grantCheck.title')}</strong>
-            <small>{t('hero.grantCheck.body')}</small>
-            <span>{t('hero.grantCheck.cta')}</span>
           </span>
           <span className="free-check-arrow" aria-hidden="true">
             <ArrowRight size={20} />
@@ -870,7 +886,10 @@ function ResultStep({
             <FileText size={19} aria-hidden="true" />
             {t('estimator.workflow.result.viewReport')}
           </Link>
-          <Link className="btn btn-green" to="/home-safety-assessment">
+          <Link
+            className="btn btn-green"
+            to={`/home-safety-assessment?source=free-report&report=${encodeURIComponent(report.token)}#assessment-form`}
+          >
             {t('estimator.workflow.result.bookAssessment')}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
