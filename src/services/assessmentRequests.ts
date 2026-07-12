@@ -13,6 +13,7 @@ export type AssessmentRequestInput = {
   selectedPlan: string
   consentAt: string
   source: string
+  reportToken?: string
 }
 
 const assessmentSubmitUrl = (import.meta.env.VITE_ASSESSMENT_SUBMIT_URL ?? '').trim()
@@ -51,6 +52,7 @@ export async function submitAssessmentRequest(input: AssessmentRequestInput) {
       selected_plan: input.selectedPlan,
       consent_at: input.consentAt,
       status: 'New',
+      report_token: input.reportToken,
       ...input,
       notification,
       customerConfirmation,

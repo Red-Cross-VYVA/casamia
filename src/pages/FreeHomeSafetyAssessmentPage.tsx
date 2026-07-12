@@ -6,9 +6,12 @@ import {
   Lightbulb,
   LoaderCircle,
   LocateFixed,
+  Mail,
+  PhoneCall,
   ShieldCheck,
   SmilePlus,
   Stethoscope,
+  UserRound,
   UsersRound,
   WalletCards,
 } from 'lucide-react'
@@ -113,7 +116,7 @@ function isValidEmail(value: string) {
 }
 
 export function FreeHomeSafetyAssessmentPage() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const [searchParams] = useSearchParams()
   const benefits = t('assessment.benefits.items', { returnObjects: true }) as BenefitItem[]
   const included = t('assessment.included.items', { returnObjects: true }) as IncludedItem[]
@@ -124,6 +127,8 @@ export function FreeHomeSafetyAssessmentPage() {
     label: string
   }>
   const selectedPlanValue = searchParams.get('plan') ?? ''
+  const isReportBookingFlow = searchParams.get('source') === 'free-report'
+  const isSpanish = i18n.language.startsWith('es')
   const selectedPlanId = checkoutPlanValues.has(selectedPlanValue) ? (selectedPlanValue as PlanId) : null
   const isCheckoutFlow = Boolean(selectedPlanId)
   const selectedPlanLabel = useMemo(
@@ -136,15 +141,37 @@ export function FreeHomeSafetyAssessmentPage() {
     document.title = `${t('assessment.metaTitle')} | CasaMia`
   }, [t])
 
+  useEffect(() => {
+    if (!isReportBookingFlow) {
+      return
+    }
+
+    window.requestAnimationFrame(() => {
+      document.getElementById('assessment-form')?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    })
+  }, [isReportBookingFlow])
+
   return (
     <>
       <section className="assessment-hero">
         <div className="assessment-hero-grid site-shell">
           <div>
-            <h1>{isCheckoutFlow ? `Finalize your ${selectedPlanLabel} order` : t('assessment.hero.title')}</h1>
+            <h1>
+              {isCheckoutFlow
+                ? `Finalize your ${selectedPlanLabel} order`
+                : isReportBookingFlow
+                  ? isSpanish
+                    ? 'Coordina tu evaluación a domicilio'
+                    : 'Coordinate your in-home assessment'
+                  : t('assessment.hero.title')}
+            </h1>
             <p>
               {isCheckoutFlow
                 ? 'Review your package, add the home address and contact details, then continue to online payment or ask CasaMia to help you finish.'
+                : isReportBookingFlow
+                  ? isSpanish
+                    ? 'Ya has completado el informe gratuito. Elige el mejor canal y horario para que CasaMia coordine la visita.'
+                    : 'You have completed the free report. Choose the best way and time for CasaMia to coordinate the visit.'
                 : t('assessment.hero.subtitle')}
             </p>
             <div className="assessment-hero-actions">
@@ -289,8 +316,20 @@ export function FreeHomeSafetyAssessmentPage() {
       <section className="assessment-form-section section-pad">
         <div className="assessment-form-layout site-shell">
           <div className="assessment-form-copy">
-            <h2 className="display-title">{t('assessment.formSection.title')}</h2>
-            <p>{t('assessment.formSection.body')}</p>
+            <h2 className="display-title">
+              {isReportBookingFlow
+                ? isSpanish
+                  ? 'Elige cómo debe coordinar CasaMia la visita'
+                  : 'Choose how CasaMia should coordinate the visit'
+                : t('assessment.formSection.title')}
+            </h2>
+            <p>
+              {isReportBookingFlow
+                ? isSpanish
+                  ? 'No hace falta repetir todo el formulario. Indica el canal y horario más cómodo para que el equipo confirme tu evaluación a domicilio.'
+                  : 'No need to repeat the full contact form. Tell us the best contact channel and timing so the team can confirm your in-home assessment.'
+                : t('assessment.formSection.body')}
+            </p>
           </div>
           {isCheckoutFlow ? (
             <div className="assessment-form-return-card">
@@ -302,7 +341,7 @@ export function FreeHomeSafetyAssessmentPage() {
               </a>
             </div>
           ) : (
-            <AssessmentForm />
+            <AssessmentForm mode={isReportBookingFlow ? 'booking' : 'default'} />
           )}
         </div>
       </section>
@@ -369,9 +408,30 @@ function OrderCheckoutWizard({
 
   function updateValue<Field extends keyof CheckoutValues>(field: Field, value: CheckoutValues[Field]) {
     setValues((current) => ({ ...current, [field]: value }))
-    setErrors((current) => ({ ...current, [field]: '' }))
+    setErrors((current) => ({
+      ...current,
+      [field]: '',
+      ...(field === 'phone' || field === 'email' ? { contact: '' } : {}),
+    }))
     setConsentEvidenceMessage('')
     setAddressDetectionMessage('')
+  }
+
+  function validateEmailField(value = values.email) {
+    const email = value.trim()
+
+    if (!email) {
+      setErrors((current) => ({ ...current, email: '' }))
+      return true
+    }
+
+    if (!isValidEmail(email)) {
+      setErrors((current) => ({ ...current, email: 'Enter a valid email address, for example name@email.com.' }))
+      return false
+    }
+
+    setErrors((current) => ({ ...current, email: '' }))
+    return true
   }
 
   function detectAddress() {
@@ -778,33 +838,55 @@ function OrderCheckoutWizard({
         <section className="order-wizard-step">
           <p className="eyebrow">Contact information</p>
           <h2>Who should we contact?</h2>
-          <p className="order-wizard-step-copy">
-            Add the main contact for this order. Phone or email is enough, but both helps us confirm details faster.
-          </p>
-          <div className="order-wizard-fields">
-            <WizardField error={errors.name} label="Full name" required>
+          <div className="order-contact-intro">
+            <span>
+              <UserRound size={22} aria-hidden="true" />
+            </span>
+            <div>
+              <strong>Main order contact</strong>
+              <p>Phone or email is required. Adding both helps us confirm the visit and payment details faster.</p>
+            </div>
+          </div>
+          <div className="order-contact-grid">
+            <WizardField error={errors.name} label="Full name" required wide>
               <input
+                aria-invalid={Boolean(errors.name)}
                 autoComplete="name"
                 onChange={(event) => updateValue('name', event.target.value)}
                 type="text"
                 value={values.name}
               />
             </WizardField>
-            <PhoneNumberField
-              className="order-wizard-field"
-              error={errors.phone ?? errors.contact}
-              label="Phone number"
-              value={values.phone}
-              onChange={(nextValue) => updateValue('phone', nextValue)}
-            />
-            <WizardField error={errors.email ?? errors.contact} label="Email address">
-              <input
-                autoComplete="email"
-                onChange={(event) => updateValue('email', event.target.value)}
-                type="email"
-                value={values.email}
+            <div className="order-contact-method-card">
+              <span className="order-contact-method-icon">
+                <PhoneCall size={19} aria-hidden="true" />
+              </span>
+              <PhoneNumberField
+                className="order-wizard-field"
+                error={errors.phone ?? errors.contact}
+                helperText="Spanish number, 9 digits. Example: +34 600 000 000"
+                label="Phone number"
+                value={values.phone}
+                onChange={(nextValue) => updateValue('phone', nextValue)}
               />
-            </WizardField>
+            </div>
+            <div className="order-contact-method-card">
+              <span className="order-contact-method-icon">
+                <Mail size={19} aria-hidden="true" />
+              </span>
+              <WizardField error={errors.email ?? errors.contact} label="Email address">
+                <input
+                  aria-invalid={Boolean(errors.email ?? errors.contact)}
+                  autoComplete="email"
+                  inputMode="email"
+                  onBlur={(event) => validateEmailField(event.target.value)}
+                  onChange={(event) => updateValue('email', event.target.value)}
+                  placeholder="name@email.com"
+                  type="email"
+                  value={values.email}
+                />
+              </WizardField>
+            </div>
           </div>
           <div className="order-visit-preferences">
             <div>
@@ -1011,7 +1093,7 @@ function WizardField({
   wide?: boolean
 }) {
   return (
-    <label className={`order-wizard-field${wide ? ' is-wide' : ''}`}>
+    <label className={`order-wizard-field${wide ? ' is-wide' : ''}${error ? ' has-error' : ''}`}>
       <span>
         {label}
         {required ? <strong> *</strong> : null}

@@ -886,7 +886,10 @@ function ResultStep({
             <FileText size={19} aria-hidden="true" />
             {t('estimator.workflow.result.viewReport')}
           </Link>
-          <Link className="btn btn-green" to="/home-safety-assessment">
+          <Link
+            className="btn btn-green"
+            to={`/home-safety-assessment?source=free-report&report=${encodeURIComponent(report.token)}#assessment-form`}
+          >
             {t('estimator.workflow.result.bookAssessment')}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
