@@ -64,7 +64,8 @@ export const consentEvidenceApiContract = {
     'consent_evidence(id, order_id, customer_reference, consent_type, wording, wording_version, terms_version, project_order_version, locale, contract_language, channel, timestamp, metadata_json)',
 } as const
 
-const consentApiUrl = import.meta.env.VITE_CONSENT_EVIDENCE_API_URL || ''
+const consentApiUrl =
+  import.meta.env.VITE_CONSENT_EVIDENCE_API_URL || (import.meta.env.PROD ? '/api/consent-evidence' : '')
 
 export function consentEvidenceBackendConfigured() {
   return Boolean(consentApiUrl)

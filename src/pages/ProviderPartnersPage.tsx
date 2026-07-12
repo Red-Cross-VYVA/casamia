@@ -195,9 +195,9 @@ export function ProviderPartnersPage() {
 
     setValues(initialValues)
     setSubmissionMessage(
-      result.storedInBackend
-        ? `Application ${result.application.id} submitted. CasaMia will review your fit and city coverage.`
-        : `Application ${result.application.id} saved locally for review. Connect VITE_PROVIDER_APPLICATION_API_URL before using this as a live application inbox.`,
+        result.storedInBackend
+          ? `Application ${result.application.id} submitted. CasaMia will review your fit and city coverage.`
+          : `Application ${result.application.id} saved locally for review. Deploy on Vercel with Supabase configured before using this as a live application inbox.`,
     )
   }
 

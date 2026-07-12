@@ -576,6 +576,7 @@ function OrderCheckoutWizard({
     const orderDraft = {
       orderId,
       createdAt: new Date().toISOString(),
+      status: 'New',
       planId,
       planLabel,
       planPrice: planSummary.price,
@@ -589,6 +590,21 @@ function OrderCheckoutWizard({
       preferredTiming: values.preferredTiming,
       notes: values.notes.trim(),
       paymentMethod: values.paymentMethod,
+    }
+    const orderApiUrl = import.meta.env.VITE_ORDER_API_URL || (import.meta.env.PROD ? '/api/public/orders' : '')
+
+    if (orderApiUrl) {
+      const response = await fetch(orderApiUrl, {
+        body: JSON.stringify(orderDraft),
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+      })
+
+      if (!response.ok) {
+        setConsentEvidenceMessage(`Order storage failed with ${response.status}. The order has not been confirmed.`)
+        setActiveStep(3)
+        return
+      }
     }
 
     const existing = JSON.parse(localStorage.getItem('casamia_order_drafts') ?? '[]') as unknown[]

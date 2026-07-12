@@ -19,7 +19,8 @@ export type ProviderApplication = {
 export type ProviderApplicationInput = Omit<ProviderApplication, 'createdAt' | 'id' | 'status'>
 
 const storageKey = 'casamia_provider_applications'
-const providerApplicationApiUrl = import.meta.env.VITE_PROVIDER_APPLICATION_API_URL || ''
+const providerApplicationApiUrl =
+  import.meta.env.VITE_PROVIDER_APPLICATION_API_URL || (import.meta.env.PROD ? '/api/public/provider-applications' : '')
 
 export function providerApplicationBackendConfigured() {
   return Boolean(providerApplicationApiUrl)

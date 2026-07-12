@@ -49,7 +49,8 @@ export function WithdrawalFormPage() {
   const [values, setValues] = useState<WithdrawalValues>(initialValues)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [confirmationReference, setConfirmationReference] = useState('')
-  const withdrawalBackendConfigured = Boolean(import.meta.env.VITE_WITHDRAWAL_API_URL)
+  const withdrawalApiUrl = import.meta.env.VITE_WITHDRAWAL_API_URL || (import.meta.env.PROD ? '/api/withdrawal-requests' : '')
+  const withdrawalBackendConfigured = Boolean(withdrawalApiUrl)
   const downloadableText = useMemo(
     () => buildWithdrawalText(values, confirmationReference || 'DRAFT'),
     [confirmationReference, values],
@@ -79,7 +80,7 @@ export function WithdrawalFormPage() {
 
     if (withdrawalBackendConfigured) {
       // The public contract is defined here; production should wire this to a durable backend receipt service.
-      await fetch(import.meta.env.VITE_WITHDRAWAL_API_URL, {
+      await fetch(withdrawalApiUrl, {
         body: JSON.stringify(values),
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',

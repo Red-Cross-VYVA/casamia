@@ -54,7 +54,7 @@ export function InternalProviderPartnersPage() {
       <p className="mb-5 rounded-lg bg-light-blue px-4 py-3 text-sm font-bold text-text-mid">
         {providerApplicationBackendConfigured()
           ? 'Provider application API is configured.'
-          : 'Frontend-only inbox: applications are stored in this browser until VITE_PROVIDER_APPLICATION_API_URL is connected.'}
+          : 'Frontend-only inbox in local development. Production uses Vercel API routes with Supabase when configured.'}
       </p>
 
       <section className="mb-6 grid gap-5 md:grid-cols-3">
