@@ -143,10 +143,6 @@ export function BlogPage() {
               <p className="eyebrow">Latest articles</p>
               <h2>Start with the topic closest to your family situation.</h2>
             </div>
-            <Link className="btn btn-navy" to="/resources">
-              View Guides
-              <ArrowRight size={19} aria-hidden="true" />
-            </Link>
           </div>
 
           <div className="blog-card-grid">

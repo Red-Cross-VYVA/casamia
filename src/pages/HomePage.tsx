@@ -17,11 +17,11 @@ export function HomePage() {
       <Hero />
       <TrustBar />
       <Prevention />
-      <SolutionGallery />
+      <BeforeAfterPreview />
       <WhatWeOffer />
       <SampleReportPreview />
       <TrustSection />
-      <BeforeAfterPreview />
+      <SolutionGallery />
       <Plans />
       <Grants />
       <EuroSafe />

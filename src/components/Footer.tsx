@@ -15,17 +15,15 @@ export function Footer() {
     { label: t('nav.plans'), to: '/plans' },
     { label: t('nav.grants'), to: '/grants' },
     { label: 'Provider Partners', to: '/provider-partners' },
-    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-casamia' },
+    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-us' },
+    { label: 'Blog', to: '/blog' },
     { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
   ]
   const legalLinks = legalRouteLabels
   const supportLinks = [
-    { label: t('nav.resources', { defaultValue: 'Guides' }), to: '/resources' },
-    { label: 'Blog', to: '/blog' },
     { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
     { label: 'Plan Adapta', to: '/plan-adapta' },
     { label: t('nav.freeAssessment', { defaultValue: 'Book Visit' }), to: '/home-safety-assessment' },
-    { label: t('nav.contact'), to: '/contact' },
   ]
 
   return (

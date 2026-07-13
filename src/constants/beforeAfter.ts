@@ -16,8 +16,8 @@ export const beforeAfterVisuals: BeforeAfterVisual[] = [
     mode: 'compare',
   },
   {
-    before: '/images/before-after/stairs-before.jpg',
-    after: '/images/before-after/stairs-after.jpg',
+    before: '/images/before-after/stairs-before.png',
+    after: '/images/before-after/stairs-after.png',
     mode: 'compare',
   },
   {
@@ -26,15 +26,18 @@ export const beforeAfterVisuals: BeforeAfterVisual[] = [
     mode: 'compare',
   },
   {
-    before: '/images/solutions/front-view-adorable-couple-kitchen.jpg',
-    mode: 'focus',
+    before: '/images/before-after/kitchen-before.png',
+    after: '/images/before-after/kitchen-after.png',
+    mode: 'compare',
   },
   {
-    before: '/images/solutions/close-up-senior-couple-together-love.jpg',
-    mode: 'focus',
+    before: '/images/before-after/bedroom-before.png',
+    after: '/images/before-after/bedroom-after.png',
+    mode: 'compare',
   },
   {
-    before: '/images/solutions/portrait-lovely-couple-together.jpg',
-    mode: 'focus',
+    before: '/images/before-after/living-before.png',
+    after: '/images/before-after/living-after.png',
+    mode: 'compare',
   },
 ]

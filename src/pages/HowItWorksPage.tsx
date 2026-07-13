@@ -133,11 +133,11 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       'CasaMia reviews the rooms that matter, prioritises the real risks, and coordinates practical adaptations or smart safety when they are useful.',
     primaryCta: 'Start Free Safety Report',
     secondaryCta: 'Book In-Home Visit',
-    heroAlt: 'Older couple preparing food together at home',
-    statusTitle: 'Request tracking',
+    heroAlt: 'CasaMia home safety worker ready for a home assessment',
+    statusTitle: 'Your request, clearly managed',
     statusRows: [
       { label: 'Photos or visit', value: 'Received' },
-      { label: 'Review and report', value: 'In progress' },
+      { label: 'Safety review', value: 'Checked' },
       { label: 'Plan and next step', value: 'Ready' },
     ],
     processEyebrow: 'How it works',
@@ -321,11 +321,11 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       'CasaMia revisa las estancias importantes, prioriza los riesgos reales y coordina adaptaciones o seguridad smart cuando aporta valor.',
     primaryCta: 'Empezar informe gratis',
     secondaryCta: 'Reservar visita',
-    heroAlt: 'Pareja mayor preparando comida juntos en casa',
-    statusTitle: 'Seguimiento',
+    heroAlt: 'Profesional de CasaMia preparado para una evaluación de seguridad en casa',
+    statusTitle: 'Tu solicitud, bien coordinada',
     statusRows: [
       { label: 'Fotos o visita', value: 'Recibido' },
-      { label: 'Revisi\u00f3n e informe', value: 'En curso' },
+      { label: 'Revisi\u00f3n de seguridad', value: 'Comprobado' },
       { label: 'Plan y siguiente paso', value: 'Listo' },
     ],
     processEyebrow: 'C\u00f3mo funciona',
@@ -515,42 +515,28 @@ export function HowItWorksPage() {
   const [activeReviewIndex, setActiveReviewIndex] = useState(0)
   const activeReviewArea = copy.reviewAreas[activeReviewIndex] ?? copy.reviewAreas[0]
   const ActiveReviewIcon = activeReviewArea ? howIcons[activeReviewArea.icon] : ShieldCheck
-  const contractorModel = i18n.language.startsWith('es')
+  const projectSupport = i18n.language.startsWith('es')
     ? {
+        eyebrow: 'Acompa\u00f1amiento',
         body:
-          'Contratas directamente con CasaMia. CasaMia evalua tus necesidades, prepara el proyecto, cobra los pagos, coordina el trabajo y sigue siendo responsable de completar el servicio contratado. Podemos designar a un profesional local verificado para realizar la instalacion como subcontratista de CasaMia.',
-        journey: [
-          'Evaluacion de seguridad del hogar',
-          'Propuesta escrita y alcance definido',
-          'Aprobacion del cliente',
-          'Pago inicial del 50%',
-          'Asignacion de profesional local cualificado',
-          'Instalacion y pruebas de seguridad',
-          'Acta de instalacion y aceptacion',
-          'Pago final del 50%',
-          'Garantias y posventa gestionadas por CasaMia',
+          'Te damos un camino claro desde la primera revisi\u00f3n hasta la soluci\u00f3n final, sin que tengas que coordinar cada detalle por tu cuenta.',
+        highlights: [
+          'Un equipo que revisa la vivienda y explica las prioridades',
+          'Una propuesta clara antes de decidir',
+          'Coordinaci\u00f3n de visita, instalaci\u00f3n y seguimiento',
         ],
-        title: 'Tu contrato es con CasaMia',
-        warning:
-          'Nunca pagues directamente a un instalador. Los tecnicos y subcontratistas de CasaMia no estan autorizados a pedir efectivo, anticipos, propinas ni pagos por trabajos adicionales.',
+        title: 'CasaMia coordina el proceso por ti',
       }
     : {
+        eyebrow: 'Project support',
         body:
-          'You contract directly with CasaMia. CasaMia assesses your requirements, prepares the project, collects payment, coordinates the work and remains responsible for completing the contracted service. We may appoint a vetted local professional to carry out the installation as CasaMia subcontractor.',
-        journey: [
-          'Home-safety assessment',
-          'Written proposal and defined scope',
-          'Customer approval',
-          'Initial 50% payment',
-          'Appointment of a qualified local provider',
-          'Installation and safety testing',
-          'Installation acceptance record',
-          'Final 50% payment',
-          'CasaMia-managed guarantees and aftercare',
+          'We give you a clear path from the first review to the final solution, so your family does not have to coordinate every detail alone.',
+        highlights: [
+          'One team reviews the home and explains the priorities',
+          'You see a clear proposal before deciding',
+          'Visits, installation and follow-up stay coordinated',
         ],
-        title: 'Your contract is with CasaMia',
-        warning:
-          'Never pay an installer directly. CasaMia technicians and subcontractors are not authorised to request cash, deposits, tips or payments for additional work.',
+        title: 'CasaMia coordinates the process for you',
       }
 
   useEffect(() => {
@@ -618,7 +604,7 @@ export function HowItWorksPage() {
 
           <div className="how-hero-visual">
             <SafeImage
-              src={IMAGE_URLS.finalCta}
+              src="/images/solutions/casamia-worker-process.webp"
               alt={copy.heroAlt}
               className="how-hero-image"
               imgClassName="h-full w-full object-cover"
@@ -629,8 +615,11 @@ export function HowItWorksPage() {
                 <MonitorCheck size={21} aria-hidden="true" />
                 <strong>{copy.statusTitle}</strong>
               </div>
-              {copy.statusRows.map((row) => (
+              {copy.statusRows.map((row, index) => (
                 <div className="how-status-row" key={row.label}>
+                  <span className="how-status-step" aria-hidden="true">
+                    {index + 1}
+                  </span>
                   <span>{row.label}</span>
                   <strong>{row.value}</strong>
                 </div>
@@ -645,17 +634,17 @@ export function HowItWorksPage() {
       <section className="how-contract-section">
         <div className="how-contract-panel site-shell">
           <div>
-            <p className="eyebrow">Contracting model</p>
-            <h2>{contractorModel.title}</h2>
-            <p>{contractorModel.body}</p>
+            <p className="eyebrow">{projectSupport.eyebrow}</p>
+            <h2>{projectSupport.title}</h2>
+            <p>{projectSupport.body}</p>
           </div>
-          <ol>
-            {contractorModel.journey.map((item) => (
-              <li key={item}>{item}</li>
+          <div className="how-support-list">
+            {projectSupport.highlights.map((item) => (
+              <div key={item}>
+                <CheckCircle2 size={21} aria-hidden="true" />
+                <span>{item}</span>
+              </div>
             ))}
-          </ol>
-          <div className="how-contract-warning" role="note">
-            <strong>{contractorModel.warning}</strong>
           </div>
         </div>
       </section>
@@ -839,7 +828,7 @@ export function HowItWorksPage() {
             <h2>{copy.finalTitle}</h2>
             <p>{copy.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to="/contact">
+          <Link className="btn btn-green" to="/why-us#contact-form">
             {copy.finalCta}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>

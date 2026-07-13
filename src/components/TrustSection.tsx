@@ -155,7 +155,7 @@ export function TrustSection() {
           ))}
         </div>
 
-        <Link className="trust-section-link" to="/why-casamia">
+        <Link className="trust-section-link" to="/why-us">
           {copy.learnMore}
         </Link>
       </div>

@@ -21,7 +21,6 @@ const BlogArticlePage = lazy(() =>
   import('./pages/BlogArticlePage').then(({ BlogArticlePage }) => ({ default: BlogArticlePage })),
 )
 const BlogPage = lazy(() => import('./pages/BlogPage').then(({ BlogPage }) => ({ default: BlogPage })))
-const ContactPage = lazy(() => import('./pages/ContactPage').then(({ ContactPage }) => ({ default: ContactPage })))
 const EstimateReportPage = lazy(() =>
   import('./pages/EstimateReportPage').then(({ EstimateReportPage }) => ({ default: EstimateReportPage })),
 )
@@ -89,12 +88,6 @@ const ProposalGeneratorPage = lazy(() =>
 )
 const PublicProposalPage = lazy(() =>
   import('./pages/PublicProposalPage').then(({ PublicProposalPage }) => ({ default: PublicProposalPage })),
-)
-const ResourceArticlePage = lazy(() =>
-  import('./pages/ResourceArticlePage').then(({ ResourceArticlePage }) => ({ default: ResourceArticlePage })),
-)
-const ResourcesPage = lazy(() =>
-  import('./pages/ResourcesPage').then(({ ResourcesPage }) => ({ default: ResourcesPage })),
 )
 const ServiceDetailPage = lazy(() =>
   import('./pages/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })),
@@ -175,15 +168,16 @@ function AppRoutes() {
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
-            <Route path="/resources" element={<ResourcesPage />} />
-            <Route path="/resources/:articleId" element={<ResourceArticlePage />} />
+            <Route path="/resources" element={<Navigate to="/blog" replace />} />
+            <Route path="/resources/:articleId" element={<Navigate to="/blog" replace />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:articleId" element={<BlogArticlePage />} />
             <Route path="/tech" element={<TechPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
             <Route path="/plan-adapta" element={<PlanAdaptaPage />} />
-            <Route path="/why-casamia" element={<WhyCasamiaPage />} />
+            <Route path="/why-us" element={<WhyCasamiaPage />} />
+            <Route path="/why-casamia" element={<Navigate to="/why-us" replace />} />
             <Route path="/home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
             <Route path="/free-home-safety-assessment" element={<LegacyAssessmentRedirect />} />
             <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
@@ -209,7 +203,7 @@ function AppRoutes() {
             <Route path="/internal/provider-partners" element={<InternalProviderPartnersPage />} />
             <Route path="/internal/proposal-generator" element={<ProposalGeneratorPage />} />
             <Route path="/internal/proposals/:proposalId" element={<ProposalDetailPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/contact" element={<Navigate to="/why-us#contact-form" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>

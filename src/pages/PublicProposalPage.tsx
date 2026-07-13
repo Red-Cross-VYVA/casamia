@@ -72,7 +72,7 @@ export function PublicProposalPage() {
           <ShieldCheck className="mx-auto text-navy" size={40} aria-hidden="true" />
           <h1 className="mt-5 font-display text-4xl font-bold text-text-dark">Proposal link unavailable</h1>
           <p className="mt-4 text-text-mid">{error}</p>
-          <Link className="btn btn-green mt-6" to="/contact">
+          <Link className="btn btn-green mt-6" to="/why-us#contact-form">
             Contact CasaMia
           </Link>
         </div>

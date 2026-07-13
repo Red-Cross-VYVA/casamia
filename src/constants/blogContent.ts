@@ -354,7 +354,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     cta: {
       label: 'Why choose CasaMia',
-      to: '/why-casamia',
+      to: '/why-us',
     },
   },
   {

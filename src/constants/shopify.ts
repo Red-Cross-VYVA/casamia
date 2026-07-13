@@ -27,7 +27,7 @@ export const IMAGE_URLS = {
     '/images/solutions/small-bathroom-with-window-apartment.jpg',
     'https://www.lifemark.ca/document/users/guillaume.morissette%40lifemark.ca/blog_fallhome03.jpg',
     '/images/solutions/portrait-lovely-couple-together.jpg',
-    '/images/solutions/front-view-adorable-couple-kitchen.jpg',
+    '/images/solutions/casamia-staff-kitchen-consultation.webp',
     '/images/solutions/close-up-senior-couple-together-love.jpg',
     'https://casamia-seniors.myshopify.com/cdn/shop/files/beautiful-senior-man-woman-hugging.jpg',
   ],

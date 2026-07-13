@@ -1,4 +1,5 @@
 import {
+  AlertCircle,
   ArrowRight,
   BadgeCheck,
   CalendarCheck,
@@ -7,13 +8,19 @@ import {
   FileText,
   Handshake,
   Home,
+  LoaderCircle,
+  Mail,
+  Phone,
   ShieldCheck,
   Tags,
 } from 'lucide-react'
+import { type FormEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { SEO } from '../components/SEO'
 import { TrustBar } from '../components/TrustBar'
+import { submitContactRequest } from '../services/contactRequests'
 
 type WhyCasamiaCopy = {
   eyebrow: string
@@ -38,21 +45,26 @@ type WhyCasamiaCopy = {
     body: string
     points: string[]
   }>
-  ctaTitle: string
-  ctaBody: string
+  contactEyebrow: string
+  contactTitle: string
+  contactBody: string
+  callTitle: string
+  emailTitle: string
+  messagePlaceholder: string
+  formNote: string
   ctaButton: string
 }
 
 const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   en: {
-    eyebrow: 'Why CasaMia',
-    headline: 'Why Families Trust CasaMia',
+    eyebrow: 'Why us',
+    headline: 'Why families choose CasaMia',
     intro:
-      'Choosing a home safety partner means trusting someone with your home, your comfort, and your loved ones. CasaMia combines qualified inspections, trusted installation partners, transparent pricing, and careful follow-through to help seniors age in place with confidence.',
+      'Choosing a home safety partner means trusting someone with your home, your comfort, and your loved ones. CasaMia combines qualified reviews, trusted local coordination, transparent proposals, and careful follow-through.',
     heroProof: [
       { value: 'Room-by-room', label: 'risk review before recommendations' },
-      { value: 'Clear scope', label: 'before any installation is agreed' },
-      { value: 'Final acceptance', label: 'before the remaining balance is due' },
+      { value: 'Clear scope', label: 'before any work is agreed' },
+      { value: 'One team', label: 'from first concern to follow-up' },
     ],
     promiseTitle: 'A careful, accountable way to adapt the home.',
     promiseBody:
@@ -75,33 +87,33 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Coordinate delivery',
-        body: 'CasaMia keeps the installer brief, family updates, and handover details together.',
+        body: 'CasaMia keeps visit notes, installer briefing, family updates, and handover details together.',
       },
       {
-        title: 'Confirm acceptance',
-        body: 'The final balance is paid only after the completed work has been reviewed and accepted.',
+        title: 'Support after handover',
+        body: 'The family has a clear point of contact for questions, follow-up, and next steps.',
       },
     ],
     sections: [
       {
         icon: 'inspectors',
-        title: 'Qualified Safety Inspectors',
+        title: 'Qualified Safety Review',
         body:
           'Our process starts with practical home safety thinking: where falls happen, where movement feels difficult, and where simple adaptations can make daily life safer.',
         points: ['Room-by-room risk review', 'Falls, lighting, access, and mobility focus', 'Clear recommendations before work begins'],
       },
       {
         icon: 'partners',
-        title: 'Trusted Installation Partners',
+        title: 'Trusted Local Coordination',
         body:
-          'CasaMia works with installation partners selected for reliability, respect inside the home, and the ability to complete adaptations neatly.',
-        points: ['Experienced local support', 'Respectful in-home work', 'Practical installation planning'],
+          'CasaMia coordinates reliable local professionals where installation is needed, while keeping the family journey clear and joined up.',
+        points: ['Local availability checked', 'Respectful in-home work', 'Practical installation planning'],
       },
       {
         icon: 'insured',
-        title: 'Fully Insured Services',
+        title: 'Professional Standards',
         body:
-          'Families need confidence that the work is handled professionally. CasaMia structures projects around insured services and accountable delivery.',
+          'Families need confidence that the work is handled professionally. CasaMia structures projects around clear standards and accountable delivery.',
         points: ['Professional work standards', 'Clear responsibility', 'Confidence from inspection to completion'],
       },
       {
@@ -113,82 +125,89 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'pricing',
-        title: 'Transparent Pricing',
+        title: 'Transparent Proposals',
         body:
           'No family should feel pushed into unclear work. CasaMia explains the recommended scope, likely cost, and possible grant routes before installation.',
         points: ['Clear scope before commitment', 'Plan-based package structure', 'Grant-readiness guidance where available'],
       },
       {
         icon: 'acceptance',
-        title: 'Satisfaction & Customer Acceptance',
+        title: 'Clear Follow-Through',
         body:
-          'The final payment is tied to acceptance. Families pay 50% as a deposit and the remaining 50% only after reviewing the completed work.',
-        points: ['50% deposit to begin', '50% after customer acceptance', 'Follow-through until the family is comfortable'],
+          'The process does not stop at the first call. CasaMia keeps the request, notes, visit, proposal, installation and follow-up connected.',
+        points: ['Request tracked internally', 'Family updates kept together', 'Follow-up after the next step'],
       },
     ],
-    ctaTitle: 'Ready to make your home safer?',
-    ctaBody:
-      'Request a €89 in-home safety assessment visit and receive expert recommendations tailored to your home.',
+    contactEyebrow: 'Speak with CasaMia',
+    contactTitle: 'Tell us what worries you about the home.',
+    contactBody:
+      'Share the room, routine, location, and urgency. A CasaMia coordinator will route your request to the right next step.',
+    callTitle: 'Call CasaMia',
+    emailTitle: 'Email support',
+    messagePlaceholder:
+      'Example: My father is struggling with the stairs at night, we are in Marbella, and we need to understand what to fix first.',
+    formNote:
+      'Your request is reviewed by the CasaMia team so we can confirm the best next step and local availability.',
     ctaButton: 'Request In-Home Assessment',
   },
   es: {
-    eyebrow: 'Por qué CasaMia',
-    headline: 'Por qué las familias confían en CasaMia',
+    eyebrow: 'Por qué nosotros',
+    headline: 'Por qué las familias eligen CasaMia',
     intro:
-      'Elegir un partner de seguridad para el hogar significa confiarle tu casa, tu comodidad y a tus seres queridos. CasaMia combina inspecciones cualificadas, partners de instalación de confianza, precios transparentes y seguimiento cuidadoso para ayudar a las personas mayores a vivir en casa con más seguridad.',
+      'Elegir un partner de seguridad para el hogar significa confiarle tu casa, tu comodidad y a tus seres queridos. CasaMia combina revisión experta, coordinación local, propuestas claras y seguimiento cuidadoso.',
     heroProof: [
-      { value: 'Estancia por estancia', label: 'revisiÃ³n de riesgos antes de recomendar' },
-      { value: 'Alcance claro', label: 'antes de acordar cualquier instalaciÃ³n' },
-      { value: 'AceptaciÃ³n final', label: 'antes del pago restante' },
+      { value: 'Estancia por estancia', label: 'revisión de riesgos antes de recomendar' },
+      { value: 'Alcance claro', label: 'antes de acordar cualquier trabajo' },
+      { value: 'Un equipo', label: 'desde la preocupación inicial hasta el seguimiento' },
     ],
     promiseTitle: 'Una forma cuidadosa y responsable de adaptar el hogar.',
     promiseBody:
-      'CasaMia estÃ¡ pensada para familias que necesitan cambios prÃ¡cticos sin presiÃ³n, dudas ni entregas confusas. Cada recomendaciÃ³n empieza por la persona, la vivienda y la rutina diaria.',
+      'CasaMia está pensada para familias que necesitan cambios prácticos sin presión, dudas ni entregas confusas. Cada recomendación empieza por la persona, la vivienda y la rutina diaria.',
     promisePoints: [
-      'Explicamos por quÃ© se recomienda cada adaptaciÃ³n.',
+      'Explicamos por qué se recomienda cada adaptación.',
       'Separamos prioridades urgentes de mejoras opcionales.',
-      'Mantenemos informada a la familia desde la revisiÃ³n hasta la finalizaciÃ³n.',
+      'Mantenemos informada a la familia desde la revisión hasta la finalización.',
     ],
-    processEyebrow: 'MÃ©todo CasaMia',
-    processTitle: 'CÃ³mo incorporamos confianza al trabajo',
+    processEyebrow: 'Método CasaMia',
+    processTitle: 'Cómo incorporamos confianza al trabajo',
     processSteps: [
       {
         title: 'Evaluar primero',
-        body: 'Revisamos estancias, recorridos, movilidad, iluminaciÃ³n, accesos y puntos de transferencia antes de proponer productos.',
+        body: 'Revisamos estancias, recorridos, movilidad, iluminación, accesos y puntos de transferencia antes de proponer productos.',
       },
       {
         title: 'Acordar el alcance',
-        body: 'Ves el plan, prioridades, coste aproximado y tiempos antes de comprometerte con la instalaciÃ³n.',
+        body: 'Ves el plan, prioridades, coste aproximado y tiempos antes de comprometerte con la instalación.',
       },
       {
         title: 'Coordinar la entrega',
-        body: 'CasaMia mantiene juntos el briefing del instalador, las actualizaciones familiares y la entrega.',
+        body: 'CasaMia mantiene juntas las notas de visita, briefing del instalador, actualizaciones familiares y entrega.',
       },
       {
-        title: 'Confirmar aceptaciÃ³n',
-        body: 'El pago restante se realiza solo despuÃ©s de revisar y aceptar el trabajo completado.',
+        title: 'Apoyar después',
+        body: 'La familia tiene un punto de contacto claro para dudas, seguimiento y siguientes pasos.',
       },
     ],
     sections: [
       {
         icon: 'inspectors',
-        title: 'Inspectores de seguridad cualificados',
+        title: 'Revisión de seguridad cualificada',
         body:
           'El proceso empieza con una mirada práctica: dónde ocurren las caídas, dónde cuesta moverse y qué adaptaciones pueden mejorar la vida diaria.',
         points: ['Revisión estancia por estancia', 'Foco en caídas, luz, accesos y movilidad', 'Recomendaciones claras antes de empezar'],
       },
       {
         icon: 'partners',
-        title: 'Partners de instalación de confianza',
+        title: 'Coordinación local de confianza',
         body:
-          'CasaMia trabaja con partners seleccionados por fiabilidad, respeto dentro del hogar y capacidad para instalar adaptaciones de forma cuidada.',
-        points: ['Soporte local con experiencia', 'Trabajo respetuoso en casa', 'Planificación práctica de la instalación'],
+          'CasaMia coordina profesionales locales fiables cuando hace falta instalación, manteniendo claro todo el recorrido para la familia.',
+        points: ['Disponibilidad local revisada', 'Trabajo respetuoso en casa', 'Planificación práctica de la instalación'],
       },
       {
         icon: 'insured',
-        title: 'Servicios totalmente asegurados',
+        title: 'Estándares profesionales',
         body:
-          'Las familias necesitan confianza. CasaMia estructura los proyectos alrededor de servicios asegurados y una entrega responsable.',
+          'Las familias necesitan confianza. CasaMia estructura los proyectos con estándares claros y una entrega responsable.',
         points: ['Estándares profesionales', 'Responsabilidad clara', 'Confianza desde inspección hasta finalización'],
       },
       {
@@ -200,22 +219,29 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'pricing',
-        title: 'Precios transparentes',
+        title: 'Propuestas transparentes',
         body:
           'Ninguna familia debería aceptar trabajos poco claros. CasaMia explica el alcance, coste probable y posibles vías de ayuda antes de instalar.',
         points: ['Alcance claro antes del compromiso', 'Estructura por paquetes', 'Orientación sobre ayudas cuando existan'],
       },
       {
         icon: 'acceptance',
-        title: 'Satisfacción y aceptación del cliente',
+        title: 'Seguimiento claro',
         body:
-          'El pago final está ligado a la aceptación. La familia paga 50% de reserva y el 50% restante solo después de revisar el trabajo completado.',
-        points: ['50% de reserva para empezar', '50% tras aceptación del cliente', 'Seguimiento hasta que la familia esté tranquila'],
+          'El proceso no termina en la primera llamada. CasaMia mantiene conectadas solicitud, notas, visita, propuesta, instalación y seguimiento.',
+        points: ['Solicitud trazada internamente', 'Actualizaciones familiares juntas', 'Seguimiento después del siguiente paso'],
       },
     ],
-    ctaTitle: '¿Listo para hacer tu hogar más seguro?',
-    ctaBody:
-      'Solicita una visita de evaluación a domicilio de 89 € y recibe recomendaciones expertas adaptadas a tu vivienda.',
+    contactEyebrow: 'Habla con CasaMia',
+    contactTitle: 'Cuéntanos qué te preocupa del hogar.',
+    contactBody:
+      'Comparte la estancia, rutina, ubicación y urgencia. Un coordinador de CasaMia dirigirá tu solicitud al siguiente paso correcto.',
+    callTitle: 'Llamar a CasaMia',
+    emailTitle: 'Email de soporte',
+    messagePlaceholder:
+      'Ejemplo: Mi padre tiene dificultades con las escaleras por la noche, estamos en Marbella y necesitamos saber qué arreglar primero.',
+    formNote:
+      'Tu solicitud la revisa el equipo CasaMia para confirmar el mejor siguiente paso y la disponibilidad local.',
     ctaButton: 'Solicitar evaluación a domicilio',
   },
 }
@@ -249,11 +275,61 @@ function WhyIcon({ type }: { type: WhyCasamiaCopy['sections'][number]['icon'] })
 }
 
 export function WhyCasamiaPage() {
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const copy = getWhyCasamiaCopy(i18n.language)
+  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const planOptions = t('pages.contact.planOptions', { returnObjects: true }) as string[]
+  const phoneNumber = t('nav.phone')
+  const phoneHref = phoneNumber.replace(/\s+/g, '')
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    if (isSubmitting) {
+      return
+    }
+
+    const formData = new FormData(event.currentTarget)
+
+    setIsSubmitting(true)
+    setSubmitError('')
+    setSubmitted(false)
+
+    try {
+      await submitContactRequest({
+        name: String(formData.get('name') ?? '').trim(),
+        email: String(formData.get('email') ?? '').trim(),
+        phone: String(formData.get('phone') ?? '').trim(),
+        plan: String(formData.get('plan') ?? '').trim(),
+        message: String(formData.get('message') ?? '').trim(),
+        source: 'why-us-page',
+      })
+      event.currentTarget.reset()
+      setSubmitted(true)
+    } catch (error) {
+      console.error('CasaMia contact request failed', error)
+      setSubmitError(t('pages.contact.error'))
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <>
+      <SEO
+        title={copy.headline}
+        description={copy.intro}
+        path="/why-us"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'AboutPage',
+          name: copy.headline,
+          description: copy.intro,
+        }}
+      />
+
       <section className="why-casamia-hero">
         <div className="why-hero-grid site-shell">
           <div>
@@ -347,20 +423,92 @@ export function WhyCasamiaPage() {
         </div>
       </section>
 
-      <section className="why-final-cta">
-        <div className="site-shell">
-          <div className="why-final-panel">
-            <div>
-              <h2>{copy.ctaTitle}</h2>
-              <p>{copy.ctaBody}</p>
+      <section className="contact-form-section" id="contact-form">
+        <div className="contact-form-layout site-shell">
+          <div className="contact-form-copy">
+            <p className="eyebrow">{copy.contactEyebrow}</p>
+            <h2>{copy.contactTitle}</h2>
+            <p>{copy.contactBody}</p>
+            <div className="contact-direct-options">
+              <a href={`tel:${phoneHref}`}>
+                <Phone size={19} aria-hidden="true" />
+                <span>
+                  <strong>{copy.callTitle}</strong>
+                  {phoneNumber}
+                </span>
+              </a>
+              <a href="mailto:hello@casamia.es">
+                <Mail size={19} aria-hidden="true" />
+                <span>
+                  <strong>{copy.emailTitle}</strong>
+                  hello@casamia.es
+                </span>
+              </a>
             </div>
-            <Link className="btn btn-green" to="/home-safety-assessment">
-              {copy.ctaButton}
-              <ArrowRight size={20} aria-hidden="true" />
-            </Link>
           </div>
+
+          <form className="contact-form-card" onSubmit={handleSubmit}>
+            <div className="contact-form-grid">
+              <ContactField label={t('pages.contact.fields.name')} name="name" required />
+              <ContactField label={t('pages.contact.fields.email')} name="email" type="email" required />
+              <ContactField label={t('pages.contact.fields.phone')} name="phone" type="tel" />
+              <label className="contact-field">
+                {t('pages.contact.fields.plan')}
+                <select className="contact-input" name="plan">
+                  {planOptions.map((option) => (
+                    <option key={option}>{option}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <label className="contact-field">
+              {t('pages.contact.fields.message')}
+              <textarea
+                className="contact-input contact-textarea"
+                name="message"
+                placeholder={copy.messagePlaceholder}
+                required
+              />
+            </label>
+            <button className="btn btn-green contact-submit" disabled={isSubmitting} type="submit">
+              {isSubmitting ? t('pages.contact.submitting') : t('pages.contact.submit')}
+              {isSubmitting ? <LoaderCircle className="animate-spin" size={20} aria-hidden="true" /> : null}
+            </button>
+            {submitError ? (
+              <p className="contact-form-message is-error">
+                <AlertCircle size={20} aria-hidden="true" />
+                {submitError}
+              </p>
+            ) : null}
+            {submitted ? (
+              <p className="contact-form-message is-success">
+                <CheckCircle2 size={20} aria-hidden="true" />
+                {t('pages.contact.success')}
+              </p>
+            ) : null}
+            <p className="contact-form-note">{copy.formNote}</p>
+          </form>
         </div>
       </section>
     </>
+  )
+}
+
+function ContactField({
+  label,
+  name,
+  required,
+  type = 'text',
+}: {
+  label: string
+  name: string
+  required?: boolean
+  type?: string
+}) {
+  return (
+    <label className="contact-field">
+      {label}
+      <input className="contact-input" name={name} required={required} type={type} />
+    </label>
   )
 }

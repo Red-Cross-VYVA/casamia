@@ -47,10 +47,8 @@ export function Nav() {
     { label: t('nav.howItWorks'), to: '/how-it-works', match: ['/how-it-works'] },
     { label: t('nav.plans'), to: '/plans', match: ['/plans'] },
     { label: t('nav.grants'), to: '/grants', match: ['/grants', '/grant-check', '/plan-adapta'] },
-    { label: t('nav.resources', { defaultValue: 'Guides' }), to: '/resources', match: ['/resources'] },
+    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-us', match: ['/why-us', '/why-casamia', '/contact'] },
     { label: 'Blog', to: '/blog', match: ['/blog'] },
-    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-casamia', match: ['/why-casamia'] },
-    { label: t('nav.contact'), to: '/contact', match: ['/contact'] },
   ]
   const desktopLinks = links
 

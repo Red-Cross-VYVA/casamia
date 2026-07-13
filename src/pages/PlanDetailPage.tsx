@@ -138,6 +138,204 @@ function getFeatureIcon(icon: string) {
   return iconMap[icon] ?? BadgeCheck
 }
 
+type SolutionSnapshot = {
+  visual: 'assessment' | 'grab-bar' | 'handrail' | 'anti-slip' | 'bath-access' | 'photo'
+  image?: string
+  labels: {
+    en: string[]
+    es: string[]
+  }
+}
+
+const solutionSnapshots: Partial<Record<string, SolutionSnapshot>> = {
+  inspection: {
+    visual: 'assessment',
+    labels: {
+      en: ['Room review', 'Fall risk', 'Written report'],
+      es: ['Revisión', 'Riesgo de caídas', 'Informe'],
+    },
+  },
+  grab: {
+    visual: 'grab-bar',
+    labels: {
+      en: ['Support', 'Transfers', 'Wet areas'],
+      es: ['Apoyo', 'Transferencias', 'Zonas húmedas'],
+    },
+  },
+  handrail: {
+    visual: 'handrail',
+    labels: {
+      en: ['Stairs', 'Entrances', 'Balance'],
+      es: ['Escaleras', 'Entradas', 'Equilibrio'],
+    },
+  },
+  flooring: {
+    visual: 'anti-slip',
+    labels: {
+      en: ['Grip', 'Step contrast', 'Slip risk'],
+      es: ['Agarre', 'Contraste', 'Resbalones'],
+    },
+  },
+  bathroom: {
+    visual: 'bath-access',
+    labels: {
+      en: ['Shower access', 'Toilet support', 'Slip risk'],
+      es: ['Ducha', 'Inodoro', 'Resbalones'],
+    },
+  },
+  kitchen: {
+    visual: 'photo',
+    image: '/images/before-after/kitchen-after.png',
+    labels: {
+      en: ['Reach', 'Lighting', 'Daily tasks'],
+      es: ['Alcance', 'Luz', 'Rutinas'],
+    },
+  },
+  stairway: {
+    visual: 'photo',
+    image: '/images/before-after/stairs-after.png',
+    labels: {
+      en: ['Treads', 'Rails', 'Lighting'],
+      es: ['Peldaños', 'Pasamanos', 'Luz'],
+    },
+  },
+  entrance: {
+    visual: 'photo',
+    image: '/images/before-after/entry-after.jpg',
+    labels: {
+      en: ['Thresholds', 'Door access', 'Lighting'],
+      es: ['Umbrales', 'Acceso', 'Luz'],
+    },
+  },
+  anchor: {
+    visual: 'photo',
+    image: '/images/solutions/portrait-lovely-couple-together.jpg',
+    labels: {
+      en: ['Clear paths', 'Stable furniture', 'Trip risk'],
+      es: ['Paso libre', 'Muebles fijos', 'Tropiezos'],
+    },
+  },
+  installation: {
+    visual: 'assessment',
+    labels: {
+      en: ['Installer', 'Handover', 'Acceptance'],
+      es: ['Instalador', 'Entrega', 'Aceptación'],
+    },
+  },
+}
+
+function getSnapshotLabels(snapshot: SolutionSnapshot, language: string) {
+  return language.startsWith('es') ? snapshot.labels.es : snapshot.labels.en
+}
+
+function SolutionSnapshotVisual({ snapshot }: { snapshot: SolutionSnapshot }) {
+  if (snapshot.visual === 'grab-bar') {
+    return (
+      <div className="solution-product-scene is-grab-bar">
+        <span className="solution-tile-wall" />
+        <span className="solution-grab-shadow" />
+        <span className="solution-grab-bar">
+          <span className="solution-grab-bar-rail" />
+          <span className="solution-grab-bar-mount is-left" />
+          <span className="solution-grab-bar-mount is-right" />
+        </span>
+      </div>
+    )
+  }
+
+  if (snapshot.visual === 'handrail') {
+    return (
+      <div className="solution-product-scene is-handrail">
+        <span className="solution-stair-wall" />
+        <span className="solution-handrail-stair-plane" />
+        <span className="solution-handrail-shadow" />
+        <span className="solution-handrail">
+          <span className="solution-handrail-end is-left" />
+          <span className="solution-handrail-rail" />
+          <span className="solution-handrail-end is-right" />
+          <span className="solution-handrail-bracket is-one" />
+          <span className="solution-handrail-bracket is-two" />
+          <span className="solution-handrail-bracket is-three" />
+        </span>
+      </div>
+    )
+  }
+
+  if (snapshot.visual === 'anti-slip') {
+    return (
+      <div className="solution-product-scene is-anti-slip">
+        <span className="solution-slip-step is-top" />
+        <span className="solution-slip-step is-face" />
+        <span className="solution-slip-nosing">
+          <span className="solution-slip-grain" />
+        </span>
+        <span className="solution-slip-shadow" />
+      </div>
+    )
+  }
+
+  if (snapshot.visual === 'bath-access') {
+    return (
+      <div className="solution-product-scene is-bath-access">
+        <span className="solution-bath-tile-wall" />
+        <span className="solution-bath-grab-bar">
+          <span className="solution-bath-grab-rail" />
+          <span className="solution-bath-grab-mount is-left" />
+          <span className="solution-bath-grab-mount is-right" />
+        </span>
+        <span className="solution-bath-tub">
+          <span className="solution-bath-cutout" />
+          <span className="solution-bath-seat" />
+        </span>
+        <span className="solution-bath-floor" />
+      </div>
+    )
+  }
+
+  if (snapshot.visual === 'photo' && snapshot.image) {
+    return <img alt="" className="solution-snapshot-photo" src={snapshot.image} />
+  }
+
+  return (
+    <div className="solution-snapshot-diagram">
+      <span className="solution-snapshot-diagram-panel is-main" />
+      <span className="solution-snapshot-diagram-panel is-side" />
+      <span className="solution-snapshot-diagram-line" />
+    </div>
+  )
+}
+
+function SolutionSnapshotCard({
+  feature,
+  Icon,
+  language,
+}: {
+  feature: PlanFeature
+  Icon: LucideIcon
+  language: string
+}) {
+  const snapshot = solutionSnapshots[feature.icon]
+  const labels = snapshot ? getSnapshotLabels(snapshot, language) : []
+
+  return (
+    <article className="plan-feature-card solution-snapshot-card" key={feature.title}>
+      <div className="solution-snapshot-visual" aria-hidden="true">
+        {snapshot ? <SolutionSnapshotVisual snapshot={snapshot} /> : null}
+        <span className="solution-snapshot-icon">
+          <Icon size={22} aria-hidden="true" />
+        </span>
+        <div className="solution-snapshot-chips">
+          {labels.map((label) => (
+            <span key={label}>{label}</span>
+          ))}
+        </div>
+      </div>
+      <h3>{feature.title}</h3>
+      <p>{feature.body}</p>
+    </article>
+  )
+}
+
 function getPlanId(value: string | undefined): PlanLandingId | null {
   if (value === 'home-assessment' || value === 'home-safety' || value === 'smart-safety') {
     return value
@@ -147,7 +345,7 @@ function getPlanId(value: string | undefined): PlanLandingId | null {
 }
 
 export function PlanDetailPage() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const { planId } = useParams()
   const copy = t('pages.planDetail', { returnObjects: true }) as PlanDetailCopy
   const selectedPlanId = getPlanId(planId)
@@ -258,6 +456,20 @@ export function PlanDetailPage() {
           <div className="plan-feature-grid">
             {plan.included.map((feature) => {
               const FeatureIcon = getFeatureIcon(feature.icon)
+
+              if (
+                plan.id === 'home-safety' &&
+                ['grab', 'handrail', 'flooring', 'bathroom'].includes(feature.icon)
+              ) {
+                return (
+                  <SolutionSnapshotCard
+                    feature={feature}
+                    Icon={FeatureIcon}
+                    key={feature.title}
+                    language={i18n.language}
+                  />
+                )
+              }
 
               return (
                 <article className="plan-feature-card" key={feature.title}>
