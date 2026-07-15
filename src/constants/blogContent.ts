@@ -36,7 +36,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Fall prevention',
     readTime: '7 min read',
     date: '2026-07-11',
-    image: '/images/blog/fall-prevention-checklist.svg',
+    image: '/images/blog/fall-prevention-checklist.webp',
     imageAlt: 'Illustrated home safety checklist for fall prevention',
     keywords: ['fall prevention at home', 'senior home safety Spain', 'aging in place checklist'],
     intro:
@@ -102,7 +102,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Bathroom safety',
     readTime: '6 min read',
     date: '2026-07-11',
-    image: '/images/blog/bathroom-mistakes.svg',
+    image: '/images/blog/bathroom-mistakes.webp',
     imageAlt: 'Illustration of bathroom safety mistakes to avoid',
     keywords: ['bathroom safety for seniors', 'grab bars Spain', 'accessible bathroom older adults'],
     intro:
@@ -168,7 +168,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Grants and funding',
     readTime: '8 min read',
     date: '2026-07-11',
-    image: '/images/blog/grants-readiness.svg',
+    image: '/images/blog/grants-readiness.webp',
     imageAlt: 'Illustration of documents and approval check for grant readiness',
     keywords: ['home adaptation grants Spain', 'Plan Adapta', 'accessibility grants Spain'],
     intro:
@@ -234,7 +234,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Smart safety',
     readTime: '6 min read',
     date: '2026-07-11',
-    image: '/images/blog/smart-safety-simple.svg',
+    image: '/images/blog/smart-safety-simple.webp',
     imageAlt: 'Illustration of simple smart home safety support',
     keywords: ['smart home safety seniors', 'elderly emergency alerts', 'aging in place technology'],
     intro:
@@ -300,7 +300,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Choosing providers',
     readTime: '7 min read',
     date: '2026-07-11',
-    image: '/images/blog/provider-choice.svg',
+    image: '/images/blog/provider-choice.webp',
     imageAlt: 'Illustration of a trusted home safety provider checklist',
     keywords: ['home safety provider Spain', 'senior home adaptation service', 'aging in place provider'],
     intro:
@@ -366,7 +366,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Memory support',
     readTime: '7 min read',
     date: '2026-07-11',
-    image: '/images/blog/dementia-friendly-home.svg',
+    image: '/images/blog/dementia-friendly-home.webp',
     imageAlt: 'Editorial illustration of a calm dementia-friendly home layout',
     keywords: ['dementia home safety', 'memory friendly home', 'senior safety dementia'],
     intro:
@@ -432,7 +432,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Stair safety',
     readTime: '6 min read',
     date: '2026-07-11',
-    image: '/images/blog/stair-safety-handrails.svg',
+    image: '/images/blog/stair-safety-handrails.webp',
     imageAlt: 'Editorial illustration of safer stairs with clear rail and step rhythm',
     keywords: ['stair safety seniors', 'handrails older adults', 'stair fall prevention'],
     intro:
@@ -498,7 +498,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Kitchen safety',
     readTime: '6 min read',
     date: '2026-07-11',
-    image: '/images/blog/kitchen-safety-aging.svg',
+    image: '/images/blog/kitchen-safety-aging.webp',
     imageAlt: 'Editorial illustration of a safer kitchen workflow for older adults',
     keywords: ['kitchen safety seniors', 'aging in place kitchen', 'safe kitchen older adults'],
     intro:
@@ -564,7 +564,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Night safety',
     readTime: '6 min read',
     date: '2026-07-11',
-    image: '/images/blog/bedroom-night-safety.svg',
+    image: '/images/blog/bedroom-night-safety.webp',
     imageAlt: 'Editorial illustration of a calm bedroom night safety route',
     keywords: ['bedroom safety seniors', 'night fall prevention', 'older adult night safety'],
     intro:
@@ -630,7 +630,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Family planning',
     readTime: '7 min read',
     date: '2026-07-11',
-    image: '/images/blog/emergency-plan-home.svg',
+    image: '/images/blog/emergency-plan-home.webp',
     imageAlt: 'Editorial illustration of an emergency plan connecting home and family response',
     keywords: ['emergency plan aging parents', 'senior emergency response home', 'family safety plan elderly'],
     intro:

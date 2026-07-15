@@ -28,9 +28,9 @@
   },
   "hero": {
     "badge": "Especialistas en seguridad del hogar · Toda España",
-    "line1": "Hogar, seguro",
-    "line2": "hogar.",
-    "sub": "Empieza con la herramienta gratuita adecuada: descubre riesgos en casa o comprueba si podrías acceder a ayudas.",
+    "line1": "Home Sweet",
+    "line2": "Home",
+    "sub": "Haz que la casa sea más segura, cómoda y tranquila para quien quieres, con orientación clara y adaptaciones prácticas gestionadas por CasaMia.",
     "uploadLabel": "¿Tu hogar es seguro? Descúbrelo gratis.",
     "uploadRooms": "Baño · Cocina · Escalera · Salón",
     "uploadReport": "Informe gratis: riesgos por cada foto",
@@ -44,7 +44,7 @@
       "cta": "Empezar informe gratis"
     },
     "grantCheck": {
-      "title": "Comprobar ayudas",
+      "title": "Ayudas",
       "body": "Ve si podrías optar a apoyo antes de planificar obras.",
       "cta": "Comprobar elegibilidad"
     }
@@ -202,23 +202,11 @@
       "planOptions": [
         {
           "value": "not-sure",
-          "label": "Aún no lo sé"
-        },
-        {
-          "value": "essential",
-          "label": "Paquete Essential"
-        },
-        {
-          "value": "advanced",
-          "label": "Paquete Advanced"
-        },
-        {
-          "value": "premium",
-          "label": "Paquete Premium"
+          "label": "Aun no lo se"
         },
         {
           "value": "home-assessment",
-          "label": "Solo evaluación a domicilio"
+          "label": "Evaluacion de seguridad"
         },
         {
           "value": "home-safety",
@@ -226,7 +214,7 @@
         },
         {
           "value": "smart-safety",
-          "label": "Plan Seguridad Smart"
+          "label": "Servicios opcionales"
         }
       ],
       "successWithPlan": "Gracias. Hemos recibido tu solicitud de visita para {{plan}}. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de 89 €."
@@ -276,7 +264,9 @@
         "value": "€6.000",
         "label": "ayuda media del gobierno\npara cubrir costes"
       }
-    ]
+    ],
+    "sourceLabel": "Fuentes y contexto:",
+    "deepDive": "Leer la guía completa de prevención de caídas"
   },
   "offer": {
     "badge": "QUÉ OFRECEMOS",
@@ -435,28 +425,28 @@
   },
   "grants": {
     "badge": "Ayudas y asistencia",
-    "title": "Las ayudas p?blicas pueden apoyar obras elegibles.",
-    "sub": "La disponibilidad y aprobaci?n dependen del programa p?blico.",
-    "body": "CasaMia puede ayudar a identificar programas que podr?an ser relevantes para tu proyecto. Cualquier revisi?n inicial de elegibilidad es solo indicativa; la autoridad p?blica competente toma la decisi?n final.",
+    "title": "Ayudas para obras elegibles.",
+    "sub": "La disponibilidad y aprobación dependen del programa público.",
+    "body": "CasaMia puede ayudar a identificar programas que podrían ser relevantes para tu proyecto. Cualquier revisión inicial de elegibilidad es solo indicativa; la autoridad pública competente toma la decisión final.",
     "cta": "Comprobar posibles ayudas",
     "stats": [
       {
         "value": "Fuente oficial",
         "label": "Necesaria antes de basarse en un programa",
-        "sub": "Comprueba siempre la p?gina de la autoridad antes de decidir"
+        "sub": "Comprueba siempre la página de la autoridad antes de decidir"
       },
       {
         "value": "Solo indicativo",
-        "label": "Revisi?n inicial de elegibilidad",
-        "sub": "La autoridad decide aprobaci?n e importe"
+        "label": "Revisión inicial de elegibilidad",
+        "sub": "La autoridad decide aprobación e importe"
       },
       {
         "value": "Mandato separado",
-        "label": "Necesario para presentar en representaci?n",
-        "sub": "El soporte de ayudas es independiente del contrato de instalaci?n"
+        "label": "Necesario para presentar en representación",
+        "sub": "El soporte de ayudas es independiente del contrato de instalación"
       }
     ],
-    "disclaimer": "La disponibilidad, los criterios de elegibilidad, los importes y los plazos pueden cambiar. CasaMia no concede ayudas ni puede garantizar aprobaci?n."
+    "disclaimer": "La disponibilidad, los criterios de elegibilidad, los importes y los plazos pueden cambiar. CasaMia no concede ayudas ni puede garantizar aprobación."
   },
   "eurosafe": {
     "prefix": "EN COLABORACIÓN CON",
@@ -1696,10 +1686,10 @@
   },
   "beforeAfter": {
     "preview": {
-      "title": "Hogares reales. Mejoras reales. Tranquilidad real.",
-      "body": "Mira cómo CasaMia revisa los espacios clave del hogar: baño, escaleras, entrada, cocina, dormitorio y salón.",
-      "viewCta": "Ver transformaciones →",
-      "assessmentCta": "Reservar evaluación gratis"
+      "title": "Cambios sencillos para vivir en casa con más confianza.",
+      "body": "Inspírate con mejoras que reducen riesgos y hacen más fácil moverse, ducharse, entrar y descansar con tranquilidad.",
+      "viewCta": "Ver ejemplos →",
+      "assessmentCta": "Empezar gratis"
     },
     "page": {
       "title": "Antes y después",

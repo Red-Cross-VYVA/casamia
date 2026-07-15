@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 type StatCard = {
   value: string
@@ -34,6 +35,30 @@ export function Prevention() {
                 </p>
               </article>
             ))}
+          </div>
+          <div className="prevention-source-note">
+            <p>
+              <strong>{t('prevention.sourceLabel')}</strong>{' '}
+              <a href="https://www.who.int/news-room/fact-sheets/detail/falls" target="_blank" rel="noreferrer">
+                WHO
+              </a>
+              ,{' '}
+              <a href="https://www.cdc.gov/falls/about/index.html" target="_blank" rel="noreferrer">
+                CDC
+              </a>
+              ,{' '}
+              <a href="https://www.ine.es/dyngs/Prensa/en/PROP20242074.htm" target="_blank" rel="noreferrer">
+                INE
+              </a>
+              ,{' '}
+              <a href="https://sede.comunidad.madrid/node/288645" target="_blank" rel="noreferrer">
+                Comunidad de Madrid
+              </a>
+              .
+            </p>
+            <Link to="/blog/fall-prevention-home-checklist-spain">
+              {t('prevention.deepDive')}
+            </Link>
           </div>
         </div>
       </div>

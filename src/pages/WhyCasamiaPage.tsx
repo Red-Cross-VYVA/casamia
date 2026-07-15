@@ -21,6 +21,7 @@ import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
 import { TrustBar } from '../components/TrustBar'
 import { submitContactRequest } from '../services/contactRequests'
+import { trackEvent } from '../utils/analytics'
 
 type WhyCasamiaCopy = {
   eyebrow: string
@@ -430,14 +431,20 @@ export function WhyCasamiaPage() {
             <h2>{copy.contactTitle}</h2>
             <p>{copy.contactBody}</p>
             <div className="contact-direct-options">
-              <a href={`tel:${phoneHref}`}>
+              <a
+                href={`tel:${phoneHref}`}
+                onClick={() => trackEvent('phone_number_clicked', { location: 'why_us_contact' })}
+              >
                 <Phone size={19} aria-hidden="true" />
                 <span>
                   <strong>{copy.callTitle}</strong>
                   {phoneNumber}
                 </span>
               </a>
-              <a href="mailto:hello@casamia.es">
+              <a
+                href="mailto:hello@casamia.es"
+                onClick={() => trackEvent('email_clicked', { location: 'why_us_contact' })}
+              >
                 <Mail size={19} aria-hidden="true" />
                 <span>
                   <strong>{copy.emailTitle}</strong>

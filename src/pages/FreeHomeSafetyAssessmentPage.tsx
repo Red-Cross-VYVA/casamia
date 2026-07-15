@@ -29,6 +29,7 @@ import { getContractLanguageForLocale } from '../config/legalControls'
 import type { PlanId } from '../constants/shopify'
 import { buildCheckoutDocumentSet, downloadTextDocument, type CheckoutDownloadDocument } from '../services/contractDocuments'
 import { submitConsentEvidence, type ConsentEvidencePayload } from '../services/consentEvidence'
+import { trackEvent } from '../utils/analytics'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
 
 type BenefitItem = {
@@ -669,6 +670,12 @@ function OrderCheckoutWizard({
 
     const existing = JSON.parse(localStorage.getItem('casamia_order_drafts') ?? '[]') as unknown[]
     localStorage.setItem('casamia_order_drafts', JSON.stringify([orderDraft, ...existing].slice(0, 20)))
+    trackEvent('assessment_booking_completed', {
+      mode: 'checkout',
+      orderId,
+      paymentMethod: values.paymentMethod,
+      planId,
+    })
 
     setDownloadDocuments(
       buildCheckoutDocumentSet(

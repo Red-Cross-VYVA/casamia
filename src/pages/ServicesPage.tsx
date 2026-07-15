@@ -12,7 +12,21 @@ import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { ServiceIcon } from '../components/ServiceIcon'
 import { serviceVisuals } from '../constants/serviceVisuals'
-import { primaryServices, serviceHubHighlights } from '../constants/siteContent'
+import {
+  type ServiceIconId,
+  primaryServices,
+  serviceHubHighlights,
+} from '../constants/siteContent'
+
+type SolutionGalleryCard = {
+  title: string
+  badge: string
+  body: string
+  icon: ServiceIconId
+  image: string
+  path: string
+  points: string[]
+}
 
 const pathwayItems = [
   {
@@ -32,6 +46,117 @@ const pathwayItems = [
   },
 ]
 
+const solutionGalleryCards: SolutionGalleryCard[] = [
+  {
+    title: 'Grab bars and support points',
+    badge: 'Support where balance matters',
+    body: 'Fixed support in bathrooms, corridors and transfer points so standing, turning and stepping feel safer.',
+    icon: 'shield',
+    image: '/images/service-gallery/01-grab-bars-and-support-points.jpg',
+    path: '/services/bathroom-safety',
+    points: ['Transfers', 'Standing support'],
+  },
+  {
+    title: 'Anti-slip safety improvements',
+    badge: 'Reduce surface risk',
+    body: 'Practical grip improvements for wet floors, steps and daily routes where slips are most likely.',
+    icon: 'check',
+    image: '/images/service-gallery/02-anti-slip-safety-improvements.jpg',
+    path: '/services/bathroom-safety',
+    points: ['Wet areas', 'Trip reduction'],
+  },
+  {
+    title: 'Stairway and hallway support',
+    badge: 'Safer daily routes',
+    body: 'Continuous handrails, contrast and lighting for the routes used every day, not only the obvious stairs.',
+    icon: 'stairs',
+    image: '/images/service-gallery/03-stairway-and-hallway-support.jpg',
+    path: '/services/stair-safety',
+    points: ['Handrails', 'Step visibility'],
+  },
+  {
+    title: 'Bathroom and kitchen adaptations',
+    badge: 'High-use rooms',
+    body: 'Targeted changes for washing, toileting, cooking and reach where everyday routines create pressure.',
+    icon: 'bath',
+    image: '/images/service-gallery/04-bathroom-and-kitchen-adaptations.jpg',
+    path: '/services/kitchen-safety',
+    points: ['Access', 'Reach'],
+  },
+  {
+    title: 'Entryway and threshold support',
+    badge: 'Arrive and leave safely',
+    body: 'Lower trip points, improve lighting and add support where people enter, exit and receive visitors.',
+    icon: 'door',
+    image: '/images/service-gallery/05-entryway-and-threshold-support.jpg',
+    path: '/services/entrance-accessibility',
+    points: ['Thresholds', 'Outdoor support'],
+  },
+  {
+    title: 'Furniture and movement flow',
+    badge: 'Clearer movement',
+    body: 'Reposition furniture, rugs and everyday items so movement through the home is less awkward.',
+    icon: 'home',
+    image: '/images/service-gallery/06-furniture-and-movement-flow-optimisation.jpg',
+    path: '/services/bedroom-safety',
+    points: ['Clear paths', 'Daily routines'],
+  },
+  {
+    title: 'Smart access devices',
+    badge: 'Trusted access',
+    body: 'Simple access support for doors, locks, family visits and emergency response without adding confusion.',
+    icon: 'smartphone',
+    image: '/images/service-gallery/07-smart-access-devices.jpg',
+    path: '/services/smart-home-safety',
+    points: ['Doors', 'Family access'],
+  },
+  {
+    title: 'Emergency response device',
+    badge: 'Help within reach',
+    body: 'A clear way to call for help from the rooms and routines where risk is highest.',
+    icon: 'shield',
+    image: '/images/service-gallery/08-emergency-response-device.jpg',
+    path: '/services/smart-home-safety',
+    points: ['Emergency call', 'Peace of mind'],
+  },
+  {
+    title: 'Fall detection sensors',
+    badge: 'Discreet awareness',
+    body: 'Monitoring that helps family notice a fall or unusual routine without turning the home into a clinic.',
+    icon: 'light',
+    image: '/images/service-gallery/09-fall-detection-sensors.jpg',
+    path: '/services/smart-home-safety',
+    points: ['Fall alerts', 'Routine changes'],
+  },
+  {
+    title: 'Health and vitals monitoring',
+    badge: 'Wellbeing signals',
+    body: 'Simple monitoring options that add useful context for family support where appropriate.',
+    icon: 'smartphone',
+    image: '/images/service-gallery/10-health-and-vitals-monitoring.jpg',
+    path: '/services/smart-home-safety',
+    points: ['Vitals', 'Family updates'],
+  },
+  {
+    title: 'Voice controls and smart routines',
+    badge: 'Less reaching',
+    body: 'Voice, lighting and routines that reduce unnecessary movement, especially at night or during fatigue.',
+    icon: 'light',
+    image: '/images/service-gallery/11-voice-controls-and-smart-routines.jpg',
+    path: '/services/smart-home-safety',
+    points: ['Voice control', 'Night routines'],
+  },
+  {
+    title: 'Smart setup and user training',
+    badge: 'Clear handover',
+    body: 'Devices are configured, explained and handed over so the resident and family know what to expect.',
+    icon: 'book',
+    image: '/images/service-gallery/12-smart-setup-and-user-training.jpg',
+    path: '/services/smart-home-safety',
+    points: ['Setup', 'Training'],
+  },
+]
+
 export function ServicesPage() {
   const featuredServices = primaryServices.slice(0, 3)
   const supportServices = primaryServices.slice(3)
@@ -39,38 +164,39 @@ export function ServicesPage() {
   return (
     <>
       <SEO
-        title="Senior Home Safety Services in Spain"
-        description="Explore CasaMia home safety services for seniors, including bathroom safety, stair safety, entrance accessibility, kitchen safety, bedroom safety, and smart home safety."
+        title="CasaMia Add-on Services for Safer Independent Living"
+        description="Explore CasaMia optional add-ons after the Home Safety Plan, including smart home, safety technology, health monitoring, family dashboard and concierge support."
         path="/services"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'Service',
-          name: 'Senior home safety adaptations',
+          name: 'CasaMia optional home safety add-ons',
           provider: {
             '@type': 'Organization',
             name: 'CasaMia',
           },
           areaServed: 'Spain',
-          serviceType: 'Home safety assessment and aging-in-place adaptations',
+          serviceType: 'Smart safety, health monitoring and aging-in-place add-ons',
         }}
       />
 
       <section className="services-hub-hero">
         <div className="services-hub-hero-grid site-shell">
           <div className="services-hub-copy">
-            <span className="eyebrow">CasaMia services</span>
-            <h1>Make the rooms used every day safer, easier, and calmer.</h1>
+            <span className="eyebrow">Add-on services</span>
+            <h1>Personalise the Home Safety Plan after the assessment.</h1>
             <p>
-              Choose the area that worries you most, or start with a professional
-              in-home assessment and let CasaMia prioritise the right improvements.
+              Start with the core CasaMia Home Safety Plan, then add smart safety,
+              health monitoring, family support or lifestyle services where they
+              genuinely help.
             </p>
             <div className="services-hub-actions">
               <Link className="btn btn-green" to="/home-safety-assessment">
                 Book In-Home Visit
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
-              <Link className="btn btn-white" to="/tools/safety-report">
-                Start Free Safety Report
+              <Link className="btn btn-white" to="/plans">
+                See Core Plan
               </Link>
             </div>
           </div>
@@ -98,35 +224,37 @@ export function ServicesPage() {
       <section className="services-hub-section bg-white">
         <div className="site-shell">
           <div className="services-hub-heading">
-            <p className="eyebrow">Service areas</p>
-            <h2>Start where the risk, worry, or daily friction is highest.</h2>
+            <p className="eyebrow">Optional upgrades</p>
+            <h2>Add only what the resident and home actually need.</h2>
             <p>
-              Each service is grounded in a real room or routine, with clear risks,
-              practical improvements, and a next step that does not require guessing.
+              Each add-on is easier to understand after the assessment report has
+              shown the risks, routines, and support gaps inside the home.
             </p>
           </div>
 
-          <div className="services-hub-grid">
-            {primaryServices.map((service) => {
-              const visual = serviceVisuals[service.id]
-
+          <div className="services-hub-grid services-solution-grid">
+            {solutionGalleryCards.map((service) => {
               return (
-                <Link className="services-hub-card" key={service.id} to={service.path}>
+                <Link
+                  className="services-hub-card services-solution-card"
+                  key={service.title}
+                  to={service.path}
+                >
                   <SafeImage
-                    src={visual.image}
-                    alt={service.shortTitle}
+                    src={service.image}
+                    alt={service.title}
                     className="services-hub-card-image"
                     imgClassName="h-full w-full object-cover"
                   />
                   <div className="services-hub-card-body">
-                    <span className="services-hub-badge">{visual.badge}</span>
+                    <span className="services-hub-badge">{service.badge}</span>
                     <div className="services-hub-card-title">
                       <ServiceIcon icon={service.icon} size={25} />
-                      <h3>{service.shortTitle}</h3>
+                      <h3>{service.title}</h3>
                     </div>
-                    <p>{service.intro}</p>
+                    <p>{service.body}</p>
                     <ul>
-                      {service.improvements.slice(0, 2).map((item) => (
+                      {service.points.map((item) => (
                         <li key={item}>
                           <CheckCircle2 size={16} aria-hidden="true" />
                           {item}
@@ -134,7 +262,7 @@ export function ServicesPage() {
                       ))}
                     </ul>
                     <strong>
-                      {visual.note}
+                      View related service
                       <ArrowRight size={17} aria-hidden="true" />
                     </strong>
                   </div>
@@ -149,12 +277,12 @@ export function ServicesPage() {
         <div className="site-shell">
           <div className="services-pathway">
             <div>
-              <p className="eyebrow">How CasaMia helps</p>
-              <h2>One service flow, adapted to the home.</h2>
+              <p className="eyebrow">How add-ons fit</p>
+              <h2>The core plan comes first. Add-ons come after clarity.</h2>
               <p>
-                A safer home usually needs more than a product list. CasaMia connects
-                assessment, practical recommendations, installation planning, and
-                connected support where it makes sense.
+                CasaMia does not ask families to guess which devices or services
+                are needed. The report identifies priorities, then add-ons are
+                selected to match the resident, routines and budget.
               </p>
             </div>
 
@@ -181,7 +309,7 @@ export function ServicesPage() {
         <div className="site-shell">
           <div className="services-hub-heading is-compact">
             <p className="eyebrow">What stays consistent</p>
-            <h2>Clear advice before work begins.</h2>
+            <h2>Useful technology, not technology for its own sake.</h2>
           </div>
 
           <div className="services-highlight-grid">
@@ -199,11 +327,11 @@ export function ServicesPage() {
           <div className="services-support-band">
             <div>
               <Sparkles size={24} aria-hidden="true" />
-              <h2>Need kitchen, bedroom or smart safety support too?</h2>
+              <h2>Start with the Home Safety Plan.</h2>
               <p>
-                CasaMia also reviews daily routines, appliance risks, bed transfers,
-                night-time movement, connected sensors, VYVA assistance, and family
-                alerts as part of the broader home safety picture.
+                The add-ons on this page are designed to extend the core plan after
+                the assessment, not replace the physical safety work that makes the
+                home easier to use.
               </p>
             </div>
             <div className="services-support-links">
@@ -214,6 +342,11 @@ export function ServicesPage() {
                   <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               ))}
+              <Link to="/family-dashboard">
+                <ServiceIcon icon="smartphone" size={20} />
+                Family Dashboard
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
             </div>
           </div>
         </div>
@@ -222,11 +355,11 @@ export function ServicesPage() {
       <section className="services-hub-final">
         <div className="site-shell">
           <div>
-            <p className="eyebrow">Not sure where to start?</p>
-            <h2>Start with the home, not the product.</h2>
+            <p className="eyebrow">Not sure what to add?</p>
+            <h2>Book the assessment first.</h2>
             <p>
-              Book a professional in-home visit and receive practical recommendations
-              for the rooms and routines that matter most.
+              The safest add-on decision is made after CasaMia has reviewed the
+              home and explained the priorities.
             </p>
           </div>
           <Link className="btn btn-green" to="/home-safety-assessment">

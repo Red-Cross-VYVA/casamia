@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
 import { submitAssessmentRequest } from '../services/assessmentRequests'
+import { trackEvent } from '../utils/analytics'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
 import { PhoneNumberField } from './PhoneNumberField'
 
@@ -221,6 +222,11 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         consentAt: new Date().toISOString(),
         source: isBooking ? 'free-report-booking' : 'home-safety-assessment',
         reportToken,
+      })
+      trackEvent('assessment_booking_completed', {
+        mode,
+        selectedPlan: values.selectedPlan,
+        source: isBooking ? 'free-report-booking' : 'home-safety-assessment',
       })
       setSubmittedPlan(values.selectedPlan)
       setSubmitted(true)

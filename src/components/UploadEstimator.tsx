@@ -1,6 +1,5 @@
 import {
   ArrowRight,
-  BadgeEuro,
   Camera,
   Check,
   ChevronLeft,
@@ -397,12 +396,12 @@ export function UploadEstimator() {
             <ArrowRight size={20} />
           </span>
         </button>
-        <Link className="free-check-card is-grant" to="/grant-check">
+        <Link className="free-check-card is-grant" to="/configure">
           <span className="free-check-icon is-grant">
-            <BadgeEuro size={23} aria-hidden="true" />
+            <Home size={23} aria-hidden="true" />
           </span>
           <span className="free-check-copy">
-            <strong>{t('hero.grantCheck.title')}</strong>
+            <strong>Build My Safer Home</strong>
           </span>
           <span className="free-check-arrow" aria-hidden="true">
             <ArrowRight size={20} />

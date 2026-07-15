@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, type ReactNode } from 'react'
 import {
   BrowserRouter,
   Navigate,
@@ -12,8 +12,19 @@ import { CookieConsent } from './components/CookieConsent'
 import { Footer } from './components/Footer'
 import { Nav } from './components/Nav'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
+import { ConfiguratorProvider } from './context/ConfiguratorContext'
 
+const AdminConfigPreviewPage = lazy(() =>
+  import('./pages/AdminConfigPreviewPage').then(({ AdminConfigPreviewPage }) => ({
+    default: AdminConfigPreviewPage,
+  })),
+)
 const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
+const AssistedLivingSolutionsPage = lazy(() =>
+  import('./pages/AssistedLivingSolutionsPage').then(({ AssistedLivingSolutionsPage }) => ({
+    default: AssistedLivingSolutionsPage,
+  })),
+)
 const BeforeAfterPage = lazy(() =>
   import('./pages/BeforeAfterPage').then(({ BeforeAfterPage }) => ({ default: BeforeAfterPage })),
 )
@@ -21,6 +32,27 @@ const BlogArticlePage = lazy(() =>
   import('./pages/BlogArticlePage').then(({ BlogArticlePage }) => ({ default: BlogArticlePage })),
 )
 const BlogPage = lazy(() => import('./pages/BlogPage').then(({ BlogPage }) => ({ default: BlogPage })))
+const ConfigureCheckoutPage = lazy(() =>
+  import('./pages/ConfigureCheckoutPage').then(({ ConfigureCheckoutPage }) => ({
+    default: ConfigureCheckoutPage,
+  })),
+)
+const ConfigureConfirmationPage = lazy(() =>
+  import('./pages/ConfigureConfirmationPage').then(({ ConfigureConfirmationPage }) => ({
+    default: ConfigureConfirmationPage,
+  })),
+)
+const ConfigureContactPage = lazy(() =>
+  import('./pages/ConfigureContactPage').then(({ ConfigureContactPage }) => ({
+    default: ConfigureContactPage,
+  })),
+)
+const ConfigurePage = lazy(() => import('./pages/ConfigurePage').then(({ ConfigurePage }) => ({ default: ConfigurePage })))
+const ConfigureSummaryPage = lazy(() =>
+  import('./pages/ConfigureSummaryPage').then(({ ConfigureSummaryPage }) => ({
+    default: ConfigureSummaryPage,
+  })),
+)
 const EstimateReportPage = lazy(() =>
   import('./pages/EstimateReportPage').then(({ EstimateReportPage }) => ({ default: EstimateReportPage })),
 )
@@ -29,11 +61,15 @@ const FreeHomeSafetyAssessmentPage = lazy(() =>
     default: FreeHomeSafetyAssessmentPage,
   })),
 )
+const FamilyDashboardPage = lazy(() =>
+  import('./pages/FamilyDashboardPage').then(({ FamilyDashboardPage }) => ({ default: FamilyDashboardPage })),
+)
 const GrantEligibilityPage = lazy(() =>
   import('./pages/GrantEligibilityPage').then(({ GrantEligibilityPage }) => ({ default: GrantEligibilityPage })),
 )
 const GrantsPage = lazy(() => import('./pages/GrantsPage').then(({ GrantsPage }) => ({ default: GrantsPage })))
 const HomePage = lazy(() => import('./pages/HomePage').then(({ HomePage }) => ({ default: HomePage })))
+const Home2Page = lazy(() => import('./pages/Home2Page').then(({ Home2Page }) => ({ default: Home2Page })))
 const HowItWorksPage = lazy(() =>
   import('./pages/HowItWorksPage').then(({ HowItWorksPage }) => ({ default: HowItWorksPage })),
 )
@@ -48,6 +84,11 @@ const InspectionReportPage = lazy(() =>
 const InternalDashboardPage = lazy(() =>
   import('./pages/internal/InternalDashboardPage').then(({ InternalDashboardPage }) => ({
     default: InternalDashboardPage,
+  })),
+)
+const InternalPackageConfigPage = lazy(() =>
+  import('./pages/internal/InternalPackageConfigPage').then(({ InternalPackageConfigPage }) => ({
+    default: InternalPackageConfigPage,
   })),
 )
 const InternalProposalsPage = lazy(() =>
@@ -68,9 +109,6 @@ const InternalVisitsPage = lazy(() =>
 const OrderPage = lazy(() => import('./pages/OrderPage').then(({ OrderPage }) => ({ default: OrderPage })))
 const PlanAdaptaPage = lazy(() =>
   import('./pages/PlanAdaptaPage').then(({ PlanAdaptaPage }) => ({ default: PlanAdaptaPage })),
-)
-const PlanDetailPage = lazy(() =>
-  import('./pages/PlanDetailPage').then(({ PlanDetailPage }) => ({ default: PlanDetailPage })),
 )
 const PlansPage = lazy(() => import('./pages/PlansPage').then(({ PlansPage }) => ({ default: PlansPage })))
 const ProviderPartnersPage = lazy(() =>
@@ -149,6 +187,10 @@ function LegacyAssessmentRedirect() {
   return <Navigate to={`/home-safety-assessment${location.search}${location.hash}`} replace />
 }
 
+function ConfiguratorRoute({ children }: { children: ReactNode }) {
+  return <ConfiguratorProvider>{children}</ConfiguratorProvider>
+}
+
 function AppRoutes() {
   const location = useLocation()
   const isInternalRoute = location.pathname.startsWith('/internal')
@@ -160,19 +202,29 @@ function AppRoutes() {
       <main>
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Home2Page />} />
+            <Route path="/home2" element={<Home2Page />} />
+            <Route path="/home-new" element={<HomePage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/plans" element={<PlansPage />} />
-            <Route path="/plans/:planId" element={<PlanDetailPage />} />
+            <Route path="/plans/:planId" element={<Navigate to="/plans" replace />} />
             <Route path="/provider-partners" element={<ProviderPartnersPage />} />
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+            <Route path="/family-dashboard" element={<FamilyDashboardPage />} />
+            <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />
             <Route path="/resources" element={<Navigate to="/blog" replace />} />
             <Route path="/resources/:articleId" element={<Navigate to="/blog" replace />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:articleId" element={<BlogArticlePage />} />
             <Route path="/tech" element={<TechPage />} />
+            <Route path="/configure" element={<ConfiguratorRoute><ConfigurePage /></ConfiguratorRoute>} />
+            <Route path="/configure/summary" element={<ConfiguratorRoute><ConfigureSummaryPage /></ConfiguratorRoute>} />
+            <Route path="/configure/contact" element={<ConfiguratorRoute><ConfigureContactPage /></ConfiguratorRoute>} />
+            <Route path="/configure/checkout" element={<ConfiguratorRoute><ConfigureCheckoutPage /></ConfiguratorRoute>} />
+            <Route path="/configure/confirmation" element={<ConfiguratorRoute><ConfigureConfirmationPage /></ConfiguratorRoute>} />
+            <Route path="/admin/config-preview" element={<AdminConfigPreviewPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
             <Route path="/plan-adapta" element={<PlanAdaptaPage />} />
@@ -199,6 +251,7 @@ function AppRoutes() {
             <Route path="/internal" element={<InternalDashboardPage />} />
             <Route path="/internal/visits" element={<InternalVisitsPage />} />
             <Route path="/internal/inspection-report" element={<InspectionReportPage />} />
+            <Route path="/internal/package-config" element={<InternalPackageConfigPage />} />
             <Route path="/internal/proposals" element={<InternalProposalsPage />} />
             <Route path="/internal/provider-partners" element={<InternalProviderPartnersPage />} />
             <Route path="/internal/proposal-generator" element={<ProposalGeneratorPage />} />

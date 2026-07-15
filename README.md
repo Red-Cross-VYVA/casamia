@@ -1,32 +1,71 @@
-# React + TypeScript + Vite
+# CasaMia Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+CasaMia is a React, TypeScript and Vite web application for home-safety assessment, package education, grant guidance and customer configuration.
 
-Currently, two official plugins are available:
+## Local Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Open the local URL shown by Vite, usually `http://127.0.0.1:5173`.
+
+## Main Commands
+
+```bash
+npm run build
+npm run test
+npm run test:configurator
+```
+
+`npm run build` runs TypeScript and creates the production bundle.
+
+`npm run test` runs the existing legal launch checks.
+
+`npm run test:configurator` checks the core wizard pricing and conditional logic.
+
+## Customer Configurator
+
+The customer wizard starts at `/configure`.
+
+Supporting routes:
+
+- `/configure/summary`
+- `/configure/contact`
+- `/configure/checkout`
+- `/configure/confirmation`
+- `/admin/config-preview`
+
+The homepage CTA card that previously opened grant checking now opens `/configure` and is labelled `Build My Safer Home`. The grant checker remains available at `/grant-check` and through other grant-related entry points.
+
+## Configurator Data
+
+Package definitions, inclusions, conditional items and placeholder pricing live in:
+
+- `src/config/casamiaPackages.ts`
+- `src/services/configuratorPricing.ts`
+- `src/types/configurator.ts`
+
+The current seed data was built from the implementation brief because `CasaMia_Final_Packages_and_Wizard_Source.xlsx` is not present in the repository.
+
+## Placeholder Values To Confirm
+
+The following values are editable placeholders and need commercial confirmation before live checkout:
+
+- Base package prices
+- Staircase module price
+- Conditional component prices
+- Monthly VYVA, monitoring and GPS support prices
+- Visit deposit amount
+- VAT handling
+
+## Future Integrations
+
+The configurator currently uses mock adapters so it works without external keys:
+
+- Airtable/Supabase-style submission adapter
+- Confirmation email adapter
+- Stripe-ready deposit checkout adapter
+
+Replace the mock implementations in `src/services/configuratorAdapters.ts` when production services are selected.
