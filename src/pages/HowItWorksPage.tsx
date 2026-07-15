@@ -51,10 +51,12 @@ type HowCopy = {
   secondaryCta: string
   heroAlt: string
   statusTitle: string
+  statusIntro: string
   statusRows: Array<{
     label: string
     value: string
   }>
+  statusNote: string
   processEyebrow: string
   processTitle: string
   processBody: string
@@ -64,6 +66,13 @@ type HowCopy = {
     body: string
     tag: string
     proof: string
+    options?: Array<{
+      title: string
+      body: string
+      note?: string
+      cta: string
+      to: string
+    }>
   }>
   reviewEyebrow: string
   reviewTitle: string
@@ -134,23 +143,40 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     primaryCta: 'Start Free Safety Report',
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
-    statusTitle: 'Your request, clearly managed',
+    statusTitle: 'Your next step is clear',
+    statusIntro: 'CasaMia keeps the family guided from first check to practical action.',
     statusRows: [
-      { label: 'Photos or visit', value: 'Received' },
-      { label: 'Safety review', value: 'Checked' },
-      { label: 'Plan and next step', value: 'Ready' },
+      { label: 'Share photos or book a visit', value: 'Start' },
+      { label: 'We review the home risks', value: 'Review' },
+      { label: 'You get a clear action plan', value: 'Plan' },
     ],
+    statusNote: 'No product guesswork. We start with the home.',
     processEyebrow: 'How it works',
-    processTitle: 'Four clear steps from review to support.',
-    processBody:
-      'Start with photos or a visit. CasaMia reviews the home, reports the priorities, plans the work, and coordinates support.',
+    processTitle: 'Choose how to start.',
+    processBody: 'Upload photos for a faster quote, or book a measured home visit.',
     steps: [
       {
         icon: 'camera',
-        title: 'Share photos or book a visit',
-        body: 'Use photos for a first report, or choose an in-home assessment when the situation needs measurements and transfer checks.',
+        title: 'Photos or visit',
+        body: 'Upload photos for a direct quote, or book a home visit. The 99 EUR visit is deducted if you continue.',
         tag: 'Start',
-        proof: 'Photos or visit request received',
+        proof: 'Clear quote route',
+        options: [
+          {
+            title: 'Self-inspection',
+            body: 'Photos, key measurements and home details.',
+            note: 'No visit needed.',
+            cta: 'Start',
+            to: '/home-safety-assessment#self-inspection-tool',
+          },
+          {
+            title: 'Home visit',
+            body: 'We measure access, bathrooms, stairs and support points.',
+            note: '99 EUR, deducted later.',
+            cta: 'Book visit',
+            to: '/home-safety-assessment?visit=inspector#assessment-form',
+          },
+        ],
       },
       {
         icon: 'shield',
@@ -188,13 +214,6 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         alt: 'Accessible bathroom safety features',
       },
       {
-        icon: 'home',
-        title: 'Stairs',
-        body: 'Handrails, step contrast, landings, and motion lighting.',
-        visualKey: 'stair-safety',
-        alt: 'Safer stairs and hallway',
-      },
-      {
         icon: 'heart',
         title: 'Bedroom',
         body: 'Bed transfers, night routes, bedside reach, and emergency access.',
@@ -202,25 +221,11 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         alt: 'Bedroom routine safety',
       },
       {
-        icon: 'light',
-        title: 'Kitchen',
-        body: 'Reach, storage, appliance safety, task lighting, and floor grip.',
-        visualKey: 'kitchen-safety',
-        alt: 'Older adults cooking safely at home',
-      },
-      {
-        icon: 'map',
-        title: 'Entrance',
-        body: 'Thresholds, ramps, door support, exterior light, and visitor access.',
-        visualKey: 'entrance-accessibility',
-        alt: 'Safe entrance access with ramp and handrail',
-      },
-      {
         icon: 'monitor',
-        title: 'Smart safety',
-        body: 'Sensors, fall alerts, family notifications, VYVA, and privacy settings.',
+        title: 'Living areas',
+        body: 'Clear routes, safer seating, lighting, cables, rugs, and everyday movement.',
         visualKey: 'smart-home-safety',
-        alt: 'Smart safety support for seniors',
+        alt: 'Living area risk map showing common trip hazards',
       },
     ],
     deliverablesEyebrow: 'What you get',
@@ -292,9 +297,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'sparkles',
-        title: 'Safety packages',
-        body: 'Compare Essential, Advanced, and Premium.',
-        cta: 'Compare Plans',
+        title: 'Home Safety Plan',
+        body: 'Start with one clear plan, then add optional upgrades after the report.',
+        cta: 'See Plan',
         to: '/plans',
       },
       {
@@ -322,23 +327,40 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     primaryCta: 'Empezar informe gratis',
     secondaryCta: 'Reservar visita',
     heroAlt: 'Profesional de CasaMia preparado para una evaluación de seguridad en casa',
-    statusTitle: 'Tu solicitud, bien coordinada',
+    statusTitle: 'Tu siguiente paso claro',
+    statusIntro: 'CasaMia acompaña a la familia desde la primera revisión hasta la acción práctica.',
     statusRows: [
-      { label: 'Fotos o visita', value: 'Recibido' },
-      { label: 'Revisi\u00f3n de seguridad', value: 'Comprobado' },
-      { label: 'Plan y siguiente paso', value: 'Listo' },
+      { label: 'Envía fotos o reserva visita', value: 'Inicio' },
+      { label: 'Revisamos los riesgos', value: 'Revisión' },
+      { label: 'Recibes un plan claro', value: 'Plan' },
     ],
+    statusNote: 'Sin adivinar productos. Empezamos por la vivienda.',
     processEyebrow: 'C\u00f3mo funciona',
-    processTitle: 'Cuatro pasos claros desde revisi\u00f3n hasta apoyo.',
-    processBody:
-      'Empieza con fotos o una visita. CasaMia revisa la vivienda, informa de las prioridades, planifica y coordina el apoyo.',
+    processTitle: 'Elige c\u00f3mo empezar.',
+    processBody: 'Sube fotos para presupuesto directo o reserva una visita con medidas.',
     steps: [
       {
         icon: 'camera',
-        title: 'Sube fotos o reserva visita',
-        body: 'Usa fotos para un primer informe o elige una evaluaci\u00f3n en casa si hacen falta medidas y revisi\u00f3n presencial.',
+        title: 'Fotos o visita',
+        body: 'Sube fotos para presupuesto directo o reserva visita. La visita cuesta 99 EUR y se descuenta si contin\u00faas.',
         tag: 'Inicio',
-        proof: 'Fotos o visita recibidas',
+        proof: 'Presupuesto claro',
+        options: [
+          {
+            title: 'Autoinspecci\u00f3n',
+            body: 'Fotos, medidas clave y datos de la vivienda.',
+            note: 'Sin visita.',
+            cta: 'Empezar',
+            to: '/home-safety-assessment#self-inspection-tool',
+          },
+          {
+            title: 'Visita a domicilio',
+            body: 'Medimos accesos, ba\u00f1os, escaleras y apoyos.',
+            note: '99 EUR, descontable.',
+            cta: 'Reservar visita',
+            to: '/home-safety-assessment?visit=inspector#assessment-form',
+          },
+        ],
       },
       {
         icon: 'shield',
@@ -376,13 +398,6 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         alt: 'Ba\u00f1o accesible con elementos de seguridad',
       },
       {
-        icon: 'home',
-        title: 'Escaleras',
-        body: 'Pasamanos, contraste, descansillos e iluminaci\u00f3n con sensor.',
-        visualKey: 'stair-safety',
-        alt: 'Escaleras y pasillo m\u00e1s seguros',
-      },
-      {
         icon: 'heart',
         title: 'Dormitorio',
         body: 'Cama, rutas nocturnas, alcance desde la mesilla y ayuda cercana.',
@@ -390,25 +405,11 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         alt: 'Rutina segura en dormitorio',
       },
       {
-        icon: 'light',
-        title: 'Cocina',
-        body: 'Alcance, almacenaje, electrodom\u00e9sticos, luz y agarre del suelo.',
-        visualKey: 'kitchen-safety',
-        alt: 'Personas mayores cocinando de forma segura',
-      },
-      {
-        icon: 'map',
-        title: 'Entrada',
-        body: 'Umbrales, rampas, apoyo junto a puerta, luz exterior y visitas.',
-        visualKey: 'entrance-accessibility',
-        alt: 'Entrada segura con rampa y pasamanos',
-      },
-      {
         icon: 'monitor',
-        title: 'Smart safety',
-        body: 'Sensores, alertas de ca\u00edda, avisos familiares, VYVA y privacidad.',
+        title: 'Sal\u00f3n',
+        body: 'Rutas despejadas, asientos, iluminaci\u00f3n, cables, alfombras y movimiento diario.',
         visualKey: 'smart-home-safety',
-        alt: 'Seguridad smart para personas mayores',
+        alt: 'Mapa de riesgos del sal\u00f3n con obst\u00e1culos y zonas de paso',
       },
     ],
     deliverablesEyebrow: 'Qu\u00e9 recibes',
@@ -480,9 +481,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'sparkles',
-        title: 'Paquetes',
-        body: 'Essential, Advanced y Premium.',
-        cta: 'Comparar',
+        title: 'Home Safety Plan',
+        body: 'Un plan claro primero, con extras opcionales tras el informe.',
+        cta: 'Ver plan',
         to: '/plans',
       },
       {
@@ -509,12 +510,140 @@ function getVisual(key: string) {
   return serviceVisuals[key]?.image ?? IMAGE_URLS.finalCta
 }
 
+type ReviewRiskLabel = {
+  x: number
+  y: number
+  w: number
+}
+
+const reviewRiskVisuals: Record<string, string> = {
+  'bathroom-safety': '/images/solutions/bathroom-risk-map.png',
+  'bedroom-safety': '/images/solutions/bedroom-risk-map.png',
+  'smart-home-safety': '/images/solutions/living-risk-map.png',
+}
+
+const reviewRiskLabels: Record<string, ReviewRiskLabel[]> = {
+  'bathroom-safety': [
+    { x: 36.2, y: 80.2, w: 7.8 },
+    { x: 86.8, y: 26.1, w: 8.8 },
+    { x: 86.8, y: 46.0, w: 8.8 },
+    { x: 41.0, y: 63.2, w: 8.4 },
+    { x: 7.8, y: 18.0, w: 10.2 },
+    { x: 88.6, y: 64.2, w: 8.4 },
+    { x: 76.8, y: 90.2, w: 8.4 },
+    { x: 6.2, y: 88.8, w: 8.4 },
+    { x: 6.2, y: 93.2, w: 8.4 },
+  ],
+  'bedroom-safety': [
+    { x: 11.8, y: 19.2, w: 13.0 },
+    { x: 14.2, y: 36.5, w: 12.0 },
+    { x: 24.7, y: 75.4, w: 13.2 },
+    { x: 10.0, y: 61.8, w: 15.0 },
+    { x: 79.8, y: 44.1, w: 15.8 },
+    { x: 76.2, y: 18.8, w: 15.6 },
+    { x: 69.0, y: 81.5, w: 14.5 },
+    { x: 6.2, y: 88.8, w: 8.4 },
+    { x: 6.2, y: 93.2, w: 8.4 },
+  ],
+  'smart-home-safety': [
+    { x: 44.6, y: 85.6, w: 10.8 },
+    { x: 86.6, y: 28.2, w: 10.8 },
+    { x: 70.3, y: 70.2, w: 11.8 },
+    { x: 6.6, y: 72.7, w: 8.8 },
+    { x: 6.9, y: 18.4, w: 9.4 },
+    { x: 6.9, y: 51.5, w: 10.0 },
+    { x: 90.3, y: 54.5, w: 8.6 },
+    { x: 6.2, y: 88.8, w: 8.4 },
+    { x: 6.2, y: 93.2, w: 8.4 },
+  ],
+}
+
+const reviewRiskCopy: Record<'en' | 'es', Record<string, string[]>> = {
+  en: {
+    'bathroom-safety': [
+      'Loose rug',
+      'High step',
+      'Shower entry',
+      'Toilet height',
+      'Wet zone',
+      'Visible cable',
+      'Narrow door',
+      'High risk',
+      'Medium risk',
+    ],
+    'bedroom-safety': [
+      'Loose rug',
+      'Low bed',
+      'Poor night lighting',
+      'Slippers in route',
+      'Narrow path',
+      'No support',
+      'Door in route',
+      'High risk',
+      'Medium risk',
+    ],
+    'smart-home-safety': [
+      'Loose rug',
+      'Obstructed route',
+      'Furniture corner',
+      'Poor lighting',
+      'Visible cable',
+      'Low seating',
+      'Narrow path',
+      'High risk',
+      'Medium risk',
+    ],
+  },
+  es: {
+    'bathroom-safety': [
+      'Alfombra suelta',
+      'Escalón alto',
+      'Entrada a ducha',
+      'Altura del WC',
+      'Zona mojada',
+      'Cable visible',
+      'Puerta estrecha',
+      'Riesgo alto',
+      'Riesgo medio',
+    ],
+    'bedroom-safety': [
+      'Alfombra suelta',
+      'Cama baja',
+      'Poca luz nocturna',
+      'Calzado en el paso',
+      'Paso estrecho',
+      'Sin apoyo',
+      'Puerta en la ruta',
+      'Riesgo alto',
+      'Riesgo medio',
+    ],
+    'smart-home-safety': [
+      'Alfombra suelta',
+      'Ruta obstruida',
+      'Esquina de mueble',
+      'Poca iluminación',
+      'Cable visible',
+      'Asiento bajo',
+      'Paso estrecho',
+      'Riesgo alto',
+      'Riesgo medio',
+    ],
+  },
+}
+
+function getReviewVisual(key: string) {
+  return reviewRiskVisuals[key] ?? getVisual(key)
+}
+
 export function HowItWorksPage() {
   const { i18n } = useTranslation()
   const copy = getHowCopy(i18n.language)
   const [activeReviewIndex, setActiveReviewIndex] = useState(0)
   const activeReviewArea = copy.reviewAreas[activeReviewIndex] ?? copy.reviewAreas[0]
   const ActiveReviewIcon = activeReviewArea ? howIcons[activeReviewArea.icon] : ShieldCheck
+  const riskLanguage = i18n.language.startsWith('es') ? 'es' : 'en'
+  const activeRiskLabels = activeReviewArea ? reviewRiskLabels[activeReviewArea.visualKey] : undefined
+  const activeRiskCopy = activeReviewArea ? reviewRiskCopy[riskLanguage][activeReviewArea.visualKey] : undefined
   const projectSupport = i18n.language.startsWith('es')
     ? {
         eyebrow: 'Acompa\u00f1amiento',
@@ -613,7 +742,10 @@ export function HowItWorksPage() {
             <div className="how-status-panel" aria-label={copy.statusTitle}>
               <div className="how-status-header">
                 <MonitorCheck size={21} aria-hidden="true" />
-                <strong>{copy.statusTitle}</strong>
+                <div>
+                  <strong>{copy.statusTitle}</strong>
+                  <p>{copy.statusIntro}</p>
+                </div>
               </div>
               {copy.statusRows.map((row, index) => (
                 <div className="how-status-row" key={row.label}>
@@ -624,6 +756,7 @@ export function HowItWorksPage() {
                   <strong>{row.value}</strong>
                 </div>
               ))}
+              <p className="how-status-note">{copy.statusNote}</p>
             </div>
           </div>
         </div>
@@ -662,7 +795,7 @@ export function HowItWorksPage() {
               const Icon = howIcons[step.icon]
 
               return (
-                <article className="how-step-card" key={step.title}>
+                <article className={`how-step-card ${step.options ? 'has-options' : ''}`} key={step.title}>
                   <div className="how-flow-node" aria-hidden="true">
                     <span>{String(index + 1).padStart(2, '0')}</span>
                     <Icon size={26} />
@@ -674,6 +807,21 @@ export function HowItWorksPage() {
                     </div>
                     <h3>{step.title}</h3>
                     <p>{step.body}</p>
+                    {step.options ? (
+                      <div className="how-step-options">
+                        {step.options.map((option) => (
+                          <div className="how-step-option" key={option.title}>
+                            <strong>{option.title}</strong>
+                            <p>{option.body}</p>
+                            {option.note ? <span>{option.note}</span> : null}
+                            <Link to={option.to}>
+                              {option.cta}
+                              <ArrowRight size={15} aria-hidden="true" />
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 </article>
               )
@@ -698,13 +846,30 @@ export function HowItWorksPage() {
 
           {activeReviewArea ? (
             <div className="how-review-gallery" aria-live="polite">
-              <div className="how-review-gallery-stage">
+              <div className={`how-review-gallery-stage ${activeRiskLabels?.length ? 'has-risk-map' : ''}`}>
                 <SafeImage
-                  src={getVisual(activeReviewArea.visualKey)}
+                  src={getReviewVisual(activeReviewArea.visualKey)}
                   alt={activeReviewArea.alt}
                   className="how-review-gallery-image"
                   imgClassName="h-full w-full object-cover"
                 />
+                {activeRiskLabels?.length ? (
+                  <div className="how-review-risk-labels" aria-hidden="true">
+                    {activeRiskLabels.map((label, labelIndex) => (
+                      <span
+                        className="how-review-risk-label"
+                        key={`${activeReviewArea.visualKey}-${labelIndex}`}
+                        style={{
+                          left: `${label.x}%`,
+                          top: `${label.y}%`,
+                          width: `${label.w}%`,
+                        }}
+                      >
+                        {activeRiskCopy?.[labelIndex]}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="how-review-gallery-caption">
                   <p className="how-review-gallery-count">
                     {activeReviewIndex + 1} / {copy.reviewAreas.length}
@@ -734,7 +899,7 @@ export function HowItWorksPage() {
                     onClick={() => setActiveReviewIndex(index)}
                     aria-label={area.title}
                   >
-                    <img src={getVisual(area.visualKey)} alt="" />
+                    <img src={getReviewVisual(area.visualKey)} alt="" />
                     <span>{area.title}</span>
                   </button>
                 ))}

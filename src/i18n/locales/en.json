@@ -28,9 +28,9 @@
   },
   "hero": {
     "badge": "Home safety specialists · All Spain",
-    "line1": "Home, Safe",
-    "line2": "Home.",
-    "sub": "Start with the right free check: discover home safety risks or see whether grant support may apply.",
+    "line1": "Home Sweet",
+    "line2": "Home",
+    "sub": "Make the home safer, easier and less worrying for the people you love, with clear guidance and practical adaptations managed by CasaMia.",
     "uploadLabel": "Is your home safe? Find out for free.",
     "uploadRooms": "Bathroom · Kitchen · Stairway · Living room",
     "uploadReport": "Free report: risks in every photo",
@@ -205,20 +205,8 @@
           "label": "Not sure yet"
         },
         {
-          "value": "essential",
-          "label": "Essential package"
-        },
-        {
-          "value": "advanced",
-          "label": "Advanced package"
-        },
-        {
-          "value": "premium",
-          "label": "Premium package"
-        },
-        {
           "value": "home-assessment",
-          "label": "In-home assessment only"
+          "label": "Home Safety Assessment"
         },
         {
           "value": "home-safety",
@@ -226,7 +214,7 @@
         },
         {
           "value": "smart-safety",
-          "label": "Smart Safety Plan"
+          "label": "Add-on Services"
         }
       ],
       "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the €89 assessment visit."
@@ -276,7 +264,9 @@
         "value": "€6,000",
         "label": "average government\ngrant to cover costs"
       }
-    ]
+    ],
+    "sourceLabel": "Sources and context:",
+    "deepDive": "Read the full fall-prevention guide"
   },
   "offer": {
     "badge": "WHAT WE OFFER",
@@ -1696,10 +1686,10 @@
   },
   "beforeAfter": {
     "preview": {
-      "title": "Real Homes. Real Improvements. Real Peace of Mind.",
-      "body": "See how CasaMia reviews the key spaces at home: bathroom, stairs, entry, kitchen, bedroom and living areas.",
-      "viewCta": "View Transformations →",
-      "assessmentCta": "Book Free Assessment"
+      "title": "Simple changes that make home feel safer.",
+      "body": "Get inspired by practical upgrades that reduce risk and make moving, showering, entering and resting feel calmer.",
+      "viewCta": "See Examples →",
+      "assessmentCta": "Start Free"
     },
     "page": {
       "title": "Before & After",

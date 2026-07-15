@@ -36,19 +36,42 @@ function isActiveLink(pathname: string, link: HeaderLink) {
 }
 
 export function Nav() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const assessmentPath = getAssessmentPath(location.pathname)
+  const navLabels = i18n.language.startsWith('es')
+    ? {
+        home: 'Inicio',
+        howItWorks: 'Proceso',
+        solutions: 'Soluciones',
+        families: 'Familias',
+        organisations: 'Organizaciones',
+        about: 'Por qu\u00e9',
+        resources: 'Blog',
+        cta: 'Reservar evaluaci\u00f3n',
+        phone: t('nav.phone'),
+      }
+    : {
+        home: 'Home',
+        howItWorks: 'How It Works',
+        solutions: 'Solutions',
+        families: 'For Families',
+        organisations: 'For Organisations',
+        about: 'About Us',
+        resources: 'Resources',
+        cta: 'Book Assessment',
+        phone: t('nav.phone'),
+      }
 
   const links: HeaderLink[] = [
-    { label: t('nav.home', { defaultValue: 'Home' }), to: '/', match: ['/'] },
-    { label: t('nav.services', { defaultValue: 'Solutions' }), to: '/services', match: ['/services'] },
-    { label: t('nav.howItWorks'), to: '/how-it-works', match: ['/how-it-works'] },
-    { label: t('nav.plans'), to: '/plans', match: ['/plans'] },
-    { label: t('nav.grants'), to: '/grants', match: ['/grants', '/grant-check', '/plan-adapta'] },
-    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-us', match: ['/why-us', '/why-casamia', '/contact'] },
-    { label: 'Blog', to: '/blog', match: ['/blog'] },
+    { label: navLabels.home, to: '/#top', match: ['/'] },
+    { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
+    { label: navLabels.solutions, to: '/services', match: ['/services', '/plans'] },
+    { label: navLabels.families, to: '/family-dashboard', match: ['/family-dashboard'] },
+    { label: navLabels.organisations, to: '/assisted-living-solutions', match: ['/assisted-living-solutions'] },
+    { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
+    { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources'] },
   ]
   const desktopLinks = links
 
@@ -83,18 +106,18 @@ export function Nav() {
         <div className="site-header-actions">
           <a
             className="site-header-phone"
-            href={`tel:${t('nav.phone').replaceAll(' ', '')}`}
-            onClick={() => trackEvent('cta_click', { location: 'nav', target: 'phone' })}
+            href={`tel:${navLabels.phone.replaceAll(' ', '')}`}
+            onClick={() => trackEvent('phone_number_clicked', { location: 'nav' })}
           >
             <Phone size={17} aria-hidden="true" />
-            {t('nav.phone')}
+            {navLabels.phone}
           </a>
           <Link
             className="site-header-cta btn btn-green"
             to={assessmentPath}
-            onClick={() => trackEvent('cta_click', { location: 'nav', target: 'book_visit' })}
+            onClick={() => trackEvent('assessment_booking_started', { location: 'nav' })}
           >
-            {t('nav.cta')}
+            {navLabels.cta}
           </Link>
           <LanguageSwitcher compact />
         </div>
@@ -127,15 +150,19 @@ export function Nav() {
                 </Link>
               )
             })}
-            <a className="nav-link min-h-12 py-2 text-lg" href={`tel:${t('nav.phone').replaceAll(' ', '')}`}>
-              {t('nav.phone')}
+            <a
+              className="nav-link min-h-12 py-2 text-lg"
+              href={`tel:${navLabels.phone.replaceAll(' ', '')}`}
+              onClick={() => trackEvent('phone_number_clicked', { location: 'mobile_nav' })}
+            >
+              {navLabels.phone}
             </a>
             <Link
               className="btn btn-green w-full"
               to={assessmentPath}
-              onClick={() => trackEvent('cta_click', { location: 'mobile_nav', target: 'book_visit' })}
+              onClick={() => trackEvent('assessment_booking_started', { location: 'mobile_nav' })}
             >
-              {t('nav.cta')}
+              {navLabels.cta}
             </Link>
             <LanguageSwitcher />
           </div>

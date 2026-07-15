@@ -28,9 +28,9 @@
   },
   "hero": {
     "badge": "Specialisten in woningveiligheid · Heel Spanje",
-    "line1": "Thuis, veilig",
-    "line2": "thuis.",
-    "sub": "Start with the right free check: discover home safety risks or see whether grant support may apply.",
+    "line1": "Home Sweet",
+    "line2": "Home",
+    "sub": "Maak het huis veiliger, makkelijker en rustiger voor uw dierbaren, met duidelijke begeleiding en praktische aanpassingen geregeld door CasaMia.",
     "uploadLabel": "Is uw huis veilig? Ontdek het gratis.",
     "uploadRooms": "Badkamer · Keuken · Trap · Woonkamer",
     "uploadReport": "Gratis rapport: risico's per foto",
@@ -102,7 +102,9 @@
         "value": "€6.000",
         "label": "gemiddelde overheidssubsidie\nom kosten te dekken"
       }
-    ]
+    ],
+    "sourceLabel": "Bronnen en context:",
+    "deepDive": "Lees de volledige gids voor valpreventie"
   },
   "offer": {
     "badge": "WAT WIJ BIEDEN",
@@ -1661,23 +1663,11 @@
       "planOptions": [
         {
           "value": "not-sure",
-          "label": "Not sure yet"
-        },
-        {
-          "value": "essential",
-          "label": "Essential package"
-        },
-        {
-          "value": "advanced",
-          "label": "Advanced package"
-        },
-        {
-          "value": "premium",
-          "label": "Premium package"
+          "label": "Nog niet zeker"
         },
         {
           "value": "home-assessment",
-          "label": "In-home assessment only"
+          "label": "Veiligheidsbeoordeling thuis"
         },
         {
           "value": "home-safety",
@@ -1685,7 +1675,7 @@
         },
         {
           "value": "smart-safety",
-          "label": "Smart Safety Plan"
+          "label": "Optionele diensten"
         }
       ],
       "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the €89 assessment visit."
@@ -1696,10 +1686,10 @@
   },
   "beforeAfter": {
     "preview": {
-      "title": "Real Homes. Real Improvements. Real Peace of Mind.",
-      "body": "See how CasaMia reviews the key spaces at home: bathroom, stairs, entry, kitchen, bedroom and living areas.",
-      "viewCta": "View Transformations →",
-      "assessmentCta": "Book Free Assessment"
+      "title": "Simple changes that make home feel safer.",
+      "body": "Get inspired by practical upgrades that reduce risk and make moving, showering, entering and resting feel calmer.",
+      "viewCta": "See Examples →",
+      "assessmentCta": "Start Free"
     },
     "page": {
       "title": "Before & After",

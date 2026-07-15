@@ -6,6 +6,7 @@ import {
   LogOut,
   Network,
   Route,
+  Tags,
 } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
 
@@ -15,6 +16,7 @@ const internalLinks = [
   { label: 'Dashboard', to: '/internal', icon: LayoutDashboard },
   { label: "Today's visits", to: '/internal/visits', icon: Route },
   { label: 'Report builder', to: '/internal/inspection-report', icon: ClipboardList },
+  { label: 'Package config', to: '/internal/package-config', icon: Tags },
   { label: 'Proposals', to: '/internal/proposals', icon: FileText },
   { label: 'Provider partners', to: '/internal/provider-partners', icon: Network },
 ]
@@ -35,7 +37,7 @@ export function InternalSidebar() {
         </Link>
       </div>
 
-      <nav className="grid gap-2 px-5 pb-4 sm:grid-cols-5 lg:flex lg:flex-col lg:px-4 lg:pb-0">
+      <nav className="grid gap-2 px-5 pb-4 sm:grid-cols-6 lg:flex lg:flex-col lg:px-4 lg:pb-0">
         {internalLinks.map((link) => {
           const Icon = link.icon
 

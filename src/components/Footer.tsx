@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom'
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { legalRouteLabels } from '../constants/legalDocuments'
+import { trackEvent } from '../utils/analytics'
 
 export function Footer() {
   const { t } = useTranslation()
   const companyLinks = [
     { label: t('nav.home', { defaultValue: 'Home' }), to: '/' },
     { label: t('nav.howItWorks'), to: '/how-it-works' },
-    { label: t('nav.services', { defaultValue: 'Solutions' }), to: '/services' },
-    { label: t('nav.plans'), to: '/plans' },
-    { label: t('nav.grants'), to: '/grants' },
+    { label: 'Home Safety Plan', to: '/plans' },
+    { label: 'Add-on Services', to: '/services' },
+    { label: 'Family Dashboard', to: '/family-dashboard' },
+    { label: 'Assisted Living Solutions', to: '/assisted-living-solutions' },
     { label: 'Provider Partners', to: '/provider-partners' },
     { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-us' },
     { label: 'Blog', to: '/blog' },
@@ -34,7 +36,11 @@ export function Footer() {
             <BrandLogo variant="footer" />
           </Link>
           <p className="mt-5 max-w-sm text-white/70">{t('footer.tagline')}</p>
-          <a className="mt-5 inline-block font-display text-2xl font-black text-green" href={`tel:${t('footer.phone').replaceAll(' ', '')}`}>
+          <a
+            className="mt-5 inline-block font-display text-2xl font-black text-green"
+            href={`tel:${t('footer.phone').replaceAll(' ', '')}`}
+            onClick={() => trackEvent('phone_number_clicked', { location: 'footer' })}
+          >
             {t('footer.phone')}
           </a>
         </div>
