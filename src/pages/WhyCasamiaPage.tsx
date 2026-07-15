@@ -10,7 +10,6 @@ import {
   Home,
   LoaderCircle,
   Mail,
-  Phone,
   ShieldCheck,
   Tags,
 } from 'lucide-react'
@@ -282,8 +281,6 @@ export function WhyCasamiaPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const planOptions = t('pages.contact.planOptions', { returnObjects: true }) as string[]
-  const phoneNumber = t('nav.phone')
-  const phoneHref = phoneNumber.replace(/\s+/g, '')
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -431,16 +428,6 @@ export function WhyCasamiaPage() {
             <h2>{copy.contactTitle}</h2>
             <p>{copy.contactBody}</p>
             <div className="contact-direct-options">
-              <a
-                href={`tel:${phoneHref}`}
-                onClick={() => trackEvent('phone_number_clicked', { location: 'why_us_contact' })}
-              >
-                <Phone size={19} aria-hidden="true" />
-                <span>
-                  <strong>{copy.callTitle}</strong>
-                  {phoneNumber}
-                </span>
-              </a>
               <a
                 href="mailto:hello@casamia.es"
                 onClick={() => trackEvent('email_clicked', { location: 'why_us_contact' })}

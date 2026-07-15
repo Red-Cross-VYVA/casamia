@@ -1,4 +1,4 @@
-import { Menu, Phone, X } from 'lucide-react'
+import { Mail, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { trackEvent } from '../utils/analytics'
+import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
 const planAssessmentMap: Record<string, string> = {
   advanced: 'home-safety',
@@ -106,11 +107,11 @@ export function Nav() {
         <div className="site-header-actions">
           <a
             className="site-header-phone"
-            href={`tel:${navLabels.phone.replaceAll(' ', '')}`}
-            onClick={() => trackEvent('phone_number_clicked', { location: 'nav' })}
+            href={`mailto:${CASAMIA_CONTACT_EMAIL}`}
+            onClick={() => trackEvent('email_contact_clicked', { location: 'nav' })}
           >
-            <Phone size={17} aria-hidden="true" />
-            {navLabels.phone}
+            <Mail size={17} aria-hidden="true" />
+            {CASAMIA_CONTACT_EMAIL}
           </a>
           <Link
             className="site-header-cta btn btn-green"
@@ -152,10 +153,10 @@ export function Nav() {
             })}
             <a
               className="nav-link min-h-12 py-2 text-lg"
-              href={`tel:${navLabels.phone.replaceAll(' ', '')}`}
-              onClick={() => trackEvent('phone_number_clicked', { location: 'mobile_nav' })}
+              href={`mailto:${CASAMIA_CONTACT_EMAIL}`}
+              onClick={() => trackEvent('email_contact_clicked', { location: 'mobile_nav' })}
             >
-              {navLabels.phone}
+              {CASAMIA_CONTACT_EMAIL}
             </a>
             <Link
               className="btn btn-green w-full"

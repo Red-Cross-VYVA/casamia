@@ -6,6 +6,7 @@ import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { legalRouteLabels } from '../constants/legalDocuments'
 import { trackEvent } from '../utils/analytics'
+import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
 export function Footer() {
   const { t } = useTranslation()
@@ -38,10 +39,10 @@ export function Footer() {
           <p className="mt-5 max-w-sm text-white/70">{t('footer.tagline')}</p>
           <a
             className="mt-5 inline-block font-display text-2xl font-black text-green"
-            href={`tel:${t('footer.phone').replaceAll(' ', '')}`}
-            onClick={() => trackEvent('phone_number_clicked', { location: 'footer' })}
+            href={`mailto:${CASAMIA_CONTACT_EMAIL}`}
+            onClick={() => trackEvent('email_contact_clicked', { location: 'footer' })}
           >
-            {t('footer.phone')}
+            {CASAMIA_CONTACT_EMAIL}
           </a>
         </div>
 
