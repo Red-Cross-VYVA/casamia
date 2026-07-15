@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://casamia.es/</loc><priority>1.0</priority></url>
+  <url><loc>https://casamia.es/how-it-works</loc><priority>0.9</priority></url>
   <url><loc>https://casamia.es/home-safety-assessment</loc><priority>0.95</priority></url>
   <url><loc>https://casamia.es/services</loc><priority>0.95</priority></url>
   <url><loc>https://casamia.es/services/bathroom-safety</loc><priority>0.9</priority></url>
   <url><loc>https://casamia.es/services/stair-safety</loc><priority>0.9</priority></url>
   <url><loc>https://casamia.es/services/entrance-accessibility</loc><priority>0.85</priority></url>
   <url><loc>https://casamia.es/services/kitchen-safety</loc><priority>0.85</priority></url>
+  <url><loc>https://casamia.es/services/bedroom-safety</loc><priority>0.85</priority></url>
   <url><loc>https://casamia.es/services/smart-home-safety</loc><priority>0.85</priority></url>
   <url><loc>https://casamia.es/plans</loc><priority>0.9</priority></url>
-  <url><loc>https://casamia.es/plans/home-assessment</loc><priority>0.85</priority></url>
-  <url><loc>https://casamia.es/plans/home-safety</loc><priority>0.85</priority></url>
-  <url><loc>https://casamia.es/plans/smart-safety</loc><priority>0.85</priority></url>
+  <url><loc>https://casamia.es/family-dashboard</loc><priority>0.8</priority></url>
+  <url><loc>https://casamia.es/assisted-living-solutions</loc><priority>0.8</priority></url>
+  <url><loc>https://casamia.es/provider-partners</loc><priority>0.75</priority></url>
   <url><loc>https://casamia.es/grants</loc><priority>0.85</priority></url>
+  <url><loc>https://casamia.es/grant-check</loc><priority>0.8</priority></url>
   <url><loc>https://casamia.es/plan-adapta</loc><priority>0.85</priority></url>
   <url><loc>https://casamia.es/why-us</loc><priority>0.8</priority></url>
   <url><loc>https://casamia.es/about</loc><priority>0.7</priority></url>
   <url><loc>https://casamia.es/before-after</loc><priority>0.55</priority></url>
   <url><loc>https://casamia.es/tech</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog</loc><priority>0.75</priority></url>
+  <url><loc>https://casamia.es/blog/fall-prevention-home-checklist-spain</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/bathroom-safety-seniors-costly-mistakes</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/home-adaptation-grants-spain-family-guide</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/smart-home-safety-without-overcomplicating</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/choose-home-safety-provider-spain</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/dementia-friendly-home-safety</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/stair-safety-handrails-older-adults</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/kitchen-safety-aging-in-place</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/bedroom-night-safety-older-adults</loc><priority>0.65</priority></url>
+  <url><loc>https://casamia.es/blog/emergency-plan-aging-parents-home</loc><priority>0.65</priority></url>
   <url><loc>https://casamia.es/terms-and-conditions</loc><priority>0.3</priority></url>
 </urlset>

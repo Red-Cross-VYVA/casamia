@@ -10,6 +10,7 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "node scripts/legal-launch-checks.mjs",
+    "test:links": "node scripts/link-checks.mjs",
     "test:configurator": "node --experimental-strip-types scripts/configurator-pricing-tests.mjs",
     "validate:legal-config": "node scripts/validate-legal-config.mjs"
   },

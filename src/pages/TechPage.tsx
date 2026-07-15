@@ -489,7 +489,7 @@ export function TechPage() {
             </h1>
             <p>{copy.intro}</p>
             <div className="tech-hero-actions">
-              <Link className="btn btn-green" to="/plans/smart-safety">
+              <Link className="btn btn-green" to="/plans">
                 {copy.primaryCta}
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
@@ -681,7 +681,7 @@ export function TechPage() {
               ))}
             </div>
 
-            <Link className="btn btn-navy mt-8" to="/plans/smart-safety">
+            <Link className="btn btn-navy mt-8" to="/plans">
               {copy.viewPlan}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
