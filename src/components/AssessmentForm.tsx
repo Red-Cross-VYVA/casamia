@@ -550,9 +550,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
           {isBooking ? null : (
             <a
               className="btn btn-navy"
-              href="https://wa.me/34900000000?text=I%20would%20like%20to%20request%20a%20CasaMia%20in-home%20safety%20assessment%20visit%20for%2089%20euros."
-              rel="noreferrer"
-              target="_blank"
+              href="mailto:hello@casamia.es?subject=Assessment%20visit%20request"
             >
               {t('assessment.form.schedule')}
               <ArrowRight size={20} aria-hidden="true" />

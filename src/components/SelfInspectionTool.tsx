@@ -881,11 +881,11 @@ export function SelfInspectionTool() {
                     </button>
                     <a
                       className="btn btn-white"
-                      href={`https://wa.me/34900000000?text=${encodeURIComponent(
+                      href={`mailto:hello@casamia.es?subject=${encodeURIComponent('Self-inspection follow-up')}&body=${encodeURIComponent(
                         `Hello CasaMia, I completed the self-inspection survey. ${riskItems.length} items need review.`,
                       )}`}
                     >
-                      WhatsApp
+                      Email CasaMia
                       <MessageCircle size={18} aria-hidden="true" />
                     </a>
                   </div>

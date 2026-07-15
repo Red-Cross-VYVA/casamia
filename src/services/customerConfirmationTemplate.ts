@@ -23,9 +23,9 @@ type CustomerDetail = {
 const NOT_SURE_PLAN = 'Not sure yet'
 const ASSESSMENT_VISIT_FEE = '€89'
 const SCHEDULE_INSPECTION_URL =
-  'https://wa.me/34900000000?text=I%20would%20like%20to%20request%20a%20CasaMia%20in-home%20safety%20assessment%20visit%20for%2089%20euros.'
+  'mailto:hello@casamia.es?subject=Assessment%20visit%20request'
 const CasaMia_WEBSITE_URL = 'https://CasaMia-seniors.myshopify.com/'
-const CasaMia_PHONE = '+34 900 000 000'
+const CasaMia_CONTACT = 'hello@casamia.es'
 
 export function buildAssessmentCustomerConfirmation(
   payload: AssessmentCustomerConfirmationPayload,
@@ -95,7 +95,7 @@ function buildPlainText(details: CustomerDetail[], reassurance: string) {
     '',
     'The CasaMia team',
     CasaMia_WEBSITE_URL,
-    CasaMia_PHONE,
+    CasaMia_CONTACT,
     '',
     'Your information will only be used to process your request and contact you about your CasaMia in-home safety assessment visit.',
   ].join('\n')
@@ -159,7 +159,7 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
           <footer style="margin-top: 28px; padding-top: 20px; border-top: 1px solid #d8e5ef; color: #5b6d7d; font-size: 13px; line-height: 1.55;">
             <p style="margin: 0 0 8px; color: #102235; font-weight: 700;">The CasaMia team</p>
             <p style="margin: 0;"><a href="${CasaMia_WEBSITE_URL}" style="color: #0f6286;">${CasaMia_WEBSITE_URL}</a></p>
-            <p style="margin: 4px 0 0;">${CasaMia_PHONE}</p>
+            <p style="margin: 4px 0 0;"><a href="mailto:${CasaMia_CONTACT}" style="color: #0f6286;">${CasaMia_CONTACT}</a></p>
             <p style="margin: 16px 0 0;">Your information will only be used to process your request and contact you about your CasaMia in-home safety assessment visit.</p>
           </footer>
         </div>

@@ -31,6 +31,10 @@ for (const file of sourceFiles) {
   const source = fs.readFileSync(file, 'utf8')
   const relativeFile = path.relative(projectRoot, file)
 
+  if (/34900000000/.test(source)) {
+    failures.push(`${relativeFile}: contains the placeholder CasaMia phone number`)
+  }
+
   for (const match of source.matchAll(/(?:to|href)=(?:"([^"]+)"|'([^']+)')/g)) {
     const target = match[1] ?? match[2]
     if (!target.startsWith('/')) continue

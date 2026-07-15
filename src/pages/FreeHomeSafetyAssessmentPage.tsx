@@ -730,7 +730,7 @@ function OrderCheckoutWizard({
         </div>
         <a
           className="btn btn-green"
-          href={`https://wa.me/34900000000?text=${encodeURIComponent(
+          href={`mailto:hello@casamia.es?subject=${encodeURIComponent('Order follow-up')}&body=${encodeURIComponent(
             `Hello CasaMia, I have submitted my ${planLabel} order and selected ${paymentMethodLabels[values.paymentMethod]} for payment.`,
           )}`}
         >

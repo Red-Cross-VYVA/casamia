@@ -2,8 +2,7 @@ import {
   ArrowRight,
   CalendarClock,
   Check,
-  MessageCircle,
-  PhoneCall,
+  Mail,
   ShieldCheck,
 } from 'lucide-react'
 import type { FormEvent } from 'react'
@@ -43,14 +42,14 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     intro:
       'Pick the fastest option. CasaMia will connect you with the right representative for your zone and next step.',
     regionLabel: 'Selected zone',
-    whatsappTitle: 'WhatsApp',
-    whatsappBody: 'Send a quick message and get a response with the next available support option.',
-    whatsappCta: 'Open WhatsApp',
+    whatsappTitle: 'Email',
+    whatsappBody: 'Send a quick email and get a response with the next available support option.',
+    whatsappCta: 'Email CasaMia',
     callbackTitle: 'Call me',
     callbackBody: 'Leave your number and CasaMia will prepare a callback request for the local team.',
-    callTitle: 'Call now',
-    callBody: 'Speak directly with CasaMia if the home needs urgent support or a fast answer.',
-    callCta: 'Call CasaMia',
+    callTitle: 'Contact us',
+    callBody: 'Email CasaMia if the home needs urgent support or a fast answer.',
+    callCta: 'Email CasaMia',
     formTitle: 'Request a callback',
     formBody: 'This demo saves the request locally until the lead backend is connected.',
     name: 'Name',
@@ -68,14 +67,14 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     intro:
       'Escoge la opción más cómoda. CasaMia te conecta con el representante adecuado para tu zona y siguiente paso.',
     regionLabel: 'Zona seleccionada',
-    whatsappTitle: 'WhatsApp',
-    whatsappBody: 'Envía un mensaje rápido y recibe respuesta con la siguiente opción disponible.',
-    whatsappCta: 'Abrir WhatsApp',
+    whatsappTitle: 'Email',
+    whatsappBody: 'Envía un email y recibe respuesta con la siguiente opción disponible.',
+    whatsappCta: 'Enviar email',
     callbackTitle: 'Llamadme',
     callbackBody: 'Deja tu número y CasaMia preparará una solicitud de llamada para el equipo local.',
-    callTitle: 'Llamar ahora',
-    callBody: 'Habla directamente con CasaMia si la vivienda necesita apoyo urgente o una respuesta rápida.',
-    callCta: 'Llamar a CasaMia',
+    callTitle: 'Contactar',
+    callBody: 'Escribe a CasaMia si la vivienda necesita apoyo urgente o una respuesta rápida.',
+    callCta: 'Enviar email',
     formTitle: 'Solicitar llamada',
     formBody: 'Esta demo guarda la solicitud localmente hasta conectar el backend de leads.',
     name: 'Nombre',
@@ -100,8 +99,8 @@ const zoneLabels: Record<string, { en: string; es: string }> = {
   'canary-islands': { en: 'Canary Islands', es: 'Canarias' },
 }
 
-const casaMiaPhone = '+34 900 000 000'
-const phoneHref = 'tel:+34900000000'
+const casaMiaContact = 'hello@casamia.es'
+const contactHref = `mailto:${casaMiaContact}`
 
 function getOrderCopy(language: string) {
   return language.startsWith('es') ? orderCopy.es : orderCopy.en
@@ -121,7 +120,7 @@ export function OrderPage() {
       ? `Hola CasaMia, quiero pedir información para ${zoneName}.`
       : `Hello CasaMia, I want to request support for ${zoneName}.`
 
-    return `https://wa.me/34900000000?text=${encodeURIComponent(message)}`
+    return `${contactHref}?subject=${encodeURIComponent(`CasaMia support for ${zoneName}`)}&body=${encodeURIComponent(message)}`
   }, [isSpanish, zoneName])
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -164,7 +163,7 @@ export function OrderPage() {
           <div className="order-option-grid">
             <a className="order-option-card is-whatsapp" href={whatsappHref} target="_blank" rel="noreferrer">
               <span>
-                <MessageCircle size={28} aria-hidden="true" />
+                <Mail size={28} aria-hidden="true" />
               </span>
               <h2>{copy.whatsappTitle}</h2>
               <p>{copy.whatsappBody}</p>
@@ -186,9 +185,9 @@ export function OrderPage() {
               </strong>
             </a>
 
-            <a className="order-option-card" href={phoneHref}>
+            <a className="order-option-card" href={contactHref}>
               <span>
-                <PhoneCall size={28} aria-hidden="true" />
+                <Mail size={28} aria-hidden="true" />
               </span>
               <h2>{copy.callTitle}</h2>
               <p>{copy.callBody}</p>
@@ -238,7 +237,7 @@ export function OrderPage() {
               {item}
             </span>
           ))}
-          <a href={phoneHref}>{casaMiaPhone}</a>
+          <a href={contactHref}>{casaMiaContact}</a>
         </div>
 
         <div className="site-shell">
