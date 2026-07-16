@@ -1,10 +1,13 @@
 import {
   ArrowRight,
   Bath,
+  BedDouble,
   Camera,
   CheckCircle2,
   ClipboardCheck,
+  CookingPot,
   Download,
+  DoorOpen,
   FileCheck2,
   Home,
   Lightbulb,
@@ -43,7 +46,11 @@ const pageCopy = {
     downloadTitle: 'The Complete Senior Home Conversion Checklist',
     downloadBody:
       'Walk through the home with the person who lives there, identify quick wins, flag work that needs professional review and finish with a clear family action plan.',
-    downloadMeta: '10 home areas  ·  100+ practical checks  ·  action-plan worksheet',
+    downloadStats: [
+      { value: '10', label: 'home areas' },
+      { value: '100+', label: 'practical checks' },
+      { value: '1', label: 'action plan' },
+    ],
     downloadBenefits: [
       'Entrances, stairs, living areas, bedroom, bathroom and kitchen',
       'Lighting, emergency planning, connected safety and outdoor areas',
@@ -53,8 +60,8 @@ const pageCopy = {
     downloadSecondary: 'Descargar en español',
     downloadNote: 'Print-friendly PDF. No email or sign-up required.',
     coverLabel: 'CASAMIA PRACTICAL GUIDE',
-    coverTitle: 'Complete home conversion checklist',
     coverFooter: 'Room by room. Priority by priority.',
+    previewRooms: ['Entrance', 'Bathroom', 'Bedroom', 'Kitchen'],
     toolsEyebrow: 'Choose one useful next step',
     toolsTitle: 'Start with the task you need today.',
     toolsBody:
@@ -91,7 +98,11 @@ const pageCopy = {
     downloadTitle: 'Lista completa para adaptar la vivienda de una persona mayor',
     downloadBody:
       'Recorre la vivienda con la persona que vive en ella, identifica mejoras rápidas, señala los trabajos que necesitan revisión profesional y termina con un plan de acción familiar.',
-    downloadMeta: '10 zonas del hogar  ·  más de 100 comprobaciones  ·  hoja de planificación',
+    downloadStats: [
+      { value: '10', label: 'zonas del hogar' },
+      { value: '100+', label: 'comprobaciones' },
+      { value: '1', label: 'plan de acción' },
+    ],
     downloadBenefits: [
       'Entrada, escaleras, salón, dormitorio, baño y cocina',
       'Iluminación, emergencias, seguridad conectada y exteriores',
@@ -101,8 +112,8 @@ const pageCopy = {
     downloadSecondary: 'Download in English',
     downloadNote: 'PDF preparado para imprimir. Sin email ni registro.',
     coverLabel: 'GUÍA PRÁCTICA CASAMIA',
-    coverTitle: 'Lista completa para adaptar el hogar',
     coverFooter: 'Estancia por estancia. Prioridad por prioridad.',
+    previewRooms: ['Entrada', 'Baño', 'Dormitorio', 'Cocina'],
     toolsEyebrow: 'Elige un siguiente paso útil',
     toolsTitle: 'Empieza por lo que necesitas hoy.',
     toolsBody:
@@ -125,6 +136,8 @@ const pageCopy = {
     finalCta: 'Solicitar una evaluación',
   },
 } as const
+
+const previewRoomIcons = [DoorOpen, Bath, BedDouble, CookingPot] as const
 
 const toolContent = [
   {
@@ -325,20 +338,35 @@ export function BlogPage() {
             </div>
 
             <article className="resource-download-card" id="complete-home-checklist">
-              <div className="resource-download-cover" aria-hidden="true">
-                <span>{copy.coverLabel}</span>
-                <div className="resource-download-cover-icon">
-                  <Home size={34} />
-                  <ClipboardCheck size={25} />
+              <div className="resource-download-visual">
+                <span className="resource-download-visual-label">
+                  <ClipboardCheck size={17} aria-hidden="true" />
+                  {copy.coverLabel}
+                </span>
+                <div className="resource-download-photo">
+                  <img
+                    src="/images/solutions/front-view-adorable-couple-kitchen.jpg"
+                    alt=""
+                    loading="eager"
+                    decoding="async"
+                  />
+                  <p>{copy.coverFooter}</p>
                 </div>
-                <h2>{copy.coverTitle}</h2>
-                <div className="resource-download-cover-rooms">
-                  <span>01</span>
-                  <span>02</span>
-                  <span>03</span>
-                  <span>04</span>
+
+                <div className="resource-download-room-strip">
+                  {copy.previewRooms.map((room, index) => {
+                    const Icon = previewRoomIcons[index]
+
+                    return (
+                      <span className="resource-download-room" key={room}>
+                        <span>
+                          <Icon size={19} aria-hidden="true" />
+                        </span>
+                        {room}
+                      </span>
+                    )
+                  })}
                 </div>
-                <strong>{copy.coverFooter}</strong>
               </div>
 
               <div className="resource-download-content">
@@ -348,7 +376,16 @@ export function BlogPage() {
                 </p>
                 <h2>{copy.downloadTitle}</h2>
                 <p className="resource-download-description">{copy.downloadBody}</p>
-                <p className="resource-download-meta">{copy.downloadMeta}</p>
+
+                <div className="resource-download-stats">
+                  {copy.downloadStats.map((stat) => (
+                    <div key={stat.label}>
+                      <strong>{stat.value}</strong>
+                      <span>{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+
                 <ul>
                   {copy.downloadBenefits.map((benefit) => (
                     <li key={benefit}>
@@ -378,7 +415,10 @@ export function BlogPage() {
                     <ArrowRight size={16} aria-hidden="true" />
                   </a>
                 </div>
-                <small>{copy.downloadNote}</small>
+                <small className="resource-download-note">
+                  <ShieldCheck size={15} aria-hidden="true" />
+                  {copy.downloadNote}
+                </small>
               </div>
             </article>
           </div>
