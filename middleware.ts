@@ -1,4 +1,4 @@
-const protectedPaths = ['/internal', '/admin/config-preview']
+const protectedPaths = ['/admin/config-preview']
 
 function isProtectedPath(pathname: string) {
   return protectedPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`))
@@ -39,7 +39,7 @@ function readCredentials(request: Request) {
 }
 
 export const config = {
-  matcher: ['/internal/:path*', '/admin/config-preview'],
+  matcher: ['/admin/config-preview'],
 }
 
 export default function middleware(request: Request) {
