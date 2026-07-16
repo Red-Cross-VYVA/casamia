@@ -1,5 +1,3 @@
-import { IMAGE_URLS } from './shopify'
-
 export const serviceVisuals: Record<
   string,
   {
@@ -25,8 +23,8 @@ export const serviceVisuals: Record<
   },
   'kitchen-safety': {
     badge: 'Routine and reach',
-    image: IMAGE_URLS.finalCta,
-    note: 'Storage, lighting, appliance safety',
+    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+    note: 'Reach, lighting, appliances and water risk',
   },
   'bedroom-safety': {
     badge: 'Rest and night routines',
@@ -35,7 +33,7 @@ export const serviceVisuals: Record<
   },
   'smart-home-safety': {
     badge: 'Connected reassurance',
-    image: IMAGE_URLS.techHero,
+    image: 'https://casamia-seniors.myshopify.com/cdn/shop/files/AdobeStock_423763182-scaled.jpg',
     note: 'Sensors, VYVA, family alerts',
   },
 }

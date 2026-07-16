@@ -152,27 +152,27 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     ],
     statusNote: 'No product guesswork. We start with the home.',
     processEyebrow: 'How it works',
-    processTitle: 'Choose how to start.',
-    processBody: 'Upload photos for a faster quote, or book a measured home visit.',
+    processTitle: 'Start in the way that suits you.',
+    processBody: 'Upload photos or book a visit. Either way, you get a clear quote.',
     steps: [
       {
         icon: 'camera',
-        title: 'Photos or visit',
-        body: 'Upload photos for a direct quote, or book a home visit. The 99 EUR visit is deducted if you continue.',
+        title: 'Choose your start',
+        body: 'Photos now, or a home visit.',
         tag: 'Start',
-        proof: 'Clear quote route',
+        proof: 'Clear quote',
         options: [
           {
             title: 'Self-inspection',
-            body: 'Photos, key measurements and home details.',
-            note: 'No visit needed.',
-            cta: 'Start',
+            body: 'Photos + measurements.',
+            note: 'Fastest route',
+            cta: 'Upload photos',
             to: '/home-safety-assessment#self-inspection-tool',
           },
           {
             title: 'Home visit',
-            body: 'We measure access, bathrooms, stairs and support points.',
-            note: '99 EUR, deducted later.',
+            body: 'We measure for you.',
+            note: '99 EUR deductible',
             cta: 'Book visit',
             to: '/home-safety-assessment?visit=inspector#assessment-form',
           },
@@ -188,7 +188,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'clipboard',
         title: 'Plan the right work',
-        body: 'CasaMia turns the priorities into a scoped package, grant-ready documentation, or smart safety setup.',
+        body: 'CasaMia turns the priorities into selected improvements, grant-ready documentation, or smart safety setup.',
         tag: 'Plan',
         proof: 'Scope, budget, and next step',
       },
@@ -244,7 +244,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'clipboard',
         title: 'Scoped plan',
-        body: 'Package, works, or smart setup.',
+        body: 'Works, safety services, or smart setup.',
       },
       {
         icon: 'badge',
@@ -297,10 +297,10 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'sparkles',
-        title: 'Home Safety Plan',
-        body: 'Start with one clear plan, then add optional upgrades after the report.',
-        cta: 'See Plan',
-        to: '/plans',
+        title: 'Build your plan',
+        body: 'Choose rooms and receive recommended improvements.',
+        cta: 'Build plan',
+        to: '/configure',
       },
       {
         icon: 'monitor',
@@ -336,27 +336,27 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     ],
     statusNote: 'Sin adivinar productos. Empezamos por la vivienda.',
     processEyebrow: 'C\u00f3mo funciona',
-    processTitle: 'Elige c\u00f3mo empezar.',
-    processBody: 'Sube fotos para presupuesto directo o reserva una visita con medidas.',
+    processTitle: 'Empieza como te resulte m\u00e1s c\u00f3modo.',
+    processBody: 'Sube fotos o reserva visita. En ambos casos, recibes presupuesto claro.',
     steps: [
       {
         icon: 'camera',
-        title: 'Fotos o visita',
-        body: 'Sube fotos para presupuesto directo o reserva visita. La visita cuesta 99 EUR y se descuenta si contin\u00faas.',
+        title: 'Elige c\u00f3mo empezar',
+        body: 'Fotos ahora o visita a domicilio.',
         tag: 'Inicio',
         proof: 'Presupuesto claro',
         options: [
           {
             title: 'Autoinspecci\u00f3n',
-            body: 'Fotos, medidas clave y datos de la vivienda.',
-            note: 'Sin visita.',
-            cta: 'Empezar',
+            body: 'Fotos + medidas.',
+            note: 'Ruta m\u00e1s r\u00e1pida',
+            cta: 'Subir fotos',
             to: '/home-safety-assessment#self-inspection-tool',
           },
           {
             title: 'Visita a domicilio',
-            body: 'Medimos accesos, ba\u00f1os, escaleras y apoyos.',
-            note: '99 EUR, descontable.',
+            body: 'Medimos por ti.',
+            note: '99 EUR descontables',
             cta: 'Reservar visita',
             to: '/home-safety-assessment?visit=inspector#assessment-form',
           },
@@ -372,7 +372,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'clipboard',
         title: 'Plan adecuado',
-        body: 'CasaMia convierte las prioridades en paquete, documentaci\u00f3n para ayudas o configuraci\u00f3n smart.',
+        body: 'CasaMia convierte las prioridades en mejoras seleccionadas, documentaci\u00f3n para ayudas o configuraci\u00f3n smart.',
         tag: 'Plan',
         proof: 'Alcance, presupuesto y paso siguiente',
       },
@@ -481,10 +481,10 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'sparkles',
-        title: 'Home Safety Plan',
-        body: 'Un plan claro primero, con extras opcionales tras el informe.',
-        cta: 'Ver plan',
-        to: '/plans',
+        title: 'Crear tu plan',
+        body: 'Elige estancias y recibe mejoras recomendadas.',
+        cta: 'Crear plan',
+        to: '/configure',
       },
       {
         icon: 'monitor',
@@ -809,17 +809,26 @@ export function HowItWorksPage() {
                     <p>{step.body}</p>
                     {step.options ? (
                       <div className="how-step-options">
-                        {step.options.map((option) => (
-                          <div className="how-step-option" key={option.title}>
-                            <strong>{option.title}</strong>
-                            <p>{option.body}</p>
-                            {option.note ? <span>{option.note}</span> : null}
-                            <Link to={option.to}>
-                              {option.cta}
-                              <ArrowRight size={15} aria-hidden="true" />
-                            </Link>
-                          </div>
-                        ))}
+                        {step.options.map((option, optionIndex) => {
+                          const OptionIcon = optionIndex === 0 ? Camera : Home
+
+                          return (
+                            <div className="how-step-option" key={option.title}>
+                              <div className="how-step-option-heading">
+                                <span className="how-step-option-mark" aria-hidden="true">
+                                  <OptionIcon size={18} />
+                                </span>
+                                <strong>{option.title}</strong>
+                              </div>
+                              <p>{option.body}</p>
+                              {option.note ? <span className="how-step-option-note">{option.note}</span> : null}
+                              <Link to={option.to}>
+                                {option.cta}
+                                <ArrowRight size={15} aria-hidden="true" />
+                              </Link>
+                            </div>
+                          )
+                        })}
                       </div>
                     ) : null}
                   </div>

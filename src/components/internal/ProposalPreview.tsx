@@ -53,7 +53,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
             </p>
           </div>
           <div className="rounded-lg bg-navy p-5 text-white">
-            <p className="text-xs font-black uppercase text-white/65">Recommended plan</p>
+            <p className="text-xs font-black uppercase text-white/65">CasaMia plan</p>
             <p className="mt-2 font-display text-2xl font-black">{proposal.selectedPlan}</p>
             <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
               <div>
@@ -69,14 +69,14 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
         </section>
 
         <section>
-          <h3 className="text-sm font-black uppercase text-navy">Executive summary</h3>
+          <h3 className="text-sm font-black uppercase text-navy">Customer summary</h3>
           <p className="mt-3 max-w-4xl text-base leading-relaxed text-text-mid">
             {proposal.executiveSummary || 'Executive summary will appear here.'}
           </p>
         </section>
 
         <section>
-          <h3 className="text-sm font-black uppercase text-navy">Recommended works</h3>
+          <h3 className="text-sm font-black uppercase text-navy">Selected improvements</h3>
           <div className="mt-4 overflow-x-auto rounded-lg border border-border">
             <table className="min-w-[780px] w-full text-left">
               <thead className="bg-light-blue text-xs font-black uppercase text-navy">

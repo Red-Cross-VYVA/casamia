@@ -121,7 +121,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
         title: 'Data used',
         points: [
           'Contact details, installation address and communication preferences.',
-          'Assessment notes, room risks, access requirements and selected package details.',
+          'Assessment notes, room risks, access requirements and selected service details.',
           'Property photographs where the customer provides them.',
           'Accessibility or mobility information needed to assess and deliver the service.',
           'Payment status information from the selected payment provider. CasaMia must not store complete card numbers or CVV.',

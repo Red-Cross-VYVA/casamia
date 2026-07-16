@@ -41,7 +41,7 @@ export const ReportPreview = forwardRef<
         <PreviewRow label="Inspection date" value={data.inspectionDate || 'Not set'} />
         <PreviewRow label="Overall risk" value={data.riskLevel} />
         <PreviewRow label="Safety score" value={data.safetyScore ? `${data.safetyScore}/10` : 'Not scored'} />
-        <PreviewRow label="Recommended plan" value={data.recommendedPlan} />
+        <PreviewRow label="CasaMia route" value={data.recommendedPlan} />
       </div>
 
       <PreviewList empty="No hazards selected yet." items={data.topRisks} title="Top risks identified" />

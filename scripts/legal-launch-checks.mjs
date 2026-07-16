@@ -6,7 +6,7 @@ function read(file) {
   return fs.readFileSync(path.join(process.cwd(), file), 'utf8')
 }
 
-const checkout = read('src/pages/FreeHomeSafetyAssessmentPage.tsx')
+const checkout = read('src/pages/ConfigureCheckoutPage.tsx')
 const footer = read('src/components/Footer.tsx')
 const cookieConsent = read('src/utils/cookieConsent.ts')
 const analytics = read('src/utils/analytics.ts')
@@ -25,13 +25,15 @@ const grantCopy = [
 
 assert.match(footer, /legalRouteLabels/, 'Footer legal links should come from legal route labels.')
 assert.match(read('src/config/company.ts'), /commercialName:\s*'CasaMia'/, 'Commercial brand should be centralised.')
-assert.match(checkout, /Amount payable now:/, 'Checkout must show amount payable now near final action.')
-assert.match(checkout, /Confirm order and request 50% payment instructions/, 'Checkout action must describe later payment instructions.')
-assert.match(checkout, /contractAccepted: false/, 'Contract acceptance must start unticked.')
-assert.match(checkout, /earlyStartRequested: false/, 'Early-start consent must start unticked.')
-assert.match(checkout, /fullExecutionConsentRelevant = false/, 'Full-execution consent must be conditional.')
-assert.match(checkout, /personalisedGoodsConsentRelevant/, 'Personalised-goods consent must be conditional.')
-assert.match(checkout, /submitConsentEvidence/, 'Checkout must use consent evidence service.')
+assert.match(checkout, /Amount payable now: €0/, 'Quote requests must explicitly disclose that nothing is payable now.')
+assert.match(
+  checkout,
+  /Amount payable now: \{formatConfiguratorCurrency\(quote\.deposit\)\}/,
+  'Visit reservations must disclose the dynamic amount payable now.',
+)
+assert.match(checkout, /Request quote/, 'Checkout must offer the no-payment quote action.')
+assert.match(checkout, /Reserve visit/, 'Checkout must offer the measured-visit reservation action.')
+assert.match(checkout, /createMockDepositCheckout/, 'Visit reservation must remain on the mock checkout adapter.')
 assert.match(withdrawal, /validate\(\)/, 'Withdrawal form must validate before submission.')
 assert.match(cookieConsent, /analytics: false/, 'Optional analytics cookies must default off.')
 assert.match(cookieConsent, /marketing: false/, 'Optional marketing cookies must default off.')

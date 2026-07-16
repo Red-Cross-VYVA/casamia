@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next'
 
 import { IMAGE_URLS } from '../constants/shopify'
+import '../styles/home-hero-ctas.css'
+import '../styles/home-hero-grant.css'
 import { GrantStamp } from './GrantStamp'
 import { SafeImage } from './SafeImage'
 import { UploadEstimator } from './UploadEstimator'

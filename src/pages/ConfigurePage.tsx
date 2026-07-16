@@ -16,34 +16,25 @@ import {
   UsersRound,
   type LucideIcon,
 } from 'lucide-react'
-import { useState, type ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 
-import { editablePricingNotice } from '../config/casamiaPackages'
 import { useConfigurator } from '../context/ConfiguratorContext'
 import {
   calculateConfiguratorQuote,
   formatConfiguratorCurrency,
 } from '../services/configuratorPricing'
-import { usePackageConfig } from '../services/packageConfig'
-import type { CasaMiaPackage, ConfiguratorState, CustomerAnswer, PackageId } from '../types/configurator'
+import { getSelectedRoomIds, isRoomSelected } from '../services/configuratorRooms'
+import { formatServicePrice, useServiceCatalogue } from '../services/serviceCatalogue'
+import type { ConfiguratorRoomId, ConfiguratorState, CustomerAnswer } from '../types/configurator'
+import type { CasaMiaService } from '../types/serviceCatalogue'
 
-const packageIcons: Record<PackageId, LucideIcon> = {
-  'entrance-safe': DoorOpen,
-  'home-movement-safe': Footprints,
-  'kitchen-independence': CookingPot,
-  'bedroom-night-safe': BedDouble,
-  'bathroom-safe': Bath,
-  'connected-safety-vyva': Smartphone,
-}
-
-type HomeZoneId = 'entrance' | 'movement' | 'kitchen' | 'bedroom' | 'bathroom' | 'connected'
+type HomeZoneId = ConfiguratorRoomId
 
 type HomeZone = {
   id: HomeZoneId
   title: string
   eyebrow: string
-  packageId: PackageId
   icon: LucideIcon
   stat: string
   summary: string
@@ -55,7 +46,6 @@ const homeZones: HomeZone[] = [
     id: 'bedroom',
     title: 'Bedroom',
     eyebrow: 'Night route',
-    packageId: 'bedroom-night-safe',
     icon: BedDouble,
     stat: 'In a U.S. emergency-department study, 79.2% of older-adult fall visits were from falls at home, and bedrooms were one of the most common home locations.',
     summary: 'Bed transfers, low light, slippers, rugs and the first steps after waking.',
@@ -65,7 +55,6 @@ const homeZones: HomeZone[] = [
     id: 'bathroom',
     title: 'Bathroom',
     eyebrow: 'Wet transfers',
-    packageId: 'bathroom-safe',
     icon: Bath,
     stat: 'Stanford Medicine calls the bathroom the most common place for falls because wet surfaces, shower entry and toilet transfers stack risk together.',
     summary: 'Wet floors, shower entry, toilet transfers and hard surfaces.',
@@ -75,7 +64,6 @@ const homeZones: HomeZone[] = [
     id: 'movement',
     title: 'Stairs & halls',
     eyebrow: 'Daily route',
-    packageId: 'home-movement-safe',
     icon: Footprints,
     stat: 'A U.S. ED study found the most common home fall locations were bedroom, bathroom and stairs; Stanford also flags halls and pathways as trouble areas.',
     summary: 'Handrails, contrast, lighting, rugs, cables and support along the route.',
@@ -85,7 +73,6 @@ const homeZones: HomeZone[] = [
     id: 'kitchen',
     title: 'Kitchen',
     eyebrow: 'Reach & prep',
-    packageId: 'kitchen-independence',
     icon: CookingPot,
     stat: 'NIA room-by-room guidance calls out kitchen fixes such as keeping items within easy reach and cleaning spills quickly.',
     summary: 'Safer preparation, better lighting, easier reach and leak or gas alerts.',
@@ -95,7 +82,6 @@ const homeZones: HomeZone[] = [
     id: 'connected',
     title: 'Whole home',
     eyebrow: 'Alerts',
-    packageId: 'connected-safety-vyva',
     icon: Smartphone,
     stat: 'CDC reports nearly 3 million emergency-department visits for older-adult falls in 2021, while also stressing that falls can be prevented.',
     summary: 'Simple alerts, emergency button, family updates and connected routines.',
@@ -105,7 +91,6 @@ const homeZones: HomeZone[] = [
     id: 'entrance',
     title: 'Entrance',
     eyebrow: 'Threshold',
-    packageId: 'entrance-safe',
     icon: DoorOpen,
     stat: 'CDC fall-prevention guidance lists broken or uneven steps as a modifiable home hazard; entrances concentrate steps, thresholds and lighting changes.',
     summary: 'Arrival lighting, step support, threshold treatment and secure access.',
@@ -113,41 +98,218 @@ const homeZones: HomeZone[] = [
   },
 ]
 
-const wizardSteps = ['Welcome', 'Property', 'Zones', 'Packages', 'Quantities', 'Details', 'Summary']
-const managedServiceInclusions = [
-  'CasaMia scope check and package confirmation',
-  'Product sourcing and installer coordination',
-  'Installation handover, support and follow-up',
-]
+const wizardSteps = ['Welcome', 'Property', 'Rooms', 'Home details', 'Questions', 'Improvements', 'Summary']
 const stepHeadings = [
   'Make your home safer, room by room.',
   'Tell us about the home.',
-  'Tap the zones that worry you most.',
-  'Choose where your home needs support.',
-  'Confirm the quantities.',
-  'Fine-tune the recommendation.',
+  'Choose the rooms that matter most.',
+  'Confirm the home details.',
+  'Answer the practical questions.',
+  'Choose your recommended improvements.',
   'Review your safer home plan.',
 ]
 const stepDescriptions = [
-  'Answer a few simple questions and CasaMia will build a personalised home-safety package for you.',
+  'Answer a few simple questions and CasaMia will build a practical plan around the improvements that fit your home.',
   'These basics help us avoid recommending work that does not match the property.',
   'Select one or more spaces. Hover or focus a zone to see why that part of the home matters.',
-  'Review what each package includes, then add the rooms and routines you want CasaMia to make safer.',
   'Set how many rooms, entrances or staircases should be included in the estimate.',
-  'A few practical choices help CasaMia shape the right scope before the final quote.',
-  'Check the package, inclusions and items that may need site confirmation.',
+  'A few practical choices help CasaMia recommend useful services and avoid unnecessary work.',
+  'Add or remove the recommended safety services before seeing the estimate.',
+  'Check your selected improvements and anything that needs final confirmation.',
 ]
+
+const baseRecommendedServiceIds: Record<HomeZoneId, string[]> = {
+  entrance: ['entrance-motion-lighting', 'entrance-threshold-treatment', 'entrance-step-handrail'],
+  movement: ['movement-hallway-lighting', 'movement-rug-securing', 'movement-cable-management', 'movement-stand-assist'],
+  kitchen: [
+    'kitchen-lightweight-cookware',
+    'kitchen-anti-fatigue-mat',
+    'kitchen-worktop-lighting',
+    'kitchen-water-leak-sensor',
+  ],
+  bedroom: ['bedroom-bed-support', 'bedroom-underbed-lighting', 'bedroom-night-route'],
+  bathroom: ['bathroom-grab-bars', 'bathroom-shower-chair', 'bathroom-anti-slip', 'bathroom-nightlight'],
+  connected: ['connected-emergency-button', 'connected-voice-hub', 'connected-family-alerts'],
+}
+
+function getRecommendedServiceIds(state: ConfiguratorState, services: CasaMiaService[]) {
+  const selectedRooms = getSelectedRoomIds(state)
+  const recommendations = new Set<string>()
+
+  selectedRooms.forEach((room) => {
+    baseRecommendedServiceIds[room].forEach((serviceId) => recommendations.add(serviceId))
+  })
+
+  services.forEach((service) => {
+    if (!service.active || !selectedRooms.includes(service.room)) {
+      return
+    }
+
+    if (service.recommendedWhen?.some((rule) => recommendationRuleMatches(rule, state))) {
+      recommendations.add(service.id)
+    }
+  })
+
+  if (state.property.hasInternalStairs === 'yes') {
+    recommendations.add('movement-stair-handrails')
+    recommendations.add('movement-stair-treads')
+  }
+
+  range(state.quantities.entrances).forEach((index) => {
+    const ramp = state.answers[`entrance-${index}-ramp`]
+
+    if (ramp === 'modular-access-ramp' || ramp === 'unsure') {
+      recommendations.add('entrance-modular-ramp')
+    }
+  })
+
+  range(state.quantities.kitchens).forEach((index) => {
+    if (['yes', 'unsure'].includes(String(state.answers[`kitchen-${index}-gas`] ?? ''))) {
+      recommendations.add('kitchen-gas-co-sensor')
+    }
+
+    if (['yes', 'unsure'].includes(String(state.answers[`kitchen-${index}-upperCabinets`] ?? ''))) {
+      recommendations.add('kitchen-pull-down-shelf')
+    }
+
+    if (state.answers[`kitchen-${index}-stoveShutoff`] === 'yes') {
+      recommendations.add('kitchen-stove-shutoff')
+    }
+
+    if (state.answers[`kitchen-${index}-touchlessFaucet`] === 'yes') {
+      recommendations.add('kitchen-touchless-faucet')
+    }
+  })
+
+  range(state.quantities.bedrooms).forEach((index) => {
+    if (state.answers[`bedroom-${index}-caregiverAlerts`] === 'yes') {
+      recommendations.add('bedroom-bed-exit-sensor')
+    }
+
+    if (state.answers[`bedroom-${index}-adjustableBed`] === 'yes') {
+      recommendations.add('bedroom-adjustable-bed')
+    }
+  })
+
+  range(state.quantities.bathrooms).forEach((index) => {
+    if (['yes', 'unsure'].includes(String(state.answers[`bathroom-${index}-toiletDifficulty`] ?? ''))) {
+      recommendations.add('bathroom-raised-toilet')
+    }
+  })
+
+  if (asStringArray(state.answers['connected-alerts']).includes('monitoring')) {
+    recommendations.add('connected-monitoring')
+  }
+
+  if (state.answers['connected-outsideProtection'] === 'yes') {
+    recommendations.add('connected-fall-detection')
+  }
+
+  const activeServiceIds = new Set(
+    services.filter((service) => service.active && selectedRooms.includes(service.room)).map((service) => service.id),
+  )
+
+  return Array.from(recommendations).filter((serviceId) => activeServiceIds.has(serviceId))
+}
+
+function recommendationRuleMatches(
+  rule: NonNullable<CasaMiaService['recommendedWhen']>[number],
+  state: ConfiguratorState,
+) {
+  const values = getAnswerValuesForRule(rule.answerKey, state)
+  const matches = Array.isArray(rule.matches) ? rule.matches : [rule.matches]
+
+  return values.some((value) => {
+    if (Array.isArray(value)) {
+      return value.some((item) => matches.some((match) => String(match) === String(item)))
+    }
+
+    return matches.some((match) => String(match) === String(value))
+  })
+}
+
+function getAnswerValuesForRule(answerKey: string, state: ConfiguratorState) {
+  const values: CustomerAnswer[] = []
+  const exact = state.answers[answerKey]
+
+  if (exact !== undefined) {
+    values.push(exact)
+  }
+
+  if (answerKey === 'kitchen.floorRisk') {
+    Object.entries(state.answers).forEach(([key, value]) => {
+      if (/^kitchen-\d+-floorRisk$/.test(key)) {
+        values.push(value)
+      }
+    })
+  }
+
+  if (answerKey === 'resident.gripStrength') {
+    const gripStrength = state.answers['resident-gripStrength']
+
+    if (gripStrength !== undefined) {
+      values.push(gripStrength)
+    }
+  }
+
+  return values
+}
+
+function getRoomLabel(room: HomeZoneId) {
+  return homeZones.find((zone) => zone.id === room)?.title ?? room
+}
+
+function getServiceIcon(room: HomeZoneId) {
+  const zone = homeZones.find((item) => item.id === room)
+
+  return zone?.icon ?? ShieldCheck
+}
+
+function parseRoomParam(room: string | null): HomeZoneId | undefined {
+  return homeZones.some((zone) => zone.id === room) ? (room as HomeZoneId) : undefined
+}
 
 export function ConfigurePage() {
   const configurator = useConfigurator()
-  const { state, setCurrentStep } = configurator
+  const { setCurrentStep, setSelectedRooms, setSelectedServices, state } = configurator
+  const [searchParams] = useSearchParams()
+  const roomParam = parseRoomParam(searchParams.get('room'))
+  const roomParamApplied = useRef(false)
+  const serviceCatalogue = useServiceCatalogue()
   const quote = calculateConfiguratorQuote(state)
   const currentStep = Math.min(Math.max(state.currentStep, 0), wizardSteps.length - 1)
-  const canContinue = currentStep !== 2 || state.selectedPackageIds.length > 0
+  const recommendedServiceIds = useMemo(
+    () => getRecommendedServiceIds(state, serviceCatalogue.services),
+    [serviceCatalogue.services, state],
+  )
+  const canContinue =
+    (currentStep !== 2 || getSelectedRoomIds(state).length > 0) &&
+    (currentStep !== 5 || state.selectedServiceIds.length > 0)
+
+  useEffect(() => {
+    if (!roomParam || roomParamApplied.current) {
+      return
+    }
+
+    roomParamApplied.current = true
+
+    const selectedRoomIds = getSelectedRoomIds(state)
+    if (!selectedRoomIds.includes(roomParam)) {
+      setSelectedRooms([...selectedRoomIds, roomParam])
+    }
+
+    if (state.currentStep === 0) {
+      setCurrentStep(1)
+    }
+  }, [roomParam, setCurrentStep, setSelectedRooms, state])
 
   function goNext() {
     if (!canContinue) {
       return
+    }
+
+    if (currentStep === 4 && state.selectedServiceIds.length === 0 && recommendedServiceIds.length > 0) {
+      setSelectedServices(recommendedServiceIds)
     }
 
     setCurrentStep(Math.min(currentStep + 1, wizardSteps.length - 1))
@@ -181,9 +343,9 @@ export function ConfigurePage() {
               {currentStep === 0 ? <WelcomeStep /> : null}
               {currentStep === 1 ? <PropertyStep /> : null}
               {currentStep === 2 ? <ZoneStep /> : null}
-              {currentStep === 3 ? <AreaStep /> : null}
-              {currentStep === 4 ? <QuantityStep /> : null}
-              {currentStep === 5 ? <AreaConfigurationStep /> : null}
+              {currentStep === 3 ? <QuantityStep /> : null}
+              {currentStep === 4 ? <AreaConfigurationStep /> : null}
+              {currentStep === 5 ? <ServiceSelectionStep recommendedServiceIds={recommendedServiceIds} /> : null}
               {currentStep === 6 ? <RecommendationStep /> : null}
             </div>
 
@@ -232,12 +394,14 @@ export function ConfigurePage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-black uppercase text-text-muted">Visit deposit</dt>
+                <dt className="text-sm font-black uppercase text-text-muted">Visit deposit if booked</dt>
                 <dd className="font-bold text-text-dark">{formatConfiguratorCurrency(quote.deposit)}</dd>
               </div>
             </dl>
             <p className="mt-5 rounded-lg bg-pale-blue p-4 text-sm font-bold leading-relaxed text-text-mid">
-              {editablePricingNotice}
+              {state.selectedServiceIds.length > 0
+                ? 'This estimate uses the selected improvements. CasaMia confirms measurements, compatibility and final availability before any work starts.'
+                : 'Select rooms and answer the guided questions. Your estimate appears once you choose individual improvements.'}
             </p>
           </aside>
         </div>
@@ -290,7 +454,7 @@ function WelcomeStep() {
         <Sparkles className="mb-5 text-blue" size={42} aria-hidden="true" />
         <strong className="block font-display text-3xl font-bold leading-tight text-text-dark">Start new plan</strong>
         <span className="mt-3 block text-lg leading-relaxed text-text-mid">
-          Build a package from scratch in a few guided steps.
+          Choose rooms, answer practical questions and review recommended improvements.
         </span>
       </button>
       <button className="soft-card text-left" type="button" onClick={() => setCurrentStep(getSavedProgressStep(state))}>
@@ -299,7 +463,7 @@ function WelcomeStep() {
           Continue saved plan
         </strong>
         <span className="mt-3 block text-lg leading-relaxed text-text-mid">
-          {hasSavedProgress ? 'Review your saved home details and packages.' : 'No saved plan yet. Start with property details.'}
+          {hasSavedProgress ? 'Review your saved home details and selected improvements.' : 'No saved plan yet. Start with property details.'}
         </span>
       </button>
     </div>
@@ -308,7 +472,8 @@ function WelcomeStep() {
 
 function hasConfiguratorProgress(state: ConfiguratorState) {
   return Boolean(
-    state.selectedPackageIds.length > 0 ||
+    getSelectedRoomIds(state).length > 0 ||
+      state.selectedServiceIds.length > 0 ||
       state.property.propertyType ||
       state.property.postcode ||
       state.property.relationship ||
@@ -318,7 +483,11 @@ function hasConfiguratorProgress(state: ConfiguratorState) {
 }
 
 function getSavedProgressStep(state: ConfiguratorState) {
-  if (state.selectedPackageIds.length > 0) {
+  if (state.selectedServiceIds.length > 0) {
+    return 5
+  }
+
+  if (getSelectedRoomIds(state).length > 0) {
     return 3
   }
 
@@ -459,11 +628,12 @@ function PropertyStep() {
 }
 
 function ZoneStep() {
-  const { state, togglePackage } = useConfigurator()
-  const firstSelectedZone = homeZones.find((zone) => state.selectedPackageIds.includes(zone.packageId))
+  const { setSelectedServices, state, toggleRoom } = useConfigurator()
+  const selectedRoomIds = getSelectedRoomIds(state)
+  const firstSelectedZone = homeZones.find((zone) => selectedRoomIds.includes(zone.id))
   const [activeZoneId, setActiveZoneId] = useState<HomeZoneId>(firstSelectedZone?.id ?? 'bathroom')
   const activeZone = homeZones.find((zone) => zone.id === activeZoneId) ?? homeZones[0]
-  const selectedZones = homeZones.filter((zone) => state.selectedPackageIds.includes(zone.packageId))
+  const selectedZones = homeZones.filter((zone) => selectedRoomIds.includes(zone.id))
   const ActiveIcon = activeZone.icon
 
   return (
@@ -473,7 +643,7 @@ function ZoneStep() {
           <span className="text-xs font-black uppercase tracking-wide text-blue">Choose the starting points</span>
           <h2 className="mt-1 font-display text-3xl font-bold leading-tight text-text-dark">Select the spaces that matter most.</h2>
           <p className="mt-2 max-w-2xl text-base leading-relaxed text-text-mid">
-            Tap a room, route or entrance. We will add the matching CasaMia package and refine it in the next steps.
+            Tap a room, route or entrance. We will ask only the questions needed to suggest useful improvements.
           </p>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full bg-pale-blue px-4 py-2 text-sm font-black text-blue whitespace-nowrap">
@@ -493,7 +663,7 @@ function ZoneStep() {
             <div className="grid gap-2.5 rounded-[1.5rem] border border-border bg-white/95 p-2.5 shadow-sm md:grid-cols-3 md:grid-rows-[minmax(110px,1fr)_minmax(110px,1fr)_minmax(92px,0.75fr)] md:p-3">
               {homeZones.map((zone) => {
                 const Icon = zone.icon
-                const selected = state.selectedPackageIds.includes(zone.packageId)
+                const selected = selectedRoomIds.includes(zone.id)
                 const active = activeZone.id === zone.id
 
                 return (
@@ -510,7 +680,8 @@ function ZoneStep() {
                     type="button"
                     onClick={() => {
                       setActiveZoneId(zone.id)
-                      togglePackage(zone.packageId)
+                      toggleRoom(zone.id)
+                      setSelectedServices([])
                     }}
                     onFocus={() => setActiveZoneId(zone.id)}
                     onMouseEnter={() => setActiveZoneId(zone.id)}
@@ -582,163 +753,28 @@ function ZoneStep() {
   )
 }
 
-function AreaStep() {
-  const { state, togglePackage } = useConfigurator()
-  const packageConfig = usePackageConfig()
-
-  return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      {packageConfig.packages.map((item) => {
-        const Icon = packageIcons[item.id]
-        const selected = state.selectedPackageIds.includes(item.id)
-        const price = packageConfig.packagePrices[item.id]
-
-        return (
-          <article
-            className={`flex min-h-full flex-col rounded-lg border p-5 transition ${
-              selected ? 'border-blue bg-pale-blue shadow-soft' : 'border-border bg-white hover:border-blue'
-            }`}
-            key={item.id}
-          >
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div className="flex items-start gap-4">
-                <span className="inline-grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-light-blue text-navy">
-                  <Icon size={28} aria-hidden="true" />
-                </span>
-                <div className="min-w-0">
-                  <span className="text-xs font-black uppercase tracking-wide text-blue">{item.salesUnit}</span>
-                  <h2 className="mt-1 font-display text-2xl font-bold leading-tight text-text-dark">{item.name}</h2>
-                  <p className="mt-2 text-base leading-relaxed text-text-mid">{item.outcome}</p>
-                </div>
-              </div>
-              <PackagePriceBadge item={item} price={price} />
-            </div>
-
-            <PackageInclusions item={item} />
-
-            <div className="mt-auto flex flex-col gap-3 pt-5 sm:flex-row sm:items-center sm:justify-between">
-              <span className="text-sm font-black uppercase text-text-muted">Products + managed installation</span>
-              <button
-                aria-pressed={selected}
-                className={`btn min-h-12 px-5 py-3 text-sm ${selected ? 'btn-navy' : 'btn-white border border-border'}`}
-                type="button"
-                onClick={() => togglePackage(item.id)}
-              >
-                {selected ? 'Selected' : 'Add package'}
-                {selected ? <CheckCircle2 size={18} aria-hidden="true" /> : <ArrowRight size={18} aria-hidden="true" />}
-              </button>
-            </div>
-          </article>
-        )
-      })}
-    </div>
-  )
-}
-
-function PackagePriceBadge({ item, price }: { item: CasaMiaPackage; price: number }) {
-  return (
-    <div className="w-fit shrink-0 rounded-lg border border-border bg-white px-4 py-3 shadow-sm sm:text-right">
-      <span className="block text-xs font-black uppercase tracking-wide text-text-muted">From</span>
-      <strong className="block font-display text-3xl font-bold leading-none text-navy">
-        {formatConfiguratorCurrency(price)}
-      </strong>
-      <span className="mt-1 block text-xs font-black uppercase tracking-wide text-blue">{item.salesUnit}</span>
-    </div>
-  )
-}
-
-function PackageInclusions({ item }: { item: CasaMiaPackage }) {
-  const featuredComponents = item.standardComponents.slice(0, 4)
-  const hiddenComponents = item.standardComponents.slice(4)
-  const optionalComponents = [...item.conditionalComponents, ...item.quotationOnlyComponents]
-
-  return (
-    <div className="mt-5 rounded-lg border border-border bg-white/80 p-4">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <h3 className="text-sm font-black uppercase tracking-wide text-navy">What is included</h3>
-        <span className="w-fit rounded-full bg-light-blue px-3 py-1 text-xs font-black uppercase text-blue">
-          {item.shortName}
-        </span>
-      </div>
-      <ul className="mt-3 grid gap-2">
-        {featuredComponents.map((component) => (
-          <li className="flex gap-2 text-sm font-bold leading-snug text-text-mid" key={component.id}>
-            <CheckCircle2 className="mt-0.5 shrink-0 text-blue" size={16} aria-hidden="true" />
-            <span>{component.label}</span>
-          </li>
-        ))}
-      </ul>
-      {hiddenComponents.length > 0 || optionalComponents.length > 0 ? (
-        <details className="mt-3 rounded-lg bg-pale-blue px-3 py-2">
-          <summary className="cursor-pointer text-sm font-black text-blue">
-            View all inclusions
-          </summary>
-          {hiddenComponents.length > 0 ? (
-            <ul className="mt-3 grid gap-2 border-t border-border pt-3">
-              {hiddenComponents.map((component) => (
-                <li className="flex gap-2 text-sm font-bold leading-snug text-text-mid" key={component.id}>
-                  <CheckCircle2 className="mt-0.5 shrink-0 text-blue" size={16} aria-hidden="true" />
-                  <span>{component.label}</span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          {optionalComponents.length > 0 ? (
-            <div className="mt-3 border-t border-border pt-3">
-              <p className="text-xs font-black uppercase tracking-wide text-text-muted">
-                Added only if the home needs it
-              </p>
-              <ul className="mt-2 grid gap-2">
-                {optionalComponents.map((component) => (
-                  <li className="flex gap-2 text-sm font-bold leading-snug text-text-mid" key={component.id}>
-                    <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-blue" aria-hidden="true" />
-                    <span>
-                      {component.label}
-                      {component.type === 'quotation-only' ? ' - quoted after review' : ''}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-        </details>
-      ) : null}
-      <div className="mt-3 rounded-lg border border-border bg-pale-blue p-3">
-        <h4 className="text-xs font-black uppercase tracking-wide text-navy">CasaMia management included</h4>
-        <ul className="mt-2 grid gap-2">
-          {managedServiceInclusions.map((inclusion) => (
-            <li className="flex gap-2 text-sm font-bold leading-snug text-text-mid" key={inclusion}>
-              <CheckCircle2 className="mt-0.5 shrink-0 text-blue" size={16} aria-hidden="true" />
-              <span>{inclusion}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )
-}
-
 function QuantityStep() {
   const { state, updateQuantities } = useConfigurator()
+  const selectedRoomIds = getSelectedRoomIds(state)
 
   return (
     <div className="grid gap-5 md:grid-cols-2">
-      {state.selectedPackageIds.includes('entrance-safe') ? (
+      {selectedRoomIds.includes('entrance') ? (
         <NumberField label="Entrances to upgrade" min={1} value={state.quantities.entrances} onChange={(value) => updateQuantities({ entrances: value })} />
       ) : null}
-      {state.selectedPackageIds.includes('kitchen-independence') ? (
+      {selectedRoomIds.includes('kitchen') ? (
         <NumberField label="Kitchens to upgrade" min={1} value={state.quantities.kitchens} onChange={(value) => updateQuantities({ kitchens: value })} />
       ) : null}
-      {state.selectedPackageIds.includes('bedroom-night-safe') ? (
+      {selectedRoomIds.includes('bedroom') ? (
         <NumberField label="Bedrooms to upgrade" min={1} value={state.quantities.bedrooms} onChange={(value) => updateQuantities({ bedrooms: value })} />
       ) : null}
-      {state.selectedPackageIds.includes('bathroom-safe') ? (
+      {selectedRoomIds.includes('bathroom') ? (
         <NumberField label="Bathrooms to upgrade" min={1} value={state.quantities.bathrooms} onChange={(value) => updateQuantities({ bathrooms: value })} />
       ) : null}
-      {state.selectedPackageIds.includes('home-movement-safe') && state.property.hasInternalStairs === 'yes' ? (
+      {selectedRoomIds.includes('movement') && state.property.hasInternalStairs === 'yes' ? (
         <NumberField label="Internal staircases" min={1} value={state.quantities.staircases || 1} onChange={(value) => updateQuantities({ staircases: value })} />
       ) : null}
-      {state.selectedPackageIds.length === 0 ? (
+      {selectedRoomIds.length === 0 ? (
         <p className="rounded-lg border border-border bg-pale-blue p-5 text-lg font-bold text-text-mid">
           Select at least one area first.
         </p>
@@ -752,18 +788,171 @@ function AreaConfigurationStep() {
 
   return (
     <div className="grid gap-6">
-      {state.selectedPackageIds.includes('entrance-safe') ? <EntranceQuestions /> : null}
-      {state.selectedPackageIds.includes('home-movement-safe') ? <MovementQuestions /> : null}
-      {state.selectedPackageIds.includes('kitchen-independence') ? <KitchenQuestions /> : null}
-      {state.selectedPackageIds.includes('bedroom-night-safe') ? <BedroomQuestions /> : null}
-      {state.selectedPackageIds.includes('bathroom-safe') ? <BathroomQuestions /> : null}
-      {state.selectedPackageIds.includes('connected-safety-vyva') ? <ConnectedQuestions /> : null}
-      {state.selectedPackageIds.length === 0 ? (
+      {isRoomSelected(state, 'entrance') ? <EntranceQuestions /> : null}
+      {isRoomSelected(state, 'movement') ? <MovementQuestions /> : null}
+      {isRoomSelected(state, 'kitchen') ? <KitchenQuestions /> : null}
+      {isRoomSelected(state, 'bedroom') ? <BedroomQuestions /> : null}
+      {isRoomSelected(state, 'bathroom') ? <BathroomQuestions /> : null}
+      {isRoomSelected(state, 'connected') ? <ConnectedQuestions /> : null}
+      {getSelectedRoomIds(state).length === 0 ? (
         <p className="rounded-lg border border-border bg-pale-blue p-5 text-lg font-bold text-text-mid">
           Choose the rooms and support areas you want CasaMia to configure.
         </p>
       ) : null}
     </div>
+  )
+}
+
+function ServiceSelectionStep({ recommendedServiceIds }: { recommendedServiceIds: string[] }) {
+  const { setSelectedServices, state, toggleService } = useConfigurator()
+  const serviceCatalogue = useServiceCatalogue()
+  const selectedRooms = getSelectedRoomIds(state)
+  const visibleServices = serviceCatalogue.services.filter(
+    (service) => service.active && selectedRooms.includes(service.room),
+  )
+  const selectedCount = visibleServices.filter((service) => state.selectedServiceIds.includes(service.id)).length
+  const servicesByRoom = selectedRooms
+    .map((room) => ({
+      room,
+      services: visibleServices.filter((service) => service.room === room),
+    }))
+    .filter((group) => group.services.length > 0)
+
+  return (
+    <div className="grid gap-6">
+      <div className="rounded-lg border border-border bg-pale-blue p-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">
+              Recommended improvements
+            </h2>
+            <p className="mt-2 max-w-2xl text-base font-bold leading-relaxed text-text-mid">
+              Start with the suggested safety services. You can add, remove or keep items before requesting a quote.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <button
+              className="btn btn-white border border-border"
+              type="button"
+              onClick={() => setSelectedServices(recommendedServiceIds)}
+            >
+              Use recommended
+            </button>
+            <span className="inline-flex min-h-12 items-center rounded-full bg-white px-4 text-sm font-black uppercase text-blue">
+              {selectedCount} selected
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {servicesByRoom.map((group) => (
+        <section className="rounded-lg border border-border bg-white p-5 shadow-sm" key={group.room}>
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-black uppercase tracking-wide text-blue">
+                {getRoomLabel(group.room)}
+              </span>
+              <h3 className="mt-1 font-display text-2xl font-bold text-text-dark">
+                Safety services
+              </h3>
+            </div>
+            <span className="rounded-full bg-light-blue px-3 py-1 text-xs font-black uppercase text-text-muted">
+              {group.services.length} options
+            </span>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-2">
+            {group.services.map((service) => (
+              <ServiceSelectionCard
+                key={service.id}
+                recommended={recommendedServiceIds.includes(service.id)}
+                selected={state.selectedServiceIds.includes(service.id)}
+                service={service}
+                onToggle={() => toggleService(service.id)}
+              />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  )
+}
+
+function ServiceSelectionCard({
+  onToggle,
+  recommended,
+  selected,
+  service,
+}: {
+  onToggle: () => void
+  recommended: boolean
+  selected: boolean
+  service: CasaMiaService
+}) {
+  const Icon = getServiceIcon(service.room)
+
+  return (
+    <article
+      className={`flex min-h-full flex-col rounded-lg border p-4 transition ${
+        selected ? 'border-blue bg-pale-blue shadow-soft' : 'border-border bg-white hover:border-blue'
+      }`}
+    >
+      <div className="flex items-start gap-4">
+        <span className={`inline-grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${selected ? 'bg-blue text-white' : 'bg-light-blue text-blue'}`}>
+          <Icon size={23} aria-hidden="true" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap gap-2">
+            {recommended ? (
+              <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-black uppercase tracking-wide text-blue">
+                Recommended
+              </span>
+            ) : null}
+            {service.requiresInstallation ? (
+              <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-black uppercase tracking-wide text-blue">
+                Managed install
+              </span>
+            ) : null}
+            {service.requiresSiteVisit || service.requiresMeasurement || service.requiresCompatibilityCheck ? (
+              <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-black uppercase tracking-wide text-text-muted">
+                CasaMia check
+              </span>
+            ) : null}
+          </div>
+          <h4 className="mt-3 text-xl font-black leading-tight text-text-dark">{service.name}</h4>
+          <p className="mt-2 text-sm font-bold leading-relaxed text-text-mid">{service.shortDescription}</p>
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-3 rounded-lg bg-white/80 p-3">
+        <div>
+          <span className="text-xs font-black uppercase tracking-wide text-text-muted">Benefit</span>
+          <p className="mt-1 text-sm font-bold leading-snug text-text-mid">{service.customerBenefit}</p>
+        </div>
+        {service.includedItems && service.includedItems.length > 0 ? (
+          <div className="border-t border-border pt-3">
+            <span className="text-xs font-black uppercase tracking-wide text-text-muted">Includes</span>
+            <p className="mt-1 text-sm font-bold leading-snug text-text-mid">
+              {service.includedItems.slice(0, 3).join(' / ')}
+            </p>
+          </div>
+        ) : null}
+        <div className="flex items-center justify-between gap-4 border-t border-border pt-3">
+          <strong className="text-base font-black text-navy">{formatServicePrice(service)}</strong>
+          <button
+            aria-pressed={selected}
+            className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 text-sm font-black transition ${
+              selected ? 'bg-navy text-white' : 'bg-light-blue text-blue hover:bg-blue hover:text-white'
+            }`}
+            type="button"
+            onClick={onToggle}
+          >
+            {selected ? 'Selected' : 'Add'}
+            {selected ? <CheckCircle2 size={17} aria-hidden="true" /> : <ArrowRight size={17} aria-hidden="true" />}
+          </button>
+        </div>
+      </div>
+    </article>
   )
 }
 
@@ -776,14 +965,17 @@ function RecommendationStep() {
       <div className="grid gap-4 md:grid-cols-3">
         <Metric label="One-time estimate" value={formatConfiguratorCurrency(quote.totalEstimate)} />
         <Metric label="Monthly support" value={formatConfiguratorCurrency(quote.recurringMonthlySubtotal)} />
-        <Metric label="Visit deposit" value={formatConfiguratorCurrency(quote.deposit)} />
+        <Metric label="Visit deposit if booked" value={formatConfiguratorCurrency(quote.deposit)} />
       </div>
       <div className="rounded-lg border border-border bg-white p-5">
-        <h2 className="font-display text-3xl font-bold text-text-dark">Included packages</h2>
+        <h2 className="font-display text-3xl font-bold text-text-dark">Selected improvements</h2>
         <ul className="mt-4 grid gap-3">
           {quote.lines.map((line) => (
             <li className="flex flex-col gap-1 rounded-lg bg-pale-blue p-4 sm:flex-row sm:items-center sm:justify-between" key={line.id}>
-              <span className="font-bold text-text-dark">{line.label}</span>
+              <span>
+                <span className="block font-bold text-text-dark">{line.label}</span>
+                {line.note ? <span className="text-sm font-bold text-text-muted">{line.note}</span> : null}
+              </span>
               <span className="font-black text-navy">
                 {line.recurringMonthly
                   ? `${formatConfiguratorCurrency(line.recurringMonthly)} / month`
@@ -792,6 +984,11 @@ function RecommendationStep() {
             </li>
           ))}
         </ul>
+        {quote.lines.length === 0 ? (
+          <p className="mt-4 rounded-lg bg-pale-blue p-4 text-base font-bold text-text-mid">
+            Add at least one improvement to prepare an estimate.
+          </p>
+        ) : null}
       </div>
       {quote.quotationOnlyItems.length > 0 ? (
         <Notice title="Quotation-only items" items={quote.quotationOnlyItems.map((item) => item.label)} />
@@ -811,7 +1008,7 @@ function EntranceQuestions() {
   const { state, setAnswer } = useConfigurator()
 
   return (
-    <QuestionGroup title="Entrance Safe">
+    <QuestionGroup title="Entrance and access">
       {range(state.quantities.entrances).map((index) => (
         <div className="grid gap-4 rounded-lg bg-pale-blue p-5 md:grid-cols-2" key={index}>
           <SelectAnswer label={`Entrance ${index}: are there steps?`} answerKey={`entrance-${index}-hasSteps`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
@@ -839,7 +1036,7 @@ function MovementQuestions() {
   const { state, setAnswer } = useConfigurator()
 
   return (
-    <QuestionGroup title="Home Movement Safe">
+    <QuestionGroup title="Movement routes">
       <SelectAnswer
         label="What should voice control help with?"
         answerKey="voice-control-scope"
@@ -852,7 +1049,7 @@ function MovementQuestions() {
       />
       {state.property.hasInternalStairs === 'no' ? (
         <p className="rounded-lg bg-pale-blue p-4 text-lg font-bold text-text-mid">
-          Stair products are hidden because you selected no internal stairs.
+          Stair services are hidden because you selected no internal stairs.
         </p>
       ) : null}
     </QuestionGroup>
@@ -863,10 +1060,35 @@ function KitchenQuestions() {
   const { state, setAnswer } = useConfigurator()
 
   return (
-    <QuestionGroup title="Kitchen Independence">
+    <QuestionGroup title="Kitchen routine">
+      <div className="rounded-lg border border-border bg-white p-5">
+        <SelectAnswer
+          label="Does hand strength or wrist pain make food preparation harder?"
+          answerKey="resident-gripStrength"
+          options={[
+            ['reduced', 'Reduced strength'],
+            ['painful', 'Painful or tiring'],
+            ['no', 'No'],
+            ['unsure', "I'm not sure"],
+          ]}
+          setAnswer={setAnswer}
+          state={state}
+        />
+      </div>
       {range(state.quantities.kitchens).map((index) => (
         <div className="grid gap-4 rounded-lg bg-pale-blue p-5 md:grid-cols-2" key={index}>
           <SelectAnswer label={`Kitchen ${index}: does it use gas?`} answerKey={`kitchen-${index}-gas`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
+          <SelectAnswer
+            label="Is the floor often wet or slippery?"
+            answerKey={`kitchen-${index}-floorRisk`}
+            options={[
+              ['slippery', 'Yes, often'],
+              ['no', 'No'],
+              ['unsure', "I'm not sure"],
+            ]}
+            setAnswer={setAnswer}
+            state={state}
+          />
           <SelectAnswer label="Hard to reach upper cabinets?" answerKey={`kitchen-${index}-upperCabinets`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
           <SelectAnswer label="Consider automatic stove shut-off?" answerKey={`kitchen-${index}-stoveShutoff`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
           <SelectAnswer label="Consider touchless faucet?" answerKey={`kitchen-${index}-touchlessFaucet`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
@@ -880,7 +1102,7 @@ function BedroomQuestions() {
   const { state, setAnswer } = useConfigurator()
 
   return (
-    <QuestionGroup title="Bedroom & Night Safe">
+    <QuestionGroup title="Bedroom and night routine">
       {range(state.quantities.bedrooms).map((index) => (
         <div className="grid gap-4 rounded-lg bg-pale-blue p-5 md:grid-cols-2" key={index}>
           <SelectAnswer label={`Bedroom ${index}: difficult getting in or out of bed?`} answerKey={`bedroom-${index}-bedDifficulty`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
@@ -900,7 +1122,7 @@ function BathroomQuestions() {
   const { state, setAnswer } = useConfigurator()
 
   return (
-    <QuestionGroup title="Bathroom Safe">
+    <QuestionGroup title="Bathroom routine">
       {range(state.quantities.bathrooms).map((index) => (
         <div className="grid gap-4 rounded-lg bg-pale-blue p-5 md:grid-cols-2" key={index}>
           <SelectAnswer
@@ -947,7 +1169,7 @@ function ConnectedQuestions() {
   }
 
   return (
-    <QuestionGroup title="Connected Safety + VYVA">
+    <QuestionGroup title="Connected support">
       <fieldset className="rounded-lg bg-pale-blue p-5">
         <legend className="mb-4 text-lg font-black text-text-dark">Who should receive alerts?</legend>
         <div className="grid gap-3 md:grid-cols-3">

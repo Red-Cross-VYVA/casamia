@@ -164,39 +164,38 @@ export function ServicesPage() {
   return (
     <>
       <SEO
-        title="CasaMia Add-on Services for Safer Independent Living"
-        description="Explore CasaMia optional add-ons after the Home Safety Plan, including smart home, safety technology, health monitoring, family dashboard and concierge support."
+        title="CasaMia Safety Services for Safer Independent Living"
+        description="Explore CasaMia home adaptations and safety services for bathrooms, stairs, entrances, kitchens, bedrooms, smart safety and family reassurance."
         path="/services"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'Service',
-          name: 'CasaMia optional home safety add-ons',
+          name: 'CasaMia home safety services',
           provider: {
             '@type': 'Organization',
             name: 'CasaMia',
           },
           areaServed: 'Spain',
-          serviceType: 'Smart safety, health monitoring and aging-in-place add-ons',
+          serviceType: 'Home adaptations, smart safety, health monitoring and aging-in-place services',
         }}
       />
 
       <section className="services-hub-hero">
         <div className="services-hub-hero-grid site-shell">
           <div className="services-hub-copy">
-            <span className="eyebrow">Add-on services</span>
-            <h1>Personalise the Home Safety Plan after the assessment.</h1>
+            <span className="eyebrow">Safety services</span>
+            <h1>Choose the improvements that make daily life safer.</h1>
             <p>
-              Start with the core CasaMia Home Safety Plan, then add smart safety,
-              health monitoring, family support or lifestyle services where they
-              genuinely help.
+              CasaMia helps families select practical home adaptations, smart safety
+              and support services around the resident, the home and the routine.
             </p>
             <div className="services-hub-actions">
-              <Link className="btn btn-green" to="/home-safety-assessment">
-                Book In-Home Visit
+              <Link className="btn btn-green" to="/configure">
+                Build My Safer Home
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
-              <Link className="btn btn-white" to="/plans">
-                See Core Plan
+              <Link className="btn btn-white" to="/home-safety-assessment#self-inspection-tool">
+                Start Free Report
               </Link>
             </div>
           </div>
@@ -224,11 +223,11 @@ export function ServicesPage() {
       <section className="services-hub-section bg-white">
         <div className="site-shell">
           <div className="services-hub-heading">
-            <p className="eyebrow">Optional upgrades</p>
+            <p className="eyebrow">Home adaptations</p>
             <h2>Add only what the resident and home actually need.</h2>
             <p>
-              Each add-on is easier to understand after the assessment report has
-              shown the risks, routines, and support gaps inside the home.
+              Each service is easier to choose when the risks, routines and support
+              gaps are clear. Start with a room, then build the right CasaMia plan.
             </p>
           </div>
 
@@ -277,12 +276,11 @@ export function ServicesPage() {
         <div className="site-shell">
           <div className="services-pathway">
             <div>
-              <p className="eyebrow">How add-ons fit</p>
-              <h2>The core plan comes first. Add-ons come after clarity.</h2>
+              <p className="eyebrow">How services fit</p>
+              <h2>Clarity first. Improvements second.</h2>
               <p>
-                CasaMia does not ask families to guess which devices or services
-                are needed. The report identifies priorities, then add-ons are
-                selected to match the resident, routines and budget.
+                CasaMia does not ask families to guess. We identify priorities, then
+                recommend the services that match the resident, routine and budget.
               </p>
             </div>
 
@@ -327,11 +325,10 @@ export function ServicesPage() {
           <div className="services-support-band">
             <div>
               <Sparkles size={24} aria-hidden="true" />
-              <h2>Start with the Home Safety Plan.</h2>
+              <h2>Build one clear CasaMia plan.</h2>
               <p>
-                The add-ons on this page are designed to extend the core plan after
-                the assessment, not replace the physical safety work that makes the
-                home easier to use.
+                Physical adaptations, smart safety and family reassurance work best
+                when they are chosen together around real daily routines.
               </p>
             </div>
             <div className="services-support-links">
@@ -342,11 +339,6 @@ export function ServicesPage() {
                   <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               ))}
-              <Link to="/family-dashboard">
-                <ServiceIcon icon="smartphone" size={20} />
-                Family Dashboard
-                <ArrowRight size={16} aria-hidden="true" />
-              </Link>
             </div>
           </div>
         </div>
@@ -356,14 +348,14 @@ export function ServicesPage() {
         <div className="site-shell">
           <div>
             <p className="eyebrow">Not sure what to add?</p>
-            <h2>Book the assessment first.</h2>
+            <h2>Start with the room that worries you most.</h2>
             <p>
-              The safest add-on decision is made after CasaMia has reviewed the
-              home and explained the priorities.
+              Answer a few guided questions and CasaMia will recommend practical
+              improvements before you request a quote or reserve a visit.
             </p>
           </div>
-          <Link className="btn btn-green" to="/home-safety-assessment">
-            Book Visit
+          <Link className="btn btn-green" to="/configure">
+            Build My Safer Home
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
         </div>

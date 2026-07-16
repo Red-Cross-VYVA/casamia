@@ -28,7 +28,7 @@ export function ProposalTable({ proposals }: { proposals: ProposalData[] }) {
             <tr>
               <th className="px-5 py-4">Proposal ID</th>
               <th className="px-5 py-4">Customer</th>
-              <th className="px-5 py-4">Selected plan</th>
+              <th className="px-5 py-4">Selected option</th>
               <th className="px-5 py-4">Total estimate</th>
               <th className="px-5 py-4">Status</th>
               <th className="px-5 py-4">Created</th>

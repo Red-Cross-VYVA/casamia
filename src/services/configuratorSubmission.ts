@@ -33,11 +33,10 @@ export function createWizardSubmission(state: ConfiguratorState, source: string)
     source,
     customer: state.customer,
     property: state.property,
-    selectedPackages: quote.selections,
+    selectedServices: quote.selectedServices,
     quantities: state.quantities,
     customerAnswers: state.answers,
-    standardComponents: quote.standardComponents,
-    conditionalComponents: quote.conditionalComponents,
+    includedItems: quote.includedItems,
     quotationOnlyItems: quote.quotationOnlyItems,
     oneTimeSubtotal: quote.oneTimeSubtotal,
     recurringMonthlySubtotal: quote.recurringMonthlySubtotal,
@@ -45,6 +44,7 @@ export function createWizardSubmission(state: ConfiguratorState, source: string)
     totalEstimate: quote.totalEstimate,
     deposit: quote.deposit,
     siteConfirmationItems: quote.siteConfirmationItems,
+    quoteLines: quote.lines,
     consentRecords: [
       {
         label: 'Permission to contact customer about this configuration',

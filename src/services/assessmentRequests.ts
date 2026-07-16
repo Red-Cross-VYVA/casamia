@@ -20,7 +20,7 @@ const assessmentSubmitUrl = (import.meta.env.VITE_ASSESSMENT_SUBMIT_URL ?? '').t
 const publicApiBase = getPublicSiteApiBaseUrl()
 const assessmentEndpoint =
   assessmentSubmitUrl || (hasPublicSiteApi() ? `${publicApiBase}/api/public/assessment-requests` : '')
-const ASSESSMENT_VISIT_FEE = '€89'
+const ASSESSMENT_VISIT_FEE = '99 EUR'
 
 export async function submitAssessmentRequest(input: AssessmentRequestInput) {
   if (!assessmentEndpoint) {

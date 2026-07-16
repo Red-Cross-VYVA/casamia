@@ -23,13 +23,13 @@ export function BeforeAfterPage() {
             {t('beforeAfter.page.body')}
           </p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Link className="btn btn-green" to="/free-home-safety-assessment">
+            <Link className="btn btn-green" to="/home-safety-assessment">
               {t('beforeAfter.preview.assessmentCta')}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
             <Link
               className="btn border border-border bg-white text-navy hover:border-green hover:text-green"
-              to="/plans"
+              to="/configure"
             >
               {t('beforeAfter.page.compareCta')}
             </Link>

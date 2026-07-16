@@ -22,9 +22,9 @@ type LeadDetail = {
   value: string
 }
 
-const PLAN_NOT_SELECTED = 'Plan Not Selected'
+const PLAN_NOT_SELECTED = 'Option not selected'
 const NOT_SURE_PLAN = 'Not sure yet'
-const ASSESSMENT_VISIT_FEE = '€89'
+const ASSESSMENT_VISIT_FEE = '99 EUR'
 
 export function buildAssessmentLeadNotification(
   payload: AssessmentLeadNotificationPayload,
@@ -47,7 +47,7 @@ function buildLeadDetails(
   selectedPlan: string,
 ): LeadDetail[] {
   return [
-    { label: 'Selected plan', value: selectedPlan },
+    { label: 'Selected option', value: selectedPlan },
     { label: 'Assessment visit fee', value: ASSESSMENT_VISIT_FEE },
     { label: 'Full name', value: cleanText(payload.name) || 'Not provided' },
     { label: 'Phone', value: cleanText(payload.phone) || 'Not provided' },
@@ -173,15 +173,15 @@ function getNotificationPlanLabel(value?: string) {
   const planKey = getPlanKey(value)
 
   if (planKey === 'home-assessment') {
-    return 'Home Assessment Plan'
+    return 'Assessment visit'
   }
 
   if (planKey === 'home-safety') {
-    return 'Home Safety Plan'
+    return 'Home adaptations'
   }
 
   if (planKey === 'smart-safety') {
-    return 'Smart Safety Plan'
+    return 'Connected safety'
   }
 
   if (planKey === 'not-sure') {
@@ -199,14 +199,14 @@ function getRecommendedNextAction(value?: string) {
   }
 
   if (planKey === 'home-safety') {
-    return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit, explain that the fee is credited if they proceed, and prepare to discuss likely installation needs after the visit.`
+    return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit, explain that the fee is credited if they proceed with approved CasaMia improvements, and prepare to discuss likely installation needs after the visit.`
   }
 
   if (planKey === 'smart-safety') {
-    return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit and prepare to discuss smart safety devices, monitoring needs, and connectivity requirements.`
+    return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit and prepare to discuss connected safety devices, monitoring needs, and connectivity requirements.`
   }
 
-  return `Contact the customer to understand their needs, explain the ${ASSESSMENT_VISIT_FEE} in-home assessment fee, and guide them toward the right CasaMia plan.`
+  return `Contact the customer to understand their needs, explain the ${ASSESSMENT_VISIT_FEE} in-home assessment fee, and guide them toward the right CasaMia option.`
 }
 
 function getPlanKey(value?: string) {
@@ -229,6 +229,7 @@ function getPlanKey(value?: string) {
   if (
     normalized.includes('smart-safety') ||
     normalized.includes('smart safety') ||
+    normalized.includes('connected safety') ||
     normalized.includes('seguridad smart') ||
     normalized.includes('smart')
   ) {
@@ -238,6 +239,7 @@ function getPlanKey(value?: string) {
   if (
     normalized.includes('home-safety') ||
     normalized.includes('home safety') ||
+    normalized.includes('home adaptations') ||
     normalized.includes('seguridad del hogar')
   ) {
     return 'home-safety'
@@ -246,6 +248,7 @@ function getPlanKey(value?: string) {
   if (
     normalized.includes('home-assessment') ||
     normalized.includes('home assessment') ||
+    normalized.includes('assessment visit') ||
     (normalized.includes('evaluacion') && normalized.includes('hogar'))
   ) {
     return 'home-assessment'

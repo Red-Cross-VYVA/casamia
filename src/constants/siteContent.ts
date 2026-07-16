@@ -132,7 +132,7 @@ export const primaryServices: ServicePageContent[] = [
 export const resourcePages: ResourcePageContent[] = [
   {
     id: 'preventing-falls-at-home',
-    path: '/resources/preventing-falls-at-home',
+    path: '/blog/fall-prevention-home-checklist-spain',
     title: 'Preventing Falls at Home for Older Adults',
     description:
       'A practical guide for families who want to reduce fall risks at home with room-by-room prevention steps.',
@@ -158,7 +158,7 @@ export const resourcePages: ResourcePageContent[] = [
   },
   {
     id: 'bathroom-safety-for-seniors',
-    path: '/resources/bathroom-safety-for-seniors',
+    path: '/blog/bathroom-safety-seniors-costly-mistakes',
     title: 'Bathroom Safety for Seniors: What Families Should Check',
     description:
       'Learn what to check in a senior bathroom, from wet floors and shower transfers to grab bars and anti-slip surfaces.',
@@ -184,7 +184,7 @@ export const resourcePages: ResourcePageContent[] = [
   },
   {
     id: 'home-adaptation-grants-spain',
-    path: '/resources/home-adaptation-grants-spain',
+    path: '/blog/home-adaptation-grants-spain-family-guide',
     title: 'Home Adaptation Grants in Spain',
     description:
       'Understand how home adaptation grants in Spain may support accessibility and safety works, and why approval is never guaranteed.',
@@ -210,7 +210,7 @@ export const resourcePages: ResourcePageContent[] = [
   },
   {
     id: 'aging-in-place-spain',
-    path: '/resources/aging-in-place-spain',
+    path: '/blog/fall-prevention-home-checklist-spain',
     title: 'Aging in Place in Spain: A Practical Family Guide',
     description:
       'A practical guide to helping older adults live safely and comfortably at home in Spain.',

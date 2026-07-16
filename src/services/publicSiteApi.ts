@@ -1,12 +1,14 @@
+const viteEnv = (import.meta as ImportMeta & { env?: Record<string, string | boolean | undefined> }).env ?? {}
+
 const publicApiBaseUrl = (
-  import.meta.env.VITE_PUBLIC_SITE_API_URL ||
-  import.meta.env.VITE_WEBSITE_API_URL ||
-  import.meta.env.VITE_API_BASE_URL ||
+  viteEnv.VITE_PUBLIC_SITE_API_URL ||
+  viteEnv.VITE_WEBSITE_API_URL ||
+  viteEnv.VITE_API_BASE_URL ||
   ''
-).replace(/\/$/, '')
+).toString().replace(/\/$/, '')
 
 export function hasPublicSiteApi() {
-  return Boolean(publicApiBaseUrl) || import.meta.env.PROD
+  return Boolean(publicApiBaseUrl) || Boolean(viteEnv.PROD)
 }
 
 export function getPublicSiteApiBaseUrl() {

@@ -5,23 +5,29 @@ import {
   LayoutDashboard,
   LogOut,
   Network,
+  PackageCheck,
   Route,
-  Tags,
 } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
 
 import { BrandLogo } from '../BrandLogo'
+import { clearInternalAuthSession } from '../../services/internalAuth'
 
 const internalLinks = [
   { label: 'Dashboard', to: '/internal', icon: LayoutDashboard },
   { label: "Today's visits", to: '/internal/visits', icon: Route },
   { label: 'Report builder', to: '/internal/inspection-report', icon: ClipboardList },
-  { label: 'Package config', to: '/internal/package-config', icon: Tags },
+  { label: 'Service catalog', to: '/internal/service-catalog', icon: PackageCheck },
   { label: 'Proposals', to: '/internal/proposals', icon: FileText },
   { label: 'Provider partners', to: '/internal/provider-partners', icon: Network },
 ]
 
 export function InternalSidebar() {
+  function handleSignOut() {
+    clearInternalAuthSession()
+    window.location.assign('/')
+  }
+
   return (
     <aside className="border-b border-border bg-ink text-white lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:flex-col lg:border-b-0 lg:border-r lg:border-white/10">
       <div className="flex min-h-20 items-center justify-between gap-5 px-5 py-4 lg:block lg:px-6 lg:py-7">
@@ -62,13 +68,14 @@ export function InternalSidebar() {
       </nav>
 
       <div className="mt-auto hidden px-4 pb-7 pt-10 lg:block">
-        <Link
+        <button
           className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-white/15 px-4 text-sm font-extrabold text-white/70 transition hover:border-white/35 hover:text-white"
-          to="/"
+          type="button"
+          onClick={handleSignOut}
         >
           <LogOut size={17} aria-hidden="true" />
-          Return to public site
-        </Link>
+          Sign out
+        </button>
       </div>
     </aside>
   )

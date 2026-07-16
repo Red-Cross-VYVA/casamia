@@ -4,41 +4,42 @@ import { Link } from 'react-router-dom'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import { VisitTable, type Visit } from '../../components/internal/VisitTable'
+import { assessmentPlan, homeSafetyPlan, smartSafetyPlan, unsurePlan } from '../../services/proposalCalculations'
 
 const visits: Visit[] = [
   {
     area: 'Madrid - Chamberi',
     customerName: 'Elena Martin',
     preferredTime: '09:30',
-    selectedPlan: 'Home Safety Plan',
+    selectedPlan: homeSafetyPlan,
     status: 'Scheduled',
   },
   {
     area: 'Valencia - Ruzafa',
     customerName: 'Javier Ruiz',
     preferredTime: '10:45',
-    selectedPlan: 'Smart Safety Plan',
+    selectedPlan: smartSafetyPlan,
     status: 'In Progress',
   },
   {
     area: 'Malaga - Este',
     customerName: 'Carmen Lopez',
     preferredTime: '12:00',
-    selectedPlan: 'Home Assessment Plan',
+    selectedPlan: assessmentPlan,
     status: 'Report Pending',
   },
   {
     area: 'Barcelona - Gracia',
     customerName: 'Maria Fernandez',
     preferredTime: '14:15',
-    selectedPlan: 'Home Safety Plan',
+    selectedPlan: homeSafetyPlan,
     status: 'Proposal Sent',
   },
   {
     area: 'Alicante - Centro',
     customerName: 'Antonio Garcia',
     preferredTime: '16:00',
-    selectedPlan: 'Not sure yet',
+    selectedPlan: unsurePlan,
     status: 'Scheduled',
   },
 ]

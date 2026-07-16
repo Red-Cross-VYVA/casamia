@@ -9,17 +9,16 @@ import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
 export function Footer() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const companyLinks = [
     { label: t('nav.home', { defaultValue: 'Home' }), to: '/' },
     { label: t('nav.howItWorks'), to: '/how-it-works' },
-    { label: 'Home Safety Plan', to: '/plans' },
-    { label: 'Add-on Services', to: '/services' },
-    { label: 'Family Dashboard', to: '/family-dashboard' },
+    { label: 'Your CasaMia Plan', to: '/plans' },
+    { label: 'Safety Services', to: '/services' },
     { label: 'Assisted Living Solutions', to: '/assisted-living-solutions' },
     { label: 'Provider Partners', to: '/provider-partners' },
     { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-us' },
-    { label: 'Blog', to: '/blog' },
+    { label: i18n.language.startsWith('es') ? 'Recursos' : 'Resources', to: '/blog' },
     { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
   ]
   const legalLinks = legalRouteLabels

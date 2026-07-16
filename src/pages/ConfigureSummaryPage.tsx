@@ -6,13 +6,15 @@ import {
   calculateConfiguratorQuote,
   formatConfiguratorCurrency,
 } from '../services/configuratorPricing'
-import { usePackageConfig } from '../services/packageConfig'
+import { useServiceCatalogue } from '../services/serviceCatalogue'
 
 export function ConfigureSummaryPage() {
   const { state } = useConfigurator()
-  const packageConfig = usePackageConfig()
+  const serviceCatalogue = useServiceCatalogue()
   const quote = calculateConfiguratorQuote(state)
-  const selectedPackages = packageConfig.packages.filter((item) => state.selectedPackageIds.includes(item.id))
+  const selectedServices = serviceCatalogue.services.filter((item) =>
+    quote.selectedServices.some((selection) => selection.serviceId === item.id),
+  )
 
   return (
     <section className="bg-light-blue pt-28">
@@ -25,7 +27,7 @@ export function ConfigureSummaryPage() {
             </span>
             <h1 className="display-title mt-5">Your safer home plan</h1>
             <p className="mt-4 max-w-3xl text-lg leading-relaxed text-text-mid">
-              Review the package quantities, included components and items that need site confirmation before the final quote.
+              Review the selected improvements, estimate and anything CasaMia should confirm before the final quote.
             </p>
           </div>
           <button className="btn btn-white border border-border" type="button" onClick={() => window.print()}>
@@ -36,28 +38,32 @@ export function ConfigureSummaryPage() {
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="grid gap-6">
-            {selectedPackages.map((item) => (
+            {selectedServices.length === 0 ? (
+              <div className="rounded-lg border border-border bg-white p-6 shadow-soft">
+                <h2 className="font-display text-3xl font-bold text-text-dark">No improvements selected yet</h2>
+                <p className="mt-2 text-lg leading-relaxed text-text-mid">
+                  Go back to choose the rooms and safety services you want CasaMia to review.
+                </p>
+                <Link className="btn btn-white mt-5 w-fit border border-border" to="/configure">
+                  Back to configurator
+                </Link>
+              </div>
+            ) : null}
+
+            {selectedServices.map((item) => (
               <article className="rounded-lg border border-border bg-white p-6 shadow-soft" key={item.id}>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">{item.name}</h2>
-                    <p className="mt-2 text-lg text-text-mid">{item.outcome}</p>
+                    <p className="mt-2 text-lg text-text-mid">{item.customerBenefit}</p>
                   </div>
                   <span className="rounded-full bg-pale-blue px-4 py-2 text-sm font-black uppercase text-navy">
-                    Qty {quote.selections.find((selection) => selection.packageId === item.id)?.quantity ?? 1}
+                    Qty {quote.selectedServices.find((selection) => selection.serviceId === item.id)?.quantity ?? 1}
                   </span>
                 </div>
-                <ComponentList title="Standard inclusions" items={item.standardComponents.map((component) => component.label)} />
+                <ComponentList title="Included" items={item.includedItems ?? []} />
               </article>
             ))}
-
-            {quote.conditionalComponents.length > 0 ? (
-              <ComponentList
-                boxed
-                title="Conditional items selected"
-                items={quote.conditionalComponents.map((component) => component.label)}
-              />
-            ) : null}
 
             {quote.quotationOnlyItems.length > 0 ? (
               <ComponentList
@@ -83,7 +89,9 @@ export function ConfigureSummaryPage() {
                 <div className="flex justify-between gap-4 border-b border-border pb-3 text-base" key={line.id}>
                   <span className="font-bold text-text-mid">{line.label}</span>
                   <strong className="text-right text-text-dark">
-                    {line.recurringMonthly
+                    {line.quotationOnly
+                      ? 'Quote after review'
+                      : line.recurringMonthly
                       ? `${formatConfiguratorCurrency(line.recurringMonthly)} / month`
                       : formatConfiguratorCurrency(line.total)}
                   </strong>
@@ -95,10 +103,10 @@ export function ConfigureSummaryPage() {
               <SummaryRow label="VAT estimate" value={formatConfiguratorCurrency(quote.vat)} />
               <SummaryRow label="Total estimate" value={formatConfiguratorCurrency(quote.totalEstimate)} important />
               <SummaryRow label="Monthly support" value={formatConfiguratorCurrency(quote.recurringMonthlySubtotal)} />
-              <SummaryRow label="Visit deposit" value={formatConfiguratorCurrency(quote.deposit)} />
+              <SummaryRow label="Visit deposit if booked" value={formatConfiguratorCurrency(quote.deposit)} />
             </dl>
             <Link className="btn btn-navy mt-6 w-full" to="/configure/contact">
-              Continue
+              Request quote or reserve visit
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </aside>
@@ -117,6 +125,10 @@ function ComponentList({
   items: string[]
   title: string
 }) {
+  if (items.length === 0) {
+    return null
+  }
+
   const content = (
     <>
       <h3 className="font-display text-2xl font-bold text-text-dark">{title}</h3>

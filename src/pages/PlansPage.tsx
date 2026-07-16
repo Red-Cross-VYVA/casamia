@@ -14,7 +14,6 @@ import {
   ShieldCheck,
   Smartphone,
   Sparkles,
-  UsersRound,
   Wrench,
   type LucideIcon,
 } from 'lucide-react'
@@ -152,12 +151,6 @@ const addOns: AddOn[] = [
     to: '/services',
   },
   {
-    icon: UsersRound,
-    title: 'Family dashboard',
-    body: 'A clearer way for relatives to track requests, alerts, handover and follow-up.',
-    to: '/family-dashboard',
-  },
-  {
     icon: Sparkles,
     title: 'AI and voice support',
     body: 'Optional prompts, reminders and routines for people who benefit from guided support.',
@@ -173,7 +166,7 @@ const addOns: AddOn[] = [
 
 export function PlansPage() {
   useEffect(() => {
-    document.title = 'Home Safety Plan | CasaMia'
+    document.title = 'CasaMia Safety Services | CasaMia'
   }, [])
 
   return (
@@ -181,30 +174,31 @@ export function PlansPage() {
       <section className="plans-conversion-hero core-plan-hero">
         <div className="plans-conversion-hero-inner site-shell">
           <div>
-            <p className="section-kicker">CasaMia Home Safety Plan</p>
+            <p className="section-kicker">Your CasaMia plan</p>
             <h1>Home safety, handled.</h1>
             <p>
-              Assessment, clear recommendations and coordinated installation in one practical CasaMia plan.
+              Choose the rooms and routines that worry you most. CasaMia recommends practical improvements,
+              confirms what fits, and coordinates the work.
             </p>
             <div className="plans-hero-actions">
-              <Link className="btn btn-green" to="/home-safety-assessment?plan=home-safety">
-                Book My Assessment
+              <Link className="btn btn-green" to="/configure">
+                Build My Safer Home
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
               <a className="btn btn-white" href="#plan-includes">
-                See what is included
+                See how it works
               </a>
             </div>
           </div>
 
-          <aside className="core-plan-visual" aria-label="CasaMia Home Safety Plan process">
+          <aside className="core-plan-visual" aria-label="CasaMia safety service process">
             <div className="core-plan-visual-heading">
               <span>
                 <ShieldCheck size={24} aria-hidden="true" />
               </span>
               <div>
-                <strong>Simple first. Personalised after.</strong>
-                <p>We find the risks, prioritise the fixes and manage the next step.</p>
+                <strong>Pick the concern. We shape the plan.</strong>
+                <p>Start online, then decide whether to upload photos or reserve a home visit.</p>
               </div>
             </div>
             <div className="core-plan-flow">
@@ -229,7 +223,8 @@ export function PlansPage() {
           <div className="plans-section-heading">
             <h2 className="display-title">What you get</h2>
             <p>
-              The plan is designed to help families move from worry to a clear, practical next step.
+              A clear route from concern to action: room-by-room priorities, selected improvements, and a managed
+              next step.
             </p>
           </div>
 
@@ -263,9 +258,9 @@ export function PlansPage() {
         <div className="site-shell">
           <div className="plans-section-heading">
             <h2 className="display-title">How it works</h2>
-            <p>Four steps, one point of responsibility and no need to choose products before the home is reviewed.</p>
+            <p>One point of responsibility and no need to choose products before the home is understood.</p>
           </div>
-          <div className="core-plan-step-strip" aria-label="Home Safety Plan steps">
+          <div className="core-plan-step-strip" aria-label="CasaMia plan steps">
             {planFlow.map((step, index) => (
               <article key={step.title}>
                 <span>{index + 1}</span>
@@ -317,10 +312,10 @@ export function PlansPage() {
           <div className="plans-payment-panel core-plan-addon-panel">
             <div>
               <p className="section-kicker">Optional after assessment</p>
-              <h2 className="display-title">Add support only where it helps</h2>
+              <h2 className="display-title">Add improvements only where they help</h2>
               <p>
-                Add-ons are not bundled blindly. CasaMia recommends them after the report, so the family can choose
-                extra support with context.
+                Every service should solve a real need. CasaMia recommends the right mix after reviewing the home,
+                routine and resident.
               </p>
             </div>
 
@@ -344,7 +339,7 @@ export function PlansPage() {
 
             <div className="plans-payment-reassurance">
               <CheckCircle2 size={22} aria-hidden="true" />
-              <p>Start with the core plan. Add technology, monitoring or family tools only when they solve a real need.</p>
+              <p>Build your CasaMia plan from useful services, then confirm pricing, installation and handover.</p>
             </div>
           </div>
         </div>
@@ -355,10 +350,10 @@ export function PlansPage() {
           <div className="plans-final-panel">
             <div>
               <h2>Ready to make the home safer?</h2>
-              <p>Book the assessment first. CasaMia will turn the home review into a clear plan of action.</p>
+              <p>Start with the rooms that matter most. CasaMia turns your answers into a clear plan of action.</p>
             </div>
-            <Link className="btn btn-green" to="/home-safety-assessment?plan=home-safety">
-              Book Assessment
+            <Link className="btn btn-green" to="/configure">
+              Build My Safer Home
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
           </div>

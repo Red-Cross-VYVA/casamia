@@ -1,6 +1,10 @@
+import crypto from 'node:crypto'
+
 const jsonHeaders = {
   'Content-Type': 'application/json',
 }
+
+const internalSessionDurationMs = 1000 * 60 * 60 * 8
 
 export function sendJson(response, statusCode, body) {
   response.status(statusCode).setHeader('Content-Type', 'application/json')
@@ -11,7 +15,7 @@ export function requirePost(request, response) {
   if (request.method === 'OPTIONS') {
     response.status(204).setHeader('Access-Control-Allow-Origin', '*')
     response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-    response.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     response.end()
     return false
   }
@@ -22,6 +26,104 @@ export function requirePost(request, response) {
   }
 
   return true
+}
+
+export function requireInternalApiKey(request, response) {
+  const expectedApiKey = process.env.CASAMIA_INTERNAL_API_KEY
+
+  if (!expectedApiKey) {
+    sendJson(response, 500, {
+      message: 'Internal API key is not configured. Add CASAMIA_INTERNAL_API_KEY in Vercel.',
+    })
+    return false
+  }
+
+  const suppliedApiKey = getRequestHeader(request, 'x-api-key')
+  const authorization = getRequestHeader(request, 'authorization')
+  const bearerToken = authorization?.startsWith('Bearer ') ? authorization.slice('Bearer '.length) : ''
+
+  if (suppliedApiKey !== expectedApiKey && !verifyInternalSessionToken(bearerToken)) {
+    sendJson(response, 401, { message: 'Unauthorized.' })
+    return false
+  }
+
+  return true
+}
+
+export function createInternalSessionToken() {
+  const secret = getInternalSessionSecret()
+  const payload = Buffer.from(
+    JSON.stringify({
+      exp: Date.now() + internalSessionDurationMs,
+      nonce: crypto.randomBytes(12).toString('hex'),
+    }),
+  ).toString('base64url')
+  const signature = signInternalSessionPayload(payload, secret)
+
+  return {
+    expiresAt: new Date(Date.now() + internalSessionDurationMs).toISOString(),
+    token: `${payload}.${signature}`,
+  }
+}
+
+export function verifyInternalPassword(password) {
+  const expectedPassword = process.env.CASAMIA_INTERNAL_PASSWORD || process.env.CASAMIA_INTERNAL_API_KEY
+
+  if (!expectedPassword || typeof password !== 'string') {
+    return false
+  }
+
+  return safeEqual(password, expectedPassword)
+}
+
+function verifyInternalSessionToken(token) {
+  if (!token) {
+    return false
+  }
+
+  const [payload, signature] = token.split('.')
+
+  if (!payload || !signature) {
+    return false
+  }
+
+  const expectedSignature = signInternalSessionPayload(payload, getInternalSessionSecret())
+
+  if (!safeEqual(signature, expectedSignature)) {
+    return false
+  }
+
+  try {
+    const parsed = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'))
+    return typeof parsed.exp === 'number' && parsed.exp > Date.now()
+  } catch {
+    return false
+  }
+}
+
+function getInternalSessionSecret() {
+  return process.env.CASAMIA_INTERNAL_SESSION_SECRET || process.env.CASAMIA_INTERNAL_API_KEY || ''
+}
+
+function signInternalSessionPayload(payload, secret) {
+  return crypto.createHmac('sha256', secret).update(payload).digest('base64url')
+}
+
+function safeEqual(left, right) {
+  const leftBuffer = Buffer.from(String(left))
+  const rightBuffer = Buffer.from(String(right))
+
+  return leftBuffer.length === rightBuffer.length && crypto.timingSafeEqual(leftBuffer, rightBuffer)
+}
+
+function getRequestHeader(request, name) {
+  const direct = request.headers?.[name] ?? request.headers?.[name.toLowerCase()]
+
+  if (direct) {
+    return Array.isArray(direct) ? direct[0] : direct
+  }
+
+  return request.headers?.get?.(name)
 }
 
 export function readJsonBody(request) {
@@ -49,29 +151,43 @@ export function readJsonBody(request) {
   })
 }
 
-export async function insertSupabaseRow(tableName, payload) {
+function getSupabaseConfig() {
   const supabaseUrl = process.env.SUPABASE_URL
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
   if (!supabaseUrl || !serviceRoleKey) {
     return {
-      ok: false,
-      status: 500,
-      body: {
-        message: 'Supabase is not configured. Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel.',
+      error: {
+        ok: false,
+        status: 500,
+        body: {
+          message: 'Supabase is not configured. Add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel.',
+        },
       },
     }
   }
 
-  const response = await fetch(`${supabaseUrl.replace(/\/$/, '')}/rest/v1/${tableName}`, {
-    body: JSON.stringify(payload),
+  return {
+    supabaseUrl: supabaseUrl.replace(/\/$/, ''),
+    serviceRoleKey,
+  }
+}
+
+async function requestSupabase(path, init = {}) {
+  const config = getSupabaseConfig()
+
+  if (config.error) {
+    return config.error
+  }
+
+  const response = await fetch(`${config.supabaseUrl}/rest/v1/${path}`, {
+    ...init,
     headers: {
       ...jsonHeaders,
-      apikey: serviceRoleKey,
-      Authorization: `Bearer ${serviceRoleKey}`,
-      Prefer: 'return=representation',
+      apikey: config.serviceRoleKey,
+      Authorization: `Bearer ${config.serviceRoleKey}`,
+      ...(init.headers ?? {}),
     },
-    method: 'POST',
   })
 
   const text = await response.text()
@@ -82,12 +198,49 @@ export async function insertSupabaseRow(tableName, payload) {
       ok: false,
       status: response.status,
       body: {
-        message: body.message ?? body.error ?? 'Supabase insert failed.',
+        message: body.message ?? body.error ?? 'Supabase request failed.',
         details: body.details,
       },
     }
   }
 
+  return {
+    ok: true,
+    status: response.status,
+    body,
+  }
+}
+
+export async function selectSupabaseRows(tableName, query = 'select=*') {
+  return requestSupabase(`${tableName}?${query}`, {
+    method: 'GET',
+  })
+}
+
+export async function upsertSupabaseRow(tableName, payload, onConflict = 'id') {
+  return requestSupabase(`${tableName}?on_conflict=${encodeURIComponent(onConflict)}`, {
+    body: JSON.stringify(payload),
+    headers: {
+      Prefer: 'resolution=merge-duplicates,return=representation',
+    },
+    method: 'POST',
+  })
+}
+
+export async function insertSupabaseRow(tableName, payload) {
+  const result = await requestSupabase(tableName, {
+    body: JSON.stringify(payload),
+    headers: {
+      Prefer: 'return=representation',
+    },
+    method: 'POST',
+  })
+
+  if (!result.ok) {
+    return result
+  }
+
+  const body = result.body
   const record = Array.isArray(body) ? body[0] : body
 
   return {

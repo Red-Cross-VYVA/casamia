@@ -1,4 +1,12 @@
-export type PackageId =
+export type ConfiguratorRoomId =
+  | 'entrance'
+  | 'movement'
+  | 'kitchen'
+  | 'bedroom'
+  | 'bathroom'
+  | 'connected'
+
+export type LegacyPackageId =
   | 'entrance-safe'
   | 'home-movement-safe'
   | 'kitchen-independence'
@@ -6,49 +14,16 @@ export type PackageId =
   | 'bathroom-safe'
   | 'connected-safety-vyva'
 
-export type PackageComponentType = 'standard' | 'conditional' | 'quotation-only' | 'monthly'
+export type ServiceComponentType = 'standard' | 'quotation-only' | 'monthly'
 
-export type PackageComponent = {
+export type ServiceComponent = {
   id: string
   label: string
-  type: PackageComponentType
+  type: ServiceComponentType
   customerNote?: string
 }
 
-export type ConditionalRule = {
-  id: string
-  packageId: PackageId
-  answerKey: string
-  matches: string | string[] | boolean
-  addComponentIds?: string[]
-  quoteOnlyComponentIds?: string[]
-  siteConfirmation?: string
-  priceKey?: string
-  recurringPriceKey?: string
-}
-
-export type WizardQuestion = {
-  id: string
-  packageId?: PackageId
-  label: string
-  help?: string
-  type: 'text' | 'number' | 'single' | 'multi' | 'boolean'
-  options?: Array<{ value: string; label: string }>
-}
-
-export type CasaMiaPackage = {
-  id: PackageId
-  name: string
-  shortName: string
-  outcome: string
-  salesUnit: string
-  quantityKey?: keyof PackageQuantities
-  standardComponents: PackageComponent[]
-  conditionalComponents: PackageComponent[]
-  quotationOnlyComponents: PackageComponent[]
-}
-
-export type PackageQuantities = {
+export type ConfiguratorQuantities = {
   entrances: number
   kitchens: number
   bedrooms: number
@@ -66,15 +41,15 @@ export type PropertyInformation = {
 
 export type CustomerAnswer = string | number | boolean | string[]
 
-export type PackageSelection = {
-  packageId: PackageId
+export type ServiceSelection = {
+  serviceId: string
   quantity: number
 }
 
 export type QuoteLine = {
   id: string
   label: string
-  packageId?: PackageId
+  serviceId?: string
   quantity: number
   unitPrice: number
   total: number
@@ -82,16 +57,6 @@ export type QuoteLine = {
   quotationOnly?: boolean
   requiresSiteConfirmation?: boolean
   note?: string
-}
-
-export type OneTimeCharge = {
-  label: string
-  amount: number
-}
-
-export type RecurringCharge = {
-  label: string
-  amount: number
 }
 
 export type SiteConfirmationItem = {
@@ -113,28 +78,18 @@ export type CustomerContact = {
 export type ConfiguratorState = {
   currentStep: number
   property: PropertyInformation
-  selectedPackageIds: PackageId[]
-  quantities: PackageQuantities
+  selectedRoomIds: ConfiguratorRoomId[]
+  selectedServiceIds: string[]
+  quantities: ConfiguratorQuantities
   answers: Record<string, CustomerAnswer>
   customer: CustomerContact
   updatedAt?: string
 }
 
-export type ConfiguratorPricing = {
-  currency: 'EUR'
-  vatRate: number
-  depositAmount: number
-  packagePrices: Record<PackageId, number>
-  staircaseModulePrice: number
-  componentPrices: Record<string, number>
-  recurringPrices: Record<string, number>
-}
-
 export type QuoteSummary = {
-  selections: PackageSelection[]
-  standardComponents: PackageComponent[]
-  conditionalComponents: PackageComponent[]
-  quotationOnlyItems: PackageComponent[]
+  selectedServices: ServiceSelection[]
+  includedItems: ServiceComponent[]
+  quotationOnlyItems: ServiceComponent[]
   lines: QuoteLine[]
   siteConfirmationItems: SiteConfirmationItem[]
   oneTimeSubtotal: number
@@ -151,17 +106,17 @@ export type WizardSubmission = {
   campaign?: string
   customer: CustomerContact
   property: PropertyInformation
-  selectedPackages: PackageSelection[]
-  quantities: PackageQuantities
+  selectedServices: ServiceSelection[]
+  quantities: ConfiguratorQuantities
   customerAnswers: Record<string, CustomerAnswer>
-  standardComponents: PackageComponent[]
-  conditionalComponents: PackageComponent[]
-  quotationOnlyItems: PackageComponent[]
+  includedItems: ServiceComponent[]
+  quotationOnlyItems: ServiceComponent[]
   oneTimeSubtotal: number
   recurringMonthlySubtotal: number
   vat: number
   totalEstimate: number
   deposit: number
   siteConfirmationItems: SiteConfirmationItem[]
+  quoteLines?: QuoteLine[]
   consentRecords: Array<{ label: string; accepted: boolean; timestamp: string }>
 }

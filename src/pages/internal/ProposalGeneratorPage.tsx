@@ -20,6 +20,7 @@ import {
   hiddenFeeReassurance,
   planOptions,
   riskLevels,
+  unsurePlan,
   type ProposalCategory,
   type ProposalData,
   type ProposalPlan,
@@ -109,7 +110,7 @@ function readInspectionDraft() {
 }
 
 function normalisePlan(plan?: string): ProposalPlan {
-  return planOptions.includes(plan as ProposalPlan) ? (plan as ProposalPlan) : 'Not sure yet'
+  return planOptions.includes(plan as ProposalPlan) ? (plan as ProposalPlan) : unsurePlan
 }
 
 function createProposalFromInspection() {
@@ -316,7 +317,7 @@ export function ProposalGeneratorPage() {
                   onChange={(event) => updateProposal({ area: event.target.value })}
                 />
               </Field>
-              <Field label="Selected plan">
+              <Field label="CasaMia route">
                 <select
                   className={inputClass}
                   value={proposal.selectedPlan}
@@ -388,7 +389,7 @@ export function ProposalGeneratorPage() {
               </Field>
             </div>
             <label className="mt-5 grid gap-2">
-              <span className="text-sm font-extrabold text-text-dark">Executive summary</span>
+              <span className="text-sm font-extrabold text-text-dark">Customer summary</span>
               <textarea
                 className={textareaClass}
                 value={proposal.executiveSummary}

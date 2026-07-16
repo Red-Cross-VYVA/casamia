@@ -3,7 +3,6 @@ import assert from 'node:assert/strict'
 import {
   calculateConfiguratorQuote,
 } from '../src/services/configuratorPricing.ts'
-import { configuratorPricing } from '../src/config/casamiaPackages.ts'
 
 function makeState(overrides = {}) {
   return {
@@ -15,7 +14,8 @@ function makeState(overrides = {}) {
       postcode: '28001',
       relationship: 'family',
     },
-    selectedPackageIds: [],
+    selectedRoomIds: [],
+    selectedServiceIds: [],
     quantities: {
       entrances: 1,
       kitchens: 1,
@@ -39,25 +39,41 @@ function makeState(overrides = {}) {
 }
 
 {
-  const quote = calculateConfiguratorQuote(
-    makeState({
-      selectedPackageIds: ['bathroom-safe', 'bedroom-night-safe'],
-      quantities: { entrances: 1, kitchens: 1, bedrooms: 2, bathrooms: 2, staircases: 0 },
-    }),
-  )
+  const quote = calculateConfiguratorQuote(makeState())
 
-  assert.equal(
-    quote.oneTimeSubtotal,
-    configuratorPricing.packagePrices['bathroom-safe'] * 2 +
-      configuratorPricing.packagePrices['bedroom-night-safe'] * 2,
-    'Bathroom and bedroom quantities should multiply package totals.',
-  )
+  assert.equal(quote.oneTimeSubtotal, 0, 'Empty configurator should not create a one-time estimate.')
+  assert.equal(quote.selectedServices.length, 0, 'Empty configurator should not create service selections.')
+  assert.equal(quote.deposit, 0, 'Empty configurator should not show a visit deposit.')
 }
 
 {
   const quote = calculateConfiguratorQuote(
     makeState({
-      selectedPackageIds: ['home-movement-safe'],
+      selectedRoomIds: ['kitchen'],
+      selectedServiceIds: ['kitchen-worktop-lighting', 'kitchen-water-leak-sensor'],
+    }),
+  )
+
+  assert.equal(
+    quote.selectedServices.length,
+    2,
+    'Service selections should be carried into the quote summary.',
+  )
+  assert.equal(
+    quote.lines.some((line) => line.serviceId === 'kitchen-worktop-lighting'),
+    true,
+    'Selected services should create itemised quote lines.',
+  )
+  assert.equal(quote.oneTimeSubtotal, 405, 'Kitchen lighting and leak sensor should use itemised prices.')
+  assert.equal(quote.vat, 85, 'Service VAT should be calculated from selected service rates.')
+  assert.equal(quote.deposit, 99, 'Service selections should keep the visit deposit visible for quote/visit follow-up.')
+}
+
+{
+  const quote = calculateConfiguratorQuote(
+    makeState({
+      selectedRoomIds: ['movement'],
+      selectedServiceIds: ['movement-stair-handrails', 'movement-stair-treads'],
       property: {
         propertyType: 'townhouse',
         floors: 2,
@@ -65,21 +81,22 @@ function makeState(overrides = {}) {
         postcode: '28001',
         relationship: 'family',
       },
-      quantities: { entrances: 1, kitchens: 1, bedrooms: 1, bathrooms: 1, staircases: 3 },
+      quantities: { entrances: 1, kitchens: 1, bedrooms: 1, bathrooms: 1, staircases: 2 },
     }),
   )
 
   assert.equal(
-    quote.lines.some((line) => line.id === 'staircase-module'),
-    false,
-    'Stair costs should be excluded when there are no internal stairs.',
+    quote.lines.length,
+    0,
+    'Stair services should be excluded when the property has no internal stairs.',
   )
 }
 
 {
   const quote = calculateConfiguratorQuote(
     makeState({
-      selectedPackageIds: ['home-movement-safe'],
+      selectedRoomIds: ['movement'],
+      selectedServiceIds: ['movement-stair-handrails', 'movement-stair-treads'],
       property: {
         propertyType: 'townhouse',
         floors: 2,
@@ -92,93 +109,55 @@ function makeState(overrides = {}) {
   )
 
   assert.equal(
-    quote.lines.find((line) => line.id === 'staircase-module')?.total,
-    configuratorPricing.staircaseModulePrice * 2,
-    'Staircase module should apply once per staircase.',
+    quote.selectedServices.find((selection) => selection.serviceId === 'movement-stair-handrails')?.quantity,
+    2,
+    'Stair services should multiply by staircase quantity.',
+  )
+  assert.equal(
+    quote.lines.some((line) => line.requiresSiteConfirmation),
+    true,
+    'Measured stair services should remain marked for site confirmation.',
   )
 }
 
 {
   const quote = calculateConfiguratorQuote(
     makeState({
-      selectedPackageIds: ['entrance-safe'],
+      selectedRoomIds: ['entrance'],
+      selectedServiceIds: ['entrance-modular-ramp'],
       quantities: { entrances: 2, kitchens: 1, bedrooms: 1, bathrooms: 1, staircases: 0 },
-      answers: {
-        'entrance-1-ramp': 'small-threshold-ramp',
-        'entrance-2-ramp': 'modular-access-ramp',
-      },
     }),
   )
 
   assert.equal(
-    quote.lines.some((line) => line.label.includes('entrance 1')),
+    quote.quotationOnlyItems.some((item) => item.id === 'entrance-modular-ramp'),
     true,
-    'Entrance quantities should be configurable individually.',
+    'Modular ramps should be quote-only, not fixed-price products.',
   )
   assert.equal(
-    quote.quotationOnlyItems.some((item) => item.id === 'modular-access-ramp'),
+    quote.siteConfirmationItems.some((item) => item.label === 'Modular access ramp'),
     true,
-    'Modular ramps should be quotation-only, not fixed-price products.',
-  )
-}
-
-{
-  const noGasQuote = calculateConfiguratorQuote(
-    makeState({
-      selectedPackageIds: ['kitchen-independence'],
-      answers: { 'kitchen-1-gas': 'no' },
-    }),
-  )
-  const gasQuote = calculateConfiguratorQuote(
-    makeState({
-      selectedPackageIds: ['kitchen-independence'],
-      answers: { 'kitchen-1-gas': 'yes' },
-    }),
-  )
-
-  assert.equal(
-    noGasQuote.standardComponents.some((component) => component.id === 'gas-co-sensor'),
-    false,
-    'Gas sensor should not appear when gas is not present.',
-  )
-  assert.equal(
-    gasQuote.standardComponents.some((component) => component.id === 'gas-co-sensor'),
-    true,
-    'Gas sensor should appear when gas is present.',
+    'Modular ramps should require measurement confirmation.',
   )
 }
 
 {
   const quote = calculateConfiguratorQuote(
     makeState({
-      selectedPackageIds: ['connected-safety-vyva'],
-      answers: {
-        'connected-alerts': ['family', 'monitoring'],
-        'connected-outsideProtection': 'yes',
-      },
+      selectedRoomIds: ['connected'],
+      selectedServiceIds: ['connected-monitoring'],
     }),
   )
 
-  assert.equal(
-    quote.standardComponents.some((component) => component.id === 'vyva-app'),
-    true,
-    'Connected Safety should include VYVA.',
-  )
-  assert.equal(
-    quote.standardComponents.some((component) => component.id === 'emergency-button'),
-    true,
-    'Connected Safety should include an emergency button.',
-  )
-  assert.equal(
-    quote.standardComponents.some((component) => component.id === 'fall-detection'),
-    true,
-    'Connected Safety should include fall detection.',
-  )
   assert.equal(
     quote.recurringMonthlySubtotal,
-    configuratorPricing.recurringPrices['monitoring-plan'] +
-      configuratorPricing.recurringPrices['gps-protection'],
-    'Monthly monitoring and GPS costs should be displayed separately from one-time totals.',
+    29,
+    'Professional monitoring should display monthly support separately from one-time totals.',
+  )
+  assert.equal(
+    quote.includedItems.some((component) => component.label === 'Monitoring eligibility check'),
+    true,
+    'Selected services should expose their included item list.',
   )
 }
 

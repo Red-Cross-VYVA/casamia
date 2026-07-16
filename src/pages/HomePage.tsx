@@ -60,7 +60,7 @@ type SelectableCard<T extends string> = {
   }
 }
 
-const bookingPath = '/home-safety-assessment'
+const configuratorPath = '/configure'
 const talkPath = '/why-us#contact-form'
 
 const audiences: SelectableCard<AudienceId>[] = [
@@ -313,12 +313,12 @@ export function HomePage() {
     trackEvent('room_hotspot_opened', { room })
   }
 
-  function handleBookingClick(location: string) {
+  function handleConfiguratorClick(location: string) {
     if (location === 'hero') {
-      trackEvent('hero_assessment_cta_clicked', { audience: selectedAudience })
+      trackEvent('hero_configurator_cta_clicked', { audience: selectedAudience })
     }
 
-    trackEvent('assessment_booking_started', { location, audience: selectedAudience })
+    trackEvent('safer_home_configurator_opened', { location, audience: selectedAudience })
   }
 
   function handleTalkClick(location: string) {
@@ -364,10 +364,10 @@ export function HomePage() {
             <div className="home-redesign-actions">
               <Link
                 className="btn btn-green"
-                to={bookingPath}
-                onClick={() => handleBookingClick('hero')}
+                to={configuratorPath}
+                onClick={() => handleConfiguratorClick('hero')}
               >
-                Book My Home Assessment
+                Build My Safer Home
                 <ArrowRight size={19} aria-hidden="true" />
               </Link>
               <Link
@@ -525,10 +525,10 @@ export function HomePage() {
           <div className="home-core-details-action">
             <Link
               className="home-redesign-secondary"
-              to="/plans"
+              to="/configure"
               onClick={() => trackEvent('core_plan_details_opened', { location: 'core_plan' })}
             >
-              See Home Safety Plan details
+              Build your CasaMia plan
               <ArrowRight size={17} aria-hidden="true" />
             </Link>
           </div>
@@ -559,7 +559,7 @@ export function HomePage() {
       <section className="home-redesign-section home-solutions-section">
         <div className="site-shell">
           <div className="home-redesign-section-heading">
-            <p className="home-redesign-kicker">Optional add-ons</p>
+            <p className="home-redesign-kicker">Safety services</p>
             <h2>Make your home even smarter.</h2>
           </div>
           <div className="home-solutions-grid">
@@ -613,10 +613,10 @@ export function HomePage() {
             </p>
             <Link
               className="btn btn-green"
-              to={bookingPath}
-              onClick={() => handleBookingClick('configurator_intro')}
+              to={configuratorPath}
+              onClick={() => handleConfiguratorClick('configurator_intro')}
             >
-              Book My Home Assessment
+              Start My Safer Home Plan
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
@@ -699,17 +699,17 @@ export function HomePage() {
                 <div className="home-configurator-actions">
                   <Link
                     className="btn btn-green"
-                    to={bookingPath}
+                    to={configuratorPath}
                     onClick={() => {
                       trackEvent('configurator_completed', {
                         homeType,
                         roomCount: selectedRooms.length,
                         upgradeCount: selectedUpgrades.length,
                       })
-                      handleBookingClick('configurator_summary')
+                      handleConfiguratorClick('configurator_summary')
                     }}
                   >
-                    Book My Home Assessment
+                    Build My Safer Home
                   </Link>
                   <Link
                     className="home-redesign-secondary"
@@ -787,8 +787,8 @@ export function HomePage() {
                 ),
               )}
             </ul>
-            <Link className="home-redesign-secondary" to="/family-dashboard">
-              Explore Family Support
+            <Link className="home-redesign-secondary" to="/services">
+              Explore Safety Services
               <ArrowRight size={17} aria-hidden="true" />
             </Link>
           </div>
@@ -826,8 +826,8 @@ export function HomePage() {
             confidently at home.
           </p>
           <div className="home-redesign-actions">
-            <Link className="btn btn-green" to={bookingPath} onClick={() => handleBookingClick('final_cta')}>
-              Book My Home Assessment
+            <Link className="btn btn-green" to={configuratorPath} onClick={() => handleConfiguratorClick('final_cta')}>
+              Build My Safer Home
               <ArrowRight size={19} aria-hidden="true" />
             </Link>
             <Link className="home-redesign-secondary" to={talkPath} onClick={() => handleTalkClick('final_cta')}>
@@ -846,8 +846,8 @@ export function HomePage() {
               toward booking an assessment.
             </p>
             <div>
-              <Link to={bookingPath} onClick={() => handleBookingClick('assistant')}>
-                Book assessment
+              <Link to={configuratorPath} onClick={() => handleConfiguratorClick('assistant')}>
+                Build safer home
               </Link>
               <Link to={talkPath} onClick={() => handleTalkClick('assistant')}>Talk to CasaMia</Link>
             </div>

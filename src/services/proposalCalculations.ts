@@ -1,7 +1,7 @@
-export const assessmentPlan = 'Home Assessment Plan'
-export const homeSafetyPlan = 'Home Safety Plan'
-export const smartSafetyPlan = 'Smart Safety Plan'
-export const unsurePlan = 'Not sure yet'
+export const assessmentPlan = 'Assessment visit'
+export const homeSafetyPlan = 'Home adaptations'
+export const smartSafetyPlan = 'Connected safety'
+export const unsurePlan = 'To be confirmed'
 
 export const planOptions = [
   assessmentPlan,
@@ -107,14 +107,14 @@ export const hiddenFeeReassurance = 'No hidden fees. No work begins without cust
 
 export function getDefaultPaymentTerms(plan: ProposalPlan) {
   if (plan === assessmentPlan) {
-    return '100% payable upon booking.'
+    return 'Visit fee payable upon booking. Credited toward approved CasaMia improvements if the customer continues.'
   }
 
   if (plan === smartSafetyPlan) {
-    return '50% deposit upon quotation acceptance. 50% upon completion, system commissioning, and customer acceptance.'
+    return '50% deposit upon quotation acceptance. 50% upon completion, device setup, handover, and customer acceptance.'
   }
 
-  return '50% deposit upon quotation acceptance. 50% upon completion and customer acceptance.'
+  return '50% deposit upon quotation acceptance. 50% upon completion, handover, and customer acceptance.'
 }
 
 export function calculateLineTotal(item: ProposalLineItem) {

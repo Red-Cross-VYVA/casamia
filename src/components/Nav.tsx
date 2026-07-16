@@ -8,28 +8,14 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
-const planAssessmentMap: Record<string, string> = {
-  advanced: 'home-safety',
-  essential: 'home-assessment',
-  premium: 'smart-safety',
-  'home-assessment': 'home-assessment',
-  'home-safety': 'home-safety',
-  'smart-safety': 'smart-safety',
-}
-
 type HeaderLink = {
   label: string
   to: string
   match: string[]
 }
 
-function getAssessmentPath(pathname: string) {
-  const planId = pathname.match(/^\/plans\/([^/]+)/)?.[1]
-  const selectedPlan = planId ? planAssessmentMap[planId] : undefined
-
-  return selectedPlan
-    ? `/home-safety-assessment?plan=${selectedPlan}`
-    : '/home-safety-assessment'
+function getAssessmentPath() {
+  return '/home-safety-assessment'
 }
 
 function isActiveLink(pathname: string, link: HeaderLink) {
@@ -40,16 +26,15 @@ export function Nav() {
   const { i18n, t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const assessmentPath = getAssessmentPath(location.pathname)
+  const assessmentPath = getAssessmentPath()
   const navLabels = i18n.language.startsWith('es')
     ? {
         home: 'Inicio',
         howItWorks: 'Proceso',
         solutions: 'Soluciones',
-        families: 'Familias',
         organisations: 'Organizaciones',
         about: 'Por qu\u00e9',
-        resources: 'Blog',
+        resources: 'Recursos',
         cta: 'Reservar evaluaci\u00f3n',
         phone: t('nav.phone'),
       }
@@ -57,7 +42,6 @@ export function Nav() {
         home: 'Home',
         howItWorks: 'How It Works',
         solutions: 'Solutions',
-        families: 'For Families',
         organisations: 'For Organisations',
         about: 'About Us',
         resources: 'Resources',
@@ -69,7 +53,6 @@ export function Nav() {
     { label: navLabels.home, to: '/#top', match: ['/'] },
     { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
     { label: navLabels.solutions, to: '/services', match: ['/services', '/plans'] },
-    { label: navLabels.families, to: '/family-dashboard', match: ['/family-dashboard'] },
     { label: navLabels.organisations, to: '/assisted-living-solutions', match: ['/assisted-living-solutions'] },
     { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
     { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources'] },
