@@ -46,7 +46,7 @@ export function buildCheckoutDocumentSet(
       content: `${commonHeader}Customer: ${order.name}
 Contact: ${order.email || order.phone}
 Installation address: ${order.address}, ${order.postcode} ${order.city}
-Package: ${order.planLabel}
+Selected CasaMia plan: ${order.planLabel}
 Total price: ${order.planPrice}
 Initial payment requested: ${order.initialPayment}
 Remaining payment after successful installation: ${order.remainingPayment}
@@ -56,7 +56,7 @@ Payment method selected: ${order.paymentMethod}
     {
       filename: `${order.orderId}-accepted-quotation.txt`,
       title: 'Accepted quotation',
-      content: `${commonHeader}Accepted package: ${order.planLabel}
+      content: `${commonHeader}Accepted CasaMia plan: ${order.planLabel}
 Accepted total: ${order.planPrice}
 Payment schedule: 50% after order confirmation, 50% after successful installation.
 `,

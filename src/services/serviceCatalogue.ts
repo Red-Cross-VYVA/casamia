@@ -67,9 +67,12 @@ export async function loadServiceCatalogue(options: { internal?: boolean } = {})
     const payload = options.internal
       ? await getInternalServiceCatalogue(path)
       : await getPublicSiteJson<Partial<EditableServiceCatalogue>>(path)
+    const catalogue = normaliseServiceCatalogue(payload)
+
+    writeServiceCatalogue(catalogue)
 
     return {
-      catalogue: normaliseServiceCatalogue(payload),
+      catalogue,
       remote: true,
     }
   } catch {
@@ -87,10 +90,7 @@ export function saveServiceCatalogue(config: EditableServiceCatalogue) {
     updatedAt: new Date().toISOString(),
   }
 
-  window.localStorage.setItem(serviceCatalogueStorageKey, JSON.stringify(nextConfig))
-  window.dispatchEvent(new CustomEvent(serviceCatalogueUpdatedEvent))
-
-  return nextConfig
+  return writeServiceCatalogue(nextConfig)
 }
 
 export async function saveServiceCatalogueToBackend(
@@ -237,6 +237,17 @@ function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | 
     services: mergeServices(defaults.services, payload?.services),
     updatedAt: payload?.updatedAt,
   }
+}
+
+function writeServiceCatalogue(config: EditableServiceCatalogue) {
+  if (typeof window === 'undefined') {
+    return config
+  }
+
+  window.localStorage.setItem(serviceCatalogueStorageKey, JSON.stringify(config))
+  window.dispatchEvent(new CustomEvent(serviceCatalogueUpdatedEvent))
+
+  return config
 }
 
 async function getInternalServiceCatalogue(path: string) {

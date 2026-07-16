@@ -399,7 +399,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Para residencias, operadores de senior living y municipios',
       title: 'Residentes más seguros. Operaciones más sencillas. Un socio que coordina la implantación.',
       body:
-        'CasaMia ayuda a evaluar el centro, definir una hoja de ruta práctica, comparar tecnología, coordinar la ejecución y preparar a los equipos, sin imponer un paquete cerrado.',
+        'CasaMia ayuda a evaluar el centro, definir una hoja de ruta práctica, comparar tecnología, coordinar la ejecución y preparar a los equipos, sin imponer una solución cerrada.',
       primaryCta: 'Solicitar una sesión para el centro',
       secondaryCta: 'Ver el modelo de trabajo',
       proof: ['Primero, el encaje real', 'Privacidad desde el inicio', 'Del piloto al despliegue'],

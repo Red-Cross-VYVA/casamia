@@ -95,6 +95,11 @@ const InternalServiceCataloguePage = lazy(() =>
     default: InternalServiceCataloguePage,
   })),
 )
+const InternalVoiceStudioPage = lazy(() =>
+  import('./pages/internal/InternalVoiceStudioPage').then(({ InternalVoiceStudioPage }) => ({
+    default: InternalVoiceStudioPage,
+  })),
+)
 const InternalVisitsPage = lazy(() =>
   import('./pages/internal/InternalVisitsPage').then(({ InternalVisitsPage }) => ({
     default: InternalVisitsPage,
@@ -266,6 +271,7 @@ function AppRoutes() {
             <Route path="/internal/inspection-report" element={<InternalRoute><InspectionReportPage /></InternalRoute>} />
             <Route path="/internal/package-config" element={<Navigate to="/internal/service-catalog" replace />} />
             <Route path="/internal/service-catalog" element={<InternalRoute><InternalServiceCataloguePage /></InternalRoute>} />
+            <Route path="/internal/voice-studio" element={<InternalRoute><InternalVoiceStudioPage /></InternalRoute>} />
             <Route path="/internal/proposals" element={<InternalRoute><InternalProposalsPage /></InternalRoute>} />
             <Route path="/internal/provider-partners" element={<InternalRoute><InternalProviderPartnersPage /></InternalRoute>} />
             <Route path="/internal/proposal-generator" element={<InternalRoute><ProposalGeneratorPage /></InternalRoute>} />

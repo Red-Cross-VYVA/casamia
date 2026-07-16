@@ -1,4 +1,5 @@
 import {
+  AudioLines,
   ClipboardList,
   FileText,
   Home,
@@ -12,12 +13,16 @@ import { Link, NavLink } from 'react-router-dom'
 
 import { BrandLogo } from '../BrandLogo'
 import { clearInternalAuthSession } from '../../services/internalAuth'
+import { voiceAssistantFeatureEnabled } from '../../services/voiceAssistant'
 
 const internalLinks = [
   { label: 'Dashboard', to: '/internal', icon: LayoutDashboard },
   { label: "Today's visits", to: '/internal/visits', icon: Route },
   { label: 'Report builder', to: '/internal/inspection-report', icon: ClipboardList },
   { label: 'Service catalog', to: '/internal/service-catalog', icon: PackageCheck },
+  ...(voiceAssistantFeatureEnabled
+    ? [{ label: 'Voice studio', to: '/internal/voice-studio', icon: AudioLines }]
+    : []),
   { label: 'Proposals', to: '/internal/proposals', icon: FileText },
   { label: 'Provider partners', to: '/internal/provider-partners', icon: Network },
 ]
