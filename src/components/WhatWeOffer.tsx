@@ -85,7 +85,7 @@ export function WhatWeOffer() {
 
         <Link
           className="health-card health-card-premium mt-8 items-center gap-8 rounded-lg bg-navy p-8 text-white"
-          to="/tech#package-inclusions"
+          to="/tech#connected-inclusions"
         >
           <div className="flex gap-5">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-green text-white">

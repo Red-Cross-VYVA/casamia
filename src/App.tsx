@@ -5,20 +5,17 @@ import {
   Route,
   Routes,
   useLocation,
+  useParams,
 } from 'react-router-dom'
 
 import { BrandLogo } from './components/BrandLogo'
 import { CookieConsent } from './components/CookieConsent'
 import { Footer } from './components/Footer'
+import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
 import { ConfiguratorProvider } from './context/ConfiguratorContext'
 
-const AdminConfigPreviewPage = lazy(() =>
-  import('./pages/AdminConfigPreviewPage').then(({ AdminConfigPreviewPage }) => ({
-    default: AdminConfigPreviewPage,
-  })),
-)
 const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
 const AssistedLivingSolutionsPage = lazy(() =>
   import('./pages/AssistedLivingSolutionsPage').then(({ AssistedLivingSolutionsPage }) => ({
@@ -61,9 +58,6 @@ const FreeHomeSafetyAssessmentPage = lazy(() =>
     default: FreeHomeSafetyAssessmentPage,
   })),
 )
-const FamilyDashboardPage = lazy(() =>
-  import('./pages/FamilyDashboardPage').then(({ FamilyDashboardPage }) => ({ default: FamilyDashboardPage })),
-)
 const GrantEligibilityPage = lazy(() =>
   import('./pages/GrantEligibilityPage').then(({ GrantEligibilityPage }) => ({ default: GrantEligibilityPage })),
 )
@@ -86,11 +80,6 @@ const InternalDashboardPage = lazy(() =>
     default: InternalDashboardPage,
   })),
 )
-const InternalPackageConfigPage = lazy(() =>
-  import('./pages/internal/InternalPackageConfigPage').then(({ InternalPackageConfigPage }) => ({
-    default: InternalPackageConfigPage,
-  })),
-)
 const InternalProposalsPage = lazy(() =>
   import('./pages/internal/InternalProposalsPage').then(({ InternalProposalsPage }) => ({
     default: InternalProposalsPage,
@@ -99,6 +88,11 @@ const InternalProposalsPage = lazy(() =>
 const InternalProviderPartnersPage = lazy(() =>
   import('./pages/internal/InternalProviderPartnersPage').then(({ InternalProviderPartnersPage }) => ({
     default: InternalProviderPartnersPage,
+  })),
+)
+const InternalServiceCataloguePage = lazy(() =>
+  import('./pages/internal/InternalServiceCataloguePage').then(({ InternalServiceCataloguePage }) => ({
+    default: InternalServiceCataloguePage,
   })),
 )
 const InternalVisitsPage = lazy(() =>
@@ -187,8 +181,27 @@ function LegacyAssessmentRedirect() {
   return <Navigate to={`/home-safety-assessment${location.search}${location.hash}`} replace />
 }
 
+const legacyResourceArticlePaths: Record<string, string> = {
+  'aging-in-place-spain': '/blog/fall-prevention-home-checklist-spain',
+  'bathroom-safety-for-seniors': '/blog/bathroom-safety-seniors-costly-mistakes',
+  'home-adaptation-grants-spain': '/blog/home-adaptation-grants-spain-family-guide',
+  'preventing-falls-at-home': '/blog/fall-prevention-home-checklist-spain',
+}
+
+function LegacyResourceRedirect() {
+  const location = useLocation()
+  const { articleId } = useParams()
+  const target = articleId ? legacyResourceArticlePaths[articleId] : undefined
+
+  return <Navigate to={`${target ?? '/blog'}${location.search}`} replace />
+}
+
 function ConfiguratorRoute({ children }: { children: ReactNode }) {
   return <ConfiguratorProvider>{children}</ConfiguratorProvider>
+}
+
+function InternalRoute({ children }: { children: ReactNode }) {
+  return <InternalAccessGate>{children}</InternalAccessGate>
 }
 
 function AppRoutes() {
@@ -212,10 +225,10 @@ function AppRoutes() {
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
-            <Route path="/family-dashboard" element={<FamilyDashboardPage />} />
+            <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />
             <Route path="/resources" element={<Navigate to="/blog" replace />} />
-            <Route path="/resources/:articleId" element={<Navigate to="/blog" replace />} />
+            <Route path="/resources/:articleId" element={<LegacyResourceRedirect />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:articleId" element={<BlogArticlePage />} />
             <Route path="/tech" element={<TechPage />} />
@@ -224,7 +237,7 @@ function AppRoutes() {
             <Route path="/configure/contact" element={<ConfiguratorRoute><ConfigureContactPage /></ConfiguratorRoute>} />
             <Route path="/configure/checkout" element={<ConfiguratorRoute><ConfigureCheckoutPage /></ConfiguratorRoute>} />
             <Route path="/configure/confirmation" element={<ConfiguratorRoute><ConfigureConfirmationPage /></ConfiguratorRoute>} />
-            <Route path="/admin/config-preview" element={<AdminConfigPreviewPage />} />
+            <Route path="/admin/config-preview" element={<Navigate to="/internal/service-catalog" replace />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
             <Route path="/plan-adapta" element={<PlanAdaptaPage />} />
@@ -248,14 +261,15 @@ function AppRoutes() {
             <Route path="/guarantees-aftercare" element={<LegalDocumentPage documentId="guarantees-aftercare" />} />
             <Route path="/complaints-contact" element={<LegalDocumentPage documentId="complaints-contact" />} />
             <Route path="/accessibility-statement" element={<LegalDocumentPage documentId="accessibility-statement" />} />
-            <Route path="/internal" element={<InternalDashboardPage />} />
-            <Route path="/internal/visits" element={<InternalVisitsPage />} />
-            <Route path="/internal/inspection-report" element={<InspectionReportPage />} />
-            <Route path="/internal/package-config" element={<InternalPackageConfigPage />} />
-            <Route path="/internal/proposals" element={<InternalProposalsPage />} />
-            <Route path="/internal/provider-partners" element={<InternalProviderPartnersPage />} />
-            <Route path="/internal/proposal-generator" element={<ProposalGeneratorPage />} />
-            <Route path="/internal/proposals/:proposalId" element={<ProposalDetailPage />} />
+            <Route path="/internal" element={<InternalRoute><InternalDashboardPage /></InternalRoute>} />
+            <Route path="/internal/visits" element={<InternalRoute><InternalVisitsPage /></InternalRoute>} />
+            <Route path="/internal/inspection-report" element={<InternalRoute><InspectionReportPage /></InternalRoute>} />
+            <Route path="/internal/package-config" element={<Navigate to="/internal/service-catalog" replace />} />
+            <Route path="/internal/service-catalog" element={<InternalRoute><InternalServiceCataloguePage /></InternalRoute>} />
+            <Route path="/internal/proposals" element={<InternalRoute><InternalProposalsPage /></InternalRoute>} />
+            <Route path="/internal/provider-partners" element={<InternalRoute><InternalProviderPartnersPage /></InternalRoute>} />
+            <Route path="/internal/proposal-generator" element={<InternalRoute><ProposalGeneratorPage /></InternalRoute>} />
+            <Route path="/internal/proposals/:proposalId" element={<InternalRoute><ProposalDetailPage /></InternalRoute>} />
             <Route path="/contact" element={<Navigate to="/why-us#contact-form" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

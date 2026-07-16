@@ -99,9 +99,17 @@ create table if not exists public.orders (
   payload_json jsonb not null default '{}'::jsonb
 );
 
+create table if not exists public.service_catalogue (
+  id text primary key default 'default',
+  updated_at timestamptz not null default now(),
+  updated_by text,
+  payload_json jsonb not null default '{"services":[]}'::jsonb
+);
+
 alter table public.assessment_requests enable row level security;
 alter table public.contact_requests enable row level security;
 alter table public.provider_applications enable row level security;
 alter table public.consent_evidence enable row level security;
 alter table public.withdrawal_requests enable row level security;
 alter table public.orders enable row level security;
+alter table public.service_catalogue enable row level security;

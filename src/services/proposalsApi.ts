@@ -15,6 +15,7 @@ import {
   loadProposalById,
   saveProposal,
 } from './proposalsStorage'
+import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
 
 type BackendLineItem = {
   category?: string
@@ -82,16 +83,14 @@ const apiBaseUrl = (
   ''
 ).replace(/\/$/, '')
 
-const internalApiKey = import.meta.env.VITE_INTERNAL_API_KEY || ''
-
 function backendAvailable() {
-  return Boolean(apiBaseUrl)
+  return Boolean(apiBaseUrl) || Boolean(import.meta.env.PROD)
 }
 
-function internalHeaders() {
+function internalHeaders(): Record<string, string> {
   return {
     'Content-Type': 'application/json',
-    ...(internalApiKey ? { 'x-api-key': internalApiKey } : {}),
+    ...getInternalAuthHeaders(),
   }
 }
 
@@ -116,26 +115,26 @@ async function requestJson<T>(path: string, init: RequestInit = {}) {
 
 function normalisePlan(plan?: string): ProposalPlan {
   if (!plan) {
-    return 'Not sure yet'
+    return 'To be confirmed'
   }
 
   if (planOptions.includes(plan as ProposalPlan)) {
     return plan as ProposalPlan
   }
 
-  if (plan === 'Advanced' || plan === 'Home Safety') {
-    return 'Home Safety Plan'
+  if (plan === 'Advanced' || plan === 'Home Safety' || plan === 'Home Safety Plan') {
+    return 'Home adaptations'
   }
 
-  if (plan === 'Premium' || plan === 'Smart Safety') {
-    return 'Smart Safety Plan'
+  if (plan === 'Premium' || plan === 'Smart Safety' || plan === 'Smart Safety Plan') {
+    return 'Connected safety'
   }
 
-  if (plan === 'Essential' || plan === 'Home Assessment') {
-    return 'Home Assessment Plan'
+  if (plan === 'Essential' || plan === 'Home Assessment' || plan === 'Home Assessment Plan') {
+    return 'Assessment visit'
   }
 
-  return 'Not sure yet'
+  return 'To be confirmed'
 }
 
 function safeText(value: unknown, fallback = '') {
@@ -272,7 +271,7 @@ function hasProposalShape(raw: BackendActionResponse) {
 }
 
 export async function loadProposalsWithFallback() {
-  if (!backendAvailable() || !internalApiKey) {
+  if (!backendAvailable() || !hasInternalBackendSession()) {
     return { proposals: loadAllProposals(), source: 'local' as const }
   }
 
@@ -288,7 +287,7 @@ export async function loadProposalsWithFallback() {
 }
 
 export async function loadProposalWithFallback(proposalId: string) {
-  if (!backendAvailable() || !internalApiKey) {
+  if (!backendAvailable() || !hasInternalBackendSession()) {
     return { proposal: loadProposalById(proposalId), source: 'local' as const }
   }
 
@@ -304,7 +303,7 @@ export async function loadProposalWithFallback(proposalId: string) {
 }
 
 export async function saveProposalWithFallback(proposal: ProposalData) {
-  if (!backendAvailable() || !internalApiKey) {
+  if (!backendAvailable() || !hasInternalBackendSession()) {
     return { proposal: saveProposal(proposal), source: 'local' as const }
   }
 
@@ -354,7 +353,7 @@ export async function sendProposalWithFallback(proposal: ProposalData) {
 }
 
 export async function acceptProposalWithFallback(proposal: ProposalData) {
-  if (backendAvailable() && internalApiKey) {
+  if (backendAvailable() && hasInternalBackendSession()) {
     try {
       const raw = await requestJson<BackendActionResponse>(`/api/proposals/${proposal.id}/accept`, {
         body: JSON.stringify({
@@ -418,8 +417,8 @@ export function getProposalApiStatus() {
     return 'Local demo mode: proposal API URL is not configured.'
   }
 
-  if (!internalApiKey) {
-    return 'Local demo mode: internal API key is not configured.'
+  if (!hasInternalBackendSession()) {
+    return 'Local demo mode: internal admin session is not active.'
   }
 
   return `Connected to ${apiBaseUrl}`

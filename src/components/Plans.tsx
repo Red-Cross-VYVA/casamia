@@ -6,10 +6,10 @@ type PlansProps = {
 }
 
 const coreFeatures = [
-  'Professional home safety assessment',
-  'Digital safety report and Home Safety Score',
-  'Essential room-by-room adaptations where required',
-  'Optional smart, health and family add-ons after the report',
+  'Guided room-by-room safety review',
+  'Recommended improvements matched to the resident',
+  'Clear estimate before work is confirmed',
+  'Managed installation, setup and handover where needed',
 ]
 
 export function Plans({ standalone = false }: PlansProps) {
@@ -18,23 +18,23 @@ export function Plans({ standalone = false }: PlansProps) {
       <div className="site-shell">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="display-title">
-            One plan, <span className="italic-accent">personalised to the home.</span>
+            Build a safer home, <span className="italic-accent">one useful improvement at a time.</span>
           </h2>
           <p className="mt-4 text-xl text-text-mid">
-            Start with the CasaMia Home Safety Plan. After the assessment, choose only the add-ons that make sense.
+            Choose the rooms that matter, answer simple questions and let CasaMia recommend the right services.
           </p>
         </div>
 
         <div className="mx-auto mt-16 max-w-3xl">
           <article className="plan-card plan-card-highlight rounded-lg bg-navy p-8 text-white shadow-soft">
             <span className="mb-5 inline-flex w-fit rounded-full bg-green px-4 py-2 text-sm font-extrabold text-white">
-              Core plan
+              Your CasaMia plan
             </span>
 
-            <p className="text-sm font-extrabold uppercase text-white/70">CasaMia Home Safety Plan</p>
-            <p className="mt-3 font-display text-5xl font-black leading-none">Simple first</p>
+            <p className="text-sm font-extrabold uppercase text-white/70">Recommended improvements</p>
+            <p className="mt-3 font-display text-5xl font-black leading-none">Clear first</p>
             <p className="mt-4 text-white/80">
-              Assessment, safety report, essential improvements, fixed quotation and coordinated installation.
+              A practical route from home risks to selected services, estimate, quote and coordinated installation.
             </p>
 
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
@@ -47,12 +47,12 @@ export function Plans({ standalone = false }: PlansProps) {
             </ul>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link className="btn btn-green" to="/plans">
-                See Home Safety Plan
+              <Link className="btn btn-green" to="/configure">
+                Build My Safer Home
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
               <Link className="btn btn-white" to="/services">
-                View Add-ons
+                View Services
               </Link>
             </div>
           </article>

@@ -3,12 +3,20 @@ import { Link, useSearchParams } from 'react-router-dom'
 
 import { formatConfiguratorCurrency } from '../services/configuratorPricing'
 import { loadSavedConfiguratorSubmission } from '../services/configuratorSubmission'
+import { getConfiguredServiceById } from '../services/serviceCatalogue'
 
 export function ConfigureConfirmationPage() {
   const [searchParams] = useSearchParams()
   const submission = loadSavedConfiguratorSubmission()
   const configurationId = searchParams.get('configuration') ?? submission?.configurationId ?? 'Prepared locally'
   const mockCheckout = searchParams.get('mockCheckout') === '1'
+  const selectedServices =
+    submission?.selectedServices
+      ?.map((selection) => ({
+        ...selection,
+        service: getConfiguredServiceById(selection.serviceId),
+      }))
+      .filter((selection) => selection.service) ?? []
 
   return (
     <section className="bg-light-blue pt-28">
@@ -38,15 +46,58 @@ export function ConfigureConfirmationPage() {
               </aside>
               <div>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <h2 className="font-display text-2xl font-bold text-text-dark">Structured JSON payload</h2>
+                  <h2 className="font-display text-2xl font-bold text-text-dark">Selected improvements</h2>
                   <button className="btn btn-white border border-border" type="button" onClick={() => window.print()}>
                     <Printer size={18} aria-hidden="true" />
                     Print
                   </button>
                 </div>
-                <pre className="mt-4 max-h-[480px] overflow-auto rounded-lg bg-ink p-5 text-sm leading-relaxed text-white">
-                  {JSON.stringify(submission, null, 2)}
-                </pre>
+                {selectedServices.length > 0 ? (
+                  <div className="mt-4 grid gap-3">
+                    {selectedServices.map(({ quantity, service, serviceId }) => (
+                      <article className="rounded-lg border border-border bg-white p-4" key={serviceId}>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                          <div>
+                            <h3 className="text-lg font-black text-text-dark">{service?.name}</h3>
+                            <p className="mt-1 text-base leading-relaxed text-text-mid">
+                              {service?.customerBenefit ?? service?.shortDescription}
+                            </p>
+                          </div>
+                          <span className="rounded-full bg-pale-blue px-3 py-1 text-sm font-black text-blue">
+                            Qty {quantity}
+                          </span>
+                        </div>
+                        {service?.includedItems?.length ? (
+                          <ul className="mt-3 grid gap-1 text-sm font-bold text-text-mid sm:grid-cols-2">
+                            {service.includedItems.slice(0, 4).map((item) => (
+                              <li className="flex gap-2" key={item}>
+                                <CheckCircle2 className="mt-0.5 shrink-0 text-blue" size={16} aria-hidden="true" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </article>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-4 rounded-lg border border-border bg-pale-blue p-5 text-base font-bold text-text-mid">
+                    CasaMia has saved your request. We will confirm the exact improvements before any work starts.
+                  </div>
+                )}
+
+                {submission.siteConfirmationItems.length > 0 ? (
+                  <div className="mt-5 rounded-lg bg-light-blue p-5">
+                    <h3 className="font-display text-xl font-bold text-text-dark">To confirm before installation</h3>
+                    <ul className="mt-3 grid gap-2 text-sm font-bold text-text-mid">
+                      {submission.siteConfirmationItems.map((item) => (
+                        <li key={`${item.label}-${item.reason}`}>
+                          <strong className="text-text-dark">{item.label}:</strong> {item.reason}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
               </div>
             </div>
           ) : (

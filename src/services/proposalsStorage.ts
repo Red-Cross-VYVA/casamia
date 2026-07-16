@@ -141,7 +141,7 @@ export const mockProposals: ProposalData[] = [
         name: 'Home safety inspection and written report',
         priority: 'Medium',
         quantity: 1,
-        unitPrice: 89,
+        unitPrice: 99,
       }),
     ],
     selectedPlan: assessmentPlan,

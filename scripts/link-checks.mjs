@@ -7,6 +7,9 @@ const appSource = fs.readFileSync(path.join(srcRoot, 'App.tsx'), 'utf8')
 const routePaths = [...appSource.matchAll(/<Route\s+path="([^"]+)"/g)]
   .map((match) => match[1])
   .filter((routePath) => routePath !== '*')
+const redirectRoutePaths = [...appSource.matchAll(/<Route\s+path="([^"]+)"\s+element=\{<Navigate\b/g)]
+  .map((match) => match[1])
+  .filter((routePath) => routePath !== '*')
 
 function walk(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -24,8 +27,31 @@ function routeMatches(pathname) {
   })
 }
 
+function redirectRouteMatches(pathname) {
+  return redirectRoutePaths.some((routePath) => {
+    const pattern = routePath
+      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      .replace(/:[^/]+/g, '[^/]+')
+    return new RegExp(`^${pattern}$`).test(pathname)
+  })
+}
+
 const failures = []
-const sourceFiles = walk(srcRoot).filter((file) => /\.(?:ts|tsx)$/.test(file))
+const sourceFiles = walk(srcRoot).filter((file) => /\.(?:json|ts|tsx)$/.test(file))
+const ids = new Set()
+
+for (const file of sourceFiles) {
+  const source = fs.readFileSync(file, 'utf8')
+
+  for (const match of source.matchAll(/\bid=(?:"([^"]+)"|'([^']+)')/g)) {
+    ids.add(match[1] ?? match[2])
+  }
+}
+
+const linkPatterns = [
+  /\b(?:to|href|src)=(?:"([^"]+)"|'([^']+)')/g,
+  /\b(?:to|href|path|image|src|url|officialSource):\s*(?:"([^"]+)"|'([^']+)')/g,
+]
 
 for (const file of sourceFiles) {
   const source = fs.readFileSync(file, 'utf8')
@@ -35,14 +61,33 @@ for (const file of sourceFiles) {
     failures.push(`${relativeFile}: contains the placeholder CasaMia phone number`)
   }
 
-  for (const match of source.matchAll(/(?:to|href)=(?:"([^"]+)"|'([^']+)')/g)) {
-    const target = match[1] ?? match[2]
-    if (!target.startsWith('/')) continue
+  for (const pattern of linkPatterns) {
+    for (const match of source.matchAll(pattern)) {
+      const target = match[1] ?? match[2]
+      if (!target || target.includes('${') || target.includes('{{')) continue
+      if (!target.startsWith('/') && !target.startsWith('#')) continue
+      if (target.startsWith('//')) continue
 
-    const pathname = target.split(/[?#]/, 1)[0] || '/'
-    const publicAsset = path.join(projectRoot, 'public', pathname.slice(1))
-    if (!routeMatches(pathname) && !fs.existsSync(publicAsset)) {
-      failures.push(`${relativeFile}: internal link ${target} has no matching route or public file`)
+      if (target.startsWith('#')) {
+        const hash = target.slice(1)
+        if (hash && !ids.has(hash)) {
+          failures.push(`${relativeFile}: hash link ${target} has no matching element id`)
+        }
+        continue
+      }
+
+      const [pathAndQuery, hash] = target.split('#')
+      const pathname = pathAndQuery.split(/[?]/, 1)[0] || '/'
+      const publicAsset = path.join(projectRoot, 'public', pathname.slice(1))
+      if (!routeMatches(pathname) && !fs.existsSync(publicAsset)) {
+        failures.push(`${relativeFile}: internal link ${target} has no matching route or public file`)
+      }
+      if (redirectRouteMatches(pathname)) {
+        failures.push(`${relativeFile}: internal link ${target} points to a redirect route; link to the final URL instead`)
+      }
+      if (hash && !ids.has(hash)) {
+        failures.push(`${relativeFile}: internal link ${target} has no matching element id for #${hash}`)
+      }
     }
   }
 }

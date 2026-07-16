@@ -10,11 +10,17 @@ import {
 import type {
   ConfiguratorState,
   CustomerAnswer,
+  ConfiguratorRoomId,
+  ConfiguratorQuantities,
   CustomerContact,
-  PackageId,
-  PackageQuantities,
+  LegacyPackageId,
   PropertyInformation,
 } from '../types/configurator'
+import {
+  getSelectedRoomIds,
+  roomIdsFromLegacyPackages,
+  syncRoomSelections,
+} from '../services/configuratorRooms'
 
 const configuratorStorageKey = 'casamia-configurator-state'
 const submittedConfigurationKey = 'casamia-configurator-submission'
@@ -28,7 +34,8 @@ export const defaultConfiguratorState: ConfiguratorState = {
     postcode: '',
     relationship: '',
   },
-  selectedPackageIds: [],
+  selectedRoomIds: [],
+  selectedServiceIds: [],
   quantities: {
     entrances: 1,
     kitchens: 1,
@@ -55,10 +62,13 @@ type ConfiguratorContextValue = {
   state: ConfiguratorState
   setCurrentStep: (step: number) => void
   updateProperty: (property: Partial<PropertyInformation>) => void
-  updateQuantities: (quantities: Partial<PackageQuantities>) => void
+  updateQuantities: (quantities: Partial<ConfiguratorQuantities>) => void
   updateCustomer: (customer: Partial<CustomerContact>) => void
   setAnswer: (key: string, value: CustomerAnswer) => void
-  togglePackage: (packageId: PackageId) => void
+  setSelectedRooms: (roomIds: ConfiguratorRoomId[]) => void
+  setSelectedServices: (serviceIds: string[]) => void
+  toggleService: (serviceId: string) => void
+  toggleRoom: (roomId: ConfiguratorRoomId) => void
   resetConfigurator: () => void
 }
 
@@ -112,19 +122,52 @@ export function ConfiguratorProvider({ children }: { children: ReactNode }) {
           }),
         )
       },
-      togglePackage(packageId) {
+      setSelectedRooms(roomIds) {
+        setState((current) =>
+          withTimestamp(
+            syncRoomSelections({
+              ...current,
+              selectedRoomIds: roomIds,
+              selectedServiceIds: [],
+            }),
+          ),
+        )
+      },
+      setSelectedServices(serviceIds) {
+        setState((current) =>
+          withTimestamp({
+            ...current,
+            selectedServiceIds: Array.from(new Set(serviceIds)),
+          }),
+        )
+      },
+      toggleService(serviceId) {
         setState((current) => {
-          const selectedPackageIds = current.selectedPackageIds.includes(packageId)
-            ? current.selectedPackageIds.filter((item) => item !== packageId)
-            : [...current.selectedPackageIds, packageId]
+          const selectedServiceIds = current.selectedServiceIds.includes(serviceId)
+            ? current.selectedServiceIds.filter((item) => item !== serviceId)
+            : [...current.selectedServiceIds, serviceId]
 
-          return withTimestamp({ ...current, selectedPackageIds })
+          return withTimestamp({ ...current, selectedServiceIds })
+        })
+      },
+      toggleRoom(roomId) {
+        setState((current) => {
+          const selectedRoomIds = getSelectedRoomIds(current).includes(roomId)
+            ? getSelectedRoomIds(current).filter((item) => item !== roomId)
+            : [...getSelectedRoomIds(current), roomId]
+
+          return withTimestamp(
+            syncRoomSelections({
+              ...current,
+              selectedRoomIds,
+            }),
+          )
         })
       },
       resetConfigurator() {
         window.localStorage.removeItem(configuratorStorageKey)
         window.localStorage.removeItem(submittedConfigurationKey)
-        setState(withTimestamp(defaultConfiguratorState))
+        setState(withTimestamp(syncRoomSelections(defaultConfiguratorState)))
       },
     }),
     [state],
@@ -155,17 +198,25 @@ export function loadConfiguratorState() {
       return withTimestamp(defaultConfiguratorState)
     }
 
-    const parsed = JSON.parse(saved) as ConfiguratorState
+    const parsed = JSON.parse(saved) as Partial<ConfiguratorState> & { selectedPackageIds?: LegacyPackageId[] }
+    const { selectedPackageIds: legacySelectedPackageIds, ...parsedState } = parsed
+    const selectedRoomIds = parsed.selectedRoomIds?.length
+      ? parsed.selectedRoomIds
+      : roomIdsFromLegacyPackages(legacySelectedPackageIds)
 
-    return withTimestamp({
-      ...defaultConfiguratorState,
-      ...parsed,
-      currentStep: defaultConfiguratorState.currentStep,
-      property: { ...defaultConfiguratorState.property, ...parsed.property },
-      quantities: { ...defaultConfiguratorState.quantities, ...parsed.quantities },
-      answers: { ...defaultConfiguratorState.answers, ...parsed.answers },
-      customer: { ...defaultConfiguratorState.customer, ...parsed.customer },
-    })
+    return withTimestamp(
+      syncRoomSelections({
+        ...defaultConfiguratorState,
+        ...parsedState,
+        currentStep: defaultConfiguratorState.currentStep,
+        property: { ...defaultConfiguratorState.property, ...parsedState.property },
+        selectedRoomIds,
+        selectedServiceIds: parsedState.selectedServiceIds ?? defaultConfiguratorState.selectedServiceIds,
+        quantities: { ...defaultConfiguratorState.quantities, ...parsedState.quantities },
+        answers: { ...defaultConfiguratorState.answers, ...parsedState.answers },
+        customer: { ...defaultConfiguratorState.customer, ...parsedState.customer },
+      }),
+    )
   } catch {
     return withTimestamp(defaultConfiguratorState)
   }
@@ -176,17 +227,17 @@ export function saveConfiguratorState(state: ConfiguratorState) {
     return
   }
 
-  window.localStorage.setItem(configuratorStorageKey, JSON.stringify(withTimestamp(state)))
+  window.localStorage.setItem(configuratorStorageKey, JSON.stringify(withTimestamp(syncRoomSelections(state))))
 }
 
 export function getSubmittedConfigurationStorageKey() {
   return submittedConfigurationKey
 }
 
-function normaliseQuantities(quantities: Partial<PackageQuantities>) {
+function normaliseQuantities(quantities: Partial<ConfiguratorQuantities>) {
   return Object.fromEntries(
     Object.entries(quantities).map(([key, value]) => [key, Math.max(0, Number(value) || 0)]),
-  ) as Partial<PackageQuantities>
+  ) as Partial<ConfiguratorQuantities>
 }
 
 function withTimestamp(state: ConfiguratorState): ConfiguratorState {

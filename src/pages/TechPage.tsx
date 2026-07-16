@@ -20,8 +20,8 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { SafeImage } from '../components/SafeImage'
-import { PLAN_DETAILS } from '../constants/planDetails'
 import { IMAGE_URLS } from '../constants/shopify'
+import { formatServicePrice, useServicesByRoom } from '../services/serviceCatalogue'
 
 type TechIconName =
   | 'bath'
@@ -102,7 +102,7 @@ const techCopy: Record<'en' | 'es', LocalisedTechCopy> = {
     accent: 'respond sooner.',
     intro:
       'Sensors, fall detection, emergency buttons, health reminders, smart lighting, and family alerts configured around the way each person lives at home.',
-    primaryCta: 'See Smart Safety plan',
+    primaryCta: 'Build connected safety',
     secondaryCta: 'Start safety report',
     heroAlt: 'Older adult using smart home safety assistance at home',
     heroStats: ['Fall alerts', 'Family notified', 'Motion lighting'],
@@ -116,12 +116,12 @@ const techCopy: Record<'en' | 'es', LocalisedTechCopy> = {
     privacyTitle: 'Useful monitoring without turning the home into a complicated control room.',
     devicesEyebrow: 'Caregiver dashboard and VYVA app',
     devicesTitle: 'A clearer view for families, and a simpler assistant for the person at home.',
-    packageEyebrow: 'Smart Safety package',
-    packageTitle: 'The connected safety layer sits on top of practical home adaptations.',
+    packageEyebrow: 'Connected safety services',
+    packageTitle: 'Choose the connected support that fits the home.',
     packageIntro:
-      'The Smart Safety plan combines whole-home safety improvements with connected devices, setup, training, and support.',
-    allInclusions: 'Smart Safety inclusions',
-    viewPlan: 'View full Smart Safety plan',
+      'Review emergency buttons, family alerts, fall detection, voice support and monitoring options one by one.',
+    allInclusions: 'Available connected services',
+    viewPlan: 'Add connected safety',
     finalTitle: 'Not sure which devices are right for the home?',
     finalBody:
       'Start with the safety report. CasaMia reviews the rooms, connectivity, routines, and family preferences before recommending any technology.',
@@ -239,7 +239,7 @@ const techCopy: Record<'en' | 'es', LocalisedTechCopy> = {
     accent: 'en casa.',
     intro:
       'Sensores, detección de caídas, botones de emergencia, recordatorios de salud, iluminación inteligente y alertas familiares configuradas según la rutina de cada persona.',
-    primaryCta: 'Ver Plan Seguridad Smart',
+    primaryCta: 'Configurar seguridad smart',
     secondaryCta: 'Empezar informe',
     heroAlt: 'Persona mayor usando asistencia inteligente de seguridad en casa',
     heroStats: ['Alertas de caída', 'Familia avisada', 'Luz con sensor'],
@@ -253,12 +253,12 @@ const techCopy: Record<'en' | 'es', LocalisedTechCopy> = {
     privacyTitle: 'Monitorización útil sin convertir la vivienda en algo complicado.',
     devicesEyebrow: 'Panel de cuidadores y app VYVA',
     devicesTitle: 'Una vista clara para la familia y una asistente sencilla para la persona en casa.',
-    packageEyebrow: 'Plan Seguridad Smart',
-    packageTitle: 'La capa conectada se suma a las adaptaciones prácticas del hogar.',
+    packageEyebrow: 'Servicios de seguridad conectada',
+    packageTitle: 'Elige el soporte conectado que encaja con la vivienda.',
     packageIntro:
-      'El Plan Seguridad Smart combina mejoras de seguridad en toda la vivienda con dispositivos conectados, configuración, formación y soporte.',
-    allInclusions: 'Inclusiones de Seguridad Smart',
-    viewPlan: 'Ver Plan Seguridad Smart completo',
+      'Revisa botones de emergencia, alertas familiares, detección de caídas, soporte por voz y monitorización uno por uno.',
+    allInclusions: 'Servicios conectados disponibles',
+    viewPlan: 'Añadir seguridad conectada',
     finalTitle: '¿No sabes qué dispositivos encajan con la vivienda?',
     finalBody:
       'Empieza con el informe de seguridad. CasaMia revisa estancias, conectividad, rutinas y preferencias familiares antes de recomendar tecnología.',
@@ -475,7 +475,14 @@ function VyvaAppPreview() {
 export function TechPage() {
   const { i18n } = useTranslation()
   const copy = getTechCopy(i18n.language)
-  const smartPlan = PLAN_DETAILS.premium
+  const connectedServices = useServicesByRoom('connected')
+  const connectedGroups = Array.from(
+    connectedServices.reduce((groups, service) => {
+      const items = groups.get(service.category) ?? []
+      groups.set(service.category, [...items, service])
+      return groups
+    }, new Map<string, typeof connectedServices>()),
+  )
 
   return (
     <>
@@ -489,7 +496,7 @@ export function TechPage() {
             </h1>
             <p>{copy.intro}</p>
             <div className="tech-hero-actions">
-              <Link className="btn btn-green" to="/plans">
+              <Link className="btn btn-green" to="/configure?room=connected">
                 {copy.primaryCta}
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
@@ -638,7 +645,7 @@ export function TechPage() {
         </div>
       </section>
 
-      <section className="section-pad bg-white" id="package-inclusions">
+      <section className="section-pad bg-white" id="connected-inclusions">
         <div className="site-shell">
           <div className="max-w-4xl">
             <p className="eyebrow">{copy.packageEyebrow}</p>
@@ -651,29 +658,32 @@ export function TechPage() {
           <article className="tech-package-card mt-12">
             <header className="tech-package-header">
               <div>
-                <p>{smartPlan.marketingName}</p>
-                <h3>{smartPlan.shopifyTitle}</h3>
+                <p>Selected improvements</p>
+                <h3>Connected safety services</h3>
               </div>
               <div className="tech-package-price">
-                <strong>{smartPlan.price}</strong>
-                <span>one-time</span>
+                <strong>{connectedServices.length}</strong>
+                <span>services</span>
               </div>
             </header>
 
-            <p className="mt-5 max-w-4xl text-text-mid">{smartPlan.summary}</p>
+            <p className="mt-5 max-w-4xl text-text-mid">
+              Choose only the connected safety services that help the resident and family. CasaMia checks compatibility,
+              installs where needed, sets up alerts and explains the handover clearly.
+            </p>
             <p className="mt-8 text-sm font-extrabold uppercase text-navy">
               {copy.allInclusions}
             </p>
 
             <div className="tech-inclusion-grid mt-5">
-              {smartPlan.included.map((section) => (
-                <section className="tech-inclusion-group" key={section.title}>
-                  <h4>{section.title}</h4>
+              {connectedGroups.map(([category, services]) => (
+                <section className="tech-inclusion-group" key={category}>
+                  <h4>{category}</h4>
                   <ul>
-                    {section.items.map((item) => (
-                      <li key={item}>
+                    {services.map((service) => (
+                      <li key={service.id}>
                         <Check size={16} aria-hidden="true" />
-                        <span>{item}</span>
+                        <span>{service.name} · {formatServicePrice(service)}</span>
                       </li>
                     ))}
                   </ul>
@@ -681,7 +691,7 @@ export function TechPage() {
               ))}
             </div>
 
-            <Link className="btn btn-navy mt-8" to="/plans">
+            <Link className="btn btn-navy mt-8" to="/configure?room=connected">
               {copy.viewPlan}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>

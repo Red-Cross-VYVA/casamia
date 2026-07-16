@@ -99,7 +99,7 @@ const zoneLabels: Record<string, { en: string; es: string }> = {
   'canary-islands': { en: 'Canary Islands', es: 'Canarias' },
 }
 
-const casaMiaContact = 'hello@casamia.es'
+const casaMiaContact = 'hola@casamia.com.es'
 const contactHref = `mailto:${casaMiaContact}`
 
 function getOrderCopy(language: string) {

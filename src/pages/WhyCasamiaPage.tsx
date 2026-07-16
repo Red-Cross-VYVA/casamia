@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
+import { SpainCoverageMap, type SpainCoverageCopy } from '../components/SpainCoverageMap'
 import { TrustBar } from '../components/TrustBar'
 import { submitContactRequest } from '../services/contactRequests'
 import { trackEvent } from '../utils/analytics'
@@ -30,6 +31,10 @@ type WhyCasamiaCopy = {
     value: string
     label: string
   }>
+  coverage: SpainCoverageCopy & {
+    eyebrow: string
+    body: string
+  }
   promiseTitle: string
   promiseBody: string
   promisePoints: string[]
@@ -57,85 +62,97 @@ type WhyCasamiaCopy = {
 
 const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   en: {
-    eyebrow: 'Why us',
-    headline: 'Why families choose CasaMia',
+    eyebrow: 'Why CasaMia',
+    headline: 'CasaMia is powered by MOKA DigiTech',
     intro:
-      'Choosing a home safety partner means trusting someone with your home, your comfort, and your loved ones. CasaMia combines qualified reviews, trusted local coordination, transparent proposals, and careful follow-through.',
+      'CasaMia is the senior-home safety service created by MOKA DigiTech, a technology and service company focused on the ageing-in-place market. The model is simple: combine digital tools, vetted local providers, clear pricing and managed quality control so families can adapt the home with confidence.',
     heroProof: [
-      { value: 'Room-by-room', label: 'risk review before recommendations' },
-      { value: 'Clear scope', label: 'before any work is agreed' },
-      { value: 'One team', label: 'from first concern to follow-up' },
+      { value: 'MOKA DigiTech', label: 'senior-focused technology and service model' },
+      { value: 'Vetted network', label: 'local providers coordinated by CasaMia' },
+      { value: 'Quality tracked', label: 'scope, installation and follow-up kept together' },
     ],
-    promiseTitle: 'A careful, accountable way to adapt the home.',
+    coverage: {
+      eyebrow: 'Spain-wide service',
+      title: 'Local coverage across Spain, connected by CasaMia.',
+      body:
+        'CasaMia combines local representatives with one digital workflow, so assessments, recommendations and follow-up stay consistent wherever a family lives.',
+      badge: 'All Spain',
+      legend: 'Representative coverage areas',
+      hint: 'Hover or tap a marker to see the local team.',
+      repSingular: 'representative',
+      repPlural: 'representatives',
+      orderNow: 'Order now',
+    },
+    promiseTitle: 'A technology company with a service mindset.',
     promiseBody:
-      'CasaMia is built for families who need practical changes without pressure, guesswork, or confusing handovers. Every recommendation starts with the resident, the home, and the daily routine.',
+      'MOKA built CasaMia to make home adaptation less fragmented. Instead of sending families to guess between products, grants and installers, CasaMia brings assessment, recommendations, quotation, provider coordination and follow-up into one managed workflow.',
     promisePoints: [
-      'We explain why each adaptation is recommended.',
-      'We separate urgent safety priorities from nice-to-have improvements.',
-      'We keep the family informed from first review to completion.',
+      'Senior-market focus: practical safety, independence and family confidence.',
+      'Transparent recommendations: what matters, why it matters and what it may cost.',
+      'Managed delivery: vetted providers, clear handover and quality checks.',
     ],
-    processEyebrow: 'CasaMia method',
-    processTitle: 'How trust is built into the work',
+    processEyebrow: 'Operating model',
+    processTitle: 'A managed service, not a directory of installers',
     processSteps: [
       {
-        title: 'Assess first',
-        body: 'We review rooms, routes, mobility needs, lighting, access, and transfer points before suggesting products.',
+        title: 'Understand the home',
+        body: 'We collect the room, resident, photos, access, measurements and daily-routine context before recommending work.',
       },
       {
-        title: 'Agree the scope',
-        body: 'You see the plan, priorities, likely cost, and timing before committing to installation.',
+        title: 'Recommend clearly',
+        body: 'CasaMia turns the information into practical priorities, service options and a clear scope before commitment.',
       },
       {
-        title: 'Coordinate delivery',
-        body: 'CasaMia keeps visit notes, installer briefing, family updates, and handover details together.',
+        title: 'Vett and coordinate',
+        body: 'Local providers are matched to the job, briefed on the standard and coordinated through the CasaMia process.',
       },
       {
-        title: 'Support after handover',
-        body: 'The family has a clear point of contact for questions, follow-up, and next steps.',
+        title: 'Check the result',
+        body: 'The job is followed through with handover notes, family updates and a clear point of contact after delivery.',
       },
     ],
     sections: [
       {
         icon: 'inspectors',
-        title: 'Qualified Safety Review',
+        title: 'Senior-focused technology',
         body:
-          'Our process starts with practical home safety thinking: where falls happen, where movement feels difficult, and where simple adaptations can make daily life safer.',
-        points: ['Room-by-room risk review', 'Falls, lighting, access, and mobility focus', 'Clear recommendations before work begins'],
+          'MOKA DigiTech focuses on technology and services for older adults: prevention, independence, simpler access to support and clearer information for families.',
+        points: ['Built for ageing-in-place needs', 'Digital tools that support human decisions', 'Technology only where it makes life easier'],
       },
       {
         icon: 'partners',
-        title: 'Trusted Local Coordination',
+        title: 'Vetted provider model',
         body:
-          'CasaMia coordinates reliable local professionals where installation is needed, while keeping the family journey clear and joined up.',
-        points: ['Local availability checked', 'Respectful in-home work', 'Practical installation planning'],
+          'CasaMia is not an open marketplace. Providers are selected for fit, availability, communication and the ability to work respectfully in senior homes.',
+        points: ['Local providers checked before assignment', 'Clear briefing before the visit', 'Respectful work in occupied homes'],
       },
       {
         icon: 'insured',
-        title: 'Professional Standards',
+        title: 'Quality control built in',
         body:
-          'Families need confidence that the work is handled professionally. CasaMia structures projects around clear standards and accountable delivery.',
-        points: ['Professional work standards', 'Clear responsibility', 'Confidence from inspection to completion'],
+          'Every project needs more than a product list. CasaMia keeps the scope, installation notes, family communication and handover details connected.',
+        points: ['Defined scope before work starts', 'Installation and handover tracked', 'Follow-up after the key step'],
       },
       {
         icon: 'products',
-        title: 'Quality Safety Products',
+        title: 'Detail-led recommendations',
         body:
-          'The best safety products are the ones people actually use every day. CasaMia prioritises reliable, practical equipment suited to the home.',
-        points: ['Grab bars, lighting, access, and alert systems', 'Durable products for daily routines', 'Smart technology only where it helps'],
+          'Small details matter in senior safety: height, reach, lighting, door swing, wet surfaces, transfer points and what the resident will actually use.',
+        points: ['Room and routine considered together', 'Useful adaptations before decorative upgrades', 'Smart devices only when they solve a real problem'],
       },
       {
         icon: 'pricing',
-        title: 'Transparent Proposals',
+        title: 'Transparent commercial model',
         body:
-          'No family should feel pushed into unclear work. CasaMia explains the recommended scope, likely cost, and possible grant routes before installation.',
-        points: ['Clear scope before commitment', 'Plan-based package structure', 'Grant-readiness guidance where available'],
+          'Families should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant support clearly.',
+        points: ['Clear estimate before commitment', 'Optional items separated from essentials', 'Grant guidance without false promises'],
       },
       {
         icon: 'acceptance',
-        title: 'Clear Follow-Through',
+        title: 'Values that guide the work',
         body:
-          'The process does not stop at the first call. CasaMia keeps the request, notes, visit, proposal, installation and follow-up connected.',
-        points: ['Request tracked internally', 'Family updates kept together', 'Follow-up after the next step'],
+          'The senior market depends on trust. CasaMia is built around respect for the resident, honest communication with the family and careful execution in the home.',
+        points: ['Respect and independence first', 'No pressure or confusing handovers', 'Accountability from first contact to follow-up'],
       },
     ],
     contactEyebrow: 'Speak with CasaMia',
@@ -151,85 +168,97 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     ctaButton: 'Request In-Home Assessment',
   },
   es: {
-    eyebrow: 'Por qué nosotros',
-    headline: 'Por qué las familias eligen CasaMia',
+    eyebrow: 'Por qué CasaMia',
+    headline: 'CasaMia está impulsada por MOKA DigiTech',
     intro:
-      'Elegir un partner de seguridad para el hogar significa confiarle tu casa, tu comodidad y a tus seres queridos. CasaMia combina revisión experta, coordinación local, propuestas claras y seguimiento cuidadoso.',
+      'CasaMia es el servicio de seguridad y adaptación del hogar creado por MOKA DigiTech, una empresa tecnológica centrada en el mercado senior. El modelo combina herramientas digitales, proveedores locales seleccionados, precios claros y control de calidad para que las familias adapten la vivienda con confianza.',
     heroProof: [
-      { value: 'Estancia por estancia', label: 'revisión de riesgos antes de recomendar' },
-      { value: 'Alcance claro', label: 'antes de acordar cualquier trabajo' },
-      { value: 'Un equipo', label: 'desde la preocupación inicial hasta el seguimiento' },
+      { value: 'MOKA DigiTech', label: 'tecnología y servicio para el mercado senior' },
+      { value: 'Red validada', label: 'profesionales locales coordinados por CasaMia' },
+      { value: 'Calidad trazada', label: 'alcance, instalación y seguimiento conectados' },
     ],
-    promiseTitle: 'Una forma cuidadosa y responsable de adaptar el hogar.',
+    coverage: {
+      eyebrow: 'Servicio en toda España',
+      title: 'Cobertura local en toda España, conectada por CasaMia.',
+      body:
+        'CasaMia combina representantes locales con un único flujo digital para mantener evaluaciones, recomendaciones y seguimiento consistentes, viva donde viva la familia.',
+      badge: 'Toda España',
+      legend: 'Zonas con cobertura representativa',
+      hint: 'Pasa el cursor o toca un punto para ver el equipo local.',
+      repSingular: 'representante',
+      repPlural: 'representantes',
+      orderNow: 'Pedir ahora',
+    },
+    promiseTitle: 'Una empresa tecnológica con mentalidad de servicio.',
     promiseBody:
-      'CasaMia está pensada para familias que necesitan cambios prácticos sin presión, dudas ni entregas confusas. Cada recomendación empieza por la persona, la vivienda y la rutina diaria.',
+      'MOKA creó CasaMia para que adaptar una vivienda no sea un proceso fragmentado. En lugar de dejar a la familia elegir a ciegas entre productos, ayudas e instaladores, CasaMia reúne evaluación, recomendaciones, presupuesto, coordinación y seguimiento en un flujo gestionado.',
     promisePoints: [
-      'Explicamos por qué se recomienda cada adaptación.',
-      'Separamos prioridades urgentes de mejoras opcionales.',
-      'Mantenemos informada a la familia desde la revisión hasta la finalización.',
+      'Foco senior: seguridad práctica, independencia y tranquilidad familiar.',
+      'Recomendaciones transparentes: qué importa, por qué importa y cuánto puede costar.',
+      'Entrega gestionada: proveedores validados, traspaso claro y control de calidad.',
     ],
-    processEyebrow: 'Método CasaMia',
-    processTitle: 'Cómo incorporamos confianza al trabajo',
+    processEyebrow: 'Modelo operativo',
+    processTitle: 'Un servicio gestionado, no un directorio de instaladores',
     processSteps: [
       {
-        title: 'Evaluar primero',
-        body: 'Revisamos estancias, recorridos, movilidad, iluminación, accesos y puntos de transferencia antes de proponer productos.',
+        title: 'Entender la vivienda',
+        body: 'Recogemos contexto de estancias, persona, fotos, accesos, medidas y rutinas antes de recomendar trabajos.',
       },
       {
-        title: 'Acordar el alcance',
-        body: 'Ves el plan, prioridades, coste aproximado y tiempos antes de comprometerte con la instalación.',
+        title: 'Recomendar con claridad',
+        body: 'CasaMia convierte la información en prioridades prácticas, servicios recomendados y alcance claro antes del compromiso.',
       },
       {
-        title: 'Coordinar la entrega',
-        body: 'CasaMia mantiene juntas las notas de visita, briefing del instalador, actualizaciones familiares y entrega.',
+        title: 'Validar y coordinar',
+        body: 'Asignamos profesionales locales adecuados, les damos instrucciones claras y coordinamos el proceso CasaMia.',
       },
       {
-        title: 'Apoyar después',
-        body: 'La familia tiene un punto de contacto claro para dudas, seguimiento y siguientes pasos.',
+        title: 'Comprobar el resultado',
+        body: 'El trabajo se cierra con notas de entrega, actualización a la familia y un punto de contacto para seguimiento.',
       },
     ],
     sections: [
       {
         icon: 'inspectors',
-        title: 'Revisión de seguridad cualificada',
+        title: 'Tecnología centrada en seniors',
         body:
-          'El proceso empieza con una mirada práctica: dónde ocurren las caídas, dónde cuesta moverse y qué adaptaciones pueden mejorar la vida diaria.',
-        points: ['Revisión estancia por estancia', 'Foco en caídas, luz, accesos y movilidad', 'Recomendaciones claras antes de empezar'],
+          'MOKA DigiTech trabaja en tecnología y servicios para personas mayores: prevención, independencia, acceso más sencillo al apoyo e información clara para las familias.',
+        points: ['Diseñado para envejecer mejor en casa', 'Herramientas digitales que apoyan decisiones humanas', 'Tecnología solo cuando facilita la vida'],
       },
       {
         icon: 'partners',
-        title: 'Coordinación local de confianza',
+        title: 'Modelo de proveedores validados',
         body:
-          'CasaMia coordina profesionales locales fiables cuando hace falta instalación, manteniendo claro todo el recorrido para la familia.',
-        points: ['Disponibilidad local revisada', 'Trabajo respetuoso en casa', 'Planificación práctica de la instalación'],
+          'CasaMia no es un directorio abierto. Seleccionamos proveedores por encaje, disponibilidad, comunicación y capacidad de trabajar con respeto en hogares de personas mayores.',
+        points: ['Profesionales revisados antes de asignar', 'Briefing claro antes de la visita', 'Trabajo respetuoso en viviendas habitadas'],
       },
       {
         icon: 'insured',
-        title: 'Estándares profesionales',
+        title: 'Control de calidad integrado',
         body:
-          'Las familias necesitan confianza. CasaMia estructura los proyectos con estándares claros y una entrega responsable.',
-        points: ['Estándares profesionales', 'Responsabilidad clara', 'Confianza desde inspección hasta finalización'],
+          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene conectados alcance, notas de instalación, comunicación familiar y entrega.',
+        points: ['Alcance definido antes de empezar', 'Instalación y entrega trazadas', 'Seguimiento después del paso clave'],
       },
       {
         icon: 'products',
-        title: 'Productos de seguridad de calidad',
+        title: 'Recomendaciones con atención al detalle',
         body:
-          'Los mejores productos de seguridad son los que se usan cada día. CasaMia prioriza equipamiento fiable y práctico para cada vivienda.',
-        points: ['Barras, iluminación, accesos y alertas', 'Productos duraderos para rutinas diarias', 'Tecnología smart solo donde aporta'],
+          'En seguridad senior los detalles importan: altura, alcance, iluminación, giro de puertas, superficies mojadas, transferencias y lo que la persona realmente usará.',
+        points: ['Estancia y rutina se analizan juntas', 'Adaptaciones útiles antes que mejoras decorativas', 'Dispositivos smart solo si resuelven un problema real'],
       },
       {
         icon: 'pricing',
-        title: 'Propuestas transparentes',
+        title: 'Modelo comercial transparente',
         body:
-          'Ninguna familia debería aceptar trabajos poco claros. CasaMia explica el alcance, coste probable y posibles vías de ayuda antes de instalar.',
-        points: ['Alcance claro antes del compromiso', 'Estructura por paquetes', 'Orientación sobre ayudas cuando existan'],
+          'La familia debe saber qué está incluido, qué es opcional y qué requiere medición o confirmación. CasaMia separa claramente asesoramiento, instalación y apoyo con ayudas.',
+        points: ['Estimación clara antes del compromiso', 'Opcionales separados de lo esencial', 'Orientación sobre ayudas sin falsas promesas'],
       },
       {
         icon: 'acceptance',
-        title: 'Seguimiento claro',
+        title: 'Valores que guían el trabajo',
         body:
-          'El proceso no termina en la primera llamada. CasaMia mantiene conectadas solicitud, notas, visita, propuesta, instalación y seguimiento.',
-        points: ['Solicitud trazada internamente', 'Actualizaciones familiares juntas', 'Seguimiento después del siguiente paso'],
+          'El mercado senior exige confianza. CasaMia trabaja con respeto por la persona, comunicación honesta con la familia y ejecución cuidadosa dentro del hogar.',
+        points: ['Respeto e independencia primero', 'Sin presión ni traspasos confusos', 'Responsabilidad desde el primer contacto hasta el seguimiento'],
       },
     ],
     contactEyebrow: 'Habla con CasaMia',
@@ -352,6 +381,18 @@ export function WhyCasamiaPage() {
 
       <TrustBar />
 
+      <section className="section-pad bg-white">
+        <div className="about-coverage-grid site-shell">
+          <div className="about-section-copy">
+            <p className="eyebrow">{copy.coverage.eyebrow}</p>
+            <h2 className="display-title mt-5">{copy.coverage.title}</h2>
+            <p>{copy.coverage.body}</p>
+          </div>
+
+          <SpainCoverageMap copy={copy.coverage} language={i18n.language} />
+        </div>
+      </section>
+
       <section className="why-promise-section section-pad">
         <div className="why-promise-grid site-shell">
           <div>
@@ -429,13 +470,13 @@ export function WhyCasamiaPage() {
             <p>{copy.contactBody}</p>
             <div className="contact-direct-options">
               <a
-                href="mailto:hello@casamia.es"
+                href="mailto:hola@casamia.com.es"
                 onClick={() => trackEvent('email_clicked', { location: 'why_us_contact' })}
               >
                 <Mail size={19} aria-hidden="true" />
                 <span>
                   <strong>{copy.emailTitle}</strong>
-                  hello@casamia.es
+                  hola@casamia.com.es
                 </span>
               </a>
             </div>

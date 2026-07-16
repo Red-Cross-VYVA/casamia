@@ -1,0 +1,177 @@
+/* Home hero CTAs: a clear primary/secondary pair on the editorial blue hero. */
+body .hero-section .free-check-grid {
+  align-items: stretch;
+  gap: 12px;
+}
+
+body .hero-section .free-check-card {
+  grid-template-columns: 42px minmax(0, 1fr) 34px;
+  min-height: 78px;
+  gap: 12px;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font: inherit;
+  isolation: isolate;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+body .hero-section .free-check-card::before {
+  content: none;
+  display: none;
+}
+
+body .hero-section .free-check-card.is-primary {
+  border-color: rgba(255, 255, 255, 0.74);
+  background-color: #dfff5f !important;
+  background-image: linear-gradient(135deg, #e8ff88 0%, #d7f450 100%) !important;
+  color: #062438;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 16px 30px rgba(2, 30, 53, 0.2);
+}
+
+body .hero-section .free-check-card.is-grant {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: #073f69 !important;
+  background-image: linear-gradient(145deg, #084b7c 0%, #063858 100%) !important;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 16px 30px rgba(2, 30, 53, 0.2);
+}
+
+body .hero-section .free-check-card .free-check-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+body .hero-section .free-check-card.is-primary .free-check-icon {
+  border-color: rgba(6, 36, 56, 0.13);
+  background: rgba(255, 255, 255, 0.52);
+  color: #073f69;
+}
+
+body .hero-section .free-check-card.is-grant .free-check-icon {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #dfff5f;
+}
+
+body .hero-section .free-check-copy strong {
+  font-size: clamp(16px, 1.05vw, 19px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+body .hero-section .free-check-card .free-check-arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+body .hero-section .free-check-card.is-primary .free-check-arrow {
+  border-color: #062438;
+  background: #062438;
+  color: #ffffff;
+}
+
+body .hero-section .free-check-card.is-grant .free-check-arrow {
+  border-color: #dfff5f;
+  background: #dfff5f;
+  color: #062438;
+}
+
+body .hero-section .free-check-card:hover {
+  transform: translateY(-2px);
+}
+
+body .hero-section .free-check-card.is-primary:hover {
+  border-color: #ffffff;
+  background-color: #e8ff88 !important;
+  background-image: linear-gradient(135deg, #efffa5 0%, #dfff5f 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    0 20px 38px rgba(2, 30, 53, 0.26);
+}
+
+body .hero-section .free-check-card.is-grant:hover {
+  border-color: rgba(255, 255, 255, 0.58);
+  background-color: #084b7c !important;
+  background-image: linear-gradient(145deg, #0a578d 0%, #073f69 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 20px 38px rgba(2, 30, 53, 0.27);
+}
+
+body .hero-section .free-check-card:hover .free-check-arrow {
+  transform: translateX(2px);
+}
+
+body .hero-section .free-check-card:active {
+  transform: translateY(0);
+}
+
+body .hero-section .free-check-card:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+  box-shadow:
+    0 0 0 2px #0a67a9,
+    0 18px 34px rgba(2, 30, 53, 0.25);
+}
+
+@media (max-width: 767px) {
+  body .hero-section .free-check-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  body .hero-section .free-check-card {
+    grid-template-columns: 40px minmax(0, 1fr) 32px;
+    min-height: 70px;
+    gap: 11px;
+    padding: 11px 13px;
+  }
+
+  body .hero-section .free-check-card .free-check-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+  }
+
+  body .hero-section .free-check-card .free-check-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+
+  body .hero-section .free-check-copy strong {
+    font-size: 17px;
+    line-height: 1.12;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body .hero-section .free-check-card,
+  body .hero-section .free-check-card .free-check-arrow {
+    transition: none;
+  }
+
+  body .hero-section .free-check-card:hover,
+  body .hero-section .free-check-card:hover .free-check-arrow {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  body .hero-section .free-check-card {
+    border: 2px solid ButtonText;
+  }
+}

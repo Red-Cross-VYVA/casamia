@@ -1,0 +1,224 @@
+.prevention-rotator {
+  --prevention-rotation-duration: 7000ms;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.prevention-fact-stage {
+  display: flex;
+  min-height: 332px;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.prevention-fact {
+  animation: prevention-fact-enter 420ms ease both;
+}
+
+.prevention-fact-value {
+  max-width: 660px;
+  margin: 0;
+  color: var(--navy);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(4.25rem, 7.2vw, 6.6rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  text-wrap: balance;
+}
+
+.prevention-fact-value.is-compact {
+  font-size: clamp(3rem, 5.3vw, 4.8rem);
+  line-height: 0.94;
+}
+
+.prevention-fact-label {
+  max-width: 650px;
+  margin: 16px 0 0;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.25rem, 3.8vw, 3.45rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+.prevention-fact-accent {
+  width: 88px;
+  height: 5px;
+  margin-top: 28px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+}
+
+.prevention-fact-source {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.prevention-fact-source:hover {
+  color: var(--blue);
+}
+
+.prevention-rotator-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.prevention-rotator-step,
+.prevention-rotator-toggle {
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--navy);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.prevention-rotator-step:hover,
+.prevention-rotator-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--blue);
+  background: #ffffff;
+}
+
+.prevention-rotator-position {
+  min-width: 54px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.prevention-rotator-dots {
+  display: flex;
+  flex: 1 1 170px;
+  gap: 2px;
+  align-items: center;
+}
+
+.prevention-rotator-dot {
+  position: relative;
+  display: inline-grid;
+  min-width: 34px;
+  height: 40px;
+  flex: 1 1 34px;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.prevention-rotator-dot > span {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(27, 94, 138, 0.2);
+}
+
+.prevention-rotator-dot.is-active > span {
+  background: rgba(27, 94, 138, 0.3);
+}
+
+.prevention-rotator-dot.is-active > span::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--navy);
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.prevention-rotator-dot.is-active.is-running > span::after {
+  animation: prevention-fact-progress var(--prevention-rotation-duration) linear both;
+}
+
+@keyframes prevention-fact-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes prevention-fact-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 767px) {
+  .prevention-fact-stage {
+    min-height: 300px;
+  }
+
+  .prevention-fact-value {
+    font-size: clamp(3.8rem, 18vw, 5.5rem);
+  }
+
+  .prevention-fact-value.is-compact {
+    font-size: clamp(2.65rem, 12vw, 4rem);
+  }
+
+  .prevention-fact-label {
+    font-size: clamp(2rem, 9.2vw, 3rem);
+  }
+
+  .prevention-rotator-position {
+    order: 3;
+  }
+
+  .prevention-rotator-dots {
+    order: 4;
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prevention-fact,
+  .prevention-rotator-dot.is-active.is-running > span::after {
+    animation: none;
+  }
+
+  .prevention-rotator-step,
+  .prevention-rotator-toggle {
+    transition: none;
+  }
+}

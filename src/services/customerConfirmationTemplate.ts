@@ -21,11 +21,11 @@ type CustomerDetail = {
 }
 
 const NOT_SURE_PLAN = 'Not sure yet'
-const ASSESSMENT_VISIT_FEE = '€89'
+const ASSESSMENT_VISIT_FEE = '99 EUR'
 const SCHEDULE_INSPECTION_URL =
-  'mailto:hello@casamia.es?subject=Assessment%20visit%20request'
+  'mailto:hola@casamia.com.es?subject=Assessment%20visit%20request'
 const CasaMia_WEBSITE_URL = 'https://CasaMia-seniors.myshopify.com/'
-const CasaMia_CONTACT = 'hello@casamia.es'
+const CasaMia_CONTACT = 'hola@casamia.com.es'
 
 export function buildAssessmentCustomerConfirmation(
   payload: AssessmentCustomerConfirmationPayload,
@@ -44,7 +44,7 @@ export function buildAssessmentCustomerConfirmation(
 
 function buildSubject(selectedPlan: string) {
   if (selectedPlan && selectedPlan !== NOT_SURE_PLAN) {
-    return `Your CasaMia ${selectedPlan} Assessment Visit Request Has Been Received`
+    return `Your CasaMia ${selectedPlan} Request Has Been Received`
   }
 
   return 'Your CasaMia In-Home Safety Assessment Request Has Been Received'
@@ -55,7 +55,7 @@ function buildCustomerDetails(
   selectedPlan: string,
 ): CustomerDetail[] {
   return [
-    { label: 'Selected plan', value: selectedPlan },
+    { label: 'Selected option', value: selectedPlan },
     { label: 'Assessment visit fee', value: ASSESSMENT_VISIT_FEE },
     { label: 'Full name', value: cleanText(payload.name) || 'Not provided' },
     { label: 'Phone', value: cleanText(payload.phone) || 'Not provided' },
@@ -85,8 +85,8 @@ function buildPlainText(details: CustomerDetail[], reassurance: string) {
     'What Happens Next',
     '1. A CasaMia representative will contact you shortly.',
     `2. We will confirm your needs, local availability, and the ${ASSESSMENT_VISIT_FEE} assessment visit before booking.`,
-    '3. If you choose to proceed, our safety team will visit your home and assess it room by room.',
-    '4. You will receive expert recommendations and clear next steps.',
+    '3. If you choose a home visit, our safety team will assess the home room by room.',
+    '4. You will receive clear recommended improvements and next steps.',
     '',
     reassurance,
     '',
@@ -140,8 +140,8 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
             <ol style="margin: 0; padding-left: 22px; color: #26384a; font-size: 15px; line-height: 1.65;">
               <li>A CasaMia representative will contact you shortly.</li>
               <li>We will confirm your needs, local availability, and the ${ASSESSMENT_VISIT_FEE} assessment visit before booking.</li>
-              <li>If you choose to proceed, our safety team will visit your home and assess it room by room.</li>
-              <li>You will receive expert recommendations and clear next steps.</li>
+              <li>If you choose a home visit, our safety team will assess the home room by room.</li>
+              <li>You will receive clear recommended improvements and next steps.</li>
             </ol>
           </section>
 
@@ -173,15 +173,15 @@ function getCustomerPlanLabel(value?: string) {
   const planKey = getPlanKey(value)
 
   if (planKey === 'home-assessment') {
-    return 'Home Assessment Plan'
+    return 'Assessment visit'
   }
 
   if (planKey === 'home-safety') {
-    return 'Home Safety Plan'
+    return 'Home adaptations'
   }
 
   if (planKey === 'smart-safety') {
-    return 'Smart Safety Plan'
+    return 'Connected safety'
   }
 
   return NOT_SURE_PLAN
@@ -191,18 +191,18 @@ function getPlanReassurance(value?: string) {
   const planKey = getPlanKey(value)
 
   if (planKey === 'home-assessment') {
-    return `Your request is focused on an in-home inspection and report. The assessment visit costs ${ASSESSMENT_VISIT_FEE}, credited toward your CasaMia plan if you proceed.`
+    return `Your request is focused on an in-home inspection and report. The assessment visit costs ${ASSESSMENT_VISIT_FEE}, credited toward approved CasaMia improvements if you proceed.`
   }
 
   if (planKey === 'home-safety') {
-    return `Your request includes practical home safety improvements. After the ${ASSESSMENT_VISIT_FEE} assessment visit, we'll prepare a clear proposal before any installation or modification begins.`
+    return `Your request includes practical home adaptations. After the ${ASSESSMENT_VISIT_FEE} visit, we'll prepare a clear proposal before any installation or modification begins.`
   }
 
   if (planKey === 'smart-safety') {
-    return `Your request includes smart safety technology. During the ${ASSESSMENT_VISIT_FEE} assessment visit, we'll review your home, connectivity needs, monitoring preferences, and suitable devices before recommending a solution.`
+    return `Your request includes connected safety technology. During the ${ASSESSMENT_VISIT_FEE} visit, we'll review your home, connectivity needs, monitoring preferences, and suitable devices before recommending a solution.`
   }
 
-  return `No problem if you are not sure which plan is right. Our team will explain the ${ASSESSMENT_VISIT_FEE} assessment visit and guide you toward the best option for your home and needs.`
+  return `No problem if you are not sure what is right. Our team will explain the ${ASSESSMENT_VISIT_FEE} assessment visit and guide you toward the best option for your home and needs.`
 }
 
 function getPlanKey(value?: string) {
@@ -222,6 +222,7 @@ function getPlanKey(value?: string) {
   if (
     normalized.includes('smart-safety') ||
     normalized.includes('smart safety') ||
+    normalized.includes('connected safety') ||
     normalized.includes('seguridad smart') ||
     normalized.includes('smart')
   ) {
@@ -231,6 +232,7 @@ function getPlanKey(value?: string) {
   if (
     normalized.includes('home-safety') ||
     normalized.includes('home safety') ||
+    normalized.includes('home adaptations') ||
     normalized.includes('seguridad del hogar')
   ) {
     return 'home-safety'
@@ -239,6 +241,7 @@ function getPlanKey(value?: string) {
   if (
     normalized.includes('home-assessment') ||
     normalized.includes('home assessment') ||
+    normalized.includes('assessment visit') ||
     (normalized.includes('evaluacion') && normalized.includes('hogar'))
   ) {
     return 'home-assessment'

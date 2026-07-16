@@ -7,13 +7,14 @@ import {
   Hammer,
   Inbox,
   Network,
-  Tags,
+  PackageCheck,
 } from 'lucide-react'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import { StatCard } from '../../components/internal/StatCard'
+import { casaMiaServices } from '../../config/serviceCatalogue'
 
 const stats = [
   { label: "Today's Visits", value: '6', icon: CalendarDays, accent: 'blue' as const },
@@ -23,7 +24,7 @@ const stats = [
   { label: 'Installations Scheduled', value: '9', icon: Hammer, accent: 'blue' as const },
   { label: 'Grant Applications', value: '11', icon: ClipboardCheck, accent: 'green' as const },
   { label: 'Provider Leads', value: '0', icon: Network, accent: 'navy' as const },
-  { label: 'Managed Package Cards', value: '6', icon: Tags, accent: 'gold' as const },
+  { label: 'Service Catalogue Items', value: String(casaMiaServices.length), icon: PackageCheck, accent: 'blue' as const },
 ]
 
 export function InternalDashboardPage() {
@@ -49,8 +50,8 @@ export function InternalDashboardPage() {
             Provider Leads
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
-          <Link className="btn btn-white" to="/internal/package-config">
-            Edit Packages
+          <Link className="btn btn-white" to="/internal/service-catalog">
+            Service Catalogue
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </>
@@ -76,7 +77,7 @@ export function InternalDashboardPage() {
               'Complete two high-priority bathroom reports before 14:00.',
               'Review three pending grant application document packs.',
               'Confirm installer availability for Smart Safety follow-ups.',
-              'Check package card pricing before publishing new campaign traffic.',
+              'Check service pricing before publishing new campaign traffic.',
             ].map((item, index) => (
               <div className="rounded-lg bg-light-blue p-5" key={item}>
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-green text-sm font-black text-white">

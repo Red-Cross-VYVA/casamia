@@ -41,7 +41,7 @@ export function PlanAdaptaPage() {
                 {t('pages.planAdapta.hero.subtitle')}
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Link className="btn btn-green" to="/free-home-safety-assessment">
+                <Link className="btn btn-green" to="/home-safety-assessment">
                   {t('pages.planAdapta.hero.cta')}
                   <ArrowRight size={20} aria-hidden="true" />
                 </Link>

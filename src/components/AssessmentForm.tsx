@@ -14,9 +14,6 @@ const KNOWN_PLAN_VALUES = new Set([
   'home-assessment',
   'home-safety',
   'smart-safety',
-  'essential',
-  'advanced',
-  'premium',
 ])
 
 type AssessmentFormValues = {
@@ -276,7 +273,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         <div className="assessment-selected-plan">
           <CheckCircle2 size={19} aria-hidden="true" />
           <div>
-            <span>Selected package</span>
+            <span>Selected option</span>
             <strong>{selectedPlanLabel}</strong>
           </div>
         </div>
@@ -550,7 +547,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
           {isBooking ? null : (
             <a
               className="btn btn-navy"
-              href="mailto:hello@casamia.es?subject=Assessment%20visit%20request"
+              href="mailto:hola@casamia.com.es?subject=Assessment%20visit%20request"
             >
               {t('assessment.form.schedule')}
               <ArrowRight size={20} aria-hidden="true" />

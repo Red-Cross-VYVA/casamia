@@ -26,10 +26,6 @@ export function BeforeAfterPreview() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-            <Link className="btn btn-navy" to="/before-after">
-              {t('beforeAfter.preview.viewCta')}
-              <ArrowRight size={20} aria-hidden="true" />
-            </Link>
             <Link className="btn btn-green" to="/home-safety-assessment">
               {t('beforeAfter.preview.assessmentCta')}
             </Link>

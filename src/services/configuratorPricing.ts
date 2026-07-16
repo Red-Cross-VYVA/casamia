@@ -1,96 +1,109 @@
 import type {
   ConfiguratorState,
-  PackageComponent,
-  PackageId,
-  PackageSelection,
   QuoteLine,
   QuoteSummary,
+  ServiceComponent,
+  ServiceSelection,
   SiteConfirmationItem,
 } from '../types/configurator.ts'
-import {
-  getConfiguredPackageById,
-  getConfiguredPackages,
-  getConfiguredPricing,
-} from './packageConfig.ts'
+import type { CasaMiaService } from '../types/serviceCatalogue.ts'
+import { getSelectedRoomIds } from './configuratorRooms.ts'
+import { getConfiguredServices } from './serviceCatalogue.ts'
 
-const householdPackageIds: PackageId[] = ['home-movement-safe', 'connected-safety-vyva']
+const configuratorPricing = {
+  currency: 'EUR',
+  depositAmount: 99,
+} as const
 
 export function formatConfiguratorCurrency(amount: number) {
-  const pricing = getConfiguredPricing()
-
   return new Intl.NumberFormat('es-ES', {
-    currency: pricing.currency,
+    currency: configuratorPricing.currency,
     maximumFractionDigits: 0,
     style: 'currency',
   }).format(amount)
 }
 
-export function getSelectedPackageQuantity(packageId: PackageId, state: ConfiguratorState) {
-  const packageDefinition = getConfiguredPackageById(packageId)
-
-  if (!packageDefinition) {
-    return 0
-  }
-
-  if (householdPackageIds.includes(packageId)) {
-    return state.selectedPackageIds.includes(packageId) ? 1 : 0
-  }
-
-  if (!packageDefinition.quantityKey) {
-    return 1
-  }
-
-  return Math.max(0, Number(state.quantities[packageDefinition.quantityKey]) || 0)
-}
-
 export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSummary {
-  const pricing = getConfiguredPricing()
+  const selectedRooms = getSelectedRoomIds(state)
+  const services = getConfiguredServices().filter(
+    (service) =>
+      service.active &&
+      state.selectedServiceIds.includes(service.id) &&
+      selectedRooms.includes(service.room),
+  )
   const lines: QuoteLine[] = []
-  const standardComponents: PackageComponent[] = []
-  const conditionalComponents: PackageComponent[] = []
-  const quotationOnlyItems: PackageComponent[] = []
+  const includedItems: ServiceComponent[] = []
+  const quotationOnlyItems: ServiceComponent[] = []
   const siteConfirmationItems: SiteConfirmationItem[] = []
-  const selections: PackageSelection[] = state.selectedPackageIds.map((packageId) => ({
-    packageId,
-    quantity: getSelectedPackageQuantity(packageId, state),
+  let vat = 0
+  const selectedServices: ServiceSelection[] = services.map((service) => ({
+    serviceId: service.id,
+    quantity: getSelectedServiceQuantity(service, state),
   }))
 
-  state.selectedPackageIds.forEach((packageId) => {
-    const packageDefinition = getConfiguredPackageById(packageId)
-    const quantity = getSelectedPackageQuantity(packageId, state)
+  services.forEach((service) => {
+    const quantity = getSelectedServiceQuantity(service, state)
 
-    if (!packageDefinition || quantity < 1) {
+    if (quantity < 1) {
       return
     }
 
+    const oneTimeUnitPrice = getServiceOneTimePrice(service)
+    const oneTimeTotal = oneTimeUnitPrice * quantity
+    vat += Math.round(oneTimeTotal * service.vatRate)
+
     lines.push({
-      id: packageId,
-      label: packageDefinition.name,
-      packageId,
+      id: service.id,
+      label: service.name,
+      serviceId: service.id,
       quantity,
-      unitPrice: pricing.packagePrices[packageId],
-      total: pricing.packagePrices[packageId] * quantity,
-      note: packageDefinition.salesUnit,
+      unitPrice: oneTimeUnitPrice,
+      total: oneTimeTotal,
+      quotationOnly: service.pricingType === 'quote_only',
+      requiresSiteConfirmation:
+        service.requiresSiteVisit ||
+        service.requiresMeasurement ||
+        service.requiresCompatibilityCheck,
+      note: getServiceLineNote(service),
     })
 
-    standardComponents.push(...getApplicableStandardComponents(packageId, state))
-  })
+    if (service.recurringMonthlyPrice) {
+      lines.push({
+        id: `${service.id}-monthly`,
+        label: `${service.name} monthly support`,
+        serviceId: service.id,
+        quantity,
+        unitPrice: 0,
+        total: 0,
+        recurringMonthly: service.recurringMonthlyPrice * quantity,
+      })
+    }
 
-  applyEntranceOptions(state, lines, conditionalComponents, quotationOnlyItems, siteConfirmationItems)
-  applyMovementOptions(state, lines, conditionalComponents)
-  applyKitchenOptions(state, lines, conditionalComponents, siteConfirmationItems)
-  applyBedroomOptions(state, lines, conditionalComponents, quotationOnlyItems)
-  applyBathroomOptions(state, siteConfirmationItems)
-  applyConnectedOptions(state, lines, conditionalComponents)
+    includedItems.push(...getServiceIncludedItems(service))
+
+    if (service.pricingType === 'quote_only') {
+      quotationOnlyItems.push({
+        id: service.id,
+        label: service.name,
+        type: 'quotation-only',
+        customerNote: service.safetyNotice,
+      })
+    }
+
+    if (service.requiresSiteVisit || service.requiresMeasurement || service.requiresCompatibilityCheck) {
+      siteConfirmationItems.push({
+        label: service.name,
+        reason: getServiceConfirmationReason(service),
+      })
+    }
+  })
 
   const oneTimeSubtotal = lines.reduce((sum, line) => sum + line.total, 0)
   const recurringMonthlySubtotal = lines.reduce((sum, line) => sum + (line.recurringMonthly ?? 0), 0)
-  const vat = Math.round(oneTimeSubtotal * pricing.vatRate)
 
   return {
-    selections,
-    standardComponents: uniqueComponents(standardComponents),
-    conditionalComponents: uniqueComponents(conditionalComponents),
+    selectedServices,
+    includedItems: uniqueComponents(includedItems),
     quotationOnlyItems: uniqueComponents(quotationOnlyItems),
     lines,
     siteConfirmationItems: uniqueSiteItems(siteConfirmationItems),
@@ -98,315 +111,96 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
     recurringMonthlySubtotal,
     vat,
     totalEstimate: oneTimeSubtotal + vat,
-    deposit: pricing.depositAmount,
+    deposit: lines.length > 0 ? configuratorPricing.depositAmount : 0,
   }
 }
 
-function getApplicableStandardComponents(packageId: PackageId, state: ConfiguratorState) {
-  const packageDefinition = getConfiguredPackageById(packageId)
-
-  if (!packageDefinition) {
-    return []
+function getSelectedServiceQuantity(service: CasaMiaService, state: ConfiguratorState) {
+  if (service.quantityType === 'per_home') {
+    return 1
   }
 
-  if (packageId !== 'kitchen-independence') {
-    return packageDefinition.standardComponents
+  if (service.room === 'entrance') {
+    return Math.max(1, Number(state.quantities.entrances) || 1)
   }
 
-  const hasGas = range(state.quantities.kitchens).some((index) => getAnswer(state, `kitchen-${index}-gas`) === 'yes')
-
-  return packageDefinition.standardComponents.filter((component) => component.id !== 'gas-co-sensor' || hasGas)
-}
-
-function applyEntranceOptions(
-  state: ConfiguratorState,
-  lines: QuoteLine[],
-  conditionalComponents: PackageComponent[],
-  quotationOnlyItems: PackageComponent[],
-  siteConfirmationItems: SiteConfirmationItem[],
-) {
-  if (!state.selectedPackageIds.includes('entrance-safe')) {
-    return
+  if (service.room === 'kitchen') {
+    return Math.max(1, Number(state.quantities.kitchens) || 1)
   }
 
-  const packageDefinition = getConfiguredPackageById('entrance-safe')
-
-  range(state.quantities.entrances).forEach((index) => {
-    const ramp = getAnswer(state, `entrance-${index}-ramp`)
-
-    if (ramp === 'small-threshold-ramp') {
-      addConditionalLine({
-        componentId: 'small-threshold-ramp',
-        label: `Small threshold ramp, entrance ${index}`,
-        lines,
-        packageId: 'entrance-safe',
-        priceKey: 'small-threshold-ramp',
-        sourceComponents: packageDefinition?.conditionalComponents ?? [],
-      })
-      conditionalComponents.push(...findComponents(packageDefinition?.conditionalComponents, ['small-threshold-ramp']))
-    }
-
-    if (ramp === 'modular-access-ramp' || ramp === 'unsure') {
-      quotationOnlyItems.push(...findComponents(packageDefinition?.quotationOnlyComponents, ['modular-access-ramp']))
-      siteConfirmationItems.push({
-        label: `Entrance ${index} ramp`,
-        reason: 'Ramp type, length and gradient require measurement before final pricing.',
-      })
-    }
-  })
-}
-
-function applyMovementOptions(state: ConfiguratorState, lines: QuoteLine[], conditionalComponents: PackageComponent[]) {
-  if (!state.selectedPackageIds.includes('home-movement-safe') || state.property.hasInternalStairs !== 'yes') {
-    return
+  if (service.room === 'bedroom') {
+    return Math.max(1, Number(state.quantities.bedrooms) || 1)
   }
 
-  const staircases = Math.max(0, Number(state.quantities.staircases) || 0)
-  const pricing = getConfiguredPricing()
-  const packageDefinition = getConfiguredPackageById('home-movement-safe')
-
-  if (staircases < 1) {
-    return
+  if (service.room === 'bathroom') {
+    return Math.max(1, Number(state.quantities.bathrooms) || 1)
   }
 
-  lines.push({
-    id: 'staircase-module',
-    label: 'Staircase safety module',
-    packageId: 'home-movement-safe',
-    quantity: staircases,
-    unitPrice: pricing.staircaseModulePrice,
-    total: pricing.staircaseModulePrice * staircases,
-    note: 'Only applied because internal stairs were selected.',
-  })
-  conditionalComponents.push(...(packageDefinition?.conditionalComponents ?? []))
-}
-
-function applyKitchenOptions(
-  state: ConfiguratorState,
-  lines: QuoteLine[],
-  conditionalComponents: PackageComponent[],
-  siteConfirmationItems: SiteConfirmationItem[],
-) {
-  if (!state.selectedPackageIds.includes('kitchen-independence')) {
-    return
+  if (service.room === 'movement' && service.category.toLowerCase().includes('stair')) {
+    return state.property.hasInternalStairs === 'yes'
+      ? Math.max(1, Number(state.quantities.staircases) || 1)
+      : 0
   }
 
-  const packageDefinition = getConfiguredPackageById('kitchen-independence')
-  const components = packageDefinition?.conditionalComponents ?? []
-
-  range(state.quantities.kitchens).forEach((index) => {
-    if (getAnswer(state, `kitchen-${index}-upperCabinets`) === 'yes') {
-      addConditionalLine({
-        componentId: 'pull-down-shelf',
-        label: `Pull-down cabinet shelf, kitchen ${index}`,
-        lines,
-        packageId: 'kitchen-independence',
-        priceKey: 'pull-down-shelf',
-        sourceComponents: components,
-      })
-      conditionalComponents.push(...findComponents(components, ['pull-down-shelf']))
-      siteConfirmationItems.push({
-        label: `Kitchen ${index} upper cabinets`,
-        reason: 'Cabinet dimensions and hardware compatibility must be confirmed.',
-      })
-    }
-
-    if (getAnswer(state, `kitchen-${index}-stoveShutoff`) === 'yes') {
-      addConditionalLine({
-        componentId: 'stove-shutoff',
-        label: `Automatic stove shut-off, kitchen ${index}`,
-        lines,
-        packageId: 'kitchen-independence',
-        priceKey: 'stove-shutoff',
-        sourceComponents: components,
-      })
-      conditionalComponents.push(...findComponents(components, ['stove-shutoff']))
-    }
-
-    if (getAnswer(state, `kitchen-${index}-touchlessFaucet`) === 'yes') {
-      addConditionalLine({
-        componentId: 'touchless-faucet',
-        label: `Touchless faucet, kitchen ${index}`,
-        lines,
-        packageId: 'kitchen-independence',
-        priceKey: 'touchless-faucet',
-        sourceComponents: components,
-      })
-      conditionalComponents.push(...findComponents(components, ['touchless-faucet']))
-      siteConfirmationItems.push({
-        label: `Kitchen ${index} faucet`,
-        reason: 'Tap compatibility must be checked before installation.',
-      })
-    }
-  })
+  return 1
 }
 
-function applyBedroomOptions(
-  state: ConfiguratorState,
-  lines: QuoteLine[],
-  conditionalComponents: PackageComponent[],
-  quotationOnlyItems: PackageComponent[],
-) {
-  if (!state.selectedPackageIds.includes('bedroom-night-safe')) {
-    return
+function getServiceOneTimePrice(service: CasaMiaService) {
+  if (service.pricingType === 'quote_only') {
+    return 0
   }
 
-  const packageDefinition = getConfiguredPackageById('bedroom-night-safe')
-  const conditional = packageDefinition?.conditionalComponents ?? []
-  const quoteOnly = packageDefinition?.quotationOnlyComponents ?? []
-
-  range(state.quantities.bedrooms).forEach((index) => {
-    if (getAnswer(state, `bedroom-${index}-caregiverAlerts`) === 'yes') {
-      addConditionalLine({
-        componentId: 'bed-exit-sensor',
-        label: `Bed-exit sensor, bedroom ${index}`,
-        lines,
-        packageId: 'bedroom-night-safe',
-        priceKey: 'bed-exit-sensor',
-        sourceComponents: conditional,
-      })
-      conditionalComponents.push(...findComponents(conditional, ['bed-exit-sensor']))
-    }
-
-    if (getAnswer(state, `bedroom-${index}-adjustableBed`) === 'yes') {
-      quotationOnlyItems.push(...findComponents(quoteOnly, ['adjustable-bed']))
-    }
-
-    if (getAnswer(state, `bedroom-${index}-pressureMattress`) === 'yes') {
-      quotationOnlyItems.push(...findComponents(quoteOnly, ['pressure-mattress']))
-    }
-  })
-}
-
-function applyBathroomOptions(state: ConfiguratorState, siteConfirmationItems: SiteConfirmationItem[]) {
-  if (!state.selectedPackageIds.includes('bathroom-safe')) {
-    return
+  if (service.pricingType === 'from') {
+    return service.fromPrice ?? 0
   }
 
-  range(state.quantities.bathrooms).forEach((index) => {
-    const wallType = getAnswer(state, `bathroom-${index}-wallType`)
-
-    if (wallType === 'unsure' || wallType === 'lightweight') {
-      siteConfirmationItems.push({
-        label: `Bathroom ${index} wall structure`,
-        reason: 'Wall structure must be confirmed before grab bars are fixed.',
-      })
-    }
-  })
+  return (service.productPrice ?? 0) + (service.installationPrice ?? 0)
 }
 
-function applyConnectedOptions(state: ConfiguratorState, lines: QuoteLine[], conditionalComponents: PackageComponent[]) {
-  if (!state.selectedPackageIds.includes('connected-safety-vyva')) {
-    return
+function getServiceLineNote(service: CasaMiaService) {
+  if (service.pricingType === 'quote_only') {
+    return 'Quoted after review'
   }
 
-  const packageDefinition = getConfiguredPackageById('connected-safety-vyva')
-  const selectedAlerts = getAnswer(state, 'connected-alerts')
-  const alertList = Array.isArray(selectedAlerts) ? selectedAlerts : []
-
-  if (alertList.includes('monitoring')) {
-    addRecurringLine({
-      componentId: 'monitoring-plan',
-      label: 'Professional response-centre monitoring',
-      lines,
-      packageId: 'connected-safety-vyva',
-      recurringPriceKey: 'monitoring-plan',
-    })
-    conditionalComponents.push(...findComponents(packageDefinition?.conditionalComponents, ['monitoring-plan']))
+  if (service.pricingType === 'from') {
+    return 'From price'
   }
 
-  if (getAnswer(state, 'connected-outsideProtection') === 'yes') {
-    addRecurringLine({
-      componentId: 'gps-protection',
-      label: 'Mobile or GPS protection outside the home',
-      lines,
-      packageId: 'connected-safety-vyva',
-      recurringPriceKey: 'gps-protection',
-    })
-    conditionalComponents.push(...findComponents(packageDefinition?.conditionalComponents, ['gps-protection']))
-  }
-}
-
-function addConditionalLine({
-  componentId,
-  label,
-  lines,
-  packageId,
-  priceKey,
-  sourceComponents,
-}: {
-  componentId: string
-  label: string
-  lines: QuoteLine[]
-  packageId: PackageId
-  priceKey: string
-  sourceComponents: PackageComponent[]
-}) {
-  const component = findComponents(sourceComponents, [componentId])[0]
-  const pricing = getConfiguredPricing()
-  const price = pricing.componentPrices[priceKey] ?? 0
-
-  lines.push({
-    id: `${componentId}-${lines.length + 1}`,
-    label: component?.label ? label : label,
-    packageId,
-    quantity: 1,
-    unitPrice: price,
-    total: price,
-  })
-}
-
-function addRecurringLine({
-  componentId,
-  label,
-  lines,
-  packageId,
-  recurringPriceKey,
-}: {
-  componentId: string
-  label: string
-  lines: QuoteLine[]
-  packageId: PackageId
-  recurringPriceKey: string
-}) {
-  const pricing = getConfiguredPricing()
-  const monthly = pricing.recurringPrices[recurringPriceKey] ?? 0
-
-  lines.push({
-    id: componentId,
-    label,
-    packageId,
-    quantity: 1,
-    unitPrice: 0,
-    total: 0,
-    recurringMonthly: monthly,
-  })
-}
-
-function getAnswer(state: ConfiguratorState, key: string) {
-  if (key === 'property.hasInternalStairs') {
-    return state.property.hasInternalStairs
+  if (service.requiresInstallation) {
+    return 'Product and managed installation'
   }
 
-  return state.answers[key]
+  return 'Product or setup'
 }
 
-function range(count: number) {
-  return Array.from({ length: Math.max(0, Number(count) || 0) }, (_, index) => index + 1)
+function getServiceIncludedItems(service: CasaMiaService): ServiceComponent[] {
+  return (service.includedItems ?? []).map((item, index) => ({
+    id: `${service.id}-${index}`,
+    label: item,
+    type: 'standard',
+  }))
 }
 
-function findComponents(components: PackageComponent[] | undefined, componentIds: string[]) {
-  return (components ?? []).filter((component) => componentIds.includes(component.id))
+function getServiceConfirmationReason(service: CasaMiaService) {
+  if (service.safetyNotice) {
+    return service.safetyNotice
+  }
+
+  if (service.requiresMeasurement) {
+    return 'Measurements must be confirmed before final pricing or installation.'
+  }
+
+  if (service.requiresCompatibilityCheck) {
+    return 'CasaMia checks compatibility before confirming the final scope.'
+  }
+
+  return 'A visit may be needed before final confirmation.'
 }
 
-function uniqueComponents(components: PackageComponent[]) {
+function uniqueComponents(components: ServiceComponent[]) {
   return Array.from(new Map(components.map((component) => [component.id, component])).values())
 }
 
 function uniqueSiteItems(items: SiteConfirmationItem[]) {
   return Array.from(new Map(items.map((item) => [`${item.label}-${item.reason}`, item])).values())
-}
-
-export function getConfiguratorPackageOptions() {
-  return getConfiguredPackages()
 }

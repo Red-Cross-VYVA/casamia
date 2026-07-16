@@ -54,30 +54,36 @@ export function ConfigureCheckoutPage() {
         </span>
         <h1 className="display-title mt-5">Choose how you want CasaMia to continue.</h1>
         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-text-mid">
-          You can ask for a final quote from your configuration, or reserve a home visit so CasaMia can confirm measurements.
+          Send your selected improvements for a final quote, or book a measured visit when CasaMia should check the home first.
         </p>
 
         <div className="mt-9 grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="grid gap-5 md:grid-cols-2">
             <article className="rounded-lg border border-border bg-white p-6 shadow-soft">
               <FileText className="mb-5 text-blue" size={42} aria-hidden="true" />
-              <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">Request final quote</h2>
+              <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">Send for quote</h2>
               <p className="mt-3 text-lg leading-relaxed text-text-mid">
-                CasaMia reviews the configuration and sends the next step without taking a deposit now.
+                Best when your photos and answers are enough for CasaMia to prepare the next step.
               </p>
-              <button className="btn btn-navy mt-6 w-full" type="button" disabled={busyAction !== ''} onClick={requestQuote}>
-                {busyAction === 'quote' ? 'Saving...' : 'Request final quote'}
+              <p className="mt-6 text-sm font-black uppercase tracking-[0.08em] text-text-dark">
+                Amount payable now: €0
+              </p>
+              <button className="btn btn-navy mt-3 w-full" type="button" disabled={busyAction !== ''} onClick={requestQuote}>
+                {busyAction === 'quote' ? 'Saving...' : 'Request quote'}
                 <ArrowRight size={18} aria-hidden="true" />
               </button>
             </article>
 
             <article className="rounded-lg border border-blue bg-white p-6 shadow-soft">
               <CreditCard className="mb-5 text-blue" size={42} aria-hidden="true" />
-              <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">Reserve CasaMia visit</h2>
+              <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">Reserve home visit</h2>
               <p className="mt-3 text-lg leading-relaxed text-text-mid">
-                Reserve a visit with a {formatConfiguratorCurrency(quote.deposit)} deposit. Payment is mocked until the payment partner is configured.
+                A CasaMia inspector measures the home. The {formatConfiguratorCurrency(quote.deposit)} visit fee is deducted if you continue.
               </p>
-              <button className="btn btn-green mt-6 w-full" type="button" disabled={busyAction !== ''} onClick={reserveVisit}>
+              <p className="mt-6 text-sm font-black uppercase tracking-[0.08em] text-text-dark">
+                Amount payable now: {formatConfiguratorCurrency(quote.deposit)}
+              </p>
+              <button className="btn btn-green mt-3 w-full" type="button" disabled={busyAction !== ''} onClick={reserveVisit}>
                 {busyAction === 'deposit' ? 'Preparing...' : `Reserve visit`}
                 <ArrowRight size={18} aria-hidden="true" />
               </button>
@@ -89,7 +95,7 @@ export function ConfigureCheckoutPage() {
             <dl className="mt-5 grid gap-3">
               <Row label="One-time estimate" value={formatConfiguratorCurrency(quote.totalEstimate)} />
               <Row label="Monthly support" value={formatConfiguratorCurrency(quote.recurringMonthlySubtotal)} />
-              <Row label="Visit deposit" value={formatConfiguratorCurrency(quote.deposit)} />
+              <Row label="Visit deposit if booked" value={formatConfiguratorCurrency(quote.deposit)} />
             </dl>
             {error ? <p className="mt-5 rounded-lg bg-red-50 p-4 text-base font-bold text-red-700">{error}</p> : null}
           </aside>

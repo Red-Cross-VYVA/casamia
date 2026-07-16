@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { InspectionRoomCard, type RoomInspection } from '../../components/internal/InspectionRoomCard'
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import { ReportPreview, type ReportPreviewData } from '../../components/internal/ReportPreview'
+import { assessmentPlan, homeSafetyPlan, planOptions, smartSafetyPlan, unsurePlan } from '../../services/proposalCalculations'
 
 type CustomerDetails = {
   address: string
@@ -32,13 +33,6 @@ type ReportDraft = {
 }
 
 const draftStorageKey = 'CasaMia-internal-inspection-report-v1'
-
-const planOptions = [
-  'Home Assessment Plan',
-  'Home Safety Plan',
-  'Smart Safety Plan',
-  'Not sure yet',
-]
 
 const riskLevels = ['Low', 'Moderate', 'High', 'Critical']
 
@@ -129,7 +123,7 @@ function createEmptyDraft(): ReportDraft {
       customerName: '',
       email: '',
       phone: '',
-      selectedPlan: 'Not sure yet',
+      selectedPlan: unsurePlan,
     },
     manualPlan: '',
     rooms: roomDefinitions.map((room) => ({
@@ -207,14 +201,14 @@ export function InspectionReportPage() {
     const hazardCount = draft.rooms.flatMap((room) => room.hazards).length
 
     if (smartSelected) {
-      return 'Smart Safety Plan'
+      return smartSafetyPlan
     }
 
     if (physicalCount >= 3 || roomsWithPhysical >= 2 || (highRiskFindings > 0 && hazardCount >= 3)) {
-      return 'Home Safety Plan'
+      return homeSafetyPlan
     }
 
-    return 'Home Assessment Plan'
+    return assessmentPlan
   }, [allSelectedImprovements, draft.rooms])
 
   const recommendedPlan = draft.manualPlan || suggestedPlan
@@ -338,7 +332,7 @@ export function InspectionReportPage() {
                   onChange={(event) => updateCustomer({ area: event.target.value })}
                 />
               </Field>
-              <Field label="Selected plan">
+              <Field label="CasaMia route">
                 <select
                   className={inputClass}
                   value={draft.customer.selectedPlan}
@@ -438,14 +432,14 @@ export function InspectionReportPage() {
           </section>
 
           <section className="rounded-lg border border-border bg-white p-6 shadow-soft">
-            <h2 className="font-display text-3xl font-bold text-text-dark">Recommended CasaMia Plan</h2>
+            <h2 className="font-display text-3xl font-bold text-text-dark">Recommended CasaMia Route</h2>
             <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.42fr)]">
               <div className="rounded-lg bg-light-blue p-5">
-                <p className="text-sm font-black uppercase text-text-muted">Recommended Plan</p>
+                <p className="text-sm font-black uppercase text-text-muted">Suggested route</p>
                 <p className="mt-2 font-display text-4xl font-black text-navy">{recommendedPlan}</p>
                 <p className="mt-3 text-sm leading-relaxed text-text-mid">
-                  Automatic suggestion: <strong>{suggestedPlan}</strong>. Smart safety recommendations take
-                  priority, followed by multiple physical modification needs.
+                  Automatic suggestion: <strong>{suggestedPlan}</strong>. Connected safety needs take
+                  priority, followed by multiple physical adaptation needs.
                 </p>
               </div>
               <Field label="Manual override">

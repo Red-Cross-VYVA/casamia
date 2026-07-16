@@ -1,4 +1,22 @@
-import { ArrowLeft, ArrowRight, ClipboardCheck, Home, ShieldCheck } from 'lucide-react'
+import {
+  ArrowLeft,
+  ArrowRight,
+  Bath,
+  BedDouble,
+  CheckCircle2,
+  ClipboardCheck,
+  DoorOpen,
+  Droplets,
+  Footprints,
+  Home,
+  Lightbulb,
+  PackageCheck,
+  PlugZap,
+  ShieldCheck,
+  Smartphone,
+  Utensils,
+  type LucideIcon,
+} from 'lucide-react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
@@ -7,6 +25,8 @@ import { ServiceChecklist } from '../components/ServiceChecklist'
 import { ServiceIcon } from '../components/ServiceIcon'
 import { serviceVisuals } from '../constants/serviceVisuals'
 import { primaryServices } from '../constants/siteContent'
+import { formatCurrency, formatServicePrice, useServicesByRoom } from '../services/serviceCatalogue'
+import type { CasaMiaService, ServiceRoom } from '../types/serviceCatalogue'
 
 const detailSteps = [
   {
@@ -25,6 +45,84 @@ const detailSteps = [
     body: 'If work is needed, CasaMia prepares a proposal around products, installation, and handover.',
   },
 ]
+
+type KitchenVisual =
+  | 'mat'
+  | 'light'
+  | 'voice'
+  | 'plug'
+  | 'leak'
+  | 'gas'
+  | 'shelf'
+  | 'stove'
+  | 'faucet'
+  | 'handover'
+
+const kitchenServicePresentation: Record<string, { icon: LucideIcon; visual: KitchenVisual }> = {
+  'kitchen-prep-mats': { icon: ShieldCheck, visual: 'mat' },
+  'kitchen-easy-grip-tools': { icon: Utensils, visual: 'voice' },
+  'kitchen-lightweight-cookware': { icon: Utensils, visual: 'handover' },
+  'kitchen-anti-fatigue-mat': { icon: ShieldCheck, visual: 'mat' },
+  'kitchen-worktop-lighting': { icon: Lightbulb, visual: 'light' },
+  'kitchen-voice-lighting-timers': { icon: Lightbulb, visual: 'light' },
+  'kitchen-smart-plugs': { icon: PlugZap, visual: 'plug' },
+  'kitchen-water-leak-sensor': { icon: Droplets, visual: 'leak' },
+  'kitchen-gas-co-sensor': { icon: PlugZap, visual: 'gas' },
+  'kitchen-pull-down-shelf': { icon: PackageCheck, visual: 'shelf' },
+  'kitchen-stove-shutoff': { icon: ShieldCheck, visual: 'stove' },
+  'kitchen-touchless-faucet': { icon: Droplets, visual: 'faucet' },
+}
+
+const roomServicePresentation: Record<ServiceRoom, { icon: LucideIcon; visual: KitchenVisual }> = {
+  bathroom: { icon: Bath, visual: 'faucet' },
+  bedroom: { icon: BedDouble, visual: 'light' },
+  connected: { icon: Smartphone, visual: 'plug' },
+  entrance: { icon: DoorOpen, visual: 'mat' },
+  kitchen: { icon: Utensils, visual: 'handover' },
+  movement: { icon: Footprints, visual: 'mat' },
+}
+
+const serviceRoomMap: Record<string, ServiceRoom> = {
+  'bathroom-safety': 'bathroom',
+  'stair-safety': 'movement',
+  'entrance-accessibility': 'entrance',
+  'kitchen-safety': 'kitchen',
+  'bedroom-safety': 'bedroom',
+  'smart-home-safety': 'connected',
+}
+
+const roomServiceCopy: Record<ServiceRoom, { eyebrow: string; title: string; intro: string }> = {
+  bathroom: {
+    eyebrow: 'Bathroom improvements',
+    title: 'Choose the bathroom support that fits the person.',
+    intro: 'Rails, seats, toilet support, safer flooring and alerts can be added one by one after the home is reviewed.',
+  },
+  bedroom: {
+    eyebrow: 'Bedroom improvements',
+    title: 'Make nights and transfers calmer.',
+    intro: 'Focus on the moments that matter: getting out of bed, finding the route, calling for help and moving without rushing.',
+  },
+  connected: {
+    eyebrow: 'Connected safety',
+    title: 'Add reassurance without making the home complicated.',
+    intro: 'Simple sensors, alerts and controls help families stay informed while keeping the setup easy to live with.',
+  },
+  entrance: {
+    eyebrow: 'Entrance improvements',
+    title: 'Make arrival and leaving the home safer.',
+    intro: 'CasaMia can combine lighting, threshold support, rails and ramp options around the entrance people actually use.',
+  },
+  kitchen: {
+    eyebrow: 'Kitchen improvements',
+    title: 'Choose the improvements that fit.',
+    intro: 'Pick useful services one by one. CasaMia confirms measurements and compatibility before work starts.',
+  },
+  movement: {
+    eyebrow: 'Movement improvements',
+    title: 'Support the routes used every day.',
+    intro: 'Handrails, contrast, anti-slip treatments and lighting can be matched to stairs, corridors and daily movement paths.',
+  },
+}
 
 type ServiceDetailContent = {
   benefitsTitle: string
@@ -189,40 +287,40 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Book a visit and CasaMia will review thresholds, lighting, support, and access options together.',
   },
   'kitchen-safety': {
-    benefitsTitle: 'Keep everyday routines manageable and safer.',
+    benefitsTitle: 'Make the kitchen safer, easier and less tiring.',
     benefitsIntro:
-      'Kitchen safety is about reach, movement, lighting, appliance routines, and reducing fatigue while preparing food or drinks.',
+      'CasaMia reviews how the kitchen is used, then recommends only the improvements that reduce daily risk or effort.',
     benefits: [
       {
-        title: 'Less reaching and bending',
-        body: 'Move daily items into safer zones so the person does not need to stretch, climb, or bend unnecessarily.',
+        title: 'Less effort',
+        body: 'Daily items, tools, and lighting are arranged so cooking requires less reaching, bending, and lifting.',
       },
       {
-        title: 'Clearer work areas',
-        body: 'Improve circulation and reduce clutter around the places where spills, heat, and carrying happen.',
+        title: 'Fewer risky moments',
+        body: 'We reduce common triggers: wet floors, trailing cables, awkward turns, poor light, and cluttered worktops.',
       },
       {
-        title: 'Safer appliance routines',
-        body: 'Add reminders, alerts, or setup changes where cooking, water, or electricity creates risk.',
+        title: 'More reassurance',
+        body: 'Sensors, timers, smart plugs, and optional shut-off support help family feel confident after cooking.',
       },
     ],
-    includedTitle: 'What a kitchen safety plan can include.',
+    includedTitle: 'Build your kitchen plan from individual services.',
     includedIntro:
-      'CasaMia reviews how the kitchen is used, which tasks are tiring, and which changes make the routine easier.',
+      'Select the useful improvements, see an estimate, then decide whether to upload photos or book a visit.',
     included: [
-      'Storage, reach, and worktop review',
-      'Task lighting and night-route guidance',
-      'Flooring, mat, and spill-risk review',
-      'Appliance safety and shutoff recommendations',
-      'Leak, smoke, or reminder technology where useful',
+      'Non-slip preparation and anti-fatigue standing zones',
+      'Easy-grip utensils, openers, and lightweight cookware',
+      'Improved worktop lighting, voice lighting, and timers',
+      'Selected smart plugs plus leak and gas or carbon-monoxide sensors',
+      'Optional pull-down shelf, automatic stove shut-off, or touchless faucet where needed',
     ],
-    reassuranceTitle: 'A safer kitchen should still feel like the resident’s kitchen.',
+    reassuranceTitle: "A safer kitchen should still feel like the resident's kitchen.",
     reassuranceBody:
-      'We focus on changes that support familiar routines rather than forcing the person to relearn how the room works.',
-    reassurancePoints: ['Daily items within reach', 'Clearer routes', 'Support for cooking and hydration routines'],
-    finalTitle: 'Make kitchen routines safer without overcomplicating them.',
+      'We keep familiar routines where possible, choose what helps, coordinate installation, and explain the setup clearly.',
+    reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and handover managed'],
+    finalTitle: 'Keep cooking possible, safer, and calmer.',
     finalBody:
-      'Book a visit and CasaMia will review storage, lighting, appliances, and movement through the kitchen.',
+      'Book a visit and CasaMia will review reach, lighting, appliances, water risk, and the practical kitchen plan that fits the home.',
   },
   'bedroom-safety': {
     benefitsTitle: 'Make nights calmer, safer, and easier to manage.',
@@ -304,8 +402,271 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   },
 }
 
+function getServicePresentation(service: CasaMiaService) {
+  return kitchenServicePresentation[service.id] ?? roomServicePresentation[service.room] ?? { icon: PackageCheck, visual: 'handover' as const }
+}
+
+function getServiceStatusLabel(service: CasaMiaService) {
+  if (service.pricingType === 'quote_only') {
+    return 'Quote'
+  }
+
+  if (service.requiresMeasurement || service.requiresSiteVisit || service.requiresCompatibilityCheck) {
+    return 'Check first'
+  }
+
+  if (service.requiresInstallation) {
+    return 'Installed'
+  }
+
+  return 'Product'
+}
+
+function getConfigurePath(serviceId: string) {
+  const room = serviceRoomMap[serviceId]
+
+  return room ? `/configure?room=${room}` : '/configure'
+}
+
+function getLowestServicePrice(services: CasaMiaService[]) {
+  return services.reduce<number | undefined>((lowest, service) => {
+    const amount = getServicePriceAmount(service)
+
+    if (!amount) {
+      return lowest
+    }
+
+    return lowest === undefined ? amount : Math.min(lowest, amount)
+  }, undefined)
+}
+
+function getServicePriceAmount(service: CasaMiaService) {
+  if (service.pricingType === 'quote_only') {
+    return undefined
+  }
+
+  if (service.pricingType === 'from') {
+    return service.fromPrice
+  }
+
+  return (service.productPrice ?? 0) + (service.installationPrice ?? 0)
+}
+
+function groupServicesByCategory(services: CasaMiaService[]) {
+  const groups = new Map<string, CasaMiaService[]>()
+
+  services.forEach((service) => {
+    const group = groups.get(service.category) ?? []
+    groups.set(service.category, [...group, service])
+  })
+
+  return Array.from(groups, ([category, groupedServices]) => ({
+    category,
+    services: groupedServices,
+  }))
+}
+
+function ServiceItemGrid({ services }: { services: CasaMiaService[] }) {
+  return (
+    <div className="service-kitchen-component-grid is-itemised">
+      {services.map((item) => {
+        const presentation = getServicePresentation(item)
+        const Icon = presentation.icon
+
+        return (
+          <article key={item.id}>
+            <div className={`service-kitchen-component-visual is-${presentation.visual}`} aria-hidden="true">
+              <span className="service-kitchen-visual-main" />
+              <span className="service-kitchen-visual-dot" />
+              <span className="service-kitchen-visual-line" />
+            </div>
+            <div className="service-kitchen-component-copy">
+              <div className="service-kitchen-component-topline">
+                <span>{getServiceStatusLabel(item)}</span>
+                <Icon size={21} aria-hidden="true" />
+              </div>
+              <h3>{item.name}</h3>
+              <p>{item.shortDescription}</p>
+            </div>
+            <div className="service-kitchen-component-details">
+              <p className="service-kitchen-component-benefit">
+                <CheckCircle2 size={17} aria-hidden="true" />
+                {item.customerBenefit}
+              </p>
+              {item.includedItems && item.includedItems.length > 0 ? (
+                <ul className="service-kitchen-component-inclusions" aria-label={`Included with ${item.name}`}>
+                  {item.includedItems.slice(0, 3).map((includedItem) => (
+                    <li key={includedItem}>{includedItem}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <strong>{formatServicePrice(item)}</strong>
+            </div>
+          </article>
+        )
+      })}
+    </div>
+  )
+}
+
+function RoomServiceItemsSection({
+  configurePath,
+  room,
+  services,
+}: {
+  configurePath: string
+  room: ServiceRoom
+  services: CasaMiaService[]
+}) {
+  if (services.length === 0) {
+    return null
+  }
+
+  const copy = roomServiceCopy[room]
+
+  return (
+    <section className="service-detail-section bg-white">
+      <div className="site-shell">
+        <div className="service-detail-heading">
+          <p className="eyebrow">{copy.eyebrow}</p>
+          <h2>{copy.title}</h2>
+          <p>{copy.intro}</p>
+        </div>
+
+        <ServiceItemGrid services={services} />
+
+        <div className="service-detail-actions service-detail-inline-actions">
+          <Link className="btn btn-navy" to={configurePath}>
+            Build My Safer Home
+            <ArrowRight size={19} aria-hidden="true" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function KitchenSafetyShowcase({
+  detail,
+  kitchenServices,
+}: {
+  detail: ServiceDetailContent
+  kitchenServices: CasaMiaService[]
+}) {
+  const installCount = kitchenServices.filter((service) => service.requiresInstallation).length
+  const siteCheckCount = kitchenServices.filter(
+    (service) => service.requiresMeasurement || service.requiresSiteVisit || service.requiresCompatibilityCheck,
+  ).length
+  const lowestPrice = getLowestServicePrice(kitchenServices)
+  const groupedServices = groupServicesByCategory(kitchenServices)
+
+  return (
+    <>
+      <section className="service-detail-section service-kitchen-story bg-white">
+        <div className="site-shell">
+          <div className="service-kitchen-story-grid">
+            <div className="service-detail-heading">
+              <p className="eyebrow">Kitchen independence</p>
+              <h2>{detail.benefitsTitle}</h2>
+              <p>{detail.benefitsIntro}</p>
+              <div className="service-kitchen-stats" aria-label="Kitchen safety services summary">
+                <article>
+                  <strong>{lowestPrice ? formatCurrency(lowestPrice) : 'Quote'}</strong>
+                  <span>entry item</span>
+                </article>
+                <article>
+                  <strong>{kitchenServices.length}</strong>
+                  <span>safety services</span>
+                </article>
+                <article>
+                  <strong>{installCount}</strong>
+                  <span>managed installs</span>
+                </article>
+                <article>
+                  <strong>{siteCheckCount}</strong>
+                  <span>checked before install</span>
+                </article>
+              </div>
+            </div>
+
+            <div className="service-kitchen-visual-card">
+              <div className="service-kitchen-routine-visual" aria-hidden="true">
+                <div className="service-kitchen-counter">
+                  <span className="service-kitchen-zone is-light">Task light</span>
+                  <span className="service-kitchen-zone is-sink">Leak sensor</span>
+                  <span className="service-kitchen-zone is-stove">Appliance safety</span>
+                  <span className="service-kitchen-zone is-mat">Stable standing zone</span>
+                  <span className="service-kitchen-zone is-reach">Safer reach</span>
+                </div>
+              </div>
+              <div className="service-kitchen-visual-note">
+                <span>
+                  <CheckCircle2 size={19} aria-hidden="true" />
+                </span>
+                <p>Built around real kitchen moments: reach, prep, cooking, washing and reassurance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="service-detail-section bg-pale-blue">
+        <div className="site-shell">
+          <div className="service-detail-heading">
+            <p className="eyebrow">What gets improved</p>
+            <h2>Choose the improvements that fit.</h2>
+            <p>Pick useful services one by one. CasaMia confirms measurements and compatibility before work starts.</p>
+          </div>
+
+          <ServiceItemGrid services={kitchenServices} />
+        </div>
+      </section>
+
+      <section className="service-detail-section bg-white">
+        <div className="site-shell">
+          <div className="service-kitchen-selection-panel">
+            <div className="service-kitchen-selection-copy">
+              <p className="eyebrow">Your CasaMia plan</p>
+              <h2>{detail.includedTitle}</h2>
+              <p>{detail.includedIntro}</p>
+              <Link className="btn btn-navy" to="/configure?room=kitchen">
+                Build my plan
+                <ArrowRight size={19} aria-hidden="true" />
+              </Link>
+            </div>
+
+            <div className="service-kitchen-selection-lists">
+              {groupedServices.map((group) => (
+                <article key={group.category}>
+                  <h3>{group.category}</h3>
+                  <div className="service-kitchen-pill-list">
+                    {group.services.map((item) => (
+                      <span key={item.id}>{item.name}</span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="service-detail-reassurance-card service-kitchen-reassurance">
+            <div>
+              <p className="eyebrow">Managed by CasaMia</p>
+              <h3>{detail.reassuranceTitle}</h3>
+              <p>{detail.reassuranceBody}</p>
+            </div>
+            <ServiceChecklist items={detail.reassurancePoints} />
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
+
 export function ServiceDetailPage() {
   const { serviceId } = useParams()
+  const serviceRoom = serviceRoomMap[serviceId ?? ''] ?? 'bathroom'
+  const roomServices = useServicesByRoom(serviceRoom)
   const service = primaryServices.find((item) => item.id === serviceId)
 
   if (!service) {
@@ -315,6 +676,13 @@ export function ServiceDetailPage() {
   const visual = serviceVisuals[service.id] ?? serviceVisuals['bathroom-safety']
   const detail = serviceDetailContent[service.id] ?? defaultServiceDetailContent
   const relatedServices = primaryServices.filter((item) => item.id !== service.id).slice(0, 3)
+  const isKitchenService = service.id === 'kitchen-safety'
+  const serviceCatalogueItems = serviceRoomMap[service.id] ? roomServices : []
+  const heroTitle = isKitchenService ? 'A safer kitchen, without losing independence.' : service.title
+  const heroIntro = isKitchenService
+    ? 'Practical improvements for standing, lighting, reach, water, appliances and family reassurance.'
+    : service.intro
+  const configurePath = getConfigurePath(service.id)
 
   return (
     <>
@@ -346,17 +714,17 @@ export function ServiceDetailPage() {
           <div className="service-detail-hero-grid">
             <div className="service-detail-copy">
               <span className="eyebrow">{visual.badge}</span>
-              <h1>{service.title}</h1>
-              <p>{service.intro}</p>
+              <h1>{heroTitle}</h1>
+              <p>{heroIntro}</p>
               <div className="service-detail-actions">
                 <Link
                   className="btn btn-green"
-                  to={`/home-safety-assessment?plan=${service.ctaPlan}`}
+                  to={configurePath}
                 >
-                  Book In-Home Visit
+                  Build My Safer Home
                   <ArrowRight size={20} aria-hidden="true" />
                 </Link>
-                <Link className="btn btn-white" to="/tools/safety-report">
+                <Link className="btn btn-white" to="/home-safety-assessment#self-inspection-tool">
                   Start Free Safety Report
                 </Link>
               </div>
@@ -383,73 +751,77 @@ export function ServiceDetailPage() {
         </div>
       </section>
 
-      <section className="service-detail-section bg-white">
-        <div className="site-shell">
-          <div className="service-detail-heading">
-            <p className="eyebrow">What we check</p>
-            <h2>Focused on the risks that make daily life harder.</h2>
-            <p>
-              CasaMia separates visible hazards from practical improvements, so families
-              understand what matters before buying products or starting work.
-            </p>
-          </div>
+      {isKitchenService ? (
+        <KitchenSafetyShowcase
+          detail={detail}
+          kitchenServices={serviceCatalogueItems}
+        />
+      ) : (
+        <>
+          <section className="service-detail-section bg-white">
+            <div className="site-shell">
+              <div className="service-detail-heading">
+                <p className="eyebrow">What we check</p>
+                <h2>Focused on the risks that make daily life harder.</h2>
+                <p>
+                  CasaMia separates visible hazards from practical improvements, so families
+                  understand what matters before buying products or starting work.
+                </p>
+              </div>
 
-          <div className="service-detail-check-grid">
-            <article>
-              <h3>Common risks we look for</h3>
-              <ServiceChecklist items={service.risks} />
-            </article>
-            <article>
-              <h3>How CasaMia can help</h3>
-              <ServiceChecklist items={service.improvements} />
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="service-detail-section bg-pale-blue">
-        <div className="site-shell">
-          <div className="service-detail-heading">
-            <p className="eyebrow">Why it helps</p>
-            <h2>{detail.benefitsTitle}</h2>
-            <p>{detail.benefitsIntro}</p>
-          </div>
-
-          <div className="service-detail-benefit-grid">
-            {detail.benefits.map((benefit, index) => (
-              <article key={benefit.title}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <h3>{benefit.title}</h3>
-                <p>{benefit.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="service-detail-section bg-white">
-        <div className="site-shell">
-          <div className="service-detail-inclusion-panel">
-            <div className="service-detail-inclusion-copy">
-              <p className="eyebrow">What CasaMia can include</p>
-              <h2>{detail.includedTitle}</h2>
-              <p>{detail.includedIntro}</p>
+              <div className="service-detail-check-grid">
+                <article>
+                  <h3>Common risks we look for</h3>
+                  <ServiceChecklist items={service.risks} />
+                </article>
+                <article>
+                  <h3>How CasaMia can help</h3>
+                  <ServiceChecklist items={service.improvements} />
+                </article>
+              </div>
             </div>
-            <div className="service-detail-inclusion-list">
-              <ServiceChecklist items={detail.included} />
-            </div>
-          </div>
+          </section>
 
-          <div className="service-detail-reassurance-card">
-            <div>
-              <p className="eyebrow">User benefit</p>
-              <h3>{detail.reassuranceTitle}</h3>
-              <p>{detail.reassuranceBody}</p>
+          <section className="service-detail-section bg-pale-blue">
+            <div className="site-shell">
+              <div className="service-detail-heading">
+                <p className="eyebrow">Why it helps</p>
+                <h2>{detail.benefitsTitle}</h2>
+                <p>{detail.benefitsIntro}</p>
+              </div>
+
+              <div className="service-detail-benefit-grid">
+                {detail.benefits.map((benefit, index) => (
+                  <article key={benefit.title}>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <h3>{benefit.title}</h3>
+                    <p>{benefit.body}</p>
+                  </article>
+                ))}
+              </div>
             </div>
-            <ServiceChecklist items={detail.reassurancePoints} />
-          </div>
-        </div>
-      </section>
+          </section>
+
+          <RoomServiceItemsSection
+            configurePath={configurePath}
+            room={serviceRoom}
+            services={serviceCatalogueItems}
+          />
+
+          <section className="service-detail-section bg-white">
+            <div className="site-shell">
+              <div className="service-detail-reassurance-card">
+                <div>
+                  <p className="eyebrow">User benefit</p>
+                  <h3>{detail.reassuranceTitle}</h3>
+                  <p>{detail.reassuranceBody}</p>
+                </div>
+                <ServiceChecklist items={detail.reassurancePoints} />
+              </div>
+            </div>
+          </section>
+        </>
+      )}
 
       <section className="service-detail-section bg-pale-blue">
         <div className="site-shell">
@@ -521,8 +893,8 @@ export function ServiceDetailPage() {
             <h2>{detail.finalTitle}</h2>
             <p>{detail.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to={`/home-safety-assessment?plan=${service.ctaPlan}`}>
-            Book In-Home Visit
+          <Link className="btn btn-green" to={configurePath}>
+            Build My Safer Home
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
         </div>

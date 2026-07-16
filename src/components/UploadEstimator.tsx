@@ -401,7 +401,7 @@ export function UploadEstimator() {
             <Home size={23} aria-hidden="true" />
           </span>
           <span className="free-check-copy">
-            <strong>Build My Safer Home</strong>
+            <strong>{t('hero.buildPlan.title')}</strong>
           </span>
           <span className="free-check-arrow" aria-hidden="true">
             <ArrowRight size={20} />

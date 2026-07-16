@@ -25,7 +25,7 @@ export function VisitTable({ visits }: { visits: Visit[] }) {
             <tr>
               <th className="px-5 py-4">Customer</th>
               <th className="px-5 py-4">Area</th>
-              <th className="px-5 py-4">Selected plan</th>
+              <th className="px-5 py-4">Selected option</th>
               <th className="px-5 py-4">Preferred time</th>
               <th className="px-5 py-4">Status</th>
               <th className="px-5 py-4">Action</th>

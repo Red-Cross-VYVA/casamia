@@ -43,9 +43,9 @@ export function ConfigureContactPage() {
           <span className="dot" aria-hidden="true" />
           Customer details
         </span>
-        <h1 className="display-title mt-5">Where should CasaMia send the quote?</h1>
+        <h1 className="display-title mt-5">Where should CasaMia send your plan?</h1>
         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-text-mid">
-          Add the best contact details and any notes that help us finalise the recommendation.
+          Add the best contact details and any note that helps us confirm the quote or arrange a visit.
         </p>
 
         <form className="mt-9 grid gap-5 rounded-lg border border-border bg-white p-6 shadow-soft md:grid-cols-2 md:p-8" onSubmit={submitContact}>
@@ -93,7 +93,7 @@ export function ConfigureContactPage() {
           </label>
           {error ? <p className="rounded-lg bg-red-50 p-4 text-base font-bold text-red-700 md:col-span-2">{error}</p> : null}
           <button className="btn btn-navy md:col-span-2 md:w-fit" type="submit">
-            Continue to final step
+            Choose next step
             <ArrowRight size={18} aria-hidden="true" />
           </button>
         </form>
