@@ -64,7 +64,7 @@ export function BlogArticlePage() {
             <div>
               <Link className="seo-back-link" to="/blog">
                 <ArrowLeft size={18} aria-hidden="true" />
-                Blog
+                Resources
               </Link>
               <div className="blog-article-meta">
                 <span>{article.category}</span>
@@ -143,7 +143,7 @@ export function BlogArticlePage() {
               <h2>Related CasaMia articles</h2>
             </div>
             <Link className="btn btn-white" to="/blog">
-              All Articles
+              All Resources
             </Link>
           </div>
 
