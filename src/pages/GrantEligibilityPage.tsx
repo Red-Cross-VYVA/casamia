@@ -1300,7 +1300,7 @@ function getGrantCopy(language: string) {
         strong: {
           title: 'Strong grant match',
           summary:
-            'The answers show several common eligibility signals. CasaMia should now verify the active regional route and prepare the documentation package.',
+            'The answers show several common eligibility signals. CasaMia should now verify the active regional route and prepare the documentation file.',
         },
         review: {
           title: 'Needs regional review',

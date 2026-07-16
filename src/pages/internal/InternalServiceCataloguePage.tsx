@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom'
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import {
   formatServicePrice,
+  getDefaultServiceCatalogue,
   getServiceCatalogue,
   loadServiceCatalogue,
   resetServiceCatalogue,
@@ -160,9 +161,15 @@ export function InternalServiceCataloguePage() {
   }
 
   function removeService(serviceId: string) {
+    const isDefaultService = getDefaultServiceCatalogue().services.some((service) => service.id === serviceId)
+
     setDraft((current) => ({
       ...current,
-      services: current.services.filter((service) => service.id !== serviceId),
+      services: isDefaultService
+        ? current.services.map((service) =>
+            service.id === serviceId ? { ...service, active: false } : service,
+          )
+        : current.services.filter((service) => service.id !== serviceId),
     }))
   }
 
@@ -462,6 +469,8 @@ function ServiceEditor({
   onUpdateService: (serviceId: string, patch: Partial<CasaMiaService>) => void
   service: CasaMiaService
 }) {
+  const isDefaultService = getDefaultServiceCatalogue().services.some((defaultService) => defaultService.id === service.id)
+
   return (
     <article className="rounded-lg border border-border bg-white p-5 shadow-soft">
       <div className="grid gap-5 2xl:grid-cols-[minmax(0,1fr)_320px]">
@@ -668,7 +677,7 @@ function ServiceEditor({
             onClick={() => onRemoveService(service.id)}
           >
             <Trash2 size={17} aria-hidden="true" />
-            Remove service
+            {isDefaultService ? 'Hide service' : 'Remove service'}
           </button>
         </section>
       </div>

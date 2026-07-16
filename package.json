@@ -13,6 +13,7 @@
     "test:auth": "node --experimental-strip-types scripts/internal-auth-tests.mjs",
     "test:links": "node scripts/link-checks.mjs",
     "test:configurator": "node --experimental-strip-types scripts/configurator-pricing-tests.mjs",
+    "test:voice": "node scripts/voice-assistant-tests.mjs",
     "validate:legal-config": "node scripts/validate-legal-config.mjs"
   },
   "dependencies": {

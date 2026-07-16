@@ -69,3 +69,18 @@ The configurator currently uses mock adapters so it works without external keys:
 - Stripe-ready deposit checkout adapter
 
 Replace the mock implementations in `src/services/configuratorAdapters.ts` when production services are selected.
+
+## ElevenLabs Voice Foundation
+
+CasaMia includes a protected, feature-flagged voice preview at `/internal/voice-studio`.
+
+Set the following server-only variables in Vercel:
+
+```text
+ELEVENLABS_API_KEY=...
+ELEVENLABS_VOICE_ID=...
+ELEVENLABS_MODEL_ID=eleven_multilingual_v2
+```
+
+Then set `VITE_ENABLE_VOICE_ASSISTANT=true` and redeploy to show Voice Studio in the internal navigation.
+The API key is never exposed to the browser. Preview scripts are limited to 500 characters and the endpoint requires a valid CasaMia internal session.
