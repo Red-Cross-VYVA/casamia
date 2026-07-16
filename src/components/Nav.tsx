@@ -49,7 +49,7 @@ export function Nav() {
         families: 'Familias',
         organisations: 'Organizaciones',
         about: 'Por qu\u00e9',
-        resources: 'Blog',
+        resources: 'Recursos',
         cta: 'Reservar evaluaci\u00f3n',
         phone: t('nav.phone'),
       }
