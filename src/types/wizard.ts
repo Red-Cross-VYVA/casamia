@@ -98,14 +98,19 @@ export type WizardPhoto = {
   previewUrl?: string
 }
 
-export type WizardVoiceRecording = {
-  id: string
+export type WizardVoiceTranscriptMessage = {
+  role: 'user' | 'agent'
+  message: string
+}
+
+export type WizardVoiceSession = {
+  provider: 'elevenlabs'
+  conversationId: string
+  language: 'en' | 'es'
+  startedAt: string
+  endedAt?: string
   durationSeconds: number
-  mimeType: string
-  size: number
-  recordedAt: string
-  blob?: Blob
-  previewUrl?: string
+  transcript: WizardVoiceTranscriptMessage[]
 }
 
 export type WizardContact = {
@@ -169,7 +174,7 @@ export type SafetyWizardState = {
   urgency?: Urgency
   notes: string
   photos: WizardPhoto[]
-  voiceRecording?: WizardVoiceRecording
+  voiceSession?: WizardVoiceSession
   inspectionBooked: boolean
   inspectionFee: 89
   inspectionCreditThreshold: 300
@@ -200,7 +205,7 @@ export type WizardSubmissionPayload = {
   notes?: string
   photoMetadata: Array<Omit<WizardPhoto, 'file' | 'previewUrl'>>
   videoMetadata: Array<Omit<WizardPhoto, 'file' | 'previewUrl'>>
-  voiceMetadata?: Omit<WizardVoiceRecording, 'blob' | 'previewUrl'>
+  voiceMetadata?: WizardVoiceSession
   selectedPlan?: WizardResult['selectedPlan']
   estimatedPriceRange?: WizardPriceRange
   inspectionChoice: {

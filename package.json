@@ -9,7 +9,7 @@
     "build:production": "npm run validate:legal-config && npm run build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "node scripts/legal-launch-checks.mjs && npm run test:auth && npm run test:wizard",
+    "test": "node scripts/legal-launch-checks.mjs && npm run test:auth && npm run test:voice && npm run test:wizard",
     "test:auth": "node --experimental-strip-types scripts/internal-auth-tests.mjs",
     "test:links": "node scripts/link-checks.mjs",
     "test:configurator": "node --experimental-strip-types scripts/configurator-pricing-tests.mjs",
@@ -18,6 +18,7 @@
     "validate:legal-config": "node scripts/validate-legal-config.mjs"
   },
   "dependencies": {
+    "@elevenlabs/react": "^1.10.1",
     "i18next": "^26.3.2",
     "lucide-react": "^1.21.0",
     "react": "^18.2.0",

@@ -45,6 +45,22 @@ function makeState(overrides = {}) {
   }
 }
 
+function makeVoiceSession(overrides = {}) {
+  return {
+    provider: 'elevenlabs',
+    conversationId: 'conversation-test-1',
+    language: 'es',
+    startedAt: '2026-07-17T10:00:00.000Z',
+    endedAt: '2026-07-17T10:01:10.000Z',
+    durationSeconds: 70,
+    transcript: [
+      { role: 'agent', message: '¿Qué parte de la vivienda te preocupa?' },
+      { role: 'user', message: 'El suelo del baño resbala.' },
+    ],
+    ...overrides,
+  }
+}
+
 function makeApiRequest(body) {
   const request = Readable.from([JSON.stringify(body)])
   request.method = 'POST'
@@ -124,6 +140,14 @@ function makeService(overrides = {}) {
     currentStep: 'relationship',
     relationship: 'parent',
     userType: 'family',
+    voiceRecording: {
+      id: 'obsolete-recording',
+      durationSeconds: 8,
+      mimeType: 'audio/webm',
+      size: 1024,
+      recordedAt: '2026-01-01T00:00:00.000Z',
+    },
+    voiceSession: makeVoiceSession(),
   })
   globalThis.window = {
     localStorage: {
@@ -137,6 +161,8 @@ function makeService(overrides = {}) {
     const migrated = loadWizardState()
     assert.equal(migrated?.currentStep, 'methods', 'Saved relationship steps should resume at route selection.')
     assert.equal('relationship' in migrated, false, 'Saved relationship data should be removed during migration.')
+    assert.equal('voiceRecording' in migrated, false, 'Obsolete local recording metadata should be removed.')
+    assert.deepEqual(migrated?.voiceSession, makeVoiceSession(), 'ElevenLabs session metadata should be restored.')
   } finally {
     if (originalWindow === undefined) delete globalThis.window
     else globalThis.window = originalWindow
@@ -198,6 +224,11 @@ function makeService(overrides = {}) {
 }
 
 {
+  const result = generateWizardResult(makeState({ voiceSession: makeVoiceSession() }))
+  assert.equal(result.confidence, 'supported', 'An ElevenLabs conversation should support the recommendation.')
+}
+
+{
   const result = generateWizardResult(makeState({
     userType: 'client',
     clientType: 'care-provider',
@@ -238,6 +269,7 @@ function makeService(overrides = {}) {
 {
   const state = makeState({
     userType: 'me',
+    voiceSession: makeVoiceSession(),
     photos: [
       {
         id: 'image-1',
@@ -268,6 +300,7 @@ function makeService(overrides = {}) {
   assert.deepEqual(Object.keys(manifest[1]).sort(), ['id', 'kind', 'name', 'room', 'size', 'type'])
   assert.equal(payload.photoMetadata.length, 1)
   assert.equal(payload.videoMetadata.length, 1)
+  assert.deepEqual(payload.voiceMetadata, makeVoiceSession(), 'The complete agent conversation metadata should be submitted.')
   assert.equal('relationship' in payload, false, 'Relationship information must not be collected or submitted.')
   assert.equal('file' in payload.videoMetadata[0], false, 'Binary files must never be copied into JSON payloads.')
   assert.equal('previewUrl' in payload.videoMetadata[0], false, 'Local preview URLs must never be submitted.')

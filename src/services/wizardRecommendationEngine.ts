@@ -56,7 +56,7 @@ export function generateWizardResult(
       recommendedPlan: 'business-consultation',
       selectedPlan: state.result?.selectedPlan ?? 'business-consultation',
       improvements: [],
-      confidence: state.photos.length || state.voiceRecording ? 'supported' : 'early',
+      confidence: state.photos.length || state.voiceSession ? 'supported' : 'early',
       nextAction: 'business-consultation',
     }
   }
@@ -93,7 +93,7 @@ export function generateWizardResult(
       : undefined,
     confidence: state.inspectionBooked
       ? 'inspection'
-      : state.photos.length || state.voiceRecording
+      : state.photos.length || state.voiceSession
         ? 'supported'
         : 'early',
     nextAction: state.inspectionBooked ? 'request-proposal' : 'book-visit',

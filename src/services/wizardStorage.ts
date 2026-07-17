@@ -1,10 +1,9 @@
-import type { SafetyWizardState, WizardPhoto, WizardVoiceRecording } from '../types/wizard'
+import type { SafetyWizardState, WizardPhoto } from '../types/wizard'
 
 export const SAFETY_WIZARD_STORAGE_KEY = 'casamia-home-safety-wizard-v1'
 
-type PersistedWizardState = Omit<SafetyWizardState, 'photos' | 'voiceRecording'> & {
+type PersistedWizardState = Omit<SafetyWizardState, 'photos'> & {
   photos: Array<Omit<WizardPhoto, 'file' | 'previewUrl'>>
-  voiceRecording?: Omit<WizardVoiceRecording, 'blob' | 'previewUrl'>
 }
 
 export function saveWizardState(state: SafetyWizardState) {
@@ -17,9 +16,6 @@ export function saveWizardState(state: SafetyWizardState) {
     photos: state.photos.flatMap(({ file: _file, previewUrl: _previewUrl, ...media }) =>
       media.storagePath ? [media] : [],
     ),
-    voiceRecording: state.voiceRecording
-      ? (({ blob: _blob, previewUrl: _previewUrl, ...recording }) => recording)(state.voiceRecording)
-      : undefined,
   }
 
   window.localStorage.setItem(SAFETY_WIZARD_STORAGE_KEY, JSON.stringify(persisted))
@@ -35,8 +31,13 @@ export function loadWizardState() {
     const parsed = JSON.parse(saved) as Omit<SafetyWizardState, 'currentStep'> & {
       currentStep: SafetyWizardState['currentStep'] | 'relationship'
       relationship?: unknown
+      voiceRecording?: unknown
     }
-    const { relationship: _obsoleteRelationship, ...migrated } = parsed
+    const {
+      relationship: _obsoleteRelationship,
+      voiceRecording: _obsoleteVoiceRecording,
+      ...migrated
+    } = parsed
     return {
       ...migrated,
       currentStep: parsed.currentStep === 'relationship'

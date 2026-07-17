@@ -27,6 +27,73 @@ export function getElevenLabsConfiguration(env = process.env) {
   }
 }
 
+export function getElevenLabsAgentConfiguration(env = process.env) {
+  const apiKey = env.ELEVENLABS_API_KEY?.trim() ?? ''
+  const agentId = env.ELEVENLABS_AGENT_ID?.trim() ?? ''
+  const environment = env.ELEVENLABS_AGENT_ENVIRONMENT?.trim() || 'production'
+  const requestedLocation = env.ELEVENLABS_SERVER_LOCATION?.trim() || 'eu-residency'
+  const serverLocation = ['us', 'eu-residency', 'in-residency', 'global'].includes(requestedLocation)
+    ? requestedLocation
+    : 'eu-residency'
+
+  return {
+    agentId,
+    apiKey,
+    configured: Boolean(apiKey && agentId),
+    environment,
+    missing: [
+      ...(apiKey ? [] : ['ELEVENLABS_API_KEY']),
+      ...(agentId ? [] : ['ELEVENLABS_AGENT_ID']),
+    ],
+    serverLocation,
+  }
+}
+
+export async function createElevenLabsConversationToken({
+  env = process.env,
+  fetchImpl = fetch,
+} = {}) {
+  const config = getElevenLabsAgentConfiguration(env)
+
+  if (!config.configured) {
+    throw new ElevenLabsError(
+      `ElevenLabs Agent is not configured. Add ${config.missing.join(' and ')} in Vercel.`,
+      503,
+    )
+  }
+
+  const query = new URLSearchParams({
+    agent_id: config.agentId,
+    environment: config.environment,
+  })
+  const response = await fetchImpl(
+    `${elevenLabsApiBaseUrl}/convai/conversation/token?${query}`,
+    {
+      headers: {
+        'xi-api-key': config.apiKey,
+      },
+      method: 'GET',
+    },
+  )
+
+  if (!response.ok) {
+    const upstreamMessage = await readElevenLabsError(response)
+    throw new ElevenLabsError(upstreamMessage, response.status === 429 ? 429 : 502)
+  }
+
+  const body = await response.json()
+  const token = typeof body?.token === 'string' ? body.token : ''
+
+  if (!token) {
+    throw new ElevenLabsError('ElevenLabs did not return a conversation token.')
+  }
+
+  return {
+    serverLocation: config.serverLocation,
+    token,
+  }
+}
+
 export async function createElevenLabsSpeech({
   env = process.env,
   fetchImpl = fetch,

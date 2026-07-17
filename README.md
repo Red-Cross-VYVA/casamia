@@ -70,9 +70,12 @@ The configurator currently uses mock adapters so it works without external keys:
 
 Replace the mock implementations in `src/services/configuratorAdapters.ts` when production services are selected.
 
-## ElevenLabs Voice Foundation
+## ElevenLabs Voice
 
-CasaMia includes a protected, feature-flagged voice preview at `/internal/voice-studio`.
+CasaMia includes two separate ElevenLabs integrations:
+
+- a protected, feature-flagged text-to-speech preview at `/internal/voice-studio`
+- a live conversational agent in the Home Safety Wizard voice step
 
 Set the following server-only variables in Vercel:
 
@@ -80,7 +83,17 @@ Set the following server-only variables in Vercel:
 ELEVENLABS_API_KEY=...
 ELEVENLABS_VOICE_ID=...
 ELEVENLABS_MODEL_ID=eleven_multilingual_v2
+ELEVENLABS_AGENT_ID=...
+ELEVENLABS_AGENT_ENVIRONMENT=production
+ELEVENLABS_SERVER_LOCATION=eu-residency
+ELEVENLABS_RATE_LIMIT_SALT=...
 ```
 
 Then set `VITE_ENABLE_VOICE_ASSISTANT=true` and redeploy to show Voice Studio in the internal navigation.
-The API key is never exposed to the browser. Preview scripts are limited to 500 characters and the endpoint requires a valid CasaMia internal session.
+The feature flag controls only the internal Voice Studio; it does not control the public wizard agent.
+
+The API key and agent ID are never exposed to the browser. The wizard requests a short-lived conversation token from the server after the visitor explicitly starts a voice conversation. That public token endpoint is rate-limited through Supabase, so apply the latest `supabase/schema.sql` before enabling it.
+
+In the ElevenLabs agent dashboard, enable English and Spanish and allow the agent language override. The wizard passes only non-sensitive context such as the wizard reference, site language and user type as dynamic variables.
+
+Preview scripts are limited to 500 characters and the internal preview endpoint requires a valid CasaMia internal session.

@@ -40,8 +40,11 @@ export function createWizardSubmissionPayload(state: SafetyWizardState): WizardS
     videoMetadata: state.photos
       .filter((media) => isVideo(media.type, media.kind))
       .map(({ file: _file, previewUrl: _previewUrl, ...media }) => ({ ...media, kind: 'video' as const })),
-    voiceMetadata: state.voiceRecording
-      ? (({ blob: _blob, previewUrl: _previewUrl, ...recording }) => recording)(state.voiceRecording)
+    voiceMetadata: state.voiceSession
+      ? {
+          ...state.voiceSession,
+          transcript: state.voiceSession.transcript.map((message) => ({ ...message })),
+        }
       : undefined,
     selectedPlan: state.result?.selectedPlan,
     estimatedPriceRange: state.userType === 'client' ? undefined : state.result?.priceRange,
