@@ -1,4 +1,9 @@
-import type { SafetyWizardState, WizardPhoto } from '../types/wizard'
+import {
+  WIZARD_CALLBACK_TIME_WINDOWS,
+  type SafetyWizardState,
+  type WizardCallbackTimeWindow,
+  type WizardPhoto,
+} from '../types/wizard.ts'
 
 export const SAFETY_WIZARD_STORAGE_KEY = 'casamia-home-safety-wizard-v1'
 
@@ -21,15 +26,16 @@ export function saveWizardState(state: SafetyWizardState) {
   window.localStorage.setItem(SAFETY_WIZARD_STORAGE_KEY, JSON.stringify(persisted))
 }
 
-export function loadWizardState() {
+export function loadWizardState(): SafetyWizardState | null {
   if (typeof window === 'undefined') return null
 
   try {
     const saved = window.localStorage.getItem(SAFETY_WIZARD_STORAGE_KEY)
     if (!saved) return null
 
-    const parsed = JSON.parse(saved) as Omit<SafetyWizardState, 'currentStep'> & {
+    const parsed = JSON.parse(saved) as Omit<SafetyWizardState, 'currentStep' | 'callbackRequest'> & {
       currentStep: SafetyWizardState['currentStep'] | 'relationship'
+      callbackRequest?: Partial<SafetyWizardState['callbackRequest']>
       relationship?: unknown
       voiceRecording?: unknown
     }
@@ -44,10 +50,24 @@ export function loadWizardState() {
         ? (parsed.userType ? 'methods' : 'user-type')
         : parsed.currentStep,
       photos: (parsed.photos ?? []).filter((media) => Boolean(media.storagePath)),
+      callbackRequest: {
+        preferredDate: typeof parsed.callbackRequest?.preferredDate === 'string'
+          ? parsed.callbackRequest.preferredDate
+          : '',
+        preferredTimeWindow: isCallbackTimeWindow(parsed.callbackRequest?.preferredTimeWindow)
+          ? parsed.callbackRequest.preferredTimeWindow
+          : '' as const,
+        note: typeof parsed.callbackRequest?.note === 'string' ? parsed.callbackRequest.note : '',
+      },
     }
   } catch {
     return null
   }
+}
+
+function isCallbackTimeWindow(value: unknown): value is WizardCallbackTimeWindow {
+  return typeof value === 'string'
+    && (WIZARD_CALLBACK_TIME_WINDOWS as readonly string[]).includes(value)
 }
 
 export function clearWizardState() {

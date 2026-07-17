@@ -14,6 +14,7 @@ import {
   WIZARD_MEDIA_BUCKETS,
 } from '../api/_lib/wizard-media.js'
 import { createSignedStorageUploadUrl, ensurePrivateStorageBucket } from '../api/_lib/supabase.js'
+import { WIZARD_CALLBACK_TIME_WINDOWS } from '../src/types/wizard.ts'
 
 function makeState(overrides = {}) {
   return {
@@ -28,6 +29,11 @@ function makeState(overrides = {}) {
     currentRisks: [],
     notes: '',
     photos: [],
+    callbackRequest: {
+      preferredDate: '',
+      preferredTimeWindow: '',
+      note: '',
+    },
     inspectionBooked: false,
     inspectionFee: 89,
     inspectionCreditThreshold: 300,
@@ -136,7 +142,7 @@ function makeService(overrides = {}) {
 
 {
   const originalWindow = globalThis.window
-  const legacyState = makeState({
+  const stateBeforeCallbackRoute = makeState({
     currentStep: 'relationship',
     relationship: 'parent',
     userType: 'family',
@@ -149,6 +155,7 @@ function makeService(overrides = {}) {
     },
     voiceSession: makeVoiceSession(),
   })
+  const { callbackRequest: _missingCallbackRequest, ...legacyState } = stateBeforeCallbackRoute
   globalThis.window = {
     localStorage: {
       getItem(key) {
@@ -163,6 +170,48 @@ function makeService(overrides = {}) {
     assert.equal('relationship' in migrated, false, 'Saved relationship data should be removed during migration.')
     assert.equal('voiceRecording' in migrated, false, 'Obsolete local recording metadata should be removed.')
     assert.deepEqual(migrated?.voiceSession, makeVoiceSession(), 'ElevenLabs session metadata should be restored.')
+    assert.deepEqual(
+      migrated?.callbackRequest,
+      { preferredDate: '', preferredTimeWindow: '', note: '' },
+      'Saved sessions from before the callback route should receive safe empty callback defaults.',
+    )
+  } finally {
+    if (originalWindow === undefined) delete globalThis.window
+    else globalThis.window = originalWindow
+  }
+}
+
+{
+  const originalWindow = globalThis.window
+  const callbackState = makeState({
+    currentStep: 'callback-confirmation',
+    inputMethods: ['callback'],
+    callbackRequest: {
+      preferredDate: '2026-07-22',
+      preferredTimeWindow: '15:00-18:00',
+      note: 'Please call my daughter first.',
+    },
+    callbackSubmission: {
+      id: 'callback-request-1',
+      submittedAt: '2026-07-17T12:00:00.000Z',
+    },
+  })
+  globalThis.window = {
+    localStorage: {
+      getItem(key) {
+        return key === SAFETY_WIZARD_STORAGE_KEY ? JSON.stringify(callbackState) : null
+      },
+    },
+  }
+
+  try {
+    const restored = loadWizardState()
+    assert.deepEqual(restored?.callbackRequest, callbackState.callbackRequest)
+    assert.deepEqual(
+      restored?.callbackSubmission,
+      callbackState.callbackSubmission,
+      'Successful callback metadata should survive a saved-session reload.',
+    )
   } finally {
     if (originalWindow === undefined) delete globalThis.window
     else globalThis.window = originalWindow
@@ -180,6 +229,7 @@ function makeService(overrides = {}) {
     photos: buildWizardSteps(makeState({ inputMethods: ['photos'] })),
     voice: buildWizardSteps(makeState({ inputMethods: ['voice'] })),
     call: buildWizardSteps(makeState({ inputMethods: ['call'] })),
+    callback: buildWizardSteps(makeState({ inputMethods: ['callback'] })),
     visit: buildWizardSteps(makeState({ inputMethods: ['visit'] })),
   }
 
@@ -194,7 +244,30 @@ function makeService(overrides = {}) {
   assert.equal(routeSteps.photos.includes('voice'), false, 'Photos must not also open the voice route.')
   assert.equal(routeSteps.voice.includes('voice'), true, 'Voice should open the voice route.')
   assert.equal(routeSteps.call.includes('phone'), true, 'Call should open the contact route.')
+  assert.deepEqual(
+    routeSteps.callback,
+    ['entry', 'user-type', 'methods', 'callback', 'callback-confirmation'],
+    'Callback should end after its form and confirmation without entering the assessment.',
+  )
   assert.equal(routeSteps.visit.includes('visit'), true, 'Visit should open the booking route.')
+}
+
+{
+  const clientCallbackSteps = buildWizardSteps(makeState({
+    userType: 'client',
+    inputMethods: ['callback'],
+  }))
+
+  assert.deepEqual(
+    clientCallbackSteps,
+    ['entry', 'user-type', 'methods', 'callback', 'callback-confirmation'],
+    'Business callback requests should also bypass the full client assessment.',
+  )
+  assert.deepEqual(
+    WIZARD_CALLBACK_TIME_WINDOWS,
+    ['09:00-12:00', '12:00-15:00', '15:00-18:00', '18:00-20:00', 'flexible'],
+    'Callback windows must remain language-independent values safe for the API.',
+  )
 }
 
 {

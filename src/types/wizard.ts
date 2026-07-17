@@ -1,11 +1,19 @@
 export type WizardUserType = 'me' | 'family' | 'client'
-export type WizardInputMethod = 'questions' | 'photos' | 'voice' | 'call' | 'visit'
+export type WizardInputMethod = 'questions' | 'photos' | 'voice' | 'call' | 'callback' | 'visit'
 export type HomeType = 'apartment' | 'house' | 'villa' | 'other'
 export type FloorCount = 'one' | 'two' | 'three-plus'
 export type StairsType = 'none' | 'inside' | 'outside' | 'both'
 export type MobilityLevel = 'independent' | 'cane' | 'walker' | 'wheelchair' | 'assistance' | 'prefer-not'
 export type Urgency = 'planning' | 'soon' | 'urgent'
 export type WizardContactMethod = 'phone' | 'whatsapp' | 'email'
+export const WIZARD_CALLBACK_TIME_WINDOWS = [
+  '09:00-12:00',
+  '12:00-15:00',
+  '15:00-18:00',
+  '18:00-20:00',
+  'flexible',
+] as const
+export type WizardCallbackTimeWindow = (typeof WIZARD_CALLBACK_TIME_WINDOWS)[number]
 export type WizardRoom =
   | 'bathroom'
   | 'bedroom'
@@ -81,6 +89,8 @@ export type WizardStepId =
   | 'photos'
   | 'voice'
   | 'phone'
+  | 'callback'
+  | 'callback-confirmation'
   | 'visit'
   | 'contact'
   | 'result'
@@ -120,6 +130,17 @@ export type WizardContact = {
   city: string
   preferredMethod: WizardContactMethod
   consent: boolean
+}
+
+export type WizardCallbackRequest = {
+  preferredDate: string
+  preferredTimeWindow: WizardCallbackTimeWindow | ''
+  note: string
+}
+
+export type WizardCallbackSubmission = {
+  id?: string
+  submittedAt: string
 }
 
 export type WizardPriceRange = {
@@ -175,6 +196,8 @@ export type SafetyWizardState = {
   notes: string
   photos: WizardPhoto[]
   voiceSession?: WizardVoiceSession
+  callbackRequest: WizardCallbackRequest
+  callbackSubmission?: WizardCallbackSubmission
   inspectionBooked: boolean
   inspectionFee: 89
   inspectionCreditThreshold: 300

@@ -8,6 +8,7 @@ import type {
   StairsType,
   Urgency,
   WizardChallenge,
+  WizardCallbackTimeWindow,
   WizardInputMethod,
   WizardRisk,
   WizardRoom,
@@ -107,6 +108,43 @@ export type WizardCopy = {
     userLabel: string
     fallback: string
   }
+  callback: {
+    title: string
+    body: string
+    name: string
+    phone: string
+    phoneHelp: string
+    email: string
+    optional: string
+    cityArea: string
+    preferredDate: string
+    preferredTime: string
+    note: string
+    notePlaceholder: string
+    consent: string
+    privacy: string
+    submit: string
+    submitting: string
+    required: string
+    invalidPhone: string
+    invalidEmail: string
+    futureDate: string
+    tooFarDate: string
+    error: string
+    timeWindows: ChoiceCopy<WizardCallbackTimeWindow>
+    confirmation: {
+      title: string
+      body: string
+      confirmed: string
+      reference: string
+      phone: string
+      date: string
+      time: string
+      reassurance: string
+      startAgain: string
+      home: string
+    }
+  }
   phone: { title: string; body: string; call: string; whatsapp: string; email: string; reference: string; unavailable: string }
   visit: {
     title: string
@@ -189,8 +227,8 @@ const en: WizardCopy = {
   methods: {
     title: 'How would you like to continue?',
     body: "Choose one route. We'll guide you from there.",
-    options: { questions: 'Questions', photos: 'Photos or videos', voice: 'Voice', call: 'Call', visit: 'Visit' },
-    descriptions: { questions: 'Simple guided choices', photos: 'Show us the home', voice: 'Tell us naturally', call: 'Speak with CasaMia', visit: 'Professional inspection' },
+    options: { questions: 'Questions', photos: 'Photos or videos', voice: 'Voice', call: 'Call CasaMia', callback: 'We call you', visit: 'Visit' },
+    descriptions: { questions: 'Simple guided choices', photos: 'Show us the home', voice: 'Tell us naturally', call: 'See our number and call us', callback: 'Choose a convenient time', visit: 'Professional inspection' },
   },
   homeType: { title: 'What kind of home is it?', familyTitle: 'What kind of home do they live in?', options: { apartment: 'Apartment', house: 'House', villa: 'Villa', other: 'Other' } },
   floors: { title: 'How many floors?', familyTitle: 'How many floors does their home have?', options: { one: 'One', two: 'Two', 'three-plus': 'Three+' } },
@@ -267,6 +305,49 @@ const en: WizardCopy = {
     userLabel: 'You',
     fallback: 'Prefer to type? Add a note',
   },
+  callback: {
+    title: 'When should CasaMia call you?',
+    body: "Leave your contact details and choose a convenient time. We'll call you back without asking you to complete the assessment.",
+    name: 'Full name',
+    phone: 'Phone number',
+    phoneHelp: 'Enter a Spanish mobile or landline number.',
+    email: 'Email',
+    optional: 'Optional',
+    cityArea: 'City / area',
+    preferredDate: 'Preferred day',
+    preferredTime: 'Preferred time',
+    note: 'Anything we should know?',
+    notePlaceholder: 'For example: bathroom safety, access needs, or the best person to speak with…',
+    consent: 'I agree that CasaMia may contact me about this callback request.',
+    privacy: 'We use these details only to arrange your call and help with your request. We never sell your data.',
+    submit: 'Ask CasaMia to call me',
+    submitting: 'Requesting your callback…',
+    required: 'This field is required.',
+    invalidPhone: 'Enter a valid Spanish phone number.',
+    invalidEmail: 'Enter a valid email address.',
+    futureDate: 'Choose today or a future date.',
+    tooFarDate: 'Choose a date within the next 90 days.',
+    error: "We couldn't request your callback. Your details are still here—please try again.",
+    timeWindows: {
+      '09:00-12:00': 'Morning · 09:00–12:00',
+      '12:00-15:00': 'Midday · 12:00–15:00',
+      '15:00-18:00': 'Afternoon · 15:00–18:00',
+      '18:00-20:00': 'Evening · 18:00–20:00',
+      flexible: 'Any time',
+    },
+    confirmation: {
+      title: "We'll call you",
+      body: 'Your request is with CasaMia. You do not need to complete the rest of the assessment.',
+      confirmed: 'Callback requested',
+      reference: 'Request reference',
+      phone: 'Number we will call',
+      date: 'Preferred day',
+      time: 'Preferred time',
+      reassurance: 'We will only use these details to arrange your call and help with your request.',
+      startAgain: 'Change callback details',
+      home: 'Return to CasaMia',
+    },
+  },
   phone: { title: 'Prefer to speak with us?', body: 'We can complete the assessment with you by phone.', call: 'Call CasaMia', whatsapp: 'WhatsApp', email: 'Email CasaMia', reference: 'Your reference', unavailable: 'Our phone line is being configured. Continue and choose Phone or WhatsApp as your preferred contact.' },
   visit: { title: 'Professional home safety visit', price: '89 EUR', body: 'A CasaMia professional reviews the home room by room.', credit: 'The 89 EUR fee is deducted from approved CasaMia work above 300 EUR.', example: 'Example: on a 650 EUR project, 561 EUR remains after the visit credit.', book: 'Book visit', without: 'Continue without visit', selected: 'Visit selected' },
   contact: { title: 'Where should we send your plan?', body: 'Last step. We only need enough to help.', name: 'Full name', phone: 'Phone', email: 'Email', city: 'City / area', method: 'Preferred contact', consent: 'I agree to be contacted by CasaMia about my home safety plan.', privacy: 'We use this only to prepare your plan and contact you. We never sell your data.', phoneOrEmail: 'Add a phone number or email.', invalidEmail: 'Enter a valid email address.', required: 'This field is required.', detect: 'Detect', detecting: 'Finding...', detected: 'Location added', detectError: "We couldn't detect your city. Enter it manually." },
@@ -287,7 +368,7 @@ const es: WizardCopy = {
   progress: { label: 'Progreso del asistente', step: 'Paso', of: 'de' },
   micro: { chooseOne: 'Elige una opción', chooseAll: 'Elige todas las que correspondan', changeLater: 'Podrás cambiarlo después', optional: 'Puedes omitir este paso', notSure: '¿No lo sabes? No pasa nada' },
   userType: { title: '¿Para quién es?', body: 'Adaptaremos las preguntas a tu situación.', options: { me: 'Para mí', family: 'Familiar', client: 'Mi centro o negocio' } },
-  methods: { title: '¿Cómo quieres continuar?', body: 'Elige una forma de continuar. Te guiaremos desde ahí.', options: { questions: 'Preguntas', photos: 'Fotos o vídeos', voice: 'Voz', call: 'Llamada', visit: 'Visita' }, descriptions: { questions: 'Opciones guiadas', photos: 'Muéstranos la vivienda', voice: 'Cuéntanoslo', call: 'Habla con CasaMia', visit: 'Inspección profesional' } },
+  methods: { title: '¿Cómo quieres continuar?', body: 'Elige una forma de continuar. Te guiaremos desde ahí.', options: { questions: 'Preguntas', photos: 'Fotos o vídeos', voice: 'Voz', call: 'Llamar a CasaMia', callback: 'Te llamamos', visit: 'Visita' }, descriptions: { questions: 'Opciones guiadas', photos: 'Muéstranos la vivienda', voice: 'Cuéntanoslo', call: 'Consulta nuestro número y llámanos', callback: 'Elige el día y la franja horaria', visit: 'Inspección profesional' } },
   homeType: { title: '¿Qué tipo de vivienda es?', familyTitle: '¿En qué tipo de vivienda vive?', options: { apartment: 'Piso', house: 'Casa', villa: 'Chalet', other: 'Otra' } },
   floors: { title: '¿Cuántas plantas tiene?', familyTitle: '¿Cuántas plantas tiene su vivienda?', options: { one: 'Una', two: 'Dos', 'three-plus': 'Tres+' } },
   stairs: { title: '¿Dónde hay escalones o escaleras?', familyTitle: '¿Dónde tiene escalones o escaleras?', options: { none: 'Ninguno', inside: 'Interior', outside: 'Exterior', both: 'Ambos' } },
@@ -357,6 +438,49 @@ const es: WizardCopy = {
     agentLabel: 'CasaMia',
     userLabel: 'Tú',
     fallback: '¿Prefieres escribir? Añade una nota',
+  },
+  callback: {
+    title: '¿Cuándo quieres que te llamemos?',
+    body: 'Déjanos tus datos de contacto y elige el momento que te venga mejor. Te llamaremos sin pedirte que completes la evaluación.',
+    name: 'Nombre completo',
+    phone: 'Número de teléfono',
+    phoneHelp: 'Introduce un móvil o teléfono fijo de España.',
+    email: 'Email',
+    optional: 'Opcional',
+    cityArea: 'Ciudad / zona',
+    preferredDate: 'Día preferido',
+    preferredTime: 'Hora preferida',
+    note: '¿Hay algo que debamos saber?',
+    notePlaceholder: 'Por ejemplo: seguridad del baño, necesidades de acceso o con quién debemos hablar…',
+    consent: 'Acepto que CasaMia contacte conmigo sobre esta solicitud de llamada.',
+    privacy: 'Solo usamos estos datos para organizar la llamada y ayudarte con tu solicitud. Nunca los vendemos.',
+    submit: 'Pedir que CasaMia me llame',
+    submitting: 'Solicitando la llamada…',
+    required: 'Este campo es obligatorio.',
+    invalidPhone: 'Introduce un número de teléfono español válido.',
+    invalidEmail: 'Introduce un email válido.',
+    futureDate: 'Elige hoy o una fecha futura.',
+    tooFarDate: 'Elige una fecha dentro de los próximos 90 días.',
+    error: 'No hemos podido solicitar la llamada. Tus datos siguen aquí; inténtalo de nuevo.',
+    timeWindows: {
+      '09:00-12:00': 'Mañana · 09:00–12:00',
+      '12:00-15:00': 'Mediodía · 12:00–15:00',
+      '15:00-18:00': 'Tarde · 15:00–18:00',
+      '18:00-20:00': 'Última hora · 18:00–20:00',
+      flexible: 'Cualquier hora',
+    },
+    confirmation: {
+      title: 'Te llamaremos',
+      body: 'CasaMia ya tiene tu solicitud. No necesitas completar el resto de la evaluación.',
+      confirmed: 'Llamada solicitada',
+      reference: 'Referencia de la solicitud',
+      phone: 'Número al que llamaremos',
+      date: 'Día preferido',
+      time: 'Hora preferida',
+      reassurance: 'Solo usaremos estos datos para organizar la llamada y ayudarte con tu solicitud.',
+      startAgain: 'Cambiar los datos de la llamada',
+      home: 'Volver a CasaMia',
+    },
   },
   phone: { title: '¿Prefieres hablar con nosotros?', body: 'Podemos completar la evaluación contigo por teléfono.', call: 'Llamar a CasaMia', whatsapp: 'WhatsApp', email: 'Escribir a CasaMia', reference: 'Tu referencia', unavailable: 'Estamos configurando la línea telefónica. Continúa y elige Teléfono o WhatsApp como contacto preferido.' },
   visit: { title: 'Visita profesional de seguridad', price: '89 EUR', body: 'Un profesional CasaMia revisará la vivienda estancia por estancia.', credit: 'Los 89 EUR se descuentan de trabajos CasaMia aprobados superiores a 300 EUR.', example: 'Ejemplo: en un proyecto de 650 EUR, quedarían 561 EUR tras aplicar el descuento.', book: 'Reservar visita', without: 'Continuar sin visita', selected: 'Visita seleccionada' },

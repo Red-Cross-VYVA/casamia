@@ -23,6 +23,11 @@ function createInitialState(): SafetyWizardState {
     currentRisks: [],
     notes: '',
     photos: [],
+    callbackRequest: {
+      preferredDate: '',
+      preferredTimeWindow: '',
+      note: '',
+    },
     inspectionBooked: false,
     inspectionFee: 89,
     inspectionCreditThreshold: 300,

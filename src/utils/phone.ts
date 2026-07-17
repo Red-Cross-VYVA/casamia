@@ -25,5 +25,5 @@ export function formatSpanishLocalNumber(value: string) {
 }
 
 export function isValidSpanishPhoneNumber(value: string) {
-  return getSpanishLocalNumber(value).length === SPAIN_LOCAL_NUMBER_LENGTH
+  return /^[6789]\d{8}$/.test(getSpanishLocalNumber(value))
 }

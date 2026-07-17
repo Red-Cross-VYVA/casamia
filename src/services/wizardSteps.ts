@@ -5,6 +5,11 @@ export function buildWizardSteps(state: SafetyWizardState): WizardStepId[] {
 
   if (state.userType) steps.push('methods')
 
+  if (state.userType && state.inputMethods.includes('callback')) {
+    steps.push('callback', 'callback-confirmation')
+    return steps
+  }
+
   if (state.userType === 'client') {
     steps.push('client-type', 'client-sites', 'client-need', 'client-location')
   } else if (state.userType && state.inputMethods.includes('questions')) {

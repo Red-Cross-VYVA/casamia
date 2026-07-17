@@ -101,3 +101,25 @@ Same-origin deployments need no CORS setting. If the frontend and API are intent
 In the ElevenLabs agent dashboard, enable English and Spanish and allow the agent language override. The wizard passes only non-sensitive context such as the wizard reference, site language and user type as dynamic variables.
 
 Preview scripts are limited to 500 characters and the internal preview endpoint requires a valid CasaMia internal session.
+
+## Callback Requests
+
+The Home Safety Wizard can submit a callback request to the server-only
+`/api/public/callback-requests` endpoint. Requests are stored in Supabase's
+`contact_requests` table; the browser has no local-storage success fallback.
+
+The endpoint accepts only the CasaMia site origins, caps JSON bodies at 16 KB,
+validates Spanish phone numbers and callback dates, requires explicit contact
+consent, and allows five requests per anonymous IP hash every 30 minutes. Apply
+the latest `supabase/schema.sql` before enabling the callback card so the atomic
+rate-limit function is available.
+
+An independent rate-limit secret is optional but recommended:
+
+```text
+CALLBACK_RATE_LIMIT_SALT=replace-with-long-random-secret
+```
+
+Keep this value server-only and do not add a `VITE_` prefix. Same-origin
+deployments need no additional CORS setting; intentional split deployments use
+the existing `CASAMIA_ALLOWED_ORIGINS` allowlist.

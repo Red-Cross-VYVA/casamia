@@ -26,6 +26,7 @@ import {
   MoveUp,
   PersonStanding,
   Phone,
+  PhoneCall,
   ShieldAlert,
   ShieldCheck,
   Sparkles,
@@ -39,6 +40,8 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } 
 import { useTranslation } from 'react-i18next'
 
 import { ContactDetailsStep } from '../components/wizard/ContactDetailsStep'
+import { CallbackConfirmationStep } from '../components/wizard/CallbackConfirmationStep'
+import { CallbackRequestStep } from '../components/wizard/CallbackRequestStep'
 import { PhoneStep } from '../components/wizard/PhoneStep'
 import { PhotoUploadStep } from '../components/wizard/PhotoUploadStep'
 import { PlanResult } from '../components/wizard/PlanResult'
@@ -49,6 +52,7 @@ import { WizardPackageDialog, wizardPackageDialogId } from '../components/wizard
 import { WizardStep } from '../components/wizard/WizardStep'
 import { getWizardCopy } from '../config/wizardCopy'
 import { useSafetyWizard } from '../hooks/useSafetyWizard'
+import { submitCallbackRequest } from '../services/callbackRequests'
 import { getServicesForPackageArea, useServiceCatalogue } from '../services/serviceCatalogue'
 import { generateWizardResult } from '../services/wizardRecommendationEngine'
 import { submitSafetyWizard } from '../services/wizardSubmission'
@@ -64,6 +68,8 @@ import type {
   StairsType,
   Urgency,
   WizardChallenge,
+  WizardCallbackRequest,
+  WizardContact,
   WizardInputMethod,
   WizardRisk,
   WizardRoom,
@@ -85,7 +91,7 @@ const userOptions: ChoiceOption<WizardUserType>[] = [
 ]
 const methodOptions: ChoiceOption<WizardInputMethod>[] = [
   { value: 'questions', icon: Check }, { value: 'photos', icon: Camera }, { value: 'voice', icon: Mic },
-  { value: 'call', icon: Phone }, { value: 'visit', icon: Home },
+  { value: 'call', icon: Phone }, { value: 'callback', icon: PhoneCall }, { value: 'visit', icon: Home },
 ]
 const homeOptions: ChoiceOption<HomeType>[] = [
   { value: 'apartment', icon: Building2 }, { value: 'house', icon: House }, { value: 'villa', icon: Warehouse }, { value: 'other', icon: CircleHelp },
@@ -139,7 +145,7 @@ export function HomeSafetyWizardPage() {
   const { state } = wizard
   const serviceCatalogue = useServiceCatalogue()
   const displayedMethodOptions = state.userType === 'client'
-    ? ['call', 'visit', 'photos', 'voice', 'questions'].map((value) => methodOptions.find((option) => option.value === value)!)
+    ? ['call', 'callback', 'visit', 'photos', 'voice', 'questions'].map((value) => methodOptions.find((option) => option.value === value)!)
     : methodOptions
   const [saved, setSaved] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -212,6 +218,39 @@ export function HomeSafetyWizardPage() {
     }
   }
 
+  const submitCallback = async (contact: WizardContact, callbackRequest: WizardCallbackRequest) => {
+    if (!callbackRequest.preferredTimeWindow) {
+      throw new Error('A callback time is required.')
+    }
+
+    const locale = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+    const submission = await submitCallbackRequest({
+      name: contact.fullName,
+      phone: contact.phone,
+      email: contact.email || undefined,
+      city: contact.city,
+      preferredCallbackDate: callbackRequest.preferredDate,
+      preferredTimeWindow: callbackRequest.preferredTimeWindow,
+      note: callbackRequest.note || undefined,
+      wizardReference: state.wizardReference,
+      locale,
+      consentConfirmed: contact.consent,
+    })
+    const submittedAt = new Date().toISOString()
+
+    wizard.completeStep({
+      callbackRequest,
+      callbackSubmission: { id: submission.id, submittedAt },
+      contact,
+      submitted: true,
+    })
+    trackEvent('wizard_callback_requested', {
+      reference: state.wizardReference,
+      userType: state.userType,
+      preferredTimeWindow: callbackRequest.preferredTimeWindow,
+    })
+  }
+
   const renderChoiceStep = <T extends string>({
     title, body, hint, options, labels, selected, multiple = false, onSelect, allowSkip = false,
   }: {
@@ -267,7 +306,7 @@ export function HomeSafetyWizardPage() {
                   selected={state.inputMethods[0] === value}
                   onSelect={() => {
                     trackEvent('wizard_method_selected', { method: value, selected: true })
-                    wizard.completeStep({ inputMethods: [value] })
+                    wizard.completeStep({ inputMethods: [value], callbackSubmission: undefined, submitted: false })
                   }}
                 />
               ))}
@@ -335,6 +374,30 @@ export function HomeSafetyWizardPage() {
         return <><Suspense fallback={<div className="safety-wizard-notice" role="status">{copy.voice.connecting}</div>}><VoiceInputStep copy={copy} fallbackNote={state.notes} language={i18n.language} session={state.voiceSession} userType={state.userType} wizardReference={state.wizardReference} onFallbackNoteChange={(notes) => wizard.patchState({ notes })} onChange={(voiceSession) => { if (voiceSession?.conversationId && trackedVoiceConversationRef.current !== voiceSession.conversationId) { trackedVoiceConversationRef.current = voiceSession.conversationId; trackEvent('wizard_voice_conversation_started', { reference: state.wizardReference }) } else if (!voiceSession) { trackedVoiceConversationRef.current = undefined } wizard.patchState({ voiceSession }) }} /></Suspense><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
       case 'phone':
         return <><PhoneStep copy={copy} reference={state.wizardReference} /><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
+      case 'callback':
+        return (
+          <CallbackRequestStep
+            callbackRequest={state.callbackRequest}
+            contact={state.contact}
+            copy={copy.callback}
+            onCallbackRequestChange={(callbackRequest) => wizard.patchState({ callbackRequest })}
+            onContactChange={(contact) => wizard.patchState({ contact })}
+            onSubmit={submitCallback}
+          />
+        )
+      case 'callback-confirmation':
+        return state.callbackRequest.preferredTimeWindow ? (
+          <CallbackConfirmationStep
+            copy={copy.callback.confirmation}
+            date={state.callbackRequest.preferredDate}
+            locale={i18n.language}
+            onStartAgain={wizard.reset}
+            phone={state.contact.phone}
+            reference={state.wizardReference}
+            timeWindow={state.callbackRequest.preferredTimeWindow}
+            timeWindows={copy.callback.timeWindows}
+          />
+        ) : null
       case 'visit':
         return <><VisitBookingStep copy={copy} selected={state.inspectionBooked} onSelect={(inspectionBooked) => { wizard.patchState({ inspectionBooked }); if (inspectionBooked) trackEvent('wizard_visit_selected', { reference: state.wizardReference }) }} /><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
       case 'contact':
@@ -360,7 +423,7 @@ export function HomeSafetyWizardPage() {
 
   return (
     <>
-      <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry'} saved={saved} onBack={wizard.back} onSave={saveForLater}>
+      <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry' && state.currentStep !== 'callback-confirmation'} saved={saved} onBack={wizard.back} onSave={saveForLater}>
         {step}
       </WizardLayout>
       {packageArea ? (
