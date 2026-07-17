@@ -18,6 +18,7 @@ create table if not exists public.assessment_requests (
 
 create table if not exists public.contact_requests (
   id uuid primary key default gen_random_uuid(),
+  idempotency_key text,
   submitted_at timestamptz not null default now(),
   type text,
   status text not null default 'New',
@@ -29,6 +30,12 @@ create table if not exists public.contact_requests (
   message text,
   payload_json jsonb not null default '{}'::jsonb
 );
+
+alter table public.contact_requests
+  add column if not exists idempotency_key text;
+
+create unique index if not exists contact_requests_idempotency_key_idx
+  on public.contact_requests (idempotency_key);
 
 create table if not exists public.provider_applications (
   id uuid primary key default gen_random_uuid(),
@@ -105,6 +112,26 @@ create table if not exists public.service_catalogue (
   updated_by text,
   payload_json jsonb not null default '{"services":[]}'::jsonb
 );
+
+create table if not exists public.proposals (
+  id text primary key,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  status text not null default 'Draft',
+  public_token text not null unique,
+  customer_name text,
+  customer_email text,
+  customer_phone text,
+  selected_plan text,
+  total_estimate numeric not null default 0,
+  payload_json jsonb not null default '{}'::jsonb
+);
+
+create index if not exists proposals_updated_at_idx
+  on public.proposals (updated_at desc);
+
+create index if not exists proposals_status_idx
+  on public.proposals (status);
 
 create table if not exists public.wizard_media_rate_limits (
   ip_hash text primary key,
@@ -329,6 +356,7 @@ alter table public.consent_evidence enable row level security;
 alter table public.withdrawal_requests enable row level security;
 alter table public.orders enable row level security;
 alter table public.service_catalogue enable row level security;
+alter table public.proposals enable row level security;
 alter table public.wizard_media_rate_limits enable row level security;
 alter table public.wizard_voice_rate_limits enable row level security;
 alter table public.callback_request_rate_limits enable row level security;

@@ -85,9 +85,19 @@ const InternalDashboardPage = lazy(() =>
     default: InternalDashboardPage,
   })),
 )
+const InternalCallbacksPage = lazy(() =>
+  import('./pages/internal/InternalCallbacksPage').then(({ InternalCallbacksPage }) => ({
+    default: InternalCallbacksPage,
+  })),
+)
 const InternalProposalsPage = lazy(() =>
   import('./pages/internal/InternalProposalsPage').then(({ InternalProposalsPage }) => ({
     default: InternalProposalsPage,
+  })),
+)
+const InternalOrdersPage = lazy(() =>
+  import('./pages/internal/InternalOrdersPage').then(({ InternalOrdersPage }) => ({
+    default: InternalOrdersPage,
   })),
 )
 const InternalProviderPartnersPage = lazy(() =>
@@ -274,7 +284,9 @@ function AppRoutes() {
             <Route path="/complaints-contact" element={<LegalDocumentPage documentId="complaints-contact" />} />
             <Route path="/accessibility-statement" element={<LegalDocumentPage documentId="accessibility-statement" />} />
             <Route path="/internal" element={<InternalRoute><InternalDashboardPage /></InternalRoute>} />
+            <Route path="/internal/callbacks" element={<InternalRoute><InternalCallbacksPage /></InternalRoute>} />
             <Route path="/internal/visits" element={<InternalRoute><InternalVisitsPage /></InternalRoute>} />
+            <Route path="/internal/orders" element={<InternalRoute><InternalOrdersPage /></InternalRoute>} />
             <Route path="/internal/inspection-report" element={<InternalRoute><InspectionReportPage /></InternalRoute>} />
             <Route path="/internal/package-config" element={<Navigate to="/internal/service-catalog" replace />} />
             <Route path="/internal/service-catalog" element={<InternalRoute><InternalServiceCataloguePage /></InternalRoute>} />

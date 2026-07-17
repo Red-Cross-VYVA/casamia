@@ -14,11 +14,34 @@ type PersistedWizardState = Omit<SafetyWizardState, 'photos'> & {
 export function saveWizardState(state: SafetyWizardState) {
   if (typeof window === 'undefined') return
 
+  const callbackFlow = state.inputMethods.includes('callback')
+  const stateToPersist: SafetyWizardState = callbackFlow
+    ? {
+        ...state,
+        currentStep: state.currentStep === 'callback-confirmation' ? 'methods' : state.currentStep,
+        callbackRequest: {
+          preferredDate: '',
+          preferredTimeWindow: '',
+          note: '',
+          consent: false,
+        },
+        callbackSubmission: undefined,
+        contact: {
+          ...state.contact,
+          fullName: '',
+          phone: '',
+          email: '',
+          city: '',
+        },
+        submitted: false,
+      }
+    : state
+
   const persisted: PersistedWizardState = {
-    ...state,
+    ...stateToPersist,
     // Browser File objects cannot be represented in localStorage. Keeping only their
     // names would make a restored wizard look as though media would still be uploaded.
-    photos: state.photos.flatMap(({ file: _file, previewUrl: _previewUrl, ...media }) =>
+    photos: stateToPersist.photos.flatMap(({ file: _file, previewUrl: _previewUrl, ...media }) =>
       media.storagePath ? [media] : [],
     ),
   }
@@ -58,6 +81,7 @@ export function loadWizardState(): SafetyWizardState | null {
           ? parsed.callbackRequest.preferredTimeWindow
           : '' as const,
         note: typeof parsed.callbackRequest?.note === 'string' ? parsed.callbackRequest.note : '',
+        consent: parsed.callbackRequest?.consent === true,
       },
     }
   } catch {

@@ -1,4 +1,4 @@
-import { CalendarDays, Check, Clock3, Home, PhoneCall, RotateCcw, ShieldCheck } from 'lucide-react'
+import { CalendarDays, Check, Clock3, Home, PhoneCall, Plus, ShieldCheck } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import type { WizardCopy } from '../../config/wizardCopy'
@@ -15,7 +15,7 @@ type CallbackConfirmationStepProps = {
   reference: string
   timeWindow: WizardCallbackTimeWindow
   timeWindows: WizardCopy['callback']['timeWindows']
-  onStartAgain: () => void
+  onRequestAnother: () => void
 }
 
 export function CallbackConfirmationStep({
@@ -27,10 +27,9 @@ export function CallbackConfirmationStep({
   reference,
   timeWindow,
   timeWindows,
-  onStartAgain,
+  onRequestAnother,
 }: CallbackConfirmationStepProps) {
   const formattedDate = formatCallbackDate(date, locale)
-  const telephoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`
   const formattedPhone = `${SPAIN_DIAL_CODE} ${formatSpanishLocalNumber(getSpanishLocalNumber(phone))}`
 
   return (
@@ -52,7 +51,7 @@ export function CallbackConfirmationStep({
           </div>
           <div>
             <dt><PhoneCall size={18} aria-hidden="true" />{copy.phone}</dt>
-            <dd><a href={telephoneHref}>{formattedPhone}</a></dd>
+            <dd>{formattedPhone}</dd>
           </div>
           <div>
             <dt><ShieldCheck size={18} aria-hidden="true" />{copy.reference}</dt>
@@ -63,8 +62,8 @@ export function CallbackConfirmationStep({
         <p className="safety-wizard-callback-reassurance"><ShieldCheck size={19} aria-hidden="true" />{copy.reassurance}</p>
 
         <div className="safety-wizard-callback-confirmation-actions">
-          <button className="btn btn-navy" onClick={onStartAgain} type="button">
-            <RotateCcw size={19} aria-hidden="true" />{copy.startAgain}
+          <button className="btn btn-navy" onClick={onRequestAnother} type="button">
+            <Plus size={19} aria-hidden="true" />{copy.requestAnother}
           </button>
           <Link className="btn btn-white" to={homeHref}>
             <Home size={19} aria-hidden="true" />{copy.home}

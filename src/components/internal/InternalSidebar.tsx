@@ -1,12 +1,14 @@
 import {
   AudioLines,
   ClipboardList,
+  ClipboardCheck,
   FileText,
   Home,
   LayoutDashboard,
   LogOut,
   Network,
   PackageCheck,
+  PhoneCall,
   Route,
 } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
@@ -17,7 +19,9 @@ import { voiceAssistantFeatureEnabled } from '../../services/voiceAssistant'
 
 const internalLinks = [
   { label: 'Dashboard', to: '/internal', icon: LayoutDashboard },
-  { label: "Today's visits", to: '/internal/visits', icon: Route },
+  { label: 'Callback requests', to: '/internal/callbacks', icon: PhoneCall },
+  { label: 'Assessment requests', to: '/internal/visits', icon: Route },
+  { label: 'Customer plans', to: '/internal/orders', icon: ClipboardCheck },
   { label: 'Report builder', to: '/internal/inspection-report', icon: ClipboardList },
   { label: 'Service catalog', to: '/internal/service-catalog', icon: PackageCheck },
   ...(voiceAssistantFeatureEnabled

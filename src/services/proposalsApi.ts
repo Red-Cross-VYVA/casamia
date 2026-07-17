@@ -281,8 +281,12 @@ export async function loadProposalsWithFallback() {
     })
 
     return { proposals: raw.map(fromBackendProposal), source: 'backend' as const }
-  } catch {
-    return { proposals: loadAllProposals(), source: 'local' as const }
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : 'Proposal backend could not be loaded.',
+      proposals: loadAllProposals(),
+      source: 'local' as const,
+    }
   }
 }
 
@@ -297,8 +301,12 @@ export async function loadProposalWithFallback(proposalId: string) {
     })
 
     return { proposal: fromBackendProposal(raw), source: 'backend' as const }
-  } catch {
-    return { proposal: loadProposalById(proposalId), source: 'local' as const }
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : 'Proposal backend could not be loaded.',
+      proposal: loadProposalById(proposalId),
+      source: 'local' as const,
+    }
   }
 }
 
@@ -315,8 +323,12 @@ export async function saveProposalWithFallback(proposal: ProposalData) {
     })
 
     return { proposal: fromBackendProposal(raw), source: 'backend' as const }
-  } catch {
-    return { proposal: saveProposal(proposal), source: 'local' as const }
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : 'Proposal could not be saved to the backend.',
+      proposal: saveProposal(proposal),
+      source: 'local' as const,
+    }
   }
 }
 
@@ -338,8 +350,9 @@ export async function sendProposalWithFallback(proposal: ProposalData) {
           : sentProposal,
         source: 'backend' as const,
       }
-    } catch {
+    } catch (error) {
       return {
+        error: error instanceof Error ? error.message : 'Proposal status could not be saved to the backend.',
         proposal: saveProposal({ ...proposal, acceptanceStatus: 'Sent', status: 'Sent' }),
         source: 'local' as const,
       }
@@ -353,6 +366,10 @@ export async function sendProposalWithFallback(proposal: ProposalData) {
 }
 
 export async function acceptProposalWithFallback(proposal: ProposalData) {
+  let backendError = backendAvailable()
+    ? 'Internal admin session is not active.'
+    : 'Proposal backend is not configured.'
+
   if (backendAvailable() && hasInternalBackendSession()) {
     try {
       const raw = await requestJson<BackendActionResponse>(`/api/proposals/${proposal.id}/accept`, {
@@ -377,12 +394,13 @@ export async function acceptProposalWithFallback(proposal: ProposalData) {
           : acceptedProposal,
         source: 'backend' as const,
       }
-    } catch {
-      // Fall through to local demo mode.
+    } catch (error) {
+      backendError = error instanceof Error ? error.message : 'Proposal acceptance could not be saved to the backend.'
     }
   }
 
   return {
+    error: backendError,
     proposal: saveProposal({
       ...proposal,
       acceptanceDate: new Date().toISOString().slice(0, 10),
@@ -421,5 +439,7 @@ export function getProposalApiStatus() {
     return 'Local demo mode: internal admin session is not active.'
   }
 
-  return `Connected to ${apiBaseUrl}`
+  return apiBaseUrl
+    ? `Connected to ${apiBaseUrl}`
+    : 'Connected to the same-origin Vercel proposal API.'
 }

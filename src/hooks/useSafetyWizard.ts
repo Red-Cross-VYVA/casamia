@@ -27,6 +27,7 @@ function createInitialState(): SafetyWizardState {
       preferredDate: '',
       preferredTimeWindow: '',
       note: '',
+      consent: false,
     },
     inspectionBooked: false,
     inspectionFee: 89,

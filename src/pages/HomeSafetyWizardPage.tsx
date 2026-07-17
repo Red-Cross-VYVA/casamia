@@ -52,7 +52,12 @@ import { WizardPackageDialog, wizardPackageDialogId } from '../components/wizard
 import { WizardStep } from '../components/wizard/WizardStep'
 import { getWizardCopy } from '../config/wizardCopy'
 import { useSafetyWizard } from '../hooks/useSafetyWizard'
-import { submitCallbackRequest } from '../services/callbackRequests'
+import {
+  clearCallbackContact,
+  createCallbackRequestIdempotencyKey,
+  createEmptyCallbackRequest,
+  submitCallbackRequest,
+} from '../services/callbackRequests'
 import { getServicesForPackageArea, useServiceCatalogue } from '../services/serviceCatalogue'
 import { generateWizardResult } from '../services/wizardRecommendationEngine'
 import { submitSafetyWizard } from '../services/wizardSubmission'
@@ -148,6 +153,10 @@ export function HomeSafetyWizardPage() {
     ? ['call', 'callback', 'visit', 'photos', 'voice', 'questions'].map((value) => methodOptions.find((option) => option.value === value)!)
     : methodOptions
   const [saved, setSaved] = useState(false)
+  const [callbackSubmitting, setCallbackSubmitting] = useState(false)
+  const [callbackIdempotencyKey, setCallbackIdempotencyKey] = useState(
+    () => createCallbackRequestIdempotencyKey(),
+  )
   const [submitting, setSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error'>()
   const [packageArea, setPackageArea] = useState<WizardRoom | null>(null)
@@ -225,6 +234,7 @@ export function HomeSafetyWizardPage() {
 
     const locale = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
     const submission = await submitCallbackRequest({
+      idempotencyKey: callbackIdempotencyKey,
       name: contact.fullName,
       phone: contact.phone,
       email: contact.email || undefined,
@@ -234,14 +244,15 @@ export function HomeSafetyWizardPage() {
       note: callbackRequest.note || undefined,
       wizardReference: state.wizardReference,
       locale,
-      consentConfirmed: contact.consent,
+      consentConfirmed: callbackRequest.consent,
     })
     const submittedAt = new Date().toISOString()
 
-    wizard.completeStep({
+    wizard.patchState({
       callbackRequest,
       callbackSubmission: { id: submission.id, submittedAt },
       contact,
+      currentStep: 'callback-confirmation',
       submitted: true,
     })
     trackEvent('wizard_callback_requested', {
@@ -306,7 +317,18 @@ export function HomeSafetyWizardPage() {
                   selected={state.inputMethods[0] === value}
                   onSelect={() => {
                     trackEvent('wizard_method_selected', { method: value, selected: true })
-                    wizard.completeStep({ inputMethods: [value], callbackSubmission: undefined, submitted: false })
+                    const leavingCallback = state.inputMethods[0] === 'callback' && value !== 'callback'
+                    wizard.completeStep({
+                      inputMethods: [value],
+                      callbackRequest: leavingCallback
+                        ? createEmptyCallbackRequest()
+                        : { ...state.callbackRequest, consent: value === 'callback' ? false : state.callbackRequest.consent },
+                      callbackSubmission: undefined,
+                      contact: leavingCallback
+                        ? { ...state.contact, fullName: '', phone: '', email: '', city: '' }
+                        : state.contact,
+                      submitted: false,
+                    })
                   }}
                 />
               ))}
@@ -382,6 +404,7 @@ export function HomeSafetyWizardPage() {
             copy={copy.callback}
             onCallbackRequestChange={(callbackRequest) => wizard.patchState({ callbackRequest })}
             onContactChange={(contact) => wizard.patchState({ contact })}
+            onSubmittingChange={setCallbackSubmitting}
             onSubmit={submitCallback}
           />
         )
@@ -391,7 +414,16 @@ export function HomeSafetyWizardPage() {
             copy={copy.callback.confirmation}
             date={state.callbackRequest.preferredDate}
             locale={i18n.language}
-            onStartAgain={wizard.reset}
+            onRequestAnother={() => {
+              setCallbackIdempotencyKey(createCallbackRequestIdempotencyKey())
+              wizard.patchState({
+                callbackRequest: createEmptyCallbackRequest(),
+                callbackSubmission: undefined,
+                contact: clearCallbackContact(state.contact),
+                currentStep: 'callback',
+                submitted: false,
+              })
+            }}
             phone={state.contact.phone}
             reference={state.wizardReference}
             timeWindow={state.callbackRequest.preferredTimeWindow}
@@ -423,7 +455,7 @@ export function HomeSafetyWizardPage() {
 
   return (
     <>
-      <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry' && state.currentStep !== 'callback-confirmation'} saved={saved} onBack={wizard.back} onSave={saveForLater}>
+      <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry' && state.currentStep !== 'callback-confirmation' && !callbackSubmitting} canSave={!state.inputMethods.includes('callback')} saved={saved} onBack={wizard.back} onSave={saveForLater}>
         {step}
       </WizardLayout>
       {packageArea ? (

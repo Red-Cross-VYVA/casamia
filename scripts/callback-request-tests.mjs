@@ -1,23 +1,39 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import { Readable } from 'node:stream'
 
 import callbackRequestHandler, {
+  CALLBACK_CONSENT_WORDING,
   CALLBACK_TIME_WINDOWS,
   isAllowedCallbackOrigin,
   normalizeSpanishPhone,
+  readCallbackJsonBody,
   validateCallbackRequest,
 } from '../api/public/callback-requests.js'
+import { callSupabaseRpc, supabaseRequestTimeoutMs } from '../api/_lib/supabase.js'
+import { getWizardCopy } from '../src/config/wizardCopy.ts'
 import {
+  callbackRequestTimeoutMs,
   callbackTimeWindows,
+  clearCallbackContact,
+  createCallbackRequestIdempotencyKey,
   createCallbackRequestPayload,
+  createEmptyCallbackRequest,
   submitCallbackRequest,
 } from '../src/services/callbackRequests.ts'
+import {
+  getMadridScheduleContext,
+  isElapsedMadridWindow,
+  updateCallbackRequestDate,
+} from '../src/services/callbackSchedule.ts'
 
 const fixedNow = new Date('2026-07-17T10:00:00Z')
+const idempotencyKey = '3f7b68e4-191f-4f04-80ee-a18dce1fd29d'
 const validInput = {
   city: 'Málaga',
   consentConfirmed: true,
   email: 'ana@example.com',
+  idempotencyKey,
   locale: 'es',
   name: 'Ana García',
   note: 'Mejor después de las 16:00.',
@@ -30,6 +46,70 @@ const validInput = {
 }
 
 assert.deepEqual([...CALLBACK_TIME_WINDOWS], [...callbackTimeWindows])
+assert.deepEqual(CALLBACK_CONSENT_WORDING, {
+  en: 'I agree that CasaMia may contact me about this callback request.',
+  es: 'Acepto que CasaMia contacte conmigo sobre esta solicitud de llamada.',
+})
+assert.equal(callbackRequestTimeoutMs, 15_000)
+assert.equal(supabaseRequestTimeoutMs, 15_000)
+assert.equal(getWizardCopy('en').callback.confirmation.requestAnother, 'Request another callback')
+assert.equal(getWizardCopy('es').callback.confirmation.requestAnother, 'Solicitar otra llamada')
+assert.match(getWizardCopy('en').callback.noTimesToday, /No callback times remain today/)
+assert.match(getWizardCopy('es').callback.noTimesToday, /no quedan horarios de llamada para hoy/)
+assert.match(createCallbackRequestIdempotencyKey(), /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
+const supabaseSchema = readFileSync(new URL('../supabase/schema.sql', import.meta.url), 'utf8')
+assert.match(supabaseSchema, /add column if not exists idempotency_key text/i)
+assert.match(supabaseSchema, /create unique index if not exists contact_requests_idempotency_key_idx[\s\S]*?\(idempotency_key\)/i)
+const callbackStepSource = readFileSync(
+  new URL('../src/components/wizard/CallbackRequestStep.tsx', import.meta.url),
+  'utf8',
+)
+const callbackStylesSource = readFileSync(
+  new URL('../src/styles/home-safety-wizard.css', import.meta.url),
+  'utf8',
+)
+const wizardPageSource = readFileSync(
+  new URL('../src/pages/HomeSafetyWizardPage.tsx', import.meta.url),
+  'utf8',
+)
+assert.match(callbackStepSource, /<form aria-busy=\{submitting\}/)
+assert.match(callbackStepSource, /<fieldset className="safety-wizard-callback-fields" disabled=\{submitting\}>/)
+assert.match(callbackStepSource, /aria-invalid=\{Boolean\(errors\.preferredTimeWindow\)\}/)
+assert.match(callbackStepSource, /querySelector<HTMLElement>\('\[aria-invalid="true"\]:not\(:disabled\)'\)/)
+assert.equal(
+  callbackStylesSource.indexOf('.safety-wizard-callback-time-options input:disabled + span'),
+  callbackStylesSource.lastIndexOf('.safety-wizard-callback-time-options input:disabled + span'),
+  'The disabled callback-slot rule should have one authoritative definition.',
+)
+assert.ok(
+  callbackStylesSource.indexOf('.safety-wizard-callback-time-options input:disabled + span')
+    > callbackStylesSource.indexOf('.safety-wizard-callback-time-options input:checked + span'),
+  'Disabled callback-slot styling must override checked styling.',
+)
+assert.match(wizardPageSource, /callbackRequest: createEmptyCallbackRequest\(\)/)
+assert.match(wizardPageSource, /contact: clearCallbackContact\(state\.contact\)/)
+assert.match(wizardPageSource, /onRequestAnother=/)
+assert.deepEqual(createEmptyCallbackRequest(), {
+  consent: false,
+  note: '',
+  preferredDate: '',
+  preferredTimeWindow: '',
+})
+assert.deepEqual(clearCallbackContact({
+  city: 'Madrid',
+  consent: true,
+  email: 'ana@example.com',
+  fullName: 'Ana García',
+  phone: '600111222',
+  preferredMethod: 'phone',
+}), {
+  city: '',
+  consent: false,
+  email: '',
+  fullName: '',
+  phone: '',
+  preferredMethod: 'phone',
+})
 assert.equal(normalizeSpanishPhone('600 111 222'), '+34600111222')
 assert.equal(normalizeSpanishPhone('+34 600 111 222'), '+34600111222')
 assert.equal(normalizeSpanishPhone('0034 600 111 222'), '+34600111222')
@@ -43,6 +123,44 @@ assert.doesNotThrow(() => validateCallbackRequest({
   ...validInput,
   preferredCallbackDate: '2026-07-17',
 }, fixedNow))
+assert.throws(() => validateCallbackRequest({
+  ...validInput,
+  preferredCallbackDate: '2026-07-17',
+  preferredTimeWindow: '09:00-12:00',
+}, fixedNow), /already ended today/)
+assert.doesNotThrow(() => validateCallbackRequest({
+  ...validInput,
+  preferredCallbackDate: '2026-07-17',
+  preferredTimeWindow: 'flexible',
+}, fixedNow))
+const afterCallbackHours = new Date('2026-07-17T18:01:00Z')
+assert.throws(() => validateCallbackRequest({
+  ...validInput,
+  preferredCallbackDate: '2026-07-17',
+  preferredTimeWindow: 'flexible',
+}, afterCallbackHours), /already ended today/)
+const afterHoursContext = getMadridScheduleContext(afterCallbackHours)
+assert.equal(afterHoursContext.currentMinutes, 20 * 60 + 1)
+assert.equal(afterHoursContext.minimumDate, '2026-07-18')
+assert.equal(getMadridScheduleContext(fixedNow).minimumDate, '2026-07-17')
+assert.equal(isElapsedMadridWindow('flexible', '2026-07-17', afterHoursContext), true)
+assert.equal(isElapsedMadridWindow('flexible', '2026-07-18', afterHoursContext), false)
+const callbackDraft = {
+  consent: true,
+  note: 'Call after lunch.',
+  preferredDate: '2026-07-18',
+  preferredTimeWindow: '09:00-12:00',
+}
+assert.equal(
+  updateCallbackRequestDate(callbackDraft, '2026-07-17', afterHoursContext).preferredTimeWindow,
+  '',
+  'Changing to today must clear a selected callback window that has elapsed.',
+)
+assert.equal(
+  updateCallbackRequestDate(callbackDraft, '2026-07-18', afterHoursContext).preferredTimeWindow,
+  '09:00-12:00',
+  'Changing to a future day should preserve a valid callback window.',
+)
 assert.doesNotThrow(() => validateCallbackRequest({
   ...validInput,
   preferredCallbackDate: '2026-10-15',
@@ -57,15 +175,25 @@ assert.throws(() => validateCallbackRequest({
 }, fixedNow))
 assert.throws(() => validateCallbackRequest({ ...validInput, city: '' }, fixedNow))
 assert.throws(() => validateCallbackRequest({ ...validInput, consentConfirmed: false }, fixedNow))
+assert.throws(() => validateCallbackRequest({ ...validInput, idempotencyKey: 'CM-A1B2C3' }, fixedNow))
 assert.throws(() => validateCallbackRequest({
   ...validInput,
   preferredTimeWindow: 'whenever',
 }, fixedNow))
 
+const utf8CallbackBody = Buffer.from(JSON.stringify({ name: 'Málaga' }), 'utf8')
+const utf8Boundary = utf8CallbackBody.indexOf(Buffer.from('á', 'utf8'))
+const streamedCallbackRequest = Readable.from([
+  utf8CallbackBody.subarray(0, utf8Boundary + 1),
+  utf8CallbackBody.subarray(utf8Boundary + 1),
+])
+assert.deepEqual(await readCallbackJsonBody(streamedCallbackRequest), { name: 'Málaga' })
+
 assert.deepEqual(createCallbackRequestPayload({
   city: ' Málaga ',
   consentConfirmed: true,
   email: ' ana@example.com ',
+  idempotencyKey: ` ${idempotencyKey.toUpperCase()} `,
   locale: 'es',
   name: ' Ana García ',
   note: ' Llámame por la tarde. ',
@@ -78,6 +206,7 @@ assert.deepEqual(createCallbackRequestPayload({
   city: 'Málaga',
   consentConfirmed: true,
   email: 'ana@example.com',
+  idempotencyKey,
   locale: 'es',
   name: 'Ana García',
   note: 'Llámame por la tarde.',
@@ -89,18 +218,38 @@ assert.deepEqual(createCallbackRequestPayload({
   wizardReference: 'CM-A1B2C3',
 })
 
+const callbackServiceInput = {
+  city: 'Málaga',
+  consentConfirmed: true,
+  idempotencyKey,
+  locale: 'es',
+  name: 'Ana García',
+  phone: '600 111 222',
+  preferredCallbackDate: '2026-07-20',
+  preferredTimeWindow: '15:00-18:00',
+  wizardReference: 'CM-A1B2C3',
+}
+
 await assert.rejects(
-  () => submitCallbackRequest({
-    city: 'Málaga',
-    consentConfirmed: true,
-    locale: 'es',
-    name: 'Ana García',
-    phone: '600 111 222',
-    preferredCallbackDate: '2026-07-20',
-    preferredTimeWindow: '15:00-18:00',
-    wizardReference: 'CM-A1B2C3',
-  }),
+  () => submitCallbackRequest(callbackServiceInput),
   /Public website API URL is not configured/,
+)
+
+await assert.rejects(
+  () => submitCallbackRequest(callbackServiceInput, {
+    requestJson: (_path, _payload, init) => new Promise((_resolve, reject) => {
+      assert.ok(init?.signal)
+      const abort = () => {
+        const error = new Error('aborted')
+        error.name = 'AbortError'
+        reject(error)
+      }
+      if (init.signal.aborted) abort()
+      else init.signal.addEventListener('abort', abort, { once: true })
+    }),
+    timeoutMs: 5,
+  }),
+  /callback request timed out/i,
 )
 
 const sameOriginRequest = {
@@ -174,6 +323,7 @@ function makeResponse() {
 
 const handlerBody = {
   ...validInput,
+  idempotency_key: 'attacker-controlled-key',
   preferredCallbackDate: madridDateIn(2),
   status: 'Closed',
   submittedAt: '1999-01-01T00:00:00.000Z',
@@ -198,13 +348,18 @@ try {
   })
 
   const calls = []
+  let insertCallCount = 0
   globalThis.fetch = async (url, init = {}) => {
     calls.push({ init, url: String(url) })
+    assert.ok(init.signal)
     if (String(url).includes('/rpc/reserve_callback_request')) {
       return new Response('true', { status: 200 })
     }
-    if (String(url).endsWith('/rest/v1/contact_requests')) {
-      return new Response(JSON.stringify([{ id: 'callback-id', status: 'New' }]), { status: 201 })
+    if (String(url).includes('/rest/v1/contact_requests?on_conflict=idempotency_key')) {
+      insertCallCount += 1
+      return new Response(JSON.stringify(
+        insertCallCount === 1 ? [{ id: 'callback-id', status: 'New' }] : [],
+      ), { status: 201 })
     }
     throw new Error(`Unexpected test URL: ${url}`)
   }
@@ -217,14 +372,25 @@ try {
   assert.equal(response.headers.vary, 'Origin')
   assert.deepEqual(JSON.parse(response.body), { id: 'callback-id', status: 'New' })
 
+  const retryResponse = makeResponse()
+  await callbackRequestHandler(makeRequest({ body: handlerBody }), retryResponse)
+  assert.equal(retryResponse.statusCode, 201)
+  assert.deepEqual(JSON.parse(retryResponse.body), { status: 'New' })
+
   const rateLimitCall = calls.find((call) => call.url.includes('/rpc/reserve_callback_request'))
   const rateLimitPayload = JSON.parse(rateLimitCall.init.body)
   assert.equal(rateLimitPayload.p_limit, 5)
   assert.equal(rateLimitPayload.p_window_seconds, 1800)
   assert.match(rateLimitPayload.p_ip_hash, /^[0-9a-f]{64}$/)
 
-  const insertCall = calls.find((call) => call.url.endsWith('/rest/v1/contact_requests'))
-  const inserted = JSON.parse(insertCall.init.body)
+  const insertCalls = calls.filter((call) => call.url.includes('/rest/v1/contact_requests?on_conflict=idempotency_key'))
+  assert.equal(insertCalls.length, 2)
+  assert.equal(insertCalls[0].init.headers.Prefer, 'resolution=ignore-duplicates,return=representation')
+  const inserted = JSON.parse(insertCalls[0].init.body)
+  const retried = JSON.parse(insertCalls[1].init.body)
+  assert.equal(inserted.idempotency_key, `callback_request:${idempotencyKey}`)
+  assert.equal(retried.idempotency_key, inserted.idempotency_key)
+  assert.equal(inserted.idempotency_key.includes(inserted.payload_json.wizardReference), false)
   assert.equal(inserted.type, 'callback_request')
   assert.equal(inserted.status, 'New')
   assert.equal(inserted.source, 'home-safety-wizard-callback')
@@ -234,6 +400,7 @@ try {
   assert.equal(inserted.payload_json.locale, 'es')
   assert.equal(inserted.payload_json.preferredTimeWindow, '15:00-18:00')
   assert.equal(inserted.payload_json.consentConfirmed, true)
+  assert.equal(inserted.payload_json.consentWording, CALLBACK_CONSENT_WORDING.es)
   assert.equal(inserted.payload_json.consentWordingVersion, 'callback-v1')
   assert.equal('status' in inserted.payload_json, false)
   assert.notEqual(inserted.submitted_at, handlerBody.submittedAt)
@@ -293,7 +460,7 @@ try {
     if (String(url).includes('/rpc/reserve_callback_request')) {
       return new Response('true', { status: 200 })
     }
-    if (String(url).endsWith('/rest/v1/contact_requests')) {
+    if (String(url).includes('/rest/v1/contact_requests?on_conflict=idempotency_key')) {
       return new Response(JSON.stringify({ message: 'private insert detail' }), { status: 500 })
     }
     if (String(url).includes('/rpc/release_callback_request')) {
@@ -330,6 +497,21 @@ try {
   await callbackRequestHandler(makeRequest({ body: handlerBody }), unavailableResponse)
   assert.equal(unavailableResponse.statusCode, 503)
   assert.equal(JSON.parse(unavailableResponse.body).message.includes('private database detail'), false)
+
+  globalThis.fetch = async (_url, init = {}) => new Promise((_resolve, reject) => {
+    assert.ok(init.signal)
+    const abort = () => {
+      const error = new Error('aborted')
+      error.name = 'AbortError'
+      reject(error)
+    }
+    if (init.signal.aborted) abort()
+    else init.signal.addEventListener('abort', abort, { once: true })
+  })
+  await assert.rejects(
+    () => callSupabaseRpc('slow_callback_test', {}, { timeoutMs: 5 }),
+    /Supabase request timed out/,
+  )
 } finally {
   globalThis.fetch = originalFetch
   console.error = originalConsoleError

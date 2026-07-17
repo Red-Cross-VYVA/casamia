@@ -1,7 +1,7 @@
 import crypto from 'node:crypto'
 
 import { applyPublicCors, getRequestHeader, isAllowedPublicOrigin } from '../_lib/public-origin.js'
-import { callSupabaseRpc, insertSupabaseRow, sendJson } from '../_lib/supabase.js'
+import { callSupabaseRpc, createSupabaseRowIfAbsent, sendJson } from '../_lib/supabase.js'
 
 export const CALLBACK_TIME_WINDOWS = Object.freeze([
   '09:00-12:00',
@@ -11,10 +11,18 @@ export const CALLBACK_TIME_WINDOWS = Object.freeze([
   'flexible',
 ])
 
+export const CALLBACK_CONSENT_WORDING = Object.freeze({
+  en: 'I agree that CasaMia may contact me about this callback request.',
+  es: 'Acepto que CasaMia contacte conmigo sobre esta solicitud de llamada.',
+})
+
 const callbackBodyLimitBytes = 16 * 1024
 const callbackRateLimitWindowSeconds = 30 * 60
 const maxCallbackRequestsPerWindow = 5
 const madridTimeZone = 'Europe/Madrid'
+const callbackSupabaseTimeoutMs = 6_000
+const callbackReleaseTimeoutMs = 2_000
+const callbackDayEndMinutes = 20 * 60
 
 export class CallbackRequestValidationError extends Error {
   constructor(message, statusCode = 400) {
@@ -96,6 +104,17 @@ function getMadridCalendarDate(now) {
   return `${values.year}-${values.month}-${values.day}`
 }
 
+function getMadridClockMinutes(now) {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    hour: '2-digit',
+    hourCycle: 'h23',
+    minute: '2-digit',
+    timeZone: madridTimeZone,
+  }).formatToParts(now)
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]))
+  return Number(values.hour) * 60 + Number(values.minute)
+}
+
 function validateCallbackDate(value, now) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
     throw new CallbackRequestValidationError('A valid preferred callback date is required.')
@@ -123,6 +142,33 @@ function validateCallbackDate(value, now) {
   return value
 }
 
+function validateCallbackTimeWindow(value, preferredCallbackDate, now) {
+  const preferredTimeWindow = typeof value === 'string'
+    && CALLBACK_TIME_WINDOWS.includes(value)
+    ? value
+    : ''
+
+  if (!preferredTimeWindow) {
+    throw new CallbackRequestValidationError('A valid preferred callback time is required.')
+  }
+
+  if (preferredCallbackDate === getMadridCalendarDate(now)) {
+    const endMinutes = preferredTimeWindow === 'flexible'
+      ? callbackDayEndMinutes
+      : (() => {
+          const [, endTime] = preferredTimeWindow.split('-')
+          const [endHour, endMinute] = endTime.split(':').map(Number)
+          return endHour * 60 + endMinute
+        })()
+
+    if (getMadridClockMinutes(now) >= endMinutes) {
+      throw new CallbackRequestValidationError('The preferred callback time has already ended today.')
+    }
+  }
+
+  return preferredTimeWindow
+}
+
 export function validateCallbackRequest(body, now = new Date()) {
   if (!body || typeof body !== 'object' || Array.isArray(body)) {
     throw new CallbackRequestValidationError('The callback request is not valid.')
@@ -137,15 +183,19 @@ export function validateCallbackRequest(body, now = new Date()) {
     throw new CallbackRequestValidationError('A valid email address is required.')
   }
 
-  const preferredCallbackDate = validateCallbackDate(body.preferredCallbackDate, now)
-  const preferredTimeWindow = typeof body.preferredTimeWindow === 'string'
-    && CALLBACK_TIME_WINDOWS.includes(body.preferredTimeWindow)
-    ? body.preferredTimeWindow
+  const idempotencyKey = typeof body.idempotencyKey === 'string'
+    ? body.idempotencyKey.trim().toLowerCase()
     : ''
-
-  if (!preferredTimeWindow) {
-    throw new CallbackRequestValidationError('A valid preferred callback time is required.')
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(idempotencyKey)) {
+    throw new CallbackRequestValidationError('A valid callback request token is required.')
   }
+
+  const preferredCallbackDate = validateCallbackDate(body.preferredCallbackDate, now)
+  const preferredTimeWindow = validateCallbackTimeWindow(
+    body.preferredTimeWindow,
+    preferredCallbackDate,
+    now,
+  )
 
   const wizardReference = typeof body.wizardReference === 'string'
     ? body.wizardReference.trim().toUpperCase()
@@ -170,6 +220,7 @@ export function validateCallbackRequest(body, now = new Date()) {
   return {
     city,
     email,
+    idempotencyKey,
     locale,
     name,
     note: cleanNote(body.note),
@@ -201,7 +252,7 @@ export async function readCallbackJsonBody(request, maximumBytes = callbackBodyL
     return rawBody ? JSON.parse(rawBody) : {}
   }
 
-  let rawBody = ''
+  const chunks = []
   let byteLength = 0
 
   for await (const chunk of request) {
@@ -210,9 +261,10 @@ export async function readCallbackJsonBody(request, maximumBytes = callbackBodyL
     if (byteLength > maximumBytes) {
       throw new CallbackRequestValidationError('The callback request is too large.', 413)
     }
-    rawBody += buffer.toString('utf8')
+    chunks.push(buffer)
   }
 
+  const rawBody = Buffer.concat(chunks, byteLength).toString('utf8')
   return rawBody ? JSON.parse(rawBody) : {}
 }
 
@@ -243,7 +295,7 @@ async function reserveCallbackRequest(request) {
       p_ip_hash: ipHash,
       p_limit: maxCallbackRequestsPerWindow,
       p_window_seconds: callbackRateLimitWindowSeconds,
-    })
+    }, { timeoutMs: callbackSupabaseTimeoutMs })
   } catch (error) {
     console.error('Callback request rate limit could not be checked.', error)
     return { ok: false, status: 503 }
@@ -260,7 +312,7 @@ async function releaseCallbackRequest(ipHash) {
   try {
     const result = await callSupabaseRpc('release_callback_request', {
       p_ip_hash: ipHash,
-    })
+    }, { timeoutMs: callbackReleaseTimeoutMs })
     if (!result.ok) console.error('Callback request rate-limit reservation could not be released.')
   } catch (error) {
     console.error('Callback request rate-limit reservation could not be released.', error)
@@ -285,11 +337,13 @@ function mapCallbackRequest(callback) {
     customer_email: callback.email,
     customer_name: callback.name,
     customer_phone: callback.phone,
+    idempotency_key: `callback_request:${callback.idempotencyKey}`,
     message,
     payload_json: {
       city: callback.city,
       consentAt: requestedAt,
       consentConfirmed: true,
+      consentWording: CALLBACK_CONSENT_WORDING[callback.locale],
       consentWordingVersion: 'callback-v1',
       locale: callback.locale,
       note: callback.note,
@@ -354,7 +408,12 @@ export default async function handler(request, response) {
 
     let result
     try {
-      result = await insertSupabaseRow('contact_requests', mapCallbackRequest(callback))
+      result = await createSupabaseRowIfAbsent(
+        'contact_requests',
+        mapCallbackRequest(callback),
+        'idempotency_key',
+        { timeoutMs: callbackSupabaseTimeoutMs },
+      )
     } catch (error) {
       await releaseCallbackRequest(reservation.ipHash)
       console.error('Callback request could not be saved.', error)
@@ -369,7 +428,8 @@ export default async function handler(request, response) {
       return
     }
 
-    sendJson(response, 201, { id: result.body.id, status: result.body.status ?? 'New' })
+    const record = Array.isArray(result.body) ? result.body[0] : result.body
+    sendJson(response, 201, { id: record?.id, status: record?.status ?? 'New' })
   } catch (error) {
     const isInvalidJson = error instanceof SyntaxError
     const statusCode = error instanceof CallbackRequestValidationError

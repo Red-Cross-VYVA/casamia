@@ -18,7 +18,9 @@ export function InternalProposalsPage() {
 
     loadProposalsWithFallback().then((result) => {
       setProposals(result.proposals)
-      setSourceMessage(result.source === 'backend' ? 'Connected to proposal backend.' : getProposalApiStatus())
+      setSourceMessage(result.source === 'backend'
+        ? 'Connected to Supabase proposals.'
+        : result.error ?? getProposalApiStatus())
     })
   }, [])
 

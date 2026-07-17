@@ -6,8 +6,9 @@ import { InternalLayout } from '../../components/internal/InternalLayout'
 import { StatCard } from '../../components/internal/StatCard'
 import {
   loadProviderApplications,
+  loadProviderApplicationsWithFallback,
   providerApplicationBackendConfigured,
-  updateProviderApplicationStatus,
+  updateProviderApplicationStatusWithFallback,
   type ProviderApplication,
   type ProviderApplicationStatus,
 } from '../../services/providerApplications'
@@ -21,10 +22,18 @@ const statusLabels: Record<ProviderApplicationStatus, string> = {
 
 export function InternalProviderPartnersPage() {
   const [applications, setApplications] = useState<ProviderApplication[]>([])
+  const [message, setMessage] = useState('Loading provider applications...')
+  const [updatingId, setUpdatingId] = useState('')
 
   useEffect(() => {
     document.title = 'Provider Partners | CasaMia Operations'
     setApplications(loadProviderApplications())
+    loadProviderApplicationsWithFallback().then((result) => {
+      setApplications(result.applications)
+      setMessage(result.source === 'backend'
+        ? 'Connected to Supabase provider applications.'
+        : result.error ?? 'Using applications stored in this browser only.')
+    })
   }, [])
 
   const stats = useMemo(
@@ -36,8 +45,17 @@ export function InternalProviderPartnersPage() {
     [applications],
   )
 
-  function updateStatus(id: string, status: ProviderApplicationStatus) {
-    setApplications(updateProviderApplicationStatus(id, status))
+  async function updateStatus(id: string, status: ProviderApplicationStatus) {
+    setUpdatingId(id)
+    try {
+      const result = await updateProviderApplicationStatusWithFallback(id, status)
+      setApplications(result.applications)
+      setMessage(result.source === 'backend' ? 'Status saved to Supabase.' : 'Status saved in this browser only.')
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'The provider status could not be updated.')
+    } finally {
+      setUpdatingId('')
+    }
   }
 
   return (
@@ -52,9 +70,9 @@ export function InternalProviderPartnersPage() {
       }
     >
       <p className="mb-5 rounded-lg bg-light-blue px-4 py-3 text-sm font-bold text-text-mid">
-        {providerApplicationBackendConfigured()
+        {message || (providerApplicationBackendConfigured()
           ? 'Provider application API is configured.'
-          : 'Frontend-only inbox in local development. Production uses Vercel API routes with Supabase when configured.'}
+          : 'Frontend-only inbox in local development.')}
       </p>
 
       <section className="mb-6 grid gap-5 md:grid-cols-3">
@@ -102,13 +120,13 @@ export function InternalProviderPartnersPage() {
               </div>
 
               <div className="mt-5 flex flex-wrap gap-3">
-                <button className="btn btn-white" type="button" onClick={() => updateStatus(application.id, 'reviewing')}>
+                <button className="btn btn-white" disabled={updatingId === application.id} type="button" onClick={() => void updateStatus(application.id, 'reviewing')}>
                   Mark reviewing
                 </button>
-                <button className="btn btn-green" type="button" onClick={() => updateStatus(application.id, 'approved')}>
+                <button className="btn btn-green" disabled={updatingId === application.id} type="button" onClick={() => void updateStatus(application.id, 'approved')}>
                   Approve
                 </button>
-                <button className="btn btn-white" type="button" onClick={() => updateStatus(application.id, 'not-a-fit')}>
+                <button className="btn btn-white" disabled={updatingId === application.id} type="button" onClick={() => void updateStatus(application.id, 'not-a-fit')}>
                   <XCircle size={18} aria-hidden="true" />
                   Not a fit
                 </button>

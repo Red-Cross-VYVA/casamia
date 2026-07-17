@@ -5,6 +5,7 @@ const jsonHeaders = {
 }
 
 const internalSessionDurationMs = 1000 * 60 * 60 * 8
+export const supabaseRequestTimeoutMs = 15_000
 
 export function sendJson(response, statusCode, body) {
   response.status(statusCode).setHeader('Content-Type', 'application/json')
@@ -173,41 +174,64 @@ function getSupabaseConfig() {
   }
 }
 
-async function requestSupabase(path, init = {}) {
+async function requestSupabase(path, init = {}, options = {}) {
   const config = getSupabaseConfig()
 
   if (config.error) {
     return config.error
   }
 
-  const response = await fetch(`${config.supabaseUrl}/rest/v1/${path}`, {
-    ...init,
-    headers: {
-      ...jsonHeaders,
-      apikey: config.serviceRoleKey,
-      Authorization: `Bearer ${config.serviceRoleKey}`,
-      ...(init.headers ?? {}),
-    },
-  })
+  const controller = new AbortController()
+  const callerSignal = options.signal ?? init.signal
+  const timeoutMs = Number.isFinite(options.timeoutMs) && options.timeoutMs > 0
+    ? options.timeoutMs
+    : supabaseRequestTimeoutMs
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
+  const abortFromCaller = () => controller.abort(callerSignal?.reason)
 
-  const text = await response.text()
-  const body = text ? JSON.parse(text) : {}
+  if (callerSignal?.aborted) abortFromCaller()
+  else callerSignal?.addEventListener?.('abort', abortFromCaller, { once: true })
 
-  if (!response.ok) {
-    return {
-      ok: false,
-      status: response.status,
-      body: {
-        message: body.message ?? body.error ?? 'Supabase request failed.',
-        details: body.details,
+  try {
+    const response = await fetch(`${config.supabaseUrl}/rest/v1/${path}`, {
+      ...init,
+      headers: {
+        ...jsonHeaders,
+        apikey: config.serviceRoleKey,
+        Authorization: `Bearer ${config.serviceRoleKey}`,
+        ...(init.headers ?? {}),
       },
-    }
-  }
+      signal: controller.signal,
+    })
+    const text = await response.text()
+    const body = text ? JSON.parse(text) : {}
 
-  return {
-    ok: true,
-    status: response.status,
-    body,
+    if (!response.ok) {
+      return {
+        ok: false,
+        status: response.status,
+        body: {
+          message: body.message ?? body.error ?? 'Supabase request failed.',
+          details: body.details,
+        },
+      }
+    }
+
+    return {
+      ok: true,
+      status: response.status,
+      body,
+    }
+  } catch (error) {
+    if (controller.signal.aborted && !callerSignal?.aborted) {
+      const timeoutError = new Error('Supabase request timed out.')
+      timeoutError.name = 'AbortError'
+      throw timeoutError
+    }
+    throw error
+  } finally {
+    clearTimeout(timeout)
+    callerSignal?.removeEventListener?.('abort', abortFromCaller)
   }
 }
 
@@ -340,21 +364,31 @@ export async function selectSupabaseRows(tableName, query = 'select=*') {
   })
 }
 
-export async function callSupabaseRpc(functionName, payload = {}) {
+export async function callSupabaseRpc(functionName, payload = {}, options = {}) {
   return requestSupabase(`rpc/${encodeURIComponent(functionName)}`, {
     body: JSON.stringify(payload),
     method: 'POST',
-  })
+  }, options)
 }
 
-export async function upsertSupabaseRow(tableName, payload, onConflict = 'id') {
+export async function upsertSupabaseRow(tableName, payload, onConflict = 'id', options = {}) {
   return requestSupabase(`${tableName}?on_conflict=${encodeURIComponent(onConflict)}`, {
     body: JSON.stringify(payload),
     headers: {
       Prefer: 'resolution=merge-duplicates,return=representation',
     },
     method: 'POST',
-  })
+  }, options)
+}
+
+export async function createSupabaseRowIfAbsent(tableName, payload, onConflict = 'id', options = {}) {
+  return requestSupabase(`${tableName}?on_conflict=${encodeURIComponent(onConflict)}`, {
+    body: JSON.stringify(payload),
+    headers: {
+      Prefer: 'resolution=ignore-duplicates,return=representation',
+    },
+    method: 'POST',
+  }, options)
 }
 
 export async function updateSupabaseRows(tableName, payload, query) {
@@ -367,14 +401,14 @@ export async function updateSupabaseRows(tableName, payload, query) {
   })
 }
 
-export async function insertSupabaseRow(tableName, payload) {
+export async function insertSupabaseRow(tableName, payload, options = {}) {
   const result = await requestSupabase(tableName, {
     body: JSON.stringify(payload),
     headers: {
       Prefer: 'return=representation',
     },
     method: 'POST',
-  })
+  }, options)
 
   if (!result.ok) {
     return result
