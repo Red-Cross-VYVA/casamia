@@ -10,10 +10,15 @@ Set these in Vercel Project Settings > Environment Variables:
 SUPABASE_URL=https://your-project-ref.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 VITE_SITE_URL=https://your-production-domain
-VITE_INTERNAL_API_KEY=your-internal-api-key
+CASAMIA_INTERNAL_API_KEY=replace-with-a-long-random-api-key
+CASAMIA_INTERNAL_PASSWORD=replace-with-the-admin-login-password
+CASAMIA_INTERNAL_SESSION_SECRET=replace-with-a-different-long-random-secret
 ```
 
 Do not expose the Supabase service role key with a `VITE_` prefix. It must remain server-side only.
+The three `CASAMIA_INTERNAL_*` values are also server-only and must never use a `VITE_` prefix.
+
+Add the internal values to the Production, Preview, and Development environments in Vercel, then redeploy the site. Environment variable changes do not update an existing deployment until it is redeployed.
 
 ## Supabase schema
 
