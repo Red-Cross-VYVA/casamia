@@ -17,8 +17,8 @@ export function GrantStamp() {
       <div className="grant-stamp-inner" aria-hidden="true">
         <span className="grant-stamp-seal">{stat}</span>
         <span className="grant-stamp-copy">
-          <span className="grant-stamp-kicker">{label}</span>
-          <span className="grant-stamp-title">{shortLine1} {stat} {line2}</span>
+          <span className="grant-stamp-kicker">{label} · {shortLine1}</span>
+          <span className="grant-stamp-title">{line2}</span>
           <span className="grant-stamp-subtitle">
             {helper}
           </span>

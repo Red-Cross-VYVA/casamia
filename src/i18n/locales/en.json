@@ -9,6 +9,9 @@
     "learnMore": "Learn more",
     "selectedPhotos": "Selected photos"
   },
+  "wizard": {
+    "cta": "Build My Safety Plan"
+  },
   "nav": {
     "home": "Home",
     "howItWorks": "Process",

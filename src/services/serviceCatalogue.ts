@@ -6,6 +6,7 @@ import { getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 import type {
   CasaMiaService,
   EditableServiceCatalogue,
+  ServicePackageArea,
   ServiceRoom,
 } from '../types/serviceCatalogue.ts'
 
@@ -25,8 +26,52 @@ type ServiceCatalogueSaveResult = ServiceCatalogueLoadResult & {
 
 export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
   return {
-    services: clone(casaMiaServices),
+    services: clone(casaMiaServices).map(withPackageAreaDefaults),
   }
+}
+
+export function getDefaultServicePackageAreas(
+  service: Pick<CasaMiaService, 'category' | 'id' | 'name' | 'room'>,
+): ServicePackageArea[] {
+  const areas = new Set<ServicePackageArea>()
+
+  if (service.room === 'bathroom') areas.add('bathroom')
+  if (service.room === 'bedroom') areas.add('bedroom')
+  if (service.room === 'kitchen') areas.add('kitchen')
+  if (service.room === 'entrance') {
+    areas.add('entrance')
+    areas.add('outdoor')
+  }
+  if (service.room === 'connected') areas.add('smart-safety')
+
+  const searchable = `${service.id} ${service.name} ${service.category}`.toLowerCase()
+  const isStairService = service.room === 'movement' && /stair|step/.test(searchable)
+
+  if (service.room === 'movement') {
+    areas.add(isStairService ? 'stairs' : 'living-room')
+  }
+
+  if (/\blight(?:ing)?\b|\bvisibility\b|\bnight route\b/.test(searchable)) areas.add('lighting')
+  if (/smart|sensor|alert|monitor|voice|detection|emergency|shut.?off/.test(searchable)) {
+    areas.add('smart-safety')
+  }
+
+  return [...areas]
+}
+
+export function getServicesForPackageArea(
+  services: CasaMiaService[],
+  area: ServicePackageArea | 'not-sure',
+) {
+  const activeServices = services.filter((service) => service.active)
+
+  if (area === 'not-sure') {
+    return activeServices
+  }
+
+  return activeServices.filter((service) =>
+    (service.wizardAreas ?? getDefaultServicePackageAreas(service)).includes(area),
+  )
 }
 
 export function getServiceCatalogue(): EditableServiceCatalogue {
@@ -227,7 +272,16 @@ function mergeServices(defaultServices: CasaMiaService[], savedServices: CasaMia
     (item) => !defaultServices.some((defaultItem) => defaultItem.id === item.id),
   )
 
-  return [...mergedDefaults, ...customServices]
+  return [...mergedDefaults, ...customServices].map(withPackageAreaDefaults)
+}
+
+function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {
+  return {
+    ...service,
+    wizardAreas: Array.isArray(service.wizardAreas)
+      ? service.wizardAreas
+      : getDefaultServicePackageAreas(service),
+  }
 }
 
 function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | undefined): EditableServiceCatalogue {

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { AssessmentForm } from '../components/AssessmentForm'
 import { SelfInspectionTool } from '../components/SelfInspectionTool'
@@ -93,6 +93,9 @@ export function FreeHomeSafetyAssessmentPage() {
               <a className="btn btn-white" href="/configure">
                 Build My Safer Home
               </a>
+              <Link className="btn btn-white" to="/home-safety-wizard">
+                {t('wizard.cta')}
+              </Link>
               <span>{t('assessment.hero.reassurance')}</span>
             </div>
           </div>

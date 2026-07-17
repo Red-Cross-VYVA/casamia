@@ -1,0 +1,308 @@
+import type {
+  ClientNeed,
+  ClientSiteCount,
+  ClientType,
+  FloorCount,
+  HomeType,
+  MobilityLevel,
+  StairsType,
+  Urgency,
+  WizardChallenge,
+  WizardInputMethod,
+  WizardRisk,
+  WizardRoom,
+  WizardUserType,
+} from '../types/wizard'
+
+type ChoiceCopy<T extends string> = Record<T, string>
+
+export type WizardCopy = {
+  entry: { eyebrow: string; title: string; body: string; start: string; time: string; resume: string }
+  nav: { back: string; continue: string; skip: string; save: string; saved: string; startAgain: string }
+  progress: { label: string; step: string; of: string }
+  micro: { chooseOne: string; chooseAll: string; changeLater: string; optional: string; notSure: string }
+  userType: { title: string; body: string; options: ChoiceCopy<WizardUserType> }
+  methods: {
+    title: string
+    body: string
+    options: ChoiceCopy<WizardInputMethod>
+    descriptions: ChoiceCopy<WizardInputMethod>
+  }
+  homeType: { title: string; familyTitle: string; options: ChoiceCopy<HomeType> }
+  floors: { title: string; familyTitle: string; options: ChoiceCopy<FloorCount> }
+  stairs: { title: string; familyTitle: string; options: ChoiceCopy<StairsType> }
+  areas: {
+    title: string
+    familyTitle: string
+    options: ChoiceCopy<WizardRoom>
+    viewPackage: string
+    viewAll: string
+    packageTitle: string
+    allOptionsTitle: string
+    catalogueEyebrow: string
+    packageIntro: string
+    currentOptions: string
+    includes: string
+    emptyPackage: string
+    close: string
+  }
+  mobility: { title: string; options: ChoiceCopy<MobilityLevel> }
+  challenges: { title: string; options: ChoiceCopy<WizardChallenge> }
+  risks: { title: string; familyTitle: string; options: ChoiceCopy<WizardRisk> }
+  urgency: { title: string; options: ChoiceCopy<Urgency> }
+  notes: { title: string; body: string; placeholder: string }
+  client: {
+    typeTitle: string
+    siteTitle: string
+    needTitle: string
+    locationTitle: string
+    locationPlaceholder: string
+    types: ChoiceCopy<ClientType>
+    sites: ChoiceCopy<ClientSiteCount>
+    needs: ChoiceCopy<ClientNeed>
+  }
+  photos: {
+    title: string
+    body: string
+    add: string
+    remove: string
+    room: string
+    empty: string
+    rules: string
+    image: string
+    video: string
+    otherRoom: string
+    count: (count: number) => string
+    errors: {
+      unsupported: (name: string) => string
+      imageTooLarge: (name: string) => string
+      videoTooLarge: (name: string) => string
+      tooManyFiles: string
+      tooManyVideos: string
+      totalTooLarge: string
+    }
+  }
+  voice: {
+    title: string
+    body: string
+    start: string
+    pause: string
+    resume: string
+    stop: string
+    delete: string
+    unsupported: string
+    recorded: string
+  }
+  phone: { title: string; body: string; call: string; whatsapp: string; email: string; reference: string; unavailable: string }
+  visit: {
+    title: string
+    price: string
+    body: string
+    credit: string
+    example: string
+    book: string
+    without: string
+    selected: string
+  }
+  contact: {
+    title: string
+    body: string
+    name: string
+    phone: string
+    email: string
+    city: string
+    method: string
+    consent: string
+    privacy: string
+    phoneOrEmail: string
+    invalidEmail: string
+    required: string
+    detect: string
+    detecting: string
+    detected: string
+    detectError: string
+  }
+  result: {
+    title: string
+    profile: string
+    recommendedPlan: string
+    improvements: string
+    estimated: string
+    priceDisclaimer: string
+    immediate: string
+    recommended: string
+    optional: string
+    profiles: Record<string, string>
+    plans: Record<string, string>
+    confidence: Record<string, string>
+    bookVisit: string
+    requestProposal: string
+    speak: string
+    business: string
+    email: string
+    recommendationNote: string
+    packagesTitle: string
+    packagesBody: string
+    packageRecommended: string
+    packageSelected: string
+    packageDetails: string
+    packageHide: string
+    packageChoose: string
+    packageIncludes: string
+    packageManagement: string
+    grantTitle: string
+    grantBody: string
+    grantIncluded: string
+    grantCaveat: string
+    grantLink: string
+  }
+  submit: { sending: string; success: string; error: string }
+}
+
+const en: WizardCopy = {
+  entry: {
+    eyebrow: 'CasaMia guided plan',
+    title: "Let's make your home safer",
+    body: 'Answer a few questions, add photos or videos, or tell us in your own words.',
+    start: 'Start',
+    time: 'Most people finish in under 3 minutes.',
+    resume: 'Continue saved plan',
+  },
+  nav: { back: 'Back', continue: 'Continue', skip: 'Skip', save: 'Save for later', saved: 'Saved on this device', startAgain: 'Start again' },
+  progress: { label: 'Wizard progress', step: 'Step', of: 'of' },
+  micro: { chooseOne: 'Choose one', chooseAll: 'Choose all that apply', changeLater: 'You can change this later', optional: 'You can skip this', notSure: "Not sure? That's okay" },
+  userType: { title: 'Who is this for?', body: 'We will adapt the questions to you.', options: { me: 'Me', family: 'Family', client: 'My facility or business' } },
+  methods: {
+    title: 'How would you like to continue?',
+    body: "Choose one route. We'll guide you from there.",
+    options: { questions: 'Questions', photos: 'Photos or videos', voice: 'Voice', call: 'Call', visit: 'Visit' },
+    descriptions: { questions: 'Simple guided choices', photos: 'Show us the home', voice: 'Tell us naturally', call: 'Speak with CasaMia', visit: 'Professional inspection' },
+  },
+  homeType: { title: 'What kind of home is it?', familyTitle: 'What kind of home do they live in?', options: { apartment: 'Apartment', house: 'House', villa: 'Villa', other: 'Other' } },
+  floors: { title: 'How many floors?', familyTitle: 'How many floors does their home have?', options: { one: 'One', two: 'Two', 'three-plus': 'Three+' } },
+  stairs: { title: 'Where are the steps or stairs?', familyTitle: 'Where are their steps or stairs?', options: { none: 'None', inside: 'Inside', outside: 'Outside', both: 'Both' } },
+  areas: {
+    title: 'Where would you like more confidence?',
+    familyTitle: 'Which areas worry you most?',
+    options: { bathroom: 'Bathroom', bedroom: 'Bedroom', kitchen: 'Kitchen', 'living-room': 'Living room', stairs: 'Stairs', entrance: 'Entrance', outdoor: 'Outdoor', lighting: 'Lighting', 'smart-safety': 'Smart safety', 'not-sure': 'Not sure' },
+    viewPackage: "View what's included",
+    viewAll: 'Browse all options',
+    packageTitle: 'current options',
+    allOptionsTitle: 'All current options',
+    catalogueEyebrow: 'CasaMia service catalogue',
+    packageIntro: 'These are the current active services from our catalogue. Your final package will be tailored after we review the home.',
+    currentOptions: 'active options',
+    includes: 'Includes',
+    emptyPackage: 'No options are listed for this area yet. You can still select it and we will review it with you.',
+    close: 'Close',
+  },
+  mobility: { title: 'What support is used day to day?', options: { independent: 'Independent', cane: 'Cane', walker: 'Walker', wheelchair: 'Wheelchair', assistance: 'Assistance', 'prefer-not': 'Prefer not to say' } },
+  challenges: { title: 'What feels most difficult?', options: { falls: 'Falls', balance: 'Balance', vision: 'Vision', strength: 'Strength', memory: 'Memory', arthritis: 'Arthritis', 'night-movement': 'Night movement', 'emergency-support': 'Emergency support', 'general-prevention': 'Prevention', other: 'Other' } },
+  risks: { title: 'What have you noticed at home?', familyTitle: 'What have you noticed in their home?', options: { 'slippery-floors': 'Slippery floors', 'poor-lighting': 'Poor lighting', 'loose-rugs': 'Loose rugs', 'difficult-stairs': 'Difficult stairs', 'high-thresholds': 'High thresholds', 'hard-to-reach-storage': 'Hard-to-reach storage', 'unsafe-bathroom': 'Unsafe bathroom', 'no-emergency-alert': 'No emergency alert', 'not-sure': 'Not sure' } },
+  urgency: { title: 'When would you like to act?', options: { planning: 'Planning', soon: 'Soon', urgent: 'Urgent' } },
+  notes: { title: 'Anything else we should know?', body: 'A short note is enough.', placeholder: 'Tell us what feels difficult, unsafe or worrying...' },
+  client: {
+    typeTitle: 'What type of organisation?', siteTitle: 'How many properties or sites?', needTitle: 'What do you need most?', locationTitle: 'Where do you need support?', locationPlaceholder: 'City, region or service area',
+    types: { 'care-provider': 'Care provider', 'property-manager': 'Property manager', clinic: 'Clinic', hospital: 'Hospital', residence: 'Residence', business: 'Business', 'public-body': 'Public body', other: 'Other' },
+    sites: { one: 'One', '2-5': '2-5', '6-20': '6-20', '20-plus': '20+' },
+    needs: { 'safety-audits': 'Safety audits', 'home-adaptations': 'Home adaptations', 'smart-safety': 'Smart safety', 'staff-support': 'Staff support', accessibility: 'Accessibility', 'portfolio-review': 'Portfolio review', other: 'Other' },
+  },
+  photos: {
+    title: 'Show us the home',
+    body: "Photos and short videos help us understand the space. Upload only what you're comfortable sharing.",
+    add: 'Add photos or videos',
+    remove: 'Remove file',
+    room: 'Room',
+    empty: 'No photos or videos added yet',
+    rules: 'JPG, PNG, WebP, MP4, WebM or MOV. Up to 8 files, including 3 videos. Images up to 8 MB, videos up to 50 MB, 100 MB total. Files upload privately when you submit; keep this page open.',
+    image: 'Photo',
+    video: 'Video',
+    otherRoom: 'Other',
+    count: (count) => `${count} of 8 files added`,
+    errors: {
+      unsupported: (name) => `${name} is not a supported photo or video format.`,
+      imageTooLarge: (name) => `${name} is larger than the 8 MB image limit.`,
+      videoTooLarge: (name) => `${name} is larger than the 50 MB video limit.`,
+      tooManyFiles: 'You can add up to 8 files.',
+      tooManyVideos: 'You can add up to 3 videos.',
+      totalTooLarge: 'The selected files would exceed the 100 MB total limit.',
+    },
+  },
+  voice: { title: 'Tell us about your home', body: 'Speak naturally. Tell us what feels difficult, unsafe or worrying.', start: 'Start', pause: 'Pause', resume: 'Resume', stop: 'Stop', delete: 'Delete', unsupported: 'Voice recording is not supported on this device. You can type a note instead.', recorded: 'Voice note ready' },
+  phone: { title: 'Prefer to speak with us?', body: 'We can complete the assessment with you by phone.', call: 'Call CasaMia', whatsapp: 'WhatsApp', email: 'Email CasaMia', reference: 'Your reference', unavailable: 'Our phone line is being configured. Continue and choose Phone or WhatsApp as your preferred contact.' },
+  visit: { title: 'Professional home safety visit', price: '89 EUR', body: 'A CasaMia professional reviews the home room by room.', credit: 'The 89 EUR fee is deducted from approved CasaMia work above 300 EUR.', example: 'Example: on a 650 EUR project, 561 EUR remains after the visit credit.', book: 'Book visit', without: 'Continue without visit', selected: 'Visit selected' },
+  contact: { title: 'Where should we send your plan?', body: 'Last step. We only need enough to help.', name: 'Full name', phone: 'Phone', email: 'Email', city: 'City / area', method: 'Preferred contact', consent: 'I agree to be contacted by CasaMia about my home safety plan.', privacy: 'We use this only to prepare your plan and contact you. We never sell your data.', phoneOrEmail: 'Add a phone number or email.', invalidEmail: 'Enter a valid email address.', required: 'This field is required.', detect: 'Detect', detecting: 'Finding...', detected: 'Location added', detectError: "We couldn't detect your city. Enter it manually." },
+  result: {
+    title: 'Your personalised home safety plan', profile: 'Safety profile', recommendedPlan: 'Recommended starting point', improvements: 'Your priority actions', estimated: 'Live catalogue estimate', priceDisclaimer: 'A conservative starting estimate using the lowest-priced active option for each relevant area. Your final scope is confirmed after reviewing the home.', immediate: 'Immediate', recommended: 'Recommended', optional: 'Optional',
+    profiles: { prevention: 'Prevention focused', moderate: 'Moderate safety needs', 'high-priority': 'High-priority improvements', 'smart-safety': 'Smart safety recommended', business: 'Business support' },
+    plans: { assessment: 'Home Assessment Plan', 'home-safety': 'Home Safety Plan', 'smart-safety': 'Smart Safety Plan', 'business-consultation': 'Business consultation' },
+    confidence: { early: 'Based on the information provided, this is an early estimate.', supported: 'We used your answers and supporting information to improve this estimate.', inspection: 'Your on-site inspection will confirm the final recommendations and quotation.' },
+    bookVisit: 'Book home visit', requestProposal: 'Request proposal', speak: 'Speak to CasaMia', business: 'Book business consultation', email: 'Email my plan',
+    recommendationNote: 'Recommended from your answers. Compare every option below.', packagesTitle: 'Choose how CasaMia helps', packagesBody: 'Each plan has clear deliverables. Open a card to see exactly what is included.', packageRecommended: 'Recommended for you', packageSelected: 'Selected', packageDetails: 'View deliverables', packageHide: 'Hide deliverables', packageChoose: 'Choose this plan', packageIncludes: 'Included deliverables', packageManagement: 'CasaMia management included', grantTitle: 'Could your project qualify for a grant?', grantBody: 'CasaMia checks possible support and manages the grant process when applicable.', grantIncluded: 'Grant management is included in the displayed service price.', grantCaveat: 'Approval and the final amount are decided by the relevant authority.', grantLink: 'Check grant eligibility',
+  },
+  submit: { sending: 'Uploading and sending...', success: 'Your request has been sent. CasaMia will contact you shortly.', error: 'We could not send this yet. Your answers are saved; keep this page open to retry the selected files.' },
+}
+
+const es: WizardCopy = {
+  entry: { eyebrow: 'Plan guiado CasaMia', title: 'Hagamos tu hogar más seguro', body: 'Responde unas preguntas, añade fotos o vídeos, o cuéntanoslo con tus propias palabras.', start: 'Empezar', time: 'La mayoría termina en menos de 3 minutos.', resume: 'Continuar plan guardado' },
+  nav: { back: 'Atrás', continue: 'Continuar', skip: 'Omitir', save: 'Guardar para después', saved: 'Guardado en este dispositivo', startAgain: 'Empezar de nuevo' },
+  progress: { label: 'Progreso del asistente', step: 'Paso', of: 'de' },
+  micro: { chooseOne: 'Elige una opción', chooseAll: 'Elige todas las que correspondan', changeLater: 'Podrás cambiarlo después', optional: 'Puedes omitir este paso', notSure: '¿No lo sabes? No pasa nada' },
+  userType: { title: '¿Para quién es?', body: 'Adaptaremos las preguntas a tu situación.', options: { me: 'Para mí', family: 'Familiar', client: 'Mi centro o negocio' } },
+  methods: { title: '¿Cómo quieres continuar?', body: 'Elige una forma de continuar. Te guiaremos desde ahí.', options: { questions: 'Preguntas', photos: 'Fotos o vídeos', voice: 'Voz', call: 'Llamada', visit: 'Visita' }, descriptions: { questions: 'Opciones guiadas', photos: 'Muéstranos la vivienda', voice: 'Cuéntanoslo', call: 'Habla con CasaMia', visit: 'Inspección profesional' } },
+  homeType: { title: '¿Qué tipo de vivienda es?', familyTitle: '¿En qué tipo de vivienda vive?', options: { apartment: 'Piso', house: 'Casa', villa: 'Chalet', other: 'Otra' } },
+  floors: { title: '¿Cuántas plantas tiene?', familyTitle: '¿Cuántas plantas tiene su vivienda?', options: { one: 'Una', two: 'Dos', 'three-plus': 'Tres+' } },
+  stairs: { title: '¿Dónde hay escalones o escaleras?', familyTitle: '¿Dónde tiene escalones o escaleras?', options: { none: 'Ninguno', inside: 'Interior', outside: 'Exterior', both: 'Ambos' } },
+  areas: {
+    title: '¿Dónde quieres sentirte más seguro?',
+    familyTitle: '¿Qué zonas te preocupan más?',
+    options: { bathroom: 'Baño', bedroom: 'Dormitorio', kitchen: 'Cocina', 'living-room': 'Salón', stairs: 'Escaleras', entrance: 'Entrada', outdoor: 'Exterior', lighting: 'Iluminación', 'smart-safety': 'Seguridad inteligente', 'not-sure': 'No lo sé' },
+    viewPackage: 'Ver qué incluye',
+    viewAll: 'Ver todas las opciones',
+    packageTitle: 'opciones actuales',
+    allOptionsTitle: 'Todas las opciones actuales',
+    catalogueEyebrow: 'Catálogo de servicios CasaMia',
+    packageIntro: 'Estas son las opciones activas de nuestro catálogo. Adaptaremos el paquete final después de revisar la vivienda.',
+    currentOptions: 'opciones activas',
+    includes: 'Incluye',
+    emptyPackage: 'Todavía no hay opciones publicadas para esta zona. Puedes seleccionarla igualmente y la revisaremos contigo.',
+    close: 'Cerrar',
+  },
+  mobility: { title: '¿Qué apoyo utiliza a diario?', options: { independent: 'Independiente', cane: 'Bastón', walker: 'Andador', wheelchair: 'Silla de ruedas', assistance: 'Ayuda de otra persona', 'prefer-not': 'Prefiero no decirlo' } },
+  challenges: { title: '¿Qué resulta más difícil?', options: { falls: 'Caídas', balance: 'Equilibrio', vision: 'Visión', strength: 'Fuerza', memory: 'Memoria', arthritis: 'Artritis', 'night-movement': 'Moverse de noche', 'emergency-support': 'Ayuda en emergencias', 'general-prevention': 'Prevención', other: 'Otro' } },
+  risks: { title: '¿Qué has observado en casa?', familyTitle: '¿Qué has observado en su casa?', options: { 'slippery-floors': 'Suelos resbaladizos', 'poor-lighting': 'Poca luz', 'loose-rugs': 'Alfombras sueltas', 'difficult-stairs': 'Escaleras difíciles', 'high-thresholds': 'Umbrales altos', 'hard-to-reach-storage': 'Almacenamiento difícil', 'unsafe-bathroom': 'Baño inseguro', 'no-emergency-alert': 'Sin alerta de emergencia', 'not-sure': 'No lo sé' } },
+  urgency: { title: '¿Cuándo quieres actuar?', options: { planning: 'Estoy planificando', soon: 'Pronto', urgent: 'Urgente' } },
+  notes: { title: '¿Hay algo más que debamos saber?', body: 'Una nota breve es suficiente.', placeholder: 'Cuéntanos qué resulta difícil, inseguro o preocupante...' },
+  client: { typeTitle: '¿Qué tipo de organización?', siteTitle: '¿Cuántos centros o inmuebles?', needTitle: '¿Qué necesitáis principalmente?', locationTitle: '¿Dónde necesitáis el servicio?', locationPlaceholder: 'Ciudad, región o zona de servicio', types: { 'care-provider': 'Proveedor de cuidados', 'property-manager': 'Gestor inmobiliario', clinic: 'Clínica', hospital: 'Hospital', residence: 'Residencia', business: 'Empresa', 'public-body': 'Organismo público', other: 'Otro' }, sites: { one: 'Uno', '2-5': '2-5', '6-20': '6-20', '20-plus': '20+' }, needs: { 'safety-audits': 'Auditorías de seguridad', 'home-adaptations': 'Adaptaciones del hogar', 'smart-safety': 'Seguridad inteligente', 'staff-support': 'Apoyo al personal', accessibility: 'Accesibilidad', 'portfolio-review': 'Revisión de cartera', other: 'Otro' } },
+  photos: {
+    title: 'Muéstranos la vivienda',
+    body: 'Las fotos y los vídeos cortos nos ayudan a entender el espacio. Sube solo lo que quieras compartir.',
+    add: 'Añadir fotos o vídeos',
+    remove: 'Eliminar archivo',
+    room: 'Zona',
+    empty: 'Aún no has añadido fotos ni vídeos',
+    rules: 'JPG, PNG, WebP, MP4, WebM o MOV. Hasta 8 archivos, incluidos 3 vídeos. Imágenes de hasta 8 MB, vídeos de hasta 50 MB y 100 MB en total. Se suben de forma privada al enviar; mantén esta página abierta.',
+    image: 'Foto',
+    video: 'Vídeo',
+    otherRoom: 'Otra',
+    count: (count) => `${count} de 8 archivos añadidos`,
+    errors: {
+      unsupported: (name) => `${name} no tiene un formato de foto o vídeo compatible.`,
+      imageTooLarge: (name) => `${name} supera el límite de 8 MB para imágenes.`,
+      videoTooLarge: (name) => `${name} supera el límite de 50 MB para vídeos.`,
+      tooManyFiles: 'Puedes añadir hasta 8 archivos.',
+      tooManyVideos: 'Puedes añadir hasta 3 vídeos.',
+      totalTooLarge: 'Los archivos seleccionados superarían el límite total de 100 MB.',
+    },
+  },
+  voice: { title: 'Cuéntanos cómo es la vivienda', body: 'Habla con naturalidad. Explica qué resulta difícil, inseguro o preocupante.', start: 'Grabar', pause: 'Pausar', resume: 'Continuar', stop: 'Finalizar', delete: 'Eliminar', unsupported: 'Este dispositivo no permite grabar voz. Puedes escribir una nota.', recorded: 'Nota de voz lista' },
+  phone: { title: '¿Prefieres hablar con nosotros?', body: 'Podemos completar la evaluación contigo por teléfono.', call: 'Llamar a CasaMia', whatsapp: 'WhatsApp', email: 'Escribir a CasaMia', reference: 'Tu referencia', unavailable: 'Estamos configurando la línea telefónica. Continúa y elige Teléfono o WhatsApp como contacto preferido.' },
+  visit: { title: 'Visita profesional de seguridad', price: '89 EUR', body: 'Un profesional CasaMia revisará la vivienda estancia por estancia.', credit: 'Los 89 EUR se descuentan de trabajos CasaMia aprobados superiores a 300 EUR.', example: 'Ejemplo: en un proyecto de 650 EUR, quedarían 561 EUR tras aplicar el descuento.', book: 'Reservar visita', without: 'Continuar sin visita', selected: 'Visita seleccionada' },
+  contact: { title: '¿Dónde enviamos tu plan?', body: 'Último paso. Solo pedimos lo necesario para ayudarte.', name: 'Nombre completo', phone: 'Teléfono', email: 'Email', city: 'Ciudad / zona', method: 'Contacto preferido', consent: 'Acepto que CasaMia contacte conmigo sobre mi plan de seguridad.', privacy: 'Solo usamos estos datos para preparar tu plan y contactarte. Nunca los vendemos.', phoneOrEmail: 'Añade un teléfono o email.', invalidEmail: 'Introduce un email válido.', required: 'Este campo es obligatorio.', detect: 'Detectar', detecting: 'Buscando...', detected: 'Ubicación añadida', detectError: 'No hemos podido detectar tu ciudad. Escríbela manualmente.' },
+  result: { title: 'Tu plan personalizado de seguridad', profile: 'Perfil de seguridad', recommendedPlan: 'Punto de partida recomendado', improvements: 'Tus acciones prioritarias', estimated: 'Estimación del catálogo', priceDisclaimer: 'Estimación inicial conservadora basada en la opción activa de menor precio para cada zona relevante. Confirmaremos el alcance final después de revisar la vivienda.', immediate: 'Inmediato', recommended: 'Recomendado', optional: 'Opcional', profiles: { prevention: 'Enfoque preventivo', moderate: 'Necesidades moderadas', 'high-priority': 'Mejoras prioritarias', 'smart-safety': 'Seguridad inteligente recomendada', business: 'Soporte profesional' }, plans: { assessment: 'Plan de evaluación', 'home-safety': 'Plan de seguridad del hogar', 'smart-safety': 'Plan de seguridad inteligente', 'business-consultation': 'Consulta profesional' }, confidence: { early: 'Con la información facilitada, esta es una estimación inicial.', supported: 'Hemos usado tus respuestas y la información adicional para mejorar la estimación.', inspection: 'La visita confirmará las recomendaciones y el presupuesto final.' }, bookVisit: 'Reservar visita', requestProposal: 'Solicitar propuesta', speak: 'Hablar con CasaMia', business: 'Reservar consulta profesional', email: 'Enviar mi plan', recommendationNote: 'Recomendado según tus respuestas. Compara todas las opciones abajo.', packagesTitle: 'Elige cómo te ayuda CasaMia', packagesBody: 'Cada plan tiene entregables claros. Abre una tarjeta para ver todo lo incluido.', packageRecommended: 'Recomendado para ti', packageSelected: 'Seleccionado', packageDetails: 'Ver entregables', packageHide: 'Ocultar entregables', packageChoose: 'Elegir este plan', packageIncludes: 'Entregables incluidos', packageManagement: 'Gestión CasaMia incluida', grantTitle: '¿Tu proyecto puede recibir ayudas?', grantBody: 'CasaMia revisa posibles ayudas y gestiona la solicitud cuando corresponda.', grantIncluded: 'La gestión de ayudas está incluida en el precio del servicio mostrado.', grantCaveat: 'La administración competente decide la concesión y el importe final.', grantLink: 'Comprobar ayudas' },
+  submit: { sending: 'Subiendo y enviando...', success: 'Solicitud enviada. CasaMia contactará contigo pronto.', error: 'No hemos podido enviarla todavía. Tus respuestas están guardadas; mantén esta página abierta para reintentar los archivos.' },
+}
+
+export function getWizardCopy(language: string): WizardCopy {
+  return language.toLowerCase().startsWith('es') ? es : en
+}

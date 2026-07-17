@@ -18609,6 +18609,42 @@ body .hero-section .hero-title .home-accent {
   -webkit-text-stroke-color: var(--blue) !important;
 }
 
+.hero-safety-wizard-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  width: min(100%, 350px);
+  min-height: 64px;
+  margin-top: 24px;
+  border: 1px solid rgba(58, 159, 212, 0.42);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--navy);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 14px 36px rgba(13, 30, 46, 0.1);
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.hero-safety-wizard-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--blue);
+}
+
+.hero-safety-wizard-link > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--navy);
+}
+
+.hero-safety-wizard-link strong {
+  line-height: 1.2;
+}
+
 .hero-underline {
   background: var(--blue) !important;
 }

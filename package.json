@@ -9,11 +9,12 @@
     "build:production": "npm run validate:legal-config && npm run build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "node scripts/legal-launch-checks.mjs && npm run test:auth",
+    "test": "node scripts/legal-launch-checks.mjs && npm run test:auth && npm run test:wizard",
     "test:auth": "node --experimental-strip-types scripts/internal-auth-tests.mjs",
     "test:links": "node scripts/link-checks.mjs",
     "test:configurator": "node --experimental-strip-types scripts/configurator-pricing-tests.mjs",
     "test:voice": "node scripts/voice-assistant-tests.mjs",
+    "test:wizard": "node --experimental-strip-types scripts/home-safety-wizard-tests.mjs",
     "validate:legal-config": "node scripts/validate-legal-config.mjs"
   },
   "dependencies": {

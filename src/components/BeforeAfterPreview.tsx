@@ -16,7 +16,7 @@ export function BeforeAfterPreview() {
   }) as BeforeAfterTransformation[]
 
   return (
-    <section className="section-pad bg-white">
+    <section className="before-after-preview-section section-pad bg-white">
       <div className="site-shell">
         <div className="grid items-end gap-8 lg:grid-cols-[1fr_auto]">
           <div>

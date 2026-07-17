@@ -6,6 +6,17 @@ export type ServiceRoom =
   | 'bathroom'
   | 'connected'
 
+export type ServicePackageArea =
+  | 'bathroom'
+  | 'bedroom'
+  | 'kitchen'
+  | 'living-room'
+  | 'stairs'
+  | 'entrance'
+  | 'outdoor'
+  | 'lighting'
+  | 'smart-safety'
+
 export type PricingType = 'fixed' | 'from' | 'quote_only'
 
 export type QuantityType =
@@ -43,6 +54,7 @@ export type CasaMiaService = {
   dependencies?: string[]
   recommendedWhen?: RecommendationRule[]
   includedItems?: string[]
+  wizardAreas?: ServicePackageArea[]
   safetyNotice?: string
   active: boolean
 }
