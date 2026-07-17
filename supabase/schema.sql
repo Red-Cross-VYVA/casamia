@@ -118,6 +118,9 @@ create table if not exists public.wizard_voice_rate_limits (
   reservation_count integer not null default 1
 );
 
+create index if not exists wizard_voice_rate_limits_window_started_at_idx
+  on public.wizard_voice_rate_limits (window_started_at);
+
 create or replace function public.reserve_wizard_media_upload(
   p_ip_hash text,
   p_limit integer,
@@ -178,6 +181,11 @@ begin
 
   window_length := make_interval(secs => p_window_seconds);
 
+  -- Keep anonymous rate-limit data short-lived. The index above makes this
+  -- opportunistic cleanup cheap as the table grows.
+  delete from public.wizard_voice_rate_limits
+  where window_started_at < now() - interval '2 days';
+
   insert into public.wizard_voice_rate_limits (ip_hash, window_started_at, reservation_count)
   values (p_ip_hash, now(), 1)
   on conflict (ip_hash) do update set
@@ -197,6 +205,26 @@ $$;
 
 revoke all on function public.reserve_wizard_voice_session(text, integer, integer) from public, anon, authenticated;
 grant execute on function public.reserve_wizard_voice_session(text, integer, integer) to service_role;
+
+create or replace function public.release_wizard_voice_session(p_ip_hash text)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if p_ip_hash !~ '^[0-9a-f]{64}$' then
+    return;
+  end if;
+
+  update public.wizard_voice_rate_limits
+  set reservation_count = greatest(reservation_count - 1, 0)
+  where ip_hash = p_ip_hash;
+end;
+$$;
+
+revoke all on function public.release_wizard_voice_session(text) from public, anon, authenticated;
+grant execute on function public.release_wizard_voice_session(text) to service_role;
 
 -- Private media uploaded with home-safety wizard assessments. Object paths are
 -- server-generated and stored in assessment_requests.payload_json. Do not add a

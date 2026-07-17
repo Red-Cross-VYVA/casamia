@@ -85,13 +85,27 @@ export type WizardCopy = {
   voice: {
     title: string
     body: string
+    assistant: string
     start: string
-    pause: string
-    resume: string
+    restart: string
     stop: string
-    delete: string
+    mute: string
+    unmute: string
+    connecting: string
+    ending: string
+    listening: string
+    speaking: string
+    muted: string
+    saved: string
+    clear: string
     unsupported: string
-    recorded: string
+    permission: string
+    error: string
+    privacy: string
+    transcript: string
+    agentLabel: string
+    userLabel: string
+    fallback: string
   }
   phone: { title: string; body: string; call: string; whatsapp: string; email: string; reference: string; unavailable: string }
   visit: {
@@ -228,7 +242,31 @@ const en: WizardCopy = {
       totalTooLarge: 'The selected files would exceed the 100 MB total limit.',
     },
   },
-  voice: { title: 'Tell us about your home', body: 'Speak naturally. Tell us what feels difficult, unsafe or worrying.', start: 'Start', pause: 'Pause', resume: 'Resume', stop: 'Stop', delete: 'Delete', unsupported: 'Voice recording is not supported on this device. You can type a note instead.', recorded: 'Voice note ready' },
+  voice: {
+    title: 'Talk through your home',
+    body: "Have a natural conversation with CasaMia's AI voice assistant. Describe what feels difficult, unsafe or worrying.",
+    assistant: 'CasaMia AI voice assistant',
+    start: 'Start voice conversation',
+    restart: 'Start another conversation',
+    stop: 'End conversation',
+    mute: 'Mute microphone',
+    unmute: 'Unmute microphone',
+    connecting: 'Connecting securely…',
+    ending: 'Ending conversation…',
+    listening: 'Listening to you',
+    speaking: 'CasaMia is speaking',
+    muted: 'Microphone muted',
+    saved: 'Conversation saved',
+    clear: 'Clear conversation',
+    unsupported: 'Live voice conversation is not supported on this device. You can type a note instead.',
+    permission: 'Microphone access is needed to start. Allow access in your browser, then try again.',
+    error: 'The voice assistant could not connect. Try again or type a note below.',
+    privacy: 'By starting, you allow microphone access and ElevenLabs to process the audio for this home-safety conversation. You can stop at any time.',
+    transcript: 'Conversation transcript',
+    agentLabel: 'CasaMia',
+    userLabel: 'You',
+    fallback: 'Prefer to type? Add a note',
+  },
   phone: { title: 'Prefer to speak with us?', body: 'We can complete the assessment with you by phone.', call: 'Call CasaMia', whatsapp: 'WhatsApp', email: 'Email CasaMia', reference: 'Your reference', unavailable: 'Our phone line is being configured. Continue and choose Phone or WhatsApp as your preferred contact.' },
   visit: { title: 'Professional home safety visit', price: '89 EUR', body: 'A CasaMia professional reviews the home room by room.', credit: 'The 89 EUR fee is deducted from approved CasaMia work above 300 EUR.', example: 'Example: on a 650 EUR project, 561 EUR remains after the visit credit.', book: 'Book visit', without: 'Continue without visit', selected: 'Visit selected' },
   contact: { title: 'Where should we send your plan?', body: 'Last step. We only need enough to help.', name: 'Full name', phone: 'Phone', email: 'Email', city: 'City / area', method: 'Preferred contact', consent: 'I agree to be contacted by CasaMia about my home safety plan.', privacy: 'We use this only to prepare your plan and contact you. We never sell your data.', phoneOrEmail: 'Add a phone number or email.', invalidEmail: 'Enter a valid email address.', required: 'This field is required.', detect: 'Detect', detecting: 'Finding...', detected: 'Location added', detectError: "We couldn't detect your city. Enter it manually." },
@@ -295,7 +333,31 @@ const es: WizardCopy = {
       totalTooLarge: 'Los archivos seleccionados superarían el límite total de 100 MB.',
     },
   },
-  voice: { title: 'Cuéntanos cómo es la vivienda', body: 'Habla con naturalidad. Explica qué resulta difícil, inseguro o preocupante.', start: 'Grabar', pause: 'Pausar', resume: 'Continuar', stop: 'Finalizar', delete: 'Eliminar', unsupported: 'Este dispositivo no permite grabar voz. Puedes escribir una nota.', recorded: 'Nota de voz lista' },
+  voice: {
+    title: 'Cuéntanos cómo es la vivienda',
+    body: 'Habla con el asistente de voz con IA de CasaMia. Explica con naturalidad qué resulta difícil, inseguro o preocupante.',
+    assistant: 'Asistente de voz con IA de CasaMia',
+    start: 'Hablar con el asistente',
+    restart: 'Iniciar otra conversación',
+    stop: 'Finalizar conversación',
+    mute: 'Silenciar micrófono',
+    unmute: 'Activar micrófono',
+    connecting: 'Conectando de forma segura…',
+    ending: 'Finalizando conversación…',
+    listening: 'Te estamos escuchando',
+    speaking: 'CasaMia está hablando',
+    muted: 'Micrófono silenciado',
+    saved: 'Conversación guardada',
+    clear: 'Eliminar conversación',
+    unsupported: 'Este dispositivo no permite una conversación de voz en directo. Puedes escribir una nota.',
+    permission: 'Necesitamos acceso al micrófono para empezar. Permítelo en el navegador e inténtalo de nuevo.',
+    error: 'No hemos podido conectar con el asistente de voz. Inténtalo de nuevo o escribe una nota abajo.',
+    privacy: 'Al iniciar, permites el acceso al micrófono y que ElevenLabs procese el audio de esta conversación sobre seguridad en el hogar. Puedes finalizarla cuando quieras.',
+    transcript: 'Transcripción de la conversación',
+    agentLabel: 'CasaMia',
+    userLabel: 'Tú',
+    fallback: '¿Prefieres escribir? Añade una nota',
+  },
   phone: { title: '¿Prefieres hablar con nosotros?', body: 'Podemos completar la evaluación contigo por teléfono.', call: 'Llamar a CasaMia', whatsapp: 'WhatsApp', email: 'Escribir a CasaMia', reference: 'Tu referencia', unavailable: 'Estamos configurando la línea telefónica. Continúa y elige Teléfono o WhatsApp como contacto preferido.' },
   visit: { title: 'Visita profesional de seguridad', price: '89 EUR', body: 'Un profesional CasaMia revisará la vivienda estancia por estancia.', credit: 'Los 89 EUR se descuentan de trabajos CasaMia aprobados superiores a 300 EUR.', example: 'Ejemplo: en un proyecto de 650 EUR, quedarían 561 EUR tras aplicar el descuento.', book: 'Reservar visita', without: 'Continuar sin visita', selected: 'Visita seleccionada' },
   contact: { title: '¿Dónde enviamos tu plan?', body: 'Último paso. Solo pedimos lo necesario para ayudarte.', name: 'Nombre completo', phone: 'Teléfono', email: 'Email', city: 'Ciudad / zona', method: 'Contacto preferido', consent: 'Acepto que CasaMia contacte conmigo sobre mi plan de seguridad.', privacy: 'Solo usamos estos datos para preparar tu plan y contactarte. Nunca los vendemos.', phoneOrEmail: 'Añade un teléfono o email.', invalidEmail: 'Introduce un email válido.', required: 'Este campo es obligatorio.', detect: 'Detectar', detecting: 'Buscando...', detected: 'Ubicación añadida', detectError: 'No hemos podido detectar tu ciudad. Escríbela manualmente.' },

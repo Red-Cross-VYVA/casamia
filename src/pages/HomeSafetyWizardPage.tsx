@@ -35,7 +35,7 @@ import {
   Warehouse,
   type LucideIcon,
 } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ContactDetailsStep } from '../components/wizard/ContactDetailsStep'
@@ -43,7 +43,6 @@ import { PhoneStep } from '../components/wizard/PhoneStep'
 import { PhotoUploadStep } from '../components/wizard/PhotoUploadStep'
 import { PlanResult } from '../components/wizard/PlanResult'
 import { VisitBookingStep } from '../components/wizard/VisitBookingStep'
-import { VoiceInputStep } from '../components/wizard/VoiceInputStep'
 import { WizardChoiceCard } from '../components/wizard/WizardChoiceCard'
 import { WizardLayout } from '../components/wizard/WizardLayout'
 import { WizardPackageDialog, wizardPackageDialogId } from '../components/wizard/WizardPackageDialog'
@@ -72,6 +71,10 @@ import type {
 } from '../types/wizard'
 import { trackEvent } from '../utils/analytics'
 import '../styles/home-safety-wizard.css'
+
+const VoiceInputStep = lazy(() => import('../components/wizard/VoiceInputStep').then((module) => ({
+  default: module.VoiceInputStep,
+})))
 
 type ChoiceOption<T extends string> = { value: T; icon: LucideIcon }
 
@@ -143,6 +146,7 @@ export function HomeSafetyWizardPage() {
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error'>()
   const [packageArea, setPackageArea] = useState<WizardRoom | null>(null)
   const packageTriggerRef = useRef<HTMLButtonElement | null>(null)
+  const trackedVoiceConversationRef = useRef(state.voiceSession?.conversationId)
   const packageServicesByArea = useMemo(
     () => areaOptions.reduce<Record<WizardRoom, CasaMiaService[]>>((areas, option) => {
       areas[option.value] = getServicesForPackageArea(serviceCatalogue.services, option.value)
@@ -328,7 +332,7 @@ export function HomeSafetyWizardPage() {
       case 'photos':
         return <><PhotoUploadStep copy={copy} photos={state.photos} roomLabels={{ bathroom: copy.areas.options.bathroom, bedroom: copy.areas.options.bedroom, kitchen: copy.areas.options.kitchen, 'living-room': copy.areas.options['living-room'], stairs: copy.areas.options.stairs, entrance: copy.areas.options.entrance, outdoor: copy.areas.options.outdoor, other: copy.photos.otherRoom }} onChange={(photos) => { if (photos.length > state.photos.length) trackEvent('wizard_photo_added', { reference: state.wizardReference }); wizard.patchState({ photos }) }} /><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
       case 'voice':
-        return <><VoiceInputStep copy={copy} recording={state.voiceRecording} fallbackNote={state.notes} onFallbackNoteChange={(notes) => wizard.patchState({ notes })} onChange={(voiceRecording) => { if (voiceRecording) trackEvent('wizard_voice_recorded', { reference: state.wizardReference }); wizard.patchState({ voiceRecording }) }} /><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
+        return <><Suspense fallback={<div className="safety-wizard-notice" role="status">{copy.voice.connecting}</div>}><VoiceInputStep copy={copy} fallbackNote={state.notes} language={i18n.language} session={state.voiceSession} userType={state.userType} wizardReference={state.wizardReference} onFallbackNoteChange={(notes) => wizard.patchState({ notes })} onChange={(voiceSession) => { if (voiceSession?.conversationId && trackedVoiceConversationRef.current !== voiceSession.conversationId) { trackedVoiceConversationRef.current = voiceSession.conversationId; trackEvent('wizard_voice_conversation_started', { reference: state.wizardReference }) } else if (!voiceSession) { trackedVoiceConversationRef.current = undefined } wizard.patchState({ voiceSession }) }} /></Suspense><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
       case 'phone':
         return <><PhoneStep copy={copy} reference={state.wizardReference} /><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
       case 'visit':
