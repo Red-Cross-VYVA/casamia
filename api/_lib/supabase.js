@@ -211,9 +211,139 @@ async function requestSupabase(path, init = {}) {
   }
 }
 
+async function requestSupabaseStorage(path, init = {}) {
+  const config = getSupabaseConfig()
+
+  if (config.error) {
+    return config.error
+  }
+
+  const response = await fetch(`${config.supabaseUrl}/storage/v1/${path}`, {
+    ...init,
+    headers: {
+      ...jsonHeaders,
+      apikey: config.serviceRoleKey,
+      Authorization: `Bearer ${config.serviceRoleKey}`,
+      ...(init.headers ?? {}),
+    },
+  })
+  const text = await response.text()
+  let body = {}
+
+  if (text) {
+    try {
+      body = JSON.parse(text)
+    } catch {
+      body = { message: text }
+    }
+  }
+
+  if (!response.ok) {
+    return {
+      ok: false,
+      status: response.status,
+      body: {
+        message: body.message ?? body.error ?? 'Supabase Storage request failed.',
+        details: body.details,
+      },
+    }
+  }
+
+  return {
+    ok: true,
+    status: response.status,
+    body,
+    supabaseUrl: config.supabaseUrl,
+  }
+}
+
+export async function ensurePrivateStorageBucket({ bucket, fileSizeLimit, allowedMimeTypes }) {
+  const existing = await requestSupabaseStorage(`bucket/${encodeURIComponent(bucket)}`, { method: 'GET' })
+  const settings = {
+    public: false,
+    file_size_limit: fileSizeLimit,
+    allowed_mime_types: allowedMimeTypes,
+  }
+
+  if (!existing.ok && existing.status !== 404) return existing
+
+  if (existing.status === 404) {
+    return requestSupabaseStorage('bucket', {
+      body: JSON.stringify({ id: bucket, name: bucket, ...settings }),
+      method: 'POST',
+    })
+  }
+
+  const needsUpdate = existing.body.public !== false
+    || existing.body.file_size_limit !== fileSizeLimit
+    || JSON.stringify(existing.body.allowed_mime_types ?? []) !== JSON.stringify(allowedMimeTypes)
+
+  if (!needsUpdate) return existing
+
+  return requestSupabaseStorage(`bucket/${encodeURIComponent(bucket)}`, {
+    body: JSON.stringify({ id: bucket, name: bucket, ...settings }),
+    method: 'PUT',
+  })
+}
+
+export async function createSignedStorageUploadUrl(bucket, objectPath) {
+  const encodedPath = objectPath.split('/').map(encodeURIComponent).join('/')
+  const result = await requestSupabaseStorage(
+    `object/upload/sign/${encodeURIComponent(bucket)}/${encodedPath}`,
+    { body: '{}', method: 'POST' },
+  )
+
+  if (!result.ok) return result
+
+  const relativeUrl = typeof result.body.url === 'string' ? result.body.url : ''
+  if (!relativeUrl) {
+    return {
+      ok: false,
+      status: 502,
+      body: { message: 'Supabase Storage did not return a signed upload URL.' },
+    }
+  }
+
+  const signedUrl = /^https?:\/\//i.test(relativeUrl)
+    ? relativeUrl
+    : relativeUrl.startsWith('/storage/v1/')
+      ? `${result.supabaseUrl}${relativeUrl}`
+      : `${result.supabaseUrl}/storage/v1${relativeUrl.startsWith('/') ? '' : '/'}${relativeUrl}`
+
+  return {
+    ok: true,
+    status: result.status,
+    body: { signedUrl },
+  }
+}
+
+export async function getStorageObjectInfo(bucket, objectPath) {
+  const encodedPath = objectPath.split('/').map(encodeURIComponent).join('/')
+  return requestSupabaseStorage(
+    `object/info/${encodeURIComponent(bucket)}/${encodedPath}`,
+    { method: 'GET' },
+  )
+}
+
+export async function removeStorageObjects(bucket, objectPaths) {
+  if (!objectPaths.length) return { ok: true, status: 200, body: [] }
+
+  return requestSupabaseStorage(`object/${encodeURIComponent(bucket)}`, {
+    body: JSON.stringify({ prefixes: objectPaths }),
+    method: 'DELETE',
+  })
+}
+
 export async function selectSupabaseRows(tableName, query = 'select=*') {
   return requestSupabase(`${tableName}?${query}`, {
     method: 'GET',
+  })
+}
+
+export async function callSupabaseRpc(functionName, payload = {}) {
+  return requestSupabase(`rpc/${encodeURIComponent(functionName)}`, {
+    body: JSON.stringify(payload),
+    method: 'POST',
   })
 }
 
@@ -224,6 +354,16 @@ export async function upsertSupabaseRow(tableName, payload, onConflict = 'id') {
       Prefer: 'resolution=merge-duplicates,return=representation',
     },
     method: 'POST',
+  })
+}
+
+export async function updateSupabaseRows(tableName, payload, query) {
+  return requestSupabase(`${tableName}?${query}`, {
+    body: JSON.stringify(payload),
+    headers: {
+      Prefer: 'return=representation',
+    },
+    method: 'PATCH',
   })
 }
 

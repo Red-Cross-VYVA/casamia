@@ -9,6 +9,9 @@
     "learnMore": "Mehr erfahren",
     "selectedPhotos": "Ausgewählte Fotos"
   },
+  "wizard": {
+    "cta": "Meinen Sicherheitsplan erstellen"
+  },
   "nav": {
     "home": "Start",
     "howItWorks": "Ablauf",

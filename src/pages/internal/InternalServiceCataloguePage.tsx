@@ -20,6 +20,7 @@ import { InternalLayout } from '../../components/internal/InternalLayout'
 import {
   formatServicePrice,
   getDefaultServiceCatalogue,
+  getDefaultServicePackageAreas,
   getServiceCatalogue,
   loadServiceCatalogue,
   resetServiceCatalogue,
@@ -30,6 +31,7 @@ import type {
   EditableServiceCatalogue,
   PricingType,
   QuantityType,
+  ServicePackageArea,
   ServiceRoom,
 } from '../../types/serviceCatalogue'
 
@@ -54,6 +56,18 @@ const quantityOptions: Array<{ label: string; value: QuantityType }> = [
   { label: 'Per unit', value: 'per_unit' },
   { label: 'Per metre', value: 'per_metre' },
   { label: 'Per square metre', value: 'per_square_metre' },
+]
+
+const packageAreaOptions: Array<{ label: string; value: ServicePackageArea }> = [
+  { label: 'Bathroom', value: 'bathroom' },
+  { label: 'Bedroom', value: 'bedroom' },
+  { label: 'Kitchen', value: 'kitchen' },
+  { label: 'Living room', value: 'living-room' },
+  { label: 'Stairs', value: 'stairs' },
+  { label: 'Entrance', value: 'entrance' },
+  { label: 'Outdoor', value: 'outdoor' },
+  { label: 'Lighting', value: 'lighting' },
+  { label: 'Smart safety', value: 'smart-safety' },
 ]
 
 const defaultRoom: ServiceRoom = 'kitchen'
@@ -149,6 +163,12 @@ export function InternalServiceCataloguePage() {
       requiresSiteVisit: true,
       requiresCompatibilityCheck: true,
       includedItems: ['Included item'],
+      wizardAreas: getDefaultServicePackageAreas({
+        id: `new-${selectedRoom}-service`,
+        name: `New ${label} service`,
+        category: `${currentRoom.label} safety`,
+        room: selectedRoom,
+      }),
       active: false,
     }
 
@@ -534,6 +554,49 @@ function ServiceEditor({
           onChange={(value) => onUpdateService(service.id, { customerBenefit: value })}
         />
       </div>
+
+      <section className="mt-6 rounded-lg border border-border bg-light-blue/40 p-4">
+        <div className="mb-4 flex items-start gap-3">
+          <span className="inline-grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-white text-blue">
+            <PackageCheck size={20} aria-hidden="true" />
+          </span>
+          <div>
+            <h3 className="text-base font-black text-text-dark">Wizard package visibility</h3>
+            <p className="mt-1 text-xs font-bold leading-relaxed text-text-muted">
+              Choose which customer area cards include this service. Changes appear in the public package review after saving.
+            </p>
+          </div>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {packageAreaOptions.map((option) => {
+            const assignedAreas = service.wizardAreas ?? getDefaultServicePackageAreas(service)
+            const checked = assignedAreas.includes(option.value)
+
+            return (
+              <label
+                className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border px-3 py-2 text-sm font-black transition ${
+                  checked
+                    ? 'border-blue bg-white text-navy shadow-sm'
+                    : 'border-border bg-white/55 text-text-muted hover:border-blue'
+                }`}
+                key={option.value}
+              >
+                <input
+                  checked={checked}
+                  className="h-4 w-4 accent-blue"
+                  type="checkbox"
+                  onChange={() => onUpdateService(service.id, {
+                    wizardAreas: checked
+                      ? assignedAreas.filter((area) => area !== option.value)
+                      : [...assignedAreas, option.value],
+                  })}
+                />
+                {option.label}
+              </label>
+            )
+          })}
+        </div>
+      </section>
 
       <section className="mt-6 rounded-lg border border-border bg-pale-blue p-4">
         <div className="mb-4 flex items-start gap-3">

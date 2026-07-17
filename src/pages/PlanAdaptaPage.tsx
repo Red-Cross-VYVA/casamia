@@ -189,10 +189,16 @@ export function PlanAdaptaPage() {
                   {t('pages.planAdapta.terms.body')}
                 </p>
               </div>
-              <Link className="btn btn-navy" to="/terms-and-conditions#grant-management">
-                {t('pages.planAdapta.terms.cta')}
-                <ArrowRight size={20} aria-hidden="true" />
-              </Link>
+              <div className="flex flex-wrap gap-3">
+                <Link className="btn btn-navy" to="/terms-and-conditions#grant-management">
+                  {t('pages.planAdapta.terms.cta')}
+                  <ArrowRight size={20} aria-hidden="true" />
+                </Link>
+                <Link className="btn btn-green" to="/home-safety-wizard">
+                  {t('wizard.cta')}
+                  <ArrowRight size={20} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

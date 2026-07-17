@@ -1,4 +1,5 @@
 import { ArrowRight, Check } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 type PlansProps = {
@@ -13,6 +14,8 @@ const coreFeatures = [
 ]
 
 export function Plans({ standalone = false }: PlansProps) {
+  const { t } = useTranslation()
+
   return (
     <section className={`plans-section section-pad bg-white ${standalone ? 'pt-12' : ''}`} id="plans">
       <div className="site-shell">
@@ -47,6 +50,10 @@ export function Plans({ standalone = false }: PlansProps) {
             </ul>
 
             <div className="mt-8 flex flex-wrap gap-3">
+              <Link className="btn btn-green" to="/home-safety-wizard">
+                {t('wizard.cta')}
+                <ArrowRight size={20} aria-hidden="true" />
+              </Link>
               <Link className="btn btn-green" to="/configure">
                 Build My Safer Home
                 <ArrowRight size={20} aria-hidden="true" />

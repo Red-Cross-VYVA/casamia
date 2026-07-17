@@ -123,6 +123,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
           'Contact details, installation address and communication preferences.',
           'Assessment notes, room risks, access requirements and selected service details.',
           'Property photographs where the customer provides them.',
+          'If the optional voice assistant is used, microphone audio is processed by ElevenLabs to run the conversation. CasaMia may retain the conversation reference and transcript with the assessment, but does not store a separate audio recording in the website.',
           'Accessibility or mobility information needed to assess and deliver the service.',
           'Payment status information from the selected payment provider. CasaMia must not store complete card numbers or CVV.',
         ],
@@ -131,6 +132,11 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
         title: 'Sharing with providers',
         body:
           'Assigned providers should receive only the information necessary for the assigned project and must not use it for their own commercial purposes.',
+      },
+      {
+        title: 'Optional AI voice assistant',
+        body:
+          'The Home Safety Wizard can connect you to a clearly identified AI voice assistant supplied by ElevenLabs. Starting a conversation is optional and requires microphone permission. Audio is sent securely to ElevenLabs for live speech processing, and you can end the conversation at any time. You can use the written note instead.',
       },
       {
         title: 'Privacy contact',

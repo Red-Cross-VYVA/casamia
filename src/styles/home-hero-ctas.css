@@ -1,22 +1,91 @@
-/* Home hero CTAs: a clear primary/secondary pair on the editorial blue hero. */
+/* Home hero actions: one quiet text link followed by a clean primary/secondary pair. */
+body .hero-section .hero-safety-wizard-link {
+  display: inline-flex;
+  width: auto;
+  min-height: 42px;
+  margin-top: 22px;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.94);
+  padding: 0;
+  box-shadow: none;
+  transition: color 160ms ease;
+}
+
+body .hero-section .hero-safety-wizard-link > span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+body .hero-section .hero-safety-wizard-link > span svg {
+  width: 17px;
+  height: 17px;
+}
+
+body .hero-section .hero-safety-wizard-link strong {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.48);
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+body .hero-section .hero-safety-wizard-link > svg {
+  width: 17px;
+  height: 17px;
+  transition: transform 160ms ease;
+}
+
+body .hero-section .hero-safety-wizard-link:hover {
+  border-color: transparent;
+  color: #ffffff;
+  transform: none;
+}
+
+body .hero-section .hero-safety-wizard-link:hover > svg {
+  transform: translateX(3px);
+}
+
+body .hero-section .hero-safety-wizard-link:focus-visible {
+  border-radius: 4px;
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
 body .hero-section .free-check-grid {
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+  width: min(100%, 540px);
   align-items: stretch;
-  gap: 12px;
+  gap: 10px;
 }
 
 body .hero-section .free-check-card {
-  grid-template-columns: 42px minmax(0, 1fr) 34px;
-  min-height: 78px;
-  gap: 12px;
-  border-radius: 14px;
-  padding: 12px 14px;
+  grid-template-columns: 22px minmax(0, 1fr) 20px;
+  min-height: 56px;
+  gap: 10px;
+  overflow: visible;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 999px;
+  padding: 0 18px;
+  cursor: pointer;
   font: inherit;
+  text-align: left;
   isolation: isolate;
   transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease;
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 body .hero-section .free-check-card::before {
@@ -25,68 +94,80 @@ body .hero-section .free-check-card::before {
 }
 
 body .hero-section .free-check-card.is-primary {
-  border-color: rgba(255, 255, 255, 0.74);
-  background-color: #dfff5f !important;
-  background-image: linear-gradient(135deg, #e8ff88 0%, #d7f450 100%) !important;
-  color: #062438;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.72),
-    0 16px 30px rgba(2, 30, 53, 0.2);
+  border-color: rgba(255, 255, 255, 0.96);
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #083654;
+  box-shadow: 0 10px 24px rgba(2, 30, 53, 0.16);
 }
 
 body .hero-section .free-check-card.is-grant {
-  border-color: rgba(255, 255, 255, 0.3);
-  background-color: #073f69 !important;
-  background-image: linear-gradient(145deg, #084b7c 0%, #063858 100%) !important;
+  border-color: rgba(255, 255, 255, 0.34);
+  background-color: rgba(5, 48, 74, 0.34) !important;
+  background-image: none !important;
   color: #ffffff;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 16px 30px rgba(2, 30, 53, 0.2);
+  box-shadow: none;
+  backdrop-filter: blur(8px);
 }
 
 body .hero-section .free-check-card .free-check-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
 }
 
 body .hero-section .free-check-card.is-primary .free-check-icon {
-  border-color: rgba(6, 36, 56, 0.13);
-  background: rgba(255, 255, 255, 0.52);
-  color: #073f69;
+  border-color: transparent;
+  background: transparent;
+  color: #1b5e8a;
 }
 
 body .hero-section .free-check-card.is-grant .free-check-icon {
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-  color: #dfff5f;
+  border-color: transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+body .hero-section .free-check-card .free-check-icon svg {
+  width: 21px;
+  height: 21px;
 }
 
 body .hero-section .free-check-copy strong {
-  font-size: clamp(16px, 1.05vw, 19px);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.015em;
+  font-size: clamp(15px, 1vw, 17px);
+  font-weight: 780;
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  overflow-wrap: anywhere;
 }
 
 body .hero-section .free-check-card .free-check-arrow {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
 }
 
+body .hero-section .free-check-card .free-check-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
 body .hero-section .free-check-card.is-primary .free-check-arrow {
-  border-color: #062438;
-  background: #062438;
-  color: #ffffff;
+  border-color: transparent;
+  background: transparent;
+  color: #1b5e8a;
 }
 
 body .hero-section .free-check-card.is-grant .free-check-arrow {
-  border-color: #dfff5f;
-  background: #dfff5f;
-  color: #062438;
+  border-color: transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 body .hero-section .free-check-card:hover {
@@ -95,24 +176,20 @@ body .hero-section .free-check-card:hover {
 
 body .hero-section .free-check-card.is-primary:hover {
   border-color: #ffffff;
-  background-color: #e8ff88 !important;
-  background-image: linear-gradient(135deg, #efffa5 0%, #dfff5f 100%) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.78),
-    0 20px 38px rgba(2, 30, 53, 0.26);
+  background-color: #f2f9fc !important;
+  background-image: none !important;
+  box-shadow: 0 14px 28px rgba(2, 30, 53, 0.2);
 }
 
 body .hero-section .free-check-card.is-grant:hover {
   border-color: rgba(255, 255, 255, 0.58);
-  background-color: #084b7c !important;
-  background-image: linear-gradient(145deg, #0a578d 0%, #073f69 100%) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 20px 38px rgba(2, 30, 53, 0.27);
+  background-color: rgba(5, 48, 74, 0.5) !important;
+  background-image: none !important;
+  box-shadow: none;
 }
 
 body .hero-section .free-check-card:hover .free-check-arrow {
-  transform: translateX(2px);
+  transform: translateX(3px);
 }
 
 body .hero-section .free-check-card:active {
@@ -122,48 +199,52 @@ body .hero-section .free-check-card:active {
 body .hero-section .free-check-card:focus-visible {
   outline: 3px solid #ffffff;
   outline-offset: 4px;
-  box-shadow:
-    0 0 0 2px #0a67a9,
-    0 18px 34px rgba(2, 30, 53, 0.25);
+  box-shadow: 0 0 0 2px #0a67a9;
 }
 
 @media (max-width: 767px) {
+  body .hero-section .hero-safety-wizard-link {
+    margin-top: 20px;
+  }
+
   body .hero-section .free-check-grid {
     grid-template-columns: 1fr;
-    gap: 10px;
+    width: 100%;
+    gap: 9px;
   }
 
   body .hero-section .free-check-card {
-    grid-template-columns: 40px minmax(0, 1fr) 32px;
-    min-height: 70px;
-    gap: 11px;
-    padding: 11px 13px;
+    grid-template-columns: 21px minmax(0, 1fr) 19px;
+    min-height: 54px;
+    gap: 10px;
+    padding: 0 17px;
   }
 
   body .hero-section .free-check-card .free-check-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 11px;
+    width: 21px;
+    height: 21px;
   }
 
   body .hero-section .free-check-card .free-check-arrow {
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
+    width: 19px;
+    height: 19px;
   }
 
   body .hero-section .free-check-copy strong {
-    font-size: 17px;
-    line-height: 1.12;
+    font-size: 16px;
+    line-height: 1.15;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body .hero-section .hero-safety-wizard-link,
+  body .hero-section .hero-safety-wizard-link > svg,
   body .hero-section .free-check-card,
   body .hero-section .free-check-card .free-check-arrow {
     transition: none;
   }
 
+  body .hero-section .hero-safety-wizard-link:hover > svg,
   body .hero-section .free-check-card:hover,
   body .hero-section .free-check-card:hover .free-check-arrow {
     transform: none;
@@ -171,6 +252,7 @@ body .hero-section .free-check-card:focus-visible {
 }
 
 @media (forced-colors: active) {
+  body .hero-section .hero-safety-wizard-link,
   body .hero-section .free-check-card {
     border: 2px solid ButtonText;
   }

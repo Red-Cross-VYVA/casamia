@@ -58,6 +58,11 @@ const FreeHomeSafetyAssessmentPage = lazy(() =>
     default: FreeHomeSafetyAssessmentPage,
   })),
 )
+const HomeSafetyWizardPage = lazy(() =>
+  import('./pages/HomeSafetyWizardPage').then(({ HomeSafetyWizardPage }) => ({
+    default: HomeSafetyWizardPage,
+  })),
+)
 const GrantEligibilityPage = lazy(() =>
   import('./pages/GrantEligibilityPage').then(({ GrantEligibilityPage }) => ({ default: GrantEligibilityPage })),
 )
@@ -212,11 +217,12 @@ function InternalRoute({ children }: { children: ReactNode }) {
 function AppRoutes() {
   const location = useLocation()
   const isInternalRoute = location.pathname.startsWith('/internal')
+  const isFocusedWizardRoute = location.pathname === '/home-safety-wizard'
 
   return (
     <>
       <ScrollManager />
-      {isInternalRoute ? null : <Nav />}
+      {isInternalRoute || isFocusedWizardRoute ? null : <Nav />}
       <main>
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
@@ -249,6 +255,7 @@ function AppRoutes() {
             <Route path="/why-us" element={<WhyCasamiaPage />} />
             <Route path="/why-casamia" element={<Navigate to="/why-us" replace />} />
             <Route path="/home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
+            <Route path="/home-safety-wizard" element={<HomeSafetyWizardPage />} />
             <Route path="/free-home-safety-assessment" element={<LegacyAssessmentRedirect />} />
             <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
             <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
@@ -281,9 +288,9 @@ function AppRoutes() {
           </Routes>
         </Suspense>
       </main>
-      {isInternalRoute ? null : <Footer />}
+      {isInternalRoute || isFocusedWizardRoute ? null : <Footer />}
       {isInternalRoute ? null : <CookieConsent />}
-      {isInternalRoute ? null : <StickyMobileCTA />}
+      {isInternalRoute || isFocusedWizardRoute ? null : <StickyMobileCTA />}
     </>
   )
 }

@@ -9,6 +9,9 @@
     "learnMore": "Meer informatie",
     "selectedPhotos": "Geselecteerde foto's"
   },
+  "wizard": {
+    "cta": "Mijn veiligheidsplan maken"
+  },
   "nav": {
     "home": "Home",
     "howItWorks": "Proces",

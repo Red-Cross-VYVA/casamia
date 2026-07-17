@@ -18,6 +18,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { TrustBar } from '../components/TrustBar'
@@ -165,6 +166,8 @@ const addOns: AddOn[] = [
 ]
 
 export function PlansPage() {
+  const { t } = useTranslation()
+
   useEffect(() => {
     document.title = 'CasaMia Safety Services | CasaMia'
   }, [])
@@ -181,6 +184,10 @@ export function PlansPage() {
               confirms what fits, and coordinates the work.
             </p>
             <div className="plans-hero-actions">
+              <Link className="btn btn-green" to="/home-safety-wizard">
+                {t('wizard.cta')}
+                <ArrowRight size={20} aria-hidden="true" />
+              </Link>
               <Link className="btn btn-green" to="/configure">
                 Build My Safer Home
                 <ArrowRight size={20} aria-hidden="true" />
@@ -354,6 +361,10 @@ export function PlansPage() {
             </div>
             <Link className="btn btn-green" to="/configure">
               Build My Safer Home
+              <ArrowRight size={20} aria-hidden="true" />
+            </Link>
+            <Link className="btn btn-white" to="/home-safety-wizard">
+              {t('wizard.cta')}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
           </div>

@@ -1,6 +1,6 @@
-import { buildAssessmentCustomerConfirmation } from './customerConfirmationTemplate'
-import { buildAssessmentLeadNotification } from './leadNotificationTemplate'
-import { getPublicSiteApiBaseUrl, hasPublicSiteApi } from './publicSiteApi'
+import { buildAssessmentCustomerConfirmation } from './customerConfirmationTemplate.ts'
+import { buildAssessmentLeadNotification } from './leadNotificationTemplate.ts'
+import { getPublicSiteApiBaseUrl, hasPublicSiteApi } from './publicSiteApi.ts'
 
 export type AssessmentRequestInput = {
   name: string
@@ -12,19 +12,61 @@ export type AssessmentRequestInput = {
   message: string
   selectedPlan: string
   consentAt: string
+  consentConfirmed?: boolean
   source: string
   reportToken?: string
+  wizardReference?: string
+  mediaManifest?: AssessmentMediaManifestItem[]
 }
 
-const assessmentSubmitUrl = (import.meta.env.VITE_ASSESSMENT_SUBMIT_URL ?? '').trim()
+export type AssessmentMediaManifestItem = {
+  id: string
+  kind: 'image' | 'video'
+  name: string
+  room: string
+  size: number
+  type: string
+}
+
+export type AssessmentMediaUpload = {
+  mediaId: string
+  kind: 'image' | 'video'
+  bucket: string
+  objectPath: string
+  signedUrl: string
+}
+
+export type AssessmentSubmissionResponse = {
+  id?: string
+  uploadToken?: string
+  uploads?: AssessmentMediaUpload[]
+}
+
+export type AssessmentMediaFinalizeResponse = {
+  mediaManifest?: Array<Pick<AssessmentMediaUpload, 'kind' | 'bucket' | 'objectPath'> & { mediaId: string }>
+  ok?: boolean
+  retryAfterMs?: number
+  status?: string
+}
+
+const viteEnv = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+const assessmentSubmitUrl = (viteEnv.VITE_ASSESSMENT_SUBMIT_URL ?? '').trim()
 const publicApiBase = getPublicSiteApiBaseUrl()
 const assessmentEndpoint =
   assessmentSubmitUrl || (hasPublicSiteApi() ? `${publicApiBase}/api/public/assessment-requests` : '')
+const configuredFinalizeUrl = (viteEnv.VITE_ASSESSMENT_MEDIA_FINALIZE_URL ?? '').trim()
+const assessmentFinalizeEndpoint = configuredFinalizeUrl
+  || (assessmentEndpoint.endsWith('/api/public/assessment-requests')
+    ? assessmentEndpoint.replace(/\/assessment-requests$/, '/assessment-media-finalize')
+    : '')
 const ASSESSMENT_VISIT_FEE = '99 EUR'
 
 export async function submitAssessmentRequest(input: AssessmentRequestInput) {
   if (!assessmentEndpoint) {
     throw new Error('Assessment submission endpoint is not configured.')
+  }
+  if (input.mediaManifest?.length && !assessmentFinalizeEndpoint) {
+    throw new Error('Media upload is not configured for the current assessment endpoint.')
   }
 
   const submittedAt = new Date().toISOString()
@@ -62,6 +104,65 @@ export async function submitAssessmentRequest(input: AssessmentRequestInput) {
   if (!response.ok) {
     throw new Error(await readSubmissionError(response))
   }
+
+  const responseText = await response.text()
+  if (!responseText) return {}
+
+  try {
+    return JSON.parse(responseText) as AssessmentSubmissionResponse
+  } catch {
+    if (input.mediaManifest?.length) {
+      throw new Error('The assessment endpoint did not return a compatible media upload response.')
+    }
+    return {}
+  }
+}
+
+export async function finalizeAssessmentMedia(
+  assessmentId: string,
+  uploadToken: string,
+  action: 'complete' | 'failed',
+) {
+  if (!assessmentFinalizeEndpoint) {
+    throw new Error('Media finalization endpoint is not configured.')
+  }
+
+  const maximumAttempts = 10
+
+  for (let attempt = 0; attempt < maximumAttempts; attempt += 1) {
+    const response = await fetch(assessmentFinalizeEndpoint, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ action, assessmentId, uploadToken }),
+    })
+    const responseText = await response.text()
+    let body: AssessmentMediaFinalizeResponse & { message?: string; error?: string } = {}
+
+    if (responseText) {
+      try {
+        body = JSON.parse(responseText) as typeof body
+      } catch {
+        if (!response.ok) throw new Error('Assessment request could not be submitted.')
+      }
+    }
+
+    if (response.status === 202) {
+      if (attempt === maximumAttempts - 1) {
+        throw new Error('Your photos and videos are still being secured. Please try again in a moment.')
+      }
+      const retryAfterMs = Math.min(Math.max(Number(body.retryAfterMs) || 750, 250), 1500)
+      await new Promise((resolve) => setTimeout(resolve, retryAfterMs))
+      continue
+    }
+
+    if (!response.ok) {
+      throw new Error(body.message ?? body.error ?? 'Assessment request could not be submitted.')
+    }
+
+    return body
+  }
+
+  throw new Error('Your photos and videos could not be finalized. Please try again.')
 }
 
 async function readSubmissionError(response: Response) {

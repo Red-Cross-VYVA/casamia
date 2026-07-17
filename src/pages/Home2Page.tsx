@@ -3,6 +3,7 @@ import { EuroSafe } from '../components/EuroSafe'
 import { FinalCTA } from '../components/FinalCTA'
 import { Grants } from '../components/Grants'
 import { Hero } from '../components/Hero'
+import { ManufacturerMarquee } from '../components/ManufacturerMarquee'
 import { Plans } from '../components/Plans'
 import { Prevention } from '../components/Prevention'
 import { SampleReportPreview } from '../components/SampleReportPreview'
@@ -18,6 +19,7 @@ export function Home2Page() {
       <TrustBar />
       <Prevention />
       <BeforeAfterPreview />
+      <ManufacturerMarquee />
       <WhatWeOffer />
       <SampleReportPreview />
       <TrustSection />
