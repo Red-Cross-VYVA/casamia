@@ -12,6 +12,7 @@ type WizardLayoutProps = {
   totalSteps: number
   progress: number
   canGoBack: boolean
+  canSave?: boolean
   saved: boolean
   onBack: () => void
   onSave: () => void
@@ -24,6 +25,7 @@ export function WizardLayout({
   totalSteps,
   progress,
   canGoBack,
+  canSave = true,
   saved,
   onBack,
   onSave,
@@ -33,16 +35,18 @@ export function WizardLayout({
       <div className="safety-wizard-shell">
         <header className="safety-wizard-toolbar">
           <BrandLogo />
-          <button
-            aria-label={saved ? copy.nav.saved : copy.nav.save}
-            className="safety-wizard-save"
-            title={saved ? copy.nav.saved : copy.nav.save}
-            type="button"
-            onClick={onSave}
-          >
-            <BookmarkCheck size={19} aria-hidden="true" />
-            <span>{saved ? copy.nav.saved : copy.nav.save}</span>
-          </button>
+          {canSave ? (
+            <button
+              aria-label={saved ? copy.nav.saved : copy.nav.save}
+              className="safety-wizard-save"
+              title={saved ? copy.nav.saved : copy.nav.save}
+              type="button"
+              onClick={onSave}
+            >
+              <BookmarkCheck size={19} aria-hidden="true" />
+              <span>{saved ? copy.nav.saved : copy.nav.save}</span>
+            </button>
+          ) : null}
         </header>
 
         {currentIndex > 0 ? (

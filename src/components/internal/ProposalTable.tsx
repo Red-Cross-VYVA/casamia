@@ -14,7 +14,7 @@ export function ProposalTable({ proposals }: { proposals: ProposalData[] }) {
       <div className="flex flex-col gap-4 border-b border-border p-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="font-display text-3xl font-bold text-text-dark">Proposal pipeline</h2>
-          <p className="mt-1 text-sm text-text-mid">Saved local drafts plus mock customer proposals.</p>
+          <p className="mt-1 text-sm text-text-mid">Customer proposals saved through the protected operations API.</p>
         </div>
         <Link className="btn btn-green w-full sm:w-auto" to="/internal/proposal-generator">
           <Plus size={18} aria-hidden="true" />

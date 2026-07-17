@@ -110,9 +110,14 @@ The Home Safety Wizard can submit a callback request to the server-only
 
 The endpoint accepts only the CasaMia site origins, caps JSON bodies at 16 KB,
 validates Spanish phone numbers and callback dates, requires explicit contact
-consent, and allows five requests per anonymous IP hash every 30 minutes. Apply
-the latest `supabase/schema.sql` before enabling the callback card so the atomic
-rate-limit function is available.
+consent, records the exact consent wording, and allows five requests per anonymous
+IP hash every 30 minutes. Each callback flow uses a private, high-entropy retry
+token that is never shown as the customer's reference. Database inserts ignore
+duplicate tokens, so a network retry cannot overwrite customer details, consent
+evidence, timestamps, or an administrator's status change. Browser and Supabase
+calls have bounded request deadlines. Apply the latest `supabase/schema.sql`
+before enabling the callback card so the unique idempotency column and atomic
+rate-limit function are available.
 
 An independent rate-limit secret is optional but recommended:
 

@@ -4,6 +4,7 @@ import {
   mockStripeConfiguratorAdapter,
 } from './configuratorAdapters'
 import { calculateConfiguratorQuote } from './configuratorPricing'
+import { hasPublicSiteApi, postPublicSiteJson } from './publicSiteApi'
 import { getSubmittedConfigurationStorageKey } from '../context/ConfiguratorContext'
 import type { ConfiguratorState, WizardSubmission } from '../types/configurator'
 
@@ -11,6 +12,7 @@ export async function submitConfiguratorRequest(state: ConfiguratorState) {
   const submission = createWizardSubmission(state, 'web-configurator')
   const saved = await mockAirtableConfiguratorAdapter.saveSubmission(submission)
   await mockEmailConfiguratorAdapter.sendConfirmation(submission)
+  await saveConfiguratorOrder(submission, 'Quote requested', 'quote-request')
 
   return { submission, saved }
 }
@@ -19,8 +21,35 @@ export async function createMockDepositCheckout(state: ConfiguratorState) {
   const submission = createWizardSubmission(state, 'web-configurator-deposit')
   await mockAirtableConfiguratorAdapter.saveSubmission(submission)
   await mockEmailConfiguratorAdapter.sendConfirmation(submission)
+  await saveConfiguratorOrder(submission, 'Visit requested', 'visit-deposit-pending')
 
   return mockStripeConfiguratorAdapter.createDepositCheckout(submission)
+}
+
+async function saveConfiguratorOrder(
+  submission: WizardSubmission,
+  status: 'Quote requested' | 'Visit requested',
+  paymentMethod: string,
+) {
+  if (!hasPublicSiteApi()) return
+
+  await postPublicSiteJson('/api/public/orders', {
+    ...submission,
+    address: submission.customer.address,
+    createdAt: submission.timestamp,
+    email: submission.customer.email,
+    name: submission.customer.fullName,
+    notes: submission.customer.notes,
+    orderId: submission.configurationId,
+    paymentMethod,
+    phone: submission.customer.telephone,
+    planId: submission.selectedServices.map((service) => service.serviceId).join(','),
+    planLabel: `${submission.selectedServices.length} selected improvements`,
+    planPrice: `${submission.totalEstimate} EUR`,
+    postcode: submission.property.postcode,
+    preferredTiming: submission.customer.preferredContact,
+    status,
+  })
 }
 
 export function createWizardSubmission(state: ConfiguratorState, source: string): WizardSubmission {

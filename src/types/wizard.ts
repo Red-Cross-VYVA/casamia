@@ -136,6 +136,7 @@ export type WizardCallbackRequest = {
   preferredDate: string
   preferredTimeWindow: WizardCallbackTimeWindow | ''
   note: string
+  consent: boolean
 }
 
 export type WizardCallbackSubmission = {

@@ -5,12 +5,18 @@ import {
   Camera,
   CheckCircle2,
   ClipboardCheck,
+  CookingPot,
+  DoorOpen,
   FileText,
   HeartHandshake,
   Home,
   Lightbulb,
+  Mail,
   MapPin,
+  MessageCircle,
+  Mic,
   MonitorCheck,
+  PhoneCall,
   ShieldCheck,
   Sparkles,
   type LucideIcon,
@@ -20,23 +26,29 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { BrandLogo } from '../components/BrandLogo'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import { TrustBar } from '../components/TrustBar'
+import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE, CASAMIA_WHATSAPP_URL } from '../constants/contact'
 import { IMAGE_URLS } from '../constants/shopify'
 import { serviceVisuals } from '../constants/serviceVisuals'
+import '../styles/how-it-works-process.css'
 
 type HowIconName =
   | 'badge'
   | 'camera'
   | 'check'
   | 'clipboard'
+  | 'door'
   | 'file'
   | 'heart'
   | 'home'
   | 'light'
   | 'map'
   | 'monitor'
+  | 'phone'
+  | 'kitchen'
   | 'shield'
   | 'sparkles'
   | 'wrench'
@@ -78,6 +90,8 @@ type HowCopy = {
   reviewTitle: string
   reviewBody: string
   reviewCta: string
+  previousRoomLabel: string
+  nextRoomLabel: string
   reviewAreas: Array<{
     icon: HowIconName
     title: string
@@ -120,15 +134,106 @@ const howIcons: Record<HowIconName, LucideIcon> = {
   camera: Camera,
   check: CheckCircle2,
   clipboard: ClipboardCheck,
+  door: DoorOpen,
   file: FileText,
   heart: HeartHandshake,
   home: Home,
   light: Lightbulb,
   map: MapPin,
   monitor: MonitorCheck,
+  phone: PhoneCall,
+  kitchen: CookingPot,
   shield: ShieldCheck,
   sparkles: Sparkles,
   wrench: Wrench,
+}
+
+type ServiceChannelKey = 'online' | 'voice' | 'whatsapp' | 'call' | 'email'
+
+type EasyProcessCopy = {
+  title: string
+  body: string
+  heroOutcomeEyebrow: string
+  heroOutcomeText: string
+  channelsTitle: string
+  channelsBody: string
+  humanAlt: string
+  oneTeamLabel: string
+  channels: Array<{ key: ServiceChannelKey; title: string; body: string }>
+  steps: Array<{ title: string; body: string }>
+}
+
+const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
+  en: {
+    title: 'Start your way.',
+    body: 'CasaMia handles the rest.',
+    heroOutcomeEyebrow: 'What you receive',
+    heroOutcomeText: 'Clear priorities, a quote before you decide, and CasaMia coordinating the work.',
+    channelsTitle: 'Choose a channel',
+    channelsBody: 'Every route reaches the same CasaMia team.',
+    humanAlt: 'Older woman smiling while using her smartphone at home',
+    oneTeamLabel: 'One team, from start to finish',
+    channels: [
+      { key: 'online', title: 'Online', body: 'Simple guided questions' },
+      { key: 'voice', title: 'Voice', body: 'Tell us naturally' },
+      { key: 'whatsapp', title: 'WhatsApp', body: 'Message us from your phone' },
+      { key: 'call', title: 'Phone', body: 'Call us or request a callback' },
+      { key: 'email', title: 'Email', body: 'hola@casamia.com.es' },
+    ],
+    steps: [
+      {
+        title: 'Tell us',
+        body: 'Use the channel you prefer.',
+      },
+      {
+        title: 'We understand',
+        body: 'We review the home with you.',
+      },
+      {
+        title: 'We install',
+        body: 'We coordinate all the work.',
+      },
+      {
+        title: 'We support',
+        body: 'We stay available.',
+      },
+    ],
+  },
+  es: {
+    title: 'Empieza como prefieras.',
+    body: 'CasaMia se encarga del resto.',
+    heroOutcomeEyebrow: 'Qu\u00e9 recibes',
+    heroOutcomeText: 'Prioridades claras, presupuesto antes de decidir y CasaMia coordinando el trabajo.',
+    channelsTitle: 'Elige tu canal',
+    channelsBody: 'Todas las v\u00edas llegan al mismo equipo CasaMia.',
+    humanAlt: 'Mujer mayor sonriendo mientras usa su tel\u00e9fono m\u00f3vil en casa',
+    oneTeamLabel: 'Un solo equipo, de principio a fin',
+    channels: [
+      { key: 'online', title: 'Online', body: 'Preguntas sencillas y guiadas' },
+      { key: 'voice', title: 'Voz', body: 'Habla con naturalidad' },
+      { key: 'whatsapp', title: 'WhatsApp', body: 'Escr\u00edbenos desde el m\u00f3vil' },
+      { key: 'call', title: 'Tel\u00e9fono', body: 'Ll\u00e1manos o pide que te llamemos' },
+      { key: 'email', title: 'Email', body: 'hola@casamia.com.es' },
+    ],
+    steps: [
+      {
+        title: 'Cu\u00e9ntanos',
+        body: 'Por el canal que prefieras.',
+      },
+      {
+        title: 'Entendemos',
+        body: 'Revisamos la vivienda contigo.',
+      },
+      {
+        title: 'Instalamos',
+        body: 'Coordinamos todo el trabajo.',
+      },
+      {
+        title: 'Te acompa\u00f1amos',
+        body: 'Seguimos disponibles.',
+      },
+    ],
+  },
 }
 
 const howCopy: Record<'en' | 'es', HowCopy> = {
@@ -143,24 +248,33 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     primaryCta: 'Start Free Safety Report',
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
-    statusTitle: 'Your next step is clear',
-    statusIntro: 'CasaMia keeps the family guided from first check to practical action.',
+    statusTitle: 'Four clear steps',
+    statusIntro: 'You start. CasaMia coordinates the rest.',
     statusRows: [
-      { label: 'Share photos or book a visit', value: 'Start' },
-      { label: 'We review the home risks', value: 'Review' },
-      { label: 'You get a clear action plan', value: 'Plan' },
+      { label: 'One call or click', value: 'Start' },
+      { label: 'We understand the home', value: 'Discover' },
+      { label: 'We coordinate the work', value: 'Install' },
+      { label: 'We stay with you', value: 'Support' },
     ],
-    statusNote: 'No product guesswork. We start with the home.',
-    processEyebrow: 'How it works',
-    processTitle: 'Start in the way that suits you.',
-    processBody: 'Upload photos or book a visit. Either way, you get a clear quote.',
+    statusNote: 'One team from first contact to follow-up.',
+    processEyebrow: 'That simple',
+    processTitle: 'One call or one click. We coordinate the rest.',
+    processBody:
+      'Tell us what you need. CasaMia turns the first conversation into a clear plan, coordinated installation and ongoing support.',
     steps: [
       {
-        icon: 'camera',
-        title: 'Choose your start',
-        body: 'Photos now, or a home visit.',
+        icon: 'phone',
+        title: 'Call us or start online',
+        body: 'Choose what feels easiest. We listen and guide you from the first moment.',
         tag: 'Start',
-        proof: 'Clear quote',
+        proof: 'Phone or online',
+      },
+      {
+        icon: 'home',
+        title: 'We understand the home',
+        body: 'Together, we review the space, daily routines and priorities.',
+        tag: 'Discover',
+        proof: 'Home · routines · priorities',
         options: [
           {
             title: 'Self-inspection',
@@ -179,32 +293,27 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         ],
       },
       {
-        icon: 'shield',
-        title: 'Review and report',
-        body: 'We check falls, support points, access, lighting, routines, and emergency response, then show the priorities clearly.',
-        tag: 'Report',
-        proof: 'Risks and priorities checked',
-      },
-      {
-        icon: 'clipboard',
-        title: 'Plan the right work',
-        body: 'CasaMia turns the priorities into selected improvements, grant-ready documentation, or smart safety setup.',
-        tag: 'Plan',
-        proof: 'Scope, budget, and next step',
-      },
-      {
         icon: 'wrench',
-        title: 'Install and support',
-        body: 'We coordinate the installer, confirm the work is completed, and keep the family updated on next steps.',
+        title: 'We coordinate the installation',
+        body: 'We agree the scope and date, coordinate the work and check the result.',
+        tag: 'Install',
+        proof: 'Plan · date · final check',
+      },
+      {
+        icon: 'heart',
+        title: 'We stay with you',
+        body: 'We answer questions, follow up and adapt the plan when needs change.',
         tag: 'Support',
-        proof: 'Installer and family updates tracked',
+        proof: 'Follow-up stays active',
       },
     ],
     reviewEyebrow: 'Room-by-room',
     reviewTitle: 'We review the spaces that shape daily safety.',
     reviewBody:
-      'Bathrooms, stairs, bedroom, kitchen, entrance, and connected safety all affect confidence at home.',
+      'Bathrooms, bedrooms, living areas, entrances, and kitchens all affect confidence at home.',
     reviewCta: 'View Services',
+    previousRoomLabel: 'Show previous room',
+    nextRoomLabel: 'Show next room',
     reviewAreas: [
       {
         icon: 'shield',
@@ -226,6 +335,20 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         body: 'Clear routes, safer seating, lighting, cables, rugs, and everyday movement.',
         visualKey: 'smart-home-safety',
         alt: 'Living area risk map showing common trip hazards',
+      },
+      {
+        icon: 'door',
+        title: 'Entrance',
+        body: 'Thresholds, steps, lighting, hand support, door clearance, and a clear route in and out.',
+        visualKey: 'entrance-safety',
+        alt: 'Entrance safety risk map highlighting low light, a loose doormat, obstacles and shoes in the route, a high threshold, a narrow passage, and an unmarked step.',
+      },
+      {
+        icon: 'kitchen',
+        title: 'Kitchen',
+        body: 'Wet floors, reach, task lighting, out-of-reach storage, appliance use, and clear work routes.',
+        visualKey: 'kitchen-safety',
+        alt: 'Kitchen safety risk map highlighting a wet floor, a loose mat, items stored out of reach, poor task lighting, a pan handle facing out, an open drawer, and a visible cable.',
       },
     ],
     deliverablesEyebrow: 'What you get',
@@ -327,15 +450,15 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     primaryCta: 'Empezar informe gratis',
     secondaryCta: 'Reservar visita',
     heroAlt: 'Profesional de CasaMia preparado para una evaluación de seguridad en casa',
-    statusTitle: 'Tu siguiente paso claro',
+    statusTitle: 'Cuatro pasos claros',
     statusIntro: 'CasaMia acompaña a la familia desde la primera revisión hasta la acción práctica.',
     statusRows: [
       { label: 'Envía fotos o reserva visita', value: 'Inicio' },
       { label: 'Revisamos los riesgos', value: 'Revisión' },
       { label: 'Recibes un plan claro', value: 'Plan' },
     ],
-    statusNote: 'Sin adivinar productos. Empezamos por la vivienda.',
-    processEyebrow: 'C\u00f3mo funciona',
+    statusNote: 'Un solo equipo desde el primer contacto hasta el seguimiento.',
+    processEyebrow: 'As\u00ed de f\u00e1cil',
     processTitle: 'Empieza como te resulte m\u00e1s c\u00f3modo.',
     processBody: 'Sube fotos o reserva visita. En ambos casos, recibes presupuesto claro.',
     steps: [
@@ -387,8 +510,10 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     reviewEyebrow: 'Estancia por estancia',
     reviewTitle: 'Revisamos los espacios que marcan la seguridad diaria.',
     reviewBody:
-      'Ba\u00f1o, escaleras, dormitorio, cocina, entrada y seguridad conectada influyen en la confianza en casa.',
+      'Ba\u00f1o, dormitorio, sal\u00f3n, entrada y cocina influyen en la confianza y la seguridad en casa.',
     reviewCta: 'Ver servicios',
+    previousRoomLabel: 'Mostrar la estancia anterior',
+    nextRoomLabel: 'Mostrar la estancia siguiente',
     reviewAreas: [
       {
         icon: 'shield',
@@ -410,6 +535,20 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         body: 'Rutas despejadas, asientos, iluminaci\u00f3n, cables, alfombras y movimiento diario.',
         visualKey: 'smart-home-safety',
         alt: 'Mapa de riesgos del sal\u00f3n con obst\u00e1culos y zonas de paso',
+      },
+      {
+        icon: 'door',
+        title: 'Entrada',
+        body: 'Umbrales, escalones, iluminaci\u00f3n, apoyos, apertura de la puerta y una ruta despejada.',
+        visualKey: 'entrance-safety',
+        alt: 'Mapa de seguridad de la entrada que destaca poca luz, un felpudo suelto, obst\u00e1culos y calzado en el paso, un umbral alto, un paso estrecho y un escal\u00f3n sin se\u00f1alizar.',
+      },
+      {
+        icon: 'kitchen',
+        title: 'Cocina',
+        body: 'Suelos mojados, alcance, luz de trabajo, almacenamiento fuera de alcance, aparatos y rutas despejadas.',
+        visualKey: 'kitchen-safety',
+        alt: 'Mapa de seguridad de la cocina que destaca un suelo mojado, una alfombra suelta, objetos fuera de alcance, poca luz de trabajo, un mango de sart\u00e9n hacia fuera, un caj\u00f3n abierto y un cable visible.',
       },
     ],
     deliverablesEyebrow: 'Qu\u00e9 recibes',
@@ -519,6 +658,8 @@ type ReviewRiskLabel = {
 const reviewRiskVisuals: Record<string, string> = {
   'bathroom-safety': '/images/solutions/bathroom-risk-map.png',
   'bedroom-safety': '/images/solutions/bedroom-risk-map.png',
+  'entrance-safety': '/images/solutions/entrance-risk-map.png',
+  'kitchen-safety': '/images/solutions/kitchen-risk-map.png',
   'smart-home-safety': '/images/solutions/living-risk-map.png',
 }
 
@@ -555,6 +696,28 @@ const reviewRiskLabels: Record<string, ReviewRiskLabel[]> = {
     { x: 90.3, y: 54.5, w: 8.6 },
     { x: 6.2, y: 88.8, w: 8.4 },
     { x: 6.2, y: 93.2, w: 8.4 },
+  ],
+  'entrance-safety': [
+    { x: 82.0, y: 6.1, w: 12.4 },
+    { x: 82.0, y: 27.1, w: 12.4 },
+    { x: 8.0, y: 32.3, w: 12.0 },
+    { x: 82.0, y: 51.6, w: 12.4 },
+    { x: 10.0, y: 18.0, w: 12.5 },
+    { x: 82.0, y: 69.8, w: 12.4 },
+    { x: 8.0, y: 69.6, w: 12.0 },
+    { x: 8.3, y: 84.3, w: 10.3 },
+    { x: 8.3, y: 90.0, w: 10.3 },
+  ],
+  'kitchen-safety': [
+    { x: 7.0, y: 43.5, w: 10.8 },
+    { x: 7.0, y: 65.6, w: 12.0 },
+    { x: 7.0, y: 9.2, w: 12.0 },
+    { x: 83.0, y: 11.0, w: 12.0 },
+    { x: 86.0, y: 38.6, w: 11.0 },
+    { x: 86.0, y: 63.5, w: 11.0 },
+    { x: 83.5, y: 84.5, w: 11.5 },
+    { x: 8.3, y: 84.7, w: 10.3 },
+    { x: 8.3, y: 90.3, w: 10.3 },
   ],
 }
 
@@ -593,6 +756,28 @@ const reviewRiskCopy: Record<'en' | 'es', Record<string, string[]>> = {
       'High risk',
       'Medium risk',
     ],
+    'entrance-safety': [
+      'Low light',
+      'Loose doormat',
+      'Obstacle in route',
+      'Shoes in route',
+      'High threshold',
+      'Narrow passage',
+      'Unmarked step',
+      'High risk',
+      'Medium risk',
+    ],
+    'kitchen-safety': [
+      'Wet floor',
+      'Loose mat',
+      'Items too high',
+      'Poor task lighting',
+      'Handle facing out',
+      'Open drawer',
+      'Visible cable',
+      'High risk',
+      'Medium risk',
+    ],
   },
   es: {
     'bathroom-safety': [
@@ -628,11 +813,145 @@ const reviewRiskCopy: Record<'en' | 'es', Record<string, string[]>> = {
       'Riesgo alto',
       'Riesgo medio',
     ],
+    'entrance-safety': [
+      'Poca luz',
+      'Felpudo suelto',
+      'Obst\u00e1culo en el paso',
+      'Calzado en el paso',
+      'Umbral alto',
+      'Paso estrecho',
+      'Escal\u00f3n sin se\u00f1alizar',
+      'Riesgo alto',
+      'Riesgo medio',
+    ],
+    'kitchen-safety': [
+      'Suelo mojado',
+      'Alfombra suelta',
+      'Objetos en alto',
+      'Poca luz de trabajo',
+      'Mango hacia fuera',
+      'Caj\u00f3n abierto',
+      'Cable visible',
+      'Riesgo alto',
+      'Riesgo medio',
+    ],
   },
 }
 
 function getReviewVisual(key: string) {
   return reviewRiskVisuals[key] ?? getVisual(key)
+}
+
+const easyStepIcons: LucideIcon[] = [PhoneCall, Home, Wrench, HeartHandshake]
+const serviceChannelIcons: Record<ServiceChannelKey, LucideIcon> = {
+  online: MonitorCheck,
+  voice: Mic,
+  whatsapp: MessageCircle,
+  call: PhoneCall,
+  email: Mail,
+}
+
+function EasyProcessJourney({ copy }: { copy: EasyProcessCopy }) {
+  const callHref = CASAMIA_CONTACT_PHONE
+    ? `tel:${CASAMIA_CONTACT_PHONE.replaceAll(' ', '')}`
+    : null
+  const whatsappHref = CASAMIA_WHATSAPP_URL || null
+
+  return (
+    <section className="how-easy-process" aria-labelledby="how-easy-process-title">
+      <div className="site-shell">
+        <header className="how-easy-heading">
+          <h2 id="how-easy-process-title">{copy.title}</h2>
+          <p>{copy.body}</p>
+        </header>
+
+        <div className="how-easy-canvas">
+          <figure className="how-easy-human">
+            <SafeImage
+              alt={copy.humanAlt}
+              className="how-easy-human-media"
+              imgClassName="how-easy-human-image"
+              src="/images/how-it-works-smartphone.jpg"
+            />
+            <figcaption className="how-easy-human-caption">
+              <BrandLogo />
+              <span className="how-easy-human-note">{copy.oneTeamLabel}</span>
+            </figcaption>
+          </figure>
+
+          <div className="how-easy-journey">
+            <nav
+              className="how-easy-channel-panel"
+              aria-label={`${copy.channelsTitle}. ${copy.channelsBody}`}
+            >
+              <h3>{copy.channelsTitle}</h3>
+              <div className="how-easy-channel-grid">
+                {copy.channels.map((channel) => {
+                  const Icon = serviceChannelIcons[channel.key]
+                  const externalHref = channel.key === 'call'
+                    ? callHref
+                    : channel.key === 'whatsapp'
+                      ? whatsappHref
+                      : channel.key === 'email'
+                        ? `mailto:${CASAMIA_CONTACT_EMAIL}`
+                        : null
+                  const content = (
+                    <>
+                      <span><Icon size={21} aria-hidden="true" /></span>
+                      <strong>{channel.title}</strong>
+                    </>
+                  )
+
+                  return externalHref ? (
+                    <a
+                      className={`how-easy-channel is-${channel.key}`}
+                      href={externalHref}
+                      key={channel.key}
+                      aria-label={`${channel.title}: ${channel.body}`}
+                      target={channel.key === 'whatsapp' ? '_blank' : undefined}
+                      rel={channel.key === 'whatsapp' ? 'noopener' : undefined}
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <Link
+                      aria-label={`${channel.title}: ${channel.body}`}
+                      className={`how-easy-channel is-${channel.key}`}
+                      key={channel.key}
+                      to="/home-safety-wizard"
+                    >
+                      {content}
+                    </Link>
+                  )
+                })}
+              </div>
+            </nav>
+
+            <div className="how-easy-flow-wrap">
+              <ol className="how-easy-flow">
+                {copy.steps.map((step, index) => {
+                  const Icon = easyStepIcons[index] ?? CheckCircle2
+
+                  return (
+                    <li className={`how-easy-step is-step-${index + 1}`} key={step.title}>
+                      <div className="how-easy-step-marker">
+                        <span className="how-easy-icon"><Icon size={25} aria-hidden="true" /></span>
+                        <span className="how-easy-number">{String(index + 1).padStart(2, '0')}</span>
+                      </div>
+                      <div className="how-easy-step-copy">
+                        <h3>{step.title}</h3>
+                        <p>{step.body}</p>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export function HowItWorksPage() {
@@ -644,29 +963,7 @@ export function HowItWorksPage() {
   const riskLanguage = i18n.language.startsWith('es') ? 'es' : 'en'
   const activeRiskLabels = activeReviewArea ? reviewRiskLabels[activeReviewArea.visualKey] : undefined
   const activeRiskCopy = activeReviewArea ? reviewRiskCopy[riskLanguage][activeReviewArea.visualKey] : undefined
-  const projectSupport = i18n.language.startsWith('es')
-    ? {
-        eyebrow: 'Acompa\u00f1amiento',
-        body:
-          'Te damos un camino claro desde la primera revisi\u00f3n hasta la soluci\u00f3n final, sin que tengas que coordinar cada detalle por tu cuenta.',
-        highlights: [
-          'Un equipo que revisa la vivienda y explica las prioridades',
-          'Una propuesta clara antes de decidir',
-          'Coordinaci\u00f3n de visita, instalaci\u00f3n y seguimiento',
-        ],
-        title: 'CasaMia coordina el proceso por ti',
-      }
-    : {
-        eyebrow: 'Project support',
-        body:
-          'We give you a clear path from the first review to the final solution, so your family does not have to coordinate every detail alone.',
-        highlights: [
-          'One team reviews the home and explains the priorities',
-          'You see a clear proposal before deciding',
-          'Visits, installation and follow-up stay coordinated',
-        ],
-        title: 'CasaMia coordinates the process for you',
-      }
+  const processCopy = easyProcessCopy[riskLanguage]
 
   useEffect(() => {
     if (copy.reviewAreas.length < 2) {
@@ -703,7 +1000,7 @@ export function HowItWorksPage() {
           '@type': 'HowTo',
           name: copy.heroTitle,
           description: copy.heroBody,
-          step: copy.steps.map((step) => ({
+          step: processCopy.steps.map((step) => ({
             '@type': 'HowToStep',
             name: step.title,
             text: step.body,
@@ -739,24 +1036,9 @@ export function HowItWorksPage() {
               imgClassName="h-full w-full object-cover"
               loading="eager"
             />
-            <div className="how-status-panel" aria-label={copy.statusTitle}>
-              <div className="how-status-header">
-                <MonitorCheck size={21} aria-hidden="true" />
-                <div>
-                  <strong>{copy.statusTitle}</strong>
-                  <p>{copy.statusIntro}</p>
-                </div>
-              </div>
-              {copy.statusRows.map((row, index) => (
-                <div className="how-status-row" key={row.label}>
-                  <span className="how-status-step" aria-hidden="true">
-                    {index + 1}
-                  </span>
-                  <span>{row.label}</span>
-                  <strong>{row.value}</strong>
-                </div>
-              ))}
-              <p className="how-status-note">{copy.statusNote}</p>
+            <div className="how-hero-outcome">
+              <span>{processCopy.heroOutcomeEyebrow}</span>
+              <p>{processCopy.heroOutcomeText}</p>
             </div>
           </div>
         </div>
@@ -764,80 +1046,7 @@ export function HowItWorksPage() {
 
       <TrustBar />
 
-      <section className="how-contract-section">
-        <div className="how-contract-panel site-shell">
-          <div>
-            <p className="eyebrow">{projectSupport.eyebrow}</p>
-            <h2>{projectSupport.title}</h2>
-            <p>{projectSupport.body}</p>
-          </div>
-          <div className="how-support-list">
-            {projectSupport.highlights.map((item) => (
-              <div key={item}>
-                <CheckCircle2 size={21} aria-hidden="true" />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="how-process-section">
-        <div className="site-shell">
-          <div className="how-section-heading">
-            <p className="eyebrow">{copy.processEyebrow}</p>
-            <h2>{copy.processTitle}</h2>
-            <p>{copy.processBody}</p>
-          </div>
-
-          <div className="how-process-grid">
-            {copy.steps.map((step, index) => {
-              const Icon = howIcons[step.icon]
-
-              return (
-                <article className={`how-step-card ${step.options ? 'has-options' : ''}`} key={step.title}>
-                  <div className="how-flow-node" aria-hidden="true">
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <Icon size={26} />
-                  </div>
-                  <div className="how-step-content">
-                    <div className="how-step-topline">
-                      <small>{step.tag}</small>
-                      <strong>{step.proof}</strong>
-                    </div>
-                    <h3>{step.title}</h3>
-                    <p>{step.body}</p>
-                    {step.options ? (
-                      <div className="how-step-options">
-                        {step.options.map((option, optionIndex) => {
-                          const OptionIcon = optionIndex === 0 ? Camera : Home
-
-                          return (
-                            <div className="how-step-option" key={option.title}>
-                              <div className="how-step-option-heading">
-                                <span className="how-step-option-mark" aria-hidden="true">
-                                  <OptionIcon size={18} />
-                                </span>
-                                <strong>{option.title}</strong>
-                              </div>
-                              <p>{option.body}</p>
-                              {option.note ? <span className="how-step-option-note">{option.note}</span> : null}
-                              <Link to={option.to}>
-                                {option.cta}
-                                <ArrowRight size={15} aria-hidden="true" />
-                              </Link>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    ) : null}
-                  </div>
-                </article>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+      <EasyProcessJourney copy={processCopy} />
 
       <section className="how-review-section">
         <div className="site-shell">
@@ -866,7 +1075,9 @@ export function HowItWorksPage() {
                   <div className="how-review-risk-labels" aria-hidden="true">
                     {activeRiskLabels.map((label, labelIndex) => (
                       <span
-                        className="how-review-risk-label"
+                        className={`how-review-risk-label ${
+                          labelIndex >= activeRiskLabels.length - 2 ? 'is-legend' : ''
+                        }`}
                         key={`${activeReviewArea.visualKey}-${labelIndex}`}
                         style={{
                           left: `${label.x}%`,
@@ -890,10 +1101,10 @@ export function HowItWorksPage() {
                   <p>{activeReviewArea.body}</p>
                 </div>
                 <div className="how-review-gallery-controls" aria-label={copy.reviewEyebrow}>
-                  <button type="button" onClick={showPreviousReviewArea} aria-label="Show previous room">
+                  <button type="button" onClick={showPreviousReviewArea} aria-label={copy.previousRoomLabel}>
                     <ArrowLeft size={20} aria-hidden="true" />
                   </button>
-                  <button type="button" onClick={showNextReviewArea} aria-label="Show next room">
+                  <button type="button" onClick={showNextReviewArea} aria-label={copy.nextRoomLabel}>
                     <ArrowRight size={20} aria-hidden="true" />
                   </button>
                 </div>
@@ -934,31 +1145,6 @@ export function HowItWorksPage() {
                   <Icon size={24} aria-hidden="true" />
                   <h3>{item.title}</h3>
                   <p>{item.body}</p>
-                </article>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="how-team-section">
-        <div className="how-team-layout site-shell">
-          <div className="how-team-copy">
-            <p className="eyebrow">{copy.teamEyebrow}</p>
-            <h2>{copy.teamTitle}</h2>
-            <p>{copy.teamBody}</p>
-          </div>
-          <div className="how-team-grid">
-            {copy.team.map((member) => {
-              const Icon = howIcons[member.icon]
-
-              return (
-                <article key={member.title}>
-                  <span>
-                    <Icon size={23} aria-hidden="true" />
-                  </span>
-                  <h3>{member.title}</h3>
-                  <p>{member.body}</p>
                 </article>
               )
             })}

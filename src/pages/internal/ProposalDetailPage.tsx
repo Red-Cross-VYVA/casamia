@@ -1,4 +1,4 @@
-import { CheckCircle2, PenLine, Printer } from 'lucide-react'
+import { CheckCircle2, Link2, PenLine, Printer } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
@@ -24,7 +24,7 @@ export function ProposalDetailPage() {
     setIsLoading(true)
     loadProposalWithFallback(proposalId).then((result) => {
       setProposal(result.proposal)
-      setMessage(result.source === 'backend' ? 'Loaded from proposal backend.' : getProposalApiStatus())
+      setMessage(result.source === 'backend' ? 'Loaded from Supabase proposals.' : result.error ?? getProposalApiStatus())
       setIsLoading(false)
     })
   }, [proposalId])
@@ -50,7 +50,21 @@ export function ProposalDetailPage() {
 
     const result = await acceptProposalWithFallback(proposal)
     setProposal(result.proposal)
-    setMessage(result.source === 'backend' ? 'Proposal marked as accepted in backend.' : 'Proposal marked as accepted locally.')
+    setMessage(
+      result.source === 'backend'
+        ? 'Proposal marked as accepted in Supabase.'
+        : `Proposal marked as accepted locally only. ${result.error ?? getProposalApiStatus()}`,
+    )
+  }
+
+  async function copyCustomerLink() {
+    if (!proposal?.publicToken) {
+      setMessage('This proposal needs to be saved to Supabase before it has a customer link.')
+      return
+    }
+
+    await navigator.clipboard.writeText(`${window.location.origin}/proposal/${proposal.publicToken}`)
+    setMessage('Customer proposal link copied.')
   }
 
   return (
@@ -69,7 +83,7 @@ export function ProposalDetailPage() {
         </>
       }
     >
-      <div className="proposal-screen-controls mb-6 grid gap-3 rounded-lg border border-border bg-white p-5 shadow-soft sm:grid-cols-3">
+      <div className="proposal-screen-controls mb-6 grid gap-3 rounded-lg border border-border bg-white p-5 shadow-soft sm:grid-cols-2 xl:grid-cols-4">
         <button className="btn btn-green" type="button" onClick={markAccepted}>
           <CheckCircle2 size={18} aria-hidden="true" />
           Mark Accepted
@@ -77,6 +91,10 @@ export function ProposalDetailPage() {
         <button className="btn btn-navy" type="button" onClick={() => window.print()}>
           <Printer size={18} aria-hidden="true" />
           Print Proposal
+        </button>
+        <button className="btn border border-border bg-white text-navy" type="button" onClick={() => void copyCustomerLink()}>
+          <Link2 size={18} aria-hidden="true" />
+          Copy Customer Link
         </button>
         {message ? (
           <p className="flex items-center rounded-lg bg-green/10 px-4 py-3 text-sm font-bold text-green">

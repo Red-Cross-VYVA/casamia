@@ -129,7 +129,9 @@ export type WizardCopy = {
     invalidPhone: string
     invalidEmail: string
     futureDate: string
+    noTimesToday: string
     tooFarDate: string
+    timeUnavailable: string
     error: string
     timeWindows: ChoiceCopy<WizardCallbackTimeWindow>
     confirmation: {
@@ -141,7 +143,7 @@ export type WizardCopy = {
       date: string
       time: string
       reassurance: string
-      startAgain: string
+      requestAnother: string
       home: string
     }
   }
@@ -326,7 +328,9 @@ const en: WizardCopy = {
     invalidPhone: 'Enter a valid Spanish phone number.',
     invalidEmail: 'Enter a valid email address.',
     futureDate: 'Choose today or a future date.',
+    noTimesToday: 'No callback times remain today. Choose another day.',
     tooFarDate: 'Choose a date within the next 90 days.',
+    timeUnavailable: 'Choose a time that has not already passed.',
     error: "We couldn't request your callback. Your details are still here—please try again.",
     timeWindows: {
       '09:00-12:00': 'Morning · 09:00–12:00',
@@ -344,7 +348,7 @@ const en: WizardCopy = {
       date: 'Preferred day',
       time: 'Preferred time',
       reassurance: 'We will only use these details to arrange your call and help with your request.',
-      startAgain: 'Change callback details',
+      requestAnother: 'Request another callback',
       home: 'Return to CasaMia',
     },
   },
@@ -460,7 +464,9 @@ const es: WizardCopy = {
     invalidPhone: 'Introduce un número de teléfono español válido.',
     invalidEmail: 'Introduce un email válido.',
     futureDate: 'Elige hoy o una fecha futura.',
+    noTimesToday: 'Ya no quedan horarios de llamada para hoy. Elige otro día.',
     tooFarDate: 'Elige una fecha dentro de los próximos 90 días.',
+    timeUnavailable: 'Elige una franja horaria que todavía no haya terminado.',
     error: 'No hemos podido solicitar la llamada. Tus datos siguen aquí; inténtalo de nuevo.',
     timeWindows: {
       '09:00-12:00': 'Mañana · 09:00–12:00',
@@ -478,7 +484,7 @@ const es: WizardCopy = {
       date: 'Día preferido',
       time: 'Hora preferida',
       reassurance: 'Solo usaremos estos datos para organizar la llamada y ayudarte con tu solicitud.',
-      startAgain: 'Cambiar los datos de la llamada',
+      requestAnother: 'Solicitar otra llamada',
       home: 'Volver a CasaMia',
     },
   },

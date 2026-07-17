@@ -1,6 +1,7 @@
 import {
   Copy,
   FileText,
+  Link2,
   Printer,
   RefreshCcw,
   Save,
@@ -194,7 +195,7 @@ export function ProposalGeneratorPage() {
     loadProposalWithFallback(proposalId).then((result) => {
       if (result.proposal) {
         setProposal(result.proposal)
-        setMessage(result.source === 'backend' ? 'Loaded from proposal backend.' : getProposalApiStatus())
+        setMessage(result.source === 'backend' ? 'Loaded from Supabase proposals.' : result.error ?? getProposalApiStatus())
       }
     })
   }, [searchParams])
@@ -223,7 +224,7 @@ export function ProposalGeneratorPage() {
     setMessage(
       result.source === 'backend'
         ? `Draft saved to backend for ${result.proposal.customerName || result.proposal.id}.`
-        : `Draft saved locally for ${result.proposal.customerName || result.proposal.id}. ${getProposalApiStatus()}`,
+        : `Draft saved locally only. ${result.error ?? getProposalApiStatus()}`,
     )
     setIsSubmitting(false)
   }
@@ -234,8 +235,8 @@ export function ProposalGeneratorPage() {
     setProposal(result.proposal)
     setMessage(
       result.source === 'backend'
-        ? 'Proposal sent through backend email workflow.'
-        : `Proposal marked as sent locally. ${getProposalApiStatus()}`,
+        ? 'Proposal marked as sent in Supabase. The customer link is ready to share.'
+        : `Proposal marked as sent locally only. ${result.error ?? getProposalApiStatus()}`,
     )
     setIsSubmitting(false)
   }
@@ -246,6 +247,16 @@ export function ProposalGeneratorPage() {
     setProposal(saved)
     setMessage(`Duplicated as ${saved.id}.`)
     navigate(`/internal/proposal-generator?proposalId=${saved.id}`, { replace: true })
+  }
+
+  async function handleCopyCustomerLink() {
+    if (!proposal.publicToken) {
+      setMessage('Save this proposal to Supabase before copying its customer link.')
+      return
+    }
+
+    await navigator.clipboard.writeText(`${window.location.origin}/proposal/${proposal.publicToken}`)
+    setMessage('Customer proposal link copied.')
   }
 
   function handleReset() {
@@ -528,6 +539,15 @@ export function ProposalGeneratorPage() {
                 <button className="btn btn-navy w-full" type="button" disabled={isSubmitting} onClick={handleMarkSent}>
                   <Send size={18} aria-hidden="true" />
                   {isSubmitting ? 'Sending...' : 'Mark as Sent'}
+                </button>
+                <button
+                  className="btn w-full border border-border bg-white text-navy hover:border-green hover:text-green"
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={() => void handleCopyCustomerLink()}
+                >
+                  <Link2 size={18} aria-hidden="true" />
+                  Copy Customer Link
                 </button>
                 <button
                   className="btn w-full border border-border bg-white text-navy hover:border-green hover:text-green"

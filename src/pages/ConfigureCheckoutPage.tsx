@@ -28,7 +28,7 @@ export function ConfigureCheckoutPage() {
       const { submission } = await submitConfiguratorRequest(state)
       navigate(`/configure/confirmation?configuration=${submission.configurationId}`)
     } catch {
-      setError('The request could not be saved locally. Please try again.')
+      setError('The request could not be submitted to CasaMia. Please try again.')
       setBusyAction('')
     }
   }

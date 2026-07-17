@@ -5,7 +5,7 @@ import finalizeAssessmentMedia from '../api/public/assessment-media-finalize.js'
 import { getWizardPriceRange } from '../src/config/wizardPricing.ts'
 import { buildWizardSteps } from '../src/services/wizardSteps.ts'
 import { generateWizardResult } from '../src/services/wizardRecommendationEngine.ts'
-import { loadWizardState, SAFETY_WIZARD_STORAGE_KEY } from '../src/services/wizardStorage.ts'
+import { loadWizardState, SAFETY_WIZARD_STORAGE_KEY, saveWizardState } from '../src/services/wizardStorage.ts'
 import { createWizardMediaManifest, createWizardSubmissionPayload } from '../src/services/wizardSubmission.ts'
 import {
   createWizardMediaUploadPlan,
@@ -33,6 +33,7 @@ function makeState(overrides = {}) {
       preferredDate: '',
       preferredTimeWindow: '',
       note: '',
+      consent: false,
     },
     inspectionBooked: false,
     inspectionFee: 89,
@@ -172,7 +173,7 @@ function makeService(overrides = {}) {
     assert.deepEqual(migrated?.voiceSession, makeVoiceSession(), 'ElevenLabs session metadata should be restored.')
     assert.deepEqual(
       migrated?.callbackRequest,
-      { preferredDate: '', preferredTimeWindow: '', note: '' },
+      { preferredDate: '', preferredTimeWindow: '', note: '', consent: false },
       'Saved sessions from before the callback route should receive safe empty callback defaults.',
     )
   } finally {
@@ -190,6 +191,7 @@ function makeService(overrides = {}) {
       preferredDate: '2026-07-22',
       preferredTimeWindow: '15:00-18:00',
       note: 'Please call my daughter first.',
+      consent: true,
     },
     callbackSubmission: {
       id: 'callback-request-1',
@@ -212,6 +214,57 @@ function makeService(overrides = {}) {
       callbackState.callbackSubmission,
       'Successful callback metadata should survive a saved-session reload.',
     )
+  } finally {
+    if (originalWindow === undefined) delete globalThis.window
+    else globalThis.window = originalWindow
+  }
+}
+
+{
+  const originalWindow = globalThis.window
+  let savedValue = ''
+  globalThis.window = {
+    localStorage: {
+      setItem(key, value) {
+        if (key === SAFETY_WIZARD_STORAGE_KEY) savedValue = value
+      },
+    },
+  }
+
+  try {
+    saveWizardState(makeState({
+      currentStep: 'callback-confirmation',
+      inputMethods: ['callback'],
+      callbackRequest: {
+        preferredDate: '2026-07-22',
+        preferredTimeWindow: '15:00-18:00',
+        note: 'Sensitive note',
+        consent: true,
+      },
+      callbackSubmission: { id: 'callback-request-1', submittedAt: '2026-07-17T12:00:00.000Z' },
+      contact: {
+        fullName: 'Ana García',
+        phone: '600111222',
+        email: 'ana@example.com',
+        city: 'Málaga',
+        preferredMethod: 'phone',
+        consent: false,
+      },
+      submitted: true,
+    }))
+
+    const persisted = JSON.parse(savedValue)
+    assert.equal(persisted.currentStep, 'methods', 'A submitted callback must not be restored with its PII summary.')
+    assert.deepEqual(
+      persisted.callbackRequest,
+      { preferredDate: '', preferredTimeWindow: '', note: '', consent: false },
+      'Callback scheduling details and consent must not be persisted on the device.',
+    )
+    assert.equal(persisted.contact.fullName, '')
+    assert.equal(persisted.contact.phone, '')
+    assert.equal(persisted.contact.email, '')
+    assert.equal(persisted.contact.city, '')
+    assert.equal(persisted.callbackSubmission, undefined)
   } finally {
     if (originalWindow === undefined) delete globalThis.window
     else globalThis.window = originalWindow

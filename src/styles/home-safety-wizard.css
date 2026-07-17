@@ -2525,6 +2525,13 @@
   box-shadow: 0 18px 45px rgba(19, 67, 99, 0.07);
 }
 
+.safety-wizard-callback-fields {
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
 .safety-wizard-callback-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2684,6 +2691,11 @@
   padding: 12px;
 }
 
+.safety-wizard-callback-time.has-error:focus {
+  outline: 3px solid rgba(189, 48, 48, 0.2);
+  outline-offset: 3px;
+}
+
 .safety-wizard-callback-time-options {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -2727,11 +2739,24 @@
   color: var(--navy);
 }
 
+.safety-wizard-callback-time-options label.is-disabled {
+  cursor: not-allowed;
+}
+
 .safety-wizard-callback-time-options input:checked + span {
   border-color: var(--navy);
   color: #fff;
   background: var(--navy);
   box-shadow: 0 7px 18px rgba(22, 83, 123, 0.16);
+}
+
+.safety-wizard-callback-time-options input:disabled + span,
+.safety-wizard-callback-time-options label.is-disabled:hover input:disabled + span {
+  border-color: var(--border);
+  color: var(--text-muted);
+  background: #f4f7f9;
+  box-shadow: none;
+  opacity: 0.62;
 }
 
 .safety-wizard-callback-time-options input:focus-visible + span {
