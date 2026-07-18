@@ -53,8 +53,8 @@ export default defineConfig(({ mode }) => {
   const projectRoot = fileURLToPath(new URL('.', import.meta.url))
   const env = { ...loadEnv(mode, projectRoot, ''), ...process.env }
 
-  if (env.ANTHROPIC_API_KEY) process.env.ANTHROPIC_API_KEY = env.ANTHROPIC_API_KEY
-  if (env.ANTHROPIC_VISION_MODEL) process.env.ANTHROPIC_VISION_MODEL = env.ANTHROPIC_VISION_MODEL
+  if (env.OPENAI_API_KEY) process.env.OPENAI_API_KEY = env.OPENAI_API_KEY
+  if (env.OPENAI_VISION_MODEL) process.env.OPENAI_VISION_MODEL = env.OPENAI_VISION_MODEL
 
   return {
     define: {

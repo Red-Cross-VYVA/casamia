@@ -22,6 +22,16 @@ import { createSignedStorageUploadUrl, ensurePrivateStorageBucket } from '../api
 import { inferRoomFromFileName } from '../src/services/roomPhotoClassification.ts'
 import { WIZARD_CALLBACK_TIME_WINDOWS } from '../src/types/wizard.ts'
 
+function openAiResult(value) {
+  return {
+    output: [{
+      type: 'message',
+      role: 'assistant',
+      content: [{ type: 'output_text', text: JSON.stringify(value) }],
+    }],
+  }
+}
+
 function makeState(overrides = {}) {
   return {
     wizardReference: 'CM-TEST01',
@@ -238,7 +248,7 @@ function makeFinding(overrides = {}) {
 
 {
   assert.deepEqual(
-    parseRoomClassification({ content: [{ type: 'text', text: '{"room":"kitchen","confidence":1.2}' }] }),
+    parseRoomClassification(openAiResult({ room: 'kitchen', confidence: 1.2 })),
     { room: 'kitchen', confidence: 1 },
     'Vision output should be restricted to known rooms with normalized confidence.',
   )
@@ -247,20 +257,47 @@ function makeFinding(overrides = {}) {
   const classification = await classifyRoomImage(
     { mediaType: 'image/jpeg', data: 'aGVsbG8=' },
     {
-      env: { ANTHROPIC_API_KEY: 'test-key', ANTHROPIC_VISION_MODEL: 'test-vision-model' },
+      env: { OPENAI_API_KEY: 'test-key', OPENAI_VISION_MODEL: 'test-vision-model' },
       fetchImpl: async (url, init) => {
         apiRequest = { url, init }
         return {
           ok: true,
-          json: async () => ({ content: [{ type: 'text', text: '{"room":"bathroom","confidence":0.92}' }] }),
+          json: async () => openAiResult({ room: 'bathroom', confidence: 0.92 }),
         }
       },
     },
   )
 
   assert.deepEqual(classification, { room: 'bathroom', confidence: 0.92 })
-  assert.equal(apiRequest.url, 'https://api.anthropic.com/v1/messages')
-  assert.equal(JSON.parse(apiRequest.init.body).model, 'test-vision-model')
+  const body = JSON.parse(apiRequest.init.body)
+  assert.equal(apiRequest.url, 'https://api.openai.com/v1/responses')
+  assert.equal(apiRequest.init.method, 'POST')
+  assert.equal(apiRequest.init.headers.Authorization, 'Bearer test-key')
+  assert.equal(body.model, 'test-vision-model')
+  assert.equal(body.store, false)
+  assert.equal(body.max_output_tokens, 80)
+  assert.deepEqual(
+    body.input[0].content.find(({ type }) => type === 'input_image'),
+    {
+      type: 'input_image',
+      image_url: 'data:image/jpeg;base64,aGVsbG8=',
+      detail: 'low',
+    },
+  )
+  assert.equal(body.input[0].content.some(({ type }) => type === 'input_text'), true)
+  assert.equal(body.text.format.type, 'json_schema')
+  assert.equal(body.text.format.strict, true)
+  assert.equal(body.text.format.schema.additionalProperties, false)
+  assert.deepEqual(body.text.format.schema.properties.room.enum, [
+    'bathroom',
+    'bedroom',
+    'kitchen',
+    'living-room',
+    'stairs',
+    'entrance',
+    'outdoor',
+    'other',
+  ])
 
   await assert.rejects(
     () => classifyRoomImage({ mediaType: 'image/jpeg', data: 'aGVsbG8=' }, { env: {} }),

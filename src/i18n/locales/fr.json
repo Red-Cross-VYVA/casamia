@@ -339,7 +339,7 @@
     "errorTitle": "Un problème est survenu",
     "errorBody": "Nous n'avons pas pu analyser vos photos. Veuillez réessayer ou nous appeler au +34 900 000 000.",
     "noFiles": "Ajoutez d'abord au moins une photo de votre domicile.",
-    "noKey": "Ajoutez VITE_ANTHROPIC_API_KEY à votre environnement pour activer l'analyse photo en direct.",
+    "noKey": "L'analyse photo en direct est temporairement indisponible.",
     "resultsTitle": "Votre estimation de sécurité",
     "hazardsLabel": "Problèmes identifiés",
     "planLabel": "Améliorations recommandées",

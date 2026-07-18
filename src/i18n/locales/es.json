@@ -501,7 +501,7 @@
     "errorTitle": "Algo salió mal",
     "errorBody": "No pudimos analizar tus fotos. Inténtalo de nuevo o llámanos al +34 900 000 000.",
     "noFiles": "Añade al menos una foto de tu hogar primero.",
-    "noKey": "Añade VITE_ANTHROPIC_API_KEY a tu entorno para activar el análisis de fotos.",
+    "noKey": "El análisis de fotos no está disponible temporalmente.",
     "resultsTitle": "Tu informe de seguridad por estancia",
     "hazardsLabel": "Posibles riesgos identificados",
     "planLabel": "Mejoras recomendadas",
