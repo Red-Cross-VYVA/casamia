@@ -257,7 +257,7 @@ function makeFinding(overrides = {}) {
   const classification = await classifyRoomImage(
     { mediaType: 'image/jpeg', data: 'aGVsbG8=' },
     {
-      env: { OPENAI_API_KEY: 'test-key', OPENAI_VISION_MODEL: 'test-vision-model' },
+      env: { OPENAI_API_KEY: '  test-key\r\n', OPENAI_VISION_MODEL: 'test-vision-model' },
       fetchImpl: async (url, init) => {
         apiRequest = { url, init }
         return {

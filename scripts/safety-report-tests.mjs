@@ -124,6 +124,22 @@ await assert.rejects(
   'Malformed server keys must fail as configuration errors without reaching fetch.',
 )
 
+assert.equal(
+  readOpenAiApiKey('  sk-test-key\r\n'),
+  'sk-test-key',
+  'OpenAI keys pasted with trailing whitespace should be safe to use in headers.',
+)
+assert.equal(
+  readOpenAiApiKey('"sk-test-key"'),
+  'sk-test-key',
+  'OpenAI keys copied with wrapping quotes should be normalized.',
+)
+assert.equal(
+  readOpenAiApiKey('sk-test\nkey'),
+  '',
+  'Malformed multi-line OpenAI keys must be rejected before creating a header.',
+)
+
 let openAiRequest
 const analysed = await analyseSafetyImage({
   mediaType: 'image/jpeg',
@@ -132,7 +148,7 @@ const analysed = await analyseSafetyImage({
   locale: 'en',
   context: { mainConcern: 'Falls' },
 }, {
-  env: { OPENAI_API_KEY: 'test-key', OPENAI_VISION_MODEL: 'test-model' },
+  env: { OPENAI_API_KEY: '  test-key\r\n', OPENAI_VISION_MODEL: 'test-model' },
   fetchImpl: async (url, init) => {
     openAiRequest = { url, init, body: JSON.parse(init.body) }
     return {

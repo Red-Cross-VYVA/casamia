@@ -30,7 +30,15 @@ export function openAiReasoningConfig(model) {
 export function readOpenAiApiKey(value) {
   if (typeof value !== 'string') return ''
 
-  const apiKey = value.trim()
+  const trimmed = value.trim()
+  const apiKey = (
+    trimmed.length >= 2
+    && trimmed[0] === trimmed[trimmed.length - 1]
+    && ['"', "'"].includes(trimmed[0])
+  )
+    ? trimmed.slice(1, -1).trim()
+    : trimmed
+
   return apiKey && !/\s/.test(apiKey) ? apiKey : ''
 }
 
