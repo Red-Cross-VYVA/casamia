@@ -42,7 +42,7 @@
     "cta": "Descubrirlo gratis",
     "micro": "Sube fotos · Sin compromiso",
     "safetyCheck": {
-      "title": "Informe gratis",
+      "title": "¿Es seguro tu hogar?",
       "body": "Descubre riesgos ocultos en casa y qué revisar primero.",
       "cta": "Empezar informe gratis"
     },
@@ -52,7 +52,7 @@
       "cta": "Comprobar elegibilidad"
     },
     "buildPlan": {
-      "title": "Plan seguro"
+      "title": "Crear mi plan gratis"
     }
   },
   "reportDelivery": {
@@ -501,7 +501,7 @@
     "errorTitle": "Algo salió mal",
     "errorBody": "No pudimos analizar tus fotos. Inténtalo de nuevo o llámanos al +34 900 000 000.",
     "noFiles": "Añade al menos una foto de tu hogar primero.",
-    "noKey": "Añade VITE_ANTHROPIC_API_KEY a tu entorno para activar el análisis de fotos.",
+    "noKey": "El análisis de fotos no está disponible temporalmente.",
     "resultsTitle": "Tu informe de seguridad por estancia",
     "hazardsLabel": "Posibles riesgos identificados",
     "planLabel": "Mejoras recomendadas",
@@ -566,23 +566,26 @@
       },
       "result": {
         "loadingTitle": "Preparando tu informe de seguridad...",
-        "loadingBody": "Estamos revisando cada foto por estancia y preparando el enlace seguro para enviártelo.",
+        "loadingBody": "Estamos analizando cada foto, separando la evidencia visible de lo que a\u00fan debe confirmarse y calculando tus prioridades preventivas.",
         "retry": "Intentar de nuevo",
         "kicker": "Informe listo",
-        "title": "Tu informe de seguridad por estancia",
+        "title": "Tu revisi\u00f3n personalizada de seguridad",
         "reportTitle": "Informe de seguridad",
+        "photoReviewKicker": "Revisi\u00f3n visual",
+        "photoReviewTitle": "Qu\u00e9 muestra cada foto",
+        "photoReviewBody": "Cada hallazgo se apoya en evidencia visible. Lo que la imagen no permite confirmar queda claramente indicado.",
         "photosReviewed": "Fotos revisadas",
-        "risksFound": "Riesgos detectados",
+        "risksFound": "Hallazgos visibles",
         "preventionPriority": "Prioridad preventiva",
         "priorityHigh": "Alta",
         "priorityMedium": "Media",
-        "riskHelper": "Basado en fotos, riesgos por estancia, perfil de movilidad, prioridad y notas.",
-        "riskReasonsTitle": "Por qué aparece este nivel de riesgo",
+        "riskHelper": "Una puntuaci\u00f3n de prioridad preventiva basada en evidencia visible, tus circunstancias y los plazos. No predice una ca\u00edda.",
+        "riskReasonsTitle": "C\u00f3mo se ha calculado esta puntuaci\u00f3n",
         "riskLevels": {
-          "low": "Riesgo bajo",
-          "moderate": "Riesgo medio",
-          "elevated": "Riesgo elevado",
-          "high": "Riesgo alto"
+          "low": "Prioridad baja",
+          "moderate": "Prioridad media",
+          "elevated": "Prioridad elevada",
+          "high": "Prioridad alta"
         },
         "mitigationTitle": "Cómo CasaMia puede reducir estos riesgos",
         "preventionStats": {
@@ -783,15 +786,15 @@
     },
     "report": {
       "back": "Crear nuevo informe de seguridad",
-      "title": "Tu informe de seguridad CasaMia.",
-      "intro": "Este informe seguro resume los posibles riesgos detectados y las medidas preventivas sin exponer URLs privadas de fotos.",
+      "title": "Tu revisi\u00f3n personalizada de seguridad CasaMia.",
+      "intro": "Descubre qu\u00e9 muestra cada foto, por qu\u00e9 importa, qu\u00e9 hacer a continuaci\u00f3n y c\u00f3mo se ha calculado tu prioridad preventiva.",
       "loading": "Cargando informe...",
       "notFoundTitle": "Informe no encontrado",
       "notFoundBody": "Puede que el enlace haya caducado o que el informe solo exista en el dispositivo original en modo demo.",
-      "summaryLabel": "Resumen de seguridad",
-      "findingsTitle": "Hallazgos por estancia",
+      "summaryLabel": "Tu revisi\u00f3n de un vistazo",
+      "findingsTitle": "Qu\u00e9 conviene atender primero",
       "privateLabel": "Privado por diseño",
-      "privateBody": "Los archivos de fotos permanecen privados. Esta página solo muestra hallazgos de seguridad, medidas de mitigación y evidencia preventiva.",
+      "privateBody": "Los archivos de tus fotos permanecen privados. El informe solo guarda la revisi\u00f3n basada en evidencia y las recomendaciones pr\u00e1cticas.",
       "photoCount": "Fotos revisadas",
       "postcode": "Código postal",
       "expires": "El enlace caduca"

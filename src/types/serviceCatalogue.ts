@@ -1,3 +1,5 @@
+import type { SafetyFindingCategory, SafetyFindingSeverity } from './safetyAnalysis.ts'
+
 export type ServiceRoom =
   | 'entrance'
   | 'movement'
@@ -53,6 +55,9 @@ export type CasaMiaService = {
   requiresCompatibilityCheck: boolean
   dependencies?: string[]
   recommendedWhen?: RecommendationRule[]
+  evidenceCategories?: SafetyFindingCategory[]
+  minimumEvidenceSeverity?: SafetyFindingSeverity
+  evidenceReason?: string
   includedItems?: string[]
   wizardAreas?: ServicePackageArea[]
   safetyNotice?: string

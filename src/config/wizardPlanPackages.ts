@@ -13,7 +13,7 @@ export type WizardPlanPackage = {
 const englishPackages: WizardPlanPackage[] = [
   {
     id: 'assessment',
-    price: 'EUR 89',
+    price: 'EUR 99',
     summary: 'A professional home review and a clear action plan.',
     outcome: 'Know what to improve first, with no obligation to continue.',
     components: [
@@ -55,7 +55,7 @@ const englishPackages: WizardPlanPackage[] = [
 const spanishPackages: WizardPlanPackage[] = [
   {
     id: 'assessment',
-    price: '89 EUR',
+    price: '99 EUR',
     summary: 'Revisión profesional de la vivienda y un plan de acción claro.',
     outcome: 'Sabrás qué mejorar primero, sin obligación de continuar.',
     components: [

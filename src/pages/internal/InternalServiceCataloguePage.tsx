@@ -34,6 +34,11 @@ import type {
   ServicePackageArea,
   ServiceRoom,
 } from '../../types/serviceCatalogue'
+import {
+  safetyFindingCategories,
+  type SafetyFindingCategory,
+  type SafetyFindingSeverity,
+} from '../../types/safetyAnalysis'
 
 const roomOptions: Array<{ label: string; value: ServiceRoom; previewPath: string }> = [
   { label: 'Entrance', value: 'entrance', previewPath: '/services/entrance-accessibility' },
@@ -68,6 +73,25 @@ const packageAreaOptions: Array<{ label: string; value: ServicePackageArea }> = 
   { label: 'Outdoor', value: 'outdoor' },
   { label: 'Lighting', value: 'lighting' },
   { label: 'Smart safety', value: 'smart-safety' },
+]
+
+const evidenceCategoryLabels: Record<SafetyFindingCategory, string> = {
+  access: 'Access or thresholds',
+  emergency: 'Emergency response',
+  fire: 'Fire, smoke or gas',
+  lighting: 'Lighting',
+  reach: 'Reach or storage',
+  slip: 'Slip risk',
+  support: 'Support points',
+  transfer: 'Transfers',
+  trip: 'Trip hazards',
+  other: 'Other evidence',
+}
+
+const evidenceSeverityOptions: Array<{ label: string; value: SafetyFindingSeverity }> = [
+  { label: 'Any supported finding', value: 'low' },
+  { label: 'Medium or high only', value: 'medium' },
+  { label: 'High only', value: 'high' },
 ]
 
 const defaultRoom: ServiceRoom = 'kitchen'
@@ -648,6 +672,64 @@ function ServiceEditor({
             step="0.01"
             value={service.vatRate}
             onChange={(value) => onUpdateService(service.id, { vatRate: value ?? 0 })}
+          />
+        </div>
+      </section>
+
+      <section className="mt-6 rounded-lg border border-border bg-light-blue/40 p-4">
+        <div className="mb-4 flex items-start gap-3">
+          <span className="inline-grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-white text-blue">
+            <Eye size={20} aria-hidden="true" />
+          </span>
+          <div>
+            <h3 className="text-base font-black text-text-dark">Visual recommendation rules</h3>
+            <p className="mt-1 text-xs font-bold leading-relaxed text-text-muted">
+              Match this service to evidence found in customer photos. Leave all categories empty to use CasaMia's automatic text-based matching.
+            </p>
+          </div>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+          {safetyFindingCategories.map((category) => {
+            const assigned = service.evidenceCategories ?? []
+            const checked = assigned.includes(category)
+
+            return (
+              <label
+                className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border px-3 py-2 text-xs font-black transition ${
+                  checked
+                    ? 'border-blue bg-white text-navy shadow-sm'
+                    : 'border-border bg-white/55 text-text-muted hover:border-blue'
+                }`}
+                key={category}
+              >
+                <input
+                  checked={checked}
+                  className="h-4 w-4 accent-blue"
+                  type="checkbox"
+                  onChange={() => onUpdateService(service.id, {
+                    evidenceCategories: checked
+                      ? assigned.filter((item) => item !== category)
+                      : [...assigned, category],
+                  })}
+                />
+                {evidenceCategoryLabels[category]}
+              </label>
+            )
+          })}
+        </div>
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+          <SelectInput
+            label="Minimum evidence severity"
+            value={service.minimumEvidenceSeverity ?? 'low'}
+            options={evidenceSeverityOptions}
+            onChange={(value) => onUpdateService(service.id, {
+              minimumEvidenceSeverity: value as SafetyFindingSeverity,
+            })}
+          />
+          <TextArea
+            label="Why CasaMia recommends it"
+            value={service.evidenceReason ?? ''}
+            onChange={(value) => onUpdateService(service.id, { evidenceReason: value || undefined })}
           />
         </div>
       </section>

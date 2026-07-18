@@ -11,6 +11,7 @@ import publicOrderHandler from '../api/public/orders.js'
 import publicProviderHandler from '../api/public/provider-applications.js'
 import publicProposalHandler from '../api/public/proposals/[token].js'
 import publicCatalogueHandler from '../api/public/service-catalogue.js'
+import { createSignedStorageUploadUrl } from '../api/_lib/supabase.js'
 
 const apiKey = 'operations-test-key'
 process.env.CASAMIA_INTERNAL_API_KEY = apiKey
@@ -180,6 +181,56 @@ function jsonResponse(body, status = 200) {
   await publicCatalogueHandler(makeRequest('GET', undefined, false), publicResponse)
   assert.equal(publicResponse.statusCode, 200)
   assert.deepEqual(parsedBody(publicResponse).services, [service])
+}
+
+{
+  const configuredUrls = [
+    'https://example.supabase.co/',
+    'https://example.supabase.co/rest/v1',
+    'https://example.supabase.co/rest/v1/',
+  ]
+
+  for (const configuredUrl of configuredUrls) {
+    process.env.SUPABASE_URL = configuredUrl
+    let requestUrl = ''
+    globalThis.fetch = async (url, init) => {
+      requestUrl = String(url)
+      assert.equal(init.method, 'GET')
+      return jsonResponse([])
+    }
+
+    const response = makeResponse()
+    await publicCatalogueHandler(makeRequest('GET', undefined, false), response)
+
+    assert.equal(response.statusCode, 200)
+    assert.equal(
+      requestUrl,
+      'https://example.supabase.co/rest/v1/service_catalogue?id=eq.default&select=id,updated_at,payload_json',
+      `SUPABASE_URL=${configuredUrl} should resolve to the canonical REST endpoint.`,
+    )
+  }
+
+  process.env.SUPABASE_URL = 'https://example.supabase.co/rest/v1/'
+  let storageRequestUrl = ''
+  globalThis.fetch = async (url, init) => {
+    storageRequestUrl = String(url)
+    assert.equal(init.method, 'POST')
+    return jsonResponse({
+      url: '/object/upload/sign/wizard-media/assessment/photo.jpg?token=signed-token',
+    })
+  }
+
+  const signedUpload = await createSignedStorageUploadUrl('wizard-media', 'assessment/photo.jpg')
+
+  assert.equal(
+    storageRequestUrl,
+    'https://example.supabase.co/storage/v1/object/upload/sign/wizard-media/assessment/photo.jpg',
+  )
+  assert.equal(
+    signedUpload.body.signedUrl,
+    'https://example.supabase.co/storage/v1/object/upload/sign/wizard-media/assessment/photo.jpg?token=signed-token',
+  )
+  process.env.SUPABASE_URL = 'https://example.supabase.co'
 }
 
 {

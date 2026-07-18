@@ -37,7 +37,7 @@ export function ServicesPreview() {
           <div>
             <CheckCircle2 size={24} aria-hidden="true" />
             <p>
-              Not sure which room to start with? The EUR 89 in-home visit identifies
+              Not sure which room to start with? The EUR 99 in-home visit identifies
               the priorities before any works are proposed.
             </p>
           </div>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { ArrowRight, Check, FileText, LoaderCircle, ShieldCheck } from 'lucide-react'
+import { ArrowRight, FileText, LoaderCircle, ShieldCheck } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { PhotoAnalysisCards, ScoreExplanation } from '../components/SafetyReportInsights'
 
 import {
   getEstimateRiskAssessment,
@@ -108,32 +109,7 @@ export function EstimateReportPage() {
                     </strong>
                   </div>
                 </div>
-                <div className="estimate-result-section">
-                  <h4>{t('estimator.hazardsLabel')}</h4>
-                  <ul>
-                    {report.hazards.map((hazard) => (
-                      <li key={`${hazard.room}-${hazard.issue}`}>
-                        <Check size={17} aria-hidden="true" />
-                        <span>
-                          <strong>{hazard.room}:</strong> {hazard.issue}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="estimate-result-section">
-                  <h4>{t('estimator.workflow.result.mitigationTitle')}</h4>
-                  <ul>
-                    {report.hazards.map((hazard) => (
-                      <li key={`${hazard.room}-${hazard.recommendation}`}>
-                        <ShieldCheck size={17} aria-hidden="true" />
-                        <span>
-                          <strong>{hazard.room}:</strong> {hazard.recommendation}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <PhotoAnalysisCards analyses={report.photoAnalyses ?? []} />
                 <div className="estimate-result-section">
                   <h4>{t('estimator.workflow.result.preventionStats.title')}</h4>
                   <div className="estimate-evidence-grid">
@@ -153,26 +129,7 @@ export function EstimateReportPage() {
 
               <aside className="estimate-report-side">
                 {risk ? (
-                  <>
-                    <div className={`estimate-risk-score ${getRiskToneClass(risk.riskLevel)}`}>
-                      <span>{risk.riskScore}%</span>
-                      <small>{t(`estimator.workflow.result.riskLevels.${risk.riskLevel}`)}</small>
-                    </div>
-                    <p className="mt-4 text-sm font-semibold text-text-mid">
-                      {t('estimator.workflow.result.riskHelper')}
-                    </p>
-                    <div className="estimate-result-section estimate-risk-factors">
-                      <h4>{t('estimator.workflow.result.riskReasonsTitle')}</h4>
-                      <ul>
-                        {risk.riskFactors.map((factor) => (
-                          <li key={factor}>
-                            <Check size={17} aria-hidden="true" />
-                            <span>{factor}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </>
+                  <ScoreExplanation report={report} risk={risk} />
                 ) : null}
                 <p className="font-bold uppercase text-green">{t('estimator.report.privateLabel')}</p>
                 <p className="mt-3 text-text-mid">{t('estimator.report.privateBody')}</p>
@@ -203,7 +160,10 @@ export function EstimateReportPage() {
 }
 
 function getRiskToneClass(riskLevel: EstimateRiskLevel) {
-  return `risk-${riskLevel}`
+  if (riskLevel === 'high') return 'is-high'
+  if (riskLevel === 'elevated') return 'is-elevated'
+  if (riskLevel === 'moderate') return 'is-moderate'
+  return 'is-low'
 }
 
 function getPreventionStats(report: EstimateReport, translatedStats: unknown) {

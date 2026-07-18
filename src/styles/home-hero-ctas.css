@@ -1,4 +1,4 @@
-/* Home hero actions: one quiet text link followed by a clean primary/secondary pair. */
+/* Home hero actions: a quick check and a detailed personalised proposal. */
 body .hero-section .hero-safety-wizard-link {
   display: inline-flex;
   width: auto;
@@ -62,15 +62,15 @@ body .hero-section .hero-safety-wizard-link:focus-visible {
 }
 
 body .hero-section .free-check-grid {
-  grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
-  width: min(100%, 540px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 620px);
   align-items: stretch;
   gap: 10px;
 }
 
 body .hero-section .free-check-card {
   grid-template-columns: 22px minmax(0, 1fr) 20px;
-  min-height: 56px;
+  min-height: 70px;
   gap: 10px;
   overflow: visible;
   border-width: 1px;
@@ -110,6 +110,15 @@ body .hero-section .free-check-card.is-grant {
   backdrop-filter: blur(8px);
 }
 
+body .hero-section .free-check-card.is-proposal {
+  border-color: rgba(255, 255, 255, 0.46);
+  background-color: rgba(5, 48, 74, 0.34) !important;
+  background-image: none !important;
+  color: #ffffff;
+  box-shadow: none;
+  backdrop-filter: blur(8px);
+}
+
 body .hero-section .free-check-card .free-check-icon {
   width: 22px;
   height: 22px;
@@ -129,6 +138,11 @@ body .hero-section .free-check-card.is-grant .free-check-icon {
   border-color: transparent;
   background: transparent;
   color: rgba(255, 255, 255, 0.92);
+}
+
+body .hero-section .free-check-card.is-proposal .free-check-icon,
+body .hero-section .free-check-card.is-proposal .free-check-arrow {
+  color: rgba(255, 255, 255, 0.94);
 }
 
 body .hero-section .free-check-card .free-check-icon svg {
@@ -188,6 +202,12 @@ body .hero-section .free-check-card.is-grant:hover {
   box-shadow: none;
 }
 
+body .hero-section .free-check-card.is-proposal:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(5, 48, 74, 0.52) !important;
+  background-image: none !important;
+}
+
 body .hero-section .free-check-card:hover .free-check-arrow {
   transform: translateX(3px);
 }
@@ -200,6 +220,128 @@ body .hero-section .free-check-card:focus-visible {
   outline: 3px solid #ffffff;
   outline-offset: 4px;
   box-shadow: 0 0 0 2px #0a67a9;
+}
+
+.home-proposal-modal-backdrop {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: grid;
+  padding: clamp(12px, 2vw, 28px);
+  place-items: center;
+  background: rgba(5, 27, 43, 0.74);
+  backdrop-filter: blur(10px);
+  animation: home-proposal-backdrop-in 180ms ease-out both;
+}
+
+.home-proposal-modal {
+  position: relative;
+  width: min(1180px, calc(100vw - 32px));
+  height: min(900px, calc(100dvh - 32px));
+  overflow: hidden;
+  border: 1px solid rgba(189, 215, 231, 0.95);
+  border-radius: 8px;
+  background: #f7fbfe;
+  box-shadow: 0 34px 100px rgba(1, 24, 40, 0.4);
+  animation: home-proposal-modal-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.home-proposal-modal-scroll {
+  height: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.home-proposal-modal-close {
+  position: absolute;
+  z-index: 12;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(187, 213, 229, 0.96);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  color: #0b3653;
+  box-shadow: 0 8px 24px rgba(5, 41, 65, 0.14);
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.home-proposal-modal-close:hover {
+  border-color: #3a9fd4;
+  color: #1674aa;
+  transform: translateY(-1px);
+}
+
+.home-proposal-modal-close:focus-visible {
+  outline: 3px solid #3a9fd4;
+  outline-offset: 3px;
+}
+
+.home-proposal-modal-loading {
+  display: flex;
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #0b3653;
+  font-weight: 800;
+}
+
+.home-proposal-modal-loading svg {
+  animation: home-proposal-spin 900ms linear infinite;
+}
+
+.home-proposal-modal .safety-wizard-page,
+.home-proposal-modal .safety-wizard-embedded-root {
+  min-height: 100%;
+}
+
+.home-proposal-modal .safety-wizard-page {
+  padding: 0;
+  background: transparent;
+}
+
+.home-proposal-modal .safety-wizard-shell {
+  width: 100%;
+  min-height: 100%;
+  border: 0;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: none;
+}
+
+.home-proposal-modal .safety-wizard-toolbar {
+  padding-right: 78px;
+}
+
+.home-proposal-modal .safety-wizard-stage {
+  min-height: auto;
+  padding: clamp(32px, 5vw, 64px) clamp(22px, 7vw, 78px);
+}
+
+@keyframes home-proposal-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes home-proposal-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes home-proposal-spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 767px) {
@@ -215,7 +357,7 @@ body .hero-section .free-check-card:focus-visible {
 
   body .hero-section .free-check-card {
     grid-template-columns: 21px minmax(0, 1fr) 19px;
-    min-height: 54px;
+    min-height: 62px;
     gap: 10px;
     padding: 0 17px;
   }
@@ -234,6 +376,30 @@ body .hero-section .free-check-card:focus-visible {
     font-size: 16px;
     line-height: 1.15;
   }
+
+  .home-proposal-modal-backdrop {
+    padding: 0;
+  }
+
+  .home-proposal-modal {
+    width: 100%;
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .home-proposal-modal-close {
+    top: 10px;
+    right: 10px;
+  }
+
+  .home-proposal-modal .safety-wizard-toolbar {
+    padding-right: 66px;
+  }
+
+  .home-proposal-modal .safety-wizard-stage {
+    min-height: calc(100dvh - 74px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -248,6 +414,14 @@ body .hero-section .free-check-card:focus-visible {
   body .hero-section .free-check-card:hover,
   body .hero-section .free-check-card:hover .free-check-arrow {
     transform: none;
+  }
+
+  .home-proposal-modal-backdrop,
+  .home-proposal-modal,
+  .home-proposal-modal-loading svg,
+  .home-proposal-modal-close {
+    animation: none;
+    transition: none;
   }
 }
 

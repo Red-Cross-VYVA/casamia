@@ -169,8 +169,30 @@ function getSupabaseConfig() {
   }
 
   return {
-    supabaseUrl: supabaseUrl.replace(/\/$/, ''),
+    supabaseUrl: normalizeSupabaseUrl(supabaseUrl),
     serviceRoleKey,
+  }
+}
+
+function normalizeSupabaseUrl(value) {
+  const trimmedValue = value.trim()
+
+  try {
+    const url = new URL(trimmedValue)
+    url.pathname = url.pathname
+      .replace(/\/+$/, '')
+      .replace(/\/rest\/v1$/i, '')
+      .replace(/\/+$/, '')
+    url.search = ''
+    url.hash = ''
+
+    return url.toString().replace(/\/+$/, '')
+  } catch {
+    return trimmedValue
+      .replace(/[?#].*$/, '')
+      .replace(/\/+$/, '')
+      .replace(/\/rest\/v1$/i, '')
+      .replace(/\/+$/, '')
   }
 }
 

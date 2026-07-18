@@ -42,7 +42,7 @@
     "cta": "Gratis herausfinden",
     "micro": "Fotos hochladen · Unverbindlich",
     "safetyCheck": {
-      "title": "Free Safety Report",
+      "title": "Ist Ihr Zuhause sicher?",
       "body": "Find hidden risks at home and what to review first.",
       "cta": "Start free report"
     },
@@ -52,7 +52,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Sicherheitsplan"
+      "title": "Kostenlosen Plan erstellen"
     }
   },
   "reportDelivery": {
@@ -339,7 +339,7 @@
     "errorTitle": "Etwas ist schiefgelaufen",
     "errorBody": "Wir konnten Ihre Fotos nicht analysieren. Bitte versuchen Sie es erneut oder rufen Sie uns unter +34 900 000 000 an.",
     "noFiles": "Bitte fügen Sie zuerst mindestens ein Foto Ihres Zuhauses hinzu.",
-    "noKey": "Fügen Sie VITE_ANTHROPIC_API_KEY zu Ihrer Umgebung hinzu, um die Live-Fotoanalyse zu aktivieren.",
+    "noKey": "Die Live-Fotoanalyse ist vorübergehend nicht verfügbar.",
     "resultsTitle": "Ihre Sicherheitsschätzung",
     "hazardsLabel": "Erkannte Probleme",
     "planLabel": "Empfohlene Verbesserungen",

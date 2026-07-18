@@ -42,7 +42,7 @@
     "cta": "Gratis ontdekken",
     "micro": "Upload foto's · Zonder verplichting",
     "safetyCheck": {
-      "title": "Free Safety Report",
+      "title": "Is uw huis veilig?",
       "body": "Find hidden risks at home and what to review first.",
       "cta": "Start free report"
     },
@@ -52,7 +52,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Veiliger woningplan"
+      "title": "Maak mijn gratis plan"
     }
   },
   "reportDelivery": {
@@ -339,7 +339,7 @@
     "errorTitle": "Er ging iets mis",
     "errorBody": "We konden uw foto's niet analyseren. Probeer het opnieuw of bel ons op +34 900 000 000.",
     "noFiles": "Voeg eerst minstens één foto van uw woning toe.",
-    "noKey": "Voeg VITE_ANTHROPIC_API_KEY toe aan uw omgeving om live fotoanalyse in te schakelen.",
+    "noKey": "Live fotoanalyse is tijdelijk niet beschikbaar.",
     "resultsTitle": "Uw woningveiligheidsschatting",
     "hazardsLabel": "Geïdentificeerde problemen",
     "planLabel": "Aanbevolen verbeteringen",

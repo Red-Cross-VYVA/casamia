@@ -2,9 +2,14 @@ import assert from 'node:assert/strict'
 import { Readable } from 'node:stream'
 
 import finalizeAssessmentMedia from '../api/public/assessment-media-finalize.js'
+import { classifyRoomImage, parseRoomClassification } from '../api/public/classify-room-photo.js'
 import { getWizardPriceRange } from '../src/config/wizardPricing.ts'
 import { buildWizardSteps } from '../src/services/wizardSteps.ts'
 import { generateWizardResult } from '../src/services/wizardRecommendationEngine.ts'
+import {
+  buildRecommendedServicesPriceRange,
+  buildWizardSafetyReport,
+} from '../src/services/wizardSafetyReport.ts'
 import { loadWizardState, SAFETY_WIZARD_STORAGE_KEY, saveWizardState } from '../src/services/wizardStorage.ts'
 import { createWizardMediaManifest, createWizardSubmissionPayload } from '../src/services/wizardSubmission.ts'
 import {
@@ -14,7 +19,18 @@ import {
   WIZARD_MEDIA_BUCKETS,
 } from '../api/_lib/wizard-media.js'
 import { createSignedStorageUploadUrl, ensurePrivateStorageBucket } from '../api/_lib/supabase.js'
+import { inferRoomFromFileName } from '../src/services/roomPhotoClassification.ts'
 import { WIZARD_CALLBACK_TIME_WINDOWS } from '../src/types/wizard.ts'
+
+function openAiResult(value) {
+  return {
+    output: [{
+      type: 'message',
+      role: 'assistant',
+      content: [{ type: 'output_text', text: JSON.stringify(value) }],
+    }],
+  }
+}
 
 function makeState(overrides = {}) {
   return {
@@ -36,7 +52,7 @@ function makeState(overrides = {}) {
       consent: false,
     },
     inspectionBooked: false,
-    inspectionFee: 89,
+    inspectionFee: 99,
     inspectionCreditThreshold: 300,
     contact: {
       fullName: '',
@@ -180,6 +196,114 @@ function makeService(overrides = {}) {
     if (originalWindow === undefined) delete globalThis.window
     else globalThis.window = originalWindow
   }
+}
+
+function makePhotoAnalysis(overrides = {}) {
+  return {
+    room: 'bathroom',
+    roomConfidence: 0.92,
+    headline: 'Bathroom safety review',
+    overview: 'Visible bathroom details were reviewed.',
+    strengths: ['The route is well lit.'],
+    limitations: ['Wall construction cannot be confirmed from a photo.'],
+    findings: [],
+    ...overrides,
+  }
+}
+
+function makeAnalysedPhoto(overrides = {}) {
+  return {
+    id: 'bathroom-photo-1',
+    kind: 'image',
+    name: 'bathroom.jpg',
+    room: 'bathroom',
+    size: 1024,
+    type: 'image/jpeg',
+    analysisStatus: 'analysed',
+    analysis: makePhotoAnalysis(),
+    ...overrides,
+  }
+}
+
+function makeFinding(overrides = {}) {
+  return {
+    category: 'slip',
+    title: 'Wet shower floor',
+    evidence: 'The shower floor appears smooth and has no visible non-slip treatment.',
+    severity: 'high',
+    confidence: 0.9,
+    whyItMatters: 'Wet smooth surfaces can increase the chance of slipping.',
+    action: 'Confirm the surface and add a suitable non-slip treatment.',
+    requiresConfirmation: true,
+    ...overrides,
+  }
+}
+
+{
+  assert.equal(inferRoomFromFileName('IMG_baño_01.jpg'), 'bathroom')
+  assert.equal(inferRoomFromFileName('main-bedroom.webp'), 'bedroom')
+  assert.equal(inferRoomFromFileName('entrada principal.png'), 'entrance')
+  assert.equal(inferRoomFromFileName('holiday-photo.jpg'), 'other')
+}
+
+{
+  assert.deepEqual(
+    parseRoomClassification(openAiResult({ room: 'kitchen', confidence: 1.2 })),
+    { room: 'kitchen', confidence: 1 },
+    'Vision output should be restricted to known rooms with normalized confidence.',
+  )
+
+  let apiRequest
+  const classification = await classifyRoomImage(
+    { mediaType: 'image/jpeg', data: 'aGVsbG8=' },
+    {
+      env: { OPENAI_API_KEY: 'test-key', OPENAI_VISION_MODEL: 'test-vision-model' },
+      fetchImpl: async (url, init) => {
+        apiRequest = { url, init }
+        return {
+          ok: true,
+          json: async () => openAiResult({ room: 'bathroom', confidence: 0.92 }),
+        }
+      },
+    },
+  )
+
+  assert.deepEqual(classification, { room: 'bathroom', confidence: 0.92 })
+  const body = JSON.parse(apiRequest.init.body)
+  assert.equal(apiRequest.url, 'https://api.openai.com/v1/responses')
+  assert.equal(apiRequest.init.method, 'POST')
+  assert.equal(apiRequest.init.headers.Authorization, 'Bearer test-key')
+  assert.equal(body.model, 'test-vision-model')
+  assert.equal(body.store, false)
+  assert.equal(body.max_output_tokens, 80)
+  assert.deepEqual(
+    body.input[0].content.find(({ type }) => type === 'input_image'),
+    {
+      type: 'input_image',
+      image_url: 'data:image/jpeg;base64,aGVsbG8=',
+      detail: 'low',
+    },
+  )
+  assert.equal(body.input[0].content.some(({ type }) => type === 'input_text'), true)
+  assert.equal(body.text.format.type, 'json_schema')
+  assert.equal(body.text.format.strict, true)
+  assert.equal(body.text.format.schema.additionalProperties, false)
+  assert.deepEqual(body.text.format.schema.properties.room.enum, [
+    'bathroom',
+    'bedroom',
+    'kitchen',
+    'living-room',
+    'stairs',
+    'entrance',
+    'outdoor',
+    'other',
+  ])
+
+  await assert.rejects(
+    () => classifyRoomImage({ mediaType: 'image/jpeg', data: 'aGVsbG8=' }, { env: {} }),
+    (error) => error.statusCode === 503,
+    'Room recognition should fail safely when the server-only API key is missing.',
+  )
 }
 
 {
@@ -390,6 +514,131 @@ function makeService(overrides = {}) {
   const editedRange = getWizardPriceRange(state, adminEditedServices, 'es')
 
   assert.equal(editedRange?.minimum, 333, 'An Admin catalogue price edit must change the wizard estimate.')
+}
+
+{
+  const bathroomService = makeService({
+    id: 'bathroom-floor-safety',
+    name: 'Bathroom floor safety',
+    customerBenefit: 'Make wet movement safer.',
+    room: 'bathroom',
+    wizardAreas: ['bathroom'],
+    evidenceCategories: ['slip'],
+    minimumEvidenceSeverity: 'medium',
+    productPrice: 200,
+    installationPrice: 50,
+  })
+  const report = buildWizardSafetyReport(makeState({
+    mobilityLevel: 'walker',
+    challenges: ['falls'],
+    urgency: 'soon',
+    photos: [makeAnalysedPhoto({
+      analysis: makePhotoAnalysis({
+        findings: [
+          makeFinding(),
+          makeFinding({
+            category: 'support',
+            title: 'No visible support point',
+            severity: 'medium',
+            confidence: 0.8,
+            evidence: 'No fixed support point is visible beside the shower entrance.',
+            whyItMatters: 'A stable handhold can help with balance during entry and exit.',
+            action: 'Confirm the wall and consider a professionally fixed support point.',
+          }),
+        ],
+      }),
+    })],
+  }), [bathroomService], 'en')
+
+  assert.equal(report.status, 'complete', 'A successfully analysed photo should produce a complete visual report.')
+  assert.equal(report.rooms.length, 1)
+  assert.ok(report.safetyScore < 72, 'High and medium bathroom evidence should lower the safety score into attention range.')
+  assert.match(report.rooms[0].scoreExplanation, /2 consolidated visible findings/)
+  assert.deepEqual(
+    report.contextSignals,
+    ['Walking frame used', 'Falls reported', 'Action wanted soon'],
+    'Personal context should be visible without being folded into the photographic score.',
+  )
+  assert.equal(report.serviceRecommendations[0]?.serviceId, 'bathroom-floor-safety')
+
+  const range = buildRecommendedServicesPriceRange(report, [bathroomService], 'en')
+  assert.equal(range?.minimum, 303, 'The visual estimate should use only matched catalogue services and include VAT.')
+  assert.deepEqual(range?.serviceIds, ['bathroom-floor-safety'])
+}
+
+{
+  const repeatedFinding = makeFinding()
+  const report = buildWizardSafetyReport(makeState({
+    photos: [
+      makeAnalysedPhoto({ id: 'bathroom-photo-1', analysis: makePhotoAnalysis({ findings: [repeatedFinding] }) }),
+      makeAnalysedPhoto({ id: 'bathroom-photo-2', name: 'bathroom-2.jpg', analysis: makePhotoAnalysis({ findings: [repeatedFinding] }) }),
+    ],
+  }), [], 'en')
+
+  assert.equal(report.rooms[0].findings.length, 1, 'The same visible concern across photos must be consolidated once.')
+  assert.equal(report.rooms[0].photoAnalyses.length, 2, 'Every uploaded image should retain its own analysis in the room report.')
+  assert.equal(report.rooms[0].photoAnalyses[0].safetyScore, 65)
+  assert.deepEqual(
+    report.rooms[0].findings[0].photoIds,
+    ['bathroom-photo-1', 'bathroom-photo-2'],
+    'A consolidated finding should retain every supporting photo reference.',
+  )
+  assert.equal(report.rooms[0].safetyScore, 65, 'Repeated photos must not inflate the room risk score.')
+}
+
+{
+  const noConcernPhoto = makeAnalysedPhoto({
+    id: 'living-photo-1',
+    room: 'living-room',
+    analysis: makePhotoAnalysis({
+      room: 'living-room',
+      headline: 'Living room review',
+      findings: [],
+    }),
+  })
+  const report = buildWizardSafetyReport(makeState({
+    photos: [
+      makeAnalysedPhoto({ analysis: makePhotoAnalysis({ findings: [makeFinding()] }) }),
+      noConcernPhoto,
+    ],
+  }), [], 'en')
+
+  assert.ok(
+    report.safetyScore < 75,
+    'One higher-risk room should remain influential instead of being hidden by a safer-room average.',
+  )
+}
+
+{
+  const unavailablePhoto = {
+    ...makeAnalysedPhoto(),
+    analysisStatus: 'unavailable',
+    analysis: undefined,
+    analysisError: 'Visual analysis unavailable.',
+  }
+  const state = makeState({ photos: [unavailablePhoto] })
+  const report = buildWizardSafetyReport(state, [], 'en')
+  const result = generateWizardResult(state, { services: [], language: 'en' })
+
+  assert.equal(report.status, 'questionnaire-only')
+  assert.equal(report.safetyScore, undefined, 'An unavailable photo must never be treated as evidence of a safe room.')
+  assert.equal(result.confidence, 'early', 'Uploading a photo alone must not imply a supported recommendation.')
+}
+
+{
+  const bathroomService = makeService({
+    id: 'bathroom-floor-safety',
+    room: 'bathroom',
+    wizardAreas: ['bathroom'],
+    evidenceCategories: ['slip'],
+  })
+  const result = generateWizardResult(makeState({
+    photos: [makeAnalysedPhoto({ analysis: makePhotoAnalysis({ findings: [makeFinding()] }) })],
+  }), { services: [bathroomService], language: 'en' })
+
+  assert.equal(result.recommendedPlan, 'home-safety', 'Matched photo evidence should recommend relevant improvements, not a generic assessment.')
+  assert.equal(result.safetyReport?.serviceRecommendations[0]?.serviceId, 'bathroom-floor-safety')
+  assert.equal(result.confidence, 'supported')
 }
 
 {
