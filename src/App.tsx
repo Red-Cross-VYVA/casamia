@@ -7,6 +7,7 @@ import {
   useLocation,
   useParams,
 } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 
 import { BrandLogo } from './components/BrandLogo'
 import { CookieConsent } from './components/CookieConsent'
@@ -311,6 +312,7 @@ export default function App() {
   return (
     <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
       <AppRoutes />
+      <Analytics />
     </BrowserRouter>
   )
 }
