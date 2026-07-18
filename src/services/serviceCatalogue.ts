@@ -257,22 +257,11 @@ export function formatCurrency(amount: number) {
 }
 
 function mergeServices(defaultServices: CasaMiaService[], savedServices: CasaMiaService[] | undefined) {
-  if (!savedServices) {
-    return defaultServices
+  if (savedServices === undefined) {
+    return defaultServices.map(withPackageAreaDefaults)
   }
 
-  const savedById = new Map(savedServices.map((item) => [item.id, item]))
-  const mergedDefaults = defaultServices.map((item) => {
-    const saved = savedById.get(item.id)
-
-    return saved ? { ...item, ...saved, id: item.id, room: item.room } : item
-  })
-
-  const customServices = savedServices.filter(
-    (item) => !defaultServices.some((defaultItem) => defaultItem.id === item.id),
-  )
-
-  return [...mergedDefaults, ...customServices].map(withPackageAreaDefaults)
+  return savedServices.map(withPackageAreaDefaults)
 }
 
 function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {

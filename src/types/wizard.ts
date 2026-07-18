@@ -1,3 +1,10 @@
+import type {
+  SafetyFindingCategory,
+  SafetyFindingSeverity,
+  SafetyPhotoAnalysisResult,
+  SafetyPhotoFinding,
+} from './safetyAnalysis.ts'
+
 export type WizardUserType = 'me' | 'family' | 'client'
 export type WizardInputMethod = 'questions' | 'photos' | 'voice' | 'call' | 'callback' | 'visit'
 export type HomeType = 'apartment' | 'house' | 'villa' | 'other'
@@ -109,6 +116,9 @@ export type WizardPhoto = {
   roomDetectionStatus?: 'detecting' | 'detected' | 'manual' | 'unavailable'
   roomDetectionSource?: 'image' | 'filename'
   roomDetectionConfidence?: number
+  analysisStatus?: 'analysing' | 'analysed' | 'unavailable'
+  analysis?: SafetyPhotoAnalysisResult
+  analysisError?: string
 }
 
 export type WizardVoiceTranscriptMessage = {
@@ -168,6 +178,70 @@ export type WizardImprovement = {
   priority: WizardPriority
 }
 
+export type WizardSafetyPriority = 'routine' | 'attention' | 'urgent'
+
+export type WizardRoomFinding = SafetyPhotoFinding & {
+  id: string
+  room: WizardPhoto['room']
+  photoIds: string[]
+}
+
+export type WizardPhotoSafetyReport = {
+  photoId: string
+  fileName: string
+  analysisStatus: 'analysed' | 'unavailable'
+  safetyScore?: number
+  priority: WizardSafetyPriority
+  scoreExplanation: string
+  headline: string
+  overview: string
+  findings: SafetyPhotoFinding[]
+  strengths: string[]
+  limitations: string[]
+}
+
+export type WizardRoomSafetyReport = {
+  room: WizardPhoto['room']
+  photoIds: string[]
+  analysedPhotoCount: number
+  unavailablePhotoCount: number
+  safetyScore?: number
+  priority: WizardSafetyPriority
+  scoreExplanation: string
+  photoAnalyses: WizardPhotoSafetyReport[]
+  findings: WizardRoomFinding[]
+  strengths: string[]
+  limitations: string[]
+}
+
+export type WizardServiceRecommendation = {
+  serviceId: string
+  name: string
+  room: string
+  customerBenefit: string
+  priceLabel: string
+  reason: string
+  matchedFindingIds: string[]
+  findingCategories: SafetyFindingCategory[]
+  highestSeverity: SafetyFindingSeverity
+  requiresSiteVisit: boolean
+}
+
+export type WizardSafetyReport = {
+  status: 'complete' | 'partial' | 'questionnaire-only'
+  safetyScore?: number
+  priority: WizardSafetyPriority
+  confidence: 'low' | 'medium' | 'high'
+  analysedPhotoCount: number
+  totalPhotoCount: number
+  coverage: number
+  rooms: WizardRoomSafetyReport[]
+  topFindings: WizardRoomFinding[]
+  positiveFeatures: string[]
+  contextSignals: string[]
+  serviceRecommendations: WizardServiceRecommendation[]
+}
+
 export type WizardResult = {
   safetyProfile: 'prevention' | 'moderate' | 'high-priority' | 'smart-safety' | 'business'
   riskScore: number
@@ -177,6 +251,7 @@ export type WizardResult = {
   priceRange?: WizardPriceRange
   confidence: 'early' | 'supported' | 'inspection'
   nextAction: 'book-visit' | 'request-proposal' | 'business-consultation'
+  safetyReport?: WizardSafetyReport
 }
 
 export type SafetyWizardState = {

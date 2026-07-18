@@ -77,6 +77,10 @@ export type WizardCopy = {
     roomDetected: string
     roomSuggested: string
     chooseRoom: string
+    analysingPhoto: string
+    analysedPhoto: string
+    analysisUnavailable: string
+    findingsFound: (count: number) => string
     count: (count: number) => string
     errors: {
       unsupported: (name: string) => string
@@ -280,6 +284,10 @@ const en: WizardCopy = {
     roomDetected: 'Room detected from photo',
     roomSuggested: 'Room suggested from file name',
     chooseRoom: 'Choose the room',
+    analysingPhoto: 'Checking visible safety details...',
+    analysedPhoto: 'Safety review complete',
+    analysisUnavailable: 'Visual review unavailable. Remove and add the photo again to retry.',
+    findingsFound: (count) => `${count} visible ${count === 1 ? 'finding' : 'findings'}`,
     count: (count) => `${count} of 8 files added`,
     errors: {
       unsupported: (name) => `${name} is not a supported photo or video format.`,
@@ -420,6 +428,10 @@ const es: WizardCopy = {
     roomDetected: 'Zona detectada en la foto',
     roomSuggested: 'Zona sugerida por el nombre',
     chooseRoom: 'Elige la zona',
+    analysingPhoto: 'Revisando detalles visibles de seguridad...',
+    analysedPhoto: 'Revisión de seguridad completada',
+    analysisUnavailable: 'La revisión visual no está disponible. Quita y vuelve a añadir la foto para reintentarlo.',
+    findingsFound: (count) => `${count} ${count === 1 ? 'hallazgo visible' : 'hallazgos visibles'}`,
     count: (count) => `${count} de 8 archivos añadidos`,
     errors: {
       unsupported: (name) => `${name} no tiene un formato de foto o vídeo compatible.`,

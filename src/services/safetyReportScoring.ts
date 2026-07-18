@@ -1,5 +1,5 @@
 import type { EstimateRiskLevel, EstimateSeverity } from './estimateWorkflow.ts'
-import type { SafetyPhotoFinding } from './safetyPhotoAnalysis.ts'
+import type { SafetyPhotoFinding } from '../types/safetyAnalysis.ts'
 
 export type EstimatePhotoAnalysis = {
   photoId: string

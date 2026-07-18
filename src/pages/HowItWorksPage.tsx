@@ -26,7 +26,6 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { BrandLogo } from '../components/BrandLogo'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import { TrustBar } from '../components/TrustBar'
@@ -158,7 +157,6 @@ type EasyProcessCopy = {
   channelsTitle: string
   channelsBody: string
   humanAlt: string
-  oneTeamLabel: string
   channels: Array<{ key: ServiceChannelKey; title: string; body: string }>
   steps: Array<{ title: string; body: string }>
 }
@@ -172,7 +170,6 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     channelsTitle: 'Choose a channel',
     channelsBody: 'Every route reaches the same CasaMia team.',
     humanAlt: 'Older woman smiling while using her smartphone at home',
-    oneTeamLabel: 'One team, from start to finish',
     channels: [
       { key: 'online', title: 'Online', body: 'Simple guided questions' },
       { key: 'voice', title: 'Voice', body: 'Tell us naturally' },
@@ -182,20 +179,20 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     ],
     steps: [
       {
-        title: 'Tell us',
-        body: 'Use the channel you prefer.',
+        title: 'Tell us what you need',
+        body: 'Share what feels difficult, unsafe or urgent.',
       },
       {
-        title: 'We understand',
-        body: 'We review the home with you.',
+        title: 'We assess your home',
+        body: 'Using photos or a home visit, we identify the priorities.',
       },
       {
-        title: 'We install',
-        body: 'We coordinate all the work.',
+        title: 'Review your plan',
+        body: 'See the recommended work and price before you decide.',
       },
       {
-        title: 'We support',
-        body: 'We stay available.',
+        title: 'We coordinate and follow up',
+        body: 'We arrange the work, check the result and stay available.',
       },
     ],
   },
@@ -207,7 +204,6 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     channelsTitle: 'Elige tu canal',
     channelsBody: 'Todas las v\u00edas llegan al mismo equipo CasaMia.',
     humanAlt: 'Mujer mayor sonriendo mientras usa su tel\u00e9fono m\u00f3vil en casa',
-    oneTeamLabel: 'Un solo equipo, de principio a fin',
     channels: [
       { key: 'online', title: 'Online', body: 'Preguntas sencillas y guiadas' },
       { key: 'voice', title: 'Voz', body: 'Habla con naturalidad' },
@@ -217,20 +213,20 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     ],
     steps: [
       {
-        title: 'Cu\u00e9ntanos',
-        body: 'Por el canal que prefieras.',
+        title: 'Cu\u00e9ntanos qu\u00e9 necesitas',
+        body: 'Expl\u00edcanos qu\u00e9 resulta dif\u00edcil, inseguro o urgente.',
       },
       {
-        title: 'Entendemos',
-        body: 'Revisamos la vivienda contigo.',
+        title: 'Evaluamos la vivienda',
+        body: 'Con fotos o una visita, identificamos las prioridades.',
       },
       {
-        title: 'Instalamos',
-        body: 'Coordinamos todo el trabajo.',
+        title: 'Revisa tu plan',
+        body: 'Consulta las mejoras recomendadas y el precio antes de decidir.',
       },
       {
-        title: 'Te acompa\u00f1amos',
-        body: 'Seguimos disponibles.',
+        title: 'Coordinamos y hacemos seguimiento',
+        body: 'Organizamos el trabajo, comprobamos el resultado y seguimos disponibles.',
       },
     ],
   },
@@ -842,7 +838,7 @@ function getReviewVisual(key: string) {
   return reviewRiskVisuals[key] ?? getVisual(key)
 }
 
-const easyStepIcons: LucideIcon[] = [PhoneCall, Home, Wrench, HeartHandshake]
+const easyStepIcons: LucideIcon[] = [MessageCircle, Home, ClipboardCheck, HeartHandshake]
 const serviceChannelIcons: Record<ServiceChannelKey, LucideIcon> = {
   online: MonitorCheck,
   voice: Mic,
@@ -873,10 +869,6 @@ function EasyProcessJourney({ copy }: { copy: EasyProcessCopy }) {
               imgClassName="how-easy-human-image"
               src="/images/how-it-works-smartphone.jpg"
             />
-            <figcaption className="how-easy-human-caption">
-              <BrandLogo />
-              <span className="how-easy-human-note">{copy.oneTeamLabel}</span>
-            </figcaption>
           </figure>
 
           <div className="how-easy-journey">

@@ -1,363 +1,578 @@
 import {
   ArrowRight,
+  Bath,
+  BedDouble,
   CheckCircle2,
-  ClipboardCheck,
+  CookingPot,
+  DoorOpen,
+  Footprints,
   Home,
+  Lightbulb,
+  MapPin,
+  PackageCheck,
   ShieldCheck,
   Sparkles,
+  type LucideIcon,
 } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
-import { ServiceIcon } from '../components/ServiceIcon'
-import { serviceVisuals } from '../constants/serviceVisuals'
+import { SEO } from '../components/SEO'
 import {
-  type ServiceIconId,
-  primaryServices,
-  serviceHubHighlights,
-} from '../constants/siteContent'
+  formatCurrency,
+  formatServicePrice,
+  getServicesForPackageArea,
+  useServiceCatalogue,
+} from '../services/serviceCatalogue'
+import type { CasaMiaService, ServicePackageArea } from '../types/serviceCatalogue'
+import '../styles/services-catalogue.css'
 
-type SolutionGalleryCard = {
-  title: string
-  badge: string
-  body: string
-  icon: ServiceIconId
+type CatalogueGroupId = ServicePackageArea | 'other'
+
+type CatalogueAreaDefinition = {
+  id: CatalogueGroupId
+  icon: LucideIcon
   image: string
-  path: string
-  points: string[]
+  title: Record<'en' | 'es', string>
+  description: Record<'en' | 'es', string>
 }
 
-const pathwayItems = [
+type ServiceGroup = {
+  area: CatalogueAreaDefinition
+  services: CasaMiaService[]
+}
+
+type ServicesPageCopy = {
+  seoTitle: string
+  seoDescription: string
+  heroEyebrow: string
+  heroTitle: string
+  heroBody: string
+  browseCta: string
+  planCta: string
+  catalogueLabel: string
+  currentOptions: string
+  activeServices: string
+  packageAreas: string
+  inclusionsVisible: string
+  pricingVisible: string
+  sectionEyebrow: string
+  sectionTitle: string
+  sectionBody: string
+  packageNavigation: string
+  optionSingular: string
+  optionPlural: string
+  startingPrice: string
+  tailoredQuote: string
+  selectedEyebrow: string
+  packageOptions: string
+  included: string
+  customerBenefit: string
+  recurring: string
+  requirements: {
+    installation: string
+    measurement: string
+    visit: string
+    compatibility: string
+  }
+  safetyNote: string
+  emptyTitle: string
+  emptyBody: string
+  finalEyebrow: string
+  finalTitle: string
+  finalBody: string
+  startCta: string
+  contactCta: string
+}
+
+const catalogueAreas: CatalogueAreaDefinition[] = [
   {
-    icon: ClipboardCheck,
-    title: 'Assess first',
-    body: 'CasaMia reviews visible risks, routines, mobility needs, and what the home can realistically support.',
+    id: 'bathroom',
+    icon: Bath,
+    image: '/images/solutions/bathroom-safety.jpg',
+    title: { en: 'Bathroom', es: 'Baño' },
+    description: {
+      en: 'Safer transfers, showering, toileting, grip and night-time access.',
+      es: 'Transferencias, ducha, aseo, agarre y acceso nocturno más seguros.',
+    },
   },
   {
-    icon: ShieldCheck,
-    title: 'Prioritise clearly',
-    body: 'You see what should be handled first, what can wait, and which improvements actually fit the family.',
+    id: 'bedroom',
+    icon: BedDouble,
+    image: '/images/before-after/bedroom-after-card.webp',
+    title: { en: 'Bedroom', es: 'Dormitorio' },
+    description: {
+      en: 'Bed transfers, bedside reach, lighting and safer night routes.',
+      es: 'Transferencias, alcance, iluminación y rutas nocturnas más seguras.',
+    },
   },
   {
+    id: 'kitchen',
+    icon: CookingPot,
+    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+    title: { en: 'Kitchen', es: 'Cocina' },
+    description: {
+      en: 'Safer reach, preparation, appliances, water and everyday routines.',
+      es: 'Alcance, preparación, electrodomésticos, agua y rutinas más seguras.',
+    },
+  },
+  {
+    id: 'living-room',
     icon: Home,
-    title: 'Adapt with confidence',
-    body: 'Where work is needed, CasaMia coordinates practical products, installers, setup, and handover.',
+    image: '/images/before-after/living-after-home.webp',
+    title: { en: 'Living and movement', es: 'Salón y movilidad' },
+    description: {
+      en: 'Clearer routes through furniture, rugs, cables and daily-use spaces.',
+      es: 'Rutas más despejadas entre muebles, alfombras, cables y zonas de uso diario.',
+    },
+  },
+  {
+    id: 'stairs',
+    icon: Footprints,
+    image: '/images/solutions/stairs-hallways.jpg',
+    title: { en: 'Stairs', es: 'Escaleras' },
+    description: {
+      en: 'Handrails, grip, contrast and lighting for changes of level.',
+      es: 'Pasamanos, agarre, contraste e iluminación para cambios de nivel.',
+    },
+  },
+  {
+    id: 'entrance',
+    icon: DoorOpen,
+    image: '/images/solutions/entrance-access.jpg',
+    title: { en: 'Entrance', es: 'Entrada' },
+    description: {
+      en: 'Thresholds, steps, access, lighting and support at the door.',
+      es: 'Umbrales, escalones, acceso, iluminación y apoyo junto a la puerta.',
+    },
+  },
+  {
+    id: 'outdoor',
+    icon: MapPin,
+    image: '/images/before-after/outdoor-after.jpg',
+    title: { en: 'Outdoor', es: 'Exterior' },
+    description: {
+      en: 'Paths, exterior steps, lighting and the route to the entrance.',
+      es: 'Caminos, escalones, iluminación y la ruta hasta la entrada.',
+    },
+  },
+  {
+    id: 'lighting',
+    icon: Lightbulb,
+    image: '/images/service-gallery/03-stairway-and-hallway-support.jpg',
+    title: { en: 'Lighting', es: 'Iluminación' },
+    description: {
+      en: 'Task, motion and night-route lighting where visibility matters.',
+      es: 'Iluminación de trabajo, movimiento y rutas nocturnas donde más importa.',
+    },
+  },
+  {
+    id: 'smart-safety',
+    icon: ShieldCheck,
+    image: '/images/before-after/smart-after.jpg',
+    title: { en: 'Smart safety', es: 'Seguridad conectada' },
+    description: {
+      en: 'Compatible alerts, sensors, voice support and family handover.',
+      es: 'Alertas, sensores, apoyo por voz y configuración para la familia.',
+    },
   },
 ]
 
-const solutionGalleryCards: SolutionGalleryCard[] = [
-  {
-    title: 'Grab bars and support points',
-    badge: 'Support where balance matters',
-    body: 'Fixed support in bathrooms, corridors and transfer points so standing, turning and stepping feel safer.',
-    icon: 'shield',
-    image: '/images/service-gallery/01-grab-bars-and-support-points.jpg',
-    path: '/services/bathroom-safety',
-    points: ['Transfers', 'Standing support'],
+const otherArea: CatalogueAreaDefinition = {
+  id: 'other',
+  icon: PackageCheck,
+  image: '/images/how-it-works-smartphone.jpg',
+  title: { en: 'Other current services', es: 'Otros servicios actuales' },
+  description: {
+    en: 'Active catalogue options not yet assigned to a package area.',
+    es: 'Opciones activas todavía no asignadas a un área concreta.',
   },
-  {
-    title: 'Anti-slip safety improvements',
-    badge: 'Reduce surface risk',
-    body: 'Practical grip improvements for wet floors, steps and daily routes where slips are most likely.',
-    icon: 'check',
-    image: '/images/service-gallery/02-anti-slip-safety-improvements.jpg',
-    path: '/services/bathroom-safety',
-    points: ['Wet areas', 'Trip reduction'],
+}
+
+const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
+  en: {
+    seoTitle: 'CasaMia Home Safety Service Catalogue',
+    seoDescription: 'Compare CasaMia home safety services, current inclusions and catalogue pricing by room and safety area.',
+    heroEyebrow: 'CasaMia service catalogue',
+    heroTitle: 'Every safer-home option, clearly organised.',
+    heroBody: 'Choose an area to see the active services CasaMia can assess, supply, install or coordinate. Prices and inclusions come from the same catalogue used by our team.',
+    browseCta: 'Browse package areas',
+    planCta: 'Build my safer home',
+    catalogueLabel: 'Current catalogue',
+    currentOptions: 'service options available now',
+    activeServices: 'Active services',
+    packageAreas: 'Package areas',
+    inclusionsVisible: 'Inclusions shown',
+    pricingVisible: 'Current pricing',
+    sectionEyebrow: 'Choose a package area',
+    sectionTitle: 'See exactly what CasaMia can include.',
+    sectionBody: 'Select an area to review its current service components, starting prices and delivery requirements.',
+    packageNavigation: 'CasaMia package areas',
+    optionSingular: 'option',
+    optionPlural: 'options',
+    startingPrice: 'Starting price',
+    tailoredQuote: 'Tailored quote',
+    selectedEyebrow: 'Current package',
+    packageOptions: 'current options',
+    included: 'What is included',
+    customerBenefit: 'Why it helps',
+    recurring: 'per month',
+    requirements: {
+      installation: 'Professional installation',
+      measurement: 'Measurement required',
+      visit: 'Home visit required',
+      compatibility: 'Compatibility check',
+    },
+    safetyNote: 'Important',
+    emptyTitle: 'No active services are available yet.',
+    emptyBody: 'Activate services in the CasaMia admin catalogue to publish them here.',
+    finalEyebrow: 'Need help choosing?',
+    finalTitle: 'Start with the concern. We will shape the right package.',
+    finalBody: 'A short guided review helps identify the most useful services before you request a quote or book a visit.',
+    startCta: 'Start guided review',
+    contactCta: 'Contact CasaMia',
   },
-  {
-    title: 'Stairway and hallway support',
-    badge: 'Safer daily routes',
-    body: 'Continuous handrails, contrast and lighting for the routes used every day, not only the obvious stairs.',
-    icon: 'stairs',
-    image: '/images/service-gallery/03-stairway-and-hallway-support.jpg',
-    path: '/services/stair-safety',
-    points: ['Handrails', 'Step visibility'],
+  es: {
+    seoTitle: 'Catálogo de servicios de seguridad CasaMia',
+    seoDescription: 'Compara servicios CasaMia, inclusiones actuales y precios de catálogo por estancia y área de seguridad.',
+    heroEyebrow: 'Catálogo de servicios CasaMia',
+    heroTitle: 'Todas las opciones para un hogar más seguro, bien organizadas.',
+    heroBody: 'Elige un área para ver los servicios activos que CasaMia puede evaluar, suministrar, instalar o coordinar. Los precios y las inclusiones proceden del mismo catálogo que utiliza nuestro equipo.',
+    browseCta: 'Ver áreas de servicio',
+    planCta: 'Crear mi hogar más seguro',
+    catalogueLabel: 'Catálogo actual',
+    currentOptions: 'opciones de servicio disponibles',
+    activeServices: 'Servicios activos',
+    packageAreas: 'Áreas de servicio',
+    inclusionsVisible: 'Inclusiones visibles',
+    pricingVisible: 'Precios actuales',
+    sectionEyebrow: 'Elige un área',
+    sectionTitle: 'Consulta exactamente qué puede incluir CasaMia.',
+    sectionBody: 'Selecciona un área para revisar sus componentes actuales, precios iniciales y requisitos de instalación.',
+    packageNavigation: 'Áreas de servicio CasaMia',
+    optionSingular: 'opción',
+    optionPlural: 'opciones',
+    startingPrice: 'Precio inicial',
+    tailoredQuote: 'Presupuesto a medida',
+    selectedEyebrow: 'Área actual',
+    packageOptions: 'opciones actuales',
+    included: 'Qué incluye',
+    customerBenefit: 'Por qué ayuda',
+    recurring: 'al mes',
+    requirements: {
+      installation: 'Instalación profesional',
+      measurement: 'Requiere medición',
+      visit: 'Requiere visita',
+      compatibility: 'Comprobación de compatibilidad',
+    },
+    safetyNote: 'Importante',
+    emptyTitle: 'Todavía no hay servicios activos.',
+    emptyBody: 'Activa servicios en el catálogo de administración para publicarlos aquí.',
+    finalEyebrow: '¿Necesitas ayuda para elegir?',
+    finalTitle: 'Empieza por lo que te preocupa. Crearemos el paquete adecuado.',
+    finalBody: 'Una revisión guiada ayuda a identificar los servicios más útiles antes de solicitar presupuesto o reservar una visita.',
+    startCta: 'Empezar revisión guiada',
+    contactCta: 'Contactar con CasaMia',
   },
-  {
-    title: 'Bathroom and kitchen adaptations',
-    badge: 'High-use rooms',
-    body: 'Targeted changes for washing, toileting, cooking and reach where everyday routines create pressure.',
-    icon: 'bath',
-    image: '/images/service-gallery/04-bathroom-and-kitchen-adaptations.jpg',
-    path: '/services/kitchen-safety',
-    points: ['Access', 'Reach'],
-  },
-  {
-    title: 'Entryway and threshold support',
-    badge: 'Arrive and leave safely',
-    body: 'Lower trip points, improve lighting and add support where people enter, exit and receive visitors.',
-    icon: 'door',
-    image: '/images/service-gallery/05-entryway-and-threshold-support.jpg',
-    path: '/services/entrance-accessibility',
-    points: ['Thresholds', 'Outdoor support'],
-  },
-  {
-    title: 'Furniture and movement flow',
-    badge: 'Clearer movement',
-    body: 'Reposition furniture, rugs and everyday items so movement through the home is less awkward.',
-    icon: 'home',
-    image: '/images/service-gallery/06-furniture-and-movement-flow-optimisation.jpg',
-    path: '/services/bedroom-safety',
-    points: ['Clear paths', 'Daily routines'],
-  },
-  {
-    title: 'Smart access devices',
-    badge: 'Trusted access',
-    body: 'Simple access support for doors, locks, family visits and emergency response without adding confusion.',
-    icon: 'smartphone',
-    image: '/images/service-gallery/07-smart-access-devices.jpg',
-    path: '/services/smart-home-safety',
-    points: ['Doors', 'Family access'],
-  },
-  {
-    title: 'Emergency response device',
-    badge: 'Help within reach',
-    body: 'A clear way to call for help from the rooms and routines where risk is highest.',
-    icon: 'shield',
-    image: '/images/service-gallery/08-emergency-response-device.jpg',
-    path: '/services/smart-home-safety',
-    points: ['Emergency call', 'Peace of mind'],
-  },
-  {
-    title: 'Fall detection sensors',
-    badge: 'Discreet awareness',
-    body: 'Monitoring that helps family notice a fall or unusual routine without turning the home into a clinic.',
-    icon: 'light',
-    image: '/images/service-gallery/09-fall-detection-sensors.jpg',
-    path: '/services/smart-home-safety',
-    points: ['Fall alerts', 'Routine changes'],
-  },
-  {
-    title: 'Health and vitals monitoring',
-    badge: 'Wellbeing signals',
-    body: 'Simple monitoring options that add useful context for family support where appropriate.',
-    icon: 'smartphone',
-    image: '/images/service-gallery/10-health-and-vitals-monitoring.jpg',
-    path: '/services/smart-home-safety',
-    points: ['Vitals', 'Family updates'],
-  },
-  {
-    title: 'Voice controls and smart routines',
-    badge: 'Less reaching',
-    body: 'Voice, lighting and routines that reduce unnecessary movement, especially at night or during fatigue.',
-    icon: 'light',
-    image: '/images/service-gallery/11-voice-controls-and-smart-routines.jpg',
-    path: '/services/smart-home-safety',
-    points: ['Voice control', 'Night routines'],
-  },
-  {
-    title: 'Smart setup and user training',
-    badge: 'Clear handover',
-    body: 'Devices are configured, explained and handed over so the resident and family know what to expect.',
-    icon: 'book',
-    image: '/images/service-gallery/12-smart-setup-and-user-training.jpg',
-    path: '/services/smart-home-safety',
-    points: ['Setup', 'Training'],
-  },
-]
+}
+
+function getStartingPrice(
+  services: CasaMiaService[],
+  fallback: string,
+  language: 'en' | 'es',
+) {
+  const pricedServices = services
+    .map((service) => ({ service, amount: getOneTimePrice(service) }))
+    .filter((item) => item.amount > 0)
+    .sort((left, right) => left.amount - right.amount)
+
+  return pricedServices[0]
+    ? formatCatalogueServicePrice(pricedServices[0].service, fallback, language)
+    : fallback
+}
+
+function getOneTimePrice(service: CasaMiaService) {
+  if (service.pricingType === 'quote_only') return 0
+  if (service.pricingType === 'from') return service.fromPrice ?? 0
+  return (service.productPrice ?? 0) + (service.installationPrice ?? 0)
+}
+
+function formatCatalogueServicePrice(
+  service: CasaMiaService,
+  fallback: string,
+  language: 'en' | 'es',
+) {
+  if (service.pricingType === 'quote_only') return fallback
+
+  const amount = getOneTimePrice(service)
+  if (!amount) return fallback
+
+  if (service.pricingType === 'from') {
+    return `${language === 'es' ? 'Desde' : 'From'} ${formatCurrency(amount)}`
+  }
+
+  return formatServicePrice(service)
+}
+
+function getRequirementLabels(service: CasaMiaService, copy: ServicesPageCopy) {
+  return [
+    service.requiresInstallation ? copy.requirements.installation : null,
+    service.requiresMeasurement ? copy.requirements.measurement : null,
+    service.requiresSiteVisit ? copy.requirements.visit : null,
+    service.requiresCompatibilityCheck ? copy.requirements.compatibility : null,
+  ].filter((item): item is string => Boolean(item))
+}
 
 export function ServicesPage() {
-  const featuredServices = primaryServices.slice(0, 3)
-  const supportServices = primaryServices.slice(3)
+  const { i18n } = useTranslation()
+  const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const copy = servicesPageCopy[language]
+  const catalogue = useServiceCatalogue()
+  const [selectedGroupId, setSelectedGroupId] = useState<CatalogueGroupId>('bathroom')
+  const activeServices = useMemo(
+    () => catalogue.services.filter((service) => service.active),
+    [catalogue.services],
+  )
+  const serviceGroups = useMemo<ServiceGroup[]>(() => {
+    const groupedServices = catalogueAreas
+      .map((area) => ({
+        area,
+        services: getServicesForPackageArea(activeServices, area.id as ServicePackageArea),
+      }))
+      .filter((group) => group.services.length > 0)
+    const assignedServiceIds = new Set(
+      groupedServices.flatMap((group) => group.services.map((service) => service.id)),
+    )
+    const unassignedServices = activeServices.filter((service) => !assignedServiceIds.has(service.id))
+
+    return unassignedServices.length
+      ? [...groupedServices, { area: otherArea, services: unassignedServices }]
+      : groupedServices
+  }, [activeServices])
+  const selectedGroup = serviceGroups.find((group) => group.area.id === selectedGroupId) ?? serviceGroups[0]
+  const SelectedIcon = selectedGroup?.area.icon ?? PackageCheck
 
   return (
     <>
       <SEO
-        title="CasaMia Safety Services for Safer Independent Living"
-        description="Explore CasaMia home adaptations and safety services for bathrooms, stairs, entrances, kitchens, bedrooms, smart safety and family reassurance."
+        title={copy.seoTitle}
+        description={copy.seoDescription}
         path="/services"
         schema={{
           '@context': 'https://schema.org',
-          '@type': 'Service',
-          name: 'CasaMia home safety services',
-          provider: {
-            '@type': 'Organization',
-            name: 'CasaMia',
-          },
-          areaServed: 'Spain',
-          serviceType: 'Home adaptations, smart safety, health monitoring and aging-in-place services',
+          '@type': 'ItemList',
+          name: copy.seoTitle,
+          numberOfItems: activeServices.length,
+          itemListElement: activeServices.map((service, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: service.name,
+            description: service.shortDescription,
+          })),
         }}
       />
 
-      <section className="services-hub-hero">
-        <div className="services-hub-hero-grid site-shell">
-          <div className="services-hub-copy">
-            <span className="eyebrow">Safety services</span>
-            <h1>Choose the improvements that make daily life safer.</h1>
-            <p>
-              CasaMia helps families select practical home adaptations, smart safety
-              and support services around the resident, the home and the routine.
-            </p>
-            <div className="services-hub-actions">
-              <Link className="btn btn-green" to="/configure">
-                Build My Safer Home
+      <section className="services-catalogue-hero">
+        <div className="services-catalogue-hero-grid site-shell">
+          <div className="services-catalogue-hero-copy">
+            <span className="eyebrow">{copy.heroEyebrow}</span>
+            <h1>{copy.heroTitle}</h1>
+            <p>{copy.heroBody}</p>
+            <div className="services-catalogue-hero-actions">
+              <a className="btn btn-green" href="#catalogue-packages">
+                {copy.browseCta}
                 <ArrowRight size={20} aria-hidden="true" />
-              </Link>
-              <Link className="btn btn-white" to="/home-safety-assessment#self-inspection-tool">
-                Start Free Report
+              </a>
+              <Link className="btn btn-white" to="/configure">
+                {copy.planCta}
               </Link>
             </div>
           </div>
 
-          <div className="services-hub-visual" aria-label="CasaMia service areas">
-            {featuredServices.map((service) => {
-              const visual = serviceVisuals[service.id]
-
-              return (
-                <Link className="services-hub-photo" key={service.id} to={service.path}>
-                  <SafeImage
-                    src={visual.image}
-                    alt={service.shortTitle}
-                    className="services-hub-photo-image"
-                    imgClassName="h-full w-full object-cover"
-                  />
-                  <span>{service.shortTitle}</span>
-                </Link>
-              )
-            })}
-          </div>
+          <aside className="services-catalogue-summary" aria-label={copy.catalogueLabel}>
+            <header>
+              <span><PackageCheck size={26} aria-hidden="true" /></span>
+              <div>
+                <small>{copy.catalogueLabel}</small>
+                <strong>{activeServices.length}</strong>
+                <p>{copy.currentOptions}</p>
+              </div>
+            </header>
+            <dl>
+              <div>
+                <dt>{copy.activeServices}</dt>
+                <dd>{activeServices.length}</dd>
+              </div>
+              <div>
+                <dt>{copy.packageAreas}</dt>
+                <dd>{serviceGroups.length}</dd>
+              </div>
+              <div>
+                <dt>{copy.inclusionsVisible}</dt>
+                <dd><CheckCircle2 size={20} aria-hidden="true" /></dd>
+              </div>
+              <div>
+                <dt>{copy.pricingVisible}</dt>
+                <dd><CheckCircle2 size={20} aria-hidden="true" /></dd>
+              </div>
+            </dl>
+          </aside>
         </div>
       </section>
 
-      <section className="services-hub-section bg-white">
+      <section className="services-catalogue-section" id="catalogue-packages">
         <div className="site-shell">
-          <div className="services-hub-heading">
-            <p className="eyebrow">Home adaptations</p>
-            <h2>Add only what the resident and home actually need.</h2>
-            <p>
-              Each service is easier to choose when the risks, routines and support
-              gaps are clear. Start with a room, then build the right CasaMia plan.
-            </p>
-          </div>
+          <header className="services-catalogue-heading">
+            <p className="eyebrow">{copy.sectionEyebrow}</p>
+            <h2>{copy.sectionTitle}</h2>
+            <p>{copy.sectionBody}</p>
+          </header>
 
-          <div className="services-hub-grid services-solution-grid">
-            {solutionGalleryCards.map((service) => {
-              return (
-                <Link
-                  className="services-hub-card services-solution-card"
-                  key={service.title}
-                  to={service.path}
+          {serviceGroups.length ? (
+            <>
+              <nav className="services-catalogue-nav" aria-label={copy.packageNavigation}>
+                {serviceGroups.map((group) => {
+                  const Icon = group.area.icon
+                  const isSelected = group.area.id === selectedGroup?.area.id
+
+                  return (
+                    <button
+                      aria-controls="active-service-package"
+                      aria-pressed={isSelected}
+                      className={`services-catalogue-nav-item${isSelected ? ' is-selected' : ''}`}
+                      key={group.area.id}
+                      onClick={() => setSelectedGroupId(group.area.id)}
+                      type="button"
+                    >
+                      <span className="services-catalogue-nav-icon"><Icon size={23} aria-hidden="true" /></span>
+                      <span className="services-catalogue-nav-copy">
+                        <strong>{group.area.title[language]}</strong>
+                        <small>
+                          {group.services.length} {group.services.length === 1 ? copy.optionSingular : copy.optionPlural}
+                        </small>
+                      </span>
+                      <span className="services-catalogue-nav-price">
+                        <small>{copy.startingPrice}</small>
+                        <strong>{getStartingPrice(group.services, copy.tailoredQuote, language)}</strong>
+                      </span>
+                    </button>
+                  )
+                })}
+              </nav>
+
+              {selectedGroup ? (
+                <section
+                  aria-labelledby="active-service-package-title"
+                  className="services-catalogue-package"
+                  id="active-service-package"
                 >
-                  <SafeImage
-                    src={service.image}
-                    alt={service.title}
-                    className="services-hub-card-image"
-                    imgClassName="h-full w-full object-cover"
-                  />
-                  <div className="services-hub-card-body">
-                    <span className="services-hub-badge">{service.badge}</span>
-                    <div className="services-hub-card-title">
-                      <ServiceIcon icon={service.icon} size={25} />
-                      <h3>{service.title}</h3>
+                  <header className="services-catalogue-package-header">
+                    <SafeImage
+                      alt={selectedGroup.area.title[language]}
+                      className="services-catalogue-package-media"
+                      imgClassName="services-catalogue-package-image"
+                      src={selectedGroup.area.image}
+                    />
+                    <div className="services-catalogue-package-overlay" />
+                    <div className="services-catalogue-package-heading">
+                      <span className="services-catalogue-package-icon"><SelectedIcon size={26} aria-hidden="true" /></span>
+                      <div>
+                        <p>{copy.selectedEyebrow} · {selectedGroup.services.length} {copy.packageOptions}</p>
+                        <h2 id="active-service-package-title">{selectedGroup.area.title[language]}</h2>
+                        <span>{selectedGroup.area.description[language]}</span>
+                      </div>
                     </div>
-                    <p>{service.body}</p>
-                    <ul>
-                      {service.points.map((item) => (
-                        <li key={item}>
-                          <CheckCircle2 size={16} aria-hidden="true" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <strong>
-                      View related service
-                      <ArrowRight size={17} aria-hidden="true" />
-                    </strong>
+                  </header>
+
+                  <div className="services-catalogue-service-grid">
+                    {selectedGroup.services.map((service) => {
+                      const requirements = getRequirementLabels(service, copy)
+
+                      return (
+                        <article className="services-catalogue-service" key={service.id}>
+                          <header>
+                            <div>
+                              <small>{service.category}</small>
+                              <h3>{service.name}</h3>
+                            </div>
+                            <div className="services-catalogue-service-price">
+                              <strong>
+                                {formatCatalogueServicePrice(service, copy.tailoredQuote, language)}
+                              </strong>
+                              {service.recurringMonthlyPrice ? (
+                                <span>+ {formatCurrency(service.recurringMonthlyPrice)} {copy.recurring}</span>
+                              ) : null}
+                            </div>
+                          </header>
+
+                          <p className="services-catalogue-service-description">{service.shortDescription}</p>
+                          <div className="services-catalogue-service-benefit">
+                            <Sparkles size={18} aria-hidden="true" />
+                            <div>
+                              <strong>{copy.customerBenefit}</strong>
+                              <p>{service.customerBenefit}</p>
+                            </div>
+                          </div>
+
+                          {service.includedItems?.length ? (
+                            <div className="services-catalogue-inclusions">
+                              <strong>{copy.included}</strong>
+                              <ul>
+                                {service.includedItems?.map((item) => (
+                                  <li key={item}>
+                                    <CheckCircle2 size={16} aria-hidden="true" />
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : null}
+
+                          {requirements.length ? (
+                            <div className="services-catalogue-requirements">
+                              {requirements.map((requirement) => <span key={requirement}>{requirement}</span>)}
+                            </div>
+                          ) : null}
+
+                          {service.safetyNotice ? (
+                            <p className="services-catalogue-safety-note">
+                              <ShieldCheck size={17} aria-hidden="true" />
+                              <span><strong>{copy.safetyNote}:</strong> {service.safetyNotice}</span>
+                            </p>
+                          ) : null}
+                        </article>
+                      )
+                    })}
                   </div>
-                </Link>
-              )
-            })}
-          </div>
+                </section>
+              ) : null}
+            </>
+          ) : (
+            <div className="services-catalogue-empty">
+              <PackageCheck size={34} aria-hidden="true" />
+              <h2>{copy.emptyTitle}</h2>
+              <p>{copy.emptyBody}</p>
+            </div>
+          )}
         </div>
       </section>
 
-      <section className="services-hub-section bg-pale-blue">
-        <div className="site-shell">
-          <div className="services-pathway">
-            <div>
-              <p className="eyebrow">How services fit</p>
-              <h2>Clarity first. Improvements second.</h2>
-              <p>
-                CasaMia does not ask families to guess. We identify priorities, then
-                recommend the services that match the resident, routine and budget.
-              </p>
-            </div>
-
-            <div className="services-pathway-grid">
-              {pathwayItems.map((item) => {
-                const Icon = item.icon
-
-                return (
-                  <article key={item.title}>
-                    <span>
-                      <Icon size={24} aria-hidden="true" />
-                    </span>
-                    <h3>{item.title}</h3>
-                    <p>{item.body}</p>
-                  </article>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="services-hub-section bg-white">
-        <div className="site-shell">
-          <div className="services-hub-heading is-compact">
-            <p className="eyebrow">What stays consistent</p>
-            <h2>Useful technology, not technology for its own sake.</h2>
-          </div>
-
-          <div className="services-highlight-grid">
-            {serviceHubHighlights.map((item) => (
-              <article key={item.title}>
-                <span>
-                  <ServiceIcon icon={item.icon} size={24} />
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="services-support-band">
-            <div>
-              <Sparkles size={24} aria-hidden="true" />
-              <h2>Build one clear CasaMia plan.</h2>
-              <p>
-                Physical adaptations, smart safety and family reassurance work best
-                when they are chosen together around real daily routines.
-              </p>
-            </div>
-            <div className="services-support-links">
-              {supportServices.map((service) => (
-                <Link key={service.id} to={service.path}>
-                  <ServiceIcon icon={service.icon} size={20} />
-                  {service.shortTitle}
-                  <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="services-hub-final">
+      <section className="services-catalogue-final">
         <div className="site-shell">
           <div>
-            <p className="eyebrow">Not sure what to add?</p>
-            <h2>Start with the room that worries you most.</h2>
-            <p>
-              Answer a few guided questions and CasaMia will recommend practical
-              improvements before you request a quote or reserve a visit.
-            </p>
+            <p className="eyebrow">{copy.finalEyebrow}</p>
+            <h2>{copy.finalTitle}</h2>
+            <p>{copy.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to="/configure">
-            Build My Safer Home
-            <ArrowRight size={20} aria-hidden="true" />
-          </Link>
+          <div className="services-catalogue-final-actions">
+            <Link className="btn btn-green" to="/home-safety-wizard">
+              {copy.startCta}
+              <ArrowRight size={20} aria-hidden="true" />
+            </Link>
+            <Link className="btn btn-white" to="/why-us#contact-form">{copy.contactCta}</Link>
+          </div>
         </div>
       </section>
     </>

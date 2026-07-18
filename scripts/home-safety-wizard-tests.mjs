@@ -6,6 +6,10 @@ import { classifyRoomImage, parseRoomClassification } from '../api/public/classi
 import { getWizardPriceRange } from '../src/config/wizardPricing.ts'
 import { buildWizardSteps } from '../src/services/wizardSteps.ts'
 import { generateWizardResult } from '../src/services/wizardRecommendationEngine.ts'
+import {
+  buildRecommendedServicesPriceRange,
+  buildWizardSafetyReport,
+} from '../src/services/wizardSafetyReport.ts'
 import { loadWizardState, SAFETY_WIZARD_STORAGE_KEY, saveWizardState } from '../src/services/wizardStorage.ts'
 import { createWizardMediaManifest, createWizardSubmissionPayload } from '../src/services/wizardSubmission.ts'
 import {
@@ -181,6 +185,47 @@ function makeService(overrides = {}) {
   } finally {
     if (originalWindow === undefined) delete globalThis.window
     else globalThis.window = originalWindow
+  }
+}
+
+function makePhotoAnalysis(overrides = {}) {
+  return {
+    room: 'bathroom',
+    roomConfidence: 0.92,
+    headline: 'Bathroom safety review',
+    overview: 'Visible bathroom details were reviewed.',
+    strengths: ['The route is well lit.'],
+    limitations: ['Wall construction cannot be confirmed from a photo.'],
+    findings: [],
+    ...overrides,
+  }
+}
+
+function makeAnalysedPhoto(overrides = {}) {
+  return {
+    id: 'bathroom-photo-1',
+    kind: 'image',
+    name: 'bathroom.jpg',
+    room: 'bathroom',
+    size: 1024,
+    type: 'image/jpeg',
+    analysisStatus: 'analysed',
+    analysis: makePhotoAnalysis(),
+    ...overrides,
+  }
+}
+
+function makeFinding(overrides = {}) {
+  return {
+    category: 'slip',
+    title: 'Wet shower floor',
+    evidence: 'The shower floor appears smooth and has no visible non-slip treatment.',
+    severity: 'high',
+    confidence: 0.9,
+    whyItMatters: 'Wet smooth surfaces can increase the chance of slipping.',
+    action: 'Confirm the surface and add a suitable non-slip treatment.',
+    requiresConfirmation: true,
+    ...overrides,
   }
 }
 
@@ -432,6 +477,131 @@ function makeService(overrides = {}) {
   const editedRange = getWizardPriceRange(state, adminEditedServices, 'es')
 
   assert.equal(editedRange?.minimum, 333, 'An Admin catalogue price edit must change the wizard estimate.')
+}
+
+{
+  const bathroomService = makeService({
+    id: 'bathroom-floor-safety',
+    name: 'Bathroom floor safety',
+    customerBenefit: 'Make wet movement safer.',
+    room: 'bathroom',
+    wizardAreas: ['bathroom'],
+    evidenceCategories: ['slip'],
+    minimumEvidenceSeverity: 'medium',
+    productPrice: 200,
+    installationPrice: 50,
+  })
+  const report = buildWizardSafetyReport(makeState({
+    mobilityLevel: 'walker',
+    challenges: ['falls'],
+    urgency: 'soon',
+    photos: [makeAnalysedPhoto({
+      analysis: makePhotoAnalysis({
+        findings: [
+          makeFinding(),
+          makeFinding({
+            category: 'support',
+            title: 'No visible support point',
+            severity: 'medium',
+            confidence: 0.8,
+            evidence: 'No fixed support point is visible beside the shower entrance.',
+            whyItMatters: 'A stable handhold can help with balance during entry and exit.',
+            action: 'Confirm the wall and consider a professionally fixed support point.',
+          }),
+        ],
+      }),
+    })],
+  }), [bathroomService], 'en')
+
+  assert.equal(report.status, 'complete', 'A successfully analysed photo should produce a complete visual report.')
+  assert.equal(report.rooms.length, 1)
+  assert.ok(report.safetyScore < 72, 'High and medium bathroom evidence should lower the safety score into attention range.')
+  assert.match(report.rooms[0].scoreExplanation, /2 consolidated visible findings/)
+  assert.deepEqual(
+    report.contextSignals,
+    ['Walking frame used', 'Falls reported', 'Action wanted soon'],
+    'Personal context should be visible without being folded into the photographic score.',
+  )
+  assert.equal(report.serviceRecommendations[0]?.serviceId, 'bathroom-floor-safety')
+
+  const range = buildRecommendedServicesPriceRange(report, [bathroomService], 'en')
+  assert.equal(range?.minimum, 303, 'The visual estimate should use only matched catalogue services and include VAT.')
+  assert.deepEqual(range?.serviceIds, ['bathroom-floor-safety'])
+}
+
+{
+  const repeatedFinding = makeFinding()
+  const report = buildWizardSafetyReport(makeState({
+    photos: [
+      makeAnalysedPhoto({ id: 'bathroom-photo-1', analysis: makePhotoAnalysis({ findings: [repeatedFinding] }) }),
+      makeAnalysedPhoto({ id: 'bathroom-photo-2', name: 'bathroom-2.jpg', analysis: makePhotoAnalysis({ findings: [repeatedFinding] }) }),
+    ],
+  }), [], 'en')
+
+  assert.equal(report.rooms[0].findings.length, 1, 'The same visible concern across photos must be consolidated once.')
+  assert.equal(report.rooms[0].photoAnalyses.length, 2, 'Every uploaded image should retain its own analysis in the room report.')
+  assert.equal(report.rooms[0].photoAnalyses[0].safetyScore, 65)
+  assert.deepEqual(
+    report.rooms[0].findings[0].photoIds,
+    ['bathroom-photo-1', 'bathroom-photo-2'],
+    'A consolidated finding should retain every supporting photo reference.',
+  )
+  assert.equal(report.rooms[0].safetyScore, 65, 'Repeated photos must not inflate the room risk score.')
+}
+
+{
+  const noConcernPhoto = makeAnalysedPhoto({
+    id: 'living-photo-1',
+    room: 'living-room',
+    analysis: makePhotoAnalysis({
+      room: 'living-room',
+      headline: 'Living room review',
+      findings: [],
+    }),
+  })
+  const report = buildWizardSafetyReport(makeState({
+    photos: [
+      makeAnalysedPhoto({ analysis: makePhotoAnalysis({ findings: [makeFinding()] }) }),
+      noConcernPhoto,
+    ],
+  }), [], 'en')
+
+  assert.ok(
+    report.safetyScore < 75,
+    'One higher-risk room should remain influential instead of being hidden by a safer-room average.',
+  )
+}
+
+{
+  const unavailablePhoto = {
+    ...makeAnalysedPhoto(),
+    analysisStatus: 'unavailable',
+    analysis: undefined,
+    analysisError: 'Visual analysis unavailable.',
+  }
+  const state = makeState({ photos: [unavailablePhoto] })
+  const report = buildWizardSafetyReport(state, [], 'en')
+  const result = generateWizardResult(state, { services: [], language: 'en' })
+
+  assert.equal(report.status, 'questionnaire-only')
+  assert.equal(report.safetyScore, undefined, 'An unavailable photo must never be treated as evidence of a safe room.')
+  assert.equal(result.confidence, 'early', 'Uploading a photo alone must not imply a supported recommendation.')
+}
+
+{
+  const bathroomService = makeService({
+    id: 'bathroom-floor-safety',
+    room: 'bathroom',
+    wizardAreas: ['bathroom'],
+    evidenceCategories: ['slip'],
+  })
+  const result = generateWizardResult(makeState({
+    photos: [makeAnalysedPhoto({ analysis: makePhotoAnalysis({ findings: [makeFinding()] }) })],
+  }), { services: [bathroomService], language: 'en' })
+
+  assert.equal(result.recommendedPlan, 'home-safety', 'Matched photo evidence should recommend relevant improvements, not a generic assessment.')
+  assert.equal(result.safetyReport?.serviceRecommendations[0]?.serviceId, 'bathroom-floor-safety')
+  assert.equal(result.confidence, 'supported')
 }
 
 {

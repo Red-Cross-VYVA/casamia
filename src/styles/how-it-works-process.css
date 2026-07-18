@@ -57,14 +57,6 @@
   box-shadow: 0 24px 60px rgb(18 58 80 / 12%);
 }
 
-.how-easy-human::after {
-  position: absolute;
-  inset: 45% 0 0;
-  background: linear-gradient(transparent, rgb(12 42 58 / 32%));
-  content: '';
-  pointer-events: none;
-}
-
 .how-easy-human-media {
   position: absolute;
   inset: 0;
@@ -75,39 +67,6 @@
   height: 100%;
   object-fit: cover;
   object-position: 54% center;
-}
-
-.how-easy-human-caption {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  left: 1rem;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.9rem;
-  padding: 0.9rem 1rem;
-  border: 1px solid rgb(255 255 255 / 78%);
-  border-radius: 1.2rem;
-  background: rgb(255 255 255 / 92%);
-  box-shadow: 0 16px 34px rgb(13 45 62 / 18%);
-  backdrop-filter: blur(10px);
-}
-
-.how-easy-human-caption .brand-logo {
-  flex: 0 0 auto;
-  font-size: 1.95rem;
-  white-space: nowrap;
-}
-
-.how-easy-human-note {
-  max-width: 10rem;
-  color: #526d7e;
-  font-size: 0.68rem;
-  font-weight: 800;
-  line-height: 1.35;
-  text-align: right;
 }
 
 .how-easy-journey {
@@ -224,8 +183,11 @@
 .how-easy-step {
   --step-accent: #8bcbe6;
   position: relative;
+  display: flex;
   min-width: 0;
   min-height: 8.35rem;
+  flex-direction: column;
+  justify-content: center;
   padding: 1rem;
   color: #fff;
   text-align: left;
@@ -311,7 +273,7 @@
 }
 
 .how-easy-step p {
-  max-width: 13rem;
+  max-width: 16rem;
   margin-top: 0.35rem;
   color: rgb(234 246 251 / 78%);
   font-size: 0.82rem;
@@ -326,16 +288,6 @@
 
   .how-easy-human {
     min-height: 34rem;
-  }
-
-  .how-easy-human-caption {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .how-easy-human-note {
-    max-width: 14rem;
-    text-align: left;
   }
 
   .how-easy-channel-panel {
@@ -382,22 +334,6 @@
 
   .how-easy-human-image {
     object-position: 54% 42%;
-  }
-
-  .how-easy-human-caption {
-    right: auto;
-    bottom: 0.75rem;
-    left: 0.75rem;
-    padding: 0.65rem 0.9rem;
-    border-radius: 1rem;
-  }
-
-  .how-easy-human-caption .brand-logo {
-    font-size: 1.75rem;
-  }
-
-  .how-easy-human-note {
-    display: none;
   }
 
   .how-easy-flow-wrap {

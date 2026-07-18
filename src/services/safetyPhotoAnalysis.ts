@@ -1,38 +1,12 @@
 import { getPublicSiteApiBaseUrl } from './publicSiteApi.ts'
 import { prepareImageForVision } from './roomPhotoClassification.ts'
+import type { SafetyPhotoAnalysisResult } from '../types/safetyAnalysis.ts'
 
-export type PhotoFindingCategory =
-  | 'access'
-  | 'emergency'
-  | 'fire'
-  | 'lighting'
-  | 'reach'
-  | 'slip'
-  | 'support'
-  | 'transfer'
-  | 'trip'
-  | 'other'
-
-export type SafetyPhotoFinding = {
-  category: PhotoFindingCategory
-  title: string
-  evidence: string
-  severity: 'low' | 'medium' | 'high'
-  confidence: number
-  whyItMatters: string
-  action: string
-  requiresConfirmation: boolean
-}
-
-export type SafetyPhotoAnalysisResult = {
-  room: string
-  roomConfidence: number
-  headline: string
-  overview: string
-  strengths: string[]
-  limitations: string[]
-  findings: SafetyPhotoFinding[]
-}
+export type {
+  SafetyFindingCategory as PhotoFindingCategory,
+  SafetyPhotoAnalysisResult,
+  SafetyPhotoFinding,
+} from '../types/safetyAnalysis.ts'
 
 export type SafetyPhotoContext = {
   homeType: string

@@ -2,12 +2,15 @@ import { Camera, CheckCircle2, CircleHelp, ImagePlus, LoaderCircle, Trash2, Uplo
 import { useEffect, useId, useRef, useState, type ChangeEvent } from 'react'
 
 import type { WizardCopy } from '../../config/wizardCopy'
-import { classifyRoomPhoto, inferRoomFromFileName } from '../../services/roomPhotoClassification'
+import { analyseSafetyPhoto, type SafetyPhotoContext } from '../../services/safetyPhotoAnalysis'
+import { inferRoomFromFileName } from '../../services/roomPhotoClassification'
 import type { WizardPhoto, WizardRoom } from '../../types/wizard'
 import { WizardStep } from './WizardStep'
 
 type PhotoUploadStepProps = {
+  analysisContext: SafetyPhotoContext
   copy: WizardCopy
+  locale: string
   photos: WizardPhoto[]
   roomLabels: Partial<Record<WizardRoom | 'other', string>>
   onChange: (photos: WizardPhoto[]) => void
@@ -30,7 +33,7 @@ const maxImageSize = 8 * 1024 * 1024
 const maxVideoSize = 50 * 1024 * 1024
 const maxTotalSize = 100 * 1024 * 1024
 
-export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUploadStepProps) {
+export function PhotoUploadStep({ analysisContext, copy, locale, photos, roomLabels, onChange }: PhotoUploadStepProps) {
   const inputId = useId()
   const rulesId = `${inputId}-rules`
   const countId = `${inputId}-count`
@@ -98,22 +101,40 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
     onChange(nextPhotos)
   }
 
-  const detectPhotoRoom = async (photo: WizardPhoto) => {
+  const analysePhoto = async (photo: WizardPhoto) => {
     if (!photo.file || getPhotoKind(photo) !== 'image') return
 
-    const result = await classifyRoomPhoto(photo.file)
-    if (!mountedRef.current) return
+    try {
+      const result = await analyseSafetyPhoto(photo.file, {
+        assignedRoom: photo.room,
+        context: analysisContext,
+        locale,
+      })
+      if (!mountedRef.current) return
 
-    const currentPhoto = photosRef.current.find((candidate) => candidate.id === photo.id)
-    if (!currentPhoto || currentPhoto.roomDetectionStatus === 'manual') return
+      const currentPhoto = photosRef.current.find((candidate) => candidate.id === photo.id)
+      if (!currentPhoto) return
+      const manuallyAssigned = currentPhoto.roomDetectionStatus === 'manual'
 
-    emitChange(photosRef.current.map((candidate) => candidate.id === photo.id ? {
-      ...candidate,
-      room: result.room,
-      roomDetectionStatus: result.source === 'unavailable' ? 'unavailable' : 'detected',
-      roomDetectionSource: result.source === 'unavailable' ? undefined : result.source,
-      roomDetectionConfidence: result.confidence,
-    } : candidate))
+      emitChange(photosRef.current.map((candidate) => candidate.id === photo.id ? {
+        ...candidate,
+        room: manuallyAssigned ? candidate.room : toWizardPhotoRoom(result.room),
+        roomDetectionStatus: manuallyAssigned ? 'manual' : 'detected',
+        roomDetectionSource: manuallyAssigned ? undefined : 'image',
+        roomDetectionConfidence: result.roomConfidence,
+        analysisStatus: 'analysed',
+        analysis: result,
+        analysisError: undefined,
+      } : candidate))
+    } catch {
+      if (!mountedRef.current) return
+      emitChange(photosRef.current.map((candidate) => candidate.id === photo.id ? {
+        ...candidate,
+        roomDetectionStatus: candidate.room === 'other' ? 'unavailable' : candidate.roomDetectionStatus,
+        analysisStatus: 'unavailable',
+        analysisError: copy.photos.analysisUnavailable,
+      } : candidate))
+    }
   }
 
   const addPhotos = (event: ChangeEvent<HTMLInputElement>) => {
@@ -169,6 +190,7 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
           ? 'detecting' as const
           : inferredRoom === 'other' ? 'unavailable' as const : 'detected' as const,
         roomDetectionSource: inferredRoom === 'other' ? undefined : 'filename' as const,
+        analysisStatus: kind === 'image' ? 'analysing' as const : 'unavailable' as const,
         file,
       } satisfies WizardPhoto & { kind: MediaKind }
 
@@ -181,7 +203,7 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
     setFileError(Array.from(messages).join(' '))
     if (next.length) {
       emitChange([...photosRef.current, ...next])
-      next.forEach((photo) => void detectPhotoRoom(photo))
+      next.forEach((photo) => void analysePhoto(photo))
     }
     event.target.value = ''
   }
@@ -295,6 +317,21 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
                                 : copy.photos.chooseRoom}
                           </span>
                         ) : null}
+                        {kind === 'image' ? (
+                          <span
+                            className={`safety-wizard-photo-analysis-status is-${photo.analysisStatus ?? 'unavailable'}`}
+                            aria-live="polite"
+                          >
+                            {photo.analysisStatus === 'analysing' ? <LoaderCircle size={13} aria-hidden="true" /> : null}
+                            {photo.analysisStatus === 'analysed' ? <CheckCircle2 size={13} aria-hidden="true" /> : null}
+                            {photo.analysisStatus === 'unavailable' ? <CircleHelp size={13} aria-hidden="true" /> : null}
+                            {photo.analysisStatus === 'analysing'
+                              ? copy.photos.analysingPhoto
+                              : photo.analysisStatus === 'analysed'
+                                ? `${copy.photos.analysedPhoto} - ${copy.photos.findingsFound(photo.analysis?.findings.length ?? 0)}`
+                                : copy.photos.analysisUnavailable}
+                          </span>
+                        ) : null}
                       </label>
                       <button type="button" onClick={() => removePhoto(photo.id)} aria-label={`${copy.photos.remove}: ${photo.name}`}>
                         <Trash2 size={18} aria-hidden="true" />
@@ -329,4 +366,12 @@ function formatFileSize(bytes: number) {
   }
 
   return `${Math.max(1, Math.round(bytes / 1024))} KB`
+}
+
+function toWizardPhotoRoom(room: string): WizardPhoto['room'] {
+  if (['bathroom', 'bedroom', 'kitchen', 'living-room', 'stairs', 'entrance', 'outdoor'].includes(room)) {
+    return room as WizardPhoto['room']
+  }
+
+  return 'other'
 }

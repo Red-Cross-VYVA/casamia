@@ -22,6 +22,7 @@ import { getWizardPlanPackages, type WizardConsumerPlan } from '../../config/wiz
 import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE } from '../../constants/contact'
 import type { SafetyWizardState, WizardResult } from '../../types/wizard'
 import { PriceRangeCard } from './PriceRangeCard'
+import { WizardVisualSafetyReport } from './WizardVisualSafetyReport'
 import { WizardStep } from './WizardStep'
 
 type PlanResultProps = {
@@ -92,10 +93,19 @@ export function PlanResult({
   const packages = getWizardPlanPackages(language)
   const recommendedConsumerPlan = result.recommendedPlan === 'business-consultation' ? 'assessment' : result.recommendedPlan
   const [expandedPlan, setExpandedPlan] = useState<WizardConsumerPlan | null>(recommendedConsumerPlan)
+  const hasVisualReport = Boolean(result.safetyReport?.analysedPhotoCount)
 
   return (
-    <WizardStep title={copy.result.title} icon={<ShieldCheck size={28} />} compact>
-      <section className="safety-wizard-result-hero" aria-labelledby="wizard-result-plan-title">
+    <WizardStep
+      title={hasVisualReport
+        ? isSpanish ? 'Tu informe de seguridad del hogar' : 'Your home safety report'
+        : copy.result.title}
+      icon={<ShieldCheck size={28} />}
+      compact
+    >
+      {hasVisualReport && result.safetyReport ? (
+        <WizardVisualSafetyReport language={language} report={result.safetyReport} state={state} />
+      ) : <section className="safety-wizard-result-hero" aria-labelledby="wizard-result-plan-title">
         <span className="safety-wizard-result-plan-icon" aria-hidden="true">
           <PlanIcon size={28} />
         </span>
@@ -114,12 +124,12 @@ export function PlanResult({
             </div>
           ) : null}
         </div>
-      </section>
+      </section>}
 
       {!isClient ? (
         <>
-        <div className="safety-wizard-result-content">
-          <section className="safety-wizard-recommendations" aria-labelledby="wizard-result-improvements">
+        <div className={`safety-wizard-result-content${hasVisualReport ? ' has-visual-report' : ''}`}>
+          {!hasVisualReport ? <section className="safety-wizard-recommendations" aria-labelledby="wizard-result-improvements">
             <div className="safety-wizard-recommendations-heading">
               <h2 id="wizard-result-improvements">{copy.result.improvements}</h2>
               <span>{result.improvements.length}</span>
@@ -135,7 +145,7 @@ export function PlanResult({
                 </li>
               ))}
             </ol>
-          </section>
+          </section> : null}
 
           <aside className="safety-wizard-result-next-step" aria-label={copy.result.recommendedPlan}>
             {result.priceRange ? (

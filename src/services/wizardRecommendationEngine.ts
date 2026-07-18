@@ -1,4 +1,8 @@
 import { getWizardPriceRange } from '../config/wizardPricing.ts'
+import {
+  buildRecommendedServicesPriceRange,
+  buildWizardSafetyReport,
+} from './wizardSafetyReport.ts'
 import type { CasaMiaService } from '../types/serviceCatalogue.ts'
 import type {
   SafetyWizardState,
@@ -50,54 +54,88 @@ export function generateWizardResult(
   options: WizardResultOptions = {},
 ): WizardResult {
   if (state.userType === 'client') {
+    const hasAnalysedPhoto = state.photos.some((photo) =>
+      photo.analysisStatus === 'analysed' && Boolean(photo.analysis),
+    )
     return {
       safetyProfile: 'business',
       riskScore: 0,
       recommendedPlan: 'business-consultation',
       selectedPlan: state.result?.selectedPlan ?? 'business-consultation',
       improvements: [],
-      confidence: state.photos.length || state.voiceSession ? 'supported' : 'early',
+      confidence: hasAnalysedPhoto || state.voiceSession ? 'supported' : 'early',
       nextAction: 'business-consultation',
     }
   }
 
   const riskScore = calculateRiskScore(state)
-  const improvements = buildImprovements(state)
+  const safetyReport = buildWizardSafetyReport(
+    state,
+    options.services ?? [],
+    options.language,
+  )
+  const hasVisualAssessment = safetyReport.analysedPhotoCount > 0
+  const visualRiskScore = safetyReport.safetyScore === undefined ? undefined : 100 - safetyReport.safetyScore
+  const effectiveRiskScore = visualRiskScore ?? riskScore
+  const improvements = hasVisualAssessment
+    ? buildVisualImprovements(safetyReport.topFindings)
+    : buildImprovements(state)
   const wantsSmartSafety =
     state.areasOfConcern.includes('smart-safety') ||
     state.challenges.includes('emergency-support') ||
     state.currentRisks.includes('no-emergency-alert')
 
-  const recommendedPlan = wantsSmartSafety
-    ? 'smart-safety'
-    : riskScore >= 6 || improvements.length >= 3
-      ? 'home-safety'
-      : 'assessment'
+  const connectedRecommendationCount = safetyReport.serviceRecommendations.filter(
+    (recommendation) => recommendation.room === 'connected',
+  ).length
+  const physicalRecommendationCount = safetyReport.serviceRecommendations.length - connectedRecommendationCount
+  const recommendedPlan = hasVisualAssessment
+    ? connectedRecommendationCount > 0 && physicalRecommendationCount === 0
+      ? 'smart-safety'
+      : safetyReport.serviceRecommendations.length > 0
+        ? 'home-safety'
+        : 'assessment'
+    : wantsSmartSafety
+      ? 'smart-safety'
+      : riskScore >= 6 || improvements.length >= 3
+        ? 'home-safety'
+        : 'assessment'
 
   const safetyProfile = wantsSmartSafety
     ? 'smart-safety'
-    : riskScore >= 12 || state.urgency === 'urgent'
+    : effectiveRiskScore >= 55 || safetyReport.priority === 'urgent'
       ? 'high-priority'
-      : riskScore >= 5
+      : effectiveRiskScore >= 28 || safetyReport.priority === 'attention'
         ? 'moderate'
         : 'prevention'
 
   return {
     safetyProfile,
-    riskScore,
+    riskScore: effectiveRiskScore,
     recommendedPlan,
     selectedPlan: state.result?.selectedPlan ?? recommendedPlan,
     improvements,
     priceRange: options.services
-      ? getWizardPriceRange(state, options.services, options.language)
+      ? hasVisualAssessment
+        ? buildRecommendedServicesPriceRange(safetyReport, options.services, options.language)
+        : getWizardPriceRange(state, options.services, options.language)
       : undefined,
     confidence: state.inspectionBooked
       ? 'inspection'
-      : state.photos.length || state.voiceSession
+      : hasVisualAssessment || state.voiceSession
         ? 'supported'
         : 'early',
     nextAction: state.inspectionBooked ? 'request-proposal' : 'book-visit',
+    safetyReport,
   }
+}
+
+function buildVisualImprovements(findings: ReturnType<typeof buildWizardSafetyReport>['topFindings']) {
+  return findings.slice(0, 7).map((finding) => ({
+    id: finding.id,
+    label: finding.action,
+    priority: finding.severity === 'high' ? 'immediate' as const : 'recommended' as const,
+  }))
 }
 
 export function calculateRiskScore(state: SafetyWizardState) {
