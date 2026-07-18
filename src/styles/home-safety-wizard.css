@@ -867,6 +867,31 @@
   background: #ffe3e3;
 }
 
+.safety-wizard-media-controls .safety-wizard-analysis-retry {
+  grid-column: 1;
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: auto;
+  min-height: 34px;
+  margin-top: 0;
+  border: 1px solid #e7b88f;
+  border-radius: 999px;
+  padding: 6px 10px;
+  color: #8b4b2e;
+  background: #fff8f2;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.safety-wizard-media-controls .safety-wizard-analysis-retry:hover {
+  color: #713a20;
+  background: #ffecdc;
+}
+
 .safety-wizard-recorder {
   position: relative;
   overflow: hidden;
@@ -1112,6 +1137,59 @@
   font-size: 14px;
   font-weight: 750;
   line-height: 1.45;
+}
+
+.safety-wizard-analysis-alert {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  max-width: 920px;
+  margin-top: 18px;
+  border: 1px solid #e7b88f;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #713a20;
+  background: #fff8f2;
+}
+
+.safety-wizard-analysis-alert > span {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 50%;
+  color: #9a4d26;
+  background: #ffe8d6;
+}
+
+.safety-wizard-analysis-alert strong,
+.safety-wizard-analysis-alert p {
+  display: block;
+  margin: 0;
+}
+
+.safety-wizard-analysis-alert p {
+  margin-top: 3px;
+  color: #765b4f;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.safety-wizard-analysis-alert button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  border: 1px solid #d99a6e;
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: #713a20;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 850;
+  cursor: pointer;
 }
 
 .safety-wizard-agent-transcript {
@@ -2763,6 +2841,16 @@
 }
 
 @media (max-width: 640px) {
+  .safety-wizard-analysis-alert {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .safety-wizard-analysis-alert button {
+    grid-column: 1 / -1;
+    justify-content: center;
+    width: 100%;
+  }
+
   .wizard-personal-context {
     grid-template-columns: 1fr;
   }

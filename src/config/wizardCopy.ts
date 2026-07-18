@@ -80,6 +80,18 @@ export type WizardCopy = {
     analysingPhoto: string
     analysedPhoto: string
     analysisUnavailable: string
+    analysisUnavailableTitle: string
+    analysisUnavailableBody: string
+    retryAnalysis: string
+    retryAll: string
+    continueWithoutAnalysis: string
+    analysisErrors: {
+      invalid: string
+      notConfigured: string
+      rateLimited: string
+      timedOut: string
+      unavailable: string
+    }
     findingsFound: (count: number) => string
     count: (count: number) => string
     errors: {
@@ -286,7 +298,19 @@ const en: WizardCopy = {
     chooseRoom: 'Choose the room',
     analysingPhoto: 'Checking visible safety details...',
     analysedPhoto: 'Safety review complete',
-    analysisUnavailable: 'Visual review unavailable. Remove and add the photo again to retry.',
+    analysisUnavailable: 'Visual review unavailable',
+    analysisUnavailableTitle: 'Some photos still need analysis',
+    analysisUnavailableBody: 'Your photos are saved. Retry the visual review before continuing, or explicitly continue without photo evidence.',
+    retryAnalysis: 'Retry analysis',
+    retryAll: 'Retry all photos',
+    continueWithoutAnalysis: 'Continue without photo analysis',
+    analysisErrors: {
+      invalid: 'This image could not be checked. Try a clear JPG, PNG or WebP photo.',
+      notConfigured: 'CasaMia visual analysis is not available in this environment yet.',
+      rateLimited: 'The visual review service is busy. Please retry in a moment.',
+      timedOut: 'The visual review took too long. Please retry this photo.',
+      unavailable: 'The visual review could not run. Your photo is saved; please retry.',
+    },
     findingsFound: (count) => `${count} visible ${count === 1 ? 'finding' : 'findings'}`,
     count: (count) => `${count} of 8 files added`,
     errors: {
@@ -430,7 +454,19 @@ const es: WizardCopy = {
     chooseRoom: 'Elige la zona',
     analysingPhoto: 'Revisando detalles visibles de seguridad...',
     analysedPhoto: 'Revisión de seguridad completada',
-    analysisUnavailable: 'La revisión visual no está disponible. Quita y vuelve a añadir la foto para reintentarlo.',
+    analysisUnavailable: 'Revisión visual no disponible',
+    analysisUnavailableTitle: 'Aún quedan fotos por analizar',
+    analysisUnavailableBody: 'Tus fotos están guardadas. Reintenta el análisis antes de continuar o elige expresamente seguir sin evidencia visual.',
+    retryAnalysis: 'Reintentar análisis',
+    retryAll: 'Reintentar todas',
+    continueWithoutAnalysis: 'Continuar sin analizar las fotos',
+    analysisErrors: {
+      invalid: 'No hemos podido revisar esta imagen. Prueba con una foto clara en JPG, PNG o WebP.',
+      notConfigured: 'El análisis visual de CasaMia todavía no está disponible en este entorno.',
+      rateLimited: 'El servicio de revisión está ocupado. Reinténtalo dentro de un momento.',
+      timedOut: 'La revisión ha tardado demasiado. Reintenta esta foto.',
+      unavailable: 'No se ha podido ejecutar la revisión visual. La foto está guardada; reinténtalo.',
+    },
     findingsFound: (count) => `${count} ${count === 1 ? 'hallazgo visible' : 'hallazgos visibles'}`,
     count: (count) => `${count} de 8 archivos añadidos`,
     errors: {

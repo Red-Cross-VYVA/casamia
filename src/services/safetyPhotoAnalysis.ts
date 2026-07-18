@@ -16,6 +16,26 @@ export type SafetyPhotoContext = {
   description: string
 }
 
+export type SafetyPhotoAnalysisErrorCode =
+  | 'IMAGE_INVALID'
+  | 'VISION_NOT_CONFIGURED'
+  | 'VISION_PROVIDER_ERROR'
+  | 'VISION_RATE_LIMITED'
+  | 'VISION_TIMEOUT'
+  | 'VISION_UNAVAILABLE'
+
+export class SafetyPhotoAnalysisError extends Error {
+  code: SafetyPhotoAnalysisErrorCode
+  status?: number
+
+  constructor(message: string, code: SafetyPhotoAnalysisErrorCode, status?: number) {
+    super(message)
+    this.name = 'SafetyPhotoAnalysisError'
+    this.code = code
+    this.status = status
+  }
+}
+
 export async function analyseSafetyPhoto(
   file: File,
   options: {
@@ -41,12 +61,49 @@ export async function analyseSafetyPhoto(
       signal: controller.signal,
     })
 
-    if (!response.ok) throw new Error(`Safety photo analysis failed with ${response.status}.`)
+    if (!response.ok) {
+      const body = await readAnalysisError(response)
+      throw new SafetyPhotoAnalysisError(
+        body.message ?? `Safety photo analysis failed with ${response.status}.`,
+        normaliseErrorCode(body.code),
+        response.status,
+      )
+    }
 
     return await response.json() as SafetyPhotoAnalysisResult
+  } catch (error) {
+    if (error instanceof SafetyPhotoAnalysisError) throw error
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw new SafetyPhotoAnalysisError('Safety photo analysis timed out.', 'VISION_TIMEOUT')
+    }
+
+    throw new SafetyPhotoAnalysisError(
+      error instanceof Error ? error.message : 'Safety photo analysis is unavailable.',
+      'VISION_UNAVAILABLE',
+    )
   } finally {
     window.clearTimeout(timeoutId)
   }
+}
+
+async function readAnalysisError(response: Response) {
+  try {
+    return await response.json() as { code?: string; message?: string }
+  } catch {
+    return {} as { code?: string; message?: string }
+  }
+}
+
+function normaliseErrorCode(value?: string): SafetyPhotoAnalysisErrorCode {
+  if (
+    value === 'IMAGE_INVALID'
+    || value === 'VISION_NOT_CONFIGURED'
+    || value === 'VISION_PROVIDER_ERROR'
+    || value === 'VISION_RATE_LIMITED'
+    || value === 'VISION_TIMEOUT'
+  ) return value
+
+  return 'VISION_UNAVAILABLE'
 }
 
 function normaliseRoom(room: string) {

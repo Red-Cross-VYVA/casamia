@@ -33,6 +33,7 @@ export async function analyseSafetyImage(body, { env = process.env, fetchImpl = 
   if (!apiKey) {
     const error = new Error('Safety photo analysis is not configured.')
     error.statusCode = 503
+    error.code = 'VISION_NOT_CONFIGURED'
     throw error
   }
 
@@ -47,6 +48,7 @@ export async function analyseSafetyImage(body, { env = process.env, fetchImpl = 
   ) {
     const error = new Error('The image is not valid for safety analysis.')
     error.statusCode = 400
+    error.code = 'IMAGE_INVALID'
     throw error
   }
 
@@ -101,10 +103,20 @@ export async function analyseSafetyImage(body, { env = process.env, fetchImpl = 
     if (!response.ok) {
       const error = new Error(`Anthropic safety analysis failed with ${response.status}.`)
       error.statusCode = response.status === 429 ? 429 : 502
+      error.code = response.status === 429 ? 'VISION_RATE_LIMITED' : 'VISION_PROVIDER_ERROR'
       throw error
     }
 
     return parseSafetyPhotoAnalysis(await response.json())
+  } catch (error) {
+    if (error?.name === 'AbortError') {
+      const timeoutError = new Error('Safety photo analysis timed out.')
+      timeoutError.statusCode = 504
+      timeoutError.code = 'VISION_TIMEOUT'
+      throw timeoutError
+    }
+
+    throw error
   } finally {
     clearTimeout(timeoutId)
   }
@@ -241,6 +253,7 @@ export default async function handler(request, response) {
     const statusCode = Number.isInteger(error?.statusCode) ? error.statusCode : 500
     if (statusCode >= 500) console.error('Safety photo analysis failed.', error)
     sendJson(response, statusCode, {
+      code: typeof error?.code === 'string' ? error.code : 'VISION_UNAVAILABLE',
       message: statusCode === 400
         ? 'The image could not be checked.'
         : 'Automatic safety analysis is temporarily unavailable.',

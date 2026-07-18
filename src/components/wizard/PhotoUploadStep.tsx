@@ -1,8 +1,12 @@
-import { Camera, CheckCircle2, CircleHelp, ImagePlus, LoaderCircle, Trash2, Upload, Video } from 'lucide-react'
+import { AlertCircle, Camera, CheckCircle2, CircleHelp, ImagePlus, LoaderCircle, RotateCcw, Trash2, Upload, Video } from 'lucide-react'
 import { useEffect, useId, useRef, useState, type ChangeEvent } from 'react'
 
 import type { WizardCopy } from '../../config/wizardCopy'
-import { analyseSafetyPhoto, type SafetyPhotoContext } from '../../services/safetyPhotoAnalysis'
+import {
+  analyseSafetyPhoto,
+  SafetyPhotoAnalysisError,
+  type SafetyPhotoContext,
+} from '../../services/safetyPhotoAnalysis'
 import { inferRoomFromFileName } from '../../services/roomPhotoClassification'
 import type { WizardPhoto, WizardRoom } from '../../types/wizard'
 import { WizardStep } from './WizardStep'
@@ -44,6 +48,9 @@ export function PhotoUploadStep({ analysisContext, copy, locale, photos, roomLab
   const mountedRef = useRef(true)
   const [, refreshPreviews] = useState(0)
   const [fileError, setFileError] = useState('')
+  const unavailablePhotos = photos.filter(
+    (photo) => getPhotoKind(photo) === 'image' && photo.analysisStatus === 'unavailable',
+  )
 
   useEffect(() => {
     photosRef.current = photos
@@ -126,15 +133,31 @@ export function PhotoUploadStep({ analysisContext, copy, locale, photos, roomLab
         analysis: result,
         analysisError: undefined,
       } : candidate))
-    } catch {
+    } catch (error) {
       if (!mountedRef.current) return
       emitChange(photosRef.current.map((candidate) => candidate.id === photo.id ? {
         ...candidate,
         roomDetectionStatus: candidate.room === 'other' ? 'unavailable' : candidate.roomDetectionStatus,
         analysisStatus: 'unavailable',
-        analysisError: copy.photos.analysisUnavailable,
+        analysisError: getAnalysisFailureMessage(error, copy),
       } : candidate))
     }
+  }
+
+  const retryPhoto = (photo: WizardPhoto) => {
+    if (!photo.file || getPhotoKind(photo) !== 'image') return
+
+    const retryingPhoto = {
+      ...photo,
+      analysisStatus: 'analysing' as const,
+      analysisError: undefined,
+    }
+    emitChange(photosRef.current.map((candidate) => candidate.id === photo.id ? retryingPhoto : candidate))
+    void analysePhoto(retryingPhoto)
+  }
+
+  const retryUnavailablePhotos = () => {
+    unavailablePhotos.forEach((photo) => retryPhoto(photo))
   }
 
   const addPhotos = (event: ChangeEvent<HTMLInputElement>) => {
@@ -257,6 +280,19 @@ export function PhotoUploadStep({ analysisContext, copy, locale, photos, roomLab
         </div>
         <p id={rulesId} className="safety-wizard-upload-rules">{copy.photos.rules}</p>
         {fileError ? <p id={errorId} className="safety-wizard-upload-error" role="alert">{fileError}</p> : null}
+        {unavailablePhotos.length ? (
+          <div className="safety-wizard-analysis-alert" role="alert">
+            <span aria-hidden="true"><AlertCircle size={22} /></span>
+            <div>
+              <strong>{copy.photos.analysisUnavailableTitle}</strong>
+              <p>{copy.photos.analysisUnavailableBody}</p>
+            </div>
+            <button type="button" onClick={retryUnavailablePhotos}>
+              <RotateCcw size={17} aria-hidden="true" />
+              {copy.photos.retryAll}
+            </button>
+          </div>
+        ) : null}
 
         {photos.length ? (
           <div className="safety-wizard-photo-grid" role="list">
@@ -329,10 +365,20 @@ export function PhotoUploadStep({ analysisContext, copy, locale, photos, roomLab
                               ? copy.photos.analysingPhoto
                               : photo.analysisStatus === 'analysed'
                                 ? `${copy.photos.analysedPhoto} - ${copy.photos.findingsFound(photo.analysis?.findings.length ?? 0)}`
-                                : copy.photos.analysisUnavailable}
+                                : photo.analysisError ?? copy.photos.analysisUnavailable}
                           </span>
                         ) : null}
                       </label>
+                      {kind === 'image' && photo.analysisStatus === 'unavailable' ? (
+                        <button
+                          className="safety-wizard-analysis-retry"
+                          type="button"
+                          onClick={() => retryPhoto(photo)}
+                        >
+                          <RotateCcw size={17} aria-hidden="true" />
+                          {copy.photos.retryAnalysis}
+                        </button>
+                      ) : null}
                       <button type="button" onClick={() => removePhoto(photo.id)} aria-label={`${copy.photos.remove}: ${photo.name}`}>
                         <Trash2 size={18} aria-hidden="true" />
                       </button>
@@ -374,4 +420,21 @@ function toWizardPhotoRoom(room: string): WizardPhoto['room'] {
   }
 
   return 'other'
+}
+
+function getAnalysisFailureMessage(error: unknown, copy: WizardCopy) {
+  if (!(error instanceof SafetyPhotoAnalysisError)) return copy.photos.analysisErrors.unavailable
+
+  switch (error.code) {
+    case 'IMAGE_INVALID':
+      return copy.photos.analysisErrors.invalid
+    case 'VISION_NOT_CONFIGURED':
+      return copy.photos.analysisErrors.notConfigured
+    case 'VISION_RATE_LIMITED':
+      return copy.photos.analysisErrors.rateLimited
+    case 'VISION_TIMEOUT':
+      return copy.photos.analysisErrors.timedOut
+    default:
+      return copy.photos.analysisErrors.unavailable
+  }
 }

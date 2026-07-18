@@ -293,6 +293,13 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     </WizardStep>
   )
 
+  const hasPhotoAnalysisInProgress = state.photos.some(
+    (photo) => !photo.type.startsWith('video/') && photo.analysisStatus === 'analysing',
+  )
+  const hasUnavailablePhotoAnalysis = state.photos.some(
+    (photo) => !photo.type.startsWith('video/') && photo.analysisStatus === 'unavailable',
+  )
+
   const step = (() => {
     switch (state.currentStep) {
       case 'entry':
@@ -406,7 +413,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
       case 'notes':
         return <TextStep title={copy.notes.title} body={copy.notes.body} placeholder={copy.notes.placeholder} value={state.notes} onChange={(value) => wizard.patchState({ notes: value })} copy={copy} onContinue={() => wizard.completeStep()} multiline />
       case 'photos':
-        return <><PhotoUploadStep analysisContext={{ homeType: state.homeType ?? '', mainConcern: [...state.currentRisks, ...state.challenges, ...state.areasOfConcern].join(', '), urgency: state.urgency ?? '', mobilityProfile: state.mobilityLevel ?? '', description: state.notes }} copy={copy} locale={i18n.language} photos={state.photos} roomLabels={{ bathroom: copy.areas.options.bathroom, bedroom: copy.areas.options.bedroom, kitchen: copy.areas.options.kitchen, 'living-room': copy.areas.options['living-room'], stairs: copy.areas.options.stairs, entrance: copy.areas.options.entrance, outdoor: copy.areas.options.outdoor, other: copy.photos.otherRoom }} onChange={(photos) => { if (photos.length > state.photos.length) trackEvent('wizard_photo_added', { reference: state.wizardReference }); wizard.patchState({ photos }) }} /><WizardActions copy={copy} allowSkip={!state.photos.length} disabled={state.photos.some((photo) => photo.analysisStatus === 'analysing')} onContinue={() => wizard.completeStep()} /></>
+        return <><PhotoUploadStep analysisContext={{ homeType: state.homeType ?? '', mainConcern: [...state.currentRisks, ...state.challenges, ...state.areasOfConcern].join(', '), urgency: state.urgency ?? '', mobilityProfile: state.mobilityLevel ?? '', description: state.notes }} copy={copy} locale={i18n.language} photos={state.photos} roomLabels={{ bathroom: copy.areas.options.bathroom, bedroom: copy.areas.options.bedroom, kitchen: copy.areas.options.kitchen, 'living-room': copy.areas.options['living-room'], stairs: copy.areas.options.stairs, entrance: copy.areas.options.entrance, outdoor: copy.areas.options.outdoor, other: copy.photos.otherRoom }} onChange={(photos) => { if (photos.length > state.photos.length) trackEvent('wizard_photo_added', { reference: state.wizardReference }); wizard.patchState({ photos }) }} /><WizardActions copy={copy} allowSkip={!state.photos.length || hasUnavailablePhotoAnalysis} disabled={hasPhotoAnalysisInProgress || hasUnavailablePhotoAnalysis} skipLabel={hasUnavailablePhotoAnalysis ? copy.photos.continueWithoutAnalysis : undefined} onContinue={() => wizard.completeStep()} /></>
       case 'voice':
         return <><Suspense fallback={<div className="safety-wizard-notice" role="status">{copy.voice.connecting}</div>}><VoiceInputStep copy={copy} fallbackNote={state.notes} language={i18n.language} session={state.voiceSession} userType={state.userType} wizardReference={state.wizardReference} onFallbackNoteChange={(notes) => wizard.patchState({ notes })} onChange={(voiceSession) => { if (voiceSession?.conversationId && trackedVoiceConversationRef.current !== voiceSession.conversationId) { trackedVoiceConversationRef.current = voiceSession.conversationId; trackEvent('wizard_voice_conversation_started', { reference: state.wizardReference }) } else if (!voiceSession) { trackedVoiceConversationRef.current = undefined } wizard.patchState({ voiceSession }) }} /></Suspense><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
       case 'phone':
@@ -493,10 +500,10 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
   ) : content
 }
 
-function WizardActions({ copy, disabled = false, allowSkip = false, onContinue }: { copy: ReturnType<typeof getWizardCopy>; disabled?: boolean; allowSkip?: boolean; onContinue: () => void }) {
+function WizardActions({ copy, disabled = false, allowSkip = false, skipLabel, onContinue }: { copy: ReturnType<typeof getWizardCopy>; disabled?: boolean; allowSkip?: boolean; skipLabel?: string; onContinue: () => void }) {
   return (
     <div className="safety-wizard-actions">
-      {allowSkip ? <button className="safety-wizard-text-button" onClick={onContinue} type="button">{copy.nav.skip}</button> : null}
+      {allowSkip ? <button className="safety-wizard-text-button" onClick={onContinue} type="button">{skipLabel ?? copy.nav.skip}</button> : null}
       <button className="btn btn-navy" disabled={disabled} onClick={onContinue} type="button">{copy.nav.continue}</button>
     </div>
   )

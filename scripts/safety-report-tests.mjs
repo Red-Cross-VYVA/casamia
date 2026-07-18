@@ -65,6 +65,16 @@ assert.equal(parsed.roomConfidence, 1, 'Room confidence should be clamped.')
 assert.equal(parsed.findings.length, 1, 'Unsupported severities should not enter the report.')
 assert.equal(parsed.findings[0].severity, 'high')
 
+await assert.rejects(
+  () => analyseSafetyImage({}, { env: {} }),
+  (error) => {
+    assert.equal(error.statusCode, 503)
+    assert.equal(error.code, 'VISION_NOT_CONFIGURED')
+    return true
+  },
+  'A missing server vision key must return a configuration-specific failure.',
+)
+
 let anthropicRequest
 const analysed = await analyseSafetyImage({
   mediaType: 'image/jpeg',
@@ -100,6 +110,24 @@ assert.equal(anthropicRequest.model, 'test-model')
 assert.equal(anthropicRequest.temperature, 0)
 assert.match(anthropicRequest.system, /only evidence visibly supported/i)
 assert.equal(analysed.findings.length, 1)
+
+await assert.rejects(
+  () => analyseSafetyImage({
+    mediaType: 'image/jpeg',
+    data: 'AA==',
+    assignedRoom: 'bathroom',
+    locale: 'en',
+  }, {
+    env: { ANTHROPIC_API_KEY: 'test-key' },
+    fetchImpl: async () => ({ ok: false, status: 429 }),
+  }),
+  (error) => {
+    assert.equal(error.statusCode, 429)
+    assert.equal(error.code, 'VISION_RATE_LIMITED')
+    return true
+  },
+  'Provider throttling must stay distinguishable so the upload can be retried.',
+)
 
 const emptyPhoto = makeAnalysis()
 assert.equal(emptyPhoto.riskScore, 0, 'A photo without visible findings must score zero.')
