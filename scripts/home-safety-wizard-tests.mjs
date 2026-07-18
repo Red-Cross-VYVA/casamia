@@ -304,6 +304,20 @@ function makeFinding(overrides = {}) {
     (error) => error.statusCode === 503,
     'Room recognition should fail safely when the server-only API key is missing.',
   )
+
+  await assert.rejects(
+    () => classifyRoomImage(
+      { mediaType: 'image/jpeg', data: 'aGVsbG8=' },
+      {
+        env: { OPENAI_API_KEY: 'sk-proj-test sk-proj-test' },
+        fetchImpl: async () => {
+          throw new Error('Malformed keys must be rejected before fetch.')
+        },
+      },
+    ),
+    (error) => error.statusCode === 503 && error.code === 'VISION_NOT_CONFIGURED',
+    'Duplicated OpenAI keys must not be placed in an Authorization header.',
+  )
 }
 
 {

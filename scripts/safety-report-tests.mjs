@@ -6,6 +6,10 @@ import {
   parseSafetyPhotoAnalysis,
 } from '../api/public/analyse-safety-photo.js'
 import {
+  readOpenAiApiKey,
+  safeOpenAiErrorDetails,
+} from '../api/_lib/openai-responses.js'
+import {
   buildOverallSafetyScore,
   scorePhotoFindings,
 } from '../src/services/safetyReportScoring.ts'
@@ -19,6 +23,33 @@ function openAiResult(value) {
     }],
   }
 }
+
+assert.equal(readOpenAiApiKey('  sk-proj-test  '), 'sk-proj-test')
+assert.equal(
+  readOpenAiApiKey('sk-proj-test sk-proj-test'),
+  '',
+  'Whitespace-separated or duplicated keys must be rejected before an Authorization header is built.',
+)
+const safeErrorDetails = safeOpenAiErrorDetails(
+  new TypeError('Bearer sk-proj-secret is an invalid header value.'),
+  500,
+)
+assert.deepEqual(safeErrorDetails, {
+  statusCode: 500,
+  code: 'VISION_UNAVAILABLE',
+  name: 'TypeError',
+})
+assert.doesNotMatch(JSON.stringify(safeErrorDetails), /sk-proj-secret/)
+const poisonedErrorDetails = safeOpenAiErrorDetails({
+  code: 'sk-proj-secret-code',
+  name: 'sk-proj-secret-name',
+}, 500)
+assert.deepEqual(poisonedErrorDetails, {
+  statusCode: 500,
+  code: 'VISION_UNAVAILABLE',
+  name: 'Error',
+})
+assert.doesNotMatch(JSON.stringify(poisonedErrorDetails), /sk-proj-secret/)
 
 function makeFinding(overrides = {}) {
   return {
@@ -79,6 +110,18 @@ await assert.rejects(
     return true
   },
   'A missing server vision key must return a configuration-specific failure.',
+)
+
+await assert.rejects(
+  () => analyseSafetyImage({}, {
+    env: { OPENAI_API_KEY: 'sk-proj-test sk-proj-test' },
+  }),
+  (error) => {
+    assert.equal(error.statusCode, 503)
+    assert.equal(error.code, 'VISION_NOT_CONFIGURED')
+    return true
+  },
+  'Malformed server keys must fail as configuration errors without reaching fetch.',
 )
 
 let openAiRequest
