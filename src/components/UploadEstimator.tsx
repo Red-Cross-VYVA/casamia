@@ -7,6 +7,7 @@ import {
   FileText,
   Home,
   LoaderCircle,
+  RefreshCw,
   ShieldCheck,
   Upload,
   UserRound,
@@ -362,7 +363,7 @@ export function UploadEstimator() {
       setErrorMessage('')
       setDelivery(null)
       setReport(null)
-      const result = await generateSafetyReport({
+      const workflowInput = {
         locale: i18n.language,
         context: {
           region: form.region,
@@ -374,7 +375,21 @@ export function UploadEstimator() {
           description: form.description,
         },
         photos,
-      })
+      }
+      let result = await generateSafetyReport(workflowInput)
+
+      if (hasNoCompletedPhotoAnalysis(result, photos.length)) {
+        await new Promise((resolve) => window.setTimeout(resolve, 800))
+        result = await generateSafetyReport(workflowInput)
+      }
+
+      if (hasNoCompletedPhotoAnalysis(result, photos.length)) {
+        throw new Error('PHOTO_ANALYSIS_UNAVAILABLE')
+      }
+
+      const pendingDelivery = getRequestedDeliveryStatus(form, 'queued')
+      setReport(withReportDelivery(result, form, pendingDelivery))
+      setStatus('success')
 
       try {
         const deliveryResult = await sendReportDelivery({
@@ -393,33 +408,66 @@ export function UploadEstimator() {
           },
         })
 
-        setReport({
-          ...result,
-          delivery: deliveryResult,
-          lead: {
-            name: form.name,
-            email: form.email,
-            phone: form.phone,
-            preferredChannels: [
-              form.deliveryEmail ? 'email' : '',
-              form.deliveryWhatsapp ? 'whatsapp' : '',
-            ].filter(Boolean),
-          },
-        })
+        setReport(withReportDelivery(result, form, deliveryResult))
         setDelivery(deliveryResult)
         setDeliveryStatus('success')
-        setStatus('success')
         window.localStorage.removeItem(estimatorDraftStorageKey)
         trackEvent('form_complete', { form: 'safety_report', delivery: 'success' })
       } catch {
-        setStatus('error')
+        const failedDelivery = getRequestedDeliveryStatus(form, 'failed')
+        setReport(withReportDelivery(result, form, failedDelivery))
+        setDelivery(failedDelivery)
         setDeliveryStatus('error')
         setErrorMessage(t('estimator.workflow.errors.delivery'))
+        trackEvent('form_complete', { form: 'safety_report', delivery: 'error' })
       }
-    } catch {
+    } catch (error) {
       setDeliveryStatus('idle')
       setStatus('error')
-      setErrorMessage(t('estimator.workflow.errors.submit'))
+      setErrorMessage(
+        error instanceof Error && error.message === 'PHOTO_ANALYSIS_UNAVAILABLE'
+          ? t('estimator.workflow.errors.analysisUnavailable', {
+              defaultValue:
+                'We could not analyse the photos yet. Your upload is safe. Please try the analysis again.',
+            })
+          : t('estimator.workflow.errors.submit'),
+      )
+    }
+  }
+
+  async function retryReportDelivery() {
+    if (!report) return
+
+    try {
+      setDeliveryStatus('loading')
+      setErrorMessage('')
+      const deliveryResult = await sendReportDelivery({
+        reportType: 'safety',
+        token: report.token,
+        reportTitle: t('estimator.workflow.result.reportTitle'),
+        reportUrl: report.reportUrl,
+        report,
+        contact: {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          deliveryEmail: form.deliveryEmail,
+          deliveryWhatsapp: form.deliveryWhatsapp,
+          consentAt: new Date().toISOString(),
+        },
+      })
+
+      setReport(withReportDelivery(report, form, deliveryResult))
+      setDelivery(deliveryResult)
+      setDeliveryStatus('success')
+      window.localStorage.removeItem(estimatorDraftStorageKey)
+      trackEvent('form_complete', { form: 'safety_report', delivery: 'success' })
+    } catch {
+      const failedDelivery = getRequestedDeliveryStatus(form, 'failed')
+      setReport(withReportDelivery(report, form, failedDelivery))
+      setDelivery(failedDelivery)
+      setDeliveryStatus('error')
+      setErrorMessage(t('estimator.workflow.errors.delivery'))
     }
   }
 
@@ -552,15 +600,13 @@ export function UploadEstimator() {
 
               {step === 3 ? (
                 <ResultStep
+                  deliveryStatus={deliveryStatus}
                   errorMessage={errorMessage}
                   photos={photos}
                   report={report}
                   status={status}
-                  onRetry={() => {
-                    setStep(2)
-                    setStatus('idle')
-                    setDeliveryStatus('idle')
-                  }}
+                  onRetryAnalysis={() => void createAndSendReport()}
+                  onRetryDelivery={() => void retryReportDelivery()}
                 />
               ) : null}
             </div>
@@ -838,16 +884,20 @@ function DeliveryStep({
 
 function ResultStep({
   status,
+  deliveryStatus,
   errorMessage,
   photos,
   report,
-  onRetry,
+  onRetryAnalysis,
+  onRetryDelivery,
 }: {
   status: SubmissionStatus
+  deliveryStatus: DeliveryStatus
   errorMessage: string
   photos: EstimatePhoto[]
   report: EstimateReport | null
-  onRetry: () => void
+  onRetryAnalysis: () => void
+  onRetryDelivery: () => void
 }) {
   const { i18n, t } = useTranslation()
 
@@ -867,8 +917,11 @@ function ResultStep({
         <ShieldCheck size={48} aria-hidden="true" />
         <h3>{t('estimator.errorTitle')}</h3>
         <p>{errorMessage}</p>
-        <button type="button" className="btn btn-navy" onClick={onRetry}>
-          {t('estimator.workflow.result.retry')}
+        <button type="button" className="btn btn-navy" onClick={onRetryAnalysis}>
+          <RefreshCw size={18} aria-hidden="true" />
+          {t('estimator.workflow.result.analysisRetryButton', {
+            defaultValue: 'Retry photo analysis',
+          })}
         </button>
       </div>
     )
@@ -887,6 +940,9 @@ function ResultStep({
   const previewByPhotoId = Object.fromEntries(
     photos.map((photo) => [photo.id, photo.previewUrl]),
   )
+  const unavailablePhotoCount = (report.photoAnalyses ?? []).filter(
+    (analysis) => analysis.analysisStatus === 'unavailable',
+  ).length
 
   return (
     <section className="estimate-result-layout">
@@ -908,6 +964,29 @@ function ResultStep({
             riskLevel={risk.riskLevel}
           />
         </div>
+        {unavailablePhotoCount > 0 ? (
+          <div className="estimate-analysis-retry" role="status">
+            <div>
+              <strong>
+                {t('estimator.workflow.result.analysisRetryTitle', {
+                  count: unavailablePhotoCount,
+                  defaultValue: 'Some photos still need visual analysis',
+                })}
+              </strong>
+              <span>
+                {t('estimator.workflow.result.analysisRetryBody', {
+                  defaultValue: 'Keep your uploaded photos and refresh the report now.',
+                })}
+              </span>
+            </div>
+            <button type="button" className="btn btn-navy" onClick={onRetryAnalysis}>
+              <RefreshCw size={18} aria-hidden="true" />
+              {t('estimator.workflow.result.analysisRetryButton', {
+                defaultValue: 'Retry photo analysis',
+              })}
+            </button>
+          </div>
+        ) : null}
         <PhotoAnalysisCards
           analyses={report.photoAnalyses ?? []}
           previewByPhotoId={previewByPhotoId}
@@ -928,10 +1007,24 @@ function ResultStep({
       <aside className="estimate-result-side">
         <ScoreExplanation report={report} risk={risk} />
         <p className="font-bold text-navy">{t('estimator.workflow.result.deliveryTitle')}</p>
-        <p className="mt-2 text-sm text-text-mid">
-          {buildDeliveryMessage(report, t('estimator.workflow.result.emailQueued'), t('estimator.workflow.result.whatsappQueued')) ||
-            t('estimator.workflow.result.readyToSend')}
-        </p>
+        {deliveryStatus === 'error' ? (
+          <div className="delivery-status-message is-error mt-2" role="alert">
+            <p>{errorMessage}</p>
+            <button type="button" className="btn btn-navy mt-3" onClick={onRetryDelivery}>
+              {t('estimator.workflow.result.retry')}
+            </button>
+          </div>
+        ) : (
+          <p className="mt-2 text-sm text-text-mid">
+            {deliveryStatus === 'loading'
+              ? t('estimator.workflow.result.loadingBody')
+              : buildDeliveryMessage(
+                  report,
+                  t('estimator.workflow.result.emailQueued'),
+                  t('estimator.workflow.result.whatsappQueued'),
+                ) || t('estimator.workflow.result.readyToSend')}
+          </p>
+        )}
         {report.backendMode === 'local-demo' ? (
           <p className="mt-4 rounded-lg bg-light-blue p-3 text-xs font-semibold text-text-mid">
             {t('estimator.workflow.result.demoMode')}
@@ -1200,6 +1293,15 @@ function guessRoom(fileName: string) {
   return 'Living room'
 }
 
+function hasNoCompletedPhotoAnalysis(report: EstimateReport, photoCount: number) {
+  if (photoCount === 0) {
+    return false
+  }
+
+  const analyses = report.photoAnalyses ?? []
+  return analyses.length === 0 || analyses.every((analysis) => analysis.analysisStatus === 'unavailable')
+}
+
 function roomValueFromClassification(room: string) {
   const values: Record<string, string> = {
     bathroom: 'Bathroom',
@@ -1264,15 +1366,45 @@ function buildDeliveryMessage(
 ) {
   const parts = []
 
-  if (report.delivery.email !== 'not_requested') {
+  if (report.delivery.email === 'queued' || report.delivery.email === 'sent') {
     parts.push(emailText)
   }
 
-  if (report.delivery.whatsapp !== 'not_requested') {
+  if (report.delivery.whatsapp === 'queued' || report.delivery.whatsapp === 'sent') {
     parts.push(whatsappText)
   }
 
   return parts.join(' ')
+}
+
+function getRequestedDeliveryStatus(
+  form: EstimateForm,
+  requestedStatus: Extract<DeliveryChannelStatus, 'queued' | 'failed'>,
+) {
+  return {
+    email: form.deliveryEmail ? requestedStatus : 'not_requested',
+    whatsapp: form.deliveryWhatsapp ? requestedStatus : 'not_requested',
+  } satisfies EstimateReport['delivery']
+}
+
+function withReportDelivery(
+  report: EstimateReport,
+  form: EstimateForm,
+  delivery: EstimateReport['delivery'],
+) {
+  return {
+    ...report,
+    delivery,
+    lead: {
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      preferredChannels: [
+        form.deliveryEmail ? 'email' : '',
+        form.deliveryWhatsapp ? 'whatsapp' : '',
+      ].filter(Boolean),
+    },
+  }
 }
 
 function getSavedEstimatorForm() {

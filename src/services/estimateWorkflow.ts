@@ -1,10 +1,10 @@
 import {
-  getPublicSiteApiBaseUrl,
   getPublicSiteJson,
   hasPublicSiteApi,
   postPublicSiteJson,
 } from './publicSiteApi'
 import { analyseSafetyPhoto } from './safetyPhotoAnalysis.ts'
+import { createPublicReportToken } from '../utils/publicReportToken.ts'
 import {
   buildOverallSafetyScore,
   scorePhotoFindings,
@@ -132,7 +132,6 @@ const LEAD_STORAGE_KEY = 'casamia-estimate-leads'
 const DELIVERY_STORAGE_KEY = 'casamia-report-deliveries'
 
 const apiBase = (import.meta.env.VITE_ESTIMATE_API_URL ?? '').replace(/\/$/, '')
-const publicApiBase = getPublicSiteApiBaseUrl()
 
 export async function generateSafetyReport(input: EstimateWorkflowInput) {
   const photoAnalyses = await analyseSubmittedPhotos(input)
@@ -163,15 +162,7 @@ export async function sendReportDelivery(input: ReportDeliveryInput) {
   }
 
   if (hasPublicSiteApi()) {
-    await saveReportToPublicApi(input)
-
-    return {
-      email: input.contact.deliveryEmail ? 'queued' : 'not_requested',
-      whatsapp: input.contact.deliveryWhatsapp ? 'queued' : 'not_requested',
-    } satisfies {
-      email: DeliveryChannelStatus
-      whatsapp: DeliveryChannelStatus
-    }
+    return saveReportToPublicApi(input)
   }
 
   return queueLocalReportDelivery(input)
@@ -202,7 +193,7 @@ export async function loadEstimateReport(token: string) {
     return (await response.json()) as EstimateReport
   }
 
-  if (publicApiBase) {
+  if (hasPublicSiteApi()) {
     try {
       return await loadPublicSafetyReport(token)
     } catch {
@@ -283,7 +274,7 @@ async function submitLocalDemo(
   input: EstimateWorkflowInput,
   photoAnalyses: EstimatePhotoAnalysis[] = [],
 ) {
-  const token = createToken()
+  const token = createPublicReportToken()
   const createdAt = new Date()
   const expiresAt = new Date(createdAt)
   expiresAt.setDate(createdAt.getDate() + 30)
@@ -308,7 +299,10 @@ async function saveReportToPublicApi(input: ReportDeliveryInput) {
       ? '/api/public/safety-reports'
       : '/api/public/grant-reports'
 
-  await postPublicSiteJson(path, buildPublicReportPayload(input))
+  return postPublicSiteJson<{
+    email: DeliveryChannelStatus
+    whatsapp: DeliveryChannelStatus
+  }>(path, buildPublicReportPayload(input))
 }
 
 function buildPublicReportPayload(input: ReportDeliveryInput) {
@@ -329,7 +323,6 @@ function buildPublicReportPayload(input: ReportDeliveryInput) {
     preferred_channels: preferredChannels,
     consent_at: input.contact.consentAt,
     submitted_at: new Date().toISOString(),
-    status: 'New',
   }
 
   if (input.reportType === 'safety') {
@@ -338,6 +331,8 @@ function buildPublicReportPayload(input: ReportDeliveryInput) {
     return {
       ...basePayload,
       type: 'safety_report',
+      created_at: report?.createdAt,
+      expires_at: report?.expiresAt,
       context: report?.context,
       risk_score: report?.riskScore,
       risk_level: report?.riskLevel,
@@ -402,6 +397,7 @@ function normalisePublicSafetyReport(raw: Record<string, unknown>, token: string
   const reportToken = safeString(raw.public_token ?? raw.token, token)
   const createdAt = safeString(raw.created_at ?? raw.createdAt, new Date().toISOString())
   const expiresAt = safeString(raw.expires_at ?? raw.expiresAt, getDefaultExpiry(createdAt))
+  const publicDelivery = getRecord(raw.delivery)
 
   return {
     token: reportToken,
@@ -430,8 +426,8 @@ function normalisePublicSafetyReport(raw: Record<string, unknown>, token: string
       .map((item) => safeString(item))
       .filter(Boolean),
     delivery: {
-      email: 'sent',
-      whatsapp: 'not_requested',
+      email: normaliseDeliveryChannelStatus(publicDelivery?.email),
+      whatsapp: normaliseDeliveryChannelStatus(publicDelivery?.whatsapp),
     },
     lead: {
       name: safeString(raw.customer_name ?? raw.name),
@@ -506,6 +502,11 @@ function getDefaultExpiry(createdAt: string) {
   expiresAt.setDate(expiresAt.getDate() + 30)
 
   return expiresAt.toISOString()
+}
+function normaliseDeliveryChannelStatus(value: unknown): DeliveryChannelStatus {
+  return value === 'queued' || value === 'sent' || value === 'failed'
+    ? value
+    : 'not_requested'
 }
 
 function isEstimatePhotoAnalysis(value: unknown): value is EstimatePhotoAnalysis {
@@ -1519,12 +1520,4 @@ function queueLocalReportDelivery(input: ReportDeliveryInput) {
   }
 
   return delivery
-}
-
-function createToken() {
-  if (window.crypto?.randomUUID) {
-    return window.crypto.randomUUID()
-  }
-
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 12)}`
 }

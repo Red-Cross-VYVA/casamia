@@ -10,9 +10,15 @@ import {
   safeOpenAiErrorDetails,
 } from '../api/_lib/openai-responses.js'
 import {
+  buildPublicReportRecord,
+  loadPublicReport,
+  queuePublicReport,
+} from '../api/_lib/public-reports.js'
+import {
   buildOverallSafetyScore,
   scorePhotoFindings,
 } from '../src/services/safetyReportScoring.ts'
+import { createPublicReportToken } from '../src/utils/publicReportToken.ts'
 
 function openAiResult(value) {
   return {
@@ -248,6 +254,209 @@ for (const locale of ['de', 'en', 'es', 'fr', 'nl']) {
   )
   assert.doesNotMatch(copy.estimator.noKey, /VITE_|ANTHROPIC_API_KEY|OPENAI_API_KEY/i)
 }
+
+const reportToken = '11111111-1111-4111-8111-111111111111'
+const reportPayload = {
+  type: 'safety_report',
+  public_token: reportToken,
+  report_title: 'Safety Report',
+  report_url: `https://www.casamia.com.es/estimate/${reportToken}`,
+  customer_name: 'Test Resident',
+  customer_email: 'resident@example.com',
+  customer_phone: '+34 600 000 000',
+  delivery_email: true,
+  delivery_whatsapp: false,
+  preferred_channels: ['email'],
+  consent_at: '2026-07-18T10:00:00.000Z',
+  submitted_at: '2026-07-18T10:01:00.000Z',
+  created_at: '2026-07-18T09:59:00.000Z',
+  expires_at: '2026-08-17T09:59:00.000Z',
+  context: { region: 'Madrid', photoCount: 1, rooms: ['bathroom'] },
+  risk_score: 42,
+  risk_level: 'moderate',
+  summary: 'Prioritise a safer bath entry.',
+  recommendations: {
+    summary: 'Prioritise a safer bath entry.',
+    hazards: [makeFinding({ room: 'bathroom' })],
+  },
+}
+
+let createCall
+const queuedReport = await queuePublicReport(reportPayload, 'safety_report', {
+  create: async (tableName, row, onConflict) => {
+    createCall = { tableName, row, onConflict }
+    return { ok: true, status: 201, body: [row] }
+  },
+})
+
+assert.deepEqual(queuedReport.body, {
+  token: reportToken,
+  status: 'queued',
+  email: 'queued',
+  whatsapp: 'not_requested',
+})
+assert.equal(createCall.tableName, 'assessment_requests')
+assert.equal(createCall.onConflict, 'id')
+assert.equal(createCall.row.id, reportToken)
+assert.equal(createCall.row.type, 'safety_report')
+assert.equal(createCall.row.status, 'Report Pending')
+assert.equal(createCall.row.payload_json.recommendations.summary, reportPayload.summary)
+assert.equal(createCall.row.payload_json.customer_email, undefined)
+assert.equal(createCall.row.payload_json.consent_at, undefined)
+assert.equal(createCall.row.payload_json.report_url, `/estimate/${reportToken}`)
+assert.equal(
+  Date.parse(createCall.row.payload_json.expires_at) - Date.parse(createCall.row.payload_json.created_at),
+  30 * 24 * 60 * 60 * 1_000,
+)
+
+const loadedReport = await loadPublicReport(reportToken, 'safety_report', {
+  select: async (tableName, query) => {
+    assert.equal(tableName, 'assessment_requests')
+    assert.match(query, new RegExp(`id=eq\\.${reportToken}`))
+    assert.match(query, /type=eq\.safety_report/)
+    return {
+      ok: true,
+      status: 200,
+      body: [{
+        id: createCall.row.id,
+        submitted_at: createCall.row.submitted_at,
+        type: createCall.row.type,
+        status: createCall.row.status,
+        payload_json: createCall.row.payload_json,
+      }],
+    }
+  },
+})
+
+assert.equal(loadedReport.ok, true)
+assert.equal(loadedReport.body.public_token, reportToken)
+assert.equal(loadedReport.body.risk_score, 42)
+assert.equal(loadedReport.body.recommendations.summary, reportPayload.summary)
+assert.equal(loadedReport.body.customer_email, undefined)
+assert.equal(loadedReport.body.consent_at, undefined)
+assert.equal(loadedReport.body.customer_name, undefined)
+assert.equal(loadedReport.body.customer_phone, undefined)
+
+const duplicateReport = await queuePublicReport({
+  ...reportPayload,
+  delivery_email: false,
+  delivery_whatsapp: true,
+}, 'safety_report', {
+  create: async () => ({ ok: true, status: 200, body: [] }),
+  select: async () => ({ ok: true, status: 200, body: [createCall.row] }),
+})
+assert.deepEqual(duplicateReport.body, queuedReport.body)
+
+const tokenCollision = await queuePublicReport(reportPayload, 'safety_report', {
+  create: async () => ({ ok: true, status: 200, body: [] }),
+  select: async () => ({ ok: true, status: 200, body: [] }),
+})
+assert.equal(tokenCollision.ok, false)
+assert.equal(tokenCollision.status, 409)
+
+const grantToken = '22222222-2222-4222-8222-222222222222'
+const grantRecord = buildPublicReportRecord({
+  ...reportPayload,
+  type: 'grant_report',
+  public_token: grantToken,
+  token: grantToken,
+  summary: 'Contact: Test Resident | +34 600 000 000 | resident@example.com',
+  recommendations: {
+    form: {
+      name: 'Test Resident',
+      phone: '+34 600 000 000',
+      email: 'resident@example.com',
+      consent: true,
+      consentAt: '2026-07-18T10:00:00.000Z',
+      deliveryEmail: true,
+      deliveryWhatsapp: false,
+      region: 'Madrid',
+    },
+    result: {
+      title: 'Strong grant match',
+      summary: 'The answers show several common eligibility signals.',
+    },
+    summary: 'Contact: Test Resident | +34 600 000 000 | resident@example.com',
+  },
+}, 'grant_report', new Date('2026-07-18T10:05:00.000Z'))
+
+const loadedGrantReport = await loadPublicReport(grantToken, 'grant_report', {
+  now: new Date('2026-07-19T10:05:00.000Z'),
+  select: async () => ({ ok: true, status: 200, body: [grantRecord.row] }),
+})
+assert.equal(loadedGrantReport.ok, true)
+assert.equal(loadedGrantReport.body.summary, 'The answers show several common eligibility signals.')
+assert.equal(loadedGrantReport.body.recommendations.form.region, 'Madrid')
+assert.doesNotMatch(
+  JSON.stringify(loadedGrantReport.body),
+  /Test Resident|resident@example\.com|600 000 000/,
+)
+
+const expiredReport = await loadPublicReport(grantToken, 'grant_report', {
+  now: new Date('2026-08-18T10:05:01.000Z'),
+  select: async () => ({ ok: true, status: 200, body: [grantRecord.row] }),
+})
+assert.equal(expiredReport.ok, false)
+assert.equal(expiredReport.status, 404)
+
+const fallbackToken = createPublicReportToken({
+  getRandomValues(bytes) {
+    bytes.fill(0)
+    return bytes
+  },
+})
+assert.equal(fallbackToken, '00000000-0000-4000-8000-000000000000')
+assert.match(fallbackToken, /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
+
+assert.throws(
+  () => buildPublicReportRecord({ ...reportPayload, public_token: 'not-a-token' }, 'safety_report'),
+  /valid report token/i,
+)
+assert.throws(
+  () => buildPublicReportRecord({ ...reportPayload, delivery_email: false }, 'safety_report'),
+  /delivery method/i,
+)
+
+const estimateWorkflowSource = readFileSync(
+  new URL('../src/services/estimateWorkflow.ts', import.meta.url),
+  'utf8',
+)
+assert.match(
+  estimateWorkflowSource,
+  /if \(hasPublicSiteApi\(\)\) \{[\s\S]*?loadPublicSafetyReport\(token\)/,
+  'Production report links must load from the same-origin public API even without an explicit API base URL.',
+)
+assert.match(
+  estimateWorkflowSource,
+  /if \(hasPublicSiteApi\(\)\) \{\s*return saveReportToPublicApi\(input\)/,
+  'Delivery must return the statuses persisted by the public API.',
+)
+
+const grantPageSource = readFileSync(
+  new URL('../src/pages/GrantEligibilityPage.tsx', import.meta.url),
+  'utf8',
+)
+assert.match(
+  grantPageSource,
+  /\/api\/public\/grant-reports\/\$\{encodeURIComponent\(sharedToken\)\}/,
+  'Shared grant-report links must load their saved report from the public API.',
+)
+assert.match(grantPageSource, /setStep\(3\)/)
+
+const uploadEstimatorSource = readFileSync(
+  new URL('../src/components/UploadEstimator.tsx', import.meta.url),
+  'utf8',
+)
+assert.match(
+  uploadEstimatorSource,
+  /hasNoCompletedPhotoAnalysis\(result, photos\.length\)[\s\S]*?generateSafetyReport\(workflowInput\)/,
+  'The free report must retry visual analysis before finalising an unavailable result.',
+)
+assert.match(
+  uploadEstimatorSource,
+  /analysisRetryButton/,
+  'An existing report with unavailable photos must offer a retry action.',
+)
 
 const emptyPhoto = makeAnalysis()
 assert.equal(emptyPhoto.riskScore, 0, 'A photo without visible findings must score zero.')

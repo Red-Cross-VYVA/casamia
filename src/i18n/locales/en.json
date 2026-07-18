@@ -568,6 +568,9 @@
         "loadingTitle": "Preparing your safety report...",
         "loadingBody": "We are analysing each photo, separating visible evidence from details that still need confirmation, and calculating your prevention priorities.",
         "retry": "Try again",
+        "analysisRetryTitle": "Some photos still need visual analysis",
+        "analysisRetryBody": "Keep your uploaded photos and refresh the report now.",
+        "analysisRetryButton": "Retry photo analysis",
         "kicker": "Report ready",
         "title": "Your personalised home-safety review",
         "reportTitle": "Safety Report",
@@ -610,8 +613,8 @@
         },
         "deliveryTitle": "Delivery status",
         "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
-        "emailQueued": "The full report is ready to send by email.",
-        "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
+        "emailQueued": "Your request is saved for email delivery. CasaMia will send the secure report link.",
+        "whatsappQueued": "Your request is saved for WhatsApp delivery. The message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
         "viewReport": "View report page",
         "bookAssessment": "Book in-home assessment"
@@ -621,6 +624,7 @@
         "unsupported": "{{file}} is not a supported image type.",
         "tooLarge": "{{file}} is larger than 8MB.",
         "maxPhotos": "You can upload up to {{count}} photos.",
+        "analysisUnavailable": "We could not analyse the photos yet. Your upload is safe. Please try the analysis again.",
         "submit": "We could not create the report. Please try again.",
         "delivery": "We could not queue the report delivery. Please try again."
       },
