@@ -1,5 +1,10 @@
 import { applyPublicCors } from '../_lib/public-origin.js'
-import { extractOpenAiResponseText, openAiReasoningConfig } from '../_lib/openai-responses.js'
+import {
+  extractOpenAiResponseText,
+  openAiReasoningConfig,
+  readOpenAiApiKey,
+  safeOpenAiErrorDetails,
+} from '../_lib/openai-responses.js'
 import { readJsonBody, sendJson } from '../_lib/supabase.js'
 
 const allowedMediaTypes = new Set(['image/jpeg', 'image/png', 'image/webp'])
@@ -95,7 +100,7 @@ const safetyInstructions = [
 ].join(' ')
 
 export async function analyseSafetyImage(body, { env = process.env, fetchImpl = fetch } = {}) {
-  const apiKey = env.OPENAI_API_KEY
+  const apiKey = readOpenAiApiKey(env.OPENAI_API_KEY)
   if (!apiKey) {
     const error = new Error('Safety photo analysis is not configured.')
     error.statusCode = 503
@@ -315,7 +320,9 @@ export default async function handler(request, response) {
     sendJson(response, 200, await analyseSafetyImage(body))
   } catch (error) {
     const statusCode = Number.isInteger(error?.statusCode) ? error.statusCode : 500
-    if (statusCode >= 500) console.error('Safety photo analysis failed.', error)
+    if (statusCode >= 500) {
+      console.error('Safety photo analysis failed.', safeOpenAiErrorDetails(error, statusCode))
+    }
     sendJson(response, statusCode, {
       code: typeof error?.code === 'string' ? error.code : 'VISION_UNAVAILABLE',
       message: statusCode === 400

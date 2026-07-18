@@ -1,5 +1,10 @@
 import { applyPublicCors } from '../_lib/public-origin.js'
-import { extractOpenAiResponseText, openAiReasoningConfig } from '../_lib/openai-responses.js'
+import {
+  extractOpenAiResponseText,
+  openAiReasoningConfig,
+  readOpenAiApiKey,
+  safeOpenAiErrorDetails,
+} from '../_lib/openai-responses.js'
 import { readJsonBody, sendJson } from '../_lib/supabase.js'
 
 const allowedMediaTypes = new Set(['image/jpeg', 'image/png', 'image/webp'])
@@ -28,10 +33,11 @@ const roomClassificationSchema = {
 }
 
 export async function classifyRoomImage(body, { env = process.env, fetchImpl = fetch } = {}) {
-  const apiKey = env.OPENAI_API_KEY
+  const apiKey = readOpenAiApiKey(env.OPENAI_API_KEY)
   if (!apiKey) {
     const error = new Error('Room classification is not configured.')
     error.statusCode = 503
+    error.code = 'VISION_NOT_CONFIGURED'
     throw error
   }
 
@@ -140,7 +146,9 @@ export default async function handler(request, response) {
     sendJson(response, 200, await classifyRoomImage(body))
   } catch (error) {
     const statusCode = Number.isInteger(error?.statusCode) ? error.statusCode : 500
-    if (statusCode >= 500) console.error('Room photo classification failed.', error)
+    if (statusCode >= 500) {
+      console.error('Room photo classification failed.', safeOpenAiErrorDetails(error, statusCode))
+    }
     sendJson(response, statusCode, {
       message: statusCode === 400
         ? 'The image could not be checked.'

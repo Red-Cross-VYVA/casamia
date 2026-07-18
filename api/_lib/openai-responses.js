@@ -26,3 +26,26 @@ export function openAiReasoningConfig(model) {
     ? { reasoning: { effort: 'none' } }
     : {}
 }
+
+export function readOpenAiApiKey(value) {
+  if (typeof value !== 'string') return ''
+
+  const apiKey = value.trim()
+  return apiKey && !/\s/.test(apiKey) ? apiKey : ''
+}
+
+export function safeOpenAiErrorDetails(error, statusCode) {
+  const allowedCodes = new Set([
+    'VISION_NOT_CONFIGURED',
+    'VISION_PROVIDER_ERROR',
+    'VISION_RATE_LIMITED',
+    'VISION_UNAVAILABLE',
+  ])
+  const allowedNames = new Set(['AbortError', 'Error', 'TypeError'])
+
+  return {
+    statusCode,
+    code: allowedCodes.has(error?.code) ? error.code : 'VISION_UNAVAILABLE',
+    name: allowedNames.has(error?.name) ? error.name : 'Error',
+  }
+}
