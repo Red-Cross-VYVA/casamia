@@ -16151,6 +16151,389 @@ img {
   margin-bottom: 24px;
 }
 
+.estimate-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(260px, 1fr);
+  gap: 20px;
+  align-items: end;
+  margin: 32px 0 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+}
+
+.estimate-section-heading h4,
+.estimate-photo-analysis-content h5,
+.estimate-score-intro h4 {
+  margin: 0;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: 0;
+}
+
+.estimate-section-heading h4 {
+  font-size: clamp(26px, 3vw, 38px);
+}
+
+.estimate-section-heading > p {
+  margin: 0;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+
+.estimate-photo-analysis-list {
+  display: grid;
+  gap: 18px;
+}
+
+.estimate-photo-analysis-card {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.32fr) minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid rgba(27, 94, 138, 0.22);
+  border-radius: 8px;
+  background: white;
+}
+
+.estimate-photo-analysis-card.is-unavailable {
+  border-style: dashed;
+}
+
+.estimate-photo-analysis-media {
+  position: relative;
+  min-height: 240px;
+  overflow: hidden;
+  background: var(--light-blue);
+}
+
+.estimate-photo-analysis-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.estimate-photo-analysis-media > span {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  place-items: center;
+  color: var(--blue);
+}
+
+.estimate-photo-analysis-media b {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 999px;
+  background: white;
+  color: var(--navy);
+  font-size: 13px;
+  box-shadow: 0 8px 24px rgba(13, 30, 46, 0.18);
+}
+
+.estimate-photo-analysis-content {
+  min-width: 0;
+  padding: 20px;
+}
+
+.estimate-photo-analysis-content > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.estimate-photo-analysis-content header p,
+.estimate-photo-analysis-content header span {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.estimate-photo-analysis-content header p {
+  overflow: hidden;
+  max-width: 420px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.estimate-photo-analysis-content h5 {
+  margin: 4px 0 5px;
+  font-size: clamp(22px, 2.5vw, 30px);
+  line-height: 1.08;
+}
+
+.estimate-photo-score {
+  flex: 0 0 auto;
+  min-width: 88px;
+  border-left: 3px solid var(--blue);
+  background: var(--light-blue);
+  padding: 10px 12px;
+  color: var(--navy);
+  text-align: right;
+}
+
+.estimate-photo-score.risk-high { border-color: #c8322a; background: #fff1ef; color: #962019; }
+.estimate-photo-score.risk-elevated { border-color: #d98d20; background: #fff7e9; color: #915408; }
+.estimate-photo-score.risk-moderate { border-color: var(--green); background: #f2f9ea; color: #4d7c27; }
+
+.estimate-photo-score strong {
+  display: block;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.estimate-photo-score strong small {
+  font-size: 11px;
+}
+
+.estimate-photo-score span {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.estimate-photo-overview {
+  margin: 16px 0 0;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+
+.estimate-photo-score-reason {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 10px 0 0;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.estimate-photo-score-reason svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.estimate-photo-findings {
+  display: grid;
+  gap: 0;
+  margin-top: 18px;
+  border-top: 1px solid var(--border);
+}
+
+.estimate-photo-findings > article {
+  padding: 17px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.estimate-finding-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.estimate-finding-heading strong {
+  color: var(--text-dark);
+  font-size: 16px;
+}
+
+.estimate-finding-heading small {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.estimate-severity {
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.estimate-severity.is-high { background: #fff0ee; color: #a9201c; }
+.estimate-severity.is-medium { background: #fff4df; color: #9b5b0c; }
+.estimate-severity.is-low { background: var(--light-blue); color: var(--navy); }
+
+.estimate-photo-findings dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 14px 0 0;
+}
+
+.estimate-photo-findings dl div {
+  min-width: 0;
+}
+
+.estimate-photo-findings dt {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.estimate-photo-findings dd {
+  margin: 6px 0 0;
+  color: var(--text-mid);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.estimate-photo-findings .is-action dd {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.estimate-confirmation-note {
+  margin: 12px 0 0;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.estimate-no-visible-risk {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  border: 1px solid rgba(122, 190, 60, 0.35);
+  background: #f4faee;
+  padding: 13px;
+  color: #466c25;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.estimate-photo-context-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.estimate-photo-context-grid > div {
+  background: #f6f9fb;
+  padding: 13px;
+}
+
+.estimate-photo-context-grid > div.is-positive {
+  background: #f4faee;
+}
+
+.estimate-photo-context-grid strong {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  color: var(--navy);
+  font-size: 12px;
+}
+
+.estimate-photo-context-grid ul {
+  margin: 8px 0 0;
+  padding-left: 17px;
+  color: var(--text-mid);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.estimate-score-explanation {
+  display: grid;
+  gap: 18px;
+}
+
+.estimate-score-explanation .estimate-risk-score {
+  width: 132px;
+  height: 132px;
+}
+
+.estimate-score-explanation .estimate-risk-score span {
+  margin: 0;
+}
+
+.estimate-score-explanation .estimate-risk-score span small {
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.estimate-score-explanation .estimate-risk-score strong {
+  max-width: 90px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.estimate-score-intro h4 {
+  font-size: 24px;
+}
+
+.estimate-score-intro p {
+  margin: 7px 0 0;
+  color: var(--text-mid);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.estimate-score-intro span {
+  display: inline-block;
+  margin-top: 9px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.estimate-score-breakdown {
+  display: grid;
+  gap: 16px;
+}
+
+.estimate-score-breakdown article > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text-dark);
+  font-size: 13px;
+}
+
+.estimate-score-breakdown article > span {
+  display: block;
+  height: 7px;
+  margin-top: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e6eef3;
+}
+
+.estimate-score-breakdown article > span i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--blue);
+}
+
+.estimate-score-breakdown article p {
+  margin: 7px 0 0;
+  color: var(--text-mid);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.estimate-legacy-score-reasons {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-mid);
+  font-size: 13px;
+}
+
 .estimate-report-hero {
   background:
     linear-gradient(90deg, rgba(27, 94, 138, 0.06) 1px, transparent 1px),
@@ -17823,6 +18206,44 @@ img {
 
   .estimate-risk-score span {
     font-size: 32px;
+  }
+
+  .estimate-section-heading,
+  .estimate-photo-analysis-card,
+  .estimate-photo-findings dl,
+  .estimate-photo-context-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .estimate-section-heading {
+    gap: 8px;
+  }
+
+  .estimate-photo-analysis-media,
+  .estimate-photo-analysis-media > span {
+    min-height: 190px;
+    max-height: 260px;
+  }
+
+  .estimate-photo-analysis-content > header {
+    align-items: flex-start;
+  }
+
+  .estimate-photo-analysis-content header p {
+    max-width: 190px;
+  }
+
+  .estimate-finding-heading {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .estimate-finding-heading small {
+    grid-column: 2;
+  }
+
+  .estimate-score-explanation .estimate-risk-score {
+    width: 112px;
+    height: 112px;
   }
 
   .grant-stamp {

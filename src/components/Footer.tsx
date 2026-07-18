@@ -8,20 +8,59 @@ import { legalRouteLabels } from '../constants/legalDocuments'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
+const footerLinkCopy = {
+  en: {
+    plan: 'Your CasaMia Plan', services: 'Safety Services', organisations: 'Assisted Living Solutions',
+    providers: 'Provider Partners', resources: 'Resources', preferences: 'Cookie preferences',
+  },
+  es: {
+    plan: 'Tu plan CasaMia', services: 'Servicios de seguridad', organisations: 'Soluciones para organizaciones',
+    providers: 'Colaboradores profesionales', resources: 'Recursos', preferences: 'Preferencias de cookies',
+  },
+  de: {
+    plan: 'Ihr CasaMia-Plan', services: 'Sicherheitsleistungen', organisations: 'Lösungen für Einrichtungen',
+    providers: 'Partnerbetriebe', resources: 'Ratgeber', preferences: 'Cookie-Einstellungen',
+  },
+  fr: {
+    plan: 'Votre plan CasaMia', services: 'Services de sécurité', organisations: 'Solutions pour les établissements',
+    providers: 'Partenaires professionnels', resources: 'Ressources', preferences: 'Préférences de cookies',
+  },
+  nl: {
+    plan: 'Uw CasaMia-plan', services: 'Veiligheidsdiensten', organisations: 'Oplossingen voor organisaties',
+    providers: 'Professionele partners', resources: 'Informatie', preferences: 'Cookievoorkeuren',
+  },
+} as const
+
+const spanishLegalLabels: Record<string, string> = {
+  'legal-notice': 'Aviso legal',
+  'general-customer-terms': 'Condiciones generales para clientes',
+  'privacy-policy': 'Política de privacidad',
+  'cookie-policy': 'Política de cookies',
+  'withdrawal-cancellation': 'Desistimiento y cancelación',
+  'guarantees-aftercare': 'Garantías y servicio posventa',
+  'complaints-contact': 'Reclamaciones y contacto',
+  'accessibility-statement': 'Declaración de accesibilidad',
+}
+
 export function Footer() {
   const { i18n, t } = useTranslation()
+  const language = i18n.language.toLowerCase().split('-')[0] as keyof typeof footerLinkCopy
+  const links = footerLinkCopy[language] ?? footerLinkCopy.en
   const companyLinks = [
     { label: t('nav.home', { defaultValue: 'Home' }), to: '/' },
     { label: t('nav.howItWorks'), to: '/how-it-works' },
-    { label: 'Your CasaMia Plan', to: '/plans' },
-    { label: 'Safety Services', to: '/services' },
-    { label: 'Assisted Living Solutions', to: '/assisted-living-solutions' },
-    { label: 'Provider Partners', to: '/provider-partners' },
+    { label: links.plan, to: '/plans' },
+    { label: links.services, to: '/services' },
+    { label: links.organisations, to: '/assisted-living-solutions' },
+    { label: links.providers, to: '/provider-partners' },
     { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-us' },
-    { label: i18n.language.startsWith('es') ? 'Recursos' : 'Resources', to: '/blog' },
+    { label: links.resources, to: '/blog' },
     { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
   ]
-  const legalLinks = legalRouteLabels
+  const legalLinks = legalRouteLabels.map((link) => ({
+    ...link,
+    label: language === 'es' ? spanishLegalLabels[link.id] ?? link.label : link.label,
+  }))
   const supportLinks = [
     { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
     { label: 'Plan Adapta', to: '/plan-adapta' },
@@ -79,7 +118,7 @@ export function Footer() {
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent('casamia:open-cookie-preferences'))}
             >
-              Cookie preferences
+              {links.preferences}
             </button>
             <LanguageSwitcher compact inverted />
           </div>

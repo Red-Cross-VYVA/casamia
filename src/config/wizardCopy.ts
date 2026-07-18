@@ -73,6 +73,10 @@ export type WizardCopy = {
     image: string
     video: string
     otherRoom: string
+    detectingRoom: string
+    roomDetected: string
+    roomSuggested: string
+    chooseRoom: string
     count: (count: number) => string
     errors: {
       unsupported: (name: string) => string
@@ -268,10 +272,14 @@ const en: WizardCopy = {
     remove: 'Remove file',
     room: 'Room',
     empty: 'No photos or videos added yet',
-    rules: 'JPG, PNG, WebP, MP4, WebM or MOV. Up to 8 files, including 3 videos. Images up to 8 MB, videos up to 50 MB, 100 MB total. Files upload privately when you submit; keep this page open.',
+    rules: 'JPG, PNG, WebP, MP4, WebM or MOV. Up to 8 files, including 3 videos. Images up to 8 MB, videos up to 50 MB, 100 MB total. Photos are checked securely to suggest a room; files upload privately when you submit.',
     image: 'Photo',
     video: 'Video',
     otherRoom: 'Other',
+    detectingRoom: 'Detecting room...',
+    roomDetected: 'Room detected from photo',
+    roomSuggested: 'Room suggested from file name',
+    chooseRoom: 'Choose the room',
     count: (count) => `${count} of 8 files added`,
     errors: {
       unsupported: (name) => `${name} is not a supported photo or video format.`,
@@ -353,7 +361,7 @@ const en: WizardCopy = {
     },
   },
   phone: { title: 'Prefer to speak with us?', body: 'We can complete the assessment with you by phone.', call: 'Call CasaMia', whatsapp: 'WhatsApp', email: 'Email CasaMia', reference: 'Your reference', unavailable: 'Our phone line is being configured. Continue and choose Phone or WhatsApp as your preferred contact.' },
-  visit: { title: 'Professional home safety visit', price: '89 EUR', body: 'A CasaMia professional reviews the home room by room.', credit: 'The 89 EUR fee is deducted from approved CasaMia work above 300 EUR.', example: 'Example: on a 650 EUR project, 561 EUR remains after the visit credit.', book: 'Book visit', without: 'Continue without visit', selected: 'Visit selected' },
+  visit: { title: 'Professional home safety visit', price: '99 EUR', body: 'A CasaMia professional reviews the home room by room.', credit: 'The 99 EUR fee is deducted from approved CasaMia work above 300 EUR.', example: 'Example: on a 650 EUR project, 551 EUR remains after the visit credit.', book: 'Book visit', without: 'Continue without visit', selected: 'Visit selected' },
   contact: { title: 'Where should we send your plan?', body: 'Last step. We only need enough to help.', name: 'Full name', phone: 'Phone', email: 'Email', city: 'City / area', method: 'Preferred contact', consent: 'I agree to be contacted by CasaMia about my home safety plan.', privacy: 'We use this only to prepare your plan and contact you. We never sell your data.', phoneOrEmail: 'Add a phone number or email.', invalidEmail: 'Enter a valid email address.', required: 'This field is required.', detect: 'Detect', detecting: 'Finding...', detected: 'Location added', detectError: "We couldn't detect your city. Enter it manually." },
   result: {
     title: 'Your personalised home safety plan', profile: 'Safety profile', recommendedPlan: 'Recommended starting point', improvements: 'Your priority actions', estimated: 'Live catalogue estimate', priceDisclaimer: 'A conservative starting estimate using the lowest-priced active option for each relevant area. Your final scope is confirmed after reviewing the home.', immediate: 'Immediate', recommended: 'Recommended', optional: 'Optional',
@@ -404,10 +412,14 @@ const es: WizardCopy = {
     remove: 'Eliminar archivo',
     room: 'Zona',
     empty: 'Aún no has añadido fotos ni vídeos',
-    rules: 'JPG, PNG, WebP, MP4, WebM o MOV. Hasta 8 archivos, incluidos 3 vídeos. Imágenes de hasta 8 MB, vídeos de hasta 50 MB y 100 MB en total. Se suben de forma privada al enviar; mantén esta página abierta.',
+    rules: 'JPG, PNG, WebP, MP4, WebM o MOV. Hasta 8 archivos, incluidos 3 vídeos. Imágenes de hasta 8 MB, vídeos de hasta 50 MB y 100 MB en total. Analizamos la foto de forma segura para sugerir la zona; los archivos se suben de forma privada al enviar.',
     image: 'Foto',
     video: 'Vídeo',
     otherRoom: 'Otra',
+    detectingRoom: 'Detectando zona...',
+    roomDetected: 'Zona detectada en la foto',
+    roomSuggested: 'Zona sugerida por el nombre',
+    chooseRoom: 'Elige la zona',
     count: (count) => `${count} de 8 archivos añadidos`,
     errors: {
       unsupported: (name) => `${name} no tiene un formato de foto o vídeo compatible.`,
@@ -489,7 +501,7 @@ const es: WizardCopy = {
     },
   },
   phone: { title: '¿Prefieres hablar con nosotros?', body: 'Podemos completar la evaluación contigo por teléfono.', call: 'Llamar a CasaMia', whatsapp: 'WhatsApp', email: 'Escribir a CasaMia', reference: 'Tu referencia', unavailable: 'Estamos configurando la línea telefónica. Continúa y elige Teléfono o WhatsApp como contacto preferido.' },
-  visit: { title: 'Visita profesional de seguridad', price: '89 EUR', body: 'Un profesional CasaMia revisará la vivienda estancia por estancia.', credit: 'Los 89 EUR se descuentan de trabajos CasaMia aprobados superiores a 300 EUR.', example: 'Ejemplo: en un proyecto de 650 EUR, quedarían 561 EUR tras aplicar el descuento.', book: 'Reservar visita', without: 'Continuar sin visita', selected: 'Visita seleccionada' },
+  visit: { title: 'Visita profesional de seguridad', price: '99 EUR', body: 'Un profesional CasaMia revisará la vivienda estancia por estancia.', credit: 'Los 99 EUR se descuentan de trabajos CasaMia aprobados superiores a 300 EUR.', example: 'Ejemplo: en un proyecto de 650 EUR, quedarían 551 EUR tras aplicar el descuento.', book: 'Reservar visita', without: 'Continuar sin visita', selected: 'Visita seleccionada' },
   contact: { title: '¿Dónde enviamos tu plan?', body: 'Último paso. Solo pedimos lo necesario para ayudarte.', name: 'Nombre completo', phone: 'Teléfono', email: 'Email', city: 'Ciudad / zona', method: 'Contacto preferido', consent: 'Acepto que CasaMia contacte conmigo sobre mi plan de seguridad.', privacy: 'Solo usamos estos datos para preparar tu plan y contactarte. Nunca los vendemos.', phoneOrEmail: 'Añade un teléfono o email.', invalidEmail: 'Introduce un email válido.', required: 'Este campo es obligatorio.', detect: 'Detectar', detecting: 'Buscando...', detected: 'Ubicación añadida', detectError: 'No hemos podido detectar tu ciudad. Escríbela manualmente.' },
   result: { title: 'Tu plan personalizado de seguridad', profile: 'Perfil de seguridad', recommendedPlan: 'Punto de partida recomendado', improvements: 'Tus acciones prioritarias', estimated: 'Estimación del catálogo', priceDisclaimer: 'Estimación inicial conservadora basada en la opción activa de menor precio para cada zona relevante. Confirmaremos el alcance final después de revisar la vivienda.', immediate: 'Inmediato', recommended: 'Recomendado', optional: 'Opcional', profiles: { prevention: 'Enfoque preventivo', moderate: 'Necesidades moderadas', 'high-priority': 'Mejoras prioritarias', 'smart-safety': 'Seguridad inteligente recomendada', business: 'Soporte profesional' }, plans: { assessment: 'Plan de evaluación', 'home-safety': 'Plan de seguridad del hogar', 'smart-safety': 'Plan de seguridad inteligente', 'business-consultation': 'Consulta profesional' }, confidence: { early: 'Con la información facilitada, esta es una estimación inicial.', supported: 'Hemos usado tus respuestas y la información adicional para mejorar la estimación.', inspection: 'La visita confirmará las recomendaciones y el presupuesto final.' }, bookVisit: 'Reservar visita', requestProposal: 'Solicitar propuesta', speak: 'Hablar con CasaMia', business: 'Reservar consulta profesional', email: 'Enviar mi plan', recommendationNote: 'Recomendado según tus respuestas. Compara todas las opciones abajo.', packagesTitle: 'Elige cómo te ayuda CasaMia', packagesBody: 'Cada plan tiene entregables claros. Abre una tarjeta para ver todo lo incluido.', packageRecommended: 'Recomendado para ti', packageSelected: 'Seleccionado', packageDetails: 'Ver entregables', packageHide: 'Ocultar entregables', packageChoose: 'Elegir este plan', packageIncludes: 'Entregables incluidos', packageManagement: 'Gestión CasaMia incluida', grantTitle: '¿Tu proyecto puede recibir ayudas?', grantBody: 'CasaMia revisa posibles ayudas y gestiona la solicitud cuando corresponda.', grantIncluded: 'La gestión de ayudas está incluida en el precio del servicio mostrado.', grantCaveat: 'La administración competente decide la concesión y el importe final.', grantLink: 'Comprobar ayudas' },
   submit: { sending: 'Subiendo y enviando...', success: 'Solicitud enviada. CasaMia contactará contigo pronto.', error: 'No hemos podido enviarla todavía. Tus respuestas están guardadas; mantén esta página abierta para reintentar los archivos.' },

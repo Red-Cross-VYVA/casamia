@@ -1,6 +1,4 @@
-import { ArrowRight, ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 import { IMAGE_URLS } from '../constants/shopify'
 import '../styles/home-hero-ctas.css'
@@ -29,11 +27,6 @@ export function Hero() {
           <p className="hero-copy mt-8 max-w-xl text-xl leading-relaxed">
             {t('hero.sub')}
           </p>
-          <Link className="hero-safety-wizard-link" to="/home-safety-wizard">
-            <span><ShieldCheck size={22} aria-hidden="true" /></span>
-            <strong>{t('wizard.cta')}</strong>
-            <ArrowRight size={20} aria-hidden="true" />
-          </Link>
           <UploadEstimator />
         </div>
 

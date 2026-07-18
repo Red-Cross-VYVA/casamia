@@ -30,7 +30,7 @@ function createInitialState(): SafetyWizardState {
       consent: false,
     },
     inspectionBooked: false,
-    inspectionFee: 89,
+    inspectionFee: 99,
     inspectionCreditThreshold: 300,
     contact: {
       fullName: '',

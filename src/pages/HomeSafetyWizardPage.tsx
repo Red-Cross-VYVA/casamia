@@ -143,11 +143,16 @@ const clientNeedOptions: ChoiceOption<ClientNeed>[] = [
   { value: 'staff-support', icon: UsersRound }, { value: 'accessibility', icon: Accessibility }, { value: 'portfolio-review', icon: Building2 }, { value: 'other', icon: CircleHelp },
 ]
 
-export function HomeSafetyWizardPage() {
+type HomeSafetyWizardPageProps = {
+  embedded?: boolean
+}
+
+export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageProps) {
   const { i18n } = useTranslation()
   const copy = useMemo(() => getWizardCopy(i18n.language), [i18n.language])
   const wizard = useSafetyWizard()
   const { state } = wizard
+  const embeddedRootRef = useRef<HTMLDivElement | null>(null)
   const serviceCatalogue = useServiceCatalogue()
   const displayedMethodOptions = state.userType === 'client'
     ? ['call', 'callback', 'visit', 'photos', 'voice', 'questions'].map((value) => methodOptions.find((option) => option.value === value)!)
@@ -180,12 +185,22 @@ export function HomeSafetyWizardPage() {
   )
 
   useEffect(() => {
+    if (embedded) return
     document.title = `${copy.entry.title} | CasaMia`
-  }, [copy.entry.title])
+  }, [copy.entry.title, embedded])
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
-  }, [state.currentStep])
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+
+    if (embedded) {
+      embeddedRootRef.current
+        ?.closest<HTMLElement>('.home-proposal-modal-scroll')
+        ?.scrollTo({ top: 0, behavior })
+      return
+    }
+
+    window.scrollTo({ top: 0, behavior })
+  }, [embedded, state.currentStep])
 
   const saveForLater = () => {
     setSaved(true)
@@ -453,7 +468,7 @@ export function HomeSafetyWizardPage() {
     }
   })()
 
-  return (
+  const content = (
     <>
       <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry' && state.currentStep !== 'callback-confirmation' && !callbackSubmitting} canSave={!state.inputMethods.includes('callback')} saved={saved} onBack={wizard.back} onSave={saveForLater}>
         {step}
@@ -470,6 +485,12 @@ export function HomeSafetyWizardPage() {
       ) : null}
     </>
   )
+
+  return embedded ? (
+    <div ref={embeddedRootRef} className="safety-wizard-embedded-root">
+      {content}
+    </div>
+  ) : content
 }
 
 function WizardActions({ copy, disabled = false, allowSkip = false, onContinue }: { copy: ReturnType<typeof getWizardCopy>; disabled?: boolean; allowSkip?: boolean; onContinue: () => void }) {

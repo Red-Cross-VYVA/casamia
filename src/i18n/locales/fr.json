@@ -42,7 +42,7 @@
     "cta": "Découvrir gratuitement",
     "micro": "Téléchargez vos photos · Sans engagement",
     "safetyCheck": {
-      "title": "Free Safety Report",
+      "title": "Votre logement est-il sûr ?",
       "body": "Find hidden risks at home and what to review first.",
       "cta": "Start free report"
     },
@@ -52,7 +52,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Plan sécurité"
+      "title": "Proposition de sécurité personnalisée gratuite"
     }
   },
   "reportDelivery": {

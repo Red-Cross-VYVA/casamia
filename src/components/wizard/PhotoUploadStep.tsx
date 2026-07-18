@@ -1,7 +1,8 @@
-import { Camera, ImagePlus, Trash2, Upload, Video } from 'lucide-react'
+import { Camera, CheckCircle2, CircleHelp, ImagePlus, LoaderCircle, Trash2, Upload, Video } from 'lucide-react'
 import { useEffect, useId, useRef, useState, type ChangeEvent } from 'react'
 
 import type { WizardCopy } from '../../config/wizardCopy'
+import { classifyRoomPhoto, inferRoomFromFileName } from '../../services/roomPhotoClassification'
 import type { WizardPhoto, WizardRoom } from '../../types/wizard'
 import { WizardStep } from './WizardStep'
 
@@ -36,8 +37,14 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
   const errorId = `${inputId}-error`
   const previewUrlsRef = useRef(new Map<string, string>())
   const externalPreviewUrlsRef = useRef(new Map<string, string>())
+  const photosRef = useRef(photos)
+  const mountedRef = useRef(true)
   const [, refreshPreviews] = useState(0)
   const [fileError, setFileError] = useState('')
+
+  useEffect(() => {
+    photosRef.current = photos
+  }, [photos])
 
   useEffect(() => {
     const currentIds = new Set(photos.map((photo) => photo.id))
@@ -72,12 +79,42 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
     if (changed) refreshPreviews((version) => version + 1)
   }, [photos])
 
-  useEffect(() => () => {
-    previewUrlsRef.current.forEach((url) => URL.revokeObjectURL(url))
-    previewUrlsRef.current.clear()
-    externalPreviewUrlsRef.current.forEach((url) => URL.revokeObjectURL(url))
-    externalPreviewUrlsRef.current.clear()
+  useEffect(() => {
+    const previewUrls = previewUrlsRef.current
+    const externalPreviewUrls = externalPreviewUrlsRef.current
+    mountedRef.current = true
+
+    return () => {
+      mountedRef.current = false
+      previewUrls.forEach((url) => URL.revokeObjectURL(url))
+      previewUrls.clear()
+      externalPreviewUrls.forEach((url) => URL.revokeObjectURL(url))
+      externalPreviewUrls.clear()
+    }
   }, [])
+
+  const emitChange = (nextPhotos: WizardPhoto[]) => {
+    photosRef.current = nextPhotos
+    onChange(nextPhotos)
+  }
+
+  const detectPhotoRoom = async (photo: WizardPhoto) => {
+    if (!photo.file || getPhotoKind(photo) !== 'image') return
+
+    const result = await classifyRoomPhoto(photo.file)
+    if (!mountedRef.current) return
+
+    const currentPhoto = photosRef.current.find((candidate) => candidate.id === photo.id)
+    if (!currentPhoto || currentPhoto.roomDetectionStatus === 'manual') return
+
+    emitChange(photosRef.current.map((candidate) => candidate.id === photo.id ? {
+      ...candidate,
+      room: result.room,
+      roomDetectionStatus: result.source === 'unavailable' ? 'unavailable' : 'detected',
+      roomDetectionSource: result.source === 'unavailable' ? undefined : result.source,
+      roomDetectionConfidence: result.confidence,
+    } : candidate))
+  }
 
   const addPhotos = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files ?? [])
@@ -120,13 +157,18 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
         return
       }
 
+      const inferredRoom = inferRoomFromFileName(file.name)
       const media = {
         id: crypto.randomUUID(),
         name: file.name,
         size: file.size,
         type: file.type,
         kind,
-        room: 'other' as const,
+        room: inferredRoom,
+        roomDetectionStatus: kind === 'image'
+          ? 'detecting' as const
+          : inferredRoom === 'other' ? 'unavailable' as const : 'detected' as const,
+        roomDetectionSource: inferredRoom === 'other' ? undefined : 'filename' as const,
         file,
       } satisfies WizardPhoto & { kind: MediaKind }
 
@@ -137,12 +179,15 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
     })
 
     setFileError(Array.from(messages).join(' '))
-    if (next.length) onChange([...photos, ...next])
+    if (next.length) {
+      emitChange([...photosRef.current, ...next])
+      next.forEach((photo) => void detectPhotoRoom(photo))
+    }
     event.target.value = ''
   }
 
   const removePhoto = (photoId: string) => {
-    const target = photos.find((photo) => photo.id === photoId)
+    const target = photosRef.current.find((photo) => photo.id === photoId)
     const ownedPreviewUrl = previewUrlsRef.current.get(photoId)
 
     if (ownedPreviewUrl) {
@@ -155,11 +200,17 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
     }
 
     setFileError('')
-    onChange(photos.filter((photo) => photo.id !== photoId))
+    emitChange(photosRef.current.filter((photo) => photo.id !== photoId))
   }
 
   const updateRoom = (photoId: string, room: WizardPhoto['room']) => {
-    onChange(photos.map((photo) => photo.id === photoId ? { ...photo, room } : photo))
+    emitChange(photosRef.current.map((photo) => photo.id === photoId ? {
+      ...photo,
+      room,
+      roomDetectionStatus: 'manual',
+      roomDetectionSource: undefined,
+      roomDetectionConfidence: undefined,
+    } : photo))
   }
 
   return (
@@ -191,6 +242,7 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
               const kind = getPhotoKind(photo)
               const previewUrl = previewUrlsRef.current.get(photo.id) ?? photo.previewUrl
               const nameId = `${inputId}-${photo.id}-name`
+              const detectionId = `${inputId}-${photo.id}-detection`
               const kindLabel = kind === 'video' ? copy.photos.video : copy.photos.image
 
               return (
@@ -217,10 +269,32 @@ export function PhotoUploadStep({ copy, photos, roomLabels, onChange }: PhotoUpl
                     </div>
                     <div className="safety-wizard-media-controls">
                       <label>
-                        <span>{copy.photos.room}</span>
-                        <select value={photo.room} onChange={(event) => updateRoom(photo.id, event.target.value as WizardPhoto['room'])}>
+                        <span className="safety-wizard-media-room-label">{copy.photos.room}</span>
+                        <select
+                          value={photo.room}
+                          aria-describedby={photo.roomDetectionStatus && photo.roomDetectionStatus !== 'manual' ? detectionId : undefined}
+                          onChange={(event) => updateRoom(photo.id, event.target.value as WizardPhoto['room'])}
+                        >
                           {Object.entries(roomLabels).map(([value, label]) => <option value={value} key={value}>{label}</option>)}
                         </select>
+                        {photo.roomDetectionStatus && photo.roomDetectionStatus !== 'manual' ? (
+                          <span
+                            id={detectionId}
+                            className={`safety-wizard-room-detection is-${photo.roomDetectionStatus}`}
+                            aria-live="polite"
+                          >
+                            {photo.roomDetectionStatus === 'detecting' ? <LoaderCircle size={13} aria-hidden="true" /> : null}
+                            {photo.roomDetectionStatus === 'detected' ? <CheckCircle2 size={13} aria-hidden="true" /> : null}
+                            {photo.roomDetectionStatus === 'unavailable' ? <CircleHelp size={13} aria-hidden="true" /> : null}
+                            {photo.roomDetectionStatus === 'detecting'
+                              ? copy.photos.detectingRoom
+                              : photo.roomDetectionStatus === 'detected'
+                                ? photo.roomDetectionSource === 'filename'
+                                  ? copy.photos.roomSuggested
+                                  : copy.photos.roomDetected
+                                : copy.photos.chooseRoom}
+                          </span>
+                        ) : null}
                       </label>
                       <button type="button" onClick={() => removePhoto(photo.id)} aria-label={`${copy.photos.remove}: ${photo.name}`}>
                         <Trash2 size={18} aria-hidden="true" />

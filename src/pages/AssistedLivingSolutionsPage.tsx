@@ -3,27 +3,35 @@ import {
   AlertCircle,
   ArrowRight,
   BadgeCheck,
+  Bath,
+  BedDouble,
   BellRing,
   Building2,
   Check,
   CheckCircle2,
   ChevronRight,
-  CircleCheckBig,
+  CircleDot,
   ClipboardCheck,
+  Cloud,
+  Droplets,
+  ExternalLink,
   HeartPulse,
-  House,
+  LayoutDashboard,
+  LifeBuoy,
   Link2,
   LoaderCircle,
   LockKeyhole,
   Mail,
-  MessageCircle,
-  MonitorCheck,
-  PhoneCall,
+  Network,
+  Plug,
+  Radio,
+  ScanLine,
   ShieldCheck,
   Smartphone,
   Sparkles,
-  UserPlus,
+  UserRoundCheck,
   UsersRound,
+  Watch,
   Wifi,
   type LucideIcon,
 } from 'lucide-react'
@@ -38,6 +46,7 @@ import { trackEvent } from '../utils/analytics'
 import '../styles/assisted-living-solutions.css'
 
 type LanguageKey = 'en' | 'es'
+type TechnologyKind = 'fall' | 'bathroom' | 'health' | 'room'
 
 type AssistedLivingCopy = {
   lang: LanguageKey
@@ -50,114 +59,108 @@ type AssistedLivingCopy = {
     primaryCta: string
     secondaryCta: string
     proof: string[]
+    audiencesLabel: string
+    audiences: string[]
     imageAlt: string
-    visualLabel: string
+    visualEyebrow: string
     visualTitle: string
-    layers: Array<{ title: string; body: string }>
+    visualBody: string
+    visualEvent: string
+    visualRoom: string
+    visualRoute: string
+    privacyLabel: string
+  }
+  expertise: {
+    eyebrow: string
+    title: string
+    body: string
+    inputs: Array<{ title: string; body: string }>
+    outcomeLabel: string
+    outcomeTitle: string
+    outcomes: string[]
+    note: string
+  }
+  technology: {
+    eyebrow: string
+    title: string
+    body: string
+    compatibility: string
+    items: Array<{
+      kind: TechnologyKind
+      tag: string
+      title: string
+      body: string
+      points: string[]
+      visualLabel: string
+    }>
+  }
+  partners: {
+    eyebrow: string
+    title: string
+    body: string
+    providerLabel: string
+    providerName: string
+    providerBody: string
+    referencesLabel: string
+    references: Array<{ name: string; category: string; href: string }>
+    examplesLabel: string
+    examples: Array<{ name: string; category: string; href: string }>
+    note: string
   }
   ecosystem: {
     eyebrow: string
     title: string
     body: string
-    summary: string
-    resident: { title: string; body: string; status: string }
-    platform: { title: string; body: string; signals: string[] }
-    operator: { title: string; body: string }
-    caregiver: { title: string; body: string }
-    family: { title: string; body: string }
-    telehealth: { title: string; body: string }
-  }
-  onboarding: {
-    eyebrow: string
-    title: string
-    body: string
-    support: string
-    readyTitle: string
-    readyBody: string
-    steps: Array<{ title: string; body: string }>
+    aria: string
+    sourceTitle: string
+    sourceBody: string
+    layerBadge: string
+    layerTitle: string
+    layerBody: string
+    layerCapabilities: string[]
+    destinations: Array<{ title: string; body: string }>
+    flow: string[]
   }
   interfaces: {
     eyebrow: string
     title: string
     body: string
     operator: {
-      eyebrow: string
+      label: string
       title: string
-      body: string
-      live: string
+      status: string
+      summary: string
       metrics: Array<{ value: string; label: string }>
-      residentsTitle: string
-      residents: Array<{ name: string; detail: string; status: string }>
-      alertsTitle: string
-      alerts: Array<{ title: string; detail: string; tone: 'attention' | 'good' | 'info' }>
+      queueTitle: string
+      queue: Array<{ room: string; event: string; owner: string; state: string; tone: 'urgent' | 'active' | 'clear' }>
     }
     caregiver: {
-      eyebrow: string
+      label: string
       title: string
-      body: string
-      greeting: string
       shift: string
-      priorities: string
-      residents: Array<{ initials: string; name: string; task: string; status: string }>
-      actions: string[]
+      eventType: string
+      eventRoom: string
+      eventTime: string
+      context: string
+      primaryAction: string
+      secondaryAction: string
+      footer: string
     }
   }
-  workflow: {
+  rollout: {
     eyebrow: string
     title: string
     body: string
     steps: Array<{ title: string; body: string }>
+    onboardingLabel: string
+    onboarding: string[]
+    ready: string
   }
   trust: {
-    items: Array<{ title: string; body: string }>
-    boundary: string
-  }
-  outcomes: {
-    eyebrow: string
     title: string
-    body: string
-    disclaimer: string
-    items: Array<{ title: string; body: string; examples: string }>
-  }
-  solutions: {
-    eyebrow: string
-    title: string
-    body: string
-    link: string
-    note: string
-    items: Array<{ title: string; body: string }>
-  }
-  example: {
-    eyebrow: string
-    badge: string
-    title: string
-    body: string
-    challengeLabel: string
-    challenge: string
-    phaseLabel: string
-    phase: string
-    deliverablesLabel: string
-    deliverables: string[]
-  }
-  delivery: {
-    eyebrow: string
-    title: string
-    body: string
-    outputLabel: string
-    items: Array<{ title: string; body: string; output: string }>
-  }
-  governance: {
-    eyebrow: string
-    title: string
-    body: string
-    points: string[]
+    outcomes: Array<{ title: string; body: string }>
     boundaryTitle: string
-    boundaryBody: string
-  }
-  links: {
-    eyebrow: string
-    title: string
-    items: Array<{ title: string; body: string; cta: string; to: string }>
+    boundary: string
   }
   faq: {
     eyebrow: string
@@ -203,941 +206,786 @@ type AssistedLivingCopy = {
 const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
   en: {
     lang: 'en',
-    seoTitle: 'Assisted Living Technology & Care Home Solutions Spain',
+    seoTitle: 'Assisted Living Technology & Fall Detection | CasaMia Spain',
     seoDescription:
-      'CasaMia helps assisted living operators in Spain assess, select and implement senior living technology, smart rooms, safety systems and care-team workflows.',
+      'CasaMia integrates non-wearable fall detection, senior-living sensors, connected health devices, caregiver apps and operator workflows for residences in Spain.',
     hero: {
-      eyebrow: 'One friendly system for the whole residence',
-      title: 'One connected system for residents, care teams and operators.',
+      eyebrow: 'Technology integration for senior living',
+      title: 'Discreet detection. Clear response. Less operational friction.',
       body:
-        'CasaMia brings resident devices, daily care and operational oversight into one clear, easy-to-use ecosystem.',
-      primaryCta: 'Request a facility demo',
-      secondaryCta: 'See easy onboarding',
-      proof: ['Works with your current tools', 'Role-based views', 'Guided rollout'],
-      imageAlt: 'Voice-assistance device in a calm, accessible resident bedroom',
-      visualLabel: 'Illustrative solution view',
-      visualTitle: 'One roadmap from resident space to operator handover',
-      layers: [
-        { title: 'Resident spaces', body: 'Sensors, call points, lighting and voice support' },
-        { title: 'Care-team workflows', body: 'Agreed alerts, response paths and clear ownership' },
-        { title: 'Operator delivery', body: 'Pilot scope, rollout, training and support handover' },
+        'CasaMia integrates camera-free, non-wearable fall detection, bathroom and continence technology, connected health devices and clear staff workflows—with the systems your teams already use.',
+      primaryCta: 'Plan a facility pilot',
+      secondaryCta: 'Explore the technology',
+      proof: ['Non-wearable options', 'Works with existing systems', 'Privacy by design', 'Pilot-to-scale support'],
+      audiencesLabel: 'Built for',
+      audiences: ['Assisted living', 'Senior residences', 'Senior communities', 'Multi-site operators'],
+      imageAlt: 'Discreet camera-free room sensor in a calm senior-living residence',
+      visualEyebrow: 'Passive safety, active response',
+      visualTitle: 'With supported ambient sensing, residents do not need to wear or press a device.',
+      visualBody: 'When a compatible sensor detects a possible fall, the agreed alert is routed to the responsible team.',
+      visualEvent: 'Suspected fall',
+      visualRoom: 'Suite 214 · private room',
+      visualRoute: 'Routed to the care team',
+      privacyLabel: 'Camera-free option',
+    },
+    expertise: {
+      eyebrow: 'Designed around your residence',
+      title: 'Every residence is different. Its technology plan should be too.',
+      body:
+        'We begin with the building, residents, staff routines and systems already in place. Then we select, connect and pilot only the technology that fits.',
+      inputs: [
+        { title: 'Residents', body: 'Abilities, risks, routines and consent' },
+        { title: 'Residence', body: 'Rooms, bathrooms, coverage and connectivity' },
+        { title: 'Care model', body: 'Staff roles, escalation and handover' },
+        { title: 'Current systems', body: 'Nurse call, care platform, apps and data routes' },
       ],
+      outcomeLabel: 'Your CasaMia blueprint',
+      outcomeTitle: 'One tailored solution with a clear operating model.',
+      outcomes: ['Selected devices', 'Integration route', 'Alert and response model', 'Training and rollout plan'],
+      note: 'Start with one priority. Scale only after the workflow works in practice.',
+    },
+    technology: {
+      eyebrow: 'Technology examples',
+      title: 'Ambient sensors, opt-in health checks and wearables—chosen for the use case.',
+      body:
+        'The right mix may combine passive room coverage with deliberate health checks or personal devices. None of it is one-size-fits-all.',
+      compatibility:
+        'Device compatibility, room coverage and applicable certification are validated for each site before the pilot.',
+      items: [
+        {
+          kind: 'fall',
+          tag: 'Camera-free options',
+          title: 'Ambient fall detection',
+          body:
+            'Supported radar, bed-exit, presence and environmental sensors can add passive coverage without asking a resident to press a button.',
+          points: ['Wall or ceiling radar', 'Bed-exit and occupancy sensing', 'Door, temperature, air or leak events'],
+          visualLabel: 'Examples: radar · bed exit · environment',
+        },
+        {
+          kind: 'bathroom',
+          tag: 'Dignity by design',
+          title: 'Bathroom and continence insights',
+          body:
+            'Compatible continence sensors can prompt a change; supported toilet or urine-analysis devices can surface selected measurements or trends for authorised review.',
+          points: ['Saturation and change prompts', 'Toileting-event patterns', 'Professional review where appropriate'],
+          visualLabel: 'Bathroom signals, not cameras',
+        },
+        {
+          kind: 'health',
+          tag: 'Opt-in health check',
+          title: 'rPPG mirror and connected health',
+          body:
+            'A supported smart mirror can estimate selected signals during a deliberate optical rPPG check-in. Compatible blood-pressure monitors, oximeters, thermometers and scales can join the same authorised workflow.',
+          points: ['Opt-in, not continuous room monitoring', 'Selected pulse and breathing signals', 'Certification and intended use reviewed'],
+          visualLabel: 'rPPG mirror concept · optical check-in',
+        },
+        {
+          kind: 'room',
+          tag: 'Optional personal devices',
+          title: 'Wearables when they add value',
+          body:
+            'Compatible watches, wristbands and pendants can support SOS, location, activity or selected health readings for residents who accept and reliably use them.',
+          points: ['Optional—not required for ambient detection', 'Useful beyond the resident room', 'Integrated only with consent and a clear response'],
+          visualLabel: 'Wearable, pendant and fixed-call options',
+        },
+      ],
+    },
+    partners: {
+      eyebrow: 'Technology relationships and ecosystem',
+      title: 'Specialist technology, brought together around the residence.',
+      body:
+        'CasaMia combines senior-technology experience with a vendor-aware selection process. We validate supported interfaces, market availability and the operating workflow before recommending any product.',
+      providerLabel: 'CasaMia technology and service provider',
+      providerName: 'MOKA DigiTech',
+      providerBody: 'Senior-focused service design, digital workflows and technology integration.',
+      referencesLabel: 'Senior-technology references',
+      references: [
+        { name: 'VYVA', category: 'Health assistant and caregiver workflows', href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion' },
+        { name: 'COCOON', category: 'Assistive-technology experience', href: 'https://www.cocoon.services/assistive-technology' },
+      ],
+      examplesLabel: 'Specialist technologies we can assess',
+      examples: [
+        { name: 'Vayyar Care', category: 'Camera-free room radar', href: 'https://vayyar.com/care-pages/how/' },
+        { name: 'TENA SmartCare', category: 'Digital continence care', href: 'https://www.tena.co.uk/professionals/products/digital-care-solutions/change-indicator/tena-smartcare-change-indicator-sensor-strip/' },
+        { name: 'NuraLogix', category: 'Optical rPPG mirror', href: 'https://www.nuralogix.ai/' },
+        { name: 'CarePredict', category: 'Senior-focused wearable', href: 'https://www.carepredict.com/who-we-serve/at-home' },
+        { name: 'Withings', category: 'Connected health devices', href: 'https://www.withings.com/us/en/health-solutions/remote-patient-monitoring' },
+        { name: 'TytoCare', category: 'Guided telehealth exams', href: 'https://www.tytocare.com/' },
+      ],
+      note:
+        'Manufacturer and technology examples only. Inclusion does not imply a partnership or endorsement. Availability, regulatory status and integration suitability vary by market and deployment.',
     },
     ecosystem: {
-      eyebrow: 'The CasaMia ecosystem',
-      title: 'Every person, device and action in one clear flow.',
+      eyebrow: 'Signal to action',
+      title: 'From a room event to a documented response.',
       body:
-        'Resident spaces connect to the people who need the right information—without making every user learn the same complex system.',
-      summary:
-        'Resident rooms and devices connect through the CasaMia platform to an operator dashboard, caregiver mobile app, family visibility and telehealth.',
-      resident: {
-        title: 'Resident spaces',
-        body: 'Voice, call points, safety sensors, vitals and supportive routines.',
-        status: 'Connected around the resident',
-      },
-      platform: {
-        title: 'CasaMia platform',
-        body: 'One permission-based flow for people, devices, alerts and actions.',
-        signals: ['Residents', 'Devices', 'Alerts', 'Actions'],
-      },
-      operator: {
-        title: 'Operator dashboard',
-        body: 'Sites, residents, device status, alerts, tasks and oversight.',
-      },
-      caregiver: {
-        title: 'Caregiver app',
-        body: 'Priorities, check-ins, notes, handovers and escalation.',
-      },
-      family: {
-        title: 'Family visibility',
-        body: 'Agreed updates and reassurance, based on consent.',
-      },
-      telehealth: {
-        title: 'Telehealth',
-        body: 'Simple access to scheduled remote consultations.',
-      },
-    },
-    onboarding: {
-      eyebrow: 'Easy resident onboarding',
-      title: 'From new resident to ready-to-support in four clear steps.',
-      body: 'Use guided setup and reusable templates instead of rebuilding the workflow every time.',
-      support: 'CasaMia guides setup, training and rollout—site by site.',
-      readyTitle: 'Resident ready',
-      readyBody: 'Team invited · permissions checked · routines active',
-      steps: [
-        { title: 'Add the resident', body: 'Profile, room and support preferences.' },
-        { title: 'Assign the care circle', body: 'Team, family and role-based access.' },
-        { title: 'Connect services', body: 'Devices, routines and alert routes.' },
-        { title: 'Invite and activate', body: 'App access, checks and a clear handover.' },
+        'CasaMia routes agreed device events into workflows run by your own team—we do not operate a remote monitoring centre.',
+      aria:
+        'Resident room sensors and compatible devices connect through CasaMia integration to caregiver, operator and existing care-system workflows.',
+      sourceTitle: 'Resident space',
+      sourceBody: 'Passive sensors and compatible health devices',
+      layerBadge: 'Integration cloud',
+      layerTitle: 'CasaMia cloud',
+      layerBody: 'Permissions, event rules and routing',
+      layerCapabilities: ['Consent & access', 'Event rules', 'Role routing'],
+      destinations: [
+        { title: 'Caregiver mobile', body: 'The next action, with context' },
+        { title: 'Operator view', body: 'Ownership, status and handover' },
+        { title: 'Existing systems', body: 'Supported nurse-call or care platforms' },
       ],
+      flow: ['Signal detected', 'Route to role', 'Respond or escalate', 'Record the action'],
     },
     interfaces: {
-      eyebrow: 'Friendly by design',
-      title: 'One platform. Two simple views.',
-      body: 'Operators keep oversight; caregivers see exactly what matters for their shift.',
+      eyebrow: 'Built for each role',
+      title: 'Operators see the operation. Care teams see the next action.',
+      body:
+        'A residence-wide view for operators and a focused mobile queue for authorised care staff.',
       operator: {
-        eyebrow: 'Illustrative operator view',
-        title: 'The residence at a glance',
-        body: 'See what needs attention without chasing separate systems.',
-        live: 'Operational view',
+        label: 'Illustrative operator view',
+        title: 'Residence overview',
+        status: 'All connected areas',
+        summary: 'A calm view of ownership and service readiness',
         metrics: [
-          { value: 'Live', label: 'Resident overview' },
-          { value: 'Prioritised', label: 'Needs attention' },
-          { value: 'Visible', label: 'Device status' },
-          { value: 'Tracked', label: 'Shift actions' },
+          { value: '3', label: 'open events' },
+          { value: '2', label: 'in progress' },
+          { value: '24', label: 'connected rooms' },
         ],
-        residentsTitle: 'Resident overview',
-        residents: [
-          { name: 'Room 204', detail: 'Morning check-in', status: 'Ready' },
-          { name: 'Room 118', detail: 'Hydration routine', status: 'Due' },
-          { name: 'Room 306', detail: 'Night route', status: 'Stable' },
-        ],
-        alertsTitle: 'Activity',
-        alerts: [
-          { title: 'Night-route review', detail: 'Assigned to the right caregiver', tone: 'attention' },
-          { title: 'Vitals routine', detail: 'Reading recorded', tone: 'info' },
-          { title: 'Morning support', detail: 'Completed and handed over', tone: 'good' },
+        queueTitle: 'Event ownership',
+        queue: [
+          { room: 'Suite 214', event: 'Suspected fall', owner: 'Lucía · responding', state: 'In progress', tone: 'urgent' },
+          { room: 'Suite 108', event: 'Bed exit', owner: 'Night team', state: 'Acknowledged', tone: 'active' },
+          { room: 'West wing', event: 'Device check', owner: 'Facilities', state: 'Scheduled', tone: 'clear' },
         ],
       },
       caregiver: {
-        eyebrow: 'Illustrative caregiver app',
-        title: 'The right information, in the caregiver’s pocket.',
-        body: 'Each caregiver sees the residents, priorities and actions relevant to their shift.',
-        greeting: 'Good morning',
-        shift: 'Morning shift',
-        priorities: 'Today’s priorities',
-        residents: [
-          { initials: '204', name: 'Room 204', task: 'Morning check-in', status: 'Now' },
-          { initials: '118', name: 'Room 118', task: 'Hydration reminder', status: '10:30' },
-          { initials: '306', name: 'Room 306', task: 'Routine completed', status: 'Done' },
-        ],
-        actions: ['Acknowledge', 'Add note', 'Call team'],
+        label: 'Illustrative caregiver view',
+        title: 'Priority event',
+        shift: 'Morning shift · West wing',
+        eventType: 'Suspected fall',
+        eventRoom: 'Suite 214',
+        eventTime: 'Just now',
+        context: 'Camera-free room sensor · resident context available to authorised staff',
+        primaryAction: 'I am responding',
+        secondaryAction: 'Escalate',
+        footer: 'Acknowledge · act · add a note · hand over',
       },
     },
-    workflow: {
-      eyebrow: 'Smooth daily operations',
-      title: 'From an event to a closed action—without losing the thread.',
-      body: 'A simple flow keeps the resident, caregiver and operator aligned.',
+    rollout: {
+      eyebrow: 'A responsible rollout',
+      title: 'Pilot one workflow. Scale when it works.',
+      body:
+        'Begin with one use case and one area. Validate coverage, response and staff adoption, then expand.',
       steps: [
-        { title: 'Resident event', body: 'A request, routine or agreed signal.' },
-        { title: 'Right person alerted', body: 'Priority and responsibility are clear.' },
-        { title: 'Action recorded', body: 'Notes and status stay with the event.' },
-        { title: 'Operator retains oversight', body: 'Follow-up remains visible across the site.' },
+        { title: 'Assess', body: 'Define the use case, site and success measure.' },
+        { title: 'Configure', body: 'Validate devices, integrations and routing.' },
+        { title: 'Pilot', body: 'Install, train and rehearse the response.' },
+        { title: 'Scale', body: 'Review, improve and expand.' },
       ],
+      onboardingLabel: 'Resident activation',
+      onboarding: ['Add resident', 'Assign roles', 'Pair devices', 'Activate'],
+      ready: 'One clear handover for every resident and every shift.',
     },
     trust: {
-      items: [
-        { title: 'Role-based access', body: 'Each user sees only what their role requires.' },
-        { title: 'Consent and privacy', body: 'Permissions and visibility are agreed before launch.' },
-        { title: 'Guided onboarding', body: 'CasaMia supports setup, training and handover.' },
+      title: 'Built for smoother operations—not more screens.',
+      outcomes: [
+        { title: 'Alerts without a button press', body: 'Supported ambient options can surface a possible event without resident action.' },
+        { title: 'Clear ownership', body: 'The right role can acknowledge, respond or escalate.' },
+        { title: 'Fewer disconnected tools', body: 'Compatible devices can feed one agreed workflow.' },
+        { title: 'Repeatable standards', body: 'Pilot once, document the model and scale responsibly.' },
       ],
+      boundaryTitle: 'Responsible technology boundary',
       boundary:
-        'Illustrative interface views. Final capabilities depend on the agreed system, integrations, devices, connectivity and response responsibilities.',
-    },
-    outcomes: {
-      eyebrow: 'Start with the outcome',
-      title: 'Solve the operational problem before choosing the device.',
-      body:
-        'Every residence has different residents, staffing, buildings and protocols. CasaMia starts with the outcome your team needs, then explores appropriate options.',
-      disclaimer:
-        'Capabilities depend on the setting, consent model, connectivity, provider availability and the operator’s clinical and response responsibilities.',
-      items: [
-        {
-          title: 'Reduce fall and night-time risk',
-          body: 'Review where movement becomes uncertain and where staff need earlier, clearer signals.',
-          examples: 'Examples: presence sensing, motion lighting and call points',
-        },
-        {
-          title: 'Support care-team response',
-          body: 'Turn agreed events into practical notification, escalation and follow-up workflows.',
-          examples: 'Examples: alert logic, dashboard options and response paths',
-        },
-        {
-          title: 'Improve resident and family communication',
-          body: 'Make routine support and agreed updates easier without adding unnecessary complexity.',
-          examples: 'Examples: voice support, reminders and consent-based updates',
-        },
-        {
-          title: 'Modernise access and building flow',
-          body: 'Coordinate safer entrances, visitor journeys, wayfinding and resident-friendly controls.',
-          examples: 'Examples: access options, reception support and smart routines',
-        },
-      ],
-    },
-    solutions: {
-      eyebrow: 'A connected facility roadmap',
-      title: 'Bring rooms, technology and care workflows into one plan.',
-      body:
-        'CasaMia can compare and coordinate a modular mix of safety technology, smart-room support and implementation services. The final specification follows a setting review.',
-      link: 'Explore CasaMia smart safety',
-      note: 'Options are proposed only after checking fit, infrastructure, governance and day-to-day ownership.',
-      items: [
-        {
-          title: 'Falls, movement and night risk',
-          body: 'Fall-detection options, presence sensing, motion lighting and emergency call points.',
-        },
-        {
-          title: 'Health and wellbeing support',
-          body: 'Compatible vitals devices, reminders and check-in routines where responsibilities are agreed.',
-        },
-        {
-          title: 'Resident and family communication',
-          body: 'Voice support, activity prompts and agreed updates with consent and access rules defined.',
-        },
-        {
-          title: 'Access and building flow',
-          body: 'Visitor handling, wayfinding, safer entrances and smart-access options.',
-        },
-        {
-          title: 'Care-team workflows',
-          body: 'Alert routing, response logic, implementation checklists and role-based handover.',
-        },
-        {
-          title: 'Smart-room automation',
-          body: 'Lighting, sensors, voice routines and simple controls configured around real daily use.',
-        },
-      ],
-    },
-    example: {
-      eyebrow: 'Example facility roadmap',
-      badge: 'Illustrative—not a client case study',
-      title: 'Turn one operational concern into a decision-ready pilot.',
-      body:
-        'A discovery should reduce uncertainty before procurement. This example shows how CasaMia can structure an initial phase without claiming a result before the setting is assessed.',
-      challengeLabel: 'Starting concern',
-      challenge: 'Night-time movement is difficult to observe consistently, and escalation varies by shift.',
-      phaseLabel: 'Possible first phase',
-      phase:
-        'Review two corridors, selected rooms, call points, Wi-Fi coverage and the existing response protocol.',
-      deliverablesLabel: 'What the operator receives',
-      deliverables: [
-        'A room and workflow priority map',
-        'A reasoned comparison of suitable options',
-        'A pilot scope with dependencies and exclusions',
-        'A training and acceptance checklist',
-      ],
-    },
-    delivery: {
-      eyebrow: 'End-to-end delivery',
-      title: 'A clear decision gate at every stage.',
-      body:
-        'CasaMia keeps the project connected across assessment, selection, providers, installation and team adoption—so responsibilities do not disappear between suppliers.',
-      outputLabel: 'You receive',
-      items: [
-        {
-          title: 'Understand the setting',
-          body: 'Review resident needs, workflows, rooms, access, connectivity, current systems and governance constraints.',
-          output: 'Setting and workflow brief',
-        },
-        {
-          title: 'Choose the roadmap',
-          body: 'Compare priorities, options, dependencies, budget ranges and whether a pilot is the right next step.',
-          output: 'Prioritised roadmap or pilot brief',
-        },
-        {
-          title: 'Coordinate delivery',
-          body: 'Align selected products, providers, schedule, installation checks and acceptance criteria.',
-          output: 'Delivery and acceptance plan',
-        },
-        {
-          title: 'Enable the teams',
-          body: 'Prepare staff, residents and agreed family users for operation, escalation and support.',
-          output: 'Training and support handover',
-        },
-      ],
-    },
-    governance: {
-      eyebrow: 'Governance & procurement',
-      title: 'Clear choices before anyone commits.',
-      body:
-        'Technology in a care setting needs more than a product list. CasaMia makes assumptions, responsibilities and trade-offs visible before procurement and installation.',
-      points: [
-        'Supplier comparison with clear reasoning',
-        'Compatibility and connectivity checks before procurement',
-        'Consent, access and data-role questions built into the proposal',
-        'Itemised scope, dependencies and exclusions',
-        'Training, handover and acceptance criteria',
-        'Support expectations defined for the selected solution',
-      ],
-      boundaryTitle: 'Responsible scope, not inflated promises',
-      boundaryBody:
-        'CasaMia does not promise clinical outcomes, guaranteed fall prevention or 24/7 response unless a specific contracted service and responsibility model provide it.',
-    },
-    links: {
-      eyebrow: 'Explore the wider model',
-      title: 'Go deeper where your project needs it.',
-      items: [
-        {
-          title: 'Smart safety technology',
-          body: 'See the types of sensors, voice support and connected safety CasaMia can explore.',
-          cta: 'Explore technology',
-          to: '/tech',
-        },
-        {
-          title: 'Delivery network',
-          body: 'Understand how CasaMia works with specialist local providers and quality standards.',
-          cta: 'See provider model',
-          to: '/provider-partners',
-        },
-        {
-          title: 'Practical resources',
-          body: 'Use guides and tools covering safer environments, planning and family decisions.',
-          cta: 'Browse resources',
-          to: '/blog',
-        },
-      ],
+        'Fall detection flags possible events; it cannot prevent every fall or guarantee an emergency response. Health, continence and urine-related outputs depend on the selected device, certification, consent and qualified interpretation.',
     },
     faq: {
-      eyebrow: 'Operator questions',
-      title: 'What teams usually need to know before discovery.',
+      eyebrow: 'Practical questions',
+      title: 'What facility teams usually ask us.',
       items: [
         {
-          question: 'Can CasaMia work with systems we already use?',
+          question: 'Do residents need to wear a pendant?',
           answer:
-            'Potentially. The first review maps current systems, contracts, connectivity and data responsibilities. CasaMia then identifies what may be retained, what needs technical confirmation and where a new option may be justified.',
+            'Not with supported ambient options. We validate coverage, resident suitability and the response protocol during the pilot.',
         },
         {
-          question: 'Do we need to start with a full-facility rollout?',
+          question: 'Can CasaMia work with our existing nurse-call or care system?',
           answer:
-            'No. A focused pilot may be the more responsible first step when the use case, workflow or infrastructure needs validation. The roadmap should define what the pilot is intended to learn and the criteria for moving forward.',
+            'Where supported, yes. We validate interfaces, permissions and vendor requirements; if direct integration is unavailable, we propose a clearly scoped alternative.',
         },
         {
-          question: 'Who is responsible for privacy and resident consent?',
+          question: 'Do bathroom or urine sensors diagnose health conditions?',
           answer:
-            'The operator remains responsible for its legal and clinical duties. CasaMia can help surface data flows, access roles, consent questions and supplier documentation so the appropriate operator advisers can review them.',
+            'No. They provide prompts or measurements for staff review; clinical interpretation requires an appropriate certified device and qualified professional.',
         },
         {
-          question: 'Is staff training included?',
+          question: 'How do we begin without disrupting the whole residence?',
           answer:
-            'Training and handover requirements are scoped with the solution. The proposal should state who is trained, what materials are provided, how acceptance is recorded and what support applies afterwards.',
-        },
-        {
-          question: 'Can the roadmap cover multiple sites?',
-          answer:
-            'Yes, subject to location, provider coverage and technical fit. A multi-site plan can distinguish common standards from site-specific constraints and sequence rollout in manageable phases.',
-        },
-        {
-          question: 'How is pricing established?',
-          answer:
-            'Pricing follows discovery because building layout, resident needs, existing systems, integration effort, training and support all affect scope. CasaMia can provide options and budget ranges before a final commitment.',
+            'Pilot one defined use case in a limited area. CasaMia coordinates assessment, integration, installation, training and review before expansion.',
         },
       ],
     },
     form: {
-      eyebrow: 'Facility project discovery',
-      title: 'Tell us what your team is trying to improve.',
+      eyebrow: 'Start with one use case',
+      title: 'What should work better in your residence?',
       body:
-        'Share the setting, priority and timing. CasaMia will use that context to decide whether a remote discovery, site review or focused pilot conversation is the most useful next step.',
+        'Tell us about the site, current systems and first priority. We will propose the safest practical next step.',
       emailLabel: 'Prefer email?',
-      cardTitle: 'Request a facility discovery',
-      cardIntro: 'Fields marked with * are required. This form is for operator and organisation projects.',
-      organisation: 'Organisation *',
+      cardTitle: 'Request a facility consultation',
+      cardIntro: 'A few details help us bring the right specialist to the first call.',
+      organisation: 'Organisation',
       role: 'Your role',
-      facilityType: 'Facility type *',
+      facilityType: 'Facility type',
       facilityPlaceholder: 'Select a facility type',
-      facilityOptions: ['Care home', 'Assisted living residence', 'Senior housing', 'Municipal programme', 'Other'],
-      location: 'City or region *',
+      facilityOptions: ['Assisted living residence', 'Senior living community', 'Care home', 'Multi-site operator', 'Public or municipal provider', 'Other'],
+      location: 'Location',
       sites: 'Number of sites or residents',
-      priority: 'Main priority *',
-      priorityPlaceholder: 'Select the main priority',
-      priorityOptions: [
-        'Fall and night-time risk',
-        'Care-team response workflows',
-        'Resident and family communication',
-        'Access and building flow',
-        'Smart-room modernisation',
-        'Multi-site technology roadmap',
-        'Not sure yet',
-      ],
-      timeline: 'Project timing *',
-      timelinePlaceholder: 'Select an approximate timing',
-      timelineOptions: ['Exploring now', 'Within 3 months', 'Within 6 months', 'Within 12 months', 'No fixed timing'],
-      name: 'Name *',
-      email: 'Work email *',
+      priority: 'First priority',
+      priorityPlaceholder: 'Select the first challenge',
+      priorityOptions: ['Seamless fall detection', 'Bathroom or continence technology', 'Connected health devices', 'Caregiver and operator workflows', 'Smart rooms', 'Not sure yet'],
+      timeline: 'Desired timeline',
+      timelinePlaceholder: 'Select a timeline',
+      timelineOptions: ['Within 3 months', '3–6 months', '6–12 months', 'Exploring options'],
+      name: 'Name',
+      email: 'Work email',
       phone: 'Phone',
-      message: 'What would make this project useful?',
-      messagePlaceholder: 'Tell us about the setting, current challenge or decision your team needs to make.',
-      optionalDetails: 'Add optional project details',
-      submit: 'Send facility enquiry',
-      submitting: 'Sending enquiry…',
-      success: 'Thank you. Your facility enquiry has been received.',
-      error: 'We could not send the enquiry. Please try again or email hola@casamia.com.es.',
-      note: 'No obligation. CasaMia will only use these details to respond to this project enquiry.',
-      privacyPrefix: 'By sending this enquiry, you acknowledge our',
-      privacyLink: 'Privacy Policy',
+      message: 'Anything we should know?',
+      messagePlaceholder: 'Existing systems, rooms, current process or the outcome you want to improve…',
+      optionalDetails: 'Add project details (optional)',
+      submit: 'Request a consultation',
+      submitting: 'Sending request…',
+      success: 'Thank you. The CasaMia team will contact you to arrange the discovery session.',
+      error: 'We could not send your request. Please try again or email us directly.',
+      note: 'No generic sales pitch. We will focus on the first viable pilot.',
+      privacyPrefix: 'By submitting this form, you agree to our',
+      privacyLink: 'privacy policy',
     },
   },
   es: {
     lang: 'es',
-    seoTitle: 'Tecnología para residencias y senior living en España',
+    seoTitle: 'Tecnología para residencias y detección de caídas | CasaMia',
     seoDescription:
-      'CasaMia ayuda a residencias y operadores de senior living en España a evaluar, seleccionar e implantar tecnología, habitaciones inteligentes y flujos de atención.',
+      'CasaMia integra detección de caídas sin wearables, sensores para senior living, dispositivos de salud, apps para cuidadores y flujos para residencias en España.',
     hero: {
-      eyebrow: 'Un sistema sencillo para toda la residencia',
-      title: 'Un único sistema conectado para residentes, equipos y operadores.',
+      eyebrow: 'Integración tecnológica para residencias',
+      title: 'Detección discreta. Respuesta clara. Menos carga operativa.',
       body:
-        'CasaMia reúne los dispositivos del residente, la atención diaria y la gestión del centro en un ecosistema claro y fácil de usar.',
-      primaryCta: 'Solicitar una demo',
-      secondaryCta: 'Ver la incorporación',
-      proof: ['Compatible con tus herramientas', 'Vistas según el rol', 'Despliegue guiado'],
-      imageAlt: 'Dispositivo de asistencia por voz en una habitación tranquila y accesible',
-      visualLabel: 'Vista ilustrativa de la solución',
-      visualTitle: 'Una hoja de ruta desde la habitación hasta la entrega al operador',
-      layers: [
-        { title: 'Espacios de residentes', body: 'Sensores, pulsadores, iluminación y apoyo por voz' },
-        { title: 'Flujos del equipo asistencial', body: 'Alertas acordadas, respuesta y responsables claros' },
-        { title: 'Implantación del operador', body: 'Piloto, despliegue, formación y soporte' },
+        'CasaMia integra detección de caídas sin cámara y sin dispositivos que llevar, tecnología de baño y continencia, dispositivos de salud conectados y flujos claros para el personal, dentro de los sistemas que tu equipo ya utiliza.',
+      primaryCta: 'Planificar un piloto',
+      secondaryCta: 'Ver la tecnología',
+      proof: ['Opciones sin wearables', 'Integrable con sistemas actuales', 'Privacidad desde el diseño', 'Del piloto al despliegue'],
+      audiencesLabel: 'Pensado para',
+      audiences: ['Residencias asistidas', 'Residencias senior', 'Comunidades senior', 'Operadores multicentro'],
+      imageAlt: 'Sensor discreto sin cámara en una residencia senior tranquila',
+      visualEyebrow: 'Seguridad pasiva, respuesta activa',
+      visualTitle: 'Con sensores ambientales compatibles, el residente no necesita llevar ni pulsar un dispositivo.',
+      visualBody: 'Cuando un sensor detecta una posible caída, el aviso acordado llega al equipo responsable.',
+      visualEvent: 'Posible caída',
+      visualRoom: 'Habitación 214 · espacio privado',
+      visualRoute: 'Enviado al equipo asistencial',
+      privacyLabel: 'Opción sin cámara',
+    },
+    expertise: {
+      eyebrow: 'Diseñado alrededor de tu residencia',
+      title: 'Cada residencia es distinta. Su plan tecnológico también debe serlo.',
+      body:
+        'Empezamos por el edificio, los residentes, las rutinas del personal y los sistemas actuales. Después seleccionamos, conectamos y pilotamos solo la tecnología que encaja.',
+      inputs: [
+        { title: 'Residentes', body: 'Capacidades, riesgos, rutinas y consentimiento' },
+        { title: 'Residencia', body: 'Habitaciones, baños, cobertura y conectividad' },
+        { title: 'Modelo asistencial', body: 'Roles, escalado y relevo del equipo' },
+        { title: 'Sistemas actuales', body: 'Llamada, plataforma asistencial, apps y datos' },
       ],
+      outcomeLabel: 'Tu blueprint CasaMia',
+      outcomeTitle: 'Una solución a medida con un modelo operativo claro.',
+      outcomes: ['Dispositivos seleccionados', 'Ruta de integración', 'Modelo de aviso y respuesta', 'Plan de formación y despliegue'],
+      note: 'Empieza por una prioridad. Amplía solo cuando el flujo funcione en la práctica.',
+    },
+    technology: {
+      eyebrow: 'Ejemplos de tecnología',
+      title: 'Sensores ambientales, controles de salud opcionales y wearables, elegidos según el caso.',
+      body:
+        'La combinación adecuada puede unir cobertura pasiva, controles deliberados de salud o dispositivos personales. Nunca aplicamos una solución única para todos.',
+      compatibility:
+        'Validamos la compatibilidad, la cobertura y la certificación aplicable en cada centro antes del piloto.',
+      items: [
+        {
+          kind: 'fall',
+          tag: 'Opciones sin cámara',
+          title: 'Detección ambiental de caídas',
+          body:
+            'Los sensores compatibles de radar, salida de cama, presencia y ambiente pueden aportar cobertura pasiva sin pedir al residente que pulse un botón.',
+          points: ['Radar de pared o techo', 'Salida de cama y ocupación', 'Puerta, temperatura, aire o fugas'],
+          visualLabel: 'Ejemplos: radar · salida de cama · ambiente',
+        },
+        {
+          kind: 'bathroom',
+          tag: 'Dignidad desde el diseño',
+          title: 'Información de baño y continencia',
+          body:
+            'Los sensores de continencia compatibles pueden avisar de un cambio; determinados dispositivos de inodoro o análisis de orina pueden mostrar mediciones o tendencias para una revisión autorizada.',
+          points: ['Avisos de saturación y cambio', 'Patrones de uso del baño', 'Revisión profesional cuando corresponda'],
+          visualLabel: 'Señales de baño, no cámaras',
+        },
+        {
+          kind: 'health',
+          tag: 'Control de salud opcional',
+          title: 'Espejo rPPG y salud conectada',
+          body:
+            'Un espejo inteligente compatible puede estimar determinadas señales durante un control óptico rPPG deliberado. Tensiómetros, pulsioxímetros, termómetros y básculas compatibles pueden unirse al mismo flujo autorizado.',
+          points: ['Uso opcional, no monitorización continua', 'Señales seleccionadas de pulso y respiración', 'Revisión de certificación y finalidad prevista'],
+          visualLabel: 'Concepto de espejo rPPG · control óptico',
+        },
+        {
+          kind: 'room',
+          tag: 'Dispositivos personales opcionales',
+          title: 'Wearables cuando aportan valor',
+          body:
+            'Relojes, pulseras y colgantes compatibles pueden apoyar SOS, localización, actividad o determinadas lecturas de salud cuando el residente los acepta y utiliza de forma fiable.',
+          points: ['Opcional: no necesario para la detección ambiental', 'Útil también fuera de la habitación', 'Integración con consentimiento y respuesta clara'],
+          visualLabel: 'Wearable, colgante y llamada fija',
+        },
+      ],
+    },
+    partners: {
+      eyebrow: 'Relaciones tecnológicas y ecosistema',
+      title: 'Tecnología especializada, reunida alrededor de la residencia.',
+      body:
+        'CasaMia combina experiencia en tecnología senior con una selección abierta a distintos fabricantes. Validamos interfaces, disponibilidad y el flujo operativo antes de recomendar un producto.',
+      providerLabel: 'Proveedor tecnológico y de servicio de CasaMia',
+      providerName: 'MOKA DigiTech',
+      providerBody: 'Diseño de servicios senior, flujos digitales e integración tecnológica.',
+      referencesLabel: 'Referencias en tecnología senior',
+      references: [
+        { name: 'VYVA', category: 'Asistente de salud y flujos para cuidadores', href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion' },
+        { name: 'COCOON', category: 'Experiencia en tecnología asistencial', href: 'https://www.cocoon.services/assistive-technology' },
+      ],
+      examplesLabel: 'Tecnologías especializadas que podemos evaluar',
+      examples: [
+        { name: 'Vayyar Care', category: 'Radar de habitación sin cámara', href: 'https://vayyar.com/care-pages/how/' },
+        { name: 'TENA SmartCare', category: 'Continencia digital', href: 'https://www.tena.co.uk/professionals/products/digital-care-solutions/change-indicator/tena-smartcare-change-indicator-sensor-strip/' },
+        { name: 'NuraLogix', category: 'Espejo óptico rPPG', href: 'https://www.nuralogix.ai/' },
+        { name: 'CarePredict', category: 'Wearable para personas mayores', href: 'https://www.carepredict.com/who-we-serve/at-home' },
+        { name: 'Withings', category: 'Dispositivos de salud conectados', href: 'https://www.withings.com/us/en/health-solutions/remote-patient-monitoring' },
+        { name: 'TytoCare', category: 'Exploraciones guiadas por telesalud', href: 'https://www.tytocare.com/' },
+      ],
+      note:
+        'Ejemplos de fabricantes y tecnologías. Su inclusión no implica colaboración ni recomendación. La disponibilidad, la situación regulatoria y la idoneidad de integración varían según el mercado y el proyecto.',
     },
     ecosystem: {
-      eyebrow: 'El ecosistema CasaMia',
-      title: 'Cada persona, dispositivo y acción en un flujo claro.',
+      eyebrow: 'De la señal a la acción',
+      title: 'De un evento en la habitación a una respuesta registrada.',
       body:
-        'Los espacios de residentes se conectan con quienes necesitan la información adecuada, sin obligar a todos a utilizar el mismo sistema complejo.',
-      summary:
-        'Las habitaciones y dispositivos se conectan mediante la plataforma CasaMia con el panel del operador, la app del cuidador, la visibilidad familiar y la telesalud.',
-      resident: {
-        title: 'Espacios de residentes',
-        body: 'Voz, pulsadores, sensores, constantes y rutinas de apoyo.',
-        status: 'Conectado alrededor del residente',
-      },
-      platform: {
-        title: 'Plataforma CasaMia',
-        body: 'Un flujo con permisos para personas, dispositivos, alertas y acciones.',
-        signals: ['Residentes', 'Dispositivos', 'Alertas', 'Acciones'],
-      },
-      operator: {
-        title: 'Panel del operador',
-        body: 'Centros, residentes, dispositivos, alertas, tareas y supervisión.',
-      },
-      caregiver: {
-        title: 'App del cuidador',
-        body: 'Prioridades, seguimientos, notas, relevos y escalado.',
-      },
-      family: {
-        title: 'Visibilidad familiar',
-        body: 'Actualizaciones acordadas y tranquilidad, con consentimiento.',
-      },
-      telehealth: {
-        title: 'Telesalud',
-        body: 'Acceso sencillo a videoconsultas programadas.',
-      },
-    },
-    onboarding: {
-      eyebrow: 'Incorporación sencilla',
-      title: 'De nuevo residente a atención preparada en cuatro pasos.',
-      body: 'La configuración guiada y las plantillas reutilizables evitan empezar de cero cada vez.',
-      support: 'CasaMia acompaña la configuración, la formación y el despliegue, centro por centro.',
-      readyTitle: 'Residente preparado',
-      readyBody: 'Equipo invitado · permisos revisados · rutinas activas',
-      steps: [
-        { title: 'Añadir al residente', body: 'Perfil, habitación y preferencias de apoyo.' },
-        { title: 'Asignar el círculo de atención', body: 'Equipo, familia y acceso según el rol.' },
-        { title: 'Conectar servicios', body: 'Dispositivos, rutinas y rutas de aviso.' },
-        { title: 'Invitar y activar', body: 'Acceso a la app, comprobaciones y entrega clara.' },
+        'CasaMia dirige los eventos acordados a los flujos que gestiona tu propio equipo; no operamos una central de monitorización remota.',
+      aria:
+        'Los sensores de habitación y dispositivos compatibles se conectan mediante la integración CasaMia con los flujos de cuidadores, operadores y sistemas existentes.',
+      sourceTitle: 'Espacio del residente',
+      sourceBody: 'Sensores pasivos y dispositivos de salud compatibles',
+      layerBadge: 'Nube de integración',
+      layerTitle: 'Nube CasaMia',
+      layerBody: 'Permisos, reglas de evento y enrutamiento',
+      layerCapabilities: ['Acceso y consentimiento', 'Reglas de evento', 'Aviso por rol'],
+      destinations: [
+        { title: 'Móvil del cuidador', body: 'La siguiente acción con contexto' },
+        { title: 'Vista del operador', body: 'Responsable, estado y relevo' },
+        { title: 'Sistemas existentes', body: 'Plataformas compatibles de llamada o cuidados' },
       ],
+      flow: ['Señal detectada', 'Aviso al rol adecuado', 'Responder o escalar', 'Registrar la acción'],
     },
     interfaces: {
-      eyebrow: 'Diseñado para ser sencillo',
-      title: 'Una plataforma. Dos vistas muy fáciles.',
-      body: 'El operador mantiene la supervisión; cada cuidador ve lo relevante para su turno.',
+      eyebrow: 'Diseñado para cada rol',
+      title: 'El operador ve la operación. El equipo asistencial ve la siguiente acción.',
+      body:
+        'Una vista global para operadores y una cola móvil enfocada para el personal autorizado.',
       operator: {
-        eyebrow: 'Vista ilustrativa del operador',
-        title: 'La residencia de un vistazo',
-        body: 'Vea qué necesita atención sin consultar sistemas separados.',
-        live: 'Vista operativa',
+        label: 'Ejemplo de vista del operador',
+        title: 'Vista de la residencia',
+        status: 'Todas las áreas conectadas',
+        summary: 'Una vista tranquila de responsables y disponibilidad',
         metrics: [
-          { value: 'En directo', label: 'Vista de residentes' },
-          { value: 'Priorizado', label: 'Requiere atención' },
-          { value: 'Visible', label: 'Estado de dispositivos' },
-          { value: 'Registrado', label: 'Acciones del turno' },
+          { value: '3', label: 'eventos abiertos' },
+          { value: '2', label: 'en curso' },
+          { value: '24', label: 'habitaciones conectadas' },
         ],
-        residentsTitle: 'Vista de residentes',
-        residents: [
-          { name: 'Habitación 204', detail: 'Seguimiento matinal', status: 'Preparado' },
-          { name: 'Habitación 118', detail: 'Rutina de hidratación', status: 'Pendiente' },
-          { name: 'Habitación 306', detail: 'Ruta nocturna', status: 'Estable' },
-        ],
-        alertsTitle: 'Actividad',
-        alerts: [
-          { title: 'Revisión de ruta nocturna', detail: 'Asignada al cuidador adecuado', tone: 'attention' },
-          { title: 'Rutina de constantes', detail: 'Lectura registrada', tone: 'info' },
-          { title: 'Apoyo matinal', detail: 'Completado y entregado', tone: 'good' },
+        queueTitle: 'Responsables de eventos',
+        queue: [
+          { room: 'Hab. 214', event: 'Posible caída', owner: 'Lucía · en camino', state: 'En curso', tone: 'urgent' },
+          { room: 'Hab. 108', event: 'Salida de cama', owner: 'Equipo de noche', state: 'Confirmado', tone: 'active' },
+          { room: 'Ala oeste', event: 'Revisión de dispositivo', owner: 'Mantenimiento', state: 'Programada', tone: 'clear' },
         ],
       },
       caregiver: {
-        eyebrow: 'App ilustrativa del cuidador',
-        title: 'La información adecuada, en el bolsillo del cuidador.',
-        body: 'Cada cuidador ve los residentes, prioridades y acciones relevantes para su turno.',
-        greeting: 'Buenos días',
-        shift: 'Turno de mañana',
-        priorities: 'Prioridades de hoy',
-        residents: [
-          { initials: '204', name: 'Habitación 204', task: 'Seguimiento matinal', status: 'Ahora' },
-          { initials: '118', name: 'Habitación 118', task: 'Recordatorio de hidratación', status: '10:30' },
-          { initials: '306', name: 'Habitación 306', task: 'Rutina completada', status: 'Hecho' },
-        ],
-        actions: ['Confirmar', 'Añadir nota', 'Llamar al equipo'],
+        label: 'Ejemplo de vista del cuidador',
+        title: 'Evento prioritario',
+        shift: 'Turno de mañana · Ala oeste',
+        eventType: 'Posible caída',
+        eventRoom: 'Habitación 214',
+        eventTime: 'Ahora mismo',
+        context: 'Sensor de habitación sin cámara · contexto disponible para personal autorizado',
+        primaryAction: 'Voy en camino',
+        secondaryAction: 'Escalar',
+        footer: 'Confirmar · actuar · añadir nota · pasar relevo',
       },
     },
-    workflow: {
-      eyebrow: 'Operaciones diarias fluidas',
-      title: 'Del evento a la acción cerrada, sin perder el hilo.',
-      body: 'Un flujo sencillo mantiene alineados al residente, al cuidador y al operador.',
+    rollout: {
+      eyebrow: 'Un despliegue responsable',
+      title: 'Prueba un flujo. Escálalo cuando funcione.',
+      body:
+        'Empieza por un caso de uso y una zona. Valida la cobertura, la respuesta y la adopción del equipo antes de ampliar.',
       steps: [
-        { title: 'Evento del residente', body: 'Una solicitud, rutina o señal acordada.' },
-        { title: 'Aviso a la persona adecuada', body: 'La prioridad y la responsabilidad quedan claras.' },
-        { title: 'Acción registrada', body: 'Las notas y el estado permanecen con el evento.' },
-        { title: 'Supervisión del operador', body: 'El seguimiento sigue visible en todo el centro.' },
+        { title: 'Evaluar', body: 'Definimos el caso de uso, la zona y la medida de éxito.' },
+        { title: 'Configurar', body: 'Validamos dispositivos, integraciones y enrutamiento.' },
+        { title: 'Pilotar', body: 'Instalamos, formamos y ensayamos la respuesta.' },
+        { title: 'Escalar', body: 'Revisamos, mejoramos y ampliamos.' },
       ],
+      onboardingLabel: 'Alta del residente',
+      onboarding: ['Añadir residente', 'Asignar roles', 'Vincular dispositivos', 'Activar'],
+      ready: 'Un relevo claro para cada residente y cada turno.',
     },
     trust: {
-      items: [
-        { title: 'Acceso según el rol', body: 'Cada usuario ve solo lo necesario para su función.' },
-        { title: 'Consentimiento y privacidad', body: 'Los permisos y la visibilidad se acuerdan antes de empezar.' },
-        { title: 'Incorporación guiada', body: 'CasaMia acompaña la configuración, formación y entrega.' },
+      title: 'Diseñado para simplificar la operación, no para añadir más pantallas.',
+      outcomes: [
+        { title: 'Avisos sin pulsar un botón', body: 'Las opciones ambientales pueden señalar un posible evento sin acción del residente.' },
+        { title: 'Responsables claros', body: 'El rol adecuado puede confirmar, responder o escalar.' },
+        { title: 'Menos herramientas aisladas', body: 'Los dispositivos compatibles pueden alimentar un flujo acordado.' },
+        { title: 'Estándares replicables', body: 'Pilota, documenta el modelo y escala de forma responsable.' },
       ],
+      boundaryTitle: 'Límite responsable de la tecnología',
       boundary:
-        'Vistas ilustrativas. Las capacidades finales dependen del sistema acordado, las integraciones, los dispositivos, la conectividad y las responsabilidades de respuesta.',
-    },
-    outcomes: {
-      eyebrow: 'Empezar por el resultado',
-      title: 'Resolver el problema operativo antes de elegir el dispositivo.',
-      body:
-        'Cada residencia tiene residentes, equipos, edificios y protocolos distintos. CasaMia parte del resultado que necesita el centro y después estudia las opciones adecuadas.',
-      disclaimer:
-        'Las capacidades dependen del centro, el consentimiento, la conectividad, la disponibilidad de proveedores y las responsabilidades clínicas y de respuesta del operador.',
-      items: [
-        {
-          title: 'Reducir el riesgo de caídas y por la noche',
-          body: 'Revisar dónde el movimiento es más incierto y dónde el equipo necesita señales más tempranas y claras.',
-          examples: 'Ejemplos: presencia, iluminación por movimiento y pulsadores',
-        },
-        {
-          title: 'Apoyar la respuesta del equipo',
-          body: 'Convertir eventos acordados en avisos, escalado y seguimiento que funcionen en la práctica.',
-          examples: 'Ejemplos: lógica de alertas, paneles y rutas de respuesta',
-        },
-        {
-          title: 'Mejorar la comunicación',
-          body: 'Facilitar el apoyo diario y las actualizaciones acordadas sin añadir complejidad innecesaria.',
-          examples: 'Ejemplos: voz, recordatorios y avisos con consentimiento',
-        },
-        {
-          title: 'Modernizar accesos y circulación',
-          body: 'Coordinar entradas más seguras, visitas, orientación y controles fáciles de usar.',
-          examples: 'Ejemplos: accesos, recepción y rutinas inteligentes',
-        },
-      ],
-    },
-    solutions: {
-      eyebrow: 'Una hoja de ruta conectada',
-      title: 'Integrar habitaciones, tecnología y flujos asistenciales en un solo plan.',
-      body:
-        'CasaMia puede comparar y coordinar una combinación modular de tecnología de seguridad, habitaciones inteligentes y servicios de implantación. La especificación final se define tras revisar el centro.',
-      link: 'Explorar la seguridad inteligente',
-      note: 'Las opciones se plantean después de revisar encaje, infraestructura, gobierno y responsables del uso diario.',
-      items: [
-        {
-          title: 'Caídas, movimiento y riesgo nocturno',
-          body: 'Opciones de detección de caídas, presencia, iluminación por movimiento y pulsadores.',
-        },
-        {
-          title: 'Apoyo a salud y bienestar',
-          body: 'Dispositivos compatibles de constantes, recordatorios y rutinas cuando las responsabilidades están acordadas.',
-        },
-        {
-          title: 'Comunicación con residentes y familias',
-          body: 'Apoyo por voz, actividades y avisos acordados con reglas de consentimiento y acceso.',
-        },
-        {
-          title: 'Accesos y circulación del edificio',
-          body: 'Gestión de visitas, orientación, entradas más seguras y opciones de acceso inteligente.',
-        },
-        {
-          title: 'Flujos del equipo asistencial',
-          body: 'Alertas, lógica de respuesta, listas de implantación y entrega por roles.',
-        },
-        {
-          title: 'Habitaciones inteligentes',
-          body: 'Iluminación, sensores, rutinas por voz y controles sencillos adaptados al uso real.',
-        },
-      ],
-    },
-    example: {
-      eyebrow: 'Ejemplo de hoja de ruta',
-      badge: 'Ejemplo ilustrativo, no un caso de cliente',
-      title: 'Convertir una preocupación operativa en un piloto listo para decidir.',
-      body:
-        'Una sesión inicial debe reducir la incertidumbre antes de comprar. Este ejemplo muestra cómo CasaMia puede estructurar una primera fase sin prometer resultados antes de evaluar el centro.',
-      challengeLabel: 'Preocupación inicial',
-      challenge: 'El movimiento nocturno no se observa de forma uniforme y el escalado cambia según el turno.',
-      phaseLabel: 'Posible primera fase',
-      phase:
-        'Revisar dos pasillos, habitaciones seleccionadas, pulsadores, cobertura Wi-Fi y el protocolo de respuesta actual.',
-      deliverablesLabel: 'Qué recibe el operador',
-      deliverables: [
-        'Mapa de prioridades por espacios y flujos',
-        'Comparativa razonada de opciones adecuadas',
-        'Alcance de piloto con dependencias y exclusiones',
-        'Lista de formación y aceptación',
-      ],
-    },
-    delivery: {
-      eyebrow: 'Implantación de principio a fin',
-      title: 'Una decisión clara en cada etapa.',
-      body:
-        'CasaMia mantiene unido el proyecto entre evaluación, selección, proveedores, instalación y adopción por el equipo, para que las responsabilidades no se pierdan entre empresas.',
-      outputLabel: 'Se entrega',
-      items: [
-        {
-          title: 'Entender el centro',
-          body: 'Revisar residentes, flujos, espacios, accesos, conectividad, sistemas actuales y límites de gobierno.',
-          output: 'Documento de centro y flujos',
-        },
-        {
-          title: 'Elegir la hoja de ruta',
-          body: 'Comparar prioridades, opciones, dependencias, rangos de presupuesto y si conviene empezar con un piloto.',
-          output: 'Hoja de ruta o propuesta de piloto',
-        },
-        {
-          title: 'Coordinar la ejecución',
-          body: 'Alinear productos, proveedores, calendario, comprobaciones y criterios de aceptación.',
-          output: 'Plan de ejecución y aceptación',
-        },
-        {
-          title: 'Preparar a los equipos',
-          body: 'Formar a personal, residentes y familiares autorizados sobre uso, escalado y soporte.',
-          output: 'Formación y entrega de soporte',
-        },
-      ],
-    },
-    governance: {
-      eyebrow: 'Gobierno y compras',
-      title: 'Decisiones claras antes de comprometerse.',
-      body:
-        'La tecnología en una residencia necesita más que una lista de productos. CasaMia hace visibles los supuestos, responsabilidades y decisiones antes de comprar e instalar.',
-      points: [
-        'Comparación de proveedores con criterios claros',
-        'Comprobaciones de compatibilidad y conectividad',
-        'Consentimiento, accesos y roles de datos en la propuesta',
-        'Alcance, dependencias y exclusiones desglosados',
-        'Formación, entrega y criterios de aceptación',
-        'Expectativas de soporte definidas para la solución',
-      ],
-      boundaryTitle: 'Un alcance responsable, sin promesas infladas',
-      boundaryBody:
-        'CasaMia no promete resultados clínicos, prevención garantizada de caídas ni respuesta 24/7 salvo que exista un servicio contratado y un modelo de responsabilidad que lo proporcionen.',
-    },
-    links: {
-      eyebrow: 'Explorar el modelo',
-      title: 'Profundiza donde lo necesite el proyecto.',
-      items: [
-        {
-          title: 'Tecnología de seguridad inteligente',
-          body: 'Conoce sensores, apoyo por voz y seguridad conectada que CasaMia puede estudiar.',
-          cta: 'Explorar tecnología',
-          to: '/tech',
-        },
-        {
-          title: 'Red de ejecución',
-          body: 'Descubre cómo CasaMia trabaja con proveedores especializados y criterios de calidad.',
-          cta: 'Ver modelo de proveedores',
-          to: '/provider-partners',
-        },
-        {
-          title: 'Recursos prácticos',
-          body: 'Utiliza guías y herramientas sobre entornos más seguros, planificación y decisiones familiares.',
-          cta: 'Ver recursos',
-          to: '/blog',
-        },
-      ],
+        'La detección de caídas señala posibles eventos; no puede prevenir todas las caídas ni garantizar una respuesta de emergencia. Los datos de salud, continencia y orina dependen del dispositivo, su certificación, el consentimiento y una interpretación profesional cualificada.',
     },
     faq: {
-      eyebrow: 'Preguntas de operadores',
-      title: 'Lo que los equipos suelen necesitar saber antes de empezar.',
+      eyebrow: 'Preguntas prácticas',
+      title: 'Lo que suelen preguntarnos los equipos de residencias.',
       items: [
         {
-          question: '¿Puede CasaMia trabajar con los sistemas que ya utilizamos?',
+          question: '¿Los residentes tienen que llevar un colgante?',
           answer:
-            'Es posible. La primera revisión identifica sistemas, contratos, conectividad y responsabilidades de datos. Después se aclara qué puede mantenerse, qué necesita validación técnica y dónde puede justificarse una opción nueva.',
+            'No con las opciones ambientales compatibles. Validamos la cobertura, la idoneidad para el residente y el protocolo de respuesta durante el piloto.',
         },
         {
-          question: '¿Tenemos que empezar con todo el centro?',
+          question: '¿CasaMia puede trabajar con nuestro sistema de llamada o cuidados?',
           answer:
-            'No. Un piloto limitado puede ser el primer paso más responsable cuando hay que validar el uso, el flujo o la infraestructura. La hoja de ruta debe definir qué se quiere aprender y los criterios para avanzar.',
+            'Cuando existe compatibilidad, sí. Validamos interfaces, permisos y requisitos del proveedor; si no hay integración directa, proponemos una alternativa claramente delimitada.',
         },
         {
-          question: '¿Quién responde de la privacidad y el consentimiento?',
+          question: '¿Los sensores de baño u orina diagnostican problemas de salud?',
           answer:
-            'El operador mantiene sus obligaciones legales y clínicas. CasaMia puede ayudar a identificar flujos de datos, roles de acceso, preguntas de consentimiento y documentación de proveedores para que los asesores del operador los revisen.',
+            'No. Aportan avisos o mediciones para revisión; la interpretación clínica requiere un dispositivo certificado adecuado y un profesional cualificado.',
         },
         {
-          question: '¿Se incluye formación del personal?',
+          question: '¿Cómo empezamos sin interrumpir toda la residencia?',
           answer:
-            'La formación y la entrega se definen con la solución. La propuesta debe indicar quién recibe formación, qué materiales se entregan, cómo se acepta el sistema y qué soporte se aplica después.',
-        },
-        {
-          question: '¿La hoja de ruta puede cubrir varios centros?',
-          answer:
-            'Sí, según ubicación, cobertura de proveedores y encaje técnico. Un plan multientro puede separar los estándares comunes de las limitaciones de cada centro y ordenar el despliegue por fases.',
-        },
-        {
-          question: '¿Cómo se calcula el precio?',
-          answer:
-            'El precio se define después de la sesión inicial porque el edificio, los residentes, los sistemas existentes, la integración, la formación y el soporte cambian el alcance. Antes del compromiso final pueden plantearse opciones y rangos.',
+            'Pilota un caso de uso concreto en una zona limitada. CasaMia coordina evaluación, integración, instalación, formación y revisión antes de ampliar.',
         },
       ],
     },
     form: {
-      eyebrow: 'Sesión para proyectos de centros',
-      title: 'Cuéntanos qué quiere mejorar tu equipo.',
+      eyebrow: 'Empieza por un caso de uso',
+      title: '¿Qué debería funcionar mejor en tu residencia?',
       body:
-        'Comparte el tipo de centro, la prioridad y los plazos. CasaMia utilizará ese contexto para valorar si conviene una sesión remota, una visita o una conversación sobre un piloto.',
-      emailLabel: '¿Prefieres escribir?',
-      cardTitle: 'Solicitar una sesión para el centro',
-      cardIntro: 'Los campos con * son obligatorios. Este formulario es para operadores y organizaciones.',
-      organisation: 'Organización *',
+        'Cuéntanos el centro, los sistemas actuales y la prioridad. Propondremos el siguiente paso más seguro y práctico.',
+      emailLabel: '¿Prefieres email?',
+      cardTitle: 'Solicita una consulta para tu centro',
+      cardIntro: 'Unos datos nos ayudan a asignar al especialista adecuado.',
+      organisation: 'Organización',
       role: 'Tu cargo',
-      facilityType: 'Tipo de centro *',
-      facilityPlaceholder: 'Selecciona un tipo de centro',
-      facilityOptions: ['Residencia', 'Vivienda asistida', 'Senior living', 'Programa municipal', 'Otro'],
-      location: 'Ciudad o región *',
+      facilityType: 'Tipo de centro',
+      facilityPlaceholder: 'Selecciona el tipo de centro',
+      facilityOptions: ['Residencia asistida', 'Comunidad senior', 'Residencia de mayores', 'Operador multicentro', 'Proveedor público o municipal', 'Otro'],
+      location: 'Ubicación',
       sites: 'Número de centros o residentes',
-      priority: 'Prioridad principal *',
-      priorityPlaceholder: 'Selecciona la prioridad principal',
-      priorityOptions: [
-        'Caídas y riesgo nocturno',
-        'Respuesta del equipo asistencial',
-        'Comunicación con residentes y familias',
-        'Accesos y circulación del edificio',
-        'Modernización de habitaciones',
-        'Hoja de ruta para varios centros',
-        'Todavía no lo sabemos',
-      ],
-      timeline: 'Plazo del proyecto *',
-      timelinePlaceholder: 'Selecciona un plazo aproximado',
-      timelineOptions: ['En fase de exploración', 'En 3 meses', 'En 6 meses', 'En 12 meses', 'Sin plazo definido'],
-      name: 'Nombre *',
-      email: 'Email profesional *',
+      priority: 'Primera prioridad',
+      priorityPlaceholder: 'Selecciona el primer reto',
+      priorityOptions: ['Detección de caídas sin fricción', 'Tecnología de baño o continencia', 'Dispositivos de salud conectados', 'Flujos para cuidadores y operadores', 'Habitaciones inteligentes', 'Aún no lo sé'],
+      timeline: 'Plazo deseado',
+      timelinePlaceholder: 'Selecciona un plazo',
+      timelineOptions: ['En 3 meses', '3–6 meses', '6–12 meses', 'Explorando opciones'],
+      name: 'Nombre',
+      email: 'Email profesional',
       phone: 'Teléfono',
-      message: '¿Qué haría útil este proyecto?',
-      messagePlaceholder: 'Describe el centro, el reto actual o la decisión que necesita tomar el equipo.',
-      optionalDetails: 'Añadir detalles opcionales del proyecto',
-      submit: 'Enviar consulta del centro',
-      submitting: 'Enviando consulta…',
-      success: 'Gracias. Hemos recibido la consulta del centro.',
-      error: 'No hemos podido enviar la consulta. Inténtalo de nuevo o escribe a hola@casamia.com.es.',
-      note: 'Sin compromiso. CasaMia solo utilizará estos datos para responder a esta consulta.',
-      privacyPrefix: 'Al enviar esta consulta, confirmas que has leído nuestra',
-      privacyLink: 'Política de privacidad',
+      message: '¿Hay algo más que debamos saber?',
+      messagePlaceholder: 'Sistemas actuales, habitaciones, proceso o resultado que quieres mejorar…',
+      optionalDetails: 'Añadir detalles del proyecto (opcional)',
+      submit: 'Solicitar consulta',
+      submitting: 'Enviando solicitud…',
+      success: 'Gracias. El equipo CasaMia contactará contigo para organizar la sesión de descubrimiento.',
+      error: 'No hemos podido enviar la solicitud. Inténtalo de nuevo o escríbenos directamente.',
+      note: 'Sin discurso comercial genérico. Nos centraremos en el primer piloto viable.',
+      privacyPrefix: 'Al enviar este formulario, aceptas nuestra',
+      privacyLink: 'política de privacidad',
     },
   },
 }
 
-const onboardingIcons: LucideIcon[] = [UserPlus, UsersRound, Link2, CircleCheckBig]
-const workflowIcons: LucideIcon[] = [Activity, BellRing, ClipboardCheck, MonitorCheck]
-const trustIcons: LucideIcon[] = [LockKeyhole, ShieldCheck, BadgeCheck]
+const expertiseIcons: LucideIcon[] = [UsersRound, Building2, UserRoundCheck, Network]
+const rolloutIcons: LucideIcon[] = [ClipboardCheck, Link2, UserRoundCheck, Sparkles]
+const destinationIcons: LucideIcon[] = [Smartphone, LayoutDashboard, Network]
 
 function getLanguageKey(language: string): LanguageKey {
   return language.toLowerCase().startsWith('es') ? 'es' : 'en'
 }
 
-function HeroProductVisual({ copy }: { copy: AssistedLivingCopy['interfaces'] }) {
+function HeroFacilityVisual({ copy }: { copy: AssistedLivingCopy['hero'] }) {
   return (
-    <div
-      className="als2-hero-product"
-      role="img"
-      aria-label={`${copy.operator.title}. ${copy.caregiver.title}`}
-    >
-      <div className="als2-hero-screen">
-        <div className="als2-hero-screen-bar">
-          <span><Building2 size={17} aria-hidden="true" />CasaMia</span>
-          <small><i />{copy.operator.live}</small>
+    <div className="alx-hero-visual" role="img" aria-label={`${copy.imageAlt}. ${copy.visualTitle}`}>
+      <SafeImage
+        src="/images/service-gallery/09-fall-detection-sensors.jpg"
+        alt=""
+        className="alx-hero-photo"
+        imgClassName="alx-hero-photo-img"
+      />
+      <div className="alx-photo-pulse" aria-hidden="true"><i /><i /></div>
+      <div className="alx-hero-rail">
+        <div className="alx-hero-story">
+          <div className="alx-story-meta">
+            <span>{copy.visualEyebrow}</span>
+            <span className="alx-privacy-chip"><ShieldCheck size={15} aria-hidden="true" />{copy.privacyLabel}</span>
+          </div>
+          <strong>{copy.visualTitle}</strong>
+          <p>{copy.visualBody}</p>
         </div>
-        <div className="als2-hero-metrics">
-          {copy.operator.metrics.slice(0, 3).map((metric) => (
-            <span key={metric.label}>
-              <strong>{metric.value}</strong>
-              <small>{metric.label}</small>
-            </span>
+        <div className="alx-event-card">
+          <span className="alx-event-pulse"><Activity size={19} aria-hidden="true" /></span>
+          <div>
+            <small>{copy.visualEvent}</small>
+            <strong>{copy.visualRoom}</strong>
+            <span><CheckCircle2 size={14} aria-hidden="true" />{copy.visualRoute}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CustomSolutionBlueprint({ copy }: { copy: AssistedLivingCopy['expertise'] }) {
+  return (
+    <div className="alx-blueprint" role="img" aria-label={`${copy.inputs.map((item) => item.title).join(', ')}. ${copy.outcomeTitle}`}>
+      <div className="alx-blueprint-inputs">
+        {copy.inputs.map((item, index) => {
+          const Icon = expertiseIcons[index] ?? BadgeCheck
+          return (
+            <article key={item.title}>
+              <span className="alx-blueprint-number">0{index + 1}</span>
+              <span className="alx-blueprint-icon"><Icon size={19} aria-hidden="true" /></span>
+              <div><strong>{item.title}</strong><small>{item.body}</small></div>
+            </article>
+          )
+        })}
+      </div>
+      <span className="alx-blueprint-connector" aria-hidden="true"><ChevronRight size={24} /></span>
+      <div className="alx-blueprint-output">
+        <div className="alx-blueprint-brand"><span>Casa<span>Mia</span></span><small>{copy.outcomeLabel}</small></div>
+        <h3>{copy.outcomeTitle}</h3>
+        <ul>{copy.outcomes.map((item) => <li key={item}><CheckCircle2 size={16} aria-hidden="true" />{item}</li>)}</ul>
+        <p><Sparkles size={16} aria-hidden="true" />{copy.note}</p>
+      </div>
+    </div>
+  )
+}
+
+function TechnologyVisual({ kind, label, lang }: { kind: TechnologyKind; label: string; lang: LanguageKey }) {
+  const isSpanish = lang === 'es'
+  if (kind === 'fall') {
+    return (
+      <div className="alx-tech-visual is-fall" aria-hidden="true">
+        <div className="alx-room-corner" />
+        <span className="alx-wall-sensor"><Radio size={20} /></span>
+        <span className="alx-radar-ring is-one" />
+        <span className="alx-radar-ring is-two" />
+        <span className="alx-person-marker"><UsersRound size={24} /></span>
+        <div className="alx-visual-caption"><ShieldCheck size={15} />{label}</div>
+      </div>
+    )
+  }
+
+  if (kind === 'bathroom') {
+    return (
+      <div className="alx-tech-visual is-bathroom" aria-hidden="true">
+        <div className="alx-bathroom-device"><Bath size={40} /><span><Droplets size={18} /></span></div>
+        <div className="alx-signal-stack">
+          <i /><i /><i />
+        </div>
+        <div className="alx-bathroom-insight">
+          <Droplets size={17} />
+          <span>
+            <strong>{isSpanish ? 'Contexto asistencial' : 'Care context'}</strong>
+            <small>{isSpanish ? 'Aviso para revisión' : 'Review prompt'}</small>
+          </span>
+        </div>
+        <div className="alx-visual-caption"><LockKeyhole size={15} />{label}</div>
+      </div>
+    )
+  }
+
+  if (kind === 'health') {
+    return (
+      <div className="alx-tech-visual is-health is-mirror" aria-hidden="true">
+        <div className="alx-mirror-device">
+          <div className="alx-mirror-face"><UserRoundCheck size={48} /><span className="alx-mirror-scan" /></div>
+          <div className="alx-mirror-vitals">
+            <span><HeartPulse size={14} /><strong>72</strong><small>{isSpanish ? 'pulso' : 'pulse'}</small></span>
+            <span><Activity size={14} /><strong>15</strong><small>{isSpanish ? 'resp.' : 'breaths'}</small></span>
+            <span><ScanLine size={14} /><strong>30s</strong><small>rPPG</small></span>
+          </div>
+          <small className="alx-mirror-opt-in">{isSpanish ? 'CONTROL DELIBERADO' : 'DELIBERATE CHECK-IN'}</small>
+        </div>
+        <div className="alx-visual-caption"><Wifi size={15} />{label}</div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="alx-tech-visual is-room" aria-hidden="true">
+      <SafeImage
+        src="/images/service-gallery/08-emergency-response-device.jpg"
+        alt=""
+        className="alx-wearable-photo"
+        imgClassName="alx-wearable-photo-img"
+      />
+      <div className="alx-wearable-options">
+        <span><Watch size={18} /><small>{isSpanish ? 'Reloj o pulsera' : 'Watch or wristband'}</small></span>
+        <span><LifeBuoy size={18} /><small>{isSpanish ? 'Colgante SOS' : 'SOS pendant'}</small></span>
+      </div>
+      <div className="alx-visual-caption"><Sparkles size={15} />{label}</div>
+    </div>
+  )
+}
+
+function TechnologyEcosystem({ copy }: { copy: AssistedLivingCopy['partners'] }) {
+  return (
+    <div className="alx-partner-ecosystem">
+      <div className="alx-partner-proof">
+        <article className="alx-provider-card">
+          <span className="alx-provider-mark">M<span>D</span></span>
+          <div><small>{copy.providerLabel}</small><h3>{copy.providerName}</h3><p>{copy.providerBody}</p></div>
+          <BadgeCheck size={22} aria-hidden="true" />
+        </article>
+        <div className="alx-reference-group">
+          <strong>{copy.referencesLabel}</strong>
+          <div>
+            {copy.references.map((item) => (
+              <a href={item.href} key={item.name} target="_blank" rel="noopener noreferrer">
+                <span>{item.name}</span><small>{item.category}</small><ExternalLink size={15} aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="alx-example-group">
+        <strong>{copy.examplesLabel}</strong>
+        <div className="alx-example-track">
+          {copy.examples.map((item) => (
+            <a href={item.href} key={item.name} target="_blank" rel="noopener noreferrer">
+              <span>{item.name}</span><small>{item.category}</small><ExternalLink size={14} aria-hidden="true" />
+            </a>
           ))}
         </div>
-        <div className="als2-hero-residents">
-          {copy.operator.residents.map((resident, index) => (
-            <div key={resident.name}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <p><strong>{resident.name}</strong><small>{resident.detail}</small></p>
-              <i>{resident.status}</i>
+      </div>
+      <p className="alx-partner-note"><ShieldCheck size={17} aria-hidden="true" />{copy.note}</p>
+    </div>
+  )
+}
+
+function EcosystemFlow({ copy }: { copy: AssistedLivingCopy['ecosystem'] }) {
+  return (
+    <div className="alx-ecosystem-map" role="img" aria-label={copy.aria}>
+      <article className="alx-eco-source">
+        <div className="alx-suite-mini">
+          <span><BedDouble size={25} /></span>
+          <i className="sensor-one"><Radio size={13} /></i>
+          <i className="sensor-two"><Droplets size={13} /></i>
+          <i className="sensor-three"><HeartPulse size={13} /></i>
+        </div>
+        <div><small>01</small><h3>{copy.sourceTitle}</h3><p>{copy.sourceBody}</p></div>
+      </article>
+
+      <span className="alx-eco-arrow" aria-hidden="true"><ChevronRight size={23} /></span>
+
+      <article className="alx-eco-layer">
+        <span className="alx-eco-stage"><small>02</small>{copy.layerBadge}</span>
+        <div className="alx-eco-cloud" aria-hidden="true">
+          <Cloud size={178} strokeWidth={1.15} />
+          <span>Casa<span>Mia</span></span>
+        </div>
+        <div className="alx-eco-layer-copy"><h3>{copy.layerTitle}</h3><p>{copy.layerBody}</p></div>
+        <ul className="alx-eco-capabilities">
+          {copy.layerCapabilities.map((item) => <li key={item}><Check size={13} aria-hidden="true" />{item}</li>)}
+        </ul>
+      </article>
+
+      <span className="alx-eco-arrow" aria-hidden="true"><ChevronRight size={23} /></span>
+
+      <div className="alx-eco-destinations">
+        {copy.destinations.map((item, index) => {
+          const Icon = destinationIcons[index] ?? CircleDot
+          return (
+            <article key={item.title}>
+              <span><Icon size={19} aria-hidden="true" /></span>
+              <div><h3>{item.title}</h3><p>{item.body}</p></div>
+            </article>
+          )
+        })}
+      </div>
+
+      <ol className="alx-event-flow">
+        {copy.flow.map((item, index) => (
+          <li key={item}><span>{index + 1}</span><strong>{item}</strong></li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
+function TeamInterfaces({ copy }: { copy: AssistedLivingCopy['interfaces'] }) {
+  return (
+    <div className="alx-interface-stage" role="img" aria-label={copy.body}>
+      <article className="alx-operator-view">
+        <header>
+          <div className="alx-dashboard-brand"><span>Casa<span>Mia</span></span><small>{copy.operator.label}</small></div>
+          <span className="alx-system-status"><i />{copy.operator.status}</span>
+        </header>
+        <div className="alx-dashboard-title">
+          <div><small>{copy.operator.summary}</small><h3>{copy.operator.title}</h3></div>
+          <BellRing size={21} aria-hidden="true" />
+        </div>
+        <div className="alx-dashboard-metrics">
+          {copy.operator.metrics.slice(0, 2).map((metric, index) => (
+            <div key={metric.label} className={index === 0 ? 'is-highlight' : undefined}>
+              <strong>{metric.value}</strong><span>{metric.label}</span>
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="als2-hero-phone">
-        <div className="als2-phone-speaker" />
-        <small>{copy.caregiver.shift}</small>
-        <strong>{copy.caregiver.priorities}</strong>
-        {copy.caregiver.residents.slice(0, 2).map((resident) => (
-          <div key={resident.name}>
-            <span>{resident.initials}</span>
-            <p><b>{resident.name}</b><small>{resident.task}</small></p>
-            <i>{resident.status}</i>
-          </div>
-        ))}
-        <span className="als2-hero-phone-action">{copy.caregiver.actions[0]}</span>
-      </div>
-
-      <div className="als2-hero-status">
-        <CircleCheckBig size={18} aria-hidden="true" />
-        <span>{copy.body}</span>
-      </div>
-    </div>
-  )
-}
-
-function EcosystemVisual({ copy }: { copy: AssistedLivingCopy['ecosystem'] }) {
-  return (
-    <div className="als2-ecosystem-map" role="img" aria-label={copy.summary}>
-      <article className="als2-eco-node is-resident">
-        <SafeImage
-          src="/images/service-gallery/11-voice-controls-and-smart-routines.jpg"
-          alt=""
-          className="als2-eco-photo"
-          imgClassName="als2-eco-photo-img"
-        />
-        <div>
-          <span><House size={19} aria-hidden="true" />{copy.resident.status}</span>
-          <h3>{copy.resident.title}</h3>
-          <p>{copy.resident.body}</p>
+        <div className="alx-dashboard-queue">
+          <strong>{copy.operator.queueTitle}</strong>
+          {copy.operator.queue.slice(0, 2).map((item) => (
+            <div key={`${item.room}-${item.event}`}>
+              <span className={`alx-queue-tone is-${item.tone}`} />
+              <span><strong>{item.room}</strong><small>{item.event}</small></span>
+              <span><strong>{item.owner}</strong><small>{item.state}</small></span>
+            </div>
+          ))}
         </div>
       </article>
 
-      <span className="als2-eco-connector is-in" aria-hidden="true"><ChevronRight size={20} /></span>
-
-      <article className="als2-eco-hub">
-        <span className="als2-eco-hub-icon"><Link2 size={28} aria-hidden="true" /></span>
-        <h3>{copy.platform.title}</h3>
-        <p>{copy.platform.body}</p>
-        <div>
-          {copy.platform.signals.map((signal) => <small key={signal}>{signal}</small>)}
+      <article className="alx-caregiver-phone">
+        <div className="alx-phone-speaker" />
+        <header><span>09:41</span><Wifi size={14} aria-hidden="true" /></header>
+        <div className="alx-phone-appbar">
+          <span><UsersRound size={18} aria-hidden="true" /></span>
+          <div><small>{copy.caregiver.label}</small><strong>{copy.caregiver.shift}</strong></div>
         </div>
+        <div className="alx-phone-event">
+          <div className="alx-phone-event-heading">
+            <span><Activity size={20} aria-hidden="true" /></span>
+            <div><small>{copy.caregiver.title}</small><strong>{copy.caregiver.eventType}</strong></div>
+            <time>{copy.caregiver.eventTime}</time>
+          </div>
+          <h3>{copy.caregiver.eventRoom}</h3>
+          <p>{copy.caregiver.context}</p>
+          <span className="alx-phone-action"><CheckCircle2 size={17} aria-hidden="true" />{copy.caregiver.primaryAction}</span>
+          <span className="alx-phone-action is-secondary">{copy.caregiver.secondaryAction}</span>
+        </div>
+        <p className="alx-phone-footer">{copy.caregiver.footer}</p>
       </article>
-
-      <span className="als2-eco-connector is-out" aria-hidden="true"><ChevronRight size={20} /></span>
-
-      <div className="als2-eco-destinations">
-        <article>
-          <span><MonitorCheck size={21} aria-hidden="true" /></span>
-          <div><h3>{copy.operator.title}</h3><p>{copy.operator.body}</p></div>
-        </article>
-        <article>
-          <span><Smartphone size={21} aria-hidden="true" /></span>
-          <div><h3>{copy.caregiver.title}</h3><p>{copy.caregiver.body}</p></div>
-        </article>
-        <article>
-          <span><UsersRound size={21} aria-hidden="true" /></span>
-          <div><h3>{copy.family.title}</h3><p>{copy.family.body}</p></div>
-        </article>
-        <article>
-          <span><HeartPulse size={21} aria-hidden="true" /></span>
-          <div><h3>{copy.telehealth.title}</h3><p>{copy.telehealth.body}</p></div>
-        </article>
-      </div>
-    </div>
-  )
-}
-
-function OperatorDashboard({ copy }: { copy: AssistedLivingCopy['interfaces']['operator'] }) {
-  return (
-    <div className="als2-dashboard" role="img" aria-label={`${copy.eyebrow}. ${copy.title}`}>
-      <div className="als2-dashboard-topbar">
-        <span className="als2-dashboard-brand"><Building2 size={18} aria-hidden="true" />CasaMia</span>
-        <nav aria-hidden="true"><i /><i /><i /></nav>
-        <small><b />{copy.live}</small>
-      </div>
-
-      <div className="als2-dashboard-heading">
-        <div><span>{copy.eyebrow}</span><h3>{copy.title}</h3></div>
-        <span className="als2-dashboard-highlight"><Sparkles size={16} aria-hidden="true" />{copy.metrics[3].value}</span>
-      </div>
-
-      <div className="als2-dashboard-metrics">
-        {copy.metrics.map((metric, index) => (
-          <article key={metric.label}>
-            <span>{index === 0 ? <UsersRound size={19} aria-hidden="true" /> : index === 1 ? <BellRing size={19} aria-hidden="true" /> : index === 2 ? <Wifi size={19} aria-hidden="true" /> : <ClipboardCheck size={19} aria-hidden="true" />}</span>
-            <strong>{metric.value}</strong>
-            <small>{metric.label}</small>
-          </article>
-        ))}
-      </div>
-
-      <div className="als2-dashboard-body">
-        <section>
-          <header><strong>{copy.residentsTitle}</strong><small>•••</small></header>
-          <div className="als2-resident-table">
-            {copy.residents.map((resident, index) => (
-              <div key={resident.name}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <p><strong>{resident.name}</strong><small>{resident.detail}</small></p>
-                <i className={resident.status.toLowerCase().includes('due') || resident.status.toLowerCase().includes('pendiente') ? 'is-due' : ''}>{resident.status}</i>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <header><strong>{copy.alertsTitle}</strong><small>•••</small></header>
-          <div className="als2-activity-list">
-            {copy.alerts.map((alert) => (
-              <div key={alert.title} className={`is-${alert.tone}`}>
-                <span><i /></span>
-                <p><strong>{alert.title}</strong><small>{alert.detail}</small></p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-    </div>
-  )
-}
-
-function CaregiverPhone({ copy }: { copy: AssistedLivingCopy['interfaces']['caregiver'] }) {
-  return (
-    <div className="als2-caregiver-composition">
-      <header>
-        <span>{copy.eyebrow}</span>
-        <h3>{copy.title}</h3>
-        <p>{copy.body}</p>
-      </header>
-
-      <div className="als2-caregiver-phone" role="img" aria-label={`${copy.eyebrow}. ${copy.title}`}>
-        <div className="als2-caregiver-speaker" />
-        <div className="als2-caregiver-header">
-          <div><small>{copy.shift}</small><strong>{copy.greeting}</strong></div>
-          <span><BellRing size={17} aria-hidden="true" /><i /></span>
-        </div>
-        <div className="als2-shift-progress"><span /></div>
-        <div className="als2-priority-heading"><strong>{copy.priorities}</strong><small>{copy.residents.length}</small></div>
-        <div className="als2-caregiver-residents">
-          {copy.residents.map((resident, index) => (
-            <article key={resident.name} className={index === 0 ? 'is-current' : ''}>
-              <span>{resident.initials}</span>
-              <p><strong>{resident.name}</strong><small>{resident.task}</small></p>
-              <i>{resident.status}</i>
-            </article>
-          ))}
-        </div>
-        <div className="als2-caregiver-actions">
-          {copy.actions.map((action, index) => (
-            <span className="als2-caregiver-action" key={action}>
-              {index === 0 ? <CheckCircle2 size={16} aria-hidden="true" /> : index === 1 ? <MessageCircle size={16} aria-hidden="true" /> : <PhoneCall size={16} aria-hidden="true" />}
-              {action}
-            </span>
-          ))}
-        </div>
-        <nav aria-hidden="true"><span /><span className="is-active" /><span /></nav>
-      </div>
     </div>
   )
 }
@@ -1159,33 +1007,23 @@ export function AssistedLivingSolutionsPage() {
         name: copy.seoTitle,
         description: copy.seoDescription,
         url: 'https://casamia.es/assisted-living-solutions',
-        serviceType: 'Assisted living technology assessment and implementation coordination',
+        serviceType: 'Senior-living technology integration and facility rollout',
         inLanguage: copy.lang,
-        provider: {
-          '@type': 'Organization',
-          name: 'CasaMia',
-          url: 'https://casamia.es',
-        },
-        areaServed: {
-          '@type': 'Country',
-          name: 'Spain',
-        },
+        provider: { '@type': 'Organization', name: 'CasaMia', url: 'https://casamia.es' },
+        areaServed: { '@type': 'Country', name: 'Spain' },
         audience: {
           '@type': 'BusinessAudience',
-          audienceType: 'Care homes, assisted living operators, senior housing providers and municipalities',
+          audienceType: 'Assisted living facilities, senior residences, senior communities and multi-site operators',
         },
       },
       {
         '@type': 'FAQPage',
         '@id': 'https://casamia.es/assisted-living-solutions#faq',
         inLanguage: copy.lang,
-        mainEntity: copy.faq.items.slice(0, 4).map((item) => ({
+        mainEntity: copy.faq.items.map((item) => ({
           '@type': 'Question',
           name: item.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.answer,
-          },
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
         })),
       },
     ],
@@ -1193,10 +1031,7 @@ export function AssistedLivingSolutionsPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-
-    if (isSubmitting) {
-      return
-    }
+    if (isSubmitting) return
 
     const form = event.currentTarget
     const formData = new FormData(form)
@@ -1221,7 +1056,7 @@ export function AssistedLivingSolutionsPage() {
         name,
         email,
         phone,
-        plan: 'Assisted living / operator project',
+        plan: 'Assisted living technology pilot',
         message: [
           `Organisation: ${organisation}`,
           `Role: ${role || 'Not provided'}`,
@@ -1235,11 +1070,7 @@ export function AssistedLivingSolutionsPage() {
         source: 'assisted-living-solutions',
       })
 
-      trackEvent('facility_enquiry_submitted', {
-        facility_type: facilityType,
-        language: languageKey,
-        priority,
-      })
+      trackEvent('facility_enquiry_submitted', { facility_type: facilityType, language: languageKey, priority })
       form.reset()
       setSubmitted(true)
     } catch (error) {
@@ -1252,271 +1083,200 @@ export function AssistedLivingSolutionsPage() {
 
   return (
     <>
-      <SEO
-        title={copy.seoTitle}
-        description={copy.seoDescription}
-        path="/assisted-living-solutions"
-        schema={schema}
-      />
+      <SEO title={copy.seoTitle} description={copy.seoDescription} path="/assisted-living-solutions" schema={schema} />
 
-      <div className="als-page" lang={copy.lang}>
-        <section className="als-hero" aria-labelledby="als-page-title">
-          <div className="als-hero-grid site-shell">
-            <div className="als-hero-copy">
-              <span className="eyebrow als-eyebrow-on-dark">
-                <span className="dot" aria-hidden="true" />
-                {copy.hero.eyebrow}
-              </span>
-              <h1 id="als-page-title">{copy.hero.title}</h1>
+      <div className="alx-page" lang={copy.lang}>
+        <section className="alx-hero" aria-labelledby="alx-page-title">
+          <div className="site-shell alx-hero-grid">
+            <div className="alx-hero-copy">
+              <span className="eyebrow alx-eyebrow-light"><span className="dot" aria-hidden="true" />{copy.hero.eyebrow}</span>
+              <h1 id="alx-page-title">{copy.hero.title}</h1>
               <p>{copy.hero.body}</p>
-              <div className="als-hero-actions">
+              <div className="alx-hero-actions">
                 <a
                   className="btn btn-green"
                   href="#facility-enquiry"
                   onClick={() => trackEvent('facility_discovery_started', { location: 'assisted_hero' })}
                 >
-                  {copy.hero.primaryCta}
-                  <ArrowRight size={20} aria-hidden="true" />
+                  {copy.hero.primaryCta}<ArrowRight size={20} aria-hidden="true" />
                 </a>
-                <a className="btn btn-white" href="#onboarding">
-                  {copy.hero.secondaryCta}
-                </a>
+                <a className="btn alx-btn-ghost" href="#technology">{copy.hero.secondaryCta}<ChevronRight size={19} aria-hidden="true" /></a>
               </div>
-              <ul className="als-proof-list" aria-label={copy.hero.proof.join(', ')}>
-                {copy.hero.proof.map((item) => (
-                  <li key={item}>
-                    <Check size={16} aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
+              <ul className="alx-proof-list" aria-label={copy.hero.proof.join(', ')}>
+                {copy.hero.proof.map((item) => <li key={item}><Check size={15} aria-hidden="true" />{item}</li>)}
               </ul>
             </div>
-
-            <HeroProductVisual copy={copy.interfaces} />
+            <HeroFacilityVisual copy={copy.hero} />
+          </div>
+          <div className="site-shell alx-audience-strip">
+            <strong>{copy.hero.audiencesLabel}</strong>
+            {copy.hero.audiences.map((item) => <span key={item}>{item}</span>)}
           </div>
         </section>
 
-        <section className="als2-section als2-ecosystem" aria-labelledby="als2-ecosystem-title">
+        <section className="alx-section alx-expertise" aria-labelledby="alx-expertise-title">
+          <div className="site-shell alx-expertise-layout">
+            <div className="alx-section-copy">
+              <p className="eyebrow">{copy.expertise.eyebrow}</p>
+              <h2 id="alx-expertise-title">{copy.expertise.title}</h2>
+              <p>{copy.expertise.body}</p>
+            </div>
+            <CustomSolutionBlueprint copy={copy.expertise} />
+          </div>
+        </section>
+
+        <section className="alx-section alx-technology" id="technology" aria-labelledby="alx-technology-title">
           <div className="site-shell">
-            <header className="als2-section-heading is-centered">
-              <p className="eyebrow">{copy.ecosystem.eyebrow}</p>
-              <h2 id="als2-ecosystem-title">{copy.ecosystem.title}</h2>
-              <p>{copy.ecosystem.body}</p>
+            <header className="alx-section-heading">
+              <div><p className="eyebrow">{copy.technology.eyebrow}</p><h2 id="alx-technology-title">{copy.technology.title}</h2></div>
+              <p>{copy.technology.body}</p>
             </header>
-            <EcosystemVisual copy={copy.ecosystem} />
-          </div>
-        </section>
-
-        <section className="als2-section als2-onboarding" id="onboarding" aria-labelledby="als2-onboarding-title">
-          <div className="site-shell als2-onboarding-layout">
-            <div className="als2-onboarding-copy">
-              <p className="eyebrow als-eyebrow-on-dark">{copy.onboarding.eyebrow}</p>
-              <h2 id="als2-onboarding-title">{copy.onboarding.title}</h2>
-              <p>{copy.onboarding.body}</p>
-              <div className="als2-onboarding-support">
-                <BadgeCheck size={22} aria-hidden="true" />
-                <span>{copy.onboarding.support}</span>
-              </div>
-            </div>
-
-            <ol className="als2-onboarding-steps">
-              {copy.onboarding.steps.map((step, index) => {
-                const Icon = onboardingIcons[index] ?? CircleCheckBig
-                return (
-                  <li key={step.title}>
-                    <span className="als2-onboarding-icon"><Icon size={21} aria-hidden="true" /></span>
-                    <span className="als2-onboarding-number">{String(index + 1).padStart(2, '0')}</span>
-                    <div><h3>{step.title}</h3><p>{step.body}</p></div>
-                    {index < copy.onboarding.steps.length - 1 ? <ChevronRight size={18} aria-hidden="true" /> : null}
-                  </li>
-                )
-              })}
-              <li className="als2-onboarding-ready">
-                <CircleCheckBig size={25} aria-hidden="true" />
-                <div><strong>{copy.onboarding.readyTitle}</strong><small>{copy.onboarding.readyBody}</small></div>
-              </li>
-            </ol>
-          </div>
-        </section>
-
-        <section className="als2-section als2-interfaces" aria-labelledby="als2-interfaces-title">
-          <div className="site-shell">
-            <header className="als2-section-heading is-centered">
-              <p className="eyebrow">{copy.interfaces.eyebrow}</p>
-              <h2 id="als2-interfaces-title">{copy.interfaces.title}</h2>
-              <p>{copy.interfaces.body}</p>
-            </header>
-
-            <div className="als2-interface-grid">
-              <div className="als2-operator-showcase">
-                <header><span>{copy.interfaces.operator.eyebrow}</span><p>{copy.interfaces.operator.body}</p></header>
-                <OperatorDashboard copy={copy.interfaces.operator} />
-              </div>
-              <CaregiverPhone copy={copy.interfaces.caregiver} />
-            </div>
-          </div>
-        </section>
-
-        <section className="als2-section als2-workflow" id="delivery-model" aria-labelledby="als2-workflow-title">
-          <div className="site-shell">
-            <header className="als2-section-heading is-centered is-inverse">
-              <p className="eyebrow als-eyebrow-on-dark">{copy.workflow.eyebrow}</p>
-              <h2 id="als2-workflow-title">{copy.workflow.title}</h2>
-              <p>{copy.workflow.body}</p>
-            </header>
-
-            <ol className="als2-workflow-flow">
-              {copy.workflow.steps.map((step, index) => {
-                const Icon = workflowIcons[index] ?? Activity
-                return (
-                  <li key={step.title}>
-                    <span><Icon size={21} aria-hidden="true" /></span>
-                    <div><strong>{step.title}</strong><small>{step.body}</small></div>
-                    {index < copy.workflow.steps.length - 1 ? <ChevronRight size={21} aria-hidden="true" /> : null}
-                  </li>
-                )
-              })}
-            </ol>
-
-            <div className="als2-trust-strip">
-              {copy.trust.items.map((item, index) => {
-                const Icon = trustIcons[index] ?? ShieldCheck
-                return (
-                  <article key={item.title}>
-                    <Icon size={20} aria-hidden="true" />
-                    <div><strong>{item.title}</strong><small>{item.body}</small></div>
-                  </article>
-                )
-              })}
-            </div>
-            <p className="als2-system-boundary"><ShieldCheck size={17} aria-hidden="true" />{copy.trust.boundary}</p>
-          </div>
-        </section>
-
-        <section className="als-section als-faq" aria-labelledby="als-faq-title">
-          <div className="site-shell als-faq-layout">
-            <div className="als-faq-heading">
-              <p className="eyebrow">{copy.faq.eyebrow}</p>
-              <h2 id="als-faq-title">{copy.faq.title}</h2>
-            </div>
-            <div className="als-faq-list">
-              {copy.faq.items.slice(0, 4).map((item) => (
-                <details key={item.question}>
-                  <summary>{item.question}</summary>
-                  <p>{item.answer}</p>
-                </details>
+            <div className="alx-technology-grid">
+              {copy.technology.items.map((item, index) => (
+                <article className={`alx-tech-card is-${item.kind}${index === 0 ? ' is-featured' : ''}`} key={item.title}>
+                  <div className="alx-tech-card-visual"><TechnologyVisual kind={item.kind} label={item.visualLabel} lang={languageKey} /></div>
+                  <div className="alx-tech-card-copy">
+                    <span className="alx-tech-index">0{index + 1}</span>
+                    <span className="alx-tech-tag">{item.tag}</span>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                    <ul>{item.points.map((point) => <li key={point}><CheckCircle2 size={16} aria-hidden="true" />{point}</li>)}</ul>
+                  </div>
+                </article>
               ))}
             </div>
+            <p className="alx-compatibility-note"><Plug size={18} aria-hidden="true" />{copy.technology.compatibility}</p>
           </div>
         </section>
 
-        <section className="als-enquiry" id="facility-enquiry" aria-labelledby="als-enquiry-title">
-          <div className="site-shell als-enquiry-layout">
-            <div className="als-enquiry-copy">
-              <p className="eyebrow als-eyebrow-on-dark">{copy.form.eyebrow}</p>
-              <h2 id="als-enquiry-title">{copy.form.title}</h2>
+        <section className="alx-section alx-partners" id="technology-ecosystem" aria-labelledby="alx-partners-title">
+          <div className="site-shell">
+            <header className="alx-section-heading">
+              <div><p className="eyebrow">{copy.partners.eyebrow}</p><h2 id="alx-partners-title">{copy.partners.title}</h2></div>
+              <p>{copy.partners.body}</p>
+            </header>
+            <TechnologyEcosystem copy={copy.partners} />
+          </div>
+        </section>
+
+        <section className="alx-section alx-ecosystem" aria-labelledby="alx-ecosystem-title">
+          <div className="site-shell">
+            <header className="alx-section-heading is-inverse">
+              <div><p className="eyebrow alx-eyebrow-light">{copy.ecosystem.eyebrow}</p><h2 id="alx-ecosystem-title">{copy.ecosystem.title}</h2></div>
+              <p>{copy.ecosystem.body}</p>
+            </header>
+            <EcosystemFlow copy={copy.ecosystem} />
+          </div>
+        </section>
+
+        <section className="alx-section alx-interfaces" aria-labelledby="alx-interfaces-title">
+          <div className="site-shell">
+            <header className="alx-section-heading is-centred">
+              <div><p className="eyebrow">{copy.interfaces.eyebrow}</p><h2 id="alx-interfaces-title">{copy.interfaces.title}</h2></div>
+              <p>{copy.interfaces.body}</p>
+            </header>
+            <TeamInterfaces copy={copy.interfaces} />
+          </div>
+        </section>
+
+        <section className="alx-section alx-rollout" id="delivery-model" aria-labelledby="alx-rollout-title">
+          <div className="site-shell">
+            <header className="alx-section-heading">
+              <div><p className="eyebrow">{copy.rollout.eyebrow}</p><h2 id="alx-rollout-title">{copy.rollout.title}</h2></div>
+              <p>{copy.rollout.body}</p>
+            </header>
+            <ol className="alx-rollout-steps">
+              {copy.rollout.steps.map((step, index) => {
+                const Icon = rolloutIcons[index] ?? BadgeCheck
+                return (
+                  <li key={step.title} id={index === 2 ? 'onboarding' : undefined}>
+                    <span className="alx-rollout-number">0{index + 1}</span>
+                    <span className="alx-rollout-icon"><Icon size={22} aria-hidden="true" /></span>
+                    <div><h3>{step.title}</h3><p>{step.body}</p></div>
+                    {index === 2 ? (
+                      <div className="alx-rollout-activation">
+                        <strong>{copy.rollout.onboardingLabel}</strong>
+                        <span>{copy.rollout.onboarding.join(' · ')}</span>
+                      </div>
+                    ) : null}
+                    {index < copy.rollout.steps.length - 1 ? <ChevronRight size={20} aria-hidden="true" /> : null}
+                  </li>
+                )
+              })}
+            </ol>
+            <p className="alx-rollout-ready"><CheckCircle2 size={18} aria-hidden="true" />{copy.rollout.ready}</p>
+          </div>
+        </section>
+
+        <section className="alx-section alx-trust" aria-labelledby="alx-trust-title">
+          <div className="site-shell">
+            <h2 id="alx-trust-title">{copy.trust.title}</h2>
+            <div className="alx-outcome-grid">
+              {copy.trust.outcomes.map((item, index) => {
+                const Icon = [Activity, UserRoundCheck, Link2, Building2][index] ?? BadgeCheck
+                return <article key={item.title}><span><Icon size={22} aria-hidden="true" /></span><div><h3>{item.title}</h3><p>{item.body}</p></div></article>
+              })}
+            </div>
+            <aside className="alx-boundary"><ShieldCheck size={24} aria-hidden="true" /><div><strong>{copy.trust.boundaryTitle}</strong><p>{copy.trust.boundary}</p></div></aside>
+          </div>
+        </section>
+
+        <section className="alx-section alx-faq" aria-labelledby="alx-faq-title">
+          <div className="site-shell alx-faq-layout">
+            <div><p className="eyebrow">{copy.faq.eyebrow}</p><h2 id="alx-faq-title">{copy.faq.title}</h2></div>
+            <div className="alx-faq-list">
+              {copy.faq.items.map((item) => <details key={item.question}><summary>{item.question}<ChevronRight size={20} aria-hidden="true" /></summary><p>{item.answer}</p></details>)}
+            </div>
+          </div>
+        </section>
+
+        <section className="alx-enquiry" id="facility-enquiry" aria-labelledby="alx-enquiry-title">
+          <div className="site-shell alx-enquiry-layout">
+            <div className="alx-enquiry-copy">
+              <p className="eyebrow alx-eyebrow-light">{copy.form.eyebrow}</p>
+              <h2 id="alx-enquiry-title">{copy.form.title}</h2>
               <p>{copy.form.body}</p>
-              <a
-                className="als-email-link"
-                href="mailto:hola@casamia.com.es?subject=Assisted%20living%20facility%20project"
-                onClick={() => trackEvent('email_clicked', { location: 'assisted_living_enquiry' })}
-              >
-                <Mail size={20} aria-hidden="true" />
-                <span>
-                  <small>{copy.form.emailLabel}</small>
-                  <strong>hola@casamia.com.es</strong>
-                </span>
+              <div className="alx-pilot-preview">
+                <span><ClipboardCheck size={22} aria-hidden="true" /></span>
+                <div><small>01</small><strong>{copy.rollout.steps[0].title}</strong></div>
+                <ChevronRight size={18} aria-hidden="true" />
+                <div><small>02</small><strong>{copy.rollout.steps[2].title}</strong></div>
+                <ChevronRight size={18} aria-hidden="true" />
+                <div><small>03</small><strong>{copy.rollout.steps[3].title}</strong></div>
+              </div>
+              <a className="alx-email-link" href="mailto:hola@casamia.com.es?subject=Assisted%20living%20technology%20pilot" onClick={() => trackEvent('email_clicked', { location: 'assisted_living_enquiry' })}>
+                <Mail size={20} aria-hidden="true" /><span><small>{copy.form.emailLabel}</small><strong>hola@casamia.com.es</strong></span>
               </a>
             </div>
 
-            <form className="als-enquiry-form" onSubmit={handleSubmit}>
-              <div className="als-form-heading">
-                <h3>{copy.form.cardTitle}</h3>
-                <p>{copy.form.cardIntro}</p>
-              </div>
-
-              <div className="als-form-grid">
+            <form className="alx-enquiry-form" onSubmit={handleSubmit}>
+              <div className="alx-form-heading"><h3>{copy.form.cardTitle}</h3><p>{copy.form.cardIntro}</p></div>
+              <div className="alx-form-grid">
                 <FacilityField label={copy.form.organisation} name="organisation" required />
-                <label>
-                  <span>{copy.form.facilityType}</span>
-                  <select name="facilityType" required defaultValue="">
-                    <option value="" disabled>
-                      {copy.form.facilityPlaceholder}
-                    </option>
-                    {copy.form.facilityOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                <label><span>{copy.form.facilityType}</span><select name="facilityType" required defaultValue=""><option value="" disabled>{copy.form.facilityPlaceholder}</option>{copy.form.facilityOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></label>
                 <FacilityField label={copy.form.location} name="location" required />
-                <label>
-                  <span>{copy.form.priority}</span>
-                  <select name="priority" required defaultValue="">
-                    <option value="" disabled>
-                      {copy.form.priorityPlaceholder}
-                    </option>
-                    {copy.form.priorityOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                <label><span>{copy.form.priority}</span><select name="priority" required defaultValue=""><option value="" disabled>{copy.form.priorityPlaceholder}</option>{copy.form.priorityOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></label>
                 <FacilityField label={copy.form.name} name="name" required />
                 <FacilityField label={copy.form.email} name="email" type="email" required />
                 <FacilityField label={copy.form.phone} name="phone" type="tel" />
               </div>
-
-              <details className="als2-form-optional">
+              <details className="alx-form-optional">
                 <summary>{copy.form.optionalDetails}<ChevronRight size={18} aria-hidden="true" /></summary>
-                <div className="als-form-grid">
+                <div className="alx-form-grid">
                   <FacilityField label={copy.form.role} name="role" />
                   <FacilityField label={copy.form.sites} name="sites" />
-                  <label>
-                    <span>{copy.form.timeline}</span>
-                    <select name="timeline" defaultValue="">
-                      <option value="">{copy.form.timelinePlaceholder}</option>
-                      {copy.form.timelineOptions.map((option) => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </label>
-                  <label className="als-form-wide">
-                    <span>{copy.form.message}</span>
-                    <textarea name="message" rows={4} placeholder={copy.form.messagePlaceholder} />
-                  </label>
+                  <label><span>{copy.form.timeline}</span><select name="timeline" defaultValue=""><option value="">{copy.form.timelinePlaceholder}</option>{copy.form.timelineOptions.map((option) => <option key={option} value={option}>{option}</option>)}</select></label>
+                  <label className="alx-form-wide"><span>{copy.form.message}</span><textarea name="message" rows={4} placeholder={copy.form.messagePlaceholder} /></label>
                 </div>
               </details>
-
-              <p className="als-form-privacy">
-                {copy.form.privacyPrefix}{' '}
-                <Link to="/privacy-policy">{copy.form.privacyLink}</Link>.
-              </p>
-
-              <button className="btn btn-green als-form-submit" disabled={isSubmitting} type="submit">
+              <p className="alx-form-privacy">{copy.form.privacyPrefix} <Link to="/privacy-policy">{copy.form.privacyLink}</Link>.</p>
+              <button className="btn btn-green alx-form-submit" disabled={isSubmitting} type="submit">
                 {isSubmitting ? copy.form.submitting : copy.form.submit}
-                {isSubmitting ? (
-                  <LoaderCircle className="animate-spin" size={20} aria-hidden="true" />
-                ) : (
-                  <ArrowRight size={20} aria-hidden="true" />
-                )}
+                {isSubmitting ? <LoaderCircle className="animate-spin" size={20} aria-hidden="true" /> : <ArrowRight size={20} aria-hidden="true" />}
               </button>
-
-              {submitError ? (
-                <p className="als-form-message is-error" role="alert">
-                  <AlertCircle size={19} aria-hidden="true" />
-                  {submitError}
-                </p>
-              ) : null}
-              {submitted ? (
-                <p className="als-form-message is-success" role="status">
-                  <CheckCircle2 size={19} aria-hidden="true" />
-                  {copy.form.success}
-                </p>
-              ) : null}
-              <p className="als-form-note">{copy.form.note}</p>
+              {submitError ? <p className="alx-form-message is-error" role="alert"><AlertCircle size={19} aria-hidden="true" />{submitError}</p> : null}
+              {submitted ? <p className="alx-form-message is-success" role="status"><CheckCircle2 size={19} aria-hidden="true" />{copy.form.success}</p> : null}
+              <p className="alx-form-note">{copy.form.note}</p>
             </form>
           </div>
         </section>
@@ -1525,21 +1285,6 @@ export function AssistedLivingSolutionsPage() {
   )
 }
 
-function FacilityField({
-  label,
-  name,
-  required,
-  type = 'text',
-}: {
-  label: string
-  name: string
-  required?: boolean
-  type?: 'email' | 'tel' | 'text'
-}) {
-  return (
-    <label>
-      <span>{label}</span>
-      <input name={name} required={required} type={type} />
-    </label>
-  )
+function FacilityField({ label, name, required, type = 'text' }: { label: string; name: string; required?: boolean; type?: 'email' | 'tel' | 'text' }) {
+  return <label><span>{label}</span><input name={name} required={required} type={type} /></label>
 }

@@ -4,7 +4,6 @@ import {
   Check,
   ChevronLeft,
   ClipboardCheck,
-  FileCheck,
   FileText,
   Home,
   LoaderCircle,
@@ -14,6 +13,8 @@ import {
   X,
 } from 'lucide-react'
 import {
+  lazy,
+  Suspense,
   useEffect,
   useRef,
   useState,
@@ -26,6 +27,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { ReportDeliveryForm } from './ReportDeliveryForm'
+import { PhotoAnalysisCards, ScoreExplanation } from './SafetyReportInsights'
 import {
   generateSafetyReport,
   getEstimateRiskAssessment,
@@ -39,6 +41,7 @@ import {
 import { isReportDeliveryReady, type ReportDeliveryFormValue } from '../utils/reportDelivery'
 import { trackEvent } from '../utils/analytics'
 import { consumeSafetyReportModalRequest, safetyReportModalEvent } from '../utils/safetyReportModal'
+import { classifyRoomPhoto } from '../services/roomPhotoClassification'
 
 type WizardStep = 0 | 1 | 2 | 3
 type SubmissionStatus = 'idle' | 'loading' | 'success' | 'error'
@@ -133,6 +136,11 @@ const fallbackMobilityProfiles: Option[] = [
 
 const fallbackStepLabels = ['Photos', 'Home', 'Contact', 'Report']
 const estimatorDraftStorageKey = 'casamia-estimator-draft'
+const HomeSafetyWizardModalContent = lazy(() =>
+  import('../pages/HomeSafetyWizardPage').then((module) => ({
+    default: module.HomeSafetyWizardPage,
+  })),
+)
 
 export function UploadEstimator() {
   const { i18n, t } = useTranslation()
@@ -141,6 +149,7 @@ export function UploadEstimator() {
   const [photos, setPhotos] = useState<EstimatePhoto[]>([])
   const [form, setForm] = useState<EstimateForm>(() => getSavedEstimatorForm())
   const [wizardOpen, setWizardOpen] = useState(false)
+  const [proposalWizardOpen, setProposalWizardOpen] = useState(false)
   const [step, setStep] = useState<WizardStep>(() => getSavedEstimatorStep())
   const [status, setStatus] = useState<SubmissionStatus>('idle')
   const [deliveryStatus, setDeliveryStatus] = useState<DeliveryStatus>('idle')
@@ -208,6 +217,33 @@ export function UploadEstimator() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!proposalWizardOpen) return
+
+    const bodyOverflow = document.body.style.overflow
+    const documentOverflow = document.documentElement.style.overflow
+    document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.key === 'Escape'
+        && !event.defaultPrevented
+        && !document.querySelector('dialog[open]')
+      ) {
+        setProposalWizardOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = bodyOverflow
+      document.documentElement.style.overflow = documentOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [proposalWizardOpen])
+
   function updateForm(field: keyof EstimateForm, value: string | boolean) {
     setForm((current) => ({ ...current, [field]: value }) as EstimateForm)
   }
@@ -224,46 +260,51 @@ export function UploadEstimator() {
       return
     }
 
-    setPhotos((current) => {
-      const remainingSlots = maxPhotos - current.length
-      const selected = files.slice(0, remainingSlots)
-      const rejected = files.length - selected.length
-      const accepted: EstimatePhoto[] = []
-      const messages: string[] = []
+    const remainingSlots = maxPhotos - photos.length
+    const selected = files.slice(0, remainingSlots)
+    const rejected = files.length - selected.length
+    const accepted: EstimatePhoto[] = []
+    const messages: string[] = []
 
-      selected.forEach((file) => {
-        if (isHeic(file)) {
-          messages.push(t('estimator.workflow.errors.heic'))
-          return
-        }
+    selected.forEach((file) => {
+      if (isHeic(file)) {
+        messages.push(t('estimator.workflow.errors.heic'))
+        return
+      }
 
-        if (!isAcceptedImage(file)) {
-          messages.push(t('estimator.workflow.errors.unsupported', { file: file.name }))
-          return
-        }
+      if (!isAcceptedImage(file)) {
+        messages.push(t('estimator.workflow.errors.unsupported', { file: file.name }))
+        return
+      }
 
-        if (file.size > maxFileSize) {
-          messages.push(t('estimator.workflow.errors.tooLarge', { file: file.name }))
-          return
-        }
+      if (file.size > maxFileSize) {
+        messages.push(t('estimator.workflow.errors.tooLarge', { file: file.name }))
+        return
+      }
 
-        accepted.push({
-          id: createPhotoId(),
-          file,
-          previewUrl: URL.createObjectURL(file),
-          room: guessRoom(file.name),
-        })
+      accepted.push({
+        id: createPhotoId(),
+        file,
+        previewUrl: URL.createObjectURL(file),
+        room: guessRoom(file.name),
       })
+    })
 
-      if (rejected > 0) {
-        messages.push(t('estimator.workflow.errors.maxPhotos', { count: maxPhotos }))
-      }
+    if (rejected > 0) {
+      messages.push(t('estimator.workflow.errors.maxPhotos', { count: maxPhotos }))
+    }
 
-      if (messages.length > 0) {
-        setFileMessage(Array.from(new Set(messages)).join(' '))
-      }
+    if (messages.length > 0) {
+      setFileMessage(Array.from(new Set(messages)).join(' '))
+    }
 
-      return [...current, ...accepted]
+    setPhotos((current) => [...current, ...accepted])
+    accepted.forEach((photo) => {
+      void classifyRoomPhoto(photo.file).then((classification) => {
+        if (classification.room !== 'other') {
+          updatePhotoRoom(photo.id, roomValueFromClassification(classification.room))
+        }
+      })
     })
   }
 
@@ -387,7 +428,7 @@ export function UploadEstimator() {
       <div className="free-check-grid">
         <button type="button" className="free-check-card is-primary" onClick={openWizard}>
           <span className="free-check-icon is-report">
-            <FileCheck size={23} aria-hidden="true" />
+            <ShieldCheck size={23} aria-hidden="true" />
           </span>
           <span className="free-check-copy">
             <strong>{t('hero.safetyCheck.title')}</strong>
@@ -396,9 +437,16 @@ export function UploadEstimator() {
             <ArrowRight size={20} />
           </span>
         </button>
-        <Link className="free-check-card is-grant" to="/configure">
+        <button
+          type="button"
+          className="free-check-card is-proposal"
+          onClick={() => {
+            setProposalWizardOpen(true)
+            trackEvent('home_safety_proposal_opened', { location: 'hero' })
+          }}
+        >
           <span className="free-check-icon is-grant">
-            <Home size={23} aria-hidden="true" />
+            <FileText size={23} aria-hidden="true" />
           </span>
           <span className="free-check-copy">
             <strong>{t('hero.buildPlan.title')}</strong>
@@ -406,7 +454,7 @@ export function UploadEstimator() {
           <span className="free-check-arrow" aria-hidden="true">
             <ArrowRight size={20} />
           </span>
-        </Link>
+        </button>
       </div>
       <input
         ref={inputRef}
@@ -505,6 +553,7 @@ export function UploadEstimator() {
               {step === 3 ? (
                 <ResultStep
                   errorMessage={errorMessage}
+                  photos={photos}
                   report={report}
                   status={status}
                   onRetry={() => {
@@ -553,6 +602,48 @@ export function UploadEstimator() {
               </div>
             ) : null}
           </div>
+        </div>,
+        document.body,
+      ) : null}
+
+      {proposalWizardOpen ? createPortal(
+        <div
+          className="home-proposal-modal-backdrop"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setProposalWizardOpen(false)
+            }
+          }}
+        >
+          <section
+            className="home-proposal-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label={t('hero.buildPlan.title')}
+          >
+            <button
+              autoFocus
+              type="button"
+              className="home-proposal-modal-close"
+              aria-label={t('common.close')}
+              onClick={() => setProposalWizardOpen(false)}
+            >
+              <X size={22} aria-hidden="true" />
+            </button>
+            <div className="home-proposal-modal-scroll">
+              <Suspense
+                fallback={(
+                  <div className="home-proposal-modal-loading" role="status">
+                    <LoaderCircle size={28} aria-hidden="true" />
+                    <span>{t('common.loading', { defaultValue: 'Loading...' })}</span>
+                  </div>
+                )}
+              >
+                <HomeSafetyWizardModalContent embedded />
+              </Suspense>
+            </div>
+          </section>
         </div>,
         document.body,
       ) : null}
@@ -748,11 +839,13 @@ function DeliveryStep({
 function ResultStep({
   status,
   errorMessage,
+  photos,
   report,
   onRetry,
 }: {
   status: SubmissionStatus
   errorMessage: string
+  photos: EstimatePhoto[]
   report: EstimateReport | null
   onRetry: () => void
 }) {
@@ -791,6 +884,9 @@ function ResultStep({
     report,
     t('estimator.workflow.result.preventionStats.items', { returnObjects: true }),
   )
+  const previewByPhotoId = Object.fromEntries(
+    photos.map((photo) => [photo.id, photo.previewUrl]),
+  )
 
   return (
     <section className="estimate-result-layout">
@@ -812,32 +908,10 @@ function ResultStep({
             riskLevel={risk.riskLevel}
           />
         </div>
-        <div className="estimate-result-section">
-          <h4>{t('estimator.hazardsLabel')}</h4>
-          <ul>
-            {report.hazards.map((hazard) => (
-              <li key={`${hazard.room}-${hazard.issue}`}>
-                <Check size={17} aria-hidden="true" />
-                <span>
-                  <strong>{hazard.room}:</strong> {hazard.issue}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="estimate-result-section">
-          <h4>{t('estimator.workflow.result.mitigationTitle')}</h4>
-          <ul>
-            {report.hazards.map((hazard) => (
-              <li key={`${hazard.room}-${hazard.recommendation}`}>
-                <ShieldCheck size={17} aria-hidden="true" />
-                <span>
-                  <strong>{hazard.room}:</strong> {hazard.recommendation}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <PhotoAnalysisCards
+          analyses={report.photoAnalyses ?? []}
+          previewByPhotoId={previewByPhotoId}
+        />
         <div className="estimate-result-section">
           <h4>{t('estimator.workflow.result.preventionStats.title')}</h4>
           <div className="estimate-evidence-grid">
@@ -852,24 +926,7 @@ function ResultStep({
         </div>
       </div>
       <aside className="estimate-result-side">
-        <div className={`estimate-risk-score ${getRiskToneClass(risk.riskLevel)}`}>
-          <span>{risk.riskScore}%</span>
-          <small>{t(`estimator.workflow.result.riskLevels.${risk.riskLevel}`)}</small>
-        </div>
-        <p className="mt-4 text-sm font-semibold text-text-mid">
-          {t('estimator.workflow.result.riskHelper')}
-        </p>
-        <div className="estimate-result-section estimate-risk-factors">
-          <h4>{t('estimator.workflow.result.riskReasonsTitle')}</h4>
-          <ul>
-            {risk.riskFactors.map((factor) => (
-              <li key={factor}>
-                <Check size={17} aria-hidden="true" />
-                <span>{factor}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ScoreExplanation report={report} risk={risk} />
         <p className="font-bold text-navy">{t('estimator.workflow.result.deliveryTitle')}</p>
         <p className="mt-2 text-sm text-text-mid">
           {buildDeliveryMessage(report, t('estimator.workflow.result.emailQueued'), t('estimator.workflow.result.whatsappQueued')) ||
@@ -1141,6 +1198,20 @@ function guessRoom(fileName: string) {
   if (lower.includes('entry') || lower.includes('entrada')) return 'Entrance'
 
   return 'Living room'
+}
+
+function roomValueFromClassification(room: string) {
+  const values: Record<string, string> = {
+    bathroom: 'Bathroom',
+    bedroom: 'Bedroom',
+    kitchen: 'Kitchen',
+    'living-room': 'Living room',
+    stairs: 'Stairs',
+    entrance: 'Entrance',
+    outdoor: 'Other',
+  }
+
+  return values[room] ?? 'Other'
 }
 
 function getOptions(value: unknown, fallback: Option[]) {

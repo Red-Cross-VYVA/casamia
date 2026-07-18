@@ -820,7 +820,7 @@
   align-items: end;
 }
 
-.safety-wizard-media-controls label span {
+.safety-wizard-media-room-label {
   display: block;
   margin-bottom: 4px;
   color: var(--text-muted);
@@ -849,8 +849,10 @@
 
 .safety-wizard-media-controls button {
   display: grid;
+  align-self: start;
   width: 44px;
   height: 44px;
+  margin-top: 19px;
   place-items: center;
   border: 0;
   border-radius: 50%;
@@ -893,6 +895,29 @@
   font-weight: 900;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+}
+
+.safety-wizard-room-detection {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 18px;
+  margin-top: 6px;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.safety-wizard-room-detection.is-unavailable {
+  color: var(--text-muted);
+}
+
+.safety-wizard-room-detection.is-detecting svg {
+  animation: safety-wizard-room-spin 900ms linear infinite;
+}
+
+@keyframes safety-wizard-room-spin {
+  to { transform: rotate(360deg); }
 }
 
 .safety-wizard-mic {
@@ -2505,6 +2530,7 @@
   }
 
   .safety-wizard-agent-spinner,
+  .safety-wizard-room-detection.is-detecting svg,
   .safety-wizard-recorder.is-speaking .safety-wizard-mic::before,
   .safety-wizard-recorder.is-connecting .safety-wizard-agent-status-dot,
   .safety-wizard-recorder.is-disconnecting .safety-wizard-agent-status-dot {

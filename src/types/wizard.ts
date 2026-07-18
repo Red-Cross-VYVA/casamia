@@ -106,6 +106,9 @@ export type WizardPhoto = {
   storagePath?: string
   file?: File
   previewUrl?: string
+  roomDetectionStatus?: 'detecting' | 'detected' | 'manual' | 'unavailable'
+  roomDetectionSource?: 'image' | 'filename'
+  roomDetectionConfidence?: number
 }
 
 export type WizardVoiceTranscriptMessage = {
@@ -200,7 +203,7 @@ export type SafetyWizardState = {
   callbackRequest: WizardCallbackRequest
   callbackSubmission?: WizardCallbackSubmission
   inspectionBooked: boolean
-  inspectionFee: 89
+  inspectionFee: 99
   inspectionCreditThreshold: 300
   contact: WizardContact
   result?: WizardResult

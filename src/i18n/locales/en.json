@@ -42,7 +42,7 @@
     "cta": "Find Out for Free",
     "micro": "Upload photos · No commitment",
     "safetyCheck": {
-      "title": "Free Safety Report",
+      "title": "Is your home safe?",
       "body": "Find hidden risks at home and what to review first.",
       "cta": "Start free report"
     },
@@ -52,7 +52,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Safer home plan"
+      "title": "Free personalised home safety proposal"
     }
   },
   "reportDelivery": {
@@ -566,23 +566,26 @@
       },
       "result": {
         "loadingTitle": "Preparing your safety report...",
-        "loadingBody": "We are reviewing each room photo and preparing the secure link so we can send it to you.",
+        "loadingBody": "We are analysing each photo, separating visible evidence from details that still need confirmation, and calculating your prevention priorities.",
         "retry": "Try again",
         "kicker": "Report ready",
-        "title": "Your room-by-room safety report",
+        "title": "Your personalised home-safety review",
         "reportTitle": "Safety Report",
+        "photoReviewKicker": "Visual review",
+        "photoReviewTitle": "What each photo shows",
+        "photoReviewBody": "Each finding is tied to visible evidence. Anything the image cannot confirm is clearly marked.",
         "photosReviewed": "Photos reviewed",
-        "risksFound": "Risks found",
+        "risksFound": "Visible findings",
         "preventionPriority": "Prevention priority",
         "priorityHigh": "High",
         "priorityMedium": "Medium",
-        "riskHelper": "Based on photos, room risks, mobility profile, urgency, and notes.",
-        "riskReasonsTitle": "Why this risk level",
+        "riskHelper": "A prevention-priority score based on visible evidence, your circumstances, and timing. It is not a prediction of a fall.",
+        "riskReasonsTitle": "How this score was calculated",
         "riskLevels": {
-          "low": "Low risk",
-          "moderate": "Moderate risk",
-          "elevated": "Elevated risk",
-          "high": "High risk"
+          "low": "Low priority",
+          "moderate": "Moderate priority",
+          "elevated": "Elevated priority",
+          "high": "High priority"
         },
         "mitigationTitle": "How CasaMia can reduce these risks",
         "preventionStats": {
@@ -783,15 +786,15 @@
     },
     "report": {
       "back": "Start a new safety report",
-      "title": "Your CasaMia safety report.",
-      "intro": "This secure report summarises the potential safety issues and preventive steps without exposing private photo URLs.",
+      "title": "Your personalised CasaMia safety review.",
+      "intro": "See what is visible in each photo, why it matters, what to do next, and exactly how your prevention-priority score was calculated.",
       "loading": "Loading report...",
       "notFoundTitle": "Report not found",
       "notFoundBody": "This link may have expired or the report may only exist on the original device in demo mode.",
-      "summaryLabel": "Safety summary",
-      "findingsTitle": "Room-by-room findings",
+      "summaryLabel": "Your review at a glance",
+      "findingsTitle": "What deserves attention first",
       "privateLabel": "Private by design",
-      "privateBody": "Photo files remain private. This page only shows the safety findings, mitigation guidance, and prevention evidence.",
+      "privateBody": "Your photo files remain private. The report stores only the evidence-led review and practical recommendations.",
       "photoCount": "Photos reviewed",
       "postcode": "Postcode",
       "expires": "Link expires"

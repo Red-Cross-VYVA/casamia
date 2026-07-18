@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { Readable } from 'node:stream'
 
 import finalizeAssessmentMedia from '../api/public/assessment-media-finalize.js'
+import { classifyRoomImage, parseRoomClassification } from '../api/public/classify-room-photo.js'
 import { getWizardPriceRange } from '../src/config/wizardPricing.ts'
 import { buildWizardSteps } from '../src/services/wizardSteps.ts'
 import { generateWizardResult } from '../src/services/wizardRecommendationEngine.ts'
@@ -14,6 +15,7 @@ import {
   WIZARD_MEDIA_BUCKETS,
 } from '../api/_lib/wizard-media.js'
 import { createSignedStorageUploadUrl, ensurePrivateStorageBucket } from '../api/_lib/supabase.js'
+import { inferRoomFromFileName } from '../src/services/roomPhotoClassification.ts'
 import { WIZARD_CALLBACK_TIME_WINDOWS } from '../src/types/wizard.ts'
 
 function makeState(overrides = {}) {
@@ -36,7 +38,7 @@ function makeState(overrides = {}) {
       consent: false,
     },
     inspectionBooked: false,
-    inspectionFee: 89,
+    inspectionFee: 99,
     inspectionCreditThreshold: 300,
     contact: {
       fullName: '',
@@ -180,6 +182,46 @@ function makeService(overrides = {}) {
     if (originalWindow === undefined) delete globalThis.window
     else globalThis.window = originalWindow
   }
+}
+
+{
+  assert.equal(inferRoomFromFileName('IMG_baño_01.jpg'), 'bathroom')
+  assert.equal(inferRoomFromFileName('main-bedroom.webp'), 'bedroom')
+  assert.equal(inferRoomFromFileName('entrada principal.png'), 'entrance')
+  assert.equal(inferRoomFromFileName('holiday-photo.jpg'), 'other')
+}
+
+{
+  assert.deepEqual(
+    parseRoomClassification({ content: [{ type: 'text', text: '{"room":"kitchen","confidence":1.2}' }] }),
+    { room: 'kitchen', confidence: 1 },
+    'Vision output should be restricted to known rooms with normalized confidence.',
+  )
+
+  let apiRequest
+  const classification = await classifyRoomImage(
+    { mediaType: 'image/jpeg', data: 'aGVsbG8=' },
+    {
+      env: { ANTHROPIC_API_KEY: 'test-key', ANTHROPIC_VISION_MODEL: 'test-vision-model' },
+      fetchImpl: async (url, init) => {
+        apiRequest = { url, init }
+        return {
+          ok: true,
+          json: async () => ({ content: [{ type: 'text', text: '{"room":"bathroom","confidence":0.92}' }] }),
+        }
+      },
+    },
+  )
+
+  assert.deepEqual(classification, { room: 'bathroom', confidence: 0.92 })
+  assert.equal(apiRequest.url, 'https://api.anthropic.com/v1/messages')
+  assert.equal(JSON.parse(apiRequest.init.body).model, 'test-vision-model')
+
+  await assert.rejects(
+    () => classifyRoomImage({ mediaType: 'image/jpeg', data: 'aGVsbG8=' }, { env: {} }),
+    (error) => error.statusCode === 503,
+    'Room recognition should fail safely when the server-only API key is missing.',
+  )
 }
 
 {

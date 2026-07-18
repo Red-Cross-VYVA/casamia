@@ -4,6 +4,13 @@ import {
   hasPublicSiteApi,
   postPublicSiteJson,
 } from './publicSiteApi'
+import { analyseSafetyPhoto } from './safetyPhotoAnalysis.ts'
+import {
+  buildOverallSafetyScore,
+  scorePhotoFindings,
+  type EstimatePhotoAnalysis,
+  type EstimateScoreBreakdown,
+} from './safetyReportScoring.ts'
 
 export type EstimateSeverity = 'low' | 'medium' | 'high'
 export type EstimateRiskLevel = 'low' | 'moderate' | 'elevated' | 'high'
@@ -53,10 +60,15 @@ type LegacyEstimateWorkflowInput = EstimateWorkflowInput & {
 }
 
 export type EstimateHazard = {
+  photoId?: string
   room: string
   issue: string
+  evidence?: string
   severity: EstimateSeverity
+  confidence?: number
+  whyItMatters?: string
   recommendation: string
+  requiresConfirmation?: boolean
 }
 
 export type EstimatePreventionStat = {
@@ -76,6 +88,9 @@ export type EstimateReport = {
   riskLevel: EstimateRiskLevel
   riskFactors: string[]
   hazards: EstimateHazard[]
+  photoAnalyses?: EstimatePhotoAnalysis[]
+  scoreBreakdown?: EstimateScoreBreakdown[]
+  analysisCoverage?: number
   preventionStats?: EstimatePreventionStat[]
   followUpQuestions: string[]
   delivery: {
@@ -120,11 +135,13 @@ const apiBase = (import.meta.env.VITE_ESTIMATE_API_URL ?? '').replace(/\/$/, '')
 const publicApiBase = getPublicSiteApiBaseUrl()
 
 export async function generateSafetyReport(input: EstimateWorkflowInput) {
+  const photoAnalyses = await analyseSubmittedPhotos(input)
+
   if (apiBase) {
-    return submitViaApi(input)
+    return enrichReportWithPhotoAnalysis(await submitViaApi(input), input, photoAnalyses)
   }
 
-  return submitLocalDemo(input)
+  return submitLocalDemo(input, photoAnalyses)
 }
 
 export async function sendReportDelivery(input: ReportDeliveryInput) {
@@ -161,11 +178,7 @@ export async function sendReportDelivery(input: ReportDeliveryInput) {
 }
 
 export async function submitEstimateWorkflow(input: LegacyEstimateWorkflowInput) {
-  if (apiBase) {
-    return submitViaApi(input)
-  }
-
-  const report = await submitLocalDemo(input)
+  const report = await generateSafetyReport(input)
 
   await sendReportDelivery({
     reportType: 'safety',
@@ -266,7 +279,10 @@ async function submitViaApi(input: EstimateWorkflowInput) {
   return (await analyseResponse.json()) as EstimateReport
 }
 
-async function submitLocalDemo(input: EstimateWorkflowInput) {
+async function submitLocalDemo(
+  input: EstimateWorkflowInput,
+  photoAnalyses: EstimatePhotoAnalysis[] = [],
+) {
   const token = createToken()
   const createdAt = new Date()
   const expiresAt = new Date(createdAt)
@@ -274,7 +290,13 @@ async function submitLocalDemo(input: EstimateWorkflowInput) {
 
   await new Promise((resolve) => window.setTimeout(resolve, 900))
 
-  const report = buildLocalReport(input, token, createdAt.toISOString(), expiresAt.toISOString())
+  const report = buildLocalReport(
+    input,
+    token,
+    createdAt.toISOString(),
+    expiresAt.toISOString(),
+    photoAnalyses,
+  )
   persistLocalReport(report)
 
   return report
@@ -326,6 +348,9 @@ function buildPublicReportPayload(input: ReportDeliveryInput) {
         riskLevel: report?.riskLevel,
         riskFactors: report?.riskFactors ?? [],
         hazards: report?.hazards ?? [],
+        photoAnalyses: report?.photoAnalyses ?? [],
+        scoreBreakdown: report?.scoreBreakdown ?? [],
+        analysisCoverage: report?.analysisCoverage ?? 0,
         preventionStats: report?.preventionStats ?? [],
         followUpQuestions: report?.followUpQuestions ?? [],
       },
@@ -356,6 +381,12 @@ function normalisePublicSafetyReport(raw: Record<string, unknown>, token: string
   const hazards = getArray(recommendations.hazards).filter(isEstimateHazard)
   const preventionStats = getArray(recommendations.preventionStats ?? recommendations.prevention_stats)
     .filter(isEstimatePreventionStat)
+  const photoAnalyses = getArray(
+    recommendations.photoAnalyses ?? recommendations.photo_analyses,
+  ).filter(isEstimatePhotoAnalysis)
+  const scoreBreakdown = getArray(
+    recommendations.scoreBreakdown ?? recommendations.score_breakdown,
+  ).filter(isEstimateScoreBreakdown)
   const riskScore = clampRiskScore(
     safeNumber(
       recommendations.riskScore ??
@@ -387,6 +418,11 @@ function normalisePublicSafetyReport(raw: Record<string, unknown>, token: string
       .map((item) => safeString(item))
       .filter(Boolean),
     hazards,
+    photoAnalyses,
+    scoreBreakdown,
+    analysisCoverage: safeNumber(
+      recommendations.analysisCoverage ?? recommendations.analysis_coverage,
+    ),
     preventionStats,
     followUpQuestions: getArray(
       recommendations.followUpQuestions ?? recommendations.follow_up_questions,
@@ -472,26 +508,147 @@ function getDefaultExpiry(createdAt: string) {
   return expiresAt.toISOString()
 }
 
+function isEstimatePhotoAnalysis(value: unknown): value is EstimatePhotoAnalysis {
+  const analysis = getRecord(value)
+
+  return Boolean(
+    analysis
+      && typeof analysis.photoId === 'string'
+      && typeof analysis.fileName === 'string'
+      && typeof analysis.headline === 'string'
+      && Array.isArray(analysis.findings)
+      && (analysis.analysisStatus === 'analysed' || analysis.analysisStatus === 'unavailable'),
+  )
+}
+
+function isEstimateScoreBreakdown(value: unknown): value is EstimateScoreBreakdown {
+  const item = getRecord(value)
+
+  return Boolean(
+    item
+      && typeof item.label === 'string'
+      && typeof item.points === 'number'
+      && typeof item.maxPoints === 'number'
+      && typeof item.explanation === 'string',
+  )
+}
+
+async function analyseSubmittedPhotos(input: EstimateWorkflowInput) {
+  const results: EstimatePhotoAnalysis[] = new Array(input.photos.length)
+  let cursor = 0
+  const workerCount = Math.min(2, input.photos.length)
+
+  async function worker() {
+    while (cursor < input.photos.length) {
+      const index = cursor
+      cursor += 1
+      const photo = input.photos[index]
+
+      try {
+        const analysis = await analyseSafetyPhoto(photo.file, {
+          assignedRoom: photo.room,
+          context: input.context,
+          locale: input.locale,
+        })
+        const scoring = scorePhotoFindings(analysis.findings, input.locale)
+
+        results[index] = {
+          photoId: photo.id,
+          fileName: photo.file.name,
+          assignedRoom: photo.room,
+          detectedRoom: analysis.room,
+          roomConfidence: analysis.roomConfidence,
+          headline: analysis.headline,
+          overview: analysis.overview,
+          strengths: analysis.strengths,
+          limitations: analysis.limitations,
+          findings: analysis.findings,
+          ...scoring,
+          analysisStatus: 'analysed',
+        }
+      } catch {
+        const isSpanish = input.locale.startsWith('es')
+        results[index] = {
+          photoId: photo.id,
+          fileName: photo.file.name,
+          assignedRoom: photo.room,
+          detectedRoom: photo.room,
+          roomConfidence: 0,
+          headline: isSpanish ? 'Foto pendiente de revisión' : 'Photo awaiting review',
+          overview: isSpanish
+            ? 'No se pudo ejecutar el análisis visual automático. No hemos inventado riesgos para esta imagen.'
+            : 'Automatic visual analysis could not run. No image-specific risks have been invented.',
+          strengths: [],
+          limitations: [
+            isSpanish
+              ? 'Una revisión profesional o una nueva foto confirmará los detalles visibles.'
+              : 'A professional review or a new photo can confirm the visible details.',
+          ],
+          findings: [],
+          riskScore: 0,
+          riskLevel: 'low',
+          scoreExplanation: isSpanish
+            ? 'Sin puntuación visual: la imagen no fue analizada.'
+            : 'No visual score: the image was not analysed.',
+          analysisStatus: 'unavailable',
+        }
+      }
+    }
+  }
+
+  await Promise.all(Array.from({ length: workerCount }, () => worker()))
+  return results.filter(Boolean)
+}
+
+function enrichReportWithPhotoAnalysis(
+  report: EstimateReport,
+  input: EstimateWorkflowInput,
+  photoAnalyses: EstimatePhotoAnalysis[],
+): EstimateReport {
+  const scoring = buildOverallSafetyScore(photoAnalyses, input.context, input.locale)
+  const hazards = buildHazardsFromPhotoAnalysis(photoAnalyses)
+
+  return {
+    ...report,
+    summary: buildSmartReportSummary(input, photoAnalyses, hazards),
+    riskScore: scoring.riskScore,
+    riskLevel: scoring.riskLevel,
+    riskFactors: scoring.scoreBreakdown.map(
+      (item) => `${item.label}: ${item.points}/${item.maxPoints}. ${item.explanation}`,
+    ),
+    hazards,
+    photoAnalyses,
+    scoreBreakdown: scoring.scoreBreakdown,
+    analysisCoverage: scoring.analysisCoverage,
+  }
+}
+
 function buildLocalReport(
   input: EstimateWorkflowInput,
   token: string,
   createdAt: string,
   expiresAt: string,
+  photoAnalyses: EstimatePhotoAnalysis[],
 ): EstimateReport {
   const rooms = Array.from(new Set(input.photos.map((photo) => photo.room).filter(Boolean)))
-  const hazards = buildPhotoHazards(input)
-  const riskAssessment = buildRiskAssessment(input, hazards)
+  const hazards = buildHazardsFromPhotoAnalysis(photoAnalyses)
+  const riskAssessment = buildOverallSafetyScore(photoAnalyses, input.context, input.locale)
 
   return {
     token,
     createdAt,
     expiresAt,
     reportUrl: `${window.location.origin}/estimate/${token}`,
-    summary: buildReportSummary(input, hazards.length),
+    summary: buildSmartReportSummary(input, photoAnalyses, hazards),
     riskScore: riskAssessment.riskScore,
     riskLevel: riskAssessment.riskLevel,
-    riskFactors: riskAssessment.riskFactors,
+    riskFactors: riskAssessment.scoreBreakdown.map(
+      (item) => `${item.label}: ${item.points}/${item.maxPoints}. ${item.explanation}`,
+    ),
     hazards,
+    photoAnalyses,
+    scoreBreakdown: riskAssessment.scoreBreakdown,
+    analysisCoverage: riskAssessment.analysisCoverage,
     preventionStats: buildPreventionStats(input.locale),
     followUpQuestions: buildReportFollowUpQuestions(input),
     delivery: {
@@ -576,7 +733,7 @@ function augmentRiskFactors(
   ).slice(0, 5)
 }
 
-function buildRiskAssessment(
+export function buildRiskAssessment(
   input: EstimateWorkflowInput,
   hazards: EstimateHazard[],
 ): EstimateRiskAssessment {
@@ -995,7 +1152,7 @@ function buildFollowUpQuestions(input: EstimateWorkflowInput) {
   return questions
 }
 
-function buildPhotoHazards(input: EstimateWorkflowInput) {
+export function buildPhotoHazards(input: EstimateWorkflowInput) {
   if (input.photos.length === 0) {
     return buildHazards(input, [])
   }
@@ -1087,7 +1244,103 @@ function buildPhotoHazards(input: EstimateWorkflowInput) {
   return hazards
 }
 
-function buildReportSummary(input: EstimateWorkflowInput, hazardCount: number) {
+function buildHazardsFromPhotoAnalysis(photoAnalyses: EstimatePhotoAnalysis[]): EstimateHazard[] {
+  return photoAnalyses.flatMap((analysis) =>
+    analysis.findings.map((finding) => ({
+      photoId: analysis.photoId,
+      room: analysis.detectedRoom || analysis.assignedRoom,
+      issue: finding.title,
+      evidence: finding.evidence,
+      severity: finding.severity,
+      confidence: finding.confidence,
+      whyItMatters: finding.whyItMatters,
+      recommendation: finding.action,
+      requiresConfirmation: finding.requiresConfirmation,
+    })),
+  )
+}
+
+function buildSmartReportSummary(
+  input: EstimateWorkflowInput,
+  analyses: EstimatePhotoAnalysis[],
+  hazards: EstimateHazard[],
+) {
+  const isSpanish = input.locale.startsWith('es')
+  const analysedCount = analyses.filter((analysis) => analysis.analysisStatus === 'analysed').length
+  const highPriority = hazards.find((hazard) => hazard.severity === 'high')
+  const mediumPriority = hazards.find((hazard) => hazard.severity === 'medium')
+  const firstPriority = highPriority ?? mediumPriority ?? hazards[0]
+  const priorityRoom = firstPriority
+    ? localiseRoomName(firstPriority.room, isSpanish)
+    : ''
+  const personalContext = buildPersonalContextSummary(input.context, isSpanish)
+
+  if (analysedCount === 0) {
+    return isSpanish
+      ? `Hemos recibido ${analyses.length} ${analyses.length === 1 ? 'foto' : 'fotos'}, pero el análisis visual no estaba disponible. Por eso no mostramos riesgos genéricos como si hubieran sido detectados en las imágenes.`
+      : `We received ${analyses.length} ${analyses.length === 1 ? 'photo' : 'photos'}, but visual analysis was unavailable. We have therefore not shown generic room risks as if they were detected in the images.`
+  }
+
+  if (!firstPriority) {
+    return isSpanish
+      ? `Hemos analizado ${analysedCount} ${analysedCount === 1 ? 'foto' : 'fotos'} y no hemos visto un riesgo concreto con evidencia suficiente. Revisa las limitaciones de cada imagen: algunos detalles importantes necesitan otra perspectiva o una comprobación presencial.`
+      : `We analysed ${analysedCount} ${analysedCount === 1 ? 'photo' : 'photos'} and did not see a specific concern with enough evidence. Check each image's limitations because some important details need another angle or an on-site check.`
+  }
+
+  return isSpanish
+    ? `La prioridad más clara aparece en la foto de ${priorityRoom}: ${firstPriority.issue.toLowerCase()}.${personalContext} Debajo verás la evidencia, el motivo de la puntuación y qué conviene hacer primero.`
+    : `The clearest priority appears in the ${priorityRoom} photo: ${firstPriority.issue.toLowerCase()}.${personalContext} Below you can see the evidence, why it received its score, and what to do first.`
+}
+
+function buildPersonalContextSummary(
+  context: EstimateWorkflowInput['context'],
+  isSpanish: boolean,
+) {
+  const mobility = context.mobilityProfile.toLowerCase()
+
+  if (mobility.includes('recent fall')) {
+    return isSpanish
+      ? ' Como se ha indicado una caída reciente, damos más peso a los obstáculos de paso, apoyos y transferencias.'
+      : ' Because a recent fall was reported, walking routes, support points, and transfers receive more weight.'
+  }
+
+  if (mobility.includes('wheelchair') || mobility.includes('reduced mobility')) {
+    return isSpanish
+      ? ' Como se ha indicado movilidad reducida, damos más peso al acceso, el espacio de giro y los apoyos.'
+      : ' Because reduced mobility was reported, access, turning space, and support points receive more weight.'
+  }
+
+  if (mobility.includes('cane') || mobility.includes('walker')) {
+    return isSpanish
+      ? ' Como se utiliza apoyo para caminar, damos más peso a rutas despejadas, suelo estable y puntos de agarre.'
+      : ' Because a walking aid is used, clear routes, stable flooring, and support points receive more weight.'
+  }
+
+  if (mobility.includes('balance')) {
+    return isSpanish
+      ? ' Como se han indicado problemas ocasionales de equilibrio, damos más peso a resbalones, tropiezos y apoyos.'
+      : ' Because occasional balance concerns were reported, slips, trips, and support points receive more weight.'
+  }
+
+  return ''
+}
+
+function localiseRoomName(room: string, isSpanish: boolean) {
+  const labels: Record<string, [string, string]> = {
+    bathroom: ['bathroom', 'baño'],
+    bedroom: ['bedroom', 'dormitorio'],
+    kitchen: ['kitchen', 'cocina'],
+    'living-room': ['living room', 'salón'],
+    stairs: ['stairs', 'escaleras'],
+    entrance: ['entrance', 'entrada'],
+    outdoor: ['outdoor area', 'exterior'],
+    other: ['another area', 'otra zona'],
+  }
+
+  return labels[room]?.[isSpanish ? 1 : 0] ?? room
+}
+
+export function buildReportSummary(input: EstimateWorkflowInput, hazardCount: number) {
   if (input.locale.startsWith('es')) {
     const plural = hazardCount === 1 ? 'posible zona de riesgo' : 'posibles zonas de riesgo'
 
