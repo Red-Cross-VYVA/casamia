@@ -66,31 +66,31 @@ function PhotoAnalysisCard({
 
   return (
     <article className={`estimate-photo-analysis-card ${analysed ? '' : 'is-unavailable'}`}>
-      <div className="estimate-photo-analysis-media">
-        {previewUrl ? <img src={previewUrl} alt="" /> : (
-          <span aria-hidden="true"><Eye size={28} /></span>
-        )}
-        <b>{String(index + 1).padStart(2, '0')}</b>
-      </div>
+      <header className="estimate-photo-analysis-header">
+        <div className="estimate-photo-analysis-media">
+          {previewUrl ? <img src={previewUrl} alt={analysis.fileName} /> : (
+            <span aria-hidden="true"><Eye size={24} /></span>
+          )}
+          <b>{String(index + 1).padStart(2, '0')}</b>
+        </div>
+        <div className="estimate-photo-analysis-title">
+          <p>{analysis.fileName}</p>
+          <h5>{analysis.headline}</h5>
+          <span>
+            {formatRoom(analysis.detectedRoom || analysis.assignedRoom, isSpanish)}
+            {analysed && confidence > 0 ? ` · ${confidence}% ${isSpanish ? 'confianza de estancia' : 'room confidence'}` : ''}
+          </span>
+        </div>
+        <div className={`estimate-photo-score risk-${analysis.riskLevel}`}>
+          {analysed ? <strong>{analysis.riskScore}<small>/100</small></strong> : <strong>—</strong>}
+          <span>{analysed
+            ? t(`estimator.workflow.result.riskLevels.${analysis.riskLevel}`)
+            : (isSpanish ? 'Sin analizar' : 'Not analysed')}
+          </span>
+        </div>
+      </header>
 
       <div className="estimate-photo-analysis-content">
-        <header>
-          <div>
-            <p>{analysis.fileName}</p>
-            <h5>{analysis.headline}</h5>
-            <span>
-              {formatRoom(analysis.detectedRoom || analysis.assignedRoom, isSpanish)}
-              {analysed && confidence > 0 ? ` · ${confidence}% ${isSpanish ? 'confianza de estancia' : 'room confidence'}` : ''}
-            </span>
-          </div>
-          <div className={`estimate-photo-score risk-${analysis.riskLevel}`}>
-            {analysed ? <strong>{analysis.riskScore}<small>/100</small></strong> : <strong>—</strong>}
-            <span>{analysed
-              ? t(`estimator.workflow.result.riskLevels.${analysis.riskLevel}`)
-              : (isSpanish ? 'Sin analizar' : 'Not analysed')}
-            </span>
-          </div>
-        </header>
 
         <p className="estimate-photo-overview">{analysis.overview}</p>
         <p className="estimate-photo-score-reason">

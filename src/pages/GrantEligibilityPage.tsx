@@ -17,6 +17,8 @@ import { Link } from 'react-router-dom'
 
 import { ReportDeliveryForm } from '../components/ReportDeliveryForm'
 import { sendReportDelivery, type DeliveryChannelStatus } from '../services/estimateWorkflow'
+import { getPublicSiteJson, hasPublicSiteApi } from '../services/publicSiteApi'
+import { createPublicReportToken } from '../utils/publicReportToken'
 import { isReportDeliveryReady } from '../utils/reportDelivery'
 import { trackEvent } from '../utils/analytics'
 
@@ -37,7 +39,6 @@ type FormState = {
   deliveryWhatsapp: boolean
   consent: boolean
 }
-
 type Result = {
   title: string
   summary: string
@@ -86,7 +87,7 @@ export function GrantEligibilityPage() {
     whatsapp: DeliveryChannelStatus
   } | null>(null)
   const [errorMessage, setErrorMessage] = useState('')
-  const [reportToken] = useState(() => createGrantToken())
+  const [reportToken] = useState(() => getSharedGrantReportToken() || createPublicReportToken())
 
   const result = useMemo(() => calculateResult(form, copy), [form, copy])
   const canContinue = getStepCompletion(step, form)
@@ -102,6 +103,31 @@ export function GrantEligibilityPage() {
       }),
     )
   }, [form, step])
+
+  useEffect(() => {
+    const sharedToken = getSharedGrantReportToken()
+    if (!sharedToken || !hasPublicSiteApi()) return
+
+    let active = true
+    void getPublicSiteJson<Record<string, unknown>>(
+      `/api/public/grant-reports/${encodeURIComponent(sharedToken)}`,
+    ).then((savedReport) => {
+      if (!active) return
+      const recommendations = getGrantRecord(savedReport.recommendations)
+      const savedForm = getGrantRecord(recommendations?.form)
+      if (!savedForm) return
+
+      setForm((current) => ({ ...current, ...normaliseSharedGrantForm(savedForm) }))
+      setStep(3)
+      window.localStorage.removeItem(grantDraftStorageKey)
+    }).catch(() => {
+      // An invalid, expired, or unavailable shared link leaves the normal grant checker usable.
+    })
+
+    return () => {
+      active = false
+    }
+  }, [])
 
   function updateField<Field extends keyof FormState>(field: Field, value: FormState[Field]) {
     setForm((current) => ({ ...current, [field]: value }))
@@ -792,6 +818,38 @@ function formatGrantNeeds(values: string[], options: Option[], empty: string) {
   return values.map((value) => formatGrantValue(value, options, empty)).join(', ')
 }
 
+function getSharedGrantReportToken() {
+  const token = new URLSearchParams(window.location.search).get('report') ?? ''
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(token)
+    ? token
+    : ''
+}
+
+function getGrantRecord(value: unknown) {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : null
+}
+
+function normaliseSharedGrantForm(value: Record<string, unknown>): Partial<FormState> {
+  const text = (field: keyof FormState) =>
+    typeof value[field] === 'string' ? value[field].trim().slice(0, 200) : ''
+
+  return {
+    region: text('region'),
+    postcode: text('postcode'),
+    homeType: text('homeType'),
+    ownership: text('ownership'),
+    residentAge: text('residentAge'),
+    mobility: text('mobility'),
+    recognisedStatus: text('recognisedStatus'),
+    timeline: text('timeline'),
+    needs: Array.isArray(value.needs)
+      ? value.needs.filter((item): item is string => typeof item === 'string').slice(0, 20)
+      : [],
+  }
+}
+
 function getSavedGrantForm() {
   try {
     const draft = JSON.parse(window.localStorage.getItem(grantDraftStorageKey) ?? '{}') as {
@@ -1229,8 +1287,8 @@ function getGrantCopy(language: string) {
       contact: 'Add contact details, choose a delivery method, and accept consent to continue.',
     },
     delivery: {
-      email: 'The full report is ready to send by email.',
-      whatsapp: 'The WhatsApp message will contain only a secure report link.',
+        email: 'Your request is saved for email delivery. CasaMia will send the secure report link.',
+        whatsapp: 'Your request is saved for WhatsApp delivery. The message will contain only a secure report link.',
     },
     errors: {
       delivery: 'We could not queue the report delivery. Please try again.',
@@ -1315,12 +1373,4 @@ function getGrantCopy(language: string) {
       },
     },
   }
-}
-
-function createGrantToken() {
-  if (window.crypto?.randomUUID) {
-    return window.crypto.randomUUID()
-  }
-
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 12)}`
 }

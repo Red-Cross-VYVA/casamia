@@ -568,6 +568,9 @@
         "loadingTitle": "Preparando tu informe de seguridad...",
         "loadingBody": "Estamos analizando cada foto, separando la evidencia visible de lo que a\u00fan debe confirmarse y calculando tus prioridades preventivas.",
         "retry": "Intentar de nuevo",
+        "analysisRetryTitle": "Algunas fotos aún necesitan análisis visual",
+        "analysisRetryBody": "Conserva las fotos subidas y actualiza ahora el informe.",
+        "analysisRetryButton": "Reintentar análisis",
         "kicker": "Informe listo",
         "title": "Tu revisi\u00f3n personalizada de seguridad",
         "reportTitle": "Informe de seguridad",
@@ -610,8 +613,8 @@
         },
         "deliveryTitle": "Estado del envío",
         "readyToSend": "¿Quieres guardarlo? En el siguiente paso puedes recibir el enlace seguro por email o WhatsApp.",
-        "emailQueued": "El informe completo está listo para enviarse por email.",
-        "whatsappQueued": "El WhatsApp incluirá solamente un enlace seguro al informe.",
+        "emailQueued": "Tu solicitud queda guardada para envío por email. CasaMia enviará el enlace seguro al informe.",
+        "whatsappQueued": "Tu solicitud queda guardada para envío por WhatsApp. El mensaje incluirá solamente un enlace seguro.",
         "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
         "viewReport": "Ver página del informe",
         "bookAssessment": "Reservar evaluación a domicilio"
@@ -621,6 +624,7 @@
         "unsupported": "{{file}} no es un tipo de imagen compatible.",
         "tooLarge": "{{file}} supera los 8MB.",
         "maxPhotos": "Puedes subir hasta {{count}} fotos.",
+        "analysisUnavailable": "Aún no hemos podido analizar las fotos. Tus archivos están guardados; vuelve a intentar el análisis.",
         "submit": "No pudimos crear el informe. Inténtalo de nuevo.",
         "delivery": "No pudimos preparar el envío del informe. Inténtalo de nuevo."
       },
