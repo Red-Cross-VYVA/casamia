@@ -21,7 +21,7 @@ export type AssessmentRequestInput = {
 
 export type AssessmentMediaManifestItem = {
   id: string
-  kind: 'image' | 'video'
+  kind: 'image' | 'video' | 'audio'
   name: string
   room: string
   size: number
@@ -30,7 +30,7 @@ export type AssessmentMediaManifestItem = {
 
 export type AssessmentMediaUpload = {
   mediaId: string
-  kind: 'image' | 'video'
+  kind: 'image' | 'video' | 'audio'
   bucket: string
   objectPath: string
   signedUrl: string
@@ -148,7 +148,7 @@ export async function finalizeAssessmentMedia(
 
     if (response.status === 202) {
       if (attempt === maximumAttempts - 1) {
-        throw new Error('Your photos and videos are still being secured. Please try again in a moment.')
+        throw new Error('Your media files are still being secured. Please try again in a moment.')
       }
       const retryAfterMs = Math.min(Math.max(Number(body.retryAfterMs) || 750, 250), 1500)
       await new Promise((resolve) => setTimeout(resolve, retryAfterMs))
@@ -162,7 +162,7 @@ export async function finalizeAssessmentMedia(
     return body
   }
 
-  throw new Error('Your photos and videos could not be finalized. Please try again.')
+  throw new Error('Your media files could not be finalized. Please try again.')
 }
 
 async function readSubmissionError(response: Response) {

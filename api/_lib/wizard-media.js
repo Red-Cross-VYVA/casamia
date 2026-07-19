@@ -1,11 +1,14 @@
 import crypto from 'node:crypto'
 
 export const WIZARD_MEDIA_BUCKETS = Object.freeze({
+  audio: 'wizard-audio',
   image: 'wizard-images',
   video: 'wizard-videos',
 })
 export const WIZARD_MEDIA_LIMITS = Object.freeze({
   maxFiles: 8,
+  maxAudioFiles: 2,
+  maxAudioBytes: 25 * 1024 * 1024,
   maxVideos: 3,
   maxImageBytes: 8 * 1024 * 1024,
   maxVideoBytes: 50 * 1024 * 1024,
@@ -19,14 +22,29 @@ export const WIZARD_MEDIA_MIME_TYPES = Object.freeze([
   'video/mp4',
   'video/webm',
   'video/quicktime',
+  'audio/mpeg',
+  'audio/mp4',
+  'audio/webm',
+  'audio/wav',
+  'audio/ogg',
+  'audio/aac',
+  'audio/x-m4a',
 ])
 
 export const WIZARD_MEDIA_MIME_TYPES_BY_KIND = Object.freeze({
+  audio: Object.freeze(['audio/mpeg', 'audio/mp4', 'audio/webm', 'audio/wav', 'audio/ogg', 'audio/aac', 'audio/x-m4a']),
   image: Object.freeze(['image/jpeg', 'image/png', 'image/webp']),
   video: Object.freeze(['video/mp4', 'video/webm', 'video/quicktime']),
 })
 
 const mimeConfiguration = Object.freeze({
+  'audio/mpeg': { extension: 'mp3', kind: 'audio' },
+  'audio/mp4': { extension: 'm4a', kind: 'audio' },
+  'audio/webm': { extension: 'webm', kind: 'audio' },
+  'audio/wav': { extension: 'wav', kind: 'audio' },
+  'audio/ogg': { extension: 'ogg', kind: 'audio' },
+  'audio/aac': { extension: 'aac', kind: 'audio' },
+  'audio/x-m4a': { extension: 'm4a', kind: 'audio' },
   'image/jpeg': { extension: 'jpg', kind: 'image' },
   'image/png': { extension: 'png', kind: 'image' },
   'image/webp': { extension: 'webp', kind: 'image' },
@@ -60,6 +78,7 @@ export function validateWizardMediaManifest(value) {
     throw new WizardMediaValidationError(`A maximum of ${WIZARD_MEDIA_LIMITS.maxFiles} media files is allowed.`)
   }
 
+  let audioCount = 0
   let videoCount = 0
   let totalBytes = 0
   const seenIds = new Set()
@@ -86,13 +105,20 @@ export function validateWizardMediaManifest(value) {
 
     const maximumBytes = configuration.kind === 'video'
       ? WIZARD_MEDIA_LIMITS.maxVideoBytes
-      : WIZARD_MEDIA_LIMITS.maxImageBytes
+      : configuration.kind === 'audio'
+        ? WIZARD_MEDIA_LIMITS.maxAudioBytes
+        : WIZARD_MEDIA_LIMITS.maxImageBytes
     if (size > maximumBytes) {
       throw new WizardMediaValidationError(
-        configuration.kind === 'video' ? 'Videos must be 50 MB or smaller.' : 'Images must be 8 MB or smaller.',
+        configuration.kind === 'video'
+          ? 'Videos must be 50 MB or smaller.'
+          : configuration.kind === 'audio'
+            ? 'Audio files must be 25 MB or smaller.'
+            : 'Images must be 8 MB or smaller.',
       )
     }
 
+    if (configuration.kind === 'audio') audioCount += 1
     if (configuration.kind === 'video') videoCount += 1
     totalBytes += size
 
@@ -114,6 +140,9 @@ export function validateWizardMediaManifest(value) {
     }
   })
 
+  if (audioCount > WIZARD_MEDIA_LIMITS.maxAudioFiles) {
+    throw new WizardMediaValidationError(`A maximum of ${WIZARD_MEDIA_LIMITS.maxAudioFiles} audio files is allowed.`)
+  }
   if (videoCount > WIZARD_MEDIA_LIMITS.maxVideos) {
     throw new WizardMediaValidationError(`A maximum of ${WIZARD_MEDIA_LIMITS.maxVideos} videos is allowed.`)
   }

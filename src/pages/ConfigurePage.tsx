@@ -274,7 +274,9 @@ export function ConfigurePage() {
   const { setCurrentStep, setSelectedRooms, setSelectedServices, state } = configurator
   const [searchParams] = useSearchParams()
   const roomParam = parseRoomParam(searchParams.get('room'))
+  const serviceParam = searchParams.get('service')
   const roomParamApplied = useRef(false)
+  const serviceParamApplied = useRef(false)
   const serviceCatalogue = useServiceCatalogue()
   const quote = calculateConfiguratorQuote(state)
   const currentStep = Math.min(Math.max(state.currentStep, 0), wizardSteps.length - 1)
@@ -287,7 +289,7 @@ export function ConfigurePage() {
     (currentStep !== 5 || state.selectedServiceIds.length > 0)
 
   useEffect(() => {
-    if (!roomParam || roomParamApplied.current) {
+    if (!roomParam || serviceParam || roomParamApplied.current) {
       return
     }
 
@@ -301,7 +303,38 @@ export function ConfigurePage() {
     if (state.currentStep === 0) {
       setCurrentStep(1)
     }
-  }, [roomParam, setCurrentStep, setSelectedRooms, state])
+  }, [roomParam, serviceParam, setCurrentStep, setSelectedRooms, state])
+
+  useEffect(() => {
+    if (!serviceParam || serviceParamApplied.current) {
+      return
+    }
+
+    const service = serviceCatalogue.services.find(
+      (item) => item.id === serviceParam && item.active,
+    )
+
+    if (!service) {
+      return
+    }
+
+    serviceParamApplied.current = true
+    const selectedRoomIds = getSelectedRoomIds(state)
+    if (!selectedRoomIds.includes(service.room)) {
+      setSelectedRooms([...selectedRoomIds, service.room])
+    }
+    if (!state.selectedServiceIds.includes(service.id)) {
+      setSelectedServices([...state.selectedServiceIds, service.id])
+    }
+    setCurrentStep(5)
+  }, [
+    serviceCatalogue.services,
+    serviceParam,
+    setCurrentStep,
+    setSelectedRooms,
+    setSelectedServices,
+    state,
+  ])
 
   function goNext() {
     if (!canContinue) {

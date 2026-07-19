@@ -2,6 +2,7 @@ import type {
   ClientNeed,
   ClientSiteCount,
   ClientType,
+  BedroomCount,
   FloorCount,
   HomeType,
   MobilityLevel,
@@ -32,6 +33,7 @@ export type WizardCopy = {
   homeType: { title: string; familyTitle: string; options: ChoiceCopy<HomeType> }
   floors: { title: string; familyTitle: string; options: ChoiceCopy<FloorCount> }
   stairs: { title: string; familyTitle: string; options: ChoiceCopy<StairsType> }
+  bedrooms: { title: string; familyTitle: string; options: ChoiceCopy<BedroomCount> }
   areas: {
     title: string
     familyTitle: string
@@ -127,6 +129,27 @@ export type WizardCopy = {
     agentLabel: string
     userLabel: string
     fallback: string
+  }
+  audio: {
+    title: string
+    body: string
+    add: string
+    record: string
+    stop: string
+    recording: string
+    remove: string
+    empty: string
+    rules: string
+    unsupportedRecorder: string
+    permission: string
+    count: (count: number) => string
+    errors: {
+      unsupported: (name: string) => string
+      tooLarge: (name: string) => string
+      tooMany: string
+      totalTooLarge: string
+      recordingFailed: string
+    }
   }
   callback: {
     title: string
@@ -247,14 +270,15 @@ const en: WizardCopy = {
   micro: { chooseOne: 'Choose one', chooseAll: 'Choose all that apply', changeLater: 'You can change this later', optional: 'You can skip this', notSure: "Not sure? That's okay" },
   userType: { title: 'Who is this for?', body: 'We will adapt the questions to you.', options: { me: 'Me', family: 'Family', client: 'My facility or business' } },
   methods: {
-    title: 'How would you like to continue?',
-    body: "Choose one route. We'll guide you from there.",
-    options: { questions: 'Questions', photos: 'Photos or videos', voice: 'Voice', call: 'Call CasaMia', callback: 'We call you', visit: 'Visit' },
-    descriptions: { questions: 'Simple guided choices', photos: 'Show us the home', voice: 'Tell us naturally', call: 'See our number and call us', callback: 'Choose a convenient time', visit: 'Professional inspection' },
+    title: 'Choose your preferred channel',
+    body: 'Start in the way that feels easiest. You can still add photos or videos later if helpful.',
+    options: { questions: 'Answer a few questions', audio: 'Send an audio', voice: 'Talk to Jo', call: 'Call us', whatsapp: 'WhatsApp', callback: 'We call you', photos: 'Photos or videos', visit: 'Schedule visit' },
+    descriptions: { questions: 'Guided online form', audio: 'Record or upload a short brief', voice: 'AI agent', call: 'Answer a few questions by phone', whatsapp: 'Message us on WhatsApp', callback: 'Choose a convenient time', photos: 'Upload photos or short videos', visit: 'Book a home visit' },
   },
   homeType: { title: 'What kind of home is it?', familyTitle: 'What kind of home do they live in?', options: { apartment: 'Apartment', house: 'House', villa: 'Villa', other: 'Other' } },
   floors: { title: 'How many floors?', familyTitle: 'How many floors does their home have?', options: { one: 'One', two: 'Two', 'three-plus': 'Three+' } },
   stairs: { title: 'Where are the steps or stairs?', familyTitle: 'Where are their steps or stairs?', options: { none: 'None', inside: 'Inside', outside: 'Outside', both: 'Both' } },
+  bedrooms: { title: 'How many bedrooms?', familyTitle: 'How many bedrooms are in their home?', options: { studio: 'Studio', one: '1 bedroom', two: '2 bedrooms', 'three-plus': '3+ bedrooms' } },
   areas: {
     title: 'Where would you like more confidence?',
     familyTitle: 'Which areas worry you most?',
@@ -323,10 +347,10 @@ const en: WizardCopy = {
     },
   },
   voice: {
-    title: 'Talk through your home',
-    body: "Have a natural conversation with CasaMia's AI voice assistant. Describe what feels difficult, unsafe or worrying.",
-    assistant: 'CasaMia AI voice assistant',
-    start: 'Start voice conversation',
+    title: 'Talk to Jo',
+    body: 'Have a natural conversation with Jo, CasaMia’s AI assistant. Explain what feels difficult, unsafe or worrying.',
+    assistant: 'Jo, CasaMia AI agent',
+    start: 'Talk to Jo',
     restart: 'Start another conversation',
     stop: 'End conversation',
     mute: 'Mute microphone',
@@ -334,7 +358,7 @@ const en: WizardCopy = {
     connecting: 'Connecting securely…',
     ending: 'Ending conversation…',
     listening: 'Listening to you',
-    speaking: 'CasaMia is speaking',
+    speaking: 'Jo is speaking',
     muted: 'Microphone muted',
     saved: 'Conversation saved',
     clear: 'Clear conversation',
@@ -343,9 +367,30 @@ const en: WizardCopy = {
     error: 'The voice assistant could not connect. Try again or type a note below.',
     privacy: 'By starting, you allow microphone access and ElevenLabs to process the audio for this home-safety conversation. You can stop at any time.',
     transcript: 'Conversation transcript',
-    agentLabel: 'CasaMia',
+    agentLabel: 'Jo',
     userLabel: 'You',
     fallback: 'Prefer to type? Add a note',
+  },
+  audio: {
+    title: 'Send an audio',
+    body: 'Record or upload a short voice note. Tell us what feels difficult, unsafe or worrying.',
+    add: 'Upload audio',
+    record: 'Record audio',
+    stop: 'Stop recording',
+    recording: 'Recording…',
+    remove: 'Remove audio',
+    empty: 'No audio added yet',
+    rules: 'MP3, M4A, WAV, OGG, WebM or AAC. Up to 2 audio files, 25 MB each.',
+    unsupportedRecorder: 'Recording is not supported on this device. You can upload an audio file or type a note instead.',
+    permission: 'Microphone access is needed to record. Allow access in your browser, then try again.',
+    count: (count) => `${count} of 2 audio files added`,
+    errors: {
+      unsupported: (name) => `${name} is not a supported audio format.`,
+      tooLarge: (name) => `${name} is larger than the 25 MB audio limit.`,
+      tooMany: 'You can add up to 2 audio files.',
+      totalTooLarge: 'The selected audio files would exceed the total limit.',
+      recordingFailed: 'We could not save that recording. Please try again or upload an audio file.',
+    },
   },
   callback: {
     title: 'When should CasaMia call you?',
@@ -412,10 +457,11 @@ const es: WizardCopy = {
   progress: { label: 'Progreso del asistente', step: 'Paso', of: 'de' },
   micro: { chooseOne: 'Elige una opción', chooseAll: 'Elige todas las que correspondan', changeLater: 'Podrás cambiarlo después', optional: 'Puedes omitir este paso', notSure: '¿No lo sabes? No pasa nada' },
   userType: { title: '¿Para quién es?', body: 'Adaptaremos las preguntas a tu situación.', options: { me: 'Para mí', family: 'Familiar', client: 'Mi centro o negocio' } },
-  methods: { title: '¿Cómo quieres continuar?', body: 'Elige una forma de continuar. Te guiaremos desde ahí.', options: { questions: 'Preguntas', photos: 'Fotos o vídeos', voice: 'Voz', call: 'Llamar a CasaMia', callback: 'Te llamamos', visit: 'Visita' }, descriptions: { questions: 'Opciones guiadas', photos: 'Muéstranos la vivienda', voice: 'Cuéntanoslo', call: 'Consulta nuestro número y llámanos', callback: 'Elige el día y la franja horaria', visit: 'Inspección profesional' } },
+  methods: { title: 'Elige tu canal preferido', body: 'Empieza de la forma que te resulte más cómoda. Si ayuda, podrás añadir fotos o vídeos después.', options: { questions: 'Responder unas preguntas', audio: 'Enviar un audio', voice: 'Hablar con Jo', call: 'Llámanos', whatsapp: 'WhatsApp', callback: 'Te llamamos', photos: 'Fotos o vídeos', visit: 'Programar visita' }, descriptions: { questions: 'Formulario online guiado', audio: 'Graba o sube una nota breve', voice: 'Agente con IA', call: 'Responde unas preguntas por teléfono', whatsapp: 'Escríbenos por WhatsApp', callback: 'Elige el día y la franja horaria', photos: 'Sube fotos o vídeos cortos', visit: 'Reservar una visita a domicilio' } },
   homeType: { title: '¿Qué tipo de vivienda es?', familyTitle: '¿En qué tipo de vivienda vive?', options: { apartment: 'Piso', house: 'Casa', villa: 'Chalet', other: 'Otra' } },
   floors: { title: '¿Cuántas plantas tiene?', familyTitle: '¿Cuántas plantas tiene su vivienda?', options: { one: 'Una', two: 'Dos', 'three-plus': 'Tres+' } },
   stairs: { title: '¿Dónde hay escalones o escaleras?', familyTitle: '¿Dónde tiene escalones o escaleras?', options: { none: 'Ninguno', inside: 'Interior', outside: 'Exterior', both: 'Ambos' } },
+  bedrooms: { title: '¿Cuántos dormitorios tiene?', familyTitle: '¿Cuántos dormitorios tiene su vivienda?', options: { studio: 'Estudio', one: '1 dormitorio', two: '2 dormitorios', 'three-plus': '3+ dormitorios' } },
   areas: {
     title: '¿Dónde quieres sentirte más seguro?',
     familyTitle: '¿Qué zonas te preocupan más?',
@@ -479,10 +525,10 @@ const es: WizardCopy = {
     },
   },
   voice: {
-    title: 'Cuéntanos cómo es la vivienda',
-    body: 'Habla con el asistente de voz con IA de CasaMia. Explica con naturalidad qué resulta difícil, inseguro o preocupante.',
-    assistant: 'Asistente de voz con IA de CasaMia',
-    start: 'Hablar con el asistente',
+    title: 'Habla con Jo',
+    body: 'Habla con Jo, el asistente con IA de CasaMia. Explica con naturalidad qué resulta difícil, inseguro o preocupante.',
+    assistant: 'Jo, agente con IA de CasaMia',
+    start: 'Hablar con Jo',
     restart: 'Iniciar otra conversación',
     stop: 'Finalizar conversación',
     mute: 'Silenciar micrófono',
@@ -490,7 +536,7 @@ const es: WizardCopy = {
     connecting: 'Conectando de forma segura…',
     ending: 'Finalizando conversación…',
     listening: 'Te estamos escuchando',
-    speaking: 'CasaMia está hablando',
+    speaking: 'Jo está hablando',
     muted: 'Micrófono silenciado',
     saved: 'Conversación guardada',
     clear: 'Eliminar conversación',
@@ -499,9 +545,30 @@ const es: WizardCopy = {
     error: 'No hemos podido conectar con el asistente de voz. Inténtalo de nuevo o escribe una nota abajo.',
     privacy: 'Al iniciar, permites el acceso al micrófono y que ElevenLabs procese el audio de esta conversación sobre seguridad en el hogar. Puedes finalizarla cuando quieras.',
     transcript: 'Transcripción de la conversación',
-    agentLabel: 'CasaMia',
+    agentLabel: 'Jo',
     userLabel: 'Tú',
     fallback: '¿Prefieres escribir? Añade una nota',
+  },
+  audio: {
+    title: 'Enviar un audio',
+    body: 'Graba o sube una nota de voz breve. Cuéntanos qué resulta difícil, inseguro o preocupante.',
+    add: 'Subir audio',
+    record: 'Grabar audio',
+    stop: 'Detener grabación',
+    recording: 'Grabando…',
+    remove: 'Eliminar audio',
+    empty: 'Aún no has añadido ningún audio',
+    rules: 'MP3, M4A, WAV, OGG, WebM o AAC. Hasta 2 audios, 25 MB cada uno.',
+    unsupportedRecorder: 'Este dispositivo no permite grabar audio. Puedes subir un archivo o escribir una nota.',
+    permission: 'Necesitamos acceso al micrófono para grabar. Permítelo en el navegador e inténtalo de nuevo.',
+    count: (count) => `${count} de 2 audios añadidos`,
+    errors: {
+      unsupported: (name) => `${name} no tiene un formato de audio compatible.`,
+      tooLarge: (name) => `${name} supera el límite de 25 MB para audio.`,
+      tooMany: 'Puedes añadir hasta 2 audios.',
+      totalTooLarge: 'Los audios seleccionados superarían el límite total.',
+      recordingFailed: 'No hemos podido guardar esa grabación. Inténtalo de nuevo o sube un audio.',
+    },
   },
   callback: {
     title: '¿Cuándo quieres que te llamemos?',

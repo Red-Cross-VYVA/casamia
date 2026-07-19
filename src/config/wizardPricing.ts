@@ -96,6 +96,20 @@ function getRelevantAreas(state: SafetyWizardState) {
 
   if (state.challenges.includes('night-movement')) areas.add('lighting')
   if (state.challenges.includes('emergency-support')) areas.add('smart-safety')
+  if (state.stairsType && state.stairsType !== 'none') areas.add('stairs')
+  if (
+    state.bedroomCount
+    && (
+      state.challenges.includes('night-movement')
+      || (state.mobilityLevel && !['independent', 'prefer-not'].includes(state.mobilityLevel))
+    )
+  ) {
+    areas.add('bedroom')
+  }
+  if (state.mobilityLevel && !['independent', 'prefer-not'].includes(state.mobilityLevel)) {
+    areas.add('bathroom')
+    areas.add('entrance')
+  }
 
   return [...areas]
 }

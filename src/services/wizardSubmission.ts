@@ -4,7 +4,7 @@ import {
   type AssessmentMediaManifestItem,
   type AssessmentMediaUpload,
 } from './assessmentRequests.ts'
-import type { SafetyWizardState, WizardSubmissionPayload } from '../types/wizard.ts'
+import type { SafetyWizardState, WizardAudioBrief, WizardSubmissionPayload } from '../types/wizard.ts'
 
 function isVideo(type: string, kind?: 'image' | 'video') {
   return kind === 'video' || type.startsWith('video/')
@@ -27,6 +27,7 @@ export function createWizardSubmissionPayload(state: SafetyWizardState): WizardS
       homeType: state.homeType,
       floorCount: state.floorCount,
       stairsType: state.stairsType,
+      bedroomCount: state.bedroomCount,
     },
     mobility: state.mobilityLevel,
     challenges: state.challenges,
@@ -40,6 +41,8 @@ export function createWizardSubmissionPayload(state: SafetyWizardState): WizardS
     videoMetadata: state.photos
       .filter((media) => isVideo(media.type, media.kind))
       .map(({ file: _file, previewUrl: _previewUrl, ...media }) => ({ ...media, kind: 'video' as const })),
+    audioMetadata: (state.audioBriefs ?? [])
+      .map(({ file: _file, previewUrl: _previewUrl, ...media }) => ({ ...media, kind: 'audio' as const })),
     voiceMetadata: state.voiceSession
       ? {
           ...state.voiceSession,
@@ -59,18 +62,34 @@ export function createWizardSubmissionPayload(state: SafetyWizardState): WizardS
 }
 
 export function createWizardMediaManifest(state: SafetyWizardState): AssessmentMediaManifestItem[] {
-  return state.photos.flatMap((media) => {
+  const photoAndVideoMedia = state.photos.flatMap((media) => {
     if (!media.file) return []
+    const kind = isVideo(media.type, media.kind) ? 'video' as const : 'image' as const
 
     return [{
       id: media.id,
-      kind: isVideo(media.type, media.kind) ? 'video' : 'image',
+      kind,
       name: media.name,
       room: media.room,
       size: media.size,
       type: media.type,
     }]
   })
+
+  const audioMedia = (state.audioBriefs ?? []).flatMap((audio) => {
+    if (!audio.file) return []
+
+    return [{
+      id: audio.id,
+      kind: 'audio' as const,
+      name: audio.name,
+      room: 'other',
+      size: audio.size,
+      type: audio.type,
+    }]
+  })
+
+  return [...photoAndVideoMedia, ...audioMedia]
 }
 
 async function uploadMediaFile(upload: AssessmentMediaUpload, file: File) {
@@ -84,7 +103,7 @@ async function uploadMediaFile(upload: AssessmentMediaUpload, file: File) {
   })
 
   if (!response.ok) {
-    let message = 'A selected photo or video could not be uploaded.'
+    let message = 'A selected media file could not be uploaded.'
     try {
       const body = await response.json() as { message?: string; error?: string }
       message = body.message ?? body.error ?? message
@@ -97,7 +116,10 @@ async function uploadMediaFile(upload: AssessmentMediaUpload, file: File) {
 
 async function uploadWizardMedia(state: SafetyWizardState, uploads: AssessmentMediaUpload[] | undefined) {
   const filesById = new Map(
-    state.photos.flatMap((media) => media.file ? [[media.id, media.file] as const] : []),
+    [
+      ...state.photos.flatMap((media) => media.file ? [[media.id, media.file] as const] : []),
+      ...(state.audioBriefs ?? []).flatMap((media) => media.file ? [[media.id, media.file] as const] : []),
+    ],
   )
 
   if (!filesById.size) return
@@ -122,7 +144,17 @@ function attachStoredMedia(
   state: SafetyWizardState,
   storedMedia: Array<Pick<AssessmentMediaUpload, 'kind' | 'bucket' | 'objectPath'> & { mediaId: string }> | undefined,
 ) {
-  const byId = new Map((storedMedia ?? []).map((media) => [media.mediaId, media]))
+  const byId = new Map<string, { kind: 'image' | 'video'; bucket: string; objectPath: string }>()
+
+  ;(storedMedia ?? []).forEach((media) => {
+    if (media.kind === 'image' || media.kind === 'video') {
+      byId.set(media.mediaId, {
+        bucket: media.bucket,
+        kind: media.kind,
+        objectPath: media.objectPath,
+      })
+    }
+  })
 
   return state.photos.map((media) => {
     const stored = byId.get(media.id)
@@ -132,6 +164,33 @@ function attachStoredMedia(
       storageBucket: stored.bucket,
       storagePath: stored.objectPath,
     } : media
+  })
+}
+
+function attachStoredAudio(
+  state: SafetyWizardState,
+  storedMedia: Array<Pick<AssessmentMediaUpload, 'kind' | 'bucket' | 'objectPath'> & { mediaId: string }> | undefined,
+): WizardAudioBrief[] {
+  const byId = new Map<string, { kind: 'audio'; bucket: string; objectPath: string }>()
+
+  ;(storedMedia ?? []).forEach((media) => {
+    if (media.kind === 'audio') {
+      byId.set(media.mediaId, {
+        bucket: media.bucket,
+        kind: media.kind,
+        objectPath: media.objectPath,
+      })
+    }
+  })
+
+  return (state.audioBriefs ?? []).map((audio) => {
+    const stored = byId.get(audio.id)
+    return stored ? {
+      ...audio,
+      kind: 'audio',
+      storageBucket: stored.bucket,
+      storagePath: stored.objectPath,
+    } : audio
   })
 }
 
@@ -157,7 +216,7 @@ export async function submitSafetyWizard(state: SafetyWizardState) {
   })
 
   if (!mediaManifest.length) {
-    return { payload, photos: state.photos }
+    return { payload, photos: state.photos, audioBriefs: state.audioBriefs ?? [] }
   }
 
   if (!submission.id || !submission.uploadToken) {
@@ -190,5 +249,6 @@ export async function submitSafetyWizard(state: SafetyWizardState) {
   return {
     payload,
     photos: attachStoredMedia(state, finalized.mediaManifest),
+    audioBriefs: attachStoredAudio(state, finalized.mediaManifest),
   }
 }

@@ -54,10 +54,6 @@ export function Plans({ standalone = false }: PlansProps) {
                 {t('wizard.cta')}
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
-              <Link className="btn btn-green" to="/configure">
-                Build My Safer Home
-                <ArrowRight size={20} aria-hidden="true" />
-              </Link>
               <Link className="btn btn-white" to="/services">
                 View Services
               </Link>

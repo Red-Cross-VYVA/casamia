@@ -58,6 +58,8 @@ type ServicesPageCopy = {
   packageAreas: string
   inclusionsVisible: string
   pricingVisible: string
+  homeVisualTitle: string
+  homeVisualIntro: string
   sectionEyebrow: string
   sectionTitle: string
   sectionBody: string
@@ -70,6 +72,10 @@ type ServicesPageCopy = {
   packageOptions: string
   included: string
   customerBenefit: string
+  customPackageEyebrow: string
+  customPackageTitle: string
+  customPackageBody: string
+  customPackageCta: string
   recurring: string
   requirements: {
     installation: string
@@ -191,6 +197,15 @@ const otherArea: CatalogueAreaDefinition = {
   },
 }
 
+const homeVisualAreaIds: ServicePackageArea[] = [
+  'bedroom',
+  'bathroom',
+  'kitchen',
+  'living-room',
+  'entrance',
+  'outdoor',
+]
+
 const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
   en: {
     seoTitle: 'CasaMia Home Safety Service Catalogue',
@@ -206,6 +221,8 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     packageAreas: 'Package areas',
     inclusionsVisible: 'Inclusions shown',
     pricingVisible: 'Current pricing',
+    homeVisualTitle: 'One home, every key area covered.',
+    homeVisualIntro: 'Browse services by the spaces people use every day.',
     sectionEyebrow: 'Choose a package area',
     sectionTitle: 'See exactly what CasaMia can include.',
     sectionBody: 'Select an area to review its current service components, starting prices and delivery requirements.',
@@ -218,6 +235,10 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     packageOptions: 'current options',
     included: 'What is included',
     customerBenefit: 'Why it helps',
+    customPackageEyebrow: 'Need a different mix?',
+    customPackageTitle: 'Customise your own package',
+    customPackageBody: 'Choose the rooms, routines and services that matter most. CasaMia will turn them into one clear plan.',
+    customPackageCta: 'Build my package',
     recurring: 'per month',
     requirements: {
       installation: 'Professional installation',
@@ -248,6 +269,8 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     packageAreas: 'Áreas de servicio',
     inclusionsVisible: 'Inclusiones visibles',
     pricingVisible: 'Precios actuales',
+    homeVisualTitle: 'Una casa, cada zona clave cubierta.',
+    homeVisualIntro: 'Explora los servicios por los espacios que se usan a diario.',
     sectionEyebrow: 'Elige un área',
     sectionTitle: 'Consulta exactamente qué puede incluir CasaMia.',
     sectionBody: 'Selecciona un área para revisar sus componentes actuales, precios iniciales y requisitos de instalación.',
@@ -260,6 +283,10 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     packageOptions: 'opciones actuales',
     included: 'Qué incluye',
     customerBenefit: 'Por qué ayuda',
+    customPackageEyebrow: '¿Necesitas otra combinación?',
+    customPackageTitle: 'Crea tu paquete a medida',
+    customPackageBody: 'Elige las estancias, rutinas y servicios que más importan. CasaMia lo convierte en un plan claro.',
+    customPackageCta: 'Crear mi paquete',
     recurring: 'al mes',
     requirements: {
       installation: 'Instalación profesional',
@@ -353,6 +380,14 @@ export function ServicesPage() {
   }, [activeServices])
   const selectedGroup = serviceGroups.find((group) => group.area.id === selectedGroupId) ?? serviceGroups[0]
   const SelectedIcon = selectedGroup?.area.icon ?? PackageCheck
+  const heroVisualAreas = homeVisualAreaIds
+    .map((areaId) => {
+      const group = serviceGroups.find((item) => item.area.id === areaId)
+      const area = group?.area ?? catalogueAreas.find((item) => item.id === areaId)
+
+      return area ? { area } : null
+    })
+    .filter((item): item is { area: CatalogueAreaDefinition } => Boolean(item))
 
   return (
     <>
@@ -385,39 +420,73 @@ export function ServicesPage() {
                 {copy.browseCta}
                 <ArrowRight size={20} aria-hidden="true" />
               </a>
-              <Link className="btn btn-white" to="/configure">
+              <Link className="btn btn-white" to="/home-safety-wizard">
                 {copy.planCta}
               </Link>
             </div>
           </div>
 
-          <aside className="services-catalogue-summary" aria-label={copy.catalogueLabel}>
-            <header>
-              <span><PackageCheck size={26} aria-hidden="true" /></span>
-              <div>
-                <small>{copy.catalogueLabel}</small>
-                <strong>{activeServices.length}</strong>
-                <p>{copy.currentOptions}</p>
+          <aside className="services-catalogue-home-visual" aria-label={copy.homeVisualTitle}>
+            <div className="services-catalogue-home-panel">
+              <header>
+                <span className="services-catalogue-home-kicker">{copy.catalogueLabel}</span>
+                <h2>{copy.homeVisualTitle}</h2>
+                <p>{copy.homeVisualIntro}</p>
+              </header>
+
+              <div className="services-catalogue-house" aria-hidden="true">
+                <span className="services-catalogue-house-roof" />
+                <div className="services-catalogue-house-shell">
+                  <div className="services-catalogue-house-floor is-upper">
+                    <div className="services-catalogue-house-room is-bedroom">
+                      <span className="services-catalogue-room-icon"><BedDouble size={20} /></span>
+                      <span>{catalogueAreas[1].title[language]}</span>
+                    </div>
+                    <div className="services-catalogue-house-room is-bathroom">
+                      <span className="services-catalogue-room-icon"><Bath size={20} /></span>
+                      <span>{catalogueAreas[0].title[language]}</span>
+                    </div>
+                    <div className="services-catalogue-house-room is-stairs">
+                      <span className="services-catalogue-room-icon"><Footprints size={20} /></span>
+                      <span>{catalogueAreas[4].title[language]}</span>
+                    </div>
+                  </div>
+                  <div className="services-catalogue-house-floor is-lower">
+                    <div className="services-catalogue-house-room is-living">
+                      <span className="services-catalogue-room-icon"><Home size={20} /></span>
+                      <span>{catalogueAreas[3].title[language]}</span>
+                    </div>
+                    <div className="services-catalogue-house-room is-kitchen">
+                      <span className="services-catalogue-room-icon"><CookingPot size={20} /></span>
+                      <span>{catalogueAreas[2].title[language]}</span>
+                    </div>
+                    <div className="services-catalogue-house-room is-entry">
+                      <span className="services-catalogue-room-icon"><DoorOpen size={20} /></span>
+                      <span>{catalogueAreas[5].title[language]}</span>
+                    </div>
+                  </div>
+                </div>
+                <span className="services-catalogue-house-base" />
               </div>
-            </header>
-            <dl>
-              <div>
-                <dt>{copy.activeServices}</dt>
-                <dd>{activeServices.length}</dd>
+
+              <div className="services-catalogue-home-areas">
+                {heroVisualAreas.map(({ area }) => {
+                  const Icon = area.icon
+
+                  return (
+                    <a
+                      className="services-catalogue-home-area"
+                      href="#catalogue-packages"
+                      key={area.id}
+                      onClick={() => setSelectedGroupId(area.id)}
+                    >
+                      <span><Icon size={18} aria-hidden="true" /></span>
+                      <strong>{area.title[language]}</strong>
+                    </a>
+                  )
+                })}
               </div>
-              <div>
-                <dt>{copy.packageAreas}</dt>
-                <dd>{serviceGroups.length}</dd>
-              </div>
-              <div>
-                <dt>{copy.inclusionsVisible}</dt>
-                <dd><CheckCircle2 size={20} aria-hidden="true" /></dd>
-              </div>
-              <div>
-                <dt>{copy.pricingVisible}</dt>
-                <dd><CheckCircle2 size={20} aria-hidden="true" /></dd>
-              </div>
-            </dl>
+            </div>
           </aside>
         </div>
       </section>
@@ -431,7 +500,7 @@ export function ServicesPage() {
           </header>
 
           {serviceGroups.length ? (
-            <>
+            <div className="services-catalogue-explorer">
               <nav className="services-catalogue-nav" aria-label={copy.packageNavigation}>
                 {serviceGroups.map((group) => {
                   const Icon = group.area.icon
@@ -545,10 +614,25 @@ export function ServicesPage() {
                         </article>
                       )
                     })}
+
+                    <Link className="services-catalogue-custom-package" to="/home-safety-wizard">
+                      <span className="services-catalogue-custom-icon">
+                        <PackageCheck size={24} aria-hidden="true" />
+                      </span>
+                      <span className="services-catalogue-custom-copy">
+                        <small>{copy.customPackageEyebrow}</small>
+                        <strong>{copy.customPackageTitle}</strong>
+                        <span>{copy.customPackageBody}</span>
+                      </span>
+                      <span className="services-catalogue-custom-action">
+                        {copy.customPackageCta}
+                        <ArrowRight size={18} aria-hidden="true" />
+                      </span>
+                    </Link>
                   </div>
                 </section>
               ) : null}
-            </>
+            </div>
           ) : (
             <div className="services-catalogue-empty">
               <PackageCheck size={34} aria-hidden="true" />

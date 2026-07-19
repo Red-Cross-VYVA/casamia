@@ -152,8 +152,8 @@ function makeService(overrides = {}) {
   assert.equal(steps.includes('relationship'), false, 'Family users should not be asked who they are helping.')
   assert.equal(
     steps.indexOf('methods'),
-    steps.indexOf('user-type') + 1,
-    'Family users should go directly from user type to their preferred route.',
+    steps.indexOf('entry') + 1,
+    'Users should choose the briefing route before the personal context step.',
   )
 }
 
@@ -412,14 +412,21 @@ function makeFinding(overrides = {}) {
 {
   const steps = buildWizardSteps(makeState({ homeType: 'house', floorCount: 'two' }))
   assert.equal(steps.includes('stairs'), true, 'A multi-floor house should include the stairs question.')
+  assert.equal(
+    steps.indexOf('bedrooms') > steps.indexOf('stairs'),
+    true,
+    'Bedroom count should be collected after floor and stair basics.',
+  )
 }
 
 {
   const routeSteps = {
     questions: buildWizardSteps(makeState({ inputMethods: ['questions'] })),
+    audio: buildWizardSteps(makeState({ inputMethods: ['audio'] })),
     photos: buildWizardSteps(makeState({ inputMethods: ['photos'] })),
     voice: buildWizardSteps(makeState({ inputMethods: ['voice'] })),
     call: buildWizardSteps(makeState({ inputMethods: ['call'] })),
+    whatsapp: buildWizardSteps(makeState({ inputMethods: ['whatsapp'] })),
     callback: buildWizardSteps(makeState({ inputMethods: ['callback'] })),
     visit: buildWizardSteps(makeState({ inputMethods: ['visit'] })),
   }
@@ -431,13 +438,28 @@ function makeFinding(overrides = {}) {
     routeSteps.questions.indexOf('notes') + 1,
     'The optional photo step should immediately follow notes.',
   )
-  assert.equal(routeSteps.photos.includes('photos'), true, 'Photos should open only the photo route.')
+  assert.equal(routeSteps.questions.includes('bedrooms'), true, 'The guided flow should collect bedroom count.')
+  assert.equal(routeSteps.audio.includes('audio'), true, 'Audio should open the audio brief route first.')
+  assert.equal(
+    routeSteps.audio.indexOf('audio') < routeSteps.audio.indexOf('home-type'),
+    true,
+    'Audio should be collected before the guided home questions.',
+  )
+  assert.equal(routeSteps.audio.includes('voice'), false, 'Audio upload must stay separate from the AI voice agent.')
+  assert.equal(routeSteps.photos.includes('photos'), true, 'Photos should open the media route first.')
+  assert.equal(
+    routeSteps.photos.indexOf('photos') < routeSteps.photos.indexOf('home-type'),
+    true,
+    'Photos should be collected before the guided home questions.',
+  )
   assert.equal(routeSteps.photos.includes('voice'), false, 'Photos must not also open the voice route.')
-  assert.equal(routeSteps.voice.includes('voice'), true, 'Voice should open the voice route.')
+  assert.equal(routeSteps.voice.includes('voice'), true, 'Voice should open the voice route first.')
+  assert.equal(routeSteps.voice.includes('home-type'), true, 'Voice users should still reach the guided home questions.')
   assert.equal(routeSteps.call.includes('phone'), true, 'Call should open the contact route.')
+  assert.equal(routeSteps.whatsapp.includes('phone'), true, 'WhatsApp should open the contact route.')
   assert.deepEqual(
     routeSteps.callback,
-    ['entry', 'user-type', 'methods', 'callback', 'callback-confirmation'],
+    ['entry', 'methods', 'callback', 'callback-confirmation'],
     'Callback should end after its form and confirmation without entering the assessment.',
   )
   assert.equal(routeSteps.visit.includes('visit'), true, 'Visit should open the booking route.')
@@ -451,7 +473,7 @@ function makeFinding(overrides = {}) {
 
   assert.deepEqual(
     clientCallbackSteps,
-    ['entry', 'user-type', 'methods', 'callback', 'callback-confirmation'],
+    ['entry', 'methods', 'callback', 'callback-confirmation'],
     'Business callback requests should also bypass the full client assessment.',
   )
   assert.deepEqual(
@@ -658,6 +680,7 @@ function makeFinding(overrides = {}) {
 {
   const state = makeState({
     userType: 'me',
+    bedroomCount: 'two',
     voiceSession: makeVoiceSession(),
     photos: [
       {
@@ -689,6 +712,7 @@ function makeFinding(overrides = {}) {
   assert.deepEqual(Object.keys(manifest[1]).sort(), ['id', 'kind', 'name', 'room', 'size', 'type'])
   assert.equal(payload.photoMetadata.length, 1)
   assert.equal(payload.videoMetadata.length, 1)
+  assert.equal(payload.homeDetails.bedroomCount, 'two')
   assert.deepEqual(payload.voiceMetadata, makeVoiceSession(), 'The complete agent conversation metadata should be submitted.')
   assert.equal('relationship' in payload, false, 'Relationship information must not be collected or submitted.')
   assert.equal('file' in payload.videoMetadata[0], false, 'Binary files must never be copied into JSON payloads.')
