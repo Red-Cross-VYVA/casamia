@@ -4,14 +4,18 @@ import {
   BadgeCheck,
   CalendarCheck,
   CheckCircle2,
+  CircleCheck,
   ClipboardCheck,
   FileText,
   Handshake,
   Home,
   LoaderCircle,
   Mail,
+  PackageCheck,
   ShieldCheck,
+  Sparkles,
   Tags,
+  UsersRound,
 } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -63,13 +67,13 @@ type WhyCasamiaCopy = {
 const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   en: {
     eyebrow: 'Why CasaMia',
-    headline: 'CasaMia is powered by MOKA DigiTech',
+    headline: 'One turnkey service for a safer home, without the coordination headache',
     intro:
-      'CasaMia is the senior-home safety service created by MOKA DigiTech, a technology and service company focused on the ageing-in-place market. The model is simple: combine digital tools, vetted local providers, clear pricing and managed quality control so families can adapt the home with confidence.',
+      'CasaMia handles the full journey for families: understanding the home, recommending what matters, preparing the scope, coordinating trusted professionals, managing installation and following up afterwards. You get one accountable team instead of chasing products, installers, grants and advice separately.',
     heroProof: [
-      { value: 'MOKA DigiTech', label: 'senior-focused technology and service model' },
-      { value: 'Vetted network', label: 'local providers coordinated by CasaMia' },
-      { value: 'Quality tracked', label: 'scope, installation and follow-up kept together' },
+      { value: 'End-to-end', label: 'assessment, plan, products, installation and follow-up' },
+      { value: 'Turnkey delivery', label: 'CasaMia coordinates the people, dates and details' },
+      { value: 'One point of contact', label: 'clear scope, family updates and accountable handover' },
     ],
     coverage: {
       eyebrow: 'Spain-wide service',
@@ -169,13 +173,13 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   },
   es: {
     eyebrow: 'Por qué CasaMia',
-    headline: 'CasaMia está impulsada por MOKA DigiTech',
+    headline: 'Una solución llave en mano para adaptar la vivienda sin dolores de cabeza',
     intro:
-      'CasaMia es el servicio de seguridad y adaptación del hogar creado por MOKA DigiTech, una empresa tecnológica centrada en el mercado senior. El modelo combina herramientas digitales, proveedores locales seleccionados, precios claros y control de calidad para que las familias adapten la vivienda con confianza.',
+      'CasaMia se encarga del proceso completo: entender la vivienda, recomendar lo importante, preparar el alcance, coordinar profesionales de confianza, gestionar la instalación y hacer seguimiento después. La familia tiene un solo equipo responsable, sin perseguir productos, instaladores, ayudas y consejos por separado.',
     heroProof: [
-      { value: 'MOKA DigiTech', label: 'tecnología y servicio para el mercado senior' },
-      { value: 'Red validada', label: 'profesionales locales coordinados por CasaMia' },
-      { value: 'Calidad trazada', label: 'alcance, instalación y seguimiento conectados' },
+      { value: 'De principio a fin', label: 'evaluación, plan, productos, instalación y seguimiento' },
+      { value: 'Llave en mano', label: 'CasaMia coordina personas, fechas y detalles' },
+      { value: 'Un solo contacto', label: 'alcance claro, información a la familia y entrega responsable' },
     ],
     coverage: {
       eyebrow: 'Servicio en toda España',
@@ -305,6 +309,7 @@ function WhyIcon({ type }: { type: WhyCasamiaCopy['sections'][number]['icon'] })
 
 export function WhyCasamiaPage() {
   const { i18n, t } = useTranslation()
+  const isSpanish = i18n.language.toLowerCase().startsWith('es')
   const copy = getWhyCasamiaCopy(i18n.language)
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -368,13 +373,24 @@ export function WhyCasamiaPage() {
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
           </div>
-          <aside className="why-hero-proof" aria-label="CasaMia trust proof">
-            {copy.heroProof.map((proof) => (
-              <div key={proof.value}>
-                <strong>{proof.value}</strong>
-                <span>{proof.label}</span>
-              </div>
-            ))}
+          <aside className="why-hero-proof" aria-label="CasaMia turnkey service flow">
+            <div className="why-turnkey-flow">
+              <span><UsersRound size={22} aria-hidden="true" />{isSpanish ? 'Tú' : 'You'}</span>
+              <i />
+              <strong>Casa<span>Mia</span></strong>
+              <i />
+              <span><CircleCheck size={22} aria-hidden="true" />{isSpanish ? 'Listo' : 'Done'}</span>
+            </div>
+            <div className="why-turnkey-hub">
+              {[
+                { icon: ClipboardCheck, label: isSpanish ? 'Evalúa' : 'Assess' },
+                { icon: PackageCheck, label: isSpanish ? 'Coordina' : 'Coordinate' },
+                { icon: ShieldCheck, label: isSpanish ? 'Instala' : 'Install' },
+                { icon: Sparkles, label: isSpanish ? 'Acompaña' : 'Follow up' },
+              ].map(({ icon: Icon, label }) => (
+                <span key={label}><Icon size={18} aria-hidden="true" />{label}</span>
+              ))}
+            </div>
           </aside>
         </div>
       </section>

@@ -595,18 +595,47 @@
 
 .alx-tech-card.is-featured .alx-tech-visual { min-height: 360px; }
 
+.alx-tech-photo,
+.alx-tech-photo > div,
+.alx-tech-photo-img {
+  width: 100%;
+  height: 100%;
+}
+
+.alx-tech-photo {
+  position: absolute;
+  inset: 0;
+}
+
+.alx-tech-photo-img {
+  display: block;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(0.98);
+}
+
+.alx-tech-visual.is-bathroom::after,
+.alx-tech-visual.is-mirror::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(6, 39, 59, 0.02) 35%, rgba(6, 39, 59, 0.45) 100%);
+  content: '';
+  pointer-events: none;
+}
+
 .alx-visual-caption {
   position: absolute;
   right: 0.75rem;
   bottom: 0.75rem;
   left: 0.75rem;
+  z-index: 4;
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.68rem 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  padding: 0.62rem 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.84);
   color: var(--alx-navy);
   font-size: 0.65rem;
   font-weight: 800;
@@ -830,107 +859,14 @@
 .alx-signal-stack i:nth-child(2) { height: 20px; }
 .alx-signal-stack i:nth-child(3) { height: 28px; }
 
-.alx-bathroom-insight {
-  position: absolute;
-  right: 12%;
-  bottom: 29%;
-  left: 12%;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.65rem 0.8rem;
-  border: 1px solid var(--alx-line);
-  border-radius: 0.8rem;
-  background: #fff;
-  box-shadow: 0 10px 25px rgba(14, 73, 106, 0.1);
-  color: var(--alx-blue);
-}
-
-.alx-bathroom-insight strong,
-.alx-bathroom-insight small {
-  display: block;
-}
-
-.alx-bathroom-insight strong { color: var(--alx-ink); font-size: 0.68rem; }
-.alx-bathroom-insight small { color: #748797; font-size: 0.58rem; }
-
 .alx-tech-visual.is-mirror {
-  background:
-    radial-gradient(circle at 50% 36%, rgba(76, 174, 218, 0.22), transparent 34%),
-    linear-gradient(145deg, #edf8fc, #dceef6);
+  background: #dceef6;
 }
 
-.alx-mirror-device {
-  position: absolute;
-  top: 8%;
-  right: 16%;
-  bottom: 26%;
-  left: 16%;
-  display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.75rem;
-  border: 7px solid var(--alx-navy);
-  border-radius: 1rem;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(209, 233, 244, 0.92));
-  box-shadow: 0 16px 32px rgba(10, 57, 84, 0.18);
+.alx-tech-visual.is-mirror .alx-tech-photo-img {
+  object-position: center 54%;
 }
 
-.alx-mirror-face {
-  position: relative;
-  display: grid;
-  width: 72px;
-  height: 72px;
-  place-items: center;
-  border: 1px solid rgba(44, 158, 212, 0.32);
-  border-radius: 50%;
-  color: var(--alx-navy);
-  overflow: hidden;
-}
-
-.alx-mirror-scan {
-  position: absolute;
-  right: 8px;
-  left: 8px;
-  height: 2px;
-  border-radius: 99px;
-  background: var(--alx-green);
-  box-shadow: 0 0 10px rgba(125, 184, 65, 0.8);
-  transform: translateY(12px);
-}
-
-.alx-mirror-vitals {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.28rem;
-}
-
-.alx-mirror-vitals > span {
-  min-width: 0;
-  padding: 0.42rem 0.25rem;
-  border: 1px solid rgba(121, 177, 203, 0.28);
-  border-radius: 0.55rem;
-  background: rgba(255, 255, 255, 0.74);
-  color: var(--alx-blue);
-  text-align: center;
-}
-
-.alx-mirror-vitals svg { margin-bottom: 0.12rem; }
-.alx-mirror-vitals strong,
-.alx-mirror-vitals small { display: block; }
-.alx-mirror-vitals strong { color: var(--alx-ink); font-size: 0.7rem; }
-.alx-mirror-vitals small { color: #698192; font-size: 0.46rem; font-weight: 750; text-transform: uppercase; }
-
-.alx-mirror-opt-in {
-  position: absolute;
-  right: 0.75rem;
-  bottom: 0.35rem;
-  color: #56788c;
-  font-size: 0.48rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-}
 
 .alx-wearable-photo,
 .alx-wearable-photo > div,
@@ -2522,7 +2458,6 @@
   .alx-blueprint-brand small { display: block; margin-top: 0.45rem; }
   .alx-tech-card-copy { padding: 1.35rem; }
 
-  .alx-mirror-device { right: 8%; left: 8%; }
   .alx-provider-card { grid-template-columns: auto minmax(0, 1fr); padding: 1.1rem; }
   .alx-provider-card > svg { display: none; }
 

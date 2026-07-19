@@ -60,7 +60,7 @@ import {
 } from '../services/callbackRequests'
 import { getServicesForPackageArea, useServiceCatalogue } from '../services/serviceCatalogue'
 import { generateWizardResult } from '../services/wizardRecommendationEngine'
-import { submitSafetyWizard } from '../services/wizardSubmission'
+import { saveSafetyWizardDraft, submitSafetyWizard } from '../services/wizardSubmission'
 import type { CasaMiaService } from '../types/serviceCatalogue'
 import type {
   ClientNeed,
@@ -163,7 +163,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
   const embeddedRootRef = useRef<HTMLDivElement | null>(null)
   const serviceCatalogue = useServiceCatalogue()
   const displayedMethodOptions = methodOptions
-  const [saved, setSaved] = useState(false)
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [callbackSubmitting, setCallbackSubmitting] = useState(false)
   const [callbackIdempotencyKey, setCallbackIdempotencyKey] = useState(
     () => createCallbackRequestIdempotencyKey(),
@@ -208,9 +208,18 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     window.scrollTo({ top: 0, behavior })
   }, [embedded, state.currentStep])
 
-  const saveForLater = () => {
-    setSaved(true)
-    window.setTimeout(() => setSaved(false), 2200)
+  const saveForLater = async () => {
+    if (saveStatus === 'saving') return
+
+    setSaveStatus('saving')
+    try {
+      await saveSafetyWizardDraft(state)
+      setSaveStatus('saved')
+      window.setTimeout(() => setSaveStatus('idle'), 2200)
+    } catch {
+      setSaveStatus('error')
+      window.setTimeout(() => setSaveStatus('idle'), 3200)
+    }
   }
 
   const selectSingle = <K extends keyof SafetyWizardState>(key: K, value: SafetyWizardState[K]) => {
@@ -487,7 +496,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
 
   const content = (
     <>
-      <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry' && state.currentStep !== 'callback-confirmation' && !callbackSubmitting} canSave={!state.inputMethods.includes('callback')} saved={saved} onBack={wizard.back} onSave={saveForLater}>
+      <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry' && state.currentStep !== 'callback-confirmation' && !callbackSubmitting} canSave={!state.inputMethods.includes('callback')} saveStatus={saveStatus} onBack={wizard.back} onSave={saveForLater}>
         {step}
       </WizardLayout>
       {packageArea ? (

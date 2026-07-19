@@ -13,9 +13,9 @@ type WizardLayoutProps = {
   progress: number
   canGoBack: boolean
   canSave?: boolean
-  saved: boolean
+  saveStatus?: 'idle' | 'saving' | 'saved' | 'error'
   onBack: () => void
-  onSave: () => void
+  onSave: () => void | Promise<void>
 }
 
 export function WizardLayout({
@@ -26,10 +26,18 @@ export function WizardLayout({
   progress,
   canGoBack,
   canSave = true,
-  saved,
+  saveStatus = 'idle',
   onBack,
   onSave,
 }: WizardLayoutProps) {
+  const saveLabel = saveStatus === 'saving'
+    ? copy.nav.saving
+    : saveStatus === 'saved'
+      ? copy.nav.saved
+      : saveStatus === 'error'
+        ? copy.nav.saveError
+        : copy.nav.save
+
   return (
     <div className="safety-wizard-page">
       <div className="safety-wizard-shell">
@@ -37,14 +45,15 @@ export function WizardLayout({
           <BrandLogo />
           {canSave ? (
             <button
-              aria-label={saved ? copy.nav.saved : copy.nav.save}
+              aria-label={saveLabel}
               className="safety-wizard-save"
-              title={saved ? copy.nav.saved : copy.nav.save}
+              disabled={saveStatus === 'saving'}
+              title={saveLabel}
               type="button"
               onClick={onSave}
             >
               <BookmarkCheck size={19} aria-hidden="true" />
-              <span>{saved ? copy.nav.saved : copy.nav.save}</span>
+              <span>{saveLabel}</span>
             </button>
           ) : null}
         </header>

@@ -15,9 +15,11 @@
 .resource-hub-hero-grid {
   display: grid;
   gap: clamp(38px, 5vw, 58px);
+  align-items: center;
 }
 
 .resource-hub-hero-copy,
+.resource-hub-hero-visual,
 .resource-download-card,
 .resource-download-content {
   min-width: 0;
@@ -65,6 +67,34 @@
   flex-wrap: wrap;
   gap: 13px;
   margin-top: 34px;
+}
+
+.resource-hub-hero-visual {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 560px);
+  min-height: clamp(300px, 34vw, 480px);
+}
+
+.resource-hub-hero-visual::before {
+  position: absolute;
+  inset: auto -8% -8% 12%;
+  height: 58%;
+  border-radius: 999px;
+  background: rgba(58, 159, 212, 0.18);
+  filter: blur(34px);
+  content: '';
+}
+
+.resource-hub-hero-visual img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: clamp(300px, 34vw, 480px);
+  border-radius: clamp(28px, 4vw, 48px);
+  box-shadow: 0 28px 80px rgba(3, 19, 32, 0.28);
+  object-fit: cover;
+  object-position: center 42%;
 }
 
 .resource-download-card {
@@ -626,6 +656,10 @@
 }
 
 @media (min-width: 900px) {
+  .resource-hub-hero-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.68fr);
+  }
+
   .resource-download-card {
     grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.18fr);
   }
@@ -668,6 +702,11 @@
 
   .resource-hub-hero-copy h1 {
     font-size: clamp(42px, 13vw, 56px);
+  }
+
+  .resource-hub-hero-visual,
+  .resource-hub-hero-visual img {
+    min-height: 260px;
   }
 
   .resource-download-card,

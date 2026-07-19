@@ -1,10 +1,11 @@
 import {
   finalizeAssessmentMedia,
+  saveAssessmentDraft,
   submitAssessmentRequest,
   type AssessmentMediaManifestItem,
   type AssessmentMediaUpload,
 } from './assessmentRequests.ts'
-import type { SafetyWizardState, WizardAudioBrief, WizardSubmissionPayload } from '../types/wizard.ts'
+import type { SafetyWizardState, WizardAudioBrief, WizardDraftPayload, WizardSubmissionPayload } from '../types/wizard.ts'
 
 function isVideo(type: string, kind?: 'image' | 'video') {
   return kind === 'video' || type.startsWith('video/')
@@ -90,6 +91,77 @@ export function createWizardMediaManifest(state: SafetyWizardState): AssessmentM
   })
 
   return [...photoAndVideoMedia, ...audioMedia]
+}
+
+export function createWizardDraftPayload(state: SafetyWizardState): WizardDraftPayload {
+  const submittedAt = new Date().toISOString()
+
+  return {
+    wizardReference: state.wizardReference,
+    source: 'home-safety-wizard',
+    draft: true,
+    submittedAt,
+    currentStep: state.currentStep,
+    progressUpdatedAt: state.updatedAt,
+    userType: state.userType,
+    inputMethods: state.inputMethods,
+    clientType: state.clientType,
+    clientSiteCount: state.clientSiteCount,
+    clientNeed: state.clientNeed,
+    clientLocation: state.clientLocation || undefined,
+    homeDetails: {
+      homeType: state.homeType,
+      floorCount: state.floorCount,
+      stairsType: state.stairsType,
+      bedroomCount: state.bedroomCount,
+    },
+    mobility: state.mobilityLevel,
+    challenges: state.challenges,
+    risks: state.currentRisks,
+    areasOfConcern: state.areasOfConcern,
+    urgency: state.urgency,
+    notes: state.notes || undefined,
+    photoMetadata: state.photos
+      .filter((media) => !isVideo(media.type, media.kind))
+      .map(({ file: _file, previewUrl: _previewUrl, ...media }) => ({ ...media, kind: 'image' as const })),
+    videoMetadata: state.photos
+      .filter((media) => isVideo(media.type, media.kind))
+      .map(({ file: _file, previewUrl: _previewUrl, ...media }) => ({ ...media, kind: 'video' as const })),
+    audioMetadata: (state.audioBriefs ?? []).map(({ file: _file, previewUrl: _previewUrl, ...media }) => media),
+    voiceMetadata: state.voiceSession
+      ? {
+          ...state.voiceSession,
+          transcript: state.voiceSession.transcript.map((message) => ({ ...message })),
+        }
+      : undefined,
+    selectedPlan: state.result?.selectedPlan,
+    estimatedPriceRange: state.userType === 'client' ? undefined : state.result?.priceRange,
+    inspectionChoice: {
+      booked: state.inspectionBooked,
+      fee: state.inspectionFee,
+      creditThreshold: state.inspectionCreditThreshold,
+    },
+    contactDetails: state.contact,
+  }
+}
+
+export async function saveSafetyWizardDraft(state: SafetyWizardState) {
+  const payload = createWizardDraftPayload(state)
+
+  return saveAssessmentDraft({
+    city: state.contact.city,
+    draft: true,
+    email: state.contact.email,
+    message: JSON.stringify(payload, null, 2),
+    name: state.contact.fullName,
+    phone: state.contact.phone,
+    preferredContactMethod: state.contact.preferredMethod,
+    selectedPlan: state.result?.selectedPlan ?? 'home-safety-wizard',
+    source: 'home-safety-wizard',
+    status: 'Draft',
+    submittedAt: payload.submittedAt,
+    wizardReference: state.wizardReference,
+  })
 }
 
 async function uploadMediaFile(upload: AssessmentMediaUpload, file: File) {
