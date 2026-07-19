@@ -13,7 +13,6 @@ import {
   Mail,
   PackageCheck,
   ShieldCheck,
-  Sparkles,
   Tags,
   UsersRound,
 } from 'lucide-react'
@@ -311,6 +310,28 @@ export function WhyCasamiaPage() {
   const { i18n, t } = useTranslation()
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
   const copy = getWhyCasamiaCopy(i18n.language)
+  const heroJourney = [
+    {
+      icon: ClipboardCheck,
+      title: isSpanish ? 'Revisión clara' : 'Clear review',
+      detail: isSpanish ? 'Casa, persona y riesgos' : 'Home, resident and risks',
+    },
+    {
+      icon: FileText,
+      title: isSpanish ? 'Plan práctico' : 'Practical plan',
+      detail: isSpanish ? 'Qué hacer primero' : 'What to do first',
+    },
+    {
+      icon: PackageCheck,
+      title: isSpanish ? 'Trabajo coordinado' : 'Coordinated work',
+      detail: isSpanish ? 'Productos, fechas y proveedor' : 'Products, timing and provider',
+    },
+    {
+      icon: CircleCheck,
+      title: isSpanish ? 'Entrega revisada' : 'Checked handover',
+      detail: isSpanish ? 'Resultado y seguimiento' : 'Result and follow-up',
+    },
+  ]
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -373,23 +394,40 @@ export function WhyCasamiaPage() {
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
           </div>
-          <aside className="why-hero-proof" aria-label="CasaMia turnkey service flow">
-            <div className="why-turnkey-flow">
-              <span><UsersRound size={22} aria-hidden="true" />{isSpanish ? 'Tú' : 'You'}</span>
-              <i />
-              <strong>Casa<span>Mia</span></strong>
-              <i />
-              <span><CircleCheck size={22} aria-hidden="true" />{isSpanish ? 'Listo' : 'Done'}</span>
-            </div>
-            <div className="why-turnkey-hub">
-              {[
-                { icon: ClipboardCheck, label: isSpanish ? 'Evalúa' : 'Assess' },
-                { icon: PackageCheck, label: isSpanish ? 'Coordina' : 'Coordinate' },
-                { icon: ShieldCheck, label: isSpanish ? 'Instala' : 'Install' },
-                { icon: Sparkles, label: isSpanish ? 'Acompaña' : 'Follow up' },
-              ].map(({ icon: Icon, label }) => (
-                <span key={label}><Icon size={18} aria-hidden="true" />{label}</span>
-              ))}
+          <aside className="why-hero-proof" aria-label="CasaMia managed service flow">
+            <div className="why-managed-card">
+              <div className="why-managed-header">
+                <span className="why-managed-logo">Casa<span>Mia</span></span>
+                <span className="why-managed-badge">
+                  <ShieldCheck size={17} aria-hidden="true" />
+                  {isSpanish ? 'Servicio gestionado' : 'Managed service'}
+                </span>
+              </div>
+
+              <div className="why-managed-summary">
+                <p>{isSpanish ? 'Un equipo responsable' : 'One accountable team'}</p>
+                <strong>{isSpanish ? 'De la duda inicial a una vivienda más segura.' : 'From first concern to a safer home.'}</strong>
+              </div>
+
+              <ol className="why-managed-steps">
+                {heroJourney.map(({ icon: Icon, title, detail }, index) => (
+                  <li key={title}>
+                    <span className="why-managed-step-icon">
+                      <Icon size={19} aria-hidden="true" />
+                    </span>
+                    <span>
+                      <strong>{title}</strong>
+                      <small>{detail}</small>
+                    </span>
+                    <em>{String(index + 1).padStart(2, '0')}</em>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="why-managed-footer">
+                <UsersRound size={18} aria-hidden="true" />
+                <span>{copy.heroProof[2]?.label}</span>
+              </div>
             </div>
           </aside>
         </div>
