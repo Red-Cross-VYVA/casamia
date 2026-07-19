@@ -338,3 +338,13 @@ export type WizardSubmissionPayload = {
   contactDetails: WizardContact
   submittedAt: string
 }
+
+export type WizardDraftPayload = Partial<Omit<WizardSubmissionPayload, 'source' | 'submittedAt'>> & {
+  currentStep: WizardStepId
+  draft: true
+  inputMethods: WizardInputMethod[]
+  progressUpdatedAt: string
+  source: 'home-safety-wizard'
+  submittedAt: string
+  wizardReference: string
+}

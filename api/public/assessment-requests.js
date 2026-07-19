@@ -56,6 +56,74 @@ function mapAssessmentRequest(body, id, mediaManifest, mediaUpload, mediaIpHash)
   }
 }
 
+function isWizardDraft(body, mediaManifest) {
+  return mediaManifest.length === 0
+    && body?.source === 'home-safety-wizard'
+    && (body?.draft === true || body?.status === 'Draft')
+}
+
+function getDraftWizardReference(body) {
+  const wizardReference = typeof body?.wizardReference === 'string' ? body.wizardReference.trim().toUpperCase() : ''
+  return /^CM-[A-Z0-9]{6}$/.test(wizardReference) ? wizardReference : ''
+}
+
+async function findExistingWizardDraft(wizardReference) {
+  const query = [
+    `payload_json->>wizardReference=eq.${encodeURIComponent(wizardReference)}`,
+    'source=eq.home-safety-wizard',
+    'status=eq.Draft',
+    'select=id,status,payload_json',
+    'limit=1',
+  ].join('&')
+  const result = await selectSupabaseRows('assessment_requests', query)
+
+  if (!result.ok || !Array.isArray(result.body)) return undefined
+  return result.body[0]
+}
+
+async function saveWizardDraft(body, response) {
+  const wizardReference = getDraftWizardReference(body)
+
+  if (!wizardReference) {
+    sendJson(response, 400, { message: 'A valid wizard reference is required.' })
+    return
+  }
+
+  const now = new Date().toISOString()
+  const draftBody = {
+    ...body,
+    draft: true,
+    source: 'home-safety-wizard',
+    status: 'Draft',
+    submittedAt: body.submittedAt ?? now,
+    wizardReference,
+  }
+  const existing = await findExistingWizardDraft(wizardReference)
+  const payload = mapAssessmentRequest(draftBody, existing?.id ?? crypto.randomUUID(), [], undefined, undefined)
+  payload.status = 'Draft'
+  payload.submitted_at = existing?.payload_json?.submittedAt ?? payload.submitted_at
+  payload.payload_json = {
+    ...payload.payload_json,
+    firstSavedAt: existing?.payload_json?.firstSavedAt ?? now,
+    lastSavedAt: now,
+  }
+
+  const result = existing?.id
+    ? await updateSupabaseRows('assessment_requests', payload, `id=eq.${encodeURIComponent(existing.id)}&status=eq.Draft`)
+    : await insertSupabaseRow('assessment_requests', payload)
+
+  if (!result.ok) {
+    sendJson(response, result.status, result.body)
+    return
+  }
+
+  const record = Array.isArray(result.body) ? result.body[0] : result.body.record
+  sendJson(response, existing?.id ? 200 : result.status, {
+    id: record?.id ?? result.body.id,
+    status: record?.status ?? result.body.status ?? 'Draft',
+  })
+}
+
 function getClientIp(request) {
   const forwarded = request.headers?.['x-forwarded-for']
   const value = Array.isArray(forwarded) ? forwarded[0] : forwarded
@@ -265,6 +333,11 @@ export default async function handler(request, response) {
       video: process.env.WIZARD_VIDEO_BUCKET || WIZARD_MEDIA_BUCKETS.video,
     }
     const mediaIpHash = manifest.length ? hashClientIp(request) : undefined
+
+    if (isWizardDraft(body, manifest)) {
+      await saveWizardDraft(body, response)
+      return
+    }
 
     if (manifest.length) {
       validateMediaContact(body)

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { Readable } from 'node:stream'
 
 import finalizeAssessmentMedia from '../api/public/assessment-media-finalize.js'
+import assessmentRequests from '../api/public/assessment-requests.js'
 import { classifyRoomImage, parseRoomClassification } from '../api/public/classify-room-photo.js'
 import { getWizardPriceRange } from '../src/config/wizardPricing.ts'
 import { buildWizardSteps } from '../src/services/wizardSteps.ts'
@@ -11,7 +12,7 @@ import {
   buildWizardSafetyReport,
 } from '../src/services/wizardSafetyReport.ts'
 import { loadWizardState, SAFETY_WIZARD_STORAGE_KEY, saveWizardState } from '../src/services/wizardStorage.ts'
-import { createWizardMediaManifest, createWizardSubmissionPayload } from '../src/services/wizardSubmission.ts'
+import { createWizardDraftPayload, createWizardMediaManifest, createWizardSubmissionPayload } from '../src/services/wizardSubmission.ts'
 import {
   createWizardMediaUploadPlan,
   hashWizardMediaToken,
@@ -720,6 +721,30 @@ function makeFinding(overrides = {}) {
 }
 
 {
+  const state = makeState({
+    currentStep: 'stairs',
+    photos: [{
+      id: 'image-1',
+      kind: 'image',
+      name: 'bathroom.jpg',
+      room: 'bathroom',
+      size: 1024,
+      type: 'image/jpeg',
+      file: { binary: true },
+      previewUrl: 'blob:image',
+    }],
+  })
+  const draft = createWizardDraftPayload(state)
+
+  assert.equal(draft.draft, true)
+  assert.equal(draft.currentStep, 'stairs')
+  assert.equal(draft.wizardReference, 'CM-TEST01')
+  assert.equal(draft.photoMetadata?.length, 1)
+  assert.equal('file' in draft.photoMetadata[0], false, 'Draft saves must never copy binary files into JSON.')
+  assert.equal('previewUrl' in draft.photoMetadata[0], false, 'Draft saves must never submit local preview URLs.')
+}
+
+{
   const validated = validateWizardMediaManifest([
     { id: 'video-1', kind: 'image', name: 'home.mp4', room: 'living-room', size: 1024, type: 'video/mp4' },
   ])
@@ -791,6 +816,78 @@ function makeFinding(overrides = {}) {
       'Bearer service-role-test-key',
       'The service role key should be used only by the server-side Storage request.',
     )
+  } finally {
+    globalThis.fetch = originalFetch
+    if (originalUrl === undefined) delete process.env.SUPABASE_URL
+    else process.env.SUPABASE_URL = originalUrl
+    if (originalKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY
+    else process.env.SUPABASE_SERVICE_ROLE_KEY = originalKey
+  }
+}
+
+{
+  const originalFetch = globalThis.fetch
+  const originalUrl = process.env.SUPABASE_URL
+  const originalKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const draftId = '00000000-0000-4000-8000-000000000010'
+  const writes = []
+  const draftBody = {
+    draft: true,
+    source: 'home-safety-wizard',
+    status: 'Draft',
+    submittedAt: new Date(0).toISOString(),
+    wizardReference: 'CM-TEST01',
+    message: JSON.stringify(createWizardDraftPayload(makeState())),
+  }
+  let existingDraft
+
+  process.env.SUPABASE_URL = 'https://project.supabase.co'
+  process.env.SUPABASE_SERVICE_ROLE_KEY = 'service-role-test-key'
+  globalThis.fetch = async (url, init = {}) => {
+    const parsed = new URL(String(url))
+
+    if (parsed.pathname === '/rest/v1/assessment_requests' && init.method === 'GET') {
+      assert.equal(
+        parsed.searchParams.get('payload_json->>wizardReference'),
+        'eq.CM-TEST01',
+        'Draft lookups must use the wizard reference.',
+      )
+      return new Response(JSON.stringify(existingDraft ? [structuredClone(existingDraft)] : []), { status: 200 })
+    }
+
+    if (parsed.pathname === '/rest/v1/assessment_requests' && init.method === 'POST') {
+      const payload = JSON.parse(init.body)
+      writes.push({ method: 'POST', payload })
+      existingDraft = { id: draftId, status: payload.status, payload_json: payload.payload_json }
+      return new Response(JSON.stringify([structuredClone(existingDraft)]), { status: 201 })
+    }
+
+    if (parsed.pathname === '/rest/v1/assessment_requests' && init.method === 'PATCH') {
+      const payload = JSON.parse(init.body)
+      writes.push({ method: 'PATCH', payload })
+      existingDraft = { ...existingDraft, ...payload }
+      return new Response(JSON.stringify([structuredClone(existingDraft)]), { status: 200 })
+    }
+
+    return new Response(JSON.stringify({ message: 'Unexpected test request.' }), { status: 500 })
+  }
+
+  try {
+    const createResponse = makeApiResponse()
+    await assessmentRequests(makeApiRequest(draftBody), createResponse)
+    await createResponse.completed
+
+    const updateResponse = makeApiResponse()
+    await assessmentRequests(makeApiRequest({ ...draftBody, currentStep: 'stairs' }), updateResponse)
+    await updateResponse.completed
+
+    assert.equal(createResponse.statusCode, 200)
+    assert.equal(updateResponse.statusCode, 200)
+    assert.deepEqual(writes.map((write) => write.method), ['POST', 'PATCH'])
+    assert.equal(writes[0].payload.status, 'Draft')
+    assert.equal(writes[1].payload.id, draftId)
+    assert.equal(existingDraft.payload_json.wizardReference, 'CM-TEST01')
+    assert.equal(existingDraft.payload_json.firstSavedAt, writes[0].payload.payload_json.firstSavedAt)
   } finally {
     globalThis.fetch = originalFetch
     if (originalUrl === undefined) delete process.env.SUPABASE_URL

@@ -42,6 +42,21 @@ export type AssessmentSubmissionResponse = {
   uploads?: AssessmentMediaUpload[]
 }
 
+export type AssessmentDraftInput = {
+  city?: string
+  draft: true
+  email?: string
+  message: string
+  name?: string
+  phone?: string
+  preferredContactMethod?: string
+  selectedPlan?: string
+  source: 'home-safety-wizard'
+  status: 'Draft'
+  submittedAt: string
+  wizardReference: string
+}
+
 export type AssessmentMediaFinalizeResponse = {
   mediaManifest?: Array<Pick<AssessmentMediaUpload, 'kind' | 'bucket' | 'objectPath'> & { mediaId: string }>
   ok?: boolean
@@ -116,6 +131,37 @@ export async function submitAssessmentRequest(input: AssessmentRequestInput) {
     }
     return {}
   }
+}
+
+export async function saveAssessmentDraft(input: AssessmentDraftInput) {
+  if (!assessmentEndpoint) {
+    throw new Error('Assessment submission endpoint is not configured.')
+  }
+
+  const response = await fetch(assessmentEndpoint, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      type: 'home_safety_wizard_draft',
+      customer_name: input.name ?? '',
+      customer_email: input.email ?? '',
+      customer_phone: input.phone ?? '',
+      city_area: input.city ?? '',
+      preferred_contact_method: input.preferredContactMethod ?? '',
+      selected_plan: input.selectedPlan ?? 'home-safety-wizard',
+      ...input,
+      mediaManifest: [],
+    }),
+  })
+
+  if (!response.ok) {
+    throw new Error(await readSubmissionError(response))
+  }
+
+  const responseText = await response.text()
+  return responseText ? JSON.parse(responseText) as AssessmentSubmissionResponse : {}
 }
 
 export async function finalizeAssessmentMedia(
