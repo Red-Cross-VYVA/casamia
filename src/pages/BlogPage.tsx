@@ -322,7 +322,8 @@ export function BlogPage() {
                 <a
                   className="btn btn-green"
                   href={primaryDownload.href}
-                  download={primaryDownload.fileName}
+                  target="_blank"
+                  rel="noopener"
                   onClick={() => trackDownload(primaryDownload.language)}
                 >
                   <Download size={19} aria-hidden="true" />
