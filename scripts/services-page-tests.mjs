@@ -35,10 +35,10 @@ assert.match(
   /service\.includedItems\?\.map\(/,
   'Customers must be able to see the inclusions maintained in the admin catalogue.',
 )
-assert.match(
+assert.doesNotMatch(
   page,
-  /formatServicePrice\(service\)/,
-  'Customer-facing prices must be calculated from the admin catalogue pricing fields.',
+  /format(?:ServicePrice|Currency)|service\.pricingType|service\.(?:fromPrice|productPrice|installationPrice|recurringMonthlyPrice)/,
+  'The public catalogue must not reveal pricing before the customer requests a proposal.',
 )
 
 assert.doesNotMatch(

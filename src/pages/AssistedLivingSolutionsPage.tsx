@@ -3,7 +3,6 @@ import {
   AlertCircle,
   ArrowRight,
   BadgeCheck,
-  Bath,
   BedDouble,
   BellRing,
   Building2,
@@ -25,7 +24,6 @@ import {
   Network,
   Plug,
   Radio,
-  ScanLine,
   ShieldCheck,
   Smartphone,
   Sparkles,
@@ -800,17 +798,12 @@ function TechnologyVisual({ kind, label, lang }: { kind: TechnologyKind; label: 
   if (kind === 'bathroom') {
     return (
       <div className="alx-tech-visual is-bathroom" aria-hidden="true">
-        <div className="alx-bathroom-device"><Bath size={40} /><span><Droplets size={18} /></span></div>
-        <div className="alx-signal-stack">
-          <i /><i /><i />
-        </div>
-        <div className="alx-bathroom-insight">
-          <Droplets size={17} />
-          <span>
-            <strong>{isSpanish ? 'Contexto asistencial' : 'Care context'}</strong>
-            <small>{isSpanish ? 'Aviso para revisión' : 'Review prompt'}</small>
-          </span>
-        </div>
+        <SafeImage
+          src="/images/service-gallery/04-bathroom-and-kitchen-adaptations.jpg"
+          alt=""
+          className="alx-tech-photo"
+          imgClassName="alx-tech-photo-img"
+        />
         <div className="alx-visual-caption"><LockKeyhole size={15} />{label}</div>
       </div>
     )
@@ -819,15 +812,12 @@ function TechnologyVisual({ kind, label, lang }: { kind: TechnologyKind; label: 
   if (kind === 'health') {
     return (
       <div className="alx-tech-visual is-health is-mirror" aria-hidden="true">
-        <div className="alx-mirror-device">
-          <div className="alx-mirror-face"><UserRoundCheck size={48} /><span className="alx-mirror-scan" /></div>
-          <div className="alx-mirror-vitals">
-            <span><HeartPulse size={14} /><strong>72</strong><small>{isSpanish ? 'pulso' : 'pulse'}</small></span>
-            <span><Activity size={14} /><strong>15</strong><small>{isSpanish ? 'resp.' : 'breaths'}</small></span>
-            <span><ScanLine size={14} /><strong>30s</strong><small>rPPG</small></span>
-          </div>
-          <small className="alx-mirror-opt-in">{isSpanish ? 'CONTROL DELIBERADO' : 'DELIBERATE CHECK-IN'}</small>
-        </div>
+        <SafeImage
+          src="/images/service-gallery/10-health-and-vitals-monitoring.jpg"
+          alt=""
+          className="alx-tech-photo"
+          imgClassName="alx-tech-photo-img"
+        />
         <div className="alx-visual-caption"><Wifi size={15} />{label}</div>
       </div>
     )

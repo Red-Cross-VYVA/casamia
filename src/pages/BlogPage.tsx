@@ -1,13 +1,9 @@
 import {
   ArrowRight,
   Bath,
-  BedDouble,
   Camera,
-  CheckCircle2,
   ClipboardCheck,
-  CookingPot,
   Download,
-  DoorOpen,
   FileCheck2,
   Home,
   Lightbulb,
@@ -137,8 +133,6 @@ const pageCopy = {
   },
 } as const
 
-const previewRoomIcons = [DoorOpen, Bath, BedDouble, CookingPot] as const
-
 const toolContent = [
   {
     icon: ClipboardCheck,
@@ -231,9 +225,7 @@ export function BlogPage() {
   const { i18n } = useTranslation()
   const language: ResourceDownloadLanguage = i18n.language.startsWith('es') ? 'es' : 'en'
   const copy = pageCopy[language]
-  const alternateLanguage: ResourceDownloadLanguage = language === 'es' ? 'en' : 'es'
   const primaryDownload = completeHomeChecklistDownloads[language]
-  const alternateDownload = completeHomeChecklistDownloads[alternateLanguage]
 
   const resourceHubSchema = useMemo(
     () => ({
@@ -327,100 +319,27 @@ export function BlogPage() {
               <h1 id="resources-page-title">{copy.heroTitle}</h1>
               <p>{copy.heroBody}</p>
               <div className="resource-hub-hero-actions">
-                <a className="btn btn-green" href="#complete-home-checklist">
+                <a
+                  className="btn btn-green"
+                  href={primaryDownload.href}
+                  download={primaryDownload.fileName}
+                  onClick={() => trackDownload(primaryDownload.language)}
+                >
+                  <Download size={19} aria-hidden="true" />
                   {copy.heroPrimary}
                   <ArrowRight size={19} aria-hidden="true" />
                 </a>
-                <Link className="btn btn-white" to="/home-safety-assessment#self-inspection-tool">
-                  {copy.heroSecondary}
-                </Link>
               </div>
             </div>
 
-            <article className="resource-download-card" id="complete-home-checklist">
-              <div className="resource-download-visual">
-                <span className="resource-download-visual-label">
-                  <ClipboardCheck size={17} aria-hidden="true" />
-                  {copy.coverLabel}
-                </span>
-                <div className="resource-download-photo">
-                  <img
-                    src="/images/solutions/front-view-adorable-couple-kitchen.jpg"
-                    alt=""
-                    loading="eager"
-                    decoding="async"
-                  />
-                  <p>{copy.coverFooter}</p>
-                </div>
-
-                <div className="resource-download-room-strip">
-                  {copy.previewRooms.map((room, index) => {
-                    const Icon = previewRoomIcons[index]
-
-                    return (
-                      <span className="resource-download-room" key={room}>
-                        <span>
-                          <Icon size={19} aria-hidden="true" />
-                        </span>
-                        {room}
-                      </span>
-                    )
-                  })}
-                </div>
-              </div>
-
-              <div className="resource-download-content">
-                <p className="resource-download-eyebrow">
-                  <Download size={17} aria-hidden="true" />
-                  {copy.downloadEyebrow}
-                </p>
-                <h2>{copy.downloadTitle}</h2>
-                <p className="resource-download-description">{copy.downloadBody}</p>
-
-                <div className="resource-download-stats">
-                  {copy.downloadStats.map((stat) => (
-                    <div key={stat.label}>
-                      <strong>{stat.value}</strong>
-                      <span>{stat.label}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <ul>
-                  {copy.downloadBenefits.map((benefit) => (
-                    <li key={benefit}>
-                      <CheckCircle2 size={17} aria-hidden="true" />
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
-                <div className="resource-download-actions">
-                  <a
-                    className="btn btn-green"
-                    href={primaryDownload.href}
-                    download={primaryDownload.fileName}
-                    onClick={() => trackDownload(primaryDownload.language)}
-                  >
-                    <Download size={19} aria-hidden="true" />
-                    {copy.downloadPrimary}
-                  </a>
-                  <a
-                    className="resource-download-alternate"
-                    href={alternateDownload.href}
-                    download={alternateDownload.fileName}
-                    hrefLang={alternateDownload.language}
-                    onClick={() => trackDownload(alternateDownload.language)}
-                  >
-                    {copy.downloadSecondary}
-                    <ArrowRight size={16} aria-hidden="true" />
-                  </a>
-                </div>
-                <small className="resource-download-note">
-                  <ShieldCheck size={15} aria-hidden="true" />
-                  {copy.downloadNote}
-                </small>
-              </div>
-            </article>
+            <div className="resource-hub-hero-visual" aria-hidden="true">
+              <img
+                src="/images/solutions/front-view-adorable-couple-kitchen.jpg"
+                alt=""
+                loading="eager"
+                decoding="async"
+              />
+            </div>
           </div>
         </section>
 

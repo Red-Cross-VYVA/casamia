@@ -21,8 +21,6 @@ import { Link } from 'react-router-dom'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import {
-  formatCurrency,
-  formatServicePrice,
   getServicesForPackageArea,
   useServiceCatalogue,
 } from '../services/serviceCatalogue'
@@ -57,7 +55,6 @@ type ServicesPageCopy = {
   activeServices: string
   packageAreas: string
   inclusionsVisible: string
-  pricingVisible: string
   homeVisualTitle: string
   homeVisualIntro: string
   sectionEyebrow: string
@@ -66,7 +63,6 @@ type ServicesPageCopy = {
   packageNavigation: string
   optionSingular: string
   optionPlural: string
-  startingPrice: string
   tailoredQuote: string
   selectedEyebrow: string
   packageOptions: string
@@ -76,7 +72,6 @@ type ServicesPageCopy = {
   customPackageTitle: string
   customPackageBody: string
   customPackageCta: string
-  recurring: string
   requirements: {
     installation: string
     measurement: string
@@ -197,22 +192,21 @@ const otherArea: CatalogueAreaDefinition = {
   },
 }
 
-const homeVisualAreaIds: ServicePackageArea[] = [
-  'bedroom',
-  'bathroom',
-  'kitchen',
-  'living-room',
-  'entrance',
-  'outdoor',
+const homeVisualSlides: Array<{ areaId: ServicePackageArea; image: string }> = [
+  { areaId: 'bedroom', image: '/images/service-gallery/isometric/isometric-bedroom.jpg' },
+  { areaId: 'living-room', image: '/images/service-gallery/isometric/isometric-living.jpg' },
+  { areaId: 'kitchen', image: '/images/service-gallery/isometric/isometric-kitchen.jpg' },
+  { areaId: 'outdoor', image: '/images/service-gallery/isometric/isometric-exterior.jpg' },
+  { areaId: 'bathroom', image: '/images/service-gallery/isometric/isometric-bathroom.jpg' },
 ]
 
 const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
   en: {
     seoTitle: 'CasaMia Home Safety Service Catalogue',
-    seoDescription: 'Compare CasaMia home safety services, current inclusions and catalogue pricing by room and safety area.',
+    seoDescription: 'Explore CasaMia home safety services and current inclusions by room and safety area.',
     heroEyebrow: 'CasaMia service catalogue',
     heroTitle: 'Every safer-home option, clearly organised.',
-    heroBody: 'Choose an area to see the active services CasaMia can assess, supply, install or coordinate. Prices and inclusions come from the same catalogue used by our team.',
+    heroBody: 'Choose an area to see the active services CasaMia can assess, supply, install or coordinate. Your confirmed proposal is prepared after we understand the home.',
     browseCta: 'Browse package areas',
     planCta: 'Build my safer home',
     catalogueLabel: 'Current catalogue',
@@ -220,16 +214,14 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     activeServices: 'Active services',
     packageAreas: 'Package areas',
     inclusionsVisible: 'Inclusions shown',
-    pricingVisible: 'Current pricing',
     homeVisualTitle: 'One home, every key area covered.',
     homeVisualIntro: 'Browse services by the spaces people use every day.',
     sectionEyebrow: 'Choose a package area',
     sectionTitle: 'See exactly what CasaMia can include.',
-    sectionBody: 'Select an area to review its current service components, starting prices and delivery requirements.',
+    sectionBody: 'Select an area to review the current service components and delivery requirements. Final recommendations are confirmed after your proposal request.',
     packageNavigation: 'CasaMia package areas',
     optionSingular: 'option',
     optionPlural: 'options',
-    startingPrice: 'Starting price',
     tailoredQuote: 'Tailored quote',
     selectedEyebrow: 'Current package',
     packageOptions: 'current options',
@@ -239,7 +231,6 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     customPackageTitle: 'Customise your own package',
     customPackageBody: 'Choose the rooms, routines and services that matter most. CasaMia will turn them into one clear plan.',
     customPackageCta: 'Build my package',
-    recurring: 'per month',
     requirements: {
       installation: 'Professional installation',
       measurement: 'Measurement required',
@@ -257,10 +248,10 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
   },
   es: {
     seoTitle: 'Catálogo de servicios de seguridad CasaMia',
-    seoDescription: 'Compara servicios CasaMia, inclusiones actuales y precios de catálogo por estancia y área de seguridad.',
+    seoDescription: 'Explora servicios CasaMia e inclusiones actuales por estancia y área de seguridad.',
     heroEyebrow: 'Catálogo de servicios CasaMia',
     heroTitle: 'Todas las opciones para un hogar más seguro, bien organizadas.',
-    heroBody: 'Elige un área para ver los servicios activos que CasaMia puede evaluar, suministrar, instalar o coordinar. Los precios y las inclusiones proceden del mismo catálogo que utiliza nuestro equipo.',
+    heroBody: 'Elige un área para ver los servicios activos que CasaMia puede evaluar, suministrar, instalar o coordinar. La propuesta confirmada se prepara cuando entendemos la vivienda.',
     browseCta: 'Ver áreas de servicio',
     planCta: 'Crear mi hogar más seguro',
     catalogueLabel: 'Catálogo actual',
@@ -268,16 +259,14 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     activeServices: 'Servicios activos',
     packageAreas: 'Áreas de servicio',
     inclusionsVisible: 'Inclusiones visibles',
-    pricingVisible: 'Precios actuales',
     homeVisualTitle: 'Una casa, cada zona clave cubierta.',
     homeVisualIntro: 'Explora los servicios por los espacios que se usan a diario.',
     sectionEyebrow: 'Elige un área',
     sectionTitle: 'Consulta exactamente qué puede incluir CasaMia.',
-    sectionBody: 'Selecciona un área para revisar sus componentes actuales, precios iniciales y requisitos de instalación.',
+    sectionBody: 'Selecciona un área para revisar sus componentes actuales y requisitos de instalación. Las recomendaciones finales se confirman después de solicitar propuesta.',
     packageNavigation: 'Áreas de servicio CasaMia',
     optionSingular: 'opción',
     optionPlural: 'opciones',
-    startingPrice: 'Precio inicial',
     tailoredQuote: 'Presupuesto a medida',
     selectedEyebrow: 'Área actual',
     packageOptions: 'opciones actuales',
@@ -287,7 +276,6 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     customPackageTitle: 'Crea tu paquete a medida',
     customPackageBody: 'Elige las estancias, rutinas y servicios que más importan. CasaMia lo convierte en un plan claro.',
     customPackageCta: 'Crear mi paquete',
-    recurring: 'al mes',
     requirements: {
       installation: 'Instalación profesional',
       measurement: 'Requiere medición',
@@ -303,44 +291,6 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     startCta: 'Empezar revisión guiada',
     contactCta: 'Contactar con CasaMia',
   },
-}
-
-function getStartingPrice(
-  services: CasaMiaService[],
-  fallback: string,
-  language: 'en' | 'es',
-) {
-  const pricedServices = services
-    .map((service) => ({ service, amount: getOneTimePrice(service) }))
-    .filter((item) => item.amount > 0)
-    .sort((left, right) => left.amount - right.amount)
-
-  return pricedServices[0]
-    ? formatCatalogueServicePrice(pricedServices[0].service, fallback, language)
-    : fallback
-}
-
-function getOneTimePrice(service: CasaMiaService) {
-  if (service.pricingType === 'quote_only') return 0
-  if (service.pricingType === 'from') return service.fromPrice ?? 0
-  return (service.productPrice ?? 0) + (service.installationPrice ?? 0)
-}
-
-function formatCatalogueServicePrice(
-  service: CasaMiaService,
-  fallback: string,
-  language: 'en' | 'es',
-) {
-  if (service.pricingType === 'quote_only') return fallback
-
-  const amount = getOneTimePrice(service)
-  if (!amount) return fallback
-
-  if (service.pricingType === 'from') {
-    return `${language === 'es' ? 'Desde' : 'From'} ${formatCurrency(amount)}`
-  }
-
-  return formatServicePrice(service)
 }
 
 function getRequirementLabels(service: CasaMiaService, copy: ServicesPageCopy) {
@@ -380,14 +330,14 @@ export function ServicesPage() {
   }, [activeServices])
   const selectedGroup = serviceGroups.find((group) => group.area.id === selectedGroupId) ?? serviceGroups[0]
   const SelectedIcon = selectedGroup?.area.icon ?? PackageCheck
-  const heroVisualAreas = homeVisualAreaIds
-    .map((areaId) => {
-      const group = serviceGroups.find((item) => item.area.id === areaId)
-      const area = group?.area ?? catalogueAreas.find((item) => item.id === areaId)
+  const heroSlides = homeVisualSlides
+    .map(({ areaId, image }) => {
+      const area = serviceGroups.find((item) => item.area.id === areaId)?.area
+        ?? catalogueAreas.find((item) => item.id === areaId)
 
-      return area ? { area } : null
+      return area ? { area, image } : null
     })
-    .filter((item): item is { area: CatalogueAreaDefinition } => Boolean(item))
+    .filter((item): item is { area: CatalogueAreaDefinition; image: string } => Boolean(item))
 
   return (
     <>
@@ -427,65 +377,21 @@ export function ServicesPage() {
           </div>
 
           <aside className="services-catalogue-home-visual" aria-label={copy.homeVisualTitle}>
-            <div className="services-catalogue-home-panel">
-              <header>
-                <span className="services-catalogue-home-kicker">{copy.catalogueLabel}</span>
-                <h2>{copy.homeVisualTitle}</h2>
-                <p>{copy.homeVisualIntro}</p>
-              </header>
-
-              <div className="services-catalogue-house" aria-hidden="true">
-                <span className="services-catalogue-house-roof" />
-                <div className="services-catalogue-house-shell">
-                  <div className="services-catalogue-house-floor is-upper">
-                    <div className="services-catalogue-house-room is-bedroom">
-                      <span className="services-catalogue-room-icon"><BedDouble size={20} /></span>
-                      <span>{catalogueAreas[1].title[language]}</span>
-                    </div>
-                    <div className="services-catalogue-house-room is-bathroom">
-                      <span className="services-catalogue-room-icon"><Bath size={20} /></span>
-                      <span>{catalogueAreas[0].title[language]}</span>
-                    </div>
-                    <div className="services-catalogue-house-room is-stairs">
-                      <span className="services-catalogue-room-icon"><Footprints size={20} /></span>
-                      <span>{catalogueAreas[4].title[language]}</span>
-                    </div>
-                  </div>
-                  <div className="services-catalogue-house-floor is-lower">
-                    <div className="services-catalogue-house-room is-living">
-                      <span className="services-catalogue-room-icon"><Home size={20} /></span>
-                      <span>{catalogueAreas[3].title[language]}</span>
-                    </div>
-                    <div className="services-catalogue-house-room is-kitchen">
-                      <span className="services-catalogue-room-icon"><CookingPot size={20} /></span>
-                      <span>{catalogueAreas[2].title[language]}</span>
-                    </div>
-                    <div className="services-catalogue-house-room is-entry">
-                      <span className="services-catalogue-room-icon"><DoorOpen size={20} /></span>
-                      <span>{catalogueAreas[5].title[language]}</span>
-                    </div>
-                  </div>
-                </div>
-                <span className="services-catalogue-house-base" />
-              </div>
-
-              <div className="services-catalogue-home-areas">
-                {heroVisualAreas.map(({ area }) => {
-                  const Icon = area.icon
-
-                  return (
-                    <a
-                      className="services-catalogue-home-area"
-                      href="#catalogue-packages"
-                      key={area.id}
-                      onClick={() => setSelectedGroupId(area.id)}
-                    >
-                      <span><Icon size={18} aria-hidden="true" /></span>
-                      <strong>{area.title[language]}</strong>
-                    </a>
-                  )
-                })}
-              </div>
+            <div className="services-catalogue-home-rotator" aria-hidden="true">
+              {heroSlides.map(({ area, image }) => (
+                <figure className="services-catalogue-home-slide" key={area.id}>
+                  <SafeImage
+                    alt={area.title[language]}
+                    className="services-catalogue-home-slide-media"
+                    imgClassName="services-catalogue-home-slide-image"
+                    loading="eager"
+                    src={image}
+                  />
+                  <figcaption className="services-catalogue-home-slide-caption">
+                    <span>{area.title[language]}</span>
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </aside>
         </div>
@@ -521,10 +427,6 @@ export function ServicesPage() {
                         <small>
                           {group.services.length} {group.services.length === 1 ? copy.optionSingular : copy.optionPlural}
                         </small>
-                      </span>
-                      <span className="services-catalogue-nav-price">
-                        <small>{copy.startingPrice}</small>
-                        <strong>{getStartingPrice(group.services, copy.tailoredQuote, language)}</strong>
                       </span>
                     </button>
                   )
@@ -565,14 +467,6 @@ export function ServicesPage() {
                             <div>
                               <small>{service.category}</small>
                               <h3>{service.name}</h3>
-                            </div>
-                            <div className="services-catalogue-service-price">
-                              <strong>
-                                {formatCatalogueServicePrice(service, copy.tailoredQuote, language)}
-                              </strong>
-                              {service.recurringMonthlyPrice ? (
-                                <span>+ {formatCurrency(service.recurringMonthlyPrice)} {copy.recurring}</span>
-                              ) : null}
                             </div>
                           </header>
 
