@@ -12,7 +12,9 @@ from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
-    Image,
+    CondPageBreak,
+    Flowable,
+    Image as RLImage,
     PageBreak,
     Paragraph,
     SimpleDocTemplate,
@@ -252,6 +254,149 @@ SECTIONS = [
 ]
 
 
+SECTION_VISUALS = [
+    {
+        "diagram": "routes",
+        "title": {"en": "Start with the daily path", "es": "Empieza por el recorrido diario"},
+        "cues": [
+            {"en": "Bed to bathroom", "es": "Cama a baño"},
+            {"en": "Kitchen to living area", "es": "Cocina a salón"},
+            {"en": "Exit route", "es": "Ruta de salida"},
+        ],
+    },
+    {
+        "diagram": "entrance",
+        "title": {"en": "Arrival route visual check", "es": "Revisión visual de la llegada"},
+        "cues": [
+            {"en": "Thresholds", "es": "Umbrales"},
+            {"en": "Mats and steps", "es": "Felpudos y escalones"},
+            {"en": "Door lighting", "es": "Luz en la puerta"},
+        ],
+    },
+    {
+        "diagram": "stairs",
+        "title": {"en": "Support must continue", "es": "El apoyo debe continuar"},
+        "cues": [
+            {"en": "Both ends of routes", "es": "Ambos extremos"},
+            {"en": "Handrail grip", "es": "Agarre del pasamanos"},
+            {"en": "Step edges", "es": "Bordes de escalón"},
+        ],
+    },
+    {
+        "diagram": "living",
+        "title": {"en": "Clear the room around real movement", "es": "Ordena la estancia según el movimiento real"},
+        "cues": [
+            {"en": "Seat height", "es": "Altura del asiento"},
+            {"en": "Low tables", "es": "Mesas bajas"},
+            {"en": "Cable routes", "es": "Cables"},
+        ],
+    },
+    {
+        "diagram": "bedroom",
+        "title": {"en": "Test the first step out of bed", "es": "Revisa el primer paso al levantarse"},
+        "cues": [
+            {"en": "Bedside light", "es": "Luz junto a la cama"},
+            {"en": "Clear floor", "es": "Suelo despejado"},
+            {"en": "Night route", "es": "Ruta nocturna"},
+        ],
+    },
+    {
+        "diagram": "bathroom",
+        "title": {"en": "Bathrooms need fixed support, not improvisation", "es": "El baño necesita apoyo fijo, no improvisado"},
+        "cues": [
+            {"en": "Wet floor", "es": "Suelo mojado"},
+            {"en": "Grab points", "es": "Puntos de apoyo"},
+            {"en": "Toilet transfer", "es": "Traslado al WC"},
+        ],
+    },
+    {
+        "diagram": "kitchen",
+        "title": {"en": "Reduce reach, heat and carrying", "es": "Reduce alcance, calor y cargas"},
+        "cues": [
+            {"en": "Daily storage", "es": "Almacenaje diario"},
+            {"en": "Hot surfaces", "es": "Superficies calientes"},
+            {"en": "Spills", "es": "Derrames"},
+        ],
+    },
+    {
+        "diagram": "utility",
+        "title": {"en": "Make heavy tasks smaller", "es": "Haz las tareas pesadas más pequeñas"},
+        "cues": [
+            {"en": "Laundry loads", "es": "Cargas de ropa"},
+            {"en": "Reach height", "es": "Altura de alcance"},
+            {"en": "Leaking hoses", "es": "Mangueras con fuga"},
+        ],
+    },
+    {
+        "diagram": "exterior",
+        "title": {"en": "Outside areas change with weather", "es": "El exterior cambia con el clima"},
+        "cues": [
+            {"en": "Wet surfaces", "es": "Superficies mojadas"},
+            {"en": "Guardrails", "es": "Barandillas"},
+            {"en": "Outdoor lighting", "es": "Luz exterior"},
+        ],
+    },
+    {
+        "diagram": "alerts",
+        "title": {"en": "Every alert needs a response plan", "es": "Cada aviso necesita un plan de respuesta"},
+        "cues": [
+            {"en": "Alarm owner", "es": "Responsable del aviso"},
+            {"en": "112 visible", "es": "112 visible"},
+            {"en": "Power backup", "es": "Plan ante cortes"},
+        ],
+    },
+]
+
+
+SECTION_HELPER = {
+    "en": "Walk the space, tick what applies, then use the priority label to decide what can be done today and what needs review.",
+    "es": "Recorre el espacio, marca lo que aplique y usa la prioridad para decidir qué hacer hoy y qué revisar.",
+}
+
+PHOTO_PROMPTS = {
+    "routes": {
+        "en": ["Main walking route", "Any rug or cable", "Tight turning point", "Route after dark"],
+        "es": ["Ruta principal", "Alfombra o cable", "Punto de giro estrecho", "Ruta de noche"],
+    },
+    "entrance": {
+        "en": ["Outside approach", "Threshold close-up", "Door lock and handle", "Lighting at night"],
+        "es": ["Llegada exterior", "Detalle del umbral", "Cerradura y manilla", "Luz de noche"],
+    },
+    "stairs": {
+        "en": ["Whole staircase", "First and last step", "Handrail fixing", "Step edge visibility"],
+        "es": ["Escalera completa", "Primer y último escalón", "Fijación del pasamanos", "Bordes visibles"],
+    },
+    "living": {
+        "en": ["Seat used most", "Route around furniture", "Low tables or cables", "Items used daily"],
+        "es": ["Asiento habitual", "Paso entre muebles", "Mesas bajas o cables", "Objetos diarios"],
+    },
+    "bedroom": {
+        "en": ["Bedside area", "First step from bed", "Night route to bathroom", "Light switch reach"],
+        "es": ["Zona junto a cama", "Primer paso al levantarse", "Ruta nocturna al baño", "Alcance de la luz"],
+    },
+    "bathroom": {
+        "en": ["Shower or bath exit", "Toilet transfer area", "Current support points", "Wet floor zones"],
+        "es": ["Salida de ducha o bañera", "Zona de traslado al WC", "Puntos de apoyo actuales", "Zonas mojadas"],
+    },
+    "kitchen": {
+        "en": ["Worktop and sink", "Daily storage height", "Cooking controls", "Anything used to climb"],
+        "es": ["Encimera y fregadero", "Altura de uso diario", "Mandos de cocción", "Cualquier cosa para subirse"],
+    },
+    "utility": {
+        "en": ["Laundry route", "Appliance access", "High storage", "Hoses or damp areas"],
+        "es": ["Ruta de colada", "Acceso a electrodomésticos", "Almacenaje alto", "Mangueras o humedad"],
+    },
+    "exterior": {
+        "en": ["Path to entrance", "Outdoor steps", "Rails or walls used", "Wet or uneven surface"],
+        "es": ["Camino a la entrada", "Escalones exteriores", "Barandillas o paredes usadas", "Suelo mojado o irregular"],
+    },
+    "alerts": {
+        "en": ["Alarm/button location", "Emergency contacts display", "Phone charging place", "Power or router area"],
+        "es": ["Ubicación del botón/alarma", "Contactos de emergencia", "Lugar de carga del teléfono", "Zona de luz o router"],
+    },
+}
+
+
 COPY = {
     "en": {
         "file": "casamia-complete-senior-home-conversion-checklist-en.pdf",
@@ -281,6 +426,22 @@ COPY = {
         "profile_title": "Resident and home snapshot",
         "profile_fields": ["Resident name", "Home address", "Date reviewed", "Reviewed with", "Mobility aid used", "Main concern today"],
         "safety_note": "This workbook is a planning aid, not a building inspection or medical assessment. Fixed supports, structural alterations, electrical, gas and plumbing work should be reviewed and completed by appropriately qualified professionals. In an immediate emergency in Spain, call 112.",
+        "quick_wins_title": "10 quick wins to do before buying anything",
+        "quick_wins_intro": "Start with the changes that reduce daily risk immediately. Most take minutes, cost little or nothing, and make the professional conversation clearer.",
+        "quick_wins": [
+            "Clear the route from bed to bathroom and from living room to exit.",
+            "Remove loose rugs or fix the edges so they cannot curl or slide.",
+            "Move chargers, extension leads and cables away from walking routes.",
+            "Place a light switch, lamp or motion light before the first step out of bed.",
+            "Keep shoes, glasses, walking aid and phone in the same reachable place.",
+            "Stop using towel rails, sink edges or furniture as body-weight support.",
+            "Put heavy daily items between hip and shoulder height.",
+            "Turn pan handles inward and keep hot/heavy items close to the worktop.",
+            "Make 112 and key contacts visible near the phone.",
+            "Agree who responds first if there is an alert, fall, power cut or missed call.",
+        ],
+        "photo_prompt_title": "Photos to take",
+        "photo_prompt_intro": "Useful photos before asking for help:",
         "section_notes": "Notes, measurements or photo numbers",
         "plan_title": "Family action plan",
         "plan_intro": "Choose the five changes that will make the biggest difference to daily safety, independence or confidence.",
@@ -347,6 +508,22 @@ COPY = {
         "profile_title": "Resumen de la persona y la vivienda",
         "profile_fields": ["Nombre", "Dirección", "Fecha de revisión", "Revisado con", "Ayuda de movilidad", "Principal preocupación"],
         "safety_note": "Este cuaderno sirve para planificar; no sustituye una inspección técnica ni una evaluación médica. Los apoyos fijos, cambios estructurales y trabajos de electricidad, gas o fontanería deben ser revisados y realizados por profesionales adecuados. En una emergencia inmediata en España, llama al 112.",
+        "quick_wins_title": "10 mejoras rápidas antes de comprar nada",
+        "quick_wins_intro": "Empieza por los cambios que reducen el riesgo diario de inmediato. La mayoría se hacen en minutos, cuestan poco o nada y ayudan a explicar mejor la situación a un profesional.",
+        "quick_wins": [
+            "Despeja la ruta de cama a baño y de salón a salida.",
+            "Retira alfombras sueltas o fija los bordes para que no se levanten ni deslicen.",
+            "Aleja cargadores, alargadores y cables de las zonas de paso.",
+            "Coloca una luz, interruptor o sensor antes del primer paso al levantarse.",
+            "Deja calzado, gafas, ayuda de movilidad y teléfono siempre al alcance.",
+            "Deja de usar toalleros, lavabo o muebles como apoyo del peso corporal.",
+            "Coloca los objetos diarios pesados entre altura de cadera y hombro.",
+            "Gira los mangos de sartenes hacia dentro y acerca objetos calientes o pesados.",
+            "Haz visible el 112 y los contactos clave junto al teléfono.",
+            "Acuerda quién responde primero ante un aviso, caída, corte de luz o llamada perdida.",
+        ],
+        "photo_prompt_title": "Fotos útiles",
+        "photo_prompt_intro": "Antes de pedir ayuda, fotografía:",
         "section_notes": "Notas, medidas o números de foto",
         "plan_title": "Plan de acción familiar",
         "plan_intro": "Elige los cinco cambios que más mejorarán la seguridad, autonomía o confianza diaria.",
@@ -419,25 +596,41 @@ def make_styles() -> dict[str, ParagraphStyle]:
             "intro", parent=base["Normal"], fontName=FONT_REGULAR, fontSize=10.5,
             leading=15, textColor=MUTED, spaceAfter=12,
         ),
+        "section_helper": ParagraphStyle(
+            "section_helper", parent=base["Normal"], fontName=FONT_BOLD, fontSize=9.4,
+            leading=12.4, textColor=NAVY_MID, spaceBefore=3, spaceAfter=6,
+        ),
+        "visual_title": ParagraphStyle(
+            "visual_title", parent=base["Normal"], fontName=FONT_BOLD, fontSize=12.5,
+            leading=15.5, textColor=NAVY, spaceAfter=6,
+        ),
+        "visual_cue": ParagraphStyle(
+            "visual_cue", parent=base["Normal"], fontName=FONT_BOLD, fontSize=8.9,
+            leading=11.2, textColor=NAVY,
+        ),
+        "visual_label": ParagraphStyle(
+            "visual_label", parent=base["Normal"], fontName=FONT_BOLD, fontSize=7.4,
+            leading=9, textColor=BLUE, alignment=TA_CENTER,
+        ),
         "body": ParagraphStyle(
-            "body", parent=base["Normal"], fontName=FONT_REGULAR, fontSize=9.3,
-            leading=13.2, textColor=TEXT,
+            "body", parent=base["Normal"], fontName=FONT_REGULAR, fontSize=10.2,
+            leading=14.6, textColor=TEXT,
         ),
         "body_small": ParagraphStyle(
-            "body_small", parent=base["Normal"], fontName=FONT_REGULAR, fontSize=8.4,
-            leading=11.2, textColor=TEXT,
+            "body_small", parent=base["Normal"], fontName=FONT_REGULAR, fontSize=8.9,
+            leading=12, textColor=TEXT,
         ),
         "small": ParagraphStyle(
             "small", parent=base["Normal"], fontName=FONT_REGULAR, fontSize=7.5,
             leading=10, textColor=MUTED,
         ),
         "tag": ParagraphStyle(
-            "tag", parent=base["Normal"], fontName=FONT_BOLD, fontSize=6.7,
-            leading=8, textColor=WHITE, alignment=TA_CENTER,
+            "tag", parent=base["Normal"], fontName=FONT_BOLD, fontSize=7.1,
+            leading=8.6, textColor=WHITE, alignment=TA_CENTER,
         ),
         "check": ParagraphStyle(
-            "check", parent=base["Normal"], fontName=FONT_BOLD, fontSize=9,
-            leading=12, textColor=NAVY, alignment=TA_CENTER,
+            "check", parent=base["Normal"], fontName=FONT_BOLD, fontSize=14,
+            leading=16, textColor=NAVY, alignment=TA_CENTER,
         ),
         "field": ParagraphStyle(
             "field", parent=base["Normal"], fontName=FONT_BOLD, fontSize=8.3,
@@ -492,37 +685,418 @@ def draw_body_page(canvas, doc, copy) -> None:
     canvas.drawRightString(width - 18 * mm, height - 13 * mm, copy["footer_title"])
     canvas.line(18 * mm, 14 * mm, width - 18 * mm, 14 * mm)
     canvas.setFont(FONT_REGULAR, 7)
-    canvas.drawString(18 * mm, 9 * mm, "casamia.es")
+    canvas.drawString(18 * mm, 9 * mm, "casamia.com.es")
     canvas.drawRightString(width - 18 * mm, 9 * mm, str(doc.page))
     canvas.restoreState()
 
 
-def checklist_table(items, language, copy, styles) -> Table:
-    rows = []
-    style_commands = [
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 5),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 5),
+class GuideDiagram(Flowable):
+    def __init__(self, diagram_type: str, language: str, width: float = 158 * mm, height: float = 66 * mm):
+        super().__init__()
+        self.diagram_type = diagram_type
+        self.language = language
+        self.width = width
+        self.height = height
+
+    def draw(self) -> None:
+        c = self.canv
+        w = self.width
+        h = self.height
+        c.saveState()
+        specs = self._action_specs().get(self.diagram_type, self._action_specs()["routes"])
+        gap = 4 * mm
+        card_w = (w - 2 * gap) / 3
+        for index, spec in enumerate(specs):
+            x = index * (card_w + gap)
+            self._draw_action_card(c, x, 0, card_w, h, spec)
+        c.restoreState()
+
+    def _t(self, en: str, es: str) -> str:
+        return es if self.language == "es" else en
+
+    def _action_specs(self) -> dict[str, list[dict[str, str]]]:
+        return {
+            "routes": [
+                {"icon": "rug", "kind": "risk", "tag": self._t("REMOVE", "RETIRAR"), "title": self._t("Loose rugs", "Alfombras sueltas"), "action": self._t("Fix or remove before walking routes.", "Fijar o quitar de las rutas.")},
+                {"icon": "cable", "kind": "risk", "tag": self._t("MOVE", "MOVER"), "title": self._t("Cables in the path", "Cables en el paso"), "action": self._t("Keep chargers and leads off the floor.", "Sacar cargadores y cables del suelo.")},
+                {"icon": "walker", "kind": "check", "tag": self._t("TEST", "PROBAR"), "title": self._t("Walker clearance", "Paso con andador"), "action": self._t("Walk the real route with the usual aid.", "Probar la ruta con la ayuda habitual.")},
+            ],
+            "entrance": [
+                {"icon": "threshold", "kind": "risk", "tag": self._t("CHECK", "REVISAR"), "title": self._t("Raised threshold", "Umbral elevado"), "action": self._t("Mark, repair or ramp difficult edges.", "Señalar, reparar o salvar bordes.")},
+                {"icon": "door", "kind": "check", "tag": self._t("TEST", "PROBAR"), "title": self._t("Door effort", "Esfuerzo de puerta"), "action": self._t("Open with the usual keys and hands.", "Abrir con llaves y manos reales.")},
+                {"icon": "light", "kind": "fix", "tag": self._t("ADD", "AÑADIR"), "title": self._t("Visible arrival", "Llegada visible"), "action": self._t("Light the portal, lock and first step.", "Iluminar portal, cerradura y primer paso.")},
+            ],
+            "stairs": [
+                {"icon": "rail", "kind": "fix", "tag": self._t("ADD", "AÑADIR"), "title": self._t("Continuous rail", "Pasamanos continuo"), "action": self._t("Support should run past first and last step.", "Debe cubrir primer y último escalón.")},
+                {"icon": "step_edges", "kind": "check", "tag": self._t("MARK", "MARCAR"), "title": self._t("Step edges", "Bordes de escalón"), "action": self._t("Make edges visible in low light.", "Hacerlos visibles con poca luz.")},
+                {"icon": "stairs_clutter", "kind": "risk", "tag": self._t("CLEAR", "DESPEJAR"), "title": self._t("Nothing stored", "Nada guardado"), "action": self._t("No shoes, baskets or parcels on stairs.", "Sin zapatos, cestas ni paquetes.")},
+            ],
+            "living": [
+                {"icon": "chair", "kind": "check", "tag": self._t("TEST", "PROBAR"), "title": self._t("Safe chair height", "Altura de silla"), "action": self._t("Sit and stand without pulling furniture.", "Sentarse sin tirar de muebles.")},
+                {"icon": "low_table", "kind": "risk", "tag": self._t("MOVE", "MOVER"), "title": self._t("Low tables", "Mesas bajas"), "action": self._t("Open a clear turning path.", "Abrir espacio para girar.")},
+                {"icon": "remote", "kind": "fix", "tag": self._t("PLACE", "COLOCAR"), "title": self._t("Daily items close", "Uso diario cerca"), "action": self._t("Phone, glasses and water within reach.", "Teléfono, gafas y agua al alcance.")},
+            ],
+            "bedroom": [
+                {"icon": "bed", "kind": "check", "tag": self._t("TEST", "PROBAR"), "title": self._t("First stand-up", "Primer levantarse"), "action": self._t("Feet flat, no pulling on drawers.", "Pies firmes, sin tirar de cajones.")},
+                {"icon": "lamp", "kind": "fix", "tag": self._t("ADD", "AÑADIR"), "title": self._t("Light before standing", "Luz antes de ponerse de pie"), "action": self._t("Switch reachable from bed.", "Interruptor al alcance desde cama.")},
+                {"icon": "shoes", "kind": "risk", "tag": self._t("SET", "PREPARAR"), "title": self._t("Night route kit", "Ruta nocturna"), "action": self._t("Shoes, glasses and aid in one place.", "Calzado, gafas y ayuda juntos.")},
+            ],
+            "bathroom": [
+                {"icon": "wet_floor", "kind": "risk", "tag": self._t("DRY", "SECAR"), "title": self._t("Wet floor", "Suelo mojado"), "action": self._t("Dry exit from shower before walking.", "Secar salida de ducha antes de caminar.")},
+                {"icon": "grab_bar", "kind": "fix", "tag": self._t("FIX", "FIJAR"), "title": self._t("Real grab bars", "Barras reales"), "action": self._t("Never rely on towel rails or sink edges.", "No usar toalleros ni lavabo como apoyo.")},
+                {"icon": "toilet", "kind": "check", "tag": self._t("TEST", "PROBAR"), "title": self._t("Toilet transfer", "Traslado al WC"), "action": self._t("Check height, approach and support.", "Revisar altura, acceso y apoyo.")},
+            ],
+            "kitchen": [
+                {"icon": "shelf", "kind": "fix", "tag": self._t("LOWER", "BAJAR"), "title": self._t("Daily items", "Uso diario"), "action": self._t("Heavy items between shoulder and hip.", "Peso entre hombro y cadera.")},
+                {"icon": "stool", "kind": "risk", "tag": self._t("STOP", "EVITAR"), "title": self._t("No stools", "Sin taburetes"), "action": self._t("Avoid climbing for cupboards.", "No subirse para alcanzar armarios.")},
+                {"icon": "pan", "kind": "check", "tag": self._t("TURN", "GIRAR"), "title": self._t("Pan handles", "Mangos de sartén"), "action": self._t("Turn handles inward to avoid knocks.", "Girarlos hacia dentro.")},
+            ],
+            "utility": [
+                {"icon": "laundry", "kind": "check", "tag": self._t("SPLIT", "DIVIDIR"), "title": self._t("Small loads", "Cargas pequeñas"), "action": self._t("Carry less, more often.", "Llevar menos peso cada vez.")},
+                {"icon": "shelf", "kind": "risk", "tag": self._t("LOWER", "BAJAR"), "title": self._t("Reach height", "Altura de alcance"), "action": self._t("No stretching with weight.", "No estirarse con peso.")},
+                {"icon": "leak", "kind": "fix", "tag": self._t("CHECK", "REVISAR"), "title": self._t("Leaks and hoses", "Fugas y mangueras"), "action": self._t("Check before damage becomes a fall risk.", "Revisar antes de que sea riesgo.")},
+            ],
+            "exterior": [
+                {"icon": "rain_path", "kind": "risk", "tag": self._t("WATCH", "VIGILAR"), "title": self._t("Wet surfaces", "Superficies mojadas"), "action": self._t("Weather changes grip quickly.", "El clima cambia el agarre.")},
+                {"icon": "rail", "kind": "check", "tag": self._t("TEST", "PROBAR"), "title": self._t("Loose rail", "Barandilla floja"), "action": self._t("Do not use if it moves.", "No usar si se mueve.")},
+                {"icon": "light", "kind": "fix", "tag": self._t("LIGHT", "ILUMINAR"), "title": self._t("Path to door", "Camino a puerta"), "action": self._t("Light from gate or car to entrance.", "Luz desde portal o coche.")},
+            ],
+            "alerts": [
+                {"icon": "button", "kind": "check", "tag": self._t("REACH", "ALCANCE"), "title": self._t("Call button", "Botón de aviso"), "action": self._t("Reachable from bed, bath and floor.", "Al alcance en cama, baño y suelo.")},
+                {"icon": "phone112", "kind": "fix", "tag": self._t("VISIBLE", "VISIBLE"), "title": self._t("Emergency number", "Emergencia"), "action": self._t("112 and contacts easy to find.", "112 y contactos fáciles de ver.")},
+                {"icon": "response", "kind": "risk", "tag": self._t("AGREE", "ACORDAR"), "title": self._t("Who responds?", "Quién responde"), "action": self._t("Name the person, backup and next step.", "Persona, suplente y siguiente paso.")},
+            ],
+        }
+
+    def _draw_action_card(self, c, x: float, y: float, w: float, h: float, spec: dict[str, str]) -> None:
+        palette = {
+            "risk": (colors.HexColor("#FFF0E8"), colors.HexColor("#C85F3E")),
+            "fix": (colors.HexColor("#EEF7E5"), colors.HexColor("#6FAE33")),
+            "check": (colors.HexColor("#EAF6FF"), NAVY_MID),
+        }
+        fill, ink = palette[spec["kind"]]
+        c.setFillColor(WHITE)
+        c.roundRect(x, y, w, h, 8, stroke=0, fill=1)
+        c.setFillColor(fill)
+        c.roundRect(x, y + h - 13 * mm, w, 13 * mm, 8, stroke=0, fill=1)
+        c.setFillColor(WHITE)
+        c.rect(x, y + h - 13 * mm, w, 5 * mm, stroke=0, fill=1)
+        c.setStrokeColor(colors.HexColor("#BEDBEA"))
+        c.setLineWidth(0.8)
+        c.roundRect(x, y, w, h, 8, stroke=1, fill=0)
+        c.setFillColor(WHITE)
+        c.roundRect(x + 5 * mm, y + h - 10.5 * mm, 24 * mm, 6.8 * mm, 3.4, stroke=0, fill=1)
+        c.setFillColor(ink)
+        c.setFont(FONT_BOLD, 6.5)
+        c.drawCentredString(x + 17 * mm, y + h - 8.1 * mm, spec["tag"])
+        c.setStrokeColor(ink)
+        c.setLineWidth(1.1)
+        c.line(x + 5 * mm, y + h - 15 * mm, x + w - 5 * mm, y + h - 15 * mm)
+        self._draw_icon(c, spec["icon"], x + w * 0.5, y + h * 0.56, min(w * 0.58, h * 0.38), ink, spec["kind"])
+        c.setFillColor(NAVY)
+        c.setFont(FONT_BOLD, 8.7)
+        c.drawCentredString(x + w / 2, y + 17.2 * mm, spec["title"][:30])
+        c.setFillColor(MUTED)
+        c.setFont(FONT_REGULAR, 6.6)
+        lines = self._wrap(spec["action"], 31)
+        for idx, line in enumerate(lines[:3]):
+            c.drawCentredString(x + w / 2, y + (11.0 - idx * 3.5) * mm, line)
+        c.setStrokeColor(ink)
+        c.setLineWidth(1.6)
+        c.line(x + 12 * mm, y + 4 * mm, x + w - 12 * mm, y + 4 * mm)
+
+    def _wrap(self, text: str, width: int) -> list[str]:
+        words = text.split()
+        lines: list[str] = []
+        current = ""
+        for word in words:
+            candidate = f"{current} {word}".strip()
+            if len(candidate) <= width:
+                current = candidate
+            else:
+                if current:
+                    lines.append(current)
+                current = word
+        if current:
+            lines.append(current)
+        return lines
+
+    def _draw_icon(self, c, icon: str, cx: float, cy: float, size: float, ink, kind: str) -> None:
+        c.saveState()
+        c.setStrokeColor(ink)
+        icon_fill = {
+            "risk": colors.Color(200 / 255, 95 / 255, 62 / 255, alpha=0.08),
+            "fix": colors.Color(111 / 255, 174 / 255, 51 / 255, alpha=0.10),
+            "check": colors.Color(58 / 255, 159 / 255, 212 / 255, alpha=0.10),
+        }[kind]
+        c.setFillColor(icon_fill)
+        c.circle(cx, cy, size * 0.54, stroke=0, fill=1)
+        c.setStrokeColor(colors.Color(1, 1, 1, alpha=0.65))
+        c.setLineWidth(5)
+        c.circle(cx, cy, size * 0.54, stroke=1, fill=0)
+        c.setStrokeColor(ink)
+        c.setLineWidth(2.2)
+        s = size
+        if icon == "rug":
+            c.roundRect(cx - s * 0.36, cy - s * 0.16, s * 0.72, s * 0.32, 5, stroke=1, fill=0)
+            c.line(cx - s * 0.28, cy - s * 0.05, cx + s * 0.28, cy - s * 0.05)
+            c.setStrokeColor(colors.HexColor("#C85F3E"))
+            c.line(cx - s * 0.35, cy - s * 0.28, cx + s * 0.35, cy + s * 0.28)
+        elif icon == "cable":
+            c.bezier(cx - s * 0.35, cy, cx - s * 0.10, cy + s * 0.28, cx + s * 0.12, cy - s * 0.24, cx + s * 0.34, cy)
+            c.circle(cx + s * 0.34, cy, 3, stroke=1, fill=0)
+        elif icon == "walker":
+            c.line(cx - s * 0.25, cy + s * 0.24, cx - s * 0.25, cy - s * 0.18)
+            c.line(cx + s * 0.25, cy + s * 0.24, cx + s * 0.25, cy - s * 0.18)
+            c.line(cx - s * 0.25, cy + s * 0.08, cx + s * 0.25, cy + s * 0.08)
+            c.circle(cx - s * 0.25, cy - s * 0.22, 3, stroke=1, fill=0)
+            c.circle(cx + s * 0.25, cy - s * 0.22, 3, stroke=1, fill=0)
+        elif icon in ("threshold", "rain_path"):
+            c.line(cx - s * 0.38, cy - s * 0.16, cx + s * 0.38, cy - s * 0.16)
+            c.rect(cx - s * 0.08, cy - s * 0.16, s * 0.16, s * 0.25, stroke=1, fill=0)
+            if icon == "rain_path":
+                for dx in (-0.22, 0, 0.22):
+                    c.line(cx + s * dx, cy + s * 0.3, cx + s * (dx - 0.08), cy + s * 0.12)
+        elif icon == "door":
+            c.rect(cx - s * 0.22, cy - s * 0.28, s * 0.44, s * 0.56, stroke=1, fill=0)
+            c.circle(cx + s * 0.12, cy, 2.2, stroke=1, fill=0)
+        elif icon in ("light", "lamp"):
+            c.circle(cx, cy + s * 0.12, s * 0.18, stroke=1, fill=0)
+            c.line(cx, cy - s * 0.08, cx, cy - s * 0.30)
+            c.line(cx - s * 0.22, cy - s * 0.30, cx + s * 0.22, cy - s * 0.30)
+            for dx in (-0.26, 0, 0.26):
+                c.line(cx + s * dx, cy + s * 0.36, cx + s * dx, cy + s * 0.46)
+        elif icon == "rail":
+            c.setStrokeColor(colors.HexColor("#6FAE33"))
+            c.setLineWidth(4)
+            c.line(cx - s * 0.36, cy + s * 0.12, cx + s * 0.36, cy + s * 0.12)
+            c.setLineWidth(2)
+            c.line(cx - s * 0.28, cy + s * 0.12, cx - s * 0.28, cy - s * 0.22)
+            c.line(cx + s * 0.28, cy + s * 0.12, cx + s * 0.28, cy - s * 0.22)
+        elif icon in ("step_edges", "stairs_clutter"):
+            for i in range(4):
+                c.line(cx - s * 0.36 + i * s * 0.18, cy - s * 0.20 + i * s * 0.10, cx - s * 0.18 + i * s * 0.18, cy - s * 0.20 + i * s * 0.10)
+                c.line(cx - s * 0.18 + i * s * 0.18, cy - s * 0.20 + i * s * 0.10, cx - s * 0.18 + i * s * 0.18, cy - s * 0.10 + i * s * 0.10)
+            if icon == "stairs_clutter":
+                c.setFillColor(colors.HexColor("#F6D1B8"))
+                c.roundRect(cx + s * 0.10, cy - s * 0.10, s * 0.18, s * 0.14, 2, stroke=0, fill=1)
+        elif icon == "chair":
+            c.roundRect(cx - s * 0.22, cy, s * 0.44, s * 0.18, 4, stroke=1, fill=0)
+            c.line(cx - s * 0.20, cy, cx - s * 0.28, cy - s * 0.28)
+            c.line(cx + s * 0.20, cy, cx + s * 0.28, cy - s * 0.28)
+            c.line(cx - s * 0.20, cy + s * 0.18, cx - s * 0.24, cy + s * 0.42)
+        elif icon == "low_table":
+            c.line(cx - s * 0.32, cy, cx + s * 0.32, cy)
+            c.line(cx - s * 0.24, cy, cx - s * 0.32, cy - s * 0.22)
+            c.line(cx + s * 0.24, cy, cx + s * 0.32, cy - s * 0.22)
+            c.setStrokeColor(colors.HexColor("#C85F3E"))
+            c.line(cx - s * 0.30, cy - s * 0.30, cx + s * 0.30, cy + s * 0.30)
+        elif icon == "remote":
+            c.roundRect(cx - s * 0.13, cy - s * 0.28, s * 0.26, s * 0.56, 5, stroke=1, fill=0)
+            for y in (-0.12, 0.04, 0.20):
+                c.circle(cx, cy + s * y, 2, stroke=1, fill=0)
+        elif icon == "bed":
+            c.roundRect(cx - s * 0.36, cy - s * 0.08, s * 0.72, s * 0.26, 4, stroke=1, fill=0)
+            c.roundRect(cx - s * 0.32, cy + s * 0.02, s * 0.20, s * 0.12, 3, stroke=1, fill=0)
+            c.line(cx - s * 0.36, cy - s * 0.08, cx - s * 0.36, cy - s * 0.25)
+            c.line(cx + s * 0.36, cy - s * 0.08, cx + s * 0.36, cy - s * 0.25)
+        elif icon == "shoes":
+            c.roundRect(cx - s * 0.30, cy - s * 0.05, s * 0.28, s * 0.15, 6, stroke=1, fill=0)
+            c.roundRect(cx + s * 0.02, cy - s * 0.05, s * 0.28, s * 0.15, 6, stroke=1, fill=0)
+        elif icon == "wet_floor":
+            for dx, dy in [(-0.18, 0.15), (0.10, 0.24), (0.24, -0.08)]:
+                c.circle(cx + s * dx, cy + s * dy, 3.5, stroke=1, fill=0)
+            c.setStrokeColor(colors.HexColor("#C85F3E"))
+            c.line(cx - s * 0.32, cy - s * 0.20, cx + s * 0.32, cy - s * 0.20)
+        elif icon == "grab_bar":
+            c.setStrokeColor(colors.HexColor("#6FAE33"))
+            c.setLineWidth(4)
+            c.line(cx - s * 0.34, cy + s * 0.12, cx + s * 0.34, cy + s * 0.12)
+            c.line(cx - s * 0.22, cy - s * 0.14, cx + s * 0.22, cy - s * 0.14)
+        elif icon == "toilet":
+            c.roundRect(cx - s * 0.22, cy - s * 0.12, s * 0.34, s * 0.25, 4, stroke=1, fill=0)
+            c.rect(cx + s * 0.12, cy - s * 0.02, s * 0.20, s * 0.28, stroke=1, fill=0)
+        elif icon == "shelf":
+            for y in (-0.18, 0.04, 0.26):
+                c.line(cx - s * 0.34, cy + s * y, cx + s * 0.34, cy + s * y)
+            c.rect(cx - s * 0.20, cy - s * 0.13, s * 0.16, s * 0.13, stroke=1, fill=0)
+            c.rect(cx + s * 0.08, cy + s * 0.08, s * 0.16, s * 0.13, stroke=1, fill=0)
+        elif icon == "stool":
+            c.line(cx - s * 0.24, cy + s * 0.12, cx + s * 0.24, cy + s * 0.12)
+            c.line(cx - s * 0.16, cy + s * 0.12, cx - s * 0.28, cy - s * 0.22)
+            c.line(cx + s * 0.16, cy + s * 0.12, cx + s * 0.28, cy - s * 0.22)
+            c.setStrokeColor(colors.HexColor("#C85F3E"))
+            c.line(cx - s * 0.34, cy - s * 0.30, cx + s * 0.34, cy + s * 0.30)
+        elif icon == "pan":
+            c.circle(cx - s * 0.10, cy, s * 0.16, stroke=1, fill=0)
+            c.line(cx + s * 0.06, cy, cx + s * 0.38, cy + s * 0.12)
+        elif icon == "laundry":
+            c.roundRect(cx - s * 0.28, cy - s * 0.18, s * 0.56, s * 0.34, 5, stroke=1, fill=0)
+            c.arc(cx - s * 0.18, cy + s * 0.04, cx + s * 0.18, cy + s * 0.32, 0, 180)
+        elif icon == "leak":
+            c.rect(cx - s * 0.22, cy - s * 0.20, s * 0.44, s * 0.44, stroke=1, fill=0)
+            c.circle(cx, cy, s * 0.12, stroke=1, fill=0)
+            c.line(cx + s * 0.26, cy - s * 0.05, cx + s * 0.38, cy - s * 0.18)
+            c.circle(cx + s * 0.40, cy - s * 0.22, 2.8, stroke=1, fill=0)
+        elif icon == "button":
+            c.circle(cx, cy, s * 0.26, stroke=1, fill=0)
+            c.circle(cx, cy, s * 0.10, stroke=1, fill=0)
+        elif icon == "phone112":
+            c.roundRect(cx - s * 0.23, cy - s * 0.30, s * 0.46, s * 0.60, 5, stroke=1, fill=0)
+            c.setFillColor(ink)
+            c.setFont(FONT_BOLD, 10)
+            c.drawCentredString(cx, cy - 3, "112")
+        elif icon == "response":
+            for dx in (-0.24, 0, 0.24):
+                c.circle(cx + s * dx, cy + s * 0.08, s * 0.08, stroke=1, fill=0)
+                c.line(cx + s * dx, cy - s * 0.01, cx + s * dx, cy - s * 0.20)
+            c.line(cx - s * 0.16, cy - s * 0.18, cx + s * 0.16, cy - s * 0.18)
+        c.restoreState()
+
+
+def visual_guide(section_visual: dict, language: str, styles) -> Table:
+    diagram = GuideDiagram(section_visual["diagram"], language)
+    card = Table([
+        [Paragraph(escape(section_visual["title"][language]), styles["visual_title"])],
+        [diagram],
+    ], colWidths=[171 * mm])
+    card.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#F4FBFF")),
+        ("BOX", (0, 0), (-1, -1), 0.55, BORDER),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 6),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 6),
         ("TOPPADDING", (0, 0), (-1, -1), 5),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-        ("LINEBELOW", (0, 0), (-1, -1), 0.35, BORDER),
-    ]
-    for row_index, checklist_item in enumerate(items):
+        ("BOTTOMPADDING", (0, 0), (0, 0), 2),
+    ]))
+    return card
+
+
+def checklist_table(items, language, copy, styles) -> list:
+    cards = []
+    for checklist_item in items:
         tag_code = checklist_item["tag"]
         tag_label = copy["priority"][tag_code][0]
-        rows.append([
-            Paragraph("[ ]", styles["check"]),
+        card = Table([[
+            Paragraph("□", styles["check"]),
             Paragraph(escape(tag_label), styles["tag"]),
             Paragraph(escape(checklist_item[language]), styles["body"]),
-        ])
-        style_commands.extend([
-            ("BACKGROUND", (0, row_index), (0, row_index), PALE_BLUE),
-            ("BACKGROUND", (1, row_index), (1, row_index), TAG_COLOURS[tag_code]),
-        ])
+        ]], colWidths=[14 * mm, 33 * mm, 124 * mm])
+        card.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), WHITE),
+            ("BACKGROUND", (0, 0), (0, 0), colors.HexColor("#EEF8FD")),
+            ("BACKGROUND", (1, 0), (1, 0), TAG_COLOURS[tag_code]),
+            ("BOX", (0, 0), (-1, -1), 0.45, BORDER),
+            ("LINEAFTER", (1, 0), (1, 0), 0.45, WHITE),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (0, 0), (0, 0), 4),
+            ("RIGHTPADDING", (0, 0), (0, 0), 4),
+            ("LEFTPADDING", (1, 0), (1, 0), 5),
+            ("RIGHTPADDING", (1, 0), (1, 0), 5),
+            ("LEFTPADDING", (2, 0), (2, 0), 9),
+            ("RIGHTPADDING", (2, 0), (2, 0), 9),
+            ("TOPPADDING", (0, 0), (-1, -1), 7),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+        ]))
+        cards.extend([card, Spacer(1, 2.2 * mm)])
+    return cards
 
-    table = Table(rows, colWidths=[13 * mm, 29 * mm, 129 * mm], repeatRows=0)
-    table.setStyle(TableStyle(style_commands))
-    return table
+
+def quick_wins_page(copy: dict, styles: dict[str, ParagraphStyle]) -> list:
+    story = [
+        Paragraph(escape(copy["quick_wins_title"]), styles["h1"]),
+        Paragraph(escape(copy["quick_wins_intro"]), styles["intro"]),
+    ]
+    rows = []
+    for index in range(0, 10, 2):
+        left = Table([[
+            Paragraph(f"{index + 1:02d}", styles["visual_label"]),
+            Paragraph(escape(copy["quick_wins"][index]), styles["body_small"]),
+        ]], colWidths=[14 * mm, 68 * mm])
+        right = Table([[
+            Paragraph(f"{index + 2:02d}", styles["visual_label"]),
+            Paragraph(escape(copy["quick_wins"][index + 1]), styles["body_small"]),
+        ]], colWidths=[14 * mm, 68 * mm])
+        for card in (left, right):
+            card.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, -1), WHITE),
+                ("BACKGROUND", (0, 0), (0, 0), colors.HexColor("#E1F2FC")),
+                ("BOX", (0, 0), (-1, -1), 0.45, BORDER),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 6),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+                ("TOPPADDING", (0, 0), (-1, -1), 7),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+            ]))
+        rows.append([left, right])
+
+    grid = Table(rows, colWidths=[84 * mm, 84 * mm], rowHeights=[18 * mm] * 5)
+    grid.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+        ("TOPPADDING", (0, 0), (-1, -1), 3),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+    ]))
+    story.append(grid)
+    return story
+
+
+def photo_prompt_box(diagram_type: str, language: str, copy: dict, styles: dict[str, ParagraphStyle]) -> Table:
+    prompts = PHOTO_PROMPTS[diagram_type][language]
+    prompt_cells = []
+    for index, prompt in enumerate(prompts, 1):
+        prompt_cells.append(Table([[
+            Paragraph(f"{index:02d}", styles["visual_label"]),
+            Paragraph(escape(prompt), styles["body_small"]),
+        ]], colWidths=[10 * mm, 30.5 * mm]))
+
+    for cell in prompt_cells:
+        cell.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, -1), WHITE),
+            ("BACKGROUND", (0, 0), (0, 0), colors.HexColor("#E1F2FC")),
+            ("BOX", (0, 0), (-1, -1), 0.35, BORDER),
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("LEFTPADDING", (0, 0), (-1, -1), 4),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+            ("TOPPADDING", (0, 0), (-1, -1), 4),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+        ]))
+
+    prompts_table = Table([prompt_cells], colWidths=[40.75 * mm] * 4)
+    prompts_table.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+        ("TOPPADDING", (0, 0), (-1, -1), 2),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+    ]))
+    title = Table([[
+        Paragraph(escape(copy["photo_prompt_title"]), styles["field"]),
+        Paragraph(escape(copy["photo_prompt_intro"]), styles["small"]),
+    ]], colWidths=[31 * mm, 132 * mm])
+    title.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+        ("TOPPADDING", (0, 0), (-1, -1), 0),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
+    ]))
+    box = Table([
+        [title],
+        [prompts_table],
+    ], colWidths=[171 * mm])
+    box.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#F7FBFE")),
+        ("BOX", (0, 0), (-1, -1), 0.45, BORDER),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 6),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+        ("TOPPADDING", (0, 0), (-1, -1), 4),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+    ]))
+    return box
 
 
 def notes_box(title, styles) -> list:
@@ -540,7 +1114,7 @@ def build_story(language: str, copy: dict, styles: dict[str, ParagraphStyle]) ->
 
     story.append(Spacer(1, 14 * mm))
     if LOGO.exists():
-        logo = Image(str(LOGO), width=55 * mm, height=17.2 * mm)
+        logo = RLImage(str(LOGO), width=55 * mm, height=17.2 * mm)
         logo.hAlign = "LEFT"
         story.append(logo)
     story.append(Spacer(1, 30 * mm))
@@ -633,13 +1207,21 @@ def build_story(language: str, copy: dict, styles: dict[str, ParagraphStyle]) ->
     story.append(safety_box)
     story.append(PageBreak())
 
+    story.extend(quick_wins_page(copy, styles))
+    story.append(PageBreak())
+
     for section_index, section in enumerate(SECTIONS):
+        if section_index > 0:
+            story.append(CondPageBreak(112 * mm))
         story.append(Paragraph(escape(section["title"][language]), styles["h1"]))
         story.append(Paragraph(escape(section["intro"][language]), styles["intro"]))
-        story.append(checklist_table(section["items"], language, copy, styles))
+        story.append(visual_guide(SECTION_VISUALS[section_index], language, styles))
+        story.append(Spacer(1, 3 * mm))
+        story.append(photo_prompt_box(SECTION_VISUALS[section_index]["diagram"], language, copy, styles))
+        story.append(Spacer(1, 5 * mm))
+        story.append(Paragraph(escape(SECTION_HELPER[language]), styles["section_helper"]))
+        story.extend(checklist_table(section["items"], language, copy, styles))
         story.extend(notes_box(copy["section_notes"], styles))
-        if section_index < len(SECTIONS) - 1:
-            story.append(PageBreak())
 
     story.append(PageBreak())
     story.append(Paragraph(escape(copy["plan_title"]), styles["h1"]))
@@ -675,10 +1257,10 @@ def build_story(language: str, copy: dict, styles: dict[str, ParagraphStyle]) ->
 
     story.append(PageBreak())
     story.append(Paragraph(escape(copy["quote_title"]), styles["h1"]))
-    story.append(checklist_table([{"tag": "CHECK", language: value} for value in copy["quote_items"]], language, copy, styles))
+    story.extend(checklist_table([{"tag": "CHECK", language: value} for value in copy["quote_items"]], language, copy, styles))
     story.append(Spacer(1, 7 * mm))
     story.append(Paragraph(escape(copy["handover_title"]), styles["h1"]))
-    story.append(checklist_table([{"tag": "PLAN", language: value} for value in copy["handover_items"]], language, copy, styles))
+    story.extend(checklist_table([{"tag": "PLAN", language: value} for value in copy["handover_items"]], language, copy, styles))
 
     story.append(PageBreak())
     story.append(Paragraph(escape(copy["sources_title"]), styles["h1"]))
@@ -705,7 +1287,7 @@ def build_story(language: str, copy: dict, styles: dict[str, ParagraphStyle]) ->
     story.append(Spacer(1, 12 * mm))
     closing = Table([
         [Paragraph("CasaMia", ParagraphStyle("closing_brand", fontName=FONT_BOLD, fontSize=18, textColor=WHITE)),
-         Paragraph("casamia.es", ParagraphStyle("closing_url", fontName=FONT_BOLD, fontSize=10, textColor=WHITE, alignment=TA_CENTER))]
+         Paragraph("casamia.com.es", ParagraphStyle("closing_url", fontName=FONT_BOLD, fontSize=10, textColor=WHITE, alignment=TA_CENTER))]
     ], colWidths=[110 * mm, 61 * mm], rowHeights=[24 * mm])
     closing.setStyle(TableStyle([
         ("BACKGROUND", (0, 0), (-1, -1), NAVY),
@@ -747,7 +1329,7 @@ def generate(language: str) -> Path:
         raise RuntimeError(f"Expected a comprehensive guide, got only {len(reader.pages)} pages")
     extracted = "\n".join((page.extract_text() or "") for page in reader.pages)
     normalized_text = " ".join(extracted.split())
-    for expected in (copy["title"], "112", "casamia.es"):
+    for expected in (copy["title"], "112", "casamia.com.es"):
         if " ".join(expected.split()) not in normalized_text:
             raise RuntimeError(f"Missing expected PDF text: {expected}")
     print(f"Generated {output_path} ({len(reader.pages)} pages)")

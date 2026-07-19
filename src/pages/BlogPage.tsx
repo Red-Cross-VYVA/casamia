@@ -24,7 +24,7 @@ import {
 import { trackEvent } from '../utils/analytics'
 import '../styles/resources-hub.css'
 
-const siteUrl = 'https://casamia.es'
+const siteUrl = 'https://casamia.com.es'
 
 const pageCopy = {
   en: {
@@ -322,7 +322,8 @@ export function BlogPage() {
                 <a
                   className="btn btn-green"
                   href={primaryDownload.href}
-                  download={primaryDownload.fileName}
+                  target="_blank"
+                  rel="noopener"
                   onClick={() => trackDownload(primaryDownload.language)}
                 >
                   <Download size={19} aria-hidden="true" />

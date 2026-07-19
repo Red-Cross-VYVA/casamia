@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const defaultSiteUrl = 'https://casamia.es'
+const defaultSiteUrl = 'https://casamia.com.es'
 
 type SEOProps = {
   title: string

@@ -344,7 +344,7 @@ export function HomePage() {
           name: 'CasaMia',
           description:
             'Home safety assessments, installation and personalised independent-living solutions.',
-          url: 'https://casamia.es',
+          url: 'https://casamia.com.es',
           areaServed: 'Spain',
         }}
       />
