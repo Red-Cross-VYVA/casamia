@@ -419,7 +419,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         title: 'Build your plan',
         body: 'Choose rooms and receive recommended improvements.',
         cta: 'Build plan',
-        to: '/configure',
+        to: '/home-safety-wizard',
       },
       {
         icon: 'monitor',
@@ -619,7 +619,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         title: 'Crear tu plan',
         body: 'Elige estancias y recibe mejoras recomendadas.',
         cta: 'Crear plan',
-        to: '/configure',
+        to: '/home-safety-wizard',
       },
       {
         icon: 'monitor',

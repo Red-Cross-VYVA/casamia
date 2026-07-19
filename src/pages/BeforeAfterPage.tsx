@@ -29,7 +29,7 @@ export function BeforeAfterPage() {
             </Link>
             <Link
               className="btn border border-border bg-white text-navy hover:border-green hover:text-green"
-              to="/configure"
+              to="/home-safety-wizard"
             >
               {t('beforeAfter.page.compareCta')}
             </Link>

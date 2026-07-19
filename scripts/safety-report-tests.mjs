@@ -19,6 +19,8 @@ import {
   scorePhotoFindings,
 } from '../src/services/safetyReportScoring.ts'
 import { createPublicReportToken } from '../src/utils/publicReportToken.ts'
+import { casaMiaServices } from '../src/config/serviceCatalogue.ts'
+import { findBestServiceForPhotoAnalysis } from '../src/services/wizardSafetyReport.ts'
 
 function openAiResult(value) {
   return {
@@ -510,5 +512,30 @@ const unavailableScore = buildOverallSafetyScore(
 
 assert.equal(unavailableScore.scoreBreakdown[0].points, 0)
 assert.equal(unavailableScore.analysisCoverage, 0)
+
+const stairLightingRecommendation = findBestServiceForPhotoAnalysis(
+  'stairs',
+  [makeFinding({
+    category: 'lighting',
+    title: 'Dark lower steps',
+    severity: 'high',
+  })],
+  casaMiaServices,
+)
+assert.equal(
+  stairLightingRecommendation?.service.id,
+  'movement-hallway-lighting',
+  'A visible stair-lighting issue must lead to the matching catalogue service.',
+)
+
+const configurePageSource = readFileSync(
+  new URL('../src/pages/ConfigurePage.tsx', import.meta.url),
+  'utf8',
+)
+assert.match(
+  configurePageSource,
+  /searchParams\.get\('service'\)[\s\S]*?setSelectedServices\([\s\S]*?setCurrentStep\(5\)/,
+  'A report recommendation link must open the configurator with the exact service selected.',
+)
 
 console.log('Safety report analysis and scoring checks passed.')

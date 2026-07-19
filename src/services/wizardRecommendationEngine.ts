@@ -184,5 +184,34 @@ function buildImprovements(state: SafetyWizardState) {
     })
   }
 
+  if (state.stairsType && state.stairsType !== 'none' && !deduped.has('stairs-review')) {
+    deduped.set('stairs-review', {
+      ...improvementsByRoom.stairs!,
+      priority: state.urgency === 'urgent' ? 'immediate' : 'recommended',
+    })
+  }
+
+  if (
+    state.bedroomCount
+    && state.challenges.includes('night-movement')
+    && !deduped.has('bedroom-route')
+  ) {
+    deduped.set('bedroom-route', {
+      ...improvementsByRoom.bedroom!,
+      priority: 'recommended',
+    })
+  }
+
+  if (
+    state.mobilityLevel
+    && !['independent', 'prefer-not'].includes(state.mobilityLevel)
+    && !deduped.has('entrance-support')
+  ) {
+    deduped.set('entrance-support', {
+      ...improvementsByRoom.entrance!,
+      priority: 'recommended',
+    })
+  }
+
   return [...deduped.values()].slice(0, 7)
 }

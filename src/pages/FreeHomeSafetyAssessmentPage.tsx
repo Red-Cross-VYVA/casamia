@@ -90,9 +90,6 @@ export function FreeHomeSafetyAssessmentPage() {
                 {t('assessment.hero.cta')}
                 <ArrowRight size={20} aria-hidden="true" />
               </a>
-              <a className="btn btn-white" href="/configure">
-                Build My Safer Home
-              </a>
               <Link className="btn btn-white" to="/home-safety-wizard">
                 {t('wizard.cta')}
               </Link>

@@ -7,7 +7,6 @@ import {
   BriefcaseBusiness,
   Building2,
   CalendarClock,
-  Camera,
   Check,
   CircleHelp,
   CookingPot,
@@ -40,6 +39,7 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } 
 import { useTranslation } from 'react-i18next'
 
 import { ContactDetailsStep } from '../components/wizard/ContactDetailsStep'
+import { AudioBriefStep } from '../components/wizard/AudioBriefStep'
 import { CallbackConfirmationStep } from '../components/wizard/CallbackConfirmationStep'
 import { CallbackRequestStep } from '../components/wizard/CallbackRequestStep'
 import { PhoneStep } from '../components/wizard/PhoneStep'
@@ -66,6 +66,7 @@ import type {
   ClientNeed,
   ClientSiteCount,
   ClientType,
+  BedroomCount,
   FloorCount,
   HomeType,
   MobilityLevel,
@@ -95,8 +96,12 @@ const userOptions: ChoiceOption<WizardUserType>[] = [
   { value: 'client', icon: BriefcaseBusiness },
 ]
 const methodOptions: ChoiceOption<WizardInputMethod>[] = [
-  { value: 'questions', icon: Check }, { value: 'photos', icon: Camera }, { value: 'voice', icon: Mic },
-  { value: 'call', icon: Phone }, { value: 'callback', icon: PhoneCall }, { value: 'visit', icon: Home },
+  { value: 'questions', icon: Check },
+  { value: 'call', icon: Phone },
+  { value: 'whatsapp', icon: MessageCircle },
+  { value: 'callback', icon: PhoneCall },
+  { value: 'audio', icon: Mic },
+  { value: 'voice', icon: Sparkles },
 ]
 const homeOptions: ChoiceOption<HomeType>[] = [
   { value: 'apartment', icon: Building2 }, { value: 'house', icon: House }, { value: 'villa', icon: Warehouse }, { value: 'other', icon: CircleHelp },
@@ -106,6 +111,9 @@ const floorOptions: ChoiceOption<FloorCount>[] = [
 ]
 const stairOptions: ChoiceOption<StairsType>[] = [
   { value: 'none', icon: Check }, { value: 'inside', icon: ArrowUpDown }, { value: 'outside', icon: MoveUp }, { value: 'both', icon: ArrowUpDown },
+]
+const bedroomOptions: ChoiceOption<BedroomCount>[] = [
+  { value: 'studio', icon: Home }, { value: 'one', icon: BedDouble }, { value: 'two', icon: BedDouble }, { value: 'three-plus', icon: BedDouble },
 ]
 const areaOptions: ChoiceOption<WizardRoom>[] = [
   { value: 'bathroom', icon: Bath }, { value: 'bedroom', icon: BedDouble }, { value: 'kitchen', icon: CookingPot },
@@ -154,9 +162,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
   const { state } = wizard
   const embeddedRootRef = useRef<HTMLDivElement | null>(null)
   const serviceCatalogue = useServiceCatalogue()
-  const displayedMethodOptions = state.userType === 'client'
-    ? ['call', 'callback', 'visit', 'photos', 'voice', 'questions'].map((value) => methodOptions.find((option) => option.value === value)!)
-    : methodOptions
+  const displayedMethodOptions = methodOptions
   const [saved, setSaved] = useState(false)
   const [callbackSubmitting, setCallbackSubmitting] = useState(false)
   const [callbackIdempotencyKey, setCallbackIdempotencyKey] = useState(
@@ -232,7 +238,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     setSubmitStatus(undefined)
     try {
       const submission = await submitSafetyWizard(nextState)
-      wizard.patchState({ submitted: true, photos: submission.photos })
+      wizard.patchState({ submitted: true, photos: submission.photos, audioBriefs: submission.audioBriefs })
       trackEvent('wizard_submitted', { reference: state.wizardReference, action, userType: state.userType })
       setSubmitStatus('success')
     } catch {
@@ -323,7 +329,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
           selected: state.userType ? [state.userType] : [],
           onSelect: (value) => {
             trackEvent('wizard_user_type_selected', { userType: value })
-            wizard.completeStep({ userType: value, inputMethods: [] })
+            wizard.completeStep({ userType: value })
           },
         })
       case 'methods':
@@ -371,6 +377,8 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
         return renderChoiceStep({ title: state.userType === 'family' ? copy.floors.familyTitle : copy.floors.title, hint: copy.micro.chooseOne, options: floorOptions, labels: copy.floors.options, selected: state.floorCount ? [state.floorCount] : [], onSelect: (value) => wizard.completeStep({ floorCount: value, stairsType: value === 'one' ? 'none' : state.stairsType }) })
       case 'stairs':
         return renderChoiceStep({ title: state.userType === 'family' ? copy.stairs.familyTitle : copy.stairs.title, hint: copy.micro.chooseOne, options: stairOptions, labels: copy.stairs.options, selected: state.stairsType ? [state.stairsType] : [], onSelect: (value) => selectSingle('stairsType', value) })
+      case 'bedrooms':
+        return renderChoiceStep({ title: state.userType === 'family' ? copy.bedrooms.familyTitle : copy.bedrooms.title, hint: copy.micro.chooseOne, options: bedroomOptions, labels: copy.bedrooms.options, selected: state.bedroomCount ? [state.bedroomCount] : [], onSelect: (value) => selectSingle('bedroomCount', value) })
       case 'areas':
         return (
           <WizardStep title={state.userType === 'family' ? copy.areas.familyTitle : copy.areas.title} hint={copy.micro.chooseAll}>
@@ -414,6 +422,8 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
         return <TextStep title={copy.notes.title} body={copy.notes.body} placeholder={copy.notes.placeholder} value={state.notes} onChange={(value) => wizard.patchState({ notes: value })} copy={copy} onContinue={() => wizard.completeStep()} multiline />
       case 'photos':
         return <><PhotoUploadStep analysisContext={{ homeType: state.homeType ?? '', mainConcern: [...state.currentRisks, ...state.challenges, ...state.areasOfConcern].join(', '), urgency: state.urgency ?? '', mobilityProfile: state.mobilityLevel ?? '', description: state.notes }} copy={copy} locale={i18n.language} photos={state.photos} roomLabels={{ bathroom: copy.areas.options.bathroom, bedroom: copy.areas.options.bedroom, kitchen: copy.areas.options.kitchen, 'living-room': copy.areas.options['living-room'], stairs: copy.areas.options.stairs, entrance: copy.areas.options.entrance, outdoor: copy.areas.options.outdoor, other: copy.photos.otherRoom }} onChange={(photos) => { if (photos.length > state.photos.length) trackEvent('wizard_photo_added', { reference: state.wizardReference }); wizard.patchState({ photos }) }} /><WizardActions copy={copy} allowSkip={!state.photos.length || hasUnavailablePhotoAnalysis} disabled={hasPhotoAnalysisInProgress || hasUnavailablePhotoAnalysis} skipLabel={hasUnavailablePhotoAnalysis ? copy.photos.continueWithoutAnalysis : undefined} onContinue={() => wizard.completeStep()} /></>
+      case 'audio':
+        return <><AudioBriefStep audioBriefs={state.audioBriefs} copy={copy} fallbackNote={state.notes} onFallbackNoteChange={(notes) => wizard.patchState({ notes })} onChange={(audioBriefs) => { if (audioBriefs.length > state.audioBriefs.length) trackEvent('wizard_audio_added', { reference: state.wizardReference }); wizard.patchState({ audioBriefs }) }} /><WizardActions copy={copy} allowSkip={!state.audioBriefs.length} onContinue={() => wizard.completeStep()} /></>
       case 'voice':
         return <><Suspense fallback={<div className="safety-wizard-notice" role="status">{copy.voice.connecting}</div>}><VoiceInputStep copy={copy} fallbackNote={state.notes} language={i18n.language} session={state.voiceSession} userType={state.userType} wizardReference={state.wizardReference} onFallbackNoteChange={(notes) => wizard.patchState({ notes })} onChange={(voiceSession) => { if (voiceSession?.conversationId && trackedVoiceConversationRef.current !== voiceSession.conversationId) { trackedVoiceConversationRef.current = voiceSession.conversationId; trackEvent('wizard_voice_conversation_started', { reference: state.wizardReference }) } else if (!voiceSession) { trackedVoiceConversationRef.current = undefined } wizard.patchState({ voiceSession }) }} /></Suspense><WizardActions copy={copy} allowSkip onContinue={() => wizard.completeStep()} /></>
       case 'phone':

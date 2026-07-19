@@ -23,6 +23,7 @@ function createInitialState(): SafetyWizardState {
     currentRisks: [],
     notes: '',
     photos: [],
+    audioBriefs: [],
     callbackRequest: {
       preferredDate: '',
       preferredTimeWindow: '',
@@ -89,7 +90,7 @@ export function useSafetyWizard() {
   }, [])
 
   const start = useCallback(() => {
-    setState((current) => ({ ...current, started: true, currentStep: 'user-type', updatedAt: new Date().toISOString() }))
+    setState((current) => ({ ...current, started: true, currentStep: 'methods', updatedAt: new Date().toISOString() }))
     trackEvent('wizard_started')
   }, [])
 

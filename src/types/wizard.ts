@@ -6,10 +6,11 @@ import type {
 } from './safetyAnalysis.ts'
 
 export type WizardUserType = 'me' | 'family' | 'client'
-export type WizardInputMethod = 'questions' | 'photos' | 'voice' | 'call' | 'callback' | 'visit'
+export type WizardInputMethod = 'questions' | 'audio' | 'voice' | 'call' | 'whatsapp' | 'callback' | 'photos' | 'visit'
 export type HomeType = 'apartment' | 'house' | 'villa' | 'other'
 export type FloorCount = 'one' | 'two' | 'three-plus'
 export type StairsType = 'none' | 'inside' | 'outside' | 'both'
+export type BedroomCount = 'studio' | 'one' | 'two' | 'three-plus'
 export type MobilityLevel = 'independent' | 'cane' | 'walker' | 'wheelchair' | 'assistance' | 'prefer-not'
 export type Urgency = 'planning' | 'soon' | 'urgent'
 export type WizardContactMethod = 'phone' | 'whatsapp' | 'email'
@@ -87,6 +88,7 @@ export type WizardStepId =
   | 'home-type'
   | 'floors'
   | 'stairs'
+  | 'bedrooms'
   | 'areas'
   | 'mobility'
   | 'challenges'
@@ -94,6 +96,7 @@ export type WizardStepId =
   | 'urgency'
   | 'notes'
   | 'photos'
+  | 'audio'
   | 'voice'
   | 'phone'
   | 'callback'
@@ -119,6 +122,19 @@ export type WizardPhoto = {
   analysisStatus?: 'analysing' | 'analysed' | 'unavailable'
   analysis?: SafetyPhotoAnalysisResult
   analysisError?: string
+}
+
+export type WizardAudioBrief = {
+  id: string
+  name: string
+  size: number
+  type: string
+  kind: 'audio'
+  durationSeconds?: number
+  storageBucket?: string
+  storagePath?: string
+  file?: File
+  previewUrl?: string
 }
 
 export type WizardVoiceTranscriptMessage = {
@@ -267,6 +283,7 @@ export type SafetyWizardState = {
   homeType?: HomeType
   floorCount?: FloorCount
   stairsType?: StairsType
+  bedroomCount?: BedroomCount
   areasOfConcern: WizardRoom[]
   mobilityLevel?: MobilityLevel
   challenges: WizardChallenge[]
@@ -274,6 +291,7 @@ export type SafetyWizardState = {
   urgency?: Urgency
   notes: string
   photos: WizardPhoto[]
+  audioBriefs: WizardAudioBrief[]
   voiceSession?: WizardVoiceSession
   callbackRequest: WizardCallbackRequest
   callbackSubmission?: WizardCallbackSubmission
@@ -298,6 +316,7 @@ export type WizardSubmissionPayload = {
     homeType?: HomeType
     floorCount?: FloorCount
     stairsType?: StairsType
+    bedroomCount?: BedroomCount
   }
   mobility?: MobilityLevel
   challenges: WizardChallenge[]
@@ -307,6 +326,7 @@ export type WizardSubmissionPayload = {
   notes?: string
   photoMetadata: Array<Omit<WizardPhoto, 'file' | 'previewUrl'>>
   videoMetadata: Array<Omit<WizardPhoto, 'file' | 'previewUrl'>>
+  audioMetadata: Array<Omit<WizardAudioBrief, 'file' | 'previewUrl'>>
   voiceMetadata?: WizardVoiceSession
   selectedPlan?: WizardResult['selectedPlan']
   estimatedPriceRange?: WizardPriceRange

@@ -12,6 +12,17 @@ type PhotoApiHandler = (
   response: PhotoApiResponse,
 ) => Promise<void>
 
+function visionApiProxy(target: string) {
+  return {
+    target,
+    changeOrigin: true,
+    secure: true,
+    headers: {
+      origin: new URL(target).origin,
+    },
+  }
+}
+
 function photoAnalysisDevApi(): Plugin {
   return {
     name: 'casamia-photo-analysis-dev-api',
@@ -52,6 +63,8 @@ function photoAnalysisDevApi(): Plugin {
 export default defineConfig(({ mode }) => {
   const projectRoot = fileURLToPath(new URL('.', import.meta.url))
   const env = { ...loadEnv(mode, projectRoot, ''), ...process.env }
+  const devVisionApiUrl = (env.CASAMIA_DEV_VISION_API_URL || '').toString().replace(/\/$/, '')
+  const useLocalVisionApi = Boolean(env.OPENAI_API_KEY)
 
   if (env.OPENAI_API_KEY) process.env.OPENAI_API_KEY = env.OPENAI_API_KEY
   if (env.OPENAI_VISION_MODEL) process.env.OPENAI_VISION_MODEL = env.OPENAI_VISION_MODEL
@@ -62,6 +75,14 @@ export default defineConfig(({ mode }) => {
       'import.meta.env.VITE_ESTIMATE_API_URL': JSON.stringify(env.VITE_ESTIMATE_API_URL ?? ''),
     },
     envPrefix: 'VITE_',
-    plugins: [react(), photoAnalysisDevApi()],
+    plugins: [react(), ...(useLocalVisionApi ? [photoAnalysisDevApi()] : [])],
+    server: !useLocalVisionApi && devVisionApiUrl
+      ? {
+          proxy: {
+            '/api/public/analyse-safety-photo': visionApiProxy(devVisionApiUrl),
+            '/api/public/classify-room-photo': visionApiProxy(devVisionApiUrl),
+          },
+        }
+      : undefined,
   }
 })

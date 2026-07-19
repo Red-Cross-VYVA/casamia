@@ -260,6 +260,7 @@ export default async function handler(request, response) {
     const manifest = validateWizardMediaManifest(body.mediaManifest)
     const assessmentId = crypto.randomUUID()
     const buckets = {
+      audio: process.env.WIZARD_AUDIO_BUCKET || WIZARD_MEDIA_BUCKETS.audio,
       image: process.env.WIZARD_IMAGE_BUCKET || WIZARD_MEDIA_BUCKETS.image,
       video: process.env.WIZARD_VIDEO_BUCKET || WIZARD_MEDIA_BUCKETS.video,
     }
@@ -282,7 +283,11 @@ export default async function handler(request, response) {
       const bucketResult = await ensurePrivateStorageBucket({
         allowedMimeTypes: WIZARD_MEDIA_MIME_TYPES_BY_KIND[kind],
         bucket: buckets[kind],
-        fileSizeLimit: kind === 'video' ? WIZARD_MEDIA_LIMITS.maxVideoBytes : WIZARD_MEDIA_LIMITS.maxImageBytes,
+        fileSizeLimit: kind === 'video'
+          ? WIZARD_MEDIA_LIMITS.maxVideoBytes
+          : kind === 'audio'
+            ? WIZARD_MEDIA_LIMITS.maxAudioBytes
+            : WIZARD_MEDIA_LIMITS.maxImageBytes,
       })
 
       if (!bucketResult.ok) {

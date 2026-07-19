@@ -1,4 +1,4 @@
-import { formatServicePrice } from './serviceCatalogue.ts'
+import { formatServicePrice, getDefaultServicePackageAreas } from './serviceCatalogue.ts'
 import { scorePhotoFindings } from './safetyReportScoring.ts'
 import type {
   SafetyFindingCategory,
@@ -325,9 +325,13 @@ function recommendServices(
 }
 
 function serviceMatchesFindingRoom(service: CasaMiaService, finding: WizardRoomFinding) {
-  const findingRoom = finding.room
-  const area = roomToServiceArea[findingRoom]
-  if (area && service.wizardAreas?.includes(area)) return true
+  return serviceMatchesRoom(service, finding.room)
+}
+
+function serviceMatchesRoom(service: CasaMiaService, findingRoom: string) {
+  const area = roomToServiceArea[findingRoom as WizardPhoto['room']]
+  const serviceAreas = service.wizardAreas ?? getDefaultServicePackageAreas(service)
+  if (area && serviceAreas.includes(area)) return true
 
   if (findingRoom === 'bathroom') return service.room === 'bathroom'
   if (findingRoom === 'bedroom') return service.room === 'bedroom'
@@ -335,6 +339,39 @@ function serviceMatchesFindingRoom(service: CasaMiaService, finding: WizardRoomF
   if (findingRoom === 'entrance') return service.room === 'entrance'
   if (['living-room', 'stairs', 'outdoor'].includes(findingRoom)) return service.room === 'movement'
   return false
+}
+
+export function findBestServiceForPhotoAnalysis(
+  room: string,
+  findings: SafetyPhotoFinding[],
+  services: CasaMiaService[],
+) {
+  return services
+    .filter((service) => service.active && serviceMatchesRoom(service, room))
+    .flatMap((service) => {
+      const categories = service.evidenceCategories?.length
+        ? service.evidenceCategories
+        : inferEvidenceCategories(service)
+      const minimumSeverity = service.minimumEvidenceSeverity ?? 'low'
+      const matches = findings.filter((finding) =>
+        categories.includes(finding.category)
+        && severityRank[finding.severity] >= severityRank[minimumSeverity],
+      )
+
+      if (!matches.length) return []
+
+      const strongestFinding = [...matches].sort(
+        (left, right) => findingWeight(right) - findingWeight(left),
+      )[0]
+      const roomArea = roomToServiceArea[room as WizardPhoto['room']]
+      const serviceAreas = service.wizardAreas ?? getDefaultServicePackageAreas(service)
+      const roomSpecificity = roomArea && serviceAreas.includes(roomArea) ? 1_000 : 0
+      const score = roomSpecificity
+        + matches.reduce((total, finding) => total + findingWeight(finding), 0)
+
+      return [{ service, finding: strongestFinding, score }]
+    })
+    .sort((left, right) => right.score - left.score)[0]
 }
 
 export function inferEvidenceCategories(service: CasaMiaService): SafetyFindingCategory[] {

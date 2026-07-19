@@ -1,8 +1,12 @@
-import { AlertTriangle, Check, Eye, HelpCircle, ShieldCheck } from 'lucide-react'
+import { AlertTriangle, ArrowRight, Check, Eye, HelpCircle, House, ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 import type { EstimateReport, EstimateRiskAssessment } from '../services/estimateWorkflow'
 import type { EstimatePhotoAnalysis } from '../services/safetyReportScoring'
+import { formatCurrency, useServiceCatalogue } from '../services/serviceCatalogue'
+import { findBestServiceForPhotoAnalysis } from '../services/wizardSafetyReport'
+import type { CasaMiaService } from '../types/serviceCatalogue'
 
 export function PhotoAnalysisCards({
   analyses,
@@ -13,6 +17,7 @@ export function PhotoAnalysisCards({
 }) {
   const { i18n, t } = useTranslation()
   const isSpanish = i18n.language.startsWith('es')
+  const serviceCatalogue = useServiceCatalogue()
 
   if (analyses.length === 0) return null
 
@@ -43,6 +48,7 @@ export function PhotoAnalysisCards({
             analysis={analysis}
             index={index}
             previewUrl={previewByPhotoId[analysis.photoId]}
+            services={serviceCatalogue.services}
           />
         ))}
       </div>
@@ -54,15 +60,24 @@ function PhotoAnalysisCard({
   analysis,
   index,
   previewUrl,
+  services,
 }: {
   analysis: EstimatePhotoAnalysis
   index: number
   previewUrl?: string
+  services: CasaMiaService[]
 }) {
   const { i18n, t } = useTranslation()
   const isSpanish = i18n.language.startsWith('es')
   const analysed = analysis.analysisStatus === 'analysed'
   const confidence = Math.round(analysis.roomConfidence * 100)
+  const recommendation = analysed
+    ? findBestServiceForPhotoAnalysis(
+        analysis.detectedRoom || analysis.assignedRoom,
+        analysis.findings,
+        services,
+      )
+    : undefined
 
   return (
     <article className={`estimate-photo-analysis-card ${analysed ? '' : 'is-unavailable'}`}>
@@ -157,9 +172,52 @@ function PhotoAnalysisCard({
             ) : null}
           </div>
         ) : null}
+
+        {recommendation ? (
+          <div className="estimate-photo-solution">
+            <span className="estimate-photo-solution-icon" aria-hidden="true"><House size={19} /></span>
+            <div>
+              <span>{isSpanish ? 'Siguiente paso CasaMia' : 'A practical CasaMia next step'}</span>
+              <strong>{isSpanish ? recommendation.finding.action : recommendation.service.name}</strong>
+              <p>{isSpanish
+                ? 'Seleccionamos la solución adecuada, coordinamos la instalación y comprobamos el resultado.'
+                : 'We select the right solution, coordinate installation and check the result.'}
+              </p>
+            </div>
+            <div className="estimate-photo-solution-action">
+              <small>{formatRecommendationPrice(recommendation.service, isSpanish)}</small>
+              <Link
+                to={`/configure?room=${encodeURIComponent(recommendation.service.room)}&service=${encodeURIComponent(recommendation.service.id)}&source=safety-report`}
+              >
+                {isSpanish ? 'Ver solución' : 'See solution'}
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+        ) : null}
       </div>
     </article>
   )
+}
+
+function formatRecommendationPrice(service: CasaMiaService, isSpanish: boolean) {
+  if (service.pricingType === 'quote_only') {
+    return isSpanish ? 'Precio tras revisión' : 'Price after review'
+  }
+
+  const amount = service.pricingType === 'from'
+    ? service.fromPrice
+    : (service.productPrice ?? 0) + (service.installationPrice ?? 0)
+
+  if (!amount) {
+    return isSpanish ? 'Incluido tras revisión' : 'Confirmed after review'
+  }
+
+  const prefix = service.pricingType === 'from'
+    ? (isSpanish ? 'Desde ' : 'From ')
+    : ''
+
+  return `${prefix}${formatCurrency(amount)}`
 }
 
 export function ScoreExplanation({

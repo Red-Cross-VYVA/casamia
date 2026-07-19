@@ -60,7 +60,7 @@ type SelectableCard<T extends string> = {
   }
 }
 
-const configuratorPath = '/configure'
+const configuratorPath = '/home-safety-wizard'
 const talkPath = '/why-us#contact-form'
 
 const audiences: SelectableCard<AudienceId>[] = [
@@ -525,7 +525,7 @@ export function HomePage() {
           <div className="home-core-details-action">
             <Link
               className="home-redesign-secondary"
-              to="/configure"
+              to={configuratorPath}
               onClick={() => trackEvent('core_plan_details_opened', { location: 'core_plan' })}
             >
               Build your CasaMia plan

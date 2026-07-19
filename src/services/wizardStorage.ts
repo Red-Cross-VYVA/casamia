@@ -1,13 +1,15 @@
 import {
   WIZARD_CALLBACK_TIME_WINDOWS,
   type SafetyWizardState,
+  type WizardAudioBrief,
   type WizardCallbackTimeWindow,
   type WizardPhoto,
 } from '../types/wizard.ts'
 
 export const SAFETY_WIZARD_STORAGE_KEY = 'casamia-home-safety-wizard-v1'
 
-type PersistedWizardState = Omit<SafetyWizardState, 'photos'> & {
+type PersistedWizardState = Omit<SafetyWizardState, 'photos' | 'audioBriefs'> & {
+  audioBriefs: Array<Omit<WizardAudioBrief, 'file' | 'previewUrl'>>
   photos: Array<Omit<WizardPhoto, 'file' | 'previewUrl'>>
 }
 
@@ -44,6 +46,9 @@ export function saveWizardState(state: SafetyWizardState) {
     photos: stateToPersist.photos.flatMap(({ file: _file, previewUrl: _previewUrl, ...media }) =>
       media.storagePath ? [media] : [],
     ),
+    audioBriefs: (stateToPersist.audioBriefs ?? []).flatMap(({ file: _file, previewUrl: _previewUrl, ...media }) =>
+      media.storagePath ? [media] : [],
+    ),
   }
 
   window.localStorage.setItem(SAFETY_WIZARD_STORAGE_KEY, JSON.stringify(persisted))
@@ -69,10 +74,9 @@ export function loadWizardState(): SafetyWizardState | null {
     } = parsed
     return {
       ...migrated,
-      currentStep: parsed.currentStep === 'relationship'
-        ? (parsed.userType ? 'methods' : 'user-type')
-        : parsed.currentStep,
+      currentStep: getMigratedCurrentStep(parsed),
       photos: (parsed.photos ?? []).filter((media) => Boolean(media.storagePath)),
+      audioBriefs: (parsed.audioBriefs ?? []).filter((media) => Boolean(media.storagePath)),
       callbackRequest: {
         preferredDate: typeof parsed.callbackRequest?.preferredDate === 'string'
           ? parsed.callbackRequest.preferredDate
@@ -87,6 +91,16 @@ export function loadWizardState(): SafetyWizardState | null {
   } catch {
     return null
   }
+}
+
+function getMigratedCurrentStep(
+  parsed: Omit<SafetyWizardState, 'currentStep' | 'callbackRequest'> & {
+    currentStep: SafetyWizardState['currentStep'] | 'relationship'
+  },
+): SafetyWizardState['currentStep'] {
+  if (parsed.currentStep === 'relationship') return 'methods'
+  if (parsed.currentStep === 'user-type' && !parsed.inputMethods?.length) return 'methods'
+  return parsed.currentStep
 }
 
 function isCallbackTimeWindow(value: unknown): value is WizardCallbackTimeWindow {

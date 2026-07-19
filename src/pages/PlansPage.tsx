@@ -188,8 +188,8 @@ export function PlansPage() {
                 {t('wizard.cta')}
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
-              <Link className="btn btn-green" to="/configure">
-                Build My Safer Home
+              <Link className="btn btn-white" to="/services">
+                View services
                 <ArrowRight size={20} aria-hidden="true" />
               </Link>
               <a className="btn btn-white" href="#plan-includes">
@@ -359,12 +359,12 @@ export function PlansPage() {
               <h2>Ready to make the home safer?</h2>
               <p>Start with the rooms that matter most. CasaMia turns your answers into a clear plan of action.</p>
             </div>
-            <Link className="btn btn-green" to="/configure">
-              Build My Safer Home
+            <Link className="btn btn-green" to="/home-safety-wizard">
+              {t('wizard.cta')}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
-            <Link className="btn btn-white" to="/home-safety-wizard">
-              {t('wizard.cta')}
+            <Link className="btn btn-white" to="/services">
+              View services
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
           </div>

@@ -265,7 +265,9 @@ async function verifyUploadedManifest(manifest) {
     const actual = readActualMetadata(info.body)
     const maximumBytes = item.kind === 'video'
       ? WIZARD_MEDIA_LIMITS.maxVideoBytes
-      : WIZARD_MEDIA_LIMITS.maxImageBytes
+      : item.kind === 'audio'
+        ? WIZARD_MEDIA_LIMITS.maxAudioBytes
+        : WIZARD_MEDIA_LIMITS.maxImageBytes
 
     if (!Number.isSafeInteger(actual.size) || actual.size <= 0 || actual.size > maximumBytes) {
       throw new MediaVerificationError('An uploaded media file exceeds the allowed size.', { deleteMedia: true })
