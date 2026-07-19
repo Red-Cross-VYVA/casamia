@@ -785,9 +785,9 @@ export function TechPage() {
       name: copy.seoTitle,
       description: copy.seoDescription,
       inLanguage: copy.lang,
-      url: 'https://casamia.es/tech',
+      url: 'https://casamia.com.es/tech',
       areaServed: { '@type': 'Country', name: 'Spain' },
-      provider: { '@type': 'Organization', name: 'CasaMia', url: 'https://casamia.es' },
+      provider: { '@type': 'Organization', name: 'CasaMia', url: 'https://casamia.com.es' },
       serviceType: copy.serviceType,
     },
     {

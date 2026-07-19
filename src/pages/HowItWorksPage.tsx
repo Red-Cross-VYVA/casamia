@@ -166,7 +166,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     title: 'Start your way.',
     body: 'CasaMia handles the rest.',
     heroOutcomeEyebrow: 'What you receive',
-    heroOutcomeText: 'Clear priorities, a quote before you decide, and CasaMia coordinating the work.',
+    heroOutcomeText: 'Clear priorities, practical next steps, and CasaMia coordinating the work.',
     channelsTitle: 'Choose a channel',
     channelsBody: 'Every route reaches the same CasaMia team.',
     humanAlt: 'Older woman smiling while using her smartphone at home',
@@ -188,7 +188,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
       },
       {
         title: 'Review your plan',
-        body: 'See the recommended work and price before you decide.',
+        body: 'See the recommended work and the next step before you decide.',
       },
       {
         title: 'We coordinate and follow up',
@@ -200,7 +200,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     title: 'Empieza como prefieras.',
     body: 'CasaMia se encarga del resto.',
     heroOutcomeEyebrow: 'Qu\u00e9 recibes',
-    heroOutcomeText: 'Prioridades claras, presupuesto antes de decidir y CasaMia coordinando el trabajo.',
+    heroOutcomeText: 'Prioridades claras, pasos prácticos y CasaMia coordinando el trabajo.',
     channelsTitle: 'Elige tu canal',
     channelsBody: 'Todas las v\u00edas llegan al mismo equipo CasaMia.',
     humanAlt: 'Mujer mayor sonriendo mientras usa su tel\u00e9fono m\u00f3vil en casa',
@@ -222,7 +222,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
       },
       {
         title: 'Revisa tu plan',
-        body: 'Consulta las mejoras recomendadas y el precio antes de decidir.',
+        body: 'Consulta las mejoras recomendadas y el siguiente paso antes de decidir.',
       },
       {
         title: 'Coordinamos y hacemos seguimiento',
@@ -456,14 +456,14 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     statusNote: 'Un solo equipo desde el primer contacto hasta el seguimiento.',
     processEyebrow: 'As\u00ed de f\u00e1cil',
     processTitle: 'Empieza como te resulte m\u00e1s c\u00f3modo.',
-    processBody: 'Sube fotos o reserva visita. En ambos casos, recibes presupuesto claro.',
+    processBody: 'Sube fotos o reserva visita. En ambos casos, llegas a un siguiente paso claro.',
     steps: [
       {
         icon: 'camera',
         title: 'Elige c\u00f3mo empezar',
         body: 'Fotos ahora o visita a domicilio.',
         tag: 'Inicio',
-        proof: 'Presupuesto claro',
+        proof: 'Inicio claro',
         options: [
           {
             title: 'Autoinspecci\u00f3n',
@@ -493,7 +493,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         title: 'Plan adecuado',
         body: 'CasaMia convierte las prioridades en mejoras seleccionadas, documentaci\u00f3n para ayudas o configuraci\u00f3n smart.',
         tag: 'Plan',
-        proof: 'Alcance, presupuesto y paso siguiente',
+        proof: 'Alcance y paso siguiente',
       },
       {
         icon: 'wrench',

@@ -24,7 +24,7 @@ import {
 import { trackEvent } from '../utils/analytics'
 import '../styles/resources-hub.css'
 
-const siteUrl = 'https://casamia.es'
+const siteUrl = 'https://casamia.com.es'
 
 const pageCopy = {
   en: {

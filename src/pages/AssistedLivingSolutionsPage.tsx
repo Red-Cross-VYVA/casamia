@@ -993,13 +993,13 @@ export function AssistedLivingSolutionsPage() {
     '@graph': [
       {
         '@type': 'Service',
-        '@id': 'https://casamia.es/assisted-living-solutions#service',
+        '@id': 'https://casamia.com.es/assisted-living-solutions#service',
         name: copy.seoTitle,
         description: copy.seoDescription,
-        url: 'https://casamia.es/assisted-living-solutions',
+        url: 'https://casamia.com.es/assisted-living-solutions',
         serviceType: 'Senior-living technology integration and facility rollout',
         inLanguage: copy.lang,
-        provider: { '@type': 'Organization', name: 'CasaMia', url: 'https://casamia.es' },
+        provider: { '@type': 'Organization', name: 'CasaMia', url: 'https://casamia.com.es' },
         areaServed: { '@type': 'Country', name: 'Spain' },
         audience: {
           '@type': 'BusinessAudience',
@@ -1008,7 +1008,7 @@ export function AssistedLivingSolutionsPage() {
       },
       {
         '@type': 'FAQPage',
-        '@id': 'https://casamia.es/assisted-living-solutions#faq',
+        '@id': 'https://casamia.com.es/assisted-living-solutions#faq',
         inLanguage: copy.lang,
         mainEntity: copy.faq.items.map((item) => ({
           '@type': 'Question',

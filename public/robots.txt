@@ -4,4 +4,4 @@ Disallow: /internal/
 Disallow: /estimate/
 Disallow: /proposal/
 
-Sitemap: https://casamia.es/sitemap.xml
+Sitemap: https://casamia.com.es/sitemap.xml

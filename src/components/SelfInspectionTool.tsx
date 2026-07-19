@@ -13,7 +13,7 @@ import {
   X,
 } from 'lucide-react'
 import type { ChangeEvent } from 'react'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { PhoneNumberField } from './PhoneNumberField'
@@ -136,55 +136,57 @@ const selfInspectionCopy = {
     addPhotos: 'Add photos',
     addPhotosHelp: 'Add one if it helps explain a risk or recommendation.',
     addQuestionPhoto: 'Add photo',
-    addMobilityDetails: 'More details',
-    ageRange: 'Age range',
-    ageRangePlaceholder: 'Select age range',
+    addMobilityDetails: 'Optional details',
+    ageRange: 'Age',
+    ageRangePlaceholder: 'Age band',
     answerAnswered: 'answered',
     answerNeedsAttention: 'Needs attention',
     answerNotSure: 'Not sure',
     answerSafe: 'Safe',
     attachedPhotos: (count: number) => `${count} photo${count === 1 ? '' : 's'} attached`,
     consent: 'I agree CasaMia can use this survey to prepare a safety report and contact me.',
+    close: 'Close',
     currentRoom: 'Current room',
     email: 'Email',
     emailCasaMia: 'Email CasaMia',
-    entranceSpace: 'Entrance space',
-    entranceSpacePlaceholder: 'Select entrance space',
-    entranceType: 'Main entrance',
-    entranceTypePlaceholder: 'Select entrance type',
-    eyebrow: 'Self-inspection for a quote',
+    entranceSpace: 'Door space',
+    entranceSpacePlaceholder: 'Width',
+    entranceType: 'Entry',
+    entranceTypePlaceholder: 'Steps or level?',
+    eyebrow: 'Guided self-check',
     bathrooms: 'Bathrooms',
-    bathroomsPlaceholder: 'Select bathrooms',
+    bathroomsPlaceholder: 'How many?',
     bedrooms: 'Bedrooms',
-    bedroomsPlaceholder: 'Select bedrooms',
+    bedroomsPlaceholder: 'How many?',
     floorCount: 'Floors',
-    floorCountPlaceholder: 'Select floors',
-    generateReport: 'Generate report',
+    floorCountPlaceholder: 'Levels',
+    generateReport: 'Create summary',
     highPriority: 'High priority',
     homeBasics: 'Home',
-    homeHelp: 'The details CasaMia needs to understand size, access, and likely installation effort.',
-    intro: 'Share the key home details, check the risky spaces, and add photos where they help. CasaMia can show what to adapt and what it may cost.',
+    homeHelp: 'Home shape and daily routines.',
+    intro: 'Add the essentials, check key rooms, and share helpful photos.',
     livesWith: 'Lives with',
-    livesWithPlaceholder: 'Select living situation',
+    livesWithPlaceholder: 'Household',
     mainConcern: 'Main concern or extra context',
     mainConcernPlaceholder: 'Example: Mum is confident during the day but worries about getting to the bathroom at night.',
     memory: 'Memory or confusion',
-    memoryPlaceholder: 'Select if relevant',
-    mobilityLevel: 'Mobility level',
-    mobilityPlaceholder: 'Select mobility level',
+    memoryPlaceholder: 'Any concern?',
+    modalTitle: 'Quick home check',
+    mobilityLevel: 'Mobility',
+    mobilityPlaceholder: 'Usual support',
     name: 'Name',
     noPhotos: 'No photos yet',
     phone: 'Phone',
     questionPhotoHelp: 'Photo helpful: show the exact step, surface, support point, route, or object.',
     questionPhotoTitle: 'Photo for this point',
     photos: 'Photos',
-    photosOptional: 'Optional: add hazards, thresholds, steps, or support points.',
+    photosOptional: 'Optional: show steps, thresholds, surfaces, routes, or support points.',
     previousRoom: 'Previous room',
     progress: 'Progress',
-    propertyType: 'Property type',
-    propertyTypePlaceholder: 'Select property type',
+    propertyType: 'Home type',
+    propertyTypePlaceholder: 'Apartment, house...',
     recentFalls: 'Recent falls',
-    recentFallsPlaceholder: 'Select fall history',
+    recentFallsPlaceholder: 'Fall history',
     reportEmpty: 'Items marked Needs attention or Not sure will appear here.',
     reportContext: 'Home and resident summary',
     reportPreview: 'Report preview',
@@ -192,73 +194,81 @@ const selfInspectionCopy = {
     reportStatus: 'Nothing flagged yet',
     residentContext: 'Resident context',
     residentNeeds: 'Resident',
-    residentNeedsHelp: 'Mobility, falls, and daily support so CasaMia can set the right priorities.',
-    residentHelp: 'Only the details needed to tailor the room checks.',
+    residentNeedsHelp: 'Mobility, falls, and support.',
+    residentHelp: 'Only what shapes the room checks.',
     residentName: 'Resident name',
     roomNotes: 'Room notes',
     roomNotesPlaceholder: (room: string) => `Add notes about ${room.toLowerCase()}...`,
     stepOne: 'Step 1',
-    steps: ['Home', 'Rooms', 'Report'],
+    startCheck: 'Start self-check',
+    stepCards: [
+      ['Home basics', 'Type, access, rooms and daily support.'],
+      ['Room checks', 'Simple yes/no questions for each area.'],
+      ['Helpful photos', 'Add photos only where they clarify something.'],
+    ],
+    steps: ['Home', 'Rooms', 'Summary'],
     nextRoom: 'Next room',
-    submit: 'Submit report',
+    submit: 'Send summary',
     submitIncomplete: 'Add your name, phone or email, and consent before submitting the report.',
-    submitReady: 'Report submitted locally. CasaMia can connect this to email, CRM, or PDF delivery next.',
-    title: 'Prepare your home safety quote.',
+    submitReady: 'Summary saved locally. CasaMia can connect this to email, CRM, or PDF delivery next.',
+    title: 'Check the home, step by step.',
     toReview: (count: number) => `${count} to review`,
   },
   es: {
     addPhotos: 'Añadir fotos',
     addPhotosHelp: 'Añade una foto si ayuda a explicar un riesgo.',
     addQuestionPhoto: 'Añadir foto',
-    addMobilityDetails: 'Más detalles',
+    addMobilityDetails: 'Opcional',
     ageRange: 'Edad',
-    ageRangePlaceholder: 'Seleccionar edad',
+    ageRangePlaceholder: 'Franja',
     answerAnswered: 'respondidas',
     answerNeedsAttention: 'Revisar',
     answerNotSure: 'No sé',
     answerSafe: 'Bien',
     attachedPhotos: (count: number) => `${count} foto${count === 1 ? '' : 's'} adjunta${count === 1 ? '' : 's'}`,
     consent: 'Acepto que CasaMia use este cuestionario para preparar el informe y contactarme.',
+    close: 'Cerrar',
     currentRoom: 'Zona actual',
     email: 'Email',
     emailCasaMia: 'Email a CasaMia',
-    entranceSpace: 'Espacio de entrada',
-    entranceSpacePlaceholder: 'Seleccionar espacio',
-    entranceType: 'Entrada principal',
-    entranceTypePlaceholder: 'Seleccionar entrada',
-    eyebrow: 'Autoinspección para presupuesto',
+    entranceSpace: 'Espacio puerta',
+    entranceSpacePlaceholder: 'Anchura',
+    entranceType: 'Entrada',
+    entranceTypePlaceholder: '¿Escalón o llano?',
+    eyebrow: 'Revisión guiada',
     bathrooms: 'Baños',
-    bathroomsPlaceholder: 'Seleccionar baños',
+    bathroomsPlaceholder: '¿Cuántos?',
     bedrooms: 'Dormitorios',
-    bedroomsPlaceholder: 'Seleccionar dormitorios',
+    bedroomsPlaceholder: '¿Cuántos?',
     floorCount: 'Plantas',
-    floorCountPlaceholder: 'Seleccionar plantas',
-    generateReport: 'Generar informe',
+    floorCountPlaceholder: 'Niveles',
+    generateReport: 'Crear resumen',
     highPriority: 'Prioridad alta',
     homeBasics: 'Vivienda',
-    homeHelp: 'Lo necesario para entender tamaño, accesos y posible instalación.',
-    intro: 'Comparte los datos clave de la vivienda, revisa las zonas de riesgo y añade fotos si ayudan. CasaMia te dirá qué adaptar y cuánto podría costar.',
+    homeHelp: 'Vivienda y rutinas clave.',
+    intro: 'Añade lo esencial, revisa zonas clave y sube fotos útiles.',
     livesWith: 'Convive con',
-    livesWithPlaceholder: 'Seleccionar',
+    livesWithPlaceholder: 'Hogar',
     mainConcern: 'Preocupación principal',
     mainConcernPlaceholder: 'Ejemplo: se mueve bien de día, pero le preocupa ir al baño por la noche.',
     memory: 'Memoria o confusión',
-    memoryPlaceholder: 'Seleccionar',
+    memoryPlaceholder: '¿Hay señales?',
+    modalTitle: 'Revisión rápida',
     mobilityLevel: 'Movilidad',
-    mobilityPlaceholder: 'Seleccionar movilidad',
+    mobilityPlaceholder: 'Apoyo habitual',
     name: 'Nombre',
     noPhotos: 'Sin fotos',
     phone: 'Teléfono',
     questionPhotoHelp: 'Foto útil: muestra el escalón, suelo, apoyo, recorrido u objeto concreto.',
     questionPhotoTitle: 'Foto de este punto',
     photos: 'Fotos',
-    photosOptional: 'Opcional: riesgos, escalones, umbrales o puntos de apoyo.',
+    photosOptional: 'Opcional: muestra escalones, umbrales, suelos, recorridos o puntos de apoyo.',
     previousRoom: 'Zona anterior',
     progress: 'Progreso',
-    propertyType: 'Tipo de vivienda',
-    propertyTypePlaceholder: 'Seleccionar vivienda',
+    propertyType: 'Vivienda',
+    propertyTypePlaceholder: 'Piso, casa...',
     recentFalls: 'Caídas recientes',
-    recentFallsPlaceholder: 'Seleccionar',
+    recentFallsPlaceholder: 'Historial',
     reportEmpty: 'Los puntos marcados como Revisar o No sé aparecerán aquí.',
     reportContext: 'Resumen de vivienda y persona',
     reportPreview: 'Vista del informe',
@@ -266,18 +276,24 @@ const selfInspectionCopy = {
     reportStatus: 'Sin riesgos marcados',
     residentContext: 'Contexto de la persona',
     residentNeeds: 'Persona',
-    residentNeedsHelp: 'Movilidad, caídas y apoyo diario para priorizar bien.',
-    residentHelp: 'Solo lo necesario para adaptar la revisión.',
+    residentNeedsHelp: 'Movilidad, caídas y apoyo.',
+    residentHelp: 'Solo lo que orienta la revisión.',
     residentName: 'Nombre',
     roomNotes: 'Notas',
     roomNotesPlaceholder: (room: string) => `Añade notas sobre ${room.toLowerCase()}...`,
     stepOne: 'Paso 1',
-    steps: ['Vivienda', 'Zonas', 'Informe'],
+    startCheck: 'Empezar revisión',
+    stepCards: [
+      ['Datos básicos', 'Vivienda, accesos, habitaciones y apoyo diario.'],
+      ['Zonas clave', 'Preguntas sencillas para cada espacio.'],
+      ['Fotos útiles', 'Solo donde ayuden a explicar algo.'],
+    ],
+    steps: ['Vivienda', 'Zonas', 'Resumen'],
     nextRoom: 'Siguiente zona',
-    submit: 'Enviar informe',
+    submit: 'Enviar resumen',
     submitIncomplete: 'Añade tu nombre, teléfono o email, y acepta el consentimiento para enviar el informe.',
     submitReady: 'Informe guardado. CasaMia puede conectarlo después con email, CRM o PDF.',
-    title: 'Prepara tu presupuesto de seguridad.',
+    title: 'Revisa la vivienda, paso a paso.',
     toReview: (count: number) => `${count} por revisar`,
   },
 }
@@ -868,7 +884,43 @@ export function SelfInspectionTool() {
   })
   const [reportReady, setReportReady] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalStep, setModalStep] = useState(0)
   const reportRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const openFromHash = () => {
+      if (window.location.hash === '#self-inspection-tool') {
+        setIsModalOpen(true)
+      }
+    }
+
+    openFromHash()
+    window.addEventListener('hashchange', openFromHash)
+
+    return () => window.removeEventListener('hashchange', openFromHash)
+  }, [])
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      return
+    }
+
+    const previousOverflow = document.body.style.overflow
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsModalOpen(false)
+      }
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [isModalOpen])
 
   const activeRoom = localizedRooms.find((room) => room.id === activeRoomId) ?? localizedRooms[0]
   const activeRoomIndex = localizedRooms.findIndex((room) => room.id === activeRoom.id)
@@ -910,11 +962,6 @@ export function SelfInspectionTool() {
     resident.recentFalls,
     resident.cognitiveConcerns,
   ].filter(Boolean)
-  const shouldShowReportPanel =
-    reportReady ||
-    riskItems.length > 0 ||
-    photoCount > 0
-
   function answerQuestion(questionId: string, status: AnswerStatus) {
     setAnswers((current) => ({ ...current, [questionId]: status }))
     setReportReady(false)
@@ -982,6 +1029,7 @@ export function SelfInspectionTool() {
 
   function generateReport() {
     setReportReady(true)
+    setModalStep(2)
     window.setTimeout(() => reportRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
   }
 
@@ -1018,32 +1066,96 @@ export function SelfInspectionTool() {
   return (
     <section className="self-inspection section-pad" id="self-inspection-tool">
       <div className="site-shell">
-        <div className="self-inspection-heading">
-          <p className="eyebrow">{copy.eyebrow}</p>
-          <h2 className="display-title">{copy.title}</h2>
-          <p>{copy.intro}</p>
+        <div className="self-inspection-invite">
+          <div className="self-inspection-heading">
+            <p className="eyebrow">{copy.eyebrow}</p>
+            <h2 className="display-title">{copy.title}</h2>
+            <p>{copy.intro}</p>
+            <button
+              className="btn btn-navy self-inspection-open"
+              type="button"
+              onClick={() => {
+                setModalStep(0)
+                setIsModalOpen(true)
+              }}
+            >
+              {copy.startCheck}
+              <ArrowRight size={19} aria-hidden="true" />
+            </button>
+          </div>
+
+          <div className="self-inspection-invite-visual" aria-label={copy.eyebrow}>
+            {copy.stepCards.map(([title, body], index) => {
+              const Icon = [Home, CheckCircle2, Camera][index] ?? FileText
+
+              return (
+                <article key={title}>
+                  <span>
+                    <Icon size={20} aria-hidden="true" />
+                  </span>
+                  <strong>{title}</strong>
+                  <p>{body}</p>
+                </article>
+              )
+            })}
+          </div>
         </div>
 
-        <div className="self-inspection-guide" aria-label="How the inspection works">
-          {copy.steps.map((step, index) => (
-            <article key={step}>
-              <span>{index + 1}</span>
-              <strong>{step}</strong>
-            </article>
-          ))}
-        </div>
+        {isModalOpen ? (
+          <div
+            className="self-inspection-modal-backdrop"
+            role="presentation"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) {
+                setIsModalOpen(false)
+              }
+            }}
+          >
+            <div aria-labelledby="self-inspection-modal-title" aria-modal="true" className="self-inspection-modal" role="dialog">
+              <header className="self-inspection-modal-header">
+                <div>
+                  <p className="self-inspection-modal-kicker">{copy.eyebrow}</p>
+                  <h3 id="self-inspection-modal-title">{copy.modalTitle}</h3>
+                </div>
+                <button className="self-inspection-modal-close" type="button" aria-label={copy.close} onClick={() => setIsModalOpen(false)}>
+                  <X size={22} aria-hidden="true" />
+                </button>
+              </header>
 
-        <div className="self-inspection-shell">
-          <aside className="self-inspection-sidebar" aria-label="Inspection rooms">
-            <div className="self-inspection-progress">
-              <span>{copy.progress}</span>
-              <div>
-                <i style={{ width: `${completion}%` }} />
+              <div className="self-inspection-guide" aria-label="How the inspection works">
+                {copy.steps.map((step, index) => (
+                  <button
+                    className={`${modalStep === index ? 'is-active' : ''}${modalStep > index ? ' is-complete' : ''}`}
+                    key={step}
+                    type="button"
+                    onClick={() => {
+                      if (index === 2 && !reportReady) {
+                        generateReport()
+                        return
+                      }
+
+                      setModalStep(index)
+                    }}
+                  >
+                    <span>{index + 1}</span>
+                    <strong>{step}</strong>
+                  </button>
+                ))}
               </div>
-              <small>
-                {completion}% - {answeredCount}/{totalQuestions} {copy.answerAnswered}
-              </small>
-            </div>
+
+              <div className="self-inspection-modal-body">
+                <div className="self-inspection-shell">
+                  {modalStep === 1 ? (
+                    <aside className="self-inspection-sidebar" aria-label="Inspection rooms">
+                      <div className="self-inspection-progress">
+                        <span>{copy.progress}</span>
+                        <div>
+                          <i style={{ width: `${completion}%` }} />
+                        </div>
+                        <small>
+                          {completion}% - {answeredCount}/{totalQuestions} {copy.answerAnswered}
+                        </small>
+                      </div>
 
             <div className="self-inspection-room-tabs">
               {localizedRooms.map((room) => {
@@ -1066,10 +1178,12 @@ export function SelfInspectionTool() {
                 )
               })}
             </div>
-          </aside>
+                    </aside>
+                  ) : null}
 
-          <div className={`self-inspection-main${shouldShowReportPanel ? ' has-report-panel' : ''}`}>
+          <div className="self-inspection-main">
             <div className="self-workflow-column">
+              {modalStep === 0 ? (
               <section className="self-resident-card" aria-label="Resident profile">
                 <div className="self-resident-heading">
                   <span>
@@ -1178,28 +1292,10 @@ export function SelfInspectionTool() {
                     </header>
                     <div className="self-resident-grid">
                       <label className="self-resident-field">
-                        {copy.residentName}
-                        <input
-                          value={resident.residentName}
-                          onChange={(event) => updateResident('residentName', event.target.value)}
-                        />
-                      </label>
-                      <label className="self-resident-field">
                         {copy.ageRange}
                         <select value={resident.ageRange} onChange={(event) => updateResident('ageRange', event.target.value)}>
                           <option value="">{copy.ageRangePlaceholder}</option>
                           {['Under 65', '65-74', '75-84', '85+'].map((option) => (
-                            <option key={option} value={option}>
-                              {formatValue(option)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="self-resident-field">
-                        {copy.livesWith}
-                        <select value={resident.livesWith} onChange={(event) => updateResident('livesWith', event.target.value)}>
-                          <option value="">{copy.livesWithPlaceholder}</option>
-                          {['Alone', 'Partner', 'Family', 'Carer support', 'Other'].map((option) => (
                             <option key={option} value={option}>
                               {formatValue(option)}
                             </option>
@@ -1239,26 +1335,46 @@ export function SelfInspectionTool() {
                           )}
                         </select>
                       </label>
-                      <label className="self-resident-field">
-                        {copy.memory}
-                        <select
-                          value={resident.cognitiveConcerns}
-                          onChange={(event) => updateResident('cognitiveConcerns', event.target.value)}
-                        >
-                          <option value="">{copy.memoryPlaceholder}</option>
-                          {['None known', 'Mild forgetfulness', 'Dementia / confusion', 'Not sure'].map((option) => (
-                            <option key={option} value={option}>
-                              {formatValue(option)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
                     </div>
                   </section>
                 </div>
 
                 <details className="self-resident-more">
                   <summary>{copy.addMobilityDetails}</summary>
+                  <div className="self-optional-grid">
+                    <label className="self-resident-field">
+                      {copy.residentName}
+                      <input
+                        value={resident.residentName}
+                        onChange={(event) => updateResident('residentName', event.target.value)}
+                      />
+                    </label>
+                    <label className="self-resident-field">
+                      {copy.livesWith}
+                      <select value={resident.livesWith} onChange={(event) => updateResident('livesWith', event.target.value)}>
+                        <option value="">{copy.livesWithPlaceholder}</option>
+                        {['Alone', 'Partner', 'Family', 'Carer support', 'Other'].map((option) => (
+                          <option key={option} value={option}>
+                            {formatValue(option)}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label className="self-resident-field">
+                      {copy.memory}
+                      <select
+                        value={resident.cognitiveConcerns}
+                        onChange={(event) => updateResident('cognitiveConcerns', event.target.value)}
+                      >
+                        <option value="">{copy.memoryPlaceholder}</option>
+                        {['None known', 'Mild forgetfulness', 'Dementia / confusion', 'Not sure'].map((option) => (
+                          <option key={option} value={option}>
+                            {formatValue(option)}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
                   <div className="self-resident-checks">
                     <ResidentCheckGroup
                       formatOption={formatValue}
@@ -1299,8 +1415,19 @@ export function SelfInspectionTool() {
                     />
                   </label>
                 </details>
+                <div className="self-room-actions self-modal-actions">
+                  <button className="btn btn-white" type="button" onClick={() => setIsModalOpen(false)}>
+                    {copy.close}
+                  </button>
+                  <button className="btn btn-navy" type="button" onClick={() => setModalStep(1)}>
+                    {copy.steps[1]}
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </button>
+                </div>
               </section>
+              ) : null}
 
+              {modalStep === 1 ? (
               <article className="self-room-card">
               <div className="self-room-card-header">
                 <div>
@@ -1431,12 +1558,18 @@ export function SelfInspectionTool() {
               <div className="self-room-actions">
                 <button
                   className="btn btn-white"
-                  disabled={activeRoomIndex === 0}
                   type="button"
-                  onClick={() => goToRoom(activeRoomIndex - 1)}
+                  onClick={() => {
+                    if (activeRoomIndex === 0) {
+                      setModalStep(0)
+                      return
+                    }
+
+                    goToRoom(activeRoomIndex - 1)
+                  }}
                 >
                   <ChevronLeft size={18} aria-hidden="true" />
-                  {copy.previousRoom}
+                  {activeRoomIndex === 0 ? copy.steps[0] : copy.previousRoom}
                 </button>
                 {activeRoomIndex < localizedRooms.length - 1 ? (
                   <button className="btn btn-navy" type="button" onClick={() => goToRoom(activeRoomIndex + 1)}>
@@ -1451,9 +1584,10 @@ export function SelfInspectionTool() {
                 )}
               </div>
               </article>
+              ) : null}
             </div>
 
-            {shouldShowReportPanel ? (
+            {modalStep === 2 ? (
             <aside className="self-report-panel" ref={reportRef}>
               <div className="self-report-summary">
                 <FileText size={24} aria-hidden="true" />
@@ -1492,10 +1626,12 @@ export function SelfInspectionTool() {
                 ) : null}
               </div>
 
-              <button className="btn btn-navy" type="button" onClick={generateReport}>
-                {copy.generateReport}
-                <ArrowRight size={19} aria-hidden="true" />
-              </button>
+              {!reportReady ? (
+                <button className="btn btn-navy" type="button" onClick={generateReport}>
+                  {copy.generateReport}
+                  <ArrowRight size={19} aria-hidden="true" />
+                </button>
+              ) : null}
 
               {reportReady ? (
                 <div className="self-submit-card">
@@ -1554,7 +1690,11 @@ export function SelfInspectionTool() {
             </aside>
             ) : null}
           </div>
-        </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   )
