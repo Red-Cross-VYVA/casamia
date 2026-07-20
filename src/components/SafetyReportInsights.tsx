@@ -187,7 +187,7 @@ function PhotoAnalysisCard({
             <div className="estimate-photo-solution-action">
               <small>{formatRecommendationPrice(recommendation.service, isSpanish)}</small>
               <Link
-                to={`/configure?room=${encodeURIComponent(recommendation.service.room)}&service=${encodeURIComponent(recommendation.service.id)}&source=safety-report`}
+                to="/home-safety-wizard"
               >
                 {isSpanish ? 'Ver solución' : 'See solution'}
                 <ArrowRight size={15} aria-hidden="true" />

@@ -1,14 +1,62 @@
 import { CheckCircle2, Printer } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 
 import { formatConfiguratorCurrency } from '../services/configuratorPricing'
 import { loadSavedConfiguratorSubmission } from '../services/configuratorSubmission'
 import { getConfiguredServiceById } from '../services/serviceCatalogue'
 
+const confirmationCopy = {
+  en: {
+    fallbackReference: 'Prepared locally',
+    eyebrow: 'Confirmation',
+    title: 'Your configuration has been saved.',
+    reference: 'Reference:',
+    summary: 'Summary',
+    customer: 'Customer',
+    notProvided: 'Not provided',
+    oneTime: 'One-time estimate',
+    monthly: 'Monthly support',
+    deposit: 'Deposit',
+    selected: 'Selected improvements',
+    print: 'Print',
+    qty: 'Qty',
+    empty:
+      'CasaMia has saved your request. We will confirm the exact improvements before any work starts.',
+    confirmBefore: 'To confirm before installation',
+    noPayload: 'No saved payload was found. Return to the configurator to prepare a new configuration.',
+    back: 'Back to configurator',
+    home: 'Return home',
+  },
+  es: {
+    fallbackReference: 'Preparado localmente',
+    eyebrow: 'Confirmación',
+    title: 'Tu configuración se ha guardado.',
+    reference: 'Referencia:',
+    summary: 'Resumen',
+    customer: 'Cliente',
+    notProvided: 'No indicado',
+    oneTime: 'Estimación inicial',
+    monthly: 'Soporte mensual',
+    deposit: 'Depósito',
+    selected: 'Mejoras seleccionadas',
+    print: 'Imprimir',
+    qty: 'Cant.',
+    empty:
+      'CasaMia ha guardado tu solicitud. Confirmaremos las mejoras exactas antes de iniciar cualquier trabajo.',
+    confirmBefore: 'A confirmar antes de la instalación',
+    noPayload: 'No se encontró una solicitud guardada. Vuelve al configurador para preparar una nueva configuración.',
+    back: 'Volver al configurador',
+    home: 'Volver al inicio',
+  },
+} as const
+
 export function ConfigureConfirmationPage() {
+  const { i18n } = useTranslation()
+  const copy = i18n.language.toLowerCase().startsWith('es') ? confirmationCopy.es : confirmationCopy.en
   const [searchParams] = useSearchParams()
   const submission = loadSavedConfiguratorSubmission()
-  const configurationId = searchParams.get('configuration') ?? submission?.configurationId ?? 'Prepared locally'
+  const configurationId = searchParams.get('configuration') ?? submission?.configurationId ?? copy.fallbackReference
   const mockCheckout = searchParams.get('mockCheckout') === '1'
   const selectedServices =
     submission?.selectedServices
@@ -25,31 +73,31 @@ export function ConfigureConfirmationPage() {
           <CheckCircle2 className="text-blue" size={56} aria-hidden="true" />
           <span className="eyebrow mt-6">
             <span className="dot" aria-hidden="true" />
-            Confirmation
+            {copy.eyebrow}
           </span>
-          <h1 className="display-title mt-5">Your configuration has been saved.</h1>
+          <h1 className="display-title mt-5">{copy.title}</h1>
           <p className="mt-4 max-w-3xl text-lg leading-relaxed text-text-mid">
-            Reference: <strong className="text-text-dark">{configurationId}</strong>
+            {copy.reference} <strong className="text-text-dark">{configurationId}</strong>
             {mockCheckout ? ' · mock deposit checkout prepared' : ''}
           </p>
 
           {submission ? (
             <div className="mt-8 grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
               <aside className="rounded-lg bg-pale-blue p-5">
-                <h2 className="font-display text-2xl font-bold text-text-dark">Summary</h2>
+                <h2 className="font-display text-2xl font-bold text-text-dark">{copy.summary}</h2>
                 <dl className="mt-4 grid gap-3 text-base">
-                  <Row label="Customer" value={submission.customer.fullName || 'Not provided'} />
-                  <Row label="One-time estimate" value={formatConfiguratorCurrency(submission.totalEstimate)} />
-                  <Row label="Monthly support" value={formatConfiguratorCurrency(submission.recurringMonthlySubtotal)} />
-                  <Row label="Deposit" value={formatConfiguratorCurrency(submission.deposit)} />
+                  <Row label={copy.customer} value={submission.customer.fullName || copy.notProvided} />
+                  <Row label={copy.oneTime} value={formatConfiguratorCurrency(submission.totalEstimate)} />
+                  <Row label={copy.monthly} value={formatConfiguratorCurrency(submission.recurringMonthlySubtotal)} />
+                  <Row label={copy.deposit} value={formatConfiguratorCurrency(submission.deposit)} />
                 </dl>
               </aside>
               <div>
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <h2 className="font-display text-2xl font-bold text-text-dark">Selected improvements</h2>
+                  <h2 className="font-display text-2xl font-bold text-text-dark">{copy.selected}</h2>
                   <button className="btn btn-white border border-border" type="button" onClick={() => window.print()}>
                     <Printer size={18} aria-hidden="true" />
-                    Print
+                    {copy.print}
                   </button>
                 </div>
                 {selectedServices.length > 0 ? (
@@ -64,7 +112,7 @@ export function ConfigureConfirmationPage() {
                             </p>
                           </div>
                           <span className="rounded-full bg-pale-blue px-3 py-1 text-sm font-black text-blue">
-                            Qty {quantity}
+                            {copy.qty} {quantity}
                           </span>
                         </div>
                         {service?.includedItems?.length ? (
@@ -82,13 +130,13 @@ export function ConfigureConfirmationPage() {
                   </div>
                 ) : (
                   <div className="mt-4 rounded-lg border border-border bg-pale-blue p-5 text-base font-bold text-text-mid">
-                    CasaMia has saved your request. We will confirm the exact improvements before any work starts.
+                    {copy.empty}
                   </div>
                 )}
 
                 {submission.siteConfirmationItems.length > 0 ? (
                   <div className="mt-5 rounded-lg bg-light-blue p-5">
-                    <h3 className="font-display text-xl font-bold text-text-dark">To confirm before installation</h3>
+                    <h3 className="font-display text-xl font-bold text-text-dark">{copy.confirmBefore}</h3>
                     <ul className="mt-3 grid gap-2 text-sm font-bold text-text-mid">
                       {submission.siteConfirmationItems.map((item) => (
                         <li key={`${item.label}-${item.reason}`}>
@@ -102,16 +150,16 @@ export function ConfigureConfirmationPage() {
             </div>
           ) : (
             <p className="mt-8 rounded-lg bg-pale-blue p-5 text-lg font-bold text-text-mid">
-              No saved payload was found. Return to the configurator to prepare a new configuration.
+              {copy.noPayload}
             </p>
           )}
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link className="btn btn-navy" to="/configure">
-              Back to configurator
+              {copy.back}
             </Link>
             <Link className="btn btn-white border border-border" to="/">
-              Return home
+              {copy.home}
             </Link>
           </div>
         </div>

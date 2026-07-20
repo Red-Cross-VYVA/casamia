@@ -28,7 +28,7 @@ from pypdf import PdfReader
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "output" / "pdf"
 PUBLIC_DIR = ROOT / "public" / "downloads"
-LOGO = ROOT / "public" / "brand-assets" / "casamia-logo-white-transparent.png"
+LOGO = ROOT / "public" / "brand-assets" / "casamia-logo-color-transparent.png"
 
 NAVY = colors.HexColor("#0D1E2E")
 NAVY_MID = colors.HexColor("#1B5E8A")
@@ -42,10 +42,22 @@ BORDER = colors.HexColor("#C8DCE8")
 WHITE = colors.white
 FONT_REGULAR = "Helvetica"
 FONT_BOLD = "Helvetica-Bold"
+FONT_DISPLAY = "Helvetica-Bold"
 
 
 def configure_fonts() -> None:
-    global FONT_REGULAR, FONT_BOLD
+    global FONT_REGULAR, FONT_BOLD, FONT_DISPLAY
+    display_pairs = [
+        Path(r"C:\Windows\Fonts\georgiab.ttf"),
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"),
+        Path("/Library/Fonts/Georgia Bold.ttf"),
+    ]
+    for display_path in display_pairs:
+        if display_path.exists():
+            pdfmetrics.registerFont(TTFont("CasaMiaDisplay-Bold", str(display_path)))
+            FONT_DISPLAY = "CasaMiaDisplay-Bold"
+            break
+
     font_pairs = [
         (Path(r"C:\Windows\Fonts\arial.ttf"), Path(r"C:\Windows\Fonts\arialbd.ttf")),
         (Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"), Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")),
@@ -570,19 +582,23 @@ def make_styles() -> dict[str, ParagraphStyle]:
     return {
         "cover_label": ParagraphStyle(
             "cover_label", parent=base["Normal"], fontName=FONT_BOLD, fontSize=9,
-            leading=12, textColor=WHITE, spaceAfter=20, tracking=1.5,
+            leading=12, textColor=NAVY_MID, spaceAfter=14, tracking=1.2,
         ),
         "cover_title": ParagraphStyle(
-            "cover_title", parent=base["Title"], fontName=FONT_BOLD, fontSize=31,
-            leading=34, textColor=WHITE, alignment=TA_LEFT, spaceAfter=16,
+            "cover_title", parent=base["Title"], fontName=FONT_DISPLAY, fontSize=38,
+            leading=40, textColor=NAVY, alignment=TA_LEFT, spaceAfter=13,
         ),
         "cover_subtitle": ParagraphStyle(
             "cover_subtitle", parent=base["Normal"], fontName=FONT_REGULAR, fontSize=14,
-            leading=20, textColor=colors.HexColor("#D9EAF3"), spaceAfter=24,
+            leading=20, textColor=TEXT, spaceAfter=14,
         ),
         "cover_note": ParagraphStyle(
             "cover_note", parent=base["Normal"], fontName=FONT_BOLD, fontSize=11,
-            leading=15, textColor=WHITE,
+            leading=15, textColor=NAVY_MID,
+        ),
+        "cover_meta": ParagraphStyle(
+            "cover_meta", parent=base["Normal"], fontName=FONT_BOLD, fontSize=8.7,
+            leading=11.5, textColor=NAVY,
         ),
         "h1": ParagraphStyle(
             "h1", parent=base["Heading1"], fontName=FONT_BOLD, fontSize=24,
@@ -659,15 +675,23 @@ TAG_COLOURS = {
 def draw_cover(canvas, doc) -> None:
     width, height = A4
     canvas.saveState()
-    canvas.setFillColor(NAVY)
+    canvas.setFillColor(colors.HexColor("#F7FBFE"))
     canvas.rect(0, 0, width, height, stroke=0, fill=1)
-    canvas.setFillColor(NAVY_MID)
-    canvas.circle(width + 18 * mm, height - 22 * mm, 72 * mm, stroke=0, fill=1)
-    canvas.setStrokeColor(colors.Color(1, 1, 1, alpha=0.08))
-    canvas.setLineWidth(18)
-    canvas.circle(width - 6 * mm, 4 * mm, 55 * mm, stroke=1, fill=0)
-    canvas.setFillColor(GREEN)
-    canvas.rect(18 * mm, 27 * mm, 30 * mm, 2.5 * mm, stroke=0, fill=1)
+
+    canvas.setFillColor(colors.Color(0.22, 0.62, 0.83, alpha=0.13))
+    canvas.circle(width + 8 * mm, height - 8 * mm, 62 * mm, stroke=0, fill=1)
+    canvas.setFillColor(colors.Color(0.51, 0.76, 0.25, alpha=0.10))
+    canvas.circle(width - 24 * mm, height - 40 * mm, 34 * mm, stroke=0, fill=1)
+
+    canvas.setFillColor(BLUE)
+    canvas.rect(18 * mm, 31 * mm, 34 * mm, 2.2 * mm, stroke=0, fill=1)
+    canvas.setStrokeColor(BORDER)
+    canvas.setLineWidth(0.7)
+    canvas.line(18 * mm, 28 * mm, width - 18 * mm, 28 * mm)
+
+    canvas.setFillColor(NAVY)
+    canvas.setFont(FONT_BOLD, 8)
+    canvas.drawString(18 * mm, 17 * mm, "casamia.com.es")
     canvas.restoreState()
 
 
@@ -1112,26 +1136,51 @@ def notes_box(title, styles) -> list:
 def build_story(language: str, copy: dict, styles: dict[str, ParagraphStyle]) -> list:
     story = []
 
-    story.append(Spacer(1, 14 * mm))
+    story.append(Spacer(1, 11 * mm))
+    cover_label = Table(
+        [[Paragraph(escape(copy["cover_label"]), styles["cover_label"])]],
+        colWidths=[62 * mm],
+        rowHeights=[10 * mm],
+    )
+    cover_label.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), PALE_BLUE),
+        ("BOX", (0, 0), (-1, -1), 0, PALE_BLUE),
+        ("LEFTPADDING", (0, 0), (-1, -1), 7),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+        ("TOPPADDING", (0, 0), (-1, -1), 2.5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
+    ]))
+    cover_label.hAlign = "LEFT"
+
+    meta_cells = [
+        Paragraph(escape(copy["cover_meta"][0]), styles["cover_meta"]),
+        Paragraph(escape(copy["cover_meta"][1]), styles["cover_meta"]),
+        Paragraph(escape(copy["cover_meta"][2]), styles["cover_meta"]),
+    ]
+    cover_meta = Table([meta_cells], colWidths=[41 * mm, 48 * mm, 47 * mm], rowHeights=[14 * mm])
+    cover_meta.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), WHITE),
+        ("BOX", (0, 0), (-1, -1), 0, WHITE),
+        ("INNERGRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#D5E8F2")),
+        ("LEFTPADDING", (0, 0), (-1, -1), 7),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+    ]))
+    cover_meta.hAlign = "LEFT"
+
     if LOGO.exists():
         logo = RLImage(str(LOGO), width=55 * mm, height=17.2 * mm)
         logo.hAlign = "LEFT"
         story.append(logo)
-    story.append(Spacer(1, 30 * mm))
-    story.append(Paragraph(escape(copy["cover_label"]), styles["cover_label"]))
+        story.append(Spacer(1, 20 * mm))
+    story.append(cover_label)
+    story.append(Spacer(1, 10 * mm))
     story.append(Paragraph(escape(copy["title"]), styles["cover_title"]))
     story.append(Paragraph(escape(copy["subtitle"]), styles["cover_subtitle"]))
-
-    cover_meta = [[Paragraph(escape(value), styles["cover_note"])] for value in copy["cover_meta"]]
-    meta_table = Table(cover_meta, colWidths=[84 * mm], rowHeights=[12 * mm] * len(cover_meta))
-    meta_table.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, -1), colors.Color(1, 1, 1, alpha=0.08)),
-        ("BOX", (0, 0), (-1, -1), 0.6, colors.Color(1, 1, 1, alpha=0.18)),
-        ("INNERGRID", (0, 0), (-1, -1), 0.4, colors.Color(1, 1, 1, alpha=0.14)),
-        ("LEFTPADDING", (0, 0), (-1, -1), 10),
-    ]))
-    story.append(meta_table)
-    story.append(Spacer(1, 22 * mm))
+    story.append(Spacer(1, 4 * mm))
+    story.append(cover_meta)
+    story.append(Spacer(1, 9 * mm))
     story.append(Paragraph(escape(copy["cover_note"]), styles["cover_note"]))
     story.append(PageBreak())
 

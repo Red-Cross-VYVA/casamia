@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   UsersRound,
 } from 'lucide-react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -307,6 +308,10 @@ function ProofIcon({ type }: { type: AboutCopy['proof'][number]['icon'] }) {
 export function AboutPage() {
   const { i18n } = useTranslation()
   const copy = getAboutCopy(i18n.language)
+
+  useEffect(() => {
+    document.title = `${copy.eyebrow} | CasaMia`
+  }, [copy.eyebrow])
 
   return (
     <>

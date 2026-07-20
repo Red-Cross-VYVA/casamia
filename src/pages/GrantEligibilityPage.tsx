@@ -89,6 +89,10 @@ export function GrantEligibilityPage() {
   const [errorMessage, setErrorMessage] = useState('')
   const [reportToken] = useState(() => getSharedGrantReportToken() || createPublicReportToken())
 
+  useEffect(() => {
+    document.title = `${copy.hero.title} | CasaMia`
+  }, [copy.hero.title])
+
   const result = useMemo(() => calculateResult(form, copy), [form, copy])
   const canContinue = getStepCompletion(step, form)
   const blockedReason = canContinue ? '' : getGrantBlockedReason(step, form, copy)

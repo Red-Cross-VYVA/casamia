@@ -23,31 +23,19 @@ function isActiveLink(pathname: string, link: HeaderLink) {
 }
 
 export function Nav() {
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const assessmentPath = getAssessmentPath()
-  const navLabels = i18n.language.startsWith('es')
-    ? {
-        home: 'Inicio',
-        howItWorks: 'Proceso',
-        solutions: 'Soluciones',
-        organisations: 'Organizaciones',
-        about: 'Por qu\u00e9',
-        resources: 'Recursos',
-        cta: 'Reservar evaluaci\u00f3n',
-        phone: t('nav.phone'),
-      }
-    : {
-        home: 'Home',
-        howItWorks: 'How It Works',
-        solutions: 'Solutions',
-        organisations: 'For Organisations',
-        about: 'About Us',
-        resources: 'Resources',
-        cta: 'Book Assessment',
-        phone: t('nav.phone'),
-      }
+  const navLabels = {
+    home: t('nav.home'),
+    howItWorks: t('nav.howItWorks'),
+    solutions: t('nav.services'),
+    organisations: t('nav.organisations'),
+    about: t('nav.whyCasamia'),
+    resources: t('nav.resources'),
+    cta: t('nav.cta'),
+  }
 
   const links: HeaderLink[] = [
     { label: navLabels.home, to: '/#top', match: ['/'] },

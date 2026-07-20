@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -13,6 +14,10 @@ export function BeforeAfterPage() {
   const transformations = t('beforeAfter.transformations', {
     returnObjects: true,
   }) as BeforeAfterTransformation[]
+
+  useEffect(() => {
+    document.title = `${t('beforeAfter.page.title')} | CasaMia`
+  }, [t])
 
   return (
     <>

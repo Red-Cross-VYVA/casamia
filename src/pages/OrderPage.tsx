@@ -6,7 +6,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import type { FormEvent } from 'react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 
@@ -114,6 +114,10 @@ export function OrderPage() {
   const selectedZone = searchParams.get('zone') ?? ''
   const zoneName = zoneLabels[selectedZone]?.[isSpanish ? 'es' : 'en'] ?? (isSpanish ? 'Toda España' : 'All Spain')
   const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    document.title = `${copy.eyebrow} | CasaMia`
+  }, [copy.eyebrow])
 
   const whatsappHref = useMemo(() => {
     const message = isSpanish

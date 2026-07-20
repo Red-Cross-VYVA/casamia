@@ -1,40 +1,69 @@
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router-dom'
 
-import { getLegalDocumentMeta, legalDocuments, type LegalDocumentId } from '../constants/legalDocuments'
+import { getLegalDocumentMeta, getLocalizedLegalDocument, type LegalDocumentId } from '../constants/legalDocuments'
 
 export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId }) {
-  const document = legalDocuments[documentId]
+  const { i18n } = useTranslation()
+  const isSpanish = i18n.language.toLowerCase().startsWith('es')
+  const document = getLocalizedLegalDocument(documentId, i18n.language)
 
   if (!document) {
     return <Navigate to="/" replace />
   }
 
-  const meta = getLegalDocumentMeta(document)
+  const meta = getLegalDocumentMeta(document, i18n.language)
   const requiresReview = document.reviewStatus !== 'approved'
+  const copy = isSpanish
+    ? {
+        eyebrow: 'Información legal de CasaMia',
+        version: 'Versión',
+        effectiveDate: 'Fecha de entrada en vigor',
+        sourceLanguage: 'Idioma fuente',
+        reviewStatus: 'Estado de revisión',
+        reviewTitle: 'Revisión legal final requerida',
+        reviewBody:
+          'Esta página está estructurada a partir del marco legal y el briefing de implementación de CasaMia. Debe completarse con los datos de la empresa y validarse por asesoría legal española antes de su uso en producción.',
+      }
+    : {
+        eyebrow: 'CasaMia legal information',
+        version: 'Version',
+        effectiveDate: 'Effective date',
+        sourceLanguage: 'Source language',
+        reviewStatus: 'Review status',
+        reviewTitle: 'Final legal review required',
+        reviewBody:
+          "This page is structured from CasaMia's legal framework and implementation brief. It must be completed with company data and validated by Spanish legal counsel before production use.",
+      }
+
+  useEffect(() => {
+    window.document.title = `${document.title} | CasaMia`
+  }, [document.title])
 
   return (
     <>
       <section className="legal-hero">
         <div className="site-shell">
-          <p className="eyebrow">CasaMia legal information</p>
+          <p className="eyebrow">{copy.eyebrow}</p>
           <h1>{document.title}</h1>
           <p>{document.intro}</p>
           <dl className="legal-meta">
             <div>
-              <dt>Version</dt>
+              <dt>{copy.version}</dt>
               <dd>{meta.version}</dd>
             </div>
             <div>
-              <dt>Effective date</dt>
+              <dt>{copy.effectiveDate}</dt>
               <dd>{meta.effectiveDate}</dd>
             </div>
             <div>
-              <dt>Source language</dt>
+              <dt>{copy.sourceLanguage}</dt>
               <dd>{meta.sourceLocale.toUpperCase()}</dd>
             </div>
             <div>
-              <dt>Review status</dt>
+              <dt>{copy.reviewStatus}</dt>
               <dd>{meta.reviewStatus}</dd>
             </div>
           </dl>
@@ -47,11 +76,8 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
             <div className="legal-review-alert" role="note">
               <AlertCircle size={22} aria-hidden="true" />
               <div>
-                <strong>Final legal review required</strong>
-                <p>
-                  This page is structured from CasaMia's legal framework and implementation brief. It must be completed
-                  with company data and validated by Spanish legal counsel before production use.
-                </p>
+                <strong>{copy.reviewTitle}</strong>
+                <p>{copy.reviewBody}</p>
               </div>
             </div>
           ) : null}
