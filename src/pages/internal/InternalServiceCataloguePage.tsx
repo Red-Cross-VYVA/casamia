@@ -28,6 +28,7 @@ import {
 } from '../../services/serviceCatalogue'
 import type {
   CasaMiaService,
+  CasaMiaServiceTranslation,
   EditableServiceCatalogue,
   PricingType,
   QuantityType,
@@ -118,7 +119,16 @@ export function InternalServiceCataloguePage() {
     }
 
     return roomServices.filter((service) =>
-      [service.name, service.shortDescription, service.customerBenefit, service.category]
+      [
+        service.name,
+        service.shortDescription,
+        service.customerBenefit,
+        service.category,
+        service.translations?.es?.name,
+        service.translations?.es?.shortDescription,
+        service.translations?.es?.customerBenefit,
+        service.translations?.es?.category,
+      ]
         .join(' ')
         .toLowerCase()
         .includes(query),
@@ -514,6 +524,19 @@ function ServiceEditor({
   service: CasaMiaService
 }) {
   const isDefaultService = getDefaultServiceCatalogue().services.some((defaultService) => defaultService.id === service.id)
+  const spanishCopy = service.translations?.es ?? {}
+
+  function updateSpanishCopy(patch: CasaMiaServiceTranslation) {
+    onUpdateService(service.id, {
+      translations: {
+        ...(service.translations ?? {}),
+        es: cleanTranslation({
+          ...spanishCopy,
+          ...patch,
+        }),
+      },
+    })
+  }
 
   return (
     <article className="rounded-lg border border-border bg-white p-5 shadow-soft">
@@ -578,6 +601,54 @@ function ServiceEditor({
           onChange={(value) => onUpdateService(service.id, { customerBenefit: value })}
         />
       </div>
+
+      <section className="mt-6 rounded-lg border border-blue/20 bg-pale-blue p-4">
+        <div className="mb-4 flex items-start gap-3">
+          <span className="inline-grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-white text-blue">
+            ES
+          </span>
+          <div>
+            <h3 className="text-base font-black text-text-dark">Spanish public copy</h3>
+            <p className="mt-1 text-xs font-bold leading-relaxed text-text-muted">
+              These fields are what Spanish visitors see on the public services page. Leave a field blank to fall back to the main service copy.
+            </p>
+          </div>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <TextInput
+            label="Spanish service name"
+            value={spanishCopy.name ?? ''}
+            onChange={(value) => updateSpanishCopy({ name: value })}
+          />
+          <TextInput
+            label="Spanish category"
+            value={spanishCopy.category ?? ''}
+            onChange={(value) => updateSpanishCopy({ category: value })}
+          />
+          <TextArea
+            label="Spanish short description"
+            value={spanishCopy.shortDescription ?? ''}
+            onChange={(value) => updateSpanishCopy({ shortDescription: value })}
+          />
+          <TextArea
+            label="Spanish customer benefit"
+            value={spanishCopy.customerBenefit ?? ''}
+            onChange={(value) => updateSpanishCopy({ customerBenefit: value })}
+          />
+          <TextArea
+            label="Spanish included items, one per line"
+            value={(spanishCopy.includedItems ?? []).join('\n')}
+            onChange={(value) => updateSpanishCopy({
+              includedItems: value.split('\n').map((item) => item.trim()).filter(Boolean),
+            })}
+          />
+          <TextArea
+            label="Spanish safety notice"
+            value={spanishCopy.safetyNotice ?? ''}
+            onChange={(value) => updateSpanishCopy({ safetyNotice: value })}
+          />
+        </div>
+      </section>
 
       <section className="mt-6 rounded-lg border border-border bg-light-blue/40 p-4">
         <div className="mb-4 flex items-start gap-3">
@@ -828,6 +899,15 @@ function ServiceEditor({
       </div>
     </article>
   )
+}
+
+function cleanTranslation(translation: CasaMiaServiceTranslation) {
+  return Object.fromEntries(
+    Object.entries(translation).filter(([, value]) => {
+      if (Array.isArray(value)) return value.length > 0
+      return typeof value !== 'string' || value.trim().length > 0
+    }),
+  ) as CasaMiaServiceTranslation
 }
 
 function ServicePreviewCard({ service }: { service: CasaMiaService }) {

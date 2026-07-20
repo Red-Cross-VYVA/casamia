@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { casaMiaServices } from '../config/serviceCatalogue.ts'
+import { defaultSpanishServiceCopy } from '../config/serviceCatalogueSpanishCopy.ts'
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
 import { getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 import type {
@@ -265,11 +266,18 @@ function mergeServices(defaultServices: CasaMiaService[], savedServices: CasaMia
 }
 
 function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {
+  const defaultSpanishTranslation = defaultSpanishServiceCopy[service.id]
+  const translations = {
+    ...(defaultSpanishTranslation ? { es: defaultSpanishTranslation } : {}),
+    ...(service.translations ?? {}),
+  }
+
   return {
     ...service,
     wizardAreas: Array.isArray(service.wizardAreas)
       ? service.wizardAreas
       : getDefaultServicePackageAreas(service),
+    translations: Object.keys(translations).length > 0 ? translations : undefined,
   }
 }
 
