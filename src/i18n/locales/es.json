@@ -7,6 +7,7 @@
     "close": "Cerrar",
     "imageFallback": "Imagen no disponible",
     "learnMore": "Más información",
+    "loading": "Cargando...",
     "selectedPhotos": "Fotos seleccionadas"
   },
   "wizard": {
@@ -16,6 +17,7 @@
     "home": "Inicio",
     "howItWorks": "Proceso",
     "services": "Soluciones",
+    "organisations": "Organizaciones",
     "plans": "Planes",
     "grants": "Ayudas",
     "resources": "Guías",

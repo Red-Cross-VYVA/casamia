@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { blogArticles } from '../constants/blogContent'
+import { localizeBlogArticles } from '../constants/blogContentLocalization'
 import {
   completeHomeChecklistDownloads,
   type ResourceDownloadLanguage,
@@ -123,7 +124,7 @@ const pageCopy = {
     guideTitle: 'Encuentra la respuesta sin recorrer una pared de artículos.',
     guideBody:
       'Las guías están agrupadas según la decisión que una familia intenta tomar. Elige la situación más cercana y ve directamente al consejo relevante.',
-    guideLanguage: 'Las guías de lectura están disponibles actualmente en inglés.',
+    guideLanguage: '',
     readGuide: 'Leer guía',
     finalEyebrow: '¿Necesitas un plan para una vivienda real?',
     finalTitle: 'Convierte la lista en un plan de adaptación con prioridades.',
@@ -226,6 +227,7 @@ export function BlogPage() {
   const language: ResourceDownloadLanguage = i18n.language.startsWith('es') ? 'es' : 'en'
   const copy = pageCopy[language]
   const primaryDownload = completeHomeChecklistDownloads[language]
+  const localizedArticles = useMemo(() => localizeBlogArticles(blogArticles, language), [language])
 
   const resourceHubSchema = useMemo(
     () => ({
@@ -264,7 +266,7 @@ export function BlogPage() {
           '@type': 'ItemList',
           '@id': `${siteUrl}/blog#resource-list`,
           name: language === 'es' ? 'Herramientas y guías de seguridad en el hogar' : 'Senior home safety tools and guides',
-          numberOfItems: toolContent.length + blogArticles.length + 1,
+          numberOfItems: toolContent.length + localizedArticles.length + 1,
           itemListElement: [
             {
               '@type': 'ListItem',
@@ -278,7 +280,7 @@ export function BlogPage() {
               name: tool.title[language],
               url: `${siteUrl}${tool.to}`,
             })),
-            ...blogArticles.map((article, index) => ({
+            ...localizedArticles.map((article, index) => ({
               '@type': 'ListItem',
               position: toolContent.length + index + 2,
               name: article.title,
@@ -288,7 +290,7 @@ export function BlogPage() {
         },
       ],
     }),
-    [copy, language, primaryDownload],
+    [copy, language, localizedArticles, primaryDownload],
   )
 
   function trackDownload(downloadLanguage: ResourceDownloadLanguage) {
@@ -412,15 +414,15 @@ export function BlogPage() {
               <p className="eyebrow">{copy.guideEyebrow}</p>
               <h2 id="resource-guides-title">{copy.guideTitle}</h2>
               <p>{copy.guideBody}</p>
-              {language === 'es' ? <small>{copy.guideLanguage}</small> : null}
+              {copy.guideLanguage ? <small>{copy.guideLanguage}</small> : null}
             </div>
 
             <div className="resource-guide-groups">
               {guideGroups.map((group) => {
                 const Icon = group.icon
                 const articles = group.articleIds
-                  .map((articleId) => blogArticles.find((article) => article.id === articleId))
-                  .filter((article): article is (typeof blogArticles)[number] => Boolean(article))
+                  .map((articleId) => localizedArticles.find((article) => article.id === articleId))
+                  .filter((article): article is (typeof localizedArticles)[number] => Boolean(article))
 
                 return (
                   <article className="resource-guide-group" key={group.title.en}>

@@ -7,9 +7,6 @@ import { trackEvent } from '../utils/analytics'
 const languages = [
   { code: 'en', shortLabel: 'EN', label: 'English' },
   { code: 'es', shortLabel: 'ES', label: 'Espa\u00f1ol' },
-  { code: 'de', shortLabel: 'DE', label: 'Deutsch' },
-  { code: 'fr', shortLabel: 'FR', label: 'Fran\u00e7ais' },
-  { code: 'nl', shortLabel: 'NL', label: 'Nederlands' },
 ] as const
 
 type LanguageSwitcherProps = {

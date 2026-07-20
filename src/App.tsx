@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   BrowserRouter,
   Navigate,
@@ -14,7 +15,6 @@ import { Footer } from './components/Footer'
 import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
-import { ConfiguratorProvider } from './context/ConfiguratorContext'
 
 const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
 const AssistedLivingSolutionsPage = lazy(() =>
@@ -29,27 +29,6 @@ const BlogArticlePage = lazy(() =>
   import('./pages/BlogArticlePage').then(({ BlogArticlePage }) => ({ default: BlogArticlePage })),
 )
 const BlogPage = lazy(() => import('./pages/BlogPage').then(({ BlogPage }) => ({ default: BlogPage })))
-const ConfigureCheckoutPage = lazy(() =>
-  import('./pages/ConfigureCheckoutPage').then(({ ConfigureCheckoutPage }) => ({
-    default: ConfigureCheckoutPage,
-  })),
-)
-const ConfigureConfirmationPage = lazy(() =>
-  import('./pages/ConfigureConfirmationPage').then(({ ConfigureConfirmationPage }) => ({
-    default: ConfigureConfirmationPage,
-  })),
-)
-const ConfigureContactPage = lazy(() =>
-  import('./pages/ConfigureContactPage').then(({ ConfigureContactPage }) => ({
-    default: ConfigureContactPage,
-  })),
-)
-const ConfigurePage = lazy(() => import('./pages/ConfigurePage').then(({ ConfigurePage }) => ({ default: ConfigurePage })))
-const ConfigureSummaryPage = lazy(() =>
-  import('./pages/ConfigureSummaryPage').then(({ ConfigureSummaryPage }) => ({
-    default: ConfigureSummaryPage,
-  })),
-)
 const EstimateReportPage = lazy(() =>
   import('./pages/EstimateReportPage').then(({ EstimateReportPage }) => ({ default: EstimateReportPage })),
 )
@@ -67,7 +46,6 @@ const GrantEligibilityPage = lazy(() =>
   import('./pages/GrantEligibilityPage').then(({ GrantEligibilityPage }) => ({ default: GrantEligibilityPage })),
 )
 const GrantsPage = lazy(() => import('./pages/GrantsPage').then(({ GrantsPage }) => ({ default: GrantsPage })))
-const HomePage = lazy(() => import('./pages/HomePage').then(({ HomePage }) => ({ default: HomePage })))
 const Home2Page = lazy(() => import('./pages/Home2Page').then(({ Home2Page }) => ({ default: Home2Page })))
 const HowItWorksPage = lazy(() =>
   import('./pages/HowItWorksPage').then(({ HowItWorksPage }) => ({ default: HowItWorksPage })),
@@ -178,6 +156,8 @@ function ScrollManager() {
 }
 
 function RouteLoadingFallback() {
+  const { t } = useTranslation()
+
   return (
     <div className="site-shell flex min-h-[55vh] items-center justify-center py-20">
       <div
@@ -188,7 +168,7 @@ function RouteLoadingFallback() {
         <BrandLogo />
         <span className="inline-flex items-center gap-2 text-sm font-extrabold uppercase text-navy">
           <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-green" aria-hidden="true" />
-          Loading
+          {t('common.loading')}
         </span>
       </div>
     </div>
@@ -216,10 +196,6 @@ function LegacyResourceRedirect() {
   return <Navigate to={`${target ?? '/blog'}${location.search}`} replace />
 }
 
-function ConfiguratorRoute({ children }: { children: ReactNode }) {
-  return <ConfiguratorProvider>{children}</ConfiguratorProvider>
-}
-
 function InternalRoute({ children }: { children: ReactNode }) {
   return <InternalAccessGate>{children}</InternalAccessGate>
 }
@@ -238,7 +214,7 @@ function AppRoutes() {
           <Routes>
             <Route path="/" element={<Home2Page />} />
             <Route path="/home2" element={<Home2Page />} />
-            <Route path="/home-new" element={<HomePage />} />
+            <Route path="/home-new" element={<Navigate to="/" replace />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/plans" element={<PlansPage />} />
             <Route path="/plans/:planId" element={<Navigate to="/plans" replace />} />
@@ -253,11 +229,7 @@ function AppRoutes() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:articleId" element={<BlogArticlePage />} />
             <Route path="/tech" element={<TechPage />} />
-            <Route path="/configure" element={<ConfiguratorRoute><ConfigurePage /></ConfiguratorRoute>} />
-            <Route path="/configure/summary" element={<ConfiguratorRoute><ConfigureSummaryPage /></ConfiguratorRoute>} />
-            <Route path="/configure/contact" element={<ConfiguratorRoute><ConfigureContactPage /></ConfiguratorRoute>} />
-            <Route path="/configure/checkout" element={<ConfiguratorRoute><ConfigureCheckoutPage /></ConfiguratorRoute>} />
-            <Route path="/configure/confirmation" element={<ConfiguratorRoute><ConfigureConfirmationPage /></ConfiguratorRoute>} />
+            <Route path="/configure/*" element={<Navigate to="/home-safety-wizard" replace />} />
             <Route path="/admin/config-preview" element={<Navigate to="/internal/service-catalog" replace />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />

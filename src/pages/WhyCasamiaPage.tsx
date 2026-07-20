@@ -4,17 +4,14 @@ import {
   BadgeCheck,
   CalendarCheck,
   CheckCircle2,
-  CircleCheck,
   ClipboardCheck,
   FileText,
   Handshake,
   Home,
   LoaderCircle,
   Mail,
-  PackageCheck,
   ShieldCheck,
   Tags,
-  UsersRound,
 } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -30,10 +27,6 @@ type WhyCasamiaCopy = {
   eyebrow: string
   headline: string
   intro: string
-  heroProof: Array<{
-    value: string
-    label: string
-  }>
   coverage: SpainCoverageCopy & {
     eyebrow: string
     body: string
@@ -68,12 +61,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     eyebrow: 'Why CasaMia',
     headline: 'One turnkey service for a safer home, without the coordination headache',
     intro:
-      'CasaMia handles the full journey for families: understanding the home, recommending what matters, preparing the scope, coordinating trusted professionals, managing installation and following up afterwards. You get one accountable team instead of chasing products, installers, grants and advice separately.',
-    heroProof: [
-      { value: 'End-to-end', label: 'assessment, plan, products, installation and follow-up' },
-      { value: 'Turnkey delivery', label: 'CasaMia coordinates the people, dates and details' },
-      { value: 'One point of contact', label: 'clear scope, family updates and accountable handover' },
-    ],
+      'CasaMia brings home-safety expertise, trusted local providers and clear coordination into one managed service for families who want practical help without guesswork.',
     coverage: {
       eyebrow: 'Spain-wide service',
       title: 'Local coverage across Spain, connected by CasaMia.',
@@ -174,12 +162,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     eyebrow: 'Por qué CasaMia',
     headline: 'Una solución llave en mano para adaptar la vivienda sin dolores de cabeza',
     intro:
-      'CasaMia se encarga del proceso completo: entender la vivienda, recomendar lo importante, preparar el alcance, coordinar profesionales de confianza, gestionar la instalación y hacer seguimiento después. La familia tiene un solo equipo responsable, sin perseguir productos, instaladores, ayudas y consejos por separado.',
-    heroProof: [
-      { value: 'De principio a fin', label: 'evaluación, plan, productos, instalación y seguimiento' },
-      { value: 'Llave en mano', label: 'CasaMia coordina personas, fechas y detalles' },
-      { value: 'Un solo contacto', label: 'alcance claro, información a la familia y entrega responsable' },
-    ],
+      'CasaMia une experiencia en seguridad del hogar, profesionales locales de confianza y coordinación clara para familias que quieren ayuda práctica sin improvisar.',
     coverage: {
       eyebrow: 'Servicio en toda España',
       title: 'Cobertura local en toda España, conectada por CasaMia.',
@@ -310,28 +293,6 @@ export function WhyCasamiaPage() {
   const { i18n, t } = useTranslation()
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
   const copy = getWhyCasamiaCopy(i18n.language)
-  const heroJourney = [
-    {
-      icon: ClipboardCheck,
-      title: isSpanish ? 'Revisión clara' : 'Clear review',
-      detail: isSpanish ? 'Casa, persona y riesgos' : 'Home, resident and risks',
-    },
-    {
-      icon: FileText,
-      title: isSpanish ? 'Plan práctico' : 'Practical plan',
-      detail: isSpanish ? 'Qué hacer primero' : 'What to do first',
-    },
-    {
-      icon: PackageCheck,
-      title: isSpanish ? 'Trabajo coordinado' : 'Coordinated work',
-      detail: isSpanish ? 'Productos, fechas y proveedor' : 'Products, timing and provider',
-    },
-    {
-      icon: CircleCheck,
-      title: isSpanish ? 'Entrega revisada' : 'Checked handover',
-      detail: isSpanish ? 'Resultado y seguimiento' : 'Result and follow-up',
-    },
-  ]
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -394,41 +355,15 @@ export function WhyCasamiaPage() {
               <ArrowRight size={20} aria-hidden="true" />
             </Link>
           </div>
-          <aside className="why-hero-proof" aria-label="CasaMia managed service flow">
-            <div className="why-managed-card">
-              <div className="why-managed-header">
-                <span className="why-managed-logo">Casa<span>Mia</span></span>
-                <span className="why-managed-badge">
-                  <ShieldCheck size={17} aria-hidden="true" />
-                  {isSpanish ? 'Servicio gestionado' : 'Managed service'}
-                </span>
-              </div>
-
-              <div className="why-managed-summary">
-                <p>{isSpanish ? 'Un equipo responsable' : 'One accountable team'}</p>
-                <strong>{isSpanish ? 'De la duda inicial a una vivienda más segura.' : 'From first concern to a safer home.'}</strong>
-              </div>
-
-              <ol className="why-managed-steps">
-                {heroJourney.map(({ icon: Icon, title, detail }, index) => (
-                  <li key={title}>
-                    <span className="why-managed-step-icon">
-                      <Icon size={19} aria-hidden="true" />
-                    </span>
-                    <span>
-                      <strong>{title}</strong>
-                      <small>{detail}</small>
-                    </span>
-                    <em>{String(index + 1).padStart(2, '0')}</em>
-                  </li>
-                ))}
-              </ol>
-
-              <div className="why-managed-footer">
-                <UsersRound size={18} aria-hidden="true" />
-                <span>{copy.heroProof[2]?.label}</span>
-              </div>
-            </div>
+          <aside className="why-hero-human" aria-label={isSpanish ? 'Acompañamiento CasaMia' : 'CasaMia guidance'}>
+            <figure className="why-human-card">
+              <img
+                alt={isSpanish ? 'Asesora mostrando una propuesta de seguridad a personas mayores' : 'Advisor showing a home-safety plan to older adults'}
+                className="why-human-image"
+                loading="eager"
+                src="/images/why-us/casamia-guidance-session.jpg"
+              />
+            </figure>
           </aside>
         </div>
       </section>

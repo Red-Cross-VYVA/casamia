@@ -1,4 +1,5 @@
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export function TermsAndConditionsPage() {
@@ -9,6 +10,10 @@ export function TermsAndConditionsPage() {
   const important = t('pages.terms.grantManagement.important', {
     returnObjects: true,
   }) as string[]
+
+  useEffect(() => {
+    document.title = `${t('pages.terms.title')} | CasaMia`
+  }, [t])
 
   return (
     <>

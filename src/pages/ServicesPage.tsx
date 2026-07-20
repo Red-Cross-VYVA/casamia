@@ -22,8 +22,8 @@ import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import {
   getServicesForPackageArea,
-  useServiceCatalogue,
 } from '../services/serviceCatalogue'
+import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServicePackageArea } from '../types/serviceCatalogue'
 import '../styles/services-catalogue.css'
 
@@ -93,7 +93,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'bathroom',
     icon: Bath,
     image: '/images/solutions/bathroom-safety.jpg',
-    title: { en: 'Bathroom', es: 'Baño' },
+    title: { en: 'Safer bathroom', es: 'Baño seguro' },
     description: {
       en: 'Safer transfers, showering, toileting, grip and night-time access.',
       es: 'Transferencias, ducha, aseo, agarre y acceso nocturno más seguros.',
@@ -103,7 +103,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'bedroom',
     icon: BedDouble,
     image: '/images/before-after/bedroom-after-card.webp',
-    title: { en: 'Bedroom', es: 'Dormitorio' },
+    title: { en: 'Restful bedroom', es: 'Dormitorio tranquilo' },
     description: {
       en: 'Bed transfers, bedside reach, lighting and safer night routes.',
       es: 'Transferencias, alcance, iluminación y rutas nocturnas más seguras.',
@@ -113,7 +113,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'kitchen',
     icon: CookingPot,
     image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
-    title: { en: 'Kitchen', es: 'Cocina' },
+    title: { en: 'Confident kitchen', es: 'Cocina cómoda' },
     description: {
       en: 'Safer reach, preparation, appliances, water and everyday routines.',
       es: 'Alcance, preparación, electrodomésticos, agua y rutinas más seguras.',
@@ -123,7 +123,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'living-room',
     icon: Home,
     image: '/images/before-after/living-after-home.webp',
-    title: { en: 'Living and movement', es: 'Salón y movilidad' },
+    title: { en: 'Comfortable movement', es: 'Movimiento cómodo' },
     description: {
       en: 'Clearer routes through furniture, rugs, cables and daily-use spaces.',
       es: 'Rutas más despejadas entre muebles, alfombras, cables y zonas de uso diario.',
@@ -133,7 +133,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'stairs',
     icon: Footprints,
     image: '/images/solutions/stairs-hallways.jpg',
-    title: { en: 'Stairs', es: 'Escaleras' },
+    title: { en: 'Steady stairs', es: 'Escaleras seguras' },
     description: {
       en: 'Handrails, grip, contrast and lighting for changes of level.',
       es: 'Pasamanos, agarre, contraste e iluminación para cambios de nivel.',
@@ -143,7 +143,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'entrance',
     icon: DoorOpen,
     image: '/images/solutions/entrance-access.jpg',
-    title: { en: 'Entrance', es: 'Entrada' },
+    title: { en: 'Easy entrance', es: 'Entrada fácil' },
     description: {
       en: 'Thresholds, steps, access, lighting and support at the door.',
       es: 'Umbrales, escalones, acceso, iluminación y apoyo junto a la puerta.',
@@ -153,7 +153,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'outdoor',
     icon: MapPin,
     image: '/images/before-after/outdoor-after.jpg',
-    title: { en: 'Outdoor', es: 'Exterior' },
+    title: { en: 'Safer outdoors', es: 'Exterior seguro' },
     description: {
       en: 'Paths, exterior steps, lighting and the route to the entrance.',
       es: 'Caminos, escalones, iluminación y la ruta hasta la entrada.',
@@ -163,7 +163,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'lighting',
     icon: Lightbulb,
     image: '/images/service-gallery/03-stairway-and-hallway-support.jpg',
-    title: { en: 'Lighting', es: 'Iluminación' },
+    title: { en: 'Comfort lighting', es: 'Luz de confort' },
     description: {
       en: 'Task, motion and night-route lighting where visibility matters.',
       es: 'Iluminación de trabajo, movimiento y rutas nocturnas donde más importa.',
@@ -173,7 +173,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'smart-safety',
     icon: ShieldCheck,
     image: '/images/before-after/smart-after.jpg',
-    title: { en: 'Smart safety', es: 'Seguridad conectada' },
+    title: { en: 'Connected comfort', es: 'Confort conectado' },
     description: {
       en: 'Compatible alerts, sensors, voice support and family handover.',
       es: 'Alertas, sensores, apoyo por voz y configuración para la familia.',
@@ -306,7 +306,7 @@ export function ServicesPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = servicesPageCopy[language]
-  const catalogue = useServiceCatalogue()
+  const catalogue = useLocalizedServiceCatalogue(i18n.language)
   const [selectedGroupId, setSelectedGroupId] = useState<CatalogueGroupId>('bathroom')
   const activeServices = useMemo(
     () => catalogue.services.filter((service) => service.active),

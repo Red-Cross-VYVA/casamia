@@ -1130,7 +1130,7 @@ export function TechPage() {
               </div>
             ) : <p className="cm-tech-catalogue-empty">{copy.catalogue.empty}</p>}
 
-            <Link className="btn btn-navy" to="/configure?room=connected">
+            <Link className="btn btn-navy" to="/home-safety-wizard">
               {copy.catalogue.cta}<ArrowRight size={19} aria-hidden="true" />
             </Link>
           </article>

@@ -7,6 +7,7 @@ import {
   Home,
   ShieldCheck,
 } from 'lucide-react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -29,6 +30,10 @@ export function PlanAdaptaPage() {
     returnObjects: true,
   }) as string[]
   const steps = t('pages.planAdapta.process.steps', { returnObjects: true }) as PlanAdaptaStep[]
+
+  useEffect(() => {
+    document.title = `${t('pages.planAdapta.hero.title')} | CasaMia`
+  }, [t])
 
   return (
     <>

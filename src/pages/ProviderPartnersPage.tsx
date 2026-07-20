@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import type { FormEvent, ReactNode } from 'react'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import {
   providerOnboardingSteps,
@@ -54,6 +55,264 @@ const initialValues: ProviderFormValues = {
 
 const partnerPathIcons = [Wrench, Bath, Lightbulb, Zap, UsersRound, HeartHandshake]
 const marketingAssetIcons = [Award, BadgeCheck, Mail, Megaphone, Download, Copy]
+
+const providerPartnerCopy = {
+  en: {
+    title: 'Provider Partnership Programme | CasaMia',
+    heroEyebrow: 'Provider partnership programme',
+    heroTitle: 'Join the senior home-safety market before it becomes crowded.',
+    heroBody:
+      'CasaMia combines senior-focused assessment, practical home adaptations, smart safety and family handover into one coordinated service. We are building the trusted provider network behind that experience across Spain’s main cities.',
+    proof: ['Growing ageing-at-home demand', 'Senior-specific safety standards', 'City-by-city rollout'],
+    apply: 'Apply to collaborate',
+    viewStandards: 'View standards',
+    panelTitle: 'A category built for specialist providers',
+    panelBody:
+      'Families do not only need a product installed. They need someone who understands older residents, mobility, dignity, risk, trust and the anxiety that comes with changing a parent’s home.',
+    marketEyebrow: 'Market opportunity',
+    marketTitle: 'Senior home safety is becoming a mainstream service category.',
+    marketBody:
+      'Spain has an ageing population, families are trying to keep parents independent at home for longer, and homes often need practical adaptations before a crisis happens. CasaMia turns that need into a repeatable, professional workflow for local providers.',
+    expertiseEyebrow: 'CasaMia expertise',
+    expertiseTitle: 'We understand the senior space, not just installation work.',
+    expertiseBody:
+      'Good providers already know their trade. CasaMia adds the senior-specific layer: resident context, family communication, safety priorities, installation acceptance and follow-up.',
+    profilesEyebrow: 'Partner profiles',
+    profilesTitle: 'Multiple ways to collaborate.',
+    profilesBody:
+      'CasaMia needs dependable specialists across the practical services that make older homes easier and safer to use every day.',
+    toolsEyebrow: 'Tools and resources',
+    toolsTitle: 'We help collaborators deliver excellent work.',
+    toolsBody:
+      'CasaMia is not just a source of leads. We support partners with the structure, context and resources they need to do careful work in older people’s homes, communicate clearly with families and leave every project properly documented.',
+    marketingEyebrow: 'Marketing kit',
+    marketingTitle: 'Help providers turn collaboration into local trust.',
+    marketingBody:
+      'Approved collaborators can use CasaMia partner materials to show they work in a specialist senior-safety network. The goal is simple: help good providers look more credible, win the right kind of work and explain the relationship clearly.',
+    sample: 'Download sample',
+    usageRules: 'Usage rules',
+    standardsEyebrow: 'How collaboration works',
+    standardsTitle: 'Clear standards, respectful work, better handovers.',
+    standardsBody:
+      'Providers remain independent businesses, but customer work is coordinated through CasaMia. Installers and subcontractors must not request direct customer payments or approve paid scope changes independently.',
+    coverageEyebrow: 'Coverage focus',
+    coverageTitle: 'Main city coverage first.',
+    coverageBody:
+      'CasaMia is prioritising strong provider coverage in major cities and surrounding areas, then expanding once service quality and response times are reliable.',
+    cityEyebrow: 'City opportunity',
+    cityTitle: 'Early partners can help define local coverage.',
+    cityBody:
+      'The first strong partners in each city help CasaMia understand response times, typical property layouts, trade depth and where families need the most support.',
+    registrationEyebrow: 'Self-registration',
+    registrationTitle: 'Apply to join the provider network.',
+    registrationBody:
+      'Share basic company details, coverage and service types. CasaMia will review fit before assigning any customer work.',
+    fields: {
+      businessName: 'Business name',
+      contactName: 'Main contact',
+      email: 'Email address',
+      phone: 'Phone number',
+      website: 'Website or profile',
+      availability: 'Typical availability',
+      availabilityPlaceholder: 'Example: weekdays, emergency callouts, 2-week lead time',
+      cities: 'Coverage cities *',
+      trades: 'Services offered *',
+      experience: 'Relevant experience',
+      insurance: 'I can provide insurance, trading details and references if CasaMia requests them.',
+      submit: 'Submit provider application',
+    },
+    errors: {
+      businessName: 'Enter your business name.',
+      contactName: 'Enter the main contact name.',
+      email: 'Enter an email address.',
+      validEmail: 'Enter a valid email address.',
+      phone: 'Enter a phone number.',
+      cities: 'Select at least one city or coverage area.',
+      trades: 'Select at least one service type.',
+      experience: 'Tell us briefly about your relevant experience.',
+      insuranceConfirmed: 'Confirm that insurance can be evidenced.',
+    },
+    submitted: (id: string) => `Application ${id} submitted. CasaMia will review your fit and city coverage.`,
+    saved: (id: string) =>
+      `Application ${id} saved locally for review. Deploy on Vercel with Supabase configured before using this as a live application inbox.`,
+    marketSignals: providerMarketSignals,
+    expertisePillars: providerExpertisePillars,
+    benefits: providerProgrammeBenefits,
+    partnerPaths: providerPartnerPaths,
+    resources: providerEnablementResources,
+    assets: providerMarketingAssets,
+    rules: providerMarketingRules,
+    standards: providerQualityStandards,
+    onboarding: providerOnboardingSteps,
+    opportunities: providerCityOpportunities,
+    cityLabel: (city: string) => city,
+    tradeLabel: (trade: string) => trade,
+  },
+  es: {
+    title: 'Programa de colaboradores profesionales | CasaMia',
+    heroEyebrow: 'Programa de colaboradores',
+    heroTitle: 'Únete al mercado de seguridad senior en el hogar antes de que se sature.',
+    heroBody:
+      'CasaMia combina evaluación centrada en personas mayores, adaptaciones prácticas, seguridad inteligente y entrega clara a la familia en un servicio coordinado. Estamos construyendo la red de profesionales que hará posible esa experiencia en las principales ciudades de España.',
+    proof: ['Demanda creciente para envejecer en casa', 'Estándares específicos para mayores', 'Despliegue ciudad por ciudad'],
+    apply: 'Solicitar colaboración',
+    viewStandards: 'Ver estándares',
+    panelTitle: 'Una categoría creada para especialistas',
+    panelBody:
+      'Las familias no necesitan solo que se instale un producto. Necesitan profesionales que entiendan movilidad, dignidad, riesgo, confianza y la ansiedad de adaptar la casa de un padre o una madre.',
+    marketEyebrow: 'Oportunidad de mercado',
+    marketTitle: 'La seguridad senior en casa se está convirtiendo en una categoría principal.',
+    marketBody:
+      'España envejece, las familias quieren mantener a sus padres independientes durante más tiempo y muchas viviendas necesitan adaptaciones prácticas antes de una crisis. CasaMia convierte esa necesidad en un flujo profesional repetible para proveedores locales.',
+    expertiseEyebrow: 'Experiencia CasaMia',
+    expertiseTitle: 'Entendemos el mercado senior, no solo la instalación.',
+    expertiseBody:
+      'Los buenos profesionales ya dominan su oficio. CasaMia añade la capa específica senior: contexto del residente, comunicación familiar, prioridades de seguridad, aceptación de la instalación y seguimiento.',
+    profilesEyebrow: 'Perfiles de colaboradores',
+    profilesTitle: 'Varias formas de colaborar.',
+    profilesBody:
+      'CasaMia necesita especialistas fiables en los servicios prácticos que hacen que las viviendas de personas mayores sean más fáciles y seguras cada día.',
+    toolsEyebrow: 'Herramientas y recursos',
+    toolsTitle: 'Ayudamos a los colaboradores a entregar un trabajo excelente.',
+    toolsBody:
+      'CasaMia no es solo una fuente de oportunidades. Apoyamos a los colaboradores con estructura, contexto y recursos para trabajar con cuidado en viviendas de personas mayores, comunicarse bien con las familias y documentar cada proyecto.',
+    marketingEyebrow: 'Kit de marketing',
+    marketingTitle: 'Convierte la colaboración en confianza local.',
+    marketingBody:
+      'Los colaboradores aprobados pueden usar materiales de CasaMia para mostrar que trabajan dentro de una red especializada en seguridad senior. El objetivo es ayudar a buenos profesionales a verse más creíbles, captar el trabajo adecuado y explicar la relación con claridad.',
+    sample: 'Descargar muestra',
+    usageRules: 'Normas de uso',
+    standardsEyebrow: 'Cómo funciona la colaboración',
+    standardsTitle: 'Estándares claros, trabajo respetuoso y mejores entregas.',
+    standardsBody:
+      'Los proveedores siguen siendo empresas independientes, pero el trabajo con clientes se coordina a través de CasaMia. Instaladores y subcontratas no deben pedir pagos directos al cliente ni aprobar cambios de alcance de pago por su cuenta.',
+    coverageEyebrow: 'Cobertura prioritaria',
+    coverageTitle: 'Primero cobertura sólida en grandes ciudades.',
+    coverageBody:
+      'CasaMia prioriza una cobertura fuerte en ciudades principales y alrededores, y expande cuando la calidad del servicio y los tiempos de respuesta son fiables.',
+    cityEyebrow: 'Oportunidad por ciudad',
+    cityTitle: 'Los primeros colaboradores ayudan a definir la cobertura local.',
+    cityBody:
+      'Los primeros socios fuertes en cada ciudad ayudan a CasaMia a entender tiempos de respuesta, tipologías de vivienda, profundidad de oficios y dónde las familias necesitan más apoyo.',
+    registrationEyebrow: 'Auto-registro',
+    registrationTitle: 'Solicita unirte a la red de proveedores.',
+    registrationBody:
+      'Comparte datos básicos de empresa, cobertura y tipos de servicio. CasaMia revisará el encaje antes de asignar cualquier trabajo con clientes.',
+    fields: {
+      businessName: 'Nombre de la empresa',
+      contactName: 'Contacto principal',
+      email: 'Email',
+      phone: 'Teléfono',
+      website: 'Web o perfil',
+      availability: 'Disponibilidad habitual',
+      availabilityPlaceholder: 'Ejemplo: laborables, urgencias, plazo de 2 semanas',
+      cities: 'Ciudades de cobertura *',
+      trades: 'Servicios ofrecidos *',
+      experience: 'Experiencia relevante',
+      insurance: 'Puedo aportar seguro, datos de actividad y referencias si CasaMia lo solicita.',
+      submit: 'Enviar solicitud de proveedor',
+    },
+    errors: {
+      businessName: 'Introduce el nombre de la empresa.',
+      contactName: 'Introduce el nombre del contacto principal.',
+      email: 'Introduce un email.',
+      validEmail: 'Introduce un email válido.',
+      phone: 'Introduce un teléfono.',
+      cities: 'Selecciona al menos una ciudad o zona de cobertura.',
+      trades: 'Selecciona al menos un tipo de servicio.',
+      experience: 'Cuéntanos brevemente tu experiencia relevante.',
+      insuranceConfirmed: 'Confirma que puedes acreditar el seguro.',
+    },
+    submitted: (id: string) => `Solicitud ${id} enviada. CasaMia revisará el encaje y la cobertura por ciudad.`,
+    saved: (id: string) =>
+      `Solicitud ${id} guardada localmente para revisión. Despliega en Vercel con Supabase configurado antes de usarlo como bandeja real de solicitudes.`,
+    marketSignals: [
+      { value: 'Viviendas que envejecen', label: 'Más familias necesitan adaptaciones prácticas que mantengan la independencia en casa.' },
+      { value: 'Falta de especialistas', label: 'Muchos oficios instalan productos, pero menos entienden rutinas senior, dignidad y contexto de riesgo.' },
+      { value: 'Despliegue urbano', label: 'CasaMia crea cobertura fiable ciudad por ciudad, empezando donde la demanda y la logística pueden escalar.' },
+    ],
+    expertisePillars: [
+      { title: 'Diseño de proyecto senior-first', body: 'CasaMia revisa residente, rutinas, cambios de movilidad, preocupaciones familiares y riesgo estancia por estancia antes de recomendar trabajos.' },
+      { title: 'Seguridad práctica, no venta de productos', body: 'Las recomendaciones se centran en transferencias, umbrales, iluminación, puntos de apoyo, baño, rutas nocturnas y entrega segura.' },
+      { title: 'Recorrido profesional del cliente', body: 'Los proveedores trabajan dentro de un flujo estructurado: evaluación, plan acotado, briefing de instalación, aceptación y notas de seguimiento.' },
+      { title: 'Confianza con familias', body: 'CasaMia sigue como punto central de contacto para que las familias sepan quién responde y los proveedores se concentren en entregar calidad.' },
+    ],
+    benefits: [
+      { title: 'Demanda local cualificada', body: 'CasaMia canaliza proyectos evaluados hacia proveedores capaces de entregar con respeto, limpieza y puntualidad.' },
+      { title: 'Alcance claro antes de la visita', body: 'Los proveedores reciben briefing, fotos o notas disponibles y expectativas definidas antes de empezar.' },
+      { title: 'Coordinación central', body: 'CasaMia mantiene el contacto con el cliente, gestiona el flujo y reduce idas y vueltas para el proveedor.' },
+      { title: 'Cobertura recurrente por ciudad', body: 'El programa está diseñado para crear cobertura fiable en las principales ciudades de España y alrededores.' },
+    ],
+    partnerPaths: [
+      { title: 'Instaladores de accesibilidad', body: 'Barras, rampas, umbrales, puntos de apoyo y rutas de movimiento más seguras.' },
+      { title: 'Especialistas en baño', body: 'Duchas seguras, entrada al plato, apoyo de inodoro, ayudas de transferencia y antideslizantes.' },
+      { title: 'Equipos eléctricos e iluminación', body: 'Iluminación por movimiento, visibilidad en escaleras, rutas nocturnas, interruptores y accesos.' },
+      { title: 'Técnicos de seguridad inteligente', body: 'Sensores, alertas, botones de emergencia, conectividad y configuración para tranquilidad familiar.' },
+      { title: 'Terapeutas ocupacionales', body: 'Evaluación centrada en la persona, contexto de movilidad y prioridades prácticas de adaptación.' },
+      { title: 'Proveedores de seguimiento', body: 'Mantenimiento, ajustes menores, apoyo de entrega y visitas de seguimiento.' },
+    ],
+    resources: [
+      { title: 'Briefings estructurados', body: 'Contexto del cliente, prioridades por estancia, fotos disponibles, alcance acordado, notas de acceso y prioridades de seguridad antes de la visita.' },
+      { title: 'Playbooks de seguridad senior', body: 'Guías prácticas para baños, escaleras, entradas, dormitorios, iluminación, transferencias y entrega de seguridad inteligente.' },
+      { title: 'Plantillas de propuesta y entrega', body: 'Formatos reutilizables para alcance, notas de finalización, registros de producto, comprobaciones de seguridad e instrucciones al cliente.' },
+      { title: 'Bucle de calidad', body: 'CasaMia recoge feedback familiar, resultados de instalación y notas de seguimiento para que los mejores proveedores sigan mejorando.' },
+      { title: 'Coordinación operativa', body: 'Apoyo con planificación, comunicación con clientes, cambios de alcance y expectativas de seguimiento.' },
+      { title: 'Formación y onboarding', body: 'Módulos breves para entender comunicación senior, trabajo sin presión, documentación y estándares de aceptación.' },
+    ],
+    assets: [
+      { title: 'Sello de colaborador aprobado', body: 'Insignia para web y propuestas tras revisión y aceptación en la red CasaMia.', format: 'Insignia SVG', usage: 'Pie de web, presupuestos, landing pages' },
+      { title: 'Insignia de partner de seguridad senior', body: 'Sello más suave para perfiles y galerías centradas en hogares seguros para mayores.', format: 'Insignia SVG', usage: 'Portfolio, galerías antes/después, páginas locales' },
+      { title: 'Bloque de firma de email', body: 'Firma breve para explicar la colaboración con CasaMia en comunicaciones diarias.', format: 'Firma HTML', usage: 'Firmas de email, facturas, seguimiento' },
+      { title: 'Texto para anuncio social', body: 'Texto de lanzamiento para LinkedIn, Facebook o Google Business Profile al unirse al programa.', format: 'Texto breve', usage: 'Redes sociales y perfiles locales' },
+      { title: 'Concepto de vinilo para ventana o vehículo', body: 'Concepto sencillo adaptable para vehículos, oficinas o showrooms aprobados.', format: 'Concepto SVG', usage: 'Vehículo, escaparate, mostrador' },
+      { title: 'Párrafo de confianza para web', body: 'Texto para explicar en la web cómo se coordinan los proyectos CasaMia.', format: 'Texto breve', usage: 'Sobre nosotros, servicios, landing partner' },
+    ],
+    rules: [
+      'Usar materiales CasaMia solo tras aprobación escrita.',
+      'No sugerir que el proveedor pertenece o está empleado por CasaMia.',
+      'No usar “certificado” salvo que CasaMia emita un programa específico.',
+      'No sugerir respaldo público ni aprobación de ayudas.',
+      'Retirar insignias y firmas si la colaboración termina o queda pausada.',
+    ],
+    standards: [
+      'Registro profesional activo o datos equivalentes de actividad.',
+      'Seguro adecuado para los servicios ofrecidos.',
+      'Trabajo respetuoso en viviendas ocupadas por personas mayores.',
+      'Capacidad para aportar disponibilidad, datos de precio y notas de finalización.',
+      'Disposición a seguir normas CasaMia de entrega, seguridad y no cobro directo.',
+      'Compromiso de documentar defectos materiales o alcance incompleto con honestidad.',
+    ],
+    onboarding: [
+      'Enviar datos básicos de empresa y servicios online.',
+      'CasaMia revisa cobertura, encaje de oficio, seguro y referencias.',
+      'Llamada breve de onboarding sobre trato al cliente y estándares.',
+      'Los proveedores aprobados reciben oportunidades cuando la cobertura encaja.',
+    ],
+    opportunities: [
+      { city: 'Madrid', status: 'Alta prioridad', note: 'Gran área metropolitana y fuerte demanda de decisores familiares.' },
+      { city: 'Barcelona', status: 'Alta prioridad', note: 'Viviendas urbanas densas, edificios antiguos y necesidad amplia de cobertura.' },
+      { city: 'Valencia', status: 'Alta prioridad', note: 'Gran ciudad costera con oportunidad en accesibilidad y envejecimiento en casa.' },
+      { city: 'Málaga', status: 'Construyendo red', note: 'Mercado senior e internacional en crecimiento en la costa.' },
+      { city: 'Alicante', status: 'Construyendo red', note: 'Alto potencial de cobertura costera y necesidades recurrentes de adaptación.' },
+      { city: 'Sevilla', status: 'Construyendo red', note: 'Hub regional para adaptación de vivienda y servicios prácticos de seguridad.' },
+      { city: 'Bilbao', status: 'Próxima apertura', note: 'Cobertura prioritaria en el norte cuando se confirme profundidad de partners.' },
+      { city: 'Zaragoza', status: 'Próxima apertura', note: 'Ciudad conectora clave para ampliar cobertura regional.' },
+    ],
+    cityLabel: (city: string) =>
+      ({ Seville: 'Sevilla', Malaga: 'Málaga' })[city as 'Seville' | 'Malaga'] ?? city,
+    tradeLabel: (trade: string) =>
+      ({
+        'Accessibility adaptations': 'Adaptaciones de accesibilidad',
+        'Bathroom safety': 'Seguridad en baños',
+        'Stair rails and handrails': 'Barandillas y pasamanos',
+        'Electrical and lighting': 'Electricidad e iluminación',
+        'Smart home and sensors': 'Hogar inteligente y sensores',
+        'General building works': 'Obras generales',
+        'Occupational therapy assessment': 'Evaluación de terapia ocupacional',
+        'Maintenance and aftercare': 'Mantenimiento y seguimiento',
+      })[trade] ?? trade,
+  },
+} as const
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
@@ -143,13 +402,16 @@ function getMarketingAssetVariant(title: string) {
 }
 
 export function ProviderPartnersPage() {
+  const { i18n } = useTranslation()
+  const isSpanish = i18n.language.toLowerCase().startsWith('es')
+  const copy = isSpanish ? providerPartnerCopy.es : providerPartnerCopy.en
   const [values, setValues] = useState<ProviderFormValues>(initialValues)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submissionMessage, setSubmissionMessage] = useState('')
 
   useEffect(() => {
-    document.title = 'Provider Partnership Programme | CasaMia'
-  }, [])
+    document.title = copy.title
+  }, [copy.title])
 
   function updateValue<Field extends keyof ProviderFormValues>(field: Field, value: ProviderFormValues[Field]) {
     setValues((current) => ({ ...current, [field]: value }))
@@ -170,15 +432,15 @@ export function ProviderPartnersPage() {
 
   function validate() {
     const nextErrors: Record<string, string> = {}
-    if (!values.businessName.trim()) nextErrors.businessName = 'Enter your business name.'
-    if (!values.contactName.trim()) nextErrors.contactName = 'Enter the main contact name.'
-    if (!values.email.trim()) nextErrors.email = 'Enter an email address.'
-    if (values.email.trim() && !isValidEmail(values.email)) nextErrors.email = 'Enter a valid email address.'
-    if (!values.phone.trim()) nextErrors.phone = 'Enter a phone number.'
-    if (values.cities.length === 0) nextErrors.cities = 'Select at least one city or coverage area.'
-    if (values.trades.length === 0) nextErrors.trades = 'Select at least one service type.'
-    if (!values.experience.trim()) nextErrors.experience = 'Tell us briefly about your relevant experience.'
-    if (!values.insuranceConfirmed) nextErrors.insuranceConfirmed = 'Confirm that insurance can be evidenced.'
+    if (!values.businessName.trim()) nextErrors.businessName = copy.errors.businessName
+    if (!values.contactName.trim()) nextErrors.contactName = copy.errors.contactName
+    if (!values.email.trim()) nextErrors.email = copy.errors.email
+    if (values.email.trim() && !isValidEmail(values.email)) nextErrors.email = copy.errors.validEmail
+    if (!values.phone.trim()) nextErrors.phone = copy.errors.phone
+    if (values.cities.length === 0) nextErrors.cities = copy.errors.cities
+    if (values.trades.length === 0) nextErrors.trades = copy.errors.trades
+    if (!values.experience.trim()) nextErrors.experience = copy.errors.experience
+    if (!values.insuranceConfirmed) nextErrors.insuranceConfirmed = copy.errors.insuranceConfirmed
     setErrors(nextErrors)
     return Object.keys(nextErrors).length === 0
   }
@@ -196,8 +458,8 @@ export function ProviderPartnersPage() {
     setValues(initialValues)
     setSubmissionMessage(
         result.storedInBackend
-          ? `Application ${result.application.id} submitted. CasaMia will review your fit and city coverage.`
-          : `Application ${result.application.id} saved locally for review. Deploy on Vercel with Supabase configured before using this as a live application inbox.`,
+          ? copy.submitted(result.application.id)
+          : copy.saved(result.application.id),
     )
   }
 
@@ -206,47 +468,40 @@ export function ProviderPartnersPage() {
       <section className="provider-hero">
         <div className="site-shell provider-hero-grid">
           <div>
-            <p className="eyebrow">Provider partnership programme</p>
-            <h1>Join the senior home-safety market before it becomes crowded.</h1>
-            <p>
-              CasaMia combines senior-focused assessment, practical home adaptations, smart safety and family handover
-              into one coordinated service. We are building the trusted provider network behind that experience across
-              Spain&apos;s main cities.
-            </p>
+            <p className="eyebrow">{copy.heroEyebrow}</p>
+            <h1>{copy.heroTitle}</h1>
+            <p>{copy.heroBody}</p>
             <div className="provider-hero-proof">
               <span>
                 <TrendingUp size={18} aria-hidden="true" />
-                Growing ageing-at-home demand
+                {copy.proof[0]}
               </span>
               <span>
                 <ShieldCheck size={18} aria-hidden="true" />
-                Senior-specific safety standards
+                {copy.proof[1]}
               </span>
               <span>
                 <MapPin size={18} aria-hidden="true" />
-                City-by-city rollout
+                {copy.proof[2]}
               </span>
             </div>
             <div className="provider-hero-actions">
               <a className="btn btn-green" href="#provider-registration">
-                Apply to collaborate
+                {copy.apply}
                 <ArrowRight size={20} aria-hidden="true" />
               </a>
               <a className="btn btn-white" href="#provider-standards">
-                View standards
+                {copy.viewStandards}
               </a>
             </div>
           </div>
           <aside className="provider-hero-panel">
             <Building2 size={34} aria-hidden="true" />
-            <h2>A category built for specialist providers</h2>
-            <p>
-              Families do not only need a product installed. They need someone who understands older residents,
-              mobility, dignity, risk, trust and the anxiety that comes with changing a parent&apos;s home.
-            </p>
+            <h2>{copy.panelTitle}</h2>
+            <p>{copy.panelBody}</p>
             <div className="provider-city-strip">
               {providerPriorityCities.slice(0, 6).map((city) => (
-                <span key={city}>{city}</span>
+                <span key={city}>{copy.cityLabel(city)}</span>
               ))}
             </div>
           </aside>
@@ -256,16 +511,12 @@ export function ProviderPartnersPage() {
       <section className="provider-market-section section-pad">
         <div className="site-shell">
           <div className="provider-section-heading">
-            <p className="eyebrow">Market opportunity</p>
-            <h2 className="display-title">Senior home safety is becoming a mainstream service category.</h2>
-            <p>
-              Spain has an ageing population, families are trying to keep parents independent at home for longer, and
-              homes often need practical adaptations before a crisis happens. CasaMia turns that need into a repeatable,
-              professional workflow for local providers.
-            </p>
+            <p className="eyebrow">{copy.marketEyebrow}</p>
+            <h2 className="display-title">{copy.marketTitle}</h2>
+            <p>{copy.marketBody}</p>
           </div>
           <div className="provider-market-grid">
-            {providerMarketSignals.map((signal) => (
+            {copy.marketSignals.map((signal) => (
               <article key={signal.value}>
                 <strong>{signal.value}</strong>
                 <p>{signal.label}</p>
@@ -278,15 +529,12 @@ export function ProviderPartnersPage() {
       <section className="section-pad bg-white">
         <div className="site-shell provider-two-column">
           <div>
-            <p className="eyebrow">CasaMia expertise</p>
-            <h2 className="display-title">We understand the senior space, not just installation work.</h2>
-            <p>
-              Good providers already know their trade. CasaMia adds the senior-specific layer: resident context,
-              family communication, safety priorities, installation acceptance and follow-up.
-            </p>
+            <p className="eyebrow">{copy.expertiseEyebrow}</p>
+            <h2 className="display-title">{copy.expertiseTitle}</h2>
+            <p>{copy.expertiseBody}</p>
           </div>
           <div className="provider-expertise-grid">
-            {providerExpertisePillars.map((pillar) => (
+            {copy.expertisePillars.map((pillar) => (
               <article key={pillar.title}>
                 <h3>{pillar.title}</h3>
                 <p>{pillar.body}</p>
@@ -298,7 +546,7 @@ export function ProviderPartnersPage() {
 
       <section className="section-pad bg-white">
         <div className="site-shell provider-benefit-grid">
-          {providerProgrammeBenefits.map((benefit) => (
+          {copy.benefits.map((benefit) => (
             <article className="provider-benefit-card" key={benefit.title}>
               <BadgeCheck size={25} aria-hidden="true" />
               <h2>{benefit.title}</h2>
@@ -311,15 +559,12 @@ export function ProviderPartnersPage() {
       <section className="section-pad bg-light-blue">
         <div className="site-shell">
           <div className="provider-section-heading">
-            <p className="eyebrow">Partner profiles</p>
-            <h2 className="display-title">Multiple ways to collaborate.</h2>
-            <p>
-              CasaMia needs dependable specialists across the practical services that make older homes easier and safer
-              to use every day.
-            </p>
+            <p className="eyebrow">{copy.profilesEyebrow}</p>
+            <h2 className="display-title">{copy.profilesTitle}</h2>
+            <p>{copy.profilesBody}</p>
           </div>
           <div className="provider-path-grid">
-            {providerPartnerPaths.map((path, index) => {
+            {copy.partnerPaths.map((path, index) => {
               const Icon = partnerPathIcons[index] ?? Wrench
 
               return (
@@ -337,16 +582,12 @@ export function ProviderPartnersPage() {
       <section className="section-pad bg-white">
         <div className="site-shell provider-two-column">
           <div>
-            <p className="eyebrow">Tools and resources</p>
-            <h2 className="display-title">We help collaborators deliver excellent work.</h2>
-            <p>
-              CasaMia is not just a source of leads. We support partners with the structure, context and resources they
-              need to do careful work in older people&apos;s homes, communicate clearly with families and leave every
-              project properly documented.
-            </p>
+            <p className="eyebrow">{copy.toolsEyebrow}</p>
+            <h2 className="display-title">{copy.toolsTitle}</h2>
+            <p>{copy.toolsBody}</p>
           </div>
           <div className="provider-enable-grid">
-            {providerEnablementResources.map((resource) => (
+            {copy.resources.map((resource) => (
               <article key={resource.title}>
                 <CheckCircle2 size={18} aria-hidden="true" />
                 <div>
@@ -362,17 +603,13 @@ export function ProviderPartnersPage() {
       <section className="provider-marketing-section section-pad">
         <div className="site-shell">
           <div className="provider-section-heading">
-            <p className="eyebrow">Marketing kit</p>
-            <h2 className="display-title">Help providers turn collaboration into local trust.</h2>
-            <p>
-              Approved collaborators can use CasaMia partner materials to show they work in a specialist senior-safety
-              network. The goal is simple: help good providers look more credible, win the right kind of work and
-              explain the relationship clearly.
-            </p>
+            <p className="eyebrow">{copy.marketingEyebrow}</p>
+            <h2 className="display-title">{copy.marketingTitle}</h2>
+            <p>{copy.marketingBody}</p>
           </div>
 
           <div className="provider-marketing-grid">
-            {providerMarketingAssets.map((asset, index) => {
+            {copy.assets.map((asset, index) => {
               const Icon = marketingAssetIcons[index] ?? BadgeCheck
               const variant = getMarketingAssetVariant(asset.title)
 
@@ -390,32 +627,58 @@ export function ProviderPartnersPage() {
                         </div>
                         <strong>
                           {variant === 'senior'
-                            ? 'Senior home-safety partner'
+                            ? isSpanish
+                              ? 'Partner de seguridad senior'
+                              : 'Senior home-safety partner'
                             : variant === 'sticker'
-                              ? 'CasaMia collaborator'
-                              : 'Approved collaborator'}
+                              ? isSpanish
+                                ? 'Colaborador CasaMia'
+                                : 'CasaMia collaborator'
+                              : isSpanish
+                                ? 'Colaborador aprobado'
+                                : 'Approved collaborator'}
                         </strong>
-                        <small>{variant === 'sticker' ? 'Vehicle / window decal' : 'Trusted local delivery'}</small>
+                        <small>
+                          {variant === 'sticker'
+                            ? isSpanish
+                              ? 'Vinilo para vehículo / ventana'
+                              : 'Vehicle / window decal'
+                            : isSpanish
+                              ? 'Entrega local de confianza'
+                              : 'Trusted local delivery'}
+                        </small>
                       </div>
                     ) : variant === 'email' ? (
                       <div className="provider-signature-preview">
-                        <strong>Provider Name</strong>
-                        <span>CasaMia approved collaborator</span>
-                        <small>Senior home-safety projects coordinated through CasaMia</small>
+                        <strong>{isSpanish ? 'Nombre del proveedor' : 'Provider Name'}</strong>
+                        <span>{isSpanish ? 'Colaborador aprobado CasaMia' : 'CasaMia approved collaborator'}</span>
+                        <small>
+                          {isSpanish
+                            ? 'Proyectos de seguridad senior coordinados por CasaMia'
+                            : 'Senior home-safety projects coordinated through CasaMia'}
+                        </small>
                       </div>
                     ) : variant === 'social' ? (
                       <div className="provider-social-preview">
-                        <span>New collaboration</span>
-                        <strong>Working with CasaMia on senior home-safety projects</strong>
+                        <span>{isSpanish ? 'Nueva colaboración' : 'New collaboration'}</span>
+                        <strong>
+                          {isSpanish
+                            ? 'Colaboramos con CasaMia en proyectos de seguridad senior'
+                            : 'Working with CasaMia on senior home-safety projects'}
+                        </strong>
                         <small>#AgeingAtHome #HomeAdaptations</small>
                       </div>
                     ) : variant === 'website' ? (
                       <div className="provider-website-preview">
-                        <span>In collaboration with</span>
+                        <span>{isSpanish ? 'En colaboración con' : 'In collaboration with'}</span>
                         <strong>
                           Casa<span>Mia</span>
                         </strong>
-                        <small>Resident-centred assessment, practical adaptation and family handover.</small>
+                        <small>
+                          {isSpanish
+                            ? 'Evaluación centrada en la persona, adaptación práctica y entrega familiar.'
+                            : 'Resident-centred assessment, practical adaptation and family handover.'}
+                        </small>
                       </div>
                     ) : (
                       <Icon size={30} aria-hidden="true" />
@@ -428,7 +691,7 @@ export function ProviderPartnersPage() {
                     <span>{asset.usage}</span>
                   </div>
                   <button className="btn btn-white" type="button" onClick={() => downloadMarketingAsset(asset.title, asset.format)}>
-                    Download sample
+                    {copy.sample}
                     <Download size={18} aria-hidden="true" />
                   </button>
                 </article>
@@ -437,9 +700,9 @@ export function ProviderPartnersPage() {
           </div>
 
           <aside className="provider-marketing-rules">
-            <h3>Usage rules</h3>
+            <h3>{copy.usageRules}</h3>
             <div>
-              {providerMarketingRules.map((rule) => (
+              {copy.rules.map((rule) => (
                 <p key={rule}>
                   <CheckCircle2 size={17} aria-hidden="true" />
                   {rule}
@@ -453,15 +716,12 @@ export function ProviderPartnersPage() {
       <section className="section-pad bg-light-blue" id="provider-standards">
         <div className="site-shell provider-two-column">
           <div>
-            <p className="eyebrow">How collaboration works</p>
-            <h2 className="display-title">Clear standards, respectful work, better handovers.</h2>
-            <p>
-              Providers remain independent businesses, but customer work is coordinated through CasaMia. Installers and
-              subcontractors must not request direct customer payments or approve paid scope changes independently.
-            </p>
+            <p className="eyebrow">{copy.standardsEyebrow}</p>
+            <h2 className="display-title">{copy.standardsTitle}</h2>
+            <p>{copy.standardsBody}</p>
           </div>
           <div className="provider-list-card">
-            {providerQualityStandards.map((standard) => (
+            {copy.standards.map((standard) => (
               <p key={standard}>
                 <CheckCircle2 size={18} aria-hidden="true" />
                 {standard}
@@ -474,7 +734,7 @@ export function ProviderPartnersPage() {
       <section className="section-pad bg-white">
         <div className="site-shell provider-two-column">
           <div className="provider-step-list">
-            {providerOnboardingSteps.map((step, index) => (
+            {copy.onboarding.map((step, index) => (
               <article key={step}>
                 <span>{index + 1}</span>
                 <p>{step}</p>
@@ -482,12 +742,9 @@ export function ProviderPartnersPage() {
             ))}
           </div>
           <div>
-            <p className="eyebrow">Coverage focus</p>
-            <h2 className="display-title">Main city coverage first.</h2>
-            <p>
-              CasaMia is prioritising strong provider coverage in major cities and surrounding areas, then expanding
-              once service quality and response times are reliable.
-            </p>
+            <p className="eyebrow">{copy.coverageEyebrow}</p>
+            <h2 className="display-title">{copy.coverageTitle}</h2>
+            <p>{copy.coverageBody}</p>
           </div>
         </div>
       </section>
@@ -495,15 +752,12 @@ export function ProviderPartnersPage() {
       <section className="section-pad provider-city-section">
         <div className="site-shell">
           <div className="provider-section-heading">
-            <p className="eyebrow">City opportunity</p>
-            <h2 className="display-title">Early partners can help define local coverage.</h2>
-            <p>
-              The first strong partners in each city help CasaMia understand response times, typical property layouts,
-              trade depth and where families need the most support.
-            </p>
+            <p className="eyebrow">{copy.cityEyebrow}</p>
+            <h2 className="display-title">{copy.cityTitle}</h2>
+            <p>{copy.cityBody}</p>
           </div>
           <div className="provider-city-grid">
-            {providerCityOpportunities.map((opportunity) => (
+            {copy.opportunities.map((opportunity) => (
               <article key={opportunity.city}>
                 <div>
                   <strong>{opportunity.city}</strong>
@@ -519,40 +773,37 @@ export function ProviderPartnersPage() {
       <section className="section-pad provider-registration-section" id="provider-registration">
         <div className="site-shell provider-registration-layout">
           <div>
-            <p className="eyebrow">Self-registration</p>
-            <h2 className="display-title">Apply to join the provider network.</h2>
-            <p>
-              Share basic company details, coverage and service types. CasaMia will review fit before assigning any
-              customer work.
-            </p>
+            <p className="eyebrow">{copy.registrationEyebrow}</p>
+            <h2 className="display-title">{copy.registrationTitle}</h2>
+            <p>{copy.registrationBody}</p>
           </div>
 
           <form className="provider-registration-form" onSubmit={handleSubmit}>
-            <ProviderField error={errors.businessName} label="Business name">
+            <ProviderField error={errors.businessName} label={copy.fields.businessName}>
               <input value={values.businessName} onChange={(event) => updateValue('businessName', event.target.value)} />
             </ProviderField>
-            <ProviderField error={errors.contactName} label="Main contact">
+            <ProviderField error={errors.contactName} label={copy.fields.contactName}>
               <input value={values.contactName} onChange={(event) => updateValue('contactName', event.target.value)} />
             </ProviderField>
-            <ProviderField error={errors.email} label="Email address">
+            <ProviderField error={errors.email} label={copy.fields.email}>
               <input type="email" value={values.email} onChange={(event) => updateValue('email', event.target.value)} />
             </ProviderField>
-            <ProviderField error={errors.phone} label="Phone number">
+            <ProviderField error={errors.phone} label={copy.fields.phone}>
               <input value={values.phone} onChange={(event) => updateValue('phone', event.target.value)} />
             </ProviderField>
-            <ProviderField label="Website or profile">
+            <ProviderField label={copy.fields.website}>
               <input value={values.website} onChange={(event) => updateValue('website', event.target.value)} />
             </ProviderField>
-            <ProviderField label="Typical availability">
+            <ProviderField label={copy.fields.availability}>
               <input
-                placeholder="Example: weekdays, emergency callouts, 2-week lead time"
+                placeholder={copy.fields.availabilityPlaceholder}
                 value={values.availability}
                 onChange={(event) => updateValue('availability', event.target.value)}
               />
             </ProviderField>
 
             <fieldset className="provider-choice-group">
-              <legend>Coverage cities *</legend>
+              <legend>{copy.fields.cities}</legend>
               <div>
                 {providerPriorityCities.map((city) => (
                   <label key={city}>
@@ -562,7 +813,7 @@ export function ProviderPartnersPage() {
                       onChange={() => toggleListValue('cities', city)}
                     />
                     <MapPin size={15} aria-hidden="true" />
-                    {city}
+                    {copy.cityLabel(city)}
                   </label>
                 ))}
               </div>
@@ -570,7 +821,7 @@ export function ProviderPartnersPage() {
             </fieldset>
 
             <fieldset className="provider-choice-group">
-              <legend>Services offered *</legend>
+              <legend>{copy.fields.trades}</legend>
               <div>
                 {providerTrades.map((trade) => (
                   <label key={trade}>
@@ -580,14 +831,14 @@ export function ProviderPartnersPage() {
                       onChange={() => toggleListValue('trades', trade)}
                     />
                     <ShieldCheck size={15} aria-hidden="true" />
-                    {trade}
+                    {copy.tradeLabel(trade)}
                   </label>
                 ))}
               </div>
               {errors.trades ? <small>{errors.trades}</small> : null}
             </fieldset>
 
-            <ProviderField error={errors.experience} label="Relevant experience">
+            <ProviderField error={errors.experience} label={copy.fields.experience}>
               <textarea
                 rows={4}
                 value={values.experience}
@@ -601,14 +852,14 @@ export function ProviderPartnersPage() {
                 type="checkbox"
                 onChange={(event) => updateValue('insuranceConfirmed', event.target.checked)}
               />
-              <span>I can provide insurance, trading details and references if CasaMia requests them.</span>
+              <span>{copy.fields.insurance}</span>
             </label>
             {errors.insuranceConfirmed ? <small className="provider-error">{errors.insuranceConfirmed}</small> : null}
 
             {submissionMessage ? <p className="provider-submission-message">{submissionMessage}</p> : null}
 
             <button className="btn btn-green" type="submit">
-              Submit provider application
+              {copy.fields.submit}
               <ArrowRight size={20} aria-hidden="true" />
             </button>
           </form>

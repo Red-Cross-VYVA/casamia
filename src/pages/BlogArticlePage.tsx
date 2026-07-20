@@ -1,20 +1,55 @@
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { blogArticles } from '../constants/blogContent'
+import { localizeBlogArticle, localizeBlogArticles } from '../constants/blogContentLocalization'
+
+const articleShellCopy = {
+  en: {
+    resources: 'Resources',
+    summary: 'Article summary',
+    takeaways: 'Key takeaways',
+    familyChecklist: 'Family checklist',
+    commonQuestions: 'Common questions',
+    keepLearning: 'Keep learning',
+    related: 'Related CasaMia articles',
+    allResources: 'All Resources',
+    readNext: 'Read next',
+    englishNotice: '',
+  },
+  es: {
+    resources: 'Recursos',
+    summary: 'Resumen del artículo',
+    takeaways: 'Ideas clave',
+    familyChecklist: 'Lista para familias',
+    commonQuestions: 'Preguntas frecuentes',
+    keepLearning: 'Seguir aprendiendo',
+    related: 'Artículos relacionados de CasaMia',
+    allResources: 'Todos los recursos',
+    readNext: 'Leer después',
+    englishNotice: '',
+  },
+} as const
 
 export function BlogArticlePage() {
+  const { i18n } = useTranslation()
   const { articleId } = useParams()
-  const article = blogArticles.find((item) => item.id === articleId)
+  const baseArticle = blogArticles.find((item) => item.id === articleId)
+  const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const copy = articleShellCopy[language]
 
-  if (!article) {
+  if (!baseArticle) {
     return <Navigate to="/blog" replace />
   }
 
-  const relatedArticles = blogArticles
-    .filter((item) => item.id !== article.id)
+  const article = localizeBlogArticle(baseArticle, language)
+  const relatedArticles = localizeBlogArticles(
+    blogArticles.filter((item) => item.id !== article.id),
+    language,
+  )
     .slice(0, 3)
 
   return (
@@ -64,7 +99,7 @@ export function BlogArticlePage() {
             <div>
               <Link className="seo-back-link" to="/blog">
                 <ArrowLeft size={18} aria-hidden="true" />
-                Resources
+                {copy.resources}
               </Link>
               <div className="blog-article-meta">
                 <span>{article.category}</span>
@@ -72,6 +107,7 @@ export function BlogArticlePage() {
               </div>
               <h1>{article.title}</h1>
               <p>{article.intro}</p>
+              {copy.englishNotice ? <p className="mt-4 text-sm font-extrabold text-white/80">{copy.englishNotice}</p> : null}
             </div>
             <SafeImage
               src={article.image}
@@ -84,8 +120,8 @@ export function BlogArticlePage() {
         </header>
 
         <div className="site-shell blog-article-layout">
-          <aside className="blog-article-aside" aria-label="Article summary">
-            <h2>Key takeaways</h2>
+          <aside className="blog-article-aside" aria-label={copy.summary}>
+            <h2>{copy.takeaways}</h2>
             <ul>
               {article.takeaways.map((item) => (
                 <li key={item}>
@@ -111,7 +147,7 @@ export function BlogArticlePage() {
             ))}
 
             <section className="blog-checklist">
-              <h2>Family checklist</h2>
+              <h2>{copy.familyChecklist}</h2>
               <ul>
                 {article.checklist.map((item) => (
                   <li key={item}>
@@ -123,7 +159,7 @@ export function BlogArticlePage() {
             </section>
 
             <section className="blog-faq">
-              <h2>Common questions</h2>
+              <h2>{copy.commonQuestions}</h2>
               {article.faqs.map((faq) => (
                 <details key={faq.question}>
                   <summary>{faq.question}</summary>
@@ -139,11 +175,11 @@ export function BlogArticlePage() {
         <div className="site-shell">
           <div className="blog-library-header">
             <div>
-              <p className="eyebrow">Keep learning</p>
-              <h2>Related CasaMia articles</h2>
+              <p className="eyebrow">{copy.keepLearning}</p>
+              <h2>{copy.related}</h2>
             </div>
             <Link className="btn btn-white" to="/blog">
-              All Resources
+              {copy.allResources}
             </Link>
           </div>
 
@@ -154,7 +190,7 @@ export function BlogArticlePage() {
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <strong>
-                  Read next
+                  {copy.readNext}
                   <ArrowRight size={17} aria-hidden="true" />
                 </strong>
               </Link>
