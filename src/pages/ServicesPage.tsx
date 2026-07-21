@@ -18,6 +18,7 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { SampleReportPreview } from '../components/SampleReportPreview'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import {
@@ -396,6 +397,8 @@ export function ServicesPage() {
           </aside>
         </div>
       </section>
+
+      <SampleReportPreview />
 
       <section className="services-catalogue-section" id="catalogue-packages">
         <div className="site-shell">

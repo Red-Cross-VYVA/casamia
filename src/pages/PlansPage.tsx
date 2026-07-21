@@ -22,7 +22,6 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { TrustBar } from '../components/TrustBar'
-import { TrustSection } from '../components/TrustSection'
 
 type Outcome = {
   icon: LucideIcon
@@ -539,8 +538,6 @@ export function PlansPage() {
           </div>
         </div>
       </section>
-
-      <TrustSection />
     </>
   )
 }

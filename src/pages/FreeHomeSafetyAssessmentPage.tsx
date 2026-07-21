@@ -3,7 +3,6 @@ import {
   CheckCircle2,
   ClipboardCheck,
   Home,
-  Lightbulb,
   ShieldCheck,
   SmilePlus,
   Stethoscope,
@@ -97,27 +96,27 @@ export function FreeHomeSafetyAssessmentPage() {
             </div>
           </div>
 
-          <aside className="assessment-hero-panel">
-            <span>
-              <Lightbulb size={26} aria-hidden="true" />
-            </span>
-            <h2>{t('assessment.hero.panelTitle')}</h2>
-            <p>{t('assessment.hero.panelBody')}</p>
-            <div className="assessment-fee-card">
-              <ClipboardCheck size={24} aria-hidden="true" />
+          <aside className="assessment-hero-panel assessment-hero-panel-visual">
+            <img
+              alt={isSpanish ? 'Inspector CasaMia revisando una vivienda' : 'CasaMia inspector reviewing a home'}
+              src="/images/assessment/casamia-inspector-tablet.jpg"
+            />
+            <div className="assessment-visit-overlay">
               <div>
-                <small>{pricing.feeLabel}</small>
-                <strong>{pricing.fee}</strong>
+                <span className="assessment-visit-kicker">
+                  {isSpanish ? 'Visita opcional' : 'Optional expert visit'}
+                </span>
+                <h2>{isSpanish ? 'Un experto revisa la vivienda contigo.' : 'An expert reviews the home with you.'}</h2>
+                <ul>
+                  {included.slice(0, 2).map((item) => (
+                    <li key={item.title}>
+                      <CheckCircle2 size={16} aria-hidden="true" />
+                      {item.title}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-            <ul>
-              {included.slice(0, 3).map((item) => (
-                <li key={item.title}>
-                  <CheckCircle2 size={17} aria-hidden="true" />
-                  {item.title}
-                </li>
-              ))}
-            </ul>
           </aside>
         </div>
       </section>
