@@ -5,6 +5,8 @@ import {
   ArrowRight,
   Check,
   ClipboardCheck,
+  Download,
+  ExternalLink,
   FileText,
   Home,
   MapPin,
@@ -17,7 +19,7 @@ import { Link } from 'react-router-dom'
 
 import { ReportDeliveryForm } from '../components/ReportDeliveryForm'
 import { sendReportDelivery, type DeliveryChannelStatus } from '../services/estimateWorkflow'
-import { getPublicSiteJson, hasPublicSiteApi } from '../services/publicSiteApi'
+import { getPublicSiteJson, hasPublicSiteApi, postPublicSiteJson } from '../services/publicSiteApi'
 import { createPublicReportToken } from '../utils/publicReportToken'
 import { isReportDeliveryReady } from '../utils/reportDelivery'
 import { trackEvent } from '../utils/analytics'
@@ -86,6 +88,7 @@ export function GrantEligibilityPage() {
     email: DeliveryChannelStatus
     whatsapp: DeliveryChannelStatus
   } | null>(null)
+  const [grantResearch, setGrantResearch] = useState<GrantResearch | null>(null)
   const [errorMessage, setErrorMessage] = useState('')
   const [reportToken] = useState(() => getSharedGrantReportToken() || createPublicReportToken())
 
@@ -122,6 +125,7 @@ export function GrantEligibilityPage() {
       if (!savedForm) return
 
       setForm((current) => ({ ...current, ...normaliseSharedGrantForm(savedForm) }))
+      setGrantResearch(normaliseGrantResearch(recommendations?.grantResearch))
       setStep(3)
       window.localStorage.removeItem(grantDraftStorageKey)
     }).catch(() => {
@@ -132,6 +136,36 @@ export function GrantEligibilityPage() {
       active = false
     }
   }, [])
+
+  useEffect(() => {
+    const sharedToken = getSharedGrantReportToken()
+    if (!sharedToken || !hasPublicSiteApi() || grantResearch?.status !== 'pending') return
+
+    let attempts = 0
+    let active = true
+    const interval = window.setInterval(() => {
+      attempts += 1
+      void getPublicSiteJson<Record<string, unknown>>(
+        `/api/public/grant-reports/${encodeURIComponent(sharedToken)}`,
+      ).then((savedReport) => {
+        if (!active) return
+        const recommendations = getGrantRecord(savedReport.recommendations)
+        const nextResearch = normaliseGrantResearch(recommendations?.grantResearch)
+        if (nextResearch) setGrantResearch(nextResearch)
+        if (nextResearch?.status && nextResearch.status !== 'pending') {
+          window.clearInterval(interval)
+        }
+      }).catch(() => {
+        // Keep the report usable even if polling fails.
+      })
+      if (attempts >= 8) window.clearInterval(interval)
+    }, 8000)
+
+    return () => {
+      active = false
+      window.clearInterval(interval)
+    }
+  }, [grantResearch?.status])
 
   function updateField<Field extends keyof FormState>(field: Field, value: FormState[Field]) {
     setForm((current) => ({ ...current, [field]: value }))
@@ -157,9 +191,25 @@ export function GrantEligibilityPage() {
         reportTitle: result.title,
         reportUrl: `${window.location.origin}/grant-check?report=${reportToken}`,
         grantReport: {
-          form,
+          form: {
+            ...form,
+            locale: i18n.resolvedLanguage ?? i18n.language,
+          },
           result,
           summary: reportSummary,
+          grantResearch: {
+            status: 'pending',
+            generatedAt: new Date().toISOString(),
+            programmeStatus: copy.result.research.pendingTitle,
+            likelyRoutes: [],
+            requirements: [],
+            documents: [],
+            timeframe: { summary: '', dates: [], sourceUrl: '' },
+            missingData: [],
+            nextSteps: [copy.result.research.pendingBody],
+            sources: [],
+            caveat: copy.result.research.caveat,
+          },
         },
         contact: {
           name: form.name,
@@ -172,6 +222,23 @@ export function GrantEligibilityPage() {
       })
       setDelivery(queued)
       setDeliveryStatus('success')
+      setGrantResearch({
+        status: 'pending',
+        generatedAt: new Date().toISOString(),
+        programmeStatus: copy.result.research.pendingTitle,
+        nextSteps: [copy.result.research.pendingBody],
+        caveat: copy.result.research.caveat,
+      })
+      void requestGrantResearch(reportToken).then((research) => {
+        if (research) setGrantResearch(research)
+      }).catch(() => {
+        setGrantResearch((current) => current ?? {
+          status: 'failed',
+          programmeStatus: copy.result.research.failedTitle,
+          nextSteps: [copy.result.research.failedBody],
+          caveat: copy.result.research.caveat,
+        })
+      })
       window.localStorage.removeItem(grantDraftStorageKey)
       trackEvent('form_complete', { form: 'grant_check', delivery: 'success' })
     } catch {
@@ -490,6 +557,10 @@ export function GrantEligibilityPage() {
               </p>
             )}
 
+            {step >= 3 && grantResearch ? (
+              <GrantResearchPanel research={grantResearch} copy={copy.result.research} />
+            ) : null}
+
             <details className="grant-report-details">
               <summary>{copy.result.detailsSummary}</summary>
               <pre>{reportSummary}</pre>
@@ -606,6 +677,204 @@ function ResultList({
           </li>
         ))}
       </ul>
+    </div>
+  )
+}
+
+function GrantResearchPanel({
+  research,
+  copy,
+}: {
+  research: GrantResearch | null
+  copy: GrantCopy['result']['research']
+}) {
+  const status = research?.status ?? 'pending'
+  const isReady = status === 'ready'
+  const statusTitle = status === 'needs_data'
+    ? copy.needsDataTitle
+    : status === 'failed'
+      ? copy.failedTitle
+      : status === 'ready'
+        ? copy.readyTitle
+        : copy.pendingTitle
+  const statusBody = status === 'needs_data'
+    ? copy.needsDataBody
+    : status === 'failed'
+      ? copy.failedBody
+      : status === 'ready'
+        ? (research?.programmeStatus || copy.readyBody)
+        : copy.pendingBody
+
+  return (
+    <section className={`grant-research-card grant-research-${status}`}>
+      <div className="grant-research-card-top">
+        <span>{copy.kicker}</span>
+        {isReady ? (
+          <button className="grant-print-button" type="button" onClick={() => window.print()}>
+            <Download size={16} aria-hidden="true" />
+            {copy.download}
+          </button>
+        ) : null}
+      </div>
+      <h3>{statusTitle}</h3>
+      <p>{statusBody}</p>
+
+      {status === 'needs_data' && research?.missingData?.length ? (
+        <GrantResearchList title={copy.missingTitle} items={research.missingData} />
+      ) : null}
+
+      {isReady ? (
+        <div className="grant-research-print-surface">
+          <GrantResearchRoutes title={copy.routesTitle} routes={research?.likelyRoutes ?? []} />
+          <GrantResearchChecks title={copy.requirementsTitle} items={research?.requirements ?? []} copy={copy} />
+          <GrantResearchList
+            title={copy.documentsTitle}
+            items={(research?.documents ?? []).map((item) => `${item.label} — ${item.neededWhen}`)}
+          />
+          <GrantResearchTimeframe title={copy.timeframeTitle} timeframe={research?.timeframe} />
+          <GrantResearchList title={copy.nextStepsTitle} items={research?.nextSteps ?? []} />
+          <GrantResearchSources title={copy.sourcesTitle} sources={research?.sources ?? []} />
+        </div>
+      ) : (
+        <GrantResearchList title={copy.nextStepsTitle} items={research?.nextSteps ?? [copy.pendingBody]} />
+      )}
+
+      <small>{research?.caveat || copy.caveat}</small>
+    </section>
+  )
+}
+
+function GrantResearchRoutes({
+  title,
+  routes,
+}: {
+  title: string
+  routes: NonNullable<GrantResearch['likelyRoutes']>
+}) {
+  if (!routes.length) return null
+
+  return (
+    <div className="grant-research-block">
+      <h4>{title}</h4>
+      <div className="grant-route-grid">
+        {routes.map((route) => (
+          <article key={`${route.title}-${route.sourceUrl}`}>
+            <strong>{route.title}</strong>
+            <span>{route.authority}</span>
+            <p>{route.whyRelevant}</p>
+            <a href={route.sourceUrl} target="_blank" rel="noreferrer">
+              {route.status}
+              <ExternalLink size={13} aria-hidden="true" />
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function GrantResearchChecks({
+  title,
+  items,
+  copy,
+}: {
+  title: string
+  items: NonNullable<GrantResearch['requirements']>
+  copy: GrantCopy['result']['research']
+}) {
+  if (!items.length) return null
+
+  return (
+    <div className="grant-research-block">
+      <h4>{title}</h4>
+      <ul className="grant-research-checks">
+        {items.map((item) => (
+          <li key={`${item.label}-${item.sourceUrl}`}>
+            <span className={`grant-research-status status-${item.status}`}>
+              {copy.requirementStatus[item.status]}
+            </span>
+            <a href={item.sourceUrl} target="_blank" rel="noreferrer">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function GrantResearchList({ title, items }: { title: string; items: string[] }) {
+  if (!items.length) return null
+
+  return (
+    <div className="grant-research-block">
+      <h4>{title}</h4>
+      <ul>
+        {items.map((item) => (
+          <li key={item}>
+            <Check size={15} aria-hidden="true" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function GrantResearchTimeframe({
+  title,
+  timeframe,
+}: {
+  title: string
+  timeframe?: GrantResearch['timeframe']
+}) {
+  if (!timeframe?.summary) return null
+
+  return (
+    <div className="grant-research-block">
+      <h4>{title}</h4>
+      <p>{timeframe.summary}</p>
+      {timeframe.dates?.length ? (
+        <ul>
+          {timeframe.dates.map((date) => (
+            <li key={date}>
+              <Check size={15} aria-hidden="true" />
+              <span>{date}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {timeframe.sourceUrl ? (
+        <a href={timeframe.sourceUrl} target="_blank" rel="noreferrer">
+          Source
+          <ExternalLink size={13} aria-hidden="true" />
+        </a>
+      ) : null}
+    </div>
+  )
+}
+
+function GrantResearchSources({
+  title,
+  sources,
+}: {
+  title: string
+  sources: NonNullable<GrantResearch['sources']>
+}) {
+  if (!sources.length) return null
+
+  return (
+    <div className="grant-research-block">
+      <h4>{title}</h4>
+      <div className="grant-source-list">
+        {sources.map((source) => (
+          <a href={source.url} target="_blank" rel="noreferrer" key={`${source.title}-${source.url}`}>
+            <strong>{source.sourceType}</strong>
+            <span>{source.title}</span>
+            <small>{source.checkedFor}</small>
+          </a>
+        ))}
+      </div>
     </div>
   )
 }
@@ -769,7 +1038,54 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
   }
 }
 
+type GrantResearch = {
+  status: 'pending' | 'ready' | 'needs_data' | 'failed'
+  generatedAt?: string
+  programmeStatus?: string
+  likelyRoutes?: Array<{
+    title: string
+    authority: string
+    status: string
+    whyRelevant: string
+    sourceUrl: string
+  }>
+  requirements?: Array<{
+    label: string
+    status: 'likely_met' | 'check_needed' | 'missing'
+    sourceUrl: string
+  }>
+  documents?: Array<{
+    label: string
+    neededWhen: string
+    sourceUrl: string
+  }>
+  timeframe?: {
+    summary: string
+    dates: string[]
+    sourceUrl: string
+  }
+  missingData?: string[]
+  nextSteps?: string[]
+  sources?: Array<{
+    title: string
+    url: string
+    sourceType: 'official' | 'trusted'
+    checkedFor: string
+  }>
+  caveat?: string
+}
+
 type GrantCopy = ReturnType<typeof getGrantCopy>
+
+async function requestGrantResearch(token: string) {
+  if (!hasPublicSiteApi()) return null
+  const response = await postPublicSiteJson<{ grantResearch?: unknown }>(
+    `/api/public/grant-reports/${encodeURIComponent(token)}/research`,
+    {},
+  )
+
+  return normaliseGrantResearch(response.grantResearch)
+}
 
 function buildReportSummary(form: FormState, result: Result, copy: GrantCopy) {
   const empty = copy.summary.notProvided
@@ -833,6 +1149,83 @@ function getGrantRecord(value: unknown) {
   return value && typeof value === 'object' && !Array.isArray(value)
     ? value as Record<string, unknown>
     : null
+}
+
+function normaliseGrantResearch(value: unknown): GrantResearch | null {
+  const record = getGrantRecord(value)
+  if (!record) return null
+
+  const status = typeof record.status === 'string' &&
+    ['pending', 'ready', 'needs_data', 'failed'].includes(record.status)
+    ? record.status as GrantResearch['status']
+    : 'pending'
+
+  return {
+    status,
+    generatedAt: safeGrantText(record.generatedAt),
+    programmeStatus: safeGrantText(record.programmeStatus),
+    likelyRoutes: getGrantObjectArray(record.likelyRoutes).map((item) => ({
+      title: safeGrantText(item.title),
+      authority: safeGrantText(item.authority),
+      status: safeGrantText(item.status),
+      whyRelevant: safeGrantText(item.whyRelevant),
+      sourceUrl: safeGrantUrl(item.sourceUrl),
+    })).filter((item) => item.title && item.sourceUrl),
+    requirements: getGrantObjectArray(record.requirements).map((item) => ({
+      label: safeGrantText(item.label),
+      status: ['likely_met', 'check_needed', 'missing'].includes(String(item.status))
+        ? item.status as 'likely_met' | 'check_needed' | 'missing'
+        : 'check_needed',
+      sourceUrl: safeGrantUrl(item.sourceUrl),
+    })).filter((item) => item.label),
+    documents: getGrantObjectArray(record.documents).map((item) => ({
+      label: safeGrantText(item.label),
+      neededWhen: safeGrantText(item.neededWhen),
+      sourceUrl: safeGrantUrl(item.sourceUrl),
+    })).filter((item) => item.label),
+    timeframe: normaliseGrantTimeframe(record.timeframe),
+    missingData: getGrantStringArray(record.missingData),
+    nextSteps: getGrantStringArray(record.nextSteps),
+    sources: getGrantObjectArray(record.sources).map((item): NonNullable<GrantResearch['sources']>[number] => ({
+      title: safeGrantText(item.title),
+      url: safeGrantUrl(item.url),
+      sourceType: item.sourceType === 'official' ? 'official' : 'trusted',
+      checkedFor: safeGrantText(item.checkedFor),
+    })).filter((item) => item.title && item.url),
+    caveat: safeGrantText(record.caveat),
+  }
+}
+
+function normaliseGrantTimeframe(value: unknown): GrantResearch['timeframe'] {
+  const record = getGrantRecord(value)
+  if (!record) return undefined
+
+  return {
+    summary: safeGrantText(record.summary),
+    dates: getGrantStringArray(record.dates),
+    sourceUrl: safeGrantUrl(record.sourceUrl),
+  }
+}
+
+function getGrantObjectArray(value: unknown) {
+  return Array.isArray(value)
+    ? value.filter((item): item is Record<string, unknown> => Boolean(getGrantRecord(item)))
+    : []
+}
+
+function getGrantStringArray(value: unknown) {
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === 'string' && Boolean(item.trim())).slice(0, 12)
+    : []
+}
+
+function safeGrantText(value: unknown) {
+  return typeof value === 'string' ? value.trim() : ''
+}
+
+function safeGrantUrl(value: unknown) {
+  const text = safeGrantText(value)
+  return /^https?:\/\//i.test(text) ? text : ''
 }
 
 function normaliseSharedGrantForm(value: Record<string, unknown>): Partial<FormState> {
@@ -1040,6 +1433,31 @@ function getGrantCopy(language: string) {
         placeholder:
           'Responde las preguntas para ver tu informe de elegibilidad. No necesitas subir fotos.',
         detailsSummary: 'Ver resumen del informe',
+        research: {
+          kicker: 'Revisión enriquecida',
+          pendingTitle: 'CasaMia está revisando las ayudas activas.',
+          pendingBody: 'Buscaremos fuentes oficiales y de confianza para preparar un resumen claro.',
+          readyTitle: 'Ruta de ayudas preparada',
+          readyBody: 'Ya tienes una revisión visual con requisitos, documentos y próximos pasos.',
+          failedTitle: 'Revisión manual en curso',
+          failedBody: 'El informe básico está guardado. CasaMia puede revisar la ruta activa y hacer seguimiento.',
+          needsDataTitle: 'Faltan algunos datos',
+          needsDataBody: 'Completa estos puntos para que CasaMia pueda investigar la ruta correcta.',
+          missingTitle: 'Datos pendientes',
+          routesTitle: 'Rutas posibles',
+          requirementsTitle: 'Requisitos',
+          documentsTitle: 'Documentos',
+          timeframeTitle: 'Plazos',
+          nextStepsTitle: 'Próximos pasos',
+          sourcesTitle: 'Fuentes revisadas',
+          download: 'Descargar PDF',
+          caveat: 'La aprobación, el importe y los plazos dependen siempre de la autoridad competente.',
+          requirementStatus: {
+            likely_met: 'Encaja',
+            check_needed: 'Revisar',
+            missing: 'Falta',
+          },
+        },
       },
       actions: {
         back: 'Atrás',
@@ -1276,6 +1694,31 @@ function getGrantCopy(language: string) {
         `CasaMia can review the grant route for ${region} and send a clear summary of what is still needed if you choose delivery.`,
       placeholder: 'Answer the questions to see your eligibility report. No photos needed.',
       detailsSummary: 'View report summary',
+      research: {
+        kicker: 'Enriched review',
+        pendingTitle: 'CasaMia is checking active grant routes.',
+        pendingBody: 'We will review official and trusted sources and prepare a clear summary.',
+        readyTitle: 'Grant route prepared',
+        readyBody: 'Your visual review includes requirements, documents and next steps.',
+        failedTitle: 'Manual review in progress',
+        failedBody: 'The basic report is saved. CasaMia can review the active route and follow up.',
+        needsDataTitle: 'A few details are missing',
+        needsDataBody: 'Complete these points so CasaMia can research the right grant route.',
+        missingTitle: 'Missing details',
+        routesTitle: 'Possible routes',
+        requirementsTitle: 'Requirements',
+        documentsTitle: 'Documents',
+        timeframeTitle: 'Timing',
+        nextStepsTitle: 'Next steps',
+        sourcesTitle: 'Sources checked',
+        download: 'Download PDF',
+        caveat: 'Approval, funding level and timing are always decided by the relevant authority.',
+        requirementStatus: {
+          likely_met: 'Likely fit',
+          check_needed: 'Check',
+          missing: 'Missing',
+        },
+      },
     },
     actions: {
       back: 'Back',

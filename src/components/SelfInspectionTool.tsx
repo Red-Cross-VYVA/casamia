@@ -16,6 +16,7 @@ import type { ChangeEvent } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { submitAssessmentRequest } from '../services/assessmentRequests'
 import { PhoneNumberField } from './PhoneNumberField'
 
 type AnswerStatus = 'safe' | 'risk' | 'not-sure'
@@ -136,7 +137,7 @@ const selfInspectionCopy = {
     addPhotos: 'Add photos',
     addPhotosHelp: 'Add one if it helps explain a risk or recommendation.',
     addQuestionPhoto: 'Add photo',
-    addMobilityDetails: 'Optional details',
+    addMobilityDetails: 'More about daily support',
     ageRange: 'Age',
     ageRangePlaceholder: 'Age band',
     answerAnswered: 'answered',
@@ -149,8 +150,6 @@ const selfInspectionCopy = {
     currentRoom: 'Current room',
     email: 'Email',
     emailCasaMia: 'Email CasaMia',
-    entranceSpace: 'Door space',
-    entranceSpacePlaceholder: 'Width',
     entranceType: 'Entry',
     entranceTypePlaceholder: 'Steps or level?',
     eyebrow: 'Guided self-check',
@@ -160,11 +159,11 @@ const selfInspectionCopy = {
     bedroomsPlaceholder: 'How many?',
     floorCount: 'Floors',
     floorCountPlaceholder: 'Levels',
-    generateReport: 'Create summary',
+    generateReport: 'Show my safety priorities',
     highPriority: 'High priority',
-    homeBasics: 'Home',
-    homeHelp: 'Home shape and daily routines.',
-    intro: 'Add the essentials, check key rooms, and share helpful photos.',
+    homeBasics: 'Home basics',
+    homeHelp: 'The broad home setup before we review each room.',
+    intro: 'Start with the essentials, then review the person’s needs and each key room.',
     livesWith: 'Lives with',
     livesWithPlaceholder: 'Household',
     mainConcern: 'Main concern or extra context',
@@ -172,7 +171,7 @@ const selfInspectionCopy = {
     memory: 'Memory or confusion',
     memoryPlaceholder: 'Any concern?',
     modalTitle: 'Quick home check',
-    mobilityLevel: 'Mobility',
+    mobilityLevel: 'Usual support',
     mobilityPlaceholder: 'Usual support',
     name: 'Name',
     noPhotos: 'No photos yet',
@@ -188,15 +187,15 @@ const selfInspectionCopy = {
     recentFalls: 'Recent falls',
     recentFallsPlaceholder: 'Fall history',
     reportEmpty: 'Items marked Needs attention or Not sure will appear here.',
-    reportContext: 'Home and resident summary',
+    reportContext: 'Home and person summary',
     reportPreview: 'Report preview',
     reportReady: 'Report ready to submit',
     reportStatus: 'Nothing flagged yet',
-    residentContext: 'Resident context',
-    residentNeeds: 'Resident',
-    residentNeedsHelp: 'Mobility, falls, and support.',
-    residentHelp: 'Only what shapes the room checks.',
-    residentName: 'Resident name',
+    residentContext: 'Who it’s for',
+    residentNeeds: 'Who it’s for',
+    residentNeedsHelp: 'Falls, confidence, routines, and daily support.',
+    residentHelp: 'Only what helps us understand risk and comfort.',
+    residentName: 'Name',
     roomNotes: 'Room notes',
     roomNotesPlaceholder: (room: string) => `Add notes about ${room.toLowerCase()}...`,
     stepOne: 'Step 1',
@@ -206,11 +205,13 @@ const selfInspectionCopy = {
       ['Room checks', 'Simple yes/no questions for each area.'],
       ['Helpful photos', 'Add photos only where they clarify something.'],
     ],
-    steps: ['Home', 'Rooms', 'Summary'],
+    steps: ['Home', 'Who it’s for', 'Rooms', 'Summary'],
     nextRoom: 'Next room',
     submit: 'Send summary',
     submitIncomplete: 'Add your name, phone or email, and consent before submitting the report.',
-    submitReady: 'Summary saved locally. CasaMia can connect this to email, CRM, or PDF delivery next.',
+    submitReady: 'Sent to CasaMia. We’ll review it and follow up with your safety priorities.',
+    submitSending: 'Sending to CasaMia...',
+    submitLocalFallback: 'Saved locally, but the online submission endpoint is not available in this preview.',
     title: 'Check the home, step by step.',
     toReview: (count: number) => `${count} to review`,
   },
@@ -231,8 +232,6 @@ const selfInspectionCopy = {
     currentRoom: 'Zona actual',
     email: 'Email',
     emailCasaMia: 'Email a CasaMia',
-    entranceSpace: 'Espacio puerta',
-    entranceSpacePlaceholder: 'Anchura',
     entranceType: 'Entrada',
     entranceTypePlaceholder: '¿Escalón o llano?',
     eyebrow: 'Revisión guiada',
@@ -242,7 +241,7 @@ const selfInspectionCopy = {
     bedroomsPlaceholder: '¿Cuántos?',
     floorCount: 'Plantas',
     floorCountPlaceholder: 'Niveles',
-    generateReport: 'Crear resumen',
+    generateReport: 'Ver mis prioridades',
     highPriority: 'Prioridad alta',
     homeBasics: 'Vivienda',
     homeHelp: 'Vivienda y rutinas clave.',
@@ -276,7 +275,7 @@ const selfInspectionCopy = {
     reportStatus: 'Sin riesgos marcados',
     residentContext: 'Contexto de la persona',
     residentNeeds: 'Persona',
-    residentNeedsHelp: 'Movilidad, caídas y apoyo.',
+    residentNeedsHelp: 'Caídas, confianza, rutinas y apoyo diario.',
     residentHelp: 'Solo lo que orienta la revisión.',
     residentName: 'Nombre',
     roomNotes: 'Notas',
@@ -292,10 +291,52 @@ const selfInspectionCopy = {
     nextRoom: 'Siguiente zona',
     submit: 'Enviar resumen',
     submitIncomplete: 'Añade tu nombre, teléfono o email, y acepta el consentimiento para enviar el informe.',
-    submitReady: 'Informe guardado. CasaMia puede conectarlo después con email, CRM o PDF.',
+    submitReady: 'Enviado a CasaMia. Revisaremos la información y te contactaremos.',
+    submitSending: 'Enviando a CasaMia...',
+    submitLocalFallback: 'Guardado localmente, pero el envío online no está disponible en esta vista previa.',
     title: 'Revisa la vivienda, paso a paso.',
     toReview: (count: number) => `${count} por revisar`,
   },
+}
+
+const selfInspectionCopyEsRefined: Partial<typeof selfInspectionCopy.en> = {
+  addPhotos: 'Añadir fotos',
+  addPhotosHelp: 'Añade una foto si ayuda a explicar un riesgo.',
+  addQuestionPhoto: 'Añadir foto',
+  addMobilityDetails: 'Más sobre el apoyo diario',
+  answerNotSure: 'No sé',
+  entranceTypePlaceholder: '¿Escalón o llano?',
+  eyebrow: 'Revisión guiada',
+  bathrooms: 'Baños',
+  bathroomsPlaceholder: '¿Cuántos?',
+  bedroomsPlaceholder: '¿Cuántos?',
+  homeBasics: 'Datos de la vivienda',
+  homeHelp: 'La configuración general antes de revisar cada zona.',
+  intro: 'Empieza por lo esencial, después revisamos la persona y cada zona clave.',
+  mainConcern: 'Preocupación principal',
+  mainConcernPlaceholder: 'Ejemplo: se mueve bien de día, pero le preocupa ir al baño por la noche.',
+  memory: 'Memoria o confusión',
+  memoryPlaceholder: '¿Hay señales?',
+  modalTitle: 'Revisión rápida',
+  mobilityLevel: 'Apoyo habitual',
+  phone: 'Teléfono',
+  questionPhotoHelp: 'Foto útil: muestra el escalón, suelo, apoyo, recorrido u objeto concreto.',
+  reportContext: 'Resumen de vivienda y persona',
+  residentContext: 'Para quién es',
+  residentNeeds: 'Para quién es',
+  residentNeedsHelp: 'Caídas, confianza, rutinas y apoyo diario.',
+  residentHelp: 'Solo lo que ayuda a entender riesgo y comodidad.',
+  roomNotesPlaceholder: (room: string) => `Añade notas sobre ${room.toLowerCase()}...`,
+  stepCards: [
+    ['Datos básicos', 'Vivienda, accesos y apoyo diario.'],
+    ['Zonas clave', 'Preguntas sencillas para cada espacio.'],
+    ['Fotos útiles', 'Solo donde ayuden a explicar algo.'],
+  ],
+  steps: ['Vivienda', 'Para quién es', 'Zonas', 'Resumen'],
+  submitIncomplete: 'Añade tu nombre, teléfono o email, y acepta el consentimiento para enviar el informe.',
+  submitReady: 'Enviado a CasaMia. Revisaremos la información y te contactaremos.',
+  submitSending: 'Enviando a CasaMia...',
+  submitLocalFallback: 'Guardado localmente, pero el envío online no está disponible en esta vista previa.',
 }
 
 const roomCopyEs: Record<string, Pick<InspectionRoom, 'title' | 'intro'>> = {
@@ -840,7 +881,7 @@ const inspectionRooms: InspectionRoom[] = [
 export function SelfInspectionTool() {
   const { i18n } = useTranslation()
   const isSpanish = i18n.language.startsWith('es')
-  const copy = isSpanish ? selfInspectionCopy.es : selfInspectionCopy.en
+  const copy = isSpanish ? { ...selfInspectionCopy.es, ...selfInspectionCopyEsRefined } : selfInspectionCopy.en
   const localizedRooms = useMemo(
     () =>
       inspectionRooms.map((room) => ({
@@ -884,9 +925,13 @@ export function SelfInspectionTool() {
   })
   const [reportReady, setReportReady] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalStep, setModalStep] = useState(0)
   const reportRef = useRef<HTMLDivElement>(null)
+  const quickCheckReference = useRef(
+    `QHC-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
+  ).current
 
   useEffect(() => {
     const openFromHash = () => {
@@ -947,13 +992,13 @@ export function SelfInspectionTool() {
   const currentRoomAnswered = activeRoom.questions.filter((question) => answers[question.id]).length
   const currentRoomComplete = currentRoomAnswered === activeRoom.questions.length
   const formatValue = (value: string) => (isSpanish ? valueCopyEs[value] ?? value : value)
+  const selectPlaceholderClass = (value: string) => (value ? undefined : 'is-placeholder')
   const propertySummaryItems = [
     resident.propertyType,
     resident.bedrooms,
     resident.bathrooms,
     resident.floorCount,
     resident.entranceType,
-    resident.entranceSpace,
   ].filter(Boolean)
   const residentSummaryItems = [
     resident.ageRange,
@@ -1029,7 +1074,7 @@ export function SelfInspectionTool() {
 
   function generateReport() {
     setReportReady(true)
-    setModalStep(2)
+    setModalStep(3)
     window.setTimeout(() => reportRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
   }
 
@@ -1041,9 +1086,17 @@ export function SelfInspectionTool() {
     }
   }
 
-  function submitReport() {
+  function saveReportLocally(report: SelfInspectionReport) {
+    const existing = JSON.parse(window.localStorage.getItem(storageKey) ?? '[]') as unknown[]
+    window.localStorage.setItem(storageKey, JSON.stringify([report, ...existing].slice(0, 20)))
+  }
+
+  async function submitReport() {
     if (!contact.name.trim() || (!contact.email.trim() && !contact.phone.trim()) || !contact.consent) {
       setSubmitMessage(copy.submitIncomplete)
+      return
+    }
+    if (isSubmitting) {
       return
     }
 
@@ -1058,9 +1111,51 @@ export function SelfInspectionTool() {
       recommendations: riskItems,
       resident,
     }
-    const existing = JSON.parse(window.localStorage.getItem(storageKey) ?? '[]') as unknown[]
-    window.localStorage.setItem(storageKey, JSON.stringify([report, ...existing].slice(0, 20)))
-    setSubmitMessage(copy.submitReady)
+    saveReportLocally(report)
+    setIsSubmitting(true)
+    setSubmitMessage(copy.submitSending)
+
+    try {
+      await submitAssessmentRequest({
+        city: '',
+        consentAt: report.completedAt,
+        consentConfirmed: contact.consent,
+        email: contact.email,
+        message: JSON.stringify(
+          {
+            answers,
+            contact,
+            highPriorityCount,
+            language: i18n.language,
+            notes,
+            photoSummary: report.photoSummary,
+            propertySummary: propertySummaryItems.map(formatValue),
+            recommendations: riskItems,
+            reference: quickCheckReference,
+            resident,
+            residentSummary: residentSummaryItems.map(formatValue),
+            source: 'quick-home-check',
+            submittedAt: report.completedAt,
+            totalPhotos: photoCount,
+          },
+          null,
+          2,
+        ),
+        name: contact.name,
+        phone: contact.phone,
+        preferredContactMethod: 'Quick home check form',
+        preferredDate: '',
+        selectedPlan: 'Quick Home Check',
+        source: 'quick-home-check',
+        wizardReference: quickCheckReference,
+      })
+      setSubmitMessage(copy.submitReady)
+    } catch (error) {
+      console.error('Quick home check submission failed', error)
+      setSubmitMessage(copy.submitLocalFallback)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -1129,7 +1224,7 @@ export function SelfInspectionTool() {
                     key={step}
                     type="button"
                     onClick={() => {
-                      if (index === 2 && !reportReady) {
+                      if (index === 3 && !reportReady) {
                         generateReport()
                         return
                       }
@@ -1145,7 +1240,7 @@ export function SelfInspectionTool() {
 
               <div className="self-inspection-modal-body">
                 <div className="self-inspection-shell">
-                  {modalStep === 1 ? (
+                  {modalStep === 2 ? (
                     <aside className="self-inspection-sidebar" aria-label="Inspection rooms">
                       <div className="self-inspection-progress">
                         <span>{copy.progress}</span>
@@ -1207,6 +1302,7 @@ export function SelfInspectionTool() {
                       <label className="self-resident-field">
                         {copy.propertyType}
                         <select
+                          className={selectPlaceholderClass(resident.propertyType)}
                           value={resident.propertyType}
                           onChange={(event) => updateResident('propertyType', event.target.value)}
                         >
@@ -1221,30 +1317,12 @@ export function SelfInspectionTool() {
                         </select>
                       </label>
                       <label className="self-resident-field">
-                        {copy.bedrooms}
-                        <select value={resident.bedrooms} onChange={(event) => updateResident('bedrooms', event.target.value)}>
-                          <option value="">{copy.bedroomsPlaceholder}</option>
-                          {['1 bedroom', '2 bedrooms', '3 bedrooms', '4+ bedrooms'].map((option) => (
-                            <option key={option} value={option}>
-                              {formatValue(option)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="self-resident-field">
-                        {copy.bathrooms}
-                        <select value={resident.bathrooms} onChange={(event) => updateResident('bathrooms', event.target.value)}>
-                          <option value="">{copy.bathroomsPlaceholder}</option>
-                          {['1 bathroom', '2 bathrooms', '3+ bathrooms'].map((option) => (
-                            <option key={option} value={option}>
-                              {formatValue(option)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="self-resident-field">
                         {copy.floorCount}
-                        <select value={resident.floorCount} onChange={(event) => updateResident('floorCount', event.target.value)}>
+                        <select
+                          className={selectPlaceholderClass(resident.floorCount)}
+                          value={resident.floorCount}
+                          onChange={(event) => updateResident('floorCount', event.target.value)}
+                        >
                           <option value="">{copy.floorCountPlaceholder}</option>
                           {['1 floor', '2 floors', '3+ floors'].map((option) => (
                             <option key={option} value={option}>
@@ -1255,7 +1333,11 @@ export function SelfInspectionTool() {
                       </label>
                       <label className="self-resident-field">
                         {copy.entranceType}
-                        <select value={resident.entranceType} onChange={(event) => updateResident('entranceType', event.target.value)}>
+                        <select
+                          className={selectPlaceholderClass(resident.entranceType)}
+                          value={resident.entranceType}
+                          onChange={(event) => updateResident('entranceType', event.target.value)}
+                        >
                           <option value="">{copy.entranceTypePlaceholder}</option>
                           {['Level access', 'Small threshold', 'Outdoor steps', 'Ramp', 'Lift / shared entrance', 'Not sure'].map(
                             (option) => (
@@ -1266,79 +1348,21 @@ export function SelfInspectionTool() {
                           )}
                         </select>
                       </label>
-                      <label className="self-resident-field">
-                        {copy.entranceSpace}
-                        <select
-                          value={resident.entranceSpace}
-                          onChange={(event) => updateResident('entranceSpace', event.target.value)}
-                        >
-                          <option value="">{copy.entranceSpacePlaceholder}</option>
-                          {['Standard width', 'Narrow entrance', 'Walker-friendly', 'Wheelchair-friendly', 'Not sure'].map((option) => (
-                            <option key={option} value={option}>
-                              {formatValue(option)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
                     </div>
                   </section>
 
-                  <section className="self-profile-block">
-                    <header>
-                      <span>2</span>
-                      <div>
-                        <strong>{copy.residentNeeds}</strong>
-                      </div>
-                    </header>
-                    <div className="self-resident-grid">
-                      <label className="self-resident-field">
-                        {copy.ageRange}
-                        <select value={resident.ageRange} onChange={(event) => updateResident('ageRange', event.target.value)}>
-                          <option value="">{copy.ageRangePlaceholder}</option>
-                          {['Under 65', '65-74', '75-84', '85+'].map((option) => (
-                            <option key={option} value={option}>
-                              {formatValue(option)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="self-resident-field">
-                        {copy.mobilityLevel}
-                        <select
-                          value={resident.mobilityLevel}
-                          onChange={(event) => updateResident('mobilityLevel', event.target.value)}
-                        >
-                          <option value="">{copy.mobilityPlaceholder}</option>
-                          {[
-                            'Independent',
-                            'Uses support outside',
-                            'Uses support indoors',
-                            'Needs help with transfers',
-                            'Mostly seated / wheelchair',
-                          ].map((option) => (
-                            <option key={option} value={option}>
-                              {formatValue(option)}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label className="self-resident-field">
-                        {copy.recentFalls}
-                        <select value={resident.recentFalls} onChange={(event) => updateResident('recentFalls', event.target.value)}>
-                          <option value="">{copy.recentFallsPlaceholder}</option>
-                          {['No recent falls', 'One fall in last 12 months', 'Two or more falls', 'Near misses / fear of falling'].map(
-                            (option) => (
-                              <option key={option} value={option}>
-                                {formatValue(option)}
-                              </option>
-                            ),
-                          )}
-                        </select>
-                      </label>
-                    </div>
-                  </section>
                 </div>
 
+                <label className="self-resident-notes">
+                  {copy.mainConcern}
+                  <textarea
+                    placeholder={copy.mainConcernPlaceholder}
+                    value={resident.mainConcern}
+                    onChange={(event) => updateResident('mainConcern', event.target.value)}
+                  />
+                </label>
+
+                {false ? (
                 <details className="self-resident-more">
                   <summary>{copy.addMobilityDetails}</summary>
                   <div className="self-optional-grid">
@@ -1415,6 +1439,7 @@ export function SelfInspectionTool() {
                     />
                   </label>
                 </details>
+                ) : null}
                 <div className="self-room-actions self-modal-actions">
                   <button className="btn btn-white" type="button" onClick={() => setIsModalOpen(false)}>
                     {copy.close}
@@ -1428,6 +1453,160 @@ export function SelfInspectionTool() {
               ) : null}
 
               {modalStep === 1 ? (
+              <section className="self-resident-card" aria-label={copy.residentContext}>
+                <div className="self-resident-heading">
+                  <span>
+                    <UserRound size={22} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="eyebrow">{copy.stepOne}</p>
+                    <h3>{copy.residentNeeds}</h3>
+                    <p>{copy.residentNeedsHelp}</p>
+                  </div>
+                </div>
+
+                <div className="self-profile-sections self-profile-sections-single">
+                  <section className="self-profile-block">
+                    <header>
+                      <span>2</span>
+                      <div>
+                        <strong>{copy.residentNeeds}</strong>
+                        <p>{copy.residentHelp}</p>
+                      </div>
+                    </header>
+                    <div className="self-resident-grid">
+                      <label className="self-resident-field">
+                        {copy.ageRange}
+                        <select
+                          className={selectPlaceholderClass(resident.ageRange)}
+                          value={resident.ageRange}
+                          onChange={(event) => updateResident('ageRange', event.target.value)}
+                        >
+                          <option value="">{copy.ageRangePlaceholder}</option>
+                          {['Under 65', '65-74', '75-84', '85+'].map((option) => (
+                            <option key={option} value={option}>
+                              {formatValue(option)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="self-resident-field">
+                        {copy.mobilityLevel}
+                        <select
+                          className={selectPlaceholderClass(resident.mobilityLevel)}
+                          value={resident.mobilityLevel}
+                          onChange={(event) => updateResident('mobilityLevel', event.target.value)}
+                        >
+                          <option value="">{copy.mobilityPlaceholder}</option>
+                          {[
+                            'Independent',
+                            'Uses support outside',
+                            'Uses support indoors',
+                            'Needs help with transfers',
+                            'Mostly seated / wheelchair',
+                          ].map((option) => (
+                            <option key={option} value={option}>
+                              {formatValue(option)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="self-resident-field">
+                        {copy.recentFalls}
+                        <select
+                          className={selectPlaceholderClass(resident.recentFalls)}
+                          value={resident.recentFalls}
+                          onChange={(event) => updateResident('recentFalls', event.target.value)}
+                        >
+                          <option value="">{copy.recentFallsPlaceholder}</option>
+                          {['No recent falls', 'One fall in last 12 months', 'Two or more falls', 'Near misses / fear of falling'].map(
+                            (option) => (
+                              <option key={option} value={option}>
+                                {formatValue(option)}
+                              </option>
+                            ),
+                          )}
+                        </select>
+                      </label>
+                      <label className="self-resident-field">
+                        {copy.livesWith}
+                        <select
+                          className={selectPlaceholderClass(resident.livesWith)}
+                          value={resident.livesWith}
+                          onChange={(event) => updateResident('livesWith', event.target.value)}
+                        >
+                          <option value="">{copy.livesWithPlaceholder}</option>
+                          {['Alone', 'Partner', 'Family', 'Carer support', 'Other'].map((option) => (
+                            <option key={option} value={option}>
+                              {formatValue(option)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="self-resident-field">
+                        {copy.memory}
+                        <select
+                          className={selectPlaceholderClass(resident.cognitiveConcerns)}
+                          value={resident.cognitiveConcerns}
+                          onChange={(event) => updateResident('cognitiveConcerns', event.target.value)}
+                        >
+                          <option value="">{copy.memoryPlaceholder}</option>
+                          {['None known', 'Mild forgetfulness', 'Dementia / confusion', 'Not sure'].map((option) => (
+                            <option key={option} value={option}>
+                              {formatValue(option)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  </section>
+                </div>
+
+                <div className="self-resident-checks">
+                  <ResidentCheckGroup
+                    formatOption={formatValue}
+                    label={isSpanish ? 'Ayudas y equipo' : 'Aids and equipment'}
+                    options={mobilityAidOptions}
+                    selected={resident.mobilityAids}
+                    onToggle={(value) => toggleResidentValue('mobilityAids', value)}
+                  />
+                  <ResidentCheckGroup
+                    formatOption={formatValue}
+                    label={isSpanish ? 'Momentos de ayuda' : 'Help moments'}
+                    options={transferNeedOptions}
+                    selected={resident.transferNeeds}
+                    onToggle={(value) => toggleResidentValue('transferNeeds', value)}
+                  />
+                  <ResidentCheckGroup
+                    formatOption={formatValue}
+                    label={isSpanish ? 'Visión, audición o equilibrio' : 'Vision, hearing, or balance'}
+                    options={visionHearingOptions}
+                    selected={resident.visionHearing}
+                    onToggle={(value) => toggleResidentValue('visionHearing', value)}
+                  />
+                  <ResidentCheckGroup
+                    formatOption={formatValue}
+                    label={isSpanish ? 'Prioridades del día' : 'Daily priorities'}
+                    options={dailyPriorityOptions}
+                    selected={resident.dailyPriorities}
+                    onToggle={(value) => toggleResidentValue('dailyPriorities', value)}
+                  />
+                </div>
+
+                <div className="self-room-actions self-modal-actions">
+                  <button className="btn btn-white" type="button" onClick={() => setModalStep(0)}>
+                    <ChevronLeft size={18} aria-hidden="true" />
+                    {copy.steps[0]}
+                  </button>
+                  <button className="btn btn-navy" type="button" onClick={() => setModalStep(2)}>
+                    {copy.steps[2]}
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </button>
+                </div>
+              </section>
+              ) : null}
+
+              {modalStep === 2 ? (
               <article className="self-room-card">
               <div className="self-room-card-header">
                 <div>
@@ -1439,6 +1618,45 @@ export function SelfInspectionTool() {
                   {currentRoomAnswered}/{activeRoom.questions.length}
                 </span>
               </div>
+
+              {activeRoom.id === 'bathroom' || activeRoom.id === 'bedroom' ? (
+                <div className="self-room-context-fields">
+                  {activeRoom.id === 'bathroom' ? (
+                    <label className="self-resident-field">
+                      {copy.bathrooms}
+                      <select
+                        className={selectPlaceholderClass(resident.bathrooms)}
+                        value={resident.bathrooms}
+                        onChange={(event) => updateResident('bathrooms', event.target.value)}
+                      >
+                        <option value="">{copy.bathroomsPlaceholder}</option>
+                        {['1 bathroom', '2 bathrooms', '3+ bathrooms'].map((option) => (
+                          <option key={option} value={option}>
+                            {formatValue(option)}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  ) : null}
+                  {activeRoom.id === 'bedroom' ? (
+                    <label className="self-resident-field">
+                      {copy.bedrooms}
+                      <select
+                        className={selectPlaceholderClass(resident.bedrooms)}
+                        value={resident.bedrooms}
+                        onChange={(event) => updateResident('bedrooms', event.target.value)}
+                      >
+                        <option value="">{copy.bedroomsPlaceholder}</option>
+                        {['1 bedroom', '2 bedrooms', '3 bedrooms', '4+ bedrooms'].map((option) => (
+                          <option key={option} value={option}>
+                            {formatValue(option)}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  ) : null}
+                </div>
+              ) : null}
 
               <div className="self-question-list">
                 {activeRoom.questions.map((question) => {
@@ -1561,7 +1779,7 @@ export function SelfInspectionTool() {
                   type="button"
                   onClick={() => {
                     if (activeRoomIndex === 0) {
-                      setModalStep(0)
+                      setModalStep(1)
                       return
                     }
 
@@ -1569,7 +1787,7 @@ export function SelfInspectionTool() {
                   }}
                 >
                   <ChevronLeft size={18} aria-hidden="true" />
-                  {activeRoomIndex === 0 ? copy.steps[0] : copy.previousRoom}
+                  {activeRoomIndex === 0 ? copy.steps[1] : copy.previousRoom}
                 </button>
                 {activeRoomIndex < localizedRooms.length - 1 ? (
                   <button className="btn btn-navy" type="button" onClick={() => goToRoom(activeRoomIndex + 1)}>
@@ -1587,7 +1805,7 @@ export function SelfInspectionTool() {
               ) : null}
             </div>
 
-            {modalStep === 2 ? (
+            {modalStep === 3 ? (
             <aside className="self-report-panel" ref={reportRef}>
               <div className="self-report-summary">
                 <FileText size={24} aria-hidden="true" />
@@ -1667,8 +1885,8 @@ export function SelfInspectionTool() {
                   </label>
                   {submitMessage ? <p className="self-submit-message">{submitMessage}</p> : null}
                   <div className="self-submit-actions">
-                    <button className="btn btn-navy" type="button" onClick={submitReport}>
-                      {copy.submit}
+                    <button className="btn btn-navy" type="button" disabled={isSubmitting} onClick={submitReport}>
+                      {isSubmitting ? copy.submitSending : copy.submit}
                       <Mail size={18} aria-hidden="true" />
                     </button>
                     <a

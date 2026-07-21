@@ -20,7 +20,7 @@
     "organisations": "For Organisations",
     "plans": "Plans",
     "grants": "Grants",
-    "resources": "Guides",
+    "resources": "Resources",
     "about": "About",
     "whyCasamia": "Why us",
     "freeAssessment": "In-Home Visit",
@@ -433,28 +433,28 @@
   },
   "grants": {
     "badge": "Grants and assistance",
-    "title": "Public grants may help with eligible works.",
-    "sub": "Availability and approval depend on the public programme.",
-    "body": "CasaMia can help identify programmes that may be relevant to your project. Any initial eligibility assessment is indicative only, and the responsible public authority makes the final decision.",
-    "cta": "Check possible assistance",
+    "title": "Extra support may be closer than you think.",
+    "sub": "CasaMia handles the grant journey end to end.",
+    "body": "We look for possible assistance, organise the paperwork and stay with you through the next steps, so your safer-home project feels easier to start.",
+    "cta": "Explore support",
     "stats": [
       {
-        "value": "Official source",
-        "label": "Required before relying on a programme",
-        "sub": "Always check the authority page before making decisions"
+        "eyebrow": "01",
+        "value": "Discover",
+        "label": "See what support may fit"
       },
       {
-        "value": "Indicative only",
-        "label": "Initial eligibility screening",
-        "sub": "The authority decides approval and funding level"
+        "eyebrow": "02",
+        "value": "Relax",
+        "label": "We handle the paperwork"
       },
       {
-        "value": "Separate mandate",
-        "label": "Needed for representative submission",
-        "sub": "Grant support is separate from the installation contract"
+        "eyebrow": "03",
+        "value": "Move ahead",
+        "label": "We keep the process moving"
       }
     ],
-    "disclaimer": "Grant availability, eligibility criteria, funding levels and deadlines may change. CasaMia does not award grants and cannot guarantee approval."
+    "disclaimer": "Fine print: grant availability, eligibility criteria, funding levels and deadlines may change. CasaMia does not award grants and cannot guarantee approval; the relevant public authority makes the final decision."
   },
   "eurosafe": {
     "prefix": "IN PARTNERSHIP WITH",

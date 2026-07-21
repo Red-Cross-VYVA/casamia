@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
 import { SpainCoverageMap, type SpainCoverageCopy } from '../components/SpainCoverageMap'
 import { TrustBar } from '../components/TrustBar'
+import { TrustSection } from '../components/TrustSection'
 import { submitContactRequest } from '../services/contactRequests'
 import { trackEvent } from '../utils/analytics'
 
@@ -369,6 +370,8 @@ export function WhyCasamiaPage() {
       </section>
 
       <TrustBar />
+
+      <TrustSection />
 
       <section className="section-pad bg-white">
         <div className="about-coverage-grid site-shell">

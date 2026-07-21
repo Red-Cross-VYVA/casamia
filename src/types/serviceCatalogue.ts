@@ -34,6 +34,15 @@ export type RecommendationRule = {
   reason: string
 }
 
+export type CasaMiaServiceTranslation = {
+  category?: string
+  customerBenefit?: string
+  includedItems?: string[]
+  name?: string
+  safetyNotice?: string
+  shortDescription?: string
+}
+
 export type CasaMiaService = {
   id: string
   slug: string
@@ -61,6 +70,7 @@ export type CasaMiaService = {
   includedItems?: string[]
   wizardAreas?: ServicePackageArea[]
   safetyNotice?: string
+  translations?: Partial<Record<'es', CasaMiaServiceTranslation>>
   active: boolean
 }
 

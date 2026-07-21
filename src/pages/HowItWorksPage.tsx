@@ -1121,29 +1121,6 @@ export function HowItWorksPage() {
         </div>
       </section>
 
-      <section className="how-deliverables-section">
-        <div className="site-shell">
-          <div className="how-section-heading is-centered">
-            <p className="eyebrow">{copy.deliverablesEyebrow}</p>
-            <h2>{copy.deliverablesTitle}</h2>
-          </div>
-
-          <div className="how-deliverables-grid">
-            {copy.deliverables.map((item) => {
-              const Icon = howIcons[item.icon]
-
-              return (
-                <article key={item.title}>
-                  <Icon size={24} aria-hidden="true" />
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </article>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
       <section className="how-next-section">
         <div className="site-shell">
           <div className="how-section-heading">

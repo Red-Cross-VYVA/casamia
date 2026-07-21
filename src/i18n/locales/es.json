@@ -432,29 +432,29 @@
     ]
   },
   "grants": {
-    "badge": "Ayudas y asistencia",
-    "title": "Ayudas para obras elegibles.",
-    "sub": "La disponibilidad y aprobación dependen del programa público.",
-    "body": "CasaMia puede ayudar a identificar programas que podrían ser relevantes para tu proyecto. Cualquier revisión inicial de elegibilidad es solo indicativa; la autoridad pública competente toma la decisión final.",
-    "cta": "Comprobar posibles ayudas",
+    "badge": "Ayudas y subvenciones",
+    "title": "Puede haber apoyo más cerca de lo que parece.",
+    "sub": "CasaMia gestiona el camino de principio a fin.",
+    "body": "Buscamos posibles ayudas, ordenamos el papeleo y te acompañamos en los siguientes pasos para que adaptar la vivienda sea más fácil de empezar.",
+    "cta": "Explorar ayudas",
     "stats": [
       {
-        "value": "Fuente oficial",
-        "label": "Necesaria antes de basarse en un programa",
-        "sub": "Comprueba siempre la página de la autoridad antes de decidir"
+        "eyebrow": "01",
+        "value": "Descubrir",
+        "label": "Vemos qué apoyo puede encajar"
       },
       {
-        "value": "Solo indicativo",
-        "label": "Revisión inicial de elegibilidad",
-        "sub": "La autoridad decide aprobación e importe"
+        "eyebrow": "02",
+        "value": "Tranquilidad",
+        "label": "Nos ocupamos del papeleo"
       },
       {
-        "value": "Mandato separado",
-        "label": "Necesario para presentar en representación",
-        "sub": "El soporte de ayudas es independiente del contrato de instalación"
+        "eyebrow": "03",
+        "value": "Avanzar",
+        "label": "Mantenemos el proceso en marcha"
       }
     ],
-    "disclaimer": "La disponibilidad, los criterios de elegibilidad, los importes y los plazos pueden cambiar. CasaMia no concede ayudas ni puede garantizar aprobación."
+    "disclaimer": "Letra pequeña: la disponibilidad, criterios, importes y plazos pueden cambiar. CasaMia no concede ayudas ni puede garantizar la aprobación; la decisión final corresponde a la autoridad pública."
   },
   "eurosafe": {
     "prefix": "EN COLABORACIÓN CON",
