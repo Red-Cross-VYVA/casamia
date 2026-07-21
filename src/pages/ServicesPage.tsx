@@ -94,7 +94,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'bathroom',
     icon: Bath,
     image: '/images/solutions/bathroom-safety.jpg',
-    title: { en: 'Safer bathroom', es: 'Baño seguro' },
+    title: { en: 'Bathroom safety', es: 'Seguridad en baño' },
     description: {
       en: 'Safer transfers, showering, toileting, grip and night-time access.',
       es: 'Transferencias, ducha, aseo, agarre y acceso nocturno más seguros.',
@@ -104,7 +104,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'bedroom',
     icon: BedDouble,
     image: '/images/before-after/bedroom-after-card.webp',
-    title: { en: 'Restful bedroom', es: 'Dormitorio tranquilo' },
+    title: { en: 'Bedroom safety', es: 'Seguridad en dormitorio' },
     description: {
       en: 'Bed transfers, bedside reach, lighting and safer night routes.',
       es: 'Transferencias, alcance, iluminación y rutas nocturnas más seguras.',
@@ -114,7 +114,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'kitchen',
     icon: CookingPot,
     image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
-    title: { en: 'Confident kitchen', es: 'Cocina cómoda' },
+    title: { en: 'Kitchen safety', es: 'Seguridad en cocina' },
     description: {
       en: 'Safer reach, preparation, appliances, water and everyday routines.',
       es: 'Alcance, preparación, electrodomésticos, agua y rutinas más seguras.',
@@ -124,7 +124,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'living-room',
     icon: Home,
     image: '/images/before-after/living-after-home.webp',
-    title: { en: 'Comfortable movement', es: 'Movimiento cómodo' },
+    title: { en: 'Living & mobility', es: 'Salón y movilidad' },
     description: {
       en: 'Clearer routes through furniture, rugs, cables and daily-use spaces.',
       es: 'Rutas más despejadas entre muebles, alfombras, cables y zonas de uso diario.',
@@ -134,7 +134,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'stairs',
     icon: Footprints,
     image: '/images/solutions/stairs-hallways.jpg',
-    title: { en: 'Steady stairs', es: 'Escaleras seguras' },
+    title: { en: 'Stairs & steps', es: 'Escaleras y desniveles' },
     description: {
       en: 'Handrails, grip, contrast and lighting for changes of level.',
       es: 'Pasamanos, agarre, contraste e iluminación para cambios de nivel.',
@@ -144,7 +144,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'entrance',
     icon: DoorOpen,
     image: '/images/solutions/entrance-access.jpg',
-    title: { en: 'Easy entrance', es: 'Entrada fácil' },
+    title: { en: 'Entrance access', es: 'Acceso de entrada' },
     description: {
       en: 'Thresholds, steps, access, lighting and support at the door.',
       es: 'Umbrales, escalones, acceso, iluminación y apoyo junto a la puerta.',
@@ -154,7 +154,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'outdoor',
     icon: MapPin,
     image: '/images/before-after/outdoor-after.jpg',
-    title: { en: 'Safer outdoors', es: 'Exterior seguro' },
+    title: { en: 'Outdoor routes', es: 'Rutas exteriores' },
     description: {
       en: 'Paths, exterior steps, lighting and the route to the entrance.',
       es: 'Caminos, escalones, iluminación y la ruta hasta la entrada.',
@@ -164,7 +164,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'lighting',
     icon: Lightbulb,
     image: '/images/service-gallery/03-stairway-and-hallway-support.jpg',
-    title: { en: 'Comfort lighting', es: 'Luz de confort' },
+    title: { en: 'Lighting & visibility', es: 'Iluminación y visibilidad' },
     description: {
       en: 'Task, motion and night-route lighting where visibility matters.',
       es: 'Iluminación de trabajo, movimiento y rutas nocturnas donde más importa.',
@@ -174,7 +174,7 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'smart-safety',
     icon: ShieldCheck,
     image: '/images/before-after/smart-after.jpg',
-    title: { en: 'Connected comfort', es: 'Confort conectado' },
+    title: { en: 'Connected safety', es: 'Seguridad conectada' },
     description: {
       en: 'Compatible alerts, sensors, voice support and family handover.',
       es: 'Alertas, sensores, apoyo por voz y configuración para la familia.',
