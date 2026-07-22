@@ -1523,7 +1523,7 @@ function buildCatalogueImportPreview(
       ...template,
       active: parseBoolean(row.active, template.active),
       category: normaliseText(row.category) || template.category,
-      componentRole: parseComponentRole(row.componentRole, template.componentRole ?? 'core'),
+      componentRole: parseComponentRole(row.componentRole, row.priority, template.componentRole ?? 'core'),
       customerBenefit: normaliseText(row.customerBenefit) || template.customerBenefit,
       fromPrice: parseOptionalNumber(row.fromPrice, template.fromPrice),
       id,
@@ -1546,7 +1546,7 @@ function buildCatalogueImportPreview(
       shortDescription: normaliseText(row.shortDescription) || template.shortDescription,
       slug: normaliseText(row.slug) || template.slug,
       translations: buildSpanishTranslation(row, template.translations),
-      vatRate: parseOptionalNumber(row.vatRate, template.vatRate) ?? 0.21,
+      vatRate: parseVatRate(row.vatRate, template.vatRate) ?? 0.21,
       wizardAreas: parsePackageAreas(row.wizardAreas, template.wizardAreas ?? getPackageAreasForRoom(selectedRoom)),
     }
 
@@ -1684,21 +1684,43 @@ function parseList(value: string | undefined, fallback: string[] | undefined) {
     .filter(Boolean)
 }
 
-function parseComponentRole(value: string | undefined, fallback: ServiceComponentRole) {
+function parseComponentRole(
+  value: string | undefined,
+  priority: string | undefined,
+  fallback: ServiceComponentRole,
+) {
+  const cleanedPriority = normaliseText(priority).toLowerCase()
+  if (cleanedPriority === 'optional') return 'option'
+  if (cleanedPriority === 'essential' || cleanedPriority === 'recommended') return 'core'
+
   const cleaned = normaliseText(value).toLowerCase()
   if (cleaned === 'option' || cleaned === 'optional' || cleaned === 'add-on') return 'option'
-  if (cleaned === 'core' || cleaned === 'included') return 'core'
+  if (cleaned === 'core' || cleaned === 'included' || cleaned === 'essential' || cleaned === 'recommended') return 'core'
   return fallback
 }
 
 function parsePricingType(value: string | undefined, fallback: PricingType) {
   const cleaned = normaliseText(value)
+  if (cleaned === 'quote') return 'quote_only'
   return pricingOptions.some((option) => option.value === cleaned) ? (cleaned as PricingType) : fallback
 }
 
 function parseQuantityType(value: string | undefined, fallback: QuantityType) {
   const cleaned = normaliseText(value)
+  const quantityAliases: Record<string, QuantityType> = {
+    each: 'per_unit',
+    project: 'per_unit',
+    room: 'per_room',
+    set: 'per_unit',
+  }
+  if (quantityAliases[cleaned]) return quantityAliases[cleaned]
   return quantityOptions.some((option) => option.value === cleaned) ? (cleaned as QuantityType) : fallback
+}
+
+function parseVatRate(value: string | undefined, fallback: number | undefined) {
+  const parsed = parseOptionalNumber(value, fallback)
+  if (parsed === undefined) return fallback
+  return parsed > 1 ? parsed / 100 : parsed
 }
 
 function parsePackageAreas(value: string | undefined, fallback: ServicePackageArea[]) {
