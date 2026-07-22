@@ -28,6 +28,7 @@ export type WizardCopy = {
     saved: string
     saving: string
     saveError: string
+    close: string
     startAgain: string
   }
   progress: { label: string; step: string; of: string }
@@ -274,7 +275,7 @@ const en: WizardCopy = {
     time: 'Most people finish in under 3 minutes.',
     resume: 'Continue saved plan',
   },
-  nav: { back: 'Back', continue: 'Continue', skip: 'Skip', save: 'Auto-saved', saved: 'Saved', saving: 'Saving...', saveError: 'Saved locally', startAgain: 'Start again' },
+  nav: { back: 'Back', continue: 'Continue', skip: 'Skip', save: 'Auto-saved', saved: 'Saved', saving: 'Saving...', saveError: 'Saved locally', close: 'Back to website', startAgain: 'Start again' },
   progress: { label: 'Wizard progress', step: 'Step', of: 'of' },
   micro: { chooseOne: 'Choose one', chooseAll: 'Choose all that apply', changeLater: 'You can change this later', optional: 'You can skip this', notSure: "Not sure? That's okay" },
   userType: { title: 'Who is this for?', body: 'We will adapt the questions to you.', options: { me: 'Me', family: 'Family', client: 'My facility or business' } },
@@ -462,7 +463,7 @@ const en: WizardCopy = {
 
 const es: WizardCopy = {
   entry: { eyebrow: 'Plan guiado CasaMia', title: 'Hagamos tu hogar más seguro', body: 'Responde unas preguntas, añade fotos o vídeos, o cuéntanoslo con tus propias palabras.', start: 'Empezar', time: 'La mayoría termina en menos de 3 minutos.', resume: 'Continuar plan guardado' },
-  nav: { back: 'Atrás', continue: 'Continuar', skip: 'Omitir', save: 'Guardado automático', saved: 'Guardado', saving: 'Guardando...', saveError: 'Guardado localmente', startAgain: 'Empezar de nuevo' },
+  nav: { back: 'Atrás', continue: 'Continuar', skip: 'Omitir', save: 'Guardado automático', saved: 'Guardado', saving: 'Guardando...', saveError: 'Guardado localmente', close: 'Volver al sitio', startAgain: 'Empezar de nuevo' },
   progress: { label: 'Progreso del asistente', step: 'Paso', of: 'de' },
   micro: { chooseOne: 'Elige una opción', chooseAll: 'Elige todas las que correspondan', changeLater: 'Podrás cambiarlo después', optional: 'Puedes omitir este paso', notSure: '¿No lo sabes? No pasa nada' },
   userType: { title: '¿Para quién es?', body: 'Adaptaremos las preguntas a tu situación.', options: { me: 'Para mí', family: 'Familiar', client: 'Mi centro o negocio' } },

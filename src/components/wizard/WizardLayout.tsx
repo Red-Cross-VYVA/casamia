@@ -1,5 +1,6 @@
-import { ArrowLeft, BookmarkCheck } from 'lucide-react'
+import { ArrowLeft, BookmarkCheck, X } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 import type { WizardCopy } from '../../config/wizardCopy'
 import { BrandLogo } from '../BrandLogo'
@@ -43,19 +44,25 @@ export function WizardLayout({
       <div className="safety-wizard-shell">
         <header className="safety-wizard-toolbar">
           <BrandLogo />
-          {canSave ? (
-            <button
-              aria-label={saveLabel}
-              className="safety-wizard-save"
-              disabled={saveStatus === 'saving'}
-              title={saveLabel}
-              type="button"
-              onClick={onSave}
-            >
-              <BookmarkCheck size={19} aria-hidden="true" />
-              <span>{saveLabel}</span>
-            </button>
-          ) : null}
+          <div className="safety-wizard-toolbar-actions">
+            {canSave ? (
+              <button
+                aria-label={saveLabel}
+                className="safety-wizard-save"
+                disabled={saveStatus === 'saving'}
+                title={saveLabel}
+                type="button"
+                onClick={onSave}
+              >
+                <BookmarkCheck size={19} aria-hidden="true" />
+                <span>{saveLabel}</span>
+              </button>
+            ) : null}
+            <Link className="safety-wizard-close" to="/" aria-label={copy.nav.close}>
+              <X size={20} aria-hidden="true" />
+              <span>{copy.nav.close}</span>
+            </Link>
+          </div>
         </header>
 
         {currentIndex > 0 ? (
