@@ -39,8 +39,8 @@ export function Nav() {
 
   const links: HeaderLink[] = [
     { label: navLabels.home, to: '/#top', match: ['/'] },
-    { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
     { label: navLabels.solutions, to: '/services', match: ['/services', '/plans'] },
+    { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
     { label: navLabels.organisations, to: '/assisted-living-solutions', match: ['/assisted-living-solutions'] },
     { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources'] },
     { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
