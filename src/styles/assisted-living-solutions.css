@@ -542,6 +542,106 @@
 .alx-blueprint-output > p { display: flex; align-items: flex-start; gap: 0.45rem; margin: 1.3rem 0 0; padding-top: 0.9rem; border-top: 1px solid rgba(255, 255, 255, 0.14); color: #a8cfdf; font-size: 0.65rem; font-weight: 700; line-height: 1.45; }
 .alx-blueprint-output > p svg { flex: 0 0 auto; color: #9bd16b; }
 
+/* Operating model */
+.alx-operating-model {
+  padding: clamp(4.5rem, 7vw, 7rem) 0;
+  border-top: 1px solid var(--alx-line);
+  border-bottom: 1px solid var(--alx-line);
+  background:
+    linear-gradient(90deg, rgba(58, 159, 212, 0.08) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(58, 159, 212, 0.06) 1px, transparent 1px),
+    #f4fbff;
+  background-size: 116px 116px;
+}
+
+.alx-operating-heading {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.78fr) minmax(28rem, 1.22fr);
+  align-items: end;
+  gap: clamp(2rem, 6vw, 6rem);
+}
+
+.alx-operating-heading h2 {
+  max-width: 760px;
+  margin: 1.1rem 0 0;
+}
+
+.alx-operating-heading > p:last-child {
+  max-width: 760px;
+  margin: 0;
+  color: #526c7f;
+  font-size: clamp(1rem, 1.45vw, 1.22rem);
+  line-height: 1.65;
+}
+
+.alx-operating-stack {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.alx-operating-stack::before {
+  position: absolute;
+  top: 42px;
+  right: 12%;
+  left: 12%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(58, 159, 212, 0.18), rgba(119, 190, 62, 0.74), rgba(58, 159, 212, 0.18));
+  content: '';
+}
+
+.alx-operating-card {
+  position: relative;
+  z-index: 1;
+  min-height: 250px;
+  border: 1px solid #cfe5ef;
+  border-radius: 1.45rem;
+  background: rgba(255, 255, 255, 0.92);
+  padding: clamp(1.2rem, 2.2vw, 1.8rem);
+  box-shadow: 0 22px 48px rgba(17, 65, 91, 0.09);
+}
+
+.alx-operating-icon {
+  display: grid;
+  width: 84px;
+  height: 84px;
+  margin-bottom: 1.2rem;
+  place-items: center;
+  border: 8px solid #f4fbff;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(12, 83, 122, 0.12);
+  color: var(--alx-blue);
+}
+
+.alx-operating-card small {
+  display: inline-flex;
+  margin-bottom: 0.75rem;
+  border-radius: 999px;
+  background: var(--alx-green-soft);
+  padding: 0.35rem 0.65rem;
+  color: #527a2c;
+  font-size: 0.63rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.alx-operating-card h3 {
+  margin-bottom: 0.65rem;
+  color: var(--alx-ink);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+}
+
+.alx-operating-card p {
+  margin-bottom: 0;
+  color: #5c7485;
+  font-size: 0.86rem;
+  line-height: 1.62;
+}
+
 /* Technology suite */
 .alx-technology {
   background: var(--alx-mist);
@@ -2149,6 +2249,25 @@
   }
 
   .alx-section-copy { max-width: 760px; }
+
+  .alx-operating-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .alx-operating-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .alx-operating-stack::before {
+    top: 42px;
+    bottom: 42px;
+    left: 42px;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(180deg, rgba(58, 159, 212, 0.18), rgba(119, 190, 62, 0.74), rgba(58, 159, 212, 0.18));
+  }
 
   .alx-technology-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .alx-tech-card.is-featured { grid-column: 1 / -1; }
