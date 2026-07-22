@@ -21,6 +21,8 @@ export type ServicePackageArea =
 
 export type PricingType = 'fixed' | 'from' | 'quote_only'
 
+export type ServiceComponentRole = 'core' | 'option'
+
 export type QuantityType =
   | 'per_home'
   | 'per_room'
@@ -51,6 +53,7 @@ export type CasaMiaService = {
   customerBenefit: string
   room: ServiceRoom
   category: string
+  componentRole?: ServiceComponentRole
   pricingType: PricingType
   productPrice?: number
   installationPrice?: number
@@ -74,7 +77,19 @@ export type CasaMiaService = {
   active: boolean
 }
 
+export type ServicePackageConfig = {
+  active: boolean
+  area: ServicePackageArea
+  fromPrice?: number
+  name?: string
+  packagePrice?: number
+  pricingType: PricingType
+  recurringMonthlyPrice?: number
+  vatRate: number
+}
+
 export type EditableServiceCatalogue = {
+  packageConfigs?: ServicePackageConfig[]
   services: CasaMiaService[]
   updatedAt?: string
 }

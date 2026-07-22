@@ -182,7 +182,8 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
   )
   const displayedResult = useMemo(
     () => state.result
-      ? generateWizardResult(state, {
+        ? generateWizardResult(state, {
+          catalogue: serviceCatalogue,
           language: i18n.language,
           services: serviceCatalogue.services,
         })
@@ -239,6 +240,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
       ? { ...state, inspectionBooked: true }
       : state
     nextState.result = generateWizardResult(nextState, {
+      catalogue: serviceCatalogue,
       language: i18n.language,
       services: serviceCatalogue.services,
     })

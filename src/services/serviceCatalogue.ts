@@ -7,6 +7,7 @@ import { getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 import type {
   CasaMiaService,
   EditableServiceCatalogue,
+  ServicePackageConfig,
   ServicePackageArea,
   ServiceRoom,
 } from '../types/serviceCatalogue.ts'
@@ -27,8 +28,23 @@ type ServiceCatalogueSaveResult = ServiceCatalogueLoadResult & {
 
 export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
   return {
+    packageConfigs: getDefaultPackageConfigs(),
     services: clone(casaMiaServices).map(withPackageAreaDefaults),
   }
+}
+
+export function getDefaultPackageConfigs(): ServicePackageConfig[] {
+  return [
+    { active: true, area: 'bathroom', name: 'Safer bathroom', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'bedroom', name: 'Restful bedroom', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'kitchen', name: 'Confident kitchen', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'living-room', name: 'Comfortable movement', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'stairs', name: 'Safer stairs', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'entrance', name: 'Easy entrance', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'outdoor', name: 'Outdoor access', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'lighting', name: 'Clearer lighting', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'smart-safety', name: 'Connected safety', pricingType: 'quote_only', vatRate: 0.21 },
+  ]
 }
 
 export function getDefaultServicePackageAreas(
@@ -91,6 +107,7 @@ export function getServiceCatalogue(): EditableServiceCatalogue {
     const defaults = getDefaultServiceCatalogue()
 
     return {
+      packageConfigs: mergePackageConfigs(defaults.packageConfigs, parsed.packageConfigs),
       services: mergeServices(defaults.services, parsed.services),
       updatedAt: parsed.updatedAt,
     }
@@ -186,6 +203,15 @@ export function getConfiguredServices() {
   return getServiceCatalogue().services
 }
 
+export function getPackageConfigForArea(
+  catalogue: Pick<EditableServiceCatalogue, 'packageConfigs'>,
+  area: ServicePackageArea,
+) {
+  return mergePackageConfigs(getDefaultPackageConfigs(), catalogue.packageConfigs).find(
+    (config) => config.area === area,
+  )
+}
+
 export function getConfiguredServicesByRoom(room: ServiceRoom) {
   return getConfiguredServices().filter((service) => service.room === room && service.active)
 }
@@ -249,6 +275,22 @@ export function formatServicePrice(service: CasaMiaService) {
   return `${service.pricingType === 'from' ? 'From ' : ''}${formatCurrency(amount)}`
 }
 
+export function formatPackagePrice(config: ServicePackageConfig | undefined) {
+  if (!config || !config.active || config.pricingType === 'quote_only') {
+    return 'Package price confirmed after review'
+  }
+
+  const amount = config.pricingType === 'from' ? config.fromPrice : config.packagePrice
+
+  if (!amount) {
+    return 'Package price confirmed after review'
+  }
+
+  const total = amount + Math.round(amount * config.vatRate)
+
+  return `${config.pricingType === 'from' ? 'From ' : ''}${formatCurrency(total)}`
+}
+
 export function formatCurrency(amount: number) {
   return new Intl.NumberFormat('es-ES', {
     currency: 'EUR',
@@ -265,6 +307,20 @@ function mergeServices(defaultServices: CasaMiaService[], savedServices: CasaMia
   return savedServices.map(withPackageAreaDefaults)
 }
 
+function mergePackageConfigs(
+  defaultConfigs: ServicePackageConfig[] | undefined,
+  savedConfigs: ServicePackageConfig[] | undefined,
+) {
+  const defaults = defaultConfigs ?? getDefaultPackageConfigs()
+  const savedByArea = new Map((savedConfigs ?? []).map((config) => [config.area, config]))
+
+  return defaults.map((defaultConfig) => ({
+    ...defaultConfig,
+    ...(savedByArea.get(defaultConfig.area) ?? {}),
+    vatRate: savedByArea.get(defaultConfig.area)?.vatRate ?? defaultConfig.vatRate,
+  }))
+}
+
 function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {
   const defaultSpanishTranslation = defaultSpanishServiceCopy[service.id]
   const translations = {
@@ -274,6 +330,7 @@ function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {
 
   return {
     ...service,
+    componentRole: service.componentRole ?? 'core',
     wizardAreas: Array.isArray(service.wizardAreas)
       ? service.wizardAreas
       : getDefaultServicePackageAreas(service),
@@ -285,6 +342,7 @@ function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | 
   const defaults = getDefaultServiceCatalogue()
 
   return {
+    packageConfigs: mergePackageConfigs(defaults.packageConfigs, payload?.packageConfigs),
     services: mergeServices(defaults.services, payload?.services),
     updatedAt: payload?.updatedAt,
   }

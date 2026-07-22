@@ -425,6 +425,19 @@
   line-height: 1.55;
 }
 
+.services-catalogue-package-price {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 0.9rem;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 14%);
+  padding: 0.55rem 0.8rem;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
 .services-catalogue-service-grid {
   display: grid;
   gap: 1rem;
@@ -465,6 +478,19 @@
   font-weight: 900;
   letter-spacing: -0.025em;
   line-height: 1.12;
+}
+
+.services-catalogue-component-role {
+  display: inline-flex;
+  margin-top: 0.75rem;
+  border-radius: 999px;
+  background: #e9f6fc;
+  padding: 0.35rem 0.65rem;
+  color: #0f638d;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .services-catalogue-service-description {

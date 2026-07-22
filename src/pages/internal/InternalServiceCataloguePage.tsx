@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   CheckCircle2,
+  Download,
   Euro,
   Eye,
   ListChecks,
@@ -11,6 +12,7 @@ import {
   Search,
   Settings2,
   Trash2,
+  Upload,
   type LucideIcon,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
@@ -18,9 +20,10 @@ import { Link } from 'react-router-dom'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import {
-  formatServicePrice,
+  formatPackagePrice,
   getDefaultServiceCatalogue,
   getDefaultServicePackageAreas,
+  getPackageConfigForArea,
   getServiceCatalogue,
   loadServiceCatalogue,
   resetServiceCatalogue,
@@ -32,6 +35,8 @@ import type {
   EditableServiceCatalogue,
   PricingType,
   QuantityType,
+  ServiceComponentRole,
+  ServicePackageConfig,
   ServicePackageArea,
   ServiceRoom,
 } from '../../types/serviceCatalogue'
@@ -95,7 +100,55 @@ const evidenceSeverityOptions: Array<{ label: string; value: SafetyFindingSeveri
   { label: 'High only', value: 'high' },
 ]
 
+const componentRoleOptions: Array<{ label: string; value: ServiceComponentRole }> = [
+  { label: 'Core package component', value: 'core' },
+  { label: 'Optional add-on', value: 'option' },
+]
+
 const defaultRoom: ServiceRoom = 'kitchen'
+const catalogueCsvColumns = [
+  'id',
+  'slug',
+  'room',
+  'active',
+  'componentRole',
+  'name',
+  'category',
+  'shortDescription',
+  'customerBenefit',
+  'pricingType',
+  'productPrice',
+  'installationPrice',
+  'fromPrice',
+  'recurringMonthlyPrice',
+  'vatRate',
+  'quantityType',
+  'requiresInstallation',
+  'requiresMeasurement',
+  'requiresSiteVisit',
+  'requiresCompatibilityCheck',
+  'includedItems',
+  'wizardAreas',
+  'safetyNotice',
+  'esName',
+  'esCategory',
+  'esShortDescription',
+  'esCustomerBenefit',
+  'esIncludedItems',
+  'esSafetyNotice',
+] as const
+
+type CatalogueImportMode = 'upsert' | 'replace-room'
+
+type CatalogueImportPreview = {
+  added: number
+  mode: CatalogueImportMode
+  room: ServiceRoom
+  services: CasaMiaService[]
+  skipped: number
+  updated: number
+  warnings: string[]
+}
 
 export function InternalServiceCataloguePage() {
   const [draft, setDraft] = useState<EditableServiceCatalogue>(() => getServiceCatalogue())
@@ -103,6 +156,8 @@ export function InternalServiceCataloguePage() {
   const [selectedServiceId, setSelectedServiceId] = useState<string>('')
   const [searchTerm, setSearchTerm] = useState('')
   const [isSaving, setIsSaving] = useState(false)
+  const [importMode, setImportMode] = useState<CatalogueImportMode>('upsert')
+  const [importPreview, setImportPreview] = useState<CatalogueImportPreview | null>(null)
   const [status, setStatus] = useState('')
 
   const roomCounts = useMemo(() => getRoomCounts(draft.services), [draft.services])
@@ -142,6 +197,7 @@ export function InternalServiceCataloguePage() {
     [draft.services, roomServices, selectedServiceId, visibleServices],
   )
   const currentRoom = roomOptions.find((room) => room.value === selectedRoom) ?? roomOptions[0]
+  const currentPackageAreas = useMemo(() => getPackageAreasForRoom(selectedRoom), [selectedRoom])
 
   useEffect(() => {
     document.title = 'Service Catalogue | CasaMia Operations'
@@ -179,6 +235,29 @@ export function InternalServiceCataloguePage() {
     }))
   }
 
+  function updatePackageConfig(area: ServicePackageArea, patch: Partial<ServicePackageConfig>) {
+    setDraft((current) => {
+      const defaults = getDefaultServiceCatalogue().packageConfigs ?? []
+      const existingConfigs = current.packageConfigs ?? defaults
+
+      return {
+        ...current,
+        packageConfigs: packageAreaOptions.map((option) => {
+          const existing =
+            existingConfigs.find((config) => config.area === option.value) ??
+            defaults.find((config) => config.area === option.value) ?? {
+              active: true,
+              area: option.value,
+              pricingType: 'quote_only',
+              vatRate: 0.21,
+            }
+
+          return option.value === area ? { ...existing, ...patch, area } : existing
+        }),
+      }
+    })
+  }
+
   function addService() {
     const label = selectedRoom === 'connected' ? 'connected safety' : selectedRoom
     const service: CasaMiaService = {
@@ -189,6 +268,7 @@ export function InternalServiceCataloguePage() {
       customerBenefit: 'What this improvement helps the resident or family achieve.',
       room: selectedRoom,
       category: `${currentRoom.label} safety`,
+      componentRole: 'core',
       pricingType: 'quote_only',
       vatRate: 0.21,
       quantityType: 'per_unit',
@@ -266,6 +346,55 @@ export function InternalServiceCataloguePage() {
           : service,
       ),
     }))
+  }
+
+  function handleDownloadCsv() {
+    const rows = draft.services.filter((service) => service.room === selectedRoom)
+    downloadTextFile(
+      `casamia-service-catalogue-${selectedRoom}.csv`,
+      servicesToCsv(rows.length > 0 ? rows : [createTemplateService(selectedRoom)]),
+    )
+    setStatus(`Downloaded ${currentRoom.label} CSV template.`)
+  }
+
+  async function handleImportCsv(file: File | null) {
+    if (!file) return
+
+    try {
+      const text = await file.text()
+      const preview = buildCatalogueImportPreview(text, draft, selectedRoom, importMode)
+      setImportPreview(preview)
+      setStatus(
+        `Preview ready: ${preview.added} new, ${preview.updated} updated, ${preview.skipped} skipped.`,
+      )
+    } catch (error) {
+      setImportPreview(null)
+      setStatus(error instanceof Error ? error.message : 'Could not read the uploaded CSV.')
+    }
+  }
+
+  function applyImportPreview() {
+    if (!importPreview) return
+
+    setDraft((current) => {
+      const importedById = new Map(importPreview.services.map((service) => [service.id, service]))
+      const existingWithoutImportedRoom =
+        importPreview.mode === 'replace-room'
+          ? current.services.filter((service) => service.room !== importPreview.room)
+          : current.services.filter((service) => !importedById.has(service.id))
+
+      return {
+        ...current,
+        services: [...importPreview.services, ...existingWithoutImportedRoom],
+      }
+    })
+    setSelectedRoom(importPreview.room)
+    setSelectedServiceId(importPreview.services[0]?.id ?? '')
+    setSearchTerm('')
+    setStatus(
+      `Applied import to draft: ${importPreview.added} new and ${importPreview.updated} updated. Save changes to publish.`,
+    )
+    setImportPreview(null)
   }
 
   async function handleSave() {
@@ -376,6 +505,162 @@ export function InternalServiceCataloguePage() {
               </button>
             )
           })}
+        </div>
+
+        <div className="mt-5 rounded-lg border border-blue/20 bg-pale-blue p-4">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div>
+              <h3 className="text-base font-black text-text-dark">Bulk update {currentRoom.label}</h3>
+              <p className="mt-1 max-w-3xl text-xs font-bold leading-relaxed text-text-muted">
+                Download the current room catalogue, edit it in Excel or Sheets, then upload it here. Nothing changes until you review and apply the import.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button className="btn btn-white" type="button" onClick={handleDownloadCsv}>
+                <Download size={18} aria-hidden="true" />
+                Download CSV
+              </button>
+              <label className="btn btn-navy cursor-pointer">
+                <Upload size={18} aria-hidden="true" />
+                Upload CSV
+                <input
+                  className="sr-only"
+                  type="file"
+                  accept=".csv,text/csv"
+                  onChange={(event) => {
+                    void handleImportCsv(event.target.files?.[0] ?? null)
+                    event.currentTarget.value = ''
+                  }}
+                />
+              </label>
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            <label className="rounded-lg border border-border bg-white p-3 text-sm font-black text-text-dark">
+              <span className="mb-2 block text-xs uppercase tracking-wide text-text-muted">Import mode</span>
+              <select
+                className="min-h-11 w-full rounded-lg border border-border bg-light-blue/40 px-3 font-bold outline-none focus:border-blue focus:bg-white"
+                value={importMode}
+                onChange={(event) => {
+                  setImportMode(event.target.value as CatalogueImportMode)
+                  setImportPreview(null)
+                }}
+              >
+                <option value="upsert">Update existing and add new items</option>
+                <option value="replace-room">Replace this room only</option>
+              </select>
+            </label>
+            <div className="rounded-lg border border-border bg-white p-3 text-sm font-bold leading-relaxed text-text-muted">
+              <strong className="block text-xs uppercase tracking-wide text-text-dark">Safe import rules</strong>
+              Rows for other rooms are skipped. Matching is by service ID. Use <span className="font-black text-navy">|</span> between multiple included items or package areas.
+            </div>
+          </div>
+
+          {importPreview ? (
+            <div className="mt-4 rounded-lg border border-green/30 bg-white p-4">
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <h3 className="text-base font-black text-text-dark">Import preview ready</h3>
+                  <p className="mt-1 text-sm font-bold text-text-muted">
+                    {importPreview.added} new · {importPreview.updated} updated · {importPreview.skipped} skipped
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <button className="btn btn-white" type="button" onClick={() => setImportPreview(null)}>
+                    Cancel import
+                  </button>
+                  <button className="btn btn-green" type="button" onClick={applyImportPreview}>
+                    Apply to draft
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+              {importPreview.warnings.length > 0 ? (
+                <ul className="mt-3 grid gap-1 text-xs font-bold leading-relaxed text-text-muted">
+                  {importPreview.warnings.slice(0, 6).map((warning) => (
+                    <li key={warning}>• {warning}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="mt-5 rounded-lg border border-border bg-white p-4">
+          <div className="flex flex-col gap-2 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <h3 className="text-base font-black text-text-dark">Package pricing for {currentRoom.label}</h3>
+              <p className="mt-1 max-w-3xl text-xs font-bold leading-relaxed text-text-muted">
+                Customer pricing lives at package level. Service rows below are components marked as core or optional.
+              </p>
+            </div>
+            <span className="rounded-full bg-pale-blue px-3 py-1 text-xs font-black uppercase tracking-wide text-blue">
+              {currentPackageAreas.length} package area{currentPackageAreas.length === 1 ? '' : 's'}
+            </span>
+          </div>
+          <div className="mt-4 grid gap-3 lg:grid-cols-2">
+            {currentPackageAreas.map((area) => {
+              const config = getPackageConfigForArea(draft, area)
+              const areaLabel = formatPackageAreaLabel(area)
+
+              return (
+                <div className="rounded-lg border border-border bg-light-blue/30 p-4" key={area}>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-wide text-blue">{areaLabel}</p>
+                      <strong className="mt-1 block text-lg font-black text-text-dark">
+                        {formatPackagePrice(config)}
+                      </strong>
+                    </div>
+                    <label className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1 text-xs font-black uppercase tracking-wide text-text-muted">
+                      <input
+                        checked={config?.active ?? true}
+                        className="h-4 w-4 accent-blue"
+                        type="checkbox"
+                        onChange={(event) => updatePackageConfig(area, { active: event.target.checked })}
+                      />
+                      Live
+                    </label>
+                  </div>
+                  <div className="mt-4 grid gap-3 md:grid-cols-2">
+                    <TextInput
+                      label="Package name"
+                      value={config?.name ?? areaLabel}
+                      onChange={(value) => updatePackageConfig(area, { name: value })}
+                    />
+                    <SelectInput
+                      label="Package pricing"
+                      value={config?.pricingType ?? 'quote_only'}
+                      options={pricingOptions}
+                      onChange={(value) => updatePackageConfig(area, { pricingType: value as PricingType })}
+                    />
+                    <NumberInput
+                      label="Fixed package price"
+                      value={config?.packagePrice}
+                      onChange={(value) => updatePackageConfig(area, { packagePrice: value })}
+                    />
+                    <NumberInput
+                      label="From package price"
+                      value={config?.fromPrice}
+                      onChange={(value) => updatePackageConfig(area, { fromPrice: value })}
+                    />
+                    <NumberInput
+                      label="Monthly package price"
+                      value={config?.recurringMonthlyPrice}
+                      onChange={(value) => updatePackageConfig(area, { recurringMonthlyPrice: value })}
+                    />
+                    <NumberInput
+                      label="VAT rate"
+                      step="0.01"
+                      value={config?.vatRate ?? 0.21}
+                      onChange={(value) => updatePackageConfig(area, { vatRate: value ?? 0 })}
+                    />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </section>
 
@@ -503,7 +788,9 @@ function ServiceListItem({
       <p className="mt-2 line-clamp-2 text-xs font-bold leading-relaxed text-text-muted">
         {service.shortDescription}
       </p>
-      <strong className="mt-3 block text-sm font-black text-navy">{formatServicePrice(service)}</strong>
+      <strong className="mt-3 block text-sm font-black text-navy">
+        {(service.componentRole ?? 'core') === 'core' ? 'Core component' : 'Optional component'}
+      </strong>
     </button>
   )
 }
@@ -589,6 +876,12 @@ function ServiceEditor({
           value={service.room}
           options={roomOptions}
           onChange={(value) => onUpdateService(service.id, { room: value as ServiceRoom })}
+        />
+        <SelectInput
+          label="Package role"
+          value={service.componentRole ?? 'core'}
+          options={componentRoleOptions}
+          onChange={(value) => onUpdateService(service.id, { componentRole: value as ServiceComponentRole })}
         />
         <TextArea
           label="Short description"
@@ -699,9 +992,9 @@ function ServiceEditor({
             <Euro size={20} aria-hidden="true" />
           </span>
           <div>
-            <h3 className="text-base font-black text-text-dark">Pricing</h3>
+            <h3 className="text-base font-black text-text-dark">Component cost inputs</h3>
             <p className="mt-1 text-xs font-bold leading-relaxed text-text-muted">
-              This is the estimate shown to customers before CasaMia confirms measurements and compatibility.
+              Internal cost guidance only. The customer-facing amount is set above at package level.
             </p>
           </div>
         </div>
@@ -919,7 +1212,7 @@ function ServicePreviewCard({ service }: { service: CasaMiaService }) {
           Customer preview
         </span>
         <span className="rounded-full bg-blue px-3 py-1 text-[11px] font-black uppercase tracking-wide text-white">
-          {service.pricingType === 'quote_only' ? 'Quote' : 'Estimate'}
+          {(service.componentRole ?? 'core') === 'core' ? 'Core package' : 'Optional add-on'}
         </span>
       </div>
       <h3 className="mt-5 font-display text-2xl font-bold leading-tight text-text-dark">{service.name}</h3>
@@ -936,7 +1229,9 @@ function ServicePreviewCard({ service }: { service: CasaMiaService }) {
           </li>
         ))}
       </ul>
-      <strong className="mt-4 block font-display text-3xl font-bold text-navy">{formatServicePrice(service)}</strong>
+      <strong className="mt-4 block rounded-lg bg-pale-blue px-3 py-2 text-sm font-black text-navy">
+        Package-priced component
+      </strong>
     </aside>
   )
 }
@@ -1085,4 +1380,335 @@ function formatRoomLabel(room: ServiceRoom) {
 
 function createServiceId(room: ServiceRoom) {
   return `service-${room}-${Date.now().toString(36)}`
+}
+
+function createTemplateService(room: ServiceRoom): CasaMiaService {
+  const roomLabel = formatRoomLabel(room)
+
+  return {
+    active: true,
+    category: `${roomLabel} safety`,
+    componentRole: 'core',
+    customerBenefit: 'How this component improves safety, comfort, or confidence.',
+    id: createServiceId(room),
+    includedItems: ['Core package component'],
+    name: `New ${roomLabel} component`,
+    pricingType: 'quote_only',
+    quantityType: 'per_unit',
+    requiresCompatibilityCheck: true,
+    requiresInstallation: true,
+    requiresMeasurement: false,
+    requiresSiteVisit: true,
+    room,
+    shortDescription: 'Brief customer-facing explanation.',
+    slug: `new-${room}-component`,
+    vatRate: 0.21,
+    wizardAreas: getPackageAreasForRoom(room),
+  }
+}
+
+function getPackageAreasForRoom(room: ServiceRoom): ServicePackageArea[] {
+  if (room === 'bathroom') return ['bathroom']
+  if (room === 'bedroom') return ['bedroom']
+  if (room === 'kitchen') return ['kitchen']
+  if (room === 'movement') return ['living-room', 'stairs']
+  if (room === 'entrance') return ['entrance', 'outdoor']
+  return ['lighting', 'smart-safety']
+}
+
+function formatPackageAreaLabel(area: ServicePackageArea) {
+  return packageAreaOptions.find((option) => option.value === area)?.label ?? area
+}
+
+function servicesToCsv(services: CasaMiaService[]) {
+  return [
+    catalogueCsvColumns.join(','),
+    ...services.map((service) =>
+      catalogueCsvColumns.map((column) => csvEscape(getServiceCsvValue(service, column))).join(','),
+    ),
+  ].join('\r\n')
+}
+
+function getServiceCsvValue(
+  service: CasaMiaService,
+  column: (typeof catalogueCsvColumns)[number],
+) {
+  const spanishCopy = service.translations?.es
+
+  switch (column) {
+    case 'active':
+      return String(service.active)
+    case 'componentRole':
+      return service.componentRole ?? 'core'
+    case 'customerBenefit':
+      return service.customerBenefit
+    case 'esCategory':
+      return spanishCopy?.category ?? ''
+    case 'esCustomerBenefit':
+      return spanishCopy?.customerBenefit ?? ''
+    case 'esIncludedItems':
+      return (spanishCopy?.includedItems ?? []).join('|')
+    case 'esName':
+      return spanishCopy?.name ?? ''
+    case 'esSafetyNotice':
+      return spanishCopy?.safetyNotice ?? ''
+    case 'esShortDescription':
+      return spanishCopy?.shortDescription ?? ''
+    case 'fromPrice':
+      return formatOptionalNumber(service.fromPrice)
+    case 'includedItems':
+      return (service.includedItems ?? []).join('|')
+    case 'installationPrice':
+      return formatOptionalNumber(service.installationPrice)
+    case 'productPrice':
+      return formatOptionalNumber(service.productPrice)
+    case 'recurringMonthlyPrice':
+      return formatOptionalNumber(service.recurringMonthlyPrice)
+    case 'requiresCompatibilityCheck':
+      return String(service.requiresCompatibilityCheck)
+    case 'requiresInstallation':
+      return String(service.requiresInstallation)
+    case 'requiresMeasurement':
+      return String(service.requiresMeasurement)
+    case 'requiresSiteVisit':
+      return String(service.requiresSiteVisit)
+    case 'safetyNotice':
+      return service.safetyNotice ?? ''
+    case 'vatRate':
+      return formatOptionalNumber(service.vatRate)
+    case 'wizardAreas':
+      return (service.wizardAreas ?? getDefaultServicePackageAreas(service)).join('|')
+    default:
+      return String(service[column] ?? '')
+  }
+}
+
+function buildCatalogueImportPreview(
+  text: string,
+  draft: EditableServiceCatalogue,
+  selectedRoom: ServiceRoom,
+  mode: CatalogueImportMode,
+): CatalogueImportPreview {
+  const rows = parseCsv(text)
+
+  if (rows.length < 2) {
+    throw new Error('The CSV needs a header row and at least one service row.')
+  }
+
+  const headers = rows[0].map((header) => header.trim())
+  const existingById = new Map(draft.services.map((service) => [service.id, service]))
+  const services: CasaMiaService[] = []
+  const warnings: string[] = []
+  let added = 0
+  let skipped = 0
+  let updated = 0
+
+  rows.slice(1).forEach((cells, rowIndex) => {
+    if (cells.every((cell) => !cell.trim())) return
+
+    const row = Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? '']))
+    const rowNumber = rowIndex + 2
+    const rowRoom = parseRoom(row.room, selectedRoom)
+
+    if (rowRoom !== selectedRoom) {
+      skipped += 1
+      warnings.push(`Row ${rowNumber} skipped because it belongs to ${formatRoomLabel(rowRoom)}.`)
+      return
+    }
+
+    const id = normaliseText(row.id) || createServiceId(selectedRoom)
+    const existing = existingById.get(id)
+    const template = existing ?? createTemplateService(selectedRoom)
+    const service: CasaMiaService = {
+      ...template,
+      active: parseBoolean(row.active, template.active),
+      category: normaliseText(row.category) || template.category,
+      componentRole: parseComponentRole(row.componentRole, template.componentRole ?? 'core'),
+      customerBenefit: normaliseText(row.customerBenefit) || template.customerBenefit,
+      fromPrice: parseOptionalNumber(row.fromPrice, template.fromPrice),
+      id,
+      includedItems: parseList(row.includedItems, template.includedItems),
+      installationPrice: parseOptionalNumber(row.installationPrice, template.installationPrice),
+      name: normaliseText(row.name) || template.name,
+      pricingType: parsePricingType(row.pricingType, template.pricingType),
+      productPrice: parseOptionalNumber(row.productPrice, template.productPrice),
+      quantityType: parseQuantityType(row.quantityType, template.quantityType),
+      recurringMonthlyPrice: parseOptionalNumber(row.recurringMonthlyPrice, template.recurringMonthlyPrice),
+      requiresCompatibilityCheck: parseBoolean(
+        row.requiresCompatibilityCheck,
+        template.requiresCompatibilityCheck,
+      ),
+      requiresInstallation: parseBoolean(row.requiresInstallation, template.requiresInstallation),
+      requiresMeasurement: parseBoolean(row.requiresMeasurement, template.requiresMeasurement),
+      requiresSiteVisit: parseBoolean(row.requiresSiteVisit, template.requiresSiteVisit),
+      room: selectedRoom,
+      safetyNotice: normaliseText(row.safetyNotice) || template.safetyNotice,
+      shortDescription: normaliseText(row.shortDescription) || template.shortDescription,
+      slug: normaliseText(row.slug) || template.slug,
+      translations: buildSpanishTranslation(row, template.translations),
+      vatRate: parseOptionalNumber(row.vatRate, template.vatRate) ?? 0.21,
+      wizardAreas: parsePackageAreas(row.wizardAreas, template.wizardAreas ?? getPackageAreasForRoom(selectedRoom)),
+    }
+
+    services.push(service)
+
+    if (existing) {
+      updated += 1
+    } else {
+      added += 1
+    }
+  })
+
+  if (!services.length) {
+    throw new Error('No valid rows found for the selected room.')
+  }
+
+  return {
+    added,
+    mode,
+    room: selectedRoom,
+    services,
+    skipped,
+    updated,
+    warnings,
+  }
+}
+
+function buildSpanishTranslation(
+  row: Record<string, string>,
+  current: CasaMiaService['translations'],
+): CasaMiaService['translations'] {
+  const existing = current?.es ?? {}
+  const next = cleanTranslation({
+    category: normaliseText(row.esCategory) || existing.category,
+    customerBenefit: normaliseText(row.esCustomerBenefit) || existing.customerBenefit,
+    includedItems: parseList(row.esIncludedItems, existing.includedItems),
+    name: normaliseText(row.esName) || existing.name,
+    safetyNotice: normaliseText(row.esSafetyNotice) || existing.safetyNotice,
+    shortDescription: normaliseText(row.esShortDescription) || existing.shortDescription,
+  })
+
+  return Object.keys(next).length ? { ...(current ?? {}), es: next } : current
+}
+
+function parseCsv(text: string) {
+  const rows: string[][] = []
+  let cell = ''
+  let row: string[] = []
+  let quoted = false
+
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index]
+    const nextChar = text[index + 1]
+
+    if (char === '"' && quoted && nextChar === '"') {
+      cell += '"'
+      index += 1
+      continue
+    }
+
+    if (char === '"') {
+      quoted = !quoted
+      continue
+    }
+
+    if (char === ',' && !quoted) {
+      row.push(cell)
+      cell = ''
+      continue
+    }
+
+    if ((char === '\n' || char === '\r') && !quoted) {
+      if (char === '\r' && nextChar === '\n') index += 1
+      row.push(cell)
+      rows.push(row)
+      row = []
+      cell = ''
+      continue
+    }
+
+    cell += char
+  }
+
+  if (cell.length > 0 || row.length > 0) {
+    row.push(cell)
+    rows.push(row)
+  }
+
+  return rows
+}
+
+function csvEscape(value: string) {
+  if (!/[",\n\r]/.test(value)) return value
+
+  return `"${value.replace(/"/g, '""')}"`
+}
+
+function downloadTextFile(fileName: string, content: string) {
+  const blob = new Blob([content], { type: 'text/csv;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = fileName
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
+function formatOptionalNumber(value: number | undefined) {
+  return value === undefined ? '' : String(value)
+}
+
+function normaliseText(value: unknown) {
+  return typeof value === 'string' ? value.trim() : ''
+}
+
+function parseBoolean(value: string | undefined, fallback: boolean) {
+  const cleaned = normaliseText(value).toLowerCase()
+  if (!cleaned) return fallback
+  return ['1', 'true', 'yes', 'y', 'si', 'sí', 'live', 'active'].includes(cleaned)
+}
+
+function parseOptionalNumber(value: string | undefined, fallback: number | undefined) {
+  const cleaned = normaliseText(value).replace(',', '.')
+  if (!cleaned) return fallback
+  const parsed = Number(cleaned)
+  return Number.isFinite(parsed) ? parsed : fallback
+}
+
+function parseList(value: string | undefined, fallback: string[] | undefined) {
+  const cleaned = normaliseText(value)
+  if (!cleaned) return fallback
+  return cleaned
+    .split('|')
+    .map((item) => item.trim())
+    .filter(Boolean)
+}
+
+function parseComponentRole(value: string | undefined, fallback: ServiceComponentRole) {
+  const cleaned = normaliseText(value).toLowerCase()
+  if (cleaned === 'option' || cleaned === 'optional' || cleaned === 'add-on') return 'option'
+  if (cleaned === 'core' || cleaned === 'included') return 'core'
+  return fallback
+}
+
+function parsePricingType(value: string | undefined, fallback: PricingType) {
+  const cleaned = normaliseText(value)
+  return pricingOptions.some((option) => option.value === cleaned) ? (cleaned as PricingType) : fallback
+}
+
+function parseQuantityType(value: string | undefined, fallback: QuantityType) {
+  const cleaned = normaliseText(value)
+  return quantityOptions.some((option) => option.value === cleaned) ? (cleaned as QuantityType) : fallback
+}
+
+function parsePackageAreas(value: string | undefined, fallback: ServicePackageArea[]) {
+  const areas = parseList(value, fallback) ?? fallback
+  const allowed = new Set(packageAreaOptions.map((option) => option.value))
+  const validAreas = areas.filter((area): area is ServicePackageArea => allowed.has(area as ServicePackageArea))
+  return validAreas.length ? validAreas : fallback
+}
+
+function parseRoom(value: string | undefined, fallback: ServiceRoom) {
+  const cleaned = normaliseText(value)
+  return roomOptions.some((option) => option.value === cleaned) ? (cleaned as ServiceRoom) : fallback
 }

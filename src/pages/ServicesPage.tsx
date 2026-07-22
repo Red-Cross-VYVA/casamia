@@ -22,10 +22,12 @@ import { SampleReportPreview } from '../components/SampleReportPreview'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import {
+  formatPackagePrice,
+  getPackageConfigForArea,
   getServicesForPackageArea,
 } from '../services/serviceCatalogue'
 import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
-import type { CasaMiaService, ServicePackageArea } from '../types/serviceCatalogue'
+import type { CasaMiaService, ServicePackageArea, ServicePackageConfig } from '../types/serviceCatalogue'
 import '../styles/services-catalogue.css'
 
 type CatalogueGroupId = ServicePackageArea | 'other'
@@ -40,6 +42,7 @@ type CatalogueAreaDefinition = {
 
 type ServiceGroup = {
   area: CatalogueAreaDefinition
+  packageConfig?: ServicePackageConfig
   services: CasaMiaService[]
 }
 
@@ -67,6 +70,9 @@ type ServicesPageCopy = {
   tailoredQuote: string
   selectedEyebrow: string
   packageOptions: string
+  packagePrice: string
+  coreComponent: string
+  optionalComponent: string
   included: string
   customerBenefit: string
   customPackageEyebrow: string
@@ -226,6 +232,9 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     tailoredQuote: 'Tailored quote',
     selectedEyebrow: 'Current package',
     packageOptions: 'current options',
+    packagePrice: 'Package price',
+    coreComponent: 'Core component',
+    optionalComponent: 'Optional add-on',
     included: 'What is included',
     customerBenefit: 'Why it helps',
     customPackageEyebrow: 'Need a different mix?',
@@ -271,6 +280,9 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     tailoredQuote: 'Presupuesto a medida',
     selectedEyebrow: 'Área actual',
     packageOptions: 'opciones actuales',
+    packagePrice: 'Precio del paquete',
+    coreComponent: 'Componente base',
+    optionalComponent: 'Extra opcional',
     included: 'Qué incluye',
     customerBenefit: 'Por qué ayuda',
     customPackageEyebrow: '¿Necesitas otra combinación?',
@@ -317,6 +329,7 @@ export function ServicesPage() {
     const groupedServices = catalogueAreas
       .map((area) => ({
         area,
+        packageConfig: getPackageConfigForArea(catalogue, area.id as ServicePackageArea),
         services: getServicesForPackageArea(activeServices, area.id as ServicePackageArea),
       }))
       .filter((group) => group.services.length > 0)
@@ -328,7 +341,7 @@ export function ServicesPage() {
     return unassignedServices.length
       ? [...groupedServices, { area: otherArea, services: unassignedServices }]
       : groupedServices
-  }, [activeServices])
+  }, [activeServices, catalogue])
   const selectedGroup = serviceGroups.find((group) => group.area.id === selectedGroupId) ?? serviceGroups[0]
   const SelectedIcon = selectedGroup?.area.icon ?? PackageCheck
   const heroSlides = homeVisualSlides
@@ -456,6 +469,11 @@ export function ServicesPage() {
                         <p>{copy.selectedEyebrow} · {selectedGroup.services.length} {copy.packageOptions}</p>
                         <h2 id="active-service-package-title">{selectedGroup.area.title[language]}</h2>
                         <span>{selectedGroup.area.description[language]}</span>
+                        {selectedGroup.packageConfig ? (
+                          <strong className="services-catalogue-package-price">
+                            {copy.packagePrice}: {formatPackagePrice(selectedGroup.packageConfig)}
+                          </strong>
+                        ) : null}
                       </div>
                     </div>
                   </header>
@@ -470,6 +488,11 @@ export function ServicesPage() {
                             <div>
                               <small>{service.category}</small>
                               <h3>{service.name}</h3>
+                              <span className="services-catalogue-component-role">
+                                {(service.componentRole ?? 'core') === 'core'
+                                  ? copy.coreComponent
+                                  : copy.optionalComponent}
+                              </span>
                             </div>
                           </header>
 
