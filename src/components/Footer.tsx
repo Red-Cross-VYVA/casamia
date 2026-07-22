@@ -10,19 +10,27 @@ import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
 const footerLinkCopy = {
   en: {
-    plan: 'Your CasaMia Plan',
-    services: 'Safety Services',
-    organisations: 'Assisted Living Solutions',
+    plan: 'Home Safety Plan',
+    services: 'Senior Home Safety Services',
+    organisations: 'Solutions for Senior Living',
     providers: 'Provider Partners',
-    resources: 'Resources',
+    resources: 'Senior Home Safety Resources',
+    howItWorks: 'How CasaMia Works',
+    whyUs: 'Why Choose CasaMia',
+    visit: 'Book a Home Safety Visit',
+    beforeAfter: 'Before & After Projects',
     preferences: 'Cookie preferences',
   },
   es: {
-    plan: 'Tu plan CasaMia',
-    services: 'Servicios de seguridad',
-    organisations: 'Soluciones para organizaciones',
+    plan: 'Plan de seguridad del hogar',
+    services: 'Servicios de adaptación de vivienda',
+    organisations: 'Soluciones para residencias senior',
     providers: 'Colaboradores profesionales',
-    resources: 'Recursos',
+    resources: 'Recursos de seguridad en casa',
+    howItWorks: 'Cómo funciona CasaMia',
+    whyUs: 'Por qué elegir CasaMia',
+    visit: 'Reservar visita de seguridad',
+    beforeAfter: 'Antes y después de adaptaciones',
     preferences: 'Preferencias de cookies',
   },
 } as const
@@ -33,20 +41,20 @@ export function Footer() {
   const links = footerLinkCopy[language]
   const companyLinks = [
     { label: t('nav.home', { defaultValue: 'Home' }), to: '/' },
-    { label: t('nav.howItWorks'), to: '/how-it-works' },
+    { label: links.howItWorks, to: '/how-it-works' },
     { label: links.plan, to: '/plans' },
     { label: links.services, to: '/services' },
     { label: links.organisations, to: '/assisted-living-solutions' },
     { label: links.providers, to: '/provider-partners' },
-    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-us' },
+    { label: links.whyUs, to: '/why-us' },
     { label: links.resources, to: '/blog' },
     { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
   ]
   const legalLinks = getLegalRouteLabels(i18n.language)
   const supportLinks = [
-    { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
-    { label: 'Plan Adapta', to: '/plan-adapta' },
-    { label: t('nav.freeAssessment', { defaultValue: 'Book Visit' }), to: '/home-safety-assessment' },
+    { label: links.beforeAfter, to: '/before-after' },
+    { label: language === 'es' ? 'Ayudas Plan Adapta' : 'Plan Adapta Grants', to: '/plan-adapta' },
+    { label: links.visit, to: '/home-safety-assessment' },
   ]
 
   return (
