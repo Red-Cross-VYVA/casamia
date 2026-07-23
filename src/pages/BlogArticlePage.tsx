@@ -80,6 +80,30 @@ export function BlogArticlePage() {
           },
           {
             '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://casamia.com.es/',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: copy.resources,
+                item: 'https://casamia.com.es/blog',
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: article.title,
+                item: `https://casamia.com.es${article.path}`,
+              },
+            ],
+          },
+          {
+            '@context': 'https://schema.org',
             '@type': 'FAQPage',
             mainEntity: article.faqs.map((faq) => ({
               '@type': 'Question',

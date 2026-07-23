@@ -396,6 +396,23 @@ export function BlogPage() {
           mainEntity: { '@id': `${siteUrl}/blog#resource-list` },
         },
         {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: `${siteUrl}/`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: language === 'es' ? 'Recursos' : 'Resources',
+              item: `${siteUrl}/blog`,
+            },
+          ],
+        },
+        {
           '@type': 'DigitalDocument',
           '@id': `${siteUrl}${primaryDownload.href}#document`,
           name: primaryDownload.title,

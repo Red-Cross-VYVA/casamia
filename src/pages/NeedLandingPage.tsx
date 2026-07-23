@@ -42,6 +42,30 @@ export function NeedLandingPage() {
     },
     {
       '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://casamia.com.es/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Resources',
+          item: 'https://casamia.com.es/blog',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: page.title,
+          item: `https://casamia.com.es${page.path}`,
+        },
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
       '@type': 'FAQPage',
       mainEntity: page.faqs.map((faq) => ({
         '@type': 'Question',
