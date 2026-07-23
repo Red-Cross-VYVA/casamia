@@ -309,10 +309,13 @@ const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
   'connected-home-for-seniors': ['smart-safety', 'lighting', 'bedroom'],
   'fall-prevention-at-home': ['bathroom', 'bedroom', 'stairs', 'entrance', 'lighting', 'smart-safety'],
   'grants-for-home-adaptations-spain': ['bathroom', 'bedroom', 'entrance', 'stairs'],
+  'home-adaptations-vs-assisted-living': ['bathroom', 'bedroom', 'entrance', 'lighting'],
   'home-adaptations-for-elderly': ['bathroom', 'bedroom', 'entrance', 'kitchen', 'lighting'],
   'home-safety-after-hospital-discharge': ['bathroom', 'bedroom', 'entrance', 'living-room'],
+  'home-safety-assessment-vs-general-contractor': ['bathroom', 'bedroom', 'entrance', 'lighting'],
   'safe-bathroom-access': ['bathroom'],
   'senior-bedroom-safety': ['bedroom'],
+  'smart-home-safety-vs-monitoring': ['smart-safety', 'lighting', 'bedroom'],
 }
 
 const sectionPriority: Record<ServiceCatalogueSection, number> = {
