@@ -334,7 +334,8 @@
 .resource-comparison-section,
 .resource-downloads-section,
 .resource-moments-section,
-.resource-guides-section {
+.resource-guides-section,
+.resource-faq-section {
   padding: clamp(72px, 8vw, 110px) 0;
 }
 
@@ -933,6 +934,67 @@
   background: linear-gradient(180deg, var(--pale-blue), #ffffff);
 }
 
+.resource-faq-section {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(58, 159, 212, 0.12), transparent 22rem),
+    #ffffff;
+}
+
+.resource-faq-layout {
+  display: grid;
+  gap: clamp(28px, 5vw, 58px);
+  align-items: start;
+}
+
+.resource-faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.resource-faq-list details {
+  overflow: hidden;
+  border: 1px solid rgba(200, 220, 232, 0.95);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff, #f7fcff);
+  box-shadow: 0 16px 36px rgba(13, 30, 46, 0.06);
+}
+
+.resource-faq-list summary {
+  display: flex;
+  min-height: 72px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px 22px;
+  color: var(--text-dark);
+  font-size: 17px;
+  font-weight: 950;
+  list-style: none;
+}
+
+.resource-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.resource-faq-list summary svg {
+  flex: 0 0 auto;
+  color: var(--blue);
+  transition: transform 0.2s ease;
+}
+
+.resource-faq-list details[open] summary svg {
+  transform: rotate(90deg);
+}
+
+.resource-faq-list p {
+  margin: 0;
+  border-top: 1px solid rgba(13, 30, 46, 0.08);
+  padding: 0 22px 22px;
+  color: var(--text-mid);
+  line-height: 1.58;
+}
+
 .resource-hub-heading-wide {
   max-width: 900px;
 }
@@ -1101,6 +1163,10 @@
   .resource-moments-grid {
     grid-template-columns: minmax(0, 0.82fr) minmax(500px, 1.18fr);
   }
+
+  .resource-faq-layout {
+    grid-template-columns: minmax(0, 0.76fr) minmax(520px, 1.24fr);
+  }
 }
 
 @media (max-width: 799px) {
@@ -1148,7 +1214,8 @@
   .resource-comparison-card,
   .resource-material-card,
   .resource-moment-row,
-  .resource-guide-group {
+  .resource-guide-group,
+  .resource-faq-list details {
     border-radius: 13px;
   }
 
@@ -1160,6 +1227,15 @@
   .resource-material-card,
   .resource-guide-group-heading {
     padding: 22px;
+  }
+
+  .resource-faq-list summary {
+    min-height: 64px;
+    padding: 18px 20px;
+  }
+
+  .resource-faq-list p {
+    padding: 0 20px 20px;
   }
 
   .resource-download-photo,
@@ -1218,7 +1294,8 @@
   .resource-comparison-card,
   .resource-material-card,
   .resource-moment-row > svg,
-  .resource-guide-group a > svg {
+  .resource-guide-group a > svg,
+  .resource-faq-list summary svg {
     transition: none;
   }
 }

@@ -100,6 +100,30 @@ const pageCopy = {
       'Guides are grouped around the decision a family is trying to make. Choose the closest situation and go straight to the relevant advice.',
     guideLanguage: 'Guides are currently available in English.',
     readGuide: 'Read guide',
+    faqEyebrow: 'Common questions',
+    faqTitle: 'Quick answers before you choose a resource.',
+    faqItems: [
+      {
+        question: 'Which resource should I start with?',
+        answer:
+          'If you need a broad first pass, start with the printable checklist. If one area feels urgent, use the room guide or online safety review first.',
+      },
+      {
+        question: 'Can I use these resources before booking CasaMia?',
+        answer:
+          'Yes. The checklist, guides and tools are designed to help families prepare calmly before deciding whether they need professional help.',
+      },
+      {
+        question: 'When should we arrange a home visit?',
+        answer:
+          'A visit is useful when measurements, installation details, mobility needs or several rooms need to be reviewed before a final proposal.',
+      },
+      {
+        question: 'Can CasaMia help with grants and paperwork?',
+        answer:
+          'CasaMia can help organise the route, documents, quotation information and next steps. Public authorities make the final grant decision.',
+      },
+    ],
     finalEyebrow: 'Need a plan for a real home?',
     finalTitle: 'Turn the checklist into a prioritised conversion plan.',
     finalBody:
@@ -174,6 +198,30 @@ const pageCopy = {
       'Las guías están agrupadas según la decisión que una familia intenta tomar. Elige la situación más cercana y ve directamente al consejo relevante.',
     guideLanguage: '',
     readGuide: 'Leer guía',
+    faqEyebrow: 'Preguntas frecuentes',
+    faqTitle: 'Respuestas rápidas antes de elegir un recurso.',
+    faqItems: [
+      {
+        question: '¿Por qué recurso debería empezar?',
+        answer:
+          'Si necesitas una primera revisión general, empieza con la lista para imprimir. Si una zona preocupa más, usa la guía por estancia o la revisión online.',
+      },
+      {
+        question: '¿Puedo usar estos recursos antes de contratar a CasaMia?',
+        answer:
+          'Sí. La lista, las guías y las herramientas ayudan a preparar la conversación familiar antes de decidir si hace falta apoyo profesional.',
+      },
+      {
+        question: '¿Cuándo conviene pedir una visita a domicilio?',
+        answer:
+          'Una visita ayuda cuando hacen falta medidas, detalles de instalación, revisión de movilidad o una propuesta final que afecte a varias estancias.',
+      },
+      {
+        question: '¿CasaMia puede ayudar con ayudas y documentación?',
+        answer:
+          'CasaMia puede ayudar a ordenar el proceso, documentos, información del presupuesto y próximos pasos. La autoridad pública decide la aprobación final.',
+      },
+    ],
     finalEyebrow: '¿Necesitas un plan para una vivienda real?',
     finalTitle: 'Convierte la lista en un plan de adaptación con prioridades.',
     finalBody:
@@ -482,6 +530,18 @@ export function BlogPage() {
             name: 'CasaMia',
             url: siteUrl,
           },
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': `${siteUrl}/blog#faq`,
+          mainEntity: copy.faqItems.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.answer,
+            },
+          })),
         },
         {
           '@type': 'ItemList',
@@ -883,6 +943,27 @@ export function BlogPage() {
                   </article>
                 )
               })}
+            </div>
+          </div>
+        </section>
+
+        <section className="resource-faq-section" aria-labelledby="resource-faq-title">
+          <div className="site-shell resource-faq-layout">
+            <div className="resource-hub-heading">
+              <p className="eyebrow">{copy.faqEyebrow}</p>
+              <h2 id="resource-faq-title">{copy.faqTitle}</h2>
+            </div>
+
+            <div className="resource-faq-list">
+              {copy.faqItems.map((item) => (
+                <details key={item.question}>
+                  <summary>
+                    {item.question}
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))}
             </div>
           </div>
         </section>
