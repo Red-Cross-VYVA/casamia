@@ -959,10 +959,12 @@
 .alx-signal-stack i:nth-child(2) { height: 20px; }
 .alx-signal-stack i:nth-child(3) { height: 28px; }
 
+.alx-mirror-device,
 .alx-tech-visual.is-mirror {
   background: #dceef6;
 }
 
+.alx-mirror-device .alx-tech-photo-img,
 .alx-tech-visual.is-mirror .alx-tech-photo-img {
   object-position: center 54%;
 }

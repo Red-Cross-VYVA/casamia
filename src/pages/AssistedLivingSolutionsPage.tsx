@@ -422,7 +422,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ],
       boundaryTitle: 'Responsible technology boundary',
       boundary:
-        'Fall detection flags possible events; it cannot prevent every fall or guarantee an emergency response. Health, continence and urine-related outputs depend on the selected device, certification, consent and qualified interpretation.',
+        'Fall detection flags possible events; it cannot prevent every fall or guarantee an emergency response, and we do not operate a remote monitoring centre. Health, continence and urine-related outputs depend on the selected device, certification, consent and qualified interpretation.',
     },
     faq: {
       eyebrow: 'Practical questions',
@@ -700,7 +700,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ],
       boundaryTitle: 'Límite responsable de la tecnología',
       boundary:
-        'La detección de caídas señala posibles eventos; no puede prevenir todas las caídas ni garantizar una respuesta de emergencia. Los datos de salud, continencia y orina dependen del dispositivo, su certificación, el consentimiento y una interpretación profesional cualificada.',
+        'La detección de caídas señala posibles eventos; no puede prevenir todas las caídas ni garantizar una respuesta de emergencia, y no operamos una central de monitorización remota. Los datos de salud, continencia y orina dependen del dispositivo, su certificación, el consentimiento y una interpretación profesional cualificada.',
     },
     faq: {
       eyebrow: 'Preguntas prácticas',
@@ -863,7 +863,7 @@ function TechnologyVisual({ kind, label, lang }: { kind: TechnologyKind; label: 
 
   if (kind === 'health') {
     return (
-      <div className="alx-tech-visual is-health is-mirror" aria-hidden="true">
+      <div className="alx-tech-visual alx-mirror-device is-health is-mirror" aria-hidden="true">
         <SafeImage
           src="/images/service-gallery/10-health-and-vitals-monitoring.jpg"
           alt=""

@@ -188,7 +188,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
       },
       {
         title: 'Review your plan',
-        body: 'See the recommended work and the next step before you decide.',
+        body: 'See the recommended work and price before you decide.',
       },
       {
         title: 'We coordinate and follow up',
@@ -222,7 +222,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
       },
       {
         title: 'Revisa tu plan',
-        body: 'Consulta las mejoras recomendadas y el siguiente paso antes de decidir.',
+        body: 'Consulta las mejoras recomendadas y el precio antes de decidir.',
       },
       {
         title: 'Coordinamos y hacemos seguimiento',

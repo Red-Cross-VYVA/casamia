@@ -53,7 +53,7 @@ export function Footer() {
     { label: links.resources, to: '/blog' },
     { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
   ]
-  const legalLinks = getLegalRouteLabels(i18n.language)
+  const legalRouteLabels = getLegalRouteLabels(i18n.language)
   const supportLinks = [
     { label: links.beforeAfter, to: '/before-after' },
     { label: language === 'es' ? 'Ayudas Plan Adapta' : 'Plan Adapta Grants', to: '/plan-adapta' },
@@ -89,7 +89,7 @@ export function Footer() {
         </FooterColumn>
 
         <FooterColumn title={t('footer.legal.title')}>
-          {legalLinks.map((link) => (
+          {legalRouteLabels.map((link) => (
             <Link className="transition hover:text-green" key={`${link.path}-${link.label}`} to={link.path}>
               {link.label}
             </Link>
