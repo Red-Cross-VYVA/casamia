@@ -329,8 +329,178 @@
 }
 
 .resource-tools-section,
+.resource-pathways-section,
+.resource-downloads-section,
+.resource-moments-section,
 .resource-guides-section {
   padding: clamp(72px, 8vw, 110px) 0;
+}
+
+.resource-pathways-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f9fd 100%);
+}
+
+.resource-pathway-grid {
+  display: grid;
+  gap: 18px;
+  margin-top: clamp(32px, 5vw, 52px);
+}
+
+.resource-pathway-card {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid rgba(200, 220, 232, 0.9);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 22px 58px rgba(13, 30, 46, 0.08);
+}
+
+.resource-pathway-card > img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  background: var(--light-blue);
+  object-fit: cover;
+}
+
+.resource-pathway-card-content {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  padding: 26px;
+}
+
+.resource-pathway-icon,
+.resource-material-icon {
+  display: inline-grid;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border-radius: 15px;
+  background: var(--light-blue);
+  color: var(--navy);
+}
+
+.resource-pathway-card h3,
+.resource-material-card h3,
+.resource-moment-row strong {
+  margin: 18px 0 0;
+  color: var(--text-dark);
+  font-size: 23px;
+  font-weight: 950;
+  line-height: 1.12;
+}
+
+.resource-pathway-card p,
+.resource-material-card p {
+  margin: 13px 0 0;
+  color: var(--text-mid);
+  line-height: 1.58;
+}
+
+.resource-pathway-card-content > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.resource-inline-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  padding: 0 18px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.resource-inline-link:hover {
+  background: var(--pale-blue);
+}
+
+.resource-downloads-section {
+  background: #0d1e2e;
+  color: #ffffff;
+}
+
+.resource-downloads-section .resource-hub-heading h2 {
+  color: #ffffff;
+}
+
+.resource-downloads-section .resource-hub-heading > p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.resource-downloads-section .eyebrow {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+}
+
+.resource-material-grid {
+  display: grid;
+  gap: 18px;
+  margin-top: clamp(32px, 5vw, 52px);
+}
+
+.resource-material-card {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 86% 12%, rgba(139, 207, 69, 0.16), transparent 30%),
+    rgba(255, 255, 255, 0.08);
+  padding: 26px;
+  color: inherit;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.resource-material-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 207, 69, 0.45);
+  background:
+    radial-gradient(circle at 86% 12%, rgba(139, 207, 69, 0.2), transparent 30%),
+    rgba(255, 255, 255, 0.12);
+}
+
+.resource-material-card h3 {
+  color: #ffffff;
+}
+
+.resource-material-card p {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.resource-material-kind {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 22px;
+  border-radius: 999px;
+  background: rgba(139, 207, 69, 0.16);
+  padding: 7px 11px;
+  color: #a8e36c;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.resource-material-card strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 24px;
+  color: #8bcf45;
+  font-size: 14px;
 }
 
 .resource-hub-heading {
@@ -429,6 +599,69 @@
 
 .resource-quick-section {
   padding: 0 0 clamp(72px, 8vw, 110px);
+}
+
+.resource-moments-section {
+  background: #ffffff;
+}
+
+.resource-moments-grid {
+  display: grid;
+  gap: clamp(28px, 5vw, 58px);
+  align-items: start;
+}
+
+.resource-moment-list {
+  display: grid;
+  gap: 12px;
+}
+
+.resource-moment-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  border: 1px solid rgba(200, 220, 232, 0.9);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f5fbff, #ffffff);
+  padding: 20px;
+  color: inherit;
+  box-shadow: 0 14px 36px rgba(13, 30, 46, 0.06);
+}
+
+.resource-moment-row > span:first-child {
+  display: inline-grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 15px;
+  background: #ffffff;
+  color: var(--blue);
+  box-shadow: 0 8px 22px rgba(13, 30, 46, 0.08);
+}
+
+.resource-moment-row strong {
+  display: block;
+  margin: 0;
+  font-size: 18px;
+}
+
+.resource-moment-row small {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-mid);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.48;
+}
+
+.resource-moment-row > svg {
+  color: var(--blue);
+  transition: transform 0.2s ease;
+}
+
+.resource-moment-row:hover > svg {
+  transform: translateX(4px);
 }
 
 .resource-quick-panel {
@@ -650,6 +883,8 @@
 
 @media (min-width: 800px) {
   .resource-tool-grid,
+  .resource-pathway-grid,
+  .resource-material-grid,
   .resource-guide-groups {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -669,6 +904,10 @@
   .resource-quick-panel {
     grid-template-columns: minmax(0, 0.82fr) minmax(500px, 1.18fr);
     align-items: center;
+  }
+
+  .resource-moments-grid {
+    grid-template-columns: minmax(0, 0.82fr) minmax(500px, 1.18fr);
   }
 }
 
@@ -712,12 +951,17 @@
   .resource-download-card,
   .resource-quick-panel,
   .resource-tool-card,
+  .resource-pathway-card,
+  .resource-material-card,
+  .resource-moment-row,
   .resource-guide-group {
     border-radius: 13px;
   }
 
   .resource-download-content,
   .resource-tool-card,
+  .resource-pathway-card-content,
+  .resource-material-card,
   .resource-guide-group-heading {
     padding: 22px;
   }
@@ -761,10 +1005,21 @@
   .resource-quick-index {
     display: none;
   }
+
+  .resource-moment-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .resource-moment-row > svg {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .resource-tool-card,
+  .resource-pathway-card,
+  .resource-material-card,
+  .resource-moment-row > svg,
   .resource-guide-group a > svg {
     transition: none;
   }

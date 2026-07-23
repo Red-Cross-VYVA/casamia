@@ -5,11 +5,14 @@ import {
   ClipboardCheck,
   Download,
   FileCheck2,
+  HandHeart,
   Home,
   Lightbulb,
   MoonStar,
   PhoneCall,
+  SearchCheck,
   ShieldCheck,
+  Stethoscope,
 } from 'lucide-react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -64,6 +67,20 @@ const pageCopy = {
     toolsBody:
       'Each tool has one clear job. Use it online, save your observations and bring the result into a family discussion or professional assessment.',
     openTool: 'Open tool',
+    pathwaysEyebrow: 'Choose the closest situation',
+    pathwaysTitle: 'Practical help by decision, not by article title.',
+    pathwaysBody:
+      'Families usually arrive with one urgent question. Start there, then move into the guide, checklist or tool that helps you make the next decision calmly.',
+    pathwayCta: 'Start here',
+    downloadsEyebrow: 'Printable materials',
+    downloadsTitle: 'Useful documents to share around the table.',
+    downloadsBody:
+      'Download simple, family-friendly materials you can print, annotate, send to relatives or take into a professional visit.',
+    downloadAction: 'Download',
+    momentsEyebrow: 'When families usually need help',
+    momentsTitle: 'Resources for the moments that create pressure.',
+    momentsBody:
+      'Use these as quick routes into CasaMia advice when something has changed at home, in hospital, or in the family conversation.',
     todayEyebrow: 'A useful first 20 minutes',
     todayTitle: 'Three checks worth doing today.',
     todayBody:
@@ -116,6 +133,20 @@ const pageCopy = {
     toolsBody:
       'Cada herramienta tiene una función clara. Úsala online, guarda tus observaciones y llévalas a la conversación familiar o a una evaluación profesional.',
     openTool: 'Abrir herramienta',
+    pathwaysEyebrow: 'Elige la situación más cercana',
+    pathwaysTitle: 'Ayuda práctica por decisión, no por título de artículo.',
+    pathwaysBody:
+      'Las familias suelen llegar con una pregunta urgente. Empieza ahí y pasa después a la guía, lista o herramienta que ayuda a decidir con calma el siguiente paso.',
+    pathwayCta: 'Empezar aquí',
+    downloadsEyebrow: 'Materiales para imprimir',
+    downloadsTitle: 'Documentos útiles para compartir en familia.',
+    downloadsBody:
+      'Descarga materiales sencillos para imprimir, anotar, enviar a familiares o llevar a una visita profesional.',
+    downloadAction: 'Descargar',
+    momentsEyebrow: 'Cuándo suele hacer falta ayuda',
+    momentsTitle: 'Recursos para los momentos que generan presión.',
+    momentsBody:
+      'Usa estas rutas rápidas cuando algo ha cambiado en casa, en el hospital o en la conversación familiar.',
     todayEyebrow: 'Unos primeros 20 minutos útiles',
     todayTitle: 'Tres comprobaciones que merece la pena hacer hoy.',
     todayBody:
@@ -161,6 +192,114 @@ const toolContent = [
       es: 'Prepara los documentos y preguntas que conviene revisar antes de una convocatoria o presupuesto.',
     },
     to: '/grant-check',
+  },
+] as const
+
+const decisionPathways = [
+  {
+    icon: ShieldCheck,
+    image: '/images/solutions/bathroom-risk-map.png',
+    title: { en: 'I need to know what is risky first', es: 'Necesito saber qué es arriesgado primero' },
+    body: {
+      en: 'Use the checklist or photo review to separate urgent risks from nice-to-have improvements.',
+      es: 'Usa la lista o la revisión con fotos para separar riesgos urgentes de mejoras futuras.',
+    },
+    actions: [
+      { label: { en: 'Start safety report', es: 'Iniciar informe' }, to: '/#estimate-upload' },
+      { label: { en: 'Read fall guide', es: 'Leer guía de caídas' }, to: '/blog/fall-prevention-home-checklist-spain' },
+    ],
+  },
+  {
+    icon: Bath,
+    image: '/images/blog/bathroom-mistakes.webp',
+    title: { en: 'The bathroom is the main worry', es: 'El baño es la mayor preocupación' },
+    body: {
+      en: 'Focus on bathing, toilet transfers, floor grip, lighting, water controls and access.',
+      es: 'Céntrate en baño/ducha, inodoro, agarre del suelo, iluminación, controles de agua y acceso.',
+    },
+    actions: [
+      { label: { en: 'Bathroom guide', es: 'Guía de baño' }, to: '/blog/bathroom-safety-seniors-costly-mistakes' },
+      { label: { en: 'View services', es: 'Ver servicios' }, to: '/services' },
+    ],
+  },
+  {
+    icon: FileCheck2,
+    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+    title: { en: 'I want to understand grants or funding', es: 'Quiero entender ayudas o financiación' },
+    body: {
+      en: 'Prepare the documents, eligibility questions and next steps before relying on any programme.',
+      es: 'Prepara documentos, requisitos y próximos pasos antes de contar con una ayuda.',
+    },
+    actions: [
+      { label: { en: 'Grant check', es: 'Revisar ayudas' }, to: '/grant-check' },
+      { label: { en: 'Grant guide', es: 'Guía de ayudas' }, to: '/blog/home-adaptation-grants-spain-family-guide' },
+    ],
+  },
+] as const
+
+const printableMaterials = [
+  {
+    icon: ClipboardCheck,
+    title: { en: 'Complete home conversion checklist', es: 'Lista completa de adaptación del hogar' },
+    body: {
+      en: 'Room-by-room workbook with priorities, notes and family action planning.',
+      es: 'Cuaderno estancia por estancia con prioridades, notas y plan familiar.',
+    },
+    kind: { en: 'PDF workbook', es: 'Cuaderno PDF' },
+    getHref: (language: ResourceDownloadLanguage) => completeHomeChecklistDownloads[language].href,
+    downloadLanguage: (language: ResourceDownloadLanguage) => language,
+  },
+  {
+    icon: MoonStar,
+    title: { en: 'Night route mini-check', es: 'Mini revisión de la ruta nocturna' },
+    body: {
+      en: 'A quick printable prompt for bed-to-bathroom movement, lighting and support points.',
+      es: 'Una guía breve para revisar ruta cama-baño, iluminación y puntos de apoyo.',
+    },
+    kind: { en: 'Quick checklist', es: 'Lista breve' },
+    getHref: () => '/blog/bedroom-night-safety-older-adults',
+    downloadLanguage: undefined,
+  },
+  {
+    icon: SearchCheck,
+    title: { en: 'Grant preparation notes', es: 'Notas para preparar ayudas' },
+    body: {
+      en: 'What to gather before a grant conversation: home, resident, ownership, quotes and timing.',
+      es: 'Qué reunir antes de hablar de ayudas: vivienda, persona, propiedad, presupuestos y plazos.',
+    },
+    kind: { en: 'Guide', es: 'Guía' },
+    getHref: () => '/blog/home-adaptation-grants-spain-family-guide',
+    downloadLanguage: undefined,
+  },
+] as const
+
+const familyMoments = [
+  {
+    icon: Stethoscope,
+    title: { en: 'After a fall, surgery or hospital stay', es: 'Después de una caída, operación u hospital' },
+    body: {
+      en: 'Prioritise entry, bathroom, bedroom routes and the first week back home.',
+      es: 'Prioriza entrada, baño, rutas del dormitorio y la primera semana en casa.',
+    },
+    to: '/home-safety-assessment',
+  },
+  {
+    icon: HandHeart,
+    title: { en: 'When family disagrees on what to fix', es: 'Cuando la familia no se pone de acuerdo' },
+    body: {
+      en: 'Use a shared checklist and a clear risk-first plan instead of scattered opinions.',
+      es: 'Usa una lista compartida y un plan por riesgo, no opiniones dispersas.',
+    },
+    to: '/blog/choose-home-safety-provider-spain',
+  },
+  {
+    icon: Home,
+    title: { en: 'When the home still feels fine — but harder', es: 'Cuando la casa sigue bien, pero cuesta más' },
+    body: {
+      en: 'Look for small signals: night trips, bending, stairs, wet floors and reaching for furniture.',
+      es: 'Observa señales pequeñas: noches, agacharse, escaleras, suelos mojados y apoyarse en muebles.',
+    },
+    to: '/blog/fall-prevention-home-checklist-spain',
   },
 ] as const
 
@@ -266,7 +405,7 @@ export function BlogPage() {
           '@type': 'ItemList',
           '@id': `${siteUrl}/blog#resource-list`,
           name: language === 'es' ? 'Herramientas y guías de seguridad en el hogar' : 'Senior home safety tools and guides',
-          numberOfItems: toolContent.length + localizedArticles.length + 1,
+          numberOfItems: toolContent.length + printableMaterials.length + decisionPathways.length + localizedArticles.length + 1,
           itemListElement: [
             {
               '@type': 'ListItem',
@@ -280,9 +419,21 @@ export function BlogPage() {
               name: tool.title[language],
               url: `${siteUrl}${tool.to}`,
             })),
-            ...localizedArticles.map((article, index) => ({
+            ...printableMaterials.map((material, index) => ({
               '@type': 'ListItem',
               position: toolContent.length + index + 2,
+              name: material.title[language],
+              url: `${siteUrl}${material.getHref(language)}`,
+            })),
+            ...decisionPathways.map((pathway, index) => ({
+              '@type': 'ListItem',
+              position: toolContent.length + printableMaterials.length + index + 2,
+              name: pathway.title[language],
+              url: `${siteUrl}${pathway.actions[0].to}`,
+            })),
+            ...localizedArticles.map((article, index) => ({
+              '@type': 'ListItem',
+              position: toolContent.length + printableMaterials.length + decisionPathways.length + index + 2,
               name: article.title,
               url: `${siteUrl}${article.path}`,
             })),
@@ -379,6 +530,84 @@ export function BlogPage() {
           </div>
         </section>
 
+        <section className="resource-pathways-section" aria-labelledby="resource-pathways-title">
+          <div className="site-shell">
+            <div className="resource-hub-heading">
+              <p className="eyebrow">{copy.pathwaysEyebrow}</p>
+              <h2 id="resource-pathways-title">{copy.pathwaysTitle}</h2>
+              <p>{copy.pathwaysBody}</p>
+            </div>
+
+            <div className="resource-pathway-grid">
+              {decisionPathways.map((pathway) => {
+                const Icon = pathway.icon
+
+                return (
+                  <article className="resource-pathway-card" key={pathway.title.en}>
+                    <img src={pathway.image} alt="" loading="lazy" decoding="async" />
+                    <div className="resource-pathway-card-content">
+                      <span className="resource-pathway-icon">
+                        <Icon size={22} aria-hidden="true" />
+                      </span>
+                      <h3>{pathway.title[language]}</h3>
+                      <p>{pathway.body[language]}</p>
+                      <div>
+                        {pathway.actions.map((action, index) => (
+                          <Link className={index === 0 ? 'btn btn-green' : 'resource-inline-link'} key={action.to} to={action.to}>
+                            {action.label[language]}
+                            <ArrowRight size={17} aria-hidden="true" />
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="resource-downloads-section" aria-labelledby="resource-downloads-title">
+          <div className="site-shell">
+            <div className="resource-hub-heading resource-hub-heading-wide">
+              <p className="eyebrow">{copy.downloadsEyebrow}</p>
+              <h2 id="resource-downloads-title">{copy.downloadsTitle}</h2>
+              <p>{copy.downloadsBody}</p>
+            </div>
+
+            <div className="resource-material-grid">
+              {printableMaterials.map((material) => {
+                const Icon = material.icon
+                const href = material.getHref(language)
+                const downloadLanguage = material.downloadLanguage?.(language)
+                const isPdf = href.endsWith('.pdf')
+
+                return (
+                  <a
+                    className="resource-material-card"
+                    href={href}
+                    key={material.title.en}
+                    target={isPdf ? '_blank' : undefined}
+                    rel={isPdf ? 'noopener' : undefined}
+                    onClick={downloadLanguage ? () => trackDownload(downloadLanguage) : undefined}
+                  >
+                    <span className="resource-material-icon">
+                      <Icon size={23} aria-hidden="true" />
+                    </span>
+                    <span className="resource-material-kind">{material.kind[language]}</span>
+                    <h3>{material.title[language]}</h3>
+                    <p>{material.body[language]}</p>
+                    <strong>
+                      {copy.downloadAction}
+                      <ArrowRight size={17} aria-hidden="true" />
+                    </strong>
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
         <section className="resource-quick-section" aria-labelledby="resource-quick-title">
           <div className="site-shell resource-quick-panel">
             <div className="resource-quick-copy">
@@ -405,6 +634,35 @@ export function BlogPage() {
                 )
               })}
             </ol>
+          </div>
+        </section>
+
+        <section className="resource-moments-section" aria-labelledby="resource-moments-title">
+          <div className="site-shell resource-moments-grid">
+            <div className="resource-hub-heading">
+              <p className="eyebrow">{copy.momentsEyebrow}</p>
+              <h2 id="resource-moments-title">{copy.momentsTitle}</h2>
+              <p>{copy.momentsBody}</p>
+            </div>
+
+            <div className="resource-moment-list">
+              {familyMoments.map((moment) => {
+                const Icon = moment.icon
+
+                return (
+                  <Link className="resource-moment-row" key={moment.title.en} to={moment.to}>
+                    <span>
+                      <Icon size={22} aria-hidden="true" />
+                    </span>
+                    <span>
+                      <strong>{moment.title[language]}</strong>
+                      <small>{moment.body[language]}</small>
+                    </span>
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </Link>
+                )
+              })}
+            </div>
           </div>
         </section>
 
