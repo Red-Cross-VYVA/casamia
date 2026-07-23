@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, ClipboardCheck, HeartHandshake, ShieldCheck } from 'lucide-react'
+import { ArrowRight, Camera, CheckCircle2, ClipboardCheck, HeartHandshake, MessageCircle, ShieldCheck, Wrench } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
@@ -108,6 +108,36 @@ export function NeedLandingPage() {
           </div>
         </section>
 
+        <section className="need-landing-practical">
+          <div className="site-shell need-landing-practical-grid">
+            <div className="need-landing-practical-copy">
+              <p className="eyebrow">Practical, not overwhelming</p>
+              <h2>Start with the daily routine.</h2>
+              <p>
+                The useful question is not “which product should I buy?” It is: where does the person feel unsafe,
+                what movement happens there, and what support would make that moment easier?
+              </p>
+            </div>
+            <div className="need-landing-mini-grid">
+              <MiniCard
+                icon={<Camera size={21} aria-hidden="true" />}
+                title="Show the space"
+                body="A few photos or a short video of the route, transfer point or doorway is often enough to start."
+              />
+              <MiniCard
+                icon={<MessageCircle size={21} aria-hidden="true" />}
+                title="Tell us the routine"
+                body="Explain what feels difficult: showering, getting out of bed, stairs, night bathroom trips or returning home."
+              />
+              <MiniCard
+                icon={<Wrench size={21} aria-hidden="true" />}
+                title="Receive a package-led plan"
+                body="CasaMia recommends outcomes first, then confirms products, measurements and installer requirements."
+              />
+            </div>
+          </div>
+        </section>
+
         <section className="need-landing-process">
           <div className="site-shell need-landing-process-grid">
             <div>
@@ -126,6 +156,46 @@ export function NeedLandingPage() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        <section className="need-landing-detail">
+          <div className="site-shell need-landing-detail-grid">
+            <div className="need-landing-route-card">
+              <p className="eyebrow">What your CasaMia plan can clarify</p>
+              <h2>Clear enough to act on.</h2>
+              <div className="need-landing-route-list">
+                {[
+                  'Which changes are urgent, recommended or optional',
+                  'Which items fit within a package and which need a quote',
+                  'Whether a visit, measurement or compatibility check is needed',
+                  'What CasaMia can coordinate end to end',
+                ].map((item) => (
+                  <span key={item}>
+                    <CheckCircle2 size={17} aria-hidden="true" />
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="need-landing-dos-card">
+              <p className="eyebrow">Before spending money</p>
+              <h2>Three checks that avoid poor choices.</h2>
+              <ol>
+                <li>
+                  <strong>Check the exact movement.</strong>
+                  <span>Where does the person reach, turn, sit, stand or hesitate?</span>
+                </li>
+                <li>
+                  <strong>Check the fixing point.</strong>
+                  <span>Support only works when it is positioned and installed for the real user.</span>
+                </li>
+                <li>
+                  <strong>Check the handover.</strong>
+                  <span>The best solution is one the person and family understand after installation.</span>
+                </li>
+              </ol>
+            </div>
           </div>
         </section>
 
@@ -171,8 +241,48 @@ export function NeedLandingPage() {
             </div>
           </div>
         </section>
+
+        <section className="need-landing-final">
+          <div className="site-shell need-landing-final-card">
+            <div>
+              <p className="eyebrow">Ready when you are</p>
+              <h2>Get a practical CasaMia recommendation.</h2>
+              <p>
+                Start online, send photos or ask for a call. We turn the information into a clearer plan before you
+                commit to works.
+              </p>
+            </div>
+            <div className="need-landing-final-actions">
+              <Link className="btn btn-green" to="/home-safety-wizard">
+                Start my plan
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+              <Link className="btn btn-white" to="/home-safety-assessment">
+                Book an assessment
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
     </>
+  )
+}
+
+function MiniCard({
+  icon,
+  title,
+  body,
+}: {
+  icon: ReactNode
+  title: string
+  body: string
+}) {
+  return (
+    <article className="need-mini-card">
+      <span>{icon}</span>
+      <strong>{title}</strong>
+      <p>{body}</p>
+    </article>
   )
 }
 
