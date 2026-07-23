@@ -68,6 +68,10 @@ const pageCopy = {
     toolsBody:
       'Each tool has one clear job. Use it online, save your observations and bring the result into a family discussion or professional assessment.',
     openTool: 'Open tool',
+    journeyEyebrow: 'Not sure where to begin?',
+    journeyTitle: 'Choose the situation that sounds closest.',
+    journeyBody:
+      'A safer home usually starts with one pressure point: a recent change, a worrying room, or a family decision that needs structure.',
     pathwaysEyebrow: 'Choose the closest situation',
     pathwaysTitle: 'Practical help by decision, not by article title.',
     pathwaysBody:
@@ -138,6 +142,10 @@ const pageCopy = {
     toolsBody:
       'Cada herramienta tiene una función clara. Úsala online, guarda tus observaciones y llévalas a la conversación familiar o a una evaluación profesional.',
     openTool: 'Abrir herramienta',
+    journeyEyebrow: '¿No sabes por dónde empezar?',
+    journeyTitle: 'Elige la situación que más se parece.',
+    journeyBody:
+      'Un hogar más seguro suele empezar por un punto de presión: un cambio reciente, una estancia que preocupa o una decisión familiar que necesita orden.',
     pathwaysEyebrow: 'Elige la situación más cercana',
     pathwaysTitle: 'Ayuda práctica por decisión, no por título de artículo.',
     pathwaysBody:
@@ -201,6 +209,54 @@ const toolContent = [
       es: 'Prepara los documentos y preguntas que conviene revisar antes de una convocatoria o presupuesto.',
     },
     to: '/grant-check',
+  },
+] as const
+
+const resourceJourneys = [
+  {
+    icon: Stethoscope,
+    title: { en: 'Something changed recently', es: 'Algo ha cambiado hace poco' },
+    body: {
+      en: 'A fall, hospital stay, new diagnosis or reduced confidence can make the home feel different overnight.',
+      es: 'Una caída, ingreso, diagnóstico o pérdida de confianza puede cambiar la vivienda de un día para otro.',
+    },
+    steps: {
+      en: ['Check the urgent routes', 'Collect photos or notes', 'Decide what needs review first'],
+      es: ['Revisa las rutas urgentes', 'Reúne fotos o notas', 'Decide qué revisar primero'],
+    },
+    to: '/home-safety-assessment',
+    cta: { en: 'Start a safety review', es: 'Iniciar revisión' },
+    download: false,
+  },
+  {
+    icon: Bath,
+    title: { en: 'One room is creating worry', es: 'Una estancia preocupa más' },
+    body: {
+      en: 'Bathrooms, stairs, bedrooms and entrances often become the first place where small changes restore confidence.',
+      es: 'Baños, escaleras, dormitorios y entradas suelen ser el primer lugar donde pequeños cambios devuelven confianza.',
+    },
+    steps: {
+      en: ['Pick the room', 'Read the focused guide', 'Compare practical options'],
+      es: ['Elige la estancia', 'Lee la guía específica', 'Compara opciones prácticas'],
+    },
+    to: '/safe-bathroom-access',
+    cta: { en: 'See a room guide', es: 'Ver guía por estancia' },
+    download: false,
+  },
+  {
+    icon: HandHeart,
+    title: { en: 'The family needs a plan', es: 'La familia necesita un plan' },
+    body: {
+      en: 'When relatives disagree, a shared checklist and priorities make the conversation calmer and more useful.',
+      es: 'Cuando la familia no se pone de acuerdo, una lista compartida y prioridades claras ordenan la conversación.',
+    },
+    steps: {
+      en: ['Download the checklist', 'Mark what feels unsafe', 'Bring the notes into one conversation'],
+      es: ['Descarga la lista', 'Marca lo que parece inseguro', 'Lleva las notas a una conversación'],
+    },
+    to: completeHomeChecklistDownloads.en.href,
+    cta: { en: 'Download checklist', es: 'Descargar lista' },
+    download: true,
   },
 ] as const
 
@@ -433,6 +489,7 @@ export function BlogPage() {
           name: language === 'es' ? 'Herramientas y guías de seguridad en el hogar' : 'Senior home safety tools and guides',
           numberOfItems:
             toolContent.length
+            + resourceJourneys.length
             + printableMaterials.length
             + decisionPathways.length
             + decisionGuidePages.length
@@ -451,21 +508,27 @@ export function BlogPage() {
               name: tool.title[language],
               url: `${siteUrl}${tool.to}`,
             })),
-            ...printableMaterials.map((material, index) => ({
+            ...resourceJourneys.map((journey, index) => ({
               '@type': 'ListItem',
               position: toolContent.length + index + 2,
+              name: journey.title[language],
+              url: `${siteUrl}${journey.download && language === 'es' ? completeHomeChecklistDownloads.es.href : journey.to}`,
+            })),
+            ...printableMaterials.map((material, index) => ({
+              '@type': 'ListItem',
+              position: toolContent.length + resourceJourneys.length + index + 2,
               name: material.title[language],
               url: `${siteUrl}${material.getHref(language)}`,
             })),
             ...decisionPathways.map((pathway, index) => ({
               '@type': 'ListItem',
-              position: toolContent.length + printableMaterials.length + index + 2,
+              position: toolContent.length + resourceJourneys.length + printableMaterials.length + index + 2,
               name: pathway.title[language],
               url: `${siteUrl}${pathway.actions[0].to}`,
             })),
             ...decisionGuidePages.map((guide, index) => ({
               '@type': 'ListItem',
-              position: toolContent.length + printableMaterials.length + decisionPathways.length + index + 2,
+              position: toolContent.length + resourceJourneys.length + printableMaterials.length + decisionPathways.length + index + 2,
               name: guide.title,
               url: `${siteUrl}${guide.path}`,
             })),
@@ -473,6 +536,7 @@ export function BlogPage() {
               '@type': 'ListItem',
               position:
                 toolContent.length
+                + resourceJourneys.length
                 + printableMaterials.length
                 + decisionPathways.length
                 + decisionGuidePages.length
@@ -568,6 +632,51 @@ export function BlogPage() {
                       <ArrowRight size={17} aria-hidden="true" />
                     </strong>
                   </Link>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="resource-journey-section" aria-labelledby="resource-journey-title">
+          <div className="site-shell">
+            <div className="resource-hub-heading resource-hub-heading-wide">
+              <p className="eyebrow">{copy.journeyEyebrow}</p>
+              <h2 id="resource-journey-title">{copy.journeyTitle}</h2>
+              <p>{copy.journeyBody}</p>
+            </div>
+
+            <div className="resource-journey-grid">
+              {resourceJourneys.map((journey) => {
+                const Icon = journey.icon
+                const href = journey.download && language === 'es'
+                  ? completeHomeChecklistDownloads.es.href
+                  : journey.to
+
+                return (
+                  <a
+                    className="resource-journey-card"
+                    href={href}
+                    key={journey.title.en}
+                    target={journey.download ? '_blank' : undefined}
+                    rel={journey.download ? 'noopener' : undefined}
+                    onClick={journey.download ? () => trackDownload(language) : undefined}
+                  >
+                    <span className="resource-journey-icon">
+                      <Icon size={25} aria-hidden="true" />
+                    </span>
+                    <h3>{journey.title[language]}</h3>
+                    <p>{journey.body[language]}</p>
+                    <ol>
+                      {journey.steps[language].map((step) => (
+                        <li key={step}>{step}</li>
+                      ))}
+                    </ol>
+                    <strong>
+                      {journey.cta[language]}
+                      <ArrowRight size={17} aria-hidden="true" />
+                    </strong>
+                  </a>
                 )
               })}
             </div>

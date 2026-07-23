@@ -329,6 +329,7 @@
 }
 
 .resource-tools-section,
+.resource-journey-section,
 .resource-pathways-section,
 .resource-comparison-section,
 .resource-downloads-section,
@@ -339,6 +340,123 @@
 
 .resource-pathways-section {
   background: linear-gradient(180deg, #ffffff 0%, #f3f9fd 100%);
+}
+
+.resource-journey-section {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(139, 207, 69, 0.13), transparent 22rem),
+    linear-gradient(180deg, #ffffff 0%, #f7fcff 100%);
+}
+
+.resource-journey-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: clamp(30px, 4.5vw, 48px);
+}
+
+.resource-journey-card {
+  position: relative;
+  display: grid;
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(200, 220, 232, 0.96);
+  border-radius: 22px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(239, 248, 253, 0.96));
+  padding: clamp(24px, 3vw, 32px);
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 18px 50px rgba(13, 30, 46, 0.08);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resource-journey-card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  content: '';
+}
+
+.resource-journey-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(58, 159, 212, 0.55);
+  box-shadow: 0 28px 64px rgba(13, 30, 46, 0.13);
+}
+
+.resource-journey-icon {
+  display: inline-grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 17px;
+  background: #eaf6fc;
+  color: var(--navy);
+}
+
+.resource-journey-card h3 {
+  margin: 22px 0 0;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(27px, 3vw, 36px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.resource-journey-card p {
+  margin: 14px 0 0;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+
+.resource-journey-card ol {
+  display: grid;
+  gap: 9px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resource-journey-card li {
+  position: relative;
+  padding-left: 28px;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.resource-journey-card li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-grid;
+  width: 19px;
+  height: 19px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(139, 207, 69, 0.18);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  content: '✓';
+}
+
+.resource-journey-card strong {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 7px;
+  margin-top: 24px;
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 11px 16px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 950;
+  box-shadow: 0 10px 25px rgba(13, 30, 46, 0.08);
 }
 
 .resource-comparison-section {
@@ -955,6 +1073,7 @@
 
 @media (min-width: 800px) {
   .resource-tool-grid,
+  .resource-journey-grid,
   .resource-pathway-grid,
   .resource-comparison-grid,
   .resource-material-grid,
@@ -1024,6 +1143,7 @@
   .resource-download-card,
   .resource-quick-panel,
   .resource-tool-card,
+  .resource-journey-card,
   .resource-pathway-card,
   .resource-comparison-card,
   .resource-material-card,
@@ -1034,6 +1154,7 @@
 
   .resource-download-content,
   .resource-tool-card,
+  .resource-journey-card,
   .resource-pathway-card-content,
   .resource-comparison-card,
   .resource-material-card,
@@ -1092,6 +1213,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .resource-tool-card,
+  .resource-journey-card,
   .resource-pathway-card,
   .resource-comparison-card,
   .resource-material-card,
