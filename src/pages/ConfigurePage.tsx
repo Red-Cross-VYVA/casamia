@@ -407,8 +407,8 @@ export function ConfigurePage() {
                     <ArrowRight size={18} aria-hidden="true" />
                   </button>
                 ) : (
-                  <Link className="btn btn-navy" to="/configure/contact">
-                    Continue to contact
+                  <Link className="btn btn-navy" to="/home-safety-wizard">
+                    Continue in guided plan
                     <ArrowRight size={18} aria-hidden="true" />
                   </Link>
                 )}
@@ -1034,8 +1034,8 @@ function RecommendationStep() {
       {quote.siteConfirmationItems.length > 0 ? (
         <Notice title="Requires site confirmation" items={quote.siteConfirmationItems.map((item) => `${item.label}: ${item.reason}`)} />
       ) : null}
-      <Link className="btn btn-green w-fit" to="/configure/summary">
-        View full summary
+      <Link className="btn btn-green w-fit" to="/home-safety-wizard">
+        Build guided plan
         <ArrowRight size={18} aria-hidden="true" />
       </Link>
     </div>
