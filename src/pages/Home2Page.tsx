@@ -4,6 +4,7 @@ import { BeforeAfterPreview } from '../components/BeforeAfterPreview'
 import { EuroSafe } from '../components/EuroSafe'
 import { FinalCTA } from '../components/FinalCTA'
 import { Grants } from '../components/Grants'
+import { HomeDecisionSupport } from '../components/HomeDecisionSupport'
 import { Hero } from '../components/Hero'
 import { ManufacturerMarquee } from '../components/ManufacturerMarquee'
 import { Prevention } from '../components/Prevention'
@@ -35,6 +36,7 @@ export function Home2Page() {
       <Hero />
       <TrustBar />
       <Prevention />
+      <HomeDecisionSupport />
       <SolutionGallery />
       <BeforeAfterPreview />
       <ManufacturerMarquee />
