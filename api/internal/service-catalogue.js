@@ -61,6 +61,9 @@ export default async function handler(request, response) {
       updated_by: body.updatedBy ?? 'internal-admin',
       payload_json: {
         masterCatalogue: body.masterCatalogue,
+        masterCatalogueBackups: Array.isArray(body.masterCatalogueBackups)
+          ? body.masterCatalogueBackups.slice(0, 5)
+          : undefined,
         packageConfigs: body.packageConfigs,
         services: body.services,
         updatedAt: body.updatedAt ?? new Date().toISOString(),

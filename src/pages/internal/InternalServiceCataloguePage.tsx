@@ -49,6 +49,7 @@ import type {
   EditableServiceCatalogue,
   MasterCatalogueOutcome,
   MasterCataloguePackage,
+  MasterCatalogueBackup,
   MasterPricingType,
   MasterServiceCatalogue,
   PricingType,
@@ -208,6 +209,8 @@ type CatalogueImportPreview = {
 
 export function InternalServiceCataloguePage() {
   const [masterCatalogue, setMasterCatalogue] = useState<MasterServiceCatalogue>(() => getMasterServiceCatalogue())
+  const [savedMasterCatalogue, setSavedMasterCatalogue] = useState<MasterServiceCatalogue>(() => getMasterServiceCatalogue())
+  const [masterCatalogueBackups, setMasterCatalogueBackups] = useState<MasterCatalogueBackup[]>([])
   const [draft, setDraft] = useState<EditableServiceCatalogue>(() => getServiceCatalogue())
   const [selectedRoom, setSelectedRoom] = useState<ServiceRoom>(defaultRoom)
   const [selectedMasterRoomId, setSelectedMasterRoomId] = useState('bathroom')
@@ -285,6 +288,10 @@ export function InternalServiceCataloguePage() {
     [masterCatalogue, selectedMasterOutcome],
   )
   const masterIntegrity = useMemo(() => getMasterIntegritySummary(masterCatalogue), [masterCatalogue])
+  const hasUnsavedMasterChanges = useMemo(
+    () => JSON.stringify(masterCatalogue) !== JSON.stringify(savedMasterCatalogue),
+    [masterCatalogue, savedMasterCatalogue],
+  )
 
   useEffect(() => {
     if (masterOutcomes.length && !masterOutcomes.some((outcome) => outcome.id === selectedMasterOutcomeId)) {
@@ -303,8 +310,11 @@ export function InternalServiceCataloguePage() {
       }
 
       const firstKitchenService = result.catalogue.services.find((service) => service.room === defaultRoom)
+      const loadedMasterCatalogue = result.catalogue.masterCatalogue ?? getMasterServiceCatalogue()
       setDraft(result.catalogue)
-      setMasterCatalogue(result.catalogue.masterCatalogue ?? getMasterServiceCatalogue())
+      setMasterCatalogue(loadedMasterCatalogue)
+      setSavedMasterCatalogue(loadedMasterCatalogue)
+      setMasterCatalogueBackups(result.catalogue.masterCatalogueBackups ?? [])
       setSelectedServiceId(firstKitchenService?.id ?? result.catalogue.services[0]?.id ?? '')
       setStatus(result.remote ? 'Loaded from Supabase.' : 'Using local fallback until the backend is configured.')
     })
@@ -511,23 +521,27 @@ export function InternalServiceCataloguePage() {
     if (!masterImportPreview || masterImportPreview.errors.length) return
 
     setMasterCatalogue(masterImportPreview.catalogue)
+    syncDraftFromMasterCatalogue(masterImportPreview.catalogue)
+    setSelectedMasterRoomId('bathroom')
+    setSelectedMasterOutcomeId('')
+    setStatus('Applied Bathroom bundle to the Master Catalogue preview. Save changes to publish it.')
+    setMasterImportPreview(null)
+  }
+
+  function syncDraftFromMasterCatalogue(nextCatalogue: MasterServiceCatalogue) {
     setDraft((current) => {
       const masterRooms = new Set(['bathroom', 'bedroom'])
-      const masterServices = flattenMasterCatalogueForCompatibility(masterImportPreview.catalogue)
+      const masterServices = flattenMasterCatalogueForCompatibility(nextCatalogue)
 
       return {
         ...current,
-        masterCatalogue: masterImportPreview.catalogue,
+        masterCatalogue: nextCatalogue,
         services: [
           ...masterServices,
           ...current.services.filter((service) => !masterRooms.has(service.room)),
         ],
       }
     })
-    setSelectedMasterRoomId('bathroom')
-    setSelectedMasterOutcomeId('')
-    setStatus('Applied Bathroom bundle to the Master Catalogue preview. Save changes to publish it.')
-    setMasterImportPreview(null)
   }
 
   function updateMasterPackage(packageId: string, patch: Partial<MasterCataloguePackage>) {
@@ -542,22 +556,25 @@ export function InternalServiceCataloguePage() {
         updatedAt: new Date().toISOString(),
       }
 
-      setDraft((draftCatalogue) => {
-        const masterRooms = new Set(['bathroom', 'bedroom'])
-
-        return {
-          ...draftCatalogue,
-          masterCatalogue: nextCatalogue,
-          services: [
-            ...flattenMasterCatalogueForCompatibility(nextCatalogue),
-            ...draftCatalogue.services.filter((service) => !masterRooms.has(service.room)),
-          ],
-        }
-      })
+      syncDraftFromMasterCatalogue(nextCatalogue)
 
       return nextCatalogue
     })
     setStatus('Package pricing updated in the Master Catalogue preview. Save changes to publish.')
+  }
+
+  function restoreLatestMasterBackup() {
+    const latestBackup = masterCatalogueBackups[0]
+    if (!latestBackup) {
+      setStatus('No Master Catalogue backup is available yet.')
+      return
+    }
+
+    setMasterCatalogue(latestBackup.catalogue)
+    syncDraftFromMasterCatalogue(latestBackup.catalogue)
+    setSelectedMasterRoomId('bathroom')
+    setSelectedMasterOutcomeId('')
+    setStatus(`Restored previous Master Catalogue from ${new Date(latestBackup.createdAt).toLocaleString()}. Save changes to publish.`)
   }
 
   async function handleImportCsv(file: File | null) {
@@ -604,12 +621,26 @@ export function InternalServiceCataloguePage() {
     setIsSaving(true)
 
     try {
+      const nextBackups = hasUnsavedMasterChanges
+        ? [
+            {
+              catalogue: savedMasterCatalogue,
+              createdAt: new Date().toISOString(),
+              reason: 'Automatic backup before publishing Master Catalogue changes',
+              version: savedMasterCatalogue.version,
+            },
+            ...masterCatalogueBackups,
+          ].slice(0, 5)
+        : masterCatalogueBackups
       const result = await saveServiceCatalogueToBackend({
         ...draft,
         masterCatalogue,
+        masterCatalogueBackups: nextBackups,
       })
       setDraft(result.catalogue)
       setMasterCatalogue(result.catalogue.masterCatalogue ?? masterCatalogue)
+      setSavedMasterCatalogue(result.catalogue.masterCatalogue ?? masterCatalogue)
+      setMasterCatalogueBackups(result.catalogue.masterCatalogueBackups ?? nextBackups)
       setStatus(
         result.remote
           ? 'Saved to Supabase. Public pages now use this Master Catalogue.'
@@ -627,8 +658,11 @@ export function InternalServiceCataloguePage() {
     try {
       const result = await saveServiceCatalogueToBackend(reset)
       const firstKitchenService = result.catalogue.services.find((service) => service.room === defaultRoom)
+      const resetMasterCatalogue = result.catalogue.masterCatalogue ?? getMasterServiceCatalogue()
       setDraft(result.catalogue)
-      setMasterCatalogue(result.catalogue.masterCatalogue ?? getMasterServiceCatalogue())
+      setMasterCatalogue(resetMasterCatalogue)
+      setSavedMasterCatalogue(resetMasterCatalogue)
+      setMasterCatalogueBackups(result.catalogue.masterCatalogueBackups ?? [])
       setSelectedRoom(defaultRoom)
       setSelectedServiceId(firstKitchenService?.id ?? result.catalogue.services[0]?.id ?? '')
       setSearchTerm('')
@@ -677,6 +711,8 @@ export function InternalServiceCataloguePage() {
         selectedOutcome={selectedMasterOutcome}
         selectedRoomId={selectedMasterRoomId}
         selectedSpecification={selectedMasterSpecification}
+        backupCount={masterCatalogueBackups.length}
+        hasUnsavedChanges={hasUnsavedMasterChanges}
         importPreview={masterImportPreview}
         onApplyBathroomBundleImport={applyBathroomMasterBundleImport}
         onDownloadBathroomTemplates={handleDownloadBathroomMasterTemplates}
@@ -685,6 +721,7 @@ export function InternalServiceCataloguePage() {
         onImportBathroomBundle={handleBathroomMasterBundleImport}
         onSelectOutcome={setSelectedMasterOutcomeId}
         onSelectRoom={setSelectedMasterRoomId}
+        onRestoreLatestBackup={restoreLatestMasterBackup}
         onUpdatePackage={updateMasterPackage}
       />
 
@@ -994,7 +1031,9 @@ function StatusCard({
 }
 
 function MasterCatalogueHierarchyPanel({
+  backupCount,
   catalogue,
+  hasUnsavedChanges,
   importPreview,
   integrity,
   onApplyBathroomBundleImport,
@@ -1002,6 +1041,7 @@ function MasterCatalogueHierarchyPanel({
   onDownloadCsvFiles,
   onDownloadJson,
   onImportBathroomBundle,
+  onRestoreLatestBackup,
   onSelectOutcome,
   onSelectRoom,
   onUpdatePackage,
@@ -1010,7 +1050,9 @@ function MasterCatalogueHierarchyPanel({
   selectedRoomId,
   selectedSpecification,
 }: {
+  backupCount: number
   catalogue: MasterServiceCatalogue
+  hasUnsavedChanges: boolean
   importPreview: MasterCatalogueBundleImportPreview | null
   integrity: ReturnType<typeof getMasterIntegritySummary>
   onApplyBathroomBundleImport: () => void
@@ -1018,6 +1060,7 @@ function MasterCatalogueHierarchyPanel({
   onDownloadCsvFiles: () => void
   onDownloadJson: () => void
   onImportBathroomBundle: (files: FileList | null) => void
+  onRestoreLatestBackup: () => void
   onSelectOutcome: (outcomeId: string) => void
   onSelectRoom: (roomId: string) => void
   onUpdatePackage: (packageId: string, patch: Partial<MasterCataloguePackage>) => void
@@ -1040,6 +1083,21 @@ function MasterCatalogueHierarchyPanel({
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <span className={`inline-flex items-center rounded-full px-4 py-2 text-xs font-black uppercase tracking-wide ${
+            hasUnsavedChanges ? 'bg-amber-100 text-amber-800' : 'bg-green text-navy'
+          }`}>
+            {hasUnsavedChanges ? 'Unsaved preview' : 'Saved live'}
+          </span>
+          <button
+            className="btn btn-white"
+            type="button"
+            onClick={onRestoreLatestBackup}
+            disabled={backupCount === 0}
+            title={backupCount === 0 ? 'No backup available yet' : 'Restore the last saved Master Catalogue backup'}
+          >
+            <RotateCcw size={18} aria-hidden="true" />
+            Restore last
+          </button>
           <button className="btn btn-white" type="button" onClick={onDownloadJson}>
             <Download size={18} aria-hidden="true" />
             JSON backup
@@ -1067,6 +1125,11 @@ function MasterCatalogueHierarchyPanel({
               {integrity.issueCount === 0
                 ? 'No duplicate IDs, missing relations or orphaned active entities detected.'
                 : `${integrity.issueCount} issue${integrity.issueCount === 1 ? '' : 's'} need attention.`}
+            </p>
+            <p className="mt-1 text-xs font-bold text-white/55">
+              {backupCount
+                ? `${backupCount} previous Master Catalogue backup${backupCount === 1 ? '' : 's'} available.`
+                : 'A previous version will be backed up automatically before the first Master Catalogue save.'}
             </p>
           </div>
           <span className={`rounded-full px-4 py-2 text-xs font-black uppercase tracking-wide ${

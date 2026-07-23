@@ -135,6 +135,7 @@ export function getServiceCatalogue(): EditableServiceCatalogue {
     const defaults = buildServiceCatalogueFromMaster(masterCatalogue)
 
     return {
+      masterCatalogueBackups: parsed.masterCatalogueBackups,
       masterCatalogue,
       packageConfigs: mergePackageConfigs(defaults.packageConfigs, parsed.packageConfigs),
       services: mergeServices(defaults.services, parsed.services, masterCatalogue),
@@ -443,6 +444,7 @@ function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | 
 
   return {
     masterCatalogue,
+    masterCatalogueBackups: payload?.masterCatalogueBackups,
     packageConfigs: mergePackageConfigs(defaults.packageConfigs, payload?.packageConfigs),
     services: mergeServices(defaults.services, payload?.services, masterCatalogue),
     updatedAt: payload?.updatedAt,

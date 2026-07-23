@@ -384,8 +384,16 @@ export type ServicePackageConfig = {
 }
 
 export type EditableServiceCatalogue = {
+  masterCatalogueBackups?: MasterCatalogueBackup[]
   masterCatalogue?: MasterServiceCatalogue
   packageConfigs?: ServicePackageConfig[]
   services: CasaMiaService[]
   updatedAt?: string
+}
+
+export type MasterCatalogueBackup = {
+  catalogue: MasterServiceCatalogue
+  createdAt: string
+  reason: string
+  version: string
 }
