@@ -5,6 +5,7 @@ export type NeedLandingPageContent = {
   path: string
   servicePath: string
   resourcePath?: string
+  footerVisible?: boolean
   icon: ServiceIconId
   image: string
   title: string
@@ -337,6 +338,116 @@ export const needLandingPages: NeedLandingPageContent[] = [
   },
 ]
 
+export const decisionGuidePages: NeedLandingPageContent[] = [
+  {
+    slug: 'home-adaptations-vs-assisted-living',
+    path: '/home-adaptations-vs-assisted-living',
+    servicePath: '/services',
+    footerVisible: false,
+    icon: 'home',
+    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+    title: 'Home adaptations vs assisted living',
+    seoTitle: 'Home Adaptations vs Assisted Living | CasaMia',
+    description:
+      'A practical family guide to comparing home adaptations with assisted living, including safety, comfort, cost, timing and support needs.',
+    eyebrow: 'Decision guide',
+    intro:
+      'Families often face this question when daily life starts to feel harder: adapt the home, arrange more support, or consider a residence. CasaMia helps clarify what can realistically be made safer at home first.',
+    whoFor: ['Families weighing home safety works against a move', 'Older adults who want to stay home if it can be made safer', 'Relatives who need a calmer way to compare options'],
+    priorities: ['Current risk and daily support needs', 'Bathroom, bedroom, entrance and night-route safety', 'Whether works are urgent, phased or specialist', 'Family availability and ongoing support'],
+    casamiaPlan: ['Review the home and routines before big decisions', 'Separate quick safety gains from larger adaptations', 'Explain what can be managed at home and what needs wider care planning'],
+    relatedServices: [
+      { label: 'Build a home safety plan', to: '/home-safety-wizard' },
+      { label: 'Book a home assessment', to: '/home-safety-assessment' },
+      { label: 'Solutions for organisations', to: '/assisted-living-solutions' },
+    ],
+    faqs: [
+      {
+        question: 'Can home adaptations replace assisted living?',
+        answer:
+          'Sometimes adaptations can make home life safer and easier, but they do not replace care when someone needs regular personal, medical or supervision support. The useful first step is to understand what the home can solve and what it cannot.',
+      },
+      {
+        question: 'What should families compare first?',
+        answer:
+          'Compare the daily routines causing pressure: bathing, toileting, sleeping, cooking, stairs, night movement and emergency response. These reveal whether practical home changes may be enough.',
+      },
+    ],
+  },
+  {
+    slug: 'home-safety-assessment-vs-general-contractor',
+    path: '/home-safety-assessment-vs-general-contractor',
+    servicePath: '/home-safety-assessment',
+    footerVisible: false,
+    icon: 'check',
+    image: '/images/assessment/casamia-inspector-tablet.jpg',
+    title: 'Home safety assessment vs general contractor',
+    seoTitle: 'Home Safety Assessment vs General Contractor | CasaMia',
+    description:
+      'Understand when to start with a senior home safety assessment before asking a contractor to install products or quote works.',
+    eyebrow: 'Decision guide',
+    intro:
+      'A contractor can install what you ask for. A home safety assessment helps decide what should be asked for in the first place, based on the person, the routine and the risk.',
+    whoFor: ['Families unsure what to request from installers', 'Homes with several possible safety issues', 'People who want a clear scope before spending money'],
+    priorities: ['The person’s exact movement and transfer needs', 'Which risks are urgent, recommended or optional', 'Measurements, fixing points and site constraints', 'A scope installers can price and deliver'],
+    casamiaPlan: ['Start with the daily safety problem', 'Turn observations into a package-led scope', 'Coordinate installer requirements, handover and follow-up'],
+    relatedServices: [
+      { label: 'Book a safety assessment', to: '/home-safety-assessment' },
+      { label: 'See how it works', to: '/how-it-works' },
+      { label: 'Review services', to: '/services' },
+    ],
+    faqs: [
+      {
+        question: 'Should I call a contractor first?',
+        answer:
+          'If the required work is obvious and already specified, a contractor may be enough. If the family is unsure what should be changed, start with a safety assessment so the scope matches the resident.',
+      },
+      {
+        question: 'Does CasaMia do the installation too?',
+        answer:
+          'CasaMia coordinates the process end to end, including assessment, practical scope, installation coordination and handover where needed.',
+      },
+    ],
+  },
+  {
+    slug: 'smart-home-safety-vs-monitoring',
+    path: '/smart-home-safety-vs-monitoring',
+    servicePath: '/tech',
+    footerVisible: false,
+    icon: 'smartphone',
+    image: '/images/blog/smart-safety-simple.webp',
+    title: 'Smart home safety vs monitoring',
+    seoTitle: 'Smart Home Safety vs Monitoring for Seniors | CasaMia',
+    description:
+      'Compare smart home safety, simple alerts and monitoring-style services for seniors without overcomplicating the home.',
+    eyebrow: 'Decision guide',
+    intro:
+      'Not every connected device is monitoring, and not every family needs a monitoring service. CasaMia focuses on useful connected living: lighting, reminders, alerts and simple routines with clear consent.',
+    whoFor: ['Families considering sensors, voice assistance or emergency buttons', 'Older adults who want support without feeling watched', 'Homes where simple automation could reduce daily friction'],
+    priorities: ['Consent and comfort with technology', 'Night lighting, reminders and emergency reach', 'Who receives alerts and what they do next', 'Compatibility, setup and ongoing support'],
+    casamiaPlan: ['Define the experience before choosing devices', 'Configure compatible tools into simple routines', 'Document response rules so the family understands what happens'],
+    relatedServices: [
+      { label: 'Technology approach', to: '/tech' },
+      { label: 'Connected home for seniors', to: '/connected-home-for-seniors' },
+      { label: 'Start a guided plan', to: '/home-safety-wizard' },
+    ],
+    faqs: [
+      {
+        question: 'Is smart home safety the same as surveillance?',
+        answer:
+          'No. CasaMia prioritises practical support such as lighting, reminders, water alerts and emergency reach. Any alert or response setup should be consented to and easy to understand.',
+      },
+      {
+        question: 'What is the simplest connected setup?',
+        answer:
+          'A simple setup often starts with a configured smart speaker, night lighting, easy calls, reminders and selected alerts. The right mix depends on the resident and home.',
+      },
+    ],
+  },
+]
+
+export const allNeedLandingPages = [...needLandingPages, ...decisionGuidePages]
+
 export function getNeedLandingPage(slug?: string) {
-  return needLandingPages.find((page) => page.slug === slug)
+  return allNeedLandingPages.find((page) => page.slug === slug)
 }

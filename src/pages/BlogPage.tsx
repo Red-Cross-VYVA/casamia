@@ -21,6 +21,7 @@ import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
 import { blogArticles } from '../constants/blogContent'
 import { localizeBlogArticles } from '../constants/blogContentLocalization'
+import { decisionGuidePages } from '../constants/needLandingPages'
 import {
   completeHomeChecklistDownloads,
   type ResourceDownloadLanguage,
@@ -72,6 +73,10 @@ const pageCopy = {
     pathwaysBody:
       'Families usually arrive with one urgent question. Start there, then move into the guide, checklist or tool that helps you make the next decision calmly.',
     pathwayCta: 'Start here',
+    comparisonEyebrow: 'Decision guides',
+    comparisonTitle: 'Compare the routes before you commit.',
+    comparisonBody:
+      'Short, practical guides for the moments when the family is choosing between two very different next steps.',
     downloadsEyebrow: 'Printable materials',
     downloadsTitle: 'Useful documents to share around the table.',
     downloadsBody:
@@ -138,6 +143,10 @@ const pageCopy = {
     pathwaysBody:
       'Las familias suelen llegar con una pregunta urgente. Empieza ahí y pasa después a la guía, lista o herramienta que ayuda a decidir con calma el siguiente paso.',
     pathwayCta: 'Empezar aquí',
+    comparisonEyebrow: 'Guías de decisión',
+    comparisonTitle: 'Compara las opciones antes de decidir.',
+    comparisonBody:
+      'Guías breves y prácticas para cuando la familia tiene que elegir entre dos caminos distintos.',
     downloadsEyebrow: 'Materiales para imprimir',
     downloadsTitle: 'Documentos útiles para compartir en familia.',
     downloadsBody:
@@ -405,7 +414,13 @@ export function BlogPage() {
           '@type': 'ItemList',
           '@id': `${siteUrl}/blog#resource-list`,
           name: language === 'es' ? 'Herramientas y guías de seguridad en el hogar' : 'Senior home safety tools and guides',
-          numberOfItems: toolContent.length + printableMaterials.length + decisionPathways.length + localizedArticles.length + 1,
+          numberOfItems:
+            toolContent.length
+            + printableMaterials.length
+            + decisionPathways.length
+            + decisionGuidePages.length
+            + localizedArticles.length
+            + 1,
           itemListElement: [
             {
               '@type': 'ListItem',
@@ -431,9 +446,21 @@ export function BlogPage() {
               name: pathway.title[language],
               url: `${siteUrl}${pathway.actions[0].to}`,
             })),
-            ...localizedArticles.map((article, index) => ({
+            ...decisionGuidePages.map((guide, index) => ({
               '@type': 'ListItem',
               position: toolContent.length + printableMaterials.length + decisionPathways.length + index + 2,
+              name: guide.title,
+              url: `${siteUrl}${guide.path}`,
+            })),
+            ...localizedArticles.map((article, index) => ({
+              '@type': 'ListItem',
+              position:
+                toolContent.length
+                + printableMaterials.length
+                + decisionPathways.length
+                + decisionGuidePages.length
+                + index
+                + 2,
               name: article.title,
               url: `${siteUrl}${article.path}`,
             })),
@@ -563,6 +590,30 @@ export function BlogPage() {
                   </article>
                 )
               })}
+            </div>
+          </div>
+        </section>
+
+        <section className="resource-comparison-section" aria-labelledby="resource-comparison-title">
+          <div className="site-shell">
+            <div className="resource-hub-heading resource-hub-heading-wide">
+              <p className="eyebrow">{copy.comparisonEyebrow}</p>
+              <h2 id="resource-comparison-title">{copy.comparisonTitle}</h2>
+              <p>{copy.comparisonBody}</p>
+            </div>
+
+            <div className="resource-comparison-grid">
+              {decisionGuidePages.map((guide) => (
+                <Link className="resource-comparison-card" key={guide.slug} to={guide.path}>
+                  <span>{guide.eyebrow}</span>
+                  <h3>{guide.title}</h3>
+                  <p>{guide.description}</p>
+                  <strong>
+                    {language === 'es' ? 'Comparar opciones' : 'Compare options'}
+                    <ArrowRight size={17} aria-hidden="true" />
+                  </strong>
+                </Link>
+              ))}
             </div>
           </div>
         </section>

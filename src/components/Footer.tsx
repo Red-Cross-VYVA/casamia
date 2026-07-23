@@ -59,7 +59,9 @@ export function Footer() {
     { label: language === 'es' ? 'Ayudas Plan Adapta' : 'Plan Adapta Grants', to: '/plan-adapta' },
     { label: links.visit, to: '/home-safety-assessment' },
   ]
-  const needLinks = needLandingPages.map((page) => ({ label: page.title, to: page.path }))
+  const needLinks = needLandingPages
+    .filter((page) => page.footerVisible !== false)
+    .map((page) => ({ label: page.title, to: page.path }))
 
   return (
     <footer className="bg-ink text-white">
