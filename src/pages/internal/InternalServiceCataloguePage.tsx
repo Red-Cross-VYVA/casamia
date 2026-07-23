@@ -49,6 +49,7 @@ import type {
   EditableServiceCatalogue,
   MasterCatalogueOutcome,
   MasterCataloguePackage,
+  MasterPricingType,
   MasterServiceCatalogue,
   PricingType,
   QuantityType,
@@ -529,6 +530,36 @@ export function InternalServiceCataloguePage() {
     setMasterImportPreview(null)
   }
 
+  function updateMasterPackage(packageId: string, patch: Partial<MasterCataloguePackage>) {
+    setMasterCatalogue((current) => {
+      const nextCatalogue: MasterServiceCatalogue = {
+        ...current,
+        packages: current.packages.map((packageRecord) =>
+          packageRecord.id === packageId
+            ? { ...packageRecord, ...patch, id: packageRecord.id, updatedAt: new Date().toISOString() }
+            : packageRecord,
+        ),
+        updatedAt: new Date().toISOString(),
+      }
+
+      setDraft((draftCatalogue) => {
+        const masterRooms = new Set(['bathroom', 'bedroom'])
+
+        return {
+          ...draftCatalogue,
+          masterCatalogue: nextCatalogue,
+          services: [
+            ...flattenMasterCatalogueForCompatibility(nextCatalogue),
+            ...draftCatalogue.services.filter((service) => !masterRooms.has(service.room)),
+          ],
+        }
+      })
+
+      return nextCatalogue
+    })
+    setStatus('Package pricing updated in the Master Catalogue preview. Save changes to publish.')
+  }
+
   async function handleImportCsv(file: File | null) {
     if (!file) return
 
@@ -654,6 +685,7 @@ export function InternalServiceCataloguePage() {
         onImportBathroomBundle={handleBathroomMasterBundleImport}
         onSelectOutcome={setSelectedMasterOutcomeId}
         onSelectRoom={setSelectedMasterRoomId}
+        onUpdatePackage={updateMasterPackage}
       />
 
       <section className="mt-6 rounded-lg border border-border bg-white p-5 shadow-soft">
@@ -972,6 +1004,7 @@ function MasterCatalogueHierarchyPanel({
   onImportBathroomBundle,
   onSelectOutcome,
   onSelectRoom,
+  onUpdatePackage,
   packages,
   selectedOutcome,
   selectedRoomId,
@@ -987,6 +1020,7 @@ function MasterCatalogueHierarchyPanel({
   onImportBathroomBundle: (files: FileList | null) => void
   onSelectOutcome: (outcomeId: string) => void
   onSelectRoom: (roomId: string) => void
+  onUpdatePackage: (packageId: string, patch: Partial<MasterCataloguePackage>) => void
   packages: Array<{ package: MasterCataloguePackage; outcomes: MasterCatalogueOutcome[] }>
   selectedOutcome?: MasterCatalogueOutcome
   selectedRoomId: string
@@ -1185,6 +1219,7 @@ function MasterCatalogueHierarchyPanel({
                     {outcomes.length} outcomes
                   </span>
                 </div>
+                <MasterPackagePriceEditor packageRecord={packageRecord} onUpdatePackage={onUpdatePackage} />
                 <div className="mt-4 grid gap-2">
                   {outcomes.map((outcome) => {
                     const selected = outcome.id === selectedOutcome?.id
@@ -1254,6 +1289,129 @@ function MasterMetric({ label, value }: { label: string; value: number }) {
       <strong className="font-display text-3xl font-bold text-white">{value}</strong>
       <p className="mt-1 text-xs font-black uppercase tracking-wide text-white/60">{label}</p>
     </article>
+  )
+}
+
+const masterPricingOptions: Array<{ label: string; value: MasterPricingType }> = [
+  { label: 'From price', value: 'from' },
+  { label: 'Fixed price', value: 'fixed' },
+  { label: 'Quote after review', value: 'quote' },
+  { label: 'Included in package', value: 'included-in-package' },
+  { label: 'Range', value: 'range' },
+  { label: 'Recurring', value: 'recurring' },
+]
+
+function MasterPackagePriceEditor({
+  onUpdatePackage,
+  packageRecord,
+}: {
+  onUpdatePackage: (packageId: string, patch: Partial<MasterCataloguePackage>) => void
+  packageRecord: MasterCataloguePackage
+}) {
+  return (
+    <div className="mt-4 rounded-2xl border border-border bg-white p-3 shadow-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-blue">Package pricing</p>
+          <p className="mt-1 text-xs font-bold text-text-muted">
+            Customer price is package-led; products remain internal.
+          </p>
+        </div>
+        <label className="flex items-center gap-2 rounded-full bg-light-blue px-3 py-2 text-xs font-black text-navy">
+          <input
+            className="h-4 w-4 accent-blue"
+            type="checkbox"
+            checked={packageRecord.requiresQuote}
+            onChange={(event) =>
+              onUpdatePackage(packageRecord.id, {
+                pricingType: event.currentTarget.checked ? 'quote' : packageRecord.pricingType === 'quote' ? 'from' : packageRecord.pricingType,
+                requiresQuote: event.currentTarget.checked,
+              })
+            }
+          />
+          Requires quote
+        </label>
+      </div>
+
+      <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+        <label className="grid gap-1">
+          <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">Type</span>
+          <select
+            className="rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/20"
+            value={packageRecord.pricingType}
+            onChange={(event) => {
+              const pricingType = event.currentTarget.value as MasterPricingType
+              onUpdatePackage(packageRecord.id, {
+                pricingType,
+                requiresQuote: pricingType === 'quote' ? true : packageRecord.requiresQuote,
+              })
+            }}
+          >
+            {masterPricingOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <MasterPriceInput
+          label="From"
+          value={packageRecord.fromPrice}
+          onChange={(fromPrice) => onUpdatePackage(packageRecord.id, { fromPrice })}
+        />
+        <MasterPriceInput
+          label="Fixed"
+          value={packageRecord.fixedPrice}
+          onChange={(fixedPrice) => onUpdatePackage(packageRecord.id, { fixedPrice })}
+        />
+        <MasterPriceInput
+          label="Monthly"
+          value={packageRecord.recurringMonthlyPrice}
+          onChange={(recurringMonthlyPrice) => onUpdatePackage(packageRecord.id, { recurringMonthlyPrice })}
+        />
+        <label className="grid gap-1">
+          <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">VAT</span>
+          <select
+            className="rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/20"
+            value={String(packageRecord.vatRate)}
+            onChange={(event) => onUpdatePackage(packageRecord.id, { vatRate: Number(event.currentTarget.value) })}
+          >
+            <option value="0.1">10%</option>
+            <option value="0.21">21%</option>
+            <option value="0">0%</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  )
+}
+
+function MasterPriceInput({
+  label,
+  onChange,
+  value,
+}: {
+  label: string
+  onChange: (value: number | undefined) => void
+  value: number | undefined
+}) {
+  return (
+    <label className="grid gap-1">
+      <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">{label}</span>
+      <input
+        className="rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition placeholder:text-text-muted/60 focus:border-blue focus:ring-2 focus:ring-blue/20"
+        inputMode="decimal"
+        min="0"
+        placeholder="EUR"
+        type="number"
+        value={value ?? ''}
+        onChange={(event) => {
+          const nextValue = event.currentTarget.value.trim()
+          onChange(nextValue ? Number(nextValue) : undefined)
+        }}
+      />
+    </label>
   )
 }
 
