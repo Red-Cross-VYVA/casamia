@@ -2,6 +2,7 @@ import {
   ArrowRight,
   Bath,
   Camera,
+  Calculator,
   ClipboardCheck,
   Download,
   FileCheck2,
@@ -257,6 +258,15 @@ const toolContent = [
       es: 'Prepara los documentos y preguntas que conviene revisar antes de una convocatoria o presupuesto.',
     },
     to: '/grant-check',
+  },
+  {
+    icon: Calculator,
+    title: { en: 'Home vs residence cost planner', es: 'Casa o residencia: comparador de coste' },
+    body: {
+      en: 'Compare adapting the home with a residence route so the family can discuss cost, comfort and timing clearly.',
+      es: 'Compara adaptar la vivienda con una residencia para hablar con claridad de coste, comodidad y plazos.',
+    },
+    to: '/tools/home-vs-residence-cost-calculator',
   },
 ] as const
 

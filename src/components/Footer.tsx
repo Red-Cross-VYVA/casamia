@@ -24,6 +24,7 @@ const footerLinkCopy = {
     resourcesTitle: 'Useful resources',
     checklist: 'Printable home checklist',
     onlineCheck: 'Online safety review',
+    costComparison: 'Home vs residence cost',
     grantsGuide: 'Grants and paperwork',
     fallPrevention: 'Fall prevention guide',
     bathroomSafety: 'Bathroom safety guide',
@@ -74,6 +75,10 @@ export function Footer() {
   const resourceLinks = [
     { label: links.checklist, to: '/blog' },
     { label: links.onlineCheck, to: '/home-safety-assessment#self-inspection-tool' },
+    {
+      label: language === 'es' ? 'Casa o residencia: coste' : 'Home vs residence cost',
+      to: '/tools/home-vs-residence-cost-calculator',
+    },
     { label: links.grantsGuide, to: '/blog/home-adaptation-grants-spain-family-guide' },
     { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },
     { label: links.bathroomSafety, to: '/blog/bathroom-safety-seniors-costly-mistakes' },

@@ -2,10 +2,13 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url), 'utf8')
+const costToolPage = await readFile(new URL('../src/pages/HomeVsResidenceCostPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
 const seo = await readFile(new URL('../src/components/SEO.tsx', import.meta.url), 'utf8')
+const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
+const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
 const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/resources-hub.css', import.meta.url), 'utf8')
 
@@ -13,6 +16,31 @@ assert.match(
   page,
   /const resourceJourneys = \[/,
   'The Resources hub must include guided journeys for families who are unsure where to start.',
+)
+assert.match(
+  app,
+  /\/tools\/home-vs-residence-cost-calculator[\s\S]*<HomeVsResidenceCostPage \/>/,
+  'The home-vs-residence planning calculator must be exposed as a public route.',
+)
+assert.match(
+  costToolPage,
+  /Compare adapting the home with moving to a residence[\s\S]*Compara adaptar la vivienda con mudarse a una residencia/,
+  'The cost comparison tool must support English and Spanish decision framing.',
+)
+assert.match(
+  costToolPage,
+  /residenceCost \* months \+ setupCost[\s\S]*adaptationBudget - grantSupport[\s\S]*homeSupport \* months/,
+  'The cost comparison tool must compare residence cost with adaptation, support and possible grant assumptions.',
+)
+assert.match(
+  costToolPage,
+  /'@type': 'WebApplication'[\s\S]*home-vs-residence-cost-calculator#tool/,
+  'The cost comparison tool must publish WebApplication structured data.',
+)
+assert.match(
+  page,
+  /Home vs residence cost planner[\s\S]*\/tools\/home-vs-residence-cost-calculator/,
+  'The Resources hub must expose the home-vs-residence cost planner.',
 )
 assert.match(
   page,
@@ -61,6 +89,11 @@ assert.match(
 )
 assert.match(
   nav,
+  /match: \['\/blog', '\/resources', '\/tools'\]/,
+  'The Resources navigation item must stay active for public tools.',
+)
+assert.match(
+  nav,
   /Fall prevention[\s\S]*Bathroom safety[\s\S]*Night-time safety/,
   'The Resources navigation must expose high-intent practical guide routes.',
 )
@@ -71,8 +104,13 @@ assert.match(
 )
 assert.match(
   footer,
-  /resourcesTitle: 'Useful resources'[\s\S]*Printable home checklist[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*bathroom-safety-seniors-costly-mistakes/,
+  /resourcesTitle: 'Useful resources'[\s\S]*Printable home checklist[\s\S]*home-vs-residence-cost-calculator[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*bathroom-safety-seniors-costly-mistakes/,
   'The global footer must expose practical Resources links for discovery and SEO.',
+)
+assert.match(
+  sitemap,
+  /https:\/\/casamia\.com\.es\/tools\/home-vs-residence-cost-calculator/,
+  'The public sitemap must include the home-vs-residence cost comparison tool.',
 )
 assert.match(
   footer,
