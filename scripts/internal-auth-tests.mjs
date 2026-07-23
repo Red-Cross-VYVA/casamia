@@ -87,6 +87,11 @@ try {
 
   const appSource = await readFile(resolve(projectRoot, 'src/App.tsx'), 'utf8')
   assert.match(appSource, /function InternalRoute[\s\S]*?<InternalAccessGate>/)
+  assert.match(
+    appSource,
+    /function InternalRoute[\s\S]*<SEO[\s\S]*noindex[\s\S]*<InternalAccessGate>/,
+    'Every internal route wrapper must publish noindex metadata.',
+  )
   const internalRouteLines = appSource
     .split(/\r?\n/)
     .filter((line) => line.includes('<Route path="/internal'))

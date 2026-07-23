@@ -14,6 +14,7 @@ import { CookieConsent } from './components/CookieConsent'
 import { Footer } from './components/Footer'
 import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
+import { SEO } from './components/SEO'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
 
 const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
@@ -200,7 +201,19 @@ function LegacyResourceRedirect() {
 }
 
 function InternalRoute({ children }: { children: ReactNode }) {
-  return <InternalAccessGate>{children}</InternalAccessGate>
+  const location = useLocation()
+
+  return (
+    <>
+      <SEO
+        title="CasaMia internal access"
+        description="Protected CasaMia operations area."
+        path={location.pathname}
+        noindex
+      />
+      <InternalAccessGate>{children}</InternalAccessGate>
+    </>
+  )
 }
 
 function AppRoutes() {
