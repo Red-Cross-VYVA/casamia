@@ -308,12 +308,21 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
 
 function getRequirementLabels(service: CasaMiaService, copy: ServicesPageCopy) {
   return [
-    service.requiresInstallation ? copy.requirements.installation : null,
-    service.requiresMeasurement ? copy.requirements.measurement : null,
-    service.requiresSiteVisit ? copy.requirements.visit : null,
-    service.requiresCompatibilityCheck ? copy.requirements.compatibility : null,
+    (service.requirements?.installation ?? service.requiresInstallation) ? copy.requirements.installation : null,
+    (service.requirements?.measurement ?? service.requiresMeasurement) ? copy.requirements.measurement : null,
+    (service.requirements?.siteVisit ?? service.requiresSiteVisit) ? copy.requirements.visit : null,
+    (service.requirements?.compatibilityCheck ?? service.requiresCompatibilityCheck) ? copy.requirements.compatibility : null,
   ].filter((item): item is string => Boolean(item))
 }
+
+const getCustomerServiceName = (service: CasaMiaService) => service.customerName ?? service.name
+const getCustomerServiceDescription = (service: CasaMiaService) =>
+  service.customerDescription ?? service.shortDescription
+const getCustomerServiceBenefit = (service: CasaMiaService) =>
+  service.outcome ?? service.customerBenefit
+
+const isWebsiteVisible = (service: CasaMiaService) =>
+  service.websiteVisible ?? service.visibility?.website ?? true
 
 export function ServicesPage() {
   const { i18n } = useTranslation()
@@ -322,7 +331,7 @@ export function ServicesPage() {
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
   const [selectedGroupId, setSelectedGroupId] = useState<CatalogueGroupId>('bathroom')
   const activeServices = useMemo(
-    () => catalogue.services.filter((service) => service.active),
+    () => catalogue.services.filter((service) => service.active && isWebsiteVisible(service)),
     [catalogue.services],
   )
   const serviceGroups = useMemo<ServiceGroup[]>(() => {
@@ -367,8 +376,8 @@ export function ServicesPage() {
           itemListElement: activeServices.map((service, index) => ({
             '@type': 'ListItem',
             position: index + 1,
-            name: service.name,
-            description: service.shortDescription,
+            name: getCustomerServiceName(service),
+            description: getCustomerServiceDescription(service),
           })),
         }}
       />
@@ -487,7 +496,7 @@ export function ServicesPage() {
                           <header>
                             <div>
                               <small>{service.category}</small>
-                              <h3>{service.name}</h3>
+                              <h3>{getCustomerServiceName(service)}</h3>
                               <span className="services-catalogue-component-role">
                                 {(service.componentRole ?? 'core') === 'core'
                                   ? copy.coreComponent
@@ -496,12 +505,14 @@ export function ServicesPage() {
                             </div>
                           </header>
 
-                          <p className="services-catalogue-service-description">{service.shortDescription}</p>
+                          <p className="services-catalogue-service-description">
+                            {getCustomerServiceDescription(service)}
+                          </p>
                           <div className="services-catalogue-service-benefit">
                             <Sparkles size={18} aria-hidden="true" />
                             <div>
                               <strong>{copy.customerBenefit}</strong>
-                              <p>{service.customerBenefit}</p>
+                              <p>{getCustomerServiceBenefit(service)}</p>
                             </div>
                           </div>
 

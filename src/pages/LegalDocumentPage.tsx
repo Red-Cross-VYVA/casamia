@@ -10,6 +10,12 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
   const document = getLocalizedLegalDocument(documentId, i18n.language)
 
+  useEffect(() => {
+    if (document) {
+      window.document.title = `${document.title} | CasaMia`
+    }
+  }, [document])
+
   if (!document) {
     return <Navigate to="/" replace />
   }
@@ -37,10 +43,6 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
         reviewBody:
           "This page is structured from CasaMia's legal framework and implementation brief. It must be completed with company data and validated by Spanish legal counsel before production use.",
       }
-
-  useEffect(() => {
-    window.document.title = `${document.title} | CasaMia`
-  }, [document.title])
 
   return (
     <>

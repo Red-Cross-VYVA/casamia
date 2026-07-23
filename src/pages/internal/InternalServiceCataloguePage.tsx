@@ -20,6 +20,13 @@ import { Link } from 'react-router-dom'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import {
+  exportMasterCatalogueCsvFiles,
+  exportMasterCatalogueJson,
+  getCustomerCatalogueByRoom,
+  getInspectorSpecificationForOutcome,
+  getMasterServiceCatalogue,
+} from '../../services/masterServiceCatalogue'
+import {
   formatPackagePrice,
   getDefaultServiceCatalogue,
   getDefaultServicePackageAreas,
@@ -33,11 +40,16 @@ import type {
   CasaMiaService,
   CasaMiaServiceTranslation,
   EditableServiceCatalogue,
+  MasterCatalogueOutcome,
+  MasterCataloguePackage,
+  MasterServiceCatalogue,
   PricingType,
   QuantityType,
+  ServiceCatalogueSection,
   ServiceComponentRole,
   ServicePackageConfig,
   ServicePackageArea,
+  ServicePriority,
   ServiceRoom,
 } from '../../types/serviceCatalogue'
 import {
@@ -105,17 +117,45 @@ const componentRoleOptions: Array<{ label: string; value: ServiceComponentRole }
   { label: 'Optional add-on', value: 'option' },
 ]
 
+const sectionOptions: Array<{ label: string; value: ServiceCatalogueSection }> = [
+  { label: 'Home Safety Package', value: 'home_safety_package' },
+  { label: 'Connected Room', value: 'connected_room' },
+  { label: 'Optional Adaptations', value: 'optional_adaptations' },
+]
+
+const priorityOptions: Array<{ label: string; value: ServicePriority }> = [
+  { label: 'Essential', value: 'essential' },
+  { label: 'Recommended', value: 'recommended' },
+  { label: 'Optional', value: 'optional' },
+]
+
 const defaultRoom: ServiceRoom = 'kitchen'
 const catalogueCsvColumns = [
   'id',
   'slug',
   'room',
+  'section',
   'active',
+  'status',
+  'version',
   'componentRole',
+  'priority',
   'name',
+  'customerName',
+  'internalName',
   'category',
   'shortDescription',
+  'customerDescription',
   'customerBenefit',
+  'outcome',
+  'plainLanguageSummary',
+  'websiteVisible',
+  'wizardVisible',
+  'proposalVisible',
+  'inspectorVisible',
+  'adminVisible',
+  'crmVisible',
+  'mobileVisible',
   'pricingType',
   'productPrice',
   'installationPrice',
@@ -123,10 +163,18 @@ const catalogueCsvColumns = [
   'recurringMonthlyPrice',
   'vatRate',
   'quantityType',
+  'requiresAssessment',
   'requiresInstallation',
   'requiresMeasurement',
   'requiresSiteVisit',
   'requiresCompatibilityCheck',
+  'requiresQuote',
+  'typicalInstallationTime',
+  'grantEligible',
+  'grantCategories',
+  'grantEvidenceNeeded',
+  'vatReason',
+  'smartDependencies',
   'includedItems',
   'wizardAreas',
   'safetyNotice',
@@ -151,8 +199,11 @@ type CatalogueImportPreview = {
 }
 
 export function InternalServiceCataloguePage() {
+  const masterCatalogue = useMemo(() => getMasterServiceCatalogue(), [])
   const [draft, setDraft] = useState<EditableServiceCatalogue>(() => getServiceCatalogue())
   const [selectedRoom, setSelectedRoom] = useState<ServiceRoom>(defaultRoom)
+  const [selectedMasterRoomId, setSelectedMasterRoomId] = useState('bathroom')
+  const [selectedMasterOutcomeId, setSelectedMasterOutcomeId] = useState('')
   const [selectedServiceId, setSelectedServiceId] = useState<string>('')
   const [searchTerm, setSearchTerm] = useState('')
   const [isSaving, setIsSaving] = useState(false)
@@ -176,8 +227,12 @@ export function InternalServiceCataloguePage() {
     return roomServices.filter((service) =>
       [
         service.name,
+        service.customerName,
+        service.internalName,
         service.shortDescription,
+        service.customerDescription,
         service.customerBenefit,
+        service.outcome,
         service.category,
         service.translations?.es?.name,
         service.translations?.es?.shortDescription,
@@ -198,6 +253,35 @@ export function InternalServiceCataloguePage() {
   )
   const currentRoom = roomOptions.find((room) => room.value === selectedRoom) ?? roomOptions[0]
   const currentPackageAreas = useMemo(() => getPackageAreasForRoom(selectedRoom), [selectedRoom])
+  const groupedVisibleServices = useMemo(
+    () => groupServicesBySection(visibleServices),
+    [visibleServices],
+  )
+  const masterRoomPackages = useMemo(
+    () => getCustomerCatalogueByRoom(selectedMasterRoomId, masterCatalogue),
+    [masterCatalogue, selectedMasterRoomId],
+  )
+  const masterOutcomes = useMemo(
+    () => masterRoomPackages.flatMap((item) => item.outcomes),
+    [masterRoomPackages],
+  )
+  const selectedMasterOutcome = useMemo(
+    () =>
+      masterOutcomes.find((outcome) => outcome.id === selectedMasterOutcomeId) ??
+      masterOutcomes[0],
+    [masterOutcomes, selectedMasterOutcomeId],
+  )
+  const selectedMasterSpecification = useMemo(
+    () => selectedMasterOutcome ? getInspectorSpecificationForOutcome(selectedMasterOutcome.id, masterCatalogue) : undefined,
+    [masterCatalogue, selectedMasterOutcome],
+  )
+  const masterIntegrity = useMemo(() => getMasterIntegritySummary(masterCatalogue), [masterCatalogue])
+
+  useEffect(() => {
+    if (masterOutcomes.length && !masterOutcomes.some((outcome) => outcome.id === selectedMasterOutcomeId)) {
+      setSelectedMasterOutcomeId(masterOutcomes[0].id)
+    }
+  }, [masterOutcomes, selectedMasterOutcomeId])
 
   useEffect(() => {
     document.title = 'Service Catalogue | CasaMia Operations'
@@ -357,6 +441,20 @@ export function InternalServiceCataloguePage() {
     setStatus(`Downloaded ${currentRoom.label} CSV template.`)
   }
 
+  function handleDownloadMasterJson() {
+    downloadTextFile('casamia-master-service-catalogue.json', exportMasterCatalogueJson(masterCatalogue), 'application/json')
+    setStatus('Downloaded the full Master Service Catalogue JSON backup.')
+  }
+
+  function handleDownloadMasterCsvFiles() {
+    const files = exportMasterCatalogueCsvFiles(masterCatalogue)
+
+    Object.entries(files).forEach(([fileName, content]) => {
+      downloadTextFile(`casamia-master-${fileName}`, content)
+    })
+    setStatus('Downloaded Master Catalogue entity CSV files.')
+  }
+
   async function handleImportCsv(file: File | null) {
     if (!file) return
 
@@ -461,6 +559,19 @@ export function InternalServiceCataloguePage() {
         <StatusCard icon={ListChecks} label={`${currentRoom.label} items`} value={String(roomCounts[selectedRoom] ?? 0)} />
         <StatusCard icon={Euro} label="Edited here" value="Prices" />
       </section>
+
+      <MasterCatalogueHierarchyPanel
+        catalogue={masterCatalogue}
+        integrity={masterIntegrity}
+        packages={masterRoomPackages}
+        selectedOutcome={selectedMasterOutcome}
+        selectedRoomId={selectedMasterRoomId}
+        selectedSpecification={selectedMasterSpecification}
+        onDownloadCsvFiles={handleDownloadMasterCsvFiles}
+        onDownloadJson={handleDownloadMasterJson}
+        onSelectOutcome={setSelectedMasterOutcomeId}
+        onSelectRoom={setSelectedMasterRoomId}
+      />
 
       <section className="mt-6 rounded-lg border border-border bg-white p-5 shadow-soft">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
@@ -692,14 +803,28 @@ export function InternalServiceCataloguePage() {
             />
           </label>
 
-          <div className="mt-4 grid max-h-[72vh] gap-3 overflow-auto pr-1">
-            {visibleServices.map((service) => (
-              <ServiceListItem
-                key={service.id}
-                service={service}
-                selected={service.id === selectedService?.id}
-                onSelect={() => setSelectedServiceId(service.id)}
-              />
+          <div className="mt-4 grid max-h-[72vh] gap-4 overflow-auto pr-1">
+            {groupedVisibleServices.map((group) => (
+              <section key={group.section}>
+                <div className="mb-2 flex items-center justify-between gap-2 px-1">
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-text-muted">
+                    {formatSectionLabel(group.section)}
+                  </h4>
+                  <span className="rounded-full bg-light-blue px-2 py-0.5 text-[10px] font-black text-text-muted">
+                    {group.services.length}
+                  </span>
+                </div>
+                <div className="grid gap-3">
+                  {group.services.map((service) => (
+                    <ServiceListItem
+                      key={service.id}
+                      service={service}
+                      selected={service.id === selectedService?.id}
+                      onSelect={() => setSelectedServiceId(service.id)}
+                    />
+                  ))}
+                </div>
+              </section>
             ))}
             {visibleServices.length === 0 ? (
               <div className="rounded-lg border border-dashed border-border bg-light-blue/40 p-5 text-sm font-bold text-text-muted">
@@ -753,6 +878,234 @@ function StatusCard({
   )
 }
 
+function MasterCatalogueHierarchyPanel({
+  catalogue,
+  integrity,
+  onDownloadCsvFiles,
+  onDownloadJson,
+  onSelectOutcome,
+  onSelectRoom,
+  packages,
+  selectedOutcome,
+  selectedRoomId,
+  selectedSpecification,
+}: {
+  catalogue: MasterServiceCatalogue
+  integrity: ReturnType<typeof getMasterIntegritySummary>
+  onDownloadCsvFiles: () => void
+  onDownloadJson: () => void
+  onSelectOutcome: (outcomeId: string) => void
+  onSelectRoom: (roomId: string) => void
+  packages: Array<{ package: MasterCataloguePackage; outcomes: MasterCatalogueOutcome[] }>
+  selectedOutcome?: MasterCatalogueOutcome
+  selectedRoomId: string
+  selectedSpecification?: ReturnType<typeof getInspectorSpecificationForOutcome>
+}) {
+  return (
+    <section className="mt-6 rounded-lg border border-blue/20 bg-gradient-to-br from-navy via-[#114967] to-blue p-5 text-white shadow-soft">
+      <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-green">Master Service Catalogue</p>
+          <h2 className="mt-2 font-display text-4xl font-bold leading-tight">
+            Outcome-first hierarchy, products kept internal.
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm font-bold leading-relaxed text-white/75">
+            This is the frozen source of truth for Bathroom and Bedroom. Customer pages consume packages and
+            outcomes; inspectors and proposals resolve each outcome into capabilities, products and tasks.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button className="btn btn-white" type="button" onClick={onDownloadJson}>
+            <Download size={18} aria-hidden="true" />
+            JSON backup
+          </button>
+          <button className="btn btn-green" type="button" onClick={onDownloadCsvFiles}>
+            <Download size={18} aria-hidden="true" />
+            Entity CSVs
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+        <MasterMetric label="Packages" value={catalogue.packages.length} />
+        <MasterMetric label="Outcomes" value={catalogue.outcomes.length} />
+        <MasterMetric label="Capabilities" value={catalogue.capabilities.length} />
+        <MasterMetric label="Products/devices" value={catalogue.products.length} />
+        <MasterMetric label="Tasks" value={catalogue.installationTasks.length} />
+      </div>
+
+      <div className="mt-5 rounded-2xl border border-white/15 bg-white/10 p-4">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h3 className="text-lg font-black">Catalogue integrity</h3>
+            <p className="mt-1 text-xs font-bold text-white/65">
+              {integrity.issueCount === 0
+                ? 'No duplicate IDs, missing relations or orphaned active entities detected.'
+                : `${integrity.issueCount} issue${integrity.issueCount === 1 ? '' : 's'} need attention.`}
+            </p>
+          </div>
+          <span className={`rounded-full px-4 py-2 text-xs font-black uppercase tracking-wide ${
+            integrity.issueCount === 0 ? 'bg-green text-navy' : 'bg-red-100 text-red-700'
+          }`}>
+            {integrity.issueCount === 0 ? 'Validated' : 'Needs review'}
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)_360px]">
+        <aside className="rounded-2xl border border-white/15 bg-white/10 p-4">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-white/60">Rooms</p>
+          <div className="mt-3 grid gap-2">
+            {catalogue.rooms.map((room) => {
+              const selected = room.id === selectedRoomId
+
+              return (
+                <button
+                  className={`rounded-xl border px-4 py-3 text-left transition ${
+                    selected
+                      ? 'border-green bg-white text-navy'
+                      : 'border-white/15 bg-white/5 text-white hover:bg-white/10'
+                  }`}
+                  key={room.id}
+                  type="button"
+                  onClick={() => onSelectRoom(room.id)}
+                >
+                  <strong className="block text-sm font-black">{room.name.en}</strong>
+                  <span className={`mt-1 block text-xs font-bold ${selected ? 'text-navy/60' : 'text-white/60'}`}>
+                    {catalogue.packages.filter((item) => item.roomId === room.id).length} packages ·{' '}
+                    {catalogue.outcomes.filter((item) => item.roomId === room.id).length} outcomes
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </aside>
+
+        <div className="rounded-2xl border border-white/15 bg-white p-4 text-text-dark">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-blue">Hierarchy</p>
+              <h3 className="mt-1 font-display text-2xl font-bold">Packages and customer outcomes</h3>
+            </div>
+            <span className="rounded-full bg-pale-blue px-3 py-1 text-xs font-black uppercase tracking-wide text-blue">
+              Room → Section → Package → Outcome
+            </span>
+          </div>
+          <div className="mt-4 grid gap-4">
+            {packages.map(({ package: packageRecord, outcomes }) => (
+              <article className="rounded-2xl border border-border bg-light-blue/30 p-4" key={packageRecord.id}>
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[11px] font-black uppercase tracking-[0.18em] text-blue">
+                      {formatMasterSectionLabel(packageRecord.section)}
+                    </p>
+                    <h4 className="mt-1 text-xl font-black text-text-dark">{packageRecord.customerName.en}</h4>
+                    <p className="mt-1 text-xs font-bold text-text-muted">Internal: {packageRecord.internalName}</p>
+                  </div>
+                  <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-text-muted">
+                    {outcomes.length} outcomes
+                  </span>
+                </div>
+                <div className="mt-4 grid gap-2">
+                  {outcomes.map((outcome) => {
+                    const selected = outcome.id === selectedOutcome?.id
+
+                    return (
+                      <button
+                        className={`rounded-xl border px-4 py-3 text-left transition ${
+                          selected
+                            ? 'border-blue bg-white shadow-soft'
+                            : 'border-border bg-white/70 hover:border-blue hover:bg-white'
+                        }`}
+                        key={outcome.id}
+                        type="button"
+                        onClick={() => onSelectOutcome(outcome.id)}
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <strong className="text-base font-black text-text-dark">{outcome.customerName.en}</strong>
+                          <span className="rounded-full bg-pale-blue px-2 py-1 text-[10px] font-black uppercase tracking-wide text-blue">
+                            {outcome.priority}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm font-bold leading-relaxed text-text-muted">
+                          {outcome.shortDescription.en}
+                        </p>
+                      </button>
+                    )
+                  })}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <aside className="rounded-2xl border border-white/15 bg-white p-4 text-text-dark">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-blue">Selected outcome</p>
+          {selectedOutcome && selectedSpecification ? (
+            <>
+              <h3 className="mt-2 font-display text-3xl font-bold leading-tight">{selectedOutcome.customerName.en}</h3>
+              <p className="mt-2 text-sm font-bold leading-relaxed text-text-mid">{selectedOutcome.customerBenefit.en}</p>
+              <div className="mt-4 grid gap-3">
+                <SpecList title="Capabilities" items={selectedSpecification.capabilities.map((item) => item.name)} />
+                <SpecList title="Internal products/devices" items={selectedSpecification.products.map((item) => item.name)} />
+                <SpecList title="Installation tasks" items={selectedSpecification.installationTasks.map((item) => item.name)} />
+              </div>
+              <div className="mt-4 rounded-xl bg-pale-blue p-3">
+                <p className="text-xs font-black uppercase tracking-wide text-blue">Rules</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {selectedOutcome.requiresQuote ? <RulePill>Quote required</RulePill> : <RulePill>Package-led</RulePill>}
+                  {selectedOutcome.requiresSmartSpeaker ? <RulePill>Smart speaker</RulePill> : null}
+                  {selectedOutcome.requiresCompatibilityCheck ? <RulePill>Compatibility</RulePill> : null}
+                  {selectedOutcome.grantEligible ? <RulePill>Grant-relevant</RulePill> : null}
+                </div>
+              </div>
+            </>
+          ) : (
+            <p className="mt-3 text-sm font-bold text-text-muted">Select an outcome to inspect its operational layer.</p>
+          )}
+        </aside>
+      </div>
+    </section>
+  )
+}
+
+function MasterMetric({ label, value }: { label: string; value: number }) {
+  return (
+    <article className="rounded-2xl border border-white/15 bg-white/10 p-4">
+      <strong className="font-display text-3xl font-bold text-white">{value}</strong>
+      <p className="mt-1 text-xs font-black uppercase tracking-wide text-white/60">{label}</p>
+    </article>
+  )
+}
+
+function SpecList({ items, title }: { items: string[]; title: string }) {
+  return (
+    <section className="rounded-xl border border-border bg-light-blue/30 p-3">
+      <h4 className="text-xs font-black uppercase tracking-wide text-text-muted">{title}</h4>
+      {items.length ? (
+        <ul className="mt-2 grid gap-1">
+          {items.map((item) => (
+            <li className="flex items-start gap-2 text-xs font-bold leading-relaxed text-text-dark" key={item}>
+              <CheckCircle2 className="mt-0.5 shrink-0 text-green" size={14} aria-hidden="true" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-2 text-xs font-bold text-text-muted">None mapped.</p>
+      )}
+    </section>
+  )
+}
+
+function RulePill({ children }: { children: string }) {
+  return (
+    <span className="rounded-full bg-white px-3 py-1 text-[11px] font-black uppercase tracking-wide text-navy">
+      {children}
+    </span>
+  )
+}
+
 function ServiceListItem({
   onSelect,
   selected,
@@ -774,8 +1127,13 @@ function ServiceListItem({
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <span className="text-[11px] font-black uppercase tracking-wide text-blue">{service.category}</span>
-          <h4 className="mt-1 text-base font-black leading-tight text-text-dark">{service.name}</h4>
+          <span className="text-[11px] font-black uppercase tracking-wide text-blue">
+            {formatSectionLabel(service.section)}
+          </span>
+          <h4 className="mt-1 text-base font-black leading-tight text-text-dark">
+            {service.customerName ?? service.name}
+          </h4>
+          <p className="mt-1 text-[11px] font-bold text-text-muted">{service.internalName ?? service.name}</p>
         </div>
         <span
           className={`rounded-full px-2.5 py-1 text-[11px] font-black uppercase tracking-wide ${
@@ -786,7 +1144,7 @@ function ServiceListItem({
         </span>
       </div>
       <p className="mt-2 line-clamp-2 text-xs font-bold leading-relaxed text-text-muted">
-        {service.shortDescription}
+        {service.customerDescription ?? service.shortDescription}
       </p>
       <strong className="mt-3 block text-sm font-black text-navy">
         {(service.componentRole ?? 'core') === 'core' ? 'Core component' : 'Optional component'}
@@ -846,7 +1204,12 @@ function ServiceEditor({
               Live on site
             </label>
           </div>
-          <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-text-dark">{service.name}</h2>
+          <h2 className="mt-3 font-display text-4xl font-bold leading-tight text-text-dark">
+            {service.customerName ?? service.name}
+          </h2>
+          <p className="mt-1 text-sm font-black uppercase tracking-wide text-text-muted">
+            Internal: {service.internalName ?? service.name}
+          </p>
           <p className="mt-2 max-w-4xl text-base font-bold leading-relaxed text-text-mid">
             {service.customerBenefit}
           </p>
@@ -860,6 +1223,16 @@ function ServiceEditor({
           label="Service name"
           value={service.name}
           onChange={(value) => onUpdateService(service.id, { name: value })}
+        />
+        <TextInput
+          label="Customer outcome name"
+          value={service.customerName ?? service.name}
+          onChange={(value) => onUpdateService(service.id, { customerName: value })}
+        />
+        <TextInput
+          label="Internal technical name"
+          value={service.internalName ?? service.name}
+          onChange={(value) => onUpdateService(service.id, { internalName: value })}
         />
         <TextInput
           label="Slug"
@@ -883,17 +1256,95 @@ function ServiceEditor({
           options={componentRoleOptions}
           onChange={(value) => onUpdateService(service.id, { componentRole: value as ServiceComponentRole })}
         />
+        <SelectInput
+          label="Master section"
+          value={service.section ?? 'home_safety_package'}
+          options={sectionOptions}
+          onChange={(value) => onUpdateService(service.id, { section: value as ServiceCatalogueSection })}
+        />
+        <SelectInput
+          label="Priority"
+          value={service.priority ?? ((service.componentRole ?? 'core') === 'core' ? 'essential' : 'optional')}
+          options={priorityOptions}
+          onChange={(value) => onUpdateService(service.id, { priority: value as ServicePriority })}
+        />
         <TextArea
           label="Short description"
           value={service.shortDescription}
           onChange={(value) => onUpdateService(service.id, { shortDescription: value })}
         />
         <TextArea
+          label="Customer description"
+          value={service.customerDescription ?? service.shortDescription}
+          onChange={(value) => onUpdateService(service.id, { customerDescription: value })}
+        />
+        <TextArea
           label="Customer benefit"
           value={service.customerBenefit}
           onChange={(value) => onUpdateService(service.id, { customerBenefit: value })}
         />
+        <TextArea
+          label="Outcome"
+          value={service.outcome ?? service.customerBenefit}
+          onChange={(value) => onUpdateService(service.id, { outcome: value })}
+        />
       </div>
+
+      <section className="mt-6 rounded-lg border border-border bg-white p-4">
+        <div className="mb-4 flex items-start gap-3">
+          <span className="inline-grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-pale-blue text-blue">
+            <Eye size={20} aria-hidden="true" />
+          </span>
+          <div>
+            <h3 className="text-base font-black text-text-dark">Visibility and workflow</h3>
+            <p className="mt-1 text-xs font-bold leading-relaxed text-text-muted">
+              Control where this single catalogue record appears across CasaMia.
+            </p>
+          </div>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <ToggleField
+            checked={service.websiteVisible ?? service.visibility?.website ?? true}
+            label="Website"
+            onChange={(checked) => onUpdateService(service.id, { websiteVisible: checked })}
+          />
+          <ToggleField
+            checked={service.wizardVisible ?? service.visibility?.wizard ?? true}
+            label="Wizard"
+            onChange={(checked) => onUpdateService(service.id, { wizardVisible: checked })}
+          />
+          <ToggleField
+            checked={service.proposalVisible ?? service.visibility?.proposal ?? true}
+            label="Proposal"
+            onChange={(checked) => onUpdateService(service.id, { proposalVisible: checked })}
+          />
+          <ToggleField
+            checked={service.inspectorVisible ?? service.visibility?.inspector ?? true}
+            label="Inspector"
+            onChange={(checked) => onUpdateService(service.id, { inspectorVisible: checked })}
+          />
+          <ToggleField
+            checked={service.adminVisible ?? service.visibility?.admin ?? true}
+            label="Admin"
+            onChange={(checked) => onUpdateService(service.id, { adminVisible: checked })}
+          />
+          <ToggleField
+            checked={service.crmVisible ?? service.visibility?.crm ?? true}
+            label="CRM"
+            onChange={(checked) => onUpdateService(service.id, { crmVisible: checked })}
+          />
+          <ToggleField
+            checked={service.mobileVisible ?? service.visibility?.mobile ?? true}
+            label="Mobile"
+            onChange={(checked) => onUpdateService(service.id, { mobileVisible: checked })}
+          />
+          <ToggleField
+            checked={service.requiresQuote ?? service.pricingType === 'quote_only'}
+            label="Requires quote"
+            onChange={(checked) => onUpdateService(service.id, { requiresQuote: checked })}
+          />
+        </div>
+      </section>
 
       <section className="mt-6 rounded-lg border border-blue/20 bg-pale-blue p-4">
         <div className="mb-4 flex items-start gap-3">
@@ -1215,11 +1666,17 @@ function ServicePreviewCard({ service }: { service: CasaMiaService }) {
           {(service.componentRole ?? 'core') === 'core' ? 'Core package' : 'Optional add-on'}
         </span>
       </div>
-      <h3 className="mt-5 font-display text-2xl font-bold leading-tight text-text-dark">{service.name}</h3>
-      <p className="mt-2 text-sm font-bold leading-relaxed text-text-mid">{service.shortDescription}</p>
+      <h3 className="mt-5 font-display text-2xl font-bold leading-tight text-text-dark">
+        {service.customerName ?? service.name}
+      </h3>
+      <p className="mt-2 text-sm font-bold leading-relaxed text-text-mid">
+        {service.customerDescription ?? service.shortDescription}
+      </p>
       <div className="mt-4 rounded-lg bg-white p-3">
         <p className="text-xs font-black uppercase tracking-wide text-text-muted">Benefit</p>
-        <p className="mt-1 text-sm font-bold leading-relaxed text-text-dark">{service.customerBenefit}</p>
+        <p className="mt-1 text-sm font-bold leading-relaxed text-text-dark">
+          {service.outcome ?? service.customerBenefit}
+        </p>
       </div>
       <ul className="mt-4 grid gap-2">
         {(service.includedItems ?? []).slice(0, 3).map((item) => (
@@ -1378,6 +1835,85 @@ function formatRoomLabel(room: ServiceRoom) {
   return roomOptions.find((option) => option.value === room)?.label ?? room
 }
 
+function formatSectionLabel(section: ServiceCatalogueSection | undefined) {
+  return sectionOptions.find((option) => option.value === section)?.label ?? 'Home Safety Package'
+}
+
+function formatMasterSectionLabel(section: MasterCataloguePackage['section']) {
+  if (section === 'home-safety-package') return 'Home Safety Package'
+  if (section === 'connected-room') return 'Connected Room'
+  return 'Optional Adaptations'
+}
+
+function getMasterIntegritySummary(catalogue: MasterServiceCatalogue) {
+  const issues: string[] = []
+  const packagesById = new Map(catalogue.packages.map((item) => [item.id, item]))
+  const outcomesById = new Map(catalogue.outcomes.map((item) => [item.id, item]))
+  const capabilitiesById = new Map(catalogue.capabilities.map((item) => [item.id, item]))
+  const productsById = new Map(catalogue.products.map((item) => [item.id, item]))
+  const tasksById = new Map(catalogue.installationTasks.map((item) => [item.id, item]))
+
+  collectDuplicateIds(catalogue.rooms, 'room', issues)
+  collectDuplicateIds(catalogue.sections, 'section', issues)
+  collectDuplicateIds(catalogue.packages, 'package', issues)
+  collectDuplicateIds(catalogue.outcomes, 'outcome', issues)
+  collectDuplicateIds(catalogue.capabilities, 'capability', issues)
+  collectDuplicateIds(catalogue.products, 'product/device', issues)
+  collectDuplicateIds(catalogue.installationTasks, 'installation task', issues)
+
+  catalogue.outcomes.forEach((outcome) => {
+    if (!packagesById.has(outcome.packageId)) {
+      issues.push(`${outcome.id} is not assigned to a valid package.`)
+    }
+    if (!outcome.customerName.en || !outcome.shortDescription.en) {
+      issues.push(`${outcome.id} is missing customer-facing English copy.`)
+    }
+    if (outcome.pricingType === 'quote' && !outcome.requiresQuote) {
+      issues.push(`${outcome.id} is quote-priced but not marked quote-required.`)
+    }
+  })
+
+  catalogue.relations.forEach((relation) => {
+    if (relation.type === 'packageOutcome' && (!packagesById.has(relation.fromId) || !outcomesById.has(relation.toId))) {
+      issues.push(`${relation.id} points to a missing package or outcome.`)
+    }
+    if (relation.type === 'outcomeCapability' && (!outcomesById.has(relation.fromId) || !capabilitiesById.has(relation.toId))) {
+      issues.push(`${relation.id} points to a missing outcome or capability.`)
+    }
+    if (relation.type === 'capabilityProduct' && (!capabilitiesById.has(relation.fromId) || !productsById.has(relation.toId))) {
+      issues.push(`${relation.id} points to a missing capability or product.`)
+    }
+    if (relation.type === 'capabilityInstallationTask' && (!capabilitiesById.has(relation.fromId) || !tasksById.has(relation.toId))) {
+      issues.push(`${relation.id} points to a missing capability or task.`)
+    }
+  })
+
+  return {
+    issueCount: issues.length,
+    issues,
+  }
+}
+
+function collectDuplicateIds(items: Array<{ id: string }>, label: string, issues: string[]) {
+  const seen = new Set<string>()
+
+  items.forEach((item) => {
+    if (seen.has(item.id)) {
+      issues.push(`Duplicate ${label} ID: ${item.id}.`)
+    }
+    seen.add(item.id)
+  })
+}
+
+function groupServicesBySection(services: CasaMiaService[]) {
+  return sectionOptions
+    .map((option) => ({
+      section: option.value,
+      services: services.filter((service) => (service.section ?? 'home_safety_package') === option.value),
+    }))
+    .filter((group) => group.services.length > 0)
+}
+
 function createServiceId(room: ServiceRoom) {
   return `service-${room}-${Date.now().toString(36)}`
 }
@@ -1387,23 +1923,41 @@ function createTemplateService(room: ServiceRoom): CasaMiaService {
 
   return {
     active: true,
+    adminVisible: true,
     category: `${roomLabel} safety`,
     componentRole: 'core',
     customerBenefit: 'How this component improves safety, comfort, or confidence.',
+    customerDescription: 'Brief customer-facing explanation.',
+    customerName: `New ${roomLabel} outcome`,
+    crmVisible: true,
     id: createServiceId(room),
     includedItems: ['Core package component'],
+    inspectorVisible: true,
+    internalName: `New ${roomLabel} component`,
+    mobileVisible: true,
     name: `New ${roomLabel} component`,
+    outcome: 'Safety, comfort, and confidence at home.',
+    plainLanguageSummary: 'Brief customer-facing explanation.',
+    priority: 'essential',
+    proposalVisible: true,
     pricingType: 'quote_only',
     quantityType: 'per_unit',
+    requiresAssessment: true,
     requiresCompatibilityCheck: true,
     requiresInstallation: true,
     requiresMeasurement: false,
+    requiresQuote: true,
     requiresSiteVisit: true,
     room,
+    section: room === 'connected' ? 'connected_room' : 'home_safety_package',
     shortDescription: 'Brief customer-facing explanation.',
     slug: `new-${room}-component`,
+    status: 'draft',
     vatRate: 0.21,
+    version: '1.0.0',
+    websiteVisible: true,
     wizardAreas: getPackageAreasForRoom(room),
+    wizardVisible: true,
   }
 }
 
@@ -1438,10 +1992,18 @@ function getServiceCsvValue(
   switch (column) {
     case 'active':
       return String(service.active)
+    case 'adminVisible':
+      return String(service.adminVisible ?? service.visibility?.admin ?? true)
     case 'componentRole':
       return service.componentRole ?? 'core'
+    case 'crmVisible':
+      return String(service.crmVisible ?? service.visibility?.crm ?? true)
     case 'customerBenefit':
       return service.customerBenefit
+    case 'customerDescription':
+      return service.customerDescription ?? service.shortDescription
+    case 'customerName':
+      return service.customerName ?? service.name
     case 'esCategory':
       return spanishCopy?.category ?? ''
     case 'esCustomerBenefit':
@@ -1456,28 +2018,70 @@ function getServiceCsvValue(
       return spanishCopy?.shortDescription ?? ''
     case 'fromPrice':
       return formatOptionalNumber(service.fromPrice)
+    case 'grantCategories':
+      return (service.grant?.categories ?? []).join('|')
+    case 'grantEligible':
+      return service.grant?.eligible === undefined ? '' : String(service.grant.eligible)
+    case 'grantEvidenceNeeded':
+      return (service.grant?.evidenceNeeded ?? []).join('|')
     case 'includedItems':
       return (service.includedItems ?? []).join('|')
+    case 'inspectorVisible':
+      return String(service.inspectorVisible ?? service.visibility?.inspector ?? true)
+    case 'internalName':
+      return service.internalName ?? service.name
     case 'installationPrice':
       return formatOptionalNumber(service.installationPrice)
+    case 'mobileVisible':
+      return String(service.mobileVisible ?? service.visibility?.mobile ?? true)
+    case 'outcome':
+      return service.outcome ?? service.customerBenefit
+    case 'plainLanguageSummary':
+      return service.plainLanguageSummary ?? service.shortDescription
+    case 'priority':
+      return service.priority ?? ((service.componentRole ?? 'core') === 'core' ? 'essential' : 'optional')
     case 'productPrice':
       return formatOptionalNumber(service.productPrice)
+    case 'proposalVisible':
+      return String(service.proposalVisible ?? service.visibility?.proposal ?? true)
     case 'recurringMonthlyPrice':
       return formatOptionalNumber(service.recurringMonthlyPrice)
+    case 'requiresAssessment':
+      return String(service.requiresAssessment ?? service.requiresSiteVisit ?? service.requiresMeasurement)
     case 'requiresCompatibilityCheck':
       return String(service.requiresCompatibilityCheck)
     case 'requiresInstallation':
       return String(service.requiresInstallation)
     case 'requiresMeasurement':
       return String(service.requiresMeasurement)
+    case 'requiresQuote':
+      return String(service.requiresQuote ?? service.pricingType === 'quote_only')
     case 'requiresSiteVisit':
       return String(service.requiresSiteVisit)
     case 'safetyNotice':
       return service.safetyNotice ?? ''
+    case 'section':
+      return service.section ?? ''
+    case 'smartDependencies':
+      return (service.smartDependencies ?? [])
+        .map((dependency) => `${dependency.dependencyType}:${dependency.internalName}:${dependency.required ? 'required' : 'optional'}`)
+        .join('|')
+    case 'status':
+      return service.status ?? (service.active ? 'active' : 'draft')
+    case 'typicalInstallationTime':
+      return service.typicalInstallationTime ?? ''
     case 'vatRate':
       return formatOptionalNumber(service.vatRate)
+    case 'vatReason':
+      return service.pricing?.vatReason ?? ''
+    case 'version':
+      return service.version ?? '1.0.0'
+    case 'websiteVisible':
+      return String(service.websiteVisible ?? service.visibility?.website ?? true)
     case 'wizardAreas':
       return (service.wizardAreas ?? getDefaultServicePackageAreas(service)).join('|')
+    case 'wizardVisible':
+      return String(service.wizardVisible ?? service.visibility?.wizard ?? true)
     default:
       return String(service[column] ?? '')
   }
@@ -1522,32 +2126,62 @@ function buildCatalogueImportPreview(
     const service: CasaMiaService = {
       ...template,
       active: parseBoolean(row.active, template.active),
+      adminVisible: parseBoolean(row.adminVisible, template.adminVisible ?? template.visibility?.admin ?? true),
       category: normaliseText(row.category) || template.category,
       componentRole: parseComponentRole(row.componentRole, row.priority, template.componentRole ?? 'core'),
+      crmVisible: parseBoolean(row.crmVisible, template.crmVisible ?? template.visibility?.crm ?? true),
       customerBenefit: normaliseText(row.customerBenefit) || template.customerBenefit,
+      customerDescription: normaliseText(row.customerDescription) || template.customerDescription || template.shortDescription,
+      customerName: normaliseText(row.customerName) || template.customerName || template.name,
       fromPrice: parseOptionalNumber(row.fromPrice, template.fromPrice),
+      grant: {
+        ...(template.grant ?? {}),
+        categories: parseList(row.grantCategories, template.grant?.categories),
+        eligible: parseBoolean(row.grantEligible, template.grant?.eligible ?? false),
+        evidenceNeeded: parseList(row.grantEvidenceNeeded, template.grant?.evidenceNeeded),
+      },
       id,
       includedItems: parseList(row.includedItems, template.includedItems),
+      inspectorVisible: parseBoolean(row.inspectorVisible, template.inspectorVisible ?? template.visibility?.inspector ?? true),
+      internalName: normaliseText(row.internalName) || template.internalName || template.name,
       installationPrice: parseOptionalNumber(row.installationPrice, template.installationPrice),
+      mobileVisible: parseBoolean(row.mobileVisible, template.mobileVisible ?? template.visibility?.mobile ?? true),
       name: normaliseText(row.name) || template.name,
+      outcome: normaliseText(row.outcome) || template.outcome || template.customerBenefit,
+      plainLanguageSummary: normaliseText(row.plainLanguageSummary) || template.plainLanguageSummary || template.shortDescription,
+      priority: parsePriority(row.priority, template.priority),
       pricingType: parsePricingType(row.pricingType, template.pricingType),
+      pricing: {
+        ...(template.pricing ?? {}),
+        vatReason: normaliseText(row.vatReason) || template.pricing?.vatReason,
+      },
       productPrice: parseOptionalNumber(row.productPrice, template.productPrice),
+      proposalVisible: parseBoolean(row.proposalVisible, template.proposalVisible ?? template.visibility?.proposal ?? true),
       quantityType: parseQuantityType(row.quantityType, template.quantityType),
       recurringMonthlyPrice: parseOptionalNumber(row.recurringMonthlyPrice, template.recurringMonthlyPrice),
+      requiresAssessment: parseBoolean(row.requiresAssessment, template.requiresAssessment ?? template.requiresSiteVisit),
       requiresCompatibilityCheck: parseBoolean(
         row.requiresCompatibilityCheck,
         template.requiresCompatibilityCheck,
       ),
       requiresInstallation: parseBoolean(row.requiresInstallation, template.requiresInstallation),
       requiresMeasurement: parseBoolean(row.requiresMeasurement, template.requiresMeasurement),
+      requiresQuote: parseBoolean(row.requiresQuote, template.requiresQuote ?? template.pricingType === 'quote_only'),
       requiresSiteVisit: parseBoolean(row.requiresSiteVisit, template.requiresSiteVisit),
       room: selectedRoom,
       safetyNotice: normaliseText(row.safetyNotice) || template.safetyNotice,
+      section: parseSection(row.section, template.section),
       shortDescription: normaliseText(row.shortDescription) || template.shortDescription,
+      smartDependencies: parseSmartDependencies(row.smartDependencies, template.smartDependencies),
       slug: normaliseText(row.slug) || template.slug,
+      status: parseStatus(row.status, template.status),
+      typicalInstallationTime: normaliseText(row.typicalInstallationTime) || template.typicalInstallationTime,
       translations: buildSpanishTranslation(row, template.translations),
       vatRate: parseVatRate(row.vatRate, template.vatRate) ?? 0.21,
+      version: normaliseText(row.version) || template.version || '1.0.0',
+      websiteVisible: parseBoolean(row.websiteVisible, template.websiteVisible ?? template.visibility?.website ?? true),
       wizardAreas: parsePackageAreas(row.wizardAreas, template.wizardAreas ?? getPackageAreasForRoom(selectedRoom)),
+      wizardVisible: parseBoolean(row.wizardVisible, template.wizardVisible ?? template.visibility?.wizard ?? true),
     }
 
     services.push(service)
@@ -1644,8 +2278,8 @@ function csvEscape(value: string) {
   return `"${value.replace(/"/g, '""')}"`
 }
 
-function downloadTextFile(fileName: string, content: string) {
-  const blob = new Blob([content], { type: 'text/csv;charset=utf-8' })
+function downloadTextFile(fileName: string, content: string, type = 'text/csv;charset=utf-8') {
+  const blob = new Blob([content], { type })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
   link.href = url
@@ -1699,6 +2333,29 @@ function parseComponentRole(
   return fallback
 }
 
+function parsePriority(value: string | undefined, fallback: ServicePriority | undefined): ServicePriority {
+  const cleaned = normaliseText(value).toLowerCase()
+  if (cleaned === 'optional') return 'optional'
+  if (cleaned === 'recommended') return 'recommended'
+  if (cleaned === 'essential') return 'essential'
+  return fallback ?? 'essential'
+}
+
+function parseSection(
+  value: string | undefined,
+  fallback: ServiceCatalogueSection | undefined,
+): ServiceCatalogueSection {
+  const cleaned = normaliseText(value).toLowerCase()
+  if (sectionOptions.some((option) => option.value === cleaned)) return cleaned as ServiceCatalogueSection
+  return fallback ?? 'home_safety_package'
+}
+
+function parseStatus(value: string | undefined, fallback: CasaMiaService['status']) {
+  const cleaned = normaliseText(value).toLowerCase()
+  if (cleaned === 'draft' || cleaned === 'active' || cleaned === 'deprecated') return cleaned
+  return fallback ?? 'active'
+}
+
 function parsePricingType(value: string | undefined, fallback: PricingType) {
   const cleaned = normaliseText(value)
   if (cleaned === 'quote') return 'quote_only'
@@ -1721,6 +2378,28 @@ function parseVatRate(value: string | undefined, fallback: number | undefined) {
   const parsed = parseOptionalNumber(value, fallback)
   if (parsed === undefined) return fallback
   return parsed > 1 ? parsed / 100 : parsed
+}
+
+function parseSmartDependencies(
+  value: string | undefined,
+  fallback: CasaMiaService['smartDependencies'],
+): CasaMiaService['smartDependencies'] {
+  const entries = parseList(value, undefined)
+  if (!entries) return fallback
+
+  return entries
+    .map((entry) => {
+      const [dependencyType, internalName, required] = entry.split(':').map((part) => part.trim())
+
+      if (!dependencyType || !internalName) return undefined
+
+      return {
+        dependencyType: dependencyType as NonNullable<CasaMiaService['smartDependencies']>[number]['dependencyType'],
+        internalName,
+        required: required !== 'optional',
+      }
+    })
+    .filter(Boolean) as CasaMiaService['smartDependencies']
 }
 
 function parsePackageAreas(value: string | undefined, fallback: ServicePackageArea[]) {

@@ -283,7 +283,7 @@ function recommendServices(
   const isSpanish = locale.startsWith('es')
 
   return services
-    .filter((service) => service.active)
+    .filter((service) => service.active && (service.wizardVisible ?? service.visibility?.wizard ?? true))
     .flatMap((service) => {
       const categories = service.evidenceCategories?.length
         ? service.evidenceCategories
@@ -304,9 +304,9 @@ function recommendServices(
         score,
         recommendation: {
           serviceId: service.id,
-          name: service.name,
+          name: service.customerName ?? service.name,
           room: service.room,
-          customerBenefit: service.customerBenefit,
+          customerBenefit: service.outcome ?? service.customerBenefit,
           priceLabel: formatServicePrice(service),
           reason: service.evidenceReason
             ?? (isSpanish
@@ -347,7 +347,11 @@ export function findBestServiceForPhotoAnalysis(
   services: CasaMiaService[],
 ) {
   return services
-    .filter((service) => service.active && serviceMatchesRoom(service, room))
+    .filter((service) =>
+      service.active
+      && (service.wizardVisible ?? service.visibility?.wizard ?? true)
+      && serviceMatchesRoom(service, room),
+    )
     .flatMap((service) => {
       const categories = service.evidenceCategories?.length
         ? service.evidenceCategories
@@ -377,8 +381,12 @@ export function findBestServiceForPhotoAnalysis(
 export function inferEvidenceCategories(service: CasaMiaService): SafetyFindingCategory[] {
   const text = normalise([
     service.name,
+    service.customerName,
+    service.internalName,
     service.category,
     service.shortDescription,
+    service.customerDescription,
+    service.outcome,
     service.customerBenefit,
     ...(service.includedItems ?? []),
   ].join(' '))

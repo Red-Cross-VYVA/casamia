@@ -1,0 +1,314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://casamia.com.es/schemas/master-service-catalogue.schema.json",
+  "title": "CasaMia Master Service Catalogue",
+  "type": "object",
+  "required": ["catalogueVersion", "country", "rooms", "sections", "items"],
+  "properties": {
+    "catalogueVersion": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string",
+      "description": "ISO country code for country-specific pricing, VAT, grants and compliance."
+    },
+    "rooms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/room"
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/section"
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/item"
+      }
+    }
+  },
+  "$defs": {
+    "localizedString": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "examples": [
+        {
+          "en": "Safer Bathroom Access",
+          "es": "Acceso más seguro al baño"
+        }
+      ]
+    },
+    "visibility": {
+      "type": "object",
+      "properties": {
+        "website": { "type": "boolean" },
+        "wizard": { "type": "boolean" },
+        "proposal": { "type": "boolean" },
+        "inspector": { "type": "boolean" },
+        "crm": { "type": "boolean" },
+        "mobile": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "requirements": {
+      "type": "object",
+      "properties": {
+        "installationRequired": { "type": "boolean" },
+        "assessmentRequired": { "type": "boolean" },
+        "siteVisitRequired": { "type": "boolean" },
+        "measurementRequired": { "type": "boolean" },
+        "compatibilityCheckRequired": { "type": "boolean" },
+        "quoteRequired": { "type": "boolean" },
+        "ownerPermissionRequired": { "type": "boolean" },
+        "consentRequired": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "pricing": {
+      "type": "object",
+      "required": ["model", "vatRate", "quantityType"],
+      "properties": {
+        "model": {
+          "enum": ["package_included", "fixed", "from", "quote_only", "recurring", "blended"]
+        },
+        "productCost": { "type": "number" },
+        "installationCost": { "type": "number" },
+        "startingPrice": { "type": "number" },
+        "packagePriceContribution": { "type": "number" },
+        "recurringMonthlyPrice": { "type": "number" },
+        "vatRate": { "type": "number" },
+        "vatReason": { "type": "string" },
+        "quantityType": {
+          "enum": ["per_home", "per_room", "per_unit", "per_metre", "per_square_metre", "per_project"]
+        },
+        "minimumQuantity": { "type": "number" },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "grant": {
+      "type": "object",
+      "properties": {
+        "eligible": { "type": "boolean" },
+        "categories": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "evidenceNeeded": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "component": {
+      "type": "object",
+      "required": ["type", "internalName"],
+      "properties": {
+        "type": {
+          "enum": ["hardware", "software", "installation", "configuration", "assessment", "partner_work", "service"]
+        },
+        "internalName": { "type": "string" },
+        "customerVisible": { "type": "boolean" },
+        "supplier": { "type": "string" },
+        "sku": { "type": "string" },
+        "cost": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "media": {
+      "type": "object",
+      "properties": {
+        "primaryImage": { "type": "string" },
+        "relatedImages": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "beforeAfterGallery": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "icon": { "type": "string" },
+        "roomVisual": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "recommendationRule": {
+      "type": "object",
+      "required": ["source", "reason"],
+      "properties": {
+        "source": {
+          "enum": ["wizard", "photo_analysis", "inspector", "grant", "crm", "ai"]
+        },
+        "answerKey": { "type": "string" },
+        "matches": {},
+        "riskCategory": { "type": "string" },
+        "confidence": {
+          "enum": ["low", "medium", "high"]
+        },
+        "reason": { "type": "string" },
+        "missingEvidence": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "room": {
+      "type": "object",
+      "required": ["id", "slug", "active", "sortOrder", "customerName"],
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "active": { "type": "boolean" },
+        "sortOrder": { "type": "number" },
+        "customerName": { "$ref": "#/$defs/localizedString" },
+        "description": { "$ref": "#/$defs/localizedString" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "section": {
+      "type": "object",
+      "required": ["id", "roomId", "type", "active", "sortOrder", "customerName", "pricing"],
+      "properties": {
+        "id": { "type": "string" },
+        "roomId": { "type": "string" },
+        "type": {
+          "enum": ["home_safety_package", "connected_room", "optional_adaptations"]
+        },
+        "active": { "type": "boolean" },
+        "sortOrder": { "type": "number" },
+        "customerName": { "$ref": "#/$defs/localizedString" },
+        "description": { "$ref": "#/$defs/localizedString" },
+        "pricing": { "$ref": "#/$defs/pricing" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "id",
+        "slug",
+        "version",
+        "active",
+        "status",
+        "country",
+        "roomId",
+        "sectionId",
+        "category",
+        "coreOrOptional",
+        "customerName",
+        "internalName",
+        "customerDescription",
+        "customerBenefit",
+        "visibility",
+        "requirements",
+        "pricing"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "version": { "type": "string" },
+        "active": { "type": "boolean" },
+        "status": {
+          "enum": ["draft", "active", "deprecated"]
+        },
+        "country": { "type": "string" },
+        "roomId": { "type": "string" },
+        "sectionId": { "type": "string" },
+        "category": { "type": "string" },
+        "coreOrOptional": {
+          "enum": ["core", "optional"]
+        },
+        "priority": {
+          "enum": ["essential", "recommended", "optional"]
+        },
+        "customerName": { "$ref": "#/$defs/localizedString" },
+        "internalName": { "type": "string" },
+        "customerDescription": { "$ref": "#/$defs/localizedString" },
+        "customerBenefit": { "$ref": "#/$defs/localizedString" },
+        "plainLanguageSummary": { "$ref": "#/$defs/localizedString" },
+        "visibility": { "$ref": "#/$defs/visibility" },
+        "requirements": { "$ref": "#/$defs/requirements" },
+        "pricing": { "$ref": "#/$defs/pricing" },
+        "grant": { "$ref": "#/$defs/grant" },
+        "typicalInstallationTime": { "type": "string" },
+        "includedComponents": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/component" }
+        },
+        "relatedServices": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "exclusions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "inspectionQuestions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "installerChecklist": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "handoverChecklist": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "safetyNotes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "recommendationRules": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/recommendationRule" }
+        },
+        "media": { "$ref": "#/$defs/media" },
+        "crmStageMappings": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "analyticsEvents": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "aiRecommendationHints": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

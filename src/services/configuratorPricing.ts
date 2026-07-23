@@ -54,7 +54,7 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
 
     lines.push({
       id: service.id,
-      label: service.name,
+      label: getServiceCustomerLabel(service),
       serviceId: service.id,
       quantity,
       unitPrice: oneTimeUnitPrice,
@@ -70,7 +70,7 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
     if (service.recurringMonthlyPrice) {
       lines.push({
         id: `${service.id}-monthly`,
-        label: `${service.name} monthly support`,
+        label: `${getServiceCustomerLabel(service)} monthly support`,
         serviceId: service.id,
         quantity,
         unitPrice: 0,
@@ -84,7 +84,7 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
     if (service.pricingType === 'quote_only') {
       quotationOnlyItems.push({
         id: service.id,
-        label: service.name,
+        label: getServiceCustomerLabel(service),
         type: 'quotation-only',
         customerNote: service.safetyNotice,
       })
@@ -92,7 +92,7 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
 
     if (service.requiresSiteVisit || service.requiresMeasurement || service.requiresCompatibilityCheck) {
       siteConfirmationItems.push({
-        label: service.name,
+        label: getServiceCustomerLabel(service),
         reason: getServiceConfirmationReason(service),
       })
     }
@@ -113,6 +113,10 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
     totalEstimate: oneTimeSubtotal + vat,
     deposit: lines.length > 0 ? configuratorPricing.depositAmount : 0,
   }
+}
+
+function getServiceCustomerLabel(service: CasaMiaService) {
+  return service.customerName ?? service.name
 }
 
 function getSelectedServiceQuantity(service: CasaMiaService, state: ConfiguratorState) {

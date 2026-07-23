@@ -3,10 +3,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { casaMiaServices } from '../config/serviceCatalogue.ts'
 import { defaultSpanishServiceCopy } from '../config/serviceCatalogueSpanishCopy.ts'
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
+import { flattenMasterCatalogueForCompatibility } from './masterServiceCatalogue.ts'
 import { getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 import type {
   CasaMiaService,
   EditableServiceCatalogue,
+  ServiceCatalogueSection,
   ServicePackageConfig,
   ServicePackageArea,
   ServiceRoom,
@@ -27,16 +29,35 @@ type ServiceCatalogueSaveResult = ServiceCatalogueLoadResult & {
 }
 
 export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
+  const masterRooms = new Set(['bathroom', 'bedroom'])
+
   return {
     packageConfigs: getDefaultPackageConfigs(),
-    services: clone(casaMiaServices).map(withPackageAreaDefaults),
+    services: [
+      ...flattenMasterCatalogueForCompatibility(),
+      ...clone(casaMiaServices).filter((service) => !masterRooms.has(service.room)),
+    ].map(withPackageAreaDefaults),
   }
 }
 
 export function getDefaultPackageConfigs(): ServicePackageConfig[] {
   return [
-    { active: true, area: 'bathroom', name: 'Safer bathroom', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'bedroom', name: 'Restful bedroom', pricingType: 'quote_only', vatRate: 0.21 },
+    {
+      active: true,
+      area: 'bathroom',
+      name: 'Safer Bathroom Access',
+      pricingType: 'quote_only',
+      section: 'home_safety_package',
+      vatRate: 0.21,
+    },
+    {
+      active: true,
+      area: 'bedroom',
+      name: 'Easier Bedroom Comfort',
+      pricingType: 'quote_only',
+      section: 'home_safety_package',
+      vatRate: 0.21,
+    },
     { active: true, area: 'kitchen', name: 'Confident kitchen', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'living-room', name: 'Comfortable movement', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'stairs', name: 'Safer stairs', pricingType: 'quote_only', vatRate: 0.21 },
@@ -327,15 +348,72 @@ function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {
     ...(defaultSpanishTranslation ? { es: defaultSpanishTranslation } : {}),
     ...(service.translations ?? {}),
   }
+  const componentRole = service.componentRole ?? (service.priority === 'optional' ? 'option' : 'core')
+  const section = service.section ?? getDefaultCatalogueSection(service)
+  const requiresQuote = service.requiresQuote ?? service.pricingType === 'quote_only'
 
   return {
     ...service,
-    componentRole: service.componentRole ?? 'core',
+    adminVisible: service.adminVisible ?? service.visibility?.admin ?? true,
+    componentRole,
+    crmVisible: service.crmVisible ?? service.visibility?.crm ?? true,
+    customerDescription: service.customerDescription ?? service.shortDescription,
+    customerName: service.customerName ?? service.name,
+    grant: {
+      eligible: false,
+      ...(service.grant ?? {}),
+    },
+    inspectorVisible: service.inspectorVisible ?? service.visibility?.inspector ?? true,
+    internalName: service.internalName ?? service.name,
+    mobileVisible: service.mobileVisible ?? service.visibility?.mobile ?? true,
+    outcome: service.outcome ?? service.customerBenefit,
+    plainLanguageSummary: service.plainLanguageSummary ?? service.shortDescription,
+    priority: service.priority ?? (componentRole === 'option' ? 'optional' : 'essential'),
+    proposalVisible: service.proposalVisible ?? service.visibility?.proposal ?? true,
+    requiresAssessment: service.requiresAssessment ?? service.requiresSiteVisit ?? service.requiresMeasurement,
+    requiresQuote,
+    requirements: {
+      assessment: service.requiresAssessment ?? service.requiresSiteVisit ?? service.requiresMeasurement,
+      compatibilityCheck: service.requiresCompatibilityCheck,
+      installation: service.requiresInstallation,
+      measurement: service.requiresMeasurement,
+      quote: requiresQuote,
+      siteVisit: service.requiresSiteVisit,
+      ...(service.requirements ?? {}),
+    },
+    section,
+    status: service.status ?? (service.active ? 'active' : 'draft'),
+    version: service.version ?? '1.0.0',
+    visibility: {
+      admin: service.adminVisible ?? service.visibility?.admin ?? true,
+      crm: service.crmVisible ?? service.visibility?.crm ?? true,
+      inspector: service.inspectorVisible ?? service.visibility?.inspector ?? true,
+      mobile: service.mobileVisible ?? service.visibility?.mobile ?? true,
+      proposal: service.proposalVisible ?? service.visibility?.proposal ?? true,
+      website: service.websiteVisible ?? service.visibility?.website ?? true,
+      wizard: service.wizardVisible ?? service.visibility?.wizard ?? true,
+    },
+    websiteVisible: service.websiteVisible ?? service.visibility?.website ?? true,
     wizardAreas: Array.isArray(service.wizardAreas)
       ? service.wizardAreas
       : getDefaultServicePackageAreas(service),
+    wizardVisible: service.wizardVisible ?? service.visibility?.wizard ?? true,
     translations: Object.keys(translations).length > 0 ? translations : undefined,
   }
+}
+
+export function getDefaultCatalogueSection(service: CasaMiaService): ServiceCatalogueSection {
+  if ((service.componentRole ?? 'core') === 'option' || service.requiresQuote || service.pricingType === 'quote_only') {
+    return 'optional_adaptations'
+  }
+
+  const searchable = `${service.id} ${service.name} ${service.category}`.toLowerCase()
+
+  if (/smart|sensor|alert|monitor|voice|connected|emergency|routine|reminder|speaker/.test(searchable)) {
+    return 'connected_room'
+  }
+
+  return 'home_safety_package'
 }
 
 function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | undefined): EditableServiceCatalogue {

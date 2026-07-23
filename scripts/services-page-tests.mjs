@@ -5,12 +5,12 @@ const page = await readFile(new URL('../src/pages/ServicesPage.tsx', import.meta
 
 assert.match(
   page,
-  /useServiceCatalogue\(\)/,
+  /use(?:Localized)?ServiceCatalogue\(/,
   'The Services page must read the public catalogue managed from the admin panel.',
 )
 assert.match(
   page,
-  /catalogue\.services\.filter\(\s*\(?\s*service\s*\)?\s*=>\s*service\.active\s*\)/,
+  /catalogue\.services\.filter\([\s\S]*service\.active/,
   'Only active admin-catalogue services should be offered to customers.',
 )
 assert.match(
