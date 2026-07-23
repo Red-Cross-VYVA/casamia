@@ -1,10 +1,11 @@
-import { Mail, Menu, X } from 'lucide-react'
+import { ChevronDown, Mail, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import { needLandingPages } from '../constants/needLandingPages'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
@@ -21,6 +22,30 @@ function getAssessmentPath() {
 function isActiveLink(pathname: string, link: HeaderLink) {
   return link.match.some((matchPath) => pathname === matchPath || pathname.startsWith(`${matchPath}/`))
 }
+
+const solutionMenuGroups = [
+  {
+    title: 'Bathroom safety',
+    slugs: ['bathroom-safety-for-seniors', 'safe-bathroom-access'],
+  },
+  {
+    title: 'Falls & assessment',
+    slugs: [
+      'fall-prevention-at-home',
+      'aging-in-place-home-assessment',
+      'home-adaptations-for-elderly',
+      'home-safety-after-hospital-discharge',
+    ],
+  },
+  {
+    title: 'Bedroom & connected living',
+    slugs: ['senior-bedroom-safety', 'connected-home-for-seniors'],
+  },
+  {
+    title: 'Grants',
+    slugs: ['grants-for-home-adaptations-spain'],
+  },
+] as const
 
 export function Nav() {
   const { t } = useTranslation()
@@ -39,7 +64,11 @@ export function Nav() {
 
   const links: HeaderLink[] = [
     { label: navLabels.home, to: '/#top', match: ['/'] },
-    { label: navLabels.solutions, to: '/services', match: ['/services', '/plans'] },
+    {
+      label: navLabels.solutions,
+      to: '/services',
+      match: ['/services', '/plans', ...needLandingPages.map((page) => page.path)],
+    },
     { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
     { label: navLabels.organisations, to: '/assisted-living-solutions', match: ['/assisted-living-solutions'] },
     { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources'] },
@@ -61,6 +90,47 @@ export function Nav() {
         <div className="site-header-links">
           {desktopLinks.map((link) => {
             const active = isActiveLink(location.pathname, link)
+
+            if (link.to === '/services') {
+              return (
+                <div className="site-header-menu-group" key={link.to}>
+                  <Link
+                    aria-current={active ? 'page' : undefined}
+                    className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
+                    to={link.to}
+                  >
+                    {link.label}
+                    <ChevronDown size={15} aria-hidden="true" />
+                  </Link>
+                  <div className="site-header-mega-menu" aria-label="CasaMia solutions by need">
+                    <div className="site-header-mega-panel">
+                      <div className="site-header-mega-intro">
+                        <span>Solutions by need</span>
+                        <strong>Start from the concern, not the product.</strong>
+                        <Link to="/services">
+                          View full service catalogue
+                        </Link>
+                      </div>
+                      <div className="site-header-mega-grid">
+                        {solutionMenuGroups.map((group) => (
+                          <div className="site-header-mega-column" key={group.title}>
+                            <p>{group.title}</p>
+                            {group.slugs.map((slug) => {
+                              const page = needLandingPages.find((item) => item.slug === slug)
+                              return page ? (
+                                <Link key={page.slug} to={page.path}>
+                                  {page.title}
+                                </Link>
+                              ) : null
+                            })}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
 
             return (
               <Link
@@ -122,6 +192,22 @@ export function Nav() {
                 </Link>
               )
             })}
+            <div className="site-mobile-needs">
+              <p>Popular needs</p>
+              {solutionMenuGroups.map((group) => (
+                <div key={group.title}>
+                  <span>{group.title}</span>
+                  {group.slugs.map((slug) => {
+                    const page = needLandingPages.find((item) => item.slug === slug)
+                    return page ? (
+                      <Link key={page.slug} to={page.path}>
+                        {page.title}
+                      </Link>
+                    ) : null
+                  })}
+                </div>
+              ))}
+            </div>
             <a
               className="nav-link min-h-12 py-2 text-lg"
               href={`mailto:${CASAMIA_CONTACT_EMAIL}`}
