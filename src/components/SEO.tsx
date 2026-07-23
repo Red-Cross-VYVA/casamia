@@ -5,6 +5,8 @@ import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE } from '../constants/conta
 
 const defaultSiteUrl = 'https://casamia.com.es'
 const defaultSocialImage = '/images/solutions/portrait-lovely-couple-together.jpg'
+const defaultSocialImageWidth = '1200'
+const defaultSocialImageHeight = '630'
 
 type SEOProps = {
   title: string
@@ -39,9 +41,14 @@ export function SEO({
     setMeta('og:title', fullTitle, 'property')
     setMeta('og:description', description, 'property')
     setMeta('og:url', canonicalUrl, 'property')
+    setMeta('og:site_name', 'CasaMia', 'property')
     setMeta('og:type', 'website', 'property')
     setMeta('og:locale', language === 'es' ? 'es_ES' : 'en_IE', 'property')
     setMeta('og:image', socialImageUrl, 'property')
+    setMeta('og:image:secure_url', socialImageUrl, 'property')
+    setMeta('og:image:type', getImageMimeType(socialImageUrl), 'property')
+    setMeta('og:image:width', defaultSocialImageWidth, 'property')
+    setMeta('og:image:height', defaultSocialImageHeight, 'property')
     setMeta('og:image:alt', fullTitle, 'property')
     setMeta('twitter:card', 'summary_large_image')
     setMeta('twitter:title', fullTitle)
@@ -76,6 +83,20 @@ function setCanonical(href: string) {
   }
 
   element.href = href
+}
+
+function getImageMimeType(url: string) {
+  const pathname = new URL(url).pathname.toLowerCase()
+
+  if (pathname.endsWith('.png')) {
+    return 'image/png'
+  }
+
+  if (pathname.endsWith('.webp')) {
+    return 'image/webp'
+  }
+
+  return 'image/jpeg'
 }
 
 function setSchema(schema?: Record<string, unknown> | Record<string, unknown>[]) {

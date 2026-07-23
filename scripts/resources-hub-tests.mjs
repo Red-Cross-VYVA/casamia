@@ -94,6 +94,16 @@ assert.match(
   'The shared SEO component must publish Open Graph and Twitter social preview images.',
 )
 assert.match(
+  seo,
+  /setMeta\('og:site_name', 'CasaMia'[\s\S]*setMeta\('og:image:secure_url'[\s\S]*setMeta\('og:image:width'[\s\S]*setMeta\('og:image:height'/,
+  'The shared SEO component must publish complete social preview metadata.',
+)
+assert.match(
+  seo,
+  /function getImageMimeType[\s\S]*image\/png[\s\S]*image\/webp[\s\S]*image\/jpeg/,
+  'The shared SEO component must identify common social preview image MIME types.',
+)
+assert.match(
   globalStyles,
   /\.blog-next-step-card[\s\S]*\.blog-next-step-actions/,
   'Resource article next-step blocks must have dedicated styling.',
