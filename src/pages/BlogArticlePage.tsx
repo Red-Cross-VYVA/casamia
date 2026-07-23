@@ -7,6 +7,8 @@ import { SafeImage } from '../components/SafeImage'
 import { blogArticles } from '../constants/blogContent'
 import { localizeBlogArticle, localizeBlogArticles } from '../constants/blogContentLocalization'
 
+const siteUrl = 'https://casamia.com.es'
+
 const articleShellCopy = {
   en: {
     resources: 'Resources',
@@ -62,6 +64,8 @@ export function BlogArticlePage() {
   }
 
   const article = localizeBlogArticle(baseArticle, language)
+  const articleUrl = `${siteUrl}${article.path}`
+  const articleImageUrl = new URL(article.image, siteUrl).toString()
   const relatedArticles = localizeBlogArticles(
     blogArticles.filter((item) => item.id !== article.id),
     language,
@@ -78,21 +82,28 @@ export function BlogArticlePage() {
           {
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
+            '@id': `${articleUrl}#article`,
             headline: article.title,
             description: article.description,
-            image: article.image,
+            image: [articleImageUrl],
             datePublished: article.date,
             dateModified: article.date,
+            articleSection: article.category,
             keywords: article.keywords.join(', '),
             author: {
               '@type': 'Organization',
+              '@id': `${siteUrl}/#organization`,
               name: 'CasaMia',
             },
             publisher: {
               '@type': 'Organization',
+              '@id': `${siteUrl}/#organization`,
               name: 'CasaMia',
             },
-            mainEntityOfPage: article.path,
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': articleUrl,
+            },
           },
           {
             '@context': 'https://schema.org',
@@ -102,19 +113,19 @@ export function BlogArticlePage() {
                 '@type': 'ListItem',
                 position: 1,
                 name: 'Home',
-                item: 'https://casamia.com.es/',
+                item: `${siteUrl}/`,
               },
               {
                 '@type': 'ListItem',
                 position: 2,
                 name: copy.resources,
-                item: 'https://casamia.com.es/blog',
+                item: `${siteUrl}/blog`,
               },
               {
                 '@type': 'ListItem',
                 position: 3,
                 name: article.title,
-                item: `https://casamia.com.es${article.path}`,
+                item: articleUrl,
               },
             ],
           },

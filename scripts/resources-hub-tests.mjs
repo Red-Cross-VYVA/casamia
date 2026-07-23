@@ -73,6 +73,16 @@ assert.match(
   'Resource article pages must include a practical next-step action block.',
 )
 assert.match(
+  articlePage,
+  /const siteUrl = 'https:\/\/casamia\.com\.es'[\s\S]*articleUrl[\s\S]*articleImageUrl/,
+  'Resource article pages must build absolute canonical URLs for structured data.',
+)
+assert.match(
+  articlePage,
+  /'@type': 'BlogPosting'[\s\S]*'@id': `\$\{articleUrl\}#article`[\s\S]*mainEntityOfPage:[\s\S]*'@id': articleUrl/,
+  'Resource article structured data must identify the canonical article page.',
+)
+assert.match(
   globalStyles,
   /\.blog-next-step-card[\s\S]*\.blog-next-step-actions/,
   'Resource article next-step blocks must have dedicated styling.',
