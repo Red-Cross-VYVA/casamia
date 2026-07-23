@@ -78,6 +78,7 @@ export function BlogArticlePage() {
         title={article.title}
         description={article.description}
         path={article.path}
+        image={article.image}
         schema={[
           {
             '@context': 'https://schema.org',

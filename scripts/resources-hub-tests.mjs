@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises'
 const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
+const seo = await readFile(new URL('../src/components/SEO.tsx', import.meta.url), 'utf8')
 const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/resources-hub.css', import.meta.url), 'utf8')
 
@@ -81,6 +82,16 @@ assert.match(
   articlePage,
   /'@type': 'BlogPosting'[\s\S]*'@id': `\$\{articleUrl\}#article`[\s\S]*mainEntityOfPage:[\s\S]*'@id': articleUrl/,
   'Resource article structured data must identify the canonical article page.',
+)
+assert.match(
+  articlePage,
+  /<SEO[\s\S]*image=\{article\.image\}/,
+  'Resource article pages must use article-specific social preview images.',
+)
+assert.match(
+  seo,
+  /defaultSocialImage[\s\S]*setMeta\('og:image'[\s\S]*setMeta\('twitter:image'/,
+  'The shared SEO component must publish Open Graph and Twitter social preview images.',
 )
 assert.match(
   globalStyles,

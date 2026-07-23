@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next'
 import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE } from '../constants/contact'
 
 const defaultSiteUrl = 'https://casamia.com.es'
+const defaultSocialImage = '/images/solutions/portrait-lovely-couple-together.jpg'
 
 type SEOProps = {
   title: string
   description: string
   path?: string
+  image?: string
   noindex?: boolean
   schema?: Record<string, unknown> | Record<string, unknown>[]
 }
@@ -17,6 +19,7 @@ export function SEO({
   title,
   description,
   path = '/',
+  image = defaultSocialImage,
   noindex = false,
   schema,
 }: SEOProps) {
@@ -25,6 +28,7 @@ export function SEO({
   useEffect(() => {
     const siteUrl = import.meta.env.VITE_SITE_URL || defaultSiteUrl
     const canonicalUrl = new URL(path, siteUrl).toString()
+    const socialImageUrl = new URL(image, siteUrl).toString()
     const fullTitle = title.includes('CasaMia') ? title : `${title} | CasaMia`
     const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
 
@@ -37,10 +41,15 @@ export function SEO({
     setMeta('og:url', canonicalUrl, 'property')
     setMeta('og:type', 'website', 'property')
     setMeta('og:locale', language === 'es' ? 'es_ES' : 'en_IE', 'property')
+    setMeta('og:image', socialImageUrl, 'property')
+    setMeta('og:image:alt', fullTitle, 'property')
     setMeta('twitter:card', 'summary_large_image')
+    setMeta('twitter:title', fullTitle)
+    setMeta('twitter:description', description)
+    setMeta('twitter:image', socialImageUrl)
     setCanonical(canonicalUrl)
     setSchema(buildSchemas(siteUrl, language, schema))
-  }, [description, i18n.language, noindex, path, schema, title])
+  }, [description, i18n.language, image, noindex, path, schema, title])
 
   return null
 }
