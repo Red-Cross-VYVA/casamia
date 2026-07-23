@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
+const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
 const seo = await readFile(new URL('../src/components/SEO.tsx', import.meta.url), 'utf8')
 const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
@@ -67,6 +68,16 @@ assert.match(
   nav,
   /Recursos por situación[\s\S]*Ver todos los recursos/,
   'The Resources navigation must include Spanish copy.',
+)
+assert.match(
+  footer,
+  /resourcesTitle: 'Useful resources'[\s\S]*Printable home checklist[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*bathroom-safety-seniors-costly-mistakes/,
+  'The global footer must expose practical Resources links for discovery and SEO.',
+)
+assert.match(
+  footer,
+  /resourcesTitle: 'Recursos útiles'[\s\S]*Lista para imprimir[\s\S]*Guía de prevención de caídas/,
+  'The global footer Resources links must include Spanish copy.',
 )
 assert.match(
   articlePage,

@@ -21,6 +21,12 @@ const footerLinkCopy = {
     visit: 'Book a Home Safety Visit',
     beforeAfter: 'Before & After Projects',
     needs: 'Popular needs',
+    resourcesTitle: 'Useful resources',
+    checklist: 'Printable home checklist',
+    onlineCheck: 'Online safety review',
+    grantsGuide: 'Grants and paperwork',
+    fallPrevention: 'Fall prevention guide',
+    bathroomSafety: 'Bathroom safety guide',
     preferences: 'Cookie preferences',
   },
   es: {
@@ -34,6 +40,12 @@ const footerLinkCopy = {
     visit: 'Reservar visita de seguridad',
     beforeAfter: 'Antes y después de adaptaciones',
     needs: 'Necesidades frecuentes',
+    resourcesTitle: 'Recursos útiles',
+    checklist: 'Lista para imprimir',
+    onlineCheck: 'Revisión online de seguridad',
+    grantsGuide: 'Ayudas y documentación',
+    fallPrevention: 'Guía de prevención de caídas',
+    bathroomSafety: 'Guía de seguridad en el baño',
     preferences: 'Preferencias de cookies',
   },
 } as const
@@ -58,6 +70,13 @@ export function Footer() {
     { label: links.beforeAfter, to: '/before-after' },
     { label: language === 'es' ? 'Ayudas Plan Adapta' : 'Plan Adapta Grants', to: '/plan-adapta' },
     { label: links.visit, to: '/home-safety-assessment' },
+  ]
+  const resourceLinks = [
+    { label: links.checklist, to: '/blog' },
+    { label: links.onlineCheck, to: '/home-safety-assessment#self-inspection-tool' },
+    { label: links.grantsGuide, to: '/blog/home-adaptation-grants-spain-family-guide' },
+    { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },
+    { label: links.bathroomSafety, to: '/blog/bathroom-safety-seniors-costly-mistakes' },
   ]
   const needLinks = needLandingPages
     .filter((page) => page.footerVisible !== false)
@@ -102,6 +121,13 @@ export function Footer() {
               {link.label}
             </Link>
           ))}
+          <FooterSubColumn title={links.resourcesTitle}>
+            {resourceLinks.map((link) => (
+              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+                {link.label}
+              </Link>
+            ))}
+          </FooterSubColumn>
         </FooterColumn>
 
         <FooterColumn title={links.needs}>
@@ -143,6 +169,21 @@ function FooterColumn({
     <div>
       <h2 className="mb-4 text-sm font-extrabold uppercase text-white">{title}</h2>
       <div className="flex flex-col gap-3 text-white/70">{children}</div>
+    </div>
+  )
+}
+
+function FooterSubColumn({
+  title,
+  children,
+}: {
+  title: string
+  children: ReactNode
+}) {
+  return (
+    <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5">
+      <h3 className="text-xs font-extrabold uppercase tracking-[0.18em] text-white/50">{title}</h3>
+      {children}
     </div>
   )
 }
