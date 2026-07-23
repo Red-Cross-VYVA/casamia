@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
-import { getNeedLandingPage, needLandingPages } from '../constants/needLandingPages'
+import { allNeedLandingPages, getNeedLandingPage } from '../constants/needLandingPages'
 import { formatServicePrice, getServicesForPackageArea } from '../services/serviceCatalogue'
 import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceCatalogueSection, ServicePackageArea } from '../types/serviceCatalogue'
@@ -78,7 +78,7 @@ export function NeedLandingPage() {
     },
   ]
 
-  const siblingPages = needLandingPages.filter((item) => item.slug !== page.slug).slice(0, 4)
+  const siblingPages = allNeedLandingPages.filter((item) => item.slug !== page.slug).slice(0, 4)
   const catalogueServices = useMemo(
     () => getNeedCatalogueServices(page.slug, catalogue.services),
     [catalogue.services, page.slug],

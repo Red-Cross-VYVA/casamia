@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
-import { needLandingPages } from '../constants/needLandingPages'
+import { allNeedLandingPages, needLandingPages } from '../constants/needLandingPages'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
@@ -67,7 +67,7 @@ export function Nav() {
     {
       label: navLabels.solutions,
       to: '/services',
-      match: ['/services', '/plans', ...needLandingPages.map((page) => page.path)],
+      match: ['/services', '/plans', ...allNeedLandingPages.map((page) => page.path)],
     },
     { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
     { label: navLabels.organisations, to: '/assisted-living-solutions', match: ['/assisted-living-solutions'] },
