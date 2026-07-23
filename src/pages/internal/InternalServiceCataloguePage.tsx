@@ -1228,8 +1228,8 @@ function MasterCatalogueHierarchyPanel({
         ) : null}
       </div>
 
-      <div className="mt-5 grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)_360px]">
-        <aside className="rounded-2xl border border-white/15 bg-white/10 p-4">
+      <div className="mt-5 grid gap-5 2xl:grid-cols-[280px_minmax(0,1fr)_380px]">
+        <aside className="rounded-[1.75rem] border border-white/15 bg-white/10 p-4 shadow-soft 2xl:sticky 2xl:top-24 2xl:self-start">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-white/60">Rooms</p>
           <div className="mt-3 grid gap-2">
             {catalogue.rooms.map((room) => {
@@ -1237,10 +1237,10 @@ function MasterCatalogueHierarchyPanel({
 
               return (
                 <button
-                  className={`rounded-xl border px-4 py-3 text-left transition ${
+                  className={`rounded-2xl border px-4 py-4 text-left transition ${
                     selected
-                      ? 'border-green bg-white text-navy'
-                      : 'border-white/15 bg-white/5 text-white hover:bg-white/10'
+                      ? 'border-green bg-white text-navy shadow-soft'
+                      : 'border-white/15 bg-white/5 text-white hover:border-white/30 hover:bg-white/10'
                   }`}
                   key={room.id}
                   type="button"
@@ -1257,42 +1257,49 @@ function MasterCatalogueHierarchyPanel({
           </div>
         </aside>
 
-        <div className="rounded-2xl border border-white/15 bg-white p-4 text-text-dark">
-          <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="min-w-0 rounded-[1.75rem] border border-white/15 bg-white p-5 text-text-dark shadow-soft lg:p-6">
+          <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.2em] text-blue">Hierarchy</p>
               <h3 className="mt-1 font-display text-2xl font-bold">Packages and customer outcomes</h3>
+              <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-text-muted">
+                Edit package-level pricing here. Individual products stay internal and flow into proposals, inspections and operations.
+              </p>
             </div>
-            <span className="rounded-full bg-pale-blue px-3 py-1 text-xs font-black uppercase tracking-wide text-blue">
+            <span className="w-fit rounded-full bg-pale-blue px-3 py-1 text-xs font-black uppercase tracking-wide text-blue">
               Room → Section → Package → Outcome
             </span>
           </div>
-          <div className="mt-4 grid gap-4">
+          <div className="mt-5 grid gap-5">
             {packages.map(({ package: packageRecord, outcomes }) => (
-              <article className="rounded-2xl border border-border bg-light-blue/30 p-4" key={packageRecord.id}>
+              <article className="overflow-hidden rounded-[1.5rem] border border-border bg-gradient-to-br from-light-blue/45 via-white to-white" key={packageRecord.id}>
+                <div className="border-b border-border/80 p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="text-[11px] font-black uppercase tracking-[0.18em] text-blue">
                       {formatMasterSectionLabel(packageRecord.section)}
                     </p>
                     <h4 className="mt-1 text-xl font-black text-text-dark">{packageRecord.customerName.en}</h4>
-                    <p className="mt-1 text-xs font-bold text-text-muted">Internal: {packageRecord.internalName}</p>
+                    <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-text-muted">
+                      {packageRecord.shortDescription.en}
+                    </p>
                   </div>
                   <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-text-muted">
                     {outcomes.length} outcomes
                   </span>
                 </div>
                 <MasterPackagePriceEditor packageRecord={packageRecord} onUpdatePackage={onUpdatePackage} />
-                <div className="mt-4 grid gap-2">
+                </div>
+                <div className="grid gap-3 p-5 md:grid-cols-2">
                   {outcomes.map((outcome) => {
                     const selected = outcome.id === selectedOutcome?.id
 
                     return (
                       <button
-                        className={`rounded-xl border px-4 py-3 text-left transition ${
+                        className={`min-h-[128px] rounded-2xl border px-4 py-4 text-left transition ${
                           selected
-                            ? 'border-blue bg-white shadow-soft'
-                            : 'border-border bg-white/70 hover:border-blue hover:bg-white'
+                            ? 'border-blue bg-white shadow-soft ring-2 ring-blue/10'
+                            : 'border-border bg-white/75 hover:border-blue hover:bg-white hover:shadow-sm'
                         }`}
                         key={outcome.id}
                         type="button"
@@ -1304,7 +1311,7 @@ function MasterCatalogueHierarchyPanel({
                             {outcome.priority}
                           </span>
                         </div>
-                        <p className="mt-1 text-sm font-bold leading-relaxed text-text-muted">
+                        <p className="mt-2 text-sm font-semibold leading-relaxed text-text-muted">
                           {outcome.shortDescription.en}
                         </p>
                       </button>
@@ -1316,18 +1323,24 @@ function MasterCatalogueHierarchyPanel({
           </div>
         </div>
 
-        <aside className="rounded-2xl border border-white/15 bg-white p-4 text-text-dark">
+        <aside className="min-w-0 rounded-[1.75rem] border border-white/15 bg-white p-5 text-text-dark shadow-soft 2xl:sticky 2xl:top-24 2xl:self-start">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-blue">Selected outcome</p>
           {selectedOutcome && selectedSpecification ? (
             <>
               <h3 className="mt-2 font-display text-3xl font-bold leading-tight">{selectedOutcome.customerName.en}</h3>
-              <p className="mt-2 text-sm font-bold leading-relaxed text-text-mid">{selectedOutcome.customerBenefit.en}</p>
-              <div className="mt-4 grid gap-3">
+              <p className="mt-3 text-base font-semibold leading-relaxed text-text-mid">{selectedOutcome.customerBenefit.en}</p>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <OutcomeFact label="Priority" value={selectedOutcome.priority} />
+                <OutcomeFact label="VAT" value={`${Math.round(selectedOutcome.vatRate * 100)}%`} />
+                <OutcomeFact label="Package" value={selectedOutcome.requiresQuote ? 'Quote' : 'Included'} />
+                <OutcomeFact label="Visible" value={selectedOutcome.websiteVisible ? 'Website' : 'Internal'} />
+              </div>
+              <div className="mt-5 grid gap-3">
                 <SpecList title="Capabilities" items={selectedSpecification.capabilities.map((item) => item.name)} />
                 <SpecList title="Internal products/devices" items={selectedSpecification.products.map((item) => item.name)} />
                 <SpecList title="Installation tasks" items={selectedSpecification.installationTasks.map((item) => item.name)} />
               </div>
-              <div className="mt-4 rounded-xl bg-pale-blue p-3">
+              <div className="mt-4 rounded-2xl bg-pale-blue p-4">
                 <p className="text-xs font-black uppercase tracking-wide text-blue">Rules</p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {selectedOutcome.requiresQuote ? <RulePill>Quote required</RulePill> : <RulePill>Package-led</RulePill>}
@@ -1372,8 +1385,8 @@ function MasterPackagePriceEditor({
   packageRecord: MasterCataloguePackage
 }) {
   return (
-    <div className="mt-4 rounded-2xl border border-border bg-white p-3 shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+    <div className="mt-4 rounded-2xl border border-border bg-white/90 p-4 shadow-sm">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <p className="text-[11px] font-black uppercase tracking-[0.18em] text-blue">Package pricing</p>
           <p className="mt-1 text-xs font-bold text-text-muted">
@@ -1396,11 +1409,11 @@ function MasterPackagePriceEditor({
         </label>
       </div>
 
-      <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-        <label className="grid gap-1">
+      <div className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 2xl:grid-cols-[minmax(160px,1.2fr)_repeat(3,minmax(96px,0.8fr))_96px]">
+        <label className="grid min-w-0 gap-1">
           <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">Type</span>
           <select
-            className="rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/20"
+            className="min-w-0 rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/20"
             value={packageRecord.pricingType}
             onChange={(event) => {
               const pricingType = event.currentTarget.value as MasterPricingType
@@ -1433,10 +1446,10 @@ function MasterPackagePriceEditor({
           value={packageRecord.recurringMonthlyPrice}
           onChange={(recurringMonthlyPrice) => onUpdatePackage(packageRecord.id, { recurringMonthlyPrice })}
         />
-        <label className="grid gap-1">
+        <label className="grid min-w-0 gap-1">
           <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">VAT</span>
           <select
-            className="rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/20"
+            className="min-w-0 rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/20"
             value={String(packageRecord.vatRate)}
             onChange={(event) => onUpdatePackage(packageRecord.id, { vatRate: Number(event.currentTarget.value) })}
           >
@@ -1460,10 +1473,10 @@ function MasterPriceInput({
   value: number | undefined
 }) {
   return (
-    <label className="grid gap-1">
+    <label className="grid min-w-0 gap-1">
       <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">{label}</span>
       <input
-        className="rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition placeholder:text-text-muted/60 focus:border-blue focus:ring-2 focus:ring-blue/20"
+        className="min-w-0 rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition placeholder:text-text-muted/60 focus:border-blue focus:ring-2 focus:ring-blue/20"
         inputMode="decimal"
         min="0"
         placeholder="EUR"
@@ -1529,7 +1542,7 @@ function MessageList({
 
 function SpecList({ items, title }: { items: string[]; title: string }) {
   return (
-    <section className="rounded-xl border border-border bg-light-blue/30 p-3">
+    <section className="rounded-2xl border border-border bg-light-blue/25 p-4">
       <h4 className="text-xs font-black uppercase tracking-wide text-text-muted">{title}</h4>
       {items.length ? (
         <ul className="mt-2 grid gap-1">
@@ -1544,6 +1557,15 @@ function SpecList({ items, title }: { items: string[]; title: string }) {
         <p className="mt-2 text-xs font-bold text-text-muted">None mapped.</p>
       )}
     </section>
+  )
+}
+
+function OutcomeFact({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-2xl border border-border bg-light-blue/30 p-3">
+      <p className="text-[10px] font-black uppercase tracking-wide text-text-muted">{label}</p>
+      <p className="mt-1 truncate text-sm font-black capitalize text-navy">{value}</p>
+    </div>
   )
 }
 
