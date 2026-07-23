@@ -48,10 +48,11 @@ const solutionMenuGroups = [
 ] as const
 
 export function Nav() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const assessmentPath = getAssessmentPath()
+  const isSpanish = i18n.language.startsWith('es')
   const navLabels = {
     home: t('nav.home'),
     howItWorks: t('nav.howItWorks'),
@@ -75,6 +76,59 @@ export function Nav() {
     { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
   ]
   const desktopLinks = links
+  const resourceMenuGroups = [
+    {
+      title: isSpanish ? 'Empieza aquí' : 'Start here',
+      links: [
+        {
+          label: isSpanish ? 'Centro de recursos' : 'Resources hub',
+          to: '/blog',
+        },
+        {
+          label: isSpanish ? 'Lista completa para imprimir' : 'Printable home checklist',
+          to: '/blog',
+        },
+        {
+          label: isSpanish ? 'Revisión online de seguridad' : 'Online safety review',
+          to: '/home-safety-assessment#self-inspection-tool',
+        },
+      ],
+    },
+    {
+      title: isSpanish ? 'Guías prácticas' : 'Practical guides',
+      links: [
+        {
+          label: isSpanish ? 'Prevención de caídas' : 'Fall prevention',
+          to: '/blog/fall-prevention-home-checklist-spain',
+        },
+        {
+          label: isSpanish ? 'Seguridad en el baño' : 'Bathroom safety',
+          to: '/blog/bathroom-safety-seniors-costly-mistakes',
+        },
+        {
+          label: isSpanish ? 'Seguridad nocturna' : 'Night-time safety',
+          to: '/blog/bedroom-night-safety-older-adults',
+        },
+      ],
+    },
+    {
+      title: isSpanish ? 'Decidir con calma' : 'Decision support',
+      links: [
+        {
+          label: isSpanish ? 'Ayudas y documentación' : 'Grants and paperwork',
+          to: '/blog/home-adaptation-grants-spain-family-guide',
+        },
+        {
+          label: isSpanish ? 'Elegir proveedor' : 'Choosing a provider',
+          to: '/blog/choose-home-safety-provider-spain',
+        },
+        {
+          label: isSpanish ? 'Tecnología sin complicar' : 'Simple connected safety',
+          to: '/blog/smart-home-safety-without-overcomplicating',
+        },
+      ],
+    },
+  ]
 
   useEffect(() => {
     setMobileOpen(false)
@@ -123,6 +177,44 @@ export function Nav() {
                                 </Link>
                               ) : null
                             })}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
+
+            if (link.to === '/blog') {
+              return (
+                <div className="site-header-menu-group" key={link.to}>
+                  <Link
+                    aria-current={active ? 'page' : undefined}
+                    className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
+                    to={link.to}
+                  >
+                    {link.label}
+                    <ChevronDown size={15} aria-hidden="true" />
+                  </Link>
+                  <div className="site-header-mega-menu" aria-label="CasaMia resources by situation">
+                    <div className="site-header-mega-panel">
+                      <div className="site-header-mega-intro">
+                        <span>{isSpanish ? 'Recursos por situación' : 'Resources by situation'}</span>
+                        <strong>{isSpanish ? 'Encuentra el siguiente paso útil.' : 'Find the next useful step.'}</strong>
+                        <Link to="/blog">
+                          {isSpanish ? 'Ver todos los recursos' : 'View all resources'}
+                        </Link>
+                      </div>
+                      <div className="site-header-mega-grid">
+                        {resourceMenuGroups.map((group) => (
+                          <div className="site-header-mega-column" key={group.title}>
+                            <p>{group.title}</p>
+                            {group.links.map((item) => (
+                              <Link key={`${group.title}-${item.to}-${item.label}`} to={item.to}>
+                                {item.label}
+                              </Link>
+                            ))}
                           </div>
                         ))}
                       </div>
@@ -205,6 +297,19 @@ export function Nav() {
                       </Link>
                     ) : null
                   })}
+                </div>
+              ))}
+            </div>
+            <div className="site-mobile-needs">
+              <p>{isSpanish ? 'Recursos útiles' : 'Useful resources'}</p>
+              {resourceMenuGroups.map((group) => (
+                <div key={group.title}>
+                  <span>{group.title}</span>
+                  {group.links.map((item) => (
+                    <Link key={`${group.title}-${item.to}-${item.label}`} to={item.to}>
+                      {item.label}
+                    </Link>
+                  ))}
                 </div>
               ))}
             </div>

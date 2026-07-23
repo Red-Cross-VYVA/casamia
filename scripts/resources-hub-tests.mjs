@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url), 'utf8')
+const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/resources-hub.css', import.meta.url), 'utf8')
 
 assert.match(
@@ -48,6 +49,21 @@ assert.match(
   styles,
   /\.resource-faq-section[\s\S]*\.resource-faq-list/,
   'The Resources FAQ must have dedicated styling.',
+)
+assert.match(
+  nav,
+  /link\.to === '\/blog'[\s\S]*Resources by situation[\s\S]*View all resources/,
+  'The main navigation must expose the Resources hub as a practical education menu.',
+)
+assert.match(
+  nav,
+  /Fall prevention[\s\S]*Bathroom safety[\s\S]*Night-time safety/,
+  'The Resources navigation must expose high-intent practical guide routes.',
+)
+assert.match(
+  nav,
+  /Recursos por situación[\s\S]*Ver todos los recursos/,
+  'The Resources navigation must include Spanish copy.',
 )
 
 console.log('Resources hub checks passed.')
