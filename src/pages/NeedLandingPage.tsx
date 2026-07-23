@@ -1,16 +1,23 @@
 import { ArrowRight, Camera, CheckCircle2, ClipboardCheck, HeartHandshake, MessageCircle, ShieldCheck, Wrench } from 'lucide-react'
+import { useMemo } from 'react'
 import type { ReactNode } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { getNeedLandingPage, needLandingPages } from '../constants/needLandingPages'
+import { formatServicePrice, getServicesForPackageArea } from '../services/serviceCatalogue'
+import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
+import type { CasaMiaService, ServiceCatalogueSection, ServicePackageArea } from '../types/serviceCatalogue'
 
 import '../styles/need-landing.css'
 
 export function NeedLandingPage() {
   const { needSlug } = useParams()
+  const { i18n } = useTranslation()
   const page = getNeedLandingPage(needSlug)
+  const catalogue = useLocalizedServiceCatalogue(i18n.language)
 
   if (!page) {
     return <Navigate to="/services" replace />
@@ -48,6 +55,10 @@ export function NeedLandingPage() {
   ]
 
   const siblingPages = needLandingPages.filter((item) => item.slug !== page.slug).slice(0, 4)
+  const catalogueServices = useMemo(
+    () => getNeedCatalogueServices(page.slug, catalogue.services),
+    [catalogue.services, page.slug],
+  )
 
   return (
     <>
@@ -137,6 +148,30 @@ export function NeedLandingPage() {
             </div>
           </div>
         </section>
+
+        {catalogueServices.length > 0 ? (
+          <section className="need-landing-catalogue">
+            <div className="site-shell need-landing-catalogue-grid">
+              <div className="need-landing-catalogue-copy">
+                <p className="eyebrow">Current CasaMia catalogue</p>
+                <h2>What CasaMia can include.</h2>
+                <p>
+                  These are customer-facing outcomes from the active service catalogue. The exact mix is confirmed
+                  after your answers, photos or site visit.
+                </p>
+                <Link className="need-landing-text-link" to="/services">
+                  Review the full catalogue
+                  <ArrowRight size={17} aria-hidden="true" />
+                </Link>
+              </div>
+              <div className="need-landing-catalogue-list">
+                {catalogueServices.map((service) => (
+                  <CatalogueServiceCard key={service.id} service={service} />
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="need-landing-process">
           <div className="site-shell need-landing-process-grid">
@@ -265,6 +300,72 @@ export function NeedLandingPage() {
         </section>
       </main>
     </>
+  )
+}
+
+const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
+  'aging-in-place-home-assessment': ['bathroom', 'bedroom', 'entrance', 'lighting', 'smart-safety'],
+  'bathroom-safety-for-seniors': ['bathroom'],
+  'connected-home-for-seniors': ['smart-safety', 'lighting', 'bedroom'],
+  'fall-prevention-at-home': ['bathroom', 'bedroom', 'stairs', 'entrance', 'lighting', 'smart-safety'],
+  'grants-for-home-adaptations-spain': ['bathroom', 'bedroom', 'entrance', 'stairs'],
+  'home-adaptations-for-elderly': ['bathroom', 'bedroom', 'entrance', 'kitchen', 'lighting'],
+  'home-safety-after-hospital-discharge': ['bathroom', 'bedroom', 'entrance', 'living-room'],
+  'safe-bathroom-access': ['bathroom'],
+  'senior-bedroom-safety': ['bedroom'],
+}
+
+const sectionPriority: Record<ServiceCatalogueSection, number> = {
+  home_safety_package: 1,
+  connected_room: 2,
+  optional_adaptations: 3,
+}
+
+const sectionLabels: Record<ServiceCatalogueSection, string> = {
+  connected_room: 'Connected support',
+  home_safety_package: 'Home safety package',
+  optional_adaptations: 'Optional adaptation',
+}
+
+function getNeedCatalogueServices(slug: string, services: CasaMiaService[]) {
+  const areas = needCatalogueAreas[slug] ?? []
+  const seen = new Set<string>()
+
+  return areas
+    .flatMap((area) => getServicesForPackageArea(services, area))
+    .filter((service) => service.websiteVisible !== false && service.active)
+    .filter((service) => {
+      if (seen.has(service.id)) return false
+      seen.add(service.id)
+      return true
+    })
+    .sort((a, b) => {
+      const sectionA = a.section ?? 'home_safety_package'
+      const sectionB = b.section ?? 'home_safety_package'
+      const sectionDelta = sectionPriority[sectionA] - sectionPriority[sectionB]
+
+      if (sectionDelta !== 0) return sectionDelta
+
+      const priorityScore = { essential: 1, recommended: 2, optional: 3 }
+
+      return (priorityScore[a.priority ?? 'recommended'] ?? 2) - (priorityScore[b.priority ?? 'recommended'] ?? 2)
+    })
+    .slice(0, 6)
+}
+
+function CatalogueServiceCard({ service }: { service: CasaMiaService }) {
+  const section = service.section ?? 'home_safety_package'
+  const summary = service.customerBenefit || service.shortDescription
+
+  return (
+    <article className="need-catalogue-card">
+      <div>
+        <span>{sectionLabels[section]}</span>
+        <h3>{service.customerName ?? service.name}</h3>
+        <p>{summary}</p>
+      </div>
+      <small>{formatServicePrice(service)}</small>
+    </article>
   )
 }
 

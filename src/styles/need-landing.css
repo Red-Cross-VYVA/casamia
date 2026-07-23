@@ -36,6 +36,7 @@
 .need-landing-related h2,
 .need-landing-more-card h2,
 .need-landing-practical h2,
+.need-landing-catalogue h2,
 .need-landing-detail h2,
 .need-landing-final-card h2 {
   font-family: var(--font-display);
@@ -129,6 +130,7 @@
 
 .need-landing-section,
 .need-landing-practical,
+.need-landing-catalogue,
 .need-landing-detail {
   padding: clamp(4rem, 7vw, 6.5rem) 0;
 }
@@ -137,6 +139,7 @@
 .need-landing-links-grid,
 .need-landing-process-grid,
 .need-landing-practical-grid,
+.need-landing-catalogue-grid,
 .need-landing-detail-grid {
   display: grid;
   gap: 1.25rem;
@@ -149,6 +152,7 @@
 .need-mini-card,
 .need-landing-route-card,
 .need-landing-dos-card,
+.need-catalogue-card,
 .need-landing-final-card {
   border: 1px solid #bfddf0;
   border-radius: 1.35rem;
@@ -254,6 +258,94 @@
   margin: 0;
   color: #4d657b;
   line-height: 1.5;
+}
+
+.need-landing-catalogue {
+  background:
+    radial-gradient(circle at 88% 18%, rgb(121 173 67 / 14%), transparent 18rem),
+    linear-gradient(180deg, #f2f9fd 0%, #ffffff 100%);
+}
+
+.need-landing-catalogue-copy h2 {
+  max-width: 12ch;
+  margin: 0.8rem 0 0;
+  font-size: clamp(2.7rem, 5vw, 4.6rem);
+  line-height: 0.95;
+}
+
+.need-landing-catalogue-copy p:not(.eyebrow) {
+  max-width: 39rem;
+  margin: 1.25rem 0 0;
+  color: #3a526a;
+  font-size: 1.08rem;
+  line-height: 1.62;
+}
+
+.need-landing-text-link {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+  color: var(--color-blue);
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.need-landing-text-link:hover {
+  color: #0b4d73;
+}
+
+.need-landing-catalogue-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.need-catalogue-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: clamp(1rem, 2.4vw, 1.3rem);
+}
+
+.need-catalogue-card span {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  background: #eaf6fc;
+  padding: 0.38rem 0.7rem;
+  color: var(--color-blue);
+  font-size: 0.76rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.need-catalogue-card h3 {
+  margin: 0.7rem 0 0;
+  color: var(--color-ink);
+  font-size: clamp(1.12rem, 2vw, 1.35rem);
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.need-catalogue-card p {
+  margin: 0.45rem 0 0;
+  color: #4d657b;
+  line-height: 1.48;
+}
+
+.need-catalogue-card small {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #f0f7e8;
+  padding: 0.52rem 0.72rem;
+  color: #4f8022;
+  font-size: 0.78rem;
+  font-weight: 950;
+  white-space: nowrap;
 }
 
 .need-landing-process {
@@ -514,6 +606,7 @@
   .need-landing-process-grid,
   .need-landing-more-card,
   .need-landing-practical-grid,
+  .need-landing-catalogue-grid,
   .need-landing-detail-grid,
   .need-landing-final-card {
     grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 1fr);
@@ -556,5 +649,13 @@
     bottom: auto;
     max-width: none;
     margin: -1.5rem 1rem 0;
+  }
+
+  .need-catalogue-card {
+    display: grid;
+  }
+
+  .need-catalogue-card small {
+    width: fit-content;
   }
 }
