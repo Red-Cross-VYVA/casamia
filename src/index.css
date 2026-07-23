@@ -20117,6 +20117,56 @@ body .hero-section .hero-title .home-accent {
   font-size: 17px;
 }
 
+.blog-next-step-card {
+  padding: clamp(26px, 4vw, 42px);
+  border: 1px solid rgba(58, 159, 212, 0.24);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(120, 193, 67, 0.18), transparent 32%),
+    linear-gradient(135deg, #0d2d44 0%, #15658d 100%);
+  box-shadow: 0 22px 58px rgba(10, 42, 68, 0.18);
+  color: #ffffff;
+}
+
+.blog-next-step-card .eyebrow {
+  color: #bfeaff;
+}
+
+.blog-next-step-card h2 {
+  max-width: 620px;
+  color: #ffffff;
+}
+
+.blog-next-step-card p:not(.eyebrow) {
+  max-width: 680px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.blog-next-step-actions {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.blog-next-step-actions .btn-white {
+  color: var(--blue);
+}
+
+.blog-next-step-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.blog-next-step-link:hover {
+  color: var(--green);
+}
+
 .blog-related-section {
   background: #f4faff;
 }
@@ -20200,10 +20250,22 @@ body .hero-section .hero-title .home-accent {
   .blog-card-body,
   .blog-topic-grid article,
   .blog-article-aside,
+  .blog-next-step-card,
   .blog-checklist,
   .blog-faq details,
   .blog-related-grid a {
     padding: 22px;
+  }
+
+  .blog-next-step-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .blog-next-step-actions .btn,
+  .blog-next-step-link {
+    justify-content: center;
+    width: 100%;
   }
 
   .blog-feature-content h2,

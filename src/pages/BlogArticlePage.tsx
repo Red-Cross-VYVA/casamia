@@ -18,6 +18,14 @@ const articleShellCopy = {
     related: 'Related CasaMia articles',
     allResources: 'All Resources',
     readNext: 'Read next',
+    nextStepEyebrow: 'Useful next step',
+    nextStepTitle: 'Turn this guide into a practical plan.',
+    nextStepBody:
+      'Use the guide as a starting point, then choose the action that best matches what your family needs today.',
+    nextStepActions: {
+      checklist: 'Get the printable checklist',
+      selfCheck: 'Start the online safety review',
+    },
     englishNotice: '',
   },
   es: {
@@ -30,6 +38,14 @@ const articleShellCopy = {
     related: 'Artículos relacionados de CasaMia',
     allResources: 'Todos los recursos',
     readNext: 'Leer después',
+    nextStepEyebrow: 'Siguiente paso útil',
+    nextStepTitle: 'Convierte esta guía en un plan práctico.',
+    nextStepBody:
+      'Usa la guía como punto de partida y elige la acción que mejor encaje con lo que tu familia necesita hoy.',
+    nextStepActions: {
+      checklist: 'Descargar la lista para imprimir',
+      selfCheck: 'Empezar la revisión online',
+    },
     englishNotice: '',
   },
 } as const
@@ -190,6 +206,25 @@ export function BlogArticlePage() {
                   <p>{faq.answer}</p>
                 </details>
               ))}
+            </section>
+
+            <section className="blog-next-step-card" aria-labelledby="blog-next-step-title">
+              <p className="eyebrow">{copy.nextStepEyebrow}</p>
+              <h2 id="blog-next-step-title">{copy.nextStepTitle}</h2>
+              <p>{copy.nextStepBody}</p>
+              <div className="blog-next-step-actions">
+                <Link className="btn btn-green" to={article.cta.to}>
+                  {article.cta.label}
+                  <ArrowRight size={18} aria-hidden="true" />
+                </Link>
+                <Link className="btn btn-white" to="/blog">
+                  {copy.nextStepActions.checklist}
+                </Link>
+                <Link className="blog-next-step-link" to="/home-safety-assessment#self-inspection-tool">
+                  {copy.nextStepActions.selfCheck}
+                  <ArrowRight size={17} aria-hidden="true" />
+                </Link>
+              </div>
             </section>
           </div>
         </div>

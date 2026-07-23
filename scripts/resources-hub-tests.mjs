@@ -2,7 +2,9 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url), 'utf8')
+const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
+const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/resources-hub.css', import.meta.url), 'utf8')
 
 assert.match(
@@ -64,6 +66,16 @@ assert.match(
   nav,
   /Recursos por situación[\s\S]*Ver todos los recursos/,
   'The Resources navigation must include Spanish copy.',
+)
+assert.match(
+  articlePage,
+  /Turn this guide into a practical plan[\s\S]*blog-next-step-card[\s\S]*home-safety-assessment#self-inspection-tool/,
+  'Resource article pages must include a practical next-step action block.',
+)
+assert.match(
+  globalStyles,
+  /\.blog-next-step-card[\s\S]*\.blog-next-step-actions/,
+  'Resource article next-step blocks must have dedicated styling.',
 )
 
 console.log('Resources hub checks passed.')
