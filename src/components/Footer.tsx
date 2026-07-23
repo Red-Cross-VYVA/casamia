@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { getLegalRouteLabels } from '../constants/legalDocuments'
+import { needLandingPages } from '../constants/needLandingPages'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
@@ -19,6 +20,7 @@ const footerLinkCopy = {
     whyUs: 'Why Choose CasaMia',
     visit: 'Book a Home Safety Visit',
     beforeAfter: 'Before & After Projects',
+    needs: 'Popular needs',
     preferences: 'Cookie preferences',
   },
   es: {
@@ -31,6 +33,7 @@ const footerLinkCopy = {
     whyUs: 'Por qué elegir CasaMia',
     visit: 'Reservar visita de seguridad',
     beforeAfter: 'Antes y después de adaptaciones',
+    needs: 'Necesidades frecuentes',
     preferences: 'Preferencias de cookies',
   },
 } as const
@@ -56,6 +59,7 @@ export function Footer() {
     { label: language === 'es' ? 'Ayudas Plan Adapta' : 'Plan Adapta Grants', to: '/plan-adapta' },
     { label: links.visit, to: '/home-safety-assessment' },
   ]
+  const needLinks = needLandingPages.map((page) => ({ label: page.title, to: page.path }))
 
   return (
     <footer className="bg-ink text-white">
@@ -92,6 +96,14 @@ export function Footer() {
 
         <FooterColumn title={t('footer.support.title')}>
           {supportLinks.map((link) => (
+            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+              {link.label}
+            </Link>
+          ))}
+        </FooterColumn>
+
+        <FooterColumn title={links.needs}>
+          {needLinks.map((link) => (
             <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
               {link.label}
             </Link>

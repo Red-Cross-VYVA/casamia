@@ -53,6 +53,9 @@ const HowItWorksPage = lazy(() =>
 const LegalDocumentPage = lazy(() =>
   import('./pages/LegalDocumentPage').then(({ LegalDocumentPage }) => ({ default: LegalDocumentPage })),
 )
+const NeedLandingPage = lazy(() =>
+  import('./pages/NeedLandingPage').then(({ NeedLandingPage }) => ({ default: NeedLandingPage })),
+)
 const InspectionReportPage = lazy(() =>
   import('./pages/internal/InspectionReportPage').then(({ InspectionReportPage }) => ({
     default: InspectionReportPage,
@@ -222,6 +225,7 @@ function AppRoutes() {
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+            <Route path="/:needSlug" element={<NeedLandingPage />} />
             <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />
             <Route path="/resources" element={<Navigate to="/blog" replace />} />

@@ -17995,7 +17995,7 @@ img {
   }
 
   .footer-grid {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.9fr);
+    grid-template-columns: minmax(0, 1.25fr) repeat(4, minmax(0, 0.72fr));
   }
 
   .walkthrough-intro {
@@ -19592,10 +19592,12 @@ body .hero-section .hero-title .home-accent {
   margin-top: 18px;
   max-width: 850px;
   font-family: var(--font-display);
-  font-size: clamp(48px, 6vw, 86px);
+  font-size: clamp(44px, 5.2vw, 74px);
   font-weight: 900;
-  line-height: 0.94;
+  line-height: 0.98;
   color: var(--color-ink);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .blog-hero-copy p,
@@ -19874,6 +19876,15 @@ body .hero-section .hero-title .home-accent {
   box-shadow: 0 24px 56px rgba(10, 42, 68, 0.16);
 }
 
+.blog-article-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  object-fit: cover;
+  object-position: center 42%;
+}
+
 .blog-article-layout {
   display: grid;
   grid-template-columns: minmax(240px, 0.28fr) minmax(0, 0.72fr);
@@ -20016,6 +20027,10 @@ body .hero-section .hero-title .home-accent {
   .blog-card-image,
   .blog-article-image {
     height: 230px;
+    min-height: 230px;
+  }
+
+  .blog-article-image img {
     min-height: 230px;
   }
 

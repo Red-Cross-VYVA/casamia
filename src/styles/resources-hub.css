@@ -349,6 +349,7 @@
 .resource-pathway-card {
   display: grid;
   overflow: hidden;
+  grid-template-rows: auto 1fr;
   border: 1px solid rgba(200, 220, 232, 0.9);
   border-radius: 22px;
   background: #ffffff;
@@ -365,7 +366,6 @@
 
 .resource-pathway-card-content {
   display: flex;
-  min-height: 100%;
   flex-direction: column;
   padding: 26px;
 }
