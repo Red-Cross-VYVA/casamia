@@ -20,8 +20,15 @@ import { Link } from 'react-router-dom'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import {
+  buildBathroomMasterCatalogueImportPreview,
+  exportBathroomMasterCatalogueCsvTemplates,
+  masterCatalogueCsvBundleFiles,
+  type MasterCatalogueBundleImportPreview,
+} from '../../services/masterCatalogueCsv'
+import {
   exportMasterCatalogueCsvFiles,
   exportMasterCatalogueJson,
+  flattenMasterCatalogueForCompatibility,
   getCustomerCatalogueByRoom,
   getInspectorSpecificationForOutcome,
   getMasterServiceCatalogue,
@@ -199,7 +206,7 @@ type CatalogueImportPreview = {
 }
 
 export function InternalServiceCataloguePage() {
-  const masterCatalogue = useMemo(() => getMasterServiceCatalogue(), [])
+  const [masterCatalogue, setMasterCatalogue] = useState<MasterServiceCatalogue>(() => getMasterServiceCatalogue())
   const [draft, setDraft] = useState<EditableServiceCatalogue>(() => getServiceCatalogue())
   const [selectedRoom, setSelectedRoom] = useState<ServiceRoom>(defaultRoom)
   const [selectedMasterRoomId, setSelectedMasterRoomId] = useState('bathroom')
@@ -209,6 +216,7 @@ export function InternalServiceCataloguePage() {
   const [isSaving, setIsSaving] = useState(false)
   const [importMode, setImportMode] = useState<CatalogueImportMode>('upsert')
   const [importPreview, setImportPreview] = useState<CatalogueImportPreview | null>(null)
+  const [masterImportPreview, setMasterImportPreview] = useState<MasterCatalogueBundleImportPreview | null>(null)
   const [status, setStatus] = useState('')
 
   const roomCounts = useMemo(() => getRoomCounts(draft.services), [draft.services])
@@ -295,6 +303,7 @@ export function InternalServiceCataloguePage() {
 
       const firstKitchenService = result.catalogue.services.find((service) => service.room === defaultRoom)
       setDraft(result.catalogue)
+      setMasterCatalogue(result.catalogue.masterCatalogue ?? getMasterServiceCatalogue())
       setSelectedServiceId(firstKitchenService?.id ?? result.catalogue.services[0]?.id ?? '')
       setStatus(result.remote ? 'Loaded from Supabase.' : 'Using local fallback until the backend is configured.')
     })
@@ -455,6 +464,71 @@ export function InternalServiceCataloguePage() {
     setStatus('Downloaded Master Catalogue entity CSV files.')
   }
 
+  function handleDownloadBathroomMasterTemplates() {
+    const files = exportBathroomMasterCatalogueCsvTemplates(masterCatalogue)
+
+    Object.entries(files).forEach(([fileName, content]) => {
+      downloadTextFile(`casamia-bathroom-master-${fileName}`, content)
+    })
+    setStatus('Downloaded Bathroom Master Catalogue CSV templates.')
+  }
+
+  async function handleBathroomMasterBundleImport(fileList: FileList | null) {
+    if (!fileList?.length) return
+
+    const uploadedFiles = Array.from(fileList)
+    const files: Partial<Record<(typeof masterCatalogueCsvBundleFiles)[number], string>> = {}
+
+    try {
+      await Promise.all(
+        uploadedFiles.map(async (file) => {
+          const normalizedName = file.name
+            .replace(/^casamia-bathroom-master-/i, '')
+            .replace(/^casamia-master-/i, '')
+            .toLowerCase()
+
+          if (masterCatalogueCsvBundleFiles.includes(normalizedName as (typeof masterCatalogueCsvBundleFiles)[number])) {
+            files[normalizedName as (typeof masterCatalogueCsvBundleFiles)[number]] = await file.text()
+          }
+        }),
+      )
+
+      const preview = buildBathroomMasterCatalogueImportPreview(files, masterCatalogue)
+      setMasterImportPreview(preview)
+      setStatus(
+        preview.errors.length
+          ? `Bathroom bundle needs review: ${preview.errors.length} error${preview.errors.length === 1 ? '' : 's'}.`
+          : `Bathroom bundle preview ready: ${preview.counts.packages} packages, ${preview.counts.outcomes} outcomes.`,
+      )
+    } catch (error) {
+      setMasterImportPreview(null)
+      setStatus(error instanceof Error ? error.message : 'Could not read the Bathroom master bundle.')
+    }
+  }
+
+  function applyBathroomMasterBundleImport() {
+    if (!masterImportPreview || masterImportPreview.errors.length) return
+
+    setMasterCatalogue(masterImportPreview.catalogue)
+    setDraft((current) => {
+      const masterRooms = new Set(['bathroom', 'bedroom'])
+      const masterServices = flattenMasterCatalogueForCompatibility(masterImportPreview.catalogue)
+
+      return {
+        ...current,
+        masterCatalogue: masterImportPreview.catalogue,
+        services: [
+          ...masterServices,
+          ...current.services.filter((service) => !masterRooms.has(service.room)),
+        ],
+      }
+    })
+    setSelectedMasterRoomId('bathroom')
+    setSelectedMasterOutcomeId('')
+    setStatus('Applied Bathroom bundle to the Master Catalogue preview. Save changes to publish it.')
+    setMasterImportPreview(null)
+  }
+
   async function handleImportCsv(file: File | null) {
     if (!file) return
 
@@ -499,11 +573,15 @@ export function InternalServiceCataloguePage() {
     setIsSaving(true)
 
     try {
-      const result = await saveServiceCatalogueToBackend(draft)
+      const result = await saveServiceCatalogueToBackend({
+        ...draft,
+        masterCatalogue,
+      })
       setDraft(result.catalogue)
+      setMasterCatalogue(result.catalogue.masterCatalogue ?? masterCatalogue)
       setStatus(
         result.remote
-          ? 'Saved to Supabase. Public pages now use this catalogue.'
+          ? 'Saved to Supabase. Public pages now use this Master Catalogue.'
           : 'Saved locally. Add Supabase and internal access in Vercel to make this shared.',
       )
     } finally {
@@ -519,6 +597,7 @@ export function InternalServiceCataloguePage() {
       const result = await saveServiceCatalogueToBackend(reset)
       const firstKitchenService = result.catalogue.services.find((service) => service.room === defaultRoom)
       setDraft(result.catalogue)
+      setMasterCatalogue(result.catalogue.masterCatalogue ?? getMasterServiceCatalogue())
       setSelectedRoom(defaultRoom)
       setSelectedServiceId(firstKitchenService?.id ?? result.catalogue.services[0]?.id ?? '')
       setSearchTerm('')
@@ -567,8 +646,12 @@ export function InternalServiceCataloguePage() {
         selectedOutcome={selectedMasterOutcome}
         selectedRoomId={selectedMasterRoomId}
         selectedSpecification={selectedMasterSpecification}
+        importPreview={masterImportPreview}
+        onApplyBathroomBundleImport={applyBathroomMasterBundleImport}
+        onDownloadBathroomTemplates={handleDownloadBathroomMasterTemplates}
         onDownloadCsvFiles={handleDownloadMasterCsvFiles}
         onDownloadJson={handleDownloadMasterJson}
+        onImportBathroomBundle={handleBathroomMasterBundleImport}
         onSelectOutcome={setSelectedMasterOutcomeId}
         onSelectRoom={setSelectedMasterRoomId}
       />
@@ -880,9 +963,13 @@ function StatusCard({
 
 function MasterCatalogueHierarchyPanel({
   catalogue,
+  importPreview,
   integrity,
+  onApplyBathroomBundleImport,
+  onDownloadBathroomTemplates,
   onDownloadCsvFiles,
   onDownloadJson,
+  onImportBathroomBundle,
   onSelectOutcome,
   onSelectRoom,
   packages,
@@ -891,9 +978,13 @@ function MasterCatalogueHierarchyPanel({
   selectedSpecification,
 }: {
   catalogue: MasterServiceCatalogue
+  importPreview: MasterCatalogueBundleImportPreview | null
   integrity: ReturnType<typeof getMasterIntegritySummary>
+  onApplyBathroomBundleImport: () => void
+  onDownloadBathroomTemplates: () => void
   onDownloadCsvFiles: () => void
   onDownloadJson: () => void
+  onImportBathroomBundle: (files: FileList | null) => void
   onSelectOutcome: (outcomeId: string) => void
   onSelectRoom: (roomId: string) => void
   packages: Array<{ package: MasterCataloguePackage; outcomes: MasterCatalogueOutcome[] }>
@@ -950,6 +1041,94 @@ function MasterCatalogueHierarchyPanel({
             {integrity.issueCount === 0 ? 'Validated' : 'Needs review'}
           </span>
         </div>
+      </div>
+
+      <div className="mt-5 rounded-2xl border border-white/15 bg-white p-4 text-text-dark">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.2em] text-blue">Bathroom import flow</p>
+            <h3 className="mt-1 font-display text-2xl font-bold">Feed packages from one CSV bundle</h3>
+            <p className="mt-2 max-w-3xl text-sm font-bold leading-relaxed text-text-mid">
+              Download the Bathroom templates, edit the package outcomes, capabilities, products and tasks, then upload
+              all nine CSV files together. The import is validated first and only updates the master preview when applied.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button className="btn btn-white" type="button" onClick={onDownloadBathroomTemplates}>
+              <Download size={18} aria-hidden="true" />
+              Bathroom templates
+            </button>
+            <label className="btn btn-navy cursor-pointer">
+              <Upload size={18} aria-hidden="true" />
+              Upload bundle
+              <input
+                className="sr-only"
+                type="file"
+                accept=".csv,text/csv"
+                multiple
+                onChange={(event) => {
+                  onImportBathroomBundle(event.currentTarget.files)
+                  event.currentTarget.value = ''
+                }}
+              />
+            </label>
+          </div>
+        </div>
+
+        <div className="mt-4 grid gap-2 md:grid-cols-3">
+          <ImportStepPill label="1" text="Download templates" />
+          <ImportStepPill label="2" text="Edit Bathroom bundle" />
+          <ImportStepPill label="3" text="Upload and validate" />
+        </div>
+
+        <div className="mt-4 rounded-xl border border-border bg-light-blue/40 p-4">
+          <p className="text-xs font-black uppercase tracking-wide text-text-muted">Required files</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {masterCatalogueCsvBundleFiles.map((fileName) => (
+              <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-blue" key={fileName}>
+                {fileName}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {importPreview ? (
+          <div className="mt-4 rounded-2xl border border-border bg-white p-4 shadow-soft">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-blue">Import preview</p>
+                <h4 className="mt-1 text-xl font-black text-text-dark">
+                  {importPreview.errors.length ? 'Review before applying' : 'Ready to apply to Bathroom'}
+                </h4>
+              </div>
+              <button
+                className="btn btn-green"
+                type="button"
+                onClick={onApplyBathroomBundleImport}
+                disabled={importPreview.errors.length > 0}
+              >
+                <CheckCircle2 size={18} aria-hidden="true" />
+                Apply to preview
+              </button>
+            </div>
+
+            <div className="mt-4 grid gap-2 sm:grid-cols-3 xl:grid-cols-6">
+              <MasterImportMetric label="Packages" value={importPreview.counts.packages} />
+              <MasterImportMetric label="Outcomes" value={importPreview.counts.outcomes} />
+              <MasterImportMetric label="Capabilities" value={importPreview.counts.capabilities} />
+              <MasterImportMetric label="Products" value={importPreview.counts.products} />
+              <MasterImportMetric label="Tasks" value={importPreview.counts.installationTasks} />
+              <MasterImportMetric label="Relations" value={importPreview.counts.relations} />
+            </div>
+
+            {importPreview.errors.length ? (
+              <MessageList tone="error" title="Errors to fix" items={importPreview.errors} />
+            ) : null}
+            {importPreview.warnings.length ? (
+              <MessageList tone="warning" title="Warnings" items={importPreview.warnings} />
+            ) : null}
+          </div>
+        ) : null}
       </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-[280px_minmax(0,1fr)_360px]">
@@ -1075,6 +1254,55 @@ function MasterMetric({ label, value }: { label: string; value: number }) {
       <strong className="font-display text-3xl font-bold text-white">{value}</strong>
       <p className="mt-1 text-xs font-black uppercase tracking-wide text-white/60">{label}</p>
     </article>
+  )
+}
+
+function MasterImportMetric({ label, value }: { label: string; value: number }) {
+  return (
+    <article className="rounded-xl border border-border bg-light-blue/30 p-3">
+      <strong className="font-display text-2xl font-bold text-navy">{value}</strong>
+      <p className="mt-1 text-[11px] font-black uppercase tracking-wide text-text-muted">{label}</p>
+    </article>
+  )
+}
+
+function ImportStepPill({ label, text }: { label: string; text: string }) {
+  return (
+    <div className="flex items-center gap-3 rounded-xl border border-border bg-light-blue/30 px-4 py-3">
+      <span className="inline-grid h-8 w-8 shrink-0 place-items-center rounded-full bg-blue text-sm font-black text-white">
+        {label}
+      </span>
+      <span className="text-sm font-black text-text-dark">{text}</span>
+    </div>
+  )
+}
+
+function MessageList({
+  items,
+  title,
+  tone,
+}: {
+  items: string[]
+  title: string
+  tone: 'error' | 'warning'
+}) {
+  return (
+    <div
+      className={`mt-4 rounded-xl border p-4 ${
+        tone === 'error'
+          ? 'border-red-200 bg-red-50 text-red-800'
+          : 'border-amber-200 bg-amber-50 text-amber-800'
+      }`}
+    >
+      <h5 className="text-sm font-black">{title}</h5>
+      <ul className="mt-2 grid gap-1">
+        {items.map((item) => (
+          <li className="text-sm font-bold leading-relaxed" key={item}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 

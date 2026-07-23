@@ -8,6 +8,7 @@ import { getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 import type {
   CasaMiaService,
   EditableServiceCatalogue,
+  MasterServiceCatalogue,
   ServiceCatalogueSection,
   ServicePackageConfig,
   ServicePackageArea,
@@ -29,12 +30,17 @@ type ServiceCatalogueSaveResult = ServiceCatalogueLoadResult & {
 }
 
 export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
+  return buildServiceCatalogueFromMaster()
+}
+
+function buildServiceCatalogueFromMaster(masterCatalogue?: MasterServiceCatalogue): EditableServiceCatalogue {
   const masterRooms = new Set(['bathroom', 'bedroom'])
 
   return {
+    masterCatalogue,
     packageConfigs: getDefaultPackageConfigs(),
     services: [
-      ...flattenMasterCatalogueForCompatibility(),
+      ...flattenMasterCatalogueForCompatibility(masterCatalogue),
       ...clone(casaMiaServices).filter((service) => !masterRooms.has(service.room)),
     ].map(withPackageAreaDefaults),
   }
@@ -125,11 +131,13 @@ export function getServiceCatalogue(): EditableServiceCatalogue {
     }
 
     const parsed = JSON.parse(saved) as Partial<EditableServiceCatalogue>
-    const defaults = getDefaultServiceCatalogue()
+    const masterCatalogue = parsed.masterCatalogue
+    const defaults = buildServiceCatalogueFromMaster(masterCatalogue)
 
     return {
+      masterCatalogue,
       packageConfigs: mergePackageConfigs(defaults.packageConfigs, parsed.packageConfigs),
-      services: mergeServices(defaults.services, parsed.services),
+      services: mergeServices(defaults.services, parsed.services, masterCatalogue),
       updatedAt: parsed.updatedAt,
     }
   } catch {
@@ -320,9 +328,22 @@ export function formatCurrency(amount: number) {
   }).format(amount)
 }
 
-function mergeServices(defaultServices: CasaMiaService[], savedServices: CasaMiaService[] | undefined) {
+function mergeServices(
+  defaultServices: CasaMiaService[],
+  savedServices: CasaMiaService[] | undefined,
+  masterCatalogue?: MasterServiceCatalogue,
+) {
   if (savedServices === undefined) {
     return defaultServices.map(withPackageAreaDefaults)
+  }
+
+  if (masterCatalogue) {
+    const masterRooms = new Set(['bathroom', 'bedroom'])
+
+    return [
+      ...defaultServices.filter((service) => masterRooms.has(service.room)),
+      ...savedServices.filter((service) => !masterRooms.has(service.room)),
+    ].map(withPackageAreaDefaults)
   }
 
   return savedServices.map(withPackageAreaDefaults)
@@ -417,11 +438,13 @@ export function getDefaultCatalogueSection(service: CasaMiaService): ServiceCata
 }
 
 function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | undefined): EditableServiceCatalogue {
-  const defaults = getDefaultServiceCatalogue()
+  const masterCatalogue = payload?.masterCatalogue
+  const defaults = buildServiceCatalogueFromMaster(masterCatalogue)
 
   return {
+    masterCatalogue,
     packageConfigs: mergePackageConfigs(defaults.packageConfigs, payload?.packageConfigs),
-    services: mergeServices(defaults.services, payload?.services),
+    services: mergeServices(defaults.services, payload?.services, masterCatalogue),
     updatedAt: payload?.updatedAt,
   }
 }
