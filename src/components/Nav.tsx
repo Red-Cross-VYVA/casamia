@@ -72,7 +72,7 @@ export function Nav() {
     },
     { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
     { label: navLabels.organisations, to: '/assisted-living-solutions', match: ['/assisted-living-solutions'] },
-    { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources', '/tools'] },
+    { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources', '/tools', '/service-areas'] },
     { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
   ]
   const desktopLinks = links
@@ -91,6 +91,10 @@ export function Nav() {
         {
           label: isSpanish ? 'Revisión online de seguridad' : 'Online safety review',
           to: '/home-safety-assessment#self-inspection-tool',
+        },
+        {
+          label: isSpanish ? 'Zonas de servicio' : 'Service areas',
+          to: '/service-areas',
         },
       ],
     },

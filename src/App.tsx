@@ -131,6 +131,9 @@ const PublicProposalPage = lazy(() =>
 const ServiceDetailPage = lazy(() =>
   import('./pages/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })),
 )
+const ServiceAreasPage = lazy(() =>
+  import('./pages/ServiceAreasPage').then(({ ServiceAreasPage }) => ({ default: ServiceAreasPage })),
+)
 const ServicesPage = lazy(() =>
   import('./pages/ServicesPage').then(({ ServicesPage }) => ({ default: ServicesPage })),
 )
@@ -243,6 +246,7 @@ function AppRoutes() {
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+            <Route path="/service-areas" element={<ServiceAreasPage />} />
             <Route path="/:needSlug" element={<NeedLandingPage />} />
             <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />

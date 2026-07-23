@@ -89,8 +89,8 @@ assert.match(
 )
 assert.match(
   nav,
-  /match: \['\/blog', '\/resources', '\/tools'\]/,
-  'The Resources navigation item must stay active for public tools.',
+  /match: \['\/blog', '\/resources', '\/tools', '\/service-areas'\]/,
+  'The Resources navigation item must stay active for public tools and service-area guidance.',
 )
 assert.match(
   nav,
