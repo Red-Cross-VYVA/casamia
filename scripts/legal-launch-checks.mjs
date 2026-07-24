@@ -17,6 +17,7 @@ const legalControls = read('src/config/legalControls.ts')
 const sitemap = read('public/sitemap.xml')
 const robots = read('public/robots.txt')
 const grantsPage = read('src/pages/GrantsPage.tsx')
+const planAdaptaPage = read('src/pages/PlanAdaptaPage.tsx')
 const grantProgrammes = read('src/constants/grantProgrammes.ts')
 const grantCopy = [
   read('src/i18n/locales/en.json'),
@@ -116,6 +117,21 @@ assert.match(
   grantsPage,
   /'@type': 'ItemList'[\s\S]*document-checklist[\s\S]*copy\.documentItems\.map[\s\S]*'@type': 'GovernmentService'[\s\S]*programme\.officialSource/,
   'Grant page must publish structured data for document requirements and sourced official programme cards.',
+)
+assert.match(
+  planAdaptaPage,
+  /<SEO[\s\S]*title=\{title\}[\s\S]*description=\{description\}[\s\S]*path="\/plan-adapta"[\s\S]*schema=\{schema\}/,
+  'Plan Adapta page must use shared SEO metadata.',
+)
+assert.match(
+  planAdaptaPage,
+  /'@type': 'Service'[\s\S]*plan-adapta#grant-support[\s\S]*'@type': 'HowTo'[\s\S]*plan-adapta#support-process[\s\S]*steps\.map/,
+  'Plan Adapta page must publish structured data for the support service and visible process.',
+)
+assert.match(
+  planAdaptaPage,
+  /'@type': 'ItemList'[\s\S]*eligible-improvements[\s\S]*improvements\.map[\s\S]*casamia-support[\s\S]*helpCards\.map/,
+  'Plan Adapta page must publish structured data for eligible improvement examples and CasaMia support cards.',
 )
 
 console.log('Legal launch checks passed.')
