@@ -18,6 +18,7 @@ const documents = read('src/services/contractDocuments.ts')
 const legalControls = read('src/config/legalControls.ts')
 const sitemap = read('public/sitemap.xml')
 const robots = read('public/robots.txt')
+const vercelConfig = read('vercel.json')
 const grantsPage = read('src/pages/GrantsPage.tsx')
 const planAdaptaPage = read('src/pages/PlanAdaptaPage.tsx')
 const grantProgrammes = read('src/constants/grantProgrammes.ts')
@@ -56,6 +57,19 @@ assert.match(
   /^Sitemap:\s*https:\/\/casamia\.com\.es\/sitemap\.xml$/m,
   'Robots policy must point search engines to the canonical CasaMia sitemap.',
 )
+for (const headerName of [
+  'X-Content-Type-Options',
+  'Referrer-Policy',
+  'X-Frame-Options',
+  'Strict-Transport-Security',
+  'Permissions-Policy',
+]) {
+  assert.match(
+    vercelConfig,
+    new RegExp(`"key":\\s*"${headerName}"`),
+    `Vercel must send the ${headerName} security header.`,
+  )
+}
 assert.match(read('src/config/company.ts'), /commercialName:\s*'CasaMia'/, 'Commercial brand should be centralised.')
 assert.match(checkout, /Amount payable now: €0/, 'Quote requests must explicitly disclose that nothing is payable now.')
 assert.match(
