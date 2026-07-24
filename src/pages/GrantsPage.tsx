@@ -1,4 +1,5 @@
 import { AlertTriangle, Check, ExternalLink, FileText, ShieldCheck } from 'lucide-react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -199,10 +200,98 @@ export function GrantsPage() {
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = grantsCopy[language]
   const programmes = getPublishedGrantProgrammes(language)
+  const siteUrl = 'https://www.casamia.com.es'
+
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${siteUrl}/grants#page`,
+          url: `${siteUrl}/grants`,
+          name: copy.seoTitle,
+          description: copy.seoDescription,
+          inLanguage: language,
+          isPartOf: {
+            '@type': 'WebSite',
+            '@id': `${siteUrl}/#website`,
+            name: 'CasaMia',
+            url: siteUrl,
+          },
+          about: {
+            '@id': `${siteUrl}/grants#grant-support-service`,
+          },
+        },
+        {
+          '@type': 'Service',
+          '@id': `${siteUrl}/grants#grant-support-service`,
+          name: copy.roleTitle,
+          description: copy.roleBody,
+          serviceType: language === 'es' ? 'Orientación sobre ayudas para adaptación del hogar' : 'Home adaptation grant guidance',
+          provider: {
+            '@type': 'Organization',
+            '@id': `${siteUrl}/#organization`,
+            name: 'CasaMia',
+            url: siteUrl,
+          },
+          areaServed: {
+            '@type': 'Country',
+            name: 'Spain',
+          },
+          termsOfService: `${siteUrl}/general-customer-terms`,
+        },
+        {
+          '@type': 'HowTo',
+          '@id': `${siteUrl}/grants#grant-support-process`,
+          name: copy.roleListTitle,
+          description: copy.roleBody,
+          step: copy.roleItems.map((item, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: item,
+            text: item,
+          })),
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${siteUrl}/grants#document-checklist`,
+          name: copy.documentsTitle,
+          itemListElement: copy.documentItems.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item,
+          })),
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${siteUrl}/grants#published-programmes`,
+          name: copy.programmesTitle,
+          itemListElement: programmes.map((programme, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            item: {
+              '@type': 'GovernmentService',
+              name: programme.officialName,
+              description: programme.casamiaCommentary,
+              serviceType: programme.eligibleWork,
+              areaServed: programme.territory,
+              provider: {
+                '@type': 'GovernmentOrganization',
+                name: programme.authority,
+              },
+              url: programme.officialSource,
+            },
+          })),
+        },
+      ],
+    }),
+    [copy, language, programmes],
+  )
 
   return (
     <>
-      <SEO title={copy.seoTitle} description={copy.seoDescription} path="/grants" />
+      <SEO title={copy.seoTitle} description={copy.seoDescription} path="/grants" schema={schema} />
       <section className="grants-legal-hero">
         <div className="site-shell">
           <p className="eyebrow">{copy.heroEyebrow}</p>

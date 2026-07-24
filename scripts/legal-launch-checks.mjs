@@ -102,5 +102,20 @@ assert.match(
   /Applying for a grant is separate from purchasing CasaMia/,
   'Grant page must separate grant enquiries from installation contracts.',
 )
+assert.match(
+  grantsPage,
+  /<SEO title=\{copy\.seoTitle\} description=\{copy\.seoDescription\} path="\/grants" schema=\{schema\} \/>/,
+  'Grant page must publish canonical SEO metadata with structured data.',
+)
+assert.match(
+  grantsPage,
+  /'@type': 'Service'[\s\S]*grant-support-service[\s\S]*'@type': 'HowTo'[\s\S]*grant-support-process[\s\S]*copy\.roleItems\.map/,
+  'Grant page must publish structured data for CasaMia grant support and its visible process.',
+)
+assert.match(
+  grantsPage,
+  /'@type': 'ItemList'[\s\S]*document-checklist[\s\S]*copy\.documentItems\.map[\s\S]*'@type': 'GovernmentService'[\s\S]*programme\.officialSource/,
+  'Grant page must publish structured data for document requirements and sourced official programme cards.',
+)
 
 console.log('Legal launch checks passed.')
