@@ -6,6 +6,7 @@ const costToolPage = await readFile(new URL('../src/pages/HomeVsResidenceCostPag
 const parentSafetyQuiz = await readFile(new URL('../src/pages/ParentSafetyQuizPage.tsx', import.meta.url), 'utf8')
 const toolsPage = await readFile(new URL('../src/pages/ToolsPage.tsx', import.meta.url), 'utf8')
 const providerPartnersPage = await readFile(new URL('../src/pages/ProviderPartnersPage.tsx', import.meta.url), 'utf8')
+const beforeAfterPage = await readFile(new URL('../src/pages/BeforeAfterPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
@@ -28,6 +29,7 @@ const publicCopySources = {
   'src/pages/BlogArticlePage.tsx': articlePage,
   'src/pages/ToolsPage.tsx': toolsPage,
   'src/pages/ProviderPartnersPage.tsx': providerPartnersPage,
+  'src/pages/BeforeAfterPage.tsx': beforeAfterPage,
   'src/pages/NeedLandingPage.tsx': needLandingPage,
   'src/constants/blogContentLocalization.ts': blogContentLocalization,
   'src/constants/needLandingPagesLocalization.ts': needLandingLocalization,
@@ -435,6 +437,16 @@ assert.match(
   providerPartnersPage,
   /'@type': 'WebPage'[\s\S]*provider-partners[\s\S]*'@type': 'HowTo'[\s\S]*#provider-onboarding[\s\S]*copy\.onboarding\.map[\s\S]*'@type': 'ItemList'[\s\S]*#partner-profiles[\s\S]*copy\.partnerPaths\.map/,
   'The provider partners page must publish structured data for provider onboarding and partner profiles.',
+)
+assert.match(
+  beforeAfterPage,
+  /<SEO[\s\S]*title=\{title\}[\s\S]*description=\{body\}[\s\S]*path="\/before-after"[\s\S]*image="\/images\/before-after\/bathroom-after\.jpg"[\s\S]*schema=\{schema\}/,
+  'The before-and-after page must use the shared SEO component with canonical social preview metadata.',
+)
+assert.match(
+  beforeAfterPage,
+  /'@type': 'CollectionPage'[\s\S]*\/before-after#collection[\s\S]*'@type': 'ItemList'[\s\S]*\/before-after#transformations[\s\S]*beforeAfterVisuals/,
+  'The before-and-after page must publish structured data for the transformation gallery.',
 )
 assert.match(
   nav,
