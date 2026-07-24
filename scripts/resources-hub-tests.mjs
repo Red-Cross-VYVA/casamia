@@ -15,6 +15,7 @@ const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
 const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/resources-hub.css', import.meta.url), 'utf8')
+const linkChecks = await readFile(new URL('../scripts/link-checks.mjs', import.meta.url), 'utf8')
 
 assert.match(
   page,
@@ -280,6 +281,11 @@ assert.match(
   sitemap,
   /https:\/\/casamia\.com\.es\/tools\/home-vs-residence-cost-calculator/,
   'The public sitemap must include the home-vs-residence cost comparison tool.',
+)
+assert.match(
+  linkChecks,
+  /https:\\\/\\\/casamia\\\.com\\\.es/,
+  'The link checker must validate sitemap routes against the production casamia.com.es domain.',
 )
 assert.match(
   sitemap,

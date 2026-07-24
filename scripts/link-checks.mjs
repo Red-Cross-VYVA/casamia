@@ -93,7 +93,7 @@ for (const file of sourceFiles) {
 }
 
 const sitemap = fs.readFileSync(path.join(projectRoot, 'public', 'sitemap.xml'), 'utf8')
-for (const match of sitemap.matchAll(/<loc>https:\/\/casamia\.es([^<]*)<\/loc>/g)) {
+for (const match of sitemap.matchAll(/<loc>https:\/\/casamia\.com\.es([^<]*)<\/loc>/g)) {
   const pathname = match[1] || '/'
   if (!routeMatches(pathname)) {
     failures.push(`public/sitemap.xml: ${pathname} has no matching route`)
