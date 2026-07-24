@@ -101,6 +101,26 @@ try {
     'Every internal route must be gated or redirect immediately to a gated route.',
   )
 
+  const estimateReportPage = await readFile(
+    resolve(projectRoot, 'src/pages/EstimateReportPage.tsx'),
+    'utf8',
+  )
+  assert.match(
+    estimateReportPage,
+    /<SEO[\s\S]*path=\{`\/estimate\/\$\{token\}`\}[\s\S]*noindex/,
+    'Private estimate report links must publish noindex metadata.',
+  )
+
+  const publicProposalPage = await readFile(
+    resolve(projectRoot, 'src/pages/PublicProposalPage.tsx'),
+    'utf8',
+  )
+  assert.match(
+    publicProposalPage,
+    /<SEO[\s\S]*path=\{`\/proposal\/\$\{token\}`\}[\s\S]*noindex/,
+    'Private proposal links must publish noindex metadata.',
+  )
+
   const { token } = createInternalSessionToken()
   const authorizedResponse = createApiResponse()
   assert.equal(

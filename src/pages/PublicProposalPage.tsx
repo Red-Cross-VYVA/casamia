@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 
 import { ProposalPreview } from '../components/internal/ProposalPreview'
+import { SEO } from '../components/SEO'
 import type { ProposalData } from '../services/proposalCalculations'
 import { acceptPublicProposal, loadPublicProposal } from '../services/proposalsApi'
 
@@ -100,27 +101,33 @@ export function PublicProposalPage() {
 
   if (isLoading) {
     return (
-      <main className="site-shell min-h-[70vh] py-20">
-        <div className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-8 text-center shadow-soft">
-          <Loader2 className="mx-auto animate-spin text-navy" size={34} aria-hidden="true" />
-          <h1 className="mt-5 font-display text-4xl font-bold text-text-dark">{copy.loading}</h1>
-        </div>
-      </main>
+      <>
+        <SEO title={copy.title} description={copy.readyBody} path={`/proposal/${token}`} noindex />
+        <main className="site-shell min-h-[70vh] py-20">
+          <div className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-8 text-center shadow-soft">
+            <Loader2 className="mx-auto animate-spin text-navy" size={34} aria-hidden="true" />
+            <h1 className="mt-5 font-display text-4xl font-bold text-text-dark">{copy.loading}</h1>
+          </div>
+        </main>
+      </>
     )
   }
 
   if (error && !proposal) {
     return (
-      <main className="site-shell min-h-[70vh] py-20">
-        <div className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-8 text-center shadow-soft">
-          <ShieldCheck className="mx-auto text-navy" size={40} aria-hidden="true" />
-          <h1 className="mt-5 font-display text-4xl font-bold text-text-dark">{copy.unavailableTitle}</h1>
-          <p className="mt-4 text-text-mid">{error}</p>
-          <Link className="btn btn-green mt-6" to="/why-us#contact-form">
-            {copy.contact}
-          </Link>
-        </div>
-      </main>
+      <>
+        <SEO title={copy.title} description={copy.readyBody} path={`/proposal/${token}`} noindex />
+        <main className="site-shell min-h-[70vh] py-20">
+          <div className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-8 text-center shadow-soft">
+            <ShieldCheck className="mx-auto text-navy" size={40} aria-hidden="true" />
+            <h1 className="mt-5 font-display text-4xl font-bold text-text-dark">{copy.unavailableTitle}</h1>
+            <p className="mt-4 text-text-mid">{error}</p>
+            <Link className="btn btn-green mt-6" to="/why-us#contact-form">
+              {copy.contact}
+            </Link>
+          </div>
+        </main>
+      </>
     )
   }
 
@@ -129,8 +136,10 @@ export function PublicProposalPage() {
   }
 
   return (
-    <main className="site-shell bg-pale-blue py-12 md:py-16">
-      <section className="mx-auto mb-8 max-w-5xl rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
+    <>
+      <SEO title={copy.title} description={copy.readyBody} path={`/proposal/${token}`} noindex />
+      <main className="site-shell bg-pale-blue py-12 md:py-16">
+        <section className="mx-auto mb-8 max-w-5xl rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
           <div>
             <h1 className="font-display text-5xl font-bold leading-tight text-text-dark">
@@ -145,10 +154,10 @@ export function PublicProposalPage() {
             <p className="mt-3 text-sm text-white/75">{proposal.selectedPlan}</p>
           </div>
         </div>
-      </section>
+        </section>
 
-      <section className="mx-auto grid max-w-5xl gap-8">
-        <ProposalPreview proposal={proposal} />
+        <section className="mx-auto grid max-w-5xl gap-8">
+          <ProposalPreview proposal={proposal} />
 
         <div className="rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
           {isAccepted || proposal.status === 'Accepted' ? (
@@ -176,7 +185,8 @@ export function PublicProposalPage() {
             </>
           )}
         </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   )
 }

@@ -3,6 +3,7 @@ import { ArrowRight, FileText, LoaderCircle, ShieldCheck } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { PhotoAnalysisCards, ScoreExplanation } from '../components/SafetyReportInsights'
+import { SEO } from '../components/SEO'
 
 import {
   getEstimateRiskAssessment,
@@ -51,6 +52,12 @@ export function EstimateReportPage() {
 
   return (
     <>
+      <SEO
+        title={t('estimator.report.title')}
+        description={t('estimator.report.intro')}
+        path={`/estimate/${token}`}
+        noindex
+      />
       <section className="page-hero estimate-report-hero">
         <div className="page-hero-inner">
           <Link className="inline-flex items-center gap-2 text-sm font-bold uppercase text-navy" to="/#estimate-upload">
