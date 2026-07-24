@@ -37,8 +37,8 @@ export function Home2Page() {
       <Prevention />
       <SolutionGallery />
       <BeforeAfterPreview />
-      <ManufacturerMarquee />
       <WhatWeOffer />
+      <ManufacturerMarquee />
       <Grants />
       <EuroSafe />
       <FinalCTA />

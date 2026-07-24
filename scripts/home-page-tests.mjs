@@ -16,6 +16,12 @@ assert.doesNotMatch(
   'The homepage must not expose the removed home-vs-residence decision section.',
 )
 
+assert.match(
+  home,
+  /<BeforeAfterPreview \/>[\s\S]*<WhatWeOffer \/>[\s\S]*<ManufacturerMarquee \/>[\s\S]*<Grants \/>/,
+  'The manufacturer carousel should sit below the What We Offer section and above Grants.',
+)
+
 assert.doesNotMatch(
   sitemap,
   /home-vs-residence-cost-calculator|home-adaptations-vs-assisted-living/,
