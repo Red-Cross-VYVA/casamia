@@ -7,6 +7,7 @@ import {
   Download,
   FileCheck2,
   HandHeart,
+  HelpCircle,
   Home,
   Lightbulb,
   MessageCircle,
@@ -249,6 +250,15 @@ const pageCopy = {
 } as const
 
 const toolContent = [
+  {
+    icon: HelpCircle,
+    title: { en: 'Is my parent safe at home?', es: '¿Está seguro en casa?' },
+    body: {
+      en: 'Answer five everyday questions and get a clear next step: checklist, guided review or focused CasaMia assessment.',
+      es: 'Responde cinco preguntas cotidianas y obtén un siguiente paso claro: lista, revisión guiada o evaluación CasaMia.',
+    },
+    to: '/tools/is-my-parent-safe-at-home',
+  },
   {
     icon: ClipboardCheck,
     title: { en: '15-minute room-by-room check', es: 'Revisión online por estancias' },

@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url), 'utf8')
 const costToolPage = await readFile(new URL('../src/pages/HomeVsResidenceCostPage.tsx', import.meta.url), 'utf8')
+const parentSafetyQuiz = await readFile(new URL('../src/pages/ParentSafetyQuizPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
@@ -23,6 +24,11 @@ assert.match(
   'The home-vs-residence planning calculator must be exposed as a public route.',
 )
 assert.match(
+  app,
+  /\/tools\/is-my-parent-safe-at-home[\s\S]*<ParentSafetyQuizPage \/>/,
+  'The parent safety quiz must be exposed as a public route.',
+)
+assert.match(
   costToolPage,
   /Compare adapting the home with moving to a residence[\s\S]*Compara adaptar la vivienda con mudarse a una residencia/,
   'The cost comparison tool must support English and Spanish decision framing.',
@@ -38,9 +44,19 @@ assert.match(
   'The cost comparison tool must publish WebApplication structured data.',
 )
 assert.match(
+  parentSafetyQuiz,
+  /'@type': 'WebApplication'[\s\S]*is-my-parent-safe-at-home#tool/,
+  'The parent safety quiz must publish WebApplication structured data.',
+)
+assert.match(
   page,
   /Home vs residence cost planner[\s\S]*\/tools\/home-vs-residence-cost-calculator/,
   'The Resources hub must expose the home-vs-residence cost planner.',
+)
+assert.match(
+  page,
+  /Is my parent safe at home\?[\s\S]*\/tools\/is-my-parent-safe-at-home/,
+  'The Resources hub must expose the parent safety quiz as a practical decision tool.',
 )
 assert.match(
   page,
@@ -171,6 +187,11 @@ assert.match(
   sitemap,
   /https:\/\/casamia\.com\.es\/tools\/home-vs-residence-cost-calculator/,
   'The public sitemap must include the home-vs-residence cost comparison tool.',
+)
+assert.match(
+  sitemap,
+  /https:\/\/casamia\.com\.es\/tools\/is-my-parent-safe-at-home/,
+  'The public sitemap must include the parent safety quiz.',
 )
 assert.match(
   sitemap,

@@ -48,6 +48,11 @@ const HomeVsResidenceCostPage = lazy(() =>
     default: HomeVsResidenceCostPage,
   })),
 )
+const ParentSafetyQuizPage = lazy(() =>
+  import('./pages/ParentSafetyQuizPage').then(({ ParentSafetyQuizPage }) => ({
+    default: ParentSafetyQuizPage,
+  })),
+)
 const GrantEligibilityPage = lazy(() =>
   import('./pages/GrantEligibilityPage').then(({ GrantEligibilityPage }) => ({ default: GrantEligibilityPage })),
 )
@@ -269,6 +274,7 @@ function AppRoutes() {
             <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
             <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
             <Route path="/tools/home-vs-residence-cost-calculator" element={<HomeVsResidenceCostPage />} />
+            <Route path="/tools/is-my-parent-safe-at-home" element={<ParentSafetyQuizPage />} />
             <Route path="/grants" element={<GrantsPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />
