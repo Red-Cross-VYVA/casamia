@@ -168,6 +168,16 @@ assert.match(
 )
 assert.match(
   page,
+  /const actionRouteSteps = \[[\s\S]*Learn what matters[\s\S]*Capture the real home[\s\S]*Prioritise the first works[\s\S]*Let CasaMia coordinate/,
+  'The Resources hub must show how families move from education into a managed CasaMia plan.',
+)
+assert.match(
+  page,
+  /From reading to action[\s\S]*De la lectura a la acción[\s\S]*resource-action-route-section[\s\S]*home-safety-assessment#self-inspection-tool/,
+  'The Resources action route must be bilingual and guide users into the practical home safety review.',
+)
+assert.match(
+  page,
   /10-minute family starter[\s\S]*Primeros 10 minutos en familia/,
   'The family starter guidance must be available in English and Spanish.',
 )
@@ -280,6 +290,11 @@ assert.match(
   styles,
   /\.resource-family-starter-section[\s\S]*\.resource-family-prompt-card[\s\S]*\.resource-family-decision-card/,
   'The family starter section must have dedicated visual styling.',
+)
+assert.match(
+  styles,
+  /\.resource-action-route-section[\s\S]*\.resource-action-route-panel[\s\S]*\.resource-action-route-steps/,
+  'The Resources action route must have dedicated visual styling.',
 )
 assert.match(
   styles,

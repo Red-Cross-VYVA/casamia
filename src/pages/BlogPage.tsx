@@ -116,6 +116,11 @@ const pageCopy = {
       'Guides are grouped around the decision a family is trying to make. Choose the closest situation and go straight to the relevant advice.',
     guideLanguage: 'Guides are currently available in English.',
     readGuide: 'Read guide',
+    actionRouteEyebrow: 'From reading to action',
+    actionRouteTitle: 'Turn useful advice into a calm home safety route.',
+    actionRouteBody:
+      'Use the Resources hub to learn what matters, then move into a guided CasaMia review when you want priorities, scope, grant-readiness or a managed proposal.',
+    actionRouteCta: 'Start the guided review',
     faqEyebrow: 'Common questions',
     faqTitle: 'Quick answers before you choose a resource.',
     faqItems: [
@@ -227,6 +232,11 @@ const pageCopy = {
       'Las guías están agrupadas según la decisión que una familia intenta tomar. Elige la situación más cercana y ve directamente al consejo relevante.',
     guideLanguage: '',
     readGuide: 'Leer guía',
+    actionRouteEyebrow: 'De la lectura a la acción',
+    actionRouteTitle: 'Convierte consejos útiles en una ruta clara para la vivienda.',
+    actionRouteBody:
+      'Usa Recursos para entender qué importa y pasa a una revisión guiada CasaMia cuando quieras prioridades, alcance, preparación de ayudas o una propuesta gestionada.',
+    actionRouteCta: 'Empezar revisión guiada',
     faqEyebrow: 'Preguntas frecuentes',
     faqTitle: 'Respuestas rápidas antes de elegir un recurso.',
     faqItems: [
@@ -597,6 +607,41 @@ const quickChecks = [
     body: {
       en: 'Confirm a charged phone or call device can be reached from the bed and bathroom, and agree who responds.',
       es: 'Comprueba que hay un teléfono cargado o dispositivo de aviso accesible desde la cama y el baño, y acuerda quién responde.',
+    },
+  },
+] as const
+
+const actionRouteSteps = [
+  {
+    icon: SearchCheck,
+    title: { en: 'Learn what matters', es: 'Entender lo importante' },
+    body: {
+      en: 'Start with the checklist, room guide or decision page that matches the family concern.',
+      es: 'Empieza con la lista, guía por estancia o página de decisión que encaja con la preocupación familiar.',
+    },
+  },
+  {
+    icon: Camera,
+    title: { en: 'Capture the real home', es: 'Capturar la vivienda real' },
+    body: {
+      en: 'Add photos, notes or a guided self-check so the plan is based on actual rooms and routines.',
+      es: 'Añade fotos, notas o una revisión guiada para basar el plan en estancias y rutinas reales.',
+    },
+  },
+  {
+    icon: ClipboardCheck,
+    title: { en: 'Prioritise the first works', es: 'Priorizar los primeros cambios' },
+    body: {
+      en: 'Separate urgent safety actions from later improvements before spending money.',
+      es: 'Separa acciones urgentes de seguridad de mejoras posteriores antes de gastar.',
+    },
+  },
+  {
+    icon: HandHeart,
+    title: { en: 'Let CasaMia coordinate', es: 'Dejar que CasaMia coordine' },
+    body: {
+      en: 'Move from information to assessment, proposal, grant support and managed installation.',
+      es: 'Pasa de información a evaluación, propuesta, apoyo con ayudas e instalación gestionada.',
     },
   },
 ] as const
@@ -1213,6 +1258,39 @@ export function BlogPage() {
                 )
               })}
             </div>
+          </div>
+        </section>
+
+        <section className="resource-action-route-section" aria-labelledby="resource-action-route-title">
+          <div className="site-shell resource-action-route-panel">
+            <div className="resource-action-route-copy">
+              <p className="eyebrow">{copy.actionRouteEyebrow}</p>
+              <h2 id="resource-action-route-title">{copy.actionRouteTitle}</h2>
+              <p>{copy.actionRouteBody}</p>
+              <Link className="btn btn-green" to="/home-safety-assessment#self-inspection-tool">
+                {copy.actionRouteCta}
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+            </div>
+
+            <ol className="resource-action-route-steps">
+              {actionRouteSteps.map((step, index) => {
+                const Icon = step.icon
+
+                return (
+                  <li key={step.title.en}>
+                    <span className="resource-action-route-number">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="resource-action-route-icon">
+                      <Icon size={21} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3>{step.title[language]}</h3>
+                      <p>{step.body[language]}</p>
+                    </div>
+                  </li>
+                )
+              })}
+            </ol>
           </div>
         </section>
 
