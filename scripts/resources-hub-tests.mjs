@@ -16,6 +16,7 @@ const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
 const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/resources-hub.css', import.meta.url), 'utf8')
+const needLandingStyles = await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8')
 const linkChecks = await readFile(new URL('../scripts/link-checks.mjs', import.meta.url), 'utf8')
 
 const publicCopySources = {
@@ -481,6 +482,16 @@ assert.match(
   articlePage,
   /<SEO[\s\S]*image=\{article\.image\}/,
   'Resource article pages must use article-specific social preview images.',
+)
+assert.match(
+  needLandingPage,
+  /questionsIntro:[\s\S]*questionsCta:[\s\S]*className="need-landing-faq-list"[\s\S]*className="need-landing-faq-action"[\s\S]*to="\/home-safety-wizard"/,
+  'Need landing pages must turn FAQ content into a visible answer block with a clear next action.',
+)
+assert.match(
+  needLandingStyles,
+  /\.need-landing-faq h2[\s\S]*\.need-landing-faq-list[\s\S]*\.need-landing-faq-action/,
+  'Need landing page FAQ answer blocks must have dedicated visual styling.',
 )
 assert.match(
   seo,

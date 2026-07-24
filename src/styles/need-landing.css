@@ -742,6 +742,7 @@
 }
 
 .need-landing-related h2,
+.need-landing-faq h2,
 .need-landing-more-card h2 {
   max-width: 13ch;
   margin: 0.8rem 0 0;
@@ -782,23 +783,54 @@
   gap: 0.85rem;
 }
 
-.need-landing-faq details {
+.need-landing-faq > p {
+  max-width: 34rem;
+  margin: 0;
+  color: #4d657b;
+  line-height: 1.6;
+}
+
+.need-landing-faq-list {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+}
+
+.need-landing-faq-list details {
   border: 1px solid #d5e8f4;
   border-radius: 1rem;
   background: #fbfdff;
   padding: 1rem 1.1rem;
 }
 
-.need-landing-faq summary {
+.need-landing-faq-list summary {
   cursor: pointer;
   color: var(--color-ink);
   font-weight: 950;
 }
 
-.need-landing-faq p {
+.need-landing-faq-list p {
   margin: 0.75rem 0 0;
   color: #3f596f;
   line-height: 1.6;
+}
+
+.need-landing-faq-action {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 3rem;
+  align-items: center;
+  gap: 0.45rem;
+  border-radius: 999px;
+  background: #eaf6fc;
+  padding: 0 1rem;
+  color: var(--color-blue);
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.need-landing-faq-action:hover {
+  background: #dff2fb;
 }
 
 .need-landing-more {

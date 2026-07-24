@@ -179,6 +179,10 @@ export function NeedLandingPage() {
         ],
     goDeeper: isSpanish ? 'Profundiza sin perderte.' : 'Go deeper without getting lost.',
     questions: isSpanish ? 'Preguntas que suelen hacer las familias' : 'Questions families ask',
+    questionsIntro: isSpanish
+      ? 'Respuestas rápidas para decidir si conviene empezar online, enviar fotos o pedir una evaluación.'
+      : 'Quick answers to help you decide whether to start online, send photos or request an assessment.',
+    questionsCta: isSpanish ? 'Empezar con mi caso' : 'Start with my situation',
     popularNeeds: isSpanish ? 'Necesidades CasaMia frecuentes' : 'Popular CasaMia needs',
     moreWays: isSpanish ? 'Más formas de buscar ayuda.' : 'More ways families search for help.',
     ready: isSpanish ? 'Cuando quieras' : 'Ready when you are',
@@ -557,12 +561,20 @@ export function NeedLandingPage() {
 
             <div className="need-landing-faq">
               <p className="eyebrow">{copy.questions}</p>
-              {page.faqs.map((faq) => (
-                <details key={faq.question}>
-                  <summary>{faq.question}</summary>
-                  <p>{faq.answer}</p>
-                </details>
-              ))}
+              <h2>{copy.goDeeper}</h2>
+              <p>{copy.questionsIntro}</p>
+              <div className="need-landing-faq-list">
+                {page.faqs.map((faq) => (
+                  <details key={faq.question}>
+                    <summary>{faq.question}</summary>
+                    <p>{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+              <Link className="need-landing-faq-action" to="/home-safety-wizard">
+                {copy.questionsCta}
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
             </div>
           </div>
         </section>
