@@ -19,10 +19,10 @@ import {
 } from 'lucide-react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
-import { blogArticles } from '../constants/blogContent'
+import { blogArticles, type BlogArticle } from '../constants/blogContent'
 import { localizeBlogArticles } from '../constants/blogContentLocalization'
 import { decisionGuidePages } from '../constants/needLandingPages'
 import {
@@ -119,6 +119,11 @@ const pageCopy = {
     guideBody:
       'Guides are grouped around the decision a family is trying to make. Choose the closest situation and go straight to the relevant advice.',
     guideLanguage: 'Guides are currently available in English.',
+    searchLabel: 'Search resources',
+    searchPlaceholder: 'Try bathroom, falls, grants, night safety...',
+    searchResults: 'Showing matching guides for',
+    searchClear: 'Clear search',
+    searchEmpty: 'No matching guides yet. Try bathroom, falls, grants, bedroom, stairs or provider.',
     readGuide: 'Read guide',
     actionRouteEyebrow: 'From reading to action',
     actionRouteTitle: 'Turn useful advice into a calm home safety route.',
@@ -239,6 +244,11 @@ const pageCopy = {
     guideBody:
       'Las guías están agrupadas según la decisión que una familia intenta tomar. Elige la situación más cercana y ve directamente al consejo relevante.',
     guideLanguage: '',
+    searchLabel: 'Buscar recursos',
+    searchPlaceholder: 'Prueba baño, caídas, ayudas, noche...',
+    searchResults: 'Mostrando guías relacionadas con',
+    searchClear: 'Borrar búsqueda',
+    searchEmpty: 'No hay guías que coincidan. Prueba baño, caídas, ayudas, dormitorio, escaleras o proveedor.',
     readGuide: 'Leer guía',
     actionRouteEyebrow: 'De la lectura a la acción',
     actionRouteTitle: 'Convierte consejos útiles en una ruta clara para la vivienda.',
@@ -722,12 +732,67 @@ const guideGroups = [
   },
 ] as const
 
+function normalizeResourceSearch(value: string) {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+}
+
+function articleMatchesResourceSearch(article: BlogArticle, query: string) {
+  if (!query) {
+    return true
+  }
+
+  const searchable = [
+    article.title,
+    article.description,
+    article.category,
+    article.intro,
+    ...article.keywords,
+    ...article.takeaways,
+  ].join(' ')
+
+  return normalizeResourceSearch(searchable).includes(query)
+}
+
 export function BlogPage() {
   const { i18n } = useTranslation()
+  const [searchParams, setSearchParams] = useSearchParams()
   const language: ResourceDownloadLanguage = i18n.language.startsWith('es') ? 'es' : 'en'
   const copy = pageCopy[language]
   const primaryDownload = completeHomeChecklistDownloads[language]
   const localizedArticles = useMemo(() => localizeBlogArticles(blogArticles, language), [language])
+  const resourceSearchQuery = searchParams.get('search')?.trim() ?? ''
+  const normalizedResourceSearch = normalizeResourceSearch(resourceSearchQuery)
+  const filteredGuideGroups = useMemo(
+    () =>
+      guideGroups
+        .map((group) => {
+          const articles = group.articleIds
+            .map((articleId) => localizedArticles.find((article) => article.id === articleId))
+            .filter((article): article is (typeof localizedArticles)[number] => Boolean(article))
+            .filter((article) => articleMatchesResourceSearch(article, normalizedResourceSearch))
+
+          return { ...group, articles }
+        })
+        .filter((group) => group.articles.length > 0),
+    [localizedArticles, normalizedResourceSearch],
+  )
+  const filteredGuideCount = filteredGuideGroups.reduce((total, group) => total + group.articles.length, 0)
+
+  function updateResourceSearch(value: string) {
+    const nextParams = new URLSearchParams(searchParams)
+
+    if (value.trim()) {
+      nextParams.set('search', value)
+    } else {
+      nextParams.delete('search')
+    }
+
+    setSearchParams(nextParams, { replace: true })
+  }
 
   const resourceHubSchema = useMemo(
     () => ({
@@ -1309,12 +1374,33 @@ export function BlogPage() {
               {copy.guideLanguage ? <small>{copy.guideLanguage}</small> : null}
             </div>
 
+            <div className="resource-guide-search" role="search">
+              <label htmlFor="resource-guide-search">{copy.searchLabel}</label>
+              <div className="resource-guide-search-control">
+                <SearchCheck size={21} aria-hidden="true" />
+                <input
+                  id="resource-guide-search"
+                  type="search"
+                  value={resourceSearchQuery}
+                  placeholder={copy.searchPlaceholder}
+                  onChange={(event) => updateResourceSearch(event.target.value)}
+                />
+                {resourceSearchQuery ? (
+                  <button type="button" onClick={() => updateResourceSearch('')}>
+                    {copy.searchClear}
+                  </button>
+                ) : null}
+              </div>
+              {resourceSearchQuery ? (
+                <p>
+                  {copy.searchResults} <strong>“{resourceSearchQuery}”</strong> · {filteredGuideCount}
+                </p>
+              ) : null}
+            </div>
+
             <div className="resource-guide-groups">
-              {guideGroups.map((group) => {
+              {filteredGuideGroups.map((group) => {
                 const Icon = group.icon
-                const articles = group.articleIds
-                  .map((articleId) => localizedArticles.find((article) => article.id === articleId))
-                  .filter((article): article is (typeof localizedArticles)[number] => Boolean(article))
 
                 return (
                   <article className="resource-guide-group" key={group.title.en}>
@@ -1325,7 +1411,7 @@ export function BlogPage() {
                       <h3>{group.title[language]}</h3>
                     </div>
                     <ul>
-                      {articles.map((article) => (
+                      {group.articles.map((article) => (
                         <li key={article.id}>
                           <Link to={article.path}>
                             <span>
@@ -1341,6 +1427,13 @@ export function BlogPage() {
                 )
               })}
             </div>
+
+            {filteredGuideGroups.length === 0 ? (
+              <div className="resource-guide-empty">
+                <SearchCheck size={28} aria-hidden="true" />
+                <p>{copy.searchEmpty}</p>
+              </div>
+            ) : null}
           </div>
         </section>
 

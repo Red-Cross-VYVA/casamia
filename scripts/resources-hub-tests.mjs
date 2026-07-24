@@ -503,6 +503,36 @@ assert.match(
   'The shared SEO component must publish WebSite search/discovery structured data.',
 )
 assert.match(
+  page,
+  /useSearchParams[\s\S]*resourceSearchQuery[\s\S]*filteredGuideGroups[\s\S]*updateResourceSearch/,
+  'The Resources hub must read the ?search= query and filter guide groups from the URL.',
+)
+assert.match(
+  page,
+  /function normalizeResourceSearch[\s\S]*function articleMatchesResourceSearch[\s\S]*article\.keywords[\s\S]*article\.takeaways/,
+  'The Resources hub search must match normalised article titles, descriptions, keywords and takeaways.',
+)
+assert.match(
+  page,
+  /className="resource-guide-search"[\s\S]*type="search"[\s\S]*copy\.searchPlaceholder[\s\S]*copy\.searchClear/,
+  'The Resources hub must expose a visible search box with clear/reset support.',
+)
+assert.match(
+  page,
+  /filteredGuideGroups\.length === 0[\s\S]*resource-guide-empty[\s\S]*copy\.searchEmpty/,
+  'The Resources hub must show a helpful empty state when no guides match the search.',
+)
+assert.match(
+  page,
+  /searchLabel: 'Search resources'[\s\S]*searchPlaceholder: 'Try bathroom, falls, grants, night safety[\s\S]*searchLabel: 'Buscar recursos'[\s\S]*searchPlaceholder: 'Prueba baño, caídas, ayudas, noche/,
+  'The Resources hub search must support English and Spanish copy.',
+)
+assert.match(
+  styles,
+  /\.resource-guide-search[\s\S]*\.resource-guide-search-control[\s\S]*\.resource-guide-empty/,
+  'The Resources hub search and empty state must have dedicated styling.',
+)
+assert.match(
   globalStyles,
   /\.blog-next-step-card[\s\S]*\.blog-next-step-actions/,
   'Resource article next-step blocks must have dedicated styling.',
