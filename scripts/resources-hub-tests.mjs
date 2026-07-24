@@ -23,6 +23,7 @@ const publicCopySources = {
   'src/components/Nav.tsx': nav,
   'src/pages/BlogPage.tsx': page,
   'src/pages/BlogArticlePage.tsx': articlePage,
+  'src/pages/ToolsPage.tsx': toolsPage,
   'src/pages/NeedLandingPage.tsx': needLandingPage,
   'src/constants/blogContentLocalization.ts': blogContentLocalization,
   'src/constants/needLandingPagesLocalization.ts': needLandingLocalization,
@@ -100,6 +101,21 @@ assert.match(
   toolsPage,
   /Not sure which one\?[\s\S]*¿No sabes cuál elegir\?[\s\S]*tools-chooser-section/,
   'The tool chooser guidance must be available in English and Spanish.',
+)
+assert.match(
+  toolsPage,
+  /faqItems: \[[\s\S]*Which tool should I start with\?[\s\S]*¿Con qué herramienta debería empezar\?/,
+  'The free tools index must include practical FAQ guidance in English and Spanish.',
+)
+assert.match(
+  toolsPage,
+  /'@graph': \[[\s\S]*'@type': 'FAQPage'[\s\S]*pageCopy\.faqItems\.map/,
+  'The free tools index must publish FAQ structured data alongside the tool collection.',
+)
+assert.match(
+  toolsPage,
+  /tools-faq-section[\s\S]*tools-faq-list/,
+  'The free tools index must render the FAQ guidance visibly on the page.',
 )
 assert.match(
   page,

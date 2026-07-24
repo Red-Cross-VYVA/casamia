@@ -44,6 +44,25 @@ const copy = {
     finalBody:
       'CasaMia can review the home, prioritise what matters and explain what can be done now, later or with professional support.',
     finalCta: 'Start guided review',
+    faqEyebrow: 'Quick answers',
+    faqTitle: 'How to use the tools well.',
+    faqItems: [
+      {
+        question: 'Which tool should I start with?',
+        answer:
+          'If you are unsure, start with the parent safety quiz. If one room is already worrying, use photos or the room-by-room review.',
+      },
+      {
+        question: 'Do the tools replace a professional visit?',
+        answer:
+          'No. They help organise the first decision. A visit is still useful when measurements, installation scope, several rooms or grant paperwork need review.',
+      },
+      {
+        question: 'Can CasaMia use my answers later?',
+        answer:
+          'Yes, when you choose to share them. The aim is to avoid repeating the same story and turn your answers into clearer priorities.',
+      },
+    ],
   },
   es: {
     lang: 'es',
@@ -70,6 +89,25 @@ const copy = {
     finalBody:
       'CasaMia puede revisar la vivienda, priorizar lo importante y explicar qué hacer ahora, más adelante o con apoyo profesional.',
     finalCta: 'Empezar revisión guiada',
+    faqEyebrow: 'Respuestas rápidas',
+    faqTitle: 'Cómo usar bien las herramientas.',
+    faqItems: [
+      {
+        question: '¿Con qué herramienta debería empezar?',
+        answer:
+          'Si no lo tienes claro, empieza con el quiz de seguridad. Si ya preocupa una estancia concreta, usa fotos o la revisión por estancias.',
+      },
+      {
+        question: '¿Sustituyen estas herramientas a una visita profesional?',
+        answer:
+          'No. Ayudan a ordenar la primera decisión. La visita sigue siendo útil cuando hacen falta medidas, alcance de instalación, varias estancias o documentación para ayudas.',
+      },
+      {
+        question: '¿Puede CasaMia usar mis respuestas después?',
+        answer:
+          'Sí, cuando decidas compartirlas. La idea es no repetir la misma historia y convertir tus respuestas en prioridades más claras.',
+      },
+    ],
   },
 } as const
 
@@ -163,20 +201,38 @@ export function ToolsPage() {
 
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    '@id': `${siteUrl}/tools#collection`,
-    name: pageCopy.seoTitle,
-    description: pageCopy.seoDescription,
-    url: `${siteUrl}/tools`,
-    mainEntity: {
-      '@type': 'ItemList',
-      itemListElement: tools.map((tool, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: tool.title[language],
-        url: `${siteUrl}${tool.to}`,
-      })),
-    },
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${siteUrl}/tools#collection`,
+        name: pageCopy.seoTitle,
+        description: pageCopy.seoDescription,
+        url: `${siteUrl}/tools`,
+        mainEntity: { '@id': `${siteUrl}/tools#tool-list` },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${siteUrl}/tools#tool-list`,
+        itemListElement: tools.map((tool, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: tool.title[language],
+          url: `${siteUrl}${tool.to}`,
+        })),
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${siteUrl}/tools#faq`,
+        mainEntity: pageCopy.faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      },
+    ],
   }
 
   return (
@@ -258,6 +314,26 @@ export function ToolsPage() {
                 </Link>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="tools-faq-section" aria-labelledby="tools-faq-title">
+        <div className="site-shell tools-faq-layout">
+          <div className="tools-heading">
+            <p className="eyebrow">{pageCopy.faqEyebrow}</p>
+            <h2 id="tools-faq-title">{pageCopy.faqTitle}</h2>
+          </div>
+          <div className="tools-faq-list">
+            {pageCopy.faqItems.map((item) => (
+              <details key={item.question}>
+                <summary>
+                  {item.question}
+                  <ArrowRight size={18} aria-hidden="true" />
+                </summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
