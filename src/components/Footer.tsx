@@ -27,6 +27,7 @@ const footerLinkCopy = {
     onlineCheck: 'Online safety review',
     costComparison: 'Home vs residence cost',
     grantsGuide: 'Grants and paperwork',
+    visitPrep: 'Before the visit',
     fallPrevention: 'Fall prevention guide',
     bathroomSafety: 'Bathroom safety guide',
     preferences: 'Cookie preferences',
@@ -47,6 +48,7 @@ const footerLinkCopy = {
     checklist: 'Lista para imprimir',
     onlineCheck: 'Revisión online de seguridad',
     grantsGuide: 'Ayudas y documentación',
+    visitPrep: 'Antes de la visita',
     fallPrevention: 'Guía de prevención de caídas',
     bathroomSafety: 'Guía de seguridad en el baño',
     preferences: 'Preferencias de cookies',
@@ -83,6 +85,7 @@ export function Footer() {
       to: '/tools/home-vs-residence-cost-calculator',
     },
     { label: links.grantsGuide, to: '/blog/home-adaptation-grants-spain-family-guide' },
+    { label: links.visitPrep, to: '/blog/family-conversation-before-home-safety-visit' },
     { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },
     { label: links.bathroomSafety, to: '/blog/bathroom-safety-seniors-costly-mistakes' },
   ]

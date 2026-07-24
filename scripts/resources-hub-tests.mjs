@@ -154,7 +154,7 @@ assert.match(
 )
 assert.match(
   footer,
-  /resourcesTitle: 'Useful resources'[\s\S]*Printable home checklist[\s\S]*home-vs-residence-cost-calculator[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*bathroom-safety-seniors-costly-mistakes/,
+  /resourcesTitle: 'Useful resources'[\s\S]*Printable home checklist[\s\S]*home-vs-residence-cost-calculator[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*family-conversation-before-home-safety-visit[\s\S]*bathroom-safety-seniors-costly-mistakes/,
   'The global footer must expose practical Resources links for discovery and SEO.',
 )
 assert.match(
