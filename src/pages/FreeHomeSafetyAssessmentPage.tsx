@@ -12,11 +12,12 @@ import {
   UsersRound,
   Wrench,
 } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 
 import { AssessmentForm } from '../components/AssessmentForm'
+import { SEO } from '../components/SEO'
 import { SelfInspectionTool } from '../components/SelfInspectionTool'
 import { TrustBar } from '../components/TrustBar'
 
@@ -51,8 +52,18 @@ type AfterReviewCopy = {
   note: string
 }
 
+type FaqCopy = {
+  title: string
+  body: string
+  items: Array<{
+    question: string
+    answer: string
+  }>
+}
+
 const benefitIcons = [ShieldCheck, SmilePlus, Home, Stethoscope, ClipboardCheck, UsersRound]
 const afterReviewIcons = [MessageCircle, FileText, CalendarCheck, Wrench]
+const siteUrl = 'https://casamia.com.es'
 
 export function FreeHomeSafetyAssessmentPage() {
   const { i18n, t } = useTranslation()
@@ -62,8 +73,50 @@ export function FreeHomeSafetyAssessmentPage() {
   const steps = t('assessment.how.items', { returnObjects: true }) as StepItem[]
   const pricing = t('assessment.pricing', { returnObjects: true }) as PricingCopy
   const afterReview = t('assessment.afterReview', { returnObjects: true }) as AfterReviewCopy
+  const faq = t('assessment.faq', { returnObjects: true }) as FaqCopy
   const isReportBookingFlow = searchParams.get('source') === 'free-report'
   const isSpanish = i18n.language.startsWith('es')
+  const assessmentSchema = useMemo(
+    () => [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${siteUrl}/home-safety-assessment#service`,
+        name: t('assessment.metaTitle'),
+        description: t('assessment.metaDescription'),
+        provider: {
+          '@type': 'Organization',
+          name: 'CasaMia',
+          url: siteUrl,
+        },
+        areaServed: {
+          '@type': 'Country',
+          name: 'Spain',
+        },
+        serviceType: isSpanish ? 'Evaluación de seguridad del hogar senior' : 'Senior home safety assessment',
+        offers: {
+          '@type': 'Offer',
+          price: '99',
+          priceCurrency: 'EUR',
+          availability: 'https://schema.org/InStock',
+        },
+        url: `${siteUrl}/home-safety-assessment`,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.items.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      },
+    ],
+    [faq.items, isSpanish, t],
+  )
 
   useEffect(() => {
     document.title = `${t('assessment.metaTitle')} | CasaMia`
@@ -81,6 +134,14 @@ export function FreeHomeSafetyAssessmentPage() {
 
   return (
     <>
+      <SEO
+        title={t('assessment.metaTitle')}
+        description={t('assessment.metaDescription')}
+        path="/home-safety-assessment"
+        image="/images/assessment/casamia-inspector-tablet.jpg"
+        schema={assessmentSchema}
+      />
+
       <section className="assessment-hero">
         <div className="assessment-hero-grid site-shell">
           <div>
@@ -224,6 +285,24 @@ export function FreeHomeSafetyAssessmentPage() {
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="assessment-faq section-pad">
+        <div className="assessment-faq-layout site-shell">
+          <div className="assessment-faq-copy">
+            <p className="eyebrow">{isSpanish ? 'Preguntas frecuentes' : 'Common questions'}</p>
+            <h2 className="display-title">{faq.title}</h2>
+            <p>{faq.body}</p>
+          </div>
+          <div className="assessment-faq-list">
+            {faq.items.map((item) => (
+              <details className="assessment-faq-item" key={item.question}>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
             ))}
           </div>
         </div>

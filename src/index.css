@@ -13080,6 +13080,88 @@ img {
   line-height: 1.5;
 }
 
+.assessment-faq {
+  background:
+    radial-gradient(circle at 84% 8%, rgba(42, 159, 216, 0.12), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #eef8fd 100%);
+}
+
+.assessment-faq-layout {
+  display: grid;
+  gap: clamp(28px, 5vw, 70px);
+  align-items: start;
+}
+
+.assessment-faq-copy {
+  max-width: 620px;
+}
+
+.assessment-faq-copy > p:not(.eyebrow) {
+  margin-top: 20px;
+  color: var(--text-mid);
+  font-size: clamp(18px, 2vw, 21px);
+  line-height: 1.62;
+}
+
+.assessment-faq-list {
+  display: grid;
+  gap: 14px;
+}
+
+.assessment-faq-item {
+  border: 1px solid rgba(183, 213, 231, 0.95);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 18px 44px rgba(17, 59, 87, 0.08);
+  overflow: hidden;
+}
+
+.assessment-faq-item summary {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 22px 24px;
+  color: var(--text-dark);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.25;
+  list-style: none;
+}
+
+.assessment-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.assessment-faq-item summary::after {
+  content: '+';
+  display: grid;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 999px;
+  background: #eaf6fc;
+  color: var(--blue);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.assessment-faq-item[open] summary::after {
+  content: '–';
+  background: var(--blue);
+  color: var(--white);
+}
+
+.assessment-faq-item p {
+  margin: 0;
+  border-top: 1px solid rgba(183, 213, 231, 0.7);
+  padding: 0 24px 22px;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
 .assessment-included {
   background:
     linear-gradient(180deg, #f0f8fd 0%, #ffffff 100%);
@@ -19215,6 +19297,10 @@ img {
     grid-template-columns: minmax(0, 0.72fr) minmax(420px, 0.62fr);
   }
 
+  .assessment-faq-layout {
+    grid-template-columns: minmax(0, 0.55fr) minmax(420px, 0.82fr);
+  }
+
   .assessment-benefit-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -20076,6 +20162,14 @@ img {
   .assessment-after-review-note {
     align-items: flex-start;
     border-radius: 18px;
+  }
+
+  .assessment-faq-item summary {
+    padding: 20px;
+  }
+
+  .assessment-faq-item p {
+    padding: 0 20px 20px;
   }
 
   .assessment-hero-panel {

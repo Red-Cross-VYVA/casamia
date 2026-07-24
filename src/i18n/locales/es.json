@@ -71,6 +71,7 @@
   },
   "assessment": {
     "metaTitle": "Evaluación a domicilio de seguridad del hogar",
+    "metaDescription": "Reserva una evaluación CasaMia de seguridad del hogar en España. Revisa riesgos de caída, accesibilidad, baño, ayudas públicas y el siguiente paso antes de decidir cualquier obra.",
     "hero": {
       "title": "Reserva una evaluación profesional a domicilio",
       "subtitle": "Solicita una visita de CasaMia por 99 EUR para revisar riesgos de caída, accesibilidad y mejoras prácticas antes de decidir cualquier trabajo.",
@@ -184,6 +185,32 @@
         {
           "title": "Recibes recomendaciones",
           "body": "Tras la visita, recibes orientación clara sobre riesgos, prioridades y próximos pasos."
+        }
+      ]
+    },
+    "faq": {
+      "title": "Preguntas habituales antes de reservar.",
+      "body": "Respuestas breves, expectativas claras y sin presión para avanzar antes de entender la vivienda y el alcance.",
+      "items": [
+        {
+          "question": "¿El informe online de seguridad es gratis?",
+          "answer": "Sí. Puedes empezar con el informe online sin coste. La visita profesional a domicilio cuesta 99 EUR y se descuenta de tu plan CasaMia si continúas con mejoras aprobadas."
+        },
+        {
+          "question": "¿Tengo que instalar algo después de la evaluación?",
+          "answer": "No. La evaluación sirve para tener claridad primero. CasaMia explica qué parece urgente, qué puede esperar y qué necesitaría propuesta antes de reservar cualquier trabajo."
+        },
+        {
+          "question": "¿Qué gestiona CasaMia si seguimos adelante?",
+          "answer": "CasaMia puede coordinar la ruta práctica de principio a fin: alcance, propuesta, productos compatibles, instaladores verificados, preparación de ayudas cuando corresponda, agenda, entrega y seguimiento."
+        },
+        {
+          "question": "¿Podemos usar fotos, vídeos o una llamada antes de una visita?",
+          "answer": "Sí. Muchas familias empiezan online con respuestas guiadas, fotos, vídeos cortos, notas de voz o llamada. Si hace falta medición o revisión profesional, CasaMia confirma la visita antes de reservar."
+        },
+        {
+          "question": "¿CasaMia puede ayudar con ayudas públicas?",
+          "answer": "CasaMia puede ayudar a identificar rutas de ayuda relevantes y preparar soporte cuando corresponda. La administración pública decide siempre elegibilidad, aprobación, importe y plazos."
         }
       ]
     },
