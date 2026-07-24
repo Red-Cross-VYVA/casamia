@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { allNeedLandingPages, needLandingPages } from '../constants/needLandingPages'
+import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
@@ -25,11 +26,11 @@ function isActiveLink(pathname: string, link: HeaderLink) {
 
 const solutionMenuGroups = [
   {
-    title: 'Bathroom safety',
+    title: { en: 'Bathroom safety', es: 'Seguridad en el baño' },
     slugs: ['bathroom-safety-for-seniors', 'safe-bathroom-access'],
   },
   {
-    title: 'Falls & assessment',
+    title: { en: 'Falls & assessment', es: 'Caídas y revisión del hogar' },
     slugs: [
       'fall-prevention-at-home',
       'aging-in-place-home-assessment',
@@ -38,11 +39,11 @@ const solutionMenuGroups = [
     ],
   },
   {
-    title: 'Bedroom & connected living',
+    title: { en: 'Bedroom & connected living', es: 'Dormitorio y vida conectada' },
     slugs: ['senior-bedroom-safety', 'connected-home-for-seniors'],
   },
   {
-    title: 'Grants',
+    title: { en: 'Grants', es: 'Ayudas' },
     slugs: ['grants-for-home-adaptations-spain'],
   },
 ] as const
@@ -53,6 +54,7 @@ export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const assessmentPath = getAssessmentPath()
   const isSpanish = i18n.language.startsWith('es')
+  const localizedNeedLandingPages = localizeNeedLandingPages(needLandingPages, i18n.language)
   const navLabels = {
     home: t('nav.home'),
     howItWorks: t('nav.howItWorks'),
@@ -175,26 +177,30 @@ export function Nav() {
                   <div className="site-header-mega-menu" aria-label="CasaMia solutions by need">
                     <div className="site-header-mega-panel">
                       <div className="site-header-mega-intro">
-                        <span>Solutions by need</span>
-                        <strong>Start from the concern, not the product.</strong>
+                        <span>{isSpanish ? 'Soluciones por necesidad' : 'Solutions by need'}</span>
+                        <strong>{isSpanish ? 'Empieza por la preocupación, no por el producto.' : 'Start from the concern, not the product.'}</strong>
                         <Link to="/services">
-                          View full service catalogue
+                          {isSpanish ? 'Ver el catálogo completo' : 'View full service catalogue'}
                         </Link>
                       </div>
                       <div className="site-header-mega-grid">
-                        {solutionMenuGroups.map((group) => (
-                          <div className="site-header-mega-column" key={group.title}>
-                            <p>{group.title}</p>
-                            {group.slugs.map((slug) => {
-                              const page = needLandingPages.find((item) => item.slug === slug)
-                              return page ? (
-                                <Link key={page.slug} to={page.path}>
-                                  {page.title}
-                                </Link>
-                              ) : null
-                            })}
-                          </div>
-                        ))}
+                        {solutionMenuGroups.map((group) => {
+                          const groupTitle = group.title[isSpanish ? 'es' : 'en']
+
+                          return (
+                            <div className="site-header-mega-column" key={groupTitle}>
+                              <p>{groupTitle}</p>
+                              {group.slugs.map((slug) => {
+                                const page = localizedNeedLandingPages.find((item) => item.slug === slug)
+                                return page ? (
+                                  <Link key={page.slug} to={page.path}>
+                                    {page.title}
+                                  </Link>
+                                ) : null
+                              })}
+                            </div>
+                          )
+                        })}
                       </div>
                     </div>
                   </div>
@@ -301,12 +307,15 @@ export function Nav() {
               )
             })}
             <div className="site-mobile-needs">
-              <p>Popular needs</p>
-              {solutionMenuGroups.map((group) => (
-                <div key={group.title}>
-                  <span>{group.title}</span>
+              <p>{isSpanish ? 'Necesidades frecuentes' : 'Popular needs'}</p>
+              {solutionMenuGroups.map((group) => {
+                const groupTitle = group.title[isSpanish ? 'es' : 'en']
+
+                return (
+                <div key={groupTitle}>
+                  <span>{groupTitle}</span>
                   {group.slugs.map((slug) => {
-                    const page = needLandingPages.find((item) => item.slug === slug)
+                    const page = localizedNeedLandingPages.find((item) => item.slug === slug)
                     return page ? (
                       <Link key={page.slug} to={page.path}>
                         {page.title}
@@ -314,7 +323,7 @@ export function Nav() {
                     ) : null
                   })}
                 </div>
-              ))}
+              )})}
             </div>
             <div className="site-mobile-needs">
               <p>{isSpanish ? 'Recursos útiles' : 'Useful resources'}</p>

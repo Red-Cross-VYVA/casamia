@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { allNeedLandingPages, getNeedLandingPage } from '../constants/needLandingPages'
+import { localizeNeedLandingPage, localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { formatServicePrice, getServicesForPackageArea } from '../services/serviceCatalogue'
 import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceCatalogueSection, ServicePackageArea } from '../types/serviceCatalogue'
@@ -16,11 +17,101 @@ import '../styles/need-landing.css'
 export function NeedLandingPage() {
   const { needSlug } = useParams()
   const { i18n } = useTranslation()
-  const page = getNeedLandingPage(needSlug)
+  const basePage = getNeedLandingPage(needSlug)
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
 
-  if (!page) {
+  if (!basePage) {
     return <Navigate to="/services" replace />
+  }
+
+  const isSpanish = i18n.language.startsWith('es')
+  const page = localizeNeedLandingPage(basePage, i18n.language)
+  const siblingPages = localizeNeedLandingPages(allNeedLandingPages, i18n.language)
+    .filter((item) => item.slug !== page.slug)
+    .slice(0, 4)
+  const copy = {
+    home: isSpanish ? 'Inicio' : 'Home',
+    resources: isSpanish ? 'Recursos' : 'Resources',
+    primaryCta: isSpanish ? 'Crear mi plan CasaMia' : 'Build my CasaMia plan',
+    secondaryCta: isSpanish ? 'Ver servicios relacionados' : 'See related services',
+    quickCardTitle: isSpanish ? 'Plan CasaMia' : 'CasaMia plan',
+    quickCardBody: isSpanish
+      ? 'Evaluación, selección de mejoras, coordinación de instalación y seguimiento en una ruta gestionada.'
+      : 'Assessment, package selection, installation coordination and follow-up in one managed route.',
+    whoHelps: isSpanish ? 'A quién ayuda' : 'Who this helps',
+    checkFirst: isSpanish ? 'Qué revisar primero' : 'What to check first',
+    handlesIt: isSpanish ? 'Cómo lo gestiona CasaMia' : 'How CasaMia handles it',
+    practicalEyebrow: isSpanish ? 'Práctico, no abrumador' : 'Practical, not overwhelming',
+    practicalTitle: isSpanish ? 'Empieza por la rutina diaria.' : 'Start with the daily routine.',
+    practicalBody: isSpanish
+      ? 'La pregunta útil no es “qué producto compro”, sino dónde se siente insegura la persona, qué movimiento ocurre ahí y qué apoyo haría ese momento más fácil.'
+      : 'The useful question is not “which product should I buy?” It is: where does the person feel unsafe, what movement happens there, and what support would make that moment easier?',
+    showSpace: isSpanish ? 'Muestra el espacio' : 'Show the space',
+    showSpaceBody: isSpanish
+      ? 'Unas fotos o un vídeo corto de la ruta, transferencia o puerta suelen bastar para empezar.'
+      : 'A few photos or a short video of the route, transfer point or doorway is often enough to start.',
+    tellRoutine: isSpanish ? 'Cuéntanos la rutina' : 'Tell us the routine',
+    tellRoutineBody: isSpanish
+      ? 'Explica qué resulta difícil: ducha, cama, escaleras, baño de noche o vuelta a casa.'
+      : 'Explain what feels difficult: showering, getting out of bed, stairs, night bathroom trips or returning home.',
+    planTitle: isSpanish ? 'Recibe un plan orientado a resultados' : 'Receive a package-led plan',
+    planBody: isSpanish
+      ? 'CasaMia recomienda resultados primero y confirma después productos, medidas e instalación.'
+      : 'CasaMia recommends outcomes first, then confirms products, measurements and installer requirements.',
+    usefulPages: isSpanish ? 'Páginas útiles' : 'Useful next pages',
+    catalogueEyebrow: isSpanish ? 'Catálogo CasaMia actual' : 'Current CasaMia catalogue',
+    catalogueTitle: isSpanish ? 'Qué puede incluir CasaMia.' : 'What CasaMia can include.',
+    catalogueBody: isSpanish
+      ? 'Estos son resultados visibles para la familia desde el catálogo activo. La combinación exacta se confirma después de tus respuestas, fotos o visita.'
+      : 'These are customer-facing outcomes from the active service catalogue. The exact mix is confirmed after your answers, photos or site visit.',
+    catalogueCta: isSpanish ? 'Ver el catálogo completo' : 'Review the full catalogue',
+    turnkeyEyebrow: isSpanish ? 'Soporte llave en mano' : 'Turnkey support',
+    turnkeyTitle: isSpanish ? 'De la preocupación al siguiente paso claro.' : 'From concern to clear next step.',
+    turnkeyBody: isSpanish
+      ? 'CasaMia convierte una preocupación general en una ruta práctica: qué importa ahora, qué puede esperar, qué necesita medidas y qué puede coordinarse como un paquete.'
+      : 'CasaMia turns a broad worry into a practical home-safety route: what matters now, what can wait, what needs measurement, and what can be coordinated as one package.',
+    turnkeySteps: isSpanish
+      ? ['Cuéntanos qué ha cambiado', 'Revisamos vivienda y rutinas', 'Recibe una propuesta práctica', 'Instalamos, configuramos y acompañamos']
+      : ['Tell us what changed', 'Review the home and routines', 'Receive a practical proposal', 'Install, configure and support'],
+    clarifyEyebrow: isSpanish ? 'Qué puede aclarar tu plan CasaMia' : 'What your CasaMia plan can clarify',
+    clarifyTitle: isSpanish ? 'Suficientemente claro para actuar.' : 'Clear enough to act on.',
+    clarifyItems: isSpanish
+      ? [
+          'Qué cambios son urgentes, recomendados u opcionales',
+          'Qué entra en un paquete y qué necesita presupuesto',
+          'Si hace falta visita, medición o comprobación de compatibilidad',
+          'Qué puede coordinar CasaMia de principio a fin',
+        ]
+      : [
+          'Which changes are urgent, recommended or optional',
+          'Which items fit within a package and which need a quote',
+          'Whether a visit, measurement or compatibility check is needed',
+          'What CasaMia can coordinate end to end',
+        ],
+    beforeSpendingEyebrow: isSpanish ? 'Antes de gastar dinero' : 'Before spending money',
+    beforeSpendingTitle: isSpanish ? 'Tres revisiones que evitan malas decisiones.' : 'Three checks that avoid poor choices.',
+    beforeSpendingChecks: isSpanish
+      ? [
+          ['Revisa el movimiento exacto.', 'Dónde alcanza, gira, se sienta, se levanta o duda la persona.'],
+          ['Revisa el punto de fijación.', 'Un apoyo solo funciona si está colocado e instalado para el usuario real.'],
+          ['Revisa la entrega.', 'La mejor solución es la que la persona y la familia entienden después de instalarla.'],
+        ]
+      : [
+          ['Check the exact movement.', 'Where does the person reach, turn, sit, stand or hesitate?'],
+          ['Check the fixing point.', 'Support only works when it is positioned and installed for the real user.'],
+          ['Check the handover.', 'The best solution is one the person and family understand after installation.'],
+        ],
+    goDeeper: isSpanish ? 'Profundiza sin perderte.' : 'Go deeper without getting lost.',
+    questions: isSpanish ? 'Preguntas que suelen hacer las familias' : 'Questions families ask',
+    popularNeeds: isSpanish ? 'Necesidades CasaMia frecuentes' : 'Popular CasaMia needs',
+    moreWays: isSpanish ? 'Más formas de buscar ayuda.' : 'More ways families search for help.',
+    ready: isSpanish ? 'Cuando quieras' : 'Ready when you are',
+    finalTitle: isSpanish ? 'Recibe una recomendación CasaMia práctica.' : 'Get a practical CasaMia recommendation.',
+    finalBody: isSpanish
+      ? 'Empieza online, envía fotos o pide una llamada. Convertimos la información en un plan más claro antes de comprometerte con trabajos.'
+      : 'Start online, send photos or ask for a call. We turn the information into a clearer plan before you commit to works.',
+    startPlan: isSpanish ? 'Empezar mi plan' : 'Start my plan',
+    bookAssessment: isSpanish ? 'Reservar evaluación' : 'Book an assessment',
   }
 
   const schema = [
@@ -47,13 +138,13 @@ export function NeedLandingPage() {
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
+          name: copy.home,
           item: 'https://casamia.com.es/',
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Resources',
+          name: copy.resources,
           item: 'https://casamia.com.es/blog',
         },
         {
@@ -78,7 +169,6 @@ export function NeedLandingPage() {
     },
   ]
 
-  const siblingPages = allNeedLandingPages.filter((item) => item.slug !== page.slug).slice(0, 4)
   const catalogueServices = useMemo(
     () => getNeedCatalogueServices(page.slug, catalogue.services),
     [catalogue.services, page.slug],
@@ -97,11 +187,11 @@ export function NeedLandingPage() {
               <p>{page.intro}</p>
               <div className="need-landing-actions">
                 <Link className="btn btn-green" to="/home-safety-wizard">
-                  Build my CasaMia plan
+                  {copy.primaryCta}
                   <ArrowRight size={18} aria-hidden="true" />
                 </Link>
                 <Link className="btn btn-white" to={page.servicePath}>
-                  See related services
+                  {copy.secondaryCta}
                 </Link>
               </div>
             </div>
@@ -116,8 +206,8 @@ export function NeedLandingPage() {
               />
               <div className="need-landing-quick-card">
                 <span><ShieldCheck size={20} aria-hidden="true" /></span>
-                <strong>CasaMia plan</strong>
-                <p>Assessment, package selection, installation coordination and follow-up in one managed route.</p>
+                <strong>{copy.quickCardTitle}</strong>
+                <p>{copy.quickCardBody}</p>
               </div>
             </aside>
           </div>
@@ -127,17 +217,17 @@ export function NeedLandingPage() {
           <div className="site-shell need-landing-three">
             <NeedPanel
               icon={<HeartHandshake size={24} aria-hidden="true" />}
-              title="Who this helps"
+              title={copy.whoHelps}
               items={page.whoFor}
             />
             <NeedPanel
               icon={<ShieldCheck size={24} aria-hidden="true" />}
-              title="What to check first"
+              title={copy.checkFirst}
               items={page.priorities}
             />
             <NeedPanel
               icon={<ClipboardCheck size={24} aria-hidden="true" />}
-              title="How CasaMia handles it"
+              title={copy.handlesIt}
               items={page.casamiaPlan}
             />
           </div>
@@ -146,28 +236,25 @@ export function NeedLandingPage() {
         <section className="need-landing-practical">
           <div className="site-shell need-landing-practical-grid">
             <div className="need-landing-practical-copy">
-              <p className="eyebrow">Practical, not overwhelming</p>
-              <h2>Start with the daily routine.</h2>
-              <p>
-                The useful question is not “which product should I buy?” It is: where does the person feel unsafe,
-                what movement happens there, and what support would make that moment easier?
-              </p>
+              <p className="eyebrow">{copy.practicalEyebrow}</p>
+              <h2>{copy.practicalTitle}</h2>
+              <p>{copy.practicalBody}</p>
             </div>
             <div className="need-landing-mini-grid">
               <MiniCard
                 icon={<Camera size={21} aria-hidden="true" />}
-                title="Show the space"
-                body="A few photos or a short video of the route, transfer point or doorway is often enough to start."
+                title={copy.showSpace}
+                body={copy.showSpaceBody}
               />
               <MiniCard
                 icon={<MessageCircle size={21} aria-hidden="true" />}
-                title="Tell us the routine"
-                body="Explain what feels difficult: showering, getting out of bed, stairs, night bathroom trips or returning home."
+                title={copy.tellRoutine}
+                body={copy.tellRoutineBody}
               />
               <MiniCard
                 icon={<Wrench size={21} aria-hidden="true" />}
-                title="Receive a package-led plan"
-                body="CasaMia recommends outcomes first, then confirms products, measurements and installer requirements."
+                title={copy.planTitle}
+                body={copy.planBody}
               />
             </div>
           </div>
@@ -177,20 +264,17 @@ export function NeedLandingPage() {
           <section className="need-landing-catalogue">
             <div className="site-shell need-landing-catalogue-grid">
               <div className="need-landing-catalogue-copy">
-                <p className="eyebrow">Current CasaMia catalogue</p>
-                <h2>What CasaMia can include.</h2>
-                <p>
-                  These are customer-facing outcomes from the active service catalogue. The exact mix is confirmed
-                  after your answers, photos or site visit.
-                </p>
+                <p className="eyebrow">{copy.catalogueEyebrow}</p>
+                <h2>{copy.catalogueTitle}</h2>
+                <p>{copy.catalogueBody}</p>
                 <Link className="need-landing-text-link" to="/services">
-                  Review the full catalogue
+                  {copy.catalogueCta}
                   <ArrowRight size={17} aria-hidden="true" />
                 </Link>
               </div>
               <div className="need-landing-catalogue-list">
                 {catalogueServices.map((service) => (
-                  <CatalogueServiceCard key={service.id} service={service} />
+                  <CatalogueServiceCard key={service.id} service={service} language={i18n.language} />
                 ))}
               </div>
             </div>
@@ -200,15 +284,12 @@ export function NeedLandingPage() {
         <section className="need-landing-process">
           <div className="site-shell need-landing-process-grid">
             <div>
-              <p className="eyebrow">Turnkey support</p>
-              <h2>From concern to clear next step.</h2>
-              <p>
-                CasaMia turns a broad worry into a practical home-safety route: what matters now, what can wait,
-                what needs measurement, and what can be coordinated as one package.
-              </p>
+              <p className="eyebrow">{copy.turnkeyEyebrow}</p>
+              <h2>{copy.turnkeyTitle}</h2>
+              <p>{copy.turnkeyBody}</p>
             </div>
             <ol className="need-landing-steps">
-              {['Tell us what changed', 'Review the home and routines', 'Receive a practical proposal', 'Install, configure and support'].map((step, index) => (
+              {copy.turnkeySteps.map((step, index) => (
                 <li key={step}>
                   <span>{String(index + 1).padStart(2, '0')}</span>
                   {step}
@@ -221,15 +302,10 @@ export function NeedLandingPage() {
         <section className="need-landing-detail">
           <div className="site-shell need-landing-detail-grid">
             <div className="need-landing-route-card">
-              <p className="eyebrow">What your CasaMia plan can clarify</p>
-              <h2>Clear enough to act on.</h2>
+              <p className="eyebrow">{copy.clarifyEyebrow}</p>
+              <h2>{copy.clarifyTitle}</h2>
               <div className="need-landing-route-list">
-                {[
-                  'Which changes are urgent, recommended or optional',
-                  'Which items fit within a package and which need a quote',
-                  'Whether a visit, measurement or compatibility check is needed',
-                  'What CasaMia can coordinate end to end',
-                ].map((item) => (
+                {copy.clarifyItems.map((item) => (
                   <span key={item}>
                     <CheckCircle2 size={17} aria-hidden="true" />
                     {item}
@@ -238,21 +314,15 @@ export function NeedLandingPage() {
               </div>
             </div>
             <div className="need-landing-dos-card">
-              <p className="eyebrow">Before spending money</p>
-              <h2>Three checks that avoid poor choices.</h2>
+              <p className="eyebrow">{copy.beforeSpendingEyebrow}</p>
+              <h2>{copy.beforeSpendingTitle}</h2>
               <ol>
-                <li>
-                  <strong>Check the exact movement.</strong>
-                  <span>Where does the person reach, turn, sit, stand or hesitate?</span>
-                </li>
-                <li>
-                  <strong>Check the fixing point.</strong>
-                  <span>Support only works when it is positioned and installed for the real user.</span>
-                </li>
-                <li>
-                  <strong>Check the handover.</strong>
-                  <span>The best solution is one the person and family understand after installation.</span>
-                </li>
+                {copy.beforeSpendingChecks.map(([title, body]) => (
+                  <li key={title}>
+                    <strong>{title}</strong>
+                    <span>{body}</span>
+                  </li>
+                ))}
               </ol>
             </div>
           </div>
@@ -261,8 +331,8 @@ export function NeedLandingPage() {
         <section className="need-landing-section">
           <div className="site-shell need-landing-links-grid">
             <div className="need-landing-related">
-              <p className="eyebrow">Useful next pages</p>
-              <h2>Go deeper without getting lost.</h2>
+              <p className="eyebrow">{copy.usefulPages}</p>
+              <h2>{copy.goDeeper}</h2>
               <div>
                 {page.relatedServices.map((link) => (
                   <Link key={link.to} to={link.to}>
@@ -274,7 +344,7 @@ export function NeedLandingPage() {
             </div>
 
             <div className="need-landing-faq">
-              <p className="eyebrow">Questions families ask</p>
+              <p className="eyebrow">{copy.questions}</p>
               {page.faqs.map((faq) => (
                 <details key={faq.question}>
                   <summary>{faq.question}</summary>
@@ -289,8 +359,8 @@ export function NeedLandingPage() {
           <div className="site-shell">
             <div className="need-landing-more-card">
               <div>
-                <p className="eyebrow">Popular CasaMia needs</p>
-                <h2>More ways families search for help.</h2>
+                <p className="eyebrow">{copy.popularNeeds}</p>
+                <h2>{copy.moreWays}</h2>
               </div>
               <div className="need-landing-chip-list">
                 {siblingPages.map((item) => (
@@ -304,20 +374,17 @@ export function NeedLandingPage() {
         <section className="need-landing-final">
           <div className="site-shell need-landing-final-card">
             <div>
-              <p className="eyebrow">Ready when you are</p>
-              <h2>Get a practical CasaMia recommendation.</h2>
-              <p>
-                Start online, send photos or ask for a call. We turn the information into a clearer plan before you
-                commit to works.
-              </p>
+              <p className="eyebrow">{copy.ready}</p>
+              <h2>{copy.finalTitle}</h2>
+              <p>{copy.finalBody}</p>
             </div>
             <div className="need-landing-final-actions">
               <Link className="btn btn-green" to="/home-safety-wizard">
-                Start my plan
+                {copy.startPlan}
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
               <Link className="btn btn-white" to="/home-safety-assessment">
-                Book an assessment
+                {copy.bookAssessment}
               </Link>
             </div>
           </div>
@@ -348,10 +415,10 @@ const sectionPriority: Record<ServiceCatalogueSection, number> = {
   optional_adaptations: 3,
 }
 
-const sectionLabels: Record<ServiceCatalogueSection, string> = {
-  connected_room: 'Connected support',
-  home_safety_package: 'Home safety package',
-  optional_adaptations: 'Optional adaptation',
+const sectionLabels: Record<ServiceCatalogueSection, { en: string; es: string }> = {
+  connected_room: { en: 'Connected support', es: 'Apoyo conectado' },
+  home_safety_package: { en: 'Home safety package', es: 'Paquete de seguridad' },
+  optional_adaptations: { en: 'Optional adaptation', es: 'Adaptación opcional' },
 }
 
 function getNeedCatalogueServices(slug: string, services: CasaMiaService[]) {
@@ -380,14 +447,15 @@ function getNeedCatalogueServices(slug: string, services: CasaMiaService[]) {
     .slice(0, 6)
 }
 
-function CatalogueServiceCard({ service }: { service: CasaMiaService }) {
+function CatalogueServiceCard({ service, language }: { service: CasaMiaService; language: string }) {
   const section = service.section ?? 'home_safety_package'
   const summary = service.customerBenefit || service.shortDescription
+  const languageKey = language.toLowerCase().startsWith('es') ? 'es' : 'en'
 
   return (
     <article className="need-catalogue-card">
       <div>
-        <span>{sectionLabels[section]}</span>
+        <span>{sectionLabels[section][languageKey]}</span>
         <h3>{service.customerName ?? service.name}</h3>
         <p>{summary}</p>
       </div>

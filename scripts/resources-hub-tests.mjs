@@ -8,6 +8,8 @@ const toolsPage = await readFile(new URL('../src/pages/ToolsPage.tsx', import.me
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
+const needLandingPage = await readFile(new URL('../src/pages/NeedLandingPage.tsx', import.meta.url), 'utf8')
+const needLandingLocalization = await readFile(new URL('../src/constants/needLandingPagesLocalization.ts', import.meta.url), 'utf8')
 const seo = await readFile(new URL('../src/components/SEO.tsx', import.meta.url), 'utf8')
 const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
@@ -160,6 +162,21 @@ assert.match(
   'The Resources structured ItemList must include the topic routes.',
 )
 assert.match(
+  needLandingLocalization,
+  /fall-prevention-at-home[\s\S]*Prevención de caídas en casa[\s\S]*safe-bathroom-access[\s\S]*Acceso seguro al baño/,
+  'High-intent need landing pages must have Spanish localised titles.',
+)
+assert.match(
+  needLandingPage,
+  /localizeNeedLandingPage\(basePage, i18n\.language\)[\s\S]*localizeNeedLandingPages\(allNeedLandingPages, i18n\.language\)/,
+  'Need landing pages must localise the active page and related popular-need links.',
+)
+assert.match(
+  needLandingPage,
+  /catalogueEyebrow[\s\S]*turnkeySteps[\s\S]*beforeSpendingChecks[\s\S]*CatalogueServiceCard key=\{service\.id\} service=\{service\} language=\{i18n\.language\}/,
+  'Need landing page chrome and catalogue labels must be language-aware.',
+)
+assert.match(
   page,
   /'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map/,
   'The Resources hub must publish FAQ structured data.',
@@ -240,6 +257,11 @@ assert.match(
   'The Resources navigation must include Spanish copy.',
 )
 assert.match(
+  nav,
+  /localizeNeedLandingPages\(needLandingPages, i18n\.language\)[\s\S]*Seguridad en el baño[\s\S]*Empieza por la preocupación/,
+  'The Solutions navigation must localise high-intent need pages and group labels.',
+)
+assert.match(
   footer,
   /resourcesTitle: 'Useful resources'[\s\S]*Free safety tools[\s\S]*Printable home checklist[\s\S]*home-vs-residence-cost-calculator[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*family-conversation-before-home-safety-visit[\s\S]*bathroom-safety-seniors-costly-mistakes/,
   'The global footer must expose practical Resources links for discovery and SEO.',
@@ -278,6 +300,11 @@ assert.match(
   footer,
   /resourcesTitle: 'Recursos útiles'[\s\S]*Lista para imprimir[\s\S]*Guía de prevención de caídas/,
   'The global footer Resources links must include Spanish copy.',
+)
+assert.match(
+  footer,
+  /localizeNeedLandingPages\(needLandingPages, i18n\.language\)/,
+  'The footer popular needs must use the same localised need landing page source.',
 )
 assert.match(
   articlePage,

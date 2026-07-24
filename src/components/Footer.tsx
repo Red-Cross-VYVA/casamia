@@ -6,6 +6,7 @@ import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { getLegalRouteLabels } from '../constants/legalDocuments'
 import { needLandingPages } from '../constants/needLandingPages'
+import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
@@ -92,7 +93,7 @@ export function Footer() {
     { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },
     { label: links.bathroomSafety, to: '/blog/bathroom-safety-seniors-costly-mistakes' },
   ]
-  const needLinks = needLandingPages
+  const needLinks = localizeNeedLandingPages(needLandingPages, i18n.language)
     .filter((page) => page.footerVisible !== false)
     .map((page) => ({ label: page.title, to: page.path }))
 
