@@ -87,6 +87,11 @@ try {
 
   const appSource = await readFile(resolve(projectRoot, 'src/App.tsx'), 'utf8')
   assert.match(appSource, /function InternalRoute[\s\S]*?<InternalAccessGate>/)
+  assert.match(
+    appSource,
+    /function InternalRoute[\s\S]*<SEO[\s\S]*noindex[\s\S]*<InternalAccessGate>/,
+    'Every internal route wrapper must publish noindex metadata.',
+  )
   const internalRouteLines = appSource
     .split(/\r?\n/)
     .filter((line) => line.includes('<Route path="/internal'))
@@ -94,6 +99,33 @@ try {
   assert.ok(
     internalRouteLines.every((line) => line.includes('<InternalRoute>') || line.includes('<Navigate')),
     'Every internal route must be gated or redirect immediately to a gated route.',
+  )
+
+  const estimateReportPage = await readFile(
+    resolve(projectRoot, 'src/pages/EstimateReportPage.tsx'),
+    'utf8',
+  )
+  assert.match(
+    estimateReportPage,
+    /<SEO[\s\S]*path=\{`\/estimate\/\$\{token\}`\}[\s\S]*noindex/,
+    'Private estimate report links must publish noindex metadata.',
+  )
+
+  const publicProposalPage = await readFile(
+    resolve(projectRoot, 'src/pages/PublicProposalPage.tsx'),
+    'utf8',
+  )
+  assert.match(
+    publicProposalPage,
+    /<SEO[\s\S]*path=\{`\/proposal\/\$\{token\}`\}[\s\S]*noindex/,
+    'Private proposal links must publish noindex metadata.',
+  )
+
+  const orderPage = await readFile(resolve(projectRoot, 'src/pages/OrderPage.tsx'), 'utf8')
+  assert.match(
+    orderPage,
+    /<SEO[\s\S]*path="\/order"[\s\S]*noindex/,
+    'The order follow-up page must not compete with public marketing pages in search.',
   )
 
   const { token } = createInternalSessionToken()

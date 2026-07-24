@@ -3,7 +3,7 @@ import {
   buildRecommendedServicesPriceRange,
   buildWizardSafetyReport,
 } from './wizardSafetyReport.ts'
-import type { CasaMiaService } from '../types/serviceCatalogue.ts'
+import type { CasaMiaService, EditableServiceCatalogue } from '../types/serviceCatalogue.ts'
 import type {
   SafetyWizardState,
   WizardChallenge,
@@ -45,6 +45,7 @@ const improvementsByRoom: Partial<Record<WizardRoom, Omit<WizardImprovement, 'pr
 }
 
 type WizardResultOptions = {
+  catalogue?: EditableServiceCatalogue
   services?: CasaMiaService[]
   language?: string
 }
@@ -118,7 +119,7 @@ export function generateWizardResult(
     priceRange: options.services
       ? hasVisualAssessment
         ? buildRecommendedServicesPriceRange(safetyReport, options.services, options.language)
-        : getWizardPriceRange(state, options.services, options.language)
+        : getWizardPriceRange(state, options.catalogue ?? options.services, options.language)
       : undefined,
     confidence: state.inspectionBooked
       ? 'inspection'

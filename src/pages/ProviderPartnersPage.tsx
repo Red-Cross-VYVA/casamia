@@ -19,9 +19,10 @@ import {
   Zap,
 } from 'lucide-react'
 import type { FormEvent, ReactNode } from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SEO } from '../components/SEO'
 import {
   providerOnboardingSteps,
   providerCityOpportunities,
@@ -59,16 +60,28 @@ const marketingAssetIcons = [Award, BadgeCheck, Mail, Megaphone, Download, Copy]
 const providerPartnerCopy = {
   en: {
     title: 'Provider Partnership Programme | CasaMia',
+    metaDescription:
+      'Join CasaMia’s provider network for senior home-safety adaptations, installation, smart safety setup and aftercare across Spain.',
     heroEyebrow: 'Provider partnership programme',
     heroTitle: 'Join the senior home-safety market before it becomes crowded.',
     heroBody:
-      'CasaMia combines senior-focused assessment, practical home adaptations, smart safety and family handover into one coordinated service. We are building the trusted provider network behind that experience across Spain’s main cities.',
-    proof: ['Growing ageing-at-home demand', 'Senior-specific safety standards', 'City-by-city rollout'],
+      'CasaMia turns family concerns into clear, scoped home-safety projects. We are building a trusted provider network for senior-friendly adaptations, installation, smart safety setup and aftercare across Spain’s main cities.',
+    proof: ['Assessed projects, not cold leads', 'Clear briefs before the visit', 'CasaMia coordinates the customer'],
     apply: 'Apply to collaborate',
     viewStandards: 'View standards',
-    panelTitle: 'A category built for specialist providers',
+    panelTitle: 'What partners receive',
     panelBody:
-      'Families do not only need a product installed. They need someone who understands older residents, mobility, dignity, risk, trust and the anxiety that comes with changing a parent’s home.',
+      'A clearer job: resident context, room priorities, agreed scope, family expectations and a handover standard before work starts.',
+    workflowEyebrow: 'How the work flows',
+    workflowTitle: 'CasaMia handles the messy middle, so providers can focus on quality work.',
+    workflowBody:
+      'We qualify the request, gather context, shape the scope, coordinate the family and keep the record clean. Approved providers step in when the work is ready to be priced, visited, installed or supported.',
+    workflow: [
+      { title: 'Qualified request', body: 'Home, resident context, photos, urgency and family priority are captured first.' },
+      { title: 'Clear provider brief', body: 'You receive the room, scope, access notes, constraints and family expectations.' },
+      { title: 'Coordinated delivery', body: 'CasaMia keeps the customer loop, changes, approvals and handover organised.' },
+      { title: 'Documented outcome', body: 'Completion notes, photos, quality checks and follow-up stay attached to the project.' },
+    ],
     marketEyebrow: 'Market opportunity',
     marketTitle: 'Senior home safety is becoming a mainstream service category.',
     marketBody:
@@ -84,7 +97,7 @@ const providerPartnerCopy = {
     toolsEyebrow: 'Tools and resources',
     toolsTitle: 'We help collaborators deliver excellent work.',
     toolsBody:
-      'CasaMia is not just a source of leads. We support partners with the structure, context and resources they need to do careful work in older people’s homes, communicate clearly with families and leave every project properly documented.',
+      'CasaMia is not just a source of leads. We support partners with structure, context and practical tools so every home visit feels professional, respectful and well prepared.',
     marketingEyebrow: 'Marketing kit',
     marketingTitle: 'Help providers turn collaboration into local trust.',
     marketingBody:
@@ -107,6 +120,30 @@ const providerPartnerCopy = {
     registrationTitle: 'Apply to join the provider network.',
     registrationBody:
       'Share basic company details, coverage and service types. CasaMia will review fit before assigning any customer work.',
+    faqEyebrow: 'Before you apply',
+    faqTitle: 'Clear answers for serious local providers.',
+    faqItems: [
+      {
+        question: 'Is CasaMia a lead marketplace?',
+        answer:
+          'No. CasaMia qualifies the family request, structures the scope and coordinates the customer relationship before approved providers are asked to price, visit or install.',
+      },
+      {
+        question: 'Can providers choose which work to accept?',
+        answer:
+          'Yes. CasaMia shares the project context and expected standard first, so providers can confirm fit, availability and coverage before committing.',
+      },
+      {
+        question: 'What makes a provider a good fit?',
+        answer:
+          'Respectful home work, clear communication, insurance, reliable documentation and comfort working around older people and their families.',
+      },
+      {
+        question: 'Does CasaMia manage the customer after installation?',
+        answer:
+          'Yes. CasaMia keeps the family informed, collects handover notes and supports follow-up so providers are not left managing every customer detail alone.',
+      },
+    ],
     fields: {
       businessName: 'Business name',
       contactName: 'Main contact',
@@ -150,16 +187,28 @@ const providerPartnerCopy = {
   },
   es: {
     title: 'Programa de colaboradores profesionales | CasaMia',
+    metaDescription:
+      'Únete a la red CasaMia de profesionales para adaptaciones senior, instalación, seguridad inteligente y seguimiento en España.',
     heroEyebrow: 'Programa de colaboradores',
     heroTitle: 'Únete al mercado de seguridad senior en el hogar antes de que se sature.',
     heroBody:
-      'CasaMia combina evaluación centrada en personas mayores, adaptaciones prácticas, seguridad inteligente y entrega clara a la familia en un servicio coordinado. Estamos construyendo la red de profesionales que hará posible esa experiencia en las principales ciudades de España.',
-    proof: ['Demanda creciente para envejecer en casa', 'Estándares específicos para mayores', 'Despliegue ciudad por ciudad'],
+      'CasaMia convierte las preocupaciones familiares en proyectos claros de seguridad en el hogar. Estamos creando una red de profesionales para adaptaciones senior, instalación, seguridad inteligente y seguimiento en las principales ciudades de España.',
+    proof: ['Proyectos evaluados, no leads fríos', 'Brief claro antes de la visita', 'CasaMia coordina al cliente'],
     apply: 'Solicitar colaboración',
     viewStandards: 'Ver estándares',
-    panelTitle: 'Una categoría creada para especialistas',
+    panelTitle: 'Qué reciben los colaboradores',
     panelBody:
-      'Las familias no necesitan solo que se instale un producto. Necesitan profesionales que entiendan movilidad, dignidad, riesgo, confianza y la ansiedad de adaptar la casa de un padre o una madre.',
+      'Un trabajo más claro: contexto de la persona, prioridades por estancia, alcance acordado, expectativas familiares y estándar de entrega antes de empezar.',
+    workflowEyebrow: 'Cómo fluye el trabajo',
+    workflowTitle: 'CasaMia gestiona la parte compleja para que los profesionales se centren en entregar bien.',
+    workflowBody:
+      'Cualificamos la solicitud, recogemos contexto, damos forma al alcance, coordinamos con la familia y dejamos el proyecto documentado. Los colaboradores aprobados entran cuando el trabajo ya está listo para valorar, visitar, instalar o mantener.',
+    workflow: [
+      { title: 'Solicitud cualificada', body: 'Primero recogemos vivienda, contexto de la persona, fotos, urgencia y prioridad familiar.' },
+      { title: 'Brief claro', body: 'Recibes estancia, alcance, acceso, limitaciones y expectativas de la familia.' },
+      { title: 'Entrega coordinada', body: 'CasaMia organiza cliente, cambios, aprobaciones y entrega.' },
+      { title: 'Resultado documentado', body: 'Notas, fotos, comprobaciones de calidad y seguimiento quedan unidos al proyecto.' },
+    ],
     marketEyebrow: 'Oportunidad de mercado',
     marketTitle: 'La seguridad senior en casa se está convirtiendo en una categoría principal.',
     marketBody:
@@ -175,7 +224,7 @@ const providerPartnerCopy = {
     toolsEyebrow: 'Herramientas y recursos',
     toolsTitle: 'Ayudamos a los colaboradores a entregar un trabajo excelente.',
     toolsBody:
-      'CasaMia no es solo una fuente de oportunidades. Apoyamos a los colaboradores con estructura, contexto y recursos para trabajar con cuidado en viviendas de personas mayores, comunicarse bien con las familias y documentar cada proyecto.',
+      'CasaMia no es solo una fuente de oportunidades. Damos estructura, contexto y herramientas prácticas para que cada visita sea profesional, respetuosa y bien preparada.',
     marketingEyebrow: 'Kit de marketing',
     marketingTitle: 'Convierte la colaboración en confianza local.',
     marketingBody:
@@ -198,6 +247,30 @@ const providerPartnerCopy = {
     registrationTitle: 'Solicita unirte a la red de proveedores.',
     registrationBody:
       'Comparte datos básicos de empresa, cobertura y tipos de servicio. CasaMia revisará el encaje antes de asignar cualquier trabajo con clientes.',
+    faqEyebrow: 'Antes de solicitar',
+    faqTitle: 'Respuestas claras para proveedores locales serios.',
+    faqItems: [
+      {
+        question: '¿CasaMia es un marketplace de leads?',
+        answer:
+          'No. CasaMia cualifica la solicitud familiar, estructura el alcance y coordina la relación con el cliente antes de pedir a proveedores aprobados que valoren, visiten o instalen.',
+      },
+      {
+        question: '¿Los proveedores pueden elegir qué trabajos aceptar?',
+        answer:
+          'Sí. CasaMia comparte primero el contexto del proyecto y el estándar esperado para que el proveedor confirme encaje, disponibilidad y cobertura.',
+      },
+      {
+        question: '¿Qué hace que un proveedor encaje bien?',
+        answer:
+          'Trabajo respetuoso en vivienda, comunicación clara, seguro, documentación fiable y comodidad trabajando con personas mayores y sus familias.',
+      },
+      {
+        question: '¿CasaMia gestiona al cliente después de instalar?',
+        answer:
+          'Sí. CasaMia mantiene informada a la familia, recoge notas de entrega y apoya el seguimiento para que el proveedor no tenga que gestionar cada detalle solo.',
+      },
+    ],
     fields: {
       businessName: 'Nombre de la empresa',
       contactName: 'Contacto principal',
@@ -408,10 +481,54 @@ export function ProviderPartnersPage() {
   const [values, setValues] = useState<ProviderFormValues>(initialValues)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submissionMessage, setSubmissionMessage] = useState('')
-
-  useEffect(() => {
-    document.title = copy.title
-  }, [copy.title])
+  const schema = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: copy.title,
+      description: copy.metaDescription,
+      url: 'https://casamia.com.es/provider-partners',
+      inLanguage: isSpanish ? 'es-ES' : 'en',
+      about: ['senior home safety provider network', 'home adaptation installation', 'provider onboarding'],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      '@id': 'https://casamia.com.es/provider-partners#provider-onboarding',
+      name: copy.registrationTitle,
+      description: copy.registrationBody,
+      step: copy.onboarding.map((step, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: step,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      '@id': 'https://casamia.com.es/provider-partners#partner-profiles',
+      name: copy.profilesTitle,
+      itemListElement: copy.partnerPaths.map((path, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: path.title,
+        description: path.body,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      '@id': 'https://casamia.com.es/provider-partners#faq',
+      mainEntity: copy.faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ]
 
   function updateValue<Field extends keyof ProviderFormValues>(field: Field, value: ProviderFormValues[Field]) {
     setValues((current) => ({ ...current, [field]: value }))
@@ -465,6 +582,8 @@ export function ProviderPartnersPage() {
 
   return (
     <>
+      <SEO title={copy.title} description={copy.metaDescription} path="/provider-partners" schema={schema} />
+
       <section className="provider-hero">
         <div className="site-shell provider-hero-grid">
           <div>
@@ -499,12 +618,44 @@ export function ProviderPartnersPage() {
             <Building2 size={34} aria-hidden="true" />
             <h2>{copy.panelTitle}</h2>
             <p>{copy.panelBody}</p>
+            <div className="provider-hero-mini-flow" aria-label={copy.workflowEyebrow}>
+              <span>{isSpanish ? 'Contexto' : 'Context'}</span>
+              <ArrowRight size={15} aria-hidden="true" />
+              <span>{isSpanish ? 'Alcance' : 'Scope'}</span>
+              <ArrowRight size={15} aria-hidden="true" />
+              <span>{isSpanish ? 'Entrega' : 'Delivery'}</span>
+            </div>
             <div className="provider-city-strip">
               {providerPriorityCities.slice(0, 6).map((city) => (
                 <span key={city}>{copy.cityLabel(city)}</span>
               ))}
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section className="provider-workflow-section section-pad bg-white">
+        <div className="site-shell provider-workflow-layout">
+          <div>
+            <p className="eyebrow">{copy.workflowEyebrow}</p>
+            <h2 className="display-title">{copy.workflowTitle}</h2>
+            <p>{copy.workflowBody}</p>
+          </div>
+          <div className="provider-workflow-grid">
+            {copy.workflow.map((step, index) => {
+              const icons = [UsersRound, ShieldCheck, Wrench, BadgeCheck]
+              const Icon = icons[index] ?? CheckCircle2
+
+              return (
+                <article key={step.title} data-step={String(index + 1).padStart(2, '0')}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <Icon size={24} aria-hidden="true" />
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </article>
+              )
+            })}
+          </div>
         </div>
       </section>
 
@@ -765,6 +916,23 @@ export function ProviderPartnersPage() {
                 </div>
                 <p>{opportunity.note}</p>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad bg-white provider-faq-section" id="provider-faq">
+        <div className="site-shell provider-faq-layout">
+          <div>
+            <p className="eyebrow">{copy.faqEyebrow}</p>
+            <h2 className="display-title">{copy.faqTitle}</h2>
+          </div>
+          <div className="provider-faq-list">
+            {copy.faqItems.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
             ))}
           </div>
         </div>

@@ -5,12 +5,12 @@ const page = await readFile(new URL('../src/pages/ServicesPage.tsx', import.meta
 
 assert.match(
   page,
-  /useServiceCatalogue\(\)/,
+  /use(?:Localized)?ServiceCatalogue\(/,
   'The Services page must read the public catalogue managed from the admin panel.',
 )
 assert.match(
   page,
-  /catalogue\.services\.filter\(\s*\(?\s*service\s*\)?\s*=>\s*service\.active\s*\)/,
+  /catalogue\.services\.filter\([\s\S]*service\.active/,
   'Only active admin-catalogue services should be offered to customers.',
 )
 assert.match(
@@ -34,6 +34,31 @@ assert.match(
   page,
   /service\.includedItems\?\.map\(/,
   'Customers must be able to see the inclusions maintained in the admin catalogue.',
+)
+assert.match(
+  page,
+  /formatPackageComposition\(group\.services,\s*copy\)/,
+  'Room cards must describe package composition instead of calling everything options.',
+)
+assert.match(
+  page,
+  /includedItemPlural/,
+  'Package composition copy must include customer-facing included-item language.',
+)
+assert.match(
+  page,
+  /addOnPlural/,
+  'Package composition copy must include customer-facing optional add-on language.',
+)
+assert.match(
+  page,
+  /service\.section === 'connected_room'/,
+  'Connected-room services must be shown as add-ons, not base package inclusions.',
+)
+assert.doesNotMatch(
+  page,
+  /optionSingular|optionPlural|packageOptions/,
+  'The services page must not label package contents as generic options.',
 )
 assert.doesNotMatch(
   page,

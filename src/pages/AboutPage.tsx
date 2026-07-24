@@ -7,11 +7,12 @@ import {
   ShieldCheck,
   UsersRound,
 } from 'lucide-react'
-import { useEffect } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { BrandLogo } from '../components/BrandLogo'
+import { SEO } from '../components/SEO'
 import { SpainCoverageMap, type SpainCoverageCopy } from '../components/SpainCoverageMap'
 
 type AboutCopy = {
@@ -307,14 +308,63 @@ function ProofIcon({ type }: { type: AboutCopy['proof'][number]['icon'] }) {
 
 export function AboutPage() {
   const { i18n } = useTranslation()
-  const copy = getAboutCopy(i18n.language)
+  const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const copy = getAboutCopy(language)
+  const siteUrl = 'https://www.casamia.com.es'
+  const seoTitle =
+    language === 'es'
+      ? 'Sobre CasaMia | Seguridad y adaptación del hogar en España'
+      : 'About CasaMia | Senior Home Safety and Adaptation in Spain'
+  const seoDescription = copy.intro
 
-  useEffect(() => {
-    document.title = `${copy.eyebrow} | CasaMia`
-  }, [copy.eyebrow])
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'AboutPage',
+          '@id': `${siteUrl}/about#page`,
+          url: `${siteUrl}/about`,
+          name: seoTitle,
+          description: seoDescription,
+          inLanguage: language,
+          mainEntity: {
+            '@id': `${siteUrl}/#organization`,
+          },
+        },
+        {
+          '@type': 'Organization',
+          '@id': `${siteUrl}/#organization`,
+          name: 'CasaMia',
+          url: siteUrl,
+          description: seoDescription,
+          areaServed: copy.coverage.regions.map((region) => ({
+            '@type': 'AdministrativeArea',
+            name: region,
+          })),
+          knowsAbout: copy.proof.map((proof) => proof.title),
+          sameAs: copy.proof.flatMap((proof) => (proof.link?.href ? [proof.link.href] : [])),
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${siteUrl}/about#trust-signals`,
+          name: copy.credibilityTitle,
+          itemListElement: copy.proof.map((proof, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: proof.title,
+            description: proof.body,
+            url: proof.link?.href,
+          })),
+        },
+      ],
+    }),
+    [copy.coverage.regions, copy.credibilityTitle, copy.proof, language, seoDescription, seoTitle],
+  )
 
   return (
     <>
+      <SEO title={seoTitle} description={seoDescription} path="/about" schema={schema} />
       <section className="about-hero">
         <div className="about-hero-grid site-shell">
           <div className="about-hero-copy">

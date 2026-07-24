@@ -41,6 +41,14 @@ type WhyCasamiaCopy = {
     title: string
     body: string
   }>
+  proofEyebrow: string
+  proofTitle: string
+  proofBody: string
+  proofItems: Array<{
+    title: string
+    body: string
+    outcome: string
+  }>
   sections: Array<{
     icon: 'inspectors' | 'partners' | 'insured' | 'products' | 'pricing' | 'acceptance'
     title: string
@@ -101,6 +109,32 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       {
         title: 'Check the result',
         body: 'The job is followed through with handover notes, family updates and a clear point of contact after delivery.',
+      },
+    ],
+    proofEyebrow: 'What we verify',
+    proofTitle: 'Clear checks before a family commits.',
+    proofBody:
+      'The biggest risk for families is not choosing the wrong grab bar. It is starting work without knowing who is responsible, what is included, what still needs confirmation and how the result will be checked.',
+    proofItems: [
+      {
+        title: 'Provider fit',
+        body: 'The provider must match the room, work type, location, availability and senior-home standard.',
+        outcome: 'Fewer handoffs',
+      },
+      {
+        title: 'Scope and price clarity',
+        body: 'The proposal separates included work, optional items, measurement-dependent work and grant-support steps.',
+        outcome: 'No vague quote',
+      },
+      {
+        title: 'Resident acceptance',
+        body: 'Recommendations consider whether the person will actually use the change day to day.',
+        outcome: 'Useful at home',
+      },
+      {
+        title: 'Aftercare route',
+        body: 'The family knows what happens after installation: handover, questions, photos, notes and follow-up.',
+        outcome: 'One contact',
       },
     ],
     sections: [
@@ -202,6 +236,32 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       {
         title: 'Comprobar el resultado',
         body: 'El trabajo se cierra con notas de entrega, actualización a la familia y un punto de contacto para seguimiento.',
+      },
+    ],
+    proofEyebrow: 'Qué comprobamos',
+    proofTitle: 'Comprobaciones claras antes de que la familia se comprometa.',
+    proofBody:
+      'El mayor riesgo para una familia no es elegir una barra concreta. Es empezar trabajos sin saber quién responde, qué está incluido, qué falta por confirmar y cómo se comprobará el resultado.',
+    proofItems: [
+      {
+        title: 'Encaje del profesional',
+        body: 'El proveedor debe encajar con la estancia, tipo de trabajo, ubicación, disponibilidad y estándar senior.',
+        outcome: 'Menos traspasos',
+      },
+      {
+        title: 'Alcance y precio claros',
+        body: 'La propuesta separa trabajo incluido, opcionales, partidas que requieren medida y apoyo con ayudas.',
+        outcome: 'Sin presupuesto vago',
+      },
+      {
+        title: 'Aceptación de la persona',
+        body: 'Las recomendaciones consideran si la persona realmente usará el cambio en su rutina diaria.',
+        outcome: 'Útil en casa',
+      },
+      {
+        title: 'Ruta de seguimiento',
+        body: 'La familia sabe qué ocurre después: entrega, dudas, fotos, notas y seguimiento.',
+        outcome: 'Un contacto',
       },
     ],
     sections: [
@@ -424,6 +484,33 @@ export function WhyCasamiaPage() {
                 </article>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      <section className="why-verification-section section-pad" aria-labelledby="why-verification-title">
+        <div className="site-shell why-verification-grid">
+          <div className="why-verification-copy">
+            <p className="eyebrow">{copy.proofEyebrow}</p>
+            <h2 id="why-verification-title">{copy.proofTitle}</h2>
+            <p>{copy.proofBody}</p>
+            <Link className="btn btn-navy" to="/home-safety-assessment">
+              {copy.ctaButton}
+              <ArrowRight size={19} aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="why-verification-list">
+            {copy.proofItems.map((item, index) => (
+              <article className="why-verification-card" key={item.title}>
+                <span className="why-verification-number">{String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.body}</p>
+                </div>
+                <small>{item.outcome}</small>
+              </article>
+            ))}
           </div>
         </div>
       </section>

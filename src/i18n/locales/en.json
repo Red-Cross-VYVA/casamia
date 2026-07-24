@@ -71,6 +71,7 @@
   },
   "assessment": {
     "metaTitle": "In-Home Safety Assessment",
+    "metaDescription": "Book a CasaMia in-home safety assessment in Spain. Review fall risks, accessibility, bathroom safety, grant support and the clearest next step before choosing any work.",
     "hero": {
       "title": "Book a Professional In-Home Safety Assessment",
       "subtitle": "Request a 99 EUR CasaMia home visit to review fall risks, accessibility needs, and practical improvements before you choose any work.",
@@ -146,6 +147,30 @@
         }
       ]
     },
+    "afterReview": {
+      "eyebrow": "After your review",
+      "title": "Clear next steps, without the coordination headache.",
+      "body": "Whether you start online or request a visit, CasaMia turns your answers into a practical route: what matters first, what can wait, and what we can coordinate for you.",
+      "cards": [
+        {
+          "title": "We review the context",
+          "body": "Photos, notes, mobility needs, room risks and priorities are reviewed together."
+        },
+        {
+          "title": "You get a clear summary",
+          "body": "We explain the likely risk areas, recommended next step and any missing information."
+        },
+        {
+          "title": "A visit is confirmed only if useful",
+          "body": "If the home needs measurement or professional review, we confirm timing and scope first."
+        },
+        {
+          "title": "CasaMia coordinates the work",
+          "body": "Proposal, products, installers, grants where relevant, and follow-up stay under one plan."
+        }
+      ],
+      "note": "You stay in control: no installation is booked until the scope is clear and accepted."
+    },
     "how": {
       "title": "How It Works",
       "items": [
@@ -160,6 +185,32 @@
         {
           "title": "You Receive Recommendations",
           "body": "After the visit, you receive clear guidance on risks, priorities, and next steps."
+        }
+      ]
+    },
+    "faq": {
+      "title": "Questions families usually ask before booking.",
+      "body": "Short answers, clear expectations, and no pressure to proceed before the home and scope are understood.",
+      "items": [
+        {
+          "question": "Is the online safety report free?",
+          "answer": "Yes. You can start with the online safety report at no cost. A professional in-home assessment visit costs 99 EUR and is credited toward your CasaMia plan if you proceed with approved improvements."
+        },
+        {
+          "question": "Do I have to install anything after the assessment?",
+          "answer": "No. The assessment gives you clarity first. CasaMia explains what looks urgent, what can wait, and what would need a proposal before any work is booked."
+        },
+        {
+          "question": "What does CasaMia manage if we continue?",
+          "answer": "CasaMia can coordinate the practical route end to end: scope, proposal, compatible products, vetted installers, grant-support preparation where relevant, scheduling, handover and follow-up."
+        },
+        {
+          "question": "Can we use photos, videos or a phone call before a visit?",
+          "answer": "Yes. Many families start online with guided answers, photos, short videos, voice notes or a call. If measurement or professional review is needed, CasaMia confirms the visit before booking."
+        },
+        {
+          "question": "Can CasaMia help with public grants?",
+          "answer": "CasaMia can help identify relevant grant routes and prepare support where appropriate. The public authority always decides eligibility, approval, amount and timing."
         }
       ]
     },
@@ -467,7 +518,7 @@
     "cta": "Get My Free Report"
   },
   "footer": {
-    "tagline": "Helping families across Europe age gracefully at home.",
+    "tagline": "Senior home adaptation in Spain: safer bathrooms, easier access, grant support and managed installation.",
     "phone": "+34 900 000 000",
     "company": {
       "title": "Company",

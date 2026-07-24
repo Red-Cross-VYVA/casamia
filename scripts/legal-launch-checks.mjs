@@ -12,9 +12,15 @@ const cookieConsent = read('src/utils/cookieConsent.ts')
 const analytics = read('src/utils/analytics.ts')
 const workflow = read('src/services/projectWorkflow.ts')
 const withdrawal = read('src/pages/WithdrawalFormPage.tsx')
+const terms = read('src/pages/TermsAndConditionsPage.tsx')
+const legalDocumentPage = read('src/pages/LegalDocumentPage.tsx')
 const documents = read('src/services/contractDocuments.ts')
 const legalControls = read('src/config/legalControls.ts')
+const sitemap = read('public/sitemap.xml')
+const robots = read('public/robots.txt')
+const vercelConfig = read('vercel.json')
 const grantsPage = read('src/pages/GrantsPage.tsx')
+const planAdaptaPage = read('src/pages/PlanAdaptaPage.tsx')
 const grantProgrammes = read('src/constants/grantProgrammes.ts')
 const grantCopy = [
   read('src/i18n/locales/en.json'),
@@ -24,6 +30,46 @@ const grantCopy = [
 ].join('\n')
 
 assert.match(footer, /legalRouteLabels/, 'Footer legal links should come from legal route labels.')
+for (const route of [
+  '/legal-notice',
+  '/general-customer-terms',
+  '/privacy-policy',
+  '/cookie-policy',
+  '/withdrawal-cancellation',
+  '/withdrawal-form',
+  '/guarantees-aftercare',
+  '/complaints-contact',
+  '/accessibility-statement',
+]) {
+  assert.match(
+    sitemap,
+    new RegExp(`https://casamia\\.com\\.es${route.replaceAll('-', '\\-')}`),
+    `Sitemap must include the public legal route ${route}.`,
+  )
+}
+assert.match(robots, /^User-agent:\s*\*/m, 'Robots policy must apply to all crawlers.')
+assert.match(robots, /^Allow:\s*\/$/m, 'Robots policy must allow public pages to be crawled.')
+assert.match(robots, /^Disallow:\s*\/internal\/$/m, 'Robots policy must keep internal tools out of search.')
+assert.match(robots, /^Disallow:\s*\/estimate\/$/m, 'Robots policy must keep private estimates out of search.')
+assert.match(robots, /^Disallow:\s*\/proposal\/$/m, 'Robots policy must keep proposal pages out of search.')
+assert.match(
+  robots,
+  /^Sitemap:\s*https:\/\/casamia\.com\.es\/sitemap\.xml$/m,
+  'Robots policy must point search engines to the canonical CasaMia sitemap.',
+)
+for (const headerName of [
+  'X-Content-Type-Options',
+  'Referrer-Policy',
+  'X-Frame-Options',
+  'Strict-Transport-Security',
+  'Permissions-Policy',
+]) {
+  assert.match(
+    vercelConfig,
+    new RegExp(`"key":\\s*"${headerName}"`),
+    `Vercel must send the ${headerName} security header.`,
+  )
+}
 assert.match(read('src/config/company.ts'), /commercialName:\s*'CasaMia'/, 'Commercial brand should be centralised.')
 assert.match(checkout, /Amount payable now: €0/, 'Quote requests must explicitly disclose that nothing is payable now.')
 assert.match(
@@ -35,6 +81,26 @@ assert.match(checkout, /Request quote/, 'Checkout must offer the no-payment quot
 assert.match(checkout, /Reserve visit/, 'Checkout must offer the measured-visit reservation action.')
 assert.match(checkout, /createMockDepositCheckout/, 'Visit reservation must remain on the mock checkout adapter.')
 assert.match(withdrawal, /validate\(\)/, 'Withdrawal form must validate before submission.')
+assert.match(
+  terms,
+  /<SEO title=\{title\} description=\{description\} path="\/terms-and-conditions" \/>/,
+  'Terms page must use shared SEO metadata.',
+)
+assert.match(
+  withdrawal,
+  /<SEO title=\{copy\.title\} description=\{copy\.body\} path="\/withdrawal-form" \/>/,
+  'Withdrawal form must use shared SEO metadata.',
+)
+assert.match(
+  legalDocumentPage,
+  /<SEO title=\{document\.title\} description=\{document\.intro\} path=\{path\} schema=\{schema\} \/>/,
+  'Shared legal document pages must use canonical SEO metadata.',
+)
+assert.match(
+  legalDocumentPage,
+  /legalRouteLabels\.find[\s\S]*'@type': 'WebPage'[\s\S]*#page/,
+  'Shared legal document pages must publish WebPage structured data on their canonical route.',
+)
 assert.match(cookieConsent, /analytics: false/, 'Optional analytics cookies must default off.')
 assert.match(cookieConsent, /marketing: false/, 'Optional marketing cookies must default off.')
 assert.match(analytics, /hasCookieConsent\('analytics'\)/, 'Analytics must be blocked before consent.')
@@ -72,6 +138,36 @@ assert.match(
   grantsPage,
   /Applying for a grant is separate from purchasing CasaMia/,
   'Grant page must separate grant enquiries from installation contracts.',
+)
+assert.match(
+  grantsPage,
+  /<SEO title=\{copy\.seoTitle\} description=\{copy\.seoDescription\} path="\/grants" schema=\{schema\} \/>/,
+  'Grant page must publish canonical SEO metadata with structured data.',
+)
+assert.match(
+  grantsPage,
+  /'@type': 'Service'[\s\S]*grant-support-service[\s\S]*'@type': 'HowTo'[\s\S]*grant-support-process[\s\S]*copy\.roleItems\.map/,
+  'Grant page must publish structured data for CasaMia grant support and its visible process.',
+)
+assert.match(
+  grantsPage,
+  /'@type': 'ItemList'[\s\S]*document-checklist[\s\S]*copy\.documentItems\.map[\s\S]*'@type': 'GovernmentService'[\s\S]*programme\.officialSource/,
+  'Grant page must publish structured data for document requirements and sourced official programme cards.',
+)
+assert.match(
+  planAdaptaPage,
+  /<SEO[\s\S]*title=\{title\}[\s\S]*description=\{description\}[\s\S]*path="\/plan-adapta"[\s\S]*schema=\{schema\}/,
+  'Plan Adapta page must use shared SEO metadata.',
+)
+assert.match(
+  planAdaptaPage,
+  /'@type': 'Service'[\s\S]*plan-adapta#grant-support[\s\S]*'@type': 'HowTo'[\s\S]*plan-adapta#support-process[\s\S]*steps\.map/,
+  'Plan Adapta page must publish structured data for the support service and visible process.',
+)
+assert.match(
+  planAdaptaPage,
+  /'@type': 'ItemList'[\s\S]*eligible-improvements[\s\S]*improvements\.map[\s\S]*casamia-support[\s\S]*helpCards\.map/,
+  'Plan Adapta page must publish structured data for eligible improvement examples and CasaMia support cards.',
 )
 
 console.log('Legal launch checks passed.')

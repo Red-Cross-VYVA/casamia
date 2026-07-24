@@ -1,5 +1,5 @@
-import { getServicesForPackageArea } from '../services/serviceCatalogue.ts'
-import type { CasaMiaService, ServicePackageArea } from '../types/serviceCatalogue.ts'
+import { getPackageConfigForArea } from '../services/serviceCatalogue.ts'
+import type { CasaMiaService, EditableServiceCatalogue, ServicePackageArea } from '../types/serviceCatalogue.ts'
 import type { SafetyWizardState, WizardPriceRange, WizardRisk } from '../types/wizard.ts'
 
 const riskAreaMap: Partial<Record<WizardRisk, ServicePackageArea>> = {
@@ -14,13 +14,13 @@ const riskAreaMap: Partial<Record<WizardRisk, ServicePackageArea>> = {
 }
 
 /**
- * Builds an intentionally conservative starting estimate from the live service
- * catalogue. One lowest-priced active option is selected per relevant area,
- * then duplicate services are removed. This is not presented as a quotation.
+ * Builds an intentionally conservative starting estimate from the live package
+ * catalogue. Prices are set at package-area level; individual components are
+ * included as core or optional items inside those packages.
  */
 export function getWizardPriceRange(
   state: SafetyWizardState,
-  services: CasaMiaService[],
+  servicesOrCatalogue: CasaMiaService[] | EditableServiceCatalogue,
   language = 'en',
 ): WizardPriceRange | undefined {
   const areas = getRelevantAreas(state)
@@ -29,31 +29,28 @@ export function getWizardPriceRange(
     return undefined
   }
 
-  const selectedServices = new Map<string, CasaMiaService>()
+  const catalogue = Array.isArray(servicesOrCatalogue)
+    ? { services: servicesOrCatalogue }
+    : servicesOrCatalogue
+  const selectedServiceIds = new Set<string>()
   let requiresQuote = false
+  let minimum = 0
+  let recurringMonthlyMinimum = 0
 
   areas.forEach((area) => {
-    const options = getServicesForPackageArea(services, area)
-    const pricedOptions = options
-      .filter((service) => getOneTimePrice(service) > 0)
-      .sort((left, right) => getPriceIncludingVat(left) - getPriceIncludingVat(right))
+    const packageConfig = getPackageConfigForArea(catalogue, area)
+    const packagePrice = getPackagePriceIncludingVat(packageConfig)
 
-    if (pricedOptions[0]) {
-      selectedServices.set(pricedOptions[0].id, pricedOptions[0])
-    } else if (options.some((service) => service.pricingType === 'quote_only')) {
+    if (packagePrice > 0) {
+      minimum += packagePrice
+      recurringMonthlyMinimum += packageConfig?.recurringMonthlyPrice ?? 0
+      catalogue.services
+        .filter((service) => service.active && (service.wizardAreas ?? []).includes(area))
+        .forEach((service) => selectedServiceIds.add(service.id))
+    } else {
       requiresQuote = true
     }
   })
-
-  const starterServices = [...selectedServices.values()]
-  const minimum = starterServices.reduce(
-    (total, service) => total + getPriceIncludingVat(service),
-    0,
-  )
-  const recurringMonthlyMinimum = starterServices.reduce(
-    (total, service) => total + (service.recurringMonthlyPrice ?? 0),
-    0,
-  )
 
   if (!minimum && !recurringMonthlyMinimum) {
     return requiresQuote
@@ -62,7 +59,7 @@ export function getWizardPriceRange(
           source: 'service-catalogue',
           areaCount: areas.length,
           requiresQuote: true,
-          serviceIds: [],
+          serviceIds: [...selectedServiceIds],
           vatIncluded: true,
         }
       : undefined
@@ -75,7 +72,7 @@ export function getWizardPriceRange(
     areaCount: areas.length,
     recurringMonthlyMinimum: recurringMonthlyMinimum || undefined,
     requiresQuote,
-    serviceIds: starterServices.map((service) => service.id),
+    serviceIds: [...selectedServiceIds],
     vatIncluded: true,
   }
 }
@@ -114,15 +111,14 @@ function getRelevantAreas(state: SafetyWizardState) {
   return [...areas]
 }
 
-function getOneTimePrice(service: CasaMiaService) {
-  if (service.pricingType === 'quote_only') return 0
-  if (service.pricingType === 'from') return service.fromPrice ?? 0
-  return (service.productPrice ?? 0) + (service.installationPrice ?? 0)
-}
+function getPackagePriceIncludingVat(config: ReturnType<typeof getPackageConfigForArea>) {
+  if (!config || !config.active || config.pricingType === 'quote_only') return 0
 
-function getPriceIncludingVat(service: CasaMiaService) {
-  const price = getOneTimePrice(service)
-  return price + Math.round(price * service.vatRate)
+  const price = config.pricingType === 'from' ? config.fromPrice : config.packagePrice
+
+  if (!price) return 0
+
+  return price + Math.round(price * config.vatRate)
 }
 
 function formatStartingPrice(amount: number, language: string) {

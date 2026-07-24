@@ -444,6 +444,16 @@ assert.match(
   'Shared grant-report links must load their saved report from the public API.',
 )
 assert.match(grantPageSource, /setStep\(3\)/)
+assert.match(
+  grantPageSource,
+  /<SEO[\s\S]*title=\{title\}[\s\S]*description=\{description\}[\s\S]*path="\/grant-check"[\s\S]*schema=\{schema\}/,
+  'Grant checker must use shared SEO metadata.',
+)
+assert.match(
+  grantPageSource,
+  /'@type': 'WebApplication'[\s\S]*\/grant-check#tool[\s\S]*'@type': 'HowTo'[\s\S]*\/grant-check#readiness-flow[\s\S]*copy\.progress\.map[\s\S]*'@type': 'ItemList'[\s\S]*\/grant-check#check-includes/,
+  'Grant checker must publish structured data for the free tool, visible flow and included outputs.',
+)
 
 const uploadEstimatorSource = readFileSync(
   new URL('../src/components/UploadEstimator.tsx', import.meta.url),

@@ -6,9 +6,11 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import type { FormEvent } from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
+
+import { SEO } from '../components/SEO'
 
 type OrderCopy = {
   eyebrow: string
@@ -115,10 +117,6 @@ export function OrderPage() {
   const zoneName = zoneLabels[selectedZone]?.[isSpanish ? 'es' : 'en'] ?? (isSpanish ? 'Toda España' : 'All Spain')
   const [saved, setSaved] = useState(false)
 
-  useEffect(() => {
-    document.title = `${copy.eyebrow} | CasaMia`
-  }, [copy.eyebrow])
-
   const whatsappHref = useMemo(() => {
     const message = isSpanish
       ? `Hola CasaMia, quiero pedir información para ${zoneName}.`
@@ -146,6 +144,7 @@ export function OrderPage() {
 
   return (
     <>
+      <SEO title={copy.eyebrow} description={copy.intro} path="/order" noindex />
       <section className="order-hero">
         <div className="order-hero-inner site-shell">
           <div>

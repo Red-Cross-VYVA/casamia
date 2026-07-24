@@ -539,16 +539,20 @@ function makeFinding(overrides = {}) {
     makeService({ id: 'living-premium', productPrice: 250 }),
     makeService({ id: 'bathroom-starter', room: 'bathroom', productPrice: 100, wizardAreas: ['bathroom'] }),
   ]
-  const range = getWizardPriceRange(state, services, 'es')
+  const packageConfigs = [
+    { active: true, area: 'living-room', packagePrice: 75, pricingType: 'fixed', vatRate: 0.21 },
+    { active: true, area: 'bathroom', packagePrice: 100, pricingType: 'fixed', vatRate: 0.21 },
+  ]
+  const range = getWizardPriceRange(state, { packageConfigs, services }, 'es')
 
   assert.equal(range?.minimum, 212, 'The estimate should use the lowest active option per area and include VAT.')
-  assert.deepEqual(range?.serviceIds, ['bathroom-starter', 'living-starter'])
+  assert.deepEqual(range?.serviceIds, ['bathroom-starter', 'living-starter', 'living-premium'])
   assert.match(range?.label ?? '', /^Desde /)
 
-  const adminEditedServices = services.map((service) =>
-    service.id === 'bathroom-starter' ? { ...service, productPrice: 200 } : service,
+  const adminEditedPackageConfigs = packageConfigs.map((config) =>
+    config.area === 'bathroom' ? { ...config, packagePrice: 200 } : config,
   )
-  const editedRange = getWizardPriceRange(state, adminEditedServices, 'es')
+  const editedRange = getWizardPriceRange(state, { packageConfigs: adminEditedPackageConfigs, services }, 'es')
 
   assert.equal(editedRange?.minimum, 333, 'An Admin catalogue price edit must change the wizard estimate.')
 }

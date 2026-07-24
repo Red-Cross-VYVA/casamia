@@ -3,10 +3,14 @@ import { useEffect, useMemo, useState } from 'react'
 import { casaMiaServices } from '../config/serviceCatalogue.ts'
 import { defaultSpanishServiceCopy } from '../config/serviceCatalogueSpanishCopy.ts'
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
+import { flattenMasterCatalogueForCompatibility } from './masterServiceCatalogue.ts'
 import { getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 import type {
   CasaMiaService,
   EditableServiceCatalogue,
+  MasterServiceCatalogue,
+  ServiceCatalogueSection,
+  ServicePackageConfig,
   ServicePackageArea,
   ServiceRoom,
 } from '../types/serviceCatalogue.ts'
@@ -26,9 +30,48 @@ type ServiceCatalogueSaveResult = ServiceCatalogueLoadResult & {
 }
 
 export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
+  return buildServiceCatalogueFromMaster()
+}
+
+function buildServiceCatalogueFromMaster(masterCatalogue?: MasterServiceCatalogue): EditableServiceCatalogue {
+  const masterRooms = new Set(['bathroom', 'bedroom', 'kitchen'])
+
   return {
-    services: clone(casaMiaServices).map(withPackageAreaDefaults),
+    masterCatalogue,
+    packageConfigs: getDefaultPackageConfigs(),
+    services: [
+      ...flattenMasterCatalogueForCompatibility(masterCatalogue),
+      ...clone(casaMiaServices).filter((service) => !masterRooms.has(service.room)),
+    ].map(withPackageAreaDefaults),
   }
+}
+
+export function getDefaultPackageConfigs(): ServicePackageConfig[] {
+  return [
+    {
+      active: true,
+      area: 'bathroom',
+      name: 'Safer Bathroom Access',
+      pricingType: 'quote_only',
+      section: 'home_safety_package',
+      vatRate: 0.21,
+    },
+    {
+      active: true,
+      area: 'bedroom',
+      name: 'Easier Bedroom Comfort',
+      pricingType: 'quote_only',
+      section: 'home_safety_package',
+      vatRate: 0.21,
+    },
+    { active: true, area: 'kitchen', name: 'Confident kitchen', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'living-room', name: 'Comfortable movement', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'stairs', name: 'Safer stairs', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'entrance', name: 'Easy entrance', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'outdoor', name: 'Outdoor access', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'lighting', name: 'Clearer lighting', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'smart-safety', name: 'Connected safety', pricingType: 'quote_only', vatRate: 0.21 },
+  ]
 }
 
 export function getDefaultServicePackageAreas(
@@ -88,10 +131,14 @@ export function getServiceCatalogue(): EditableServiceCatalogue {
     }
 
     const parsed = JSON.parse(saved) as Partial<EditableServiceCatalogue>
-    const defaults = getDefaultServiceCatalogue()
+    const masterCatalogue = parsed.masterCatalogue
+    const defaults = buildServiceCatalogueFromMaster(masterCatalogue)
 
     return {
-      services: mergeServices(defaults.services, parsed.services),
+      masterCatalogueBackups: parsed.masterCatalogueBackups,
+      masterCatalogue,
+      packageConfigs: mergePackageConfigs(defaults.packageConfigs, parsed.packageConfigs),
+      services: mergeServices(defaults.services, parsed.services, masterCatalogue),
       updatedAt: parsed.updatedAt,
     }
   } catch {
@@ -186,6 +233,15 @@ export function getConfiguredServices() {
   return getServiceCatalogue().services
 }
 
+export function getPackageConfigForArea(
+  catalogue: Pick<EditableServiceCatalogue, 'packageConfigs'>,
+  area: ServicePackageArea,
+) {
+  return mergePackageConfigs(getDefaultPackageConfigs(), catalogue.packageConfigs).find(
+    (config) => config.area === area,
+  )
+}
+
 export function getConfiguredServicesByRoom(room: ServiceRoom) {
   return getConfiguredServices().filter((service) => service.room === room && service.active)
 }
@@ -249,6 +305,22 @@ export function formatServicePrice(service: CasaMiaService) {
   return `${service.pricingType === 'from' ? 'From ' : ''}${formatCurrency(amount)}`
 }
 
+export function formatPackagePrice(config: ServicePackageConfig | undefined) {
+  if (!config || !config.active || config.pricingType === 'quote_only') {
+    return 'Package price confirmed after review'
+  }
+
+  const amount = config.pricingType === 'from' ? config.fromPrice : config.packagePrice
+
+  if (!amount) {
+    return 'Package price confirmed after review'
+  }
+
+  const total = amount + Math.round(amount * config.vatRate)
+
+  return `${config.pricingType === 'from' ? 'From ' : ''}${formatCurrency(total)}`
+}
+
 export function formatCurrency(amount: number) {
   return new Intl.NumberFormat('es-ES', {
     currency: 'EUR',
@@ -257,12 +329,39 @@ export function formatCurrency(amount: number) {
   }).format(amount)
 }
 
-function mergeServices(defaultServices: CasaMiaService[], savedServices: CasaMiaService[] | undefined) {
+function mergeServices(
+  defaultServices: CasaMiaService[],
+  savedServices: CasaMiaService[] | undefined,
+  masterCatalogue?: MasterServiceCatalogue,
+) {
   if (savedServices === undefined) {
     return defaultServices.map(withPackageAreaDefaults)
   }
 
+  if (masterCatalogue) {
+    const masterRooms = new Set(['bathroom', 'bedroom', 'kitchen'])
+
+    return [
+      ...defaultServices.filter((service) => masterRooms.has(service.room)),
+      ...savedServices.filter((service) => !masterRooms.has(service.room)),
+    ].map(withPackageAreaDefaults)
+  }
+
   return savedServices.map(withPackageAreaDefaults)
+}
+
+function mergePackageConfigs(
+  defaultConfigs: ServicePackageConfig[] | undefined,
+  savedConfigs: ServicePackageConfig[] | undefined,
+) {
+  const defaults = defaultConfigs ?? getDefaultPackageConfigs()
+  const savedByArea = new Map((savedConfigs ?? []).map((config) => [config.area, config]))
+
+  return defaults.map((defaultConfig) => ({
+    ...defaultConfig,
+    ...(savedByArea.get(defaultConfig.area) ?? {}),
+    vatRate: savedByArea.get(defaultConfig.area)?.vatRate ?? defaultConfig.vatRate,
+  }))
 }
 
 function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {
@@ -271,21 +370,83 @@ function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {
     ...(defaultSpanishTranslation ? { es: defaultSpanishTranslation } : {}),
     ...(service.translations ?? {}),
   }
+  const componentRole = service.componentRole ?? (service.priority === 'optional' ? 'option' : 'core')
+  const section = service.section ?? getDefaultCatalogueSection(service)
+  const requiresQuote = service.requiresQuote ?? service.pricingType === 'quote_only'
 
   return {
     ...service,
+    adminVisible: service.adminVisible ?? service.visibility?.admin ?? true,
+    componentRole,
+    crmVisible: service.crmVisible ?? service.visibility?.crm ?? true,
+    customerDescription: service.customerDescription ?? service.shortDescription,
+    customerName: service.customerName ?? service.name,
+    grant: {
+      eligible: false,
+      ...(service.grant ?? {}),
+    },
+    inspectorVisible: service.inspectorVisible ?? service.visibility?.inspector ?? true,
+    internalName: service.internalName ?? service.name,
+    mobileVisible: service.mobileVisible ?? service.visibility?.mobile ?? true,
+    outcome: service.outcome ?? service.customerBenefit,
+    plainLanguageSummary: service.plainLanguageSummary ?? service.shortDescription,
+    priority: service.priority ?? (componentRole === 'option' ? 'optional' : 'essential'),
+    proposalVisible: service.proposalVisible ?? service.visibility?.proposal ?? true,
+    requiresAssessment: service.requiresAssessment ?? service.requiresSiteVisit ?? service.requiresMeasurement,
+    requiresQuote,
+    requirements: {
+      assessment: service.requiresAssessment ?? service.requiresSiteVisit ?? service.requiresMeasurement,
+      compatibilityCheck: service.requiresCompatibilityCheck,
+      installation: service.requiresInstallation,
+      measurement: service.requiresMeasurement,
+      quote: requiresQuote,
+      siteVisit: service.requiresSiteVisit,
+      ...(service.requirements ?? {}),
+    },
+    section,
+    status: service.status ?? (service.active ? 'active' : 'draft'),
+    version: service.version ?? '1.0.0',
+    visibility: {
+      admin: service.adminVisible ?? service.visibility?.admin ?? true,
+      crm: service.crmVisible ?? service.visibility?.crm ?? true,
+      inspector: service.inspectorVisible ?? service.visibility?.inspector ?? true,
+      mobile: service.mobileVisible ?? service.visibility?.mobile ?? true,
+      proposal: service.proposalVisible ?? service.visibility?.proposal ?? true,
+      website: service.websiteVisible ?? service.visibility?.website ?? true,
+      wizard: service.wizardVisible ?? service.visibility?.wizard ?? true,
+    },
+    websiteVisible: service.websiteVisible ?? service.visibility?.website ?? true,
     wizardAreas: Array.isArray(service.wizardAreas)
       ? service.wizardAreas
       : getDefaultServicePackageAreas(service),
+    wizardVisible: service.wizardVisible ?? service.visibility?.wizard ?? true,
     translations: Object.keys(translations).length > 0 ? translations : undefined,
   }
 }
 
+export function getDefaultCatalogueSection(service: CasaMiaService): ServiceCatalogueSection {
+  if ((service.componentRole ?? 'core') === 'option' || service.requiresQuote || service.pricingType === 'quote_only') {
+    return 'optional_adaptations'
+  }
+
+  const searchable = `${service.id} ${service.name} ${service.category}`.toLowerCase()
+
+  if (/smart|sensor|alert|monitor|voice|connected|emergency|routine|reminder|speaker/.test(searchable)) {
+    return 'connected_room'
+  }
+
+  return 'home_safety_package'
+}
+
 function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | undefined): EditableServiceCatalogue {
-  const defaults = getDefaultServiceCatalogue()
+  const masterCatalogue = payload?.masterCatalogue
+  const defaults = buildServiceCatalogueFromMaster(masterCatalogue)
 
   return {
-    services: mergeServices(defaults.services, payload?.services),
+    masterCatalogue,
+    masterCatalogueBackups: payload?.masterCatalogueBackups,
+    packageConfigs: mergePackageConfigs(defaults.packageConfigs, payload?.packageConfigs),
+    services: mergeServices(defaults.services, payload?.services, masterCatalogue),
     updatedAt: payload?.updatedAt,
   }
 }

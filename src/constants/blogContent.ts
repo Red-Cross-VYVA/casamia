@@ -358,6 +358,84 @@ export const blogArticles: BlogArticle[] = [
     },
   },
   {
+    id: 'family-conversation-before-home-safety-visit',
+    path: '/blog/family-conversation-before-home-safety-visit',
+    title: 'Before a Home Safety Visit: Questions Families Should Agree First',
+    description:
+      'A practical family conversation guide before booking a senior home safety assessment, with prompts for mobility, routines, dignity, budget, grants, and decision-making.',
+    category: 'Family planning',
+    readTime: '6 min read',
+    date: '2026-07-24',
+    image: '/images/blog/provider-choice.webp',
+    imageAlt: 'Family planning checklist for a senior home safety conversation',
+    keywords: [
+      'senior home safety assessment questions',
+      'aging parents family conversation',
+      'prepare for home safety visit',
+    ],
+    intro:
+      'Families often know something needs to change, but not everyone names the same worry. A short conversation before a visit helps CasaMia understand the person, the home, and the decision the family actually needs to make.',
+    takeaways: [
+      'Agree the daily moments that feel hardest before discussing products.',
+      'Separate urgent safety needs from comfort, confidence, and future planning.',
+      'Decide who must be involved in the proposal, budget, grant route, and final approval.',
+    ],
+    sections: [
+      {
+        title: 'Start with the person, not the room',
+        body: [
+          'Ask what has changed recently: a fall, near miss, hospital stay, new medication, fatigue, fear of bathing, night-time bathroom trips, or less confidence leaving the home.',
+          'The same bathroom, bedroom, or staircase can mean very different things depending on strength, balance, memory, vision, pain, and whether the person lives alone.',
+        ],
+      },
+      {
+        title: 'Name the routines that create stress',
+        body: [
+          'Instead of saying “the bathroom is unsafe”, describe the exact moment: stepping into the shower, standing from the toilet, drying after bathing, walking to the bathroom at night, carrying laundry, or opening the front door.',
+          'This turns a broad concern into a practical brief. CasaMia can then prioritise safer transfers, clearer routes, lighting, support points, emergency help, or a professional visit where needed.',
+        ],
+      },
+      {
+        title: 'Agree what must stay familiar',
+        body: [
+          'Safety should not make the home feel clinical. Talk about what matters emotionally: privacy, independence, preferred routines, favourite furniture, the look of the bathroom, or whether visible equipment would be upsetting.',
+          'A good plan protects dignity as well as movement. Sometimes the best improvement is the one the resident will actually accept and use every day.',
+        ],
+      },
+      {
+        title: 'Clarify decision roles and next steps',
+        body: [
+          'Before the assessment, decide who receives the report, who discusses budget, who can approve work, and whether grant support should be explored.',
+          'The family does not need every answer immediately. The useful outcome is a shared starting point: what worries us most, what we want to preserve, and what decision we need CasaMia to help us make next.',
+        ],
+      },
+    ],
+    checklist: [
+      'What changed recently that made the home feel less safe?',
+      'Which routine creates the most worry this week?',
+      'Which rooms, routes, or transfers should be reviewed first?',
+      'What should remain discreet, familiar, or unchanged if possible?',
+      'Who needs to receive the report and approve next steps?',
+      'Should CasaMia check grant readiness or organise a visit?',
+    ],
+    faqs: [
+      {
+        question: 'Should the older adult be part of the home safety conversation?',
+        answer:
+          'Yes, wherever possible. The person living in the home should help explain what feels difficult, what they would accept, and what routines matter most. Family input is useful, but dignity and consent still matter.',
+      },
+      {
+        question: 'Do we need to know the exact products before requesting a visit?',
+        answer:
+          'No. It is better to describe the daily problem and the outcome you want. CasaMia can then translate that into suitable physical improvements, connected support, optional works, or a clearer proposal.',
+      },
+    ],
+    cta: {
+      label: 'Start the guided review',
+      to: '/home-safety-assessment#self-inspection-tool',
+    },
+  },
+  {
     id: 'dementia-friendly-home-safety',
     path: '/blog/dementia-friendly-home-safety',
     title: 'Dementia-Friendly Home Safety: Simple Changes That Reduce Confusion',
@@ -619,6 +697,147 @@ export const blogArticles: BlogArticle[] = [
     cta: {
       label: 'See bedroom safety services',
       to: '/services/bedroom-safety',
+    },
+  },
+  {
+    id: 'hospital-discharge-home-safety-checklist',
+    path: '/blog/hospital-discharge-home-safety-checklist',
+    title: 'Hospital Discharge Home Safety Checklist',
+    description:
+      'A practical home safety checklist for families preparing an older adult to return home after hospital discharge, surgery or a mobility change.',
+    category: 'After hospital discharge',
+    readTime: '8 min read',
+    date: '2026-07-24',
+    image: '/images/blog/emergency-plan-home.webp',
+    imageAlt: 'Family preparing the home before an older adult returns from hospital',
+    keywords: ['hospital discharge home safety', 'senior home safety after hospital', 'home checklist after surgery'],
+    intro:
+      'The first days after hospital discharge are often when small home barriers become big problems. Use this checklist to focus on the safest route home, the bedroom, the bathroom, medication, help and the first week of daily routines.',
+    takeaways: [
+      'Prepare entry, bed, bathroom and night routes before the person returns home.',
+      'Confirm who helps, how help is requested and what should happen if the first plan fails.',
+      'Separate urgent safety actions from works that can wait for a measured proposal.',
+    ],
+    sections: [
+      {
+        title: 'Confirm the first route home',
+        body: [
+          'Before discharge, walk the route from building entrance to the main resting place. Look for steps, thresholds, narrow turns, loose mats, poor lighting and places where the person may need to pause.',
+          'If stairs, lifts, parking or building access are uncertain, plan the arrival with the person who will bring them home rather than improvising at the door.',
+        ],
+      },
+      {
+        title: 'Make the bedroom and bathroom work first',
+        body: [
+          'The priority rooms are usually the bedroom and bathroom. Check bed height, transfer space, night lighting, toilet access, shower/bath access and whether support points are available exactly where movement happens.',
+          'Do not wait for a perfect long-term plan before solving urgent risks such as unclear night routes, wet floors, unsupported toilet transfers or hard-to-reach help.',
+        ],
+      },
+      {
+        title: 'Agree the first-week support plan',
+        body: [
+          'Write down who visits, who calls, how medication is checked, who handles follow-up appointments and what happens if pain, dizziness, confusion or mobility becomes worse.',
+          'CasaMia can help turn this into a practical home safety route: remote review, expert visit, urgent works, proposal, grant-readiness notes or staged installation.',
+        ],
+      },
+    ],
+    checklist: [
+      'Can the person enter the home safely on the discharge day?',
+      'Is the bed easy to reach, sit on and get out of?',
+      'Can the person reach the toilet and bathroom safely at night?',
+      'Are medication, discharge notes and emergency contacts easy to find?',
+      'Who checks in during the first 24 hours, first three days and first week?',
+      'What urgent works need review before larger adaptations are planned?',
+    ],
+    faqs: [
+      {
+        question: 'What should be prepared before an older adult returns home from hospital?',
+        answer:
+          'Start with entry access, bedroom transfers, bathroom and toilet use, night lighting, medication notes, emergency contacts and who will help during the first week.',
+      },
+      {
+        question: 'Should families adapt the whole home before discharge?',
+        answer:
+          'Usually no. Focus first on the route home, sleeping, toileting, washing and asking for help. Larger works can be measured and planned after the urgent risks are understood.',
+      },
+    ],
+    cta: {
+      label: 'Start a discharge safety review',
+      to: '/home-safety-after-hospital-discharge',
+    },
+  },
+  {
+    id: 'when-home-adaptations-are-not-enough',
+    path: '/blog/when-home-adaptations-are-not-enough',
+    title: 'When Home Adaptations Are Not Enough: A Family Decision Guide',
+    description:
+      'A practical guide for families deciding whether home adaptations, extra support, a staged plan or a residence route is the safer next step.',
+    category: 'Family decisions',
+    readTime: '8 min read',
+    date: '2026-07-24',
+    image: '/images/blog/provider-choice.webp',
+    imageAlt: 'Family comparing home safety and care options around a table',
+    keywords: ['aging in place decision', 'home adaptations vs care home', 'when home is no longer safe'],
+    intro:
+      'Aging at home should feel safe, familiar and realistic. The question is not whether home is always better; it is whether the right support can make daily life safer without exhausting the resident or the family.',
+    takeaways: [
+      'Home adaptations work best when the resident can still use the home with clearer routes, support points and sensible routines.',
+      'A residence or higher-care route may be safer when supervision, transfers, confusion or night-time risk cannot be managed reliably at home.',
+      'The best decision compares safety, dignity, family capacity, cost, timing and the resident wishes together.',
+    ],
+    sections: [
+      {
+        title: 'Start with the daily routine, not the building',
+        body: [
+          'A home can look suitable during a quick visit and still fail at the exact moments that matter: getting out of bed, reaching the toilet at night, showering, cooking, using stairs or calling for help.',
+          'If those moments can be made safer with practical adaptations, routines and support, staying at home may remain realistic. If they depend on constant improvisation, the family needs a wider conversation.',
+        ],
+      },
+      {
+        title: 'Signals that home adaptation may still be the right route',
+        body: [
+          'Home usually remains a strong option when the person wants to stay, recognises the space, can follow simple routines and the main risks are physical or environmental: bathroom access, lighting, stairs, thresholds, bed transfers or emergency reach.',
+          'In that case, a staged plan often works well: fix urgent risk first, then add comfort, connected support or larger adaptations where they clearly improve daily life.',
+        ],
+      },
+      {
+        title: 'Signals that the family should consider more support',
+        body: [
+          'A higher-support route may need to be discussed when the person cannot request help reliably, falls repeatedly despite changes, becomes unsafe at night, needs transfers that one person cannot manage, or has confusion that creates frequent risk.',
+          'This does not automatically mean a residence. It may mean more home care, respite, technology-supported routines, a professional visit, or a transition plan. The point is to be honest before a crisis decides for everyone.',
+        ],
+      },
+      {
+        title: 'Use a decision frame everyone can understand',
+        body: [
+          'A useful family decision compares five things: what the resident wants, what is currently unsafe, what can realistically be changed, who will help day to day, and what each route costs over the next 6 to 24 months.',
+          'CasaMia can help with the home side of that decision: safety review, practical proposal, staged works, grant-readiness notes and a clear explanation of what home adaptation can and cannot solve.',
+        ],
+      },
+    ],
+    checklist: [
+      'Can the person reach the toilet, bed, kitchen and entrance safely on a normal day?',
+      'Can help be requested from the rooms where risk is highest?',
+      'Are falls, near misses or night-time incidents becoming more frequent?',
+      'Can family or carers realistically support the routine without burning out?',
+      'Would a staged home plan solve the main risks, or only delay a bigger decision?',
+      'Has the family compared the cost and timing of adapting home versus a residence or higher-care route?',
+    ],
+    faqs: [
+      {
+        question: 'How do we know if aging at home is still realistic?',
+        answer:
+          'Look at daily routines, not the idea of the home. If bathroom use, night movement, transfers, meals and help requests can be made reliable, home may still be realistic. If several of those remain unsafe despite support, consider a wider care plan.',
+      },
+      {
+        question: 'Should we adapt the home before considering a residence?',
+        answer:
+          'Not always. Some families should compare both routes early. A focused home safety review can show what can be solved at home, what needs professional support and what may be better handled through a higher-care option.',
+      },
+    ],
+    cta: {
+      label: 'Start a home safety review',
+      to: '/home-safety-wizard',
     },
   },
   {

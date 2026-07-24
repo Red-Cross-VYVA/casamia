@@ -93,10 +93,41 @@ for (const file of sourceFiles) {
 }
 
 const sitemap = fs.readFileSync(path.join(projectRoot, 'public', 'sitemap.xml'), 'utf8')
-for (const match of sitemap.matchAll(/<loc>https:\/\/casamia\.es([^<]*)<\/loc>/g)) {
+for (const match of sitemap.matchAll(/<loc>https:\/\/casamia\.com\.es([^<]*)<\/loc>/g)) {
   const pathname = match[1] || '/'
   if (!routeMatches(pathname)) {
     failures.push(`public/sitemap.xml: ${pathname} has no matching route`)
+  }
+}
+
+const sitemapPaths = new Set(
+  [...sitemap.matchAll(/<loc>https:\/\/casamia\.com\.es([^<]*)<\/loc>/g)].map((match) => match[1] || '/'),
+)
+
+const sitemapSourceChecks = [
+  {
+    file: path.join(srcRoot, 'constants', 'needLandingPages.ts'),
+    label: 'need landing page',
+    pattern: /\bpath:\s*'([^']+)'/g,
+  },
+  {
+    file: path.join(srcRoot, 'constants', 'blogContent.ts'),
+    label: 'blog article',
+    pattern: /\bpath:\s*'([^']+)'/g,
+  },
+]
+
+for (const check of sitemapSourceChecks) {
+  const source = fs.readFileSync(check.file, 'utf8')
+  const relativeFile = path.relative(projectRoot, check.file)
+
+  for (const match of source.matchAll(check.pattern)) {
+    const pathname = match[1]
+
+    if (!pathname.startsWith('/')) continue
+    if (!sitemapPaths.has(pathname)) {
+      failures.push(`public/sitemap.xml: missing ${check.label} path ${pathname} from ${relativeFile}`)
+    }
   }
 }
 

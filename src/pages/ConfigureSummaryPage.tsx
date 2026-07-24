@@ -151,7 +151,7 @@ export function ConfigureSummaryPage() {
               <SummaryRow label={copy.monthly} value={formatConfiguratorCurrency(quote.recurringMonthlySubtotal)} />
               <SummaryRow label={copy.deposit} value={formatConfiguratorCurrency(quote.deposit)} />
             </dl>
-            <Link className="btn btn-navy mt-6 w-full" to="/configure/contact">
+            <Link className="btn btn-navy mt-6 w-full" to="/home-safety-wizard">
               {copy.next}
               <ArrowRight size={18} aria-hidden="true" />
             </Link>

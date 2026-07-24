@@ -38,6 +38,7 @@ import {
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SEO } from '../components/SEO'
 import { ContactDetailsStep } from '../components/wizard/ContactDetailsStep'
 import { AudioBriefStep } from '../components/wizard/AudioBriefStep'
 import { CallbackConfirmationStep } from '../components/wizard/CallbackConfirmationStep'
@@ -158,6 +159,10 @@ type HomeSafetyWizardPageProps = {
 export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageProps) {
   const { i18n } = useTranslation()
   const copy = useMemo(() => getWizardCopy(i18n.language), [i18n.language])
+  const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const siteUrl = 'https://www.casamia.com.es'
+  const title = copy.entry.title
+  const description = copy.entry.body
   const wizard = useSafetyWizard()
   const { state } = wizard
   const embeddedRootRef = useRef<HTMLDivElement | null>(null)
@@ -182,7 +187,8 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
   )
   const displayedResult = useMemo(
     () => state.result
-      ? generateWizardResult(state, {
+        ? generateWizardResult(state, {
+          catalogue: serviceCatalogue,
           language: i18n.language,
           services: serviceCatalogue.services,
         })
@@ -190,10 +196,68 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     [i18n.language, serviceCatalogue.services, state],
   )
 
-  useEffect(() => {
-    if (embedded) return
-    document.title = `${copy.entry.title} | CasaMia`
-  }, [copy.entry.title, embedded])
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebApplication',
+          '@id': `${siteUrl}/home-safety-wizard#tool`,
+          name: title,
+          description,
+          url: `${siteUrl}/home-safety-wizard`,
+          applicationCategory: 'LifestyleApplication',
+          operatingSystem: 'Web',
+          inLanguage: language,
+          offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'EUR',
+          },
+          provider: {
+            '@type': 'Organization',
+            '@id': `${siteUrl}/#organization`,
+            name: 'CasaMia',
+            url: siteUrl,
+          },
+        },
+        {
+          '@type': 'HowTo',
+          '@id': `${siteUrl}/home-safety-wizard#guided-plan-flow`,
+          name: copy.entry.eyebrow,
+          description,
+          step: [
+            copy.userType.title,
+            copy.methods.title,
+            copy.homeType.title,
+            copy.areas.title,
+            copy.mobility.title,
+            copy.urgency.title,
+            copy.contact.title,
+            copy.result.title,
+          ].map((name, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name,
+          })),
+        },
+      ],
+    }),
+    [
+      copy.areas.title,
+      copy.contact.title,
+      copy.entry.eyebrow,
+      copy.homeType.title,
+      copy.methods.title,
+      copy.mobility.title,
+      copy.result.title,
+      copy.urgency.title,
+      copy.userType.title,
+      description,
+      language,
+      title,
+    ],
+  )
 
   useEffect(() => {
     const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
@@ -239,6 +303,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
       ? { ...state, inspectionBooked: true }
       : state
     nextState.result = generateWizardResult(nextState, {
+      catalogue: serviceCatalogue,
       language: i18n.language,
       services: serviceCatalogue.services,
     })
@@ -516,7 +581,12 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     <div ref={embeddedRootRef} className="safety-wizard-embedded-root">
       {content}
     </div>
-  ) : content
+  ) : (
+    <>
+      <SEO title={title} description={description} path="/home-safety-wizard" schema={schema} />
+      {content}
+    </>
+  )
 }
 
 function WizardActions({ copy, disabled = false, allowSkip = false, skipLabel, onContinue }: { copy: ReturnType<typeof getWizardCopy>; disabled?: boolean; allowSkip?: boolean; skipLabel?: string; onContinue: () => void }) {

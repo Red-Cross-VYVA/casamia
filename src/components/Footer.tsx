@@ -5,24 +5,60 @@ import { Link } from 'react-router-dom'
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { getLegalRouteLabels } from '../constants/legalDocuments'
+import { needLandingPages } from '../constants/needLandingPages'
+import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
 const footerLinkCopy = {
   en: {
-    plan: 'Your CasaMia Plan',
-    services: 'Safety Services',
-    organisations: 'Assisted Living Solutions',
+    plan: 'Home Safety Plan',
+    services: 'Senior Home Safety Services',
+    organisations: 'Solutions for Senior Living',
     providers: 'Provider Partners',
-    resources: 'Resources',
+    serviceAreas: 'Service Areas in Spain',
+    resources: 'Senior Home Safety Resources',
+    howItWorks: 'How CasaMia Works',
+    whyUs: 'Why Choose CasaMia',
+    visit: 'Book a Home Safety Visit',
+    beforeAfter: 'Before & After Projects',
+    needs: 'Popular needs',
+    resourcesTitle: 'Useful resources',
+    freeTools: 'Free safety tools',
+    checklist: 'Printable home checklist',
+    onlineCheck: 'Online safety review',
+    grantsGuide: 'Grants and paperwork',
+    visitPrep: 'Before the visit',
+    fallPrevention: 'Fall prevention guide',
+    bathroomSafety: 'Bathroom safety guide',
+    decisionGuides: 'Decision guides',
+    assessmentOrContractor: 'Safety assessment or contractor',
+    connectedOrMonitoring: 'Connected safety or monitoring',
     preferences: 'Cookie preferences',
   },
   es: {
-    plan: 'Tu plan CasaMia',
-    services: 'Servicios de seguridad',
-    organisations: 'Soluciones para organizaciones',
+    plan: 'Plan de seguridad del hogar',
+    services: 'Servicios de adaptación de vivienda',
+    organisations: 'Soluciones para residencias senior',
     providers: 'Colaboradores profesionales',
-    resources: 'Recursos',
+    serviceAreas: 'Zonas de servicio en España',
+    resources: 'Recursos de seguridad en casa',
+    howItWorks: 'Cómo funciona CasaMia',
+    whyUs: 'Por qué elegir CasaMia',
+    visit: 'Reservar visita de seguridad',
+    beforeAfter: 'Antes y después de adaptaciones',
+    needs: 'Necesidades frecuentes',
+    resourcesTitle: 'Recursos útiles',
+    freeTools: 'Herramientas gratuitas',
+    checklist: 'Lista para imprimir',
+    onlineCheck: 'Revisión online de seguridad',
+    grantsGuide: 'Ayudas y documentación',
+    visitPrep: 'Antes de la visita',
+    fallPrevention: 'Guía de prevención de caídas',
+    bathroomSafety: 'Guía de seguridad en el baño',
+    decisionGuides: 'Guías de decisión',
+    assessmentOrContractor: 'Evaluación o contratista general',
+    connectedOrMonitoring: 'Seguridad conectada o monitorización',
     preferences: 'Preferencias de cookies',
   },
 } as const
@@ -33,21 +69,45 @@ export function Footer() {
   const links = footerLinkCopy[language]
   const companyLinks = [
     { label: t('nav.home', { defaultValue: 'Home' }), to: '/' },
-    { label: t('nav.howItWorks'), to: '/how-it-works' },
+    { label: links.howItWorks, to: '/how-it-works' },
     { label: links.plan, to: '/plans' },
     { label: links.services, to: '/services' },
     { label: links.organisations, to: '/assisted-living-solutions' },
     { label: links.providers, to: '/provider-partners' },
-    { label: t('nav.whyCasamia', { defaultValue: 'Why us' }), to: '/why-us' },
+    { label: links.serviceAreas, to: '/service-areas' },
+    { label: links.whyUs, to: '/why-us' },
     { label: links.resources, to: '/blog' },
     { label: t('nav.about', { defaultValue: 'About Us' }), to: '/about' },
   ]
-  const legalLinks = getLegalRouteLabels(i18n.language)
+  const legalRouteLabels = getLegalRouteLabels(i18n.language)
   const supportLinks = [
-    { label: t('nav.beforeAfter', { defaultValue: 'Before & After' }), to: '/before-after' },
-    { label: 'Plan Adapta', to: '/plan-adapta' },
-    { label: t('nav.freeAssessment', { defaultValue: 'Book Visit' }), to: '/home-safety-assessment' },
+    { label: links.beforeAfter, to: '/before-after' },
+    { label: language === 'es' ? 'Ayudas Plan Adapta' : 'Plan Adapta Grants', to: '/plan-adapta' },
+    { label: links.visit, to: '/home-safety-assessment' },
   ]
+  const resourceLinks = [
+    { label: links.freeTools, to: '/tools' },
+    { label: links.checklist, to: '/blog' },
+    { label: links.onlineCheck, to: '/home-safety-assessment#self-inspection-tool' },
+    { label: links.grantsGuide, to: '/blog/home-adaptation-grants-spain-family-guide' },
+    { label: links.visitPrep, to: '/blog/family-conversation-before-home-safety-visit' },
+    { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },
+    { label: links.bathroomSafety, to: '/blog/bathroom-safety-seniors-costly-mistakes' },
+  ]
+  const decisionGuideTitle = language === 'es' ? 'Guías de decisión' : links.decisionGuides
+  const decisionGuideLinks = [
+    {
+      label: language === 'es' ? 'Evaluación o contratista general' : links.assessmentOrContractor,
+      to: '/home-safety-assessment-vs-general-contractor',
+    },
+    {
+      label: language === 'es' ? 'Seguridad conectada o monitorización' : links.connectedOrMonitoring,
+      to: '/smart-home-safety-vs-monitoring',
+    },
+  ]
+  const needLinks = localizeNeedLandingPages(needLandingPages, i18n.language)
+    .filter((page) => page.footerVisible !== false)
+    .map((page) => ({ label: page.title, to: page.path }))
 
   return (
     <footer className="bg-ink text-white">
@@ -75,7 +135,7 @@ export function Footer() {
         </FooterColumn>
 
         <FooterColumn title={t('footer.legal.title')}>
-          {legalLinks.map((link) => (
+          {legalRouteLabels.map((link) => (
             <Link className="transition hover:text-green" key={`${link.path}-${link.label}`} to={link.path}>
               {link.label}
             </Link>
@@ -84,6 +144,28 @@ export function Footer() {
 
         <FooterColumn title={t('footer.support.title')}>
           {supportLinks.map((link) => (
+            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+              {link.label}
+            </Link>
+          ))}
+          <FooterSubColumn title={links.resourcesTitle}>
+            {resourceLinks.map((link) => (
+              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+                {link.label}
+              </Link>
+            ))}
+          </FooterSubColumn>
+          <FooterSubColumn title={decisionGuideTitle}>
+            {decisionGuideLinks.map((link) => (
+              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+                {link.label}
+              </Link>
+            ))}
+          </FooterSubColumn>
+        </FooterColumn>
+
+        <FooterColumn title={links.needs}>
+          {needLinks.map((link) => (
             <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
               {link.label}
             </Link>
@@ -121,6 +203,21 @@ function FooterColumn({
     <div>
       <h2 className="mb-4 text-sm font-extrabold uppercase text-white">{title}</h2>
       <div className="flex flex-col gap-3 text-white/70">{children}</div>
+    </div>
+  )
+}
+
+function FooterSubColumn({
+  title,
+  children,
+}: {
+  title: string
+  children: ReactNode
+}) {
+  return (
+    <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5">
+      <h3 className="text-xs font-extrabold uppercase tracking-[0.18em] text-white/50">{title}</h3>
+      {children}
     </div>
   )
 }

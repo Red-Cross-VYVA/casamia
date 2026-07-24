@@ -1,10 +1,12 @@
-import { Mail, Menu, X } from 'lucide-react'
+import { ChevronDown, Mail, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import { allNeedLandingPages, needLandingPages } from '../constants/needLandingPages'
+import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
@@ -22,11 +24,37 @@ function isActiveLink(pathname: string, link: HeaderLink) {
   return link.match.some((matchPath) => pathname === matchPath || pathname.startsWith(`${matchPath}/`))
 }
 
+const solutionMenuGroups = [
+  {
+    title: { en: 'Bathroom safety', es: 'Seguridad en el baño' },
+    slugs: ['bathroom-safety-for-seniors', 'safe-bathroom-access'],
+  },
+  {
+    title: { en: 'Falls & assessment', es: 'Caídas y revisión del hogar' },
+    slugs: [
+      'fall-prevention-at-home',
+      'aging-in-place-home-assessment',
+      'home-adaptations-for-elderly',
+      'home-safety-after-hospital-discharge',
+    ],
+  },
+  {
+    title: { en: 'Bedroom & connected living', es: 'Dormitorio y vida conectada' },
+    slugs: ['senior-bedroom-safety', 'connected-home-for-seniors'],
+  },
+  {
+    title: { en: 'Grants', es: 'Ayudas' },
+    slugs: ['grants-for-home-adaptations-spain'],
+  },
+] as const
+
 export function Nav() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const assessmentPath = getAssessmentPath()
+  const isSpanish = i18n.language.startsWith('es')
+  const localizedNeedLandingPages = localizeNeedLandingPages(needLandingPages, i18n.language)
   const navLabels = {
     home: t('nav.home'),
     howItWorks: t('nav.howItWorks'),
@@ -39,13 +67,107 @@ export function Nav() {
 
   const links: HeaderLink[] = [
     { label: navLabels.home, to: '/#top', match: ['/'] },
+    {
+      label: navLabels.solutions,
+      to: '/services',
+      match: ['/services', '/plans', ...allNeedLandingPages.map((page) => page.path)],
+    },
     { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
-    { label: navLabels.solutions, to: '/services', match: ['/services', '/plans'] },
     { label: navLabels.organisations, to: '/assisted-living-solutions', match: ['/assisted-living-solutions'] },
-    { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources'] },
+    { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources', '/tools', '/service-areas'] },
     { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
   ]
   const desktopLinks = links
+  const resourceMenuGroups = [
+    {
+      title: isSpanish ? 'Empieza aquí' : 'Start here',
+      links: [
+        {
+          label: isSpanish ? 'Centro de recursos' : 'Resources hub',
+          to: '/blog',
+        },
+        {
+          label: isSpanish ? 'Herramientas gratuitas' : 'Free tools',
+          to: '/tools',
+        },
+        {
+          label: isSpanish ? 'Lista completa para imprimir' : 'Printable home checklist',
+          to: '/blog',
+        },
+        {
+          label: isSpanish ? 'Revisión online de seguridad' : 'Online safety review',
+          to: '/home-safety-assessment#self-inspection-tool',
+        },
+        {
+          label: isSpanish ? 'Zonas de servicio' : 'Service areas',
+          to: '/service-areas',
+        },
+      ],
+    },
+    {
+      title: isSpanish ? 'Guías prácticas' : 'Practical guides',
+      links: [
+        {
+          label: isSpanish ? 'Prevención de caídas' : 'Fall prevention',
+          to: '/blog/fall-prevention-home-checklist-spain',
+        },
+        {
+          label: isSpanish ? 'Seguridad en el baño' : 'Bathroom safety',
+          to: '/blog/bathroom-safety-seniors-costly-mistakes',
+        },
+        {
+          label: isSpanish ? 'Seguridad nocturna' : 'Night-time safety',
+          to: '/blog/bedroom-night-safety-older-adults',
+        },
+      ],
+    },
+    {
+      title: isSpanish ? 'Decidir con calma' : 'Decision support',
+      links: [
+        {
+          label: isSpanish ? 'Evaluación o contratista' : 'Assessment or contractor',
+          to: '/home-safety-assessment-vs-general-contractor',
+        },
+        {
+          label: isSpanish ? 'Tecnología o monitorización' : 'Smart safety or monitoring',
+          to: '/smart-home-safety-vs-monitoring',
+        },
+        {
+          label: isSpanish ? 'Ayudas y documentación' : 'Grants and paperwork',
+          to: '/blog/home-adaptation-grants-spain-family-guide',
+        },
+        {
+          label: isSpanish ? 'Antes de la visita' : 'Before the visit',
+          to: '/blog/family-conversation-before-home-safety-visit',
+        },
+        {
+          label: isSpanish ? 'Elegir proveedor' : 'Choosing a provider',
+          to: '/blog/choose-home-safety-provider-spain',
+        },
+      ],
+    },
+    {
+      title: isSpanish ? 'Páginas por necesidad' : 'Room safety pages',
+      links: [
+        {
+          label: isSpanish ? 'Acceso seguro al baño' : 'Safer bathroom access',
+          to: '/safe-bathroom-access',
+        },
+        {
+          label: isSpanish ? 'Dormitorio más seguro' : 'Safer bedroom routines',
+          to: '/senior-bedroom-safety',
+        },
+        {
+          label: isSpanish ? 'Prevención de caídas en casa' : 'Fall prevention at home',
+          to: '/fall-prevention-at-home',
+        },
+        {
+          label: isSpanish ? 'Ayudas para adaptar la vivienda' : 'Home adaptation grants',
+          to: '/grants-for-home-adaptations-spain',
+        },
+      ],
+    },
+  ]
 
   useEffect(() => {
     setMobileOpen(false)
@@ -61,6 +183,89 @@ export function Nav() {
         <div className="site-header-links">
           {desktopLinks.map((link) => {
             const active = isActiveLink(location.pathname, link)
+
+            if (link.to === '/services') {
+              return (
+                <div className="site-header-menu-group" key={link.to}>
+                  <Link
+                    aria-current={active ? 'page' : undefined}
+                    className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
+                    to={link.to}
+                  >
+                    {link.label}
+                    <ChevronDown size={15} aria-hidden="true" />
+                  </Link>
+                  <div className="site-header-mega-menu" aria-label="CasaMia solutions by need">
+                    <div className="site-header-mega-panel">
+                      <div className="site-header-mega-intro">
+                        <span>{isSpanish ? 'Soluciones por necesidad' : 'Solutions by need'}</span>
+                        <strong>{isSpanish ? 'Empieza por la preocupación, no por el producto.' : 'Start from the concern, not the product.'}</strong>
+                        <Link to="/services">
+                          {isSpanish ? 'Ver el catálogo completo' : 'View full service catalogue'}
+                        </Link>
+                      </div>
+                      <div className="site-header-mega-grid">
+                        {solutionMenuGroups.map((group) => {
+                          const groupTitle = group.title[isSpanish ? 'es' : 'en']
+
+                          return (
+                            <div className="site-header-mega-column" key={groupTitle}>
+                              <p>{groupTitle}</p>
+                              {group.slugs.map((slug) => {
+                                const page = localizedNeedLandingPages.find((item) => item.slug === slug)
+                                return page ? (
+                                  <Link key={page.slug} to={page.path}>
+                                    {page.title}
+                                  </Link>
+                                ) : null
+                              })}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
+
+            if (link.to === '/blog') {
+              return (
+                <div className="site-header-menu-group" key={link.to}>
+                  <Link
+                    aria-current={active ? 'page' : undefined}
+                    className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
+                    to={link.to}
+                  >
+                    {link.label}
+                    <ChevronDown size={15} aria-hidden="true" />
+                  </Link>
+                  <div className="site-header-mega-menu" aria-label="CasaMia resources by situation">
+                    <div className="site-header-mega-panel">
+                      <div className="site-header-mega-intro">
+                        <span>{isSpanish ? 'Recursos por situación' : 'Resources by situation'}</span>
+                        <strong>{isSpanish ? 'Encuentra el siguiente paso útil.' : 'Find the next useful step.'}</strong>
+                        <Link to="/blog">
+                          {isSpanish ? 'Ver todos los recursos' : 'View all resources'}
+                        </Link>
+                      </div>
+                      <div className="site-header-mega-grid">
+                        {resourceMenuGroups.map((group) => (
+                          <div className="site-header-mega-column" key={group.title}>
+                            <p>{group.title}</p>
+                            {group.links.map((item) => (
+                              <Link key={`${group.title}-${item.to}-${item.label}`} to={item.to}>
+                                {item.label}
+                              </Link>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
 
             return (
               <Link
@@ -122,6 +327,38 @@ export function Nav() {
                 </Link>
               )
             })}
+            <div className="site-mobile-needs">
+              <p>{isSpanish ? 'Necesidades frecuentes' : 'Popular needs'}</p>
+              {solutionMenuGroups.map((group) => {
+                const groupTitle = group.title[isSpanish ? 'es' : 'en']
+
+                return (
+                <div key={groupTitle}>
+                  <span>{groupTitle}</span>
+                  {group.slugs.map((slug) => {
+                    const page = localizedNeedLandingPages.find((item) => item.slug === slug)
+                    return page ? (
+                      <Link key={page.slug} to={page.path}>
+                        {page.title}
+                      </Link>
+                    ) : null
+                  })}
+                </div>
+              )})}
+            </div>
+            <div className="site-mobile-needs">
+              <p>{isSpanish ? 'Recursos útiles' : 'Useful resources'}</p>
+              {resourceMenuGroups.map((group) => (
+                <div key={group.title}>
+                  <span>{group.title}</span>
+                  {group.links.map((item) => (
+                    <Link key={`${group.title}-${item.to}-${item.label}`} to={item.to}>
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
             <a
               className="nav-link min-h-12 py-2 text-lg"
               href={`mailto:${CASAMIA_CONTACT_EMAIL}`}

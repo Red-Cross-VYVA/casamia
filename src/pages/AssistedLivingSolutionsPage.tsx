@@ -78,6 +78,12 @@ type AssistedLivingCopy = {
     outcomes: string[]
     note: string
   }
+  operatingModel: {
+    eyebrow: string
+    title: string
+    body: string
+    cards: Array<{ title: string; body: string; metric: string }>
+  }
   technology: {
     eyebrow: string
     title: string
@@ -209,18 +215,18 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       'CasaMia integrates non-wearable fall detection, senior-living sensors, connected health devices, caregiver apps and operator workflows for residences in Spain.',
     hero: {
       eyebrow: 'Technology integration for senior living',
-      title: 'Discreet detection. Clear response. Less operational friction.',
+      title: 'A smarter safety layer for every residence workflow.',
       body:
-        'CasaMia integrates camera-free, non-wearable fall detection, bathroom and continence technology, connected health devices and clear staff workflows—with the systems your teams already use.',
-      primaryCta: 'Plan a facility pilot',
+        'CasaMia helps assisted-living teams connect fall detection, advanced room sensors, bathroom and continence insights, optional home-clinic checks and caregiver workflows into one practical operating model.',
+      primaryCta: 'Design a facility pilot',
       secondaryCta: 'Explore the technology',
       proof: ['Non-wearable options', 'Works with existing systems', 'Privacy by design', 'Pilot-to-scale support'],
       audiencesLabel: 'Built for',
       audiences: ['Assisted living', 'Senior residences', 'Senior communities', 'Multi-site operators'],
       imageAlt: 'Discreet camera-free room sensor in a calm senior-living residence',
       visualEyebrow: 'Passive safety, active response',
-      visualTitle: 'With supported ambient sensing, residents do not need to wear or press a device.',
-      visualBody: 'When a compatible sensor detects a possible fall, the agreed alert is routed to the responsible team.',
+      visualTitle: 'Residents stay comfortable. Teams get clearer signals when something needs attention.',
+      visualBody: 'Supported sensors and devices route agreed events to the right role, with context and next steps.',
       visualEvent: 'Suspected fall',
       visualRoom: 'Suite 214 · private room',
       visualRoute: 'Routed to the care team',
@@ -242,11 +248,34 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       outcomes: ['Selected devices', 'Integration route', 'Alert and response model', 'Training and rollout plan'],
       note: 'Start with one priority. Scale only after the workflow works in practice.',
     },
+    operatingModel: {
+      eyebrow: 'What CasaMia delivers',
+      title: 'Not just devices. A working operating model for the residence.',
+      body:
+        'The value is not a sensor on a wall. It is knowing which resident, which room, which event, who owns the response and what happens next—without creating another disconnected tool for staff.',
+      cards: [
+        {
+          title: 'Home clinic layer',
+          body: 'Optional health checks, guided telehealth devices and authorised readings can sit beside daily safety workflows.',
+          metric: 'Health context',
+        },
+        {
+          title: 'Fall and room-safety layer',
+          body: 'Camera-free fall detection, bed-exit, bathroom, environment and routine signals are selected by use case.',
+          metric: 'Room events',
+        },
+        {
+          title: 'Care workflow layer',
+          body: 'Alerts are routed to the right role with context, escalation and handover so teams can act clearly.',
+          metric: 'Team response',
+        },
+      ],
+    },
     technology: {
       eyebrow: 'Technology examples',
-      title: 'Ambient sensors, opt-in health checks and wearables—chosen for the use case.',
+      title: 'From fall detection to home-clinic checks—chosen for the use case.',
       body:
-        'The right mix may combine passive room coverage with deliberate health checks or personal devices. None of it is one-size-fits-all.',
+        'The right mix may combine passive room coverage, bathroom insights, rPPG check-ins, telehealth devices or personal wearables. We validate what fits the residence before recommending anything.',
       compatibility:
         'Device compatibility, room coverage and applicable certification are validated for each site before the pilot.',
       items: [
@@ -315,9 +344,9 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     },
     ecosystem: {
       eyebrow: 'Signal to action',
-      title: 'From a room event to a documented response.',
+      title: 'From a room signal to a managed response.',
       body:
-        'CasaMia routes agreed device events into workflows run by your own team—we do not operate a remote monitoring centre.',
+        'CasaMia connects agreed device events into workflows run by your authorised team: who sees it, who owns it, what context they receive and how the action is recorded.',
       aria:
         'Resident room sensors and compatible devices connect through CasaMia integration to caregiver, operator and existing care-system workflows.',
       sourceTitle: 'Resident space',
@@ -370,9 +399,9 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     },
     rollout: {
       eyebrow: 'A responsible rollout',
-      title: 'Pilot one workflow. Scale when it works.',
+      title: 'Start small. Prove it. Then scale with confidence.',
       body:
-        'Begin with one use case and one area. Validate coverage, response and staff adoption, then expand.',
+        'Begin with one use case, one area and one success measure. Validate coverage, response and staff adoption, then expand across rooms, wings or sites.',
       steps: [
         { title: 'Assess', body: 'Define the use case, site and success measure.' },
         { title: 'Configure', body: 'Validate devices, integrations and routing.' },
@@ -393,7 +422,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ],
       boundaryTitle: 'Responsible technology boundary',
       boundary:
-        'Fall detection flags possible events; it cannot prevent every fall or guarantee an emergency response. Health, continence and urine-related outputs depend on the selected device, certification, consent and qualified interpretation.',
+        'Fall detection flags possible events; it cannot prevent every fall or guarantee an emergency response, and we do not operate a remote monitoring centre. Health, continence and urine-related outputs depend on the selected device, certification, consent and qualified interpretation.',
     },
     faq: {
       eyebrow: 'Practical questions',
@@ -464,18 +493,18 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       'CasaMia integra detección de caídas sin wearables, sensores para senior living, dispositivos de salud, apps para cuidadores y flujos para residencias en España.',
     hero: {
       eyebrow: 'Integración tecnológica para residencias',
-      title: 'Detección discreta. Respuesta clara. Menos carga operativa.',
+      title: 'Una capa de seguridad inteligente para cada flujo de la residencia.',
       body:
-        'CasaMia integra detección de caídas sin cámara y sin dispositivos que llevar, tecnología de baño y continencia, dispositivos de salud conectados y flujos claros para el personal, dentro de los sistemas que tu equipo ya utiliza.',
-      primaryCta: 'Planificar un piloto',
+        'CasaMia ayuda a equipos de residencias a conectar detección de caídas, sensores avanzados de habitación, baño y continencia, controles opcionales de home clinic y flujos para cuidadores en un modelo operativo práctico.',
+      primaryCta: 'Diseñar un piloto',
       secondaryCta: 'Ver la tecnología',
       proof: ['Opciones sin wearables', 'Integrable con sistemas actuales', 'Privacidad desde el diseño', 'Del piloto al despliegue'],
       audiencesLabel: 'Pensado para',
       audiences: ['Residencias asistidas', 'Residencias senior', 'Comunidades senior', 'Operadores multicentro'],
       imageAlt: 'Sensor discreto sin cámara en una residencia senior tranquila',
       visualEyebrow: 'Seguridad pasiva, respuesta activa',
-      visualTitle: 'Con sensores ambientales compatibles, el residente no necesita llevar ni pulsar un dispositivo.',
-      visualBody: 'Cuando un sensor detecta una posible caída, el aviso acordado llega al equipo responsable.',
+      visualTitle: 'El residente mantiene su comodidad. El equipo recibe señales más claras cuando algo requiere atención.',
+      visualBody: 'Sensores y dispositivos compatibles envían eventos acordados al rol adecuado, con contexto y siguiente paso.',
       visualEvent: 'Posible caída',
       visualRoom: 'Habitación 214 · espacio privado',
       visualRoute: 'Enviado al equipo asistencial',
@@ -497,11 +526,34 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       outcomes: ['Dispositivos seleccionados', 'Ruta de integración', 'Modelo de aviso y respuesta', 'Plan de formación y despliegue'],
       note: 'Empieza por una prioridad. Amplía solo cuando el flujo funcione en la práctica.',
     },
+    operatingModel: {
+      eyebrow: 'Qué entrega CasaMia',
+      title: 'No solo dispositivos. Un modelo operativo que funciona en la residencia.',
+      body:
+        'El valor no está en colocar un sensor. Está en saber qué residente, qué habitación, qué evento, quién responde y cuál es el siguiente paso, sin crear otra herramienta aislada para el equipo.',
+      cards: [
+        {
+          title: 'Capa de home clinic',
+          body: 'Controles de salud opcionales, dispositivos de telesalud guiada y lecturas autorizadas pueden convivir con los flujos diarios de seguridad.',
+          metric: 'Contexto de salud',
+        },
+        {
+          title: 'Capa de caídas y seguridad',
+          body: 'Detección de caídas sin cámara, salida de cama, baño, ambiente y rutinas se seleccionan según el caso de uso.',
+          metric: 'Eventos de habitación',
+        },
+        {
+          title: 'Capa de flujo asistencial',
+          body: 'Los avisos llegan al rol adecuado con contexto, escalado y relevo para que el equipo actúe con claridad.',
+          metric: 'Respuesta del equipo',
+        },
+      ],
+    },
     technology: {
       eyebrow: 'Ejemplos de tecnología',
-      title: 'Sensores ambientales, controles de salud opcionales y wearables, elegidos según el caso.',
+      title: 'De la detección de caídas a controles de home clinic, elegidos según el caso.',
       body:
-        'La combinación adecuada puede unir cobertura pasiva, controles deliberados de salud o dispositivos personales. Nunca aplicamos una solución única para todos.',
+        'La combinación adecuada puede unir cobertura pasiva, señales de baño, controles rPPG, dispositivos de telesalud o wearables personales. Validamos qué encaja antes de recomendar nada.',
       compatibility:
         'Validamos la compatibilidad, la cobertura y la certificación aplicable en cada centro antes del piloto.',
       items: [
@@ -570,9 +622,9 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     },
     ecosystem: {
       eyebrow: 'De la señal a la acción',
-      title: 'De un evento en la habitación a una respuesta registrada.',
+      title: 'De una señal en la habitación a una respuesta gestionada.',
       body:
-        'CasaMia dirige los eventos acordados a los flujos que gestiona tu propio equipo; no operamos una central de monitorización remota.',
+        'CasaMia conecta los eventos acordados con los flujos de tu equipo autorizado: quién lo ve, quién responde, qué contexto recibe y cómo queda registrada la acción.',
       aria:
         'Los sensores de habitación y dispositivos compatibles se conectan mediante la integración CasaMia con los flujos de cuidadores, operadores y sistemas existentes.',
       sourceTitle: 'Espacio del residente',
@@ -625,9 +677,9 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     },
     rollout: {
       eyebrow: 'Un despliegue responsable',
-      title: 'Prueba un flujo. Escálalo cuando funcione.',
+      title: 'Empieza pequeño. Valídalo. Escala con confianza.',
       body:
-        'Empieza por un caso de uso y una zona. Valida la cobertura, la respuesta y la adopción del equipo antes de ampliar.',
+        'Empieza por un caso de uso, una zona y una medida de éxito. Valida cobertura, respuesta y adopción del equipo antes de ampliar a más habitaciones, alas o centros.',
       steps: [
         { title: 'Evaluar', body: 'Definimos el caso de uso, la zona y la medida de éxito.' },
         { title: 'Configurar', body: 'Validamos dispositivos, integraciones y enrutamiento.' },
@@ -648,7 +700,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ],
       boundaryTitle: 'Límite responsable de la tecnología',
       boundary:
-        'La detección de caídas señala posibles eventos; no puede prevenir todas las caídas ni garantizar una respuesta de emergencia. Los datos de salud, continencia y orina dependen del dispositivo, su certificación, el consentimiento y una interpretación profesional cualificada.',
+        'La detección de caídas señala posibles eventos; no puede prevenir todas las caídas ni garantizar una respuesta de emergencia, y no operamos una central de monitorización remota. Los datos de salud, continencia y orina dependen del dispositivo, su certificación, el consentimiento y una interpretación profesional cualificada.',
     },
     faq: {
       eyebrow: 'Preguntas prácticas',
@@ -811,7 +863,7 @@ function TechnologyVisual({ kind, label, lang }: { kind: TechnologyKind; label: 
 
   if (kind === 'health') {
     return (
-      <div className="alx-tech-visual is-health is-mirror" aria-hidden="true">
+      <div className="alx-tech-visual alx-mirror-device is-health is-mirror" aria-hidden="true">
         <SafeImage
           src="/images/service-gallery/10-health-and-vitals-monitoring.jpg"
           alt=""
@@ -1112,6 +1164,29 @@ export function AssistedLivingSolutionsPage() {
               <p>{copy.expertise.body}</p>
             </div>
             <CustomSolutionBlueprint copy={copy.expertise} />
+          </div>
+        </section>
+
+        <section className="alx-operating-model" aria-labelledby="alx-operating-model-title">
+          <div className="site-shell">
+            <header className="alx-operating-heading">
+              <p className="eyebrow">{copy.operatingModel.eyebrow}</p>
+              <h2 id="alx-operating-model-title">{copy.operatingModel.title}</h2>
+              <p>{copy.operatingModel.body}</p>
+            </header>
+            <div className="alx-operating-stack">
+              {copy.operatingModel.cards.map((card, index) => {
+                const Icon = [HeartPulse, Radio, Smartphone][index] ?? Sparkles
+                return (
+                  <article className="alx-operating-card" key={card.title}>
+                    <span className="alx-operating-icon"><Icon size={24} aria-hidden="true" /></span>
+                    <small>{card.metric}</small>
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                  </article>
+                )
+              })}
+            </div>
           </div>
         </section>
 

@@ -39,6 +39,7 @@ export function WizardPackageDialog({
   }, [returnFocusTo])
 
   const title = isAllOptions ? copy.allOptionsTitle : `${areaLabel}: ${copy.packageTitle}`
+  const visibleServices = services.filter((service) => service.wizardVisible ?? service.visibility?.wizard ?? true)
 
   return (
     <dialog
@@ -77,12 +78,14 @@ export function WizardPackageDialog({
 
         <div className="safety-wizard-package-dialog-summary">
           <p id={`${wizardPackageDialogId}-description`}>{copy.packageIntro}</p>
-          <span><strong>{services.length}</strong> {copy.currentOptions}</span>
+          <span><strong>{visibleServices.length}</strong> {copy.currentOptions}</span>
         </div>
 
         <div className="safety-wizard-package-dialog-list">
-          {services.length ? services.map((service) => {
+          {visibleServices.length ? visibleServices.map((service) => {
             const includedItems = (service.includedItems ?? []).filter((item) => item.trim())
+            const serviceName = service.customerName ?? service.name
+            const serviceDescription = service.customerDescription ?? service.shortDescription
 
             return (
               <article className="safety-wizard-package-service" key={service.id}>
@@ -90,10 +93,10 @@ export function WizardPackageDialog({
                   <span aria-hidden="true"><Check size={16} strokeWidth={3} /></span>
                   <div>
                     <small>{service.category}</small>
-                    <h3>{service.name}</h3>
+                    <h3>{serviceName}</h3>
                   </div>
                 </div>
-                <p>{service.shortDescription}</p>
+                <p>{serviceDescription}</p>
                 {includedItems.length ? (
                   <div className="safety-wizard-package-includes">
                     <strong>{copy.includes}</strong>

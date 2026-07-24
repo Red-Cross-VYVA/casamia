@@ -7,9 +7,11 @@ import {
   Home,
   ShieldCheck,
 } from 'lucide-react'
-import { useEffect } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+
+import { SEO } from '../components/SEO'
 
 type PlanAdaptaCard = {
   title: string
@@ -24,19 +26,97 @@ type PlanAdaptaStep = {
 const helpIcons = [ShieldCheck, FileText, ClipboardCheck, Home, CheckCircle2, ArrowRight]
 
 export function PlanAdaptaPage() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+  const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const helpCards = t('pages.planAdapta.help.items', { returnObjects: true }) as PlanAdaptaCard[]
   const improvements = t('pages.planAdapta.improvements.items', {
     returnObjects: true,
   }) as string[]
   const steps = t('pages.planAdapta.process.steps', { returnObjects: true }) as PlanAdaptaStep[]
+  const siteUrl = 'https://www.casamia.com.es'
+  const title = t('pages.planAdapta.hero.title')
+  const description = t('pages.planAdapta.hero.subtitle')
 
-  useEffect(() => {
-    document.title = `${t('pages.planAdapta.hero.title')} | CasaMia`
-  }, [t])
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${siteUrl}/plan-adapta#page`,
+          url: `${siteUrl}/plan-adapta`,
+          name: title,
+          description,
+          inLanguage: language,
+          isPartOf: {
+            '@type': 'WebSite',
+            '@id': `${siteUrl}/#website`,
+            name: 'CasaMia',
+            url: siteUrl,
+          },
+          about: {
+            '@id': `${siteUrl}/plan-adapta#grant-support`,
+          },
+        },
+        {
+          '@type': 'Service',
+          '@id': `${siteUrl}/plan-adapta#grant-support`,
+          name: title,
+          description: t('pages.planAdapta.what.body'),
+          serviceType: language === 'es' ? 'Soporte para ayudas de adaptación del hogar' : 'Home adaptation grant support',
+          provider: {
+            '@type': 'Organization',
+            '@id': `${siteUrl}/#organization`,
+            name: 'CasaMia',
+            url: siteUrl,
+          },
+          areaServed: {
+            '@type': 'Country',
+            name: 'Spain',
+          },
+          termsOfService: `${siteUrl}/terms-and-conditions#grant-management`,
+        },
+        {
+          '@type': 'HowTo',
+          '@id': `${siteUrl}/plan-adapta#support-process`,
+          name: t('pages.planAdapta.process.title'),
+          description: t('pages.planAdapta.disclaimer.body'),
+          step: steps.map((step, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: step.title,
+            text: step.body,
+          })),
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${siteUrl}/plan-adapta#eligible-improvements`,
+          name: t('pages.planAdapta.improvements.title'),
+          itemListElement: improvements.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item,
+          })),
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${siteUrl}/plan-adapta#casamia-support`,
+          name: t('pages.planAdapta.help.title'),
+          itemListElement: helpCards.map((card, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: card.title,
+            description: card.body,
+          })),
+        },
+      ],
+    }),
+    [description, helpCards, improvements, language, steps, t, title],
+  )
 
   return (
     <>
+      <SEO title={title} description={description} path="/plan-adapta" schema={schema} />
       <section className="page-hero">
         <div className="page-hero-inner">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">

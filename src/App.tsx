@@ -14,6 +14,7 @@ import { CookieConsent } from './components/CookieConsent'
 import { Footer } from './components/Footer'
 import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
+import { SEO } from './components/SEO'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
 
 const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
@@ -42,6 +43,11 @@ const HomeSafetyWizardPage = lazy(() =>
     default: HomeSafetyWizardPage,
   })),
 )
+const ParentSafetyQuizPage = lazy(() =>
+  import('./pages/ParentSafetyQuizPage').then(({ ParentSafetyQuizPage }) => ({
+    default: ParentSafetyQuizPage,
+  })),
+)
 const GrantEligibilityPage = lazy(() =>
   import('./pages/GrantEligibilityPage').then(({ GrantEligibilityPage }) => ({ default: GrantEligibilityPage })),
 )
@@ -52,6 +58,9 @@ const HowItWorksPage = lazy(() =>
 )
 const LegalDocumentPage = lazy(() =>
   import('./pages/LegalDocumentPage').then(({ LegalDocumentPage }) => ({ default: LegalDocumentPage })),
+)
+const NeedLandingPage = lazy(() =>
+  import('./pages/NeedLandingPage').then(({ NeedLandingPage }) => ({ default: NeedLandingPage })),
 )
 const InspectionReportPage = lazy(() =>
   import('./pages/internal/InspectionReportPage').then(({ InspectionReportPage }) => ({
@@ -122,10 +131,14 @@ const PublicProposalPage = lazy(() =>
 const ServiceDetailPage = lazy(() =>
   import('./pages/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })),
 )
+const ServiceAreasPage = lazy(() =>
+  import('./pages/ServiceAreasPage').then(({ ServiceAreasPage }) => ({ default: ServiceAreasPage })),
+)
 const ServicesPage = lazy(() =>
   import('./pages/ServicesPage').then(({ ServicesPage }) => ({ default: ServicesPage })),
 )
 const TechPage = lazy(() => import('./pages/TechPage').then(({ TechPage }) => ({ default: TechPage })))
+const ToolsPage = lazy(() => import('./pages/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })))
 const TermsAndConditionsPage = lazy(() =>
   import('./pages/TermsAndConditionsPage').then(({ TermsAndConditionsPage }) => ({ default: TermsAndConditionsPage })),
 )
@@ -197,7 +210,19 @@ function LegacyResourceRedirect() {
 }
 
 function InternalRoute({ children }: { children: ReactNode }) {
-  return <InternalAccessGate>{children}</InternalAccessGate>
+  const location = useLocation()
+
+  return (
+    <>
+      <SEO
+        title="CasaMia internal access"
+        description="Protected CasaMia operations area."
+        path={location.pathname}
+        noindex
+      />
+      <InternalAccessGate>{children}</InternalAccessGate>
+    </>
+  )
 }
 
 function AppRoutes() {
@@ -222,6 +247,9 @@ function AppRoutes() {
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
+            <Route path="/service-areas" element={<ServiceAreasPage />} />
+            <Route path="/service-areas/:citySlug" element={<ServiceAreasPage />} />
+            <Route path="/:needSlug" element={<NeedLandingPage />} />
             <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />
             <Route path="/resources" element={<Navigate to="/blog" replace />} />
@@ -239,8 +267,10 @@ function AppRoutes() {
             <Route path="/home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
             <Route path="/home-safety-wizard" element={<HomeSafetyWizardPage />} />
             <Route path="/free-home-safety-assessment" element={<LegacyAssessmentRedirect />} />
+            <Route path="/tools" element={<ToolsPage />} />
             <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
             <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
+            <Route path="/tools/is-my-parent-safe-at-home" element={<ParentSafetyQuizPage />} />
             <Route path="/grants" element={<GrantsPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />

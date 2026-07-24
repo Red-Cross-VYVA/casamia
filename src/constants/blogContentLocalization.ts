@@ -194,6 +194,77 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     ],
     cta: { label: 'Comprobar preparación para ayudas', to: '/grant-check' },
   },
+  'family-conversation-before-home-safety-visit': {
+    title: 'Antes de una visita de seguridad: preguntas que conviene acordar en familia',
+    description:
+      'Guía práctica para hablar en familia antes de pedir una evaluación de seguridad del hogar: movilidad, rutinas, dignidad, presupuesto, ayudas y decisión.',
+    category: 'Planificación familiar',
+    readTime: '6 min de lectura',
+    imageAlt: 'Lista familiar para preparar una conversación sobre seguridad del hogar',
+    keywords: [
+      'preguntas evaluación seguridad hogar mayores',
+      'conversación familia padres mayores',
+      'preparar visita seguridad hogar',
+    ],
+    intro:
+      'Muchas familias saben que algo debe cambiar, pero no siempre nombran la misma preocupación. Una conversación breve antes de la visita ayuda a CasaMia a entender a la persona, la vivienda y la decisión que la familia necesita tomar.',
+    takeaways: [
+      'Acordad primero los momentos diarios que resultan más difíciles, antes de hablar de productos.',
+      'Separad necesidades urgentes de seguridad, comodidad, confianza y planificación futura.',
+      'Decidid quién debe participar en la propuesta, presupuesto, ayudas y aprobación final.',
+    ],
+    sections: [
+      {
+        title: 'Empieza por la persona, no por la estancia',
+        body: [
+          'Pregunta qué ha cambiado últimamente: una caída, un susto, hospitalización, medicación nueva, cansancio, miedo a ducharse, idas nocturnas al baño o menos confianza para salir.',
+          'El mismo baño, dormitorio o tramo de escaleras puede significar cosas distintas según fuerza, equilibrio, memoria, visión, dolor y si la persona vive sola.',
+        ],
+      },
+      {
+        title: 'Nombra las rutinas que generan tensión',
+        body: [
+          'En vez de decir “el baño es inseguro”, describe el momento exacto: entrar en la ducha, levantarse del inodoro, secarse al salir, ir al baño de noche, llevar ropa o abrir la puerta principal.',
+          'Así una preocupación general se convierte en un encargo práctico. CasaMia puede priorizar transferencias más seguras, rutas claras, iluminación, apoyos, ayuda de emergencia o una visita profesional.',
+        ],
+      },
+      {
+        title: 'Acordad qué debe seguir siendo familiar',
+        body: [
+          'La seguridad no debería hacer que la vivienda parezca clínica. Hablad de lo que importa emocionalmente: privacidad, independencia, rutinas, muebles favoritos, aspecto del baño o si un equipo visible generaría rechazo.',
+          'Un buen plan protege la dignidad además del movimiento. A veces la mejor mejora es la que la persona acepta y usa cada día.',
+        ],
+      },
+      {
+        title: 'Clarificad quién decide y qué paso viene después',
+        body: [
+          'Antes de la evaluación, decidid quién recibe el informe, quién habla de presupuesto, quién puede aprobar trabajos y si conviene explorar ayudas.',
+          'La familia no necesita tener todas las respuestas. El resultado útil es un punto de partida compartido: qué preocupa más, qué queremos preservar y qué decisión queremos que CasaMia nos ayude a tomar.',
+        ],
+      },
+    ],
+    checklist: [
+      '¿Qué ha cambiado últimamente para que la vivienda parezca menos segura?',
+      '¿Qué rutina preocupa más esta semana?',
+      '¿Qué estancias, rutas o transferencias conviene revisar primero?',
+      '¿Qué debería seguir siendo discreto, familiar o sin cambios si es posible?',
+      '¿Quién debe recibir el informe y aprobar los próximos pasos?',
+      '¿Queréis que CasaMia revise ayudas o coordine una visita?',
+    ],
+    faqs: [
+      {
+        question: '¿Debe participar la persona mayor en la conversación?',
+        answer:
+          'Sí, siempre que sea posible. La persona que vive en la casa debe explicar qué le cuesta, qué aceptaría y qué rutinas quiere mantener. La familia ayuda, pero la dignidad y el consentimiento siguen siendo importantes.',
+      },
+      {
+        question: '¿Tenemos que saber qué productos necesitamos antes de pedir una visita?',
+        answer:
+          'No. Es mejor describir el problema diario y el resultado deseado. CasaMia puede traducirlo después en mejoras físicas, apoyo conectado, trabajos opcionales o una propuesta clara.',
+      },
+    ],
+    cta: { label: 'Empezar revisión guiada', to: '/home-safety-assessment#self-inspection-tool' },
+  },
   'smart-home-safety-without-overcomplicating': {
     title: 'Seguridad inteligente sin complicar la casa',
     description:
@@ -547,6 +618,133 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       },
     ],
     cta: { label: 'Crear plan de seguridad', to: '/home-safety-wizard' },
+  },
+  'hospital-discharge-home-safety-checklist': {
+    title: 'Lista de seguridad en casa tras el alta hospitalaria',
+    description:
+      'Una guía práctica para preparar la vivienda antes de que una persona mayor vuelva a casa tras un ingreso, cirugía o cambio de movilidad.',
+    category: 'Tras el alta hospitalaria',
+    readTime: '8 min de lectura',
+    imageAlt: 'Familia preparando la vivienda antes de la vuelta a casa tras el hospital',
+    keywords: ['alta hospitalaria seguridad en casa', 'vuelta a casa persona mayor', 'lista seguridad tras cirugía'],
+    intro:
+      'Los primeros días después del alta son el momento en que pequeños obstáculos de la vivienda pueden convertirse en problemas importantes. Usa esta lista para revisar entrada, dormitorio, baño, medicación, ayuda y rutinas de la primera semana.',
+    takeaways: [
+      'Prepara entrada, cama, baño y rutas nocturnas antes de la vuelta a casa.',
+      'Aclara quién ayuda, cómo se pide ayuda y qué ocurre si el primer plan falla.',
+      'Separa acciones urgentes de seguridad de obras que pueden esperar una propuesta medida.',
+    ],
+    sections: [
+      {
+        title: 'Confirma la primera ruta de vuelta',
+        body: [
+          'Antes del alta, recorre el camino desde la entrada del edificio hasta el lugar principal de descanso. Observa escalones, umbrales, giros estrechos, alfombras sueltas, mala iluminación y puntos donde la persona puede necesitar parar.',
+          'Si hay dudas con escaleras, ascensor, aparcamiento o acceso al edificio, planifica la llegada con quien acompañará a la persona en vez de improvisar en la puerta.',
+        ],
+      },
+      {
+        title: 'Haz que dormitorio y baño funcionen primero',
+        body: [
+          'Las estancias prioritarias suelen ser dormitorio y baño. Revisa altura de cama, espacio para transferencias, iluminación nocturna, acceso al inodoro, ducha o bañera y puntos de apoyo donde realmente se mueve la persona.',
+          'No esperes a tener un plan perfecto para resolver riesgos urgentes: ruta nocturna poco clara, suelo mojado, transferencias sin apoyo o ayuda difícil de alcanzar.',
+        ],
+      },
+      {
+        title: 'Acordad el apoyo de la primera semana',
+        body: [
+          'Anota quién visita, quién llama, cómo se revisa la medicación, quién gestiona citas de seguimiento y qué hacer si aumentan dolor, mareos, confusión o dificultad para moverse.',
+          'CasaMia puede convertirlo en una ruta práctica: revisión remota, visita experta, trabajos urgentes, propuesta, notas para ayudas o instalación por fases.',
+        ],
+      },
+    ],
+    checklist: [
+      '¿Puede entrar en casa de forma segura el día del alta?',
+      '¿La cama es fácil de alcanzar, sentarse y levantarse?',
+      '¿Puede llegar al baño y al inodoro de noche con seguridad?',
+      '¿Medicación, informe de alta y contactos están fáciles de encontrar?',
+      '¿Quién revisa la situación en 24 horas, tres días y una semana?',
+      '¿Qué trabajos urgentes conviene revisar antes de planificar obras mayores?',
+    ],
+    faqs: [
+      {
+        question: '¿Qué preparar antes de que una persona mayor vuelva del hospital?',
+        answer:
+          'Empieza por entrada, transferencias de cama, baño e inodoro, iluminación nocturna, notas de medicación, contactos de emergencia y apoyo de la primera semana.',
+      },
+      {
+        question: '¿Hay que adaptar toda la vivienda antes del alta?',
+        answer:
+          'Normalmente no. Primero hay que asegurar entrada, dormir, ir al baño, asearse y pedir ayuda. Las obras mayores pueden medirse y planificarse después.',
+      },
+    ],
+    cta: { label: 'Empezar revisión de vuelta a casa', to: '/home-safety-after-hospital-discharge' },
+  },
+  'when-home-adaptations-are-not-enough': {
+    title: 'Cuando adaptar la vivienda no es suficiente: guía familiar de decisión',
+    description:
+      'Una guía práctica para decidir si conviene adaptar la vivienda, añadir apoyo, planificar por fases o valorar una residencia u otra opción de cuidado.',
+    category: 'Decisiones familiares',
+    readTime: '8 min de lectura',
+    imageAlt: 'Familia comparando opciones de seguridad y cuidado en casa',
+    keywords: ['envejecer en casa decisión', 'adaptar vivienda o residencia', 'cuando la casa ya no es segura'],
+    intro:
+      'Envejecer en casa debe ser seguro, familiar y realista. La pregunta no es si casa siempre es mejor, sino si el apoyo adecuado puede hacer la vida diaria más segura sin agotar a la persona ni a la familia.',
+    takeaways: [
+      'Las adaptaciones funcionan mejor cuando la persona aún puede usar la vivienda con rutas claras, apoyos y rutinas sencillas.',
+      'Una residencia o un mayor nivel de apoyo puede ser más seguro cuando supervisión, transferencias, confusión o riesgo nocturno no se gestionan de forma fiable en casa.',
+      'La mejor decisión compara seguridad, dignidad, capacidad familiar, coste, plazos y deseos de la persona.',
+    ],
+    sections: [
+      {
+        title: 'Empieza por la rutina diaria, no por la vivienda',
+        body: [
+          'Una casa puede parecer adecuada en una visita rápida y fallar justo en los momentos importantes: levantarse de la cama, llegar al baño de noche, ducharse, cocinar, usar escaleras o pedir ayuda.',
+          'Si esos momentos pueden hacerse más seguros con adaptaciones, rutinas y apoyo, seguir en casa puede ser realista. Si dependen de improvisar cada día, la familia necesita una conversación más amplia.',
+        ],
+      },
+      {
+        title: 'Señales de que adaptar la casa aún puede ser la vía correcta',
+        body: [
+          'Casa suele seguir siendo una buena opción cuando la persona quiere quedarse, reconoce el espacio, puede seguir rutinas sencillas y los principales riesgos son físicos o del entorno: baño, iluminación, escaleras, umbrales, cama o ayuda al alcance.',
+          'En ese caso, un plan por fases suele funcionar: resolver primero el riesgo urgente y después añadir confort, apoyo conectado o adaptaciones mayores cuando aportan valor claro.',
+        ],
+      },
+      {
+        title: 'Señales de que conviene valorar más apoyo',
+        body: [
+          'Puede hacer falta hablar de más apoyo cuando la persona no puede pedir ayuda de forma fiable, las caídas se repiten, la noche se vuelve insegura, las transferencias no pueden hacerse con una sola persona o la confusión crea riesgos frecuentes.',
+          'Esto no significa automáticamente residencia. Puede significar más ayuda en casa, respiro, rutinas con tecnología, una visita profesional o un plan de transición. Lo importante es decidir antes de que una crisis decida por todos.',
+        ],
+      },
+      {
+        title: 'Usa un marco de decisión claro',
+        body: [
+          'Una conversación útil compara cinco cosas: qué quiere la persona, qué es inseguro ahora, qué se puede cambiar de forma realista, quién ayuda en el día a día y cuánto cuesta cada ruta en 6 a 24 meses.',
+          'CasaMia puede ayudar con la parte de vivienda: revisión de seguridad, propuesta práctica, trabajos por fases, preparación para ayudas y una explicación clara de lo que la adaptación puede y no puede resolver.',
+        ],
+      },
+    ],
+    checklist: [
+      '¿Puede llegar con seguridad al baño, cama, cocina y entrada en un día normal?',
+      '¿Puede pedir ayuda desde las estancias donde hay más riesgo?',
+      '¿Las caídas, sustos o incidentes nocturnos son más frecuentes?',
+      '¿La familia o cuidadores pueden sostener la rutina sin agotarse?',
+      '¿Un plan por fases resolvería los principales riesgos o solo retrasaría una decisión mayor?',
+      '¿La familia ha comparado coste y plazos de adaptar casa frente a residencia o más apoyo?',
+    ],
+    faqs: [
+      {
+        question: '¿Cómo sabemos si seguir en casa es realista?',
+        answer:
+          'Mirad las rutinas diarias, no solo la idea de la casa. Si baño, noche, transferencias, comidas y petición de ayuda pueden hacerse fiables, casa puede seguir siendo realista. Si varias siguen siendo inseguras, conviene valorar un plan de cuidado más amplio.',
+      },
+      {
+        question: '¿Hay que adaptar la casa antes de pensar en una residencia?',
+        answer:
+          'No siempre. Algunas familias deben comparar ambas rutas pronto. Una revisión de seguridad puede mostrar qué se resuelve en casa, qué necesita apoyo profesional y qué quizá conviene tratar con una opción de mayor cuidado.',
+      },
+    ],
+    cta: { label: 'Empezar revisión de seguridad', to: '/home-safety-wizard' },
   },
   'emergency-plan-aging-parents-home': {
     title: 'Plan de emergencia para padres mayores que viven en casa',

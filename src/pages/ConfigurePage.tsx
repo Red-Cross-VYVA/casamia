@@ -128,7 +128,12 @@ const baseRecommendedServiceIds: Record<HomeZoneId, string[]> = {
     'kitchen-water-leak-sensor',
   ],
   bedroom: ['bedroom-bed-support', 'bedroom-underbed-lighting', 'bedroom-night-route'],
-  bathroom: ['bathroom-grab-bars', 'bathroom-shower-chair', 'bathroom-anti-slip', 'bathroom-nightlight'],
+  bathroom: [
+    'bathroom-grab-bars',
+    'bathroom-folding-shower-seat',
+    'bathroom-anti-slip-floor-treatment',
+    'bathroom-motion-lighting',
+  ],
   connected: ['connected-emergency-button', 'connected-voice-hub', 'connected-family-alerts'],
 }
 
@@ -193,7 +198,7 @@ function getRecommendedServiceIds(state: ConfiguratorState, services: CasaMiaSer
 
   range(state.quantities.bathrooms).forEach((index) => {
     if (['yes', 'unsure'].includes(String(state.answers[`bathroom-${index}-toiletDifficulty`] ?? ''))) {
-      recommendations.add('bathroom-raised-toilet')
+      recommendations.add('bathroom-raised-toilet-seat')
     }
   })
 
@@ -402,8 +407,8 @@ export function ConfigurePage() {
                     <ArrowRight size={18} aria-hidden="true" />
                   </button>
                 ) : (
-                  <Link className="btn btn-navy" to="/configure/contact">
-                    Continue to contact
+                  <Link className="btn btn-navy" to="/home-safety-wizard">
+                    Continue in guided plan
                     <ArrowRight size={18} aria-hidden="true" />
                   </Link>
                 )}
@@ -1029,8 +1034,8 @@ function RecommendationStep() {
       {quote.siteConfirmationItems.length > 0 ? (
         <Notice title="Requires site confirmation" items={quote.siteConfirmationItems.map((item) => `${item.label}: ${item.reason}`)} />
       ) : null}
-      <Link className="btn btn-green w-fit" to="/configure/summary">
-        View full summary
+      <Link className="btn btn-green w-fit" to="/home-safety-wizard">
+        Build guided plan
         <ArrowRight size={18} aria-hidden="true" />
       </Link>
     </div>
