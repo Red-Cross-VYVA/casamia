@@ -144,6 +144,11 @@ assert.match(
 )
 assert.match(
   nav,
+  /Before the visit[\s\S]*family-conversation-before-home-safety-visit/,
+  'The Resources navigation must expose the practical family visit-prep guide.',
+)
+assert.match(
+  nav,
   /Recursos por situación[\s\S]*Ver todos los recursos/,
   'The Resources navigation must include Spanish copy.',
 )

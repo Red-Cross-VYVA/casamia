@@ -127,6 +127,10 @@ export function Nav() {
           to: '/blog/choose-home-safety-provider-spain',
         },
         {
+          label: isSpanish ? 'Antes de la visita' : 'Before the visit',
+          to: '/blog/family-conversation-before-home-safety-visit',
+        },
+        {
           label: isSpanish ? 'Tecnología sin complicar' : 'Simple connected safety',
           to: '/blog/smart-home-safety-without-overcomplicating',
         },
