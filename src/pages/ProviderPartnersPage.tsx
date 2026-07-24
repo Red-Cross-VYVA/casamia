@@ -19,9 +19,10 @@ import {
   Zap,
 } from 'lucide-react'
 import type { FormEvent, ReactNode } from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SEO } from '../components/SEO'
 import {
   providerOnboardingSteps,
   providerCityOpportunities,
@@ -59,6 +60,8 @@ const marketingAssetIcons = [Award, BadgeCheck, Mail, Megaphone, Download, Copy]
 const providerPartnerCopy = {
   en: {
     title: 'Provider Partnership Programme | CasaMia',
+    metaDescription:
+      'Join CasaMia’s provider network for senior home-safety adaptations, installation, smart safety setup and aftercare across Spain.',
     heroEyebrow: 'Provider partnership programme',
     heroTitle: 'Join the senior home-safety market before it becomes crowded.',
     heroBody:
@@ -160,6 +163,8 @@ const providerPartnerCopy = {
   },
   es: {
     title: 'Programa de colaboradores profesionales | CasaMia',
+    metaDescription:
+      'Únete a la red CasaMia de profesionales para adaptaciones senior, instalación, seguridad inteligente y seguimiento en España.',
     heroEyebrow: 'Programa de colaboradores',
     heroTitle: 'Únete al mercado de seguridad senior en el hogar antes de que se sature.',
     heroBody:
@@ -428,10 +433,41 @@ export function ProviderPartnersPage() {
   const [values, setValues] = useState<ProviderFormValues>(initialValues)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submissionMessage, setSubmissionMessage] = useState('')
-
-  useEffect(() => {
-    document.title = copy.title
-  }, [copy.title])
+  const schema = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: copy.title,
+      description: copy.metaDescription,
+      url: 'https://casamia.com.es/provider-partners',
+      inLanguage: isSpanish ? 'es-ES' : 'en',
+      about: ['senior home safety provider network', 'home adaptation installation', 'provider onboarding'],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      '@id': 'https://casamia.com.es/provider-partners#provider-onboarding',
+      name: copy.registrationTitle,
+      description: copy.registrationBody,
+      step: copy.onboarding.map((step, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: step,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      '@id': 'https://casamia.com.es/provider-partners#partner-profiles',
+      name: copy.profilesTitle,
+      itemListElement: copy.partnerPaths.map((path, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: path.title,
+        description: path.body,
+      })),
+    },
+  ]
 
   function updateValue<Field extends keyof ProviderFormValues>(field: Field, value: ProviderFormValues[Field]) {
     setValues((current) => ({ ...current, [field]: value }))
@@ -485,6 +521,8 @@ export function ProviderPartnersPage() {
 
   return (
     <>
+      <SEO title={copy.title} description={copy.metaDescription} path="/provider-partners" schema={schema} />
+
       <section className="provider-hero">
         <div className="site-shell provider-hero-grid">
           <div>

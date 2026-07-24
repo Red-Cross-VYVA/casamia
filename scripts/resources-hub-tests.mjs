@@ -5,6 +5,7 @@ const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url
 const costToolPage = await readFile(new URL('../src/pages/HomeVsResidenceCostPage.tsx', import.meta.url), 'utf8')
 const parentSafetyQuiz = await readFile(new URL('../src/pages/ParentSafetyQuizPage.tsx', import.meta.url), 'utf8')
 const toolsPage = await readFile(new URL('../src/pages/ToolsPage.tsx', import.meta.url), 'utf8')
+const providerPartnersPage = await readFile(new URL('../src/pages/ProviderPartnersPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
@@ -26,6 +27,7 @@ const publicCopySources = {
   'src/pages/BlogPage.tsx': page,
   'src/pages/BlogArticlePage.tsx': articlePage,
   'src/pages/ToolsPage.tsx': toolsPage,
+  'src/pages/ProviderPartnersPage.tsx': providerPartnersPage,
   'src/pages/NeedLandingPage.tsx': needLandingPage,
   'src/constants/blogContentLocalization.ts': blogContentLocalization,
   'src/constants/needLandingPagesLocalization.ts': needLandingLocalization,
@@ -388,6 +390,16 @@ assert.match(
   nav,
   /Room safety pages[\s\S]*\/safe-bathroom-access[\s\S]*\/senior-bedroom-safety[\s\S]*\/fall-prevention-at-home[\s\S]*\/grants-for-home-adaptations-spain/,
   'The Resources menu must give direct access to high-intent room and need pages.',
+)
+assert.match(
+  providerPartnersPage,
+  /<SEO title=\{copy\.title\} description=\{copy\.metaDescription\} path="\/provider-partners" schema=\{schema\} \/>/,
+  'The provider partners page must use the shared SEO component.',
+)
+assert.match(
+  providerPartnersPage,
+  /'@type': 'WebPage'[\s\S]*provider-partners[\s\S]*'@type': 'HowTo'[\s\S]*#provider-onboarding[\s\S]*copy\.onboarding\.map[\s\S]*'@type': 'ItemList'[\s\S]*#partner-profiles[\s\S]*copy\.partnerPaths\.map/,
+  'The provider partners page must publish structured data for provider onboarding and partner profiles.',
 )
 assert.match(
   nav,
