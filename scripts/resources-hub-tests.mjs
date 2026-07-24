@@ -505,6 +505,16 @@ assert.match(
   'The provider partners page must publish structured data for provider onboarding and partner profiles.',
 )
 assert.match(
+  providerPartnersPage,
+  /faqItems:[\s\S]*Is CasaMia a lead marketplace\?[\s\S]*¿CasaMia es un marketplace de leads\?[\s\S]*'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map[\s\S]*provider-faq-list/,
+  'The provider partners page must answer provider objections visibly and in FAQ structured data.',
+)
+assert.match(
+  globalStyles,
+  /\.provider-faq-layout[\s\S]*\.provider-faq-list details[\s\S]*\.provider-faq-list summary/,
+  'The provider partners FAQ must have dedicated visual styling.',
+)
+assert.match(
   beforeAfterPage,
   /<SEO[\s\S]*title=\{title\}[\s\S]*description=\{body\}[\s\S]*path="\/before-after"[\s\S]*image="\/images\/before-after\/bathroom-after\.jpg"[\s\S]*schema=\{schema\}/,
   'The before-and-after page must use the shared SEO component with canonical social preview metadata.',

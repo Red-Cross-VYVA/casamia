@@ -120,6 +120,30 @@ const providerPartnerCopy = {
     registrationTitle: 'Apply to join the provider network.',
     registrationBody:
       'Share basic company details, coverage and service types. CasaMia will review fit before assigning any customer work.',
+    faqEyebrow: 'Before you apply',
+    faqTitle: 'Clear answers for serious local providers.',
+    faqItems: [
+      {
+        question: 'Is CasaMia a lead marketplace?',
+        answer:
+          'No. CasaMia qualifies the family request, structures the scope and coordinates the customer relationship before approved providers are asked to price, visit or install.',
+      },
+      {
+        question: 'Can providers choose which work to accept?',
+        answer:
+          'Yes. CasaMia shares the project context and expected standard first, so providers can confirm fit, availability and coverage before committing.',
+      },
+      {
+        question: 'What makes a provider a good fit?',
+        answer:
+          'Respectful home work, clear communication, insurance, reliable documentation and comfort working around older people and their families.',
+      },
+      {
+        question: 'Does CasaMia manage the customer after installation?',
+        answer:
+          'Yes. CasaMia keeps the family informed, collects handover notes and supports follow-up so providers are not left managing every customer detail alone.',
+      },
+    ],
     fields: {
       businessName: 'Business name',
       contactName: 'Main contact',
@@ -223,6 +247,30 @@ const providerPartnerCopy = {
     registrationTitle: 'Solicita unirte a la red de proveedores.',
     registrationBody:
       'Comparte datos básicos de empresa, cobertura y tipos de servicio. CasaMia revisará el encaje antes de asignar cualquier trabajo con clientes.',
+    faqEyebrow: 'Antes de solicitar',
+    faqTitle: 'Respuestas claras para proveedores locales serios.',
+    faqItems: [
+      {
+        question: '¿CasaMia es un marketplace de leads?',
+        answer:
+          'No. CasaMia cualifica la solicitud familiar, estructura el alcance y coordina la relación con el cliente antes de pedir a proveedores aprobados que valoren, visiten o instalen.',
+      },
+      {
+        question: '¿Los proveedores pueden elegir qué trabajos aceptar?',
+        answer:
+          'Sí. CasaMia comparte primero el contexto del proyecto y el estándar esperado para que el proveedor confirme encaje, disponibilidad y cobertura.',
+      },
+      {
+        question: '¿Qué hace que un proveedor encaje bien?',
+        answer:
+          'Trabajo respetuoso en vivienda, comunicación clara, seguro, documentación fiable y comodidad trabajando con personas mayores y sus familias.',
+      },
+      {
+        question: '¿CasaMia gestiona al cliente después de instalar?',
+        answer:
+          'Sí. CasaMia mantiene informada a la familia, recoge notas de entrega y apoya el seguimiento para que el proveedor no tenga que gestionar cada detalle solo.',
+      },
+    ],
     fields: {
       businessName: 'Nombre de la empresa',
       contactName: 'Contacto principal',
@@ -465,6 +513,19 @@ export function ProviderPartnersPage() {
         position: index + 1,
         name: path.title,
         description: path.body,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      '@id': 'https://casamia.com.es/provider-partners#faq',
+      mainEntity: copy.faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
       })),
     },
   ]
@@ -855,6 +916,23 @@ export function ProviderPartnersPage() {
                 </div>
                 <p>{opportunity.note}</p>
               </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad bg-white provider-faq-section" id="provider-faq">
+        <div className="site-shell provider-faq-layout">
+          <div>
+            <p className="eyebrow">{copy.faqEyebrow}</p>
+            <h2 className="display-title">{copy.faqTitle}</h2>
+          </div>
+          <div className="provider-faq-list">
+            {copy.faqItems.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
             ))}
           </div>
         </div>
