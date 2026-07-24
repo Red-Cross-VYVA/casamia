@@ -381,6 +381,11 @@ assert.match(
 )
 assert.match(
   nav,
+  /Room safety pages[\s\S]*\/safe-bathroom-access[\s\S]*\/senior-bedroom-safety[\s\S]*\/fall-prevention-at-home[\s\S]*\/grants-for-home-adaptations-spain/,
+  'The Resources menu must give direct access to high-intent room and need pages.',
+)
+assert.match(
+  nav,
   /Free tools[\s\S]*to: '\/tools'[\s\S]*Home or residence[\s\S]*when-home-adaptations-are-not-enough/,
   'The Resources navigation must expose free tools and home-vs-residence decision support.',
 )

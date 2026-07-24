@@ -146,6 +146,27 @@ export function Nav() {
         },
       ],
     },
+    {
+      title: isSpanish ? 'Páginas por necesidad' : 'Room safety pages',
+      links: [
+        {
+          label: isSpanish ? 'Acceso seguro al baño' : 'Safer bathroom access',
+          to: '/safe-bathroom-access',
+        },
+        {
+          label: isSpanish ? 'Dormitorio más seguro' : 'Safer bedroom routines',
+          to: '/senior-bedroom-safety',
+        },
+        {
+          label: isSpanish ? 'Prevención de caídas en casa' : 'Fall prevention at home',
+          to: '/fall-prevention-at-home',
+        },
+        {
+          label: isSpanish ? 'Ayudas para adaptar la vivienda' : 'Home adaptation grants',
+          to: '/grants-for-home-adaptations-spain',
+        },
+      ],
+    },
   ]
 
   useEffect(() => {
