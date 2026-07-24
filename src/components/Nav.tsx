@@ -125,14 +125,6 @@ export function Nav() {
       title: isSpanish ? 'Decidir con calma' : 'Decision support',
       links: [
         {
-          label: isSpanish ? 'Comparar casa o residencia' : 'Compare home vs residence',
-          to: '/tools/home-vs-residence-cost-calculator',
-        },
-        {
-          label: isSpanish ? 'Adaptar casa o mudarse' : 'Adapt or consider assisted living',
-          to: '/home-adaptations-vs-assisted-living',
-        },
-        {
           label: isSpanish ? 'Evaluación o contratista' : 'Assessment or contractor',
           to: '/home-safety-assessment-vs-general-contractor',
         },

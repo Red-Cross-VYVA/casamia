@@ -1,6 +1,5 @@
 import {
   ArrowRight,
-  Calculator,
   Camera,
   ClipboardCheck,
   FileCheck2,
@@ -124,15 +123,6 @@ const tools = [
       es: 'Una orientación rápida cuando algo parece distinto y no sabes por dónde empezar.',
     },
     to: '/tools/is-my-parent-safe-at-home',
-  },
-  {
-    icon: Calculator,
-    title: { en: 'Home vs residence cost planner', es: 'Casa o residencia: comparador' },
-    body: {
-      en: 'Compare adapting the home with a residence route across cost, timing and family support.',
-      es: 'Compara adaptar la vivienda con una residencia en coste, plazos y apoyo familiar.',
-    },
-    to: '/tools/home-vs-residence-cost-calculator',
   },
   {
     icon: FileCheck2,

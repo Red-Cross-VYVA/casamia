@@ -27,13 +27,11 @@ const footerLinkCopy = {
     freeTools: 'Free safety tools',
     checklist: 'Printable home checklist',
     onlineCheck: 'Online safety review',
-    costComparison: 'Home vs residence cost',
     grantsGuide: 'Grants and paperwork',
     visitPrep: 'Before the visit',
     fallPrevention: 'Fall prevention guide',
     bathroomSafety: 'Bathroom safety guide',
     decisionGuides: 'Decision guides',
-    adaptOrResidence: 'Adapt home or consider care',
     assessmentOrContractor: 'Safety assessment or contractor',
     connectedOrMonitoring: 'Connected safety or monitoring',
     preferences: 'Cookie preferences',
@@ -59,7 +57,6 @@ const footerLinkCopy = {
     fallPrevention: 'Guía de prevención de caídas',
     bathroomSafety: 'Guía de seguridad en el baño',
     decisionGuides: 'Guías de decisión',
-    adaptOrResidence: 'Adaptar vivienda o valorar residencia',
     assessmentOrContractor: 'Evaluación o contratista general',
     connectedOrMonitoring: 'Seguridad conectada o monitorización',
     preferences: 'Preferencias de cookies',
@@ -92,10 +89,6 @@ export function Footer() {
     { label: links.freeTools, to: '/tools' },
     { label: links.checklist, to: '/blog' },
     { label: links.onlineCheck, to: '/home-safety-assessment#self-inspection-tool' },
-    {
-      label: language === 'es' ? 'Casa o residencia: coste' : 'Home vs residence cost',
-      to: '/tools/home-vs-residence-cost-calculator',
-    },
     { label: links.grantsGuide, to: '/blog/home-adaptation-grants-spain-family-guide' },
     { label: links.visitPrep, to: '/blog/family-conversation-before-home-safety-visit' },
     { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },
@@ -103,10 +96,6 @@ export function Footer() {
   ]
   const decisionGuideTitle = language === 'es' ? 'Guías de decisión' : links.decisionGuides
   const decisionGuideLinks = [
-    {
-      label: language === 'es' ? 'Adaptar vivienda o valorar residencia' : links.adaptOrResidence,
-      to: '/home-adaptations-vs-assisted-living',
-    },
     {
       label: language === 'es' ? 'Evaluación o contratista general' : links.assessmentOrContractor,
       to: '/home-safety-assessment-vs-general-contractor',

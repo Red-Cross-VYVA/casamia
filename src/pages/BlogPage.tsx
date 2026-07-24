@@ -2,7 +2,6 @@ import {
   ArrowRight,
   Bath,
   Camera,
-  Calculator,
   ClipboardCheck,
   Download,
   FileCheck2,
@@ -333,15 +332,6 @@ const toolContent = [
     },
     to: '/grant-check',
   },
-  {
-    icon: Calculator,
-    title: { en: 'Home vs residence cost planner', es: 'Casa o residencia: comparador de coste' },
-    body: {
-      en: 'Compare adapting the home with a residence route so the family can discuss cost, comfort and timing clearly.',
-      es: 'Compara adaptar la vivienda con una residencia para hablar con claridad de coste, comodidad y plazos.',
-    },
-    to: '/tools/home-vs-residence-cost-calculator',
-  },
 ] as const
 
 const educationHubSteps = [
@@ -544,7 +534,7 @@ const decisionPathways = [
     },
     actions: [
       { label: { en: 'Read decision guide', es: 'Leer guía de decisión' }, to: '/blog/when-home-adaptations-are-not-enough' },
-      { label: { en: 'Compare costs', es: 'Comparar costes' }, to: '/tools/home-vs-residence-cost-calculator' },
+      { label: { en: 'Start a home review', es: 'Empezar revisión' }, to: '/home-safety-wizard' },
     ],
   },
 ] as const

@@ -2,7 +2,6 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url), 'utf8')
-const costToolPage = await readFile(new URL('../src/pages/HomeVsResidenceCostPage.tsx', import.meta.url), 'utf8')
 const parentSafetyQuiz = await readFile(new URL('../src/pages/ParentSafetyQuizPage.tsx', import.meta.url), 'utf8')
 const toolsPage = await readFile(new URL('../src/pages/ToolsPage.tsx', import.meta.url), 'utf8')
 const homeSafetyWizardPage = await readFile(new URL('../src/pages/HomeSafetyWizardPage.tsx', import.meta.url), 'utf8')
@@ -64,10 +63,10 @@ assert.match(
   /const resourceJourneys = \[/,
   'The Resources hub must include guided journeys for families who are unsure where to start.',
 )
-assert.match(
+assert.doesNotMatch(
   app,
-  /\/tools\/home-vs-residence-cost-calculator[\s\S]*<HomeVsResidenceCostPage \/>/,
-  'The home-vs-residence planning calculator must be exposed as a public route.',
+  /home-vs-residence-cost-calculator|HomeVsResidenceCostPage/,
+  'The removed home-vs-residence calculator must not be exposed as a public route.',
 )
 assert.match(
   app,
@@ -90,21 +89,6 @@ assert.match(
   'The standalone home safety wizard must be listed in the sitemap.',
 )
 assert.match(
-  costToolPage,
-  /Compare adapting the home with moving to a residence[\s\S]*Compara adaptar la vivienda con mudarse a una residencia/,
-  'The cost comparison tool must support English and Spanish decision framing.',
-)
-assert.match(
-  costToolPage,
-  /residenceCost \* months \+ setupCost[\s\S]*adaptationBudget - grantSupport[\s\S]*homeSupport \* months/,
-  'The cost comparison tool must compare residence cost with adaptation, support and possible grant assumptions.',
-)
-assert.match(
-  costToolPage,
-  /'@type': 'WebApplication'[\s\S]*home-vs-residence-cost-calculator#tool/,
-  'The cost comparison tool must publish WebApplication structured data.',
-)
-assert.match(
   parentSafetyQuiz,
   /'@type': 'WebApplication'[\s\S]*is-my-parent-safe-at-home#tool/,
   'The parent safety quiz must publish WebApplication structured data.',
@@ -114,10 +98,10 @@ assert.match(
   /'@type': 'CollectionPage'[\s\S]*\/tools#collection[\s\S]*itemListElement: tools\.map/,
   'The free tools index must publish CollectionPage structured data for the public toolset.',
 )
-assert.match(
+assert.doesNotMatch(
   toolsPage,
-  /\/tools\/is-my-parent-safe-at-home[\s\S]*\/tools\/home-vs-residence-cost-calculator/,
-  'The free tools index must read its public tool URLs from the shared tools list.',
+  /home-vs-residence-cost-calculator/,
+  'The free tools index must not expose the removed home-vs-residence calculator.',
 )
 assert.match(
   toolsPage,
@@ -189,10 +173,10 @@ assert.match(
   /printableMaterials\.map\(\(material\)[\s\S]*'@type': 'DigitalDocument'[\s\S]*encodingFormat: isPdf \? 'application\/pdf' : 'text\/html'/,
   'The Resources hub must publish structured data for every printable or practical material, not just the lead checklist.',
 )
-assert.match(
+assert.doesNotMatch(
   page,
-  /Home vs residence cost planner[\s\S]*\/tools\/home-vs-residence-cost-calculator/,
-  'The Resources hub must expose the home-vs-residence cost planner.',
+  /home-vs-residence-cost-calculator/,
+  'The Resources hub must not expose the removed home-vs-residence cost planner.',
 )
 assert.match(
   page,
@@ -226,8 +210,8 @@ assert.match(
 )
 assert.match(
   await readFile(new URL('../src/constants/blogContent.ts', import.meta.url), 'utf8'),
-  /when-home-adaptations-are-not-enough[\s\S]*When Home Adaptations Are Not Enough[\s\S]*Compare home and residence costs/,
-  'The Resources catalogue must include an honest home-vs-residence decision guide.',
+  /when-home-adaptations-are-not-enough[\s\S]*When Home Adaptations Are Not Enough[\s\S]*Start a home safety review/,
+  'The Resources catalogue may include honest higher-care decision guidance, but it should route into a CasaMia home review.',
 )
 assert.match(
   await readFile(new URL('../src/constants/blogContentLocalization.ts', import.meta.url), 'utf8'),
@@ -241,8 +225,8 @@ assert.match(
 )
 assert.match(
   await readFile(new URL('../src/constants/blogContentLocalization.ts', import.meta.url), 'utf8'),
-  /when-home-adaptations-are-not-enough[\s\S]*Cuando adaptar la vivienda no es suficiente[\s\S]*Comparar casa y residencia/,
-  'The home-vs-residence decision guide must include Spanish localisation.',
+  /when-home-adaptations-are-not-enough[\s\S]*Cuando adaptar la vivienda no es suficiente[\s\S]*Empezar revisión de seguridad/,
+  'The higher-care decision guide must include Spanish localisation and route into a CasaMia review.',
 )
 assert.match(
   page,
@@ -251,8 +235,8 @@ assert.match(
 )
 assert.match(
   page,
-  /home is still the right route[\s\S]*when-home-adaptations-are-not-enough[\s\S]*home-vs-residence-cost-calculator/,
-  'The Resources hub must help families compare home adaptation with higher-care routes.',
+  /home is still the right route[\s\S]*when-home-adaptations-are-not-enough[\s\S]*home-safety-wizard/,
+  'The Resources hub must help families consider higher-care decisions without exposing the removed calculator.',
 )
 assert.match(
   page,
@@ -261,8 +245,8 @@ assert.match(
 )
 assert.match(
   needLandingLocalization,
-  /home-adaptations-vs-assisted-living[\s\S]*Adaptar la vivienda o considerar una residencia[\s\S]*home-safety-assessment-vs-general-contractor[\s\S]*Evaluación de seguridad o contratista general[\s\S]*smart-home-safety-vs-monitoring[\s\S]*Seguridad conectada o monitorización/,
-  'Decision guide pages must include Spanish localisation for the Resources hub and topic pages.',
+  /home-safety-assessment-vs-general-contractor[\s\S]*Evaluación de seguridad o contratista general[\s\S]*smart-home-safety-vs-monitoring[\s\S]*Seguridad conectada o monitorización/,
+  'Decision guide pages must include Spanish localisation for the remaining Resources hub comparison pages.',
 )
 assert.match(
   page,
@@ -501,8 +485,8 @@ assert.match(
 )
 assert.match(
   nav,
-  /Decision support[\s\S]*\/tools\/home-vs-residence-cost-calculator[\s\S]*\/home-adaptations-vs-assisted-living[\s\S]*\/home-safety-assessment-vs-general-contractor[\s\S]*\/smart-home-safety-vs-monitoring/,
-  'The Resources menu must expose decision tools and comparison pages directly.',
+  /Decision support[\s\S]*\/home-safety-assessment-vs-general-contractor[\s\S]*\/smart-home-safety-vs-monitoring/,
+  'The Resources menu must expose the remaining comparison pages directly.',
 )
 assert.match(
   providerPartnersPage,
@@ -544,10 +528,10 @@ assert.match(
   /\.before-after-insight-section[\s\S]*\.before-after-insight-card[\s\S]*\.before-after-insight-steps/,
   'The before-and-after guidance section must have dedicated visual styling.',
 )
-assert.match(
+assert.doesNotMatch(
   nav,
-  /Free tools[\s\S]*to: '\/tools'[\s\S]*Compare home vs residence[\s\S]*\/tools\/home-vs-residence-cost-calculator[\s\S]*Adapt or consider assisted living[\s\S]*\/home-adaptations-vs-assisted-living/,
-  'The Resources navigation must expose free tools plus direct home-vs-residence decision support.',
+  /home-vs-residence-cost-calculator|home-adaptations-vs-assisted-living|Compare home vs residence|Adapt or consider assisted living/,
+  'The Resources navigation must not expose the removed home-vs-residence path.',
 )
 assert.match(
   nav,
@@ -576,18 +560,18 @@ assert.match(
 )
 assert.match(
   footer,
-  /resourcesTitle: 'Useful resources'[\s\S]*Free safety tools[\s\S]*Printable home checklist[\s\S]*home-vs-residence-cost-calculator[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*family-conversation-before-home-safety-visit[\s\S]*bathroom-safety-seniors-costly-mistakes/,
+  /resourcesTitle: 'Useful resources'[\s\S]*Free safety tools[\s\S]*Printable home checklist[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*family-conversation-before-home-safety-visit[\s\S]*bathroom-safety-seniors-costly-mistakes/,
   'The global footer must expose practical Resources links for discovery and SEO.',
 )
 assert.match(
   footer,
-  /Decision guides[\s\S]*home-adaptations-vs-assisted-living[\s\S]*home-safety-assessment-vs-general-contractor[\s\S]*smart-home-safety-vs-monitoring/,
-  'The global footer must expose decision guide routes for always-on education discovery.',
+  /Decision guides[\s\S]*home-safety-assessment-vs-general-contractor[\s\S]*smart-home-safety-vs-monitoring/,
+  'The global footer must expose the remaining decision guide routes for always-on education discovery.',
 )
-assert.match(
+assert.doesNotMatch(
   sitemap,
-  /https:\/\/casamia\.com\.es\/tools\/home-vs-residence-cost-calculator/,
-  'The public sitemap must include the home-vs-residence cost comparison tool.',
+  /home-vs-residence-cost-calculator|home-adaptations-vs-assisted-living/,
+  'The public sitemap must not include removed home-vs-residence routes.',
 )
 assert.match(
   linkChecks,

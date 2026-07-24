@@ -340,41 +340,6 @@ export const needLandingPages: NeedLandingPageContent[] = [
 
 export const decisionGuidePages: NeedLandingPageContent[] = [
   {
-    slug: 'home-adaptations-vs-assisted-living',
-    path: '/home-adaptations-vs-assisted-living',
-    servicePath: '/services',
-    footerVisible: false,
-    icon: 'home',
-    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
-    title: 'Home adaptations vs assisted living',
-    seoTitle: 'Home Adaptations vs Assisted Living | CasaMia',
-    description:
-      'A practical family guide to comparing home adaptations with assisted living, including safety, comfort, cost, timing and support needs.',
-    eyebrow: 'Decision guide',
-    intro:
-      'Families often face this question when daily life starts to feel harder: adapt the home, arrange more support, or consider a residence. CasaMia helps clarify what can realistically be made safer at home first.',
-    whoFor: ['Families weighing home safety works against a move', 'Older adults who want to stay home if it can be made safer', 'Relatives who need a calmer way to compare options'],
-    priorities: ['Current risk and daily support needs', 'Bathroom, bedroom, entrance and night-route safety', 'Whether works are urgent, phased or specialist', 'Family availability and ongoing support'],
-    casamiaPlan: ['Review the home and routines before big decisions', 'Separate quick safety gains from larger adaptations', 'Explain what can be managed at home and what needs wider care planning'],
-    relatedServices: [
-      { label: 'Build a home safety plan', to: '/home-safety-wizard' },
-      { label: 'Book a home assessment', to: '/home-safety-assessment' },
-      { label: 'Solutions for organisations', to: '/assisted-living-solutions' },
-    ],
-    faqs: [
-      {
-        question: 'Can home adaptations replace assisted living?',
-        answer:
-          'Sometimes adaptations can make home life safer and easier, but they do not replace care when someone needs regular personal, medical or supervision support. The useful first step is to understand what the home can solve and what it cannot.',
-      },
-      {
-        question: 'What should families compare first?',
-        answer:
-          'Compare the daily routines causing pressure: bathing, toileting, sleeping, cooking, stairs, night movement and emergency response. These reveal whether practical home changes may be enough.',
-      },
-    ],
-  },
-  {
     slug: 'home-safety-assessment-vs-general-contractor',
     path: '/home-safety-assessment-vs-general-contractor',
     servicePath: '/home-safety-assessment',

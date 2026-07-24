@@ -393,48 +393,6 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       },
     ],
   },
-  'home-adaptations-vs-assisted-living': {
-    title: 'Adaptar la vivienda o considerar una residencia',
-    seoTitle: 'Adaptar la vivienda o considerar una residencia | CasaMia',
-    description:
-      'Una guía práctica para comparar adaptar la vivienda con una residencia o assisted living: seguridad, comodidad, coste, tiempos y apoyo familiar.',
-    eyebrow: 'Guía de decisión',
-    intro:
-      'Cuando la vida diaria empieza a ser más difícil, la familia suele preguntarse si conviene adaptar la casa, añadir apoyo o valorar una residencia. CasaMia ayuda a aclarar qué puede resolverse en casa primero.',
-    whoFor: [
-      'Familias que comparan adaptar la vivienda con una mudanza',
-      'Personas mayores que quieren seguir en casa si puede ser más seguro',
-      'Familiares que necesitan una forma tranquila de comparar opciones',
-    ],
-    priorities: [
-      'Riesgo actual y apoyo diario necesario',
-      'Baño, dormitorio, entrada y ruta nocturna',
-      'Si las mejoras son urgentes, por fases o especialistas',
-      'Disponibilidad de la familia y apoyo continuado',
-    ],
-    casamiaPlan: [
-      'Revisar la vivienda y las rutinas antes de decisiones grandes',
-      'Separar mejoras rápidas de adaptaciones mayores',
-      'Explicar qué puede gestionarse en casa y qué necesita planificación de cuidados',
-    ],
-    relatedServices: [
-      { label: 'Crear plan de seguridad', to: '/home-safety-wizard' },
-      { label: 'Reservar evaluación', to: '/home-safety-assessment' },
-      { label: 'Soluciones para organizaciones', to: '/assisted-living-solutions' },
-    ],
-    faqs: [
-      {
-        question: '¿Las adaptaciones pueden sustituir una residencia?',
-        answer:
-          'A veces pueden hacer la vida en casa más segura y cómoda, pero no sustituyen cuidados personales, médicos o supervisión continuada cuando son necesarios.',
-      },
-      {
-        question: '¿Qué debe comparar primero la familia?',
-        answer:
-          'Conviene comparar las rutinas que generan presión: ducha, inodoro, cama, cocina, escaleras, movimiento nocturno y respuesta ante emergencias.',
-      },
-    ],
-  },
   'home-safety-assessment-vs-general-contractor': {
     title: 'Evaluación de seguridad o contratista general',
     seoTitle: 'Evaluación de seguridad o contratista general | CasaMia',

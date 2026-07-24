@@ -836,8 +836,8 @@ export const blogArticles: BlogArticle[] = [
       },
     ],
     cta: {
-      label: 'Compare home and residence costs',
-      to: '/tools/home-vs-residence-cost-calculator',
+      label: 'Start a home safety review',
+      to: '/home-safety-wizard',
     },
   },
   {
