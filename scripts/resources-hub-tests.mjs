@@ -300,6 +300,11 @@ assert.match(
   'Need landing pages must publish structured data for the visible decision route steps.',
 )
 assert.match(
+  needLandingPage,
+  /'@type': 'ItemList'[\s\S]*#useful-pages[\s\S]*page\.relatedServices\.map[\s\S]*#popular-needs[\s\S]*siblingPages\.map/,
+  'Need landing pages must publish ItemList structured data for visible related pages and popular needs.',
+)
+assert.match(
   page,
   /'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map/,
   'The Resources hub must publish FAQ structured data.',

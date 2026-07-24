@@ -272,6 +272,30 @@ export function NeedLandingPage() {
         text: card.body,
       })),
     },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      '@id': `https://casamia.com.es${page.path}#useful-pages`,
+      name: copy.usefulPages,
+      itemListElement: page.relatedServices.map((link, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: link.label,
+        url: `https://casamia.com.es${link.to}`,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      '@id': `https://casamia.com.es${page.path}#popular-needs`,
+      name: copy.popularNeeds,
+      itemListElement: siblingPages.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.title,
+        url: `https://casamia.com.es${item.path}`,
+      })),
+    },
   ]
 
   const catalogueServices = useMemo(
