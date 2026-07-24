@@ -18,6 +18,7 @@ const globalStyles = await readFile(new URL('../src/index.css', import.meta.url)
 const styles = await readFile(new URL('../src/styles/resources-hub.css', import.meta.url), 'utf8')
 const needLandingStyles = await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8')
 const linkChecks = await readFile(new URL('../scripts/link-checks.mjs', import.meta.url), 'utf8')
+const legalLaunchChecks = await readFile(new URL('../scripts/legal-launch-checks.mjs', import.meta.url), 'utf8')
 
 const publicCopySources = {
   'src/components/Footer.tsx': footer,
@@ -452,6 +453,11 @@ assert.match(
   linkChecks,
   /sitemapSourceChecks[\s\S]*needLandingPages\.ts[\s\S]*blogContent\.ts[\s\S]*missing \$\{check\.label\} path/,
   'Link checks must guard that need landing pages and blog articles stay included in the public sitemap.',
+)
+assert.match(
+  legalLaunchChecks,
+  /read\('public\/robots\.txt'\)[\s\S]*Robots policy must keep internal tools out of search[\s\S]*Robots policy must keep private estimates out of search[\s\S]*Robots policy must keep proposal pages out of search[\s\S]*canonical CasaMia sitemap/,
+  'Legal launch checks must guard robots.txt crawl rules and the canonical sitemap pointer.',
 )
 assert.match(
   footer,

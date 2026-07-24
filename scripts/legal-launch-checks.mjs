@@ -15,6 +15,7 @@ const withdrawal = read('src/pages/WithdrawalFormPage.tsx')
 const documents = read('src/services/contractDocuments.ts')
 const legalControls = read('src/config/legalControls.ts')
 const sitemap = read('public/sitemap.xml')
+const robots = read('public/robots.txt')
 const grantsPage = read('src/pages/GrantsPage.tsx')
 const grantProgrammes = read('src/constants/grantProgrammes.ts')
 const grantCopy = [
@@ -42,6 +43,16 @@ for (const route of [
     `Sitemap must include the public legal route ${route}.`,
   )
 }
+assert.match(robots, /^User-agent:\s*\*/m, 'Robots policy must apply to all crawlers.')
+assert.match(robots, /^Allow:\s*\/$/m, 'Robots policy must allow public pages to be crawled.')
+assert.match(robots, /^Disallow:\s*\/internal\/$/m, 'Robots policy must keep internal tools out of search.')
+assert.match(robots, /^Disallow:\s*\/estimate\/$/m, 'Robots policy must keep private estimates out of search.')
+assert.match(robots, /^Disallow:\s*\/proposal\/$/m, 'Robots policy must keep proposal pages out of search.')
+assert.match(
+  robots,
+  /^Sitemap:\s*https:\/\/casamia\.com\.es\/sitemap\.xml$/m,
+  'Robots policy must point search engines to the canonical CasaMia sitemap.',
+)
 assert.match(read('src/config/company.ts'), /commercialName:\s*'CasaMia'/, 'Commercial brand should be centralised.')
 assert.match(checkout, /Amount payable now: €0/, 'Quote requests must explicitly disclose that nothing is payable now.')
 assert.match(
