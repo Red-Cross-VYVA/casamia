@@ -14,6 +14,7 @@ const workflow = read('src/services/projectWorkflow.ts')
 const withdrawal = read('src/pages/WithdrawalFormPage.tsx')
 const documents = read('src/services/contractDocuments.ts')
 const legalControls = read('src/config/legalControls.ts')
+const sitemap = read('public/sitemap.xml')
 const grantsPage = read('src/pages/GrantsPage.tsx')
 const grantProgrammes = read('src/constants/grantProgrammes.ts')
 const grantCopy = [
@@ -24,6 +25,23 @@ const grantCopy = [
 ].join('\n')
 
 assert.match(footer, /legalRouteLabels/, 'Footer legal links should come from legal route labels.')
+for (const route of [
+  '/legal-notice',
+  '/general-customer-terms',
+  '/privacy-policy',
+  '/cookie-policy',
+  '/withdrawal-cancellation',
+  '/withdrawal-form',
+  '/guarantees-aftercare',
+  '/complaints-contact',
+  '/accessibility-statement',
+]) {
+  assert.match(
+    sitemap,
+    new RegExp(`https://casamia\\.com\\.es${route.replaceAll('-', '\\-')}`),
+    `Sitemap must include the public legal route ${route}.`,
+  )
+}
 assert.match(read('src/config/company.ts'), /commercialName:\s*'CasaMia'/, 'Commercial brand should be centralised.')
 assert.match(checkout, /Amount payable now: €0/, 'Quote requests must explicitly disclose that nothing is payable now.')
 assert.match(
