@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises'
 const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url), 'utf8')
 const costToolPage = await readFile(new URL('../src/pages/HomeVsResidenceCostPage.tsx', import.meta.url), 'utf8')
 const parentSafetyQuiz = await readFile(new URL('../src/pages/ParentSafetyQuizPage.tsx', import.meta.url), 'utf8')
+const toolsPage = await readFile(new URL('../src/pages/ToolsPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
@@ -29,6 +30,11 @@ assert.match(
   'The parent safety quiz must be exposed as a public route.',
 )
 assert.match(
+  app,
+  /\/tools" element=\{<ToolsPage \/>\}/,
+  'The free tools index must be exposed as a public route.',
+)
+assert.match(
   costToolPage,
   /Compare adapting the home with moving to a residence[\s\S]*Compara adaptar la vivienda con mudarse a una residencia/,
   'The cost comparison tool must support English and Spanish decision framing.',
@@ -47,6 +53,21 @@ assert.match(
   parentSafetyQuiz,
   /'@type': 'WebApplication'[\s\S]*is-my-parent-safe-at-home#tool/,
   'The parent safety quiz must publish WebApplication structured data.',
+)
+assert.match(
+  toolsPage,
+  /'@type': 'CollectionPage'[\s\S]*\/tools#collection[\s\S]*itemListElement: tools\.map/,
+  'The free tools index must publish CollectionPage structured data for the public toolset.',
+)
+assert.match(
+  toolsPage,
+  /\/tools\/is-my-parent-safe-at-home[\s\S]*\/tools\/home-vs-residence-cost-calculator/,
+  'The free tools index must read its public tool URLs from the shared tools list.',
+)
+assert.match(
+  toolsPage,
+  /Free Senior Home Safety Tools[\s\S]*Grant-readiness check[\s\S]*Photo safety report/,
+  'The free tools index must gather CasaMia practical tools in one page.',
 )
 assert.match(
   page,
@@ -202,6 +223,11 @@ assert.match(
   sitemap,
   /https:\/\/casamia\.com\.es\/tools\/home-vs-residence-cost-calculator/,
   'The public sitemap must include the home-vs-residence cost comparison tool.',
+)
+assert.match(
+  sitemap,
+  /https:\/\/casamia\.com\.es\/tools<\/loc>/,
+  'The public sitemap must include the free tools index.',
 )
 assert.match(
   sitemap,

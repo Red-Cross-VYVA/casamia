@@ -143,6 +143,7 @@ const ServicesPage = lazy(() =>
   import('./pages/ServicesPage').then(({ ServicesPage }) => ({ default: ServicesPage })),
 )
 const TechPage = lazy(() => import('./pages/TechPage').then(({ TechPage }) => ({ default: TechPage })))
+const ToolsPage = lazy(() => import('./pages/ToolsPage').then(({ ToolsPage }) => ({ default: ToolsPage })))
 const TermsAndConditionsPage = lazy(() =>
   import('./pages/TermsAndConditionsPage').then(({ TermsAndConditionsPage }) => ({ default: TermsAndConditionsPage })),
 )
@@ -271,6 +272,7 @@ function AppRoutes() {
             <Route path="/home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
             <Route path="/home-safety-wizard" element={<HomeSafetyWizardPage />} />
             <Route path="/free-home-safety-assessment" element={<LegacyAssessmentRedirect />} />
+            <Route path="/tools" element={<ToolsPage />} />
             <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
             <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
             <Route path="/tools/home-vs-residence-cost-calculator" element={<HomeVsResidenceCostPage />} />
