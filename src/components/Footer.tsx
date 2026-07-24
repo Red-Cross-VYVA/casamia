@@ -39,7 +39,7 @@ const footerLinkCopy = {
     services: 'Servicios de adaptación de vivienda',
     organisations: 'Soluciones para residencias senior',
     providers: 'Colaboradores profesionales',
-    serviceAreas: 'Zonas de servicio en EspaÃ±a',
+    serviceAreas: 'Zonas de servicio en España',
     resources: 'Recursos de seguridad en casa',
     howItWorks: 'Cómo funciona CasaMia',
     whyUs: 'Por qué elegir CasaMia',

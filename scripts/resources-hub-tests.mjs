@@ -10,12 +10,31 @@ const footer = await readFile(new URL('../src/components/Footer.tsx', import.met
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
 const needLandingPage = await readFile(new URL('../src/pages/NeedLandingPage.tsx', import.meta.url), 'utf8')
 const needLandingLocalization = await readFile(new URL('../src/constants/needLandingPagesLocalization.ts', import.meta.url), 'utf8')
+const blogContentLocalization = await readFile(new URL('../src/constants/blogContentLocalization.ts', import.meta.url), 'utf8')
 const seo = await readFile(new URL('../src/components/SEO.tsx', import.meta.url), 'utf8')
 const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
 const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/resources-hub.css', import.meta.url), 'utf8')
 const linkChecks = await readFile(new URL('../scripts/link-checks.mjs', import.meta.url), 'utf8')
+
+const publicCopySources = {
+  'src/components/Footer.tsx': footer,
+  'src/components/Nav.tsx': nav,
+  'src/pages/BlogPage.tsx': page,
+  'src/pages/BlogArticlePage.tsx': articlePage,
+  'src/pages/NeedLandingPage.tsx': needLandingPage,
+  'src/constants/blogContentLocalization.ts': blogContentLocalization,
+  'src/constants/needLandingPagesLocalization.ts': needLandingLocalization,
+}
+
+for (const [fileName, source] of Object.entries(publicCopySources)) {
+  assert.doesNotMatch(
+    source,
+    /Ã|Â|â€|â€™|â€œ|�/,
+    `${fileName} must not contain mojibake in public-facing copy.`,
+  )
+}
 
 assert.match(
   page,
