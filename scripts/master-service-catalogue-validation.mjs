@@ -9,7 +9,7 @@ import {
 const catalogue = getMasterServiceCatalogue()
 const failures = []
 const warnings = []
-const requiredRooms = ['bathroom', 'bedroom']
+const requiredRooms = ['bathroom', 'bedroom', 'kitchen']
 const requiredSections = ['home-safety-package', 'connected-room', 'optional-adaptations']
 
 function assert(condition, message) {

@@ -34,7 +34,7 @@ export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
 }
 
 function buildServiceCatalogueFromMaster(masterCatalogue?: MasterServiceCatalogue): EditableServiceCatalogue {
-  const masterRooms = new Set(['bathroom', 'bedroom'])
+  const masterRooms = new Set(['bathroom', 'bedroom', 'kitchen'])
 
   return {
     masterCatalogue,
@@ -339,7 +339,7 @@ function mergeServices(
   }
 
   if (masterCatalogue) {
-    const masterRooms = new Set(['bathroom', 'bedroom'])
+    const masterRooms = new Set(['bathroom', 'bedroom', 'kitchen'])
 
     return [
       ...defaultServices.filter((service) => masterRooms.has(service.room)),

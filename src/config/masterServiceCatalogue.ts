@@ -8,6 +8,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
   rooms: [
     { id: 'bathroom', slug: 'bathroom', name: { en: 'Bathroom', es: 'Baño' }, active: true, sortOrder: 10 },
     { id: 'bedroom', slug: 'bedroom', name: { en: 'Bedroom', es: 'Dormitorio' }, active: true, sortOrder: 20 },
+    { id: 'kitchen', slug: 'kitchen', name: { en: 'Kitchen', es: 'Cocina' }, active: true, sortOrder: 30 },
   ],
   sections: [
     {
@@ -96,6 +97,36 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       en: 'Bedroom Optional Adaptations',
       es: 'Adaptaciones opcionales de dormitorio',
     }, 'Bedroom Optional Adaptations', 60, true),
+    packageRecord('kitchen-home-safety-package', 'kitchen', 'home-safety-package', {
+      en: 'Kitchen Home Safety Package',
+      es: 'Paquete de seguridad para cocina',
+    }, 'Kitchen Home Safety Package', 70, false, {
+      shortDescription: {
+        en: 'Thoughtful improvements that make cooking, preparing meals, and moving around the kitchen safer and easier.',
+        es: 'Mejoras cuidadas que hacen que cocinar, preparar comidas y moverse por la cocina sea más seguro y sencillo.',
+      },
+      customerBenefit: {
+        en: 'A safer, easier kitchen plan that supports independence without turning the room into a product showroom.',
+        es: 'Un plan de cocina más seguro y sencillo que apoya la independencia sin convertir la estancia en un escaparate de productos.',
+      },
+    }),
+    packageRecord('kitchen-connected-room', 'kitchen', 'connected-room', {
+      en: 'Casamia Connected Kitchen',
+      es: 'Cocina conectada Casamia',
+    }, 'Casamia Connected Kitchen', 80, false, {
+      shortDescription: {
+        en: 'A smart kitchen setup centred around a configured smart speaker and compatible devices.',
+        es: 'Una cocina inteligente centrada en un altavoz configurado y dispositivos compatibles.',
+      },
+      customerBenefit: {
+        en: 'Voice, reminders and family reassurance configured around real kitchen routines.',
+        es: 'Voz, recordatorios y tranquilidad familiar configurados alrededor de rutinas reales de cocina.',
+      },
+    }),
+    packageRecord('kitchen-optional-adaptations', 'kitchen', 'optional-adaptations', {
+      en: 'Kitchen Optional Adaptations',
+      es: 'Adaptaciones opcionales de cocina',
+    }, 'Kitchen Optional Adaptations', 90, true),
   ],
   outcomes: [
     outcome('bathroom-safer-bathing', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Safer Bathing', 'Baño y ducha más seguros', 'Bathing safety', 'Making bathing easier, safer, and more comfortable.', 'Hace que bañarse sea más fácil, seguro y cómodo.', 'Improve support, seating, grip and lower-entry access where suitable.', 'Mejora el apoyo, el asiento, el agarre y el acceso bajo cuando sea adecuado.', 'essential', ['bathroom'], 10, { legacyId: 'bathroom-folding-shower-seat', grantEligible: true }),
@@ -140,6 +171,15 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
         technologyEnabled: id.includes('automated') || id.includes('system'),
       }),
     ),
+    outcome('kitchen-safer-food-preparation', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Safer Food Preparation', 'Preparación de alimentos más segura', 'Food preparation', 'Making everyday food preparation easier and reducing strain on the hands and joints.', 'Hace que la preparación diaria de comidas sea más sencilla y reduce el esfuerzo en manos y articulaciones.', 'Support safer chopping, pouring, opening and standing at the main preparation area.', 'Apoya tareas más seguras al cortar, servir, abrir envases y permanecer de pie en la zona principal de preparación.', 'essential', ['kitchen'], 300, { legacyId: 'kitchen-easy-grip-tools', grantEligible: true }),
+    outcome('kitchen-safer-cooking', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Safer Cooking', 'Cocina más segura', 'Cooking safety', 'Reducing everyday cooking risks while maintaining independence.', 'Reduce riesgos cotidianos al cocinar manteniendo la independencia.', 'Add selected safeguards around heat, gas and forgotten cooking routines where suitable.', 'Añade protecciones seleccionadas frente al calor, gas y rutinas olvidadas cuando sea adecuado.', 'essential', ['kitchen', 'smart-safety'], 310, { legacyId: 'kitchen-stove-shutoff', grantEligible: true, technologyEnabled: true, requiresCompatibilityCheck: true }),
+    outcome('kitchen-improved-lighting', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Improved Kitchen Lighting', 'Mejor iluminación en la cocina', 'Kitchen lighting', 'Improving visibility across the kitchen.', 'Mejora la visibilidad en toda la cocina.', 'Make preparation, cooking, spills and edges easier to see.', 'Hace más visibles la preparación, la cocción, los derrames y los bordes.', 'essential', ['kitchen', 'lighting'], 320, { legacyId: 'kitchen-worktop-lighting', grantEligible: true, technologyEnabled: true }),
+    outcome('kitchen-safer-movement', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Safer Kitchen Movement', 'Movimiento más seguro en la cocina', 'Kitchen movement', 'Reducing trip hazards and making movement around the kitchen easier.', 'Reduce riesgos de tropiezo y facilita moverse por la cocina.', 'Create clearer walking routes and safer standing zones around daily routines.', 'Crea recorridos más despejados y zonas de apoyo más seguras alrededor de las rutinas diarias.', 'essential', ['kitchen', 'living-room'], 330, { legacyId: 'kitchen-anti-fatigue-mat', grantEligible: true }),
+    outcome('kitchen-easier-storage', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Easier Kitchen Storage', 'Almacenamiento de cocina más fácil', 'Reach and storage', 'Making frequently used kitchen items easier to reach.', 'Hace que los utensilios y alimentos de uso frecuente sean más fáciles de alcanzar.', 'Reduce climbing, stretching and carrying by moving everyday items to safer heights.', 'Reduce subirse, estirarse y cargar peso colocando los objetos diarios a alturas más seguras.', 'essential', ['kitchen'], 340, { grantEligible: true }),
+    outcome('kitchen-safety-monitoring', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Kitchen Safety Monitoring', 'Avisos de seguridad en la cocina', 'Kitchen alerts', 'Providing early warning of selected kitchen risks.', 'Proporciona aviso temprano de determinados riesgos en la cocina.', 'Use selected compatible alerts for smoke, water leakage and movement where appropriate.', 'Utiliza avisos compatibles para humo, fuga de agua y movimiento cuando proceda.', 'recommended', ['kitchen', 'smart-safety'], 350, { legacyId: 'kitchen-water-leak-sensor', technologyEnabled: true, requiresCompatibilityCheck: true }),
+    outcome('kitchen-connected-experience', 'kitchen', 'connected-room', 'kitchen-connected-room', 'Connected Kitchen', 'Cocina conectada', 'Connected kitchen', 'A smart kitchen setup centred around a configured smart speaker.', 'Una cocina inteligente centrada en un altavoz configurado.', 'Make cooking routines easier with voice, reminders, lists, calls and selected family notifications.', 'Facilita las rutinas de cocina con voz, recordatorios, listas, llamadas y avisos familiares seleccionados.', 'recommended', ['kitchen', 'smart-safety'], 360, { legacyId: 'kitchen-voice-lighting-timers', technologyEnabled: true, voiceEnabled: true, requiresSmartSpeaker: true }),
+    outcome('kitchen-pull-out-pantry-storage', 'kitchen', 'optional-adaptations', 'kitchen-optional-adaptations', 'Pull-Out Pantry Storage', 'Almacenamiento extraíble de despensa', 'Optional kitchen adaptation', 'A measured storage adaptation that brings cupboard contents into easier reach.', 'Adaptación medida de almacenamiento que acerca el contenido de los armarios.', 'Reduce reaching and unsafe stool use where the existing cabinetry allows it.', 'Reduce estirarse y usar taburetes inseguros cuando los muebles existentes lo permiten.', 'optional', ['kitchen'], 370, { legacyId: 'kitchen-pull-down-shelf', quoteOnly: true, grantEligible: true, requiresCompatibilityCheck: true }),
+    outcome('kitchen-wider-doorway', 'kitchen', 'optional-adaptations', 'kitchen-optional-adaptations', 'Wider Kitchen Doorway', 'Puerta de cocina más ancha', 'Optional kitchen adaptation', 'A measured doorway adaptation where mobility aids need more clearance.', 'Adaptación medida de puerta cuando las ayudas de movilidad necesitan más espacio.', 'Improve kitchen access when the current doorway restricts safe movement.', 'Mejora el acceso a la cocina cuando la puerta actual limita el movimiento seguro.', 'optional', ['kitchen', 'entrance'], 380, { quoteOnly: true, grantEligible: true }),
   ],
   capabilities: [
     capability('bedside-lighting', 'Bedside lighting', true),
@@ -165,6 +205,22 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     capability('family-carer-notifications', 'Family or carer notifications', true, true),
     capability('night-time-safety-alerts', 'Night-time safety alerts', true, true),
     capability('movement-reassurance', 'Movement reassurance', true, true),
+    capability('automatic-jar-opening', 'Automatic jar opening support'),
+    capability('easy-grip-kitchen-tools', 'Easy-grip kitchen utensils'),
+    capability('non-slip-chopping-support', 'Non-slip chopping support'),
+    capability('easy-pour-kettle-support', 'Easy-pour kettle support'),
+    capability('anti-fatigue-standing-zone', 'Anti-fatigue standing zone'),
+    capability('safer-hob-control', 'Safer hob control', true, true),
+    capability('automatic-gas-shutoff', 'Automatic gas shut-off', true, true),
+    capability('kitchen-task-lighting', 'Kitchen task lighting', true, true),
+    capability('kitchen-circulation-space', 'Improved kitchen circulation space'),
+    capability('kitchen-storage-organisation', 'Frequently used items organised within easy reach'),
+    capability('waist-height-storage', 'Frequently used items relocated to waist height'),
+    capability('kitchen-motion-alerting', 'Kitchen motion detection alerts', true, true),
+    capability('voice-cooking-assistance', 'Voice cooking assistance', true, true),
+    capability('shopping-list-management', 'Shopping list management', true, true),
+    capability('pull-out-pantry-storage', 'Pull-out pantry storage'),
+    capability('wider-kitchen-doorway', 'Wider kitchen doorway'),
     capability('bath-transfer-support', 'Bath and shower transfer support'),
     capability('toilet-transfer-support', 'Toilet transfer support'),
     capability('wet-floor-grip', 'Wet-floor grip'),
@@ -216,6 +272,17 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     product('wearable-emergency-pendant', 'Wearable emergency pendant', 'device', 0.21, false, true),
     product('bedside-emergency-button', 'Bedside emergency assistance button', 'device', 0.21, false, true),
     product('smoke-detector', 'Smoke detector', 'device', 0.21, false, true),
+    product('automatic-jar-opener', 'Automatic jar opener', 'hardware', 0.21, false),
+    product('easy-grip-kitchen-utensils', 'Easy-grip kitchen utensils', 'hardware', 0.21, false),
+    product('non-slip-chopping-board', 'Non-slip chopping board', 'hardware', 0.21, false),
+    product('easy-pour-kettle-tipper', 'Easy-pour kettle or kettle tipper', 'hardware', 0.21, false),
+    product('anti-fatigue-kitchen-mat', 'Anti-fatigue kitchen mat', 'hardware', 0.21, false),
+    product('induction-hob-automatic-shutoff', 'Induction hob with automatic shut-off', 'device', 0.21, true, true),
+    product('automatic-gas-shutoff-system', 'Automatic gas shut-off system', 'device', 0.21, true, true),
+    product('kitchen-task-light', 'Kitchen task light', 'hardware', 0.21, false, true),
+    product('kitchen-storage-reorganisation-service', 'Kitchen storage reorganisation service', 'service', 0.21, false),
+    product('pull-out-pantry-hardware', 'Pull-out pantry hardware', 'hardware', 0.21, true, true),
+    product('wider-kitchen-doorway-service', 'Wider kitchen doorway service', 'service', 0.21, true),
   ],
   installationTasks: [
     task('inspect-fixing-surface', 'Inspect fixing surface', 25, 'assessment', true, false),
@@ -236,6 +303,16 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     task('configure-bedroom-emergency-support', 'Configure bedroom emergency support', 40, 'smart_home', true, false),
     task('reposition-furniture', 'Reposition furniture', 30, 'general', false, false),
     task('measure-specialist-adaptation', 'Measure specialist adaptation', 45, 'assessment', true, true),
+    task('set-up-kitchen-prep-support', 'Set up safer food preparation support', 30, 'general', false, false),
+    task('assess-kitchen-cooking-safety', 'Assess kitchen cooking safety', 35, 'assessment', true, false),
+    task('configure-kitchen-cooking-safeguard', 'Configure kitchen cooking safeguard', 50, 'smart_home', true, false),
+    task('install-kitchen-task-lighting', 'Install kitchen task lighting', 60, 'electrical', true, true),
+    task('improve-kitchen-standing-route', 'Improve kitchen standing and walking route', 45, 'general', false, false),
+    task('organise-kitchen-storage', 'Organise safer kitchen storage', 35, 'general', false, false),
+    task('configure-kitchen-alerting', 'Configure kitchen safety alerting', 45, 'smart_home', false, false),
+    task('configure-connected-kitchen', 'Configure connected kitchen routines', 55, 'smart_home', false, false),
+    task('fit-pull-out-pantry', 'Fit pull-out pantry storage', 90, 'carpentry', true, true),
+    task('measure-kitchen-doorway', 'Measure kitchen doorway adaptation', 45, 'assessment', true, true),
   ],
   relations: [
     ...packageOutcomeRelations(),
@@ -288,7 +365,7 @@ function packageRecord(
 
 function outcome(
   id: string,
-  roomId: 'bathroom' | 'bedroom',
+  roomId: MasterServiceCatalogue['rooms'][number]['id'],
   section: MasterServiceCatalogue['sections'][number]['id'],
   packageId: string,
   en: string,
@@ -475,6 +552,15 @@ function getMasterServiceCatalogueSeedOutcomeIds() {
   ['bedroom-optional-adaptations', 'bedroom-specialist-layout'],
   ['bedroom-optional-adaptations', 'bedroom-door-accessibility'],
   ['bedroom-optional-adaptations', 'bedroom-dementia-support'],
+  ['kitchen-home-safety-package', 'kitchen-safer-food-preparation'],
+  ['kitchen-home-safety-package', 'kitchen-safer-cooking'],
+  ['kitchen-home-safety-package', 'kitchen-improved-lighting'],
+  ['kitchen-home-safety-package', 'kitchen-safer-movement'],
+  ['kitchen-home-safety-package', 'kitchen-easier-storage'],
+  ['kitchen-home-safety-package', 'kitchen-safety-monitoring'],
+  ['kitchen-connected-room', 'kitchen-connected-experience'],
+  ['kitchen-optional-adaptations', 'kitchen-pull-out-pantry-storage'],
+  ['kitchen-optional-adaptations', 'kitchen-wider-doorway'],
   ]
 }
 
@@ -503,6 +589,15 @@ function outcomeCapabilityRelations() {
     'bedroom-family-reassurance': ['movement-reassurance', 'family-carer-notifications'],
     'bedroom-daily-living-support': ['routine-reminders', 'appointment-reminders', 'smart-speaker-setup'],
     'bedroom-connected-safety': ['smoke-alerting', 'emergency-call-access', 'night-time-safety-alerts'],
+    'kitchen-safer-food-preparation': ['lever-water-control', 'automatic-jar-opening', 'easy-grip-kitchen-tools', 'non-slip-chopping-support', 'easy-pour-kettle-support', 'anti-fatigue-standing-zone'],
+    'kitchen-safer-cooking': ['safer-hob-control', 'automatic-gas-shutoff'],
+    'kitchen-improved-lighting': ['motion-activated-lighting', 'kitchen-task-lighting'],
+    'kitchen-safer-movement': ['wet-floor-grip', 'loose-rug-securing', 'kitchen-circulation-space', 'anti-fatigue-standing-zone'],
+    'kitchen-easier-storage': ['kitchen-storage-organisation', 'waist-height-storage'],
+    'kitchen-safety-monitoring': ['smoke-alerting', 'water-leak-alerting', 'kitchen-motion-alerting'],
+    'kitchen-connected-experience': ['smart-speaker-setup', 'voice-controlled-lighting', 'voice-cooking-assistance', 'shopping-list-management', 'routine-reminders', 'appointment-reminders', 'hands-free-calling', 'family-carer-notifications'],
+    'kitchen-pull-out-pantry-storage': ['specialist-measurement', 'pull-out-pantry-storage'],
+    'kitchen-wider-doorway': ['specialist-measurement', 'wider-kitchen-doorway'],
   }
 
   const optionalBedroomOutcomeIds = [
@@ -563,6 +658,22 @@ function capabilityProductRelations() {
     'movement-reassurance': ['motion-sensor'],
     'emergency-call-access': ['emergency-call-button', 'smart-speaker'],
     'smoke-alerting': ['smoke-detector'],
+    'automatic-jar-opening': ['automatic-jar-opener'],
+    'easy-grip-kitchen-tools': ['easy-grip-kitchen-utensils'],
+    'non-slip-chopping-support': ['non-slip-chopping-board'],
+    'easy-pour-kettle-support': ['easy-pour-kettle-tipper'],
+    'anti-fatigue-standing-zone': ['anti-fatigue-kitchen-mat'],
+    'safer-hob-control': ['induction-hob-automatic-shutoff'],
+    'automatic-gas-shutoff': ['automatic-gas-shutoff-system'],
+    'kitchen-task-lighting': ['kitchen-task-light'],
+    'kitchen-circulation-space': ['kitchen-storage-reorganisation-service'],
+    'kitchen-storage-organisation': ['kitchen-storage-reorganisation-service'],
+    'waist-height-storage': ['kitchen-storage-reorganisation-service'],
+    'kitchen-motion-alerting': ['motion-sensor'],
+    'voice-cooking-assistance': ['smart-speaker'],
+    'shopping-list-management': ['smart-speaker'],
+    'pull-out-pantry-storage': ['pull-out-pantry-hardware'],
+    'wider-kitchen-doorway': ['wider-kitchen-doorway-service'],
   }
 
   return Object.entries(map).flatMap(([capabilityId, productIds]) =>
@@ -603,6 +714,22 @@ function capabilityTaskRelations() {
     'night-time-safety-alerts': ['configure-motion-lighting', 'test-emergency-contact'],
     'furniture-repositioning': ['reposition-furniture'],
     'specialist-measurement': ['measure-specialist-adaptation'],
+    'automatic-jar-opening': ['set-up-kitchen-prep-support'],
+    'easy-grip-kitchen-tools': ['set-up-kitchen-prep-support'],
+    'non-slip-chopping-support': ['set-up-kitchen-prep-support'],
+    'easy-pour-kettle-support': ['set-up-kitchen-prep-support'],
+    'anti-fatigue-standing-zone': ['improve-kitchen-standing-route'],
+    'safer-hob-control': ['assess-kitchen-cooking-safety', 'configure-kitchen-cooking-safeguard'],
+    'automatic-gas-shutoff': ['assess-kitchen-cooking-safety', 'configure-kitchen-cooking-safeguard'],
+    'kitchen-task-lighting': ['install-kitchen-task-lighting'],
+    'kitchen-circulation-space': ['improve-kitchen-standing-route'],
+    'kitchen-storage-organisation': ['organise-kitchen-storage'],
+    'waist-height-storage': ['organise-kitchen-storage'],
+    'kitchen-motion-alerting': ['configure-kitchen-alerting'],
+    'voice-cooking-assistance': ['configure-connected-kitchen'],
+    'shopping-list-management': ['configure-connected-kitchen'],
+    'pull-out-pantry-storage': ['fit-pull-out-pantry'],
+    'wider-kitchen-doorway': ['measure-kitchen-doorway'],
   }
 
   return Object.entries(map).flatMap(([capabilityId, taskIds]) =>

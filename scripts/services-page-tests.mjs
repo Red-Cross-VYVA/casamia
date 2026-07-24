@@ -50,6 +50,11 @@ assert.match(
   /addOnPlural/,
   'Package composition copy must include customer-facing optional add-on language.',
 )
+assert.match(
+  page,
+  /service\.section === 'connected_room'/,
+  'Connected-room services must be shown as add-ons, not base package inclusions.',
+)
 assert.doesNotMatch(
   page,
   /optionSingular|optionPlural|packageOptions/,

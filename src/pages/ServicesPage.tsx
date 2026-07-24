@@ -329,6 +329,7 @@ const isWebsiteVisible = (service: CasaMiaService) =>
 
 const isOptionalAddOn = (service: CasaMiaService) =>
   (service.componentRole ?? (service.priority === 'optional' ? 'option' : 'core')) === 'option'
+  || service.section === 'connected_room'
   || service.section === 'optional_adaptations'
 
 function formatPackageComposition(services: CasaMiaService[], copy: ServicesPageCopy) {
