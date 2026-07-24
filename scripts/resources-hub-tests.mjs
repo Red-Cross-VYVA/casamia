@@ -254,6 +254,11 @@ assert.match(
 )
 assert.match(
   needLandingPage,
+  /<SEO[\s\S]*title=\{page\.seoTitle\}[\s\S]*description=\{page\.description\}[\s\S]*path=\{page\.path\}[\s\S]*image=\{page\.image\}/,
+  'Need landing pages must use their own page image for social preview metadata.',
+)
+assert.match(
+  needLandingPage,
   /catalogueEyebrow[\s\S]*turnkeySteps[\s\S]*beforeSpendingChecks[\s\S]*CatalogueServiceCard key=\{service\.id\} service=\{service\} language=\{i18n\.language\}/,
   'Need landing page chrome and catalogue labels must be language-aware.',
 )

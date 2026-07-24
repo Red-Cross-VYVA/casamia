@@ -307,7 +307,13 @@ export function NeedLandingPage() {
 
   return (
     <>
-      <SEO title={page.seoTitle} description={page.description} path={page.path} schema={schema} />
+      <SEO
+        title={page.seoTitle}
+        description={page.description}
+        path={page.path}
+        image={page.image}
+        schema={schema}
+      />
 
       <main className="need-landing">
         <section className="need-landing-hero">
