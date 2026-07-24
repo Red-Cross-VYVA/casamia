@@ -5,6 +5,7 @@ import {
   ClipboardCheck,
   FileCheck2,
   HelpCircle,
+  Home,
   ShieldCheck,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -35,6 +36,10 @@ const copy = {
     sectionEyebrow: 'Choose your route',
     sectionTitle: 'Tools for decisions, not guesswork.',
     openTool: 'Open tool',
+    chooserEyebrow: 'Not sure which one?',
+    chooserTitle: 'Use the tool that matches the decision you need to make.',
+    chooserBody:
+      'Each route is deliberately short. Start with the question closest to your situation, then CasaMia can turn the answer into a practical home plan if you want help.',
     finalTitle: 'Need help turning answers into a plan?',
     finalBody:
       'CasaMia can review the home, prioritise what matters and explain what can be done now, later or with professional support.',
@@ -57,6 +62,10 @@ const copy = {
     sectionEyebrow: 'Elige tu ruta',
     sectionTitle: 'Herramientas para decidir, no para adivinar.',
     openTool: 'Abrir herramienta',
+    chooserEyebrow: '¿No sabes cuál elegir?',
+    chooserTitle: 'Usa la herramienta que encaja con la decisión que necesitas tomar.',
+    chooserBody:
+      'Cada ruta es breve a propósito. Empieza por la pregunta más cercana a tu situación y CasaMia puede convertir la respuesta en un plan práctico si quieres ayuda.',
     finalTitle: '¿Necesitas convertir respuestas en un plan?',
     finalBody:
       'CasaMia puede revisar la vivienda, priorizar lo importante y explicar qué hacer ahora, más adelante o con apoyo profesional.',
@@ -112,6 +121,41 @@ const tools = [
   },
 ] as const
 
+const chooserRoutes = [
+  {
+    icon: HelpCircle,
+    title: { en: 'Something feels different', es: 'Algo ha cambiado' },
+    body: {
+      en: 'Use the quick quiz to decide whether to observe, review one room or act faster.',
+      es: 'Usa el quiz rápido para decidir si observar, revisar una estancia o actuar antes.',
+    },
+  },
+  {
+    icon: Camera,
+    title: { en: 'You can show the room', es: 'Puedes mostrar la estancia' },
+    body: {
+      en: 'Use photos when the family needs visible priorities before asking for a proposal.',
+      es: 'Usa fotos cuando la familia necesita prioridades visibles antes de pedir propuesta.',
+    },
+  },
+  {
+    icon: FileCheck2,
+    title: { en: 'Funding may matter', es: 'Las ayudas pueden importar' },
+    body: {
+      en: 'Use the grant route early if paperwork, timing or regional criteria could affect the project.',
+      es: 'Usa la ruta de ayudas pronto si documentos, plazos o criterios autonómicos pueden afectar.',
+    },
+  },
+  {
+    icon: Home,
+    title: { en: 'You want a full plan', es: 'Quieres un plan completo' },
+    body: {
+      en: 'Use the guided review when several rooms, routines or family decisions need to be organised.',
+      es: 'Usa la revisión guiada cuando hay varias estancias, rutinas o decisiones familiares que ordenar.',
+    },
+  },
+] as const
+
 export function ToolsPage() {
   const { i18n } = useTranslation()
   const language: Language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
@@ -158,6 +202,32 @@ export function ToolsPage() {
               <ArrowRight size={18} aria-hidden="true" />
             </strong>
           </Link>
+        </div>
+      </section>
+
+      <section className="tools-chooser-section" aria-labelledby="tools-chooser-title">
+        <div className="site-shell tools-chooser-panel">
+          <div className="tools-heading">
+            <p className="eyebrow">{pageCopy.chooserEyebrow}</p>
+            <h2 id="tools-chooser-title">{pageCopy.chooserTitle}</h2>
+            <p>{pageCopy.chooserBody}</p>
+          </div>
+          <div className="tools-chooser-grid">
+            {chooserRoutes.map((route, index) => {
+              const Icon = route.icon
+
+              return (
+                <article className="tools-chooser-card" key={route.title.en}>
+                  <span className="tools-chooser-icon">
+                    <Icon size={22} aria-hidden="true" />
+                  </span>
+                  <span className="tools-chooser-number">{String(index + 1).padStart(2, '0')}</span>
+                  <h3>{route.title[language]}</h3>
+                  <p>{route.body[language]}</p>
+                </article>
+              )
+            })}
+          </div>
         </div>
       </section>
 

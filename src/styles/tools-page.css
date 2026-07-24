@@ -125,9 +125,21 @@
   font-weight: 950;
 }
 
+.tools-chooser-section,
 .tools-list-section,
 .tools-final-section {
   padding: clamp(54px, 8vw, 104px) 0;
+}
+
+.tools-chooser-section {
+  background:
+    radial-gradient(circle at 92% 12%, rgba(125, 184, 65, 0.16), transparent 24rem),
+    #ffffff;
+}
+
+.tools-chooser-panel {
+  display: grid;
+  gap: clamp(24px, 4vw, 42px);
 }
 
 .tools-heading {
@@ -137,10 +149,77 @@
   margin-bottom: 28px;
 }
 
+.tools-heading > p:not(.eyebrow) {
+  margin: 0;
+  color: var(--text-mid);
+  font-size: 18px;
+  font-weight: 610;
+  line-height: 1.55;
+}
+
 .tools-heading h2,
 .tools-final-panel h2 {
   color: var(--ink);
   font-size: clamp(42px, 5.5vw, 76px);
+}
+
+.tools-chooser-grid {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid rgba(173, 207, 226, 0.86);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(58, 166, 218, 0.1), transparent 22rem),
+    #f7fcff;
+  box-shadow: 0 24px 70px rgba(13, 30, 46, 0.07);
+}
+
+.tools-chooser-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 14px;
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.tools-chooser-card + .tools-chooser-card {
+  border-top: 1px solid rgba(173, 207, 226, 0.82);
+}
+
+.tools-chooser-icon {
+  display: inline-grid;
+  width: 48px;
+  height: 48px;
+  grid-row: 1 / span 2;
+  place-items: center;
+  border-radius: 17px;
+  background: #e9f6fd;
+  color: var(--navy);
+}
+
+.tools-chooser-number {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  color: rgba(20, 92, 130, 0.24);
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.tools-chooser-card h3 {
+  margin: 2px 38px 0 0;
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 950;
+  line-height: 1.15;
+}
+
+.tools-chooser-card p {
+  margin: 9px 0 0;
+  color: var(--text-mid);
+  font-size: 15px;
+  font-weight: 620;
+  line-height: 1.5;
 }
 
 .tools-grid {
@@ -254,12 +333,24 @@
   }
 }
 
+@media (min-width: 820px) {
+  .tools-chooser-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .tools-chooser-card + .tools-chooser-card {
+    border-top: 0;
+    border-left: 1px solid rgba(173, 207, 226, 0.82);
+  }
+}
+
 @media (max-width: 640px) {
   .tools-hero {
     padding-top: 64px;
   }
 
   .tools-featured-card,
+  .tools-chooser-grid,
   .tools-card,
   .tools-final-panel {
     border-radius: 24px;

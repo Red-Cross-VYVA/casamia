@@ -92,6 +92,16 @@ assert.match(
   'The free tools index must gather CasaMia practical tools in one page.',
 )
 assert.match(
+  toolsPage,
+  /const chooserRoutes = \[[\s\S]*Something feels different[\s\S]*Funding may matter[\s\S]*You want a full plan/,
+  'The free tools index must help families choose the right practical route before opening a tool.',
+)
+assert.match(
+  toolsPage,
+  /Not sure which one\?[\s\S]*¿No sabes cuál elegir\?[\s\S]*tools-chooser-section/,
+  'The tool chooser guidance must be available in English and Spanish.',
+)
+assert.match(
   page,
   /printableMaterials\.map\(\(material\)[\s\S]*'@type': 'DigitalDocument'[\s\S]*encodingFormat: isPdf \? 'application\/pdf' : 'text\/html'/,
   'The Resources hub must publish structured data for every printable or practical material, not just the lead checklist.',
