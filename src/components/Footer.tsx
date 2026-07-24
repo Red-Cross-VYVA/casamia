@@ -32,6 +32,10 @@ const footerLinkCopy = {
     visitPrep: 'Before the visit',
     fallPrevention: 'Fall prevention guide',
     bathroomSafety: 'Bathroom safety guide',
+    decisionGuides: 'Decision guides',
+    adaptOrResidence: 'Adapt home or consider care',
+    assessmentOrContractor: 'Safety assessment or contractor',
+    connectedOrMonitoring: 'Connected safety or monitoring',
     preferences: 'Cookie preferences',
   },
   es: {
@@ -54,6 +58,10 @@ const footerLinkCopy = {
     visitPrep: 'Antes de la visita',
     fallPrevention: 'Guía de prevención de caídas',
     bathroomSafety: 'Guía de seguridad en el baño',
+    decisionGuides: 'Guías de decisión',
+    adaptOrResidence: 'Adaptar vivienda o valorar residencia',
+    assessmentOrContractor: 'Evaluación o contratista general',
+    connectedOrMonitoring: 'Seguridad conectada o monitorización',
     preferences: 'Preferencias de cookies',
   },
 } as const
@@ -92,6 +100,21 @@ export function Footer() {
     { label: links.visitPrep, to: '/blog/family-conversation-before-home-safety-visit' },
     { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },
     { label: links.bathroomSafety, to: '/blog/bathroom-safety-seniors-costly-mistakes' },
+  ]
+  const decisionGuideTitle = language === 'es' ? 'Guías de decisión' : links.decisionGuides
+  const decisionGuideLinks = [
+    {
+      label: language === 'es' ? 'Adaptar vivienda o valorar residencia' : links.adaptOrResidence,
+      to: '/home-adaptations-vs-assisted-living',
+    },
+    {
+      label: language === 'es' ? 'Evaluación o contratista general' : links.assessmentOrContractor,
+      to: '/home-safety-assessment-vs-general-contractor',
+    },
+    {
+      label: language === 'es' ? 'Seguridad conectada o monitorización' : links.connectedOrMonitoring,
+      to: '/smart-home-safety-vs-monitoring',
+    },
   ]
   const needLinks = localizeNeedLandingPages(needLandingPages, i18n.language)
     .filter((page) => page.footerVisible !== false)
@@ -138,6 +161,13 @@ export function Footer() {
           ))}
           <FooterSubColumn title={links.resourcesTitle}>
             {resourceLinks.map((link) => (
+              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+                {link.label}
+              </Link>
+            ))}
+          </FooterSubColumn>
+          <FooterSubColumn title={decisionGuideTitle}>
+            {decisionGuideLinks.map((link) => (
               <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
                 {link.label}
               </Link>

@@ -550,6 +550,11 @@ assert.match(
   'The global footer must expose practical Resources links for discovery and SEO.',
 )
 assert.match(
+  footer,
+  /Decision guides[\s\S]*home-adaptations-vs-assisted-living[\s\S]*home-safety-assessment-vs-general-contractor[\s\S]*smart-home-safety-vs-monitoring/,
+  'The global footer must expose decision guide routes for always-on education discovery.',
+)
+assert.match(
   sitemap,
   /https:\/\/casamia\.com\.es\/tools\/home-vs-residence-cost-calculator/,
   'The public sitemap must include the home-vs-residence cost comparison tool.',
