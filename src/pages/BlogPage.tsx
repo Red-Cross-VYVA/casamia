@@ -110,6 +110,10 @@ const pageCopy = {
     todayTitle: 'Three checks worth doing today.',
     todayBody:
       'These are simple observations, not building work. If anything feels unstable or unsafe, stop using it and arrange an appropriate review.',
+    localEyebrow: 'Spain-specific help',
+    localTitle: 'Turn general advice into the right route for a Spanish home.',
+    localBody:
+      'CasaMia resources are designed for the practical questions families face in Spain: local homes, regional grant routes, measurements, installers and paperwork.',
     guideEyebrow: 'Practical guidance by situation',
     guideTitle: 'Find the answer without scrolling through a wall of articles.',
     guideBody:
@@ -226,6 +230,10 @@ const pageCopy = {
     todayTitle: 'Tres comprobaciones que merece la pena hacer hoy.',
     todayBody:
       'Son observaciones sencillas, no trabajos de obra. Si algo está inestable o parece peligroso, deja de usarlo y solicita una revisión adecuada.',
+    localEyebrow: 'Ayuda adaptada a España',
+    localTitle: 'Convierte el consejo general en la ruta adecuada para una vivienda en España.',
+    localBody:
+      'Los recursos CasaMia están pensados para preguntas reales en España: tipos de vivienda, ayudas autonómicas, mediciones, instaladores y documentación.',
     guideEyebrow: 'Guías prácticas por situación',
     guideTitle: 'Encuentra la respuesta sin recorrer una pared de artículos.',
     guideBody:
@@ -646,6 +654,41 @@ const actionRouteSteps = [
   },
 ] as const
 
+const localSpainRoutes = [
+  {
+    icon: Home,
+    title: { en: 'Start with the real home', es: 'Empezar por la vivienda real' },
+    body: {
+      en: 'Apartment, villa, old building, stairs, narrow bathrooms and rented homes can all change the safest route.',
+      es: 'Piso, chalet, edificio antiguo, escaleras, baños estrechos o alquiler pueden cambiar la ruta más segura.',
+    },
+  },
+  {
+    icon: SearchCheck,
+    title: { en: 'Check what needs evidence', es: 'Ver qué necesita evidencia' },
+    body: {
+      en: 'Photos, room notes, ownership status and mobility context help turn a worry into a practical proposal.',
+      es: 'Fotos, notas por estancia, situación de la vivienda y movilidad ayudan a convertir una preocupación en propuesta.',
+    },
+  },
+  {
+    icon: FileCheck2,
+    title: { en: 'Prepare grant support early', es: 'Preparar ayudas desde el inicio' },
+    body: {
+      en: 'Regional routes can depend on timing, documentation and official criteria, so the file should be structured before work starts.',
+      es: 'Las rutas autonómicas dependen de plazos, documentos y criterios oficiales; conviene ordenar el expediente antes de empezar.',
+    },
+  },
+  {
+    icon: HandHeart,
+    title: { en: 'Move into one managed plan', es: 'Pasar a un plan gestionado' },
+    body: {
+      en: 'When the family is ready, CasaMia connects assessment, proposal, products, installation and follow-up.',
+      es: 'Cuando la familia esté lista, CasaMia conecta evaluación, propuesta, productos, instalación y seguimiento.',
+    },
+  },
+] as const
+
 const guideGroups = [
   {
     icon: ShieldCheck,
@@ -766,6 +809,19 @@ export function BlogPage() {
             position: index + 1,
             name: prompt.title[language],
             text: prompt.body[language],
+          })),
+        },
+        {
+          '@type': 'HowTo',
+          '@id': `${siteUrl}/blog#spain-route`,
+          name: copy.localTitle,
+          description: copy.localBody,
+          inLanguage: copy.lang,
+          step: localSpainRoutes.map((route, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: route.title[language],
+            text: route.body[language],
           })),
         },
         {
@@ -1185,6 +1241,33 @@ export function BlogPage() {
                 )
               })}
             </ol>
+          </div>
+        </section>
+
+        <section className="resource-local-section" aria-labelledby="resource-local-title">
+          <div className="site-shell resource-local-panel">
+            <div className="resource-hub-heading resource-hub-heading-wide">
+              <p className="eyebrow">{copy.localEyebrow}</p>
+              <h2 id="resource-local-title">{copy.localTitle}</h2>
+              <p>{copy.localBody}</p>
+            </div>
+
+            <div className="resource-local-grid">
+              {localSpainRoutes.map((route, index) => {
+                const Icon = route.icon
+
+                return (
+                  <article className="resource-local-card" key={route.title.en}>
+                    <span className="resource-local-number">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="resource-local-icon">
+                      <Icon size={22} aria-hidden="true" />
+                    </span>
+                    <h3>{route.title[language]}</h3>
+                    <p>{route.body[language]}</p>
+                  </article>
+                )
+              })}
+            </div>
           </div>
         </section>
 

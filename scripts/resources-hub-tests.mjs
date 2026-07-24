@@ -183,6 +183,21 @@ assert.match(
 )
 assert.match(
   page,
+  /const localSpainRoutes = \[[\s\S]*Start with the real home[\s\S]*Prepare grant support early[\s\S]*Move into one managed plan/,
+  'The Resources hub must include a Spain-specific route from general advice to practical CasaMia action.',
+)
+assert.match(
+  page,
+  /Spain-specific help[\s\S]*Ayuda adaptada a España[\s\S]*resource-local-section/,
+  'The Spain-specific Resources route must be available in English and Spanish.',
+)
+assert.match(
+  page,
+  /#spain-route[\s\S]*localSpainRoutes\.map/,
+  'The Spain-specific Resources route must publish HowTo structured data.',
+)
+assert.match(
+  page,
   /Algo ha cambiado hace poco[\s\S]*Una estancia preocupa más[\s\S]*La familia necesita un plan/,
   'The guided Resources journeys must be available in Spanish.',
 )

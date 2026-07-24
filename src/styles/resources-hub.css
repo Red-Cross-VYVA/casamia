@@ -361,6 +361,7 @@
 .resource-pathways-section,
 .resource-comparison-section,
 .resource-downloads-section,
+.resource-local-section,
 .resource-moments-section,
 .resource-guides-section,
 .resource-action-route-section,
@@ -370,6 +371,77 @@
 
 .resource-pathways-section {
   background: linear-gradient(180deg, #ffffff 0%, #f3f9fd 100%);
+}
+
+.resource-local-section {
+  background:
+    radial-gradient(circle at 92% 16%, rgba(139, 207, 69, 0.14), transparent 24rem),
+    linear-gradient(180deg, #ffffff 0%, #eef8fd 100%);
+}
+
+.resource-local-panel {
+  display: grid;
+  gap: clamp(30px, 5vw, 52px);
+}
+
+.resource-local-grid {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid rgba(183, 211, 226, 0.9);
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: 0 26px 70px rgba(13, 30, 46, 0.09);
+}
+
+.resource-local-card {
+  position: relative;
+  display: grid;
+  min-height: 100%;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 14px;
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.resource-local-card + .resource-local-card {
+  border-top: 1px solid rgba(183, 211, 226, 0.82);
+}
+
+.resource-local-number {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  color: rgba(13, 30, 46, 0.18);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.resource-local-icon {
+  display: inline-grid;
+  width: 50px;
+  height: 50px;
+  grid-row: 1 / span 2;
+  place-items: center;
+  border-radius: 16px;
+  background: #eaf6fc;
+  color: var(--navy);
+}
+
+.resource-local-card h3 {
+  max-width: 18rem;
+  margin: 2px 48px 0 0;
+  color: var(--text-dark);
+  font-size: 20px;
+  font-weight: 950;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+.resource-local-card p {
+  margin: 9px 0 0;
+  color: var(--text-mid);
+  line-height: 1.55;
 }
 
 .resource-journey-section {
@@ -1482,6 +1554,15 @@
   .resource-material-grid,
   .resource-guide-groups {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .resource-local-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .resource-local-card + .resource-local-card {
+    border-top: 0;
+    border-left: 1px solid rgba(183, 211, 226, 0.82);
   }
 }
 
