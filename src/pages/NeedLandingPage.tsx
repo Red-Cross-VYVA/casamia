@@ -1,4 +1,16 @@
-import { ArrowRight, Camera, CheckCircle2, ClipboardCheck, HeartHandshake, MessageCircle, ShieldCheck, Wrench } from 'lucide-react'
+import {
+  AlertTriangle,
+  ArrowRight,
+  Camera,
+  CheckCircle2,
+  ClipboardCheck,
+  HeartHandshake,
+  ListChecks,
+  MessageCircle,
+  Route,
+  ShieldCheck,
+  Wrench,
+} from 'lucide-react'
 import { useMemo } from 'react'
 import type { ReactNode } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
@@ -60,6 +72,40 @@ export function NeedLandingPage() {
     planBody: isSpanish
       ? 'CasaMia recomienda resultados primero y confirma después productos, medidas e instalación.'
       : 'CasaMia recommends outcomes first, then confirms products, measurements and installer requirements.',
+    decisionEyebrow: isSpanish ? 'Mapa rápido de decisión' : 'Quick decision map',
+    decisionTitle: isSpanish ? 'Convierte la duda en una prioridad clara.' : 'Turn the concern into a clear priority.',
+    decisionBody: isSpanish
+      ? 'Estas páginas no deberían quedarse en teoría. CasaMia ayuda a ordenar la situación en señales, datos útiles y próximos pasos concretos.'
+      : 'These pages should not stay theoretical. CasaMia helps turn the situation into signals, useful evidence and clear next steps.',
+    decisionCards: isSpanish
+      ? [
+          {
+            title: 'Señales para no esperar',
+            body: 'Sustos recientes, evitación de una rutina, dolor, miedo, oscuridad, suelo mojado o necesidad de ayuda cada vez más frecuente.',
+          },
+          {
+            title: 'Qué conviene preparar',
+            body: 'Fotos, un vídeo corto, la rutina exacta, medidas básicas si las tienes y quién toma la decisión en la familia.',
+          },
+          {
+            title: 'Qué define CasaMia',
+            body: 'Prioridad, paquete recomendado, si hace falta visita, qué puede instalarse ya y qué requiere presupuesto o compatibilidad.',
+          },
+        ]
+      : [
+          {
+            title: 'Signals not to ignore',
+            body: 'Recent near misses, avoiding a routine, pain, fear, low light, wet floors or needing more help than before.',
+          },
+          {
+            title: 'What to prepare',
+            body: 'Photos, a short video, the exact routine, basic measurements if available and who needs to be involved in the decision.',
+          },
+          {
+            title: 'What CasaMia defines',
+            body: 'Priority, recommended package route, whether a visit is needed, what can be installed now and what needs quote or compatibility checks.',
+          },
+        ],
     usefulPages: isSpanish ? 'Páginas útiles' : 'Useful next pages',
     recommendedEyebrow: isSpanish ? 'Recursos recomendados' : 'Recommended resources',
     recommendedTitle: isSpanish ? 'Lee solo lo que ayuda a decidir.' : 'Read only what helps you decide.',
@@ -176,6 +222,17 @@ export function NeedLandingPage() {
         },
       })),
     },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: copy.turnkeyTitle,
+      description: copy.turnkeyBody,
+      step: copy.turnkeySteps.map((step, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: step,
+      })),
+    },
   ]
 
   const catalogueServices = useMemo(
@@ -270,6 +327,34 @@ export function NeedLandingPage() {
                 title={copy.planTitle}
                 body={copy.planBody}
               />
+            </div>
+          </div>
+        </section>
+
+        <section className="need-landing-decision" aria-labelledby="need-landing-decision-title">
+          <div className="site-shell need-landing-decision-grid">
+            <div className="need-landing-decision-copy">
+              <p className="eyebrow">{copy.decisionEyebrow}</p>
+              <h2 id="need-landing-decision-title">{copy.decisionTitle}</h2>
+              <p>{copy.decisionBody}</p>
+            </div>
+            <div className="need-decision-card-grid">
+              {copy.decisionCards.map((item, index) => (
+                <DecisionCard
+                  key={item.title}
+                  icon={
+                    index === 0 ? (
+                      <AlertTriangle size={21} aria-hidden="true" />
+                    ) : index === 1 ? (
+                      <ListChecks size={21} aria-hidden="true" />
+                    ) : (
+                      <Route size={21} aria-hidden="true" />
+                    )
+                  }
+                  title={item.title}
+                  body={item.body}
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -632,6 +717,26 @@ function MiniCard({
       <span>{icon}</span>
       <strong>{title}</strong>
       <p>{body}</p>
+    </article>
+  )
+}
+
+function DecisionCard({
+  icon,
+  title,
+  body,
+}: {
+  icon: ReactNode
+  title: string
+  body: string
+}) {
+  return (
+    <article className="need-decision-card">
+      <span>{icon}</span>
+      <div>
+        <strong>{title}</strong>
+        <p>{body}</p>
+      </div>
     </article>
   )
 }

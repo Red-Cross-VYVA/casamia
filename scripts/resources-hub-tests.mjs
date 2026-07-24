@@ -212,6 +212,16 @@ assert.match(
   'Need landing pages must recommend relevant guide and tool resources without duplicating catalogue content.',
 )
 assert.match(
+  needLandingPage,
+  /decisionEyebrow[\s\S]*Signals not to ignore[\s\S]*need-landing-decision[\s\S]*DecisionCard/,
+  'Need landing pages must include a practical decision map that helps families turn concerns into action.',
+)
+assert.match(
+  needLandingPage,
+  /'@type': 'HowTo'[\s\S]*copy\.turnkeySteps\.map/,
+  'Need landing pages must publish HowTo structured data for the CasaMia managed next-step route.',
+)
+assert.match(
   page,
   /'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map/,
   'The Resources hub must publish FAQ structured data.',
@@ -260,6 +270,11 @@ assert.match(
   await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
   /\.need-landing-resources[\s\S]*\.need-resource-card-grid[\s\S]*\.need-resource-card/,
   'Need landing page recommended resources must have dedicated visual styling.',
+)
+assert.match(
+  await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
+  /\.need-landing-decision[\s\S]*\.need-decision-card-grid[\s\S]*\.need-decision-card/,
+  'Need landing page decision maps must have dedicated visual styling.',
 )
 assert.match(
   styles,
