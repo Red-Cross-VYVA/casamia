@@ -196,6 +196,11 @@ assert.match(
 )
 assert.match(
   nav,
+  /Free tools[\s\S]*to: '\/tools'[\s\S]*Home or residence[\s\S]*when-home-adaptations-are-not-enough/,
+  'The Resources navigation must expose free tools and home-vs-residence decision support.',
+)
+assert.match(
+  nav,
   /match: \['\/blog', '\/resources', '\/tools', '\/service-areas'\]/,
   'The Resources navigation item must stay active for public tools and service-area guidance.',
 )
@@ -216,7 +221,7 @@ assert.match(
 )
 assert.match(
   footer,
-  /resourcesTitle: 'Useful resources'[\s\S]*Printable home checklist[\s\S]*home-vs-residence-cost-calculator[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*family-conversation-before-home-safety-visit[\s\S]*bathroom-safety-seniors-costly-mistakes/,
+  /resourcesTitle: 'Useful resources'[\s\S]*Free safety tools[\s\S]*Printable home checklist[\s\S]*home-vs-residence-cost-calculator[\s\S]*home-adaptation-grants-spain-family-guide[\s\S]*family-conversation-before-home-safety-visit[\s\S]*bathroom-safety-seniors-costly-mistakes/,
   'The global footer must expose practical Resources links for discovery and SEO.',
 )
 assert.match(

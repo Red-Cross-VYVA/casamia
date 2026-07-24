@@ -85,6 +85,10 @@ export function Nav() {
           to: '/blog',
         },
         {
+          label: isSpanish ? 'Herramientas gratuitas' : 'Free tools',
+          to: '/tools',
+        },
+        {
           label: isSpanish ? 'Lista completa para imprimir' : 'Printable home checklist',
           to: '/blog',
         },
@@ -129,6 +133,10 @@ export function Nav() {
         {
           label: isSpanish ? 'Antes de la visita' : 'Before the visit',
           to: '/blog/family-conversation-before-home-safety-visit',
+        },
+        {
+          label: isSpanish ? 'Casa o residencia' : 'Home or residence',
+          to: '/blog/when-home-adaptations-are-not-enough',
         },
         {
           label: isSpanish ? 'Tecnología sin complicar' : 'Simple connected safety',

@@ -23,6 +23,7 @@ const footerLinkCopy = {
     beforeAfter: 'Before & After Projects',
     needs: 'Popular needs',
     resourcesTitle: 'Useful resources',
+    freeTools: 'Free safety tools',
     checklist: 'Printable home checklist',
     onlineCheck: 'Online safety review',
     costComparison: 'Home vs residence cost',
@@ -45,6 +46,7 @@ const footerLinkCopy = {
     beforeAfter: 'Antes y después de adaptaciones',
     needs: 'Necesidades frecuentes',
     resourcesTitle: 'Recursos útiles',
+    freeTools: 'Herramientas gratuitas',
     checklist: 'Lista para imprimir',
     onlineCheck: 'Revisión online de seguridad',
     grantsGuide: 'Ayudas y documentación',
@@ -78,6 +80,7 @@ export function Footer() {
     { label: links.visit, to: '/home-safety-assessment' },
   ]
   const resourceLinks = [
+    { label: links.freeTools, to: '/tools' },
     { label: links.checklist, to: '/blog' },
     { label: links.onlineCheck, to: '/home-safety-assessment#self-inspection-tool' },
     {
