@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { ReportDeliveryForm } from '../components/ReportDeliveryForm'
+import { SEO } from '../components/SEO'
 import { sendReportDelivery, type DeliveryChannelStatus } from '../services/estimateWorkflow'
 import { getPublicSiteJson, hasPublicSiteApi, postPublicSiteJson } from '../services/publicSiteApi'
 import { createPublicReportToken } from '../utils/publicReportToken'
@@ -81,6 +82,10 @@ export function GrantEligibilityPage() {
     i18n.language,
     i18n.resolvedLanguage,
   ])
+  const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const siteUrl = 'https://www.casamia.com.es'
+  const title = copy.hero.title
+  const description = copy.hero.intro
   const [form, setForm] = useState<FormState>(() => getSavedGrantForm())
   const [step, setStep] = useState(() => getSavedGrantStep())
   const [deliveryStatus, setDeliveryStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -92,13 +97,59 @@ export function GrantEligibilityPage() {
   const [errorMessage, setErrorMessage] = useState('')
   const [reportToken] = useState(() => getSharedGrantReportToken() || createPublicReportToken())
 
-  useEffect(() => {
-    document.title = `${copy.hero.title} | CasaMia`
-  }, [copy.hero.title])
-
   const result = useMemo(() => calculateResult(form, copy), [form, copy])
   const canContinue = getStepCompletion(step, form)
   const blockedReason = canContinue ? '' : getGrantBlockedReason(step, form, copy)
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebApplication',
+          '@id': `${siteUrl}/grant-check#tool`,
+          name: title,
+          description,
+          url: `${siteUrl}/grant-check`,
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          inLanguage: language,
+          offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'EUR',
+          },
+          provider: {
+            '@type': 'Organization',
+            '@id': `${siteUrl}/#organization`,
+            name: 'CasaMia',
+            url: siteUrl,
+          },
+        },
+        {
+          '@type': 'HowTo',
+          '@id': `${siteUrl}/grant-check#readiness-flow`,
+          name: copy.progressLabel,
+          description: copy.hero.note,
+          step: copy.progress.map((label, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: label,
+          })),
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${siteUrl}/grant-check#check-includes`,
+          name: copy.hero.pointsLabel,
+          itemListElement: copy.hero.points.map((point, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: point,
+          })),
+        },
+      ],
+    }),
+    [copy.hero.note, copy.hero.points, copy.hero.pointsLabel, copy.progress, copy.progressLabel, description, language, title],
+  )
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -261,6 +312,7 @@ export function GrantEligibilityPage() {
 
   return (
     <>
+      <SEO title={title} description={description} path="/grant-check" schema={schema} />
       <section className="grant-check-hero page-hero">
         <div className="page-hero-inner">
           <div className="grant-hero-card">
