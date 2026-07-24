@@ -510,6 +510,11 @@ assert.match(
 )
 assert.match(
   seo,
+  /setMeta\('og:locale', language === 'es' \? 'es_ES' : 'en_IE'[\s\S]*setMeta\('og:locale:alternate', language === 'es' \? 'en_IE' : 'es_ES'/,
+  'The shared SEO component must expose the alternate English/Spanish Open Graph locale.',
+)
+assert.match(
+  seo,
   /function getImageMimeType[\s\S]*image\/png[\s\S]*image\/webp[\s\S]*image\/jpeg/,
   'The shared SEO component must identify common social preview image MIME types.',
 )

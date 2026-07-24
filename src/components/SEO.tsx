@@ -44,6 +44,7 @@ export function SEO({
     setMeta('og:site_name', 'CasaMia', 'property')
     setMeta('og:type', 'website', 'property')
     setMeta('og:locale', language === 'es' ? 'es_ES' : 'en_IE', 'property')
+    setMeta('og:locale:alternate', language === 'es' ? 'en_IE' : 'es_ES', 'property')
     setMeta('og:image', socialImageUrl, 'property')
     setMeta('og:image:secure_url', socialImageUrl, 'property')
     setMeta('og:image:type', getImageMimeType(socialImageUrl), 'property')
