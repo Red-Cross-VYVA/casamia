@@ -103,8 +103,18 @@ assert.match(
 )
 assert.match(
   toolsPage,
+  /const nextToolSteps = \[[\s\S]*A clearer starting point[\s\S]*Evidence you can share[\s\S]*A route into action/,
+  'The free tools index must show what families can do with a tool result.',
+)
+assert.match(
+  toolsPage,
   /Not sure which one\?[\s\S]*¿No sabes cuál elegir\?[\s\S]*tools-chooser-section/,
   'The tool chooser guidance must be available in English and Spanish.',
+)
+assert.match(
+  toolsPage,
+  /After the tool[\s\S]*Después de la herramienta[\s\S]*tools-next-section/,
+  'The tools page must include bilingual next-step guidance after choosing a tool.',
 )
 assert.match(
   toolsPage,
@@ -115,6 +125,11 @@ assert.match(
   toolsPage,
   /'@graph': \[[\s\S]*'@type': 'FAQPage'[\s\S]*pageCopy\.faqItems\.map/,
   'The free tools index must publish FAQ structured data alongside the tool collection.',
+)
+assert.match(
+  toolsPage,
+  /'@type': 'HowTo'[\s\S]*#choose-a-tool[\s\S]*chooserRoutes\.map/,
+  'The free tools index must publish HowTo structured data for choosing the right tool.',
 )
 assert.match(
   toolsPage,

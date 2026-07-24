@@ -40,6 +40,8 @@ const copy = {
     chooserTitle: 'Use the tool that matches the decision you need to make.',
     chooserBody:
       'Each route is deliberately short. Start with the question closest to your situation, then CasaMia can turn the answer into a practical home plan if you want help.',
+    nextEyebrow: 'After the tool',
+    nextTitle: 'Leave with something the family can use.',
     finalTitle: 'Need help turning answers into a plan?',
     finalBody:
       'CasaMia can review the home, prioritise what matters and explain what can be done now, later or with professional support.',
@@ -85,6 +87,8 @@ const copy = {
     chooserTitle: 'Usa la herramienta que encaja con la decisión que necesitas tomar.',
     chooserBody:
       'Cada ruta es breve a propósito. Empieza por la pregunta más cercana a tu situación y CasaMia puede convertir la respuesta en un plan práctico si quieres ayuda.',
+    nextEyebrow: 'Después de la herramienta',
+    nextTitle: 'Sal con algo útil para la conversación familiar.',
     finalTitle: '¿Necesitas convertir respuestas en un plan?',
     finalBody:
       'CasaMia puede revisar la vivienda, priorizar lo importante y explicar qué hacer ahora, más adelante o con apoyo profesional.',
@@ -194,6 +198,33 @@ const chooserRoutes = [
   },
 ] as const
 
+const nextToolSteps = [
+  {
+    icon: ClipboardCheck,
+    title: { en: 'A clearer starting point', es: 'Un punto de partida claro' },
+    body: {
+      en: 'Know whether the next step is a checklist, room review, grant check or visit.',
+      es: 'Saber si toca lista, revisión por estancia, ayudas o visita.',
+    },
+  },
+  {
+    icon: Camera,
+    title: { en: 'Evidence you can share', es: 'Evidencia que puedes compartir' },
+    body: {
+      en: 'Bring photos, answers or notes into one calm family conversation.',
+      es: 'Llevar fotos, respuestas o notas a una conversación familiar tranquila.',
+    },
+  },
+  {
+    icon: ShieldCheck,
+    title: { en: 'A route into action', es: 'Una ruta hacia la acción' },
+    body: {
+      en: 'CasaMia can turn the result into priorities, scope and managed next steps.',
+      es: 'CasaMia puede convertirlo en prioridades, alcance y próximos pasos gestionados.',
+    },
+  },
+] as const
+
 export function ToolsPage() {
   const { i18n } = useTranslation()
   const language: Language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
@@ -230,6 +261,19 @@ export function ToolsPage() {
             '@type': 'Answer',
             text: item.answer,
           },
+        })),
+      },
+      {
+        '@type': 'HowTo',
+        '@id': `${siteUrl}/tools#choose-a-tool`,
+        name: pageCopy.chooserTitle,
+        description: pageCopy.chooserBody,
+        inLanguage: pageCopy.lang,
+        step: chooserRoutes.map((route, index) => ({
+          '@type': 'HowToStep',
+          position: index + 1,
+          name: route.title[language],
+          text: route.body[language],
         })),
       },
     ],
@@ -312,6 +356,31 @@ export function ToolsPage() {
                     <ArrowRight size={17} aria-hidden="true" />
                   </strong>
                 </Link>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="tools-next-section" aria-labelledby="tools-next-title">
+        <div className="site-shell tools-next-panel">
+          <div className="tools-heading">
+            <p className="eyebrow">{pageCopy.nextEyebrow}</p>
+            <h2 id="tools-next-title">{pageCopy.nextTitle}</h2>
+          </div>
+          <div className="tools-next-grid">
+            {nextToolSteps.map((step, index) => {
+              const Icon = step.icon
+
+              return (
+                <article className="tools-next-card" key={step.title.en}>
+                  <span className="tools-next-number">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="tools-next-icon">
+                    <Icon size={22} aria-hidden="true" />
+                  </span>
+                  <h3>{step.title[language]}</h3>
+                  <p>{step.body[language]}</p>
+                </article>
               )
             })}
           </div>
