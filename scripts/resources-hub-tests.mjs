@@ -7,6 +7,7 @@ const parentSafetyQuiz = await readFile(new URL('../src/pages/ParentSafetyQuizPa
 const toolsPage = await readFile(new URL('../src/pages/ToolsPage.tsx', import.meta.url), 'utf8')
 const providerPartnersPage = await readFile(new URL('../src/pages/ProviderPartnersPage.tsx', import.meta.url), 'utf8')
 const beforeAfterPage = await readFile(new URL('../src/pages/BeforeAfterPage.tsx', import.meta.url), 'utf8')
+const aboutPage = await readFile(new URL('../src/pages/AboutPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
@@ -30,6 +31,7 @@ const publicCopySources = {
   'src/pages/ToolsPage.tsx': toolsPage,
   'src/pages/ProviderPartnersPage.tsx': providerPartnersPage,
   'src/pages/BeforeAfterPage.tsx': beforeAfterPage,
+  'src/pages/AboutPage.tsx': aboutPage,
   'src/pages/NeedLandingPage.tsx': needLandingPage,
   'src/constants/blogContentLocalization.ts': blogContentLocalization,
   'src/constants/needLandingPagesLocalization.ts': needLandingLocalization,
@@ -132,6 +134,16 @@ assert.match(
   toolsPage,
   /'@type': 'HowTo'[\s\S]*#choose-a-tool[\s\S]*chooserRoutes\.map/,
   'The free tools index must publish HowTo structured data for choosing the right tool.',
+)
+assert.match(
+  aboutPage,
+  /<SEO[\s\S]*title=\{seoTitle\}[\s\S]*description=\{seoDescription\}[\s\S]*path="\/about"[\s\S]*schema=\{schema\}/,
+  'The About page must use the shared SEO component with canonical metadata.',
+)
+assert.match(
+  aboutPage,
+  /'@type': 'AboutPage'[\s\S]*\/about#page[\s\S]*'@type': 'Organization'[\s\S]*#organization[\s\S]*'@type': 'ItemList'[\s\S]*\/about#trust-signals/,
+  'The About page must publish structured data for CasaMia and visible trust signals.',
 )
 assert.match(
   toolsPage,
