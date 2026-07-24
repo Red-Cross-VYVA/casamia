@@ -47,6 +47,10 @@ const pageCopy = {
     heroPrimary: 'Get the free checklist',
     heroSecondary: 'Use the online self-check',
     heroSignals: ['No sign-up needed', 'English and Spanish', 'Clear next step in minutes'],
+    educationEyebrow: 'CasaMia education hub',
+    educationTitle: 'Learn enough to make the next decision calmly.',
+    educationBody:
+      'The best resource is the one that moves the family forward. CasaMia groups guides, tools and checklists around the real sequence families follow before committing to work.',
     downloadEyebrow: 'Free printable workbook',
     downloadTitle: 'The Complete Senior Home Conversion Checklist',
     downloadBody:
@@ -172,6 +176,10 @@ const pageCopy = {
     heroPrimary: 'Descargar la lista gratuita',
     heroSecondary: 'Usar la revisión online',
     heroSignals: ['Sin registro', 'Español e inglés', 'Siguiente paso en minutos'],
+    educationEyebrow: 'Centro de aprendizaje CasaMia',
+    educationTitle: 'Aprende lo justo para decidir el siguiente paso con calma.',
+    educationBody:
+      'El mejor recurso es el que ayuda a la familia a avanzar. CasaMia agrupa guías, herramientas y listas según la secuencia real antes de confirmar cualquier trabajo.',
     downloadEyebrow: 'Cuaderno gratuito para imprimir',
     downloadTitle: 'Lista completa para adaptar la vivienda de una persona mayor',
     downloadBody:
@@ -332,6 +340,45 @@ const toolContent = [
       es: 'Compara adaptar la vivienda con una residencia para hablar con claridad de coste, comodidad y plazos.',
     },
     to: '/tools/home-vs-residence-cost-calculator',
+  },
+] as const
+
+const educationHubSteps = [
+  {
+    icon: SearchCheck,
+    label: { en: 'Understand', es: 'Entender' },
+    title: { en: 'Start with the worry', es: 'Empieza por la preocupación' },
+    body: {
+      en: 'Falls, bathroom access, night routes, grants or a recent change at home.',
+      es: 'Caídas, acceso al baño, rutas nocturnas, ayudas o un cambio reciente en casa.',
+    },
+  },
+  {
+    icon: ClipboardCheck,
+    label: { en: 'Check', es: 'Revisar' },
+    title: { en: 'Use one practical tool', es: 'Usa una herramienta práctica' },
+    body: {
+      en: 'Checklist, room guide, cost planner, grant check or short safety quiz.',
+      es: 'Lista, guía por estancia, comparador de costes, ayudas o test breve.',
+    },
+  },
+  {
+    icon: Camera,
+    label: { en: 'Capture', es: 'Capturar' },
+    title: { en: 'Add real-home evidence', es: 'Añade evidencia real' },
+    body: {
+      en: 'Photos, notes and context make priorities easier to discuss.',
+      es: 'Fotos, notas y contexto hacen más fácil priorizar.',
+    },
+  },
+  {
+    icon: HandHeart,
+    label: { en: 'Act', es: 'Actuar' },
+    title: { en: 'Move into a managed plan', es: 'Pasa a un plan gestionado' },
+    body: {
+      en: 'CasaMia can coordinate assessment, proposal, grant support and installation.',
+      es: 'CasaMia puede coordinar evaluación, propuesta, ayudas e instalación.',
+    },
   },
 ] as const
 
@@ -865,6 +912,19 @@ export function BlogPage() {
         },
         {
           '@type': 'HowTo',
+          '@id': `${siteUrl}/blog#education-path`,
+          name: copy.educationTitle,
+          description: copy.educationBody,
+          inLanguage: copy.lang,
+          step: educationHubSteps.map((step, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: step.title[language],
+            text: step.body[language],
+          })),
+        },
+        {
+          '@type': 'HowTo',
           '@id': `${siteUrl}/blog#family-starter`,
           name: copy.familyStarterTitle,
           description: copy.familyStarterBody,
@@ -895,6 +955,7 @@ export function BlogPage() {
           name: language === 'es' ? 'Herramientas y guías de seguridad en el hogar' : 'Senior home safety tools and guides',
           numberOfItems:
             toolContent.length
+            + educationHubSteps.length
             + resourceJourneys.length
             + topicRoutes.length
             + printableMaterials.length
@@ -915,33 +976,39 @@ export function BlogPage() {
               name: tool.title[language],
               url: `${siteUrl}${tool.to}`,
             })),
-            ...resourceJourneys.map((journey, index) => ({
+            ...educationHubSteps.map((step, index) => ({
               '@type': 'ListItem',
               position: toolContent.length + index + 2,
+              name: step.title[language],
+              url: `${siteUrl}/blog#education-path`,
+            })),
+            ...resourceJourneys.map((journey, index) => ({
+              '@type': 'ListItem',
+              position: toolContent.length + educationHubSteps.length + index + 2,
               name: journey.title[language],
               url: `${siteUrl}${journey.download && language === 'es' ? completeHomeChecklistDownloads.es.href : journey.to}`,
             })),
             ...topicRoutes.map((topic, index) => ({
               '@type': 'ListItem',
-              position: toolContent.length + resourceJourneys.length + index + 2,
+              position: toolContent.length + educationHubSteps.length + resourceJourneys.length + index + 2,
               name: topic.title[language],
               url: `${siteUrl}${topic.to}`,
             })),
             ...printableMaterials.map((material, index) => ({
               '@type': 'ListItem',
-              position: toolContent.length + resourceJourneys.length + topicRoutes.length + index + 2,
+              position: toolContent.length + educationHubSteps.length + resourceJourneys.length + topicRoutes.length + index + 2,
               name: material.title[language],
               url: `${siteUrl}${material.getHref(language)}`,
             })),
             ...decisionPathways.map((pathway, index) => ({
               '@type': 'ListItem',
-              position: toolContent.length + resourceJourneys.length + topicRoutes.length + printableMaterials.length + index + 2,
+              position: toolContent.length + educationHubSteps.length + resourceJourneys.length + topicRoutes.length + printableMaterials.length + index + 2,
               name: pathway.title[language],
               url: `${siteUrl}${pathway.actions[0].to}`,
             })),
             ...decisionGuidePages.map((guide, index) => ({
               '@type': 'ListItem',
-              position: toolContent.length + resourceJourneys.length + topicRoutes.length + printableMaterials.length + decisionPathways.length + index + 2,
+              position: toolContent.length + educationHubSteps.length + resourceJourneys.length + topicRoutes.length + printableMaterials.length + decisionPathways.length + index + 2,
               name: guide.title,
               url: `${siteUrl}${guide.path}`,
             })),
@@ -949,6 +1016,7 @@ export function BlogPage() {
               '@type': 'ListItem',
               position:
                 toolContent.length
+                + educationHubSteps.length
                 + resourceJourneys.length
                 + topicRoutes.length
                 + printableMaterials.length
@@ -1026,6 +1094,38 @@ export function BlogPage() {
                 loading="eager"
                 decoding="async"
               />
+            </div>
+          </div>
+        </section>
+
+        <section className="resource-education-section" id="education-path" aria-labelledby="resource-education-title">
+          <div className="site-shell">
+            <div className="resource-education-panel">
+              <div className="resource-education-copy">
+                <p className="eyebrow">{copy.educationEyebrow}</p>
+                <h2 id="resource-education-title">{copy.educationTitle}</h2>
+                <p>{copy.educationBody}</p>
+              </div>
+
+              <div className="resource-education-steps" aria-label={language === 'es' ? 'Ruta de aprendizaje CasaMia' : 'CasaMia learning path'}>
+                {educationHubSteps.map((step, index) => {
+                  const Icon = step.icon
+
+                  return (
+                    <article className="resource-education-step" key={step.title.en}>
+                      <span className="resource-education-step-number">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="resource-education-step-icon">
+                        <Icon size={22} aria-hidden="true" />
+                      </span>
+                      <div>
+                        <p>{step.label[language]}</p>
+                        <h3>{step.title[language]}</h3>
+                        <span>{step.body[language]}</span>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </section>

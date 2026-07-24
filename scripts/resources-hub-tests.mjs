@@ -203,6 +203,21 @@ assert.match(
 )
 assert.match(
   page,
+  /const educationHubSteps = \[[\s\S]*Start with the worry[\s\S]*Use one practical tool[\s\S]*Add real-home evidence[\s\S]*Move into a managed plan/,
+  'The Resources hub must include a clear education path from learning to managed CasaMia action.',
+)
+assert.match(
+  page,
+  /CasaMia education hub[\s\S]*Centro de aprendizaje CasaMia[\s\S]*#education-path[\s\S]*resource-education-section/,
+  'The Resources education hub must be visible, bilingual and anchorable.',
+)
+assert.match(
+  page,
+  /#education-path[\s\S]*educationHubSteps\.map/,
+  'The Resources education path must publish HowTo structured data.',
+)
+assert.match(
+  page,
   /From reading to action[\s\S]*De la lectura a la acción[\s\S]*resource-action-route-section[\s\S]*home-safety-assessment#self-inspection-tool/,
   'The Resources action route must be bilingual and guide users into the practical home safety review.',
 )
@@ -340,6 +355,11 @@ assert.match(
   styles,
   /\.resource-journey-section[\s\S]*\.resource-journey-card/,
   'The Resources journeys must have dedicated styling.',
+)
+assert.match(
+  styles,
+  /\.resource-education-section[\s\S]*\.resource-education-panel[\s\S]*\.resource-education-step/,
+  'The Resources education path must have dedicated visual styling.',
 )
 assert.match(
   styles,
