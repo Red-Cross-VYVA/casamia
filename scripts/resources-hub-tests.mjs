@@ -80,6 +80,16 @@ assert.match(
   'The free tools index must be exposed as a public route.',
 )
 assert.match(
+  app,
+  /\/home-safety-wizard" element=\{<HomeSafetyWizardPage \/>\}/,
+  'The standalone home safety wizard must be exposed as a public route.',
+)
+assert.match(
+  sitemap,
+  /https:\/\/casamia\.com\.es\/home-safety-wizard/,
+  'The standalone home safety wizard must be listed in the sitemap.',
+)
+assert.match(
   costToolPage,
   /Compare adapting the home with moving to a residence[\s\S]*Compara adaptar la vivienda con mudarse a una residencia/,
   'The cost comparison tool must support English and Spanish decision framing.',
