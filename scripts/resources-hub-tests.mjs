@@ -475,6 +475,11 @@ assert.match(
   'The Resources menu must give direct access to high-intent room and need pages.',
 )
 assert.match(
+  nav,
+  /Decision support[\s\S]*\/tools\/home-vs-residence-cost-calculator[\s\S]*\/home-adaptations-vs-assisted-living[\s\S]*\/home-safety-assessment-vs-general-contractor[\s\S]*\/smart-home-safety-vs-monitoring/,
+  'The Resources menu must expose decision tools and comparison pages directly.',
+)
+assert.match(
   providerPartnersPage,
   /<SEO title=\{copy\.title\} description=\{copy\.metaDescription\} path="\/provider-partners" schema=\{schema\} \/>/,
   'The provider partners page must use the shared SEO component.',
@@ -496,8 +501,8 @@ assert.match(
 )
 assert.match(
   nav,
-  /Free tools[\s\S]*to: '\/tools'[\s\S]*Home or residence[\s\S]*when-home-adaptations-are-not-enough/,
-  'The Resources navigation must expose free tools and home-vs-residence decision support.',
+  /Free tools[\s\S]*to: '\/tools'[\s\S]*Compare home vs residence[\s\S]*\/tools\/home-vs-residence-cost-calculator[\s\S]*Adapt or consider assisted living[\s\S]*\/home-adaptations-vs-assisted-living/,
+  'The Resources navigation must expose free tools plus direct home-vs-residence decision support.',
 )
 assert.match(
   nav,

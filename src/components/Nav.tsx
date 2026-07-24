@@ -125,24 +125,32 @@ export function Nav() {
       title: isSpanish ? 'Decidir con calma' : 'Decision support',
       links: [
         {
-          label: isSpanish ? 'Ayudas y documentación' : 'Grants and paperwork',
-          to: '/blog/home-adaptation-grants-spain-family-guide',
+          label: isSpanish ? 'Comparar casa o residencia' : 'Compare home vs residence',
+          to: '/tools/home-vs-residence-cost-calculator',
         },
         {
-          label: isSpanish ? 'Elegir proveedor' : 'Choosing a provider',
-          to: '/blog/choose-home-safety-provider-spain',
+          label: isSpanish ? 'Adaptar casa o mudarse' : 'Adapt or consider assisted living',
+          to: '/home-adaptations-vs-assisted-living',
+        },
+        {
+          label: isSpanish ? 'Evaluación o contratista' : 'Assessment or contractor',
+          to: '/home-safety-assessment-vs-general-contractor',
+        },
+        {
+          label: isSpanish ? 'Tecnología o monitorización' : 'Smart safety or monitoring',
+          to: '/smart-home-safety-vs-monitoring',
+        },
+        {
+          label: isSpanish ? 'Ayudas y documentación' : 'Grants and paperwork',
+          to: '/blog/home-adaptation-grants-spain-family-guide',
         },
         {
           label: isSpanish ? 'Antes de la visita' : 'Before the visit',
           to: '/blog/family-conversation-before-home-safety-visit',
         },
         {
-          label: isSpanish ? 'Casa o residencia' : 'Home or residence',
-          to: '/blog/when-home-adaptations-are-not-enough',
-        },
-        {
-          label: isSpanish ? 'Tecnología sin complicar' : 'Simple connected safety',
-          to: '/blog/smart-home-safety-without-overcomplicating',
+          label: isSpanish ? 'Elegir proveedor' : 'Choosing a provider',
+          to: '/blog/choose-home-safety-provider-spain',
         },
       ],
     },
