@@ -5,6 +5,7 @@ const page = await readFile(new URL('../src/pages/BlogPage.tsx', import.meta.url
 const costToolPage = await readFile(new URL('../src/pages/HomeVsResidenceCostPage.tsx', import.meta.url), 'utf8')
 const parentSafetyQuiz = await readFile(new URL('../src/pages/ParentSafetyQuizPage.tsx', import.meta.url), 'utf8')
 const toolsPage = await readFile(new URL('../src/pages/ToolsPage.tsx', import.meta.url), 'utf8')
+const homeSafetyWizardPage = await readFile(new URL('../src/pages/HomeSafetyWizardPage.tsx', import.meta.url), 'utf8')
 const providerPartnersPage = await readFile(new URL('../src/pages/ProviderPartnersPage.tsx', import.meta.url), 'utf8')
 const beforeAfterPage = await readFile(new URL('../src/pages/BeforeAfterPage.tsx', import.meta.url), 'utf8')
 const aboutPage = await readFile(new URL('../src/pages/AboutPage.tsx', import.meta.url), 'utf8')
@@ -23,6 +24,17 @@ const styles = await readFile(new URL('../src/styles/resources-hub.css', import.
 const needLandingStyles = await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8')
 const linkChecks = await readFile(new URL('../scripts/link-checks.mjs', import.meta.url), 'utf8')
 const legalLaunchChecks = await readFile(new URL('../scripts/legal-launch-checks.mjs', import.meta.url), 'utf8')
+
+assert.match(
+  homeSafetyWizardPage,
+  /<SEO[\s\S]*title=\{title\}[\s\S]*description=\{description\}[\s\S]*path="\/home-safety-wizard"[\s\S]*schema=\{schema\}/,
+  'The standalone home safety wizard must publish shared SEO metadata.',
+)
+assert.match(
+  homeSafetyWizardPage,
+  /'@type': 'WebApplication'[\s\S]*\/home-safety-wizard#tool[\s\S]*'@type': 'HowTo'[\s\S]*\/home-safety-wizard#guided-plan-flow/,
+  'The standalone home safety wizard must publish structured data for the free tool and guided flow.',
+)
 
 const publicCopySources = {
   'src/components/Footer.tsx': footer,
