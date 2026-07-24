@@ -521,7 +521,7 @@ assert.match(
 )
 assert.match(
   seo,
-  /setMeta\('og:site_name', 'CasaMia'[\s\S]*setMeta\('og:image:secure_url'[\s\S]*setMeta\('og:image:width'[\s\S]*setMeta\('og:image:height'/,
+  /setMeta\('og:site_name', 'CasaMia'[\s\S]*setMeta\('og:image:secure_url'[\s\S]*setMeta\('og:image:width'[\s\S]*setMeta\('og:image:height'[\s\S]*setMeta\('twitter:image:alt', fullTitle\)/,
   'The shared SEO component must publish complete social preview metadata.',
 )
 assert.match(

@@ -55,6 +55,7 @@ export function SEO({
     setMeta('twitter:title', fullTitle)
     setMeta('twitter:description', description)
     setMeta('twitter:image', socialImageUrl)
+    setMeta('twitter:image:alt', fullTitle)
     setCanonical(canonicalUrl)
     setSchema(buildSchemas(siteUrl, language, schema))
   }, [description, i18n.language, image, noindex, path, schema, title])
