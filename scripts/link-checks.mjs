@@ -100,6 +100,37 @@ for (const match of sitemap.matchAll(/<loc>https:\/\/casamia\.com\.es([^<]*)<\/l
   }
 }
 
+const sitemapPaths = new Set(
+  [...sitemap.matchAll(/<loc>https:\/\/casamia\.com\.es([^<]*)<\/loc>/g)].map((match) => match[1] || '/'),
+)
+
+const sitemapSourceChecks = [
+  {
+    file: path.join(srcRoot, 'constants', 'needLandingPages.ts'),
+    label: 'need landing page',
+    pattern: /\bpath:\s*'([^']+)'/g,
+  },
+  {
+    file: path.join(srcRoot, 'constants', 'blogContent.ts'),
+    label: 'blog article',
+    pattern: /\bpath:\s*'([^']+)'/g,
+  },
+]
+
+for (const check of sitemapSourceChecks) {
+  const source = fs.readFileSync(check.file, 'utf8')
+  const relativeFile = path.relative(projectRoot, check.file)
+
+  for (const match of source.matchAll(check.pattern)) {
+    const pathname = match[1]
+
+    if (!pathname.startsWith('/')) continue
+    if (!sitemapPaths.has(pathname)) {
+      failures.push(`public/sitemap.xml: missing ${check.label} path ${pathname} from ${relativeFile}`)
+    }
+  }
+}
+
 if (failures.length > 0) {
   console.error(failures.join('\n'))
   process.exit(1)

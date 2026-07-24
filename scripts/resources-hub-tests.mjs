@@ -449,6 +449,11 @@ assert.match(
   'The public sitemap must include the home-vs-residence decision guide.',
 )
 assert.match(
+  linkChecks,
+  /sitemapSourceChecks[\s\S]*needLandingPages\.ts[\s\S]*blogContent\.ts[\s\S]*missing \$\{check\.label\} path/,
+  'Link checks must guard that need landing pages and blog articles stay included in the public sitemap.',
+)
+assert.match(
   footer,
   /resourcesTitle: 'Recursos útiles'[\s\S]*Lista para imprimir[\s\S]*Guía de prevención de caídas/,
   'The global footer Resources links must include Spanish copy.',
