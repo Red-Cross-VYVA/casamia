@@ -299,8 +299,8 @@ const resourceJourneys = [
       en: ['Check the urgent routes', 'Collect photos or notes', 'Decide what needs review first'],
       es: ['Revisa las rutas urgentes', 'Reúne fotos o notas', 'Decide qué revisar primero'],
     },
-    to: '/home-safety-assessment',
-    cta: { en: 'Start a safety review', es: 'Iniciar revisión' },
+    to: '/blog/hospital-discharge-home-safety-checklist',
+    cta: { en: 'Use discharge checklist', es: 'Usar lista del alta' },
     download: false,
   },
   {
@@ -456,7 +456,7 @@ const familyMoments = [
       en: 'Prioritise entry, bathroom, bedroom routes and the first week back home.',
       es: 'Prioriza entrada, baño, rutas del dormitorio y la primera semana en casa.',
     },
-    to: '/home-safety-assessment',
+    to: '/blog/hospital-discharge-home-safety-checklist',
   },
   {
     icon: HandHeart,
@@ -522,6 +522,7 @@ const guideGroups = [
     articleIds: [
       'kitchen-safety-aging-in-place',
       'dementia-friendly-home-safety',
+      'hospital-discharge-home-safety-checklist',
       'smart-home-safety-without-overcomplicating',
       'emergency-plan-aging-parents-home',
     ],

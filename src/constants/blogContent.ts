@@ -700,6 +700,73 @@ export const blogArticles: BlogArticle[] = [
     },
   },
   {
+    id: 'hospital-discharge-home-safety-checklist',
+    path: '/blog/hospital-discharge-home-safety-checklist',
+    title: 'Hospital Discharge Home Safety Checklist',
+    description:
+      'A practical home safety checklist for families preparing an older adult to return home after hospital discharge, surgery or a mobility change.',
+    category: 'After hospital discharge',
+    readTime: '8 min read',
+    date: '2026-07-24',
+    image: '/images/blog/emergency-plan-home.webp',
+    imageAlt: 'Family preparing the home before an older adult returns from hospital',
+    keywords: ['hospital discharge home safety', 'senior home safety after hospital', 'home checklist after surgery'],
+    intro:
+      'The first days after hospital discharge are often when small home barriers become big problems. Use this checklist to focus on the safest route home, the bedroom, the bathroom, medication, help and the first week of daily routines.',
+    takeaways: [
+      'Prepare entry, bed, bathroom and night routes before the person returns home.',
+      'Confirm who helps, how help is requested and what should happen if the first plan fails.',
+      'Separate urgent safety actions from works that can wait for a measured proposal.',
+    ],
+    sections: [
+      {
+        title: 'Confirm the first route home',
+        body: [
+          'Before discharge, walk the route from building entrance to the main resting place. Look for steps, thresholds, narrow turns, loose mats, poor lighting and places where the person may need to pause.',
+          'If stairs, lifts, parking or building access are uncertain, plan the arrival with the person who will bring them home rather than improvising at the door.',
+        ],
+      },
+      {
+        title: 'Make the bedroom and bathroom work first',
+        body: [
+          'The priority rooms are usually the bedroom and bathroom. Check bed height, transfer space, night lighting, toilet access, shower/bath access and whether support points are available exactly where movement happens.',
+          'Do not wait for a perfect long-term plan before solving urgent risks such as unclear night routes, wet floors, unsupported toilet transfers or hard-to-reach help.',
+        ],
+      },
+      {
+        title: 'Agree the first-week support plan',
+        body: [
+          'Write down who visits, who calls, how medication is checked, who handles follow-up appointments and what happens if pain, dizziness, confusion or mobility becomes worse.',
+          'CasaMia can help turn this into a practical home safety route: remote review, expert visit, urgent works, proposal, grant-readiness notes or staged installation.',
+        ],
+      },
+    ],
+    checklist: [
+      'Can the person enter the home safely on the discharge day?',
+      'Is the bed easy to reach, sit on and get out of?',
+      'Can the person reach the toilet and bathroom safely at night?',
+      'Are medication, discharge notes and emergency contacts easy to find?',
+      'Who checks in during the first 24 hours, first three days and first week?',
+      'What urgent works need review before larger adaptations are planned?',
+    ],
+    faqs: [
+      {
+        question: 'What should be prepared before an older adult returns home from hospital?',
+        answer:
+          'Start with entry access, bedroom transfers, bathroom and toilet use, night lighting, medication notes, emergency contacts and who will help during the first week.',
+      },
+      {
+        question: 'Should families adapt the whole home before discharge?',
+        answer:
+          'Usually no. Focus first on the route home, sleeping, toileting, washing and asking for help. Larger works can be measured and planned after the urgent risks are understood.',
+      },
+    ],
+    cta: {
+      label: 'Start a discharge safety review',
+      to: '/home-safety-after-hospital-discharge',
+    },
+  },
+  {
     id: 'emergency-plan-aging-parents-home',
     path: '/blog/emergency-plan-aging-parents-home',
     title: 'Emergency Planning for Aging Parents Living at Home',

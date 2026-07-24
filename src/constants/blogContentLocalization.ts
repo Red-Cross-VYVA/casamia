@@ -619,6 +619,66 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     ],
     cta: { label: 'Crear plan de seguridad', to: '/home-safety-wizard' },
   },
+  'hospital-discharge-home-safety-checklist': {
+    title: 'Lista de seguridad en casa tras el alta hospitalaria',
+    description:
+      'Una guía práctica para preparar la vivienda antes de que una persona mayor vuelva a casa tras un ingreso, cirugía o cambio de movilidad.',
+    category: 'Tras el alta hospitalaria',
+    readTime: '8 min de lectura',
+    imageAlt: 'Familia preparando la vivienda antes de la vuelta a casa tras el hospital',
+    keywords: ['alta hospitalaria seguridad en casa', 'vuelta a casa persona mayor', 'lista seguridad tras cirugía'],
+    intro:
+      'Los primeros días después del alta son el momento en que pequeños obstáculos de la vivienda pueden convertirse en problemas importantes. Usa esta lista para revisar entrada, dormitorio, baño, medicación, ayuda y rutinas de la primera semana.',
+    takeaways: [
+      'Prepara entrada, cama, baño y rutas nocturnas antes de la vuelta a casa.',
+      'Aclara quién ayuda, cómo se pide ayuda y qué ocurre si el primer plan falla.',
+      'Separa acciones urgentes de seguridad de obras que pueden esperar una propuesta medida.',
+    ],
+    sections: [
+      {
+        title: 'Confirma la primera ruta de vuelta',
+        body: [
+          'Antes del alta, recorre el camino desde la entrada del edificio hasta el lugar principal de descanso. Observa escalones, umbrales, giros estrechos, alfombras sueltas, mala iluminación y puntos donde la persona puede necesitar parar.',
+          'Si hay dudas con escaleras, ascensor, aparcamiento o acceso al edificio, planifica la llegada con quien acompañará a la persona en vez de improvisar en la puerta.',
+        ],
+      },
+      {
+        title: 'Haz que dormitorio y baño funcionen primero',
+        body: [
+          'Las estancias prioritarias suelen ser dormitorio y baño. Revisa altura de cama, espacio para transferencias, iluminación nocturna, acceso al inodoro, ducha o bañera y puntos de apoyo donde realmente se mueve la persona.',
+          'No esperes a tener un plan perfecto para resolver riesgos urgentes: ruta nocturna poco clara, suelo mojado, transferencias sin apoyo o ayuda difícil de alcanzar.',
+        ],
+      },
+      {
+        title: 'Acordad el apoyo de la primera semana',
+        body: [
+          'Anota quién visita, quién llama, cómo se revisa la medicación, quién gestiona citas de seguimiento y qué hacer si aumentan dolor, mareos, confusión o dificultad para moverse.',
+          'CasaMia puede convertirlo en una ruta práctica: revisión remota, visita experta, trabajos urgentes, propuesta, notas para ayudas o instalación por fases.',
+        ],
+      },
+    ],
+    checklist: [
+      '¿Puede entrar en casa de forma segura el día del alta?',
+      '¿La cama es fácil de alcanzar, sentarse y levantarse?',
+      '¿Puede llegar al baño y al inodoro de noche con seguridad?',
+      '¿Medicación, informe de alta y contactos están fáciles de encontrar?',
+      '¿Quién revisa la situación en 24 horas, tres días y una semana?',
+      '¿Qué trabajos urgentes conviene revisar antes de planificar obras mayores?',
+    ],
+    faqs: [
+      {
+        question: '¿Qué preparar antes de que una persona mayor vuelva del hospital?',
+        answer:
+          'Empieza por entrada, transferencias de cama, baño e inodoro, iluminación nocturna, notas de medicación, contactos de emergencia y apoyo de la primera semana.',
+      },
+      {
+        question: '¿Hay que adaptar toda la vivienda antes del alta?',
+        answer:
+          'Normalmente no. Primero hay que asegurar entrada, dormir, ir al baño, asearse y pedir ayuda. Las obras mayores pueden medirse y planificarse después.',
+      },
+    ],
+    cta: { label: 'Empezar revisión de vuelta a casa', to: '/home-safety-after-hospital-discharge' },
+  },
   'emergency-plan-aging-parents-home': {
     title: 'Plan de emergencia para padres mayores que viven en casa',
     description:

@@ -58,13 +58,23 @@ assert.match(
   'The Resources catalogue must include a practical family conversation and visit-prep guide.',
 )
 assert.match(
+  await readFile(new URL('../src/constants/blogContent.ts', import.meta.url), 'utf8'),
+  /hospital-discharge-home-safety-checklist[\s\S]*Hospital Discharge Home Safety Checklist[\s\S]*Start a discharge safety review/,
+  'The Resources catalogue must include a practical hospital-discharge checklist guide.',
+)
+assert.match(
   await readFile(new URL('../src/constants/blogContentLocalization.ts', import.meta.url), 'utf8'),
   /family-conversation-before-home-safety-visit[\s\S]*Antes de una visita de seguridad[\s\S]*Empezar revisión guiada/,
   'The practical family conversation guide must include Spanish localisation.',
 )
 assert.match(
+  await readFile(new URL('../src/constants/blogContentLocalization.ts', import.meta.url), 'utf8'),
+  /hospital-discharge-home-safety-checklist[\s\S]*Lista de seguridad en casa tras el alta hospitalaria[\s\S]*Empezar revisión de vuelta a casa/,
+  'The hospital-discharge checklist guide must include Spanish localisation.',
+)
+assert.match(
   page,
-  /Something changed recently[\s\S]*One room is creating worry[\s\S]*The family needs a plan/,
+  /Something changed recently[\s\S]*hospital-discharge-home-safety-checklist[\s\S]*One room is creating worry[\s\S]*The family needs a plan/,
   'The Resources hub must route users by real-life situation, not only by article type.',
 )
 assert.match(
@@ -166,6 +176,11 @@ assert.match(
   sitemap,
   /https:\/\/casamia\.com\.es\/blog\/family-conversation-before-home-safety-visit/,
   'The public sitemap must include the family conversation resource guide.',
+)
+assert.match(
+  sitemap,
+  /https:\/\/casamia\.com\.es\/blog\/hospital-discharge-home-safety-checklist/,
+  'The public sitemap must include the hospital-discharge checklist guide.',
 )
 assert.match(
   footer,
