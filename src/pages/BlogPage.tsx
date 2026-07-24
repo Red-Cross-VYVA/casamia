@@ -75,6 +75,10 @@ const pageCopy = {
     journeyTitle: 'Choose the situation that sounds closest.',
     journeyBody:
       'A safer home usually starts with one pressure point: a recent change, a worrying room, or a family decision that needs structure.',
+    topicsEyebrow: 'Explore by safety topic',
+    topicsTitle: 'Go straight to the area you are trying to understand.',
+    topicsBody:
+      'These topic pages bring together the practical guidance, tools and CasaMia routes around one family question.',
     pathwaysEyebrow: 'Choose the closest situation',
     pathwaysTitle: 'Practical help by decision, not by article title.',
     pathwaysBody:
@@ -181,6 +185,10 @@ const pageCopy = {
     journeyTitle: 'Elige la situación que más se parece.',
     journeyBody:
       'Un hogar más seguro suele empezar por un punto de presión: un cambio reciente, una estancia que preocupa o una decisión familiar que necesita orden.',
+    topicsEyebrow: 'Explora por tema de seguridad',
+    topicsTitle: 'Ve directamente al área que quieres entender.',
+    topicsBody:
+      'Estas páginas reúnen guías, herramientas y rutas CasaMia alrededor de una pregunta familiar concreta.',
     pathwaysEyebrow: 'Elige la situación más cercana',
     pathwaysTitle: 'Ayuda práctica por decisión, no por título de artículo.',
     pathwaysBody:
@@ -342,6 +350,69 @@ const resourceJourneys = [
     to: completeHomeChecklistDownloads.en.href,
     cta: { en: 'Download checklist', es: 'Descargar lista' },
     download: true,
+  },
+] as const
+
+const topicRoutes = [
+  {
+    icon: ShieldCheck,
+    to: '/fall-prevention-at-home',
+    title: { en: 'Fall prevention at home', es: 'Prevención de caídas en casa' },
+    body: {
+      en: 'Understand the rooms, routes and routines that usually create the highest fall risk.',
+      es: 'Entiende las estancias, rutas y rutinas que suelen concentrar mayor riesgo de caída.',
+    },
+    pill: { en: 'Whole-home safety', es: 'Seguridad global' },
+  },
+  {
+    icon: Bath,
+    to: '/bathroom-safety-for-seniors',
+    title: { en: 'Bathroom safety', es: 'Seguridad en el baño' },
+    body: {
+      en: 'Focus on bathing, toilet transfers, lighting, water controls and safer access.',
+      es: 'Céntrate en ducha, inodoro, iluminación, controles de agua y acceso más seguro.',
+    },
+    pill: { en: 'Highest-risk room', es: 'Estancia crítica' },
+  },
+  {
+    icon: MoonStar,
+    to: '/senior-bedroom-safety',
+    title: { en: 'Bedroom and night routes', es: 'Dormitorio y ruta nocturna' },
+    body: {
+      en: 'Make bed transfers, night lighting and the route to the bathroom easier to manage.',
+      es: 'Mejora transferencias de cama, luz nocturna y la ruta hacia el baño.',
+    },
+    pill: { en: 'Night confidence', es: 'Confianza nocturna' },
+  },
+  {
+    icon: Home,
+    to: '/aging-in-place-home-assessment',
+    title: { en: 'Home assessment', es: 'Evaluación del hogar' },
+    body: {
+      en: 'See when a guided review helps turn scattered worries into a clear action plan.',
+      es: 'Comprueba cuándo una revisión guiada convierte preocupaciones sueltas en un plan claro.',
+    },
+    pill: { en: 'Professional route', es: 'Ruta profesional' },
+  },
+  {
+    icon: FileCheck2,
+    to: '/grants-for-home-adaptations-spain',
+    title: { en: 'Grants and paperwork', es: 'Ayudas y documentación' },
+    body: {
+      en: 'Prepare the location, documents and scope questions before relying on funding.',
+      es: 'Prepara ubicación, documentos y alcance antes de contar con financiación.',
+    },
+    pill: { en: 'Funding readiness', es: 'Preparación ayudas' },
+  },
+  {
+    icon: HandHeart,
+    to: '/home-adaptations-for-elderly',
+    title: { en: 'Home adaptations', es: 'Adaptaciones del hogar' },
+    body: {
+      en: 'Learn how practical changes can preserve comfort, independence and dignity.',
+      es: 'Aprende cómo los cambios prácticos preservan comodidad, autonomía y dignidad.',
+    },
+    pill: { en: 'Turnkey support', es: 'Servicio integral' },
   },
 ] as const
 
@@ -650,6 +721,7 @@ export function BlogPage() {
           numberOfItems:
             toolContent.length
             + resourceJourneys.length
+            + topicRoutes.length
             + printableMaterials.length
             + decisionPathways.length
             + decisionGuidePages.length
@@ -674,21 +746,27 @@ export function BlogPage() {
               name: journey.title[language],
               url: `${siteUrl}${journey.download && language === 'es' ? completeHomeChecklistDownloads.es.href : journey.to}`,
             })),
-            ...printableMaterials.map((material, index) => ({
+            ...topicRoutes.map((topic, index) => ({
               '@type': 'ListItem',
               position: toolContent.length + resourceJourneys.length + index + 2,
+              name: topic.title[language],
+              url: `${siteUrl}${topic.to}`,
+            })),
+            ...printableMaterials.map((material, index) => ({
+              '@type': 'ListItem',
+              position: toolContent.length + resourceJourneys.length + topicRoutes.length + index + 2,
               name: material.title[language],
               url: `${siteUrl}${material.getHref(language)}`,
             })),
             ...decisionPathways.map((pathway, index) => ({
               '@type': 'ListItem',
-              position: toolContent.length + resourceJourneys.length + printableMaterials.length + index + 2,
+              position: toolContent.length + resourceJourneys.length + topicRoutes.length + printableMaterials.length + index + 2,
               name: pathway.title[language],
               url: `${siteUrl}${pathway.actions[0].to}`,
             })),
             ...decisionGuidePages.map((guide, index) => ({
               '@type': 'ListItem',
-              position: toolContent.length + resourceJourneys.length + printableMaterials.length + decisionPathways.length + index + 2,
+              position: toolContent.length + resourceJourneys.length + topicRoutes.length + printableMaterials.length + decisionPathways.length + index + 2,
               name: guide.title,
               url: `${siteUrl}${guide.path}`,
             })),
@@ -697,6 +775,7 @@ export function BlogPage() {
               position:
                 toolContent.length
                 + resourceJourneys.length
+                + topicRoutes.length
                 + printableMaterials.length
                 + decisionPathways.length
                 + decisionGuidePages.length
@@ -837,6 +916,37 @@ export function BlogPage() {
                       <ArrowRight size={17} aria-hidden="true" />
                     </strong>
                   </a>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="resource-topics-section" aria-labelledby="resource-topics-title">
+          <div className="site-shell">
+            <div className="resource-hub-heading resource-hub-heading-wide">
+              <p className="eyebrow">{copy.topicsEyebrow}</p>
+              <h2 id="resource-topics-title">{copy.topicsTitle}</h2>
+              <p>{copy.topicsBody}</p>
+            </div>
+
+            <div className="resource-topic-grid">
+              {topicRoutes.map((topic) => {
+                const Icon = topic.icon
+
+                return (
+                  <Link className="resource-topic-card" key={topic.to} to={topic.to}>
+                    <span className="resource-topic-icon">
+                      <Icon size={22} aria-hidden="true" />
+                    </span>
+                    <span className="resource-topic-pill">{topic.pill[language]}</span>
+                    <h3>{topic.title[language]}</h3>
+                    <p>{topic.body[language]}</p>
+                    <strong>
+                      {language === 'es' ? 'Ver tema' : 'Explore topic'}
+                      <ArrowRight size={17} aria-hidden="true" />
+                    </strong>
+                  </Link>
                 )
               })}
             </div>

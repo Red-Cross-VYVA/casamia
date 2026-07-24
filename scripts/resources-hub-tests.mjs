@@ -146,6 +146,21 @@ assert.match(
 )
 assert.match(
   page,
+  /const topicRoutes = \[[\s\S]*fall-prevention-at-home[\s\S]*bathroom-safety-for-seniors[\s\S]*senior-bedroom-safety[\s\S]*grants-for-home-adaptations-spain/,
+  'The Resources hub must expose SEO topic routes for major senior home safety needs.',
+)
+assert.match(
+  page,
+  /Explore by safety topic[\s\S]*Explora por tema de seguridad[\s\S]*resource-topics-section/,
+  'The topic route section must be available in English and Spanish.',
+)
+assert.match(
+  page,
+  /topicRoutes\.length[\s\S]*topicRoutes\.map\(\(topic, index\)/,
+  'The Resources structured ItemList must include the topic routes.',
+)
+assert.match(
+  page,
   /'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map/,
   'The Resources hub must publish FAQ structured data.',
 )
@@ -178,6 +193,11 @@ assert.match(
   styles,
   /\.resource-journey-section[\s\S]*\.resource-journey-card/,
   'The Resources journeys must have dedicated styling.',
+)
+assert.match(
+  styles,
+  /\.resource-topics-section[\s\S]*\.resource-topic-grid[\s\S]*\.resource-topic-card/,
+  'The Resources topic route section must have dedicated visual styling.',
 )
 assert.match(
   styles,

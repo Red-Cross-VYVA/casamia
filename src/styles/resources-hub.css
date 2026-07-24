@@ -330,6 +330,7 @@
 
 .resource-tools-section,
 .resource-journey-section,
+.resource-topics-section,
 .resource-family-starter-section,
 .resource-pathways-section,
 .resource-comparison-section,
@@ -348,6 +349,94 @@
   background:
     radial-gradient(circle at 8% 8%, rgba(139, 207, 69, 0.13), transparent 22rem),
     linear-gradient(180deg, #ffffff 0%, #f7fcff 100%);
+}
+
+.resource-topics-section {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(58, 159, 212, 0.16), transparent 24rem),
+    linear-gradient(180deg, #f7fcff 0%, #ffffff 100%);
+}
+
+.resource-topic-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: clamp(30px, 4.5vw, 48px);
+}
+
+.resource-topic-card {
+  position: relative;
+  display: grid;
+  min-height: 100%;
+  overflow: hidden;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 16px;
+  align-items: start;
+  border: 1px solid rgba(200, 220, 232, 0.92);
+  border-radius: 19px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(139, 207, 69, 0.14), transparent 32%),
+    #ffffff;
+  padding: clamp(22px, 3vw, 28px);
+  color: inherit;
+  box-shadow: 0 18px 48px rgba(13, 30, 46, 0.07);
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resource-topic-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(58, 159, 212, 0.5);
+  box-shadow: 0 28px 62px rgba(13, 30, 46, 0.12);
+}
+
+.resource-topic-icon {
+  display: inline-grid;
+  width: 54px;
+  height: 54px;
+  grid-row: 1 / span 4;
+  place-items: center;
+  border-radius: 16px;
+  background: #eaf6fc;
+  color: var(--navy);
+}
+
+.resource-topic-pill {
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(139, 207, 69, 0.15);
+  padding: 7px 11px;
+  color: #4f8f24;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.resource-topic-card h3 {
+  margin: 13px 0 0;
+  color: var(--text-dark);
+  font-size: 22px;
+  font-weight: 950;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+}
+
+.resource-topic-card p {
+  margin: 10px 0 0;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+.resource-topic-card strong {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 7px;
+  margin-top: 18px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 950;
 }
 
 .resource-journey-grid {
@@ -1262,6 +1351,7 @@
 @media (min-width: 800px) {
   .resource-tool-grid,
   .resource-journey-grid,
+  .resource-topic-grid,
   .resource-family-prompt-grid,
   .resource-pathway-grid,
   .resource-comparison-grid,
@@ -1341,6 +1431,7 @@
   .resource-quick-panel,
   .resource-tool-card,
   .resource-journey-card,
+  .resource-topic-card,
   .resource-pathway-card,
   .resource-comparison-card,
   .resource-material-card,
@@ -1353,6 +1444,7 @@
   .resource-download-content,
   .resource-tool-card,
   .resource-journey-card,
+  .resource-topic-card,
   .resource-pathway-card-content,
   .resource-comparison-card,
   .resource-material-card,
