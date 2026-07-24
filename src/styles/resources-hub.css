@@ -69,6 +69,32 @@
   margin-top: 34px;
 }
 
+.resource-hub-hero-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.resource-hub-hero-signals span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 9px 13px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 13px;
+  font-weight: 850;
+  backdrop-filter: blur(10px);
+}
+
+.resource-hub-hero-signals svg {
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
 .resource-hub-hero-visual {
   position: relative;
   justify-self: center;

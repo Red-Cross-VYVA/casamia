@@ -98,6 +98,11 @@ assert.match(
 )
 assert.match(
   page,
+  /heroSignals: \['No sign-up needed'[\s\S]*Sin registro[\s\S]*resource-hub-hero-signals/,
+  'The Resources hero must reassure visitors that the materials are free, bilingual and quick to use.',
+)
+assert.match(
+  page,
   /Is my parent safe at home\?[\s\S]*\/tools\/is-my-parent-safe-at-home/,
   'The Resources hub must expose the parent safety quiz as a practical decision tool.',
 )
@@ -235,6 +240,11 @@ assert.match(
   styles,
   /\.resource-journey-section[\s\S]*\.resource-journey-card/,
   'The Resources journeys must have dedicated styling.',
+)
+assert.match(
+  styles,
+  /\.resource-hub-hero-signals[\s\S]*\.resource-hub-hero-signals span/,
+  'The Resources hero reassurance strip must have dedicated styling.',
 )
 assert.match(
   styles,

@@ -46,6 +46,7 @@ const pageCopy = {
       'Start with a complete printable checklist, then use the right online tool or focused guide for the decision in front of you.',
     heroPrimary: 'Get the free checklist',
     heroSecondary: 'Use the online self-check',
+    heroSignals: ['No sign-up needed', 'English and Spanish', 'Clear next step in minutes'],
     downloadEyebrow: 'Free printable workbook',
     downloadTitle: 'The Complete Senior Home Conversion Checklist',
     downloadBody:
@@ -156,6 +157,7 @@ const pageCopy = {
       'Empieza con una lista completa para imprimir y utiliza después la herramienta o guía adecuada para la decisión que tienes delante.',
     heroPrimary: 'Descargar la lista gratuita',
     heroSecondary: 'Usar la revisión online',
+    heroSignals: ['Sin registro', 'Español e inglés', 'Siguiente paso en minutos'],
     downloadEyebrow: 'Cuaderno gratuito para imprimir',
     downloadTitle: 'Lista completa para adaptar la vivienda de una persona mayor',
     downloadBody:
@@ -830,6 +832,17 @@ export function BlogPage() {
                   {copy.heroPrimary}
                   <ArrowRight size={19} aria-hidden="true" />
                 </a>
+              </div>
+              <div
+                className="resource-hub-hero-signals"
+                aria-label={language === 'es' ? 'Ventajas de los recursos' : 'Resource benefits'}
+              >
+                {copy.heroSignals.map((signal) => (
+                  <span key={signal}>
+                    <ShieldCheck size={16} aria-hidden="true" />
+                    {signal}
+                  </span>
+                ))}
               </div>
             </div>
 
