@@ -194,6 +194,77 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     ],
     cta: { label: 'Comprobar preparación para ayudas', to: '/grant-check' },
   },
+  'family-conversation-before-home-safety-visit': {
+    title: 'Antes de una visita de seguridad: preguntas que conviene acordar en familia',
+    description:
+      'Guía práctica para hablar en familia antes de pedir una evaluación de seguridad del hogar: movilidad, rutinas, dignidad, presupuesto, ayudas y decisión.',
+    category: 'Planificación familiar',
+    readTime: '6 min de lectura',
+    imageAlt: 'Lista familiar para preparar una conversación sobre seguridad del hogar',
+    keywords: [
+      'preguntas evaluación seguridad hogar mayores',
+      'conversación familia padres mayores',
+      'preparar visita seguridad hogar',
+    ],
+    intro:
+      'Muchas familias saben que algo debe cambiar, pero no siempre nombran la misma preocupación. Una conversación breve antes de la visita ayuda a CasaMia a entender a la persona, la vivienda y la decisión que la familia necesita tomar.',
+    takeaways: [
+      'Acordad primero los momentos diarios que resultan más difíciles, antes de hablar de productos.',
+      'Separad necesidades urgentes de seguridad, comodidad, confianza y planificación futura.',
+      'Decidid quién debe participar en la propuesta, presupuesto, ayudas y aprobación final.',
+    ],
+    sections: [
+      {
+        title: 'Empieza por la persona, no por la estancia',
+        body: [
+          'Pregunta qué ha cambiado últimamente: una caída, un susto, hospitalización, medicación nueva, cansancio, miedo a ducharse, idas nocturnas al baño o menos confianza para salir.',
+          'El mismo baño, dormitorio o tramo de escaleras puede significar cosas distintas según fuerza, equilibrio, memoria, visión, dolor y si la persona vive sola.',
+        ],
+      },
+      {
+        title: 'Nombra las rutinas que generan tensión',
+        body: [
+          'En vez de decir “el baño es inseguro”, describe el momento exacto: entrar en la ducha, levantarse del inodoro, secarse al salir, ir al baño de noche, llevar ropa o abrir la puerta principal.',
+          'Así una preocupación general se convierte en un encargo práctico. CasaMia puede priorizar transferencias más seguras, rutas claras, iluminación, apoyos, ayuda de emergencia o una visita profesional.',
+        ],
+      },
+      {
+        title: 'Acordad qué debe seguir siendo familiar',
+        body: [
+          'La seguridad no debería hacer que la vivienda parezca clínica. Hablad de lo que importa emocionalmente: privacidad, independencia, rutinas, muebles favoritos, aspecto del baño o si un equipo visible generaría rechazo.',
+          'Un buen plan protege la dignidad además del movimiento. A veces la mejor mejora es la que la persona acepta y usa cada día.',
+        ],
+      },
+      {
+        title: 'Clarificad quién decide y qué paso viene después',
+        body: [
+          'Antes de la evaluación, decidid quién recibe el informe, quién habla de presupuesto, quién puede aprobar trabajos y si conviene explorar ayudas.',
+          'La familia no necesita tener todas las respuestas. El resultado útil es un punto de partida compartido: qué preocupa más, qué queremos preservar y qué decisión queremos que CasaMia nos ayude a tomar.',
+        ],
+      },
+    ],
+    checklist: [
+      '¿Qué ha cambiado últimamente para que la vivienda parezca menos segura?',
+      '¿Qué rutina preocupa más esta semana?',
+      '¿Qué estancias, rutas o transferencias conviene revisar primero?',
+      '¿Qué debería seguir siendo discreto, familiar o sin cambios si es posible?',
+      '¿Quién debe recibir el informe y aprobar los próximos pasos?',
+      '¿Queréis que CasaMia revise ayudas o coordine una visita?',
+    ],
+    faqs: [
+      {
+        question: '¿Debe participar la persona mayor en la conversación?',
+        answer:
+          'Sí, siempre que sea posible. La persona que vive en la casa debe explicar qué le cuesta, qué aceptaría y qué rutinas quiere mantener. La familia ayuda, pero la dignidad y el consentimiento siguen siendo importantes.',
+      },
+      {
+        question: '¿Tenemos que saber qué productos necesitamos antes de pedir una visita?',
+        answer:
+          'No. Es mejor describir el problema diario y el resultado deseado. CasaMia puede traducirlo después en mejoras físicas, apoyo conectado, trabajos opcionales o una propuesta clara.',
+      },
+    ],
+    cta: { label: 'Empezar revisión guiada', to: '/home-safety-assessment#self-inspection-tool' },
+  },
   'smart-home-safety-without-overcomplicating': {
     title: 'Seguridad inteligente sin complicar la casa',
     description:

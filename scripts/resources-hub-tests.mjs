@@ -44,6 +44,26 @@ assert.match(
 )
 assert.match(
   page,
+  /localizeBlogArticles\(blogArticles, language\)/,
+  'The Resources hub must render from the shared article catalogue.',
+)
+assert.match(
+  articlePage,
+  /familyChecklist[\s\S]*commonQuestions[\s\S]*blog-next-step-card/,
+  'Resource article pages must turn guide content into checklist, FAQ and next-step blocks.',
+)
+assert.match(
+  await readFile(new URL('../src/constants/blogContent.ts', import.meta.url), 'utf8'),
+  /family-conversation-before-home-safety-visit[\s\S]*Before a Home Safety Visit[\s\S]*Start the guided review/,
+  'The Resources catalogue must include a practical family conversation and visit-prep guide.',
+)
+assert.match(
+  await readFile(new URL('../src/constants/blogContentLocalization.ts', import.meta.url), 'utf8'),
+  /family-conversation-before-home-safety-visit[\s\S]*Antes de una visita de seguridad[\s\S]*Empezar revisión guiada/,
+  'The practical family conversation guide must include Spanish localisation.',
+)
+assert.match(
+  page,
   /Something changed recently[\s\S]*One room is creating worry[\s\S]*The family needs a plan/,
   'The Resources hub must route users by real-life situation, not only by article type.',
 )
@@ -136,6 +156,11 @@ assert.match(
   sitemap,
   /https:\/\/casamia\.com\.es\/tools\/home-vs-residence-cost-calculator/,
   'The public sitemap must include the home-vs-residence cost comparison tool.',
+)
+assert.match(
+  sitemap,
+  /https:\/\/casamia\.com\.es\/blog\/family-conversation-before-home-safety-visit/,
+  'The public sitemap must include the family conversation resource guide.',
 )
 assert.match(
   footer,

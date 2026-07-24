@@ -358,6 +358,84 @@ export const blogArticles: BlogArticle[] = [
     },
   },
   {
+    id: 'family-conversation-before-home-safety-visit',
+    path: '/blog/family-conversation-before-home-safety-visit',
+    title: 'Before a Home Safety Visit: Questions Families Should Agree First',
+    description:
+      'A practical family conversation guide before booking a senior home safety assessment, with prompts for mobility, routines, dignity, budget, grants, and decision-making.',
+    category: 'Family planning',
+    readTime: '6 min read',
+    date: '2026-07-24',
+    image: '/images/blog/provider-choice.webp',
+    imageAlt: 'Family planning checklist for a senior home safety conversation',
+    keywords: [
+      'senior home safety assessment questions',
+      'aging parents family conversation',
+      'prepare for home safety visit',
+    ],
+    intro:
+      'Families often know something needs to change, but not everyone names the same worry. A short conversation before a visit helps CasaMia understand the person, the home, and the decision the family actually needs to make.',
+    takeaways: [
+      'Agree the daily moments that feel hardest before discussing products.',
+      'Separate urgent safety needs from comfort, confidence, and future planning.',
+      'Decide who must be involved in the proposal, budget, grant route, and final approval.',
+    ],
+    sections: [
+      {
+        title: 'Start with the person, not the room',
+        body: [
+          'Ask what has changed recently: a fall, near miss, hospital stay, new medication, fatigue, fear of bathing, night-time bathroom trips, or less confidence leaving the home.',
+          'The same bathroom, bedroom, or staircase can mean very different things depending on strength, balance, memory, vision, pain, and whether the person lives alone.',
+        ],
+      },
+      {
+        title: 'Name the routines that create stress',
+        body: [
+          'Instead of saying “the bathroom is unsafe”, describe the exact moment: stepping into the shower, standing from the toilet, drying after bathing, walking to the bathroom at night, carrying laundry, or opening the front door.',
+          'This turns a broad concern into a practical brief. CasaMia can then prioritise safer transfers, clearer routes, lighting, support points, emergency help, or a professional visit where needed.',
+        ],
+      },
+      {
+        title: 'Agree what must stay familiar',
+        body: [
+          'Safety should not make the home feel clinical. Talk about what matters emotionally: privacy, independence, preferred routines, favourite furniture, the look of the bathroom, or whether visible equipment would be upsetting.',
+          'A good plan protects dignity as well as movement. Sometimes the best improvement is the one the resident will actually accept and use every day.',
+        ],
+      },
+      {
+        title: 'Clarify decision roles and next steps',
+        body: [
+          'Before the assessment, decide who receives the report, who discusses budget, who can approve work, and whether grant support should be explored.',
+          'The family does not need every answer immediately. The useful outcome is a shared starting point: what worries us most, what we want to preserve, and what decision we need CasaMia to help us make next.',
+        ],
+      },
+    ],
+    checklist: [
+      'What changed recently that made the home feel less safe?',
+      'Which routine creates the most worry this week?',
+      'Which rooms, routes, or transfers should be reviewed first?',
+      'What should remain discreet, familiar, or unchanged if possible?',
+      'Who needs to receive the report and approve next steps?',
+      'Should CasaMia check grant readiness or organise a visit?',
+    ],
+    faqs: [
+      {
+        question: 'Should the older adult be part of the home safety conversation?',
+        answer:
+          'Yes, wherever possible. The person living in the home should help explain what feels difficult, what they would accept, and what routines matter most. Family input is useful, but dignity and consent still matter.',
+      },
+      {
+        question: 'Do we need to know the exact products before requesting a visit?',
+        answer:
+          'No. It is better to describe the daily problem and the outcome you want. CasaMia can then translate that into suitable physical improvements, connected support, optional works, or a clearer proposal.',
+      },
+    ],
+    cta: {
+      label: 'Start the guided review',
+      to: '/home-safety-assessment#self-inspection-tool',
+    },
+  },
+  {
     id: 'dementia-friendly-home-safety',
     path: '/blog/dementia-friendly-home-safety',
     title: 'Dementia-Friendly Home Safety: Simple Changes That Reduce Confusion',
