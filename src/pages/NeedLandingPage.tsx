@@ -72,6 +72,40 @@ export function NeedLandingPage() {
     planBody: isSpanish
       ? 'CasaMia recomienda resultados primero y confirma después productos, medidas e instalación.'
       : 'CasaMia recommends outcomes first, then confirms products, measurements and installer requirements.',
+    evidenceEyebrow: isSpanish ? 'Lo que ayuda a decidir' : 'What helps us decide',
+    evidenceTitle: isSpanish ? 'Tres detalles hacen el plan más claro.' : 'Three details make the plan clearer.',
+    evidenceBody: isSpanish
+      ? 'No necesitas preparar un informe perfecto. CasaMia solo necesita entender la rutina, el espacio y lo que ha cambiado para orientar mejor el siguiente paso.'
+      : 'You do not need to prepare a perfect brief. CasaMia just needs to understand the routine, the space and what has changed so the next step is easier to recommend.',
+    evidenceItems: isSpanish
+      ? [
+          {
+            title: 'La rutina',
+            body: 'Qué momento preocupa: ducha, cama, escaleras, cocina, entrada o baño de noche.',
+          },
+          {
+            title: 'El espacio',
+            body: 'Fotos o vídeo corto de la ruta, apoyo, puerta, suelo o zona donde la persona duda.',
+          },
+          {
+            title: 'El cambio',
+            body: 'Caída reciente, alta hospitalaria, menos fuerza, mareos, miedo o nuevas necesidades de ayuda.',
+          },
+        ]
+      : [
+          {
+            title: 'The routine',
+            body: 'Which moment feels difficult: showering, bed transfers, stairs, cooking, entrance or night bathroom trips.',
+          },
+          {
+            title: 'The space',
+            body: 'Photos or a short video of the route, support point, doorway, floor or place where the person hesitates.',
+          },
+          {
+            title: 'The change',
+            body: 'A recent fall, hospital discharge, less strength, dizziness, fear or a new need for help.',
+          },
+        ],
     decisionEyebrow: isSpanish ? 'Decidir sin comprar a ciegas' : 'Decide before you buy',
     decisionTitle: isSpanish ? 'Saber qué importa antes de gastar.' : 'Know what matters before you spend.',
     decisionBody: isSpanish
@@ -300,6 +334,19 @@ export function NeedLandingPage() {
     },
     {
       '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      '@id': `https://casamia.com.es${page.path}#what-to-share`,
+      name: copy.evidenceTitle,
+      description: copy.evidenceBody,
+      step: copy.evidenceItems.map((item, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: item.title,
+        text: item.body,
+      })),
+    },
+    {
+      '@context': 'https://schema.org',
       '@type': 'ItemList',
       '@id': `https://casamia.com.es${page.path}#useful-pages`,
       name: copy.usefulPages,
@@ -448,6 +495,25 @@ export function NeedLandingPage() {
                 title={copy.planTitle}
                 body={copy.planBody}
               />
+            </div>
+          </div>
+        </section>
+
+        <section className="need-landing-evidence" aria-labelledby="need-landing-evidence-title">
+          <div className="site-shell need-landing-evidence-card">
+            <div>
+              <p className="eyebrow">{copy.evidenceEyebrow}</p>
+              <h2 id="need-landing-evidence-title">{copy.evidenceTitle}</h2>
+              <p>{copy.evidenceBody}</p>
+            </div>
+            <div className="need-evidence-list">
+              {copy.evidenceItems.map((item, index) => (
+                <article key={item.title}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <strong>{item.title}</strong>
+                  <p>{item.body}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>

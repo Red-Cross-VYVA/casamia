@@ -391,6 +391,11 @@ assert.match(
 )
 assert.match(
   needLandingPage,
+  /evidenceEyebrow[\s\S]*Three details make the plan clearer[\s\S]*La rutina[\s\S]*The routine[\s\S]*#what-to-share[\s\S]*copy\.evidenceItems\.map[\s\S]*need-landing-evidence/,
+  'Need landing pages must give families a practical evidence checklist before recommending a next step.',
+)
+assert.match(
+  needLandingPage,
   /'@type': 'ItemList'[\s\S]*#useful-pages[\s\S]*page\.relatedServices\.map[\s\S]*#popular-needs[\s\S]*siblingPages\.map/,
   'Need landing pages must publish ItemList structured data for visible related pages and popular needs.',
 )
@@ -463,6 +468,11 @@ assert.match(
   await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
   /\.need-landing-decision[\s\S]*\.need-decision-card-grid[\s\S]*\.need-decision-card[\s\S]*\.need-decision-card-step/,
   'Need landing page decision maps must have dedicated visual styling with clear numbered steps.',
+)
+assert.match(
+  await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
+  /\.need-landing-evidence[\s\S]*\.need-landing-evidence-card[\s\S]*\.need-evidence-list[\s\S]*\.need-evidence-list article/,
+  'Need landing page evidence checklists must have dedicated visual styling.',
 )
 assert.match(
   styles,
