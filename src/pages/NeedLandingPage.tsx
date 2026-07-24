@@ -182,6 +182,31 @@ export function NeedLandingPage() {
     questionsIntro: isSpanish
       ? 'Respuestas rápidas para decidir si conviene empezar online, enviar fotos o pedir una evaluación.'
       : 'Quick answers to help you decide whether to start online, send photos or request an assessment.',
+    universalFaqs: isSpanish
+      ? [
+          {
+            question: '¿Puedo empezar sin saber qué comprar?',
+            answer:
+              'Sí. CasaMia empieza por la rutina y el riesgo visible, no por una lista de productos. Después traducimos la necesidad en una ruta práctica con prioridades, visita o presupuesto si hace falta.',
+          },
+          {
+            question: '¿Puedo enviar fotos o vídeos antes de una visita?',
+            answer:
+              'Sí. Unas fotos o un vídeo corto suelen ayudar a entender el espacio, la ruta y los puntos de apoyo. Si hacen falta medidas, compatibilidad o instalación, CasaMia lo confirma antes de avanzar.',
+          },
+        ]
+      : [
+          {
+            question: 'Can I start without knowing what to buy?',
+            answer:
+              'Yes. CasaMia starts with the daily routine and visible risk, not a product list. We then turn the need into a practical route with priorities, a visit or a quote where needed.',
+          },
+          {
+            question: 'Can I send photos or videos before a visit?',
+            answer:
+              'Yes. A few photos or a short video often helps us understand the space, route and support points. If measurements, compatibility or installation checks are needed, CasaMia confirms that before moving forward.',
+          },
+        ],
     questionsCta: isSpanish ? 'Empezar con mi caso' : 'Start with my situation',
     popularNeeds: isSpanish ? 'Necesidades CasaMia frecuentes' : 'Popular CasaMia needs',
     moreWays: isSpanish ? 'Más formas de buscar ayuda.' : 'More ways families search for help.',
@@ -193,6 +218,7 @@ export function NeedLandingPage() {
     startPlan: isSpanish ? 'Empezar mi plan' : 'Start my plan',
     bookAssessment: isSpanish ? 'Reservar evaluación' : 'Book an assessment',
   }
+  const visibleFaqs = [...page.faqs, ...copy.universalFaqs]
 
   const schema = [
     {
@@ -239,7 +265,7 @@ export function NeedLandingPage() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: page.faqs.map((faq) => ({
+      mainEntity: visibleFaqs.map((faq) => ({
         '@type': 'Question',
         name: faq.question,
         acceptedAnswer: {
@@ -588,7 +614,7 @@ export function NeedLandingPage() {
               <h2>{copy.goDeeper}</h2>
               <p>{copy.questionsIntro}</p>
               <div className="need-landing-faq-list">
-                {page.faqs.map((faq) => (
+                {visibleFaqs.map((faq) => (
                   <details key={faq.question}>
                     <summary>{faq.question}</summary>
                     <p>{faq.answer}</p>

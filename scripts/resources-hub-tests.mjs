@@ -385,6 +385,11 @@ assert.match(
   'Need landing pages must publish ItemList structured data for visible related pages and popular needs.',
 )
 assert.match(
+  needLandingPage,
+  /universalFaqs[\s\S]*Can I start without knowing what to buy\?[\s\S]*Can I send photos or videos before a visit\?[\s\S]*const visibleFaqs = \[\.\.\.page\.faqs, \.\.\.copy\.universalFaqs\][\s\S]*mainEntity: visibleFaqs\.map[\s\S]*\{visibleFaqs\.map/,
+  'Need landing pages must enrich visible FAQs and FAQ schema with universal decision-start questions.',
+)
+assert.match(
   page,
   /'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map/,
   'The Resources hub must publish FAQ structured data.',
