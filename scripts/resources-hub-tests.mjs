@@ -427,6 +427,11 @@ assert.match(
   'The shared SEO component must identify common social preview image MIME types.',
 )
 assert.match(
+  seo,
+  /'@type': 'WebSite'[\s\S]*mainEntity:[\s\S]*#organization[\s\S]*potentialAction:[\s\S]*'@type': 'SearchAction'[\s\S]*blog\?search=\{search_term_string\}/,
+  'The shared SEO component must publish WebSite search/discovery structured data.',
+)
+assert.match(
   globalStyles,
   /\.blog-next-step-card[\s\S]*\.blog-next-step-actions/,
   'Resource article next-step blocks must have dedicated styling.',

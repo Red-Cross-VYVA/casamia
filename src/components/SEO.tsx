@@ -164,6 +164,17 @@ function buildSchemas(
       publisher: {
         '@id': `${siteUrl}/#organization`,
       },
+      mainEntity: {
+        '@id': `${siteUrl}/#organization`,
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteUrl}/blog?search={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
+      },
     },
   ]
 
