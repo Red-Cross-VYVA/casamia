@@ -9,6 +9,7 @@ import {
   HandHeart,
   Home,
   Lightbulb,
+  MessageCircle,
   MoonStar,
   PhoneCall,
   SearchCheck,
@@ -78,6 +79,14 @@ const pageCopy = {
     pathwaysBody:
       'Families usually arrive with one urgent question. Start there, then move into the guide, checklist or tool that helps you make the next decision calmly.',
     pathwayCta: 'Start here',
+    familyStarterEyebrow: '10-minute family starter',
+    familyStarterTitle: 'Before choosing a solution, agree what problem you are solving.',
+    familyStarterBody:
+      'Use these prompts with a parent, partner, sibling or carer. The aim is not to diagnose the home in one sitting — it is to turn scattered worries into one calm next step.',
+    familyStarterFinalTitle: 'Leave with one useful decision',
+    familyStarterFinalBody:
+      'Choose the room, route or routine that creates the most worry this week. Then use the checklist, online review or a CasaMia assessment to make it practical.',
+    familyStarterCta: 'Start the guided review',
     comparisonEyebrow: 'Decision guides',
     comparisonTitle: 'Compare the routes before you commit.',
     comparisonBody:
@@ -176,6 +185,14 @@ const pageCopy = {
     pathwaysBody:
       'Las familias suelen llegar con una pregunta urgente. Empieza ahí y pasa después a la guía, lista o herramienta que ayuda a decidir con calma el siguiente paso.',
     pathwayCta: 'Empezar aquí',
+    familyStarterEyebrow: 'Primeros 10 minutos en familia',
+    familyStarterTitle: 'Antes de elegir una solución, acordad qué problema queréis resolver.',
+    familyStarterBody:
+      'Usa estas preguntas con madre, padre, pareja, hermanos o cuidador. No se trata de diagnosticar la vivienda en una conversación, sino de convertir preocupaciones sueltas en un siguiente paso claro.',
+    familyStarterFinalTitle: 'Terminad con una decisión útil',
+    familyStarterFinalBody:
+      'Elegid la estancia, ruta o rutina que más preocupa esta semana. Después usad la lista, la revisión online o una evaluación CasaMia para hacerlo práctico.',
+    familyStarterCta: 'Empezar revisión guiada',
     comparisonEyebrow: 'Guías de decisión',
     comparisonTitle: 'Compara las opciones antes de decidir.',
     comparisonBody:
@@ -357,6 +374,41 @@ const decisionPathways = [
       { label: { en: 'Grant check', es: 'Revisar ayudas' }, to: '/grant-check' },
       { label: { en: 'Grant guide', es: 'Guía de ayudas' }, to: '/blog/home-adaptation-grants-spain-family-guide' },
     ],
+  },
+] as const
+
+const familyStarterPrompts = [
+  {
+    icon: MessageCircle,
+    title: { en: 'What changed recently?', es: '¿Qué ha cambiado últimamente?' },
+    body: {
+      en: 'A fall, hospital stay, new medication, night wandering, pain, fatigue or a room that suddenly feels harder.',
+      es: 'Una caída, hospitalización, medicación nueva, paseos nocturnos, dolor, cansancio o una estancia que ahora cuesta más.',
+    },
+  },
+  {
+    icon: SearchCheck,
+    title: { en: 'Where does worry appear?', es: '¿Dónde aparece la preocupación?' },
+    body: {
+      en: 'Name the exact moment: showering, toilet transfers, stairs, getting out of bed, cooking or reaching the entrance.',
+      es: 'Nombra el momento exacto: ducha, inodoro, escaleras, levantarse de la cama, cocinar o llegar a la entrada.',
+    },
+  },
+  {
+    icon: HandHeart,
+    title: { en: 'What must stay easy or familiar?', es: '¿Qué debe seguir siendo cómodo o familiar?' },
+    body: {
+      en: 'Preserve dignity, routines, favourite spaces and the look of the home wherever safety allows.',
+      es: 'Preservar dignidad, rutinas, espacios favoritos y el aspecto del hogar siempre que la seguridad lo permita.',
+    },
+  },
+  {
+    icon: ClipboardCheck,
+    title: { en: 'What decision is needed this week?', es: '¿Qué decisión hace falta esta semana?' },
+    body: {
+      en: 'Choose one next step: clear a route, download the checklist, send photos, request a visit or compare home with residence.',
+      es: 'Elegid un paso: despejar una ruta, descargar la lista, enviar fotos, pedir una visita o comparar casa y residencia.',
+    },
   },
 ] as const
 
@@ -551,6 +603,19 @@ export function BlogPage() {
               '@type': 'Answer',
               text: item.answer,
             },
+          })),
+        },
+        {
+          '@type': 'HowTo',
+          '@id': `${siteUrl}/blog#family-starter`,
+          name: copy.familyStarterTitle,
+          description: copy.familyStarterBody,
+          inLanguage: copy.lang,
+          step: familyStarterPrompts.map((prompt, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: prompt.title[language],
+            text: prompt.body[language],
           })),
         },
         {
@@ -749,6 +814,45 @@ export function BlogPage() {
                   </a>
                 )
               })}
+            </div>
+          </div>
+        </section>
+
+        <section className="resource-family-starter-section" aria-labelledby="resource-family-starter-title">
+          <div className="site-shell">
+            <div className="resource-family-starter-panel">
+              <div className="resource-family-starter-copy">
+                <p className="eyebrow">{copy.familyStarterEyebrow}</p>
+                <h2 id="resource-family-starter-title">{copy.familyStarterTitle}</h2>
+                <p>{copy.familyStarterBody}</p>
+                <Link className="btn btn-green" to="/home-safety-assessment#self-inspection-tool">
+                  {copy.familyStarterCta}
+                  <ArrowRight size={18} aria-hidden="true" />
+                </Link>
+              </div>
+
+              <div className="resource-family-prompt-grid">
+                {familyStarterPrompts.map((prompt, index) => {
+                  const Icon = prompt.icon
+
+                  return (
+                    <article className="resource-family-prompt-card" key={prompt.title.en}>
+                      <span className="resource-family-prompt-index">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="resource-family-prompt-icon">
+                        <Icon size={22} aria-hidden="true" />
+                      </span>
+                      <h3>{prompt.title[language]}</h3>
+                      <p>{prompt.body[language]}</p>
+                    </article>
+                  )
+                })}
+              </div>
+
+              <aside className="resource-family-decision-card" aria-label={copy.familyStarterFinalTitle}>
+                <ShieldCheck size={28} aria-hidden="true" />
+                <h3>{copy.familyStarterFinalTitle}</h3>
+                <p>{copy.familyStarterFinalBody}</p>
+              </aside>
             </div>
           </div>
         </section>

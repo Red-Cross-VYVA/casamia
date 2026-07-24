@@ -49,6 +49,16 @@ assert.match(
 )
 assert.match(
   page,
+  /const familyStarterPrompts = \[[\s\S]*What changed recently\?[\s\S]*What decision is needed this week\?/,
+  'The Resources hub must include a practical family starter prompt sequence.',
+)
+assert.match(
+  page,
+  /10-minute family starter[\s\S]*Primeros 10 minutos en familia/,
+  'The family starter guidance must be available in English and Spanish.',
+)
+assert.match(
+  page,
   /Algo ha cambiado hace poco[\s\S]*Una estancia preocupa más[\s\S]*La familia necesita un plan/,
   'The guided Resources journeys must be available in Spanish.',
 )
@@ -56,6 +66,11 @@ assert.match(
   page,
   /'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map/,
   'The Resources hub must publish FAQ structured data.',
+)
+assert.match(
+  page,
+  /'@type': 'HowTo'[\s\S]*blog#family-starter[\s\S]*familyStarterPrompts\.map/,
+  'The family starter must publish HowTo structured data for search engines.',
 )
 assert.match(
   page,
@@ -73,9 +88,19 @@ assert.match(
   'The guided journeys must render as a distinct visual section.',
 )
 assert.match(
+  page,
+  /resource-family-starter-section[\s\S]*home-safety-assessment#self-inspection-tool/,
+  'The family starter section must guide users into the practical home safety review.',
+)
+assert.match(
   styles,
   /\.resource-journey-section[\s\S]*\.resource-journey-card/,
   'The Resources journeys must have dedicated styling.',
+)
+assert.match(
+  styles,
+  /\.resource-family-starter-section[\s\S]*\.resource-family-prompt-card[\s\S]*\.resource-family-decision-card/,
+  'The family starter section must have dedicated visual styling.',
 )
 assert.match(
   styles,

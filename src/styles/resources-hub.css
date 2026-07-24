@@ -330,6 +330,7 @@
 
 .resource-tools-section,
 .resource-journey-section,
+.resource-family-starter-section,
 .resource-pathways-section,
 .resource-comparison-section,
 .resource-downloads-section,
@@ -458,6 +459,131 @@
   font-size: 14px;
   font-weight: 950;
   box-shadow: 0 10px 25px rgba(13, 30, 46, 0.08);
+}
+
+.resource-family-starter-section {
+  background:
+    radial-gradient(circle at 88% 14%, rgba(139, 207, 69, 0.12), transparent 22rem),
+    linear-gradient(135deg, #0d1e2e 0%, #123a58 56%, #176996 100%);
+  color: #ffffff;
+}
+
+.resource-family-starter-panel {
+  display: grid;
+  gap: clamp(24px, 4vw, 36px);
+  align-items: stretch;
+}
+
+.resource-family-starter-copy {
+  max-width: 710px;
+}
+
+.resource-family-starter-copy .eyebrow {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.resource-family-starter-copy h2 {
+  margin: 16px 0 0;
+  color: #ffffff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(38px, 5vw, 62px);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.resource-family-starter-copy > p {
+  margin: 20px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(18px, 2vw, 21px);
+  line-height: 1.6;
+}
+
+.resource-family-starter-copy .btn {
+  margin-top: 30px;
+}
+
+.resource-family-prompt-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.resource-family-prompt-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.07));
+  padding: 22px;
+  box-shadow: 0 20px 58px rgba(3, 19, 32, 0.2);
+}
+
+.resource-family-prompt-index {
+  color: rgba(255, 255, 255, 0.34);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.resource-family-prompt-icon {
+  display: inline-grid;
+  width: 46px;
+  height: 46px;
+  margin-left: 12px;
+  place-items: center;
+  border-radius: 15px;
+  background: rgba(234, 246, 252, 0.12);
+  color: #a8e36c;
+}
+
+.resource-family-prompt-card h3 {
+  margin: 18px 0 0;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 950;
+  line-height: 1.18;
+}
+
+.resource-family-prompt-card p {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.55;
+}
+
+.resource-family-decision-card {
+  display: grid;
+  align-content: end;
+  min-height: 100%;
+  border: 1px solid rgba(139, 207, 69, 0.28);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 88% 14%, rgba(139, 207, 69, 0.2), transparent 30%),
+    rgba(255, 255, 255, 0.1);
+  padding: clamp(24px, 3vw, 34px);
+}
+
+.resource-family-decision-card svg {
+  color: #a8e36c;
+}
+
+.resource-family-decision-card h3 {
+  margin: 18px 0 0;
+  color: #ffffff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 900;
+  line-height: 1.04;
+}
+
+.resource-family-decision-card p {
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.58;
 }
 
 .resource-comparison-section {
@@ -1136,6 +1262,7 @@
 @media (min-width: 800px) {
   .resource-tool-grid,
   .resource-journey-grid,
+  .resource-family-prompt-grid,
   .resource-pathway-grid,
   .resource-comparison-grid,
   .resource-material-grid,
@@ -1162,6 +1289,10 @@
 
   .resource-moments-grid {
     grid-template-columns: minmax(0, 0.82fr) minmax(500px, 1.18fr);
+  }
+
+  .resource-family-starter-panel {
+    grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr) minmax(260px, 0.48fr);
   }
 
   .resource-faq-layout {
