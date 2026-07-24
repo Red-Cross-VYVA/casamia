@@ -12,6 +12,8 @@ const cookieConsent = read('src/utils/cookieConsent.ts')
 const analytics = read('src/utils/analytics.ts')
 const workflow = read('src/services/projectWorkflow.ts')
 const withdrawal = read('src/pages/WithdrawalFormPage.tsx')
+const terms = read('src/pages/TermsAndConditionsPage.tsx')
+const legalDocumentPage = read('src/pages/LegalDocumentPage.tsx')
 const documents = read('src/services/contractDocuments.ts')
 const legalControls = read('src/config/legalControls.ts')
 const sitemap = read('public/sitemap.xml')
@@ -65,6 +67,26 @@ assert.match(checkout, /Request quote/, 'Checkout must offer the no-payment quot
 assert.match(checkout, /Reserve visit/, 'Checkout must offer the measured-visit reservation action.')
 assert.match(checkout, /createMockDepositCheckout/, 'Visit reservation must remain on the mock checkout adapter.')
 assert.match(withdrawal, /validate\(\)/, 'Withdrawal form must validate before submission.')
+assert.match(
+  terms,
+  /<SEO title=\{title\} description=\{description\} path="\/terms-and-conditions" \/>/,
+  'Terms page must use shared SEO metadata.',
+)
+assert.match(
+  withdrawal,
+  /<SEO title=\{copy\.title\} description=\{copy\.body\} path="\/withdrawal-form" \/>/,
+  'Withdrawal form must use shared SEO metadata.',
+)
+assert.match(
+  legalDocumentPage,
+  /<SEO title=\{document\.title\} description=\{document\.intro\} path=\{path\} schema=\{schema\} \/>/,
+  'Shared legal document pages must use canonical SEO metadata.',
+)
+assert.match(
+  legalDocumentPage,
+  /legalRouteLabels\.find[\s\S]*'@type': 'WebPage'[\s\S]*#page/,
+  'Shared legal document pages must publish WebPage structured data on their canonical route.',
+)
 assert.match(cookieConsent, /analytics: false/, 'Optional analytics cookies must default off.')
 assert.match(cookieConsent, /marketing: false/, 'Optional marketing cookies must default off.')
 assert.match(analytics, /hasCookieConsent\('analytics'\)/, 'Analytics must be blocked before consent.')

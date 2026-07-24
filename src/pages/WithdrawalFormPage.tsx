@@ -1,8 +1,9 @@
 import { Download, Send } from 'lucide-react'
 import type { FormEvent, ReactNode } from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SEO } from '../components/SEO'
 import { casamiaCompanyConfig } from '../config/company'
 
 type WithdrawalValues = {
@@ -140,10 +141,6 @@ export function WithdrawalFormPage() {
     [confirmationReference, copy, values],
   )
 
-  useEffect(() => {
-    document.title = `${copy.documentTitle} | CasaMia`
-  }, [copy.documentTitle])
-
   function updateValue<Field extends keyof WithdrawalValues>(field: Field, value: WithdrawalValues[Field]) {
     setValues((current) => ({ ...current, [field]: value }))
     setErrors((current) => ({ ...current, [field]: '' }))
@@ -190,6 +187,7 @@ export function WithdrawalFormPage() {
 
   return (
     <main className="legal-page withdrawal-page">
+      <SEO title={copy.title} description={copy.body} path="/withdrawal-form" />
       <div className="site-shell">
         <p className="eyebrow">{copy.eyebrow}</p>
         <h1>{copy.title}</h1>

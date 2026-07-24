@@ -1,27 +1,43 @@
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router-dom'
 
-import { getLegalDocumentMeta, getLocalizedLegalDocument, type LegalDocumentId } from '../constants/legalDocuments'
+import { SEO } from '../components/SEO'
+import {
+  getLegalDocumentMeta,
+  getLocalizedLegalDocument,
+  legalRouteLabels,
+  type LegalDocumentId,
+} from '../constants/legalDocuments'
 
 export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId }) {
   const { i18n } = useTranslation()
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
   const document = getLocalizedLegalDocument(documentId, i18n.language)
 
-  useEffect(() => {
-    if (document) {
-      window.document.title = `${document.title} | CasaMia`
-    }
-  }, [document])
-
   if (!document) {
     return <Navigate to="/" replace />
   }
 
+  const siteUrl = 'https://www.casamia.com.es'
+  const path = legalRouteLabels.find((link) => link.id === document.id)?.path ?? `/${document.id}`
   const meta = getLegalDocumentMeta(document, i18n.language)
   const requiresReview = document.reviewStatus !== 'approved'
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${siteUrl}${path}#page`,
+    name: document.title,
+    description: document.intro,
+    url: `${siteUrl}${path}`,
+    inLanguage: isSpanish ? 'es' : 'en',
+    isPartOf: {
+      '@id': `${siteUrl}/#website`,
+    },
+    publisher: {
+      '@id': `${siteUrl}/#organization`,
+    },
+  }
   const copy = isSpanish
     ? {
         eyebrow: 'Información legal de CasaMia',
@@ -46,6 +62,7 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
 
   return (
     <>
+      <SEO title={document.title} description={document.intro} path={path} schema={schema} />
       <section className="legal-hero">
         <div className="site-shell">
           <p className="eyebrow">{copy.eyebrow}</p>

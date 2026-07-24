@@ -1,9 +1,12 @@
 import { AlertCircle, CheckCircle2 } from 'lucide-react'
-import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { SEO } from '../components/SEO'
 
 export function TermsAndConditionsPage() {
   const { t } = useTranslation()
+  const title = t('pages.terms.title')
+  const description = t('pages.terms.intro')
   const services = t('pages.terms.grantManagement.services', {
     returnObjects: true,
   }) as string[]
@@ -11,16 +14,13 @@ export function TermsAndConditionsPage() {
     returnObjects: true,
   }) as string[]
 
-  useEffect(() => {
-    document.title = `${t('pages.terms.title')} | CasaMia`
-  }, [t])
-
   return (
     <>
+      <SEO title={title} description={description} path="/terms-and-conditions" />
       <section className="page-hero">
         <div className="page-hero-inner">
-          <h1 className="display-title">{t('pages.terms.title')}</h1>
-          <p className="mt-5 max-w-3xl text-xl text-text-mid">{t('pages.terms.intro')}</p>
+          <h1 className="display-title">{title}</h1>
+          <p className="mt-5 max-w-3xl text-xl text-text-mid">{description}</p>
         </div>
       </section>
 
