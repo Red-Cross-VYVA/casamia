@@ -223,8 +223,8 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /decisionEyebrow[\s\S]*Signals not to ignore[\s\S]*need-landing-decision[\s\S]*DecisionCard/,
-  'Need landing pages must include a practical decision map that helps families turn concerns into action.',
+  /decisionEyebrow[\s\S]*Notice the change[\s\S]*Capture just enough[\s\S]*Get a clear route[\s\S]*need-landing-decision[\s\S]*DecisionCard/,
+  'Need landing pages must include a practical decision map that helps families know what to notice, capture and do next.',
 )
 assert.match(
   needLandingPage,
@@ -283,8 +283,8 @@ assert.match(
 )
 assert.match(
   await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
-  /\.need-landing-decision[\s\S]*\.need-decision-card-grid[\s\S]*\.need-decision-card/,
-  'Need landing page decision maps must have dedicated visual styling.',
+  /\.need-landing-decision[\s\S]*\.need-decision-card-grid[\s\S]*\.need-decision-card[\s\S]*\.need-decision-card-step/,
+  'Need landing page decision maps must have dedicated visual styling with clear numbered steps.',
 )
 assert.match(
   styles,

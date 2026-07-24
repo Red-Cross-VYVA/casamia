@@ -300,8 +300,8 @@
 .need-decision-card {
   position: relative;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.85rem;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 0.8rem;
   align-items: flex-start;
   padding: clamp(1.15rem, 3vw, 1.45rem);
   background:
@@ -310,12 +310,26 @@
 
 .need-decision-card::after {
   position: absolute;
-  inset: auto 1rem 0 4.65rem;
+  inset: auto 1rem 0 6.7rem;
   height: 3px;
   border-radius: 999px 999px 0 0;
   background: linear-gradient(90deg, var(--color-green), #46aed8);
   content: '';
   opacity: 0.8;
+}
+
+.need-decision-card-step {
+  display: inline-grid;
+  min-width: 2.35rem;
+  height: 2.35rem;
+  place-items: center;
+  border: 1px solid rgb(191 221 240 / 90%);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--color-blue);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
 }
 
 .need-decision-card > span {
@@ -325,6 +339,14 @@
   place-items: center;
   border-radius: 1rem;
   background: #eaf6fc;
+  color: var(--color-blue);
+}
+
+.need-decision-card > .need-decision-card-step {
+  display: inline-grid;
+  width: auto;
+  height: 2.35rem;
+  background: #ffffff;
   color: var(--color-blue);
 }
 

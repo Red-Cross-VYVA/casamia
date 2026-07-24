@@ -72,38 +72,38 @@ export function NeedLandingPage() {
     planBody: isSpanish
       ? 'CasaMia recomienda resultados primero y confirma después productos, medidas e instalación.'
       : 'CasaMia recommends outcomes first, then confirms products, measurements and installer requirements.',
-    decisionEyebrow: isSpanish ? 'Mapa rápido de decisión' : 'Quick decision map',
-    decisionTitle: isSpanish ? 'Convierte la duda en una prioridad clara.' : 'Turn the concern into a clear priority.',
+    decisionEyebrow: isSpanish ? 'Decidir sin comprar a ciegas' : 'Decide before you buy',
+    decisionTitle: isSpanish ? 'Saber qué importa antes de gastar.' : 'Know what matters before you spend.',
     decisionBody: isSpanish
-      ? 'Estas páginas no deberían quedarse en teoría. CasaMia ayuda a ordenar la situación en señales, datos útiles y próximos pasos concretos.'
-      : 'These pages should not stay theoretical. CasaMia helps turn the situation into signals, useful evidence and clear next steps.',
+      ? 'CasaMia ayuda a convertir una preocupación general en una decisión sencilla: qué observar, qué información recoger y qué ruta tiene sentido.'
+      : 'CasaMia helps turn a broad worry into a simple decision: what to notice, what to capture, and which route makes sense.',
     decisionCards: isSpanish
       ? [
           {
-            title: 'Señales para no esperar',
-            body: 'Sustos recientes, evitación de una rutina, dolor, miedo, oscuridad, suelo mojado o necesidad de ayuda cada vez más frecuente.',
+            title: 'Observa el cambio',
+            body: 'Un susto reciente, evitar la ducha, necesitar apoyo para levantarse o hacer más viajes al baño por la noche.',
           },
           {
-            title: 'Qué conviene preparar',
-            body: 'Fotos, un vídeo corto, la rutina exacta, medidas básicas si las tienes y quién toma la decisión en la familia.',
+            title: 'Recoge lo justo',
+            body: 'Dos o tres fotos, un vídeo corto o una nota de voz suelen bastar para entender la rutina y los puntos de apoyo.',
           },
           {
-            title: 'Qué define CasaMia',
-            body: 'Prioridad, paquete recomendado, si hace falta visita, qué puede instalarse ya y qué requiere presupuesto o compatibilidad.',
+            title: 'Recibe una ruta clara',
+            body: 'Separamos lo urgente, lo recomendable y lo que necesita visita, medición, presupuesto o comprobación de compatibilidad.',
           },
         ]
       : [
           {
-            title: 'Signals not to ignore',
-            body: 'Recent near misses, avoiding a routine, pain, fear, low light, wet floors or needing more help than before.',
+            title: 'Notice the change',
+            body: 'A recent scare, avoiding the shower, needing support to stand, or more night-time bathroom trips than before.',
           },
           {
-            title: 'What to prepare',
-            body: 'Photos, a short video, the exact routine, basic measurements if available and who needs to be involved in the decision.',
+            title: 'Capture just enough',
+            body: 'Two or three photos, a short video or a voice note is often enough to understand the routine and support points.',
           },
           {
-            title: 'What CasaMia defines',
-            body: 'Priority, recommended package route, whether a visit is needed, what can be installed now and what needs quote or compatibility checks.',
+            title: 'Get a clear route',
+            body: 'We separate urgent fixes, recommended improvements and anything that needs a visit, measurement, quote or compatibility check.',
           },
         ],
     usefulPages: isSpanish ? 'Páginas útiles' : 'Useful next pages',
@@ -342,6 +342,7 @@ export function NeedLandingPage() {
               {copy.decisionCards.map((item, index) => (
                 <DecisionCard
                   key={item.title}
+                  step={index + 1}
                   icon={
                     index === 0 ? (
                       <AlertTriangle size={21} aria-hidden="true" />
@@ -723,15 +724,18 @@ function MiniCard({
 
 function DecisionCard({
   icon,
+  step,
   title,
   body,
 }: {
   icon: ReactNode
+  step: number
   title: string
   body: string
 }) {
   return (
     <article className="need-decision-card">
+      <span className="need-decision-card-step">{String(step).padStart(2, '0')}</span>
       <span>{icon}</span>
       <div>
         <strong>{title}</strong>
