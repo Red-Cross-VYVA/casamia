@@ -259,6 +259,11 @@ assert.match(
 )
 assert.match(
   needLandingPage,
+  /'@type': 'Service'[\s\S]*url: `https:\/\/casamia\.com\.es\$\{page\.path\}`,[\s\S]*image: `https:\/\/casamia\.com\.es\$\{page\.image\}`/,
+  'Need landing page Service structured data must include the page image.',
+)
+assert.match(
+  needLandingPage,
   /catalogueEyebrow[\s\S]*turnkeySteps[\s\S]*beforeSpendingChecks[\s\S]*CatalogueServiceCard key=\{service\.id\} service=\{service\} language=\{i18n\.language\}/,
   'Need landing page chrome and catalogue labels must be language-aware.',
 )

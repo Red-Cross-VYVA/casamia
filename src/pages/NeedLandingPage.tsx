@@ -206,6 +206,7 @@ export function NeedLandingPage() {
       },
       serviceType: page.eyebrow,
       url: `https://casamia.com.es${page.path}`,
+      image: `https://casamia.com.es${page.image}`,
     },
     {
       '@context': 'https://schema.org',
