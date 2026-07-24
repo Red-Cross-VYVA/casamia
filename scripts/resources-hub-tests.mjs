@@ -264,6 +264,16 @@ assert.match(
 )
 assert.match(
   needLandingPage,
+  /nextActionEyebrow[\s\S]*Answer a few questions[\s\S]*Send photos or video[\s\S]*See CasaMia options[\s\S]*Ask us to contact you[\s\S]*need-landing-next-actions/,
+  'Need landing pages must turn education into clear next actions without relying on final package content.',
+)
+assert.match(
+  needLandingPage,
+  /to: '\/home-safety-wizard'[\s\S]*to: '\/#estimate-upload'[\s\S]*to: page\.servicePath[\s\S]*to: '\/why-us#contact-form'/,
+  'Need landing page next actions must route users to the wizard, photo brief, related services and contact form.',
+)
+assert.match(
+  needLandingPage,
   /decisionEyebrow[\s\S]*Notice the change[\s\S]*Capture just enough[\s\S]*Get a clear route[\s\S]*need-landing-decision[\s\S]*DecisionCard/,
   'Need landing pages must include a practical decision map that helps families know what to notice, capture and do next.',
 )
@@ -326,6 +336,11 @@ assert.match(
   await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
   /\.need-landing-resources[\s\S]*\.need-resource-card-grid[\s\S]*\.need-resource-card/,
   'Need landing page recommended resources must have dedicated visual styling.',
+)
+assert.match(
+  await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
+  /\.need-landing-next-actions[\s\S]*\.need-next-action-list[\s\S]*\.need-next-action-card/,
+  'Need landing page next actions must have dedicated visual styling.',
 )
 assert.match(
   await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
