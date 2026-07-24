@@ -6,6 +6,8 @@ import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { blogArticles } from '../constants/blogContent'
 import { localizeBlogArticle, localizeBlogArticles } from '../constants/blogContentLocalization'
+import { allNeedLandingPages } from '../constants/needLandingPages'
+import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 
 const siteUrl = 'https://casamia.com.es'
 
@@ -28,6 +30,8 @@ const articleShellCopy = {
       checklist: 'Get the printable checklist',
       selfCheck: 'Start the online safety review',
     },
+    relatedTopics: 'Related safety topics',
+    exploreTopic: 'Explore topic',
     englishNotice: '',
   },
   es: {
@@ -48,9 +52,27 @@ const articleShellCopy = {
       checklist: 'Descargar la lista para imprimir',
       selfCheck: 'Empezar la revisión online',
     },
+    relatedTopics: 'Temas de seguridad relacionados',
+    exploreTopic: 'Ver tema',
     englishNotice: '',
   },
 } as const
+
+const articleTopicSlugs: Record<string, string[]> = {
+  'bathroom-safety-seniors-costly-mistakes': ['bathroom-safety-for-seniors', 'safe-bathroom-access'],
+  'bedroom-night-safety-older-adults': ['senior-bedroom-safety', 'fall-prevention-at-home'],
+  'choose-home-safety-provider-spain': ['aging-in-place-home-assessment', 'home-adaptations-for-elderly'],
+  'dementia-friendly-home-safety': ['aging-in-place-home-assessment', 'connected-home-for-seniors'],
+  'emergency-plan-aging-parents-home': ['connected-home-for-seniors', 'fall-prevention-at-home'],
+  'fall-prevention-home-checklist-spain': ['fall-prevention-at-home', 'aging-in-place-home-assessment'],
+  'family-conversation-before-home-safety-visit': ['aging-in-place-home-assessment', 'home-adaptations-for-elderly'],
+  'home-adaptation-grants-spain-family-guide': ['grants-for-home-adaptations-spain', 'home-adaptations-for-elderly'],
+  'hospital-discharge-home-safety-checklist': ['home-safety-after-hospital-discharge', 'fall-prevention-at-home'],
+  'kitchen-safety-aging-in-place': ['home-adaptations-for-elderly', 'fall-prevention-at-home'],
+  'smart-home-safety-without-overcomplicating': ['connected-home-for-seniors', 'senior-bedroom-safety'],
+  'stair-safety-handrails-older-adults': ['fall-prevention-at-home', 'home-adaptations-for-elderly'],
+  'when-home-adaptations-are-not-enough': ['aging-in-place-home-assessment', 'home-adaptations-for-elderly'],
+}
 
 export function BlogArticlePage() {
   const { i18n } = useTranslation()
@@ -64,6 +86,9 @@ export function BlogArticlePage() {
   }
 
   const article = localizeBlogArticle(baseArticle, language)
+  const relatedTopicSlugs = articleTopicSlugs[article.id] ?? []
+  const relatedTopics = localizeNeedLandingPages(allNeedLandingPages, language)
+    .filter((topic) => relatedTopicSlugs.includes(topic.slug))
   const articleUrl = `${siteUrl}${article.path}`
   const articleImageUrl = new URL(article.image, siteUrl).toString()
   const relatedArticles = localizeBlogArticles(
@@ -237,6 +262,22 @@ export function BlogArticlePage() {
                   <ArrowRight size={17} aria-hidden="true" />
                 </Link>
               </div>
+              {relatedTopics.length > 0 ? (
+                <div className="blog-topic-link-group" aria-label={copy.relatedTopics}>
+                  <span>{copy.relatedTopics}</span>
+                  <div>
+                    {relatedTopics.map((topic) => (
+                      <Link className="blog-topic-link-card" key={topic.slug} to={topic.path}>
+                        <strong>{topic.title}</strong>
+                        <small>
+                          {copy.exploreTopic}
+                          <ArrowRight size={15} aria-hidden="true" />
+                        </small>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </section>
           </div>
         </div>

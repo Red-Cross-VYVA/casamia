@@ -323,6 +323,11 @@ assert.match(
 )
 assert.match(
   articlePage,
+  /articleTopicSlugs[\s\S]*fall-prevention-home-checklist-spain[\s\S]*fall-prevention-at-home[\s\S]*localizeNeedLandingPages\(allNeedLandingPages, language\)[\s\S]*blog-topic-link-group/,
+  'Resource article pages must link into related SEO topic pages.',
+)
+assert.match(
+  articlePage,
   /const siteUrl = 'https:\/\/casamia\.com\.es'[\s\S]*articleUrl[\s\S]*articleImageUrl/,
   'Resource article pages must build absolute canonical URLs for structured data.',
 )
@@ -355,6 +360,11 @@ assert.match(
   globalStyles,
   /\.blog-next-step-card[\s\S]*\.blog-next-step-actions/,
   'Resource article next-step blocks must have dedicated styling.',
+)
+assert.match(
+  globalStyles,
+  /\.blog-topic-link-group[\s\S]*\.blog-topic-link-card/,
+  'Resource article related topic links must have dedicated styling.',
 )
 
 console.log('Resources hub checks passed.')

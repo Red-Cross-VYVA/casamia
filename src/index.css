@@ -21347,6 +21347,65 @@ body .hero-section .hero-title .home-accent {
   color: var(--green);
 }
 
+.blog-topic-link-group {
+  margin-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  padding-top: 22px;
+}
+
+.blog-topic-link-group > span {
+  display: block;
+  color: #bfeaff;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.blog-topic-link-group > div {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.blog-topic-link-card {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 16px 18px;
+  color: #ffffff;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.blog-topic-link-card:hover {
+  border-color: rgba(191, 234, 255, 0.5);
+  background: rgba(255, 255, 255, 0.13);
+  transform: translateY(-2px);
+}
+
+.blog-topic-link-card strong {
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.blog-topic-link-card small {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 6px;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 950;
+}
+
 .blog-related-section {
   background: #f4faff;
 }
@@ -21364,6 +21423,12 @@ body .hero-section .hero-title .home-accent {
 
 .blog-related-grid h3 {
   font-size: 28px;
+}
+
+@media (min-width: 700px) {
+  .blog-topic-link-group > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1100px) {
@@ -21446,6 +21511,10 @@ body .hero-section .hero-title .home-accent {
   .blog-next-step-link {
     justify-content: center;
     width: 100%;
+  }
+
+  .blog-topic-link-group > div {
+    grid-template-columns: 1fr;
   }
 
   .blog-feature-content h2,
