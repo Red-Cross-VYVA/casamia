@@ -247,6 +247,7 @@ function AppRoutes() {
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
             <Route path="/service-areas" element={<ServiceAreasPage />} />
+            <Route path="/service-areas/:citySlug" element={<ServiceAreasPage />} />
             <Route path="/:needSlug" element={<NeedLandingPage />} />
             <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />

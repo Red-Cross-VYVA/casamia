@@ -1,9 +1,9 @@
 import { ArrowRight, CheckCircle2, Clock3, MapPin, ShieldCheck, Sparkles } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'
-import { serviceAreaCities } from '../constants/serviceAreas'
+import { getServiceAreaCitySlug, serviceAreaCities } from '../constants/serviceAreas'
 import { trackEvent } from '../utils/analytics'
 
 const siteUrl = 'https://casamia.com.es'
@@ -47,6 +47,22 @@ const serviceAreaCopy = {
     unknownBody:
       'Send your postcode and the rooms you are worried about. CasaMia can confirm whether we can help remotely, coordinate a visit, or advise the best next route.',
     unknownCta: 'Check my postcode',
+    citySeoTitle: (city: string) => `Senior home safety services in ${city}`,
+    citySeoDescription: (city: string, region: string) =>
+      `CasaMia coordinates senior home-safety reviews, practical adaptations and family support in ${city}, ${region}.`,
+    cityEyebrow: 'Local service route',
+    cityPageTitle: (city: string) => `Home safety support in ${city}`,
+    cityIntroPrefix: 'CasaMia helps families in',
+    cityIntroSuffix:
+      'understand what to fix first, what can be handled remotely, and when a local visit or installation partner is the right next step.',
+    cityFocusTitle: 'Common local priorities',
+    cityProcessTitle: 'How we help locally',
+    cityProcess: [
+      'Start online with a guided review, photos, video, voice brief or a call.',
+      'CasaMia checks the home context, urgency, rooms and local delivery fit.',
+      'You get a clear next step: remote plan, expert visit, proposal, grant support or staged installation.',
+    ],
+    cityBack: 'View all service areas',
   },
   es: {
     seoTitle: 'Zonas de servicio de CasaMia en España',
@@ -86,6 +102,22 @@ const serviceAreaCopy = {
     unknownBody:
       'Envíanos el código postal y las estancias que te preocupan. CasaMia puede confirmar si puede ayudar en remoto, coordinar una visita o indicar la mejor ruta.',
     unknownCta: 'Comprobar mi código postal',
+    citySeoTitle: (city: string) => `Servicios de seguridad del hogar senior en ${city}`,
+    citySeoDescription: (city: string, region: string) =>
+      `CasaMia coordina revisiones de seguridad, adaptaciones prácticas y apoyo familiar en ${city}, ${region}.`,
+    cityEyebrow: 'Ruta local de servicio',
+    cityPageTitle: (city: string) => `Seguridad en casa para mayores en ${city}`,
+    cityIntroPrefix: 'CasaMia ayuda a familias en',
+    cityIntroSuffix:
+      'a entender qué conviene resolver primero, qué puede revisarse en remoto y cuándo una visita o instalación local es el siguiente paso adecuado.',
+    cityFocusTitle: 'Prioridades frecuentes en la zona',
+    cityProcessTitle: 'Cómo ayudamos localmente',
+    cityProcess: [
+      'Empieza online con revisión guiada, fotos, vídeo, nota de voz o llamada.',
+      'CasaMia revisa contexto, urgencia, estancias y encaje con la entrega local.',
+      'Recibes una ruta clara: plan remoto, visita experta, propuesta, apoyo con ayudas o instalación por fases.',
+    ],
+    cityBack: 'Ver todas las zonas',
   },
 } as const
 
@@ -96,9 +128,131 @@ const statusIcon = {
 } as const
 
 export function ServiceAreasPage() {
+  const { citySlug } = useParams()
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = serviceAreaCopy[language]
+  const selectedCity = citySlug
+    ? serviceAreaCities.find((area) => getServiceAreaCitySlug(area.city) === citySlug)
+    : undefined
+
+  if (citySlug && !selectedCity) {
+    return <Navigate to="/service-areas" replace />
+  }
+
+  if (selectedCity) {
+    const Status = statusIcon[selectedCity.status]
+    const statusLabel = copy[selectedCity.status]
+    const cityPath = `/service-areas/${getServiceAreaCitySlug(selectedCity.city)}`
+    const citySchema = [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${siteUrl}${cityPath}#service`,
+        name: copy.cityPageTitle(selectedCity.city),
+        serviceType: language === 'es' ? 'Adaptación y seguridad del hogar senior' : 'Senior home safety adaptation',
+        provider: { '@type': 'Organization', name: 'CasaMia', url: siteUrl },
+        areaServed: {
+          '@type': 'City',
+          name: selectedCity.city,
+          containedInPlace: selectedCity.region,
+        },
+        url: `${siteUrl}${cityPath}`,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: copy.cityProcess.map((item) => ({
+          '@type': 'Question',
+          name: item,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item,
+          },
+        })),
+      },
+    ]
+
+    return (
+      <>
+        <SEO
+          title={copy.citySeoTitle(selectedCity.city)}
+          description={copy.citySeoDescription(selectedCity.city, selectedCity.region)}
+          path={cityPath}
+          schema={citySchema}
+        />
+
+        <section className="service-areas-hero service-area-city-hero">
+          <div className="site-shell service-area-city-hero-grid">
+            <div className="service-areas-hero-copy">
+              <p className="eyebrow">{copy.cityEyebrow}</p>
+              <h1>{copy.cityPageTitle(selectedCity.city)}</h1>
+              <p>
+                {copy.cityIntroPrefix} {selectedCity.city} {copy.cityIntroSuffix}
+              </p>
+              <div className="service-area-city-status-card">
+                <span className={`service-areas-city-status is-${selectedCity.status}`}>
+                  <Status size={16} aria-hidden="true" />
+                  {statusLabel}
+                </span>
+                <strong>{selectedCity.region}</strong>
+                <p>{selectedCity.headline[language]}</p>
+              </div>
+              <div className="service-areas-actions">
+                <Link
+                  className="btn btn-green"
+                  to="/home-safety-assessment"
+                  onClick={() =>
+                    trackEvent('assessment_booking_started', {
+                      location: 'service_area_city_hero',
+                      city: selectedCity.city,
+                    })
+                  }
+                >
+                  {copy.primaryCta}
+                  <ArrowRight size={19} aria-hidden="true" />
+                </Link>
+                <Link className="btn btn-white" to="/service-areas">
+                  {copy.cityBack}
+                </Link>
+              </div>
+            </div>
+
+            <aside className="service-area-city-panel" aria-label={copy.cityFocusTitle}>
+              <span className="service-areas-map-label">{copy.cityFocusTitle}</span>
+              <h2>{selectedCity.city}</h2>
+              <ul>
+                {selectedCity.focus[language].map((item) => (
+                  <li key={item}>
+                    <CheckCircle2 size={18} aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          </div>
+        </section>
+
+        <section className="service-areas-process section-pad bg-white">
+          <div className="site-shell">
+            <div className="service-areas-section-heading">
+              <p className="eyebrow">{copy.cityProcessTitle}</p>
+              <h2>{copy.howIntro}</h2>
+            </div>
+            <div className="service-areas-process-grid">
+              {copy.cityProcess.map((item, index) => (
+                <article className="service-areas-process-card" key={item}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <ShieldCheck size={28} aria-hidden="true" />
+                  <h3>{item}</h3>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </>
+    )
+  }
 
   const schema = [
     {
@@ -238,6 +392,10 @@ export function ServiceAreasPage() {
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
+                  <Link className="service-areas-city-link" to={`/service-areas/${getServiceAreaCitySlug(area.city)}`}>
+                    {language === 'es' ? 'Ver ruta local' : 'View local route'}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
                 </article>
               )
             })}

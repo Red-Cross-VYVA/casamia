@@ -16,6 +16,18 @@ assert.match(
 )
 
 assert.match(
+  app,
+  /<Route path="\/service-areas\/:citySlug" element=\{<ServiceAreasPage \/>}/,
+  'City-level service area pages must be registered as public routes.',
+)
+
+assert.match(
+  constants,
+  /function getServiceAreaCitySlug[\s\S]*normalize\('NFD'\)/,
+  'City-level service area slugs must be generated from the shared city source of truth.',
+)
+
+assert.match(
   constants,
   /Madrid[\s\S]*Barcelona[\s\S]*Valencia[\s\S]*Malaga[\s\S]*Alicante[\s\S]*Seville/,
   'The service-area source of truth must include the first priority Spanish cities.',
@@ -25,6 +37,12 @@ assert.match(
   page,
   /@type': 'Service'[\s\S]*areaServed: serviceAreaCities\.map/,
   'The page must expose Service schema with city-level areaServed data.',
+)
+
+assert.match(
+  page,
+  /useParams[\s\S]*selectedCity[\s\S]*copy\.cityPageTitle\(selectedCity\.city\)[\s\S]*areaServed: \{[\s\S]*selectedCity\.city/,
+  'The service areas page must render city-level SEO content from the same city data.',
 )
 
 assert.match(
@@ -58,8 +76,14 @@ assert.match(
 )
 
 assert.match(
+  sitemap,
+  /https:\/\/casamia\.com\.es\/service-areas\/madrid[\s\S]*https:\/\/casamia\.com\.es\/service-areas\/barcelona[\s\S]*https:\/\/casamia\.com\.es\/service-areas\/valencia/,
+  'The public sitemap must include priority city service-area pages.',
+)
+
+assert.match(
   styles,
-  /\.service-areas-hero[\s\S]*\.service-areas-map-card[\s\S]*\.service-areas-city-card/,
+  /\.service-areas-hero[\s\S]*\.service-areas-map-card[\s\S]*\.service-areas-city-card[\s\S]*\.service-area-city-panel/,
   'The Service Areas page must have dedicated visual styling.',
 )
 

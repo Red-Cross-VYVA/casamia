@@ -26,6 +26,14 @@
   <url><loc>https://casamia.com.es/assisted-living-solutions</loc><priority>0.8</priority></url>
   <url><loc>https://casamia.com.es/provider-partners</loc><priority>0.75</priority></url>
   <url><loc>https://casamia.com.es/service-areas</loc><priority>0.74</priority></url>
+  <url><loc>https://casamia.com.es/service-areas/madrid</loc><priority>0.7</priority></url>
+  <url><loc>https://casamia.com.es/service-areas/barcelona</loc><priority>0.7</priority></url>
+  <url><loc>https://casamia.com.es/service-areas/valencia</loc><priority>0.7</priority></url>
+  <url><loc>https://casamia.com.es/service-areas/malaga</loc><priority>0.68</priority></url>
+  <url><loc>https://casamia.com.es/service-areas/alicante</loc><priority>0.68</priority></url>
+  <url><loc>https://casamia.com.es/service-areas/seville</loc><priority>0.68</priority></url>
+  <url><loc>https://casamia.com.es/service-areas/bilbao</loc><priority>0.62</priority></url>
+  <url><loc>https://casamia.com.es/service-areas/zaragoza</loc><priority>0.62</priority></url>
   <url><loc>https://casamia.com.es/grants</loc><priority>0.85</priority></url>
   <url><loc>https://casamia.com.es/grant-check</loc><priority>0.8</priority></url>
   <url><loc>https://casamia.com.es/tools/home-vs-residence-cost-calculator</loc><priority>0.78</priority></url>
