@@ -37,6 +37,7 @@
 .need-landing-more-card h2,
 .need-landing-practical h2,
 .need-landing-resources h2,
+.need-landing-next-actions h2,
 .need-landing-catalogue h2,
 .need-landing-detail h2,
 .need-landing-final-card h2 {
@@ -133,6 +134,7 @@
 .need-landing-practical,
 .need-landing-decision,
 .need-landing-resources,
+.need-landing-next-actions,
 .need-landing-catalogue,
 .need-landing-detail {
   padding: clamp(4rem, 7vw, 6.5rem) 0;
@@ -144,6 +146,7 @@
 .need-landing-practical-grid,
 .need-landing-decision-grid,
 .need-landing-resources-grid,
+.need-landing-next-actions-grid,
 .need-landing-catalogue-grid,
 .need-landing-detail-grid {
   display: grid;
@@ -157,6 +160,7 @@
 .need-mini-card,
 .need-decision-card,
 .need-resource-card,
+.need-next-action-card,
 .need-landing-route-card,
 .need-landing-dos-card,
 .need-catalogue-card,
@@ -440,6 +444,83 @@
   gap: 0.4rem;
   color: var(--color-blue);
   font-weight: 950;
+}
+
+.need-landing-next-actions {
+  background:
+    radial-gradient(circle at 10% 12%, rgb(70 174 216 / 14%), transparent 18rem),
+    linear-gradient(180deg, #ffffff 0%, #f4fbff 100%);
+}
+
+.need-landing-next-actions h2 {
+  max-width: 12ch;
+  margin: 0.8rem 0 0;
+  font-size: clamp(2.7rem, 5vw, 4.8rem);
+  line-height: 0.95;
+}
+
+.need-landing-next-actions p:not(.eyebrow) {
+  max-width: 39rem;
+  margin: 1.2rem 0 0;
+  color: #3a526a;
+  font-size: 1.08rem;
+  line-height: 1.62;
+}
+
+.need-next-action-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.need-next-action-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.3rem 0.9rem;
+  align-items: center;
+  padding: clamp(1rem, 2.4vw, 1.25rem);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.need-next-action-card:hover {
+  border-color: rgb(70 174 216 / 72%);
+  box-shadow: 0 1.5rem 3.2rem rgb(10 42 68 / 12%);
+  transform: translateY(-2px);
+}
+
+.need-next-action-card > span {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  grid-row: span 2;
+  place-items: center;
+  border-radius: 1rem;
+  background: #eaf6fc;
+  color: var(--color-blue);
+}
+
+.need-next-action-card strong {
+  color: var(--color-ink);
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.need-next-action-card p {
+  grid-column: 2 / 3;
+  margin: 0;
+  color: #4d657b;
+  line-height: 1.45;
+}
+
+.need-next-action-card > svg {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  color: var(--color-blue);
 }
 
 .need-landing-catalogue {
@@ -790,6 +871,7 @@
   .need-landing-practical-grid,
   .need-landing-decision-grid,
   .need-landing-resources-grid,
+  .need-landing-next-actions-grid,
   .need-landing-catalogue-grid,
   .need-landing-detail-grid,
   .need-landing-final-card {

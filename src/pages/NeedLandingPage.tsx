@@ -114,6 +114,27 @@ export function NeedLandingPage() {
       : 'Each topic combines practical guidance with a useful tool so families can move from worry to the next step.',
     readResource: isSpanish ? 'Leer recurso' : 'Read resource',
     useTool: isSpanish ? 'Usar herramienta' : 'Use tool',
+    nextActionEyebrow: isSpanish ? 'Elige una acción' : 'Choose one action',
+    nextActionTitle: isSpanish ? 'Pasa de leer a decidir.' : 'Move from reading to deciding.',
+    nextActionBody: isSpanish
+      ? 'Si esta situación encaja con tu familia, elige la forma más cómoda de avanzar. Puedes empezar sin compromiso y completar detalles después.'
+      : 'If this situation fits your family, choose the easiest way to move forward. You can start without commitment and add details later.',
+    nextActionPrimary: isSpanish ? 'Responder preguntas' : 'Answer a few questions',
+    nextActionPrimaryBody: isSpanish
+      ? 'Una ruta guiada para convertir preocupaciones en prioridades.'
+      : 'A guided route to turn concerns into priorities.',
+    nextActionPhotos: isSpanish ? 'Enviar fotos o vídeo' : 'Send photos or video',
+    nextActionPhotosBody: isSpanish
+      ? 'Muestra el espacio para que CasaMia pueda entenderlo mejor.'
+      : 'Show the space so CasaMia can understand it better.',
+    nextActionServices: isSpanish ? 'Ver opciones CasaMia' : 'See CasaMia options',
+    nextActionServicesBody: isSpanish
+      ? 'Explora resultados posibles antes de pedir una propuesta.'
+      : 'Explore possible outcomes before requesting a proposal.',
+    nextActionCall: isSpanish ? 'Pedir que nos contacten' : 'Ask us to contact you',
+    nextActionCallBody: isSpanish
+      ? 'Si prefieres hablarlo, CasaMia puede orientarte por llamada.'
+      : 'If talking it through is easier, CasaMia can guide you by call.',
     catalogueEyebrow: isSpanish ? 'Catálogo CasaMia actual' : 'Current CasaMia catalogue',
     catalogueTitle: isSpanish ? 'Qué puede incluir CasaMia.' : 'What CasaMia can include.',
     catalogueBody: isSpanish
@@ -257,6 +278,32 @@ export function NeedLandingPage() {
     () => getNeedRecommendedResources(page.slug, localizedArticles, i18n.language),
     [localizedArticles, i18n.language, page.slug],
   )
+  const nextActions = [
+    {
+      icon: <ClipboardCheck size={22} aria-hidden="true" />,
+      title: copy.nextActionPrimary,
+      body: copy.nextActionPrimaryBody,
+      to: '/home-safety-wizard',
+    },
+    {
+      icon: <Camera size={22} aria-hidden="true" />,
+      title: copy.nextActionPhotos,
+      body: copy.nextActionPhotosBody,
+      to: '/#estimate-upload',
+    },
+    {
+      icon: <Wrench size={22} aria-hidden="true" />,
+      title: copy.nextActionServices,
+      body: copy.nextActionServicesBody,
+      to: page.servicePath,
+    },
+    {
+      icon: <MessageCircle size={22} aria-hidden="true" />,
+      title: copy.nextActionCall,
+      body: copy.nextActionCallBody,
+      to: '/why-us#contact-form',
+    },
+  ]
 
   return (
     <>
@@ -397,6 +444,26 @@ export function NeedLandingPage() {
             </div>
           </section>
         ) : null}
+
+        <section className="need-landing-next-actions" aria-labelledby="need-landing-next-actions-title">
+          <div className="site-shell need-landing-next-actions-grid">
+            <div>
+              <p className="eyebrow">{copy.nextActionEyebrow}</p>
+              <h2 id="need-landing-next-actions-title">{copy.nextActionTitle}</h2>
+              <p>{copy.nextActionBody}</p>
+            </div>
+            <div className="need-next-action-list">
+              {nextActions.map((action) => (
+                <Link className="need-next-action-card" key={action.to} to={action.to}>
+                  <span>{action.icon}</span>
+                  <strong>{action.title}</strong>
+                  <p>{action.body}</p>
+                  <ArrowRight size={18} aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {catalogueServices.length > 0 ? (
           <section className="need-landing-catalogue">
