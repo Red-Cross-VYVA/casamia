@@ -1,12 +1,16 @@
 import {
   ArrowRight,
+  CalendarCheck,
   CheckCircle2,
   ClipboardCheck,
+  FileText,
   Home,
+  MessageCircle,
   ShieldCheck,
   SmilePlus,
   Stethoscope,
   UsersRound,
+  Wrench,
 } from 'lucide-react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -39,7 +43,16 @@ type PricingCopy = {
   points: string[]
 }
 
+type AfterReviewCopy = {
+  eyebrow: string
+  title: string
+  body: string
+  cards: StepItem[]
+  note: string
+}
+
 const benefitIcons = [ShieldCheck, SmilePlus, Home, Stethoscope, ClipboardCheck, UsersRound]
+const afterReviewIcons = [MessageCircle, FileText, CalendarCheck, Wrench]
 
 export function FreeHomeSafetyAssessmentPage() {
   const { i18n, t } = useTranslation()
@@ -48,6 +61,7 @@ export function FreeHomeSafetyAssessmentPage() {
   const included = t('assessment.included.items', { returnObjects: true }) as IncludedItem[]
   const steps = t('assessment.how.items', { returnObjects: true }) as StepItem[]
   const pricing = t('assessment.pricing', { returnObjects: true }) as PricingCopy
+  const afterReview = t('assessment.afterReview', { returnObjects: true }) as AfterReviewCopy
   const isReportBookingFlow = searchParams.get('source') === 'free-report'
   const isSpanish = i18n.language.startsWith('es')
 
@@ -165,6 +179,38 @@ export function FreeHomeSafetyAssessmentPage() {
       </section>
 
       <SelfInspectionTool />
+
+      <section className="assessment-after-review section-pad">
+        <div className="assessment-after-review-layout site-shell">
+          <div className="assessment-after-review-copy">
+            <p className="eyebrow">{afterReview.eyebrow}</p>
+            <h2 className="display-title">{afterReview.title}</h2>
+            <p>{afterReview.body}</p>
+            <div className="assessment-after-review-note">
+              <ShieldCheck size={20} aria-hidden="true" />
+              <span>{afterReview.note}</span>
+            </div>
+          </div>
+          <div className="assessment-after-review-path" aria-label={afterReview.title}>
+            {afterReview.cards.map((card, index) => {
+              const Icon = afterReviewIcons[index] ?? ClipboardCheck
+
+              return (
+                <article className="assessment-after-review-card" key={card.title}>
+                  <span className="assessment-after-review-number">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="assessment-after-review-icon">
+                    <Icon size={22} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
 
       <section className="assessment-how section-pad">
         <div className="site-shell">

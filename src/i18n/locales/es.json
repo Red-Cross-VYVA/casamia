@@ -146,6 +146,30 @@
         }
       ]
     },
+    "afterReview": {
+      "eyebrow": "Después de la revisión",
+      "title": "Próximos pasos claros, sin tener que coordinarlo todo.",
+      "body": "Empieces online o solicites una visita, CasaMia convierte tus respuestas en una ruta práctica: qué conviene atender primero, qué puede esperar y qué podemos coordinar por ti.",
+      "cards": [
+        {
+          "title": "Revisamos el contexto",
+          "body": "Fotos, notas, movilidad, riesgos por estancia y prioridades se revisan en conjunto."
+        },
+        {
+          "title": "Recibes un resumen claro",
+          "body": "Explicamos las zonas de riesgo, el siguiente paso recomendado y cualquier dato que falte."
+        },
+        {
+          "title": "La visita se confirma solo si ayuda",
+          "body": "Si la vivienda requiere medición o revisión profesional, confirmamos horario y alcance primero."
+        },
+        {
+          "title": "CasaMia coordina el trabajo",
+          "body": "Propuesta, productos, instaladores, ayudas cuando corresponda y seguimiento en un solo plan."
+        }
+      ],
+      "note": "Tú mantienes el control: no se reserva ninguna instalación hasta que el alcance esté claro y aceptado."
+    },
     "how": {
       "title": "Cómo funciona",
       "items": [

@@ -12944,6 +12944,142 @@ img {
   line-height: 1.58;
 }
 
+.assessment-after-review {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(123, 191, 63, 0.18), transparent 28%),
+    linear-gradient(135deg, #083047 0%, #176996 100%);
+  color: var(--white);
+}
+
+.assessment-after-review::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 92px 92px;
+  opacity: 0.62;
+}
+
+.assessment-after-review-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.assessment-after-review-copy {
+  max-width: 680px;
+}
+
+.assessment-after-review-copy .eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 18px;
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.1);
+  color: #dff5ff;
+}
+
+.assessment-after-review-copy .display-title {
+  color: var(--white);
+}
+
+.assessment-after-review-copy > p {
+  margin-top: 22px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.58;
+}
+
+.assessment-after-review-note {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.assessment-after-review-note svg {
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
+.assessment-after-review-path {
+  display: grid;
+  gap: 14px;
+}
+
+.assessment-after-review-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));
+  padding: 20px;
+  box-shadow: 0 24px 70px rgba(1, 13, 22, 0.22);
+  backdrop-filter: blur(10px);
+}
+
+.assessment-after-review-card::after {
+  content: '';
+  position: absolute;
+  left: 54px;
+  bottom: -15px;
+  width: 2px;
+  height: 15px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), transparent);
+}
+
+.assessment-after-review-card:last-child::after {
+  display: none;
+}
+
+.assessment-after-review-number {
+  color: #9ce0ff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.assessment-after-review-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #dff5ff;
+}
+
+.assessment-after-review-card h3 {
+  color: var(--white);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.18;
+}
+
+.assessment-after-review-card p {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+}
+
 .assessment-included {
   background:
     linear-gradient(180deg, #f0f8fd 0%, #ffffff 100%);
@@ -19075,6 +19211,10 @@ img {
     grid-template-columns: minmax(0, 1fr) minmax(340px, 0.48fr);
   }
 
+  .assessment-after-review-layout {
+    grid-template-columns: minmax(0, 0.72fr) minmax(420px, 0.62fr);
+  }
+
   .assessment-benefit-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -19920,8 +20060,22 @@ img {
   .assessment-hero-panel,
   .assessment-benefit-card,
   .assessment-step-card,
+  .assessment-after-review-card,
   .assessment-form-card {
     padding: 22px;
+  }
+
+  .assessment-after-review-card {
+    grid-template-columns: 1fr;
+  }
+
+  .assessment-after-review-card::after {
+    display: none;
+  }
+
+  .assessment-after-review-note {
+    align-items: flex-start;
+    border-radius: 18px;
   }
 
   .assessment-hero-panel {

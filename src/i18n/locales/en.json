@@ -146,6 +146,30 @@
         }
       ]
     },
+    "afterReview": {
+      "eyebrow": "After your review",
+      "title": "Clear next steps, without the coordination headache.",
+      "body": "Whether you start online or request a visit, CasaMia turns your answers into a practical route: what matters first, what can wait, and what we can coordinate for you.",
+      "cards": [
+        {
+          "title": "We review the context",
+          "body": "Photos, notes, mobility needs, room risks and priorities are reviewed together."
+        },
+        {
+          "title": "You get a clear summary",
+          "body": "We explain the likely risk areas, recommended next step and any missing information."
+        },
+        {
+          "title": "A visit is confirmed only if useful",
+          "body": "If the home needs measurement or professional review, we confirm timing and scope first."
+        },
+        {
+          "title": "CasaMia coordinates the work",
+          "body": "Proposal, products, installers, grants where relevant, and follow-up stay under one plan."
+        }
+      ],
+      "note": "You stay in control: no installation is booked until the scope is clear and accepted."
+    },
     "how": {
       "title": "How It Works",
       "items": [
