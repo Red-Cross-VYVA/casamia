@@ -65,11 +65,12 @@ type ServicesPageCopy = {
   sectionTitle: string
   sectionBody: string
   packageNavigation: string
-  optionSingular: string
-  optionPlural: string
+  includedItemSingular: string
+  includedItemPlural: string
+  addOnSingular: string
+  addOnPlural: string
   tailoredQuote: string
   selectedEyebrow: string
-  packageOptions: string
   packagePrice: string
   coreComponent: string
   optionalComponent: string
@@ -212,28 +213,29 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     seoTitle: 'CasaMia Home Safety Service Catalogue',
     seoDescription: 'Explore CasaMia home safety services and current inclusions by room and safety area.',
     heroEyebrow: 'CasaMia service catalogue',
-    heroTitle: 'Every safer-home option, clearly organised.',
-    heroBody: 'Choose an area to see the active services CasaMia can assess, supply, install or coordinate. Your confirmed proposal is prepared after we understand the home.',
+    heroTitle: 'Every safer-home package, clearly organised.',
+    heroBody: 'Choose an area to see what is included in each CasaMia package, plus optional add-ons we can quote after understanding the home.',
     browseCta: 'Browse package areas',
     planCta: 'Build my safer home',
     catalogueLabel: 'Current catalogue',
-    currentOptions: 'service options available now',
+    currentOptions: 'included items and add-ons available now',
     activeServices: 'Active services',
     packageAreas: 'Package areas',
     inclusionsVisible: 'Inclusions shown',
     homeVisualTitle: 'One home, every key area covered.',
     homeVisualIntro: 'Browse services by the spaces people use every day.',
     sectionEyebrow: 'Explore by area',
-    sectionTitle: 'See what CasaMia can make safer and easier.',
-    sectionBody: 'Choose a space to review practical upgrades, comfort improvements and services CasaMia can coordinate for you. Your final plan is tailored after we understand the home.',
+    sectionTitle: 'See what is included, room by room.',
+    sectionBody: 'Choose a space to review the core improvements included in the package and the optional add-ons CasaMia can assess, quote and coordinate for you.',
     packageNavigation: 'CasaMia package areas',
-    optionSingular: 'option',
-    optionPlural: 'options',
+    includedItemSingular: 'included item',
+    includedItemPlural: 'included items',
+    addOnSingular: 'optional add-on',
+    addOnPlural: 'optional add-ons',
     tailoredQuote: 'Tailored quote',
-    selectedEyebrow: 'Current package',
-    packageOptions: 'current options',
+    selectedEyebrow: 'Package area',
     packagePrice: 'Package price',
-    coreComponent: 'Core component',
+    coreComponent: 'Included in package',
     optionalComponent: 'Optional add-on',
     included: 'What is included',
     customerBenefit: 'Why it helps',
@@ -260,28 +262,29 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     seoTitle: 'Catálogo de servicios de seguridad CasaMia',
     seoDescription: 'Explora servicios CasaMia e inclusiones actuales por estancia y área de seguridad.',
     heroEyebrow: 'Catálogo de servicios CasaMia',
-    heroTitle: 'Todas las opciones para un hogar más seguro, bien organizadas.',
-    heroBody: 'Elige un área para ver los servicios activos que CasaMia puede evaluar, suministrar, instalar o coordinar. La propuesta confirmada se prepara cuando entendemos la vivienda.',
+    heroTitle: 'Cada paquete para un hogar más seguro, bien organizado.',
+    heroBody: 'Elige una zona para ver qué incluye cada paquete CasaMia y qué extras opcionales podemos valorar después de entender la vivienda.',
     browseCta: 'Ver áreas de servicio',
     planCta: 'Crear mi hogar más seguro',
     catalogueLabel: 'Catálogo actual',
-    currentOptions: 'opciones de servicio disponibles',
+    currentOptions: 'incluidos y extras disponibles',
     activeServices: 'Servicios activos',
     packageAreas: 'Áreas de servicio',
     inclusionsVisible: 'Inclusiones visibles',
     homeVisualTitle: 'Una casa, cada zona clave cubierta.',
     homeVisualIntro: 'Explora los servicios por los espacios que se usan a diario.',
     sectionEyebrow: 'Explora por zona',
-    sectionTitle: 'Descubre cómo CasaMia puede hacer cada espacio más seguro y cómodo.',
-    sectionBody: 'Elige una zona para ver mejoras prácticas, soluciones de confort y servicios que CasaMia puede coordinar por ti. El plan final se adapta después de entender la vivienda.',
+    sectionTitle: 'Consulta qué incluye cada zona.',
+    sectionBody: 'Elige una zona para revisar las mejoras incluidas en el paquete y los extras opcionales que CasaMia puede valorar, presupuestar y coordinar por ti.',
     packageNavigation: 'Áreas de servicio CasaMia',
-    optionSingular: 'opción',
-    optionPlural: 'opciones',
+    includedItemSingular: 'incluido',
+    includedItemPlural: 'incluidos',
+    addOnSingular: 'extra opcional',
+    addOnPlural: 'extras opcionales',
     tailoredQuote: 'Presupuesto a medida',
-    selectedEyebrow: 'Área actual',
-    packageOptions: 'opciones actuales',
+    selectedEyebrow: 'Zona del paquete',
     packagePrice: 'Precio del paquete',
-    coreComponent: 'Componente base',
+    coreComponent: 'Incluido en el paquete',
     optionalComponent: 'Extra opcional',
     included: 'Qué incluye',
     customerBenefit: 'Por qué ayuda',
@@ -323,6 +326,21 @@ const getCustomerServiceBenefit = (service: CasaMiaService) =>
 
 const isWebsiteVisible = (service: CasaMiaService) =>
   service.websiteVisible ?? service.visibility?.website ?? true
+
+const isOptionalAddOn = (service: CasaMiaService) =>
+  (service.componentRole ?? (service.priority === 'optional' ? 'option' : 'core')) === 'option'
+  || service.section === 'optional_adaptations'
+
+function formatPackageComposition(services: CasaMiaService[], copy: ServicesPageCopy) {
+  const optionalAddOns = services.filter(isOptionalAddOn).length
+  const includedItems = services.length - optionalAddOns
+  const includedLabel = includedItems === 1 ? copy.includedItemSingular : copy.includedItemPlural
+  const addOnLabel = optionalAddOns === 1 ? copy.addOnSingular : copy.addOnPlural
+
+  return optionalAddOns > 0
+    ? `${includedItems} ${includedLabel} · ${optionalAddOns} ${addOnLabel}`
+    : `${includedItems} ${includedLabel}`
+}
 
 export function ServicesPage() {
   const { i18n } = useTranslation()
@@ -449,9 +467,7 @@ export function ServicesPage() {
                       <span className="services-catalogue-nav-icon"><Icon size={23} aria-hidden="true" /></span>
                       <span className="services-catalogue-nav-copy">
                         <strong>{group.area.title[language]}</strong>
-                        <small>
-                          {group.services.length} {group.services.length === 1 ? copy.optionSingular : copy.optionPlural}
-                        </small>
+                        <small>{formatPackageComposition(group.services, copy)}</small>
                       </span>
                     </button>
                   )
@@ -475,7 +491,7 @@ export function ServicesPage() {
                     <div className="services-catalogue-package-heading">
                       <span className="services-catalogue-package-icon"><SelectedIcon size={26} aria-hidden="true" /></span>
                       <div>
-                        <p>{copy.selectedEyebrow} · {selectedGroup.services.length} {copy.packageOptions}</p>
+                        <p>{copy.selectedEyebrow} · {formatPackageComposition(selectedGroup.services, copy)}</p>
                         <h2 id="active-service-package-title">{selectedGroup.area.title[language]}</h2>
                         <span>{selectedGroup.area.description[language]}</span>
                         {selectedGroup.packageConfig ? (
@@ -498,9 +514,7 @@ export function ServicesPage() {
                               <small>{service.category}</small>
                               <h3>{getCustomerServiceName(service)}</h3>
                               <span className="services-catalogue-component-role">
-                                {(service.componentRole ?? 'core') === 'core'
-                                  ? copy.coreComponent
-                                  : copy.optionalComponent}
+                                {isOptionalAddOn(service) ? copy.optionalComponent : copy.coreComponent}
                               </span>
                             </div>
                           </header>

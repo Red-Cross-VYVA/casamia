@@ -35,6 +35,26 @@ assert.match(
   /service\.includedItems\?\.map\(/,
   'Customers must be able to see the inclusions maintained in the admin catalogue.',
 )
+assert.match(
+  page,
+  /formatPackageComposition\(group\.services,\s*copy\)/,
+  'Room cards must describe package composition instead of calling everything options.',
+)
+assert.match(
+  page,
+  /includedItemPlural/,
+  'Package composition copy must include customer-facing included-item language.',
+)
+assert.match(
+  page,
+  /addOnPlural/,
+  'Package composition copy must include customer-facing optional add-on language.',
+)
+assert.doesNotMatch(
+  page,
+  /optionSingular|optionPlural|packageOptions/,
+  'The services page must not label package contents as generic options.',
+)
 assert.doesNotMatch(
   page,
   /format(?:ServicePrice|Currency)|service\.pricingType|service\.(?:fromPrice|productPrice|installationPrice|recurringMonthlyPrice)/,
