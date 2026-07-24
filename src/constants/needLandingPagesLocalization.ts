@@ -393,6 +393,132 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       },
     ],
   },
+  'home-adaptations-vs-assisted-living': {
+    title: 'Adaptar la vivienda o considerar una residencia',
+    seoTitle: 'Adaptar la vivienda o considerar una residencia | CasaMia',
+    description:
+      'Una guía práctica para comparar adaptar la vivienda con una residencia o assisted living: seguridad, comodidad, coste, tiempos y apoyo familiar.',
+    eyebrow: 'Guía de decisión',
+    intro:
+      'Cuando la vida diaria empieza a ser más difícil, la familia suele preguntarse si conviene adaptar la casa, añadir apoyo o valorar una residencia. CasaMia ayuda a aclarar qué puede resolverse en casa primero.',
+    whoFor: [
+      'Familias que comparan adaptar la vivienda con una mudanza',
+      'Personas mayores que quieren seguir en casa si puede ser más seguro',
+      'Familiares que necesitan una forma tranquila de comparar opciones',
+    ],
+    priorities: [
+      'Riesgo actual y apoyo diario necesario',
+      'Baño, dormitorio, entrada y ruta nocturna',
+      'Si las mejoras son urgentes, por fases o especialistas',
+      'Disponibilidad de la familia y apoyo continuado',
+    ],
+    casamiaPlan: [
+      'Revisar la vivienda y las rutinas antes de decisiones grandes',
+      'Separar mejoras rápidas de adaptaciones mayores',
+      'Explicar qué puede gestionarse en casa y qué necesita planificación de cuidados',
+    ],
+    relatedServices: [
+      { label: 'Crear plan de seguridad', to: '/home-safety-wizard' },
+      { label: 'Reservar evaluación', to: '/home-safety-assessment' },
+      { label: 'Soluciones para organizaciones', to: '/assisted-living-solutions' },
+    ],
+    faqs: [
+      {
+        question: '¿Las adaptaciones pueden sustituir una residencia?',
+        answer:
+          'A veces pueden hacer la vida en casa más segura y cómoda, pero no sustituyen cuidados personales, médicos o supervisión continuada cuando son necesarios.',
+      },
+      {
+        question: '¿Qué debe comparar primero la familia?',
+        answer:
+          'Conviene comparar las rutinas que generan presión: ducha, inodoro, cama, cocina, escaleras, movimiento nocturno y respuesta ante emergencias.',
+      },
+    ],
+  },
+  'home-safety-assessment-vs-general-contractor': {
+    title: 'Evaluación de seguridad o contratista general',
+    seoTitle: 'Evaluación de seguridad o contratista general | CasaMia',
+    description:
+      'Entiende cuándo conviene empezar con una evaluación de seguridad antes de pedir a un contratista que instale productos o presupueste trabajos.',
+    eyebrow: 'Guía de decisión',
+    intro:
+      'Un contratista puede instalar lo que se le pide. Una evaluación de seguridad ayuda a decidir qué conviene pedir, según la persona, la rutina y el riesgo.',
+    whoFor: [
+      'Familias que no saben qué solicitar a instaladores',
+      'Viviendas con varios posibles riesgos',
+      'Personas que quieren un alcance claro antes de gastar',
+    ],
+    priorities: [
+      'Movimiento exacto y transferencias de la persona',
+      'Riesgos urgentes, recomendados u opcionales',
+      'Medidas, puntos de fijación y limitaciones del espacio',
+      'Un alcance que el instalador pueda presupuestar y entregar',
+    ],
+    casamiaPlan: [
+      'Empezar por el problema diario de seguridad',
+      'Convertir observaciones en un alcance orientado a paquetes',
+      'Coordinar requisitos de instalación, explicación y seguimiento',
+    ],
+    relatedServices: [
+      { label: 'Reservar evaluación', to: '/home-safety-assessment' },
+      { label: 'Ver el proceso', to: '/how-it-works' },
+      { label: 'Ver servicios', to: '/services' },
+    ],
+    faqs: [
+      {
+        question: '¿Debo llamar primero a un contratista?',
+        answer:
+          'Si el trabajo está claro y definido, puede bastar. Si la familia no sabe qué cambiar, es mejor empezar con una evaluación para que el alcance encaje con la persona.',
+      },
+      {
+        question: '¿CasaMia también coordina la instalación?',
+        answer:
+          'Sí. CasaMia coordina evaluación, alcance práctico, instalación y explicación final cuando hace falta.',
+      },
+    ],
+  },
+  'smart-home-safety-vs-monitoring': {
+    title: 'Seguridad conectada o monitorización',
+    seoTitle: 'Seguridad conectada o monitorización para mayores | CasaMia',
+    description:
+      'Compara seguridad conectada, alertas sencillas y servicios de monitorización para personas mayores sin complicar la vivienda.',
+    eyebrow: 'Guía de decisión',
+    intro:
+      'No todo dispositivo conectado es monitorización, y no toda familia necesita un servicio de vigilancia. CasaMia prioriza vida conectada útil: luz, recordatorios, avisos y rutinas simples con consentimiento claro.',
+    whoFor: [
+      'Familias que valoran sensores, voz o botones de emergencia',
+      'Personas mayores que quieren apoyo sin sentirse vigiladas',
+      'Viviendas donde la automatización sencilla reduce fricción diaria',
+    ],
+    priorities: [
+      'Consentimiento y comodidad con la tecnología',
+      'Luz nocturna, recordatorios y ayuda al alcance',
+      'Quién recibe avisos y qué hace después',
+      'Compatibilidad, configuración y soporte',
+    ],
+    casamiaPlan: [
+      'Definir la experiencia antes de elegir dispositivos',
+      'Configurar herramientas compatibles en rutinas sencillas',
+      'Documentar reglas de respuesta para que la familia entienda qué ocurre',
+    ],
+    relatedServices: [
+      { label: 'Enfoque tecnológico', to: '/tech' },
+      { label: 'Hogar conectado para mayores', to: '/connected-home-for-seniors' },
+      { label: 'Empezar plan guiado', to: '/home-safety-wizard' },
+    ],
+    faqs: [
+      {
+        question: '¿Seguridad conectada significa vigilancia?',
+        answer:
+          'No. CasaMia prioriza apoyo práctico como iluminación, recordatorios, avisos de agua y ayuda al alcance. Cualquier aviso debe acordarse y entenderse bien.',
+      },
+      {
+        question: '¿Cuál es la configuración conectada más sencilla?',
+        answer:
+          'Suele empezar con un altavoz configurado, luz nocturna, llamadas fáciles, recordatorios y avisos seleccionados según la persona y la vivienda.',
+      },
+    ],
+  },
 }
 
 export function localizeNeedLandingPage(page: NeedLandingPageContent, language: string) {

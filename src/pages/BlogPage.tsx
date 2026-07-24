@@ -25,6 +25,7 @@ import { SEO } from '../components/SEO'
 import { blogArticles, type BlogArticle } from '../constants/blogContent'
 import { localizeBlogArticles } from '../constants/blogContentLocalization'
 import { decisionGuidePages } from '../constants/needLandingPages'
+import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import {
   completeHomeChecklistDownloads,
   type ResourceDownloadLanguage,
@@ -811,6 +812,10 @@ export function BlogPage() {
   const copy = pageCopy[language]
   const primaryDownload = completeHomeChecklistDownloads[language]
   const localizedArticles = useMemo(() => localizeBlogArticles(blogArticles, language), [language])
+  const localizedDecisionGuides = useMemo(
+    () => localizeNeedLandingPages(decisionGuidePages, language),
+    [language],
+  )
   const resourceSearchQuery = searchParams.get('search')?.trim() ?? ''
   const normalizedResourceSearch = normalizeResourceSearch(resourceSearchQuery)
   const filteredGuideGroups = useMemo(
@@ -960,7 +965,7 @@ export function BlogPage() {
             + topicRoutes.length
             + printableMaterials.length
             + decisionPathways.length
-            + decisionGuidePages.length
+            + localizedDecisionGuides.length
             + localizedArticles.length
             + 1,
           itemListElement: [
@@ -1006,7 +1011,7 @@ export function BlogPage() {
               name: pathway.title[language],
               url: `${siteUrl}${pathway.actions[0].to}`,
             })),
-            ...decisionGuidePages.map((guide, index) => ({
+            ...localizedDecisionGuides.map((guide, index) => ({
               '@type': 'ListItem',
               position: toolContent.length + educationHubSteps.length + resourceJourneys.length + topicRoutes.length + printableMaterials.length + decisionPathways.length + index + 2,
               name: guide.title,
@@ -1021,7 +1026,7 @@ export function BlogPage() {
                 + topicRoutes.length
                 + printableMaterials.length
                 + decisionPathways.length
-                + decisionGuidePages.length
+                + localizedDecisionGuides.length
                 + index
                 + 2,
               name: article.title,
@@ -1031,7 +1036,7 @@ export function BlogPage() {
         },
       ],
     }),
-    [copy, language, localizedArticles, primaryDownload],
+    [copy, language, localizedArticles, localizedDecisionGuides, primaryDownload],
   )
 
   function trackDownload(downloadLanguage: ResourceDownloadLanguage) {
@@ -1324,7 +1329,7 @@ export function BlogPage() {
             </div>
 
             <div className="resource-comparison-grid">
-              {decisionGuidePages.map((guide) => (
+              {localizedDecisionGuides.map((guide) => (
                 <Link className="resource-comparison-card" key={guide.slug} to={guide.path}>
                   <span>{guide.eyebrow}</span>
                   <h3>{guide.title}</h3>

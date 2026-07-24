@@ -256,6 +256,16 @@ assert.match(
 )
 assert.match(
   page,
+  /const localizedDecisionGuides = useMemo[\s\S]*localizeNeedLandingPages\(decisionGuidePages, language\)[\s\S]*localizedDecisionGuides\.map/,
+  'The Resources hub must render decision guide cards from the localised need-page source.',
+)
+assert.match(
+  needLandingLocalization,
+  /home-adaptations-vs-assisted-living[\s\S]*Adaptar la vivienda o considerar una residencia[\s\S]*home-safety-assessment-vs-general-contractor[\s\S]*Evaluación de seguridad o contratista general[\s\S]*smart-home-safety-vs-monitoring[\s\S]*Seguridad conectada o monitorización/,
+  'Decision guide pages must include Spanish localisation for the Resources hub and topic pages.',
+)
+assert.match(
+  page,
   /const familyStarterPrompts = \[[\s\S]*What changed recently\?[\s\S]*What decision is needed this week\?/,
   'The Resources hub must include a practical family starter prompt sequence.',
 )
