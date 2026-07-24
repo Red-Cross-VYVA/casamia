@@ -679,6 +679,73 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     ],
     cta: { label: 'Empezar revisión de vuelta a casa', to: '/home-safety-after-hospital-discharge' },
   },
+  'when-home-adaptations-are-not-enough': {
+    title: 'Cuando adaptar la vivienda no es suficiente: guía familiar de decisión',
+    description:
+      'Una guía práctica para decidir si conviene adaptar la vivienda, añadir apoyo, planificar por fases o valorar una residencia u otra opción de cuidado.',
+    category: 'Decisiones familiares',
+    readTime: '8 min de lectura',
+    imageAlt: 'Familia comparando opciones de seguridad y cuidado en casa',
+    keywords: ['envejecer en casa decisión', 'adaptar vivienda o residencia', 'cuando la casa ya no es segura'],
+    intro:
+      'Envejecer en casa debe ser seguro, familiar y realista. La pregunta no es si casa siempre es mejor, sino si el apoyo adecuado puede hacer la vida diaria más segura sin agotar a la persona ni a la familia.',
+    takeaways: [
+      'Las adaptaciones funcionan mejor cuando la persona aún puede usar la vivienda con rutas claras, apoyos y rutinas sencillas.',
+      'Una residencia o un mayor nivel de apoyo puede ser más seguro cuando supervisión, transferencias, confusión o riesgo nocturno no se gestionan de forma fiable en casa.',
+      'La mejor decisión compara seguridad, dignidad, capacidad familiar, coste, plazos y deseos de la persona.',
+    ],
+    sections: [
+      {
+        title: 'Empieza por la rutina diaria, no por la vivienda',
+        body: [
+          'Una casa puede parecer adecuada en una visita rápida y fallar justo en los momentos importantes: levantarse de la cama, llegar al baño de noche, ducharse, cocinar, usar escaleras o pedir ayuda.',
+          'Si esos momentos pueden hacerse más seguros con adaptaciones, rutinas y apoyo, seguir en casa puede ser realista. Si dependen de improvisar cada día, la familia necesita una conversación más amplia.',
+        ],
+      },
+      {
+        title: 'Señales de que adaptar la casa aún puede ser la vía correcta',
+        body: [
+          'Casa suele seguir siendo una buena opción cuando la persona quiere quedarse, reconoce el espacio, puede seguir rutinas sencillas y los principales riesgos son físicos o del entorno: baño, iluminación, escaleras, umbrales, cama o ayuda al alcance.',
+          'En ese caso, un plan por fases suele funcionar: resolver primero el riesgo urgente y después añadir confort, apoyo conectado o adaptaciones mayores cuando aportan valor claro.',
+        ],
+      },
+      {
+        title: 'Señales de que conviene valorar más apoyo',
+        body: [
+          'Puede hacer falta hablar de más apoyo cuando la persona no puede pedir ayuda de forma fiable, las caídas se repiten, la noche se vuelve insegura, las transferencias no pueden hacerse con una sola persona o la confusión crea riesgos frecuentes.',
+          'Esto no significa automáticamente residencia. Puede significar más ayuda en casa, respiro, rutinas con tecnología, una visita profesional o un plan de transición. Lo importante es decidir antes de que una crisis decida por todos.',
+        ],
+      },
+      {
+        title: 'Usa un marco de decisión claro',
+        body: [
+          'Una conversación útil compara cinco cosas: qué quiere la persona, qué es inseguro ahora, qué se puede cambiar de forma realista, quién ayuda en el día a día y cuánto cuesta cada ruta en 6 a 24 meses.',
+          'CasaMia puede ayudar con la parte de vivienda: revisión de seguridad, propuesta práctica, trabajos por fases, preparación para ayudas y una explicación clara de lo que la adaptación puede y no puede resolver.',
+        ],
+      },
+    ],
+    checklist: [
+      '¿Puede llegar con seguridad al baño, cama, cocina y entrada en un día normal?',
+      '¿Puede pedir ayuda desde las estancias donde hay más riesgo?',
+      '¿Las caídas, sustos o incidentes nocturnos son más frecuentes?',
+      '¿La familia o cuidadores pueden sostener la rutina sin agotarse?',
+      '¿Un plan por fases resolvería los principales riesgos o solo retrasaría una decisión mayor?',
+      '¿La familia ha comparado coste y plazos de adaptar casa frente a residencia o más apoyo?',
+    ],
+    faqs: [
+      {
+        question: '¿Cómo sabemos si seguir en casa es realista?',
+        answer:
+          'Mirad las rutinas diarias, no solo la idea de la casa. Si baño, noche, transferencias, comidas y petición de ayuda pueden hacerse fiables, casa puede seguir siendo realista. Si varias siguen siendo inseguras, conviene valorar un plan de cuidado más amplio.',
+      },
+      {
+        question: '¿Hay que adaptar la casa antes de pensar en una residencia?',
+        answer:
+          'No siempre. Algunas familias deben comparar ambas rutas pronto. Una revisión de seguridad puede mostrar qué se resuelve en casa, qué necesita apoyo profesional y qué quizá conviene tratar con una opción de mayor cuidado.',
+      },
+    ],
+    cta: { label: 'Comparar casa y residencia', to: '/tools/home-vs-residence-cost-calculator' },
+  },
   'emergency-plan-aging-parents-home': {
     title: 'Plan de emergencia para padres mayores que viven en casa',
     description:

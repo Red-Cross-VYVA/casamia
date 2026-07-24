@@ -385,6 +385,19 @@ const decisionPathways = [
       { label: { en: 'Grant guide', es: 'Guía de ayudas' }, to: '/blog/home-adaptation-grants-spain-family-guide' },
     ],
   },
+  {
+    icon: Home,
+    image: '/images/blog/provider-choice.webp',
+    title: { en: 'We are unsure if home is still the right route', es: 'No sabemos si casa sigue siendo la mejor opción' },
+    body: {
+      en: 'Compare what home adaptations can solve with the point where more support or a residence route should be considered.',
+      es: 'Compara lo que puede resolver una adaptación con el momento en que conviene valorar más apoyo o una residencia.',
+    },
+    actions: [
+      { label: { en: 'Read decision guide', es: 'Leer guía de decisión' }, to: '/blog/when-home-adaptations-are-not-enough' },
+      { label: { en: 'Compare costs', es: 'Comparar costes' }, to: '/tools/home-vs-residence-cost-calculator' },
+    ],
+  },
 ] as const
 
 const familyStarterPrompts = [
@@ -535,6 +548,7 @@ const guideGroups = [
       'hospital-discharge-home-safety-checklist',
       'smart-home-safety-without-overcomplicating',
       'emergency-plan-aging-parents-home',
+      'when-home-adaptations-are-not-enough',
     ],
   },
   {

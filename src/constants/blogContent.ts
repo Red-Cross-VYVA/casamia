@@ -767,6 +767,80 @@ export const blogArticles: BlogArticle[] = [
     },
   },
   {
+    id: 'when-home-adaptations-are-not-enough',
+    path: '/blog/when-home-adaptations-are-not-enough',
+    title: 'When Home Adaptations Are Not Enough: A Family Decision Guide',
+    description:
+      'A practical guide for families deciding whether home adaptations, extra support, a staged plan or a residence route is the safer next step.',
+    category: 'Family decisions',
+    readTime: '8 min read',
+    date: '2026-07-24',
+    image: '/images/blog/provider-choice.webp',
+    imageAlt: 'Family comparing home safety and care options around a table',
+    keywords: ['aging in place decision', 'home adaptations vs care home', 'when home is no longer safe'],
+    intro:
+      'Aging at home should feel safe, familiar and realistic. The question is not whether home is always better; it is whether the right support can make daily life safer without exhausting the resident or the family.',
+    takeaways: [
+      'Home adaptations work best when the resident can still use the home with clearer routes, support points and sensible routines.',
+      'A residence or higher-care route may be safer when supervision, transfers, confusion or night-time risk cannot be managed reliably at home.',
+      'The best decision compares safety, dignity, family capacity, cost, timing and the resident wishes together.',
+    ],
+    sections: [
+      {
+        title: 'Start with the daily routine, not the building',
+        body: [
+          'A home can look suitable during a quick visit and still fail at the exact moments that matter: getting out of bed, reaching the toilet at night, showering, cooking, using stairs or calling for help.',
+          'If those moments can be made safer with practical adaptations, routines and support, staying at home may remain realistic. If they depend on constant improvisation, the family needs a wider conversation.',
+        ],
+      },
+      {
+        title: 'Signals that home adaptation may still be the right route',
+        body: [
+          'Home usually remains a strong option when the person wants to stay, recognises the space, can follow simple routines and the main risks are physical or environmental: bathroom access, lighting, stairs, thresholds, bed transfers or emergency reach.',
+          'In that case, a staged plan often works well: fix urgent risk first, then add comfort, connected support or larger adaptations where they clearly improve daily life.',
+        ],
+      },
+      {
+        title: 'Signals that the family should consider more support',
+        body: [
+          'A higher-support route may need to be discussed when the person cannot request help reliably, falls repeatedly despite changes, becomes unsafe at night, needs transfers that one person cannot manage, or has confusion that creates frequent risk.',
+          'This does not automatically mean a residence. It may mean more home care, respite, technology-supported routines, a professional visit, or a transition plan. The point is to be honest before a crisis decides for everyone.',
+        ],
+      },
+      {
+        title: 'Use a decision frame everyone can understand',
+        body: [
+          'A useful family decision compares five things: what the resident wants, what is currently unsafe, what can realistically be changed, who will help day to day, and what each route costs over the next 6 to 24 months.',
+          'CasaMia can help with the home side of that decision: safety review, practical proposal, staged works, grant-readiness notes and a clear explanation of what home adaptation can and cannot solve.',
+        ],
+      },
+    ],
+    checklist: [
+      'Can the person reach the toilet, bed, kitchen and entrance safely on a normal day?',
+      'Can help be requested from the rooms where risk is highest?',
+      'Are falls, near misses or night-time incidents becoming more frequent?',
+      'Can family or carers realistically support the routine without burning out?',
+      'Would a staged home plan solve the main risks, or only delay a bigger decision?',
+      'Has the family compared the cost and timing of adapting home versus a residence or higher-care route?',
+    ],
+    faqs: [
+      {
+        question: 'How do we know if aging at home is still realistic?',
+        answer:
+          'Look at daily routines, not the idea of the home. If bathroom use, night movement, transfers, meals and help requests can be made reliable, home may still be realistic. If several of those remain unsafe despite support, consider a wider care plan.',
+      },
+      {
+        question: 'Should we adapt the home before considering a residence?',
+        answer:
+          'Not always. Some families should compare both routes early. A focused home safety review can show what can be solved at home, what needs professional support and what may be better handled through a higher-care option.',
+      },
+    ],
+    cta: {
+      label: 'Compare home and residence costs',
+      to: '/tools/home-vs-residence-cost-calculator',
+    },
+  },
+  {
     id: 'emergency-plan-aging-parents-home',
     path: '/blog/emergency-plan-aging-parents-home',
     title: 'Emergency Planning for Aging Parents Living at Home',
