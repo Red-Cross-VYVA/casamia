@@ -93,6 +93,11 @@ assert.match(
 )
 assert.match(
   page,
+  /printableMaterials\.map\(\(material\)[\s\S]*'@type': 'DigitalDocument'[\s\S]*encodingFormat: isPdf \? 'application\/pdf' : 'text\/html'/,
+  'The Resources hub must publish structured data for every printable or practical material, not just the lead checklist.',
+)
+assert.match(
+  page,
   /Home vs residence cost planner[\s\S]*\/tools\/home-vs-residence-cost-calculator/,
   'The Resources hub must expose the home-vs-residence cost planner.',
 )

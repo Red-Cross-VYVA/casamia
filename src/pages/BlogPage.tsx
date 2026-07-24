@@ -676,21 +676,28 @@ export function BlogPage() {
             },
           ],
         },
-        {
-          '@type': 'DigitalDocument',
-          '@id': `${siteUrl}${primaryDownload.href}#document`,
-          name: primaryDownload.title,
-          description: copy.downloadBody,
-          inLanguage: primaryDownload.language,
-          encodingFormat: 'application/pdf',
-          contentUrl: `${siteUrl}${primaryDownload.href}`,
-          isAccessibleForFree: true,
-          publisher: {
-            '@type': 'Organization',
-            name: 'CasaMia',
-            url: siteUrl,
-          },
-        },
+        ...printableMaterials.map((material) => {
+          const href = material.getHref(language)
+          const documentLanguage = material.downloadLanguage?.(language)
+          const isPdf = Boolean(documentLanguage)
+
+          return {
+            '@type': 'DigitalDocument',
+            '@id': `${siteUrl}${href}#document`,
+            name: material.title[language],
+            description: material.body[language],
+            inLanguage: documentLanguage ?? copy.lang,
+            encodingFormat: isPdf ? 'application/pdf' : 'text/html',
+            url: `${siteUrl}${href}`,
+            ...(isPdf ? { contentUrl: `${siteUrl}${href}` } : {}),
+            isAccessibleForFree: true,
+            publisher: {
+              '@type': 'Organization',
+              name: 'CasaMia',
+              url: siteUrl,
+            },
+          }
+        }),
         {
           '@type': 'FAQPage',
           '@id': `${siteUrl}/blog#faq`,
