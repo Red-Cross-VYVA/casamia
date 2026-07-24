@@ -62,6 +62,24 @@ const serviceAreaCopy = {
       'CasaMia checks the home context, urgency, rooms and local delivery fit.',
       'You get a clear next step: remote plan, expert visit, proposal, grant support or staged installation.',
     ],
+    cityFaqTitle: (city: string) => `Questions families ask in ${city}`,
+    cityFaqItems: (city: string) => [
+      {
+        question: `Can CasaMia help if my home in ${city} is not ready for a visit yet?`,
+        answer:
+          'Yes. You can start with guided questions, photos, videos or a voice brief. CasaMia will tell you whether a remote plan is enough or whether a local visit makes sense.',
+      },
+      {
+        question: `Does CasaMia install directly in ${city}?`,
+        answer:
+          'CasaMia coordinates the route: remote review, scoped proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, scope and confirmed provider availability.',
+      },
+      {
+        question: `Can CasaMia help with grants or paperwork in ${city}?`,
+        answer:
+          'CasaMia can help structure the project information and identify the likely route, but public authorities decide eligibility, approval, amount and timing.',
+      },
+    ],
     cityBack: 'View all service areas',
   },
   es: {
@@ -117,6 +135,24 @@ const serviceAreaCopy = {
       'CasaMia revisa contexto, urgencia, estancias y encaje con la entrega local.',
       'Recibes una ruta clara: plan remoto, visita experta, propuesta, apoyo con ayudas o instalación por fases.',
     ],
+    cityFaqTitle: (city: string) => `Preguntas frecuentes de familias en ${city}`,
+    cityFaqItems: (city: string) => [
+      {
+        question: `¿CasaMia puede ayudar si mi vivienda en ${city} aún no está lista para una visita?`,
+        answer:
+          'Sí. Puedes empezar con preguntas guiadas, fotos, vídeos o una nota de voz. CasaMia te indicará si basta con un plan remoto o si conviene una visita local.',
+      },
+      {
+        question: `¿CasaMia instala directamente en ${city}?`,
+        answer:
+          'CasaMia coordina la ruta: revisión remota, propuesta definida, encaje con profesionales verificados, planificación de instalación y seguimiento. La entrega local depende del alcance, los tiempos y la disponibilidad confirmada.',
+      },
+      {
+        question: `¿CasaMia ayuda con ayudas o documentación en ${city}?`,
+        answer:
+          'CasaMia puede ayudar a estructurar la información del proyecto e identificar la ruta probable, pero la administración pública decide elegibilidad, aprobación, importe y plazos.',
+      },
+    ],
     cityBack: 'Ver todas las zonas',
   },
 } as const
@@ -144,6 +180,7 @@ export function ServiceAreasPage() {
     const Status = statusIcon[selectedCity.status]
     const statusLabel = copy[selectedCity.status]
     const cityPath = `/service-areas/${getServiceAreaCitySlug(selectedCity.city)}`
+    const cityFaqItems = copy.cityFaqItems(selectedCity.city)
     const citySchema = [
       {
         '@context': 'https://schema.org',
@@ -162,12 +199,12 @@ export function ServiceAreasPage() {
       {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: copy.cityProcess.map((item) => ({
+        mainEntity: cityFaqItems.map((item) => ({
           '@type': 'Question',
-          name: item,
+          name: item.question,
           acceptedAnswer: {
             '@type': 'Answer',
-            text: item,
+            text: item.answer,
           },
         })),
       },
@@ -246,6 +283,23 @@ export function ServiceAreasPage() {
                   <ShieldCheck size={28} aria-hidden="true" />
                   <h3>{item}</h3>
                 </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="service-area-city-faq section-pad">
+          <div className="site-shell service-area-city-faq-layout">
+            <div>
+              <p className="eyebrow">{selectedCity.city}</p>
+              <h2>{copy.cityFaqTitle(selectedCity.city)}</h2>
+            </div>
+            <div className="service-area-city-faq-list">
+              {cityFaqItems.map((item) => (
+                <details key={item.question}>
+                  <summary>{item.question}</summary>
+                  <p>{item.answer}</p>
+                </details>
               ))}
             </div>
           </div>

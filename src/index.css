@@ -10252,6 +10252,88 @@ img {
   color: var(--green);
 }
 
+.service-area-city-faq {
+  background:
+    radial-gradient(circle at 12% 14%, rgba(47, 158, 214, 0.1), transparent 34%),
+    linear-gradient(135deg, rgba(234, 245, 252, 0.95), rgba(255, 255, 255, 0.98));
+}
+
+.service-area-city-faq-layout {
+  display: grid;
+  gap: clamp(24px, 5vw, 54px);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .service-area-city-faq-layout {
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+}
+
+.service-area-city-faq-layout h2 {
+  margin: 0;
+  max-width: 620px;
+  color: var(--text-dark);
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 72px);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+}
+
+.service-area-city-faq-list {
+  display: grid;
+  gap: 14px;
+}
+
+.service-area-city-faq-list details {
+  border: 1px solid rgba(31, 106, 152, 0.18);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 18px 46px rgba(12, 54, 78, 0.08);
+  overflow: hidden;
+}
+
+.service-area-city-faq-list summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px 22px;
+  color: var(--text-dark);
+  cursor: pointer;
+  font-weight: 950;
+  list-style: none;
+}
+
+.service-area-city-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.service-area-city-faq-list summary::after {
+  content: '+';
+  display: grid;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(125, 184, 65, 0.14);
+  color: var(--green-dark);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.service-area-city-faq-list details[open] summary::after {
+  content: '–';
+}
+
+.service-area-city-faq-list p {
+  margin: 0;
+  padding: 0 22px 22px;
+  color: var(--text-mid);
+  font-weight: 720;
+  line-height: 1.55;
+}
+
 .home-decision-section {
   overflow: hidden;
   background:

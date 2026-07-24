@@ -47,6 +47,18 @@ assert.match(
 
 assert.match(
   page,
+  /cityFaqTitle: \(city: string\)[\s\S]*Questions families ask[\s\S]*cityFaqItems: \(city: string\)[\s\S]*Preguntas frecuentes de familias[\s\S]*const cityFaqItems = copy\.cityFaqItems\(selectedCity\.city\)[\s\S]*service-area-city-faq-list/,
+  'City-level service area pages must include local-intent FAQ content in English and Spanish.',
+)
+
+assert.match(
+  page,
+  /'@type': 'FAQPage'[\s\S]*mainEntity: cityFaqItems\.map/,
+  'City-level service area FAQ schema must use the visible city FAQ content.',
+)
+
+assert.match(
+  page,
   /@type': 'FAQPage'[\s\S]*copy\.howItems\.map/,
   'The page must include FAQ structured data for how coverage works.',
 )
@@ -83,7 +95,7 @@ assert.match(
 
 assert.match(
   styles,
-  /\.service-areas-hero[\s\S]*\.service-areas-map-card[\s\S]*\.service-areas-city-card[\s\S]*\.service-area-city-panel/,
+  /\.service-areas-hero[\s\S]*\.service-areas-map-card[\s\S]*\.service-areas-city-card[\s\S]*\.service-area-city-panel[\s\S]*\.service-area-city-faq-list/,
   'The Service Areas page must have dedicated visual styling.',
 )
 
