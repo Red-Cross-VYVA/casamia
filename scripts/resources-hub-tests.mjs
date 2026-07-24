@@ -8,6 +8,7 @@ const toolsPage = await readFile(new URL('../src/pages/ToolsPage.tsx', import.me
 const providerPartnersPage = await readFile(new URL('../src/pages/ProviderPartnersPage.tsx', import.meta.url), 'utf8')
 const beforeAfterPage = await readFile(new URL('../src/pages/BeforeAfterPage.tsx', import.meta.url), 'utf8')
 const aboutPage = await readFile(new URL('../src/pages/AboutPage.tsx', import.meta.url), 'utf8')
+const plansPage = await readFile(new URL('../src/pages/PlansPage.tsx', import.meta.url), 'utf8')
 const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
@@ -32,6 +33,7 @@ const publicCopySources = {
   'src/pages/ProviderPartnersPage.tsx': providerPartnersPage,
   'src/pages/BeforeAfterPage.tsx': beforeAfterPage,
   'src/pages/AboutPage.tsx': aboutPage,
+  'src/pages/PlansPage.tsx': plansPage,
   'src/pages/NeedLandingPage.tsx': needLandingPage,
   'src/constants/blogContentLocalization.ts': blogContentLocalization,
   'src/constants/needLandingPagesLocalization.ts': needLandingLocalization,
@@ -144,6 +146,16 @@ assert.match(
   aboutPage,
   /'@type': 'AboutPage'[\s\S]*\/about#page[\s\S]*'@type': 'Organization'[\s\S]*#organization[\s\S]*'@type': 'ItemList'[\s\S]*\/about#trust-signals/,
   'The About page must publish structured data for CasaMia and visible trust signals.',
+)
+assert.match(
+  plansPage,
+  /<SEO[\s\S]*title=\{copy\.metaTitle\}[\s\S]*description=\{seoDescription\}[\s\S]*path="\/plans"[\s\S]*schema=\{schema\}/,
+  'The CasaMia plan page must use the shared SEO component with canonical metadata.',
+)
+assert.match(
+  plansPage,
+  /'@type': 'Service'[\s\S]*managed-home-safety-plan[\s\S]*'@type': 'OfferCatalog'[\s\S]*copy\.rooms\.map[\s\S]*'@type': 'HowTo'[\s\S]*plan-process[\s\S]*copy\.flow\.map[\s\S]*'@type': 'ItemList'[\s\S]*plan-outcomes/,
+  'The CasaMia plan page must publish structured data for the managed plan, visible room coverage and process.',
 )
 assert.match(
   toolsPage,

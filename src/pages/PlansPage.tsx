@@ -17,10 +17,11 @@ import {
   Wrench,
   type LucideIcon,
 } from 'lucide-react'
-import { useEffect } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { SEO } from '../components/SEO'
 import { TrustBar } from '../components/TrustBar'
 
 type Outcome = {
@@ -347,13 +348,91 @@ export function PlansPage() {
   const { i18n, t } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = plansCopy[language]
+  const siteUrl = 'https://www.casamia.com.es'
+  const seoDescription = copy.body
 
-  useEffect(() => {
-    document.title = copy.metaTitle
-  }, [copy.metaTitle])
+  const schema = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': `${siteUrl}/plans#page`,
+          url: `${siteUrl}/plans`,
+          name: copy.metaTitle,
+          description: seoDescription,
+          inLanguage: language,
+          isPartOf: {
+            '@type': 'WebSite',
+            '@id': `${siteUrl}/#website`,
+            name: 'CasaMia',
+            url: siteUrl,
+          },
+          about: {
+            '@id': `${siteUrl}/plans#managed-home-safety-plan`,
+          },
+        },
+        {
+          '@type': 'Service',
+          '@id': `${siteUrl}/plans#managed-home-safety-plan`,
+          name: copy.title,
+          description: copy.outcomesBody,
+          serviceType: language === 'es' ? 'Plan gestionado de seguridad en el hogar' : 'Managed home safety plan',
+          provider: {
+            '@type': 'Organization',
+            '@id': `${siteUrl}/#organization`,
+            name: 'CasaMia',
+            url: siteUrl,
+          },
+          areaServed: {
+            '@type': 'Country',
+            name: 'Spain',
+          },
+          hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: copy.roomsTitle,
+            itemListElement: copy.rooms.map((room, index) => ({
+              '@type': 'Offer',
+              position: index + 1,
+              itemOffered: {
+                '@type': 'Service',
+                name: room.room,
+                description: room.focus,
+              },
+            })),
+          },
+        },
+        {
+          '@type': 'HowTo',
+          '@id': `${siteUrl}/plans#plan-process`,
+          name: copy.howTitle,
+          description: copy.howBody,
+          step: copy.flow.map((step, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: step.title,
+            text: step.body,
+          })),
+        },
+        {
+          '@type': 'ItemList',
+          '@id': `${siteUrl}/plans#plan-outcomes`,
+          name: copy.outcomesTitle,
+          itemListElement: copy.outcomes.map((outcome, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: outcome.title,
+            description: outcome.body,
+          })),
+        },
+      ],
+    }),
+    [copy, language, seoDescription],
+  )
 
   return (
     <>
+      <SEO title={copy.metaTitle} description={seoDescription} path="/plans" schema={schema} />
       <section className="plans-conversion-hero core-plan-hero">
         <div className="plans-conversion-hero-inner site-shell">
           <div>
