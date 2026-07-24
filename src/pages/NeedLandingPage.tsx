@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
+import { blogArticles, type BlogArticle } from '../constants/blogContent'
+import { localizeBlogArticles } from '../constants/blogContentLocalization'
 import { allNeedLandingPages, getNeedLandingPage } from '../constants/needLandingPages'
 import { localizeNeedLandingPage, localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { formatServicePrice, getServicesForPackageArea } from '../services/serviceCatalogue'
@@ -59,6 +61,13 @@ export function NeedLandingPage() {
       ? 'CasaMia recomienda resultados primero y confirma después productos, medidas e instalación.'
       : 'CasaMia recommends outcomes first, then confirms products, measurements and installer requirements.',
     usefulPages: isSpanish ? 'Páginas útiles' : 'Useful next pages',
+    recommendedEyebrow: isSpanish ? 'Recursos recomendados' : 'Recommended resources',
+    recommendedTitle: isSpanish ? 'Lee solo lo que ayuda a decidir.' : 'Read only what helps you decide.',
+    recommendedBody: isSpanish
+      ? 'Cada tema combina una explicación práctica con una herramienta útil para pasar de la preocupación al siguiente paso.'
+      : 'Each topic combines practical guidance with a useful tool so families can move from worry to the next step.',
+    readResource: isSpanish ? 'Leer recurso' : 'Read resource',
+    useTool: isSpanish ? 'Usar herramienta' : 'Use tool',
     catalogueEyebrow: isSpanish ? 'Catálogo CasaMia actual' : 'Current CasaMia catalogue',
     catalogueTitle: isSpanish ? 'Qué puede incluir CasaMia.' : 'What CasaMia can include.',
     catalogueBody: isSpanish
@@ -173,6 +182,11 @@ export function NeedLandingPage() {
     () => getNeedCatalogueServices(page.slug, catalogue.services),
     [catalogue.services, page.slug],
   )
+  const localizedArticles = useMemo(() => localizeBlogArticles(blogArticles, i18n.language), [i18n.language])
+  const recommendedResources = useMemo(
+    () => getNeedRecommendedResources(page.slug, localizedArticles, i18n.language),
+    [localizedArticles, i18n.language, page.slug],
+  )
 
   return (
     <>
@@ -259,6 +273,31 @@ export function NeedLandingPage() {
             </div>
           </div>
         </section>
+
+        {recommendedResources.length > 0 ? (
+          <section className="need-landing-resources" aria-labelledby="need-landing-resources-title">
+            <div className="site-shell need-landing-resources-grid">
+              <div className="need-landing-resources-copy">
+                <p className="eyebrow">{copy.recommendedEyebrow}</p>
+                <h2 id="need-landing-resources-title">{copy.recommendedTitle}</h2>
+                <p>{copy.recommendedBody}</p>
+              </div>
+              <div className="need-resource-card-grid">
+                {recommendedResources.map((resource) => (
+                  <Link className="need-resource-card" key={resource.to} to={resource.to}>
+                    <span>{resource.kindLabel}</span>
+                    <h3>{resource.title}</h3>
+                    <p>{resource.description}</p>
+                    <strong>
+                      {resource.kind === 'tool' ? copy.useTool : copy.readResource}
+                      <ArrowRight size={17} aria-hidden="true" />
+                    </strong>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {catalogueServices.length > 0 ? (
           <section className="need-landing-catalogue">
@@ -409,6 +448,83 @@ const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
   'smart-home-safety-vs-monitoring': ['smart-safety', 'lighting', 'bedroom'],
 }
 
+type NeedResourceReference =
+  | { kind: 'article'; id: string }
+  | { kind: 'tool'; to: string; title: { en: string; es: string }; description: { en: string; es: string } }
+
+type NeedRecommendedResource = {
+  kind: 'article' | 'tool'
+  kindLabel: string
+  to: string
+  title: string
+  description: string
+}
+
+const needResourceReferences: Record<string, NeedResourceReference[]> = {
+  'aging-in-place-home-assessment': [
+    { kind: 'article', id: 'fall-prevention-home-checklist-spain' },
+    { kind: 'article', id: 'family-conversation-before-home-safety-visit' },
+    {
+      kind: 'tool',
+      to: '/home-safety-assessment#self-inspection-tool',
+      title: { en: 'Online safety review', es: 'Revisión online de seguridad' },
+      description: {
+        en: 'Capture the rooms, routines and concerns that matter before booking a visit.',
+        es: 'Recoge estancias, rutinas y preocupaciones antes de reservar una visita.',
+      },
+    },
+  ],
+  'bathroom-safety-for-seniors': [
+    { kind: 'article', id: 'bathroom-safety-seniors-costly-mistakes' },
+    { kind: 'article', id: 'fall-prevention-home-checklist-spain' },
+  ],
+  'connected-home-for-seniors': [
+    { kind: 'article', id: 'smart-home-safety-without-overcomplicating' },
+    { kind: 'article', id: 'emergency-plan-aging-parents-home' },
+  ],
+  'fall-prevention-at-home': [
+    { kind: 'article', id: 'fall-prevention-home-checklist-spain' },
+    { kind: 'article', id: 'bedroom-night-safety-older-adults' },
+    {
+      kind: 'tool',
+      to: '/tools/is-my-parent-safe-at-home',
+      title: { en: 'Is my parent safe at home?', es: '¿Está mi familiar seguro en casa?' },
+      description: {
+        en: 'A short quiz to spot common warning signs before a fall or crisis.',
+        es: 'Un test breve para detectar señales habituales antes de una caída o crisis.',
+      },
+    },
+  ],
+  'grants-for-home-adaptations-spain': [
+    { kind: 'article', id: 'home-adaptation-grants-spain-family-guide' },
+    {
+      kind: 'tool',
+      to: '/plan-adapta',
+      title: { en: 'Grant-readiness check', es: 'Revisión de ayudas' },
+      description: {
+        en: 'Understand what information usually helps prepare a grant route.',
+        es: 'Entiende qué información suele ayudar a preparar una ruta de ayudas.',
+      },
+    },
+  ],
+  'home-adaptations-for-elderly': [
+    { kind: 'article', id: 'fall-prevention-home-checklist-spain' },
+    { kind: 'article', id: 'choose-home-safety-provider-spain' },
+  ],
+  'home-safety-after-hospital-discharge': [
+    { kind: 'article', id: 'hospital-discharge-home-safety-checklist' },
+    { kind: 'article', id: 'family-conversation-before-home-safety-visit' },
+  ],
+  'safe-bathroom-access': [
+    { kind: 'article', id: 'bathroom-safety-seniors-costly-mistakes' },
+    { kind: 'article', id: 'home-adaptation-grants-spain-family-guide' },
+  ],
+  'senior-bedroom-safety': [
+    { kind: 'article', id: 'bedroom-night-safety-older-adults' },
+    { kind: 'article', id: 'emergency-plan-aging-parents-home' },
+  ],
+}
+
 const sectionPriority: Record<ServiceCatalogueSection, number> = {
   home_safety_package: 1,
   connected_room: 2,
@@ -445,6 +561,44 @@ function getNeedCatalogueServices(slug: string, services: CasaMiaService[]) {
       return (priorityScore[a.priority ?? 'recommended'] ?? 2) - (priorityScore[b.priority ?? 'recommended'] ?? 2)
     })
     .slice(0, 6)
+}
+
+function getNeedRecommendedResources(
+  slug: string,
+  articles: BlogArticle[],
+  language: string,
+): NeedRecommendedResource[] {
+  const languageKey = language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const articleLabel = languageKey === 'es' ? 'Guía práctica' : 'Practical guide'
+  const toolLabel = languageKey === 'es' ? 'Herramienta' : 'Tool'
+  const references = needResourceReferences[slug] ?? []
+
+  return references
+    .map((reference): NeedRecommendedResource | null => {
+      if (reference.kind === 'tool') {
+        return {
+          kind: 'tool',
+          kindLabel: toolLabel,
+          to: reference.to,
+          title: reference.title[languageKey],
+          description: reference.description[languageKey],
+        }
+      }
+
+      const article = articles.find((item) => item.id === reference.id)
+
+      if (!article) return null
+
+      return {
+        kind: 'article',
+        kindLabel: articleLabel,
+        to: article.path,
+        title: article.title,
+        description: article.description,
+      }
+    })
+    .filter((item): item is NeedRecommendedResource => Boolean(item))
+    .slice(0, 3)
 }
 
 function CatalogueServiceCard({ service, language }: { service: CasaMiaService; language: string }) {

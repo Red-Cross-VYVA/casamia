@@ -177,6 +177,11 @@ assert.match(
   'Need landing page chrome and catalogue labels must be language-aware.',
 )
 assert.match(
+  needLandingPage,
+  /blogArticles[\s\S]*localizeBlogArticles[\s\S]*need-landing-resources[\s\S]*needResourceReferences/,
+  'Need landing pages must recommend relevant guide and tool resources without duplicating catalogue content.',
+)
+assert.match(
   page,
   /'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map/,
   'The Resources hub must publish FAQ structured data.',
@@ -215,6 +220,11 @@ assert.match(
   styles,
   /\.resource-topics-section[\s\S]*\.resource-topic-grid[\s\S]*\.resource-topic-card/,
   'The Resources topic route section must have dedicated visual styling.',
+)
+assert.match(
+  await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
+  /\.need-landing-resources[\s\S]*\.need-resource-card-grid[\s\S]*\.need-resource-card/,
+  'Need landing page recommended resources must have dedicated visual styling.',
 )
 assert.match(
   styles,
