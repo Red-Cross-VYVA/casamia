@@ -535,6 +535,16 @@ assert.match(
   'The before-and-after page must publish structured data for the transformation gallery.',
 )
 assert.match(
+  beforeAfterPage,
+  /Cómo leer los ejemplos[\s\S]*How to read the examples[\s\S]*before-after#how-to-use-examples[\s\S]*insightCopy\.steps\.map[\s\S]*before-after-insight-section/,
+  'The before-and-after page must teach visitors how to interpret examples and publish that guidance as structured data.',
+)
+assert.match(
+  globalStyles,
+  /\.before-after-insight-section[\s\S]*\.before-after-insight-card[\s\S]*\.before-after-insight-steps/,
+  'The before-and-after guidance section must have dedicated visual styling.',
+)
+assert.match(
   nav,
   /Free tools[\s\S]*to: '\/tools'[\s\S]*Compare home vs residence[\s\S]*\/tools\/home-vs-residence-cost-calculator[\s\S]*Adapt or consider assisted living[\s\S]*\/home-adaptations-vs-assisted-living/,
   'The Resources navigation must expose free tools plus direct home-vs-residence decision support.',

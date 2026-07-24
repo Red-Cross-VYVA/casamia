@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Eye, ListChecks, Route } from 'lucide-react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -20,6 +20,46 @@ export function BeforeAfterPage() {
   const title = t('beforeAfter.page.title')
   const body = t('beforeAfter.page.body')
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const insightCopy =
+    language === 'es'
+      ? {
+          eyebrow: 'Cómo leer los ejemplos',
+          title: 'No mires solo el cambio. Mira la rutina.',
+          body: 'Cada imagen ayuda a identificar una situación diaria: dónde aparece el riesgo, qué apoyo falta y qué información conviene compartir antes de decidir.',
+          steps: [
+            {
+              title: 'Detecta el momento difícil',
+              body: 'Ducha, cama, escaleras, entrada, cocina o salón: empieza por la rutina que genera miedo o dependencia.',
+            },
+            {
+              title: 'Observa el espacio real',
+              body: 'Fíjate en suelos, apoyos, luz, distancia, puertas, giros y zonas donde la persona duda o necesita ayuda.',
+            },
+            {
+              title: 'Convierte la idea en plan',
+              body: 'CasaMia separa mejoras simples, trabajos que necesitan visita y opciones que requieren presupuesto o compatibilidad.',
+            },
+          ],
+        }
+      : {
+          eyebrow: 'How to read the examples',
+          title: 'Do not just look at the change. Look at the routine.',
+          body: 'Each image helps identify a daily situation: where the risk appears, what support is missing, and what information is useful before deciding.',
+          steps: [
+            {
+              title: 'Spot the difficult moment',
+              body: 'Shower, bed, stairs, entrance, kitchen or living room: start with the routine that creates fear or dependence.',
+            },
+            {
+              title: 'Look at the real space',
+              body: 'Notice floors, support points, lighting, distances, doors, turning space and places where the person hesitates.',
+            },
+            {
+              title: 'Turn the idea into a plan',
+              body: 'CasaMia separates simple improvements, work that needs a visit and options that require a quote or compatibility check.',
+            },
+          ],
+        }
 
   const schema = useMemo(
     () => ({
@@ -50,9 +90,21 @@ export function BeforeAfterPage() {
             image: `${siteUrl}${beforeAfterVisuals[index]?.after ?? beforeAfterVisuals[index]?.before}`,
           })),
         },
+        {
+          '@type': 'HowTo',
+          '@id': `${siteUrl}/before-after#how-to-use-examples`,
+          name: insightCopy.title,
+          description: insightCopy.body,
+          step: insightCopy.steps.map((step, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: step.title,
+            text: step.body,
+          })),
+        },
       ],
     }),
-    [body, language, title, transformations],
+    [body, insightCopy.body, insightCopy.steps, insightCopy.title, language, title, transformations],
   )
 
   return (
@@ -82,6 +134,30 @@ export function BeforeAfterPage() {
             >
               {t('beforeAfter.page.compareCta')}
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="before-after-insight-section">
+        <div className="site-shell before-after-insight-card">
+          <div className="before-after-insight-copy">
+            <p className="eyebrow">{insightCopy.eyebrow}</p>
+            <h2>{insightCopy.title}</h2>
+            <p>{insightCopy.body}</p>
+          </div>
+          <div className="before-after-insight-steps">
+            {insightCopy.steps.map((step, index) => {
+              const Icon = index === 0 ? Eye : index === 1 ? ListChecks : Route
+              return (
+                <article key={step.title}>
+                  <span>
+                    <Icon size={20} aria-hidden="true" />
+                  </span>
+                  <strong>{step.title}</strong>
+                  <p>{step.body}</p>
+                </article>
+              )
+            })}
           </div>
         </div>
       </section>
