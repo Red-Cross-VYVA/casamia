@@ -121,6 +121,13 @@ try {
     'Private proposal links must publish noindex metadata.',
   )
 
+  const orderPage = await readFile(resolve(projectRoot, 'src/pages/OrderPage.tsx'), 'utf8')
+  assert.match(
+    orderPage,
+    /<SEO[\s\S]*path="\/order"[\s\S]*noindex/,
+    'The order follow-up page must not compete with public marketing pages in search.',
+  )
+
   const { token } = createInternalSessionToken()
   const authorizedResponse = createApiResponse()
   assert.equal(
