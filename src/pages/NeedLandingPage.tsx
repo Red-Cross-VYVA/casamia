@@ -233,6 +233,19 @@ export function NeedLandingPage() {
         name: step,
       })),
     },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      '@id': `https://casamia.com.es${page.path}#decision-route`,
+      name: copy.decisionTitle,
+      description: copy.decisionBody,
+      step: copy.decisionCards.map((card, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: card.title,
+        text: card.body,
+      })),
+    },
   ]
 
   const catalogueServices = useMemo(

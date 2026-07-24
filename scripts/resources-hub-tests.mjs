@@ -232,6 +232,11 @@ assert.match(
   'Need landing pages must publish HowTo structured data for the CasaMia managed next-step route.',
 )
 assert.match(
+  needLandingPage,
+  /#decision-route[\s\S]*copy\.decisionCards\.map[\s\S]*text: card\.body/,
+  'Need landing pages must publish structured data for the visible decision route steps.',
+)
+assert.match(
   page,
   /'@type': 'FAQPage'[\s\S]*copy\.faqItems\.map/,
   'The Resources hub must publish FAQ structured data.',
