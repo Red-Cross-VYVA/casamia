@@ -139,6 +139,10 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
   const products = uniqueById(capabilities.flatMap((capability) => getProductsByCapability(capability.id, catalogue)))
   const tasks = uniqueById(capabilities.flatMap((capability) => getTasksByCapability(capability.id, catalogue)))
   const packageRecord = catalogue.packages.find((item) => item.id === outcome.packageId)
+  const includedItems = uniqueTextItems(capabilities.map((capability) => capability.name))
+  const spanishIncludedItems = uniqueTextItems(
+    capabilities.map((capability) => getSpanishCapabilityName(capability.id, capability.name)),
+  )
   const smartDependencies = [
     outcome.requiresSmartSpeaker
       ? {
@@ -231,7 +235,7 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
       supplier: product.supplier,
     })),
     smartDependencies: smartDependencies.length ? smartDependencies : undefined,
-    includedItems: capabilities.map((capability) => capability.name),
+    includedItems,
     wizardAreas: outcome.wizardAreas as ServicePackageArea[],
     safetyNotice: outcome.safetyNotice?.en,
     translations: {
@@ -239,7 +243,7 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
         customerBenefit: outcome.customerBenefit.es,
         customerDescription: outcome.shortDescription.es,
         customerName: outcome.customerName.es,
-        includedItems: capabilities.map((capability) => capability.name),
+        includedItems: spanishIncludedItems,
         name: outcome.customerName.es,
         outcome: outcome.customerBenefit.es,
         plainLanguageSummary: outcome.shortDescription.es,
@@ -264,6 +268,104 @@ function sortByOrder<T extends { sortOrder: number }>(left: T, right: T) {
 
 function uniqueById<T extends { id: string }>(items: T[]) {
   return [...new Map(items.map((item) => [item.id, item])).values()]
+}
+
+function uniqueTextItems(items: string[]) {
+  const seen = new Set<string>()
+
+  return items.filter((item) => {
+    const key = item.trim().toLowerCase()
+
+    if (!key || seen.has(key)) {
+      return false
+    }
+
+    seen.add(key)
+    return true
+  })
+}
+
+function getSpanishCapabilityName(capabilityId: string, fallback: string) {
+  const names: Record<string, string> = {
+    'bathroom-anti-slip-bath-shower-mat': 'Alfombrilla antideslizante para bañera o ducha',
+    'bathroom-anti-slip-floor-treatment': 'Tratamiento antideslizante de suelo',
+    'bathroom-bathtub-step-through-conversion': 'Conversión de bañera con acceso bajo',
+    'bathroom-door-adjustment': 'Ajuste de puerta para reducir resistencia',
+    'bathroom-easy-release-privacy-lock': 'Cierre de privacidad con desbloqueo fácil',
+    'bathroom-folding-shower-seat': 'Asiento abatible de ducha',
+    'bathroom-lever-door-handle': 'Manilla de puerta tipo palanca',
+    'bathroom-lever-mixer-tap': 'Grifo monomando de palanca',
+    'bathroom-lever-shower-controls': 'Mandos de ducha de palanca',
+    'bathroom-motion-night-lighting': 'Luz nocturna con sensor de movimiento',
+    'bathroom-raised-toilet-seat': 'Elevador de inodoro',
+    'bathroom-safer-floor-transition': 'Perfil de transición bajo',
+    'bathroom-task-lighting': 'Iluminación de baño apta para zona húmeda',
+    'bathroom-thermostatic-anti-scald-valve': 'Válvula termostática antiquemaduras',
+    'bathroom-toilet-support-rails': 'Barras de apoyo para inodoro',
+    'bathroom-vertical-support-rail': 'Barra de apoyo vertical',
+    'bathroom-wall-mounted-grab-bars': 'Barras de apoyo en pared',
+    'bathroom-wider-doorway-adaptation': 'Ensanche de puerta de baño',
+    'accessible-wardrobe-adaptation': 'Adaptación de armario accesible',
+    'advanced-bed-transfer-solution': 'Solución avanzada para transferencias de cama',
+    'automatic-water-shutoff': 'Válvula automática de corte de agua, si es compatible',
+    'automated-curtains-blinds': 'Cortinas o persianas automatizadas',
+    'bed-height-optimisation': 'Ajuste de altura de la cama',
+    'bed-positioning-adjustment': 'Mejor colocación de la cama',
+    'bed-to-door-clear-route': 'Ruta despejada entre la cama y la puerta',
+    'bed-exit-safety-system': 'Sistema de seguridad al salir de la cama',
+    'bedroom-anti-slip-floor-treatment': 'Tratamiento antideslizante del suelo',
+    'bedroom-door-accessibility-adaptation': 'Adaptación de puerta del dormitorio',
+    'bedroom-motion-night-lighting': 'Iluminación nocturna con sensor de movimiento',
+    'bedroom-secure-floor-coverings': 'Revestimientos de suelo asegurados',
+    'bedroom-to-bathroom-route-improvement': 'Ruta segura del dormitorio al baño',
+    'bedside-emergency-assistance': 'Ayuda de emergencia junto a la cama',
+    'bedside-lighting': 'Luz de mesilla',
+    'cable-management': 'Organización de cables',
+    'dementia-support-bedroom-adaptation': 'Adaptación del dormitorio para apoyo cognitivo',
+    'discreet-transfer-support': 'Asa de apoyo para cama',
+    'easy-see-switches': 'Marcadores de alto contraste para interruptores',
+    'electric-adjustable-bed': 'Cama eléctrica ajustable',
+    'emergency-call-access': 'Botón de emergencia',
+    'family-carer-notifications': 'Avisos a familiares o cuidadores',
+    'furniture-repositioning': 'Recolocación de muebles',
+    'hands-free-calling': 'Llamadas manos libres',
+    'hot-water-temperature-setting': 'Ajuste de temperatura del agua caliente',
+    'loose-rug-securing': 'Retirada o fijación de alfombras sueltas',
+    'morning-evening-routines': 'Rutinas de mañana y noche',
+    'movement-reassurance': 'Avisos de movimiento en el dormitorio',
+    'night-time-safety-alerts': 'Configuración de alertas nocturnas',
+    'nominated-carer-alerting': 'Configuración de aviso a familiar o cuidador',
+    'routine-reminders': 'Recordatorios de medicación',
+    'appointment-reminders': 'Recordatorios de citas',
+    'resident-phone-alerting': 'Configuración de aviso al teléfono del residente',
+    'smart-speaker-setup': 'Configuración de altavoz inteligente',
+    'smoke-alerting': 'Detector de humo',
+    'specialist-bedroom-layout': 'Distribución especializada del dormitorio',
+    'specialist-measurement': 'Medición profesional y comprobación de encaje',
+    'voice-controlled-lighting': 'Iluminación controlada por voz',
+    'voice-help-requests': 'Peticiones sencillas por voz',
+    'wearable-emergency-support': 'Colgante de emergencia',
+    'water-leak-alerting': 'Sensor de fuga de agua',
+    'lever-water-control': 'Grifo monomando de palanca',
+    'automatic-jar-opening': 'Abrefrascos automático',
+    'easy-grip-kitchen-tools': 'Utensilios de cocina de agarre fácil',
+    'non-slip-chopping-support': 'Tabla de cortar antideslizante',
+    'easy-pour-kettle-support': 'Hervidor fácil de verter o basculante',
+    'anti-fatigue-standing-zone': 'Alfombrilla antifatiga colocada de forma segura',
+    'safer-hob-control': 'Placa de inducción con apagado automático',
+    'automatic-gas-shutoff': 'Sistema automático de corte de gas, cuando aplique',
+    'motion-activated-lighting': 'Iluminación con sensor de movimiento',
+    'kitchen-circulation-space': 'Mejor espacio de circulación en la cocina',
+    'kitchen-motion-alerting': 'Sensor de detección de movimiento',
+    'kitchen-storage-organisation': 'Objetos frecuentes organizados al alcance',
+    'pull-out-pantry-storage': 'Almacenamiento extraíble de despensa',
+    'shopping-list-management': 'Gestión de lista de la compra',
+    'voice-cooking-assistance': 'Asistencia de cocina por voz',
+    'waist-height-storage': 'Objetos frecuentes reubicados a altura de cintura',
+    'wider-kitchen-doorway': 'Puerta de cocina más ancha',
+  }
+
+  return names[capabilityId] ?? fallback
 }
 
 function toCsv(records: Array<Record<string, unknown>>) {

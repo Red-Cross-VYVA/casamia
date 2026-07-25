@@ -332,6 +332,21 @@ const isOptionalAddOn = (service: CasaMiaService) =>
   || service.section === 'connected_room'
   || service.section === 'optional_adaptations'
 
+function uniqueIncludedItems(items: string[] | undefined) {
+  const seen = new Set<string>()
+
+  return (items ?? []).filter((item) => {
+    const key = item.trim().toLowerCase()
+
+    if (!key || seen.has(key)) {
+      return false
+    }
+
+    seen.add(key)
+    return true
+  })
+}
+
 function formatPackageComposition(services: CasaMiaService[], copy: ServicesPageCopy) {
   const optionalAddOns = services.filter(isOptionalAddOn).length
   const includedItems = services.length - optionalAddOns
@@ -507,35 +522,29 @@ export function ServicesPage() {
                   <div className="services-catalogue-service-grid">
                     {selectedGroup.services.map((service) => {
                       const requirements = getRequirementLabels(service, copy)
+                      const includedItems = uniqueIncludedItems(service.includedItems)
+                      const optionalAddOn = isOptionalAddOn(service)
 
                       return (
-                        <article className="services-catalogue-service" key={service.id}>
+                        <article
+                          className={`services-catalogue-service${optionalAddOn ? ' is-optional-add-on' : ''}`}
+                          key={service.id}
+                        >
                           <header>
                             <div>
                               <small>{service.category}</small>
                               <h3>{getCustomerServiceName(service)}</h3>
                               <span className="services-catalogue-component-role">
-                                {isOptionalAddOn(service) ? copy.optionalComponent : copy.coreComponent}
+                                {optionalAddOn ? copy.optionalComponent : copy.coreComponent}
                               </span>
                             </div>
                           </header>
 
-                          <p className="services-catalogue-service-description">
-                            {getCustomerServiceDescription(service)}
-                          </p>
-                          <div className="services-catalogue-service-benefit">
-                            <Sparkles size={18} aria-hidden="true" />
-                            <div>
-                              <strong>{copy.customerBenefit}</strong>
-                              <p>{getCustomerServiceBenefit(service)}</p>
-                            </div>
-                          </div>
-
-                          {service.includedItems?.length ? (
+                          {includedItems.length ? (
                             <div className="services-catalogue-inclusions">
                               <strong>{copy.included}</strong>
                               <ul>
-                                {service.includedItems?.map((item) => (
+                                {includedItems.map((item) => (
                                   <li key={item}>
                                     <CheckCircle2 size={16} aria-hidden="true" />
                                     <span>{item}</span>
@@ -544,6 +553,18 @@ export function ServicesPage() {
                               </ul>
                             </div>
                           ) : null}
+
+                          <p className="services-catalogue-service-description">
+                            {getCustomerServiceDescription(service)}
+                          </p>
+
+                          <div className="services-catalogue-service-benefit">
+                            <Sparkles size={18} aria-hidden="true" />
+                            <div>
+                              <strong>{copy.customerBenefit}</strong>
+                              <p>{getCustomerServiceBenefit(service)}</p>
+                            </div>
+                          </div>
 
                           {requirements.length ? (
                             <div className="services-catalogue-requirements">

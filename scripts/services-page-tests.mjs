@@ -32,8 +32,8 @@ assert.match(
 )
 assert.match(
   page,
-  /service\.includedItems\?\.map\(/,
-  'Customers must be able to see the inclusions maintained in the admin catalogue.',
+  /uniqueIncludedItems\(service\.includedItems\)/,
+  'Customers must be able to see the inclusions maintained in the admin catalogue after duplicate cleanup.',
 )
 assert.match(
   page,
