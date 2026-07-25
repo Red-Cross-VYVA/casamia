@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { casaMiaServices } from '../config/serviceCatalogue.ts'
 import { defaultSpanishServiceCopy } from '../config/serviceCatalogueSpanishCopy.ts'
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
-import { flattenMasterCatalogueForCompatibility } from './masterServiceCatalogue.ts'
+import { flattenMasterCatalogueForCompatibility, getMasterServiceCatalogue } from './masterServiceCatalogue.ts'
 import { getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 import type {
   CasaMiaService,
@@ -19,6 +19,7 @@ const serviceCatalogueStorageKey = 'casamia-service-catalogue'
 const serviceCatalogueUpdatedEvent = 'casamia-service-catalogue-updated'
 const publicServiceCataloguePath = '/api/public/service-catalogue'
 const internalServiceCataloguePath = '/api/internal/service-catalogue'
+const masterBackedPackageAreas = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room'])
 
 type ServiceCatalogueLoadResult = {
   catalogue: EditableServiceCatalogue
@@ -34,14 +35,16 @@ export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
 }
 
 function buildServiceCatalogueFromMaster(masterCatalogue?: MasterServiceCatalogue): EditableServiceCatalogue {
-  const masterRooms = new Set(['bathroom', 'bedroom', 'kitchen'])
+  const masterRoomIds = getMasterRoomIds(masterCatalogue)
 
   return {
     masterCatalogue,
     packageConfigs: getDefaultPackageConfigs(),
     services: [
       ...flattenMasterCatalogueForCompatibility(masterCatalogue),
-      ...clone(casaMiaServices).filter((service) => !masterRooms.has(service.room)),
+      ...clone(casaMiaServices)
+        .map((service) => removeMasterBackedPackageAreas(service, masterRoomIds))
+        .filter((service): service is CasaMiaService => Boolean(service)),
     ].map(withPackageAreaDefaults),
   }
 }
@@ -65,7 +68,7 @@ export function getDefaultPackageConfigs(): ServicePackageConfig[] {
       vatRate: 0.21,
     },
     { active: true, area: 'kitchen', name: 'Confident kitchen', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'living-room', name: 'Comfortable movement', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'living-room', name: 'Safe living room', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'stairs', name: 'Safer stairs', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'entrance', name: 'Easy entrance', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'outdoor', name: 'Outdoor access', pricingType: 'quote_only', vatRate: 0.21 },
@@ -82,6 +85,7 @@ export function getDefaultServicePackageAreas(
   if (service.room === 'bathroom') areas.add('bathroom')
   if (service.room === 'bedroom') areas.add('bedroom')
   if (service.room === 'kitchen') areas.add('kitchen')
+  if (service.room === 'living-room') areas.add('living-room')
   if (service.room === 'entrance') {
     areas.add('entrance')
     areas.add('outdoor')
@@ -111,6 +115,10 @@ export function getServicesForPackageArea(
 
   if (area === 'not-sure') {
     return activeServices
+  }
+
+  if (masterBackedPackageAreas.has(area)) {
+    return activeServices.filter((service) => service.room === area)
   }
 
   return activeServices.filter((service) =>
@@ -339,15 +347,52 @@ function mergeServices(
   }
 
   if (masterCatalogue) {
-    const masterRooms = new Set(['bathroom', 'bedroom', 'kitchen'])
+    const masterRoomIds = getMasterRoomIds(masterCatalogue)
+    const savedLegacyServices = savedServices
+      .map((service) => removeMasterBackedPackageAreas(service, masterRoomIds))
+      .filter((service): service is CasaMiaService => Boolean(service))
 
     return [
-      ...defaultServices.filter((service) => masterRooms.has(service.room)),
-      ...savedServices.filter((service) => !masterRooms.has(service.room)),
+      ...defaultServices.filter((service) => isMasterBackedService(service, masterRoomIds)),
+      ...savedLegacyServices.filter((service) => !isMasterBackedService(service, masterRoomIds)),
     ].map(withPackageAreaDefaults)
   }
 
   return savedServices.map(withPackageAreaDefaults)
+}
+
+function getMasterRoomIds(masterCatalogue?: MasterServiceCatalogue) {
+  const catalogue = masterCatalogue ?? getMasterServiceCatalogue()
+
+  return new Set(catalogue.rooms.filter((room) => room.active).map((room) => room.id))
+}
+
+function isMasterBackedService(service: CasaMiaService, masterRoomIds: Set<string>) {
+  if (masterRoomIds.has(service.room)) {
+    return true
+  }
+
+  const packageAreas = service.wizardAreas ?? getDefaultServicePackageAreas(service)
+
+  return packageAreas.some((area) => masterRoomIds.has(area))
+}
+
+function removeMasterBackedPackageAreas(service: CasaMiaService, masterRoomIds: Set<string>): CasaMiaService | null {
+  if (masterRoomIds.has(service.room)) {
+    return null
+  }
+
+  const packageAreas = service.wizardAreas ?? getDefaultServicePackageAreas(service)
+  const remainingAreas = packageAreas.filter((area) => !masterRoomIds.has(area))
+
+  if (!remainingAreas.length) {
+    return null
+  }
+
+  return {
+    ...service,
+    wizardAreas: remainingAreas,
+  }
 }
 
 function mergePackageConfigs(

@@ -146,7 +146,9 @@ function getRecommendedServiceIds(state: ConfiguratorState, services: CasaMiaSer
   })
 
   services.forEach((service) => {
-    if (!service.active || !selectedRooms.includes(service.room)) {
+    const serviceRoom = getConfiguratorRoomIdForServiceRoom(service.room)
+
+    if (!service.active || !serviceRoom || !selectedRooms.includes(serviceRoom)) {
       return
     }
 
@@ -211,7 +213,13 @@ function getRecommendedServiceIds(state: ConfiguratorState, services: CasaMiaSer
   }
 
   const activeServiceIds = new Set(
-    services.filter((service) => service.active && selectedRooms.includes(service.room)).map((service) => service.id),
+    services
+      .filter((service) => {
+        const serviceRoom = getConfiguratorRoomIdForServiceRoom(service.room)
+
+        return service.active && Boolean(serviceRoom && selectedRooms.includes(serviceRoom))
+      })
+      .map((service) => service.id),
   )
 
   return Array.from(recommendations).filter((serviceId) => activeServiceIds.has(serviceId))
@@ -270,6 +278,12 @@ function getServiceIcon(room: HomeZoneId) {
   return zone?.icon ?? ShieldCheck
 }
 
+function getConfiguratorRoomIdForServiceRoom(room: CasaMiaService['room']): HomeZoneId | undefined {
+  const roomId = room === 'living-room' ? 'movement' : room
+
+  return homeZones.some((zone) => zone.id === roomId) ? (roomId as HomeZoneId) : undefined
+}
+
 function parseRoomParam(room: string | null): HomeZoneId | undefined {
   return homeZones.some((zone) => zone.id === room) ? (room as HomeZoneId) : undefined
 }
@@ -325,8 +339,9 @@ export function ConfigurePage() {
 
     serviceParamApplied.current = true
     const selectedRoomIds = getSelectedRoomIds(state)
-    if (!selectedRoomIds.includes(service.room)) {
-      setSelectedRooms([...selectedRoomIds, service.room])
+    const serviceRoom = getConfiguratorRoomIdForServiceRoom(service.room)
+    if (serviceRoom && !selectedRoomIds.includes(serviceRoom)) {
+      setSelectedRooms([...selectedRoomIds, serviceRoom])
     }
     if (!state.selectedServiceIds.includes(service.id)) {
       setSelectedServices([...state.selectedServiceIds, service.id])
@@ -846,13 +861,17 @@ function ServiceSelectionStep({ recommendedServiceIds }: { recommendedServiceIds
   const serviceCatalogue = useServiceCatalogue()
   const selectedRooms = getSelectedRoomIds(state)
   const visibleServices = serviceCatalogue.services.filter(
-    (service) => service.active && selectedRooms.includes(service.room),
+    (service) => {
+      const serviceRoom = getConfiguratorRoomIdForServiceRoom(service.room)
+
+      return service.active && Boolean(serviceRoom && selectedRooms.includes(serviceRoom))
+    },
   )
   const selectedCount = visibleServices.filter((service) => state.selectedServiceIds.includes(service.id)).length
   const servicesByRoom = selectedRooms
     .map((room) => ({
       room,
-      services: visibleServices.filter((service) => service.room === room),
+      services: visibleServices.filter((service) => getConfiguratorRoomIdForServiceRoom(service.room) === room),
     }))
     .filter((group) => group.services.length > 0)
 
@@ -927,7 +946,7 @@ function ServiceSelectionCard({
   selected: boolean
   service: CasaMiaService
 }) {
-  const Icon = getServiceIcon(service.room)
+  const Icon = getServiceIcon(getConfiguratorRoomIdForServiceRoom(service.room) ?? 'movement')
 
   return (
     <article

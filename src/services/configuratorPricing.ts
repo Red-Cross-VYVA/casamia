@@ -1,4 +1,5 @@
 import type {
+  ConfiguratorRoomId,
   ConfiguratorState,
   QuoteLine,
   QuoteSummary,
@@ -29,7 +30,7 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
     (service) =>
       service.active &&
       state.selectedServiceIds.includes(service.id) &&
-      selectedRooms.includes(service.room),
+      selectedRooms.includes(getConfiguratorRoomForService(service)),
   )
   const lines: QuoteLine[] = []
   const includedItems: ServiceComponent[] = []
@@ -147,6 +148,10 @@ function getSelectedServiceQuantity(service: CasaMiaService, state: Configurator
   }
 
   return 1
+}
+
+function getConfiguratorRoomForService(service: CasaMiaService): ConfiguratorRoomId {
+  return service.room === 'living-room' ? 'movement' : service.room
 }
 
 function getServiceOneTimePrice(service: CasaMiaService) {

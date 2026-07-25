@@ -363,6 +363,22 @@ function getSpanishCapabilityName(capabilityId: string, fallback: string) {
     'voice-cooking-assistance': 'Asistencia de cocina por voz',
     'waist-height-storage': 'Objetos frecuentes reubicados a altura de cintura',
     'wider-kitchen-doorway': 'Puerta de cocina más ancha',
+    'seating-height-adjustment': 'Ajuste de altura del asiento',
+    'sofa-chair-support-handle': 'Asa de apoyo para sofá o silla',
+    'living-room-furniture-positioning': 'Mejor colocación de muebles',
+    'anti-slip-rug-tape': 'Cinta antideslizante para alfombras',
+    'living-room-circulation-space': 'Mejor espacio de circulación',
+    'living-room-anti-slip-floor-treatment': 'Tratamiento antideslizante del suelo',
+    'living-room-secure-floor-coverings': 'Revestimientos de suelo asegurados',
+    'furniture-anchoring': 'Anclaje de muebles',
+    'tv-unit-anchoring': 'Anclaje del mueble de televisión',
+    'corner-protection': 'Protección de esquinas cuando proceda',
+    'living-room-motion-alerting': 'Sensor de detección de movimiento',
+    'emergency-voice-assistance': 'Asistencia de emergencia por voz',
+    'specialist-seating-accessories': 'Accesorios especializados de apoyo para sentarse',
+    'riser-cushion-or-chair-base': 'Cojín elevador o adaptación de base de silla',
+    'electric-recliner-chair': 'Sillón relax eléctrico',
+    'wider-living-room-doorway': 'Puerta de salón más ancha',
   }
 
   return names[capabilityId] ?? fallback

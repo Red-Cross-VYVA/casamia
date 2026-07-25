@@ -73,6 +73,7 @@ const roomOptions: Array<{ label: string; value: ServiceRoom; previewPath: strin
   { label: 'Kitchen', value: 'kitchen', previewPath: '/services/kitchen-safety' },
   { label: 'Bedroom', value: 'bedroom', previewPath: '/services/bedroom-safety' },
   { label: 'Bathroom', value: 'bathroom', previewPath: '/services/bathroom-safety' },
+  { label: 'Living room', value: 'living-room', previewPath: '/services' },
   { label: 'Connected', value: 'connected', previewPath: '/services/smart-home-safety' },
 ]
 
@@ -530,7 +531,7 @@ export function InternalServiceCataloguePage() {
 
   function syncDraftFromMasterCatalogue(nextCatalogue: MasterServiceCatalogue) {
     setDraft((current) => {
-      const masterRooms = new Set(['bathroom', 'bedroom'])
+      const masterRooms = new Set(nextCatalogue.rooms.filter((room) => room.active).map((room) => room.id))
       const masterServices = flattenMasterCatalogueForCompatibility(nextCatalogue)
 
       return {
@@ -2297,6 +2298,7 @@ function getRoomCounts(services: CasaMiaService[]) {
       connected: 0,
       entrance: 0,
       kitchen: 0,
+      'living-room': 0,
       movement: 0,
     },
   )
@@ -2436,6 +2438,7 @@ function getPackageAreasForRoom(room: ServiceRoom): ServicePackageArea[] {
   if (room === 'bathroom') return ['bathroom']
   if (room === 'bedroom') return ['bedroom']
   if (room === 'kitchen') return ['kitchen']
+  if (room === 'living-room') return ['living-room']
   if (room === 'movement') return ['living-room', 'stairs']
   if (room === 'entrance') return ['entrance', 'outdoor']
   return ['lighting', 'smart-safety']

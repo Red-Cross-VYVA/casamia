@@ -131,10 +131,10 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'living-room',
     icon: Home,
     image: '/images/before-after/living-after-home.webp',
-    title: { en: 'Comfortable movement', es: 'Movimiento cómodo' },
+    title: { en: 'Safe living room', es: 'Salón seguro' },
     description: {
-      en: 'Clearer routes through furniture, rugs, cables and daily-use spaces.',
-      es: 'Rutas más despejadas entre muebles, alfombras, cables y zonas de uso diario.',
+      en: 'Safer sitting, standing, movement, furniture and everyday comfort.',
+      es: 'Sentarse, levantarse, moverse, usar muebles y descansar con más seguridad.',
     },
   },
   {
