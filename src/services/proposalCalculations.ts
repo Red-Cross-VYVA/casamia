@@ -43,6 +43,9 @@ export type ProposalLineItem = {
   name: string
   priority: ProposalLineItemPriority
   quantity: number
+  source?: 'catalogue' | 'manual'
+  sourceOutcomeId?: string
+  sourcePackageId?: string
   unitPrice: number
 }
 

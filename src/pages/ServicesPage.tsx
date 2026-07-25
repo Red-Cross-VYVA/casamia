@@ -6,7 +6,6 @@ import {
   CookingPot,
   DoorOpen,
   Home,
-  MapPin,
   PackageCheck,
   ShieldCheck,
   Sparkles,
@@ -145,16 +144,6 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
       es: 'Pasamanos, umbrales, iluminación, acceso a la puerta y avisos conectados opcionales.',
     },
   },
-  {
-    id: 'outdoor',
-    icon: MapPin,
-    image: '/images/before-after/outdoor-after.jpg',
-    title: { en: 'Safer outdoors', es: 'Exterior seguro' },
-    description: {
-      en: 'Paths, exterior steps, lighting and the route to the entrance.',
-      es: 'Caminos, escalones, iluminación y la ruta hasta la entrada.',
-    },
-  },
 ]
 
 const otherArea: CatalogueAreaDefinition = {
@@ -172,7 +161,6 @@ const homeVisualSlides: Array<{ areaId: ServicePackageArea; image: string }> = [
   { areaId: 'bedroom', image: '/images/service-gallery/isometric/isometric-bedroom.jpg' },
   { areaId: 'living-room', image: '/images/service-gallery/isometric/isometric-living.jpg' },
   { areaId: 'kitchen', image: '/images/service-gallery/isometric/isometric-kitchen.jpg' },
-  { areaId: 'outdoor', image: '/images/service-gallery/isometric/isometric-exterior.jpg' },
   { areaId: 'bathroom', image: '/images/service-gallery/isometric/isometric-bathroom.jpg' },
 ]
 

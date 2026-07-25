@@ -1,7 +1,9 @@
 import {
+  CheckCircle2,
   Copy,
   FileText,
   Link2,
+  PackageCheck,
   Printer,
   RefreshCcw,
   Save,
@@ -17,6 +19,7 @@ import { ProposalPreview } from '../../components/internal/ProposalPreview'
 import { ProposalTotals } from '../../components/internal/ProposalTotals'
 import {
   acceptanceStatuses,
+  formatCurrency,
   getDefaultPaymentTerms,
   hiddenFeeReassurance,
   planOptions,
@@ -24,8 +27,10 @@ import {
   unsurePlan,
   type ProposalCategory,
   type ProposalData,
+  type ProposalLineItem,
   type ProposalPlan,
 } from '../../services/proposalCalculations'
+import { getCustomerCatalogueByRoom, getMasterServiceCatalogue } from '../../services/masterServiceCatalogue'
 import {
   getProposalApiStatus,
   loadProposalWithFallback,
@@ -39,6 +44,15 @@ import {
   loadProposalById,
   saveProposal,
 } from '../../services/proposalsStorage'
+import { getPackageConfigForArea, useServiceCatalogue } from '../../services/serviceCatalogue'
+import type {
+  EditableServiceCatalogue,
+  MasterCatalogueOutcome,
+  MasterCataloguePackage,
+  MasterCatalogueRoom,
+  ServicePackageArea,
+  ServicePackageConfig,
+} from '../../types/serviceCatalogue'
 
 type InspectionDraft = {
   customer?: {
@@ -63,6 +77,31 @@ type InspectionDraft = {
     riskLevel?: string
     safetyScore?: string
   }
+}
+
+type CataloguePackageSelection = {
+  addOnOutcomeIds: string[]
+  quantity: number
+  selected: boolean
+}
+
+type CatalogueSelectionState = Record<string, CataloguePackageSelection>
+
+type CatalogueAddOnPackage = {
+  outcomes: MasterCatalogueOutcome[]
+  packageRecord: MasterCataloguePackage
+}
+
+type CatalogueProposalPackageGroup = {
+  addOnPackages: CatalogueAddOnPackage[]
+  homePackage: MasterCataloguePackage
+  homeOutcomes: MasterCatalogueOutcome[]
+  packageArea: ServicePackageArea
+  packageConfig?: ServicePackageConfig
+  packageLabel: string
+  packageUnitPrice: number
+  room: MasterCatalogueRoom
+  roomLabel: string
 }
 
 const inputClass =
@@ -94,6 +133,22 @@ const categoryByRoom: Record<string, ProposalCategory> = {
   'Outdoor Areas': 'Outdoor Areas',
   Stairways: 'Stairways',
   'Smart Safety': 'Smart Safety',
+}
+
+const masterRoomToProposalCategory: Record<string, ProposalCategory> = {
+  bathroom: 'Bathroom',
+  bedroom: 'Bedroom',
+  entrance: 'Entryway',
+  kitchen: 'Kitchen',
+  'living-room': 'Living Room',
+}
+
+const masterRoomToPackageArea: Partial<Record<string, ServicePackageArea>> = {
+  bathroom: 'bathroom',
+  bedroom: 'bedroom',
+  entrance: 'entrance',
+  kitchen: 'kitchen',
+  'living-room': 'living-room',
 }
 
 function readInspectionDraft() {
@@ -159,6 +214,191 @@ function createProposalFromInspection() {
   })
 }
 
+function buildCatalogueProposalGroups(catalogue: EditableServiceCatalogue): CatalogueProposalPackageGroup[] {
+  const masterCatalogue = catalogue.masterCatalogue ?? getMasterServiceCatalogue()
+
+  return masterCatalogue.rooms
+    .filter((room) => room.active)
+    .sort((left, right) => left.sortOrder - right.sortOrder)
+    .flatMap((room) => {
+      const packageArea = masterRoomToPackageArea[room.id]
+
+      if (!packageArea) {
+        return []
+      }
+
+      const customerCatalogue = getCustomerCatalogueByRoom(room.id, masterCatalogue)
+      const homePackageGroup = customerCatalogue.find(({ package: packageRecord }) =>
+        packageRecord.proposalVisible && packageRecord.section === 'home-safety-package',
+      )
+
+      if (!homePackageGroup) {
+        return []
+      }
+
+      const addOnPackages = customerCatalogue
+        .filter(({ package: packageRecord }) =>
+          packageRecord.proposalVisible && packageRecord.section !== 'home-safety-package',
+        )
+        .map(({ package: packageRecord, outcomes }) => ({
+          packageRecord,
+          outcomes: outcomes.filter((outcome) => outcome.proposalVisible),
+        }))
+        .filter((group) => group.outcomes.length > 0)
+
+      const packageConfig = getPackageConfigForArea(catalogue, packageArea)
+
+      return [
+        {
+          addOnPackages,
+          homePackage: homePackageGroup.package,
+          homeOutcomes: homePackageGroup.outcomes.filter((outcome) => outcome.proposalVisible),
+          packageArea,
+          packageConfig,
+          packageLabel: packageConfig?.name || getLocalizedName(homePackageGroup.package.customerName),
+          packageUnitPrice: getPackageUnitPrice(packageConfig, homePackageGroup.package),
+          room,
+          roomLabel: getLocalizedName(room.name),
+        },
+      ]
+    })
+}
+
+function buildCatalogueLineItems(
+  groups: CatalogueProposalPackageGroup[],
+  selection: CatalogueSelectionState,
+): ProposalLineItem[] {
+  return groups.flatMap((group) => {
+    const packageSelection = selection[group.homePackage.id]
+
+    if (!packageSelection?.selected) {
+      return []
+    }
+
+    const quantity = normaliseQuantity(packageSelection.quantity)
+    const packageLine = createLineItem({
+      category: masterRoomToProposalCategory[group.room.id] ?? 'General',
+      description: buildPackageDescription(group),
+      grantEligible: group.homeOutcomes.some((outcome) => outcome.grantEligible),
+      id: `catalogue-package-${group.homePackage.id}`,
+      name: getPackageLineName(group.packageLabel),
+      priority: 'High',
+      quantity,
+      source: 'catalogue',
+      sourcePackageId: group.homePackage.id,
+      unitPrice: group.packageUnitPrice,
+    })
+
+    const selectedAddOnIds = new Set(packageSelection.addOnOutcomeIds)
+    const addOnLines = group.addOnPackages.flatMap(({ packageRecord, outcomes }) =>
+      outcomes
+        .filter((outcome) => selectedAddOnIds.has(outcome.id))
+        .map((outcome) =>
+          createLineItem({
+            category: masterRoomToProposalCategory[outcome.roomId] ?? 'General',
+            description: buildAddOnDescription(packageRecord, outcome),
+            grantEligible: outcome.grantEligible,
+            id: `catalogue-addon-${outcome.id}`,
+            name: getLocalizedName(outcome.customerName),
+            priority: outcome.requiresQuote ? 'Medium' : 'High',
+            quantity,
+            source: 'catalogue',
+            sourceOutcomeId: outcome.id,
+            sourcePackageId: packageRecord.id,
+            unitPrice: getOutcomeUnitPrice(outcome),
+          }),
+        ),
+    )
+
+    return [packageLine, ...addOnLines]
+  })
+}
+
+function buildPackageDescription(group: CatalogueProposalPackageGroup) {
+  const included = group.homeOutcomes.map((outcome) => getLocalizedName(outcome.customerName)).filter(Boolean)
+  const parts = [
+    getLocalizedName(group.homePackage.shortDescription),
+    included.length ? `Core package includes: ${formatReadableList(included)}.` : '',
+    group.packageUnitPrice <= 0 ? 'Package price to be confirmed before customer approval.' : '',
+  ]
+
+  return parts.filter(Boolean).join(' ')
+}
+
+function buildAddOnDescription(packageRecord: MasterCataloguePackage, outcome: MasterCatalogueOutcome) {
+  const parts = [
+    `${getLocalizedName(packageRecord.customerName)} add-on.`,
+    getLocalizedName(outcome.shortDescription),
+    outcome.requiresQuote || getOutcomeUnitPrice(outcome) <= 0 ? 'Price confirmed after assessment or compatibility review.' : '',
+  ]
+
+  return parts.filter(Boolean).join(' ')
+}
+
+function getPackageLineName(label: string) {
+  return /package/i.test(label) ? label : `${label} package`
+}
+
+function getLocalizedName(value: Partial<Record<'en' | 'es', string>>) {
+  return value.en ?? value.es ?? ''
+}
+
+function getPackageUnitPrice(config: ServicePackageConfig | undefined, packageRecord: MasterCataloguePackage) {
+  if (config?.pricingType === 'fixed') {
+    return safeProposalPrice(config.packagePrice ?? packageRecord.fixedPrice)
+  }
+
+  if (config?.pricingType === 'from') {
+    return safeProposalPrice(config.fromPrice ?? packageRecord.fromPrice)
+  }
+
+  if (packageRecord.pricingType === 'fixed') {
+    return safeProposalPrice(packageRecord.fixedPrice)
+  }
+
+  if (packageRecord.pricingType === 'from') {
+    return safeProposalPrice(packageRecord.fromPrice)
+  }
+
+  return 0
+}
+
+function getOutcomeUnitPrice(outcome: MasterCatalogueOutcome) {
+  if (outcome.pricingType === 'fixed') {
+    return safeProposalPrice(outcome.fixedPrice)
+  }
+
+  if (outcome.pricingType === 'from' || outcome.pricingType === 'range') {
+    return safeProposalPrice(outcome.fromPrice)
+  }
+
+  return 0
+}
+
+function safeProposalPrice(value: number | undefined) {
+  return Number.isFinite(value) ? Number(value) : 0
+}
+
+function normaliseQuantity(value: number) {
+  return Math.max(1, Math.floor(Number.isFinite(value) ? value : 1))
+}
+
+function formatReadableList(items: string[]) {
+  if (items.length <= 2) {
+    return items.join(items.length === 2 ? ' and ' : '')
+  }
+
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
+}
+
+function isCatalogueLineItem(item: ProposalLineItem) {
+  return item.source === 'catalogue' || item.id.startsWith('catalogue-package-') || item.id.startsWith('catalogue-addon-')
+}
+
+function isBlankLineItem(item: ProposalLineItem) {
+  return !item.name.trim() && !item.description.trim() && item.unitPrice === 0
+}
+
 function loadInitialProposal(searchParams: URLSearchParams) {
   const proposalId = searchParams.get('proposalId')
 
@@ -177,7 +417,9 @@ export function ProposalGeneratorPage() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const previewRef = useRef<HTMLDivElement>(null)
+  const serviceCatalogue = useServiceCatalogue()
   const [proposal, setProposal] = useState<ProposalData>(() => loadInitialProposal(searchParams))
+  const [catalogueSelection, setCatalogueSelection] = useState<CatalogueSelectionState>({})
   const [message, setMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -204,9 +446,66 @@ export function ProposalGeneratorPage() {
     () => (searchParams.get('proposalId') ? `Edit Proposal ${proposal.id}` : 'Proposal Generator v1'),
     [proposal.id, searchParams],
   )
+  const cataloguePackageGroups = useMemo(
+    () => buildCatalogueProposalGroups(serviceCatalogue),
+    [serviceCatalogue],
+  )
 
   function updateProposal(patch: Partial<ProposalData>) {
     setProposal((current) => ({ ...current, ...patch }))
+  }
+
+  function updateCatalogueSelection(packageId: string, patch: Partial<CataloguePackageSelection>) {
+    setCatalogueSelection((current) => {
+      const previous = current[packageId] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
+
+      return {
+        ...current,
+        [packageId]: {
+          ...previous,
+          ...patch,
+          quantity: normaliseQuantity(patch.quantity ?? previous.quantity),
+        },
+      }
+    })
+  }
+
+  function toggleCatalogueAddOn(packageId: string, outcomeId: string, checked: boolean) {
+    setCatalogueSelection((current) => {
+      const previous = current[packageId] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
+      const addOnOutcomeIds = checked
+        ? [...new Set([...previous.addOnOutcomeIds, outcomeId])]
+        : previous.addOnOutcomeIds.filter((id) => id !== outcomeId)
+
+      return {
+        ...current,
+        [packageId]: {
+          ...previous,
+          addOnOutcomeIds,
+          quantity: normaliseQuantity(previous.quantity),
+          selected: checked ? true : previous.selected,
+        },
+      }
+    })
+  }
+
+  function applyCatalogueSelectionToProposal() {
+    const catalogueLineItems = buildCatalogueLineItems(cataloguePackageGroups, catalogueSelection)
+
+    setProposal((current) => {
+      const manualLineItems = current.lineItems.filter((item) => !isCatalogueLineItem(item) && !isBlankLineItem(item))
+
+      return {
+        ...current,
+        lineItems: catalogueLineItems.length > 0 ? [...catalogueLineItems, ...manualLineItems] : manualLineItems,
+      }
+    })
+
+    setMessage(
+      catalogueLineItems.length > 0
+        ? `${catalogueLineItems.length} catalogue line item${catalogueLineItems.length === 1 ? '' : 's'} applied to this proposal.`
+        : 'No catalogue packages selected yet.',
+    )
   }
 
   function updatePlan(selectedPlan: ProposalPlan) {
@@ -409,6 +708,14 @@ export function ProposalGeneratorPage() {
             </label>
           </section>
 
+          <CataloguePackageBuilder
+            groups={cataloguePackageGroups}
+            selection={catalogueSelection}
+            onApply={applyCatalogueSelectionToProposal}
+            onToggleAddOn={toggleCatalogueAddOn}
+            onUpdatePackage={updateCatalogueSelection}
+          />
+
           <ProposalLineItems
             items={proposal.lineItems}
             onChange={(lineItems) => updateProposal({ lineItems })}
@@ -586,6 +893,193 @@ export function ProposalGeneratorPage() {
         <ProposalPreview proposal={proposal} />
       </section>
     </InternalLayout>
+  )
+}
+
+function CataloguePackageBuilder({
+  groups,
+  onApply,
+  onToggleAddOn,
+  onUpdatePackage,
+  selection,
+}: {
+  groups: CatalogueProposalPackageGroup[]
+  onApply: () => void
+  onToggleAddOn: (packageId: string, outcomeId: string, checked: boolean) => void
+  onUpdatePackage: (packageId: string, patch: Partial<CataloguePackageSelection>) => void
+  selection: CatalogueSelectionState
+}) {
+  const selectedPackageCount = groups.filter((group) => selection[group.homePackage.id]?.selected).length
+  const selectedAddOnCount = groups.reduce(
+    (sum, group) => {
+      const packageSelection = selection[group.homePackage.id]
+
+      return sum + (packageSelection?.selected ? packageSelection.addOnOutcomeIds.length : 0)
+    },
+    0,
+  )
+
+  return (
+    <section className="rounded-lg border border-border bg-white p-6 shadow-soft">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+        <SectionHeading icon={<PackageCheck size={24} aria-hidden="true" />} title="Build From Master Catalogue" />
+        <div className="flex flex-wrap gap-2 text-xs font-black uppercase tracking-wide text-navy">
+          <span className="rounded-full bg-light-blue px-3 py-2">{selectedPackageCount} package selected</span>
+          <span className="rounded-full bg-light-blue px-3 py-2">{selectedAddOnCount} add-on selected</span>
+        </div>
+      </div>
+
+      <p className="-mt-2 max-w-4xl text-sm leading-relaxed text-text-mid">
+        Select one or more room packages, set the quantity for each room/package, then add any connected or optional
+        add-ons required. Applying this will create proposal lines from the current catalogue while keeping manual edits
+        separate.
+      </p>
+
+      <div className="mt-6 grid gap-4">
+        {groups.map((group) => {
+          const packageSelection = selection[group.homePackage.id] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
+          const isSelected = packageSelection.selected
+          const selectedAddOnIds = new Set(packageSelection.addOnOutcomeIds)
+
+          return (
+            <article
+              className={`rounded-xl border p-4 transition ${
+                isSelected ? 'border-blue bg-light-blue shadow-soft' : 'border-border bg-white'
+              }`}
+              key={group.homePackage.id}
+            >
+              <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_150px_180px] xl:items-center">
+                <label className="flex cursor-pointer items-start gap-4">
+                  <input
+                    checked={isSelected}
+                    className="mt-2 h-5 w-5 accent-green"
+                    type="checkbox"
+                    onChange={(event) =>
+                      onUpdatePackage(group.homePackage.id, {
+                        addOnOutcomeIds: event.target.checked ? packageSelection.addOnOutcomeIds : [],
+                        selected: event.target.checked,
+                      })
+                    }
+                  />
+                  <span>
+                    <span className="text-xs font-black uppercase tracking-[0.16em] text-blue">{group.roomLabel}</span>
+                    <strong className="mt-1 block text-xl font-black text-text-dark">{group.packageLabel}</strong>
+                    <span className="mt-1 block text-sm leading-relaxed text-text-mid">
+                      {getLocalizedName(group.homePackage.customerBenefit)}
+                    </span>
+                  </span>
+                </label>
+
+                <label className="grid gap-2">
+                  <span className="text-xs font-black uppercase tracking-wide text-text-muted">Quantity</span>
+                  <input
+                    className={inputClass}
+                    disabled={!isSelected}
+                    min="1"
+                    type="number"
+                    value={packageSelection.quantity}
+                    onChange={(event) =>
+                      onUpdatePackage(group.homePackage.id, { quantity: Number(event.target.value), selected: true })
+                    }
+                  />
+                </label>
+
+                <div className="rounded-lg border border-border bg-white px-4 py-3">
+                  <p className="text-xs font-black uppercase tracking-wide text-text-muted">Package price</p>
+                  <p className="mt-1 text-sm font-black text-navy">
+                    {group.packageUnitPrice > 0 ? `${formatCurrency(group.packageUnitPrice)} / package` : 'Confirm in quote'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-lg border border-border bg-white p-4">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-blue">Core included items</p>
+                    <p className="mt-1 text-sm font-bold text-text-mid">These stay inside the package price.</p>
+                  </div>
+                  <span className="rounded-full bg-green/10 px-3 py-1 text-xs font-black uppercase text-green">
+                    {group.homeOutcomes.length} included
+                  </span>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {group.homeOutcomes.map((outcome) => (
+                    <span
+                      className="inline-flex items-center gap-2 rounded-full border border-border bg-light-blue px-3 py-2 text-sm font-bold text-text-dark"
+                      key={outcome.id}
+                    >
+                      <CheckCircle2 className="text-green" size={15} aria-hidden="true" />
+                      {getLocalizedName(outcome.customerName)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {group.addOnPackages.length > 0 ? (
+                <div className="mt-4 grid gap-3">
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-blue">Optional add-ons for this package</p>
+                  {group.addOnPackages.map((addOnPackage) => (
+                    <div className="rounded-lg border border-border bg-white p-4" key={addOnPackage.packageRecord.id}>
+                      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                          <p className="text-sm font-black text-text-dark">
+                            {getLocalizedName(addOnPackage.packageRecord.customerName)}
+                          </p>
+                          <p className="text-xs font-bold text-text-muted">
+                            Select only what should be added to this proposal.
+                          </p>
+                        </div>
+                        <span className="rounded-full bg-pale-blue px-3 py-1 text-xs font-black uppercase text-blue">
+                          Add-on
+                        </span>
+                      </div>
+                      <div className="mt-3 grid gap-2 md:grid-cols-2">
+                        {addOnPackage.outcomes.map((outcome) => (
+                          <label
+                            className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition ${
+                              selectedAddOnIds.has(outcome.id)
+                                ? 'border-green bg-green/10'
+                                : 'border-border bg-light-blue/40 hover:border-blue'
+                            }`}
+                            key={outcome.id}
+                          >
+                            <input
+                              checked={selectedAddOnIds.has(outcome.id)}
+                              className="mt-1 h-4 w-4 accent-green"
+                              disabled={!isSelected}
+                              type="checkbox"
+                              onChange={(event) => onToggleAddOn(group.homePackage.id, outcome.id, event.target.checked)}
+                            />
+                            <span>
+                              <span className="block text-sm font-black text-text-dark">
+                                {getLocalizedName(outcome.customerName)}
+                              </span>
+                              <span className="mt-1 block text-xs font-bold leading-relaxed text-text-muted">
+                                {getLocalizedName(outcome.shortDescription)}
+                              </span>
+                            </span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </article>
+          )
+        })}
+      </div>
+
+      <div className="mt-5 flex flex-col gap-3 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm font-bold text-text-mid">
+          Applying replaces previous catalogue-generated lines, not manual edits.
+        </p>
+        <button className="btn btn-navy w-full sm:w-auto" type="button" onClick={onApply}>
+          Apply selected packages
+          <CheckCircle2 size={18} aria-hidden="true" />
+        </button>
+      </div>
+    </section>
   )
 }
 
