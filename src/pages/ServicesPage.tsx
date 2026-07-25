@@ -5,9 +5,7 @@ import {
   CheckCircle2,
   CookingPot,
   DoorOpen,
-  Footprints,
   Home,
-  Lightbulb,
   MapPin,
   PackageCheck,
   ShieldCheck,
@@ -138,16 +136,6 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     },
   },
   {
-    id: 'stairs',
-    icon: Footprints,
-    image: '/images/solutions/stairs-hallways.jpg',
-    title: { en: 'Steady stairs', es: 'Escaleras seguras' },
-    description: {
-      en: 'Handrails, grip, contrast and lighting for changes of level.',
-      es: 'Pasamanos, agarre, contraste e iluminación para cambios de nivel.',
-    },
-  },
-  {
     id: 'entrance',
     icon: DoorOpen,
     image: '/images/solutions/entrance-access.jpg',
@@ -165,26 +153,6 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     description: {
       en: 'Paths, exterior steps, lighting and the route to the entrance.',
       es: 'Caminos, escalones, iluminación y la ruta hasta la entrada.',
-    },
-  },
-  {
-    id: 'lighting',
-    icon: Lightbulb,
-    image: '/images/service-gallery/03-stairway-and-hallway-support.jpg',
-    title: { en: 'Comfort lighting', es: 'Luz de confort' },
-    description: {
-      en: 'Task, motion and night-route lighting where visibility matters.',
-      es: 'Iluminación de trabajo, movimiento y rutas nocturnas donde más importa.',
-    },
-  },
-  {
-    id: 'smart-safety',
-    icon: ShieldCheck,
-    image: '/images/before-after/smart-after.jpg',
-    title: { en: 'Connected comfort', es: 'Confort conectado' },
-    description: {
-      en: 'Compatible alerts, sensors, voice support and family handover.',
-      es: 'Alertas, sensores, apoyo por voz y configuración para la familia.',
     },
   },
 ]
