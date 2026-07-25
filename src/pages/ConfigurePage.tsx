@@ -119,7 +119,7 @@ const stepDescriptions = [
 ]
 
 const baseRecommendedServiceIds: Record<HomeZoneId, string[]> = {
-  entrance: ['entrance-motion-lighting', 'entrance-threshold-treatment', 'entrance-step-handrail'],
+  entrance: ['entrance-safer-access', 'entrance-easier-door-access', 'entrance-motion-lighting'],
   movement: ['movement-hallway-lighting', 'movement-rug-securing', 'movement-cable-management', 'movement-stand-assist'],
   kitchen: [
     'kitchen-lightweight-cookware',
@@ -166,7 +166,7 @@ function getRecommendedServiceIds(state: ConfiguratorState, services: CasaMiaSer
     const ramp = state.answers[`entrance-${index}-ramp`]
 
     if (ramp === 'modular-access-ramp' || ramp === 'unsure') {
-      recommendations.add('entrance-modular-ramp')
+      recommendations.add('entrance-accessibility-ramp')
     }
   })
 

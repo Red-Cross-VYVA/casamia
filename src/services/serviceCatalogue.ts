@@ -19,7 +19,7 @@ const serviceCatalogueStorageKey = 'casamia-service-catalogue'
 const serviceCatalogueUpdatedEvent = 'casamia-service-catalogue-updated'
 const publicServiceCataloguePath = '/api/public/service-catalogue'
 const internalServiceCataloguePath = '/api/internal/service-catalogue'
-const masterBackedPackageAreas = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room'])
+const masterBackedPackageAreas = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance'])
 
 type ServiceCatalogueLoadResult = {
   catalogue: EditableServiceCatalogue
@@ -70,7 +70,7 @@ export function getDefaultPackageConfigs(): ServicePackageConfig[] {
     { active: true, area: 'kitchen', name: 'Confident kitchen', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'living-room', name: 'Safe living room', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'stairs', name: 'Safer stairs', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'entrance', name: 'Easy entrance', pricingType: 'quote_only', vatRate: 0.21 },
+    { active: true, area: 'entrance', name: 'Safer entrance', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'outdoor', name: 'Outdoor access', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'lighting', name: 'Clearer lighting', pricingType: 'quote_only', vatRate: 0.21 },
     { active: true, area: 'smart-safety', name: 'Connected safety', pricingType: 'quote_only', vatRate: 0.21 },

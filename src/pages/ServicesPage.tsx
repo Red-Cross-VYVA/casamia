@@ -151,10 +151,10 @@ const catalogueAreas: CatalogueAreaDefinition[] = [
     id: 'entrance',
     icon: DoorOpen,
     image: '/images/solutions/entrance-access.jpg',
-    title: { en: 'Easy entrance', es: 'Entrada fácil' },
+    title: { en: 'Safer entrance', es: 'Entrada segura' },
     description: {
-      en: 'Thresholds, steps, access, lighting and support at the door.',
-      es: 'Umbrales, escalones, acceso, iluminación y apoyo junto a la puerta.',
+      en: 'Handrails, thresholds, lighting, door access and optional connected visitor alerts.',
+      es: 'Pasamanos, umbrales, iluminación, acceso a la puerta y avisos conectados opcionales.',
     },
   },
   {
