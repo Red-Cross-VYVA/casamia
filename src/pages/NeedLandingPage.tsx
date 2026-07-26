@@ -766,7 +766,7 @@ const needResourceReferences: Record<string, NeedResourceReference[]> = {
     { kind: 'article', id: 'family-conversation-before-home-safety-visit' },
     {
       kind: 'tool',
-      to: '/home-safety-assessment#self-inspection-tool',
+      to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
       title: { en: 'Online safety review', es: 'Revisión online de seguridad' },
       description: {
         en: 'Capture the rooms, routines and concerns that matter before booking a visit.',

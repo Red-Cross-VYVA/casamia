@@ -1150,7 +1150,7 @@ export function ServiceDetailPage() {
                   {uiCopy.buildPlan}
                   <ArrowRight size={20} aria-hidden="true" />
                 </Link>
-                <Link className="btn btn-white" to="/home-safety-assessment#self-inspection-tool">
+                <Link className="btn btn-white" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
                   {uiCopy.freeReport}
                 </Link>
               </div>

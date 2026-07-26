@@ -312,7 +312,7 @@ const toolContent = [
       en: 'Answer guided questions across seven areas and leave with a practical list of items to review.',
       es: 'Responde preguntas guiadas en siete zonas y obtén una lista práctica de puntos que revisar.',
     },
-    to: '/home-safety-assessment#self-inspection-tool',
+    to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
   },
   {
     icon: Camera,
@@ -1241,7 +1241,7 @@ export function BlogPage() {
                 <p className="eyebrow">{copy.familyStarterEyebrow}</p>
                 <h2 id="resource-family-starter-title">{copy.familyStarterTitle}</h2>
                 <p>{copy.familyStarterBody}</p>
-                <Link className="btn btn-green" to="/home-safety-assessment#self-inspection-tool">
+                <Link className="btn btn-green" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
                   {copy.familyStarterCta}
                   <ArrowRight size={18} aria-hidden="true" />
                 </Link>
@@ -1538,7 +1538,7 @@ export function BlogPage() {
               <p className="eyebrow">{copy.actionRouteEyebrow}</p>
               <h2 id="resource-action-route-title">{copy.actionRouteTitle}</h2>
               <p>{copy.actionRouteBody}</p>
-              <Link className="btn btn-green" to="/home-safety-assessment#self-inspection-tool">
+              <Link className="btn btn-green" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
                 {copy.actionRouteCta}
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>

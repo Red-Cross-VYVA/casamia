@@ -88,7 +88,7 @@ export function Footer() {
   const resourceLinks = [
     { label: links.freeTools, to: '/tools' },
     { label: links.checklist, to: '/blog' },
-    { label: links.onlineCheck, to: '/home-safety-assessment#self-inspection-tool' },
+    { label: links.onlineCheck, to: '/home-safety-assessment?open=self-inspection#self-inspection-tool' },
     { label: links.grantsGuide, to: '/blog/home-adaptation-grants-spain-family-guide' },
     { label: links.visitPrep, to: '/blog/family-conversation-before-home-safety-visit' },
     { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },

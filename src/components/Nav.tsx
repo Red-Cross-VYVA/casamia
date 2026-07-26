@@ -96,7 +96,7 @@ export function Nav() {
         },
         {
           label: isSpanish ? 'Revisión online de seguridad' : 'Online safety review',
-          to: '/home-safety-assessment#self-inspection-tool',
+          to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
         },
         {
           label: isSpanish ? 'Zonas de servicio' : 'Service areas',

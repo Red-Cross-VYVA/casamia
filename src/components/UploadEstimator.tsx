@@ -25,7 +25,7 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { ReportDeliveryForm } from './ReportDeliveryForm'
 import { PhotoAnalysisCards, ScoreExplanation } from './SafetyReportInsights'
@@ -145,6 +145,7 @@ const HomeSafetyWizardModalContent = lazy(() =>
 
 export function UploadEstimator() {
   const { i18n, t } = useTranslation()
+  const location = useLocation()
   const inputRef = useRef<HTMLInputElement>(null)
   const photosRef = useRef<EstimatePhoto[]>([])
   const [photos, setPhotos] = useState<EstimatePhoto[]>([])
@@ -217,6 +218,19 @@ export function UploadEstimator() {
       window.removeEventListener(safetyReportModalEvent, handleOpenSafetyReport)
     }
   }, [])
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search)
+    const openIntent = searchParams.get('open') ?? searchParams.get('modal')
+
+    if (
+      location.hash === '#estimate-upload'
+      || openIntent === 'safety-report'
+      || openIntent === 'photo-review'
+    ) {
+      openWizard()
+    }
+  }, [location.hash, location.search])
 
   useEffect(() => {
     if (!proposalWizardOpen) return
@@ -327,9 +341,14 @@ export function UploadEstimator() {
   }
 
   function openWizard() {
-    setWizardOpen(true)
+    setWizardOpen((current) => {
+      if (!current) {
+        trackEvent('form_start', { form: 'safety_report' })
+      }
+
+      return true
+    })
     setStep((current) => (current < 3 ? current : 0))
-    trackEvent('form_start', { form: 'safety_report' })
   }
 
   function closeWizard() {

@@ -257,7 +257,7 @@ export function BlogArticlePage() {
                 <Link className="btn btn-white" to="/blog">
                   {copy.nextStepActions.checklist}
                 </Link>
-                <Link className="blog-next-step-link" to="/home-safety-assessment#self-inspection-tool">
+                <Link className="blog-next-step-link" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
                   {copy.nextStepActions.selfCheck}
                   <ArrowRight size={17} aria-hidden="true" />
                 </Link>
