@@ -4,10 +4,13 @@ import type {
   MasterCatalogueCapability,
   MasterCatalogueInstallationTask,
   MasterCatalogueOutcome,
+  MasterCataloguePackage,
   MasterCatalogueProduct,
   MasterCatalogueRelation,
+  MasterCatalogueRoom,
   MasterServiceCatalogue,
   ServiceCatalogueSection,
+  ServicePackageConfig,
   ServicePackageArea,
   ServiceRoom,
 } from '../types/serviceCatalogue.ts'
@@ -17,6 +20,8 @@ const sectionMap: Record<MasterCatalogueOutcome['section'], ServiceCatalogueSect
   'home-safety-package': 'home_safety_package',
   'optional-adaptations': 'optional_adaptations',
 }
+
+const packageAreaIds = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance'])
 
 const pricingMap: Record<MasterCatalogueOutcome['pricingType'], CasaMiaService['pricingType']> = {
   fixed: 'fixed',
@@ -31,10 +36,53 @@ export function getMasterServiceCatalogue(): MasterServiceCatalogue {
   return clone(masterServiceCatalogue)
 }
 
+export function getActiveCatalogueRooms(catalogue = masterServiceCatalogue): MasterCatalogueRoom[] {
+  return catalogue.rooms.filter((room) => room.active).sort(sortByOrder)
+}
+
 export function getPackagesByRoom(roomId: string, catalogue = masterServiceCatalogue) {
   return catalogue.packages
     .filter((item) => item.active && item.roomId === roomId)
     .sort(sortByOrder)
+}
+
+export function getHomeSafetyPackageForRoom(roomId: string, catalogue = masterServiceCatalogue) {
+  return getPackagesByRoom(roomId, catalogue).find((item) => item.section === 'home-safety-package')
+}
+
+export function getCataloguePackagesForRoom(roomId: string, catalogue = masterServiceCatalogue) {
+  return getPackagesByRoom(roomId, catalogue).map((packageRecord) => ({
+    package: packageRecord,
+    outcomes: getOutcomesByPackage(packageRecord.id, catalogue),
+  }))
+}
+
+export function derivePackageConfigFromMasterPackage(
+  packageRecord: MasterCataloguePackage,
+): ServicePackageConfig | undefined {
+  if (!isServicePackageArea(packageRecord.roomId)) {
+    return undefined
+  }
+
+  return {
+    active: packageRecord.active,
+    area: packageRecord.roomId,
+    fromPrice: packageRecord.fromPrice,
+    name: getLocalizedName(packageRecord.customerName) || packageRecord.internalName,
+    packagePrice: packageRecord.fixedPrice,
+    pricingType: mapMasterPricingType(packageRecord.pricingType),
+    recurringMonthlyPrice: packageRecord.recurringMonthlyPrice,
+    section: sectionMap[packageRecord.section],
+    vatRate: packageRecord.vatRate,
+  }
+}
+
+export function deriveHomeSafetyPackageConfigs(catalogue = masterServiceCatalogue): ServicePackageConfig[] {
+  return getActiveCatalogueRooms(catalogue)
+    .map((room) => getHomeSafetyPackageForRoom(room.id, catalogue))
+    .filter((packageRecord): packageRecord is MasterCataloguePackage => Boolean(packageRecord))
+    .map(derivePackageConfigFromMasterPackage)
+    .filter((config): config is ServicePackageConfig => Boolean(config))
 }
 
 export function getOutcomesByPackage(packageId: string, catalogue = masterServiceCatalogue) {
@@ -67,10 +115,7 @@ export function getTasksByCapability(capabilityId: string, catalogue = masterSer
 }
 
 export function getCustomerCatalogueByRoom(roomId: string, catalogue = masterServiceCatalogue) {
-  return getPackagesByRoom(roomId, catalogue).map((packageRecord) => ({
-    package: packageRecord,
-    outcomes: getOutcomesByPackage(packageRecord.id, catalogue),
-  }))
+  return getCataloguePackagesForRoom(roomId, catalogue)
 }
 
 export function getWizardVisibleOutcomes(catalogue = masterServiceCatalogue) {
@@ -264,6 +309,20 @@ function getRelatedIds(relations: MasterCatalogueRelation[], type: MasterCatalog
 
 function sortByOrder<T extends { sortOrder: number }>(left: T, right: T) {
   return left.sortOrder - right.sortOrder
+}
+
+function isServicePackageArea(value: string): value is ServicePackageArea {
+  return packageAreaIds.has(value as ServicePackageArea)
+}
+
+function mapMasterPricingType(pricingType: MasterCataloguePackage['pricingType']): ServicePackageConfig['pricingType'] {
+  if (pricingType === 'fixed') return 'fixed'
+  if (pricingType === 'from' || pricingType === 'range' || pricingType === 'recurring') return 'from'
+  return 'quote_only'
+}
+
+function getLocalizedName(value: Partial<Record<'en' | 'es', string>>) {
+  return value.en ?? value.es ?? ''
 }
 
 function uniqueById<T extends { id: string }>(items: T[]) {

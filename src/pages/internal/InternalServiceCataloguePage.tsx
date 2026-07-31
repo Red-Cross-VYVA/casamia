@@ -34,10 +34,8 @@ import {
   getMasterServiceCatalogue,
 } from '../../services/masterServiceCatalogue'
 import {
-  formatPackagePrice,
   getDefaultServiceCatalogue,
   getDefaultServicePackageAreas,
-  getPackageConfigForArea,
   getServiceCatalogue,
   loadServiceCatalogue,
   resetServiceCatalogue,
@@ -56,7 +54,6 @@ import type {
   QuantityType,
   ServiceCatalogueSection,
   ServiceComponentRole,
-  ServicePackageConfig,
   ServicePackageArea,
   ServicePriority,
   ServiceRoom,
@@ -265,7 +262,6 @@ export function InternalServiceCataloguePage() {
     [draft.services, roomServices, selectedServiceId, visibleServices],
   )
   const currentRoom = roomOptions.find((room) => room.value === selectedRoom) ?? roomOptions[0]
-  const currentPackageAreas = useMemo(() => getPackageAreasForRoom(selectedRoom), [selectedRoom])
   const groupedVisibleServices = useMemo(
     () => groupServicesBySection(visibleServices),
     [visibleServices],
@@ -338,29 +334,6 @@ export function InternalServiceCataloguePage() {
         service.id === serviceId ? { ...service, ...patch, id: service.id } : service,
       ),
     }))
-  }
-
-  function updatePackageConfig(area: ServicePackageArea, patch: Partial<ServicePackageConfig>) {
-    setDraft((current) => {
-      const defaults = getDefaultServiceCatalogue().packageConfigs ?? []
-      const existingConfigs = current.packageConfigs ?? defaults
-
-      return {
-        ...current,
-        packageConfigs: packageAreaOptions.map((option) => {
-          const existing =
-            existingConfigs.find((config) => config.area === option.value) ??
-            defaults.find((config) => config.area === option.value) ?? {
-              active: true,
-              area: option.value,
-              pricingType: 'quote_only',
-              vatRate: 0.21,
-            }
-
-          return option.value === area ? { ...existing, ...patch, area } : existing
-        }),
-      }
-    })
   }
 
   function addService() {
@@ -851,81 +824,6 @@ export function InternalServiceCataloguePage() {
           ) : null}
         </div>
 
-        <div className="mt-5 rounded-lg border border-border bg-white p-4">
-          <div className="flex flex-col gap-2 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <h3 className="text-base font-black text-text-dark">Package pricing for {currentRoom.label}</h3>
-              <p className="mt-1 max-w-3xl text-xs font-bold leading-relaxed text-text-muted">
-                Customer pricing lives at package level. Service rows below are components marked as core or optional.
-              </p>
-            </div>
-            <span className="rounded-full bg-pale-blue px-3 py-1 text-xs font-black uppercase tracking-wide text-blue">
-              {currentPackageAreas.length} package area{currentPackageAreas.length === 1 ? '' : 's'}
-            </span>
-          </div>
-          <div className="mt-4 grid gap-3 lg:grid-cols-2">
-            {currentPackageAreas.map((area) => {
-              const config = getPackageConfigForArea(draft, area)
-              const areaLabel = formatPackageAreaLabel(area)
-
-              return (
-                <div className="rounded-lg border border-border bg-light-blue/30 p-4" key={area}>
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-wide text-blue">{areaLabel}</p>
-                      <strong className="mt-1 block text-lg font-black text-text-dark">
-                        {formatPackagePrice(config)}
-                      </strong>
-                    </div>
-                    <label className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1 text-xs font-black uppercase tracking-wide text-text-muted">
-                      <input
-                        checked={config?.active ?? true}
-                        className="h-4 w-4 accent-blue"
-                        type="checkbox"
-                        onChange={(event) => updatePackageConfig(area, { active: event.target.checked })}
-                      />
-                      Live
-                    </label>
-                  </div>
-                  <div className="mt-4 grid gap-3 md:grid-cols-2">
-                    <TextInput
-                      label="Package name"
-                      value={config?.name ?? areaLabel}
-                      onChange={(value) => updatePackageConfig(area, { name: value })}
-                    />
-                    <SelectInput
-                      label="Package pricing"
-                      value={config?.pricingType ?? 'quote_only'}
-                      options={pricingOptions}
-                      onChange={(value) => updatePackageConfig(area, { pricingType: value as PricingType })}
-                    />
-                    <NumberInput
-                      label="Fixed package price"
-                      value={config?.packagePrice}
-                      onChange={(value) => updatePackageConfig(area, { packagePrice: value })}
-                    />
-                    <NumberInput
-                      label="From package price"
-                      value={config?.fromPrice}
-                      onChange={(value) => updatePackageConfig(area, { fromPrice: value })}
-                    />
-                    <NumberInput
-                      label="Monthly package price"
-                      value={config?.recurringMonthlyPrice}
-                      onChange={(value) => updatePackageConfig(area, { recurringMonthlyPrice: value })}
-                    />
-                    <NumberInput
-                      label="VAT rate"
-                      step="0.01"
-                      value={config?.vatRate ?? 0.21}
-                      onChange={(value) => updatePackageConfig(area, { vatRate: value ?? 0 })}
-                    />
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
       </section>
 
       <section className="mt-6 grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
@@ -2442,10 +2340,6 @@ function getPackageAreasForRoom(room: ServiceRoom): ServicePackageArea[] {
   if (room === 'movement') return ['living-room', 'stairs']
   if (room === 'entrance') return ['entrance', 'outdoor']
   return ['lighting', 'smart-safety']
-}
-
-function formatPackageAreaLabel(area: ServicePackageArea) {
-  return packageAreaOptions.find((option) => option.value === area)?.label ?? area
 }
 
 function servicesToCsv(services: CasaMiaService[]) {

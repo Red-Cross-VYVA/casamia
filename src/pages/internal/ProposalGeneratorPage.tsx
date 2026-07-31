@@ -44,7 +44,7 @@ import {
   loadProposalById,
   saveProposal,
 } from '../../services/proposalsStorage'
-import { getPackageConfigForArea, useServiceCatalogue } from '../../services/serviceCatalogue'
+import { getPackageConfigForArea, getServiceCatalogue, useServiceCatalogue } from '../../services/serviceCatalogue'
 import type {
   EditableServiceCatalogue,
   MasterCatalogueOutcome,
@@ -110,19 +110,6 @@ const inputClass =
 const textareaClass =
   'min-h-32 w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-text-dark outline-none transition focus:border-green focus:ring-4 focus:ring-green/15'
 
-const improvementToService: Record<string, { name: string; unitPrice: number }> = {
-  'Anti-slip flooring': { name: 'Anti-slip flooring solution', unitPrice: 650 },
-  'Doorway/threshold improvement': { name: 'Threshold modification', unitPrice: 280 },
-  'Emergency alert device': { name: 'Emergency alert device setup', unitPrice: 290 },
-  'Furniture anchoring': { name: 'Furniture anchoring', unitPrice: 110 },
-  'Grab bars': { name: 'Grab bar installation', unitPrice: 95 },
-  'Handrails': { name: 'Handrail installation', unitPrice: 420 },
-  'Health monitoring setup': { name: 'Health monitoring setup', unitPrice: 390 },
-  'Lighting upgrade': { name: 'Lighting upgrade', unitPrice: 240 },
-  'Ramp/access improvement': { name: 'Ramp/access improvement', unitPrice: 850 },
-  'Smart sensor': { name: 'Motion lighting setup', unitPrice: 170 },
-}
-
 const categoryByRoom: Record<string, ProposalCategory> = {
   Bathroom: 'Bathroom',
   Bedroom: 'Bedroom',
@@ -177,22 +164,7 @@ function createProposalFromInspection() {
   }
 
   const selectedPlan = normalisePlan(inspection.customer?.selectedPlan)
-  const lineItems =
-    inspection.rooms?.flatMap((room) =>
-      (room.improvements ?? []).map((improvement) => {
-        const service = improvementToService[improvement] ?? { name: improvement, unitPrice: 150 }
-
-        return createLineItem({
-          category: categoryByRoom[room.title ?? ''] ?? 'General',
-          description: room.notes ?? '',
-          grantEligible: !['Smart sensor', 'Emergency alert device', 'Health monitoring setup'].includes(improvement),
-          name: service.name,
-          priority: room.priority === 'Immediate' || room.priority === 'High' ? room.priority : 'Medium',
-          quantity: improvement === 'Grab bars' ? 2 : 1,
-          unitPrice: service.unitPrice,
-        })
-      }),
-    ) ?? []
+  const lineItems = buildInspectionCatalogueLineItems(inspection.rooms ?? [])
 
   return createEmptyProposal({
     address: inspection.customer?.address ?? '',
@@ -211,6 +183,38 @@ function createProposalFromInspection() {
     preparedBy: inspection.summary?.inspectorName || 'CasaMia Operations',
     safetyScore: inspection.summary?.safetyScore ?? '7',
     selectedPlan,
+  })
+}
+
+function buildInspectionCatalogueLineItems(rooms: NonNullable<InspectionDraft['rooms']>): ProposalLineItem[] {
+  const groups = buildCatalogueProposalGroups(getServiceCatalogue())
+
+  return rooms.flatMap((room) => {
+    const inspectionCategory = categoryByRoom[room.title ?? ''] ?? 'General'
+    const group = groups.find((item) => masterRoomToProposalCategory[item.room.id] === inspectionCategory)
+
+    if (!group) {
+      return []
+    }
+
+    const improvements = (room.improvements ?? []).filter(Boolean)
+    const description = [
+      buildPackageDescription(group),
+      room.notes ? `Inspection notes: ${room.notes}` : '',
+      improvements.length ? `Inspection priorities: ${formatReadableList(improvements)}.` : '',
+    ].filter(Boolean).join(' ')
+
+    return createLineItem({
+      category: masterRoomToProposalCategory[group.room.id] ?? inspectionCategory,
+      description,
+      grantEligible: group.homeOutcomes.some((outcome) => outcome.grantEligible),
+      name: getPackageLineName(group.packageLabel),
+      priority: room.priority === 'Immediate' || room.priority === 'High' ? room.priority : 'Medium',
+      quantity: 1,
+      source: 'catalogue',
+      sourcePackageId: group.homePackage.id,
+      unitPrice: group.packageUnitPrice,
+    })
   })
 }
 

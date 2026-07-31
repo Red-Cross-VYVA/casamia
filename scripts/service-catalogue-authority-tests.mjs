@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import {
   getDefaultServiceCatalogue,
   getServiceCatalogue,
+  saveServiceCatalogue,
 } from '../src/services/serviceCatalogue.ts'
 
 const storageKey = 'casamia-service-catalogue'
@@ -27,7 +28,9 @@ function setStoredCatalogue(catalogue) {
   storedValues.set(storageKey, JSON.stringify(catalogue))
 }
 
-const defaults = getDefaultServiceCatalogue().services
+const defaultCatalogue = getDefaultServiceCatalogue()
+const defaults = defaultCatalogue.services
+const defaultBathroomPackage = defaultCatalogue.packageConfigs.find((config) => config.area === 'bathroom')
 const movedService = {
   ...defaults[0],
   active: false,
@@ -79,6 +82,48 @@ assert.deepEqual(
   getServiceCatalogue().services,
   defaults,
   'Compiled defaults should remain the fallback when no saved catalogue exists.',
+)
+
+const legacyBathroomPackageConfig = {
+  active: true,
+  area: 'bathroom',
+  name: 'Safer Bathroom Access',
+  pricingType: 'quote_only',
+  section: 'home_safety_package',
+  vatRate: 0.21,
+}
+
+setStoredCatalogue({
+  packageConfigs: [legacyBathroomPackageConfig],
+  updatedAt: '2026-07-18T13:00:00.000Z',
+})
+
+assert.equal(
+  getServiceCatalogue().packageConfigs.find((config) => config.area === 'bathroom')?.name,
+  defaultBathroomPackage?.name,
+  'Legacy hardcoded package defaults must be ignored in favour of Master Catalogue package names.',
+)
+
+setStoredCatalogue({
+  packageConfigs: [{ ...legacyBathroomPackageConfig, name: 'Admin bathroom package', packagePrice: 250, pricingType: 'fixed' }],
+  updatedAt: '2026-07-18T14:00:00.000Z',
+})
+
+assert.equal(
+  getServiceCatalogue().packageConfigs.find((config) => config.area === 'bathroom')?.name,
+  'Admin bathroom package',
+  'Intentional admin package overrides must still be preserved.',
+)
+
+const savedCatalogue = saveServiceCatalogue({
+  packageConfigs: [legacyBathroomPackageConfig],
+  services: defaults,
+})
+
+assert.equal(
+  savedCatalogue.packageConfigs.find((config) => config.area === 'bathroom')?.name,
+  defaultBathroomPackage?.name,
+  'Local saves must normalise legacy package defaults before persisting.',
 )
 
 console.log('Service catalogue authority checks passed.')

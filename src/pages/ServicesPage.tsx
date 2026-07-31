@@ -19,12 +19,23 @@ import { SampleReportPreview } from '../components/SampleReportPreview'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import {
+  getActiveCatalogueRooms,
+  getHomeSafetyPackageForRoom,
+  getMasterServiceCatalogue,
+} from '../services/masterServiceCatalogue'
+import {
   formatPackagePrice,
   getPackageConfigForArea,
   getServicesForPackageArea,
 } from '../services/serviceCatalogue'
 import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
-import type { CasaMiaService, ServicePackageArea, ServicePackageConfig } from '../types/serviceCatalogue'
+import type {
+  CasaMiaService,
+  LocalizedString,
+  MasterServiceCatalogue,
+  ServicePackageArea,
+  ServicePackageConfig,
+} from '../types/serviceCatalogue'
 import '../styles/services-catalogue.css'
 
 type CatalogueGroupId = ServicePackageArea | 'other'
@@ -93,59 +104,17 @@ type ServicesPageCopy = {
   contactCta: string
 }
 
-const catalogueAreas: CatalogueAreaDefinition[] = [
-  {
-    id: 'bathroom',
-    icon: Bath,
-    image: '/images/solutions/bathroom-safety.jpg',
-    title: { en: 'Safer bathroom', es: 'Baño seguro' },
-    description: {
-      en: 'Safer transfers, showering, toileting, grip and night-time access.',
-      es: 'Transferencias, ducha, aseo, agarre y acceso nocturno más seguros.',
-    },
-  },
-  {
-    id: 'bedroom',
-    icon: BedDouble,
-    image: '/images/before-after/bedroom-after-card.webp',
-    title: { en: 'Restful bedroom', es: 'Dormitorio tranquilo' },
-    description: {
-      en: 'Bed transfers, bedside reach, lighting and safer night routes.',
-      es: 'Transferencias, alcance, iluminación y rutas nocturnas más seguras.',
-    },
-  },
-  {
-    id: 'kitchen',
-    icon: CookingPot,
-    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
-    title: { en: 'Confident kitchen', es: 'Cocina cómoda' },
-    description: {
-      en: 'Safer reach, preparation, appliances, water and everyday routines.',
-      es: 'Alcance, preparación, electrodomésticos, agua y rutinas más seguras.',
-    },
-  },
-  {
-    id: 'living-room',
-    icon: Home,
-    image: '/images/before-after/living-after-home.webp',
-    title: { en: 'Safe living room', es: 'Salón seguro' },
-    description: {
-      en: 'Safer sitting, standing, movement, furniture and everyday comfort.',
-      es: 'Sentarse, levantarse, moverse, usar muebles y descansar con más seguridad.',
-    },
-  },
-  {
-    id: 'entrance',
-    icon: DoorOpen,
-    image: '/images/solutions/entrance-access.jpg',
-    title: { en: 'Safer entrance', es: 'Entrada segura' },
-    description: {
-      en: 'Handrails, thresholds, lighting, door access and optional connected visitor alerts.',
-      es: 'Pasamanos, umbrales, iluminación, acceso a la puerta y avisos conectados opcionales.',
-    },
-  },
-]
-
+const catalogueAreaVisuals: Record<ServicePackageArea, { icon: LucideIcon; image: string }> = {
+  bathroom: { icon: Bath, image: '/images/solutions/bathroom-safety.jpg' },
+  bedroom: { icon: BedDouble, image: '/images/before-after/bedroom-after-card.webp' },
+  entrance: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
+  kitchen: { icon: CookingPot, image: '/images/solutions/casamia-staff-kitchen-consultation.webp' },
+  lighting: { icon: Sparkles, image: '/images/service-gallery/isometric/isometric-living.jpg' },
+  'living-room': { icon: Home, image: '/images/before-after/living-after-home.webp' },
+  outdoor: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
+  'smart-safety': { icon: Sparkles, image: '/images/how-it-works-smartphone.jpg' },
+  stairs: { icon: Home, image: '/images/solutions/stairs-hallways.jpg' },
+}
 const otherArea: CatalogueAreaDefinition = {
   id: 'other',
   icon: PackageCheck,
@@ -314,11 +283,53 @@ function formatPackageComposition(services: CasaMiaService[], copy: ServicesPage
     : `${includedItems} ${includedLabel}`
 }
 
+function buildCatalogueAreas(masterCatalogue: MasterServiceCatalogue): CatalogueAreaDefinition[] {
+  const areas: CatalogueAreaDefinition[] = []
+
+  getActiveCatalogueRooms(masterCatalogue).forEach((room) => {
+    if (!isCataloguePackageArea(room.id)) {
+      return
+    }
+
+    const packageRecord = getHomeSafetyPackageForRoom(room.id, masterCatalogue)
+    const visual = catalogueAreaVisuals[room.id]
+
+    areas.push({
+      id: room.id,
+      icon: visual.icon,
+      image: visual.image,
+      title: localizeRecord(packageRecord?.customerName ?? room.name, room.name),
+      description: localizeRecord(
+        packageRecord?.shortDescription ?? packageRecord?.customerBenefit ?? room.name,
+        room.name,
+      ),
+    })
+  })
+
+  return areas
+}
+
+function isCataloguePackageArea(value: string): value is ServicePackageArea {
+  return Object.prototype.hasOwnProperty.call(catalogueAreaVisuals, value)
+}
+
+function localizeRecord(value: LocalizedString, fallback: LocalizedString): Record<'en' | 'es', string> {
+  const english = value.en ?? value.es ?? fallback.en ?? fallback.es ?? ''
+  const spanish = value.es ?? value.en ?? fallback.es ?? fallback.en ?? english
+
+  return { en: english, es: spanish }
+}
+
 export function ServicesPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = servicesPageCopy[language]
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
+  const masterCatalogue = useMemo(
+    () => catalogue.masterCatalogue ?? getMasterServiceCatalogue(),
+    [catalogue.masterCatalogue],
+  )
+  const catalogueAreas = useMemo(() => buildCatalogueAreas(masterCatalogue), [masterCatalogue])
   const [selectedGroupId, setSelectedGroupId] = useState<CatalogueGroupId>('bathroom')
   const activeServices = useMemo(
     () => catalogue.services.filter((service) => service.active && isWebsiteVisible(service)),
@@ -340,7 +351,7 @@ export function ServicesPage() {
     return unassignedServices.length
       ? [...groupedServices, { area: otherArea, services: unassignedServices }]
       : groupedServices
-  }, [activeServices, catalogue])
+  }, [activeServices, catalogue, catalogueAreas])
   const selectedGroup = serviceGroups.find((group) => group.area.id === selectedGroupId) ?? serviceGroups[0]
   const SelectedIcon = selectedGroup?.area.icon ?? PackageCheck
   const heroSlides = homeVisualSlides

@@ -14,18 +14,20 @@ import {
   Send,
   ShieldCheck,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import type { WizardCopy } from '../../config/wizardCopy'
 import { getWizardPlanPackages, type WizardConsumerPlan } from '../../config/wizardPlanPackages'
 import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE } from '../../constants/contact'
+import type { EditableServiceCatalogue } from '../../types/serviceCatalogue'
 import type { SafetyWizardState, WizardResult } from '../../types/wizard'
 import { PriceRangeCard } from './PriceRangeCard'
 import { WizardVisualSafetyReport } from './WizardVisualSafetyReport'
 import { WizardStep } from './WizardStep'
 
 type PlanResultProps = {
+  catalogue: EditableServiceCatalogue
   copy: WizardCopy
   language: string
   state: SafetyWizardState
@@ -66,6 +68,7 @@ const planIcons = {
 }
 
 export function PlanResult({
+  catalogue,
   copy,
   language,
   state,
@@ -90,10 +93,25 @@ export function PlanResult({
   const areaSummary = isSpanish
     ? `${areaCount} ${areaCount === 1 ? 'zona relevante' : 'zonas relevantes'}`
     : `${areaCount} relevant ${areaCount === 1 ? 'area' : 'areas'}`
-  const packages = getWizardPlanPackages(language)
-  const recommendedConsumerPlan = result.recommendedPlan === 'business-consultation' ? 'assessment' : result.recommendedPlan
-  const [expandedPlan, setExpandedPlan] = useState<WizardConsumerPlan | null>(recommendedConsumerPlan)
+  const recommendedConsumerPlan: WizardConsumerPlan = result.recommendedPlan === 'business-consultation'
+    ? 'assessment'
+    : result.recommendedPlan
+  const packages = getWizardPlanPackages({ catalogue, language, result, state })
+  const recommendedPackage = packages.find((plan) => plan.planId === recommendedConsumerPlan) ?? packages[0]
+  const packageIds = useMemo(() => packages.map((plan) => plan.id).join('|'), [packages])
+  const [expandedPackageId, setExpandedPackageId] = useState<string>(recommendedPackage?.id ?? '')
+  const [selectedPackageId, setSelectedPackageId] = useState<string>(recommendedPackage?.id ?? '')
   const hasVisualReport = Boolean(result.safetyReport?.analysedPhotoCount)
+
+  useEffect(() => {
+    if (!packages.some((plan) => plan.id === expandedPackageId)) {
+      setExpandedPackageId(recommendedPackage?.id ?? '')
+    }
+
+    if (!packages.some((plan) => plan.id === selectedPackageId)) {
+      setSelectedPackageId(recommendedPackage?.id ?? '')
+    }
+  }, [expandedPackageId, packageIds, packages, recommendedPackage?.id, selectedPackageId])
 
   return (
     <WizardStep
@@ -219,11 +237,11 @@ export function PlanResult({
 
           <div className="safety-wizard-package-cards">
             {packages.map((plan) => {
-              const PackageIcon = planIcons[plan.id]
-              const isRecommended = plan.id === result.recommendedPlan
-              const isSelected = plan.id === result.selectedPlan
-              const isExpanded = plan.id === expandedPlan
-              const detailsId = `safety-wizard-plan-${plan.id}`
+              const PackageIcon = planIcons[plan.planId]
+              const isRecommended = plan.id === recommendedPackage?.id
+              const isSelected = plan.id === selectedPackageId
+              const isExpanded = plan.id === expandedPackageId
+              const detailsId = `safety-wizard-plan-${plan.packageId}`
 
               return (
                 <article className={`safety-wizard-plan-card${isSelected ? ' is-selected' : ''}`} key={plan.id}>
@@ -231,7 +249,7 @@ export function PlanResult({
                     aria-controls={detailsId}
                     aria-expanded={isExpanded}
                     className="safety-wizard-plan-card-summary"
-                    onClick={() => setExpandedPlan(isExpanded ? null : plan.id)}
+                    onClick={() => setExpandedPackageId(isExpanded ? '' : plan.id)}
                     type="button"
                   >
                     <span className="safety-wizard-plan-card-icon" aria-hidden="true">
@@ -242,7 +260,7 @@ export function PlanResult({
                         {isRecommended ? <small>{copy.result.packageRecommended}</small> : null}
                         {isSelected ? <small className="is-selected"><Check size={13} aria-hidden="true" />{copy.result.packageSelected}</small> : null}
                       </span>
-                      <strong>{copy.result.plans[plan.id]}</strong>
+                      <strong>{plan.name}</strong>
                       <span>{plan.summary}</span>
                     </span>
                     <span className="safety-wizard-plan-card-price">
@@ -267,7 +285,10 @@ export function PlanResult({
                       <button
                         className={isSelected ? 'btn btn-white' : 'btn btn-navy'}
                         disabled={isSelected}
-                        onClick={() => onPlanChange(plan.id)}
+                        onClick={() => {
+                          setSelectedPackageId(plan.id)
+                          onPlanChange(plan.planId)
+                        }}
                         type="button"
                       >
                         {isSelected ? copy.result.packageSelected : copy.result.packageChoose}
