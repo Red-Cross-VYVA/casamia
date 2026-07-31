@@ -92,6 +92,11 @@ const InternalProviderPartnersPage = lazy(() =>
     default: InternalProviderPartnersPage,
   })),
 )
+const InternalAgreementsPage = lazy(() =>
+  import('./pages/internal/InternalAgreementsPage').then(({ InternalAgreementsPage }) => ({
+    default: InternalAgreementsPage,
+  })),
+)
 const InternalServiceCataloguePage = lazy(() =>
   import('./pages/internal/InternalServiceCataloguePage').then(({ InternalServiceCataloguePage }) => ({
     default: InternalServiceCataloguePage,
@@ -127,6 +132,9 @@ const ProposalGeneratorPage = lazy(() =>
 )
 const PublicProposalPage = lazy(() =>
   import('./pages/PublicProposalPage').then(({ PublicProposalPage }) => ({ default: PublicProposalPage })),
+)
+const PublicAgreementPage = lazy(() =>
+  import('./pages/PublicAgreementPage').then(({ PublicAgreementPage }) => ({ default: PublicAgreementPage })),
 )
 const ServiceDetailPage = lazy(() =>
   import('./pages/ServiceDetailPage').then(({ ServiceDetailPage }) => ({ default: ServiceDetailPage })),
@@ -229,6 +237,7 @@ function AppRoutes() {
   const location = useLocation()
   const isInternalRoute = location.pathname.startsWith('/internal')
   const isFocusedWizardRoute = location.pathname === '/home-safety-wizard'
+  const isPublicAgreementRoute = location.pathname.startsWith('/agreement/')
 
   return (
     <>
@@ -275,6 +284,7 @@ function AppRoutes() {
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />
             <Route path="/proposal/:token" element={<PublicProposalPage />} />
+            <Route path="/agreement/:token" element={<PublicAgreementPage />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
             <Route path="/legal-notice" element={<LegalDocumentPage documentId="legal-notice" />} />
             <Route path="/general-customer-terms" element={<LegalDocumentPage documentId="general-customer-terms" />} />
@@ -295,6 +305,7 @@ function AppRoutes() {
             <Route path="/internal/voice-studio" element={<InternalRoute><InternalVoiceStudioPage /></InternalRoute>} />
             <Route path="/internal/proposals" element={<InternalRoute><InternalProposalsPage /></InternalRoute>} />
             <Route path="/internal/provider-partners" element={<InternalRoute><InternalProviderPartnersPage /></InternalRoute>} />
+            <Route path="/internal/agreements" element={<InternalRoute><InternalAgreementsPage /></InternalRoute>} />
             <Route path="/internal/proposal-generator" element={<InternalRoute><ProposalGeneratorPage /></InternalRoute>} />
             <Route path="/internal/proposals/:proposalId" element={<InternalRoute><ProposalDetailPage /></InternalRoute>} />
             <Route path="/contact" element={<Navigate to="/why-us#contact-form" replace />} />
@@ -304,7 +315,7 @@ function AppRoutes() {
       </main>
       {isInternalRoute || isFocusedWizardRoute ? null : <Footer />}
       {isInternalRoute ? null : <CookieConsent />}
-      {isInternalRoute || isFocusedWizardRoute ? null : <StickyMobileCTA />}
+      {isInternalRoute || isFocusedWizardRoute || isPublicAgreementRoute ? null : <StickyMobileCTA />}
     </>
   )
 }

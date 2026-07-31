@@ -2,6 +2,7 @@ import {
   AudioLines,
   ClipboardList,
   ClipboardCheck,
+  FileSignature,
   FileText,
   Home,
   LayoutDashboard,
@@ -28,6 +29,7 @@ const internalLinks = [
     ? [{ label: 'Voice studio', to: '/internal/voice-studio', icon: AudioLines }]
     : []),
   { label: 'Proposals', to: '/internal/proposals', icon: FileText },
+  { label: 'Agreements', to: '/internal/agreements', icon: FileSignature },
   { label: 'Provider partners', to: '/internal/provider-partners', icon: Network },
 ]
 
