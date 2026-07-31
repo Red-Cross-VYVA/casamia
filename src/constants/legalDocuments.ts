@@ -1,4 +1,4 @@
-import { casamiaCompanyConfig, legalVersionConfig } from '../config/company'
+import { casamiaCompanyConfig, legalVersionConfig } from '../config/company.ts'
 
 export type LegalDocumentId =
   | 'legal-notice'
