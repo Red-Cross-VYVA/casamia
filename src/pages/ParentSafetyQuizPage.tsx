@@ -272,7 +272,7 @@ export function ParentSafetyQuizPage() {
                 <div className="parent-safety-result-actions">
                   <Link
                     className="btn btn-green"
-                    to="/home-safety-assessment#self-inspection-tool"
+                    to="/home-safety-assessment?open=self-inspection#self-inspection-tool"
                     onClick={() => trackEvent('assessment_booking_started', { location: 'parent_safety_quiz' })}
                   >
                     {pageCopy.assessmentCta}

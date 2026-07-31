@@ -4,10 +4,13 @@ import type {
   MasterCatalogueCapability,
   MasterCatalogueInstallationTask,
   MasterCatalogueOutcome,
+  MasterCataloguePackage,
   MasterCatalogueProduct,
   MasterCatalogueRelation,
+  MasterCatalogueRoom,
   MasterServiceCatalogue,
   ServiceCatalogueSection,
+  ServicePackageConfig,
   ServicePackageArea,
   ServiceRoom,
 } from '../types/serviceCatalogue.ts'
@@ -17,6 +20,8 @@ const sectionMap: Record<MasterCatalogueOutcome['section'], ServiceCatalogueSect
   'home-safety-package': 'home_safety_package',
   'optional-adaptations': 'optional_adaptations',
 }
+
+const packageAreaIds = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance'])
 
 const pricingMap: Record<MasterCatalogueOutcome['pricingType'], CasaMiaService['pricingType']> = {
   fixed: 'fixed',
@@ -31,10 +36,53 @@ export function getMasterServiceCatalogue(): MasterServiceCatalogue {
   return clone(masterServiceCatalogue)
 }
 
+export function getActiveCatalogueRooms(catalogue = masterServiceCatalogue): MasterCatalogueRoom[] {
+  return catalogue.rooms.filter((room) => room.active).sort(sortByOrder)
+}
+
 export function getPackagesByRoom(roomId: string, catalogue = masterServiceCatalogue) {
   return catalogue.packages
     .filter((item) => item.active && item.roomId === roomId)
     .sort(sortByOrder)
+}
+
+export function getHomeSafetyPackageForRoom(roomId: string, catalogue = masterServiceCatalogue) {
+  return getPackagesByRoom(roomId, catalogue).find((item) => item.section === 'home-safety-package')
+}
+
+export function getCataloguePackagesForRoom(roomId: string, catalogue = masterServiceCatalogue) {
+  return getPackagesByRoom(roomId, catalogue).map((packageRecord) => ({
+    package: packageRecord,
+    outcomes: getOutcomesByPackage(packageRecord.id, catalogue),
+  }))
+}
+
+export function derivePackageConfigFromMasterPackage(
+  packageRecord: MasterCataloguePackage,
+): ServicePackageConfig | undefined {
+  if (!isServicePackageArea(packageRecord.roomId)) {
+    return undefined
+  }
+
+  return {
+    active: packageRecord.active,
+    area: packageRecord.roomId,
+    fromPrice: packageRecord.fromPrice,
+    name: getLocalizedName(packageRecord.customerName) || packageRecord.internalName,
+    packagePrice: packageRecord.fixedPrice,
+    pricingType: mapMasterPricingType(packageRecord.pricingType),
+    recurringMonthlyPrice: packageRecord.recurringMonthlyPrice,
+    section: sectionMap[packageRecord.section],
+    vatRate: packageRecord.vatRate,
+  }
+}
+
+export function deriveHomeSafetyPackageConfigs(catalogue = masterServiceCatalogue): ServicePackageConfig[] {
+  return getActiveCatalogueRooms(catalogue)
+    .map((room) => getHomeSafetyPackageForRoom(room.id, catalogue))
+    .filter((packageRecord): packageRecord is MasterCataloguePackage => Boolean(packageRecord))
+    .map(derivePackageConfigFromMasterPackage)
+    .filter((config): config is ServicePackageConfig => Boolean(config))
 }
 
 export function getOutcomesByPackage(packageId: string, catalogue = masterServiceCatalogue) {
@@ -67,10 +115,7 @@ export function getTasksByCapability(capabilityId: string, catalogue = masterSer
 }
 
 export function getCustomerCatalogueByRoom(roomId: string, catalogue = masterServiceCatalogue) {
-  return getPackagesByRoom(roomId, catalogue).map((packageRecord) => ({
-    package: packageRecord,
-    outcomes: getOutcomesByPackage(packageRecord.id, catalogue),
-  }))
+  return getCataloguePackagesForRoom(roomId, catalogue)
 }
 
 export function getWizardVisibleOutcomes(catalogue = masterServiceCatalogue) {
@@ -139,6 +184,10 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
   const products = uniqueById(capabilities.flatMap((capability) => getProductsByCapability(capability.id, catalogue)))
   const tasks = uniqueById(capabilities.flatMap((capability) => getTasksByCapability(capability.id, catalogue)))
   const packageRecord = catalogue.packages.find((item) => item.id === outcome.packageId)
+  const includedItems = uniqueTextItems(capabilities.map((capability) => capability.name))
+  const spanishIncludedItems = uniqueTextItems(
+    capabilities.map((capability) => getSpanishCapabilityName(capability.id, capability.name)),
+  )
   const smartDependencies = [
     outcome.requiresSmartSpeaker
       ? {
@@ -231,7 +280,7 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
       supplier: product.supplier,
     })),
     smartDependencies: smartDependencies.length ? smartDependencies : undefined,
-    includedItems: capabilities.map((capability) => capability.name),
+    includedItems,
     wizardAreas: outcome.wizardAreas as ServicePackageArea[],
     safetyNotice: outcome.safetyNotice?.en,
     translations: {
@@ -239,7 +288,7 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
         customerBenefit: outcome.customerBenefit.es,
         customerDescription: outcome.shortDescription.es,
         customerName: outcome.customerName.es,
-        includedItems: capabilities.map((capability) => capability.name),
+        includedItems: spanishIncludedItems,
         name: outcome.customerName.es,
         outcome: outcome.customerBenefit.es,
         plainLanguageSummary: outcome.shortDescription.es,
@@ -262,8 +311,159 @@ function sortByOrder<T extends { sortOrder: number }>(left: T, right: T) {
   return left.sortOrder - right.sortOrder
 }
 
+function isServicePackageArea(value: string): value is ServicePackageArea {
+  return packageAreaIds.has(value as ServicePackageArea)
+}
+
+function mapMasterPricingType(pricingType: MasterCataloguePackage['pricingType']): ServicePackageConfig['pricingType'] {
+  if (pricingType === 'fixed') return 'fixed'
+  if (pricingType === 'from' || pricingType === 'range' || pricingType === 'recurring') return 'from'
+  return 'quote_only'
+}
+
+function getLocalizedName(value: Partial<Record<'en' | 'es', string>>) {
+  return value.en ?? value.es ?? ''
+}
+
 function uniqueById<T extends { id: string }>(items: T[]) {
   return [...new Map(items.map((item) => [item.id, item])).values()]
+}
+
+function uniqueTextItems(items: string[]) {
+  const seen = new Set<string>()
+
+  return items.filter((item) => {
+    const key = item.trim().toLowerCase()
+
+    if (!key || seen.has(key)) {
+      return false
+    }
+
+    seen.add(key)
+    return true
+  })
+}
+
+function getSpanishCapabilityName(capabilityId: string, fallback: string) {
+  const names: Record<string, string> = {
+    'bathroom-anti-slip-bath-shower-mat': 'Alfombrilla antideslizante para bañera o ducha',
+    'bathroom-anti-slip-floor-treatment': 'Tratamiento antideslizante de suelo',
+    'bathroom-bathtub-step-through-conversion': 'Conversión de bañera con acceso bajo',
+    'bathroom-door-adjustment': 'Ajuste de puerta para reducir resistencia',
+    'bathroom-easy-release-privacy-lock': 'Cierre de privacidad con desbloqueo fácil',
+    'bathroom-folding-shower-seat': 'Asiento abatible de ducha',
+    'bathroom-lever-door-handle': 'Manilla de puerta tipo palanca',
+    'bathroom-lever-mixer-tap': 'Grifo monomando de palanca',
+    'bathroom-lever-shower-controls': 'Mandos de ducha de palanca',
+    'bathroom-motion-night-lighting': 'Luz nocturna con sensor de movimiento',
+    'bathroom-raised-toilet-seat': 'Elevador de inodoro',
+    'bathroom-safer-floor-transition': 'Perfil de transición bajo',
+    'bathroom-task-lighting': 'Iluminación de baño apta para zona húmeda',
+    'bathroom-thermostatic-anti-scald-valve': 'Válvula termostática antiquemaduras',
+    'bathroom-toilet-support-rails': 'Barras de apoyo para inodoro',
+    'bathroom-vertical-support-rail': 'Barra de apoyo vertical',
+    'bathroom-wall-mounted-grab-bars': 'Barras de apoyo en pared',
+    'bathroom-wider-doorway-adaptation': 'Ensanche de puerta de baño',
+    'accessible-wardrobe-adaptation': 'Adaptación de armario accesible',
+    'advanced-bed-transfer-solution': 'Solución avanzada para transferencias de cama',
+    'automatic-water-shutoff': 'Válvula automática de corte de agua, si es compatible',
+    'automated-curtains-blinds': 'Cortinas o persianas automatizadas',
+    'bed-height-optimisation': 'Ajuste de altura de la cama',
+    'bed-positioning-adjustment': 'Mejor colocación de la cama',
+    'bed-to-door-clear-route': 'Ruta despejada entre la cama y la puerta',
+    'bed-exit-safety-system': 'Sistema de seguridad al salir de la cama',
+    'bedroom-anti-slip-floor-treatment': 'Tratamiento antideslizante del suelo',
+    'bedroom-door-accessibility-adaptation': 'Adaptación de puerta del dormitorio',
+    'bedroom-motion-night-lighting': 'Iluminación nocturna con sensor de movimiento',
+    'bedroom-secure-floor-coverings': 'Revestimientos de suelo asegurados',
+    'bedroom-to-bathroom-route-improvement': 'Ruta segura del dormitorio al baño',
+    'bedside-emergency-assistance': 'Ayuda de emergencia junto a la cama',
+    'bedside-lighting': 'Luz de mesilla',
+    'cable-management': 'Organización de cables',
+    'dementia-support-bedroom-adaptation': 'Adaptación del dormitorio para apoyo cognitivo',
+    'discreet-transfer-support': 'Asa de apoyo para cama',
+    'easy-see-switches': 'Marcadores de alto contraste para interruptores',
+    'electric-adjustable-bed': 'Cama eléctrica ajustable',
+    'emergency-call-access': 'Botón de emergencia',
+    'family-carer-notifications': 'Avisos a familiares o cuidadores',
+    'furniture-repositioning': 'Recolocación de muebles',
+    'hands-free-calling': 'Llamadas manos libres',
+    'hot-water-temperature-setting': 'Ajuste de temperatura del agua caliente',
+    'loose-rug-securing': 'Retirada o fijación de alfombras sueltas',
+    'morning-evening-routines': 'Rutinas de mañana y noche',
+    'movement-reassurance': 'Avisos de movimiento en el dormitorio',
+    'night-time-safety-alerts': 'Configuración de alertas nocturnas',
+    'nominated-carer-alerting': 'Configuración de aviso a familiar o cuidador',
+    'routine-reminders': 'Recordatorios de medicación',
+    'appointment-reminders': 'Recordatorios de citas',
+    'resident-phone-alerting': 'Configuración de aviso al teléfono del residente',
+    'smart-speaker-setup': 'Configuración de altavoz inteligente',
+    'smoke-alerting': 'Detector de humo',
+    'specialist-bedroom-layout': 'Distribución especializada del dormitorio',
+    'specialist-measurement': 'Medición profesional y comprobación de encaje',
+    'voice-controlled-lighting': 'Iluminación controlada por voz',
+    'voice-help-requests': 'Peticiones sencillas por voz',
+    'wearable-emergency-support': 'Colgante de emergencia',
+    'water-leak-alerting': 'Sensor de fuga de agua',
+    'lever-water-control': 'Grifo monomando de palanca',
+    'automatic-jar-opening': 'Abrefrascos automático',
+    'easy-grip-kitchen-tools': 'Utensilios de cocina de agarre fácil',
+    'non-slip-chopping-support': 'Tabla de cortar antideslizante',
+    'easy-pour-kettle-support': 'Hervidor fácil de verter o basculante',
+    'anti-fatigue-standing-zone': 'Alfombrilla antifatiga colocada de forma segura',
+    'safer-hob-control': 'Placa de inducción con apagado automático',
+    'automatic-gas-shutoff': 'Sistema automático de corte de gas, cuando aplique',
+    'motion-activated-lighting': 'Iluminación con sensor de movimiento',
+    'kitchen-circulation-space': 'Mejor espacio de circulación en la cocina',
+    'kitchen-motion-alerting': 'Sensor de detección de movimiento',
+    'kitchen-storage-organisation': 'Objetos frecuentes organizados al alcance',
+    'pull-out-pantry-storage': 'Almacenamiento extraíble de despensa',
+    'shopping-list-management': 'Gestión de lista de la compra',
+    'voice-cooking-assistance': 'Asistencia de cocina por voz',
+    'waist-height-storage': 'Objetos frecuentes reubicados a altura de cintura',
+    'wider-kitchen-doorway': 'Puerta de cocina más ancha',
+    'seating-height-adjustment': 'Ajuste de altura del asiento',
+    'sofa-chair-support-handle': 'Asa de apoyo para sofá o silla',
+    'living-room-furniture-positioning': 'Mejor colocación de muebles',
+    'anti-slip-rug-tape': 'Cinta antideslizante para alfombras',
+    'living-room-circulation-space': 'Mejor espacio de circulación',
+    'living-room-anti-slip-floor-treatment': 'Tratamiento antideslizante del suelo',
+    'living-room-secure-floor-coverings': 'Revestimientos de suelo asegurados',
+    'furniture-anchoring': 'Anclaje de muebles',
+    'tv-unit-anchoring': 'Anclaje del mueble de televisión',
+    'corner-protection': 'Protección de esquinas cuando proceda',
+    'living-room-motion-alerting': 'Sensor de detección de movimiento',
+    'emergency-voice-assistance': 'Asistencia de emergencia por voz',
+    'specialist-seating-accessories': 'Accesorios especializados de apoyo para sentarse',
+    'riser-cushion-or-chair-base': 'Cojín elevador o adaptación de base de silla',
+    'electric-recliner-chair': 'Sillón relax eléctrico',
+    'wider-living-room-doorway': 'Puerta de salón más ancha',
+    'stair-handrail': 'Pasamanos de escalera',
+    'non-slip-stair-treads': 'Peldaños antideslizantes',
+    'high-visibility-stair-edge-markings': 'Señalización visible del borde del escalón',
+    'stair-route-lighting': 'Iluminación de ruta en escaleras',
+    'entrance-handrail': 'Pasamanos de entrada',
+    'entrance-threshold-ramp': 'Rampa de umbral de bajo perfil',
+    'slip-resistant-entrance-surface': 'Superficie de entrada antideslizante',
+    'high-visibility-step-edge-markings': 'Señalización visible del borde del escalón',
+    'secure-entrance-mat': 'Felpudo de entrada seguro',
+    'entrance-lever-door-handle': 'Manilla tipo palanca',
+    'easy-to-use-entrance-lock': 'Cerradura fácil de usar',
+    'smart-video-doorbell': 'Videoportero inteligente',
+    'two-way-door-communication': 'Comunicación bidireccional',
+    'live-visitor-view': 'Vista en directo del visitante',
+    'doorbell-motion-detection': 'Detección de movimiento en la puerta',
+    'package-detection': 'Detección de paquetes, cuando esté disponible',
+    'mobile-door-notifications': 'Avisos móviles de la puerta',
+    'entrance-family-notifications': 'Avisos familiares de la puerta',
+    'motion-activated-entrance-lighting': 'Iluminación de entrada con sensor de movimiento',
+    'porch-lighting': 'Iluminación de porche',
+    'wider-entrance-doorway': 'Puerta de entrada más ancha',
+    'accessibility-ramp': 'Rampa de accesibilidad',
+    'entrance-seating-option': 'Asiento de entrada',
+  }
+
+  return names[capabilityId] ?? fallback
 }
 
 function toCsv(records: Array<Record<string, unknown>>) {

@@ -277,7 +277,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
             body: 'Photos + measurements.',
             note: 'Fastest route',
             cta: 'Upload photos',
-            to: '/home-safety-assessment#self-inspection-tool',
+            to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
           },
           {
             title: 'Home visit',
@@ -470,7 +470,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
             body: 'Fotos + medidas.',
             note: 'Ruta m\u00e1s r\u00e1pida',
             cta: 'Subir fotos',
-            to: '/home-safety-assessment#self-inspection-tool',
+            to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
           },
           {
             title: 'Visita a domicilio',

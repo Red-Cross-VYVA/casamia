@@ -446,6 +446,7 @@
 }
 
 .services-catalogue-service {
+  position: relative;
   display: grid;
   min-width: 0;
   align-content: start;
@@ -454,6 +455,28 @@
   background: #fff;
   padding: clamp(1.2rem, 2.5vw, 1.65rem);
   box-shadow: 0 0.9rem 2.2rem rgb(18 58 80 / 7%);
+}
+
+.services-catalogue-service.is-optional-add-on {
+  border-color: #cfe8b9;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(135deg, rgb(121 173 67 / 65%), rgb(49 162 218 / 24%)) border-box;
+  box-shadow: 0 0.9rem 2.2rem rgb(79 135 42 / 8%);
+}
+
+.services-catalogue-service.is-optional-add-on::before {
+  position: absolute;
+  inset: 1.1rem auto auto 1.1rem;
+  width: 0.45rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #79ad43, #31a2da);
+  content: '';
+}
+
+.services-catalogue-service.is-optional-add-on > header {
+  padding-left: 0.9rem;
 }
 
 .services-catalogue-service > header {
@@ -493,9 +516,30 @@
   text-transform: uppercase;
 }
 
+.services-catalogue-service.is-optional-add-on .services-catalogue-component-role {
+  background: #edf8e7;
+  color: #4f7f24;
+}
+
+.services-catalogue-service.is-optional-add-on header small {
+  color: #659b32;
+}
+
+.services-catalogue-service.is-optional-add-on .services-catalogue-inclusions {
+  border-color: #d8ecc8;
+  background:
+    radial-gradient(circle at top right, rgb(121 173 67 / 13%), transparent 42%),
+    linear-gradient(135deg, #f8fff4 0%, #ffffff 68%);
+}
+
+.services-catalogue-service.is-optional-add-on .services-catalogue-inclusions > strong {
+  color: #4f7f24;
+}
+
 .services-catalogue-service-description {
   margin: 1rem 0 0;
   color: #536879;
+  font-size: 0.95rem;
   line-height: 1.55;
 }
 
@@ -529,13 +573,35 @@
 }
 
 .services-catalogue-inclusions {
-  margin-top: 1.1rem;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1.25rem;
+  border: 1px solid #c8e0ec;
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at top right, rgb(49 162 218 / 12%), transparent 42%),
+    linear-gradient(135deg, #f4fbff 0%, #ffffff 68%);
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 70%);
+}
+
+.services-catalogue-inclusions > strong {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 0.42rem 0.72rem;
+  color: #0f638d;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 0 0.45rem 1rem rgb(18 58 80 / 7%);
 }
 
 .services-catalogue-inclusions ul {
   display: grid;
-  gap: 0.55rem;
-  margin: 0.65rem 0 0;
+  gap: 0.7rem;
+  margin: 0.85rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -543,15 +609,16 @@
 .services-catalogue-inclusions li {
   display: flex;
   align-items: flex-start;
-  gap: 0.55rem;
-  color: #516678;
-  font-size: 0.82rem;
-  line-height: 1.4;
+  gap: 0.6rem;
+  color: #18364d;
+  font-size: 0.9rem;
+  font-weight: 780;
+  line-height: 1.35;
 }
 
 .services-catalogue-inclusions li svg {
   flex: 0 0 auto;
-  margin-top: 0.12rem;
+  margin-top: 0.08rem;
   color: #79ad43;
 }
 

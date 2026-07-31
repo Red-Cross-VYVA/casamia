@@ -432,7 +432,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     cta: {
       label: 'Start the guided review',
-      to: '/home-safety-assessment#self-inspection-tool',
+      to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
     },
   },
   {
@@ -837,7 +837,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     cta: {
       label: 'Start a home safety review',
-      to: '/home-safety-wizard',
+      to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
     },
   },
   {

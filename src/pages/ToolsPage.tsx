@@ -140,7 +140,7 @@ const tools = [
       en: 'Answer guided questions about the home and leave with clearer priorities.',
       es: 'Responde preguntas guiadas sobre la vivienda y sal con prioridades más claras.',
     },
-    to: '/home-safety-assessment#self-inspection-tool',
+    to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
   },
   {
     icon: Camera,
@@ -403,7 +403,7 @@ export function ToolsPage() {
             <h2>{pageCopy.finalTitle}</h2>
             <p>{pageCopy.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to="/home-safety-assessment#self-inspection-tool">
+          <Link className="btn btn-green" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
             {pageCopy.finalCta}
             <ArrowRight size={18} aria-hidden="true" />
           </Link>

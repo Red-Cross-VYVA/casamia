@@ -193,7 +193,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
           services: serviceCatalogue.services,
         })
       : undefined,
-    [i18n.language, serviceCatalogue.services, state],
+    [i18n.language, serviceCatalogue, state],
   )
 
   const schema = useMemo(
@@ -543,6 +543,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
       case 'result':
         return displayedResult ? (
           <PlanResult
+            catalogue={serviceCatalogue}
             copy={copy}
             language={i18n.language}
             state={state}

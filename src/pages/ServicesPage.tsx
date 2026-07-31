@@ -5,10 +5,7 @@ import {
   CheckCircle2,
   CookingPot,
   DoorOpen,
-  Footprints,
   Home,
-  Lightbulb,
-  MapPin,
   PackageCheck,
   ShieldCheck,
   Sparkles,
@@ -22,12 +19,23 @@ import { SampleReportPreview } from '../components/SampleReportPreview'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import {
+  getActiveCatalogueRooms,
+  getHomeSafetyPackageForRoom,
+  getMasterServiceCatalogue,
+} from '../services/masterServiceCatalogue'
+import {
   formatPackagePrice,
   getPackageConfigForArea,
   getServicesForPackageArea,
 } from '../services/serviceCatalogue'
 import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
-import type { CasaMiaService, ServicePackageArea, ServicePackageConfig } from '../types/serviceCatalogue'
+import type {
+  CasaMiaService,
+  LocalizedString,
+  MasterServiceCatalogue,
+  ServicePackageArea,
+  ServicePackageConfig,
+} from '../types/serviceCatalogue'
 import '../styles/services-catalogue.css'
 
 type CatalogueGroupId = ServicePackageArea | 'other'
@@ -96,99 +104,17 @@ type ServicesPageCopy = {
   contactCta: string
 }
 
-const catalogueAreas: CatalogueAreaDefinition[] = [
-  {
-    id: 'bathroom',
-    icon: Bath,
-    image: '/images/solutions/bathroom-safety.jpg',
-    title: { en: 'Safer bathroom', es: 'Baño seguro' },
-    description: {
-      en: 'Safer transfers, showering, toileting, grip and night-time access.',
-      es: 'Transferencias, ducha, aseo, agarre y acceso nocturno más seguros.',
-    },
-  },
-  {
-    id: 'bedroom',
-    icon: BedDouble,
-    image: '/images/before-after/bedroom-after-card.webp',
-    title: { en: 'Restful bedroom', es: 'Dormitorio tranquilo' },
-    description: {
-      en: 'Bed transfers, bedside reach, lighting and safer night routes.',
-      es: 'Transferencias, alcance, iluminación y rutas nocturnas más seguras.',
-    },
-  },
-  {
-    id: 'kitchen',
-    icon: CookingPot,
-    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
-    title: { en: 'Confident kitchen', es: 'Cocina cómoda' },
-    description: {
-      en: 'Safer reach, preparation, appliances, water and everyday routines.',
-      es: 'Alcance, preparación, electrodomésticos, agua y rutinas más seguras.',
-    },
-  },
-  {
-    id: 'living-room',
-    icon: Home,
-    image: '/images/before-after/living-after-home.webp',
-    title: { en: 'Comfortable movement', es: 'Movimiento cómodo' },
-    description: {
-      en: 'Clearer routes through furniture, rugs, cables and daily-use spaces.',
-      es: 'Rutas más despejadas entre muebles, alfombras, cables y zonas de uso diario.',
-    },
-  },
-  {
-    id: 'stairs',
-    icon: Footprints,
-    image: '/images/solutions/stairs-hallways.jpg',
-    title: { en: 'Steady stairs', es: 'Escaleras seguras' },
-    description: {
-      en: 'Handrails, grip, contrast and lighting for changes of level.',
-      es: 'Pasamanos, agarre, contraste e iluminación para cambios de nivel.',
-    },
-  },
-  {
-    id: 'entrance',
-    icon: DoorOpen,
-    image: '/images/solutions/entrance-access.jpg',
-    title: { en: 'Easy entrance', es: 'Entrada fácil' },
-    description: {
-      en: 'Thresholds, steps, access, lighting and support at the door.',
-      es: 'Umbrales, escalones, acceso, iluminación y apoyo junto a la puerta.',
-    },
-  },
-  {
-    id: 'outdoor',
-    icon: MapPin,
-    image: '/images/before-after/outdoor-after.jpg',
-    title: { en: 'Safer outdoors', es: 'Exterior seguro' },
-    description: {
-      en: 'Paths, exterior steps, lighting and the route to the entrance.',
-      es: 'Caminos, escalones, iluminación y la ruta hasta la entrada.',
-    },
-  },
-  {
-    id: 'lighting',
-    icon: Lightbulb,
-    image: '/images/service-gallery/03-stairway-and-hallway-support.jpg',
-    title: { en: 'Comfort lighting', es: 'Luz de confort' },
-    description: {
-      en: 'Task, motion and night-route lighting where visibility matters.',
-      es: 'Iluminación de trabajo, movimiento y rutas nocturnas donde más importa.',
-    },
-  },
-  {
-    id: 'smart-safety',
-    icon: ShieldCheck,
-    image: '/images/before-after/smart-after.jpg',
-    title: { en: 'Connected comfort', es: 'Confort conectado' },
-    description: {
-      en: 'Compatible alerts, sensors, voice support and family handover.',
-      es: 'Alertas, sensores, apoyo por voz y configuración para la familia.',
-    },
-  },
-]
-
+const catalogueAreaVisuals: Record<ServicePackageArea, { icon: LucideIcon; image: string }> = {
+  bathroom: { icon: Bath, image: '/images/solutions/bathroom-safety.jpg' },
+  bedroom: { icon: BedDouble, image: '/images/before-after/bedroom-after-card.webp' },
+  entrance: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
+  kitchen: { icon: CookingPot, image: '/images/solutions/casamia-staff-kitchen-consultation.webp' },
+  lighting: { icon: Sparkles, image: '/images/service-gallery/isometric/isometric-living.jpg' },
+  'living-room': { icon: Home, image: '/images/before-after/living-after-home.webp' },
+  outdoor: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
+  'smart-safety': { icon: Sparkles, image: '/images/how-it-works-smartphone.jpg' },
+  stairs: { icon: Home, image: '/images/solutions/stairs-hallways.jpg' },
+}
 const otherArea: CatalogueAreaDefinition = {
   id: 'other',
   icon: PackageCheck,
@@ -204,7 +130,6 @@ const homeVisualSlides: Array<{ areaId: ServicePackageArea; image: string }> = [
   { areaId: 'bedroom', image: '/images/service-gallery/isometric/isometric-bedroom.jpg' },
   { areaId: 'living-room', image: '/images/service-gallery/isometric/isometric-living.jpg' },
   { areaId: 'kitchen', image: '/images/service-gallery/isometric/isometric-kitchen.jpg' },
-  { areaId: 'outdoor', image: '/images/service-gallery/isometric/isometric-exterior.jpg' },
   { areaId: 'bathroom', image: '/images/service-gallery/isometric/isometric-bathroom.jpg' },
 ]
 
@@ -332,6 +257,21 @@ const isOptionalAddOn = (service: CasaMiaService) =>
   || service.section === 'connected_room'
   || service.section === 'optional_adaptations'
 
+function uniqueIncludedItems(items: string[] | undefined) {
+  const seen = new Set<string>()
+
+  return (items ?? []).filter((item) => {
+    const key = item.trim().toLowerCase()
+
+    if (!key || seen.has(key)) {
+      return false
+    }
+
+    seen.add(key)
+    return true
+  })
+}
+
 function formatPackageComposition(services: CasaMiaService[], copy: ServicesPageCopy) {
   const optionalAddOns = services.filter(isOptionalAddOn).length
   const includedItems = services.length - optionalAddOns
@@ -343,11 +283,53 @@ function formatPackageComposition(services: CasaMiaService[], copy: ServicesPage
     : `${includedItems} ${includedLabel}`
 }
 
+function buildCatalogueAreas(masterCatalogue: MasterServiceCatalogue): CatalogueAreaDefinition[] {
+  const areas: CatalogueAreaDefinition[] = []
+
+  getActiveCatalogueRooms(masterCatalogue).forEach((room) => {
+    if (!isCataloguePackageArea(room.id)) {
+      return
+    }
+
+    const packageRecord = getHomeSafetyPackageForRoom(room.id, masterCatalogue)
+    const visual = catalogueAreaVisuals[room.id]
+
+    areas.push({
+      id: room.id,
+      icon: visual.icon,
+      image: visual.image,
+      title: localizeRecord(packageRecord?.customerName ?? room.name, room.name),
+      description: localizeRecord(
+        packageRecord?.shortDescription ?? packageRecord?.customerBenefit ?? room.name,
+        room.name,
+      ),
+    })
+  })
+
+  return areas
+}
+
+function isCataloguePackageArea(value: string): value is ServicePackageArea {
+  return Object.prototype.hasOwnProperty.call(catalogueAreaVisuals, value)
+}
+
+function localizeRecord(value: LocalizedString, fallback: LocalizedString): Record<'en' | 'es', string> {
+  const english = value.en ?? value.es ?? fallback.en ?? fallback.es ?? ''
+  const spanish = value.es ?? value.en ?? fallback.es ?? fallback.en ?? english
+
+  return { en: english, es: spanish }
+}
+
 export function ServicesPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = servicesPageCopy[language]
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
+  const masterCatalogue = useMemo(
+    () => catalogue.masterCatalogue ?? getMasterServiceCatalogue(),
+    [catalogue.masterCatalogue],
+  )
+  const catalogueAreas = useMemo(() => buildCatalogueAreas(masterCatalogue), [masterCatalogue])
   const [selectedGroupId, setSelectedGroupId] = useState<CatalogueGroupId>('bathroom')
   const activeServices = useMemo(
     () => catalogue.services.filter((service) => service.active && isWebsiteVisible(service)),
@@ -369,7 +351,7 @@ export function ServicesPage() {
     return unassignedServices.length
       ? [...groupedServices, { area: otherArea, services: unassignedServices }]
       : groupedServices
-  }, [activeServices, catalogue])
+  }, [activeServices, catalogue, catalogueAreas])
   const selectedGroup = serviceGroups.find((group) => group.area.id === selectedGroupId) ?? serviceGroups[0]
   const SelectedIcon = selectedGroup?.area.icon ?? PackageCheck
   const heroSlides = homeVisualSlides
@@ -507,35 +489,29 @@ export function ServicesPage() {
                   <div className="services-catalogue-service-grid">
                     {selectedGroup.services.map((service) => {
                       const requirements = getRequirementLabels(service, copy)
+                      const includedItems = uniqueIncludedItems(service.includedItems)
+                      const optionalAddOn = isOptionalAddOn(service)
 
                       return (
-                        <article className="services-catalogue-service" key={service.id}>
+                        <article
+                          className={`services-catalogue-service${optionalAddOn ? ' is-optional-add-on' : ''}`}
+                          key={service.id}
+                        >
                           <header>
                             <div>
                               <small>{service.category}</small>
                               <h3>{getCustomerServiceName(service)}</h3>
                               <span className="services-catalogue-component-role">
-                                {isOptionalAddOn(service) ? copy.optionalComponent : copy.coreComponent}
+                                {optionalAddOn ? copy.optionalComponent : copy.coreComponent}
                               </span>
                             </div>
                           </header>
 
-                          <p className="services-catalogue-service-description">
-                            {getCustomerServiceDescription(service)}
-                          </p>
-                          <div className="services-catalogue-service-benefit">
-                            <Sparkles size={18} aria-hidden="true" />
-                            <div>
-                              <strong>{copy.customerBenefit}</strong>
-                              <p>{getCustomerServiceBenefit(service)}</p>
-                            </div>
-                          </div>
-
-                          {service.includedItems?.length ? (
+                          {includedItems.length ? (
                             <div className="services-catalogue-inclusions">
                               <strong>{copy.included}</strong>
                               <ul>
-                                {service.includedItems?.map((item) => (
+                                {includedItems.map((item) => (
                                   <li key={item}>
                                     <CheckCircle2 size={16} aria-hidden="true" />
                                     <span>{item}</span>
@@ -544,6 +520,18 @@ export function ServicesPage() {
                               </ul>
                             </div>
                           ) : null}
+
+                          <p className="services-catalogue-service-description">
+                            {getCustomerServiceDescription(service)}
+                          </p>
+
+                          <div className="services-catalogue-service-benefit">
+                            <Sparkles size={18} aria-hidden="true" />
+                            <div>
+                              <strong>{copy.customerBenefit}</strong>
+                              <p>{getCustomerServiceBenefit(service)}</p>
+                            </div>
+                          </div>
 
                           {requirements.length ? (
                             <div className="services-catalogue-requirements">

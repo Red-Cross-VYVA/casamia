@@ -157,6 +157,7 @@ const roomServicePresentation: Record<ServiceRoom, { icon: LucideIcon; visual: K
   connected: { icon: Smartphone, visual: 'plug' },
   entrance: { icon: DoorOpen, visual: 'mat' },
   kitchen: { icon: Utensils, visual: 'handover' },
+  'living-room': { icon: Home, visual: 'light' },
   movement: { icon: Footprints, visual: 'mat' },
 }
 
@@ -309,6 +310,11 @@ const roomServiceCopy: Record<ServiceRoom, { eyebrow: string; title: string; int
     title: 'Choose the improvements that fit.',
     intro: 'Pick useful services one by one. CasaMia confirms measurements and compatibility before work starts.',
   },
+  'living-room': {
+    eyebrow: 'Living room improvements',
+    title: 'Make daily comfort safer.',
+    intro: 'Seating support, clearer routes, safer furniture, better lighting and useful alerts can be combined around how the room is actually used.',
+  },
   movement: {
     eyebrow: 'Movement improvements',
     title: 'Support the routes used every day.',
@@ -341,6 +347,11 @@ const roomServiceCopyEs: Record<ServiceRoom, { eyebrow: string; title: string; i
     eyebrow: 'Mejoras de cocina',
     title: 'Elige las mejoras que encajan.',
     intro: 'Selecciona servicios útiles uno a uno. CasaMia confirma medidas y compatibilidad antes de empezar.',
+  },
+  'living-room': {
+    eyebrow: 'Mejoras de salón',
+    title: 'Haz más segura la comodidad diaria.',
+    intro: 'Apoyo para sentarse, rutas más despejadas, muebles más seguros, mejor iluminación y avisos útiles pueden combinarse según el uso real del salón.',
   },
   movement: {
     eyebrow: 'Mejoras de movimiento',
@@ -1139,7 +1150,7 @@ export function ServiceDetailPage() {
                   {uiCopy.buildPlan}
                   <ArrowRight size={20} aria-hidden="true" />
                 </Link>
-                <Link className="btn btn-white" to="/home-safety-assessment#self-inspection-tool">
+                <Link className="btn btn-white" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
                   {uiCopy.freeReport}
                 </Link>
               </div>

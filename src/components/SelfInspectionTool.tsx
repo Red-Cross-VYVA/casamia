@@ -15,6 +15,7 @@ import {
 import type { ChangeEvent } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 
 import { submitAssessmentRequest } from '../services/assessmentRequests'
 import { PhoneNumberField } from './PhoneNumberField'
@@ -880,6 +881,7 @@ const inspectionRooms: InspectionRoom[] = [
 
 export function SelfInspectionTool() {
   const { i18n } = useTranslation()
+  const location = useLocation()
   const isSpanish = i18n.language.startsWith('es')
   const copy = isSpanish ? { ...selfInspectionCopy.es, ...selfInspectionCopyEsRefined } : selfInspectionCopy.en
   const localizedRooms = useMemo(
@@ -934,17 +936,18 @@ export function SelfInspectionTool() {
   ).current
 
   useEffect(() => {
-    const openFromHash = () => {
-      if (window.location.hash === '#self-inspection-tool') {
-        setIsModalOpen(true)
-      }
+    const searchParams = new URLSearchParams(location.search)
+    const openIntent = searchParams.get('open') ?? searchParams.get('modal')
+
+    if (
+      location.hash === '#self-inspection-tool'
+      || openIntent === 'self-inspection'
+      || openIntent === 'safety-review'
+    ) {
+      setModalStep(0)
+      setIsModalOpen(true)
     }
-
-    openFromHash()
-    window.addEventListener('hashchange', openFromHash)
-
-    return () => window.removeEventListener('hashchange', openFromHash)
-  }, [])
+  }, [location.hash, location.search])
 
   useEffect(() => {
     if (!isModalOpen) {

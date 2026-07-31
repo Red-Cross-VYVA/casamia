@@ -3,7 +3,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { casaMiaServices } from '../config/serviceCatalogue.ts'
 import { defaultSpanishServiceCopy } from '../config/serviceCatalogueSpanishCopy.ts'
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
-import { flattenMasterCatalogueForCompatibility } from './masterServiceCatalogue.ts'
+import {
+  deriveHomeSafetyPackageConfigs,
+  flattenMasterCatalogueForCompatibility,
+  getMasterServiceCatalogue,
+} from './masterServiceCatalogue.ts'
 import { getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 import type {
   CasaMiaService,
@@ -19,6 +23,15 @@ const serviceCatalogueStorageKey = 'casamia-service-catalogue'
 const serviceCatalogueUpdatedEvent = 'casamia-service-catalogue-updated'
 const publicServiceCataloguePath = '/api/public/service-catalogue'
 const internalServiceCataloguePath = '/api/internal/service-catalogue'
+const masterBackedPackageAreas = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance'])
+const retiredStandalonePackageAreas = new Set<ServicePackageArea>(['stairs', 'outdoor', 'lighting', 'smart-safety'])
+const legacyDefaultPackageConfigNames: Partial<Record<ServicePackageArea, string>> = {
+  bathroom: 'Safer Bathroom Access',
+  bedroom: 'Easier Bedroom Comfort',
+  entrance: 'Safer entrance',
+  kitchen: 'Confident kitchen',
+  'living-room': 'Safe living room',
+}
 
 type ServiceCatalogueLoadResult = {
   catalogue: EditableServiceCatalogue
@@ -34,44 +47,22 @@ export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
 }
 
 function buildServiceCatalogueFromMaster(masterCatalogue?: MasterServiceCatalogue): EditableServiceCatalogue {
-  const masterRooms = new Set(['bathroom', 'bedroom', 'kitchen'])
+  const masterRoomIds = getMasterRoomIds(masterCatalogue)
 
   return {
     masterCatalogue,
-    packageConfigs: getDefaultPackageConfigs(),
+    packageConfigs: getDefaultPackageConfigs(masterCatalogue),
     services: [
       ...flattenMasterCatalogueForCompatibility(masterCatalogue),
-      ...clone(casaMiaServices).filter((service) => !masterRooms.has(service.room)),
+      ...clone(casaMiaServices)
+        .map((service) => removeMasterBackedPackageAreas(service, masterRoomIds))
+        .filter((service): service is CasaMiaService => Boolean(service)),
     ].map(withPackageAreaDefaults),
   }
 }
 
-export function getDefaultPackageConfigs(): ServicePackageConfig[] {
-  return [
-    {
-      active: true,
-      area: 'bathroom',
-      name: 'Safer Bathroom Access',
-      pricingType: 'quote_only',
-      section: 'home_safety_package',
-      vatRate: 0.21,
-    },
-    {
-      active: true,
-      area: 'bedroom',
-      name: 'Easier Bedroom Comfort',
-      pricingType: 'quote_only',
-      section: 'home_safety_package',
-      vatRate: 0.21,
-    },
-    { active: true, area: 'kitchen', name: 'Confident kitchen', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'living-room', name: 'Comfortable movement', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'stairs', name: 'Safer stairs', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'entrance', name: 'Easy entrance', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'outdoor', name: 'Outdoor access', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'lighting', name: 'Clearer lighting', pricingType: 'quote_only', vatRate: 0.21 },
-    { active: true, area: 'smart-safety', name: 'Connected safety', pricingType: 'quote_only', vatRate: 0.21 },
-  ]
+export function getDefaultPackageConfigs(masterCatalogue?: MasterServiceCatalogue): ServicePackageConfig[] {
+  return deriveHomeSafetyPackageConfigs(masterCatalogue)
 }
 
 export function getDefaultServicePackageAreas(
@@ -82,6 +73,7 @@ export function getDefaultServicePackageAreas(
   if (service.room === 'bathroom') areas.add('bathroom')
   if (service.room === 'bedroom') areas.add('bedroom')
   if (service.room === 'kitchen') areas.add('kitchen')
+  if (service.room === 'living-room') areas.add('living-room')
   if (service.room === 'entrance') {
     areas.add('entrance')
     areas.add('outdoor')
@@ -111,6 +103,10 @@ export function getServicesForPackageArea(
 
   if (area === 'not-sure') {
     return activeServices
+  }
+
+  if (masterBackedPackageAreas.has(area)) {
+    return activeServices.filter((service) => service.room === area)
   }
 
   return activeServices.filter((service) =>
@@ -174,13 +170,13 @@ export async function loadServiceCatalogue(options: { internal?: boolean } = {})
 }
 
 export function saveServiceCatalogue(config: EditableServiceCatalogue) {
-  if (typeof window === 'undefined') {
-    return getDefaultServiceCatalogue()
-  }
-
-  const nextConfig = {
+  const nextConfig = normaliseServiceCatalogue({
     ...config,
     updatedAt: new Date().toISOString(),
+  })
+
+  if (typeof window === 'undefined') {
+    return nextConfig
   }
 
   return writeServiceCatalogue(nextConfig)
@@ -234,10 +230,10 @@ export function getConfiguredServices() {
 }
 
 export function getPackageConfigForArea(
-  catalogue: Pick<EditableServiceCatalogue, 'packageConfigs'>,
+  catalogue: Partial<Pick<EditableServiceCatalogue, 'masterCatalogue' | 'packageConfigs'>>,
   area: ServicePackageArea,
 ) {
-  return mergePackageConfigs(getDefaultPackageConfigs(), catalogue.packageConfigs).find(
+  return mergePackageConfigs(getDefaultPackageConfigs(catalogue.masterCatalogue), catalogue.packageConfigs).find(
     (config) => config.area === area,
   )
 }
@@ -339,15 +335,54 @@ function mergeServices(
   }
 
   if (masterCatalogue) {
-    const masterRooms = new Set(['bathroom', 'bedroom', 'kitchen'])
+    const masterRoomIds = getMasterRoomIds(masterCatalogue)
+    const savedLegacyServices = savedServices
+      .map((service) => removeMasterBackedPackageAreas(service, masterRoomIds))
+      .filter((service): service is CasaMiaService => Boolean(service))
 
     return [
-      ...defaultServices.filter((service) => masterRooms.has(service.room)),
-      ...savedServices.filter((service) => !masterRooms.has(service.room)),
+      ...defaultServices.filter((service) => isMasterBackedService(service, masterRoomIds)),
+      ...savedLegacyServices.filter((service) => !isMasterBackedService(service, masterRoomIds)),
     ].map(withPackageAreaDefaults)
   }
 
   return savedServices.map(withPackageAreaDefaults)
+}
+
+function getMasterRoomIds(masterCatalogue?: MasterServiceCatalogue) {
+  const catalogue = masterCatalogue ?? getMasterServiceCatalogue()
+
+  return new Set(catalogue.rooms.filter((room) => room.active).map((room) => room.id))
+}
+
+function isMasterBackedService(service: CasaMiaService, masterRoomIds: Set<string>) {
+  if (masterRoomIds.has(service.room)) {
+    return true
+  }
+
+  const packageAreas = service.wizardAreas ?? getDefaultServicePackageAreas(service)
+
+  return packageAreas.some((area) => masterRoomIds.has(area))
+}
+
+function removeMasterBackedPackageAreas(service: CasaMiaService, masterRoomIds: Set<string>): CasaMiaService | null {
+  if (masterRoomIds.has(service.room)) {
+    return null
+  }
+
+  const packageAreas = service.wizardAreas ?? getDefaultServicePackageAreas(service)
+  const remainingAreas = packageAreas.filter(
+    (area) => !masterRoomIds.has(area) && !retiredStandalonePackageAreas.has(area),
+  )
+
+  if (!remainingAreas.length) {
+    return null
+  }
+
+  return {
+    ...service,
+    wizardAreas: remainingAreas,
+  }
 }
 
 function mergePackageConfigs(
@@ -355,13 +390,32 @@ function mergePackageConfigs(
   savedConfigs: ServicePackageConfig[] | undefined,
 ) {
   const defaults = defaultConfigs ?? getDefaultPackageConfigs()
-  const savedByArea = new Map((savedConfigs ?? []).map((config) => [config.area, config]))
+  const savedByArea = new Map(
+    (savedConfigs ?? [])
+      .filter((config) => !isLegacyDefaultPackageConfig(config))
+      .map((config) => [config.area, config]),
+  )
 
   return defaults.map((defaultConfig) => ({
     ...defaultConfig,
     ...(savedByArea.get(defaultConfig.area) ?? {}),
     vatRate: savedByArea.get(defaultConfig.area)?.vatRate ?? defaultConfig.vatRate,
   }))
+}
+
+function isLegacyDefaultPackageConfig(config: ServicePackageConfig) {
+  const legacyName = legacyDefaultPackageConfigNames[config.area]
+
+  return Boolean(
+    legacyName
+    && config.active
+    && config.name === legacyName
+    && config.pricingType === 'quote_only'
+    && config.packagePrice === undefined
+    && config.fromPrice === undefined
+    && config.recurringMonthlyPrice === undefined
+    && config.vatRate === 0.21,
+  )
 }
 
 function withPackageAreaDefaults(service: CasaMiaService): CasaMiaService {

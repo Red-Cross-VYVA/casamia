@@ -6,6 +6,7 @@ export type ServiceRoom =
   | 'kitchen'
   | 'bedroom'
   | 'bathroom'
+  | 'living-room'
   | 'connected'
 
 export type ServicePackageArea =

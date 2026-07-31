@@ -1,99 +1,235 @@
-import type { WizardResult } from '../types/wizard'
+import {
+  derivePackageConfigFromMasterPackage,
+  getCustomerCatalogueByRoom,
+  getMasterServiceCatalogue,
+} from '../services/masterServiceCatalogue.ts'
+import { getPackageConfigForArea } from '../services/serviceCatalogue.ts'
+import type {
+  EditableServiceCatalogue,
+  LocalizedString,
+  MasterCatalogueOutcome,
+  MasterCataloguePackage,
+  ServicePackageArea,
+  ServicePackageConfig,
+} from '../types/serviceCatalogue.ts'
+import type { SafetyWizardState, WizardResult, WizardRisk } from '../types/wizard.ts'
 
 export type WizardConsumerPlan = Exclude<WizardResult['selectedPlan'], 'business-consultation'>
 
 export type WizardPlanPackage = {
-  id: WizardConsumerPlan
+  id: string
+  packageId: string
+  planId: WizardConsumerPlan
+  name: string
   price: string
   summary: string
   outcome: string
   components: string[]
+  roomId: string
+  section: MasterCataloguePackage['section']
 }
 
-const englishPackages: WizardPlanPackage[] = [
-  {
-    id: 'assessment',
-    price: 'EUR 99',
-    summary: 'A professional home review and a clear action plan.',
-    outcome: 'Know what to improve first, with no obligation to continue.',
-    components: [
-      'Home visit with a qualified reviewer',
-      'Room-by-room safety and access review',
-      'Key measurements for recommended work',
-      'Written priorities and proposed next steps',
-      'Visit fee credited when eligible work goes ahead',
-    ],
-  },
-  {
-    id: 'home-safety',
-    price: 'From EUR 300',
-    summary: 'Practical adaptations, professionally managed from review to handover.',
-    outcome: 'A safer home with the right products, installation and follow-through.',
-    components: [
-      'Home assessment and agreed scope',
-      'Selected safety products and adaptations',
-      'Verified local installation professional',
-      'CasaMia scheduling and project coordination',
-      'Final safety check and customer handover',
-    ],
-  },
-  {
-    id: 'smart-safety',
-    price: 'Custom quote',
-    summary: 'Connected support for alerts, lighting and everyday reassurance.',
-    outcome: 'Simple technology that supports safety without complicating daily life.',
-    components: [
-      'Home and device compatibility review',
-      'Selected alerts, sensors or motion lighting',
-      'Professional setup, testing and alert routing',
-      'User and family handover',
-      'Optional ongoing connected support',
-    ],
-  },
-]
+type WizardPlanPackageOptions = {
+  catalogue: EditableServiceCatalogue
+  language: string
+  result: WizardResult
+  state: SafetyWizardState
+}
 
-const spanishPackages: WizardPlanPackage[] = [
-  {
-    id: 'assessment',
-    price: '99 EUR',
-    summary: 'Revisión profesional de la vivienda y un plan de acción claro.',
-    outcome: 'Sabrás qué mejorar primero, sin obligación de continuar.',
-    components: [
-      'Visita a domicilio con un profesional cualificado',
-      'Revisión de seguridad y accesos estancia por estancia',
-      'Medidas clave para las mejoras recomendadas',
-      'Prioridades y siguientes pasos por escrito',
-      'Importe de la visita descontable en obras elegibles',
-    ],
-  },
-  {
-    id: 'home-safety',
-    price: 'Desde 300 EUR',
-    summary: 'Adaptaciones prácticas gestionadas desde la revisión hasta la entrega.',
-    outcome: 'Una vivienda más segura, con producto, instalación y seguimiento incluidos.',
-    components: [
-      'Evaluación de la vivienda y alcance acordado',
-      'Productos y adaptaciones de seguridad seleccionados',
-      'Instalador local verificado',
-      'Coordinación de agenda y trabajos por CasaMia',
-      'Comprobación final de seguridad y entrega',
-    ],
-  },
-  {
-    id: 'smart-safety',
-    price: 'Presupuesto a medida',
-    summary: 'Apoyo conectado para alertas, iluminación y tranquilidad diaria.',
-    outcome: 'Tecnología sencilla que aporta seguridad sin complicar la rutina.',
-    components: [
-      'Revisión de la vivienda y compatibilidad',
-      'Alertas, sensores o iluminación con movimiento',
-      'Instalación, pruebas y configuración de avisos',
-      'Explicación al usuario y la familia',
-      'Soporte conectado continuo opcional',
-    ],
-  },
-]
+const roomPackageAreas = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance'])
 
-export function getWizardPlanPackages(language: string): WizardPlanPackage[] {
-  return language.toLowerCase().startsWith('es') ? spanishPackages : englishPackages
+const riskAreaMap: Partial<Record<WizardRisk, ServicePackageArea>> = {
+  'difficult-stairs': 'stairs',
+  'hard-to-reach-storage': 'kitchen',
+  'high-thresholds': 'entrance',
+  'loose-rugs': 'living-room',
+  'no-emergency-alert': 'smart-safety',
+  'poor-lighting': 'lighting',
+  'slippery-floors': 'living-room',
+  'unsafe-bathroom': 'bathroom',
+}
+
+export function getWizardPlanPackages(options: WizardPlanPackageOptions): WizardPlanPackage[] {
+  const masterCatalogue = options.catalogue.masterCatalogue ?? getMasterServiceCatalogue()
+  const relevantAreas = getRelevantAreas(options.state)
+  const scoredPackages = masterCatalogue.rooms
+    .filter((room) => room.active)
+    .sort((left, right) => left.sortOrder - right.sortOrder)
+    .flatMap((room) =>
+      getCustomerCatalogueByRoom(room.id, masterCatalogue)
+        .filter(({ package: packageRecord }) => packageRecord.wizardVisible)
+        .map(({ package: packageRecord, outcomes }) => ({
+          outcomes: outcomes.filter((outcome) => outcome.wizardVisible),
+          packageRecord,
+          score: scorePackage(packageRecord, outcomes, relevantAreas, options.result.recommendedPlan),
+        })),
+    )
+    .filter(({ packageRecord, score }) =>
+      score > 0 || (relevantAreas.size === 0 && packageRecord.section === 'home-safety-package'),
+    )
+    .sort((left, right) => right.score - left.score || left.packageRecord.sortOrder - right.packageRecord.sortOrder)
+
+  const visiblePackages = scoredPackages.length
+    ? scoredPackages
+    : masterCatalogue.rooms.flatMap((room) =>
+        getCustomerCatalogueByRoom(room.id, masterCatalogue)
+          .filter(({ package: packageRecord }) =>
+            packageRecord.wizardVisible && packageRecord.section === 'home-safety-package',
+          )
+          .map(({ package: packageRecord, outcomes }) => ({ outcomes, packageRecord, score: 0 })),
+      )
+
+  return visiblePackages.slice(0, relevantAreas.size ? 6 : 5).map(({ packageRecord, outcomes }) =>
+    toWizardPlanPackage(packageRecord, outcomes, options),
+  )
+}
+
+function toWizardPlanPackage(
+  packageRecord: MasterCataloguePackage,
+  outcomes: MasterCatalogueOutcome[],
+  options: WizardPlanPackageOptions,
+): WizardPlanPackage {
+  const relevantAreas = getRelevantAreas(options.state)
+  const matchedOutcomes = outcomes.filter((outcome) =>
+    outcome.wizardAreas.some((area) => relevantAreas.has(area)),
+  )
+  const displayedOutcomes = matchedOutcomes.length ? matchedOutcomes : outcomes
+  const components = displayedOutcomes
+    .sort((left, right) => left.sortOrder - right.sortOrder)
+    .slice(0, 6)
+    .map((outcome) => localize(outcome.customerName, options.language, outcome.internalName))
+    .filter(Boolean)
+
+  return {
+    id: packageRecord.id,
+    packageId: packageRecord.id,
+    planId: planIdForPackage(packageRecord),
+    name: localize(packageRecord.customerName, options.language, packageRecord.internalName),
+    price: formatWizardPackagePrice(getPackageConfig(packageRecord, options.catalogue), options.language),
+    summary: localize(packageRecord.shortDescription, options.language, packageRecord.internalName),
+    outcome: localize(packageRecord.customerBenefit, options.language, packageRecord.internalName),
+    components,
+    roomId: packageRecord.roomId,
+    section: packageRecord.section,
+  }
+}
+
+function scorePackage(
+  packageRecord: MasterCataloguePackage,
+  outcomes: MasterCatalogueOutcome[],
+  relevantAreas: Set<ServicePackageArea>,
+  recommendedPlan: WizardResult['recommendedPlan'],
+) {
+  let score = 0
+
+  if (isRoomPackageArea(packageRecord.roomId) && relevantAreas.has(packageRecord.roomId)) {
+    score += 35
+  }
+
+  const matchingOutcomes = outcomes.filter((outcome) =>
+    outcome.wizardVisible && outcome.wizardAreas.some((area) => relevantAreas.has(area)),
+  )
+  const matchesRelevantRoom = isRoomPackageArea(packageRecord.roomId) && relevantAreas.has(packageRecord.roomId)
+  score += matchingOutcomes.length * 12
+
+  if (recommendedPlan === 'smart-safety') {
+    if (packageRecord.section === 'connected-room') score += 70
+    if (matchingOutcomes.some((outcome) => outcome.technologyEnabled)) score += 20
+  } else if (recommendedPlan === 'home-safety') {
+    if (
+      packageRecord.section === 'home-safety-package'
+      && (relevantAreas.size === 0 || matchingOutcomes.length > 0 || matchesRelevantRoom)
+    ) {
+      score += 55
+    }
+    if (packageRecord.section === 'optional-adaptations') score += 15
+  } else if (recommendedPlan === 'assessment') {
+    if (
+      packageRecord.section === 'home-safety-package'
+      && (relevantAreas.size === 0 || matchingOutcomes.length > 0 || matchesRelevantRoom)
+    ) {
+      score += 25
+    }
+  }
+
+  return score
+}
+
+function getRelevantAreas(state: SafetyWizardState) {
+  const areas = new Set<ServicePackageArea>()
+
+  state.areasOfConcern.forEach((area) => {
+    if (area !== 'not-sure') {
+      areas.add(area)
+    }
+  })
+
+  state.currentRisks.forEach((risk) => {
+    const area = riskAreaMap[risk]
+    if (area) areas.add(area)
+  })
+
+  if (state.challenges.includes('emergency-support')) areas.add('smart-safety')
+  if (state.challenges.includes('night-movement')) areas.add('lighting')
+  if (state.stairsType && state.stairsType !== 'none') areas.add('stairs')
+  if (
+    state.bedroomCount
+    && (
+      state.challenges.includes('night-movement')
+      || (state.mobilityLevel && !['independent', 'prefer-not'].includes(state.mobilityLevel))
+    )
+  ) {
+    areas.add('bedroom')
+  }
+  if (state.mobilityLevel && !['independent', 'prefer-not'].includes(state.mobilityLevel)) {
+    areas.add('bathroom')
+    areas.add('entrance')
+  }
+
+  return areas
+}
+
+function getPackageConfig(packageRecord: MasterCataloguePackage, catalogue: EditableServiceCatalogue) {
+  if (packageRecord.section === 'home-safety-package' && isRoomPackageArea(packageRecord.roomId)) {
+    return getPackageConfigForArea(catalogue, packageRecord.roomId)
+  }
+
+  return derivePackageConfigFromMasterPackage(packageRecord)
+}
+
+function formatWizardPackagePrice(config: ServicePackageConfig | undefined, language: string) {
+  const isSpanish = language.toLowerCase().startsWith('es')
+
+  if (!config || !config.active || config.pricingType === 'quote_only') {
+    return isSpanish ? 'Presupuesto tras revision' : 'Package price confirmed after review'
+  }
+
+  const amount = config.pricingType === 'from' ? config.fromPrice : config.packagePrice
+
+  if (!amount) {
+    return isSpanish ? 'Presupuesto tras revision' : 'Package price confirmed after review'
+  }
+
+  const total = amount + Math.round(amount * config.vatRate)
+  const formatted = new Intl.NumberFormat(isSpanish ? 'es-ES' : 'en-IE', {
+    currency: 'EUR',
+    maximumFractionDigits: 0,
+    style: 'currency',
+  }).format(total)
+
+  return `${isSpanish ? 'Desde' : 'From'} ${formatted}`
+}
+
+function planIdForPackage(packageRecord: MasterCataloguePackage): WizardConsumerPlan {
+  return packageRecord.section === 'connected-room' ? 'smart-safety' : 'home-safety'
+}
+
+function isRoomPackageArea(value: string): value is ServicePackageArea {
+  return roomPackageAreas.has(value as ServicePackageArea)
+}
+
+function localize(value: LocalizedString, language: string, fallback: string) {
+  return language.toLowerCase().startsWith('es')
+    ? value.es ?? value.en ?? fallback
+    : value.en ?? value.es ?? fallback
 }

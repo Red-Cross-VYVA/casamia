@@ -4,7 +4,9 @@ import { Readable } from 'node:stream'
 import finalizeAssessmentMedia from '../api/public/assessment-media-finalize.js'
 import assessmentRequests from '../api/public/assessment-requests.js'
 import { classifyRoomImage, parseRoomClassification } from '../api/public/classify-room-photo.js'
+import { getWizardPlanPackages } from '../src/config/wizardPlanPackages.ts'
 import { getWizardPriceRange } from '../src/config/wizardPricing.ts'
+import { getDefaultServiceCatalogue } from '../src/services/serviceCatalogue.ts'
 import { buildWizardSteps } from '../src/services/wizardSteps.ts'
 import { generateWizardResult } from '../src/services/wizardRecommendationEngine.ts'
 import {
@@ -555,6 +557,52 @@ function makeFinding(overrides = {}) {
   const editedRange = getWizardPriceRange(state, { packageConfigs: adminEditedPackageConfigs, services }, 'es')
 
   assert.equal(editedRange?.minimum, 333, 'An Admin catalogue price edit must change the wizard estimate.')
+}
+
+{
+  const catalogue = getDefaultServiceCatalogue()
+  const state = makeState({
+    areasOfConcern: ['bathroom'],
+    currentRisks: ['unsafe-bathroom'],
+  })
+  const result = generateWizardResult(state, {
+    catalogue,
+    language: 'en',
+    services: catalogue.services,
+  })
+  const packages = getWizardPlanPackages({ catalogue, language: 'en', result, state })
+
+  assert.equal(packages[0]?.packageId, 'bathroom-home-safety-package')
+  assert.equal(packages[0]?.name, 'Bathroom Home Safety Package')
+  assert.equal(packages[0]?.planId, 'home-safety')
+  assert.ok(
+    packages[0]?.components.includes('Safer Bathing'),
+    'Wizard package cards must expose Master Catalogue outcomes.',
+  )
+  assert.equal(
+    packages.some((plan) => plan.summary === 'Practical adaptations, professionally managed from review to handover.'),
+    false,
+    'Wizard package cards must not fall back to the old static plan package copy.',
+  )
+}
+
+{
+  const catalogue = getDefaultServiceCatalogue()
+  const state = makeState({
+    areasOfConcern: ['smart-safety'],
+    challenges: ['emergency-support'],
+    currentRisks: ['no-emergency-alert'],
+  })
+  const result = generateWizardResult(state, {
+    catalogue,
+    language: 'en',
+    services: catalogue.services,
+  })
+  const packages = getWizardPlanPackages({ catalogue, language: 'en', result, state })
+
+  assert.equal(result.recommendedPlan, 'smart-safety')
+  assert.equal(packages[0]?.section, 'connected-room')
+  assert.equal(packages[0]?.planId, 'smart-safety')
 }
 
 {
