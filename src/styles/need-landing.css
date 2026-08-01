@@ -402,18 +402,21 @@
 
 .need-landing-risk-map-label {
   position: absolute;
-  display: block;
-  color: #14283d;
-  font-size: clamp(0.46rem, 0.7vw, 0.68rem);
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  color: #0f2438;
+  font-size: 0.68rem;
   font-weight: 950;
   letter-spacing: 0;
-  line-height: 1.06;
+  line-height: 1.05;
+  overflow: hidden;
   text-align: left;
   text-wrap: balance;
 }
 
 .need-landing-risk-map-label.is-legend {
-  font-size: clamp(0.34rem, 0.54vw, 0.54rem);
+  font-size: 0.54rem;
   line-height: 1;
   text-wrap: nowrap;
   white-space: nowrap;
@@ -1239,10 +1242,6 @@
     grid-template-columns: minmax(0, 0.84fr) minmax(24rem, 0.72fr);
   }
 
-  .need-landing-risk-map-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(20rem, 0.82fr);
-  }
-
   .need-landing-risk-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1264,6 +1263,18 @@
   .need-landing-final-card {
     grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 1fr);
     align-items: center;
+  }
+}
+
+@media (min-width: 1180px) {
+  .need-landing-risk-map-grid {
+    grid-template-columns: minmax(0, 1.28fr) minmax(18rem, 0.72fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .need-landing-risk-map-label {
+    display: none;
   }
 }
 

@@ -55,7 +55,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
         'Cable visible',
         'Puerta estrecha',
       ],
-      mapLabels: ['Alfombrilla', 'Escalón', 'Ducha', 'Altura WC', 'Zona mojada', 'Cable', 'Puerta'],
+      mapLabels: ['Alfombra', 'Escalón', 'Ducha', 'Altura WC', 'Zona mojada', 'Cable', 'Puerta'],
       legend: ['Riesgo alto', 'Riesgo medio'],
     },
     relatedServices: [

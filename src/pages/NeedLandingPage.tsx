@@ -503,6 +503,7 @@ export function NeedLandingPage() {
                           left: `${position.x}%`,
                           top: `${position.y}%`,
                           width: `${position.w}%`,
+                          height: `${position.h}%`,
                         }}
                       >
                         {label}
@@ -830,15 +831,15 @@ export function NeedLandingPage() {
 }
 
 const bathroomRiskMapLabelPositions = [
-  { x: 36.2, y: 80.2, w: 12.6 },
-  { x: 86.8, y: 26.1, w: 8.8 },
-  { x: 86.8, y: 46.0, w: 8.8 },
-  { x: 41.0, y: 63.2, w: 8.4 },
-  { x: 7.8, y: 18.0, w: 10.2 },
-  { x: 88.6, y: 64.2, w: 8.4 },
-  { x: 76.8, y: 90.2, w: 8.4 },
-  { x: 6.2, y: 88.8, w: 14.2 },
-  { x: 6.2, y: 93.2, w: 14.2 },
+  { x: 35.6, y: 78.8, w: 9.8, h: 5.6 },
+  { x: 87.2, y: 24.7, w: 8.8, h: 6.2 },
+  { x: 87.2, y: 44.8, w: 8.8, h: 6.2 },
+  { x: 41.0, y: 58.9, w: 8.4, h: 6.4 },
+  { x: 7.7, y: 16.3, w: 11.0, h: 6.6 },
+  { x: 89.1, y: 62.8, w: 8.5, h: 5.9 },
+  { x: 76.9, y: 88.6, w: 7.4, h: 5.9 },
+  { x: 7.7, y: 86.0, w: 12.8, h: 3.3 },
+  { x: 7.7, y: 90.4, w: 12.8, h: 3.3 },
 ] as const
 
 const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
