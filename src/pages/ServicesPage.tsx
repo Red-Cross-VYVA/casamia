@@ -22,20 +22,13 @@ import {
   getHomeSafetyPackageForRoom,
   getMasterServiceCatalogue,
 } from '../services/masterServiceCatalogue'
-import {
-  getPackageConfigForArea,
-  getServicesForPackageArea,
-} from '../services/serviceCatalogue'
-import {
-  formatPackagePriceForLanguage,
-  useLocalizedServiceCatalogue,
-} from '../services/serviceCatalogueLocalization'
+import { getServicesForPackageArea } from '../services/serviceCatalogue'
+import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
 import type {
   CasaMiaService,
   LocalizedString,
   MasterServiceCatalogue,
   ServicePackageArea,
-  ServicePackageConfig,
 } from '../types/serviceCatalogue'
 import '../styles/services-catalogue.css'
 
@@ -52,7 +45,6 @@ type CatalogueAreaDefinition = {
 
 type ServiceGroup = {
   area: CatalogueAreaDefinition
-  packageConfig?: ServicePackageConfig
   services: CasaMiaService[]
 }
 
@@ -151,9 +143,7 @@ type ServicesPageCopy = {
   includedItemPlural: string
   addOnSingular: string
   addOnPlural: string
-  tailoredQuote: string
   selectedEyebrow: string
-  packagePrice: string
   coreComponent: string
   optionalComponent: string
   included: string
@@ -491,9 +481,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     includedItemPlural: 'included items',
     addOnSingular: 'optional add-on',
     addOnPlural: 'optional add-ons',
-    tailoredQuote: 'Tailored quote',
     selectedEyebrow: 'Package area',
-    packagePrice: 'Package price',
     coreComponent: 'Included in package',
     optionalComponent: 'Optional add-on',
     included: 'What is included',
@@ -540,9 +528,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     includedItemPlural: 'incluidos',
     addOnSingular: 'extra opcional',
     addOnPlural: 'extras opcionales',
-    tailoredQuote: 'Presupuesto a medida',
     selectedEyebrow: 'Zona del paquete',
-    packagePrice: 'Precio del paquete',
     coreComponent: 'Incluido en el paquete',
     optionalComponent: 'Extra opcional',
     included: 'Qué incluye',
@@ -711,7 +697,6 @@ export function ServicesPage() {
     const groupedServices = catalogueAreas
       .map((area) => ({
         area,
-        packageConfig: getPackageConfigForArea(catalogue, area.id as ServicePackageArea),
         services: getServicesForPackageArea(activeServices, area.id as ServicePackageArea),
       }))
       .filter((group) => group.services.length > 0)
@@ -863,11 +848,6 @@ export function ServicesPage() {
                         <p>{copy.selectedEyebrow} · {formatPackageComposition(selectedGroup.services, copy)}</p>
                         <h2 id="active-service-package-title">{selectedGroup.area.title[language]}</h2>
                         <span>{selectedGroup.area.description[language]}</span>
-                        {selectedGroup.packageConfig ? (
-                          <strong className="services-catalogue-package-price">
-                            {copy.packagePrice}: {formatPackagePriceForLanguage(selectedGroup.packageConfig, language)}
-                          </strong>
-                        ) : null}
                       </div>
                     </div>
                   </header>

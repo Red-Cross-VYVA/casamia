@@ -481,19 +481,6 @@
   line-height: 1.45;
 }
 
-.services-catalogue-package-price {
-  display: inline-flex;
-  width: fit-content;
-  margin-top: 0.75rem;
-  border: 1px solid rgb(255 255 255 / 28%);
-  border-radius: 999px;
-  background: rgb(255 255 255 / 14%);
-  padding: 0.45rem 0.7rem;
-  color: #fff;
-  font-size: 0.76rem;
-  font-weight: 900;
-}
-
 .services-zone-risk {
   display: grid;
   gap: 1rem;
