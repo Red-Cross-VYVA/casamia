@@ -16,6 +16,16 @@ export type NeedLandingPageContent = {
   whoFor: string[]
   priorities: string[]
   casamiaPlan: string[]
+  riskSection?: {
+    eyebrow: string
+    title: string
+    body: string
+    image: string
+    imageAlt: string
+    risks: string[]
+    mapLabels?: string[]
+    legend?: string[]
+  }
   relatedServices: Array<{ label: string; to: string }>
   faqs: Array<{ question: string; answer: string }>
 }
@@ -50,6 +60,16 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Confirm measurements and support positions where needed',
       'Coordinate installation, handover and aftercare',
     ],
+    riskSection: {
+      eyebrow: 'Bathroom risk map',
+      title: 'Where bathroom risk usually builds up.',
+      body:
+        'Bathroom risk rarely comes from one thing. Water, transfers, tight spaces, low light and unclear support points can combine in a few everyday movements.',
+      image: '/images/solutions/bathroom-risk-map.png',
+      imageAlt: 'Annotated bathroom map showing common fall and access risk points',
+      risks: ['Loose mat', 'High step', 'Shower entry', 'Toilet height', 'Wet zone', 'Visible cable', 'Narrow door'],
+      legend: ['High risk', 'Medium risk'],
+    },
     relatedServices: [
       { label: 'Bathroom safety services', to: '/services/bathroom-safety' },
       { label: 'Free safety report', to: '/home-safety-assessment' },

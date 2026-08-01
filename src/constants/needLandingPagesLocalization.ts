@@ -10,6 +10,7 @@ type NeedLandingPageTranslation = Pick<
   | 'whoFor'
   | 'priorities'
   | 'casamiaPlan'
+  | 'riskSection'
   | 'relatedServices'
   | 'faqs'
 >
@@ -38,6 +39,25 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Confirmar medidas y posiciones de apoyo cuando haga falta',
       'Coordinar instalación, explicación y seguimiento',
     ],
+    riskSection: {
+      eyebrow: 'Mapa de riesgos del baño',
+      title: 'Dónde suele acumularse el riesgo en el baño.',
+      body:
+        'El riesgo en el baño casi nunca viene de una sola cosa. Agua, transferencias, espacios estrechos, poca luz y apoyos poco claros se combinan en movimientos cotidianos.',
+      image: '/images/solutions/bathroom-risk-map.png',
+      imageAlt: 'Mapa anotado de baño con puntos habituales de riesgo de caída y acceso',
+      risks: [
+        'Alfombrilla suelta',
+        'Escalón alto',
+        'Entrada a ducha',
+        'Altura del WC',
+        'Zona mojada',
+        'Cable visible',
+        'Puerta estrecha',
+      ],
+      mapLabels: ['Alfombrilla', 'Escalón', 'Ducha', 'Altura WC', 'Zona mojada', 'Cable', 'Puerta'],
+      legend: ['Riesgo alto', 'Riesgo medio'],
+    },
     relatedServices: [
       { label: 'Servicios de seguridad en el baño', to: '/services/bathroom-safety' },
       { label: 'Informe gratuito de seguridad', to: '/home-safety-assessment' },

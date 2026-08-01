@@ -22,8 +22,8 @@ import { blogArticles, type BlogArticle } from '../constants/blogContent'
 import { localizeBlogArticles } from '../constants/blogContentLocalization'
 import { allNeedLandingPages, getNeedLandingPage } from '../constants/needLandingPages'
 import { localizeNeedLandingPage, localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
-import { formatServicePrice, getServicesForPackageArea } from '../services/serviceCatalogue'
-import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
+import { getServicesForPackageArea } from '../services/serviceCatalogue'
+import { formatServicePriceForLanguage, useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceCatalogueSection, ServicePackageArea } from '../types/serviceCatalogue'
 
 import '../styles/need-landing.css'
@@ -393,6 +393,23 @@ export function NeedLandingPage() {
   const secondaryCtaLabel = isCompactNeedPage
     ? isSpanish ? 'Ver solución de baño' : 'See bathroom service'
     : copy.secondaryCta
+  const catalogueEyebrow = isCompactNeedPage
+    ? isSpanish ? 'Prioridades del baño' : 'Bathroom priorities'
+    : copy.catalogueEyebrow
+  const catalogueTitle = isCompactNeedPage
+    ? isSpanish ? 'Qué resolvemos primero.' : 'What we solve first.'
+    : copy.catalogueTitle
+  const catalogueBody = isCompactNeedPage
+    ? isSpanish
+      ? 'Cuatro mejoras habituales. La propuesta final se confirma tras revisar el baño.'
+      : 'Four common improvements. The final recommendation follows the bathroom review.'
+    : copy.catalogueBody
+  const catalogueCta = isCompactNeedPage
+    ? isSpanish ? 'Ver opciones' : 'See options'
+    : copy.catalogueCta
+  const riskMapLabels = page.riskSection
+    ? [...(page.riskSection.mapLabels ?? page.riskSection.risks), ...(page.riskSection.legend ?? [])]
+    : []
   const nextActions = [
     {
       icon: <ClipboardCheck size={22} aria-hidden="true" />,
@@ -459,6 +476,57 @@ export function NeedLandingPage() {
             </aside>
           </div>
         </section>
+
+        {page.riskSection ? (
+          <section className="need-landing-risk-map" aria-labelledby="need-landing-risk-map-title">
+            <div className="site-shell need-landing-risk-map-grid">
+              <div className="need-landing-risk-map-stage">
+                <SafeImage
+                  src={page.riskSection.image}
+                  alt={page.riskSection.imageAlt}
+                  className="need-landing-risk-map-photo"
+                  imgClassName="need-landing-risk-map-img"
+                />
+                <div className="need-landing-risk-map-labels" aria-hidden="true">
+                  {riskMapLabels.map((label, index) => {
+                    const position = bathroomRiskMapLabelPositions[index]
+
+                    if (!position) return null
+
+                    return (
+                      <span
+                        className={`need-landing-risk-map-label${
+                          index >= page.riskSection!.risks.length ? ' is-legend' : ''
+                        }`}
+                        key={`${label}-${index}`}
+                        style={{
+                          left: `${position.x}%`,
+                          top: `${position.y}%`,
+                          width: `${position.w}%`,
+                        }}
+                      >
+                        {label}
+                      </span>
+                    )
+                  })}
+                </div>
+              </div>
+              <div className="need-landing-risk-map-copy">
+                <p className="eyebrow">{page.riskSection.eyebrow}</p>
+                <h2 id="need-landing-risk-map-title">{page.riskSection.title}</h2>
+                <p>{page.riskSection.body}</p>
+                <ol className="need-landing-risk-list">
+                  {page.riskSection.risks.map((risk, index) => (
+                    <li key={risk}>
+                      <span>{index + 1}</span>
+                      <strong>{risk}</strong>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="need-landing-section">
           <div className="site-shell need-landing-three">
@@ -610,17 +678,22 @@ export function NeedLandingPage() {
           <section className="need-landing-catalogue">
             <div className="site-shell need-landing-catalogue-grid">
               <div className="need-landing-catalogue-copy">
-                <p className="eyebrow">{copy.catalogueEyebrow}</p>
-                <h2>{copy.catalogueTitle}</h2>
-                <p>{copy.catalogueBody}</p>
+                <p className="eyebrow">{catalogueEyebrow}</p>
+                <h2>{catalogueTitle}</h2>
+                <p>{catalogueBody}</p>
                 <Link className="need-landing-text-link" to="/services">
-                  {copy.catalogueCta}
+                  {catalogueCta}
                   <ArrowRight size={17} aria-hidden="true" />
                 </Link>
               </div>
               <div className="need-landing-catalogue-list">
                 {visibleCatalogueServices.map((service) => (
-                  <CatalogueServiceCard key={service.id} service={service} language={i18n.language} />
+                  <CatalogueServiceCard
+                    key={service.id}
+                    compact={isCompactNeedPage}
+                    service={service}
+                    language={i18n.language}
+                  />
                 ))}
               </div>
             </div>
@@ -755,6 +828,18 @@ export function NeedLandingPage() {
     </>
   )
 }
+
+const bathroomRiskMapLabelPositions = [
+  { x: 36.2, y: 80.2, w: 12.6 },
+  { x: 86.8, y: 26.1, w: 8.8 },
+  { x: 86.8, y: 46.0, w: 8.8 },
+  { x: 41.0, y: 63.2, w: 8.4 },
+  { x: 7.8, y: 18.0, w: 10.2 },
+  { x: 88.6, y: 64.2, w: 8.4 },
+  { x: 76.8, y: 90.2, w: 8.4 },
+  { x: 6.2, y: 88.8, w: 14.2 },
+  { x: 6.2, y: 93.2, w: 14.2 },
+] as const
 
 const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
   'aging-in-place-home-assessment': ['bathroom', 'bedroom', 'entrance', 'lighting', 'smart-safety'],
@@ -918,19 +1003,31 @@ function getNeedRecommendedResources(
     .slice(0, 3)
 }
 
-function CatalogueServiceCard({ service, language }: { service: CasaMiaService; language: string }) {
+function CatalogueServiceCard({
+  service,
+  language,
+  compact = false,
+}: {
+  service: CasaMiaService
+  language: string
+  compact?: boolean
+}) {
   const section = service.section ?? 'home_safety_package'
   const summary = service.customerBenefit || service.shortDescription
   const languageKey = language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const priceLabel =
+    compact && service.pricingType === 'quote_only'
+      ? languageKey === 'es' ? 'Tras revisión' : 'After review'
+      : formatServicePriceForLanguage(service, language)
 
   return (
-    <article className="need-catalogue-card">
+    <article className={`need-catalogue-card${compact ? ' need-catalogue-card--compact' : ''}`}>
       <div>
         <span>{sectionLabels[section][languageKey]}</span>
         <h3>{service.customerName ?? service.name}</h3>
-        <p>{summary}</p>
+        {!compact ? <p>{summary}</p> : null}
       </div>
-      <small>{formatServicePrice(service)}</small>
+      <small>{priceLabel}</small>
     </article>
   )
 }
