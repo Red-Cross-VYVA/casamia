@@ -485,8 +485,8 @@ assert.match(
 )
 assert.match(
   nav,
-  /solutionMenuItems[\s\S]*\/bathroom-safety-for-seniors[\s\S]*\/fall-prevention-at-home[\s\S]*\/senior-bedroom-safety[\s\S]*\/grants-for-home-adaptations-spain/,
-  'The Solutions menu must give direct access to high-intent room and need pages.',
+  /solutionMenuItems[\s\S]*\/bathroom-safety-for-seniors[\s\S]*\/services\/kitchen-safety[\s\S]*\/senior-bedroom-safety[\s\S]*\/services\/entrance-accessibility[\s\S]*\/grants-for-home-adaptations-spain/,
+  'The Solutions menu must give direct access to high-intent room and catalogue service pages.',
 )
 assert.match(
   nav,
@@ -560,8 +560,8 @@ assert.match(
 )
 assert.match(
   nav,
-  /solutionMenuCopy[\s\S]*Rutas frecuentes[\s\S]*Qué necesitas hacer más seguro[\s\S]*solutionMenuItems[\s\S]*Baño seguro[\s\S]*Prevenir caídas/,
-  'The Solutions navigation must localise high-intent need pages and group labels.',
+  /solutionMenuCopy[\s\S]*Rutas frecuentes[\s\S]*Qué necesitas hacer más seguro[\s\S]*solutionMenuItems[\s\S]*Baño seguro[\s\S]*Cocina segura[\s\S]*Entrada segura/,
+  'The Solutions navigation must localise high-intent room pages and group labels.',
 )
 assert.match(
   footer,

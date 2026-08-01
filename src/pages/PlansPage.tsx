@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  BadgeEuro,
   Bath,
   BedDouble,
   CheckCircle2,
@@ -20,7 +21,6 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
-import { TrustBar } from '../components/TrustBar'
 import {
   buildPlansBuilderGroups,
   calculatePlansBuilderEstimate,
@@ -41,6 +41,7 @@ type PlansCopy = {
   builderTitle: string
   consent: string
   contactTitle: string
+  coreIncluded: string
   createDraft: string
   creatingDraft: string
   draftCreated: string
@@ -50,6 +51,10 @@ type PlansCopy = {
   finalReview: string
   flow: Array<{ title: string; body: string }>
   fromCatalogue: string
+  grantBody: string
+  grantCta: string
+  grantEyebrow: string
+  grantTitle: string
   helpText: string
   metaTitle: string
   modulesTitle: string
@@ -58,8 +63,11 @@ type PlansCopy = {
   noSelection: string
   optionalTitle: string
   phone: string
+  presets: Array<{ id: PlansPresetId; title: string; body: string }>
+  popularTitle: string
   quantity: string
   reviewRequired: string
+  roomDescriptions: Record<string, string>
   roomCount: string
   rooms: Array<{ title: string; body: string }>
   seeDraft: string
@@ -72,36 +80,56 @@ type PlansCopy = {
   vatIncluded: string
 }
 
+type PlansPresetId = 'focused' | 'daily' | 'wholeHome'
+
 const plansCopy: Record<'en' | 'es', PlansCopy> = {
   en: {
     addModule: 'Add module',
-    builderEyebrow: 'Plans builder',
-    builderTitle: 'Build a draft package',
-    consent: 'I agree that CasaMia may contact me to review this draft package.',
-    contactTitle: 'Create a review draft',
-    createDraft: 'Create proposal draft',
+    builderEyebrow: 'Plans',
+    builderTitle: 'Choose rooms',
+    consent: 'CasaMia may contact me to review this draft.',
+    contactTitle: 'Send for review',
+    coreIncluded: 'Core package',
+    createDraft: 'Create draft',
     creatingDraft: 'Creating draft...',
-    draftCreated: 'Draft created. CasaMia can now review the package before it is sent as final.',
+    draftCreated: 'Draft created. CasaMia will review it before sending a final proposal.',
     email: 'Email',
-    estimateNote: 'Estimate only. CasaMia confirms scope, compatibility and final price before any work starts.',
+    estimateNote: 'Estimate only. Final scope and price are reviewed by CasaMia.',
     estimateTitle: 'Live estimate',
-    finalReview: 'Final price after CasaMia review',
+    finalReview: 'CasaMia review',
     flow: [
-      { title: 'Choose rooms', body: 'Select bathrooms, bedrooms and shared areas.' },
-      { title: 'Add modules', body: 'Layer connected support or specialist adaptations.' },
-      { title: 'Review draft', body: 'CasaMia checks scope before sending a final proposal.' },
+      { title: 'Rooms', body: 'Pick quantities' },
+      { title: 'Options', body: 'Add support' },
+      { title: 'Review', body: 'We confirm' },
     ],
-    fromCatalogue: 'From CasaMia catalogue',
-    helpText: 'Set quantities by room, then add only the modules that fit the home.',
+    fromCatalogue: 'Catalogue-based estimate',
+    grantBody: 'CasaMia can check grant readiness and documents where regional programmes apply.',
+    grantCta: 'Check grants',
+    grantEyebrow: 'Grant support available',
+    grantTitle: 'Funding may help with eligible adaptations.',
+    helpText: 'Use the steppers. Add connected or specialist modules only where useful.',
     metaTitle: 'Plans Builder | CasaMia',
-    modulesTitle: 'Selected room modules',
-    monthly: 'Monthly support',
+    modulesTitle: 'Add-ons',
+    monthly: 'Monthly',
     name: 'Name',
-    noSelection: 'Start by choosing at least one room package.',
-    optionalTitle: 'Connected support',
+    noSelection: 'Choose at least one room.',
+    optionalTitle: 'Connected',
     phone: 'Phone',
+    popularTitle: 'Popular setups',
+    presets: [
+      { id: 'focused', title: 'Focused fix', body: '1 bathroom' },
+      { id: 'daily', title: 'Daily safety', body: 'Bathroom + bedroom' },
+      { id: 'wholeHome', title: 'Whole home', body: '2 baths + 2 beds' },
+    ],
     quantity: 'Quantity',
     reviewRequired: 'Needs review',
+    roomDescriptions: {
+      bathroom: 'Shower, WC, wet floors.',
+      bedroom: 'Bed, night route, lighting.',
+      entrance: 'Steps, thresholds, door.',
+      kitchen: 'Reach, cooking, visibility.',
+      'living-room': 'Seating, cables, movement.',
+    },
     roomCount: 'Room packages',
     rooms: [
       { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
@@ -112,43 +140,61 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     ],
     seeDraft: 'Open draft',
     selectedPackages: 'Selected packages',
-    specialistTitle: 'Specialist adaptations',
+    specialistTitle: 'Specialist',
     subtitle:
-      'Choose the rooms and quantity you need. CasaMia turns the selection into a review-ready proposal draft.',
-    title: 'Plans that flex by room, risk and budget.',
+      'Select rooms, see a live estimate, then send a draft for CasaMia review.',
+    title: 'Build your CasaMia plan.',
     town: 'Town / area',
     address: 'Address',
     vatIncluded: 'VAT included',
   },
   es: {
     addModule: 'Añadir módulo',
-    builderEyebrow: 'Constructor de planes',
-    builderTitle: 'Crea un paquete borrador',
-    consent: 'Acepto que CasaMia me contacte para revisar este paquete borrador.',
-    contactTitle: 'Crear borrador para revisión',
-    createDraft: 'Crear borrador de propuesta',
+    builderEyebrow: 'Planes',
+    builderTitle: 'Elige estancias',
+    consent: 'CasaMia puede contactarme para revisar este borrador.',
+    contactTitle: 'Enviar a revisión',
+    coreIncluded: 'Paquete base',
+    createDraft: 'Crear borrador',
     creatingDraft: 'Creando borrador...',
-    draftCreated: 'Borrador creado. CasaMia puede revisar el paquete antes de enviarlo como propuesta final.',
+    draftCreated: 'Borrador creado. CasaMia lo revisará antes de enviar la propuesta final.',
     email: 'Email',
-    estimateNote: 'Estimación orientativa. CasaMia confirma alcance, compatibilidad y precio final antes de empezar.',
+    estimateNote: 'Estimación orientativa. CasaMia revisa alcance y precio final.',
     estimateTitle: 'Estimación en vivo',
-    finalReview: 'Precio final tras revisión de CasaMia',
+    finalReview: 'Revisión CasaMia',
     flow: [
-      { title: 'Elige estancias', body: 'Selecciona baños, dormitorios y zonas compartidas.' },
-      { title: 'Añade módulos', body: 'Suma apoyo conectado o adaptaciones especializadas.' },
-      { title: 'Revisa borrador', body: 'CasaMia comprueba alcance antes de enviar la propuesta final.' },
+      { title: 'Estancias', body: 'Define cantidades' },
+      { title: 'Opciones', body: 'Añade apoyo' },
+      { title: 'Revisión', body: 'Confirmamos' },
     ],
-    fromCatalogue: 'Desde el catálogo CasaMia',
-    helpText: 'Define cantidades por estancia y añade solo los módulos que encajen con la vivienda.',
+    fromCatalogue: 'Estimación del catálogo',
+    grantBody: 'CasaMia puede revisar preparación y documentos cuando existan programas aplicables.',
+    grantCta: 'Comprobar ayudas',
+    grantEyebrow: 'Ayudas disponibles',
+    grantTitle: 'La financiación puede ayudar en adaptaciones elegibles.',
+    helpText: 'Usa los controles. Añade módulos conectados o especiales solo donde aporten valor.',
     metaTitle: 'Constructor de planes | CasaMia',
-    modulesTitle: 'Módulos por estancia seleccionada',
-    monthly: 'Apoyo mensual',
+    modulesTitle: 'Extras',
+    monthly: 'Mensual',
     name: 'Nombre',
-    noSelection: 'Empieza eligiendo al menos un paquete de estancia.',
-    optionalTitle: 'Apoyo conectado',
+    noSelection: 'Elige al menos una estancia.',
+    optionalTitle: 'Conectado',
     phone: 'Teléfono',
+    popularTitle: 'Combinaciones rápidas',
+    presets: [
+      { id: 'focused', title: 'Prioridad concreta', body: '1 baño' },
+      { id: 'daily', title: 'Seguridad diaria', body: 'Baño + dormitorio' },
+      { id: 'wholeHome', title: 'Toda la casa', body: '2 baños + 2 dormitorios' },
+    ],
     quantity: 'Cantidad',
     reviewRequired: 'Requiere revisión',
+    roomDescriptions: {
+      bathroom: 'Ducha, WC, suelo mojado.',
+      bedroom: 'Cama, ruta nocturna, luz.',
+      entrance: 'Escalones, umbrales, puerta.',
+      kitchen: 'Alcance, cocina, visibilidad.',
+      'living-room': 'Asientos, cables, paso.',
+    },
     roomCount: 'Paquetes de estancia',
     rooms: [
       { title: 'Baño', body: 'Ducha, transferencias al WC, suelo mojado y acceso seguro.' },
@@ -159,10 +205,10 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     ],
     seeDraft: 'Abrir borrador',
     selectedPackages: 'Paquetes seleccionados',
-    specialistTitle: 'Adaptaciones especializadas',
+    specialistTitle: 'Especial',
     subtitle:
-      'Elige las estancias y cantidades que necesitas. CasaMia convierte la selección en un borrador de propuesta para revisión.',
-    title: 'Planes flexibles por estancia, riesgo y presupuesto.',
+      'Selecciona estancias, ve una estimación y envía el borrador para revisión.',
+    title: 'Crea tu plan CasaMia.',
     town: 'Ciudad / zona',
     address: 'Dirección',
     vatIncluded: 'IVA incluido',
@@ -215,6 +261,10 @@ export function PlansPage() {
     [groups, language, selection],
   )
   const selectedGroups = groups.filter((group) => selection[group.homePackage.id]?.selected)
+  const selectedSummary = selectedGroups.map((group) => {
+    const quantity = selection[group.homePackage.id]?.quantity ?? 1
+    return `${quantity}x ${group.roomLabel}`
+  })
 
   useEffect(() => {
     if (Object.keys(selection).length || !groups.length) {
@@ -314,6 +364,29 @@ export function PlansPage() {
     })
   }
 
+  function applyPreset(presetId: PlansPresetId) {
+    const presetQuantities: Record<PlansPresetId, Record<string, number>> = {
+      focused: { bathroom: 1 },
+      daily: { bathroom: 1, bedroom: 1 },
+      wholeHome: { bathroom: 2, bedroom: 2, entrance: 1, kitchen: 1 },
+    }
+    const quantities = presetQuantities[presetId]
+
+    setSelection(() => groups.reduce<PlansBuilderSelectionState>((nextSelection, group) => {
+      const quantity = quantities[group.room.id] ?? 0
+
+      if (quantity > 0) {
+        nextSelection[group.homePackage.id] = {
+          addOnOutcomeIds: [],
+          quantity,
+          selected: true,
+        }
+      }
+
+      return nextSelection
+    }, {}))
+  }
+
   function toggleAddOnPackage(group: PlansBuilderGroup, addOnPackage: PlansBuilderAddOnPackage, checked: boolean) {
     setSelection((current) => {
       const previous = current[group.homePackage.id] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
@@ -401,14 +474,30 @@ export function PlansPage() {
             <p className="section-kicker">{copy.builderEyebrow}</p>
             <h1>{copy.title}</h1>
             <p>{copy.subtitle}</p>
-            <div className="plans-builder-flow" aria-label={copy.builderTitle}>
-              {copy.flow.map((step, index) => (
-                <article key={step.title}>
-                  <span>{index + 1}</span>
-                  <strong>{step.title}</strong>
-                  <p>{step.body}</p>
-                </article>
-              ))}
+            <aside className="plans-grant-banner" aria-label={copy.grantEyebrow}>
+              <span aria-hidden="true">
+                <BadgeEuro size={22} />
+              </span>
+              <div>
+                <strong>{copy.grantEyebrow}</strong>
+                <p>{copy.grantTitle}</p>
+                <small>{copy.grantBody}</small>
+              </div>
+              <Link to="/grant-check">
+                {copy.grantCta}
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            </aside>
+            <div className="plans-preset-panel" aria-label={copy.popularTitle}>
+              <span>{copy.popularTitle}</span>
+              <div>
+                {copy.presets.map((preset) => (
+                  <button key={preset.id} type="button" onClick={() => applyPreset(preset.id)}>
+                    <strong>{preset.title}</strong>
+                    <small>{preset.body}</small>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -440,6 +529,13 @@ export function PlansPage() {
               ) : null}
             </dl>
             <p>{copy.estimateNote}</p>
+            {selectedSummary.length ? (
+              <div className="plans-summary-selection" aria-label={copy.selectedPackages}>
+                {selectedSummary.slice(0, 5).map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+            ) : null}
             {estimate.reviewItems.length ? (
               <div className="plans-builder-review-list">
                 <strong>{copy.reviewRequired}</strong>
@@ -451,8 +547,6 @@ export function PlansPage() {
           </aside>
         </div>
       </section>
-
-      <TrustBar />
 
       <main className="plans-builder-main section-pad">
         <div className="site-shell plans-builder-layout">
@@ -479,7 +573,7 @@ export function PlansPage() {
                       </span>
                       <div>
                         <h3>{group.roomLabel}</h3>
-                        <p>{group.packageDescription}</p>
+                        <p>{copy.roomDescriptions[group.room.id] ?? group.packageDescription}</p>
                       </div>
                     </header>
                     <div className="plans-room-card-footer">
@@ -536,12 +630,16 @@ export function PlansPage() {
                       </div>
 
                       <div className="plans-core-includes">
-                        {group.homeOutcomes.slice(0, 7).map((outcome) => (
+                        <strong>{copy.coreIncluded}</strong>
+                        {group.homeOutcomes.slice(0, 3).map((outcome) => (
                           <span key={outcome.id}>
                             <CheckCircle2 size={15} aria-hidden="true" />
                             {localizePlansString(outcome.customerName, language, outcome.internalName)}
                           </span>
                         ))}
+                        {group.homeOutcomes.length > 3 ? (
+                          <span>+{group.homeOutcomes.length - 3}</span>
+                        ) : null}
                       </div>
 
                       <div className="plans-addon-grid">
@@ -568,7 +666,8 @@ export function PlansPage() {
                                 </span>
                               </label>
 
-                              <div className="plans-addon-options">
+                              {selected ? (
+                                <div className="plans-addon-options">
                                 {addOnPackage.outcomes.slice(0, 6).map((outcome) => {
                                   const checked = selection[group.homePackage.id]?.addOnOutcomeIds.includes(outcome.id) ?? false
 
@@ -583,7 +682,8 @@ export function PlansPage() {
                                     </label>
                                   )
                                 })}
-                              </div>
+                                </div>
+                              ) : null}
                             </div>
                           )
                         })}

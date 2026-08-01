@@ -1,4 +1,4 @@
-import { BadgeEuro, Bath, BedDouble, ChevronDown, ClipboardCheck, Footprints, Mail, Menu, Wifi, X } from 'lucide-react'
+import { BadgeEuro, Bath, BedDouble, ChevronDown, CookingPot, DoorOpen, Mail, Menu, Wifi, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
@@ -69,23 +69,13 @@ const solutionMenuItems = [
     },
   },
   {
-    icon: Footprints,
-    to: '/fall-prevention-at-home',
-    title: { en: 'Prevent falls', es: 'Prevenir caídas', nl: 'Vallen voorkomen' },
+    icon: CookingPot,
+    to: '/services/kitchen-safety',
+    title: { en: 'Kitchen safety', es: 'Cocina segura', nl: 'Veilige keuken' },
     description: {
-      en: 'Find the routines where risk builds up.',
-      es: 'Detecta rutinas donde se acumula riesgo.',
-      nl: 'Vind routines waar risico ontstaat.',
-    },
-  },
-  {
-    icon: ClipboardCheck,
-    to: '/aging-in-place-home-assessment',
-    title: { en: 'Home assessment', es: 'Revisión del hogar', nl: 'Woningcheck' },
-    description: {
-      en: 'Start with a clear review before works.',
-      es: 'Empieza con una revisión clara.',
-      nl: 'Begin met een duidelijke check.',
+      en: 'Reach, cooking, lighting and movement.',
+      es: 'Alcance, cocina, luz y movimiento.',
+      nl: 'Bereik, koken, licht en beweging.',
     },
   },
   {
@@ -96,6 +86,16 @@ const solutionMenuItems = [
       en: 'Bed transfers, lighting and night routes.',
       es: 'Cama, luz y rutas nocturnas.',
       nl: 'Bed, verlichting en nachtroutes.',
+    },
+  },
+  {
+    icon: DoorOpen,
+    to: '/services/entrance-accessibility',
+    title: { en: 'Entrance safety', es: 'Entrada segura', nl: 'Veilige entree' },
+    description: {
+      en: 'Steps, thresholds and door access.',
+      es: 'Escalones, umbrales y acceso.',
+      nl: 'Drempels, treden en toegang.',
     },
   },
   {
