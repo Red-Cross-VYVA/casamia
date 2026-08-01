@@ -1,355 +1,235 @@
 import {
   ArrowRight,
-  ArrowUpDown,
   Bath,
   BedDouble,
   CheckCircle2,
-  ClipboardCheck,
   CookingPot,
   DoorOpen,
-  Footprints,
-  HeartPulse,
+  FileText,
   Home,
-  Lightbulb,
+  Loader2,
+  Minus,
+  Plus,
   ShieldCheck,
-  Smartphone,
   Sparkles,
   Wrench,
   type LucideIcon,
 } from 'lucide-react'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { TrustBar } from '../components/TrustBar'
-
-type Outcome = {
-  icon: LucideIcon
-  title: string
-  body: string
-  points: string[]
-}
-
-type RoomCard = {
-  icon: LucideIcon
-  room: string
-  focus: string
-  chips: string[]
-}
-
-type AddOn = {
-  icon: LucideIcon
-  title: string
-  body: string
-  to: string
-}
+import {
+  buildPlansBuilderGroups,
+  calculatePlansBuilderEstimate,
+  formatPlansCurrency,
+  formatPlansEstimateLabel,
+  localizePlansString,
+  normalisePlansQuantity,
+  type PlansBuilderAddOnPackage,
+  type PlansBuilderGroup,
+  type PlansBuilderSelectionState,
+} from '../services/plansBuilderPricing'
+import { createPublicProposalDraft } from '../services/proposalsApi'
+import { useServiceCatalogue } from '../services/serviceCatalogue'
 
 type PlansCopy = {
-  metaTitle: string
-  eyebrow: string
-  title: string
-  body: string
-  servicesCta: string
-  howCta: string
-  visualLabel: string
-  visualTitle: string
-  visualBody: string
-  outcomesTitle: string
-  outcomesBody: string
-  howTitle: string
-  howBody: string
-  roomsTitle: string
-  roomsBody: string
-  addOnsEyebrow: string
-  addOnsTitle: string
-  addOnsBody: string
-  reassurance: string
-  finalTitle: string
-  finalBody: string
+  addModule: string
+  builderEyebrow: string
+  builderTitle: string
+  consent: string
+  contactTitle: string
+  createDraft: string
+  creatingDraft: string
+  draftCreated: string
+  email: string
+  estimateNote: string
+  estimateTitle: string
+  finalReview: string
   flow: Array<{ title: string; body: string }>
-  outcomes: Outcome[]
-  rooms: RoomCard[]
-  addOns: AddOn[]
+  fromCatalogue: string
+  helpText: string
+  metaTitle: string
+  modulesTitle: string
+  monthly: string
+  name: string
+  noSelection: string
+  optionalTitle: string
+  phone: string
+  quantity: string
+  reviewRequired: string
+  roomCount: string
+  rooms: Array<{ title: string; body: string }>
+  seeDraft: string
+  selectedPackages: string
+  specialistTitle: string
+  subtitle: string
+  title: string
+  town: string
+  address: string
+  vatIncluded: string
 }
 
 const plansCopy: Record<'en' | 'es', PlansCopy> = {
   en: {
-    metaTitle: 'CasaMia Safety Services | CasaMia',
-    eyebrow: 'Your CasaMia plan',
-    title: 'Home safety, handled.',
-    body:
-      'Choose the rooms and routines that worry you most. CasaMia recommends practical improvements, confirms what fits, and coordinates the work.',
-    servicesCta: 'View services',
-    howCta: 'See how it works',
-    visualLabel: 'CasaMia safety service process',
-    visualTitle: 'Pick the concern. We shape the plan.',
-    visualBody: 'Start online, then decide whether to upload photos or reserve a home visit.',
-    outcomesTitle: 'What you get',
-    outcomesBody:
-      'A clear route from concern to action: room-by-room priorities, selected improvements, and a managed next step.',
-    howTitle: 'How it works',
-    howBody: 'One point of responsibility and no need to choose products before the home is understood.',
-    roomsTitle: 'Room-by-room coverage',
-    roomsBody:
-      'CasaMia reviews the whole home, then recommends only the improvements that fit the resident and the property.',
-    addOnsEyebrow: 'Optional after assessment',
-    addOnsTitle: 'Add improvements only where they help',
-    addOnsBody:
-      'Every service should solve a real need. CasaMia recommends the right mix after reviewing the home, routine and resident.',
-    reassurance: 'Build your CasaMia plan from useful services, then confirm pricing, installation and handover.',
-    finalTitle: 'Ready to make the home safer?',
-    finalBody: 'Start with the rooms that matter most. CasaMia turns your answers into a clear plan of action.',
+    addModule: 'Add module',
+    builderEyebrow: 'Plans builder',
+    builderTitle: 'Build a draft package',
+    consent: 'I agree that CasaMia may contact me to review this draft package.',
+    contactTitle: 'Create a review draft',
+    createDraft: 'Create proposal draft',
+    creatingDraft: 'Creating draft...',
+    draftCreated: 'Draft created. CasaMia can now review the package before it is sent as final.',
+    email: 'Email',
+    estimateNote: 'Estimate only. CasaMia confirms scope, compatibility and final price before any work starts.',
+    estimateTitle: 'Live estimate',
+    finalReview: 'Final price after CasaMia review',
     flow: [
-      { title: 'Assess', body: 'Home, resident and daily routines.' },
-      { title: 'Plan', body: 'Clear risks, priorities and quote.' },
-      { title: 'Install', body: 'Coordinated products, providers and follow-up.' },
+      { title: 'Choose rooms', body: 'Select bathrooms, bedrooms and shared areas.' },
+      { title: 'Add modules', body: 'Layer connected support or specialist adaptations.' },
+      { title: 'Review draft', body: 'CasaMia checks scope before sending a final proposal.' },
     ],
-    outcomes: [
-      {
-        icon: ShieldCheck,
-        title: 'A safer home plan',
-        body: 'A practical review of the spaces where falls, trips and daily friction are most likely.',
-        points: ['Room-by-room check', 'Home Safety Score', 'Clear priorities'],
-      },
-      {
-        icon: ClipboardCheck,
-        title: 'A decision-ready report',
-        body: 'A simple recommendation showing what to fix first, what can wait and what each step is for.',
-        points: ['Written scope', 'Fixed quote', 'No blind buying'],
-      },
-      {
-        icon: Wrench,
-        title: 'Managed installation',
-        body: 'CasaMia keeps the family, products, provider and handover together under one coordinated process.',
-        points: ['Vetted providers', 'Quality check', 'Follow-up'],
-      },
-    ],
+    fromCatalogue: 'From CasaMia catalogue',
+    helpText: 'Set quantities by room, then add only the modules that fit the home.',
+    metaTitle: 'Plans Builder | CasaMia',
+    modulesTitle: 'Selected room modules',
+    monthly: 'Monthly support',
+    name: 'Name',
+    noSelection: 'Start by choosing at least one room package.',
+    optionalTitle: 'Connected support',
+    phone: 'Phone',
+    quantity: 'Quantity',
+    reviewRequired: 'Needs review',
+    roomCount: 'Room packages',
     rooms: [
-      {
-        icon: DoorOpen,
-        room: 'Entrance',
-        focus: 'Getting in and out safely, especially with steps, thresholds or poor evening light.',
-        chips: ['Thresholds', 'Lighting', 'Handrail'],
-      },
-      {
-        icon: Home,
-        room: 'Living room',
-        focus: 'Reducing trip risks around rugs, furniture, cables and common movement routes.',
-        chips: ['Clear routes', 'Furniture', 'Trip risks'],
-      },
-      {
-        icon: Footprints,
-        room: 'Hallways',
-        focus: 'Making night movement easier between bedroom, bathroom and living areas.',
-        chips: ['Night route', 'Obstacles', 'Door swing'],
-      },
-      {
-        icon: ArrowUpDown,
-        room: 'Stairs',
-        focus: 'Improving grip, contrast, lighting and support on the highest-risk route.',
-        chips: ['Handrails', 'Anti-slip', 'Contrast'],
-      },
-      {
-        icon: Bath,
-        room: 'Bathroom',
-        focus: 'Supporting shower entry, toilet transfer, wet floors and safe reach.',
-        chips: ['Grab bars', 'Shower access', 'Toilet height'],
-      },
-      {
-        icon: CookingPot,
-        room: 'Kitchen',
-        focus: 'Making everyday cooking and washing safer through better reach, light and surface control.',
-        chips: ['Reach', 'Heat risk', 'Floor grip'],
-      },
-      {
-        icon: BedDouble,
-        room: 'Bedroom',
-        focus: 'Supporting bed transfers, bedside reach and the route to the bathroom at night.',
-        chips: ['Bed transfer', 'Bedside reach', 'Motion light'],
-      },
-      {
-        icon: Lightbulb,
-        room: 'Outdoor spaces',
-        focus: 'Checking paths, steps, exterior light and the first movement from the doorway.',
-        chips: ['Pathway', 'Step support', 'Exterior light'],
-      },
+      { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
+      { title: 'Bedroom', body: 'Bed transfers, night lighting and clear routes.' },
+      { title: 'Kitchen', body: 'Cooking, reach, visibility and safer movement.' },
+      { title: 'Living Room', body: 'Sitting, standing, rugs, cables and daily routes.' },
+      { title: 'Entrance', body: 'Steps, thresholds, door use and visitor awareness.' },
     ],
-    addOns: [
-      {
-        icon: Smartphone,
-        title: 'Smart home',
-        body: 'Voice controls, smart lighting, locks, plugs and routines where they make life easier.',
-        to: '/services',
-      },
-      {
-        icon: ShieldCheck,
-        title: 'Safety technology',
-        body: 'Sensors, alerts, emergency buttons, leak detection and connected safety devices.',
-        to: '/services',
-      },
-      {
-        icon: HeartPulse,
-        title: 'Health monitoring',
-        body: 'Simple vitals and wellbeing monitoring with family visibility when appropriate.',
-        to: '/services',
-      },
-      {
-        icon: Sparkles,
-        title: 'AI and voice support',
-        body: 'Optional prompts, reminders and routines for people who benefit from guided support.',
-        to: '/services',
-      },
-      {
-        icon: Home,
-        title: 'Living support',
-        body: 'Extra services for families planning bigger care, comfort or assisted living decisions.',
-        to: '/assisted-living-solutions',
-      },
-    ],
+    seeDraft: 'Open draft',
+    selectedPackages: 'Selected packages',
+    specialistTitle: 'Specialist adaptations',
+    subtitle:
+      'Choose the rooms and quantity you need. CasaMia turns the selection into a review-ready proposal draft.',
+    title: 'Plans that flex by room, risk and budget.',
+    town: 'Town / area',
+    address: 'Address',
+    vatIncluded: 'VAT included',
   },
   es: {
-    metaTitle: 'Servicios de seguridad CasaMia | CasaMia',
-    eyebrow: 'Tu plan CasaMia',
-    title: 'Seguridad en casa, sin complicaciones.',
-    body:
-      'Elige las estancias y rutinas que más te preocupan. CasaMia recomienda mejoras prácticas, confirma qué encaja y coordina el trabajo.',
-    servicesCta: 'Ver servicios',
-    howCta: 'Ver cómo funciona',
-    visualLabel: 'Proceso de servicio de seguridad CasaMia',
-    visualTitle: 'Elige la preocupación. Nosotros damos forma al plan.',
-    visualBody: 'Empieza online y luego decide si quieres subir fotos o reservar una visita a domicilio.',
-    outcomesTitle: 'Qué recibes',
-    outcomesBody:
-      'Un camino claro desde la preocupación hasta la acción: prioridades por estancia, mejoras seleccionadas y un siguiente paso gestionado.',
-    howTitle: 'Cómo funciona',
-    howBody: 'Un único responsable y sin tener que elegir productos antes de entender la vivienda.',
-    roomsTitle: 'Cobertura estancia por estancia',
-    roomsBody:
-      'CasaMia revisa la vivienda completa y recomienda solo las mejoras que encajan con la persona y la propiedad.',
-    addOnsEyebrow: 'Opcional después de la evaluación',
-    addOnsTitle: 'Añade mejoras solo donde ayudan',
-    addOnsBody:
-      'Cada servicio debe resolver una necesidad real. CasaMia recomienda la combinación adecuada tras revisar la vivienda, la rutina y la persona residente.',
-    reassurance: 'Crea tu plan CasaMia con servicios útiles y después confirma precio, instalación y entrega.',
-    finalTitle: '¿Listo para hacer la vivienda más segura?',
-    finalBody: 'Empieza por las estancias que más importan. CasaMia convierte tus respuestas en un plan de acción claro.',
+    addModule: 'Añadir módulo',
+    builderEyebrow: 'Constructor de planes',
+    builderTitle: 'Crea un paquete borrador',
+    consent: 'Acepto que CasaMia me contacte para revisar este paquete borrador.',
+    contactTitle: 'Crear borrador para revisión',
+    createDraft: 'Crear borrador de propuesta',
+    creatingDraft: 'Creando borrador...',
+    draftCreated: 'Borrador creado. CasaMia puede revisar el paquete antes de enviarlo como propuesta final.',
+    email: 'Email',
+    estimateNote: 'Estimación orientativa. CasaMia confirma alcance, compatibilidad y precio final antes de empezar.',
+    estimateTitle: 'Estimación en vivo',
+    finalReview: 'Precio final tras revisión de CasaMia',
     flow: [
-      { title: 'Evaluamos', body: 'Vivienda, persona residente y rutinas diarias.' },
-      { title: 'Planificamos', body: 'Riesgos claros, prioridades y presupuesto.' },
-      { title: 'Instalamos', body: 'Productos, profesionales y seguimiento coordinados.' },
+      { title: 'Elige estancias', body: 'Selecciona baños, dormitorios y zonas compartidas.' },
+      { title: 'Añade módulos', body: 'Suma apoyo conectado o adaptaciones especializadas.' },
+      { title: 'Revisa borrador', body: 'CasaMia comprueba alcance antes de enviar la propuesta final.' },
     ],
-    outcomes: [
-      {
-        icon: ShieldCheck,
-        title: 'Un plan para una vivienda más segura',
-        body: 'Una revisión práctica de los espacios donde es más probable que aparezcan caídas, tropiezos y fricción diaria.',
-        points: ['Revisión por estancia', 'Puntuación de seguridad', 'Prioridades claras'],
-      },
-      {
-        icon: ClipboardCheck,
-        title: 'Un informe listo para decidir',
-        body: 'Una recomendación sencilla que muestra qué arreglar primero, qué puede esperar y para qué sirve cada paso.',
-        points: ['Alcance escrito', 'Presupuesto claro', 'Sin compras a ciegas'],
-      },
-      {
-        icon: Wrench,
-        title: 'Instalación gestionada',
-        body: 'CasaMia mantiene a la familia, productos, proveedor y entrega bajo un único proceso coordinado.',
-        points: ['Profesionales validados', 'Control de calidad', 'Seguimiento'],
-      },
-    ],
+    fromCatalogue: 'Desde el catálogo CasaMia',
+    helpText: 'Define cantidades por estancia y añade solo los módulos que encajen con la vivienda.',
+    metaTitle: 'Constructor de planes | CasaMia',
+    modulesTitle: 'Módulos por estancia seleccionada',
+    monthly: 'Apoyo mensual',
+    name: 'Nombre',
+    noSelection: 'Empieza eligiendo al menos un paquete de estancia.',
+    optionalTitle: 'Apoyo conectado',
+    phone: 'Teléfono',
+    quantity: 'Cantidad',
+    reviewRequired: 'Requiere revisión',
+    roomCount: 'Paquetes de estancia',
     rooms: [
-      {
-        icon: DoorOpen,
-        room: 'Entrada',
-        focus: 'Entrar y salir con seguridad, especialmente si hay escalones, umbrales o poca luz por la tarde.',
-        chips: ['Umbrales', 'Iluminación', 'Pasamanos'],
-      },
-      {
-        icon: Home,
-        room: 'Salón',
-        focus: 'Reducir tropiezos alrededor de alfombras, muebles, cables y rutas de movimiento habituales.',
-        chips: ['Rutas despejadas', 'Muebles', 'Tropiezos'],
-      },
-      {
-        icon: Footprints,
-        room: 'Pasillos',
-        focus: 'Facilitar el movimiento nocturno entre dormitorio, baño y zonas principales.',
-        chips: ['Ruta nocturna', 'Obstáculos', 'Puertas'],
-      },
-      {
-        icon: ArrowUpDown,
-        room: 'Escaleras',
-        focus: 'Mejorar agarre, contraste, luz y apoyo en una de las rutas de mayor riesgo.',
-        chips: ['Pasamanos', 'Antideslizante', 'Contraste'],
-      },
-      {
-        icon: Bath,
-        room: 'Baño',
-        focus: 'Apoyar la entrada a la ducha, la transferencia al inodoro, suelos mojados y alcance seguro.',
-        chips: ['Barras de apoyo', 'Acceso ducha', 'Altura inodoro'],
-      },
-      {
-        icon: CookingPot,
-        room: 'Cocina',
-        focus: 'Hacer que cocinar y lavar sea más seguro con mejor alcance, luz y control de superficies.',
-        chips: ['Alcance', 'Calor', 'Agarre suelo'],
-      },
-      {
-        icon: BedDouble,
-        room: 'Dormitorio',
-        focus: 'Apoyar transferencias de cama, alcance junto a la cama y ruta nocturna al baño.',
-        chips: ['Transferencia', 'Alcance', 'Luz con sensor'],
-      },
-      {
-        icon: Lightbulb,
-        room: 'Exterior',
-        focus: 'Revisar caminos, escalones, luz exterior y el primer movimiento desde la puerta.',
-        chips: ['Camino', 'Apoyo en escalón', 'Luz exterior'],
-      },
+      { title: 'Baño', body: 'Ducha, transferencias al WC, suelo mojado y acceso seguro.' },
+      { title: 'Dormitorio', body: 'Transferencias de cama, luz nocturna y rutas despejadas.' },
+      { title: 'Cocina', body: 'Cocinar, alcanzar objetos, visibilidad y movimiento seguro.' },
+      { title: 'Salón', body: 'Sentarse, levantarse, alfombras, cables y rutas diarias.' },
+      { title: 'Entrada', body: 'Escalones, umbrales, uso de puerta y control de visitas.' },
     ],
-    addOns: [
-      {
-        icon: Smartphone,
-        title: 'Hogar inteligente',
-        body: 'Control por voz, iluminación inteligente, cerraduras, enchufes y rutinas cuando facilitan la vida.',
-        to: '/services',
-      },
-      {
-        icon: ShieldCheck,
-        title: 'Tecnología de seguridad',
-        body: 'Sensores, alertas, botones de emergencia, detección de fugas y dispositivos conectados.',
-        to: '/services',
-      },
-      {
-        icon: HeartPulse,
-        title: 'Salud conectada',
-        body: 'Mediciones sencillas y seguimiento de bienestar con visibilidad familiar cuando corresponde.',
-        to: '/services',
-      },
-      {
-        icon: Sparkles,
-        title: 'IA y apoyo por voz',
-        body: 'Recordatorios, indicaciones y rutinas opcionales para personas que se benefician de guía.',
-        to: '/services',
-      },
-      {
-        icon: Home,
-        title: 'Apoyo residencial',
-        body: 'Servicios adicionales para familias y organizaciones que planifican decisiones de cuidado o estancia asistida.',
-        to: '/assisted-living-solutions',
-      },
-    ],
+    seeDraft: 'Abrir borrador',
+    selectedPackages: 'Paquetes seleccionados',
+    specialistTitle: 'Adaptaciones especializadas',
+    subtitle:
+      'Elige las estancias y cantidades que necesitas. CasaMia convierte la selección en un borrador de propuesta para revisión.',
+    title: 'Planes flexibles por estancia, riesgo y presupuesto.',
+    town: 'Ciudad / zona',
+    address: 'Dirección',
+    vatIncluded: 'IVA incluido',
   },
 }
 
+const roomIcons: Record<string, LucideIcon> = {
+  bathroom: Bath,
+  bedroom: BedDouble,
+  entrance: DoorOpen,
+  kitchen: CookingPot,
+  'living-room': Home,
+}
+
+type CustomerForm = {
+  address: string
+  area: string
+  consent: boolean
+  email: string
+  name: string
+  phone: string
+  website: string
+}
+
+const emptyCustomerForm: CustomerForm = {
+  address: '',
+  area: '',
+  consent: false,
+  email: '',
+  name: '',
+  phone: '',
+  website: '',
+}
+
 export function PlansPage() {
-  const { i18n, t } = useTranslation()
+  const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = plansCopy[language]
+  const catalogue = useServiceCatalogue()
+  const groups = useMemo(() => buildPlansBuilderGroups(catalogue, language), [catalogue, language])
+  const [selection, setSelection] = useState<PlansBuilderSelectionState>({})
+  const [customer, setCustomer] = useState<CustomerForm>(emptyCustomerForm)
+  const [draftUrl, setDraftUrl] = useState('')
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const siteUrl = 'https://www.casamia.com.es'
-  const seoDescription = copy.body
+  const seoDescription = copy.subtitle
+  const estimate = useMemo(
+    () => calculatePlansBuilderEstimate(groups, selection, language),
+    [groups, language, selection],
+  )
+  const selectedGroups = groups.filter((group) => selection[group.homePackage.id]?.selected)
+
+  useEffect(() => {
+    if (Object.keys(selection).length || !groups.length) {
+      return
+    }
+
+    const defaultGroup = groups.find((group) => group.room.id === 'bathroom') ?? groups[0]
+    setSelection({
+      [defaultGroup.homePackage.id]: {
+        addOnOutcomeIds: [],
+        quantity: 1,
+        selected: true,
+      },
+    })
+  }, [groups, selection])
 
   const schema = useMemo(
     () => ({
@@ -362,42 +242,29 @@ export function PlansPage() {
           name: copy.metaTitle,
           description: seoDescription,
           inLanguage: language,
-          isPartOf: {
-            '@type': 'WebSite',
-            '@id': `${siteUrl}/#website`,
-            name: 'CasaMia',
-            url: siteUrl,
-          },
-          about: {
-            '@id': `${siteUrl}/plans#managed-home-safety-plan`,
-          },
         },
         {
           '@type': 'Service',
           '@id': `${siteUrl}/plans#managed-home-safety-plan`,
           name: copy.title,
-          description: copy.outcomesBody,
-          serviceType: language === 'es' ? 'Plan gestionado de seguridad en el hogar' : 'Managed home safety plan',
+          description: copy.subtitle,
+          serviceType: language === 'es' ? 'Plan modular de seguridad en el hogar' : 'Modular home safety plan',
           provider: {
             '@type': 'Organization',
             '@id': `${siteUrl}/#organization`,
             name: 'CasaMia',
             url: siteUrl,
           },
-          areaServed: {
-            '@type': 'Country',
-            name: 'Spain',
-          },
           hasOfferCatalog: {
             '@type': 'OfferCatalog',
-            name: copy.roomsTitle,
+            name: copy.builderTitle,
             itemListElement: copy.rooms.map((room, index) => ({
               '@type': 'Offer',
               position: index + 1,
               itemOffered: {
                 '@type': 'Service',
-                name: room.room,
-                description: room.focus,
+                name: room.title,
+                description: room.body,
               },
             })),
           },
@@ -405,8 +272,7 @@ export function PlansPage() {
         {
           '@type': 'HowTo',
           '@id': `${siteUrl}/plans#plan-process`,
-          name: copy.howTitle,
-          description: copy.howBody,
+          name: copy.builderTitle,
           step: copy.flow.map((step, index) => ({
             '@type': 'HowToStep',
             position: index + 1,
@@ -417,12 +283,12 @@ export function PlansPage() {
         {
           '@type': 'ItemList',
           '@id': `${siteUrl}/plans#plan-outcomes`,
-          name: copy.outcomesTitle,
-          itemListElement: copy.outcomes.map((outcome, index) => ({
+          name: copy.modulesTitle,
+          itemListElement: copy.rooms.map((room, index) => ({
             '@type': 'ListItem',
             position: index + 1,
-            name: outcome.title,
-            description: outcome.body,
+            name: room.title,
+            description: room.body,
           })),
         },
       ],
@@ -430,193 +296,393 @@ export function PlansPage() {
     [copy, language, seoDescription],
   )
 
+  function updateRoomQuantity(group: PlansBuilderGroup, quantity: number) {
+    const nextQuantity = Math.max(0, Math.min(12, Math.floor(Number.isFinite(quantity) ? quantity : 0)))
+
+    setSelection((current) => {
+      const previous = current[group.homePackage.id] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
+
+      return {
+        ...current,
+        [group.homePackage.id]: {
+          ...previous,
+          addOnOutcomeIds: nextQuantity > 0 ? previous.addOnOutcomeIds : [],
+          quantity: nextQuantity > 0 ? normalisePlansQuantity(nextQuantity) : 1,
+          selected: nextQuantity > 0,
+        },
+      }
+    })
+  }
+
+  function toggleAddOnPackage(group: PlansBuilderGroup, addOnPackage: PlansBuilderAddOnPackage, checked: boolean) {
+    setSelection((current) => {
+      const previous = current[group.homePackage.id] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
+      const packageOutcomeIds = addOnPackage.outcomes.map((outcome) => outcome.id)
+      const addOnOutcomeIds = checked
+        ? [...new Set([...previous.addOnOutcomeIds, ...packageOutcomeIds])]
+        : previous.addOnOutcomeIds.filter((outcomeId) => !packageOutcomeIds.includes(outcomeId))
+
+      return {
+        ...current,
+        [group.homePackage.id]: {
+          ...previous,
+          addOnOutcomeIds,
+          quantity: normalisePlansQuantity(previous.quantity),
+          selected: true,
+        },
+      }
+    })
+  }
+
+  function toggleAddOnOutcome(group: PlansBuilderGroup, outcomeId: string, checked: boolean) {
+    setSelection((current) => {
+      const previous = current[group.homePackage.id] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
+      const addOnOutcomeIds = checked
+        ? [...new Set([...previous.addOnOutcomeIds, outcomeId])]
+        : previous.addOnOutcomeIds.filter((id) => id !== outcomeId)
+
+      return {
+        ...current,
+        [group.homePackage.id]: {
+          ...previous,
+          addOnOutcomeIds,
+          quantity: normalisePlansQuantity(previous.quantity),
+          selected: true,
+        },
+      }
+    })
+  }
+
+  function isAddOnPackageSelected(group: PlansBuilderGroup, addOnPackage: PlansBuilderAddOnPackage) {
+    const selectedIds = new Set(selection[group.homePackage.id]?.addOnOutcomeIds ?? [])
+    return addOnPackage.outcomes.some((outcome) => selectedIds.has(outcome.id))
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setError('')
+    setDraftUrl('')
+
+    if (!estimate.proposalLineItems.length) {
+      setError(copy.noSelection)
+      return
+    }
+
+    setIsSubmitting(true)
+    try {
+      const result = await createPublicProposalDraft({
+        companyWebsite: customer.website,
+        consent: customer.consent,
+        customer: {
+          address: customer.address,
+          area: customer.area,
+          email: customer.email,
+          name: customer.name,
+          phone: customer.phone,
+        },
+        language,
+        selection,
+      }, catalogue)
+      const publicUrl = new URL(result.publicUrl || `/proposal/${result.publicToken}`, window.location.origin)
+      setDraftUrl(publicUrl.toString())
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : copy.finalReview)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <>
       <SEO title={copy.metaTitle} description={seoDescription} path="/plans" schema={schema} />
-      <section className="plans-conversion-hero core-plan-hero">
-        <div className="plans-conversion-hero-inner site-shell">
-          <div>
-            <p className="section-kicker">{copy.eyebrow}</p>
+      <section className="plans-builder-shell">
+        <div className="site-shell plans-builder-hero">
+          <div className="plans-builder-intro">
+            <p className="section-kicker">{copy.builderEyebrow}</p>
             <h1>{copy.title}</h1>
-            <p>{copy.body}</p>
-            <div className="plans-hero-actions">
-              <Link className="btn btn-green" to="/home-safety-wizard">
-                {t('wizard.cta')}
-                <ArrowRight size={20} aria-hidden="true" />
-              </Link>
-              <Link className="btn btn-white" to="/services">
-                {copy.servicesCta}
-                <ArrowRight size={20} aria-hidden="true" />
-              </Link>
-              <a className="btn btn-white" href="#plan-includes">
-                {copy.howCta}
-              </a>
+            <p>{copy.subtitle}</p>
+            <div className="plans-builder-flow" aria-label={copy.builderTitle}>
+              {copy.flow.map((step, index) => (
+                <article key={step.title}>
+                  <span>{index + 1}</span>
+                  <strong>{step.title}</strong>
+                  <p>{step.body}</p>
+                </article>
+              ))}
             </div>
           </div>
 
-          <aside className="core-plan-visual" aria-label={copy.visualLabel}>
-            <div className="core-plan-visual-heading">
+          <aside className="plans-builder-summary" aria-label={copy.estimateTitle}>
+            <div className="plans-builder-summary-top">
               <span>
                 <ShieldCheck size={24} aria-hidden="true" />
               </span>
               <div>
-                <strong>{copy.visualTitle}</strong>
-                <p>{copy.visualBody}</p>
+                <p>{copy.estimateTitle}</p>
+                <strong>{formatPlansEstimateLabel(estimate, language)}</strong>
+                <small>{copy.vatIncluded}</small>
               </div>
             </div>
-            <div className="core-plan-flow">
-              {copy.flow.map((step, index) => (
-                <div className="core-plan-flow-card" key={step.title}>
-                  <span>{index + 1}</span>
-                  <div>
-                    <strong>{step.title}</strong>
-                    <p>{step.body}</p>
-                  </div>
+            <dl>
+              <div>
+                <dt>{copy.roomCount}</dt>
+                <dd>{estimate.selectedRoomQuantity}</dd>
+              </div>
+              <div>
+                <dt>{copy.selectedPackages}</dt>
+                <dd>{estimate.selectedPackageCount}</dd>
+              </div>
+              {estimate.recurringMonthlyEstimate > 0 ? (
+                <div>
+                  <dt>{copy.monthly}</dt>
+                  <dd>{formatPlansCurrency(estimate.recurringMonthlyEstimate, language)}</dd>
                 </div>
-              ))}
-            </div>
+              ) : null}
+            </dl>
+            <p>{copy.estimateNote}</p>
+            {estimate.reviewItems.length ? (
+              <div className="plans-builder-review-list">
+                <strong>{copy.reviewRequired}</strong>
+                {estimate.reviewItems.slice(0, 4).map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
+            ) : null}
           </aside>
         </div>
       </section>
 
       <TrustBar />
 
-      <section className="plans-choice-section section-pad" id="plan-includes">
-        <div className="site-shell">
-          <div className="plans-section-heading">
-            <h2 className="display-title">{copy.outcomesTitle}</h2>
-            <p>{copy.outcomesBody}</p>
-          </div>
-
-          <div className="core-plan-outcome-grid">
-            {copy.outcomes.map((outcome) => {
-              const Icon = outcome.icon
-
-              return (
-                <article className="core-plan-outcome-card" key={outcome.title}>
-                  <span>
-                    <Icon size={24} aria-hidden="true" />
-                  </span>
-                  <h3>{outcome.title}</h3>
-                  <p>{outcome.body}</p>
-                  <ul>
-                    {outcome.points.map((point) => (
-                      <li key={point}>
-                        <CheckCircle2 size={17} aria-hidden="true" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="plans-next-section section-pad">
-        <div className="site-shell">
-          <div className="plans-section-heading">
-            <h2 className="display-title">{copy.howTitle}</h2>
-            <p>{copy.howBody}</p>
-          </div>
-          <div className="core-plan-step-strip" aria-label={copy.visualLabel}>
-            {copy.flow.map((step, index) => (
-              <article key={step.title}>
-                <span>{index + 1}</span>
-                <h3>{step.title}</h3>
-                <p>{step.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="plans-matrix-section section-pad">
-        <div className="site-shell">
-          <div className="plans-section-heading">
-            <h2 className="display-title">{copy.roomsTitle}</h2>
-            <p>{copy.roomsBody}</p>
-          </div>
-
-          <div className="core-plan-room-grid">
-            {copy.rooms.map((room) => {
-              const Icon = room.icon
-
-              return (
-                <article className="core-plan-room-card" key={room.room}>
-                  <header>
-                    <span className="core-plan-room-icon">
-                      <Icon size={23} aria-hidden="true" />
-                    </span>
-                    <h3>{room.room}</h3>
-                  </header>
-                  <p>{room.focus}</p>
-                  <div className="core-plan-chip-list">
-                    {room.chips.map((chip) => (
-                      <span key={chip}>{chip}</span>
-                    ))}
-                  </div>
-                </article>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="plans-payment-section section-pad">
-        <div className="site-shell">
-          <div className="plans-payment-panel core-plan-addon-panel">
-            <div>
-              <p className="section-kicker">{copy.addOnsEyebrow}</p>
-              <h2 className="display-title">{copy.addOnsTitle}</h2>
-              <p>{copy.addOnsBody}</p>
+      <main className="plans-builder-main section-pad">
+        <div className="site-shell plans-builder-layout">
+          <section className="plans-builder-workspace" aria-labelledby="plans-builder-title">
+            <div className="plans-builder-heading">
+              <div>
+                <p className="section-kicker">{copy.fromCatalogue}</p>
+                <h2 id="plans-builder-title">{copy.builderTitle}</h2>
+                <p>{copy.helpText}</p>
+              </div>
             </div>
 
-            <div className="core-plan-addon-grid">
-              {copy.addOns.map((addOn) => {
-                const Icon = addOn.icon
+            <div className="plans-room-grid">
+              {groups.map((group) => {
+                const Icon = roomIcons[group.room.id] ?? Home
+                const packageSelection = selection[group.homePackage.id]
+                const quantity = packageSelection?.selected ? packageSelection.quantity : 0
 
                 return (
-                  <Link className="core-plan-addon-card" to={addOn.to} key={addOn.title}>
-                    <span>
-                      <Icon size={21} aria-hidden="true" />
-                    </span>
-                    <div>
-                      <h3>{addOn.title}</h3>
-                      <p>{addOn.body}</p>
+                  <article className={`plans-room-card${quantity > 0 ? ' is-selected' : ''}`} key={group.homePackage.id}>
+                    <header>
+                      <span>
+                        <Icon size={22} aria-hidden="true" />
+                      </span>
+                      <div>
+                        <h3>{group.roomLabel}</h3>
+                        <p>{group.packageDescription}</p>
+                      </div>
+                    </header>
+                    <div className="plans-room-card-footer">
+                      <div>
+                        <strong>
+                          {group.packageUnitPrice > 0 ? formatPlansCurrency(group.packageUnitPrice, language) : copy.finalReview}
+                        </strong>
+                        <small>{group.requiresReview ? copy.finalReview : copy.vatIncluded}</small>
+                      </div>
+                      <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${group.roomLabel}`}>
+                        <button type="button" onClick={() => updateRoomQuantity(group, quantity - 1)}>
+                          <Minus size={16} aria-hidden="true" />
+                        </button>
+                        <input
+                          aria-label={`${copy.quantity}: ${group.roomLabel}`}
+                          min="0"
+                          max="12"
+                          type="number"
+                          value={quantity}
+                          onChange={(event) => updateRoomQuantity(group, Number(event.target.value))}
+                        />
+                        <button type="button" onClick={() => updateRoomQuantity(group, quantity + 1)}>
+                          <Plus size={16} aria-hidden="true" />
+                        </button>
+                      </div>
                     </div>
-                  </Link>
+                  </article>
                 )
               })}
             </div>
 
-            <div className="plans-payment-reassurance">
-              <CheckCircle2 size={22} aria-hidden="true" />
-              <p>{copy.reassurance}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+            <section className="plans-modules-section" aria-labelledby="plans-modules-title">
+              <div className="plans-builder-heading">
+                <div>
+                  <p className="section-kicker">{copy.selectedPackages}</p>
+                  <h2 id="plans-modules-title">{copy.modulesTitle}</h2>
+                </div>
+              </div>
 
-      <section className="plans-final-cta">
-        <div className="site-shell">
-          <div className="plans-final-panel">
-            <div>
-              <h2>{copy.finalTitle}</h2>
-              <p>{copy.finalBody}</p>
-            </div>
-            <Link className="btn btn-green" to="/home-safety-wizard">
-              {t('wizard.cta')}
-              <ArrowRight size={20} aria-hidden="true" />
-            </Link>
-            <Link className="btn btn-white" to="/services">
-              {copy.servicesCta}
-              <ArrowRight size={20} aria-hidden="true" />
-            </Link>
-          </div>
+              {selectedGroups.length ? (
+                <div className="plans-module-list">
+                  {selectedGroups.map((group) => (
+                    <article className="plans-module-card" key={`module-${group.homePackage.id}`}>
+                      <div className="plans-module-room">
+                        <div>
+                          <h3>{group.roomLabel}</h3>
+                          <p>
+                            {copy.quantity}: {selection[group.homePackage.id]?.quantity ?? 1}
+                          </p>
+                        </div>
+                        <span>
+                          {group.packageUnitPrice > 0 ? formatPlansCurrency(group.packageUnitPrice, language) : copy.finalReview}
+                        </span>
+                      </div>
+
+                      <div className="plans-core-includes">
+                        {group.homeOutcomes.slice(0, 7).map((outcome) => (
+                          <span key={outcome.id}>
+                            <CheckCircle2 size={15} aria-hidden="true" />
+                            {localizePlansString(outcome.customerName, language, outcome.internalName)}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="plans-addon-grid">
+                        {group.addOnPackages.map((addOnPackage) => {
+                          const selected = isAddOnPackageSelected(group, addOnPackage)
+                          const isSpecialist = addOnPackage.packageRecord.section === 'optional-adaptations'
+
+                          return (
+                            <div className={`plans-addon-card${selected ? ' is-selected' : ''}`} key={addOnPackage.packageRecord.id}>
+                              <label>
+                                <input
+                                  checked={selected}
+                                  type="checkbox"
+                                  onChange={(event) => toggleAddOnPackage(group, addOnPackage, event.target.checked)}
+                                />
+                                <span>
+                                  <strong>{isSpecialist ? copy.specialistTitle : copy.optionalTitle}</strong>
+                                  <b>{addOnPackage.packageLabel}</b>
+                                  <small>
+                                    {addOnPackage.unitPrice > 0
+                                      ? formatPlansCurrency(addOnPackage.unitPrice, language)
+                                      : copy.finalReview}
+                                  </small>
+                                </span>
+                              </label>
+
+                              <div className="plans-addon-options">
+                                {addOnPackage.outcomes.slice(0, 6).map((outcome) => {
+                                  const checked = selection[group.homePackage.id]?.addOnOutcomeIds.includes(outcome.id) ?? false
+
+                                  return (
+                                    <label key={outcome.id}>
+                                      <input
+                                        checked={checked}
+                                        type="checkbox"
+                                        onChange={(event) => toggleAddOnOutcome(group, outcome.id, event.target.checked)}
+                                      />
+                                      <span>{localizePlansString(outcome.customerName, language, outcome.internalName)}</span>
+                                    </label>
+                                  )
+                                })}
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              ) : (
+                <div className="plans-empty-state">
+                  <FileText size={28} aria-hidden="true" />
+                  <p>{copy.noSelection}</p>
+                </div>
+              )}
+            </section>
+          </section>
+
+          <aside className="plans-builder-side">
+            <form className="plans-draft-form" onSubmit={handleSubmit}>
+              <div>
+                <p className="section-kicker">{copy.finalReview}</p>
+                <h2>{copy.contactTitle}</h2>
+              </div>
+
+              <label>
+                <span>{copy.name}</span>
+                <input
+                  required
+                  value={customer.name}
+                  onChange={(event) => setCustomer((current) => ({ ...current, name: event.target.value }))}
+                />
+              </label>
+              <label>
+                <span>{copy.email}</span>
+                <input
+                  required
+                  type="email"
+                  value={customer.email}
+                  onChange={(event) => setCustomer((current) => ({ ...current, email: event.target.value }))}
+                />
+              </label>
+              <label>
+                <span>{copy.phone}</span>
+                <input
+                  value={customer.phone}
+                  onChange={(event) => setCustomer((current) => ({ ...current, phone: event.target.value }))}
+                />
+              </label>
+              <label>
+                <span>{copy.town}</span>
+                <input
+                  value={customer.area}
+                  onChange={(event) => setCustomer((current) => ({ ...current, area: event.target.value }))}
+                />
+              </label>
+              <label>
+                <span>{copy.address}</span>
+                <input
+                  value={customer.address}
+                  onChange={(event) => setCustomer((current) => ({ ...current, address: event.target.value }))}
+                />
+              </label>
+              <label className="plans-hidden-field" aria-hidden="true">
+                <span>Website</span>
+                <input
+                  tabIndex={-1}
+                  value={customer.website}
+                  onChange={(event) => setCustomer((current) => ({ ...current, website: event.target.value }))}
+                />
+              </label>
+              <label className="plans-consent">
+                <input
+                  required
+                  checked={customer.consent}
+                  type="checkbox"
+                  onChange={(event) => setCustomer((current) => ({ ...current, consent: event.target.checked }))}
+                />
+                <span>{copy.consent}</span>
+              </label>
+
+              {error ? <p className="plans-form-error">{error}</p> : null}
+              {draftUrl ? (
+                <div className="plans-form-success">
+                  <Sparkles size={20} aria-hidden="true" />
+                  <p>{copy.draftCreated}</p>
+                  <Link to={new URL(draftUrl).pathname}>
+                    {copy.seeDraft}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                </div>
+              ) : null}
+
+              <button className="btn btn-green w-full" type="submit" disabled={isSubmitting}>
+                {isSubmitting ? <Loader2 className="animate-spin" size={18} aria-hidden="true" /> : <Wrench size={18} aria-hidden="true" />}
+                {isSubmitting ? copy.creatingDraft : copy.createDraft}
+              </button>
+            </form>
+          </aside>
         </div>
-      </section>
+      </main>
     </>
   )
 }

@@ -7,7 +7,7 @@ import {
   type ProposalData,
   type ProposalLineItem,
   type ProposalPlan,
-} from './proposalCalculations'
+} from './proposalCalculations.ts'
 
 const proposalStorageKey = 'CasaMia_internal_proposals_v1'
 

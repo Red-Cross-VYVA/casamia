@@ -10,6 +10,8 @@ import proposalHandler from '../api/proposals.js'
 import publicOrderHandler from '../api/public/orders.js'
 import publicProviderHandler from '../api/public/provider-applications.js'
 import publicProposalHandler from '../api/public/proposals/[token].js'
+import publicProposalAcceptHandler from '../api/public/proposals/[token]/accept.js'
+import publicProposalDraftHandler from '../api/public/proposal-drafts.js'
 import publicCatalogueHandler from '../api/public/service-catalogue.js'
 import { createSignedStorageUploadUrl } from '../api/_lib/supabase.js'
 
@@ -112,6 +114,126 @@ function jsonResponse(body, status = 200) {
   await publicProposalHandler(request, response)
   assert.equal(response.statusCode, 200)
   assert.equal(parsedBody(response).customer_name, 'Ana Lopez')
+}
+
+{
+  globalThis.fetch = async (url, init) => {
+    assert.equal(init.method, 'GET')
+    assert.match(String(url), /service_catalogue\?id=eq\.default/)
+    return jsonResponse([{ payload_json: makePlansCataloguePayload() }])
+  }
+
+  const response = makeResponse()
+  await publicProposalDraftHandler(makeRequest('POST', {
+    consent: false,
+    customer: { email: 'ana@example.com', name: 'Ana Lopez' },
+    selection: {
+      'bath-core-package': { addOnOutcomeIds: [], quantity: 1, selected: true },
+    },
+  }, false), response)
+
+  assert.equal(response.statusCode, 400)
+  assert.match(parsedBody(response).message, /Consent is required/)
+}
+
+{
+  globalThis.fetch = async (url, init) => {
+    assert.equal(init.method, 'GET')
+    assert.match(String(url), /service_catalogue\?id=eq\.default/)
+    return jsonResponse([{ payload_json: makePlansCataloguePayload() }])
+  }
+
+  const response = makeResponse()
+  await publicProposalDraftHandler(makeRequest('POST', {
+    consent: true,
+    customer: { email: 'ana@example.com', name: 'Ana Lopez' },
+    selection: 'not-valid',
+  }, false), response)
+
+  assert.equal(response.statusCode, 400)
+  assert.match(parsedBody(response).message, /Select at least one/)
+}
+
+{
+  let submitted
+  globalThis.fetch = async (url, init) => {
+    const requestUrl = String(url)
+
+    if (requestUrl.includes('service_catalogue')) {
+      assert.equal(init.method, 'GET')
+      return jsonResponse([{ payload_json: makePlansCataloguePayload() }])
+    }
+
+    if (requestUrl.includes('proposals?id=eq')) {
+      assert.equal(init.method, 'GET')
+      return jsonResponse([])
+    }
+
+    assert.match(requestUrl, /proposals\?on_conflict=id/)
+    submitted = JSON.parse(String(init.body))
+    return jsonResponse([{ ...submitted }])
+  }
+
+  const response = makeResponse()
+  await publicProposalDraftHandler(makeRequest('POST', {
+    consent: true,
+    customer: {
+      email: 'ana@example.com',
+      name: 'Ana Lopez',
+      phone: '+34 600 000 000',
+    },
+    language: 'en',
+    selection: {
+      'bath-core-package': {
+        addOnOutcomeIds: ['bath-connected-sensor', 'bath-quote-entry'],
+        quantity: 2,
+        selected: true,
+      },
+    },
+    total_estimate: 1,
+  }, false), response)
+
+  const body = parsedBody(response)
+  assert.equal(response.statusCode, 200)
+  assert.equal(submitted.status, 'Draft')
+  assert.equal(submitted.total_estimate, 364, 'Public draft totals must be recalculated server-side.')
+  assert.equal(submitted.payload_json.total_estimate, 364)
+  assert.equal(submitted.payload_json.acceptance_status, 'Not Sent')
+  assert.equal(submitted.payload_json.plans_builder.recurring_monthly_estimate, 24)
+  assert.deepEqual(submitted.payload_json.plans_builder.review_items, ['Shower entry review'])
+  assert.match(body.publicToken, /^[A-Za-z0-9_-]{20,128}$/)
+  assert.equal(body.proposal.status, 'Draft')
+  assert.equal(body.publicUrl, `/proposal/${body.publicToken}`)
+}
+
+{
+  const token = 'draftproposalaccepttoken'
+  globalThis.fetch = async (url, init) => {
+    assert.equal(init.method, 'GET')
+    assert.match(String(url), new RegExp(`public_token=eq\\.${token}`))
+    return jsonResponse([{
+      customer_email: 'ana@example.com',
+      customer_name: 'Ana Lopez',
+      id: 'CM-DRAFT-PLAN',
+      public_token: token,
+      status: 'Draft',
+      total_estimate: 364,
+      payload_json: {
+        acceptance_status: 'Not Sent',
+        customer_email: 'ana@example.com',
+        customer_name: 'Ana Lopez',
+        id: 'CM-DRAFT-PLAN',
+        public_token: token,
+        status: 'Draft',
+      },
+    }])
+  }
+  const request = makeRequest('POST', { accepted_by: 'Ana Lopez' }, false)
+  request.query = { token }
+  const response = makeResponse()
+  await publicProposalAcceptHandler(request, response)
+  assert.equal(response.statusCode, 409)
+  assert.match(parsedBody(response).message, /pending CasaMia review/)
 }
 
 {
@@ -277,6 +399,124 @@ function jsonResponse(body, status = 200) {
     await handler(makeRequest('GET'), response)
     assert.equal(response.statusCode, 200)
     assert.deepEqual(parsedBody(response)[collection], [])
+  }
+}
+
+function makePlansCataloguePayload() {
+  return {
+    masterCatalogue: {
+      capabilities: [],
+      outcomes: [
+        makePlansOutcome({ id: 'bath-core-grip', sortOrder: 10 }),
+        makePlansOutcome({ id: 'bath-connected-sensor', sortOrder: 20 }),
+        makePlansOutcome({
+          customerName: { en: 'Shower entry review', es: 'Revision de entrada de ducha' },
+          id: 'bath-quote-entry',
+          pricingType: 'quote',
+          requiresQuote: true,
+          sortOrder: 30,
+        }),
+      ],
+      packages: [
+        makePlansPackage({
+          fixedPrice: 100,
+          id: 'bath-core-package',
+          pricingType: 'fixed',
+          section: 'home-safety-package',
+          sortOrder: 10,
+        }),
+        makePlansPackage({
+          fromPrice: 50,
+          id: 'bath-connected-package',
+          pricingType: 'range',
+          recurringMonthlyPrice: 10,
+          section: 'connected-room',
+          sortOrder: 20,
+        }),
+        makePlansPackage({
+          id: 'bath-specialist-package',
+          pricingType: 'quote',
+          requiresQuote: true,
+          section: 'optional-adaptations',
+          sortOrder: 30,
+        }),
+      ],
+      products: [],
+      relations: [
+        makePlansRelation('bath-core-package', 'bath-core-grip', 10),
+        makePlansRelation('bath-connected-package', 'bath-connected-sensor', 20),
+        makePlansRelation('bath-specialist-package', 'bath-quote-entry', 30),
+      ],
+      rooms: [
+        { active: true, id: 'bathroom', name: { en: 'Bathroom', es: 'Bano' }, slug: 'bathroom', sortOrder: 10 },
+      ],
+      sections: [],
+      tasks: [],
+      updatedAt: '2026-08-02T00:00:00.000Z',
+      version: 'test',
+    },
+    packageConfigs: [],
+  }
+}
+
+function makePlansPackage(patch) {
+  return {
+    active: true,
+    customerBenefit: { en: 'Benefit', es: 'Beneficio' },
+    customerName: { en: 'Bathroom package', es: 'Paquete de bano' },
+    fixedPrice: undefined,
+    fromPrice: undefined,
+    id: 'package',
+    internalName: 'Package',
+    pricingType: 'from',
+    proposalVisible: true,
+    recurringMonthlyPrice: undefined,
+    requiresQuote: false,
+    roomId: 'bathroom',
+    section: 'home-safety-package',
+    shortDescription: { en: 'Package description.', es: 'Descripcion del paquete.' },
+    slug: 'package',
+    sortOrder: 10,
+    vatRate: 0.21,
+    websiteVisible: true,
+    ...patch,
+  }
+}
+
+function makePlansOutcome(patch) {
+  return {
+    active: true,
+    customerBenefit: { en: 'Benefit', es: 'Beneficio' },
+    customerName: { en: 'Outcome', es: 'Resultado' },
+    fixedPrice: undefined,
+    fromPrice: undefined,
+    grantEligible: false,
+    id: 'outcome',
+    internalName: 'Outcome',
+    pricingType: 'included-in-package',
+    proposalVisible: true,
+    requiresCompatibilityCheck: false,
+    requiresMeasurement: false,
+    requiresQuote: false,
+    requiresSiteVisit: false,
+    roomId: 'bathroom',
+    shortDescription: { en: 'Outcome description.', es: 'Descripcion del resultado.' },
+    slug: 'outcome',
+    sortOrder: 10,
+    vatRate: 0.21,
+    websiteVisible: true,
+    ...patch,
+  }
+}
+
+function makePlansRelation(fromId, toId, sortOrder) {
+  return {
+    active: true,
+    fromId,
+    id: `${fromId}-${toId}`,
+    sortOrder,
+    toId,
+    type: 'packageOutcome',
   }
 }
 

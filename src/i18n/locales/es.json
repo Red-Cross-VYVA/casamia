@@ -568,6 +568,20 @@
     "workflow": {
       "kicker": "Informe gratuito de seguridad",
       "title": "Revisa la seguridad de tu hogar.",
+      "intro": {
+        "caption": "Introducci\u00f3n breve",
+        "eyebrow": "Antes de empezar",
+        "title": "Una visi\u00f3n m\u00e1s clara de la seguridad del hogar en pocos minutos.",
+        "body": "Sube fotos amplias de las estancias clave. CasaMia combina los riesgos visibles con tu contexto y prepara un informe sencillo por estancia.",
+        "time": "Suele tardar 3-5 minutos. Sin compromiso.",
+        "start": "Empezar informe",
+        "steps": [
+          "Sube fotos de estancias",
+          "A\u00f1ade contexto pr\u00e1ctico",
+          "Deja tus datos",
+          "Recibe tu informe"
+        ]
+      },
       "progress": "Progreso del informe",
       "steps": [
         "Fotos",

@@ -1022,7 +1022,7 @@ export function HowItWorksPage() {
 
           <div className="how-hero-visual">
             <SafeImage
-              src="/images/solutions/casamia-worker-process.webp"
+              src="/images/solutions/casamia-worker-process-branded.png"
               alt={copy.heroAlt}
               className="how-hero-image"
               imgClassName="h-full w-full object-cover"

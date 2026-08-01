@@ -568,6 +568,20 @@
     "workflow": {
       "kicker": "Free room safety report",
       "title": "Review your home safety.",
+      "intro": {
+        "caption": "Quick intro",
+        "eyebrow": "Before you start",
+        "title": "A clearer home-safety view in a few minutes.",
+        "body": "Upload wide photos of the key rooms. CasaMia combines visible risks with your context and prepares a simple room-by-room safety report.",
+        "time": "Usually takes 3-5 minutes. No obligation.",
+        "start": "Start report",
+        "steps": [
+          "Upload room photos",
+          "Add practical context",
+          "Share contact details",
+          "Receive your report"
+        ]
+      },
       "progress": "Report progress",
       "steps": [
         "Photos",

@@ -2,6 +2,7 @@ import {
   calculateLineTotal,
   calculateProposalTotals,
   getDefaultPaymentTerms,
+  homeSafetyPlan,
   planOptions,
   type ProposalData,
   type ProposalLineItem,
@@ -16,6 +17,13 @@ import {
   saveProposal,
 } from './proposalsStorage'
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
+import {
+  buildPlansBuilderGroups,
+  calculatePlansBuilderEstimate,
+  type PlansBuilderSelectionState,
+} from './plansBuilderPricing.ts'
+import { getServiceCatalogue } from './serviceCatalogue.ts'
+import type { EditableServiceCatalogue } from '../types/serviceCatalogue.ts'
 
 type BackendLineItem = {
   category?: string
@@ -26,6 +34,11 @@ type BackendLineItem = {
   name?: string
   priority?: string
   quantity?: number | string
+  source?: 'catalogue' | 'manual'
+  source_outcome_id?: string
+  source_package_id?: string
+  sourceOutcomeId?: string
+  sourcePackageId?: string
   total?: number | string
   unit_price?: number | string
   unitPrice?: number | string
@@ -75,6 +88,27 @@ type BackendProposal = {
 
 type BackendActionResponse = BackendProposal & {
   ok?: boolean
+}
+
+export type PublicProposalDraftPayload = {
+  companyWebsite?: string
+  consent: boolean
+  customer: {
+    address?: string
+    area?: string
+    email: string
+    name: string
+    phone?: string
+  }
+  language: 'en' | 'es'
+  selection: PlansBuilderSelectionState
+  website?: string
+}
+
+export type PublicProposalDraftResponse = {
+  proposal: ProposalData
+  publicToken: string
+  publicUrl: string
 }
 
 const apiBaseUrl = (
@@ -207,6 +241,9 @@ export function toBackendProposal(proposal: ProposalData) {
       name: item.name,
       priority: item.priority,
       quantity: item.quantity,
+      source: item.source,
+      source_outcome_id: item.sourceOutcomeId,
+      source_package_id: item.sourcePackageId,
       total: calculateLineTotal(item),
       unit_price: item.unitPrice,
     })),
@@ -246,6 +283,9 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
         name: safeText(item.name ?? item.description),
         priority: (safeText(item.priority, 'Medium') || 'Medium') as ProposalLineItem['priority'],
         quantity: safeNumber(item.quantity),
+        source: item.source,
+        sourceOutcomeId: safeText(item.source_outcome_id ?? item.sourceOutcomeId) || undefined,
+        sourcePackageId: safeText(item.source_package_id ?? item.sourcePackageId) || undefined,
         unitPrice: safeNumber(item.unit_price ?? item.unitPrice),
       }),
     ),
@@ -413,12 +453,33 @@ export async function acceptProposalWithFallback(proposal: ProposalData) {
 }
 
 export async function loadPublicProposal(token: string) {
+  if (!backendAvailable()) {
+    const proposal = loadAllProposals().find((item) => item.publicToken === token)
+    if (!proposal) throw new Error('Proposal not found.')
+    return proposal
+  }
+
   const raw = await requestJson<BackendProposal>(`/api/public/proposals/${token}`)
 
   return fromBackendProposal(raw)
 }
 
 export async function acceptPublicProposal(token: string, acceptedBy: string) {
+  if (!backendAvailable()) {
+    const proposal = loadAllProposals().find((item) => item.publicToken === token)
+    if (!proposal || proposal.status !== 'Sent' || proposal.acceptanceStatus !== 'Sent') {
+      throw new Error('This proposal is still pending CasaMia review.')
+    }
+
+    return saveProposal({
+      ...proposal,
+      acceptanceDate: new Date().toISOString().slice(0, 10),
+      acceptanceStatus: 'Accepted',
+      acceptedBy,
+      status: 'Accepted',
+    })
+  }
+
   const raw = await requestJson<BackendActionResponse>(`/api/public/proposals/${token}/accept`, {
     body: JSON.stringify({ accepted_by: acceptedBy }),
     headers: {
@@ -428,6 +489,39 @@ export async function acceptPublicProposal(token: string, acceptedBy: string) {
   })
 
   return hasProposalShape(raw) ? fromBackendProposal(raw) : null
+}
+
+export async function createPublicProposalDraft(
+  payload: PublicProposalDraftPayload,
+  fallbackCatalogue?: EditableServiceCatalogue,
+): Promise<PublicProposalDraftResponse> {
+  if (!backendAvailable()) {
+    return createLocalPublicProposalDraft(payload, fallbackCatalogue ?? getServiceCatalogue())
+  }
+
+  const raw = await requestJson<{
+    proposal?: BackendProposal
+    publicToken?: string
+    publicUrl?: string
+  }>('/api/public/proposal-drafts', {
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  })
+
+  if (!raw.proposal) {
+    throw new Error('Draft proposal response did not include a proposal.')
+  }
+
+  const proposal = fromBackendProposal(raw.proposal)
+
+  return {
+    proposal,
+    publicToken: raw.publicToken ?? proposal.publicToken ?? '',
+    publicUrl: raw.publicUrl ?? (proposal.publicToken ? `/proposal/${proposal.publicToken}` : ''),
+  }
 }
 
 export function getProposalApiStatus() {
@@ -442,4 +536,70 @@ export function getProposalApiStatus() {
   return apiBaseUrl
     ? `Connected to ${apiBaseUrl}`
     : 'Connected to the same-origin Vercel proposal API.'
+}
+
+function createLocalPublicProposalDraft(
+  payload: PublicProposalDraftPayload,
+  catalogue: EditableServiceCatalogue,
+): PublicProposalDraftResponse {
+  if (!payload.consent) {
+    throw new Error('Consent is required to create a draft proposal.')
+  }
+
+  if (!payload.customer.name.trim() || !payload.customer.email.trim()) {
+    throw new Error('Name and email are required to create a draft proposal.')
+  }
+
+  const groups = buildPlansBuilderGroups(catalogue, payload.language)
+  const estimate = calculatePlansBuilderEstimate(groups, payload.selection, payload.language)
+
+  if (!estimate.proposalLineItems.length) {
+    throw new Error('Select at least one CasaMia package.')
+  }
+
+  const publicToken = createLocalPublicToken()
+  const proposal = createEmptyProposal({
+    acceptanceStatus: 'Not Sent',
+    address: payload.customer.address ?? '',
+    area: payload.customer.area ?? '',
+    customerName: payload.customer.name,
+    email: payload.customer.email,
+    executiveSummary: payload.language === 'es'
+      ? `Borrador creado desde el constructor de Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes son estimaciones con IVA incluido y quedan pendientes de revisión.`
+      : `Draft created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Amounts are VAT-included estimates pending review.`,
+    grantEligibilityNote: payload.language === 'es'
+      ? 'CasaMia puede orientar sobre documentación para ayudas cuando corresponda. La aprobación depende siempre de la autoridad correspondiente y no está garantizada.'
+      : 'CasaMia may support documentation for applicable grants. Approval is determined solely by the relevant authority and is not guaranteed.',
+    inspectionReference: 'Public Plans builder',
+    lineItems: estimate.proposalLineItems,
+    paymentTerms: payload.language === 'es'
+      ? 'Borrador estimativo pendiente de revisión de CasaMia. No se solicita pago y no empieza ningún trabajo hasta aprobar una propuesta final.'
+      : 'Estimate draft pending CasaMia review. No payment is requested and no work starts until a final proposal is approved.',
+    phone: payload.customer.phone ?? '',
+    preparedBy: 'CasaMia',
+    publicToken,
+    safetyScore: 'Pending review',
+    selectedPlan: homeSafetyPlan,
+    status: 'Draft',
+    timelineDuration: 'To be confirmed after CasaMia review',
+    timelineNotes: payload.language === 'es'
+      ? 'CasaMia confirmará alcance, disponibilidad, calendario y precio final después de revisar la vivienda.'
+      : 'CasaMia will confirm scope, availability, timing and final pricing after reviewing the home.',
+    timelineStartDate: '',
+  })
+  const saved = saveProposal(proposal)
+
+  return {
+    proposal: saved,
+    publicToken,
+    publicUrl: `/proposal/${publicToken}`,
+  }
+}
+
+function createLocalPublicToken() {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+    return crypto.randomUUID().replace(/-/g, '')
+  }
+
+  return `${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`
 }

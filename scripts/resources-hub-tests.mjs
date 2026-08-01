@@ -275,7 +275,7 @@ assert.match(
 )
 assert.match(
   page,
-  /From reading to action[\s\S]*De la lectura a la acción[\s\S]*resource-action-route-section[\s\S]*home-safety-assessment#self-inspection-tool/,
+  /From reading to action[\s\S]*De la lectura a la acción[\s\S]*resource-action-route-section[\s\S]*home-safety-assessment\?open=self-inspection#self-inspection-tool/,
   'The Resources action route must be bilingual and guide users into the practical home safety review.',
 )
 assert.match(
@@ -320,7 +320,12 @@ assert.match(
 )
 assert.match(
   needLandingLocalization,
-  /fall-prevention-at-home[\s\S]*Prevención de caídas en casa[\s\S]*safe-bathroom-access[\s\S]*Acceso seguro al baño/,
+  /fall-prevention-at-home[\s\S]*Prevención de caídas en casa/,
+  'The fall prevention need landing page must have a Spanish localised title.',
+)
+assert.match(
+  needLandingLocalization,
+  /bathroom-safety-for-seniors[\s\S]*Seguridad en el baño/,
   'High-intent need landing pages must have Spanish localised titles.',
 )
 assert.match(
@@ -340,7 +345,7 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /catalogueEyebrow[\s\S]*turnkeySteps[\s\S]*beforeSpendingChecks[\s\S]*CatalogueServiceCard key=\{service\.id\} service=\{service\} language=\{i18n\.language\}/,
+  /catalogueEyebrow[\s\S]*turnkeySteps[\s\S]*beforeSpendingChecks[\s\S]*<CatalogueServiceCard[\s\S]*key=\{service\.id\}[\s\S]*service=\{service\}[\s\S]*language=\{i18n\.language\}/,
   'Need landing page chrome and catalogue labels must be language-aware.',
 )
 assert.match(
@@ -385,7 +390,7 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /universalFaqs[\s\S]*Can I start without knowing what to buy\?[\s\S]*Can I send photos or videos before a visit\?[\s\S]*const visibleFaqs = \[\.\.\.page\.faqs, \.\.\.copy\.universalFaqs\][\s\S]*mainEntity: visibleFaqs\.map[\s\S]*\{visibleFaqs\.map/,
+  /universalFaqs[\s\S]*Can I start without knowing what to buy\?[\s\S]*Can I send photos or videos before a visit\?[\s\S]*const visibleFaqs = isCompactNeedPage \? page\.faqs : \[\.\.\.page\.faqs, \.\.\.copy\.universalFaqs\][\s\S]*mainEntity: visibleFaqs\.map[\s\S]*\{visibleFaqs\.map/,
   'Need landing pages must enrich visible FAQs and FAQ schema with universal decision-start questions.',
 )
 assert.match(
@@ -415,7 +420,7 @@ assert.match(
 )
 assert.match(
   page,
-  /resource-family-starter-section[\s\S]*home-safety-assessment#self-inspection-tool/,
+  /resource-family-starter-section[\s\S]*home-safety-assessment\?open=self-inspection#self-inspection-tool/,
   'The family starter section must guide users into the practical home safety review.',
 )
 assert.match(
@@ -480,8 +485,8 @@ assert.match(
 )
 assert.match(
   nav,
-  /Room safety pages[\s\S]*\/safe-bathroom-access[\s\S]*\/senior-bedroom-safety[\s\S]*\/fall-prevention-at-home[\s\S]*\/grants-for-home-adaptations-spain/,
-  'The Resources menu must give direct access to high-intent room and need pages.',
+  /solutionMenuItems[\s\S]*\/bathroom-safety-for-seniors[\s\S]*\/fall-prevention-at-home[\s\S]*\/senior-bedroom-safety[\s\S]*\/grants-for-home-adaptations-spain/,
+  'The Solutions menu must give direct access to high-intent room and need pages.',
 )
 assert.match(
   nav,
@@ -555,7 +560,7 @@ assert.match(
 )
 assert.match(
   nav,
-  /localizeNeedLandingPages\(needLandingPages, i18n\.language\)[\s\S]*Seguridad en el baño[\s\S]*Empieza por la preocupación/,
+  /solutionMenuCopy[\s\S]*Rutas frecuentes[\s\S]*Qué necesitas hacer más seguro[\s\S]*solutionMenuItems[\s\S]*Baño seguro[\s\S]*Prevenir caídas/,
   'The Solutions navigation must localise high-intent need pages and group labels.',
 )
 assert.match(
@@ -625,7 +630,7 @@ assert.match(
 )
 assert.match(
   articlePage,
-  /Turn this guide into a practical plan[\s\S]*blog-next-step-card[\s\S]*home-safety-assessment#self-inspection-tool/,
+  /Turn this guide into a practical plan[\s\S]*blog-next-step-card[\s\S]*home-safety-assessment\?open=self-inspection#self-inspection-tool/,
   'Resource article pages must include a practical next-step action block.',
 )
 assert.match(

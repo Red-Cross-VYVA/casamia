@@ -33,6 +33,11 @@ export default async function handler(request, response) {
   }
 
   const proposal = mapProposalRecord(current.record)
+  if (proposal.status !== 'Sent' || proposal.acceptance_status !== 'Sent') {
+    sendJson(response, 409, { message: 'This proposal is still pending CasaMia review.' })
+    return
+  }
+
   const events = Array.isArray(proposal.events) ? proposal.events : []
   const acceptedAt = new Date().toISOString()
   const result = await updateProposalRecord(current.record, {

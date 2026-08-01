@@ -24,7 +24,6 @@ const serviceCatalogueUpdatedEvent = 'casamia-service-catalogue-updated'
 const publicServiceCataloguePath = '/api/public/service-catalogue'
 const internalServiceCataloguePath = '/api/internal/service-catalogue'
 const masterBackedPackageAreas = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance'])
-const retiredStandalonePackageAreas = new Set<ServicePackageArea>(['stairs', 'outdoor', 'lighting', 'smart-safety'])
 const legacyDefaultPackageConfigNames: Partial<Record<ServicePackageArea, string>> = {
   bathroom: 'Safer Bathroom Access',
   bedroom: 'Easier Bedroom Comfort',
@@ -48,12 +47,14 @@ export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
 
 function buildServiceCatalogueFromMaster(masterCatalogue?: MasterServiceCatalogue): EditableServiceCatalogue {
   const masterRoomIds = getMasterRoomIds(masterCatalogue)
+  const masterServices = flattenMasterCatalogueForCompatibility(masterCatalogue)
+    .map(withLegacyServicePricing)
 
   return {
     masterCatalogue,
     packageConfigs: getDefaultPackageConfigs(masterCatalogue),
     services: [
-      ...flattenMasterCatalogueForCompatibility(masterCatalogue),
+      ...masterServices,
       ...clone(casaMiaServices)
         .map((service) => removeMasterBackedPackageAreas(service, masterRoomIds))
         .filter((service): service is CasaMiaService => Boolean(service)),
@@ -349,6 +350,26 @@ function mergeServices(
   return savedServices.map(withPackageAreaDefaults)
 }
 
+function withLegacyServicePricing(service: CasaMiaService): CasaMiaService {
+  const legacyService = casaMiaServices.find((item) => item.id === service.id)
+
+  if (!legacyService) {
+    return service
+  }
+
+  const hasMasterPrice = Boolean(service.fromPrice || service.productPrice || service.installationPrice)
+  const shouldUseLegacyPricing = !hasMasterPrice && legacyService.pricingType !== 'quote_only'
+
+  return {
+    ...service,
+    fromPrice: service.fromPrice ?? legacyService.fromPrice,
+    installationPrice: service.installationPrice ?? legacyService.installationPrice,
+    pricingType: shouldUseLegacyPricing ? legacyService.pricingType : service.pricingType,
+    productPrice: service.productPrice ?? legacyService.productPrice,
+    recurringMonthlyPrice: service.recurringMonthlyPrice ?? legacyService.recurringMonthlyPrice,
+  }
+}
+
 function getMasterRoomIds(masterCatalogue?: MasterServiceCatalogue) {
   const catalogue = masterCatalogue ?? getMasterServiceCatalogue()
 
@@ -372,7 +393,7 @@ function removeMasterBackedPackageAreas(service: CasaMiaService, masterRoomIds: 
 
   const packageAreas = service.wizardAreas ?? getDefaultServicePackageAreas(service)
   const remainingAreas = packageAreas.filter(
-    (area) => !masterRoomIds.has(area) && !retiredStandalonePackageAreas.has(area),
+    (area) => !masterRoomIds.has(area),
   )
 
   if (!remainingAreas.length) {

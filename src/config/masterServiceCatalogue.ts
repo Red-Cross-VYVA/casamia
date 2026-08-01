@@ -2,6 +2,19 @@ import type { MasterServiceCatalogue } from '../types/serviceCatalogue.ts'
 
 const now = '2026-07-23T00:00:00.000Z'
 
+const defaultPackagePricing: Record<string, { fromPrice?: number; recurringMonthlyPrice?: number }> = {
+  'bathroom-home-safety-package': { fromPrice: 620 },
+  'bathroom-connected-room': { fromPrice: 240 },
+  'bedroom-home-safety-package': { fromPrice: 520 },
+  'bedroom-connected-room': { fromPrice: 260 },
+  'kitchen-home-safety-package': { fromPrice: 540 },
+  'kitchen-connected-room': { fromPrice: 280 },
+  'living-room-home-safety-package': { fromPrice: 460 },
+  'living-room-connected-room': { fromPrice: 250 },
+  'entrance-home-safety-package': { fromPrice: 520 },
+  'entrance-connected-room': { fromPrice: 290 },
+}
+
 export const masterServiceCatalogue: MasterServiceCatalogue = {
   version: '1.0.0',
   updatedAt: now,
@@ -258,7 +271,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     outcome('entrance-improved-lighting', 'entrance', 'home-safety-package', 'entrance-home-safety-package', 'Improved Entrance Lighting', 'Mejor iluminación de entrada', 'Entrance lighting', 'Improving visibility around the entrance.', 'Mejora la visibilidad alrededor de la entrada.', 'Adds motion-activated entrance lighting and porch lighting where needed.', 'Añade iluminación de entrada con sensor de movimiento e iluminación de porche cuando sea necesario.', 'essential', ['entrance', 'lighting', 'outdoor'], 520, { legacyId: 'entrance-motion-lighting', grantEligible: true, technologyEnabled: true, requiresCompatibilityCheck: true }),
     outcome('entrance-connected-door-awareness', 'entrance', 'connected-room', 'entrance-connected-room', 'Connected Door Awareness', 'Control conectado de la puerta', 'Connected entrance', 'Helping residents answer the door safely and know who is outside.', 'Ayuda a responder a la puerta con más seguridad y saber quién está fuera.', 'Includes smart video doorbell setup with two-way communication, live visitor view, motion detection, package detection where supported, mobile notifications and selected family notifications.', 'Incluye configuración de videoportero inteligente con comunicación bidireccional, vista en directo, detección de movimiento, detección de paquetes cuando esté disponible, avisos móviles y avisos familiares seleccionados.', 'recommended', ['entrance', 'smart-safety'], 530, { technologyEnabled: true, requiresCompatibilityCheck: true }),
     outcome('entrance-wider-doorway', 'entrance', 'optional-adaptations', 'entrance-optional-adaptations', 'Wider Entrance Doorway', 'Puerta de entrada más ancha', 'Optional entrance adaptation', 'A measured entrance doorway adaptation where mobility aids need more clearance.', 'Adaptación medida de la puerta de entrada cuando las ayudas de movilidad necesitan más espacio.', 'Improves access when the current entrance doorway limits safe movement.', 'Mejora el acceso cuando la puerta actual de entrada limita el movimiento seguro.', 'optional', ['entrance'], 540, { quoteOnly: true, grantEligible: true, requiresCompatibilityCheck: true }),
-    outcome('entrance-accessibility-ramp', 'entrance', 'optional-adaptations', 'entrance-optional-adaptations', 'Accessibility Ramp', 'Rampa de accesibilidad', 'Optional entrance adaptation', 'A measured ramp solution for entrances that need more than a small threshold ramp.', 'Solución medida de rampa para entradas que necesitan más que una pequeña rampa de umbral.', 'Creates a safer, easier entrance route when steps or height differences require a specialist ramp.', 'Crea una ruta de entrada más segura y fácil cuando los escalones o desniveles requieren una rampa especializada.', 'optional', ['entrance', 'outdoor'], 550, { quoteOnly: true, grantEligible: true, requiresCompatibilityCheck: true }),
+    outcome('entrance-accessibility-ramp', 'entrance', 'optional-adaptations', 'entrance-optional-adaptations', 'Accessibility Ramp', 'Rampa de accesibilidad', 'Optional entrance adaptation', 'A measured ramp solution for entrances that need more than a small threshold ramp.', 'Solución medida de rampa para entradas que necesitan más que una pequeña rampa de umbral.', 'Creates a safer, easier entrance route when steps or height differences require a specialist ramp.', 'Crea una ruta de entrada más segura y fácil cuando los escalones o desniveles requieren una rampa especializada.', 'optional', ['entrance', 'outdoor'], 550, { legacyId: 'entrance-modular-ramp', quoteOnly: true, grantEligible: true, requiresCompatibilityCheck: true }),
     outcome('entrance-seating', 'entrance', 'optional-adaptations', 'entrance-optional-adaptations', 'Entrance Seating', 'Asiento de entrada', 'Optional entrance adaptation', 'A measured seating option near the entrance for safer pauses, shoes, bags or waiting.', 'Opción medida de asiento cerca de la entrada para pausas, calzado, bolsas o esperas más seguras.', 'Adds a stable place to pause without blocking the entrance route.', 'Añade un punto estable para hacer una pausa sin bloquear la ruta de entrada.', 'optional', ['entrance'], 560, { quoteOnly: true, grantEligible: true, requiresCompatibilityCheck: true }),
   ],
   capabilities: [
@@ -555,6 +568,8 @@ function packageRecord(
     customerBenefit?: { en: string; es: string }
   } = {},
 ): MasterServiceCatalogue['packages'][number] {
+  const defaultPricing = defaultPackagePricing[id]
+
   return {
     id,
     slug: id,
@@ -567,7 +582,8 @@ function packageRecord(
     active: true,
     sortOrder,
     pricingType: quote ? 'quote' : 'from',
-    fromPrice: quote ? undefined : 0,
+    fromPrice: quote ? undefined : defaultPricing?.fromPrice,
+    recurringMonthlyPrice: defaultPricing?.recurringMonthlyPrice,
     vatRate: 0.21,
     requiresAssessment: true,
     requiresSiteVisit: quote,

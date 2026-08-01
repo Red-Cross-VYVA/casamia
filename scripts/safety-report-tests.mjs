@@ -469,6 +469,16 @@ assert.match(
   /analysisRetryButton/,
   'An existing report with unavailable photos must offer a retry action.',
 )
+assert.match(
+  uploadEstimatorSource,
+  /const \[showIntro, setShowIntro\] = useState\(true\)/,
+  'The free report modal must show a title and intro slide before the photo step.',
+)
+assert.match(
+  uploadEstimatorSource,
+  /<EstimatorIntroStep \/>[\s\S]*estimator\.workflow\.intro\.start/,
+  'The intro slide must have a clear start action before the four-step workflow.',
+)
 
 const emptyPhoto = makeAnalysis()
 assert.equal(emptyPhoto.riskScore, 0, 'A photo without visible findings must score zero.')

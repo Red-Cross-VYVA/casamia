@@ -30,7 +30,17 @@ import {
   type ProposalLineItem,
   type ProposalPlan,
 } from '../../services/proposalCalculations'
-import { getCustomerCatalogueByRoom, getMasterServiceCatalogue } from '../../services/masterServiceCatalogue'
+import {
+  buildPlansBuilderGroups,
+  buildPlansPackageDescription,
+  buildPlansProposalLineItems,
+  getPlansPackageLineName,
+  localizePlansString,
+  normalisePlansQuantity,
+  type PlansBuilderGroup,
+  type PlansBuilderPackageSelection,
+  type PlansBuilderSelectionState,
+} from '../../services/plansBuilderPricing'
 import {
   getProposalApiStatus,
   loadProposalWithFallback,
@@ -44,14 +54,9 @@ import {
   loadProposalById,
   saveProposal,
 } from '../../services/proposalsStorage'
-import { getPackageConfigForArea, getServiceCatalogue, useServiceCatalogue } from '../../services/serviceCatalogue'
+import { getServiceCatalogue, useServiceCatalogue } from '../../services/serviceCatalogue'
 import type {
   EditableServiceCatalogue,
-  MasterCatalogueOutcome,
-  MasterCataloguePackage,
-  MasterCatalogueRoom,
-  ServicePackageArea,
-  ServicePackageConfig,
 } from '../../types/serviceCatalogue'
 
 type InspectionDraft = {
@@ -79,30 +84,9 @@ type InspectionDraft = {
   }
 }
 
-type CataloguePackageSelection = {
-  addOnOutcomeIds: string[]
-  quantity: number
-  selected: boolean
-}
-
-type CatalogueSelectionState = Record<string, CataloguePackageSelection>
-
-type CatalogueAddOnPackage = {
-  outcomes: MasterCatalogueOutcome[]
-  packageRecord: MasterCataloguePackage
-}
-
-type CatalogueProposalPackageGroup = {
-  addOnPackages: CatalogueAddOnPackage[]
-  homePackage: MasterCataloguePackage
-  homeOutcomes: MasterCatalogueOutcome[]
-  packageArea: ServicePackageArea
-  packageConfig?: ServicePackageConfig
-  packageLabel: string
-  packageUnitPrice: number
-  room: MasterCatalogueRoom
-  roomLabel: string
-}
+type CataloguePackageSelection = PlansBuilderPackageSelection
+type CatalogueSelectionState = PlansBuilderSelectionState
+type CatalogueProposalPackageGroup = PlansBuilderGroup
 
 const inputClass =
   'min-h-12 w-full rounded-lg border border-border bg-white px-4 text-sm font-bold text-text-dark outline-none transition focus:border-green focus:ring-4 focus:ring-green/15'
@@ -128,14 +112,6 @@ const masterRoomToProposalCategory: Record<string, ProposalCategory> = {
   entrance: 'Entryway',
   kitchen: 'Kitchen',
   'living-room': 'Living Room',
-}
-
-const masterRoomToPackageArea: Partial<Record<string, ServicePackageArea>> = {
-  bathroom: 'bathroom',
-  bedroom: 'bedroom',
-  entrance: 'entrance',
-  kitchen: 'kitchen',
-  'living-room': 'living-room',
 }
 
 function readInspectionDraft() {
@@ -208,7 +184,7 @@ function buildInspectionCatalogueLineItems(rooms: NonNullable<InspectionDraft['r
       category: masterRoomToProposalCategory[group.room.id] ?? inspectionCategory,
       description,
       grantEligible: group.homeOutcomes.some((outcome) => outcome.grantEligible),
-      name: getPackageLineName(group.packageLabel),
+      name: getPlansPackageLineName(group.packageLabel),
       priority: room.priority === 'Immediate' || room.priority === 'High' ? room.priority : 'Medium',
       quantity: 1,
       source: 'catalogue',
@@ -219,172 +195,26 @@ function buildInspectionCatalogueLineItems(rooms: NonNullable<InspectionDraft['r
 }
 
 function buildCatalogueProposalGroups(catalogue: EditableServiceCatalogue): CatalogueProposalPackageGroup[] {
-  const masterCatalogue = catalogue.masterCatalogue ?? getMasterServiceCatalogue()
-
-  return masterCatalogue.rooms
-    .filter((room) => room.active)
-    .sort((left, right) => left.sortOrder - right.sortOrder)
-    .flatMap((room) => {
-      const packageArea = masterRoomToPackageArea[room.id]
-
-      if (!packageArea) {
-        return []
-      }
-
-      const customerCatalogue = getCustomerCatalogueByRoom(room.id, masterCatalogue)
-      const homePackageGroup = customerCatalogue.find(({ package: packageRecord }) =>
-        packageRecord.proposalVisible && packageRecord.section === 'home-safety-package',
-      )
-
-      if (!homePackageGroup) {
-        return []
-      }
-
-      const addOnPackages = customerCatalogue
-        .filter(({ package: packageRecord }) =>
-          packageRecord.proposalVisible && packageRecord.section !== 'home-safety-package',
-        )
-        .map(({ package: packageRecord, outcomes }) => ({
-          packageRecord,
-          outcomes: outcomes.filter((outcome) => outcome.proposalVisible),
-        }))
-        .filter((group) => group.outcomes.length > 0)
-
-      const packageConfig = getPackageConfigForArea(catalogue, packageArea)
-
-      return [
-        {
-          addOnPackages,
-          homePackage: homePackageGroup.package,
-          homeOutcomes: homePackageGroup.outcomes.filter((outcome) => outcome.proposalVisible),
-          packageArea,
-          packageConfig,
-          packageLabel: packageConfig?.name || getLocalizedName(homePackageGroup.package.customerName),
-          packageUnitPrice: getPackageUnitPrice(packageConfig, homePackageGroup.package),
-          room,
-          roomLabel: getLocalizedName(room.name),
-        },
-      ]
-    })
+  return buildPlansBuilderGroups(catalogue, 'en', { publicOnly: false })
 }
 
 function buildCatalogueLineItems(
   groups: CatalogueProposalPackageGroup[],
   selection: CatalogueSelectionState,
 ): ProposalLineItem[] {
-  return groups.flatMap((group) => {
-    const packageSelection = selection[group.homePackage.id]
-
-    if (!packageSelection?.selected) {
-      return []
-    }
-
-    const quantity = normaliseQuantity(packageSelection.quantity)
-    const packageLine = createLineItem({
-      category: masterRoomToProposalCategory[group.room.id] ?? 'General',
-      description: buildPackageDescription(group),
-      grantEligible: group.homeOutcomes.some((outcome) => outcome.grantEligible),
-      id: `catalogue-package-${group.homePackage.id}`,
-      name: getPackageLineName(group.packageLabel),
-      priority: 'High',
-      quantity,
-      source: 'catalogue',
-      sourcePackageId: group.homePackage.id,
-      unitPrice: group.packageUnitPrice,
-    })
-
-    const selectedAddOnIds = new Set(packageSelection.addOnOutcomeIds)
-    const addOnLines = group.addOnPackages.flatMap(({ packageRecord, outcomes }) =>
-      outcomes
-        .filter((outcome) => selectedAddOnIds.has(outcome.id))
-        .map((outcome) =>
-          createLineItem({
-            category: masterRoomToProposalCategory[outcome.roomId] ?? 'General',
-            description: buildAddOnDescription(packageRecord, outcome),
-            grantEligible: outcome.grantEligible,
-            id: `catalogue-addon-${outcome.id}`,
-            name: getLocalizedName(outcome.customerName),
-            priority: outcome.requiresQuote ? 'Medium' : 'High',
-            quantity,
-            source: 'catalogue',
-            sourceOutcomeId: outcome.id,
-            sourcePackageId: packageRecord.id,
-            unitPrice: getOutcomeUnitPrice(outcome),
-          }),
-        ),
-    )
-
-    return [packageLine, ...addOnLines]
-  })
+  return buildPlansProposalLineItems(groups, selection, { language: 'en' })
 }
 
 function buildPackageDescription(group: CatalogueProposalPackageGroup) {
-  const included = group.homeOutcomes.map((outcome) => getLocalizedName(outcome.customerName)).filter(Boolean)
-  const parts = [
-    getLocalizedName(group.homePackage.shortDescription),
-    included.length ? `Core package includes: ${formatReadableList(included)}.` : '',
-    group.packageUnitPrice <= 0 ? 'Package price to be confirmed before customer approval.' : '',
-  ]
-
-  return parts.filter(Boolean).join(' ')
-}
-
-function buildAddOnDescription(packageRecord: MasterCataloguePackage, outcome: MasterCatalogueOutcome) {
-  const parts = [
-    `${getLocalizedName(packageRecord.customerName)} add-on.`,
-    getLocalizedName(outcome.shortDescription),
-    outcome.requiresQuote || getOutcomeUnitPrice(outcome) <= 0 ? 'Price confirmed after assessment or compatibility review.' : '',
-  ]
-
-  return parts.filter(Boolean).join(' ')
-}
-
-function getPackageLineName(label: string) {
-  return /package/i.test(label) ? label : `${label} package`
+  return buildPlansPackageDescription(group, 'en')
 }
 
 function getLocalizedName(value: Partial<Record<'en' | 'es', string>>) {
-  return value.en ?? value.es ?? ''
-}
-
-function getPackageUnitPrice(config: ServicePackageConfig | undefined, packageRecord: MasterCataloguePackage) {
-  if (config?.pricingType === 'fixed') {
-    return safeProposalPrice(config.packagePrice ?? packageRecord.fixedPrice)
-  }
-
-  if (config?.pricingType === 'from') {
-    return safeProposalPrice(config.fromPrice ?? packageRecord.fromPrice)
-  }
-
-  if (packageRecord.pricingType === 'fixed') {
-    return safeProposalPrice(packageRecord.fixedPrice)
-  }
-
-  if (packageRecord.pricingType === 'from') {
-    return safeProposalPrice(packageRecord.fromPrice)
-  }
-
-  return 0
-}
-
-function getOutcomeUnitPrice(outcome: MasterCatalogueOutcome) {
-  if (outcome.pricingType === 'fixed') {
-    return safeProposalPrice(outcome.fixedPrice)
-  }
-
-  if (outcome.pricingType === 'from' || outcome.pricingType === 'range') {
-    return safeProposalPrice(outcome.fromPrice)
-  }
-
-  return 0
-}
-
-function safeProposalPrice(value: number | undefined) {
-  return Number.isFinite(value) ? Number(value) : 0
+  return localizePlansString(value, 'en')
 }
 
 function normaliseQuantity(value: number) {
-  return Math.max(1, Math.floor(Number.isFinite(value) ? value : 1))
+  return normalisePlansQuantity(value)
 }
 
 function formatReadableList(items: string[]) {

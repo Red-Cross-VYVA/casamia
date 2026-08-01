@@ -130,7 +130,10 @@ export function calculateProposalTotals(proposal: ProposalData): ProposalTotals 
     (sum, item) => sum + (item.grantEligible ? calculateLineTotal(item) : 0),
     0,
   )
-  const depositDue = proposal.selectedPlan === assessmentPlan ? subtotal : subtotal * 0.5
+  const canRequestPayment = proposal.status !== 'Draft' && proposal.acceptanceStatus !== 'Not Sent'
+  const depositDue = canRequestPayment
+    ? proposal.selectedPlan === assessmentPlan ? subtotal : subtotal * 0.5
+    : 0
 
   return {
     balanceDue: Math.max(subtotal - depositDue, 0),
