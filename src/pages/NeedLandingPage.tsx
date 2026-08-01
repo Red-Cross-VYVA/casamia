@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
+import { ZoneServiceGallery } from '../components/ZoneServiceGallery'
 import { blogArticles, type BlogArticle } from '../constants/blogContent'
 import { localizeBlogArticles } from '../constants/blogContentLocalization'
 import { allNeedLandingPages, getNeedLandingPage } from '../constants/needLandingPages'
@@ -384,9 +385,10 @@ export function NeedLandingPage() {
     () => getNeedCatalogueServices(page.slug, catalogue.services),
     [catalogue.services, page.slug],
   )
-  const bathroomGalleryServices = useMemo(
-    () => isCompactNeedPage ? getNeedCatalogueServices(page.slug, catalogue.services, 'all') : [],
-    [catalogue.services, isCompactNeedPage, page.slug],
+  const zoneGalleryRoom = needZoneGalleryRooms[page.slug]
+  const zoneGalleryServices = useMemo(
+    () => zoneGalleryRoom ? getNeedCatalogueServices(page.slug, catalogue.services, 'all') : [],
+    [catalogue.services, page.slug, zoneGalleryRoom],
   )
   const localizedArticles = useMemo(() => localizeBlogArticles(blogArticles, i18n.language), [i18n.language])
   const recommendedResources = useMemo(
@@ -411,19 +413,6 @@ export function NeedLandingPage() {
   const catalogueCta = isCompactNeedPage
     ? isSpanish ? 'Ver opciones' : 'See options'
     : copy.catalogueCta
-  const bathroomGalleryCopy = isSpanish
-    ? {
-        eyebrow: 'Galería del catálogo',
-        title: 'Elementos de baño disponibles.',
-        body:
-          'Una vista visual de los productos y adaptaciones que CasaMia puede combinar según el baño, la rutina y el nivel de apoyo necesario.',
-      }
-    : {
-        eyebrow: 'Catalogue gallery',
-        title: 'Bathroom items available.',
-        body:
-          'A visual view of the products and adaptations CasaMia can combine around the bathroom, routine and level of support needed.',
-      }
   const riskMapLabels = page.riskSection
     ? [...(page.riskSection.mapLabels ?? page.riskSection.risks), ...(page.riskSection.legend ?? [])]
     : []
@@ -715,24 +704,14 @@ export function NeedLandingPage() {
                 ))}
               </div>
             </div>
-            {bathroomGalleryServices.length > 0 ? (
-              <div className="site-shell need-bathroom-gallery">
-                <div className="need-bathroom-gallery-header">
-                  <div>
-                    <p className="eyebrow">{bathroomGalleryCopy.eyebrow}</p>
-                    <h2>{bathroomGalleryCopy.title}</h2>
-                  </div>
-                  <p>{bathroomGalleryCopy.body}</p>
-                </div>
-                <div className="need-bathroom-gallery-grid">
-                  {bathroomGalleryServices.map((service) => (
-                    <BathroomGalleryCard
-                      key={service.id}
-                      language={i18n.language}
-                      service={service}
-                    />
-                  ))}
-                </div>
+            {zoneGalleryRoom && zoneGalleryServices.length > 0 ? (
+              <div className="site-shell">
+                <ZoneServiceGallery
+                  className="need-zone-gallery"
+                  language={i18n.language}
+                  room={zoneGalleryRoom}
+                  services={zoneGalleryServices}
+                />
               </div>
             ) : null}
           </section>
@@ -892,6 +871,11 @@ const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
   'smart-home-safety-vs-monitoring': ['smart-safety', 'lighting', 'bedroom'],
 }
 
+const needZoneGalleryRooms: Partial<Record<string, 'bathroom' | 'bedroom'>> = {
+  'bathroom-safety-for-seniors': 'bathroom',
+  'senior-bedroom-safety': 'bedroom',
+}
+
 type NeedResourceReference =
   | { kind: 'article'; id: string }
   | { kind: 'tool'; to: string; title: { en: string; es: string }; description: { en: string; es: string } }
@@ -977,40 +961,6 @@ const sectionLabels: Record<ServiceCatalogueSection, { en: string; es: string }>
   optional_adaptations: { en: 'Optional adaptation', es: 'Adaptación opcional' },
 }
 
-const bathroomGalleryProductImage = (name: string) => `/images/service-card-products/${name}.webp`
-
-const bathroomGalleryImages: Record<string, string> = {
-  'bathroom-grab-bars': bathroomGalleryProductImage('vertical-rail'),
-  'bathroom-shower-chair': bathroomGalleryProductImage('shower-seat'),
-  'bathroom-raised-toilet': bathroomGalleryProductImage('toilet-rails'),
-  'bathroom-anti-slip': bathroomGalleryProductImage('floor-grip'),
-  'bathroom-nightlight': bathroomGalleryProductImage('motion-light'),
-  'bathroom-safer-bathing': bathroomGalleryProductImage('shower-seat'),
-  'bathroom-folding-shower-seat': bathroomGalleryProductImage('shower-seat'),
-  'bathroom-safer-toilet-transfers': bathroomGalleryProductImage('toilet-rails'),
-  'bathroom-raised-toilet-seat': bathroomGalleryProductImage('toilet-rails'),
-  'bathroom-toilet-support-rails': bathroomGalleryProductImage('toilet-rails'),
-  'bathroom-comfort-height-toilet': bathroomGalleryProductImage('toilet-rails'),
-  'bathroom-slip-prevention': bathroomGalleryProductImage('floor-grip'),
-  'bathroom-anti-slip-floor-treatment': bathroomGalleryProductImage('floor-grip'),
-  'bathroom-anti-slip-bath-mat': bathroomGalleryProductImage('floor-grip'),
-  'bathroom-improved-visibility': bathroomGalleryProductImage('motion-light'),
-  'bathroom-motion-lighting': bathroomGalleryProductImage('motion-light'),
-  'bathroom-connected-guidance': bathroomGalleryProductImage('motion-light'),
-  'bathroom-easier-tap-control': bathroomGalleryProductImage('lever-tap'),
-  'bathroom-lever-mixer-tap': bathroomGalleryProductImage('lever-tap'),
-  'bathroom-temperature-safety': bathroomGalleryProductImage('thermostatic-valve'),
-  'bathroom-thermostatic-valve': bathroomGalleryProductImage('thermostatic-valve'),
-  'bathroom-safer-access': bathroomGalleryProductImage('threshold-reduction'),
-  'bathroom-threshold-removal': bathroomGalleryProductImage('threshold-reduction'),
-  'bathroom-safety-monitoring': bathroomGalleryProductImage('water-monitoring'),
-  'bathroom-bathtub-step-through': bathroomGalleryProductImage('tub-cutout'),
-  'bathroom-tub-cutout': bathroomGalleryProductImage('tub-cutout'),
-  'bathroom-wider-doorway': bathroomGalleryProductImage('wide-doorway'),
-  'bathroom-vertical-support': bathroomGalleryProductImage('vertical-rail'),
-  'bathroom-vertical-support-rail': bathroomGalleryProductImage('vertical-rail'),
-}
-
 function getNeedCatalogueServices(
   slug: string,
   services: CasaMiaService[],
@@ -1078,46 +1028,6 @@ function getNeedRecommendedResources(
     })
     .filter((item): item is NeedRecommendedResource => Boolean(item))
     .slice(0, 3)
-}
-
-function BathroomGalleryCard({
-  service,
-  language,
-}: {
-  service: CasaMiaService
-  language: string
-}) {
-  const section = service.section ?? 'home_safety_package'
-  const languageKey = language.toLowerCase().startsWith('es') ? 'es' : 'en'
-  const title = service.customerName ?? service.name
-  const description = service.customerDescription || service.customerBenefit || service.shortDescription
-  const image = getBathroomGalleryImage(service)
-
-  return (
-    <article className="need-bathroom-gallery-card">
-      <SafeImage
-        alt={title}
-        className="need-bathroom-gallery-media"
-        fallbackLabel={title}
-        imgClassName="need-bathroom-gallery-image"
-        loading="lazy"
-        src={image}
-      />
-      <div>
-        <span>{sectionLabels[section][languageKey]}</span>
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
-    </article>
-  )
-}
-
-function getBathroomGalleryImage(service: CasaMiaService) {
-  return (
-    bathroomGalleryImages[service.id] ??
-    bathroomGalleryImages[service.slug] ??
-    '/images/service-gallery/04-bathroom-and-kitchen-adaptations.jpg'
-  )
 }
 
 function CatalogueServiceCard({

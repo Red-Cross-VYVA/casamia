@@ -1,21 +1,10 @@
 import {
   ArrowLeft,
   ArrowRight,
-  Bath,
-  BedDouble,
   CheckCircle2,
   ClipboardCheck,
-  DoorOpen,
-  Droplets,
-  Footprints,
   Home,
-  Lightbulb,
-  PackageCheck,
-  PlugZap,
   ShieldCheck,
-  Smartphone,
-  Utensils,
-  type LucideIcon,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
@@ -24,13 +13,10 @@ import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { ServiceChecklist } from '../components/ServiceChecklist'
 import { ServiceIcon } from '../components/ServiceIcon'
+import { isZoneGalleryRoom, ZoneServiceGallery } from '../components/ZoneServiceGallery'
 import { serviceVisuals } from '../constants/serviceVisuals'
 import { primaryServices } from '../constants/siteContent'
-import { formatCurrency } from '../services/serviceCatalogue'
-import {
-  formatServicePriceForLanguage,
-  useLocalizedServicesByRoom,
-} from '../services/serviceCatalogueLocalization'
+import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceRoom } from '../types/serviceCatalogue'
 
 const detailSteps = [
@@ -81,7 +67,6 @@ const serviceDetailUiCopy = {
     includedWith: 'Included with',
     kitchenEyebrow: 'Kitchen independence',
     kitchenStatsLabel: 'Kitchen safety services summary',
-    entryItem: 'entry item',
     safetyServices: 'safety services',
     managedInstalls: 'managed installs',
     checkedBeforeInstall: 'checked before install',
@@ -107,7 +92,6 @@ const serviceDetailUiCopy = {
     includedWith: 'Incluido con',
     kitchenEyebrow: 'Autonomía en la cocina',
     kitchenStatsLabel: 'Resumen de servicios de seguridad en cocina',
-    entryItem: 'opción inicial',
     safetyServices: 'servicios de seguridad',
     managedInstalls: 'instalaciones gestionadas',
     checkedBeforeInstall: 'revisados antes de instalar',
@@ -123,43 +107,6 @@ const serviceDetailUiCopy = {
     startsAt: 'Seguridad del hogar senior en España',
   },
 } as const
-
-type KitchenVisual =
-  | 'mat'
-  | 'light'
-  | 'voice'
-  | 'plug'
-  | 'leak'
-  | 'gas'
-  | 'shelf'
-  | 'stove'
-  | 'faucet'
-  | 'handover'
-
-const kitchenServicePresentation: Record<string, { icon: LucideIcon; visual: KitchenVisual }> = {
-  'kitchen-prep-mats': { icon: ShieldCheck, visual: 'mat' },
-  'kitchen-easy-grip-tools': { icon: Utensils, visual: 'voice' },
-  'kitchen-lightweight-cookware': { icon: Utensils, visual: 'handover' },
-  'kitchen-anti-fatigue-mat': { icon: ShieldCheck, visual: 'mat' },
-  'kitchen-worktop-lighting': { icon: Lightbulb, visual: 'light' },
-  'kitchen-voice-lighting-timers': { icon: Lightbulb, visual: 'light' },
-  'kitchen-smart-plugs': { icon: PlugZap, visual: 'plug' },
-  'kitchen-water-leak-sensor': { icon: Droplets, visual: 'leak' },
-  'kitchen-gas-co-sensor': { icon: PlugZap, visual: 'gas' },
-  'kitchen-pull-down-shelf': { icon: PackageCheck, visual: 'shelf' },
-  'kitchen-stove-shutoff': { icon: ShieldCheck, visual: 'stove' },
-  'kitchen-touchless-faucet': { icon: Droplets, visual: 'faucet' },
-}
-
-const roomServicePresentation: Record<ServiceRoom, { icon: LucideIcon; visual: KitchenVisual }> = {
-  bathroom: { icon: Bath, visual: 'faucet' },
-  bedroom: { icon: BedDouble, visual: 'light' },
-  connected: { icon: Smartphone, visual: 'plug' },
-  entrance: { icon: DoorOpen, visual: 'mat' },
-  kitchen: { icon: Utensils, visual: 'handover' },
-  'living-room': { icon: Home, visual: 'light' },
-  movement: { icon: Footprints, visual: 'mat' },
-}
 
 const serviceRoomMap: Record<string, ServiceRoom> = {
   'bathroom-safety': 'bathroom',
@@ -767,56 +714,10 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   },
 }
 
-function getServicePresentation(service: CasaMiaService) {
-  return kitchenServicePresentation[service.id] ?? roomServicePresentation[service.room] ?? { icon: PackageCheck, visual: 'handover' as const }
-}
-
-function getServiceStatusLabel(service: CasaMiaService, language: string) {
-  const copy = language.toLowerCase().startsWith('es') ? serviceDetailUiCopy.es : serviceDetailUiCopy.en
-
-  if (service.pricingType === 'quote_only') {
-    return copy.quote
-  }
-
-  if (service.requiresMeasurement || service.requiresSiteVisit || service.requiresCompatibilityCheck) {
-    return copy.checkFirst
-  }
-
-  if (service.requiresInstallation) {
-    return copy.installed
-  }
-
-  return copy.product
-}
-
 function getConfigurePath(serviceId: string) {
   void serviceId
 
   return '/home-safety-wizard'
-}
-
-function getLowestServicePrice(services: CasaMiaService[]) {
-  return services.reduce<number | undefined>((lowest, service) => {
-    const amount = getServicePriceAmount(service)
-
-    if (!amount) {
-      return lowest
-    }
-
-    return lowest === undefined ? amount : Math.min(lowest, amount)
-  }, undefined)
-}
-
-function getServicePriceAmount(service: CasaMiaService) {
-  if (service.pricingType === 'quote_only') {
-    return undefined
-  }
-
-  if (service.pricingType === 'from') {
-    return service.fromPrice
-  }
-
-  return (service.productPrice ?? 0) + (service.installationPrice ?? 0)
 }
 
 function groupServicesByCategory(services: CasaMiaService[]) {
@@ -838,42 +739,30 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
 
   return (
     <div className="service-kitchen-component-grid is-itemised">
-      {services.map((item) => {
-        const presentation = getServicePresentation(item)
-        const Icon = presentation.icon
-
-        return (
-          <article key={item.id}>
-            <div className={`service-kitchen-component-visual is-${presentation.visual}`} aria-hidden="true">
-              <span className="service-kitchen-visual-main" />
-              <span className="service-kitchen-visual-dot" />
-              <span className="service-kitchen-visual-line" />
+      {services.map((item) => (
+        <article key={item.id}>
+          <div className="service-kitchen-component-copy">
+            <div className="service-kitchen-component-topline">
+              <span>{item.category}</span>
             </div>
-            <div className="service-kitchen-component-copy">
-              <div className="service-kitchen-component-topline">
-                <span>{getServiceStatusLabel(item, language)}</span>
-                <Icon size={21} aria-hidden="true" />
-              </div>
-              <h3>{item.name}</h3>
-              <p>{item.shortDescription}</p>
-            </div>
-            <div className="service-kitchen-component-details">
-              <p className="service-kitchen-component-benefit">
-                <CheckCircle2 size={17} aria-hidden="true" />
-                {item.customerBenefit}
-              </p>
-              {item.includedItems && item.includedItems.length > 0 ? (
-                <ul className="service-kitchen-component-inclusions" aria-label={`${copy.includedWith} ${item.name}`}>
-                  {item.includedItems.slice(0, 3).map((includedItem) => (
-                    <li key={includedItem}>{includedItem}</li>
-                  ))}
-                </ul>
-              ) : null}
-              <strong>{formatServicePriceForLanguage(item, language)}</strong>
-            </div>
-          </article>
-        )
-      })}
+            <h3>{item.name}</h3>
+            <p>{item.shortDescription}</p>
+          </div>
+          <div className="service-kitchen-component-details">
+            <p className="service-kitchen-component-benefit">
+              <CheckCircle2 size={17} aria-hidden="true" />
+              {item.customerBenefit}
+            </p>
+            {item.includedItems && item.includedItems.length > 0 ? (
+              <ul className="service-kitchen-component-inclusions" aria-label={`${copy.includedWith} ${item.name}`}>
+                {item.includedItems.slice(0, 3).map((includedItem) => (
+                  <li key={includedItem}>{includedItem}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        </article>
+      ))}
     </div>
   )
 }
@@ -906,7 +795,15 @@ function RoomServiceItemsSection({
           <p>{copy.intro}</p>
         </div>
 
-        <ServiceItemGrid language={language} services={services} />
+        {isZoneGalleryRoom(room) ? (
+          <ZoneServiceGallery
+            language={language}
+            room={room}
+            services={services}
+          />
+        ) : (
+          <ServiceItemGrid language={language} services={services} />
+        )}
 
         <div className="service-detail-actions service-detail-inline-actions">
           <Link className="btn btn-navy" to={configurePath}>
@@ -934,7 +831,6 @@ function KitchenSafetyShowcase({
   const siteCheckCount = kitchenServices.filter(
     (service) => service.requiresMeasurement || service.requiresSiteVisit || service.requiresCompatibilityCheck,
   ).length
-  const lowestPrice = getLowestServicePrice(kitchenServices)
   const groupedServices = groupServicesByCategory(kitchenServices)
 
   return (
@@ -947,10 +843,6 @@ function KitchenSafetyShowcase({
               <h2>{detail.benefitsTitle}</h2>
               <p>{detail.benefitsIntro}</p>
               <div className="service-kitchen-stats" aria-label={uiCopy.kitchenStatsLabel}>
-                <article>
-                  <strong>{lowestPrice ? formatCurrency(lowestPrice) : uiCopy.quote}</strong>
-                  <span>{uiCopy.entryItem}</span>
-                </article>
                 <article>
                   <strong>{kitchenServices.length}</strong>
                   <span>{uiCopy.safetyServices}</span>
@@ -995,7 +887,11 @@ function KitchenSafetyShowcase({
             <p>{uiCopy.improvedBody}</p>
           </div>
 
-          <ServiceItemGrid language={language} services={kitchenServices} />
+          <ZoneServiceGallery
+            language={language}
+            room="kitchen"
+            services={kitchenServices}
+          />
         </div>
       </section>
 

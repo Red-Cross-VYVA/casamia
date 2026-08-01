@@ -40,7 +40,7 @@
 .need-landing-resources h2,
 .need-landing-next-actions h2,
 .need-landing-catalogue h2,
-.need-bathroom-gallery h2,
+.zone-service-gallery h2,
 .need-landing-detail h2,
 .need-landing-final-card h2 {
   font-family: var(--font-display);
@@ -940,93 +940,10 @@
   line-height: 1.48;
 }
 
-.need-bathroom-gallery {
+.need-zone-gallery {
   margin-top: clamp(2.1rem, 5vw, 3.4rem);
   border-top: 1px solid #d5e8f4;
   padding-top: clamp(1.6rem, 4vw, 2.4rem);
-}
-
-.need-bathroom-gallery-header {
-  display: grid;
-  align-items: end;
-  gap: 0.9rem;
-}
-
-.need-bathroom-gallery-header h2 {
-  max-width: 14ch;
-  margin: 0.55rem 0 0;
-  font-size: clamp(2rem, 3.8vw, 3.2rem);
-  line-height: 1.02;
-}
-
-.need-bathroom-gallery-header > p {
-  max-width: 38rem;
-  margin: 0;
-  color: #3a526a;
-  font-size: 1rem;
-  line-height: 1.55;
-}
-
-.need-bathroom-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
-  gap: 0.9rem;
-  margin-top: 1.2rem;
-}
-
-.need-bathroom-gallery-card {
-  display: grid;
-  overflow: hidden;
-  border: 1px solid #c9dfeb;
-  border-radius: 0.5rem;
-  background: #ffffff;
-  box-shadow: 0 0.8rem 1.8rem rgb(10 42 68 / 7%);
-}
-
-.need-bathroom-gallery-media {
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: #eaf6fc;
-}
-
-.need-bathroom-gallery-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.need-bathroom-gallery-card > div {
-  padding: 0.9rem;
-}
-
-.need-bathroom-gallery-card span {
-  display: inline-flex;
-  width: fit-content;
-  border-radius: 999px;
-  background: #eaf6fc;
-  padding: 0.33rem 0.58rem;
-  color: var(--color-blue);
-  font-size: 0.68rem;
-  font-weight: 950;
-  letter-spacing: 0;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.need-bathroom-gallery-card h3 {
-  margin: 0.65rem 0 0;
-  color: var(--color-ink);
-  font-size: 1.05rem;
-  font-weight: 950;
-  line-height: 1.1;
-}
-
-.need-bathroom-gallery-card p {
-  margin: 0.5rem 0 0;
-  color: #4d657b;
-  font-size: 0.9rem;
-  line-height: 1.42;
 }
 
 .need-landing-process {
@@ -1338,7 +1255,7 @@
     align-items: center;
   }
 
-  .need-bathroom-gallery-header {
+  .zone-service-gallery-header {
     grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 1fr);
   }
 }
@@ -1440,18 +1357,6 @@
 
   .need-catalogue-card {
     display: grid;
-  }
-
-  .need-bathroom-gallery-header h2 {
-    font-size: 2rem;
-  }
-
-  .need-bathroom-gallery-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .need-bathroom-gallery-media {
-    aspect-ratio: 16 / 10;
   }
 
 }
