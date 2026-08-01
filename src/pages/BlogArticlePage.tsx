@@ -59,7 +59,7 @@ const articleShellCopy = {
 } as const
 
 const articleTopicSlugs: Record<string, string[]> = {
-  'bathroom-safety-seniors-costly-mistakes': ['bathroom-safety-for-seniors', 'safe-bathroom-access'],
+  'bathroom-safety-seniors-costly-mistakes': ['bathroom-safety-for-seniors'],
   'bedroom-night-safety-older-adults': ['senior-bedroom-safety', 'fall-prevention-at-home'],
   'choose-home-safety-provider-spain': ['aging-in-place-home-assessment', 'home-adaptations-for-elderly'],
   'dementia-friendly-home-safety': ['aging-in-place-home-assessment', 'connected-home-for-seniors'],

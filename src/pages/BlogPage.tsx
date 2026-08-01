@@ -400,7 +400,7 @@ const resourceJourneys = [
       en: ['Pick the room', 'Read the focused guide', 'Compare practical options'],
       es: ['Elige la estancia', 'Lee la guía específica', 'Compara opciones prácticas'],
     },
-    to: '/safe-bathroom-access',
+    to: '/bathroom-safety-for-seniors',
     cta: { en: 'See a room guide', es: 'Ver guía por estancia' },
     download: false,
   },

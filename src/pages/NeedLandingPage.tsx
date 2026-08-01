@@ -40,6 +40,7 @@ export function NeedLandingPage() {
 
   const isSpanish = i18n.language.startsWith('es')
   const page = localizeNeedLandingPage(basePage, i18n.language)
+  const isCompactNeedPage = page.slug === 'bathroom-safety-for-seniors'
   const siblingPages = localizeNeedLandingPages(allNeedLandingPages, i18n.language)
     .filter((item) => item.slug !== page.slug)
     .slice(0, 4)
@@ -252,7 +253,7 @@ export function NeedLandingPage() {
     startPlan: isSpanish ? 'Empezar mi plan' : 'Start my plan',
     bookAssessment: isSpanish ? 'Reservar evaluación' : 'Book an assessment',
   }
-  const visibleFaqs = [...page.faqs, ...copy.universalFaqs]
+  const visibleFaqs = isCompactNeedPage ? page.faqs : [...page.faqs, ...copy.universalFaqs]
 
   const schema = [
     {
@@ -308,67 +309,79 @@ export function NeedLandingPage() {
         },
       })),
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'HowTo',
-      name: copy.turnkeyTitle,
-      description: copy.turnkeyBody,
-      step: copy.turnkeySteps.map((step, index) => ({
-        '@type': 'HowToStep',
-        position: index + 1,
-        name: step,
-      })),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'HowTo',
-      '@id': `https://casamia.com.es${page.path}#decision-route`,
-      name: copy.decisionTitle,
-      description: copy.decisionBody,
-      step: copy.decisionCards.map((card, index) => ({
-        '@type': 'HowToStep',
-        position: index + 1,
-        name: card.title,
-        text: card.body,
-      })),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'HowTo',
-      '@id': `https://casamia.com.es${page.path}#what-to-share`,
-      name: copy.evidenceTitle,
-      description: copy.evidenceBody,
-      step: copy.evidenceItems.map((item, index) => ({
-        '@type': 'HowToStep',
-        position: index + 1,
-        name: item.title,
-        text: item.body,
-      })),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      '@id': `https://casamia.com.es${page.path}#useful-pages`,
-      name: copy.usefulPages,
-      itemListElement: page.relatedServices.map((link, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: link.label,
-        url: `https://casamia.com.es${link.to}`,
-      })),
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      '@id': `https://casamia.com.es${page.path}#popular-needs`,
-      name: copy.popularNeeds,
-      itemListElement: siblingPages.map((item, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: item.title,
-        url: `https://casamia.com.es${item.path}`,
-      })),
-    },
+    ...(!isCompactNeedPage
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'HowTo',
+            name: copy.turnkeyTitle,
+            description: copy.turnkeyBody,
+            step: copy.turnkeySteps.map((step, index) => ({
+              '@type': 'HowToStep',
+              position: index + 1,
+              name: step,
+            })),
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'HowTo',
+            '@id': `https://casamia.com.es${page.path}#decision-route`,
+            name: copy.decisionTitle,
+            description: copy.decisionBody,
+            step: copy.decisionCards.map((card, index) => ({
+              '@type': 'HowToStep',
+              position: index + 1,
+              name: card.title,
+              text: card.body,
+            })),
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'HowTo',
+            '@id': `https://casamia.com.es${page.path}#what-to-share`,
+            name: copy.evidenceTitle,
+            description: copy.evidenceBody,
+            step: copy.evidenceItems.map((item, index) => ({
+              '@type': 'HowToStep',
+              position: index + 1,
+              name: item.title,
+              text: item.body,
+            })),
+          },
+        ]
+      : []),
+    ...(!isCompactNeedPage
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            '@id': `https://casamia.com.es${page.path}#useful-pages`,
+            name: copy.usefulPages,
+            itemListElement: page.relatedServices.map((link, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: link.label,
+              url: `https://casamia.com.es${link.to}`,
+            })),
+          },
+        ]
+      : []),
+    ...(!isCompactNeedPage
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            '@id': `https://casamia.com.es${page.path}#popular-needs`,
+            name: copy.popularNeeds,
+            itemListElement: siblingPages.map((item, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: item.title,
+              url: `https://casamia.com.es${item.path}`,
+            })),
+          },
+        ]
+      : []),
   ]
 
   const catalogueServices = useMemo(
@@ -377,9 +390,21 @@ export function NeedLandingPage() {
   )
   const localizedArticles = useMemo(() => localizeBlogArticles(blogArticles, i18n.language), [i18n.language])
   const recommendedResources = useMemo(
-    () => getNeedRecommendedResources(page.slug, localizedArticles, i18n.language),
-    [localizedArticles, i18n.language, page.slug],
+    () => isCompactNeedPage ? [] : getNeedRecommendedResources(page.slug, localizedArticles, i18n.language),
+    [isCompactNeedPage, localizedArticles, i18n.language, page.slug],
   )
+  const visibleCatalogueServices = isCompactNeedPage ? catalogueServices.slice(0, 4) : catalogueServices
+  const heroQuickCard = isCompactNeedPage
+    ? {
+        title: isSpanish ? 'Ruta clara' : 'Clear route',
+        body: isSpanish
+          ? 'Apoyos, acceso, suelo, luz y entrega coordinada.'
+          : 'Support points, access, floor grip, lighting and coordinated handover.',
+      }
+    : { title: copy.quickCardTitle, body: copy.quickCardBody }
+  const secondaryCtaLabel = isCompactNeedPage
+    ? isSpanish ? 'Ver solución de baño' : 'See bathroom service'
+    : copy.secondaryCta
   const nextActions = [
     {
       icon: <ClipboardCheck size={22} aria-hidden="true" />,
@@ -417,7 +442,7 @@ export function NeedLandingPage() {
         schema={schema}
       />
 
-      <main className="need-landing">
+      <main className={`need-landing${isCompactNeedPage ? ' need-landing--compact' : ''}`}>
         <section className="need-landing-hero">
           <div className="site-shell need-landing-hero-grid">
             <div className="need-landing-copy">
@@ -430,7 +455,7 @@ export function NeedLandingPage() {
                   <ArrowRight size={18} aria-hidden="true" />
                 </Link>
                 <Link className="btn btn-white" to={page.servicePath}>
-                  {copy.secondaryCta}
+                  {secondaryCtaLabel}
                 </Link>
               </div>
             </div>
@@ -445,8 +470,8 @@ export function NeedLandingPage() {
               />
               <div className="need-landing-quick-card">
                 <span><ShieldCheck size={20} aria-hidden="true" /></span>
-                <strong>{copy.quickCardTitle}</strong>
-                <p>{copy.quickCardBody}</p>
+                <strong>{heroQuickCard.title}</strong>
+                <p>{heroQuickCard.body}</p>
               </div>
             </aside>
           </div>
@@ -472,80 +497,84 @@ export function NeedLandingPage() {
           </div>
         </section>
 
-        <section className="need-landing-practical">
-          <div className="site-shell need-landing-practical-grid">
-            <div className="need-landing-practical-copy">
-              <p className="eyebrow">{copy.practicalEyebrow}</p>
-              <h2>{copy.practicalTitle}</h2>
-              <p>{copy.practicalBody}</p>
-            </div>
-            <div className="need-landing-mini-grid">
-              <MiniCard
-                icon={<Camera size={21} aria-hidden="true" />}
-                title={copy.showSpace}
-                body={copy.showSpaceBody}
-              />
-              <MiniCard
-                icon={<MessageCircle size={21} aria-hidden="true" />}
-                title={copy.tellRoutine}
-                body={copy.tellRoutineBody}
-              />
-              <MiniCard
-                icon={<Wrench size={21} aria-hidden="true" />}
-                title={copy.planTitle}
-                body={copy.planBody}
-              />
-            </div>
-          </div>
-        </section>
+        {!isCompactNeedPage ? (
+          <>
+            <section className="need-landing-practical">
+              <div className="site-shell need-landing-practical-grid">
+                <div className="need-landing-practical-copy">
+                  <p className="eyebrow">{copy.practicalEyebrow}</p>
+                  <h2>{copy.practicalTitle}</h2>
+                  <p>{copy.practicalBody}</p>
+                </div>
+                <div className="need-landing-mini-grid">
+                  <MiniCard
+                    icon={<Camera size={21} aria-hidden="true" />}
+                    title={copy.showSpace}
+                    body={copy.showSpaceBody}
+                  />
+                  <MiniCard
+                    icon={<MessageCircle size={21} aria-hidden="true" />}
+                    title={copy.tellRoutine}
+                    body={copy.tellRoutineBody}
+                  />
+                  <MiniCard
+                    icon={<Wrench size={21} aria-hidden="true" />}
+                    title={copy.planTitle}
+                    body={copy.planBody}
+                  />
+                </div>
+              </div>
+            </section>
 
-        <section className="need-landing-evidence" aria-labelledby="need-landing-evidence-title">
-          <div className="site-shell need-landing-evidence-card">
-            <div>
-              <p className="eyebrow">{copy.evidenceEyebrow}</p>
-              <h2 id="need-landing-evidence-title">{copy.evidenceTitle}</h2>
-              <p>{copy.evidenceBody}</p>
-            </div>
-            <div className="need-evidence-list">
-              {copy.evidenceItems.map((item, index) => (
-                <article key={item.title}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <strong>{item.title}</strong>
-                  <p>{item.body}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+            <section className="need-landing-evidence" aria-labelledby="need-landing-evidence-title">
+              <div className="site-shell need-landing-evidence-card">
+                <div>
+                  <p className="eyebrow">{copy.evidenceEyebrow}</p>
+                  <h2 id="need-landing-evidence-title">{copy.evidenceTitle}</h2>
+                  <p>{copy.evidenceBody}</p>
+                </div>
+                <div className="need-evidence-list">
+                  {copy.evidenceItems.map((item, index) => (
+                    <article key={item.title}>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <strong>{item.title}</strong>
+                      <p>{item.body}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
 
-        <section className="need-landing-decision" aria-labelledby="need-landing-decision-title">
-          <div className="site-shell need-landing-decision-grid">
-            <div className="need-landing-decision-copy">
-              <p className="eyebrow">{copy.decisionEyebrow}</p>
-              <h2 id="need-landing-decision-title">{copy.decisionTitle}</h2>
-              <p>{copy.decisionBody}</p>
-            </div>
-            <div className="need-decision-card-grid">
-              {copy.decisionCards.map((item, index) => (
-                <DecisionCard
-                  key={item.title}
-                  step={index + 1}
-                  icon={
-                    index === 0 ? (
-                      <AlertTriangle size={21} aria-hidden="true" />
-                    ) : index === 1 ? (
-                      <ListChecks size={21} aria-hidden="true" />
-                    ) : (
-                      <Route size={21} aria-hidden="true" />
-                    )
-                  }
-                  title={item.title}
-                  body={item.body}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
+            <section className="need-landing-decision" aria-labelledby="need-landing-decision-title">
+              <div className="site-shell need-landing-decision-grid">
+                <div className="need-landing-decision-copy">
+                  <p className="eyebrow">{copy.decisionEyebrow}</p>
+                  <h2 id="need-landing-decision-title">{copy.decisionTitle}</h2>
+                  <p>{copy.decisionBody}</p>
+                </div>
+                <div className="need-decision-card-grid">
+                  {copy.decisionCards.map((item, index) => (
+                    <DecisionCard
+                      key={item.title}
+                      step={index + 1}
+                      icon={
+                        index === 0 ? (
+                          <AlertTriangle size={21} aria-hidden="true" />
+                        ) : index === 1 ? (
+                          <ListChecks size={21} aria-hidden="true" />
+                        ) : (
+                          <Route size={21} aria-hidden="true" />
+                        )
+                      }
+                      title={item.title}
+                      body={item.body}
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
+        ) : null}
 
         {recommendedResources.length > 0 ? (
           <section className="need-landing-resources" aria-labelledby="need-landing-resources-title">
@@ -572,27 +601,29 @@ export function NeedLandingPage() {
           </section>
         ) : null}
 
-        <section className="need-landing-next-actions" aria-labelledby="need-landing-next-actions-title">
-          <div className="site-shell need-landing-next-actions-grid">
-            <div>
-              <p className="eyebrow">{copy.nextActionEyebrow}</p>
-              <h2 id="need-landing-next-actions-title">{copy.nextActionTitle}</h2>
-              <p>{copy.nextActionBody}</p>
+        {!isCompactNeedPage ? (
+          <section className="need-landing-next-actions" aria-labelledby="need-landing-next-actions-title">
+            <div className="site-shell need-landing-next-actions-grid">
+              <div>
+                <p className="eyebrow">{copy.nextActionEyebrow}</p>
+                <h2 id="need-landing-next-actions-title">{copy.nextActionTitle}</h2>
+                <p>{copy.nextActionBody}</p>
+              </div>
+              <div className="need-next-action-list">
+                {nextActions.map((action) => (
+                  <Link className="need-next-action-card" key={action.to} to={action.to}>
+                    <span>{action.icon}</span>
+                    <strong>{action.title}</strong>
+                    <p>{action.body}</p>
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
             </div>
-            <div className="need-next-action-list">
-              {nextActions.map((action) => (
-                <Link className="need-next-action-card" key={action.to} to={action.to}>
-                  <span>{action.icon}</span>
-                  <strong>{action.title}</strong>
-                  <p>{action.body}</p>
-                  <ArrowRight size={18} aria-hidden="true" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
-        {catalogueServices.length > 0 ? (
+        {visibleCatalogueServices.length > 0 ? (
           <section className="need-landing-catalogue">
             <div className="site-shell need-landing-catalogue-grid">
               <div className="need-landing-catalogue-copy">
@@ -605,7 +636,7 @@ export function NeedLandingPage() {
                 </Link>
               </div>
               <div className="need-landing-catalogue-list">
-                {catalogueServices.map((service) => (
+                {visibleCatalogueServices.map((service) => (
                   <CatalogueServiceCard key={service.id} service={service} language={i18n.language} />
                 ))}
               </div>
@@ -613,71 +644,77 @@ export function NeedLandingPage() {
           </section>
         ) : null}
 
-        <section className="need-landing-process">
-          <div className="site-shell need-landing-process-grid">
-            <div>
-              <p className="eyebrow">{copy.turnkeyEyebrow}</p>
-              <h2>{copy.turnkeyTitle}</h2>
-              <p>{copy.turnkeyBody}</p>
-            </div>
-            <ol className="need-landing-steps">
-              {copy.turnkeySteps.map((step, index) => (
-                <li key={step}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  {step}
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="need-landing-detail">
-          <div className="site-shell need-landing-detail-grid">
-            <div className="need-landing-route-card">
-              <p className="eyebrow">{copy.clarifyEyebrow}</p>
-              <h2>{copy.clarifyTitle}</h2>
-              <div className="need-landing-route-list">
-                {copy.clarifyItems.map((item) => (
-                  <span key={item}>
-                    <CheckCircle2 size={17} aria-hidden="true" />
-                    {item}
-                  </span>
-                ))}
+        {!isCompactNeedPage ? (
+          <>
+            <section className="need-landing-process">
+              <div className="site-shell need-landing-process-grid">
+                <div>
+                  <p className="eyebrow">{copy.turnkeyEyebrow}</p>
+                  <h2>{copy.turnkeyTitle}</h2>
+                  <p>{copy.turnkeyBody}</p>
+                </div>
+                <ol className="need-landing-steps">
+                  {copy.turnkeySteps.map((step, index) => (
+                    <li key={step}>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      {step}
+                    </li>
+                  ))}
+                </ol>
               </div>
-            </div>
-            <div className="need-landing-dos-card">
-              <p className="eyebrow">{copy.beforeSpendingEyebrow}</p>
-              <h2>{copy.beforeSpendingTitle}</h2>
-              <ol>
-                {copy.beforeSpendingChecks.map(([title, body]) => (
-                  <li key={title}>
-                    <strong>{title}</strong>
-                    <span>{body}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-        </section>
+            </section>
 
-        <section className="need-landing-section">
-          <div className="site-shell need-landing-links-grid">
-            <div className="need-landing-related">
-              <p className="eyebrow">{copy.usefulPages}</p>
-              <h2>{copy.goDeeper}</h2>
-              <div>
-                {page.relatedServices.map((link) => (
-                  <Link key={link.to} to={link.to}>
-                    {link.label}
-                    <ArrowRight size={17} aria-hidden="true" />
-                  </Link>
-                ))}
+            <section className="need-landing-detail">
+              <div className="site-shell need-landing-detail-grid">
+                <div className="need-landing-route-card">
+                  <p className="eyebrow">{copy.clarifyEyebrow}</p>
+                  <h2>{copy.clarifyTitle}</h2>
+                  <div className="need-landing-route-list">
+                    {copy.clarifyItems.map((item) => (
+                      <span key={item}>
+                        <CheckCircle2 size={17} aria-hidden="true" />
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="need-landing-dos-card">
+                  <p className="eyebrow">{copy.beforeSpendingEyebrow}</p>
+                  <h2>{copy.beforeSpendingTitle}</h2>
+                  <ol>
+                    {copy.beforeSpendingChecks.map(([title, body]) => (
+                      <li key={title}>
+                        <strong>{title}</strong>
+                        <span>{body}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
               </div>
-            </div>
+            </section>
+          </>
+        ) : null}
+
+        <section className={`need-landing-section${isCompactNeedPage ? ' need-landing-section--faq-only' : ''}`}>
+          <div className={`site-shell ${isCompactNeedPage ? 'need-landing-faq-only' : 'need-landing-links-grid'}`}>
+            {!isCompactNeedPage ? (
+              <div className="need-landing-related">
+                <p className="eyebrow">{copy.usefulPages}</p>
+                <h2>{copy.goDeeper}</h2>
+                <div>
+                  {page.relatedServices.map((link) => (
+                    <Link key={link.to} to={link.to}>
+                      {link.label}
+                      <ArrowRight size={17} aria-hidden="true" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
 
             <div className="need-landing-faq">
               <p className="eyebrow">{copy.questions}</p>
-              <h2>{copy.goDeeper}</h2>
+              <h2>{isCompactNeedPage ? copy.questions : copy.goDeeper}</h2>
               <p>{copy.questionsIntro}</p>
               <div className="need-landing-faq-list">
                 {visibleFaqs.map((faq) => (
@@ -695,21 +732,23 @@ export function NeedLandingPage() {
           </div>
         </section>
 
-        <section className="need-landing-more">
-          <div className="site-shell">
-            <div className="need-landing-more-card">
-              <div>
-                <p className="eyebrow">{copy.popularNeeds}</p>
-                <h2>{copy.moreWays}</h2>
-              </div>
-              <div className="need-landing-chip-list">
-                {siblingPages.map((item) => (
-                  <Link key={item.slug} to={item.path}>{item.title}</Link>
-                ))}
+        {!isCompactNeedPage ? (
+          <section className="need-landing-more">
+            <div className="site-shell">
+              <div className="need-landing-more-card">
+                <div>
+                  <p className="eyebrow">{copy.popularNeeds}</p>
+                  <h2>{copy.moreWays}</h2>
+                </div>
+                <div className="need-landing-chip-list">
+                  {siblingPages.map((item) => (
+                    <Link key={item.slug} to={item.path}>{item.title}</Link>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : null}
 
         <section className="need-landing-final">
           <div className="site-shell need-landing-final-card">
@@ -743,7 +782,6 @@ const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
   'home-adaptations-for-elderly': ['bathroom', 'bedroom', 'entrance', 'kitchen', 'lighting'],
   'home-safety-after-hospital-discharge': ['bathroom', 'bedroom', 'entrance', 'living-room'],
   'home-safety-assessment-vs-general-contractor': ['bathroom', 'bedroom', 'entrance', 'lighting'],
-  'safe-bathroom-access': ['bathroom'],
   'senior-bedroom-safety': ['bedroom'],
   'smart-home-safety-vs-monitoring': ['smart-safety', 'lighting', 'bedroom'],
 }
@@ -814,10 +852,6 @@ const needResourceReferences: Record<string, NeedResourceReference[]> = {
   'home-safety-after-hospital-discharge': [
     { kind: 'article', id: 'hospital-discharge-home-safety-checklist' },
     { kind: 'article', id: 'family-conversation-before-home-safety-visit' },
-  ],
-  'safe-bathroom-access': [
-    { kind: 'article', id: 'bathroom-safety-seniors-costly-mistakes' },
-    { kind: 'article', id: 'home-adaptation-grants-spain-family-guide' },
   ],
   'senior-bedroom-safety': [
     { kind: 'article', id: 'bedroom-night-safety-older-adults' },

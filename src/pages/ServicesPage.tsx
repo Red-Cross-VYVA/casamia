@@ -15,7 +15,6 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { SampleReportPreview } from '../components/SampleReportPreview'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import {
@@ -24,11 +23,13 @@ import {
   getMasterServiceCatalogue,
 } from '../services/masterServiceCatalogue'
 import {
-  formatPackagePrice,
   getPackageConfigForArea,
   getServicesForPackageArea,
 } from '../services/serviceCatalogue'
-import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
+import {
+  formatPackagePriceForLanguage,
+  useLocalizedServiceCatalogue,
+} from '../services/serviceCatalogueLocalization'
 import type {
   CasaMiaService,
   LocalizedString,
@@ -52,6 +53,54 @@ type ServiceGroup = {
   area: CatalogueAreaDefinition
   packageConfig?: ServicePackageConfig
   services: CasaMiaService[]
+}
+
+type ServiceCardVisualTone =
+  | 'access'
+  | 'alert'
+  | 'fire'
+  | 'food'
+  | 'light'
+  | 'mobility'
+  | 'support'
+  | 'water'
+
+type ServiceCardVisualKind =
+  | 'adjustable-bed'
+  | 'bed-alert'
+  | 'bed-transfer'
+  | 'clear-route'
+  | 'door-handle'
+  | 'emergency-button'
+  | 'entry-seat'
+  | 'floor-grip'
+  | 'furniture-anchor'
+  | 'generic-product'
+  | 'hob-shutoff'
+  | 'kitchen-tools'
+  | 'lever-tap'
+  | 'motion-light'
+  | 'motion-sensor'
+  | 'pull-out-storage'
+  | 'reachable-storage'
+  | 'recliner'
+  | 'shower-seat'
+  | 'smoke-detector'
+  | 'stair-support'
+  | 'thermostatic-valve'
+  | 'threshold-ramp'
+  | 'toilet-rails'
+  | 'tub-cutout'
+  | 'vertical-rail'
+  | 'video-doorbell'
+  | 'voice-speaker'
+  | 'water-monitoring'
+  | 'wide-doorway'
+
+type ServiceCardVisualConfig = {
+  kind: ServiceCardVisualKind
+  tone: ServiceCardVisualTone
+  image?: string
 }
 
 type ServicesPageCopy = {
@@ -133,13 +182,90 @@ const homeVisualSlides: Array<{ areaId: ServicePackageArea; image: string }> = [
   { areaId: 'bathroom', image: '/images/service-gallery/isometric/isometric-bathroom.jpg' },
 ]
 
+const serviceCardProduct = (name: string) => `/images/service-card-products/${name}.webp`
+
+const packageZoneNavImages: Partial<Record<CatalogueGroupId, string>> = {
+  bathroom: serviceCardProduct('shower-seat'),
+  bedroom: serviceCardProduct('underbed-lighting'),
+  kitchen: serviceCardProduct('kitchen-worktop-lighting'),
+  'living-room': serviceCardProduct('recliner'),
+  stairs: serviceCardProduct('stair-support'),
+  entrance: serviceCardProduct('threshold-ramp'),
+  outdoor: serviceCardProduct('entrance-motion-lighting'),
+  lighting: serviceCardProduct('clear-night-route'),
+  'smart-safety': serviceCardProduct('motion-sensor'),
+}
+
+const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
+  'bathroom-folding-shower-seat': { kind: 'shower-seat', tone: 'water', image: serviceCardProduct('shower-seat') },
+  'bathroom-raised-toilet-seat': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
+  'bathroom-anti-slip-floor-treatment': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('floor-grip') },
+  'bathroom-improved-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
+  'bathroom-lever-mixer-tap': { kind: 'lever-tap', tone: 'water', image: serviceCardProduct('lever-tap') },
+  'bathroom-thermostatic-valve': { kind: 'thermostatic-valve', tone: 'water', image: serviceCardProduct('thermostatic-valve') },
+  'bathroom-threshold-removal': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-reduction') },
+  'bathroom-safety-monitoring': { kind: 'water-monitoring', tone: 'alert', image: serviceCardProduct('water-monitoring') },
+  'bathroom-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
+  'bathroom-tub-cutout': { kind: 'tub-cutout', tone: 'access', image: serviceCardProduct('tub-cutout') },
+  'bathroom-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
+  'bedroom-underbed-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
+  'bedroom-bed-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
+  'bedroom-night-route': { kind: 'clear-route', tone: 'mobility', image: serviceCardProduct('clear-night-route') },
+  'bedroom-slip-resistance': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
+  'bedroom-fire-safety': { kind: 'smoke-detector', tone: 'fire', image: serviceCardProduct('smoke-detector') },
+  'bedroom-voice-assistance': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('voice-speaker-bedroom') },
+  'bedroom-smart-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
+  'bedroom-bed-exit-sensor': { kind: 'bed-alert', tone: 'alert', image: serviceCardProduct('bed-exit-sensor') },
+  'bedroom-daily-living-support': { kind: 'emergency-button', tone: 'alert', image: serviceCardProduct('emergency-button') },
+  'bedroom-connected-safety': { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') },
+  'bedroom-emergency-support': { kind: 'emergency-button', tone: 'alert', image: serviceCardProduct('emergency-button') },
+  'bedroom-accessible-wardrobe': { kind: 'reachable-storage', tone: 'support', image: serviceCardProduct('reachable-wardrobe') },
+  'bedroom-advanced-bed-transfer': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
+  'bedroom-adjustable-bed': { kind: 'adjustable-bed', tone: 'support', image: serviceCardProduct('adjustable-bed') },
+  'bedroom-bed-exit-safety-system': { kind: 'bed-alert', tone: 'alert', image: serviceCardProduct('bed-exit-sensor') },
+  'bedroom-automated-curtains': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('automated-curtains') },
+  'bedroom-bathroom-safety-route': { kind: 'clear-route', tone: 'mobility', image: serviceCardProduct('clear-night-route') },
+  'bedroom-specialist-layout': { kind: 'clear-route', tone: 'support', image: serviceCardProduct('clear-night-route') },
+  'bedroom-door-accessibility': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'bedroom-dementia-support': { kind: 'voice-speaker', tone: 'support', image: serviceCardProduct('voice-speaker-bedroom') },
+  'kitchen-easy-grip-tools': { kind: 'kitchen-tools', tone: 'food', image: serviceCardProduct('kitchen-tools') },
+  'kitchen-stove-shutoff': { kind: 'hob-shutoff', tone: 'fire', image: serviceCardProduct('hob-shutoff') },
+  'kitchen-worktop-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('kitchen-worktop-lighting') },
+  'kitchen-anti-fatigue-mat': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('kitchen-anti-fatigue-mat') },
+  'kitchen-easier-storage': { kind: 'pull-out-storage', tone: 'support', image: serviceCardProduct('pull-out-storage') },
+  'kitchen-water-leak-sensor': { kind: 'water-monitoring', tone: 'alert', image: serviceCardProduct('kitchen-water-monitoring') },
+  'kitchen-voice-lighting-timers': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('kitchen-voice-speaker') },
+  'kitchen-pull-down-shelf': { kind: 'pull-out-storage', tone: 'support', image: serviceCardProduct('pull-out-storage') },
+  'kitchen-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'living-room-easier-sitting-standing': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
+  'movement-stand-assist': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
+  'movement-rug-securing': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
+  'movement-hallway-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('clear-night-route') },
+  'living-room-slip-prevention': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
+  'living-room-safer-furniture': { kind: 'furniture-anchor', tone: 'support', image: serviceCardProduct('furniture-anchor') },
+  'living-room-safety-monitoring': { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') },
+  'living-room-connected-experience': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('voice-speaker-bedroom') },
+  'living-room-advanced-seating': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
+  'living-room-electric-recliner-chair': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
+  'living-room-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'living-room-stair-safety': { kind: 'stair-support', tone: 'mobility', image: serviceCardProduct('stair-support') },
+  'entrance-safer-access': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
+  'entrance-easier-door-access': { kind: 'door-handle', tone: 'access', image: serviceCardProduct('entrance-door-handle') },
+  'entrance-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('entrance-motion-lighting') },
+  'entrance-connected-door-awareness': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },
+  'entrance-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'entrance-accessibility-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
+  'entrance-seating': { kind: 'entry-seat', tone: 'support', image: serviceCardProduct('entry-seat') },
+}
+
 const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
   en: {
     seoTitle: 'CasaMia Home Safety Service Catalogue',
     seoDescription: 'Explore CasaMia home safety services and current inclusions by room and safety area.',
     heroEyebrow: 'CasaMia service catalogue',
-    heroTitle: 'Every safer-home package, clearly organised.',
-    heroBody: 'Choose an area to see what is included in each CasaMia package, plus optional add-ons we can quote after understanding the home.',
+    heroTitle: 'Home safety packages, room by room.',
+    heroBody: 'Choose a room or safety area to see the core improvements CasaMia can assess, quote and coordinate.',
     browseCta: 'Browse package areas',
     planCta: 'Build my safer home',
     catalogueLabel: 'Current catalogue',
@@ -187,8 +313,8 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     seoTitle: 'Catálogo de servicios de seguridad CasaMia',
     seoDescription: 'Explora servicios CasaMia e inclusiones actuales por estancia y área de seguridad.',
     heroEyebrow: 'Catálogo de servicios CasaMia',
-    heroTitle: 'Cada paquete para un hogar más seguro, bien organizado.',
-    heroBody: 'Elige una zona para ver qué incluye cada paquete CasaMia y qué extras opcionales podemos valorar después de entender la vivienda.',
+    heroTitle: 'Paquetes de seguridad, estancia por estancia.',
+    heroBody: 'Elige una estancia o zona de seguridad para ver las mejoras que CasaMia puede valorar, presupuestar y coordinar.',
     browseCta: 'Ver áreas de servicio',
     planCta: 'Crear mi hogar más seguro',
     catalogueLabel: 'Catálogo actual',
@@ -320,6 +446,40 @@ function localizeRecord(value: LocalizedString, fallback: LocalizedString): Reco
   return { en: english, es: spanish }
 }
 
+function getServiceCardVisual(service: CasaMiaService): ServiceCardVisualConfig {
+  const mappedVisual = serviceCardVisuals[service.id]
+
+  if (mappedVisual) return mappedVisual
+
+  const category = service.category.toLowerCase()
+
+  if (category.includes('light') || category.includes('ilumin')) return { kind: 'motion-light', tone: 'light' }
+  if (category.includes('toilet') || category.includes('inodoro')) return { kind: 'toilet-rails', tone: 'support' }
+  if (category.includes('bath') || category.includes('ducha')) return { kind: 'shower-seat', tone: 'water' }
+  if (category.includes('water') || category.includes('agua') || category.includes('fontan')) {
+    return { kind: 'water-monitoring', tone: 'water' }
+  }
+  if (category.includes('floor') || category.includes('suelo') || category.includes('slip')) {
+    return { kind: 'floor-grip', tone: 'mobility' }
+  }
+  if (category.includes('door') || category.includes('access') || category.includes('acceso')) {
+    return { kind: 'wide-doorway', tone: 'access' }
+  }
+  if (category.includes('connected') || category.includes('alert') || category.includes('aviso')) {
+    return { kind: 'motion-sensor', tone: 'alert' }
+  }
+
+  if (service.room === 'bathroom') return { kind: 'shower-seat', tone: 'water' }
+  if (service.room === 'bedroom') return { kind: 'bed-transfer', tone: 'support' }
+  if (service.room === 'kitchen') return { kind: 'kitchen-tools', tone: 'food' }
+  if (service.room === 'entrance') return { kind: 'threshold-ramp', tone: 'access' }
+  if (service.room === 'movement') return { kind: 'clear-route', tone: 'mobility' }
+  if (service.room === 'connected') return { kind: 'motion-sensor', tone: 'alert' }
+  if (service.room === 'living-room') return { kind: 'recliner', tone: 'support' }
+
+  return { kind: 'generic-product', tone: 'support' }
+}
+
 export function ServicesPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
@@ -421,8 +581,6 @@ export function ServicesPage() {
         </div>
       </section>
 
-      <SampleReportPreview />
-
       <section className="services-catalogue-section" id="catalogue-packages">
         <div className="site-shell">
           <header className="services-catalogue-heading">
@@ -437,6 +595,7 @@ export function ServicesPage() {
                 {serviceGroups.map((group) => {
                   const Icon = group.area.icon
                   const isSelected = group.area.id === selectedGroup?.area.id
+                  const zoneNavImage = packageZoneNavImages[group.area.id]
 
                   return (
                     <button
@@ -447,7 +606,19 @@ export function ServicesPage() {
                       onClick={() => setSelectedGroupId(group.area.id)}
                       type="button"
                     >
-                      <span className="services-catalogue-nav-icon"><Icon size={23} aria-hidden="true" /></span>
+                      {zoneNavImage ? (
+                        <span className="services-catalogue-nav-photo" aria-hidden="true">
+                          <SafeImage
+                            alt=""
+                            className="services-catalogue-nav-photo-media"
+                            fallbackLabel=""
+                            imgClassName="services-catalogue-nav-photo-image"
+                            src={zoneNavImage}
+                          />
+                        </span>
+                      ) : (
+                        <span className="services-catalogue-nav-icon"><Icon size={23} aria-hidden="true" /></span>
+                      )}
                       <span className="services-catalogue-nav-copy">
                         <strong>{group.area.title[language]}</strong>
                         <small>{formatPackageComposition(group.services, copy)}</small>
@@ -479,7 +650,7 @@ export function ServicesPage() {
                         <span>{selectedGroup.area.description[language]}</span>
                         {selectedGroup.packageConfig ? (
                           <strong className="services-catalogue-package-price">
-                            {copy.packagePrice}: {formatPackagePrice(selectedGroup.packageConfig)}
+                            {copy.packagePrice}: {formatPackagePriceForLanguage(selectedGroup.packageConfig, language)}
                           </strong>
                         ) : null}
                       </div>
@@ -490,7 +661,11 @@ export function ServicesPage() {
                     {selectedGroup.services.map((service) => {
                       const requirements = getRequirementLabels(service, copy)
                       const includedItems = uniqueIncludedItems(service.includedItems)
+                      const visibleIncludedItems = includedItems.slice(0, 2)
+                      const remainingIncludedItems = includedItems.length - visibleIncludedItems.length
                       const optionalAddOn = isOptionalAddOn(service)
+                      const description = getCustomerServiceDescription(service)
+                      const benefit = getCustomerServiceBenefit(service)
 
                       return (
                         <article
@@ -498,40 +673,44 @@ export function ServicesPage() {
                           key={service.id}
                         >
                           <header>
+                            <ServiceCardVisual service={service} />
                             <div>
                               <small>{service.category}</small>
                               <h3>{getCustomerServiceName(service)}</h3>
-                              <span className="services-catalogue-component-role">
-                                {optionalAddOn ? copy.optionalComponent : copy.coreComponent}
-                              </span>
                             </div>
+                            <span className="services-catalogue-component-role">
+                              {optionalAddOn ? copy.optionalComponent : copy.coreComponent}
+                            </span>
                           </header>
 
-                          {includedItems.length ? (
-                            <div className="services-catalogue-inclusions">
-                              <strong>{copy.included}</strong>
+                          <p className="services-catalogue-service-description">
+                            {description}
+                          </p>
+
+                          {visibleIncludedItems.length ? (
+                            <div className="services-catalogue-key-inclusions">
                               <ul>
-                                {includedItems.map((item) => (
+                                {visibleIncludedItems.map((item) => (
                                   <li key={item}>
                                     <CheckCircle2 size={16} aria-hidden="true" />
                                     <span>{item}</span>
                                   </li>
                                 ))}
+                                {remainingIncludedItems > 0 ? (
+                                  <li className="services-catalogue-more-inclusions">
+                                    +{remainingIncludedItems} {language === 'es' ? 'más' : 'more'}
+                                  </li>
+                                ) : null}
                               </ul>
                             </div>
                           ) : null}
 
-                          <p className="services-catalogue-service-description">
-                            {getCustomerServiceDescription(service)}
-                          </p>
-
-                          <div className="services-catalogue-service-benefit">
-                            <Sparkles size={18} aria-hidden="true" />
-                            <div>
-                              <strong>{copy.customerBenefit}</strong>
-                              <p>{getCustomerServiceBenefit(service)}</p>
-                            </div>
-                          </div>
+                          {benefit !== description ? (
+                            <p className="services-catalogue-service-benefit">
+                              <Sparkles size={16} aria-hidden="true" />
+                              <span>{benefit}</span>
+                            </p>
+                          ) : null}
 
                           {requirements.length ? (
                             <div className="services-catalogue-requirements">
@@ -595,4 +774,432 @@ export function ServicesPage() {
       </section>
     </>
   )
+}
+
+function ServiceCardVisual({ service }: { service: CasaMiaService }) {
+  const visual = getServiceCardVisual(service)
+  const className = `services-catalogue-card-visual is-${visual.tone} is-${visual.kind}${
+    visual.image ? ' has-photo' : ''
+  }`
+
+  return (
+    <div className={className} aria-hidden="true">
+      {visual.image ? (
+        <SafeImage
+          alt=""
+          className="services-catalogue-card-visual-media"
+          fallbackLabel=""
+          imgClassName="services-catalogue-card-visual-image"
+          loading="lazy"
+          src={visual.image}
+        />
+      ) : (
+        <ProductVisualSvg kind={visual.kind} />
+      )}
+    </div>
+  )
+}
+
+function ProductVisualSvg({ kind }: { kind: ServiceCardVisualKind }) {
+  const svgProps = {
+    className: 'services-catalogue-product-svg',
+    focusable: 'false',
+    viewBox: '0 0 92 64',
+  } as const
+
+  switch (kind) {
+    case 'shower-seat':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="9" y="8" width="46" height="48" rx="9" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M22 13v38" />
+            <path d="M22 18h27" />
+            <path d="M49 18c8 0 14 6 14 14" />
+            <path d="M30 36h25v10H30z" />
+            <path d="M34 46v8M52 46v8" />
+            <path className="services-catalogue-product-muted" d="M64 32h8M59 39h7M55 29l5-6" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="71" cy="20" r="4" />
+        </svg>
+      )
+    case 'toilet-rails':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="40" y="12" width="23" height="24" rx="6" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M30 36h36c0 10-7 17-18 17s-18-7-18-17z" />
+            <path d="M44 18h15v18" />
+            <path d="M21 25v27M75 25v27" />
+            <path d="M21 31h17M58 31h17" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="30" cy="31" r="3.5" />
+        </svg>
+      )
+    case 'floor-grip':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="10" y="16" width="72" height="39" rx="8" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.5">
+            <path className="services-catalogue-product-muted" d="M10 30h72M10 43h72M32 16v39M57 16v39" />
+            <path d="M47 26c-5 4-8 10-6 15 2 6 9 8 14 5 5-3 6-10 2-15-3-4-6-6-10-5z" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="35" cy="25" r="3" />
+          <circle className="services-catalogue-product-accent" cx="29" cy="30" r="2.7" />
+          <circle className="services-catalogue-product-accent" cx="26" cy="36" r="2.3" />
+        </svg>
+      )
+    case 'motion-light':
+      return (
+        <svg {...svgProps}>
+          <circle className="services-catalogue-product-fill" cx="46" cy="32" r="25" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M35 30h22l-5 15H40z" />
+            <path d="M40 51h12" />
+            <path className="services-catalogue-product-muted" d="M46 11v8M29 21l-6-6M63 21l6-6" />
+            <path className="services-catalogue-product-muted" d="M28 42c-4-3-6-6-6-10M64 42c4-3 6-6 6-10" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="46" cy="37" r="4" />
+        </svg>
+      )
+    case 'lever-tap':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="18" y="45" width="39" height="9" rx="4" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M26 45h33" />
+            <path d="M35 28h18c8 0 13 5 13 13v4" />
+            <path d="M45 28V16" />
+            <path d="M36 16h18" />
+            <path d="M70 47c0 5-4 8-7 8s-7-3-7-8c0-4 7-12 7-12s7 8 7 12z" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="65" cy="45" r="3.5" />
+        </svg>
+      )
+    case 'thermostatic-valve':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="20" y="24" width="52" height="18" rx="9" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M12 33h18M62 33h18" />
+            <circle cx="46" cy="33" r="15" />
+            <path d="M46 23v6" />
+            <path d="M38 33h16" />
+            <path className="services-catalogue-product-muted" d="M37 18l-4-5M55 18l4-5" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="46" cy="33" r="4" />
+        </svg>
+      )
+    case 'door-handle':
+      return (
+        <svg {...svgProps}>
+          <path className="services-catalogue-product-fill" d="M24 54V10h32l12 8v36z" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M24 54V10h32l12 8v36" />
+            <path d="M56 18v36" />
+            <path d="M49 34h12" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="49" cy="34" r="4" />
+        </svg>
+      )
+    case 'water-monitoring':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="18" y="20" width="30" height="30" rx="9" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="18" y="20" width="30" height="30" rx="9" />
+            <circle cx="33" cy="35" r="6" />
+            <path d="M63 48c0 5-4 8-8 8s-8-3-8-8c0-5 8-15 8-15s8 10 8 15z" />
+            <path className="services-catalogue-product-muted" d="M56 20c6 2 10 6 12 12M62 14c8 3 14 9 17 18" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="33" cy="35" r="3.5" />
+        </svg>
+      )
+    case 'tub-cutout':
+      return (
+        <svg {...svgProps}>
+          <path className="services-catalogue-product-fill" d="M15 35h62v10c0 7-6 12-13 12H29c-8 0-14-5-14-12z" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M15 35h62v10c0 7-6 12-13 12H29c-8 0-14-5-14-12z" />
+            <path d="M24 35V19h18" />
+            <path d="M48 35v15" />
+            <path d="M48 35h17" />
+            <path className="services-catalogue-product-muted" d="M28 20c0-6 5-9 10-6" />
+          </g>
+          <rect className="services-catalogue-product-accent" x="53" y="39" width="9" height="5" rx="2.5" />
+        </svg>
+      )
+    case 'wide-doorway':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="23" y="11" width="46" height="43" rx="6" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M24 54V12h44v42" />
+            <path d="M34 45h24" />
+            <path d="M29 45l8-7M29 45l8 7" />
+            <path d="M64 45l-8-7M64 45l-8 7" />
+          </g>
+          <rect className="services-catalogue-product-accent" x="41" y="19" width="10" height="24" rx="5" />
+        </svg>
+      )
+    case 'vertical-rail':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="36" y="7" width="20" height="50" rx="10" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M46 12v40" />
+            <path d="M34 21h24M34 33h24M34 45h24" />
+            <path className="services-catalogue-product-muted" d="M25 13v41M67 13v41" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="46" cy="33" r="4" />
+        </svg>
+      )
+    case 'bed-transfer':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="12" y="31" width="48" height="16" rx="5" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M13 47V24" />
+            <path d="M13 31h47v16H13" />
+            <path d="M24 47v8M57 47v8" />
+            <circle cx="69" cy="20" r="6" />
+            <path d="M68 27l-7 11h14" />
+            <path className="services-catalogue-product-muted" d="M53 27h12M59 21l6 6-6 6" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="57" cy="27" r="3.5" />
+        </svg>
+      )
+    case 'adjustable-bed':
+      return (
+        <svg {...svgProps}>
+          <path className="services-catalogue-product-fill" d="M13 39h66v12H13z" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M13 39h66v12H13z" />
+            <path d="M18 39l22-16 13 16" />
+            <path d="M20 51v6M73 51v6" />
+            <path className="services-catalogue-product-muted" d="M63 30h9M68 25v10" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="40" cy="31" r="3.5" />
+        </svg>
+      )
+    case 'bed-alert':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="13" y="33" width="48" height="15" rx="5" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M14 48V24" />
+            <path d="M14 33h47v15H14" />
+            <path d="M24 48v7M58 48v7" />
+            <rect x="61" y="16" width="18" height="25" rx="7" />
+            <path className="services-catalogue-product-muted" d="M55 18c-4 4-4 10 0 14M50 13c-7 7-7 18 0 25" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="70" cy="29" r="4" />
+        </svg>
+      )
+    case 'clear-route':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="10" y="17" width="72" height="37" rx="9" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M18 45c15-18 30 8 51-16" />
+            <path d="M63 29h8v8" />
+            <path className="services-catalogue-product-muted" d="M21 25h8M35 25h8M49 25h8" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="24" cy="45" r="4" />
+          <circle className="services-catalogue-product-accent" cx="38" cy="40" r="3" />
+        </svg>
+      )
+    case 'smoke-detector':
+      return (
+        <svg {...svgProps}>
+          <ellipse className="services-catalogue-product-fill" cx="46" cy="16" rx="25" ry="9" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M22 16c3 6 12 9 24 9s21-3 24-9" />
+            <path className="services-catalogue-product-muted" d="M34 37c-5 4-5 9 0 13M46 34c-5 5-5 12 0 17M58 37c5 4 5 9 0 13" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="46" cy="16" r="4" />
+        </svg>
+      )
+    case 'motion-sensor':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="31" y="19" width="30" height="29" rx="9" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="31" y="19" width="30" height="29" rx="9" />
+            <circle cx="46" cy="34" r="6" />
+            <path className="services-catalogue-product-muted" d="M22 26c-6 5-6 12 0 17M70 26c6 5 6 12 0 17M15 18c-10 9-10 24 0 33M77 18c10 9 10 24 0 33" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="46" cy="34" r="3.5" />
+        </svg>
+      )
+    case 'voice-speaker':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="24" y="12" width="31" height="42" rx="11" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="24" y="12" width="31" height="42" rx="11" />
+            <circle cx="39.5" cy="37" r="7" />
+            <path className="services-catalogue-product-muted" d="M63 25c5 5 5 12 0 17M70 18c9 9 9 24 0 33" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="39.5" cy="37" r="3.5" />
+        </svg>
+      )
+    case 'emergency-button':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="21" y="13" width="50" height="40" rx="12" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="21" y="13" width="50" height="40" rx="12" />
+            <circle cx="46" cy="33" r="13" />
+            <path d="M46 26v14M39 33h14" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="46" cy="33" r="7" />
+        </svg>
+      )
+    case 'video-doorbell':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="32" y="8" width="28" height="48" rx="9" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="32" y="8" width="28" height="48" rx="9" />
+            <circle cx="46" cy="25" r="7" />
+            <path d="M41 44h10" />
+            <path className="services-catalogue-product-muted" d="M66 22c5 4 5 10 0 14M72 15c9 8 9 22 0 30" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="46" cy="25" r="3.5" />
+        </svg>
+      )
+    case 'kitchen-tools':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="15" y="36" width="62" height="17" rx="8" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M30 13v39" />
+            <path d="M23 13v12M30 13v12M37 13v12" />
+            <path d="M23 25c0 6 14 6 14 0" />
+            <path d="M57 13c7 10 5 20-2 25v14" />
+            <path className="services-catalogue-product-muted" d="M20 52h54" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="56" cy="39" r="3.5" />
+        </svg>
+      )
+    case 'hob-shutoff':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="15" y="13" width="62" height="40" rx="10" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="15" y="13" width="62" height="40" rx="10" />
+            <circle cx="34" cy="29" r="8" />
+            <circle cx="58" cy="29" r="8" />
+            <path d="M28 45h36" />
+            <path className="services-catalogue-product-muted" d="M25 15l42 38" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="67" cy="20" r="4" />
+        </svg>
+      )
+    case 'reachable-storage':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="19" y="11" width="54" height="43" rx="8" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="19" y="11" width="54" height="43" rx="8" />
+            <path d="M19 27h54M46 11v43" />
+            <path d="M35 41h22" />
+            <path className="services-catalogue-product-muted" d="M33 41l-7 7M59 41l7 7" />
+          </g>
+          <rect className="services-catalogue-product-accent" x="37" y="36" width="18" height="8" rx="4" />
+        </svg>
+      )
+    case 'pull-out-storage':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="16" y="11" width="43" height="43" rx="8" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="16" y="11" width="43" height="43" rx="8" />
+            <path d="M16 27h43" />
+            <path d="M40 41h31v11H40z" />
+            <path d="M62 35l9 6-9 6" />
+          </g>
+          <rect className="services-catalogue-product-accent" x="39" y="38" width="12" height="8" rx="4" />
+        </svg>
+      )
+    case 'recliner':
+      return (
+        <svg {...svgProps}>
+          <path className="services-catalogue-product-fill" d="M24 51h33l13-13H45V18H31l-7 19z" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M31 18h19v25H23l1-6z" />
+            <path d="M24 51h33l13-13H46" />
+            <path d="M29 51v6M57 51v6" />
+            <path className="services-catalogue-product-muted" d="M61 28h9M66 23v10" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="43" cy="43" r="4" />
+        </svg>
+      )
+    case 'furniture-anchor':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="24" y="18" width="35" height="36" rx="7" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M20 10h47" />
+            <rect x="24" y="18" width="35" height="36" rx="7" />
+            <path d="M24 31h35M24 43h35" />
+            <path d="M59 24l9-10" />
+            <path d="M64 14h8v8" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="42" cy="31" r="3.5" />
+        </svg>
+      )
+    case 'entry-seat':
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="19" y="30" width="45" height="14" rx="7" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M19 30h45v14H19z" />
+            <path d="M26 44v11M58 44v11" />
+            <path d="M66 13v41" />
+            <path d="M66 13h12" />
+            <path className="services-catalogue-product-muted" d="M26 19h23M36 13v12" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="72" cy="34" r="3.5" />
+        </svg>
+      )
+    case 'threshold-ramp':
+      return (
+        <svg {...svgProps}>
+          <path className="services-catalogue-product-fill" d="M15 49h62L53 29H15z" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M15 49h62L53 29H15" />
+            <path d="M20 29V11h30v18" />
+            <path d="M28 42h27" />
+            <path d="M48 35l8 7-8 7" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="25" cy="42" r="4" />
+        </svg>
+      )
+    case 'stair-support':
+      return (
+        <svg {...svgProps}>
+          <path className="services-catalogue-product-fill" d="M15 52h16V40h16V28h16V16h14v36z" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <path d="M15 52h16V40h16V28h16V16h14" />
+            <path d="M17 30l58-16" />
+            <path d="M21 33v19M50 25v27M73 18v34" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="47" cy="22" r="3.5" />
+        </svg>
+      )
+    case 'generic-product':
+    default:
+      return (
+        <svg {...svgProps}>
+          <rect className="services-catalogue-product-fill" x="20" y="15" width="52" height="38" rx="10" />
+          <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4">
+            <rect x="20" y="15" width="52" height="38" rx="10" />
+            <path d="M31 34l10 10 22-23" />
+          </g>
+          <circle className="services-catalogue-product-accent" cx="68" cy="18" r="4" />
+        </svg>
+      )
+  }
 }
