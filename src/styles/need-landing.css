@@ -91,45 +91,6 @@
   object-position: center;
 }
 
-.need-landing-quick-card {
-  position: absolute;
-  right: clamp(1rem, 4vw, 2rem);
-  bottom: -1.7rem;
-  display: grid;
-  max-width: min(25rem, calc(100% - 2rem));
-  grid-template-columns: auto 1fr;
-  gap: 0.35rem 0.8rem;
-  border: 1px solid rgb(191 221 240 / 90%);
-  border-radius: 1.35rem;
-  background: rgb(255 255 255 / 92%);
-  padding: 1rem 1.1rem;
-  box-shadow: 0 1.3rem 3.2rem rgb(10 42 68 / 18%);
-  backdrop-filter: blur(10px);
-}
-
-.need-landing-quick-card span {
-  display: grid;
-  width: 2.8rem;
-  height: 2.8rem;
-  grid-row: span 2;
-  place-items: center;
-  border-radius: 0.9rem;
-  background: #eaf6fc;
-  color: var(--color-blue);
-}
-
-.need-landing-quick-card strong {
-  font-size: 1.05rem;
-  font-weight: 950;
-}
-
-.need-landing-quick-card p {
-  margin: 0;
-  color: #4d657b;
-  font-size: 0.92rem;
-  line-height: 1.4;
-}
-
 .need-landing--compact .need-landing-hero {
   padding: 4.25rem 0 2.8rem;
   background:
@@ -170,21 +131,6 @@
 
 .need-landing--compact .need-landing-photo-img {
   height: 20.5rem;
-}
-
-.need-landing--compact .need-landing-quick-card {
-  right: 0.9rem;
-  bottom: -0.8rem;
-  max-width: min(21rem, calc(100% - 1.5rem));
-  border-radius: 0.7rem;
-  padding: 0.85rem 0.95rem;
-  box-shadow: 0 0.75rem 1.8rem rgb(10 42 68 / 12%);
-}
-
-.need-landing--compact .need-landing-quick-card span {
-  width: 2.35rem;
-  height: 2.35rem;
-  border-radius: 0.5rem;
 }
 
 .need-landing--compact .need-landing-section,
@@ -1205,18 +1151,6 @@
 
   .need-landing--compact .need-landing-photo-img {
     height: 12.75rem;
-  }
-
-  .need-landing-quick-card {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    max-width: none;
-    margin: -1.5rem 1rem 0;
-  }
-
-  .need-landing--compact .need-landing-quick-card {
-    margin: -0.9rem 0.75rem 0;
   }
 
   .need-catalogue-card {

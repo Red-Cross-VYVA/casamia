@@ -49,10 +49,6 @@ export function NeedLandingPage() {
     resources: isSpanish ? 'Recursos' : 'Resources',
     primaryCta: isSpanish ? 'Crear mi plan CasaMia' : 'Build my CasaMia plan',
     secondaryCta: isSpanish ? 'Ver servicios relacionados' : 'See related services',
-    quickCardTitle: isSpanish ? 'Plan CasaMia' : 'CasaMia plan',
-    quickCardBody: isSpanish
-      ? 'Evaluación, selección de mejoras, coordinación de instalación y seguimiento en una ruta gestionada.'
-      : 'Assessment, package selection, installation coordination and follow-up in one managed route.',
     whoHelps: isSpanish ? 'A quién ayuda' : 'Who this helps',
     checkFirst: isSpanish ? 'Qué revisar primero' : 'What to check first',
     handlesIt: isSpanish ? 'Cómo lo gestiona CasaMia' : 'How CasaMia handles it',
@@ -394,14 +390,6 @@ export function NeedLandingPage() {
     [isCompactNeedPage, localizedArticles, i18n.language, page.slug],
   )
   const visibleCatalogueServices = isCompactNeedPage ? catalogueServices.slice(0, 4) : catalogueServices
-  const heroQuickCard = isCompactNeedPage
-    ? {
-        title: isSpanish ? 'Ruta clara' : 'Clear route',
-        body: isSpanish
-          ? 'Apoyos, acceso, suelo, luz y entrega coordinada.'
-          : 'Support points, access, floor grip, lighting and coordinated handover.',
-      }
-    : { title: copy.quickCardTitle, body: copy.quickCardBody }
   const secondaryCtaLabel = isCompactNeedPage
     ? isSpanish ? 'Ver solución de baño' : 'See bathroom service'
     : copy.secondaryCta
@@ -468,11 +456,6 @@ export function NeedLandingPage() {
                 imgClassName="need-landing-photo-img"
                 loading="eager"
               />
-              <div className="need-landing-quick-card">
-                <span><ShieldCheck size={20} aria-hidden="true" /></span>
-                <strong>{heroQuickCard.title}</strong>
-                <p>{heroQuickCard.body}</p>
-              </div>
             </aside>
           </div>
         </section>
