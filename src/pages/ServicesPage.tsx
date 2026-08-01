@@ -400,7 +400,7 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bathroom-anti-slip-floor-treatment': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('floor-grip') },
   'bathroom-improved-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
   'bathroom-lever-mixer-tap': { kind: 'lever-tap', tone: 'water', image: serviceCardProduct('lever-tap') },
-  'bathroom-thermostatic-valve': { kind: 'thermostatic-valve', tone: 'water', image: serviceCardProduct('thermostatic-valve') },
+  'bathroom-thermostatic-valve': { kind: 'thermostatic-valve', tone: 'water', image: serviceCardProduct('thermostatic-shower-mixer') },
   'bathroom-threshold-removal': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-reduction') },
   'bathroom-safety-monitoring': { kind: 'water-monitoring', tone: 'alert', image: serviceCardProduct('water-monitoring') },
   'bathroom-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
