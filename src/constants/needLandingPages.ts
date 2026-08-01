@@ -31,13 +31,25 @@ export const needLandingPages: NeedLandingPageContent[] = [
     title: 'Bathroom safety for seniors',
     seoTitle: 'Bathroom Safety for Seniors in Spain',
     description:
-      'Practical bathroom safety for seniors: safer bathing, toilet transfers, anti-slip support, lighting, water controls and CasaMia-managed installation.',
+      'Practical bathroom safety for seniors: safer access, bathing, toilet transfers, anti-slip support, lighting, water controls and CasaMia-managed installation.',
     eyebrow: 'Bathroom safety',
     intro:
-      'Make bathing, toilet use and bathroom movement safer without turning the room into a clinic. CasaMia reviews the real routine, recommends the right package and coordinates the work.',
-    whoFor: ['Older adults who feel unsteady in the bathroom', 'Families worried about shower or toilet transfers', 'Homes with wet-floor, grip or night-time bathroom risks'],
-    priorities: ['Safer bathing and shower seating', 'Toilet support and easier transfers', 'Slip prevention and night visibility', 'Temperature and leak-risk safeguards'],
-    casamiaPlan: ['Review the bathroom layout and daily routine', 'Select the right Bathroom Home Safety Package components', 'Coordinate installation, handover and aftercare'],
+      'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. CasaMia reviews the real routine, recommends the right package and coordinates the work.',
+    whoFor: [
+      'Older adults who feel unsteady in the bathroom',
+      'Families worried about shower, toilet or bath transfers',
+      'Small bathrooms where wet floors, doors or night-time movement create risk',
+    ],
+    priorities: [
+      'Safer bathing, shower seating and toilet support',
+      'Doorway, handle, privacy lock and support-point usability',
+      'Slip prevention, night visibility and water safeguards',
+    ],
+    casamiaPlan: [
+      'Review the route into and inside the bathroom',
+      'Confirm measurements and support positions where needed',
+      'Coordinate installation, handover and aftercare',
+    ],
     relatedServices: [
       { label: 'Bathroom safety services', to: '/services/bathroom-safety' },
       { label: 'Free safety report', to: '/home-safety-assessment' },
@@ -53,6 +65,16 @@ export const needLandingPages: NeedLandingPageContent[] = [
         question: 'Can CasaMia keep the bathroom looking like a normal home?',
         answer:
           'Yes. The goal is safer use with discreet, practical improvements wherever possible, not a clinical look unless specialist works are needed.',
+      },
+      {
+        question: 'Is bathroom access only about the shower?',
+        answer:
+          'No. It includes the doorway, toilet transfer, bath or shower access, floor surfaces, controls, visibility and safe reach for support.',
+      },
+      {
+        question: 'When is a specialist quote needed?',
+        answer:
+          'Door widening, bathtub step-through conversion and structural changes usually need measurement, assessment and a specialist quotation.',
       },
     ],
   },
@@ -193,41 +215,6 @@ export const needLandingPages: NeedLandingPageContent[] = [
         question: 'Can connected bedroom features be optional?',
         answer:
           'Yes. Connected bedroom support such as voice routines, reminders or alerts should be used only where it adds comfort and confidence.',
-      },
-    ],
-  },
-  {
-    slug: 'safe-bathroom-access',
-    path: '/safe-bathroom-access',
-    servicePath: '/services/bathroom-safety',
-    resourcePath: '/blog/bathroom-safety-seniors-costly-mistakes',
-    icon: 'door',
-    image: '/images/solutions/small-bathroom-with-window-apartment.jpg',
-    title: 'Safe bathroom access',
-    seoTitle: 'Safe Bathroom Access for Older Adults',
-    description:
-      'Improve safe bathroom access with easier entry, support rails, shower seating, anti-slip surfaces, lighting and door adjustments where suitable.',
-    eyebrow: 'Safer access',
-    intro:
-      'Bathroom access is about the whole route: entering the room, closing or opening the door, reaching the toilet or shower and getting support at the exact point it is needed.',
-    whoFor: ['People who avoid showering because access feels difficult', 'Families worried about toilet or bath transfers', 'Small bathrooms where every movement matters'],
-    priorities: ['Door handle and privacy-lock usability', 'Shower or bath entry support', 'Toilet transfer support', 'Night route and bathroom visibility'],
-    casamiaPlan: ['Map the movement route into and inside the bathroom', 'Confirm measurements and support positions', 'Coordinate practical works and optional adaptations'],
-    relatedServices: [
-      { label: 'Bathroom package', to: '/services/bathroom-safety' },
-      { label: 'Home assessment', to: '/home-safety-assessment' },
-      { label: 'Bathroom safety guide', to: '/blog/bathroom-safety-seniors-costly-mistakes' },
-    ],
-    faqs: [
-      {
-        question: 'Is bathroom access only about the shower?',
-        answer:
-          'No. It includes the doorway, toilet transfer, bath or shower access, floor surfaces, controls, visibility and safe reach for support.',
-      },
-      {
-        question: 'When is a specialist quote needed?',
-        answer:
-          'Door widening, bathtub step-through conversion and structural changes usually need measurement, assessment and a specialist quotation.',
       },
     ],
   },

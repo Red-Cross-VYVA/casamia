@@ -27,7 +27,7 @@ function isActiveLink(pathname: string, link: HeaderLink) {
 const solutionMenuGroups = [
   {
     title: { en: 'Bathroom safety', es: 'Seguridad en el baño' },
-    slugs: ['bathroom-safety-for-seniors', 'safe-bathroom-access'],
+    slugs: ['bathroom-safety-for-seniors'],
   },
   {
     title: { en: 'Falls & assessment', es: 'Caídas y revisión del hogar' },
@@ -150,8 +150,8 @@ export function Nav() {
       title: isSpanish ? 'Páginas por necesidad' : 'Room safety pages',
       links: [
         {
-          label: isSpanish ? 'Acceso seguro al baño' : 'Safer bathroom access',
-          to: '/safe-bathroom-access',
+          label: isSpanish ? 'Seguridad en el baño' : 'Bathroom safety',
+          to: '/bathroom-safety-for-seniors',
         },
         {
           label: isSpanish ? 'Dormitorio más seguro' : 'Safer bedroom routines',

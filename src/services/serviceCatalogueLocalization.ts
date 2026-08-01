@@ -11,6 +11,7 @@ import type {
   CasaMiaService,
   CasaMiaServiceTranslation,
   EditableServiceCatalogue,
+  ServicePackageConfig,
   ServiceRoom,
 } from '../types/serviceCatalogue'
 
@@ -38,7 +39,10 @@ export function localizeService(service: CasaMiaService, language: string): Casa
     return service
   }
 
-  const copy = cleanLocalizedCopy(service.translations?.es ?? defaultSpanishServiceCopy[service.id])
+  const copy = cleanLocalizedCopy({
+    ...defaultSpanishServiceCopy[service.id],
+    ...service.translations?.es,
+  })
 
   return copy ? { ...service, ...copy } : service
 }
@@ -98,4 +102,32 @@ export function formatServicePriceForLanguage(service: CasaMiaService, language:
   if (!amount) return 'Incluido tras revisión'
 
   return `${service.pricingType === 'from' ? 'Desde ' : ''}${formatCurrency(amount)}`
+}
+
+export function formatPackagePriceForLanguage(config: ServicePackageConfig | undefined, language: string) {
+  if (!isSpanish(language)) {
+    if (!config || !config.active || config.pricingType === 'quote_only') {
+      return 'Package price confirmed after review'
+    }
+
+    const amount = config.pricingType === 'from' ? config.fromPrice : config.packagePrice
+
+    if (!amount) return 'Package price confirmed after review'
+
+    const total = amount + Math.round(amount * config.vatRate)
+
+    return `${config.pricingType === 'from' ? 'From ' : ''}${formatCurrency(total)}`
+  }
+
+  if (!config || !config.active || config.pricingType === 'quote_only') {
+    return 'Precio confirmado tras revisión'
+  }
+
+  const amount = config.pricingType === 'from' ? config.fromPrice : config.packagePrice
+
+  if (!amount) return 'Precio confirmado tras revisión'
+
+  const total = amount + Math.round(amount * config.vatRate)
+
+  return `${config.pricingType === 'from' ? 'Desde ' : ''}${formatCurrency(total)}`
 }

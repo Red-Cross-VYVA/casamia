@@ -19,24 +19,23 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Seguridad en el baño para mayores',
     seoTitle: 'Seguridad en el baño para mayores en España',
     description:
-      'Seguridad práctica en el baño para personas mayores: ducha, inodoro, apoyo antideslizante, iluminación, controles de agua e instalación coordinada por CasaMia.',
+      'Seguridad práctica en el baño para personas mayores: acceso, ducha, inodoro, apoyo antideslizante, iluminación, controles de agua e instalación coordinada por CasaMia.',
     eyebrow: 'Seguridad en el baño',
     intro:
-      'Haz que ducharse, usar el inodoro y moverse por el baño sea más seguro sin convertir la estancia en una clínica. CasaMia revisa la rutina real, recomienda la ruta adecuada y coordina el trabajo.',
+      'Haz que ducharse, usar el inodoro y acceder al baño sea más seguro sin convertirlo en una clínica. CasaMia revisa la rutina real, recomienda la solución adecuada y coordina el trabajo.',
     whoFor: [
       'Personas mayores que se sienten inseguras en el baño',
-      'Familias preocupadas por la ducha o el inodoro',
-      'Viviendas con riesgos de suelo mojado, agarre o uso nocturno del baño',
+      'Familias preocupadas por ducha, bañera o transferencias al inodoro',
+      'Baños pequeños donde suelo mojado, puertas o uso nocturno crean riesgo',
     ],
     priorities: [
-      'Ducha y baño con más apoyo',
-      'Ayuda para sentarse y levantarse del inodoro',
-      'Prevención de resbalones y mejor visibilidad nocturna',
-      'Controles de agua y prevención de fugas',
+      'Ducha, asiento y apoyo de inodoro más seguros',
+      'Puerta, manilla, cierre y puntos de apoyo utilizables',
+      'Prevención de resbalones, visibilidad nocturna y controles de agua',
     ],
     casamiaPlan: [
-      'Revisar la distribución y la rutina diaria del baño',
-      'Elegir mejoras que encajen con la persona y la vivienda',
+      'Revisar la ruta hacia y dentro del baño',
+      'Confirmar medidas y posiciones de apoyo cuando haga falta',
       'Coordinar instalación, explicación y seguimiento',
     ],
     relatedServices: [
@@ -54,6 +53,16 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
         question: '¿CasaMia puede mantener el baño con aspecto de hogar?',
         answer:
           'Sí. El objetivo es mejorar la seguridad con soluciones discretas y prácticas siempre que sea posible, no dar un aspecto clínico salvo que sea necesario.',
+      },
+      {
+        question: '¿El acceso al baño solo trata de la ducha?',
+        answer:
+          'No. Incluye puerta, inodoro, bañera o ducha, suelos, controles, visibilidad y apoyos seguros.',
+      },
+      {
+        question: '¿Cuándo hace falta presupuesto especialista?',
+        answer:
+          'Ampliar puertas, convertir bañeras o hacer cambios estructurales suele requerir medición, evaluación y presupuesto específico.',
       },
     ],
   },
@@ -222,48 +231,6 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
         question: '¿Las funciones conectadas son opcionales?',
         answer:
           'Sí. Voz, recordatorios o alertas solo deben usarse cuando aportan comodidad y confianza.',
-      },
-    ],
-  },
-  'safe-bathroom-access': {
-    title: 'Acceso seguro al baño',
-    seoTitle: 'Acceso seguro al baño para personas mayores',
-    description:
-      'Mejora el acceso al baño con entrada más fácil, apoyos, asiento de ducha, superficies antideslizantes, iluminación y ajustes de puerta cuando proceda.',
-    eyebrow: 'Acceso más seguro',
-    intro:
-      'El acceso al baño es toda la ruta: entrar, abrir o cerrar la puerta, llegar al inodoro o ducha y tener apoyo justo donde hace falta.',
-    whoFor: [
-      'Personas que evitan ducharse porque acceder resulta difícil',
-      'Familias preocupadas por transferencias al baño o inodoro',
-      'Baños pequeños donde cada movimiento cuenta',
-    ],
-    priorities: [
-      'Manilla y cierre fáciles de usar',
-      'Apoyo para entrar a ducha o bañera',
-      'Apoyo para sentarse y levantarse del inodoro',
-      'Ruta nocturna y visibilidad en el baño',
-    ],
-    casamiaPlan: [
-      'Mapear la ruta dentro y hacia el baño',
-      'Confirmar medidas y posiciones de apoyo',
-      'Coordinar mejoras prácticas y adaptaciones opcionales',
-    ],
-    relatedServices: [
-      { label: 'Solución para baño', to: '/services/bathroom-safety' },
-      { label: 'Evaluación del hogar', to: '/home-safety-assessment' },
-      { label: 'Guía de seguridad en el baño', to: '/blog/bathroom-safety-seniors-costly-mistakes' },
-    ],
-    faqs: [
-      {
-        question: '¿El acceso al baño solo trata de la ducha?',
-        answer:
-          'No. Incluye puerta, inodoro, bañera o ducha, suelos, controles, visibilidad y apoyos seguros.',
-      },
-      {
-        question: '¿Cuándo hace falta presupuesto especialista?',
-        answer:
-          'Ampliar puertas, convertir bañeras o hacer cambios estructurales suele requerir medición, evaluación y presupuesto específico.',
       },
     ],
   },
