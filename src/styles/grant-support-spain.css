@@ -212,7 +212,9 @@
 .grant-spain-example-grid,
 .grant-spain-pill-grid,
 .grant-spain-document-grid,
-.grant-spain-programme-grid {
+.grant-spain-programme-grid,
+.grant-spain-source-grid,
+.grant-spain-managed-grid {
   display: grid;
   gap: 1rem;
   margin-top: 2rem;
@@ -229,8 +231,11 @@
 
 .grant-spain-info-card,
 .grant-spain-adaptation-card,
+.grant-spain-audience-card,
 .grant-spain-example-grid article,
 .grant-spain-programme-grid article,
+.grant-spain-source-grid article,
+.grant-spain-managed-grid article,
 .grant-spain-checker,
 .grant-spain-lead-capture form {
   border: 1px solid rgb(27 94 138 / 18%);
@@ -241,13 +246,17 @@
 
 .grant-spain-info-card,
 .grant-spain-adaptation-card,
+.grant-spain-audience-card,
 .grant-spain-example-grid article,
-.grant-spain-programme-grid article {
+.grant-spain-programme-grid article,
+.grant-spain-source-grid article,
+.grant-spain-managed-grid article {
   padding: 1.25rem;
 }
 
 .grant-spain-info-card > span,
-.grant-spain-adaptation-card > svg {
+.grant-spain-adaptation-card > svg,
+.grant-spain-audience-card > svg {
   display: grid;
   width: 3rem;
   height: 3rem;
@@ -259,8 +268,11 @@
 
 .grant-spain-info-card h3,
 .grant-spain-adaptation-card h3,
+.grant-spain-audience-card h3,
 .grant-spain-example-grid strong,
 .grant-spain-programme-grid strong,
+.grant-spain-source-grid strong,
+.grant-spain-managed-grid strong,
 .grant-spain-checker h3,
 .grant-spain-result h3 {
   margin: 1rem 0 0;
@@ -270,12 +282,53 @@
 }
 
 .grant-spain-info-card p,
+.grant-spain-audience-card p,
 .grant-spain-adaptation-card li,
 .grant-spain-example-grid p,
 .grant-spain-programme-grid p,
+.grant-spain-source-grid p,
+.grant-spain-managed-grid p,
 .grant-spain-result p {
   color: #3d566d;
   line-height: 1.55;
+}
+
+.grant-spain-source-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grant-spain-source-grid article {
+  display: grid;
+  gap: 0.65rem;
+  align-content: start;
+  background: #ffffff;
+}
+
+.grant-spain-source-grid svg {
+  color: #79c143;
+}
+
+.grant-spain-managed-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grant-spain-managed-grid article {
+  border-top: 4px solid #155f86;
+  background: linear-gradient(180deg, #ffffff, #f7fcff);
+}
+
+.grant-spain-managed-grid article > span {
+  display: inline-flex;
+  color: #79c143;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.grant-spain-managed-grid strong {
+  display: block;
+  margin-top: 0.9rem;
 }
 
 .grant-spain-adaptation-card ul,
@@ -605,6 +658,8 @@
   .grant-spain-card-grid.four,
   .grant-spain-card-grid.three,
   .grant-spain-example-grid,
+  .grant-spain-source-grid,
+  .grant-spain-managed-grid,
   .grant-spain-pill-grid,
   .grant-spain-document-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -678,6 +733,8 @@
   .grant-spain-card-grid.four,
   .grant-spain-card-grid.three,
   .grant-spain-example-grid,
+  .grant-spain-source-grid,
+  .grant-spain-managed-grid,
   .grant-spain-option-grid,
   .grant-spain-location-grid,
   .grant-spain-pill-grid,

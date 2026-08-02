@@ -3,6 +3,7 @@ import {
   BadgeEuro,
   Building2,
   CheckCircle2,
+  CircleHelp,
   FileCheck2,
   HeartHandshake,
   Home,
@@ -87,6 +88,22 @@ const regionExamples = [
   'Canarias',
 ]
 
+const targetAudience = [
+  ['Mayores de 60 o 65 años', 'Muchas convocatorias usan la edad como criterio favorable, especialmente cuando la adaptación ayuda a seguir viviendo en casa.'],
+  ['Familias cuidadoras', 'Hijos, familiares y cuidadores pueden iniciar la comprobación aunque la ayuda corresponda a la persona que vive en la vivienda.'],
+  ['Discapacidad, dependencia o movilidad reducida', 'Un reconocimiento oficial, una solicitud en trámite o una necesidad clara de apoyo puede reforzar la vía de ayuda.'],
+  ['Propietarios, inquilinos y comunidades', 'La vivienda habitual, el permiso del propietario o el acuerdo de comunidad pueden abrir diferentes rutas de financiación.'],
+]
+
+const fundingSourceGroups = [
+  ['Programas de vivienda y rehabilitación', 'Planes estatales, autonómicos y de rehabilitación de edificios o viviendas privadas.'],
+  ['Accesibilidad y eliminación de barreras', 'Ayudas para baños, rampas, puertas, ascensores, salvaescaleras, plataformas y recorridos seguros.'],
+  ['Servicios Sociales y dependencia', 'Apoyos vinculados a vulnerabilidad, dependencia reconocida, informes sociales o necesidad de ayuda diaria.'],
+  ['Discapacidad y movilidad reducida', 'Programas específicos o criterios de prioridad para discapacidad reconocida, movilidad reducida o informes técnicos.'],
+  ['Ayuntamientos y diputaciones', 'Subvenciones municipales, oficinas de vivienda, programas provinciales y ayudas complementarias.'],
+  ['Comunidades de propietarios', 'Ayudas para portales, rampas, ascensores, plataformas y accesibilidad en zonas comunes.'],
+]
+
 const fundingExamples = [
   ['Baño y seguridad', 'La ayuda pública puede cubrir parte o gran parte del coste subvencionable.'],
   ['Equipamiento accesible', 'Rampas, plataformas, salvaescaleras o ascensores pueden recibir porcentajes significativos.'],
@@ -138,6 +155,13 @@ const services = [
   'Servicio post-reforma',
 ]
 
+const casamiaManagedSteps = [
+  ['Encontrar la ayuda correcta', 'No buscamos una sola subvención. Revisamos vías estatales, autonómicas, provinciales, municipales, sociales, discapacidad, dependencia y comunidad de propietarios.'],
+  ['Convertir la necesidad en una reforma subvencionable', 'La administración suele necesitar una actuación clara: qué se adapta, por qué, con qué presupuesto y qué documentación la justifica.'],
+  ['Evitar errores de proceso', 'Antes de empezar una obra conviene comprobar plazos, permisos, compatibilidad con otras ayudas y documentos mínimos.'],
+  ['Acompañar hasta el cierre', 'Casamia puede coordinar visita, informe, presupuesto, solicitud, obra, facturas y justificación final.'],
+]
+
 const documents = [
   'DNI o NIE',
   'Padrón',
@@ -170,7 +194,9 @@ const faqs = [
   ['¿Cuánto dinero puedo recibir?', 'Las cantidades varían. Algunos programas cubren un porcentaje de la obra y otros establecen una cantidad máxima por vivienda, persona o actuación.'],
   ['¿Puede cubrirse toda la obra?', 'En algunos programas y situaciones prioritarias, la ayuda puede cubrir una parte muy elevada del coste. Casamia comprobará el porcentaje aplicable a tu caso.'],
   ['¿Puedo empezar la obra antes de solicitarla?', 'En muchos programas es recomendable u obligatorio solicitar la ayuda antes de iniciar la obra. Casamia revisará las condiciones antes de que tomes una decisión.'],
+  ['¿Servicios Sociales es el primer paso?', 'Puede ser uno de los primeros contactos, especialmente en situaciones de dependencia o vulnerabilidad. También pueden intervenir oficinas de vivienda, rehabilitación, ayuntamientos y organismos autonómicos.'],
   ['¿Qué ocurre si no hay una convocatoria abierta?', 'Casamia puede identificar programas próximos, ayudas alternativas, convocatorias municipales o vías complementarias.'],
+  ['¿Qué significa IPREM?', 'Es una referencia pública de ingresos. Muchas ayudas la usan para priorizar hogares con ingresos bajos o medios. Casamia puede ayudarte a entender qué tramo puede aplicar.'],
   ['¿Casamia garantiza la concesión?', 'Casamia identifica programas, prepara el caso y ayuda durante todo el proceso. La resolución final corresponde a la administración pública.'],
 ]
 
@@ -268,9 +294,65 @@ export function GrantSupportSpainPage() {
               </div>
               <p className="grant-spain-trust">Comprobación inicial gratuita · Sin compromiso · Resultado orientativo inmediato</p>
             </div>
-            <SafeImage src="/images/blog/grants-euro-symbol.jpg" alt="Símbolo del euro como referencia a programas de apoyo europeos y públicos" className="grant-spain-hero-image" imgClassName="grant-spain-hero-img" loading="eager" />
+            <div className="grant-spain-hero-visual">
+              <SafeImage src="/images/solutions/portrait-lovely-couple-together.jpg" alt="Persona mayor en un hogar cómodo y seguro" className="grant-spain-hero-image" imgClassName="grant-spain-hero-img" loading="eager" />
+              <div className="grant-spain-hero-funding-card" aria-label="Resumen de ayudas">
+                <span><BadgeEuro size={24} /></span>
+                <strong>Ayudas disponibles en España</strong>
+                <small>Estatales · autonómicas · municipales · sociales</small>
+              </div>
+            </div>
+          </div>
+          <div className="site-shell grant-spain-hero-proof" aria-label="Resumen de servicio Casamia">
+            {[
+              ['Identificamos la vía', 'Comparamos programas públicos según vivienda, región y situación personal.'],
+              ['Preparamos el expediente', 'Documentos, fotos, informes, autorizaciones y presupuesto subvencionable.'],
+              ['Coordinamos la reforma', 'Un solo equipo para adaptar la vivienda y justificar correctamente.'],
+            ].map(([title, body]) => (
+              <article key={title}>
+                <CheckCircle2 size={20} aria-hidden="true" />
+                <strong>{title}</strong>
+                <p>{body}</p>
+              </article>
+            ))}
           </div>
         </section>
+
+        <section className="grant-spain-promise" aria-labelledby="grant-spain-promise-title">
+          <div className="site-shell grant-spain-promise-grid">
+            <div>
+              <p className="grant-spain-kicker">Mensaje principal</p>
+              <h2 id="grant-spain-promise-title">Adaptamos la vivienda y simplificamos la ayuda.</h2>
+            </div>
+            <p>En toda España existen subvenciones y programas públicos para ayudar a personas mayores, con discapacidad, dependencia o movilidad reducida a adaptar su vivienda. Casamia identifica la ayuda adecuada, confirma qué falta y convierte la reforma en un proceso claro.</p>
+          </div>
+        </section>
+
+        <Section eyebrow="Una posibilidad real" title="Las ayudas no son una excepción rara.">
+          <p className="grant-spain-lead">La financiación pública para accesibilidad, rehabilitación y adaptación funcional existe en muchas partes de España. La ayuda concreta cambia por comunidad autónoma, municipio, presupuesto disponible, edad, discapacidad, dependencia, ingresos, vivienda y tipo de obra, pero el punto de partida es claro: merece la pena comprobarlo antes de reformar.</p>
+          <div className="grant-spain-card-grid four">
+            {targetAudience.map(([title, body]) => (
+              <article className="grant-spain-audience-card" key={title}>
+                <UserRoundIcon />
+                <h3>{title}</h3>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
+        </Section>
+
+        <Section eyebrow="Todas las vías" title="De dónde puede venir la financiación.">
+          <p className="grant-spain-lead">El apoyo puede venir de vivienda, accesibilidad, discapacidad, dependencia, Servicios Sociales, rehabilitación, ayuntamientos, diputaciones o comunidades de propietarios. Casamia ordena esas vías para que la familia no tenga que perseguir cada administración por separado.</p>
+          <div className="grant-spain-source-grid">
+            {fundingSourceGroups.map(([title, body]) => (
+              <article key={title}>
+                <CheckCircle2 size={18} aria-hidden="true" />
+                <strong>{title}</strong>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
+        </Section>
 
         <Section id="ayudas-disponibles" eyebrow="Adaptamos la vivienda y simplificamos la ayuda." title="Sí, puedes obtener ayuda para adaptar tu vivienda.">
           <p className="grant-spain-lead">Las ayudas para accesibilidad y adaptación del hogar están disponibles a través de programas estatales, autonómicos, provinciales y municipales. También existen apoyos específicos para personas mayores, discapacidad, dependencia e ingresos bajos o medios.</p>
@@ -281,10 +363,30 @@ export function GrantSupportSpainPage() {
           <p className="grant-spain-region-line">Ejemplos de revisión autonómica: {regionExamples.join(', ')}.</p>
         </Section>
 
+        <Section eyebrow="Qué hace Casamia" title="De una ayuda posible a un expediente preparado.">
+          <p className="grant-spain-lead">La familia no solo necesita saber que una ayuda existe. Necesita saber si encaja, qué documentos faltan, qué reforma puede justificarse y cuándo conviene empezar. Ahí es donde Casamia une la parte técnica, familiar y administrativa.</p>
+          <div className="grant-spain-managed-grid">
+            {casamiaManagedSteps.map(([title, body], index) => (
+              <article key={title}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <strong>{title}</strong>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
+        </Section>
+
         <Section eyebrow="Importes orientativos" title="¿Cuánta ayuda se puede recibir?">
           <p className="grant-spain-lead">Dependiendo de la convocatoria, la localización, la situación personal y el tipo de obra, las ayudas pueden cubrir una parte importante del proyecto.</p>
           <div className="grant-spain-example-grid">{fundingExamples.map(([title, body]) => <article key={title}><strong>{title}</strong><p>{body}</p></article>)}</div>
           <p className="grant-spain-note">Existen programas con límites aproximados de 8.000 €, 10.000 €, 12.500 €, 18.000 € o más, porcentajes reforzados para mayores, discapacidad o dependencia y ayudas municipales para obras o equipos concretos. Casamia confirma el importe aplicable antes de preparar la solicitud.</p>
+          <div className="grant-spain-plain-language">
+            <CircleHelp size={22} aria-hidden="true" />
+            <div>
+              <strong>En lenguaje sencillo</strong>
+              <p><b>IPREM</b> es una referencia pública que muchas ayudas usan para valorar ingresos. <b>Empadronamiento</b> demuestra dónde vive la persona. <b>Dependencia</b> es el grado reconocido cuando alguien necesita apoyo en su vida diaria. <b>Vivienda habitual</b> es la casa donde vive normalmente.</p>
+            </div>
+          </div>
         </Section>
 
         <Section id="adaptaciones" eyebrow="Reformas subvencionables" title="¿Qué reformas pueden recibir ayuda?">
@@ -385,6 +487,10 @@ function Section({ id, eyebrow, title, children }: { id?: string; eyebrow: strin
 
 function InfoCard({ icon, title, body }: { icon: ReactNode; title: string; body: string }) {
   return <article className="grant-spain-info-card"><span>{icon}</span><h3>{title}</h3><p>{body}</p></article>
+}
+
+function UserRoundIcon() {
+  return <HeartHandshake size={22} aria-hidden="true" />
 }
 
 function QuestionInput({ question, answers, updateAnswer, toggleMulti }: { question: CheckerQuestion; answers: GrantAnswers; updateAnswer: (id: keyof GrantAnswers, value: string) => void; toggleMulti: (id: 'difficulties' | 'adaptations' | 'documents', value: string) => void }) {

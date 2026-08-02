@@ -38,6 +38,7 @@ export function NeedLandingPage() {
   const isSpanish = i18n.language.startsWith('es')
   const page = localizeNeedLandingPage(basePage ?? allNeedLandingPages[0], i18n.language)
   const isCompactNeedPage = page.slug === 'bathroom-safety-for-seniors'
+  const isGrantSupportNeedPage = page.slug === 'grants-for-home-adaptations-spain'
   const siblingPages = localizeNeedLandingPages(allNeedLandingPages, i18n.language)
     .filter((item) => item.slug !== page.slug)
     .slice(0, 4)
@@ -395,6 +396,10 @@ export function NeedLandingPage() {
   const secondaryCtaLabel = isCompactNeedPage
     ? isSpanish ? 'Ver solución de baño' : 'See bathroom service'
     : copy.secondaryCta
+  const primaryCtaTarget = isGrantSupportNeedPage ? '/grant-check' : '/home-safety-wizard'
+  const primaryCtaLabel = isGrantSupportNeedPage
+    ? isSpanish ? 'Comprobar mi ayuda' : 'Check my grant'
+    : copy.primaryCta
   const catalogueEyebrow = isCompactNeedPage
     ? isSpanish ? 'Prioridades del baño' : 'Bathroom priorities'
     : copy.catalogueEyebrow
@@ -461,8 +466,8 @@ export function NeedLandingPage() {
               <h1>{page.title}</h1>
               <p>{page.intro}</p>
               <div className="need-landing-actions">
-                <Link className="btn btn-green" to="/home-safety-wizard">
-                  {copy.primaryCta}
+                <Link className="btn btn-green" to={primaryCtaTarget}>
+                  {primaryCtaLabel}
                   <ArrowRight size={18} aria-hidden="true" />
                 </Link>
                 <Link className="btn btn-white" to={page.servicePath}>
@@ -603,34 +608,36 @@ export function NeedLandingPage() {
               </div>
             </section>
 
-            <section className="need-landing-decision" aria-labelledby="need-landing-decision-title">
-              <div className="site-shell need-landing-decision-grid">
-                <div className="need-landing-decision-copy">
-                  <p className="eyebrow">{copy.decisionEyebrow}</p>
-                  <h2 id="need-landing-decision-title">{copy.decisionTitle}</h2>
-                  <p>{copy.decisionBody}</p>
+            {!isGrantSupportNeedPage ? (
+              <section className="need-landing-decision" aria-labelledby="need-landing-decision-title">
+                <div className="site-shell need-landing-decision-grid">
+                  <div className="need-landing-decision-copy">
+                    <p className="eyebrow">{copy.decisionEyebrow}</p>
+                    <h2 id="need-landing-decision-title">{copy.decisionTitle}</h2>
+                    <p>{copy.decisionBody}</p>
+                  </div>
+                  <div className="need-decision-card-grid">
+                    {copy.decisionCards.map((item, index) => (
+                      <DecisionCard
+                        key={item.title}
+                        step={index + 1}
+                        icon={
+                          index === 0 ? (
+                            <AlertTriangle size={21} aria-hidden="true" />
+                          ) : index === 1 ? (
+                            <ListChecks size={21} aria-hidden="true" />
+                          ) : (
+                            <Route size={21} aria-hidden="true" />
+                          )
+                        }
+                        title={item.title}
+                        body={item.body}
+                      />
+                    ))}
+                  </div>
                 </div>
-                <div className="need-decision-card-grid">
-                  {copy.decisionCards.map((item, index) => (
-                    <DecisionCard
-                      key={item.title}
-                      step={index + 1}
-                      icon={
-                        index === 0 ? (
-                          <AlertTriangle size={21} aria-hidden="true" />
-                        ) : index === 1 ? (
-                          <ListChecks size={21} aria-hidden="true" />
-                        ) : (
-                          <Route size={21} aria-hidden="true" />
-                        )
-                      }
-                      title={item.title}
-                      body={item.body}
-                    />
-                  ))}
-                </div>
-              </div>
-            </section>
+              </section>
+            ) : null}
           </>
         ) : null}
 
@@ -737,34 +744,36 @@ export function NeedLandingPage() {
               </div>
             </section>
 
-            <section className="need-landing-detail">
-              <div className="site-shell need-landing-detail-grid">
-                <div className="need-landing-route-card">
-                  <p className="eyebrow">{copy.clarifyEyebrow}</p>
-                  <h2>{copy.clarifyTitle}</h2>
-                  <div className="need-landing-route-list">
-                    {copy.clarifyItems.map((item) => (
-                      <span key={item}>
-                        <CheckCircle2 size={17} aria-hidden="true" />
-                        {item}
-                      </span>
-                    ))}
+            {!isGrantSupportNeedPage ? (
+              <section className="need-landing-detail">
+                <div className="site-shell need-landing-detail-grid">
+                  <div className="need-landing-route-card">
+                    <p className="eyebrow">{copy.clarifyEyebrow}</p>
+                    <h2>{copy.clarifyTitle}</h2>
+                    <div className="need-landing-route-list">
+                      {copy.clarifyItems.map((item) => (
+                        <span key={item}>
+                          <CheckCircle2 size={17} aria-hidden="true" />
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="need-landing-dos-card">
+                    <p className="eyebrow">{copy.beforeSpendingEyebrow}</p>
+                    <h2>{copy.beforeSpendingTitle}</h2>
+                    <ol>
+                      {copy.beforeSpendingChecks.map(([title, body]) => (
+                        <li key={title}>
+                          <strong>{title}</strong>
+                          <span>{body}</span>
+                        </li>
+                      ))}
+                    </ol>
                   </div>
                 </div>
-                <div className="need-landing-dos-card">
-                  <p className="eyebrow">{copy.beforeSpendingEyebrow}</p>
-                  <h2>{copy.beforeSpendingTitle}</h2>
-                  <ol>
-                    {copy.beforeSpendingChecks.map(([title, body]) => (
-                      <li key={title}>
-                        <strong>{title}</strong>
-                        <span>{body}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </section>
+              </section>
+            ) : null}
           </>
         ) : null}
 

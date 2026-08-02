@@ -10,7 +10,6 @@ import {
   FileText,
   Home,
   MapPin,
-  ShieldCheck,
   Sparkles,
   UserRound,
 } from 'lucide-react'
@@ -334,21 +333,8 @@ export function GrantEligibilityPage() {
                   {copy.actions.startNow}
                   <ArrowRight size={20} aria-hidden="true" />
                 </a>
-                <span>{copy.hero.helper}</span>
-              </div>
-              <div className="grant-hero-points" aria-label={copy.hero.pointsLabel}>
-                {copy.hero.points.map((point) => (
-                  <span key={point}>
-                    <Check size={16} aria-hidden="true" />
-                    {point}
-                  </span>
-                ))}
               </div>
             </div>
-            <aside className="grant-check-note">
-              <ShieldCheck className="text-green" size={26} aria-hidden="true" />
-              <p>{copy.hero.note}</p>
-            </aside>
           </div>
         </div>
       </section>
@@ -1353,9 +1339,9 @@ function getGrantCopy(language: string) {
     return {
       hero: {
         back: 'Volver a ayudas',
-        title: '¿Puedes recibir ayudas? Compruébalo gratis.',
+        title: 'Comprueba ayudas para adaptar tu vivienda.',
         intro:
-          'Responde unas preguntas, sin subir fotos, y recibe un informe práctico sobre tu preparación para posibles ayudas.',
+          'Responde unas preguntas y recibe una orientación inicial gratuita.',
         note:
           'No es una aprobación de ayudas. Las opciones dependen de la comunidad autónoma, convocatorias abiertas, vivienda y documentación.',
         helper: 'Tarda unos minutos y no necesitas documentos para empezar.',
@@ -1617,9 +1603,9 @@ function getGrantCopy(language: string) {
   return {
     hero: {
       back: 'Back to grants',
-      title: 'Could you receive grants? Check for free.',
+      title: 'Check home adaptation grants.',
       intro:
-        'Answer a few questions, with no photo upload, and get a practical readiness report for possible accessibility grants.',
+        'Answer a few questions and get free initial guidance.',
       note:
         'This is not a grant approval. Support depends on your autonomous community, open calls, home details, and documentation.',
       helper: 'Takes a few minutes and you do not need documents to start.',

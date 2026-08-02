@@ -18139,22 +18139,20 @@ img {
 }
 
 .grant-hero-card {
-  display: grid;
+  display: block;
   min-width: 0;
-  gap: clamp(28px, 5vw, 64px);
-  align-items: end;
   overflow: hidden;
   border: 1px solid rgba(200, 220, 232, 0.78);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.74);
-  padding: clamp(26px, 5vw, 56px);
+  padding: clamp(28px, 5vw, 64px);
   box-shadow: 0 28px 90px rgba(13, 30, 46, 0.11);
   backdrop-filter: blur(8px);
 }
 
 .grant-hero-main {
   min-width: 0;
-  max-width: 680px;
+  max-width: 760px;
 }
 
 .grant-back-link {
@@ -18175,63 +18173,6 @@ img {
   gap: 16px;
   align-items: center;
   margin-top: 28px;
-}
-
-.grant-hero-actions > span {
-  max-width: 320px;
-  color: var(--text-mid);
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.45;
-  overflow-wrap: anywhere;
-}
-
-.grant-hero-points {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
-}
-
-.grant-hero-points span {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  border: 1px solid rgba(125, 184, 65, 0.32);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.84);
-  padding: 8px 12px;
-  color: var(--text-dark);
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.grant-hero-points svg {
-  flex: 0 0 auto;
-  color: var(--green);
-}
-
-@media (min-width: 1024px) {
-  .grant-hero-card {
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.46fr);
-  }
-}
-
-.grant-check-note {
-  display: grid;
-  min-width: 0;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 14px;
-  align-self: center;
-  align-items: start;
-  border-radius: 14px;
-  border: 1px solid rgba(200, 220, 232, 0.9);
-  background: linear-gradient(145deg, #ffffff, rgba(234, 245, 252, 0.9));
-  padding: 24px;
-  box-shadow: 0 18px 50px rgba(13, 30, 46, 0.1);
-  color: var(--text-mid);
-  font-size: 15px;
-  line-height: 1.55;
 }
 
 .grant-check-section {
@@ -22106,21 +22047,8 @@ img {
     width: 100%;
   }
 
-  .grant-hero-actions > span {
-    max-width: none;
-  }
-
-  .grant-hero-points {
-    display: grid;
-  }
-
-  .grant-check-note {
-    padding: 20px;
-  }
-
   .grant-hero-main .display-title,
-  .grant-hero-main p,
-  .grant-check-note p {
+  .grant-hero-main p {
     overflow-wrap: anywhere;
   }
 
