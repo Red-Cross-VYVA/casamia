@@ -46,19 +46,19 @@ export const needLandingPages: NeedLandingPageContent[] = [
     intro:
       'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. CasaMia reviews the real routine, recommends the right package and coordinates the work.',
     whoFor: [
-      'Older adults who feel unsteady in the bathroom',
-      'Families worried about shower, toilet or bath transfers',
-      'Small bathrooms where wet floors, doors or night-time movement create risk',
+      'Older adults unsteady in the bathroom',
+      'Families worried about transfers',
+      'Small or wet bathrooms',
     ],
     priorities: [
-      'Safer bathing, shower seating and toilet support',
-      'Doorway, handle, privacy lock and support-point usability',
-      'Slip prevention, night visibility and water safeguards',
+      'Shower and toilet support',
+      'Grip, light and water controls',
+      'Door access and usable supports',
     ],
     casamiaPlan: [
-      'Review the route into and inside the bathroom',
-      'Confirm measurements and support positions where needed',
-      'Coordinate installation, handover and aftercare',
+      'Review the real routine',
+      'Confirm fit and fixing points',
+      'Coordinate install and handover',
     ],
     riskSection: {
       eyebrow: 'Bathroom risk map',

@@ -25,19 +25,19 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     intro:
       'Haz que ducharse, usar el inodoro y acceder al baño sea más seguro sin convertirlo en una clínica. CasaMia revisa la rutina real, recomienda la solución adecuada y coordina el trabajo.',
     whoFor: [
-      'Personas mayores que se sienten inseguras en el baño',
-      'Familias preocupadas por ducha, bañera o transferencias al inodoro',
-      'Baños pequeños donde suelo mojado, puertas o uso nocturno crean riesgo',
+      'Mayores inseguros en el baño',
+      'Familias preocupadas por transferencias',
+      'Baños pequeños o con suelo mojado',
     ],
     priorities: [
-      'Ducha, asiento y apoyo de inodoro más seguros',
-      'Puerta, manilla, cierre y puntos de apoyo utilizables',
-      'Prevención de resbalones, visibilidad nocturna y controles de agua',
+      'Apoyo en ducha e inodoro',
+      'Agarre, luz y controles de agua',
+      'Acceso y puntos de apoyo',
     ],
     casamiaPlan: [
-      'Revisar la ruta hacia y dentro del baño',
-      'Confirmar medidas y posiciones de apoyo cuando haga falta',
-      'Coordinar instalación, explicación y seguimiento',
+      'Revisar la rutina real',
+      'Confirmar medidas y fijaciones',
+      'Coordinar instalación y entrega',
     ],
     riskSection: {
       eyebrow: 'Mapa de riesgos del baño',

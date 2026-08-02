@@ -134,11 +134,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       { title: 'Review', body: 'We confirm' },
     ],
     fromCatalogue: 'Catalogue-based estimate',
-    grantBody: 'CasaMia can check grant readiness and documents where regional programmes apply.',
-    grantCta: 'Check grants',
-    grantEyebrow: 'Grant support available',
-    grantFeatureItems: ['Eligibility route', 'Document checklist', 'Package-ready scope'],
-    grantTitle: 'Funding may help with eligible adaptations.',
+    grantBody: 'Check possible aid before final scope.',
+    grantCta: 'Start grant check',
+    grantEyebrow: 'Aid route',
+    grantFeatureItems: ['Region', 'Documents', 'Scope'],
+    grantTitle: 'Grants may apply.',
     helpText: 'Use the steppers. Add connected or specialist modules only where useful.',
     metaTitle: 'Plans Builder | CasaMia',
     modulesTitle: 'Add-ons',
@@ -182,7 +182,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryNextTitle: 'Next step',
     summaryRoomsTitle: 'Selected rooms',
     subtitle:
-      'Select rooms, see a live estimate, then send a draft for CasaMia review.',
+      'Choose rooms, adjust quantities and send one clear draft for review.',
     title: 'Build your CasaMia plan.',
     town: 'Town / area',
     address: 'Address',
@@ -215,11 +215,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       { title: 'Revisión', body: 'Confirmamos' },
     ],
     fromCatalogue: 'Estimación del catálogo',
-    grantBody: 'CasaMia puede revisar preparación y documentos cuando existan programas aplicables.',
-    grantCta: 'Comprobar ayudas',
+    grantBody: 'Revisa posibles ayudas antes del alcance final.',
+    grantCta: 'Iniciar revisión',
     grantEyebrow: 'Ayudas disponibles',
-    grantFeatureItems: ['Ruta de elegibilidad', 'Lista de documentos', 'Alcance listo para propuesta'],
-    grantTitle: 'La financiación puede ayudar en adaptaciones elegibles.',
+    grantFeatureItems: ['Región', 'Documentos', 'Alcance'],
+    grantTitle: 'Puede haber ayudas.',
     helpText: 'Usa los controles. Añade módulos conectados o especiales solo donde aporten valor.',
     metaTitle: 'Constructor de planes | CasaMia',
     modulesTitle: 'Extras',
@@ -261,7 +261,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryNextTitle: 'Siguiente paso',
     summaryRoomsTitle: 'Estancias elegidas',
     subtitle:
-      'Selecciona estancias, ve una estimación y envía el borrador para revisión.',
+      'Elige estancias, ajusta cantidades y envía un borrador claro para revisión.',
     title: 'Crea tu plan CasaMia.',
     town: 'Ciudad / zona',
     address: 'Dirección',
@@ -704,26 +704,27 @@ export function PlansPage() {
           </div>
 
           <aside className="plans-hero-grant-card" aria-label={copy.grantEyebrow}>
-            <span className="plans-hero-grant-icon" aria-hidden="true">
-              <BadgeEuro size={28} />
-            </span>
-            <div>
+            <div className="plans-hero-grant-visual" aria-hidden="true">
+              <span className="plans-hero-grant-seal">
+                <BadgeEuro size={30} />
+              </span>
+              <span className="plans-hero-grant-line" />
+              <span className="plans-hero-grant-document" />
+            </div>
+            <div className="plans-hero-grant-copy">
               <p className="section-kicker">{copy.grantEyebrow}</p>
               <h2>{copy.grantTitle}</h2>
               <p>{copy.grantBody}</p>
+              <ul>
+                {copy.grantFeatureItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <Link to="/grant-check">
+                {copy.grantCta}
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
             </div>
-            <ul>
-              {copy.grantFeatureItems.map((item) => (
-                <li key={item}>
-                  <CheckCircle2 size={16} aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <Link to="/grant-check">
-              {copy.grantCta}
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
           </aside>
         </div>
       </section>

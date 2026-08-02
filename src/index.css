@@ -16595,81 +16595,127 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plans-hero-grant-card {
   position: relative;
   display: grid;
-  gap: 20px;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 22px;
+  align-self: center;
   overflow: hidden;
-  border: 1px solid rgba(125, 184, 65, 0.42);
-  border-radius: 14px;
+  border: 1px solid rgba(125, 184, 65, 0.36);
+  border-radius: 18px;
   background:
-    radial-gradient(circle at 88% 4%, rgba(125, 184, 65, 0.24), transparent 34%),
-    radial-gradient(circle at 12% 92%, rgba(52, 161, 211, 0.15), transparent 30%),
+    radial-gradient(circle at 24% 28%, rgba(125, 184, 65, 0.2), transparent 34%),
+    radial-gradient(circle at 88% 78%, rgba(52, 161, 211, 0.12), transparent 30%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(246, 252, 242, 0.96));
-  padding: clamp(22px, 3vw, 34px);
+  padding: clamp(18px, 2.2vw, 24px);
   box-shadow: 0 26px 70px rgba(13, 30, 46, 0.12);
 }
 
-.plans-hero-grant-card::before {
+.plans-hero-grant-visual {
+  position: relative;
+  display: grid;
+  min-height: 180px;
+  place-items: center;
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(232, 246, 224, 0.92), rgba(255, 255, 255, 0.72)),
+    repeating-linear-gradient(0deg, rgba(49, 162, 218, 0.12) 0 1px, transparent 1px 18px);
+  box-shadow: inset 0 0 0 1px rgba(125, 184, 65, 0.24);
+}
+
+.plans-hero-grant-seal {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  width: 78px;
+  height: 78px;
+  align-items: center;
+  justify-content: center;
+  border: 7px solid rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  background: linear-gradient(145deg, var(--green), #9dd85c);
+  color: var(--white);
+  box-shadow: 0 18px 34px rgba(80, 137, 33, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+.plans-hero-grant-line {
   position: absolute;
-  inset: 0 0 auto;
-  height: 5px;
-  background: linear-gradient(90deg, var(--green), var(--blue));
+  width: 102px;
+  height: 102px;
+  border: 2px dashed rgba(52, 161, 211, 0.36);
+  border-radius: 999px;
+}
+
+.plans-hero-grant-document {
+  position: absolute;
+  right: 17px;
+  bottom: 18px;
+  width: 42px;
+  height: 54px;
+  border: 1px solid rgba(52, 161, 211, 0.28);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 12px 24px rgba(13, 30, 46, 0.08);
+}
+
+.plans-hero-grant-document::before,
+.plans-hero-grant-document::after {
+  position: absolute;
+  left: 10px;
+  width: 21px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(52, 161, 211, 0.32);
   content: '';
 }
 
-.plans-hero-grant-icon {
-  display: inline-flex;
-  width: 62px;
-  height: 62px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  background: linear-gradient(145deg, var(--green), #9dd85c);
-  color: var(--white);
-  box-shadow: 0 18px 34px rgba(80, 137, 33, 0.24);
+.plans-hero-grant-document::before {
+  top: 16px;
+}
+
+.plans-hero-grant-document::after {
+  top: 26px;
+}
+
+.plans-hero-grant-copy {
+  display: grid;
+  gap: 10px;
+  align-content: center;
 }
 
 .plans-hero-grant-card h2 {
-  margin-top: 10px;
   color: var(--text-dark);
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(32px, 3.4vw, 48px);
-  font-weight: 900;
-  line-height: 1;
+  font-size: clamp(26px, 2.4vw, 36px);
+  font-weight: 950;
+  letter-spacing: 0;
+  line-height: 1.02;
   text-wrap: balance;
 }
 
 .plans-hero-grant-card p:not(.section-kicker) {
-  margin-top: 12px;
+  max-width: 22rem;
   color: var(--text-mid);
-  font-size: 16px;
-  font-weight: 750;
-  line-height: 1.5;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .plans-hero-grant-card ul {
-  display: grid;
-  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .plans-hero-grant-card li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 10px;
-  align-items: center;
-  border: 1px solid rgba(125, 184, 65, 0.28);
+  border: 1px solid rgba(125, 184, 65, 0.3);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.74);
-  padding: 10px 12px;
+  padding: 7px 10px;
   color: var(--text-dark);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 900;
-  line-height: 1.2;
-}
-
-.plans-hero-grant-card li svg {
-  color: var(--green);
+  line-height: 1;
 }
 
 .plans-hero-grant-card a {
@@ -16680,9 +16726,9 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   justify-content: center;
   border-radius: 999px;
   background: var(--navy);
-  padding: 13px 16px;
+  padding: 11px 14px;
   color: var(--white);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 950;
   text-decoration: none;
   box-shadow: 0 16px 34px rgba(6, 65, 109, 0.2);
@@ -17401,7 +17447,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
 @media (min-width: 860px) {
   .plans-builder-hero {
-    grid-template-columns: minmax(0, 1fr) minmax(340px, 430px);
+    grid-template-columns: minmax(0, 0.95fr) minmax(420px, 0.72fr);
   }
 
   .plans-review-cta {
@@ -17432,6 +17478,14 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 @media (max-width: 760px) {
+  .plans-hero-grant-card {
+    grid-template-columns: 1fr;
+  }
+
+  .plans-hero-grant-visual {
+    min-height: 120px;
+  }
+
   .plans-builder-shell {
     padding-top: 78px;
   }
