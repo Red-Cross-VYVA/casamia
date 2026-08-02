@@ -1,0 +1,716 @@
+.grant-spain-page {
+  overflow: hidden;
+  background: #fffaf4;
+  color: #14263a;
+}
+
+.grant-spain-subnav {
+  position: sticky;
+  z-index: 40;
+  top: 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 1rem;
+  align-items: center;
+  border-bottom: 1px solid rgb(27 94 138 / 14%);
+  background: rgb(255 250 244 / 94%);
+  padding: 0.85rem clamp(1rem, 4vw, 3rem);
+  backdrop-filter: blur(18px);
+}
+
+.grant-spain-logo {
+  color: #102235;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.grant-spain-subnav nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  justify-content: center;
+}
+
+.grant-spain-subnav a,
+.grant-spain-menu {
+  color: #18334d;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.grant-spain-menu {
+  display: none;
+  min-height: 2.8rem;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgb(27 94 138 / 18%);
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 0 0.9rem;
+}
+
+.grant-spain-call,
+.grant-spain-primary,
+.grant-spain-button,
+.grant-spain-checker-actions button,
+.grant-spain-checker-actions a,
+.grant-spain-lead-capture button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 0;
+  padding: 0 1.25rem;
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.grant-spain-call,
+.grant-spain-button.is-secondary,
+.grant-spain-checker-actions button {
+  border: 1px solid rgb(27 94 138 / 22%);
+  background: #ffffff;
+  color: #155f86;
+}
+
+.grant-spain-primary,
+.grant-spain-button,
+.grant-spain-checker-actions button:last-child,
+.grant-spain-checker-actions a,
+.grant-spain-lead-capture button {
+  background: #79c143;
+  color: #ffffff;
+  box-shadow: 0 1rem 2.2rem rgb(98 151 48 / 18%);
+}
+
+.grant-spain-hero {
+  position: relative;
+  padding: clamp(5rem, 8vw, 8rem) 0;
+  background:
+    radial-gradient(circle at 88% 10%, rgb(43 151 211 / 26%), transparent 26rem),
+    linear-gradient(135deg, #f9fcff 0%, #fffaf4 52%, #eef8fd 100%);
+}
+
+.grant-spain-hero::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(27 94 138 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(27 94 138 / 5%) 1px, transparent 1px);
+  background-size: 5rem 5rem;
+  content: '';
+}
+
+.grant-spain-hero-grid,
+.grant-spain-checker-grid,
+.grant-spain-lead-grid {
+  position: relative;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.grant-spain-kicker {
+  display: inline-flex;
+  width: fit-content;
+  margin: 0;
+  border: 1px solid rgb(27 94 138 / 20%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 80%);
+  padding: 0.5rem 0.9rem;
+  color: #155f86;
+  font-size: 0.83rem;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.grant-spain-hero h1,
+.grant-spain-section h2,
+.grant-spain-checker-copy h2,
+.grant-spain-lead-capture h2,
+.grant-spain-final h2 {
+  margin: 1rem 0 0;
+  color: #15263a;
+  font-family: var(--font-display);
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.grant-spain-hero h1 {
+  max-width: 11ch;
+  font-size: clamp(3.4rem, 7.6vw, 7.3rem);
+  line-height: 0.9;
+}
+
+.grant-spain-hero p:not(.grant-spain-kicker):not(.grant-spain-trust),
+.grant-spain-lead,
+.grant-spain-section > .site-shell > p:not(.grant-spain-kicker),
+.grant-spain-checker-copy p,
+.grant-spain-lead-capture p,
+.grant-spain-final p {
+  max-width: 54rem;
+  color: #344d66;
+  font-size: clamp(1.05rem, 1.55vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.grant-spain-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
+}
+
+.grant-spain-trust,
+.grant-spain-note,
+.grant-spain-region-line,
+.grant-spain-help {
+  color: #536a80;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.grant-spain-hero-image {
+  overflow: hidden;
+  border: 0.65rem solid #ffffff;
+  border-radius: 1.65rem;
+  background: #dff2fb;
+  box-shadow: 0 2rem 4rem rgb(10 42 68 / 18%);
+}
+
+.grant-spain-hero-img {
+  display: block;
+  width: 100%;
+  height: clamp(22rem, 38vw, 34rem);
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.grant-spain-section,
+.grant-spain-checker-section,
+.grant-spain-lead-capture,
+.grant-spain-final {
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+}
+
+.grant-spain-section h2,
+.grant-spain-checker-copy h2,
+.grant-spain-lead-capture h2,
+.grant-spain-final h2 {
+  max-width: 13ch;
+  font-size: clamp(2.6rem, 5.2vw, 5rem);
+  line-height: 0.94;
+}
+
+.grant-spain-card-grid,
+.grant-spain-example-grid,
+.grant-spain-pill-grid,
+.grant-spain-document-grid,
+.grant-spain-programme-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.grant-spain-card-grid.four,
+.grant-spain-example-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grant-spain-card-grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grant-spain-info-card,
+.grant-spain-adaptation-card,
+.grant-spain-example-grid article,
+.grant-spain-programme-grid article,
+.grant-spain-checker,
+.grant-spain-lead-capture form {
+  border: 1px solid rgb(27 94 138 / 18%);
+  border-radius: 1.15rem;
+  background: rgb(255 255 255 / 88%);
+  box-shadow: 0 1.3rem 3rem rgb(10 42 68 / 7%);
+}
+
+.grant-spain-info-card,
+.grant-spain-adaptation-card,
+.grant-spain-example-grid article,
+.grant-spain-programme-grid article {
+  padding: 1.25rem;
+}
+
+.grant-spain-info-card > span,
+.grant-spain-adaptation-card > svg {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border-radius: 0.8rem;
+  background: #eaf6fc;
+  color: #155f86;
+}
+
+.grant-spain-info-card h3,
+.grant-spain-adaptation-card h3,
+.grant-spain-example-grid strong,
+.grant-spain-programme-grid strong,
+.grant-spain-checker h3,
+.grant-spain-result h3 {
+  margin: 1rem 0 0;
+  color: #13263a;
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.grant-spain-info-card p,
+.grant-spain-adaptation-card li,
+.grant-spain-example-grid p,
+.grant-spain-programme-grid p,
+.grant-spain-result p {
+  color: #3d566d;
+  line-height: 1.55;
+}
+
+.grant-spain-adaptation-card ul,
+.grant-spain-result-list ul,
+.grant-spain-faq-list {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grant-spain-adaptation-card li::before,
+.grant-spain-result-list li::before {
+  margin-right: 0.45rem;
+  color: #79c143;
+  content: '✓';
+  font-weight: 950;
+}
+
+.grant-spain-callout {
+  margin-top: 1.5rem;
+  border-left: 0.35rem solid #79c143;
+  border-radius: 1rem;
+  background: #eef8e9;
+  padding: 1.1rem 1.25rem;
+  color: #16314a;
+  font-size: 1.1rem;
+  font-weight: 950;
+}
+
+.grant-spain-checker-section,
+.grant-spain-lead-capture {
+  background: linear-gradient(135deg, #eef8fd, #fffaf4);
+}
+
+.grant-spain-checker,
+.grant-spain-lead-capture form {
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.grant-spain-progress {
+  height: 0.65rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dff2fb;
+}
+
+.grant-spain-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #79c143;
+}
+
+.grant-spain-step {
+  margin: 1rem 0 0;
+  color: #155f86;
+  font-weight: 950;
+}
+
+.grant-spain-option-grid,
+.grant-spain-location-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.2rem;
+}
+
+.grant-spain-option-grid button {
+  min-height: 3.25rem;
+  border: 1px solid rgb(27 94 138 / 18%);
+  border-radius: 0.85rem;
+  background: #ffffff;
+  color: #16314a;
+  padding: 0.7rem 0.9rem;
+  font-weight: 900;
+  text-align: left;
+}
+
+.grant-spain-option-grid button.is-selected {
+  border-color: #79c143;
+  background: #eef8e9;
+  color: #3d7b16;
+}
+
+.grant-spain-location-grid label,
+.grant-spain-lead-capture label {
+  display: grid;
+  gap: 0.4rem;
+  color: #18334d;
+  font-weight: 900;
+}
+
+.grant-spain-location-grid input,
+.grant-spain-location-grid select,
+.grant-spain-lead-capture input,
+.grant-spain-lead-capture textarea {
+  min-height: 3.15rem;
+  border: 1px solid rgb(27 94 138 / 22%);
+  border-radius: 0.75rem;
+  background: #ffffff;
+  padding: 0 0.9rem;
+  color: #14263a;
+  font: inherit;
+}
+
+.grant-spain-lead-capture textarea {
+  padding-top: 0.8rem;
+}
+
+.grant-spain-warning {
+  border-radius: 0.8rem;
+  background: #fff4de;
+  padding: 0.85rem;
+  color: #75500d;
+  font-weight: 850;
+}
+
+.grant-spain-checker-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin-top: 1.4rem;
+}
+
+.grant-spain-checker-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.grant-spain-result {
+  display: grid;
+  gap: 1rem;
+}
+
+.grant-spain-result > svg {
+  color: #155f86;
+}
+
+.grant-spain-result-list {
+  border-top: 1px solid rgb(27 94 138 / 12%);
+  padding-top: 0.9rem;
+}
+
+.grant-spain-result-list strong,
+.grant-spain-next strong {
+  color: #13263a;
+}
+
+.grant-spain-lead-capture form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.grant-spain-lead-capture textarea,
+.grant-spain-consent,
+.grant-spain-lead-capture button,
+.grant-spain-secondary-links,
+.grant-spain-success {
+  grid-column: 1 / -1;
+}
+
+.grant-spain-consent {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+}
+
+.grant-spain-secondary-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.grant-spain-secondary-links a {
+  color: #155f86;
+  font-weight: 950;
+}
+
+.grant-spain-success {
+  border-radius: 0.8rem;
+  background: #eef8e9;
+  padding: 0.85rem;
+  color: #3d7b16;
+  font-weight: 950;
+}
+
+.grant-spain-timeline {
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grant-spain-timeline li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.35rem 1rem;
+  border-bottom: 1px solid rgb(27 94 138 / 12%);
+  padding: 1rem 0;
+}
+
+.grant-spain-timeline span {
+  grid-row: span 2;
+  display: grid;
+  width: 2.7rem;
+  height: 2.7rem;
+  place-items: center;
+  border-radius: 999px;
+  background: #155f86;
+  color: #ffffff;
+  font-weight: 950;
+}
+
+.grant-spain-timeline p {
+  margin: 0;
+  color: #3d566d;
+}
+
+.grant-spain-pill-grid,
+.grant-spain-document-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grant-spain-pill-grid span,
+.grant-spain-document-grid span {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgb(27 94 138 / 16%);
+  border-radius: 0.8rem;
+  background: #ffffff;
+  padding: 0.75rem;
+  color: #18334d;
+  font-weight: 900;
+}
+
+.grant-spain-pill-grid svg,
+.grant-spain-document-grid svg {
+  flex: 0 0 auto;
+  color: #79c143;
+}
+
+.grant-spain-programme-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grant-spain-programme-grid span {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 0.65rem;
+  border-radius: 999px;
+  background: #eaf6fc;
+  padding: 0.35rem 0.65rem;
+  color: #155f86;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.grant-spain-faq-list details {
+  border: 1px solid rgb(27 94 138 / 16%);
+  border-radius: 0.9rem;
+  background: #ffffff;
+  padding: 1rem 1.1rem;
+}
+
+.grant-spain-faq-list summary {
+  cursor: pointer;
+  color: #14263a;
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.grant-spain-faq-list p {
+  margin: 0.8rem 0 0;
+  color: #3d566d;
+  line-height: 1.6;
+}
+
+.grant-spain-final {
+  background: linear-gradient(135deg, #13263a, #155f86);
+  color: #ffffff;
+  text-align: center;
+}
+
+.grant-spain-final h2,
+.grant-spain-final p {
+  margin-right: auto;
+  margin-left: auto;
+  color: #ffffff;
+}
+
+.grant-spain-final small {
+  display: block;
+  max-width: 54rem;
+  margin: 1.5rem auto 0;
+  color: rgb(255 255 255 / 76%);
+  line-height: 1.55;
+}
+
+.grant-spain-final .grant-spain-actions {
+  justify-content: center;
+}
+
+.grant-spain-mobile-ctas {
+  display: none;
+}
+
+.grant-spain-page :focus-visible {
+  outline: 3px solid #f2b84b;
+  outline-offset: 3px;
+}
+
+@media (min-width: 900px) {
+  .grant-spain-hero-grid,
+  .grant-spain-checker-grid,
+  .grant-spain-lead-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(24rem, 0.82fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .grant-spain-card-grid.four,
+  .grant-spain-card-grid.three,
+  .grant-spain-example-grid,
+  .grant-spain-pill-grid,
+  .grant-spain-document-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .grant-spain-subnav {
+    grid-template-columns: auto auto 1fr;
+  }
+
+  .grant-spain-menu {
+    display: inline-flex;
+  }
+
+  .grant-spain-subnav nav {
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    left: 1rem;
+    display: none;
+    border: 1px solid rgb(27 94 138 / 16%);
+    border-radius: 1rem;
+    background: #ffffff;
+    padding: 1rem;
+    box-shadow: 0 1rem 2.5rem rgb(10 42 68 / 16%);
+  }
+
+  .grant-spain-subnav nav.is-open {
+    display: grid;
+  }
+
+  .grant-spain-call {
+    justify-self: end;
+  }
+
+  .grant-spain-primary {
+    display: none;
+  }
+
+  .grant-spain-hero {
+    padding-top: 3.5rem;
+  }
+
+  .grant-spain-hero h1 {
+    max-width: 10.5ch;
+    font-size: clamp(3rem, 15vw, 4.4rem);
+    line-height: 0.95;
+  }
+
+  .grant-spain-section h2,
+  .grant-spain-checker-copy h2,
+  .grant-spain-lead-capture h2,
+  .grant-spain-final h2 {
+    max-width: 12ch;
+    font-size: 2.55rem;
+  }
+
+  .grant-spain-actions,
+  .grant-spain-checker-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .grant-spain-button,
+  .grant-spain-checker-actions button,
+  .grant-spain-checker-actions a {
+    width: 100%;
+  }
+
+  .grant-spain-card-grid.four,
+  .grant-spain-card-grid.three,
+  .grant-spain-example-grid,
+  .grant-spain-option-grid,
+  .grant-spain-location-grid,
+  .grant-spain-pill-grid,
+  .grant-spain-document-grid,
+  .grant-spain-programme-grid,
+  .grant-spain-lead-capture form {
+    grid-template-columns: 1fr;
+  }
+
+  .grant-spain-hero-img {
+    height: 17.5rem;
+  }
+
+  .grant-spain-mobile-ctas {
+    position: fixed;
+    z-index: 50;
+    right: 0.8rem;
+    bottom: 0.8rem;
+    left: 0.8rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  .grant-spain-mobile-ctas a {
+    display: grid;
+    min-height: 3.2rem;
+    place-items: center;
+    border-radius: 999px;
+    background: #79c143;
+    color: #ffffff;
+    font-weight: 950;
+    text-decoration: none;
+    box-shadow: 0 1rem 2rem rgb(10 42 68 / 20%);
+  }
+}
