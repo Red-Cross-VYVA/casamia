@@ -2542,6 +2542,25 @@ img {
   transform: translateX(-50%) translateY(0);
 }
 
+.site-header-menu-group.is-menu-dismissed .site-header-mega-menu,
+.site-header-menu-group.is-menu-dismissed:hover .site-header-mega-menu,
+.site-header-menu-group.is-menu-dismissed:focus-within .site-header-mega-menu {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px);
+}
+
+html[data-nav-menu-dismissed='solutions'] .site-header-menu-group--solutions .site-header-mega-menu,
+html[data-nav-menu-dismissed='solutions'] .site-header-menu-group--solutions:hover .site-header-mega-menu,
+html[data-nav-menu-dismissed='solutions'] .site-header-menu-group--solutions:focus-within .site-header-mega-menu,
+html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources .site-header-mega-menu,
+html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:hover .site-header-mega-menu,
+html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:focus-within .site-header-mega-menu {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px);
+}
+
 .site-header-mega-panel {
   display: grid;
   gap: 22px;

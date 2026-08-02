@@ -25,6 +25,7 @@ function isActiveLink(pathname: string, link: HeaderLink) {
 
 type NavLocale = 'en' | 'es' | 'nl'
 type LocalizedNavText = Readonly<Record<NavLocale, string>>
+type DesktopMenuId = 'solutions' | 'resources'
 
 function getNavLocale(language: string): NavLocale {
   const normalizedLanguage = language.toLowerCase()
@@ -37,22 +38,22 @@ const solutionMenuCopy = {
   en: {
     eyebrow: 'Popular paths',
     title: 'What do you need to make safer?',
-    primaryCta: 'See all solutions',
-    secondaryCta: 'Book a visit',
+    primaryCta: 'Build my plan',
+    secondaryCta: 'See all solutions',
     mobileHeading: 'Choose a safety path',
   },
   es: {
     eyebrow: 'Rutas frecuentes',
     title: '¿Qué necesitas hacer más seguro?',
-    primaryCta: 'Ver soluciones',
-    secondaryCta: 'Reservar visita',
+    primaryCta: 'Crear mi plan',
+    secondaryCta: 'Ver soluciones',
     mobileHeading: 'Elige una ruta de seguridad',
   },
   nl: {
     eyebrow: 'Populaire keuzes',
     title: 'Wat moet veiliger worden?',
-    primaryCta: 'Bekijk oplossingen',
-    secondaryCta: 'Boek bezoek',
+    primaryCta: 'Maak mijn plan',
+    secondaryCta: 'Bekijk oplossingen',
     mobileHeading: 'Kies een veiligheidsroute',
   },
 } satisfies Record<NavLocale, Record<string, string>>
@@ -124,6 +125,7 @@ export function Nav() {
   const { i18n, t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [dismissedDesktopMenu, setDismissedDesktopMenu] = useState<DesktopMenuId | null>(null)
   const assessmentPath = getAssessmentPath()
   const isSpanish = i18n.language.startsWith('es')
   const navLocale = getNavLocale(i18n.language)
@@ -152,6 +154,17 @@ export function Nav() {
     { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
   ]
   const desktopLinks = links
+  const dismissDesktopMenu = (menuId: DesktopMenuId) => {
+    setDismissedDesktopMenu(menuId)
+    document.documentElement.dataset.navMenuDismissed = menuId
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur()
+    }
+  }
+  const restoreDesktopMenus = () => {
+    setDismissedDesktopMenu(null)
+    delete document.documentElement.dataset.navMenuDismissed
+  }
   const resourceMenuGroups = [
     {
       title: isSpanish ? 'Empieza aquí' : 'Start here',
@@ -227,11 +240,16 @@ export function Nav() {
 
             if (link.to === '/services') {
               return (
-                <div className="site-header-menu-group" key={link.to}>
+                <div
+                  className={`site-header-menu-group site-header-menu-group--solutions${dismissedDesktopMenu === 'solutions' ? ' is-menu-dismissed' : ''}`}
+                  key={link.to}
+                  onMouseLeave={restoreDesktopMenus}
+                >
                   <Link
                     aria-current={active ? 'page' : undefined}
                     className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
                     to={link.to}
+                    onClick={() => dismissDesktopMenu('solutions')}
                   >
                     {link.label}
                     <ChevronDown size={15} aria-hidden="true" />
@@ -242,10 +260,10 @@ export function Nav() {
                         <span>{currentSolutionMenuCopy.eyebrow}</span>
                         <strong>{currentSolutionMenuCopy.title}</strong>
                         <div className="site-header-mega-actions">
-                          <Link className="is-primary" to="/services">
+                          <Link className="is-primary" to="/plans" onClick={() => dismissDesktopMenu('solutions')}>
                             {currentSolutionMenuCopy.primaryCta}
                           </Link>
-                          <Link to={assessmentPath}>
+                          <Link to="/services" onClick={() => dismissDesktopMenu('solutions')}>
                             {currentSolutionMenuCopy.secondaryCta}
                           </Link>
                         </div>
@@ -260,6 +278,7 @@ export function Nav() {
                               className={`site-header-solution-card${itemActive ? ' is-active' : ''}`}
                               key={item.to}
                               to={item.to}
+                              onClick={() => dismissDesktopMenu('solutions')}
                             >
                               <span className="site-header-solution-icon">
                                 <Icon size={19} aria-hidden="true" />
@@ -280,11 +299,16 @@ export function Nav() {
 
             if (link.to === '/blog') {
               return (
-                <div className="site-header-menu-group" key={link.to}>
+                <div
+                  className={`site-header-menu-group site-header-menu-group--resources${dismissedDesktopMenu === 'resources' ? ' is-menu-dismissed' : ''}`}
+                  key={link.to}
+                  onMouseLeave={restoreDesktopMenus}
+                >
                   <Link
                     aria-current={active ? 'page' : undefined}
                     className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
                     to={link.to}
+                    onClick={() => dismissDesktopMenu('resources')}
                   >
                     {link.label}
                     <ChevronDown size={15} aria-hidden="true" />
@@ -294,7 +318,7 @@ export function Nav() {
                       <div className="site-header-mega-intro">
                         <span>{isSpanish ? 'Recursos por situación' : 'Resources by situation'}</span>
                         <strong>{isSpanish ? 'Encuentra el siguiente paso útil.' : 'Find the next useful step.'}</strong>
-                        <Link to="/blog">
+                        <Link to="/blog" onClick={() => dismissDesktopMenu('resources')}>
                           {isSpanish ? 'Ver todos los recursos' : 'View all resources'}
                         </Link>
                       </div>
@@ -303,7 +327,11 @@ export function Nav() {
                           <div className="site-header-mega-column" key={group.title}>
                             <p>{group.title}</p>
                             {group.links.map((item) => (
-                              <Link key={`${group.title}-${item.to}-${item.label}`} to={item.to}>
+                              <Link
+                                key={`${group.title}-${item.to}-${item.label}`}
+                                to={item.to}
+                                onClick={() => dismissDesktopMenu('resources')}
+                              >
                                 {item.label}
                               </Link>
                             ))}
