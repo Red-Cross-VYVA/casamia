@@ -469,16 +469,16 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     heroEyebrow: 'CasaMia service catalogue',
     heroTitle: 'Home safety packages, room by room.',
     heroBody: 'Choose a room or safety area to see the core improvements CasaMia can assess, quote and coordinate.',
-    browseCta: 'Browse package areas',
+    browseCta: 'Explore services',
     planCta: 'Build my safer home',
     catalogueLabel: 'Current catalogue',
     currentOptions: 'included items and add-ons available now',
     activeServices: 'Active services',
     packageAreas: 'Package areas',
     inclusionsVisible: 'Inclusions shown',
-    sectionEyebrow: 'Explore by area',
-    sectionTitle: 'See what is included, room by room.',
-    sectionBody: 'Choose a space to review the core improvements included in the package and the optional add-ons CasaMia can assess, quote and coordinate for you.',
+    sectionEyebrow: 'Catalogue',
+    sectionTitle: 'Choose a room.',
+    sectionBody: '',
     packageNavigation: 'CasaMia package areas',
     includedItemSingular: 'included item',
     includedItemPlural: 'included items',
@@ -514,16 +514,16 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     heroEyebrow: 'Catálogo de servicios CasaMia',
     heroTitle: 'Paquetes de seguridad, estancia por estancia.',
     heroBody: 'Elige una estancia o zona de seguridad para ver las mejoras que CasaMia puede valorar, presupuestar y coordinar.',
-    browseCta: 'Ver áreas de servicio',
+    browseCta: 'Ver servicios',
     planCta: 'Crear mi hogar más seguro',
     catalogueLabel: 'Catálogo actual',
     currentOptions: 'incluidos y extras disponibles',
     activeServices: 'Servicios activos',
     packageAreas: 'Áreas de servicio',
     inclusionsVisible: 'Inclusiones visibles',
-    sectionEyebrow: 'Explora por zona',
-    sectionTitle: 'Consulta qué incluye cada zona.',
-    sectionBody: 'Elige una zona para revisar las mejoras incluidas en el paquete y los extras opcionales que CasaMia puede valorar, presupuestar y coordinar por ti.',
+    sectionEyebrow: 'Catálogo',
+    sectionTitle: 'Elige una zona.',
+    sectionBody: '',
     packageNavigation: 'Áreas de servicio CasaMia',
     includedItemSingular: 'incluido',
     includedItemPlural: 'incluidos',
@@ -604,6 +604,22 @@ function formatPackageComposition(services: CasaMiaService[], copy: ServicesPage
     : `${includedItems} ${includedLabel}`
 }
 
+function getCatalogueAreaTitle(area: ServicePackageArea): Record<'en' | 'es', string> {
+  const titles: Record<ServicePackageArea, Record<'en' | 'es', string>> = {
+    bathroom: { en: 'Bathroom', es: 'Baño' },
+    bedroom: { en: 'Bedroom', es: 'Dormitorio' },
+    entrance: { en: 'Entrance', es: 'Entrada' },
+    kitchen: { en: 'Kitchen', es: 'Cocina' },
+    lighting: { en: 'Lighting', es: 'Iluminación' },
+    'living-room': { en: 'Living room', es: 'Salón' },
+    outdoor: { en: 'Outdoor', es: 'Exterior' },
+    'smart-safety': { en: 'Smart safety', es: 'Seguridad conectada' },
+    stairs: { en: 'Stairs', es: 'Escaleras' },
+  }
+
+  return titles[area]
+}
+
 function buildCatalogueAreas(masterCatalogue: MasterServiceCatalogue): CatalogueAreaDefinition[] {
   const areas: CatalogueAreaDefinition[] = []
 
@@ -619,7 +635,7 @@ function buildCatalogueAreas(masterCatalogue: MasterServiceCatalogue): Catalogue
       id: room.id,
       icon: visual.icon,
       image: visual.image,
-      title: localizeRecord(packageRecord?.customerName ?? room.name, room.name),
+      title: getCatalogueAreaTitle(room.id),
       description: localizeRecord(
         packageRecord?.shortDescription ?? packageRecord?.customerBenefit ?? room.name,
         room.name,
@@ -749,19 +765,11 @@ export function ServicesPage() {
             <span className="eyebrow">{copy.heroEyebrow}</span>
             <h1>{copy.heroTitle}</h1>
             <p>{copy.heroBody}</p>
-            <div className="services-catalogue-hero-points" aria-label={copy.catalogueLabel}>
-              <span>{copy.packageAreas}</span>
-              <span>{copy.activeServices}</span>
-              <span>{copy.inclusionsVisible}</span>
-            </div>
             <div className="services-catalogue-hero-actions">
               <a className="btn btn-green" href="#catalogue-packages">
                 {copy.browseCta}
                 <ArrowRight size={20} aria-hidden="true" />
               </a>
-              <Link className="btn btn-white" to="/home-safety-wizard">
-                {copy.planCta}
-              </Link>
             </div>
           </div>
         </div>
@@ -772,7 +780,7 @@ export function ServicesPage() {
           <header className="services-catalogue-heading">
             <p className="eyebrow">{copy.sectionEyebrow}</p>
             <h2>{copy.sectionTitle}</h2>
-            <p>{copy.sectionBody}</p>
+            {copy.sectionBody ? <p>{copy.sectionBody}</p> : null}
           </header>
 
           {serviceGroups.length ? (
@@ -831,9 +839,8 @@ export function ServicesPage() {
                     <div className="services-catalogue-package-heading">
                       <span className="services-catalogue-package-icon"><SelectedIcon size={26} aria-hidden="true" /></span>
                       <div>
-                        <p>{copy.selectedEyebrow} · {formatPackageComposition(selectedGroup.services, copy)}</p>
+                        <p>{formatPackageComposition(selectedGroup.services, copy)}</p>
                         <h2 id="active-service-package-title">{selectedGroup.area.title[language]}</h2>
-                        <span>{selectedGroup.area.description[language]}</span>
                       </div>
                     </div>
                   </header>

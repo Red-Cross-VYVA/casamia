@@ -55,6 +55,45 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
         'Cable visible',
         'Puerta estrecha',
       ],
+      riskDetails: [
+        {
+          solution: 'Fijar la superficie',
+          helps: 'CasaMia retira alfombrillas sueltas o propone opciones antideslizantes fijas en la salida de ducha.',
+          product: 'Alfombrilla segura o tratamiento antideslizante.',
+          stat: 'Datos de CDC sobre lesiones en el baño indican que el 81,1% fueron caídas.',
+        },
+        {
+          solution: 'Bajar la entrada',
+          helps: 'Revisamos la altura del umbral y proponemos perfil bajo, transición o corte de bañera si encaja.',
+          product: 'Perfil de transición, reducción de umbral o corte de bañera.',
+        },
+        {
+          solution: 'Añadir apoyo de transferencia',
+          helps: 'Una barra fija y un asiento abatible reducen tiempo de pie y dan un apoyo claro al entrar o lavarse.',
+          product: 'Barra de apoyo mural y asiento abatible de ducha.',
+          stat: 'CDC encontró que el 37,3% de lesiones en el baño ocurrían al bañarse, ducharse o salir.',
+        },
+        {
+          solution: 'Estabilizar sentarse y levantarse',
+          helps: 'Elevador o barras reducen la flexión profunda y crean apoyo predecible a ambos lados.',
+          product: 'Elevador de WC o barras de apoyo para inodoro.',
+        },
+        {
+          solution: 'Mejorar agarre en mojado',
+          helps: 'Identificamos zonas de salpicadura y tratamos superficies compatibles para mejorar la tracción.',
+          product: 'Tratamiento antideslizante para zonas húmedas compatibles.',
+        },
+        {
+          solution: 'Despejar la ruta',
+          helps: 'Los cables se reubican, fijan o sustituyen por una colocación de luz más segura fuera del paso.',
+          product: 'Gestión de cableado y luz nocturna con movimiento donde sea útil.',
+        },
+        {
+          solution: 'Comprobar anchura útil',
+          helps: 'CasaMia revisa si la puerta limita ayuda, andador o acceso de emergencia antes de proponer obra.',
+          product: 'Cambios de herrajes o revisión de ensanche de puerta.',
+        },
+      ],
       mapLabels: ['Alfombra', 'Escalón', 'Ducha', 'Altura WC', 'Zona mojada', 'Cable', 'Puerta'],
       legend: ['Riesgo alto', 'Riesgo medio'],
     },

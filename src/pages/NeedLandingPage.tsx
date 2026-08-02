@@ -498,17 +498,66 @@ export function NeedLandingPage() {
                   className="need-landing-risk-map-photo"
                   imgClassName="need-landing-risk-map-img"
                 />
-                <div className="need-landing-risk-map-labels" aria-hidden="true">
+                <div className="need-landing-risk-map-labels">
                   {riskMapLabels.map((label, index) => {
                     const position = bathroomRiskMapLabelPositions[index]
+                    const detail = page.riskSection?.riskDetails?.[index]
+                    const isRiskLabel = index < page.riskSection!.risks.length
+                    const mapDetailId = detail
+                      ? `need-landing-risk-map-detail-${page.slug}-${index + 1}`
+                      : undefined
 
                     if (!position) return null
 
-                    return (
+                    if (!isRiskLabel) {
+                      return (
+                        <span
+                          aria-hidden="true"
+                          className="need-landing-risk-map-label is-legend"
+                          key={`${label}-${index}`}
+                          style={{
+                            left: `${position.x}%`,
+                            top: `${position.y}%`,
+                            width: `${position.w}%`,
+                            height: `${position.h}%`,
+                          }}
+                        >
+                          {label}
+                        </span>
+                      )
+                    }
+
+                    return detail ? (
                       <span
-                        className={`need-landing-risk-map-label${
-                          index >= page.riskSection!.risks.length ? ' is-legend' : ''
-                        }`}
+                        className="need-landing-risk-map-hotspot"
+                        key={`${label}-${index}`}
+                        style={{
+                          left: `${position.x}%`,
+                          top: `${position.y}%`,
+                          width: `${position.w}%`,
+                          height: `${position.h}%`,
+                        }}
+                      >
+                        <button
+                          aria-describedby={mapDetailId}
+                          className={`need-landing-risk-map-label has-detail ${position.detailSide}`}
+                          type="button"
+                        >
+                          {label}
+                        </button>
+                        <aside
+                          className={`need-landing-risk-map-detail ${position.detailSide}`}
+                          id={mapDetailId}
+                        >
+                          <strong>{detail.solution}</strong>
+                          <p>{detail.helps}</p>
+                          {detail.product ? <small>{detail.product}</small> : null}
+                          {detail.stat ? <em>{detail.stat}</em> : null}
+                        </aside>
+                      </span>
+                    ) : (
+                      <span
+                        className="need-landing-risk-map-label"
                         key={`${label}-${index}`}
                         style={{
                           left: `${position.x}%`,
@@ -528,12 +577,33 @@ export function NeedLandingPage() {
                 <h2 id="need-landing-risk-map-title">{page.riskSection.title}</h2>
                 <p>{page.riskSection.body}</p>
                 <ol className="need-landing-risk-list">
-                  {page.riskSection.risks.map((risk, index) => (
-                    <li key={risk}>
-                      <span>{index + 1}</span>
-                      <strong>{risk}</strong>
-                    </li>
-                  ))}
+                  {page.riskSection.risks.map((risk, index) => {
+                    const detail = page.riskSection?.riskDetails?.[index]
+                    const detailId = detail
+                      ? `need-landing-risk-detail-${page.slug}-${index + 1}`
+                      : undefined
+
+                    return (
+                      <li className={detail ? 'has-detail' : undefined} key={risk}>
+                        <button
+                          aria-describedby={detailId}
+                          className="need-landing-risk-trigger"
+                          type="button"
+                        >
+                          <span>{index + 1}</span>
+                          <strong>{risk}</strong>
+                        </button>
+                        {detail ? (
+                          <aside className="need-landing-risk-detail" id={detailId}>
+                            <strong>{detail.solution}</strong>
+                            <p>{detail.helps}</p>
+                            {detail.product ? <small>{detail.product}</small> : null}
+                            {detail.stat ? <em>{detail.stat}</em> : null}
+                          </aside>
+                        ) : null}
+                      </li>
+                    )
+                  })}
                 </ol>
               </div>
             </div>
@@ -856,15 +926,15 @@ export function NeedLandingPage() {
 }
 
 const bathroomRiskMapLabelPositions = [
-  { x: 35.6, y: 78.8, w: 9.8, h: 5.6 },
-  { x: 87.2, y: 24.7, w: 8.8, h: 6.2 },
-  { x: 87.2, y: 44.8, w: 8.8, h: 6.2 },
-  { x: 41.0, y: 58.9, w: 8.4, h: 6.4 },
-  { x: 7.7, y: 16.3, w: 11.0, h: 6.6 },
-  { x: 89.1, y: 62.8, w: 8.5, h: 5.9 },
-  { x: 76.9, y: 88.6, w: 7.4, h: 5.9 },
-  { x: 7.7, y: 86.0, w: 12.8, h: 3.3 },
-  { x: 7.7, y: 90.4, w: 12.8, h: 3.3 },
+  { x: 35.6, y: 78.8, w: 9.8, h: 5.6, detailSide: 'opens-up' },
+  { x: 87.2, y: 24.7, w: 8.8, h: 6.2, detailSide: 'opens-left' },
+  { x: 87.2, y: 44.8, w: 8.8, h: 6.2, detailSide: 'opens-left' },
+  { x: 41.0, y: 58.9, w: 8.4, h: 6.4, detailSide: 'opens-right' },
+  { x: 7.7, y: 16.3, w: 11.0, h: 6.6, detailSide: 'opens-right' },
+  { x: 89.1, y: 62.8, w: 8.5, h: 5.9, detailSide: 'opens-left' },
+  { x: 76.9, y: 88.6, w: 7.4, h: 5.9, detailSide: 'opens-up' },
+  { x: 7.7, y: 86.0, w: 12.8, h: 3.3, detailSide: 'opens-right' },
+  { x: 7.7, y: 90.4, w: 12.8, h: 3.3, detailSide: 'opens-right' },
 ] as const
 
 const needCatalogueAreas: Record<string, ServicePackageArea[]> = {

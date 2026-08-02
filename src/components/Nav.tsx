@@ -38,22 +38,19 @@ const solutionMenuCopy = {
   en: {
     eyebrow: 'Popular paths',
     title: 'What do you need to make safer?',
-    primaryCta: 'Build my plan',
-    secondaryCta: 'See all solutions',
+    primaryCta: 'See all solutions',
     mobileHeading: 'Choose a safety path',
   },
   es: {
     eyebrow: 'Rutas frecuentes',
     title: '¿Qué necesitas hacer más seguro?',
-    primaryCta: 'Crear mi plan',
-    secondaryCta: 'Ver soluciones',
+    primaryCta: 'Ver soluciones',
     mobileHeading: 'Elige una ruta de seguridad',
   },
   nl: {
     eyebrow: 'Populaire keuzes',
     title: 'Wat moet veiliger worden?',
-    primaryCta: 'Maak mijn plan',
-    secondaryCta: 'Bekijk oplossingen',
+    primaryCta: 'Bekijk oplossingen',
     mobileHeading: 'Kies een veiligheidsroute',
   },
 } satisfies Record<NavLocale, Record<string, string>>
@@ -260,11 +257,8 @@ export function Nav() {
                         <span>{currentSolutionMenuCopy.eyebrow}</span>
                         <strong>{currentSolutionMenuCopy.title}</strong>
                         <div className="site-header-mega-actions">
-                          <Link className="is-primary" to="/plans" onClick={() => dismissDesktopMenu('solutions')}>
+                          <Link className="is-primary" to="/services" onClick={() => dismissDesktopMenu('solutions')}>
                             {currentSolutionMenuCopy.primaryCta}
-                          </Link>
-                          <Link to="/services" onClick={() => dismissDesktopMenu('solutions')}>
-                            {currentSolutionMenuCopy.secondaryCta}
                           </Link>
                         </div>
                       </div>

@@ -61,7 +61,6 @@ type PlansCopy = {
   grantBody: string
   grantCta: string
   grantEyebrow: string
-  grantFeatureItems: string[]
   grantTitle: string
   helpText: string
   metaTitle: string
@@ -137,7 +136,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantBody: 'Check possible aid before final scope.',
     grantCta: 'Start grant check',
     grantEyebrow: 'Aid route',
-    grantFeatureItems: ['Region', 'Documents', 'Scope'],
     grantTitle: 'Grants may apply.',
     helpText: 'Use the steppers. Add connected or specialist modules only where useful.',
     metaTitle: 'Plans Builder | CasaMia',
@@ -218,7 +216,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantBody: 'Revisa posibles ayudas antes del alcance final.',
     grantCta: 'Iniciar revisión',
     grantEyebrow: 'Ayudas disponibles',
-    grantFeatureItems: ['Región', 'Documentos', 'Alcance'],
     grantTitle: 'Puede haber ayudas.',
     helpText: 'Usa los controles. Añade módulos conectados o especiales solo donde aporten valor.',
     metaTitle: 'Constructor de planes | CasaMia',
@@ -705,6 +702,8 @@ export function PlansPage() {
 
           <aside className="plans-hero-grant-card" aria-label={copy.grantEyebrow}>
             <div className="plans-hero-grant-visual" aria-hidden="true">
+              <span className="plans-hero-grant-flag is-eu">EU</span>
+              <span className="plans-hero-grant-flag is-es">ES</span>
               <span className="plans-hero-grant-seal">
                 <BadgeEuro size={30} />
               </span>
@@ -715,11 +714,6 @@ export function PlansPage() {
               <p className="section-kicker">{copy.grantEyebrow}</p>
               <h2>{copy.grantTitle}</h2>
               <p>{copy.grantBody}</p>
-              <ul>
-                {copy.grantFeatureItems.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
               <Link to="/grant-check">
                 {copy.grantCta}
                 <ArrowRight size={16} aria-hidden="true" />

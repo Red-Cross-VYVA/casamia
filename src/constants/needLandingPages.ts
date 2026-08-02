@@ -23,6 +23,12 @@ export type NeedLandingPageContent = {
     image: string
     imageAlt: string
     risks: string[]
+    riskDetails?: Array<{
+      solution: string
+      helps: string
+      product?: string
+      stat?: string
+    }>
     mapLabels?: string[]
     legend?: string[]
   }
@@ -68,6 +74,45 @@ export const needLandingPages: NeedLandingPageContent[] = [
       image: '/images/solutions/bathroom-risk-map.png',
       imageAlt: 'Annotated bathroom map showing common fall and access risk points',
       risks: ['Loose mat', 'High step', 'Shower entry', 'Toilet height', 'Wet zone', 'Visible cable', 'Narrow door'],
+      riskDetails: [
+        {
+          solution: 'Secure the surface',
+          helps: 'CasaMia removes loose mats or swaps in fixed anti-slip options at the shower exit.',
+          product: 'Anti-slip bath or shower mat, or floor-grip treatment.',
+          stat: 'CDC bathroom-injury data found falls caused 81.1% of nonfatal bathroom injuries.',
+        },
+        {
+          solution: 'Lower the entry',
+          helps: 'We check the threshold and recommend a lower profile, transition strip or tub cut-out where suitable.',
+          product: 'Low-profile transition strip, threshold reduction or bath cut-out.',
+        },
+        {
+          solution: 'Add transfer support',
+          helps: 'A fixed grab bar and folding seat reduce standing time and give a clear handhold when entering or washing.',
+          product: 'Wall-mounted grab bar plus folding shower seat.',
+          stat: 'CDC data found 37.3% of bathroom injuries happened while bathing, showering or exiting.',
+        },
+        {
+          solution: 'Stabilise sit-to-stand',
+          helps: 'Raised toilet support and rails reduce deep bending and create predictable support on both sides.',
+          product: 'Raised toilet seat or toilet support rails.',
+        },
+        {
+          solution: 'Improve wet-floor grip',
+          helps: 'We identify splash zones and treat suitable surfaces so feet have better traction after bathing.',
+          product: 'Anti-slip floor treatment for compatible wet areas.',
+        },
+        {
+          solution: 'Clear the route',
+          helps: 'Cables are moved, clipped or replaced with safer lighting placement away from walking lines.',
+          product: 'Cable management plus motion-activated night lighting where useful.',
+        },
+        {
+          solution: 'Check access width',
+          helps: 'CasaMia checks whether the door limits help, walking aids or emergency access before recommending work.',
+          product: 'Door hardware changes or wider-doorway review.',
+        },
+      ],
       legend: ['High risk', 'Medium risk'],
     },
     relatedServices: [
