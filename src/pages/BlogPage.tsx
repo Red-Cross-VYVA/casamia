@@ -464,7 +464,7 @@ const topicRoutes = [
   },
   {
     icon: FileCheck2,
-    to: '/grants-for-home-adaptations-spain',
+    to: '/grants',
     title: { en: 'Grants and paperwork', es: 'Ayudas y documentación' },
     body: {
       en: 'Prepare the location, documents and scope questions before relying on funding.',

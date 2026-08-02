@@ -54,7 +54,6 @@ const GrantEligibilityPage = lazy(() =>
 const GrantSupportSpainPage = lazy(() =>
   import('./pages/GrantSupportSpainPage').then(({ GrantSupportSpainPage }) => ({ default: GrantSupportSpainPage })),
 )
-const GrantsPage = lazy(() => import('./pages/GrantsPage').then(({ GrantsPage }) => ({ default: GrantsPage })))
 const Home2Page = lazy(() => import('./pages/Home2Page').then(({ Home2Page }) => ({ default: Home2Page })))
 const HowItWorksPage = lazy(() =>
   import('./pages/HowItWorksPage').then(({ HowItWorksPage }) => ({ default: HowItWorksPage })),
@@ -262,7 +261,7 @@ function AppRoutes() {
             <Route path="/service-areas" element={<ServiceAreasPage />} />
             <Route path="/service-areas/:citySlug" element={<ServiceAreasPage />} />
             <Route path="/safe-bathroom-access" element={<Navigate to="/bathroom-safety-for-seniors" replace />} />
-            <Route path="/grants-for-home-adaptations-spain" element={<GrantSupportSpainPage />} />
+            <Route path="/grants-for-home-adaptations-spain" element={<Navigate to="/grants" replace />} />
             <Route path="/:needSlug" element={<NeedLandingPage />} />
             <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />
@@ -285,7 +284,7 @@ function AppRoutes() {
             <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
             <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
             <Route path="/tools/is-my-parent-safe-at-home" element={<ParentSafetyQuizPage />} />
-            <Route path="/grants" element={<GrantsPage />} />
+            <Route path="/grants" element={<GrantSupportSpainPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />
             <Route path="/proposal/:token" element={<PublicProposalPage />} />

@@ -110,7 +110,7 @@ const solutionMenuItems = [
   },
   {
     icon: BadgeEuro,
-    to: '/grants-for-home-adaptations-spain',
+    to: '/grants',
     title: { en: 'Grants guidance', es: 'Ayudas y trámites', nl: 'Subsidiehulp' },
     description: {
       en: 'Check possible routes and documents.',

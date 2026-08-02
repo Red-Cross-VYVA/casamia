@@ -16,6 +16,7 @@ import { ServiceIcon } from '../components/ServiceIcon'
 import { isZoneGalleryRoom, ZoneServiceGallery } from '../components/ZoneServiceGallery'
 import { serviceVisuals } from '../constants/serviceVisuals'
 import { primaryServices } from '../constants/siteContent'
+import { zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
 import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceRoom } from '../types/serviceCatalogue'
 
@@ -720,6 +721,10 @@ function getConfigurePath(serviceId: string) {
   return '/home-safety-wizard'
 }
 
+function isZoneRiskArea(value: ServiceRoom): value is ZoneRiskArea {
+  return Object.prototype.hasOwnProperty.call(zoneRiskMaps, value)
+}
+
 function groupServicesByCategory(services: CasaMiaService[]) {
   const groups = new Map<string, CasaMiaService[]>()
 
@@ -818,10 +823,12 @@ function RoomServiceItemsSection({
 
 function KitchenSafetyShowcase({
   detail,
+  hideStory = false,
   kitchenServices,
   language,
 }: {
   detail: ServiceDetailContent
+  hideStory?: boolean
   kitchenServices: CasaMiaService[]
   language: string
 }) {
@@ -835,6 +842,7 @@ function KitchenSafetyShowcase({
 
   return (
     <>
+      {hideStory ? null : (
       <section className="service-detail-section service-kitchen-story bg-white">
         <div className="site-shell">
           <div className="service-kitchen-story-grid">
@@ -877,6 +885,8 @@ function KitchenSafetyShowcase({
           </div>
         </div>
       </section>
+
+      )}
 
       <section className="service-detail-section bg-pale-blue">
         <div className="site-shell">
@@ -932,6 +942,67 @@ function KitchenSafetyShowcase({
         </div>
       </section>
     </>
+  )
+}
+
+function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es'; riskMap: ZoneRiskMap }) {
+  const copy = riskMap.copy[language]
+  const mapLabels = [...copy.mapLabels, ...copy.legend]
+  const headingId = `service-detail-zone-risk-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}`
+  const hasMapLabels = mapLabels.length > 0 && riskMap.labelPositions.length > 0
+
+  return (
+    <section className="service-detail-section service-detail-zone-risk-section bg-white" aria-labelledby={headingId}>
+      <div className="site-shell">
+        <div className="services-zone-risk">
+          <div className="services-zone-risk-stage">
+            <SafeImage
+              alt={copy.imageAlt}
+              className="services-zone-risk-media"
+              imgClassName="services-zone-risk-image"
+              src={riskMap.image}
+            />
+            {hasMapLabels ? (
+              <div className="services-zone-risk-labels" aria-hidden="true">
+                {mapLabels.map((label, index) => {
+                  const position = riskMap.labelPositions[index]
+
+                  if (!position) return null
+
+                  return (
+                    <span
+                      className={`services-zone-risk-label${index >= copy.risks.length ? ' is-legend' : ''}`}
+                      key={`${label}-${index}`}
+                      style={{
+                        height: `${position.h}%`,
+                        left: `${position.x}%`,
+                        top: `${position.y}%`,
+                        width: `${position.w}%`,
+                      }}
+                    >
+                      {label}
+                    </span>
+                  )
+                })}
+              </div>
+            ) : null}
+          </div>
+          <div className="services-zone-risk-copy">
+            <p className="eyebrow">{copy.eyebrow}</p>
+            <h2 id={headingId}>{copy.title}</h2>
+            <p>{copy.body}</p>
+            <ol className="services-zone-risk-list">
+              {copy.risks.map((risk, index) => (
+                <li key={risk}>
+                  <span>{index + 1}</span>
+                  <strong>{risk}</strong>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -993,6 +1064,7 @@ export function ServiceDetailPage() {
     .map((item) => getLocalizedPrimaryService(item, i18n.language))
   const isKitchenService = service.id === 'kitchen-safety'
   const serviceCatalogueItems = serviceRoomMap[service.id] ? roomServices : []
+  const zoneRiskMap = isZoneRiskArea(serviceRoom) ? zoneRiskMaps[serviceRoom] : null
   const heroTitle = isKitchenService
     ? isSpanish
       ? 'Una cocina más segura, sin perder independencia.'
@@ -1073,33 +1145,41 @@ export function ServiceDetailPage() {
       </section>
 
       {isKitchenService ? (
-        <KitchenSafetyShowcase
-          detail={detail}
-          kitchenServices={serviceCatalogueItems}
-          language={i18n.language}
-        />
+        <>
+          {zoneRiskMap ? <ServiceZoneRiskMapSection language={isSpanish ? 'es' : 'en'} riskMap={zoneRiskMap} /> : null}
+          <KitchenSafetyShowcase
+            detail={detail}
+            hideStory
+            kitchenServices={serviceCatalogueItems}
+            language={i18n.language}
+          />
+        </>
       ) : (
         <>
-          <section className="service-detail-section bg-white">
-            <div className="site-shell">
-              <div className="service-detail-heading">
-                <p className="eyebrow">{sectionCopy.whatWeCheck}</p>
-                <h2>{sectionCopy.risksTitle}</h2>
-                <p>{sectionCopy.risksBody}</p>
-              </div>
+          {zoneRiskMap ? (
+            <ServiceZoneRiskMapSection language={isSpanish ? 'es' : 'en'} riskMap={zoneRiskMap} />
+          ) : (
+            <section className="service-detail-section bg-white">
+              <div className="site-shell">
+                <div className="service-detail-heading">
+                  <p className="eyebrow">{sectionCopy.whatWeCheck}</p>
+                  <h2>{sectionCopy.risksTitle}</h2>
+                  <p>{sectionCopy.risksBody}</p>
+                </div>
 
-              <div className="service-detail-check-grid">
-                <article>
-                  <h3>{sectionCopy.commonRisks}</h3>
-                  <ServiceChecklist items={service.risks} />
-                </article>
-                <article>
-                  <h3>{sectionCopy.howWeHelp}</h3>
-                  <ServiceChecklist items={service.improvements} />
-                </article>
+                <div className="service-detail-check-grid">
+                  <article>
+                    <h3>{sectionCopy.commonRisks}</h3>
+                    <ServiceChecklist items={service.risks} />
+                  </article>
+                  <article>
+                    <h3>{sectionCopy.howWeHelp}</h3>
+                    <ServiceChecklist items={service.improvements} />
+                  </article>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           <section className="service-detail-section bg-pale-blue">
             <div className="site-shell">
