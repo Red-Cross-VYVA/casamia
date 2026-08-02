@@ -46,7 +46,7 @@ type PlansCopy = {
   creatingDraft: string
   draftCreated: string
   email: string
-  estimateNote: string
+  estimateLead: string
   estimateTitle: string
   finalReview: string
   flow: Array<{ title: string; body: string }>
@@ -68,11 +68,16 @@ type PlansCopy = {
   quantity: string
   reviewRequired: string
   roomDescriptions: Record<string, string>
-  roomCount: string
   rooms: Array<{ title: string; body: string }>
   seeDraft: string
   selectedPackages: string
   specialistTitle: string
+  summaryEmptyRooms: string
+  summaryModulesTitle: string
+  summaryMoreItems: string
+  summaryNextBody: string
+  summaryNextTitle: string
+  summaryRoomsTitle: string
   subtitle: string
   title: string
   town: string
@@ -94,8 +99,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     creatingDraft: 'Creating draft...',
     draftCreated: 'Draft created. CasaMia will review it before sending a final proposal.',
     email: 'Email',
-    estimateNote: 'Estimate only. Final scope and price are reviewed by CasaMia.',
-    estimateTitle: 'Live estimate',
+    estimateLead: 'VAT included · pending review',
+    estimateTitle: 'Plan snapshot',
     finalReview: 'CasaMia review',
     flow: [
       { title: 'Rooms', body: 'Pick quantities' },
@@ -130,7 +135,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       kitchen: 'Reach, cooking, visibility.',
       'living-room': 'Seating, cables, movement.',
     },
-    roomCount: 'Room packages',
     rooms: [
       { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
       { title: 'Bedroom', body: 'Bed transfers, night lighting and clear routes.' },
@@ -141,6 +145,12 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     seeDraft: 'Open draft',
     selectedPackages: 'Selected packages',
     specialistTitle: 'Specialist',
+    summaryEmptyRooms: 'Choose rooms to start',
+    summaryModulesTitle: 'Included in this draft',
+    summaryMoreItems: 'more',
+    summaryNextBody: 'CasaMia checks measurements, photos and suitability before the final proposal.',
+    summaryNextTitle: 'Next step',
+    summaryRoomsTitle: 'Selected rooms',
     subtitle:
       'Select rooms, see a live estimate, then send a draft for CasaMia review.',
     title: 'Build your CasaMia plan.',
@@ -159,8 +169,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     creatingDraft: 'Creando borrador...',
     draftCreated: 'Borrador creado. CasaMia lo revisará antes de enviar la propuesta final.',
     email: 'Email',
-    estimateNote: 'Estimación orientativa. CasaMia revisa alcance y precio final.',
-    estimateTitle: 'Estimación en vivo',
+    estimateLead: 'IVA incluido · pendiente de revisión',
+    estimateTitle: 'Resumen del plan',
     finalReview: 'Revisión CasaMia',
     flow: [
       { title: 'Estancias', body: 'Define cantidades' },
@@ -195,7 +205,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       kitchen: 'Alcance, cocina, visibilidad.',
       'living-room': 'Asientos, cables, paso.',
     },
-    roomCount: 'Paquetes de estancia',
     rooms: [
       { title: 'Baño', body: 'Ducha, transferencias al WC, suelo mojado y acceso seguro.' },
       { title: 'Dormitorio', body: 'Transferencias de cama, luz nocturna y rutas despejadas.' },
@@ -206,6 +215,12 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     seeDraft: 'Abrir borrador',
     selectedPackages: 'Paquetes seleccionados',
     specialistTitle: 'Especial',
+    summaryEmptyRooms: 'Elige estancias para empezar',
+    summaryModulesTitle: 'Incluido en este borrador',
+    summaryMoreItems: 'más',
+    summaryNextBody: 'CasaMia confirma medidas, fotos e idoneidad antes de enviar la propuesta final.',
+    summaryNextTitle: 'Siguiente paso',
+    summaryRoomsTitle: 'Estancias elegidas',
     subtitle:
       'Selecciona estancias, ve una estimación y envía el borrador para revisión.',
     title: 'Crea tu plan CasaMia.',
@@ -265,6 +280,9 @@ export function PlansPage() {
     const quantity = selection[group.homePackage.id]?.quantity ?? 1
     return `${quantity}x ${group.roomLabel}`
   })
+  const oneTimeLineItems = estimate.lineItems.filter((line) => !line.isRecurring)
+  const summaryLineItems = oneTimeLineItems.slice(0, 3)
+  const extraSummaryLineItemCount = Math.max(0, oneTimeLineItems.length - summaryLineItems.length)
 
   useEffect(() => {
     if (Object.keys(selection).length || !groups.length) {
@@ -509,33 +527,51 @@ export function PlansPage() {
               <div>
                 <p>{copy.estimateTitle}</p>
                 <strong>{formatPlansEstimateLabel(estimate, language)}</strong>
-                <small>{copy.vatIncluded}</small>
+                <small>{copy.estimateLead}</small>
               </div>
             </div>
-            <dl>
-              <div>
-                <dt>{copy.roomCount}</dt>
-                <dd>{estimate.selectedRoomQuantity}</dd>
-              </div>
-              <div>
-                <dt>{copy.selectedPackages}</dt>
-                <dd>{estimate.selectedPackageCount}</dd>
-              </div>
-              {estimate.recurringMonthlyEstimate > 0 ? (
-                <div>
-                  <dt>{copy.monthly}</dt>
-                  <dd>{formatPlansCurrency(estimate.recurringMonthlyEstimate, language)}</dd>
-                </div>
-              ) : null}
-            </dl>
-            <p>{copy.estimateNote}</p>
-            {selectedSummary.length ? (
-              <div className="plans-summary-selection" aria-label={copy.selectedPackages}>
-                {selectedSummary.slice(0, 5).map((item) => (
-                  <span key={item}>{item}</span>
+
+            <div className="plans-summary-block">
+              <span>{copy.summaryRoomsTitle}</span>
+              <div className="plans-summary-selection" aria-label={copy.summaryRoomsTitle}>
+                {(selectedSummary.length ? selectedSummary : [copy.summaryEmptyRooms]).slice(0, 5).map((item, index) => (
+                  <b key={`${item}-${index}`}>{item}</b>
                 ))}
               </div>
+            </div>
+
+            {summaryLineItems.length ? (
+              <div className="plans-summary-block">
+                <span>{copy.summaryModulesTitle}</span>
+                <ul className="plans-summary-lines">
+                  {summaryLineItems.map((line) => (
+                    <li key={line.id}>
+                      <CheckCircle2 size={16} aria-hidden="true" />
+                      <span>{line.label}</span>
+                      {line.quantity > 1 ? <b>x{line.quantity}</b> : null}
+                    </li>
+                  ))}
+                  {extraSummaryLineItemCount > 0 ? (
+                    <li className="is-muted">
+                      <span>+{extraSummaryLineItemCount} {copy.summaryMoreItems}</span>
+                    </li>
+                  ) : null}
+                </ul>
+              </div>
             ) : null}
+
+            {estimate.recurringMonthlyEstimate > 0 ? (
+              <div className="plans-summary-monthly">
+                <span>{copy.monthly}</span>
+                <strong>{formatPlansCurrency(estimate.recurringMonthlyEstimate, language)}</strong>
+              </div>
+            ) : null}
+
+            <div className="plans-summary-next">
+              <strong>{copy.summaryNextTitle}</strong>
+              <p>{copy.summaryNextBody}</p>
+            </div>
+
             {estimate.reviewItems.length ? (
               <div className="plans-builder-review-list">
                 <strong>{copy.reviewRequired}</strong>

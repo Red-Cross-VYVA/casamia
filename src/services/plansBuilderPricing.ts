@@ -124,6 +124,11 @@ export function buildPlansBuilderGroups(
       const packageConfig = getPackageConfigForArea(catalogue, packageArea)
       const homeUnitPrice = getPackageUnitPrice(homePackageGroup.package, packageConfig)
       const homeRecurringPrice = getPackageRecurringMonthlyPrice(homePackageGroup.package, packageConfig)
+      const localizedHomePackageLabel = localizePlansString(
+        homePackageGroup.package.customerName,
+        language,
+        homePackageGroup.package.internalName,
+      )
 
       return [{
         addOnPackages: customerCatalogue
@@ -149,11 +154,9 @@ export function buildPlansBuilderGroups(
           language,
           homePackageGroup.package.internalName,
         ),
-        packageLabel: packageConfig?.name || localizePlansString(
-          homePackageGroup.package.customerName,
-          language,
-          homePackageGroup.package.internalName,
-        ),
+        packageLabel: language.toLowerCase().startsWith('es')
+          ? localizedHomePackageLabel
+          : packageConfig?.name || localizedHomePackageLabel,
         packageUnitPrice: homeUnitPrice,
         recurringMonthlyUnitPrice: homeRecurringPrice,
         requiresReview: packageNeedsReview(homePackageGroup.package, homeUnitPrice, packageConfig),
