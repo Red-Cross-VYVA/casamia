@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  ArrowLeft,
   BadgeEuro,
   Bath,
   BedDouble,
@@ -14,6 +15,7 @@ import {
   ShieldCheck,
   Sparkles,
   Wrench,
+  X,
   type LucideIcon,
 } from 'lucide-react'
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
@@ -35,14 +37,19 @@ import {
 } from '../services/plansBuilderPricing'
 import { createPublicProposalDraft } from '../services/proposalsApi'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
+import type { MasterCatalogueOutcome } from '../types/serviceCatalogue'
 
 type PlansCopy = {
   addModule: string
+  backToBuilder: string
   builderEyebrow: string
   builderTitle: string
   consent: string
+  contactIntro: string
+  contactStepEyebrow: string
   contactTitle: string
   coreIncluded: string
+  closeDetails: string
   createDraft: string
   creatingDraft: string
   draftCreated: string
@@ -63,11 +70,14 @@ type PlansCopy = {
   name: string
   noSelection: string
   optionalTitle: string
+  packageDetails: string
   phone: string
   presets: Array<{ id: PlansPresetId; title: string; body: string }>
   popularTitle: string
   quantity: string
   reviewRequired: string
+  reviewCtaBody: string
+  reviewCtaTitle: string
   roomDescriptions: Record<string, string>
   rooms: Array<{ title: string; body: string }>
   seeDraft: string
@@ -84,18 +94,33 @@ type PlansCopy = {
   town: string
   address: string
   vatIncluded: string
+  viewDetails: string
 }
 
 type PlansPresetId = 'focused' | 'daily' | 'wholeHome'
 
+type PlansStep = 'builder' | 'contact'
+
+type PlansDetail = {
+  body: string
+  items: MasterCatalogueOutcome[]
+  price: string
+  title: string
+  typeLabel: string
+}
+
 const plansCopy: Record<'en' | 'es', PlansCopy> = {
   en: {
     addModule: 'Add module',
+    backToBuilder: 'Edit package',
     builderEyebrow: 'Plans',
     builderTitle: 'Choose rooms',
     consent: 'CasaMia may contact me to review this draft.',
+    contactIntro: 'Add contact details so CasaMia can review the selected rooms, confirm the scope and prepare the proposal.',
+    contactStepEyebrow: 'CasaMia review',
     contactTitle: 'Send for review',
     coreIncluded: 'Core package',
+    closeDetails: 'Close',
     createDraft: 'Create draft',
     creatingDraft: 'Creating draft...',
     draftCreated: 'Draft created. CasaMia will review it before sending a final proposal.',
@@ -120,6 +145,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     name: 'Name',
     noSelection: 'Choose at least one room.',
     optionalTitle: 'Connected',
+    packageDetails: 'Package details',
     phone: 'Phone',
     popularTitle: 'Popular setups',
     presets: [
@@ -129,6 +155,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     ],
     quantity: 'Quantity',
     reviewRequired: 'Needs review',
+    reviewCtaBody: 'Next, share contact details. CasaMia will check photos, measurements and suitability before sending a final proposal.',
+    reviewCtaTitle: 'Ready for CasaMia to review it?',
     roomDescriptions: {
       bathroom: 'Shower, WC, wet floors.',
       bedroom: 'Bed, night route, lighting.',
@@ -158,14 +186,21 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     town: 'Town / area',
     address: 'Address',
     vatIncluded: 'VAT included',
+    viewDetails: 'View details',
   },
   es: {
+    backToBuilder: 'Editar paquete',
+    contactIntro: 'Añade tus datos para que CasaMia revise las estancias elegidas, confirme el alcance y prepare la propuesta.',
+    contactStepEyebrow: 'Revisión CasaMia',
+    reviewCtaBody: 'En el siguiente paso compartes tus datos. CasaMia revisará fotos, medidas e idoneidad antes de enviar la propuesta final.',
+    reviewCtaTitle: '¿Listo para que CasaMia lo revise?',
     addModule: 'Añadir módulo',
     builderEyebrow: 'Planes',
     builderTitle: 'Elige estancias',
     consent: 'CasaMia puede contactarme para revisar este borrador.',
     contactTitle: 'Enviar a revisión',
     coreIncluded: 'Paquete base',
+    closeDetails: 'Cerrar',
     createDraft: 'Crear borrador',
     creatingDraft: 'Creando borrador...',
     draftCreated: 'Borrador creado. CasaMia lo revisará antes de enviar la propuesta final.',
@@ -190,6 +225,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     name: 'Nombre',
     noSelection: 'Elige al menos una estancia.',
     optionalTitle: 'Conectado',
+    packageDetails: 'Detalles del paquete',
     phone: 'Teléfono',
     popularTitle: 'Combinaciones rápidas',
     presets: [
@@ -228,6 +264,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     town: 'Ciudad / zona',
     address: 'Dirección',
     vatIncluded: 'IVA incluido',
+    viewDetails: 'Ver detalles',
   },
 }
 
@@ -267,6 +304,8 @@ export function PlansPage() {
   const groups = useMemo(() => buildPlansBuilderGroups(catalogue, language), [catalogue, language])
   const [selection, setSelection] = useState<PlansBuilderSelectionState>({})
   const [customer, setCustomer] = useState<CustomerForm>(emptyCustomerForm)
+  const [step, setStep] = useState<PlansStep>('builder')
+  const [activeDetail, setActiveDetail] = useState<PlansDetail | null>(null)
   const [draftUrl, setDraftUrl] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -299,6 +338,21 @@ export function PlansPage() {
       },
     })
   }, [groups, selection])
+
+  useEffect(() => {
+    if (!activeDetail) {
+      return
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setActiveDetail(null)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [activeDetail])
 
   const schema = useMemo(
     () => ({
@@ -450,6 +504,63 @@ export function PlansPage() {
     return addOnPackage.outcomes.some((outcome) => selectedIds.has(outcome.id))
   }
 
+  function openRoomPackageDetails(group: PlansBuilderGroup) {
+    setActiveDetail({
+      body: group.packageDescription,
+      items: group.homeOutcomes,
+      price: group.packageUnitPrice > 0 ? formatPlansCurrency(group.packageUnitPrice, language) : copy.finalReview,
+      title: group.packageLabel,
+      typeLabel: copy.coreIncluded,
+    })
+  }
+
+  function openAddOnPackageDetails(addOnPackage: PlansBuilderAddOnPackage) {
+    setActiveDetail({
+      body: addOnPackage.packageDescription,
+      items: addOnPackage.outcomes,
+      price: addOnPackage.unitPrice > 0 ? formatPlansCurrency(addOnPackage.unitPrice, language) : copy.finalReview,
+      title: addOnPackage.packageLabel,
+      typeLabel: copy.optionalTitle,
+    })
+  }
+
+  function openSpecialistDetails(outcome: MasterCatalogueOutcome) {
+    const price = getPlansOutcomeUnitPrice(outcome)
+
+    setActiveDetail({
+      body: localizePlansString(outcome.shortDescription, language, outcome.internalName),
+      items: [outcome],
+      price: price > 0 ? formatPlansCurrency(price, language) : copy.finalReview,
+      title: localizePlansString(outcome.customerName, language, outcome.internalName),
+      typeLabel: copy.specialistTitle,
+    })
+  }
+
+  function scrollToPlansSection(elementId: string) {
+    window.requestAnimationFrame(() => {
+      document.getElementById(elementId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+  }
+
+  function goToContactStep() {
+    if (!estimate.proposalLineItems.length) {
+      setError(copy.noSelection)
+      scrollToPlansSection('plans-builder-title')
+      return
+    }
+
+    setDraftUrl('')
+    setError('')
+    setStep('contact')
+    scrollToPlansSection('plans-contact-step')
+  }
+
+  function goBackToBuilder() {
+    setError('')
+    setStep('builder')
+    scrollToPlansSection('plans-builder-title')
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError('')
@@ -484,9 +595,93 @@ export function PlansPage() {
     }
   }
 
+  const contactForm = (
+    <form className="plans-draft-form plans-contact-form" onSubmit={handleSubmit}>
+      <div>
+        <p className="section-kicker">{copy.finalReview}</p>
+        <h2>{copy.contactTitle}</h2>
+        <p>{copy.contactIntro}</p>
+      </div>
+
+      <label>
+        <span>{copy.name}</span>
+        <input
+          required
+          value={customer.name}
+          onChange={(event) => setCustomer((current) => ({ ...current, name: event.target.value }))}
+        />
+      </label>
+      <label>
+        <span>{copy.email}</span>
+        <input
+          required
+          type="email"
+          value={customer.email}
+          onChange={(event) => setCustomer((current) => ({ ...current, email: event.target.value }))}
+        />
+      </label>
+      <label>
+        <span>{copy.phone}</span>
+        <input
+          value={customer.phone}
+          onChange={(event) => setCustomer((current) => ({ ...current, phone: event.target.value }))}
+        />
+      </label>
+      <label>
+        <span>{copy.town}</span>
+        <input
+          value={customer.area}
+          onChange={(event) => setCustomer((current) => ({ ...current, area: event.target.value }))}
+        />
+      </label>
+      <label>
+        <span>{copy.address}</span>
+        <input
+          value={customer.address}
+          onChange={(event) => setCustomer((current) => ({ ...current, address: event.target.value }))}
+        />
+      </label>
+      <label className="plans-hidden-field" aria-hidden="true">
+        <span>Website</span>
+        <input
+          tabIndex={-1}
+          value={customer.website}
+          onChange={(event) => setCustomer((current) => ({ ...current, website: event.target.value }))}
+        />
+      </label>
+      <label className="plans-consent">
+        <input
+          required
+          checked={customer.consent}
+          type="checkbox"
+          onChange={(event) => setCustomer((current) => ({ ...current, consent: event.target.checked }))}
+        />
+        <span>{copy.consent}</span>
+      </label>
+
+      {error ? <p className="plans-form-error">{error}</p> : null}
+      {draftUrl ? (
+        <div className="plans-form-success">
+          <Sparkles size={20} aria-hidden="true" />
+          <p>{copy.draftCreated}</p>
+          <Link to={new URL(draftUrl).pathname}>
+            {copy.seeDraft}
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+      ) : null}
+
+      <button className="btn btn-green w-full" type="submit" disabled={isSubmitting}>
+        {isSubmitting ? <Loader2 className="animate-spin" size={18} aria-hidden="true" /> : <Wrench size={18} aria-hidden="true" />}
+        {isSubmitting ? copy.creatingDraft : copy.createDraft}
+      </button>
+    </form>
+  )
+
   return (
     <>
       <SEO title={copy.metaTitle} description={seoDescription} path="/plans" schema={schema} />
+      {step === 'builder' ? (
       <section className="plans-builder-shell">
         <div className="site-shell plans-builder-hero">
           <div className="plans-builder-intro">
@@ -584,9 +779,23 @@ export function PlansPage() {
           </aside>
         </div>
       </section>
+      ) : (
+        <section className="plans-contact-hero" id="plans-contact-step">
+          <div className="site-shell">
+            <button className="plans-contact-back" type="button" onClick={goBackToBuilder}>
+              <ArrowLeft size={16} aria-hidden="true" />
+              {copy.backToBuilder}
+            </button>
+            <p className="section-kicker">{copy.contactStepEyebrow}</p>
+            <h1>{copy.contactTitle}</h1>
+            <p>{copy.contactIntro}</p>
+          </div>
+        </section>
+      )}
 
-      <main className="plans-builder-main section-pad">
-        <div className="site-shell plans-builder-layout">
+      <main className={`plans-builder-main section-pad${step === 'contact' ? ' plans-contact-main' : ''}`}>
+        {step === 'builder' ? (
+        <div className="site-shell plans-builder-layout is-builder-step">
           <section className="plans-builder-workspace" aria-labelledby="plans-builder-title">
             <div className="plans-builder-heading">
               <div>
@@ -611,6 +820,13 @@ export function PlansPage() {
                       <div>
                         <h3>{group.roomLabel}</h3>
                         <p>{copy.roomDescriptions[group.room.id] ?? group.packageDescription}</p>
+                        <button
+                          className="plans-detail-link"
+                          type="button"
+                          onClick={() => openRoomPackageDetails(group)}
+                        >
+                          {copy.viewDetails}
+                        </button>
                       </div>
                     </header>
                     <div className="plans-room-card-footer">
@@ -708,6 +924,13 @@ export function PlansPage() {
                                       </small>
                                     </span>
                                   </label>
+                                  <button
+                                    className="plans-detail-link"
+                                    type="button"
+                                    onClick={() => openSpecialistDetails(outcome)}
+                                  >
+                                    {copy.viewDetails}
+                                  </button>
                                 </div>
                               )
                             })
@@ -731,6 +954,13 @@ export function PlansPage() {
                                   </small>
                                 </span>
                               </label>
+                              <button
+                                className="plans-detail-link"
+                                type="button"
+                                onClick={() => openAddOnPackageDetails(addOnPackage)}
+                              >
+                                {copy.viewDetails}
+                              </button>
 
                               {selected ? (
                                 <div className="plans-addon-options">
@@ -764,91 +994,139 @@ export function PlansPage() {
                 </div>
               )}
             </section>
-          </section>
 
-          <aside className="plans-builder-side">
-            <form className="plans-draft-form" onSubmit={handleSubmit}>
+            <div className="plans-review-cta">
+              <span aria-hidden="true">
+                <Wrench size={24} />
+              </span>
               <div>
-                <p className="section-kicker">{copy.finalReview}</p>
-                <h2>{copy.contactTitle}</h2>
+                <p className="section-kicker">{copy.contactStepEyebrow}</p>
+                <h2>{copy.reviewCtaTitle}</h2>
+                <p>{copy.reviewCtaBody}</p>
+                {error ? <p className="plans-form-error">{error}</p> : null}
+              </div>
+              <button className="btn btn-green" type="button" onClick={goToContactStep}>
+                {copy.contactTitle}
+                <ArrowRight size={16} aria-hidden="true" />
+              </button>
+            </div>
+          </section>
+        </div>
+        ) : (
+          <div className="site-shell plans-contact-layout">
+            <aside className="plans-contact-summary" aria-label={copy.estimateTitle}>
+              <p className="section-kicker">{copy.estimateTitle}</p>
+              <h2>{formatPlansEstimateLabel(estimate, language)}</h2>
+              <small>{copy.estimateLead}</small>
+
+              <div className="plans-summary-block">
+                <span>{copy.summaryRoomsTitle}</span>
+                <div className="plans-summary-selection" aria-label={copy.summaryRoomsTitle}>
+                  {(selectedSummary.length ? selectedSummary : [copy.summaryEmptyRooms]).slice(0, 5).map((item, index) => (
+                    <b key={`${item}-${index}`}>{item}</b>
+                  ))}
+                </div>
               </div>
 
-              <label>
-                <span>{copy.name}</span>
-                <input
-                  required
-                  value={customer.name}
-                  onChange={(event) => setCustomer((current) => ({ ...current, name: event.target.value }))}
-                />
-              </label>
-              <label>
-                <span>{copy.email}</span>
-                <input
-                  required
-                  type="email"
-                  value={customer.email}
-                  onChange={(event) => setCustomer((current) => ({ ...current, email: event.target.value }))}
-                />
-              </label>
-              <label>
-                <span>{copy.phone}</span>
-                <input
-                  value={customer.phone}
-                  onChange={(event) => setCustomer((current) => ({ ...current, phone: event.target.value }))}
-                />
-              </label>
-              <label>
-                <span>{copy.town}</span>
-                <input
-                  value={customer.area}
-                  onChange={(event) => setCustomer((current) => ({ ...current, area: event.target.value }))}
-                />
-              </label>
-              <label>
-                <span>{copy.address}</span>
-                <input
-                  value={customer.address}
-                  onChange={(event) => setCustomer((current) => ({ ...current, address: event.target.value }))}
-                />
-              </label>
-              <label className="plans-hidden-field" aria-hidden="true">
-                <span>Website</span>
-                <input
-                  tabIndex={-1}
-                  value={customer.website}
-                  onChange={(event) => setCustomer((current) => ({ ...current, website: event.target.value }))}
-                />
-              </label>
-              <label className="plans-consent">
-                <input
-                  required
-                  checked={customer.consent}
-                  type="checkbox"
-                  onChange={(event) => setCustomer((current) => ({ ...current, consent: event.target.checked }))}
-                />
-                <span>{copy.consent}</span>
-              </label>
-
-              {error ? <p className="plans-form-error">{error}</p> : null}
-              {draftUrl ? (
-                <div className="plans-form-success">
-                  <Sparkles size={20} aria-hidden="true" />
-                  <p>{copy.draftCreated}</p>
-                  <Link to={new URL(draftUrl).pathname}>
-                    {copy.seeDraft}
-                    <ArrowRight size={16} aria-hidden="true" />
-                  </Link>
+              {summaryLineItems.length ? (
+                <div className="plans-summary-block">
+                  <span>{copy.summaryModulesTitle}</span>
+                  <ul className="plans-summary-lines">
+                    {summaryLineItems.map((line) => (
+                      <li key={line.id}>
+                        <CheckCircle2 size={16} aria-hidden="true" />
+                        <span>{line.label}</span>
+                        {line.quantity > 1 ? <b>x{line.quantity}</b> : null}
+                      </li>
+                    ))}
+                    {extraSummaryLineItemCount > 0 ? (
+                      <li className="is-muted">
+                        <span>+{extraSummaryLineItemCount} {copy.summaryMoreItems}</span>
+                      </li>
+                    ) : null}
+                  </ul>
                 </div>
               ) : null}
 
-              <button className="btn btn-green w-full" type="submit" disabled={isSubmitting}>
-                {isSubmitting ? <Loader2 className="animate-spin" size={18} aria-hidden="true" /> : <Wrench size={18} aria-hidden="true" />}
-                {isSubmitting ? copy.creatingDraft : copy.createDraft}
+              {estimate.recurringMonthlyEstimate > 0 ? (
+                <div className="plans-summary-monthly">
+                  <span>{copy.monthly}</span>
+                  <strong>{formatPlansCurrency(estimate.recurringMonthlyEstimate, language)}</strong>
+                </div>
+              ) : null}
+
+              {estimate.reviewItems.length ? (
+                <div className="plans-builder-review-list">
+                  <strong>{copy.reviewRequired}</strong>
+                  {estimate.reviewItems.slice(0, 4).map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+              ) : null}
+
+              <button className="plans-contact-back" type="button" onClick={goBackToBuilder}>
+                <ArrowLeft size={16} aria-hidden="true" />
+                {copy.backToBuilder}
               </button>
-            </form>
-          </aside>
-        </div>
+            </aside>
+
+            {contactForm}
+          </div>
+        )}
       </main>
+
+      {activeDetail ? (
+        <div
+          className="plan-detail-modal-backdrop"
+          role="presentation"
+          onClick={() => setActiveDetail(null)}
+        >
+          <section
+            aria-labelledby="plans-detail-title"
+            aria-modal="true"
+            className="plan-detail-modal"
+            role="dialog"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="plan-detail-modal-head">
+              <div>
+                <p>{activeDetail.typeLabel}</p>
+                <h2 id="plans-detail-title">{activeDetail.title}</h2>
+                <span>{activeDetail.body}</span>
+                <strong className="plans-detail-price">{activeDetail.price}</strong>
+              </div>
+              <button type="button" aria-label={copy.closeDetails} onClick={() => setActiveDetail(null)}>
+                <X size={18} aria-hidden="true" />
+                {copy.closeDetails}
+              </button>
+            </div>
+
+            <div className="plan-detail-modal-grid">
+              {activeDetail.items.map((outcome) => (
+                <article key={outcome.id}>
+                  <CheckCircle2 size={20} aria-hidden="true" />
+                  <div>
+                    <h3>{localizePlansString(outcome.customerName, language, outcome.internalName)}</h3>
+                    <p>
+                      {localizePlansString(
+                        outcome.customerBenefit,
+                        language,
+                        localizePlansString(outcome.shortDescription, language, outcome.internalName),
+                      )}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="plan-detail-modal-actions">
+              <button className="btn btn-green" type="button" onClick={() => setActiveDetail(null)}>
+                {copy.closeDetails}
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
     </>
   )
 }

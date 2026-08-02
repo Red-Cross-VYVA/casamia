@@ -16300,6 +16300,9 @@ img {
 
 .plans-builder-intro h1,
 .plans-builder-heading h2,
+.plans-contact-hero h1,
+.plans-contact-summary h2,
+.plans-review-cta h2,
 .plans-draft-form h2 {
   color: var(--text-dark);
   font-family: 'Playfair Display', Georgia, serif;
@@ -16649,6 +16652,10 @@ img {
   align-items: start;
 }
 
+.plans-builder-layout.is-builder-step {
+  display: block;
+}
+
 .plans-builder-workspace,
 .plans-draft-form {
   min-width: 0;
@@ -16667,6 +16674,7 @@ img {
 }
 
 .plans-builder-heading h2,
+.plans-review-cta h2,
 .plans-draft-form h2 {
   margin-top: 10px;
   font-size: clamp(28px, 3vw, 40px);
@@ -16737,6 +16745,26 @@ img {
   font-size: 13px;
   font-weight: 700;
   line-height: 1.35;
+}
+
+.plans-detail-link {
+  display: inline-flex;
+  width: fit-content;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  margin-top: 8px;
+  padding: 0;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 950;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.plans-detail-link:hover,
+.plans-detail-link:focus-visible {
+  color: var(--navy);
 }
 
 .plans-room-card-footer {
@@ -16876,6 +16904,10 @@ img {
   color: #8a530b;
 }
 
+.plans-addon-card > .plans-detail-link {
+  margin-left: 30px;
+}
+
 .plans-addon-card > label {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -16948,10 +16980,133 @@ img {
   text-align: center;
 }
 
-.plans-builder-side {
-  position: sticky;
-  top: 104px;
+.plans-review-cta {
+  display: grid;
+  gap: 18px;
+  align-items: center;
+  margin-top: 24px;
+  border: 1px solid rgba(125, 184, 65, 0.4);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(125, 184, 65, 0.12), rgba(255, 255, 255, 0.96) 58%, rgba(52, 161, 211, 0.08));
+  padding: clamp(18px, 3vw, 24px);
+}
+
+.plans-review-cta > span {
+  display: inline-flex;
+  width: 52px;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--green);
+  color: var(--white);
+  box-shadow: 0 16px 32px rgba(80, 137, 33, 0.22);
+}
+
+.plans-review-cta p:not(.section-kicker) {
+  max-width: 720px;
+  margin-top: 8px;
+  color: var(--text-mid);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.plans-review-cta .plans-form-error {
+  margin-top: 12px;
+}
+
+.plans-review-cta .btn {
+  width: fit-content;
+}
+
+.plans-contact-hero {
+  padding-top: 86px;
+  background:
+    linear-gradient(90deg, rgba(31, 103, 146, 0.08) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(31, 103, 146, 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, #f5fbfe 0%, #ffffff 100%);
+  background-size: 90px 90px, 90px 90px, auto;
+}
+
+.plans-contact-hero .site-shell {
+  padding-top: clamp(32px, 5vw, 54px);
+  padding-bottom: clamp(28px, 4vw, 42px);
+}
+
+.plans-contact-hero h1 {
+  max-width: 720px;
+  margin-top: 14px;
+  font-size: clamp(42px, 5vw, 64px);
+}
+
+.plans-contact-hero p:not(.section-kicker) {
+  max-width: 700px;
+  margin-top: 12px;
+  color: var(--text-mid);
+  font-size: clamp(17px, 1.7vw, 20px);
+  line-height: 1.45;
+}
+
+.plans-contact-back {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  width: fit-content;
+  cursor: pointer;
+  border: 1px solid rgba(31, 103, 146, 0.18);
+  border-radius: 999px;
+  background: var(--white);
+  padding: 9px 12px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 950;
+  box-shadow: 0 12px 30px rgba(13, 30, 46, 0.06);
+}
+
+.plans-contact-hero .plans-contact-back {
+  margin-bottom: 18px;
+}
+
+.plans-contact-main.section-pad {
+  padding-top: clamp(24px, 4vw, 44px);
+}
+
+.plans-contact-layout {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+
+.plans-contact-summary {
+  display: grid;
+  gap: 16px;
   min-width: 0;
+  border: 1px solid rgba(200, 220, 232, 0.9);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  padding: clamp(18px, 3vw, 24px);
+  box-shadow: 0 18px 52px rgba(13, 30, 46, 0.07);
+}
+
+.plans-contact-summary h2 {
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1;
+}
+
+.plans-contact-summary > small {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.plans-draft-form > div > p:not(.section-kicker) {
+  margin-top: 8px;
+  color: var(--text-mid);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.48;
 }
 
 .plans-draft-form {
@@ -17050,6 +17205,10 @@ img {
     grid-template-columns: minmax(0, 1fr) minmax(340px, 430px);
   }
 
+  .plans-review-cta {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
   .plans-room-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -17057,21 +17216,25 @@ img {
   .plans-addon-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .plans-contact-layout {
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+  }
 }
 
 @media (min-width: 1180px) {
   .plans-builder-layout {
     grid-template-columns: minmax(0, 1fr) 390px;
   }
+
+  .plans-builder-layout.is-builder-step {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 760px) {
   .plans-builder-shell {
     padding-top: 78px;
-  }
-
-  .plans-builder-side {
-    position: static;
   }
 
   .plans-grant-banner {
@@ -17104,6 +17267,12 @@ img {
 
   .plans-addon-options {
     padding-left: 0;
+  }
+
+  .plans-review-cta .btn,
+  .plans-contact-back {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -17166,6 +17335,10 @@ img {
 }
 
 .plan-detail-modal-head > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   flex: 0 0 auto;
   border: 1px solid rgba(31, 103, 146, 0.2);
   border-radius: 999px;
@@ -17175,6 +17348,18 @@ img {
   font-size: 13px;
   font-weight: 900;
   cursor: pointer;
+}
+
+.plans-detail-price {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 16px;
+  border-radius: 999px;
+  background: rgba(125, 184, 65, 0.14);
+  padding: 9px 13px;
+  color: #477d18;
+  font-size: 14px;
+  font-weight: 950;
 }
 
 .plan-detail-modal-tabs {
