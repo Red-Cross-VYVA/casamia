@@ -599,13 +599,13 @@
 .services-catalogue-card-visual {
   position: relative;
   display: grid;
-  width: 6.65rem;
-  height: 4.85rem;
-  flex: 0 0 6.65rem;
+  width: 8.45rem;
+  height: 5.45rem;
+  flex: 0 0 8.45rem;
   place-items: center;
   overflow: hidden;
   border: 1px solid #cddfe9;
-  border-radius: 0.58rem;
+  border-radius: 0.62rem;
   background: #eef8fd;
   color: #17648e;
   background:
@@ -629,17 +629,15 @@
 }
 
 .services-catalogue-card-visual.has-photo {
-  border-color: #bfd4df;
-  background: #e9f3f8;
+  border-color: #d6e7ef;
+  background: #f4f9fc;
   box-shadow:
-    inset 0 0 0 1px rgb(255 255 255 / 68%),
-    0 0.45rem 0.95rem rgb(18 58 80 / 9%);
+    inset 0 0 0 1px rgb(255 255 255 / 72%),
+    0 0.55rem 1.2rem rgb(18 58 80 / 8%);
 }
 
 .services-catalogue-card-visual.has-photo::after {
-  z-index: 2;
-  height: 0.22rem;
-  opacity: 0.92;
+  display: none;
 }
 
 .services-catalogue-card-visual-media {

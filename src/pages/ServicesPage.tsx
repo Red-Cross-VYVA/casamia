@@ -190,6 +190,16 @@ const otherArea: CatalogueAreaDefinition = {
 
 const serviceCardProduct = (name: string) => `/images/service-card-products/${name}.webp`
 
+const roomFallbackProductImages: Partial<Record<CasaMiaService['room'], string>> = {
+  bathroom: serviceCardProduct('shower-seat'),
+  bedroom: serviceCardProduct('bed-transfer'),
+  kitchen: serviceCardProduct('kitchen-tools'),
+  entrance: serviceCardProduct('threshold-ramp'),
+  movement: serviceCardProduct('clear-night-route'),
+  connected: serviceCardProduct('motion-sensor'),
+  'living-room': serviceCardProduct('recliner'),
+}
+
 const packageZoneNavImages: Partial<Record<CatalogueGroupId, string>> = {
   bathroom: serviceCardProduct('shower-seat'),
   bedroom: serviceCardProduct('underbed-lighting'),
@@ -386,9 +396,13 @@ const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
 }
 
 const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
+  'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
   'bathroom-folding-shower-seat': { kind: 'shower-seat', tone: 'water', image: serviceCardProduct('shower-seat') },
   'bathroom-raised-toilet-seat': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
+  'bathroom-toilet-support-rails': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
+  'bathroom-comfort-height-toilet': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
   'bathroom-anti-slip-floor-treatment': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('floor-grip') },
+  'bathroom-anti-slip-bath-mat': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('floor-grip') },
   'bathroom-improved-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
   'bathroom-lever-mixer-tap': { kind: 'lever-tap', tone: 'water', image: serviceCardProduct('lever-tap') },
   'bathroom-thermostatic-valve': { kind: 'thermostatic-valve', tone: 'water', image: serviceCardProduct('thermostatic-shower-mixer') },
@@ -637,32 +651,39 @@ function getServiceCardVisual(service: CasaMiaService): ServiceCardVisualConfig 
   if (mappedVisual) return mappedVisual
 
   const category = service.category.toLowerCase()
+  const roomFallbackImage = roomFallbackProductImages[service.room]
 
-  if (category.includes('light') || category.includes('ilumin')) return { kind: 'motion-light', tone: 'light' }
-  if (category.includes('toilet') || category.includes('inodoro')) return { kind: 'toilet-rails', tone: 'support' }
-  if (category.includes('bath') || category.includes('ducha')) return { kind: 'shower-seat', tone: 'water' }
+  if (category.includes('light') || category.includes('ilumin')) {
+    return { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') }
+  }
+  if (category.includes('toilet') || category.includes('inodoro')) {
+    return { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') }
+  }
+  if (category.includes('bath') || category.includes('ducha')) {
+    return { kind: 'shower-seat', tone: 'water', image: serviceCardProduct('shower-seat') }
+  }
   if (category.includes('water') || category.includes('agua') || category.includes('fontan')) {
-    return { kind: 'water-monitoring', tone: 'water' }
+    return { kind: 'water-monitoring', tone: 'water', image: serviceCardProduct('water-monitoring') }
   }
   if (category.includes('floor') || category.includes('suelo') || category.includes('slip')) {
-    return { kind: 'floor-grip', tone: 'mobility' }
+    return { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('floor-grip') }
   }
   if (category.includes('door') || category.includes('access') || category.includes('acceso')) {
-    return { kind: 'wide-doorway', tone: 'access' }
+    return { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') }
   }
   if (category.includes('connected') || category.includes('alert') || category.includes('aviso')) {
-    return { kind: 'motion-sensor', tone: 'alert' }
+    return { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') }
   }
 
-  if (service.room === 'bathroom') return { kind: 'shower-seat', tone: 'water' }
-  if (service.room === 'bedroom') return { kind: 'bed-transfer', tone: 'support' }
-  if (service.room === 'kitchen') return { kind: 'kitchen-tools', tone: 'food' }
-  if (service.room === 'entrance') return { kind: 'threshold-ramp', tone: 'access' }
-  if (service.room === 'movement') return { kind: 'clear-route', tone: 'mobility' }
-  if (service.room === 'connected') return { kind: 'motion-sensor', tone: 'alert' }
-  if (service.room === 'living-room') return { kind: 'recliner', tone: 'support' }
+  if (service.room === 'bathroom') return { kind: 'shower-seat', tone: 'water', image: roomFallbackImage }
+  if (service.room === 'bedroom') return { kind: 'bed-transfer', tone: 'support', image: roomFallbackImage }
+  if (service.room === 'kitchen') return { kind: 'kitchen-tools', tone: 'food', image: roomFallbackImage }
+  if (service.room === 'entrance') return { kind: 'threshold-ramp', tone: 'access', image: roomFallbackImage }
+  if (service.room === 'movement') return { kind: 'clear-route', tone: 'mobility', image: roomFallbackImage }
+  if (service.room === 'connected') return { kind: 'motion-sensor', tone: 'alert', image: roomFallbackImage }
+  if (service.room === 'living-room') return { kind: 'recliner', tone: 'support', image: roomFallbackImage }
 
-  return { kind: 'generic-product', tone: 'support' }
+  return { kind: 'generic-product', tone: 'support', image: serviceCardProduct('vertical-rail') }
 }
 
 export function ServicesPage() {
