@@ -1,10 +1,11 @@
 .services-catalogue-hero {
   position: relative;
   overflow: hidden;
-  padding: 4.45rem 0 2.5rem;
+  padding: 4.75rem 0 3.1rem;
   background:
-    linear-gradient(rgb(255 255 255 / 72%), rgb(255 255 255 / 72%)),
-    radial-gradient(circle at 84% 18%, rgb(70 174 216 / 16%), transparent 25rem),
+    linear-gradient(rgb(255 255 255 / 80%), rgb(255 255 255 / 84%)),
+    radial-gradient(circle at 78% 12%, rgb(70 174 216 / 15%), transparent 24rem),
+    radial-gradient(circle at 16% 28%, rgb(125 184 65 / 12%), transparent 22rem),
     linear-gradient(135deg, #eef8fd 0%, #ffffff 54%, #e8f5fb 100%);
   color: var(--color-ink);
 }
@@ -24,35 +25,66 @@
   position: relative;
   display: grid;
   align-items: center;
-  gap: 3rem;
+  justify-items: center;
+  gap: 1.55rem;
+  text-align: center;
+}
+
+.services-catalogue-hero-copy {
+  display: grid;
+  justify-items: center;
+  max-width: 64rem;
 }
 
 .services-catalogue-hero-copy h1 {
-  max-width: 17ch;
+  max-width: 18ch;
   margin: 0.85rem 0 0;
   font-family: var(--font-display);
   color: #22344a;
-  font-size: 3.75rem;
+  font-size: clamp(3.65rem, 6.8vw, 6.2rem);
   font-weight: 900;
   letter-spacing: 0;
-  line-height: 1.02;
+  line-height: 0.96;
   text-wrap: balance;
 }
 
 .services-catalogue-hero-copy > p {
-  max-width: 39rem;
-  margin: 1rem 0 0;
+  max-width: 48rem;
+  margin: 1.15rem 0 0;
   color: #29435d;
-  font-size: 1.06rem;
-  line-height: 1.55;
+  font-size: clamp(1.08rem, 1.5vw, 1.34rem);
+  line-height: 1.5;
+}
+
+.services-catalogue-hero-points {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 1.3rem;
+}
+
+.services-catalogue-hero-points span {
+  border: 1px solid rgb(181 214 232 / 88%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 72%);
+  padding: 0.66rem 0.92rem;
+  color: #115f8d;
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 0.8rem 1.8rem rgb(20 74 110 / 7%);
 }
 
 .services-catalogue-hero-actions,
 .services-catalogue-final-actions {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 0.9rem;
-  margin-top: 1.35rem;
+  margin-top: 1.45rem;
 }
 
 .services-catalogue-summary {
@@ -151,94 +183,6 @@
   font-size: 1.4rem;
   font-weight: 900;
 }
-
-.services-catalogue-home-visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-}
-
-.services-catalogue-home-rotator {
-  position: relative;
-  overflow: hidden;
-  width: min(100%, 25.5rem);
-  aspect-ratio: 1 / 0.66;
-  margin: 0 auto;
-  border: 0.35rem solid #ffffff;
-  border-radius: 0.75rem;
-  background: #ffffff;
-  box-shadow: 0 1rem 2.4rem rgb(10 42 68 / 11%);
-  isolation: isolate;
-}
-
-.services-catalogue-home-slide {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  transform: scale(1.035);
-  animation: services-catalogue-room-rotate 22.5s ease-in-out infinite;
-}
-
-.services-catalogue-home-slide:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.services-catalogue-home-slide:nth-child(2) {
-  animation-delay: 4.5s;
-}
-
-.services-catalogue-home-slide:nth-child(3) {
-  animation-delay: 9s;
-}
-
-.services-catalogue-home-slide:nth-child(4) {
-  animation-delay: 13.5s;
-}
-
-.services-catalogue-home-slide:nth-child(5) {
-  animation-delay: 18s;
-}
-
-.services-catalogue-home-slide-media,
-.services-catalogue-home-slide-image {
-  width: 100%;
-  height: 100%;
-}
-
-.services-catalogue-home-slide-image {
-  display: block;
-  border-radius: 0.5rem;
-  object-fit: cover;
-}
-
-@keyframes services-catalogue-room-rotate {
-  0%,
-  19% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  24%,
-  100% {
-    opacity: 0;
-    transform: scale(0.985);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .services-catalogue-home-slide {
-    animation: none;
-    opacity: 0;
-    transform: none;
-  }
-
-  .services-catalogue-home-slide:first-child {
-    opacity: 1;
-  }
-}
-
 
 .services-catalogue-section {
   padding: 3.4rem 0 4.6rem;
@@ -1149,10 +1093,6 @@
 }
 
 @media (min-width: 980px) {
-  .services-catalogue-hero-grid {
-    grid-template-columns: minmax(0, 0.86fr) minmax(22rem, 0.58fr);
-  }
-
   .services-catalogue-explorer {
     align-items: start;
     grid-template-columns: minmax(16rem, 0.32fr) minmax(0, 1fr);
@@ -1209,7 +1149,7 @@
   }
 
   .services-catalogue-hero-copy h1 {
-    max-width: 12ch;
+    max-width: 13ch;
     font-size: 2.45rem;
     line-height: 1.04;
   }
@@ -1247,11 +1187,6 @@
 
   .services-catalogue-summary dl div:last-child {
     border-bottom: 0;
-  }
-
-  .services-catalogue-home-rotator {
-    width: 100%;
-    aspect-ratio: 1 / 0.6;
   }
 
   .services-catalogue-package {

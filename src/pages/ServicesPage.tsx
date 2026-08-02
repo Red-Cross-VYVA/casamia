@@ -133,8 +133,6 @@ type ServicesPageCopy = {
   activeServices: string
   packageAreas: string
   inclusionsVisible: string
-  homeVisualTitle: string
-  homeVisualIntro: string
   sectionEyebrow: string
   sectionTitle: string
   sectionBody: string
@@ -189,13 +187,6 @@ const otherArea: CatalogueAreaDefinition = {
     es: 'Opciones activas todavía no asignadas a un área concreta.',
   },
 }
-
-const homeVisualSlides: Array<{ areaId: ServicePackageArea; image: string }> = [
-  { areaId: 'bedroom', image: '/images/service-gallery/isometric/isometric-bedroom.jpg' },
-  { areaId: 'living-room', image: '/images/service-gallery/isometric/isometric-living.jpg' },
-  { areaId: 'kitchen', image: '/images/service-gallery/isometric/isometric-kitchen.jpg' },
-  { areaId: 'bathroom', image: '/images/service-gallery/isometric/isometric-bathroom.jpg' },
-]
 
 const serviceCardProduct = (name: string) => `/images/service-card-products/${name}.webp`
 
@@ -471,8 +462,6 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     activeServices: 'Active services',
     packageAreas: 'Package areas',
     inclusionsVisible: 'Inclusions shown',
-    homeVisualTitle: 'One home, every key area covered.',
-    homeVisualIntro: 'Browse services by the spaces people use every day.',
     sectionEyebrow: 'Explore by area',
     sectionTitle: 'See what is included, room by room.',
     sectionBody: 'Choose a space to review the core improvements included in the package and the optional add-ons CasaMia can assess, quote and coordinate for you.',
@@ -518,8 +507,6 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     activeServices: 'Servicios activos',
     packageAreas: 'Áreas de servicio',
     inclusionsVisible: 'Inclusiones visibles',
-    homeVisualTitle: 'Una casa, cada zona clave cubierta.',
-    homeVisualIntro: 'Explora los servicios por los espacios que se usan a diario.',
     sectionEyebrow: 'Explora por zona',
     sectionTitle: 'Consulta qué incluye cada zona.',
     sectionBody: 'Elige una zona para revisar las mejoras incluidas en el paquete y los extras opcionales que CasaMia puede valorar, presupuestar y coordinar por ti.',
@@ -708,20 +695,12 @@ export function ServicesPage() {
     return unassignedServices.length
       ? [...groupedServices, { area: otherArea, services: unassignedServices }]
       : groupedServices
-  }, [activeServices, catalogue, catalogueAreas])
+  }, [activeServices, catalogueAreas])
   const selectedGroup = serviceGroups.find((group) => group.area.id === selectedGroupId) ?? serviceGroups[0]
   const SelectedIcon = selectedGroup?.area.icon ?? PackageCheck
   const selectedRiskMap = selectedGroup && isZoneRiskArea(selectedGroup.area.id)
     ? zoneRiskMaps[selectedGroup.area.id]
     : undefined
-  const heroSlides = homeVisualSlides
-    .map(({ areaId, image }) => {
-      const area = serviceGroups.find((item) => item.area.id === areaId)?.area
-        ?? catalogueAreas.find((item) => item.id === areaId)
-
-      return area ? { area, image } : null
-    })
-    .filter((item): item is { area: CatalogueAreaDefinition; image: string } => Boolean(item))
 
   return (
     <>
@@ -749,6 +728,11 @@ export function ServicesPage() {
             <span className="eyebrow">{copy.heroEyebrow}</span>
             <h1>{copy.heroTitle}</h1>
             <p>{copy.heroBody}</p>
+            <div className="services-catalogue-hero-points" aria-label={copy.catalogueLabel}>
+              <span>{copy.packageAreas}</span>
+              <span>{copy.activeServices}</span>
+              <span>{copy.inclusionsVisible}</span>
+            </div>
             <div className="services-catalogue-hero-actions">
               <a className="btn btn-green" href="#catalogue-packages">
                 {copy.browseCta}
@@ -759,25 +743,6 @@ export function ServicesPage() {
               </Link>
             </div>
           </div>
-
-          <aside className="services-catalogue-home-visual" aria-label={copy.homeVisualTitle}>
-            <div className="services-catalogue-home-rotator" aria-hidden="true">
-              {heroSlides.map(({ area, image }) => (
-                <figure className="services-catalogue-home-slide" key={area.id}>
-                  <SafeImage
-                    alt={area.title[language]}
-                    className="services-catalogue-home-slide-media"
-                    imgClassName="services-catalogue-home-slide-image"
-                    loading="eager"
-                    src={image}
-                  />
-                  <figcaption className="services-catalogue-home-slide-caption">
-                    <span>{area.title[language]}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </aside>
         </div>
       </section>
 

@@ -859,15 +859,14 @@ function KitchenSafetyShowcase({
             </div>
 
             <div className="service-kitchen-visual-card">
-              <div className="service-kitchen-routine-visual" aria-hidden="true">
-                <div className="service-kitchen-counter">
-                  <span className="service-kitchen-zone is-light">{isSpanish ? 'Luz de trabajo' : 'Task light'}</span>
-                  <span className="service-kitchen-zone is-sink">{isSpanish ? 'Sensor de fuga' : 'Leak sensor'}</span>
-                  <span className="service-kitchen-zone is-stove">{isSpanish ? 'Seguridad de aparatos' : 'Appliance safety'}</span>
-                  <span className="service-kitchen-zone is-mat">{isSpanish ? 'Zona estable' : 'Stable standing zone'}</span>
-                  <span className="service-kitchen-zone is-reach">{isSpanish ? 'Alcance seguro' : 'Safer reach'}</span>
-                </div>
-              </div>
+              <SafeImage
+                alt={isSpanish
+                  ? 'Mapa visual de cocina con riesgos cotidianos señalados'
+                  : 'Annotated kitchen risk map showing everyday safety points'}
+                className="service-kitchen-routine-visual"
+                imgClassName="service-kitchen-risk-map"
+                src="/images/solutions/kitchen-risk-map.png"
+              />
               <div className="service-kitchen-visual-note">
                 <span>
                   <CheckCircle2 size={19} aria-hidden="true" />

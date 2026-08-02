@@ -12,7 +12,6 @@ import {
   Loader2,
   Minus,
   Plus,
-  ShieldCheck,
   Sparkles,
   Wrench,
   X,
@@ -62,6 +61,7 @@ type PlansCopy = {
   grantBody: string
   grantCta: string
   grantEyebrow: string
+  grantFeatureItems: string[]
   grantTitle: string
   helpText: string
   metaTitle: string
@@ -137,6 +137,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantBody: 'CasaMia can check grant readiness and documents where regional programmes apply.',
     grantCta: 'Check grants',
     grantEyebrow: 'Grant support available',
+    grantFeatureItems: ['Eligibility route', 'Document checklist', 'Package-ready scope'],
     grantTitle: 'Funding may help with eligible adaptations.',
     helpText: 'Use the steppers. Add connected or specialist modules only where useful.',
     metaTitle: 'Plans Builder | CasaMia',
@@ -217,6 +218,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantBody: 'CasaMia puede revisar preparación y documentos cuando existan programas aplicables.',
     grantCta: 'Comprobar ayudas',
     grantEyebrow: 'Ayudas disponibles',
+    grantFeatureItems: ['Ruta de elegibilidad', 'Lista de documentos', 'Alcance listo para propuesta'],
     grantTitle: 'La financiación puede ayudar en adaptaciones elegibles.',
     helpText: 'Usa los controles. Añade módulos conectados o especiales solo donde aporten valor.',
     metaTitle: 'Constructor de planes | CasaMia',
@@ -688,20 +690,6 @@ export function PlansPage() {
             <p className="section-kicker">{copy.builderEyebrow}</p>
             <h1>{copy.title}</h1>
             <p>{copy.subtitle}</p>
-            <aside className="plans-grant-banner" aria-label={copy.grantEyebrow}>
-              <span aria-hidden="true">
-                <BadgeEuro size={22} />
-              </span>
-              <div>
-                <strong>{copy.grantEyebrow}</strong>
-                <p>{copy.grantTitle}</p>
-                <small>{copy.grantBody}</small>
-              </div>
-              <Link to="/grant-check">
-                {copy.grantCta}
-                <ArrowRight size={15} aria-hidden="true" />
-              </Link>
-            </aside>
             <div className="plans-preset-panel" aria-label={copy.popularTitle}>
               <span>{copy.popularTitle}</span>
               <div>
@@ -715,67 +703,27 @@ export function PlansPage() {
             </div>
           </div>
 
-          <aside className="plans-builder-summary" aria-label={copy.estimateTitle}>
-            <div className="plans-builder-summary-top">
-              <span>
-                <ShieldCheck size={24} aria-hidden="true" />
-              </span>
-              <div>
-                <p>{copy.estimateTitle}</p>
-                <strong>{formatPlansEstimateLabel(estimate, language)}</strong>
-                <small>{copy.estimateLead}</small>
-              </div>
+          <aside className="plans-hero-grant-card" aria-label={copy.grantEyebrow}>
+            <span className="plans-hero-grant-icon" aria-hidden="true">
+              <BadgeEuro size={28} />
+            </span>
+            <div>
+              <p className="section-kicker">{copy.grantEyebrow}</p>
+              <h2>{copy.grantTitle}</h2>
+              <p>{copy.grantBody}</p>
             </div>
-
-            <div className="plans-summary-block">
-              <span>{copy.summaryRoomsTitle}</span>
-              <div className="plans-summary-selection" aria-label={copy.summaryRoomsTitle}>
-                {(selectedSummary.length ? selectedSummary : [copy.summaryEmptyRooms]).slice(0, 5).map((item, index) => (
-                  <b key={`${item}-${index}`}>{item}</b>
-                ))}
-              </div>
-            </div>
-
-            {summaryLineItems.length ? (
-              <div className="plans-summary-block">
-                <span>{copy.summaryModulesTitle}</span>
-                <ul className="plans-summary-lines">
-                  {summaryLineItems.map((line) => (
-                    <li key={line.id}>
-                      <CheckCircle2 size={16} aria-hidden="true" />
-                      <span>{line.label}</span>
-                      {line.quantity > 1 ? <b>x{line.quantity}</b> : null}
-                    </li>
-                  ))}
-                  {extraSummaryLineItemCount > 0 ? (
-                    <li className="is-muted">
-                      <span>+{extraSummaryLineItemCount} {copy.summaryMoreItems}</span>
-                    </li>
-                  ) : null}
-                </ul>
-              </div>
-            ) : null}
-
-            {estimate.recurringMonthlyEstimate > 0 ? (
-              <div className="plans-summary-monthly">
-                <span>{copy.monthly}</span>
-                <strong>{formatPlansCurrency(estimate.recurringMonthlyEstimate, language)}</strong>
-              </div>
-            ) : null}
-
-            <div className="plans-summary-next">
-              <strong>{copy.summaryNextTitle}</strong>
-              <p>{copy.summaryNextBody}</p>
-            </div>
-
-            {estimate.reviewItems.length ? (
-              <div className="plans-builder-review-list">
-                <strong>{copy.reviewRequired}</strong>
-                {estimate.reviewItems.slice(0, 4).map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-            ) : null}
+            <ul>
+              {copy.grantFeatureItems.map((item) => (
+                <li key={item}>
+                  <CheckCircle2 size={16} aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <Link to="/grant-check">
+              {copy.grantCta}
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
           </aside>
         </div>
       </section>

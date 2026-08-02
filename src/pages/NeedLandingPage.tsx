@@ -1,9 +1,11 @@
 import {
   AlertTriangle,
   ArrowRight,
+  BadgeEuro,
   Camera,
   CheckCircle2,
   ClipboardCheck,
+  FileCheck2,
   HeartHandshake,
   ListChecks,
   MessageCircle,
@@ -35,13 +37,10 @@ export function NeedLandingPage() {
   const basePage = getNeedLandingPage(needSlug)
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
 
-  if (!basePage) {
-    return <Navigate to="/services" replace />
-  }
-
   const isSpanish = i18n.language.startsWith('es')
-  const page = localizeNeedLandingPage(basePage, i18n.language)
+  const page = localizeNeedLandingPage(basePage ?? allNeedLandingPages[0], i18n.language)
   const isCompactNeedPage = page.slug === 'bathroom-safety-for-seniors'
+  const usesGrantOfficialVisual = page.slug === 'grants-for-home-adaptations-spain'
   const siblingPages = localizeNeedLandingPages(allNeedLandingPages, i18n.language)
     .filter((item) => item.slug !== page.slug)
     .slice(0, 4)
@@ -443,6 +442,10 @@ export function NeedLandingPage() {
     },
   ]
 
+  if (!basePage) {
+    return <Navigate to="/services" replace />
+  }
+
   return (
     <>
       <SEO
@@ -472,13 +475,17 @@ export function NeedLandingPage() {
             </div>
 
             <aside className="need-landing-visual" aria-label={`${page.title} overview`}>
-              <SafeImage
-                src={page.image}
-                alt=""
-                className="need-landing-photo"
-                imgClassName="need-landing-photo-img"
-                loading="eager"
-              />
+              {usesGrantOfficialVisual ? (
+                <GrantOfficialVisual isSpanish={isSpanish} />
+              ) : (
+                <SafeImage
+                  src={page.image}
+                  alt=""
+                  className="need-landing-photo"
+                  imgClassName="need-landing-photo-img"
+                  loading="eager"
+                />
+              )}
             </aside>
           </div>
         </section>
@@ -843,6 +850,41 @@ export function NeedLandingPage() {
         </section>
       </main>
     </>
+  )
+}
+
+function GrantOfficialVisual({ isSpanish }: { isSpanish: boolean }) {
+  return (
+    <div className="need-grant-official-visual" aria-hidden="true">
+      <div className="need-grant-official-flags">
+        <span className="need-grant-flag need-grant-flag-eu">
+          <span>EU</span>
+        </span>
+        <span className="need-grant-flag need-grant-flag-spain">
+          <span>ES</span>
+        </span>
+      </div>
+      <div className="need-grant-official-card">
+        <span className="need-grant-official-icon">
+          <BadgeEuro size={30} />
+        </span>
+        <div>
+          <strong>{isSpanish ? 'Rutas de ayudas oficiales' : 'Official grant routes'}</strong>
+          <span>{isSpanish ? 'España, regiones y municipios' : 'Spain, regions and municipalities'}</span>
+        </div>
+      </div>
+      <div className="need-grant-document-stack">
+        {[0, 1, 2].map((index) => (
+          <span key={index}>
+            <FileCheck2 size={22} />
+          </span>
+        ))}
+      </div>
+      <div className="need-grant-official-note">
+        <CheckCircle2 size={18} />
+        <span>{isSpanish ? 'Documentos, plazos y requisitos' : 'Documents, timing and requirements'}</span>
+      </div>
+    </div>
   )
 }
 
