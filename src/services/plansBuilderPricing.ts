@@ -353,6 +353,10 @@ export function formatPlansEstimateLabel(estimate: PlansBuilderEstimate, languag
   return `${copy.from} ${formatPlansCurrency(estimate.oneTimeEstimate, language)}`
 }
 
+export function getPlansOutcomeUnitPrice(outcome: MasterCatalogueOutcome) {
+  return getOutcomeUnitPrice(outcome)
+}
+
 function buildPlansAddOnPackageDescription(
   addOnPackage: PlansBuilderAddOnPackage,
   outcomes: MasterCatalogueOutcome[],

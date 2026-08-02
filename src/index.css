@@ -16866,6 +16866,16 @@ img {
   background: rgba(125, 184, 65, 0.08);
 }
 
+.plans-specialist-option {
+  min-height: 104px;
+  background:
+    linear-gradient(145deg, #ffffff 0%, rgba(247, 251, 254, 0.95) 100%);
+}
+
+.plans-specialist-option small {
+  color: #8a530b;
+}
+
 .plans-addon-card > label {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);

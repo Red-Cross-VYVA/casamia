@@ -26,6 +26,7 @@ import {
   calculatePlansBuilderEstimate,
   formatPlansCurrency,
   formatPlansEstimateLabel,
+  getPlansOutcomeUnitPrice,
   localizePlansString,
   normalisePlansQuantity,
   type PlansBuilderAddOnPackage,
@@ -682,6 +683,35 @@ export function PlansPage() {
                         {group.addOnPackages.map((addOnPackage) => {
                           const selected = isAddOnPackageSelected(group, addOnPackage)
                           const isSpecialist = addOnPackage.packageRecord.section === 'optional-adaptations'
+
+                          if (isSpecialist) {
+                            return addOnPackage.outcomes.map((outcome) => {
+                              const checked = selection[group.homePackage.id]?.addOnOutcomeIds.includes(outcome.id) ?? false
+                              const outcomePrice = getPlansOutcomeUnitPrice(outcome)
+
+                              return (
+                                <div
+                                  className={`plans-addon-card plans-specialist-option${checked ? ' is-selected' : ''}`}
+                                  key={outcome.id}
+                                >
+                                  <label>
+                                    <input
+                                      checked={checked}
+                                      type="checkbox"
+                                      onChange={(event) => toggleAddOnOutcome(group, outcome.id, event.target.checked)}
+                                    />
+                                    <span>
+                                      <strong>{copy.specialistTitle}</strong>
+                                      <b>{localizePlansString(outcome.customerName, language, outcome.internalName)}</b>
+                                      <small>
+                                        {outcomePrice > 0 ? formatPlansCurrency(outcomePrice, language) : copy.finalReview}
+                                      </small>
+                                    </span>
+                                  </label>
+                                </div>
+                              )
+                            })
+                          }
 
                           return (
                             <div className={`plans-addon-card${selected ? ' is-selected' : ''}`} key={addOnPackage.packageRecord.id}>
