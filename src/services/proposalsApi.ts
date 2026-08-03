@@ -467,9 +467,18 @@ export async function loadPublicProposal(token: string) {
     return proposal
   }
 
-  const raw = await requestJson<BackendProposal>(`/api/public/proposals/${token}`)
+  try {
+    const raw = await requestJson<BackendProposal>(`/api/public/proposals/${token}`)
 
-  return fromBackendProposal(raw)
+    return fromBackendProposal(raw)
+  } catch (error) {
+    if (shouldUseLocalProposalFallback()) {
+      const proposal = loadAllProposals().find((item) => item.publicToken === token)
+      if (proposal) return proposal
+    }
+
+    throw error
+  }
 }
 
 export async function acceptPublicProposal(token: string, acceptedBy: string) {
@@ -488,15 +497,34 @@ export async function acceptPublicProposal(token: string, acceptedBy: string) {
     })
   }
 
-  const raw = await requestJson<BackendActionResponse>(`/api/public/proposals/${token}/accept`, {
-    body: JSON.stringify({ accepted_by: acceptedBy }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  })
+  try {
+    const raw = await requestJson<BackendActionResponse>(`/api/public/proposals/${token}/accept`, {
+      body: JSON.stringify({ accepted_by: acceptedBy }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
 
-  return hasProposalShape(raw) ? fromBackendProposal(raw) : null
+    return hasProposalShape(raw) ? fromBackendProposal(raw) : null
+  } catch (error) {
+    if (shouldUseLocalProposalFallback()) {
+      const proposal = loadAllProposals().find((item) => item.publicToken === token)
+      if (!proposal || proposal.status !== 'Sent' || proposal.acceptanceStatus !== 'Sent') {
+        throw new Error('This proposal is not ready for online acceptance yet.')
+      }
+
+      return saveProposal({
+        ...proposal,
+        acceptanceDate: new Date().toISOString().slice(0, 10),
+        acceptanceStatus: 'Accepted',
+        acceptedBy,
+        status: 'Accepted',
+      })
+    }
+
+    throw error
+  }
 }
 
 export async function createPublicProposalDraft(
@@ -507,19 +535,35 @@ export async function createPublicProposalDraft(
     return createLocalPublicProposalDraft(payload, fallbackCatalogue ?? getServiceCatalogue())
   }
 
-  const raw = await requestJson<{
+  let raw: {
     emailDelivery?: PublicProposalDraftResponse['emailDelivery']
     proposal?: BackendProposal
     publicToken?: string
     publicUrl?: string
     publicUrlAbsolute?: string
-  }>('/api/public/proposal-drafts', {
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  })
+  }
+
+  try {
+    raw = await requestJson<{
+      emailDelivery?: PublicProposalDraftResponse['emailDelivery']
+      proposal?: BackendProposal
+      publicToken?: string
+      publicUrl?: string
+      publicUrlAbsolute?: string
+    }>('/api/public/proposal-drafts', {
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+  } catch (error) {
+    if (shouldUseLocalProposalFallback()) {
+      return createLocalPublicProposalDraft(payload, fallbackCatalogue ?? getServiceCatalogue())
+    }
+
+    throw error
+  }
 
   if (!raw.proposal) {
     throw new Error('Draft proposal response did not include a proposal.')
@@ -620,4 +664,12 @@ function createLocalPublicToken() {
   }
 
   return `${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`
+}
+
+function shouldUseLocalProposalFallback() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  return ['localhost', '127.0.0.1'].includes(window.location.hostname)
 }
