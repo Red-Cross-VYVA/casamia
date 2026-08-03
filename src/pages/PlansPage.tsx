@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   ArrowLeft,
-  BadgeEuro,
   Bath,
   BedDouble,
   CheckCircle2,
@@ -62,6 +61,12 @@ type PlansCopy = {
   grantCta: string
   grantEyebrow: string
   grantTitle: string
+  heroSignals: string[]
+  heroPhotoAlt: string
+  heroReviewBody: string
+  heroReviewEyebrow: string
+  heroReviewPoints: string[]
+  heroReviewTitle: string
   helpText: string
   metaTitle: string
   modulesTitle: string
@@ -112,21 +117,21 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
   en: {
     addModule: 'Add module',
     backToBuilder: 'Edit package',
-    builderEyebrow: 'Plans',
+    builderEyebrow: 'Plan builder',
     builderTitle: 'Choose rooms',
-    consent: 'CasaMia may contact me to review this draft.',
-    contactIntro: 'Add contact details so CasaMia can review the selected rooms, confirm the scope and prepare the proposal.',
-    contactStepEyebrow: 'CasaMia review',
-    contactTitle: 'Send for review',
+    consent: 'CasaMia may contact me about this proposal.',
+    contactIntro: 'Add contact details so CasaMia can generate your proposal and send you a clear link instantly.',
+    contactStepEyebrow: 'Instant proposal',
+    contactTitle: 'Receive proposal',
     coreIncluded: 'Core package',
     closeDetails: 'Close',
-    createDraft: 'Create draft',
-    creatingDraft: 'Creating draft...',
-    draftCreated: 'Draft created. CasaMia will review it before sending a final proposal.',
+    createDraft: 'Generate proposal',
+    creatingDraft: 'Generating proposal...',
+    draftCreated: 'Proposal created. Open the link to see your selected packages, add-ons and next steps.',
     email: 'Email',
     estimateLead: 'VAT included · pending review',
     estimateTitle: 'Plan snapshot',
-    finalReview: 'CasaMia review',
+    finalReview: 'Requires quote',
     flow: [
       { title: 'Rooms', body: 'Pick quantities' },
       { title: 'Options', body: 'Add support' },
@@ -137,6 +142,13 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantCta: 'Start grant check',
     grantEyebrow: 'Aid route',
     grantTitle: 'Grants may apply.',
+    heroSignals: ['Package prices first', 'Core items included', 'Optional add-ons separate'],
+    heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
+    heroReviewBody:
+      'Choose the rooms and add-ons, add your details, and receive a clear proposal link instantly.',
+    heroReviewEyebrow: 'Instant proposal',
+    heroReviewPoints: ['Package-led plan', 'Clear next steps'],
+    heroReviewTitle: 'Your proposal is generated instantly.',
     helpText: 'Use the steppers. Add connected or specialist modules only where useful.',
     metaTitle: 'Plans Builder | CasaMia',
     modulesTitle: 'Add-ons',
@@ -146,16 +158,16 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     optionalTitle: 'Connected',
     packageDetails: 'Package details',
     phone: 'Phone',
-    popularTitle: 'Popular setups',
+    popularTitle: 'Quick starts',
     presets: [
-      { id: 'focused', title: 'Focused fix', body: '1 bathroom' },
-      { id: 'daily', title: 'Daily safety', body: 'Bathroom + bedroom' },
-      { id: 'wholeHome', title: 'Whole home', body: '2 baths + 2 beds' },
+      { id: 'focused', title: 'Bathroom first', body: '1 bathroom package' },
+      { id: 'daily', title: 'Daily routine', body: 'Bathroom + bedroom' },
+      { id: 'wholeHome', title: 'Whole-home plan', body: '2 bathrooms + 2 bedrooms' },
     ],
     quantity: 'Quantity',
-    reviewRequired: 'Needs review',
-    reviewCtaBody: 'Next, share contact details. CasaMia will check photos, measurements and suitability before sending a final proposal.',
-    reviewCtaTitle: 'Ready for CasaMia to review it?',
+    reviewRequired: 'Needs quote',
+    reviewCtaBody: 'Next, share contact details. Your proposal is generated instantly from the packages, quantities and add-ons you selected.',
+    reviewCtaTitle: 'Ready to generate your proposal?',
     roomDescriptions: {
       bathroom: 'Shower, WC, wet floors.',
       bedroom: 'Bed, night route, lighting.',
@@ -170,18 +182,18 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       { title: 'Living Room', body: 'Sitting, standing, rugs, cables and daily routes.' },
       { title: 'Entrance', body: 'Steps, thresholds, door use and visitor awareness.' },
     ],
-    seeDraft: 'Open draft',
+    seeDraft: 'Open proposal',
     selectedPackages: 'Selected packages',
     specialistTitle: 'Specialist',
     summaryEmptyRooms: 'Choose rooms to start',
-    summaryModulesTitle: 'Included in this draft',
+    summaryModulesTitle: 'Plan details',
     summaryMoreItems: 'more',
-    summaryNextBody: 'CasaMia checks measurements, photos and suitability before the final proposal.',
+    summaryNextBody: 'Your proposal is generated from the selected packages, quantities and add-ons.',
     summaryNextTitle: 'Next step',
     summaryRoomsTitle: 'Selected rooms',
     subtitle:
-      'Choose rooms, adjust quantities and send one clear draft for review.',
-    title: 'Build your CasaMia plan.',
+      'Pick the rooms that need support, choose optional add-ons only where useful, and receive a clear proposal once your details are captured.',
+    title: 'Create a safer-home plan, room by room.',
     town: 'Town / area',
     address: 'Address',
     vatIncluded: 'VAT included',
@@ -194,7 +206,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewCtaBody: 'En el siguiente paso compartes tus datos. CasaMia revisará fotos, medidas e idoneidad antes de enviar la propuesta final.',
     reviewCtaTitle: '¿Listo para que CasaMia lo revise?',
     addModule: 'Añadir módulo',
-    builderEyebrow: 'Planes',
+    builderEyebrow: 'Constructor de planes',
     builderTitle: 'Elige estancias',
     consent: 'CasaMia puede contactarme para revisar este borrador.',
     contactTitle: 'Enviar a revisión',
@@ -217,6 +229,13 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantCta: 'Iniciar revisión',
     grantEyebrow: 'Ayudas disponibles',
     grantTitle: 'Puede haber ayudas.',
+    heroSignals: ['Precio por paquete', 'Elementos base incluidos', 'Extras opcionales separados'],
+    heroPhotoAlt: 'Especialista de CasaMia revisando una cocina con una residente',
+    heroReviewBody:
+      'CasaMia confirma idoneidad, medidas y extras útiles antes de cerrar nada.',
+    heroReviewEyebrow: 'Revisión CasaMia',
+    heroReviewPoints: ['Revisión por estancia', 'Siguiente propuesta clara'],
+    heroReviewTitle: 'Revisado antes de proponer.',
     helpText: 'Usa los controles. Añade módulos conectados o especiales solo donde aporten valor.',
     metaTitle: 'Constructor de planes | CasaMia',
     modulesTitle: 'Extras',
@@ -226,11 +245,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     optionalTitle: 'Conectado',
     packageDetails: 'Detalles del paquete',
     phone: 'Teléfono',
-    popularTitle: 'Combinaciones rápidas',
+    popularTitle: 'Empieza rápido',
     presets: [
-      { id: 'focused', title: 'Prioridad concreta', body: '1 baño' },
-      { id: 'daily', title: 'Seguridad diaria', body: 'Baño + dormitorio' },
-      { id: 'wholeHome', title: 'Toda la casa', body: '2 baños + 2 dormitorios' },
+      { id: 'focused', title: 'Baño primero', body: '1 paquete de baño' },
+      { id: 'daily', title: 'Rutina diaria', body: 'Baño + dormitorio' },
+      { id: 'wholeHome', title: 'Revisión completa', body: '2 baños + 2 dormitorios' },
     ],
     quantity: 'Cantidad',
     reviewRequired: 'Requiere revisión',
@@ -258,8 +277,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryNextTitle: 'Siguiente paso',
     summaryRoomsTitle: 'Estancias elegidas',
     subtitle:
-      'Elige estancias, ajusta cantidades y envía un borrador claro para revisión.',
-    title: 'Crea tu plan CasaMia.',
+      'Elige las estancias que necesitan apoyo, añade extras opcionales solo donde aporten valor y envía un borrador claro para que CasaMia lo revise antes de la propuesta final.',
+    title: 'Crea un plan de hogar más seguro, estancia por estancia.',
     town: 'Ciudad / zona',
     address: 'Dirección',
     vatIncluded: 'IVA incluido',
@@ -298,7 +317,83 @@ const emptyCustomerForm: CustomerForm = {
 export function PlansPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
-  const copy = plansCopy[language]
+  const baseCopy = plansCopy[language]
+  const copy = useMemo<PlansCopy>(() => ({
+    ...baseCopy,
+    ...(language === 'es'
+      ? {
+          consent: 'CasaMia puede contactarme sobre esta propuesta.',
+          contactIntro: 'Añade tus datos para que CasaMia genere tu propuesta y te entregue un enlace claro al instante.',
+          contactStepEyebrow: 'Propuesta al instante',
+          contactTitle: 'Recibir propuesta',
+          createDraft: 'Generar propuesta',
+          creatingDraft: 'Generando propuesta...',
+          draftCreated: 'Propuesta creada. Abre el enlace para ver los paquetes elegidos, extras y siguientes pasos.',
+          estimateLead: 'IVA incluido · propuesta generada al instante',
+          estimateTitle: 'Resumen de la propuesta',
+          finalReview: 'Requiere presupuesto',
+          flow: [
+            { title: 'Estancias', body: 'Define cantidades' },
+            { title: 'Extras', body: 'Añade apoyo' },
+            { title: 'Propuesta', body: 'La recibes al instante' },
+          ],
+          fromCatalogue: 'Catálogo de servicios',
+          heroPhotoAlt: 'Especialista de CasaMia ayudando a planificar mejoras del hogar en una cocina',
+          heroReviewBody: 'Elige estancias y extras, añade tus datos y recibe un enlace claro de propuesta al instante.',
+          heroReviewEyebrow: 'Propuesta al instante',
+          heroReviewPoints: ['Plan por paquetes', 'Siguientes pasos claros'],
+          heroReviewTitle: 'Tu propuesta se genera al instante.',
+          heroSignals: ['Elige estancias', 'Elementos base incluidos', 'Extras opcionales separados'],
+          presets: [
+            { id: 'focused', title: 'Baño primero', body: '1 paquete de baño' },
+            { id: 'daily', title: 'Rutina diaria', body: 'Baño + dormitorio' },
+            { id: 'wholeHome', title: 'Plan completo', body: '2 baños + 2 dormitorios' },
+          ],
+          reviewRequired: 'Requiere presupuesto',
+          reviewCtaBody: 'En el siguiente paso compartes tus datos. Tu propuesta se genera al instante con los paquetes, cantidades y extras elegidos.',
+          reviewCtaTitle: '¿Listo para generar tu propuesta?',
+          summaryModulesTitle: 'Detalle del plan',
+          summaryNextBody: 'Tu propuesta se genera a partir de los paquetes, cantidades y extras elegidos.',
+          subtitle: 'Elige las estancias que necesitan apoyo, añade extras opcionales solo donde aporten valor y recibe una propuesta clara cuando tus datos estén capturados.',
+          seeDraft: 'Abrir propuesta',
+        }
+      : {
+          consent: 'CasaMia may contact me about this proposal.',
+          contactIntro: 'Add contact details so CasaMia can generate your proposal and send you a clear link instantly.',
+          contactStepEyebrow: 'Instant proposal',
+          contactTitle: 'Receive proposal',
+          createDraft: 'Generate proposal',
+          creatingDraft: 'Generating proposal...',
+          draftCreated: 'Proposal created. Open the link to see your selected packages, add-ons and next steps.',
+          estimateLead: 'VAT included · generated instantly',
+          estimateTitle: 'Proposal summary',
+          finalReview: 'Requires quote',
+          flow: [
+            { title: 'Rooms', body: 'Pick quantities' },
+            { title: 'Add-ons', body: 'Add support' },
+            { title: 'Proposal', body: 'Receive instantly' },
+          ],
+          fromCatalogue: 'Service catalogue',
+          heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
+          heroReviewBody: 'Choose the rooms and add-ons, add your details, and receive a clear proposal link instantly.',
+          heroReviewEyebrow: 'Instant proposal',
+          heroReviewPoints: ['Package-led plan', 'Clear next steps'],
+          heroReviewTitle: 'Your proposal is generated instantly.',
+          heroSignals: ['Choose rooms', 'Core items included', 'Optional add-ons separate'],
+          presets: [
+            { id: 'focused', title: 'Bathroom first', body: '1 bathroom package' },
+            { id: 'daily', title: 'Daily routine', body: 'Bathroom + bedroom' },
+            { id: 'wholeHome', title: 'Whole-home plan', body: '2 bathrooms + 2 bedrooms' },
+          ],
+          reviewRequired: 'Needs quote',
+          reviewCtaBody: 'Next, share contact details. Your proposal is generated instantly from the packages, quantities and add-ons you selected.',
+          reviewCtaTitle: 'Ready to generate your proposal?',
+          summaryModulesTitle: 'Plan details',
+          summaryNextBody: 'Your proposal is generated from the selected packages, quantities and add-ons.',
+          subtitle: 'Pick the rooms that need support, choose optional add-ons only where useful, and receive a clear proposal once your details are captured.',
+          seeDraft: 'Open proposal',
+        }),
+  }), [baseCopy, language])
   const catalogue = useServiceCatalogue()
   const groups = useMemo(() => buildPlansBuilderGroups(catalogue, language), [catalogue, language])
   const [selection, setSelection] = useState<PlansBuilderSelectionState>({})
@@ -306,6 +401,7 @@ export function PlansPage() {
   const [step, setStep] = useState<PlansStep>('builder')
   const [activeDetail, setActiveDetail] = useState<PlansDetail | null>(null)
   const [draftUrl, setDraftUrl] = useState('')
+  const [emailDeliveryStatus, setEmailDeliveryStatus] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const siteUrl = 'https://www.casamia.com.es'
@@ -320,8 +416,52 @@ export function PlansPage() {
     return `${quantity}x ${group.roomLabel}`
   })
   const oneTimeLineItems = estimate.lineItems.filter((line) => !line.isRecurring)
-  const summaryLineItems = oneTimeLineItems.slice(0, 3)
-  const extraSummaryLineItemCount = Math.max(0, oneTimeLineItems.length - summaryLineItems.length)
+  const proposalReady = Boolean(draftUrl)
+  const selectedCountLabel = language === 'es'
+    ? `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'estancia seleccionada' : 'estancias seleccionadas'}`
+    : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'room selected' : 'rooms selected'}`
+  const selectedPlanDetails = selectedGroups.map((group) => {
+    const packageSelection = selection[group.homePackage.id]
+    const selectedAddOnIds = new Set(packageSelection?.addOnOutcomeIds ?? [])
+    const packageLine = oneTimeLineItems.find((line) => line.packageId === group.homePackage.id)
+    const addOns = group.addOnPackages.flatMap((addOnPackage) => {
+      const selectedOutcomes = addOnPackage.outcomes.filter((outcome) => selectedAddOnIds.has(outcome.id))
+
+      if (!selectedOutcomes.length) {
+        return []
+      }
+
+      if (addOnPackage.packageRecord.section === 'optional-adaptations') {
+        return selectedOutcomes.map((outcome) => ({
+          id: outcome.id,
+          items: [],
+          label: localizePlansString(outcome.customerName, language, outcome.internalName),
+        }))
+      }
+
+      return [{
+        id: addOnPackage.packageRecord.id,
+        items: selectedOutcomes
+          .slice(0, 3)
+          .map((outcome) => localizePlansString(outcome.customerName, language, outcome.internalName)),
+        label: addOnPackage.packageLabel,
+      }]
+    })
+
+    return {
+      addOns,
+      description: group.packageDescription,
+      id: group.homePackage.id,
+      included: group.homeOutcomes
+        .slice(0, 4)
+        .map((outcome) => localizePlansString(outcome.customerName, language, outcome.internalName)),
+      includedMore: Math.max(0, group.homeOutcomes.length - 4),
+      lineTotal: packageLine?.lineTotal ?? 0,
+      packageLabel: group.packageLabel,
+      quantity: packageSelection?.quantity ?? 1,
+      roomLabel: group.roomLabel,
+    }
+  })
 
   useEffect(() => {
     if (Object.keys(selection).length || !groups.length) {
@@ -507,7 +647,7 @@ export function PlansPage() {
     setActiveDetail({
       body: group.packageDescription,
       items: group.homeOutcomes,
-      price: group.packageUnitPrice > 0 ? formatPlansCurrency(group.packageUnitPrice, language) : copy.finalReview,
+      price: copy.coreIncluded,
       title: group.packageLabel,
       typeLabel: copy.coreIncluded,
     })
@@ -517,7 +657,7 @@ export function PlansPage() {
     setActiveDetail({
       body: addOnPackage.packageDescription,
       items: addOnPackage.outcomes,
-      price: addOnPackage.unitPrice > 0 ? formatPlansCurrency(addOnPackage.unitPrice, language) : copy.finalReview,
+      price: addOnPackage.requiresReview ? copy.reviewRequired : copy.optionalTitle,
       title: addOnPackage.packageLabel,
       typeLabel: copy.optionalTitle,
     })
@@ -529,7 +669,7 @@ export function PlansPage() {
     setActiveDetail({
       body: localizePlansString(outcome.shortDescription, language, outcome.internalName),
       items: [outcome],
-      price: price > 0 ? formatPlansCurrency(price, language) : copy.finalReview,
+      price: price > 0 ? copy.specialistTitle : copy.reviewRequired,
       title: localizePlansString(outcome.customerName, language, outcome.internalName),
       typeLabel: copy.specialistTitle,
     })
@@ -564,6 +704,7 @@ export function PlansPage() {
     event.preventDefault()
     setError('')
     setDraftUrl('')
+    setEmailDeliveryStatus('')
 
     if (!estimate.proposalLineItems.length) {
       setError(copy.noSelection)
@@ -587,6 +728,7 @@ export function PlansPage() {
       }, catalogue)
       const publicUrl = new URL(result.publicUrl || `/proposal/${result.publicToken}`, window.location.origin)
       setDraftUrl(publicUrl.toString())
+      setEmailDeliveryStatus(result.emailDelivery?.status ?? '')
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : copy.finalReview)
     } finally {
@@ -662,7 +804,13 @@ export function PlansPage() {
       {draftUrl ? (
         <div className="plans-form-success">
           <Sparkles size={20} aria-hidden="true" />
-          <p>{copy.draftCreated}</p>
+          <p>
+            {emailDeliveryStatus === 'sent'
+              ? language === 'es'
+                ? 'Propuesta creada y enviada por email. También puedes abrirla aquí.'
+                : 'Proposal created and sent by email. You can also open it here.'
+              : copy.draftCreated}
+          </p>
           <Link to={new URL(draftUrl).pathname}>
             {copy.seeDraft}
             <ArrowRight size={16} aria-hidden="true" />
@@ -687,6 +835,14 @@ export function PlansPage() {
             <p className="section-kicker">{copy.builderEyebrow}</p>
             <h1>{copy.title}</h1>
             <p>{copy.subtitle}</p>
+            <div className="plans-hero-signals" aria-label={language === 'es' ? 'Ventajas del plan' : 'Plan benefits'}>
+              {copy.heroSignals.map((signal) => (
+                <span key={signal}>
+                  <CheckCircle2 size={15} aria-hidden="true" />
+                  {signal}
+                </span>
+              ))}
+            </div>
             <div className="plans-preset-panel" aria-label={copy.popularTitle}>
               <span>{copy.popularTitle}</span>
               <div>
@@ -700,24 +856,20 @@ export function PlansPage() {
             </div>
           </div>
 
-          <aside className="plans-hero-grant-card" aria-label={copy.grantEyebrow}>
-            <div className="plans-hero-grant-visual" aria-hidden="true">
-              <span className="plans-hero-grant-flag is-eu">EU</span>
-              <span className="plans-hero-grant-flag is-es">ES</span>
-              <span className="plans-hero-grant-seal">
-                <BadgeEuro size={30} />
-              </span>
-              <span className="plans-hero-grant-line" />
-              <span className="plans-hero-grant-document" />
-            </div>
-            <div className="plans-hero-grant-copy">
-              <p className="section-kicker">{copy.grantEyebrow}</p>
-              <h2>{copy.grantTitle}</h2>
-              <p>{copy.grantBody}</p>
-              <Link to="/grant-check">
-                {copy.grantCta}
-                <ArrowRight size={16} aria-hidden="true" />
-              </Link>
+          <aside className="plans-hero-photo-card" aria-label={copy.heroReviewEyebrow}>
+            <img src="/images/solutions/casamia-staff-kitchen-consultation.webp" alt={copy.heroPhotoAlt} />
+            <div className="plans-hero-photo-copy">
+              <p className="section-kicker">{copy.heroReviewEyebrow}</p>
+              <h2>{copy.heroReviewTitle}</h2>
+              <p>{copy.heroReviewBody}</p>
+              <div className="plans-hero-photo-points" aria-label={copy.heroReviewEyebrow}>
+                {copy.heroReviewPoints.map((point) => (
+                  <span key={point}>
+                    <CheckCircle2 size={15} aria-hidden="true" />
+                    {point}
+                  </span>
+                ))}
+              </div>
             </div>
           </aside>
         </div>
@@ -774,10 +926,8 @@ export function PlansPage() {
                     </header>
                     <div className="plans-room-card-footer">
                       <div>
-                        <strong>
-                          {group.packageUnitPrice > 0 ? formatPlansCurrency(group.packageUnitPrice, language) : copy.finalReview}
-                        </strong>
-                        <small>{group.requiresReview ? copy.finalReview : copy.vatIncluded}</small>
+                        <strong>{copy.coreIncluded}</strong>
+                        <small>{quantity > 0 ? copy.selectedPackages : copy.packageDetails}</small>
                       </div>
                       <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${group.roomLabel}`}>
                         <button type="button" onClick={() => updateRoomQuantity(group, quantity - 1)}>
@@ -820,9 +970,7 @@ export function PlansPage() {
                             {copy.quantity}: {selection[group.homePackage.id]?.quantity ?? 1}
                           </p>
                         </div>
-                        <span>
-                          {group.packageUnitPrice > 0 ? formatPlansCurrency(group.packageUnitPrice, language) : copy.finalReview}
-                        </span>
+                        <span>{copy.coreIncluded}</span>
                       </div>
 
                       <div className="plans-core-includes">
@@ -846,7 +994,6 @@ export function PlansPage() {
                           if (isSpecialist) {
                             return addOnPackage.outcomes.map((outcome) => {
                               const checked = selection[group.homePackage.id]?.addOnOutcomeIds.includes(outcome.id) ?? false
-                              const outcomePrice = getPlansOutcomeUnitPrice(outcome)
 
                               return (
                                 <div
@@ -862,9 +1009,7 @@ export function PlansPage() {
                                     <span>
                                       <strong>{copy.specialistTitle}</strong>
                                       <b>{localizePlansString(outcome.customerName, language, outcome.internalName)}</b>
-                                      <small>
-                                        {outcomePrice > 0 ? formatPlansCurrency(outcomePrice, language) : copy.finalReview}
-                                      </small>
+                                      <small>{copy.reviewRequired}</small>
                                     </span>
                                   </label>
                                   <button
@@ -890,11 +1035,7 @@ export function PlansPage() {
                                 <span>
                                   <strong>{isSpecialist ? copy.specialistTitle : copy.optionalTitle}</strong>
                                   <b>{addOnPackage.packageLabel}</b>
-                                  <small>
-                                    {addOnPackage.unitPrice > 0
-                                      ? formatPlansCurrency(addOnPackage.unitPrice, language)
-                                      : copy.finalReview}
-                                  </small>
+                                  <small>{addOnPackage.requiresReview ? copy.reviewRequired : copy.packageDetails}</small>
                                 </span>
                               </label>
                               <button
@@ -958,9 +1099,9 @@ export function PlansPage() {
         ) : (
           <div className="site-shell plans-contact-layout">
             <aside className="plans-contact-summary" aria-label={copy.estimateTitle}>
-              <p className="section-kicker">{copy.estimateTitle}</p>
-              <h2>{formatPlansEstimateLabel(estimate, language)}</h2>
-              <small>{copy.estimateLead}</small>
+              <p className="section-kicker">{proposalReady ? copy.estimateTitle : copy.selectedPackages}</p>
+              <h2>{proposalReady ? formatPlansEstimateLabel(estimate, language) : selectedCountLabel}</h2>
+              <small>{proposalReady ? copy.estimateLead : copy.contactIntro}</small>
 
               <div className="plans-summary-block">
                 <span>{copy.summaryRoomsTitle}</span>
@@ -971,34 +1112,59 @@ export function PlansPage() {
                 </div>
               </div>
 
-              {summaryLineItems.length ? (
+              {selectedPlanDetails.length ? (
                 <div className="plans-summary-block">
                   <span>{copy.summaryModulesTitle}</span>
-                  <ul className="plans-summary-lines">
-                    {summaryLineItems.map((line) => (
-                      <li key={line.id}>
-                        <CheckCircle2 size={16} aria-hidden="true" />
-                        <span>{line.label}</span>
-                        {line.quantity > 1 ? <b>x{line.quantity}</b> : null}
-                      </li>
+                  <div className="plans-detail-summary-list">
+                    {selectedPlanDetails.map((detail) => (
+                      <article className="plans-detail-summary-card" key={detail.id}>
+                        <div className="plans-detail-summary-head">
+                          <span>{detail.quantity}x</span>
+                          <div>
+                            <small>{detail.roomLabel}</small>
+                            <h3>{detail.packageLabel}</h3>
+                          </div>
+                          {proposalReady && detail.lineTotal > 0 ? (
+                            <b>{formatPlansCurrency(detail.lineTotal, language)}</b>
+                          ) : null}
+                        </div>
+                        <p>{detail.description}</p>
+                        <div className="plans-detail-summary-chips">
+                          {detail.included.map((item) => (
+                            <span key={`${detail.id}-${item}`}>
+                              <CheckCircle2 size={14} aria-hidden="true" />
+                              {item}
+                            </span>
+                          ))}
+                          {detail.includedMore > 0 ? (
+                            <span className="is-muted">+{detail.includedMore} {copy.summaryMoreItems}</span>
+                          ) : null}
+                        </div>
+                        {detail.addOns.length ? (
+                          <div className="plans-detail-summary-addons">
+                            <strong>{copy.modulesTitle}</strong>
+                            {detail.addOns.map((addOn) => (
+                              <div key={addOn.id}>
+                                <span>{addOn.label}</span>
+                                {addOn.items.length ? <small>{addOn.items.join(' · ')}</small> : null}
+                              </div>
+                            ))}
+                          </div>
+                        ) : null}
+                      </article>
                     ))}
-                    {extraSummaryLineItemCount > 0 ? (
-                      <li className="is-muted">
-                        <span>+{extraSummaryLineItemCount} {copy.summaryMoreItems}</span>
-                      </li>
-                    ) : null}
-                  </ul>
+                  </div>
                 </div>
               ) : null}
 
-              {estimate.recurringMonthlyEstimate > 0 ? (
+              {proposalReady && estimate.recurringMonthlyEstimate > 0 ? (
                 <div className="plans-summary-monthly">
                   <span>{copy.monthly}</span>
                   <strong>{formatPlansCurrency(estimate.recurringMonthlyEstimate, language)}</strong>
                 </div>
               ) : null}
 
-              {estimate.reviewItems.length ? (
+              {proposalReady && estimate.reviewItems.length ? (
                 <div className="plans-builder-review-list">
                   <strong>{copy.reviewRequired}</strong>
                   {estimate.reviewItems.slice(0, 4).map((item) => (

@@ -22,10 +22,10 @@ export function PublicProposalPage() {
         readyTitle: 'Tu propuesta CasaMia está lista',
         readyBody:
           'Revisa los trabajos recomendados, las condiciones de pago y los próximos pasos. Cuando todo esté correcto, puedes aceptar la propuesta de forma segura abajo.',
-        pendingTitle: 'Tu borrador CasaMia está pendiente de revisión',
+        pendingTitle: 'Este enlace todavía no está listo para aceptar',
         pendingBody:
-          'Este enlace muestra una estimación creada desde Planes. CasaMia revisará el alcance antes de enviar una propuesta final para aceptar.',
-        pendingNotice: 'Pendiente de revisión CasaMia',
+          'Si has recibido este enlace, CasaMia puede ayudarte a activar la propuesta o generar una nueva desde Planes.',
+        pendingNotice: 'Propuesta no activada',
         proposalLabel: 'Propuesta',
         acceptedTitle: 'Propuesta aceptada',
         acceptedBody: 'Gracias. CasaMia contactará contigo en breve para confirmar los próximos pasos.',
@@ -46,10 +46,10 @@ export function PublicProposalPage() {
         readyTitle: 'Your CasaMia proposal is ready',
         readyBody:
           'Review the recommended works, payment terms, and next steps. When everything looks right, you can accept the proposal securely below.',
-        pendingTitle: 'Your CasaMia draft is pending review',
+        pendingTitle: 'This link is not ready for acceptance yet',
         pendingBody:
-          'This link shows an estimate created from Plans. CasaMia will review the scope before sending a final proposal for acceptance.',
-        pendingNotice: 'Pending CasaMia review',
+          'If you received this link, CasaMia can help activate the proposal or generate a fresh one from Plans.',
+        pendingNotice: 'Proposal not activated',
         proposalLabel: 'Proposal',
         acceptedTitle: 'Proposal accepted',
         acceptedBody: 'Thank you. CasaMia will contact you shortly to confirm next steps.',

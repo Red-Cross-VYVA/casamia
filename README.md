@@ -128,3 +128,24 @@ CALLBACK_RATE_LIMIT_SALT=replace-with-long-random-secret
 Keep this value server-only and do not add a `VITE_` prefix. Same-origin
 deployments need no additional CORS setting; intentional split deployments use
 the existing `CASAMIA_ALLOWED_ORIGINS` allowlist.
+
+## Proposal Email Delivery
+
+The public Plans builder creates a proposal through `/api/public/proposal-drafts`.
+When email is configured, the server sends the customer their proposal link
+immediately after the proposal is saved. Proposal creation still succeeds if
+email is not configured or the provider is temporarily unavailable; the delivery
+status is recorded on the proposal payload.
+
+Server-only Vercel variables:
+
+```text
+RESEND_API_KEY=...
+CASAMIA_EMAIL_FROM=CasaMia <hola@casamia.com.es>
+CASAMIA_REPLY_TO_EMAIL=hola@casamia.com.es
+CASAMIA_PROPOSAL_BCC_EMAIL=optional-internal-copy@casamia.com.es
+CASAMIA_PUBLIC_SITE_URL=https://www.casamia.com.es
+```
+
+`RESEND_API_KEY` is required for live email delivery. `CASAMIA_EMAIL_FROM` must
+use a sender/domain verified in Resend.

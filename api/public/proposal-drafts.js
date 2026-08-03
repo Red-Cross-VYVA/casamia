@@ -1,5 +1,6 @@
 import { buildPublicPlansDraft } from '../_lib/plans-pricing.js'
-import { mapProposalRecord, saveProposalRecord } from '../_lib/proposals.js'
+import { buildAbsoluteProposalUrl, sendProposalEmail } from '../_lib/email.js'
+import { mapProposalRecord, saveProposalRecord, updateProposalRecord } from '../_lib/proposals.js'
 import { readJsonBody, selectSupabaseRows, sendJson } from '../_lib/supabase.js'
 
 const catalogueRowId = 'default'
@@ -50,12 +51,56 @@ export default async function handler(request, response) {
       return
     }
 
-    const proposal = mapProposalRecord(saveResult.record)
+    let proposal = mapProposalRecord(saveResult.record)
+    const relativePublicUrl = proposal.public_token ? `/proposal/${proposal.public_token}` : ''
+    const publicUrl = buildAbsoluteProposalUrl(request, proposal.public_token)
+    const emailDelivery = await sendProposalEmail({
+      language: draft.proposalPayload?.plans_builder?.language,
+      proposal,
+      publicUrl,
+    })
+    const deliveryStatus = emailDelivery.ok
+      ? 'sent'
+      : emailDelivery.skipped
+        ? emailDelivery.status
+        : 'failed'
+    const eventType = emailDelivery.ok
+      ? 'proposal-email-sent'
+      : emailDelivery.skipped
+        ? 'proposal-email-skipped'
+        : 'proposal-email-failed'
+    const events = Array.isArray(proposal.events) ? proposal.events : []
+    const delivery = {
+      ...(proposal.delivery && typeof proposal.delivery === 'object' ? proposal.delivery : {}),
+      proposalEmail: {
+        at: new Date().toISOString(),
+        provider: emailDelivery.provider ?? 'resend',
+        reason: emailDelivery.reason ?? '',
+        status: deliveryStatus,
+      },
+    }
+    const updateResult = await updateProposalRecord(saveResult.record, {
+      delivery,
+      events: [
+        ...events,
+        {
+          at: delivery.proposalEmail.at,
+          detail: emailDelivery.reason ?? '',
+          type: eventType,
+        },
+      ],
+    })
+
+    if (updateResult.ok) {
+      proposal = mapProposalRecord(updateResult.record)
+    }
 
     sendJson(response, 200, {
+      emailDelivery: delivery.proposalEmail,
       proposal,
       publicToken: proposal.public_token,
-      publicUrl: proposal.public_token ? `/proposal/${proposal.public_token}` : '',
+      publicUrl: relativePublicUrl,
+      publicUrlAbsolute: publicUrl,
     })
   } catch (error) {
     sendJson(response, 400, {

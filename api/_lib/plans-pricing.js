@@ -11,16 +11,16 @@ const roomPackageAreas = new Set(['bathroom', 'bedroom', 'entrance', 'kitchen', 
 export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date() }) {
   const catalogue = normaliseCatalogue(cataloguePayload)
   if (!catalogue) {
-    return invalidResult(503, 'The CasaMia service catalogue is not ready for public proposal drafts.')
+    return invalidResult(503, 'The CasaMia service catalogue is not ready for public proposals.')
   }
 
   const customer = normaliseCustomer(body?.customer)
   if (!customer.name || !customer.email) {
-    return invalidResult(400, 'Name and email are required to create a draft proposal.')
+    return invalidResult(400, 'Name and email are required to create a proposal.')
   }
 
   if (body?.consent !== true) {
-    return invalidResult(400, 'Consent is required to create a draft proposal.')
+    return invalidResult(400, 'Consent is required to create a proposal.')
   }
 
   if (hasHoneypotValue(body)) {
@@ -41,14 +41,14 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
   const summaryCopy = proposalCopy(language)
   const proposalPayload = {
     acceptance_date: '',
-    acceptance_status: 'Not Sent',
+    acceptance_status: 'Sent',
     accepted_by: '',
     address: customer.address,
     area: customer.area,
     customer_email: customer.email,
     customer_name: customer.name,
     customer_phone: customer.phone,
-    events: [{ at: now.toISOString(), type: 'public-plans-draft-created' }],
+    events: [{ at: now.toISOString(), type: 'public-plans-proposal-created' }],
     executive_summary: summaryCopy.summary(estimate),
     grant_eligibility_note: summaryCopy.grants,
     grant_support_required: false,
@@ -60,10 +60,10 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
     plan: 'Home adaptations',
     prepared_by: 'CasaMia',
     proposal_date: proposalDate,
-    safety_score: 'Pending review',
+    safety_score: 'N/A',
     selected_plan: 'Home adaptations',
-    status: 'Draft',
-    timeline_duration: 'To be confirmed after CasaMia review',
+    status: 'Sent',
+    timeline_duration: summaryCopy.timelineDuration,
     timeline_notes: summaryCopy.timeline,
     timeline_start_date: '',
     total: estimate.oneTimeEstimate,
@@ -356,17 +356,19 @@ function proposalCopy(language) {
   return language === 'es'
     ? {
         grants: 'CasaMia puede orientar sobre documentación para ayudas cuando corresponda. La aprobación depende siempre de la autoridad correspondiente y no está garantizada.',
-        paymentTerms: 'Borrador estimativo pendiente de revisión de CasaMia. No se solicita pago y no empieza ningún trabajo hasta aprobar una propuesta final.',
+        paymentTerms: 'Propuesta generada a partir de los paquetes, cantidades y extras seleccionados. Los trabajos y pagos solo empiezan después de la aceptación y la coordinación de fecha.',
         summary: (estimate) =>
-          `Borrador creado desde el constructor de Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes son estimaciones con IVA incluido y quedan pendientes de revisión.`,
-        timeline: 'CasaMia confirmará alcance, disponibilidad, calendario y precio final después de revisar la vivienda.',
+          `Propuesta creada desde Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes con precio se muestran con IVA incluido. Los extras marcados como presupuesto se confirman antes de iniciar el trabajo.`,
+        timeline: 'CasaMia contacta contigo para coordinar fecha, acceso a la vivienda e instalación.',
+        timelineDuration: 'A coordinar después de aceptar',
       }
     : {
         grants: 'CasaMia may support documentation for applicable grants. Approval is determined solely by the relevant authority and is not guaranteed.',
-        paymentTerms: 'Estimate draft pending CasaMia review. No payment is requested and no work starts until a final proposal is approved.',
+        paymentTerms: 'Proposal generated from the selected packages, quantities and add-ons. Work and payments only start after acceptance and date coordination.',
         summary: (estimate) =>
-          `Draft created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Amounts are VAT-included estimates pending review.`,
-        timeline: 'CasaMia will confirm scope, availability, timing and final pricing after reviewing the home.',
+          `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Priced items are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
+        timeline: 'CasaMia will contact you to coordinate date, home access and installation.',
+        timelineDuration: 'To be scheduled after acceptance',
       }
 }
 
@@ -390,14 +392,14 @@ function getLineName(label, language) {
 
 function reviewText(language) {
   return language === 'es'
-    ? 'Precio confirmado después de la revisión de CasaMia.'
-    : 'Price confirmed after CasaMia review.'
+    ? 'Precio confirmado antes de iniciar este extra.'
+    : 'Price confirmed before this add-on starts.'
 }
 
 function compatibilityText(language) {
   return language === 'es'
-    ? 'CasaMia confirmará compatibilidad y alcance antes de aprobar la propuesta.'
-    : 'CasaMia will confirm compatibility and scope before approving the proposal.'
+    ? 'CasaMia confirmará compatibilidad y alcance antes de iniciar este extra.'
+    : 'CasaMia will confirm compatibility and scope before this add-on starts.'
 }
 
 function addDays(date, days) {

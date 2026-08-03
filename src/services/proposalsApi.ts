@@ -106,9 +106,16 @@ export type PublicProposalDraftPayload = {
 }
 
 export type PublicProposalDraftResponse = {
+  emailDelivery?: {
+    at?: string
+    provider?: string
+    reason?: string
+    status?: string
+  }
   proposal: ProposalData
   publicToken: string
   publicUrl: string
+  publicUrlAbsolute?: string
 }
 
 const apiBaseUrl = (
@@ -468,7 +475,7 @@ export async function acceptPublicProposal(token: string, acceptedBy: string) {
   if (!backendAvailable()) {
     const proposal = loadAllProposals().find((item) => item.publicToken === token)
     if (!proposal || proposal.status !== 'Sent' || proposal.acceptanceStatus !== 'Sent') {
-      throw new Error('This proposal is still pending CasaMia review.')
+      throw new Error('This proposal is not ready for online acceptance yet.')
     }
 
     return saveProposal({
@@ -500,9 +507,11 @@ export async function createPublicProposalDraft(
   }
 
   const raw = await requestJson<{
+    emailDelivery?: PublicProposalDraftResponse['emailDelivery']
     proposal?: BackendProposal
     publicToken?: string
     publicUrl?: string
+    publicUrlAbsolute?: string
   }>('/api/public/proposal-drafts', {
     body: JSON.stringify(payload),
     headers: {
@@ -518,9 +527,11 @@ export async function createPublicProposalDraft(
   const proposal = fromBackendProposal(raw.proposal)
 
   return {
+    emailDelivery: raw.emailDelivery,
     proposal,
     publicToken: raw.publicToken ?? proposal.publicToken ?? '',
     publicUrl: raw.publicUrl ?? (proposal.publicToken ? `/proposal/${proposal.publicToken}` : ''),
+    publicUrlAbsolute: raw.publicUrlAbsolute,
   }
 }
 
@@ -543,11 +554,11 @@ function createLocalPublicProposalDraft(
   catalogue: EditableServiceCatalogue,
 ): PublicProposalDraftResponse {
   if (!payload.consent) {
-    throw new Error('Consent is required to create a draft proposal.')
+    throw new Error('Consent is required to create a proposal.')
   }
 
   if (!payload.customer.name.trim() || !payload.customer.email.trim()) {
-    throw new Error('Name and email are required to create a draft proposal.')
+    throw new Error('Name and email are required to create a proposal.')
   }
 
   const groups = buildPlansBuilderGroups(catalogue, payload.language)
@@ -559,37 +570,43 @@ function createLocalPublicProposalDraft(
 
   const publicToken = createLocalPublicToken()
   const proposal = createEmptyProposal({
-    acceptanceStatus: 'Not Sent',
+    acceptanceStatus: 'Sent',
     address: payload.customer.address ?? '',
     area: payload.customer.area ?? '',
     customerName: payload.customer.name,
     email: payload.customer.email,
     executiveSummary: payload.language === 'es'
-      ? `Borrador creado desde el constructor de Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes son estimaciones con IVA incluido y quedan pendientes de revisión.`
-      : `Draft created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Amounts are VAT-included estimates pending review.`,
+      ? `Propuesta creada desde Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes con precio se muestran con IVA incluido. Los extras marcados como presupuesto se confirman antes de iniciar el trabajo.`
+      : `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Priced items are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
     grantEligibilityNote: payload.language === 'es'
       ? 'CasaMia puede orientar sobre documentación para ayudas cuando corresponda. La aprobación depende siempre de la autoridad correspondiente y no está garantizada.'
       : 'CasaMia may support documentation for applicable grants. Approval is determined solely by the relevant authority and is not guaranteed.',
     inspectionReference: 'Public Plans builder',
     lineItems: estimate.proposalLineItems,
     paymentTerms: payload.language === 'es'
-      ? 'Borrador estimativo pendiente de revisión de CasaMia. No se solicita pago y no empieza ningún trabajo hasta aprobar una propuesta final.'
-      : 'Estimate draft pending CasaMia review. No payment is requested and no work starts until a final proposal is approved.',
+      ? 'Propuesta generada a partir de los paquetes, cantidades y extras seleccionados. Los trabajos y pagos solo empiezan después de la aceptación y la coordinación de fecha.'
+      : 'Proposal generated from the selected packages, quantities and add-ons. Work and payments only start after acceptance and date coordination.',
     phone: payload.customer.phone ?? '',
     preparedBy: 'CasaMia',
     publicToken,
-    safetyScore: 'Pending review',
+    safetyScore: 'N/A',
     selectedPlan: homeSafetyPlan,
-    status: 'Draft',
-    timelineDuration: 'To be confirmed after CasaMia review',
+    status: 'Sent',
+    timelineDuration: payload.language === 'es'
+      ? 'A coordinar después de aceptar'
+      : 'To be scheduled after acceptance',
     timelineNotes: payload.language === 'es'
-      ? 'CasaMia confirmará alcance, disponibilidad, calendario y precio final después de revisar la vivienda.'
-      : 'CasaMia will confirm scope, availability, timing and final pricing after reviewing the home.',
+      ? 'CasaMia contacta contigo para coordinar fecha, acceso a la vivienda e instalación.'
+      : 'CasaMia will contact you to coordinate date, home access and installation.',
     timelineStartDate: '',
   })
   const saved = saveProposal(proposal)
 
   return {
+    emailDelivery: {
+      reason: 'Local demo mode does not send email.',
+      status: 'local_demo',
+    },
     proposal: saved,
     publicToken,
     publicUrl: `/proposal/${publicToken}`,
