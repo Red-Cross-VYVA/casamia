@@ -474,12 +474,13 @@
   display: flex;
   min-width: 0;
   align-items: center;
+  border-radius: 0.55rem;
   overflow: hidden;
-  color: #0f2438;
-  font-size: 0.68rem;
+  color: transparent;
+  font-size: 0;
   font-weight: 950;
   letter-spacing: 0;
-  line-height: 1.05;
+  line-height: 0;
   text-align: left;
   text-wrap: balance;
 }
@@ -496,7 +497,7 @@
   padding: 0;
   justify-content: flex-start;
   cursor: help;
-  font: inherit;
+  font-family: inherit;
   outline: 0;
   -webkit-tap-highlight-color: transparent;
 }
@@ -509,9 +510,11 @@
 .services-zone-risk-label.has-detail:focus,
 .services-zone-risk-label.has-detail:focus-visible {
   border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  color: #0f2438;
+  background: rgb(255 255 255 / 10%) !important;
+  box-shadow:
+    0 0 0 2px rgb(255 255 255 / 76%),
+    0 0 0 4px rgb(46 158 212 / 42%) !important;
+  color: transparent;
   outline: 0;
   text-shadow: none;
 }
