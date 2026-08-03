@@ -714,6 +714,7 @@ export function PlansPage() {
     setIsSubmitting(true)
     try {
       const result = await createPublicProposalDraft({
+        catalogueSnapshot: catalogue,
         companyWebsite: customer.website,
         consent: customer.consent,
         customer: {

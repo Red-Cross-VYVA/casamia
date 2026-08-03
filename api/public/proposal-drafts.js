@@ -28,20 +28,49 @@ export default async function handler(request, response) {
       `id=eq.${encodeURIComponent(catalogueRowId)}&select=id,updated_at,payload_json&limit=1`,
     )
 
-    if (!catalogueResult.ok) {
-      sendJson(response, catalogueResult.status, catalogueResult.body)
-      return
-    }
-
-    const catalogueRecord = Array.isArray(catalogueResult.body) ? catalogueResult.body[0] : undefined
-    const draft = buildPublicPlansDraft({
+    const catalogueRecord = catalogueResult.ok && Array.isArray(catalogueResult.body)
+      ? catalogueResult.body[0]
+      : undefined
+    let catalogueSource = 'supabase'
+    let draft = buildPublicPlansDraft({
       body,
       cataloguePayload: catalogueRecord?.payload_json,
     })
 
+    if (!catalogueResult.ok || (draft.status === 503 && body?.catalogueSnapshot)) {
+      const snapshotDraft = buildPublicPlansDraft({
+        body,
+        cataloguePayload: body.catalogueSnapshot,
+      })
+
+      if (snapshotDraft.ok) {
+        catalogueSource = 'client-snapshot-fallback'
+        draft = snapshotDraft
+      } else if (!catalogueResult.ok) {
+        sendJson(response, catalogueResult.status, catalogueResult.body)
+        return
+      }
+    }
+
     if (!draft.ok) {
       sendJson(response, draft.status, draft.body)
       return
+    }
+
+    draft.proposalPayload.plans_builder = {
+      ...(draft.proposalPayload.plans_builder ?? {}),
+      catalogue_source: catalogueSource,
+    }
+
+    if (catalogueSource !== 'supabase') {
+      draft.proposalPayload.events = [
+        ...(Array.isArray(draft.proposalPayload.events) ? draft.proposalPayload.events : []),
+        {
+          at: new Date().toISOString(),
+          detail: 'Supabase service catalogue was unavailable or invalid; used the submitted catalogue snapshot.',
+          type: 'proposal-catalogue-snapshot-fallback',
+        },
+      ]
     }
 
     const saveResult = await saveProposalRecord(draft.proposalPayload)

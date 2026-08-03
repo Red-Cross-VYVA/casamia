@@ -91,6 +91,7 @@ type BackendActionResponse = BackendProposal & {
 }
 
 export type PublicProposalDraftPayload = {
+  catalogueSnapshot?: EditableServiceCatalogue
   companyWebsite?: string
   consent: boolean
   customer: {
