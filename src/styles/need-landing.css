@@ -409,11 +409,11 @@
   min-width: 0;
   align-items: center;
   border-radius: 0.55rem;
-  color: transparent;
-  font-size: 0;
+  color: #10283f;
+  font-size: 0.72rem;
   font-weight: 950;
   letter-spacing: 0;
-  line-height: 0;
+  line-height: 1.05;
   overflow: hidden;
   text-align: left;
   text-wrap: balance;
@@ -448,7 +448,7 @@
   box-shadow:
     0 0 0 2px rgb(255 255 255 / 76%),
     0 0 0 4px rgb(46 158 212 / 42%) !important;
-  color: transparent;
+  color: #10283f;
   outline: 0;
   text-shadow: none;
 }
