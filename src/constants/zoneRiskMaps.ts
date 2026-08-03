@@ -137,7 +137,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
       },
     },
     labelPositions: [
-      { x: 35.6, y: 78.8, w: 9.8, h: 5.6, detailSide: 'opens-up-right' },
+      { x: 35.6, y: 78.8, w: 9.8, h: 5.6, detailSide: 'opens-right' },
       { x: 87.2, y: 24.7, w: 8.8, h: 6.2, detailSide: 'opens-left' },
       { x: 87.2, y: 44.8, w: 8.8, h: 6.2, detailSide: 'opens-left' },
       { x: 41.0, y: 58.9, w: 8.4, h: 6.4, detailSide: 'opens-right' },

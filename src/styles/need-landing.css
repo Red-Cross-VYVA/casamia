@@ -403,6 +403,11 @@
   pointer-events: auto;
 }
 
+.need-landing-risk-map-hotspot:hover,
+.need-landing-risk-map-hotspot:focus-within {
+  z-index: 20;
+}
+
 .need-landing-risk-map-label {
   position: absolute;
   display: flex;
@@ -441,16 +446,17 @@
 }
 
 .need-landing-risk-map-label.has-detail:hover,
-.need-landing-risk-map-label.has-detail:focus,
-.need-landing-risk-map-label.has-detail:focus-visible {
+.need-landing-risk-map-label.has-detail:focus {
   border: 0 !important;
-  background: rgb(255 255 255 / 10%) !important;
-  box-shadow:
-    0 0 0 2px rgb(255 255 255 / 76%),
-    0 0 0 4px rgb(46 158 212 / 42%) !important;
+  background: rgb(255 255 255 / 8%) !important;
+  box-shadow: none !important;
   color: #10283f;
   outline: 0;
   text-shadow: none;
+}
+
+.need-landing-risk-map-label.has-detail:focus-visible {
+  box-shadow: inset 0 0 0 2px rgb(46 158 212 / 72%) !important;
 }
 
 .need-landing-risk-map-label.is-legend {
@@ -463,16 +469,16 @@
 .need-landing-risk-map-detail {
   position: absolute;
   top: 50%;
-  z-index: 4;
-  width: min(15.5rem, 30vw);
+  z-index: 30;
+  width: min(13.5rem, 26vw);
   border: 1px solid #b9daf0;
-  border-radius: 0.75rem;
+  border-radius: 0.65rem;
   background:
     linear-gradient(135deg, #ffffff 0%, #f2f9fd 100%);
-  box-shadow: 0 1rem 2.2rem rgb(15 39 64 / 20%);
+  box-shadow: 0 0.8rem 1.8rem rgb(15 39 64 / 18%);
   color: #2b435a;
   opacity: 0;
-  padding: 0.78rem;
+  padding: 0.68rem;
   pointer-events: none;
   transform: translateY(-50%) scale(0.98);
   transition:
@@ -490,23 +496,23 @@
 }
 
 .need-landing-risk-map-detail.opens-right {
-  left: calc(100% + 0.55rem);
+  left: calc(100% + 0.4rem);
 }
 
 .need-landing-risk-map-detail.opens-left {
-  right: calc(100% + 0.55rem);
+  right: calc(100% + 0.4rem);
 }
 
 .need-landing-risk-map-detail.opens-up {
   top: auto;
-  bottom: calc(100% + 0.55rem);
+  bottom: calc(100% + 0.4rem);
   left: 50%;
   transform: translate(-50%, 0.45rem) scale(0.98);
 }
 
 .need-landing-risk-map-detail.opens-down-right,
 .need-landing-risk-map-detail.opens-down-left {
-  top: calc(100% + 0.55rem);
+  top: calc(100% + 0.4rem);
   transform: translateY(-0.35rem) scale(0.98);
 }
 
@@ -521,7 +527,7 @@
 .need-landing-risk-map-detail.opens-up-right,
 .need-landing-risk-map-detail.opens-up-left {
   top: auto;
-  bottom: calc(100% + 0.55rem);
+  bottom: calc(100% + 0.4rem);
   transform: translateY(0.35rem) scale(0.98);
 }
 
@@ -567,7 +573,7 @@
 .need-landing-risk-map-detail strong {
   display: block;
   color: #0f2740;
-  font-size: 0.82rem;
+  font-size: 0.74rem;
   font-weight: 950;
   line-height: 1.15;
 }
@@ -576,12 +582,12 @@
 .need-landing-risk-map-detail small,
 .need-landing-risk-map-detail em {
   display: block;
-  margin: 0.34rem 0 0;
+  margin: 0.28rem 0 0;
   color: #3a526a;
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-style: normal;
   font-weight: 750;
-  line-height: 1.28;
+  line-height: 1.24;
 }
 
 .need-landing-risk-map-detail small {
@@ -590,7 +596,7 @@
 
 .need-landing-risk-map-detail em {
   color: #6a7b8d;
-  font-size: 0.63rem;
+  font-size: 0.58rem;
 }
 
 .need-landing-risk-map-copy h2 {
