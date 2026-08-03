@@ -675,7 +675,7 @@ function createLocalPublicToken() {
 }
 
 function shouldUseLocalProposalFallback() {
-  return isLocalBrowserHost()
+  return Boolean(import.meta.env.DEV) || isLocalBrowserHost()
 }
 
 function isLocalBrowserHost() {
