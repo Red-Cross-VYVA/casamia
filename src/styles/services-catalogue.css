@@ -462,6 +462,13 @@
   pointer-events: none;
 }
 
+.services-zone-risk-hotspot {
+  position: absolute;
+  z-index: 2;
+  overflow: visible;
+  pointer-events: auto;
+}
+
 .services-zone-risk-label {
   position: absolute;
   display: flex;
@@ -477,11 +484,176 @@
   text-wrap: balance;
 }
 
+.services-zone-risk-hotspot .services-zone-risk-label {
+  appearance: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0;
+  justify-content: flex-start;
+  cursor: help;
+  font: inherit;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.services-zone-risk-label.has-detail {
+  pointer-events: auto;
+}
+
+.services-zone-risk-label.has-detail:hover,
+.services-zone-risk-label.has-detail:focus,
+.services-zone-risk-label.has-detail:focus-visible {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #0f2438;
+  outline: 0;
+  text-shadow: none;
+}
+
 .services-zone-risk-label.is-legend {
   font-size: 0.54rem;
   line-height: 1;
   text-wrap: nowrap;
   white-space: nowrap;
+}
+
+.services-zone-risk-detail {
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  width: min(15.5rem, 30vw);
+  border: 1px solid #b9daf0;
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(135deg, #ffffff 0%, #f2f9fd 100%);
+  box-shadow: 0 1rem 2.2rem rgb(15 39 64 / 20%);
+  color: #2b435a;
+  opacity: 0;
+  padding: 0.78rem;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.98);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.services-zone-risk-hotspot:hover .services-zone-risk-detail,
+.services-zone-risk-hotspot:focus-within .services-zone-risk-detail,
+.services-zone-risk-label.has-detail:hover + .services-zone-risk-detail,
+.services-zone-risk-label.has-detail:focus + .services-zone-risk-detail,
+.services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.services-zone-risk-detail.opens-right {
+  left: calc(100% + 0.55rem);
+}
+
+.services-zone-risk-detail.opens-left {
+  right: calc(100% + 0.55rem);
+}
+
+.services-zone-risk-detail.opens-up {
+  top: auto;
+  bottom: calc(100% + 0.55rem);
+  left: 50%;
+  transform: translate(-50%, 0.45rem) scale(0.98);
+}
+
+.services-zone-risk-detail.opens-down-right,
+.services-zone-risk-detail.opens-down-left {
+  top: calc(100% + 0.55rem);
+  transform: translateY(-0.35rem) scale(0.98);
+}
+
+.services-zone-risk-detail.opens-down-right {
+  left: 0;
+}
+
+.services-zone-risk-detail.opens-down-left {
+  right: 0;
+}
+
+.services-zone-risk-detail.opens-up-right,
+.services-zone-risk-detail.opens-up-left {
+  top: auto;
+  bottom: calc(100% + 0.55rem);
+  transform: translateY(0.35rem) scale(0.98);
+}
+
+.services-zone-risk-detail.opens-up-right {
+  left: 0;
+}
+
+.services-zone-risk-detail.opens-up-left {
+  right: 0;
+}
+
+.services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-up,
+.services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-up,
+.services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-up,
+.services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-up,
+.services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail.opens-up {
+  transform: translate(-50%, 0) scale(1);
+}
+
+.services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-down-right,
+.services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-down-right,
+.services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-down-right,
+.services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-down-right,
+.services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail.opens-down-right,
+.services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-down-left,
+.services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-down-left,
+.services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-down-left,
+.services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-down-left,
+.services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail.opens-down-left,
+.services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-up-right,
+.services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-up-right,
+.services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-up-right,
+.services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-up-right,
+.services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail.opens-up-right,
+.services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-up-left,
+.services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-up-left,
+.services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-up-left,
+.services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-up-left,
+.services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail.opens-up-left {
+  transform: translateY(0) scale(1);
+}
+
+.services-zone-risk-detail strong {
+  display: block;
+  color: #0f2740;
+  font-size: 0.82rem;
+  font-weight: 950;
+  line-height: 1.15;
+}
+
+.services-zone-risk-detail p,
+.services-zone-risk-detail small,
+.services-zone-risk-detail em {
+  display: block;
+  margin: 0.34rem 0 0;
+  color: #3a526a;
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 750;
+  line-height: 1.28;
+}
+
+.services-zone-risk-detail small {
+  color: #176895;
+}
+
+.services-zone-risk-detail em {
+  color: #6a7b8d;
+  font-size: 0.63rem;
 }
 
 .services-zone-risk-copy {
@@ -1136,6 +1308,7 @@
 }
 
 @media (max-width: 1024px) {
+  .services-zone-risk-hotspot,
   .services-zone-risk-label {
     display: none;
   }

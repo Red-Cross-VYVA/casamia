@@ -19,6 +19,7 @@ import { primaryServices } from '../constants/siteContent'
 import { zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
 import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceRoom } from '../types/serviceCatalogue'
+import '../styles/services-catalogue.css'
 
 const detailSteps = [
   {
@@ -963,15 +964,68 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
               src={riskMap.image}
             />
             {hasMapLabels ? (
-              <div className="services-zone-risk-labels" aria-hidden="true">
+              <div className="services-zone-risk-labels">
                 {mapLabels.map((label, index) => {
                   const position = riskMap.labelPositions[index]
+                  const detail = copy.riskDetails?.[index]
+                  const detailSide = position?.detailSide ?? 'opens-up'
+                  const detailId = detail
+                    ? `service-detail-zone-risk-note-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}-${index + 1}`
+                    : undefined
 
                   if (!position) return null
 
+                  if (index >= copy.risks.length) {
+                    return (
+                      <span
+                        aria-hidden="true"
+                        className="services-zone-risk-label is-legend"
+                        key={`${label}-${index}`}
+                        style={{
+                          height: `${position.h}%`,
+                          left: `${position.x}%`,
+                          top: `${position.y}%`,
+                          width: `${position.w}%`,
+                        }}
+                      >
+                        {label}
+                      </span>
+                    )
+                  }
+
+                  if (detail && detailId) {
+                    return (
+                      <span
+                        className="services-zone-risk-hotspot"
+                        key={`${label}-${index}`}
+                        style={{
+                          height: `${position.h}%`,
+                          left: `${position.x}%`,
+                          top: `${position.y}%`,
+                          width: `${position.w}%`,
+                        }}
+                      >
+                        <button
+                          aria-describedby={detailId}
+                          aria-label={`${label}: ${detail.solution}`}
+                          className={`services-zone-risk-label has-detail ${detailSide}`}
+                          type="button"
+                        >
+                          {label}
+                        </button>
+                        <aside className={`services-zone-risk-detail ${detailSide}`} id={detailId}>
+                          <strong>{detail.solution}</strong>
+                          <p>{detail.helps}</p>
+                          {detail.product ? <small>{detail.product}</small> : null}
+                          {detail.stat ? <em>{detail.stat}</em> : null}
+                        </aside>
+                      </span>
+                    )
+                  }
+
                   return (
                     <span
-                      className={`services-zone-risk-label${index >= copy.risks.length ? ' is-legend' : ''}`}
+                      className="services-zone-risk-label"
                       key={`${label}-${index}`}
                       style={{
                         height: `${position.h}%`,

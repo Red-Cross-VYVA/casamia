@@ -419,32 +419,35 @@
 }
 
 .need-landing-risk-map-hotspot .need-landing-risk-map-label {
+  appearance: none;
   position: relative;
   width: 100%;
   height: 100%;
-  border: 0;
-  background: transparent;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
   padding: 0;
+  justify-content: flex-start;
   cursor: help;
   font: inherit;
+  outline: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .need-landing-risk-map-label.has-detail {
-  border-radius: 0.45rem;
-  outline-offset: 0.18rem;
   pointer-events: auto;
-  transition:
-    background 160ms ease,
-    box-shadow 160ms ease,
-    transform 160ms ease;
 }
 
 .need-landing-risk-map-label.has-detail:hover,
+.need-landing-risk-map-label.has-detail:focus,
 .need-landing-risk-map-label.has-detail:focus-visible {
-  background: rgb(255 255 255 / 26%);
-  box-shadow: 0 0.35rem 0.95rem rgb(15 39 64 / 14%);
-  outline: 2px solid rgb(114 189 53 / 78%);
-  transform: translateY(-1px);
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #0f2438;
+  outline: 0;
+  text-shadow: none;
 }
 
 .need-landing-risk-map-label.is-legend {
@@ -458,7 +461,7 @@
   position: absolute;
   top: 50%;
   z-index: 4;
-  width: min(17rem, 28vw);
+  width: min(15.5rem, 30vw);
   border: 1px solid #b9daf0;
   border-radius: 0.75rem;
   background:
@@ -475,7 +478,10 @@
 }
 
 .need-landing-risk-map-hotspot:hover .need-landing-risk-map-detail,
-.need-landing-risk-map-hotspot:focus-within .need-landing-risk-map-detail {
+.need-landing-risk-map-hotspot:focus-within .need-landing-risk-map-detail,
+.need-landing-risk-map-label.has-detail:hover + .need-landing-risk-map-detail,
+.need-landing-risk-map-label.has-detail:focus + .need-landing-risk-map-detail,
+.need-landing-risk-map-label.has-detail:focus-visible + .need-landing-risk-map-detail {
   opacity: 1;
   transform: translateY(-50%) scale(1);
 }
@@ -495,9 +501,64 @@
   transform: translate(-50%, 0.45rem) scale(0.98);
 }
 
+.need-landing-risk-map-detail.opens-down-right,
+.need-landing-risk-map-detail.opens-down-left {
+  top: calc(100% + 0.55rem);
+  transform: translateY(-0.35rem) scale(0.98);
+}
+
+.need-landing-risk-map-detail.opens-down-right {
+  left: 0;
+}
+
+.need-landing-risk-map-detail.opens-down-left {
+  right: 0;
+}
+
+.need-landing-risk-map-detail.opens-up-right,
+.need-landing-risk-map-detail.opens-up-left {
+  top: auto;
+  bottom: calc(100% + 0.55rem);
+  transform: translateY(0.35rem) scale(0.98);
+}
+
+.need-landing-risk-map-detail.opens-up-right {
+  left: 0;
+}
+
+.need-landing-risk-map-detail.opens-up-left {
+  right: 0;
+}
+
 .need-landing-risk-map-hotspot:hover .need-landing-risk-map-detail.opens-up,
-.need-landing-risk-map-hotspot:focus-within .need-landing-risk-map-detail.opens-up {
+.need-landing-risk-map-hotspot:focus-within .need-landing-risk-map-detail.opens-up,
+.need-landing-risk-map-label.has-detail:hover + .need-landing-risk-map-detail.opens-up,
+.need-landing-risk-map-label.has-detail:focus + .need-landing-risk-map-detail.opens-up,
+.need-landing-risk-map-label.has-detail:focus-visible + .need-landing-risk-map-detail.opens-up {
   transform: translate(-50%, 0) scale(1);
+}
+
+.need-landing-risk-map-hotspot:hover .need-landing-risk-map-detail.opens-down-right,
+.need-landing-risk-map-hotspot:focus-within .need-landing-risk-map-detail.opens-down-right,
+.need-landing-risk-map-label.has-detail:hover + .need-landing-risk-map-detail.opens-down-right,
+.need-landing-risk-map-label.has-detail:focus + .need-landing-risk-map-detail.opens-down-right,
+.need-landing-risk-map-label.has-detail:focus-visible + .need-landing-risk-map-detail.opens-down-right,
+.need-landing-risk-map-hotspot:hover .need-landing-risk-map-detail.opens-down-left,
+.need-landing-risk-map-hotspot:focus-within .need-landing-risk-map-detail.opens-down-left,
+.need-landing-risk-map-label.has-detail:hover + .need-landing-risk-map-detail.opens-down-left,
+.need-landing-risk-map-label.has-detail:focus + .need-landing-risk-map-detail.opens-down-left,
+.need-landing-risk-map-label.has-detail:focus-visible + .need-landing-risk-map-detail.opens-down-left,
+.need-landing-risk-map-hotspot:hover .need-landing-risk-map-detail.opens-up-right,
+.need-landing-risk-map-hotspot:focus-within .need-landing-risk-map-detail.opens-up-right,
+.need-landing-risk-map-label.has-detail:hover + .need-landing-risk-map-detail.opens-up-right,
+.need-landing-risk-map-label.has-detail:focus + .need-landing-risk-map-detail.opens-up-right,
+.need-landing-risk-map-label.has-detail:focus-visible + .need-landing-risk-map-detail.opens-up-right,
+.need-landing-risk-map-hotspot:hover .need-landing-risk-map-detail.opens-up-left,
+.need-landing-risk-map-hotspot:focus-within .need-landing-risk-map-detail.opens-up-left,
+.need-landing-risk-map-label.has-detail:hover + .need-landing-risk-map-detail.opens-up-left,
+.need-landing-risk-map-label.has-detail:focus + .need-landing-risk-map-detail.opens-up-left,
+.need-landing-risk-map-label.has-detail:focus-visible + .need-landing-risk-map-detail.opens-up-left {
+  transform: translateY(0) scale(1);
 }
 
 .need-landing-risk-map-detail strong {

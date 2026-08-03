@@ -926,13 +926,13 @@ export function NeedLandingPage() {
 }
 
 const bathroomRiskMapLabelPositions = [
-  { x: 35.6, y: 78.8, w: 9.8, h: 5.6, detailSide: 'opens-up' },
+  { x: 35.6, y: 78.8, w: 9.8, h: 5.6, detailSide: 'opens-up-right' },
   { x: 87.2, y: 24.7, w: 8.8, h: 6.2, detailSide: 'opens-left' },
   { x: 87.2, y: 44.8, w: 8.8, h: 6.2, detailSide: 'opens-left' },
   { x: 41.0, y: 58.9, w: 8.4, h: 6.4, detailSide: 'opens-right' },
   { x: 7.7, y: 16.3, w: 11.0, h: 6.6, detailSide: 'opens-right' },
   { x: 89.1, y: 62.8, w: 8.5, h: 5.9, detailSide: 'opens-left' },
-  { x: 76.9, y: 88.6, w: 7.4, h: 5.9, detailSide: 'opens-up' },
+  { x: 76.9, y: 88.6, w: 7.4, h: 5.9, detailSide: 'opens-up-left' },
   { x: 7.7, y: 86.0, w: 12.8, h: 3.3, detailSide: 'opens-right' },
   { x: 7.7, y: 90.4, w: 12.8, h: 3.3, detailSide: 'opens-right' },
 ] as const
