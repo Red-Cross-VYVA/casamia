@@ -539,6 +539,10 @@ export async function createPublicProposalDraft(
   payload: PublicProposalDraftPayload,
   fallbackCatalogue?: EditableServiceCatalogue,
 ): Promise<PublicProposalDraftResponse> {
+  if (shouldUseLocalProposalFallback()) {
+    return createLocalPublicProposalDraft(payload, fallbackCatalogue ?? getServiceCatalogue())
+  }
+
   if (!backendAvailable()) {
     return createLocalPublicProposalDraft(payload, fallbackCatalogue ?? getServiceCatalogue())
   }
