@@ -126,7 +126,15 @@ const apiBaseUrl = (
 ).replace(/\/$/, '')
 
 function backendAvailable() {
-  return Boolean(apiBaseUrl) || Boolean(import.meta.env.PROD)
+  if (apiBaseUrl) {
+    return true
+  }
+
+  if (isLocalBrowserHost()) {
+    return false
+  }
+
+  return Boolean(import.meta.env.PROD)
 }
 
 function internalHeaders(): Record<string, string> {
@@ -667,6 +675,10 @@ function createLocalPublicToken() {
 }
 
 function shouldUseLocalProposalFallback() {
+  return isLocalBrowserHost()
+}
+
+function isLocalBrowserHost() {
   if (typeof window === 'undefined') {
     return false
   }
