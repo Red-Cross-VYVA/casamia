@@ -347,6 +347,56 @@ const roomVisuals: Record<string, string> = {
   'living-room': '/images/service-gallery/isometric/isometric-living.jpg',
 }
 
+type OutcomePreviewTagProps = {
+  compact?: boolean
+  embedded?: boolean
+  eyebrow: string
+  icon?: LucideIcon
+  language: 'en' | 'es'
+  outcome: MasterCatalogueOutcome
+  showCheck?: boolean
+  visual?: string
+}
+
+function OutcomePreviewTag({
+  compact = false,
+  embedded = false,
+  eyebrow,
+  icon: Icon = Home,
+  language,
+  outcome,
+  showCheck = true,
+  visual,
+}: OutcomePreviewTagProps) {
+  const label = localizePlansString(outcome.customerName, language, outcome.internalName)
+  const description = localizePlansString(outcome.shortDescription, language, outcome.internalName)
+  const benefit = localizePlansString(outcome.customerBenefit, language, description)
+
+  return (
+    <span
+      aria-label={`${label}. ${benefit}`}
+      className={`plans-outcome-preview-tag${compact ? ' is-compact' : ''}${embedded ? ' is-embedded' : ''}`}
+      tabIndex={0}
+    >
+      {showCheck ? <CheckCircle2 size={compact ? 14 : 15} aria-hidden="true" /> : null}
+      <span className="plans-outcome-preview-label">{label}</span>
+      <span className="plans-outcome-preview-popover" aria-hidden="true">
+        <span className="plans-outcome-preview-visual">
+          {visual ? <img src={visual} alt="" loading="lazy" /> : <Icon size={30} aria-hidden="true" />}
+          <span>
+            <Icon size={16} aria-hidden="true" />
+          </span>
+        </span>
+        <span className="plans-outcome-preview-copy">
+          <small>{eyebrow}</small>
+          <strong>{label}</strong>
+          <span>{benefit}</span>
+        </span>
+      </span>
+    </span>
+  )
+}
+
 type CustomerForm = {
   address: string
   area: string
@@ -637,7 +687,10 @@ export function PlansPage() {
       id: group.homePackage.id,
       included: group.homeOutcomes
         .slice(0, 4)
-        .map((outcome) => localizePlansString(outcome.customerName, language, outcome.internalName)),
+        .map((outcome) => ({
+          id: outcome.id,
+          outcome,
+        })),
       includedMore: Math.max(0, group.homeOutcomes.length - 4),
       lineTotal: packageLine?.lineTotal ?? 0,
       packageLabel: group.packageLabel,
@@ -1463,6 +1516,8 @@ export function PlansPage() {
                     const addOnOptionCount = getAddOnOptionCount(group)
                     const selectedAddOnCount = getSelectedAddOnCount(group)
                     const addOnsExpanded = expandedAddOns[group.homePackage.id] === true
+                    const RoomIcon = roomIcons[group.room.id] ?? Home
+                    const roomVisual = roomVisuals[group.room.id]
 
                     return (
                     <article className="plans-module-card" key={`module-${group.homePackage.id}`}>
@@ -1479,10 +1534,14 @@ export function PlansPage() {
                       <div className="plans-core-includes">
                         <strong>{copy.coreIncluded}</strong>
                         {group.homeOutcomes.map((outcome) => (
-                          <span key={outcome.id}>
-                            <CheckCircle2 size={15} aria-hidden="true" />
-                            {localizePlansString(outcome.customerName, language, outcome.internalName)}
-                          </span>
+                          <OutcomePreviewTag
+                            key={outcome.id}
+                            eyebrow={copy.coreIncluded}
+                            icon={RoomIcon}
+                            language={language}
+                            outcome={outcome}
+                            visual={roomVisual}
+                          />
                         ))}
                       </div>
 
@@ -1580,7 +1639,16 @@ export function PlansPage() {
                                                 type="checkbox"
                                                 onChange={(event) => toggleAddOnOutcome(group, outcome.id, event.target.checked)}
                                               />
-                                              <span>{localizePlansString(outcome.customerName, language, outcome.internalName)}</span>
+                                              <OutcomePreviewTag
+                                                compact
+                                                embedded
+                                                eyebrow={copy.optionalTitle}
+                                                icon={RoomIcon}
+                                                language={language}
+                                                outcome={outcome}
+                                                showCheck={false}
+                                                visual={roomVisual}
+                                              />
                                             </label>
                                           )
                                         })}
@@ -1681,10 +1749,15 @@ export function PlansPage() {
                         <p>{detail.description}</p>
                         <div className="plans-detail-summary-chips">
                           {detail.included.map((item) => (
-                            <span key={`${detail.id}-${item}`}>
-                              <CheckCircle2 size={14} aria-hidden="true" />
-                              {item}
-                            </span>
+                            <OutcomePreviewTag
+                              compact
+                              key={`${detail.id}-${item.id}`}
+                              eyebrow={copy.coreIncluded}
+                              icon={roomIcons[item.outcome.roomId] ?? Home}
+                              language={language}
+                              outcome={item.outcome}
+                              visual={roomVisuals[item.outcome.roomId]}
+                            />
                           ))}
                           {detail.includedMore > 0 ? (
                             <span className="is-muted">+{detail.includedMore} {copy.summaryMoreItems}</span>
