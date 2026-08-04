@@ -40,12 +40,14 @@ import type { MasterCatalogueOutcome } from '../types/serviceCatalogue'
 type PlansCopy = {
   addModule: string
   backToBuilder: string
+  backToRooms: string
   builderEyebrow: string
   builderTitle: string
   consent: string
   contactIntro: string
   contactStepEyebrow: string
   contactTitle: string
+  continueToReview: string
   coreIncluded: string
   closeDetails: string
   createDraft: string
@@ -74,6 +76,7 @@ type PlansCopy = {
   name: string
   noSelection: string
   optionalTitle: string
+  optionalAddOnsIntro: string
   packageDetails: string
   phone: string
   presets: Array<{ id: PlansPresetId; title: string; body: string }>
@@ -82,6 +85,9 @@ type PlansCopy = {
   reviewRequired: string
   reviewCtaBody: string
   reviewCtaTitle: string
+  reviewStepEyebrow: string
+  reviewStepIntro: string
+  reviewStepTitle: string
   roomDescriptions: Record<string, string>
   rooms: Array<{ title: string; body: string }>
   seeDraft: string
@@ -98,12 +104,16 @@ type PlansCopy = {
   town: string
   address: string
   vatIncluded: string
+  viewOptionalAddOns: string
+  hideOptionalAddOns: string
+  selectedAddOnsLabel: string
+  availableAddOnsLabel: string
   viewDetails: string
 }
 
 type PlansPresetId = 'focused' | 'daily' | 'wholeHome'
 
-type PlansStep = 'builder' | 'contact'
+type PlansStep = 'builder' | 'review' | 'contact'
 
 type PlansDetail = {
   body: string
@@ -117,12 +127,14 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
   en: {
     addModule: 'Add module',
     backToBuilder: 'Edit package',
+    backToRooms: 'Back to rooms',
     builderEyebrow: 'Plan builder',
     builderTitle: 'Choose rooms',
     consent: 'CasaMia may contact me about this proposal.',
     contactIntro: 'Add contact details so CasaMia can generate your proposal and send you a clear link instantly.',
     contactStepEyebrow: 'Instant proposal',
     contactTitle: 'Receive proposal',
+    continueToReview: 'Review selected packages',
     coreIncluded: 'Core package',
     closeDetails: 'Close',
     createDraft: 'Generate proposal',
@@ -151,11 +163,12 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     heroReviewTitle: 'Your proposal is generated instantly.',
     helpText: 'Use the steppers. Add connected or specialist modules only where useful.',
     metaTitle: 'Plans Builder | CasaMia',
-    modulesTitle: 'Add-ons',
+    modulesTitle: 'Core packages',
     monthly: 'Monthly',
     name: 'Name',
     noSelection: 'Choose at least one room.',
     optionalTitle: 'Connected',
+    optionalAddOnsIntro: 'Optional add-ons stay separate. Open this only if you want to add connected support or specialist adaptations.',
     packageDetails: 'Package details',
     phone: 'Phone',
     popularTitle: 'Quick starts',
@@ -168,6 +181,9 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewRequired: 'Needs quote',
     reviewCtaBody: 'Next, share contact details. Your proposal is generated instantly from the packages, quantities and add-ons you selected.',
     reviewCtaTitle: 'Ready to generate your proposal?',
+    reviewStepEyebrow: 'Review',
+    reviewStepIntro: 'Check quantities, included core items and optional add-ons before adding your details.',
+    reviewStepTitle: 'Review your selected packages',
     roomDescriptions: {
       bathroom: 'Shower, WC, wet floors.',
       bedroom: 'Bed, night route, lighting.',
@@ -197,10 +213,15 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     town: 'Town / area',
     address: 'Address',
     vatIncluded: 'VAT included',
+    viewOptionalAddOns: 'View optional add-ons',
+    hideOptionalAddOns: 'Hide optional add-ons',
+    selectedAddOnsLabel: 'selected',
+    availableAddOnsLabel: 'available',
     viewDetails: 'View details',
   },
   es: {
     backToBuilder: 'Editar paquete',
+    backToRooms: 'Volver a estancias',
     contactIntro: 'Añade tus datos para que CasaMia revise las estancias elegidas, confirme el alcance y prepare la propuesta.',
     contactStepEyebrow: 'Revisión CasaMia',
     reviewCtaBody: 'En el siguiente paso compartes tus datos. CasaMia revisará fotos, medidas e idoneidad antes de enviar la propuesta final.',
@@ -210,6 +231,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     builderTitle: 'Elige estancias',
     consent: 'CasaMia puede contactarme para revisar este borrador.',
     contactTitle: 'Enviar a revisión',
+    continueToReview: 'Revisar paquetes elegidos',
     coreIncluded: 'Paquete base',
     closeDetails: 'Cerrar',
     createDraft: 'Crear borrador',
@@ -238,11 +260,12 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     heroReviewTitle: 'Revisado antes de proponer.',
     helpText: 'Usa los controles. Añade módulos conectados o especiales solo donde aporten valor.',
     metaTitle: 'Constructor de planes | CasaMia',
-    modulesTitle: 'Extras',
+    modulesTitle: 'Paquetes base',
     monthly: 'Mensual',
     name: 'Nombre',
     noSelection: 'Elige al menos una estancia.',
     optionalTitle: 'Conectado',
+    optionalAddOnsIntro: 'Los extras son opcionales y van separados. Ábrelos solo si quieres añadir soporte conectado o adaptaciones especiales.',
     packageDetails: 'Detalles del paquete',
     phone: 'Teléfono',
     popularTitle: 'Empieza rápido',
@@ -253,6 +276,9 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     ],
     quantity: 'Cantidad',
     reviewRequired: 'Requiere revisión',
+    reviewStepEyebrow: 'Revisión',
+    reviewStepIntro: 'Revisa cantidades, elementos incluidos y extras opcionales antes de añadir tus datos.',
+    reviewStepTitle: 'Revisa tus paquetes seleccionados',
     roomDescriptions: {
       bathroom: 'Ducha, WC, suelo mojado.',
       bedroom: 'Cama, ruta nocturna, luz.',
@@ -282,6 +308,10 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     town: 'Ciudad / zona',
     address: 'Dirección',
     vatIncluded: 'IVA incluido',
+    viewOptionalAddOns: 'Ver extras opcionales',
+    hideOptionalAddOns: 'Ocultar extras opcionales',
+    selectedAddOnsLabel: 'seleccionados',
+    availableAddOnsLabel: 'disponibles',
     viewDetails: 'Ver detalles',
   },
 }
@@ -292,6 +322,14 @@ const roomIcons: Record<string, LucideIcon> = {
   entrance: DoorOpen,
   kitchen: CookingPot,
   'living-room': Home,
+}
+
+const roomVisuals: Record<string, string> = {
+  bathroom: '/images/service-gallery/isometric/isometric-bathroom.jpg',
+  bedroom: '/images/service-gallery/isometric/isometric-bedroom.jpg',
+  entrance: '/images/service-gallery/isometric/isometric-exterior.jpg',
+  kitchen: '/images/service-gallery/isometric/isometric-kitchen.jpg',
+  'living-room': '/images/service-gallery/isometric/isometric-living.jpg',
 }
 
 type CustomerForm = {
@@ -399,6 +437,7 @@ export function PlansPage() {
   const [selection, setSelection] = useState<PlansBuilderSelectionState>({})
   const [customer, setCustomer] = useState<CustomerForm>(emptyCustomerForm)
   const [step, setStep] = useState<PlansStep>('builder')
+  const [expandedAddOns, setExpandedAddOns] = useState<Record<string, boolean>>({})
   const [activeDetail, setActiveDetail] = useState<PlansDetail | null>(null)
   const [draftUrl, setDraftUrl] = useState('')
   const [emailDeliveryStatus, setEmailDeliveryStatus] = useState('')
@@ -418,8 +457,8 @@ export function PlansPage() {
   const oneTimeLineItems = estimate.lineItems.filter((line) => !line.isRecurring)
   const proposalReady = Boolean(draftUrl)
   const selectedCountLabel = language === 'es'
-    ? `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'estancia seleccionada' : 'estancias seleccionadas'}`
-    : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'room selected' : 'rooms selected'}`
+    ? `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'paquete base seleccionado' : 'paquetes base seleccionados'}`
+    : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'core package selected' : 'core packages selected'}`
   const selectedPlanDetails = selectedGroups.map((group) => {
     const packageSelection = selection[group.homePackage.id]
     const selectedAddOnIds = new Set(packageSelection?.addOnOutcomeIds ?? [])
@@ -561,6 +600,14 @@ export function PlansPage() {
   function updateRoomQuantity(group: PlansBuilderGroup, quantity: number) {
     const nextQuantity = Math.max(0, Math.min(12, Math.floor(Number.isFinite(quantity) ? quantity : 0)))
 
+    if (nextQuantity === 0) {
+      setExpandedAddOns((current) => {
+        const next = { ...current }
+        delete next[group.homePackage.id]
+        return next
+      })
+    }
+
     setSelection((current) => {
       const previous = current[group.homePackage.id] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
 
@@ -643,6 +690,32 @@ export function PlansPage() {
     return addOnPackage.outcomes.some((outcome) => selectedIds.has(outcome.id))
   }
 
+  function getAddOnOptionCount(group: PlansBuilderGroup) {
+    return group.addOnPackages.reduce(
+      (count, addOnPackage) => count + (addOnPackage.packageRecord.section === 'optional-adaptations' ? addOnPackage.outcomes.length : 1),
+      0,
+    )
+  }
+
+  function getSelectedAddOnCount(group: PlansBuilderGroup) {
+    const selectedIds = new Set(selection[group.homePackage.id]?.addOnOutcomeIds ?? [])
+
+    return group.addOnPackages.reduce((count, addOnPackage) => {
+      if (addOnPackage.packageRecord.section === 'optional-adaptations') {
+        return count + addOnPackage.outcomes.filter((outcome) => selectedIds.has(outcome.id)).length
+      }
+
+      return count + (addOnPackage.outcomes.some((outcome) => selectedIds.has(outcome.id)) ? 1 : 0)
+    }, 0)
+  }
+
+  function toggleAddOnsPanel(packageId: string) {
+    setExpandedAddOns((current) => ({
+      ...current,
+      [packageId]: !current[packageId],
+    }))
+  }
+
   function openRoomPackageDetails(group: PlansBuilderGroup) {
     setActiveDetail({
       body: group.packageDescription,
@@ -681,10 +754,22 @@ export function PlansPage() {
     })
   }
 
+  function goToReviewStep() {
+    if (!selectedGroups.length) {
+      setError(copy.noSelection)
+      scrollToPlansSection('plans-builder-title')
+      return
+    }
+
+    setError('')
+    setStep('review')
+    scrollToPlansSection('plans-review-step')
+  }
+
   function goToContactStep() {
     if (!estimate.proposalLineItems.length) {
       setError(copy.noSelection)
-      scrollToPlansSection('plans-builder-title')
+      scrollToPlansSection('plans-review-step')
       return
     }
 
@@ -698,6 +783,12 @@ export function PlansPage() {
     setError('')
     setStep('builder')
     scrollToPlansSection('plans-builder-title')
+  }
+
+  function goBackToReview() {
+    setError('')
+    setStep('review')
+    scrollToPlansSection('plans-review-step')
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -860,9 +951,10 @@ export function PlansPage() {
           <aside className="plans-hero-photo-card" aria-label={copy.heroReviewEyebrow}>
             <img src="/images/solutions/casamia-staff-kitchen-consultation.webp" alt={copy.heroPhotoAlt} />
             <div className="plans-hero-photo-copy">
-              <p className="section-kicker">{copy.heroReviewEyebrow}</p>
-              <h2>{copy.heroReviewTitle}</h2>
-              <p>{copy.heroReviewBody}</p>
+              <span className="plans-hero-photo-badge">
+                <Sparkles size={15} aria-hidden="true" />
+                {copy.heroReviewEyebrow}
+              </span>
               <div className="plans-hero-photo-points" aria-label={copy.heroReviewEyebrow}>
                 {copy.heroReviewPoints.map((point) => (
                   <span key={point}>
@@ -875,10 +967,22 @@ export function PlansPage() {
           </aside>
         </div>
       </section>
+      ) : step === 'review' ? (
+        <section className="plans-contact-hero plans-review-hero" id="plans-review-step">
+          <div className="site-shell">
+            <button className="plans-contact-back" type="button" onClick={goBackToBuilder}>
+              <ArrowLeft size={16} aria-hidden="true" />
+              {copy.backToRooms}
+            </button>
+            <p className="section-kicker">{copy.reviewStepEyebrow}</p>
+            <h1>{copy.reviewStepTitle}</h1>
+            <p>{copy.reviewStepIntro}</p>
+          </div>
+        </section>
       ) : (
         <section className="plans-contact-hero" id="plans-contact-step">
           <div className="site-shell">
-            <button className="plans-contact-back" type="button" onClick={goBackToBuilder}>
+            <button className="plans-contact-back" type="button" onClick={goBackToReview}>
               <ArrowLeft size={16} aria-hidden="true" />
               {copy.backToBuilder}
             </button>
@@ -904,15 +1008,26 @@ export function PlansPage() {
             <div className="plans-room-grid">
               {groups.map((group) => {
                 const Icon = roomIcons[group.room.id] ?? Home
+                const visual = roomVisuals[group.room.id]
                 const packageSelection = selection[group.homePackage.id]
                 const quantity = packageSelection?.selected ? packageSelection.quantity : 0
 
                 return (
                   <article className={`plans-room-card${quantity > 0 ? ' is-selected' : ''}`} key={group.homePackage.id}>
-                    <header>
-                      <span>
-                        <Icon size={22} aria-hidden="true" />
-                      </span>
+                    {visual ? (
+                      <div className="plans-room-card-media" aria-hidden="true">
+                        <img src={visual} alt="" loading="lazy" />
+                        <span>
+                          <Icon size={20} aria-hidden="true" />
+                        </span>
+                      </div>
+                    ) : null}
+                    <header className={visual ? 'has-room-media' : undefined}>
+                      {!visual ? (
+                        <span>
+                          <Icon size={22} aria-hidden="true" />
+                        </span>
+                      ) : null}
                       <div>
                         <h3>{group.roomLabel}</h3>
                         <p>{copy.roomDescriptions[group.room.id] ?? group.packageDescription}</p>
@@ -952,6 +1067,21 @@ export function PlansPage() {
               })}
             </div>
 
+            <div className="plans-builder-continue">
+              <div>
+                <span>{copy.selectedPackages}</span>
+                <strong>{selectedGroups.length ? selectedCountLabel : copy.summaryEmptyRooms}</strong>
+              </div>
+              <button className="btn btn-green" type="button" onClick={goToReviewStep}>
+                {copy.continueToReview}
+                <ArrowRight size={16} aria-hidden="true" />
+              </button>
+            </div>
+          </section>
+        </div>
+        ) : step === 'review' ? (
+        <div className="site-shell plans-builder-layout is-review-step">
+          <section className="plans-builder-workspace plans-review-workspace" aria-labelledby="plans-modules-title">
             <section className="plans-modules-section" aria-labelledby="plans-modules-title">
               <div className="plans-builder-heading">
                 <div>
@@ -961,8 +1091,24 @@ export function PlansPage() {
               </div>
 
               {selectedGroups.length ? (
+                <div className="plans-selected-overview" aria-label={copy.summaryRoomsTitle}>
+                  <span>{selectedCountLabel}</span>
+                  <div>
+                    {selectedSummary.map((item) => (
+                      <b key={item}>{item}</b>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {selectedGroups.length ? (
                 <div className="plans-module-list">
-                  {selectedGroups.map((group) => (
+                  {selectedGroups.map((group) => {
+                    const addOnOptionCount = getAddOnOptionCount(group)
+                    const selectedAddOnCount = getSelectedAddOnCount(group)
+                    const addOnsExpanded = expandedAddOns[group.homePackage.id] === true
+
+                    return (
                     <article className="plans-module-card" key={`module-${group.homePackage.id}`}>
                       <div className="plans-module-room">
                         <div>
@@ -976,101 +1122,125 @@ export function PlansPage() {
 
                       <div className="plans-core-includes">
                         <strong>{copy.coreIncluded}</strong>
-                        {group.homeOutcomes.slice(0, 3).map((outcome) => (
+                        {group.homeOutcomes.map((outcome) => (
                           <span key={outcome.id}>
                             <CheckCircle2 size={15} aria-hidden="true" />
                             {localizePlansString(outcome.customerName, language, outcome.internalName)}
                           </span>
                         ))}
-                        {group.homeOutcomes.length > 3 ? (
-                          <span>+{group.homeOutcomes.length - 3}</span>
-                        ) : null}
                       </div>
 
-                      <div className="plans-addon-grid">
-                        {group.addOnPackages.map((addOnPackage) => {
-                          const selected = isAddOnPackageSelected(group, addOnPackage)
-                          const isSpecialist = addOnPackage.packageRecord.section === 'optional-adaptations'
+                      {addOnOptionCount > 0 ? (
+                        <div className={`plans-addons-drawer${addOnsExpanded ? ' is-open' : ''}`}>
+                          <button
+                            aria-expanded={addOnsExpanded}
+                            className="plans-addons-toggle"
+                            type="button"
+                            onClick={() => toggleAddOnsPanel(group.homePackage.id)}
+                          >
+                            <span>
+                              <Sparkles size={17} aria-hidden="true" />
+                              <strong>{addOnsExpanded ? copy.hideOptionalAddOns : copy.viewOptionalAddOns}</strong>
+                            </span>
+                            <small>
+                              {selectedAddOnCount > 0
+                                ? `${selectedAddOnCount} ${copy.selectedAddOnsLabel}`
+                                : `${addOnOptionCount} ${copy.availableAddOnsLabel}`}
+                            </small>
+                          </button>
 
-                          if (isSpecialist) {
-                            return addOnPackage.outcomes.map((outcome) => {
-                              const checked = selection[group.homePackage.id]?.addOnOutcomeIds.includes(outcome.id) ?? false
+                          {addOnsExpanded ? (
+                            <>
+                              <p>{copy.optionalAddOnsIntro}</p>
+                              <div className="plans-addon-grid">
+                                {group.addOnPackages.map((addOnPackage) => {
+                                  const selected = isAddOnPackageSelected(group, addOnPackage)
+                                  const isSpecialist = addOnPackage.packageRecord.section === 'optional-adaptations'
 
-                              return (
-                                <div
-                                  className={`plans-addon-card plans-specialist-option${checked ? ' is-selected' : ''}`}
-                                  key={outcome.id}
-                                >
-                                  <label>
-                                    <input
-                                      checked={checked}
-                                      type="checkbox"
-                                      onChange={(event) => toggleAddOnOutcome(group, outcome.id, event.target.checked)}
-                                    />
-                                    <span>
-                                      <strong>{copy.specialistTitle}</strong>
-                                      <b>{localizePlansString(outcome.customerName, language, outcome.internalName)}</b>
-                                      <small>{copy.reviewRequired}</small>
-                                    </span>
-                                  </label>
-                                  <button
-                                    className="plans-detail-link"
-                                    type="button"
-                                    onClick={() => openSpecialistDetails(outcome)}
-                                  >
-                                    {copy.viewDetails}
-                                  </button>
-                                </div>
-                              )
-                            })
-                          }
+                                  if (isSpecialist) {
+                                    return addOnPackage.outcomes.map((outcome) => {
+                                      const checked = selection[group.homePackage.id]?.addOnOutcomeIds.includes(outcome.id) ?? false
 
-                          return (
-                            <div className={`plans-addon-card${selected ? ' is-selected' : ''}`} key={addOnPackage.packageRecord.id}>
-                              <label>
-                                <input
-                                  checked={selected}
-                                  type="checkbox"
-                                  onChange={(event) => toggleAddOnPackage(group, addOnPackage, event.target.checked)}
-                                />
-                                <span>
-                                  <strong>{isSpecialist ? copy.specialistTitle : copy.optionalTitle}</strong>
-                                  <b>{addOnPackage.packageLabel}</b>
-                                  <small>{addOnPackage.requiresReview ? copy.reviewRequired : copy.packageDetails}</small>
-                                </span>
-                              </label>
-                              <button
-                                className="plans-detail-link"
-                                type="button"
-                                onClick={() => openAddOnPackageDetails(addOnPackage)}
-                              >
-                                {copy.viewDetails}
-                              </button>
-
-                              {selected ? (
-                                <div className="plans-addon-options">
-                                {addOnPackage.outcomes.slice(0, 6).map((outcome) => {
-                                  const checked = selection[group.homePackage.id]?.addOnOutcomeIds.includes(outcome.id) ?? false
+                                      return (
+                                        <div
+                                          className={`plans-addon-card plans-specialist-option${checked ? ' is-selected' : ''}`}
+                                          key={outcome.id}
+                                        >
+                                          <label>
+                                            <input
+                                              checked={checked}
+                                              type="checkbox"
+                                              onChange={(event) => toggleAddOnOutcome(group, outcome.id, event.target.checked)}
+                                            />
+                                            <span>
+                                              <strong>{copy.specialistTitle}</strong>
+                                              <b>{localizePlansString(outcome.customerName, language, outcome.internalName)}</b>
+                                              <small>{copy.reviewRequired}</small>
+                                            </span>
+                                          </label>
+                                          <button
+                                            className="plans-detail-link"
+                                            type="button"
+                                            onClick={() => openSpecialistDetails(outcome)}
+                                          >
+                                            {copy.viewDetails}
+                                          </button>
+                                        </div>
+                                      )
+                                    })
+                                  }
 
                                   return (
-                                    <label key={outcome.id}>
-                                      <input
-                                        checked={checked}
-                                        type="checkbox"
-                                        onChange={(event) => toggleAddOnOutcome(group, outcome.id, event.target.checked)}
-                                      />
-                                      <span>{localizePlansString(outcome.customerName, language, outcome.internalName)}</span>
-                                    </label>
+                                    <div className={`plans-addon-card${selected ? ' is-selected' : ''}`} key={addOnPackage.packageRecord.id}>
+                                      <label>
+                                        <input
+                                          checked={selected}
+                                          type="checkbox"
+                                          onChange={(event) => toggleAddOnPackage(group, addOnPackage, event.target.checked)}
+                                        />
+                                        <span>
+                                          <strong>{copy.optionalTitle}</strong>
+                                          <b>{addOnPackage.packageLabel}</b>
+                                          <small>{addOnPackage.requiresReview ? copy.reviewRequired : copy.packageDetails}</small>
+                                        </span>
+                                      </label>
+                                      <button
+                                        className="plans-detail-link"
+                                        type="button"
+                                        onClick={() => openAddOnPackageDetails(addOnPackage)}
+                                      >
+                                        {copy.viewDetails}
+                                      </button>
+
+                                      {selected ? (
+                                        <div className="plans-addon-options">
+                                        {addOnPackage.outcomes.slice(0, 6).map((outcome) => {
+                                          const checked = selection[group.homePackage.id]?.addOnOutcomeIds.includes(outcome.id) ?? false
+
+                                          return (
+                                            <label key={outcome.id}>
+                                              <input
+                                                checked={checked}
+                                                type="checkbox"
+                                                onChange={(event) => toggleAddOnOutcome(group, outcome.id, event.target.checked)}
+                                              />
+                                              <span>{localizePlansString(outcome.customerName, language, outcome.internalName)}</span>
+                                            </label>
+                                          )
+                                        })}
+                                        </div>
+                                      ) : null}
+                                    </div>
                                   )
                                 })}
-                                </div>
-                              ) : null}
-                            </div>
-                          )
-                        })}
-                      </div>
+                              </div>
+                            </>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </article>
-                  ))}
+                    )
+                  })}
                 </div>
               ) : (
                 <div className="plans-empty-state">
@@ -1174,7 +1344,7 @@ export function PlansPage() {
                 </div>
               ) : null}
 
-              <button className="plans-contact-back" type="button" onClick={goBackToBuilder}>
+              <button className="plans-contact-back" type="button" onClick={goBackToReview}>
                 <ArrowLeft size={16} aria-hidden="true" />
                 {copy.backToBuilder}
               </button>

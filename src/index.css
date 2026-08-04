@@ -16641,8 +16641,8 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(9, 34, 53, 0.02) 36%, rgba(9, 34, 53, 0.28) 100%),
-    linear-gradient(90deg, rgba(9, 34, 53, 0.12), transparent 56%);
+    linear-gradient(180deg, rgba(9, 34, 53, 0) 44%, rgba(9, 34, 53, 0.36) 100%),
+    linear-gradient(90deg, rgba(9, 34, 53, 0.1), transparent 58%);
   content: '';
 }
 
@@ -16658,60 +16658,55 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plans-hero-photo-copy {
   position: absolute;
   z-index: 2;
-  right: auto;
+  right: clamp(16px, 2.5vw, 28px);
   bottom: clamp(16px, 2.5vw, 28px);
   left: clamp(16px, 2.5vw, 28px);
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-end;
+  justify-content: space-between;
+  color: var(--white);
+}
+
+.plans-hero-photo-badge {
+  display: inline-flex;
   gap: 8px;
-  max-width: min(380px, calc(100% - 32px));
-  border: 1px solid rgba(31, 103, 146, 0.16);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.92);
-  padding: clamp(14px, 1.8vw, 20px);
-  color: var(--text-dark);
-  box-shadow: 0 24px 58px rgba(13, 30, 46, 0.18);
-}
-
-.plans-hero-photo-copy .section-kicker {
-  color: var(--green);
-}
-
-.plans-hero-photo-copy h2 {
-  max-width: 10.5em;
-  color: var(--text-dark);
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(25px, 2.1vw, 32px);
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(9, 34, 53, 0.78);
+  padding: 10px 13px;
+  color: var(--white);
+  font-size: 12px;
   font-weight: 950;
-  letter-spacing: -0.02em;
-  line-height: 1.02;
-  text-wrap: balance;
-}
-
-.plans-hero-photo-copy p:not(.section-kicker) {
-  max-width: 22rem;
-  color: var(--text-mid);
-  font-size: 13px;
-  font-weight: 800;
-  line-height: 1.35;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 16px 34px rgba(13, 30, 46, 0.24);
+  backdrop-filter: blur(12px);
 }
 
 .plans-hero-photo-points {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 4px;
+  justify-content: flex-end;
+  margin: 0;
 }
 
 .plans-hero-photo-points span {
   display: inline-flex;
   gap: 6px;
   align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 999px;
-  background: rgba(232, 246, 253, 0.9);
-  padding: 7px 9px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 8px 10px;
   color: var(--navy);
   font-size: 11px;
   font-weight: 900;
+  box-shadow: 0 12px 28px rgba(13, 30, 46, 0.16);
 }
 
 .plans-hero-photo-points svg {
@@ -17092,10 +17087,12 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plans-room-card {
   display: grid;
   gap: 16px;
+  overflow: hidden;
   border: 1px solid rgba(200, 220, 232, 0.95);
-  border-radius: 8px;
-  background: var(--white);
-  padding: 16px;
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 253, 255, 0.98));
+  padding: 0;
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
@@ -17107,11 +17104,61 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   box-shadow: 0 18px 48px rgba(13, 30, 46, 0.1);
 }
 
+.plans-room-card-media {
+  position: relative;
+  overflow: hidden;
+  height: clamp(118px, 14vw, 150px);
+  background: var(--light-blue);
+}
+
+.plans-room-card-media::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(9, 34, 53, 0.02), rgba(9, 34, 53, 0.18)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 48%);
+  content: '';
+}
+
+.plans-room-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.plans-room-card-media span {
+  position: absolute;
+  z-index: 1;
+  left: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--blue);
+  box-shadow: 0 14px 30px rgba(13, 30, 46, 0.14);
+  backdrop-filter: blur(10px);
+}
+
 .plans-room-card header {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 13px;
   align-items: start;
+  padding: 0 18px;
+}
+
+.plans-room-card-media + header {
+  margin-top: 0;
+}
+
+.plans-room-card header.has-room-media {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .plans-room-card header > span {
@@ -17166,6 +17213,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   gap: 14px;
   align-items: center;
   justify-content: space-between;
+  padding: 0 18px 18px;
 }
 
 .plans-room-card-footer strong,
@@ -17216,6 +17264,88 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   margin-top: 36px;
 }
 
+.plans-review-workspace .plans-modules-section {
+  margin-top: 0;
+}
+
+.plans-builder-continue {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  border: 1px solid rgba(125, 184, 65, 0.42);
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(244, 250, 238, 0.98), rgba(255, 255, 255, 0.98));
+  padding: clamp(14px, 2vw, 18px);
+  box-shadow: 0 16px 38px rgba(13, 30, 46, 0.06);
+}
+
+.plans-builder-continue span {
+  display: block;
+  color: #477d18;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plans-builder-continue strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--navy);
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.05;
+}
+
+.plans-builder-continue .btn {
+  min-width: 240px;
+}
+
+.plans-selected-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  border: 1px solid rgba(125, 184, 65, 0.38);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(244, 250, 238, 0.98), rgba(255, 255, 255, 0.98));
+  padding: 13px 15px;
+  box-shadow: 0 16px 38px rgba(13, 30, 46, 0.06);
+}
+
+.plans-selected-overview > span {
+  color: #477d18;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plans-selected-overview > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plans-selected-overview b {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(125, 184, 65, 0.34);
+  border-radius: 999px;
+  background: var(--white);
+  padding: 8px 12px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 950;
+  line-height: 1;
+}
+
 .plans-module-list {
   display: grid;
   gap: 18px;
@@ -17240,9 +17370,14 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plans-core-includes {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
+  gap: 10px;
+  margin-top: 16px;
   align-items: center;
+  border: 1px solid rgba(39, 154, 213, 0.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(233, 246, 253, 0.98) 0%, rgba(255, 255, 255, 0.96) 100%);
+  padding: 14px;
 }
 
 .plans-core-includes > strong {
@@ -17268,6 +17403,78 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
 .plans-core-includes svg {
   color: var(--green);
+}
+
+.plans-addons-drawer {
+  margin-top: 14px;
+  border: 1px dashed rgba(39, 154, 213, 0.35);
+  border-radius: 8px;
+  background: rgba(247, 251, 254, 0.72);
+  padding: 10px;
+}
+
+.plans-addons-drawer.is-open {
+  border-style: solid;
+  background: #fbfdff;
+}
+
+.plans-addons-drawer > p {
+  margin: 10px 4px 0;
+  max-width: 760px;
+  color: var(--text-mid);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.plans-addons-toggle {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--text-dark);
+  padding: 11px 14px;
+  box-shadow: 0 10px 30px rgba(13, 62, 86, 0.08);
+  cursor: pointer;
+}
+
+.plans-addons-toggle:hover,
+.plans-addons-toggle:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(39, 154, 213, 0.18),
+    0 12px 34px rgba(13, 62, 86, 0.12);
+}
+
+.plans-addons-toggle span {
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  min-width: 0;
+}
+
+.plans-addons-toggle svg {
+  color: var(--green);
+  flex: 0 0 auto;
+}
+
+.plans-addons-toggle strong {
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.plans-addons-toggle small {
+  border-radius: 999px;
+  background: var(--light-blue);
+  color: var(--blue);
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .plans-addon-grid {
@@ -17672,6 +17879,15 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
   .plans-addon-options {
     padding-left: 0;
+  }
+
+  .plans-builder-continue {
+    display: grid;
+  }
+
+  .plans-builder-continue .btn {
+    width: 100%;
+    min-width: 0;
   }
 
   .plans-review-cta .btn,
