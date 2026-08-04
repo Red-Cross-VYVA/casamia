@@ -46,13 +46,14 @@ export function getDefaultServiceCatalogue(): EditableServiceCatalogue {
 }
 
 function buildServiceCatalogueFromMaster(masterCatalogue?: MasterServiceCatalogue): EditableServiceCatalogue {
-  const masterRoomIds = getMasterRoomIds(masterCatalogue)
-  const masterServices = flattenMasterCatalogueForCompatibility(masterCatalogue)
+  const resolvedMasterCatalogue = masterCatalogue ?? getMasterServiceCatalogue()
+  const masterRoomIds = getMasterRoomIds(resolvedMasterCatalogue)
+  const masterServices = flattenMasterCatalogueForCompatibility(resolvedMasterCatalogue)
     .map(withLegacyServicePricing)
 
   return {
-    masterCatalogue,
-    packageConfigs: getDefaultPackageConfigs(masterCatalogue),
+    masterCatalogue: resolvedMasterCatalogue,
+    packageConfigs: getDefaultPackageConfigs(resolvedMasterCatalogue),
     services: [
       ...masterServices,
       ...clone(casaMiaServices)
@@ -514,7 +515,7 @@ export function getDefaultCatalogueSection(service: CasaMiaService): ServiceCata
 }
 
 function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | undefined): EditableServiceCatalogue {
-  const masterCatalogue = payload?.masterCatalogue
+  const masterCatalogue = payload?.masterCatalogue ?? getMasterServiceCatalogue()
   const defaults = buildServiceCatalogueFromMaster(masterCatalogue)
 
   return {

@@ -117,10 +117,20 @@ function jsonResponse(body, status = 200) {
 }
 
 {
+  globalThis.fetch = async () => {
+    throw new Error('Invalid proposal draft requests should be rejected before catalogue lookup.')
+  }
+
+  const response = makeResponse()
+  await publicProposalDraftHandler(makeRequest('POST', {}, false), response)
+
+  assert.equal(response.statusCode, 400)
+  assert.match(parsedBody(response).message, /Name and email are required/)
+}
+
+{
   globalThis.fetch = async (url, init) => {
-    assert.equal(init.method, 'GET')
-    assert.match(String(url), /service_catalogue\?id=eq\.default/)
-    return jsonResponse([{ payload_json: makePlansCataloguePayload() }])
+    throw new Error(`Consent validation should not require catalogue lookup: ${url} ${init?.method}`)
   }
 
   const response = makeResponse()
@@ -134,6 +144,47 @@ function jsonResponse(body, status = 200) {
 
   assert.equal(response.statusCode, 400)
   assert.match(parsedBody(response).message, /Consent is required/)
+}
+
+{
+  let submitted
+  globalThis.fetch = async (url, init) => {
+    const requestUrl = String(url)
+
+    if (requestUrl.includes('service_catalogue')) {
+      assert.equal(init.method, 'GET')
+      return jsonResponse([{ payload_json: { services: [{ active: true, id: 'legacy-bathroom', room: 'bathroom' }] } }])
+    }
+
+    if (requestUrl.includes('proposals?id=eq')) {
+      if (init.method === 'GET') return jsonResponse([])
+      if (init.method === 'PATCH') {
+        const deliveryPatch = JSON.parse(String(init.body))
+        return jsonResponse([{ ...submitted, payload_json: { ...submitted.payload_json, ...deliveryPatch.payload_json } }])
+      }
+    }
+
+    assert.match(requestUrl, /proposals\?on_conflict=id/)
+    submitted = JSON.parse(String(init.body))
+    return jsonResponse([{ ...submitted }])
+  }
+
+  const response = makeResponse()
+  await publicProposalDraftHandler(makeRequest('POST', {
+    catalogueSnapshot: makePlansCataloguePayload(),
+    consent: true,
+    customer: { email: 'ana@example.com', name: 'Ana Lopez' },
+    language: 'en',
+    selection: {
+      'bath-core-package': { addOnOutcomeIds: [], quantity: 1, selected: true },
+    },
+  }, false), response)
+
+  const body = parsedBody(response)
+  assert.equal(response.statusCode, 200)
+  assert.equal(submitted.payload_json.plans_builder.catalogue_source, 'client-snapshot-fallback')
+  assert.equal(submitted.payload_json.total_estimate, 121)
+  assert.match(body.publicToken, /^[A-Za-z0-9_-]{20,128}$/)
 }
 
 {
@@ -165,8 +216,11 @@ function jsonResponse(body, status = 200) {
     }
 
     if (requestUrl.includes('proposals?id=eq')) {
-      assert.equal(init.method, 'GET')
-      return jsonResponse([])
+      if (init.method === 'GET') return jsonResponse([])
+      if (init.method === 'PATCH') {
+        const deliveryPatch = JSON.parse(String(init.body))
+        return jsonResponse([{ ...submitted, payload_json: { ...submitted.payload_json, ...deliveryPatch.payload_json } }])
+      }
     }
 
     assert.match(requestUrl, /proposals\?on_conflict=id/)
@@ -195,14 +249,14 @@ function jsonResponse(body, status = 200) {
 
   const body = parsedBody(response)
   assert.equal(response.statusCode, 200)
-  assert.equal(submitted.status, 'Draft')
+  assert.equal(submitted.status, 'Sent')
   assert.equal(submitted.total_estimate, 364, 'Public draft totals must be recalculated server-side.')
   assert.equal(submitted.payload_json.total_estimate, 364)
-  assert.equal(submitted.payload_json.acceptance_status, 'Not Sent')
+  assert.equal(submitted.payload_json.acceptance_status, 'Sent')
   assert.equal(submitted.payload_json.plans_builder.recurring_monthly_estimate, 24)
   assert.deepEqual(submitted.payload_json.plans_builder.review_items, ['Shower entry review'])
   assert.match(body.publicToken, /^[A-Za-z0-9_-]{20,128}$/)
-  assert.equal(body.proposal.status, 'Draft')
+  assert.equal(body.proposal.status, 'Sent')
   assert.equal(body.publicUrl, `/proposal/${body.publicToken}`)
 }
 
@@ -233,7 +287,7 @@ function jsonResponse(body, status = 200) {
   const response = makeResponse()
   await publicProposalAcceptHandler(request, response)
   assert.equal(response.statusCode, 409)
-  assert.match(parsedBody(response).message, /pending CasaMia review/)
+  assert.match(parsedBody(response).message, /not ready for online acceptance/)
 }
 
 {

@@ -8,6 +8,11 @@ import {
 } from '../src/services/plansBuilderPricing.ts'
 
 const defaultCatalogue = getDefaultServiceCatalogue()
+assert.ok(defaultCatalogue.masterCatalogue, 'Default service catalogue must include the master catalogue snapshot.')
+assert.ok(
+  defaultCatalogue.masterCatalogue.packages.length > 0,
+  'Default service catalogue snapshot must include master packages for proposal fallback.',
+)
 const defaultGroups = buildPlansBuilderGroups(defaultCatalogue, 'en', { publicOnly: true })
 const bathroomGroup = defaultGroups.find((group) => group.room.id === 'bathroom')
 const bedroomGroup = defaultGroups.find((group) => group.room.id === 'bedroom')

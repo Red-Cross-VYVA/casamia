@@ -23,6 +23,13 @@ export default async function handler(request, response) {
 
   try {
     const body = await readJsonBody(request)
+    const basicError = validateDraftBodyBasics(body)
+
+    if (basicError) {
+      sendJson(response, basicError.status, basicError.body)
+      return
+    }
+
     const catalogueResult = await selectSupabaseRows(
       'service_catalogue',
       `id=eq.${encodeURIComponent(catalogueRowId)}&select=id,updated_at,payload_json&limit=1`,
@@ -53,7 +60,10 @@ export default async function handler(request, response) {
     }
 
     if (!draft.ok) {
-      sendJson(response, draft.status, draft.body)
+      sendJson(response, draft.status, withCatalogueDiagnostics(draft, {
+        clientSnapshot: body?.catalogueSnapshot,
+        supabaseCatalogue: catalogueRecord?.payload_json,
+      }))
       return
     }
 
@@ -136,4 +146,68 @@ export default async function handler(request, response) {
       message: error instanceof Error ? error.message : 'Invalid proposal draft request.',
     })
   }
+}
+
+function validateDraftBodyBasics(body) {
+  if (hasHoneypotValue(body)) {
+    return {
+      body: { message: 'Invalid request.' },
+      status: 400,
+    }
+  }
+
+  const customer = body?.customer
+
+  if (!text(customer?.name) || !text(customer?.email)) {
+    return {
+      body: { message: 'Name and email are required to create a proposal.' },
+      status: 400,
+    }
+  }
+
+  if (body?.consent !== true) {
+    return {
+      body: { message: 'Consent is required to create a proposal.' },
+      status: 400,
+    }
+  }
+
+  return null
+}
+
+function withCatalogueDiagnostics(draft, sources) {
+  if (draft.status !== 503) {
+    return draft.body
+  }
+
+  return {
+    ...draft.body,
+    code: 'SERVICE_CATALOGUE_NOT_READY',
+    details: {
+      clientSnapshot: catalogueShape(sources.clientSnapshot),
+      required: 'masterCatalogue.rooms, masterCatalogue.packages, masterCatalogue.outcomes and masterCatalogue.relations',
+      supabaseCatalogue: catalogueShape(sources.supabaseCatalogue),
+    },
+  }
+}
+
+function catalogueShape(payload) {
+  const masterCatalogue = payload?.masterCatalogue ?? payload
+
+  return {
+    hasMasterCatalogue: Boolean(payload?.masterCatalogue),
+    outcomes: Array.isArray(masterCatalogue?.outcomes) ? masterCatalogue.outcomes.length : 0,
+    packages: Array.isArray(masterCatalogue?.packages) ? masterCatalogue.packages.length : 0,
+    relations: Array.isArray(masterCatalogue?.relations) ? masterCatalogue.relations.length : 0,
+    rooms: Array.isArray(masterCatalogue?.rooms) ? masterCatalogue.rooms.length : 0,
+    services: Array.isArray(payload?.services) ? payload.services.length : 0,
+  }
+}
+
+function hasHoneypotValue(body) {
+  return Boolean(text(body?.companyWebsite) || text(body?.website))
+}
+
+function text(value) {
+  return typeof value === 'string' ? value.trim() : ''
 }
