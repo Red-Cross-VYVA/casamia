@@ -190,11 +190,16 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewStepIntro: 'Check quantities, included core items and optional add-ons before adding your details.',
     reviewStepTitle: 'Review your selected packages',
     roomDescriptions: {
-      bathroom: 'Shower, WC, wet floors.',
-      bedroom: 'Bed, night route, lighting.',
-      entrance: 'Steps, thresholds, door.',
-      kitchen: 'Reach, cooking, visibility.',
-      'living-room': 'Seating, cables, movement.',
+      bathroom:
+        'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes practical fixes such as grab bars, seating, anti-slip treatment, lever controls and water-temperature safety where suitable.',
+      bedroom:
+        'Focuses on getting in and out of bed, moving safely at night and keeping daily routines calm. Combines bed transfer support, better lighting, clearer routes, furniture positioning and fire-safety basics.',
+      entrance:
+        'Makes the first and last steps of the day safer: thresholds, handrails, lighting, door hardware and visitor awareness. Useful for steps, mats, locks and seeing who is at the door before opening.',
+      kitchen:
+        'Designed for safer cooking without unnecessary strain: easier food preparation, safer reach, better visibility and clearer movement. Adds selected smoke or leak alerts and safer controls where useful.',
+      'living-room':
+        'Supports the room people use most for sitting, standing, relaxing and moving around. Addresses rugs, cables, unstable furniture, seating support and clearer circulation without making the space clinical.',
     },
     rooms: [
       { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
@@ -285,11 +290,16 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewStepIntro: 'Revisa cantidades, elementos incluidos y extras opcionales antes de añadir tus datos.',
     reviewStepTitle: 'Revisa tus paquetes seleccionados',
     roomDescriptions: {
-      bathroom: 'Ducha, WC, suelo mojado.',
-      bedroom: 'Cama, ruta nocturna, luz.',
-      entrance: 'Escalones, umbrales, puerta.',
-      kitchen: 'Alcance, cocina, visibilidad.',
-      'living-room': 'Asientos, cables, paso.',
+      bathroom:
+        'Cubre ducha, transferencias al WC, agarre en suelo mojado, acceso seguro y visibilidad nocturna. Incluye soluciones como barras, asiento, tratamiento antideslizante, mandos de palanca y seguridad de temperatura cuando encaje.',
+      bedroom:
+        'Pensado para entrar y salir de la cama, moverse de noche y mantener rutinas tranquilas. Combina apoyo para transferencias, mejor iluminación, rutas despejadas, distribución del mobiliario y seguridad básica contra incendios.',
+      entrance:
+        'Hace más seguros los primeros y últimos pasos del día: umbrales, pasamanos, iluminación, herrajes de puerta y control de visitas. Útil para escalones, felpudos, cerraduras y ver quién llama antes de abrir.',
+      kitchen:
+        'Diseñado para cocinar con menos esfuerzo y más seguridad: preparación más fácil, mejor alcance, más visibilidad y movimiento despejado. Añade avisos seleccionados de humo o fugas y controles más seguros cuando aporten valor.',
+      'living-room':
+        'Refuerza la estancia donde más se descansa, se camina y se convive. Atiende alfombras, cables, muebles inestables, apoyo para sentarse y levantarse, y rutas más claras sin convertir el salón en un espacio clínico.',
     },
     rooms: [
       { title: 'Baño', body: 'Ducha, transferencias al WC, suelo mojado y acceso seguro.' },
@@ -635,6 +645,36 @@ export function PlansPage() {
       roomLabel: group.roomLabel,
     }
   })
+  const selectedAddOnCount = selectedPlanDetails.reduce((sum, detail) => sum + detail.addOns.length, 0)
+  const selectedIncludedCount = selectedPlanDetails.reduce(
+    (sum, detail) => sum + detail.included.length + detail.includedMore,
+    0,
+  )
+  const summaryScopeCopy = language === 'es'
+    ? {
+        addOns: 'Extras',
+        addOnsEmpty: 'Separados',
+        estimateLabel: 'Total estimado',
+        estimateNote: 'IVA incluido. Calculado con las estancias, cantidades y extras seleccionados.',
+        includedItems: 'elementos incluidos',
+        packageEstimate: 'Estimación del paquete',
+        packages: 'Paquetes',
+        readyLead: 'Tu enlace de propuesta está listo. Revisa el alcance elegido antes de abrirlo o compartirlo.',
+        rooms: 'Estancias',
+        selectedScope: 'Alcance elegido',
+      }
+    : {
+        addOns: 'Add-ons',
+        addOnsEmpty: 'Separate',
+        estimateLabel: 'Estimated total',
+        estimateNote: 'VAT included. Calculated from the selected rooms, quantities and add-ons.',
+        includedItems: 'included items',
+        packageEstimate: 'Package estimate',
+        packages: 'Packages',
+        readyLead: 'Your proposal link is ready. Review the selected scope before opening or sharing it.',
+        rooms: 'Rooms',
+        selectedScope: 'Selected scope',
+      }
 
   useEffect(() => {
     if (Object.keys(selection).length || !groups.length) {
@@ -1279,7 +1319,7 @@ export function PlansPage() {
           </div>
 
           <aside className="plans-hero-photo-card" aria-label={copy.heroReviewEyebrow}>
-            <img src="/images/solutions/casamia-staff-kitchen-consultation.webp" alt={copy.heroPhotoAlt} />
+            <img src="/images/solutions/portrait-senior-couple-dancing-together.webp" alt={copy.heroPhotoAlt} />
           </aside>
         </div>
       </section>
@@ -1347,19 +1387,19 @@ export function PlansPage() {
                       <div>
                         <h3>{group.roomLabel}</h3>
                         <p>{copy.roomDescriptions[group.room.id] ?? group.packageDescription}</p>
+                      </div>
+                    </header>
+                    <div className="plans-room-card-footer">
+                      <div>
+                        <strong>{copy.coreIncluded}</strong>
                         <button
                           className="plans-detail-link"
                           type="button"
                           onClick={() => openRoomPackageDetails(group)}
                         >
                           {copy.viewDetails}
+                          <ArrowRight size={14} aria-hidden="true" />
                         </button>
-                      </div>
-                    </header>
-                    <div className="plans-room-card-footer">
-                      <div>
-                        <strong>{copy.coreIncluded}</strong>
-                        <small>{quantity > 0 ? copy.selectedPackages : copy.packageDetails}</small>
                       </div>
                       <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${group.roomLabel}`}>
                         <button type="button" onClick={() => updateRoomQuantity(group, quantity - 1)}>
@@ -1586,9 +1626,35 @@ export function PlansPage() {
         ) : (
           <div className="site-shell plans-contact-layout">
             <aside className="plans-contact-summary" aria-label={copy.estimateTitle}>
-              <p className="section-kicker">{proposalReady ? copy.estimateTitle : copy.selectedPackages}</p>
-              <h2>{proposalReady ? formatPlansEstimateLabel(estimate, language) : selectedCountLabel}</h2>
-              <small>{proposalReady ? copy.estimateLead : copy.contactIntro}</small>
+              <p className="section-kicker">{proposalReady ? summaryScopeCopy.selectedScope : copy.selectedPackages}</p>
+              <h2>{selectedCountLabel}</h2>
+              <small>{proposalReady ? summaryScopeCopy.readyLead : copy.contactIntro}</small>
+
+              <div className="plans-summary-scope-grid" aria-label={summaryScopeCopy.selectedScope}>
+                <div>
+                  <span>{summaryScopeCopy.rooms}</span>
+                  <strong>{selectedGroups.length}</strong>
+                  <small>{selectedSummary.slice(0, 2).join(' · ') || copy.summaryEmptyRooms}</small>
+                </div>
+                <div>
+                  <span>{summaryScopeCopy.packages}</span>
+                  <strong>{estimate.selectedRoomQuantity}</strong>
+                  <small>{selectedIncludedCount} {summaryScopeCopy.includedItems}</small>
+                </div>
+                <div>
+                  <span>{summaryScopeCopy.addOns}</span>
+                  <strong>{selectedAddOnCount || 0}</strong>
+                  <small>{selectedAddOnCount ? copy.selectedAddOnsLabel : summaryScopeCopy.addOnsEmpty}</small>
+                </div>
+              </div>
+
+              {proposalReady ? (
+                <div className="plans-summary-estimate-card">
+                  <span>{summaryScopeCopy.estimateLabel}</span>
+                  <strong>{formatPlansEstimateLabel(estimate, language)}</strong>
+                  <small>{summaryScopeCopy.estimateNote}</small>
+                </div>
+              ) : null}
 
               <div className="plans-summary-block">
                 <span>{copy.summaryRoomsTitle}</span>
@@ -1611,9 +1677,6 @@ export function PlansPage() {
                             <small>{detail.roomLabel}</small>
                             <h3>{detail.packageLabel}</h3>
                           </div>
-                          {proposalReady && detail.lineTotal > 0 ? (
-                            <b>{formatPlansCurrency(detail.lineTotal, language)}</b>
-                          ) : null}
                         </div>
                         <p>{detail.description}</p>
                         <div className="plans-detail-summary-chips">
@@ -1636,6 +1699,12 @@ export function PlansPage() {
                                 {addOn.items.length ? <small>{addOn.items.join(' · ')}</small> : null}
                               </div>
                             ))}
+                          </div>
+                        ) : null}
+                        {proposalReady && detail.lineTotal > 0 ? (
+                          <div className="plans-detail-summary-total">
+                            <span>{summaryScopeCopy.packageEstimate}</span>
+                            <b>{formatPlansCurrency(detail.lineTotal, language)}</b>
                           </div>
                         ) : null}
                       </article>
