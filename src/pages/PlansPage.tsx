@@ -468,18 +468,21 @@ export function PlansPage() {
           heroReviewEyebrow: 'Propuesta al instante',
           heroReviewPoints: ['Plan por paquetes', 'Siguientes pasos claros'],
           heroReviewTitle: 'Tu propuesta se genera al instante.',
-          heroSignals: ['Elige estancias', 'Elementos base incluidos', 'Extras opcionales separados'],
+          builderEyebrow: 'Plan CasaMia',
+          heroSignals: ['Paquetes por estancia', 'Esenciales incluidos', 'Extras opcionales'],
+          popularTitle: 'Puntos de partida',
           presets: [
-            { id: 'focused', title: 'Baño primero', body: '1 paquete de baño' },
+            { id: 'focused', title: 'Baño primero', body: 'Para la zona más delicada' },
             { id: 'daily', title: 'Rutina diaria', body: 'Baño + dormitorio' },
-            { id: 'wholeHome', title: 'Plan completo', body: '2 baños + 2 dormitorios' },
+            { id: 'wholeHome', title: 'Plan vivienda', body: 'Varias estancias clave' },
           ],
           reviewRequired: 'Requiere presupuesto',
           reviewCtaBody: 'En el siguiente paso compartes tus datos. Tu propuesta se genera al instante con los paquetes, cantidades y extras elegidos.',
           reviewCtaTitle: '¿Listo para generar tu propuesta?',
           summaryModulesTitle: 'Detalle del plan',
           summaryNextBody: 'Tu propuesta se genera a partir de los paquetes, cantidades y extras elegidos.',
-          subtitle: 'Elige las estancias que necesitan apoyo, añade extras opcionales solo donde aporten valor y recibe una propuesta clara cuando tus datos estén capturados.',
+          subtitle: 'Elige estancias, ajusta cantidades y añade solo los extras que aporten valor. Recibe una propuesta CasaMia clara al instante.',
+          title: 'Crea tu plan CasaMia.',
           seeDraft: 'Abrir propuesta',
         }
       : {
@@ -504,18 +507,21 @@ export function PlansPage() {
           heroReviewEyebrow: 'Instant proposal',
           heroReviewPoints: ['Package-led plan', 'Clear next steps'],
           heroReviewTitle: 'Your proposal is generated instantly.',
-          heroSignals: ['Choose rooms', 'Core items included', 'Optional add-ons separate'],
+          builderEyebrow: 'CasaMia plan',
+          heroSignals: ['Room packages', 'Essentials included', 'Optional extras'],
+          popularTitle: 'Suggested starts',
           presets: [
-            { id: 'focused', title: 'Bathroom first', body: '1 bathroom package' },
+            { id: 'focused', title: 'Bathroom focus', body: 'Start with the most delicate room' },
             { id: 'daily', title: 'Daily routine', body: 'Bathroom + bedroom' },
-            { id: 'wholeHome', title: 'Whole-home plan', body: '2 bathrooms + 2 bedrooms' },
+            { id: 'wholeHome', title: 'Whole-home start', body: 'Several key rooms together' },
           ],
           reviewRequired: 'Needs quote',
           reviewCtaBody: 'Next, share contact details. Your proposal is generated instantly from the packages, quantities and add-ons you selected.',
           reviewCtaTitle: 'Ready to generate your proposal?',
           summaryModulesTitle: 'Plan details',
           summaryNextBody: 'Your proposal is generated from the selected packages, quantities and add-ons.',
-          subtitle: 'Pick the rooms that need support, choose optional add-ons only where useful, and receive a clear proposal once your details are captured.',
+          subtitle: 'Choose the rooms, set quantities and add only the extras that matter. Get a clear CasaMia proposal instantly.',
+          title: 'Build your CasaMia plan.',
           seeDraft: 'Open proposal',
         }),
   }), [baseCopy, language])
@@ -1259,14 +1265,6 @@ export function PlansPage() {
             <p className="section-kicker">{copy.builderEyebrow}</p>
             <h1>{copy.title}</h1>
             <p>{copy.subtitle}</p>
-            <div className="plans-hero-signals" aria-label={language === 'es' ? 'Ventajas del plan' : 'Plan benefits'}>
-              {copy.heroSignals.map((signal) => (
-                <span key={signal}>
-                  <CheckCircle2 size={15} aria-hidden="true" />
-                  {signal}
-                </span>
-              ))}
-            </div>
             <div className="plans-preset-panel" aria-label={copy.popularTitle}>
               <span>{copy.popularTitle}</span>
               <div>
@@ -1282,20 +1280,6 @@ export function PlansPage() {
 
           <aside className="plans-hero-photo-card" aria-label={copy.heroReviewEyebrow}>
             <img src="/images/solutions/casamia-staff-kitchen-consultation.webp" alt={copy.heroPhotoAlt} />
-            <div className="plans-hero-photo-copy">
-              <span className="plans-hero-photo-badge">
-                <Sparkles size={15} aria-hidden="true" />
-                {copy.heroReviewEyebrow}
-              </span>
-              <div className="plans-hero-photo-points" aria-label={copy.heroReviewEyebrow}>
-                {copy.heroReviewPoints.map((point) => (
-                  <span key={point}>
-                    <CheckCircle2 size={15} aria-hidden="true" />
-                    {point}
-                  </span>
-                ))}
-              </div>
-            </div>
           </aside>
         </div>
       </section>
