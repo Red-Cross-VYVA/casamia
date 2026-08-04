@@ -35,7 +35,7 @@ import {
   type PlansBuilderGroup,
   type PlansBuilderSelectionState,
 } from '../services/plansBuilderPricing'
-import { createPublicProposalDraft } from '../services/proposalsApi'
+import { createPublicProposalDraft, type PublicProposalDraftResponse } from '../services/proposalsApi'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import type { MasterCatalogueOutcome } from '../types/serviceCatalogue'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
@@ -392,6 +392,53 @@ function getDetectedAddress(data: ReverseGeocodeResult, latitude: number, longit
   }
 }
 
+function getEmailDeliveryMessage(
+  emailDelivery: PublicProposalDraftResponse['emailDelivery'] | null,
+  language: 'en' | 'es',
+) {
+  const status = emailDelivery?.status
+
+  if (!status || status === 'sent') {
+    return ''
+  }
+
+  const isSpanish = language === 'es'
+
+  if (status === 'not_configured') {
+    return isSpanish
+      ? 'La propuesta se ha creado, pero el envío por email no está configurado en este despliegue.'
+      : 'The proposal was created, but email delivery is not configured on this deployment.'
+  }
+
+  if (status === 'recipient_missing') {
+    return isSpanish
+      ? 'La propuesta se ha creado, pero falta el email del cliente para enviarla.'
+      : 'The proposal was created, but the customer email is missing.'
+  }
+
+  if (status === 'proposal_url_missing') {
+    return isSpanish
+      ? 'La propuesta se ha creado, pero falta el enlace público para enviarla por email.'
+      : 'The proposal was created, but the public proposal link is missing.'
+  }
+
+  if (status === 'failed') {
+    return isSpanish
+      ? 'La propuesta se ha creado, pero el proveedor de email no la ha aceptado. Revisa la configuración del remitente/dominio.'
+      : 'The proposal was created, but the email provider did not accept the send. Check sender/domain setup.'
+  }
+
+  if (status === 'local_demo') {
+    return isSpanish
+      ? 'Modo local: la propuesta se crea aquí, pero el email solo se envía desde producción.'
+      : 'Local mode: the proposal is created here, but email only sends from production.'
+  }
+
+  return isSpanish
+    ? `La propuesta se ha creado, pero el email no se ha confirmado. Estado: ${status}.`
+    : `The proposal was created, but email delivery was not confirmed. Status: ${status}.`
+}
+
 export function PlansPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
@@ -481,7 +528,7 @@ export function PlansPage() {
   const [expandedAddOns, setExpandedAddOns] = useState<Record<string, boolean>>({})
   const [activeDetail, setActiveDetail] = useState<PlansDetail | null>(null)
   const [draftUrl, setDraftUrl] = useState('')
-  const [emailDeliveryStatus, setEmailDeliveryStatus] = useState('')
+  const [emailDelivery, setEmailDelivery] = useState<PublicProposalDraftResponse['emailDelivery'] | null>(null)
   const [error, setError] = useState('')
   const [isDetectingLocation, setIsDetectingLocation] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -512,9 +559,20 @@ export function PlansPage() {
   const locationUnavailableMessage = language === 'es'
     ? 'No pudimos detectar la ubicación. Puedes escribirla manualmente.'
     : 'We could not detect the location. You can enter it manually.'
+  const locationPermissionMessage = language === 'es'
+    ? 'El navegador no tiene permiso para usar tu ubicación. Actívalo en los permisos del sitio o escribe la dirección manualmente.'
+    : 'The browser does not have permission to use your location. Enable it in site permissions or enter the address manually.'
+  const locationRetryMessage = language === 'es'
+    ? 'Estamos probando una detección menos precisa...'
+    : 'Trying a less precise location check...'
+  const locationTimeoutMessage = language === 'es'
+    ? 'La detección tardó demasiado. Puedes intentarlo de nuevo o escribir la dirección manualmente.'
+    : 'Location detection took too long. You can try again or enter the address manually.'
   const locationUnsupportedMessage = language === 'es'
     ? 'Tu navegador no permite detectar ubicación aquí.'
     : 'Your browser does not support location detection here.'
+  const emailDeliveryStatus = emailDelivery?.status ?? ''
+  const emailDeliveryMessage = getEmailDeliveryMessage(emailDelivery, language)
   const estimate = useMemo(
     () => calculatePlansBuilderEstimate(groups, selection, language),
     [groups, language, selection],
@@ -752,7 +810,59 @@ export function PlansPage() {
     return Object.keys(nextErrors).length === 0
   }
 
-  function detectLocation() {
+  function requestBrowserPosition(options: PositionOptions) {
+    return new Promise<GeolocationPosition>((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    })
+  }
+
+  function getLocationErrorMessage(error: unknown) {
+    if (typeof GeolocationPositionError !== 'undefined' && error instanceof GeolocationPositionError) {
+      if (error.code === error.PERMISSION_DENIED) {
+        return locationPermissionMessage
+      }
+
+      if (error.code === error.TIMEOUT) {
+        return locationTimeoutMessage
+      }
+    }
+
+    return locationUnavailableMessage
+  }
+
+  async function applyDetectedPosition(position: GeolocationPosition) {
+    const { coords } = position
+    const coordinates = `${coords.latitude.toFixed(5)}, ${coords.longitude.toFixed(5)}`
+
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&lat=${coords.latitude}&lon=${coords.longitude}&accept-language=${language}`,
+      )
+
+      if (!response.ok) {
+        throw new Error('Reverse geocode failed')
+      }
+
+      const data = await response.json() as ReverseGeocodeResult
+      const detected = getDetectedAddress(data, coords.latitude, coords.longitude)
+
+      setCustomer((current) => ({
+        ...current,
+        address: detected.address || current.address || coordinates,
+        area: detected.area || current.area || coordinates,
+      }))
+      setLocationStatus(locationDetectedMessage)
+    } catch {
+      setCustomer((current) => ({
+        ...current,
+        address: current.address || coordinates,
+        area: current.area || coordinates,
+      }))
+      setLocationStatus(locationFallbackMessage)
+    }
+  }
+
+  async function detectLocation() {
     if (!navigator.geolocation) {
       setFormErrors((current) => ({ ...current, location: locationUnsupportedMessage }))
       return
@@ -762,45 +872,28 @@ export function PlansPage() {
     setLocationStatus('')
     clearFormError('location')
 
-    navigator.geolocation.getCurrentPosition(
-      async ({ coords }) => {
-        const coordinates = `${coords.latitude.toFixed(5)}, ${coords.longitude.toFixed(5)}`
+    try {
+      let position: GeolocationPosition
 
-        try {
-          const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&lat=${coords.latitude}&lon=${coords.longitude}&accept-language=${language}`,
-          )
-
-          if (!response.ok) {
-            throw new Error('Reverse geocode failed')
-          }
-
-          const data = await response.json() as ReverseGeocodeResult
-          const detected = getDetectedAddress(data, coords.latitude, coords.longitude)
-
-          setCustomer((current) => ({
-            ...current,
-            address: detected.address || current.address || coordinates,
-            area: detected.area || current.area || coordinates,
-          }))
-          setLocationStatus(locationDetectedMessage)
-        } catch {
-          setCustomer((current) => ({
-            ...current,
-            address: current.address || coordinates,
-            area: current.area || coordinates,
-          }))
-          setLocationStatus(locationFallbackMessage)
-        } finally {
-          setIsDetectingLocation(false)
+      try {
+        position = await requestBrowserPosition({ enableHighAccuracy: true, maximumAge: 60000, timeout: 8000 })
+      } catch (error) {
+        if (typeof GeolocationPositionError !== 'undefined'
+          && error instanceof GeolocationPositionError
+          && error.code !== error.PERMISSION_DENIED) {
+          setLocationStatus(locationRetryMessage)
+          position = await requestBrowserPosition({ enableHighAccuracy: false, maximumAge: 300000, timeout: 10000 })
+        } else {
+          throw error
         }
-      },
-      () => {
-        setFormErrors((current) => ({ ...current, location: locationUnavailableMessage }))
-        setIsDetectingLocation(false)
-      },
-      { enableHighAccuracy: true, maximumAge: 60000, timeout: 12000 },
-    )
+      }
+
+      await applyDetectedPosition(position)
+    } catch (error) {
+      setFormErrors((current) => ({ ...current, location: getLocationErrorMessage(error) }))
+    } finally {
+      setIsDetectingLocation(false)
+    }
   }
 
   function updateRoomQuantity(group: PlansBuilderGroup, quantity: number) {
@@ -1001,7 +1094,7 @@ export function PlansPage() {
     event.preventDefault()
     setError('')
     setDraftUrl('')
-    setEmailDeliveryStatus('')
+    setEmailDelivery(null)
 
     if (!estimate.proposalLineItems.length) {
       setError(copy.noSelection)
@@ -1030,7 +1123,7 @@ export function PlansPage() {
       }, catalogue)
       const publicUrl = new URL(result.publicUrl || `/proposal/${result.publicToken}`, window.location.origin)
       setDraftUrl(publicUrl.toString())
-      setEmailDeliveryStatus(result.emailDelivery?.status ?? '')
+      setEmailDelivery(result.emailDelivery ?? null)
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : copy.finalReview)
     } finally {
@@ -1141,6 +1234,7 @@ export function PlansPage() {
                 : 'Proposal created and sent by email. You can also open it here.'
               : copy.draftCreated}
           </p>
+          {emailDeliveryMessage ? <p className="plans-email-delivery-note">{emailDeliveryMessage}</p> : null}
           <Link to={new URL(draftUrl).pathname}>
             {copy.seeDraft}
             <ArrowRight size={16} aria-hidden="true" />

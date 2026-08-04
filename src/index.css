@@ -17876,6 +17876,14 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   text-decoration: none;
 }
 
+.plans-email-delivery-note {
+  grid-column: 2;
+  margin: 0;
+  color: #9d5b12;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 @media (min-width: 860px) {
   .plans-builder-hero {
     grid-template-columns: minmax(0, 0.95fr) minmax(420px, 0.72fr);
