@@ -9,6 +9,7 @@ import {
   FileText,
   Home,
   Loader2,
+  MapPin,
   Minus,
   Plus,
   Sparkles,
@@ -20,6 +21,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { PhoneNumberField } from '../components/PhoneNumberField'
 import { SEO } from '../components/SEO'
 import {
   buildPlansBuilderGroups,
@@ -36,6 +38,7 @@ import {
 import { createPublicProposalDraft } from '../services/proposalsApi'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import type { MasterCatalogueOutcome } from '../types/serviceCatalogue'
+import { isValidSpanishPhoneNumber } from '../utils/phone'
 
 type PlansCopy = {
   addModule: string
@@ -114,6 +117,8 @@ type PlansCopy = {
 type PlansPresetId = 'focused' | 'daily' | 'wholeHome'
 
 type PlansStep = 'builder' | 'review' | 'contact'
+
+type PlansFormErrors = Partial<Record<'name' | 'email' | 'phone' | 'consent' | 'location', string>>
 
 type PlansDetail = {
   body: string
@@ -352,6 +357,41 @@ const emptyCustomerForm: CustomerForm = {
   website: '',
 }
 
+type ReverseGeocodeResult = {
+  address?: {
+    city?: string
+    house_number?: string
+    municipality?: string
+    postcode?: string
+    province?: string
+    road?: string
+    state?: string
+    town?: string
+    village?: string
+  }
+  display_name?: string
+  name?: string
+}
+
+function isValidEmailAddress(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+}
+
+function getDetectedAddress(data: ReverseGeocodeResult, latitude: number, longitude: number) {
+  const address = data.address ?? {}
+  const locality = address.city ?? address.town ?? address.village ?? address.municipality ?? ''
+  const region = address.province ?? address.state ?? ''
+  const area = [locality, region].filter(Boolean).join(', ')
+  const street = [address.road, address.house_number].filter(Boolean).join(' ')
+  const detectedAddress = [street || data.name, address.postcode, locality || region].filter(Boolean).join(', ')
+  const coordinates = `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`
+
+  return {
+    address: detectedAddress || data.display_name || coordinates,
+    area: area || data.name || data.display_name?.split(',').slice(0, 2).join(', ') || coordinates,
+  }
+}
+
 export function PlansPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
@@ -436,15 +476,45 @@ export function PlansPage() {
   const groups = useMemo(() => buildPlansBuilderGroups(catalogue, language), [catalogue, language])
   const [selection, setSelection] = useState<PlansBuilderSelectionState>({})
   const [customer, setCustomer] = useState<CustomerForm>(emptyCustomerForm)
+  const [formErrors, setFormErrors] = useState<PlansFormErrors>({})
   const [step, setStep] = useState<PlansStep>('builder')
   const [expandedAddOns, setExpandedAddOns] = useState<Record<string, boolean>>({})
   const [activeDetail, setActiveDetail] = useState<PlansDetail | null>(null)
   const [draftUrl, setDraftUrl] = useState('')
   const [emailDeliveryStatus, setEmailDeliveryStatus] = useState('')
   const [error, setError] = useState('')
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [locationStatus, setLocationStatus] = useState('')
   const siteUrl = 'https://www.casamia.com.es'
   const seoDescription = copy.subtitle
+  const requiredFieldError = language === 'es' ? 'Este campo es obligatorio.' : 'This field is required.'
+  const consentFieldError = language === 'es'
+    ? 'Acepta el contacto para generar la propuesta.'
+    : 'Please accept contact consent to generate the proposal.'
+  const emailFormatError = language === 'es'
+    ? 'Introduce un email válido, por ejemplo nombre@email.com.'
+    : 'Enter a valid email address, for example name@email.com.'
+  const phoneFormatError = language === 'es'
+    ? 'Introduce un teléfono español válido de 9 dígitos.'
+    : 'Enter a valid Spanish phone number with 9 digits.'
+  const phoneHelp = language === 'es'
+    ? 'Número español, 9 dígitos. Ejemplo: +34 600 000 000'
+    : 'Spanish number, 9 digits. Example: +34 600 000 000'
+  const detectLocationLabel = language === 'es' ? 'Detectar ubicación' : 'Detect location'
+  const detectingLocationLabel = language === 'es' ? 'Detectando...' : 'Detecting...'
+  const locationDetectedMessage = language === 'es'
+    ? 'Ubicación detectada. Revisa o completa el número de portal si hace falta.'
+    : 'Location detected. Check or complete the street number if needed.'
+  const locationFallbackMessage = language === 'es'
+    ? 'Ubicación detectada con coordenadas. Completa la dirección exacta si hace falta.'
+    : 'Location detected by coordinates. Complete the exact address if needed.'
+  const locationUnavailableMessage = language === 'es'
+    ? 'No pudimos detectar la ubicación. Puedes escribirla manualmente.'
+    : 'We could not detect the location. You can enter it manually.'
+  const locationUnsupportedMessage = language === 'es'
+    ? 'Tu navegador no permite detectar ubicación aquí.'
+    : 'Your browser does not support location detection here.'
   const estimate = useMemo(
     () => calculatePlansBuilderEstimate(groups, selection, language),
     [groups, language, selection],
@@ -596,6 +666,142 @@ export function PlansPage() {
     }),
     [copy, language, seoDescription],
   )
+
+  function clearFormError(field: keyof PlansFormErrors) {
+    setFormErrors((current) => {
+      if (!current[field]) {
+        return current
+      }
+
+      const next = { ...current }
+      delete next[field]
+      return next
+    })
+  }
+
+  function updateCustomerField<K extends keyof CustomerForm>(field: K, value: CustomerForm[K]) {
+    setCustomer((current) => ({ ...current, [field]: value }))
+    setError('')
+
+    if (field === 'name' || field === 'email' || field === 'phone' || field === 'consent') {
+      clearFormError(field)
+    }
+
+    if (field === 'area' || field === 'address') {
+      clearFormError('location')
+      setLocationStatus('')
+    }
+  }
+
+  function validateEmailField(value = customer.email) {
+    const email = value.trim()
+    const message = !email ? requiredFieldError : isValidEmailAddress(email) ? '' : emailFormatError
+
+    setFormErrors((current) => {
+      const next = { ...current }
+      if (message) {
+        next.email = message
+      } else {
+        delete next.email
+      }
+      return next
+    })
+
+    return !message
+  }
+
+  function validatePhoneField(value = customer.phone) {
+    const phone = value.trim()
+    const message = phone && !isValidSpanishPhoneNumber(phone) ? phoneFormatError : ''
+
+    setFormErrors((current) => {
+      const next = { ...current }
+      if (message) {
+        next.phone = message
+      } else {
+        delete next.phone
+      }
+      return next
+    })
+
+    return !message
+  }
+
+  function validateContactFields() {
+    const nextErrors: PlansFormErrors = {}
+
+    if (!customer.name.trim()) {
+      nextErrors.name = requiredFieldError
+    }
+
+    if (!customer.email.trim()) {
+      nextErrors.email = requiredFieldError
+    } else if (!isValidEmailAddress(customer.email)) {
+      nextErrors.email = emailFormatError
+    }
+
+    if (customer.phone.trim() && !isValidSpanishPhoneNumber(customer.phone)) {
+      nextErrors.phone = phoneFormatError
+    }
+
+    if (!customer.consent) {
+      nextErrors.consent = consentFieldError
+    }
+
+    setFormErrors(nextErrors)
+    return Object.keys(nextErrors).length === 0
+  }
+
+  function detectLocation() {
+    if (!navigator.geolocation) {
+      setFormErrors((current) => ({ ...current, location: locationUnsupportedMessage }))
+      return
+    }
+
+    setIsDetectingLocation(true)
+    setLocationStatus('')
+    clearFormError('location')
+
+    navigator.geolocation.getCurrentPosition(
+      async ({ coords }) => {
+        const coordinates = `${coords.latitude.toFixed(5)}, ${coords.longitude.toFixed(5)}`
+
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&lat=${coords.latitude}&lon=${coords.longitude}&accept-language=${language}`,
+          )
+
+          if (!response.ok) {
+            throw new Error('Reverse geocode failed')
+          }
+
+          const data = await response.json() as ReverseGeocodeResult
+          const detected = getDetectedAddress(data, coords.latitude, coords.longitude)
+
+          setCustomer((current) => ({
+            ...current,
+            address: detected.address || current.address || coordinates,
+            area: detected.area || current.area || coordinates,
+          }))
+          setLocationStatus(locationDetectedMessage)
+        } catch {
+          setCustomer((current) => ({
+            ...current,
+            address: current.address || coordinates,
+            area: current.area || coordinates,
+          }))
+          setLocationStatus(locationFallbackMessage)
+        } finally {
+          setIsDetectingLocation(false)
+        }
+      },
+      () => {
+        setFormErrors((current) => ({ ...current, location: locationUnavailableMessage }))
+        setIsDetectingLocation(false)
+      },
+      { enableHighAccuracy: true, maximumAge: 60000, timeout: 12000 },
+    )
+  }
 
   function updateRoomQuantity(group: PlansBuilderGroup, quantity: number) {
     const nextQuantity = Math.max(0, Math.min(12, Math.floor(Number.isFinite(quantity) ? quantity : 0)))
@@ -802,6 +1008,10 @@ export function PlansPage() {
       return
     }
 
+    if (!validateContactFields()) {
+      return
+    }
+
     setIsSubmitting(true)
     try {
       const result = await createPublicProposalDraft({
@@ -829,7 +1039,7 @@ export function PlansPage() {
   }
 
   const contactForm = (
-    <form className="plans-draft-form plans-contact-form" onSubmit={handleSubmit}>
+    <form className="plans-draft-form plans-contact-form" noValidate onSubmit={handleSubmit}>
       <div>
         <p className="section-kicker">{copy.finalReview}</p>
         <h2>{copy.contactTitle}</h2>
@@ -839,58 +1049,86 @@ export function PlansPage() {
       <label>
         <span>{copy.name}</span>
         <input
-          required
+          aria-invalid={Boolean(formErrors.name)}
+          autoComplete="name"
           value={customer.name}
-          onChange={(event) => setCustomer((current) => ({ ...current, name: event.target.value }))}
+          onBlur={() => {
+            if (!customer.name.trim()) {
+              setFormErrors((current) => ({ ...current, name: requiredFieldError }))
+            }
+          }}
+          onChange={(event) => updateCustomerField('name', event.target.value)}
         />
+        {formErrors.name ? <small className="plans-field-error">{formErrors.name}</small> : null}
       </label>
       <label>
         <span>{copy.email}</span>
         <input
-          required
+          aria-invalid={Boolean(formErrors.email)}
+          autoComplete="email"
+          inputMode="email"
           type="email"
           value={customer.email}
-          onChange={(event) => setCustomer((current) => ({ ...current, email: event.target.value }))}
+          onBlur={(event) => validateEmailField(event.target.value)}
+          onChange={(event) => updateCustomerField('email', event.target.value)}
         />
+        {formErrors.email ? <small className="plans-field-error">{formErrors.email}</small> : null}
       </label>
-      <label>
-        <span>{copy.phone}</span>
-        <input
-          value={customer.phone}
-          onChange={(event) => setCustomer((current) => ({ ...current, phone: event.target.value }))}
-        />
-      </label>
+      <PhoneNumberField
+        className="plans-phone-field"
+        error={formErrors.phone}
+        helperText={phoneHelp}
+        label={copy.phone}
+        value={customer.phone}
+        onBlur={() => validatePhoneField(customer.phone)}
+        onChange={(nextValue) => updateCustomerField('phone', nextValue)}
+      />
       <label>
         <span>{copy.town}</span>
         <input
+          autoComplete="address-level2"
           value={customer.area}
-          onChange={(event) => setCustomer((current) => ({ ...current, area: event.target.value }))}
+          onChange={(event) => updateCustomerField('area', event.target.value)}
         />
       </label>
       <label>
         <span>{copy.address}</span>
         <input
+          autoComplete="street-address"
           value={customer.address}
-          onChange={(event) => setCustomer((current) => ({ ...current, address: event.target.value }))}
+          onChange={(event) => updateCustomerField('address', event.target.value)}
         />
       </label>
+      <div className="plans-location-tools">
+        <button className="plans-location-button" type="button" disabled={isDetectingLocation} onClick={detectLocation}>
+          {isDetectingLocation ? (
+            <Loader2 className="animate-spin" size={16} aria-hidden="true" />
+          ) : (
+            <MapPin size={16} aria-hidden="true" />
+          )}
+          {isDetectingLocation ? detectingLocationLabel : detectLocationLabel}
+        </button>
+        {locationStatus ? <small className="plans-location-status">{locationStatus}</small> : null}
+        {formErrors.location ? <small className="plans-field-error">{formErrors.location}</small> : null}
+      </div>
       <label className="plans-hidden-field" aria-hidden="true">
         <span>Website</span>
         <input
           tabIndex={-1}
           value={customer.website}
-          onChange={(event) => setCustomer((current) => ({ ...current, website: event.target.value }))}
+          onChange={(event) => updateCustomerField('website', event.target.value)}
         />
       </label>
       <label className="plans-consent">
         <input
-          required
+          aria-invalid={Boolean(formErrors.consent)}
           checked={customer.consent}
           type="checkbox"
-          onChange={(event) => setCustomer((current) => ({ ...current, consent: event.target.checked }))}
+          onChange={(event) => updateCustomerField('consent', event.target.checked)}
         />
         <span>{copy.consent}</span>
       </label>
+      {formErrors.consent ? <small className="plans-field-error">{formErrors.consent}</small> : null}
 
       {error ? <p className="plans-form-error">{error}</p> : null}
       {draftUrl ? (

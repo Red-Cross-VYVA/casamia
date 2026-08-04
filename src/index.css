@@ -17747,6 +17747,81 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   box-shadow: 0 0 0 4px rgba(125, 184, 65, 0.14);
 }
 
+.plans-draft-form input[aria-invalid='true'],
+.plans-draft-form .phone-number-field:has(input[aria-invalid='true']) {
+  border-color: rgba(180, 35, 24, 0.68);
+  box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.1);
+}
+
+.plans-phone-field .phone-number-field {
+  border-radius: 8px;
+}
+
+.plans-phone-field .phone-number-prefix,
+.plans-phone-field .phone-number-field input {
+  min-height: 46px;
+}
+
+.plans-field-error,
+.plans-phone-field > small:not(.phone-number-help) {
+  color: #9d241d;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.plans-phone-field > .phone-number-help {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.plans-location-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.plans-location-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  border: 1px solid rgba(31, 103, 146, 0.18);
+  border-radius: 999px;
+  background: var(--light-blue);
+  padding: 10px 13px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 950;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.plans-location-button:hover {
+  border-color: rgba(42, 161, 219, 0.45);
+  box-shadow: 0 10px 24px rgba(15, 75, 112, 0.08);
+  transform: translateY(-1px);
+}
+
+.plans-location-button:disabled {
+  cursor: progress;
+  opacity: 0.75;
+  transform: none;
+}
+
+.plans-location-status {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
 .plans-consent {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
