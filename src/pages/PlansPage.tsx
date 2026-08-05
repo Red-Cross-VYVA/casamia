@@ -1,18 +1,37 @@
 import {
+  Accessibility,
   ArrowRight,
   ArrowLeft,
   Bath,
   BedDouble,
+  Bell,
+  Blinds,
+  Cable,
   CheckCircle2,
   CookingPot,
+  DoorClosed,
   DoorOpen,
   FileText,
+  Flame,
+  Footprints,
   Home,
+  KeyRound,
+  Lightbulb,
   Loader2,
   MapPin,
   Minus,
+  Pill,
   Plus,
+  Radio,
+  ShowerHead,
+  Sofa,
   Sparkles,
+  Thermometer,
+  Toilet,
+  Utensils,
+  Video,
+  Waves,
+  Wifi,
   Wrench,
   X,
   type LucideIcon,
@@ -347,6 +366,81 @@ const roomVisuals: Record<string, string> = {
   'living-room': '/images/service-gallery/isometric/isometric-living.jpg',
 }
 
+type OutcomePreviewTheme =
+  | 'access'
+  | 'alert'
+  | 'bath'
+  | 'bed'
+  | 'cooking'
+  | 'door'
+  | 'fire'
+  | 'floor'
+  | 'light'
+  | 'seating'
+  | 'smart'
+  | 'storage'
+  | 'support'
+  | 'temperature'
+  | 'water'
+
+type OutcomePreviewMeta = {
+  icon: LucideIcon
+  motif: 'arc' | 'bars' | 'dots' | 'grid' | 'path' | 'pulse' | 'steps'
+  theme: OutcomePreviewTheme
+}
+
+const outcomePreviewRules: Array<{ icon: LucideIcon; motif: OutcomePreviewMeta['motif']; pattern: RegExp; theme: OutcomePreviewTheme }> = [
+  { pattern: /toilet|inodoro|wc/, icon: Toilet, theme: 'support', motif: 'bars' },
+  { pattern: /shower|ducha|bathing|bathtub|bañera|bañarse|baño y ducha|bath and shower/, icon: ShowerHead, theme: 'bath', motif: 'arc' },
+  { pattern: /temperature|scald|temperatura|hot-water|thermostatic|anti-scald/, icon: Thermometer, theme: 'temperature', motif: 'pulse' },
+  { pattern: /water control|tap|grifo|mixer|leak|fuga|water leakage|shut-off|agua/, icon: Waves, theme: 'water', motif: 'arc' },
+  { pattern: /slip|floor|rug|route|walking|movement|trip|paso|suelo|resbal|alfombra|cable|circulation/, icon: Footprints, theme: 'floor', motif: 'path' },
+  { pattern: /light|visibility|lighting|visibilidad|luz|iluminaci|curtain|blind|persiana|cortina/, icon: Lightbulb, theme: 'light', motif: 'dots' },
+  { pattern: /bed transfer|bed exit|bed height|bedside|bedroom-to-bathroom|\bbed\b|cama/, icon: BedDouble, theme: 'bed', motif: 'bars' },
+  { pattern: /voice|speaker|connected|smart|hands-free|notification|family|reassurance|routine|reminder|wifi/, icon: Radio, theme: 'smart', motif: 'pulse' },
+  { pattern: /emergency|alert|monitor|sensor|sos|call button|pendant|aviso|alarma/, icon: Bell, theme: 'alert', motif: 'pulse' },
+  { pattern: /fire|smoke|gas|carbon|incendio|humo/, icon: Flame, theme: 'fire', motif: 'dots' },
+  { pattern: /door|entrance|access|lock|handle|video doorbell|visitor|threshold|doorway|entrada|puerta|cerradura/, icon: DoorOpen, theme: 'door', motif: 'steps' },
+  { pattern: /ramp|accessibility|accessible|mobility|movilidad|support rail|grab bar|bar|rail|transfer|soporte|apoyo/, icon: Accessibility, theme: 'access', motif: 'steps' },
+  { pattern: /seat|chair|sofa|recliner|sitting|standing|seating|asiento|sill|sofá/, icon: Sofa, theme: 'seating', motif: 'bars' },
+  { pattern: /storage|wardrobe|pantry|reach|organis|almacen|armario|despensa/, icon: KeyRound, theme: 'storage', motif: 'grid' },
+  { pattern: /food|kettle|jar|utensil|prep|chopping|cocina|comida|prepar|hervidor|utensilio/, icon: Utensils, theme: 'cooking', motif: 'grid' },
+  { pattern: /hob|cooking|cook|gas|induction|horno|cocción|cocinar/, icon: CookingPot, theme: 'cooking', motif: 'arc' },
+  { pattern: /furniture|tv unit|anchor|corner|mueble|televisi/, icon: Sofa, theme: 'seating', motif: 'grid' },
+  { pattern: /water|wet|agua|mojado/, icon: Waves, theme: 'water', motif: 'arc' },
+  { pattern: /cable/, icon: Cable, theme: 'floor', motif: 'path' },
+  { pattern: /video/, icon: Video, theme: 'door', motif: 'pulse' },
+  { pattern: /lock/, icon: DoorClosed, theme: 'door', motif: 'steps' },
+  { pattern: /medication|medicine|medicaci/, icon: Pill, theme: 'smart', motif: 'dots' },
+  { pattern: /automated|automation/, icon: Blinds, theme: 'smart', motif: 'bars' },
+  { pattern: /motion/, icon: Wifi, theme: 'alert', motif: 'pulse' },
+]
+
+function getOutcomePreviewMeta(outcome: MasterCatalogueOutcome, fallbackIcon: LucideIcon): OutcomePreviewMeta {
+  const searchableText = [
+    outcome.slug,
+    outcome.category,
+    outcome.internalName,
+    outcome.customerName.en,
+    outcome.customerName.es,
+    outcome.shortDescription.en,
+    outcome.shortDescription.es,
+    outcome.customerBenefit.en,
+    outcome.customerBenefit.es,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+
+  const match = outcomePreviewRules.find((rule) => rule.pattern.test(searchableText))
+
+  if (match) {
+    return { icon: match.icon, motif: match.motif, theme: match.theme }
+  }
+
+  return { icon: fallbackIcon, motif: 'grid', theme: 'smart' }
+}
+
 type OutcomePreviewTagProps = {
   compact?: boolean
   embedded?: boolean
@@ -355,7 +449,6 @@ type OutcomePreviewTagProps = {
   language: 'en' | 'es'
   outcome: MasterCatalogueOutcome
   showCheck?: boolean
-  visual?: string
 }
 
 function OutcomePreviewTag({
@@ -366,11 +459,12 @@ function OutcomePreviewTag({
   language,
   outcome,
   showCheck = true,
-  visual,
 }: OutcomePreviewTagProps) {
   const label = localizePlansString(outcome.customerName, language, outcome.internalName)
   const description = localizePlansString(outcome.shortDescription, language, outcome.internalName)
   const benefit = localizePlansString(outcome.customerBenefit, language, description)
+  const preview = getOutcomePreviewMeta(outcome, Icon)
+  const PreviewIcon = preview.icon
 
   return (
     <span
@@ -381,10 +475,10 @@ function OutcomePreviewTag({
       {showCheck ? <CheckCircle2 size={compact ? 14 : 15} aria-hidden="true" /> : null}
       <span className="plans-outcome-preview-label">{label}</span>
       <span className="plans-outcome-preview-popover" aria-hidden="true">
-        <span className="plans-outcome-preview-visual">
-          {visual ? <img src={visual} alt="" loading="lazy" /> : <Icon size={30} aria-hidden="true" />}
+        <span className={`plans-outcome-preview-visual is-${preview.theme} is-${preview.motif}`}>
+          <PreviewIcon size={32} aria-hidden="true" />
           <span>
-            <Icon size={16} aria-hidden="true" />
+            <PreviewIcon size={16} aria-hidden="true" />
           </span>
         </span>
         <span className="plans-outcome-preview-copy">
@@ -1517,7 +1611,6 @@ export function PlansPage() {
                     const selectedAddOnCount = getSelectedAddOnCount(group)
                     const addOnsExpanded = expandedAddOns[group.homePackage.id] === true
                     const RoomIcon = roomIcons[group.room.id] ?? Home
-                    const roomVisual = roomVisuals[group.room.id]
 
                     return (
                     <article className="plans-module-card" key={`module-${group.homePackage.id}`}>
@@ -1540,7 +1633,6 @@ export function PlansPage() {
                             icon={RoomIcon}
                             language={language}
                             outcome={outcome}
-                            visual={roomVisual}
                           />
                         ))}
                       </div>
@@ -1647,7 +1739,6 @@ export function PlansPage() {
                                                 language={language}
                                                 outcome={outcome}
                                                 showCheck={false}
-                                                visual={roomVisual}
                                               />
                                             </label>
                                           )
@@ -1756,7 +1847,6 @@ export function PlansPage() {
                               icon={roomIcons[item.outcome.roomId] ?? Home}
                               language={language}
                               outcome={item.outcome}
-                              visual={roomVisuals[item.outcome.roomId]}
                             />
                           ))}
                           {detail.includedMore > 0 ? (
