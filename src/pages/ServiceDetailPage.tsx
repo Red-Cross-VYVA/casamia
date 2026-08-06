@@ -164,11 +164,11 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad en dormitorio para personas mayores',
     shortTitle: 'Seguridad en dormitorio',
     description:
-      'Haz el dormitorio más seguro con transferencias de cama más fáciles, iluminación nocturna, rutas despejadas, apoyo junto a la cama y ayuda al alcance.',
+      'Haz el dormitorio más seguro con entradas y salidas de la cama más estables, iluminación nocturna, rutas despejadas, apoyo junto a la cama y ayuda al alcance.',
     intro:
       'El dormitorio debe apoyar descanso y movimiento seguro, especialmente por la noche cuando la poca luz y la urgencia aumentan el riesgo.',
-    risks: ['Transferencias de cama difíciles', 'Rutas nocturnas oscuras', 'Ayuda de emergencia fuera de alcance'],
-    improvements: ['Apoyo junto a la cama y ayudas de transferencia', 'Iluminación nocturna con sensor', 'Rutas despejadas y ayuda al alcance'],
+    risks: ['Entrar y salir de la cama cuesta o da inseguridad', 'Rutas nocturnas oscuras', 'Ayuda de emergencia fuera de alcance'],
+    improvements: ['Apoyo junto a la cama y altura adecuada', 'Iluminación nocturna con sensor', 'Rutas despejadas y ayuda al alcance'],
   },
   'smart-home-safety': {
     title: 'Seguridad conectada para personas mayores',
@@ -465,13 +465,13 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefitsIntro:
       'Muchas situaciones de riesgo ocurren con sueño, poca luz o prisa por llegar al baño. CasaMia diseña el dormitorio alrededor de cama, ruta nocturna y ayuda al alcance.',
     benefits: [
-      { title: 'Transferencias de cama más fáciles', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas cuando hacen falta.' },
+      { title: 'Entrar y salir de la cama con más seguridad', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas cuando hacen falta.' },
       { title: 'Movimiento nocturno más seguro', body: 'Iluminación con sensor, rutas despejadas y menos desorientación.' },
       { title: 'Ayuda al alcance', body: 'Botón, teléfono, wearable o aviso conectado donde pueda usarse en el momento.' },
     ],
     includedTitle: 'Qué puede incluir un plan de dormitorio.',
     includedIntro: 'CasaMia revisa la rutina nocturna completa: cama, luz, muebles, suelo, medicación y ruta a la siguiente estancia.',
-    included: ['Altura de cama y apoyo de transferencia', 'Iluminación nocturna de cama a puerta o baño', 'Espacio libre alrededor de muebles, alfombras y cables', 'Botón de emergencia, teléfono o alerta wearable', 'Elementos diarios al alcance seguro'],
+    included: ['Altura de cama y apoyo junto a la cama', 'Iluminación nocturna de cama a puerta o baño', 'Espacio libre alrededor de muebles, alfombras y cables', 'Botón de emergencia, teléfono o alerta wearable', 'Elementos diarios al alcance seguro'],
     finalTitle: 'Haz el dormitorio más seguro antes de que la noche preocupe.',
   },
   'smart-home-safety': {
@@ -642,8 +642,8 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. CasaMia designs the room around safer bed access, clearer night routes, and help within reach.',
     benefits: [
       {
-        title: 'Easier bed transfers',
-        body: 'Support getting in and out of bed with the right height, clearance, bedside support, and transfer aids where needed.',
+        title: 'Getting in and out of bed',
+        body: 'Support the first movement of the day with the right bed height, clearance, bedside support, and practical aids where needed.',
       },
       {
         title: 'Safer night movement',
@@ -658,7 +658,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     includedIntro:
       'CasaMia reviews the room as a night-time routine: bed access, lighting, furniture, flooring, medication reach, and the path to the next room.',
     included: [
-      'Bed height, transfer, and bedside support review',
+      'Bed height, bedside support, and first-step review',
       'Motion night lighting from bed to door or bathroom',
       'Clearance around furniture, rugs, cables, and walking aids',
       'Bedside emergency button, phone, or wearable alert placement',
@@ -675,7 +675,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     finalTitle: 'Make the bedroom safer before night routines become stressful.',
     finalBody:
-      'Book a visit and CasaMia will review bed transfers, lighting, floor clearance, and emergency reach points.',
+      'Book a visit and CasaMia will review bed access, lighting, floor clearance, and emergency reach points.',
   },
   'smart-home-safety': {
     benefitsTitle: 'Use technology only where it makes daily life safer.',
@@ -1007,11 +1007,13 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
                       >
                         <button
                           aria-describedby={detailId}
-                          aria-label={`${label}: ${detail.solution}`}
+                          aria-label={label}
                           className={`services-zone-risk-label has-detail ${detailSide}`}
                           type="button"
                         >
-                          {label}
+                          <span className="services-zone-risk-pin" aria-hidden="true">
+                            {index + 1}
+                          </span>
                         </button>
                         <aside className={`services-zone-risk-detail ${detailSide}`} id={detailId}>
                           <strong>{detail.solution}</strong>
@@ -1034,7 +1036,9 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
                         width: `${position.w}%`,
                       }}
                     >
-                      {label}
+                      <span className="services-zone-risk-pin" aria-hidden="true">
+                        {index + 1}
+                      </span>
                     </span>
                   )
                 })}

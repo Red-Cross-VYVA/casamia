@@ -321,7 +321,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'heart',
         title: 'Bedroom',
-        body: 'Bed transfers, night routes, bedside reach, and emergency access.',
+        body: 'Bed access, night routes, bedside reach, and emergency access.',
         visualKey: 'bedroom-safety',
         alt: 'Bedroom routine safety',
       },

@@ -209,23 +209,14 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bedroom-underbed-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
   'bedroom-bed-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
   'bedroom-night-route': { kind: 'clear-route', tone: 'mobility', image: serviceCardProduct('clear-night-route') },
-  'bedroom-slip-resistance': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
+  'bedroom-slip-resistance': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/bedside-exit-mat.png' },
   'bedroom-fire-safety': { kind: 'smoke-detector', tone: 'fire', image: serviceCardProduct('smoke-detector') },
   'bedroom-voice-assistance': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('voice-speaker-bedroom') },
-  'bedroom-smart-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
-  'bedroom-bed-exit-sensor': { kind: 'bed-alert', tone: 'alert', image: serviceCardProduct('bed-exit-sensor') },
-  'bedroom-daily-living-support': { kind: 'emergency-button', tone: 'alert', image: serviceCardProduct('emergency-button') },
-  'bedroom-connected-safety': { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') },
   'bedroom-emergency-support': { kind: 'emergency-button', tone: 'alert', image: serviceCardProduct('emergency-button') },
   'bedroom-accessible-wardrobe': { kind: 'reachable-storage', tone: 'support', image: serviceCardProduct('reachable-wardrobe') },
-  'bedroom-advanced-bed-transfer': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
+  'bedroom-advanced-bed-transfer': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('advanced-bed-transfer') },
   'bedroom-adjustable-bed': { kind: 'adjustable-bed', tone: 'support', image: serviceCardProduct('adjustable-bed') },
-  'bedroom-bed-exit-safety-system': { kind: 'bed-alert', tone: 'alert', image: serviceCardProduct('bed-exit-sensor') },
-  'bedroom-automated-curtains': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('automated-curtains') },
-  'bedroom-bathroom-safety-route': { kind: 'clear-route', tone: 'mobility', image: serviceCardProduct('clear-night-route') },
-  'bedroom-specialist-layout': { kind: 'clear-route', tone: 'support', image: serviceCardProduct('clear-night-route') },
   'bedroom-door-accessibility': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
-  'bedroom-dementia-support': { kind: 'voice-speaker', tone: 'support', image: serviceCardProduct('voice-speaker-bedroom') },
   'kitchen-easy-grip-tools': { kind: 'kitchen-tools', tone: 'food', image: serviceCardProduct('kitchen-tools') },
   'kitchen-stove-shutoff': { kind: 'hob-shutoff', tone: 'fire', image: serviceCardProduct('hob-shutoff') },
   'kitchen-worktop-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('kitchen-worktop-lighting') },
@@ -817,11 +808,14 @@ function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; risk
                 }}
               >
                 <button
+                  aria-label={label}
                   aria-describedby={detailId}
                   className={`services-zone-risk-label has-detail ${detailSide}`}
                   type="button"
                 >
-                  {label}
+                  <span className="services-zone-risk-pin" aria-hidden="true">
+                    {index + 1}
+                  </span>
                 </button>
                 <aside className={`services-zone-risk-detail ${detailSide}`} id={detailId}>
                   <strong>{detail.solution}</strong>
@@ -832,6 +826,7 @@ function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; risk
               </span>
             ) : (
               <span
+                aria-label={label}
                 className="services-zone-risk-label"
                 key={`${label}-${index}`}
                 style={{
@@ -841,7 +836,9 @@ function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; risk
                   width: `${position.w}%`,
                 }}
               >
-                {label}
+                <span className="services-zone-risk-pin" aria-hidden="true">
+                  {index + 1}
+                </span>
               </span>
             )
           })}

@@ -669,7 +669,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿Qué preparar antes de que una persona mayor vuelva del hospital?',
         answer:
-          'Empieza por entrada, transferencias de cama, baño e inodoro, iluminación nocturna, notas de medicación, contactos de emergencia y apoyo de la primera semana.',
+          'Empieza por entrada, entrar y salir de la cama, baño e inodoro, iluminación nocturna, notas de medicación, contactos de emergencia y apoyo de la primera semana.',
       },
       {
         question: '¿Hay que adaptar toda la vivienda antes del alta?',

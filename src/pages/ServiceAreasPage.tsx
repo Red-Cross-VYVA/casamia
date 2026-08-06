@@ -63,6 +63,9 @@ const serviceAreaCopy = {
       'You get a clear next step: remote plan, expert visit, proposal, grant support or staged installation.',
     ],
     cityFaqTitle: (city: string) => `Questions families ask in ${city}`,
+    cityFaqIntro:
+      'Start with the concern, the rooms involved and the postcode. CasaMia will confirm whether a remote plan is enough or a local visit makes sense.',
+    cityFaqCta: 'Start your home review',
     cityFaqItems: (city: string) => [
       {
         question: `Can CasaMia help if my home in ${city} is not ready for a visit yet?`,
@@ -136,6 +139,9 @@ const serviceAreaCopy = {
       'Recibes una ruta clara: plan remoto, visita experta, propuesta, apoyo con ayudas o instalación por fases.',
     ],
     cityFaqTitle: (city: string) => `Preguntas frecuentes de familias en ${city}`,
+    cityFaqIntro:
+      'Empieza por la preocupación, las estancias y el código postal. CasaMia confirmará si basta con un plan remoto o si conviene una visita local.',
+    cityFaqCta: 'Empezar revisión',
     cityFaqItems: (city: string) => [
       {
         question: `¿CasaMia puede ayudar si mi vivienda en ${city} aún no está lista para una visita?`,
@@ -289,18 +295,29 @@ export function ServiceAreasPage() {
         </section>
 
         <section className="service-area-city-faq section-pad">
-          <div className="site-shell service-area-city-faq-layout">
-            <div>
-              <p className="eyebrow">{selectedCity.city}</p>
-              <h2>{copy.cityFaqTitle(selectedCity.city)}</h2>
-            </div>
-            <div className="service-area-city-faq-list">
-              {cityFaqItems.map((item) => (
-                <details key={item.question}>
-                  <summary>{item.question}</summary>
-                  <p>{item.answer}</p>
-                </details>
-              ))}
+          <div className="site-shell service-area-city-faq-shell">
+            <div className="service-area-city-faq-card">
+              <div className="service-area-city-faq-copy">
+                <p className="eyebrow">{selectedCity.city}</p>
+                <h2>{copy.cityFaqTitle(selectedCity.city)}</h2>
+                <p>{copy.cityFaqIntro}</p>
+              </div>
+              <div className="service-area-city-faq-list">
+                {cityFaqItems.map((item) => (
+                  <details key={item.question}>
+                    <summary>{item.question}</summary>
+                    <p>{item.answer}</p>
+                  </details>
+                ))}
+              </div>
+              <Link
+                className="service-area-city-faq-action"
+                to="/home-safety-wizard"
+                onClick={() => trackEvent('service_area_faq_cta_clicked', { city: selectedCity.city })}
+              >
+                {copy.cityFaqCta}
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
             </div>
           </div>
         </section>

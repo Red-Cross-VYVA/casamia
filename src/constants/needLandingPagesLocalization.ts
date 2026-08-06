@@ -258,15 +258,15 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Seguridad en el dormitorio para levantarse mejor de la cama, caminar con más seguridad, mejorar la luz nocturna y tener ayuda al alcance.',
     eyebrow: 'Seguridad en el dormitorio',
     intro:
-      'El dormitorio debe favorecer descanso y movimiento seguro, sobre todo de noche. CasaMia se centra en transferencias, rutas despejadas, iluminación y ayuda al alcance.',
+      'El dormitorio debe favorecer descanso y movimiento seguro, sobre todo de noche. CasaMia se centra en entrar y salir de la cama, rutas despejadas, iluminación y ayuda al alcance.',
     whoFor: [
-      'Personas mayores que se levantan de noche para ir al baño',
-      'Familias preocupadas por entrar o salir de la cama',
-      'Viviendas con alfombras, cables, desorden o poca luz en el dormitorio',
+      'Personas mayores que se levantan de noche y necesitan una ruta más segura al baño',
+      'Personas mayores que quieren que el primer paso fuera de la cama sea más estable y tranquilo',
+      'Dormitorios donde la luz, los bordes del suelo o la distribución dificultan moverse con autonomía',
     ],
     priorities: [
       'Iluminación nocturna con sensor',
-      'Apoyo para transferencias de cama',
+      'Apoyo junto a la cama',
       'Ruta despejada de la cama a la puerta',
       'Opciones de llamada de emergencia y rutinas conectadas',
     ],
@@ -275,6 +275,62 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Recomendar mejoras principales y opcionales',
       'Instalar, configurar y explicar todo con claridad',
     ],
+    riskSection: {
+      eyebrow: 'Mapa de riesgo del dormitorio',
+      title: 'Dónde se acumula el riesgo por la noche.',
+      body:
+        'El riesgo en el dormitorio suele aparecer en movimientos pequeños y medio dormidos: salir de la cama, encontrar la luz, caminar al baño y rodear muebles.',
+      image: '/images/solutions/bedroom-risk-map.png',
+      imageAlt: 'Mapa anotado del dormitorio con rutas nocturnas, obstáculos junto a la cama y puntos de apoyo',
+      risks: [
+        'Poca luz nocturna',
+        'Salida de cama inestable',
+        'Borde de alfombra',
+        'Ruta hasta la puerta',
+        'Objetos junto a la cama',
+        'Falta de apoyo',
+        'Umbral o cambio de suelo',
+      ],
+      riskDetails: [
+        {
+          solution: 'Iluminar el primer paso',
+          helps: 'Luces bajas con sensor hacen visible la ruta cama-puerta sin encender toda la habitación.',
+          product: 'Iluminación nocturna con sensor junto a la cama y en la ruta.',
+        },
+        {
+          solution: 'Dar apoyo al levantarse',
+          helps: 'Un asidero de cama bien colocado ofrece un apoyo predecible al incorporarse y ponerse de pie.',
+          product: 'Asidero de cama con revisión de altura y encaje.',
+        },
+        {
+          solution: 'Asegurar el suelo',
+          helps: 'Se retiran o fijan alfombras sueltas y se mejora la zona donde apoyan los pies al levantarse.',
+          product: 'Retirada de alfombras, cinta antideslizante o alfombrillas de salida junto a la cama.',
+        },
+        {
+          solution: 'Despejar la ruta nocturna',
+          helps: 'Muebles, cables y objetos se apartan del paso natural hacia la puerta o el baño.',
+          product: 'Reubicación de muebles y gestión de cableado.',
+        },
+        {
+          solution: 'Facilitar el alcance',
+          helps: 'La mesilla se organiza para que gafas, teléfono, agua y luz estén al alcance sin estirarse.',
+          product: 'Revisión de mesilla y almacenamiento accesible.',
+        },
+        {
+          solution: 'Añadir apoyo estable',
+          helps: 'CasaMia revisa dónde se apoya la persona de forma natural y coloca ayuda solo donde aporta seguridad.',
+          product: 'Asidero junto a la cama o ajuste de mobiliario.',
+        },
+        {
+          solution: 'Suavizar cambios de suelo',
+          helps: 'Umbrales y bordes se revisan para que el recorrido sea predecible al pisar.',
+          product: 'Revisión de umbral o perfil de transición si encaja.',
+        },
+      ],
+      mapLabels: ['Luz', 'Cama', 'Alfombra', 'Ruta', 'Mesilla', 'Apoyo', 'Umbral'],
+      legend: ['Riesgo alto', 'Riesgo medio'],
+    },
     relatedServices: [
       { label: 'Servicios de seguridad en dormitorio', to: '/services/bedroom-safety' },
       { label: 'Guía de seguridad nocturna', to: '/blog/bedroom-night-safety-older-adults' },
@@ -284,7 +340,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿Qué hace más seguro un dormitorio?',
         answer:
-          'Suele empezar por transferencias de cama, luz nocturna, rutas despejadas, suelos seguros y una forma sencilla de pedir ayuda.',
+          'Suele empezar por entrar y salir de la cama con más seguridad, luz nocturna, rutas despejadas, suelos seguros y una forma sencilla de pedir ayuda.',
       },
       {
         question: '¿Las funciones conectadas son opcionales?',

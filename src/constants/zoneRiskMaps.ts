@@ -166,7 +166,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
             product: 'Rug grip, floor transition or clear-route reset.',
           },
           {
-            solution: 'Support bed transfers',
+            solution: 'Support bed access',
             helps: 'A bed rail or transfer handle gives a predictable grip when sitting, turning or standing.',
             product: 'Bed support rail or transfer handle.',
           },

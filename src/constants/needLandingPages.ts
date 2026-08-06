@@ -239,7 +239,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Which adaptations are most common?',
         answer:
-          'Common adaptations include grab bars, shower seating, night lighting, bed transfer support, threshold changes, safer flooring and easier controls.',
+          'Common adaptations include grab bars, shower seating, night lighting, bedside support, threshold changes, safer flooring and easier controls.',
       },
       {
         question: 'Does CasaMia supply and install everything?',
@@ -254,17 +254,76 @@ export const needLandingPages: NeedLandingPageContent[] = [
     servicePath: '/services/bedroom-safety',
     resourcePath: '/blog/bedroom-night-safety-older-adults',
     icon: 'bedroom',
-    image: '/images/blog/bedroom-night-safety.webp',
+    image: '/images/blog/bedroom-night-safety-hero.png',
     title: 'Senior bedroom safety',
     seoTitle: 'Senior Bedroom Safety and Night-Time Fall Prevention',
     description:
-      'Senior bedroom safety for easier bed transfers, safer walking routes, night lighting, emergency support and connected bedroom routines.',
+      'Senior bedroom safety for getting in and out of bed, safer walking routes, night lighting, emergency support and connected bedroom routines.',
     eyebrow: 'Bedroom safety',
     intro:
-      'The bedroom should support rest and safe movement, especially at night. CasaMia focuses on bed transfers, clear walking routes, lighting and emergency reach.',
-    whoFor: ['Older adults who wake at night to use the bathroom', 'Families concerned about bed transfers', 'Homes with rugs, cables, clutter or poor bedroom lighting'],
-    priorities: ['Motion-activated night lighting', 'Bed transfer support', 'Clear route from bed to door', 'Emergency call options and connected routines'],
+      'The bedroom should support rest and safe movement, especially at night. CasaMia focuses on getting in and out of bed, clear walking routes, lighting and emergency reach.',
+    whoFor: [
+      'Older adults who wake at night and need a safer route to the bathroom',
+      'Seniors who want the first step out of bed to feel steadier and calmer',
+      'Bedrooms where lighting, floor edges or furniture layout make independent movement harder than it should be',
+    ],
+    priorities: ['Motion-activated night lighting', 'Bedside support', 'Clear route from bed to door', 'Emergency call options and connected routines'],
     casamiaPlan: ['Review the bedroom and night routine', 'Recommend core and optional bedroom package components', 'Install, configure and explain everything clearly'],
+    riskSection: {
+      eyebrow: 'Bedroom risk map',
+      title: 'Where night-time risk builds up.',
+      body:
+        'Bedroom risk often appears in small, half-awake movements: getting out of bed, finding the light, walking to the bathroom and moving around furniture.',
+      image: '/images/solutions/bedroom-risk-map.png',
+      imageAlt: 'Annotated bedroom risk map showing night-time routes, bedside hazards and support points',
+      risks: [
+        'Poor night lighting',
+        'Unsteady bed exit',
+        'Loose rug edge',
+        'Trip route to door',
+        'Bedside clutter',
+        'No support point',
+        'Floor edge or threshold',
+      ],
+      riskDetails: [
+        {
+          solution: 'Light the first step',
+          helps: 'Low-level motion lights make the bed-to-door route visible without waking the room fully.',
+          product: 'Motion-activated bedside and route lighting.',
+        },
+        {
+          solution: 'Stabilise getting up',
+          helps: 'A correctly positioned bed assist handle gives a predictable handhold for sitting up and standing.',
+          product: 'Bed assist handle with fit and height check.',
+        },
+        {
+          solution: 'Secure the floor',
+          helps: 'Loose rugs are removed or fixed, and the bedside landing area is made calmer underfoot.',
+          product: 'Rug removal, anti-slip rug tape or matched bedside exit mats.',
+        },
+        {
+          solution: 'Clear the night route',
+          helps: 'Furniture, cables and stored items are moved away from the natural path to the door or bathroom.',
+          product: 'Furniture repositioning and cable management.',
+        },
+        {
+          solution: 'Simplify reach',
+          helps: 'The bedside area is arranged so glasses, phone, water and light controls are easy to reach.',
+          product: 'Accessible bedside layout and storage review.',
+        },
+        {
+          solution: 'Add steady support',
+          helps: 'CasaMia checks where the person naturally reaches and adds support only where it is useful.',
+          product: 'Bedside support handle or furniture positioning.',
+        },
+        {
+          solution: 'Smooth transitions',
+          helps: 'Door thresholds and floor edges are checked so the route remains predictable underfoot.',
+          product: 'Threshold review or safer transition strip where suitable.',
+        },
+      ],
+      legend: ['Higher risk', 'Medium risk'],
+    },
     relatedServices: [
       { label: 'Bedroom safety services', to: '/services/bedroom-safety' },
       { label: 'Night safety guide', to: '/blog/bedroom-night-safety-older-adults' },
@@ -274,7 +333,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'What makes a bedroom safer for seniors?',
         answer:
-          'Good bedroom safety usually starts with easier bed transfers, night lighting, clear walking routes, safe floor surfaces and a reachable way to ask for help.',
+          'Good bedroom safety usually starts with easier bed access, night lighting, clear walking routes, safe floor surfaces and a reachable way to ask for help.',
       },
       {
         question: 'Can connected bedroom features be optional?',

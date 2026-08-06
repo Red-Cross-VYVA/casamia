@@ -48,7 +48,7 @@ const homeZones: HomeZone[] = [
     eyebrow: 'Night route',
     icon: BedDouble,
     stat: 'In a U.S. emergency-department study, 79.2% of older-adult fall visits were from falls at home, and bedrooms were one of the most common home locations.',
-    summary: 'Bed transfers, low light, slippers, rugs and the first steps after waking.',
+    summary: 'Getting out of bed, low light, slippers, rugs and the first steps after waking.',
     mapClassName: 'md:col-start-1 md:row-start-1',
   },
   {
@@ -189,10 +189,6 @@ function getRecommendedServiceIds(state: ConfiguratorState, services: CasaMiaSer
   })
 
   range(state.quantities.bedrooms).forEach((index) => {
-    if (state.answers[`bedroom-${index}-caregiverAlerts`] === 'yes') {
-      recommendations.add('bedroom-bed-exit-sensor')
-    }
-
     if (state.answers[`bedroom-${index}-adjustableBed`] === 'yes') {
       recommendations.add('bedroom-adjustable-bed')
     }

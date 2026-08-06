@@ -81,7 +81,7 @@ const solutionMenuItems = [
     to: '/senior-bedroom-safety',
     title: { en: 'Bedroom & night', es: 'Dormitorio y noche', nl: 'Slaapkamer en nacht' },
     description: {
-      en: 'Bed transfers, lighting and night routes.',
+      en: 'Bed access, lighting and night routes.',
       es: 'Cama, luz y rutas nocturnas.',
       nl: 'Bed, verlichting en nachtroutes.',
     },

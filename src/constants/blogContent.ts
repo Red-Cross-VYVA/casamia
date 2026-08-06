@@ -638,7 +638,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/bedroom-night-safety-older-adults',
     title: 'Bedroom and Night-Time Safety for Older Adults',
     description:
-      'How to make bedrooms and night routes safer for older adults with lighting, bed transfers, bedside reach, toilet routes, and emergency support.',
+      'How to make bedrooms and night routes safer for older adults with lighting, getting in and out of bed, bedside reach, toilet routes, and emergency support.',
     category: 'Night safety',
     readTime: '6 min read',
     date: '2026-07-11',
@@ -654,7 +654,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     sections: [
       {
-        title: 'Review the bed transfer first',
+        title: 'Review getting in and out of bed first',
         body: [
           'The first movement of the night is often sitting up, placing feet, standing, and turning. Bed height, mattress softness, bedside furniture, and support all affect safety.',
           'If the resident pushes on unstable furniture or reaches too far for glasses, phone, or walking aid, the room layout needs attention.',
@@ -796,7 +796,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Signals that home adaptation may still be the right route',
         body: [
-          'Home usually remains a strong option when the person wants to stay, recognises the space, can follow simple routines and the main risks are physical or environmental: bathroom access, lighting, stairs, thresholds, bed transfers or emergency reach.',
+          'Home usually remains a strong option when the person wants to stay, recognises the space, can follow simple routines and the main risks are physical or environmental: bathroom access, lighting, stairs, thresholds, getting in and out of bed or emergency reach.',
           'In that case, a staged plan often works well: fix urgent risk first, then add comfort, connected support or larger adaptations where they clearly improve daily life.',
         ],
       },

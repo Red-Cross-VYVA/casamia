@@ -105,11 +105,11 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Bedroom Safety for Seniors',
     shortTitle: 'Bedroom Safety',
     description:
-      'Make bedrooms safer for older adults with easier bed transfers, night lighting, clear walking routes, bedside support, and emergency reach points.',
+      'Make bedrooms safer for older adults with easier bed access, night lighting, clear walking routes, bedside support, and emergency reach points.',
     intro:
       'Bedrooms need to support safe rest and safe movement, especially at night when low light, fatigue, and urgent routines can increase fall risk.',
     icon: 'bedroom',
-    risks: ['Difficult bed transfers', 'Dark night-time routes', 'Emergency help out of reach'],
+    risks: ['Difficulty getting in and out of bed', 'Dark night-time routes', 'Emergency help out of reach'],
     improvements: ['Bedside support and transfer aids', 'Motion night lighting', 'Clear routes and emergency reach points'],
     ctaPlan: 'home-safety',
   },

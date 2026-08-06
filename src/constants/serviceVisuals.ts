@@ -29,7 +29,7 @@ export const serviceVisuals: Record<
   'bedroom-safety': {
     badge: 'Rest and night routines',
     image: 'https://cdn.shopify.com/s/files/1/0941/8502/9896/files/big_imag_3.jpg?v=1742505710',
-    note: 'Bed transfers, night routes, help within reach',
+    note: 'Bed access, night routes, help within reach',
   },
   'smart-home-safety': {
     badge: 'Connected reassurance',

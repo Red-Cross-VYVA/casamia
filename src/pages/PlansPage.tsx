@@ -42,6 +42,9 @@ import { Link } from 'react-router-dom'
 
 import { PhoneNumberField } from '../components/PhoneNumberField'
 import { SEO } from '../components/SEO'
+import { SafeImage } from '../components/SafeImage'
+import { getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
+import { getMasterServiceCatalogue, getProposalSpecificationForOutcome } from '../services/masterServiceCatalogue'
 import {
   buildPlansBuilderGroups,
   calculatePlansBuilderEstimate,
@@ -56,7 +59,7 @@ import {
 } from '../services/plansBuilderPricing'
 import { createPublicProposalDraft, type PublicProposalDraftResponse } from '../services/proposalsApi'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
-import type { MasterCatalogueOutcome } from '../types/serviceCatalogue'
+import type { MasterCatalogueOutcome, MasterServiceCatalogue } from '../types/serviceCatalogue'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
 
 type PlansCopy = {
@@ -142,9 +145,80 @@ type PlansFormErrors = Partial<Record<'name' | 'email' | 'phone' | 'consent' | '
 type PlansDetail = {
   body: string
   items: MasterCatalogueOutcome[]
+  mode: 'core' | 'optional' | 'specialist'
   price: string
   title: string
   typeLabel: string
+}
+
+function cleanPlanDetailItem(item: string) {
+  return item
+    .replace(/\s+/g, ' ')
+    .replace(/\.$/, '')
+    .trim()
+}
+
+function dedupePlanDetailItems(items: string[]) {
+  const seen = new Set<string>()
+
+  return items
+    .map(cleanPlanDetailItem)
+    .filter((item) => {
+      if (!item || item.length < 3) {
+        return false
+      }
+
+      const key = item.toLocaleLowerCase()
+      if (seen.has(key)) {
+        return false
+      }
+
+      seen.add(key)
+      return true
+    })
+}
+
+function splitPlanDetailFallback(text: string) {
+  return dedupePlanDetailItems(
+    text
+      .replace(/\band\b/gi, ',')
+      .replace(/\by\b/gi, ',')
+      .split(/[.;,]+/)
+      .map((item) => item.trim()),
+  ).slice(0, 6)
+}
+
+function getPlanDetailBenefit(outcome: MasterCatalogueOutcome, language: 'en' | 'es') {
+  return localizePlansString(
+    outcome.customerBenefit,
+    language,
+    localizePlansString(outcome.shortDescription, language, outcome.internalName),
+  )
+}
+
+function getPlanDetailIncludedItems(
+  outcome: MasterCatalogueOutcome,
+  catalogue: MasterServiceCatalogue,
+  language: 'en' | 'es',
+) {
+  const specification = getProposalSpecificationForOutcome(outcome.id, catalogue)
+  const resolvedItems = dedupePlanDetailItems([
+    ...specification.products.filter((product) => product.active).map((product) => product.name),
+    ...specification.capabilities.filter((capability) => capability.active).map((capability) => capability.name),
+    ...specification.installationTasks.filter((task) => task.active).map((task) => task.name),
+  ]).slice(0, 6)
+
+  if (resolvedItems.length) {
+    return resolvedItems
+  }
+
+  const fallback = localizePlansString(
+    outcome.detailedDescription ?? outcome.customerBenefit,
+    language,
+    localizePlansString(outcome.shortDescription, language, outcome.internalName),
+  )
+
+  return splitPlanDetailFallback(fallback)
 }
 
 const plansCopy: Record<'en' | 'es', PlansCopy> = {
@@ -212,7 +286,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       bathroom:
         'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes practical fixes such as grab bars, seating, anti-slip treatment, lever controls and water-temperature safety where suitable.',
       bedroom:
-        'Focuses on getting in and out of bed, moving safely at night and keeping daily routines calm. Combines bed transfer support, better lighting, clearer routes, furniture positioning and fire-safety basics.',
+        'Focuses on getting in and out of bed, moving safely at night and keeping daily routines calm. Combines bedside support, better lighting, clearer routes, furniture positioning and fire-safety basics.',
       entrance:
         'Makes the first and last steps of the day safer: thresholds, handrails, lighting, door hardware and visitor awareness. Useful for steps, mats, locks and seeing who is at the door before opening.',
       kitchen:
@@ -222,7 +296,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     },
     rooms: [
       { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
-      { title: 'Bedroom', body: 'Bed transfers, night lighting and clear routes.' },
+      { title: 'Bedroom', body: 'Bed access, night lighting and clear routes.' },
       { title: 'Kitchen', body: 'Cooking, reach, visibility and safer movement.' },
       { title: 'Living Room', body: 'Sitting, standing, rugs, cables and daily routes.' },
       { title: 'Entrance', body: 'Steps, thresholds, door use and visitor awareness.' },
@@ -322,7 +396,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     },
     rooms: [
       { title: 'Baño', body: 'Ducha, transferencias al WC, suelo mojado y acceso seguro.' },
-      { title: 'Dormitorio', body: 'Transferencias de cama, luz nocturna y rutas despejadas.' },
+      { title: 'Dormitorio', body: 'Entrada y salida de la cama, luz nocturna y rutas despejadas.' },
       { title: 'Cocina', body: 'Cocinar, alcanzar objetos, visibilidad y movimiento seguro.' },
       { title: 'Salón', body: 'Sentarse, levantarse, alfombras, cables y rutas diarias.' },
       { title: 'Entrada', body: 'Escalones, umbrales, uso de puerta y control de visitas.' },
@@ -476,10 +550,7 @@ function OutcomePreviewTag({
       <span className="plans-outcome-preview-label">{label}</span>
       <span className="plans-outcome-preview-popover" aria-hidden="true">
         <span className={`plans-outcome-preview-visual is-${preview.theme} is-${preview.motif}`}>
-          <PreviewIcon size={32} aria-hidden="true" />
-          <span>
-            <PreviewIcon size={16} aria-hidden="true" />
-          </span>
+          <PreviewIcon size={34} aria-hidden="true" />
         </span>
         <span className="plans-outcome-preview-copy">
           <small>{eyebrow}</small>
@@ -680,6 +751,7 @@ export function PlansPage() {
         }),
   }), [baseCopy, language])
   const catalogue = useServiceCatalogue()
+  const masterCatalogue = useMemo(() => catalogue.masterCatalogue ?? getMasterServiceCatalogue(), [catalogue.masterCatalogue])
   const groups = useMemo(() => buildPlansBuilderGroups(catalogue, language), [catalogue, language])
   const [selection, setSelection] = useState<PlansBuilderSelectionState>({})
   const [customer, setCustomer] = useState<CustomerForm>(emptyCustomerForm)
@@ -687,6 +759,7 @@ export function PlansPage() {
   const [step, setStep] = useState<PlansStep>('builder')
   const [expandedAddOns, setExpandedAddOns] = useState<Record<string, boolean>>({})
   const [activeDetail, setActiveDetail] = useState<PlansDetail | null>(null)
+  const [activeDetailIndex, setActiveDetailIndex] = useState(0)
   const [draftUrl, setDraftUrl] = useState('')
   const [emailDelivery, setEmailDelivery] = useState<PublicProposalDraftResponse['emailDelivery'] | null>(null)
   const [error, setError] = useState('')
@@ -747,6 +820,46 @@ export function PlansPage() {
   const selectedCountLabel = language === 'es'
     ? `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'paquete base seleccionado' : 'paquetes base seleccionados'}`
     : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'core package selected' : 'core packages selected'}`
+  const detailCopy = language === 'es'
+    ? {
+        benefit: 'Por qué ayuda',
+        includes: 'Qué incluye CasaMia',
+        next: 'Siguiente',
+        optionalNote: 'Extra opcional. CasaMia confirma idoneidad, medidas y compatibilidad antes de incluirlo.',
+        previous: 'Anterior',
+        slideLabel: 'Elemento',
+        technical: 'Confirmado por CasaMia',
+      }
+    : {
+        benefit: 'Why it helps',
+        includes: 'What CasaMia includes',
+        next: 'Next',
+        optionalNote: 'Optional add-on. CasaMia confirms fit, measurements and compatibility before including it.',
+        previous: 'Previous',
+        slideLabel: 'Item',
+        technical: 'Confirmed by CasaMia',
+      }
+  const activeDetailSlides = activeDetail?.items ?? []
+  const activeDetailSlideCount = activeDetailSlides.length
+  const activeDetailSafeIndex = Math.min(activeDetailIndex, Math.max(activeDetailSlideCount - 1, 0))
+  const activeDetailSlide = activeDetailSlides[activeDetailSafeIndex]
+  const activeDetailSlideTitle = activeDetailSlide
+    ? localizePlansString(activeDetailSlide.customerName, language, activeDetailSlide.internalName)
+    : ''
+  const activeDetailSlideBenefit = activeDetailSlide
+    ? getPlanDetailBenefit(activeDetailSlide, language)
+    : ''
+  const activeDetailSlideImage = activeDetailSlide
+    ? getCatalogueOutcomeImage({
+        id: activeDetailSlide.id,
+        roomId: activeDetailSlide.roomId,
+        slug: activeDetailSlide.slug,
+      })
+    : ''
+  const activeDetailIncludedItems = activeDetailSlide
+    ? getPlanDetailIncludedItems(activeDetailSlide, masterCatalogue, language)
+    : []
+  const activeDetailHasMultiple = activeDetailSlideCount > 1
   const selectedPlanDetails = selectedGroups.map((group) => {
     const packageSelection = selection[group.homePackage.id]
     const selectedAddOnIds = new Set(packageSelection?.addOnOutcomeIds ?? [])
@@ -842,10 +955,21 @@ export function PlansPage() {
     if (!activeDetail) {
       return
     }
+    const detailSlideCount = activeDetail.items.length
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         setActiveDetail(null)
+        setActiveDetailIndex(0)
+        return
+      }
+
+      if (detailSlideCount > 1 && event.key === 'ArrowLeft') {
+        setActiveDetailIndex((current) => (current - 1 + detailSlideCount) % detailSlideCount)
+      }
+
+      if (detailSlideCount > 1 && event.key === 'ArrowRight') {
+        setActiveDetailIndex((current) => (current + 1) % detailSlideCount)
       }
     }
 
@@ -1209,9 +1333,11 @@ export function PlansPage() {
   }
 
   function openRoomPackageDetails(group: PlansBuilderGroup) {
+    setActiveDetailIndex(0)
     setActiveDetail({
       body: group.packageDescription,
       items: group.homeOutcomes,
+      mode: 'core',
       price: copy.coreIncluded,
       title: group.packageLabel,
       typeLabel: copy.coreIncluded,
@@ -1219,9 +1345,11 @@ export function PlansPage() {
   }
 
   function openAddOnPackageDetails(addOnPackage: PlansBuilderAddOnPackage) {
+    setActiveDetailIndex(0)
     setActiveDetail({
       body: addOnPackage.packageDescription,
       items: addOnPackage.outcomes,
+      mode: 'optional',
       price: addOnPackage.requiresReview ? copy.reviewRequired : copy.optionalTitle,
       title: addOnPackage.packageLabel,
       typeLabel: copy.optionalTitle,
@@ -1231,13 +1359,30 @@ export function PlansPage() {
   function openSpecialistDetails(outcome: MasterCatalogueOutcome) {
     const price = getPlansOutcomeUnitPrice(outcome)
 
+    setActiveDetailIndex(0)
     setActiveDetail({
       body: localizePlansString(outcome.shortDescription, language, outcome.internalName),
       items: [outcome],
+      mode: 'specialist',
       price: price > 0 ? copy.specialistTitle : copy.reviewRequired,
       title: localizePlansString(outcome.customerName, language, outcome.internalName),
       typeLabel: copy.specialistTitle,
     })
+  }
+
+  function closeDetailModal() {
+    setActiveDetail(null)
+    setActiveDetailIndex(0)
+  }
+
+  function goToPreviousDetailSlide() {
+    setActiveDetailIndex((current) =>
+      activeDetailSlides.length ? (current - 1 + activeDetailSlides.length) % activeDetailSlides.length : 0,
+    )
+  }
+
+  function goToNextDetailSlide() {
+    setActiveDetailIndex((current) => (activeDetailSlides.length ? (current + 1) % activeDetailSlides.length : 0))
   }
 
   function scrollToPlansSection(elementId: string) {
@@ -1907,12 +2052,12 @@ export function PlansPage() {
         <div
           className="plan-detail-modal-backdrop"
           role="presentation"
-          onClick={() => setActiveDetail(null)}
+          onClick={closeDetailModal}
         >
           <section
             aria-labelledby="plans-detail-title"
             aria-modal="true"
-            className="plan-detail-modal"
+            className={`plan-detail-modal plan-detail-modal--${activeDetail.mode}`}
             role="dialog"
             onClick={(event) => event.stopPropagation()}
           >
@@ -1923,35 +2068,124 @@ export function PlansPage() {
                 <span>{activeDetail.body}</span>
                 <strong className="plans-detail-price">{activeDetail.price}</strong>
               </div>
-              <button type="button" aria-label={copy.closeDetails} onClick={() => setActiveDetail(null)}>
+              <button type="button" aria-label={copy.closeDetails} onClick={closeDetailModal}>
                 <X size={18} aria-hidden="true" />
                 {copy.closeDetails}
               </button>
             </div>
 
-            <div className="plan-detail-modal-grid">
-              {activeDetail.items.map((outcome) => (
-                <article key={outcome.id}>
-                  <CheckCircle2 size={20} aria-hidden="true" />
-                  <div>
-                    <h3>{localizePlansString(outcome.customerName, language, outcome.internalName)}</h3>
-                    <p>
-                      {localizePlansString(
-                        outcome.customerBenefit,
-                        language,
-                        localizePlansString(outcome.shortDescription, language, outcome.internalName),
-                      )}
-                    </p>
+            {activeDetailSlide ? (
+              <>
+                <div className="plan-detail-story">
+                  <div className="plan-detail-story-media">
+                    <SafeImage
+                      alt={activeDetailSlideTitle}
+                      className="plan-detail-story-safe-image"
+                      fallbackLabel={activeDetailSlideTitle}
+                      imgClassName="plan-detail-story-image"
+                      loading="lazy"
+                      src={activeDetailSlideImage}
+                    />
+                    <div className="plan-detail-story-badge">
+                      <span>{detailCopy.slideLabel}</span>
+                      <strong>
+                        {activeDetailSafeIndex + 1} / {activeDetailSlideCount}
+                      </strong>
+                    </div>
+                    {activeDetailHasMultiple ? (
+                      <div className="plan-detail-story-controls" aria-label={`${activeDetail.title} navigation`}>
+                        <button
+                          aria-label={detailCopy.previous}
+                          className="plan-detail-arrow"
+                          type="button"
+                          onClick={goToPreviousDetailSlide}
+                        >
+                          <ArrowLeft size={18} aria-hidden="true" />
+                        </button>
+                        <button
+                          aria-label={detailCopy.next}
+                          className="plan-detail-arrow"
+                          type="button"
+                          onClick={goToNextDetailSlide}
+                        >
+                          <ArrowRight size={18} aria-hidden="true" />
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
-                </article>
-              ))}
-            </div>
 
-            <div className="plan-detail-modal-actions">
-              <button className="btn btn-green" type="button" onClick={() => setActiveDetail(null)}>
-                {copy.closeDetails}
-              </button>
-            </div>
+                  <article className="plan-detail-story-panel">
+                    <span className="plan-detail-story-kicker">
+                      {activeDetailSlide.category || activeDetail.typeLabel}
+                    </span>
+                    <h3>{activeDetailSlideTitle}</h3>
+
+                    <div className="plan-detail-benefit">
+                      <Sparkles size={18} aria-hidden="true" />
+                      <div>
+                        <strong>{detailCopy.benefit}</strong>
+                        <p>{activeDetailSlideBenefit}</p>
+                      </div>
+                    </div>
+
+                    <div className="plan-detail-included-card">
+                      <h4>{detailCopy.includes}</h4>
+                      <ul>
+                        {activeDetailIncludedItems.map((item) => (
+                          <li key={item}>
+                            <CheckCircle2 size={16} aria-hidden="true" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {activeDetail.mode !== 'core' ||
+                    activeDetailSlide.requiresAssessment ||
+                    activeDetailSlide.requiresQuote ||
+                    activeDetailSlide.requiresMeasurement ||
+                    activeDetailSlide.requiresCompatibilityCheck ? (
+                      <p className="plan-detail-footnote">
+                        {activeDetail.mode === 'core' ? detailCopy.technical : detailCopy.optionalNote}
+                      </p>
+                    ) : null}
+                  </article>
+                </div>
+
+                {activeDetailHasMultiple ? (
+                  <div className="plan-detail-thumb-row" aria-label={`${activeDetail.title} slides`}>
+                    {activeDetailSlides.map((outcome, index) => {
+                      const title = localizePlansString(outcome.customerName, language, outcome.internalName)
+                      const image = getCatalogueOutcomeImage({
+                        id: outcome.id,
+                        roomId: outcome.roomId,
+                        slug: outcome.slug,
+                      })
+
+                      return (
+                        <button
+                          key={outcome.id}
+                          className={`plan-detail-thumb ${index === activeDetailSafeIndex ? 'is-active' : ''}`}
+                          type="button"
+                          onClick={() => setActiveDetailIndex(index)}
+                        >
+                          <SafeImage
+                            alt=""
+                            className="plan-detail-thumb-media"
+                            fallbackLabel={title}
+                            imgClassName="plan-detail-thumb-image"
+                            loading="lazy"
+                            src={image}
+                          />
+                          <span>{String(index + 1).padStart(2, '0')}</span>
+                          <strong>{title}</strong>
+                        </button>
+                      )
+                    })}
+                  </div>
+                ) : null}
+              </>
+            ) : null}
           </section>
         </div>
       ) : null}

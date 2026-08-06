@@ -126,7 +126,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'bedroom',
     title: 'Bedroom',
-    body: 'Better night movement and easier bed transfers.',
+    body: 'Better night movement and easier bed access.',
     icon: BedDouble,
     position: 'home-hotspot-bedroom',
     improvements: ['Bedside lighting', 'Bed rail where required', 'Clear movement path'],

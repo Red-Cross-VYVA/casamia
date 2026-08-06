@@ -447,8 +447,8 @@ const topicRoutes = [
     to: '/senior-bedroom-safety',
     title: { en: 'Bedroom and night routes', es: 'Dormitorio y ruta nocturna' },
     body: {
-      en: 'Make bed transfers, night lighting and the route to the bathroom easier to manage.',
-      es: 'Mejora transferencias de cama, luz nocturna y la ruta hacia el baño.',
+      en: 'Make getting out of bed, night lighting and the route to the bathroom easier to manage.',
+      es: 'Mejora la salida de la cama, la luz nocturna y la ruta hacia el baño.',
     },
     pill: { en: 'Night confidence', es: 'Confianza nocturna' },
   },
