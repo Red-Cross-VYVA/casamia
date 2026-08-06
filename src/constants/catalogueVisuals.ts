@@ -39,6 +39,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'bedroom-adjustable-bed': serviceProductImage('adjustable-bed'),
   'bedroom-advanced-bed-transfer': serviceProductImage('advanced-bed-transfer'),
   'bedroom-bed-support': serviceProductImage('bed-transfer'),
+  'bedroom-bed-wedge-support': serviceProductImage('bed-wedge-back-support'),
   'bedroom-door-accessibility': serviceProductImage('wide-doorway'),
   'bedroom-easier-bed-transfers': serviceProductImage('bed-transfer'),
   'bedroom-electric-adjustable-bed': serviceProductImage('adjustable-bed'),
