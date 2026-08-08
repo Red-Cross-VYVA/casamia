@@ -1010,11 +1010,7 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
                           aria-label={label}
                           className={`services-zone-risk-label has-detail ${detailSide}`}
                           type="button"
-                        >
-                          <span className="services-zone-risk-pin" aria-hidden="true">
-                            {index + 1}
-                          </span>
-                        </button>
+                        />
                         <aside className={`services-zone-risk-detail ${detailSide}`} id={detailId}>
                           <strong>{detail.solution}</strong>
                           <p>{detail.helps}</p>
