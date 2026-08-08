@@ -175,40 +175,60 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
 type SupportJourneyStep = SelectableCard<string> & {
   eyebrow: string
   points: string[]
+  visual: {
+    src: string
+    alt: string
+  }
 }
 
 const supportJourney: SupportJourneyStep[] = [
   {
     id: 'assessment',
     eyebrow: 'Step 1',
-    title: 'Check the home your way',
-    body: 'Start with photos or video, or book an optional inspector visit. If you continue with CasaMia, the visit can be credited back where applicable.',
+    title: 'Choose your starting point',
+    body: 'Pick one of our ready-made safety packages, or request a physical inspection so a CasaMia technician can recommend the best solution for the home.',
     icon: CalendarCheck,
-    points: ['Photos or video', 'Optional home visit', 'Clear first priorities'],
+    points: ['Ready-made packages', 'Optional home inspection', 'Technician guidance'],
+    visual: {
+      src: '/images/assessment/casamia-inspector-tablet.jpg',
+      alt: 'CasaMia technician reviewing a home safety inspection on a tablet',
+    },
+  },
+  {
+    id: 'proposal',
+    eyebrow: 'Step 2',
+    title: 'Review your proposal',
+    body: 'We share a clear proposal with practical home improvement suggestions, priorities and pricing, so you know exactly what will make the home safer.',
+    icon: ClipboardCheck,
+    points: ['Room-by-room suggestions', 'Clear priorities', 'Transparent pricing'],
+    visual: {
+      src: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+      alt: 'CasaMia advisor discussing safety improvements in a kitchen',
+    },
   },
   {
     id: 'grants',
-    eyebrow: 'Step 2',
-    title: 'We manage the grant route',
-    body: 'CasaMia helps prepare and submit the application, so you can make the most of eligible public support.',
-    icon: ClipboardCheck,
-    points: ['Eligibility check', 'Document guidance', 'Submission support'],
+    eyebrow: 'Step 3',
+    title: 'Claim available grant support',
+    body: 'Our team helps prepare the grant application and documents for eligible works, so public financial support can help fund the improvements where available.',
+    icon: HeartHandshake,
+    points: ['Eligibility check', 'Document support', 'Application guidance'],
+    visual: {
+      src: '/images/blog/grants-readiness.webp',
+      alt: 'Grant support documents prepared for a home safety application',
+    },
   },
   {
     id: 'installation',
-    eyebrow: 'Step 3',
-    title: 'Professional Installation',
-    body: 'Qualified installers fit, configure and test the agreed adaptations, with the right products for each room.',
-    icon: Wrench,
-    points: ['Supply and fitting', 'Configuration', 'Handover'],
-  },
-  {
-    id: 'support',
     eyebrow: 'Step 4',
-    title: 'Support and maintenance',
-    body: 'CasaMia remains the single point of contact for adjustments, questions and ongoing support.',
-    icon: HeartHandshake,
-    points: ['One contact', 'Aftercare', 'Maintenance support'],
+    title: 'Install and stay supported',
+    body: 'CasaMia coordinates installation, checks everything is working properly and remains your contact for questions, adjustments and ongoing support.',
+    icon: Wrench,
+    points: ['Professional installation', 'Handover check', 'Aftercare support'],
+    visual: {
+      src: '/images/solutions/casamia-worker-process.webp',
+      alt: 'CasaMia installer preparing home safety equipment',
+    },
   },
 ]
 
@@ -509,11 +529,11 @@ export function HomePage() {
         <section className="home-redesign-section home-core-section" id="core-plan">
           <div className="site-shell">
             <div className="home-redesign-section-heading is-centered">
-              <p className="home-redesign-kicker">One company. Four clear steps.</p>
-              <h2>Everything you need, handled end to end.</h2>
+              <p className="home-redesign-kicker">How CasaMia works</p>
+              <h2>A safer home, handled step by step.</h2>
               <p>
-                Start with photos or a visit. CasaMia turns that into grant support,
-                professional installation and long-term aftercare.
+                Choose the route that suits your family. We turn the right package or inspection
+                into a clear proposal, grant support and professional installation.
               </p>
             </div>
             <div className="home-journey-grid" aria-label="CasaMia end-to-end service steps">
@@ -522,25 +542,36 @@ export function HomePage() {
 
                 return (
                   <article className="home-journey-card" key={step.id}>
-                    <div className="home-journey-top">
+                    <div className="home-journey-media">
+                      <SafeImage
+                        src={step.visual.src}
+                        alt={step.visual.alt}
+                        className="home-journey-visual"
+                        imgClassName="h-full w-full object-cover"
+                        fallbackLabel={step.title}
+                      />
                       <span className="home-journey-number">
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      <span className="home-journey-icon">
-                        <Icon size={24} aria-hidden="true" />
-                      </span>
                     </div>
-                    <p className="home-journey-eyebrow">{step.eyebrow}</p>
-                    <h3>{step.title}</h3>
-                    <p>{step.body}</p>
-                    <ul className="home-journey-points">
-                      {step.points.map((point) => (
-                        <li key={point}>
-                          <CheckCircle2 size={16} aria-hidden="true" />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="home-journey-content">
+                      <div className="home-journey-top">
+                        <p className="home-journey-eyebrow">{step.eyebrow}</p>
+                        <span className="home-journey-icon">
+                          <Icon size={24} aria-hidden="true" />
+                        </span>
+                      </div>
+                      <h3>{step.title}</h3>
+                      <p className="home-journey-body">{step.body}</p>
+                      <ul className="home-journey-points">
+                        {step.points.map((point) => (
+                          <li key={point}>
+                            <CheckCircle2 size={16} aria-hidden="true" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </article>
                 )
               })}

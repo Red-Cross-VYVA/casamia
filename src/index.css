@@ -682,8 +682,8 @@ img {
 
 .home-journey-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 26px);
   margin-top: clamp(28px, 4vw, 44px);
 }
 
@@ -691,15 +691,12 @@ img {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  display: flex;
-  min-height: 330px;
-  flex-direction: column;
+  display: grid;
+  min-height: 360px;
+  grid-template-columns: minmax(210px, 0.46fr) minmax(0, 0.54fr);
   border: 1px solid rgba(31, 106, 150, 0.18);
-  border-radius: 30px;
-  background:
-    radial-gradient(circle at 88% 10%, rgba(124, 194, 63, 0.18), transparent 38%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(235, 248, 254, 0.9));
-  padding: clamp(20px, 2.2vw, 28px);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(235, 248, 254, 0.9));
   box-shadow: 0 22px 58px rgba(16, 62, 88, 0.1);
 }
 
@@ -715,50 +712,94 @@ img {
   opacity: 0.75;
 }
 
+.home-journey-media {
+  position: relative;
+  min-height: 100%;
+  background: #eaf7fd;
+}
+
+.home-journey-media::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(19, 37, 58, 0) 50%, rgba(19, 37, 58, 0.34));
+  content: '';
+  pointer-events: none;
+}
+
+.home-journey-visual {
+  height: 100%;
+  min-height: 100%;
+}
+
+.home-journey-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-journey-content {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(22px, 2.4vw, 30px);
+}
+
 .home-journey-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .home-journey-number {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  left: 16px;
+  display: inline-flex;
+  min-width: 58px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(31, 106, 150, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
   color: #2f9dd4;
   font-size: 0.82rem;
   font-weight: 900;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  box-shadow: 0 12px 28px rgba(16, 62, 88, 0.18);
 }
 
 .home-journey-icon {
   display: grid;
-  width: 58px;
-  height: 58px;
+  width: 50px;
+  height: 50px;
   place-items: center;
   border: 1px solid rgba(31, 106, 150, 0.18);
-  border-radius: 20px;
+  border-radius: 18px;
   background: #eaf7fd;
   color: #1f6a96;
 }
 
 .home-journey-eyebrow {
-  margin: 0 0 10px;
+  margin: 0;
   color: #6faf31;
   font-size: 0.78rem;
   font-weight: 900;
-  letter-spacing: 0.16em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .home-journey-card h3 {
   margin: 0 0 12px;
   color: #13253a;
-  font-size: clamp(1.35rem, 2vw, 2rem);
-  line-height: 1.05;
+  font-size: 1.7rem;
+  line-height: 1.08;
 }
 
-.home-journey-card > p:not(.home-journey-eyebrow) {
+.home-journey-body {
   margin: 0;
   color: #4d6074;
   font-size: 1rem;
@@ -768,8 +809,9 @@ img {
 .home-journey-points {
   display: grid;
   gap: 10px;
-  margin: 22px 0 0;
-  padding: 0;
+  margin: auto 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid rgba(31, 106, 150, 0.12);
   list-style: none;
 }
 
@@ -779,6 +821,7 @@ img {
   gap: 10px;
   color: #173047;
   font-weight: 800;
+  line-height: 1.35;
 }
 
 .home-journey-points svg {
@@ -795,8 +838,18 @@ img {
 }
 
 @media (max-width: 1180px) {
-  .home-journey-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .home-journey-card {
+    min-height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .home-journey-media {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+
+  .home-journey-content {
+    min-height: 310px;
   }
 }
 
@@ -805,7 +858,7 @@ img {
     grid-template-columns: 1fr;
   }
 
-  .home-journey-card {
+  .home-journey-content {
     min-height: auto;
   }
 
@@ -816,6 +869,20 @@ img {
   .home-journey-actions a {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 460px) {
+  .home-journey-card {
+    border-radius: 22px;
+  }
+
+  .home-journey-content {
+    padding: 22px;
+  }
+
+  .home-journey-card h3 {
+    font-size: 1.45rem;
   }
 }
 
