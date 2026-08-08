@@ -680,6 +680,145 @@ img {
   line-height: 1.5;
 }
 
+.home-journey-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.home-journey-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  min-height: 330px;
+  flex-direction: column;
+  border: 1px solid rgba(31, 106, 150, 0.18);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(124, 194, 63, 0.18), transparent 38%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(235, 248, 254, 0.9));
+  padding: clamp(20px, 2.2vw, 28px);
+  box-shadow: 0 22px 58px rgba(16, 62, 88, 0.1);
+}
+
+.home-journey-card::before {
+  position: absolute;
+  right: 24px;
+  bottom: 0;
+  left: 24px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7cc23f, #2f9dd4);
+  content: '';
+  opacity: 0.75;
+}
+
+.home-journey-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.home-journey-number {
+  color: #2f9dd4;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.home-journey-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 1px solid rgba(31, 106, 150, 0.18);
+  border-radius: 20px;
+  background: #eaf7fd;
+  color: #1f6a96;
+}
+
+.home-journey-eyebrow {
+  margin: 0 0 10px;
+  color: #6faf31;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.home-journey-card h3 {
+  margin: 0 0 12px;
+  color: #13253a;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  line-height: 1.05;
+}
+
+.home-journey-card > p:not(.home-journey-eyebrow) {
+  margin: 0;
+  color: #4d6074;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.home-journey-points {
+  display: grid;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-journey-points li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #173047;
+  font-weight: 800;
+}
+
+.home-journey-points svg {
+  flex: 0 0 auto;
+  color: #7cc23f;
+}
+
+.home-journey-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+@media (max-width: 1180px) {
+  .home-journey-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .home-journey-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-journey-card {
+    min-height: auto;
+  }
+
+  .home-journey-actions {
+    justify-content: stretch;
+  }
+
+  .home-journey-actions a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .home-credit-section {
   padding: 0 0 clamp(58px, 8vw, 96px);
 }

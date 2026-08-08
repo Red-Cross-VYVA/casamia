@@ -1,7 +1,6 @@
 import {
   Activity,
   ArrowRight,
-  BadgeCheck,
   Bath,
   BedDouble,
   BellRing,
@@ -173,36 +172,43 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   },
 ]
 
-const corePillars: Array<SelectableCard<string>> = [
+type SupportJourneyStep = SelectableCard<string> & {
+  eyebrow: string
+  points: string[]
+}
+
+const supportJourney: SupportJourneyStep[] = [
   {
     id: 'assessment',
-    title: 'Home Safety Assessment',
-    body: 'A professional evaluation of the home, daily routines and priority risks.',
+    eyebrow: 'Step 1',
+    title: 'Check the home your way',
+    body: 'Start with photos or video, or book an optional inspector visit. If you continue with CasaMia, the visit can be credited back where applicable.',
     icon: CalendarCheck,
+    points: ['Photos or video', 'Optional home visit', 'Clear first priorities'],
   },
   {
-    id: 'report',
-    title: 'Personal Safety Report',
-    body: 'Clear recommendations, priorities and transparent pricing before work begins.',
+    id: 'grants',
+    eyebrow: 'Step 2',
+    title: 'We manage the grant route',
+    body: 'CasaMia helps prepare and submit the application, so you can make the most of eligible public support.',
     icon: ClipboardCheck,
-  },
-  {
-    id: 'improvements',
-    title: 'Essential Safety Improvements',
-    body: 'The practical changes that make the biggest difference first.',
-    icon: ShieldCheck,
+    points: ['Eligibility check', 'Document guidance', 'Submission support'],
   },
   {
     id: 'installation',
+    eyebrow: 'Step 3',
     title: 'Professional Installation',
-    body: 'Supply, installation, setup, testing and basic training included.',
+    body: 'Qualified installers fit, configure and test the agreed adaptations, with the right products for each room.',
     icon: Wrench,
+    points: ['Supply and fitting', 'Configuration', 'Handover'],
   },
   {
     id: 'support',
-    title: 'Warranty and Support',
-    body: 'CasaMia remains your point of contact after installation.',
-    icon: BadgeCheck,
+    eyebrow: 'Step 4',
+    title: 'Support and maintenance',
+    body: 'CasaMia remains the single point of contact for adjustments, questions and ongoing support.',
+    icon: HeartHandshake,
+    points: ['One contact', 'Aftercare', 'Maintenance support'],
   },
 ]
 
@@ -500,40 +506,65 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="home-redesign-section home-core-section" id="core-plan">
-        <div className="site-shell">
-          <div className="home-redesign-section-heading is-centered">
-            <p className="home-redesign-kicker">One clear plan</p>
-            <h2>Every CasaMia home includes</h2>
-            <p>Start with a safer home. Add only what you need.</p>
-          </div>
-          <div className="home-core-grid">
-            {corePillars.map((pillar) => {
-              const Icon = pillar.icon
+        <section className="home-redesign-section home-core-section" id="core-plan">
+          <div className="site-shell">
+            <div className="home-redesign-section-heading is-centered">
+              <p className="home-redesign-kicker">One company. Four clear steps.</p>
+              <h2>Everything you need, handled end to end.</h2>
+              <p>
+                Start with photos or a visit. CasaMia turns that into grant support,
+                professional installation and long-term aftercare.
+              </p>
+            </div>
+            <div className="home-journey-grid" aria-label="CasaMia end-to-end service steps">
+              {supportJourney.map((step, index) => {
+                const Icon = step.icon
 
-              return (
-                <article className="home-core-card" key={pillar.id}>
-                  <span>
-                    <Icon size={23} aria-hidden="true" />
-                  </span>
-                  <h3>{pillar.title}</h3>
-                  <p>{pillar.body}</p>
-                </article>
-              )
-            })}
+                return (
+                  <article className="home-journey-card" key={step.id}>
+                    <div className="home-journey-top">
+                      <span className="home-journey-number">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="home-journey-icon">
+                        <Icon size={24} aria-hidden="true" />
+                      </span>
+                    </div>
+                    <p className="home-journey-eyebrow">{step.eyebrow}</p>
+                    <h3>{step.title}</h3>
+                    <p>{step.body}</p>
+                    <ul className="home-journey-points">
+                      {step.points.map((point) => (
+                        <li key={point}>
+                          <CheckCircle2 size={16} aria-hidden="true" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                )
+              })}
+            </div>
+            <div className="home-journey-actions">
+              <Link
+                className="home-redesign-primary"
+                to={configuratorPath}
+                onClick={() => trackEvent('core_plan_started', { location: 'core_plan' })}
+              >
+                Build your CasaMia plan
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+              <Link
+                className="home-redesign-secondary"
+                to={talkPath}
+                onClick={() => trackEvent('core_plan_contact_clicked', { location: 'core_plan' })}
+              >
+                Ask us to contact you
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
-          <div className="home-core-details-action">
-            <Link
-              className="home-redesign-secondary"
-              to={configuratorPath}
-              onClick={() => trackEvent('core_plan_details_opened', { location: 'core_plan' })}
-            >
-              Build your CasaMia plan
-              <ArrowRight size={17} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
 
       <section className="home-credit-section">
         <div className="home-credit-panel site-shell">
