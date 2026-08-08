@@ -100,7 +100,7 @@ const audiences: SelectableCard<AudienceId>[] = [
     body: 'I am looking for solutions for multiple residents.',
     icon: Building2,
     visual: {
-      src: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+      src: '/images/solutions/adorable-mature-couple-kitchen.jpg',
       alt: 'Home safety professional reviewing adaptations with a client',
     },
   },

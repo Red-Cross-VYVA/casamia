@@ -513,7 +513,7 @@ const decisionPathways = [
   },
   {
     icon: FileCheck2,
-    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+    image: '/images/solutions/adorable-mature-couple-kitchen.jpg',
     title: { en: 'I want to understand grants or funding', es: 'Quiero entender ayudas o financiación' },
     body: {
       en: 'Prepare the documents, eligibility questions and next steps before relying on any programme.',
@@ -1084,7 +1084,7 @@ export function BlogPage() {
 
             <div className="resource-hub-hero-visual" aria-hidden="true">
               <img
-                src="/images/solutions/front-view-adorable-couple-kitchen.jpg"
+                src="/images/solutions/close-up-senior-couple-love.jpg"
                 alt=""
                 loading="eager"
                 decoding="async"
