@@ -30,6 +30,24 @@ assert.match(
   'The active What We Offer section should render visual-led journey cards.',
 )
 
+assert.match(
+  offer,
+  /\/images\/solutions\/casamia-staff-kitchen-consultation\.webp/,
+  'Step 1 in the active What We Offer section should use the consultation image.',
+)
+
+assert.match(
+  offer,
+  /offer-proposal-snapshot/,
+  'Step 2 in the active What We Offer section should render a proposal snapshot visual.',
+)
+
+assert.match(
+  offer,
+  /offer-spanish-flag-visual/,
+  'Step 3 in the active What We Offer section should render a Spanish flag visual.',
+)
+
 assert.equal(enCopy.offer.line1, 'A safer home,')
 assert.equal(enCopy.offer.cards[1].title, 'Review your proposal')
 

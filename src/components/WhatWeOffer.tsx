@@ -20,37 +20,106 @@ type OfferCard = {
   points?: string[]
 }
 
-const offerVisuals: Array<{
+type OfferVisual = {
   Icon: LucideIcon
   className: string
-  image: string
-  alt: string
-}> = [
+} & (
+  | {
+      kind: 'image'
+      image: string
+      alt: string
+    }
+  | {
+      kind: 'proposal'
+      label: string
+    }
+  | {
+      kind: 'flag'
+      label: string
+    }
+)
+
+const offerVisuals: OfferVisual[] = [
   {
     Icon: Camera,
     className: 'is-assessment',
-    image: '/images/assessment/casamia-inspector-tablet.jpg',
-    alt: 'CasaMia technician reviewing a home safety inspection on a tablet',
-  },
-  {
-    Icon: ClipboardCheck,
-    className: 'is-proposal',
+    kind: 'image',
     image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
     alt: 'CasaMia advisor discussing safety improvements in a kitchen',
   },
   {
+    Icon: ClipboardCheck,
+    className: 'is-proposal',
+    kind: 'proposal',
+    label: 'Sample CasaMia proposal snapshot',
+  },
+  {
     Icon: BadgeEuro,
     className: 'is-grant',
-    image: '/images/blog/grants-readiness.webp',
-    alt: 'Grant support documents prepared for a home safety application',
+    kind: 'flag',
+    label: 'Spanish flag representing grant support in Spain',
   },
   {
     Icon: Wrench,
     className: 'is-installation',
+    kind: 'image',
     image: '/images/solutions/casamia-worker-process.webp',
     alt: 'CasaMia installer preparing home safety equipment',
   },
 ]
+
+function OfferVisualMedia({ title, visual }: { title: string; visual: OfferVisual }) {
+  if (visual.kind === 'proposal') {
+    return (
+      <div className="offer-proposal-snapshot" role="img" aria-label={visual.label}>
+        <div className="offer-proposal-sheet">
+          <div className="offer-proposal-header">
+            <span>CasaMia</span>
+            <strong>Safety Proposal</strong>
+          </div>
+          <div className="offer-proposal-score">
+            <span>Priority</span>
+            <strong>Room-by-room plan</strong>
+          </div>
+          <div className="offer-proposal-lines" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <div className="offer-proposal-items" aria-hidden="true">
+            <span>Bathroom access</span>
+            <span>Kitchen reach</span>
+            <span>Night route</span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (visual.kind === 'flag') {
+    return (
+      <div className="offer-spanish-flag-visual" role="img" aria-label={visual.label}>
+        <div className="offer-spanish-flag">
+          <span className="offer-flag-band is-red" />
+          <span className="offer-flag-band is-yellow">
+            <span className="offer-flag-crest" />
+          </span>
+          <span className="offer-flag-band is-red" />
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <SafeImage
+      src={visual.image}
+      alt={visual.alt}
+      className="offer-card-image"
+      imgClassName="h-full w-full object-cover"
+      fallbackLabel={title}
+    />
+  )
+}
 
 export function WhatWeOffer() {
   const { t } = useTranslation()
@@ -76,14 +145,8 @@ export function WhatWeOffer() {
 
             return (
               <article className="offer-card offer-step-card rounded-lg bg-light-blue" key={card.title}>
-                <div className="offer-card-media">
-                  <SafeImage
-                    src={visual.image}
-                    alt={visual.alt}
-                    className="offer-card-image"
-                    imgClassName="h-full w-full object-cover"
-                    fallbackLabel={card.title}
-                  />
+                <div className={`offer-card-media is-${visual.kind}`}>
+                  <OfferVisualMedia title={card.title} visual={visual} />
                   <span className="offer-card-step" aria-hidden="true">
                     {String(index + 1).padStart(2, '0')}
                   </span>
