@@ -1,4 +1,5 @@
 import {
+  ArrowDown,
   ArrowRight,
   Bath,
   BedDouble,
@@ -10,9 +11,10 @@ import {
   PackageCheck,
   ShieldCheck,
   Sparkles,
+  X,
   type LucideIcon,
 } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
@@ -105,6 +107,14 @@ type ServicesPageCopy = {
   heroTitle: string
   heroBody: string
   browseCta: string
+  catalogueGuide: {
+    eyebrow: string
+    title: string
+    body: string
+    points: string[]
+    startCta: string
+    close: string
+  }
   planCta: string
   catalogueLabel: string
   currentOptions: string
@@ -256,6 +266,15 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     heroTitle: 'Home safety packages, room by room.',
     heroBody: 'Choose a room or safety area to see the core improvements CasaMia can assess, quote and coordinate.',
     browseCta: 'Explore services',
+    catalogueGuide: {
+      eyebrow: 'Before you browse',
+      title: 'Choose one package, or combine several.',
+      body:
+        'You can start with a single room package or select several areas together. CasaMia has solutions for every section of the home, from bathrooms and bedrooms to kitchens, entrances, living areas, stairs, lighting and smart safety.',
+      points: ['Pick one room package', 'Add more home areas if needed', 'Turn everything into one CasaMia plan'],
+      startCta: 'Start catalogue',
+      close: 'Close',
+    },
     planCta: 'Build my safer home',
     catalogueLabel: 'Current catalogue',
     currentOptions: 'included items and add-ons available now',
@@ -301,6 +320,15 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     heroTitle: 'Paquetes de seguridad, estancia por estancia.',
     heroBody: 'Elige una estancia o zona de seguridad para ver las mejoras que CasaMia puede valorar, presupuestar y coordinar.',
     browseCta: 'Ver servicios',
+    catalogueGuide: {
+      eyebrow: 'Antes de ver el catalogo',
+      title: 'Elige un paquete o combina varios.',
+      body:
+        'Puedes empezar con el paquete de una estancia o seleccionar varias zonas de la casa. CasaMia tiene soluciones para todas las secciones del hogar: banos, dormitorios, cocinas, entradas, salas de estar, escaleras, iluminacion y seguridad inteligente.',
+      points: ['Elige un paquete por estancia', 'Anade mas zonas si hace falta', 'Lo convertimos en un unico plan CasaMia'],
+      startCta: 'Empezar catalogo',
+      close: 'Cerrar',
+    },
     planCta: 'Crear mi hogar más seguro',
     catalogueLabel: 'Catálogo actual',
     currentOptions: 'incluidos y extras disponibles',
@@ -524,6 +552,39 @@ export function ServicesPage() {
   const selectedRiskMap = selectedGroup && isZoneRiskArea(selectedGroup.area.id)
     ? zoneRiskMaps[selectedGroup.area.id]
     : undefined
+  const [isCatalogueGuideOpen, setIsCatalogueGuideOpen] = useState(false)
+
+  useEffect(() => {
+    if (!isCatalogueGuideOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsCatalogueGuideOpen(false)
+      }
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isCatalogueGuideOpen])
+
+  const startCatalogue = () => {
+    setIsCatalogueGuideOpen(false)
+    window.setTimeout(() => {
+      const catalogue = document.getElementById('catalogue-packages')
+
+      if (!catalogue) return
+
+      const catalogueTop = catalogue.getBoundingClientRect().top + window.scrollY
+      window.history.replaceState(null, '', '#catalogue-packages')
+      window.scrollTo({ top: Math.max(catalogueTop - 92, 0), behavior: 'smooth' })
+    }, 0)
+  }
 
   return (
     <>
@@ -552,14 +613,59 @@ export function ServicesPage() {
             <h1>{copy.heroTitle}</h1>
             <p>{copy.heroBody}</p>
             <div className="services-catalogue-hero-actions">
-              <a className="btn btn-green" href="#catalogue-packages">
+              <button
+                aria-expanded={isCatalogueGuideOpen}
+                aria-haspopup="dialog"
+                className="btn btn-green services-catalogue-hero-cta"
+                onClick={() => setIsCatalogueGuideOpen(true)}
+                type="button"
+              >
                 {copy.browseCta}
-                <ArrowRight size={20} aria-hidden="true" />
-              </a>
+                <ArrowDown size={20} aria-hidden="true" />
+              </button>
             </div>
           </div>
         </div>
       </section>
+
+      {isCatalogueGuideOpen ? (
+        <div className="services-catalogue-guide-backdrop" onClick={() => setIsCatalogueGuideOpen(false)}>
+          <div
+            aria-describedby="services-catalogue-guide-body"
+            aria-labelledby="services-catalogue-guide-title"
+            aria-modal="true"
+            className="services-catalogue-guide-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <button
+              aria-label={copy.catalogueGuide.close}
+              className="services-catalogue-guide-close"
+              onClick={() => setIsCatalogueGuideOpen(false)}
+              type="button"
+            >
+              <X size={18} aria-hidden="true" />
+            </button>
+            <p className="eyebrow">{copy.catalogueGuide.eyebrow}</p>
+            <h2 id="services-catalogue-guide-title">{copy.catalogueGuide.title}</h2>
+            <p id="services-catalogue-guide-body">{copy.catalogueGuide.body}</p>
+            <ul className="services-catalogue-guide-points">
+              {copy.catalogueGuide.points.map((point) => (
+                <li key={point}>
+                  <CheckCircle2 size={17} aria-hidden="true" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="services-catalogue-guide-actions">
+              <button className="btn btn-green" onClick={startCatalogue} type="button">
+                {copy.catalogueGuide.startCta}
+                <ArrowDown size={19} aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <section className="services-catalogue-section" id="catalogue-packages">
         <div className="site-shell">

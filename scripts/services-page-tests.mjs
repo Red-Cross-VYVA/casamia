@@ -42,6 +42,26 @@ assert.match(
 )
 assert.match(
   page,
+  /ArrowDown/,
+  'The hero services CTA should use a downward arrow before the catalogue section.',
+)
+assert.match(
+  page,
+  /aria-haspopup="dialog"/,
+  'The hero services CTA should open the catalogue guide modal before jumping to the catalogue.',
+)
+assert.match(
+  page,
+  /services-catalogue-guide-modal/,
+  'The Services page should render a guide modal explaining package selection.',
+)
+assert.match(
+  page,
+  /window\.scrollTo\(\{ top: Math\.max\(catalogueTop - 92, 0\), behavior: 'smooth' \}\)/,
+  'The guide modal start action should take visitors to the catalogue section.',
+)
+assert.match(
+  page,
   /services-zone-risk-hint/,
   'Risk map visuals should include a subtle hover/tap hint for interactive markers.',
 )
