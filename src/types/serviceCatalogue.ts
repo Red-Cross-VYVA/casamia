@@ -241,6 +241,7 @@ export type MasterCatalogueCapability = {
   technologyEnabled: boolean
   requiresCompatibilityCheck: boolean
   implementationNotes?: string
+  referenceUrls?: string[]
 }
 
 export type MasterCatalogueProduct = {

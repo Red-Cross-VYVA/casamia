@@ -1052,8 +1052,7 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
             <ol className="services-zone-risk-list">
               {copy.risks.map((risk, index) => (
                 <li key={risk}>
-                  <span>{index + 1}</span>
-                  <strong>{risk}</strong>
+                  <strong aria-label={`${index + 1}. ${risk}`}>{risk}</strong>
                 </li>
               ))}
             </ol>

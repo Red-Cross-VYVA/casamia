@@ -726,15 +726,14 @@
 }
 
 .services-zone-risk-list li {
-  display: grid;
+  display: flex;
   min-height: 2.45rem;
-  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: 0.5rem;
+  border-left: 3px solid rgb(199 53 47 / 32%);
   border-radius: 0.55rem;
   background: rgb(255 255 255 / 82%);
   box-shadow: inset 0 0 0 1px #d5e8f4;
-  padding: 0.42rem 0.5rem;
+  padding: 0.52rem 0.68rem;
 }
 
 .services-zone-risk-list span {

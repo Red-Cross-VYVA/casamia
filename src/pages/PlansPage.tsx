@@ -146,10 +146,13 @@ type PlansDetail = {
   body: string
   items: MasterCatalogueOutcome[]
   mode: 'core' | 'optional' | 'specialist'
+  optionalItems?: MasterCatalogueOutcome[]
   price: string
   title: string
   typeLabel: string
 }
+
+type PlansDetailTab = 'core' | 'optional'
 
 function cleanPlanDetailItem(item: string) {
   return item
@@ -158,17 +161,41 @@ function cleanPlanDetailItem(item: string) {
     .trim()
 }
 
+function normalizePlanDetailDisplayItem(item: string) {
+  return cleanPlanDetailItem(item)
+    .replace(/^(Bathroom|Bedroom|Kitchen|Living room|Living Room|Entrance)\s+/i, '')
+    .replace(/\s+(service|task)$/i, '')
+    .trim()
+}
+
+function getPlanDetailItemKey(item: string) {
+  const normalized = normalizePlanDetailDisplayItem(item).toLocaleLowerCase()
+
+  if (/anti[-\s]?slip.*floor|floor.*anti[-\s]?slip/.test(normalized)) {
+    return 'anti-slip-floor-treatment'
+  }
+
+  if (/secure.*floor covering|floor covering/.test(normalized)) {
+    return 'secure-floor-coverings'
+  }
+
+  return normalized
+    .replace(/\b(apply|install|fit|add|create|clear and secure|improved|safer|service)\b/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 function dedupePlanDetailItems(items: string[]) {
   const seen = new Set<string>()
 
   return items
-    .map(cleanPlanDetailItem)
+    .map(normalizePlanDetailDisplayItem)
     .filter((item) => {
       if (!item || item.length < 3) {
         return false
       }
 
-      const key = item.toLocaleLowerCase()
+      const key = getPlanDetailItemKey(item)
       if (seen.has(key)) {
         return false
       }
@@ -202,14 +229,19 @@ function getPlanDetailIncludedItems(
   language: 'en' | 'es',
 ) {
   const specification = getProposalSpecificationForOutcome(outcome.id, catalogue)
-  const resolvedItems = dedupePlanDetailItems([
-    ...specification.products.filter((product) => product.active).map((product) => product.name),
-    ...specification.capabilities.filter((capability) => capability.active).map((capability) => capability.name),
-    ...specification.installationTasks.filter((task) => task.active).map((task) => task.name),
-  ]).slice(0, 6)
+  const productItems = dedupePlanDetailItems(
+    specification.products.filter((product) => product.active).map((product) => product.name),
+  )
+  const resolvedItems = productItems.length >= 2
+    ? productItems
+    : dedupePlanDetailItems([
+        ...specification.products.filter((product) => product.active).map((product) => product.name),
+        ...specification.capabilities.filter((capability) => capability.active).map((capability) => capability.name),
+        ...specification.installationTasks.filter((task) => task.active).map((task) => task.name),
+      ])
 
   if (resolvedItems.length) {
-    return resolvedItems
+    return resolvedItems.slice(0, 5)
   }
 
   const fallback = localizePlansString(
@@ -219,6 +251,40 @@ function getPlanDetailIncludedItems(
   )
 
   return splitPlanDetailFallback(fallback)
+}
+
+function getPlanDetailPrimaryProductName(outcome: MasterCatalogueOutcome, catalogue: MasterServiceCatalogue) {
+  const specification = getProposalSpecificationForOutcome(outcome.id, catalogue)
+
+  return dedupePlanDetailItems(
+    specification.products.filter((product) => product.active).map((product) => product.name),
+  )[0] ?? ''
+}
+
+function getPlanDetailSlideTitle(
+  outcome: MasterCatalogueOutcome,
+  catalogue: MasterServiceCatalogue,
+  language: 'en' | 'es',
+) {
+  const fallbackTitle = localizePlansString(outcome.customerName, language, outcome.internalName)
+  const primaryProduct = getPlanDetailPrimaryProductName(outcome, catalogue)
+
+  if (!primaryProduct) {
+    return fallbackTitle
+  }
+
+  const titleKey = fallbackTitle.toLocaleLowerCase()
+  const productKey = primaryProduct.toLocaleLowerCase()
+
+  return titleKey.includes(productKey) ? fallbackTitle : primaryProduct
+}
+
+function getPlanDetailSlideImage(outcome: MasterCatalogueOutcome) {
+  return getCatalogueOutcomeImage({
+    id: outcome.id,
+    roomId: outcome.roomId,
+    slug: outcome.slug,
+  })
 }
 
 const plansCopy: Record<'en' | 'es', PlansCopy> = {
@@ -515,6 +581,16 @@ function getOutcomePreviewMeta(outcome: MasterCatalogueOutcome, fallbackIcon: Lu
   return { icon: fallbackIcon, motif: 'grid', theme: 'smart' }
 }
 
+function getPlanDetailImageClass(outcome?: MasterCatalogueOutcome) {
+  if (!outcome) return ''
+
+  if (outcome.id === 'bathroom-improved-visibility' || outcome.slug === 'bathroom-improved-visibility') {
+    return 'is-bathroom-visibility'
+  }
+
+  return ''
+}
+
 type OutcomePreviewTagProps = {
   compact?: boolean
   embedded?: boolean
@@ -760,6 +836,7 @@ export function PlansPage() {
   const [expandedAddOns, setExpandedAddOns] = useState<Record<string, boolean>>({})
   const [activeDetail, setActiveDetail] = useState<PlansDetail | null>(null)
   const [activeDetailIndex, setActiveDetailIndex] = useState(0)
+  const [activeDetailTab, setActiveDetailTab] = useState<PlansDetailTab>('core')
   const [draftUrl, setDraftUrl] = useState('')
   const [emailDelivery, setEmailDelivery] = useState<PublicProposalDraftResponse['emailDelivery'] | null>(null)
   const [error, setError] = useState('')
@@ -823,8 +900,11 @@ export function PlansPage() {
   const detailCopy = language === 'es'
     ? {
         benefit: 'Por qué ayuda',
+        coreTab: 'Paquete base',
         includes: 'Qué incluye CasaMia',
         next: 'Siguiente',
+        noDetailItems: 'No hay elementos para mostrar en esta sección.',
+        optionalTab: 'Extras opcionales',
         optionalNote: 'Extra opcional. CasaMia confirma idoneidad, medidas y compatibilidad antes de incluirlo.',
         previous: 'Anterior',
         slideLabel: 'Elemento',
@@ -832,29 +912,48 @@ export function PlansPage() {
       }
     : {
         benefit: 'Why it helps',
+        coreTab: 'Core package',
         includes: 'What CasaMia includes',
         next: 'Next',
+        noDetailItems: 'No items to show in this section.',
+        optionalTab: 'Optional add-ons',
         optionalNote: 'Optional add-on. CasaMia confirms fit, measurements and compatibility before including it.',
         previous: 'Previous',
         slideLabel: 'Item',
         technical: 'Confirmed by CasaMia',
       }
-  const activeDetailSlides = activeDetail?.items ?? []
+  const activeDetailOptionalItems = activeDetail?.optionalItems ?? []
+  const activeDetailTabs: Array<{ id: PlansDetailTab; items: MasterCatalogueOutcome[]; label: string }> = activeDetail
+    ? [
+        ...(activeDetail.items.length
+          ? [{ id: 'core' as PlansDetailTab, items: activeDetail.items, label: detailCopy.coreTab }]
+          : []),
+        ...(activeDetailOptionalItems.length
+          ? [{ id: 'optional' as PlansDetailTab, items: activeDetailOptionalItems, label: detailCopy.optionalTab }]
+          : []),
+      ]
+    : []
+  const activeDetailCurrentTab = activeDetailTabs.some((tab) => tab.id === activeDetailTab)
+    ? activeDetailTab
+    : activeDetailTabs[0]?.id ?? 'core'
+  const activeDetailSlides = activeDetailTabs.find((tab) => tab.id === activeDetailCurrentTab)?.items ?? []
+  const activeDetailDisplayMode =
+    activeDetailCurrentTab === 'optional' || activeDetail?.mode === 'optional' || activeDetail?.mode === 'specialist'
+      ? activeDetail?.mode === 'specialist'
+        ? 'specialist'
+        : 'optional'
+      : 'core'
   const activeDetailSlideCount = activeDetailSlides.length
   const activeDetailSafeIndex = Math.min(activeDetailIndex, Math.max(activeDetailSlideCount - 1, 0))
   const activeDetailSlide = activeDetailSlides[activeDetailSafeIndex]
   const activeDetailSlideTitle = activeDetailSlide
-    ? localizePlansString(activeDetailSlide.customerName, language, activeDetailSlide.internalName)
+    ? getPlanDetailSlideTitle(activeDetailSlide, masterCatalogue, language)
     : ''
   const activeDetailSlideBenefit = activeDetailSlide
     ? getPlanDetailBenefit(activeDetailSlide, language)
     : ''
   const activeDetailSlideImage = activeDetailSlide
-    ? getCatalogueOutcomeImage({
-        id: activeDetailSlide.id,
-        roomId: activeDetailSlide.roomId,
-        slug: activeDetailSlide.slug,
-      })
+    ? getPlanDetailSlideImage(activeDetailSlide)
     : ''
   const activeDetailIncludedItems = activeDetailSlide
     ? getPlanDetailIncludedItems(activeDetailSlide, masterCatalogue, language)
@@ -955,12 +1054,13 @@ export function PlansPage() {
     if (!activeDetail) {
       return
     }
-    const detailSlideCount = activeDetail.items.length
+    const detailSlideCount = activeDetailSlideCount
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         setActiveDetail(null)
         setActiveDetailIndex(0)
+        setActiveDetailTab('core')
         return
       }
 
@@ -975,7 +1075,7 @@ export function PlansPage() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [activeDetail])
+  }, [activeDetail, activeDetailSlideCount])
 
   const schema = useMemo(
     () => ({
@@ -1332,12 +1432,18 @@ export function PlansPage() {
     }))
   }
 
+  function getGroupOptionalDetailItems(group: PlansBuilderGroup) {
+    return group.addOnPackages.flatMap((addOnPackage) => addOnPackage.outcomes)
+  }
+
   function openRoomPackageDetails(group: PlansBuilderGroup) {
     setActiveDetailIndex(0)
+    setActiveDetailTab('core')
     setActiveDetail({
       body: group.packageDescription,
       items: group.homeOutcomes,
       mode: 'core',
+      optionalItems: getGroupOptionalDetailItems(group),
       price: copy.coreIncluded,
       title: group.packageLabel,
       typeLabel: copy.coreIncluded,
@@ -1346,10 +1452,12 @@ export function PlansPage() {
 
   function openAddOnPackageDetails(addOnPackage: PlansBuilderAddOnPackage) {
     setActiveDetailIndex(0)
+    setActiveDetailTab('optional')
     setActiveDetail({
       body: addOnPackage.packageDescription,
-      items: addOnPackage.outcomes,
+      items: [],
       mode: 'optional',
+      optionalItems: addOnPackage.outcomes,
       price: addOnPackage.requiresReview ? copy.reviewRequired : copy.optionalTitle,
       title: addOnPackage.packageLabel,
       typeLabel: copy.optionalTitle,
@@ -1360,6 +1468,7 @@ export function PlansPage() {
     const price = getPlansOutcomeUnitPrice(outcome)
 
     setActiveDetailIndex(0)
+    setActiveDetailTab('core')
     setActiveDetail({
       body: localizePlansString(outcome.shortDescription, language, outcome.internalName),
       items: [outcome],
@@ -1373,6 +1482,7 @@ export function PlansPage() {
   function closeDetailModal() {
     setActiveDetail(null)
     setActiveDetailIndex(0)
+    setActiveDetailTab('core')
   }
 
   function goToPreviousDetailSlide() {
@@ -2057,22 +2167,42 @@ export function PlansPage() {
           <section
             aria-labelledby="plans-detail-title"
             aria-modal="true"
-            className={`plan-detail-modal plan-detail-modal--${activeDetail.mode}`}
+            className={`plan-detail-modal plan-detail-modal--${activeDetailDisplayMode}`}
             role="dialog"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="plan-detail-modal-head">
               <div>
-                <p>{activeDetail.typeLabel}</p>
+                <p>{activeDetailDisplayMode === 'optional' ? detailCopy.optionalTab : activeDetail.typeLabel}</p>
                 <h2 id="plans-detail-title">{activeDetail.title}</h2>
                 <span>{activeDetail.body}</span>
-                <strong className="plans-detail-price">{activeDetail.price}</strong>
               </div>
               <button type="button" aria-label={copy.closeDetails} onClick={closeDetailModal}>
                 <X size={18} aria-hidden="true" />
                 {copy.closeDetails}
               </button>
             </div>
+
+            {activeDetailTabs.length > 1 ? (
+              <div className="plan-detail-tabs" role="tablist" aria-label={`${activeDetail.title} sections`}>
+                {activeDetailTabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    aria-selected={tab.id === activeDetailCurrentTab}
+                    className={`plan-detail-tab plan-detail-tab--${tab.id} ${tab.id === activeDetailCurrentTab ? 'is-active' : ''}`}
+                    role="tab"
+                    type="button"
+                    onClick={() => {
+                      setActiveDetailTab(tab.id)
+                      setActiveDetailIndex(0)
+                    }}
+                  >
+                    <span>{tab.label}</span>
+                    <strong>{tab.items.length}</strong>
+                  </button>
+                ))}
+              </div>
+            ) : null}
 
             {activeDetailSlide ? (
               <>
@@ -2082,7 +2212,7 @@ export function PlansPage() {
                       alt={activeDetailSlideTitle}
                       className="plan-detail-story-safe-image"
                       fallbackLabel={activeDetailSlideTitle}
-                      imgClassName="plan-detail-story-image"
+                      imgClassName={`plan-detail-story-image ${getPlanDetailImageClass(activeDetailSlide)}`.trim()}
                       loading="lazy"
                       src={activeDetailSlideImage}
                     />
@@ -2116,7 +2246,7 @@ export function PlansPage() {
 
                   <article className="plan-detail-story-panel">
                     <span className="plan-detail-story-kicker">
-                      {activeDetailSlide.category || activeDetail.typeLabel}
+                      {activeDetailSlide.category || (activeDetailDisplayMode === 'optional' ? detailCopy.optionalTab : activeDetail.typeLabel)}
                     </span>
                     <h3>{activeDetailSlideTitle}</h3>
 
@@ -2140,13 +2270,13 @@ export function PlansPage() {
                       </ul>
                     </div>
 
-                    {activeDetail.mode !== 'core' ||
+                    {activeDetailDisplayMode !== 'core' ||
                     activeDetailSlide.requiresAssessment ||
                     activeDetailSlide.requiresQuote ||
                     activeDetailSlide.requiresMeasurement ||
                     activeDetailSlide.requiresCompatibilityCheck ? (
                       <p className="plan-detail-footnote">
-                        {activeDetail.mode === 'core' ? detailCopy.technical : detailCopy.optionalNote}
+                        {activeDetailDisplayMode === 'core' ? detailCopy.technical : detailCopy.optionalNote}
                       </p>
                     ) : null}
                   </article>
@@ -2155,12 +2285,8 @@ export function PlansPage() {
                 {activeDetailHasMultiple ? (
                   <div className="plan-detail-thumb-row" aria-label={`${activeDetail.title} slides`}>
                     {activeDetailSlides.map((outcome, index) => {
-                      const title = localizePlansString(outcome.customerName, language, outcome.internalName)
-                      const image = getCatalogueOutcomeImage({
-                        id: outcome.id,
-                        roomId: outcome.roomId,
-                        slug: outcome.slug,
-                      })
+                      const title = getPlanDetailSlideTitle(outcome, masterCatalogue, language)
+                      const image = getPlanDetailSlideImage(outcome)
 
                       return (
                         <button
@@ -2185,7 +2311,9 @@ export function PlansPage() {
                   </div>
                 ) : null}
               </>
-            ) : null}
+            ) : (
+              <p className="plan-detail-empty">{detailCopy.noDetailItems}</p>
+            )}
           </section>
         </div>
       ) : null}

@@ -392,10 +392,10 @@ export function NeedLandingPage() {
                       <li className={detail ? 'has-detail' : undefined} key={risk}>
                         <button
                           aria-describedby={detailId}
+                          aria-label={`${index + 1}. ${risk}`}
                           className="need-landing-risk-trigger"
                           type="button"
                         >
-                          <span>{index + 1}</span>
                           <strong>{risk}</strong>
                         </button>
                         {detail ? (
