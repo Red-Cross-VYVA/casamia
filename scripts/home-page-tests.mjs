@@ -2,6 +2,8 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const home = await readFile(new URL('../src/pages/Home2Page.tsx', import.meta.url), 'utf8')
+const offer = await readFile(new URL('../src/components/WhatWeOffer.tsx', import.meta.url), 'utf8')
+const enCopy = JSON.parse(await readFile(new URL('../src/i18n/locales/en.json', import.meta.url), 'utf8'))
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
 
 assert.match(
@@ -21,6 +23,15 @@ assert.match(
   /<BeforeAfterPreview \/>[\s\S]*<WhatWeOffer \/>[\s\S]*<ManufacturerMarquee \/>[\s\S]*<Grants \/>/,
   'The manufacturer carousel should sit below the What We Offer section and above Grants.',
 )
+
+assert.match(
+  offer,
+  /SafeImage/,
+  'The active What We Offer section should render visual-led journey cards.',
+)
+
+assert.equal(enCopy.offer.line1, 'A safer home,')
+assert.equal(enCopy.offer.cards[1].title, 'Review your proposal')
 
 assert.doesNotMatch(
   sitemap,

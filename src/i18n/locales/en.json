@@ -328,31 +328,52 @@
     "deepDive": "Read the full fall-prevention guide"
   },
   "offer": {
-    "badge": "WHAT WE OFFER",
-    "line1": "One company.",
-    "line2": "Everything you need.",
+    "badge": "HOW CASAMIA WORKS",
+    "line1": "A safer home,",
+    "line2": "handled step by step.",
+    "intro": "Choose the route that suits your family. We turn the right package or inspection into a clear proposal, grant support and professional installation.",
+    "ctaPrimary": "Build your CasaMia plan",
+    "ctaSecondary": "Ask us to contact you",
     "cards": [
       {
-        "icon": "A",
-        "title": "Home Assessment",
-        "desc": "Upload photos of any room. We identify visible safety risks and give you a free room-by-room safety report."
+        "icon": "Step 1",
+        "title": "Choose your starting point",
+        "desc": "Pick one of our ready-made safety packages, or request a physical inspection so a CasaMia technician can recommend the best solution for the home.",
+        "points": [
+          "Ready-made packages",
+          "Optional home inspection",
+          "Technician guidance"
+        ]
       },
       {
-        "icon": "I",
-        "title": "Professional Installation",
-        "desc": "Certified experts adapt your entire home in a single visit — grab bars, non-slip flooring, wider doorways, lighting, and more."
+        "icon": "Step 2",
+        "title": "Review your proposal",
+        "desc": "We share a clear proposal with practical home improvement suggestions, priorities and pricing, so you know exactly what will make the home safer.",
+        "points": [
+          "Room-by-room suggestions",
+          "Clear priorities",
+          "Transparent pricing"
+        ]
       },
       {
-        "icon": "S",
-        "title": "Smart Home Technology",
-        "desc": "Voice controls, smart locks, fall detection, vitals detection and 24/7 emergency alerts — all installed and working from day one."
+        "icon": "Step 3",
+        "title": "Claim available grant support",
+        "desc": "Our team helps prepare the grant application and documents for eligible works, so public financial support can help fund the improvements where available.",
+        "points": [
+          "Eligibility check",
+          "Document support",
+          "Application guidance"
+        ]
       },
       {
-        "icon": "G",
-        "title": "Grant Management",
-        "desc": "We prepare and submit the grant file for eligible works, then keep you updated while the authority reviews it. Public support may cover up to 90% of approved costs, subject to official approval.",
-        "termsLink": "Learn more about Plan Adapta →",
-        "disclaimer": "Grant availability, eligibility criteria and funding levels are subject to government policies and may change without notice."
+        "icon": "Step 4",
+        "title": "Install and stay supported",
+        "desc": "CasaMia coordinates installation, checks everything is working properly and remains your contact for questions, adjustments and ongoing support.",
+        "points": [
+          "Professional installation",
+          "Handover check",
+          "Aftercare support"
+        ]
       }
     ],
     "health": {
