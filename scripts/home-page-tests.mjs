@@ -48,6 +48,12 @@ assert.match(
   'Step 3 in the active What We Offer section should use the retouched Euro grant support image.',
 )
 
+assert.match(
+  offer,
+  /\/images\/solutions\/front-view-adorable-couple-kitchen\.jpg/,
+  'Step 4 in the active What We Offer section should use the kitchen couple image.',
+)
+
 assert.equal(enCopy.offer.line1, 'A safer home,')
 assert.equal(enCopy.offer.cards[1].title, 'Review your proposal')
 

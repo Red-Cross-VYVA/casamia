@@ -60,8 +60,8 @@ const offerVisuals: OfferVisual[] = [
     Icon: Wrench,
     className: 'is-installation',
     kind: 'image',
-    image: '/images/solutions/casamia-worker-process.webp',
-    alt: 'CasaMia installer preparing home safety equipment',
+    image: '/images/solutions/front-view-adorable-couple-kitchen.jpg',
+    alt: 'Older couple standing together in a bright kitchen after home support',
   },
 ]
 
