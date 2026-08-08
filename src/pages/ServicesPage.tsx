@@ -112,6 +112,11 @@ type ServicesPageCopy = {
     title: string
     body: string
     points: string[]
+    visualTitle: string
+    visualBody: string
+    visualAreas: string[]
+    singleRoomLabel: string
+    planLabel: string
     startCta: string
     close: string
   }
@@ -200,6 +205,13 @@ const packageZoneNavImages: Partial<Record<CatalogueGroupId, string>> = {
   'smart-safety': serviceCardProduct('motion-sensor'),
 }
 
+const catalogueGuideVisualImages = [
+  '/images/solutions/bathroom-safety.jpg',
+  '/images/solutions/adorable-mature-couple-kitchen.jpg',
+  '/images/before-after/bedroom-after-card.webp',
+  '/images/solutions/entrance-access.jpg',
+]
+
 const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
   'bathroom-folding-shower-seat': { kind: 'shower-seat', tone: 'water', image: serviceCardProduct('shower-seat') },
@@ -272,6 +284,11 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
       body:
         'You can start with a single room package or select several areas together. CasaMia has solutions for every section of the home, from bathrooms and bedrooms to kitchens, entrances, living areas, stairs, lighting and smart safety.',
       points: ['Pick one room package', 'Add more home areas if needed', 'Turn everything into one CasaMia plan'],
+      visualTitle: 'Build from room packages',
+      visualBody: 'Select one area first, then add the rooms that need support.',
+      visualAreas: ['Bathroom', 'Kitchen', 'Bedroom', 'Entrance'],
+      singleRoomLabel: '1 room',
+      planLabel: 'One CasaMia plan',
       startCta: 'Start catalogue',
       close: 'Close',
     },
@@ -326,6 +343,11 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
       body:
         'Puedes empezar con el paquete de una estancia o seleccionar varias zonas de la casa. CasaMia tiene soluciones para todas las secciones del hogar: banos, dormitorios, cocinas, entradas, salas de estar, escaleras, iluminacion y seguridad inteligente.',
       points: ['Elige un paquete por estancia', 'Anade mas zonas si hace falta', 'Lo convertimos en un unico plan CasaMia'],
+      visualTitle: 'Crea tu plan por estancias',
+      visualBody: 'Elige una zona primero y suma las habitaciones que necesiten apoyo.',
+      visualAreas: ['Bano', 'Cocina', 'Dormitorio', 'Entrada'],
+      singleRoomLabel: '1 estancia',
+      planLabel: 'Un plan CasaMia',
       startCta: 'Empezar catalogo',
       close: 'Cerrar',
     },
@@ -646,22 +668,69 @@ export function ServicesPage() {
             >
               <X size={18} aria-hidden="true" />
             </button>
-            <p className="eyebrow">{copy.catalogueGuide.eyebrow}</p>
-            <h2 id="services-catalogue-guide-title">{copy.catalogueGuide.title}</h2>
-            <p id="services-catalogue-guide-body">{copy.catalogueGuide.body}</p>
-            <ul className="services-catalogue-guide-points">
-              {copy.catalogueGuide.points.map((point) => (
-                <li key={point}>
-                  <CheckCircle2 size={17} aria-hidden="true" />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="services-catalogue-guide-actions">
-              <button className="btn btn-green" onClick={startCatalogue} type="button">
-                {copy.catalogueGuide.startCta}
-                <ArrowDown size={19} aria-hidden="true" />
-              </button>
+            <div className="services-catalogue-guide-layout">
+              <div className="services-catalogue-guide-copy">
+                <p className="eyebrow">{copy.catalogueGuide.eyebrow}</p>
+                <h2 id="services-catalogue-guide-title">{copy.catalogueGuide.title}</h2>
+                <p id="services-catalogue-guide-body">{copy.catalogueGuide.body}</p>
+                <ul className="services-catalogue-guide-points">
+                  {copy.catalogueGuide.points.map((point) => (
+                    <li key={point}>
+                      <CheckCircle2 size={17} aria-hidden="true" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="services-catalogue-guide-actions">
+                  <button className="btn btn-green" onClick={startCatalogue} type="button">
+                    {copy.catalogueGuide.startCta}
+                    <ArrowDown size={19} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+
+              <aside className="services-catalogue-guide-visual" aria-label={copy.catalogueGuide.visualTitle}>
+                <div className="services-catalogue-guide-visual-header">
+                  <span className="services-catalogue-guide-visual-icon">
+                    <PackageCheck size={22} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <strong>{copy.catalogueGuide.visualTitle}</strong>
+                    <small>{copy.catalogueGuide.visualBody}</small>
+                  </div>
+                </div>
+                <div className="services-catalogue-guide-room-grid">
+                  {copy.catalogueGuide.visualAreas.map((area, index) => (
+                    <span
+                      className={`services-catalogue-guide-room${index < 3 ? ' is-selected' : ''}`}
+                      key={area}
+                    >
+                      <SafeImage
+                        alt=""
+                        className="services-catalogue-guide-room-media"
+                        fallbackLabel=""
+                        imgClassName="services-catalogue-guide-room-image"
+                        src={catalogueGuideVisualImages[index]}
+                      />
+                      <span className="services-catalogue-guide-room-check">
+                        <CheckCircle2 size={14} aria-hidden="true" />
+                      </span>
+                      <span className="services-catalogue-guide-room-label">{area}</span>
+                    </span>
+                  ))}
+                </div>
+                <div className="services-catalogue-guide-flow">
+                  <span>
+                    <PackageCheck size={15} aria-hidden="true" />
+                    {copy.catalogueGuide.singleRoomLabel}
+                  </span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                  <span>
+                    <Home size={15} aria-hidden="true" />
+                    {copy.catalogueGuide.planLabel}
+                  </span>
+                </div>
+              </aside>
             </div>
           </div>
         </div>

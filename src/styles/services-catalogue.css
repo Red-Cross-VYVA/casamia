@@ -109,7 +109,7 @@
 
 .services-catalogue-guide-modal {
   position: relative;
-  width: min(100%, 34rem);
+  width: min(100%, 58rem);
   border: 1px solid #cfe3ee;
   border-radius: 0.75rem;
   background:
@@ -117,13 +117,25 @@
     linear-gradient(180deg, #ffffff 0%, #f6fbfe 100%);
   box-shadow: 0 2rem 5rem rgb(3 24 38 / 28%);
   color: #173047;
-  padding: clamp(1.35rem, 3vw, 2rem);
+  padding: clamp(0.95rem, 2.2vw, 1.25rem);
+}
+
+.services-catalogue-guide-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(18rem, 1.05fr);
+  gap: clamp(1rem, 2.6vw, 1.4rem);
+  align-items: stretch;
+}
+
+.services-catalogue-guide-copy {
+  padding: clamp(0.85rem, 2vw, 1.2rem);
 }
 
 .services-catalogue-guide-close {
   position: absolute;
   top: 0.8rem;
   right: 0.8rem;
+  z-index: 2;
   display: grid;
   width: 2.45rem;
   height: 2.45rem;
@@ -143,19 +155,19 @@
   outline: 0;
 }
 
-.services-catalogue-guide-modal h2 {
+.services-catalogue-guide-copy h2 {
   max-width: 13ch;
   margin: 0.65rem 0 0;
   color: #132d43;
   font-family: var(--font-display);
-  font-size: clamp(2.1rem, 6vw, 3.35rem);
+  font-size: clamp(2rem, 5vw, 3.1rem);
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1.02;
   text-wrap: balance;
 }
 
-.services-catalogue-guide-modal > p:not(.eyebrow) {
+.services-catalogue-guide-copy > p:not(.eyebrow) {
   margin: 0.9rem 0 0;
   color: #3a526a;
   font-size: 1rem;
@@ -188,6 +200,163 @@
 .services-catalogue-guide-actions {
   display: flex;
   margin-top: 1.35rem;
+}
+
+.services-catalogue-guide-visual {
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+  min-height: 100%;
+  border: 1px solid #d3e7f1;
+  border-radius: 0.65rem;
+  background:
+    linear-gradient(135deg, rgb(230 245 251 / 92%), rgb(255 255 255 / 88%)),
+    #f4fbfe;
+  padding: 0.85rem;
+}
+
+.services-catalogue-guide-visual-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.55rem;
+  background: #ffffff;
+  box-shadow: 0 0.8rem 1.8rem rgb(20 83 122 / 10%);
+  padding: 0.78rem;
+}
+
+.services-catalogue-guide-visual-icon {
+  display: grid;
+  width: 2.6rem;
+  height: 2.6rem;
+  flex: 0 0 2.6rem;
+  place-items: center;
+  border-radius: 0.55rem;
+  background: #e9f6dc;
+  color: #4d952c;
+}
+
+.services-catalogue-guide-visual-header strong,
+.services-catalogue-guide-visual-header small {
+  display: block;
+}
+
+.services-catalogue-guide-visual-header strong {
+  color: #142d43;
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.services-catalogue-guide-visual-header small {
+  margin-top: 0.18rem;
+  color: #53697d;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.services-catalogue-guide-room-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.58rem;
+}
+
+.services-catalogue-guide-room {
+  position: relative;
+  display: block;
+  min-height: 8.15rem;
+  overflow: hidden;
+  border: 2px solid #ffffff;
+  border-radius: 0.62rem;
+  background: #dbeefa;
+  box-shadow: 0 0.85rem 1.7rem rgb(10 52 78 / 13%);
+}
+
+.services-catalogue-guide-room.is-selected {
+  border-color: #79ad43;
+}
+
+.services-catalogue-guide-room-media,
+.services-catalogue-guide-room-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.services-catalogue-guide-room-image {
+  object-fit: cover;
+}
+
+.services-catalogue-guide-room::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgb(8 31 48 / 0%) 35%, rgb(8 31 48 / 72%) 100%),
+    linear-gradient(90deg, rgb(8 31 48 / 34%), rgb(8 31 48 / 0%) 62%);
+}
+
+.services-catalogue-guide-room-check {
+  position: absolute;
+  top: 0.52rem;
+  right: 0.52rem;
+  z-index: 1;
+  display: grid;
+  width: 1.55rem;
+  height: 1.55rem;
+  place-items: center;
+  border-radius: 999px;
+  background: #79ad43;
+  color: #ffffff;
+  box-shadow: 0 0.35rem 0.8rem rgb(8 31 48 / 20%);
+}
+
+.services-catalogue-guide-room:not(.is-selected) .services-catalogue-guide-room-check {
+  background: rgb(255 255 255 / 86%);
+  color: #6f8799;
+}
+
+.services-catalogue-guide-room-label {
+  position: absolute;
+  right: 0.68rem;
+  bottom: 0.62rem;
+  left: 0.68rem;
+  z-index: 1;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-shadow: 0 0.1rem 0.45rem rgb(8 31 48 / 45%);
+}
+
+.services-catalogue-guide-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  background: #132d43;
+  color: #ffffff;
+  padding: 0.62rem 0.7rem;
+}
+
+.services-catalogue-guide-flow span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36rem;
+  min-width: 0;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.services-catalogue-guide-flow > svg {
+  flex: 0 0 auto;
+  color: #9ad56b;
 }
 
 .services-catalogue-section {
@@ -1521,6 +1690,31 @@
   .services-catalogue-guide-modal {
     max-height: calc(100vh - 1.6rem);
     overflow: auto;
+  }
+
+  .services-catalogue-guide-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .services-catalogue-guide-copy {
+    padding: 0.7rem 0.4rem 0;
+  }
+
+  .services-catalogue-guide-copy h2 {
+    max-width: 12ch;
+    font-size: 2.35rem;
+  }
+
+  .services-catalogue-guide-visual {
+    padding: 0.7rem;
+  }
+
+  .services-catalogue-guide-room {
+    min-height: 6.8rem;
+  }
+
+  .services-catalogue-guide-flow {
+    border-radius: 0.65rem;
   }
 
   .services-catalogue-guide-actions,

@@ -57,6 +57,16 @@ assert.match(
 )
 assert.match(
   page,
+  /catalogueGuideVisualImages/,
+  'The catalogue guide modal should use visual package examples rather than text-only guidance.',
+)
+assert.match(
+  page,
+  /copy\.catalogueGuide\.visualAreas\.map/,
+  'The catalogue guide modal should render room-package visual tiles.',
+)
+assert.match(
+  page,
   /window\.scrollTo\(\{ top: Math\.max\(catalogueTop - 92, 0\), behavior: 'smooth' \}\)/,
   'The guide modal start action should take visitors to the catalogue section.',
 )
