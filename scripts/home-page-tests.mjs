@@ -44,8 +44,8 @@ assert.match(
 
 assert.match(
   offer,
-  /offer-spanish-flag-visual/,
-  'Step 3 in the active What We Offer section should render a Spanish flag visual.',
+  /\/images\/solutions\/euro-grant-support-retouched\.jpg/,
+  'Step 3 in the active What We Offer section should use the retouched Euro grant support image.',
 )
 
 assert.equal(enCopy.offer.line1, 'A safer home,')

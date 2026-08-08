@@ -33,10 +33,6 @@ type OfferVisual = {
       kind: 'proposal'
       label: string
     }
-  | {
-      kind: 'flag'
-      label: string
-    }
 )
 
 const offerVisuals: OfferVisual[] = [
@@ -56,8 +52,9 @@ const offerVisuals: OfferVisual[] = [
   {
     Icon: BadgeEuro,
     className: 'is-grant',
-    kind: 'flag',
-    label: 'Spanish flag representing grant support in Spain',
+    kind: 'image',
+    image: '/images/solutions/euro-grant-support-retouched.jpg',
+    alt: 'Euro sculpture in a European financial district representing grant support',
   },
   {
     Icon: Wrench,
@@ -91,20 +88,6 @@ function OfferVisualMedia({ title, visual }: { title: string; visual: OfferVisua
             <span>Kitchen reach</span>
             <span>Night route</span>
           </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (visual.kind === 'flag') {
-    return (
-      <div className="offer-spanish-flag-visual" role="img" aria-label={visual.label}>
-        <div className="offer-spanish-flag">
-          <span className="offer-flag-band is-red" />
-          <span className="offer-flag-band is-yellow">
-            <span className="offer-flag-crest" />
-          </span>
-          <span className="offer-flag-band is-red" />
         </div>
       </div>
     )
