@@ -390,8 +390,8 @@ export function HomePage() {
           </div>
           <div className="home-redesign-hero-media">
             <SafeImage
-              src="/images/solutions/front-view-adorable-couple-kitchen.jpg"
-              alt="Older couple standing confidently in a bright home kitchen"
+              src="/images/solutions/close-up-senior-couple-love.jpg"
+              alt="Older couple embracing at home"
               className="home-redesign-hero-image"
               imgClassName="h-full w-full object-cover"
               loading="eager"

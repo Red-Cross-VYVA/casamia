@@ -23,7 +23,7 @@ export const serviceVisuals: Record<
   },
   'kitchen-safety': {
     badge: 'Routine and reach',
-    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+    image: '/images/solutions/adorable-mature-couple-kitchen.jpg',
     note: 'Reach, lighting, appliances and water risk',
   },
   'bedroom-safety': {

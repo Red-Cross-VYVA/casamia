@@ -147,7 +147,7 @@ const catalogueAreaVisuals: Record<ServicePackageArea, { icon: LucideIcon; image
   bathroom: { icon: Bath, image: '/images/solutions/bathroom-safety.jpg' },
   bedroom: { icon: BedDouble, image: '/images/before-after/bedroom-after-card.webp' },
   entrance: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
-  kitchen: { icon: CookingPot, image: '/images/solutions/casamia-staff-kitchen-consultation.webp' },
+  kitchen: { icon: CookingPot, image: '/images/solutions/adorable-mature-couple-kitchen.jpg' },
   lighting: { icon: Sparkles, image: '/images/service-gallery/isometric/isometric-living.jpg' },
   'living-room': { icon: Home, image: '/images/before-after/living-after-home.webp' },
   outdoor: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
