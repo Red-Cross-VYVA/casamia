@@ -456,6 +456,36 @@
   object-fit: cover;
 }
 
+.services-zone-risk-hint {
+  position: absolute;
+  top: 0.72rem;
+  left: 50%;
+  z-index: 4;
+  display: inline-flex;
+  max-width: calc(100% - 1.4rem);
+  align-items: center;
+  gap: 0.32rem;
+  border: 1px solid rgb(255 255 255 / 68%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 74%);
+  box-shadow: 0 0.55rem 1.2rem rgb(15 39 64 / 12%);
+  color: #0f2740;
+  font-size: clamp(0.64rem, 0.86vw, 0.74rem);
+  font-weight: 950;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 0.4rem 0.58rem;
+  pointer-events: none;
+  text-wrap: nowrap;
+  transform: translateX(-50%);
+}
+
+.services-zone-risk-hint svg {
+  width: 0.82rem;
+  height: 0.82rem;
+  color: #176895;
+}
+
 .services-zone-risk-labels {
   position: absolute;
   inset: 0;

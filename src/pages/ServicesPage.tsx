@@ -6,6 +6,7 @@ import {
   CookingPot,
   DoorOpen,
   Home,
+  MousePointer2,
   PackageCheck,
   ShieldCheck,
   Sparkles,
@@ -756,6 +757,7 @@ export function ServicesPage() {
 function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; riskMap: ZoneRiskMap }) {
   const copy = riskMap.copy[language]
   const mapLabels = [...copy.mapLabels, ...copy.legend]
+  const interactionHint = language === 'es' ? 'Pasa o toca' : 'Hover or tap'
 
   return (
     <section className="services-zone-risk" aria-labelledby={`services-zone-risk-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}`}>
@@ -766,6 +768,10 @@ function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; risk
           imgClassName="services-zone-risk-image"
           src={riskMap.image}
         />
+        <span className="services-zone-risk-hint" aria-hidden="true">
+          <MousePointer2 size={14} strokeWidth={2.4} />
+          {interactionHint}
+        </span>
         <div className="services-zone-risk-labels">
           {mapLabels.map((label, index) => {
             const position = riskMap.labelPositions[index]

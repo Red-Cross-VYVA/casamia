@@ -4,6 +4,7 @@ import {
   CheckCircle2,
   ClipboardCheck,
   Home,
+  MousePointer2,
   ShieldCheck,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -951,6 +952,7 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
   const mapLabels = [...copy.mapLabels, ...copy.legend]
   const headingId = `service-detail-zone-risk-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}`
   const hasMapLabels = mapLabels.length > 0 && riskMap.labelPositions.length > 0
+  const interactionHint = language === 'es' ? 'Pasa o toca' : 'Hover or tap'
 
   return (
     <section className="service-detail-section service-detail-zone-risk-section bg-white" aria-labelledby={headingId}>
@@ -963,6 +965,12 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
               imgClassName="services-zone-risk-image"
               src={riskMap.image}
             />
+            {hasMapLabels ? (
+              <span className="services-zone-risk-hint" aria-hidden="true">
+                <MousePointer2 size={14} strokeWidth={2.4} />
+                {interactionHint}
+              </span>
+            ) : null}
             {hasMapLabels ? (
               <div className="services-zone-risk-labels">
                 {mapLabels.map((label, index) => {

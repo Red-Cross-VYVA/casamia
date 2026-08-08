@@ -42,6 +42,11 @@ assert.match(
 )
 assert.match(
   page,
+  /services-zone-risk-hint/,
+  'Risk map visuals should include a subtle hover/tap hint for interactive markers.',
+)
+assert.match(
+  page,
   /includedItemPlural/,
   'Package composition copy must include customer-facing included-item language.',
 )
