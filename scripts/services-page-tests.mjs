@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/ServicesPage.tsx', import.meta.url), 'utf8')
+const styles = await readFile(new URL('../src/styles/services-catalogue.css', import.meta.url), 'utf8')
 
 assert.match(
   page,
@@ -74,6 +75,21 @@ assert.match(
   page,
   /services-zone-risk-hint/,
   'Risk map visuals should include a subtle hover/tap hint for interactive markers.',
+)
+assert.match(
+  page,
+  /<span>\{label\}<\/span>/,
+  'Interactive risk-map labels should render readable text over the annotated cards.',
+)
+assert.match(
+  styles,
+  /services-zone-risk-hotspot \.services-zone-risk-label[\s\S]*color: #10283f/,
+  'Interactive risk-map labels should remain visible against the light callout cards.',
+)
+assert.doesNotMatch(
+  styles,
+  /\.services-zone-risk-hotspot,\s*[\r\n]+\s*\.services-zone-risk-label\s*\{[\s\S]*?display:\s*none/,
+  'Risk-map overlays must not be hidden at tablet widths, otherwise the baked callout cards look blank.',
 )
 assert.match(
   page,

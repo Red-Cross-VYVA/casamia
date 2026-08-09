@@ -803,17 +803,32 @@
 .services-zone-risk-hotspot .services-zone-risk-label {
   appearance: none;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
   border: 0 !important;
   border-radius: 0;
   background: transparent !important;
   box-shadow: none !important;
-  padding: 0;
+  color: #10283f;
+  padding: 0.18rem 0.24rem 0.18rem clamp(1.35rem, 2vw, 1.9rem);
   cursor: help;
+  font-size: clamp(0.56rem, 0.95vw, 0.74rem);
+  font-weight: 950;
   font-family: inherit;
+  line-height: 1.05;
   outline: 0;
+  text-align: left;
   -webkit-tap-highlight-color: transparent;
+}
+
+.services-zone-risk-hotspot .services-zone-risk-label > span {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .services-zone-risk-pin {
@@ -842,13 +857,14 @@
   border: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
-  color: #ffffff;
+  color: #10283f;
   outline: 0;
   text-shadow: none;
 }
 
 .services-zone-risk-label.has-detail:focus-visible {
-  box-shadow: none !important;
+  outline: 2px solid #9edaf0;
+  outline-offset: 2px;
 }
 
 .services-zone-risk-label.has-detail:hover .services-zone-risk-pin,
@@ -864,12 +880,15 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  overflow: hidden;
+  min-width: 8.4rem;
+  width: max-content !important;
+  overflow: visible;
   border-radius: 0.45rem;
   color: #10283f;
-  font-size: 0.54rem;
+  font-size: 0.62rem;
   font-weight: 950;
   line-height: 1;
+  padding-left: clamp(3rem, 4vw, 3.45rem);
   text-align: left;
   text-wrap: nowrap;
   white-space: nowrap;
@@ -1655,13 +1674,6 @@
   .services-catalogue-explorer .services-zone-risk {
     grid-template-columns: minmax(0, 1.18fr) minmax(18rem, 0.82fr);
     align-items: center;
-  }
-}
-
-@media (max-width: 1024px) {
-  .services-zone-risk-hotspot,
-  .services-zone-risk-label {
-    display: none;
   }
 }
 

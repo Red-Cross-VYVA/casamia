@@ -991,7 +991,9 @@ function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; risk
                   aria-describedby={detailId}
                   className={`services-zone-risk-label has-detail ${detailSide}`}
                   type="button"
-                />
+                >
+                  <span>{label}</span>
+                </button>
                 <aside className={`services-zone-risk-detail ${detailSide}`} id={detailId}>
                   <strong>{detail.solution}</strong>
                   <p>{detail.helps}</p>
