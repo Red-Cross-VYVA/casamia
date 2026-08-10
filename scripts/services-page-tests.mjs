@@ -6,6 +6,7 @@ const serviceDetailPage = await readFile(new URL('../src/pages/ServiceDetailPage
 const packageDetailModal = await readFile(new URL('../src/components/PackageDetailModal.tsx', import.meta.url), 'utf8')
 const riskMaps = await readFile(new URL('../src/constants/zoneRiskMaps.ts', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/services-catalogue.css', import.meta.url), 'utf8')
+const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 
 assert.match(
   page,
@@ -133,6 +134,21 @@ assert.match(
   packageDetailModal,
   /plan-detail-modal[\s\S]*plan-detail-tabs[\s\S]*plan-detail-story/,
   'The package detail modal should reuse the established package detail layout from Plans.',
+)
+assert.match(
+  packageDetailModal,
+  /plan-detail-modal--\$\{displayMode\} plan-detail-modal--compact/,
+  'Every service package modal should use the compact package detail layout.',
+)
+assert.doesNotMatch(
+  packageDetailModal,
+  /<span>\{body\}<\/span>|plan-detail-thumb-row/,
+  'The compact package modal should not render intro copy or the thumbnail strip.',
+)
+assert.match(
+  globalStyles,
+  /\.plan-detail-modal--compact[\s\S]*\.plan-detail-modal--compact \.plan-detail-story/,
+  'Package detail modals should have shared compact spacing styles.',
 )
 assert.doesNotMatch(
   styles,

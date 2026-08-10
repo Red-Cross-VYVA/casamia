@@ -245,7 +245,6 @@ export function PackageDetailModal({
   const activeSlide = slides[safeIndex]
   const displayMode = currentTab === 'optional' ? 'optional' : 'core'
   const title = group?.packageLabel ?? ''
-  const body = group?.packageDescription ?? ''
   const slideTitle = activeSlide ? getDetailSlideTitle(activeSlide, catalogue, languageKey) : ''
   const slideBenefit = activeSlide ? getDetailBenefit(activeSlide, languageKey) : ''
   const slideImage = activeSlide ? getDetailSlideImage(activeSlide) : ''
@@ -271,7 +270,7 @@ export function PackageDetailModal({
       <section
         aria-labelledby="package-detail-title"
         aria-modal="true"
-        className={`plan-detail-modal plan-detail-modal--${displayMode}`}
+        className={`plan-detail-modal plan-detail-modal--${displayMode} plan-detail-modal--compact`}
         role="dialog"
         onClick={(event) => event.stopPropagation()}
       >
@@ -279,7 +278,6 @@ export function PackageDetailModal({
           <div>
             <p>{displayMode === 'optional' ? copy.optionalTab : copy.coreTab}</p>
             <h2 id="package-detail-title">{title}</h2>
-            <span>{body}</span>
           </div>
           <button type="button" aria-label={copy.close} onClick={onClose}>
             <X size={18} aria-hidden="true" />
@@ -386,34 +384,6 @@ export function PackageDetailModal({
               </article>
             </div>
 
-            {hasMultiple ? (
-              <div className="plan-detail-thumb-row" aria-label={`${title} slides`}>
-                {slides.map((outcome, index) => {
-                  const thumbnailTitle = getDetailSlideTitle(outcome, catalogue, languageKey)
-                  const image = getDetailSlideImage(outcome)
-
-                  return (
-                    <button
-                      key={outcome.id}
-                      className={`plan-detail-thumb ${index === safeIndex ? 'is-active' : ''}`}
-                      type="button"
-                      onClick={() => setActiveIndex(index)}
-                    >
-                      <SafeImage
-                        alt=""
-                        className="plan-detail-thumb-media"
-                        fallbackLabel={thumbnailTitle}
-                        imgClassName="plan-detail-thumb-image"
-                        loading="lazy"
-                        src={image}
-                      />
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      <strong>{thumbnailTitle}</strong>
-                    </button>
-                  )
-                })}
-              </div>
-            ) : null}
           </>
         ) : (
           <p className="plan-detail-empty">{copy.noDetailItems}</p>

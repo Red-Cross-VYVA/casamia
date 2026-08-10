@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFile } from 'node:fs/promises'
 
 import { getDefaultServiceCatalogue } from '../src/services/serviceCatalogue.ts'
 import {
@@ -8,6 +9,19 @@ import {
 } from '../src/services/plansBuilderPricing.ts'
 
 const defaultCatalogue = getDefaultServiceCatalogue()
+const plansPage = await readFile(new URL('../src/pages/PlansPage.tsx', import.meta.url), 'utf8')
+
+assert.match(
+  plansPage,
+  /plan-detail-modal--\$\{activeDetailDisplayMode\} plan-detail-modal--compact/,
+  'Every Plans package detail modal should use the compact layout.',
+)
+assert.doesNotMatch(
+  plansPage,
+  /<span>\{activeDetail\.body\}<\/span>|plan-detail-thumb-row|activeDetailIsBathroomCompact/,
+  'The Plans compact package modal should not render intro copy, thumbnails, or bathroom-only branching.',
+)
+
 assert.ok(defaultCatalogue.masterCatalogue, 'Default service catalogue must include the master catalogue snapshot.')
 assert.ok(
   defaultCatalogue.masterCatalogue.packages.length > 0,
