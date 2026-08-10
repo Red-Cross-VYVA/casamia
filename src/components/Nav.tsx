@@ -38,19 +38,16 @@ const solutionMenuCopy = {
   en: {
     eyebrow: 'Popular paths',
     title: 'What do you need to make safer?',
-    primaryCta: 'See all solutions',
     mobileHeading: 'Choose a safety path',
   },
   es: {
     eyebrow: 'Rutas frecuentes',
     title: '¿Qué necesitas hacer más seguro?',
-    primaryCta: 'Ver soluciones',
     mobileHeading: 'Elige una ruta de seguridad',
   },
   nl: {
     eyebrow: 'Populaire keuzes',
     title: 'Wat moet veiliger worden?',
-    primaryCta: 'Bekijk oplossingen',
     mobileHeading: 'Kies een veiligheidsroute',
   },
 } satisfies Record<NavLocale, Record<string, string>>
@@ -58,7 +55,7 @@ const solutionMenuCopy = {
 const solutionMenuItems = [
   {
     icon: Bath,
-    to: '/bathroom-safety-for-seniors',
+    to: '/services/bathroom-safety',
     title: { en: 'Bathroom safety', es: 'Baño seguro', nl: 'Veilige badkamer' },
     description: {
       en: 'Bathing, toilet transfers and wet-floor risk.',
@@ -78,7 +75,7 @@ const solutionMenuItems = [
   },
   {
     icon: BedDouble,
-    to: '/senior-bedroom-safety',
+    to: '/services/bedroom-safety',
     title: { en: 'Bedroom & night', es: 'Dormitorio y noche', nl: 'Slaapkamer en nacht' },
     description: {
       en: 'Bed access, lighting and night routes.',
@@ -98,7 +95,7 @@ const solutionMenuItems = [
   },
   {
     icon: Wifi,
-    to: '/connected-home-for-seniors',
+    to: '/services/smart-home-safety',
     title: { en: 'Connected support', es: 'Apoyo conectado', nl: 'Slimme ondersteuning' },
     description: {
       en: 'Simple alerts, voice help and routines.',
@@ -242,25 +239,20 @@ export function Nav() {
                   key={link.to}
                   onMouseLeave={restoreDesktopMenus}
                 >
-                  <Link
-                    aria-current={active ? 'page' : undefined}
+                  <button
+                    aria-haspopup="menu"
                     className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
-                    to={link.to}
-                    onClick={() => dismissDesktopMenu('solutions')}
+                    onClick={restoreDesktopMenus}
+                    type="button"
                   >
                     {link.label}
                     <ChevronDown size={15} aria-hidden="true" />
-                  </Link>
+                  </button>
                   <div className="site-header-mega-menu site-header-mega-menu--solutions" aria-label="CasaMia solutions by need">
                     <div className="site-header-mega-panel site-header-mega-panel--solutions">
                       <div className="site-header-mega-intro">
                         <span>{currentSolutionMenuCopy.eyebrow}</span>
                         <strong>{currentSolutionMenuCopy.title}</strong>
-                        <div className="site-header-mega-actions">
-                          <Link className="is-primary" to="/services" onClick={() => dismissDesktopMenu('solutions')}>
-                            {currentSolutionMenuCopy.primaryCta}
-                          </Link>
-                        </div>
                       </div>
                       <div className="site-header-solution-grid">
                         {solutionMenuItems.map((item) => {
@@ -384,7 +376,7 @@ export function Nav() {
       {mobileOpen ? (
         <div className="site-mobile-menu">
           <div className="site-mobile-menu-inner">
-            {links.map((link) => {
+            {links.filter((link) => link.to !== '/services').map((link) => {
               const active = isActiveLink(location.pathname, link)
 
               return (

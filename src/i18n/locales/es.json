@@ -54,7 +54,7 @@
       "cta": "Comprobar elegibilidad"
     },
     "buildPlan": {
-      "title": "Crear mi plan gratis"
+      "title": "Talk to a specialist now"
     }
   },
   "reportDelivery": {
@@ -334,6 +334,17 @@
     "intro": "Elige la ruta que mejor encaje con tu familia. Convertimos el paquete adecuado o una inspección en una propuesta clara, apoyo con ayudas e instalación profesional.",
     "ctaPrimary": "Crear mi plan CasaMia",
     "ctaSecondary": "Pedid que os contactemos",
+    "proposalSnapshot": {
+      "label": "Ejemplo visual de propuesta CasaMia",
+      "heading": "Propuesta de seguridad",
+      "priorityLabel": "Prioridad",
+      "priorityTitle": "Plan por estancia",
+      "items": [
+        "Acceso al baño",
+        "Alcance en cocina",
+        "Ruta nocturna"
+      ]
+    },
     "cards": [
       {
         "icon": "Paso 1",

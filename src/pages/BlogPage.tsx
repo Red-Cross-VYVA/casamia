@@ -400,7 +400,7 @@ const resourceJourneys = [
       en: ['Pick the room', 'Read the focused guide', 'Compare practical options'],
       es: ['Elige la estancia', 'Lee la guía específica', 'Compara opciones prácticas'],
     },
-    to: '/bathroom-safety-for-seniors',
+    to: '/services/bathroom-safety',
     cta: { en: 'See a room guide', es: 'Ver guía por estancia' },
     download: false,
   },
@@ -434,7 +434,7 @@ const topicRoutes = [
   },
   {
     icon: Bath,
-    to: '/bathroom-safety-for-seniors',
+    to: '/services/bathroom-safety',
     title: { en: 'Bathroom safety', es: 'Seguridad en el baño' },
     body: {
       en: 'Focus on bathing, toilet transfers, lighting, water controls and safer access.',
@@ -444,7 +444,7 @@ const topicRoutes = [
   },
   {
     icon: MoonStar,
-    to: '/senior-bedroom-safety',
+    to: '/services/bedroom-safety',
     title: { en: 'Bedroom and night routes', es: 'Dormitorio y ruta nocturna' },
     body: {
       en: 'Make getting out of bed, night lighting and the route to the bathroom easier to manage.',
@@ -487,7 +487,7 @@ const topicRoutes = [
 const decisionPathways = [
   {
     icon: ShieldCheck,
-    image: '/images/solutions/bathroom-risk-map.png',
+    image: '/images/solutions/bathroom-risk-map-numbered.png',
     title: { en: 'I need to know what is risky first', es: 'Necesito saber qué es arriesgado primero' },
     body: {
       en: 'Use the checklist or photo review to separate urgent risks from nice-to-have improvements.',

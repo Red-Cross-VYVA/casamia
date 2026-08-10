@@ -1,5 +1,6 @@
 import {
   Accessibility,
+  ArrowDown,
   ArrowRight,
   ArrowLeft,
   Bath,
@@ -20,6 +21,7 @@ import {
   Loader2,
   MapPin,
   Minus,
+  PackageCheck,
   Pill,
   Plus,
   Radio,
@@ -61,6 +63,7 @@ import { createPublicProposalDraft, type PublicProposalDraftResponse } from '../
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import type { MasterCatalogueOutcome, MasterServiceCatalogue } from '../types/serviceCatalogue'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
+import '../styles/services-catalogue.css'
 
 type PlansCopy = {
   addModule: string
@@ -153,6 +156,223 @@ type PlansDetail = {
 }
 
 type PlansDetailTab = 'core' | 'optional'
+
+type PlansCatalogueIntroCopy = {
+  browseCta: string
+  catalogueGuide: {
+    body: string
+    close: string
+    eyebrow: string
+    planLabel: string
+    points: string[]
+    singleRoomLabel: string
+    startCta: string
+    title: string
+    visualAreas: string[]
+    visualBody: string
+    visualTitle: string
+  }
+  heroBody: string
+  heroEyebrow: string
+  heroTitle: string
+}
+
+const plansCatalogueGuideVisualImages = [
+  '/images/solutions/bathroom-safety.jpg',
+  '/images/solutions/adorable-mature-couple-kitchen.jpg',
+  '/images/before-after/bedroom-after-card.webp',
+  '/images/solutions/entrance-access.jpg',
+]
+
+const plansCatalogueIntroCopy: Record<'en' | 'es', PlansCatalogueIntroCopy> = {
+  en: {
+    heroEyebrow: 'CasaMia service catalogue',
+    heroTitle: 'Home safety packages, room by room.',
+    heroBody: 'Choose a room or safety area to see the improvements CasaMia can assess, quote and coordinate.',
+    browseCta: 'Explore services',
+    catalogueGuide: {
+      eyebrow: 'Before you browse',
+      title: 'Pick rooms. Build one plan.',
+      body: 'Start with one package or combine areas across the home before you choose your CasaMia plan.',
+      points: ['One package', 'Several areas', 'One CasaMia plan'],
+      visualTitle: 'Choose the areas to include',
+      visualBody: 'Bathroom, kitchen, bedroom, entrance and more.',
+      visualAreas: ['Bathroom', 'Kitchen', 'Bedroom', 'Entrance'],
+      singleRoomLabel: '1 room',
+      planLabel: 'Combined plan',
+      startCta: 'Start catalogue',
+      close: 'Close',
+    },
+  },
+  es: {
+    heroEyebrow: 'Cat\u00e1logo de servicios CasaMia',
+    heroTitle: 'Paquetes de seguridad, estancia por estancia.',
+    heroBody: 'Elige una estancia o zona de seguridad para ver las mejoras que CasaMia puede valorar, presupuestar y coordinar.',
+    browseCta: 'Ver servicios',
+    catalogueGuide: {
+      eyebrow: 'Antes de ver el cat\u00e1logo',
+      title: 'Elige zonas. Crea un plan.',
+      body: 'Empieza con un paquete o combina varias zonas de la casa antes de elegir tu plan CasaMia.',
+      points: ['Un paquete', 'Varias zonas', 'Un plan CasaMia'],
+      visualTitle: 'Elige las zonas',
+      visualBody: 'Ba\u00f1o, cocina, dormitorio, entrada y m\u00e1s.',
+      visualAreas: ['Ba\u00f1o', 'Cocina', 'Dormitorio', 'Entrada'],
+      singleRoomLabel: '1 estancia',
+      planLabel: 'Plan combinado',
+      startCta: 'Empezar cat\u00e1logo',
+      close: 'Cerrar',
+    },
+  },
+}
+
+function PlansCatalogueIntroSection({ language }: { language: 'en' | 'es' }) {
+  const copy = plansCatalogueIntroCopy[language]
+  const [isCatalogueGuideOpen, setIsCatalogueGuideOpen] = useState(false)
+
+  useEffect(() => {
+    if (!isCatalogueGuideOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsCatalogueGuideOpen(false)
+      }
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isCatalogueGuideOpen])
+
+  const startCatalogue = () => {
+    setIsCatalogueGuideOpen(false)
+    window.setTimeout(() => {
+      const catalogue = document.getElementById('plans-builder-title')
+
+      if (!catalogue) return
+
+      const catalogueTop = catalogue.getBoundingClientRect().top + window.scrollY
+      window.history.replaceState(null, '', '#plans-builder-title')
+      window.scrollTo({ top: Math.max(catalogueTop - 92, 0), behavior: 'smooth' })
+    }, 0)
+  }
+
+  return (
+    <>
+      <section className="services-catalogue-hero plans-catalogue-intro" aria-labelledby="plans-catalogue-intro-title">
+        <div className="services-catalogue-hero-grid site-shell">
+          <div className="services-catalogue-hero-copy">
+            <span className="eyebrow">{copy.heroEyebrow}</span>
+            <h2 id="plans-catalogue-intro-title">{copy.heroTitle}</h2>
+            <p>{copy.heroBody}</p>
+            <div className="services-catalogue-hero-actions">
+              <button
+                aria-expanded={isCatalogueGuideOpen}
+                aria-haspopup="dialog"
+                className="btn btn-green services-catalogue-hero-cta"
+                onClick={() => setIsCatalogueGuideOpen(true)}
+                type="button"
+              >
+                {copy.browseCta}
+                <ArrowDown size={20} aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {isCatalogueGuideOpen ? (
+        <div className="services-catalogue-guide-backdrop" onClick={() => setIsCatalogueGuideOpen(false)}>
+          <div
+            aria-describedby="plans-catalogue-guide-body"
+            aria-labelledby="plans-catalogue-guide-title"
+            aria-modal="true"
+            className="services-catalogue-guide-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <button
+              aria-label={copy.catalogueGuide.close}
+              className="services-catalogue-guide-close"
+              onClick={() => setIsCatalogueGuideOpen(false)}
+              type="button"
+            >
+              <X size={18} aria-hidden="true" />
+            </button>
+            <div className="services-catalogue-guide-layout">
+              <div className="services-catalogue-guide-copy">
+                <p className="eyebrow">{copy.catalogueGuide.eyebrow}</p>
+                <h2 id="plans-catalogue-guide-title">{copy.catalogueGuide.title}</h2>
+                <p id="plans-catalogue-guide-body">{copy.catalogueGuide.body}</p>
+                <ul className="services-catalogue-guide-points">
+                  {copy.catalogueGuide.points.map((point) => (
+                    <li key={point}>
+                      <CheckCircle2 size={17} aria-hidden="true" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="services-catalogue-guide-actions">
+                  <button className="btn btn-green" onClick={startCatalogue} type="button">
+                    {copy.catalogueGuide.startCta}
+                    <ArrowDown size={19} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+
+              <aside className="services-catalogue-guide-visual" aria-label={copy.catalogueGuide.visualTitle}>
+                <div className="services-catalogue-guide-visual-header">
+                  <span className="services-catalogue-guide-visual-icon">
+                    <PackageCheck size={22} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <strong>{copy.catalogueGuide.visualTitle}</strong>
+                    <small>{copy.catalogueGuide.visualBody}</small>
+                  </div>
+                </div>
+                <div className="services-catalogue-guide-room-grid">
+                  {copy.catalogueGuide.visualAreas.map((area, index) => (
+                    <span
+                      className={`services-catalogue-guide-room${index < 3 ? ' is-selected' : ''}`}
+                      key={area}
+                    >
+                      <SafeImage
+                        alt=""
+                        className="services-catalogue-guide-room-media"
+                        fallbackLabel=""
+                        imgClassName="services-catalogue-guide-room-image"
+                        src={plansCatalogueGuideVisualImages[index]}
+                      />
+                      <span className="services-catalogue-guide-room-check">
+                        <CheckCircle2 size={14} aria-hidden="true" />
+                      </span>
+                      <span className="services-catalogue-guide-room-label">{area}</span>
+                    </span>
+                  ))}
+                </div>
+                <div className="services-catalogue-guide-flow">
+                  <span>
+                    <PackageCheck size={15} aria-hidden="true" />
+                    {copy.catalogueGuide.singleRoomLabel}
+                  </span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                  <span>
+                    <Home size={15} aria-hidden="true" />
+                    {copy.catalogueGuide.planLabel}
+                  </span>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  )
+}
 
 function cleanPlanDetailItem(item: string) {
   return item
@@ -1750,6 +1970,8 @@ export function PlansPage() {
           </div>
         </section>
       )}
+
+      {step === 'builder' ? <PlansCatalogueIntroSection language={language} /> : null}
 
       <main className={`plans-builder-main section-pad${step === 'contact' ? ' plans-contact-main' : ''}`}>
         {step === 'builder' ? (

@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { SafeImage } from '../components/SafeImage'
+import { ServiceItemDetailModal } from '../components/ServiceItemDetailModal'
 import { zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
 import { SEO } from '../components/SEO'
 import {
@@ -540,6 +541,7 @@ export function ServicesPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = servicesPageCopy[language]
+  const viewDetailsLabel = language === 'es' ? 'Ver detalles' : 'View details'
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
   const masterCatalogue = useMemo(
     () => catalogue.masterCatalogue ?? getMasterServiceCatalogue(),
@@ -547,6 +549,7 @@ export function ServicesPage() {
   )
   const catalogueAreas = useMemo(() => buildCatalogueAreas(masterCatalogue), [masterCatalogue])
   const [selectedGroupId, setSelectedGroupId] = useState<CatalogueGroupId>('bathroom')
+  const [activeService, setActiveService] = useState<CasaMiaService | null>(null)
   const activeServices = useMemo(
     () => catalogue.services.filter((service) => service.active && isWebsiteVisible(service)),
     [catalogue.services],
@@ -875,6 +878,17 @@ export function ServicesPage() {
                               <span><strong>{copy.safetyNote}:</strong> {service.safetyNotice}</span>
                             </p>
                           ) : null}
+
+                          <div className="services-catalogue-service-actions">
+                            <button
+                              className="catalogue-item-detail-button"
+                              type="button"
+                              onClick={() => setActiveService(service)}
+                            >
+                              {viewDetailsLabel}
+                              <ArrowRight size={15} aria-hidden="true" />
+                            </button>
+                          </div>
                         </article>
                       )
                     })}
@@ -923,17 +937,35 @@ export function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <ServiceItemDetailModal
+        imageSrc={activeService ? getServiceCardVisual(activeService).image : undefined}
+        language={language}
+        onClose={() => setActiveService(null)}
+        service={activeService}
+      />
     </>
   )
 }
 
 function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; riskMap: ZoneRiskMap }) {
   const copy = riskMap.copy[language]
-  const mapLabels = [...copy.mapLabels, ...copy.legend]
+  const [activeRiskId, setActiveRiskId] = useState<string | null>(null)
+  const riskMapId = `services-zone-risk-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}`
+  const riskItems = copy.risks.map((risk, index) => ({
+    id: `${riskMapId}-risk-${index + 1}`,
+    label: risk,
+    detail: copy.riskDetails?.[index],
+    position: riskMap.labelPositions[index],
+  }))
+  const legendItems = copy.legend.map((label, index) => ({
+    label,
+    position: riskMap.labelPositions[copy.risks.length + index],
+  }))
   const interactionHint = language === 'es' ? 'Pasa o toca' : 'Hover or tap'
 
   return (
-    <section className="services-zone-risk" aria-labelledby={`services-zone-risk-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}`}>
+    <section className="services-zone-risk" aria-labelledby={riskMapId}>
       <div className="services-zone-risk-stage">
         <SafeImage
           alt={copy.imageAlt}
@@ -946,76 +978,78 @@ function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; risk
           {interactionHint}
         </span>
         <div className="services-zone-risk-labels">
-          {mapLabels.map((label, index) => {
-            const position = riskMap.labelPositions[index]
-            const detail = copy.riskDetails?.[index]
-            const isRiskLabel = index < copy.risks.length
-            const detailSide = position?.detailSide ?? (position && position.x > 64 ? 'opens-left' : 'opens-right')
-            const detailId = detail
-              ? `services-zone-risk-detail-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}-${index + 1}`
+          {riskItems.map((item) => {
+            if (!item.position) return null
+
+            const isActive = activeRiskId === item.id
+            const detailSide = item.position.detailSide ?? (item.position.x > 64 ? 'opens-left' : 'opens-right')
+            const detailId = item.detail
+              ? `services-zone-risk-detail-${item.id}`
               : undefined
 
-            if (!position) return null
-
-            if (!isRiskLabel) {
-              return (
-                <span
-                  aria-hidden="true"
-                  className="services-zone-risk-label is-legend"
-                  key={`${label}-${index}`}
-                  style={{
-                    height: `${position.h}%`,
-                    left: `${position.x}%`,
-                    top: `${position.y}%`,
-                    width: `${position.w}%`,
-                  }}
-                >
-                  {label}
-                </span>
-              )
-            }
-
-            return detail ? (
+            return item.detail ? (
               <span
-                className="services-zone-risk-hotspot"
-                key={`${label}-${index}`}
+                className={`services-zone-risk-hotspot${isActive ? ' is-active' : ''}`}
+                key={item.id}
+                onMouseEnter={() => setActiveRiskId(item.id)}
+                onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
                 style={{
-                  height: `${position.h}%`,
-                  left: `${position.x}%`,
-                  top: `${position.y}%`,
-                  width: `${position.w}%`,
+                  height: `${item.position.h}%`,
+                  left: `${item.position.x}%`,
+                  top: `${item.position.y}%`,
+                  width: `${item.position.w}%`,
                 }}
               >
                 <button
-                  aria-label={label}
                   aria-describedby={detailId}
-                  className={`services-zone-risk-label has-detail ${detailSide}`}
+                  aria-label={item.label}
+                  className={`services-zone-risk-label has-detail ${detailSide}${isActive ? ' is-active' : ''}`}
+                  onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                  onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                  onFocus={() => setActiveRiskId(item.id)}
                   type="button"
                 >
-                  <span>{label}</span>
+                  <span>{item.label}</span>
                 </button>
                 <aside className={`services-zone-risk-detail ${detailSide}`} id={detailId}>
-                  <strong>{detail.solution}</strong>
-                  <p>{detail.helps}</p>
-                  {detail.product ? <small>{detail.product}</small> : null}
-                  {detail.stat ? <em>{detail.stat}</em> : null}
+                  <strong>{item.detail.solution}</strong>
+                  <p>{item.detail.helps}</p>
+                  {item.detail.product ? <small>{item.detail.product}</small> : null}
+                  {item.detail.stat ? <em>{item.detail.stat}</em> : null}
                 </aside>
               </span>
             ) : (
               <span
-                aria-label={label}
+                aria-label={item.label}
                 className="services-zone-risk-label"
-                key={`${label}-${index}`}
+                key={item.id}
                 style={{
-                  height: `${position.h}%`,
-                  left: `${position.x}%`,
-                  top: `${position.y}%`,
-                  width: `${position.w}%`,
+                  height: `${item.position.h}%`,
+                  left: `${item.position.x}%`,
+                  top: `${item.position.y}%`,
+                  width: `${item.position.w}%`,
                 }}
               >
-                <span className="services-zone-risk-pin" aria-hidden="true">
-                  {index + 1}
-                </span>
+                <span>{item.label}</span>
+              </span>
+            )
+          })}
+          {legendItems.map((item, index) => {
+            if (!item.position) return null
+
+            return (
+              <span
+                aria-hidden="true"
+                className="services-zone-risk-label is-legend"
+                key={`${item.label}-${index}`}
+                style={{
+                  height: `${item.position.h}%`,
+                  left: `${item.position.x}%`,
+                  top: `${item.position.y}%`,
+                  width: `${item.position.w}%`,
+                }}
+              >
+                {item.label}
               </span>
             )
           })}
@@ -1023,15 +1057,29 @@ function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; risk
       </div>
       <div className="services-zone-risk-copy">
         <p className="eyebrow">{copy.eyebrow}</p>
-        <h3 id={`services-zone-risk-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}`}>{copy.title}</h3>
+        <h3 id={riskMapId}>{copy.title}</h3>
         <p>{copy.body}</p>
-        <ol className="services-zone-risk-list">
-          {copy.risks.map((risk, index) => (
-            <li key={risk}>
-              <strong aria-label={`${index + 1}. ${risk}`}>{risk}</strong>
+        <ul className="services-zone-risk-list">
+          {riskItems.map((item) => (
+            <li
+              className={activeRiskId === item.id ? 'is-active' : undefined}
+              key={item.id}
+              onMouseEnter={() => setActiveRiskId(item.id)}
+              onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
+            >
+              <button
+                aria-label={item.label}
+                className="services-zone-risk-list-button"
+                onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                onFocus={() => setActiveRiskId(item.id)}
+                type="button"
+              >
+                <strong>{item.label}</strong>
+              </button>
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
     </section>
   )

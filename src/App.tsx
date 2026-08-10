@@ -204,6 +204,12 @@ function LegacyAssessmentRedirect() {
   return <Navigate to={`/home-safety-assessment${location.search}${location.hash}`} replace />
 }
 
+function LegacyPathRedirect({ to }: { to: string }) {
+  const location = useLocation()
+
+  return <Navigate to={`${to}${location.search}${location.hash}`} replace />
+}
+
 const legacyResourceArticlePaths: Record<string, string> = {
   'aging-in-place-spain': '/blog/fall-prevention-home-checklist-spain',
   'bathroom-safety-for-seniors': '/blog/bathroom-safety-seniors-costly-mistakes',
@@ -260,7 +266,7 @@ function AppRoutes() {
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
             <Route path="/service-areas" element={<ServiceAreasPage />} />
             <Route path="/service-areas/:citySlug" element={<ServiceAreasPage />} />
-            <Route path="/safe-bathroom-access" element={<Navigate to="/bathroom-safety-for-seniors" replace />} />
+            <Route path="/safe-bathroom-access" element={<LegacyPathRedirect to="/services/bathroom-safety" />} />
             <Route path="/grants-for-home-adaptations-spain" element={<Navigate to="/grants" replace />} />
             <Route path="/:needSlug" element={<NeedLandingPage />} />
             <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />

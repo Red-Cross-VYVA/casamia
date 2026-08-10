@@ -7,6 +7,7 @@ import {
   FileText,
   Home,
   LoaderCircle,
+  MessageSquareText,
   RefreshCw,
   ShieldCheck,
   Upload,
@@ -137,9 +138,9 @@ const fallbackMobilityProfiles: Option[] = [
 
 const fallbackStepLabels = ['Photos', 'Home', 'Contact', 'Report']
 const estimatorDraftStorageKey = 'casamia-estimator-draft'
-const HomeSafetyWizardModalContent = lazy(() =>
-  import('../pages/HomeSafetyWizardPage').then((module) => ({
-    default: module.HomeSafetyWizardPage,
+const SpecialistVoiceAgentModal = lazy(() =>
+  import('./SpecialistVoiceAgentModal').then((module) => ({
+    default: module.SpecialistVoiceAgentModal,
   })),
 )
 
@@ -152,7 +153,7 @@ export function UploadEstimator() {
   const [form, setForm] = useState<EstimateForm>(() => getSavedEstimatorForm())
   const [wizardOpen, setWizardOpen] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
-  const [proposalWizardOpen, setProposalWizardOpen] = useState(false)
+  const [specialistOpen, setSpecialistOpen] = useState(false)
   const [step, setStep] = useState<WizardStep>(() => getSavedEstimatorStep())
   const [status, setStatus] = useState<SubmissionStatus>('idle')
   const [deliveryStatus, setDeliveryStatus] = useState<DeliveryStatus>('idle')
@@ -232,33 +233,6 @@ export function UploadEstimator() {
       openWizard()
     }
   }, [location.hash, location.search])
-
-  useEffect(() => {
-    if (!proposalWizardOpen) return
-
-    const bodyOverflow = document.body.style.overflow
-    const documentOverflow = document.documentElement.style.overflow
-    document.body.style.overflow = 'hidden'
-    document.documentElement.style.overflow = 'hidden'
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (
-        event.key === 'Escape'
-        && !event.defaultPrevented
-        && !document.querySelector('dialog[open]')
-      ) {
-        setProposalWizardOpen(false)
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      document.body.style.overflow = bodyOverflow
-      document.documentElement.style.overflow = documentOverflow
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [proposalWizardOpen])
 
   function updateForm(field: keyof EstimateForm, value: string | boolean) {
     setForm((current) => ({ ...current, [field]: value }) as EstimateForm)
@@ -510,12 +484,12 @@ export function UploadEstimator() {
           type="button"
           className="free-check-card is-proposal"
           onClick={() => {
-            setProposalWizardOpen(true)
-            trackEvent('home_safety_proposal_opened', { location: 'hero' })
+            setSpecialistOpen(true)
+            trackEvent('elevenlabs_specialist_opened', { location: 'hero' })
           }}
         >
           <span className="free-check-icon is-grant">
-            <FileText size={23} aria-hidden="true" />
+            <MessageSquareText size={23} aria-hidden="true" />
           </span>
           <span className="free-check-copy">
             <strong>{t('hero.buildPlan.title')}</strong>
@@ -699,46 +673,24 @@ export function UploadEstimator() {
         document.body,
       ) : null}
 
-      {proposalWizardOpen ? createPortal(
-        <div
-          className="home-proposal-modal-backdrop"
-          role="presentation"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setProposalWizardOpen(false)
-            }
-          }}
-        >
-          <section
-            className="home-proposal-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-label={t('hero.buildPlan.title')}
-          >
-            <button
-              autoFocus
-              type="button"
-              className="home-proposal-modal-close"
-              aria-label={t('common.close')}
-              onClick={() => setProposalWizardOpen(false)}
-            >
-              <X size={22} aria-hidden="true" />
-            </button>
-            <div className="home-proposal-modal-scroll">
-              <Suspense
-                fallback={(
-                  <div className="home-proposal-modal-loading" role="status">
-                    <LoaderCircle size={28} aria-hidden="true" />
-                    <span>{t('common.loading', { defaultValue: 'Loading...' })}</span>
-                  </div>
-                )}
-              >
-                <HomeSafetyWizardModalContent embedded />
-              </Suspense>
+      {specialistOpen ? (
+        <Suspense
+          fallback={(
+            <div className="specialist-voice-backdrop" role="presentation">
+              <div className="specialist-voice-loading" role="status">
+                <LoaderCircle size={28} aria-hidden="true" />
+                <span>{t('common.loading', { defaultValue: 'Loading...' })}</span>
+              </div>
             </div>
-          </section>
-        </div>,
-        document.body,
+          )}
+        >
+          <SpecialistVoiceAgentModal
+            entryPoint="home_hero"
+            isOpen={specialistOpen}
+            language={i18n.language}
+            onClose={() => setSpecialistOpen(false)}
+          />
+        </Suspense>
       ) : null}
     </div>
   )

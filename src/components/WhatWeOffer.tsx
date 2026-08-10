@@ -35,6 +35,22 @@ type OfferVisual = {
     }
 )
 
+type ProposalSnapshotCopy = {
+  heading: string
+  items: string[]
+  label: string
+  priorityLabel: string
+  priorityTitle: string
+}
+
+const fallbackProposalSnapshot: ProposalSnapshotCopy = {
+  heading: 'Safety Proposal',
+  items: ['Bathroom access', 'Kitchen reach', 'Night route'],
+  label: 'Sample CasaMia proposal snapshot',
+  priorityLabel: 'Priority',
+  priorityTitle: 'Room-by-room plan',
+}
+
 const offerVisuals: OfferVisual[] = [
   {
     Icon: Camera,
@@ -65,18 +81,26 @@ const offerVisuals: OfferVisual[] = [
   },
 ]
 
-function OfferVisualMedia({ title, visual }: { title: string; visual: OfferVisual }) {
+function OfferVisualMedia({
+  proposalSnapshot,
+  title,
+  visual,
+}: {
+  proposalSnapshot: ProposalSnapshotCopy
+  title: string
+  visual: OfferVisual
+}) {
   if (visual.kind === 'proposal') {
     return (
-      <div className="offer-proposal-snapshot" role="img" aria-label={visual.label}>
+      <div className="offer-proposal-snapshot" role="img" aria-label={proposalSnapshot.label || visual.label}>
         <div className="offer-proposal-sheet">
           <div className="offer-proposal-header">
             <span>CasaMia</span>
-            <strong>Safety Proposal</strong>
+            <strong>{proposalSnapshot.heading}</strong>
           </div>
           <div className="offer-proposal-score">
-            <span>Priority</span>
-            <strong>Room-by-room plan</strong>
+            <span>{proposalSnapshot.priorityLabel}</span>
+            <strong>{proposalSnapshot.priorityTitle}</strong>
           </div>
           <div className="offer-proposal-lines" aria-hidden="true">
             <span />
@@ -84,9 +108,9 @@ function OfferVisualMedia({ title, visual }: { title: string; visual: OfferVisua
             <span />
           </div>
           <div className="offer-proposal-items" aria-hidden="true">
-            <span>Bathroom access</span>
-            <span>Kitchen reach</span>
-            <span>Night route</span>
+            {proposalSnapshot.items.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
           </div>
         </div>
       </div>
@@ -104,10 +128,28 @@ function OfferVisualMedia({ title, visual }: { title: string; visual: OfferVisua
   )
 }
 
+function getProposalSnapshotCopy(value: unknown): ProposalSnapshotCopy {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return fallbackProposalSnapshot
+
+  const candidate = value as Partial<ProposalSnapshotCopy>
+  const items = Array.isArray(candidate.items)
+    ? candidate.items.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+    : []
+
+  return {
+    heading: candidate.heading || fallbackProposalSnapshot.heading,
+    items: items.length ? items : fallbackProposalSnapshot.items,
+    label: candidate.label || fallbackProposalSnapshot.label,
+    priorityLabel: candidate.priorityLabel || fallbackProposalSnapshot.priorityLabel,
+    priorityTitle: candidate.priorityTitle || fallbackProposalSnapshot.priorityTitle,
+  }
+}
+
 export function WhatWeOffer() {
   const { t } = useTranslation()
   const cards = t('offer.cards', { returnObjects: true }) as OfferCard[]
   const intro = t('offer.intro', { defaultValue: '' })
+  const proposalSnapshot = getProposalSnapshotCopy(t('offer.proposalSnapshot', { returnObjects: true }))
   const primaryCta = t('offer.ctaPrimary', { defaultValue: 'Build your CasaMia plan' })
   const secondaryCta = t('offer.ctaSecondary', { defaultValue: 'Ask us to contact you' })
 
@@ -129,7 +171,7 @@ export function WhatWeOffer() {
             return (
               <article className="offer-card offer-step-card rounded-lg bg-light-blue" key={card.title}>
                 <div className={`offer-card-media is-${visual.kind}`}>
-                  <OfferVisualMedia title={card.title} visual={visual} />
+                  <OfferVisualMedia proposalSnapshot={proposalSnapshot} title={card.title} visual={visual} />
                   <span className="offer-card-step" aria-hidden="true">
                     {String(index + 1).padStart(2, '0')}
                   </span>

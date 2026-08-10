@@ -37,7 +37,7 @@ export type ZoneRiskMap = {
 
 export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
   bathroom: {
-    image: '/images/solutions/bathroom-risk-map.png',
+    image: '/images/solutions/bathroom-risk-map-numbered.png',
     copy: {
       en: {
         eyebrow: 'Bathroom risk map',
@@ -149,7 +149,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
     ],
   },
   bedroom: {
-    image: '/images/solutions/bedroom-risk-map.png',
+    image: '/images/solutions/bedroom-risk-map-numbered.png',
     copy: {
       en: {
         eyebrow: 'Bedroom risk map',
@@ -257,7 +257,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
     ],
   },
   kitchen: {
-    image: '/images/solutions/kitchen-risk-map.png',
+    image: '/images/solutions/kitchen-risk-map-numbered.png',
     copy: {
       en: {
         eyebrow: 'Kitchen risk map',
@@ -365,7 +365,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
     ],
   },
   'living-room': {
-    image: '/images/solutions/living-risk-map.png',
+    image: '/images/solutions/living-risk-map-numbered.png',
     copy: {
       en: {
         eyebrow: 'Living room risk map',
@@ -473,7 +473,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
     ],
   },
   entrance: {
-    image: '/images/solutions/entrance-risk-map.png',
+    image: '/images/solutions/entrance-risk-map-numbered.png',
     copy: {
       en: {
         eyebrow: 'Entrance risk map',

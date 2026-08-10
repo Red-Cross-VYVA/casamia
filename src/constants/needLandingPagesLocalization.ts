@@ -44,7 +44,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       title: 'Dónde suele acumularse el riesgo en el baño.',
       body:
         'El riesgo en el baño casi nunca viene de una sola cosa. Agua, transferencias, espacios estrechos, poca luz y apoyos poco claros se combinan en movimientos cotidianos.',
-      image: '/images/solutions/bathroom-risk-map.png',
+      image: '/images/solutions/bathroom-risk-map-numbered.png',
       imageAlt: 'Mapa anotado de baño con puntos habituales de riesgo de caída y acceso',
       risks: [
         'Alfombrilla suelta',
@@ -280,7 +280,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       title: 'Dónde se acumula el riesgo por la noche.',
       body:
         'El riesgo en el dormitorio suele aparecer en movimientos pequeños y medio dormidos: salir de la cama, encontrar la luz, caminar al baño y rodear muebles.',
-      image: '/images/solutions/bedroom-risk-map.png',
+      image: '/images/solutions/bedroom-risk-map-numbered.png',
       imageAlt: 'Mapa anotado del dormitorio con rutas nocturnas, obstáculos junto a la cama y puntos de apoyo',
       risks: [
         'Poca luz nocturna',
@@ -543,7 +543,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     ],
     relatedServices: [
       { label: 'Enfoque tecnológico', to: '/tech' },
-      { label: 'Hogar conectado para mayores', to: '/connected-home-for-seniors' },
+      { label: 'Servicios de seguridad conectada', to: '/services/smart-home-safety' },
       { label: 'Empezar plan guiado', to: '/home-safety-wizard' },
     ],
     faqs: [

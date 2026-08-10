@@ -54,7 +54,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Build my free plan"
+      "title": "Talk to a specialist now"
     }
   },
   "reportDelivery": {
@@ -334,6 +334,17 @@
     "intro": "Choose the route that suits your family. We turn the right package or inspection into a clear proposal, grant support and professional installation.",
     "ctaPrimary": "Build your CasaMia plan",
     "ctaSecondary": "Ask us to contact you",
+    "proposalSnapshot": {
+      "label": "Sample CasaMia proposal snapshot",
+      "heading": "Safety Proposal",
+      "priorityLabel": "Priority",
+      "priorityTitle": "Room-by-room plan",
+      "items": [
+        "Bathroom access",
+        "Kitchen reach",
+        "Night route"
+      ]
+    },
     "cards": [
       {
         "icon": "Step 1",

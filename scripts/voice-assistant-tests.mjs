@@ -236,6 +236,7 @@ try {
     makeRequest({
       body: {
         consentConfirmed: true,
+        entryPoint: 'home_hero',
         locale: 'es',
         wizardReference: 'CM-ABC123',
       },

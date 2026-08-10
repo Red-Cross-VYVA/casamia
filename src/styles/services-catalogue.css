@@ -36,7 +36,8 @@
   max-width: 64rem;
 }
 
-.services-catalogue-hero-copy h1 {
+.services-catalogue-hero-copy h1,
+.plans-catalogue-intro .services-catalogue-hero-copy h2 {
   max-width: 18ch;
   margin: 0.85rem 0 0;
   font-family: var(--font-display);
@@ -46,6 +47,10 @@
   letter-spacing: 0;
   line-height: 0.96;
   text-wrap: balance;
+}
+
+.plans-catalogue-intro {
+  border-top: 1px solid rgb(188 219 235 / 68%);
 }
 
 .services-catalogue-hero-copy > p {
@@ -791,36 +796,42 @@
 
 .services-zone-risk-label {
   position: absolute;
-  display: grid;
+  display: flex;
   min-width: 0;
-  place-items: center;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid rgb(255 255 255 / 86%);
   border-radius: 0.55rem;
   overflow: visible;
-  color: #ffffff;
-  text-align: center;
+  background: rgb(255 255 255 / 94%);
+  box-shadow:
+    0 0.4rem 1rem rgb(15 39 64 / 14%),
+    inset 0 0 0 1px rgb(185 218 240 / 70%);
+  color: #10283f;
+  font-size: 0.56rem;
+  font-weight: 950;
+  line-height: 1.05;
+  padding: 0.22rem 0.4rem;
+  text-align: left;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
 }
 
 .services-zone-risk-hotspot .services-zone-risk-label {
   appearance: none;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
+  left: -1.15rem;
+  z-index: 1;
+  width: calc(100% + 2rem);
   height: 100%;
-  border: 0 !important;
-  border-radius: 0;
-  background: transparent !important;
-  box-shadow: none !important;
-  color: #10283f;
-  padding: 0.18rem 0.24rem 0.18rem clamp(1.35rem, 2vw, 1.9rem);
   cursor: help;
-  font-size: clamp(0.56rem, 0.95vw, 0.74rem);
-  font-weight: 950;
   font-family: inherit;
-  line-height: 1.05;
+  padding-left: 1.22rem;
+  padding-right: 0.28rem;
   outline: 0;
-  text-align: left;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -853,27 +864,23 @@
 }
 
 .services-zone-risk-label.has-detail:hover,
-.services-zone-risk-label.has-detail:focus {
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
+.services-zone-risk-label.has-detail:focus,
+.services-zone-risk-label.has-detail.is-active,
+.services-zone-risk-hotspot.is-active .services-zone-risk-label {
+  border-color: rgb(121 189 53 / 86%);
+  background: #ffffff;
+  box-shadow:
+    0 0.62rem 1.35rem rgb(15 39 64 / 18%),
+    inset 0 0 0 2px rgb(121 189 53 / 55%);
   color: #10283f;
   outline: 0;
   text-shadow: none;
+  transform: translateY(-1px);
 }
 
 .services-zone-risk-label.has-detail:focus-visible {
   outline: 2px solid #9edaf0;
   outline-offset: 2px;
-}
-
-.services-zone-risk-label.has-detail:hover .services-zone-risk-pin,
-.services-zone-risk-label.has-detail:focus .services-zone-risk-pin,
-.services-zone-risk-label.has-detail:focus-visible .services-zone-risk-pin {
-  transform: translateY(-1px) scale(1.05);
-  box-shadow:
-    0 0.75rem 1.6rem rgb(15 39 64 / 28%),
-    0 0 0 0.36rem rgb(223 64 56 / 20%);
 }
 
 .services-zone-risk-label.is-legend {
@@ -915,6 +922,7 @@
 }
 
 .services-zone-risk-hotspot:hover .services-zone-risk-detail,
+.services-zone-risk-hotspot.is-active .services-zone-risk-detail,
 .services-zone-risk-hotspot:focus-within .services-zone-risk-detail,
 .services-zone-risk-label.has-detail:hover + .services-zone-risk-detail,
 .services-zone-risk-label.has-detail:focus + .services-zone-risk-detail,
@@ -968,6 +976,7 @@
 }
 
 .services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-up,
+.services-zone-risk-hotspot.is-active .services-zone-risk-detail.opens-up,
 .services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-up,
 .services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-up,
 .services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-up,
@@ -976,21 +985,25 @@
 }
 
 .services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-down-right,
+.services-zone-risk-hotspot.is-active .services-zone-risk-detail.opens-down-right,
 .services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-down-right,
 .services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-down-right,
 .services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-down-right,
 .services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail.opens-down-right,
 .services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-down-left,
+.services-zone-risk-hotspot.is-active .services-zone-risk-detail.opens-down-left,
 .services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-down-left,
 .services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-down-left,
 .services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-down-left,
 .services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail.opens-down-left,
 .services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-up-right,
+.services-zone-risk-hotspot.is-active .services-zone-risk-detail.opens-up-right,
 .services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-up-right,
 .services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-up-right,
 .services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-up-right,
 .services-zone-risk-label.has-detail:focus-visible + .services-zone-risk-detail.opens-up-right,
 .services-zone-risk-hotspot:hover .services-zone-risk-detail.opens-up-left,
+.services-zone-risk-hotspot.is-active .services-zone-risk-detail.opens-up-left,
 .services-zone-risk-hotspot:focus-within .services-zone-risk-detail.opens-up-left,
 .services-zone-risk-label.has-detail:hover + .services-zone-risk-detail.opens-up-left,
 .services-zone-risk-label.has-detail:focus + .services-zone-risk-detail.opens-up-left,
@@ -1067,20 +1080,42 @@
   border-radius: 0.55rem;
   background: rgb(255 255 255 / 82%);
   box-shadow: inset 0 0 0 1px #d5e8f4;
-  padding: 0.52rem 0.68rem;
+  padding: 0;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
 }
 
-.services-zone-risk-list span {
-  display: grid;
-  width: 1.65rem;
-  height: 1.65rem;
-  place-items: center;
-  border-radius: 999px;
-  background: #c7352f;
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 950;
-  line-height: 1;
+.services-zone-risk-list li:hover,
+.services-zone-risk-list li:focus-within,
+.services-zone-risk-list li.is-active {
+  border-left-color: #c7352f;
+  background: #ffffff;
+  box-shadow:
+    inset 0 0 0 1px rgb(121 189 53 / 58%),
+    0 0.55rem 1.25rem rgb(31 73 103 / 12%);
+  transform: translateY(-1px);
+}
+
+.services-zone-risk-list-button {
+  display: flex;
+  width: 100%;
+  min-height: 2.45rem;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.52rem 0.68rem;
+  text-align: left;
+}
+
+.services-zone-risk-list-button:focus-visible {
+  outline: 2px solid #9edaf0;
+  outline-offset: 2px;
 }
 
 .services-zone-risk-list strong {
@@ -1472,6 +1507,15 @@
 .services-catalogue-safety-note svg {
   flex: 0 0 auto;
   color: #17648e;
+}
+
+.services-catalogue-service-actions {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.services-catalogue-service-actions .catalogue-item-detail-button {
+  width: 100%;
 }
 
 .services-catalogue-custom-package {

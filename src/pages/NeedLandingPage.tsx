@@ -5,9 +5,9 @@ import {
   HeartHandshake,
   ShieldCheck,
 } from 'lucide-react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'
@@ -25,12 +25,19 @@ import '../styles/need-landing.css'
 
 export function NeedLandingPage() {
   const { needSlug } = useParams()
+  const location = useLocation()
   const { i18n } = useTranslation()
+  const [activeRiskId, setActiveRiskId] = useState<string | null>(null)
   const basePage = getNeedLandingPage(needSlug)
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
 
   const isSpanish = i18n.language.startsWith('es')
   const page = localizeNeedLandingPage(basePage ?? allNeedLandingPages[0], i18n.language)
+
+  if (basePage && page.path !== location.pathname) {
+    return <Navigate to={`${page.path}${location.search}${location.hash}`} replace />
+  }
+
   const isCompactNeedPage = page.slug === 'bathroom-safety-for-seniors'
   const isGrantSupportNeedPage = page.slug === 'grants-for-home-adaptations-spain'
   const copy = {
@@ -239,10 +246,21 @@ export function NeedLandingPage() {
   const catalogueCta = isCompactNeedPage
     ? isSpanish ? 'Ver opciones' : 'See options'
     : copy.catalogueCta
-  const riskMapLabels = page.riskSection
-    ? [...(page.riskSection.mapLabels ?? page.riskSection.risks), ...(page.riskSection.legend ?? [])]
-    : []
   const riskMapLabelPositions = needRiskMapLabelPositions[page.slug] ?? bathroomRiskMapLabelPositions
+  const riskMapItems = page.riskSection
+    ? page.riskSection.risks.map((risk, index) => ({
+        id: `${page.slug}-risk-${index + 1}`,
+        label: risk,
+        detail: page.riskSection?.riskDetails?.[index],
+        position: riskMapLabelPositions[index],
+      }))
+    : []
+  const riskMapLegendItems = page.riskSection
+    ? (page.riskSection.legend ?? []).map((label, index) => ({
+        label,
+        position: riskMapLabelPositions[page.riskSection!.risks.length + index],
+      }))
+    : []
   if (!basePage) {
     return <Navigate to="/services" replace />
   }
@@ -298,81 +316,81 @@ export function NeedLandingPage() {
                   imgClassName="need-landing-risk-map-img"
                 />
                 <div className="need-landing-risk-map-labels">
-                  {riskMapLabels.map((label, index) => {
-                    const position = riskMapLabelPositions[index]
-                    const detail = page.riskSection?.riskDetails?.[index]
-                    const isRiskLabel = index < page.riskSection!.risks.length
-                    const mapDetailId = detail
-                      ? `need-landing-risk-map-detail-${page.slug}-${index + 1}`
+                  {riskMapItems.map((item) => {
+                    if (!item.position) return null
+
+                    const isActive = activeRiskId === item.id
+                    const mapDetailId = item.detail
+                      ? `need-landing-risk-map-detail-${item.id}`
                       : undefined
 
-                    if (!position) return null
-
-                    if (!isRiskLabel) {
-                      return (
-                        <span
-                          aria-hidden="true"
-                          className="need-landing-risk-map-label is-legend"
-                          key={`${label}-${index}`}
-                          style={{
-                            left: `${position.x}%`,
-                            top: `${position.y}%`,
-                            width: `${position.w}%`,
-                            height: `${position.h}%`,
-                          }}
-                        >
-                          {label}
-                        </span>
-                      )
-                    }
-
-                    return detail ? (
+                    return item.detail ? (
                       <span
-                        className="need-landing-risk-map-hotspot"
-                        key={`${label}-${index}`}
+                        className={`need-landing-risk-map-hotspot${isActive ? ' is-active' : ''}`}
+                        key={item.id}
+                        onMouseEnter={() => setActiveRiskId(item.id)}
+                        onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
                         style={{
-                          left: `${position.x}%`,
-                          top: `${position.y}%`,
-                          width: `${position.w}%`,
-                          height: `${position.h}%`,
+                          left: `${item.position.x}%`,
+                          top: `${item.position.y}%`,
+                          width: `${item.position.w}%`,
+                          height: `${item.position.h}%`,
                         }}
                       >
                         <button
-                          aria-label={label}
                           aria-describedby={mapDetailId}
-                          className={`need-landing-risk-map-label has-detail ${position.detailSide}`}
+                          aria-label={item.label}
+                          className={`need-landing-risk-map-label has-detail ${item.position.detailSide}${isActive ? ' is-active' : ''}`}
+                          onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                          onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                          onFocus={() => setActiveRiskId(item.id)}
                           type="button"
                         >
-                          <span className="need-landing-risk-map-pin" aria-hidden="true">
-                            {index + 1}
-                          </span>
+                          <span className="need-landing-risk-map-text">{item.label}</span>
                         </button>
                         <aside
-                          className={`need-landing-risk-map-detail ${position.detailSide}`}
+                          className={`need-landing-risk-map-detail ${item.position.detailSide}`}
                           id={mapDetailId}
                         >
-                          <strong>{detail.solution}</strong>
-                          <p>{detail.helps}</p>
-                          {detail.product ? <small>{detail.product}</small> : null}
-                          {detail.stat ? <em>{detail.stat}</em> : null}
+                          <strong>{item.detail.solution}</strong>
+                          <p>{item.detail.helps}</p>
+                          {item.detail.product ? <small>{item.detail.product}</small> : null}
+                          {item.detail.stat ? <em>{item.detail.stat}</em> : null}
                         </aside>
                       </span>
                     ) : (
                     <span
-                      aria-label={label}
-                      className="need-landing-risk-map-label"
-                      key={`${label}-${index}`}
+                      aria-label={item.label}
+                      className={`need-landing-risk-map-label${isActive ? ' is-active' : ''}`}
+                      key={item.id}
                       style={{
-                        left: `${position.x}%`,
-                        top: `${position.y}%`,
-                          width: `${position.w}%`,
-                        height: `${position.h}%`,
+                        left: `${item.position.x}%`,
+                        top: `${item.position.y}%`,
+                          width: `${item.position.w}%`,
+                        height: `${item.position.h}%`,
                       }}
                     >
-                      <span className="need-landing-risk-map-pin" aria-hidden="true">
-                        {index + 1}
-                      </span>
+                      <span className="need-landing-risk-map-text">{item.label}</span>
                     </span>
+                    )
+                  })}
+                  {riskMapLegendItems.map((item, index) => {
+                    if (!item.position) return null
+
+                    return (
+                      <span
+                        aria-hidden="true"
+                        className="need-landing-risk-map-label is-legend"
+                        key={`${item.label}-${index}`}
+                        style={{
+                          left: `${item.position.x}%`,
+                          top: `${item.position.y}%`,
+                          width: `${item.position.w}%`,
+                          height: `${item.position.h}%`,
+                        }}
+                      >
+                        {item.label}
+                      </span>
                     )
                   })}
                 </div>
@@ -381,35 +399,43 @@ export function NeedLandingPage() {
                 <p className="eyebrow">{page.riskSection.eyebrow}</p>
                 <h2 id="need-landing-risk-map-title">{page.riskSection.title}</h2>
                 <p>{page.riskSection.body}</p>
-                <ol className="need-landing-risk-list">
-                  {page.riskSection.risks.map((risk, index) => {
-                    const detail = page.riskSection?.riskDetails?.[index]
-                    const detailId = detail
-                      ? `need-landing-risk-detail-${page.slug}-${index + 1}`
+                <ul className="need-landing-risk-list">
+                  {riskMapItems.map((item) => {
+                    const isActive = activeRiskId === item.id
+                    const detailId = item.detail
+                      ? `need-landing-risk-detail-${item.id}`
                       : undefined
 
                     return (
-                      <li className={detail ? 'has-detail' : undefined} key={risk}>
+                      <li
+                        className={`${item.detail ? 'has-detail' : ''}${isActive ? ' is-active' : ''}`}
+                        key={item.id}
+                        onMouseEnter={() => setActiveRiskId(item.id)}
+                        onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                      >
                         <button
                           aria-describedby={detailId}
-                          aria-label={`${index + 1}. ${risk}`}
+                          aria-label={item.label}
                           className="need-landing-risk-trigger"
+                          onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                          onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                          onFocus={() => setActiveRiskId(item.id)}
                           type="button"
                         >
-                          <strong>{risk}</strong>
+                          <strong>{item.label}</strong>
                         </button>
-                        {detail ? (
+                        {item.detail ? (
                           <aside className="need-landing-risk-detail" id={detailId}>
-                            <strong>{detail.solution}</strong>
-                            <p>{detail.helps}</p>
-                            {detail.product ? <small>{detail.product}</small> : null}
-                            {detail.stat ? <em>{detail.stat}</em> : null}
+                            <strong>{item.detail.solution}</strong>
+                            <p>{item.detail.helps}</p>
+                            {item.detail.product ? <small>{item.detail.product}</small> : null}
+                            {item.detail.stat ? <em>{item.detail.stat}</em> : null}
                           </aside>
                         ) : null}
                       </li>
                     )
                   })}
-                </ol>
+                </ul>
               </div>
             </div>
           </section>

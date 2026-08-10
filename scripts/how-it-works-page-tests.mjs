@@ -4,8 +4,8 @@ import { readFile, stat } from 'node:fs/promises'
 const page = await readFile(new URL('../src/pages/HowItWorksPage.tsx', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/how-it-works-process.css', import.meta.url), 'utf8')
 const indexCss = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
-const entranceMap = await stat(new URL('../public/images/solutions/entrance-risk-map.png', import.meta.url))
-const kitchenMap = await stat(new URL('../public/images/solutions/kitchen-risk-map.png', import.meta.url))
+const entranceMap = await stat(new URL('../public/images/solutions/entrance-risk-map-numbered.png', import.meta.url))
+const kitchenMap = await stat(new URL('../public/images/solutions/kitchen-risk-map-numbered.png', import.meta.url))
 
 assert.match(page, /className="how-easy-process"/, 'The visual process journey must remain on the page.')
 assert.match(page, /<ol className="how-easy-flow">/, 'The journey must use an accessible ordered list.')

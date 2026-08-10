@@ -305,7 +305,7 @@ assert.match(
 )
 assert.match(
   page,
-  /const topicRoutes = \[[\s\S]*fall-prevention-at-home[\s\S]*bathroom-safety-for-seniors[\s\S]*senior-bedroom-safety[\s\S]*grants-for-home-adaptations-spain/,
+  /const topicRoutes = \[[\s\S]*fall-prevention-at-home[\s\S]*\/services\/bathroom-safety[\s\S]*\/services\/bedroom-safety[\s\S]*\/grants/,
   'The Resources hub must expose SEO topic routes for major senior home safety needs.',
 )
 assert.match(
@@ -330,8 +330,8 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /localizeNeedLandingPage\(basePage, i18n\.language\)[\s\S]*localizeNeedLandingPages\(allNeedLandingPages, i18n\.language\)/,
-  'Need landing pages must localise the active page and related popular-need links.',
+  /localizeNeedLandingPage\(basePage \?\? allNeedLandingPages\[0\], i18n\.language\)[\s\S]*page\.path !== location\.pathname[\s\S]*<Navigate to=\{`\$\{page\.path\}\$\{location\.search\}\$\{location\.hash\}`\} replace \/>/,
+  'Need landing pages must localise the active page and redirect legacy duplicate paths to canonical URLs.',
 )
 assert.match(
   needLandingPage,
@@ -345,7 +345,7 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /catalogueEyebrow[\s\S]*turnkeySteps[\s\S]*beforeSpendingChecks[\s\S]*<CatalogueServiceCard[\s\S]*key=\{service\.id\}[\s\S]*service=\{service\}[\s\S]*language=\{i18n\.language\}/,
+  /catalogueEyebrow[\s\S]*catalogueTitle[\s\S]*catalogueBody[\s\S]*visibleCatalogueServices\.map[\s\S]*<CatalogueServiceCard[\s\S]*key=\{service\.id\}[\s\S]*service=\{service\}[\s\S]*language=\{i18n\.language\}/,
   'Need landing page chrome and catalogue labels must be language-aware.',
 )
 assert.match(
@@ -355,28 +355,28 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /nextActionEyebrow[\s\S]*Answer a few questions[\s\S]*Send photos or video[\s\S]*See CasaMia options[\s\S]*Ask us to contact you[\s\S]*need-landing-next-actions/,
-  'Need landing pages must turn education into clear next actions without relying on final package content.',
+  /questionsCta:[\s\S]*Start with my situation[\s\S]*startPlan:[\s\S]*Start my plan[\s\S]*bookAssessment:[\s\S]*Book an assessment[\s\S]*need-landing-faq-action[\s\S]*need-landing-final/,
+  'Need landing pages must turn education into clear FAQ and final actions.',
 )
 assert.match(
   needLandingPage,
-  /to: '\/home-safety-wizard'[\s\S]*to: '\/#estimate-upload'[\s\S]*to: page\.servicePath[\s\S]*to: '\/why-us#contact-form'/,
-  'Need landing page next actions must route users to the wizard, photo brief, related services and contact form.',
+  /to="\/home-safety-wizard"[\s\S]*to="\/home-safety-wizard"[\s\S]*to="\/home-safety-assessment"/,
+  'Need landing page actions must route users to the wizard and home safety assessment.',
 )
 assert.match(
   needLandingPage,
-  /decisionEyebrow[\s\S]*Notice the change[\s\S]*Capture just enough[\s\S]*Get a clear route[\s\S]*need-landing-decision[\s\S]*DecisionCard/,
-  'Need landing pages must include a practical decision map that helps families know what to notice, capture and do next.',
+  /whoHelps:[\s\S]*checkFirst:[\s\S]*handlesIt:[\s\S]*<NeedPanel[\s\S]*title=\{copy\.whoHelps\}[\s\S]*<NeedPanel[\s\S]*title=\{copy\.checkFirst\}[\s\S]*<NeedPanel[\s\S]*title=\{copy\.handlesIt\}/,
+  'Need landing pages must summarise who it helps, what to check first and how CasaMia handles it.',
 )
 assert.match(
   needLandingPage,
-  /'@type': 'HowTo'[\s\S]*copy\.turnkeySteps\.map/,
-  'Need landing pages must publish HowTo structured data for the CasaMia managed next-step route.',
+  /'@type': 'HowTo'[\s\S]*copy\.evidenceItems\.map/,
+  'Need landing pages must publish HowTo structured data for the visible evidence checklist.',
 )
 assert.match(
   needLandingPage,
-  /#decision-route[\s\S]*copy\.decisionCards\.map[\s\S]*text: card\.body/,
-  'Need landing pages must publish structured data for the visible decision route steps.',
+  /'@type': 'FAQPage'[\s\S]*mainEntity: visibleFaqs\.map[\s\S]*'@type': 'HowTo'[\s\S]*#what-to-share/,
+  'Need landing pages must publish structured data for visible FAQs and evidence guidance.',
 )
 assert.match(
   needLandingPage,
@@ -385,8 +385,8 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /'@type': 'ItemList'[\s\S]*#useful-pages[\s\S]*page\.relatedServices\.map[\s\S]*#popular-needs[\s\S]*siblingPages\.map/,
-  'Need landing pages must publish ItemList structured data for visible related pages and popular needs.',
+  /catalogueServices = useMemo[\s\S]*visibleCatalogueServices[\s\S]*recommendedResources[\s\S]*visibleFaqs/,
+  'Need landing pages must derive visible catalogue services, recommended resources and FAQs from shared sources.',
 )
 assert.match(
   needLandingPage,
@@ -450,13 +450,13 @@ assert.match(
 )
 assert.match(
   await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
-  /\.need-landing-next-actions[\s\S]*\.need-next-action-list[\s\S]*\.need-next-action-card/,
-  'Need landing page next actions must have dedicated visual styling.',
+  /\.need-landing-faq-action[\s\S]*\.need-landing-final[\s\S]*\.need-landing-final-card[\s\S]*\.need-landing-final-actions/,
+  'Need landing page FAQ and final actions must have dedicated visual styling.',
 )
 assert.match(
   await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
-  /\.need-landing-decision[\s\S]*\.need-decision-card-grid[\s\S]*\.need-decision-card[\s\S]*\.need-decision-card-step/,
-  'Need landing page decision maps must have dedicated visual styling with clear numbered steps.',
+  /\.need-landing-three[\s\S]*\.need-panel[\s\S]*\.need-panel > span/,
+  'Need landing page summary panels must have dedicated visual styling.',
 )
 assert.match(
   await readFile(new URL('../src/styles/need-landing.css', import.meta.url), 'utf8'),
@@ -485,8 +485,8 @@ assert.match(
 )
 assert.match(
   nav,
-  /solutionMenuItems[\s\S]*\/bathroom-safety-for-seniors[\s\S]*\/services\/kitchen-safety[\s\S]*\/senior-bedroom-safety[\s\S]*\/services\/entrance-accessibility[\s\S]*\/grants-for-home-adaptations-spain/,
-  'The Solutions menu must give direct access to high-intent room and catalogue service pages.',
+  /solutionMenuItems[\s\S]*\/services\/bathroom-safety[\s\S]*\/services\/kitchen-safety[\s\S]*\/services\/bedroom-safety[\s\S]*\/services\/entrance-accessibility[\s\S]*\/grants/,
+  'The Solutions menu must give direct access to canonical room and catalogue service pages.',
 )
 assert.match(
   nav,
@@ -610,8 +610,8 @@ assert.match(
 )
 assert.match(
   linkChecks,
-  /sitemapSourceChecks[\s\S]*needLandingPages\.ts[\s\S]*blogContent\.ts[\s\S]*missing \$\{check\.label\} path/,
-  'Link checks must guard that need landing pages and blog articles stay included in the public sitemap.',
+  /canonicalRedirectPaths[\s\S]*bathroom-safety-for-seniors[\s\S]*services\/bathroom-safety[\s\S]*sitemapSourceChecks[\s\S]*needLandingPages\.ts[\s\S]*blogContent\.ts[\s\S]*missing \$\{check\.label\} path/,
+  'Link checks must guard sitemap coverage and prevent internal links to legacy duplicate room URLs.',
 )
 assert.match(
   legalLaunchChecks,

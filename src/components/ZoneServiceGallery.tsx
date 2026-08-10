@@ -1,6 +1,8 @@
+import { ArrowRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { SafeImage } from './SafeImage'
+import { ServiceItemDetailModal } from './ServiceItemDetailModal'
 import { getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
 import type { CasaMiaService, ServiceCatalogueSection, ServiceRoom } from '../types/serviceCatalogue'
 
@@ -105,8 +107,10 @@ export function ZoneServiceGallery({ className = '', language, room, services }:
   const languageKey = language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = zoneGalleryCopy[room][languageKey]
   const tabCopy = galleryTabCopy[languageKey]
+  const viewDetailsLabel = languageKey === 'es' ? 'Ver detalles' : 'View details'
   const classes = ['zone-service-gallery', className].filter(Boolean).join(' ')
   const [selectedGroup, setSelectedGroup] = useState<'included' | 'optional'>('included')
+  const [activeService, setActiveService] = useState<CasaMiaService | null>(null)
   const includedServices = useMemo(
     () => services.filter((service) => (service.section ?? 'home_safety_package') === 'home_safety_package'),
     [services],
@@ -158,23 +162,34 @@ export function ZoneServiceGallery({ className = '', language, room, services }:
           <ZoneServiceGalleryCard
             key={service.id}
             languageKey={languageKey}
+            onViewDetails={setActiveService}
             room={room}
             service={service}
+            viewDetailsLabel={viewDetailsLabel}
           />
         ))}
       </div>
+      <ServiceItemDetailModal
+        language={language}
+        onClose={() => setActiveService(null)}
+        service={activeService}
+      />
     </div>
   )
 }
 
 function ZoneServiceGalleryCard({
   languageKey,
+  onViewDetails,
   room,
   service,
+  viewDetailsLabel,
 }: {
   languageKey: 'en' | 'es'
+  onViewDetails: (service: CasaMiaService) => void
   room: ZoneGalleryRoom
   service: CasaMiaService
+  viewDetailsLabel: string
 }) {
   const section = service.section ?? 'home_safety_package'
   const title = service.customerName ?? service.name
@@ -194,6 +209,12 @@ function ZoneServiceGalleryCard({
         <span>{sectionLabels[section][languageKey]}</span>
         <h3>{title}</h3>
         <p>{description}</p>
+        <div className="zone-service-gallery-card-actions">
+          <button className="catalogue-item-detail-button" type="button" onClick={() => onViewDetails(service)}>
+            {viewDetailsLabel}
+            <ArrowRight size={15} aria-hidden="true" />
+          </button>
+        </div>
       </div>
     </article>
   )

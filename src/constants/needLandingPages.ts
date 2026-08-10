@@ -39,7 +39,7 @@ export type NeedLandingPageContent = {
 export const needLandingPages: NeedLandingPageContent[] = [
   {
     slug: 'bathroom-safety-for-seniors',
-    path: '/bathroom-safety-for-seniors',
+    path: '/services/bathroom-safety',
     servicePath: '/services/bathroom-safety',
     resourcePath: '/blog/bathroom-safety-seniors-costly-mistakes',
     icon: 'bath',
@@ -71,7 +71,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       title: 'Where bathroom risk usually builds up.',
       body:
         'Bathroom risk rarely comes from one thing. Water, transfers, tight spaces, low light and unclear support points can combine in a few everyday movements.',
-      image: '/images/solutions/bathroom-risk-map.png',
+      image: '/images/solutions/bathroom-risk-map-numbered.png',
       imageAlt: 'Annotated bathroom map showing common fall and access risk points',
       risks: ['Loose mat', 'High step', 'Shower entry', 'Toilet height', 'Wet zone', 'Visible cable', 'Narrow door'],
       riskDetails: [
@@ -250,7 +250,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
   },
   {
     slug: 'senior-bedroom-safety',
-    path: '/senior-bedroom-safety',
+    path: '/services/bedroom-safety',
     servicePath: '/services/bedroom-safety',
     resourcePath: '/blog/bedroom-night-safety-older-adults',
     icon: 'bedroom',
@@ -274,7 +274,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       title: 'Where night-time risk builds up.',
       body:
         'Bedroom risk often appears in small, half-awake movements: getting out of bed, finding the light, walking to the bathroom and moving around furniture.',
-      image: '/images/solutions/bedroom-risk-map.png',
+      image: '/images/solutions/bedroom-risk-map-numbered.png',
       imageAlt: 'Annotated bedroom risk map showing night-time routes, bedside hazards and support points',
       risks: [
         'Poor night lighting',
@@ -344,7 +344,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
   },
   {
     slug: 'grants-for-home-adaptations-spain',
-    path: '/grants-for-home-adaptations-spain',
+    path: '/grants',
     servicePath: '/grant-check',
     resourcePath: '/blog/home-adaptation-grants-spain-family-guide',
     icon: 'book',
@@ -414,7 +414,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
   },
   {
     slug: 'connected-home-for-seniors',
-    path: '/connected-home-for-seniors',
+    path: '/services/smart-home-safety',
     servicePath: '/services/smart-home-safety',
     resourcePath: '/blog/smart-home-safety-without-overcomplicating',
     icon: 'smartphone',
@@ -504,7 +504,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     casamiaPlan: ['Define the experience before choosing devices', 'Configure compatible tools into simple routines', 'Document response rules so the family understands what happens'],
     relatedServices: [
       { label: 'Technology approach', to: '/tech' },
-      { label: 'Connected home for seniors', to: '/connected-home-for-seniors' },
+      { label: 'Connected safety services', to: '/services/smart-home-safety' },
       { label: 'Start a guided plan', to: '/home-safety-wizard' },
     ],
     faqs: [

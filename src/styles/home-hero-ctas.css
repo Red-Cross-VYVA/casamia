@@ -324,6 +324,330 @@ body .hero-section .free-check-card:focus-visible {
   padding: clamp(32px, 5vw, 64px) clamp(22px, 7vw, 78px);
 }
 
+.specialist-voice-backdrop {
+  position: fixed;
+  z-index: 96;
+  inset: 0;
+  display: grid;
+  padding: clamp(12px, 2vw, 28px);
+  place-items: center;
+  background: rgba(5, 27, 43, 0.72);
+  backdrop-filter: blur(10px);
+  animation: home-proposal-backdrop-in 180ms ease-out both;
+}
+
+.specialist-voice-modal {
+  position: relative;
+  width: min(980px, calc(100vw - 32px));
+  max-height: min(760px, calc(100dvh - 32px));
+  overflow: hidden;
+  border: 1px solid rgba(189, 215, 231, 0.95);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 34px 100px rgba(1, 24, 40, 0.4);
+  animation: home-proposal-modal-in 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.specialist-voice-close {
+  position: absolute;
+  z-index: 4;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(187, 213, 229, 0.96);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  color: #0b3653;
+  box-shadow: 0 8px 24px rgba(5, 41, 65, 0.14);
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.specialist-voice-close:hover {
+  border-color: #3a9fd4;
+  color: #1674aa;
+  transform: translateY(-1px);
+}
+
+.specialist-voice-close:focus-visible {
+  outline: 3px solid #3a9fd4;
+  outline-offset: 3px;
+}
+
+.specialist-voice-loading {
+  display: inline-flex;
+  min-height: 86px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid rgba(189, 215, 231, 0.95);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 0 26px;
+  color: #0b3653;
+  font-weight: 850;
+  box-shadow: 0 24px 72px rgba(1, 24, 40, 0.32);
+}
+
+.specialist-voice-loading svg {
+  animation: home-proposal-spin 900ms linear infinite;
+}
+
+.specialist-voice-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1fr);
+  min-height: min(610px, calc(100dvh - 32px));
+}
+
+.specialist-voice-visual {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 24px;
+  min-height: 100%;
+  padding: clamp(28px, 5vw, 54px);
+  background: #0a496a;
+  color: #ffffff;
+  text-align: center;
+}
+
+.specialist-voice-mic-status {
+  display: grid;
+  width: clamp(150px, 18vw, 220px);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 12px rgba(255, 255, 255, 0.08), 0 20px 48px rgba(0, 0, 0, 0.18);
+}
+
+.specialist-voice-mic-status svg {
+  color: #ffffff;
+}
+
+.specialist-voice-mic-status.is-connecting svg,
+.specialist-voice-spin {
+  animation: home-proposal-spin 900ms linear infinite;
+}
+
+.specialist-voice-wave {
+  display: flex;
+  height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.specialist-voice-wave span {
+  display: block;
+  width: 9px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  transform-origin: center;
+  animation: specialist-voice-wave 1100ms ease-in-out infinite;
+}
+
+.specialist-voice-wave span:nth-child(2) {
+  animation-delay: 110ms;
+}
+
+.specialist-voice-wave span:nth-child(3) {
+  animation-delay: 220ms;
+}
+
+.specialist-voice-wave span:nth-child(4) {
+  animation-delay: 330ms;
+}
+
+.specialist-voice-visual p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.specialist-voice-content {
+  max-height: min(760px, calc(100dvh - 32px));
+  overflow: auto;
+  padding: clamp(32px, 5vw, 58px);
+  padding-right: clamp(72px, 8vw, 92px);
+  scrollbar-gutter: stable;
+}
+
+.specialist-voice-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  border: 1px solid #bfd7e8;
+  border-radius: 999px;
+  padding: 8px 13px;
+  color: #126392;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.specialist-voice-content h2 {
+  max-width: 610px;
+  margin: 0;
+  color: #142a3f;
+  font-family: var(--font-display);
+  font-size: clamp(46px, 5.8vw, 76px);
+  font-weight: 900;
+  line-height: 0.94;
+  letter-spacing: 0;
+}
+
+.specialist-voice-body {
+  max-width: 620px;
+  margin: 20px 0 0;
+  color: #46566a;
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.specialist-voice-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.specialist-voice-points li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(125, 186, 62, 0.42);
+  border-radius: 999px;
+  background: #f8fcf3;
+  padding: 9px 12px;
+  color: #20364a;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.specialist-voice-points svg {
+  color: #6aa92f;
+}
+
+.specialist-voice-privacy,
+.specialist-voice-fallback {
+  display: flex;
+  max-width: 620px;
+  gap: 10px;
+  margin: 22px 0 0;
+  color: #5f6f82;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.specialist-voice-privacy svg {
+  flex: 0 0 auto;
+  color: #6aa92f;
+}
+
+.specialist-voice-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.specialist-voice-actions .btn {
+  min-height: 52px;
+}
+
+.specialist-voice-error {
+  max-width: 620px;
+  margin-top: 18px;
+  border: 1px solid rgba(206, 67, 67, 0.28);
+  border-radius: 8px;
+  background: #fff7f4;
+  padding: 12px 14px;
+  color: #8e2f25;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.specialist-voice-transcript {
+  max-width: 620px;
+  margin-top: 28px;
+  border: 1px solid rgba(189, 215, 231, 0.9);
+  border-radius: 8px;
+  background: #f8fcff;
+  padding: 18px;
+}
+
+.specialist-voice-transcript h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  color: #142a3f;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.specialist-voice-transcript ol {
+  display: grid;
+  max-height: 220px;
+  gap: 10px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.specialist-voice-transcript li {
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 11px 12px;
+}
+
+.specialist-voice-transcript li.is-user {
+  background: #eef8fd;
+}
+
+.specialist-voice-transcript span {
+  display: block;
+  margin-bottom: 4px;
+  color: #126392;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.specialist-voice-transcript p {
+  margin: 0;
+  color: #334357;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+@keyframes specialist-voice-wave {
+  0%,
+  100% {
+    transform: scaleY(0.72);
+    opacity: 0.62;
+  }
+  45% {
+    transform: scaleY(1.45);
+    opacity: 1;
+  }
+}
+
 @keyframes home-proposal-backdrop-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -400,6 +724,50 @@ body .hero-section .free-check-card:focus-visible {
   .home-proposal-modal .safety-wizard-stage {
     min-height: calc(100dvh - 74px);
   }
+
+  .specialist-voice-backdrop {
+    padding: 0;
+  }
+
+  .specialist-voice-modal {
+    width: 100%;
+    max-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .specialist-voice-close {
+    top: 10px;
+    right: 10px;
+  }
+
+  .specialist-voice-grid {
+    grid-template-columns: 1fr;
+    min-height: 100dvh;
+  }
+
+  .specialist-voice-visual {
+    min-height: 240px;
+    padding: 42px 22px 30px;
+  }
+
+  .specialist-voice-mic-status {
+    width: 132px;
+  }
+
+  .specialist-voice-content {
+    max-height: none;
+    overflow: visible;
+    padding: 30px 20px 44px;
+  }
+
+  .specialist-voice-content h2 {
+    font-size: clamp(42px, 15vw, 58px);
+  }
+
+  .specialist-voice-actions .btn {
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -419,7 +787,14 @@ body .hero-section .free-check-card:focus-visible {
   .home-proposal-modal-backdrop,
   .home-proposal-modal,
   .home-proposal-modal-loading svg,
-  .home-proposal-modal-close {
+  .home-proposal-modal-close,
+  .specialist-voice-backdrop,
+  .specialist-voice-loading svg,
+  .specialist-voice-modal,
+  .specialist-voice-close,
+  .specialist-voice-mic-status.is-connecting svg,
+  .specialist-voice-spin,
+  .specialist-voice-wave span {
     animation: none;
     transition: none;
   }

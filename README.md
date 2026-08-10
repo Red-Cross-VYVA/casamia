@@ -75,7 +75,7 @@ Replace the mock implementations in `src/services/configuratorAdapters.ts` when 
 CasaMia includes two separate ElevenLabs integrations:
 
 - a protected, feature-flagged text-to-speech preview at `/internal/voice-studio`
-- a live conversational agent in the Home Safety Wizard voice step
+- a live conversational agent for the homepage specialist CTA and the Home Safety Wizard voice step
 
 Set the following server-only variables in Vercel:
 
@@ -92,13 +92,13 @@ ELEVENLABS_RATE_LIMIT_SALT=...
 Then set `VITE_ENABLE_VOICE_ASSISTANT=true` and redeploy to show Voice Studio in the internal navigation.
 The feature flag controls only the internal Voice Studio; it does not control the public wizard agent.
 
-The API key and agent ID are never exposed to the browser. The wizard requests a short-lived conversation token from the server after the visitor explicitly starts a voice conversation. That public token endpoint is rate-limited through Supabase, so apply the latest `supabase/schema.sql` before enabling it.
+The API key and agent ID are never exposed to the browser. Public voice flows request a short-lived conversation token from the server after the visitor explicitly starts a voice conversation. That public token endpoint is rate-limited through Supabase, so apply the latest `supabase/schema.sql` before enabling it.
 
 The default `us` location uses a standard ElevenLabs workspace. Use `eu-residency` or `in-residency` only with the matching isolated Enterprise workspace, API key and agent. The server automatically pairs the selected location with the correct ElevenLabs API host.
 
 Same-origin deployments need no CORS setting. If the frontend and API are intentionally hosted on different origins, add the allowed frontend origins to `CASAMIA_ALLOWED_ORIGINS` as a comma-separated server-only variable.
 
-In the ElevenLabs agent dashboard, enable English and Spanish and allow the agent language override. The wizard passes only non-sensitive context such as the wizard reference, site language and user type as dynamic variables.
+In the ElevenLabs agent dashboard, enable English and Spanish and allow the agent language, first-message and prompt overrides. The site passes only non-sensitive context such as the session reference, entry point, site language and user type as dynamic variables. Keep the dashboard prompt and knowledge base aligned with `src/config/elevenLabsSpecialistAgent.ts` and `docs/elevenlabs-specialist-agent.md`.
 
 Preview scripts are limited to 500 characters and the internal preview endpoint requires a valid CasaMia internal session.
 

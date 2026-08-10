@@ -78,13 +78,18 @@ assert.match(
 )
 assert.match(
   page,
-  /<span>\{label\}<\/span>/,
-  'Interactive risk-map labels should render readable text over the annotated cards.',
+  /riskItems = copy\.risks\.map[\s\S]*label: risk[\s\S]*<span>\{item\.label\}<\/span>/,
+  'Interactive risk-map labels should render the same readable text used by the risk list.',
 )
 assert.match(
   styles,
-  /services-zone-risk-hotspot \.services-zone-risk-label[\s\S]*color: #10283f/,
+  /\.services-zone-risk-label \{[\s\S]*background: rgb\(255 255 255 \/ 94%\)[\s\S]*color: #10283f/,
   'Interactive risk-map labels should remain visible against the light callout cards.',
+)
+assert.match(
+  page,
+  /activeRiskId[\s\S]*services-zone-risk-hotspot[\s\S]*services-zone-risk-list-button/,
+  'Interactive risk-map labels and text list should be linked by one active risk id instead of visible numbers.',
 )
 assert.doesNotMatch(
   styles,

@@ -52,7 +52,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Maak mijn gratis plan"
+      "title": "Talk to a specialist now"
     }
   },
   "reportDelivery": {
@@ -116,6 +116,17 @@
     "badge": "WAT WIJ BIEDEN",
     "line1": "Eén bedrijf.",
     "line2": "Alles wat u nodig heeft.",
+    "proposalSnapshot": {
+      "label": "Voorbeeld van een CasaMia-voorstel",
+      "heading": "Veiligheidsvoorstel",
+      "priorityLabel": "Prioriteit",
+      "priorityTitle": "Plan per kamer",
+      "items": [
+        "Badkamertoegang",
+        "Keukenbereik",
+        "Nachtroute"
+      ]
+    },
     "cards": [
       {
         "icon": "A",

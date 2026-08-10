@@ -652,11 +652,11 @@ type ReviewRiskLabel = {
 }
 
 const reviewRiskVisuals: Record<string, string> = {
-  'bathroom-safety': '/images/solutions/bathroom-risk-map.png',
-  'bedroom-safety': '/images/solutions/bedroom-risk-map.png',
-  'entrance-safety': '/images/solutions/entrance-risk-map.png',
-  'kitchen-safety': '/images/solutions/kitchen-risk-map.png',
-  'smart-home-safety': '/images/solutions/living-risk-map.png',
+  'bathroom-safety': '/images/solutions/bathroom-risk-map-numbered.png',
+  'bedroom-safety': '/images/solutions/bedroom-risk-map-numbered.png',
+  'entrance-safety': '/images/solutions/entrance-risk-map-numbered.png',
+  'kitchen-safety': '/images/solutions/kitchen-risk-map-numbered.png',
+  'smart-home-safety': '/images/solutions/living-risk-map-numbered.png',
 }
 
 const reviewRiskLabels: Record<string, ReviewRiskLabel[]> = {

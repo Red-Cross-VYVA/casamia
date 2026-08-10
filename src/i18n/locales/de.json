@@ -52,7 +52,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Kostenlosen Plan erstellen"
+      "title": "Talk to a specialist now"
     }
   },
   "reportDelivery": {
@@ -116,6 +116,17 @@
     "badge": "WAS WIR ANBIETEN",
     "line1": "Ein Unternehmen.",
     "line2": "Alles, was Sie brauchen.",
+    "proposalSnapshot": {
+      "label": "Beispielansicht eines CasaMia-Angebots",
+      "heading": "Sicherheitsangebot",
+      "priorityLabel": "Priorität",
+      "priorityTitle": "Plan Raum für Raum",
+      "items": [
+        "Badzugang",
+        "Reichweite in der Küche",
+        "Nachtroute"
+      ]
+    },
     "cards": [
       {
         "icon": "A",
