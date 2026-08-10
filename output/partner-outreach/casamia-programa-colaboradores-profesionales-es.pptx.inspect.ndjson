@@ -1,0 +1,117 @@
+{"kind":"deck","id":"pr/4btta7","name":"Deck"}
+{"kind":"layout","layoutId":"8d36161e-d6cf-4c89-8e36-269a1d2a433f","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"0024b908-1a98-4295-9552-2da13750196a","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/6extoq","slide":1,"title":"Programa de colaboradores profesionales","textShapes":5}
+{"kind":"shape","id":"sh/a943a90r","slide":1,"bbox":[620,0,120,720]}
+{"kind":"shape","id":"sh/o7ml8j2l","slide":1,"bbox":[72,154,92,6]}
+{"kind":"textbox","id":"sh/98v214j6","slide":1,"text":"Programa de colaboradores profesionales","textPreview":"Programa de colaboradores profesionales","textChars":39,"textLines":1,"bbox":[72,186,520,34]}
+{"kind":"textbox","id":"sh/ml4369kf","slide":1,"text":"Trabajos senior claros, coordinados por CasaMia.","textPreview":"Trabajos senior claros, coordinados por CasaMia.","textChars":48,"textLines":1,"bbox":[72,242,570,190]}
+{"kind":"textbox","id":"sh/n6dkze10","slide":1,"text":"Conectamos familias que necesitan adaptar una vivienda con empresas locales fiables y bien briefadas.","textPreview":"Conectamos familias que necesitan adaptar una vivienda con empresas locales fiables y bien briefadas.","textChars":101,"textLines":1,"bbox":[72,464,548,92]}
+{"kind":"textbox","id":"sh/0jm14z2p","slide":1,"text":"Aplicaciones abiertas en España","textPreview":"Aplicaciones abiertas en España","textChars":31,"textLines":1,"bbox":[72,632,360,30]}
+{"kind":"textbox","id":"sh/1kv2x4ja","slide":1,"text":"https://casamia.com.es/provider-partners","textPreview":"https://casamia.com.es/provider-partners","textChars":40,"textLines":1,"bbox":[72,664,520,24]}
+{"kind":"image","id":"im/ojyls3yh","slide":1,"name":"","geometry":"rect","alt":"Profesional de instalación en una vivienda","bbox":[660,0,620,720]}
+{"kind":"image","id":"im/2hw3qdgb","slide":1,"name":"","geometry":"rect","alt":"Logotipo de CasaMia","bbox":[72,56,190,54]}
+{"kind":"notes","id":"nt/6extoq","slide":1,"text":"[Sources]\nBrand/logo and worker image: public/brand-assets and public/images/solutions.\nPartner positioning: src/pages/ProviderPartnersPage.tsx."}
+{"kind":"slide","id":"sl/l1bbj5","slide":2,"title":"02","textShapes":12}
+{"kind":"textbox","id":"sh/7mp4nqt0","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1156,43,52,24]}
+{"kind":"shape","id":"sh/mlg3ulcf","slide":2,"bbox":[72,118,84,6]}
+{"kind":"textbox","id":"sh/hsrmt0b2","slide":2,"text":"Convertimos preocupación familiar en un trabajo listo para entregar.","textPreview":"Convertimos preocupación familiar en un trabajo listo para entregar.","textChars":68,"textLines":1,"bbox":[72,146,720,118]}
+{"kind":"textbox","id":"sh/wri50fuh","slide":2,"text":"CasaMia entiende la vivienda, define prioridades y coordina cliente, cambios y entrega.","textPreview":"CasaMia entiende la vivienda, define prioridades y coordina cliente, cambios y entrega.","textChars":87,"textLines":1,"bbox":[72,286,600,70]}
+{"kind":"shape","id":"sh/up0ny5cb","slide":2,"bbox":[72,454,312,150]}
+{"kind":"textbox","id":"sh/5gbmxkby","slide":2,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[96,478,50,34]}
+{"kind":"textbox","id":"sh/4fi54fud","slide":2,"text":"Evaluación","textPreview":"Evaluación","textChars":10,"textLines":1,"bbox":[96,516,246,36]}
+{"kind":"textbox","id":"sh/y5g3q9sf","slide":2,"text":"Vivienda, rutina, fotos y urgencia.","textPreview":"Vivienda, rutina, fotos y urgencia.","textChars":35,"textLines":1,"bbox":[96,560,246,50]}
+{"kind":"shape","id":"sh/j6pkze90","slide":2,"bbox":[394,510,40,44]}
+{"kind":"shape","id":"sh/k7ilsja5","slide":2,"bbox":[446,454,312,150]}
+{"kind":"textbox","id":"sh/l8r21orq","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[470,478,50,34]}
+{"kind":"textbox","id":"sh/6903utsb","slide":2,"text":"Alcance claro","textPreview":"Alcance claro","textChars":13,"textLines":1,"bbox":[470,516,246,36]}
+{"kind":"textbox","id":"sh/7u9k3y9w","slide":2,"text":"Estancia, medidas, limitaciones y expectativas.","textPreview":"Estancia, medidas, limitaciones y expectativas.","textChars":47,"textLines":1,"bbox":[470,560,246,50]}
+{"kind":"shape","id":"sh/8vilw3ah","slide":2,"bbox":[768,510,40,44]}
+{"kind":"shape","id":"sh/twrm5or2","slide":2,"bbox":[820,454,312,150]}
+{"kind":"textbox","id":"sh/2dw3ips7","slide":2,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[844,478,50,34]}
+{"kind":"textbox","id":"sh/ny5kru9s","slide":2,"text":"Entrega coordinada","textPreview":"Entrega coordinada","textChars":18,"textLines":1,"bbox":[844,516,246,36]}
+{"kind":"textbox","id":"sh/ril0zqpk","slide":2,"text":"Cliente, cambios, aprobación y cierre organizados.","textPreview":"Cliente, cambios, aprobación y cierre organizados.","textChars":50,"textLines":1,"bbox":[844,560,246,50]}
+{"kind":"image","id":"im/hozahsfi","slide":2,"name":"","geometry":"rect","alt":"Logotipo de CasaMia","bbox":[72,38,156,42]}
+{"kind":"image","id":"im/2p8bqxg3","slide":2,"name":"","geometry":"roundRect","alt":"Mapa visual de riesgos en baño","bbox":[770,118,420,284]}
+{"kind":"notes","id":"nt/l1bbj5","slide":2,"text":"[Sources]\nWorkflow copy: src/pages/ProviderPartnersPage.tsx provider workflow.\nRisk-map image: public/images/solutions/bathroom-risk-map.png."}
+{"kind":"slide","id":"sl/smdy9o","slide":3,"title":"03","textShapes":15}
+{"kind":"textbox","id":"sh/g7qx4re9","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1156,43,52,24]}
+{"kind":"shape","id":"sh/h8zydwvu","slide":3,"bbox":[72,118,84,6]}
+{"kind":"textbox","id":"sh/6hofyxwr","slide":3,"text":"Qué gana el colaborador","textPreview":"Qué gana el colaborador","textChars":23,"textLines":1,"bbox":[72,146,610,62]}
+{"kind":"textbox","id":"sh/7ixw72dc","slide":3,"text":"Proyectos mejor preparados, menos fricción y una relación clara con la familia desde el primer contacto.","textPreview":"Proyectos mejor preparados, menos fricción y una relación clara con la familia desde el primer contacto.","textChars":104,"textLines":1,"bbox":[72,222,780,68]}
+{"kind":"shape","id":"sh/8j6x07ex","slide":3,"bbox":[72,340,486,112]}
+{"kind":"shape","id":"sh/t4fe9cvi","slide":3,"bbox":[98,368,54,54]}
+{"kind":"textbox","id":"sh/qd8fa1wb","slide":3,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[98,379,54,28]}
+{"kind":"textbox","id":"sh/re1gj6dw","slide":3,"text":"Demanda local cualificada","textPreview":"Demanda local cualificada","textChars":25,"textLines":1,"bbox":[174,364,340,34]}
+{"kind":"textbox","id":"sh/b2l0rit8","slide":3,"text":"Proyectos evaluados, no leads fríos.","textPreview":"Proyectos evaluados, no leads fríos.","textChars":36,"textLines":1,"bbox":[174,404,338,34]}
+{"kind":"shape","id":"sh/a1czydsn","slide":3,"bbox":[620,340,486,112]}
+{"kind":"shape","id":"sh/x4nit8by","slide":3,"bbox":[646,368,54,54]}
+{"kind":"textbox","id":"sh/w3eh0nat","slide":3,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[646,379,54,28]}
+{"kind":"textbox","id":"sh/j650vit4","slide":3,"text":"Brief antes de visitar","textPreview":"Brief antes de visitar","textChars":22,"textLines":1,"bbox":[722,364,340,34]}
+{"kind":"textbox","id":"sh/y5wz2dsj","slide":3,"text":"Fotos, notas y expectativas cuando estén disponibles.","textPreview":"Fotos, notas y expectativas cuando estén disponibles.","textChars":53,"textLines":1,"bbox":[722,404,338,34]}
+{"kind":"shape","id":"sh/lsnixsba","slide":3,"bbox":[72,496,486,112]}
+{"kind":"shape","id":"sh/kre14nap","slide":3,"bbox":[98,524,54,54]}
+{"kind":"textbox","id":"sh/7up0z2tg","slide":3,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[98,535,54,28]}
+{"kind":"textbox","id":"sh/6twj6xsv","slide":3,"text":"Menos ida y vuelta","textPreview":"Menos ida y vuelta","textChars":18,"textLines":1,"bbox":[174,520,340,34]}
+{"kind":"textbox","id":"sh/21kbelgf","slide":3,"text":"CasaMia mantiene el contacto con la familia.","textPreview":"CasaMia mantiene el contacto con la familia.","textChars":44,"textLines":1,"bbox":[174,560,338,34]}
+{"kind":"shape","id":"sh/32tcnqhk","slide":3,"bbox":[620,496,486,112]}
+{"kind":"shape","id":"sh/o32tgvy5","slide":3,"bbox":[646,524,54,54]}
+{"kind":"textbox","id":"sh/p4bup0zq","slide":3,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[646,535,54,28]}
+{"kind":"textbox","id":"sh/ex0balg3","slide":3,"text":"Cobertura por ciudad","textPreview":"Cobertura por ciudad","textChars":20,"textLines":1,"bbox":[722,520,340,34]}
+{"kind":"textbox","id":"sh/fy9cjqho","slide":3,"text":"Crecemos con proveedores fiables en cada zona.","textPreview":"Crecemos con proveedores fiables en cada zona.","textChars":46,"textLines":1,"bbox":[722,560,338,34]}
+{"kind":"image","id":"im/mds3mp8n","slide":3,"name":"","geometry":"rect","alt":"Logotipo de CasaMia","bbox":[72,38,156,42]}
+{"kind":"notes","id":"nt/smdy9o","slide":3,"text":"[Sources]\nBenefits source: src/constants/providerPartnership.ts providerProgrammeBenefits.\nSpanish benefit language aligned to src/pages/ProviderPartnersPage.tsx."}
+{"kind":"slide","id":"sl/99cdfp","slide":4,"title":"04","textShapes":9}
+{"kind":"textbox","id":"sh/sj2t0j2t","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1156,43,52,24]}
+{"kind":"shape","id":"sh/tkvuto3e","slide":4,"bbox":[72,118,84,6]}
+{"kind":"textbox","id":"sh/ul4b2tkz","slide":4,"text":"Buscamos varios perfiles de instalación","textPreview":"Buscamos varios perfiles de instalación","textChars":39,"textLines":1,"bbox":[72,146,690,110]}
+{"kind":"textbox","id":"sh/f6dcvylk","slide":4,"text":"La red combina oficios prácticos que ayudan a hacer la vivienda más segura y fácil de usar cada día.","textPreview":"La red combina oficios prácticos que ayudan a hacer la vivienda más segura y fácil de usar cada día.","textChars":100,"textLines":1,"bbox":[72,272,560,72]}
+{"kind":"shape","id":"sh/h8vuxo3q","slide":4,"bbox":[72,414,490,52]}
+{"kind":"textbox","id":"sh/294b6tkv","slide":4,"text":"Accesibilidad: barras, rampas, umbrales","textPreview":"Accesibilidad: barras, rampas, umbrales","textChars":39,"textLines":1,"bbox":[94,425,442,28]}
+{"kind":"shape","id":"sh/3adczylg","slide":4,"bbox":[624,414,490,52]}
+{"kind":"textbox","id":"sh/7mp8ved0","slide":4,"text":"Baño: ducha, inodoro, transferencia","textPreview":"Baño: ducha, inodoro, transferencia","textChars":35,"textLines":1,"bbox":[646,425,442,28]}
+{"kind":"shape","id":"sh/6lgr29wf","slide":4,"bbox":[72,486,490,52]}
+{"kind":"textbox","id":"sh/torqxovq","slide":4,"text":"Escaleras: pasamanos y puntos de apoyo","textPreview":"Escaleras: pasamanos y puntos de apoyo","textChars":38,"textLines":1,"bbox":[94,497,442,28]}
+{"kind":"shape","id":"sh/sny94je5","slide":4,"bbox":[624,486,490,52]}
+{"kind":"textbox","id":"sh/jip8redo","slide":4,"text":"Electricidad: iluminación y rutas nocturnas","textPreview":"Electricidad: iluminación y rutas nocturnas","textChars":43,"textLines":1,"bbox":[646,497,442,28]}
+{"kind":"shape","id":"sh/ihg7y9w3","slide":4,"bbox":[72,558,490,52]}
+{"kind":"textbox","id":"sh/5k7qt4vu","slide":4,"text":"Smart safety: sensores, alertas, conectividad","textPreview":"Smart safety: sensores, alertas, conectividad","textChars":45,"textLines":1,"bbox":[94,569,442,28]}
+{"kind":"shape","id":"sh/kjy90je9","slide":4,"bbox":[624,558,490,52]}
+{"kind":"textbox","id":"sh/3e983yds","slide":4,"text":"Seguimiento: ajustes, mantenimiento y entrega","textPreview":"Seguimiento: ajustes, mantenimiento y entrega","textChars":45,"textLines":1,"bbox":[646,569,442,28]}
+{"kind":"image","id":"im/ylwritkf","slide":4,"name":"","geometry":"rect","alt":"Logotipo de CasaMia","bbox":[72,38,156,42]}
+{"kind":"image","id":"im/tc7ax8j2","slide":4,"name":"","geometry":"roundRect","alt":"Consulta en cocina con personal de CasaMia","bbox":[760,126,390,244]}
+{"kind":"notes","id":"nt/99cdfp","slide":4,"text":"[Sources]\nPartner profiles source: src/constants/providerPartnership.ts providerPartnerPaths and providerTrades.\nConsultation image: public/images/solutions/casamia-staff-kitchen-consultation.webp."}
+{"kind":"slide","id":"sl/pgi8ty","slide":5,"title":"05","textShapes":13}
+{"kind":"textbox","id":"sh/w7uxwfqx","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1156,43,52,24]}
+{"kind":"shape","id":"sh/x83y5k7i","slide":5,"bbox":[72,118,84,6]}
+{"kind":"textbox","id":"sh/m1sfq58v","slide":5,"text":"Estándares sencillos para cuidar hogares reales","textPreview":"Estándares sencillos para cuidar hogares reales","textChars":47,"textLines":1,"bbox":[72,146,720,112]}
+{"kind":"textbox","id":"sh/n21gzap0","slide":5,"text":"Trabajamos en viviendas habitadas por personas mayores. El estándar importa tanto como el producto.","textPreview":"Trabajamos en viviendas habitadas por personas mayores. El estándar importa tanto como el producto.","textChars":99,"textLines":1,"bbox":[72,282,580,82]}
+{"kind":"shape","id":"sh/94jy1k76","slide":5,"bbox":[82,418,28,28]}
+{"kind":"textbox","id":"sh/6xcf298z","slide":5,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[82,417,28,28]}
+{"kind":"textbox","id":"sh/7y5gbupk","slide":5,"text":"Seguro y datos profesionales verificables.","textPreview":"Seguro y datos profesionales verificables.","textChars":42,"textLines":1,"bbox":[126,416,770,34]}
+{"kind":"shape","id":"sh/3atkjqhk","slide":5,"bbox":[82,464,28,28]}
+{"kind":"textbox","id":"sh/290jql0z","slide":5,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[82,463,28,28]}
+{"kind":"textbox","id":"sh/pwb2l0za","slide":5,"text":"Trabajo respetuoso, limpio y puntual.","textPreview":"Trabajo respetuoso, limpio y puntual.","textChars":37,"textLines":1,"bbox":[126,462,770,34]}
+{"kind":"shape","id":"sh/ov21svip","slide":5,"bbox":[82,510,28,28]}
+{"kind":"textbox","id":"sh/bytknqhg","slide":5,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[82,509,28,28]}
+{"kind":"textbox","id":"sh/qxkju50v","slide":5,"text":"Disponibilidad, precios de entrada y notas de finalización claras.","textPreview":"Disponibilidad, precios de entrada y notas de finalización claras.","textChars":66,"textLines":1,"bbox":[126,508,770,34]}
+{"kind":"shape","id":"sh/x0b2p0zm","slide":5,"bbox":[82,556,28,28]}
+{"kind":"textbox","id":"sh/cz21wvi1","slide":5,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[82,555,28,28]}
+{"kind":"textbox","id":"sh/z2dkrahc","slide":5,"text":"Sin pagos directos ni cambios de alcance sin CasaMia.","textPreview":"Sin pagos directos ni cambios de alcance sin CasaMia.","textChars":53,"textLines":1,"bbox":[126,554,770,34]}
+{"kind":"shape","id":"sh/y143y507","slide":5,"bbox":[82,602,28,28]}
+{"kind":"textbox","id":"sh/uxonq9kf","slide":5,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[82,601,28,28]}
+{"kind":"textbox","id":"sh/vyx4je1k","slide":5,"text":"Defectos o trabajos incompletos documentados con honestidad.","textPreview":"Defectos o trabajos incompletos documentados con honestidad.","textChars":60,"textLines":1,"bbox":[126,600,770,34]}
+{"kind":"image","id":"im/upob6lcz","slide":5,"name":"","geometry":"rect","alt":"Logotipo de CasaMia","bbox":[72,38,156,42]}
+{"kind":"image","id":"im/5gzalkbm","slide":5,"name":"","geometry":"roundRect","alt":"Asesora mostrando una propuesta de seguridad a personas mayores","bbox":[760,132,390,246]}
+{"kind":"notes","id":"nt/pgi8ty","slide":5,"text":"[Sources]\nStandards source: src/constants/providerPartnership.ts providerQualityStandards and providerMarketingRules.\nGuidance image: public/images/why-us/casamia-guidance-session.jpg."}
+{"kind":"slide","id":"sl/ovri75","slide":6,"title":"06","textShapes":7}
+{"kind":"textbox","id":"sh/1gba9w7m","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1156,43,52,24]}
+{"kind":"shape","id":"sh/0f290r61","slide":6,"bbox":[72,126,96,6]}
+{"kind":"textbox","id":"sh/nidsb6pc","slide":6,"text":"¿Quieres formar parte de la red?","textPreview":"¿Quieres formar parte de la red?","textChars":32,"textLines":1,"bbox":[72,162,730,116]}
+{"kind":"textbox","id":"sh/2hkr21or","slide":6,"text":"Comparte empresa, zonas de cobertura y servicios. CasaMia revisará el encaje antes de asignar trabajos.","textPreview":"Comparte empresa, zonas de cobertura y servicios. CasaMia revisará el encaje antes de asignar trabajos.","textChars":103,"textLines":1,"bbox":[72,304,636,82]}
+{"kind":"textbox","id":"sh/pkvadg7i","slide":6,"text":"Solicita colaborar online\nhttps://casamia.com.es/provider-partners","textPreview":"Solicita colaborar online | https://casamia.com.es/provider-partners","textChars":66,"textLines":2,"bbox":[72,434,610,142]}
+{"kind":"textbox","id":"sh/ojmt4b6x","slide":6,"text":"Cobertura prioritaria","textPreview":"Cobertura prioritaria","textChars":21,"textLines":1,"bbox":[760,196,360,34]}
+{"kind":"textbox","id":"sh/3m9sz2p8","slide":6,"text":"Madrid · Barcelona · Valencia · Málaga · Alicante · Sevilla · y otras ciudades principales","textPreview":"Madrid · Barcelona · Valencia · Málaga · Alicante · Sevilla · y otras ciudades principales","textChars":90,"textLines":1,"bbox":[760,244,360,108]}
+{"kind":"textbox","id":"sh/il0rqxon","slide":6,"text":"Proyectos evaluados. Brief claro. Cliente coordinado.","textPreview":"Proyectos evaluados. Brief claro. Cliente coordinado.","textChars":53,"textLines":1,"bbox":[760,460,360,92]}
+{"kind":"image","id":"im/bq1cj2tg","slide":6,"name":"","geometry":"rect","alt":"Logotipo de CasaMia","bbox":[72,38,156,42]}
+{"kind":"notes","id":"nt/ovri75","slide":6,"text":"[Sources]\nCTA URL source: src/pages/ProviderPartnersPage.tsx route and public sitemap.\nPriority city language source: src/constants/providerPartnership.ts providerPriorityCities/providerCityOpportunities."}
