@@ -2,6 +2,9 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/ServicesPage.tsx', import.meta.url), 'utf8')
+const serviceDetailPage = await readFile(new URL('../src/pages/ServiceDetailPage.tsx', import.meta.url), 'utf8')
+const packageDetailModal = await readFile(new URL('../src/components/PackageDetailModal.tsx', import.meta.url), 'utf8')
+const riskMaps = await readFile(new URL('../src/constants/zoneRiskMaps.ts', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/styles/services-catalogue.css', import.meta.url), 'utf8')
 
 assert.match(
@@ -90,6 +93,41 @@ assert.match(
   page,
   /activeRiskId[\s\S]*services-zone-risk-hotspot[\s\S]*services-zone-risk-list-button/,
   'Interactive risk-map labels and text list should be linked by one active risk id instead of visible numbers.',
+)
+assert.match(
+  riskMaps,
+  /function getZoneRiskHotspotStyle[\s\S]*pinTargetInset[\s\S]*position\.x - pinTargetInset/,
+  'Risk-map hotspots must expand toward the baked number pin, not only cover the old text label box.',
+)
+assert.match(
+  page,
+  /getZoneRiskHotspotStyle\(item\.position\)/,
+  'Catalogue risk-map number pins should share the same hover target as their detail callouts.',
+)
+assert.match(
+  serviceDetailPage,
+  /getZoneRiskHotspotStyle\(item\.position\)/,
+  'Service-detail risk-map number pins should share the same hover target as right-side panel rows.',
+)
+assert.match(
+  serviceDetailPage,
+  /exploreBathroomPackage: 'Explore Bathroom package'/,
+  'The bathroom service hero should invite visitors to explore the bathroom package first.',
+)
+assert.match(
+  serviceDetailPage,
+  /setActivePackageGroup\(bathroomPackageGroup\)/,
+  'The bathroom service hero package CTA should open the package detail modal directly.',
+)
+assert.match(
+  serviceDetailPage,
+  /askSafetyExpert: 'Ask the Safety Expert'[\s\S]*setSpecialistOpen\(true\)[\s\S]*entryPoint="service_detail_bathroom"/,
+  'The bathroom service hero expert CTA should open the ElevenLabs specialist from the hero.',
+)
+assert.match(
+  packageDetailModal,
+  /plan-detail-modal[\s\S]*plan-detail-tabs[\s\S]*plan-detail-story/,
+  'The package detail modal should reuse the established package detail layout from Plans.',
 )
 assert.doesNotMatch(
   styles,

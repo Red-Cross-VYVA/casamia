@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom'
 
 import { SafeImage } from '../components/SafeImage'
 import { ServiceItemDetailModal } from '../components/ServiceItemDetailModal'
-import { zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
+import { getZoneRiskHotspotStyle, zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
 import { SEO } from '../components/SEO'
 import {
   getActiveCatalogueRooms,
@@ -993,12 +993,7 @@ function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; risk
                 key={item.id}
                 onMouseEnter={() => setActiveRiskId(item.id)}
                 onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
-                style={{
-                  height: `${item.position.h}%`,
-                  left: `${item.position.x}%`,
-                  top: `${item.position.y}%`,
-                  width: `${item.position.w}%`,
-                }}
+                style={getZoneRiskHotspotStyle(item.position)}
               >
                 <button
                   aria-describedby={detailId}

@@ -3,13 +3,16 @@ import {
   CheckCircle2,
   ClipboardCheck,
   Home,
+  LoaderCircle,
+  MessageSquareText,
   MousePointer2,
   ShieldCheck,
 } from 'lucide-react'
-import { useState } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
+import { PackageDetailModal } from '../components/PackageDetailModal'
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { ServiceChecklist } from '../components/ServiceChecklist'
@@ -18,10 +21,20 @@ import { ServiceItemDetailModal } from '../components/ServiceItemDetailModal'
 import { isZoneGalleryRoom, ZoneServiceGallery } from '../components/ZoneServiceGallery'
 import { serviceVisuals } from '../constants/serviceVisuals'
 import { primaryServices } from '../constants/siteContent'
-import { zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
+import { getZoneRiskHotspotStyle, zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
+import { buildPlansBuilderGroups, type PlansBuilderGroup } from '../services/plansBuilderPricing'
+import { getMasterServiceCatalogue } from '../services/masterServiceCatalogue'
+import { useServiceCatalogue } from '../services/serviceCatalogue'
 import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceRoom } from '../types/serviceCatalogue'
+import '../styles/home-hero-ctas.css'
 import '../styles/services-catalogue.css'
+
+const SpecialistVoiceAgentModal = lazy(() =>
+  import('../components/SpecialistVoiceAgentModal').then((module) => ({
+    default: module.SpecialistVoiceAgentModal,
+  })),
+)
 
 const detailSteps = [
   {
@@ -62,7 +75,9 @@ const detailStepsEs = [
 const serviceDetailUiCopy = {
   en: {
     buildPlan: 'Build My Safer Home',
+    exploreBathroomPackage: 'Explore Bathroom package',
     freeReport: 'Start Free Safety Report',
+    askSafetyExpert: 'Ask the Safety Expert',
     quote: 'Quote',
     checkFirst: 'Check first',
     installed: 'Installed',
@@ -86,7 +101,9 @@ const serviceDetailUiCopy = {
   },
   es: {
     buildPlan: 'Crear mi plan seguro',
+    exploreBathroomPackage: 'Explorar paquete de baño',
     freeReport: 'Empezar informe gratis',
+    askSafetyExpert: 'Preguntar al experto en seguridad',
     quote: 'Presupuesto',
     checkFirst: 'Revisar primero',
     installed: 'Instalado',
@@ -942,12 +959,7 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
                           key={item.id}
                           onMouseEnter={() => setActiveRiskId(item.id)}
                           onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
-                          style={{
-                            height: `${item.position.h}%`,
-                            left: `${item.position.x}%`,
-                            top: `${item.position.y}%`,
-                            width: `${item.position.w}%`,
-                          }}
+                          style={getZoneRiskHotspotStyle(item.position)}
                         >
                           <button
                             aria-describedby={detailId}
@@ -1086,6 +1098,15 @@ export function ServiceDetailPage() {
   const stepCopy = isSpanish ? detailStepsEs : detailSteps
   const { serviceId } = useParams()
   const serviceRoom = serviceRoomMap[serviceId ?? ''] ?? 'bathroom'
+  const serviceCatalogue = useServiceCatalogue()
+  const masterCatalogue = serviceCatalogue.masterCatalogue ?? getMasterServiceCatalogue()
+  const packageGroups = useMemo(
+    () => buildPlansBuilderGroups(serviceCatalogue, i18n.language),
+    [i18n.language, serviceCatalogue],
+  )
+  const bathroomPackageGroup = packageGroups.find((group) => group.packageArea === 'bathroom') ?? null
+  const [activePackageGroup, setActivePackageGroup] = useState<PlansBuilderGroup | null>(null)
+  const [specialistOpen, setSpecialistOpen] = useState(false)
   const roomServices = useLocalizedServicesByRoom(serviceRoom, i18n.language)
   const baseService = primaryServices.find((item) => item.id === serviceId)
 
@@ -1102,6 +1123,7 @@ export function ServiceDetailPage() {
     .filter((item) => item.id !== service.id)
     .slice(0, 3)
     .map((item) => getLocalizedPrimaryService(item, i18n.language))
+  const isBathroomService = service.id === 'bathroom-safety'
   const isKitchenService = service.id === 'kitchen-safety'
   const serviceCatalogueItems = serviceRoomMap[service.id] ? roomServices : []
   const zoneRiskMap = isZoneRiskArea(serviceRoom) ? zoneRiskMaps[serviceRoom] : null
@@ -1145,16 +1167,39 @@ export function ServiceDetailPage() {
               <h1>{heroTitle}</h1>
               <p>{heroIntro}</p>
               <div className="service-detail-actions">
-                <Link
-                  className="btn btn-green"
-                  to={configurePath}
-                >
-                  {uiCopy.buildPlan}
-                  <ArrowRight size={20} aria-hidden="true" />
-                </Link>
-                <Link className="btn btn-white" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
-                  {uiCopy.freeReport}
-                </Link>
+                {isBathroomService && bathroomPackageGroup ? (
+                  <button
+                    className="btn btn-green"
+                    type="button"
+                    onClick={() => setActivePackageGroup(bathroomPackageGroup)}
+                  >
+                    {uiCopy.exploreBathroomPackage}
+                    <ArrowRight size={20} aria-hidden="true" />
+                  </button>
+                ) : (
+                  <Link
+                    className="btn btn-green"
+                    to={configurePath}
+                  >
+                    {uiCopy.buildPlan}
+                    <ArrowRight size={20} aria-hidden="true" />
+                  </Link>
+                )}
+                {isBathroomService ? (
+                  <button
+                    className="btn btn-white"
+                    type="button"
+                    onClick={() => setSpecialistOpen(true)}
+                  >
+                    <MessageSquareText size={20} aria-hidden="true" />
+                    {uiCopy.askSafetyExpert}
+                    <ArrowRight size={20} aria-hidden="true" />
+                  </button>
+                ) : (
+                  <Link className="btn btn-white" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
+                    {uiCopy.freeReport}
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -1334,6 +1379,32 @@ export function ServiceDetailPage() {
           </Link>
         </div>
       </section>
+
+      <PackageDetailModal
+        catalogue={masterCatalogue}
+        group={activePackageGroup}
+        language={i18n.language}
+        onClose={() => setActivePackageGroup(null)}
+      />
+      {specialistOpen ? (
+        <Suspense
+          fallback={(
+            <div className="specialist-voice-backdrop" role="presentation">
+              <div className="specialist-voice-loading" role="status">
+                <LoaderCircle size={28} aria-hidden="true" />
+                <span>{isSpanish ? 'Cargando...' : 'Loading...'}</span>
+              </div>
+            </div>
+          )}
+        >
+          <SpecialistVoiceAgentModal
+            entryPoint="service_detail_bathroom"
+            isOpen={specialistOpen}
+            language={i18n.language}
+            onClose={() => setSpecialistOpen(false)}
+          />
+        </Suspense>
+      ) : null}
     </>
   )
 }

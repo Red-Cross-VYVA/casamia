@@ -2,7 +2,7 @@ import type { ServiceRoom } from '../types/serviceCatalogue'
 
 export type ZoneRiskArea = Extract<ServiceRoom, 'bathroom' | 'bedroom' | 'kitchen' | 'living-room' | 'entrance' | 'movement' | 'connected'>
 
-type ZoneRiskLabelPosition = {
+export type ZoneRiskLabelPosition = {
   x: number
   y: number
   w: number
@@ -33,6 +33,19 @@ export type ZoneRiskMap = {
     }
   >
   labelPositions: readonly ZoneRiskLabelPosition[]
+}
+
+export function getZoneRiskHotspotStyle(position: ZoneRiskLabelPosition) {
+  const pinTargetInset = 3
+  const left = Math.max(0, position.x - pinTargetInset)
+  const addedWidth = position.x - left
+
+  return {
+    height: `${position.h}%`,
+    left: `${left}%`,
+    top: `${position.y}%`,
+    width: `${Math.min(100 - left, position.w + addedWidth)}%`,
+  }
 }
 
 export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
