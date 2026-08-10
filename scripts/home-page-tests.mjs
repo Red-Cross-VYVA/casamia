@@ -60,6 +60,7 @@ assert.match(
 assert.equal(enCopy.offer.line1, 'A safer home,')
 assert.equal(enCopy.offer.cards[1].title, 'Review your proposal')
 assert.equal(enCopy.hero.buildPlan.title, 'Talk to a specialist now')
+assert.equal(esCopy.hero.buildPlan.title, 'Habla con un especialista')
 assert.equal(esCopy.offer.proposalSnapshot.heading, 'Propuesta de seguridad')
 assert.deepEqual(esCopy.offer.proposalSnapshot.items, ['Acceso al baño', 'Alcance en cocina', 'Ruta nocturna'])
 
