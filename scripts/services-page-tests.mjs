@@ -111,18 +111,23 @@ assert.match(
 )
 assert.match(
   serviceDetailPage,
-  /exploreBathroomPackage: 'Explore Bathroom package'/,
-  'The bathroom service hero should invite visitors to explore the bathroom package first.',
+  /explorePackage: \(roomLabel: string\) => `Explore \$\{roomLabel\} package`/,
+  'The service hero package CTA should use the current package room label.',
 )
 assert.match(
   serviceDetailPage,
-  /setActivePackageGroup\(bathroomPackageGroup\)/,
-  'The bathroom service hero package CTA should open the package detail modal directly.',
+  /servicePackageAreaMap[\s\S]*'bathroom-safety': 'bathroom'[\s\S]*'entrance-accessibility': 'entrance'[\s\S]*'kitchen-safety': 'kitchen'[\s\S]*'bedroom-safety': 'bedroom'/,
+  'Package-backed service pages should map to their corresponding package modal.',
 )
 assert.match(
   serviceDetailPage,
-  /askSafetyExpert: 'Ask the Safety Expert'[\s\S]*setSpecialistOpen\(true\)[\s\S]*entryPoint="service_detail_bathroom"/,
-  'The bathroom service hero expert CTA should open the ElevenLabs specialist from the hero.',
+  /setActivePackageGroup\(servicePackageGroup\)/,
+  'The service hero package CTA should open the current package detail modal directly.',
+)
+assert.match(
+  serviceDetailPage,
+  /askSafetyExpert: 'Ask the Safety Expert'[\s\S]*setSpecialistOpen\(true\)[\s\S]*entryPoint=\{specialistEntryPoint\}/,
+  'The service hero expert CTA should open the ElevenLabs specialist with a service-specific entry point.',
 )
 assert.match(
   packageDetailModal,

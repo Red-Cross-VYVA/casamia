@@ -26,7 +26,7 @@ import { buildPlansBuilderGroups, type PlansBuilderGroup } from '../services/pla
 import { getMasterServiceCatalogue } from '../services/masterServiceCatalogue'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
-import type { CasaMiaService, ServiceRoom } from '../types/serviceCatalogue'
+import type { CasaMiaService, ServicePackageArea, ServiceRoom } from '../types/serviceCatalogue'
 import '../styles/home-hero-ctas.css'
 import '../styles/services-catalogue.css'
 
@@ -75,8 +75,7 @@ const detailStepsEs = [
 const serviceDetailUiCopy = {
   en: {
     buildPlan: 'Build My Safer Home',
-    exploreBathroomPackage: 'Explore Bathroom package',
-    freeReport: 'Start Free Safety Report',
+    explorePackage: (roomLabel: string) => `Explore ${roomLabel} package`,
     askSafetyExpert: 'Ask the Safety Expert',
     quote: 'Quote',
     checkFirst: 'Check first',
@@ -101,8 +100,7 @@ const serviceDetailUiCopy = {
   },
   es: {
     buildPlan: 'Crear mi plan seguro',
-    exploreBathroomPackage: 'Explorar paquete de baño',
-    freeReport: 'Empezar informe gratis',
+    explorePackage: (roomLabel: string) => `Explorar paquete de ${roomLabel.toLocaleLowerCase('es')}`,
     askSafetyExpert: 'Preguntar al experto en seguridad',
     quote: 'Presupuesto',
     checkFirst: 'Revisar primero',
@@ -134,6 +132,13 @@ const serviceRoomMap: Record<string, ServiceRoom> = {
   'kitchen-safety': 'kitchen',
   'bedroom-safety': 'bedroom',
   'smart-home-safety': 'connected',
+}
+
+const servicePackageAreaMap: Partial<Record<string, ServicePackageArea>> = {
+  'bathroom-safety': 'bathroom',
+  'entrance-accessibility': 'entrance',
+  'kitchen-safety': 'kitchen',
+  'bedroom-safety': 'bedroom',
 }
 
 const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number]>> = {
@@ -1104,7 +1109,10 @@ export function ServiceDetailPage() {
     () => buildPlansBuilderGroups(serviceCatalogue, i18n.language),
     [i18n.language, serviceCatalogue],
   )
-  const bathroomPackageGroup = packageGroups.find((group) => group.packageArea === 'bathroom') ?? null
+  const servicePackageArea = servicePackageAreaMap[serviceId ?? '']
+  const servicePackageGroup = servicePackageArea
+    ? packageGroups.find((group) => group.packageArea === servicePackageArea) ?? null
+    : null
   const [activePackageGroup, setActivePackageGroup] = useState<PlansBuilderGroup | null>(null)
   const [specialistOpen, setSpecialistOpen] = useState(false)
   const roomServices = useLocalizedServicesByRoom(serviceRoom, i18n.language)
@@ -1123,7 +1131,6 @@ export function ServiceDetailPage() {
     .filter((item) => item.id !== service.id)
     .slice(0, 3)
     .map((item) => getLocalizedPrimaryService(item, i18n.language))
-  const isBathroomService = service.id === 'bathroom-safety'
   const isKitchenService = service.id === 'kitchen-safety'
   const serviceCatalogueItems = serviceRoomMap[service.id] ? roomServices : []
   const zoneRiskMap = isZoneRiskArea(serviceRoom) ? zoneRiskMaps[serviceRoom] : null
@@ -1138,6 +1145,7 @@ export function ServiceDetailPage() {
       : 'Practical improvements for standing, lighting, reach, water, appliances and family reassurance.'
     : service.intro
   const configurePath = getConfigurePath(service.id)
+  const specialistEntryPoint = `service_detail_${service.id.replace(/-/g, '_')}`
 
   return (
     <>
@@ -1167,13 +1175,13 @@ export function ServiceDetailPage() {
               <h1>{heroTitle}</h1>
               <p>{heroIntro}</p>
               <div className="service-detail-actions">
-                {isBathroomService && bathroomPackageGroup ? (
+                {servicePackageGroup ? (
                   <button
                     className="btn btn-green"
                     type="button"
-                    onClick={() => setActivePackageGroup(bathroomPackageGroup)}
+                    onClick={() => setActivePackageGroup(servicePackageGroup)}
                   >
-                    {uiCopy.exploreBathroomPackage}
+                    {uiCopy.explorePackage(servicePackageGroup.roomLabel)}
                     <ArrowRight size={20} aria-hidden="true" />
                   </button>
                 ) : (
@@ -1185,21 +1193,15 @@ export function ServiceDetailPage() {
                     <ArrowRight size={20} aria-hidden="true" />
                   </Link>
                 )}
-                {isBathroomService ? (
-                  <button
-                    className="btn btn-white"
-                    type="button"
-                    onClick={() => setSpecialistOpen(true)}
-                  >
-                    <MessageSquareText size={20} aria-hidden="true" />
-                    {uiCopy.askSafetyExpert}
-                    <ArrowRight size={20} aria-hidden="true" />
-                  </button>
-                ) : (
-                  <Link className="btn btn-white" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
-                    {uiCopy.freeReport}
-                  </Link>
-                )}
+                <button
+                  className="btn btn-white"
+                  type="button"
+                  onClick={() => setSpecialistOpen(true)}
+                >
+                  <MessageSquareText size={20} aria-hidden="true" />
+                  {uiCopy.askSafetyExpert}
+                  <ArrowRight size={20} aria-hidden="true" />
+                </button>
               </div>
             </div>
 
@@ -1398,7 +1400,7 @@ export function ServiceDetailPage() {
           )}
         >
           <SpecialistVoiceAgentModal
-            entryPoint="service_detail_bathroom"
+            entryPoint={specialistEntryPoint}
             isOpen={specialistOpen}
             language={i18n.language}
             onClose={() => setSpecialistOpen(false)}
