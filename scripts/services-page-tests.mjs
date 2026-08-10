@@ -142,8 +142,8 @@ assert.match(
 )
 assert.doesNotMatch(
   packageDetailModal,
-  /<span>\{body\}<\/span>|plan-detail-thumb-row/,
-  'The compact package modal should not render intro copy or the thumbnail strip.',
+  /<span>\{body\}<\/span>|plan-detail-thumb-row|plan-detail-footnote/,
+  'The compact package modal should not render intro copy, the thumbnail strip, or the footer note.',
 )
 assert.match(
   globalStyles,

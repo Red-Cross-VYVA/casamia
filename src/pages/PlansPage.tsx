@@ -1125,10 +1125,8 @@ export function PlansPage() {
         next: 'Siguiente',
         noDetailItems: 'No hay elementos para mostrar en esta sección.',
         optionalTab: 'Extras opcionales',
-        optionalNote: 'Extra opcional. CasaMia confirma idoneidad, medidas y compatibilidad antes de incluirlo.',
         previous: 'Anterior',
         slideLabel: 'Elemento',
-        technical: 'Confirmado por CasaMia',
       }
     : {
         benefit: 'Why it helps',
@@ -1137,10 +1135,8 @@ export function PlansPage() {
         next: 'Next',
         noDetailItems: 'No items to show in this section.',
         optionalTab: 'Optional add-ons',
-        optionalNote: 'Optional add-on. CasaMia confirms fit, measurements and compatibility before including it.',
         previous: 'Previous',
         slideLabel: 'Item',
-        technical: 'Confirmed by CasaMia',
       }
   const activeDetailOptionalItems = activeDetail?.optionalItems ?? []
   const activeDetailTabs: Array<{ id: PlansDetailTab; items: MasterCatalogueOutcome[]; label: string }> = activeDetail
@@ -2490,16 +2486,6 @@ export function PlansPage() {
                         ))}
                       </ul>
                     </div>
-
-                    {activeDetailDisplayMode !== 'core' ||
-                    activeDetailSlide.requiresAssessment ||
-                    activeDetailSlide.requiresQuote ||
-                    activeDetailSlide.requiresMeasurement ||
-                    activeDetailSlide.requiresCompatibilityCheck ? (
-                      <p className="plan-detail-footnote">
-                        {activeDetailDisplayMode === 'core' ? detailCopy.technical : detailCopy.optionalNote}
-                      </p>
-                    ) : null}
                   </article>
                 </div>
 

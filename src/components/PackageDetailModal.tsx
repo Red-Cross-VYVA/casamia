@@ -24,11 +24,9 @@ const packageModalCopy = {
     includes: 'What CasaMia includes',
     next: 'Next',
     noDetailItems: 'No items to show in this section.',
-    optionalNote: 'Optional add-on. CasaMia confirms fit, measurements and compatibility before including it.',
     optionalTab: 'Optional add-ons',
     previous: 'Previous',
     slideLabel: 'Item',
-    technical: 'Confirmed by CasaMia',
   },
   es: {
     benefit: 'Por que ayuda',
@@ -37,11 +35,9 @@ const packageModalCopy = {
     includes: 'Que incluye CasaMia',
     next: 'Siguiente',
     noDetailItems: 'No hay elementos para mostrar en esta seccion.',
-    optionalNote: 'Extra opcional. CasaMia confirma idoneidad, medidas y compatibilidad antes de incluirlo.',
     optionalTab: 'Extras opcionales',
     previous: 'Anterior',
     slideLabel: 'Elemento',
-    technical: 'Confirmado por CasaMia',
   },
 } as const
 
@@ -371,16 +367,6 @@ export function PackageDetailModal({
                     ))}
                   </ul>
                 </div>
-
-                {displayMode !== 'core' ||
-                activeSlide.requiresAssessment ||
-                activeSlide.requiresQuote ||
-                activeSlide.requiresMeasurement ||
-                activeSlide.requiresCompatibilityCheck ? (
-                  <p className="plan-detail-footnote">
-                    {displayMode === 'core' ? copy.technical : copy.optionalNote}
-                  </p>
-                ) : null}
               </article>
             </div>
 

@@ -460,28 +460,54 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     title: 'Home safety assessment vs general contractor',
     seoTitle: 'Home Safety Assessment vs General Contractor | CasaMia',
     description:
-      'Understand when to start with a senior home safety assessment before asking a contractor to install products or quote works.',
+      'Understand when a senior home safety assessment should define the scope before a contractor quotes or installs adaptations.',
     eyebrow: 'Decision guide',
     intro:
-      'A contractor can install what you ask for. A home safety assessment helps decide what should be asked for in the first place, based on the person, the routine and the risk.',
-    whoFor: ['Families unsure what to request from installers', 'Homes with several possible safety issues', 'People who want a clear scope before spending money'],
-    priorities: ['The person’s exact movement and transfer needs', 'Which risks are urgent, recommended or optional', 'Measurements, fixing points and site constraints', 'A scope installers can price and deliver'],
-    casamiaPlan: ['Start with the daily safety problem', 'Turn observations into a package-led scope', 'Coordinate installer requirements, handover and follow-up'],
+      'A contractor is useful once the work is clear. A safety assessment is useful when the family is still deciding what the work should be, where risk is highest, and which changes will actually support the person using the home.',
+    whoFor: [
+      'Families who know something is unsafe but do not know what to ask an installer for',
+      'Homes where several rooms, transfers or routes are involved',
+      'Older adults whose mobility, confidence or care needs have recently changed',
+      'Families who need a clear scope before quotes, grants, landlord permission or community approval',
+    ],
+    priorities: [
+      'The resident routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night route',
+      'Which risks are urgent, recommended or optional',
+      'Measurements, wall types, fixing points, thresholds, door swings and site constraints',
+      'Whether a quick product, minor adaptation, larger work or connected support is the right route',
+      'A written scope that contractors can price without guessing',
+    ],
+    casamiaPlan: [
+      'Start with the daily movement problem, not a product catalogue',
+      'Map each risk to the relevant room package and optional add-ons',
+      'Prepare a practical scope with photos, priorities and installation notes',
+      'Coordinate installer requirements, handover checks and follow-up support',
+    ],
     relatedServices: [
       { label: 'Book a safety assessment', to: '/home-safety-assessment' },
+      { label: 'Read the fall checklist', to: '/blog/fall-prevention-home-checklist-spain' },
       { label: 'See how it works', to: '/how-it-works' },
-      { label: 'Review services', to: '/services' },
     ],
     faqs: [
       {
         question: 'Should I call a contractor first?',
         answer:
-          'If the required work is obvious and already specified, a contractor may be enough. If the family is unsure what should be changed, start with a safety assessment so the scope matches the resident.',
+          'If the required work is obvious, measured and already specified, a contractor may be enough. If the family is unsure what should change, start with a safety assessment so the quote matches the resident rather than a generic installation.',
       },
       {
         question: 'Does CasaMia do the installation too?',
         answer:
           'CasaMia coordinates the process end to end, including assessment, practical scope, installation coordination and handover where needed.',
+      },
+      {
+        question: 'Why not ask for three contractor quotes immediately?',
+        answer:
+          'Three quotes are only comparable when they price the same scope. If each contractor guesses a different solution, the family may choose on price without knowing which option solves the real safety problem.',
+      },
+      {
+        question: 'When is a contractor enough?',
+        answer:
+          'A contractor can be enough for clearly defined work such as installing a specified handrail, changing a threshold or fitting equipment where the product, location and fixing method are already known.',
       },
     ],
   },
@@ -495,28 +521,54 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     title: 'Smart home safety vs monitoring',
     seoTitle: 'Smart Home Safety vs Monitoring for Seniors | CasaMia',
     description:
-      'Compare smart home safety, simple alerts and monitoring-style services for seniors without overcomplicating the home.',
+      'Compare practical smart home safety, simple alerts and monitoring-style services for seniors without overcomplicating the home.',
     eyebrow: 'Decision guide',
     intro:
-      'Not every connected device is monitoring, and not every family needs a monitoring service. CasaMia focuses on useful connected living: lighting, reminders, alerts and simple routines with clear consent.',
-    whoFor: ['Families considering sensors, voice assistance or emergency buttons', 'Older adults who want support without feeling watched', 'Homes where simple automation could reduce daily friction'],
-    priorities: ['Consent and comfort with technology', 'Night lighting, reminders and emergency reach', 'Who receives alerts and what they do next', 'Compatibility, setup and ongoing support'],
-    casamiaPlan: ['Define the experience before choosing devices', 'Configure compatible tools into simple routines', 'Document response rules so the family understands what happens'],
+      'Not every connected device is monitoring, and not every family needs a monitoring service. The right choice depends on what problem you are solving: safer movement, easier reminders, emergency reach, family awareness or formal response.',
+    whoFor: [
+      'Families considering sensors, voice assistance, water alerts, smart lighting or emergency buttons',
+      'Older adults who want support without feeling watched',
+      'Homes where simple automation could reduce daily friction',
+      'Families who need to agree who receives alerts and what happens next',
+    ],
+    priorities: [
+      'Consent, privacy and the resident comfort with every device',
+      'The practical risk: night movement, water leaks, medication reminders, calls, door access or emergency reach',
+      'Who receives alerts, how quickly they respond and what they can do',
+      'Reliability: Wi-Fi, power, batteries, fallbacks and ongoing support',
+      'Whether passive safety is enough or a monitored response service is genuinely needed',
+    ],
+    casamiaPlan: [
+      'Define the daily problem before choosing devices',
+      'Prioritise simple routines such as night lighting, easy calls, reminders and selected alerts',
+      'Configure compatible tools so the resident experience stays familiar',
+      'Document consent, alert recipients, response rules and maintenance checks',
+    ],
     relatedServices: [
       { label: 'Technology approach', to: '/tech' },
+      { label: 'Read the smart safety guide', to: '/blog/smart-home-safety-without-overcomplicating' },
       { label: 'Connected safety services', to: '/services/smart-home-safety' },
-      { label: 'Start a guided plan', to: '/home-safety-wizard' },
     ],
     faqs: [
       {
         question: 'Is smart home safety the same as surveillance?',
         answer:
-          'No. CasaMia prioritises practical support such as lighting, reminders, water alerts and emergency reach. Any alert or response setup should be consented to and easy to understand.',
+          'No. Smart safety can mean practical support such as lighting, reminders, water alerts and emergency reach. Cameras or intrusive monitoring should not be the default and any alert setup should be consented to and easy to understand.',
       },
       {
         question: 'What is the simplest connected setup?',
         answer:
-          'A simple setup often starts with a configured smart speaker, night lighting, easy calls, reminders and selected alerts. The right mix depends on the resident and home.',
+          'A simple setup often starts with night lighting, easy calls, reminders and selected alerts. The right mix depends on the resident, home layout, Wi-Fi reliability and who can respond.',
+      },
+      {
+        question: 'When does a family need monitoring rather than smart safety?',
+        answer:
+          'Monitoring may be worth considering when nobody can reliably respond to alerts, the person has repeated emergencies, or the family needs a formal response protocol rather than simple home support.',
+      },
+      {
+        question: 'What should be avoided?',
+        answer:
+          'Avoid devices the resident does not understand, alerts nobody responds to, hidden monitoring, cameras without clear consent, and systems that fail quietly when Wi-Fi or batteries stop working.',
       },
     ],
   },

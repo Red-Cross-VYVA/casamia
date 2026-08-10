@@ -18,8 +18,8 @@ assert.match(
 )
 assert.doesNotMatch(
   plansPage,
-  /<span>\{activeDetail\.body\}<\/span>|plan-detail-thumb-row|activeDetailIsBathroomCompact/,
-  'The Plans compact package modal should not render intro copy, thumbnails, or bathroom-only branching.',
+  /<span>\{activeDetail\.body\}<\/span>|plan-detail-thumb-row|plan-detail-footnote|activeDetailIsBathroomCompact/,
+  'The Plans compact package modal should not render intro copy, thumbnails, footer notes, or bathroom-only branching.',
 )
 
 assert.ok(defaultCatalogue.masterCatalogue, 'Default service catalogue must include the master catalogue snapshot.')

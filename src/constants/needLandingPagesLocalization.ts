@@ -479,41 +479,54 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Evaluación de seguridad o contratista general',
     seoTitle: 'Evaluación de seguridad o contratista general | CasaMia',
     description:
-      'Entiende cuándo conviene empezar con una evaluación de seguridad antes de pedir a un contratista que instale productos o presupueste trabajos.',
+      'Entiende cuándo una evaluación de seguridad debe definir el alcance antes de pedir presupuesto o instalación a un contratista.',
     eyebrow: 'Guía de decisión',
     intro:
-      'Un contratista puede instalar lo que se le pide. Una evaluación de seguridad ayuda a decidir qué conviene pedir, según la persona, la rutina y el riesgo.',
+      'Un contratista es útil cuando el trabajo ya está claro. Una evaluación de seguridad es útil cuando la familia aún decide qué obra conviene hacer, dónde está el mayor riesgo y qué cambios ayudarán realmente a la persona que vive en casa.',
     whoFor: [
-      'Familias que no saben qué solicitar a instaladores',
-      'Viviendas con varios posibles riesgos',
-      'Personas que quieren un alcance claro antes de gastar',
+      'Familias que saben que algo no es seguro pero no saben qué pedir a un instalador',
+      'Viviendas con varias estancias, transferencias o rutas implicadas',
+      'Personas mayores cuya movilidad, confianza o apoyo ha cambiado recientemente',
+      'Familias que necesitan alcance claro antes de presupuestos, ayudas, permiso de propietario o comunidad',
     ],
     priorities: [
-      'Movimiento exacto y transferencias de la persona',
+      'Rutina de la persona: baño, inodoro, cama, escaleras, cocina, entrada y ruta nocturna',
       'Riesgos urgentes, recomendados u opcionales',
-      'Medidas, puntos de fijación y limitaciones del espacio',
-      'Un alcance que el instalador pueda presupuestar y entregar',
+      'Medidas, tipo de pared, puntos de fijación, umbrales, puertas y limitaciones del espacio',
+      'Si conviene producto rápido, pequeña adaptación, obra mayor o apoyo conectado',
+      'Un alcance escrito que el contratista pueda presupuestar sin adivinar',
     ],
     casamiaPlan: [
-      'Empezar por el problema diario de seguridad',
-      'Convertir observaciones en un alcance orientado a paquetes',
-      'Coordinar requisitos de instalación, explicación y seguimiento',
+      'Empezar por el movimiento diario, no por un catálogo de productos',
+      'Conectar cada riesgo con el paquete de estancia y extras adecuados',
+      'Preparar un alcance práctico con fotos, prioridades y notas de instalación',
+      'Coordinar requisitos de instalación, comprobación final y seguimiento',
     ],
     relatedServices: [
       { label: 'Reservar evaluación', to: '/home-safety-assessment' },
+      { label: 'Leer lista de caídas', to: '/blog/fall-prevention-home-checklist-spain' },
       { label: 'Ver el proceso', to: '/how-it-works' },
-      { label: 'Ver servicios', to: '/services' },
     ],
     faqs: [
       {
         question: '¿Debo llamar primero a un contratista?',
         answer:
-          'Si el trabajo está claro y definido, puede bastar. Si la familia no sabe qué cambiar, es mejor empezar con una evaluación para que el alcance encaje con la persona.',
+          'Si el trabajo está claro, medido y definido, puede bastar. Si la familia no sabe qué cambiar, es mejor empezar con una evaluación para que el presupuesto encaje con la persona y no con una instalación genérica.',
       },
       {
         question: '¿CasaMia también coordina la instalación?',
         answer:
           'Sí. CasaMia coordina evaluación, alcance práctico, instalación y explicación final cuando hace falta.',
+      },
+      {
+        question: '¿Por qué no pedir tres presupuestos directamente?',
+        answer:
+          'Tres presupuestos solo se comparan bien si todos valoran el mismo alcance. Si cada contratista propone algo distinto, la familia puede elegir por precio sin saber qué opción resuelve el riesgo real.',
+      },
+      {
+        question: '¿Cuándo basta con un contratista?',
+        answer:
+          'Puede bastar cuando el trabajo está definido: instalar un pasamanos concreto, cambiar un umbral o colocar un equipo cuya ubicación, producto y fijación ya están decididos.',
       },
     ],
   },
@@ -521,41 +534,54 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Seguridad conectada o monitorización',
     seoTitle: 'Seguridad conectada o monitorización para mayores | CasaMia',
     description:
-      'Compara seguridad conectada, alertas sencillas y servicios de monitorización para personas mayores sin complicar la vivienda.',
+      'Compara seguridad conectada práctica, alertas sencillas y servicios de monitorización para personas mayores sin complicar la vivienda.',
     eyebrow: 'Guía de decisión',
     intro:
-      'No todo dispositivo conectado es monitorización, y no toda familia necesita un servicio de vigilancia. CasaMia prioriza vida conectada útil: luz, recordatorios, avisos y rutinas simples con consentimiento claro.',
+      'No todo dispositivo conectado es monitorización, y no toda familia necesita un servicio de vigilancia. La decisión depende del problema: moverse con más seguridad, recordar rutinas, pedir ayuda, informar a la familia o contar con respuesta formal.',
     whoFor: [
-      'Familias que valoran sensores, voz o botones de emergencia',
+      'Familias que valoran sensores, voz, avisos de agua, luces inteligentes o botones de emergencia',
       'Personas mayores que quieren apoyo sin sentirse vigiladas',
       'Viviendas donde la automatización sencilla reduce fricción diaria',
+      'Familias que deben acordar quién recibe avisos y qué hace después',
     ],
     priorities: [
-      'Consentimiento y comodidad con la tecnología',
-      'Luz nocturna, recordatorios y ayuda al alcance',
-      'Quién recibe avisos y qué hace después',
-      'Compatibilidad, configuración y soporte',
+      'Consentimiento, privacidad y comodidad de la persona con cada dispositivo',
+      'El riesgo concreto: noche, fugas de agua, medicación, llamadas, puerta o ayuda de emergencia',
+      'Quién recibe avisos, en cuánto tiempo responde y qué puede hacer',
+      'Fiabilidad: Wi-Fi, corriente, baterías, alternativas y soporte',
+      'Si basta apoyo pasivo o hace falta un servicio monitorizado',
     ],
     casamiaPlan: [
-      'Definir la experiencia antes de elegir dispositivos',
-      'Configurar herramientas compatibles en rutinas sencillas',
-      'Documentar reglas de respuesta para que la familia entienda qué ocurre',
+      'Definir el problema diario antes de elegir dispositivos',
+      'Priorizar rutinas sencillas: luz nocturna, llamadas fáciles, recordatorios y avisos seleccionados',
+      'Configurar herramientas compatibles para que la experiencia siga siendo familiar',
+      'Documentar consentimiento, destinatarios de avisos, reglas de respuesta y mantenimiento',
     ],
     relatedServices: [
       { label: 'Enfoque tecnológico', to: '/tech' },
+      { label: 'Leer guía de seguridad conectada', to: '/blog/smart-home-safety-without-overcomplicating' },
       { label: 'Servicios de seguridad conectada', to: '/services/smart-home-safety' },
-      { label: 'Empezar plan guiado', to: '/home-safety-wizard' },
     ],
     faqs: [
       {
         question: '¿Seguridad conectada significa vigilancia?',
         answer:
-          'No. CasaMia prioriza apoyo práctico como iluminación, recordatorios, avisos de agua y ayuda al alcance. Cualquier aviso debe acordarse y entenderse bien.',
+          'No. Puede significar apoyo práctico como iluminación, recordatorios, avisos de agua y ayuda al alcance. Las cámaras o la monitorización intrusiva no deberían ser la opción por defecto y cualquier aviso debe acordarse y entenderse bien.',
       },
       {
         question: '¿Cuál es la configuración conectada más sencilla?',
         answer:
-          'Suele empezar con un altavoz configurado, luz nocturna, llamadas fáciles, recordatorios y avisos seleccionados según la persona y la vivienda.',
+          'Suele empezar con luz nocturna, llamadas fáciles, recordatorios y avisos seleccionados. Depende de la persona, la vivienda, la fiabilidad del Wi-Fi y quién puede responder.',
+      },
+      {
+        question: '¿Cuándo hace falta monitorización en vez de seguridad conectada?',
+        answer:
+          'Puede tener sentido si nadie puede responder de forma fiable, hay emergencias repetidas o la familia necesita un protocolo formal en lugar de apoyo doméstico sencillo.',
+      },
+      {
+        question: '¿Qué conviene evitar?',
+        answer:
+          'Evita dispositivos que la persona no entiende, avisos que nadie atiende, monitorización oculta, cámaras sin consentimiento claro y sistemas que fallan sin avisar cuando se corta el Wi-Fi o se agotan baterías.',
       },
     ],
   },

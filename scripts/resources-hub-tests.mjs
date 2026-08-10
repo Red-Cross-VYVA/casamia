@@ -13,7 +13,9 @@ const articlePage = await readFile(new URL('../src/pages/BlogArticlePage.tsx', i
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
 const needLandingPage = await readFile(new URL('../src/pages/NeedLandingPage.tsx', import.meta.url), 'utf8')
+const needLandingContent = await readFile(new URL('../src/constants/needLandingPages.ts', import.meta.url), 'utf8')
 const needLandingLocalization = await readFile(new URL('../src/constants/needLandingPagesLocalization.ts', import.meta.url), 'utf8')
+const blogContent = await readFile(new URL('../src/constants/blogContent.ts', import.meta.url), 'utf8')
 const blogContentLocalization = await readFile(new URL('../src/constants/blogContentLocalization.ts', import.meta.url), 'utf8')
 const seo = await readFile(new URL('../src/components/SEO.tsx', import.meta.url), 'utf8')
 const app = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
@@ -199,17 +201,57 @@ assert.match(
   'Resource article pages must turn guide content into checklist, FAQ and next-step blocks.',
 )
 assert.match(
-  await readFile(new URL('../src/constants/blogContent.ts', import.meta.url), 'utf8'),
+  articlePage,
+  /officialResources[\s\S]*blog-resource-section[\s\S]*blog-resource-card[\s\S]*target="_blank"/,
+  'Resource article pages must render optional official resource links as visible external cards.',
+)
+assert.match(
+  blogContent,
+  /home-adaptation-grants-spain-family-guide[\s\S]*Plan Estatal de Vivienda 2026-2030[\s\S]*infosubvenciones\.es\/bdnstrans\/GE\/es\/convocatorias[\s\S]*Plan Adapta Madrid 2026[\s\S]*Catalonia interior works for older people[\s\S]*Horizontal Property Law/,
+  'The grants guide must include practical official links for state, national search, regional examples and shared-building rules.',
+)
+assert.match(
+  blogContent,
+  /home-adaptation-grants-spain-family-guide[\s\S]*\/images\/solutions\/euro-grant-support-retouched\.jpg[\s\S]*public grant support for home adaptations/,
+  'The grants guide hero must use a funding-relevant visual instead of a generic home consultation image.',
+)
+assert.match(
+  blogContent,
+  /fall-prevention-home-checklist-spain[\s\S]*Check for Safety fall prevention checklist[\s\S]*National Institute on Aging[\s\S]*MedlinePlus/,
+  'The fall-prevention guide must include credible public health resources and practical family guidance.',
+)
+assert.match(
+  blogContent,
+  /bathroom-safety-seniors-costly-mistakes[\s\S]*Check for Safety bathroom checklist[\s\S]*MedlinePlus[\s\S]*CEAPAT \/ Imserso/,
+  'The bathroom-safety guide must include credible resources for fall prevention and Spanish support products.',
+)
+assert.match(
+  blogContent,
+  /bedroom-night-safety-older-adults[\s\S]*Prevent falls and fractures[\s\S]*Check for Safety home checklist[\s\S]*Aging in place: growing older at home/,
+  'The night-safety guide must include credible resources for fall prevention, bedroom routes and aging in place.',
+)
+assert.match(
+  needLandingContent,
+  /home-safety-assessment-vs-general-contractor[\s\S]*A contractor is useful once the work is clear[\s\S]*Read the fall checklist[\s\S]*Three quotes are only comparable/,
+  'The assessment-vs-contractor decision page must explain when scope-setting matters before installer quotes.',
+)
+assert.match(
+  needLandingContent,
+  /smart-home-safety-vs-monitoring[\s\S]*The right choice depends on what problem you are solving[\s\S]*Consent, privacy[\s\S]*Read the smart safety guide/,
+  'The smart-safety decision page must distinguish practical connected safety from monitoring and surveillance.',
+)
+assert.match(
+  blogContent,
   /family-conversation-before-home-safety-visit[\s\S]*Before a Home Safety Visit[\s\S]*Start the guided review/,
   'The Resources catalogue must include a practical family conversation and visit-prep guide.',
 )
 assert.match(
-  await readFile(new URL('../src/constants/blogContent.ts', import.meta.url), 'utf8'),
+  blogContent,
   /hospital-discharge-home-safety-checklist[\s\S]*Hospital Discharge Home Safety Checklist[\s\S]*Start a discharge safety review/,
   'The Resources catalogue must include a practical hospital-discharge checklist guide.',
 )
 assert.match(
-  await readFile(new URL('../src/constants/blogContent.ts', import.meta.url), 'utf8'),
+  blogContent,
   /when-home-adaptations-are-not-enough[\s\S]*When Home Adaptations Are Not Enough[\s\S]*Start a home safety review/,
   'The Resources catalogue may include honest higher-care decision guidance, but it should route into a CasaMia home review.',
 )
