@@ -1149,11 +1149,11 @@ function buildDeliveryMessage(
 ) {
   const messages = []
 
-  if (delivery.email !== 'not_requested') {
+  if (delivery.email === 'queued' || delivery.email === 'sent') {
     messages.push(copy.email)
   }
 
-  if (delivery.whatsapp !== 'not_requested') {
+  if (delivery.whatsapp === 'queued' || delivery.whatsapp === 'sent') {
     messages.push(copy.whatsapp)
   }
 
@@ -1512,7 +1512,7 @@ function getGrantCopy(language: string) {
           'Añade tus datos, elige un método de envío y acepta el consentimiento para continuar.',
       },
       delivery: {
-        email: 'El informe completo queda preparado para enviarse por email.',
+        email: 'Hemos enviado el enlace seguro del informe por email.',
         whatsapp: 'El WhatsApp incluirá solo un enlace seguro al informe.',
       },
       errors: {
@@ -1772,7 +1772,7 @@ function getGrantCopy(language: string) {
       contact: 'Add contact details, choose a delivery method, and accept consent to continue.',
     },
     delivery: {
-        email: 'Your request is saved for email delivery. CasaMia will send the secure report link.',
+        email: 'The secure report link has been sent by email.',
         whatsapp: 'Your request is saved for WhatsApp delivery. The message will contain only a secure report link.',
     },
     errors: {

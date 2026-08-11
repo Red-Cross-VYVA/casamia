@@ -8,7 +8,12 @@ const publicApiBaseUrl = (
 ).toString().replace(/\/$/, '')
 
 export function hasPublicSiteApi() {
-  return Boolean(publicApiBaseUrl) || Boolean(viteEnv.PROD)
+  return (
+    Boolean(publicApiBaseUrl)
+    || Boolean(viteEnv.PROD)
+    || viteEnv.VITE_PUBLIC_SITE_API_ENABLED === true
+    || viteEnv.VITE_PUBLIC_SITE_API_ENABLED === 'true'
+  )
 }
 
 export function getPublicSiteApiBaseUrl() {

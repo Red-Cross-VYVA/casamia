@@ -155,17 +155,24 @@ export async function sendReportDelivery(input: ReportDeliveryInput) {
       throw new Error('Could not queue report delivery.')
     }
 
-    return (await response.json()) as {
+    const delivery = (await response.json()) as {
       email: DeliveryChannelStatus
       whatsapp: DeliveryChannelStatus
     }
+
+    assertRequestedDeliverySucceeded(input, delivery)
+    return delivery
   }
 
   if (hasPublicSiteApi()) {
-    return saveReportToPublicApi(input)
+    const delivery = await saveReportToPublicApi(input)
+    assertRequestedDeliverySucceeded(input, delivery)
+    return delivery
   }
 
-  return queueLocalReportDelivery(input)
+  const delivery = queueLocalReportDelivery(input)
+  assertRequestedDeliverySucceeded(input, delivery)
+  return delivery
 }
 
 export async function submitEstimateWorkflow(input: LegacyEstimateWorkflowInput) {
@@ -507,6 +514,22 @@ function normaliseDeliveryChannelStatus(value: unknown): DeliveryChannelStatus {
   return value === 'queued' || value === 'sent' || value === 'failed'
     ? value
     : 'not_requested'
+}
+
+function assertRequestedDeliverySucceeded(
+  input: ReportDeliveryInput,
+  delivery: {
+    email: DeliveryChannelStatus
+    whatsapp: DeliveryChannelStatus
+  },
+) {
+  if (input.contact.deliveryEmail && delivery.email === 'failed') {
+    throw new Error('Could not send report email.')
+  }
+
+  if (input.contact.deliveryWhatsapp && delivery.whatsapp === 'failed') {
+    throw new Error('Could not queue WhatsApp delivery.')
+  }
 }
 
 function isEstimatePhotoAnalysis(value: unknown): value is EstimatePhotoAnalysis {
@@ -1452,8 +1475,8 @@ function persistLocalReport(report: EstimateReport) {
 
 function queueLocalReportDelivery(input: ReportDeliveryInput) {
   const delivery = {
-    email: input.contact.deliveryEmail ? 'queued' : 'not_requested',
-    whatsapp: input.contact.deliveryWhatsapp ? 'queued' : 'not_requested',
+    email: input.contact.deliveryEmail ? 'failed' : 'not_requested',
+    whatsapp: input.contact.deliveryWhatsapp ? 'failed' : 'not_requested',
   } satisfies {
     email: DeliveryChannelStatus
     whatsapp: DeliveryChannelStatus
@@ -1490,7 +1513,7 @@ function queueLocalReportDelivery(input: ReportDeliveryInput) {
       {
         token: input.token,
         reportType: input.reportType,
-        status: 'delivery_queued',
+        status: 'delivery_failed',
         createdAt: new Date().toISOString(),
         name: input.contact.name,
         email: input.contact.email,

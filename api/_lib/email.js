@@ -6,6 +6,19 @@ const defaultReplyTo = 'hola@casamia.com.es'
 export function buildAbsoluteProposalUrl(request, publicToken, env = process.env) {
   if (!publicToken) return ''
 
+  return buildAbsolutePublicUrl(request, `/proposal/${publicToken}`, env)
+}
+
+export function buildAbsolutePublicUrl(request, publicPath, env = process.env) {
+  const path = text(publicPath)
+  if (!path) return ''
+
+  try {
+    return new URL(path).toString()
+  } catch {
+    // Relative report paths are resolved below.
+  }
+
   const configuredOrigin = normalizeOrigin(
     env.CASAMIA_PUBLIC_SITE_URL
       || env.VITE_SITE_URL
@@ -14,17 +27,19 @@ export function buildAbsoluteProposalUrl(request, publicToken, env = process.env
       || (env.VERCEL_URL ? `https://${env.VERCEL_URL}` : ''),
   )
 
-  if (configuredOrigin) return `${configuredOrigin}/proposal/${publicToken}`
+  const relativePath = path.startsWith('/') ? path : `/${path}`
+
+  if (configuredOrigin) return `${configuredOrigin}${relativePath}`
 
   const requestOrigin = normalizeOrigin(getRequestHeader(request, 'origin'))
-  if (requestOrigin) return `${requestOrigin}/proposal/${publicToken}`
+  if (requestOrigin) return `${requestOrigin}${relativePath}`
 
   const forwardedProtocol = getRequestHeader(request, 'x-forwarded-proto').split(',')[0].trim()
   const protocol = forwardedProtocol || (env.VERCEL ? 'https' : 'http')
   const host = getRequestHeader(request, 'host')
   const hostOrigin = normalizeOrigin(host ? `${protocol}://${host}` : '')
 
-  return `${hostOrigin || 'https://www.casamia.com.es'}/proposal/${publicToken}`
+  return `${hostOrigin || 'https://www.casamia.com.es'}${relativePath}`
 }
 
 export function isProposalEmailConfigured(env = process.env) {
@@ -108,6 +123,185 @@ export async function sendProposalEmail({
       status: 'failed',
     }
   }
+}
+
+export async function sendPublicReportEmail({
+  env = process.env,
+  language = 'en',
+  publicUrl,
+  report,
+  reportType = 'safety_report',
+  customer,
+} = {}) {
+  const apiKey = env.RESEND_API_KEY
+  const to = text(customer?.customer_email ?? customer?.email)
+
+  if (!to) {
+    return skippedDelivery('recipient_missing', 'Customer email is missing.')
+  }
+
+  if (!apiKey) {
+    return skippedDelivery('not_configured', 'RESEND_API_KEY is not configured.')
+  }
+
+  if (!publicUrl) {
+    return skippedDelivery('report_url_missing', 'Report URL is missing.')
+  }
+
+  const isSpanish = String(language).toLowerCase().startsWith('es')
+  const copy = getPublicReportEmailCopy(reportType, isSpanish)
+  const from = text(env.CASAMIA_EMAIL_FROM || env.RESEND_FROM_EMAIL) || defaultFrom
+  const replyTo = text(env.CASAMIA_REPLY_TO_EMAIL) || defaultReplyTo
+  const bcc = text(env.CASAMIA_REPORT_BCC_EMAIL || env.CASAMIA_NOTIFY_EMAIL)
+  const html = renderPublicReportEmailHtml({ copy, customer, publicUrl, report })
+  const textBody = renderPublicReportEmailText({ copy, customer, publicUrl, report })
+  const body = {
+    from,
+    html,
+    subject: copy.subject,
+    text: textBody,
+    to: [to],
+    ...(replyTo ? { reply_to: replyTo } : {}),
+    ...(bcc ? { bcc: [bcc] } : {}),
+  }
+
+  try {
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      body: JSON.stringify(body),
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+    const responseText = await resendResponse.text()
+    const responseBody = parseJson(responseText)
+
+    if (!resendResponse.ok) {
+      return {
+        ok: false,
+        provider: 'resend',
+        reason: responseBody?.message || responseText.slice(0, 500) || 'Resend email request failed.',
+        status: 'failed',
+        statusCode: resendResponse.status,
+      }
+    }
+
+    return {
+      id: responseBody?.id ?? '',
+      ok: true,
+      provider: 'resend',
+      status: 'sent',
+      statusCode: resendResponse.status,
+    }
+  } catch (error) {
+    return {
+      ok: false,
+      provider: 'resend',
+      reason: error instanceof Error ? error.message : 'Resend email request failed.',
+      status: 'failed',
+    }
+  }
+}
+
+function getPublicReportEmailCopy(reportType, isSpanish) {
+  if (reportType === 'grant_report') {
+    return isSpanish
+      ? {
+          subject: 'Tu informe de ayudas CasaMia está listo',
+          title: 'Tu informe de ayudas CasaMia está listo',
+          greeting: 'Hola',
+          intro: 'Hemos guardado tu informe de elegibilidad. Usa este enlace seguro para volver a ver las recomendaciones, documentos y próximos pasos.',
+          cta: 'Abrir informe seguro',
+          privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.',
+          support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
+        }
+      : {
+          subject: 'Your CasaMia grant eligibility report is ready',
+          title: 'Your CasaMia grant eligibility report is ready',
+          greeting: 'Hello',
+          intro: 'We saved your eligibility report. Use this secure link to reopen the recommendations, documents and next steps.',
+          cta: 'Open secure report',
+          privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.',
+          support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
+        }
+  }
+
+  return isSpanish
+    ? {
+        subject: 'Tu informe de seguridad CasaMia está listo',
+        title: 'Tu informe de seguridad CasaMia está listo',
+        greeting: 'Hola',
+        intro: 'Hemos guardado tu informe de seguridad del hogar. Usa este enlace seguro para volver a ver los riesgos detectados y las recomendaciones.',
+        cta: 'Abrir informe seguro',
+        privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.',
+        support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
+      }
+    : {
+        subject: 'Your CasaMia home safety report is ready',
+        title: 'Your CasaMia home safety report is ready',
+        greeting: 'Hello',
+        intro: 'We saved your home safety report. Use this secure link to reopen the risks we found and the recommendations.',
+        cta: 'Open secure report',
+        privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.',
+        support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
+      }
+}
+
+function renderPublicReportEmailHtml({ copy, customer, publicUrl, report }) {
+  const customerName = text(customer?.customer_name ?? customer?.name)
+  const firstName = customerName.split(/\s+/)[0]
+  const greeting = firstName ? `${escapeHtml(copy.greeting)} ${escapeHtml(firstName)},` : `${escapeHtml(copy.greeting)},`
+  const reportTitle = text(report?.report_title)
+
+  return `
+    <div style="margin:0;background:#eef7fb;padding:32px 16px;font-family:Arial,Helvetica,sans-serif;color:#142235;">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:24px;overflow:hidden;border:1px solid #c9e1ef;">
+        <tr>
+          <td style="padding:28px 32px 18px;">
+            <div style="font-size:34px;line-height:1;font-weight:800;letter-spacing:-1px;color:#102033;">Casa<span style="color:#37a4dc;">Mia</span></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 32px 32px;">
+            <p style="margin:0 0 12px;font-size:17px;line-height:1.55;color:#4d6072;">${greeting}</p>
+            <h1 style="margin:0 0 14px;font-family:Georgia,'Times New Roman',serif;font-size:38px;line-height:1.08;color:#142235;">${escapeHtml(copy.title)}</h1>
+            ${reportTitle ? `<p style="margin:0 0 14px;font-size:16px;line-height:1.45;color:#4d6072;"><strong>${escapeHtml(reportTitle)}</strong></p>` : ''}
+            <p style="margin:0 0 24px;font-size:17px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.intro)}</p>
+            <a href="${escapeAttribute(publicUrl)}" style="display:inline-block;background:#7bbf3b;color:#ffffff;text-decoration:none;font-weight:800;border-radius:999px;padding:15px 24px;font-size:16px;">${escapeHtml(copy.cta)} →</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 32px 32px;">
+            <div style="border-radius:18px;background:#f2f9fd;border:1px solid #c9e1ef;padding:18px 20px;">
+              <p style="margin:0 0 8px;font-size:14px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.privacy)}</p>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.support)}</p>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  `
+}
+
+function renderPublicReportEmailText({ copy, customer, publicUrl, report }) {
+  const customerName = text(customer?.customer_name ?? customer?.name)
+  const firstName = customerName.split(/\s+/)[0]
+  const reportTitle = text(report?.report_title)
+
+  return [
+    `${copy.greeting}${firstName ? ` ${firstName}` : ''},`,
+    '',
+    copy.title,
+    reportTitle,
+    '',
+    copy.intro,
+    '',
+    `${copy.cta}: ${publicUrl}`,
+    '',
+    copy.privacy,
+    copy.support,
+  ].filter(Boolean).join('\n')
 }
 
 function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {

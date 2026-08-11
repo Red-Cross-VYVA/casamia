@@ -417,7 +417,7 @@
         },
         "deliveryTitle": "Delivery status",
         "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
-        "emailQueued": "The full report is ready to send by email.",
+        "emailQueued": "The secure report link has been sent by email.",
         "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
         "viewReport": "View report page"

@@ -1,6 +1,6 @@
 export function getRequestHeader(request, name) {
-  const value = request.headers?.[name] ?? request.headers?.[name.toLowerCase()]
-  return Array.isArray(value) ? value[0] : value || request.headers?.get?.(name) || ''
+  const value = request?.headers?.[name] ?? request?.headers?.[name.toLowerCase()]
+  return Array.isArray(value) ? value[0] : value || request?.headers?.get?.(name) || ''
 }
 
 export function normalizeOrigin(value) {

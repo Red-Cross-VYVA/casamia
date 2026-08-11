@@ -12,7 +12,7 @@ type PhotoApiHandler = (
   response: PhotoApiResponse,
 ) => Promise<void>
 
-function visionApiProxy(target: string) {
+function devApiProxy(target: string) {
   return {
     target,
     changeOrigin: true,
@@ -64,7 +64,23 @@ export default defineConfig(({ mode }) => {
   const projectRoot = fileURLToPath(new URL('.', import.meta.url))
   const env = { ...loadEnv(mode, projectRoot, ''), ...process.env }
   const devVisionApiUrl = (env.CASAMIA_DEV_VISION_API_URL || '').toString().replace(/\/$/, '')
+  const devPublicApiUrl = (
+    env.CASAMIA_DEV_PUBLIC_API_URL
+    || env.CASAMIA_DEV_VISION_API_URL
+    || ''
+  ).toString().replace(/\/$/, '')
   const useLocalVisionApi = Boolean(env.OPENAI_API_KEY)
+  const proxy: Record<string, ReturnType<typeof devApiProxy>> = {}
+
+  if (!useLocalVisionApi && devVisionApiUrl) {
+    proxy['/api/public/analyse-safety-photo'] = devApiProxy(devVisionApiUrl)
+    proxy['/api/public/classify-room-photo'] = devApiProxy(devVisionApiUrl)
+  }
+
+  if (devPublicApiUrl) {
+    proxy['/api/public/grant-reports'] = devApiProxy(devPublicApiUrl)
+    proxy['/api/public/safety-reports'] = devApiProxy(devPublicApiUrl)
+  }
 
   if (env.OPENAI_API_KEY) process.env.OPENAI_API_KEY = env.OPENAI_API_KEY
   if (env.OPENAI_VISION_MODEL) process.env.OPENAI_VISION_MODEL = env.OPENAI_VISION_MODEL
@@ -73,15 +89,15 @@ export default defineConfig(({ mode }) => {
     define: {
       'import.meta.env.VITE_ASSESSMENT_SUBMIT_URL': JSON.stringify(env.VITE_ASSESSMENT_SUBMIT_URL ?? ''),
       'import.meta.env.VITE_ESTIMATE_API_URL': JSON.stringify(env.VITE_ESTIMATE_API_URL ?? ''),
+      'import.meta.env.VITE_PUBLIC_SITE_API_ENABLED': JSON.stringify(
+        Boolean(env.VITE_PUBLIC_SITE_API_URL || env.VITE_WEBSITE_API_URL || env.VITE_API_BASE_URL || devPublicApiUrl),
+      ),
     },
     envPrefix: 'VITE_',
     plugins: [react(), ...(useLocalVisionApi ? [photoAnalysisDevApi()] : [])],
-    server: !useLocalVisionApi && devVisionApiUrl
+    server: Object.keys(proxy).length > 0
       ? {
-          proxy: {
-            '/api/public/analyse-safety-photo': visionApiProxy(devVisionApiUrl),
-            '/api/public/classify-room-photo': visionApiProxy(devVisionApiUrl),
-          },
+          proxy,
         }
       : undefined,
   }

@@ -712,7 +712,7 @@
         },
         "deliveryTitle": "Delivery status",
         "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
-        "emailQueued": "Your request is saved for email delivery. CasaMia will send the secure report link.",
+        "emailQueued": "The secure report link has been sent by email.",
         "whatsappQueued": "Your request is saved for WhatsApp delivery. The message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
         "viewReport": "View report page",

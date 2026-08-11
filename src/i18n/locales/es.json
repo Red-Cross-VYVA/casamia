@@ -712,7 +712,7 @@
         },
         "deliveryTitle": "Estado del envío",
         "readyToSend": "¿Quieres guardarlo? En el siguiente paso puedes recibir el enlace seguro por email o WhatsApp.",
-        "emailQueued": "Tu solicitud queda guardada para envío por email. CasaMia enviará el enlace seguro al informe.",
+        "emailQueued": "Hemos enviado el enlace seguro del informe por email.",
         "whatsappQueued": "Tu solicitud queda guardada para envío por WhatsApp. El mensaje incluirá solamente un enlace seguro.",
         "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
         "viewReport": "Ver página del informe",
