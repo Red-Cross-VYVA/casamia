@@ -443,6 +443,86 @@ function getPlanDetailBenefit(outcome: MasterCatalogueOutcome, language: 'en' | 
   )
 }
 
+function localizePlanDetailItem(item: string, language: 'en' | 'es') {
+  if (language === 'en') return item
+
+  const translations: Record<string, string> = {
+    'Anti-slip floor treatment': 'Tratamiento antideslizante de suelo',
+    'Automatic water shut-off valve': 'Valvula automatica de corte de agua',
+    'Bathroom door adjustment': 'Ajuste de puerta de bano',
+    'Easy-release privacy lock': 'Cierre de privacidad con desbloqueo facil',
+    'Family or carer alert setup': 'Avisos para familia o cuidador',
+    'Folding shower seat': 'Asiento abatible de ducha',
+    'Grab bar': 'Barra de apoyo',
+    'Lever door handle': 'Manilla tipo palanca',
+    'Lever mixer tap': 'Grifo monomando de palanca',
+    'Lever-operated shower control': 'Mando de ducha de palanca',
+    'Low-threshold transition strip': 'Perfil de transicion de bajo umbral',
+    'Loose rug securing or removal': 'Fijacion o retirada de alfombras sueltas',
+    'Low-level floor light': 'Luz baja de suelo',
+    'Bed-to-door route clearance service': 'Despeje de ruta entre cama y puerta',
+    'Bedside light': 'Luz junto a la cama',
+    'Bed height, transfer and room-fit assessment': 'Revisión de altura, transferencias y espacio del dormitorio',
+    'Cable management kit': 'Kit de organizacion de cables',
+    'Delivery and installation coordination': 'Coordinación de entrega e instalación',
+    'Electric adjustable bed': 'Cama eléctrica ajustable',
+    'Family contact notification setup': 'Configuracion de avisos a contactos familiares',
+    'Hands-free calling setup': 'Configuracion de llamadas manos libres',
+    'Medication and routine reminder setup': 'Configuracion de recordatorios y rutinas',
+    'Mattress and pressure-comfort guidance': 'Orientación sobre colchón, presión y confort',
+    'Motion sensor': 'Sensor de movimiento',
+    'Raised toilet seat': 'Elevador de inodoro',
+    'Resident phone alert setup': 'Avisos al telefono del residente',
+    'Remote control setup and handover': 'Configuración de mando y explicación de uso',
+    'Safer hot-water temperature setting': 'Ajuste seguro de agua caliente',
+    'Secure anti-slip bath mat': 'Alfombrilla antideslizante segura',
+    'Smart speaker': 'Altavoz inteligente',
+    'Smoke detector': 'Detector de humo',
+    'Thermostatic anti-scald valve': 'Valvula termostatica antiquemaduras',
+    'Toilet support rail': 'Barra de apoyo para inodoro',
+    'Vertical support rail': 'Barra de apoyo vertical',
+    'Water leak sensor': 'Sensor de fuga de agua',
+    'Wider bathroom doorway': 'Puerta de bano mas ancha',
+    'Wider bathroom doorway service': 'Ensanche de puerta de bano',
+    'Wider bedroom doorway': 'Puerta de dormitorio mas ancha',
+    'Wider bedroom doorway service': 'Ensanche de puerta de dormitorio',
+    'Wider entrance doorway': 'Puerta de entrada mas ancha',
+    'Wider entrance doorway service': 'Ensanche de puerta de entrada',
+    'Wider kitchen doorway': 'Puerta de cocina mas ancha',
+    'Wider kitchen doorway service': 'Ensanche de puerta de cocina',
+    'Wider living room doorway': 'Puerta de salon mas ancha',
+    'Wider living room doorway service': 'Ensanche de puerta de salon',
+    'Voice command setup for lights, calls and help requests': 'Configuracion de voz para luces, llamadas y peticiones de ayuda',
+    'Voice help request setup': 'Configuracion de peticiones de ayuda por voz',
+  }
+
+  return translations[item] ?? item
+}
+
+function getPlanDetailServiceSummaryItems(
+  outcome: MasterCatalogueOutcome,
+  catalogue: MasterServiceCatalogue,
+  language: 'en' | 'es',
+) {
+  const specification = getProposalSpecificationForOutcome(outcome.id, catalogue)
+  const taskText = specification.installationTasks.map((task) => task.name).join(' ').toLocaleLowerCase()
+  const serviceItems: string[] = []
+
+  if (/inspect|measure/.test(taskText)) {
+    serviceItems.push(language === 'es' ? 'Revision de idoneidad y medidas' : 'Suitability check and measurements')
+  }
+
+  if (/configure|alert/.test(taskText)) {
+    serviceItems.push(language === 'es' ? 'Configuracion y prueba de avisos' : 'Alert setup and testing')
+  }
+
+  if (/install|fit|apply|reduce|mark|set|adjust/.test(taskText)) {
+    serviceItems.push(language === 'es' ? 'Instalacion o ajuste profesional' : 'Professional installation or setup')
+  }
+
+  return serviceItems
+}
+
 function getPlanDetailIncludedItems(
   outcome: MasterCatalogueOutcome,
   catalogue: MasterServiceCatalogue,
@@ -452,16 +532,19 @@ function getPlanDetailIncludedItems(
   const productItems = dedupePlanDetailItems(
     specification.products.filter((product) => product.active).map((product) => product.name),
   )
-  const resolvedItems = productItems.length >= 2
-    ? productItems
-    : dedupePlanDetailItems([
-        ...specification.products.filter((product) => product.active).map((product) => product.name),
-        ...specification.capabilities.filter((capability) => capability.active).map((capability) => capability.name),
-        ...specification.installationTasks.filter((task) => task.active).map((task) => task.name),
-      ])
+  const localizedProductItems = productItems.map((item) => localizePlanDetailItem(item, language))
+  const capabilityFallbackItems = productItems.length
+    ? []
+    : specification.capabilities.filter((capability) => capability.active).map((capability) => capability.name)
+  const serviceItems = getPlanDetailServiceSummaryItems(outcome, catalogue, language)
+  const resolvedItems = dedupePlanDetailItems([
+    ...localizedProductItems,
+    ...capabilityFallbackItems,
+    ...serviceItems,
+  ])
 
   if (resolvedItems.length) {
-    return resolvedItems.slice(0, 5)
+    return resolvedItems.slice(0, 6)
   }
 
   const fallback = localizePlansString(
@@ -473,30 +556,11 @@ function getPlanDetailIncludedItems(
   return splitPlanDetailFallback(fallback)
 }
 
-function getPlanDetailPrimaryProductName(outcome: MasterCatalogueOutcome, catalogue: MasterServiceCatalogue) {
-  const specification = getProposalSpecificationForOutcome(outcome.id, catalogue)
-
-  return dedupePlanDetailItems(
-    specification.products.filter((product) => product.active).map((product) => product.name),
-  )[0] ?? ''
-}
-
 function getPlanDetailSlideTitle(
   outcome: MasterCatalogueOutcome,
-  catalogue: MasterServiceCatalogue,
   language: 'en' | 'es',
 ) {
-  const fallbackTitle = localizePlansString(outcome.customerName, language, outcome.internalName)
-  const primaryProduct = getPlanDetailPrimaryProductName(outcome, catalogue)
-
-  if (!primaryProduct) {
-    return fallbackTitle
-  }
-
-  const titleKey = fallbackTitle.toLocaleLowerCase()
-  const productKey = primaryProduct.toLocaleLowerCase()
-
-  return titleKey.includes(productKey) ? fallbackTitle : primaryProduct
+  return localizePlansString(outcome.customerName, language, outcome.internalName)
 }
 
 function getPlanDetailSlideImage(outcome: MasterCatalogueOutcome) {
@@ -1122,6 +1186,7 @@ export function PlansPage() {
         benefit: 'Por qué ayuda',
         coreTab: 'Paquete base',
         includes: 'Qué incluye CasaMia',
+        itemIncludes: 'Para este elemento, CasaMia incluye',
         next: 'Siguiente',
         noDetailItems: 'No hay elementos para mostrar en esta sección.',
         optionalTab: 'Extras opcionales',
@@ -1132,6 +1197,7 @@ export function PlansPage() {
         benefit: 'Why it helps',
         coreTab: 'Core package',
         includes: 'What CasaMia includes',
+        itemIncludes: 'For this item, CasaMia includes',
         next: 'Next',
         noDetailItems: 'No items to show in this section.',
         optionalTab: 'Optional add-ons',
@@ -1163,7 +1229,7 @@ export function PlansPage() {
   const activeDetailSafeIndex = Math.min(activeDetailIndex, Math.max(activeDetailSlideCount - 1, 0))
   const activeDetailSlide = activeDetailSlides[activeDetailSafeIndex]
   const activeDetailSlideTitle = activeDetailSlide
-    ? getPlanDetailSlideTitle(activeDetailSlide, masterCatalogue, language)
+    ? getPlanDetailSlideTitle(activeDetailSlide, language)
     : ''
   const activeDetailSlideBenefit = activeDetailSlide
     ? getPlanDetailBenefit(activeDetailSlide, language)
@@ -1174,6 +1240,7 @@ export function PlansPage() {
   const activeDetailIncludedItems = activeDetailSlide
     ? getPlanDetailIncludedItems(activeDetailSlide, masterCatalogue, language)
     : []
+  const activeDetailIncludesHeading = activeDetailSlide ? detailCopy.itemIncludes : detailCopy.includes
   const activeDetailHasMultiple = activeDetailSlideCount > 1
   const selectedPlanDetails = selectedGroups.map((group) => {
     const packageSelection = selection[group.homePackage.id]
@@ -2476,7 +2543,7 @@ export function PlansPage() {
                     </div>
 
                     <div className="plan-detail-included-card">
-                      <h4>{detailCopy.includes}</h4>
+                      <h4>{activeDetailIncludesHeading}</h4>
                       <ul>
                         {activeDetailIncludedItems.map((item) => (
                           <li key={item}>

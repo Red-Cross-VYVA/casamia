@@ -140,6 +140,7 @@ Catalogue
 | Adjustable Rest Support | Adjustable bed review | Bespoke recommendation, not default sale. |
 | Emergency & Night-time Support | Emergency button, wearable pendant, selected movement alerts | Optional, consent-led and compatibility-led. |
 | Accessible Wardrobe Adaptation | Wardrobe modification | Measurement and quote. |
+| Wider Bedroom Doorway | Bedroom doorway widening | Measurement and specialist review required. |
 
 ### Kitchen
 
@@ -165,6 +166,7 @@ Catalogue
 | Customer outcome | Internal examples | Notes |
 |---|---|---|
 | Accessible Kitchen Layout | Worktop/cabinet adaptation | Quote and specialist review. |
+| Wider Kitchen Doorway | Kitchen doorway widening | Measurement and specialist review required. |
 | Safer Appliance Replacement | Appliance sourcing and installation | Future supplier mapping. |
 
 ### Living Areas and Mobility
@@ -191,6 +193,7 @@ Catalogue
 |---|---|---|
 | Layout Reconfiguration | Furniture/access planning | Assessment-led. |
 | Specialist Seating Support | Seating replacement/adaptation | Quote. |
+| Wider Living Room Doorway | Living-room doorway widening | Measurement and specialist review required. |
 
 ### Stairs
 
@@ -237,6 +240,7 @@ Catalogue
 | Customer outcome | Internal examples | Notes |
 |---|---|---|
 | Step-Free Access | Modular ramp | Measurement and quote. |
+| Wider Entrance Doorway | Entrance doorway widening | Measurement and specialist review required. |
 | Wider External Access | Door / path works | Specialist review. |
 
 ### Whole Home / Connected Living
