@@ -66,33 +66,51 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       es: 'Paquete de seguridad para baño',
     }, 'Bathroom Home Safety Package', 10, false, {
       shortDescription: {
-        en: 'Thoughtful improvements that make bathing, toilet use, and movement around the bathroom safer and easier, while preserving the look and feel of the home.',
-        es: 'Mejoras cuidadas que hacen que bañarse, usar el inodoro y moverse por el baño sea más seguro y sencillo, conservando el aspecto y la sensación del hogar.',
+        en: 'A turnkey daily-hygiene safety package for bathing, toilet transfers, wet-floor grip, temperature control, lighting, leak alerts and support rails, with suitable products selected and installed by CasaMia.',
+        es: 'Un paquete llave en mano para la seguridad diaria del baño: ducha, transferencias al WC, agarre en suelo mojado, control de temperatura, iluminación, alertas de fugas y barras de apoyo, con productos adecuados seleccionados e instalados por CasaMia.',
       },
       customerBenefit: {
-        en: 'A safer bathroom plan without making the home feel clinical.',
-        es: 'Un plan de baño más seguro sin que la vivienda parezca clínica.',
+        en: 'One coordinated bathroom plan that improves confidence without making the home feel clinical.',
+        es: 'Un plan de baño coordinado que mejora la confianza sin que la vivienda parezca clínica.',
       },
     }),
     packageRecord('bathroom-connected-room', 'bathroom', 'connected-room', {
       en: 'Casamia Connected Bathroom',
       es: 'Baño conectado Casamia',
-    }, 'Casamia Connected Bathroom', 20),
+    }, 'Casamia Connected Bathroom', 20, false, {
+      shortDescription: {
+        en: 'Consent-aware bathroom guidance using motion lighting, leak alerts and selected family notifications where compatible.',
+        es: 'Guía conectada para el baño con consentimiento: luz con sensor, avisos de fuga y notificaciones familiares seleccionadas cuando sea compatible.',
+      },
+      customerBenefit: {
+        en: 'Quiet support for night routines and water risks without loose devices or complicated setup.',
+        es: 'Apoyo discreto para rutinas nocturnas y riesgos de agua sin dispositivos sueltos ni configuraciones complicadas.',
+      },
+    }),
     packageRecord('bathroom-optional-adaptations', 'bathroom', 'optional-adaptations', {
       en: 'Bathroom Optional Adaptations',
       es: 'Adaptaciones opcionales de baño',
-    }, 'Bathroom Optional Adaptations', 30, true),
+    }, 'Bathroom Optional Adaptations', 30, true, {
+      shortDescription: {
+        en: 'Measured bathroom adaptations such as bath access changes or wider doorways, quoted after checking the room.',
+        es: 'Adaptaciones medidas de baño, como cambios de acceso a bañera o puertas más anchas, presupuestadas tras revisar la estancia.',
+      },
+      customerBenefit: {
+        en: 'Specialist add-ons for homes that need more than the standard bathroom package.',
+        es: 'Complementos especializados para viviendas que necesitan más que el paquete estándar de baño.',
+      },
+    }),
     packageRecord('bedroom-home-safety-package', 'bedroom', 'home-safety-package', {
       en: 'Bedroom Home Safety Package',
       es: 'Paquete de seguridad para dormitorio',
     }, 'Bedroom Home Safety Package', 40, false, {
       shortDescription: {
-        en: 'Thoughtful improvements that make getting in and out of bed, moving around the bedroom, and maintaining independence safer and more comfortable.',
-        es: 'Mejoras cuidadas que hacen que entrar y salir de la cama, moverse por el dormitorio y mantener la independencia sea más seguro y cómodo.',
+        en: 'A turnkey bedroom package for safer bed access, first steps, night routes, rest, smoke warning and help within reach.',
+        es: 'Un paquete llave en mano para el dormitorio: acceso a la cama, primeros pasos, rutas nocturnas, descanso, aviso de humo y ayuda al alcance.',
       },
       customerBenefit: {
-        en: 'A calmer, safer bedroom for night-time movement, bed access and daily independence.',
-        es: 'Un dormitorio más tranquilo y seguro para moverse de noche, entrar y salir de la cama y mantener la independencia diaria.',
+        en: 'A calmer bedroom that supports sleep, recovery and safer night-time independence.',
+        es: 'Un dormitorio más tranquilo que apoya el descanso, la recuperación y una independencia nocturna más segura.',
       },
     }),
     packageRecord('bedroom-connected-room', 'bedroom', 'connected-room', {
@@ -100,29 +118,38 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       es: 'Dormitorio conectado Casamia',
     }, 'Casamia Connected Bedroom', 50, false, {
       shortDescription: {
-        en: 'A tailored smart-home setup centred around a configured smart speaker and compatible devices.',
-        es: 'Una configuración smart-home a medida centrada en un altavoz inteligente configurado y dispositivos compatibles.',
+        en: 'Voice commands, reminders, hands-free calling and consent-aware alerts configured around the resident’s real bedroom routine.',
+        es: 'Comandos de voz, recordatorios, llamadas manos libres y avisos con consentimiento configurados según la rutina real del dormitorio.',
       },
       customerBenefit: {
-        en: 'Simple voice, reminder and reassurance experiences without turning the bedroom into a device showroom.',
-        es: 'Experiencias sencillas de voz, recordatorios y tranquilidad sin convertir el dormitorio en un escaparate de dispositivos.',
+        en: 'Practical connected support for asking for help, contacting family and controlling selected routines without a complex interface.',
+        es: 'Apoyo conectado práctico para pedir ayuda, contactar con la familia y controlar rutinas seleccionadas sin una interfaz compleja.',
       },
     }),
     packageRecord('bedroom-optional-adaptations', 'bedroom', 'optional-adaptations', {
       en: 'Bedroom Optional Adaptations',
       es: 'Adaptaciones opcionales de dormitorio',
-    }, 'Bedroom Optional Adaptations', 60, true),
+    }, 'Bedroom Optional Adaptations', 60, true, {
+      shortDescription: {
+        en: 'Measured bedroom add-ons such as wardrobe access, advanced transfers, adjustable beds and wider doorways.',
+        es: 'Complementos medidos para dormitorio, como armarios accesibles, transferencias avanzadas, camas ajustables y puertas más anchas.',
+      },
+      customerBenefit: {
+        en: 'Specialist comfort and access options when the standard bedroom package is not enough.',
+        es: 'Opciones especializadas de confort y acceso cuando el paquete estándar de dormitorio no es suficiente.',
+      },
+    }),
     packageRecord('kitchen-home-safety-package', 'kitchen', 'home-safety-package', {
       en: 'Kitchen Home Safety Package',
       es: 'Paquete de seguridad para cocina',
     }, 'Kitchen Home Safety Package', 70, false, {
       shortDescription: {
-        en: 'Thoughtful improvements that make cooking, preparing meals, and moving around the kitchen safer and easier.',
-        es: 'Mejoras cuidadas que hacen que cocinar, preparar comidas y moverse por la cocina sea más seguro y sencillo.',
+        en: 'A practical turnkey kitchen package for safer preparation, reach, standing comfort, lighting, cooking safeguards and selected water, gas or smoke alerts.',
+        es: 'Un paquete de cocina práctico y llave en mano para preparación más segura, mejor alcance, comodidad al estar de pie, iluminación, seguridad al cocinar y avisos seleccionados de agua, gas o humo.',
       },
       customerBenefit: {
-        en: 'A safer, easier kitchen plan that supports independence without turning the room into a product showroom.',
-        es: 'Un plan de cocina más seguro y sencillo que apoya la independencia sin convertir la estancia en un escaparate de productos.',
+        en: 'A more usable kitchen that supports independence while CasaMia handles product selection, setup and installation.',
+        es: 'Una cocina más usable que apoya la independencia mientras CasaMia se encarga de seleccionar productos, configurar e instalar.',
       },
     }),
     packageRecord('kitchen-connected-room', 'kitchen', 'connected-room', {
@@ -130,29 +157,38 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       es: 'Cocina conectada Casamia',
     }, 'Casamia Connected Kitchen', 80, false, {
       shortDescription: {
-        en: 'A smart kitchen setup centred around a configured smart speaker and compatible devices.',
-        es: 'Una cocina inteligente centrada en un altavoz configurado y dispositivos compatibles.',
+        en: 'Voice timers, reminders, shopping lists, calls and compatible kitchen alerts configured around everyday cooking routines.',
+        es: 'Temporizadores por voz, recordatorios, listas de compra, llamadas y alertas compatibles configuradas alrededor de rutinas reales de cocina.',
       },
       customerBenefit: {
-        en: 'Voice, reminders and family reassurance configured around real kitchen routines.',
-        es: 'Voz, recordatorios y tranquilidad familiar configurados alrededor de rutinas reales de cocina.',
+        en: 'Modern reassurance for cooking, water, smoke and routine risks without turning the kitchen into a gadget display.',
+        es: 'Tranquilidad moderna para cocina, agua, humo y rutinas sin convertir la cocina en un escaparate de gadgets.',
       },
     }),
     packageRecord('kitchen-optional-adaptations', 'kitchen', 'optional-adaptations', {
       en: 'Kitchen Optional Adaptations',
       es: 'Adaptaciones opcionales de cocina',
-    }, 'Kitchen Optional Adaptations', 90, true),
+    }, 'Kitchen Optional Adaptations', 90, true, {
+      shortDescription: {
+        en: 'Measured kitchen adaptations such as pull-out storage or wider doorway access, quoted after assessment.',
+        es: 'Adaptaciones medidas de cocina, como almacenamiento extraíble o acceso con puerta más ancha, presupuestadas tras la evaluación.',
+      },
+      customerBenefit: {
+        en: 'Targeted add-ons for reach and access where the existing kitchen layout needs more help.',
+        es: 'Complementos concretos para alcance y acceso cuando la distribución actual de la cocina necesita más apoyo.',
+      },
+    }),
     packageRecord('living-room-home-safety-package', 'living-room', 'home-safety-package', {
       en: 'Living Room Home Safety Package',
       es: 'Paquete de seguridad para salón',
     }, 'Living Room Home Safety Package', 100, false, {
       shortDescription: {
-        en: 'Thoughtful improvements that make relaxing, moving around and enjoying everyday life safer, more comfortable and more independent.',
-        es: 'Mejoras cuidadas que hacen que descansar, moverse y disfrutar del día a día sea más seguro, cómodo e independiente.',
+        en: 'A turnkey living-room package for safer sitting, standing, circulation, rug and cable risks, lighting, furniture stability and reachable comfort.',
+        es: 'Un paquete llave en mano para el salón: sentarse y levantarse con más seguridad, circulación, alfombras y cables, iluminación, estabilidad de muebles y confort al alcance.',
       },
       customerBenefit: {
-        en: 'A safer living room for sitting, standing, moving around and staying comfortable every day.',
-        es: 'Un salón más seguro para sentarse, levantarse, moverse y estar cómodo cada día.',
+        en: 'A safer daily living space that still feels warm, comfortable and familiar.',
+        es: 'Un espacio de vida diaria más seguro que sigue siendo cálido, cómodo y familiar.',
       },
     }),
     packageRecord('living-room-connected-room', 'living-room', 'connected-room', {
@@ -160,29 +196,38 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       es: 'Salón conectado Casamia',
     }, 'Casamia Connected Living Room', 110, false, {
       shortDescription: {
-        en: 'A smart living room experience centred around a configured smart speaker and compatible devices.',
-        es: 'Una experiencia de salón conectado centrada en un altavoz inteligente configurado y dispositivos compatibles.',
+        en: 'Voice help, reminders, hands-free calls, family notifications and selected room alerts configured for everyday living.',
+        es: 'Ayuda por voz, recordatorios, llamadas manos libres, avisos familiares y alertas seleccionadas configuradas para el día a día.',
       },
       customerBenefit: {
-        en: 'Simple voice, reminder, call and reassurance features configured around everyday living-room routines.',
-        es: 'Funciones sencillas de voz, recordatorios, llamadas y tranquilidad configuradas alrededor de las rutinas del salón.',
+        en: 'Quiet connected confidence from the room where people spend most of the day.',
+        es: 'Confianza conectada y discreta en la estancia donde se pasa gran parte del día.',
       },
     }),
     packageRecord('living-room-optional-adaptations', 'living-room', 'optional-adaptations', {
       en: 'Living Room Optional Adaptations',
       es: 'Adaptaciones opcionales de salón',
-    }, 'Living Room Optional Adaptations', 120, true),
+    }, 'Living Room Optional Adaptations', 120, true, {
+      shortDescription: {
+        en: 'Measured comfort and access upgrades such as advanced seating, recliners, wider doorways, stair support and reachable outlets.',
+        es: 'Mejoras medidas de confort y acceso, como asientos avanzados, sillones relax, puertas más anchas, apoyo en escaleras y enchufes más accesibles.',
+      },
+      customerBenefit: {
+        en: 'Specialist add-ons when comfort, access or level changes need a tailored solution.',
+        es: 'Complementos especializados cuando el confort, el acceso o los cambios de nivel necesitan una solución a medida.',
+      },
+    }),
     packageRecord('entrance-home-safety-package', 'entrance', 'home-safety-package', {
       en: 'Entrance Home Safety Package',
       es: 'Paquete de seguridad para entrada',
     }, 'Entrance Home Safety Package', 130, false, {
       shortDescription: {
-        en: 'Thoughtful improvements that make entering and leaving your home safer, easier and more comfortable.',
-        es: 'Mejoras cuidadas que hacen que entrar y salir de casa sea más seguro, fácil y cómodo.',
+        en: 'A turnkey entrance package for safer arrivals and departures: thresholds, handrails, slip-resistant surfaces, door hardware and lighting.',
+        es: 'Un paquete llave en mano para entradas y salidas más seguras: umbrales, pasamanos, superficies antideslizantes, herrajes de puerta e iluminación.',
       },
       customerBenefit: {
-        en: 'A safer entrance for steps, thresholds, door use and visibility.',
-        es: 'Una entrada más segura para escalones, umbrales, uso de la puerta y visibilidad.',
+        en: 'Make getting in and out of the home easier, steadier and less stressful.',
+        es: 'Hace que entrar y salir de casa sea más fácil, estable y menos estresante.',
       },
     }),
     packageRecord('entrance-connected-room', 'entrance', 'connected-room', {
@@ -190,26 +235,37 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       es: 'Entrada conectada Casamia',
     }, 'Casamia Connected Entrance', 140, false, {
       shortDescription: {
-        en: 'A connected entrance setup for visitor visibility, two-way communication and useful alerts.',
-        es: 'Una configuración conectada para ver visitantes, comunicarse a distancia y recibir avisos útiles.',
+        en: 'Video door awareness, two-way communication and selected mobile or family alerts configured around the entrance.',
+        es: 'Visibilidad de la puerta en vídeo, comunicación bidireccional y avisos móviles o familiares seleccionados configurados alrededor de la entrada.',
       },
       customerBenefit: {
-        en: 'Know who is at the door and share selected alerts with family or carers when useful.',
-        es: 'Permite saber quién está en la puerta y compartir avisos seleccionados con familia o cuidadores cuando ayude.',
+        en: 'Know who is at the door and respond with more confidence before opening it.',
+        es: 'Permite saber quién está en la puerta y responder con más confianza antes de abrir.',
       },
     }),
     packageRecord('entrance-optional-adaptations', 'entrance', 'optional-adaptations', {
       en: 'Entrance Optional Adaptations',
       es: 'Adaptaciones opcionales de entrada',
-    }, 'Entrance Optional Adaptations', 150, true),
+    }, 'Entrance Optional Adaptations', 150, true, {
+      shortDescription: {
+        en: 'Measured entrance adaptations such as wider doorway access, an accessibility ramp and seating near the door.',
+        es: 'Adaptaciones medidas de entrada, como acceso con puerta más ancha, rampa de accesibilidad y asiento cerca de la puerta.',
+      },
+      customerBenefit: {
+        en: 'Specialist access upgrades for homes where steps, widths or waiting points need more than the standard package.',
+        es: 'Mejoras especializadas de acceso para viviendas donde escalones, anchuras o puntos de espera necesitan más que el paquete estándar.',
+      },
+    }),
   ],
   outcomes: [
     outcome('bathroom-safer-bathing', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Bathroom Grab Bars', 'Barras de apoyo para baño', 'Bathing safety', 'Adding fixed hand support where the person needs steadier bathing or shower movement.', 'Añade apoyo fijo para que la persona tenga más estabilidad al bañarse o ducharse.', 'Provides predictable hand support at the right wall points for entering, standing, turning or leaving the bathing area.', 'Ofrece apoyo predecible en los puntos adecuados de la pared para entrar, estar de pie, girar o salir de la zona de baño.', 'essential', ['bathroom'], 10, { legacyId: 'bathroom-grab-bars', grantEligible: true }),
     outcome('bathroom-folding-shower-seat', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Folding Shower Seat', 'Asiento abatible de ducha', 'Bathing safety', 'Adding a fixed fold-away seat for safer seated showering where the wall and layout are suitable.', 'Añade un asiento abatible fijo para ducharse sentado con más seguridad cuando la pared y la distribución lo permiten.', 'Lets the resident sit for washing, resting or longer shower routines without relying on loose furniture.', 'Permite sentarse para lavarse, descansar o ducharse con más calma sin depender de muebles sueltos.', 'essential', ['bathroom'], 12, { grantEligible: true }),
     outcome('bathroom-anti-slip-bath-mat', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Secure Anti-slip Bath Mat Set', 'Juego de alfombrillas antideslizantes seguras', 'Bathing safety', 'Adding a secure mat inside the bath or shower plus an outside stepping mat where it reduces wet-foot slip risk.', 'Añade una alfombrilla segura dentro de la bañera o ducha y otra exterior para el primer paso cuando reduce el riesgo de resbalón.', 'Improves grip where the resident stands to wash and where they step out, with low-profile mats selected and positioned so they stay stable during use.', 'Mejora el agarre donde la persona se coloca para lavarse y donde pisa al salir, con alfombrillas de perfil bajo seleccionadas y colocadas para mantenerse estables.', 'essential', ['bathroom'], 14, { grantEligible: true }),
+    outcome('bathroom-handheld-shower-head', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Handheld Shower Head', 'Ducha de mano ajustable', 'Bathing safety', 'Adding an easier-to-control handheld shower head so washing can be done seated or standing with less reaching.', 'Añade una ducha de mano más fácil de controlar para lavarse sentado o de pie con menos esfuerzo.', 'CasaMia selects and fits a suitable shower head, hose and holder where the existing shower connection allows it, then checks reach from the safest bathing position.', 'CasaMia selecciona e instala una ducha de mano, flexo y soporte adecuados cuando la conexión existente lo permite, y comprueba el alcance desde la posición de baño más segura.', 'essential', ['bathroom'], 16, { grantEligible: true, requiresCompatibilityCheck: true }),
     outcome('bathroom-safer-toilet-transfers', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Safer Toilet Transfers', 'Transferencias al inodoro más seguras', 'Toilet transfers', 'Helping residents sit down and stand up with greater stability.', 'Ayuda a sentarse y levantarse del inodoro con mayor estabilidad.', 'Includes toilet support rails and a raised toilet seat when the person needs steadier sit-to-stand movement.', 'Incluye barras de apoyo para inodoro y elevador de inodoro cuando la persona necesita más estabilidad al sentarse y levantarse.', 'essential', ['bathroom'], 20, { legacyId: 'bathroom-raised-toilet-seat', grantEligible: true }),
     outcome('bathroom-slip-prevention', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Slip Prevention', 'Prevención de resbalones', 'Wet-floor safety', 'Reducing common slipping and tripping hazards.', 'Reduce riesgos habituales de resbalones y tropiezos.', 'Improves wet-floor grip and awkward thresholds with anti-slip treatment and a low-profile transition strip.', 'Mejora el agarre del suelo mojado y umbrales difíciles con tratamiento antideslizante y perfil de transición bajo.', 'essential', ['bathroom'], 30, { legacyId: 'bathroom-anti-slip-floor-treatment', grantEligible: true }),
     outcome('bathroom-improved-visibility', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Improved Bathroom Visibility', 'Mejor visibilidad en el baño', 'Bathroom lighting', 'Making the bathroom easier to navigate during the day and at night.', 'Hace que el baño sea más fácil de recorrer durante el día y por la noche.', 'Adds motion-activated night lighting and high-contrast switch markers where visibility is poor.', 'Añade luz nocturna con sensor de movimiento y marcadores de alto contraste en interruptores cuando hay poca visibilidad.', 'essential', ['bathroom', 'lighting'], 40, { legacyId: 'bathroom-improved-lighting', grantEligible: true }),
+    outcome('bathroom-contrast-markers', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Bathroom Contrast Markers', 'Marcadores de contraste en baño', 'Bathroom visibility', 'Adding subtle visual contrast to make key bathroom controls, edges and safe touch points easier to recognise.', 'Añade contraste visual discreto para reconocer mejor mandos, bordes y puntos de apoyo seguros en el baño.', 'Helps residents with low vision or memory difficulties identify taps, switches, rails, toilet position and step edges without making the room look clinical.', 'Ayuda a personas con baja visión o dificultades de memoria a identificar grifos, interruptores, barras, posición del WC y bordes sin que el baño parezca clínico.', 'essential', ['bathroom', 'lighting'], 45, { grantEligible: true }),
     outcome('bathroom-temperature-safety', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Safer Water & Temperature Controls', 'Controles de agua y temperatura más seguros', 'Water control and temperature safety', 'Making taps and shower controls easier to use while reducing scalding risk.', 'Hace que grifos y mandos de ducha sean más fáciles de usar y reduce el riesgo de quemaduras.', 'Includes lever tap or lever-operated shower controls where suitable, plus thermostatic anti-scald protection and safer hot-water temperature settings.', 'Incluye grifo o mandos de ducha de palanca cuando encaje, protección termostática antiquemaduras y ajuste más seguro de la temperatura del agua caliente.', 'essential', ['bathroom'], 50, { legacyId: 'bathroom-thermostatic-valve' }),
     outcome('bathroom-safer-access', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Low-threshold Bathroom Access', 'Acceso al baño con umbral bajo', 'Access', 'Reducing awkward lips or level changes at the bathroom doorway or shower entrance.', 'Reduce resaltes o cambios de nivel incómodos en la puerta del baño o la entrada de la ducha.', 'Helps make bathroom entry smoother by replacing or softening small thresholds that can catch feet, walkers or wheels.', 'Ayuda a que la entrada al baño sea más fluida al sustituir o suavizar pequeños umbrales que pueden enganchar pies, andadores o ruedas.', 'essential', ['bathroom', 'entrance'], 60, { legacyId: 'bathroom-threshold-removal', grantEligible: true }),
     outcome('bathroom-door-hardware', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Bathroom Door Handle & Lock', 'Manilla y cierre de baño más fáciles', 'Door access', 'Making the bathroom door easier to open, close and release in an emergency.', 'Hace que la puerta del baño sea más fácil de abrir, cerrar y desbloquear en caso de emergencia.', 'Adds easier door hardware where the existing door allows it, so daily use and urgent access are less difficult.', 'Añade herrajes de puerta más fáciles de usar cuando la puerta existente lo permite, para facilitar el uso diario y el acceso urgente.', 'essential', ['bathroom', 'entrance'], 70, { grantEligible: true, requiresCompatibilityCheck: true }),
@@ -220,11 +276,13 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     outcome('bathroom-vertical-support', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Vertical Support Rail', 'Barra de apoyo vertical', 'Transfer support', 'Adding stronger upright support where transfers need more than standard horizontal rails.', 'Añade apoyo vertical más firme cuando las transferencias necesitan más que barras horizontales estándar.', 'Gives the resident a predictable upright handhold for shower entry, toilet transfers or tight turning points where suitable.', 'Ofrece un punto de agarre vertical predecible para entrar a la ducha, usar el inodoro o girar en zonas estrechas cuando encaje.', 'essential', ['bathroom'], 75, { legacyId: 'bathroom-vertical-support-rail', grantEligible: true }),
     outcome('bedroom-easier-bed-transfers', 'bedroom', 'home-safety-package', 'bedroom-home-safety-package', 'Getting In and Out of Bed', 'Entrar y salir de la cama con más seguridad', 'Bed access support', 'Making the first movement into or out of bed steadier, calmer and less tiring.', 'Hace que el primer movimiento para entrar o salir de la cama sea más estable, tranquilo y con menos esfuerzo.', 'Improves bedside support, bed height and positioning around one of the most important daily moments.', 'Mejora el apoyo junto a la cama, la altura y la posición de la cama en uno de los momentos diarios más importantes.', 'essential', ['bedroom'], 130, { legacyId: 'bedroom-bed-support', grantEligible: true }),
     outcome('bedroom-bed-wedge-support', 'bedroom', 'home-safety-package', 'bedroom-home-safety-package', 'Supportive Bed Wedge', 'Cojín cuña de apoyo para cama', 'Bed comfort and positioning', 'Helping the person sit up, rest, read or recover in bed with steadier upper-body support.', 'Ayuda a incorporarse, descansar, leer o recuperarse en la cama con más apoyo para la parte superior del cuerpo.', 'Includes a supportive wedge or back-rest cushion where suitable, positioned so comfort improves without blocking the safest way out of bed.', 'Incluye un cojín cuña o respaldo de apoyo cuando encaje, colocado para mejorar la comodidad sin bloquear la salida segura de la cama.', 'essential', ['bedroom'], 135, { grantEligible: true }),
+    outcome('bedroom-dressing-chair', 'bedroom', 'home-safety-package', 'bedroom-home-safety-package', 'Bedside Dressing Chair', 'Silla estable para vestirse', 'Bedroom comfort and dressing', 'Adding a stable seat near the bed or wardrobe so dressing, shoes and pauses can happen without rushed standing.', 'Añade un asiento estable cerca de la cama o del armario para vestirse, calzarse o hacer pausas sin permanecer de pie con prisa.', 'CasaMia selects and positions a supportive chair at the right height, leaving the night route and bed transfer space clear.', 'CasaMia selecciona y coloca una silla de apoyo a la altura adecuada, dejando libre la ruta nocturna y el espacio de transferencia junto a la cama.', 'essential', ['bedroom'], 138, { grantEligible: true }),
     outcome('bedroom-night-time-visibility', 'bedroom', 'home-safety-package', 'bedroom-home-safety-package', 'Night-time Bedroom Lighting', 'Iluminación nocturna del dormitorio', 'Bedroom lighting', 'Making the bedroom and first night movements easier to see without harsh overhead light.', 'Hace que el dormitorio y los primeros movimientos nocturnos sean más fáciles de ver sin luz intensa de techo.', 'Adds motion-activated low-level lighting and bedside lighting so the person can orient themselves calmly at night.', 'Añade iluminación baja con sensor de movimiento e iluminación junto a la cama para orientarse con calma por la noche.', 'essential', ['bedroom', 'lighting'], 140, { legacyId: 'bedroom-night-route', grantEligible: true, technologyEnabled: true }),
     outcome('bedroom-safer-walking-routes', 'bedroom', 'home-safety-package', 'bedroom-home-safety-package', 'Safer Walking Routes', 'Rutas de paso más seguras', 'Bedroom route safety', 'Reducing trip hazards around the bed, door and everyday walking path.', 'Reduce riesgos de tropiezo alrededor de la cama, la puerta y el recorrido habitual.', 'Secures or removes loose rugs, manages cables and clears the bed-to-door route so daily movement is simpler and safer.', 'Fija o retira alfombras sueltas, organiza cables y despeja la ruta entre la cama y la puerta para que moverse sea más sencillo y seguro.', 'essential', ['bedroom', 'living-room'], 145, { grantEligible: true }),
     outcome('bedroom-slip-resistance', 'bedroom', 'home-safety-package', 'bedroom-home-safety-package', 'Bedside Exit Mats', 'Alfombrillas de salida junto a la cama', 'Bed exit comfort and grip', 'Softening the first steps out of bed with a steadier, more comfortable surface underfoot.', 'Suaviza los primeros pasos al salir de la cama con una superficie más estable y cómoda bajo los pies.', 'Includes a matched pair of low-profile anti-slip mats, one for each side of the bed where space allows, to support a smoother exit after standing.', 'Incluye un par de alfombrillas antideslizantes de perfil bajo, una a cada lado de la cama cuando el espacio lo permite, para facilitar una salida más suave al levantarse.', 'essential', ['bedroom'], 150, { grantEligible: true }),
     outcome('bedroom-fire-safety', 'bedroom', 'home-safety-package', 'bedroom-home-safety-package', 'Smoke & Fire Safety', 'Seguridad ante humo e incendio', 'Smoke and fire safety', 'Helping protect the bedroom with earlier smoke warning and a checked alert routine.', 'Ayuda a proteger el dormitorio con aviso temprano de humo y una rutina de alerta comprobada.', 'CasaMia places a suitable smoke detector for the bedroom route, checks the alarm can be heard clearly and confirms how alerts or emergency contacts should be handled.', 'CasaMia coloca un detector de humo adecuado para la ruta del dormitorio, comprueba que la alarma se oye con claridad y confirma cómo gestionar avisos o contactos de emergencia.', 'essential', ['bedroom', 'smart-safety'], 160),
     outcome('bedroom-voice-assistance', 'bedroom', 'connected-room', 'bedroom-connected-room', 'Voice Assistance', 'Asistencia por voz', 'Connected bedroom', 'Voice support for lights, hands-free calls, reminders, family contacts and simple help requests.', 'Apoyo por voz para luces, llamadas manos libres, recordatorios, contactos familiares y peticiones sencillas.', 'Sets up practical voice commands across several daily services, so the resident can ask for help, make calls, control selected routines and stay connected without using a complex interface.', 'Configura comandos de voz prácticos para varios servicios diarios, para pedir ayuda, hacer llamadas, controlar rutinas seleccionadas y mantenerse conectado sin usar una interfaz compleja.', 'recommended', ['bedroom', 'smart-safety'], 190, { technologyEnabled: true, voiceEnabled: true, requiresSmartSpeaker: true }),
+    outcome('bedroom-enhanced-smoke-alert', 'bedroom', 'optional-adaptations', 'bedroom-optional-adaptations', 'Enhanced Smoke Alert', 'Aviso de humo reforzado', 'Optional smoke and hearing support', 'Adding a stronger smoke-alert route for residents who may not reliably hear a standard alarm at night.', 'Añade una ruta de aviso de humo reforzada para residentes que pueden no oír bien una alarma estándar por la noche.', 'CasaMia checks the person’s hearing, bedroom layout and consent needs before recommending a louder alarm, strobe, vibrating alert or family notification setup.', 'CasaMia revisa audición, distribución del dormitorio y necesidades de consentimiento antes de recomendar alarma más potente, luz estroboscópica, aviso vibratorio o notificación familiar.', 'optional', ['bedroom', 'smart-safety'], 230, { quoteOnly: true, requiresCompatibilityCheck: true, technologyEnabled: true }),
     outcome('bedroom-emergency-support', 'bedroom', 'optional-adaptations', 'bedroom-optional-adaptations', 'Emergency & Night-time Support', 'Apoyo de emergencia y noche', 'Emergency and night-time alerts', 'Optional call-for-help and night-time alert support selected for the resident and bedroom.', 'Apoyo opcional para pedir ayuda y recibir alertas nocturnas, seleccionado según la persona y el dormitorio.', 'Combine bedside help, wearable support and selected night-time movement alerts where they are useful and consented.', 'Combina ayuda junto a la cama, apoyo wearable y alertas nocturnas de movimiento cuando sean útiles y haya consentimiento.', 'optional', ['bedroom', 'smart-safety'], 235, { grantEligible: true, quoteOnly: true, requiresCompatibilityCheck: true, technologyEnabled: true }),
     ...[
       ['bedroom-accessible-wardrobe', 'Accessible Wardrobe Adaptation', 'Armario más accesible'],
@@ -249,7 +307,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       requiresCompatibilityCheck: true,
     }),
     outcome('kitchen-safer-food-preparation', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Safer Food Preparation', 'Preparación de alimentos más segura', 'Food preparation', 'Making everyday food preparation easier and reducing strain on the hands and joints.', 'Hace que la preparación diaria de comidas sea más sencilla y reduce el esfuerzo en manos y articulaciones.', 'Support safer chopping, pouring, opening and standing at the main preparation area.', 'Apoya tareas más seguras al cortar, servir, abrir envases y permanecer de pie en la zona principal de preparación.', 'essential', ['kitchen'], 300, { legacyId: 'kitchen-easy-grip-tools', grantEligible: true }),
-    outcome('kitchen-safer-cooking', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Safer Cooking', 'Cocina más segura', 'Cooking safety', 'Reducing everyday cooking risks while maintaining independence.', 'Reduce riesgos cotidianos al cocinar manteniendo la independencia.', 'Add selected safeguards around heat, gas and forgotten cooking routines where suitable.', 'Añade protecciones seleccionadas frente al calor, gas y rutinas olvidadas cuando sea adecuado.', 'essential', ['kitchen', 'smart-safety'], 310, { legacyId: 'kitchen-stove-shutoff', grantEligible: true, technologyEnabled: true, requiresCompatibilityCheck: true }),
+    outcome('kitchen-safer-cooking', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Safer Cooking', 'Cocina más segura', 'Cooking safety', 'Reducing everyday cooking risks while maintaining independence.', 'Reduce riesgos cotidianos al cocinar manteniendo la independencia.', 'CasaMia reviews hob controls, stove knobs, gas or induction compatibility and forgotten-cooking risk before adding suitable safeguards such as clearer controls, knob safety or compatible shut-off support.', 'CasaMia revisa mandos de cocina, pomos, compatibilidad de gas o inducción y riesgo de despistes antes de añadir protecciones adecuadas como controles más claros, seguridad de mandos o corte compatible.', 'essential', ['kitchen', 'smart-safety'], 310, { legacyId: 'kitchen-stove-shutoff', grantEligible: true, technologyEnabled: true, requiresCompatibilityCheck: true }),
     outcome('kitchen-improved-lighting', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Improved Kitchen Lighting', 'Mejor iluminación en la cocina', 'Kitchen lighting', 'Improving visibility across the kitchen.', 'Mejora la visibilidad en toda la cocina.', 'Make preparation, cooking, spills and edges easier to see.', 'Hace más visibles la preparación, la cocción, los derrames y los bordes.', 'essential', ['kitchen', 'lighting'], 320, { legacyId: 'kitchen-worktop-lighting', grantEligible: true, technologyEnabled: true }),
     outcome('kitchen-safer-movement', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Safer Kitchen Movement', 'Movimiento más seguro en la cocina', 'Kitchen movement', 'Reducing trip hazards and making movement around the kitchen easier.', 'Reduce riesgos de tropiezo y facilita moverse por la cocina.', 'Create clearer walking routes and safer standing zones around daily routines.', 'Crea recorridos más despejados y zonas de apoyo más seguras alrededor de las rutinas diarias.', 'essential', ['kitchen', 'living-room'], 330, { legacyId: 'kitchen-anti-fatigue-mat', grantEligible: true }),
     outcome('kitchen-easier-storage', 'kitchen', 'home-safety-package', 'kitchen-home-safety-package', 'Easier Kitchen Storage', 'Almacenamiento de cocina más fácil', 'Reach and storage', 'Making frequently used kitchen items easier to reach.', 'Hace que los utensilios y alimentos de uso frecuente sean más fáciles de alcanzar.', 'Reduce climbing, stretching and carrying by moving everyday items to safer heights.', 'Reduce subirse, estirarse y cargar peso colocando los objetos diarios a alturas más seguras.', 'essential', ['kitchen'], 340, { grantEligible: true }),
@@ -276,6 +334,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     outcome('entrance-wider-doorway', 'entrance', 'optional-adaptations', 'entrance-optional-adaptations', 'Wider Entrance Doorway', 'Puerta de entrada más ancha', 'Optional entrance adaptation', 'A measured entrance doorway adaptation where mobility aids need more clearance.', 'Adaptación medida de la puerta de entrada cuando las ayudas de movilidad necesitan más espacio.', 'Improves access when the current entrance doorway limits safe movement.', 'Mejora el acceso cuando la puerta actual de entrada limita el movimiento seguro.', 'optional', ['entrance'], 540, { quoteOnly: true, grantEligible: true, requiresCompatibilityCheck: true }),
     outcome('entrance-accessibility-ramp', 'entrance', 'optional-adaptations', 'entrance-optional-adaptations', 'Accessibility Ramp', 'Rampa de accesibilidad', 'Optional entrance adaptation', 'A measured ramp solution for entrances that need more than a small threshold ramp.', 'Solución medida de rampa para entradas que necesitan más que una pequeña rampa de umbral.', 'Creates a safer, easier entrance route when steps or height differences require a specialist ramp.', 'Crea una ruta de entrada más segura y fácil cuando los escalones o desniveles requieren una rampa especializada.', 'optional', ['entrance', 'outdoor'], 550, { legacyId: 'entrance-modular-ramp', quoteOnly: true, grantEligible: true, requiresCompatibilityCheck: true }),
     outcome('entrance-seating', 'entrance', 'optional-adaptations', 'entrance-optional-adaptations', 'Entrance Seating', 'Asiento de entrada', 'Optional entrance adaptation', 'A measured seating option near the entrance for safer pauses, shoes, bags or waiting.', 'Opción medida de asiento cerca de la entrada para pausas, calzado, bolsas o esperas más seguras.', 'Adds a stable place to pause without blocking the entrance route.', 'Añade un punto estable para hacer una pausa sin bloquear la ruta de entrada.', 'optional', ['entrance'], 560, { quoteOnly: true, grantEligible: true, requiresCompatibilityCheck: true }),
+    outcome('entrance-key-safe', 'entrance', 'optional-adaptations', 'entrance-optional-adaptations', 'Emergency Key Safe', 'Caja de llaves de emergencia', 'Optional entrance adaptation', 'Adding a secure key safe so trusted relatives, carers or emergency contacts can access the home when agreed.', 'Añade una caja de llaves segura para que familiares, cuidadores o contactos de emergencia puedan acceder a la vivienda cuando esté acordado.', 'CasaMia helps choose a discreet weather-resistant key safe, positions it sensibly and confirms who should know the access code.', 'CasaMia ayuda a elegir una caja de llaves discreta y resistente a la intemperie, la coloca de forma sensata y confirma quién debe conocer el código.', 'optional', ['entrance', 'outdoor'], 565, { quoteOnly: true, requiresCompatibilityCheck: true }),
   ],
   capabilities: [
     capability('bedside-lighting', 'Bedside lighting', true),
@@ -288,6 +347,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     capability('transfer-clearance', 'Clear transfer space beside the bed'),
     capability('discreet-transfer-support', 'Bed assist handle'),
     capability('bed-wedge-back-support', 'Supportive bed wedge or back-rest cushion'),
+    capability('bedroom-dressing-chair-support', 'Stable bedside dressing chair'),
     capability('furniture-repositioning', 'Furniture repositioning'),
     capability('loose-rug-securing', 'Loose rug removal or securing'),
     capability('cable-management', 'Cable management'),
@@ -298,6 +358,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     capability('wearable-emergency-support', 'Wearable emergency pendant', true, true),
     capability('bedside-emergency-assistance', 'Bedside emergency assistance', true, true),
     capability('smoke-alerting', 'Smoke detector', true, true),
+    capability('enhanced-smoke-alerting', 'Enhanced smoke alert setup', true, true),
     capability('smart-speaker-setup', 'Smart speaker setup', true, true),
     capability('voice-controlled-lighting', 'Voice-controlled lighting', true, true),
     capability('hands-free-calling', 'Hands-free phone calls', true, true),
@@ -396,9 +457,11 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     capability('wider-entrance-doorway', 'Wider entrance doorway'),
     capability('accessibility-ramp', 'Accessibility ramp'),
     capability('entrance-seating-option', 'Entrance seating'),
+    capability('entrance-key-safe-access', 'Emergency key safe'),
     capability('bathroom-wall-mounted-grab-bars', 'Wall-mounted grab bars'),
     capability('bathroom-folding-shower-seat-support', 'Folding shower seat'),
     capability('bathroom-anti-slip-bath-shower-mat', 'Secure anti-slip bath and exit mat set'),
+    capability('bathroom-handheld-shower-control', 'Handheld shower head and holder'),
     capability('bathroom-toilet-support-rails', 'Toilet support rails'),
     capability('bathroom-raised-toilet-seat', 'Raised toilet seat'),
     capability('bathroom-anti-slip-floor-treatment', 'Anti-slip floor treatment'),
@@ -407,6 +470,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     capability('bathroom-task-lighting', 'Bathroom-rated task lighting'),
     capability('bathroom-motion-night-lighting', 'Motion-activated night lighting', true, true),
     capability('easy-see-switches', 'High-contrast switch markers'),
+    capability('bathroom-visual-contrast-markers', 'Bathroom contrast markers'),
     capability('bathroom-lever-mixer-tap', 'Lever mixer tap'),
     capability('bathroom-lever-shower-controls', 'Lever-operated shower controls'),
     capability('lever-water-control', 'Lever mixer tap'),
@@ -434,6 +498,8 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     product('toilet-support-rail', 'Toilet support rail', 'hardware', 0.1, true),
     product('anti-slip-treatment', 'Anti-slip floor treatment', 'material', 0.21, true),
     product('anti-slip-mat', 'Secure anti-slip bath and exit mat set', 'hardware', 0.21, false),
+    product('handheld-shower-head', 'Handheld shower head and holder', 'hardware', 0.21, false),
+    product('bathroom-contrast-marker-kit', 'Bathroom contrast marker kit', 'material', 0.21, false),
     product('bathroom-led-light', 'Bathroom LED light', 'hardware', 0.21, false),
     product('high-contrast-switch-control', 'Easier-to-see switch or control marking', 'material', 0.21, false),
     product('motion-sensor', 'Motion sensor', 'device', 0.21, false, true),
@@ -472,6 +538,8 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     product('wearable-emergency-pendant', 'Wearable emergency pendant', 'device', 0.21, false, true),
     product('bedside-emergency-button', 'Bedside emergency assistance button', 'device', 0.21, false, true),
     product('smoke-detector', 'Smoke detector', 'device', 0.21, false, true),
+    product('bedside-dressing-chair', 'Stable bedside dressing chair', 'hardware', 0.21, true),
+    product('enhanced-smoke-alert-kit', 'Enhanced smoke alert kit', 'device', 0.21, false, true),
     product('routine-setup-service', 'Medication and routine reminder setup', 'software', 0.21, false, true),
     product('accessible-wardrobe-adaptation-service', 'Accessible wardrobe adaptation service', 'service', 0.21, true),
     product('advanced-bed-transfer-solution-service', 'Advanced bed transfer solution service', 'service', 0.1, true, true),
@@ -530,12 +598,15 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     product('wider-entrance-doorway-service', 'Wider entrance doorway service', 'service', 0.21, true),
     product('accessibility-ramp-service', 'Accessibility ramp service', 'service', 0.1, true, true),
     product('entrance-seating-product', 'Entrance seating', 'hardware', 0.1, true, true),
+    product('key-safe', 'Outdoor key safe', 'hardware', 0.21, false, true),
   ],
   installationTasks: [
     task('inspect-fixing-surface', 'Inspect fixing surface', 25, 'assessment', true, false),
     task('install-support-rail', 'Install support rail', 45, 'general', true, true),
     task('fit-shower-seat', 'Fit shower seat', 50, 'general', true, true),
+    task('fit-handheld-shower-head', 'Fit handheld shower head and holder', 35, 'plumbing', true, false),
     task('apply-anti-slip-treatment', 'Apply anti-slip treatment', 60, 'general', true, false),
+    task('fit-contrast-markers', 'Fit bathroom contrast markers', 20, 'general', false, false),
     task('fit-water-control', 'Fit safer water control', 55, 'plumbing', true, true),
     task('set-hot-water-temperature', 'Set safer hot-water temperature', 30, 'plumbing', true, false),
     task('reduce-threshold', 'Reduce or mark threshold', 45, 'general', true, true),
@@ -550,7 +621,9 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     task('configure-bedroom-emergency-support', 'Configure bedroom emergency support', 40, 'smart_home', true, false),
     task('reposition-furniture', 'Reposition furniture', 30, 'general', false, false),
     task('position-bed-wedge-support', 'Position bed wedge/back-rest support', 20, 'general', false, false),
+    task('position-dressing-chair', 'Position bedside dressing chair', 20, 'general', false, false),
     task('fit-bedside-anti-slip-mats', 'Position bedside exit mats', 20, 'general', false, false),
+    task('configure-enhanced-smoke-alert', 'Configure enhanced smoke alert', 45, 'smart_home', true, false),
     task('measure-specialist-adaptation', 'Measure specialist adaptation', 45, 'assessment', true, true),
     task('set-up-kitchen-prep-support', 'Set up safer food preparation support', 30, 'general', false, false),
     task('assess-kitchen-cooking-safety', 'Assess kitchen cooking safety', 35, 'assessment', true, false),
@@ -592,6 +665,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     task('measure-entrance-doorway', 'Measure entrance doorway adaptation', 45, 'assessment', true, true),
     task('assess-accessibility-ramp', 'Assess accessibility ramp route', 60, 'assessment', true, true),
     task('fit-entrance-seating', 'Fit entrance seating', 45, 'general', true, true),
+    task('fit-key-safe', 'Fit emergency key safe', 40, 'general', true, true),
   ],
   relations: [
     ...packageOutcomeRelations(),
@@ -813,8 +887,11 @@ function getMasterServiceCatalogueSeedOutcomeIds() {
   ['bathroom-home-safety-package', 'bathroom-safer-bathing'],
   ['bathroom-home-safety-package', 'bathroom-folding-shower-seat'],
   ['bathroom-home-safety-package', 'bathroom-anti-slip-bath-mat'],
+  ['bathroom-home-safety-package', 'bathroom-handheld-shower-head'],
   ['bathroom-home-safety-package', 'bathroom-safer-toilet-transfers'],
   ['bathroom-home-safety-package', 'bathroom-slip-prevention'],
+  ['bathroom-home-safety-package', 'bathroom-improved-visibility'],
+  ['bathroom-home-safety-package', 'bathroom-contrast-markers'],
   ['bathroom-home-safety-package', 'bathroom-temperature-safety'],
   ['bathroom-home-safety-package', 'bathroom-safer-access'],
   ['bathroom-home-safety-package', 'bathroom-door-hardware'],
@@ -825,11 +902,13 @@ function getMasterServiceCatalogueSeedOutcomeIds() {
   ['bathroom-optional-adaptations', 'bathroom-wider-doorway'],
   ['bedroom-home-safety-package', 'bedroom-easier-bed-transfers'],
   ['bedroom-home-safety-package', 'bedroom-bed-wedge-support'],
+  ['bedroom-home-safety-package', 'bedroom-dressing-chair'],
   ['bedroom-home-safety-package', 'bedroom-night-time-visibility'],
   ['bedroom-home-safety-package', 'bedroom-safer-walking-routes'],
   ['bedroom-home-safety-package', 'bedroom-slip-resistance'],
   ['bedroom-home-safety-package', 'bedroom-fire-safety'],
   ['bedroom-connected-room', 'bedroom-voice-assistance'],
+  ['bedroom-optional-adaptations', 'bedroom-enhanced-smoke-alert'],
   ['bedroom-optional-adaptations', 'bedroom-emergency-support'],
   ['bedroom-optional-adaptations', 'bedroom-accessible-wardrobe'],
   ['bedroom-optional-adaptations', 'bedroom-advanced-bed-transfer'],
@@ -863,6 +942,7 @@ function getMasterServiceCatalogueSeedOutcomeIds() {
   ['entrance-optional-adaptations', 'entrance-wider-doorway'],
   ['entrance-optional-adaptations', 'entrance-accessibility-ramp'],
   ['entrance-optional-adaptations', 'entrance-seating'],
+  ['entrance-optional-adaptations', 'entrance-key-safe'],
   ]
 }
 
@@ -871,9 +951,11 @@ function outcomeCapabilityRelations() {
     'bathroom-safer-bathing': ['bathroom-wall-mounted-grab-bars'],
     'bathroom-folding-shower-seat': ['bathroom-folding-shower-seat-support'],
     'bathroom-anti-slip-bath-mat': ['bathroom-anti-slip-bath-shower-mat'],
+    'bathroom-handheld-shower-head': ['bathroom-handheld-shower-control'],
     'bathroom-safer-toilet-transfers': ['bathroom-toilet-support-rails', 'bathroom-raised-toilet-seat'],
     'bathroom-slip-prevention': ['bathroom-anti-slip-floor-treatment', 'bathroom-safer-floor-transition'],
     'bathroom-improved-visibility': ['bathroom-motion-night-lighting', 'easy-see-switches'],
+    'bathroom-contrast-markers': ['bathroom-visual-contrast-markers'],
     'bathroom-temperature-safety': ['bathroom-lever-mixer-tap', 'bathroom-lever-shower-controls', 'bathroom-thermostatic-anti-scald-valve', 'hot-water-temperature-setting'],
     'bathroom-safer-access': ['threshold-reduction'],
     'bathroom-door-hardware': ['bathroom-lever-door-handle', 'bathroom-easy-release-privacy-lock', 'bathroom-door-adjustment'],
@@ -884,11 +966,13 @@ function outcomeCapabilityRelations() {
     'bathroom-vertical-support': ['specialist-measurement', 'bathroom-vertical-support-rail'],
     'bedroom-easier-bed-transfers': ['discreet-transfer-support', 'bed-height-optimisation', 'bed-positioning-adjustment'],
     'bedroom-bed-wedge-support': ['bed-wedge-back-support'],
+    'bedroom-dressing-chair': ['bedroom-dressing-chair-support'],
     'bedroom-night-time-visibility': ['bedroom-motion-night-lighting', 'bedside-lighting'],
     'bedroom-safer-walking-routes': ['loose-rug-securing', 'cable-management', 'bed-to-door-clear-route'],
     'bedroom-slip-resistance': ['bedside-anti-slip-mats'],
     'bedroom-emergency-support': ['emergency-call-access', 'wearable-emergency-support', 'bedside-emergency-assistance', 'movement-reassurance', 'night-time-safety-alerts'],
     'bedroom-fire-safety': ['smoke-alerting'],
+    'bedroom-enhanced-smoke-alert': ['enhanced-smoke-alerting'],
     'bedroom-voice-assistance': ['smart-speaker-setup', 'voice-controlled-lighting', 'hands-free-calling', 'voice-help-requests', 'routine-reminders', 'family-carer-notifications'],
     'bedroom-accessible-wardrobe': ['accessible-wardrobe-adaptation'],
     'bedroom-advanced-bed-transfer': ['advanced-bed-transfer-solution'],
@@ -922,6 +1006,7 @@ function outcomeCapabilityRelations() {
     'entrance-wider-doorway': ['wider-entrance-doorway'],
     'entrance-accessibility-ramp': ['accessibility-ramp'],
     'entrance-seating': ['entrance-seating-option'],
+    'entrance-key-safe': ['entrance-key-safe-access'],
   }
 
   return Object.entries(map).flatMap(([outcomeId, capabilityIds]) =>
@@ -934,6 +1019,7 @@ function capabilityProductRelations() {
     'bathroom-wall-mounted-grab-bars': ['grab-bar'],
     'bathroom-folding-shower-seat-support': ['folding-shower-seat'],
     'bathroom-anti-slip-bath-shower-mat': ['anti-slip-mat'],
+    'bathroom-handheld-shower-control': ['handheld-shower-head'],
     'bathroom-toilet-support-rails': ['toilet-support-rail'],
     'bathroom-raised-toilet-seat': ['raised-toilet-seat'],
     'bathroom-anti-slip-floor-treatment': ['anti-slip-treatment'],
@@ -942,6 +1028,7 @@ function capabilityProductRelations() {
     'bathroom-task-lighting': ['bathroom-led-light'],
     'bathroom-motion-night-lighting': ['motion-sensor', 'bathroom-led-light'],
     'easy-see-switches': ['high-contrast-switch-control'],
+    'bathroom-visual-contrast-markers': ['bathroom-contrast-marker-kit'],
     'bathroom-lever-mixer-tap': ['lever-mixer-tap'],
     'bathroom-lever-shower-controls': ['lever-operated-shower-control'],
     'motion-activated-lighting': ['motion-sensor', 'low-level-floor-light'],
@@ -968,6 +1055,7 @@ function capabilityProductRelations() {
     'bed-positioning-adjustment': ['bed-positioning-service'],
     'bed-to-door-clear-route': ['bed-to-door-route-service'],
     'bed-wedge-back-support': ['bed-wedge-back-support-cushion'],
+    'bedroom-dressing-chair-support': ['bedside-dressing-chair'],
     'bedside-anti-slip-mats': ['bedside-anti-slip-mat-pair'],
     'loose-rug-securing': ['secure-floor-coverings-service'],
     'cable-management': ['cable-management-kit'],
@@ -987,6 +1075,7 @@ function capabilityProductRelations() {
     'movement-reassurance': ['motion-sensor'],
     'emergency-call-access': ['emergency-call-button', 'smart-speaker'],
     'smoke-alerting': ['smoke-detector'],
+    'enhanced-smoke-alerting': ['enhanced-smoke-alert-kit'],
     'accessible-wardrobe-adaptation': ['accessible-wardrobe-adaptation-service'],
     'advanced-bed-transfer-solution': ['advanced-bed-transfer-solution-service'],
     'electric-adjustable-bed': ['electric-adjustable-bed-product', 'adjustable-bed-fit-assessment-service', 'adjustable-bed-mattress-guidance-service', 'adjustable-bed-delivery-installation-service', 'adjustable-bed-control-handover-service'],
@@ -1053,6 +1142,7 @@ function capabilityProductRelations() {
     'wider-entrance-doorway': ['wider-entrance-doorway-service'],
     'accessibility-ramp': ['accessibility-ramp-service'],
     'entrance-seating-option': ['entrance-seating-product'],
+    'entrance-key-safe-access': ['key-safe'],
   }
 
   return Object.entries(map).flatMap(([capabilityId, productIds]) =>
@@ -1065,12 +1155,14 @@ function capabilityTaskRelations() {
     'bathroom-wall-mounted-grab-bars': ['inspect-fixing-surface', 'install-support-rail'],
     'bathroom-folding-shower-seat-support': ['inspect-fixing-surface', 'fit-shower-seat'],
     'bathroom-anti-slip-bath-shower-mat': ['inspect-fixing-surface'],
+    'bathroom-handheld-shower-control': ['fit-handheld-shower-head'],
     'bathroom-toilet-support-rails': ['inspect-fixing-surface', 'install-support-rail'],
     'bathroom-raised-toilet-seat': ['inspect-fixing-surface'],
     'bathroom-anti-slip-floor-treatment': ['apply-anti-slip-treatment'],
     'bathroom-safer-floor-transition': ['reduce-threshold'],
     'wet-floor-grip': ['apply-anti-slip-treatment'],
     'bathroom-motion-night-lighting': ['configure-motion-lighting'],
+    'bathroom-visual-contrast-markers': ['fit-contrast-markers'],
     'bathroom-lever-mixer-tap': ['fit-water-control'],
     'bathroom-lever-shower-controls': ['fit-water-control'],
     'bathroom-thermostatic-anti-scald-valve': ['fit-water-control'],
@@ -1096,12 +1188,14 @@ function capabilityTaskRelations() {
     'bed-positioning-adjustment': ['reposition-furniture'],
     'bed-to-door-clear-route': ['reposition-furniture'],
     'bed-wedge-back-support': ['position-bed-wedge-support'],
+    'bedroom-dressing-chair-support': ['position-dressing-chair'],
     'bedside-anti-slip-mats': ['fit-bedside-anti-slip-mats'],
     'smart-speaker-setup': ['pair-smart-speaker'],
     'emergency-call-access': ['test-emergency-contact', 'configure-bedroom-emergency-support'],
     'wearable-emergency-support': ['configure-bedroom-emergency-support', 'test-emergency-contact'],
     'bedside-emergency-assistance': ['configure-bedroom-emergency-support', 'test-emergency-contact'],
     'smoke-alerting': ['test-emergency-contact'],
+    'enhanced-smoke-alerting': ['configure-enhanced-smoke-alert', 'test-emergency-contact'],
     'loose-rug-securing': ['reposition-furniture'],
     'cable-management': ['reposition-furniture'],
     'accessible-storage-arrangement': ['reposition-furniture'],
@@ -1181,6 +1275,7 @@ function capabilityTaskRelations() {
     'wider-entrance-doorway': ['measure-entrance-doorway'],
     'accessibility-ramp': ['assess-accessibility-ramp'],
     'entrance-seating-option': ['fit-entrance-seating'],
+    'entrance-key-safe-access': ['fit-key-safe'],
   }
 
   return Object.entries(map).flatMap(([capabilityId, taskIds]) =>

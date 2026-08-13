@@ -456,6 +456,8 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Family or carer alert setup': 'Avisos para familia o cuidador',
     'Folding shower seat': 'Asiento abatible de ducha',
     'Grab bar': 'Barra de apoyo',
+    'Handheld shower head and holder': 'Ducha de mano y soporte',
+    'Bathroom contrast marker kit': 'Kit de marcadores de contraste para baño',
     'Lever door handle': 'Manilla tipo palanca',
     'Lever mixer tap': 'Grifo monomando de palanca',
     'Lever-operated shower control': 'Mando de ducha de palanca',
@@ -481,6 +483,8 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Secure anti-slip bath and exit mat set': 'Juego de alfombrillas antideslizantes para bañera y salida',
     'Smart speaker': 'Altavoz inteligente',
     'Smoke detector': 'Detector de humo',
+    'Stable bedside dressing chair': 'Silla estable para vestirse',
+    'Enhanced smoke alert kit': 'Kit de aviso de humo reforzado',
     'Thermostatic anti-scald valve': 'Valvula termostatica antiquemaduras',
     'Toilet support rail': 'Barra de apoyo para inodoro',
     'Vertical support rail': 'Barra de apoyo vertical',
@@ -495,6 +499,7 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Wider kitchen doorway service': 'Ensanche de puerta de cocina',
     'Wider living room doorway': 'Puerta de salon mas ancha',
     'Wider living room doorway service': 'Ensanche de puerta de salon',
+    'Outdoor key safe': 'Caja de llaves exterior',
     'Voice command setup for lights, calls and help requests': 'Configuracion de voz para luces, llamadas y peticiones de ayuda',
     'Voice help request setup': 'Configuracion de peticiones de ayuda por voz',
   }
@@ -511,16 +516,22 @@ function getPlanDetailServiceSummaryItems(
   const taskText = specification.installationTasks.map((task) => task.name).join(' ').toLocaleLowerCase()
   const serviceItems: string[] = []
 
+  serviceItems.push(language === 'es' ? 'Seleccion del producto adecuado' : 'CasaMia product selection')
+
   if (/inspect|measure/.test(taskText)) {
     serviceItems.push(language === 'es' ? 'Revision de idoneidad y medidas' : 'Suitability check and measurements')
   }
 
   if (/configure|alert/.test(taskText)) {
-    serviceItems.push(language === 'es' ? 'Configuracion y prueba de avisos' : 'Alert setup and testing')
+    serviceItems.push(language === 'es' ? 'Configuracion y prueba de avisos con consentimiento' : 'Consent-aware setup and testing')
   }
 
   if (/install|fit|apply|reduce|mark|set|adjust/.test(taskText)) {
     serviceItems.push(language === 'es' ? 'Instalacion o ajuste profesional' : 'Professional installation or setup')
+  }
+
+  if (taskText) {
+    serviceItems.push(language === 'es' ? 'Prueba, explicacion de uso y soporte posterior' : 'Testing, handover and aftercare')
   }
 
   return serviceItems
@@ -540,8 +551,9 @@ function getPlanDetailIncludedItems(
     ? []
     : specification.capabilities.filter((capability) => capability.active).map((capability) => capability.name)
   const serviceItems = getPlanDetailServiceSummaryItems(outcome, catalogue, language)
+  const visibleProductItems = localizedProductItems.slice(0, Math.max(1, 6 - serviceItems.length))
   const resolvedItems = dedupePlanDetailItems([
-    ...localizedProductItems,
+    ...visibleProductItems,
     ...capabilityFallbackItems,
     ...serviceItems,
   ])
