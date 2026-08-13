@@ -108,7 +108,7 @@ export function BeforeAfterCard({
             </li>
           ))}
         </ul>
-        <Link className="before-after-card-link mt-6" to="/home-safety-assessment">
+        <Link className="before-after-card-link mt-6" to="/plans">
           {cta}
           <ArrowRight size={17} aria-hidden="true" />
         </Link>

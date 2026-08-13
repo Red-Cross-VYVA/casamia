@@ -7,7 +7,6 @@ import {
   ClipboardCheck,
   Download,
   ExternalLink,
-  FileText,
   Home,
   MapPin,
   Sparkles,
@@ -48,7 +47,6 @@ type Result = {
   tone: 'strong' | 'review' | 'watch'
   reasons: string[]
   managedByCasamia: string[]
-  neededFromUser: string[]
 }
 
 type Option = {
@@ -580,7 +578,6 @@ export function GrantEligibilityPage() {
 
             <ResultList title={copy.result.reasonsTitle} icon={<Sparkles size={18} aria-hidden="true" />} items={result.reasons} />
             <ResultList title={copy.result.managedTitle} icon={<ClipboardCheck size={18} aria-hidden="true" />} items={result.managedByCasamia} />
-            <ResultList title={copy.result.neededTitle} icon={<FileText size={18} aria-hidden="true" />} items={result.neededFromUser} />
 
             {step >= 3 ? (
               <div className="grant-submitted">
@@ -971,7 +968,6 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
   const calculation = copy.calculation
   let score = 18
   const reasons: string[] = []
-  const neededFromUser = [...calculation.neededFromUser.base]
 
   if (form.region) {
     score += 8
@@ -994,11 +990,9 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
   if (form.recognisedStatus === 'Recognised disability or dependency') {
     score += 18
     reasons.push(calculation.reasons.recognisedStatus)
-    neededFromUser.push(calculation.neededFromUser.disability)
   } else if (form.recognisedStatus === 'Application in progress') {
     score += 11
     reasons.push(calculation.reasons.statusInProgress)
-    neededFromUser.push(calculation.neededFromUser.statusInProgress)
   } else if (form.recognisedStatus === 'Prefer not to say') {
     score += 4
     reasons.push(calculation.reasons.privateStatus)
@@ -1026,11 +1020,9 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
   } else if (form.ownership === 'Rented home') {
     score += 3
     reasons.push(calculation.reasons.rented)
-    neededFromUser.push(calculation.neededFromUser.landlord)
   } else if (form.ownership === 'Community building works') {
     score += 6
     reasons.push(calculation.reasons.community)
-    neededFromUser.push(calculation.neededFromUser.community)
   }
 
   if (form.timeline === 'As soon as possible' || form.timeline === 'Within 1 month') {
@@ -1049,7 +1041,6 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
       tone: 'strong',
       reasons,
       managedByCasamia: baseManagement,
-      neededFromUser,
     }
   }
 
@@ -1061,7 +1052,6 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
       tone: 'review',
       reasons,
       managedByCasamia: baseManagement,
-      neededFromUser,
     }
   }
 
@@ -1072,7 +1062,6 @@ function calculateResult(form: FormState, copy: GrantCopy): Result {
     tone: 'watch',
     reasons,
     managedByCasamia: calculation.casamiaManagement.watch,
-    neededFromUser,
   }
 }
 
@@ -1456,7 +1445,6 @@ function getGrantCopy(language: string) {
         instantReport: 'Informe instantáneo',
         reasonsTitle: 'Por qué aparece este resultado',
         managedTitle: 'Qué gestionará CasaMia',
-        neededTitle: 'Qué necesitamos de ti',
         handoffTitle: 'El informe ya tiene lo esencial.',
         handoffBody:
           'En el siguiente paso puedes enviarlo por email o WhatsApp. CasaMia usará estos datos para revisar la vía de ayuda y decirte exactamente qué falta.',
@@ -1537,17 +1525,6 @@ function getGrantCopy(language: string) {
         yourRegion: 'tu comunidad',
       },
       calculation: {
-        neededFromUser: {
-          base: [
-            'Código postal y municipio exacto de la vivienda.',
-            'Situación de la vivienda: propiedad, alquiler, familiar o comunidad de vecinos.',
-            'Quién vive en la vivienda y qué dificultad práctica tiene: baño, acceso, escaleras, suelo o iluminación.',
-          ],
-          disability: 'Certificado de discapacidad o resolución de dependencia, solo si ya lo tienes.',
-          statusInProgress: 'Justificante de solicitud de discapacidad o dependencia en trámite, si existe.',
-          landlord: 'Contacto o autorización del propietario si la vivienda es alquilada.',
-          community: 'Administrador, presidente o acta de comunidad si la mejora afecta zonas comunes.',
-        },
         reasons: {
           region: (region: string) => `${region} puede revisarse frente a convocatorias regionales o municipales.`,
           missingRegion: 'Falta la comunidad autónoma, necesaria para revisar la ruta de ayuda correcta.',
@@ -1718,7 +1695,6 @@ function getGrantCopy(language: string) {
       instantReport: 'Instant report',
       reasonsTitle: 'Why this result appears',
       managedTitle: 'What CasaMia will manage',
-      neededTitle: 'What we need from you',
       handoffTitle: 'The report now has the essentials.',
       handoffBody:
         'In the next step you can send it by email or WhatsApp. CasaMia will use these details to review the grant route and tell you exactly what is still missing.',
@@ -1797,17 +1773,6 @@ function getGrantCopy(language: string) {
       yourRegion: 'your region',
     },
     calculation: {
-      neededFromUser: {
-        base: [
-          'The exact postcode and municipality of the home.',
-          'The housing situation: owned, rented, family-owned, or building community.',
-          'Who lives in the home and the practical difficulty: bathroom, access, stairs, flooring, or lighting.',
-        ],
-        disability: 'Disability certificate or dependency resolution, only if you already have it.',
-        statusInProgress: 'Proof that a disability or dependency application is in progress, if it exists.',
-        landlord: 'Landlord contact or authorisation if the home is rented.',
-        community: 'Building administrator, president, or meeting minutes if shared areas are involved.',
-      },
       reasons: {
         region: (region: string) => `${region} can be checked against regional and municipal accessibility calls.`,
         missingRegion: 'Region is still needed because most grant routes are managed locally.',

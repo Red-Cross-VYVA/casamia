@@ -77,6 +77,8 @@ type PlansCopy = {
   contactTitle: string
   continueToReview: string
   coreIncluded: string
+  turnkeyCardLabel: string
+  turnkeyCardBody: string
   closeDetails: string
   createDraft: string
   creatingDraft: string
@@ -476,6 +478,7 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Remote control setup and handover': 'Configuración de mando y explicación de uso',
     'Safer hot-water temperature setting': 'Ajuste seguro de agua caliente',
     'Secure anti-slip bath mat': 'Alfombrilla antideslizante segura',
+    'Secure anti-slip bath and exit mat set': 'Juego de alfombrillas antideslizantes para bañera y salida',
     'Smart speaker': 'Altavoz inteligente',
     'Smoke detector': 'Detector de humo',
     'Thermostatic anti-scald valve': 'Valvula termostatica antiquemaduras',
@@ -584,6 +587,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Receive proposal',
     continueToReview: 'Review selected packages',
     coreIncluded: 'Core package',
+    turnkeyCardLabel: 'Turnkey, installed package',
+    turnkeyCardBody: 'CasaMia coordinates products, professional installation, handover and aftercare.',
     closeDetails: 'Close',
     createDraft: 'Generate proposal',
     creatingDraft: 'Generating proposal...',
@@ -686,6 +691,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Enviar a revisión',
     continueToReview: 'Revisar paquetes elegidos',
     coreIncluded: 'Paquete base',
+    turnkeyCardLabel: 'Paquete llave en mano instalado',
+    turnkeyCardBody: 'CasaMia coordina productos, instalación profesional, entrega y soporte posterior.',
     closeDetails: 'Cerrar',
     createDraft: 'Crear borrador',
     creatingDraft: 'Creando borrador...',
@@ -2079,6 +2086,13 @@ export function PlansPage() {
                     <div className="plans-room-card-footer">
                       <div>
                         <strong>{copy.coreIncluded}</strong>
+                        <div className="plans-room-turnkey-note">
+                          <PackageCheck size={16} aria-hidden="true" />
+                          <div>
+                            <b>{copy.turnkeyCardLabel}</b>
+                            <small>{copy.turnkeyCardBody}</small>
+                          </div>
+                        </div>
                         <button
                           className="plans-detail-link"
                           type="button"

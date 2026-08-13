@@ -20,6 +20,12 @@ type OfferCard = {
   points?: string[]
 }
 
+type InspectionCreditCopy = {
+  amount: string
+  title: string
+  body: string
+}
+
 type OfferVisual = {
   Icon: LucideIcon
   className: string
@@ -145,13 +151,26 @@ function getProposalSnapshotCopy(value: unknown): ProposalSnapshotCopy {
   }
 }
 
+function getInspectionCreditCopy(value: unknown): InspectionCreditCopy | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null
+
+  const candidate = value as Partial<InspectionCreditCopy>
+
+  if (!candidate.amount || !candidate.title || !candidate.body) return null
+
+  return {
+    amount: candidate.amount,
+    title: candidate.title,
+    body: candidate.body,
+  }
+}
+
 export function WhatWeOffer() {
   const { t } = useTranslation()
   const cards = t('offer.cards', { returnObjects: true }) as OfferCard[]
   const intro = t('offer.intro', { defaultValue: '' })
   const proposalSnapshot = getProposalSnapshotCopy(t('offer.proposalSnapshot', { returnObjects: true }))
-  const primaryCta = t('offer.ctaPrimary', { defaultValue: 'Build your CasaMia plan' })
-  const secondaryCta = t('offer.ctaSecondary', { defaultValue: 'Ask us to contact you' })
+  const inspectionCredit = getInspectionCreditCopy(t('offer.inspectionCredit', { returnObjects: true }))
 
   return (
     <section className="offer-section section-pad bg-white" id="what-we-offer">
@@ -193,6 +212,18 @@ export function WhatWeOffer() {
                       <p>{card.desc}</p>
                     )}
                   </div>
+                  {index === 0 && inspectionCredit ? (
+                    <div className="offer-credit-note">
+                      <span className="offer-credit-note-badge">
+                        <BadgeEuro size={20} aria-hidden="true" />
+                        <strong>{inspectionCredit.amount}</strong>
+                      </span>
+                      <div>
+                        <b>{inspectionCredit.title}</b>
+                        <small>{inspectionCredit.body}</small>
+                      </div>
+                    </div>
+                  ) : null}
                   {card.points?.length ? (
                     <ul className="offer-card-points">
                       {card.points.map((point) => (
@@ -207,17 +238,6 @@ export function WhatWeOffer() {
               </article>
             )
           })}
-        </div>
-
-        <div className="offer-actions">
-          <Link className="btn btn-green" to="/home-safety-wizard">
-            {primaryCta}
-            <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-          <Link className="offer-secondary-link" to="/why-us#contact-form">
-            {secondaryCta}
-            <ArrowRight size={17} aria-hidden="true" />
-          </Link>
         </div>
 
         <Link

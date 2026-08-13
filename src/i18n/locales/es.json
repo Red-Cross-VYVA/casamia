@@ -345,6 +345,11 @@
         "Ruta nocturna"
       ]
     },
+    "inspectionCredit": {
+      "amount": "99 EUR",
+      "title": "Descontable si contratas",
+      "body": "La visita se descuenta de cualquier pedido CasaMia superior a 150 EUR."
+    },
     "cards": [
       {
         "icon": "Paso 1",

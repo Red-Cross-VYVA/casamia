@@ -346,7 +346,7 @@ function uniqueTextItems(items: string[]) {
 
 function getSpanishCapabilityName(capabilityId: string, fallback: string) {
   const names: Record<string, string> = {
-    'bathroom-anti-slip-bath-shower-mat': 'Alfombrilla antideslizante para bañera o ducha',
+    'bathroom-anti-slip-bath-shower-mat': 'Juego de alfombrillas antideslizantes para bañera y salida',
     'bathroom-anti-slip-floor-treatment': 'Tratamiento antideslizante de suelo',
     'bathroom-bathtub-step-through-conversion': 'Conversión de bañera con acceso bajo',
     'bathroom-door-adjustment': 'Ajuste de puerta para reducir resistencia',

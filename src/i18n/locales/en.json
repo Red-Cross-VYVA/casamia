@@ -345,6 +345,11 @@
         "Night route"
       ]
     },
+    "inspectionCredit": {
+      "amount": "99 EUR",
+      "title": "Credited back if you order",
+      "body": "The home inspection fee is credited toward any CasaMia order above 150 EUR."
+    },
     "cards": [
       {
         "icon": "Step 1",

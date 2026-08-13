@@ -168,11 +168,11 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     safetyNotice: 'Debe evaluarse el material y el estado del suelo antes de aplicarlo.',
   },
   'bathroom-anti-slip-bath-mat': {
-    name: 'Alfombrilla antideslizante segura',
-    shortDescription: 'Alfombrilla de alto agarre para bañera o ducha.',
-    customerBenefit: 'Añade tracción en zonas mojadas.',
+    name: 'Juego de alfombrillas antideslizantes seguras',
+    shortDescription: 'Alfombrilla de alto agarre para bañera o ducha y otra estable para salir.',
+    customerBenefit: 'Mejora el agarre al lavarse y al pisar fuera con los pies mojados.',
     category: 'Seguridad en el baño',
-    includedItems: ['Alfombrilla antideslizante'],
+    includedItems: ['Alfombrilla interior para bañera o ducha', 'Alfombrilla exterior de salida'],
     safetyNotice: 'Debe colocarse correctamente y revisarse con regularidad.',
   },
   'bathroom-raised-toilet-seat': {

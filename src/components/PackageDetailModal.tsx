@@ -145,6 +145,7 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Remote control setup and handover': 'Configuración de mando y explicación de uso',
     'Safer hot-water temperature setting': 'Ajuste seguro de agua caliente',
     'Secure anti-slip bath mat': 'Alfombrilla antideslizante segura',
+    'Secure anti-slip bath and exit mat set': 'Juego de alfombrillas antideslizantes para bañera y salida',
     'Smart speaker': 'Altavoz inteligente',
     'Smoke detector': 'Detector de humo',
     'Thermostatic anti-scald valve': 'Valvula termostatica antiquemaduras',

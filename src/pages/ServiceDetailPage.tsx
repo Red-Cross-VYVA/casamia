@@ -74,8 +74,8 @@ const detailStepsEs = [
 
 const serviceDetailUiCopy = {
   en: {
-    buildPlan: 'Build My Safer Home',
     explorePackage: (roomLabel: string) => `Explore ${roomLabel} package`,
+    orderPackage: (roomLabel: string) => `Order Safer ${roomLabel}`,
     askSafetyExpert: 'Ask the Safety Expert',
     quote: 'Quote',
     checkFirst: 'Check first',
@@ -99,8 +99,8 @@ const serviceDetailUiCopy = {
     startsAt: 'Senior Home Safety Spain',
   },
   es: {
-    buildPlan: 'Crear mi plan seguro',
     explorePackage: (roomLabel: string) => `Explorar paquete de ${roomLabel.toLocaleLowerCase('es')}`,
+    orderPackage: (roomLabel: string) => `Pedir ${roomLabel.toLocaleLowerCase('es')} más seguro`,
     askSafetyExpert: 'Preguntar al experto en seguridad',
     quote: 'Presupuesto',
     checkFirst: 'Revisar primero',
@@ -662,10 +662,33 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   },
 }
 
-function getConfigurePath(serviceId: string) {
-  void serviceId
+const plansPath = '/plans'
 
-  return '/home-safety-wizard'
+const orderRoomLabels = {
+  en: {
+    bathroom: 'Bathroom',
+    bedroom: 'Bedroom',
+    connected: 'Smart Safety',
+    entrance: 'Entrance',
+    kitchen: 'Kitchen',
+    'living-room': 'Living Room',
+    movement: 'Stairs',
+  },
+  es: {
+    bathroom: 'baño',
+    bedroom: 'dormitorio',
+    connected: 'seguridad conectada',
+    entrance: 'entrada',
+    kitchen: 'cocina',
+    'living-room': 'salón',
+    movement: 'escaleras',
+  },
+} satisfies Record<'en' | 'es', Record<ServiceRoom, string>>
+
+function getOrderRoomLabel(room: ServiceRoom, language: string) {
+  return language.toLowerCase().startsWith('es')
+    ? orderRoomLabels.es[room]
+    : orderRoomLabels.en[room]
 }
 
 function isZoneRiskArea(value: ServiceRoom): value is ZoneRiskArea {
@@ -735,22 +758,19 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
 }
 
 function RoomServiceItemsSection({
-  configurePath,
   language,
+  orderCtaLabel,
   room,
   services,
 }: {
-  configurePath: string
   language: string
+  orderCtaLabel: string
   room: ServiceRoom
   services: CasaMiaService[]
 }) {
   if (services.length === 0) {
     return null
   }
-
-  const isSpanish = language.toLowerCase().startsWith('es')
-  const uiCopy = isSpanish ? serviceDetailUiCopy.es : serviceDetailUiCopy.en
 
   return (
     <section className="service-detail-section bg-white">
@@ -766,8 +786,8 @@ function RoomServiceItemsSection({
         )}
 
         <div className="service-detail-actions service-detail-inline-actions">
-          <Link className="btn btn-navy" to={configurePath}>
-            {uiCopy.buildPlan}
+          <Link className="btn btn-navy" to={plansPath}>
+            {orderCtaLabel}
             <ArrowRight size={19} aria-hidden="true" />
           </Link>
         </div>
@@ -1144,8 +1164,9 @@ export function ServiceDetailPage() {
       ? 'Mejoras prácticas para estar de pie, iluminación, alcance, agua, electrodomésticos y tranquilidad familiar.'
       : 'Practical improvements for standing, lighting, reach, water, appliances and family reassurance.'
     : service.intro
-  const configurePath = getConfigurePath(service.id)
   const specialistEntryPoint = `service_detail_${service.id.replace(/-/g, '_')}`
+  const orderRoomLabel = servicePackageGroup?.roomLabel ?? getOrderRoomLabel(serviceRoom, i18n.language)
+  const orderCtaLabel = uiCopy.orderPackage(orderRoomLabel)
 
   return (
     <>
@@ -1187,9 +1208,9 @@ export function ServiceDetailPage() {
                 ) : (
                   <Link
                     className="btn btn-green"
-                    to={configurePath}
+                    to={plansPath}
                   >
-                    {uiCopy.buildPlan}
+                    {orderCtaLabel}
                     <ArrowRight size={20} aria-hidden="true" />
                   </Link>
                 )}
@@ -1284,8 +1305,8 @@ export function ServiceDetailPage() {
           </section>
 
           <RoomServiceItemsSection
-            configurePath={configurePath}
             language={i18n.language}
+            orderCtaLabel={orderCtaLabel}
             room={serviceRoom}
             services={serviceCatalogueItems}
           />
@@ -1375,8 +1396,8 @@ export function ServiceDetailPage() {
             <h2>{detail.finalTitle}</h2>
             <p>{detail.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to={configurePath}>
-            {uiCopy.buildPlan}
+          <Link className="btn btn-green" to={plansPath}>
+            {orderCtaLabel}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
         </div>
