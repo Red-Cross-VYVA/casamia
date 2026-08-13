@@ -261,7 +261,6 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'living-room-safer-furniture': { kind: 'furniture-anchor', tone: 'support', image: serviceCardProduct('furniture-anchor') },
   'living-room-safety-monitoring': { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') },
   'living-room-connected-experience': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('voice-speaker-bedroom') },
-  'living-room-advanced-seating': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
   'living-room-electric-recliner-chair': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
   'living-room-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
   'living-room-stair-safety': { kind: 'stair-support', tone: 'mobility', image: serviceCardProduct('stair-support') },

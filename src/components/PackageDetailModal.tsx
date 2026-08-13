@@ -150,8 +150,6 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Secure anti-slip bath and exit mat set': 'Juego de alfombrillas antideslizantes para bañera y salida',
     'Smart speaker': 'Altavoz inteligente',
     'Smoke detector': 'Detector de humo',
-    'Stable bedside dressing chair': 'Silla estable para vestirse',
-    'Enhanced smoke alert kit': 'Kit de aviso de humo reforzado',
     'Thermostatic anti-scald valve': 'Valvula termostatica antiquemaduras',
     'Toilet support rail': 'Barra de apoyo para inodoro',
     'Vertical support rail': 'Barra de apoyo vertical',
@@ -167,6 +165,7 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Wider living room doorway': 'Puerta de salon mas ancha',
     'Wider living room doorway service': 'Ensanche de puerta de salon',
     'Outdoor key safe': 'Caja de llaves exterior',
+    'Raised electrical outlet relocation service': 'Reubicacion de enchufes a una altura mas comoda',
     'Voice command setup for lights, calls and help requests': 'Configuracion de voz para luces, llamadas y peticiones de ayuda',
     'Voice help request setup': 'Configuracion de peticiones de ayuda por voz',
   }
