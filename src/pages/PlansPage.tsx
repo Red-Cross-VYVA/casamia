@@ -2298,22 +2298,31 @@ export function PlansPage() {
                       </div>
 
                       <div className="plans-core-includes">
-                        <strong>{copy.coreIncluded}</strong>
-                        {group.homeOutcomes.map((outcome) => (
-                          <button
-                            className="plans-outcome-preview-button"
-                            key={outcome.id}
-                            type="button"
-                            onClick={() => openCorePackageDetails(group, outcome.id)}
-                          >
-                            <OutcomePreviewTag
-                              eyebrow={copy.coreIncluded}
-                              icon={RoomIcon}
-                              language={language}
-                              outcome={outcome}
-                            />
-                          </button>
-                        ))}
+                        <div className="plans-core-includes-head">
+                          <strong>{copy.coreIncluded}</strong>
+                          <span>
+                            {group.homeOutcomes.length} {language === 'es' ? 'incluidos' : 'included'}
+                          </span>
+                        </div>
+                        <div className="plans-core-includes-grid">
+                          {group.homeOutcomes.map((outcome) => (
+                            <button
+                              className="plans-outcome-preview-button"
+                              key={outcome.id}
+                              type="button"
+                              onClick={() => openCorePackageDetails(group, outcome.id)}
+                            >
+                              <OutcomePreviewTag
+                                compact
+                                embedded
+                                eyebrow={copy.coreIncluded}
+                                icon={RoomIcon}
+                                language={language}
+                                outcome={outcome}
+                              />
+                            </button>
+                          ))}
+                        </div>
                       </div>
 
                       {addOnOptionCount > 0 ? (
