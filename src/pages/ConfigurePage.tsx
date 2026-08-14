@@ -1201,7 +1201,6 @@ function BathroomQuestions() {
             setAnswer={setAnswer}
             state={state}
           />
-          <SelectAnswer label="Suitable handheld shower already installed?" answerKey={`bathroom-${index}-handheldShower`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
         </div>
       ))}
     </QuestionGroup>

@@ -144,7 +144,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Error 2: arreglar el asiento y olvidar la entrada',
         body: [
           'A menudo se compra un taburete o asiento abatible, pero se mantiene una bañera alta, una puerta estrecha o una entrada resbaladiza. Si la persona todavía debe levantar el pie sobre un borde mojado o sin apoyo, el riesgo principal sigue ahí.',
-          'Un buen plan revisa altura de entrada, superficie antideslizante, asiento, alcance de la ducha de mano, drenaje, mampara o cortina, toallas y dónde puede colocarse una persona que ayuda.',
+          'Un buen plan revisa altura de entrada, superficie antideslizante, asiento, alcance de los mandos de agua, drenaje, mampara o cortina, toallas y dónde puede colocarse una persona que ayuda.',
         ],
       },
       {
@@ -157,8 +157,8 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         title: 'Error 4: separar temperatura, agarre y alcance',
         body: [
-          'Los mandos de agua pueden ser difíciles cuando cambian la fuerza de mano, la vista o la reacción. Si la persona no puede regular temperatura, alcanzar la ducha de mano o cerrar el agua sentada, el baño puede seguir siendo inseguro.',
-          'Mandos termostáticos, controles claros, almacenaje alcanzable y ducha de mano pueden ayudar, pero deben encajar con la instalación, paredes y hábitos reales.',
+          'Los mandos de agua pueden ser difíciles cuando cambian la fuerza de mano, la vista o la reacción. Si la persona no puede regular temperatura, accionar los controles o cerrar el agua sentada, el baño puede seguir siendo inseguro.',
+          'Mandos termostáticos, controles claros y almacenaje alcanzable pueden ayudar, pero deben encajar con la instalación, paredes y hábitos reales.',
         ],
       },
     ],

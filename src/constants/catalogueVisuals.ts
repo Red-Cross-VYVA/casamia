@@ -14,7 +14,6 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'bathroom-door-hardware': serviceProductImage('door-handle'),
   'bathroom-folding-shower-seat': '/images/service-card-products/folding-shower-seat.png',
   'bathroom-grab-bars': serviceProductImage('vertical-rail'),
-  'bathroom-handheld-shower-head': serviceProductImage('thermostatic-shower-mixer'),
   'bathroom-improved-lighting': serviceProductImage('motion-light'),
   'bathroom-improved-visibility': serviceProductImage('motion-light'),
   'bathroom-lever-mixer-tap': serviceProductImage('lever-tap'),

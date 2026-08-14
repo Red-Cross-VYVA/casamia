@@ -466,7 +466,6 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Family or carer alert setup': 'Avisos para familia o cuidador',
     'Folding shower seat': 'Asiento abatible de ducha',
     'Grab bar': 'Barra de apoyo',
-    'Handheld shower head and holder': 'Ducha de mano y soporte',
     'Lever door handle': 'Manilla tipo palanca',
     'Lever mixer tap': 'Grifo monomando de palanca',
     'Lever-operated shower control': 'Mando de ducha de palanca',

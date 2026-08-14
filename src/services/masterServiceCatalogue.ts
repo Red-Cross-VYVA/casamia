@@ -352,7 +352,6 @@ function getSpanishCapabilityName(capabilityId: string, fallback: string) {
     'bathroom-door-adjustment': 'Ajuste de puerta para reducir resistencia',
     'bathroom-easy-release-privacy-lock': 'Cierre de privacidad con desbloqueo fácil',
     'bathroom-folding-shower-seat-support': 'Asiento abatible de ducha',
-    'bathroom-handheld-shower-control': 'Ducha de mano y soporte',
     'bathroom-lever-door-handle': 'Manilla de puerta tipo palanca',
     'bathroom-lever-mixer-tap': 'Grifo monomando de palanca',
     'bathroom-lever-shower-controls': 'Mandos de ducha de palanca',
