@@ -360,7 +360,6 @@ function getSpanishCapabilityName(capabilityId: string, fallback: string) {
     'bathroom-raised-toilet-seat': 'Elevador de inodoro',
     'bathroom-safer-floor-transition': 'Perfil de transición bajo',
     'bathroom-task-lighting': 'Iluminación de baño apta para zona húmeda',
-    'bathroom-visual-contrast-markers': 'Marcadores de contraste en baño',
     'bathroom-thermostatic-anti-scald-valve': 'Válvula termostática antiquemaduras',
     'bathroom-toilet-support-rails': 'Barras de apoyo para inodoro',
     'bathroom-vertical-support-rail': 'Barra de apoyo vertical',

@@ -18015,6 +18015,15 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   width: 100%;
 }
 
+.plans-builder-review-list p {
+  width: 100%;
+  margin: -2px 0 2px;
+  color: var(--text-mid);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
 .plans-builder-review-list span {
   border-radius: 999px;
   background: #fff6e7;
@@ -18209,53 +18218,87 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   color: var(--navy);
 }
 
+.plans-outcome-preview-button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.plans-outcome-preview-button:focus-visible {
+  outline: 3px solid rgba(50, 158, 216, 0.35);
+  outline-offset: 3px;
+}
+
+.plans-outcome-preview-button:hover .plans-outcome-preview-tag {
+  border-color: rgba(50, 158, 216, 0.4);
+  background: #f4fbff;
+}
+
 .plans-room-card-footer {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
-  align-items: end;
   margin: 18px 22px 22px;
   border-top: 1px solid rgba(200, 220, 232, 0.72);
   padding-top: 18px;
 }
 
-.plans-room-card-footer > div:first-child {
+.plans-room-card-included {
   display: grid;
-  gap: 11px;
+  gap: 9px;
   min-width: 0;
+}
+
+.plans-room-card-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .plans-room-turnkey-note {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  gap: 9px;
-  max-width: 34rem;
+  gap: 12px;
+  max-width: none;
   align-items: center;
-  border-left: 3px solid rgba(125, 184, 65, 0.78);
-  border-radius: 10px;
-  background: rgba(245, 251, 239, 0.78);
-  padding: 10px 12px 10px 11px;
+  border: 1px solid rgba(125, 184, 65, 0.32);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(247, 252, 242, 0.98), rgba(255, 255, 255, 0.96));
+  padding: 12px 14px;
+  box-shadow: inset 4px 0 0 rgba(125, 184, 65, 0.72);
 }
 
-.plans-room-turnkey-note svg {
+.plans-room-turnkey-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(125, 184, 65, 0.26);
+  border-radius: 10px;
+  background: #ffffff;
   color: var(--green);
+  box-shadow: 0 8px 18px rgba(52, 112, 23, 0.08);
 }
 
 .plans-room-turnkey-note b {
   display: block;
   color: var(--navy);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 950;
   line-height: 1.15;
 }
 
 .plans-room-turnkey-note small {
   display: block;
-  margin-top: 3px;
+  margin-top: 4px;
   color: var(--text-mid);
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 720;
-  line-height: 1.32;
+  line-height: 1.38;
 }
 
 .plans-room-card-footer .plans-detail-link {
@@ -18283,6 +18326,12 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   color: var(--navy);
   font-size: 16px;
   font-weight: 950;
+}
+
+.plans-room-core-label {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
 }
 
 .plans-quantity-control {
@@ -19368,6 +19417,10 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
     grid-template-columns: 1fr;
   }
 
+  .plans-room-card-actions {
+    display: grid;
+  }
+
   .plans-quantity-control {
     width: 100%;
     grid-template-columns: 1fr 70px 1fr;
@@ -19834,6 +19887,50 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plan-detail-included-card li svg {
   margin-top: 2px;
   color: var(--green);
+}
+
+.plan-detail-action {
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+  border-top: 1px solid rgba(200, 220, 232, 0.82);
+  padding-top: 14px;
+}
+
+.plan-detail-action p {
+  margin: 0;
+  color: var(--text-mid);
+  font-size: 13px;
+  font-weight: 780;
+  line-height: 1.42;
+}
+
+.plan-detail-action .btn {
+  width: 100%;
+  min-height: 50px;
+  justify-content: center;
+  border-radius: 999px;
+}
+
+.plan-detail-action .btn:disabled {
+  cursor: default;
+  opacity: 0.78;
+}
+
+.plan-detail-action--review .btn {
+  background: #a86205;
+  box-shadow: 0 16px 34px rgba(168, 98, 5, 0.18);
+}
+
+.plan-detail-action small {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  text-align: center;
+}
+
+.plan-detail-action--review small {
+  color: #8a5206;
 }
 
 .plan-detail-footnote {

@@ -124,7 +124,6 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Folding shower seat': 'Asiento abatible de ducha',
     'Grab bar': 'Barra de apoyo',
     'Handheld shower head and holder': 'Ducha de mano y soporte',
-    'Bathroom contrast marker kit': 'Kit de marcadores de contraste para baño',
     'Lever door handle': 'Manilla tipo palanca',
     'Lever mixer tap': 'Grifo monomando de palanca',
     'Lever-operated shower control': 'Mando de ducha de palanca',

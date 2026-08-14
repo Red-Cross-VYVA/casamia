@@ -61,7 +61,7 @@ import {
 } from '../services/plansBuilderPricing'
 import { createPublicProposalDraft, type PublicProposalDraftResponse } from '../services/proposalsApi'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
-import type { MasterCatalogueOutcome, MasterServiceCatalogue } from '../types/serviceCatalogue'
+import type { MasterCatalogueOutcome, MasterServiceCatalogue, ServicePackageArea } from '../types/serviceCatalogue'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
 import '../styles/services-catalogue.css'
 
@@ -148,7 +148,9 @@ type PlansStep = 'builder' | 'review' | 'contact'
 type PlansFormErrors = Partial<Record<'name' | 'email' | 'phone' | 'consent' | 'location', string>>
 
 type PlansDetail = {
+  addOnPackageId?: string
   body: string
+  groupPackageId?: string
   items: MasterCatalogueOutcome[]
   mode: 'core' | 'optional' | 'specialist'
   optionalItems?: MasterCatalogueOutcome[]
@@ -158,6 +160,14 @@ type PlansDetail = {
 }
 
 type PlansDetailTab = 'core' | 'optional'
+
+type PlansDetailActionState = {
+  body: string
+  disabled: boolean
+  label: string
+  status?: string
+  variant: 'core' | 'connected' | 'review'
+}
 
 type PlansCatalogueIntroCopy = {
   browseCta: string
@@ -457,7 +467,6 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Folding shower seat': 'Asiento abatible de ducha',
     'Grab bar': 'Barra de apoyo',
     'Handheld shower head and holder': 'Ducha de mano y soporte',
-    'Bathroom contrast marker kit': 'Kit de marcadores de contraste para baño',
     'Lever door handle': 'Manilla tipo palanca',
     'Lever mixer tap': 'Grifo monomando de palanca',
     'Lever-operated shower control': 'Mando de ducha de palanca',
@@ -597,8 +606,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Receive proposal',
     continueToReview: 'Review selected packages',
     coreIncluded: 'Core package',
-    turnkeyCardLabel: 'Turnkey, installed package',
-    turnkeyCardBody: 'CasaMia coordinates products, professional installation, handover and aftercare.',
+    turnkeyCardLabel: 'Installed turnkey service',
+    turnkeyCardBody: 'Products, fitting, handover and aftercare are coordinated by CasaMia.',
     closeDetails: 'Close',
     createDraft: 'Generate proposal',
     creatingDraft: 'Generating proposal...',
@@ -701,8 +710,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Enviar a revisión',
     continueToReview: 'Revisar paquetes elegidos',
     coreIncluded: 'Paquete base',
-    turnkeyCardLabel: 'Paquete llave en mano instalado',
-    turnkeyCardBody: 'CasaMia coordina productos, instalación profesional, entrega y soporte posterior.',
+    turnkeyCardLabel: 'Servicio llave en mano',
+    turnkeyCardBody: 'CasaMia coordina productos, instalación, entrega y soporte posterior.',
     closeDetails: 'Cerrar',
     createDraft: 'Crear borrador',
     creatingDraft: 'Creando borrador...',
@@ -805,6 +814,14 @@ const roomVisuals: Record<string, string> = {
   entrance: '/images/service-gallery/isometric/isometric-exterior.jpg',
   kitchen: '/images/service-gallery/isometric/isometric-kitchen.jpg',
   'living-room': '/images/service-gallery/isometric/isometric-living.jpg',
+}
+
+const roomServicePaths: Partial<Record<ServicePackageArea, string>> = {
+  bathroom: '/services/bathroom-safety',
+  bedroom: '/services/bedroom-safety',
+  entrance: '/services/entrance-accessibility',
+  kitchen: '/services/kitchen-safety',
+  'living-room': '/services',
 }
 
 type OutcomePreviewTheme =
@@ -1200,25 +1217,37 @@ export function PlansPage() {
     : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'core package selected' : 'core packages selected'}`
   const detailCopy = language === 'es'
     ? {
+        addConnected: 'A\u00f1adir apoyo conectado',
+        addedToPlan: 'A\u00f1adido al plan',
         benefit: 'Por qué ayuda',
         coreTab: 'Paquete base',
         includes: 'Qué incluye CasaMia',
         itemIncludes: 'Para este elemento, CasaMia incluye',
         next: 'Siguiente',
         noDetailItems: 'No hay elementos para mostrar en esta sección.',
+        orderPackage: (roomLabel: string) => `Pedir paquete de ${roomLabel.toLocaleLowerCase('es-ES')}`,
         optionalTab: 'Extras opcionales',
         previous: 'Anterior',
+        requestReview: 'Solicitar revisi\u00f3n de este extra',
+        reviewBody: 'Lo a\u00f1adimos al pedido como extra pendiente. CasaMia confirma idoneidad y precio antes de sumar cualquier trabajo adicional.',
+        reviewRequested: 'Revisi\u00f3n solicitada',
         slideLabel: 'Elemento',
       }
     : {
+        addConnected: 'Add connected support',
+        addedToPlan: 'Added to plan',
         benefit: 'Why it helps',
         coreTab: 'Core package',
         includes: 'What CasaMia includes',
         itemIncludes: 'For this item, CasaMia includes',
         next: 'Next',
         noDetailItems: 'No items to show in this section.',
+        orderPackage: (roomLabel: string) => `Order ${roomLabel} Package`,
         optionalTab: 'Optional add-ons',
         previous: 'Previous',
+        requestReview: 'Request review for this extra',
+        reviewBody: 'This extra stays with your order for review. CasaMia confirms suitability and price before adding any extra work.',
+        reviewRequested: 'Review requested',
         slideLabel: 'Item',
       }
   const activeDetailOptionalItems = activeDetail?.optionalItems ?? []
@@ -1259,6 +1288,46 @@ export function PlansPage() {
     : []
   const activeDetailIncludesHeading = activeDetailSlide ? detailCopy.itemIncludes : detailCopy.includes
   const activeDetailHasMultiple = activeDetailSlideCount > 1
+  const activeDetailGroup = activeDetail?.groupPackageId
+    ? groups.find((group) => group.homePackage.id === activeDetail.groupPackageId)
+    : undefined
+  const activeDetailAddOnPackage = activeDetail?.addOnPackageId && activeDetailGroup
+    ? activeDetailGroup.addOnPackages.find((addOnPackage) => addOnPackage.packageRecord.id === activeDetail.addOnPackageId)
+    : undefined
+  const activeDetailSelectedIds = new Set(
+    activeDetailGroup ? selection[activeDetailGroup.homePackage.id]?.addOnOutcomeIds ?? [] : [],
+  )
+  const activeDetailCoreSelected = activeDetailGroup
+    ? Boolean(selection[activeDetailGroup.homePackage.id]?.selected)
+    : false
+  const activeDetailAddOnSelected = activeDetailSlide
+    ? activeDetailSelectedIds.has(activeDetailSlide.id)
+    : false
+  const activeDetailAction: PlansDetailActionState | null = activeDetailGroup && activeDetailSlide
+    ? activeDetailDisplayMode === 'core'
+      ? {
+          body: '',
+          disabled: activeDetailCoreSelected,
+          label: activeDetailCoreSelected ? detailCopy.addedToPlan : detailCopy.orderPackage(activeDetailGroup.roomLabel),
+          status: activeDetailCoreSelected ? detailCopy.addedToPlan : undefined,
+          variant: 'core',
+        }
+      : activeDetailDisplayMode === 'optional'
+        ? {
+            body: '',
+            disabled: activeDetailAddOnSelected,
+            label: activeDetailAddOnSelected ? detailCopy.addedToPlan : detailCopy.addConnected,
+            status: activeDetailAddOnSelected ? detailCopy.addedToPlan : undefined,
+            variant: 'connected',
+          }
+        : {
+            body: detailCopy.reviewBody,
+            disabled: activeDetailAddOnSelected,
+            label: activeDetailAddOnSelected ? detailCopy.reviewRequested : detailCopy.requestReview,
+            status: activeDetailAddOnSelected ? detailCopy.reviewRequested : undefined,
+            variant: 'review',
+          }
+    : null
   const selectedPlanDetails = selectedGroups.map((group) => {
     const packageSelection = selection[group.homePackage.id]
     const selectedAddOnIds = new Set(packageSelection?.addOnOutcomeIds ?? [])
@@ -1314,7 +1383,9 @@ export function PlansPage() {
         addOns: 'Extras',
         addOnsEmpty: 'Separados',
         estimateLabel: 'Total estimado',
-        estimateNote: 'IVA incluido. Calculado con las estancias, cantidades y extras seleccionados.',
+        estimateNote: 'IVA incluido. Los extras pendientes de revisi\u00f3n no se suman hasta que CasaMia confirme precio e idoneidad.',
+        extrasReviewBody: 'Estos extras viajan con tu pedido. CasaMia confirma idoneidad y precio antes de a\u00f1adir cualquier trabajo adicional.',
+        extrasReviewTitle: 'Extras para revisi\u00f3n de CasaMia',
         includedItems: 'elementos incluidos',
         packageEstimate: 'Estimación del paquete',
         packages: 'Paquetes',
@@ -1326,7 +1397,9 @@ export function PlansPage() {
         addOns: 'Add-ons',
         addOnsEmpty: 'Separate',
         estimateLabel: 'Estimated total',
-        estimateNote: 'VAT included. Calculated from the selected rooms, quantities and add-ons.',
+        estimateNote: 'VAT included. Review-only extras are not added until CasaMia confirms suitability and price.',
+        extrasReviewBody: 'These extras are requested with your order. CasaMia confirms suitability and price before adding any extra work.',
+        extrasReviewTitle: 'Extras for CasaMia review',
         includedItems: 'included items',
         packageEstimate: 'Package estimate',
         packages: 'Packages',
@@ -1732,29 +1805,32 @@ export function PlansPage() {
     }))
   }
 
-  function getGroupOptionalDetailItems(group: PlansBuilderGroup) {
-    return group.addOnPackages.flatMap((addOnPackage) => addOnPackage.outcomes)
-  }
+  function openCorePackageDetails(group: PlansBuilderGroup, startOutcomeId?: string) {
+    const startIndex = startOutcomeId
+      ? Math.max(0, group.homeOutcomes.findIndex((outcome) => outcome.id === startOutcomeId))
+      : 0
 
-  function openRoomPackageDetails(group: PlansBuilderGroup) {
-    setActiveDetailIndex(0)
+    setActiveDetailIndex(startIndex)
     setActiveDetailTab('core')
     setActiveDetail({
       body: group.packageDescription,
+      groupPackageId: group.homePackage.id,
       items: group.homeOutcomes,
       mode: 'core',
-      optionalItems: getGroupOptionalDetailItems(group),
-      price: copy.coreIncluded,
+      optionalItems: group.addOnPackages.flatMap((addOnPackage) => addOnPackage.outcomes),
+      price: group.requiresReview ? copy.reviewRequired : copy.coreIncluded,
       title: group.packageLabel,
       typeLabel: copy.coreIncluded,
     })
   }
 
-  function openAddOnPackageDetails(addOnPackage: PlansBuilderAddOnPackage) {
+  function openAddOnPackageDetails(group: PlansBuilderGroup, addOnPackage: PlansBuilderAddOnPackage) {
     setActiveDetailIndex(0)
     setActiveDetailTab('optional')
     setActiveDetail({
+      addOnPackageId: addOnPackage.packageRecord.id,
       body: addOnPackage.packageDescription,
+      groupPackageId: group.homePackage.id,
       items: [],
       mode: 'optional',
       optionalItems: addOnPackage.outcomes,
@@ -1764,13 +1840,14 @@ export function PlansPage() {
     })
   }
 
-  function openSpecialistDetails(outcome: MasterCatalogueOutcome) {
+  function openSpecialistDetails(group: PlansBuilderGroup, outcome: MasterCatalogueOutcome) {
     const price = getPlansOutcomeUnitPrice(outcome)
 
     setActiveDetailIndex(0)
     setActiveDetailTab('core')
     setActiveDetail({
       body: localizePlansString(outcome.shortDescription, language, outcome.internalName),
+      groupPackageId: group.homePackage.id,
       items: [outcome],
       mode: 'specialist',
       price: price > 0 ? copy.specialistTitle : copy.reviewRequired,
@@ -1793,6 +1870,35 @@ export function PlansPage() {
 
   function goToNextDetailSlide() {
     setActiveDetailIndex((current) => (activeDetailSlides.length ? (current + 1) % activeDetailSlides.length : 0))
+  }
+
+  function handleActiveDetailAction() {
+    if (!activeDetailGroup || !activeDetailSlide || !activeDetailAction) {
+      return
+    }
+
+    if (activeDetailAction.variant === 'core') {
+      setSelection((current) => {
+        const previous = current[activeDetailGroup.homePackage.id] ?? { addOnOutcomeIds: [], quantity: 1, selected: false }
+
+        return {
+          ...current,
+          [activeDetailGroup.homePackage.id]: {
+            ...previous,
+            quantity: previous.selected ? normalisePlansQuantity(previous.quantity) : 1,
+            selected: true,
+          },
+        }
+      })
+      return
+    }
+
+    if (activeDetailAction.variant === 'connected' && activeDetailAddOnPackage) {
+      toggleAddOnPackage(activeDetailGroup, activeDetailAddOnPackage, true)
+      return
+    }
+
+    toggleAddOnOutcome(activeDetailGroup, activeDetailSlide.id, true)
   }
 
   function scrollToPlansSection(elementId: string) {
@@ -2070,6 +2176,7 @@ export function PlansPage() {
                 const Icon = roomIcons[group.room.id] ?? Home
                 const visual = roomVisuals[group.room.id]
                 const packageSelection = selection[group.homePackage.id]
+                const servicePath = roomServicePaths[group.packageArea] ?? '/services'
                 const quantity = packageSelection?.selected ? packageSelection.quantity : 0
 
                 return (
@@ -2094,39 +2201,42 @@ export function PlansPage() {
                       </div>
                     </header>
                     <div className="plans-room-card-footer">
-                      <div>
-                        <strong>{copy.coreIncluded}</strong>
+                      <div className="plans-room-card-included">
+                        <strong className="plans-room-core-label">{copy.coreIncluded}</strong>
                         <div className="plans-room-turnkey-note">
-                          <PackageCheck size={16} aria-hidden="true" />
+                          <span className="plans-room-turnkey-icon">
+                            <PackageCheck size={16} aria-hidden="true" />
+                          </span>
                           <div>
                             <b>{copy.turnkeyCardLabel}</b>
                             <small>{copy.turnkeyCardBody}</small>
                           </div>
                         </div>
-                        <button
+                      </div>
+                      <div className="plans-room-card-actions">
+                        <Link
                           className="plans-detail-link"
-                          type="button"
-                          onClick={() => openRoomPackageDetails(group)}
+                          to={servicePath}
                         >
                           {copy.viewDetails}
                           <ArrowRight size={14} aria-hidden="true" />
-                        </button>
-                      </div>
-                      <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${group.roomLabel}`}>
-                        <button type="button" onClick={() => updateRoomQuantity(group, quantity - 1)}>
-                          <Minus size={16} aria-hidden="true" />
-                        </button>
-                        <input
-                          aria-label={`${copy.quantity}: ${group.roomLabel}`}
-                          min="0"
-                          max="12"
-                          type="number"
-                          value={quantity}
-                          onChange={(event) => updateRoomQuantity(group, Number(event.target.value))}
-                        />
-                        <button type="button" onClick={() => updateRoomQuantity(group, quantity + 1)}>
-                          <Plus size={16} aria-hidden="true" />
-                        </button>
+                        </Link>
+                        <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${group.roomLabel}`}>
+                          <button type="button" onClick={() => updateRoomQuantity(group, quantity - 1)}>
+                            <Minus size={16} aria-hidden="true" />
+                          </button>
+                          <input
+                            aria-label={`${copy.quantity}: ${group.roomLabel}`}
+                            min="0"
+                            max="12"
+                            type="number"
+                            value={quantity}
+                            onChange={(event) => updateRoomQuantity(group, Number(event.target.value))}
+                          />
+                          <button type="button" onClick={() => updateRoomQuantity(group, quantity + 1)}>
+                            <Plus size={16} aria-hidden="true" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </article>
@@ -2191,13 +2301,19 @@ export function PlansPage() {
                       <div className="plans-core-includes">
                         <strong>{copy.coreIncluded}</strong>
                         {group.homeOutcomes.map((outcome) => (
-                          <OutcomePreviewTag
+                          <button
+                            className="plans-outcome-preview-button"
                             key={outcome.id}
-                            eyebrow={copy.coreIncluded}
-                            icon={RoomIcon}
-                            language={language}
-                            outcome={outcome}
-                          />
+                            type="button"
+                            onClick={() => openCorePackageDetails(group, outcome.id)}
+                          >
+                            <OutcomePreviewTag
+                              eyebrow={copy.coreIncluded}
+                              icon={RoomIcon}
+                              language={language}
+                              outcome={outcome}
+                            />
+                          </button>
                         ))}
                       </div>
 
@@ -2252,7 +2368,7 @@ export function PlansPage() {
                                           <button
                                             className="plans-detail-link"
                                             type="button"
-                                            onClick={() => openSpecialistDetails(outcome)}
+                                            onClick={() => openSpecialistDetails(group, outcome)}
                                           >
                                             {copy.viewDetails}
                                           </button>
@@ -2278,7 +2394,7 @@ export function PlansPage() {
                                       <button
                                         className="plans-detail-link"
                                         type="button"
-                                        onClick={() => openAddOnPackageDetails(addOnPackage)}
+                                        onClick={() => openAddOnPackageDetails(group, addOnPackage)}
                                       >
                                         {copy.viewDetails}
                                       </button>
@@ -2449,7 +2565,8 @@ export function PlansPage() {
 
               {proposalReady && estimate.reviewItems.length ? (
                 <div className="plans-builder-review-list">
-                  <strong>{copy.reviewRequired}</strong>
+                  <strong>{summaryScopeCopy.extrasReviewTitle}</strong>
+                  <p>{summaryScopeCopy.extrasReviewBody}</p>
                   {estimate.reviewItems.slice(0, 4).map((item) => (
                     <span key={item}>{item}</span>
                   ))}
@@ -2577,6 +2694,26 @@ export function PlansPage() {
                         ))}
                       </ul>
                     </div>
+
+                    {activeDetailAction ? (
+                      <div className={`plan-detail-action plan-detail-action--${activeDetailAction.variant}`}>
+                        {activeDetailAction.body ? <p>{activeDetailAction.body}</p> : null}
+                        <button
+                          className="btn btn-green"
+                          disabled={activeDetailAction.disabled}
+                          type="button"
+                          onClick={handleActiveDetailAction}
+                        >
+                          {activeDetailAction.label}
+                          {activeDetailAction.disabled ? (
+                            <CheckCircle2 size={16} aria-hidden="true" />
+                          ) : (
+                            <ArrowRight size={16} aria-hidden="true" />
+                          )}
+                        </button>
+                        {activeDetailAction.status ? <small>{activeDetailAction.status}</small> : null}
+                      </div>
+                    ) : null}
                   </article>
                 </div>
 
