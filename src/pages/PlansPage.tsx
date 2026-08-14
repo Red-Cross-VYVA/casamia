@@ -193,7 +193,7 @@ const plansCatalogueGuideVisualImages = [
   '/images/solutions/bathroom-safety.jpg',
   '/images/solutions/adorable-mature-couple-kitchen.jpg',
   '/images/before-after/bedroom-after-card.webp',
-  '/images/solutions/entrance-access.jpg',
+  '/images/service-card-products/entrance-safer-access.png',
 ]
 
 const plansCatalogueIntroCopy: Record<'en' | 'es', PlansCatalogueIntroCopy> = {

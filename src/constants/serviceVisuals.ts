@@ -18,7 +18,7 @@ export const serviceVisuals: Record<
   },
   'entrance-accessibility': {
     badge: 'Access starts outside',
-    image: '/images/solutions/entrance-access.jpg',
+    image: '/images/service-card-products/entrance-safer-access.png',
     note: 'Thresholds, ramps, visitor access',
   },
   'kitchen-safety': {

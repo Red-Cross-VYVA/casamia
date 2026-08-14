@@ -163,11 +163,11 @@ type ServicesPageCopy = {
 const catalogueAreaVisuals: Record<ServicePackageArea, { icon: LucideIcon; image: string }> = {
   bathroom: { icon: Bath, image: '/images/solutions/bathroom-safety.jpg' },
   bedroom: { icon: BedDouble, image: '/images/before-after/bedroom-after-card.webp' },
-  entrance: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
+  entrance: { icon: DoorOpen, image: '/images/service-card-products/entrance-safer-access.png' },
   kitchen: { icon: CookingPot, image: '/images/solutions/adorable-mature-couple-kitchen.jpg' },
   lighting: { icon: Sparkles, image: '/images/service-gallery/isometric/isometric-living.jpg' },
   'living-room': { icon: Home, image: '/images/before-after/living-after-home.webp' },
-  outdoor: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
+  outdoor: { icon: DoorOpen, image: '/images/service-card-products/entrance-safer-access.png' },
   'smart-safety': { icon: Sparkles, image: '/images/how-it-works-smartphone.jpg' },
   stairs: { icon: Home, image: '/images/solutions/stairs-hallways.jpg' },
 }
@@ -210,7 +210,7 @@ const catalogueGuideVisualImages = [
   '/images/solutions/bathroom-safety.jpg',
   '/images/solutions/adorable-mature-couple-kitchen.jpg',
   '/images/before-after/bedroom-after-card.webp',
-  '/images/solutions/entrance-access.jpg',
+  '/images/service-card-products/entrance-safer-access.png',
 ]
 
 const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
