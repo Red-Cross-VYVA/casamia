@@ -44,7 +44,7 @@ export default async function handler(request, response) {
       cataloguePayload: catalogueRecord?.payload_json,
     })
 
-    if (!catalogueResult.ok || (draft.status === 503 && body?.catalogueSnapshot)) {
+    if ((!catalogueResult.ok || !draft.ok) && body?.catalogueSnapshot) {
       const snapshotDraft = buildPublicPlansDraft({
         body,
         cataloguePayload: body.catalogueSnapshot,

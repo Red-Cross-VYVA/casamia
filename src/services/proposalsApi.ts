@@ -157,10 +157,52 @@ async function requestJson<T>(path: string, init: RequestInit = {}) {
   })
 
   if (!response.ok) {
-    throw new Error(`Proposal API request failed with ${response.status}.`)
+    throw new Error(await readApiErrorMessage(response))
   }
 
   return response.json() as Promise<T>
+}
+
+async function readApiErrorMessage(response: Response) {
+  const fallback = `Proposal API request failed with ${response.status}.`
+
+  try {
+    const text = await response.text()
+    if (!text.trim()) {
+      return fallback
+    }
+
+    try {
+      const payload = JSON.parse(text) as {
+        code?: unknown
+        details?: unknown
+        error?: unknown
+        message?: unknown
+      }
+      const message = apiErrorText(payload.message) || apiErrorText(payload.error)
+
+      if (message) {
+        return message
+      }
+
+      if (Array.isArray(payload.details)) {
+        const details = payload.details.map(apiErrorText).filter(Boolean).join(' ')
+        if (details) {
+          return details
+        }
+      }
+
+      return apiErrorText(payload.code) || fallback
+    } catch {
+      return text.trim().slice(0, 240) || fallback
+    }
+  } catch {
+    return fallback
+  }
+}
+
+function apiErrorText(value: unknown) {
+  return typeof value === 'string' ? value.trim() : ''
 }
 
 function normalisePlan(plan?: string): ProposalPlan {
