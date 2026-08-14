@@ -63,7 +63,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'entrance-seating': serviceProductImage('entry-seat'),
   'entrance-secure-access': serviceProductImage('video-doorbell'),
   'entrance-step-handrail': '/images/service-gallery/05-entryway-and-threshold-support.jpg',
-  'entrance-threshold-treatment': serviceProductImage('threshold-ramp'),
+  'entrance-threshold-treatment': serviceProductImage('threshold-reduction'),
   'entrance-wider-doorway': serviceProductImage('wide-doorway'),
   'kitchen-anti-fatigue-mat': '/images/service-card-products/kitchen-standing-comfort-mat.png',
   'kitchen-connected-experience': serviceProductImage('kitchen-voice-speaker'),
