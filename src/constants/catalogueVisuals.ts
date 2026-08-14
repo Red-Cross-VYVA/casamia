@@ -58,7 +58,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'entrance-improved-lighting': serviceProductImage('entrance-motion-lighting'),
   'entrance-key-safe': serviceProductImage('entrance-door-handle'),
   'entrance-motion-lighting': serviceProductImage('entrance-motion-lighting'),
-  'entrance-safer-access': '/images/service-gallery/05-entryway-and-threshold-support.jpg',
+  'entrance-safer-access': '/images/service-card-products/entrance-safer-access.png',
   'entrance-seating': serviceProductImage('entry-seat'),
   'entrance-wider-doorway': serviceProductImage('wide-doorway'),
   'kitchen-anti-fatigue-mat': '/images/service-card-products/kitchen-standing-comfort-mat.png',
