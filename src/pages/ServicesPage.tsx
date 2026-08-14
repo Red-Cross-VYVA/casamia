@@ -214,14 +214,14 @@ const catalogueGuideVisualImages = [
 ]
 
 const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
-  'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
+  'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: '/images/service-gallery/01-grab-bars-and-support-points.jpg' },
   'bathroom-folding-shower-seat': { kind: 'shower-seat', tone: 'water', image: '/images/service-card-products/folding-shower-seat.png' },
   'bathroom-raised-toilet-seat': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
   'bathroom-toilet-support-rails': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
   'bathroom-comfort-height-toilet': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
   'bathroom-anti-slip-floor-treatment': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('floor-grip') },
   'bathroom-anti-slip-bath-mat': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/anti-slip-bath-mat.png' },
-  'bathroom-improved-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
+  'bathroom-improved-lighting': { kind: 'motion-light', tone: 'light', image: '/images/service-gallery/04-bathroom-and-kitchen-adaptations.jpg' },
   'bathroom-lever-mixer-tap': { kind: 'lever-tap', tone: 'water', image: serviceCardProduct('lever-tap') },
   'bathroom-thermostatic-valve': { kind: 'thermostatic-valve', tone: 'water', image: serviceCardProduct('thermostatic-shower-mixer') },
   'bathroom-threshold-removal': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-reduction') },
@@ -230,9 +230,10 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bathroom-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
   'bathroom-tub-cutout': { kind: 'tub-cutout', tone: 'access', image: serviceCardProduct('tub-cutout') },
   'bathroom-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
-  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
+  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: '/images/service-card-products/vertical-shower-grab-bar.png' },
   'bedroom-underbed-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
   'bedroom-bed-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
+  'bedroom-bed-wedge-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-wedge-back-support') },
   'bedroom-night-time-visibility': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('clear-night-route') },
   'bedroom-night-route': { kind: 'clear-route', tone: 'mobility', image: serviceCardProduct('clear-night-route') },
   'bedroom-safer-walking-routes': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
@@ -254,15 +255,16 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'kitchen-pull-down-shelf': { kind: 'pull-out-storage', tone: 'support', image: serviceCardProduct('pull-out-storage') },
   'kitchen-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
   'living-room-easier-sitting-standing': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
-  'movement-stand-assist': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
-  'movement-rug-securing': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
-  'movement-hallway-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('clear-night-route') },
+  'movement-stand-assist': { kind: 'recliner', tone: 'support', image: '/images/service-card-products/living-room-seating-support.png' },
+  'movement-rug-securing': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/living-room-route-power-access.png' },
+  'movement-hallway-lighting': { kind: 'motion-light', tone: 'light', image: '/images/service-card-products/living-room-motion-lighting.png' },
   'living-room-slip-prevention': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
   'living-room-safer-furniture': { kind: 'furniture-anchor', tone: 'support', image: serviceCardProduct('furniture-anchor') },
   'living-room-safety-monitoring': { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') },
-  'living-room-connected-experience': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('voice-speaker-bedroom') },
+  'living-room-connected-experience': { kind: 'voice-speaker', tone: 'alert', image: '/images/service-gallery/11-voice-controls-and-smart-routines.jpg' },
   'living-room-electric-recliner-chair': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
   'living-room-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'living-room-raised-electrical-outlets': { kind: 'motion-light', tone: 'light', image: '/images/service-card-products/living-room-raised-outlets.png' },
   'living-room-stair-safety': { kind: 'stair-support', tone: 'mobility', image: serviceCardProduct('stair-support') },
   'entrance-safer-access': { kind: 'threshold-ramp', tone: 'access', image: '/images/service-card-products/entrance-safer-access.png' },
   'entrance-step-handrail': { kind: 'stair-support', tone: 'support', image: '/images/service-card-products/entrance-safer-access.png' },
@@ -273,7 +275,16 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'entrance-secure-access': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },
   'entrance-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
   'entrance-accessibility-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
+  'entrance-modular-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
   'entrance-seating': { kind: 'entry-seat', tone: 'support', image: serviceCardProduct('entry-seat') },
+  'entrance-key-safe': { kind: 'door-handle', tone: 'access', image: '/images/service-gallery/07-smart-access-devices.jpg' },
+  'movement-stair-handrails': { kind: 'stair-support', tone: 'mobility', image: '/images/service-gallery/03-stairway-and-hallway-support.jpg' },
+  'movement-stair-treads': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-gallery/02-anti-slip-safety-improvements.jpg' },
+  'connected-emergency-button': { kind: 'emergency-button', tone: 'alert', image: '/images/service-gallery/08-emergency-response-device.jpg' },
+  'connected-voice-hub': { kind: 'voice-speaker', tone: 'alert', image: '/images/service-gallery/07-smart-access-devices.jpg' },
+  'connected-family-alerts': { kind: 'motion-sensor', tone: 'alert', image: '/images/how-it-works-smartphone.jpg' },
+  'connected-fall-detection': { kind: 'motion-sensor', tone: 'alert', image: '/images/service-gallery/09-fall-detection-sensors.jpg' },
+  'connected-monitoring': { kind: 'motion-sensor', tone: 'alert', image: '/images/service-gallery/12-smart-setup-and-user-training.jpg' },
 }
 
 const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
@@ -486,6 +497,19 @@ function buildCatalogueAreas(masterCatalogue: MasterServiceCatalogue): Catalogue
   return areas
 }
 
+function uniqueServicesById(services: CasaMiaService[]) {
+  const seen = new Set<string>()
+
+  return services.filter((service) => {
+    if (seen.has(service.id)) {
+      return false
+    }
+
+    seen.add(service.id)
+    return true
+  })
+}
+
 function isCataloguePackageArea(value: string): value is ServicePackageArea {
   return Object.prototype.hasOwnProperty.call(catalogueAreaVisuals, value)
 }
@@ -556,7 +580,7 @@ export function ServicesPage() {
   const [selectedGroupId, setSelectedGroupId] = useState<CatalogueGroupId>('bathroom')
   const [activeService, setActiveService] = useState<CasaMiaService | null>(null)
   const activeServices = useMemo(
-    () => catalogue.services.filter((service) => service.active && isWebsiteVisible(service)),
+    () => uniqueServicesById(catalogue.services.filter((service) => service.active && isWebsiteVisible(service))),
     [catalogue.services],
   )
   const serviceGroups = useMemo<ServiceGroup[]>(() => {
