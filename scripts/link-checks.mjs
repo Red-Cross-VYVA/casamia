@@ -39,6 +39,11 @@ function redirectRouteMatches(pathname) {
 const failures = []
 const sourceFiles = walk(srcRoot).filter((file) => /\.(?:json|ts|tsx)$/.test(file))
 const ids = new Set()
+const canonicalRedirectPaths = new Map([
+  ['/bathroom-safety-for-seniors', '/services/bathroom-safety'],
+  ['/senior-bedroom-safety', '/services/bedroom-safety'],
+  ['/connected-home-for-seniors', '/services/smart-home-safety'],
+])
 
 for (const file of sourceFiles) {
   const source = fs.readFileSync(file, 'utf8')
@@ -79,6 +84,10 @@ for (const file of sourceFiles) {
       const [pathAndQuery, hash] = target.split('#')
       const pathname = pathAndQuery.split(/[?]/, 1)[0] || '/'
       const publicAsset = path.join(projectRoot, 'public', pathname.slice(1))
+      const canonicalPath = canonicalRedirectPaths.get(pathname)
+      if (canonicalPath) {
+        failures.push(`${relativeFile}: internal link ${target} uses a legacy room URL; link to ${canonicalPath} instead`)
+      }
       if (!routeMatches(pathname) && !fs.existsSync(publicAsset)) {
         failures.push(`${relativeFile}: internal link ${target} has no matching route or public file`)
       }
@@ -95,6 +104,10 @@ for (const file of sourceFiles) {
 const sitemap = fs.readFileSync(path.join(projectRoot, 'public', 'sitemap.xml'), 'utf8')
 for (const match of sitemap.matchAll(/<loc>https:\/\/casamia\.com\.es([^<]*)<\/loc>/g)) {
   const pathname = match[1] || '/'
+  const canonicalPath = canonicalRedirectPaths.get(pathname)
+  if (canonicalPath) {
+    failures.push(`public/sitemap.xml: ${pathname} redirects to ${canonicalPath}; list only the canonical service URL`)
+  }
   if (!routeMatches(pathname)) {
     failures.push(`public/sitemap.xml: ${pathname} has no matching route`)
   }

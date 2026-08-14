@@ -1,4 +1,5 @@
 import {
+  ArrowDown,
   ArrowRight,
   Bath,
   BedDouble,
@@ -6,40 +7,38 @@ import {
   CookingPot,
   DoorOpen,
   Home,
+  MousePointer2,
   PackageCheck,
   ShieldCheck,
   Sparkles,
+  X,
   type LucideIcon,
 } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { SafeImage } from '../components/SafeImage'
+import { ServiceItemDetailModal } from '../components/ServiceItemDetailModal'
+import { getZoneRiskHotspotStyle, zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
 import { SEO } from '../components/SEO'
 import {
   getActiveCatalogueRooms,
   getHomeSafetyPackageForRoom,
   getMasterServiceCatalogue,
 } from '../services/masterServiceCatalogue'
-import {
-  getPackageConfigForArea,
-  getServicesForPackageArea,
-} from '../services/serviceCatalogue'
-import {
-  formatPackagePriceForLanguage,
-  useLocalizedServiceCatalogue,
-} from '../services/serviceCatalogueLocalization'
+import { getServicesForPackageArea } from '../services/serviceCatalogue'
+import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
 import type {
   CasaMiaService,
   LocalizedString,
   MasterServiceCatalogue,
   ServicePackageArea,
-  ServicePackageConfig,
 } from '../types/serviceCatalogue'
 import '../styles/services-catalogue.css'
 
 type CatalogueGroupId = ServicePackageArea | 'other'
+type CatalogueZoneRiskArea = Extract<ZoneRiskArea, CatalogueGroupId>
 
 type CatalogueAreaDefinition = {
   id: CatalogueGroupId
@@ -51,7 +50,6 @@ type CatalogueAreaDefinition = {
 
 type ServiceGroup = {
   area: CatalogueAreaDefinition
-  packageConfig?: ServicePackageConfig
   services: CasaMiaService[]
 }
 
@@ -110,14 +108,25 @@ type ServicesPageCopy = {
   heroTitle: string
   heroBody: string
   browseCta: string
+  catalogueGuide: {
+    eyebrow: string
+    title: string
+    body: string
+    points: string[]
+    visualTitle: string
+    visualBody: string
+    visualAreas: string[]
+    singleRoomLabel: string
+    planLabel: string
+    startCta: string
+    close: string
+  }
   planCta: string
   catalogueLabel: string
   currentOptions: string
   activeServices: string
   packageAreas: string
   inclusionsVisible: string
-  homeVisualTitle: string
-  homeVisualIntro: string
   sectionEyebrow: string
   sectionTitle: string
   sectionBody: string
@@ -126,9 +135,7 @@ type ServicesPageCopy = {
   includedItemPlural: string
   addOnSingular: string
   addOnPlural: string
-  tailoredQuote: string
   selectedEyebrow: string
-  packagePrice: string
   coreComponent: string
   optionalComponent: string
   included: string
@@ -156,11 +163,11 @@ type ServicesPageCopy = {
 const catalogueAreaVisuals: Record<ServicePackageArea, { icon: LucideIcon; image: string }> = {
   bathroom: { icon: Bath, image: '/images/solutions/bathroom-safety.jpg' },
   bedroom: { icon: BedDouble, image: '/images/before-after/bedroom-after-card.webp' },
-  entrance: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
-  kitchen: { icon: CookingPot, image: '/images/solutions/casamia-staff-kitchen-consultation.webp' },
+  entrance: { icon: DoorOpen, image: '/images/service-card-products/entrance-safer-access.png' },
+  kitchen: { icon: CookingPot, image: '/images/solutions/adorable-mature-couple-kitchen.jpg' },
   lighting: { icon: Sparkles, image: '/images/service-gallery/isometric/isometric-living.jpg' },
   'living-room': { icon: Home, image: '/images/before-after/living-after-home.webp' },
-  outdoor: { icon: DoorOpen, image: '/images/solutions/entrance-access.jpg' },
+  outdoor: { icon: DoorOpen, image: '/images/service-card-products/entrance-safer-access.png' },
   'smart-safety': { icon: Sparkles, image: '/images/how-it-works-smartphone.jpg' },
   stairs: { icon: Home, image: '/images/solutions/stairs-hallways.jpg' },
 }
@@ -175,14 +182,17 @@ const otherArea: CatalogueAreaDefinition = {
   },
 }
 
-const homeVisualSlides: Array<{ areaId: ServicePackageArea; image: string }> = [
-  { areaId: 'bedroom', image: '/images/service-gallery/isometric/isometric-bedroom.jpg' },
-  { areaId: 'living-room', image: '/images/service-gallery/isometric/isometric-living.jpg' },
-  { areaId: 'kitchen', image: '/images/service-gallery/isometric/isometric-kitchen.jpg' },
-  { areaId: 'bathroom', image: '/images/service-gallery/isometric/isometric-bathroom.jpg' },
-]
-
 const serviceCardProduct = (name: string) => `/images/service-card-products/${name}.webp`
+
+const roomFallbackProductImages: Partial<Record<CasaMiaService['room'], string>> = {
+  bathroom: serviceCardProduct('shower-seat'),
+  bedroom: serviceCardProduct('bed-transfer'),
+  kitchen: serviceCardProduct('kitchen-tools'),
+  entrance: serviceCardProduct('threshold-ramp'),
+  movement: serviceCardProduct('clear-night-route'),
+  connected: serviceCardProduct('motion-sensor'),
+  'living-room': serviceCardProduct('recliner'),
+}
 
 const packageZoneNavImages: Partial<Record<CatalogueGroupId, string>> = {
   bathroom: serviceCardProduct('shower-seat'),
@@ -196,39 +206,45 @@ const packageZoneNavImages: Partial<Record<CatalogueGroupId, string>> = {
   'smart-safety': serviceCardProduct('motion-sensor'),
 }
 
+const catalogueGuideVisualImages = [
+  '/images/solutions/bathroom-safety.jpg',
+  '/images/solutions/adorable-mature-couple-kitchen.jpg',
+  '/images/before-after/bedroom-after-card.webp',
+  '/images/service-card-products/entrance-safer-access.png',
+]
+
 const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
-  'bathroom-folding-shower-seat': { kind: 'shower-seat', tone: 'water', image: serviceCardProduct('shower-seat') },
+  'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: '/images/service-gallery/01-grab-bars-and-support-points.jpg' },
+  'bathroom-folding-shower-seat': { kind: 'shower-seat', tone: 'water', image: '/images/service-card-products/folding-shower-seat.png' },
   'bathroom-raised-toilet-seat': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
+  'bathroom-toilet-support-rails': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
+  'bathroom-comfort-height-toilet': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
   'bathroom-anti-slip-floor-treatment': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('floor-grip') },
-  'bathroom-improved-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
+  'bathroom-anti-slip-bath-mat': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/anti-slip-bath-mat.png' },
+  'bathroom-improved-lighting': { kind: 'motion-light', tone: 'light', image: '/images/service-gallery/04-bathroom-and-kitchen-adaptations.jpg' },
   'bathroom-lever-mixer-tap': { kind: 'lever-tap', tone: 'water', image: serviceCardProduct('lever-tap') },
-  'bathroom-thermostatic-valve': { kind: 'thermostatic-valve', tone: 'water', image: serviceCardProduct('thermostatic-valve') },
+  'bathroom-thermostatic-valve': { kind: 'thermostatic-valve', tone: 'water', image: serviceCardProduct('thermostatic-shower-mixer') },
   'bathroom-threshold-removal': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-reduction') },
+  'bathroom-door-hardware': { kind: 'door-handle', tone: 'access', image: serviceCardProduct('door-handle') },
   'bathroom-safety-monitoring': { kind: 'water-monitoring', tone: 'alert', image: serviceCardProduct('water-monitoring') },
   'bathroom-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
   'bathroom-tub-cutout': { kind: 'tub-cutout', tone: 'access', image: serviceCardProduct('tub-cutout') },
   'bathroom-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
-  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
+  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: '/images/service-card-products/vertical-shower-grab-bar.png' },
   'bedroom-underbed-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
   'bedroom-bed-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
+  'bedroom-bed-wedge-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-wedge-back-support') },
+  'bedroom-night-time-visibility': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('clear-night-route') },
   'bedroom-night-route': { kind: 'clear-route', tone: 'mobility', image: serviceCardProduct('clear-night-route') },
-  'bedroom-slip-resistance': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
+  'bedroom-safer-walking-routes': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
+  'bedroom-slip-resistance': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/bedside-exit-mat.png' },
   'bedroom-fire-safety': { kind: 'smoke-detector', tone: 'fire', image: serviceCardProduct('smoke-detector') },
   'bedroom-voice-assistance': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('voice-speaker-bedroom') },
-  'bedroom-smart-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
-  'bedroom-bed-exit-sensor': { kind: 'bed-alert', tone: 'alert', image: serviceCardProduct('bed-exit-sensor') },
-  'bedroom-daily-living-support': { kind: 'emergency-button', tone: 'alert', image: serviceCardProduct('emergency-button') },
-  'bedroom-connected-safety': { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') },
   'bedroom-emergency-support': { kind: 'emergency-button', tone: 'alert', image: serviceCardProduct('emergency-button') },
   'bedroom-accessible-wardrobe': { kind: 'reachable-storage', tone: 'support', image: serviceCardProduct('reachable-wardrobe') },
-  'bedroom-advanced-bed-transfer': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
+  'bedroom-advanced-bed-transfer': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('advanced-bed-transfer') },
   'bedroom-adjustable-bed': { kind: 'adjustable-bed', tone: 'support', image: serviceCardProduct('adjustable-bed') },
-  'bedroom-bed-exit-safety-system': { kind: 'bed-alert', tone: 'alert', image: serviceCardProduct('bed-exit-sensor') },
-  'bedroom-automated-curtains': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('automated-curtains') },
-  'bedroom-bathroom-safety-route': { kind: 'clear-route', tone: 'mobility', image: serviceCardProduct('clear-night-route') },
-  'bedroom-specialist-layout': { kind: 'clear-route', tone: 'support', image: serviceCardProduct('clear-night-route') },
   'bedroom-door-accessibility': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
-  'bedroom-dementia-support': { kind: 'voice-speaker', tone: 'support', image: serviceCardProduct('voice-speaker-bedroom') },
   'kitchen-easy-grip-tools': { kind: 'kitchen-tools', tone: 'food', image: serviceCardProduct('kitchen-tools') },
   'kitchen-stove-shutoff': { kind: 'hob-shutoff', tone: 'fire', image: serviceCardProduct('hob-shutoff') },
   'kitchen-worktop-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('kitchen-worktop-lighting') },
@@ -239,24 +255,36 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'kitchen-pull-down-shelf': { kind: 'pull-out-storage', tone: 'support', image: serviceCardProduct('pull-out-storage') },
   'kitchen-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
   'living-room-easier-sitting-standing': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
-  'movement-stand-assist': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
-  'movement-rug-securing': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
-  'movement-hallway-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('clear-night-route') },
+  'movement-stand-assist': { kind: 'recliner', tone: 'support', image: '/images/service-card-products/living-room-seating-support.png' },
+  'movement-rug-securing': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/living-room-route-power-access.png' },
+  'movement-hallway-lighting': { kind: 'motion-light', tone: 'light', image: '/images/service-card-products/living-room-motion-lighting.png' },
   'living-room-slip-prevention': { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('rug-grip') },
   'living-room-safer-furniture': { kind: 'furniture-anchor', tone: 'support', image: serviceCardProduct('furniture-anchor') },
   'living-room-safety-monitoring': { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') },
-  'living-room-connected-experience': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('voice-speaker-bedroom') },
-  'living-room-advanced-seating': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
+  'living-room-connected-experience': { kind: 'voice-speaker', tone: 'alert', image: '/images/service-gallery/11-voice-controls-and-smart-routines.jpg' },
   'living-room-electric-recliner-chair': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
   'living-room-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'living-room-raised-electrical-outlets': { kind: 'motion-light', tone: 'light', image: '/images/service-card-products/living-room-raised-outlets.png' },
   'living-room-stair-safety': { kind: 'stair-support', tone: 'mobility', image: serviceCardProduct('stair-support') },
-  'entrance-safer-access': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
+  'entrance-safer-access': { kind: 'threshold-ramp', tone: 'access', image: '/images/service-card-products/entrance-safer-access.png' },
+  'entrance-step-handrail': { kind: 'stair-support', tone: 'support', image: '/images/service-card-products/entrance-safer-access.png' },
+  'entrance-threshold-treatment': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
   'entrance-easier-door-access': { kind: 'door-handle', tone: 'access', image: serviceCardProduct('entrance-door-handle') },
   'entrance-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('entrance-motion-lighting') },
   'entrance-connected-door-awareness': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },
+  'entrance-secure-access': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },
   'entrance-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
   'entrance-accessibility-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
+  'entrance-modular-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
   'entrance-seating': { kind: 'entry-seat', tone: 'support', image: serviceCardProduct('entry-seat') },
+  'entrance-key-safe': { kind: 'door-handle', tone: 'access', image: '/images/service-gallery/07-smart-access-devices.jpg' },
+  'movement-stair-handrails': { kind: 'stair-support', tone: 'mobility', image: '/images/service-gallery/03-stairway-and-hallway-support.jpg' },
+  'movement-stair-treads': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-gallery/02-anti-slip-safety-improvements.jpg' },
+  'connected-emergency-button': { kind: 'emergency-button', tone: 'alert', image: '/images/service-gallery/08-emergency-response-device.jpg' },
+  'connected-voice-hub': { kind: 'voice-speaker', tone: 'alert', image: '/images/service-gallery/07-smart-access-devices.jpg' },
+  'connected-family-alerts': { kind: 'motion-sensor', tone: 'alert', image: '/images/how-it-works-smartphone.jpg' },
+  'connected-fall-detection': { kind: 'motion-sensor', tone: 'alert', image: '/images/service-gallery/09-fall-detection-sensors.jpg' },
+  'connected-monitoring': { kind: 'motion-sensor', tone: 'alert', image: '/images/service-gallery/12-smart-setup-and-user-training.jpg' },
 }
 
 const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
@@ -266,26 +294,35 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     heroEyebrow: 'CasaMia service catalogue',
     heroTitle: 'Home safety packages, room by room.',
     heroBody: 'Choose a room or safety area to see the core improvements CasaMia can assess, quote and coordinate.',
-    browseCta: 'Browse package areas',
+    browseCta: 'Explore services',
+    catalogueGuide: {
+      eyebrow: 'Before you browse',
+      title: 'Pick rooms. Build one plan.',
+      body: 'Start with one package or combine areas across the home before you browse.',
+      points: ['One package', 'Several areas', 'One CasaMia plan'],
+      visualTitle: 'Choose the areas to include',
+      visualBody: 'Bathroom, kitchen, bedroom, entrance and more.',
+      visualAreas: ['Bathroom', 'Kitchen', 'Bedroom', 'Entrance'],
+      singleRoomLabel: '1 room',
+      planLabel: 'Combined plan',
+      startCta: 'Start catalogue',
+      close: 'Close',
+    },
     planCta: 'Build my safer home',
     catalogueLabel: 'Current catalogue',
     currentOptions: 'included items and add-ons available now',
     activeServices: 'Active services',
     packageAreas: 'Package areas',
     inclusionsVisible: 'Inclusions shown',
-    homeVisualTitle: 'One home, every key area covered.',
-    homeVisualIntro: 'Browse services by the spaces people use every day.',
-    sectionEyebrow: 'Explore by area',
-    sectionTitle: 'See what is included, room by room.',
-    sectionBody: 'Choose a space to review the core improvements included in the package and the optional add-ons CasaMia can assess, quote and coordinate for you.',
+    sectionEyebrow: 'Catalogue',
+    sectionTitle: 'Choose a room.',
+    sectionBody: '',
     packageNavigation: 'CasaMia package areas',
     includedItemSingular: 'included item',
     includedItemPlural: 'included items',
     addOnSingular: 'optional add-on',
     addOnPlural: 'optional add-ons',
-    tailoredQuote: 'Tailored quote',
     selectedEyebrow: 'Package area',
-    packagePrice: 'Package price',
     coreComponent: 'Included in package',
     optionalComponent: 'Optional add-on',
     included: 'What is included',
@@ -315,26 +352,35 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     heroEyebrow: 'Catálogo de servicios CasaMia',
     heroTitle: 'Paquetes de seguridad, estancia por estancia.',
     heroBody: 'Elige una estancia o zona de seguridad para ver las mejoras que CasaMia puede valorar, presupuestar y coordinar.',
-    browseCta: 'Ver áreas de servicio',
+    browseCta: 'Ver servicios',
+    catalogueGuide: {
+      eyebrow: 'Antes de ver el catalogo',
+      title: 'Elige zonas. Crea un plan.',
+      body: 'Empieza con un paquete o combina varias areas de la casa antes de ver el catalogo.',
+      points: ['Un paquete', 'Varias zonas', 'Un plan CasaMia'],
+      visualTitle: 'Elige las zonas',
+      visualBody: 'Bano, cocina, dormitorio, entrada y mas.',
+      visualAreas: ['Bano', 'Cocina', 'Dormitorio', 'Entrada'],
+      singleRoomLabel: '1 estancia',
+      planLabel: 'Plan combinado',
+      startCta: 'Empezar catalogo',
+      close: 'Cerrar',
+    },
     planCta: 'Crear mi hogar más seguro',
     catalogueLabel: 'Catálogo actual',
     currentOptions: 'incluidos y extras disponibles',
     activeServices: 'Servicios activos',
     packageAreas: 'Áreas de servicio',
     inclusionsVisible: 'Inclusiones visibles',
-    homeVisualTitle: 'Una casa, cada zona clave cubierta.',
-    homeVisualIntro: 'Explora los servicios por los espacios que se usan a diario.',
-    sectionEyebrow: 'Explora por zona',
-    sectionTitle: 'Consulta qué incluye cada zona.',
-    sectionBody: 'Elige una zona para revisar las mejoras incluidas en el paquete y los extras opcionales que CasaMia puede valorar, presupuestar y coordinar por ti.',
+    sectionEyebrow: 'Catálogo',
+    sectionTitle: 'Elige una zona.',
+    sectionBody: '',
     packageNavigation: 'Áreas de servicio CasaMia',
     includedItemSingular: 'incluido',
     includedItemPlural: 'incluidos',
     addOnSingular: 'extra opcional',
     addOnPlural: 'extras opcionales',
-    tailoredQuote: 'Presupuesto a medida',
     selectedEyebrow: 'Zona del paquete',
-    packagePrice: 'Precio del paquete',
     coreComponent: 'Incluido en el paquete',
     optionalComponent: 'Extra opcional',
     included: 'Qué incluye',
@@ -409,6 +455,22 @@ function formatPackageComposition(services: CasaMiaService[], copy: ServicesPage
     : `${includedItems} ${includedLabel}`
 }
 
+function getCatalogueAreaTitle(area: ServicePackageArea): Record<'en' | 'es', string> {
+  const titles: Record<ServicePackageArea, Record<'en' | 'es', string>> = {
+    bathroom: { en: 'Bathroom', es: 'Baño' },
+    bedroom: { en: 'Bedroom', es: 'Dormitorio' },
+    entrance: { en: 'Entrance', es: 'Entrada' },
+    kitchen: { en: 'Kitchen', es: 'Cocina' },
+    lighting: { en: 'Lighting', es: 'Iluminación' },
+    'living-room': { en: 'Living room', es: 'Salón' },
+    outdoor: { en: 'Outdoor', es: 'Exterior' },
+    'smart-safety': { en: 'Smart safety', es: 'Seguridad conectada' },
+    stairs: { en: 'Stairs', es: 'Escaleras' },
+  }
+
+  return titles[area]
+}
+
 function buildCatalogueAreas(masterCatalogue: MasterServiceCatalogue): CatalogueAreaDefinition[] {
   const areas: CatalogueAreaDefinition[] = []
 
@@ -424,7 +486,7 @@ function buildCatalogueAreas(masterCatalogue: MasterServiceCatalogue): Catalogue
       id: room.id,
       icon: visual.icon,
       image: visual.image,
-      title: localizeRecord(packageRecord?.customerName ?? room.name, room.name),
+      title: getCatalogueAreaTitle(room.id),
       description: localizeRecord(
         packageRecord?.shortDescription ?? packageRecord?.customerBenefit ?? room.name,
         room.name,
@@ -435,8 +497,25 @@ function buildCatalogueAreas(masterCatalogue: MasterServiceCatalogue): Catalogue
   return areas
 }
 
+function uniqueServicesById(services: CasaMiaService[]) {
+  const seen = new Set<string>()
+
+  return services.filter((service) => {
+    if (seen.has(service.id)) {
+      return false
+    }
+
+    seen.add(service.id)
+    return true
+  })
+}
+
 function isCataloguePackageArea(value: string): value is ServicePackageArea {
   return Object.prototype.hasOwnProperty.call(catalogueAreaVisuals, value)
+}
+
+function isZoneRiskArea(value: CatalogueGroupId): value is CatalogueZoneRiskArea {
+  return Object.prototype.hasOwnProperty.call(zoneRiskMaps, value)
 }
 
 function localizeRecord(value: LocalizedString, fallback: LocalizedString): Record<'en' | 'es', string> {
@@ -452,38 +531,46 @@ function getServiceCardVisual(service: CasaMiaService): ServiceCardVisualConfig 
   if (mappedVisual) return mappedVisual
 
   const category = service.category.toLowerCase()
+  const roomFallbackImage = roomFallbackProductImages[service.room]
 
-  if (category.includes('light') || category.includes('ilumin')) return { kind: 'motion-light', tone: 'light' }
-  if (category.includes('toilet') || category.includes('inodoro')) return { kind: 'toilet-rails', tone: 'support' }
-  if (category.includes('bath') || category.includes('ducha')) return { kind: 'shower-seat', tone: 'water' }
+  if (category.includes('light') || category.includes('ilumin')) {
+    return { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') }
+  }
+  if (category.includes('toilet') || category.includes('inodoro')) {
+    return { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') }
+  }
+  if (category.includes('bath') || category.includes('ducha')) {
+    return { kind: 'shower-seat', tone: 'water', image: serviceCardProduct('shower-seat') }
+  }
   if (category.includes('water') || category.includes('agua') || category.includes('fontan')) {
-    return { kind: 'water-monitoring', tone: 'water' }
+    return { kind: 'water-monitoring', tone: 'water', image: serviceCardProduct('water-monitoring') }
   }
   if (category.includes('floor') || category.includes('suelo') || category.includes('slip')) {
-    return { kind: 'floor-grip', tone: 'mobility' }
+    return { kind: 'floor-grip', tone: 'mobility', image: serviceCardProduct('floor-grip') }
   }
   if (category.includes('door') || category.includes('access') || category.includes('acceso')) {
-    return { kind: 'wide-doorway', tone: 'access' }
+    return { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') }
   }
   if (category.includes('connected') || category.includes('alert') || category.includes('aviso')) {
-    return { kind: 'motion-sensor', tone: 'alert' }
+    return { kind: 'motion-sensor', tone: 'alert', image: serviceCardProduct('motion-sensor') }
   }
 
-  if (service.room === 'bathroom') return { kind: 'shower-seat', tone: 'water' }
-  if (service.room === 'bedroom') return { kind: 'bed-transfer', tone: 'support' }
-  if (service.room === 'kitchen') return { kind: 'kitchen-tools', tone: 'food' }
-  if (service.room === 'entrance') return { kind: 'threshold-ramp', tone: 'access' }
-  if (service.room === 'movement') return { kind: 'clear-route', tone: 'mobility' }
-  if (service.room === 'connected') return { kind: 'motion-sensor', tone: 'alert' }
-  if (service.room === 'living-room') return { kind: 'recliner', tone: 'support' }
+  if (service.room === 'bathroom') return { kind: 'shower-seat', tone: 'water', image: roomFallbackImage }
+  if (service.room === 'bedroom') return { kind: 'bed-transfer', tone: 'support', image: roomFallbackImage }
+  if (service.room === 'kitchen') return { kind: 'kitchen-tools', tone: 'food', image: roomFallbackImage }
+  if (service.room === 'entrance') return { kind: 'threshold-ramp', tone: 'access', image: roomFallbackImage }
+  if (service.room === 'movement') return { kind: 'clear-route', tone: 'mobility', image: roomFallbackImage }
+  if (service.room === 'connected') return { kind: 'motion-sensor', tone: 'alert', image: roomFallbackImage }
+  if (service.room === 'living-room') return { kind: 'recliner', tone: 'support', image: roomFallbackImage }
 
-  return { kind: 'generic-product', tone: 'support' }
+  return { kind: 'generic-product', tone: 'support', image: serviceCardProduct('vertical-rail') }
 }
 
 export function ServicesPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = servicesPageCopy[language]
+  const viewDetailsLabel = language === 'es' ? 'Ver detalles' : 'View details'
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
   const masterCatalogue = useMemo(
     () => catalogue.masterCatalogue ?? getMasterServiceCatalogue(),
@@ -491,15 +578,15 @@ export function ServicesPage() {
   )
   const catalogueAreas = useMemo(() => buildCatalogueAreas(masterCatalogue), [masterCatalogue])
   const [selectedGroupId, setSelectedGroupId] = useState<CatalogueGroupId>('bathroom')
+  const [activeService, setActiveService] = useState<CasaMiaService | null>(null)
   const activeServices = useMemo(
-    () => catalogue.services.filter((service) => service.active && isWebsiteVisible(service)),
+    () => uniqueServicesById(catalogue.services.filter((service) => service.active && isWebsiteVisible(service))),
     [catalogue.services],
   )
   const serviceGroups = useMemo<ServiceGroup[]>(() => {
     const groupedServices = catalogueAreas
       .map((area) => ({
         area,
-        packageConfig: getPackageConfigForArea(catalogue, area.id as ServicePackageArea),
         services: getServicesForPackageArea(activeServices, area.id as ServicePackageArea),
       }))
       .filter((group) => group.services.length > 0)
@@ -511,17 +598,45 @@ export function ServicesPage() {
     return unassignedServices.length
       ? [...groupedServices, { area: otherArea, services: unassignedServices }]
       : groupedServices
-  }, [activeServices, catalogue, catalogueAreas])
+  }, [activeServices, catalogueAreas])
   const selectedGroup = serviceGroups.find((group) => group.area.id === selectedGroupId) ?? serviceGroups[0]
   const SelectedIcon = selectedGroup?.area.icon ?? PackageCheck
-  const heroSlides = homeVisualSlides
-    .map(({ areaId, image }) => {
-      const area = serviceGroups.find((item) => item.area.id === areaId)?.area
-        ?? catalogueAreas.find((item) => item.id === areaId)
+  const selectedRiskMap = selectedGroup && isZoneRiskArea(selectedGroup.area.id)
+    ? zoneRiskMaps[selectedGroup.area.id]
+    : undefined
+  const [isCatalogueGuideOpen, setIsCatalogueGuideOpen] = useState(false)
 
-      return area ? { area, image } : null
-    })
-    .filter((item): item is { area: CatalogueAreaDefinition; image: string } => Boolean(item))
+  useEffect(() => {
+    if (!isCatalogueGuideOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsCatalogueGuideOpen(false)
+      }
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isCatalogueGuideOpen])
+
+  const startCatalogue = () => {
+    setIsCatalogueGuideOpen(false)
+    window.setTimeout(() => {
+      const catalogue = document.getElementById('catalogue-packages')
+
+      if (!catalogue) return
+
+      const catalogueTop = catalogue.getBoundingClientRect().top + window.scrollY
+      window.history.replaceState(null, '', '#catalogue-packages')
+      window.scrollTo({ top: Math.max(catalogueTop - 92, 0), behavior: 'smooth' })
+    }, 0)
+  }
 
   return (
     <>
@@ -550,43 +665,113 @@ export function ServicesPage() {
             <h1>{copy.heroTitle}</h1>
             <p>{copy.heroBody}</p>
             <div className="services-catalogue-hero-actions">
-              <a className="btn btn-green" href="#catalogue-packages">
+              <button
+                aria-expanded={isCatalogueGuideOpen}
+                aria-haspopup="dialog"
+                className="btn btn-green services-catalogue-hero-cta"
+                onClick={() => setIsCatalogueGuideOpen(true)}
+                type="button"
+              >
                 {copy.browseCta}
-                <ArrowRight size={20} aria-hidden="true" />
-              </a>
-              <Link className="btn btn-white" to="/home-safety-wizard">
-                {copy.planCta}
-              </Link>
+                <ArrowDown size={20} aria-hidden="true" />
+              </button>
             </div>
           </div>
-
-          <aside className="services-catalogue-home-visual" aria-label={copy.homeVisualTitle}>
-            <div className="services-catalogue-home-rotator" aria-hidden="true">
-              {heroSlides.map(({ area, image }) => (
-                <figure className="services-catalogue-home-slide" key={area.id}>
-                  <SafeImage
-                    alt={area.title[language]}
-                    className="services-catalogue-home-slide-media"
-                    imgClassName="services-catalogue-home-slide-image"
-                    loading="eager"
-                    src={image}
-                  />
-                  <figcaption className="services-catalogue-home-slide-caption">
-                    <span>{area.title[language]}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </aside>
         </div>
       </section>
+
+      {isCatalogueGuideOpen ? (
+        <div className="services-catalogue-guide-backdrop" onClick={() => setIsCatalogueGuideOpen(false)}>
+          <div
+            aria-describedby="services-catalogue-guide-body"
+            aria-labelledby="services-catalogue-guide-title"
+            aria-modal="true"
+            className="services-catalogue-guide-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <button
+              aria-label={copy.catalogueGuide.close}
+              className="services-catalogue-guide-close"
+              onClick={() => setIsCatalogueGuideOpen(false)}
+              type="button"
+            >
+              <X size={18} aria-hidden="true" />
+            </button>
+            <div className="services-catalogue-guide-layout">
+              <div className="services-catalogue-guide-copy">
+                <p className="eyebrow">{copy.catalogueGuide.eyebrow}</p>
+                <h2 id="services-catalogue-guide-title">{copy.catalogueGuide.title}</h2>
+                <p id="services-catalogue-guide-body">{copy.catalogueGuide.body}</p>
+                <ul className="services-catalogue-guide-points">
+                  {copy.catalogueGuide.points.map((point) => (
+                    <li key={point}>
+                      <CheckCircle2 size={17} aria-hidden="true" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="services-catalogue-guide-actions">
+                  <button className="btn btn-green" onClick={startCatalogue} type="button">
+                    {copy.catalogueGuide.startCta}
+                    <ArrowDown size={19} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+
+              <aside className="services-catalogue-guide-visual" aria-label={copy.catalogueGuide.visualTitle}>
+                <div className="services-catalogue-guide-visual-header">
+                  <span className="services-catalogue-guide-visual-icon">
+                    <PackageCheck size={22} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <strong>{copy.catalogueGuide.visualTitle}</strong>
+                    <small>{copy.catalogueGuide.visualBody}</small>
+                  </div>
+                </div>
+                <div className="services-catalogue-guide-room-grid">
+                  {copy.catalogueGuide.visualAreas.map((area, index) => (
+                    <span
+                      className={`services-catalogue-guide-room${index < 3 ? ' is-selected' : ''}`}
+                      key={area}
+                    >
+                      <SafeImage
+                        alt=""
+                        className="services-catalogue-guide-room-media"
+                        fallbackLabel=""
+                        imgClassName="services-catalogue-guide-room-image"
+                        src={catalogueGuideVisualImages[index]}
+                      />
+                      <span className="services-catalogue-guide-room-check">
+                        <CheckCircle2 size={14} aria-hidden="true" />
+                      </span>
+                      <span className="services-catalogue-guide-room-label">{area}</span>
+                    </span>
+                  ))}
+                </div>
+                <div className="services-catalogue-guide-flow">
+                  <span>
+                    <PackageCheck size={15} aria-hidden="true" />
+                    {copy.catalogueGuide.singleRoomLabel}
+                  </span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                  <span>
+                    <Home size={15} aria-hidden="true" />
+                    {copy.catalogueGuide.planLabel}
+                  </span>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <section className="services-catalogue-section" id="catalogue-packages">
         <div className="site-shell">
           <header className="services-catalogue-heading">
             <p className="eyebrow">{copy.sectionEyebrow}</p>
             <h2>{copy.sectionTitle}</h2>
-            <p>{copy.sectionBody}</p>
+            {copy.sectionBody ? <p>{copy.sectionBody}</p> : null}
           </header>
 
           {serviceGroups.length ? (
@@ -645,17 +830,15 @@ export function ServicesPage() {
                     <div className="services-catalogue-package-heading">
                       <span className="services-catalogue-package-icon"><SelectedIcon size={26} aria-hidden="true" /></span>
                       <div>
-                        <p>{copy.selectedEyebrow} · {formatPackageComposition(selectedGroup.services, copy)}</p>
+                        <p>{formatPackageComposition(selectedGroup.services, copy)}</p>
                         <h2 id="active-service-package-title">{selectedGroup.area.title[language]}</h2>
-                        <span>{selectedGroup.area.description[language]}</span>
-                        {selectedGroup.packageConfig ? (
-                          <strong className="services-catalogue-package-price">
-                            {copy.packagePrice}: {formatPackagePriceForLanguage(selectedGroup.packageConfig, language)}
-                          </strong>
-                        ) : null}
                       </div>
                     </div>
                   </header>
+
+                  {selectedRiskMap ? (
+                    <ZoneRiskMapPreview language={language} riskMap={selectedRiskMap} />
+                  ) : null}
 
                   <div className="services-catalogue-service-grid">
                     {selectedGroup.services.map((service) => {
@@ -724,6 +907,17 @@ export function ServicesPage() {
                               <span><strong>{copy.safetyNote}:</strong> {service.safetyNotice}</span>
                             </p>
                           ) : null}
+
+                          <div className="services-catalogue-service-actions">
+                            <button
+                              className="catalogue-item-detail-button"
+                              type="button"
+                              onClick={() => setActiveService(service)}
+                            >
+                              {viewDetailsLabel}
+                              <ArrowRight size={15} aria-hidden="true" />
+                            </button>
+                          </div>
                         </article>
                       )
                     })}
@@ -772,7 +966,146 @@ export function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <ServiceItemDetailModal
+        imageSrc={activeService ? getServiceCardVisual(activeService).image : undefined}
+        language={language}
+        onClose={() => setActiveService(null)}
+        service={activeService}
+      />
     </>
+  )
+}
+
+function ZoneRiskMapPreview({ language, riskMap }: { language: 'en' | 'es'; riskMap: ZoneRiskMap }) {
+  const copy = riskMap.copy[language]
+  const [activeRiskId, setActiveRiskId] = useState<string | null>(null)
+  const riskMapId = `services-zone-risk-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}`
+  const riskItems = copy.risks.map((risk, index) => ({
+    id: `${riskMapId}-risk-${index + 1}`,
+    label: risk,
+    detail: copy.riskDetails?.[index],
+    position: riskMap.labelPositions[index],
+  }))
+  const legendItems = copy.legend.map((label, index) => ({
+    label,
+    position: riskMap.labelPositions[copy.risks.length + index],
+  }))
+  const interactionHint = language === 'es' ? 'Pasa o toca' : 'Hover or tap'
+
+  return (
+    <section className="services-zone-risk" aria-labelledby={riskMapId}>
+      <div className="services-zone-risk-stage">
+        <SafeImage
+          alt={copy.imageAlt}
+          className="services-zone-risk-media"
+          imgClassName="services-zone-risk-image"
+          src={riskMap.image}
+        />
+        <span className="services-zone-risk-hint" aria-hidden="true">
+          <MousePointer2 size={14} strokeWidth={2.4} />
+          {interactionHint}
+        </span>
+        <div className="services-zone-risk-labels">
+          {riskItems.map((item) => {
+            if (!item.position) return null
+
+            const isActive = activeRiskId === item.id
+            const detailSide = item.position.detailSide ?? (item.position.x > 64 ? 'opens-left' : 'opens-right')
+            const detailId = item.detail
+              ? `services-zone-risk-detail-${item.id}`
+              : undefined
+
+            return item.detail ? (
+              <span
+                className={`services-zone-risk-hotspot${isActive ? ' is-active' : ''}`}
+                key={item.id}
+                onMouseEnter={() => setActiveRiskId(item.id)}
+                onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                style={getZoneRiskHotspotStyle(item.position)}
+              >
+                <button
+                  aria-describedby={detailId}
+                  aria-label={item.label}
+                  className={`services-zone-risk-label has-detail ${detailSide}${isActive ? ' is-active' : ''}`}
+                  onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                  onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                  onFocus={() => setActiveRiskId(item.id)}
+                  type="button"
+                >
+                  <span>{item.label}</span>
+                </button>
+                <aside className={`services-zone-risk-detail ${detailSide}`} id={detailId}>
+                  <strong>{item.detail.solution}</strong>
+                  <p>{item.detail.helps}</p>
+                  {item.detail.product ? <small>{item.detail.product}</small> : null}
+                  {item.detail.stat ? <em>{item.detail.stat}</em> : null}
+                </aside>
+              </span>
+            ) : (
+              <span
+                aria-label={item.label}
+                className="services-zone-risk-label"
+                key={item.id}
+                style={{
+                  height: `${item.position.h}%`,
+                  left: `${item.position.x}%`,
+                  top: `${item.position.y}%`,
+                  width: `${item.position.w}%`,
+                }}
+              >
+                <span>{item.label}</span>
+              </span>
+            )
+          })}
+          {legendItems.map((item, index) => {
+            if (!item.position) return null
+
+            return (
+              <span
+                aria-hidden="true"
+                className="services-zone-risk-label is-legend"
+                key={`${item.label}-${index}`}
+                style={{
+                  height: `${item.position.h}%`,
+                  left: `${item.position.x}%`,
+                  top: `${item.position.y}%`,
+                  width: `${item.position.w}%`,
+                }}
+              >
+                {item.label}
+              </span>
+            )
+          })}
+        </div>
+      </div>
+      <div className="services-zone-risk-copy">
+        <p className="eyebrow">{copy.eyebrow}</p>
+        <h3 id={riskMapId}>{copy.title}</h3>
+        <p>{copy.body}</p>
+        <ul className="services-zone-risk-list">
+          {riskItems.map((item) => (
+            <li
+              className={activeRiskId === item.id ? 'is-active' : undefined}
+              key={item.id}
+              onMouseEnter={() => setActiveRiskId(item.id)}
+              onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
+            >
+              <button
+                aria-label={item.label}
+                className="services-zone-risk-list-button"
+                onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                onFocus={() => setActiveRiskId(item.id)}
+                type="button"
+              >
+                <strong>{item.label}</strong>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   )
 }
 

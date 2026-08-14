@@ -2,6 +2,7 @@ import {
   calculateLineTotal,
   calculateProposalTotals,
   getDefaultPaymentTerms,
+  homeSafetyPlan,
   planOptions,
   type ProposalData,
   type ProposalLineItem,
@@ -16,6 +17,13 @@ import {
   saveProposal,
 } from './proposalsStorage'
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
+import {
+  buildPlansBuilderGroups,
+  calculatePlansBuilderEstimate,
+  type PlansBuilderSelectionState,
+} from './plansBuilderPricing.ts'
+import { getServiceCatalogue } from './serviceCatalogue.ts'
+import type { EditableServiceCatalogue } from '../types/serviceCatalogue.ts'
 
 type BackendLineItem = {
   category?: string
@@ -26,6 +34,11 @@ type BackendLineItem = {
   name?: string
   priority?: string
   quantity?: number | string
+  source?: 'catalogue' | 'manual'
+  source_outcome_id?: string
+  source_package_id?: string
+  sourceOutcomeId?: string
+  sourcePackageId?: string
   total?: number | string
   unit_price?: number | string
   unitPrice?: number | string
@@ -77,6 +90,35 @@ type BackendActionResponse = BackendProposal & {
   ok?: boolean
 }
 
+export type PublicProposalDraftPayload = {
+  catalogueSnapshot?: EditableServiceCatalogue
+  companyWebsite?: string
+  consent: boolean
+  customer: {
+    address?: string
+    area?: string
+    email: string
+    name: string
+    phone?: string
+  }
+  language: 'en' | 'es'
+  selection: PlansBuilderSelectionState
+  website?: string
+}
+
+export type PublicProposalDraftResponse = {
+  emailDelivery?: {
+    at?: string
+    provider?: string
+    reason?: string
+    status?: string
+  }
+  proposal: ProposalData
+  publicToken: string
+  publicUrl: string
+  publicUrlAbsolute?: string
+}
+
 const apiBaseUrl = (
   import.meta.env.VITE_PROPOSALS_API_URL ||
   import.meta.env.VITE_API_BASE_URL ||
@@ -84,7 +126,15 @@ const apiBaseUrl = (
 ).replace(/\/$/, '')
 
 function backendAvailable() {
-  return Boolean(apiBaseUrl) || Boolean(import.meta.env.PROD)
+  if (apiBaseUrl) {
+    return true
+  }
+
+  if (isLocalBrowserHost()) {
+    return false
+  }
+
+  return Boolean(import.meta.env.PROD)
 }
 
 function internalHeaders(): Record<string, string> {
@@ -207,6 +257,9 @@ export function toBackendProposal(proposal: ProposalData) {
       name: item.name,
       priority: item.priority,
       quantity: item.quantity,
+      source: item.source,
+      source_outcome_id: item.sourceOutcomeId,
+      source_package_id: item.sourcePackageId,
       total: calculateLineTotal(item),
       unit_price: item.unitPrice,
     })),
@@ -246,6 +299,9 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
         name: safeText(item.name ?? item.description),
         priority: (safeText(item.priority, 'Medium') || 'Medium') as ProposalLineItem['priority'],
         quantity: safeNumber(item.quantity),
+        source: item.source,
+        sourceOutcomeId: safeText(item.source_outcome_id ?? item.sourceOutcomeId) || undefined,
+        sourcePackageId: safeText(item.source_package_id ?? item.sourcePackageId) || undefined,
         unitPrice: safeNumber(item.unit_price ?? item.unitPrice),
       }),
     ),
@@ -413,21 +469,127 @@ export async function acceptProposalWithFallback(proposal: ProposalData) {
 }
 
 export async function loadPublicProposal(token: string) {
-  const raw = await requestJson<BackendProposal>(`/api/public/proposals/${token}`)
+  if (!backendAvailable()) {
+    const proposal = loadAllProposals().find((item) => item.publicToken === token)
+    if (!proposal) throw new Error('Proposal not found.')
+    return proposal
+  }
 
-  return fromBackendProposal(raw)
+  try {
+    const raw = await requestJson<BackendProposal>(`/api/public/proposals/${token}`)
+
+    return fromBackendProposal(raw)
+  } catch (error) {
+    if (shouldUseLocalProposalFallback()) {
+      const proposal = loadAllProposals().find((item) => item.publicToken === token)
+      if (proposal) return proposal
+    }
+
+    throw error
+  }
 }
 
 export async function acceptPublicProposal(token: string, acceptedBy: string) {
-  const raw = await requestJson<BackendActionResponse>(`/api/public/proposals/${token}/accept`, {
-    body: JSON.stringify({ accepted_by: acceptedBy }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  })
+  if (!backendAvailable()) {
+    const proposal = loadAllProposals().find((item) => item.publicToken === token)
+    if (!proposal || proposal.status !== 'Sent' || proposal.acceptanceStatus !== 'Sent') {
+      throw new Error('This proposal is not ready for online acceptance yet.')
+    }
 
-  return hasProposalShape(raw) ? fromBackendProposal(raw) : null
+    return saveProposal({
+      ...proposal,
+      acceptanceDate: new Date().toISOString().slice(0, 10),
+      acceptanceStatus: 'Accepted',
+      acceptedBy,
+      status: 'Accepted',
+    })
+  }
+
+  try {
+    const raw = await requestJson<BackendActionResponse>(`/api/public/proposals/${token}/accept`, {
+      body: JSON.stringify({ accepted_by: acceptedBy }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+
+    return hasProposalShape(raw) ? fromBackendProposal(raw) : null
+  } catch (error) {
+    if (shouldUseLocalProposalFallback()) {
+      const proposal = loadAllProposals().find((item) => item.publicToken === token)
+      if (!proposal || proposal.status !== 'Sent' || proposal.acceptanceStatus !== 'Sent') {
+        throw new Error('This proposal is not ready for online acceptance yet.')
+      }
+
+      return saveProposal({
+        ...proposal,
+        acceptanceDate: new Date().toISOString().slice(0, 10),
+        acceptanceStatus: 'Accepted',
+        acceptedBy,
+        status: 'Accepted',
+      })
+    }
+
+    throw error
+  }
+}
+
+export async function createPublicProposalDraft(
+  payload: PublicProposalDraftPayload,
+  fallbackCatalogue?: EditableServiceCatalogue,
+): Promise<PublicProposalDraftResponse> {
+  if (shouldUseLocalProposalFallback()) {
+    return createLocalPublicProposalDraft(payload, fallbackCatalogue ?? getServiceCatalogue())
+  }
+
+  if (!backendAvailable()) {
+    return createLocalPublicProposalDraft(payload, fallbackCatalogue ?? getServiceCatalogue())
+  }
+
+  let raw: {
+    emailDelivery?: PublicProposalDraftResponse['emailDelivery']
+    proposal?: BackendProposal
+    publicToken?: string
+    publicUrl?: string
+    publicUrlAbsolute?: string
+  }
+
+  try {
+    raw = await requestJson<{
+      emailDelivery?: PublicProposalDraftResponse['emailDelivery']
+      proposal?: BackendProposal
+      publicToken?: string
+      publicUrl?: string
+      publicUrlAbsolute?: string
+    }>('/api/public/proposal-drafts', {
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+  } catch (error) {
+    if (shouldUseLocalProposalFallback()) {
+      return createLocalPublicProposalDraft(payload, fallbackCatalogue ?? getServiceCatalogue())
+    }
+
+    throw error
+  }
+
+  if (!raw.proposal) {
+    throw new Error('Draft proposal response did not include a proposal.')
+  }
+
+  const proposal = fromBackendProposal(raw.proposal)
+
+  return {
+    emailDelivery: raw.emailDelivery,
+    proposal,
+    publicToken: raw.publicToken ?? proposal.publicToken ?? '',
+    publicUrl: raw.publicUrl ?? (proposal.publicToken ? `/proposal/${proposal.publicToken}` : ''),
+    publicUrlAbsolute: raw.publicUrlAbsolute,
+  }
 }
 
 export function getProposalApiStatus() {
@@ -442,4 +604,88 @@ export function getProposalApiStatus() {
   return apiBaseUrl
     ? `Connected to ${apiBaseUrl}`
     : 'Connected to the same-origin Vercel proposal API.'
+}
+
+function createLocalPublicProposalDraft(
+  payload: PublicProposalDraftPayload,
+  catalogue: EditableServiceCatalogue,
+): PublicProposalDraftResponse {
+  if (!payload.consent) {
+    throw new Error('Consent is required to create a proposal.')
+  }
+
+  if (!payload.customer.name.trim() || !payload.customer.email.trim()) {
+    throw new Error('Name and email are required to create a proposal.')
+  }
+
+  const groups = buildPlansBuilderGroups(catalogue, payload.language)
+  const estimate = calculatePlansBuilderEstimate(groups, payload.selection, payload.language)
+
+  if (!estimate.proposalLineItems.length) {
+    throw new Error('Select at least one CasaMia package.')
+  }
+
+  const publicToken = createLocalPublicToken()
+  const proposal = createEmptyProposal({
+    acceptanceStatus: 'Sent',
+    address: payload.customer.address ?? '',
+    area: payload.customer.area ?? '',
+    customerName: payload.customer.name,
+    email: payload.customer.email,
+    executiveSummary: payload.language === 'es'
+      ? `Propuesta creada desde Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes con precio se muestran con IVA incluido. Los extras marcados como presupuesto se confirman antes de iniciar el trabajo.`
+      : `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Priced items are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
+    grantEligibilityNote: payload.language === 'es'
+      ? 'CasaMia puede orientar sobre documentación para ayudas cuando corresponda. La aprobación depende siempre de la autoridad correspondiente y no está garantizada.'
+      : 'CasaMia may support documentation for applicable grants. Approval is determined solely by the relevant authority and is not guaranteed.',
+    inspectionReference: 'Public Plans builder',
+    lineItems: estimate.proposalLineItems,
+    paymentTerms: payload.language === 'es'
+      ? 'Propuesta generada a partir de los paquetes, cantidades y extras seleccionados. Los trabajos y pagos solo empiezan después de la aceptación y la coordinación de fecha.'
+      : 'Proposal generated from the selected packages, quantities and add-ons. Work and payments only start after acceptance and date coordination.',
+    phone: payload.customer.phone ?? '',
+    preparedBy: 'CasaMia',
+    publicToken,
+    safetyScore: 'N/A',
+    selectedPlan: homeSafetyPlan,
+    status: 'Sent',
+    timelineDuration: payload.language === 'es'
+      ? 'A coordinar después de aceptar'
+      : 'To be scheduled after acceptance',
+    timelineNotes: payload.language === 'es'
+      ? 'CasaMia contacta contigo para coordinar fecha, acceso a la vivienda e instalación.'
+      : 'CasaMia will contact you to coordinate date, home access and installation.',
+    timelineStartDate: '',
+  })
+  const saved = saveProposal(proposal)
+
+  return {
+    emailDelivery: {
+      reason: 'Local demo mode does not send email.',
+      status: 'local_demo',
+    },
+    proposal: saved,
+    publicToken,
+    publicUrl: `/proposal/${publicToken}`,
+  }
+}
+
+function createLocalPublicToken() {
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+    return crypto.randomUUID().replace(/-/g, '')
+  }
+
+  return `${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`
+}
+
+function shouldUseLocalProposalFallback() {
+  return Boolean(import.meta.env.DEV) || isLocalBrowserHost()
+}
+
+function isLocalBrowserHost() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  return ['localhost', '127.0.0.1'].includes(window.location.hostname)
 }

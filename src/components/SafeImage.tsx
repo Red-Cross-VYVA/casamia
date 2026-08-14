@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 type SafeImageProps = {
@@ -20,6 +20,10 @@ export function SafeImage({
 }: SafeImageProps) {
   const { t } = useTranslation()
   const [failed, setFailed] = useState(false)
+
+  useEffect(() => {
+    setFailed(false)
+  }, [src])
 
   return (
     <div className={className}>

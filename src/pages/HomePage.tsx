@@ -1,7 +1,6 @@
 import {
   Activity,
   ArrowRight,
-  BadgeCheck,
   Bath,
   BedDouble,
   BellRing,
@@ -100,7 +99,7 @@ const audiences: SelectableCard<AudienceId>[] = [
     body: 'I am looking for solutions for multiple residents.',
     icon: Building2,
     visual: {
-      src: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+      src: '/images/solutions/adorable-mature-couple-kitchen.jpg',
       alt: 'Home safety professional reviewing adaptations with a client',
     },
   },
@@ -126,7 +125,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'bedroom',
     title: 'Bedroom',
-    body: 'Better night movement and easier bed transfers.',
+    body: 'Better night movement and easier bed access.',
     icon: BedDouble,
     position: 'home-hotspot-bedroom',
     improvements: ['Bedside lighting', 'Bed rail where required', 'Clear movement path'],
@@ -173,36 +172,63 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   },
 ]
 
-const corePillars: Array<SelectableCard<string>> = [
+type SupportJourneyStep = SelectableCard<string> & {
+  eyebrow: string
+  points: string[]
+  visual: {
+    src: string
+    alt: string
+  }
+}
+
+const supportJourney: SupportJourneyStep[] = [
   {
     id: 'assessment',
-    title: 'Home Safety Assessment',
-    body: 'A professional evaluation of the home, daily routines and priority risks.',
+    eyebrow: 'Step 1',
+    title: 'Choose your starting point',
+    body: 'Pick one of our ready-made safety packages, or request a physical inspection so a CasaMia technician can recommend the best solution for the home.',
     icon: CalendarCheck,
+    points: ['Ready-made packages', 'Optional home inspection', 'Technician guidance'],
+    visual: {
+      src: '/images/assessment/casamia-inspector-tablet.jpg',
+      alt: 'CasaMia technician reviewing a home safety inspection on a tablet',
+    },
   },
   {
-    id: 'report',
-    title: 'Personal Safety Report',
-    body: 'Clear recommendations, priorities and transparent pricing before work begins.',
+    id: 'proposal',
+    eyebrow: 'Step 2',
+    title: 'Review your proposal',
+    body: 'We share a clear proposal with practical home improvement suggestions, priorities and pricing, so you know exactly what will make the home safer.',
     icon: ClipboardCheck,
+    points: ['Room-by-room suggestions', 'Clear priorities', 'Transparent pricing'],
+    visual: {
+      src: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+      alt: 'CasaMia advisor discussing safety improvements in a kitchen',
+    },
   },
   {
-    id: 'improvements',
-    title: 'Essential Safety Improvements',
-    body: 'The practical changes that make the biggest difference first.',
-    icon: ShieldCheck,
+    id: 'grants',
+    eyebrow: 'Step 3',
+    title: 'Claim available grant support',
+    body: 'Our team helps prepare the grant application and documents for eligible works, so public financial support can help fund the improvements where available.',
+    icon: HeartHandshake,
+    points: ['Eligibility check', 'Document support', 'Application guidance'],
+    visual: {
+      src: '/images/blog/grants-readiness.webp',
+      alt: 'Grant support documents prepared for a home safety application',
+    },
   },
   {
     id: 'installation',
-    title: 'Professional Installation',
-    body: 'Supply, installation, setup, testing and basic training included.',
+    eyebrow: 'Step 4',
+    title: 'Install and stay supported',
+    body: 'CasaMia coordinates installation, checks everything is working properly and remains your contact for questions, adjustments and ongoing support.',
     icon: Wrench,
-  },
-  {
-    id: 'support',
-    title: 'Warranty and Support',
-    body: 'CasaMia remains your point of contact after installation.',
-    icon: BadgeCheck,
+    points: ['Professional installation', 'Handover check', 'Aftercare support'],
+    visual: {
+      src: '/images/solutions/casamia-worker-process.webp',
+      alt: 'CasaMia installer preparing home safety equipment',
+    },
   },
 ]
 
@@ -390,8 +416,8 @@ export function HomePage() {
           </div>
           <div className="home-redesign-hero-media">
             <SafeImage
-              src="/images/solutions/front-view-adorable-couple-kitchen.jpg"
-              alt="Older couple standing confidently in a bright home kitchen"
+              src="/images/solutions/close-up-senior-couple-love.jpg"
+              alt="Older couple embracing at home"
               className="home-redesign-hero-image"
               imgClassName="h-full w-full object-cover"
               loading="eager"
@@ -500,40 +526,76 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="home-redesign-section home-core-section" id="core-plan">
-        <div className="site-shell">
-          <div className="home-redesign-section-heading is-centered">
-            <p className="home-redesign-kicker">One clear plan</p>
-            <h2>Every CasaMia home includes</h2>
-            <p>Start with a safer home. Add only what you need.</p>
-          </div>
-          <div className="home-core-grid">
-            {corePillars.map((pillar) => {
-              const Icon = pillar.icon
+        <section className="home-redesign-section home-core-section" id="core-plan">
+          <div className="site-shell">
+            <div className="home-redesign-section-heading is-centered">
+              <p className="home-redesign-kicker">How CasaMia works</p>
+              <h2>A safer home, handled step by step.</h2>
+              <p>
+                Choose the route that suits your family. We turn the right package or inspection
+                into a clear proposal, grant support and professional installation.
+              </p>
+            </div>
+            <div className="home-journey-grid" aria-label="CasaMia end-to-end service steps">
+              {supportJourney.map((step, index) => {
+                const Icon = step.icon
 
-              return (
-                <article className="home-core-card" key={pillar.id}>
-                  <span>
-                    <Icon size={23} aria-hidden="true" />
-                  </span>
-                  <h3>{pillar.title}</h3>
-                  <p>{pillar.body}</p>
-                </article>
-              )
-            })}
+                return (
+                  <article className="home-journey-card" key={step.id}>
+                    <div className="home-journey-media">
+                      <SafeImage
+                        src={step.visual.src}
+                        alt={step.visual.alt}
+                        className="home-journey-visual"
+                        imgClassName="h-full w-full object-cover"
+                        fallbackLabel={step.title}
+                      />
+                      <span className="home-journey-number">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <div className="home-journey-content">
+                      <div className="home-journey-top">
+                        <p className="home-journey-eyebrow">{step.eyebrow}</p>
+                        <span className="home-journey-icon">
+                          <Icon size={24} aria-hidden="true" />
+                        </span>
+                      </div>
+                      <h3>{step.title}</h3>
+                      <p className="home-journey-body">{step.body}</p>
+                      <ul className="home-journey-points">
+                        {step.points.map((point) => (
+                          <li key={point}>
+                            <CheckCircle2 size={16} aria-hidden="true" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+            <div className="home-journey-actions">
+              <Link
+                className="home-redesign-primary"
+                to={configuratorPath}
+                onClick={() => trackEvent('core_plan_started', { location: 'core_plan' })}
+              >
+                Build your CasaMia plan
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+              <Link
+                className="home-redesign-secondary"
+                to={talkPath}
+                onClick={() => trackEvent('core_plan_contact_clicked', { location: 'core_plan' })}
+              >
+                Ask us to contact you
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
-          <div className="home-core-details-action">
-            <Link
-              className="home-redesign-secondary"
-              to={configuratorPath}
-              onClick={() => trackEvent('core_plan_details_opened', { location: 'core_plan' })}
-            >
-              Build your CasaMia plan
-              <ArrowRight size={17} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
 
       <section className="home-credit-section">
         <div className="home-credit-panel site-shell">

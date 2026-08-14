@@ -17,6 +17,8 @@ const articleShellCopy = {
     summary: 'Article summary',
     takeaways: 'Key takeaways',
     familyChecklist: 'Family checklist',
+    officialResources: 'Official links and resources',
+    openResource: 'Open official resource',
     commonQuestions: 'Common questions',
     keepLearning: 'Keep learning',
     related: 'Related CasaMia articles',
@@ -39,6 +41,8 @@ const articleShellCopy = {
     summary: 'Resumen del artículo',
     takeaways: 'Ideas clave',
     familyChecklist: 'Lista para familias',
+    officialResources: 'Enlaces y recursos oficiales',
+    openResource: 'Abrir recurso oficial',
     commonQuestions: 'Preguntas frecuentes',
     keepLearning: 'Seguir aprendiendo',
     related: 'Artículos relacionados de CasaMia',
@@ -234,6 +238,31 @@ export function BlogArticlePage() {
                 ))}
               </ul>
             </section>
+
+            {article.resources?.length ? (
+              <section className="blog-resource-section">
+                <h2>{copy.officialResources}</h2>
+                <div className="blog-resource-grid">
+                  {article.resources.map((resource) => (
+                    <a
+                      className="blog-resource-card"
+                      href={resource.href}
+                      key={resource.href}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      <span>{resource.source}</span>
+                      <strong>{resource.title}</strong>
+                      <p>{resource.description}</p>
+                      <small>
+                        {copy.openResource}
+                        <ArrowRight size={16} aria-hidden="true" />
+                      </small>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            ) : null}
 
             <section className="blog-faq">
               <h2>{copy.commonQuestions}</h2>

@@ -701,13 +701,13 @@ const inspectionRooms: InspectionRoom[] = [
   {
     id: 'bedroom',
     title: 'Bedroom',
-    intro: 'Bed transfers, night routes, bedside reach, and emergency access.',
+    intro: 'Getting in and out of bed, night routes, bedside reach, and emergency access.',
     questions: [
       {
         id: 'bedroom-bed-height',
-        area: 'Bed transfer',
+        area: 'Bed access',
         prompt: 'Can the person get in and out of bed without dropping down or pushing excessively?',
-        recommendation: 'Adjust bed height, add a bed rail, or review mattress and transfer support.',
+        recommendation: 'Adjust bed height, add bedside support, or review mattress position and the first step out of bed.',
       },
       {
         id: 'bedroom-route',

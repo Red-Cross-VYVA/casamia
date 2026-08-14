@@ -52,7 +52,9 @@ const ParentSafetyQuizPage = lazy(() =>
 const GrantEligibilityPage = lazy(() =>
   import('./pages/GrantEligibilityPage').then(({ GrantEligibilityPage }) => ({ default: GrantEligibilityPage })),
 )
-const GrantsPage = lazy(() => import('./pages/GrantsPage').then(({ GrantsPage }) => ({ default: GrantsPage })))
+const GrantSupportSpainPage = lazy(() =>
+  import('./pages/GrantSupportSpainPage').then(({ GrantSupportSpainPage }) => ({ default: GrantSupportSpainPage })),
+)
 const Home2Page = lazy(() => import('./pages/Home2Page').then(({ Home2Page }) => ({ default: Home2Page })))
 const HowItWorksPage = lazy(() =>
   import('./pages/HowItWorksPage').then(({ HowItWorksPage }) => ({ default: HowItWorksPage })),
@@ -203,6 +205,12 @@ function LegacyAssessmentRedirect() {
   return <Navigate to={`/home-safety-assessment${location.search}${location.hash}`} replace />
 }
 
+function LegacyPathRedirect({ to }: { to: string }) {
+  const location = useLocation()
+
+  return <Navigate to={`${to}${location.search}${location.hash}`} replace />
+}
+
 const legacyResourceArticlePaths: Record<string, string> = {
   'aging-in-place-spain': '/blog/fall-prevention-home-checklist-spain',
   'bathroom-safety-for-seniors': '/blog/bathroom-safety-seniors-costly-mistakes',
@@ -259,7 +267,8 @@ function AppRoutes() {
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
             <Route path="/service-areas" element={<ServiceAreasPage />} />
             <Route path="/service-areas/:citySlug" element={<ServiceAreasPage />} />
-            <Route path="/safe-bathroom-access" element={<Navigate to="/bathroom-safety-for-seniors" replace />} />
+            <Route path="/safe-bathroom-access" element={<LegacyPathRedirect to="/services/bathroom-safety" />} />
+            <Route path="/grants-for-home-adaptations-spain" element={<Navigate to="/grants" replace />} />
             <Route path="/:needSlug" element={<NeedLandingPage />} />
             <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />
@@ -282,7 +291,7 @@ function AppRoutes() {
             <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
             <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
             <Route path="/tools/is-my-parent-safe-at-home" element={<ParentSafetyQuizPage />} />
-            <Route path="/grants" element={<GrantsPage />} />
+            <Route path="/grants" element={<GrantSupportSpainPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />
             <Route path="/proposal/:token" element={<PublicProposalPage />} />

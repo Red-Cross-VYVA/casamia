@@ -83,8 +83,8 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
   'bedroom-bed-support': {
     name: 'Asa de apoyo para cama',
     shortDescription: 'Apoyo para entrar y salir de la cama.',
-    customerBenefit: 'Hace las transferencias más estables sin dar un aspecto clínico al dormitorio.',
-    category: 'Transferencia de cama',
+    customerBenefit: 'Hace que entrar y salir de la cama sea más estable sin dar un aspecto clínico al dormitorio.',
+    category: 'Acceso a la cama',
     includedItems: ['Comprobación de cama', 'Asa de apoyo', 'Entrega de uso seguro'],
   },
   'bedroom-underbed-lighting': {
@@ -100,13 +100,6 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     customerBenefit: 'Reduce tropiezos cuando la persona se mueve con sueño o prisa.',
     category: 'Ruta nocturna',
     includedItems: ['Revisión de ruta', 'Luces con sensor', 'Configuración y prueba'],
-  },
-  'bedroom-bed-exit-sensor': {
-    name: 'Sensor de salida de cama',
-    shortDescription: 'Aviso discreto cuando levantarse necesita atención.',
-    customerBenefit: 'Ayuda a cuidadores o familiares a responder en rutinas nocturnas acordadas.',
-    category: 'Tranquilidad familiar',
-    includedItems: ['Comprobación de uso', 'Sensor compatible', 'Configuración de aviso'],
   },
   'bedroom-adjustable-bed': {
     name: 'Revisión de cama articulada',
@@ -175,11 +168,11 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     safetyNotice: 'Debe evaluarse el material y el estado del suelo antes de aplicarlo.',
   },
   'bathroom-anti-slip-bath-mat': {
-    name: 'Alfombrilla antideslizante segura',
-    shortDescription: 'Alfombrilla de alto agarre para bañera o ducha.',
-    customerBenefit: 'Añade tracción en zonas mojadas.',
+    name: 'Juego de alfombrillas antideslizantes seguras',
+    shortDescription: 'Alfombrilla de alto agarre para bañera o ducha y otra estable para salir.',
+    customerBenefit: 'Mejora el agarre al lavarse y al pisar fuera con los pies mojados.',
     category: 'Seguridad en el baño',
-    includedItems: ['Alfombrilla antideslizante'],
+    includedItems: ['Alfombrilla interior para bañera o ducha', 'Alfombrilla exterior de salida'],
     safetyNotice: 'Debe colocarse correctamente y revisarse con regularidad.',
   },
   'bathroom-raised-toilet-seat': {

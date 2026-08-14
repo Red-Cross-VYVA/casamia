@@ -16,6 +16,22 @@ export type NeedLandingPageContent = {
   whoFor: string[]
   priorities: string[]
   casamiaPlan: string[]
+  riskSection?: {
+    eyebrow: string
+    title: string
+    body: string
+    image: string
+    imageAlt: string
+    risks: string[]
+    riskDetails?: Array<{
+      solution: string
+      helps: string
+      product?: string
+      stat?: string
+    }>
+    mapLabels?: string[]
+    legend?: string[]
+  }
   relatedServices: Array<{ label: string; to: string }>
   faqs: Array<{ question: string; answer: string }>
 }
@@ -23,7 +39,7 @@ export type NeedLandingPageContent = {
 export const needLandingPages: NeedLandingPageContent[] = [
   {
     slug: 'bathroom-safety-for-seniors',
-    path: '/bathroom-safety-for-seniors',
+    path: '/services/bathroom-safety',
     servicePath: '/services/bathroom-safety',
     resourcePath: '/blog/bathroom-safety-seniors-costly-mistakes',
     icon: 'bath',
@@ -36,20 +52,69 @@ export const needLandingPages: NeedLandingPageContent[] = [
     intro:
       'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. CasaMia reviews the real routine, recommends the right package and coordinates the work.',
     whoFor: [
-      'Older adults who feel unsteady in the bathroom',
-      'Families worried about shower, toilet or bath transfers',
-      'Small bathrooms where wet floors, doors or night-time movement create risk',
+      'Older adults unsteady in the bathroom',
+      'Families worried about transfers',
+      'Small or wet bathrooms',
     ],
     priorities: [
-      'Safer bathing, shower seating and toilet support',
-      'Doorway, handle, privacy lock and support-point usability',
-      'Slip prevention, night visibility and water safeguards',
+      'Shower and toilet support',
+      'Grip, light and water controls',
+      'Door access and usable supports',
     ],
     casamiaPlan: [
-      'Review the route into and inside the bathroom',
-      'Confirm measurements and support positions where needed',
-      'Coordinate installation, handover and aftercare',
+      'Review the real routine',
+      'Confirm fit and fixing points',
+      'Coordinate install and handover',
     ],
+    riskSection: {
+      eyebrow: 'Bathroom risk map',
+      title: 'Where bathroom risk usually builds up.',
+      body:
+        'Bathroom risk rarely comes from one thing. Water, transfers, tight spaces, low light and unclear support points can combine in a few everyday movements.',
+      image: '/images/solutions/bathroom-risk-map-numbered.png',
+      imageAlt: 'Annotated bathroom map showing common fall and access risk points',
+      risks: ['Loose mat', 'High step', 'Shower entry', 'Toilet height', 'Wet zone', 'Visible cable', 'Narrow door'],
+      riskDetails: [
+        {
+          solution: 'Secure the surface',
+          helps: 'CasaMia removes loose mats or swaps in fixed anti-slip options at the shower exit.',
+          product: 'Anti-slip bath or shower mat, or floor-grip treatment.',
+          stat: 'CDC bathroom-injury data found falls caused 81.1% of nonfatal bathroom injuries.',
+        },
+        {
+          solution: 'Lower the entry',
+          helps: 'We check the threshold and recommend a lower profile, transition strip or tub cut-out where suitable.',
+          product: 'Low-profile transition strip, threshold reduction or bath cut-out.',
+        },
+        {
+          solution: 'Add transfer support',
+          helps: 'A fixed grab bar and folding seat reduce standing time and give a clear handhold when entering or washing.',
+          product: 'Wall-mounted grab bar plus folding shower seat.',
+          stat: 'CDC data found 37.3% of bathroom injuries happened while bathing, showering or exiting.',
+        },
+        {
+          solution: 'Stabilise sit-to-stand',
+          helps: 'Raised toilet support and rails reduce deep bending and create predictable support on both sides.',
+          product: 'Raised toilet seat or toilet support rails.',
+        },
+        {
+          solution: 'Improve wet-floor grip',
+          helps: 'We identify splash zones and treat suitable surfaces so feet have better traction after bathing.',
+          product: 'Anti-slip floor treatment for compatible wet areas.',
+        },
+        {
+          solution: 'Clear the route',
+          helps: 'Cables are moved, clipped or replaced with safer lighting placement away from walking lines.',
+          product: 'Cable management plus motion-activated night lighting where useful.',
+        },
+        {
+          solution: 'Check access width',
+          helps: 'CasaMia checks whether the door limits help, walking aids or emergency access before recommending work.',
+          product: 'Door hardware changes or wider-doorway review.',
+        },
+      ],
+      legend: ['High risk', 'Medium risk'],
+    },
     relatedServices: [
       { label: 'Bathroom safety services', to: '/services/bathroom-safety' },
       { label: 'Free safety report', to: '/home-safety-assessment' },
@@ -174,7 +239,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Which adaptations are most common?',
         answer:
-          'Common adaptations include grab bars, shower seating, night lighting, bed transfer support, threshold changes, safer flooring and easier controls.',
+          'Common adaptations include grab bars, shower seating, night lighting, bedside support, threshold changes, safer flooring and easier controls.',
       },
       {
         question: 'Does CasaMia supply and install everything?',
@@ -185,21 +250,80 @@ export const needLandingPages: NeedLandingPageContent[] = [
   },
   {
     slug: 'senior-bedroom-safety',
-    path: '/senior-bedroom-safety',
+    path: '/services/bedroom-safety',
     servicePath: '/services/bedroom-safety',
     resourcePath: '/blog/bedroom-night-safety-older-adults',
     icon: 'bedroom',
-    image: '/images/blog/bedroom-night-safety.webp',
+    image: '/images/blog/bedroom-night-safety-hero.png',
     title: 'Senior bedroom safety',
     seoTitle: 'Senior Bedroom Safety and Night-Time Fall Prevention',
     description:
-      'Senior bedroom safety for easier bed transfers, safer walking routes, night lighting, emergency support and connected bedroom routines.',
+      'Senior bedroom safety for getting in and out of bed, safer walking routes, night lighting, emergency support and connected bedroom routines.',
     eyebrow: 'Bedroom safety',
     intro:
-      'The bedroom should support rest and safe movement, especially at night. CasaMia focuses on bed transfers, clear walking routes, lighting and emergency reach.',
-    whoFor: ['Older adults who wake at night to use the bathroom', 'Families concerned about bed transfers', 'Homes with rugs, cables, clutter or poor bedroom lighting'],
-    priorities: ['Motion-activated night lighting', 'Bed transfer support', 'Clear route from bed to door', 'Emergency call options and connected routines'],
+      'The bedroom should support rest and safe movement, especially at night. CasaMia focuses on getting in and out of bed, clear walking routes, lighting and emergency reach.',
+    whoFor: [
+      'Older adults who wake at night and need a safer route to the bathroom',
+      'Seniors who want the first step out of bed to feel steadier and calmer',
+      'Bedrooms where lighting, floor edges or furniture layout make independent movement harder than it should be',
+    ],
+    priorities: ['Motion-activated night lighting', 'Bedside support', 'Clear route from bed to door', 'Emergency call options and connected routines'],
     casamiaPlan: ['Review the bedroom and night routine', 'Recommend core and optional bedroom package components', 'Install, configure and explain everything clearly'],
+    riskSection: {
+      eyebrow: 'Bedroom risk map',
+      title: 'Where night-time risk builds up.',
+      body:
+        'Bedroom risk often appears in small, half-awake movements: getting out of bed, finding the light, walking to the bathroom and moving around furniture.',
+      image: '/images/solutions/bedroom-risk-map-numbered.png',
+      imageAlt: 'Annotated bedroom risk map showing night-time routes, bedside hazards and support points',
+      risks: [
+        'Poor night lighting',
+        'Unsteady bed exit',
+        'Loose rug edge',
+        'Trip route to door',
+        'Bedside clutter',
+        'No support point',
+        'Floor edge or threshold',
+      ],
+      riskDetails: [
+        {
+          solution: 'Light the first step',
+          helps: 'Low-level motion lights make the bed-to-door route visible without waking the room fully.',
+          product: 'Motion-activated bedside and route lighting.',
+        },
+        {
+          solution: 'Stabilise getting up',
+          helps: 'A correctly positioned bed assist handle gives a predictable handhold for sitting up and standing.',
+          product: 'Bed assist handle with fit and height check.',
+        },
+        {
+          solution: 'Secure the floor',
+          helps: 'Loose rugs are removed or fixed, and the bedside landing area is made calmer underfoot.',
+          product: 'Rug removal, anti-slip rug tape or matched bedside exit mats.',
+        },
+        {
+          solution: 'Clear the night route',
+          helps: 'Furniture, cables and stored items are moved away from the natural path to the door or bathroom.',
+          product: 'Furniture repositioning and cable management.',
+        },
+        {
+          solution: 'Simplify reach',
+          helps: 'The bedside area is arranged so glasses, phone, water and light controls are easy to reach.',
+          product: 'Accessible bedside layout and storage review.',
+        },
+        {
+          solution: 'Add steady support',
+          helps: 'CasaMia checks where the person naturally reaches and adds support only where it is useful.',
+          product: 'Bedside support handle or furniture positioning.',
+        },
+        {
+          solution: 'Smooth transitions',
+          helps: 'Door thresholds and floor edges are checked so the route remains predictable underfoot.',
+          product: 'Threshold review or safer transition strip where suitable.',
+        },
+      ],
+      legend: ['Higher risk', 'Medium risk'],
+    },
     relatedServices: [
       { label: 'Bedroom safety services', to: '/services/bedroom-safety' },
       { label: 'Night safety guide', to: '/blog/bedroom-night-safety-older-adults' },
@@ -209,7 +333,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'What makes a bedroom safer for seniors?',
         answer:
-          'Good bedroom safety usually starts with easier bed transfers, night lighting, clear walking routes, safe floor surfaces and a reachable way to ask for help.',
+          'Good bedroom safety usually starts with easier bed access, night lighting, clear walking routes, safe floor surfaces and a reachable way to ask for help.',
       },
       {
         question: 'Can connected bedroom features be optional?',
@@ -220,11 +344,11 @@ export const needLandingPages: NeedLandingPageContent[] = [
   },
   {
     slug: 'grants-for-home-adaptations-spain',
-    path: '/grants-for-home-adaptations-spain',
+    path: '/grants',
     servicePath: '/grant-check',
     resourcePath: '/blog/home-adaptation-grants-spain-family-guide',
     icon: 'book',
-    image: '/images/blog/grants-readiness.webp',
+    image: '/images/blog/grants-euro-symbol.jpg',
     title: 'Grants for home adaptations in Spain',
     seoTitle: 'Grants for Home Adaptations in Spain',
     description:
@@ -290,7 +414,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
   },
   {
     slug: 'connected-home-for-seniors',
-    path: '/connected-home-for-seniors',
+    path: '/services/smart-home-safety',
     servicePath: '/services/smart-home-safety',
     resourcePath: '/blog/smart-home-safety-without-overcomplicating',
     icon: 'smartphone',
@@ -336,28 +460,54 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     title: 'Home safety assessment vs general contractor',
     seoTitle: 'Home Safety Assessment vs General Contractor | CasaMia',
     description:
-      'Understand when to start with a senior home safety assessment before asking a contractor to install products or quote works.',
+      'Understand when a senior home safety assessment should define the scope before a contractor quotes or installs adaptations.',
     eyebrow: 'Decision guide',
     intro:
-      'A contractor can install what you ask for. A home safety assessment helps decide what should be asked for in the first place, based on the person, the routine and the risk.',
-    whoFor: ['Families unsure what to request from installers', 'Homes with several possible safety issues', 'People who want a clear scope before spending money'],
-    priorities: ['The person’s exact movement and transfer needs', 'Which risks are urgent, recommended or optional', 'Measurements, fixing points and site constraints', 'A scope installers can price and deliver'],
-    casamiaPlan: ['Start with the daily safety problem', 'Turn observations into a package-led scope', 'Coordinate installer requirements, handover and follow-up'],
+      'A contractor is useful once the work is clear. A safety assessment is useful when the family is still deciding what the work should be, where risk is highest, and which changes will actually support the person using the home.',
+    whoFor: [
+      'Families who know something is unsafe but do not know what to ask an installer for',
+      'Homes where several rooms, transfers or routes are involved',
+      'Older adults whose mobility, confidence or care needs have recently changed',
+      'Families who need a clear scope before quotes, grants, landlord permission or community approval',
+    ],
+    priorities: [
+      'The resident routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night route',
+      'Which risks are urgent, recommended or optional',
+      'Measurements, wall types, fixing points, thresholds, door swings and site constraints',
+      'Whether a quick product, minor adaptation, larger work or connected support is the right route',
+      'A written scope that contractors can price without guessing',
+    ],
+    casamiaPlan: [
+      'Start with the daily movement problem, not a product catalogue',
+      'Map each risk to the relevant room package and optional add-ons',
+      'Prepare a practical scope with photos, priorities and installation notes',
+      'Coordinate installer requirements, handover checks and follow-up support',
+    ],
     relatedServices: [
       { label: 'Book a safety assessment', to: '/home-safety-assessment' },
+      { label: 'Read the fall checklist', to: '/blog/fall-prevention-home-checklist-spain' },
       { label: 'See how it works', to: '/how-it-works' },
-      { label: 'Review services', to: '/services' },
     ],
     faqs: [
       {
         question: 'Should I call a contractor first?',
         answer:
-          'If the required work is obvious and already specified, a contractor may be enough. If the family is unsure what should be changed, start with a safety assessment so the scope matches the resident.',
+          'If the required work is obvious, measured and already specified, a contractor may be enough. If the family is unsure what should change, start with a safety assessment so the quote matches the resident rather than a generic installation.',
       },
       {
         question: 'Does CasaMia do the installation too?',
         answer:
           'CasaMia coordinates the process end to end, including assessment, practical scope, installation coordination and handover where needed.',
+      },
+      {
+        question: 'Why not ask for three contractor quotes immediately?',
+        answer:
+          'Three quotes are only comparable when they price the same scope. If each contractor guesses a different solution, the family may choose on price without knowing which option solves the real safety problem.',
+      },
+      {
+        question: 'When is a contractor enough?',
+        answer:
+          'A contractor can be enough for clearly defined work such as installing a specified handrail, changing a threshold or fitting equipment where the product, location and fixing method are already known.',
       },
     ],
   },
@@ -371,28 +521,54 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     title: 'Smart home safety vs monitoring',
     seoTitle: 'Smart Home Safety vs Monitoring for Seniors | CasaMia',
     description:
-      'Compare smart home safety, simple alerts and monitoring-style services for seniors without overcomplicating the home.',
+      'Compare practical smart home safety, simple alerts and monitoring-style services for seniors without overcomplicating the home.',
     eyebrow: 'Decision guide',
     intro:
-      'Not every connected device is monitoring, and not every family needs a monitoring service. CasaMia focuses on useful connected living: lighting, reminders, alerts and simple routines with clear consent.',
-    whoFor: ['Families considering sensors, voice assistance or emergency buttons', 'Older adults who want support without feeling watched', 'Homes where simple automation could reduce daily friction'],
-    priorities: ['Consent and comfort with technology', 'Night lighting, reminders and emergency reach', 'Who receives alerts and what they do next', 'Compatibility, setup and ongoing support'],
-    casamiaPlan: ['Define the experience before choosing devices', 'Configure compatible tools into simple routines', 'Document response rules so the family understands what happens'],
+      'Not every connected device is monitoring, and not every family needs a monitoring service. The right choice depends on what problem you are solving: safer movement, easier reminders, emergency reach, family awareness or formal response.',
+    whoFor: [
+      'Families considering sensors, voice assistance, water alerts, smart lighting or emergency buttons',
+      'Older adults who want support without feeling watched',
+      'Homes where simple automation could reduce daily friction',
+      'Families who need to agree who receives alerts and what happens next',
+    ],
+    priorities: [
+      'Consent, privacy and the resident comfort with every device',
+      'The practical risk: night movement, water leaks, medication reminders, calls, door access or emergency reach',
+      'Who receives alerts, how quickly they respond and what they can do',
+      'Reliability: Wi-Fi, power, batteries, fallbacks and ongoing support',
+      'Whether passive safety is enough or a monitored response service is genuinely needed',
+    ],
+    casamiaPlan: [
+      'Define the daily problem before choosing devices',
+      'Prioritise simple routines such as night lighting, easy calls, reminders and selected alerts',
+      'Configure compatible tools so the resident experience stays familiar',
+      'Document consent, alert recipients, response rules and maintenance checks',
+    ],
     relatedServices: [
       { label: 'Technology approach', to: '/tech' },
-      { label: 'Connected home for seniors', to: '/connected-home-for-seniors' },
-      { label: 'Start a guided plan', to: '/home-safety-wizard' },
+      { label: 'Read the smart safety guide', to: '/blog/smart-home-safety-without-overcomplicating' },
+      { label: 'Connected safety services', to: '/services/smart-home-safety' },
     ],
     faqs: [
       {
         question: 'Is smart home safety the same as surveillance?',
         answer:
-          'No. CasaMia prioritises practical support such as lighting, reminders, water alerts and emergency reach. Any alert or response setup should be consented to and easy to understand.',
+          'No. Smart safety can mean practical support such as lighting, reminders, water alerts and emergency reach. Cameras or intrusive monitoring should not be the default and any alert setup should be consented to and easy to understand.',
       },
       {
         question: 'What is the simplest connected setup?',
         answer:
-          'A simple setup often starts with a configured smart speaker, night lighting, easy calls, reminders and selected alerts. The right mix depends on the resident and home.',
+          'A simple setup often starts with night lighting, easy calls, reminders and selected alerts. The right mix depends on the resident, home layout, Wi-Fi reliability and who can respond.',
+      },
+      {
+        question: 'When does a family need monitoring rather than smart safety?',
+        answer:
+          'Monitoring may be worth considering when nobody can reliably respond to alerts, the person has repeated emergencies, or the family needs a formal response protocol rather than simple home support.',
+      },
+      {
+        question: 'What should be avoided?',
+        answer:
+          'Avoid devices the resident does not understand, alerts nobody responds to, hidden monitoring, cameras without clear consent, and systems that fail quietly when Wi-Fi or batteries stop working.',
       },
     ],
   },

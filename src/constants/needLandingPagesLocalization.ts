@@ -10,6 +10,7 @@ type NeedLandingPageTranslation = Pick<
   | 'whoFor'
   | 'priorities'
   | 'casamiaPlan'
+  | 'riskSection'
   | 'relatedServices'
   | 'faqs'
 >
@@ -24,20 +25,78 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     intro:
       'Haz que ducharse, usar el inodoro y acceder al baño sea más seguro sin convertirlo en una clínica. CasaMia revisa la rutina real, recomienda la solución adecuada y coordina el trabajo.',
     whoFor: [
-      'Personas mayores que se sienten inseguras en el baño',
-      'Familias preocupadas por ducha, bañera o transferencias al inodoro',
-      'Baños pequeños donde suelo mojado, puertas o uso nocturno crean riesgo',
+      'Mayores inseguros en el baño',
+      'Familias preocupadas por transferencias',
+      'Baños pequeños o con suelo mojado',
     ],
     priorities: [
-      'Ducha, asiento y apoyo de inodoro más seguros',
-      'Puerta, manilla, cierre y puntos de apoyo utilizables',
-      'Prevención de resbalones, visibilidad nocturna y controles de agua',
+      'Apoyo en ducha e inodoro',
+      'Agarre, luz y controles de agua',
+      'Acceso y puntos de apoyo',
     ],
     casamiaPlan: [
-      'Revisar la ruta hacia y dentro del baño',
-      'Confirmar medidas y posiciones de apoyo cuando haga falta',
-      'Coordinar instalación, explicación y seguimiento',
+      'Revisar la rutina real',
+      'Confirmar medidas y fijaciones',
+      'Coordinar instalación y entrega',
     ],
+    riskSection: {
+      eyebrow: 'Mapa de riesgos del baño',
+      title: 'Dónde suele acumularse el riesgo en el baño.',
+      body:
+        'El riesgo en el baño casi nunca viene de una sola cosa. Agua, transferencias, espacios estrechos, poca luz y apoyos poco claros se combinan en movimientos cotidianos.',
+      image: '/images/solutions/bathroom-risk-map-numbered.png',
+      imageAlt: 'Mapa anotado de baño con puntos habituales de riesgo de caída y acceso',
+      risks: [
+        'Alfombrilla suelta',
+        'Escalón alto',
+        'Entrada a ducha',
+        'Altura del WC',
+        'Zona mojada',
+        'Cable visible',
+        'Puerta estrecha',
+      ],
+      riskDetails: [
+        {
+          solution: 'Fijar la superficie',
+          helps: 'CasaMia retira alfombrillas sueltas o propone opciones antideslizantes fijas en la salida de ducha.',
+          product: 'Alfombrilla segura o tratamiento antideslizante.',
+          stat: 'Datos de CDC sobre lesiones en el baño indican que el 81,1% fueron caídas.',
+        },
+        {
+          solution: 'Bajar la entrada',
+          helps: 'Revisamos la altura del umbral y proponemos perfil bajo, transición o corte de bañera si encaja.',
+          product: 'Perfil de transición, reducción de umbral o corte de bañera.',
+        },
+        {
+          solution: 'Añadir apoyo de transferencia',
+          helps: 'Una barra fija y un asiento abatible reducen tiempo de pie y dan un apoyo claro al entrar o lavarse.',
+          product: 'Barra de apoyo mural y asiento abatible de ducha.',
+          stat: 'CDC encontró que el 37,3% de lesiones en el baño ocurrían al bañarse, ducharse o salir.',
+        },
+        {
+          solution: 'Estabilizar sentarse y levantarse',
+          helps: 'Elevador o barras reducen la flexión profunda y crean apoyo predecible a ambos lados.',
+          product: 'Elevador de WC o barras de apoyo para inodoro.',
+        },
+        {
+          solution: 'Mejorar agarre en mojado',
+          helps: 'Identificamos zonas de salpicadura y tratamos superficies compatibles para mejorar la tracción.',
+          product: 'Tratamiento antideslizante para zonas húmedas compatibles.',
+        },
+        {
+          solution: 'Despejar la ruta',
+          helps: 'Los cables se reubican, fijan o sustituyen por una colocación de luz más segura fuera del paso.',
+          product: 'Gestión de cableado y luz nocturna con movimiento donde sea útil.',
+        },
+        {
+          solution: 'Comprobar anchura útil',
+          helps: 'CasaMia revisa si la puerta limita ayuda, andador o acceso de emergencia antes de proponer obra.',
+          product: 'Cambios de herrajes o revisión de ensanche de puerta.',
+        },
+      ],
+      mapLabels: ['Alfombra', 'Escalón', 'Ducha', 'Altura WC', 'Zona mojada', 'Cable', 'Puerta'],
+      legend: ['Riesgo alto', 'Riesgo medio'],
+    },
     relatedServices: [
       { label: 'Servicios de seguridad en el baño', to: '/services/bathroom-safety' },
       { label: 'Informe gratuito de seguridad', to: '/home-safety-assessment' },
@@ -199,15 +258,15 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Seguridad en el dormitorio para levantarse mejor de la cama, caminar con más seguridad, mejorar la luz nocturna y tener ayuda al alcance.',
     eyebrow: 'Seguridad en el dormitorio',
     intro:
-      'El dormitorio debe favorecer descanso y movimiento seguro, sobre todo de noche. CasaMia se centra en transferencias, rutas despejadas, iluminación y ayuda al alcance.',
+      'El dormitorio debe favorecer descanso y movimiento seguro, sobre todo de noche. CasaMia se centra en entrar y salir de la cama, rutas despejadas, iluminación y ayuda al alcance.',
     whoFor: [
-      'Personas mayores que se levantan de noche para ir al baño',
-      'Familias preocupadas por entrar o salir de la cama',
-      'Viviendas con alfombras, cables, desorden o poca luz en el dormitorio',
+      'Personas mayores que se levantan de noche y necesitan una ruta más segura al baño',
+      'Personas mayores que quieren que el primer paso fuera de la cama sea más estable y tranquilo',
+      'Dormitorios donde la luz, los bordes del suelo o la distribución dificultan moverse con autonomía',
     ],
     priorities: [
       'Iluminación nocturna con sensor',
-      'Apoyo para transferencias de cama',
+      'Apoyo junto a la cama',
       'Ruta despejada de la cama a la puerta',
       'Opciones de llamada de emergencia y rutinas conectadas',
     ],
@@ -216,6 +275,62 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Recomendar mejoras principales y opcionales',
       'Instalar, configurar y explicar todo con claridad',
     ],
+    riskSection: {
+      eyebrow: 'Mapa de riesgo del dormitorio',
+      title: 'Dónde se acumula el riesgo por la noche.',
+      body:
+        'El riesgo en el dormitorio suele aparecer en movimientos pequeños y medio dormidos: salir de la cama, encontrar la luz, caminar al baño y rodear muebles.',
+      image: '/images/solutions/bedroom-risk-map-numbered.png',
+      imageAlt: 'Mapa anotado del dormitorio con rutas nocturnas, obstáculos junto a la cama y puntos de apoyo',
+      risks: [
+        'Poca luz nocturna',
+        'Salida de cama inestable',
+        'Borde de alfombra',
+        'Ruta hasta la puerta',
+        'Objetos junto a la cama',
+        'Falta de apoyo',
+        'Umbral o cambio de suelo',
+      ],
+      riskDetails: [
+        {
+          solution: 'Iluminar el primer paso',
+          helps: 'Luces bajas con sensor hacen visible la ruta cama-puerta sin encender toda la habitación.',
+          product: 'Iluminación nocturna con sensor junto a la cama y en la ruta.',
+        },
+        {
+          solution: 'Dar apoyo al levantarse',
+          helps: 'Un asidero de cama bien colocado ofrece un apoyo predecible al incorporarse y ponerse de pie.',
+          product: 'Asidero de cama con revisión de altura y encaje.',
+        },
+        {
+          solution: 'Asegurar el suelo',
+          helps: 'Se retiran o fijan alfombras sueltas y se mejora la zona donde apoyan los pies al levantarse.',
+          product: 'Retirada de alfombras, cinta antideslizante o alfombrillas de salida junto a la cama.',
+        },
+        {
+          solution: 'Despejar la ruta nocturna',
+          helps: 'Muebles, cables y objetos se apartan del paso natural hacia la puerta o el baño.',
+          product: 'Reubicación de muebles y gestión de cableado.',
+        },
+        {
+          solution: 'Facilitar el alcance',
+          helps: 'La mesilla se organiza para que gafas, teléfono, agua y luz estén al alcance sin estirarse.',
+          product: 'Revisión de mesilla y almacenamiento accesible.',
+        },
+        {
+          solution: 'Añadir apoyo estable',
+          helps: 'CasaMia revisa dónde se apoya la persona de forma natural y coloca ayuda solo donde aporta seguridad.',
+          product: 'Asidero junto a la cama o ajuste de mobiliario.',
+        },
+        {
+          solution: 'Suavizar cambios de suelo',
+          helps: 'Umbrales y bordes se revisan para que el recorrido sea predecible al pisar.',
+          product: 'Revisión de umbral o perfil de transición si encaja.',
+        },
+      ],
+      mapLabels: ['Luz', 'Cama', 'Alfombra', 'Ruta', 'Mesilla', 'Apoyo', 'Umbral'],
+      legend: ['Riesgo alto', 'Riesgo medio'],
+    },
     relatedServices: [
       { label: 'Servicios de seguridad en dormitorio', to: '/services/bedroom-safety' },
       { label: 'Guía de seguridad nocturna', to: '/blog/bedroom-night-safety-older-adults' },
@@ -225,7 +340,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿Qué hace más seguro un dormitorio?',
         answer:
-          'Suele empezar por transferencias de cama, luz nocturna, rutas despejadas, suelos seguros y una forma sencilla de pedir ayuda.',
+          'Suele empezar por entrar y salir de la cama con más seguridad, luz nocturna, rutas despejadas, suelos seguros y una forma sencilla de pedir ayuda.',
       },
       {
         question: '¿Las funciones conectadas son opcionales?',
@@ -364,41 +479,54 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Evaluación de seguridad o contratista general',
     seoTitle: 'Evaluación de seguridad o contratista general | CasaMia',
     description:
-      'Entiende cuándo conviene empezar con una evaluación de seguridad antes de pedir a un contratista que instale productos o presupueste trabajos.',
+      'Entiende cuándo una evaluación de seguridad debe definir el alcance antes de pedir presupuesto o instalación a un contratista.',
     eyebrow: 'Guía de decisión',
     intro:
-      'Un contratista puede instalar lo que se le pide. Una evaluación de seguridad ayuda a decidir qué conviene pedir, según la persona, la rutina y el riesgo.',
+      'Un contratista es útil cuando el trabajo ya está claro. Una evaluación de seguridad es útil cuando la familia aún decide qué obra conviene hacer, dónde está el mayor riesgo y qué cambios ayudarán realmente a la persona que vive en casa.',
     whoFor: [
-      'Familias que no saben qué solicitar a instaladores',
-      'Viviendas con varios posibles riesgos',
-      'Personas que quieren un alcance claro antes de gastar',
+      'Familias que saben que algo no es seguro pero no saben qué pedir a un instalador',
+      'Viviendas con varias estancias, transferencias o rutas implicadas',
+      'Personas mayores cuya movilidad, confianza o apoyo ha cambiado recientemente',
+      'Familias que necesitan alcance claro antes de presupuestos, ayudas, permiso de propietario o comunidad',
     ],
     priorities: [
-      'Movimiento exacto y transferencias de la persona',
+      'Rutina de la persona: baño, inodoro, cama, escaleras, cocina, entrada y ruta nocturna',
       'Riesgos urgentes, recomendados u opcionales',
-      'Medidas, puntos de fijación y limitaciones del espacio',
-      'Un alcance que el instalador pueda presupuestar y entregar',
+      'Medidas, tipo de pared, puntos de fijación, umbrales, puertas y limitaciones del espacio',
+      'Si conviene producto rápido, pequeña adaptación, obra mayor o apoyo conectado',
+      'Un alcance escrito que el contratista pueda presupuestar sin adivinar',
     ],
     casamiaPlan: [
-      'Empezar por el problema diario de seguridad',
-      'Convertir observaciones en un alcance orientado a paquetes',
-      'Coordinar requisitos de instalación, explicación y seguimiento',
+      'Empezar por el movimiento diario, no por un catálogo de productos',
+      'Conectar cada riesgo con el paquete de estancia y extras adecuados',
+      'Preparar un alcance práctico con fotos, prioridades y notas de instalación',
+      'Coordinar requisitos de instalación, comprobación final y seguimiento',
     ],
     relatedServices: [
       { label: 'Reservar evaluación', to: '/home-safety-assessment' },
+      { label: 'Leer lista de caídas', to: '/blog/fall-prevention-home-checklist-spain' },
       { label: 'Ver el proceso', to: '/how-it-works' },
-      { label: 'Ver servicios', to: '/services' },
     ],
     faqs: [
       {
         question: '¿Debo llamar primero a un contratista?',
         answer:
-          'Si el trabajo está claro y definido, puede bastar. Si la familia no sabe qué cambiar, es mejor empezar con una evaluación para que el alcance encaje con la persona.',
+          'Si el trabajo está claro, medido y definido, puede bastar. Si la familia no sabe qué cambiar, es mejor empezar con una evaluación para que el presupuesto encaje con la persona y no con una instalación genérica.',
       },
       {
         question: '¿CasaMia también coordina la instalación?',
         answer:
           'Sí. CasaMia coordina evaluación, alcance práctico, instalación y explicación final cuando hace falta.',
+      },
+      {
+        question: '¿Por qué no pedir tres presupuestos directamente?',
+        answer:
+          'Tres presupuestos solo se comparan bien si todos valoran el mismo alcance. Si cada contratista propone algo distinto, la familia puede elegir por precio sin saber qué opción resuelve el riesgo real.',
+      },
+      {
+        question: '¿Cuándo basta con un contratista?',
+        answer:
+          'Puede bastar cuando el trabajo está definido: instalar un pasamanos concreto, cambiar un umbral o colocar un equipo cuya ubicación, producto y fijación ya están decididos.',
       },
     ],
   },
@@ -406,41 +534,54 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Seguridad conectada o monitorización',
     seoTitle: 'Seguridad conectada o monitorización para mayores | CasaMia',
     description:
-      'Compara seguridad conectada, alertas sencillas y servicios de monitorización para personas mayores sin complicar la vivienda.',
+      'Compara seguridad conectada práctica, alertas sencillas y servicios de monitorización para personas mayores sin complicar la vivienda.',
     eyebrow: 'Guía de decisión',
     intro:
-      'No todo dispositivo conectado es monitorización, y no toda familia necesita un servicio de vigilancia. CasaMia prioriza vida conectada útil: luz, recordatorios, avisos y rutinas simples con consentimiento claro.',
+      'No todo dispositivo conectado es monitorización, y no toda familia necesita un servicio de vigilancia. La decisión depende del problema: moverse con más seguridad, recordar rutinas, pedir ayuda, informar a la familia o contar con respuesta formal.',
     whoFor: [
-      'Familias que valoran sensores, voz o botones de emergencia',
+      'Familias que valoran sensores, voz, avisos de agua, luces inteligentes o botones de emergencia',
       'Personas mayores que quieren apoyo sin sentirse vigiladas',
       'Viviendas donde la automatización sencilla reduce fricción diaria',
+      'Familias que deben acordar quién recibe avisos y qué hace después',
     ],
     priorities: [
-      'Consentimiento y comodidad con la tecnología',
-      'Luz nocturna, recordatorios y ayuda al alcance',
-      'Quién recibe avisos y qué hace después',
-      'Compatibilidad, configuración y soporte',
+      'Consentimiento, privacidad y comodidad de la persona con cada dispositivo',
+      'El riesgo concreto: noche, fugas de agua, medicación, llamadas, puerta o ayuda de emergencia',
+      'Quién recibe avisos, en cuánto tiempo responde y qué puede hacer',
+      'Fiabilidad: Wi-Fi, corriente, baterías, alternativas y soporte',
+      'Si basta apoyo pasivo o hace falta un servicio monitorizado',
     ],
     casamiaPlan: [
-      'Definir la experiencia antes de elegir dispositivos',
-      'Configurar herramientas compatibles en rutinas sencillas',
-      'Documentar reglas de respuesta para que la familia entienda qué ocurre',
+      'Definir el problema diario antes de elegir dispositivos',
+      'Priorizar rutinas sencillas: luz nocturna, llamadas fáciles, recordatorios y avisos seleccionados',
+      'Configurar herramientas compatibles para que la experiencia siga siendo familiar',
+      'Documentar consentimiento, destinatarios de avisos, reglas de respuesta y mantenimiento',
     ],
     relatedServices: [
       { label: 'Enfoque tecnológico', to: '/tech' },
-      { label: 'Hogar conectado para mayores', to: '/connected-home-for-seniors' },
-      { label: 'Empezar plan guiado', to: '/home-safety-wizard' },
+      { label: 'Leer guía de seguridad conectada', to: '/blog/smart-home-safety-without-overcomplicating' },
+      { label: 'Servicios de seguridad conectada', to: '/services/smart-home-safety' },
     ],
     faqs: [
       {
         question: '¿Seguridad conectada significa vigilancia?',
         answer:
-          'No. CasaMia prioriza apoyo práctico como iluminación, recordatorios, avisos de agua y ayuda al alcance. Cualquier aviso debe acordarse y entenderse bien.',
+          'No. Puede significar apoyo práctico como iluminación, recordatorios, avisos de agua y ayuda al alcance. Las cámaras o la monitorización intrusiva no deberían ser la opción por defecto y cualquier aviso debe acordarse y entenderse bien.',
       },
       {
         question: '¿Cuál es la configuración conectada más sencilla?',
         answer:
-          'Suele empezar con un altavoz configurado, luz nocturna, llamadas fáciles, recordatorios y avisos seleccionados según la persona y la vivienda.',
+          'Suele empezar con luz nocturna, llamadas fáciles, recordatorios y avisos seleccionados. Depende de la persona, la vivienda, la fiabilidad del Wi-Fi y quién puede responder.',
+      },
+      {
+        question: '¿Cuándo hace falta monitorización en vez de seguridad conectada?',
+        answer:
+          'Puede tener sentido si nadie puede responder de forma fiable, hay emergencias repetidas o la familia necesita un protocolo formal en lugar de apoyo doméstico sencillo.',
+      },
+      {
+        question: '¿Qué conviene evitar?',
+        answer:
+          'Evita dispositivos que la persona no entiende, avisos que nadie atiende, monitorización oculta, cámaras sin consentimiento claro y sistemas que fallan sin avisar cuando se corta el Wi-Fi o se agotan baterías.',
       },
     ],
   },

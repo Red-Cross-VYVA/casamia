@@ -1,12 +1,11 @@
-import { ChevronDown, Mail, Menu, X } from 'lucide-react'
+import { BadgeEuro, Bath, BedDouble, ChevronDown, CookingPot, DoorOpen, Mail, Menu, Wifi, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
-import { allNeedLandingPages, needLandingPages } from '../constants/needLandingPages'
-import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
+import { allNeedLandingPages } from '../constants/needLandingPages'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
 
@@ -24,27 +23,95 @@ function isActiveLink(pathname: string, link: HeaderLink) {
   return link.match.some((matchPath) => pathname === matchPath || pathname.startsWith(`${matchPath}/`))
 }
 
-const solutionMenuGroups = [
+type NavLocale = 'en' | 'es' | 'nl'
+type LocalizedNavText = Readonly<Record<NavLocale, string>>
+type DesktopMenuId = 'solutions' | 'resources'
+
+function getNavLocale(language: string): NavLocale {
+  const normalizedLanguage = language.toLowerCase()
+  if (normalizedLanguage.startsWith('es')) return 'es'
+  if (normalizedLanguage.startsWith('nl')) return 'nl'
+  return 'en'
+}
+
+const solutionMenuCopy = {
+  en: {
+    eyebrow: 'Popular paths',
+    title: 'What do you need to make safer?',
+    mobileHeading: 'Choose a safety path',
+  },
+  es: {
+    eyebrow: 'Rutas frecuentes',
+    title: '¿Qué necesitas hacer más seguro?',
+    mobileHeading: 'Elige una ruta de seguridad',
+  },
+  nl: {
+    eyebrow: 'Populaire keuzes',
+    title: 'Wat moet veiliger worden?',
+    mobileHeading: 'Kies een veiligheidsroute',
+  },
+} satisfies Record<NavLocale, Record<string, string>>
+
+const solutionMenuItems = [
   {
-    title: { en: 'Bathroom safety', es: 'Seguridad en el baño' },
-    slugs: ['bathroom-safety-for-seniors'],
+    icon: Bath,
+    to: '/services/bathroom-safety',
+    title: { en: 'Bathroom safety', es: 'Baño seguro', nl: 'Veilige badkamer' },
+    description: {
+      en: 'Bathing, toilet transfers and wet-floor risk.',
+      es: 'Ducha, WC y riesgo en suelo mojado.',
+      nl: 'Douchen, toilet en natte vloeren.',
+    },
   },
   {
-    title: { en: 'Falls & assessment', es: 'Caídas y revisión del hogar' },
-    slugs: [
-      'fall-prevention-at-home',
-      'aging-in-place-home-assessment',
-      'home-adaptations-for-elderly',
-      'home-safety-after-hospital-discharge',
-    ],
+    icon: CookingPot,
+    to: '/services/kitchen-safety',
+    title: { en: 'Kitchen safety', es: 'Cocina segura', nl: 'Veilige keuken' },
+    description: {
+      en: 'Reach, cooking, lighting and movement.',
+      es: 'Alcance, cocina, luz y movimiento.',
+      nl: 'Bereik, koken, licht en beweging.',
+    },
   },
   {
-    title: { en: 'Bedroom & connected living', es: 'Dormitorio y vida conectada' },
-    slugs: ['senior-bedroom-safety', 'connected-home-for-seniors'],
+    icon: BedDouble,
+    to: '/services/bedroom-safety',
+    title: { en: 'Bedroom & night', es: 'Dormitorio y noche', nl: 'Slaapkamer en nacht' },
+    description: {
+      en: 'Bed access, lighting and night routes.',
+      es: 'Cama, luz y rutas nocturnas.',
+      nl: 'Bed, verlichting en nachtroutes.',
+    },
   },
   {
-    title: { en: 'Grants', es: 'Ayudas' },
-    slugs: ['grants-for-home-adaptations-spain'],
+    icon: DoorOpen,
+    to: '/services/entrance-accessibility',
+    title: { en: 'Entrance safety', es: 'Entrada segura', nl: 'Veilige entree' },
+    description: {
+      en: 'Steps, thresholds and door access.',
+      es: 'Escalones, umbrales y acceso.',
+      nl: 'Drempels, treden en toegang.',
+    },
+  },
+  {
+    icon: Wifi,
+    to: '/services/smart-home-safety',
+    title: { en: 'Connected support', es: 'Apoyo conectado', nl: 'Slimme ondersteuning' },
+    description: {
+      en: 'Simple alerts, voice help and routines.',
+      es: 'Avisos, voz y rutinas sencillas.',
+      nl: 'Eenvoudige meldingen en routines.',
+    },
+  },
+  {
+    icon: BadgeEuro,
+    to: '/grants',
+    title: { en: 'Grants guidance', es: 'Ayudas y trámites', nl: 'Subsidiehulp' },
+    description: {
+      en: 'Check possible routes and documents.',
+      es: 'Revisa rutas posibles y documentos.',
+      nl: 'Check routes en documenten.',
+    },
   },
 ] as const
 
@@ -52,12 +119,15 @@ export function Nav() {
   const { i18n, t } = useTranslation()
   const location = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [dismissedDesktopMenu, setDismissedDesktopMenu] = useState<DesktopMenuId | null>(null)
   const assessmentPath = getAssessmentPath()
   const isSpanish = i18n.language.startsWith('es')
-  const localizedNeedLandingPages = localizeNeedLandingPages(needLandingPages, i18n.language)
+  const navLocale = getNavLocale(i18n.language)
+  const localizeMenuText = (text: LocalizedNavText) => text[navLocale]
+  const currentSolutionMenuCopy = solutionMenuCopy[navLocale]
   const navLabels = {
     home: t('nav.home'),
-    howItWorks: t('nav.howItWorks'),
+    plans: t('nav.plans'),
     solutions: t('nav.services'),
     organisations: t('nav.organisations'),
     about: t('nav.whyCasamia'),
@@ -70,14 +140,25 @@ export function Nav() {
     {
       label: navLabels.solutions,
       to: '/services',
-      match: ['/services', '/plans', ...allNeedLandingPages.map((page) => page.path)],
+      match: ['/services', ...allNeedLandingPages.map((page) => page.path)],
     },
-    { label: navLabels.howItWorks, to: '/how-it-works', match: ['/how-it-works'] },
+    { label: navLabels.plans, to: '/plans', match: ['/plans'] },
     { label: navLabels.organisations, to: '/assisted-living-solutions', match: ['/assisted-living-solutions'] },
     { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources', '/tools', '/service-areas'] },
     { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
   ]
   const desktopLinks = links
+  const dismissDesktopMenu = (menuId: DesktopMenuId) => {
+    setDismissedDesktopMenu(menuId)
+    document.documentElement.dataset.navMenuDismissed = menuId
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur()
+    }
+  }
+  const restoreDesktopMenus = () => {
+    setDismissedDesktopMenu(null)
+    delete document.documentElement.dataset.navMenuDismissed
+  }
   const resourceMenuGroups = [
     {
       title: isSpanish ? 'Empieza aquí' : 'Start here',
@@ -89,14 +170,6 @@ export function Nav() {
         {
           label: isSpanish ? 'Herramientas gratuitas' : 'Free tools',
           to: '/tools',
-        },
-        {
-          label: isSpanish ? 'Lista completa para imprimir' : 'Printable home checklist',
-          to: '/blog',
-        },
-        {
-          label: isSpanish ? 'Revisión online de seguridad' : 'Online safety review',
-          to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
         },
         {
           label: isSpanish ? 'Zonas de servicio' : 'Service areas',
@@ -119,6 +192,10 @@ export function Nav() {
           label: isSpanish ? 'Seguridad nocturna' : 'Night-time safety',
           to: '/blog/bedroom-night-safety-older-adults',
         },
+        {
+          label: isSpanish ? 'Ayudas y documentación' : 'Grants and paperwork',
+          to: '/blog/home-adaptation-grants-spain-family-guide',
+        },
       ],
     },
     {
@@ -133,37 +210,8 @@ export function Nav() {
           to: '/smart-home-safety-vs-monitoring',
         },
         {
-          label: isSpanish ? 'Ayudas y documentación' : 'Grants and paperwork',
-          to: '/blog/home-adaptation-grants-spain-family-guide',
-        },
-        {
           label: isSpanish ? 'Antes de la visita' : 'Before the visit',
           to: '/blog/family-conversation-before-home-safety-visit',
-        },
-        {
-          label: isSpanish ? 'Elegir proveedor' : 'Choosing a provider',
-          to: '/blog/choose-home-safety-provider-spain',
-        },
-      ],
-    },
-    {
-      title: isSpanish ? 'Páginas por necesidad' : 'Room safety pages',
-      links: [
-        {
-          label: isSpanish ? 'Seguridad en el baño' : 'Bathroom safety',
-          to: '/bathroom-safety-for-seniors',
-        },
-        {
-          label: isSpanish ? 'Dormitorio más seguro' : 'Safer bedroom routines',
-          to: '/senior-bedroom-safety',
-        },
-        {
-          label: isSpanish ? 'Prevención de caídas en casa' : 'Fall prevention at home',
-          to: '/fall-prevention-at-home',
-        },
-        {
-          label: isSpanish ? 'Ayudas para adaptar la vivienda' : 'Home adaptation grants',
-          to: '/grants-for-home-adaptations-spain',
         },
       ],
     },
@@ -186,40 +234,46 @@ export function Nav() {
 
             if (link.to === '/services') {
               return (
-                <div className="site-header-menu-group" key={link.to}>
-                  <Link
-                    aria-current={active ? 'page' : undefined}
+                <div
+                  className={`site-header-menu-group site-header-menu-group--solutions${dismissedDesktopMenu === 'solutions' ? ' is-menu-dismissed' : ''}`}
+                  key={link.to}
+                  onMouseLeave={restoreDesktopMenus}
+                >
+                  <button
+                    aria-haspopup="menu"
                     className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
-                    to={link.to}
+                    onClick={restoreDesktopMenus}
+                    type="button"
                   >
                     {link.label}
                     <ChevronDown size={15} aria-hidden="true" />
-                  </Link>
-                  <div className="site-header-mega-menu" aria-label="CasaMia solutions by need">
-                    <div className="site-header-mega-panel">
+                  </button>
+                  <div className="site-header-mega-menu site-header-mega-menu--solutions" aria-label="CasaMia solutions by need">
+                    <div className="site-header-mega-panel site-header-mega-panel--solutions">
                       <div className="site-header-mega-intro">
-                        <span>{isSpanish ? 'Soluciones por necesidad' : 'Solutions by need'}</span>
-                        <strong>{isSpanish ? 'Empieza por la preocupación, no por el producto.' : 'Start from the concern, not the product.'}</strong>
-                        <Link to="/services">
-                          {isSpanish ? 'Ver el catálogo completo' : 'View full service catalogue'}
-                        </Link>
+                        <span>{currentSolutionMenuCopy.eyebrow}</span>
+                        <strong>{currentSolutionMenuCopy.title}</strong>
                       </div>
-                      <div className="site-header-mega-grid">
-                        {solutionMenuGroups.map((group) => {
-                          const groupTitle = group.title[isSpanish ? 'es' : 'en']
+                      <div className="site-header-solution-grid">
+                        {solutionMenuItems.map((item) => {
+                          const Icon = item.icon
+                          const itemActive = location.pathname === item.to
 
                           return (
-                            <div className="site-header-mega-column" key={groupTitle}>
-                              <p>{groupTitle}</p>
-                              {group.slugs.map((slug) => {
-                                const page = localizedNeedLandingPages.find((item) => item.slug === slug)
-                                return page ? (
-                                  <Link key={page.slug} to={page.path}>
-                                    {page.title}
-                                  </Link>
-                                ) : null
-                              })}
-                            </div>
+                            <Link
+                              className={`site-header-solution-card${itemActive ? ' is-active' : ''}`}
+                              key={item.to}
+                              to={item.to}
+                              onClick={() => dismissDesktopMenu('solutions')}
+                            >
+                              <span className="site-header-solution-icon">
+                                <Icon size={19} aria-hidden="true" />
+                              </span>
+                              <span className="site-header-solution-copy">
+                                <strong>{localizeMenuText(item.title)}</strong>
+                                <small>{localizeMenuText(item.description)}</small>
+                              </span>
+                            </Link>
                           )
                         })}
                       </div>
@@ -231,11 +285,16 @@ export function Nav() {
 
             if (link.to === '/blog') {
               return (
-                <div className="site-header-menu-group" key={link.to}>
+                <div
+                  className={`site-header-menu-group site-header-menu-group--resources${dismissedDesktopMenu === 'resources' ? ' is-menu-dismissed' : ''}`}
+                  key={link.to}
+                  onMouseLeave={restoreDesktopMenus}
+                >
                   <Link
                     aria-current={active ? 'page' : undefined}
                     className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
                     to={link.to}
+                    onClick={() => dismissDesktopMenu('resources')}
                   >
                     {link.label}
                     <ChevronDown size={15} aria-hidden="true" />
@@ -245,7 +304,7 @@ export function Nav() {
                       <div className="site-header-mega-intro">
                         <span>{isSpanish ? 'Recursos por situación' : 'Resources by situation'}</span>
                         <strong>{isSpanish ? 'Encuentra el siguiente paso útil.' : 'Find the next useful step.'}</strong>
-                        <Link to="/blog">
+                        <Link to="/blog" onClick={() => dismissDesktopMenu('resources')}>
                           {isSpanish ? 'Ver todos los recursos' : 'View all resources'}
                         </Link>
                       </div>
@@ -254,7 +313,11 @@ export function Nav() {
                           <div className="site-header-mega-column" key={group.title}>
                             <p>{group.title}</p>
                             {group.links.map((item) => (
-                              <Link key={`${group.title}-${item.to}-${item.label}`} to={item.to}>
+                              <Link
+                                key={`${group.title}-${item.to}-${item.label}`}
+                                to={item.to}
+                                onClick={() => dismissDesktopMenu('resources')}
+                              >
                                 {item.label}
                               </Link>
                             ))}
@@ -313,7 +376,7 @@ export function Nav() {
       {mobileOpen ? (
         <div className="site-mobile-menu">
           <div className="site-mobile-menu-inner">
-            {links.map((link) => {
+            {links.filter((link) => link.to !== '/services').map((link) => {
               const active = isActiveLink(location.pathname, link)
 
               return (
@@ -327,37 +390,35 @@ export function Nav() {
                 </Link>
               )
             })}
-            <div className="site-mobile-needs">
-              <p>{isSpanish ? 'Necesidades frecuentes' : 'Popular needs'}</p>
-              {solutionMenuGroups.map((group) => {
-                const groupTitle = group.title[isSpanish ? 'es' : 'en']
+            <div className="site-mobile-needs site-mobile-needs--solutions">
+              <p>{currentSolutionMenuCopy.mobileHeading}</p>
+              <div className="site-mobile-solution-list">
+                {solutionMenuItems.map((item) => {
+                  const Icon = item.icon
 
-                return (
-                <div key={groupTitle}>
-                  <span>{groupTitle}</span>
-                  {group.slugs.map((slug) => {
-                    const page = localizedNeedLandingPages.find((item) => item.slug === slug)
-                    return page ? (
-                      <Link key={page.slug} to={page.path}>
-                        {page.title}
-                      </Link>
-                    ) : null
-                  })}
-                </div>
-              )})}
+                  return (
+                    <Link key={item.to} to={item.to}>
+                      <span className="site-mobile-solution-icon">
+                        <Icon size={18} aria-hidden="true" />
+                      </span>
+                      <span className="site-mobile-solution-copy">
+                        <strong>{localizeMenuText(item.title)}</strong>
+                        <small>{localizeMenuText(item.description)}</small>
+                      </span>
+                    </Link>
+                  )
+                })}
+              </div>
             </div>
             <div className="site-mobile-needs">
               <p>{isSpanish ? 'Recursos útiles' : 'Useful resources'}</p>
-              {resourceMenuGroups.map((group) => (
-                <div key={group.title}>
-                  <span>{group.title}</span>
-                  {group.links.map((item) => (
-                    <Link key={`${group.title}-${item.to}-${item.label}`} to={item.to}>
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              ))}
+              <div className="site-mobile-quick-list">
+                {resourceMenuGroups[0].links.map((item) => (
+                  <Link key={`mobile-resource-${item.to}-${item.label}`} to={item.to}>
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </div>
             <a
               className="nav-link min-h-12 py-2 text-lg"

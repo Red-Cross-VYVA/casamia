@@ -1,0 +1,513 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/6extoq",
+    "id": "6extoq",
+    "slide": 1,
+    "layoutId": "0024b908-1a98-4295-9552-2da13750196a",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#1B5E8A",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Aptos",
+      "Aptos Display"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "0024b908-1a98-4295-9552-2da13750196a",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/ojyls3yh",
+      "id": "1",
+      "bbox": [
+        660,
+        0,
+        620,
+        720
+      ],
+      "geometry": "rect",
+      "alt": "Profesional de instalación en una vivienda",
+      "contentType": "image/webp",
+      "imageFit": "cover",
+      "imageMask": {
+        "geometry": "rect"
+      },
+      "asset": {
+        "assetId": "9bb1d2db-1c61-4651-b2c0-4ff9c2439370",
+        "contentType": "image/webp",
+        "byteLength": 80756
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a943a90r",
+      "id": "2",
+      "bbox": [
+        620,
+        0,
+        120,
+        720
+      ],
+      "geometry": "rect",
+      "fillColor": "#1B5E8A",
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/2hw3qdgb",
+      "id": "3",
+      "bbox": [
+        72,
+        56,
+        190,
+        54
+      ],
+      "geometry": "rect",
+      "alt": "Logotipo de CasaMia",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "rect"
+      },
+      "asset": {
+        "assetId": "e24def50-866e-4597-8cbd-a6e181173304",
+        "contentType": "image/png",
+        "byteLength": 12721
+      }
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/o7ml8j2l",
+      "id": "4",
+      "bbox": [
+        72,
+        154,
+        92,
+        6
+      ],
+      "geometry": "rect",
+      "fillColor": "#7DB841",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/98v214j6",
+      "id": "5",
+      "bbox": [
+        72,
+        186,
+        520,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Programa de colaboradores profesionales",
+      "textPreview": "Programa de colaboradores profesionales",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#EAF5FC",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Programa de colaboradores profesionales"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Programa de colaboradores profesionales",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#EAF5FC",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Programa de colaboradores profesionales",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#EAF5FC",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ml4369kf",
+      "id": "6",
+      "bbox": [
+        72,
+        242,
+        570,
+        190
+      ],
+      "geometry": "rect",
+      "text": "Trabajos senior claros, coordinados por CasaMia.",
+      "textPreview": "Trabajos senior claros, coordinados por CasaMia.",
+      "resolvedFontSize": 66,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 66,
+        "typeface": "Aptos Display",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Trabajos senior"
+          },
+          {
+            "index": 2,
+            "text": "claros, coordinados"
+          },
+          {
+            "index": 3,
+            "text": "por CasaMia."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Trabajos senior claros, coordinados por CasaMia.",
+          "lineSpacingPercent": 94000,
+          "resolvedTextStyle": {
+            "fontSize": 66,
+            "typeface": "Aptos Display",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 0.94
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Trabajos senior claros, coordinados por CasaMia.",
+              "fontSize": 66,
+              "typeface": "Aptos Display",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 0.94
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n6dkze10",
+      "id": "7",
+      "bbox": [
+        72,
+        464,
+        548,
+        92
+      ],
+      "geometry": "rect",
+      "text": "Conectamos familias que necesitan adaptar una vivienda con empresas locales fiables y bien briefadas.",
+      "textPreview": "Conectamos familias que necesitan adaptar una vivienda con empresas locales fiables y bien briefadas.",
+      "resolvedFontSize": 28,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 28,
+        "typeface": "Aptos",
+        "color": "#EAF5FC",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Conectamos familias que necesitan adaptar una"
+          },
+          {
+            "index": 2,
+            "text": "vivienda con empresas locales fiables y bien"
+          },
+          {
+            "index": 3,
+            "text": "briefadas."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Conectamos familias que necesitan adaptar una vivienda con empresas locales fiables y bien briefadas.",
+          "lineSpacingPercent": 112000,
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Aptos",
+            "color": "#EAF5FC",
+            "alignment": "left",
+            "lineSpacing": 1.12
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Conectamos familias que necesitan adaptar una vivienda con empresas locales fiables y bien briefadas.",
+              "fontSize": 28,
+              "typeface": "Aptos",
+              "color": "#EAF5FC",
+              "alignment": "left",
+              "lineSpacing": 1.12
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0jm14z2p",
+      "id": "8",
+      "bbox": [
+        72,
+        632,
+        360,
+        30
+      ],
+      "geometry": "rect",
+      "text": "Aplicaciones abiertas en España",
+      "textPreview": "Aplicaciones abiertas en España",
+      "resolvedFontSize": 22,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 22,
+        "typeface": "Aptos",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Aplicaciones abiertas en España"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Aplicaciones abiertas en España",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 22,
+            "typeface": "Aptos",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Aplicaciones abiertas en España",
+              "fontSize": 22,
+              "typeface": "Aptos",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1kv2x4ja",
+      "id": "9",
+      "bbox": [
+        72,
+        664,
+        520,
+        24
+      ],
+      "geometry": "rect",
+      "text": "https://casamia.com.es/provider-partners",
+      "textPreview": "https://casamia.com.es/provider-partners",
+      "resolvedFontSize": 19,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 19,
+        "typeface": "Aptos",
+        "color": "#EAF5FC",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "https://casamia.com.es/provider-partners"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "https://casamia.com.es/provider-partners",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 19,
+            "typeface": "Aptos",
+            "color": "#EAF5FC",
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "https://casamia.com.es/provider-partners",
+              "fontSize": 19,
+              "typeface": "Aptos",
+              "color": "#3A9FD4",
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

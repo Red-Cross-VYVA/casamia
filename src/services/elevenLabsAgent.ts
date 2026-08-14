@@ -8,6 +8,7 @@ export type ElevenLabsConversationAccess = {
 }
 
 type ConversationAccessRequest = {
+  entryPoint?: string
   locale: 'en' | 'es'
   signal?: AbortSignal
   wizardReference: string
@@ -21,6 +22,7 @@ const supportedServerLocations: ElevenLabsServerLocation[] = [
 ]
 
 export async function requestElevenLabsConversationAccess({
+  entryPoint,
   locale,
   signal,
   wizardReference,
@@ -29,6 +31,7 @@ export async function requestElevenLabsConversationAccess({
     '/api/public/elevenlabs-conversation-token',
     {
       consentConfirmed: true,
+      entryPoint,
       locale,
       wizardReference,
     },

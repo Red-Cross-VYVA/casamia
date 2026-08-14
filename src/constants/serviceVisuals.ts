@@ -18,18 +18,18 @@ export const serviceVisuals: Record<
   },
   'entrance-accessibility': {
     badge: 'Access starts outside',
-    image: '/images/solutions/entrance-access.jpg',
+    image: '/images/service-card-products/entrance-safer-access.png',
     note: 'Thresholds, ramps, visitor access',
   },
   'kitchen-safety': {
     badge: 'Routine and reach',
-    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+    image: '/images/before-after/kitchen-after.png',
     note: 'Reach, lighting, appliances and water risk',
   },
   'bedroom-safety': {
     badge: 'Rest and night routines',
-    image: 'https://cdn.shopify.com/s/files/1/0941/8502/9896/files/big_imag_3.jpg?v=1742505710',
-    note: 'Bed transfers, night routes, help within reach',
+    image: '/images/before-after/bedroom-after.png',
+    note: 'Bed access, night routes, help within reach',
   },
   'smart-home-safety': {
     badge: 'Connected reassurance',

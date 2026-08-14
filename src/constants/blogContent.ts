@@ -20,6 +20,12 @@ export type BlogArticle = {
     question: string
     answer: string
   }>
+  resources?: Array<{
+    title: string
+    description: string
+    href: string
+    source: string
+  }>
   cta: {
     label: string
     to: string
@@ -32,60 +38,99 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/fall-prevention-home-checklist-spain',
     title: 'Fall Prevention at Home: A Practical Checklist for Families in Spain',
     description:
-      'A room-by-room fall prevention checklist for families supporting an older adult at home in Spain, with practical changes to prioritise first.',
+      'A practical fall prevention checklist for families supporting an older adult at home, with room-by-room checks, warning signs and credible resources.',
     category: 'Fall prevention',
-    readTime: '7 min read',
-    date: '2026-07-11',
+    readTime: '10 min read',
+    date: '2026-08-10',
     image: '/images/blog/fall-prevention-checklist.webp',
     imageAlt: 'Illustrated home safety checklist for fall prevention',
     keywords: ['fall prevention at home', 'senior home safety Spain', 'aging in place checklist'],
     intro:
-      'Most families notice home safety risk only after a slip, a near fall, or a change in mobility. A calmer approach is to review the home before a crisis and focus on the routines that happen every day.',
+      'Most falls are not caused by one single problem. Risk builds when health changes, medication, vision, footwear, lighting, floors, furniture and rushed routines all meet in the same moment. A good home checklist helps the family spot those combinations before a fall happens.',
     takeaways: [
-      'Start with bathrooms, stairs, bedrooms, entrances, and night routes.',
-      'Prioritise lighting, stable support points, clear walking routes, and safer transfers.',
-      'Use a professional assessment when the family needs a clear order of works.',
+      'Walk the home by routine: getting up, washing, dressing, cooking, leaving the home and going to the bathroom at night.',
+      'Prioritise loose rugs, poor lighting, unsupported transfers, stairs, bathroom access and emergency reach.',
+      'Treat a recent fall, near fall, new dizziness, medication change or hospital stay as a reason to review the home quickly.',
+      'Combine home changes with health checks; eyesight, footwear, strength, balance and medication review matter too.',
     ],
     sections: [
       {
-        title: 'Begin with daily movement, not products',
+        title: 'Start with the moments where falls actually happen',
         body: [
-          'The best fall prevention plan starts by watching how the person actually moves through the home. Where do they pause, hold furniture, avoid steps, or switch on lights too late?',
-          'Those moments reveal more than a shopping list. A grab bar, motion light, rail, threshold change, or furniture adjustment only helps when it fits the person and the room.',
+          'Walk through the day with the resident: standing from bed, reaching the bathroom, entering the shower, preparing food, carrying laundry, answering the door and getting up at night. Note where they pause, rush, hold furniture or avoid a route.',
+          'Those details matter more than a generic shopping list. A grab bar, rail, motion light, threshold change or furniture move only helps when it supports the movement the person is already trying to make.',
         ],
       },
       {
-        title: 'Review the highest-risk rooms first',
+        title: 'Remove trip hazards, but do not stop there',
         body: [
-          'Bathrooms combine water, transfers, small spaces, and hard surfaces. Stairs and entrances add level changes. Bedrooms matter because many falls happen during tired night-time routines.',
-          'A practical sequence is bathroom, stairs, bedroom, entrance, kitchen, then living areas. This keeps the family focused on risk rather than trying to improve every room at once.',
+          'Loose rugs, curling mats, cables, cluttered routes and unstable furniture should be fixed immediately. But many families stop there and miss the bigger pattern: no support where the person transfers, light switches too far away, shoes that slip, or a bathroom route that becomes risky at night.',
+          'A useful sequence is bathroom, bedroom-to-bathroom route, stairs, entrance, kitchen and living areas. This keeps the review focused on daily risk rather than trying to redesign every room at once.',
         ],
       },
       {
-        title: 'Separate urgent changes from future improvements',
+        title: 'Separate urgent fixes from planned adaptations',
         body: [
-          'Some changes are urgent, such as unstable shower transfers, dark stairs, or a raised threshold used every day. Others can be planned later, especially if they depend on funding, installation availability, or family decisions.',
-          'CasaMia assessments are designed to make this order clear: what to change now, what to monitor, and what can wait.',
+          'Urgent fixes are the issues most likely to cause harm this week: a wet transfer with no support, a dark stair route, a high threshold used daily, an unstable toilet transfer, or a phone left out of reach. Planned adaptations are still important, but may need measuring, quotes, landlord or community permission, or grant checks.',
+          'CasaMia assessments are designed to make that order clear: what to remove today, what to adapt first, what needs a proposal, and what the family can monitor over time.',
+        ],
+      },
+      {
+        title: 'Connect the home review with health and daily support',
+        body: [
+          'A home can be made safer, but falls prevention is not only construction. Ask whether the person has new dizziness, pain, vision changes, foot problems, medication changes, urinary urgency, confusion, weakness or fear of falling. Those signals may need a clinician, physiotherapist, pharmacist or optician alongside home changes.',
+          'The most useful family plan names who will handle each part: clear routes, install support, organise lighting, review medication questions with a professional, test emergency reach and check back after the first changes are in place.',
         ],
       },
     ],
     checklist: [
-      'Can the resident reach the bathroom at night without walking in darkness?',
-      'Are both sides of stairs or level changes supported where needed?',
-      'Are rugs, mats, and cables removed or secured?',
-      'Can the person enter, use, and leave the shower without grabbing furniture?',
-      'Is emergency help reachable from the bedroom and bathroom?',
+      'Walk every daily route and mark where the person reaches for walls, furniture or doorframes.',
+      'Remove or fix loose rugs, curled mats, cables, low furniture and clutter from walking routes.',
+      'Check that bed, toilet and favourite chair heights allow the person to stand without pulling unstable furniture.',
+      'Make the route from bed to bathroom visible at night without glare.',
+      'Confirm stairs, steps and thresholds have stable support where the person actually needs it.',
+      'Review bathroom transfers, wet surfaces, towel reach and shower entry together.',
+      'Keep phone, emergency button or agreed help route reachable from bed and bathroom.',
+      'Ask a health professional about dizziness, medication changes, vision, foot pain or repeated near falls.',
+    ],
+    resources: [
+      {
+        title: 'Check for Safety fall prevention checklist',
+        source: 'CDC STEADI',
+        href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
+        description:
+          'A practical room-by-room home safety checklist for older adults and families, including floors, stairs, kitchen, bathroom and bedroom.',
+      },
+      {
+        title: 'Prevent falls and fractures',
+        source: 'National Institute on Aging',
+        href: 'https://www.nia.nih.gov/health/falls-and-falls-prevention/prevent-falls-and-fractures',
+        description:
+          'Clear health guidance on fall risks, exercise, vision, medicine review and home changes that families should combine with home adaptation.',
+      },
+      {
+        title: 'Preventing falls at home',
+        source: 'MedlinePlus',
+        href: 'https://medlineplus.gov/ency/patientinstructions/000052.htm',
+        description:
+          'Patient-friendly guidance on reducing fall risk at home, including bathroom, stairs, lighting, footwear and daily movement.',
+      },
     ],
     faqs: [
       {
         question: 'What is the first thing to fix to reduce fall risk at home?',
         answer:
-          'Start with the route and room used most often where the person already feels unsafe. For many homes this is the bathroom, stairs, or the route from bedroom to toilet at night.',
+          'Start with the route or movement that is both frequent and already unsafe. For many homes that is the bathroom, stairs, entrance, or the route from bed to toilet at night.',
       },
       {
         question: 'Do all older adults need grab bars?',
         answer:
           'No. Grab bars help when they are needed, positioned correctly, and fixed to suitable surfaces. A review should consider mobility, transfers, wall type, and the resident habits.',
+      },
+      {
+        question: 'When should a family ask for professional help?',
+        answer:
+          'Ask for help when there has been a fall or near fall, the person is changing how they move, multiple rooms are involved, or the family is unsure which works should happen first.',
       },
     ],
     cta: {
@@ -98,60 +143,99 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/bathroom-safety-seniors-costly-mistakes',
     title: 'Bathroom Safety for Seniors: 7 Mistakes Families Should Avoid',
     description:
-      'Avoid common bathroom safety mistakes when adapting a home for an older adult, from suction grab bars to poor shower access and slippery flooring.',
+      'Avoid common bathroom safety mistakes when adapting a home for an older adult, from unsafe supports to shower entry, toilet transfers, wet floors and water controls.',
     category: 'Bathroom safety',
-    readTime: '6 min read',
-    date: '2026-07-11',
+    readTime: '9 min read',
+    date: '2026-08-10',
     image: '/images/blog/bathroom-mistakes.webp',
     imageAlt: 'Illustration of bathroom safety mistakes to avoid',
     keywords: ['bathroom safety for seniors', 'grab bars Spain', 'accessible bathroom older adults'],
     intro:
-      'Bathrooms are often the first room families want to adapt, but rushed decisions can create false confidence. The goal is not to add equipment everywhere; it is to make transfers, reach, and surfaces safer for the person using the room.',
+      'Bathrooms combine water, hard surfaces, urgency, small spaces and transfers. That is why a quick purchase can create false confidence: the room may look safer while the person still has to step, twist, reach or stand without the right support.',
     takeaways: [
-      'Avoid relying on towel rails, suction handles, or furniture for body weight support.',
-      'Plan shower entry, toilet transfers, lighting, and floor surfaces together.',
-      'Installation quality matters as much as the product selected.',
+      'Plan the movement, not just the product: entering, washing, turning, drying, toileting and leaving.',
+      'Avoid towel rails, suction handles and furniture as body-weight support.',
+      'Review shower entry, toilet transfers, floor grip, lighting, water controls and emergency reach together.',
+      'Installation quality and placement matter as much as the equipment selected.',
     ],
     sections: [
       {
-        title: 'Mistake 1: Treating every grab bar as the same',
+        title: 'Mistake 1: Treating every support as safe support',
         body: [
-          'A grab bar is only useful if it is in the right position for the movement being supported. Shower entry, standing from the toilet, and turning near the sink can require different support points.',
-          'Wall type and fixing method also matter. A poorly installed bar can be worse than no bar because it invites trust without real support.',
+          'Towel rails, sink edges, shower screens and suction handles are often used like handrails, but they are not reliable body-weight support. If the person trusts the wrong object, the risk can increase rather than decrease.',
+          'A grab bar only helps when it is in the right position for the movement being supported. Shower entry, standing from the toilet, turning near the sink and drying after a shower can require different support points.',
         ],
       },
       {
-        title: 'Mistake 2: Ignoring the shower threshold',
+        title: 'Mistake 2: Fixing the shower seat but ignoring the entry',
         body: [
-          'Families often focus on the shower chair but overlook the step into the shower. If the resident has to lift a foot over a raised edge while wet, tired, or unsupported, risk remains high.',
-          'A safer plan considers entry, seating, hand-held shower access, drainage, and where towels or clothing are reached afterwards.',
+          'Families often buy a shower stool or folding seat but leave a high bath edge, narrow door or slippery entry unchanged. If the resident still has to lift a foot over an edge while wet, tired or unsupported, the main risk remains.',
+          'A safer plan considers entry height, anti-slip surface, seating, hand-held shower reach, drainage, screen or curtain clearance, towel reach and where a helper can stand if assistance is needed.',
         ],
       },
       {
-        title: 'Mistake 3: Buying before measuring the routine',
+        title: 'Mistake 3: Forgetting toilet transfers and night use',
         body: [
-          'Products should follow the resident routine. Ask whether the person showers alone, needs assistance, uses a walking aid, struggles with fatigue, or becomes disoriented.',
-          'The right bathroom adaptation is usually a combination of product, layout, installation, and habit change.',
+          'Many falls are linked to urgency, fatigue or getting to the bathroom at night. The toilet area needs enough space, stable side support where useful, reachable paper, good light and a route that does not require turning sharply around clutter.',
+          'Check how the person reaches the bathroom from bed, whether they use a walking aid, whether the door opens safely, and whether emergency help is reachable if they sit or fall.',
+        ],
+      },
+      {
+        title: 'Mistake 4: Mixing hot water risk with reach problems',
+        body: [
+          'Water controls can be difficult when grip, vision or reaction speed changes. If the resident cannot easily set temperature, reach a hand shower, or turn water off while seated, the bathroom may still feel unsafe even after bars are installed.',
+          'Thermostatic controls, clearer handles, reachable storage and a hand-held shower can reduce strain, but they should be matched to the existing plumbing, wall surfaces and user habits.',
         ],
       },
     ],
     checklist: [
-      'Check whether the resident can sit, stand, turn, and reach without pulling on unsafe fixtures.',
-      'Review wet floor surfaces and bath mats.',
-      'Confirm night lighting reaches the bathroom route and the room itself.',
-      'Measure the shower threshold and door opening.',
-      'Plan where carers or family members can safely assist if needed.',
+      'Watch the resident enter, wash, turn, dry, use the toilet and leave if they are comfortable being observed.',
+      'Remove or replace loose bath mats and any object that slides when wet.',
+      'Confirm the shower or bath entry has support before, during and after the step or transfer.',
+      'Check whether toilet height and side support allow sit-to-stand without pulling a towel rail or sink.',
+      'Make water controls, soap, towels and clothing reachable without twisting or bending.',
+      'Add low-glare night lighting from bedroom to bathroom and inside the bathroom.',
+      'Keep an emergency call option reachable from the bathroom.',
+      'Plan where a carer can stand without blocking the resident or slipping.',
+    ],
+    resources: [
+      {
+        title: 'Check for Safety bathroom checklist',
+        source: 'CDC STEADI',
+        href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
+        description:
+          'Includes specific bathroom prompts on mats, shower floors, grab bars and getting in and out of the tub or shower.',
+      },
+      {
+        title: 'Preventing falls at home',
+        source: 'MedlinePlus',
+        href: 'https://medlineplus.gov/ency/patientinstructions/000052.htm',
+        description:
+          'Plain-language advice on bathroom, bedroom, footwear, stairs and lighting changes that reduce everyday fall risk.',
+      },
+      {
+        title: 'Assistive products catalogue',
+        source: 'CEAPAT / Imserso',
+        href: 'https://ceapat.imserso.es/catalogo-productos-apoyo',
+        description:
+          'Spanish public catalogue for comparing support products such as bathing aids, toilet aids, rails and mobility supports.',
+      },
     ],
     faqs: [
       {
         question: 'Are suction grab bars safe for seniors?',
         answer:
-          'They are not suitable as primary body-weight support. Families should use professionally fixed support points where balance or transfer safety depends on them.',
+          'They should not be used as primary body-weight support. If balance or transfers depend on the support, use professionally fixed bars or other appropriate equipment.',
       },
       {
         question: 'Is a walk-in shower always the best option?',
         answer:
           'Not always. It depends on the resident mobility, bathroom layout, drainage, budget, and urgency. Sometimes immediate support and anti-slip changes come first.',
+      },
+      {
+        question: 'Should the bathroom door open outwards?',
+        answer:
+          'It can help in some layouts because a fall behind an inward-opening door may block access. The right answer depends on the door, hallway, privacy needs and whether a safer alternative is possible.',
       },
     ],
     cta: {
@@ -162,62 +246,151 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'home-adaptation-grants-spain-family-guide',
     path: '/blog/home-adaptation-grants-spain-family-guide',
-    title: 'Home Adaptation Grants in Spain: What Families Should Prepare',
+    title: 'Home Adaptation Grants in Spain: A Practical Family Guide',
     description:
-      'A practical guide to preparing for home adaptation grants in Spain, including documents, works scope, eligibility questions, and realistic expectations.',
+      'How families in Spain can prepare for accessibility and home adaptation grants, with eligibility checks, document lists, timing risks and official resources.',
     category: 'Grants and funding',
-    readTime: '8 min read',
-    date: '2026-07-11',
-    image: '/images/blog/grants-readiness.webp',
-    imageAlt: 'Illustration of documents and approval check for grant readiness',
-    keywords: ['home adaptation grants Spain', 'Plan Adapta', 'accessibility grants Spain'],
+    readTime: '11 min read',
+    date: '2026-08-10',
+    image: '/images/solutions/euro-grant-support-retouched.jpg',
+    imageAlt: 'Euro symbol representing public grant support for home adaptations',
+    keywords: [
+      'home adaptation grants Spain',
+      'Plan Estatal de Vivienda 2026 2030',
+      'Plan Adapta Madrid',
+      'accessibility grants Spain',
+    ],
     intro:
-      'Grant funding can make home adaptations easier to afford, but families should approach it with preparation rather than assumptions. Availability, eligibility, documents, and approval rules vary by region and programme.',
+      'Spain does not have one single grant that every family applies for in the same way. National housing plans set a framework, but the real application usually happens through your autonomous community, city council, housing office or social services team. The safest approach is to prepare the home evidence first, then match it to the open call.',
     takeaways: [
-      'Grant calls vary by autonomous community and municipality.',
-      'A clear works scope and supporting documents improve readiness.',
-      'No provider should promise approval; the authority decides.',
+      'Check the live call for the exact home address; rules change by autonomous community and municipality.',
+      'Prepare a clear safety need, photos, certificates, permissions and itemised quotes before a deadline appears.',
+      'Do not start paid works until the call confirms whether prior works are allowed.',
+      'No provider can guarantee approval; the public authority decides eligibility, grant amount and payment timing.',
     ],
     sections: [
       {
-        title: 'Start by defining the safety need',
+        title: 'Start with the right authority, not a generic promise',
         body: [
-          'A grant application is easier to understand when it connects the proposed works to a clear mobility, accessibility, or safety need. Vague improvements are harder to justify.',
-          'Examples may include safer bathroom access, threshold changes, ramps where suitable, stair support, or adaptations linked to disability or dependency documents.',
+          'For most families, the first question is not "how much can we get?" but "which authority covers this address and this type of work?" A home in Madrid city may have a municipal Plan Adapta route. A home in Girona, Tarragona, Lleida or Terres de l\'Ebre may fall under an Agència de l\'Habitatge de Catalunya call. Other areas may use autonomous-community rehabilitation grants, municipal social services, disability support, dependency support or building-accessibility programmes.',
+          'Use the national subsidy database to search open calls, then confirm details with the local housing office or social services. If the home is in a building with shared entrances, stairs, lifts or portals, the community of owners and building administrator may also need to be involved.',
         ],
       },
       {
-        title: 'Prepare documents early',
+        title: 'Know what the national framework can support',
         body: [
-          'Families may need identification, residency information, proof of ownership or right to use the home, medical or disability documents where relevant, quotes, invoices, photos, and a description of proposed works.',
-          'The exact list depends on the programme. Preparing early prevents the family from rushing once a call opens.',
+          'The Plan Estatal de Vivienda 2026-2030 includes accessibility works such as ramps, lifts, stair lifts, accessible routes, communication and alarm systems, domotics that support personal autonomy, and interventions that improve safety of use and accessibility. The BOE framework sets maximum amounts and percentages, but access is through public calls from autonomous communities and Ceuta or Melilla.',
+          'That distinction matters. A headline maximum is not the same as an approved grant for one home. Each call can restrict who may apply, which homes qualify, what income thresholds apply, whether the resident must be over 65 or have a recognised disability, whether quotes must be submitted before works start, and how payment is made.',
         ],
       },
       {
-        title: 'Keep expectations realistic',
+        title: 'Translate the home problem into eligible works',
         body: [
-          'Funding can be limited, competitive, time-bound, or restricted to certain works. Some programmes reimburse after works, while others require approval first.',
-          'CasaMia can help families become grant-ready, but approval and payment decisions remain with the public authority.',
+          'Applications are stronger when the proposed works are connected to a concrete daily risk: unsafe shower entry, wet transfers, high thresholds, lack of hand support, poor night lighting, narrow doorways, difficult kitchen reach, or a route that cannot be used with a walker or wheelchair.',
+          'Avoid vague language such as "modernise the bathroom". Use practical wording: replace bathtub with accessible shower, lower a threshold, add fixed support bars, improve non-slip flooring, widen a passage, add motion lighting, install an accessible intercom, or adapt a kitchen so the person can prepare food safely.',
+        ],
+      },
+      {
+        title: 'Build the file before the call forces a rush',
+        body: [
+          'Most grant files need a mix of personal documents, home documents and technical evidence. Start with DNI/NIE, padrón or proof of habitual residence, ownership or rental permission, disability or dependency certificates where relevant, income or household documents if required, photos of the existing risk, and a clear itemised proposal.',
+          'Ask each programme whether it needs a technical report, architect or technician visit, licence or declaración responsable, community-of-owners agreement, landlord authorisation, registered invoices, bank proof of payment, or justification documents after the works. Keep every quote, photo, invoice and approval in one folder.',
+        ],
+      },
+      {
+        title: 'Watch timing, cash flow and reimbursement rules',
+        body: [
+          'Some calls are first-come-first-served, some are competitive, some close when funds run out and some reimburse only after the family has paid and justified the work. Others require approval or inspection before work begins. For example, Catalonia\'s 2026 interior-arrangement call says works must not have started before the call publication or before the technical inspection by the housing agency.',
+          'Before signing or paying, confirm three things in writing: whether the works may start now, whether the quote format is acceptable, and when money is expected to be paid. This protects the family from assuming a grant will arrive before cash is needed.',
+        ],
+      },
+      {
+        title: 'If the problem is in a shared building area',
+        body: [
+          'Lifts, entrance ramps, portal doors, stair routes and other common elements can involve the community of owners. Spain\'s Horizontal Property Law includes rules for necessary accessibility works and reasonable adjustments, especially when residents with disability or people over 70 are involved, but the practical process still depends on the building, budget and administrator.',
+          'For these cases, prepare a short note for the administrator: the resident need, the affected route, photos, the proposed solution, whether a grant call exists, and what decision the community must take. Good paperwork reduces friction before a community meeting.',
         ],
       },
     ],
     checklist: [
-      'Confirm the home location and relevant local programme.',
-      'Collect resident and household documents.',
-      'Photograph current access, bathroom, stairs, and risk areas.',
-      'Prepare a clear works proposal with itemised scope.',
-      'Check whether works can start before approval or must wait.',
+      'Confirm the municipality, autonomous community and whether the home is owner-occupied, rented or in a community building.',
+      'Search the national subsidy database and the local housing/social-services pages for open calls.',
+      'Check eligibility: age, disability, dependency, income, habitual residence, ownership or rental permission.',
+      'Photograph the current barriers: bathroom, entrance, stairs, thresholds, kitchen reach, night route and shared access.',
+      'Prepare itemised quotes that separate accessibility/safety works from cosmetic renovation.',
+      'Ask whether works can start before approval, inspection or publication of the call.',
+      'Collect certificates, padrón, bank details, community/landlord permissions and technical reports where required.',
+      'Keep invoices, payment proof and final photos for the justification stage.',
+    ],
+    resources: [
+      {
+        title: 'Plan Estatal de Vivienda 2026-2030',
+        source: 'BOE',
+        href: 'https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-8872',
+        description:
+          'National framework for housing and accessibility aid. Use it to understand eligible accessibility works, ceilings and the fact that access is through autonomous-community calls.',
+      },
+      {
+        title: 'National subsidy call finder',
+        source: 'Sistema Nacional de Publicidad de Subvenciones',
+        href: 'https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias',
+        description:
+          'Official database for searching public grant calls. Search by municipality, autonomous community, accessibility, housing rehabilitation or disability terms.',
+      },
+      {
+        title: 'Plan Adapta Madrid 2026',
+        source: 'Ayuntamiento de Madrid',
+        href: 'https://sede.madrid.es/portal/site/tramites/menuitem.62876cb64654a55e2dbd7003a8a409a0/?vgnextchannel=2a8ca38813180210VgnVCM100000c90da8c0RCRD&vgnextfmt=default&vgnextoid=3bfbfc190117d910VgnVCM200000f921e388RCRD',
+        description:
+          'Madrid city example covering home, building and premises accessibility lines. The 2026 submission window has closed, but the page is useful for documents, lines and future calls.',
+      },
+      {
+        title: 'Catalonia interior works for older people',
+        source: 'Agència de l’Habitatge de Catalunya',
+        href: 'https://habitatge.gencat.cat/ca/ajuts/ajuts-rehabilitacio/interior-persones-grans/',
+        description:
+          'Active 2026 example for interior arrangements in homes with residents aged 65 or more in Girona, Tarragona, Lleida and Terres de l’Ebre.',
+      },
+      {
+        title: 'Assistive products catalogue',
+        source: 'CEAPAT / Imserso',
+        href: 'https://ceapat.imserso.es/catalogo-productos-apoyo',
+        description:
+          'Public catalogue for support products available in Spain. Helpful when comparing aids, but still match products to the resident and home layout.',
+      },
+      {
+        title: 'Horizontal Property Law',
+        source: 'BOE',
+        href: 'https://www.boe.es/buscar/act.php?id=BOE-A-1960-10906',
+        description:
+          'Useful when accessibility works affect common areas such as entrances, lifts, ramps, stairs or shared building routes.',
+      },
     ],
     faqs: [
       {
+        question: 'Which grant should a family apply for first?',
+        answer:
+          'Start with the home address. Check the autonomous community, city council and social-services routes for that municipality, then compare the open call with the resident situation and the works needed.',
+      },
+      {
         question: 'Can CasaMia guarantee a home adaptation grant?',
         answer:
-          'No. CasaMia can help with readiness, documentation, and scope, but public authorities decide eligibility, approval, and payment.',
+          'No. CasaMia can help define the safety need, prepare evidence and organise a grant-ready proposal, but the public authority decides eligibility, approval, amount and payment.',
       },
       {
         question: 'Should families adapt the home before applying?',
         answer:
-          'It depends on the programme rules and urgency. Some calls require approval before works; urgent safety needs may still require action. Check the rules first.',
+          'Only after checking the specific call. Some programmes reject works started too early or require a prior inspection. If there is an urgent safety risk, separate the immediate safety decision from the grant decision.',
+      },
+      {
+        question: 'Can renters apply for adaptation grants?',
+        answer:
+          'Sometimes, but the call may require owner consent, proof of habitual residence and a clear right to carry out the works. Renters should confirm the rule before paying for plans or installation.',
+      },
+      {
+        question: 'Are cosmetic renovations covered?',
+        answer:
+          'Usually the eligible part is the accessibility, safety or autonomy improvement, not a general aesthetic renovation. Keep itemised quotes so eligible works are separated from optional finishes.',
       },
     ],
     cta: {
@@ -638,60 +811,99 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/bedroom-night-safety-older-adults',
     title: 'Bedroom and Night-Time Safety for Older Adults',
     description:
-      'How to make bedrooms and night routes safer for older adults with lighting, bed transfers, bedside reach, toilet routes, and emergency support.',
+      'How to make bedrooms and night routes safer for older adults with bed transfers, low-glare lighting, bathroom routes, bedside reach and emergency support.',
     category: 'Night safety',
-    readTime: '6 min read',
-    date: '2026-07-11',
+    readTime: '9 min read',
+    date: '2026-08-10',
     image: '/images/blog/bedroom-night-safety.webp',
     imageAlt: 'Editorial illustration of a calm bedroom night safety route',
     keywords: ['bedroom safety seniors', 'night fall prevention', 'older adult night safety'],
     intro:
-      'Night-time risk is easy to underestimate. People are tired, lighting is low, urgency is higher, and the route to the bathroom may include furniture, rugs, thresholds, or poor support.',
+      'Night-time risk is easy to underestimate because the home looks familiar in daylight. At night the person may be half asleep, urgency is higher, lighting is lower, medication effects may be stronger and the route to the bathroom can become the hardest route in the home.',
     takeaways: [
-      'Make the path from bed to bathroom obvious and softly lit.',
-      'Check bed height, bedside reach, footwear, and support points.',
-      'Make emergency help reachable from bed and bathroom.',
+      'Review the whole night routine: sitting up, standing, finding footwear, reaching a walking aid, leaving the room and using the bathroom.',
+      'Use soft route lighting that reduces shadows without causing glare or disorientation.',
+      'Check bed height, bedside reach, floor hazards, doorways, thresholds and bathroom access together.',
+      'Make emergency help reachable from bed and bathroom, and agree who responds.',
     ],
     sections: [
       {
-        title: 'Review the bed transfer first',
+        title: 'Start at the bedside, before the person stands',
         body: [
-          'The first movement of the night is often sitting up, placing feet, standing, and turning. Bed height, mattress softness, bedside furniture, and support all affect safety.',
-          'If the resident pushes on unstable furniture or reaches too far for glasses, phone, or walking aid, the room layout needs attention.',
+          'The first movement of the night is usually sitting up, placing feet, reaching for glasses or walking aid, standing and turning. Bed height, mattress softness, footwear, bedside furniture and support points all affect that moment.',
+          'If the resident pushes on a light bedside table, reaches behind them for a phone, or has to stand before finding a walking aid, the layout is asking too much of a tired person.',
         ],
       },
       {
-        title: 'Light the route without glare',
+        title: 'Light the route, not just the room',
         body: [
-          'Strong overhead light can be disorienting at night, while darkness creates fall risk. Motion lighting or low-level route lighting can help the resident move without searching for switches.',
-          'The route should be clear from bed to bathroom, including thresholds, rugs, and doorways.',
+          'Strong overhead light can be disorienting, while darkness hides floor changes and furniture edges. Low-level motion lighting can make the path visible without forcing the person to search for switches.',
+          'Check the actual route from bed to bathroom: the side of the bed used, the first step, doorway, hallway, thresholds, rugs, bathroom entrance and toilet position. Shadows and glare matter as much as brightness.',
         ],
       },
       {
-        title: 'Keep help within reach',
+        title: 'Reduce urgency and rushing where possible',
         body: [
-          'Emergency buttons, phones, or agreed alert systems should be reachable from the bed and bathroom, not left charging in another room.',
-          'The family should agree who responds and what happens if help is triggered at night.',
+          'Bathroom urgency is one reason night routes become risky. Families should ask whether the person avoids drinking, rushes, wakes confused, has dizziness on standing, or takes medication that affects balance or sleep.',
+          'The home plan can reduce trip risk, but repeated night urgency or dizziness should also be discussed with a clinician. Safer lighting and support are not a substitute for checking health causes.',
+        ],
+      },
+      {
+        title: 'Keep help reachable from the two riskiest places',
+        body: [
+          'Emergency buttons, phones or agreed alert systems should be reachable from the bed and bathroom. Charging the phone across the room may keep the battery full but leave help out of reach.',
+          'The family should agree who responds, how they enter if the door is locked, and what happens if help is triggered at night.',
         ],
       },
     ],
     checklist: [
-      'Can the resident stand from the bed without pulling unstable furniture?',
-      'Is the walking aid reachable before standing?',
-      'Is the bathroom route softly lit from the bedroom?',
-      'Are rugs, cables, and low furniture removed from the route?',
-      'Can emergency help be reached from bed?',
+      'Can the resident sit up and stand without pulling unstable furniture?',
+      'Are glasses, phone, water, medication and walking aid reachable before standing?',
+      'Is footwear stable, easy to put on and kept in the same place?',
+      'Is the bed-to-bathroom route visible with soft light and minimal glare?',
+      'Are rugs, cables, storage boxes and low furniture removed from the night route?',
+      'Can the bathroom door, toilet and light be used without awkward reaching or turning?',
+      'Is emergency help reachable from both bed and bathroom?',
+      'Has the family agreed who responds and how they can enter if needed?',
+    ],
+    resources: [
+      {
+        title: 'Prevent falls and fractures',
+        source: 'National Institute on Aging',
+        href: 'https://www.nia.nih.gov/health/falls-and-falls-prevention/prevent-falls-and-fractures',
+        description:
+          'Useful guidance on fall risk factors such as medicines, vision, exercise and home changes that affect night-time safety.',
+      },
+      {
+        title: 'Check for Safety home checklist',
+        source: 'CDC STEADI',
+        href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
+        description:
+          'Practical prompts for floors, stairs, bedroom, bathroom and lighting that families can use during a night-route review.',
+      },
+      {
+        title: 'Aging in place: growing older at home',
+        source: 'National Institute on Aging',
+        href: 'https://www.nia.nih.gov/health/aging-place/aging-place-growing-older-home',
+        description:
+          'Broader official guidance on planning support, home changes and help at home as needs change.',
+      },
     ],
     faqs: [
       {
         question: 'What light is best for night safety?',
         answer:
-          'Low-level motion lighting often works well because it supports movement without the shock of bright overhead light. The best setup depends on the room and resident vision.',
+          'Low-level motion lighting often works well because it supports movement without the shock of bright overhead light. The best setup depends on the room, eyesight, shadows and whether light wakes or disorients the person.',
       },
       {
         question: 'Does bed height matter for fall prevention?',
         answer:
           'Yes. A bed that is too low or too high can make transfers harder. Bed height should suit the resident leg strength, balance, and support needs.',
+      },
+      {
+        question: 'What if the person gets up many times each night?',
+        answer:
+          'Review the route immediately, but also raise the pattern with a health professional. Urgency, dizziness, medication timing, pain or confusion may need medical advice as well as home changes.',
       },
     ],
     cta: {
@@ -796,7 +1008,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Signals that home adaptation may still be the right route',
         body: [
-          'Home usually remains a strong option when the person wants to stay, recognises the space, can follow simple routines and the main risks are physical or environmental: bathroom access, lighting, stairs, thresholds, bed transfers or emergency reach.',
+          'Home usually remains a strong option when the person wants to stay, recognises the space, can follow simple routines and the main risks are physical or environmental: bathroom access, lighting, stairs, thresholds, getting in and out of bed or emergency reach.',
           'In that case, a staged plan often works well: fix urgent risk first, then add comfort, connected support or larger adaptations where they clearly improve daily life.',
         ],
       },

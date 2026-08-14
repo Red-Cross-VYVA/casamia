@@ -8,6 +8,7 @@ type PhoneNumberFieldProps = {
   required?: boolean
   value: string
   className?: string
+  onBlur?: () => void
   onChange: (value: string) => void
 }
 
@@ -19,6 +20,7 @@ export function PhoneNumberField({
   required,
   value,
   className = 'estimate-field',
+  onBlur,
   onChange,
 }: PhoneNumberFieldProps) {
   const localNumber = getSpanishLocalNumber(value)
@@ -42,6 +44,7 @@ export function PhoneNumberField({
           placeholder="600 000 000"
           type="tel"
           value={formatSpanishLocalNumber(localNumber)}
+          onBlur={onBlur}
           onChange={(event) => {
             const nextLocalNumber = getSpanishLocalNumber(event.target.value)
             onChange(nextLocalNumber ? `${SPAIN_DIAL_CODE}${nextLocalNumber}` : '')

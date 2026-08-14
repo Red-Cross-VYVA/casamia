@@ -130,6 +130,7 @@ const capabilityColumns = [
   'technologyEnabled',
   'requiresCompatibilityCheck',
   'implementationNotes',
+  'referenceUrls',
   'active',
 ] as const
 
@@ -450,6 +451,7 @@ function capabilityToRow(item: MasterCatalogueCapability) {
     id: item.id,
     implementationNotes: item.implementationNotes ?? '',
     name: item.name,
+    referenceUrls: listToCell(item.referenceUrls ?? []),
     requiresCompatibilityCheck: String(item.requiresCompatibilityCheck),
     slug: item.slug,
     technologyEnabled: String(item.technologyEnabled),
@@ -607,6 +609,7 @@ function capabilityFromRow(row: Record<string, string>): MasterCatalogueCapabili
     id: requiredText(row.id),
     implementationNotes: clean(row.implementationNotes) || undefined,
     name: clean(row.name),
+    referenceUrls: parseList(row.referenceUrls),
     requiresCompatibilityCheck: parseBoolean(row.requiresCompatibilityCheck, false),
     slug: clean(row.slug) || requiredText(row.id),
     technologyEnabled: parseBoolean(row.technologyEnabled, false),
@@ -763,6 +766,10 @@ function requiredText(value: unknown) {
 
 function parseList(value: string | undefined) {
   return clean(value).split('|').map((item) => item.trim()).filter(Boolean)
+}
+
+function listToCell(values: string[]) {
+  return values.map((item) => item.trim()).filter(Boolean).join('|')
 }
 
 function parseBoolean(value: string | undefined, fallback: boolean) {

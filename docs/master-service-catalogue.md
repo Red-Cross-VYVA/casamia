@@ -44,7 +44,7 @@ This gives every team the same mental model:
 The public language should describe outcomes:
 
 - Safer Bathroom Access
-- Easier Bed Transfers
+- Getting In and Out of Bed
 - Better Night-Time Visibility
 - Family Reassurance
 - Accessible Storage
@@ -121,28 +121,26 @@ Catalogue
 
 | Customer outcome | Internal examples | Notes |
 |---|---|---|
-| Easier Bed Transfers | Bed support, transfer handle, layout adjustment | Do not lead with “bed rail.” |
-| Safer Night Movement | Under-bed lighting, route lighting | Strong wizard mapping for night bathroom concerns. |
-| Accessible Storage | Lowered storage, wardrobe access support | Helps reduce reaching/climbing risk. |
-| Clearer Bedroom Layout | Trip reduction, furniture route planning | Inspector and proposal friendly. |
+| Getting In and Out of Bed | Bedside support, bed height review, layout adjustment | Do not lead with “bed rail.” |
+| Safer Walking Routes | Motion-activated night lighting, bedside lighting, rug securing, cable management, furniture positioning, bed-to-bathroom route | Single core route outcome covering bedroom movement, visibility and night bathroom trips. |
+| Bedside Exit Mats | Matched low-profile anti-slip mats on both sides of the bed | Core bed-exit support for smoother first steps. |
+| Smoke & Fire Safety | Smoke detector | Earlier smoke warning and fire-risk awareness, especially while resting or asleep. |
 
 #### Connected Bedroom
 
 | Customer experience | Internal examples | Notes |
 |---|---|---|
-| Morning Routine | Smart speaker routine, light prompts, medication reminder | Experience-led. |
-| Night Routine | Gentle lighting, check-in, family reassurance | Configured as routine, not devices. |
-| Bedroom Movement Awareness | Bed exit / movement context where appropriate | Consent-led and privacy-led. |
 | Voice Assistance | Smart speaker, configured shortcuts | Customer buys simplicity. |
-| Family Reassurance | Notifications and agreed alerts | Not surveillance. |
+| Daily Routine Support | Calls, reminders and simple routines | Emergency and night alerts sit under optional add-ons. |
 
 #### Optional Adaptations
 
 | Customer outcome | Internal examples | Notes |
 |---|---|---|
-| Specialist Bedroom Layout | Layout redesign, circulation planning | Requires assessment. |
 | Adjustable Rest Support | Adjustable bed review | Bespoke recommendation, not default sale. |
+| Emergency & Night-time Support | Emergency button, wearable pendant, selected movement alerts | Optional, consent-led and compatibility-led. |
 | Accessible Wardrobe Adaptation | Wardrobe modification | Measurement and quote. |
+| Wider Bedroom Doorway | Bedroom doorway widening | Measurement and specialist review required. |
 
 ### Kitchen
 
@@ -168,6 +166,7 @@ Catalogue
 | Customer outcome | Internal examples | Notes |
 |---|---|---|
 | Accessible Kitchen Layout | Worktop/cabinet adaptation | Quote and specialist review. |
+| Wider Kitchen Doorway | Kitchen doorway widening | Measurement and specialist review required. |
 | Safer Appliance Replacement | Appliance sourcing and installation | Future supplier mapping. |
 
 ### Living Areas and Mobility
@@ -194,6 +193,7 @@ Catalogue
 |---|---|---|
 | Layout Reconfiguration | Furniture/access planning | Assessment-led. |
 | Specialist Seating Support | Seating replacement/adaptation | Quote. |
+| Wider Living Room Doorway | Living-room doorway widening | Measurement and specialist review required. |
 
 ### Stairs
 
@@ -240,6 +240,7 @@ Catalogue
 | Customer outcome | Internal examples | Notes |
 |---|---|---|
 | Step-Free Access | Modular ramp | Measurement and quote. |
+| Wider Entrance Doorway | Entrance doorway widening | Measurement and specialist review required. |
 | Wider External Access | Door / path works | Specialist review. |
 
 ### Whole Home / Connected Living

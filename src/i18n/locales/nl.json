@@ -52,7 +52,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Maak mijn gratis plan"
+      "title": "Praat met een specialist"
     }
   },
   "reportDelivery": {
@@ -70,7 +70,7 @@
   "alts": {
     "logo": "CasaMia-logo",
     "hero": "Seniorenpaar dat elkaar thuis omhelst",
-    "finalCta": "Seniorenpaar dat groenten snijdt in een veilige keuken",
+    "finalCta": "Seniorenpaar dat elkaar thuis omhelst",
     "gallery": [
       "Small bathroom with window, sink and bathtub",
       "Senior couple using stair handrail support at home",
@@ -116,6 +116,17 @@
     "badge": "WAT WIJ BIEDEN",
     "line1": "Eén bedrijf.",
     "line2": "Alles wat u nodig heeft.",
+    "proposalSnapshot": {
+      "label": "Voorbeeld van een CasaMia-voorstel",
+      "heading": "Veiligheidsvoorstel",
+      "priorityLabel": "Prioriteit",
+      "priorityTitle": "Plan per kamer",
+      "items": [
+        "Badkamertoegang",
+        "Keukenbereik",
+        "Nachtroute"
+      ]
+    },
     "cards": [
       {
         "icon": "A",
@@ -406,7 +417,7 @@
         },
         "deliveryTitle": "Delivery status",
         "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
-        "emailQueued": "The full report is ready to send by email.",
+        "emailQueued": "The secure report link has been sent by email.",
         "whatsappQueued": "The WhatsApp message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
         "viewReport": "View report page"

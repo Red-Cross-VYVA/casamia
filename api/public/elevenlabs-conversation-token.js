@@ -14,6 +14,7 @@ import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js
 
 const voiceSessionWindowSeconds = 30 * 60
 const maxVoiceSessionsPerWindow = 5
+const allowedVoiceEntryPoints = new Set(['home_hero', 'home_safety_wizard'])
 
 function getClientIp(request) {
   const forwarded = request.headers?.['x-forwarded-for']
@@ -112,10 +113,16 @@ export default async function handler(request, response) {
 
   try {
     const body = await readJsonBody(request)
+    const entryPoint = typeof body.entryPoint === 'string' ? body.entryPoint.trim() : 'home_safety_wizard'
     const wizardReference = typeof body.wizardReference === 'string' ? body.wizardReference.trim() : ''
     const locale = body.locale === 'es' ? 'es' : body.locale === 'en' ? 'en' : ''
 
-    if (!/^CM-[A-Z0-9]{6}$/i.test(wizardReference) || !locale || body.consentConfirmed !== true) {
+    if (
+      !/^CM-[A-Z0-9]{6}$/i.test(wizardReference)
+      || !locale
+      || !allowedVoiceEntryPoints.has(entryPoint)
+      || body.consentConfirmed !== true
+    ) {
       sendJson(response, 400, { message: 'A valid wizard session and voice consent are required.' })
       return
     }

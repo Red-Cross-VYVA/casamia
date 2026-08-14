@@ -1,0 +1,878 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/99cdfp",
+    "id": "99cdfp",
+    "slide": 4,
+    "layoutId": "0024b908-1a98-4295-9552-2da13750196a",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#EAF5FC",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Aptos",
+      "Aptos Display"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "0024b908-1a98-4295-9552-2da13750196a",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/ylwritkf",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        156,
+        42
+      ],
+      "geometry": "rect",
+      "alt": "Logotipo de CasaMia",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "rect"
+      },
+      "asset": {
+        "assetId": "5e9a8396-a212-4e2f-a7fd-acbdc59b0fa6",
+        "contentType": "image/png",
+        "byteLength": 14299
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sj2t0j2t",
+      "id": "2",
+      "bbox": [
+        1156,
+        43,
+        52,
+        24
+      ],
+      "geometry": "rect",
+      "text": "04",
+      "textPreview": "04",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18,
+        "typeface": "Aptos",
+        "color": "#4B5563",
+        "bold": true,
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "04"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "04",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Aptos",
+            "color": "#4B5563",
+            "bold": true,
+            "alignment": "right",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "04",
+              "fontSize": 18,
+              "typeface": "Aptos",
+              "color": "#4B5563",
+              "bold": true,
+              "alignment": "right",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tkvuto3e",
+      "id": "3",
+      "bbox": [
+        72,
+        118,
+        84,
+        6
+      ],
+      "geometry": "rect",
+      "fillColor": "#7DB841",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ul4b2tkz",
+      "id": "4",
+      "bbox": [
+        72,
+        146,
+        690,
+        110
+      ],
+      "geometry": "rect",
+      "text": "Buscamos varios perfiles de instalación",
+      "textPreview": "Buscamos varios perfiles de instalación",
+      "resolvedFontSize": 48,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 48,
+        "typeface": "Aptos Display",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Buscamos varios perfiles de"
+          },
+          {
+            "index": 2,
+            "text": "instalación"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Buscamos varios perfiles de instalación",
+          "lineSpacingPercent": 98000,
+          "resolvedTextStyle": {
+            "fontSize": 48,
+            "typeface": "Aptos Display",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 0.98
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Buscamos varios perfiles de instalación",
+              "fontSize": 48,
+              "typeface": "Aptos Display",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 0.98
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/f6dcvylk",
+      "id": "5",
+      "bbox": [
+        72,
+        272,
+        560,
+        72
+      ],
+      "geometry": "rect",
+      "text": "La red combina oficios prácticos que ayudan a hacer la vivienda más segura y fácil de usar cada día.",
+      "textPreview": "La red combina oficios prácticos que ayudan a hacer la vivienda más segura y fácil de usar cada día.",
+      "resolvedFontSize": 25,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 25,
+        "typeface": "Aptos",
+        "color": "#4B5563",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "La red combina oficios prácticos que ayudan a hacer la"
+          },
+          {
+            "index": 2,
+            "text": "vivienda más segura y fácil de usar cada día."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "La red combina oficios prácticos que ayudan a hacer la vivienda más segura y fácil de usar cada día.",
+          "lineSpacingPercent": 112000,
+          "resolvedTextStyle": {
+            "fontSize": 25,
+            "typeface": "Aptos",
+            "color": "#4B5563",
+            "alignment": "left",
+            "lineSpacing": 1.12
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "La red combina oficios prácticos que ayudan a hacer la vivienda más segura y fácil de usar cada día.",
+              "fontSize": 25,
+              "typeface": "Aptos",
+              "color": "#4B5563",
+              "alignment": "left",
+              "lineSpacing": 1.12
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/tc7ax8j2",
+      "id": "6",
+      "bbox": [
+        760,
+        126,
+        390,
+        244
+      ],
+      "geometry": "roundRect",
+      "alt": "Consulta en cocina con personal de CasaMia",
+      "contentType": "image/webp",
+      "imageFit": "cover",
+      "imageMask": {
+        "geometry": "roundRect",
+        "adjustmentList": [
+          {
+            "name": "adj",
+            "formula": "val 3279"
+          }
+        ]
+      },
+      "asset": {
+        "assetId": "dc64fa02-3881-4a03-8ade-78687dc27f47",
+        "contentType": "image/webp",
+        "byteLength": 81230
+      }
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h8vuxo3q",
+      "id": "7",
+      "bbox": [
+        72,
+        414,
+        490,
+        52
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/294b6tkv",
+      "id": "8",
+      "bbox": [
+        94,
+        425,
+        442,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Accesibilidad: barras, rampas, umbrales",
+      "textPreview": "Accesibilidad: barras, rampas, umbrales",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Accesibilidad: barras, rampas, umbrales"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Accesibilidad: barras, rampas, umbrales",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Accesibilidad: barras, rampas, umbrales",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3adczylg",
+      "id": "9",
+      "bbox": [
+        624,
+        414,
+        490,
+        52
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7mp8ved0",
+      "id": "10",
+      "bbox": [
+        646,
+        425,
+        442,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Baño: ducha, inodoro, transferencia",
+      "textPreview": "Baño: ducha, inodoro, transferencia",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Baño: ducha, inodoro, transferencia"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Baño: ducha, inodoro, transferencia",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Baño: ducha, inodoro, transferencia",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6lgr29wf",
+      "id": "11",
+      "bbox": [
+        72,
+        486,
+        490,
+        52
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/torqxovq",
+      "id": "12",
+      "bbox": [
+        94,
+        497,
+        442,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Escaleras: pasamanos y puntos de apoyo",
+      "textPreview": "Escaleras: pasamanos y puntos de apoyo",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Escaleras: pasamanos y puntos de apoyo"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Escaleras: pasamanos y puntos de apoyo",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Escaleras: pasamanos y puntos de apoyo",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sny94je5",
+      "id": "13",
+      "bbox": [
+        624,
+        486,
+        490,
+        52
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/jip8redo",
+      "id": "14",
+      "bbox": [
+        646,
+        497,
+        442,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Electricidad: iluminación y rutas nocturnas",
+      "textPreview": "Electricidad: iluminación y rutas nocturnas",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Electricidad: iluminación y rutas nocturnas"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Electricidad: iluminación y rutas nocturnas",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Electricidad: iluminación y rutas nocturnas",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ihg7y9w3",
+      "id": "15",
+      "bbox": [
+        72,
+        558,
+        490,
+        52
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5k7qt4vu",
+      "id": "16",
+      "bbox": [
+        94,
+        569,
+        442,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Smart safety: sensores, alertas, conectividad",
+      "textPreview": "Smart safety: sensores, alertas, conectividad",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Smart safety: sensores, alertas, conectividad"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Smart safety: sensores, alertas, conectividad",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Smart safety: sensores, alertas, conectividad",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kjy90je9",
+      "id": "17",
+      "bbox": [
+        624,
+        558,
+        490,
+        52
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3e983yds",
+      "id": "18",
+      "bbox": [
+        646,
+        569,
+        442,
+        28
+      ],
+      "geometry": "rect",
+      "text": "Seguimiento: ajustes, mantenimiento y entrega",
+      "textPreview": "Seguimiento: ajustes, mantenimiento y entrega",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 21,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Seguimiento: ajustes, mantenimiento y entrega"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Seguimiento: ajustes, mantenimiento y entrega",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Seguimiento: ajustes, mantenimiento y entrega",
+              "fontSize": 21,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

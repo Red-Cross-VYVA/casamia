@@ -22,6 +22,10 @@ export function PublicProposalPage() {
         readyTitle: 'Tu propuesta CasaMia está lista',
         readyBody:
           'Revisa los trabajos recomendados, las condiciones de pago y los próximos pasos. Cuando todo esté correcto, puedes aceptar la propuesta de forma segura abajo.',
+        pendingTitle: 'Este enlace todavía no está listo para aceptar',
+        pendingBody:
+          'Si has recibido este enlace, CasaMia puede ayudarte a activar la propuesta o generar una nueva desde Planes.',
+        pendingNotice: 'Propuesta no activada',
         proposalLabel: 'Propuesta',
         acceptedTitle: 'Propuesta aceptada',
         acceptedBody: 'Gracias. CasaMia contactará contigo en breve para confirmar los próximos pasos.',
@@ -42,6 +46,10 @@ export function PublicProposalPage() {
         readyTitle: 'Your CasaMia proposal is ready',
         readyBody:
           'Review the recommended works, payment terms, and next steps. When everything looks right, you can accept the proposal securely below.',
+        pendingTitle: 'This link is not ready for acceptance yet',
+        pendingBody:
+          'If you received this link, CasaMia can help activate the proposal or generate a fresh one from Plans.',
+        pendingNotice: 'Proposal not activated',
         proposalLabel: 'Proposal',
         acceptedTitle: 'Proposal accepted',
         acceptedBody: 'Thank you. CasaMia will contact you shortly to confirm next steps.',
@@ -135,6 +143,8 @@ export function PublicProposalPage() {
     return null
   }
 
+  const isPendingReview = proposal.status === 'Draft' || proposal.acceptanceStatus === 'Not Sent'
+
   return (
     <>
       <SEO title={copy.title} description={copy.readyBody} path={`/proposal/${token}`} noindex />
@@ -143,9 +153,11 @@ export function PublicProposalPage() {
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
           <div>
             <h1 className="font-display text-5xl font-bold leading-tight text-text-dark">
-              {copy.readyTitle}
+              {isPendingReview ? copy.pendingTitle : copy.readyTitle}
             </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-mid">{copy.readyBody}</p>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-mid">
+              {isPendingReview ? copy.pendingBody : copy.readyBody}
+            </p>
           </div>
 
           <div className="rounded-lg bg-navy p-5 text-white">
@@ -160,7 +172,16 @@ export function PublicProposalPage() {
           <ProposalPreview proposal={proposal} />
 
         <div className="rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
-          {isAccepted || proposal.status === 'Accepted' ? (
+          {isPendingReview ? (
+            <div className="rounded-lg bg-light-blue p-6">
+              <ShieldCheck className="text-navy" size={34} aria-hidden="true" />
+              <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">{copy.pendingNotice}</h2>
+              <p className="mt-2 text-text-mid">{copy.pendingBody}</p>
+              <Link className="btn btn-green mt-5" to="/why-us#contact-form">
+                {copy.contact}
+              </Link>
+            </div>
+          ) : isAccepted || proposal.status === 'Accepted' ? (
             <div className="rounded-lg bg-green/10 p-6">
               <CheckCircle2 className="text-green" size={34} aria-hidden="true" />
               <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">{copy.acceptedTitle}</h2>

@@ -7,6 +7,7 @@ import {
   FileText,
   Home,
   LoaderCircle,
+  MessageSquareText,
   RefreshCw,
   ShieldCheck,
   Upload,
@@ -137,9 +138,9 @@ const fallbackMobilityProfiles: Option[] = [
 
 const fallbackStepLabels = ['Photos', 'Home', 'Contact', 'Report']
 const estimatorDraftStorageKey = 'casamia-estimator-draft'
-const HomeSafetyWizardModalContent = lazy(() =>
-  import('../pages/HomeSafetyWizardPage').then((module) => ({
-    default: module.HomeSafetyWizardPage,
+const SpecialistVoiceAgentModal = lazy(() =>
+  import('./SpecialistVoiceAgentModal').then((module) => ({
+    default: module.SpecialistVoiceAgentModal,
   })),
 )
 
@@ -151,7 +152,8 @@ export function UploadEstimator() {
   const [photos, setPhotos] = useState<EstimatePhoto[]>([])
   const [form, setForm] = useState<EstimateForm>(() => getSavedEstimatorForm())
   const [wizardOpen, setWizardOpen] = useState(false)
-  const [proposalWizardOpen, setProposalWizardOpen] = useState(false)
+  const [showIntro, setShowIntro] = useState(true)
+  const [specialistOpen, setSpecialistOpen] = useState(false)
   const [step, setStep] = useState<WizardStep>(() => getSavedEstimatorStep())
   const [status, setStatus] = useState<SubmissionStatus>('idle')
   const [deliveryStatus, setDeliveryStatus] = useState<DeliveryStatus>('idle')
@@ -231,33 +233,6 @@ export function UploadEstimator() {
       openWizard()
     }
   }, [location.hash, location.search])
-
-  useEffect(() => {
-    if (!proposalWizardOpen) return
-
-    const bodyOverflow = document.body.style.overflow
-    const documentOverflow = document.documentElement.style.overflow
-    document.body.style.overflow = 'hidden'
-    document.documentElement.style.overflow = 'hidden'
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (
-        event.key === 'Escape'
-        && !event.defaultPrevented
-        && !document.querySelector('dialog[open]')
-      ) {
-        setProposalWizardOpen(false)
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      document.body.style.overflow = bodyOverflow
-      document.documentElement.style.overflow = documentOverflow
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [proposalWizardOpen])
 
   function updateForm(field: keyof EstimateForm, value: string | boolean) {
     setForm((current) => ({ ...current, [field]: value }) as EstimateForm)
@@ -344,6 +319,7 @@ export function UploadEstimator() {
     setWizardOpen((current) => {
       if (!current) {
         trackEvent('form_start', { form: 'safety_report' })
+        setShowIntro(true)
       }
 
       return true
@@ -508,12 +484,12 @@ export function UploadEstimator() {
           type="button"
           className="free-check-card is-proposal"
           onClick={() => {
-            setProposalWizardOpen(true)
-            trackEvent('home_safety_proposal_opened', { location: 'hero' })
+            setSpecialistOpen(true)
+            trackEvent('elevenlabs_specialist_opened', { location: 'hero' })
           }}
         >
           <span className="free-check-icon is-grant">
-            <FileText size={23} aria-hidden="true" />
+            <MessageSquareText size={23} aria-hidden="true" />
           </span>
           <span className="free-check-copy">
             <strong>{t('hero.buildPlan.title')}</strong>
@@ -549,10 +525,16 @@ export function UploadEstimator() {
               <div>
                 <p className="estimate-wizard-kicker">{t('estimator.workflow.kicker')}</p>
                 <h2 id="estimate-wizard-title">{t('estimator.workflow.title')}</h2>
-                <p className="estimate-wizard-step-caption">
-                  {stepCounter}
-                  {currentStepLabel ? ` - ${currentStepLabel}` : ''}
-                </p>
+                {!showIntro ? (
+                  <p className="estimate-wizard-step-caption">
+                    {stepCounter}
+                    {currentStepLabel ? ` - ${currentStepLabel}` : ''}
+                  </p>
+                ) : (
+                  <p className="estimate-wizard-step-caption">
+                    {t('estimator.workflow.intro.caption')}
+                  </p>
+                )}
               </div>
               <button
                 type="button"
@@ -564,26 +546,32 @@ export function UploadEstimator() {
               </button>
             </div>
 
-            <div className="estimate-wizard-progress" aria-label={t('estimator.workflow.progress')}>
-              {stepLabels.map((label, index) => (
-                <button
-                  className={`estimate-progress-step ${step === index ? 'is-active' : ''} ${step > index ? 'is-complete' : ''}`}
-                  key={label}
-                  type="button"
-                  onClick={() => {
-                    if (index <= step || status === 'success') {
-                      setStep(index as WizardStep)
-                    }
-                  }}
-                >
-                  <span>{index + 1}</span>
-                  {label}
-                </button>
-              ))}
-            </div>
+            {!showIntro ? (
+              <div className="estimate-wizard-progress" aria-label={t('estimator.workflow.progress')}>
+                {stepLabels.map((label, index) => (
+                  <button
+                    className={`estimate-progress-step ${step === index ? 'is-active' : ''} ${step > index ? 'is-complete' : ''}`}
+                    key={label}
+                    type="button"
+                    onClick={() => {
+                      if (index <= step || status === 'success') {
+                        setStep(index as WizardStep)
+                      }
+                    }}
+                  >
+                    <span>{index + 1}</span>
+                    {label}
+                  </button>
+                ))}
+              </div>
+            ) : null}
 
             <div className="estimate-wizard-body">
-              {step === 0 ? (
+              {showIntro ? (
+                <EstimatorIntroStep />
+              ) : null}
+
+              {!showIntro && step === 0 ? (
                 <PhotosStep
                   fileMessage={fileMessage}
                   inputRef={inputRef}
@@ -596,7 +584,7 @@ export function UploadEstimator() {
                 />
               ) : null}
 
-              {step === 1 ? (
+              {!showIntro && step === 1 ? (
                 <HomeContextStep
                   form={form}
                   homeTypes={homeTypes}
@@ -607,7 +595,7 @@ export function UploadEstimator() {
                 />
               ) : null}
 
-              {step === 2 ? (
+              {!showIntro && step === 2 ? (
                 <DeliveryStep
                   delivery={delivery}
                   deliveryStatus={deliveryStatus}
@@ -617,7 +605,7 @@ export function UploadEstimator() {
                 />
               ) : null}
 
-              {step === 3 ? (
+              {!showIntro && step === 3 ? (
                 <ResultStep
                   deliveryStatus={deliveryStatus}
                   errorMessage={errorMessage}
@@ -630,7 +618,21 @@ export function UploadEstimator() {
               ) : null}
             </div>
 
-            {step < 3 ? (
+            {showIntro ? (
+              <div className="estimate-wizard-footer is-single-action">
+                <button
+                  type="button"
+                  className="btn btn-navy"
+                  onClick={() => {
+                    setShowIntro(false)
+                    trackEvent('form_intro_complete', { form: 'safety_report' })
+                  }}
+                >
+                  {t('estimator.workflow.intro.start')}
+                  <ArrowRight size={20} aria-hidden="true" />
+                </button>
+              </div>
+            ) : step < 3 ? (
               <div className={`estimate-wizard-footer ${step === 0 ? 'is-single-action' : ''}`}>
                 {step > 0 ? (
                   <button
@@ -671,46 +673,24 @@ export function UploadEstimator() {
         document.body,
       ) : null}
 
-      {proposalWizardOpen ? createPortal(
-        <div
-          className="home-proposal-modal-backdrop"
-          role="presentation"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setProposalWizardOpen(false)
-            }
-          }}
-        >
-          <section
-            className="home-proposal-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-label={t('hero.buildPlan.title')}
-          >
-            <button
-              autoFocus
-              type="button"
-              className="home-proposal-modal-close"
-              aria-label={t('common.close')}
-              onClick={() => setProposalWizardOpen(false)}
-            >
-              <X size={22} aria-hidden="true" />
-            </button>
-            <div className="home-proposal-modal-scroll">
-              <Suspense
-                fallback={(
-                  <div className="home-proposal-modal-loading" role="status">
-                    <LoaderCircle size={28} aria-hidden="true" />
-                    <span>{t('common.loading', { defaultValue: 'Loading...' })}</span>
-                  </div>
-                )}
-              >
-                <HomeSafetyWizardModalContent embedded />
-              </Suspense>
+      {specialistOpen ? (
+        <Suspense
+          fallback={(
+            <div className="specialist-voice-backdrop" role="presentation">
+              <div className="specialist-voice-loading" role="status">
+                <LoaderCircle size={28} aria-hidden="true" />
+                <span>{t('common.loading', { defaultValue: 'Loading...' })}</span>
+              </div>
             </div>
-          </section>
-        </div>,
-        document.body,
+          )}
+        >
+          <SpecialistVoiceAgentModal
+            entryPoint="home_hero"
+            isOpen={specialistOpen}
+            language={i18n.language}
+            onClose={() => setSpecialistOpen(false)}
+          />
+        </Suspense>
       ) : null}
     </div>
   )
@@ -1074,6 +1054,46 @@ function StepIntro({ icon, title, body }: { icon: ReactNode; title: string; body
       <h3>{title}</h3>
       <p>{body}</p>
     </div>
+  )
+}
+
+function EstimatorIntroStep() {
+  const { t } = useTranslation()
+  const steps = getStringArray(
+    t('estimator.workflow.intro.steps', { returnObjects: true }),
+    ['Upload room photos', 'Add context', 'Share contact details', 'Receive your report'],
+  )
+  const icons = [
+    <Camera size={22} aria-hidden="true" />,
+    <Home size={22} aria-hidden="true" />,
+    <UserRound size={22} aria-hidden="true" />,
+    <FileText size={22} aria-hidden="true" />,
+  ]
+
+  return (
+    <section className="estimate-wizard-intro-slide">
+      <div className="estimate-wizard-intro-copy">
+        <span className="estimate-wizard-intro-mark" aria-hidden="true">
+          <ShieldCheck size={34} />
+        </span>
+        <p className="estimate-wizard-kicker">{t('estimator.workflow.intro.eyebrow')}</p>
+        <h3>{t('estimator.workflow.intro.title')}</h3>
+        <p>{t('estimator.workflow.intro.body')}</p>
+        <small>
+          <Check size={17} aria-hidden="true" />
+          {t('estimator.workflow.intro.time')}
+        </small>
+      </div>
+      <div className="estimate-wizard-intro-steps" aria-label={t('estimator.workflow.progress')}>
+        {steps.map((label, index) => (
+          <article className="estimate-wizard-intro-step" key={`${label}-${index}`}>
+            <span aria-hidden="true">{icons[index] ?? <Check size={22} />}</span>
+            <strong>{String(index + 1).padStart(2, '0')}</strong>
+            <p>{label}</p>
+          </article>
+        ))}
+      </div>
+    </section>
   )
 }
 

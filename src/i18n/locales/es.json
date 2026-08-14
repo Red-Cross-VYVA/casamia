@@ -54,7 +54,7 @@
       "cta": "Comprobar elegibilidad"
     },
     "buildPlan": {
-      "title": "Crear mi plan gratis"
+      "title": "Habla con un especialista"
     }
   },
   "reportDelivery": {
@@ -285,7 +285,7 @@
   "alts": {
     "logo": "Logotipo de CasaMia",
     "hero": "Pareja mayor abrazándose en casa",
-    "finalCta": "Pareja mayor preparando verduras en una cocina segura",
+    "finalCta": "Pareja mayor abrazándose en casa",
     "gallery": [
       "Baño pequeño con ventana, lavabo y bañera",
       "Pareja mayor usando pasamanos en las escaleras de casa",
@@ -328,31 +328,68 @@
     "deepDive": "Leer la guía completa de prevención de caídas"
   },
   "offer": {
-    "badge": "QUÉ OFRECEMOS",
-    "line1": "Una empresa.",
-    "line2": "Todo lo que necesitas.",
+    "badge": "CÓMO FUNCIONA CASAMIA",
+    "line1": "Un hogar más seguro,",
+    "line2": "paso a paso.",
+    "intro": "Elige la ruta que mejor encaje con tu familia. Convertimos el paquete adecuado o una inspección en una propuesta clara, apoyo con ayudas e instalación profesional.",
+    "ctaPrimary": "Crear mi plan CasaMia",
+    "ctaSecondary": "Pedid que os contactemos",
+    "proposalSnapshot": {
+      "label": "Ejemplo visual de propuesta CasaMia",
+      "heading": "Propuesta de seguridad",
+      "priorityLabel": "Prioridad",
+      "priorityTitle": "Plan por estancia",
+      "items": [
+        "Acceso al baño",
+        "Alcance en cocina",
+        "Ruta nocturna"
+      ]
+    },
+    "inspectionCredit": {
+      "amount": "99 EUR",
+      "title": "Descontable si contratas",
+      "body": "La visita se descuenta de cualquier pedido CasaMia superior a 150 EUR."
+    },
     "cards": [
       {
-        "icon": "A",
-        "title": "Evaluación del Hogar",
-        "desc": "Sube fotos de cualquier estancia. Identificamos riesgos visibles y te damos gratis un informe de seguridad por estancia."
+        "icon": "Paso 1",
+        "title": "Elige por dónde empezar",
+        "desc": "Escoge uno de nuestros paquetes de seguridad ya preparados o solicita una inspección física para que un técnico de CasaMia recomiende la mejor solución para la vivienda.",
+        "points": [
+          "Paquetes preparados",
+          "Inspección opcional",
+          "Recomendación técnica"
+        ]
       },
       {
-        "icon": "I",
-        "title": "Instalación Profesional",
-        "desc": "Expertos certificados adaptan toda tu vivienda en una sola visita: barras, suelos antideslizantes, puertas más anchas, iluminación y más."
+        "icon": "Paso 2",
+        "title": "Revisa tu propuesta",
+        "desc": "Compartimos una propuesta clara con mejoras prácticas para el hogar, prioridades y precios, para que sepas exactamente qué hará la vivienda más segura.",
+        "points": [
+          "Sugerencias por estancia",
+          "Prioridades claras",
+          "Precios transparentes"
+        ]
       },
       {
-        "icon": "S",
-        "title": "Tecnología Smart Home",
-        "desc": "Controles por voz, cerraduras inteligentes, detección de caídas, detección de constantes vitales y alertas 24/7, todo instalado desde el primer día."
+        "icon": "Paso 3",
+        "title": "Solicita las ayudas disponibles",
+        "desc": "Nuestro equipo ayuda a preparar la solicitud y la documentación para obras elegibles, de modo que el apoyo público pueda financiar las mejoras cuando esté disponible.",
+        "points": [
+          "Revisión de elegibilidad",
+          "Apoyo documental",
+          "Guía de solicitud"
+        ]
       },
       {
-        "icon": "G",
-        "title": "Gestión de ayudas",
-        "desc": "Preparamos y presentamos el expediente de ayuda para obras elegibles, y te mantenemos informado durante la revisión. El apoyo público puede cubrir hasta el 90% de costes aprobados, sujeto a aprobación oficial.",
-        "termsLink": "Más información sobre Plan Adapta →",
-        "disclaimer": "La disponibilidad, los criterios de elegibilidad y los niveles de financiación de las ayudas están sujetos a políticas públicas y pueden cambiar sin previo aviso."
+        "icon": "Paso 4",
+        "title": "Instalación y soporte",
+        "desc": "CasaMia coordina la instalación, comprueba que todo funcione correctamente y sigue siendo tu contacto para dudas, ajustes y soporte continuo.",
+        "points": [
+          "Instalación profesional",
+          "Revisión final",
+          "Soporte posterior"
+        ]
       }
     ],
     "health": {
@@ -568,6 +605,20 @@
     "workflow": {
       "kicker": "Informe gratuito de seguridad",
       "title": "Revisa la seguridad de tu hogar.",
+      "intro": {
+        "caption": "Introducci\u00f3n breve",
+        "eyebrow": "Antes de empezar",
+        "title": "Una visi\u00f3n m\u00e1s clara de la seguridad del hogar en pocos minutos.",
+        "body": "Sube fotos amplias de las estancias clave. CasaMia combina los riesgos visibles con tu contexto y prepara un informe sencillo por estancia.",
+        "time": "Suele tardar 3-5 minutos. Sin compromiso.",
+        "start": "Empezar informe",
+        "steps": [
+          "Sube fotos de estancias",
+          "A\u00f1ade contexto pr\u00e1ctico",
+          "Deja tus datos",
+          "Recibe tu informe"
+        ]
+      },
       "progress": "Progreso del informe",
       "steps": [
         "Fotos",
@@ -666,7 +717,7 @@
         },
         "deliveryTitle": "Estado del envío",
         "readyToSend": "¿Quieres guardarlo? En el siguiente paso puedes recibir el enlace seguro por email o WhatsApp.",
-        "emailQueued": "Tu solicitud queda guardada para envío por email. CasaMia enviará el enlace seguro al informe.",
+        "emailQueued": "Hemos enviado el enlace seguro del informe por email.",
         "whatsappQueued": "Tu solicitud queda guardada para envío por WhatsApp. El mensaje incluirá solamente un enlace seguro.",
         "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
         "viewReport": "Ver página del informe",

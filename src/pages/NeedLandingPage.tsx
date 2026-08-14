@@ -1,28 +1,23 @@
 import {
-  AlertTriangle,
   ArrowRight,
-  Camera,
   CheckCircle2,
   ClipboardCheck,
   HeartHandshake,
-  ListChecks,
-  MessageCircle,
-  Route,
   ShieldCheck,
-  Wrench,
 } from 'lucide-react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
+import { ZoneServiceGallery } from '../components/ZoneServiceGallery'
 import { blogArticles, type BlogArticle } from '../constants/blogContent'
 import { localizeBlogArticles } from '../constants/blogContentLocalization'
 import { allNeedLandingPages, getNeedLandingPage } from '../constants/needLandingPages'
-import { localizeNeedLandingPage, localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
-import { formatServicePrice, getServicesForPackageArea } from '../services/serviceCatalogue'
+import { localizeNeedLandingPage } from '../constants/needLandingPagesLocalization'
+import { getServicesForPackageArea } from '../services/serviceCatalogue'
 import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceCatalogueSection, ServicePackageArea } from '../types/serviceCatalogue'
 
@@ -30,20 +25,21 @@ import '../styles/need-landing.css'
 
 export function NeedLandingPage() {
   const { needSlug } = useParams()
+  const location = useLocation()
   const { i18n } = useTranslation()
+  const [activeRiskId, setActiveRiskId] = useState<string | null>(null)
   const basePage = getNeedLandingPage(needSlug)
   const catalogue = useLocalizedServiceCatalogue(i18n.language)
 
-  if (!basePage) {
-    return <Navigate to="/services" replace />
+  const isSpanish = i18n.language.startsWith('es')
+  const page = localizeNeedLandingPage(basePage ?? allNeedLandingPages[0], i18n.language)
+
+  if (basePage && page.path !== location.pathname) {
+    return <Navigate to={`${page.path}${location.search}${location.hash}`} replace />
   }
 
-  const isSpanish = i18n.language.startsWith('es')
-  const page = localizeNeedLandingPage(basePage, i18n.language)
   const isCompactNeedPage = page.slug === 'bathroom-safety-for-seniors'
-  const siblingPages = localizeNeedLandingPages(allNeedLandingPages, i18n.language)
-    .filter((item) => item.slug !== page.slug)
-    .slice(0, 4)
+  const isGrantSupportNeedPage = page.slug === 'grants-for-home-adaptations-spain'
   const copy = {
     home: isSpanish ? 'Inicio' : 'Home',
     resources: isSpanish ? 'Recursos' : 'Resources',
@@ -52,23 +48,6 @@ export function NeedLandingPage() {
     whoHelps: isSpanish ? 'A quién ayuda' : 'Who this helps',
     checkFirst: isSpanish ? 'Qué revisar primero' : 'What to check first',
     handlesIt: isSpanish ? 'Cómo lo gestiona CasaMia' : 'How CasaMia handles it',
-    practicalEyebrow: isSpanish ? 'Práctico, no abrumador' : 'Practical, not overwhelming',
-    practicalTitle: isSpanish ? 'Empieza por la rutina diaria.' : 'Start with the daily routine.',
-    practicalBody: isSpanish
-      ? 'La pregunta útil no es “qué producto compro”, sino dónde se siente insegura la persona, qué movimiento ocurre ahí y qué apoyo haría ese momento más fácil.'
-      : 'The useful question is not “which product should I buy?” It is: where does the person feel unsafe, what movement happens there, and what support would make that moment easier?',
-    showSpace: isSpanish ? 'Muestra el espacio' : 'Show the space',
-    showSpaceBody: isSpanish
-      ? 'Unas fotos o un vídeo corto de la ruta, transferencia o puerta suelen bastar para empezar.'
-      : 'A few photos or a short video of the route, transfer point or doorway is often enough to start.',
-    tellRoutine: isSpanish ? 'Cuéntanos la rutina' : 'Tell us the routine',
-    tellRoutineBody: isSpanish
-      ? 'Explica qué resulta difícil: ducha, cama, escaleras, baño de noche o vuelta a casa.'
-      : 'Explain what feels difficult: showering, getting out of bed, stairs, night bathroom trips or returning home.',
-    planTitle: isSpanish ? 'Recibe un plan orientado a resultados' : 'Receive a package-led plan',
-    planBody: isSpanish
-      ? 'CasaMia recomienda resultados primero y confirma después productos, medidas e instalación.'
-      : 'CasaMia recommends outcomes first, then confirms products, measurements and installer requirements.',
     evidenceEyebrow: isSpanish ? 'Lo que ayuda a decidir' : 'What helps us decide',
     evidenceTitle: isSpanish ? 'Tres detalles hacen el plan más claro.' : 'Three details make the plan clearer.',
     evidenceBody: isSpanish
@@ -92,7 +71,7 @@ export function NeedLandingPage() {
       : [
           {
             title: 'The routine',
-            body: 'Which moment feels difficult: showering, bed transfers, stairs, cooking, entrance or night bathroom trips.',
+            body: 'Which moment feels difficult: showering, getting out of bed, stairs, cooking, entrance or night bathroom trips.',
           },
           {
             title: 'The space',
@@ -103,112 +82,21 @@ export function NeedLandingPage() {
             body: 'A recent fall, hospital discharge, less strength, dizziness, fear or a new need for help.',
           },
         ],
-    decisionEyebrow: isSpanish ? 'Decidir sin comprar a ciegas' : 'Decide before you buy',
-    decisionTitle: isSpanish ? 'Saber qué importa antes de gastar.' : 'Know what matters before you spend.',
-    decisionBody: isSpanish
-      ? 'CasaMia ayuda a convertir una preocupación general en una decisión sencilla: qué observar, qué información recoger y qué ruta tiene sentido.'
-      : 'CasaMia helps turn a broad worry into a simple decision: what to notice, what to capture, and which route makes sense.',
-    decisionCards: isSpanish
-      ? [
-          {
-            title: 'Observa el cambio',
-            body: 'Un susto reciente, evitar la ducha, necesitar apoyo para levantarse o hacer más viajes al baño por la noche.',
-          },
-          {
-            title: 'Recoge lo justo',
-            body: 'Dos o tres fotos, un vídeo corto o una nota de voz suelen bastar para entender la rutina y los puntos de apoyo.',
-          },
-          {
-            title: 'Recibe una ruta clara',
-            body: 'Separamos lo urgente, lo recomendable y lo que necesita visita, medición, presupuesto o comprobación de compatibilidad.',
-          },
-        ]
-      : [
-          {
-            title: 'Notice the change',
-            body: 'A recent scare, avoiding the shower, needing support to stand, or more night-time bathroom trips than before.',
-          },
-          {
-            title: 'Capture just enough',
-            body: 'Two or three photos, a short video or a voice note is often enough to understand the routine and support points.',
-          },
-          {
-            title: 'Get a clear route',
-            body: 'We separate urgent fixes, recommended improvements and anything that needs a visit, measurement, quote or compatibility check.',
-          },
-        ],
-    usefulPages: isSpanish ? 'Páginas útiles' : 'Useful next pages',
-    recommendedEyebrow: isSpanish ? 'Recursos recomendados' : 'Recommended resources',
-    recommendedTitle: isSpanish ? 'Lee solo lo que ayuda a decidir.' : 'Read only what helps you decide.',
+    recommendedEyebrow: isSpanish ? 'Guías útiles' : 'Helpful guides',
+    recommendedTitle: isSpanish ? 'Más contexto, sin complicarlo.' : 'More context, without the noise.',
     recommendedBody: isSpanish
-      ? 'Cada tema combina una explicación práctica con una herramienta útil para pasar de la preocupación al siguiente paso.'
-      : 'Each topic combines practical guidance with a useful tool so families can move from worry to the next step.',
+      ? 'Lecturas breves para entender mejor el riesgo y elegir el siguiente paso con calma.'
+      : 'Short reads to understand the risk and choose the next step calmly.',
     readResource: isSpanish ? 'Leer recurso' : 'Read resource',
     useTool: isSpanish ? 'Usar herramienta' : 'Use tool',
-    nextActionEyebrow: isSpanish ? 'Elige una acción' : 'Choose one action',
-    nextActionTitle: isSpanish ? 'Pasa de leer a decidir.' : 'Move from reading to deciding.',
-    nextActionBody: isSpanish
-      ? 'Si esta situación encaja con tu familia, elige la forma más cómoda de avanzar. Puedes empezar sin compromiso y completar detalles después.'
-      : 'If this situation fits your family, choose the easiest way to move forward. You can start without commitment and add details later.',
-    nextActionPrimary: isSpanish ? 'Responder preguntas' : 'Answer a few questions',
-    nextActionPrimaryBody: isSpanish
-      ? 'Una ruta guiada para convertir preocupaciones en prioridades.'
-      : 'A guided route to turn concerns into priorities.',
-    nextActionPhotos: isSpanish ? 'Enviar fotos o vídeo' : 'Send photos or video',
-    nextActionPhotosBody: isSpanish
-      ? 'Muestra el espacio para que CasaMia pueda entenderlo mejor.'
-      : 'Show the space so CasaMia can understand it better.',
-    nextActionServices: isSpanish ? 'Ver opciones CasaMia' : 'See CasaMia options',
-    nextActionServicesBody: isSpanish
-      ? 'Explora resultados posibles antes de pedir una propuesta.'
-      : 'Explore possible outcomes before requesting a proposal.',
-    nextActionCall: isSpanish ? 'Pedir que nos contacten' : 'Ask us to contact you',
-    nextActionCallBody: isSpanish
-      ? 'Si prefieres hablarlo, CasaMia puede orientarte por llamada.'
-      : 'If talking it through is easier, CasaMia can guide you by call.',
     catalogueEyebrow: isSpanish ? 'Catálogo CasaMia actual' : 'Current CasaMia catalogue',
-    catalogueTitle: isSpanish ? 'Qué puede incluir CasaMia.' : 'What CasaMia can include.',
+    catalogueTitle: isSpanish
+      ? 'Apoyos prácticos para esta necesidad.'
+      : 'Practical supports matched to this need.',
     catalogueBody: isSpanish
-      ? 'Estos son resultados visibles para la familia desde el catálogo activo. La combinación exacta se confirma después de tus respuestas, fotos o visita.'
-      : 'These are customer-facing outcomes from the active service catalogue. The exact mix is confirmed after your answers, photos or site visit.',
+      ? 'Una vista clara de los elementos base y extras opcionales que pueden encajar. La combinación final se confirma con tus respuestas, fotos o visita.'
+      : 'A clear look at the core items and optional add-ons that may fit. The final mix is confirmed from your answers, photos or visit.',
     catalogueCta: isSpanish ? 'Ver el catálogo completo' : 'Review the full catalogue',
-    turnkeyEyebrow: isSpanish ? 'Soporte llave en mano' : 'Turnkey support',
-    turnkeyTitle: isSpanish ? 'De la preocupación al siguiente paso claro.' : 'From concern to clear next step.',
-    turnkeyBody: isSpanish
-      ? 'CasaMia convierte una preocupación general en una ruta práctica: qué importa ahora, qué puede esperar, qué necesita medidas y qué puede coordinarse como un paquete.'
-      : 'CasaMia turns a broad worry into a practical home-safety route: what matters now, what can wait, what needs measurement, and what can be coordinated as one package.',
-    turnkeySteps: isSpanish
-      ? ['Cuéntanos qué ha cambiado', 'Revisamos vivienda y rutinas', 'Recibe una propuesta práctica', 'Instalamos, configuramos y acompañamos']
-      : ['Tell us what changed', 'Review the home and routines', 'Receive a practical proposal', 'Install, configure and support'],
-    clarifyEyebrow: isSpanish ? 'Qué puede aclarar tu plan CasaMia' : 'What your CasaMia plan can clarify',
-    clarifyTitle: isSpanish ? 'Suficientemente claro para actuar.' : 'Clear enough to act on.',
-    clarifyItems: isSpanish
-      ? [
-          'Qué cambios son urgentes, recomendados u opcionales',
-          'Qué entra en un paquete y qué necesita presupuesto',
-          'Si hace falta visita, medición o comprobación de compatibilidad',
-          'Qué puede coordinar CasaMia de principio a fin',
-        ]
-      : [
-          'Which changes are urgent, recommended or optional',
-          'Which items fit within a package and which need a quote',
-          'Whether a visit, measurement or compatibility check is needed',
-          'What CasaMia can coordinate end to end',
-        ],
-    beforeSpendingEyebrow: isSpanish ? 'Antes de gastar dinero' : 'Before spending money',
-    beforeSpendingTitle: isSpanish ? 'Tres revisiones que evitan malas decisiones.' : 'Three checks that avoid poor choices.',
-    beforeSpendingChecks: isSpanish
-      ? [
-          ['Revisa el movimiento exacto.', 'Dónde alcanza, gira, se sienta, se levanta o duda la persona.'],
-          ['Revisa el punto de fijación.', 'Un apoyo solo funciona si está colocado e instalado para el usuario real.'],
-          ['Revisa la entrega.', 'La mejor solución es la que la persona y la familia entienden después de instalarla.'],
-        ]
-      : [
-          ['Check the exact movement.', 'Where does the person reach, turn, sit, stand or hesitate?'],
-          ['Check the fixing point.', 'Support only works when it is positioned and installed for the real user.'],
-          ['Check the handover.', 'The best solution is one the person and family understand after installation.'],
-        ],
-    goDeeper: isSpanish ? 'Profundiza sin perderte.' : 'Go deeper without getting lost.',
     questions: isSpanish ? 'Preguntas que suelen hacer las familias' : 'Questions families ask',
     questionsIntro: isSpanish
       ? 'Respuestas rápidas para decidir si conviene empezar online, enviar fotos o pedir una evaluación.'
@@ -239,8 +127,6 @@ export function NeedLandingPage() {
           },
         ],
     questionsCta: isSpanish ? 'Empezar con mi caso' : 'Start with my situation',
-    popularNeeds: isSpanish ? 'Necesidades CasaMia frecuentes' : 'Popular CasaMia needs',
-    moreWays: isSpanish ? 'Más formas de buscar ayuda.' : 'More ways families search for help.',
     ready: isSpanish ? 'Cuando quieras' : 'Ready when you are',
     finalTitle: isSpanish ? 'Recibe una recomendación CasaMia práctica.' : 'Get a practical CasaMia recommendation.',
     finalBody: isSpanish
@@ -310,30 +196,6 @@ export function NeedLandingPage() {
           {
             '@context': 'https://schema.org',
             '@type': 'HowTo',
-            name: copy.turnkeyTitle,
-            description: copy.turnkeyBody,
-            step: copy.turnkeySteps.map((step, index) => ({
-              '@type': 'HowToStep',
-              position: index + 1,
-              name: step,
-            })),
-          },
-          {
-            '@context': 'https://schema.org',
-            '@type': 'HowTo',
-            '@id': `https://casamia.com.es${page.path}#decision-route`,
-            name: copy.decisionTitle,
-            description: copy.decisionBody,
-            step: copy.decisionCards.map((card, index) => ({
-              '@type': 'HowToStep',
-              position: index + 1,
-              name: card.title,
-              text: card.body,
-            })),
-          },
-          {
-            '@context': 'https://schema.org',
-            '@type': 'HowTo',
             '@id': `https://casamia.com.es${page.path}#what-to-share`,
             name: copy.evidenceTitle,
             description: copy.evidenceBody,
@@ -346,43 +208,16 @@ export function NeedLandingPage() {
           },
         ]
       : []),
-    ...(!isCompactNeedPage
-      ? [
-          {
-            '@context': 'https://schema.org',
-            '@type': 'ItemList',
-            '@id': `https://casamia.com.es${page.path}#useful-pages`,
-            name: copy.usefulPages,
-            itemListElement: page.relatedServices.map((link, index) => ({
-              '@type': 'ListItem',
-              position: index + 1,
-              name: link.label,
-              url: `https://casamia.com.es${link.to}`,
-            })),
-          },
-        ]
-      : []),
-    ...(!isCompactNeedPage
-      ? [
-          {
-            '@context': 'https://schema.org',
-            '@type': 'ItemList',
-            '@id': `https://casamia.com.es${page.path}#popular-needs`,
-            name: copy.popularNeeds,
-            itemListElement: siblingPages.map((item, index) => ({
-              '@type': 'ListItem',
-              position: index + 1,
-              name: item.title,
-              url: `https://casamia.com.es${item.path}`,
-            })),
-          },
-        ]
-      : []),
   ]
 
   const catalogueServices = useMemo(
     () => getNeedCatalogueServices(page.slug, catalogue.services),
     [catalogue.services, page.slug],
+  )
+  const zoneGalleryRoom = needZoneGalleryRooms[page.slug]
+  const zoneGalleryServices = useMemo(
+    () => zoneGalleryRoom ? getNeedCatalogueServices(page.slug, catalogue.services, 'all') : [],
+    [catalogue.services, page.slug, zoneGalleryRoom],
   )
   const localizedArticles = useMemo(() => localizeBlogArticles(blogArticles, i18n.language), [i18n.language])
   const recommendedResources = useMemo(
@@ -393,32 +228,42 @@ export function NeedLandingPage() {
   const secondaryCtaLabel = isCompactNeedPage
     ? isSpanish ? 'Ver solución de baño' : 'See bathroom service'
     : copy.secondaryCta
-  const nextActions = [
-    {
-      icon: <ClipboardCheck size={22} aria-hidden="true" />,
-      title: copy.nextActionPrimary,
-      body: copy.nextActionPrimaryBody,
-      to: '/home-safety-wizard',
-    },
-    {
-      icon: <Camera size={22} aria-hidden="true" />,
-      title: copy.nextActionPhotos,
-      body: copy.nextActionPhotosBody,
-      to: '/#estimate-upload',
-    },
-    {
-      icon: <Wrench size={22} aria-hidden="true" />,
-      title: copy.nextActionServices,
-      body: copy.nextActionServicesBody,
-      to: page.servicePath,
-    },
-    {
-      icon: <MessageCircle size={22} aria-hidden="true" />,
-      title: copy.nextActionCall,
-      body: copy.nextActionCallBody,
-      to: '/why-us#contact-form',
-    },
-  ]
+  const primaryCtaTarget = isGrantSupportNeedPage ? '/grant-check' : '/home-safety-wizard'
+  const primaryCtaLabel = isGrantSupportNeedPage
+    ? isSpanish ? 'Comprobar mi ayuda' : 'Check my grant'
+    : copy.primaryCta
+  const catalogueEyebrow = isCompactNeedPage
+    ? isSpanish ? 'Prioridades del baño' : 'Bathroom priorities'
+    : copy.catalogueEyebrow
+  const catalogueTitle = isCompactNeedPage
+    ? isSpanish ? 'Qué resolvemos primero.' : 'What we solve first.'
+    : copy.catalogueTitle
+  const catalogueBody = isCompactNeedPage
+    ? isSpanish
+      ? 'Cuatro mejoras habituales. La propuesta final se confirma tras revisar el baño.'
+      : 'Four common improvements. The final recommendation follows the bathroom review.'
+    : copy.catalogueBody
+  const catalogueCta = isCompactNeedPage
+    ? isSpanish ? 'Ver opciones' : 'See options'
+    : copy.catalogueCta
+  const riskMapLabelPositions = needRiskMapLabelPositions[page.slug] ?? bathroomRiskMapLabelPositions
+  const riskMapItems = page.riskSection
+    ? page.riskSection.risks.map((risk, index) => ({
+        id: `${page.slug}-risk-${index + 1}`,
+        label: risk,
+        detail: page.riskSection?.riskDetails?.[index],
+        position: riskMapLabelPositions[index],
+      }))
+    : []
+  const riskMapLegendItems = page.riskSection
+    ? (page.riskSection.legend ?? []).map((label, index) => ({
+        label,
+        position: riskMapLabelPositions[page.riskSection!.risks.length + index],
+      }))
+    : []
+  if (!basePage) {
+    return <Navigate to="/services" replace />
+  }
 
   return (
     <>
@@ -438,8 +283,8 @@ export function NeedLandingPage() {
               <h1>{page.title}</h1>
               <p>{page.intro}</p>
               <div className="need-landing-actions">
-                <Link className="btn btn-green" to="/home-safety-wizard">
-                  {copy.primaryCta}
+                <Link className="btn btn-green" to={primaryCtaTarget}>
+                  {primaryCtaLabel}
                   <ArrowRight size={18} aria-hidden="true" />
                 </Link>
                 <Link className="btn btn-white" to={page.servicePath}>
@@ -459,6 +304,142 @@ export function NeedLandingPage() {
             </aside>
           </div>
         </section>
+
+        {page.riskSection ? (
+          <section className="need-landing-risk-map" aria-labelledby="need-landing-risk-map-title">
+            <div className="site-shell need-landing-risk-map-grid">
+              <div className="need-landing-risk-map-stage">
+                <SafeImage
+                  src={page.riskSection.image}
+                  alt={page.riskSection.imageAlt}
+                  className="need-landing-risk-map-photo"
+                  imgClassName="need-landing-risk-map-img"
+                />
+                <div className="need-landing-risk-map-labels">
+                  {riskMapItems.map((item) => {
+                    if (!item.position) return null
+
+                    const isActive = activeRiskId === item.id
+                    const mapDetailId = item.detail
+                      ? `need-landing-risk-map-detail-${item.id}`
+                      : undefined
+
+                    return item.detail ? (
+                      <span
+                        className={`need-landing-risk-map-hotspot${isActive ? ' is-active' : ''}`}
+                        key={item.id}
+                        onMouseEnter={() => setActiveRiskId(item.id)}
+                        onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                        style={{
+                          left: `${item.position.x}%`,
+                          top: `${item.position.y}%`,
+                          width: `${item.position.w}%`,
+                          height: `${item.position.h}%`,
+                        }}
+                      >
+                        <button
+                          aria-describedby={mapDetailId}
+                          aria-label={item.label}
+                          className={`need-landing-risk-map-label has-detail ${item.position.detailSide}${isActive ? ' is-active' : ''}`}
+                          onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                          onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                          onFocus={() => setActiveRiskId(item.id)}
+                          type="button"
+                        >
+                          <span className="need-landing-risk-map-text">{item.label}</span>
+                        </button>
+                        <aside
+                          className={`need-landing-risk-map-detail ${item.position.detailSide}`}
+                          id={mapDetailId}
+                        >
+                          <strong>{item.detail.solution}</strong>
+                          <p>{item.detail.helps}</p>
+                          {item.detail.product ? <small>{item.detail.product}</small> : null}
+                          {item.detail.stat ? <em>{item.detail.stat}</em> : null}
+                        </aside>
+                      </span>
+                    ) : (
+                    <span
+                      aria-label={item.label}
+                      className={`need-landing-risk-map-label${isActive ? ' is-active' : ''}`}
+                      key={item.id}
+                      style={{
+                        left: `${item.position.x}%`,
+                        top: `${item.position.y}%`,
+                          width: `${item.position.w}%`,
+                        height: `${item.position.h}%`,
+                      }}
+                    >
+                      <span className="need-landing-risk-map-text">{item.label}</span>
+                    </span>
+                    )
+                  })}
+                  {riskMapLegendItems.map((item, index) => {
+                    if (!item.position) return null
+
+                    return (
+                      <span
+                        aria-hidden="true"
+                        className="need-landing-risk-map-label is-legend"
+                        key={`${item.label}-${index}`}
+                        style={{
+                          left: `${item.position.x}%`,
+                          top: `${item.position.y}%`,
+                          width: `${item.position.w}%`,
+                          height: `${item.position.h}%`,
+                        }}
+                      >
+                        {item.label}
+                      </span>
+                    )
+                  })}
+                </div>
+              </div>
+              <div className="need-landing-risk-map-copy">
+                <p className="eyebrow">{page.riskSection.eyebrow}</p>
+                <h2 id="need-landing-risk-map-title">{page.riskSection.title}</h2>
+                <p>{page.riskSection.body}</p>
+                <ul className="need-landing-risk-list">
+                  {riskMapItems.map((item) => {
+                    const isActive = activeRiskId === item.id
+                    const detailId = item.detail
+                      ? `need-landing-risk-detail-${item.id}`
+                      : undefined
+
+                    return (
+                      <li
+                        className={`${item.detail ? 'has-detail' : ''}${isActive ? ' is-active' : ''}`}
+                        key={item.id}
+                        onMouseEnter={() => setActiveRiskId(item.id)}
+                        onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                      >
+                        <button
+                          aria-describedby={detailId}
+                          aria-label={item.label}
+                          className="need-landing-risk-trigger"
+                          onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                          onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                          onFocus={() => setActiveRiskId(item.id)}
+                          type="button"
+                        >
+                          <strong>{item.label}</strong>
+                        </button>
+                        {item.detail ? (
+                          <aside className="need-landing-risk-detail" id={detailId}>
+                            <strong>{item.detail.solution}</strong>
+                            <p>{item.detail.helps}</p>
+                            {item.detail.product ? <small>{item.detail.product}</small> : null}
+                            {item.detail.stat ? <em>{item.detail.stat}</em> : null}
+                          </aside>
+                        ) : null}
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="need-landing-section">
           <div className="site-shell need-landing-three">
@@ -480,35 +461,21 @@ export function NeedLandingPage() {
           </div>
         </section>
 
+        {zoneGalleryRoom && zoneGalleryServices.length > 0 ? (
+          <section className="need-landing-zone-gallery-section">
+            <div className="site-shell">
+              <ZoneServiceGallery
+                className="need-zone-gallery"
+                language={i18n.language}
+                room={zoneGalleryRoom}
+                services={zoneGalleryServices}
+              />
+            </div>
+          </section>
+        ) : null}
+
         {!isCompactNeedPage ? (
           <>
-            <section className="need-landing-practical">
-              <div className="site-shell need-landing-practical-grid">
-                <div className="need-landing-practical-copy">
-                  <p className="eyebrow">{copy.practicalEyebrow}</p>
-                  <h2>{copy.practicalTitle}</h2>
-                  <p>{copy.practicalBody}</p>
-                </div>
-                <div className="need-landing-mini-grid">
-                  <MiniCard
-                    icon={<Camera size={21} aria-hidden="true" />}
-                    title={copy.showSpace}
-                    body={copy.showSpaceBody}
-                  />
-                  <MiniCard
-                    icon={<MessageCircle size={21} aria-hidden="true" />}
-                    title={copy.tellRoutine}
-                    body={copy.tellRoutineBody}
-                  />
-                  <MiniCard
-                    icon={<Wrench size={21} aria-hidden="true" />}
-                    title={copy.planTitle}
-                    body={copy.planBody}
-                  />
-                </div>
-              </div>
-            </section>
-
             <section className="need-landing-evidence" aria-labelledby="need-landing-evidence-title">
               <div className="site-shell need-landing-evidence-card">
                 <div>
@@ -528,34 +495,6 @@ export function NeedLandingPage() {
               </div>
             </section>
 
-            <section className="need-landing-decision" aria-labelledby="need-landing-decision-title">
-              <div className="site-shell need-landing-decision-grid">
-                <div className="need-landing-decision-copy">
-                  <p className="eyebrow">{copy.decisionEyebrow}</p>
-                  <h2 id="need-landing-decision-title">{copy.decisionTitle}</h2>
-                  <p>{copy.decisionBody}</p>
-                </div>
-                <div className="need-decision-card-grid">
-                  {copy.decisionCards.map((item, index) => (
-                    <DecisionCard
-                      key={item.title}
-                      step={index + 1}
-                      icon={
-                        index === 0 ? (
-                          <AlertTriangle size={21} aria-hidden="true" />
-                        ) : index === 1 ? (
-                          <ListChecks size={21} aria-hidden="true" />
-                        ) : (
-                          <Route size={21} aria-hidden="true" />
-                        )
-                      }
-                      title={item.title}
-                      body={item.body}
-                    />
-                  ))}
-                </div>
-              </div>
-            </section>
           </>
         ) : null}
 
@@ -572,7 +511,6 @@ export function NeedLandingPage() {
                   <Link className="need-resource-card" key={resource.to} to={resource.to}>
                     <span>{resource.kindLabel}</span>
                     <h3>{resource.title}</h3>
-                    <p>{resource.description}</p>
                     <strong>
                       {resource.kind === 'tool' ? copy.useTool : copy.readResource}
                       <ArrowRight size={17} aria-hidden="true" />
@@ -584,120 +522,37 @@ export function NeedLandingPage() {
           </section>
         ) : null}
 
-        {!isCompactNeedPage ? (
-          <section className="need-landing-next-actions" aria-labelledby="need-landing-next-actions-title">
-            <div className="site-shell need-landing-next-actions-grid">
-              <div>
-                <p className="eyebrow">{copy.nextActionEyebrow}</p>
-                <h2 id="need-landing-next-actions-title">{copy.nextActionTitle}</h2>
-                <p>{copy.nextActionBody}</p>
-              </div>
-              <div className="need-next-action-list">
-                {nextActions.map((action) => (
-                  <Link className="need-next-action-card" key={action.to} to={action.to}>
-                    <span>{action.icon}</span>
-                    <strong>{action.title}</strong>
-                    <p>{action.body}</p>
-                    <ArrowRight size={18} aria-hidden="true" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-        ) : null}
-
         {visibleCatalogueServices.length > 0 ? (
           <section className="need-landing-catalogue">
             <div className="site-shell need-landing-catalogue-grid">
               <div className="need-landing-catalogue-copy">
-                <p className="eyebrow">{copy.catalogueEyebrow}</p>
-                <h2>{copy.catalogueTitle}</h2>
-                <p>{copy.catalogueBody}</p>
+                <p className="eyebrow">{catalogueEyebrow}</p>
+                <h2>{catalogueTitle}</h2>
+                <p>{catalogueBody}</p>
                 <Link className="need-landing-text-link" to="/services">
-                  {copy.catalogueCta}
+                  {catalogueCta}
                   <ArrowRight size={17} aria-hidden="true" />
                 </Link>
               </div>
               <div className="need-landing-catalogue-list">
                 {visibleCatalogueServices.map((service) => (
-                  <CatalogueServiceCard key={service.id} service={service} language={i18n.language} />
+                  <CatalogueServiceCard
+                    key={service.id}
+                    compact={isCompactNeedPage}
+                    service={service}
+                    language={i18n.language}
+                  />
                 ))}
               </div>
             </div>
           </section>
         ) : null}
 
-        {!isCompactNeedPage ? (
-          <>
-            <section className="need-landing-process">
-              <div className="site-shell need-landing-process-grid">
-                <div>
-                  <p className="eyebrow">{copy.turnkeyEyebrow}</p>
-                  <h2>{copy.turnkeyTitle}</h2>
-                  <p>{copy.turnkeyBody}</p>
-                </div>
-                <ol className="need-landing-steps">
-                  {copy.turnkeySteps.map((step, index) => (
-                    <li key={step}>
-                      <span>{String(index + 1).padStart(2, '0')}</span>
-                      {step}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </section>
-
-            <section className="need-landing-detail">
-              <div className="site-shell need-landing-detail-grid">
-                <div className="need-landing-route-card">
-                  <p className="eyebrow">{copy.clarifyEyebrow}</p>
-                  <h2>{copy.clarifyTitle}</h2>
-                  <div className="need-landing-route-list">
-                    {copy.clarifyItems.map((item) => (
-                      <span key={item}>
-                        <CheckCircle2 size={17} aria-hidden="true" />
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="need-landing-dos-card">
-                  <p className="eyebrow">{copy.beforeSpendingEyebrow}</p>
-                  <h2>{copy.beforeSpendingTitle}</h2>
-                  <ol>
-                    {copy.beforeSpendingChecks.map(([title, body]) => (
-                      <li key={title}>
-                        <strong>{title}</strong>
-                        <span>{body}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </section>
-          </>
-        ) : null}
-
-        <section className={`need-landing-section${isCompactNeedPage ? ' need-landing-section--faq-only' : ''}`}>
-          <div className={`site-shell ${isCompactNeedPage ? 'need-landing-faq-only' : 'need-landing-links-grid'}`}>
-            {!isCompactNeedPage ? (
-              <div className="need-landing-related">
-                <p className="eyebrow">{copy.usefulPages}</p>
-                <h2>{copy.goDeeper}</h2>
-                <div>
-                  {page.relatedServices.map((link) => (
-                    <Link key={link.to} to={link.to}>
-                      {link.label}
-                      <ArrowRight size={17} aria-hidden="true" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-
+        <section className="need-landing-section need-landing-section--faq-only">
+          <div className="site-shell need-landing-faq-only">
             <div className="need-landing-faq">
               <p className="eyebrow">{copy.questions}</p>
-              <h2>{isCompactNeedPage ? copy.questions : copy.goDeeper}</h2>
+              <h2>{copy.questions}</h2>
               <p>{copy.questionsIntro}</p>
               <div className="need-landing-faq-list">
                 {visibleFaqs.map((faq) => (
@@ -714,24 +569,6 @@ export function NeedLandingPage() {
             </div>
           </div>
         </section>
-
-        {!isCompactNeedPage ? (
-          <section className="need-landing-more">
-            <div className="site-shell">
-              <div className="need-landing-more-card">
-                <div>
-                  <p className="eyebrow">{copy.popularNeeds}</p>
-                  <h2>{copy.moreWays}</h2>
-                </div>
-                <div className="need-landing-chip-list">
-                  {siblingPages.map((item) => (
-                    <Link key={item.slug} to={item.path}>{item.title}</Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        ) : null}
 
         <section className="need-landing-final">
           <div className="site-shell need-landing-final-card">
@@ -756,6 +593,50 @@ export function NeedLandingPage() {
   )
 }
 
+type RiskMapLabelPosition = {
+  x: number
+  y: number
+  w: number
+  h: number
+  detailSide:
+    | 'opens-right'
+    | 'opens-left'
+    | 'opens-up'
+    | 'opens-down-right'
+    | 'opens-down-left'
+    | 'opens-up-right'
+    | 'opens-up-left'
+}
+
+const bathroomRiskMapLabelPositions: readonly RiskMapLabelPosition[] = [
+  { x: 35.6, y: 78.8, w: 9.8, h: 5.6, detailSide: 'opens-up-right' },
+  { x: 87.2, y: 24.7, w: 8.8, h: 6.2, detailSide: 'opens-left' },
+  { x: 87.2, y: 44.8, w: 8.8, h: 6.2, detailSide: 'opens-left' },
+  { x: 41.0, y: 58.9, w: 8.4, h: 6.4, detailSide: 'opens-right' },
+  { x: 7.7, y: 16.3, w: 11.0, h: 6.6, detailSide: 'opens-right' },
+  { x: 89.1, y: 62.8, w: 8.5, h: 5.9, detailSide: 'opens-left' },
+  { x: 76.9, y: 88.6, w: 7.4, h: 5.9, detailSide: 'opens-up-left' },
+  { x: 7.7, y: 86.0, w: 12.8, h: 3.3, detailSide: 'opens-right' },
+  { x: 7.7, y: 90.4, w: 12.8, h: 3.3, detailSide: 'opens-right' },
+]
+
+const bedroomRiskMapLabelPositions: readonly RiskMapLabelPosition[] = [
+  { x: 11.2, y: 18.2, w: 14.4, h: 9.2, detailSide: 'opens-right' },
+  { x: 13.0, y: 36.0, w: 13.0, h: 8.7, detailSide: 'opens-right' },
+  { x: 8.8, y: 62.6, w: 17.3, h: 9.1, detailSide: 'opens-right' },
+  { x: 23.3, y: 76.1, w: 15.6, h: 8.9, detailSide: 'opens-up-right' },
+  { x: 74.4, y: 17.2, w: 15.2, h: 9.4, detailSide: 'opens-left' },
+  { x: 77.6, y: 43.6, w: 17.5, h: 9.5, detailSide: 'opens-left' },
+  { x: 67.0, y: 84.6, w: 16.2, h: 9.1, detailSide: 'opens-up-left' },
+  { x: 2.8, y: 89.8, w: 15.8, h: 3.9, detailSide: 'opens-right' },
+  { x: 2.8, y: 93.8, w: 15.8, h: 3.9, detailSide: 'opens-right' },
+]
+
+const needRiskMapLabelPositions: Record<string, readonly RiskMapLabelPosition[]> = {
+  'bathroom-safety-for-seniors': bathroomRiskMapLabelPositions,
+  'senior-bedroom-safety': bedroomRiskMapLabelPositions,
+}
+
 const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
   'aging-in-place-home-assessment': ['bathroom', 'bedroom', 'entrance', 'lighting', 'smart-safety'],
   'bathroom-safety-for-seniors': ['bathroom'],
@@ -767,6 +648,11 @@ const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
   'home-safety-assessment-vs-general-contractor': ['bathroom', 'bedroom', 'entrance', 'lighting'],
   'senior-bedroom-safety': ['bedroom'],
   'smart-home-safety-vs-monitoring': ['smart-safety', 'lighting', 'bedroom'],
+}
+
+const needZoneGalleryRooms: Partial<Record<string, 'bathroom' | 'bedroom'>> = {
+  'bathroom-safety-for-seniors': 'bathroom',
+  'senior-bedroom-safety': 'bedroom',
 }
 
 type NeedResourceReference =
@@ -854,11 +740,15 @@ const sectionLabels: Record<ServiceCatalogueSection, { en: string; es: string }>
   optional_adaptations: { en: 'Optional adaptation', es: 'Adaptación opcional' },
 }
 
-function getNeedCatalogueServices(slug: string, services: CasaMiaService[]) {
+function getNeedCatalogueServices(
+  slug: string,
+  services: CasaMiaService[],
+  limit: number | 'all' = 6,
+) {
   const areas = needCatalogueAreas[slug] ?? []
   const seen = new Set<string>()
 
-  return areas
+  const sortedServices = areas
     .flatMap((area) => getServicesForPackageArea(services, area))
     .filter((service) => service.websiteVisible !== false && service.active)
     .filter((service) => {
@@ -877,7 +767,8 @@ function getNeedCatalogueServices(slug: string, services: CasaMiaService[]) {
 
       return (priorityScore[a.priority ?? 'recommended'] ?? 2) - (priorityScore[b.priority ?? 'recommended'] ?? 2)
     })
-    .slice(0, 6)
+
+  return limit === 'all' ? sortedServices : sortedServices.slice(0, limit)
 }
 
 function getNeedRecommendedResources(
@@ -918,59 +809,25 @@ function getNeedRecommendedResources(
     .slice(0, 3)
 }
 
-function CatalogueServiceCard({ service, language }: { service: CasaMiaService; language: string }) {
+function CatalogueServiceCard({
+  service,
+  language,
+  compact = false,
+}: {
+  service: CasaMiaService
+  language: string
+  compact?: boolean
+}) {
   const section = service.section ?? 'home_safety_package'
   const summary = service.customerBenefit || service.shortDescription
   const languageKey = language.toLowerCase().startsWith('es') ? 'es' : 'en'
 
   return (
-    <article className="need-catalogue-card">
+    <article className={`need-catalogue-card${compact ? ' need-catalogue-card--compact' : ''}`}>
       <div>
         <span>{sectionLabels[section][languageKey]}</span>
         <h3>{service.customerName ?? service.name}</h3>
-        <p>{summary}</p>
-      </div>
-      <small>{formatServicePrice(service)}</small>
-    </article>
-  )
-}
-
-function MiniCard({
-  icon,
-  title,
-  body,
-}: {
-  icon: ReactNode
-  title: string
-  body: string
-}) {
-  return (
-    <article className="need-mini-card">
-      <span>{icon}</span>
-      <strong>{title}</strong>
-      <p>{body}</p>
-    </article>
-  )
-}
-
-function DecisionCard({
-  icon,
-  step,
-  title,
-  body,
-}: {
-  icon: ReactNode
-  step: number
-  title: string
-  body: string
-}) {
-  return (
-    <article className="need-decision-card">
-      <span className="need-decision-card-step">{String(step).padStart(2, '0')}</span>
-      <span>{icon}</span>
-      <div>
-        <strong>{title}</strong>
-        <p>{body}</p>
+        {!compact ? <p>{summary}</p> : null}
       </div>
     </article>
   )

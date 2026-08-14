@@ -54,7 +54,7 @@
       "cta": "Check eligibility"
     },
     "buildPlan": {
-      "title": "Build my free plan"
+      "title": "Talk to a specialist now"
     }
   },
   "reportDelivery": {
@@ -285,7 +285,7 @@
   "alts": {
     "logo": "CasaMia logo",
     "hero": "Senior couple hugging at home",
-    "finalCta": "Senior couple preparing vegetables in a safe kitchen",
+    "finalCta": "Senior couple embracing at home",
     "gallery": [
       "Small bathroom with window, sink and bathtub",
       "Senior couple using stair handrail support at home",
@@ -328,31 +328,68 @@
     "deepDive": "Read the full fall-prevention guide"
   },
   "offer": {
-    "badge": "WHAT WE OFFER",
-    "line1": "One company.",
-    "line2": "Everything you need.",
+    "badge": "HOW CASAMIA WORKS",
+    "line1": "A safer home,",
+    "line2": "handled step by step.",
+    "intro": "Choose the route that suits your family. We turn the right package or inspection into a clear proposal, grant support and professional installation.",
+    "ctaPrimary": "Build your CasaMia plan",
+    "ctaSecondary": "Ask us to contact you",
+    "proposalSnapshot": {
+      "label": "Sample CasaMia proposal snapshot",
+      "heading": "Safety Proposal",
+      "priorityLabel": "Priority",
+      "priorityTitle": "Room-by-room plan",
+      "items": [
+        "Bathroom access",
+        "Kitchen reach",
+        "Night route"
+      ]
+    },
+    "inspectionCredit": {
+      "amount": "99 EUR",
+      "title": "Credited back if you order",
+      "body": "The home inspection fee is credited toward any CasaMia order above 150 EUR."
+    },
     "cards": [
       {
-        "icon": "A",
-        "title": "Home Assessment",
-        "desc": "Upload photos of any room. We identify visible safety risks and give you a free room-by-room safety report."
+        "icon": "Step 1",
+        "title": "Choose your starting point",
+        "desc": "Pick one of our ready-made safety packages, or request a physical inspection so a CasaMia technician can recommend the best solution for the home.",
+        "points": [
+          "Ready-made packages",
+          "Optional home inspection",
+          "Technician guidance"
+        ]
       },
       {
-        "icon": "I",
-        "title": "Professional Installation",
-        "desc": "Certified experts adapt your entire home in a single visit — grab bars, non-slip flooring, wider doorways, lighting, and more."
+        "icon": "Step 2",
+        "title": "Review your proposal",
+        "desc": "We share a clear proposal with practical home improvement suggestions, priorities and pricing, so you know exactly what will make the home safer.",
+        "points": [
+          "Room-by-room suggestions",
+          "Clear priorities",
+          "Transparent pricing"
+        ]
       },
       {
-        "icon": "S",
-        "title": "Smart Home Technology",
-        "desc": "Voice controls, smart locks, fall detection, vitals detection and 24/7 emergency alerts — all installed and working from day one."
+        "icon": "Step 3",
+        "title": "Claim available grant support",
+        "desc": "Our team helps prepare the grant application and documents for eligible works, so public financial support can help fund the improvements where available.",
+        "points": [
+          "Eligibility check",
+          "Document support",
+          "Application guidance"
+        ]
       },
       {
-        "icon": "G",
-        "title": "Grant Management",
-        "desc": "We prepare and submit the grant file for eligible works, then keep you updated while the authority reviews it. Public support may cover up to 90% of approved costs, subject to official approval.",
-        "termsLink": "Learn more about Plan Adapta →",
-        "disclaimer": "Grant availability, eligibility criteria and funding levels are subject to government policies and may change without notice."
+        "icon": "Step 4",
+        "title": "Install and stay supported",
+        "desc": "CasaMia coordinates installation, checks everything is working properly and remains your contact for questions, adjustments and ongoing support.",
+        "points": [
+          "Professional installation",
+          "Handover check",
+          "Aftercare support"
+        ]
       }
     ],
     "health": {
@@ -568,6 +605,20 @@
     "workflow": {
       "kicker": "Free room safety report",
       "title": "Review your home safety.",
+      "intro": {
+        "caption": "Quick intro",
+        "eyebrow": "Before you start",
+        "title": "A clearer home-safety view in a few minutes.",
+        "body": "Upload wide photos of the key rooms. CasaMia combines visible risks with your context and prepares a simple room-by-room safety report.",
+        "time": "Usually takes 3-5 minutes. No obligation.",
+        "start": "Start report",
+        "steps": [
+          "Upload room photos",
+          "Add practical context",
+          "Share contact details",
+          "Receive your report"
+        ]
+      },
       "progress": "Report progress",
       "steps": [
         "Photos",
@@ -666,7 +717,7 @@
         },
         "deliveryTitle": "Delivery status",
         "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
-        "emailQueued": "Your request is saved for email delivery. CasaMia will send the secure report link.",
+        "emailQueued": "The secure report link has been sent by email.",
         "whatsappQueued": "Your request is saved for WhatsApp delivery. The message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
         "viewReport": "View report page",

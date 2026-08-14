@@ -1,0 +1,17 @@
+CasaMia partner outreach deck source notes
+
+Copy sources:
+- src/pages/ProviderPartnersPage.tsx
+- src/constants/providerPartnership.ts
+- src/constants/colors.ts
+- src/components/SEO.tsx
+
+Visual assets:
+- C:\Users\brend\casamia\public\brand-assets\casamia-logo-color-transparent.png
+- C:\Users\brend\casamia\public\brand-assets\casamia-logo-white-transparent.png
+- C:\Users\brend\casamia\public\images\solutions\casamia-worker-process.webp
+- C:\Users\brend\casamia\public\images\why-us\casamia-guidance-session.jpg
+- C:\Users\brend\casamia\public\images\solutions\bathroom-risk-map.png
+- C:\Users\brend\casamia\public\images\solutions\casamia-staff-kitchen-consultation.webp
+
+CTA URL checked: https://casamia.com.es/provider-partners

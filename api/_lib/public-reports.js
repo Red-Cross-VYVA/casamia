@@ -1,8 +1,10 @@
 import { applyPublicCors, getRequestHeader } from './public-origin.js'
+import { buildAbsolutePublicUrl, sendPublicReportEmail } from './email.js'
 import {
   createSupabaseRowIfAbsent,
   selectSupabaseRows,
   sendJson,
+  updateSupabaseRows,
 } from './supabase.js'
 
 const reportTypes = new Set(['safety_report', 'grant_report'])
@@ -128,6 +130,7 @@ export async function queuePublicReport(body, reportType, dependencies = {}) {
   const create = dependencies.create ?? createSupabaseRowIfAbsent
   const result = await create('assessment_requests', row, 'id')
   let queuedDelivery = delivery
+  let reportRecord = row
 
   if (!result.ok) return result
 
@@ -142,7 +145,21 @@ export async function queuePublicReport(body, reportType, dependencies = {}) {
       }
     }
     queuedDelivery = getStoredDelivery(existing.record.payload_json)
+    reportRecord = existing.record
+  } else if (Array.isArray(result.body) && result.body[0]) {
+    reportRecord = result.body[0]
   }
+
+  const deliveryResult = await deliverPublicReport({
+    dependencies,
+    delivery: queuedDelivery,
+    reportRecord,
+    reportType,
+    token,
+  })
+
+  if (!deliveryResult.ok) return deliveryResult
+  queuedDelivery = deliveryResult.delivery
 
   return {
     ok: true,
@@ -206,7 +223,7 @@ async function selectReportRecord(token, reportType, dependencies) {
   const query = [
     `id=eq.${encodeURIComponent(token)}`,
     `type=eq.${encodeURIComponent(reportType)}`,
-    'select=id,submitted_at,type,status,payload_json',
+    'select=id,submitted_at,type,status,customer_name,customer_email,customer_phone,payload_json',
     'limit=1',
   ].join('&')
   const result = await select('assessment_requests', query)
@@ -240,7 +257,7 @@ export async function handlePublicReportPost(request, response, reportType) {
   }
 
   try {
-    const result = await queuePublicReport(await readPublicReportBody(request), reportType)
+    const result = await queuePublicReport(await readPublicReportBody(request), reportType, { request })
     if (!result.ok) {
       console.error('Public report queue failed.', { reportType, statusCode: result.status })
       const statusCode = result.status === 409 ? 409 : 503
@@ -264,6 +281,99 @@ export async function handlePublicReportPost(request, response, reportType) {
       message: error instanceof PublicReportValidationError
         ? error.message
         : 'Report delivery is temporarily unavailable.',
+    })
+  }
+}
+
+async function deliverPublicReport({
+  dependencies,
+  delivery,
+  reportRecord,
+  reportType,
+  token,
+}) {
+  const nextDelivery = { ...delivery }
+  const payload = isRecord(reportRecord?.payload_json) ? reportRecord.payload_json : {}
+
+  if (nextDelivery.email === 'queued' || nextDelivery.email === 'failed') {
+    const sendEmail = dependencies.sendEmail ?? sendPublicReportEmail
+    const reportUrl = cleanText(payload.report_url, 2_000)
+    const publicUrl = buildAbsolutePublicUrl(
+      dependencies.request,
+      reportUrl,
+      dependencies.env ?? process.env,
+    )
+    const emailDelivery = await sendEmail({
+      customer: reportRecord,
+      env: dependencies.env ?? process.env,
+      language: getPublicReportLanguage(payload),
+      publicUrl,
+      report: payload,
+      reportType,
+    })
+
+    nextDelivery.email = emailDelivery.ok ? 'sent' : 'failed'
+
+    await persistPublicReportDelivery({
+      dependencies,
+      delivery: nextDelivery,
+      emailDelivery,
+      payload,
+      reportType,
+      token,
+    })
+
+    if (!emailDelivery.ok) {
+      return {
+        ok: false,
+        status: 503,
+        body: {
+          message: emailDelivery.skipped
+            ? emailDelivery.reason
+            : 'Report email delivery failed.',
+        },
+      }
+    }
+  }
+
+  return { ok: true, delivery: nextDelivery }
+}
+
+async function persistPublicReportDelivery({
+  dependencies,
+  delivery,
+  emailDelivery,
+  payload,
+  reportType,
+  token,
+}) {
+  const update = dependencies.update ?? updateSupabaseRows
+  const existingEvents = Array.isArray(payload.delivery_events) ? payload.delivery_events : []
+  const at = new Date().toISOString()
+  const updatedPayload = {
+    ...payload,
+    delivery,
+    delivery_events: [
+      ...existingEvents,
+      {
+        at,
+        channel: 'email',
+        provider: emailDelivery.provider ?? 'resend',
+        reason: cleanText(emailDelivery.reason, 500),
+        status: delivery.email,
+      },
+    ],
+  }
+  const result = await update(
+    'assessment_requests',
+    { payload_json: updatedPayload },
+    `id=eq.${encodeURIComponent(token)}&type=eq.${encodeURIComponent(reportType)}`,
+  )
+
+  if (!result.ok) {
+    console.error('Public report delivery status update failed.', {
+      reportType,
+      statusCode: result.status,
     })
   }
 }
@@ -359,6 +469,14 @@ function getStoredDelivery(payload) {
     email: normaliseDeliveryStatus(delivery.email),
     whatsapp: normaliseDeliveryStatus(delivery.whatsapp),
   }
+}
+
+function getPublicReportLanguage(payload) {
+  const context = isRecord(payload?.context) ? payload.context : {}
+  const recommendations = isRecord(payload?.recommendations) ? payload.recommendations : {}
+  const form = isRecord(recommendations.form) ? recommendations.form : {}
+
+  return cleanText(form.locale ?? context.locale ?? payload?.language, 20) || 'en'
 }
 
 function normaliseDeliveryStatus(value) {

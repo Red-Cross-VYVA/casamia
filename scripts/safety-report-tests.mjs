@@ -284,19 +284,35 @@ const reportPayload = {
 }
 
 let createCall
+let publicReportEmailCall
+let publicReportUpdateCall
 const queuedReport = await queuePublicReport(reportPayload, 'safety_report', {
   create: async (tableName, row, onConflict) => {
     createCall = { tableName, row, onConflict }
     return { ok: true, status: 201, body: [row] }
+  },
+  sendEmail: async (payload) => {
+    publicReportEmailCall = payload
+    return { ok: true, provider: 'test', status: 'sent' }
+  },
+  update: async (tableName, payload, query) => {
+    publicReportUpdateCall = { tableName, payload, query }
+    createCall.row.payload_json = payload.payload_json
+    return { ok: true, status: 200, body: [{ ...createCall.row, ...payload }] }
   },
 })
 
 assert.deepEqual(queuedReport.body, {
   token: reportToken,
   status: 'queued',
-  email: 'queued',
+  email: 'sent',
   whatsapp: 'not_requested',
 })
+assert.equal(publicReportEmailCall.reportType, 'safety_report')
+assert.equal(publicReportEmailCall.publicUrl.endsWith(`/estimate/${reportToken}`), true)
+assert.equal(publicReportUpdateCall.tableName, 'assessment_requests')
+assert.match(publicReportUpdateCall.query, new RegExp(`id=eq\\.${reportToken}`))
+assert.equal(publicReportUpdateCall.payload.payload_json.delivery.email, 'sent')
 assert.equal(createCall.tableName, 'assessment_requests')
 assert.equal(createCall.onConflict, 'id')
 assert.equal(createCall.row.id, reportToken)
@@ -357,6 +373,49 @@ assert.equal(tokenCollision.ok, false)
 assert.equal(tokenCollision.status, 409)
 
 const grantToken = '22222222-2222-4222-8222-222222222222'
+let grantEmailCall
+let grantUpdateCall
+const queuedGrantReport = await queuePublicReport({
+  ...reportPayload,
+  type: 'grant_report',
+  public_token: grantToken,
+  token: grantToken,
+  report_title: 'CasaMia grant-readiness report',
+  recommendations: {
+    form: {
+      name: 'Test Resident',
+      phone: '+34 600 000 000',
+      email: 'resident@example.com',
+      consent: true,
+      consentAt: '2026-07-18T10:00:00.000Z',
+      deliveryEmail: true,
+      deliveryWhatsapp: false,
+      locale: 'es',
+      region: 'Madrid',
+    },
+    result: {
+      title: 'Strong grant match',
+      summary: 'The answers show several common eligibility signals.',
+    },
+  },
+}, 'grant_report', {
+  create: async (_tableName, row) => ({ ok: true, status: 201, body: [row] }),
+  sendEmail: async (payload) => {
+    grantEmailCall = payload
+    return { ok: true, provider: 'test', status: 'sent' }
+  },
+  update: async (tableName, payload, query) => {
+    grantUpdateCall = { tableName, payload, query }
+    return { ok: true, status: 200, body: [payload] }
+  },
+})
+assert.equal(queuedGrantReport.ok, true)
+assert.equal(queuedGrantReport.body.email, 'sent')
+assert.equal(grantEmailCall.reportType, 'grant_report')
+assert.equal(grantEmailCall.language, 'es')
+assert.equal(grantEmailCall.publicUrl.endsWith(`/grant-check?report=${grantToken}`), true)
+assert.equal(grantUpdateCall.payload.payload_json.delivery.email, 'sent')
+
 const grantRecord = buildPublicReportRecord({
   ...reportPayload,
   type: 'grant_report',
@@ -430,8 +489,8 @@ assert.match(
 )
 assert.match(
   estimateWorkflowSource,
-  /if \(hasPublicSiteApi\(\)\) \{\s*return saveReportToPublicApi\(input\)/,
-  'Delivery must return the statuses persisted by the public API.',
+  /if \(hasPublicSiteApi\(\)\) \{[\s\S]*?const delivery = await saveReportToPublicApi\(input\)[\s\S]*?assertRequestedDeliverySucceeded\(input, delivery\)[\s\S]*?return delivery/,
+  'Delivery must return the statuses persisted by the public API after validating requested channels.',
 )
 
 const grantPageSource = readFileSync(
@@ -468,6 +527,16 @@ assert.match(
   uploadEstimatorSource,
   /analysisRetryButton/,
   'An existing report with unavailable photos must offer a retry action.',
+)
+assert.match(
+  uploadEstimatorSource,
+  /const \[showIntro, setShowIntro\] = useState\(true\)/,
+  'The free report modal must show a title and intro slide before the photo step.',
+)
+assert.match(
+  uploadEstimatorSource,
+  /<EstimatorIntroStep \/>[\s\S]*estimator\.workflow\.intro\.start/,
+  'The intro slide must have a clear start action before the four-step workflow.',
 )
 
 const emptyPhoto = makeAnalysis()

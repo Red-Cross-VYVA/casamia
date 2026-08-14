@@ -135,7 +135,7 @@ function makeState(overrides = {}) {
     'Modular ramps should be quote-only, not fixed-price products.',
   )
   assert.equal(
-    quote.siteConfirmationItems.some((item) => item.label === 'Modular access ramp'),
+    quote.siteConfirmationItems.some((item) => item.label === 'Accessibility Ramp'),
     true,
     'Modular ramps should require measurement confirmation.',
   )

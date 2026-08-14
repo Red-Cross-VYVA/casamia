@@ -18,6 +18,15 @@ type GalleryEntry = {
   item: GalleryItem
 }
 
+const galleryItemLinks = [
+  '/services/bathroom-safety',
+  '/services/stair-safety',
+  '/services/entrance-accessibility',
+  '/services/kitchen-safety',
+  '/services/bedroom-safety',
+  '/plans#catalogue-packages',
+]
+
 export function SolutionGallery() {
   const { t } = useTranslation()
   const items = t('gallery.items', { returnObjects: true }) as GalleryItem[]
@@ -79,49 +88,29 @@ export function SolutionGallery() {
 
         <div className="solution-carousel" aria-live="polite">
           {visibleItems.map(({ index, item }) => {
-            const isLinked = Boolean(item.link)
-            const cardContent = (
-              <>
+            const link = item.link ?? galleryItemLinks[index]
+
+            return (
+              <article
+                className="solution-card overflow-hidden rounded-lg border border-border bg-white shadow-soft"
+                key={`${item.title}-${index}`}
+              >
                 <SafeImage
                   src={IMAGE_URLS.gallery[index]}
                   alt={alts[index]}
                   className="gallery-media overflow-hidden"
                   imgClassName="h-full w-full object-cover"
                 />
-                <div className="p-6">
+                <div className="solution-card-body p-6">
                   <h3 className="font-display text-2xl font-bold text-text-dark">{item.title}</h3>
                   <p className="mt-2 text-text-mid">{item.desc}</p>
-                  {item.features?.length ? (
-                    <ul className="solution-feature-list" aria-label={t('gallery.featuresLabel')}>
-                      {item.features.map((feature) => (
-                        <li key={feature}>{feature}</li>
-                      ))}
-                    </ul>
-                  ) : null}
-                  {isLinked ? (
-                    <span className="solution-card-cta">
+                  {link ? (
+                    <Link className="solution-card-cta" to={link}>
                       {t('common.learnMore')}
                       <ArrowRight size={17} aria-hidden="true" />
-                    </span>
+                    </Link>
                   ) : null}
                 </div>
-              </>
-            )
-
-            return isLinked ? (
-              <Link
-                className="solution-card solution-card-link overflow-hidden rounded-lg border border-border bg-white shadow-soft"
-                key={`${item.title}-${index}`}
-                to={item.link ?? '/tech'}
-              >
-                {cardContent}
-              </Link>
-            ) : (
-              <article
-                className="solution-card overflow-hidden rounded-lg border border-border bg-white shadow-soft"
-                key={`${item.title}-${index}`}
-              >
-                {cardContent}
               </article>
             )
           })}

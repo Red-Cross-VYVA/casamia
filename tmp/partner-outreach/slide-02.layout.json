@@ -1,0 +1,1081 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/l1bbj5",
+    "id": "l1bbj5",
+    "slide": 2,
+    "layoutId": "0024b908-1a98-4295-9552-2da13750196a",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F0F8FD",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Aptos",
+      "Aptos Display"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "0024b908-1a98-4295-9552-2da13750196a",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/hozahsfi",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        156,
+        42
+      ],
+      "geometry": "rect",
+      "alt": "Logotipo de CasaMia",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "rect"
+      },
+      "asset": {
+        "assetId": "2257515a-622c-4f64-bef3-b12accb293f3",
+        "contentType": "image/png",
+        "byteLength": 14299
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7mp4nqt0",
+      "id": "2",
+      "bbox": [
+        1156,
+        43,
+        52,
+        24
+      ],
+      "geometry": "rect",
+      "text": "02",
+      "textPreview": "02",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18,
+        "typeface": "Aptos",
+        "color": "#4B5563",
+        "bold": true,
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Aptos",
+            "color": "#4B5563",
+            "bold": true,
+            "alignment": "right",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "02",
+              "fontSize": 18,
+              "typeface": "Aptos",
+              "color": "#4B5563",
+              "bold": true,
+              "alignment": "right",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/mlg3ulcf",
+      "id": "3",
+      "bbox": [
+        72,
+        118,
+        84,
+        6
+      ],
+      "geometry": "rect",
+      "fillColor": "#7DB841",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hsrmt0b2",
+      "id": "4",
+      "bbox": [
+        72,
+        146,
+        720,
+        118
+      ],
+      "geometry": "rect",
+      "text": "Convertimos preocupación familiar en un trabajo listo para entregar.",
+      "textPreview": "Convertimos preocupación familiar en un trabajo listo para entregar.",
+      "resolvedFontSize": 48,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 48,
+        "typeface": "Aptos Display",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Convertimos preocupación familiar"
+          },
+          {
+            "index": 2,
+            "text": "en un trabajo listo para entregar."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Convertimos preocupación familiar en un trabajo listo para entregar.",
+          "lineSpacingPercent": 98000,
+          "resolvedTextStyle": {
+            "fontSize": 48,
+            "typeface": "Aptos Display",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 0.98
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Convertimos preocupación familiar en un trabajo listo para entregar.",
+              "fontSize": 48,
+              "typeface": "Aptos Display",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 0.98
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/wri50fuh",
+      "id": "5",
+      "bbox": [
+        72,
+        286,
+        600,
+        70
+      ],
+      "geometry": "rect",
+      "text": "CasaMia entiende la vivienda, define prioridades y coordina cliente, cambios y entrega.",
+      "textPreview": "CasaMia entiende la vivienda, define prioridades y coordina cliente, cambios y entrega.",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 26,
+        "typeface": "Aptos",
+        "color": "#4B5563",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CasaMia entiende la vivienda, define prioridades y"
+          },
+          {
+            "index": 2,
+            "text": "coordina cliente, cambios y entrega."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CasaMia entiende la vivienda, define prioridades y coordina cliente, cambios y entrega.",
+          "lineSpacingPercent": 114000,
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "typeface": "Aptos",
+            "color": "#4B5563",
+            "alignment": "left",
+            "lineSpacing": 1.14
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CasaMia entiende la vivienda, define prioridades y coordina cliente, cambios y entrega.",
+              "fontSize": 26,
+              "typeface": "Aptos",
+              "color": "#4B5563",
+              "alignment": "left",
+              "lineSpacing": 1.14
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/2p8bqxg3",
+      "id": "6",
+      "bbox": [
+        770,
+        118,
+        420,
+        284
+      ],
+      "geometry": "roundRect",
+      "alt": "Mapa visual de riesgos en baño",
+      "contentType": "image/png",
+      "imageFit": "cover",
+      "imageMask": {
+        "geometry": "roundRect",
+        "adjustmentList": [
+          {
+            "name": "adj",
+            "formula": "val 2817"
+          }
+        ]
+      },
+      "asset": {
+        "assetId": "be4892db-594c-418a-8b53-c80eb6c0cb24",
+        "contentType": "image/png",
+        "byteLength": 2402929
+      }
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/up0ny5cb",
+      "id": "7",
+      "bbox": [
+        72,
+        454,
+        312,
+        150
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#C8DCE8",
+      "lineWidth": 1
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5gbmxkby",
+      "id": "8",
+      "bbox": [
+        96,
+        478,
+        50,
+        34
+      ],
+      "geometry": "rect",
+      "text": "01",
+      "textPreview": "01",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#7DB841",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "01"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "01",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#7DB841",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "01",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#7DB841",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/4fi54fud",
+      "id": "9",
+      "bbox": [
+        96,
+        516,
+        246,
+        36
+      ],
+      "geometry": "rect",
+      "text": "Evaluación",
+      "textPreview": "Evaluación",
+      "resolvedFontSize": 28,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 28,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Evaluación"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Evaluación",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Evaluación",
+              "fontSize": 28,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/y5g3q9sf",
+      "id": "10",
+      "bbox": [
+        96,
+        560,
+        246,
+        50
+      ],
+      "geometry": "rect",
+      "text": "Vivienda, rutina, fotos y urgencia.",
+      "textPreview": "Vivienda, rutina, fotos y urgencia.",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#4B5563",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Vivienda, rutina, fotos y"
+          },
+          {
+            "index": 2,
+            "text": "urgencia."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Vivienda, rutina, fotos y urgencia.",
+          "lineSpacingPercent": 110000,
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#4B5563",
+            "alignment": "left",
+            "lineSpacing": 1.1
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Vivienda, rutina, fotos y urgencia.",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#4B5563",
+              "alignment": "left",
+              "lineSpacing": 1.1
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/j6pkze90",
+      "id": "11",
+      "bbox": [
+        394,
+        510,
+        40,
+        44
+      ],
+      "geometry": "rightArrow",
+      "fillColor": "#7DB841",
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/k7ilsja5",
+      "id": "12",
+      "bbox": [
+        446,
+        454,
+        312,
+        150
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#C8DCE8",
+      "lineWidth": 1
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l8r21orq",
+      "id": "13",
+      "bbox": [
+        470,
+        478,
+        50,
+        34
+      ],
+      "geometry": "rect",
+      "text": "02",
+      "textPreview": "02",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#7DB841",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "02"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "02",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#7DB841",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "02",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#7DB841",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6903utsb",
+      "id": "14",
+      "bbox": [
+        470,
+        516,
+        246,
+        36
+      ],
+      "geometry": "rect",
+      "text": "Alcance claro",
+      "textPreview": "Alcance claro",
+      "resolvedFontSize": 28,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 28,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Alcance claro"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Alcance claro",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Alcance claro",
+              "fontSize": 28,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7u9k3y9w",
+      "id": "15",
+      "bbox": [
+        470,
+        560,
+        246,
+        50
+      ],
+      "geometry": "rect",
+      "text": "Estancia, medidas, limitaciones y expectativas.",
+      "textPreview": "Estancia, medidas, limitaciones y expectativas.",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#4B5563",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Estancia, medidas,"
+          },
+          {
+            "index": 2,
+            "text": "limitaciones y expectativas."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Estancia, medidas, limitaciones y expectativas.",
+          "lineSpacingPercent": 110000,
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#4B5563",
+            "alignment": "left",
+            "lineSpacing": 1.1
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Estancia, medidas, limitaciones y expectativas.",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#4B5563",
+              "alignment": "left",
+              "lineSpacing": 1.1
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/8vilw3ah",
+      "id": "16",
+      "bbox": [
+        768,
+        510,
+        40,
+        44
+      ],
+      "geometry": "rightArrow",
+      "fillColor": "#7DB841",
+      "lineWidth": 0
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/twrm5or2",
+      "id": "17",
+      "bbox": [
+        820,
+        454,
+        312,
+        150
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FFFFFF",
+      "lineColor": "#C8DCE8",
+      "lineWidth": 1
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2dw3ips7",
+      "id": "18",
+      "bbox": [
+        844,
+        478,
+        50,
+        34
+      ],
+      "geometry": "rect",
+      "text": "03",
+      "textPreview": "03",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 24,
+        "typeface": "Aptos",
+        "color": "#7DB841",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "03"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "03",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "typeface": "Aptos",
+            "color": "#7DB841",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "03",
+              "fontSize": 24,
+              "typeface": "Aptos",
+              "color": "#7DB841",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ny5kru9s",
+      "id": "19",
+      "bbox": [
+        844,
+        516,
+        246,
+        36
+      ],
+      "geometry": "rect",
+      "text": "Entrega coordinada",
+      "textPreview": "Entrega coordinada",
+      "resolvedFontSize": 28,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 28,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Entrega coordinada"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Entrega coordinada",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Entrega coordinada",
+              "fontSize": 28,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ril0zqpk",
+      "id": "20",
+      "bbox": [
+        844,
+        560,
+        246,
+        50
+      ],
+      "geometry": "rect",
+      "text": "Cliente, cambios, aprobación y cierre organizados.",
+      "textPreview": "Cliente, cambios, aprobación y cierre organizados.",
+      "resolvedFontSize": 20,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 20,
+        "typeface": "Aptos",
+        "color": "#4B5563",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cliente, cambios, aprobación"
+          },
+          {
+            "index": 2,
+            "text": "y cierre organizados."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cliente, cambios, aprobación y cierre organizados.",
+          "lineSpacingPercent": 110000,
+          "resolvedTextStyle": {
+            "fontSize": 20,
+            "typeface": "Aptos",
+            "color": "#4B5563",
+            "alignment": "left",
+            "lineSpacing": 1.1
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cliente, cambios, aprobación y cierre organizados.",
+              "fontSize": 20,
+              "typeface": "Aptos",
+              "color": "#4B5563",
+              "alignment": "left",
+              "lineSpacing": 1.1
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

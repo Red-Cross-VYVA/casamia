@@ -11,6 +11,7 @@ type BlogArticleTranslation = Pick<
   | 'intro'
   | 'keywords'
   | 'readTime'
+  | 'resources'
   | 'sections'
   | 'takeaways'
   | 'title'
@@ -20,58 +21,97 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
   'fall-prevention-home-checklist-spain': {
     title: 'Prevención de caídas en casa: lista práctica para familias en España',
     description:
-      'Una lista estancia por estancia para reducir el riesgo de caídas en viviendas de personas mayores en España.',
+      'Lista práctica para reducir el riesgo de caídas en casa: rutinas, señales de alarma, prioridades y recursos fiables para familias.',
     category: 'Prevención de caídas',
-    readTime: '7 min de lectura',
+    readTime: '10 min de lectura',
     imageAlt: 'Lista ilustrada de seguridad del hogar para prevenir caídas',
     keywords: ['prevención de caídas en casa', 'seguridad senior en España', 'lista para adaptar vivienda'],
     intro:
-      'Muchas familias detectan el riesgo después de un resbalón, una caída cercana o un cambio de movilidad. Es más tranquilo revisar la vivienda antes de la urgencia y empezar por las rutinas de cada día.',
+      'La mayoría de caídas no se explican por un único problema. El riesgo aumenta cuando cambios de salud, medicación, visión, calzado, iluminación, suelos, muebles y prisas se juntan en el mismo momento. Una buena lista ayuda a detectar esas combinaciones antes de que ocurra una caída.',
     takeaways: [
-      'Empieza por baño, escaleras, dormitorio, entrada y rutas nocturnas.',
-      'Prioriza iluminación, apoyos estables, rutas despejadas y transferencias más seguras.',
-      'Pide una evaluación profesional cuando la familia necesite un orden claro de actuación.',
+      'Recorre la vivienda por rutina: levantarse, asearse, vestirse, cocinar, salir de casa e ir al baño por la noche.',
+      'Prioriza alfombras sueltas, mala iluminación, transferencias sin apoyo, escaleras, baño y ayuda de emergencia.',
+      'Una caída reciente, casi caída, mareos, cambio de medicación u hospitalización justifican revisar la vivienda cuanto antes.',
+      'Combina cambios en casa con revisión de salud: vista, calzado, fuerza, equilibrio y medicación también importan.',
     ],
     sections: [
       {
-        title: 'Empieza por cómo se mueve la persona, no por productos',
+        title: 'Empieza por los momentos donde ocurren las caídas',
         body: [
-          'El mejor plan empieza observando cómo la persona recorre la casa: dónde se detiene, qué muebles usa como apoyo, qué zonas evita y cuándo enciende la luz demasiado tarde.',
-          'Esos momentos dicen más que una lista de compra. Una barra, una luz con sensor, una rampa o un cambio de mobiliario solo ayudan si encajan con la persona y la estancia.',
+          'Recorre el día con la persona: levantarse de la cama, llegar al baño, entrar en la ducha, preparar comida, llevar ropa, abrir la puerta y levantarse de noche. Anota dónde se detiene, corre, se apoya en muebles o evita pasar.',
+          'Esos detalles valen más que una lista de compra. Una barra, pasamanos, luz con sensor, cambio de umbral o ajuste de muebles solo ayuda si apoya el movimiento real que la persona ya intenta hacer.',
         ],
       },
       {
-        title: 'Revisa primero las zonas de mayor riesgo',
+        title: 'Retira tropiezos, pero no te quedes ahí',
         body: [
-          'El baño combina agua, transferencias, poco espacio y superficies duras. Las escaleras y entradas añaden desniveles. El dormitorio importa porque muchas caídas ocurren de noche o con cansancio.',
-          'Una secuencia práctica es baño, escaleras, dormitorio, entrada, cocina y zonas de estar. Así la familia se centra en riesgo real, no en cambiarlo todo a la vez.',
+          'Alfombras sueltas, felpudos levantados, cables, rutas con objetos y muebles inestables deben resolverse rápido. Pero muchas familias se quedan ahí y no revisan lo importante: falta de apoyo en transferencias, interruptores lejos, calzado que resbala o una ruta nocturna al baño mal iluminada.',
+          'Una secuencia útil es baño, ruta dormitorio-baño, escaleras, entrada, cocina y zonas de estar. Así la familia se centra en riesgo diario, no en reformar todo a la vez.',
         ],
       },
       {
-        title: 'Separa cambios urgentes de mejoras futuras',
+        title: 'Separa arreglos urgentes de adaptaciones planificadas',
         body: [
-          'Algunos cambios son urgentes: ducha insegura, escaleras oscuras o un umbral alto usado cada día. Otros pueden planificarse según presupuesto, ayudas, instalación o decisiones familiares.',
-          'Las evaluaciones CasaMia están pensadas para aclarar ese orden: qué conviene cambiar ahora, qué observar y qué puede esperar.',
+          'Los cambios urgentes son los que pueden causar daño esta semana: ducha mojada sin apoyo, escalera oscura, umbral alto usado cada día, transferencia difícil al inodoro o teléfono fuera de alcance. Las adaptaciones planificadas también importan, pero pueden requerir medición, presupuesto, permisos o ayudas.',
+          'CasaMia ayuda a ordenar ese mapa: qué retirar hoy, qué adaptar primero, qué necesita propuesta y qué puede observar la familia con calma.',
+        ],
+      },
+      {
+        title: 'Conecta la revisión de casa con la salud',
+        body: [
+          'Una vivienda puede hacerse más segura, pero prevenir caídas no es solo obra. Pregunta si hay mareos, dolor, cambios de visión, problemas de pies, medicación nueva, urgencia para ir al baño, confusión, debilidad o miedo a caer.',
+          'El plan familiar debe repartir responsabilidades: despejar rutas, instalar apoyos, mejorar iluminación, consultar medicación con un profesional, probar la ayuda de emergencia y revisar si los cambios funcionan.',
         ],
       },
     ],
     checklist: [
-      '¿Puede llegar al baño de noche sin caminar a oscuras?',
-      '¿Hay apoyo estable en escaleras o desniveles donde hace falta?',
-      '¿Las alfombras, cables y felpudos están retirados o fijados?',
-      '¿Puede entrar, usar y salir de la ducha sin agarrarse a muebles?',
-      '¿La ayuda de emergencia está al alcance desde dormitorio y baño?',
+      'Recorre cada ruta diaria y marca dónde la persona busca pared, mueble o marco de puerta.',
+      'Retira o fija alfombras, felpudos, cables, muebles bajos y objetos de paso.',
+      'Comprueba cama, inodoro y sillón favorito: deben permitir levantarse sin tirar de muebles inestables.',
+      'Haz visible la ruta de cama a baño por la noche, sin deslumbrar.',
+      'Confirma apoyo estable en escaleras, escalones y umbrales donde realmente hace falta.',
+      'Revisa ducha, suelo mojado, toallas y entrada al baño como un conjunto.',
+      'Deja teléfono, botón o sistema de ayuda al alcance desde cama y baño.',
+      'Consulta con un profesional si hay mareos, cambios de medicación, visión, dolor de pies o casi caídas repetidas.',
+    ],
+    resources: [
+      {
+        title: 'Lista Check for Safety',
+        source: 'CDC STEADI',
+        href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
+        description:
+          'Lista estancia por estancia para revisar suelos, escaleras, cocina, baño, dormitorio e iluminación.',
+      },
+      {
+        title: 'Prevención de caídas y fracturas',
+        source: 'National Institute on Aging',
+        href: 'https://www.nia.nih.gov/health/falls-and-falls-prevention/prevent-falls-and-fractures',
+        description:
+          'Guía sobre ejercicio, visión, medicación, salud y cambios en casa que conviene combinar.',
+      },
+      {
+        title: 'Prevenir caídas en casa',
+        source: 'MedlinePlus',
+        href: 'https://medlineplus.gov/ency/patientinstructions/000052.htm',
+        description:
+          'Consejos claros para baño, dormitorio, escaleras, iluminación, calzado y movimiento diario.',
+      },
     ],
     faqs: [
       {
         question: '¿Qué conviene arreglar primero para reducir caídas?',
         answer:
-          'Empieza por la ruta o estancia que se usa más y donde la persona ya se siente insegura. En muchas viviendas es el baño, las escaleras o el camino de la cama al baño por la noche.',
+          'Empieza por la ruta o movimiento que sea frecuente y ya resulte inseguro. En muchas viviendas es el baño, las escaleras, la entrada o el camino de la cama al baño por la noche.',
       },
       {
         question: '¿Todas las personas mayores necesitan barras de apoyo?',
         answer:
           'No siempre. Ayudan cuando son necesarias, están bien colocadas y están fijadas a una superficie adecuada. Hay que revisar movilidad, transferencias, tipo de pared y hábitos.',
+      },
+      {
+        question: '¿Cuándo conviene pedir ayuda profesional?',
+        answer:
+          'Cuando ya hubo una caída o casi caída, la persona cambia su forma de moverse, hay varias estancias implicadas o la familia no sabe qué obra debe ir primero.',
       },
     ],
     cta: { label: 'Reservar evaluación de seguridad', to: '/home-safety-assessment' },
@@ -79,117 +119,245 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
   'bathroom-safety-seniors-costly-mistakes': {
     title: 'Seguridad en el baño para mayores: 7 errores que conviene evitar',
     description:
-      'Errores habituales al adaptar un baño para una persona mayor, desde barras de ventosa hasta accesos de ducha poco seguros.',
+      'Errores habituales al adaptar un baño para una persona mayor: apoyos inseguros, ducha, inodoro, suelo mojado y controles de agua.',
     category: 'Seguridad en el baño',
-    readTime: '6 min de lectura',
+    readTime: '9 min de lectura',
     imageAlt: 'Ilustración de errores de seguridad en el baño',
     keywords: ['seguridad baño mayores', 'barras de apoyo España', 'baño accesible personas mayores'],
     intro:
-      'El baño suele ser la primera estancia que una familia quiere adaptar, pero las decisiones rápidas pueden dar una falsa sensación de seguridad. El objetivo no es llenar el baño de productos, sino hacer más seguros los movimientos reales.',
+      'El baño combina agua, superficies duras, urgencia, poco espacio y transferencias. Por eso una compra rápida puede dar falsa seguridad: el baño parece más seguro, pero la persona sigue teniendo que entrar, girar, alcanzar o levantarse sin el apoyo correcto.',
     takeaways: [
-      'No uses toalleros, barras de ventosa o muebles como apoyo principal.',
-      'Planifica ducha, inodoro, iluminación y suelo como un conjunto.',
-      'La instalación es tan importante como el producto elegido.',
+      'Planifica el movimiento, no solo el producto: entrar, lavarse, girar, secarse, usar el inodoro y salir.',
+      'No uses toalleros, barras de ventosa o muebles como apoyo para soportar peso.',
+      'Revisa ducha, inodoro, agarre del suelo, iluminación, controles de agua y ayuda de emergencia como un conjunto.',
+      'La colocación e instalación importan tanto como el equipo elegido.',
     ],
     sections: [
       {
-        title: 'Error 1: pensar que todas las barras son iguales',
+        title: 'Error 1: pensar que cualquier apoyo es seguro',
         body: [
-          'Una barra solo sirve si está en la posición adecuada para el movimiento que debe apoyar: entrar en la ducha, levantarse del inodoro o girar cerca del lavabo.',
-          'También importan la pared y la fijación. Una barra mal instalada puede ser peor que no tener barra, porque invita a confiar en un apoyo que no resiste.',
+          'Toalleros, bordes del lavabo, mamparas y barras de ventosa se usan a menudo como pasamanos, pero no son apoyos fiables para soportar peso. Si la persona confía en el objeto equivocado, el riesgo aumenta.',
+          'Una barra solo ayuda si está colocada para el movimiento que debe apoyar. Entrar en la ducha, levantarse del inodoro, girar cerca del lavabo y secarse al salir pueden necesitar puntos de apoyo distintos.',
         ],
       },
       {
-        title: 'Error 2: olvidar el umbral de la ducha',
+        title: 'Error 2: arreglar el asiento y olvidar la entrada',
         body: [
-          'A menudo se compra una silla de ducha, pero se mantiene un escalón alto. Levantar el pie sobre un borde mojado, con cansancio o poco apoyo, sigue siendo peligroso.',
-          'Un buen plan revisa entrada, asiento, ducha de mano, drenaje y dónde se alcanzan toallas o ropa al salir.',
+          'A menudo se compra un taburete o asiento abatible, pero se mantiene una bañera alta, una puerta estrecha o una entrada resbaladiza. Si la persona todavía debe levantar el pie sobre un borde mojado o sin apoyo, el riesgo principal sigue ahí.',
+          'Un buen plan revisa altura de entrada, superficie antideslizante, asiento, alcance de los mandos de agua, drenaje, mampara o cortina, toallas y dónde puede colocarse una persona que ayuda.',
         ],
       },
       {
-        title: 'Error 3: comprar antes de medir la rutina',
+        title: 'Error 3: olvidar el inodoro y el uso nocturno',
         body: [
-          'Los productos deben seguir la rutina de la persona: si se ducha sola, necesita ayuda, usa bastón, se fatiga o se desorienta.',
-          'La adaptación correcta suele combinar producto, distribución, instalación y pequeños cambios de hábito.',
+          'Muchas caídas tienen que ver con urgencia, cansancio o ir al baño de noche. La zona del inodoro necesita espacio, apoyo lateral cuando haga falta, papel al alcance, buena luz y una ruta sin giros difíciles.',
+          'Comprueba cómo llega la persona desde la cama, si usa bastón o andador, si la puerta abre de forma segura y si la ayuda de emergencia está al alcance.',
+        ],
+      },
+      {
+        title: 'Error 4: separar temperatura, agarre y alcance',
+        body: [
+          'Los mandos de agua pueden ser difíciles cuando cambian la fuerza de mano, la vista o la reacción. Si la persona no puede regular temperatura, accionar los controles o cerrar el agua sentada, el baño puede seguir siendo inseguro.',
+          'Mandos termostáticos, controles claros y almacenaje alcanzable pueden ayudar, pero deben encajar con la instalación, paredes y hábitos reales.',
         ],
       },
     ],
     checklist: [
-      'Comprueba si puede sentarse, levantarse, girar y alcanzar sin tirar de elementos inseguros.',
-      'Revisa suelos mojados y alfombrillas.',
-      'Confirma que hay luz suficiente en la ruta nocturna y dentro del baño.',
-      'Mide el umbral y la apertura de la ducha.',
-      'Piensa dónde puede ayudar una persona cuidadora sin ponerse en riesgo.',
+      'Observa entrada, lavado, giro, secado, inodoro y salida si la persona acepta ser acompañada.',
+      'Retira o cambia alfombrillas y objetos que se deslicen con el suelo mojado.',
+      'Confirma apoyo antes, durante y después de entrar en ducha o bañera.',
+      'Revisa si altura del inodoro y apoyo lateral permiten levantarse sin tirar de lavabo o toallero.',
+      'Haz alcanzables mandos, jabón, toallas y ropa sin girar ni agacharse.',
+      'Añade iluminación nocturna sin deslumbrar desde dormitorio hasta baño y dentro del baño.',
+      'Deja una forma de pedir ayuda al alcance desde el baño.',
+      'Planifica dónde puede colocarse una persona cuidadora sin bloquear ni resbalar.',
+    ],
+    resources: [
+      {
+        title: 'Lista Check for Safety para baño',
+        source: 'CDC STEADI',
+        href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
+        description:
+          'Incluye puntos concretos sobre alfombrillas, suelo de ducha, barras y entrada/salida de bañera o ducha.',
+      },
+      {
+        title: 'Prevenir caídas en casa',
+        source: 'MedlinePlus',
+        href: 'https://medlineplus.gov/ency/patientinstructions/000052.htm',
+        description:
+          'Consejos sencillos sobre baño, dormitorio, calzado, escaleras e iluminación.',
+      },
+      {
+        title: 'Catálogo de productos de apoyo',
+        source: 'CEAPAT / Imserso',
+        href: 'https://ceapat.imserso.es/catalogo-productos-apoyo',
+        description:
+          'Catálogo público español para comparar ayudas de baño, inodoro, barras y movilidad.',
+      },
     ],
     faqs: [
       {
         question: '¿Son seguras las barras de ventosa?',
         answer:
-          'No deben usarse como apoyo principal para soportar peso. Cuando la seguridad depende del apoyo, conviene usar fijaciones profesionales.',
+          'No deben usarse como apoyo principal para soportar peso. Si la seguridad depende del apoyo, conviene usar barras fijadas profesionalmente u otro equipo adecuado.',
       },
       {
         question: '¿Una ducha a ras de suelo siempre es lo mejor?',
         answer:
           'Depende de movilidad, distribución, drenaje, presupuesto y urgencia. A veces primero hacen falta apoyos, iluminación y medidas antideslizantes.',
       },
+      {
+        question: '¿Conviene que la puerta del baño abra hacia fuera?',
+        answer:
+          'Puede ayudar en algunas viviendas, porque una caída detrás de una puerta que abre hacia dentro puede bloquear el acceso. Depende de la puerta, pasillo, privacidad y alternativas posibles.',
+      },
     ],
     cta: { label: 'Ver servicios para baño', to: '/services/bathroom-safety' },
   },
   'home-adaptation-grants-spain-family-guide': {
-    title: 'Ayudas para adaptar viviendas en España: qué debe preparar una familia',
+    title: 'Ayudas para adaptar viviendas en España: guía práctica para familias',
     description:
-      'Guía práctica para preparar ayudas de adaptación del hogar en España: documentos, alcance, requisitos y expectativas realistas.',
+      'Cómo preparar ayudas de accesibilidad y adaptación del hogar en España: requisitos, documentos, tiempos, errores habituales y enlaces oficiales.',
     category: 'Ayudas y financiación',
-    readTime: '8 min de lectura',
-    imageAlt: 'Ilustración de documentos para preparar una solicitud de ayuda',
-    keywords: ['ayudas adaptación vivienda España', 'Plan Adapta', 'subvenciones accesibilidad vivienda'],
+    readTime: '11 min de lectura',
+    imageAlt: 'Símbolo del euro que representa ayudas públicas para adaptar viviendas',
+    keywords: [
+      'ayudas adaptación vivienda España',
+      'Plan Estatal de Vivienda 2026 2030',
+      'Plan Adapta Madrid',
+      'subvenciones accesibilidad vivienda',
+    ],
     intro:
-      'Las ayudas pueden facilitar la adaptación de una vivienda, pero conviene prepararlas con documentos y expectativas claras. Las reglas cambian según comunidad, municipio y programa.',
+      'En España no existe una única ayuda que todas las familias soliciten de la misma forma. El plan estatal marca un marco general, pero la solicitud real suele tramitarse a través de la comunidad autónoma, el ayuntamiento, la oficina de vivienda o servicios sociales. Lo más seguro es preparar primero las pruebas de la vivienda y después encajarlas con la convocatoria abierta.',
     takeaways: [
-      'Las convocatorias varían por comunidad autónoma y municipio.',
-      'Un alcance claro de trabajos mejora la preparación.',
-      'Ningún proveedor debe prometer aprobación: decide la administración.',
+      'Comprueba la convocatoria para la dirección exacta de la vivienda; las reglas cambian por comunidad autónoma y municipio.',
+      'Prepara necesidad, fotos, certificados, permisos y presupuestos desglosados antes de que aparezca una fecha límite.',
+      'No empieces obras pagadas hasta confirmar si la convocatoria permite trabajos previos.',
+      'Ningún proveedor puede garantizar aprobación: la administración decide elegibilidad, importe y pago.',
     ],
     sections: [
       {
-        title: 'Define primero la necesidad de seguridad',
+        title: 'Empieza por la administración correcta, no por una promesa genérica',
         body: [
-          'Una solicitud se entiende mejor cuando conecta los trabajos con una necesidad concreta de movilidad, accesibilidad o prevención.',
-          'Puede tratarse de acceso seguro al baño, cambios de umbral, rampas cuando sean adecuadas, apoyo en escaleras o adaptación vinculada a dependencia o discapacidad.',
+          'Para una familia, la primera pregunta no es “cuánto nos darán”, sino “qué administración cubre esta dirección y este tipo de obra”. Una vivienda en Madrid capital puede tener una vía municipal como Plan Adapta. Una vivienda en Girona, Tarragona, Lleida o Terres de l’Ebre puede encajar en una convocatoria de la Agència de l’Habitatge de Catalunya. En otros territorios puede haber ayudas autonómicas de rehabilitación, servicios sociales municipales, discapacidad, dependencia o programas de accesibilidad del edificio.',
+          'Usa la base nacional de subvenciones para buscar convocatorias abiertas y confirma los detalles con la oficina local de vivienda o servicios sociales. Si el problema está en portal, escaleras, ascensor o zonas comunes, también puede intervenir la comunidad de propietarios y el administrador de la finca.',
         ],
       },
       {
-        title: 'Prepara documentos con antelación',
+        title: 'Entiende qué puede cubrir el marco estatal',
         body: [
-          'Pueden pedirse DNI/NIE, residencia, propiedad o alquiler, certificados, presupuestos, facturas, fotos y descripción de trabajos.',
-          'La lista exacta depende del programa. Preparar antes evita prisas cuando se abre una convocatoria.',
+          'El Plan Estatal de Vivienda 2026-2030 incluye actuaciones de accesibilidad como rampas, ascensores, salvaescaleras, itinerarios accesibles, sistemas de comunicación y alarma, domótica de apoyo a la autonomía personal y mejoras de seguridad de uso y accesibilidad. El BOE fija importes máximos y porcentajes, pero el acceso llega mediante convocatorias de comunidades autónomas y Ceuta o Melilla.',
+          'Esa diferencia es clave. Un importe máximo anunciado no equivale a una ayuda aprobada para una vivienda concreta. Cada convocatoria puede limitar quién solicita, qué vivienda entra, qué ingresos cuentan, si la persona debe tener más de 65 años o discapacidad reconocida, si los presupuestos deben presentarse antes de iniciar obra y cuándo se paga.',
         ],
       },
       {
-        title: 'Mantén expectativas realistas',
+        title: 'Convierte el problema de casa en obras subvencionables',
         body: [
-          'Los fondos pueden ser limitados, competitivos, temporales o restringidos a ciertos trabajos. Algunos programas reembolsan después; otros exigen aprobación previa.',
-          'CasaMia puede ayudarte a estar preparado, pero la aprobación y el pago dependen siempre de la administración.',
+          'Una solicitud se entiende mejor cuando las obras responden a un riesgo diario concreto: entrada insegura a la ducha, suelo mojado, umbrales altos, falta de apoyos, poca luz nocturna, puertas estrechas, alcance difícil en cocina o una ruta que no se puede usar con andador o silla.',
+          'Evita expresiones vagas como “modernizar el baño”. Usa lenguaje práctico: sustituir bañera por ducha accesible, rebajar un umbral, colocar barras fijadas, mejorar suelo antideslizante, ensanchar un paso, añadir iluminación con sensor, instalar videoportero accesible o adaptar una cocina para preparar comida con seguridad.',
+        ],
+      },
+      {
+        title: 'Monta el expediente antes de ir con prisa',
+        body: [
+          'La mayoría de expedientes combinan documentos personales, documentos de la vivienda y pruebas técnicas. Empieza por DNI/NIE, padrón o residencia habitual, propiedad o permiso de alquiler, certificado de discapacidad o dependencia si existe, información de ingresos si la piden, fotos del riesgo actual y una propuesta desglosada.',
+          'Pregunta si el programa necesita informe técnico, visita de arquitecto o técnico, licencia o declaración responsable, acuerdo de comunidad, autorización del propietario, facturas registradas, justificantes bancarios o documentación final tras la obra. Guarda presupuestos, fotos, facturas y autorizaciones en una misma carpeta.',
+        ],
+      },
+      {
+        title: 'Cuida los plazos, el pago y las reglas de reembolso',
+        body: [
+          'Algunas ayudas son por orden de llegada, otras son competitivas, otras cierran al agotarse fondos y algunas se pagan después de que la familia haya pagado y justificado la obra. Otras exigen aprobación o inspección previa. Por ejemplo, la convocatoria catalana de 2026 para arreglos interiores indica que las obras no pueden haberse iniciado antes de la publicación de la convocatoria ni antes de la inspección técnica de la Agencia.',
+          'Antes de firmar o pagar, confirma por escrito tres cosas: si se puede empezar la obra, si el formato del presupuesto sirve y cuándo se espera cobrar la ayuda. Así la familia no depende de una ayuda que quizá llegue después de necesitar el dinero.',
+        ],
+      },
+      {
+        title: 'Si el problema está en una zona común',
+        body: [
+          'Ascensores, rampas de entrada, puertas de portal, escaleras y otros elementos comunes pueden implicar a la comunidad de propietarios. La Ley de Propiedad Horizontal recoge reglas sobre obras de accesibilidad necesarias y ajustes razonables, especialmente cuando hay personas con discapacidad o mayores de 70 años, pero la tramitación práctica depende del edificio, el presupuesto y el administrador.',
+          'En estos casos prepara una nota breve para el administrador: necesidad de la persona, ruta afectada, fotos, solución propuesta, si existe convocatoria de ayuda y qué decisión debe tomar la comunidad. Una buena documentación reduce conflictos antes de la junta.',
         ],
       },
     ],
     checklist: [
-      'Confirma ubicación y programa local relevante.',
-      'Reúne documentos de residente y vivienda.',
-      'Fotografía acceso, baño, escaleras y zonas de riesgo.',
-      'Prepara un presupuesto o propuesta con partidas claras.',
-      'Comprueba si se puede empezar antes de la aprobación.',
+      'Confirma municipio, comunidad autónoma y si la vivienda es propia, alquilada o parte de una comunidad.',
+      'Busca convocatorias abiertas en la base nacional de subvenciones y en vivienda o servicios sociales locales.',
+      'Comprueba requisitos: edad, discapacidad, dependencia, ingresos, residencia habitual, propiedad o permiso de alquiler.',
+      'Fotografía barreras actuales: baño, entrada, escaleras, umbrales, cocina, ruta nocturna y acceso común.',
+      'Prepara presupuestos desglosados que separen accesibilidad y seguridad de una reforma estética.',
+      'Pregunta si se puede iniciar la obra antes de aprobación, inspección o publicación de la convocatoria.',
+      'Reúne certificados, padrón, datos bancarios, permisos de comunidad o propietario e informes técnicos si hacen falta.',
+      'Guarda facturas, justificantes de pago y fotos finales para la justificación.',
+    ],
+    resources: [
+      {
+        title: 'Plan Estatal de Vivienda 2026-2030',
+        source: 'BOE',
+        href: 'https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-8872',
+        description:
+          'Marco estatal de ayudas de vivienda y accesibilidad. Útil para entender actuaciones, límites y que la tramitación se abre mediante convocatorias autonómicas.',
+      },
+      {
+        title: 'Buscador nacional de subvenciones',
+        source: 'Sistema Nacional de Publicidad de Subvenciones',
+        href: 'https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias',
+        description:
+          'Base oficial para buscar convocatorias públicas. Prueba por municipio, comunidad autónoma, accesibilidad, rehabilitación de vivienda o discapacidad.',
+      },
+      {
+        title: 'Plan Adapta Madrid 2026',
+        source: 'Ayuntamiento de Madrid',
+        href: 'https://sede.madrid.es/portal/site/tramites/menuitem.62876cb64654a55e2dbd7003a8a409a0/?vgnextchannel=2a8ca38813180210VgnVCM100000c90da8c0RCRD&vgnextfmt=default&vgnextoid=3bfbfc190117d910VgnVCM200000f921e388RCRD',
+        description:
+          'Ejemplo municipal para accesibilidad en vivienda, edificio y locales. El plazo 2026 ya cerró, pero la página sirve para ver líneas, documentos y futuras convocatorias.',
+      },
+      {
+        title: 'Arreglos interiores para personas mayores en Cataluña',
+        source: 'Agència de l’Habitatge de Catalunya',
+        href: 'https://habitatge.gencat.cat/ca/ajuts/ajuts-rehabilitacio/interior-persones-grans/',
+        description:
+          'Ejemplo autonómico activo en 2026 para viviendas con personas de 65 años o más en Girona, Tarragona, Lleida y Terres de l’Ebre.',
+      },
+      {
+        title: 'Catálogo de productos de apoyo',
+        source: 'CEAPAT / Imserso',
+        href: 'https://ceapat.imserso.es/catalogo-productos-apoyo',
+        description:
+          'Catálogo público para comparar productos de apoyo disponibles en España. Sirve como referencia, siempre adaptando la solución a la persona y la vivienda.',
+      },
+      {
+        title: 'Ley de Propiedad Horizontal',
+        source: 'BOE',
+        href: 'https://www.boe.es/buscar/act.php?id=BOE-A-1960-10906',
+        description:
+          'Referencia útil cuando las obras de accesibilidad afectan a portal, ascensor, rampas, escaleras o recorridos comunes del edificio.',
+      },
     ],
     faqs: [
       {
+        question: '¿Qué ayuda conviene mirar primero?',
+        answer:
+          'Empieza por la dirección de la vivienda. Revisa comunidad autónoma, ayuntamiento y servicios sociales del municipio, y compara la convocatoria abierta con la situación de la persona y las obras necesarias.',
+      },
+      {
         question: '¿CasaMia puede garantizar una ayuda?',
         answer:
-          'No. CasaMia puede apoyar la preparación, documentación y alcance, pero la administración decide elegibilidad, aprobación y pago.',
+          'No. CasaMia puede ayudarte a definir la necesidad, preparar pruebas y ordenar una propuesta lista para solicitar, pero la administración decide elegibilidad, aprobación, importe y pago.',
       },
       {
         question: '¿Conviene adaptar la vivienda antes de solicitar?',
         answer:
-          'Depende de las reglas del programa y de la urgencia. Algunas ayudas exigen aprobación previa; una necesidad de seguridad urgente puede requerir actuar antes.',
+          'Solo después de revisar la convocatoria concreta. Algunos programas rechazan obras iniciadas demasiado pronto o exigen inspección previa. Si hay un riesgo urgente, separa la decisión de seguridad inmediata de la decisión de ayuda.',
+      },
+      {
+        question: '¿Puede solicitar una ayuda una persona que vive de alquiler?',
+        answer:
+          'A veces sí, pero la convocatoria puede exigir permiso del propietario, residencia habitual y derecho claro a ejecutar la obra. Conviene confirmarlo antes de pagar planos o instalación.',
+      },
+      {
+        question: '¿Se cubren reformas estéticas?',
+        answer:
+          'Normalmente la parte subvencionable es la mejora de accesibilidad, seguridad o autonomía, no una reforma estética general. Por eso conviene que el presupuesto separe partidas elegibles de acabados opcionales.',
       },
     ],
     cta: { label: 'Comprobar preparación para ayudas', to: '/grant-check' },
@@ -563,58 +731,97 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
   'bedroom-night-safety-older-adults': {
     title: 'Seguridad en dormitorio y noche para personas mayores',
     description:
-      'Cambios prácticos para levantarse, llegar al baño y pedir ayuda durante la noche con menos riesgo.',
+      'Cómo hacer más seguros dormitorio y rutas nocturnas: levantarse de la cama, iluminación sin deslumbrar, baño, alcance y ayuda de emergencia.',
     category: 'Dormitorio y noche',
-    readTime: '5 min de lectura',
-    imageAlt: 'Dormitorio con ruta nocturna segura e iluminación suave',
+    readTime: '9 min de lectura',
+    imageAlt: 'Ilustración editorial de una ruta nocturna segura en dormitorio',
     keywords: ['seguridad nocturna mayores', 'dormitorio persona mayor', 'ruta cama baño'],
     intro:
-      'La noche aumenta el riesgo: hay sueño, poca luz, urgencia para ir al baño y menos personas cerca. Por eso el dormitorio y la ruta nocturna merecen atención especial.',
+      'El riesgo nocturno se subestima porque la vivienda parece conocida durante el día. Por la noche la persona puede estar medio dormida, tener más urgencia, ver peor, notar más los efectos de la medicación y recorrer una ruta al baño que se vuelve la más difícil de la casa.',
     takeaways: [
-      'Revisa cama, luz, ruta al baño y ayuda de emergencia juntos.',
-      'Evita levantarse a oscuras o buscar objetos en el suelo.',
-      'La solución debe ser fácil incluso con sueño.',
+      'Revisa toda la rutina nocturna: incorporarse, ponerse en pie, calzarse, coger el apoyo, salir y usar el baño.',
+      'Usa luz suave de ruta que reduzca sombras sin deslumbrar ni desorientar.',
+      'Comprueba altura de cama, alcance desde la mesilla, obstáculos, puertas, umbrales y acceso al baño juntos.',
+      'La ayuda de emergencia debe estar al alcance desde cama y baño, con una respuesta familiar acordada.',
     ],
     sections: [
       {
-        title: 'La ruta debe estar preparada antes de dormir',
+        title: 'Empieza junto a la cama, antes de ponerse en pie',
         body: [
-          'La persona no debería tener que buscar interruptores, gafas, bastón o teléfono a oscuras.',
-          'Una luz de presencia, objetos al alcance y ruta despejada reducen decisiones en un momento vulnerable.',
+          'El primer movimiento nocturno suele ser incorporarse, apoyar los pies, alcanzar gafas o andador, ponerse de pie y girar. Altura de cama, firmeza del colchón, calzado, mesilla y apoyos influyen mucho.',
+          'Si la persona empuja una mesilla ligera, busca el teléfono lejos o debe ponerse de pie antes de alcanzar el andador, la habitación está pidiendo demasiado a alguien cansado.',
         ],
       },
       {
-        title: 'Revisa cama y transferencias',
+        title: 'Ilumina la ruta, no solo la habitación',
         body: [
-          'La altura de la cama, alfombras cercanas, mesilla y apoyo al levantarse influyen en la estabilidad.',
-          'Si la persona se levanta varias veces, conviene revisar también fatiga y frecuencia de uso del baño.',
+          'Una luz de techo fuerte puede desorientar, pero la oscuridad oculta cambios de suelo y bordes de muebles. La iluminación baja con sensor puede hacer visible el camino sin buscar interruptores.',
+          'Revisa la ruta real de cama a baño: lado de la cama, primer paso, puerta, pasillo, umbrales, alfombras, entrada al baño e inodoro. Las sombras y reflejos importan tanto como la cantidad de luz.',
         ],
       },
       {
-        title: 'La ayuda debe poder pedirse desde la cama',
+        title: 'Reduce urgencia y prisas cuando sea posible',
         body: [
-          'Un teléfono descargado o lejos no sirve. El sistema de aviso debe estar accesible y tener una persona o servicio que responda.',
-          'CasaMia revisa la ruta completa: cama, baño, iluminación, apoyo y aviso.',
+          'La urgencia para ir al baño convierte la ruta nocturna en un riesgo. Pregunta si la persona evita beber, corre, se despierta confundida, se marea al levantarse o toma medicación que afecta equilibrio o sueño.',
+          'La casa puede reducir tropiezos, pero si hay urgencia repetida, mareos o confusión, conviene hablar con un profesional sanitario. Luz y apoyos no sustituyen revisar la causa.',
+        ],
+      },
+      {
+        title: 'Deja la ayuda al alcance en los dos puntos críticos',
+        body: [
+          'Botones, teléfonos o avisos acordados deben estar al alcance desde cama y baño. Cargar el móvil lejos de la cama puede cuidar la batería, pero dejar la ayuda fuera de alcance.',
+          'La familia debe acordar quién responde, cómo entra si la puerta está cerrada y qué hacer si se activa una alerta de noche.',
         ],
       },
     ],
     checklist: [
-      '¿La luz se enciende sin caminar a oscuras?',
-      '¿El camino al baño está libre de alfombras y cables?',
-      '¿La cama tiene altura adecuada para levantarse?',
-      '¿Gafas, bastón, agua y teléfono están al alcance?',
-      '¿Hay plan si necesita ayuda de noche?',
+      '¿Puede incorporarse y ponerse de pie sin tirar de muebles inestables?',
+      '¿Gafas, teléfono, agua, medicación y andador están al alcance antes de levantarse?',
+      '¿El calzado es estable, fácil de poner y siempre está en el mismo sitio?',
+      '¿La ruta cama-baño tiene luz suave y poco deslumbramiento?',
+      '¿No hay alfombras, cables, cajas o muebles bajos en la ruta nocturna?',
+      '¿La puerta, inodoro y luz del baño se usan sin giros o alcances forzados?',
+      '¿La ayuda de emergencia se alcanza desde cama y baño?',
+      '¿La familia sabe quién responde y cómo entra si hace falta?',
+    ],
+    resources: [
+      {
+        title: 'Prevención de caídas y fracturas',
+        source: 'National Institute on Aging',
+        href: 'https://www.nia.nih.gov/health/falls-and-falls-prevention/prevent-falls-and-fractures',
+        description:
+          'Guía útil sobre medicación, visión, ejercicio y cambios en casa que influyen en la seguridad nocturna.',
+      },
+      {
+        title: 'Lista Check for Safety',
+        source: 'CDC STEADI',
+        href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
+        description:
+          'Puntos prácticos sobre dormitorio, baño, suelos, escaleras e iluminación.',
+      },
+      {
+        title: 'Envejecer en casa',
+        source: 'National Institute on Aging',
+        href: 'https://www.nia.nih.gov/health/aging-place/aging-place-growing-older-home',
+        description:
+          'Orientación oficial sobre apoyos, cambios en casa y ayuda a medida que cambian las necesidades.',
+      },
     ],
     faqs: [
       {
-        question: '¿Sirven las luces con sensor?',
+        question: '¿Qué luz es mejor por la noche?',
         answer:
-          'Sí, si iluminan la ruta sin deslumbrar y se colocan donde realmente se necesita luz.',
+          'Suele funcionar bien una luz baja con sensor, porque ayuda sin el golpe de una luz de techo fuerte. Depende de la estancia, la vista, las sombras y si la luz despierta o desorienta.',
       },
       {
-        question: '¿Qué revisar si hay muchas visitas nocturnas al baño?',
+        question: '¿Importa la altura de la cama?',
         answer:
-          'Además de la ruta, conviene comentar la frecuencia con un profesional sanitario y revisar iluminación, apoyo y urgencia.',
+          'Sí. Una cama demasiado baja o alta dificulta la transferencia. Debe adaptarse a fuerza, equilibrio y apoyos de la persona.',
+      },
+      {
+        question: '¿Qué pasa si la persona se levanta muchas veces?',
+        answer:
+          'Revisa la ruta cuanto antes, pero consulta también con un profesional sanitario. Urgencia, mareos, medicación, dolor o confusión pueden requerir algo más que cambios en casa.',
       },
     ],
     cta: { label: 'Crear plan de seguridad', to: '/home-safety-wizard' },
@@ -669,7 +876,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿Qué preparar antes de que una persona mayor vuelva del hospital?',
         answer:
-          'Empieza por entrada, transferencias de cama, baño e inodoro, iluminación nocturna, notas de medicación, contactos de emergencia y apoyo de la primera semana.',
+          'Empieza por entrada, entrar y salir de la cama, baño e inodoro, iluminación nocturna, notas de medicación, contactos de emergencia y apoyo de la primera semana.',
       },
       {
         question: '¿Hay que adaptar toda la vivienda antes del alta?',

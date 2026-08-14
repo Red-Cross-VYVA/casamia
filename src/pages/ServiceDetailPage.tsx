@@ -1,37 +1,40 @@
 import {
-  ArrowLeft,
   ArrowRight,
-  Bath,
-  BedDouble,
   CheckCircle2,
   ClipboardCheck,
-  DoorOpen,
-  Droplets,
-  Footprints,
   Home,
-  Lightbulb,
-  PackageCheck,
-  PlugZap,
+  LoaderCircle,
+  MessageSquareText,
+  MousePointer2,
   ShieldCheck,
-  Smartphone,
-  Utensils,
-  type LucideIcon,
 } from 'lucide-react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
+import { PackageDetailModal } from '../components/PackageDetailModal'
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { ServiceChecklist } from '../components/ServiceChecklist'
 import { ServiceIcon } from '../components/ServiceIcon'
+import { ServiceItemDetailModal } from '../components/ServiceItemDetailModal'
+import { isZoneGalleryRoom, ZoneServiceGallery } from '../components/ZoneServiceGallery'
 import { serviceVisuals } from '../constants/serviceVisuals'
 import { primaryServices } from '../constants/siteContent'
-import { formatCurrency } from '../services/serviceCatalogue'
-import {
-  formatServicePriceForLanguage,
-  useLocalizedServicesByRoom,
-} from '../services/serviceCatalogueLocalization'
-import type { CasaMiaService, ServiceRoom } from '../types/serviceCatalogue'
+import { getZoneRiskHotspotStyle, zoneRiskMaps, type ZoneRiskArea, type ZoneRiskMap } from '../constants/zoneRiskMaps'
+import { buildPlansBuilderGroups, type PlansBuilderGroup } from '../services/plansBuilderPricing'
+import { getMasterServiceCatalogue } from '../services/masterServiceCatalogue'
+import { useServiceCatalogue } from '../services/serviceCatalogue'
+import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
+import type { CasaMiaService, ServicePackageArea, ServiceRoom } from '../types/serviceCatalogue'
+import '../styles/home-hero-ctas.css'
+import '../styles/services-catalogue.css'
+
+const SpecialistVoiceAgentModal = lazy(() =>
+  import('../components/SpecialistVoiceAgentModal').then((module) => ({
+    default: module.SpecialistVoiceAgentModal,
+  })),
+)
 
 const detailSteps = [
   {
@@ -71,9 +74,9 @@ const detailStepsEs = [
 
 const serviceDetailUiCopy = {
   en: {
-    allServices: 'All services',
-    buildPlan: 'Build My Safer Home',
-    freeReport: 'Start Free Safety Report',
+    explorePackage: (roomLabel: string) => `Explore ${roomLabel} package`,
+    orderPackage: (roomLabel: string) => `Order Safer ${roomLabel}`,
+    askSafetyExpert: 'Ask the Safety Expert',
     quote: 'Quote',
     checkFirst: 'Check first',
     installed: 'Installed',
@@ -81,7 +84,6 @@ const serviceDetailUiCopy = {
     includedWith: 'Included with',
     kitchenEyebrow: 'Kitchen independence',
     kitchenStatsLabel: 'Kitchen safety services summary',
-    entryItem: 'entry item',
     safetyServices: 'safety services',
     managedInstalls: 'managed installs',
     checkedBeforeInstall: 'checked before install',
@@ -97,9 +99,9 @@ const serviceDetailUiCopy = {
     startsAt: 'Senior Home Safety Spain',
   },
   es: {
-    allServices: 'Todos los servicios',
-    buildPlan: 'Crear mi plan seguro',
-    freeReport: 'Empezar informe gratis',
+    explorePackage: (roomLabel: string) => `Explorar paquete de ${roomLabel.toLocaleLowerCase('es')}`,
+    orderPackage: (roomLabel: string) => `Pedir ${roomLabel.toLocaleLowerCase('es')} más seguro`,
+    askSafetyExpert: 'Preguntar al experto en seguridad',
     quote: 'Presupuesto',
     checkFirst: 'Revisar primero',
     installed: 'Instalado',
@@ -107,7 +109,6 @@ const serviceDetailUiCopy = {
     includedWith: 'Incluido con',
     kitchenEyebrow: 'Autonomía en la cocina',
     kitchenStatsLabel: 'Resumen de servicios de seguridad en cocina',
-    entryItem: 'opción inicial',
     safetyServices: 'servicios de seguridad',
     managedInstalls: 'instalaciones gestionadas',
     checkedBeforeInstall: 'revisados antes de instalar',
@@ -124,43 +125,6 @@ const serviceDetailUiCopy = {
   },
 } as const
 
-type KitchenVisual =
-  | 'mat'
-  | 'light'
-  | 'voice'
-  | 'plug'
-  | 'leak'
-  | 'gas'
-  | 'shelf'
-  | 'stove'
-  | 'faucet'
-  | 'handover'
-
-const kitchenServicePresentation: Record<string, { icon: LucideIcon; visual: KitchenVisual }> = {
-  'kitchen-prep-mats': { icon: ShieldCheck, visual: 'mat' },
-  'kitchen-easy-grip-tools': { icon: Utensils, visual: 'voice' },
-  'kitchen-lightweight-cookware': { icon: Utensils, visual: 'handover' },
-  'kitchen-anti-fatigue-mat': { icon: ShieldCheck, visual: 'mat' },
-  'kitchen-worktop-lighting': { icon: Lightbulb, visual: 'light' },
-  'kitchen-voice-lighting-timers': { icon: Lightbulb, visual: 'light' },
-  'kitchen-smart-plugs': { icon: PlugZap, visual: 'plug' },
-  'kitchen-water-leak-sensor': { icon: Droplets, visual: 'leak' },
-  'kitchen-gas-co-sensor': { icon: PlugZap, visual: 'gas' },
-  'kitchen-pull-down-shelf': { icon: PackageCheck, visual: 'shelf' },
-  'kitchen-stove-shutoff': { icon: ShieldCheck, visual: 'stove' },
-  'kitchen-touchless-faucet': { icon: Droplets, visual: 'faucet' },
-}
-
-const roomServicePresentation: Record<ServiceRoom, { icon: LucideIcon; visual: KitchenVisual }> = {
-  bathroom: { icon: Bath, visual: 'faucet' },
-  bedroom: { icon: BedDouble, visual: 'light' },
-  connected: { icon: Smartphone, visual: 'plug' },
-  entrance: { icon: DoorOpen, visual: 'mat' },
-  kitchen: { icon: Utensils, visual: 'handover' },
-  'living-room': { icon: Home, visual: 'light' },
-  movement: { icon: Footprints, visual: 'mat' },
-}
-
 const serviceRoomMap: Record<string, ServiceRoom> = {
   'bathroom-safety': 'bathroom',
   'stair-safety': 'movement',
@@ -168,6 +132,13 @@ const serviceRoomMap: Record<string, ServiceRoom> = {
   'kitchen-safety': 'kitchen',
   'bedroom-safety': 'bedroom',
   'smart-home-safety': 'connected',
+}
+
+const servicePackageAreaMap: Partial<Record<string, ServicePackageArea>> = {
+  'bathroom-safety': 'bathroom',
+  'entrance-accessibility': 'entrance',
+  'kitchen-safety': 'kitchen',
+  'bedroom-safety': 'bedroom',
 }
 
 const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number]>> = {
@@ -215,11 +186,11 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad en dormitorio para personas mayores',
     shortTitle: 'Seguridad en dormitorio',
     description:
-      'Haz el dormitorio más seguro con transferencias de cama más fáciles, iluminación nocturna, rutas despejadas, apoyo junto a la cama y ayuda al alcance.',
+      'Haz el dormitorio más seguro con entradas y salidas de la cama más estables, iluminación nocturna, rutas despejadas, apoyo junto a la cama y ayuda al alcance.',
     intro:
       'El dormitorio debe apoyar descanso y movimiento seguro, especialmente por la noche cuando la poca luz y la urgencia aumentan el riesgo.',
-    risks: ['Transferencias de cama difíciles', 'Rutas nocturnas oscuras', 'Ayuda de emergencia fuera de alcance'],
-    improvements: ['Apoyo junto a la cama y ayudas de transferencia', 'Iluminación nocturna con sensor', 'Rutas despejadas y ayuda al alcance'],
+    risks: ['Entrar y salir de la cama cuesta o da inseguridad', 'Rutas nocturnas oscuras', 'Ayuda de emergencia fuera de alcance'],
+    improvements: ['Apoyo junto a la cama y altura adecuada', 'Iluminación nocturna con sensor', 'Rutas despejadas y ayuda al alcance'],
   },
   'smart-home-safety': {
     title: 'Seguridad conectada para personas mayores',
@@ -282,82 +253,6 @@ function getLocalizedServiceVisual(serviceId: string, language: string) {
     ...visual,
     ...serviceVisualCopyEs[serviceId],
   }
-}
-
-const roomServiceCopy: Record<ServiceRoom, { eyebrow: string; title: string; intro: string }> = {
-  bathroom: {
-    eyebrow: 'Bathroom improvements',
-    title: 'Choose the bathroom support that fits the person.',
-    intro: 'Rails, seats, toilet support, safer flooring and alerts can be added one by one after the home is reviewed.',
-  },
-  bedroom: {
-    eyebrow: 'Bedroom improvements',
-    title: 'Make nights and transfers calmer.',
-    intro: 'Focus on the moments that matter: getting out of bed, finding the route, calling for help and moving without rushing.',
-  },
-  connected: {
-    eyebrow: 'Connected safety',
-    title: 'Add reassurance without making the home complicated.',
-    intro: 'Simple sensors, alerts and controls help families stay informed while keeping the setup easy to live with.',
-  },
-  entrance: {
-    eyebrow: 'Entrance improvements',
-    title: 'Make arrival and leaving the home safer.',
-    intro: 'CasaMia can combine lighting, threshold support, rails and ramp options around the entrance people actually use.',
-  },
-  kitchen: {
-    eyebrow: 'Kitchen improvements',
-    title: 'Choose the improvements that fit.',
-    intro: 'Pick useful services one by one. CasaMia confirms measurements and compatibility before work starts.',
-  },
-  'living-room': {
-    eyebrow: 'Living room improvements',
-    title: 'Make daily comfort safer.',
-    intro: 'Seating support, clearer routes, safer furniture, better lighting and useful alerts can be combined around how the room is actually used.',
-  },
-  movement: {
-    eyebrow: 'Movement improvements',
-    title: 'Support the routes used every day.',
-    intro: 'Handrails, contrast, anti-slip treatments and lighting can be matched to stairs, corridors and daily movement paths.',
-  },
-}
-
-const roomServiceCopyEs: Record<ServiceRoom, { eyebrow: string; title: string; intro: string }> = {
-  bathroom: {
-    eyebrow: 'Mejoras de baño',
-    title: 'Elige el apoyo de baño que encaja con la persona.',
-    intro: 'Barras, asientos, apoyo para inodoro, suelos más seguros y avisos pueden añadirse uno a uno después de revisar la vivienda.',
-  },
-  bedroom: {
-    eyebrow: 'Mejoras de dormitorio',
-    title: 'Haz que las noches y las transferencias sean más tranquilas.',
-    intro: 'Nos centramos en los momentos clave: levantarse, orientarse, pedir ayuda y moverse sin prisa.',
-  },
-  connected: {
-    eyebrow: 'Seguridad conectada',
-    title: 'Añade tranquilidad sin complicar la vivienda.',
-    intro: 'Sensores, avisos y controles sencillos ayudan a la familia a estar informada manteniendo un uso fácil.',
-  },
-  entrance: {
-    eyebrow: 'Mejoras de entrada',
-    title: 'Haz más seguro llegar y salir de casa.',
-    intro: 'CasaMia combina iluminación, apoyo en umbrales, pasamanos y opciones de rampa alrededor de la entrada que realmente se usa.',
-  },
-  kitchen: {
-    eyebrow: 'Mejoras de cocina',
-    title: 'Elige las mejoras que encajan.',
-    intro: 'Selecciona servicios útiles uno a uno. CasaMia confirma medidas y compatibilidad antes de empezar.',
-  },
-  'living-room': {
-    eyebrow: 'Mejoras de salón',
-    title: 'Haz más segura la comodidad diaria.',
-    intro: 'Apoyo para sentarse, rutas más despejadas, muebles más seguros, mejor iluminación y avisos útiles pueden combinarse según el uso real del salón.',
-  },
-  movement: {
-    eyebrow: 'Mejoras de movimiento',
-    title: 'Apoya las rutas que se usan cada día.',
-    intro: 'Pasamanos, contraste, antideslizantes e iluminación se adaptan a escaleras, pasillos y rutas diarias.',
-  },
 }
 
 type ServiceDetailContent = {
@@ -516,13 +411,13 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefitsIntro:
       'Muchas situaciones de riesgo ocurren con sueño, poca luz o prisa por llegar al baño. CasaMia diseña el dormitorio alrededor de cama, ruta nocturna y ayuda al alcance.',
     benefits: [
-      { title: 'Transferencias de cama más fáciles', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas cuando hacen falta.' },
+      { title: 'Entrar y salir de la cama con más seguridad', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas cuando hacen falta.' },
       { title: 'Movimiento nocturno más seguro', body: 'Iluminación con sensor, rutas despejadas y menos desorientación.' },
       { title: 'Ayuda al alcance', body: 'Botón, teléfono, wearable o aviso conectado donde pueda usarse en el momento.' },
     ],
     includedTitle: 'Qué puede incluir un plan de dormitorio.',
     includedIntro: 'CasaMia revisa la rutina nocturna completa: cama, luz, muebles, suelo, medicación y ruta a la siguiente estancia.',
-    included: ['Altura de cama y apoyo de transferencia', 'Iluminación nocturna de cama a puerta o baño', 'Espacio libre alrededor de muebles, alfombras y cables', 'Botón de emergencia, teléfono o alerta wearable', 'Elementos diarios al alcance seguro'],
+    included: ['Altura de cama y apoyo junto a la cama', 'Iluminación nocturna de cama a puerta o baño', 'Espacio libre alrededor de muebles, alfombras y cables', 'Botón de emergencia, teléfono o alerta wearable', 'Elementos diarios al alcance seguro'],
     finalTitle: 'Haz el dormitorio más seguro antes de que la noche preocupe.',
   },
   'smart-home-safety': {
@@ -693,8 +588,8 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. CasaMia designs the room around safer bed access, clearer night routes, and help within reach.',
     benefits: [
       {
-        title: 'Easier bed transfers',
-        body: 'Support getting in and out of bed with the right height, clearance, bedside support, and transfer aids where needed.',
+        title: 'Getting in and out of bed',
+        body: 'Support the first movement of the day with the right bed height, clearance, bedside support, and practical aids where needed.',
       },
       {
         title: 'Safer night movement',
@@ -709,7 +604,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     includedIntro:
       'CasaMia reviews the room as a night-time routine: bed access, lighting, furniture, flooring, medication reach, and the path to the next room.',
     included: [
-      'Bed height, transfer, and bedside support review',
+      'Bed height, bedside support, and first-step review',
       'Motion night lighting from bed to door or bathroom',
       'Clearance around furniture, rugs, cables, and walking aids',
       'Bedside emergency button, phone, or wearable alert placement',
@@ -726,7 +621,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     finalTitle: 'Make the bedroom safer before night routines become stressful.',
     finalBody:
-      'Book a visit and CasaMia will review bed transfers, lighting, floor clearance, and emergency reach points.',
+      'Book a visit and CasaMia will review bed access, lighting, floor clearance, and emergency reach points.',
   },
   'smart-home-safety': {
     benefitsTitle: 'Use technology only where it makes daily life safer.',
@@ -767,56 +662,37 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   },
 }
 
-function getServicePresentation(service: CasaMiaService) {
-  return kitchenServicePresentation[service.id] ?? roomServicePresentation[service.room] ?? { icon: PackageCheck, visual: 'handover' as const }
+const plansPath = '/plans'
+
+const orderRoomLabels = {
+  en: {
+    bathroom: 'Bathroom',
+    bedroom: 'Bedroom',
+    connected: 'Smart Safety',
+    entrance: 'Entrance',
+    kitchen: 'Kitchen',
+    'living-room': 'Living Room',
+    movement: 'Stairs',
+  },
+  es: {
+    bathroom: 'baño',
+    bedroom: 'dormitorio',
+    connected: 'seguridad conectada',
+    entrance: 'entrada',
+    kitchen: 'cocina',
+    'living-room': 'salón',
+    movement: 'escaleras',
+  },
+} satisfies Record<'en' | 'es', Record<ServiceRoom, string>>
+
+function getOrderRoomLabel(room: ServiceRoom, language: string) {
+  return language.toLowerCase().startsWith('es')
+    ? orderRoomLabels.es[room]
+    : orderRoomLabels.en[room]
 }
 
-function getServiceStatusLabel(service: CasaMiaService, language: string) {
-  const copy = language.toLowerCase().startsWith('es') ? serviceDetailUiCopy.es : serviceDetailUiCopy.en
-
-  if (service.pricingType === 'quote_only') {
-    return copy.quote
-  }
-
-  if (service.requiresMeasurement || service.requiresSiteVisit || service.requiresCompatibilityCheck) {
-    return copy.checkFirst
-  }
-
-  if (service.requiresInstallation) {
-    return copy.installed
-  }
-
-  return copy.product
-}
-
-function getConfigurePath(serviceId: string) {
-  void serviceId
-
-  return '/home-safety-wizard'
-}
-
-function getLowestServicePrice(services: CasaMiaService[]) {
-  return services.reduce<number | undefined>((lowest, service) => {
-    const amount = getServicePriceAmount(service)
-
-    if (!amount) {
-      return lowest
-    }
-
-    return lowest === undefined ? amount : Math.min(lowest, amount)
-  }, undefined)
-}
-
-function getServicePriceAmount(service: CasaMiaService) {
-  if (service.pricingType === 'quote_only') {
-    return undefined
-  }
-
-  if (service.pricingType === 'from') {
-    return service.fromPrice
-  }
-
-  return (service.productPrice ?? 0) + (service.installationPrice ?? 0)
+function isZoneRiskArea(value: ServiceRoom): value is ZoneRiskArea {
+  return Object.prototype.hasOwnProperty.call(zoneRiskMaps, value)
 }
 
 function groupServicesByCategory(services: CasaMiaService[]) {
@@ -835,24 +711,17 @@ function groupServicesByCategory(services: CasaMiaService[]) {
 
 function ServiceItemGrid({ language, services }: { language: string; services: CasaMiaService[] }) {
   const copy = language.toLowerCase().startsWith('es') ? serviceDetailUiCopy.es : serviceDetailUiCopy.en
+  const viewDetailsLabel = language.toLowerCase().startsWith('es') ? 'Ver detalles' : 'View details'
+  const [activeService, setActiveService] = useState<CasaMiaService | null>(null)
 
   return (
-    <div className="service-kitchen-component-grid is-itemised">
-      {services.map((item) => {
-        const presentation = getServicePresentation(item)
-        const Icon = presentation.icon
-
-        return (
+    <>
+      <div className="service-kitchen-component-grid is-itemised">
+        {services.map((item) => (
           <article key={item.id}>
-            <div className={`service-kitchen-component-visual is-${presentation.visual}`} aria-hidden="true">
-              <span className="service-kitchen-visual-main" />
-              <span className="service-kitchen-visual-dot" />
-              <span className="service-kitchen-visual-line" />
-            </div>
             <div className="service-kitchen-component-copy">
               <div className="service-kitchen-component-topline">
-                <span>{getServiceStatusLabel(item, language)}</span>
-                <Icon size={21} aria-hidden="true" />
+                <span>{item.category}</span>
               </div>
               <h3>{item.name}</h3>
               <p>{item.shortDescription}</p>
@@ -869,23 +738,33 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
                   ))}
                 </ul>
               ) : null}
-              <strong>{formatServicePriceForLanguage(item, language)}</strong>
+            </div>
+            <div className="service-kitchen-component-actions">
+              <button className="catalogue-item-detail-button" type="button" onClick={() => setActiveService(item)}>
+                {viewDetailsLabel}
+                <ArrowRight size={15} aria-hidden="true" />
+              </button>
             </div>
           </article>
-        )
-      })}
-    </div>
+        ))}
+      </div>
+      <ServiceItemDetailModal
+        language={language}
+        onClose={() => setActiveService(null)}
+        service={activeService}
+      />
+    </>
   )
 }
 
 function RoomServiceItemsSection({
-  configurePath,
   language,
+  orderCtaLabel,
   room,
   services,
 }: {
-  configurePath: string
   language: string
+  orderCtaLabel: string
   room: ServiceRoom
   services: CasaMiaService[]
 }) {
@@ -893,24 +772,22 @@ function RoomServiceItemsSection({
     return null
   }
 
-  const isSpanish = language.toLowerCase().startsWith('es')
-  const copy = isSpanish ? roomServiceCopyEs[room] : roomServiceCopy[room]
-  const uiCopy = isSpanish ? serviceDetailUiCopy.es : serviceDetailUiCopy.en
-
   return (
     <section className="service-detail-section bg-white">
       <div className="site-shell">
-        <div className="service-detail-heading">
-          <p className="eyebrow">{copy.eyebrow}</p>
-          <h2>{copy.title}</h2>
-          <p>{copy.intro}</p>
-        </div>
-
-        <ServiceItemGrid language={language} services={services} />
+        {isZoneGalleryRoom(room) ? (
+          <ZoneServiceGallery
+            language={language}
+            room={room}
+            services={services}
+          />
+        ) : (
+          <ServiceItemGrid language={language} services={services} />
+        )}
 
         <div className="service-detail-actions service-detail-inline-actions">
-          <Link className="btn btn-navy" to={configurePath}>
-            {uiCopy.buildPlan}
+          <Link className="btn btn-navy" to={plansPath}>
+            {orderCtaLabel}
             <ArrowRight size={19} aria-hidden="true" />
           </Link>
         </div>
@@ -921,10 +798,12 @@ function RoomServiceItemsSection({
 
 function KitchenSafetyShowcase({
   detail,
+  hideStory = false,
   kitchenServices,
   language,
 }: {
   detail: ServiceDetailContent
+  hideStory?: boolean
   kitchenServices: CasaMiaService[]
   language: string
 }) {
@@ -934,11 +813,11 @@ function KitchenSafetyShowcase({
   const siteCheckCount = kitchenServices.filter(
     (service) => service.requiresMeasurement || service.requiresSiteVisit || service.requiresCompatibilityCheck,
   ).length
-  const lowestPrice = getLowestServicePrice(kitchenServices)
   const groupedServices = groupServicesByCategory(kitchenServices)
 
   return (
     <>
+      {hideStory ? null : (
       <section className="service-detail-section service-kitchen-story bg-white">
         <div className="site-shell">
           <div className="service-kitchen-story-grid">
@@ -947,10 +826,6 @@ function KitchenSafetyShowcase({
               <h2>{detail.benefitsTitle}</h2>
               <p>{detail.benefitsIntro}</p>
               <div className="service-kitchen-stats" aria-label={uiCopy.kitchenStatsLabel}>
-                <article>
-                  <strong>{lowestPrice ? formatCurrency(lowestPrice) : uiCopy.quote}</strong>
-                  <span>{uiCopy.entryItem}</span>
-                </article>
                 <article>
                   <strong>{kitchenServices.length}</strong>
                   <span>{uiCopy.safetyServices}</span>
@@ -967,15 +842,14 @@ function KitchenSafetyShowcase({
             </div>
 
             <div className="service-kitchen-visual-card">
-              <div className="service-kitchen-routine-visual" aria-hidden="true">
-                <div className="service-kitchen-counter">
-                  <span className="service-kitchen-zone is-light">{isSpanish ? 'Luz de trabajo' : 'Task light'}</span>
-                  <span className="service-kitchen-zone is-sink">{isSpanish ? 'Sensor de fuga' : 'Leak sensor'}</span>
-                  <span className="service-kitchen-zone is-stove">{isSpanish ? 'Seguridad de aparatos' : 'Appliance safety'}</span>
-                  <span className="service-kitchen-zone is-mat">{isSpanish ? 'Zona estable' : 'Stable standing zone'}</span>
-                  <span className="service-kitchen-zone is-reach">{isSpanish ? 'Alcance seguro' : 'Safer reach'}</span>
-                </div>
-              </div>
+              <SafeImage
+                alt={isSpanish
+                  ? 'Mapa visual de cocina con riesgos cotidianos señalados'
+                  : 'Annotated kitchen risk map showing everyday safety points'}
+                className="service-kitchen-routine-visual"
+                imgClassName="service-kitchen-risk-map"
+                src="/images/solutions/kitchen-risk-map-numbered.png"
+              />
               <div className="service-kitchen-visual-note">
                 <span>
                   <CheckCircle2 size={19} aria-hidden="true" />
@@ -987,6 +861,8 @@ function KitchenSafetyShowcase({
         </div>
       </section>
 
+      )}
+
       <section className="service-detail-section bg-pale-blue">
         <div className="site-shell">
           <div className="service-detail-heading">
@@ -995,7 +871,11 @@ function KitchenSafetyShowcase({
             <p>{uiCopy.improvedBody}</p>
           </div>
 
-          <ServiceItemGrid language={language} services={kitchenServices} />
+          <ZoneServiceGallery
+            language={language}
+            room="kitchen"
+            services={kitchenServices}
+          />
         </div>
       </section>
 
@@ -1040,6 +920,169 @@ function KitchenSafetyShowcase({
   )
 }
 
+function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es'; riskMap: ZoneRiskMap }) {
+  const copy = riskMap.copy[language]
+  const headingId = `service-detail-zone-risk-${copy.eyebrow.replace(/\W+/g, '-').toLowerCase()}`
+  const [activeRiskId, setActiveRiskId] = useState<string | null>(null)
+  const panelTitle = language === 'es' ? 'Puntos que revisamos' : 'Risk points we review'
+  const panelBody = language === 'es'
+    ? 'Cada número del mapa corresponde a una fila con la recomendación vinculada.'
+    : 'Each number on the map matches a row with the linked recommendation.'
+  const panelKicker = language === 'es' ? 'Mapa interactivo' : 'Interactive map'
+  const riskItems = copy.risks.map((risk, index) => ({
+    id: `${headingId}-risk-${index + 1}`,
+    label: risk,
+    number: index + 1,
+    detail: copy.riskDetails?.[index],
+    position: riskMap.labelPositions[index],
+  }))
+  const legendItems = copy.legend.map((label, index) => ({
+    label,
+    position: riskMap.labelPositions[copy.risks.length + index],
+  }))
+  const hasMapLabels = riskItems.some((item) => item.position) || legendItems.some((item) => item.position)
+  const interactionHint = language === 'es' ? 'Pasa o toca' : 'Hover or tap'
+
+  return (
+    <section className="service-detail-section service-detail-zone-risk-section bg-white" aria-labelledby={headingId}>
+      <div className="site-shell">
+        <div className="services-zone-risk">
+          <header className="services-zone-risk-head">
+            <p className="eyebrow">{copy.eyebrow}</p>
+            <h2 id={headingId}>{copy.title}</h2>
+            <p>{copy.body}</p>
+          </header>
+          <div className="services-zone-risk-body">
+            <div className="services-zone-risk-stage">
+              <SafeImage
+                alt={copy.imageAlt}
+                className="services-zone-risk-media"
+                imgClassName="services-zone-risk-image"
+                src={riskMap.image}
+              />
+              {hasMapLabels ? (
+                <span className="services-zone-risk-hint" aria-hidden="true">
+                  <MousePointer2 size={14} strokeWidth={2.4} />
+                  {interactionHint}
+                </span>
+              ) : null}
+              {hasMapLabels ? (
+                <div className="services-zone-risk-labels">
+                  {riskItems.map((item) => {
+                    if (!item.position) return null
+
+                    const isActive = activeRiskId === item.id
+                    const detailSide = item.position.detailSide ?? 'opens-up'
+                    const detailId = item.detail
+                      ? `service-detail-zone-risk-note-${item.id}`
+                      : undefined
+
+                    if (item.detail && detailId) {
+                      return (
+                        <span
+                          className={`services-zone-risk-hotspot${isActive ? ' is-active' : ''}`}
+                          key={item.id}
+                          onMouseEnter={() => setActiveRiskId(item.id)}
+                          onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                          style={getZoneRiskHotspotStyle(item.position)}
+                        >
+                          <button
+                            aria-describedby={detailId}
+                            aria-label={item.label}
+                            className={`services-zone-risk-label has-detail ${detailSide}${isActive ? ' is-active' : ''}`}
+                            onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                            onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                            onFocus={() => setActiveRiskId(item.id)}
+                            type="button"
+                          >
+                            <span aria-hidden="true" />
+                          </button>
+                          <aside className={`services-zone-risk-detail ${detailSide}`} id={detailId}>
+                            <strong>{item.detail.solution}</strong>
+                            <p>{item.detail.helps}</p>
+                            {item.detail.product ? <small>{item.detail.product}</small> : null}
+                            {item.detail.stat ? <em>{item.detail.stat}</em> : null}
+                          </aside>
+                        </span>
+                      )
+                    }
+
+                    return (
+                      <span
+                        className="services-zone-risk-label"
+                        key={item.id}
+                        style={{
+                          height: `${item.position.h}%`,
+                          left: `${item.position.x}%`,
+                          top: `${item.position.y}%`,
+                          width: `${item.position.w}%`,
+                        }}
+                      >
+                        <span aria-hidden="true" />
+                      </span>
+                    )
+                  })}
+                  {legendItems.map((item, index) => {
+                    if (!item.position) return null
+
+                    return (
+                      <span
+                        aria-hidden="true"
+                        className="services-zone-risk-label is-legend"
+                        key={`${item.label}-${index}`}
+                        style={{
+                          height: `${item.position.h}%`,
+                          left: `${item.position.x}%`,
+                          top: `${item.position.y}%`,
+                          width: `${item.position.w}%`,
+                        }}
+                      >
+                        {item.label}
+                      </span>
+                    )
+                  })}
+                </div>
+              ) : null}
+            </div>
+            <aside className="services-zone-risk-copy" aria-label={panelTitle}>
+              <div className="services-zone-risk-panel-head">
+                <span>{panelKicker}</span>
+                <h3>{panelTitle}</h3>
+                <p>{panelBody}</p>
+              </div>
+              <ul className="services-zone-risk-list">
+                {riskItems.map((item) => (
+                  <li
+                    className={activeRiskId === item.id ? 'is-active' : undefined}
+                    key={item.id}
+                    onMouseEnter={() => setActiveRiskId(item.id)}
+                    onMouseLeave={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                  >
+                    <button
+                      aria-label={item.detail ? `${item.label}: ${item.detail.solution}` : item.label}
+                      className="services-zone-risk-list-button"
+                      onBlur={() => setActiveRiskId((current) => current === item.id ? null : current)}
+                      onClick={() => setActiveRiskId((current) => current === item.id ? null : item.id)}
+                      onFocus={() => setActiveRiskId(item.id)}
+                      type="button"
+                    >
+                      <span className="services-zone-risk-list-number" aria-hidden="true">{item.number}</span>
+                      <span>
+                        <strong>{item.label}</strong>
+                        {item.detail ? <small>{item.detail.solution}</small> : null}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function ServiceDetailPage() {
   const { i18n } = useTranslation()
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
@@ -1080,6 +1123,18 @@ export function ServiceDetailPage() {
   const stepCopy = isSpanish ? detailStepsEs : detailSteps
   const { serviceId } = useParams()
   const serviceRoom = serviceRoomMap[serviceId ?? ''] ?? 'bathroom'
+  const serviceCatalogue = useServiceCatalogue()
+  const masterCatalogue = serviceCatalogue.masterCatalogue ?? getMasterServiceCatalogue()
+  const packageGroups = useMemo(
+    () => buildPlansBuilderGroups(serviceCatalogue, i18n.language),
+    [i18n.language, serviceCatalogue],
+  )
+  const servicePackageArea = servicePackageAreaMap[serviceId ?? '']
+  const servicePackageGroup = servicePackageArea
+    ? packageGroups.find((group) => group.packageArea === servicePackageArea) ?? null
+    : null
+  const [activePackageGroup, setActivePackageGroup] = useState<PlansBuilderGroup | null>(null)
+  const [specialistOpen, setSpecialistOpen] = useState(false)
   const roomServices = useLocalizedServicesByRoom(serviceRoom, i18n.language)
   const baseService = primaryServices.find((item) => item.id === serviceId)
 
@@ -1098,6 +1153,7 @@ export function ServiceDetailPage() {
     .map((item) => getLocalizedPrimaryService(item, i18n.language))
   const isKitchenService = service.id === 'kitchen-safety'
   const serviceCatalogueItems = serviceRoomMap[service.id] ? roomServices : []
+  const zoneRiskMap = isZoneRiskArea(serviceRoom) ? zoneRiskMaps[serviceRoom] : null
   const heroTitle = isKitchenService
     ? isSpanish
       ? 'Una cocina más segura, sin perder independencia.'
@@ -1108,7 +1164,9 @@ export function ServiceDetailPage() {
       ? 'Mejoras prácticas para estar de pie, iluminación, alcance, agua, electrodomésticos y tranquilidad familiar.'
       : 'Practical improvements for standing, lighting, reach, water, appliances and family reassurance.'
     : service.intro
-  const configurePath = getConfigurePath(service.id)
+  const specialistEntryPoint = `service_detail_${service.id.replace(/-/g, '_')}`
+  const orderRoomLabel = servicePackageGroup?.roomLabel ?? getOrderRoomLabel(serviceRoom, i18n.language)
+  const orderCtaLabel = uiCopy.orderPackage(orderRoomLabel)
 
   return (
     <>
@@ -1132,27 +1190,39 @@ export function ServiceDetailPage() {
 
       <section className="service-detail-hero">
         <div className="site-shell">
-          <Link className="service-detail-back" to="/services">
-            <ArrowLeft size={17} aria-hidden="true" />
-            {uiCopy.allServices}
-          </Link>
-
           <div className="service-detail-hero-grid">
             <div className="service-detail-copy">
               <span className="eyebrow">{visual.badge}</span>
               <h1>{heroTitle}</h1>
               <p>{heroIntro}</p>
               <div className="service-detail-actions">
-                <Link
-                  className="btn btn-green"
-                  to={configurePath}
+                {servicePackageGroup ? (
+                  <button
+                    className="btn btn-green"
+                    type="button"
+                    onClick={() => setActivePackageGroup(servicePackageGroup)}
+                  >
+                    {uiCopy.explorePackage(servicePackageGroup.roomLabel)}
+                    <ArrowRight size={20} aria-hidden="true" />
+                  </button>
+                ) : (
+                  <Link
+                    className="btn btn-green"
+                    to={plansPath}
+                  >
+                    {orderCtaLabel}
+                    <ArrowRight size={20} aria-hidden="true" />
+                  </Link>
+                )}
+                <button
+                  className="btn btn-white"
+                  type="button"
+                  onClick={() => setSpecialistOpen(true)}
                 >
-                  {uiCopy.buildPlan}
+                  <MessageSquareText size={20} aria-hidden="true" />
+                  {uiCopy.askSafetyExpert}
                   <ArrowRight size={20} aria-hidden="true" />
-                </Link>
-                <Link className="btn btn-white" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
-                  {uiCopy.freeReport}
-                </Link>
+                </button>
               </div>
             </div>
 
@@ -1178,33 +1248,41 @@ export function ServiceDetailPage() {
       </section>
 
       {isKitchenService ? (
-        <KitchenSafetyShowcase
-          detail={detail}
-          kitchenServices={serviceCatalogueItems}
-          language={i18n.language}
-        />
+        <>
+          {zoneRiskMap ? <ServiceZoneRiskMapSection language={isSpanish ? 'es' : 'en'} riskMap={zoneRiskMap} /> : null}
+          <KitchenSafetyShowcase
+            detail={detail}
+            hideStory
+            kitchenServices={serviceCatalogueItems}
+            language={i18n.language}
+          />
+        </>
       ) : (
         <>
-          <section className="service-detail-section bg-white">
-            <div className="site-shell">
-              <div className="service-detail-heading">
-                <p className="eyebrow">{sectionCopy.whatWeCheck}</p>
-                <h2>{sectionCopy.risksTitle}</h2>
-                <p>{sectionCopy.risksBody}</p>
-              </div>
+          {zoneRiskMap ? (
+            <ServiceZoneRiskMapSection language={isSpanish ? 'es' : 'en'} riskMap={zoneRiskMap} />
+          ) : (
+            <section className="service-detail-section bg-white">
+              <div className="site-shell">
+                <div className="service-detail-heading">
+                  <p className="eyebrow">{sectionCopy.whatWeCheck}</p>
+                  <h2>{sectionCopy.risksTitle}</h2>
+                  <p>{sectionCopy.risksBody}</p>
+                </div>
 
-              <div className="service-detail-check-grid">
-                <article>
-                  <h3>{sectionCopy.commonRisks}</h3>
-                  <ServiceChecklist items={service.risks} />
-                </article>
-                <article>
-                  <h3>{sectionCopy.howWeHelp}</h3>
-                  <ServiceChecklist items={service.improvements} />
-                </article>
+                <div className="service-detail-check-grid">
+                  <article>
+                    <h3>{sectionCopy.commonRisks}</h3>
+                    <ServiceChecklist items={service.risks} />
+                  </article>
+                  <article>
+                    <h3>{sectionCopy.howWeHelp}</h3>
+                    <ServiceChecklist items={service.improvements} />
+                  </article>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           <section className="service-detail-section bg-pale-blue">
             <div className="site-shell">
@@ -1227,8 +1305,8 @@ export function ServiceDetailPage() {
           </section>
 
           <RoomServiceItemsSection
-            configurePath={configurePath}
             language={i18n.language}
+            orderCtaLabel={orderCtaLabel}
             room={serviceRoom}
             services={serviceCatalogueItems}
           />
@@ -1318,12 +1396,38 @@ export function ServiceDetailPage() {
             <h2>{detail.finalTitle}</h2>
             <p>{detail.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to={configurePath}>
-            {uiCopy.buildPlan}
+          <Link className="btn btn-green" to={plansPath}>
+            {orderCtaLabel}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
         </div>
       </section>
+
+      <PackageDetailModal
+        catalogue={masterCatalogue}
+        group={activePackageGroup}
+        language={i18n.language}
+        onClose={() => setActivePackageGroup(null)}
+      />
+      {specialistOpen ? (
+        <Suspense
+          fallback={(
+            <div className="specialist-voice-backdrop" role="presentation">
+              <div className="specialist-voice-loading" role="status">
+                <LoaderCircle size={28} aria-hidden="true" />
+                <span>{isSpanish ? 'Cargando...' : 'Loading...'}</span>
+              </div>
+            </div>
+          )}
+        >
+          <SpecialistVoiceAgentModal
+            entryPoint={specialistEntryPoint}
+            isOpen={specialistOpen}
+            language={i18n.language}
+            onClose={() => setSpecialistOpen(false)}
+          />
+        </Suspense>
+      ) : null}
     </>
   )
 }

@@ -201,6 +201,71 @@ export function GrantsPage() {
   const copy = grantsCopy[language]
   const programmes = getPublishedGrantProgrammes(language)
   const siteUrl = 'https://www.casamia.com.es'
+  const visible = language === 'es'
+    ? {
+        heroTitle: 'Encuentra posibles ayudas para adaptar tu vivienda.',
+        heroBody:
+          'CasaMia te ayuda a revisar rutas de ayuda, documentos y próximos pasos antes de empezar una obra.',
+        heroSecondary: 'Qué revisamos',
+        quickCards: [
+          {
+            title: 'Comprobar encaje',
+            body: 'Una orientación inicial gratuita. No es aprobación pública.',
+          },
+          {
+            title: 'Preparar documentos',
+            body: 'Te indicamos qué suele hacer falta según la ruta.',
+          },
+          {
+            title: 'Planificar sin sorpresas',
+            body: 'Separamos precio CasaMia, posible ayuda y plazos.',
+          },
+        ],
+        supportTitle: 'CasaMia aclara la ruta.',
+        supportBody:
+          'Respondes unas preguntas. Te devolvemos una lectura práctica: posible vía, documentación pendiente y siguiente paso.',
+        programmesTitle: 'Programas publicados',
+        programmesBody:
+          'Solo mostramos programas cuando tienen fuente oficial, estado y fecha de revisión.',
+        legalTitle: 'Importante',
+        legalItems: [
+          'CasaMia no concede ayudas ni garantiza aprobación.',
+          'La decisión final corresponde siempre a la administración.',
+          'Un proyecto CasaMia se presupuesta por separado, con IVA incluido.',
+        ],
+      }
+    : {
+        heroTitle: 'Find possible help for home adaptations.',
+        heroBody:
+          'CasaMia helps you review grant routes, documents and next steps before starting works.',
+        heroSecondary: 'What we check',
+        quickCards: [
+          {
+            title: 'Check fit',
+            body: 'Free initial guidance. Not a public approval.',
+          },
+          {
+            title: 'Prepare documents',
+            body: 'See what is usually needed for the route.',
+          },
+          {
+            title: 'Plan clearly',
+            body: 'Separate CasaMia pricing, possible assistance and timing.',
+          },
+        ],
+        supportTitle: 'CasaMia makes the route clearer.',
+        supportBody:
+          'Answer a few questions and get a practical view: possible route, missing documents and next step.',
+        programmesTitle: 'Published programmes',
+        programmesBody:
+          'We only show programmes with an official source, status and review date.',
+        legalTitle: 'Important',
+        legalItems: [
+          'CasaMia does not award grants or guarantee approval.',
+          'The public authority always makes the final decision.',
+          'CasaMia projects are priced separately, VAT included.',
+        ],
+      }
 
   const schema = useMemo(
     () => ({
@@ -293,43 +358,43 @@ export function GrantsPage() {
     <>
       <SEO title={copy.seoTitle} description={copy.seoDescription} path="/grants" schema={schema} />
       <section className="grants-legal-hero">
-        <div className="site-shell">
-          <p className="eyebrow">{copy.heroEyebrow}</p>
-          <h1>{copy.heroTitle}</h1>
-          <p>{copy.heroBody}</p>
-          <div className="grants-hero-actions">
-            <Link className="btn btn-green" to="/grant-check">
-              {copy.heroPrimary}
-            </Link>
-            <a className="btn btn-white" href="#programmes">
-              {copy.heroSecondary}
-            </a>
+        <div className="site-shell grants-hero-layout">
+          <div>
+            <p className="eyebrow">{copy.heroEyebrow}</p>
+            <h1>{visible.heroTitle}</h1>
+            <p>{visible.heroBody}</p>
+            <div className="grants-hero-actions">
+              <Link className="btn btn-green" to="/grant-check">
+                {copy.heroPrimary}
+              </Link>
+              <a className="btn btn-white" href="#what-we-check">
+                {visible.heroSecondary}
+              </a>
+            </div>
+          </div>
+          <div className="grants-hero-panel" aria-label={visible.heroSecondary}>
+            {visible.quickCards.map((card, index) => (
+              <article key={card.title}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <h2>{card.title}</h2>
+                  <p>{card.body}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section-pad bg-white">
-        <div className="site-shell grants-disclaimer-grid">
-          <article className="grants-notice-card">
-            <AlertTriangle size={26} aria-hidden="true" />
-            <div>
-              <h2>{copy.importantTitle}</h2>
-              {copy.importantBody.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          </article>
-          <article className="grants-price-card">
-            <h2>{copy.priceTitle}</h2>
-            <dl>
-              {copy.priceRows.map(([term, definition]) => (
-                <div key={term}>
-                  <dt>{term}</dt>
-                  <dd>{definition}</dd>
-                </div>
-              ))}
-            </dl>
-          </article>
+      <section className="section-pad bg-white" id="what-we-check">
+        <div className="site-shell grants-quick-grid">
+          {visible.quickCards.map((card) => (
+            <article className="grants-quick-card" key={card.title}>
+              <Check size={20} aria-hidden="true" />
+              <h2>{card.title}</h2>
+              <p>{card.body}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -337,35 +402,10 @@ export function GrantsPage() {
         <div className="site-shell grants-role-grid">
           <div>
             <p className="eyebrow">{copy.roleEyebrow}</p>
-            <h2 className="display-title">{copy.roleTitle}</h2>
-            <p>{copy.roleBody}</p>
+            <h2 className="display-title">{visible.supportTitle}</h2>
+            <p>{visible.supportBody}</p>
           </div>
-          <GrantList title={copy.roleListTitle} items={copy.roleItems} icon="shield" />
-        </div>
-      </section>
-
-      <section className="section-pad bg-white">
-        <div className="site-shell grants-disclaimer-grid">
-          <article className="grants-price-card">
-            <h2>{copy.feeTitle}</h2>
-            <dl>
-              {copy.feeRows.map(([term, definition]) => (
-                <div key={term}>
-                  <dt>{term}</dt>
-                  <dd>{definition}</dd>
-                </div>
-              ))}
-            </dl>
-          </article>
-          <article className="grants-notice-card">
-            <AlertTriangle size={26} aria-hidden="true" />
-            <div>
-              <h2>{copy.beforeApprovalTitle}</h2>
-              <p>{copy.beforeApprovalBody}</p>
-              <blockquote>{copy.beforeApprovalQuote}</blockquote>
-              <p>{copy.beforeApprovalFooter}</p>
-            </div>
-          </article>
+          <GrantList title={copy.roleListTitle} items={copy.roleItems.slice(0, 4)} icon="shield" />
         </div>
       </section>
 
@@ -373,8 +413,8 @@ export function GrantsPage() {
         <div className="site-shell">
           <div className="grants-section-heading">
             <p className="eyebrow">{copy.programmesEyebrow}</p>
-            <h2 className="display-title">{copy.programmesTitle}</h2>
-            <p>{copy.programmesBody}</p>
+            <h2 className="display-title">{visible.programmesTitle}</h2>
+            <p>{visible.programmesBody}</p>
           </div>
           {programmes.length > 0 ? (
             <div className="grant-programme-grid">
@@ -396,15 +436,25 @@ export function GrantsPage() {
       </section>
 
       <section className="section-pad bg-white">
-        <div className="site-shell grid gap-8 lg:grid-cols-2">
-          <GrantList title={copy.documentsTitle} items={copy.documentItems} />
-          <article className="soft-card">
-            <h2 className="font-display text-3xl font-bold text-text-dark">{copy.privacyTitle}</h2>
-            {copy.privacyBody.map((paragraph) => (
-              <p className="mt-4 text-text-mid" key={paragraph}>
-                {paragraph}
-              </p>
-            ))}
+        <div className="site-shell grants-bottom-grid">
+          <article className="grants-document-card">
+            <h2>{copy.documentsTitle}</h2>
+            <div>
+              {copy.documentItems.slice(0, 8).map((item) => (
+                <span key={item}>{item.replace(/\.$/, '')}</span>
+              ))}
+            </div>
+          </article>
+          <article className="grants-legal-card">
+            <AlertTriangle size={22} aria-hidden="true" />
+            <div>
+              <h2>{visible.legalTitle}</h2>
+              <ul>
+                {visible.legalItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
           </article>
         </div>
       </section>

@@ -400,7 +400,7 @@ const resourceJourneys = [
       en: ['Pick the room', 'Read the focused guide', 'Compare practical options'],
       es: ['Elige la estancia', 'Lee la guía específica', 'Compara opciones prácticas'],
     },
-    to: '/bathroom-safety-for-seniors',
+    to: '/services/bathroom-safety',
     cta: { en: 'See a room guide', es: 'Ver guía por estancia' },
     download: false,
   },
@@ -434,7 +434,7 @@ const topicRoutes = [
   },
   {
     icon: Bath,
-    to: '/bathroom-safety-for-seniors',
+    to: '/services/bathroom-safety',
     title: { en: 'Bathroom safety', es: 'Seguridad en el baño' },
     body: {
       en: 'Focus on bathing, toilet transfers, lighting, water controls and safer access.',
@@ -444,11 +444,11 @@ const topicRoutes = [
   },
   {
     icon: MoonStar,
-    to: '/senior-bedroom-safety',
+    to: '/services/bedroom-safety',
     title: { en: 'Bedroom and night routes', es: 'Dormitorio y ruta nocturna' },
     body: {
-      en: 'Make bed transfers, night lighting and the route to the bathroom easier to manage.',
-      es: 'Mejora transferencias de cama, luz nocturna y la ruta hacia el baño.',
+      en: 'Make getting out of bed, night lighting and the route to the bathroom easier to manage.',
+      es: 'Mejora la salida de la cama, la luz nocturna y la ruta hacia el baño.',
     },
     pill: { en: 'Night confidence', es: 'Confianza nocturna' },
   },
@@ -464,7 +464,7 @@ const topicRoutes = [
   },
   {
     icon: FileCheck2,
-    to: '/grants-for-home-adaptations-spain',
+    to: '/grants',
     title: { en: 'Grants and paperwork', es: 'Ayudas y documentación' },
     body: {
       en: 'Prepare the location, documents and scope questions before relying on funding.',
@@ -487,7 +487,7 @@ const topicRoutes = [
 const decisionPathways = [
   {
     icon: ShieldCheck,
-    image: '/images/solutions/bathroom-risk-map.png',
+    image: '/images/solutions/bathroom-risk-map-numbered.png',
     title: { en: 'I need to know what is risky first', es: 'Necesito saber qué es arriesgado primero' },
     body: {
       en: 'Use the checklist or photo review to separate urgent risks from nice-to-have improvements.',
@@ -513,7 +513,7 @@ const decisionPathways = [
   },
   {
     icon: FileCheck2,
-    image: '/images/solutions/casamia-staff-kitchen-consultation.webp',
+    image: '/images/solutions/adorable-mature-couple-kitchen.jpg',
     title: { en: 'I want to understand grants or funding', es: 'Quiero entender ayudas o financiación' },
     body: {
       en: 'Prepare the documents, eligibility questions and next steps before relying on any programme.',
@@ -1084,7 +1084,7 @@ export function BlogPage() {
 
             <div className="resource-hub-hero-visual" aria-hidden="true">
               <img
-                src="/images/solutions/front-view-adorable-couple-kitchen.jpg"
+                src="/images/solutions/close-up-senior-couple-love.jpg"
                 alt=""
                 loading="eager"
                 decoding="async"

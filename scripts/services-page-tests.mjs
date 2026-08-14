@@ -2,6 +2,11 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/ServicesPage.tsx', import.meta.url), 'utf8')
+const serviceDetailPage = await readFile(new URL('../src/pages/ServiceDetailPage.tsx', import.meta.url), 'utf8')
+const packageDetailModal = await readFile(new URL('../src/components/PackageDetailModal.tsx', import.meta.url), 'utf8')
+const riskMaps = await readFile(new URL('../src/constants/zoneRiskMaps.ts', import.meta.url), 'utf8')
+const styles = await readFile(new URL('../src/styles/services-catalogue.css', import.meta.url), 'utf8')
+const globalStyles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
 
 assert.match(
   page,
@@ -39,6 +44,116 @@ assert.match(
   page,
   /formatPackageComposition\(group\.services,\s*copy\)/,
   'Room cards must describe package composition instead of calling everything options.',
+)
+assert.match(
+  page,
+  /ArrowDown/,
+  'The hero services CTA should use a downward arrow before the catalogue section.',
+)
+assert.match(
+  page,
+  /aria-haspopup="dialog"/,
+  'The hero services CTA should open the catalogue guide modal before jumping to the catalogue.',
+)
+assert.match(
+  page,
+  /services-catalogue-guide-modal/,
+  'The Services page should render a guide modal explaining package selection.',
+)
+assert.match(
+  page,
+  /catalogueGuideVisualImages/,
+  'The catalogue guide modal should use visual package examples rather than text-only guidance.',
+)
+assert.match(
+  page,
+  /copy\.catalogueGuide\.visualAreas\.map/,
+  'The catalogue guide modal should render room-package visual tiles.',
+)
+assert.match(
+  page,
+  /window\.scrollTo\(\{ top: Math\.max\(catalogueTop - 92, 0\), behavior: 'smooth' \}\)/,
+  'The guide modal start action should take visitors to the catalogue section.',
+)
+assert.match(
+  page,
+  /services-zone-risk-hint/,
+  'Risk map visuals should include a subtle hover/tap hint for interactive markers.',
+)
+assert.match(
+  page,
+  /riskItems = copy\.risks\.map[\s\S]*label: risk[\s\S]*<span>\{item\.label\}<\/span>/,
+  'Interactive risk-map labels should render the same readable text used by the risk list.',
+)
+assert.match(
+  styles,
+  /\.services-zone-risk-label \{[\s\S]*background: rgb\(255 255 255 \/ 94%\)[\s\S]*color: #10283f/,
+  'Interactive risk-map labels should remain visible against the light callout cards.',
+)
+assert.match(
+  page,
+  /activeRiskId[\s\S]*services-zone-risk-hotspot[\s\S]*services-zone-risk-list-button/,
+  'Interactive risk-map labels and text list should be linked by one active risk id instead of visible numbers.',
+)
+assert.match(
+  riskMaps,
+  /function getZoneRiskHotspotStyle[\s\S]*pinTargetInset[\s\S]*position\.x - pinTargetInset/,
+  'Risk-map hotspots must expand toward the baked number pin, not only cover the old text label box.',
+)
+assert.match(
+  page,
+  /getZoneRiskHotspotStyle\(item\.position\)/,
+  'Catalogue risk-map number pins should share the same hover target as their detail callouts.',
+)
+assert.match(
+  serviceDetailPage,
+  /getZoneRiskHotspotStyle\(item\.position\)/,
+  'Service-detail risk-map number pins should share the same hover target as right-side panel rows.',
+)
+assert.match(
+  serviceDetailPage,
+  /explorePackage: \(roomLabel: string\) => `Explore \$\{roomLabel\} package`/,
+  'The service hero package CTA should use the current package room label.',
+)
+assert.match(
+  serviceDetailPage,
+  /servicePackageAreaMap[\s\S]*'bathroom-safety': 'bathroom'[\s\S]*'entrance-accessibility': 'entrance'[\s\S]*'kitchen-safety': 'kitchen'[\s\S]*'bedroom-safety': 'bedroom'/,
+  'Package-backed service pages should map to their corresponding package modal.',
+)
+assert.match(
+  serviceDetailPage,
+  /setActivePackageGroup\(servicePackageGroup\)/,
+  'The service hero package CTA should open the current package detail modal directly.',
+)
+assert.match(
+  serviceDetailPage,
+  /askSafetyExpert: 'Ask the Safety Expert'[\s\S]*setSpecialistOpen\(true\)[\s\S]*entryPoint=\{specialistEntryPoint\}/,
+  'The service hero expert CTA should open the ElevenLabs specialist with a service-specific entry point.',
+)
+assert.match(
+  packageDetailModal,
+  /plan-detail-modal[\s\S]*plan-detail-tabs[\s\S]*plan-detail-story/,
+  'The package detail modal should reuse the established package detail layout from Plans.',
+)
+assert.match(
+  packageDetailModal,
+  /plan-detail-modal--\$\{displayMode\} plan-detail-modal--compact/,
+  'Every service package modal should use the compact package detail layout.',
+)
+assert.doesNotMatch(
+  packageDetailModal,
+  /<span>\{body\}<\/span>|plan-detail-thumb-row|plan-detail-footnote/,
+  'The compact package modal should not render intro copy, the thumbnail strip, or the footer note.',
+)
+assert.match(
+  globalStyles,
+  /\.plan-detail-modal--compact[\s\S]*\.plan-detail-modal--compact \.plan-detail-story/,
+  'Package detail modals should have shared compact spacing styles.',
+)
+assert.doesNotMatch(
+  styles,
+  /\.services-zone-risk-hotspot,\s*[\r\n]+\s*\.services-zone-risk-label\s*\{[\s\S]*?display:\s*none/,
+  'Risk-map overlays must not be hidden at tablet widths, otherwise the baked callout cards look blank.',
 )
 assert.match(
   page,

@@ -105,11 +105,11 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Bedroom Safety for Seniors',
     shortTitle: 'Bedroom Safety',
     description:
-      'Make bedrooms safer for older adults with easier bed transfers, night lighting, clear walking routes, bedside support, and emergency reach points.',
+      'Make bedrooms safer for older adults with easier bed access, night lighting, clear walking routes, bedside support, and emergency reach points.',
     intro:
       'Bedrooms need to support safe rest and safe movement, especially at night when low light, fatigue, and urgent routines can increase fall risk.',
     icon: 'bedroom',
-    risks: ['Difficult bed transfers', 'Dark night-time routes', 'Emergency help out of reach'],
+    risks: ['Difficulty getting in and out of bed', 'Dark night-time routes', 'Emergency help out of reach'],
     improvements: ['Bedside support and transfer aids', 'Motion night lighting', 'Clear routes and emergency reach points'],
     ctaPlan: 'home-safety',
   },
@@ -187,24 +187,24 @@ export const resourcePages: ResourcePageContent[] = [
     path: '/blog/home-adaptation-grants-spain-family-guide',
     title: 'Home Adaptation Grants in Spain',
     description:
-      'Understand how home adaptation grants in Spain may support accessibility and safety works, and why approval is never guaranteed.',
+      'Prepare a grant-ready file with the right authority, eligibility checks, documents, timing rules and official resources.',
     intro:
-      'Grant availability depends on the autonomous community, municipality, open calls, documentation, and the decision of the relevant authority.',
+      'Spain has national accessibility frameworks, but families usually apply through regional or municipal calls. This guide shows what to verify before paying for works.',
     sections: [
       {
-        title: 'What grants may support',
+        title: 'Where to check first',
         body:
-          'Depending on the call, eligible works may include accessibility, bathroom safety, ramps, threshold changes, handrails, and mobility-support adaptations.',
+          'Start with the home address, then check the autonomous community, municipality, social services route and national subsidy database for open calls.',
       },
       {
         title: 'What families should prepare',
         body:
-          'Useful documents may include identification, residency details, proof of ownership or use, dependency or disability documents, and a clear works proposal.',
+          'Useful documents may include ID, padrón, proof of ownership or permission, disability or dependency documents, photos, technical reports and itemised quotes.',
       },
       {
         title: 'How CasaMia helps',
         body:
-          'CasaMia can help review readiness, prepare documentation where applicable, and support submission. Approval always remains with the authority.',
+          'CasaMia can help connect the safety need to practical works and organise a proposal. Approval, amount and payment timing remain with the authority.',
       },
     ],
   },

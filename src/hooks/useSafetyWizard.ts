@@ -32,7 +32,7 @@ function createInitialState(): SafetyWizardState {
     },
     inspectionBooked: false,
     inspectionFee: 99,
-    inspectionCreditThreshold: 300,
+    inspectionCreditThreshold: 150,
     contact: {
       fullName: '',
       phone: '',

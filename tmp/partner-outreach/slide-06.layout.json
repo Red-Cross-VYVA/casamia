@@ -1,0 +1,638 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/ovri75",
+    "id": "ovri75",
+    "slide": 6,
+    "layoutId": "0024b908-1a98-4295-9552-2da13750196a",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#1B5E8A",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "Aptos",
+      "Aptos Display"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "0024b908-1a98-4295-9552-2da13750196a",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "8d36161e-d6cf-4c89-8e36-269a1d2a433f",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/bq1cj2tg",
+      "id": "1",
+      "bbox": [
+        72,
+        38,
+        156,
+        42
+      ],
+      "geometry": "rect",
+      "alt": "Logotipo de CasaMia",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "rect"
+      },
+      "asset": {
+        "assetId": "51ced6b2-9d42-4649-823a-cc6d6b417a4f",
+        "contentType": "image/png",
+        "byteLength": 12721
+      }
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1gba9w7m",
+      "id": "2",
+      "bbox": [
+        1156,
+        43,
+        52,
+        24
+      ],
+      "geometry": "rect",
+      "text": "06",
+      "textPreview": "06",
+      "resolvedFontSize": 18,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 18,
+        "typeface": "Aptos",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "right",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "06"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "06",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 18,
+            "typeface": "Aptos",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "right",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "06",
+              "fontSize": 18,
+              "typeface": "Aptos",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "right",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0f290r61",
+      "id": "3",
+      "bbox": [
+        72,
+        126,
+        96,
+        6
+      ],
+      "geometry": "rect",
+      "fillColor": "#7DB841",
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nidsb6pc",
+      "id": "4",
+      "bbox": [
+        72,
+        162,
+        730,
+        116
+      ],
+      "geometry": "rect",
+      "text": "¿Quieres formar parte de la red?",
+      "textPreview": "¿Quieres formar parte de la red?",
+      "resolvedFontSize": 56,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 56,
+        "typeface": "Aptos Display",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "¿Quieres formar parte de la"
+          },
+          {
+            "index": 2,
+            "text": "red?"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "¿Quieres formar parte de la red?",
+          "lineSpacingPercent": 98000,
+          "resolvedTextStyle": {
+            "fontSize": 56,
+            "typeface": "Aptos Display",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 0.98
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "¿Quieres formar parte de la red?",
+              "fontSize": 56,
+              "typeface": "Aptos Display",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 0.98
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2hkr21or",
+      "id": "5",
+      "bbox": [
+        72,
+        304,
+        636,
+        82
+      ],
+      "geometry": "rect",
+      "text": "Comparte empresa, zonas de cobertura y servicios. CasaMia revisará el encaje antes de asignar trabajos.",
+      "textPreview": "Comparte empresa, zonas de cobertura y servicios. CasaMia revisará el encaje antes de asignar trabajos.",
+      "resolvedFontSize": 28,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 28,
+        "typeface": "Aptos",
+        "color": "#EAF5FC",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Comparte empresa, zonas de cobertura y servicios."
+          },
+          {
+            "index": 2,
+            "text": "CasaMia revisará el encaje antes de asignar trabajos."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Comparte empresa, zonas de cobertura y servicios. CasaMia revisará el encaje antes de asignar trabajos.",
+          "lineSpacingPercent": 112000,
+          "resolvedTextStyle": {
+            "fontSize": 28,
+            "typeface": "Aptos",
+            "color": "#EAF5FC",
+            "alignment": "left",
+            "lineSpacing": 1.12
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Comparte empresa, zonas de cobertura y servicios. CasaMia revisará el encaje antes de asignar trabajos.",
+              "fontSize": 28,
+              "typeface": "Aptos",
+              "color": "#EAF5FC",
+              "alignment": "left",
+              "lineSpacing": 1.12
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pkvadg7i",
+      "id": "6",
+      "bbox": [
+        72,
+        434,
+        610,
+        142
+      ],
+      "geometry": "roundRect",
+      "text": "Solicita colaborar online\nhttps://casamia.com.es/provider-partners",
+      "textPreview": "Solicita colaborar online | https://casamia.com.es/provider-partners",
+      "resolvedFontSize": 30,
+      "resolvedTextStyle": {
+        "fontSize": 30,
+        "typeface": "Aptos",
+        "color": "#1A2D42",
+        "alignment": "left",
+        "insets": {
+          "top": 28,
+          "right": 32,
+          "bottom": 20,
+          "left": 32
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Solicita colaborar online"
+          },
+          {
+            "index": 2,
+            "text": "https://casamia.com.es/provider-partners"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Solicita colaborar online",
+          "lineSpacingPercent": 118000,
+          "resolvedTextStyle": {
+            "fontSize": 30,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "lineSpacing": 1.18
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Solicita colaborar online",
+              "fontSize": 30,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "bold": true,
+              "lineSpacing": 1.18
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "https://casamia.com.es/provider-partners",
+          "lineSpacingPercent": 118000,
+          "resolvedTextStyle": {
+            "fontSize": 30,
+            "typeface": "Aptos",
+            "color": "#1A2D42",
+            "lineSpacing": 1.18
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "https://casamia.com.es/provider-partners",
+              "fontSize": 30,
+              "typeface": "Aptos",
+              "color": "#1A2D42",
+              "lineSpacing": 1.18
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ojmt4b6x",
+      "id": "7",
+      "bbox": [
+        760,
+        196,
+        360,
+        34
+      ],
+      "geometry": "rect",
+      "text": "Cobertura prioritaria",
+      "textPreview": "Cobertura prioritaria",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 26,
+        "typeface": "Aptos",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cobertura prioritaria"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cobertura prioritaria",
+          "lineSpacingPercent": 106000,
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "typeface": "Aptos",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.06
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cobertura prioritaria",
+              "fontSize": 26,
+              "typeface": "Aptos",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.06
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3m9sz2p8",
+      "id": "8",
+      "bbox": [
+        760,
+        244,
+        360,
+        108
+      ],
+      "geometry": "rect",
+      "text": "Madrid · Barcelona · Valencia · Málaga · Alicante · Sevilla · y otras ciudades principales",
+      "textPreview": "Madrid · Barcelona · Valencia · Málaga · Alicante · Sevilla · y otras ciudades principales",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 26,
+        "typeface": "Aptos",
+        "color": "#EAF5FC",
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Madrid · Barcelona · Valencia ·"
+          },
+          {
+            "index": 2,
+            "text": "Málaga · Alicante · Sevilla · y otras"
+          },
+          {
+            "index": 3,
+            "text": "ciudades principales"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Madrid · Barcelona · Valencia · Málaga · Alicante · Sevilla · y otras ciudades principales",
+          "lineSpacingPercent": 120000,
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "typeface": "Aptos",
+            "color": "#EAF5FC",
+            "alignment": "left",
+            "lineSpacing": 1.2
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Madrid · Barcelona · Valencia · Málaga · Alicante · Sevilla · y otras ciudades principales",
+              "fontSize": 26,
+              "typeface": "Aptos",
+              "color": "#EAF5FC",
+              "alignment": "left",
+              "lineSpacing": 1.2
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/il0rqxon",
+      "id": "9",
+      "bbox": [
+        760,
+        460,
+        360,
+        92
+      ],
+      "geometry": "rect",
+      "text": "Proyectos evaluados. Brief claro. Cliente coordinado.",
+      "textPreview": "Proyectos evaluados. Brief claro. Cliente coordinado.",
+      "resolvedFontSize": 32,
+      "resolvedTextStyle": {
+        "anchor": 1,
+        "fontSize": 32,
+        "typeface": "Aptos",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "verticalAlignment": "top",
+        "wrap": "square",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Proyectos evaluados. Brief"
+          },
+          {
+            "index": 2,
+            "text": "claro. Cliente coordinado."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Proyectos evaluados. Brief claro. Cliente coordinado.",
+          "lineSpacingPercent": 104000,
+          "resolvedTextStyle": {
+            "fontSize": 32,
+            "typeface": "Aptos",
+            "color": "#FFFFFF",
+            "bold": true,
+            "alignment": "left",
+            "lineSpacing": 1.04
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Proyectos evaluados. Brief claro. Cliente coordinado.",
+              "fontSize": 32,
+              "typeface": "Aptos",
+              "color": "#FFFFFF",
+              "bold": true,
+              "alignment": "left",
+              "lineSpacing": 1.04
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}
