@@ -61,7 +61,7 @@ import {
 } from '../services/plansBuilderPricing'
 import { createPublicProposalDraft, type PublicProposalDraftResponse } from '../services/proposalsApi'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
-import type { MasterCatalogueOutcome, MasterServiceCatalogue, ServicePackageArea } from '../types/serviceCatalogue'
+import type { MasterCatalogueOutcome, MasterServiceCatalogue } from '../types/serviceCatalogue'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
 import '../styles/services-catalogue.css'
 
@@ -815,14 +815,6 @@ const roomVisuals: Record<string, string> = {
   'living-room': '/images/service-gallery/isometric/isometric-living.jpg',
 }
 
-const roomServicePaths: Partial<Record<ServicePackageArea, string>> = {
-  bathroom: '/services/bathroom-safety',
-  bedroom: '/services/bedroom-safety',
-  entrance: '/services/entrance-accessibility',
-  kitchen: '/services/kitchen-safety',
-  'living-room': '/services',
-}
-
 type OutcomePreviewTheme =
   | 'access'
   | 'alert'
@@ -1160,6 +1152,7 @@ export function PlansPage() {
   const [isDetectingLocation, setIsDetectingLocation] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [locationStatus, setLocationStatus] = useState('')
+  const [showLocationPermissionHelp, setShowLocationPermissionHelp] = useState(false)
   const siteUrl = 'https://www.casamia.com.es'
   const seoDescription = copy.subtitle
   const requiredFieldError = language === 'es' ? 'Este campo es obligatorio.' : 'This field is required.'
@@ -1189,6 +1182,23 @@ export function PlansPage() {
   const locationPermissionMessage = language === 'es'
     ? 'El navegador no tiene permiso para usar tu ubicación. Actívalo en los permisos del sitio o escribe la dirección manualmente.'
     : 'The browser does not have permission to use your location. Enable it in site permissions or enter the address manually.'
+  const locationPermissionHelpLabel = language === 'es'
+    ? 'Ver cómo activarlo'
+    : 'Show how to enable it'
+  const locationPermissionHelpTitle = language === 'es'
+    ? 'Para activar la ubicación'
+    : 'To enable location'
+  const locationPermissionHelpSteps = language === 'es'
+    ? [
+        'Pulsa el icono del candado o ajustes junto a la dirección del navegador.',
+        'Abre permisos del sitio y permite Ubicación para CasaMia.',
+        'Vuelve a esta página y pulsa Detectar ubicación otra vez.',
+      ]
+    : [
+        'Select the lock or settings icon beside the browser address.',
+        'Open site permissions and allow Location for CasaMia.',
+        'Return to this page and select Detect location again.',
+      ]
   const locationRetryMessage = language === 'es'
     ? 'Estamos probando una detección menos precisa...'
     : 'Trying a less precise location check...'
@@ -1659,6 +1669,7 @@ export function PlansPage() {
 
     setIsDetectingLocation(true)
     setLocationStatus('')
+    setShowLocationPermissionHelp(false)
     clearFormError('location')
 
     try {
@@ -2055,11 +2066,38 @@ export function PlansPage() {
           {isDetectingLocation ? detectingLocationLabel : detectLocationLabel}
         </button>
         {locationStatus ? <small className="plans-location-status">{locationStatus}</small> : null}
-        {formErrors.location ? <small className="plans-field-error">{formErrors.location}</small> : null}
+        {formErrors.location ? (
+          <div className="plans-location-error">
+            <small className="plans-field-error">{formErrors.location}</small>
+            {formErrors.location === locationPermissionMessage ? (
+              <>
+                <button
+                  className="plans-location-help-toggle"
+                  type="button"
+                  onClick={() => setShowLocationPermissionHelp((current) => !current)}
+                >
+                  <Wrench size={14} aria-hidden="true" />
+                  {locationPermissionHelpLabel}
+                </button>
+                {showLocationPermissionHelp ? (
+                  <div className="plans-location-permission-help">
+                    <strong>{locationPermissionHelpTitle}</strong>
+                    <ol>
+                      {locationPermissionHelpSteps.map((stepText) => (
+                        <li key={stepText}>{stepText}</li>
+                      ))}
+                    </ol>
+                  </div>
+                ) : null}
+              </>
+            ) : null}
+          </div>
+        ) : null}
       </div>
       <label className="plans-hidden-field" aria-hidden="true">
         <span>Website</span>
         <input
+          autoComplete="off"
           tabIndex={-1}
           value={customer.website}
           onChange={(event) => updateCustomerField('website', event.target.value)}
@@ -2175,7 +2213,6 @@ export function PlansPage() {
                 const Icon = roomIcons[group.room.id] ?? Home
                 const visual = roomVisuals[group.room.id]
                 const packageSelection = selection[group.homePackage.id]
-                const servicePath = roomServicePaths[group.packageArea] ?? '/services'
                 const quantity = packageSelection?.selected ? packageSelection.quantity : 0
 
                 return (
@@ -2213,13 +2250,14 @@ export function PlansPage() {
                         </div>
                       </div>
                       <div className="plans-room-card-actions">
-                        <Link
+                        <button
                           className="plans-detail-link"
-                          to={servicePath}
+                          type="button"
+                          onClick={() => openCorePackageDetails(group)}
                         >
                           {copy.viewDetails}
                           <ArrowRight size={14} aria-hidden="true" />
-                        </Link>
+                        </button>
                         <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${group.roomLabel}`}>
                           <button type="button" onClick={() => updateRoomQuantity(group, quantity - 1)}>
                             <Minus size={16} aria-hidden="true" />
@@ -2516,7 +2554,10 @@ export function PlansPage() {
                 <div className="plans-summary-block">
                   <span>{copy.summaryModulesTitle}</span>
                   <div className="plans-detail-summary-list">
-                    {selectedPlanDetails.map((detail) => (
+                    {selectedPlanDetails.map((detail) => {
+                      const detailGroup = groups.find((group) => group.homePackage.id === detail.id)
+
+                      return (
                       <article className="plans-detail-summary-card" key={detail.id}>
                         <div className="plans-detail-summary-head">
                           <span>{detail.quantity}x</span>
@@ -2537,8 +2578,14 @@ export function PlansPage() {
                               outcome={item.outcome}
                             />
                           ))}
-                          {detail.includedMore > 0 ? (
-                            <span className="is-muted">+{detail.includedMore} {copy.summaryMoreItems}</span>
+                          {detail.includedMore > 0 && detailGroup ? (
+                            <button
+                              className="is-muted plans-summary-more-button"
+                              type="button"
+                              onClick={() => openCorePackageDetails(detailGroup)}
+                            >
+                              +{detail.includedMore} {copy.summaryMoreItems}
+                            </button>
                           ) : null}
                         </div>
                         {detail.addOns.length ? (
@@ -2559,7 +2606,8 @@ export function PlansPage() {
                           </div>
                         ) : null}
                       </article>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
               ) : null}
