@@ -264,7 +264,7 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'living-room-electric-recliner-chair': { kind: 'recliner', tone: 'support', image: serviceCardProduct('recliner') },
   'living-room-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
   'living-room-stair-safety': { kind: 'stair-support', tone: 'mobility', image: serviceCardProduct('stair-support') },
-  'entrance-safer-access': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-ramp') },
+  'entrance-safer-access': { kind: 'threshold-ramp', tone: 'access', image: '/images/service-gallery/05-entryway-and-threshold-support.jpg' },
   'entrance-easier-door-access': { kind: 'door-handle', tone: 'access', image: serviceCardProduct('entrance-door-handle') },
   'entrance-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('entrance-motion-lighting') },
   'entrance-connected-door-awareness': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },
