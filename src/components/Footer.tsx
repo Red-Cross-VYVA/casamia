@@ -9,6 +9,7 @@ import { needLandingPages } from '../constants/needLandingPages'
 import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
+import { localizeInternalPath } from '../utils/localizedRouting'
 
 const footerLinkCopy = {
   en: {
@@ -67,6 +68,7 @@ export function Footer() {
   const { i18n, t } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const links = footerLinkCopy[language]
+  const localizeTo = (to: string) => localizeInternalPath(to, i18n.language)
   const companyLinks = [
     { label: t('nav.home', { defaultValue: 'Home' }), to: '/' },
     { label: links.howItWorks, to: '/how-it-works' },
@@ -113,7 +115,7 @@ export function Footer() {
     <footer className="bg-ink text-white">
       <div className="footer-grid site-shell gap-12 py-16">
         <div>
-          <Link className="inline-flex items-center" to="/#top" aria-label="CasaMia">
+          <Link className="inline-flex items-center" to={localizeTo('/#top')} aria-label="CasaMia">
             <BrandLogo variant="footer" />
           </Link>
           <p className="mt-5 max-w-sm text-white/70">{t('footer.tagline')}</p>
@@ -128,7 +130,7 @@ export function Footer() {
 
         <FooterColumn title={t('footer.company.title')}>
           {companyLinks.map((link) => (
-            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={localizeTo(link.to)}>
               {link.label}
             </Link>
           ))}
@@ -136,7 +138,7 @@ export function Footer() {
 
         <FooterColumn title={t('footer.legal.title')}>
           {legalRouteLabels.map((link) => (
-            <Link className="transition hover:text-green" key={`${link.path}-${link.label}`} to={link.path}>
+            <Link className="transition hover:text-green" key={`${link.path}-${link.label}`} to={localizeTo(link.path)}>
               {link.label}
             </Link>
           ))}
@@ -144,20 +146,20 @@ export function Footer() {
 
         <FooterColumn title={t('footer.support.title')}>
           {supportLinks.map((link) => (
-            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={localizeTo(link.to)}>
               {link.label}
             </Link>
           ))}
           <FooterSubColumn title={links.resourcesTitle}>
             {resourceLinks.map((link) => (
-              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={localizeTo(link.to)}>
                 {link.label}
               </Link>
             ))}
           </FooterSubColumn>
           <FooterSubColumn title={decisionGuideTitle}>
             {decisionGuideLinks.map((link) => (
-              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={localizeTo(link.to)}>
                 {link.label}
               </Link>
             ))}
@@ -166,7 +168,7 @@ export function Footer() {
 
         <FooterColumn title={links.needs}>
           {needLinks.map((link) => (
-            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+            <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={localizeTo(link.to)}>
               {link.label}
             </Link>
           ))}
