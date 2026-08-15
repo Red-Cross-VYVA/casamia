@@ -28,6 +28,7 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
   }
 
   const language = String(body?.language ?? '').toLowerCase().startsWith('es') ? 'es' : 'en'
+  const deliveryChannel = normaliseDeliveryChannel(body?.deliveryChannel)
   const selection = normaliseSelection(body?.selection)
   const estimate = calculatePlansDraftEstimate(catalogue, selection, language)
 
@@ -48,7 +49,21 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
     customer_email: customer.email,
     customer_name: customer.name,
     customer_phone: customer.phone,
-    events: [{ at: now.toISOString(), type: 'public-plans-proposal-created' }],
+    delivery: {
+      preferredChannel: deliveryChannel,
+      proposalWhatsapp: {
+        at: now.toISOString(),
+        status: deliveryChannel === 'whatsapp' ? 'requested' : 'not_requested',
+      },
+    },
+    events: [
+      { at: now.toISOString(), type: 'public-plans-proposal-created' },
+      {
+        at: now.toISOString(),
+        detail: deliveryChannel,
+        type: 'public-plans-delivery-preference',
+      },
+    ],
     executive_summary: summaryCopy.summary(estimate),
     grant_eligibility_note: summaryCopy.grants,
     grant_support_required: false,
@@ -70,6 +85,7 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
     total_estimate: estimate.oneTimeEstimate,
     valid_until: validUntil,
     plans_builder: {
+      delivery_preference: deliveryChannel,
       language,
       recurring_monthly_estimate: estimate.recurringMonthlyEstimate,
       review_items: estimate.reviewItems,
@@ -350,6 +366,10 @@ function normaliseSelection(selection) {
       selected: value?.selected === true,
     },
   ]))
+}
+
+function normaliseDeliveryChannel(value) {
+  return String(value ?? '').toLowerCase() === 'whatsapp' ? 'whatsapp' : 'email'
 }
 
 function proposalCopy(language) {

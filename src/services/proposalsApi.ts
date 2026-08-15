@@ -94,6 +94,7 @@ export type PublicProposalDraftPayload = {
   catalogueSnapshot?: EditableServiceCatalogue
   companyWebsite?: string
   consent: boolean
+  deliveryChannel?: 'email' | 'whatsapp'
   customer: {
     address?: string
     area?: string

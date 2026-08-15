@@ -19,7 +19,9 @@ import {
   KeyRound,
   Lightbulb,
   Loader2,
+  Mail,
   MapPin,
+  MessageCircle,
   Minus,
   PackageCheck,
   Pill,
@@ -43,10 +45,12 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { PhoneNumberField } from '../components/PhoneNumberField'
+import { ProposalPreview } from '../components/internal/ProposalPreview'
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
 import { getMasterServiceCatalogue, getProposalSpecificationForOutcome } from '../services/masterServiceCatalogue'
+import type { ProposalData } from '../services/proposalCalculations'
 import {
   buildPlansBuilderGroups,
   calculatePlansBuilderEstimate,
@@ -83,6 +87,11 @@ type PlansCopy = {
   createDraft: string
   creatingDraft: string
   draftCreated: string
+  deliveryChoiceTitle: string
+  deliveryEmailBody: string
+  deliveryEmailLabel: string
+  deliveryWhatsappBody: string
+  deliveryWhatsappLabel: string
   email: string
   estimateLead: string
   estimateTitle: string
@@ -129,6 +138,11 @@ type PlansCopy = {
   summaryNextBody: string
   summaryNextTitle: string
   summaryRoomsTitle: string
+  successEmailBody: string
+  successEmailTitle: string
+  successLead: string
+  successWhatsappBody: string
+  successWhatsappTitle: string
   subtitle: string
   title: string
   town: string
@@ -611,6 +625,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     createDraft: 'Generate proposal',
     creatingDraft: 'Generating proposal...',
     draftCreated: 'Proposal created. Open the link to see your selected packages, add-ons and next steps.',
+    deliveryChoiceTitle: 'Send proposal by',
+    deliveryEmailBody: 'CasaMia emails the secure proposal link.',
+    deliveryEmailLabel: 'Email',
+    deliveryWhatsappBody: 'CasaMia follows up by WhatsApp with the proposal link.',
+    deliveryWhatsappLabel: 'WhatsApp',
     email: 'Email',
     estimateLead: 'VAT included · pending review',
     estimateTitle: 'Plan snapshot',
@@ -683,6 +702,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryNextBody: 'Your proposal is generated from the selected packages, quantities and add-ons.',
     summaryNextTitle: 'Next step',
     summaryRoomsTitle: 'Selected rooms',
+    successEmailBody: 'Your CasaMia proposal has been sent by email. Please check your inbox, and spam folder if it does not arrive within a few minutes.',
+    successEmailTitle: 'Proposal sent by email',
+    successLead: 'Your proposal is ready below.',
+    successWhatsappBody: 'Your CasaMia proposal is ready. CasaMia has your WhatsApp preference and will contact you there with the proposal link/details.',
+    successWhatsappTitle: 'Proposal ready for WhatsApp follow-up',
     subtitle:
       'Pick the rooms that need support, choose optional add-ons only where useful, and receive a clear proposal once your details are captured.',
     title: 'Create a safer-home plan, room by room.',
@@ -717,6 +741,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     draftCreated: 'Borrador creado. CasaMia lo revisará antes de enviar la propuesta final.',
     email: 'Email',
     estimateLead: 'IVA incluido · pendiente de revisión',
+    deliveryChoiceTitle: 'Enviar propuesta por',
+    deliveryEmailBody: 'CasaMia envia por email el enlace seguro de la propuesta.',
+    deliveryEmailLabel: 'Email',
+    deliveryWhatsappBody: 'CasaMia hara seguimiento por WhatsApp con el enlace de la propuesta.',
+    deliveryWhatsappLabel: 'WhatsApp',
     estimateTitle: 'Resumen del plan',
     finalReview: 'Revisión CasaMia',
     flow: [
@@ -785,6 +814,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryNextBody: 'CasaMia confirma medidas, fotos e idoneidad antes de enviar la propuesta final.',
     summaryNextTitle: 'Siguiente paso',
     summaryRoomsTitle: 'Estancias elegidas',
+    successEmailBody: 'Tu propuesta CasaMia se ha enviado por email. Revisa tu bandeja de entrada y la carpeta de spam si no llega en unos minutos.',
+    successEmailTitle: 'Propuesta enviada por email',
+    successLead: 'Tu propuesta esta lista abajo.',
+    successWhatsappBody: 'Tu propuesta CasaMia esta lista. CasaMia tiene tu preferencia de WhatsApp y te contactara por ahi con el enlace y los detalles.',
+    successWhatsappTitle: 'Propuesta lista para seguimiento por WhatsApp',
     subtitle:
       'Elige las estancias que necesitan apoyo, añade extras opcionales solo donde aporten valor y envía un borrador claro para que CasaMia lo revise antes de la propuesta final.',
     title: 'Crea un plan de hogar más seguro, estancia por estancia.',
@@ -951,16 +985,20 @@ type CustomerForm = {
   address: string
   area: string
   consent: boolean
+  deliveryChannel: PlansDeliveryChannel
   email: string
   name: string
   phone: string
   website: string
 }
 
+type PlansDeliveryChannel = 'email' | 'whatsapp'
+
 const emptyCustomerForm: CustomerForm = {
   address: '',
   area: '',
   consent: false,
+  deliveryChannel: 'email',
   email: '',
   name: '',
   phone: '',
@@ -1147,6 +1185,7 @@ export function PlansPage() {
   const [activeDetailIndex, setActiveDetailIndex] = useState(0)
   const [activeDetailTab, setActiveDetailTab] = useState<PlansDetailTab>('core')
   const [draftUrl, setDraftUrl] = useState('')
+  const [draftProposal, setDraftProposal] = useState<ProposalData | null>(null)
   const [emailDelivery, setEmailDelivery] = useState<PublicProposalDraftResponse['emailDelivery'] | null>(null)
   const [error, setError] = useState('')
   const [isDetectingLocation, setIsDetectingLocation] = useState(false)
@@ -1221,6 +1260,16 @@ export function PlansPage() {
   })
   const oneTimeLineItems = estimate.lineItems.filter((line) => !line.isRecurring)
   const proposalReady = Boolean(draftUrl)
+  const proposalSuccessCopy = customer.deliveryChannel === 'whatsapp'
+    ? {
+        body: copy.successWhatsappBody,
+        title: copy.successWhatsappTitle,
+      }
+    : {
+        body: copy.successEmailBody,
+        title: copy.successEmailTitle,
+      }
+  const draftPath = draftUrl ? new URL(draftUrl).pathname : ''
   const selectedCountLabel = language === 'es'
     ? `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'paquete base seleccionado' : 'paquetes base seleccionados'}`
     : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'core package selected' : 'core packages selected'}`
@@ -1597,7 +1646,9 @@ export function PlansPage() {
       nextErrors.email = emailFormatError
     }
 
-    if (customer.phone.trim() && !isValidSpanishPhoneNumber(customer.phone)) {
+    if (customer.deliveryChannel === 'whatsapp' && !customer.phone.trim()) {
+      nextErrors.phone = requiredFieldError
+    } else if (customer.phone.trim() && !isValidSpanishPhoneNumber(customer.phone)) {
       nextErrors.phone = phoneFormatError
     }
 
@@ -1937,18 +1988,25 @@ export function PlansPage() {
     }
 
     setDraftUrl('')
+    setDraftProposal(null)
     setError('')
     setStep('contact')
     scrollToPlansSection('plans-contact-step')
   }
 
   function goBackToBuilder() {
+    setDraftUrl('')
+    setDraftProposal(null)
+    setEmailDelivery(null)
     setError('')
     setStep('builder')
     scrollToPlansSection('plans-builder-title')
   }
 
   function goBackToReview() {
+    setDraftUrl('')
+    setDraftProposal(null)
+    setEmailDelivery(null)
     setError('')
     setStep('review')
     scrollToPlansSection('plans-review-step')
@@ -1958,6 +2016,7 @@ export function PlansPage() {
     event.preventDefault()
     setError('')
     setDraftUrl('')
+    setDraftProposal(null)
     setEmailDelivery(null)
 
     if (!estimate.proposalLineItems.length) {
@@ -1975,6 +2034,7 @@ export function PlansPage() {
         catalogueSnapshot: catalogue,
         companyWebsite: customer.website,
         consent: customer.consent,
+        deliveryChannel: customer.deliveryChannel,
         customer: {
           address: customer.address,
           area: customer.area,
@@ -1987,6 +2047,7 @@ export function PlansPage() {
       }, catalogue)
       const publicUrl = new URL(result.publicUrl || `/proposal/${result.publicToken}`, window.location.origin)
       setDraftUrl(publicUrl.toString())
+      setDraftProposal(result.proposal)
       setEmailDelivery(result.emailDelivery ?? null)
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : copy.finalReview)
@@ -2056,6 +2117,43 @@ export function PlansPage() {
           onChange={(event) => updateCustomerField('address', event.target.value)}
         />
       </label>
+      <fieldset className="plans-delivery-choice">
+        <legend>{copy.deliveryChoiceTitle}</legend>
+        {([
+          {
+            body: copy.deliveryEmailBody,
+            icon: Mail,
+            label: copy.deliveryEmailLabel,
+            value: 'email' as const,
+          },
+          {
+            body: copy.deliveryWhatsappBody,
+            icon: MessageCircle,
+            label: copy.deliveryWhatsappLabel,
+            value: 'whatsapp' as const,
+          },
+        ]).map((option) => {
+          const Icon = option.icon
+          const isSelected = customer.deliveryChannel === option.value
+
+          return (
+            <label className={`plans-delivery-option ${isSelected ? 'is-selected' : ''}`} key={option.value}>
+              <input
+                checked={isSelected}
+                name="plans-delivery-channel"
+                type="radio"
+                value={option.value}
+                onChange={() => updateCustomerField('deliveryChannel', option.value)}
+              />
+              <span aria-hidden="true">
+                <Icon size={19} />
+              </span>
+              <strong>{option.label}</strong>
+              <small>{option.body}</small>
+            </label>
+          )
+        })}
+      </fieldset>
       <div className="plans-location-tools">
         <button className="plans-location-button" type="button" disabled={isDetectingLocation} onClick={detectLocation}>
           {isDetectingLocation ? (
@@ -2508,6 +2606,39 @@ export function PlansPage() {
             </div>
           </section>
         </div>
+        ) : proposalReady && draftProposal ? (
+          <div className="site-shell plans-proposal-success-layout">
+            <section className="plans-proposal-success-card" aria-labelledby="plans-proposal-success-title">
+              <span className="plans-proposal-success-icon" aria-hidden="true">
+                <CheckCircle2 size={28} />
+              </span>
+              <div>
+                <p className="section-kicker">{copy.contactStepEyebrow}</p>
+                <h1 id="plans-proposal-success-title">{proposalSuccessCopy.title}</h1>
+                <p>{proposalSuccessCopy.body}</p>
+                <small>{copy.successLead}</small>
+                {customer.deliveryChannel === 'email' && emailDeliveryMessage ? (
+                  <small className="plans-email-delivery-note">{emailDeliveryMessage}</small>
+                ) : null}
+              </div>
+              <div className="plans-proposal-success-actions">
+                {draftPath ? (
+                  <Link className="btn btn-green" to={draftPath}>
+                    {copy.seeDraft}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                ) : null}
+                <button className="plans-contact-back" type="button" onClick={goBackToReview}>
+                  <ArrowLeft size={16} aria-hidden="true" />
+                  {copy.backToBuilder}
+                </button>
+              </div>
+            </section>
+
+            <section className="plans-proposal-preview-full" aria-label={copy.seeDraft}>
+              <ProposalPreview proposal={draftProposal} />
+            </section>
+          </div>
         ) : (
           <div className="site-shell plans-contact-layout">
             <aside className="plans-contact-summary" aria-label={copy.estimateTitle}>

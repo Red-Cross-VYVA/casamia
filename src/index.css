@@ -19257,7 +19257,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   gap: 14px;
 }
 
-.plans-draft-form label:not(.plans-consent):not(.plans-hidden-field) {
+.plans-draft-form label:not(.plans-consent):not(.plans-hidden-field):not(.plans-delivery-option) {
   display: grid;
   gap: 7px;
 }
@@ -19293,6 +19293,96 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plans-draft-form .phone-number-field:has(input[aria-invalid='true']) {
   border-color: rgba(180, 35, 24, 0.68);
   box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.1);
+}
+
+.plans-delivery-choice {
+  display: grid;
+  gap: 10px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.plans-delivery-choice legend {
+  margin-bottom: 2px;
+  color: var(--text-dark);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.plans-delivery-choice {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.plans-delivery-choice legend {
+  grid-column: 1 / -1;
+}
+
+.plans-delivery-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 3px 10px;
+  align-items: center;
+  min-height: 94px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  padding: 14px;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.plans-delivery-option:hover,
+.plans-delivery-option:focus-within {
+  border-color: rgba(42, 161, 219, 0.46);
+  box-shadow: 0 14px 30px rgba(15, 75, 112, 0.08);
+  transform: translateY(-1px);
+}
+
+.plans-delivery-option.is-selected {
+  border-color: rgba(125, 184, 65, 0.82);
+  background: linear-gradient(135deg, rgba(125, 184, 65, 0.13), rgba(238, 249, 255, 0.54));
+  box-shadow: inset 4px 0 0 rgba(125, 184, 65, 0.9);
+}
+
+.plans-delivery-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.plans-delivery-option > span {
+  display: grid;
+  place-items: center;
+  grid-row: span 2;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: var(--light-blue);
+  color: var(--primary);
+}
+
+.plans-delivery-option.is-selected > span {
+  background: var(--white);
+  color: var(--green);
+}
+
+.plans-delivery-option strong {
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.plans-delivery-option small {
+  color: var(--text-mid);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .plans-phone-field .phone-number-field {
@@ -19481,6 +19571,90 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   font-weight: 900;
 }
 
+.plans-proposal-success-layout {
+  display: grid;
+  gap: 22px;
+}
+
+.plans-proposal-success-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  border: 1px solid rgba(125, 184, 65, 0.5);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(125, 184, 65, 0.13), rgba(238, 249, 255, 0.62)),
+    var(--white);
+  padding: clamp(22px, 3vw, 34px);
+  box-shadow: 0 22px 54px rgba(15, 75, 112, 0.1);
+}
+
+.plans-proposal-success-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(125, 184, 65, 0.42);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--green);
+  box-shadow: 0 14px 30px rgba(15, 75, 112, 0.08);
+}
+
+.plans-proposal-success-card h1 {
+  margin: 4px 0 10px;
+  color: var(--navy);
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.plans-proposal-success-card p,
+.plans-proposal-success-card small {
+  display: block;
+  max-width: 760px;
+  margin: 0;
+  color: var(--text-mid);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.plans-proposal-success-card small {
+  margin-top: 8px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.plans-proposal-success-card .plans-email-delivery-note {
+  grid-column: auto;
+  margin-top: 8px;
+}
+
+.plans-proposal-success-actions {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.plans-proposal-preview-full {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 22px 54px rgba(15, 75, 112, 0.08);
+}
+
+.plans-proposal-preview-full .proposal-print-surface {
+  margin: 0;
+  box-shadow: none;
+}
+
 @media (min-width: 860px) {
   .plans-builder-hero {
     grid-template-columns: minmax(0, 0.95fr) minmax(420px, 0.72fr);
@@ -19564,6 +19738,25 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
   .plans-review-cta .btn,
   .plans-contact-back {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .plans-delivery-choice {
+    grid-template-columns: 1fr;
+  }
+
+  .plans-proposal-success-card {
+    grid-template-columns: 1fr;
+  }
+
+  .plans-proposal-success-actions {
+    grid-column: auto;
+    display: grid;
+  }
+
+  .plans-proposal-success-actions .btn,
+  .plans-proposal-success-actions .plans-contact-back {
     width: 100%;
     justify-content: center;
   }
