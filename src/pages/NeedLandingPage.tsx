@@ -7,7 +7,8 @@ import {
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
+import { LocalizedLink as Link, LocalizedNavigate as Navigate } from '../components/LocalizedLink'
 import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'

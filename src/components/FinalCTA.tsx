@@ -1,7 +1,8 @@
 import { ArrowRight } from 'lucide-react'
 import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 import { IMAGE_URLS } from '../constants/shopify'
 import { SafeImage } from './SafeImage'

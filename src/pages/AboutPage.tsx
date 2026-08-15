@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { BrandLogo } from '../components/BrandLogo'
 import { SEO } from '../components/SEO'

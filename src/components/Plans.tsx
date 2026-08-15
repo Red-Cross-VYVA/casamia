@@ -1,6 +1,6 @@
 import { ArrowRight, Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 type PlansProps = {
   standalone?: boolean

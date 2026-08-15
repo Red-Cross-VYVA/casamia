@@ -1,6 +1,6 @@
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 import {
   beforeAfterVisuals,

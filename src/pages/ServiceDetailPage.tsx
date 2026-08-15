@@ -10,7 +10,8 @@ import {
 } from 'lucide-react'
 import { lazy, Suspense, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { LocalizedLink as Link, LocalizedNavigate as Navigate } from '../components/LocalizedLink'
 
 import { PackageDetailModal } from '../components/PackageDetailModal'
 import { SEO } from '../components/SEO'

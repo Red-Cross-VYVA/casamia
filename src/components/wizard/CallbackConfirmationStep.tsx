@@ -1,5 +1,5 @@
 import { CalendarDays, Check, Clock3, Home, PhoneCall, Plus, ShieldCheck } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../LocalizedLink'
 
 import type { WizardCopy } from '../../config/wizardCopy'
 import type { WizardCallbackTimeWindow } from '../../types/wizard'

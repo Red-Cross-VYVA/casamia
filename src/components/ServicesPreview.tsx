@@ -1,5 +1,5 @@
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 import { primaryServices } from '../constants/siteContent'
 import { ServiceIcon } from './ServiceIcon'

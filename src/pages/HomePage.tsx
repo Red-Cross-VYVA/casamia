@@ -22,7 +22,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'

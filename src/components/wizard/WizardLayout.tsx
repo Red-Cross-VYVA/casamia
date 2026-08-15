@@ -1,6 +1,6 @@
 import { ArrowLeft, BookmarkCheck, X } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../LocalizedLink'
 
 import type { WizardCopy } from '../../config/wizardCopy'
 import { BrandLogo } from '../BrandLogo'

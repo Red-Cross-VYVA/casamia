@@ -13,7 +13,7 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { ReportDeliveryForm } from '../components/ReportDeliveryForm'
 import { SEO } from '../components/SEO'

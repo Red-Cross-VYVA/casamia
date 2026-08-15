@@ -15,7 +15,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../LocalizedLink'
 
 import type { WizardCopy } from '../../config/wizardCopy'
 import { getWizardPlanPackages, type WizardConsumerPlan } from '../../config/wizardPlanPackages'

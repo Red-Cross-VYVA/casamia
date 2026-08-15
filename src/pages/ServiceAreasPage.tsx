@@ -1,5 +1,6 @@
 import { ArrowRight, CheckCircle2, Clock3, MapPin, ShieldCheck, Sparkles } from 'lucide-react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { LocalizedLink as Link, LocalizedNavigate as Navigate } from '../components/LocalizedLink'
 import { useTranslation } from 'react-i18next'
 
 import { SEO } from '../components/SEO'

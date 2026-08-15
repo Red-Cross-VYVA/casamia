@@ -1,6 +1,6 @@
 import { AlertTriangle, ArrowRight, Check, Eye, HelpCircle, House, ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 import type { EstimateReport, EstimateRiskAssessment } from '../services/estimateWorkflow'
 import type { EstimatePhotoAnalysis } from '../services/safetyReportScoring'

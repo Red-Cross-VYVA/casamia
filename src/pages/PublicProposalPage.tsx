@@ -1,7 +1,8 @@
 import { CheckCircle2, Loader2, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { ProposalPreview } from '../components/internal/ProposalPreview'
 import { SEO } from '../components/SEO'

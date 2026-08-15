@@ -1,7 +1,8 @@
 import { AlertTriangle, ArrowRight, ClipboardCheck, Home, ShieldCheck } from 'lucide-react'
 import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 import { trackEvent } from '../utils/analytics'
 import { requestSafetyReportModal } from '../utils/safetyReportModal'

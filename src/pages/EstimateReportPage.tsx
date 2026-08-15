@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight, FileText, LoaderCircle, ShieldCheck } from 'lucide-react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 import { useTranslation } from 'react-i18next'
 import { PhotoAnalysisCards, ScoreExplanation } from '../components/SafetyReportInsights'
 import { SEO } from '../components/SEO'

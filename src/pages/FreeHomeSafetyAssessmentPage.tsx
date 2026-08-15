@@ -14,7 +14,8 @@ import {
 } from 'lucide-react'
 import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { AssessmentForm } from '../components/AssessmentForm'
 import { SEO } from '../components/SEO'

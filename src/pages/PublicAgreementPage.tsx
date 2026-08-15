@@ -1,6 +1,7 @@
 import { CheckCircle2, Download, FileText, Loader2, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { AgreementDocument } from '../components/agreements/AgreementDocument'
 import { SEO } from '../components/SEO'

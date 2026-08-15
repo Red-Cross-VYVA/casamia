@@ -11,7 +11,7 @@ import {
   X,
 } from 'lucide-react'
 import { useMemo, useState, type ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'

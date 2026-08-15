@@ -1,6 +1,6 @@
 import { ArrowRight, CheckCircle2, Printer } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { useConfigurator } from '../context/ConfiguratorContext'
 import {

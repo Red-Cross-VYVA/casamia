@@ -1,6 +1,6 @@
 import { CheckCircle2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Navigate } from 'react-router-dom'
+import { LocalizedNavigate as Navigate } from '../components/LocalizedLink'
 
 import { SEO } from '../components/SEO'
 import {

@@ -1,7 +1,7 @@
 import { ArrowRight, Eye, ListChecks, Route } from 'lucide-react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { BeforeAfterCard } from '../components/BeforeAfterPreview'
 import { SEO } from '../components/SEO'

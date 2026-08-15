@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { LocalizedLink as Link, LocalizedNavigate as Navigate } from '../components/LocalizedLink'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'

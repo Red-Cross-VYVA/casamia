@@ -1,6 +1,7 @@
 import { CheckCircle2, Printer } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { formatConfiguratorCurrency } from '../services/configuratorPricing'
 import { loadSavedConfiguratorSubmission } from '../services/configuratorSubmission'

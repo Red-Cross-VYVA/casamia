@@ -1,6 +1,7 @@
 import { Building2, CalendarCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 import { trackEvent } from '../utils/analytics'
 

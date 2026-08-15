@@ -26,7 +26,8 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 import { ReportDeliveryForm } from './ReportDeliveryForm'
 import { PhotoAnalysisCards, ScoreExplanation } from './SafetyReportInsights'

@@ -42,7 +42,7 @@ import {
 } from 'lucide-react'
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { PhoneNumberField } from '../components/PhoneNumberField'
 import { ProposalPreview } from '../components/internal/ProposalPreview'

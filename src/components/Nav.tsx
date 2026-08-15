@@ -1,7 +1,8 @@
 import { BadgeEuro, Bath, BedDouble, ChevronDown, CookingPot, DoorOpen, Mail, Menu, Wifi, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { LocalizedLink as Link } from './LocalizedLink'
 
 import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'

@@ -18,7 +18,8 @@ import {
 } from 'lucide-react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { SEO } from '../components/SEO'
 import { blogArticles, type BlogArticle } from '../constants/blogContent'
