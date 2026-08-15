@@ -338,6 +338,8 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
         depositLabel: 'Deposito estimado',
         balanceLabel: 'Resto estimado',
         includedTitle: 'Trabajos incluidos con precio',
+        includedBody:
+          'Cada paquete con precio incluye seleccion de productos, instalacion profesional, entrega, soporte y mantenimiento coordinados por CasaMia.',
         reviewTitle: 'Extras que requieren mas informacion',
         reviewBody: 'CasaMia confirmara medidas, idoneidad y precio antes de anadir cualquier extra, y no lo anadira sin tu aprobacion.',
         nextTitle: 'Que ocurre ahora',
@@ -361,6 +363,8 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
         depositLabel: 'Estimated deposit',
         balanceLabel: 'Estimated balance',
         includedTitle: 'Priced works included',
+        includedBody:
+          'Every priced package includes product selection, professional installation, handover, support and maintenance coordinated by CasaMia.',
         reviewTitle: 'Extras needing more information',
         reviewBody: 'CasaMia will confirm measurements, suitability and price before adding any extra, and will not add it without your approval.',
         nextTitle: 'What happens next',
@@ -399,6 +403,7 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
           <td style="padding:0 34px 24px;">
             <div style="border-radius:20px;background:#ffffff;border:1px solid #c9e1ef;padding:20px;">
               <p style="margin:0 0 10px;color:#238bc6;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;">${escapeHtml(copy.includedTitle)}</p>
+              <p style="margin:0 0 16px;color:#4d6072;font-size:15px;line-height:1.5;">${escapeHtml(copy.includedBody)}</p>
               ${renderLineItems(pricedItems.length ? pricedItems : lineItems, isSpanish)}
             </div>
           </td>
@@ -517,18 +522,82 @@ function renderLineItems(items, isSpanish) {
   }
 
   return `
-    <ul style="margin:0;padding:0;list-style:none;">
+    <div style="margin:0;">
       ${items.slice(0, 10).map((item) => `
-        <li style="margin:0 0 10px;padding:0 0 10px;border-bottom:1px solid #dcecf5;color:#142235;font-size:15px;line-height:1.45;">
-          <strong>${escapeHtml(item.quantity > 1 ? `${item.quantity}x ${item.name}` : item.name)}</strong>
-          ${item.needsReview
-            ? `<span style="float:right;color:#9a5a00;">${escapeHtml(isSpanish ? 'Requiere revision' : 'Needs review')}</span>`
-            : item.price ? `<span style="float:right;color:#4d6072;">${escapeHtml(item.price)}</span>` : ''}
-          ${item.description ? `<span style="display:block;margin-top:4px;color:#5c7080;font-size:13px;">${escapeHtml(item.description)}</span>` : ''}
-        </li>
+        <div style="margin:0 0 14px;padding:14px;border:1px solid #dcecf5;border-radius:16px;background:#fbfdff;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+              <td style="vertical-align:top;padding-right:12px;">
+                <strong style="display:block;color:#142235;font-size:17px;line-height:1.25;">${escapeHtml(item.quantity > 1 ? `${item.quantity}x ${item.name}` : item.name)}</strong>
+              </td>
+              <td style="vertical-align:top;text-align:right;white-space:nowrap;">
+                ${item.needsReview
+                  ? `<span style="display:inline-block;border-radius:999px;background:#fff3df;color:#9a5a00;padding:6px 10px;font-size:12px;font-weight:800;">${escapeHtml(isSpanish ? 'Revisar' : 'Review')}</span>`
+                  : item.price ? `<strong style="color:#142235;font-size:17px;">${escapeHtml(item.price)}</strong>` : ''}
+              </td>
+            </tr>
+          </table>
+          ${renderLineItemDescription(item, isSpanish)}
+        </div>
       `).join('')}
-    </ul>
+    </div>
   `
+}
+
+function renderLineItemDescription(item, isSpanish) {
+  const detail = splitPackageDescription(item.description, isSpanish)
+  const summary = detail.summary || item.description
+  const included = detail.included.slice(0, 6)
+  const hiddenCount = Math.max(detail.included.length - included.length, 0)
+
+  return `
+    ${summary ? `<p style="margin:8px 0 0;color:#4d6072;font-size:14px;line-height:1.45;">${escapeHtml(summary)}</p>` : ''}
+    ${included.length ? `
+      <p style="margin:12px 0 6px;color:#238bc6;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;">${escapeHtml(isSpanish ? 'Incluye' : 'Includes')}</p>
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+        ${chunk(included, 2).map((row) => `
+          <tr>
+            ${row.map((label) => `
+              <td style="padding:3px 8px 3px 0;width:50%;vertical-align:top;">
+                <span style="display:block;border-radius:999px;background:#eef7fb;color:#142235;padding:7px 10px;font-size:13px;font-weight:700;line-height:1.2;">&#10003; ${escapeHtml(label)}</span>
+              </td>
+            `).join('')}
+            ${row.length === 1 ? '<td style="width:50%;"></td>' : ''}
+          </tr>
+        `).join('')}
+      </table>
+      ${hiddenCount ? `<p style="margin:6px 0 0;color:#5c7080;font-size:13px;font-weight:700;">+${hiddenCount} ${escapeHtml(isSpanish ? 'mas en la propuesta adjunta' : 'more in the attached proposal')}</p>` : ''}
+    ` : ''}
+  `
+}
+
+function splitPackageDescription(description, isSpanish) {
+  const value = text(description)
+  if (!value) return { included: [], summary: '' }
+
+  const marker = isSpanish ? /Incluye:?\s*/i : /Includes:?\s*/i
+  const match = value.match(marker)
+
+  if (!match || typeof match.index !== 'number') {
+    return { included: [], summary: value }
+  }
+
+  const summary = value.slice(0, match.index).trim().replace(/[.:;,]+$/, '.')
+  const includedText = value.slice(match.index + match[0].length).trim()
+  const included = includedText
+    .split(/\s*,\s*/)
+    .map((label) => label.trim().replace(/[.;]+$/, ''))
+    .filter(Boolean)
+
+  return { included, summary }
+}
+
+function chunk(items, size) {
+  const rows = []
+  for (let index = 0; index < items.length; index += size) {
+    rows.push(items.slice(index, index + size))
+  }
+  return rows
 }
 
 function renderMetricRow(label, value) {

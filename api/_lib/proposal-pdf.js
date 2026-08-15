@@ -41,10 +41,10 @@ export async function renderProposalPdf({ language = 'en', proposal, publicUrl =
   drawSection(doc, copy.summaryTitle, text(proposal?.executive_summary ?? proposal?.executiveSummary) || copy.summaryFallback)
   drawServicePromise(doc, copy)
 
-  drawLineItems(doc, copy.selectedWorks, pricedItems.length ? pricedItems : lineItems, false)
+  drawLineItems(doc, copy.selectedWorks, pricedItems.length ? pricedItems : lineItems, copy, false)
 
   if (reviewItems.length) {
-    drawLineItems(doc, copy.reviewTitle, reviewItems, true)
+    drawLineItems(doc, copy.reviewTitle, reviewItems, copy, true)
     paragraph(doc, copy.reviewNote, { color: '#4d6072' })
   }
 
@@ -194,8 +194,8 @@ function paragraph(doc, body, options = {}) {
     .text(body, { lineGap: 3, width: 500 })
 }
 
-function drawLineItems(doc, title, items, isReview) {
-  ensureRoom(doc, 110)
+function drawLineItems(doc, title, items, copy, isReview) {
+  ensureRoom(doc, 112)
   doc
     .moveDown(0.8)
     .font('Helvetica-Bold')
@@ -203,35 +203,148 @@ function drawLineItems(doc, title, items, isReview) {
     .fillColor(isReview ? '#9a5a00' : '#0f5d8c')
     .text(title.toUpperCase(), { characterSpacing: 1.2 })
 
-  items.forEach((item) => {
-    ensureRoom(doc, 72)
-    const y = doc.y + 8
-    doc.roundedRect(44, y, 507, 58, 8).fill(isReview ? '#fff7eb' : '#ffffff').strokeColor('#c9e1ef').stroke()
-    doc
-      .font('Helvetica-Bold')
-      .fontSize(11)
-      .fillColor('#142235')
-      .text(`${item.quantity > 1 ? `${item.quantity}x ` : ''}${item.name}`, 60, y + 12, { width: 330 })
-      .font('Helvetica')
-      .fontSize(9)
-      .fillColor('#4d6072')
-      .text(item.description || item.category || '', 60, y + 29, { lineGap: 2, width: 360 })
+  if (!isReview) {
+    paragraph(doc, copy.selectedWorksBody, { color: '#4d6072' })
+  }
 
-    doc
-      .font('Helvetica-Bold')
-      .fontSize(10)
-      .fillColor(isReview ? '#9a5a00' : '#142235')
-      .text(isReview ? copyReviewLabel(item) : formatEuro(item.unitPrice * item.quantity), 420, y + 20, {
-        align: 'right',
-        width: 110,
-      })
-
-    doc.y = y + 62
-  })
+  items.forEach((item) => drawLineItemCard(doc, item, copy, isReview))
 }
 
 function copyReviewLabel(item) {
   return item.language === 'es' ? 'Revisar' : 'Review'
+}
+
+function drawLineItemCard(doc, item, copy, isReview) {
+  const x = 44
+  const width = 507
+  const pad = 14
+  const contentWidth = width - pad * 2
+  const priceWidth = 92
+  const titleWidth = contentWidth - priceWidth - 18
+  const parsed = splitPackageDescription(item.description, item.language)
+  const title = `${item.quantity > 1 ? `${item.quantity}x ` : ''}${item.name}`
+  const summary = parsed.summary || item.category || ''
+  const included = parsed.includes.slice(0, 8)
+  const hiddenCount = Math.max(parsed.includes.length - included.length, 0)
+
+  doc.font('Helvetica-Bold').fontSize(12)
+  const titleHeight = doc.heightOfString(title, { width: titleWidth })
+  doc.font('Helvetica').fontSize(9)
+  const summaryHeight = summary ? doc.heightOfString(summary, { lineGap: 2, width: contentWidth }) : 0
+  doc.font('Helvetica').fontSize(8)
+  const includesHeight = included.length ? measureBulletGrid(doc, included, contentWidth) + 24 : 0
+  const hiddenHeight = hiddenCount ? 14 : 0
+  const cardHeight = Math.max(86, pad * 2 + titleHeight + (summaryHeight ? summaryHeight + 12 : 0) + includesHeight + hiddenHeight)
+
+  ensureRoom(doc, cardHeight + 12)
+  const y = doc.y + 8
+  doc
+    .lineWidth(1)
+    .roundedRect(x, y, width, cardHeight, 10)
+    .fillAndStroke(isReview ? '#fff7eb' : '#fbfdff', '#c9e1ef')
+
+  doc
+    .font('Helvetica-Bold')
+    .fontSize(12)
+    .fillColor('#142235')
+    .text(title, x + pad, y + pad, { width: titleWidth })
+
+  doc
+    .font('Helvetica-Bold')
+    .fontSize(isReview ? 9 : 11)
+    .fillColor(isReview ? '#9a5a00' : '#142235')
+    .text(isReview ? copyReviewLabel(item) : formatEuro(item.unitPrice * item.quantity), x + width - pad - priceWidth, y + pad + 2, {
+      align: 'right',
+      width: priceWidth,
+    })
+
+  let cursorY = y + pad + titleHeight + 8
+  if (summary) {
+    doc
+      .font('Helvetica')
+      .fontSize(9)
+      .fillColor('#4d6072')
+      .text(summary, x + pad, cursorY, { lineGap: 2, width: contentWidth })
+    cursorY += summaryHeight + 12
+  }
+
+  if (included.length) {
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(8)
+      .fillColor('#0f5d8c')
+      .text(copy.includesLabel.toUpperCase(), x + pad, cursorY, { characterSpacing: 0.6 })
+    cursorY += 14
+    cursorY = drawBulletGrid(doc, included, x + pad, cursorY, contentWidth)
+  }
+
+  if (hiddenCount) {
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(8)
+      .fillColor('#5f7890')
+      .text(copy.moreInProposal.replace('{count}', String(hiddenCount)), x + pad, cursorY + 2, { width: contentWidth })
+  }
+
+  doc.y = y + cardHeight + 4
+}
+
+function splitPackageDescription(description, language) {
+  const raw = text(description)
+  if (!raw) return { includes: [], summary: '' }
+  const marker = language === 'es' ? 'Incluye:' : 'Includes:'
+  const [summary, includedText = ''] = raw.split(marker)
+  return {
+    includes: includedText
+      .split(',')
+      .map((item) => item.trim().replace(/\.$/, ''))
+      .filter(Boolean),
+    summary: summary.trim().replace(/\.$/, '.'),
+  }
+}
+
+function measureBulletGrid(doc, items, width) {
+  const columns = width >= 420 ? 2 : 1
+  const columnWidth = (width - (columns - 1) * 16) / columns
+  const rowHeights = []
+
+  items.forEach((item, index) => {
+    const row = Math.floor(index / columns)
+    const height = Math.max(14, doc.heightOfString(item, { width: columnWidth - 16 }))
+    rowHeights[row] = Math.max(rowHeights[row] || 0, height + 6)
+  })
+
+  return rowHeights.reduce((sum, height) => sum + height, 0)
+}
+
+function drawBulletGrid(doc, items, x, y, width) {
+  const columns = width >= 420 ? 2 : 1
+  const columnWidth = (width - (columns - 1) * 16) / columns
+  const rowHeights = []
+
+  items.forEach((item, index) => {
+    const row = Math.floor(index / columns)
+    const height = Math.max(14, doc.heightOfString(item, { width: columnWidth - 16 }))
+    rowHeights[row] = Math.max(rowHeights[row] || 0, height + 6)
+  })
+
+  let cursorY = y
+  items.forEach((item, index) => {
+    const row = Math.floor(index / columns)
+    const column = index % columns
+    const itemX = x + column * (columnWidth + 16)
+    const itemY = y + rowHeights.slice(0, row).reduce((sum, height) => sum + height, 0)
+
+    doc.circle(itemX + 4, itemY + 5, 3).strokeColor('#65b934').lineWidth(1).stroke()
+    doc
+      .font('Helvetica')
+      .fontSize(8)
+      .fillColor('#4d6072')
+      .text(item, itemX + 14, itemY, { width: columnWidth - 16 })
+    cursorY = Math.max(cursorY, itemY + rowHeights[row])
+  })
+
+  return cursorY
 }
 
 function addPageNumbers(doc) {
@@ -242,12 +355,12 @@ function addPageNumbers(doc) {
       .font('Helvetica')
       .fontSize(8)
       .fillColor('#8aa1b4')
-      .text(`${i + 1} / ${range.count}`, 44, 810, { align: 'center', width: 507 })
+      .text(`${i + 1} / ${range.count}`, 44, 776, { align: 'center', lineBreak: false, width: 507 })
   }
 }
 
 function ensureRoom(doc, height) {
-  if (doc.y + height > 760) {
+  if (doc.y + height > 742) {
     doc.addPage()
     doc.y = 44
   }
@@ -310,7 +423,9 @@ function getCopy(isSpanish) {
         customerFallback: 'Cliente CasaMia',
         date: 'Fecha',
         deposit: 'Deposito',
+        includesLabel: 'Incluye',
         kicker: 'Propuesta de seguridad del hogar',
+        moreInProposal: '+{count} mas en la propuesta online',
         nextSteps:
           'Cuando aceptes el pedido, CasaMia contactara contigo para confirmar fecha, acceso a la vivienda, alcance final y proximos pasos de pago.',
         nextStepsTitle: 'Proximos pasos',
@@ -327,6 +442,8 @@ function getCopy(isSpanish) {
           'Estos extras no se suman al precio estimado. CasaMia pedira informacion adicional, confirmara medidas, idoneidad y precio, y no los anadira sin tu aprobacion.',
         reviewTitle: 'Extras que requieren revision',
         selectedWorks: 'Trabajos incluidos con precio',
+        selectedWorksBody:
+          'Cada paquete con precio incluye seleccion de productos, instalacion profesional, entrega, soporte y mantenimiento coordinados por CasaMia.',
         subtotal: 'Subtotal',
         summaryFallback: 'Propuesta creada con los paquetes y extras seleccionados en CasaMia.',
         summaryTitle: 'Resumen',
@@ -347,7 +464,9 @@ function getCopy(isSpanish) {
         customerFallback: 'CasaMia customer',
         date: 'Date',
         deposit: 'Deposit due',
+        includesLabel: 'Includes',
         kicker: 'Home safety proposal',
+        moreInProposal: '+{count} more in the online proposal',
         nextSteps:
           'When you order, CasaMia will contact you to confirm scheduling, home access, final scope and next payment steps.',
         nextStepsTitle: 'Next steps',
@@ -364,6 +483,8 @@ function getCopy(isSpanish) {
           'These extras are not added to the estimate. CasaMia will ask for the extra information needed to quote them, confirm measurements, suitability and price, and will not add them without your approval.',
         reviewTitle: 'Extras needing CasaMia review',
         selectedWorks: 'Priced works included',
+        selectedWorksBody:
+          'Every priced package includes product selection, professional installation, handover, support and maintenance coordinated by CasaMia.',
         subtotal: 'Subtotal',
         summaryFallback: 'Proposal created from the selected CasaMia packages and add-ons.',
         summaryTitle: 'Summary',
