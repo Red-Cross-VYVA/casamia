@@ -627,7 +627,7 @@ export function ProposalGeneratorPage() {
               and applicable service terms.
             </p>
             <div className="mt-4 flex flex-wrap gap-3 text-sm font-bold">
-              <Link className="text-navy underline-offset-4 hover:underline" to="/terms-and-conditions">
+              <Link className="text-navy underline-offset-4 hover:underline" to="/general-customer-terms">
                 Terms & Conditions
               </Link>
               <Link className="text-navy underline-offset-4 hover:underline" to="/terms-and-conditions#grant-management">

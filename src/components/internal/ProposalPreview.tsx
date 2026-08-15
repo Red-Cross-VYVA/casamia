@@ -99,14 +99,34 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
         </section>
 
         <section>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.12em] text-navy">{copy.selectedWorks}</h3>
-              <p className="mt-2 text-sm font-bold text-text-mid">{copy.selectedWorksBody}</p>
+          <div className="rounded-lg border border-border bg-gradient-to-br from-light-blue/75 via-white to-green/10 p-5 sm:p-6">
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
+              <div>
+                <p className="text-sm font-black uppercase tracking-[0.16em] text-blue">{copy.selectedWorks}</p>
+                <h3 className="mt-2 font-display text-3xl font-black leading-tight text-text-dark sm:text-4xl">
+                  {copy.selectedWorksTitle}
+                </h3>
+                <p className="mt-3 max-w-3xl text-base font-bold leading-relaxed text-text-mid">
+                  {copy.selectedWorksBody}
+                </p>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                <div className="rounded-lg border border-border bg-white p-3 text-center shadow-[0_10px_24px_rgba(15,75,112,0.06)]">
+                  <p className="text-2xl font-black text-navy">
+                    {selectedCategories.length || proposal.plansBuilder?.selectedRoomQuantity || 0}
+                  </p>
+                  <p className="mt-1 text-[11px] font-black uppercase tracking-[0.1em] text-blue">{copy.rooms}</p>
+                </div>
+                <div className="rounded-lg border border-border bg-white p-3 text-center shadow-[0_10px_24px_rgba(15,75,112,0.06)]">
+                  <p className="text-2xl font-black text-navy">{pricedItems.length}</p>
+                  <p className="mt-1 text-[11px] font-black uppercase tracking-[0.1em] text-blue">{copy.items}</p>
+                </div>
+                <div className="rounded-lg border border-green/30 bg-white p-3 text-center shadow-[0_10px_24px_rgba(15,75,112,0.06)]">
+                  <CheckCircle2 className="mx-auto text-green" size={24} aria-hidden="true" />
+                  <p className="mt-1 text-[11px] font-black uppercase tracking-[0.1em] text-blue">{copy.turnkeyShort}</p>
+                </div>
+              </div>
             </div>
-            <span className="rounded-full bg-light-blue px-4 py-2 text-sm font-black text-navy">
-              {pricedItems.length} {copy.items}
-            </span>
           </div>
 
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
@@ -170,7 +190,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
               {isSpanish ? 'Sin costes ocultos. Ningun trabajo empieza sin aprobacion del cliente.' : hiddenFeeReassurance}
             </p>
             <div className="mt-4 flex flex-wrap gap-3 text-sm font-bold">
-              <Link className="text-navy underline-offset-4 hover:underline" to="/terms-and-conditions">
+              <Link className="text-navy underline-offset-4 hover:underline" to="/general-customer-terms">
                 {copy.terms}
               </Link>
               <Link className="text-navy underline-offset-4 hover:underline" to="/terms-and-conditions#grant-management">
@@ -383,7 +403,8 @@ function getProposalPreviewCopy(isSpanish: boolean) {
         reviewTitle: 'Extras que requieren informacion antes de presupuesto',
         rooms: 'Estancias',
         selectedWorks: 'Trabajos incluidos',
-        selectedWorksBody: 'Cada partida con precio forma parte de un paquete llave en mano coordinado por CasaMia.',
+        selectedWorksTitle: 'Seguridad coordinada, instalada y lista para usar',
+        selectedWorksBody: 'Cada partida con precio forma parte de un paquete llave en mano: CasaMia selecciona los productos, coordina la instalacion, prueba el trabajo y queda disponible para soporte posterior.',
         status: 'Estado',
         subtotal: 'Subtotal',
         terms: 'Terminos y condiciones',
@@ -391,6 +412,7 @@ function getProposalPreviewCopy(isSpanish: boolean) {
         totalEstimate: 'Total estimado',
         turnkeyBody: 'CasaMia selecciona productos adecuados y coordina instalacion profesional para reducir gestiones.',
         turnkeyTitle: 'Servicio llave en mano',
+        turnkeyShort: 'Llave en mano',
         validUntil: 'Valida hasta',
         vat: 'IVA',
         vatIncluded: 'IVA incluido',
@@ -443,7 +465,8 @@ function getProposalPreviewCopy(isSpanish: boolean) {
         reviewTitle: 'Extras needing information before quote',
         rooms: 'Rooms',
         selectedWorks: 'Included works',
-        selectedWorksBody: 'Every priced item is part of a turnkey package coordinated by CasaMia.',
+        selectedWorksTitle: 'Safety works coordinated, installed and ready to use',
+        selectedWorksBody: 'Every priced item is part of a turnkey package: CasaMia selects suitable products, coordinates installation, tests the work and remains available for aftercare.',
         status: 'Status',
         subtotal: 'Subtotal',
         terms: 'Terms & Conditions',
@@ -451,6 +474,7 @@ function getProposalPreviewCopy(isSpanish: boolean) {
         totalEstimate: 'Total estimate',
         turnkeyBody: 'CasaMia selects suitable products and coordinates professional installation to reduce hassle.',
         turnkeyTitle: 'Turnkey service',
+        turnkeyShort: 'Turnkey',
         validUntil: 'Valid until',
         vat: 'VAT',
         vatIncluded: 'VAT included',

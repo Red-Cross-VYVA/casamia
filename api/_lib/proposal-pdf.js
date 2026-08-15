@@ -22,6 +22,8 @@ export async function renderProposalPdf({ language = 'en', proposal, publicUrl =
   const pricedItems = lineItems.filter((item) => !item.needsReview)
   const totals = getTotals(proposal, pricedItems)
   const customerName = text(proposal?.customer_name ?? proposal?.customerName) || copy.customerFallback
+  const proposalReference = text(proposal?.id)
+  const termsUrl = buildUrlFromPublicUrl(publicUrl, '/general-customer-terms')
 
   drawHeader(doc, copy, proposal)
 
@@ -46,9 +48,16 @@ export async function renderProposalPdf({ language = 'en', proposal, publicUrl =
     paragraph(doc, copy.reviewNote, { color: '#4d6072' })
   }
 
-  drawSection(doc, copy.nextStepsTitle, copy.nextSteps)
+  drawSection(
+    doc,
+    copy.nextStepsTitle,
+    proposalReference
+      ? `${copy.nextSteps}\n${copy.referenceNote} ${proposalReference}.`
+      : `${copy.nextSteps}\n${copy.referenceFallback}`,
+  )
   drawSection(doc, copy.paymentTitle, text(proposal?.payment_terms ?? proposal?.paymentTerms) || copy.paymentFallback)
   paragraph(doc, copy.noHiddenFees, { bold: true, color: '#65b934' })
+  drawSection(doc, copy.termsTitle, `${copy.termsBody}\n${termsUrl}`)
 
   if (publicUrl) {
     drawSection(doc, copy.onlineTitle, `${copy.onlineBody}\n${publicUrl}`)
@@ -312,6 +321,8 @@ function getCopy(isSpanish) {
         paymentTitle: 'Condiciones de pago',
         preparedFor: 'Preparado para',
         proposalId: 'Propuesta',
+        referenceFallback: 'Cuando contactes con CasaMia, menciona la referencia de tu propuesta.',
+        referenceNote: 'Cuando contactes con CasaMia, menciona la referencia',
         reviewNote:
           'Estos extras no se suman al precio estimado. CasaMia pedira informacion adicional, confirmara medidas, idoneidad y precio, y no los anadira sin tu aprobacion.',
         reviewTitle: 'Extras que requieren revision',
@@ -319,6 +330,8 @@ function getCopy(isSpanish) {
         subtotal: 'Subtotal',
         summaryFallback: 'Propuesta creada con los paquetes y extras seleccionados en CasaMia.',
         summaryTitle: 'Resumen',
+        termsBody: 'Puedes consultar los terminos y condiciones antes de pedir el paquete.',
+        termsTitle: 'Terminos y condiciones',
         title: 'Propuesta CasaMia',
         total: 'Total estimado',
         turnkeyBody:
@@ -345,6 +358,8 @@ function getCopy(isSpanish) {
         paymentTitle: 'Payment terms',
         preparedFor: 'Prepared for',
         proposalId: 'Proposal',
+        referenceFallback: 'When contacting CasaMia, please mention your proposal reference.',
+        referenceNote: 'When contacting CasaMia, please mention proposal reference',
         reviewNote:
           'These extras are not added to the estimate. CasaMia will ask for the extra information needed to quote them, confirm measurements, suitability and price, and will not add them without your approval.',
         reviewTitle: 'Extras needing CasaMia review',
@@ -352,6 +367,8 @@ function getCopy(isSpanish) {
         subtotal: 'Subtotal',
         summaryFallback: 'Proposal created from the selected CasaMia packages and add-ons.',
         summaryTitle: 'Summary',
+        termsBody: 'You can review the Terms & Conditions before ordering.',
+        termsTitle: 'Terms & Conditions',
         title: 'CasaMia proposal',
         total: 'Total estimate',
         turnkeyBody:
@@ -370,6 +387,14 @@ function formatEuro(value) {
     maximumFractionDigits: 0,
     style: 'currency',
   }).format(parsed)
+}
+
+function buildUrlFromPublicUrl(publicUrl, path) {
+  try {
+    return new URL(path, publicUrl).toString()
+  } catch {
+    return `https://www.casamia.com.es${path}`
+  }
 }
 
 function text(value) {

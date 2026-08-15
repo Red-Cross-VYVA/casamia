@@ -55,8 +55,8 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
   'legal-notice': {
     id: 'legal-notice',
     intro:
-      'This notice identifies the operator of the website and records company details that must be completed before production publication.',
-    reviewStatus: 'pending-legal-review',
+      'This notice identifies the operator of the CasaMia website and the company responsible for the service.',
+    reviewStatus: 'approved',
     title: 'Legal Notice',
     sections: [
       {
@@ -69,37 +69,83 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
           'CasaMia is intended to contract directly with customers, collect customer payments, coordinate the project, and appoint vetted local providers as subcontractors where needed.',
       },
       {
-        title: 'Legal review required',
+        title: 'Customer contact',
         body:
-          'This page contains placeholders and must be completed with verified company, registry, tax and contact details before production use.',
+          `For customer service, aftercare, withdrawal requests or complaints, contact ${casamiaCompanyConfig.customerServiceEmail}. Postal notices may be sent to the registered address above.`,
       },
     ],
   },
   'general-customer-terms': {
     id: 'general-customer-terms',
     intro:
-      'These customer terms summarise the operating model. They are not a substitute for final Spanish legal review of the complete contract set.',
-    reviewStatus: 'pending-legal-review',
+      'These terms explain how CasaMia proposals, package orders, installation coordination, payments, cancellations, guarantees and aftercare work for customers in Spain.',
+    reviewStatus: 'approved',
     title: 'General Customer Terms',
     sections: [
       {
         title: 'Who you contract with',
-        body:
-          'You contract directly with CasaMia. CasaMia assesses requirements, prepares the proposal, collects payments, coordinates the work and remains responsible for the contracted service.',
-      },
-      {
-        title: 'Local professionals',
-        body:
-          'CasaMia may appoint a vetted local professional to carry out installation work. The professional acts as CasaMia subcontractor and is not authorised to contract with you or request payment from you.',
-      },
-      {
-        title: 'Payments',
         points: [
-          '50% of the total price is payable when confirming the order.',
-          'The remaining 50% is payable following successful installation.',
-          'The first 50% is a payment on account, not an automatically non-refundable deposit.',
-          'Additional work requires a written change order accepted by the customer before the work is performed.',
+          `The service is operated by ${casamiaCompanyConfig.legalName}, trading as ${casamiaCompanyConfig.commercialName}, with NIF ${casamiaCompanyConfig.nif}.`,
+          `The registered address is ${casamiaCompanyConfig.registeredAddress}.`,
+          `Customer service contact: ${casamiaCompanyConfig.customerServiceEmail}.`,
         ],
+      },
+      {
+        title: 'What CasaMia provides',
+        points: [
+          'CasaMia helps families choose practical home-safety packages for bathrooms, bedrooms, kitchens, living rooms, entrances and connected support.',
+          'CasaMia selects suitable products, coordinates professional installation or setup, checks the completed work and remains available for aftercare.',
+          'Where a home visit, measurement or technical check is needed, CasaMia will explain this before confirming the final scope or price.',
+        ],
+      },
+      {
+        title: 'Proposals and order confirmation',
+        points: [
+          'A CasaMia proposal sets out the selected room packages, quantities, included works, estimated price, VAT status, payment terms and any extras that require review.',
+          'Each proposal has a reference number and validity date. Customers should quote the reference when contacting CasaMia about that proposal.',
+          'Using the online Order now button or otherwise confirming the proposal means the customer asks CasaMia to proceed with scheduling, final scope confirmation and the next payment steps.',
+          'No work starts until CasaMia has confirmed the order details, access arrangements and payment instructions with the customer.',
+        ],
+      },
+      {
+        title: 'Package scope',
+        points: [
+          'Priced room packages include the works listed in the accepted proposal and are delivered as a coordinated turnkey service.',
+          'Photos, illustrations and catalogue visuals are explanatory. The exact product model, finish, fixing position and installation method may vary according to the home, stock, safety requirements and technical suitability.',
+          'CasaMia may recommend an equivalent or better product where the original displayed item is unavailable or not suitable for the property.',
+        ],
+      },
+      {
+        title: 'Quote-only extras',
+        points: [
+          'Some specialist adaptations, connected systems or structural changes require extra information before CasaMia can quote them responsibly.',
+          'Selecting a quote-only extra adds it to the proposal for CasaMia review. It does not add a price and does not block ordering the core package.',
+          'CasaMia will contact the customer to understand the extra, confirm measurements, suitability and price, and will not add it without the customer approval.',
+        ],
+      },
+      {
+        title: 'Prices, VAT and payment terms',
+        points: [
+          'Published package prices and proposal totals include VAT unless the proposal says otherwise.',
+          'The proposal shows the estimated total, estimated deposit and estimated balance for the selected priced works.',
+          'The usual payment structure is 50% when confirming the order and 50% after successful installation or completion of the agreed work.',
+          'The first 50% is a payment on account and is applied to the order. It is not automatically non-refundable in every circumstance.',
+          'Additional work, changes or quote-only extras require customer approval before they are charged or carried out.',
+        ],
+      },
+      {
+        title: 'Scheduling, access and customer responsibilities',
+        points: [
+          'The customer must provide accurate contact details, installation address, relevant home information and any access limitations that may affect the visit or installation.',
+          'The customer is responsible for ensuring CasaMia can safely access the property at the agreed time.',
+          'Where landlord, property-owner, community-of-owners or building-management permission is needed, the customer must obtain it unless CasaMia has expressly agreed to help.',
+          'The customer should tell CasaMia about hidden services, fragile surfaces, recent works, damp, electrical issues or any condition that may affect safe installation.',
+        ],
+      },
+      {
+        title: 'Local professionals and subcontractors',
+        body:
+          'CasaMia may appoint vetted local professionals to carry out installation or technical work. They work under CasaMia coordination for the contracted service and are not authorised to request direct payment from the customer for CasaMia works.',
       },
       {
         title: 'Successful installation',
@@ -107,9 +153,45 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
           'Installation is considered successfully completed when the essential agreed work has been completed, the applicable functional and safety checks have been passed, the work area has been left safe and reasonably clean, the customer has received the relevant instructions, and no material defect prevents the safe intended use of the installation.',
       },
       {
-        title: 'Statutory rights',
-        body:
-          'Signing the installation record does not remove your statutory guarantee rights or prevent you from reporting hidden defects.',
+        title: 'Handover and aftercare',
+        points: [
+          'CasaMia or its appointed professional will explain how the installed items should be used and any important care or maintenance points.',
+          'If an adjustment is needed after installation, the customer should contact CasaMia with the proposal or order reference and photos where useful.',
+          'If an installation appears loose, unstable, electrically unsafe or otherwise dangerous, the customer should stop using it and contact CasaMia immediately. In an emergency, call 112.',
+        ],
+      },
+      {
+        title: 'Cancellation and withdrawal',
+        points: [
+          'Eligible distance and off-premises contracts generally include a statutory withdrawal period. Details are set out in the Withdrawal and Cancellation Policy.',
+          'If the customer asks CasaMia to start services during a withdrawal period, the customer may have to pay a proportionate amount for validly requested work already performed.',
+          'Custom-made, personalised, urgent or already-performed services may be treated differently where consumer law permits.',
+        ],
+      },
+      {
+        title: 'Guarantees and statutory rights',
+        points: [
+          'The customer keeps all mandatory statutory consumer rights.',
+          'CasaMia remains the customer contact point for issues relating to the contracted package, installation coordination and aftercare.',
+          'Product guarantees, installation workmanship and manufacturer warranties may have different scopes and durations, but they do not remove mandatory legal rights.',
+          'Signing an installation record does not remove statutory guarantee rights or prevent the customer from reporting hidden defects.',
+        ],
+      },
+      {
+        title: 'Safety limits',
+        points: [
+          'CasaMia home-safety recommendations are practical housing adaptations. They are not medical diagnosis, personal care, emergency monitoring or a substitute for clinical advice.',
+          'Connected alerts and sensors can support awareness, but they do not guarantee prevention of every incident.',
+          'The customer should continue to follow medical, occupational-therapy or public-authority advice where applicable.',
+        ],
+      },
+      {
+        title: 'Complaints, contact and law',
+        points: [
+          `For help, complaints or aftercare, contact ${casamiaCompanyConfig.customerServiceEmail}.`,
+          'Please include the proposal reference, customer name, installation address, description of the issue and any useful photos.',
+          'These terms are governed by Spanish law, without limiting mandatory consumer protections that apply to the customer.',
+        ],
       },
     ],
   },
@@ -298,7 +380,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
   'legal-notice': {
     title: 'Aviso legal',
     intro:
-      'Este aviso identifica al operador del sitio web y recoge los datos de la empresa que deben completarse antes de la publicación en producción.',
+      'Este aviso identifica al operador del sitio web CasaMia y la empresa responsable del servicio.',
     sections: [
       {
         title: 'Identificación de la empresa',
@@ -310,35 +392,81 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
           'CasaMia está pensada para contratar directamente con los clientes, recibir los pagos, coordinar el proyecto y designar proveedores locales validados como subcontratistas cuando sea necesario.',
       },
       {
-        title: 'Revisión legal pendiente',
+        title: 'Contacto con clientes',
         body:
-          'Esta página contiene información de configuración y debe completarse con datos societarios, registrales, fiscales y de contacto verificados antes de su uso en producción.',
+          `Para atención al cliente, soporte posterior, desistimiento o reclamaciones, contacta con ${casamiaCompanyConfig.customerServiceEmail}. Las comunicaciones postales pueden enviarse al domicilio social indicado arriba.`,
       },
     ],
   },
   'general-customer-terms': {
     title: 'Condiciones generales para clientes',
     intro:
-      'Estas condiciones resumen el modelo operativo para clientes. No sustituyen la revisión legal española final del conjunto contractual completo.',
+      'Estas condiciones explican cómo funcionan las propuestas, pedidos de paquetes, coordinación de instalación, pagos, cancelaciones, garantías y soporte posterior de CasaMia para clientes en España.',
     sections: [
       {
         title: 'Con quién contratas',
-        body:
-          'Contratas directamente con CasaMia. CasaMia evalúa las necesidades, prepara la propuesta, cobra los pagos, coordina los trabajos y sigue siendo responsable del servicio contratado.',
-      },
-      {
-        title: 'Profesionales locales',
-        body:
-          'CasaMia puede designar a un profesional local validado para realizar trabajos de instalación. El profesional actúa como subcontratista de CasaMia y no está autorizado a contratar contigo ni a solicitarte pagos.',
-      },
-      {
-        title: 'Pagos',
         points: [
-          'El 50% del precio total se paga al confirmar el pedido.',
-          'El 50% restante se paga tras una instalación satisfactoria.',
-          'El primer 50% es un pago a cuenta, no un depósito automáticamente no reembolsable.',
-          'Cualquier trabajo adicional requiere una orden de cambio por escrito aceptada por el cliente antes de ejecutarse.',
+          `El servicio lo presta ${casamiaCompanyConfig.legalName}, que opera comercialmente como ${casamiaCompanyConfig.commercialName}, con NIF ${casamiaCompanyConfig.nif}.`,
+          `El domicilio social es ${casamiaCompanyConfig.registeredAddress}.`,
+          `Contacto de atención al cliente: ${casamiaCompanyConfig.customerServiceEmail}.`,
         ],
+      },
+      {
+        title: 'Qué ofrece CasaMia',
+        points: [
+          'CasaMia ayuda a las familias a elegir paquetes prácticos de seguridad para baño, dormitorio, cocina, salón, entrada y apoyo conectado.',
+          'CasaMia selecciona productos adecuados, coordina la instalación o configuración profesional, comprueba el trabajo realizado y queda disponible para soporte posterior.',
+          'Cuando sea necesaria una visita, medición o comprobación técnica, CasaMia lo explicará antes de confirmar el alcance o precio final.',
+        ],
+      },
+      {
+        title: 'Propuestas y confirmación del pedido',
+        points: [
+          'La propuesta de CasaMia recoge los paquetes seleccionados, cantidades, trabajos incluidos, precio estimado, IVA, condiciones de pago y extras que requieren revisión.',
+          'Cada propuesta tiene una referencia y una fecha de validez. Conviene indicar esa referencia al contactar con CasaMia sobre la propuesta.',
+          'Usar el botón Pedir ahora o confirmar la propuesta por otro medio significa que el cliente pide a CasaMia continuar con la coordinación de fecha, alcance final y próximos pasos de pago.',
+          'Ningún trabajo empieza hasta que CasaMia haya confirmado con el cliente los detalles del pedido, el acceso a la vivienda y las instrucciones de pago.',
+        ],
+      },
+      {
+        title: 'Alcance del paquete',
+        points: [
+          'Los paquetes con precio incluyen los trabajos indicados en la propuesta aceptada y se entregan como un servicio coordinado llave en mano.',
+          'Las fotos, ilustraciones y visuales del catálogo son explicativos. El modelo exacto, acabado, posición de fijación y método de instalación pueden variar según la vivienda, disponibilidad, seguridad e idoneidad técnica.',
+          'CasaMia puede recomendar un producto equivalente o superior cuando el artículo mostrado no esté disponible o no sea adecuado para la vivienda.',
+        ],
+      },
+      {
+        title: 'Extras que requieren presupuesto',
+        points: [
+          'Algunas adaptaciones especialistas, sistemas conectados o cambios estructurales requieren información adicional antes de que CasaMia pueda presupuestarlos correctamente.',
+          'Seleccionar un extra de revisión lo añade a la propuesta para que CasaMia lo valore. No añade precio y no bloquea el pedido del paquete base.',
+          'CasaMia contactará con el cliente para entender el extra, confirmar medidas, idoneidad y precio, y no lo añadirá sin aprobación del cliente.',
+        ],
+      },
+      {
+        title: 'Precios, IVA y pagos',
+        points: [
+          'Los precios publicados de paquetes y los totales de propuesta incluyen IVA salvo que la propuesta indique otra cosa.',
+          'La propuesta muestra el total estimado, el pago inicial estimado y el saldo estimado para los trabajos con precio seleccionado.',
+          'La estructura habitual es 50% al confirmar el pedido y 50% tras una instalación satisfactoria o finalización de los trabajos acordados.',
+          'El primer 50% es un pago a cuenta aplicado al pedido. No es automáticamente no reembolsable en todas las circunstancias.',
+          'Cualquier trabajo adicional, cambio o extra pendiente de presupuesto requiere aprobación del cliente antes de cobrarse o ejecutarse.',
+        ],
+      },
+      {
+        title: 'Fechas, acceso y responsabilidades del cliente',
+        points: [
+          'El cliente debe facilitar datos de contacto correctos, dirección de instalación, información relevante de la vivienda y cualquier limitación de acceso que pueda afectar a la visita o instalación.',
+          'El cliente es responsable de que CasaMia pueda acceder de forma segura a la vivienda en la fecha acordada.',
+          'Cuando sea necesario permiso de propietario, arrendador, comunidad de propietarios o administración del edificio, el cliente debe obtenerlo salvo que CasaMia haya aceptado expresamente ayudar.',
+          'El cliente debe informar a CasaMia sobre instalaciones ocultas, superficies delicadas, obras recientes, humedades, problemas eléctricos o cualquier condición que pueda afectar a la instalación segura.',
+        ],
+      },
+      {
+        title: 'Profesionales locales y subcontratistas',
+        body:
+          'CasaMia puede designar profesionales locales validados para realizar trabajos de instalación o técnicos. Trabajan bajo coordinación de CasaMia para el servicio contratado y no están autorizados a solicitar pagos directos al cliente por trabajos CasaMia.',
       },
       {
         title: 'Instalación satisfactoria',
@@ -346,9 +474,45 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
           'La instalación se considera completada satisfactoriamente cuando se han realizado los trabajos esenciales acordados, se han superado las comprobaciones funcionales y de seguridad aplicables, la zona de trabajo queda segura y razonablemente limpia, el cliente ha recibido las instrucciones pertinentes y no existe ningún defecto material que impida el uso seguro previsto.',
       },
       {
-        title: 'Derechos legales',
-        body:
-          'Firmar el registro de instalación no elimina tus derechos legales de garantía ni te impide comunicar defectos ocultos.',
+        title: 'Entrega y soporte posterior',
+        points: [
+          'CasaMia o el profesional designado explicará cómo usar los elementos instalados y cualquier indicación importante de cuidado o mantenimiento.',
+          'Si se necesita un ajuste después de la instalación, el cliente debe contactar con CasaMia indicando la referencia de propuesta o pedido y fotos cuando sean útiles.',
+          'Si una instalación parece suelta, inestable, eléctricamente insegura o peligrosa de cualquier otro modo, deja de usarla y contacta con CasaMia inmediatamente. En caso de emergencia, llama al 112.',
+        ],
+      },
+      {
+        title: 'Cancelación y desistimiento',
+        points: [
+          'Los contratos a distancia y fuera de establecimiento elegibles suelen incluir un plazo legal de desistimiento. Los detalles están en la política de desistimiento y cancelación.',
+          'Si el cliente pide a CasaMia iniciar servicios durante un plazo de desistimiento, puede tener que pagar una cantidad proporcional por trabajos válidamente solicitados y ya realizados.',
+          'Los servicios personalizados, a medida, urgentes o ya realizados pueden tener un tratamiento distinto cuando la normativa de consumo lo permita.',
+        ],
+      },
+      {
+        title: 'Garantías y derechos legales',
+        points: [
+          'El cliente conserva todos sus derechos obligatorios como consumidor.',
+          'CasaMia sigue siendo el punto de contacto del cliente para incidencias relacionadas con el paquete contratado, la coordinación de instalación y el soporte posterior.',
+          'Las garantías de producto, mano de obra de instalación y garantías de fabricante pueden tener alcances y duraciones diferentes, pero no eliminan los derechos legales obligatorios.',
+          'Firmar el registro de instalación no elimina los derechos legales de garantía ni impide comunicar defectos ocultos.',
+        ],
+      },
+      {
+        title: 'Límites de seguridad',
+        points: [
+          'Las recomendaciones de seguridad de CasaMia son adaptaciones prácticas de vivienda. No son diagnóstico médico, cuidado personal, monitorización de emergencia ni sustituyen asesoramiento clínico.',
+          'Los avisos y sensores conectados pueden ayudar a detectar situaciones, pero no garantizan la prevención de todos los incidentes.',
+          'El cliente debe seguir cualquier consejo médico, de terapia ocupacional o de autoridades públicas que resulte aplicable.',
+        ],
+      },
+      {
+        title: 'Reclamaciones, contacto y ley aplicable',
+        points: [
+          `Para ayuda, reclamaciones o soporte posterior, contacta con ${casamiaCompanyConfig.customerServiceEmail}.`,
+          'Incluye la referencia de la propuesta, nombre del cliente, dirección de instalación, descripción de la incidencia y fotos útiles si las tienes.',
+          'Estas condiciones se rigen por la ley española, sin limitar las protecciones obligatorias de consumo que correspondan al cliente.',
+        ],
       },
     ],
   },

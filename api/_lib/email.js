@@ -74,8 +74,8 @@ export async function sendProposalEmail({
   const replyTo = text(env.CASAMIA_REPLY_TO_EMAIL) || defaultReplyTo
   const bcc = text(env.CASAMIA_PROPOSAL_BCC_EMAIL || env.CASAMIA_NOTIFY_EMAIL)
   const subject = isSpanish
-    ? 'Tu propuesta CasaMia en PDF esta lista'
-    : 'Your CasaMia PDF proposal is ready'
+    ? 'Tu plan CasaMia para un hogar mas seguro esta listo'
+    : 'Your CasaMia safer home plan is ready'
   const html = renderProposalEmailHtml({ isSpanish, proposal, publicUrl })
   const textBody = renderProposalEmailText({ isSpanish, proposal, publicUrl })
   const attachments = includePdf
@@ -321,12 +321,14 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
   const reviewItems = getReviewItems(proposal, lineItems)
   const pricedItems = lineItems.filter((item) => !item.needsReview)
   const totals = getProposalTotals(proposal, pricedItems)
+  const proposalReference = text(proposal?.id)
+  const termsUrl = buildUrlFromPublicUrl(publicUrl, '/general-customer-terms')
   const greeting = isSpanish
     ? `Hola${firstName ? ` ${escapeHtml(firstName)}` : ''},`
     : `Hello${firstName ? ` ${escapeHtml(firstName)}` : ''},`
   const copy = isSpanish
     ? {
-        title: 'Tu propuesta CasaMia esta lista en PDF',
+        title: 'Tu plan CasaMia para un hogar mas seguro esta listo',
         intro: 'Adjuntamos una propuesta completa con los paquetes seleccionados, trabajos incluidos, condiciones de pago y proximos pasos.',
         attached: 'PDF adjunto',
         attachedBody: 'Puedes revisar la propuesta sin volver a la web. El enlace online queda disponible para verla o pedir el paquete.',
@@ -341,10 +343,15 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
         nextTitle: 'Que ocurre ahora',
         nextBody: 'Si pides el paquete, CasaMia contactara contigo para confirmar fecha, alcance final y proximos pasos de pago.',
         footer: 'Importes con IVA incluido. Sin costes ocultos. No se inicia ningun trabajo sin aprobacion del cliente.',
+        referenceNote: proposalReference
+          ? `Cuando contactes con CasaMia, menciona la referencia ${proposalReference} para que podamos localizar tu propuesta rapidamente.`
+          : 'Cuando contactes con CasaMia, menciona la referencia de tu propuesta para que podamos localizarla rapidamente.',
         support: 'Si necesitas ayuda, responde a este email o escribenos a hola@casamia.com.es.',
+        termsBody: 'Puedes consultar los terminos y condiciones antes de pedir el paquete.',
+        termsLabel: 'Terminos y condiciones',
       }
     : {
-        title: 'Your CasaMia PDF proposal is ready',
+        title: 'Your CasaMia safer home plan is ready',
         intro: 'Your full proposal is attached, including selected packages, included works, payment terms and next steps.',
         attached: 'PDF attached',
         attachedBody: 'You can review the proposal without returning to the website. The online link remains available for viewing or ordering.',
@@ -359,7 +366,12 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
         nextTitle: 'What happens next',
         nextBody: 'If you order the package, CasaMia will contact you to confirm scheduling, final scope and next payment steps.',
         footer: 'Prices include VAT. No hidden fees. No work begins without customer approval.',
+        referenceNote: proposalReference
+          ? `When contacting CasaMia, please mention proposal reference ${proposalReference} so we can find your plan quickly.`
+          : 'When contacting CasaMia, please mention your proposal reference so we can find your plan quickly.',
         support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
+        termsBody: 'You can review the Terms & Conditions before ordering.',
+        termsLabel: 'Terms & Conditions',
       }
 
   return `
@@ -419,6 +431,8 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
             <h2 style="margin:0 0 8px;font-size:18px;line-height:1.35;color:#142235;">${escapeHtml(copy.nextTitle)}</h2>
             <p style="margin:0 0 14px;font-size:15px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.nextBody)}</p>
             <p style="margin:0 0 8px;font-size:14px;line-height:1.55;color:#5c7080;">${escapeHtml(copy.footer)}</p>
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.55;color:#5c7080;">${escapeHtml(copy.referenceNote)}</p>
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.55;color:#5c7080;">${escapeHtml(copy.termsBody)} <a href="${escapeAttribute(termsUrl)}" style="color:#005b8f;font-weight:800;">${escapeHtml(copy.termsLabel)}</a></p>
             <p style="margin:0;font-size:14px;line-height:1.55;color:#5c7080;">${escapeHtml(copy.support)}</p>
           </td>
         </tr>
@@ -434,6 +448,8 @@ function renderProposalEmailText({ isSpanish, proposal, publicUrl }) {
   const reviewItems = getReviewItems(proposal, lineItems)
   const pricedItems = lineItems.filter((item) => !item.needsReview)
   const totals = getProposalTotals(proposal, pricedItems)
+  const proposalReference = text(proposal?.id)
+  const termsUrl = buildUrlFromPublicUrl(publicUrl, '/general-customer-terms')
   const lines = (pricedItems.length ? pricedItems : lineItems)
     .slice(0, 12)
     .map((item) => `- ${item.quantity > 1 ? `${item.quantity}x ` : ''}${item.name}${item.price ? ` (${item.price})` : ''}`)
@@ -458,6 +474,10 @@ function renderProposalEmailText({ isSpanish, proposal, publicUrl }) {
       `Ver y pedir online: ${publicUrl}`,
       '',
       'Importes con IVA incluido. Sin costes ocultos. No se inicia ningun trabajo sin aprobacion del cliente.',
+      proposalReference
+        ? `Cuando contactes con CasaMia, menciona la referencia ${proposalReference}.`
+        : 'Cuando contactes con CasaMia, menciona la referencia de tu propuesta.',
+      `Terminos y condiciones: ${termsUrl}`,
       'Si necesitas ayuda, responde a este email o escribenos a hola@casamia.com.es.',
     ].filter(Boolean).join('\n')
   }
@@ -476,8 +496,20 @@ function renderProposalEmailText({ isSpanish, proposal, publicUrl }) {
     `View and order online: ${publicUrl}`,
     '',
     'Prices include VAT. No hidden fees. No work begins without customer approval.',
+    proposalReference
+      ? `When contacting CasaMia, please mention proposal reference ${proposalReference}.`
+      : 'When contacting CasaMia, please mention your proposal reference.',
+    `Terms & Conditions: ${termsUrl}`,
     'If you need help, reply to this email or write to hola@casamia.com.es.',
   ].filter(Boolean).join('\n')
+}
+
+function buildUrlFromPublicUrl(publicUrl, path) {
+  try {
+    return new URL(path, publicUrl).toString()
+  } catch {
+    return `https://www.casamia.com.es${path}`
+  }
 }
 function renderLineItems(items, isSpanish) {
   if (!items.length) {
