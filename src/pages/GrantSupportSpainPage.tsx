@@ -15,13 +15,13 @@ import { Link } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
-import { CASAMIA_CONTACT_PHONE } from '../constants/contact'
+import { CASAMIA_CONTACT_PHONE, CASAMIA_WHATSAPP_URL } from '../constants/contact'
 import { trackEvent } from '../utils/analytics'
 
 import '../styles/grant-support-spain.css'
 
-const phoneHref = CASAMIA_CONTACT_PHONE ? `tel:${CASAMIA_CONTACT_PHONE.replace(/\s+/g, '')}` : 'tel:+34900000000'
-const whatsappHref = 'https://wa.me/34900000000?text=Hola%20CasaMia%2C%20quiero%20iniciar%20una%20revisi%C3%B3n%20de%20ayudas%20para%20adaptar%20una%20vivienda.'
+const phoneHref = CASAMIA_CONTACT_PHONE ? `tel:${CASAMIA_CONTACT_PHONE.replace(/\s+/g, '')}` : ''
+const whatsappHref = CASAMIA_WHATSAPP_URL
 
 const grantSteps = [
   {
@@ -130,7 +130,9 @@ export function GrantSupportSpainPage() {
               <a key={item} href={`#${slugify(item)}`}>{item}</a>
             ))}
           </nav>
-          <a className="grant-spain-call" href={phoneHref} onClick={() => trackEvent('grant_call_clicked')}>Llamar</a>
+          {phoneHref ? (
+            <a className="grant-spain-call" href={phoneHref} onClick={() => trackEvent('grant_call_clicked')}>Llamar</a>
+          ) : null}
           <Link className="grant-spain-primary" to="/grant-check" onClick={() => trackEvent('grant_checker_started')}>Iniciar revisión</Link>
         </header>
 
@@ -235,16 +237,20 @@ export function GrantSupportSpainPage() {
             <p>Identificamos la vía de ayuda más probable y qué documentación conviene preparar antes de avanzar.</p>
             <div className="grant-spain-actions">
               <Link className="grant-spain-button" to="/grant-check">Iniciar revisión</Link>
-              <a className="grant-spain-button is-secondary" href={phoneHref}>Hablar con CasaMia</a>
+              {phoneHref ? (
+                <a className="grant-spain-button is-secondary" href={phoneHref}>Hablar con CasaMia</a>
+              ) : null}
             </div>
             <small>La revisión es orientativa. La concesión y el importe final dependen de requisitos, plazos, disponibilidad presupuestaria y resolución de la administración competente.</small>
           </div>
         </section>
 
-        <div className="grant-spain-mobile-ctas">
-          <a href={phoneHref}>Llamar</a>
-          <a href={whatsappHref}>WhatsApp</a>
-        </div>
+        {phoneHref || whatsappHref ? (
+          <div className="grant-spain-mobile-ctas">
+            {phoneHref ? <a href={phoneHref}>Llamar</a> : null}
+            {whatsappHref ? <a href={whatsappHref}>WhatsApp</a> : null}
+          </div>
+        ) : null}
       </div>
     </>
   )

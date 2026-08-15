@@ -118,7 +118,9 @@ export default async function handler(request, response) {
     }
 
     if (!result.ok) {
-      sendJson(response, result.status, result.body)
+      sendJson(response, result.status, {
+        message: 'The callback inbox is temporarily unavailable. Please try again.',
+      })
       return
     }
 
@@ -156,7 +158,9 @@ export default async function handler(request, response) {
     )
 
     if (!result.ok) {
-      sendJson(response, result.status, result.body)
+      sendJson(response, result.status, {
+        message: 'The callback request could not be updated. Please try again.',
+      })
       return
     }
 
