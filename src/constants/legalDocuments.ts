@@ -51,6 +51,20 @@ const configPointsEs = [
   `Datos registrales: ${casamiaCompanyConfig.registryDetails}`,
 ]
 
+const customerServicePointsEn = [
+  ...(casamiaCompanyConfig.customerServicePhone ? [`Telephone: ${casamiaCompanyConfig.customerServicePhone}`] : []),
+  `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
+  `Hours: ${casamiaCompanyConfig.customerServiceHours}`,
+  `Postal complaints address: ${casamiaCompanyConfig.complaintsAddress}`,
+]
+
+const customerServicePointsEs = [
+  ...(casamiaCompanyConfig.customerServicePhone ? [`TelÃ©fono: ${casamiaCompanyConfig.customerServicePhone}`] : []),
+  `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
+  `Horario: ${casamiaCompanyConfig.customerServiceHours}`,
+  `DirecciÃ³n postal para reclamaciones: ${casamiaCompanyConfig.complaintsAddress}`,
+]
+
 export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
   'legal-notice': {
     id: 'legal-notice',
@@ -323,12 +337,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
     sections: [
       {
         title: 'Customer service',
-        points: [
-          `Telephone: ${casamiaCompanyConfig.customerServicePhone}`,
-          `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
-          `Hours: ${casamiaCompanyConfig.customerServiceHours}`,
-          `Postal complaints address: ${casamiaCompanyConfig.complaintsAddress}`,
-        ],
+        points: customerServicePointsEn,
       },
       {
         title: 'What to include',
@@ -634,12 +643,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
     sections: [
       {
         title: 'Atención al cliente',
-        points: [
-          `Teléfono: ${casamiaCompanyConfig.customerServicePhone}`,
-          `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
-          `Horario: ${casamiaCompanyConfig.customerServiceHours}`,
-          `Dirección postal para reclamaciones: ${casamiaCompanyConfig.complaintsAddress}`,
-        ],
+        points: customerServicePointsEs,
       },
       {
         title: 'Qué incluir',

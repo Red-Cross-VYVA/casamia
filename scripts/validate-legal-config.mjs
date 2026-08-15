@@ -12,7 +12,6 @@ const requiredFields = [
   'registeredAddress',
   'registryDetails',
   'customerServiceEmail',
-  'customerServicePhone',
   'complaintsEmail',
   'complaintsAddress',
   'privacyEmail',

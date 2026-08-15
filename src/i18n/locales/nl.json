@@ -24,7 +24,7 @@
     "freeAssessment": "In-Home Visit",
     "contact": "Contact",
     "cta": "Book Visit",
-    "phone": "+34 900 000 000",
+    "phone": "hola@casamia.com.es",
     "menu": "Menu openen",
     "closeMenu": "Menu sluiten",
     "beforeAfter": "Before & After"
@@ -315,7 +315,7 @@
   },
   "footer": {
     "tagline": "Wij helpen families in heel Europa veilig en waardig thuis ouder te worden.",
-    "phone": "+34 900 000 000",
+    "phone": "hola@casamia.com.es",
     "company": {
       "title": "Bedrijf",
       "links": [
@@ -348,7 +348,7 @@
   "estimator": {
     "loading": "Uw woning wordt geanalyseerd...",
     "errorTitle": "Er ging iets mis",
-    "errorBody": "We konden uw foto's niet analyseren. Probeer het opnieuw of bel ons op +34 900 000 000.",
+    "errorBody": "We konden uw foto's niet analyseren. Probeer het opnieuw of neem contact op via hola@casamia.com.es.",
     "noFiles": "Voeg eerst minstens één foto van uw woning toe.",
     "noKey": "Live fotoanalyse is tijdelijk niet beschikbaar.",
     "resultsTitle": "Uw woningveiligheidsschatting",

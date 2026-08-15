@@ -26,7 +26,7 @@
     "freeAssessment": "In-Home Visit",
     "contact": "Contact",
     "cta": "Book Visit",
-    "phone": "+34 900 000 000",
+    "phone": "hola@casamia.com.es",
     "menu": "Open menu",
     "closeMenu": "Close menu",
     "beforeAfter": "Before & After"
@@ -556,7 +556,7 @@
   },
   "footer": {
     "tagline": "Senior home adaptation in Spain: safer bathrooms, easier access, grant support and managed installation.",
-    "phone": "+34 900 000 000",
+    "phone": "hola@casamia.com.es",
     "company": {
       "title": "Company",
       "links": [
@@ -589,7 +589,7 @@
   "estimator": {
     "loading": "Analysing your home...",
     "errorTitle": "Something went wrong",
-    "errorBody": "We couldn't analyse your photos. Please try again or call us on +34 900 000 000.",
+    "errorBody": "We couldn't analyse your photos. Please try again or contact us at hola@casamia.com.es.",
     "noFiles": "Please add at least one photo of your home first.",
     "noKey": "Live photo analysis is temporarily unavailable.",
     "resultsTitle": "Your room-by-room safety report",

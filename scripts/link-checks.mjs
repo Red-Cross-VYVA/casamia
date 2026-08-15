@@ -62,7 +62,7 @@ for (const file of sourceFiles) {
   const source = fs.readFileSync(file, 'utf8')
   const relativeFile = path.relative(projectRoot, file)
 
-  if (/34900000000/.test(source)) {
+  if (/(\+34\s*)?900\s*000\s*000|34900000000/.test(source)) {
     failures.push(`${relativeFile}: contains the placeholder CasaMia phone number`)
   }
 

@@ -5,7 +5,7 @@ export const casamiaCompanyConfig = {
   registeredAddress: 'URB SIERRA BLANCA, CASCADA DE, NUM 311, 29602 MARBELLA (MALAGA), Spain',
   registryDetails: 'Definitive NIF issued by AEAT on 07-10-2021. CSV: BWUDX82GNRUVUUMF.',
   customerServiceEmail: 'hola@casamia.com.es',
-  customerServicePhone: '+34 900 000 000',
+  customerServicePhone: '',
   customerServiceHours: 'Monday to Friday, 09:00-18:00 CET',
   complaintsEmail: 'hola@casamia.com.es',
   complaintsAddress: 'URB SIERRA BLANCA, CASCADA DE, NUM 311, 29602 MARBELLA (MALAGA), Spain',

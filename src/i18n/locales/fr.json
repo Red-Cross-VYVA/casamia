@@ -24,7 +24,7 @@
     "freeAssessment": "In-Home Visit",
     "contact": "Contact",
     "cta": "Book Visit",
-    "phone": "+34 900 000 000",
+    "phone": "hola@casamia.com.es",
     "menu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
     "beforeAfter": "Before & After"
@@ -315,7 +315,7 @@
   },
   "footer": {
     "tagline": "Nous aidons les familles en Europe à vieillir sereinement chez elles.",
-    "phone": "+34 900 000 000",
+    "phone": "hola@casamia.com.es",
     "company": {
       "title": "Entreprise",
       "links": [
@@ -348,7 +348,7 @@
   "estimator": {
     "loading": "Analyse de votre domicile...",
     "errorTitle": "Un problème est survenu",
-    "errorBody": "Nous n'avons pas pu analyser vos photos. Veuillez réessayer ou nous appeler au +34 900 000 000.",
+    "errorBody": "Nous n'avons pas pu analyser vos photos. Veuillez réessayer ou nous contacter à hola@casamia.com.es.",
     "noFiles": "Ajoutez d'abord au moins une photo de votre domicile.",
     "noKey": "L'analyse photo en direct est temporairement indisponible.",
     "resultsTitle": "Votre estimation de sécurité",
