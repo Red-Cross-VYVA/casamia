@@ -216,26 +216,65 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
 type PreviewCopy = ReturnType<typeof getProposalPreviewCopy>
 
 function LineItemCard({ copy, item }: { copy: PreviewCopy; item: ProposalLineItem }) {
+  const description = splitLineItemDescription(item.description)
+
   return (
-    <article className="rounded-lg border border-border bg-white p-4">
+    <article className="flex min-h-[250px] flex-col rounded-lg border border-border bg-white p-5 shadow-[0_14px_34px_rgba(15,75,112,0.05)]">
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-w-0">
           <p className="text-xs font-black uppercase tracking-[0.12em] text-blue">{item.category}</p>
-          <h4 className="mt-1 text-lg font-black leading-tight text-text-dark">{item.name}</h4>
+          <h4 className="mt-1 text-xl font-black leading-tight text-text-dark">{item.name}</h4>
         </div>
-        <span className="rounded-full bg-light-blue px-3 py-1 text-sm font-black text-navy">
+        <span className="shrink-0 rounded-full bg-light-blue px-3 py-1 text-sm font-black text-navy">
           {item.quantity}x
         </span>
       </div>
-      {item.description ? (
-        <p className="mt-3 text-sm font-bold leading-relaxed text-text-mid">{item.description}</p>
+
+      {description.summary ? (
+        <p className="mt-4 text-sm font-bold leading-relaxed text-text-mid">{description.summary}</p>
       ) : null}
-      <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
+
+      {description.included.length ? (
+        <div className="mt-4 rounded-lg bg-light-blue/50 p-3">
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-navy">{copy.included}</p>
+          <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+            {description.included.map((includedItem) => (
+              <li className="flex items-start gap-2 text-sm font-bold leading-snug text-text-dark" key={includedItem}>
+                <CheckCircle2 className="mt-0.5 shrink-0 text-green" size={16} aria-hidden="true" />
+                <span>{includedItem}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      <div className="mt-auto flex items-center justify-between border-t border-border pt-4">
         <span className="text-sm font-black uppercase text-text-muted">{copy.lineTotal}</span>
         <span className="text-lg font-black text-text-dark">{formatCurrency(calculateLineTotal(item))}</span>
       </div>
     </article>
   )
+}
+
+function splitLineItemDescription(description: string) {
+  const cleanDescription = description.trim()
+  if (!cleanDescription) {
+    return { included: [] as string[], summary: '' }
+  }
+
+  const match = cleanDescription.match(/\b(?:includes|incluye):\s*/i)
+  if (!match || match.index === undefined) {
+    return { included: [] as string[], summary: cleanDescription }
+  }
+
+  const summary = cleanDescription.slice(0, match.index).trim().replace(/[.,;:\s]+$/, '.')
+  const includedText = cleanDescription.slice(match.index + match[0].length)
+  const included = includedText
+    .split(/,\s+|\s+y\s+|\s+and\s+/i)
+    .map((item) => item.trim().replace(/[.;]+$/, ''))
+    .filter(Boolean)
+
+  return { included, summary }
 }
 
 function ValueCard({
