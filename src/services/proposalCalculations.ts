@@ -65,6 +65,12 @@ export type ProposalData = {
   inspectionReference: string
   lineItems: ProposalLineItem[]
   overallRiskLevel: ProposalRiskLevel
+  plansBuilder?: {
+    deliveryPreference?: 'email' | 'whatsapp'
+    reviewItems?: string[]
+    selectedPackageCount?: number
+    selectedRoomQuantity?: number
+  }
   paymentTerms: string
   phone: string
   preparedBy: string

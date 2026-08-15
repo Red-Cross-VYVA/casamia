@@ -70,6 +70,8 @@ type BackendProposal = {
   payment_terms?: string
   phone?: string
   plan?: string
+  plans_builder?: BackendPlansBuilder
+  plansBuilder?: ProposalData['plansBuilder']
   prepared_by?: string
   proposal_date?: string
   public_token?: string
@@ -84,6 +86,13 @@ type BackendProposal = {
   total_estimate?: number | string
   updated_at?: string
   valid_until?: string
+}
+
+type BackendPlansBuilder = {
+  delivery_preference?: string
+  review_items?: unknown[]
+  selected_package_count?: number | string
+  selected_room_quantity?: number | string
 }
 
 type BackendActionResponse = BackendProposal & {
@@ -279,6 +288,14 @@ export function toBackendProposal(proposal: ProposalData) {
     overall_risk_level: proposal.overallRiskLevel,
     payment_terms: proposal.paymentTerms,
     plan: proposal.selectedPlan,
+    plans_builder: proposal.plansBuilder
+      ? {
+          delivery_preference: proposal.plansBuilder.deliveryPreference,
+          review_items: proposal.plansBuilder.reviewItems,
+          selected_package_count: proposal.plansBuilder.selectedPackageCount,
+          selected_room_quantity: proposal.plansBuilder.selectedRoomQuantity,
+        }
+      : undefined,
     prepared_by: proposal.preparedBy,
     proposal_date: proposal.proposalDate,
     public_token: proposal.publicToken,
@@ -349,6 +366,7 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
       }),
     ),
     overallRiskLevel: (safeText(raw.overall_risk_level, 'Moderate') || 'Moderate') as ProposalData['overallRiskLevel'],
+    plansBuilder: normalisePlansBuilder(raw.plans_builder ?? raw.plansBuilder),
     paymentTerms: safeText(raw.payment_terms, getDefaultPaymentTerms(selectedPlan)),
     phone: safeText(raw.customer_phone ?? raw.phone),
     preparedBy: safeText(raw.prepared_by, 'CasaMia Operations'),
@@ -363,6 +381,27 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
     updatedAt: safeText(raw.updated_at, new Date().toISOString()),
     validUntil: safeText(raw.valid_until),
   })
+}
+
+function normalisePlansBuilder(value: BackendPlansBuilder | ProposalData['plansBuilder'] | undefined) {
+  if (!value || typeof value !== 'object') {
+    return undefined
+  }
+
+  const metadata = value as BackendPlansBuilder & ProposalData['plansBuilder']
+  const rawDeliveryPreference = metadata.delivery_preference ?? metadata.deliveryPreference
+  const deliveryPreference: 'email' | 'whatsapp' | undefined =
+    rawDeliveryPreference === 'whatsapp' || rawDeliveryPreference === 'email'
+      ? rawDeliveryPreference
+      : undefined
+  const rawReviewItems = metadata.review_items ?? metadata.reviewItems
+
+  return {
+    deliveryPreference,
+    reviewItems: Array.isArray(rawReviewItems) ? rawReviewItems.map((item) => safeText(item)).filter(Boolean) : undefined,
+    selectedPackageCount: safeNumber(metadata.selected_package_count ?? metadata.selectedPackageCount),
+    selectedRoomQuantity: safeNumber(metadata.selected_room_quantity ?? metadata.selectedRoomQuantity),
+  }
 }
 
 function hasProposalShape(raw: BackendActionResponse) {
@@ -683,6 +722,12 @@ function createLocalPublicProposalDraft(
       : 'CasaMia may support documentation for applicable grants. Approval is determined solely by the relevant authority and is not guaranteed.',
     inspectionReference: 'Public Plans builder',
     lineItems: estimate.proposalLineItems,
+    plansBuilder: {
+      deliveryPreference: payload.deliveryChannel,
+      reviewItems: estimate.reviewItems,
+      selectedPackageCount: estimate.selectedPackageCount,
+      selectedRoomQuantity: estimate.selectedRoomQuantity,
+    },
     paymentTerms: payload.language === 'es'
       ? 'Propuesta generada a partir de los paquetes, cantidades y extras seleccionados. Los trabajos y pagos solo empiezan después de la aceptación y la coordinación de fecha.'
       : 'Proposal generated from the selected packages, quantities and add-ons. Work and payments only start after acceptance and date coordination.',

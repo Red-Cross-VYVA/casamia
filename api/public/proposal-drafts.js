@@ -93,21 +93,32 @@ export default async function handler(request, response) {
     let proposal = mapProposalRecord(saveResult.record)
     const relativePublicUrl = proposal.public_token ? `/proposal/${proposal.public_token}` : ''
     const publicUrl = buildAbsoluteProposalUrl(request, proposal.public_token)
-    const emailDelivery = await sendProposalEmail({
-      language: draft.proposalPayload?.plans_builder?.language,
-      proposal,
-      publicUrl,
-    })
+    const deliveryPreference = normaliseDeliveryPreference(draft.proposalPayload?.plans_builder?.delivery_preference)
+    const emailDelivery = deliveryPreference === 'whatsapp'
+      ? {
+          ok: false,
+          provider: 'resend',
+          reason: 'WhatsApp follow-up requested; automated proposal email not sent.',
+          skipped: true,
+          status: 'whatsapp_requested',
+        }
+      : await sendProposalEmail({
+          language: draft.proposalPayload?.plans_builder?.language,
+          proposal,
+          publicUrl,
+        })
     const deliveryStatus = emailDelivery.ok
       ? 'sent'
       : emailDelivery.skipped
         ? emailDelivery.status
         : 'failed'
-    const eventType = emailDelivery.ok
-      ? 'proposal-email-sent'
-      : emailDelivery.skipped
-        ? 'proposal-email-skipped'
-        : 'proposal-email-failed'
+    const eventType = deliveryPreference === 'whatsapp'
+      ? 'proposal-whatsapp-follow-up-requested'
+      : emailDelivery.ok
+        ? 'proposal-email-sent'
+        : emailDelivery.skipped
+          ? 'proposal-email-skipped'
+          : 'proposal-email-failed'
     const events = Array.isArray(proposal.events) ? proposal.events : []
     const delivery = {
       ...(proposal.delivery && typeof proposal.delivery === 'object' ? proposal.delivery : {}),
@@ -117,6 +128,7 @@ export default async function handler(request, response) {
         reason: emailDelivery.reason ?? '',
         status: deliveryStatus,
       },
+      preferredChannel: deliveryPreference,
     }
     const updateResult = await updateProposalRecord(saveResult.record, {
       delivery,
@@ -146,6 +158,10 @@ export default async function handler(request, response) {
       message: error instanceof Error ? error.message : 'Invalid proposal draft request.',
     })
   }
+}
+
+function normaliseDeliveryPreference(value) {
+  return text(value).toLowerCase() === 'whatsapp' ? 'whatsapp' : 'email'
 }
 
 function validateDraftBodyBasics(body) {
