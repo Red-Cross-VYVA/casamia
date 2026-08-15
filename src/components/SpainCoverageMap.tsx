@@ -1,6 +1,8 @@
 import { MapPin } from 'lucide-react'
 import { useState } from 'react'
 
+import { localizeInternalPath } from '../utils/localizedRouting'
+
 export type SpainCoverageCopy = {
   title: string
   badge: string
@@ -205,7 +207,7 @@ export function SpainCoverageMap({
             <a
               aria-label={`${copy.orderNow}: ${isSpanish ? activePoint.label.es : activePoint.label.en}`}
               className="about-map-tooltip-cta"
-              href={`/order?zone=${activePoint.id}`}
+              href={localizeInternalPath(`/order?zone=${activePoint.id}`, language)}
             >
               <rect x="17" y={tooltipButtonY} width={tooltipWidth - 34} height="34" rx="17" />
               <text x={tooltipWidth / 2} y={tooltipButtonY + 22} textAnchor="middle">
