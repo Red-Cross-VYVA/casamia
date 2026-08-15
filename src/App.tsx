@@ -267,8 +267,10 @@ function AppRoutes() {
   const isPublicAgreementRoute = routedPathname.startsWith('/agreement/')
 
   useEffect(() => {
-    if (pathLocale && !i18n.language.toLowerCase().startsWith(pathLocale)) {
-      void i18n.changeLanguage(pathLocale)
+    const targetLanguage = pathLocale ?? 'en'
+
+    if (!i18n.language.toLowerCase().startsWith(targetLanguage)) {
+      void i18n.changeLanguage(targetLanguage)
     }
   }, [i18n, pathLocale])
 

@@ -10,13 +10,8 @@ const resources = {
 }
 
 const supportedLanguages = Object.keys(resources)
-const savedLanguage = window.localStorage.getItem('casamia-language')
-const browserLanguage = window.navigator.language.split('-')[0]
-const initialLanguage = supportedLanguages.includes(savedLanguage ?? '')
-  ? savedLanguage
-  : supportedLanguages.includes(browserLanguage)
-    ? browserLanguage
-    : 'en'
+const routeLanguage = window.location.pathname.split('/')[1]
+const initialLanguage = routeLanguage === 'es' ? 'es' : 'en'
 
 i18n.use(initReactI18next).init({
   resources,
