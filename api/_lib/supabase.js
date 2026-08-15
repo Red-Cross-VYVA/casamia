@@ -246,11 +246,28 @@ async function requestSupabase(path, init = {}, options = {}) {
     }
   } catch (error) {
     if (controller.signal.aborted && !callerSignal?.aborted) {
-      const timeoutError = new Error('Supabase request timed out.')
-      timeoutError.name = 'AbortError'
-      throw timeoutError
+      return {
+        ok: false,
+        status: 503,
+        body: {
+          message: 'CasaMia database connection timed out. Please try again shortly.',
+        },
+      }
     }
-    throw error
+
+    console.error('Supabase request failed', {
+      cause: error?.cause?.message,
+      code: error?.cause?.code,
+      message: error instanceof Error ? error.message : String(error),
+    })
+
+    return {
+      ok: false,
+      status: 503,
+      body: {
+        message: 'CasaMia database connection is unavailable. Check SUPABASE_URL in Vercel and try again.',
+      },
+    }
   } finally {
     clearTimeout(timeout)
     callerSignal?.removeEventListener?.('abort', abortFromCaller)
