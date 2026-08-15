@@ -1,8 +1,10 @@
 import { ChevronDown } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { trackEvent } from '../utils/analytics'
+import { localizeInternalPath, stripLocalePrefix } from '../utils/localizedRouting'
 
 const languages = [
   { code: 'en', shortLabel: 'EN', label: 'English' },
@@ -19,6 +21,8 @@ export function LanguageSwitcher({
   inverted = false,
 }: LanguageSwitcherProps) {
   const { i18n, t } = useTranslation()
+  const location = useLocation()
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const currentLanguage =
@@ -90,6 +94,12 @@ export function LanguageSwitcher({
                     to: language.code,
                   })
                   void i18n.changeLanguage(language.code)
+                  const normalizedCurrentPath = stripLocalePrefix(location.pathname)
+                  const localizedNextPath = localizeInternalPath(
+                    `${normalizedCurrentPath}${location.search}${location.hash}`,
+                    language.code,
+                  )
+                  navigate(localizedNextPath)
                   setOpen(false)
                 }}
               >

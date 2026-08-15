@@ -16,6 +16,7 @@ import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
 import { SEO } from './components/SEO'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
+import { getPathLocale, stripLocalePrefix } from './utils/localizedRouting'
 
 const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
 const AssistedLivingSolutionsPage = lazy(() =>
@@ -242,10 +243,20 @@ function InternalRoute({ children }: { children: ReactNode }) {
 }
 
 function AppRoutes() {
+  const { i18n } = useTranslation()
   const location = useLocation()
-  const isInternalRoute = location.pathname.startsWith('/internal')
-  const isFocusedWizardRoute = location.pathname === '/home-safety-wizard'
-  const isPublicAgreementRoute = location.pathname.startsWith('/agreement/')
+  const pathLocale = getPathLocale(location.pathname)
+  const routedPathname = stripLocalePrefix(location.pathname)
+  const routedLocation = pathLocale ? { ...location, pathname: routedPathname } : location
+  const isInternalRoute = routedPathname.startsWith('/internal')
+  const isFocusedWizardRoute = routedPathname === '/home-safety-wizard'
+  const isPublicAgreementRoute = routedPathname.startsWith('/agreement/')
+
+  useEffect(() => {
+    if (pathLocale && !i18n.language.toLowerCase().startsWith(pathLocale)) {
+      void i18n.changeLanguage(pathLocale)
+    }
+  }, [i18n, pathLocale])
 
   return (
     <>
@@ -253,7 +264,7 @@ function AppRoutes() {
       {isInternalRoute || isFocusedWizardRoute ? null : <Nav />}
       <main>
         <Suspense fallback={<RouteLoadingFallback />}>
-          <Routes>
+          <Routes location={routedLocation}>
             <Route path="/" element={<Home2Page />} />
             <Route path="/home2" element={<Home2Page />} />
             <Route path="/home-new" element={<Navigate to="/" replace />} />

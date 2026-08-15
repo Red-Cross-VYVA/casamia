@@ -59,10 +59,10 @@ const customerServicePointsEn = [
 ]
 
 const customerServicePointsEs = [
-  ...(casamiaCompanyConfig.customerServicePhone ? [`TelÃ©fono: ${casamiaCompanyConfig.customerServicePhone}`] : []),
+  ...(casamiaCompanyConfig.customerServicePhone ? [`Teléfono: ${casamiaCompanyConfig.customerServicePhone}`] : []),
   `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
   `Horario: ${casamiaCompanyConfig.customerServiceHours}`,
-  `DirecciÃ³n postal para reclamaciones: ${casamiaCompanyConfig.complaintsAddress}`,
+  `Dirección postal para reclamaciones: ${casamiaCompanyConfig.complaintsAddress}`,
 ]
 
 export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {

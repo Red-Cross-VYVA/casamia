@@ -8,6 +8,7 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 import { allNeedLandingPages } from '../constants/needLandingPages'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
+import { localizeInternalPath, stripLocalePrefix } from '../utils/localizedRouting'
 
 type HeaderLink = {
   label: string
@@ -118,6 +119,7 @@ const solutionMenuItems = [
 export function Nav() {
   const { i18n, t } = useTranslation()
   const location = useLocation()
+  const activePathname = stripLocalePrefix(location.pathname)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [dismissedDesktopMenu, setDismissedDesktopMenu] = useState<DesktopMenuId | null>(null)
   const assessmentPath = getAssessmentPath()
@@ -147,6 +149,7 @@ export function Nav() {
     { label: navLabels.resources, to: '/blog', match: ['/blog', '/resources', '/tools', '/service-areas'] },
     { label: navLabels.about, to: '/why-us', match: ['/why-us', '/why-casamia', '/about', '/contact'] },
   ]
+  const localizeTo = (to: string) => localizeInternalPath(to, i18n.language)
   const desktopLinks = links
   const dismissDesktopMenu = (menuId: DesktopMenuId) => {
     setDismissedDesktopMenu(menuId)
@@ -224,13 +227,13 @@ export function Nav() {
   return (
     <header className="site-header">
       <nav className="site-header-inner site-shell">
-        <Link className="site-header-logo" to="/#top" aria-label="CasaMia">
+        <Link className="site-header-logo" to={localizeTo('/#top')} aria-label="CasaMia">
           <BrandLogo />
         </Link>
 
         <div className="site-header-links">
           {desktopLinks.map((link) => {
-            const active = isActiveLink(location.pathname, link)
+            const active = isActiveLink(activePathname, link)
 
             if (link.to === '/services') {
               return (
@@ -257,13 +260,13 @@ export function Nav() {
                       <div className="site-header-solution-grid">
                         {solutionMenuItems.map((item) => {
                           const Icon = item.icon
-                          const itemActive = location.pathname === item.to
+                          const itemActive = activePathname === item.to
 
                           return (
                             <Link
                               className={`site-header-solution-card${itemActive ? ' is-active' : ''}`}
                               key={item.to}
-                              to={item.to}
+                              to={localizeTo(item.to)}
                               onClick={() => dismissDesktopMenu('solutions')}
                             >
                               <span className="site-header-solution-icon">
@@ -293,7 +296,7 @@ export function Nav() {
                   <Link
                     aria-current={active ? 'page' : undefined}
                     className={`nav-link site-header-menu-trigger${active ? ' is-active' : ''}`}
-                    to={link.to}
+                    to={localizeTo(link.to)}
                     onClick={() => dismissDesktopMenu('resources')}
                   >
                     {link.label}
@@ -304,7 +307,7 @@ export function Nav() {
                       <div className="site-header-mega-intro">
                         <span>{isSpanish ? 'Recursos por situación' : 'Resources by situation'}</span>
                         <strong>{isSpanish ? 'Encuentra el siguiente paso útil.' : 'Find the next useful step.'}</strong>
-                        <Link to="/blog" onClick={() => dismissDesktopMenu('resources')}>
+                        <Link to={localizeTo('/blog')} onClick={() => dismissDesktopMenu('resources')}>
                           {isSpanish ? 'Ver todos los recursos' : 'View all resources'}
                         </Link>
                       </div>
@@ -315,7 +318,7 @@ export function Nav() {
                             {group.links.map((item) => (
                               <Link
                                 key={`${group.title}-${item.to}-${item.label}`}
-                                to={item.to}
+                                to={localizeTo(item.to)}
                                 onClick={() => dismissDesktopMenu('resources')}
                               >
                                 {item.label}
@@ -335,7 +338,7 @@ export function Nav() {
                 key={link.to}
                 aria-current={active ? 'page' : undefined}
                 className={`nav-link${active ? ' is-active' : ''}`}
-                to={link.to}
+                to={localizeTo(link.to)}
               >
                 {link.label}
               </Link>
@@ -354,7 +357,7 @@ export function Nav() {
           </a>
           <Link
             className="site-header-cta btn btn-green"
-            to={assessmentPath}
+            to={localizeTo(assessmentPath)}
             onClick={() => trackEvent('assessment_booking_started', { location: 'nav' })}
           >
             {navLabels.cta}
@@ -377,14 +380,14 @@ export function Nav() {
         <div className="site-mobile-menu">
           <div className="site-mobile-menu-inner">
             {links.filter((link) => link.to !== '/services').map((link) => {
-              const active = isActiveLink(location.pathname, link)
+              const active = isActiveLink(activePathname, link)
 
               return (
                 <Link
                   key={link.to}
                   aria-current={active ? 'page' : undefined}
                   className={`nav-link min-h-12 py-2 text-lg${active ? ' is-active' : ''}`}
-                  to={link.to}
+                  to={localizeTo(link.to)}
                 >
                   {link.label}
                 </Link>
@@ -397,7 +400,7 @@ export function Nav() {
                   const Icon = item.icon
 
                   return (
-                    <Link key={item.to} to={item.to}>
+                    <Link key={item.to} to={localizeTo(item.to)}>
                       <span className="site-mobile-solution-icon">
                         <Icon size={18} aria-hidden="true" />
                       </span>
@@ -414,7 +417,7 @@ export function Nav() {
               <p>{isSpanish ? 'Recursos útiles' : 'Useful resources'}</p>
               <div className="site-mobile-quick-list">
                 {resourceMenuGroups[0].links.map((item) => (
-                  <Link key={`mobile-resource-${item.to}-${item.label}`} to={item.to}>
+                  <Link key={`mobile-resource-${item.to}-${item.label}`} to={localizeTo(item.to)}>
                     {item.label}
                   </Link>
                 ))}
@@ -429,7 +432,7 @@ export function Nav() {
             </a>
             <Link
               className="btn btn-green w-full"
-              to={assessmentPath}
+              to={localizeTo(assessmentPath)}
               onClick={() => trackEvent('assessment_booking_started', { location: 'mobile_nav' })}
             >
               {navLabels.cta}
