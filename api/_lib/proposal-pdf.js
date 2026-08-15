@@ -105,11 +105,11 @@ function drawInfoBox(doc, copy, proposal, totals) {
   infoRow(doc, copy.deposit, formatEuro(totals.depositDue), x + 18, y + 48, width - 36)
   infoRow(doc, copy.balance, formatEuro(totals.balanceDue), x + 18, y + 76, width - 36)
 
-  doc.moveTo(x + 18, y + 108).lineTo(x + width - 18, y + 108).strokeColor('#ffffff33').stroke()
+  doc.moveTo(x + 18, y + 108).lineTo(x + width - 18, y + 108).strokeColor('#78aeca').stroke()
   doc
     .font('Helvetica-Bold')
     .fontSize(8)
-    .fillColor('#ffffffaa')
+    .fillColor('#cfe4ef')
     .text(copy.total.toUpperCase(), x + 18, y + 122)
     .font('Times-Bold')
     .fontSize(26)
@@ -117,7 +117,7 @@ function drawInfoBox(doc, copy, proposal, totals) {
     .text(formatEuro(totals.totalEstimate), x + 18, y + 136, { width: width - 36 })
     .font('Helvetica-Bold')
     .fontSize(8)
-    .fillColor('#ffffffaa')
+    .fillColor('#d9eef8')
     .text(copy.vatIncluded, x + 18, y + 160)
 }
 
@@ -151,7 +151,7 @@ function infoRow(doc, label, value, x, y, width) {
   doc
     .font('Helvetica-Bold')
     .fontSize(8)
-    .fillColor('#ffffffaa')
+    .fillColor('#cfe4ef')
     .text(label.toUpperCase(), x, y, { width: width * 0.58 })
     .fontSize(10)
     .fillColor('#ffffff')
