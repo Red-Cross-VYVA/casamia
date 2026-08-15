@@ -63,7 +63,7 @@ import {
   type PlansBuilderGroup,
   type PlansBuilderSelectionState,
 } from '../services/plansBuilderPricing'
-import { createPublicProposalDraft, type PublicProposalDraftResponse } from '../services/proposalsApi'
+import { acceptPublicProposal, createPublicProposalDraft, type PublicProposalDraftResponse } from '../services/proposalsApi'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import type { MasterCatalogueOutcome, MasterServiceCatalogue } from '../types/serviceCatalogue'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
@@ -114,6 +114,11 @@ type PlansCopy = {
   monthly: string
   name: string
   noSelection: string
+  orderError: string
+  orderNow: string
+  orderReceivedBody: string
+  orderReceivedTitle: string
+  ordering: string
   optionalTitle: string
   optionalAddOnsIntro: string
   packageDetails: string
@@ -657,6 +662,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     monthly: 'Monthly',
     name: 'Name',
     noSelection: 'Choose at least one room.',
+    orderError: 'We could not confirm this order online. Please contact CasaMia and we will help.',
+    orderNow: 'Order now',
+    orderReceivedBody: 'CasaMia will contact you shortly to confirm scheduling, scope and next payment steps.',
+    orderReceivedTitle: 'Order received',
+    ordering: 'Confirming...',
     optionalTitle: 'Connected',
     optionalAddOnsIntro: 'Some add-ons need extra information before CasaMia can quote them.',
     packageDetails: 'Package details',
@@ -771,6 +781,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     monthly: 'Mensual',
     name: 'Nombre',
     noSelection: 'Elige al menos una estancia.',
+    orderError: 'No hemos podido confirmar este pedido online. Contacta con CasaMia y te ayudaremos.',
+    orderNow: 'Pedir ahora',
+    orderReceivedBody: 'CasaMia contactará contigo en breve para confirmar fecha, alcance y próximos pasos de pago.',
+    orderReceivedTitle: 'Pedido recibido',
+    ordering: 'Confirmando...',
     optionalTitle: 'Conectado',
     optionalAddOnsIntro: 'Algunos extras necesitan información adicional antes de que CasaMia pueda presupuestarlos.',
     packageDetails: 'Detalles del paquete',
@@ -1131,6 +1146,11 @@ export function PlansPage() {
           summaryNextBody: 'Tu propuesta se genera a partir de los paquetes, cantidades y extras elegidos.',
           subtitle: 'Elige estancias, ajusta cantidades y añade solo los extras que aporten valor. Recibe una propuesta CasaMia clara al instante.',
           title: 'Crea tu plan CasaMia.',
+          orderError: 'No hemos podido confirmar este pedido online. Contacta con CasaMia y te ayudaremos.',
+          orderNow: 'Pedir ahora',
+          orderReceivedBody: 'CasaMia contactará contigo en breve para confirmar fecha, alcance y próximos pasos de pago.',
+          orderReceivedTitle: 'Pedido recibido',
+          ordering: 'Confirmando...',
           seeDraft: 'Abrir propuesta',
         }
       : {
@@ -1170,6 +1190,11 @@ export function PlansPage() {
           summaryNextBody: 'Your proposal is generated from the selected packages, quantities and add-ons.',
           subtitle: 'Choose the rooms, set quantities and add only the extras that matter. Get a clear CasaMia proposal instantly.',
           title: 'Build your CasaMia plan.',
+          orderError: 'We could not confirm this order online. Please contact CasaMia and we will help.',
+          orderNow: 'Order now',
+          orderReceivedBody: 'CasaMia will contact you shortly to confirm scheduling, scope and next payment steps.',
+          orderReceivedTitle: 'Order received',
+          ordering: 'Confirming...',
           seeDraft: 'Open proposal',
         }),
   }), [baseCopy, language])
@@ -1188,6 +1213,8 @@ export function PlansPage() {
   const [draftProposal, setDraftProposal] = useState<ProposalData | null>(null)
   const [emailDelivery, setEmailDelivery] = useState<PublicProposalDraftResponse['emailDelivery'] | null>(null)
   const [error, setError] = useState('')
+  const [orderError, setOrderError] = useState('')
+  const [isOrdering, setIsOrdering] = useState(false)
   const [isDetectingLocation, setIsDetectingLocation] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [locationStatus, setLocationStatus] = useState('')
@@ -1260,6 +1287,7 @@ export function PlansPage() {
   })
   const oneTimeLineItems = estimate.lineItems.filter((line) => !line.isRecurring)
   const proposalReady = Boolean(draftUrl)
+  const orderReceived = draftProposal?.acceptanceStatus === 'Accepted' || draftProposal?.status === 'Accepted'
   const proposalSuccessCopy = customer.deliveryChannel === 'whatsapp'
     ? {
         body: copy.successWhatsappBody,
@@ -1269,7 +1297,6 @@ export function PlansPage() {
         body: copy.successEmailBody,
         title: copy.successEmailTitle,
       }
-  const draftPath = draftUrl ? new URL(draftUrl).pathname : ''
   const selectedCountLabel = language === 'es'
     ? `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'paquete base seleccionado' : 'paquetes base seleccionados'}`
     : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'core package selected' : 'core packages selected'}`
@@ -1999,6 +2026,7 @@ export function PlansPage() {
     setDraftProposal(null)
     setEmailDelivery(null)
     setError('')
+    setOrderError('')
     setStep('builder')
     scrollToPlansSection('plans-builder-title')
   }
@@ -2008,6 +2036,7 @@ export function PlansPage() {
     setDraftProposal(null)
     setEmailDelivery(null)
     setError('')
+    setOrderError('')
     setStep('review')
     scrollToPlansSection('plans-review-step')
   }
@@ -2018,6 +2047,7 @@ export function PlansPage() {
     setDraftUrl('')
     setDraftProposal(null)
     setEmailDelivery(null)
+    setOrderError('')
 
     if (!estimate.proposalLineItems.length) {
       setError(copy.noSelection)
@@ -2053,6 +2083,38 @@ export function PlansPage() {
       setError(submitError instanceof Error ? submitError.message : copy.finalReview)
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  async function handleOrderGeneratedProposal() {
+    if (!draftProposal || !draftUrl || orderReceived) {
+      return
+    }
+
+    const token = draftProposal.publicToken || draftUrl.split('/proposal/').pop() || ''
+
+    if (!token) {
+      setOrderError(copy.orderError)
+      return
+    }
+
+    setIsOrdering(true)
+    setOrderError('')
+
+    try {
+      const acceptedProposal = await acceptPublicProposal(token, customer.name.trim() || draftProposal.customerName)
+
+      setDraftProposal(acceptedProposal ?? {
+        ...draftProposal,
+        acceptanceDate: new Date().toISOString().slice(0, 10),
+        acceptanceStatus: 'Accepted',
+        acceptedBy: customer.name.trim() || draftProposal.customerName,
+        status: 'Accepted',
+      })
+    } catch {
+      setOrderError(copy.orderError)
+    } finally {
+      setIsOrdering(false)
     }
   }
 
@@ -2614,24 +2676,30 @@ export function PlansPage() {
               </span>
               <div>
                 <p className="section-kicker">{copy.contactStepEyebrow}</p>
-                <h1 id="plans-proposal-success-title">{proposalSuccessCopy.title}</h1>
-                <p>{proposalSuccessCopy.body}</p>
-                <small>{copy.successLead}</small>
-                {customer.deliveryChannel === 'email' && emailDeliveryMessage ? (
+                <h1 id="plans-proposal-success-title">
+                  {orderReceived ? copy.orderReceivedTitle : proposalSuccessCopy.title}
+                </h1>
+                <p>{orderReceived ? copy.orderReceivedBody : proposalSuccessCopy.body}</p>
+                <small>{orderReceived ? copy.successLead : copy.successLead}</small>
+                {!orderReceived && customer.deliveryChannel === 'email' && emailDeliveryMessage ? (
                   <small className="plans-email-delivery-note">{emailDeliveryMessage}</small>
                 ) : null}
+                {orderError ? <p className="plans-form-error">{orderError}</p> : null}
               </div>
               <div className="plans-proposal-success-actions">
-                {draftPath ? (
-                  <Link className="btn btn-green" to={draftPath}>
-                    {copy.seeDraft}
-                    <ArrowRight size={16} aria-hidden="true" />
-                  </Link>
+                {!orderReceived ? (
+                  <button className="btn btn-green" type="button" disabled={isOrdering} onClick={handleOrderGeneratedProposal}>
+                    {isOrdering ? <Loader2 className="animate-spin" size={16} aria-hidden="true" /> : null}
+                    {isOrdering ? copy.ordering : copy.orderNow}
+                    {!isOrdering ? <ArrowRight size={16} aria-hidden="true" /> : null}
+                  </button>
                 ) : null}
-                <button className="plans-contact-back" type="button" onClick={goBackToReview}>
-                  <ArrowLeft size={16} aria-hidden="true" />
-                  {copy.backToBuilder}
-                </button>
+                {!orderReceived ? (
+                  <button className="plans-contact-back" type="button" onClick={goBackToReview}>
+                    <ArrowLeft size={16} aria-hidden="true" />
+                    {copy.backToBuilder}
+                  </button>
+                ) : null}
               </div>
             </section>
 
