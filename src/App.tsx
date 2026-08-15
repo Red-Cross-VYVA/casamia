@@ -16,7 +16,7 @@ import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
 import { SEO } from './components/SEO'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
-import { getPathLocale, stripLocalePrefix } from './utils/localizedRouting'
+import { getPathLocale, localizeInternalPath, stripLocalePrefix } from './utils/localizedRouting'
 
 const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
 const AssistedLivingSolutionsPage = lazy(() =>
@@ -201,14 +201,27 @@ function RouteLoadingFallback() {
 
 function LegacyAssessmentRedirect() {
   const location = useLocation()
+  const { i18n } = useTranslation()
 
-  return <Navigate to={`/home-safety-assessment${location.search}${location.hash}`} replace />
+  return (
+    <Navigate
+      to={localizeInternalPath(`/home-safety-assessment${location.search}${location.hash}`, i18n.language)}
+      replace
+    />
+  )
 }
 
 function LegacyPathRedirect({ to }: { to: string }) {
   const location = useLocation()
+  const { i18n } = useTranslation()
 
-  return <Navigate to={`${to}${location.search}${location.hash}`} replace />
+  return <Navigate to={localizeInternalPath(`${to}${location.search}${location.hash}`, i18n.language)} replace />
+}
+
+function LocalizedNavigate({ to, replace = true }: { to: string; replace?: boolean }) {
+  const { i18n } = useTranslation()
+
+  return <Navigate to={localizeInternalPath(to, i18n.language)} replace={replace} />
 }
 
 const legacyResourceArticlePaths: Record<string, string> = {
@@ -221,9 +234,10 @@ const legacyResourceArticlePaths: Record<string, string> = {
 function LegacyResourceRedirect() {
   const location = useLocation()
   const { articleId } = useParams()
+  const { i18n } = useTranslation()
   const target = articleId ? legacyResourceArticlePaths[articleId] : undefined
 
-  return <Navigate to={`${target ?? '/blog'}${location.search}`} replace />
+  return <Navigate to={localizeInternalPath(`${target ?? '/blog'}${location.search}`, i18n.language)} replace />
 }
 
 function InternalRoute({ children }: { children: ReactNode }) {
@@ -267,10 +281,10 @@ function AppRoutes() {
           <Routes location={routedLocation}>
             <Route path="/" element={<Home2Page />} />
             <Route path="/home2" element={<Home2Page />} />
-            <Route path="/home-new" element={<Navigate to="/" replace />} />
+            <Route path="/home-new" element={<LocalizedNavigate to="/" />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/plans" element={<PlansPage />} />
-            <Route path="/plans/:planId" element={<Navigate to="/plans" replace />} />
+            <Route path="/plans/:planId" element={<LocalizedNavigate to="/plans" />} />
             <Route path="/provider-partners" element={<ProviderPartnersPage />} />
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
@@ -278,28 +292,28 @@ function AppRoutes() {
             <Route path="/service-areas" element={<ServiceAreasPage />} />
             <Route path="/service-areas/:citySlug" element={<ServiceAreasPage />} />
             <Route path="/safe-bathroom-access" element={<LegacyPathRedirect to="/services/bathroom-safety" />} />
-            <Route path="/grants-for-home-adaptations-spain" element={<Navigate to="/grants" replace />} />
+            <Route path="/grants-for-home-adaptations-spain" element={<LocalizedNavigate to="/grants" />} />
             <Route path="/:needSlug" element={<NeedLandingPage />} />
-            <Route path="/family-dashboard" element={<Navigate to="/tech" replace />} />
+            <Route path="/family-dashboard" element={<LocalizedNavigate to="/tech" />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />
-            <Route path="/resources" element={<Navigate to="/blog" replace />} />
+            <Route path="/resources" element={<LocalizedNavigate to="/blog" />} />
             <Route path="/resources/:articleId" element={<LegacyResourceRedirect />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:articleId" element={<BlogArticlePage />} />
             <Route path="/tech" element={<TechPage />} />
-            <Route path="/configure/*" element={<Navigate to="/home-safety-wizard" replace />} />
+            <Route path="/configure/*" element={<LocalizedNavigate to="/home-safety-wizard" />} />
             <Route path="/admin/config-preview" element={<Navigate to="/internal/service-catalog" replace />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/order" element={<OrderPage />} />
             <Route path="/plan-adapta" element={<PlanAdaptaPage />} />
             <Route path="/why-us" element={<WhyCasamiaPage />} />
-            <Route path="/why-casamia" element={<Navigate to="/why-us" replace />} />
+            <Route path="/why-casamia" element={<LocalizedNavigate to="/why-us" />} />
             <Route path="/home-safety-assessment" element={<FreeHomeSafetyAssessmentPage />} />
             <Route path="/home-safety-wizard" element={<HomeSafetyWizardPage />} />
             <Route path="/free-home-safety-assessment" element={<LegacyAssessmentRedirect />} />
             <Route path="/tools" element={<ToolsPage />} />
-            <Route path="/tools/safety-report" element={<Navigate to="/#estimate-upload" replace />} />
-            <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
+            <Route path="/tools/safety-report" element={<LocalizedNavigate to="/#estimate-upload" />} />
+            <Route path="/tools/grant-eligibility" element={<LocalizedNavigate to="/grant-check" />} />
             <Route path="/tools/is-my-parent-safe-at-home" element={<ParentSafetyQuizPage />} />
             <Route path="/grants" element={<GrantSupportSpainPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
@@ -329,8 +343,8 @@ function AppRoutes() {
             <Route path="/internal/agreements" element={<InternalRoute><InternalAgreementsPage /></InternalRoute>} />
             <Route path="/internal/proposal-generator" element={<InternalRoute><ProposalGeneratorPage /></InternalRoute>} />
             <Route path="/internal/proposals/:proposalId" element={<InternalRoute><ProposalDetailPage /></InternalRoute>} />
-            <Route path="/contact" element={<Navigate to="/why-us#contact-form" replace />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/contact" element={<LocalizedNavigate to="/why-us#contact-form" />} />
+            <Route path="*" element={<LocalizedNavigate to="/" />} />
           </Routes>
         </Suspense>
       </main>
