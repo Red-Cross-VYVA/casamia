@@ -15,50 +15,52 @@ export function PublicProposalPage() {
     ? {
         title: 'Tu propuesta CasaMia',
         loadError: 'No hemos podido cargar este enlace de propuesta. Contacta con CasaMia para recibir ayuda.',
-        acceptError: 'No hemos podido aceptar esta propuesta online. Contacta con CasaMia y te ayudaremos.',
+        acceptError: 'No hemos podido confirmar este pedido online. Contacta con CasaMia y te ayudaremos.',
         loading: 'Cargando tu propuesta',
         unavailableTitle: 'Enlace de propuesta no disponible',
         contact: 'Contactar con CasaMia',
-        readyTitle: 'Tu propuesta CasaMia está lista',
+        readyTitle: 'Tu propuesta CasaMia est\u00e1 lista',
         readyBody:
-          'Revisa los trabajos recomendados, las condiciones de pago y los próximos pasos. Cuando todo esté correcto, puedes aceptar la propuesta de forma segura abajo.',
-        pendingTitle: 'Este enlace todavía no está listo para aceptar',
+          'Revisa los trabajos recomendados, las condiciones de pago y los pr\u00f3ximos pasos. Cuando todo est\u00e9 correcto, puedes pedir el paquete abajo.',
+        pendingTitle: 'Este enlace todav\u00eda no est\u00e1 listo para aceptar',
         pendingBody:
           'Si has recibido este enlace, CasaMia puede ayudarte a activar la propuesta o generar una nueva desde Planes.',
         pendingNotice: 'Propuesta no activada',
         proposalLabel: 'Propuesta',
-        acceptedTitle: 'Propuesta aceptada',
-        acceptedBody: 'Gracias. CasaMia contactará contigo en breve para confirmar los próximos pasos.',
-        acceptTitle: 'Aceptar propuesta',
+        acceptedTitle: 'Pedido recibido',
+        acceptedBody:
+          'CasaMia contactar\u00e1 contigo en breve para confirmar fecha, alcance y pr\u00f3ximos pasos de pago.',
+        acceptTitle: 'Pide tu paquete CasaMia',
         acceptBody:
-          'Al aceptar, confirmas la aprobación de los trabajos indicados, las condiciones de pago y los términos de servicio aplicables.',
-        acceptedBy: 'Aceptada por',
-        accepting: 'Aceptando...',
-        acceptButton: 'Aceptar propuesta',
+          'Al pedirlo, confirmas que quieres seguir adelante con los trabajos indicados. El pago se coordina despu\u00e9s de confirmar fecha y alcance con CasaMia.',
+        acceptedBy: 'Tu nombre',
+        accepting: 'Confirmando...',
+        acceptButton: 'Pedir ahora',
       }
     : {
         title: 'Your CasaMia Proposal',
         loadError: 'We could not load this proposal link. Please contact CasaMia for assistance.',
-        acceptError: 'We could not accept this proposal online. Please contact CasaMia and we will help you.',
+        acceptError: 'We could not confirm this order online. Please contact CasaMia and we will help you.',
         loading: 'Loading your proposal',
         unavailableTitle: 'Proposal link unavailable',
         contact: 'Contact CasaMia',
         readyTitle: 'Your CasaMia proposal is ready',
         readyBody:
-          'Review the recommended works, payment terms, and next steps. When everything looks right, you can accept the proposal securely below.',
+          'Review the recommended works, payment terms, and next steps. When everything looks right, you can order the package below.',
         pendingTitle: 'This link is not ready for acceptance yet',
         pendingBody:
           'If you received this link, CasaMia can help activate the proposal or generate a fresh one from Plans.',
         pendingNotice: 'Proposal not activated',
         proposalLabel: 'Proposal',
-        acceptedTitle: 'Proposal accepted',
-        acceptedBody: 'Thank you. CasaMia will contact you shortly to confirm next steps.',
-        acceptTitle: 'Accept proposal',
+        acceptedTitle: 'Order received',
+        acceptedBody:
+          'CasaMia will contact you shortly to confirm scheduling, scope and next payment steps.',
+        acceptTitle: 'Order your CasaMia package',
         acceptBody:
-          'By accepting, you confirm approval of the listed works, payment terms, and applicable service terms.',
-        acceptedBy: 'Accepted by',
-        accepting: 'Accepting...',
-        acceptButton: 'Accept Proposal',
+          'By ordering, you confirm that you want to continue with the listed works. Payment is coordinated after CasaMia confirms scheduling and scope with you.',
+        acceptedBy: 'Your name',
+        accepting: 'Confirming...',
+        acceptButton: 'Order now',
       }
   const { token = '' } = useParams()
   const [acceptedBy, setAcceptedBy] = useState('')
@@ -93,7 +95,7 @@ export function PublicProposalPage() {
     setError('')
 
     try {
-      const acceptedProposal = await acceptPublicProposal(token, acceptedBy || proposal.customerName)
+      const acceptedProposal = await acceptPublicProposal(token, acceptedBy.trim() || proposal.customerName)
 
       if (acceptedProposal) {
         setProposal(acceptedProposal)
@@ -144,68 +146,73 @@ export function PublicProposalPage() {
   }
 
   const isPendingReview = proposal.status === 'Draft' || proposal.acceptanceStatus === 'Not Sent'
+  const requiresAcceptedBy = !proposal.customerName.trim()
+  const canOrder = !requiresAcceptedBy || acceptedBy.trim().length > 0
+  const isOrderReceived = isAccepted || proposal.status === 'Accepted' || proposal.acceptanceStatus === 'Accepted'
 
   return (
     <>
       <SEO title={copy.title} description={copy.readyBody} path={`/proposal/${token}`} noindex />
       <main className="site-shell bg-pale-blue py-12 md:py-16">
         <section className="mx-auto mb-8 max-w-5xl rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
-          <div>
-            <h1 className="font-display text-5xl font-bold leading-tight text-text-dark">
-              {isPendingReview ? copy.pendingTitle : copy.readyTitle}
-            </h1>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-mid">
-              {isPendingReview ? copy.pendingBody : copy.readyBody}
-            </p>
-          </div>
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
+            <div>
+              <h1 className="font-display text-5xl font-bold leading-tight text-text-dark">
+                {isPendingReview ? copy.pendingTitle : copy.readyTitle}
+              </h1>
+              <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-mid">
+                {isPendingReview ? copy.pendingBody : copy.readyBody}
+              </p>
+            </div>
 
-          <div className="rounded-lg bg-navy p-5 text-white">
-            <p className="text-sm font-black uppercase text-white/65">{copy.proposalLabel}</p>
-            <p className="mt-2 font-display text-3xl font-black">{proposal.id}</p>
-            <p className="mt-3 text-sm text-white/75">{proposal.selectedPlan}</p>
+            <div className="rounded-lg bg-navy p-5 text-white">
+              <p className="text-sm font-black uppercase text-white/65">{copy.proposalLabel}</p>
+              <p className="mt-2 font-display text-3xl font-black">{proposal.id}</p>
+              <p className="mt-3 text-sm text-white/75">{proposal.selectedPlan}</p>
+            </div>
           </div>
-        </div>
         </section>
 
         <section className="mx-auto grid max-w-5xl gap-8">
           <ProposalPreview proposal={proposal} />
 
-        <div className="rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
-          {isPendingReview ? (
-            <div className="rounded-lg bg-light-blue p-6">
-              <ShieldCheck className="text-navy" size={34} aria-hidden="true" />
-              <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">{copy.pendingNotice}</h2>
-              <p className="mt-2 text-text-mid">{copy.pendingBody}</p>
-              <Link className="btn btn-green mt-5" to="/why-us#contact-form">
-                {copy.contact}
-              </Link>
-            </div>
-          ) : isAccepted || proposal.status === 'Accepted' ? (
-            <div className="rounded-lg bg-green/10 p-6">
-              <CheckCircle2 className="text-green" size={34} aria-hidden="true" />
-              <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">{copy.acceptedTitle}</h2>
-              <p className="mt-2 text-text-mid">{copy.acceptedBody}</p>
-            </div>
-          ) : (
-            <>
-              <h2 className="font-display text-3xl font-bold text-text-dark">{copy.acceptTitle}</h2>
-              <p className="mt-2 text-text-mid">{copy.acceptBody}</p>
-              <label className="mt-5 grid gap-2">
-                <span className="text-sm font-extrabold text-text-dark">{copy.acceptedBy}</span>
-                <input
-                  className="min-h-12 rounded-lg border border-border bg-white px-4 text-sm font-bold text-text-dark outline-none transition focus:border-green focus:ring-4 focus:ring-green/15"
-                  value={acceptedBy}
-                  onChange={(event) => setAcceptedBy(event.target.value)}
-                />
-              </label>
-              {error ? <p className="mt-4 rounded-lg bg-red-50 p-3 text-sm font-bold text-red-700">{error}</p> : null}
-              <button className="btn btn-green mt-5" type="button" disabled={isAccepting} onClick={handleAccept}>
-                {isAccepting ? copy.accepting : copy.acceptButton}
-              </button>
-            </>
-          )}
-        </div>
+          <div className="rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
+            {isPendingReview ? (
+              <div className="rounded-lg bg-light-blue p-6">
+                <ShieldCheck className="text-navy" size={34} aria-hidden="true" />
+                <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">{copy.pendingNotice}</h2>
+                <p className="mt-2 text-text-mid">{copy.pendingBody}</p>
+                <Link className="btn btn-green mt-5" to="/why-us#contact-form">
+                  {copy.contact}
+                </Link>
+              </div>
+            ) : isOrderReceived ? (
+              <div className="rounded-lg bg-green/10 p-6">
+                <CheckCircle2 className="text-green" size={34} aria-hidden="true" />
+                <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">{copy.acceptedTitle}</h2>
+                <p className="mt-2 text-text-mid">{copy.acceptedBody}</p>
+              </div>
+            ) : (
+              <>
+                <h2 className="font-display text-3xl font-bold text-text-dark">{copy.acceptTitle}</h2>
+                <p className="mt-2 text-text-mid">{copy.acceptBody}</p>
+                {requiresAcceptedBy ? (
+                  <label className="mt-5 grid gap-2">
+                    <span className="text-sm font-extrabold text-text-dark">{copy.acceptedBy}</span>
+                    <input
+                      className="min-h-12 rounded-lg border border-border bg-white px-4 text-sm font-bold text-text-dark outline-none transition focus:border-green focus:ring-4 focus:ring-green/15"
+                      value={acceptedBy}
+                      onChange={(event) => setAcceptedBy(event.target.value)}
+                    />
+                  </label>
+                ) : null}
+                {error ? <p className="mt-4 rounded-lg bg-red-50 p-3 text-sm font-bold text-red-700">{error}</p> : null}
+                <button className="btn btn-green mt-5" type="button" disabled={isAccepting || !canOrder} onClick={handleAccept}>
+                  {isAccepting ? copy.accepting : copy.acceptButton}
+                </button>
+              </>
+            )}
+          </div>
         </section>
       </main>
     </>
