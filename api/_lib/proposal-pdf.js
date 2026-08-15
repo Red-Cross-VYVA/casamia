@@ -32,24 +32,10 @@ export async function renderProposalPdf({ language = 'en', proposal, publicUrl =
     .text(copy.title, 44, 110, { lineGap: 3, width: 330 })
 
   drawInfoBox(doc, copy, proposal, totals)
+  drawCustomerBox(doc, copy, proposal, customerName)
 
-  doc
-    .moveDown(1.3)
-    .font('Helvetica-Bold')
-    .fontSize(10)
-    .fillColor('#238bc6')
-    .text(copy.preparedFor.toUpperCase(), { characterSpacing: 1.2 })
-    .moveDown(0.4)
-    .font('Helvetica-Bold')
-    .fontSize(16)
-    .fillColor('#142235')
-    .text(customerName)
-    .font('Helvetica')
-    .fontSize(10)
-    .fillColor('#4d6072')
-    .text([proposal?.address, proposal?.area].map(text).filter(Boolean).join(', ') || copy.addressFallback)
-    .text([proposal?.customer_phone ?? proposal?.phone, proposal?.customer_email ?? proposal?.email].map(text).filter(Boolean).join(' | '))
-
+  doc.x = 44
+  doc.y = 306
   drawSection(doc, copy.summaryTitle, text(proposal?.executive_summary ?? proposal?.executiveSummary) || copy.summaryFallback)
   drawServicePromise(doc, copy)
 
@@ -101,29 +87,55 @@ function drawHeader(doc, copy, proposal) {
 }
 
 function drawInfoBox(doc, copy, proposal, totals) {
-  const x = 370
+  const x = 350
   const y = 116
-  const width = 181
-  doc.roundedRect(x, y, width, 140, 10).fill('#1f6a93')
+  const width = 201
+  doc.roundedRect(x, y, width, 168, 10).fill('#1f6a93')
 
   infoRow(doc, copy.subtotal, formatEuro(totals.subtotal), x + 18, y + 20, width - 36)
-  infoRow(doc, copy.deposit, formatEuro(totals.depositDue), x + 18, y + 46, width - 36)
-  infoRow(doc, copy.balance, formatEuro(totals.balanceDue), x + 18, y + 72, width - 36)
+  infoRow(doc, copy.deposit, formatEuro(totals.depositDue), x + 18, y + 48, width - 36)
+  infoRow(doc, copy.balance, formatEuro(totals.balanceDue), x + 18, y + 76, width - 36)
 
-  doc.moveTo(x + 18, y + 98).lineTo(x + width - 18, y + 98).strokeColor('#ffffff33').stroke()
+  doc.moveTo(x + 18, y + 108).lineTo(x + width - 18, y + 108).strokeColor('#ffffff33').stroke()
   doc
     .font('Helvetica-Bold')
     .fontSize(8)
     .fillColor('#ffffffaa')
-    .text(copy.total.toUpperCase(), x + 18, y + 112)
+    .text(copy.total.toUpperCase(), x + 18, y + 122)
     .font('Times-Bold')
-    .fontSize(24)
+    .fontSize(26)
     .fillColor('#ffffff')
-    .text(formatEuro(totals.totalEstimate), x + 18, y + 124, { width: width - 36 })
+    .text(formatEuro(totals.totalEstimate), x + 18, y + 136, { width: width - 36 })
     .font('Helvetica-Bold')
     .fontSize(8)
     .fillColor('#ffffffaa')
-    .text(copy.vatIncluded, x + 18, y + 150)
+    .text(copy.vatIncluded, x + 18, y + 160)
+}
+
+function drawCustomerBox(doc, copy, proposal, customerName) {
+  const x = 44
+  const y = 170
+  const width = 286
+  const address = [proposal?.address, proposal?.area].map(text).filter(Boolean).join(', ') || copy.addressFallback
+  const contact = [proposal?.customer_phone ?? proposal?.phone, proposal?.customer_email ?? proposal?.email]
+    .map(text)
+    .filter(Boolean)
+    .join(' | ')
+
+  doc.roundedRect(x, y, width, 114, 10).fill('#f3f9fc').strokeColor('#c9e1ef').stroke()
+  doc
+    .font('Helvetica-Bold')
+    .fontSize(9)
+    .fillColor('#238bc6')
+    .text(copy.preparedFor.toUpperCase(), x + 16, y + 16, { characterSpacing: 1.2, width: width - 32 })
+    .fontSize(15)
+    .fillColor('#142235')
+    .text(customerName, x + 16, y + 36, { width: width - 32 })
+    .font('Helvetica')
+    .fontSize(9)
+    .fillColor('#4d6072')
+    .text(address, x + 16, y + 60, { lineGap: 2, width: width - 32 })
+    .text(contact || copy.contactFallback, x + 16, y + 84, { lineGap: 2, width: width - 32 })
 }
 
 function infoRow(doc, label, value, x, y, width) {
@@ -285,6 +297,7 @@ function getCopy(isSpanish) {
     ? {
         addressFallback: 'Direccion de la vivienda',
         balance: 'Resto',
+        contactFallback: 'Datos de contacto pendientes',
         customerFallback: 'Cliente CasaMia',
         date: 'Fecha',
         deposit: 'Deposito',
@@ -317,6 +330,7 @@ function getCopy(isSpanish) {
     : {
         addressFallback: 'Customer address',
         balance: 'Balance due',
+        contactFallback: 'Contact details pending',
         customerFallback: 'CasaMia customer',
         date: 'Date',
         deposit: 'Deposit due',

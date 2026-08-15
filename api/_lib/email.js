@@ -385,6 +385,14 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
         </tr>
         <tr>
           <td style="padding:0 34px 24px;">
+            <div style="border-radius:20px;background:#ffffff;border:1px solid #c9e1ef;padding:20px;">
+              <p style="margin:0 0 10px;color:#238bc6;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;">${escapeHtml(copy.includedTitle)}</p>
+              ${renderLineItems(pricedItems.length ? pricedItems : lineItems, isSpanish)}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 34px 24px;">
             <div style="border-radius:20px;background:#f8fcff;border:1px solid #c9e1ef;padding:20px;">
               <p style="margin:0 0 12px;color:#238bc6;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;">${escapeHtml(copy.summaryTitle)}</p>
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="font-size:15px;color:#142235;">
@@ -392,14 +400,6 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
                 ${renderMetricRow(copy.depositLabel, formatEuro(totals.depositDue))}
                 ${renderMetricRow(copy.balanceLabel, formatEuro(totals.balanceDue))}
               </table>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="padding:0 34px 24px;">
-            <div style="border-radius:20px;background:#ffffff;border:1px solid #c9e1ef;padding:20px;">
-              <p style="margin:0 0 10px;color:#238bc6;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;">${escapeHtml(copy.includedTitle)}</p>
-              ${renderLineItems(pricedItems.length ? pricedItems : lineItems, isSpanish)}
             </div>
           </td>
         </tr>

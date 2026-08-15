@@ -80,13 +80,6 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
           </div>
         </section>
 
-        <section className="rounded-lg border border-border bg-light-blue/60 p-5">
-          <h3 className="text-sm font-black uppercase tracking-[0.12em] text-navy">{copy.customerSummary}</h3>
-          <p className="mt-3 max-w-5xl text-base leading-relaxed text-text-mid">
-            {proposal.executiveSummary || copy.defaultSummary}
-          </p>
-        </section>
-
         <section className="grid gap-4 lg:grid-cols-3">
           <ValueCard
             icon={ShieldCheck}
@@ -197,6 +190,13 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
               <p className="mt-1 text-xs font-bold text-white/65">{copy.vatIncluded}</p>
             </div>
           </div>
+        </section>
+
+        <section className="rounded-lg border border-border bg-light-blue/60 p-5">
+          <h3 className="text-sm font-black uppercase tracking-[0.12em] text-navy">{copy.customerSummary}</h3>
+          <p className="mt-3 max-w-5xl text-base leading-relaxed text-text-mid">
+            {proposal.executiveSummary || copy.defaultSummary}
+          </p>
         </section>
 
         <section className="rounded-lg border border-border p-5">

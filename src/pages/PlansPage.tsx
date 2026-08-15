@@ -73,6 +73,8 @@ type PlansCopy = {
   addModule: string
   backToBuilder: string
   backToRooms: string
+  bottomOrderBody: string
+  bottomOrderTitle: string
   builderEyebrow: string
   builderTitle: string
   consent: string
@@ -616,6 +618,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     addModule: 'Add module',
     backToBuilder: 'Edit package',
     backToRooms: 'Back to rooms',
+    bottomOrderBody: 'Confirm the proposal and CasaMia will contact you to coordinate scheduling, final scope and next payment steps.',
+    bottomOrderTitle: 'Ready to order this plan?',
     builderEyebrow: 'Plan builder',
     builderTitle: 'Choose rooms',
     consent: 'CasaMia may contact me about this proposal.',
@@ -732,6 +736,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
   es: {
     backToBuilder: 'Editar paquete',
     backToRooms: 'Volver a estancias',
+    bottomOrderBody: 'Confirma la propuesta y CasaMia contactara contigo para coordinar fecha, alcance final y proximos pasos de pago.',
+    bottomOrderTitle: 'Listo para pedir este plan?',
     contactIntro: 'Añade tus datos para que CasaMia revise las estancias elegidas, confirme el alcance y prepare la propuesta.',
     contactStepEyebrow: 'Revisión CasaMia',
     reviewCtaBody: 'En el siguiente paso compartes tus datos. CasaMia revisará fotos, medidas e idoneidad antes de enviar la propuesta final.',
@@ -2706,6 +2712,22 @@ export function PlansPage() {
             <section className="plans-proposal-preview-full" aria-label={copy.seeDraft}>
               <ProposalPreview proposal={draftProposal} />
             </section>
+
+            {!orderReceived ? (
+              <section className="plans-proposal-bottom-order" aria-labelledby="plans-proposal-bottom-order-title">
+                <div>
+                  <p className="section-kicker">{copy.contactStepEyebrow}</p>
+                  <h2 id="plans-proposal-bottom-order-title">{copy.bottomOrderTitle}</h2>
+                  <p>{copy.bottomOrderBody}</p>
+                  {orderError ? <p className="plans-form-error">{orderError}</p> : null}
+                </div>
+                <button className="btn btn-green" type="button" disabled={isOrdering} onClick={handleOrderGeneratedProposal}>
+                  {isOrdering ? <Loader2 className="animate-spin" size={16} aria-hidden="true" /> : null}
+                  {isOrdering ? copy.ordering : copy.orderNow}
+                  {!isOrdering ? <ArrowRight size={16} aria-hidden="true" /> : null}
+                </button>
+              </section>
+            ) : null}
           </div>
         ) : (
           <div className="site-shell plans-contact-layout">
