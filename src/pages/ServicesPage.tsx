@@ -214,7 +214,7 @@ const catalogueGuideVisualImages = [
 ]
 
 const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
-  'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: '/images/service-gallery/01-grab-bars-and-support-points.jpg' },
+  'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
   'bathroom-folding-shower-seat': { kind: 'shower-seat', tone: 'water', image: '/images/service-card-products/folding-shower-seat.png' },
   'bathroom-raised-toilet-seat': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
   'bathroom-toilet-support-rails': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
@@ -230,7 +230,7 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bathroom-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
   'bathroom-tub-cutout': { kind: 'tub-cutout', tone: 'access', image: serviceCardProduct('tub-cutout') },
   'bathroom-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
-  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: '/images/service-card-products/vertical-shower-grab-bar.png' },
+  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
   'bedroom-underbed-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
   'bedroom-bed-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
   'bedroom-bed-wedge-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-wedge-back-support') },
