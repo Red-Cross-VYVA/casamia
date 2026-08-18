@@ -269,7 +269,7 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'entrance-safer-access': { kind: 'threshold-ramp', tone: 'access', image: '/images/service-card-products/entrance-safer-access.png' },
   'entrance-step-handrail': { kind: 'stair-support', tone: 'support', image: '/images/service-card-products/entrance-safer-access.png' },
   'entrance-threshold-treatment': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-reduction') },
-  'entrance-easier-door-access': { kind: 'door-handle', tone: 'access', image: serviceCardProduct('entrance-door-handle') },
+  'entrance-easier-door-access': { kind: 'door-handle', tone: 'access', image: '/images/service-card-products/entrance-smart-access-app.png' },
   'entrance-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('entrance-motion-lighting') },
   'entrance-connected-door-awareness': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },
   'entrance-secure-access': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },

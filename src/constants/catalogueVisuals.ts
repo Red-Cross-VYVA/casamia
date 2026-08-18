@@ -54,7 +54,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'bedroom-voice-assistance': serviceProductImage('voice-speaker-bedroom'),
   'entrance-accessibility-ramp': serviceProductImage('threshold-ramp'),
   'entrance-connected-door-awareness': serviceProductImage('video-doorbell'),
-  'entrance-easier-door-access': serviceProductImage('entrance-door-handle'),
+  'entrance-easier-door-access': '/images/service-card-products/entrance-smart-access-app.png',
   'entrance-improved-lighting': serviceProductImage('entrance-motion-lighting'),
   'entrance-key-safe': serviceProductImage('entrance-door-handle'),
   'entrance-modular-ramp': serviceProductImage('threshold-ramp'),
