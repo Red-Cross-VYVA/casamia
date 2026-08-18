@@ -236,7 +236,7 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bedroom-bed-wedge-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-wedge-back-support') },
   'bedroom-night-time-visibility': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('clear-night-route') },
   'bedroom-night-route': { kind: 'clear-route', tone: 'mobility', image: serviceCardProduct('clear-night-route') },
-  'bedroom-safer-walking-routes': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/bedside-exit-mat.png' },
+  'bedroom-safer-walking-routes': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/rug-stabilised.png' },
   'bedroom-slip-resistance': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-card-products/bedside-exit-mat.png' },
   'bedroom-fire-safety': { kind: 'smoke-detector', tone: 'fire', image: serviceCardProduct('smoke-detector') },
   'bedroom-voice-assistance': { kind: 'voice-speaker', tone: 'alert', image: serviceCardProduct('voice-speaker-bedroom') },

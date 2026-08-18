@@ -48,7 +48,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'bedroom-fire-safety': serviceProductImage('smoke-detector'),
   'bedroom-night-time-visibility': serviceProductImage('clear-night-route'),
   'bedroom-night-route': serviceProductImage('clear-night-route'),
-  'bedroom-safer-walking-routes': '/images/service-card-products/bedside-exit-mat.png',
+  'bedroom-safer-walking-routes': '/images/service-card-products/rug-stabilised.png',
   'bedroom-slip-resistance': '/images/service-card-products/bedside-exit-mat.png',
   'bedroom-underbed-lighting': serviceProductImage('underbed-lighting'),
   'bedroom-voice-assistance': serviceProductImage('voice-speaker-bedroom'),
