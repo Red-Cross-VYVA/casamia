@@ -492,7 +492,7 @@
         "id": "advanced",
         "name": "Advanced",
         "price": "€1,149",
-        "desc": "Every room adapted, smart access & emergency systems.",
+        "desc": "Every room adapted, access support & emergency systems.",
         "features": [
           "Everything in Essential",
           "All rooms fully adapted",
@@ -969,7 +969,7 @@
             "Everything in Essential",
             "Bathroom, kitchen, entrance and stair adaptations",
             "Emergency call button",
-            "Smart access support",
+            "Access support",
             "Furniture and movement-flow optimisation",
             "Professional installation coordination"
           ],
@@ -1059,7 +1059,7 @@
             "premium": "included"
           },
           {
-            "feature": "Smart access devices",
+            "feature": "Access support",
             "essential": "notIncluded",
             "advanced": "included",
             "premium": "included"

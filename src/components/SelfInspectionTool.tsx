@@ -490,7 +490,7 @@ const questionCopyEs: Record<string, Pick<InspectionQuestion, 'area' | 'prompt' 
   'entrance-keys': {
     area: 'Rutina de puerta',
     prompt: '¿Abrir, cerrar y usar llaves se puede hacer sin prisas ni agacharse?',
-    recommendation: 'Valorar manillas más fáciles, caja de llaves, acceso inteligente o una rutina de llegada más clara.',
+    recommendation: 'Valorar manillas más fáciles, caja de llaves, apoyo de acceso o una rutina de llegada más clara.',
   },
   'entrance-width': {
     area: 'Anchura',
@@ -793,7 +793,7 @@ const inspectionRooms: InspectionRoom[] = [
         id: 'entrance-keys',
         area: 'Door routine',
         prompt: 'Is locking, unlocking, and opening the door manageable without rushing or bending?',
-        recommendation: 'Consider easier handles, key-safe support, smart access, or a clearer arrival routine.',
+        recommendation: 'Consider easier handles, key-safe support, access support, or a clearer arrival routine.',
       },
       {
         id: 'entrance-width',

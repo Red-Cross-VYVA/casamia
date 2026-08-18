@@ -284,7 +284,7 @@ const upgrades: SelectableCard<UpgradeId>[] = [
   { id: 'health', title: 'Health monitoring', body: 'Connected vitals.', icon: Activity },
   { id: 'lighting', title: 'Smart lighting', body: 'Motion routes.', icon: Lightbulb },
   { id: 'fall', title: 'Fall detection', body: 'Emergency alerts.', icon: ShieldCheck },
-  { id: 'door', title: 'Smart door access', body: 'Safer entry.', icon: DoorOpen },
+  { id: 'door', title: 'Door access support', body: 'Safer entry.', icon: DoorOpen },
   { id: 'alerts', title: 'Emergency alerts', body: 'Fast notifications.', icon: BellRing },
 ]
 

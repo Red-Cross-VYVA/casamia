@@ -24,10 +24,10 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
   },
   'entrance-secure-access': {
     name: 'Apoyo de acceso seguro',
-    shortDescription: 'Cerradura inteligente, teclado o timbre cuando encaja.',
+    shortDescription: 'Caja de llaves y apoyo de acceso cuando encaja.',
     customerBenefit: 'Ayuda a familiares o cuidadores a acceder sin prisas inseguras ni llaves escondidas.',
     category: 'Acceso y visibilidad',
-    includedItems: ['Comprobación de compatibilidad', 'Configuración del dispositivo', 'Entrega a la familia'],
+    includedItems: ['Comprobación de compatibilidad de acceso', 'Configuración del apoyo de acceso', 'Entrega a la familia'],
     safetyNotice: 'Los permisos de acceso deben acordarse con la persona residente o familiar autorizado.',
   },
   'entrance-modular-ramp': {

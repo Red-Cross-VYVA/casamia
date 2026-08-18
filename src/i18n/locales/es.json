@@ -492,11 +492,11 @@
         "id": "advanced",
         "name": "Advanced",
         "price": "€1.149",
-        "desc": "Todas las estancias adaptadas, acceso inteligente y sistemas de emergencia.",
+        "desc": "Todas las estancias adaptadas, apoyo de acceso y sistemas de emergencia.",
         "features": [
           "Todo lo de Essential",
           "Todas las estancias adaptadas",
-          "Cerradura inteligente",
+          "Apoyo de acceso",
           "Botón de emergencia",
           "Seguridad en escaleras y pasillos",
           "Optimización del mobiliario",
@@ -969,7 +969,7 @@
             "Todo lo de Essential",
             "Adaptaciones en baño, cocina, entrada y escaleras",
             "Botón de emergencia",
-            "Apoyo de acceso inteligente",
+            "Apoyo de acceso",
             "Optimización de mobiliario y circulación",
             "Coordinación de instalación profesional"
           ],
@@ -1059,7 +1059,7 @@
             "premium": "included"
           },
           {
-            "feature": "Dispositivos de acceso inteligente",
+            "feature": "Apoyo de acceso",
             "essential": "notIncluded",
             "advanced": "included",
             "premium": "included"

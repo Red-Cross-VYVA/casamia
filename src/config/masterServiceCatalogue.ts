@@ -569,7 +569,7 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     product('entrance-surface-treatment', 'Slip-resistant entrance surface treatment', 'material', 0.21, true),
     product('step-edge-marking-strips', 'High-visibility step edge marking strips', 'material', 0.21, false),
     product('secure-entrance-mat-product', 'Secure entrance mat', 'hardware', 0.21, false),
-    product('easy-use-entrance-lock', 'Easy-to-use entrance lock', 'hardware', 0.21, false),
+    product('easy-use-entrance-lock', 'Easy-to-use lock', 'hardware', 0.21, false),
     product('smart-video-doorbell-product', 'Smart video doorbell', 'device', 0.21, false, true),
     product('doorbell-communications-setup', 'Video doorbell communication setup', 'software', 0.21, false, true),
     product('doorbell-alert-setup', 'Video doorbell alert setup', 'software', 0.21, false, true),

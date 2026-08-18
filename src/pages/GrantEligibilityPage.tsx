@@ -1430,7 +1430,7 @@ function getGrantCopy(language: string) {
           { value: 'Motion lighting', label: 'Iluminación con sensor' },
           { value: 'Door widening', label: 'Ensanche de puertas' },
           { value: 'Emergency alerts', label: 'Alertas de emergencia' },
-          { value: 'Smart access', label: 'Acceso inteligente' },
+          { value: 'Smart access', label: 'Apoyo de acceso' },
           { value: 'Fall detection', label: 'Detección de caídas' },
         ],
         timelines: [
@@ -1680,7 +1680,7 @@ function getGrantCopy(language: string) {
         { value: 'Motion lighting', label: 'Motion lighting' },
         { value: 'Door widening', label: 'Door widening' },
         { value: 'Emergency alerts', label: 'Emergency alerts' },
-        { value: 'Smart access', label: 'Smart access' },
+        { value: 'Smart access', label: 'Access support' },
         { value: 'Fall detection', label: 'Fall detection' },
       ],
       timelines: [
