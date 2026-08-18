@@ -225,7 +225,6 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bathroom-lever-mixer-tap': { kind: 'lever-tap', tone: 'water', image: serviceCardProduct('lever-tap') },
   'bathroom-thermostatic-valve': { kind: 'thermostatic-valve', tone: 'water', image: serviceCardProduct('thermostatic-shower-mixer') },
   'bathroom-threshold-removal': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('threshold-reduction') },
-  'bathroom-door-hardware': { kind: 'door-handle', tone: 'access', image: serviceCardProduct('door-handle') },
   'bathroom-safety-monitoring': { kind: 'water-monitoring', tone: 'alert', image: serviceCardProduct('water-monitoring') },
   'bathroom-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
   'bathroom-tub-cutout': { kind: 'tub-cutout', tone: 'access', image: serviceCardProduct('tub-cutout') },

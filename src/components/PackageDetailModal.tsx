@@ -118,8 +118,6 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
   const translations: Record<string, string> = {
     'Anti-slip floor treatment': 'Tratamiento antideslizante de suelo',
     'Automatic water shut-off valve': 'Valvula automatica de corte de agua',
-    'Bathroom door adjustment': 'Ajuste de puerta de bano',
-    'Easy-release privacy lock': 'Cierre de privacidad con desbloqueo facil',
     'Family or carer alert setup': 'Avisos para familia o cuidador',
     'Folding shower seat': 'Asiento abatible de ducha',
     'Grab bar': 'Barra de apoyo',
