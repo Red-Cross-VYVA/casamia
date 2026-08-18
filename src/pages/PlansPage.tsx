@@ -149,6 +149,8 @@ type PlansCopy = {
   successEmailTitle: string
   successLead: string
   successWhatsappBody: string
+  successWhatsappSentBody: string
+  successWhatsappSentTitle: string
   successWhatsappTitle: string
   subtitle: string
   title: string
@@ -505,7 +507,7 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Mattress and pressure-comfort guidance': 'Orientación sobre colchón, presión y confort',
     'Motion sensor': 'Sensor de movimiento',
     'Raised toilet seat': 'Elevador de inodoro',
-    'Resident phone alert setup': 'Avisos al telefono del residente',
+    'Resident phone alert setup': 'Avisos al telefono de la persona',
     'Remote control setup and handover': 'Configuración de mando y explicación de uso',
     'Safer hot-water temperature setting': 'Ajuste seguro de agua caliente',
     'Secure anti-slip bath mat': 'Alfombrilla antideslizante segura',
@@ -637,7 +639,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     deliveryChoiceTitle: 'Send proposal by',
     deliveryEmailBody: 'CasaMia emails the proposal PDF and secure online link.',
     deliveryEmailLabel: 'Email',
-    deliveryWhatsappBody: 'CasaMia follows up by WhatsApp with the proposal link.',
+    deliveryWhatsappBody: 'CasaMia sends the proposal link by WhatsApp when messaging is available, or records WhatsApp as your preferred follow-up channel.',
     deliveryWhatsappLabel: 'WhatsApp',
     email: 'Email',
     estimateLead: 'VAT included · pending review',
@@ -720,6 +722,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     successEmailTitle: 'Proposal sent by email',
     successLead: 'Your proposal is ready below.',
     successWhatsappBody: 'Your CasaMia proposal is ready below. CasaMia has your WhatsApp preference and will contact you there with the proposal link and next steps.',
+    successWhatsappSentBody: 'Your CasaMia proposal link has been sent by WhatsApp. The full proposal is also ready below.',
+    successWhatsappSentTitle: 'Proposal sent by WhatsApp',
     successWhatsappTitle: 'Proposal ready for WhatsApp follow-up',
     subtitle:
       'Pick the rooms that need support, choose optional add-ons only where useful, and receive a clear proposal once your details are captured.',
@@ -760,7 +764,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     deliveryChoiceTitle: 'Enviar propuesta por',
     deliveryEmailBody: 'CasaMia envia por email el PDF de la propuesta y el enlace seguro.',
     deliveryEmailLabel: 'Email',
-    deliveryWhatsappBody: 'CasaMia hara seguimiento por WhatsApp con el enlace de la propuesta.',
+    deliveryWhatsappBody: 'CasaMia envia el enlace por WhatsApp cuando la mensajeria esta disponible, o guarda WhatsApp como tu canal preferido de seguimiento.',
     deliveryWhatsappLabel: 'WhatsApp',
     estimateTitle: 'Resumen del plan',
     finalReview: 'Revisión CasaMia',
@@ -775,7 +779,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantEyebrow: 'Ayudas disponibles',
     grantTitle: 'Puede haber ayudas.',
     heroSignals: ['Precio por paquete', 'Elementos base incluidos', 'Extras opcionales separados'],
-    heroPhotoAlt: 'Especialista de CasaMia revisando una cocina con una residente',
+    heroPhotoAlt: 'Especialista de CasaMia revisando una cocina con una persona',
     heroReviewBody:
       'CasaMia confirma idoneidad, medidas y extras útiles antes de cerrar nada.',
     heroReviewEyebrow: 'Revisión CasaMia',
@@ -839,6 +843,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     successEmailTitle: 'Propuesta enviada por email',
     successLead: 'Tu propuesta esta lista abajo.',
     successWhatsappBody: 'Tu propuesta CasaMia esta lista abajo. CasaMia tiene tu preferencia de WhatsApp y te contactara por ahi con el enlace y los proximos pasos.',
+    successWhatsappSentBody: 'Hemos enviado el enlace de tu propuesta CasaMia por WhatsApp. La propuesta completa tambien esta lista abajo.',
+    successWhatsappSentTitle: 'Propuesta enviada por WhatsApp',
     successWhatsappTitle: 'Propuesta lista para seguimiento por WhatsApp',
     subtitle:
       'Elige las estancias que necesitan apoyo, añade extras opcionales solo donde aporten valor y envía un borrador claro para que CasaMia lo revise antes de la propuesta final.',
@@ -1108,6 +1114,53 @@ function getEmailDeliveryMessage(
     : `The proposal was created, but email delivery was not confirmed. Status: ${status}.`
 }
 
+function getWhatsappDeliveryMessage(
+  whatsappDelivery: PublicProposalDraftResponse['whatsappDelivery'] | null,
+  language: 'en' | 'es',
+) {
+  const status = whatsappDelivery?.status
+
+  if (!status || status === 'sent') {
+    return ''
+  }
+
+  const isSpanish = language === 'es'
+
+  if (status === 'not_configured') {
+    return isSpanish
+      ? 'La propuesta se ha creado. WhatsApp no esta configurado en este despliegue, asi que CasaMia hara el seguimiento manualmente por WhatsApp.'
+      : 'The proposal was created. WhatsApp is not configured on this deployment, so CasaMia will follow up manually by WhatsApp.'
+  }
+
+  if (status === 'recipient_missing') {
+    return isSpanish
+      ? 'La propuesta se ha creado, pero falta un numero de WhatsApp valido para enviarla automaticamente.'
+      : 'The proposal was created, but a valid WhatsApp number is missing for automatic delivery.'
+  }
+
+  if (status === 'proposal_url_missing') {
+    return isSpanish
+      ? 'La propuesta se ha creado, pero falta el enlace publico para enviarla por WhatsApp.'
+      : 'The proposal was created, but the public proposal link is missing for WhatsApp delivery.'
+  }
+
+  if (status === 'failed') {
+    return isSpanish
+      ? 'La propuesta se ha creado, pero WhatsApp no ha aceptado el envio. CasaMia revisara la configuracion y hara seguimiento.'
+      : 'The proposal was created, but WhatsApp did not accept the send. CasaMia will review the setup and follow up.'
+  }
+
+  if (status === 'local_demo') {
+    return isSpanish
+      ? 'Modo local: la propuesta se crea aqui, pero WhatsApp solo se envia desde produccion.'
+      : 'Local mode: the proposal is created here, but WhatsApp only sends from production.'
+  }
+
+  return isSpanish
+    ? `La propuesta se ha creado, pero WhatsApp no se ha confirmado. Estado: ${status}.`
+    : `The proposal was created, but WhatsApp delivery was not confirmed. Status: ${status}.`
+}
+
 export function PlansPage() {
   const { i18n } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
@@ -1218,6 +1271,7 @@ export function PlansPage() {
   const [draftUrl, setDraftUrl] = useState('')
   const [draftProposal, setDraftProposal] = useState<ProposalData | null>(null)
   const [emailDelivery, setEmailDelivery] = useState<PublicProposalDraftResponse['emailDelivery'] | null>(null)
+  const [whatsappDelivery, setWhatsappDelivery] = useState<PublicProposalDraftResponse['whatsappDelivery'] | null>(null)
   const [error, setError] = useState('')
   const [orderError, setOrderError] = useState('')
   const [isOrdering, setIsOrdering] = useState(false)
@@ -1282,6 +1336,8 @@ export function PlansPage() {
     : 'Your browser does not support location detection here.'
   const emailDeliveryStatus = emailDelivery?.status ?? ''
   const emailDeliveryMessage = getEmailDeliveryMessage(emailDelivery, language)
+  const whatsappDeliveryStatus = whatsappDelivery?.status ?? ''
+  const whatsappDeliveryMessage = getWhatsappDeliveryMessage(whatsappDelivery, language)
   const estimate = useMemo(
     () => calculatePlansBuilderEstimate(groups, selection, language),
     [groups, language, selection],
@@ -1295,10 +1351,15 @@ export function PlansPage() {
   const proposalReady = Boolean(draftUrl)
   const orderReceived = draftProposal?.acceptanceStatus === 'Accepted' || draftProposal?.status === 'Accepted'
   const proposalSuccessCopy = customer.deliveryChannel === 'whatsapp'
-    ? {
-        body: copy.successWhatsappBody,
-        title: copy.successWhatsappTitle,
-      }
+    ? whatsappDeliveryStatus === 'sent'
+      ? {
+          body: copy.successWhatsappSentBody,
+          title: copy.successWhatsappSentTitle,
+        }
+      : {
+          body: copy.successWhatsappBody,
+          title: copy.successWhatsappTitle,
+        }
     : {
         body: copy.successEmailBody,
         title: copy.successEmailTitle,
@@ -2031,6 +2092,7 @@ export function PlansPage() {
     setDraftUrl('')
     setDraftProposal(null)
     setEmailDelivery(null)
+    setWhatsappDelivery(null)
     setError('')
     setOrderError('')
     setStep('builder')
@@ -2053,6 +2115,7 @@ export function PlansPage() {
     setDraftUrl('')
     setDraftProposal(null)
     setEmailDelivery(null)
+    setWhatsappDelivery(null)
     setOrderError('')
 
     if (!estimate.proposalLineItems.length) {
@@ -2085,6 +2148,7 @@ export function PlansPage() {
       setDraftUrl(publicUrl.toString())
       setDraftProposal(result.proposal)
       setEmailDelivery(result.emailDelivery ?? null)
+      setWhatsappDelivery(result.whatsappDelivery ?? null)
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : copy.finalReview)
     } finally {
@@ -2689,6 +2753,9 @@ export function PlansPage() {
                 <small>{orderReceived ? copy.successLead : copy.successLead}</small>
                 {!orderReceived && customer.deliveryChannel === 'email' && emailDeliveryMessage ? (
                   <small className="plans-email-delivery-note">{emailDeliveryMessage}</small>
+                ) : null}
+                {!orderReceived && customer.deliveryChannel === 'whatsapp' && whatsappDeliveryMessage ? (
+                  <small className="plans-email-delivery-note">{whatsappDeliveryMessage}</small>
                 ) : null}
                 {orderError ? <p className="plans-form-error">{orderError}</p> : null}
               </div>

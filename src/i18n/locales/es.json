@@ -1185,12 +1185,12 @@
       "eligibilityTitle": "Señales habituales de elegibilidad",
       "eligibility": [
         "La vivienda está en España y necesita mejoras de accesibilidad o seguridad.",
-        "La persona residente tiene más de 65 años, movilidad reducida o discapacidad reconocida.",
+        "La persona tiene más de 65 años, movilidad reducida o discapacidad reconocida.",
         "La actuación mejora la seguridad diaria: baños, escaleras, accesos, puertas, iluminación o sistemas de emergencia."
       ],
       "processTitle": "Qué gestionamos",
       "process": [
-        "Recopilar la información necesaria de la vivienda y la persona residente.",
+        "Recopilar la información necesaria de la vivienda y la persona.",
         "Preparar la documentación de las obras de accesibilidad.",
         "Presentar la solicitud en el canal correspondiente y hacer seguimiento."
       ]

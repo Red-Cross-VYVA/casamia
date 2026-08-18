@@ -1161,7 +1161,7 @@
           },
           {
             "question": "Can the plan be customized?",
-            "answer": "Yes. The final scope is tailored to the home, the resident, and the safety priorities found during assessment."
+            "answer": "Yes. The final scope is tailored to the home, the person, and the safety priorities found during assessment."
           },
           {
             "question": "Do you support smart safety devices?",
@@ -1185,12 +1185,12 @@
       "eligibilityTitle": "Typical eligibility signals",
       "eligibility": [
         "The home is in Spain and needs accessibility or safety improvements.",
-        "The resident is over 65, has mobility needs, or has a recognised disability.",
+        "The person is over 65, has mobility needs, or has a recognised disability.",
         "The work improves daily safety: bathrooms, stairs, access, doors, lighting, or emergency systems."
       ],
       "processTitle": "What we manage",
       "process": [
-        "Collecting the required home and resident details.",
+        "Collecting the required home and person details.",
         "Preparing the accessibility work documentation.",
         "Filing with the relevant grant channel and tracking progress."
       ]

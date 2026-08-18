@@ -343,7 +343,7 @@ export function InternalServiceCataloguePage() {
       slug: `new-${selectedRoom}-service`,
       name: `New ${label} service`,
       shortDescription: 'One-line customer explanation.',
-      customerBenefit: 'What this improvement helps the resident or family achieve.',
+      customerBenefit: 'What this improvement helps the person or family achieve.',
       room: selectedRoom,
       category: `${currentRoom.label} safety`,
       componentRole: 'core',

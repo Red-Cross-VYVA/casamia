@@ -541,7 +541,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'The entrance should support independence, not create stress.',
     reassuranceBody:
-      'We focus on practical access improvements that fit the home, the resident, and the way family or caregivers visit.',
+      'We focus on practical access improvements that fit the home, the person, and the way family or caregivers visit.',
     reassurancePoints: ['Safer thresholds', 'Better doorway support', 'Clearer access routines'],
     finalTitle: 'Make the entrance easier to cross every day.',
     finalBody:
@@ -575,7 +575,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Selected smart plugs plus leak and gas or carbon-monoxide sensors',
       'Optional pull-down shelf, automatic stove shut-off, or touchless faucet where needed',
     ],
-    reassuranceTitle: "A safer kitchen should still feel like the resident's kitchen.",
+    reassuranceTitle: "A safer kitchen should still feel like the person's kitchen.",
     reassuranceBody:
       'We keep familiar routines where possible, choose what helps, coordinate installation, and explain the setup clearly.',
     reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and handover managed'],

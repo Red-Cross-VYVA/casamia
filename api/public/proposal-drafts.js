@@ -2,6 +2,7 @@ import { buildPublicPlansDraft } from '../_lib/plans-pricing.js'
 import { buildAbsoluteProposalUrl, sendProposalEmail } from '../_lib/email.js'
 import { mapProposalRecord, saveProposalRecord, updateProposalRecord } from '../_lib/proposals.js'
 import { readJsonBody, selectSupabaseRows, sendJson } from '../_lib/supabase.js'
+import { sendProposalWhatsapp } from '../_lib/whatsapp.js'
 
 const catalogueRowId = 'default'
 
@@ -94,39 +95,72 @@ export default async function handler(request, response) {
     const relativePublicUrl = proposal.public_token ? `/proposal/${proposal.public_token}` : ''
     const publicUrl = buildAbsoluteProposalUrl(request, proposal.public_token)
     const deliveryPreference = normaliseDeliveryPreference(draft.proposalPayload?.plans_builder?.delivery_preference)
+    const deliveryAt = new Date().toISOString()
     const emailDelivery = deliveryPreference === 'whatsapp'
       ? {
           ok: false,
           provider: 'resend',
           reason: 'WhatsApp follow-up requested; automated proposal email not sent.',
           skipped: true,
-          status: 'whatsapp_requested',
+          status: 'not_requested',
         }
       : await sendProposalEmail({
           language: draft.proposalPayload?.plans_builder?.language,
           proposal,
           publicUrl,
         })
-    const deliveryStatus = emailDelivery.ok
+    const whatsappDelivery = deliveryPreference === 'whatsapp'
+      ? await sendProposalWhatsapp({
+          language: draft.proposalPayload?.plans_builder?.language,
+          proposal,
+          publicUrl,
+        })
+      : {
+          ok: false,
+          provider: 'whatsapp_cloud_api',
+          reason: 'Email delivery requested; WhatsApp message not sent.',
+          skipped: true,
+          status: 'not_requested',
+        }
+    const emailDeliveryStatus = emailDelivery.ok
       ? 'sent'
       : emailDelivery.skipped
         ? emailDelivery.status
         : 'failed'
+    const whatsappDeliveryStatus = whatsappDelivery.ok
+      ? 'sent'
+      : whatsappDelivery.skipped
+        ? whatsappDelivery.status
+        : 'failed'
     const eventType = deliveryPreference === 'whatsapp'
-      ? 'proposal-whatsapp-follow-up-requested'
+      ? whatsappDelivery.ok
+        ? 'proposal-whatsapp-sent'
+        : whatsappDelivery.skipped
+          ? 'proposal-whatsapp-skipped'
+          : 'proposal-whatsapp-failed'
       : emailDelivery.ok
-        ? 'proposal-email-sent'
-        : emailDelivery.skipped
-          ? 'proposal-email-skipped'
-          : 'proposal-email-failed'
+          ? 'proposal-email-sent'
+          : emailDelivery.skipped
+            ? 'proposal-email-skipped'
+            : 'proposal-email-failed'
+    const eventDetail = deliveryPreference === 'whatsapp'
+      ? whatsappDelivery.reason ?? whatsappDelivery.id ?? ''
+      : emailDelivery.reason ?? emailDelivery.id ?? ''
     const events = Array.isArray(proposal.events) ? proposal.events : []
     const delivery = {
       ...(proposal.delivery && typeof proposal.delivery === 'object' ? proposal.delivery : {}),
       proposalEmail: {
-        at: new Date().toISOString(),
+        at: deliveryAt,
         provider: emailDelivery.provider ?? 'resend',
         reason: emailDelivery.reason ?? '',
-        status: deliveryStatus,
+        status: emailDeliveryStatus,
+      },
+      proposalWhatsapp: {
+        at: deliveryAt,
+        id: whatsappDelivery.id ?? '',
+        provider: whatsappDelivery.provider ?? 'whatsapp_cloud_api',
+        reason: whatsappDelivery.reason ?? '',
+        status: whatsappDeliveryStatus,
       },
       preferredChannel: deliveryPreference,
     }
@@ -135,8 +169,8 @@ export default async function handler(request, response) {
       events: [
         ...events,
         {
-          at: delivery.proposalEmail.at,
-          detail: emailDelivery.reason ?? '',
+          at: deliveryAt,
+          detail: eventDetail,
           type: eventType,
         },
       ],
@@ -152,6 +186,7 @@ export default async function handler(request, response) {
       publicToken: proposal.public_token,
       publicUrl: relativePublicUrl,
       publicUrlAbsolute: publicUrl,
+      whatsappDelivery: delivery.proposalWhatsapp,
     })
   } catch (error) {
     sendJson(response, 400, {

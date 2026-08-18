@@ -119,6 +119,14 @@ export type PublicProposalDraftPayload = {
 export type PublicProposalDraftResponse = {
   emailDelivery?: {
     at?: string
+    id?: string
+    provider?: string
+    reason?: string
+    status?: string
+  }
+  whatsappDelivery?: {
+    at?: string
+    id?: string
     provider?: string
     reason?: string
     status?: string
@@ -635,6 +643,7 @@ export async function createPublicProposalDraft(
     publicToken?: string
     publicUrl?: string
     publicUrlAbsolute?: string
+    whatsappDelivery?: PublicProposalDraftResponse['whatsappDelivery']
   }
 
   try {
@@ -644,6 +653,7 @@ export async function createPublicProposalDraft(
       publicToken?: string
       publicUrl?: string
       publicUrlAbsolute?: string
+      whatsappDelivery?: PublicProposalDraftResponse['whatsappDelivery']
     }>('/api/public/proposal-drafts', {
       body: JSON.stringify(payload),
       headers: {
@@ -671,6 +681,7 @@ export async function createPublicProposalDraft(
     publicToken: raw.publicToken ?? proposal.publicToken ?? '',
     publicUrl: raw.publicUrl ?? (proposal.publicToken ? `/proposal/${proposal.publicToken}` : ''),
     publicUrlAbsolute: raw.publicUrlAbsolute,
+    whatsappDelivery: raw.whatsappDelivery,
   }
 }
 
@@ -749,12 +760,23 @@ function createLocalPublicProposalDraft(
 
   return {
     emailDelivery: {
-      reason: 'Local demo mode does not send email.',
-      status: 'local_demo',
+      reason: payload.deliveryChannel === 'whatsapp'
+        ? 'WhatsApp delivery requested; local demo mode does not send email.'
+        : 'Local demo mode does not send email.',
+      status: payload.deliveryChannel === 'whatsapp' ? 'not_requested' : 'local_demo',
     },
     proposal: saved,
     publicToken,
     publicUrl: `/proposal/${publicToken}`,
+    whatsappDelivery: payload.deliveryChannel === 'whatsapp'
+      ? {
+          reason: 'Local demo mode does not send WhatsApp messages.',
+          status: 'local_demo',
+        }
+      : {
+          reason: 'Email delivery requested; WhatsApp message not sent.',
+          status: 'not_requested',
+        },
   }
 }
 

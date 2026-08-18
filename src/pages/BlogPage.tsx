@@ -602,7 +602,7 @@ const printableMaterials = [
     icon: SearchCheck,
     title: { en: 'Grant preparation notes', es: 'Notas para preparar ayudas' },
     body: {
-      en: 'What to gather before a grant conversation: home, resident, ownership, quotes and timing.',
+      en: 'What to gather before a grant conversation: home, person, ownership, quotes and timing.',
       es: 'Qué reunir antes de hablar de ayudas: vivienda, persona, propiedad, presupuestos y plazos.',
     },
     kind: { en: 'Guide', es: 'Guía' },

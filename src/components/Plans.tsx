@@ -8,7 +8,7 @@ type PlansProps = {
 
 const coreFeatures = [
   'Guided room-by-room safety review',
-  'Recommended improvements matched to the resident',
+  'Recommended improvements matched to the person',
   'Clear estimate before work is confirmed',
   'Managed installation, setup and handover where needed',
 ]

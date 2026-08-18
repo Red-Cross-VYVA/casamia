@@ -96,7 +96,7 @@ const safetyInstructions = [
   'Separate visible observations from details that require an on-site check.',
   'Every finding must identify the specific visible object, surface, route, or location that supports it.',
   'Personal context may change why a visible issue matters, but it must never be used as photographic evidence or to inflate severity.',
-  'Keep every field concise, practical, respectful, and suitable for an older resident or family member.',
+  'Keep every field concise, practical, respectful, and suitable for an older person or family member.',
 ].join(' ')
 
 export async function analyseSafetyImage(body, { env = process.env, fetchImpl = fetch } = {}) {

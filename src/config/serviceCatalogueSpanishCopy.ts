@@ -28,7 +28,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     customerBenefit: 'Ayuda a familiares o cuidadores a acceder sin prisas inseguras ni llaves escondidas.',
     category: 'Acceso y visibilidad',
     includedItems: ['Comprobación de compatibilidad de acceso', 'Configuración del apoyo de acceso', 'Entrega a la familia'],
-    safetyNotice: 'Los permisos de acceso deben acordarse con la persona residente o familiar autorizado.',
+    safetyNotice: 'Los permisos de acceso deben acordarse con la persona en casa o un familiar autorizado.',
   },
   'entrance-modular-ramp': {
     name: 'Rampa modular de acceso',
@@ -280,7 +280,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
   'connected-family-alerts': {
     name: 'Configuración de avisos familiares',
     shortDescription: 'Avisos acordados para familiares o cuidadores.',
-    customerBenefit: 'Aporta visibilidad sin complicar la vida diaria de la persona residente.',
+    customerBenefit: 'Aporta visibilidad sin complicar la vida diaria de la persona.',
     category: 'Tranquilidad familiar',
     includedItems: ['Preferencias de aviso', 'Configuración familiar', 'Prueba de notificación'],
   },

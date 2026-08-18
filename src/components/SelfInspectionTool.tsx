@@ -1282,7 +1282,7 @@ export function SelfInspectionTool() {
           <div className="self-inspection-main">
             <div className="self-workflow-column">
               {modalStep === 0 ? (
-              <section className="self-resident-card" aria-label="Resident profile">
+              <section className="self-resident-card" aria-label="Person profile">
                 <div className="self-resident-heading">
                   <span>
                     <UserRound size={22} aria-hidden="true" />

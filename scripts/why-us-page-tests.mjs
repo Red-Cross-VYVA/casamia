@@ -12,8 +12,8 @@ assert.match(
 
 assert.match(
   page,
-  /Provider fit[\s\S]*Scope and price clarity[\s\S]*Resident acceptance[\s\S]*Aftercare route/,
-  'The Why Us proof layer must explain provider fit, price clarity, resident acceptance and aftercare.',
+  /Provider fit[\s\S]*Scope and price clarity[\s\S]*Everyday acceptance[\s\S]*Aftercare route/,
+  'The Why Us proof layer must explain provider fit, price clarity, everyday acceptance and aftercare.',
 )
 
 assert.match(

@@ -666,7 +666,7 @@ function PropertyStep() {
           },
           {
             value: 'professional',
-            title: 'A resident or client',
+            title: 'A person or client',
             description: 'I manage support for someone else.',
             icon: ShieldCheck,
           },
@@ -1160,7 +1160,7 @@ function BedroomQuestions() {
       {range(state.quantities.bedrooms).map((index) => (
         <div className="grid gap-4 rounded-lg bg-pale-blue p-5 md:grid-cols-2" key={index}>
           <SelectAnswer label={`Bedroom ${index}: difficult getting in or out of bed?`} answerKey={`bedroom-${index}-bedDifficulty`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
-          <SelectAnswer label="Need caregiver alert if resident leaves bed?" answerKey={`bedroom-${index}-caregiverAlerts`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
+          <SelectAnswer label="Need caregiver alert if the person leaves bed?" answerKey={`bedroom-${index}-caregiverAlerts`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
           <SelectAnswer label="Consider adjustable bed?" answerKey={`bedroom-${index}-adjustableBed`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
           <SelectAnswer label="Consider pressure-relief mattress?" answerKey={`bedroom-${index}-pressureMattress`} options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
         </div>
@@ -1241,7 +1241,7 @@ function ConnectedQuestions() {
       <SelectAnswer label="Need protection outside the home?" answerKey="connected-outsideProtection" options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
       <TextField label="Emergency contacts" value={String(state.answers['connected-emergencyContacts'] ?? '')} onChange={(value) => setAnswer('connected-emergencyContacts', value)} />
       <p className="rounded-lg bg-pale-blue p-4 text-base font-bold text-text-mid">
-        Connected Safety requires consent from the resident and clear agreement on who receives alerts.
+        Connected Safety requires consent from the person at home and clear agreement on who receives alerts.
       </p>
     </QuestionGroup>
   )

@@ -392,7 +392,7 @@ function getSpanishCapabilityName(capabilityId: string, fallback: string) {
     'nominated-carer-alerting': 'Configuración de aviso a familiar o cuidador',
     'routine-reminders': 'Recordatorios de medicación',
     'appointment-reminders': 'Recordatorios de citas',
-    'resident-phone-alerting': 'Configuración de aviso al teléfono del residente',
+    'resident-phone-alerting': 'Configuración de aviso al teléfono de la persona',
     'smart-speaker-setup': 'Configuración de altavoz inteligente',
     'smoke-alerting': 'Detector de humo',
     'specialist-measurement': 'Medición profesional y comprobación de encaje',

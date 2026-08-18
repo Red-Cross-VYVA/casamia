@@ -1166,7 +1166,7 @@ function buildSummary(hazardCount: number) {
 function buildFollowUpQuestions(input: EstimateWorkflowInput) {
   const questions = [
     'Can CasaMia review wider photos of the entrance, bathroom, and main walking route?',
-    'Is the resident already using mobility support such as a cane, walker, or wheelchair?',
+    'Is the person already using mobility support such as a cane, walker, or wheelchair?',
   ]
 
   if (input.context.urgency === 'Urgent') {

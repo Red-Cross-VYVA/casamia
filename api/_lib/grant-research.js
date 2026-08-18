@@ -110,7 +110,7 @@ export function getGrantResearchRequiredData(form, contact) {
   if (!cleanText(form.postcode)) missing.push('Postcode')
   if (!cleanText(form.homeType)) missing.push('Home type')
   if (!cleanText(form.ownership)) missing.push('Ownership situation')
-  if (!cleanText(form.residentAge)) missing.push('Resident age band')
+  if (!cleanText(form.residentAge)) missing.push('Person age band')
   if (!cleanText(form.mobility)) missing.push('Mobility situation')
   if (!cleanText(form.recognisedStatus)) missing.push('Disability or dependency status')
   if (!Array.isArray(form.needs) || form.needs.length === 0) missing.push('Adaptation needs')

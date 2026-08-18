@@ -10856,7 +10856,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
 .why-hero-human::before {
   inset: clamp(4px, 1vw, 12px) clamp(12px, 2vw, 26px) clamp(24px, 3vw, 42px) clamp(2px, 1vw, 10px);
-  z-index: -2;
+  z-index: 0;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 34%),
@@ -10866,19 +10866,19 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .why-hero-human::after {
-  right: clamp(0px, 1.4vw, 18px);
-  bottom: clamp(12px, 2vw, 28px);
-  z-index: -1;
-  width: min(44%, 260px);
-  height: 52%;
-  border-right: 3px solid rgba(125, 184, 65, 0.92);
-  border-bottom: 3px solid rgba(58, 159, 212, 0.86);
+  right: clamp(2px, 1.8vw, 24px);
+  bottom: clamp(2px, 1.8vw, 24px);
+  z-index: 0;
+  width: min(58%, 330px);
+  height: 38%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(135deg, rgba(125, 184, 65, 0.24), rgba(58, 159, 212, 0.2));
   transform: rotate(3deg);
 }
 
 .why-human-card {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   isolation: isolate;
   overflow: hidden;
   aspect-ratio: 16 / 10;
@@ -20032,6 +20032,19 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   pointer-events: none;
 }
 
+.plan-detail-story-media.is-entrance-smart-access {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(60, 166, 215, 0.14), transparent 34%),
+    linear-gradient(135deg, #f8fcff 0%, #eef8fc 100%);
+  box-shadow: inset 0 0 0 1px rgba(31, 103, 146, 0.08);
+}
+
+.plan-detail-story-media.is-entrance-smart-access::after {
+  display: none;
+}
+
 .plan-detail-story-safe-image {
   width: 100%;
   height: 100%;
@@ -20047,6 +20060,12 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.plan-detail-story-image.is-entrance-smart-access {
+  box-sizing: border-box;
+  object-fit: contain;
+  padding: clamp(12px, 2vw, 22px);
 }
 
 .plan-detail-story-image.is-bathroom-visibility {

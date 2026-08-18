@@ -13,7 +13,9 @@ import publicProposalHandler from '../api/public/proposals/[token].js'
 import publicProposalAcceptHandler from '../api/public/proposals/[token]/accept.js'
 import publicProposalDraftHandler from '../api/public/proposal-drafts.js'
 import publicCatalogueHandler from '../api/public/service-catalogue.js'
+import publicWhatsappWebhookHandler from '../api/public/whatsapp-webhook.js'
 import { createSignedStorageUploadUrl } from '../api/_lib/supabase.js'
+import { sendProposalWhatsapp } from '../api/_lib/whatsapp.js'
 
 const apiKey = 'operations-test-key'
 process.env.CASAMIA_INTERNAL_API_KEY = apiKey
@@ -114,6 +116,59 @@ function jsonResponse(body, status = 200) {
   await publicProposalHandler(request, response)
   assert.equal(response.statusCode, 200)
   assert.equal(parsedBody(response).customer_name, 'Ana Lopez')
+}
+
+{
+  const calls = []
+  globalThis.fetch = async (url, init) => {
+    calls.push({ init, url: String(url) })
+    return jsonResponse({ messages: [{ id: 'wamid.test' }] })
+  }
+
+  const result = await sendProposalWhatsapp({
+    env: {
+      CASAMIA_WHATSAPP_PROPOSAL_TEMPLATE_EN: 'proposal_ready_test',
+      WHATSAPP_ACCESS_TOKEN: 'test-token',
+      WHATSAPP_GRAPH_API_VERSION: 'v99.0',
+      WHATSAPP_PHONE_NUMBER_ID: '12345',
+    },
+    language: 'en',
+    proposal: {
+      customer_name: 'Ana Lopez',
+      customer_phone: '600 000 000',
+      id: 'CM-WA',
+    },
+    publicUrl: 'https://www.casamia.com.es/proposal/test-token',
+  })
+
+  assert.equal(result.ok, true)
+  assert.equal(result.status, 'sent')
+  assert.equal(result.id, 'wamid.test')
+  assert.equal(calls[0].url, 'https://graph.facebook.com/v99.0/12345/messages')
+
+  const payload = JSON.parse(String(calls[0].init.body))
+  assert.equal(payload.to, '34600000000')
+  assert.equal(payload.template.name, 'proposal_ready_test')
+  assert.deepEqual(
+    payload.template.components[0].parameters.map((parameter) => parameter.text),
+    ['Ana Lopez', 'CM-WA', 'https://www.casamia.com.es/proposal/test-token'],
+  )
+}
+
+{
+  process.env.WHATSAPP_WEBHOOK_VERIFY_TOKEN = 'verify-token'
+  const request = makeRequest('GET', undefined, false)
+  request.query = {
+    'hub.challenge': 'challenge-code',
+    'hub.mode': 'subscribe',
+    'hub.verify_token': 'verify-token',
+  }
+  const response = makeResponse()
+  await publicWhatsappWebhookHandler(request, response)
+  assert.equal(response.statusCode, 200)
+  assert.equal(response.body, 'challenge-code')
+  assert.equal(response.headers.get('content-type'), 'text/plain')
+  delete process.env.WHATSAPP_WEBHOOK_VERIFY_TOKEN
 }
 
 {
@@ -258,6 +313,69 @@ function jsonResponse(body, status = 200) {
   assert.match(body.publicToken, /^[A-Za-z0-9_-]{20,128}$/)
   assert.equal(body.proposal.status, 'Sent')
   assert.equal(body.publicUrl, `/proposal/${body.publicToken}`)
+}
+
+{
+  process.env.WHATSAPP_ACCESS_TOKEN = 'test-token'
+  process.env.WHATSAPP_PHONE_NUMBER_ID = '12345'
+  process.env.CASAMIA_WHATSAPP_PROPOSAL_TEMPLATE_EN = 'proposal_ready_test'
+  let submitted
+  let whatsappPayload
+  globalThis.fetch = async (url, init) => {
+    const requestUrl = String(url)
+
+    if (requestUrl.includes('service_catalogue')) {
+      assert.equal(init.method, 'GET')
+      return jsonResponse([{ payload_json: makePlansCataloguePayload() }])
+    }
+
+    if (requestUrl.includes('graph.facebook.com')) {
+      assert.equal(init.method, 'POST')
+      whatsappPayload = JSON.parse(String(init.body))
+      return jsonResponse({ messages: [{ id: 'wamid.proposal' }] })
+    }
+
+    if (requestUrl.includes('proposals?id=eq')) {
+      if (init.method === 'GET') return jsonResponse([])
+      if (init.method === 'PATCH') {
+        const deliveryPatch = JSON.parse(String(init.body))
+        return jsonResponse([{ ...submitted, payload_json: { ...submitted.payload_json, ...deliveryPatch.payload_json } }])
+      }
+    }
+
+    assert.match(requestUrl, /proposals\?on_conflict=id/)
+    submitted = JSON.parse(String(init.body))
+    return jsonResponse([{ ...submitted }])
+  }
+
+  const response = makeResponse()
+  await publicProposalDraftHandler(makeRequest('POST', {
+    consent: true,
+    customer: {
+      email: 'ana@example.com',
+      name: 'Ana Lopez',
+      phone: '+34 600 000 000',
+    },
+    deliveryChannel: 'whatsapp',
+    language: 'en',
+    selection: {
+      'bath-core-package': { addOnOutcomeIds: [], quantity: 1, selected: true },
+    },
+  }, false), response)
+
+  const body = parsedBody(response)
+  assert.equal(response.statusCode, 200)
+  assert.equal(body.emailDelivery.status, 'not_requested')
+  assert.equal(body.whatsappDelivery.status, 'sent')
+  assert.equal(body.whatsappDelivery.id, 'wamid.proposal')
+  assert.equal(body.proposal.delivery.preferredChannel, 'whatsapp')
+  assert.equal(body.proposal.delivery.proposalWhatsapp.status, 'sent')
+  assert.equal(whatsappPayload.to, '34600000000')
+  assert.equal(whatsappPayload.template.name, 'proposal_ready_test')
+
+  delete process.env.WHATSAPP_ACCESS_TOKEN
+  delete process.env.WHATSAPP_PHONE_NUMBER_ID
+  delete process.env.CASAMIA_WHATSAPP_PROPOSAL_TEMPLATE_EN
 }
 
 {

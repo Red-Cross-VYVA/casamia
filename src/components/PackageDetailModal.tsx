@@ -141,7 +141,7 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Mattress and pressure-comfort guidance': 'Orientación sobre colchón, presión y confort',
     'Motion sensor': 'Sensor de movimiento',
     'Raised toilet seat': 'Elevador de inodoro',
-    'Resident phone alert setup': 'Avisos al telefono del residente',
+    'Resident phone alert setup': 'Avisos al telefono de la persona',
     'Remote control setup and handover': 'Configuración de mando y explicación de uso',
     'Safer hot-water temperature setting': 'Ajuste seguro de agua caliente',
     'Secure anti-slip bath mat': 'Alfombrilla antideslizante segura',

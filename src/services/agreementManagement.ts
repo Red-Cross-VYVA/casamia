@@ -447,7 +447,7 @@ const installationPartnerAgreementEnV1: AgreementVersion = {
       id: 'home-standards',
       title: '7. Work in occupied homes',
       points: [
-        'Work will be performed punctually, respectfully, with reasonable cleanliness and with particular care in homes occupied by older residents or people with reduced mobility.',
+        'Work will be performed punctually, respectfully, with reasonable cleanliness and with particular care in homes occupied by older people or people with reduced mobility.',
         'The Collaborator will avoid sales pressure, alarming language, unauthorised selling or recommendations unrelated to the assignment.',
         'Assigned personnel must maintain dignified communication, report issues calmly and leave the area safe at the end of each visit.',
       ],

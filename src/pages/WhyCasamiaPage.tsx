@@ -96,7 +96,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     processSteps: [
       {
         title: 'Understand the home',
-        body: 'We collect the room, resident, photos, access, measurements and daily-routine context before recommending work.',
+        body: 'We collect the room, person, photos, access, measurements and daily-routine context before recommending work.',
       },
       {
         title: 'Recommend clearly',
@@ -127,7 +127,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         outcome: 'No vague quote',
       },
       {
-        title: 'Resident acceptance',
+        title: 'Everyday acceptance',
         body: 'Recommendations consider whether the person will actually use the change day to day.',
         outcome: 'Useful at home',
       },
@@ -163,7 +163,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'products',
         title: 'Detail-led recommendations',
         body:
-          'Small details matter in senior safety: height, reach, lighting, door swing, wet surfaces, transfer points and what the resident will actually use.',
+          'Small details matter in senior safety: height, reach, lighting, door swing, wet surfaces, transfer points and what the person will actually use.',
         points: ['Room and routine considered together', 'Useful adaptations before decorative upgrades', 'Smart devices only when they solve a real problem'],
       },
       {
@@ -177,7 +177,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'acceptance',
         title: 'Values that guide the work',
         body:
-          'The senior market depends on trust. CasaMia is built around respect for the resident, honest communication with the family and careful execution in the home.',
+          'The senior market depends on trust. CasaMia is built around respect for the person, honest communication with the family and careful execution in the home.',
         points: ['Respect and independence first', 'No pressure or confusing handovers', 'Accountability from first contact to follow-up'],
       },
     ],

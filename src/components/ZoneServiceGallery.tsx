@@ -53,7 +53,7 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
     en: {
       eyebrow: 'Catalogue gallery',
       title: 'Bedroom items available.',
-      body: 'Practical supports for getting in and out of bed, night movement, lighting, storage and emergency reach, selected around the resident’s routine.',
+      body: 'Practical supports for getting in and out of bed, night movement, lighting, storage and emergency reach, selected around the person\'s routine.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
