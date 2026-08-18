@@ -21,6 +21,46 @@ assert.doesNotMatch(
   /<span>\{activeDetail\.body\}<\/span>|plan-detail-thumb-row|plan-detail-footnote|activeDetailIsBathroomCompact/,
   'The Plans compact package modal should not render intro copy, thumbnails, footer notes, or bathroom-only branching.',
 )
+assert.match(
+  plansPage,
+  /id="plans-room-planner"/,
+  'The Plans page should render the inline interactive room planner.',
+)
+assert.match(
+  plansPage,
+  /aria-pressed=\{selected\}/,
+  'Room planner buttons should expose selected state with aria-pressed.',
+)
+assert.match(
+  plansPage,
+  /roomPlannerVisuals[\s\S]*plans-room-planner-room-media/,
+  'Room planner should use refined in-situ visual room cards.',
+)
+assert.match(
+  plansPage,
+  /includedLabel[\s\S]*extrasLabel[\s\S]*plans-room-planner-room-counts/,
+  'Room planner tiles should show the number of included package items instead of abstract core wording.',
+)
+assert.match(
+  plansPage,
+  /const visibleGroups = showingSelectedPackages[\s\S]*activeSupportFilter[\s\S]*: groups/,
+  'The Plans catalogue should derive visible groups from selected rooms or support filters.',
+)
+assert.match(
+  plansPage,
+  /\{visibleGroups\.map\(\(group\) =>/,
+  'The Plans package cards should render from visibleGroups.',
+)
+assert.doesNotMatch(
+  plansPage,
+  /PlansCatalogueIntroSection|plans-catalogue-guide|services-catalogue-guide|catalogueGuide|services-catalogue\.css|1 core|plans-room-planner-room-tooltip|plans-room-planner-scene/,
+  'The old Plans guide modal, services-catalogue dependency, hover popover, and shared scene should be removed from PlansPage.',
+)
+assert.doesNotMatch(
+  plansPage,
+  /copy\.roomDescriptions\[group\.room\.id\]|plans-room-turnkey-note|turnkeyCardLabel|turnkeyCardBody/,
+  'Long room descriptions and turnkey explanatory text should not render directly on Plans room cards.',
+)
 
 assert.ok(defaultCatalogue.masterCatalogue, 'Default service catalogue must include the master catalogue snapshot.')
 assert.ok(

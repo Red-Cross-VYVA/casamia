@@ -1,6 +1,5 @@
 import {
   Accessibility,
-  ArrowDown,
   ArrowRight,
   ArrowLeft,
   Bath,
@@ -23,7 +22,6 @@ import {
   MapPin,
   MessageCircle,
   Minus,
-  PackageCheck,
   Pill,
   Plus,
   Radio,
@@ -67,7 +65,6 @@ import { acceptPublicProposal, createPublicProposalDraft, type PublicProposalDra
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import type { MasterCatalogueOutcome, MasterServiceCatalogue } from '../types/serviceCatalogue'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
-import '../styles/services-catalogue.css'
 
 type PlansCopy = {
   addModule: string
@@ -83,8 +80,6 @@ type PlansCopy = {
   contactTitle: string
   continueToReview: string
   coreIncluded: string
-  turnkeyCardLabel: string
-  turnkeyCardBody: string
   closeDetails: string
   createDraft: string
   creatingDraft: string
@@ -125,8 +120,6 @@ type PlansCopy = {
   optionalAddOnsIntro: string
   packageDetails: string
   phone: string
-  presets: Array<{ id: PlansPresetId; title: string; body: string }>
-  popularTitle: string
   quantity: string
   reviewRequired: string
   reviewCtaBody: string
@@ -134,7 +127,23 @@ type PlansCopy = {
   reviewStepEyebrow: string
   reviewStepIntro: string
   reviewStepTitle: string
-  roomDescriptions: Record<string, string>
+  roomBenefitLines: Record<string, string>
+  roomPlanner: {
+    actions: {
+      showSelected: string
+      startReview: string
+      viewAll: string
+    }
+    emptySummary: string
+    heroCta: string
+    houseLabel: string
+    packageCountLabel: string
+    selectedSummary: string
+    steps: string[]
+    supportLabel: string
+    supportText: string
+    title: string
+  }
   rooms: Array<{ title: string; body: string }>
   seeDraft: string
   selectedPackages: string
@@ -164,8 +173,6 @@ type PlansCopy = {
   viewDetails: string
 }
 
-type PlansPresetId = 'focused' | 'daily' | 'wholeHome'
-
 type PlansStep = 'builder' | 'review' | 'contact'
 
 type PlansFormErrors = Partial<Record<'name' | 'email' | 'phone' | 'consent' | 'location', string>>
@@ -191,223 +198,6 @@ type PlansDetailActionState = {
   label: string
   status?: string
   variant: 'core' | 'connected' | 'learn-more' | 'review'
-}
-
-type PlansCatalogueIntroCopy = {
-  browseCta: string
-  catalogueGuide: {
-    body: string
-    close: string
-    eyebrow: string
-    planLabel: string
-    points: string[]
-    singleRoomLabel: string
-    startCta: string
-    title: string
-    visualAreas: string[]
-    visualBody: string
-    visualTitle: string
-  }
-  heroBody: string
-  heroEyebrow: string
-  heroTitle: string
-}
-
-const plansCatalogueGuideVisualImages = [
-  '/images/solutions/bathroom-safety.jpg',
-  '/images/solutions/adorable-mature-couple-kitchen.jpg',
-  '/images/before-after/bedroom-after-card.webp',
-  '/images/service-card-products/entrance-safer-access.png',
-]
-
-const plansCatalogueIntroCopy: Record<'en' | 'es', PlansCatalogueIntroCopy> = {
-  en: {
-    heroEyebrow: 'CasaMia service catalogue',
-    heroTitle: 'Home safety packages, room by room.',
-    heroBody: 'Choose a room or safety area to see the improvements CasaMia can assess, quote and coordinate.',
-    browseCta: 'Explore services',
-    catalogueGuide: {
-      eyebrow: 'Before you browse',
-      title: 'Pick rooms. Build one plan.',
-      body: 'Start with one package or combine areas across the home before you choose your CasaMia plan.',
-      points: ['One package', 'Several areas', 'One CasaMia plan'],
-      visualTitle: 'Choose the areas to include',
-      visualBody: 'Bathroom, kitchen, bedroom, entrance and more.',
-      visualAreas: ['Bathroom', 'Kitchen', 'Bedroom', 'Entrance'],
-      singleRoomLabel: '1 room',
-      planLabel: 'Combined plan',
-      startCta: 'Start catalogue',
-      close: 'Close',
-    },
-  },
-  es: {
-    heroEyebrow: 'Cat\u00e1logo de servicios CasaMia',
-    heroTitle: 'Paquetes de seguridad, estancia por estancia.',
-    heroBody: 'Elige una estancia o zona de seguridad para ver las mejoras que CasaMia puede valorar, presupuestar y coordinar.',
-    browseCta: 'Ver servicios',
-    catalogueGuide: {
-      eyebrow: 'Antes de ver el cat\u00e1logo',
-      title: 'Elige zonas. Crea un plan.',
-      body: 'Empieza con un paquete o combina varias zonas de la casa antes de elegir tu plan CasaMia.',
-      points: ['Un paquete', 'Varias zonas', 'Un plan CasaMia'],
-      visualTitle: 'Elige las zonas',
-      visualBody: 'Ba\u00f1o, cocina, dormitorio, entrada y m\u00e1s.',
-      visualAreas: ['Ba\u00f1o', 'Cocina', 'Dormitorio', 'Entrada'],
-      singleRoomLabel: '1 estancia',
-      planLabel: 'Plan combinado',
-      startCta: 'Empezar cat\u00e1logo',
-      close: 'Cerrar',
-    },
-  },
-}
-
-function PlansCatalogueIntroSection({ language }: { language: 'en' | 'es' }) {
-  const copy = plansCatalogueIntroCopy[language]
-  const [isCatalogueGuideOpen, setIsCatalogueGuideOpen] = useState(false)
-
-  useEffect(() => {
-    if (!isCatalogueGuideOpen) return
-
-    const previousOverflow = document.body.style.overflow
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsCatalogueGuideOpen(false)
-      }
-    }
-
-    document.body.style.overflow = 'hidden'
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      document.body.style.overflow = previousOverflow
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [isCatalogueGuideOpen])
-
-  const startCatalogue = () => {
-    setIsCatalogueGuideOpen(false)
-    window.setTimeout(() => {
-      const catalogue = document.getElementById('plans-builder-title')
-
-      if (!catalogue) return
-
-      const catalogueTop = catalogue.getBoundingClientRect().top + window.scrollY
-      window.history.replaceState(null, '', '#plans-builder-title')
-      window.scrollTo({ top: Math.max(catalogueTop - 92, 0), behavior: 'smooth' })
-    }, 0)
-  }
-
-  return (
-    <>
-      <section className="services-catalogue-hero plans-catalogue-intro" aria-labelledby="plans-catalogue-intro-title">
-        <div className="services-catalogue-hero-grid site-shell">
-          <div className="services-catalogue-hero-copy">
-            <span className="eyebrow">{copy.heroEyebrow}</span>
-            <h2 id="plans-catalogue-intro-title">{copy.heroTitle}</h2>
-            <p>{copy.heroBody}</p>
-            <div className="services-catalogue-hero-actions">
-              <button
-                aria-expanded={isCatalogueGuideOpen}
-                aria-haspopup="dialog"
-                className="btn btn-green services-catalogue-hero-cta"
-                onClick={() => setIsCatalogueGuideOpen(true)}
-                type="button"
-              >
-                {copy.browseCta}
-                <ArrowDown size={20} aria-hidden="true" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {isCatalogueGuideOpen ? (
-        <div className="services-catalogue-guide-backdrop" onClick={() => setIsCatalogueGuideOpen(false)}>
-          <div
-            aria-describedby="plans-catalogue-guide-body"
-            aria-labelledby="plans-catalogue-guide-title"
-            aria-modal="true"
-            className="services-catalogue-guide-modal"
-            onClick={(event) => event.stopPropagation()}
-            role="dialog"
-          >
-            <button
-              aria-label={copy.catalogueGuide.close}
-              className="services-catalogue-guide-close"
-              onClick={() => setIsCatalogueGuideOpen(false)}
-              type="button"
-            >
-              <X size={18} aria-hidden="true" />
-            </button>
-            <div className="services-catalogue-guide-layout">
-              <div className="services-catalogue-guide-copy">
-                <p className="eyebrow">{copy.catalogueGuide.eyebrow}</p>
-                <h2 id="plans-catalogue-guide-title">{copy.catalogueGuide.title}</h2>
-                <p id="plans-catalogue-guide-body">{copy.catalogueGuide.body}</p>
-                <ul className="services-catalogue-guide-points">
-                  {copy.catalogueGuide.points.map((point) => (
-                    <li key={point}>
-                      <CheckCircle2 size={17} aria-hidden="true" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="services-catalogue-guide-actions">
-                  <button className="btn btn-green" onClick={startCatalogue} type="button">
-                    {copy.catalogueGuide.startCta}
-                    <ArrowDown size={19} aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-
-              <aside className="services-catalogue-guide-visual" aria-label={copy.catalogueGuide.visualTitle}>
-                <div className="services-catalogue-guide-visual-header">
-                  <span className="services-catalogue-guide-visual-icon">
-                    <PackageCheck size={22} aria-hidden="true" />
-                  </span>
-                  <div>
-                    <strong>{copy.catalogueGuide.visualTitle}</strong>
-                    <small>{copy.catalogueGuide.visualBody}</small>
-                  </div>
-                </div>
-                <div className="services-catalogue-guide-room-grid">
-                  {copy.catalogueGuide.visualAreas.map((area, index) => (
-                    <span
-                      className={`services-catalogue-guide-room${index < 3 ? ' is-selected' : ''}`}
-                      key={area}
-                    >
-                      <SafeImage
-                        alt=""
-                        className="services-catalogue-guide-room-media"
-                        fallbackLabel=""
-                        imgClassName="services-catalogue-guide-room-image"
-                        src={plansCatalogueGuideVisualImages[index]}
-                      />
-                      <span className="services-catalogue-guide-room-check">
-                        <CheckCircle2 size={14} aria-hidden="true" />
-                      </span>
-                      <span className="services-catalogue-guide-room-label">{area}</span>
-                    </span>
-                  ))}
-                </div>
-                <div className="services-catalogue-guide-flow">
-                  <span>
-                    <PackageCheck size={15} aria-hidden="true" />
-                    {copy.catalogueGuide.singleRoomLabel}
-                  </span>
-                  <ArrowRight size={16} aria-hidden="true" />
-                  <span>
-                    <Home size={15} aria-hidden="true" />
-                    {copy.catalogueGuide.planLabel}
-                  </span>
-                </div>
-              </aside>
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </>
-  )
 }
 
 function cleanPlanDetailItem(item: string) {
@@ -629,8 +419,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Receive proposal',
     continueToReview: 'Review selected packages',
     coreIncluded: 'Core package',
-    turnkeyCardLabel: 'Installed turnkey service',
-    turnkeyCardBody: 'Products, fitting, handover and aftercare are coordinated by CasaMia.',
     closeDetails: 'Close',
     createDraft: 'Generate proposal',
     creatingDraft: 'Generating proposal...',
@@ -676,12 +464,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     optionalAddOnsIntro: 'Some add-ons need extra information before CasaMia can quote them.',
     packageDetails: 'Package details',
     phone: 'Phone',
-    popularTitle: 'Quick starts',
-    presets: [
-      { id: 'focused', title: 'Bathroom first', body: '1 bathroom package' },
-      { id: 'daily', title: 'Daily routine', body: 'Bathroom + bedroom' },
-      { id: 'wholeHome', title: 'Whole-home plan', body: '2 bathrooms + 2 bedrooms' },
-    ],
     quantity: 'Quantity',
     reviewRequired: 'Needs quote',
     reviewCtaBody: 'Next, share contact details. Your proposal is generated instantly from the packages, quantities and add-ons you selected.',
@@ -689,17 +471,28 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewStepEyebrow: 'Review',
     reviewStepIntro: 'Check quantities, included core items and optional add-ons before adding your details.',
     reviewStepTitle: 'Review your selected packages',
-    roomDescriptions: {
-      bathroom:
-        'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes practical fixes such as grab bars, seating, anti-slip treatment, lever controls and water-temperature safety where suitable.',
-      bedroom:
-        'Focuses on getting in and out of bed, moving safely at night and keeping daily routines calm. Combines bedside support, better lighting, clearer routes, furniture positioning and fire-safety basics.',
-      entrance:
-        'Makes the first and last steps of the day safer: thresholds, handrails, lighting, door hardware and visitor awareness. Useful for steps, mats, locks and seeing who is at the door before opening.',
-      kitchen:
-        'Designed for safer cooking without unnecessary strain: easier food preparation, safer reach, better visibility and clearer movement. Adds selected smoke or leak alerts and safer controls where useful.',
-      'living-room':
-        'Supports the room people use most for sitting, standing, relaxing and moving around. Addresses rugs, cables, unstable furniture, seating support and clearer circulation without making the space clinical.',
+    roomBenefitLines: {
+      bathroom: 'Bathing, toilet transfers and wet-floor movement feel safer.',
+      bedroom: 'Night movement, bed access and calm daily routines are easier.',
+      entrance: 'Door use, thresholds and visitor routines become more manageable.',
+      kitchen: 'Cooking, reach and everyday movement are easier to control.',
+      'living-room': 'Seating, standing and daily routes feel clearer and steadier.',
+    },
+    roomPlanner: {
+      actions: {
+        showSelected: 'Show selected packages',
+        startReview: 'Start guided review',
+        viewAll: 'View all rooms',
+      },
+      emptySummary: 'No rooms selected yet. All packages are visible below.',
+      heroCta: 'Pick rooms',
+      houseLabel: 'Select one or more rooms for the plan',
+      packageCountLabel: 'plan pieces',
+      selectedSummary: 'Selected rooms',
+      steps: ['Choose rooms', 'Review core support', 'Add useful extras only where needed'],
+      supportLabel: 'Whole-home support',
+      supportText: 'Use these signals to spot extras after the core rooms are chosen.',
+      title: 'Pick the rooms that need support.',
     },
     rooms: [
       { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
@@ -752,8 +545,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Enviar a revisión',
     continueToReview: 'Revisar paquetes elegidos',
     coreIncluded: 'Paquete base',
-    turnkeyCardLabel: 'Servicio llave en mano',
-    turnkeyCardBody: 'CasaMia coordina productos, instalación, entrega y soporte posterior.',
     closeDetails: 'Cerrar',
     createDraft: 'Crear borrador',
     creatingDraft: 'Creando borrador...',
@@ -799,28 +590,33 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     optionalAddOnsIntro: 'Algunos extras necesitan información adicional antes de que CasaMia pueda presupuestarlos.',
     packageDetails: 'Detalles del paquete',
     phone: 'Teléfono',
-    popularTitle: 'Empieza rápido',
-    presets: [
-      { id: 'focused', title: 'Baño primero', body: '1 paquete de baño' },
-      { id: 'daily', title: 'Rutina diaria', body: 'Baño + dormitorio' },
-      { id: 'wholeHome', title: 'Revisión completa', body: '2 baños + 2 dormitorios' },
-    ],
     quantity: 'Cantidad',
     reviewRequired: 'Requiere revisión',
     reviewStepEyebrow: 'Revisión',
     reviewStepIntro: 'Revisa cantidades, elementos incluidos y extras opcionales antes de añadir tus datos.',
     reviewStepTitle: 'Revisa tus paquetes seleccionados',
-    roomDescriptions: {
-      bathroom:
-        'Cubre ducha, transferencias al WC, agarre en suelo mojado, acceso seguro y visibilidad nocturna. Incluye soluciones como barras, asiento, tratamiento antideslizante, mandos de palanca y seguridad de temperatura cuando encaje.',
-      bedroom:
-        'Pensado para entrar y salir de la cama, moverse de noche y mantener rutinas tranquilas. Combina apoyo para transferencias, mejor iluminación, rutas despejadas, distribución del mobiliario y seguridad básica contra incendios.',
-      entrance:
-        'Hace más seguros los primeros y últimos pasos del día: umbrales, pasamanos, iluminación, herrajes de puerta y control de visitas. Útil para escalones, felpudos, cerraduras y ver quién llama antes de abrir.',
-      kitchen:
-        'Diseñado para cocinar con menos esfuerzo y más seguridad: preparación más fácil, mejor alcance, más visibilidad y movimiento despejado. Añade avisos seleccionados de humo o fugas y controles más seguros cuando aporten valor.',
-      'living-room':
-        'Refuerza la estancia donde más se descansa, se camina y se convive. Atiende alfombras, cables, muebles inestables, apoyo para sentarse y levantarse, y rutas más claras sin convertir el salón en un espacio clínico.',
+    roomBenefitLines: {
+      bathroom: 'La ducha, el WC y el movimiento en suelo mojado se sienten más seguros.',
+      bedroom: 'El movimiento nocturno, la cama y las rutinas diarias resultan más tranquilas.',
+      entrance: 'La puerta, los umbrales y las visitas se gestionan con menos esfuerzo.',
+      kitchen: 'Cocinar, alcanzar objetos y moverse a diario resulta más fácil.',
+      'living-room': 'Sentarse, levantarse y moverse por la estancia se vuelve más claro.',
+    },
+    roomPlanner: {
+      actions: {
+        showSelected: 'Ver paquetes elegidos',
+        startReview: 'Iniciar revisión guiada',
+        viewAll: 'Ver todas las estancias',
+      },
+      emptySummary: 'Aún no hay estancias elegidas. Abajo se ven todos los paquetes.',
+      heroCta: 'Elegir estancias',
+      houseLabel: 'Selecciona una o varias estancias para el plan',
+      packageCountLabel: 'piezas del plan',
+      selectedSummary: 'Estancias elegidas',
+      steps: ['Elige estancias', 'Revisa el apoyo base', 'Añade extras útiles solo donde hagan falta'],
+      supportLabel: 'Apoyo para toda la casa',
+      supportText: 'Usa estas señales para detectar extras después de elegir las estancias base.',
+      title: 'Elige las estancias que necesitan apoyo.',
     },
     rooms: [
       { title: 'Baño', body: 'Ducha, transferencias al WC, suelo mojado y acceso seguro.' },
@@ -873,6 +669,114 @@ const roomVisuals: Record<string, string> = {
   entrance: '/images/service-gallery/isometric/isometric-exterior.jpg',
   kitchen: '/images/service-gallery/isometric/isometric-kitchen.jpg',
   'living-room': '/images/service-gallery/isometric/isometric-living.jpg',
+}
+
+const roomPlannerVisuals: Record<string, string> = {
+  bathroom: '/images/solutions/first-thing-before-getting-up.jpg',
+  bedroom: '/images/before-after/bedroom-after-card.webp',
+  entrance: '/images/solutions/entrance-access.jpg',
+  kitchen: '/images/solutions/front-view-adorable-couple-kitchen.jpg',
+  'living-room': '/images/solutions/portrait-senior-couple-dancing-together.webp',
+}
+
+type RoomPlannerSupportId = 'lighting' | 'smart-safety' | 'outdoor' | 'other'
+
+type RoomPlannerSupportChip = {
+  groupIds: string[]
+  icon: LucideIcon
+  id: RoomPlannerSupportId
+  label: string
+}
+
+function getRoomPlannerSupportChipConfig(language: 'en' | 'es'): Array<Omit<RoomPlannerSupportChip, 'groupIds'>> {
+  return language === 'es'
+    ? [
+        { icon: Lightbulb, id: 'lighting', label: 'Iluminación' },
+        { icon: Radio, id: 'smart-safety', label: 'Seguridad inteligente' },
+        { icon: DoorOpen, id: 'outdoor', label: 'Exterior y entrada' },
+        { icon: Sparkles, id: 'other', label: 'Otros extras' },
+      ]
+    : [
+        { icon: Lightbulb, id: 'lighting', label: 'Lighting' },
+        { icon: Radio, id: 'smart-safety', label: 'Smart safety' },
+        { icon: DoorOpen, id: 'outdoor', label: 'Outdoor' },
+        { icon: Sparkles, id: 'other', label: 'Other' },
+      ]
+}
+
+function getRoomPlannerComposition(group: PlansBuilderGroup, language: 'en' | 'es') {
+  const includedCount = group.homeOutcomes.length
+  const addOnCount = group.addOnPackages.reduce((count, addOnPackage) =>
+    count + (addOnPackage.packageRecord.section === 'optional-adaptations' ? addOnPackage.outcomes.length : 1),
+  0)
+
+  const includedLabel = language === 'es'
+    ? `${includedCount} incluidos`
+    : `${includedCount} items`
+  const extrasLabel = `${addOnCount} extras`
+
+  return {
+    extrasLabel,
+    includedLabel,
+    summary: `${includedLabel} + ${extrasLabel}`,
+  }
+}
+
+function getRoomPlannerSupportText(
+  group: PlansBuilderGroup,
+  addOnPackage: PlansBuilderAddOnPackage,
+  outcome: MasterCatalogueOutcome,
+) {
+  return [
+    group.room.id,
+    group.roomLabel,
+    addOnPackage.packageRecord.section,
+    addOnPackage.packageLabel,
+    localizePlansString(outcome.customerName, 'en', outcome.internalName),
+    localizePlansString(outcome.customerName, 'es', outcome.internalName),
+    localizePlansString(outcome.shortDescription, 'en', outcome.internalName),
+    localizePlansString(outcome.shortDescription, 'es', outcome.internalName),
+    localizePlansString(outcome.customerBenefit, 'en', outcome.internalName),
+    localizePlansString(outcome.customerBenefit, 'es', outcome.internalName),
+    outcome.category,
+    outcome.slug,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+}
+
+function getRoomPlannerSupportFlags(
+  group: PlansBuilderGroup,
+  addOnPackage: PlansBuilderAddOnPackage,
+  outcome: MasterCatalogueOutcome,
+) {
+  const searchableText = getRoomPlannerSupportText(group, addOnPackage, outcome)
+  const lighting = /light|night|visibility|illumin|luz|noche|visibilidad|persiana|blind/.test(searchableText)
+  const smartSafety =
+    addOnPackage.packageRecord.section === 'connected-room'
+    || /sensor|voice|smart|connected|alert|emergency|video|doorbell|wifi|automation|monitor|aviso|alarma|conectado|voz/.test(searchableText)
+  const outdoor = group.room.id === 'entrance' || /outdoor|exterior|entrance|threshold|ramp|entrada|umbral/.test(searchableText)
+
+  return { lighting, outdoor, smartSafety }
+}
+
+function matchesRoomPlannerSupport(
+  id: RoomPlannerSupportId,
+  group: PlansBuilderGroup,
+  addOnPackage: PlansBuilderAddOnPackage,
+  outcome: MasterCatalogueOutcome,
+) {
+  const flags = getRoomPlannerSupportFlags(group, addOnPackage, outcome)
+
+  if (id === 'lighting') return flags.lighting
+  if (id === 'smart-safety') return flags.smartSafety
+  if (id === 'outdoor') return flags.outdoor
+
+  return addOnPackage.packageRecord.section === 'optional-adaptations'
+    && !flags.lighting
+    && !flags.smartSafety
+    && !flags.outdoor
 }
 
 type OutcomePreviewTheme =
@@ -1191,12 +1095,6 @@ export function PlansPage() {
           heroReviewTitle: 'Tu propuesta se genera al instante.',
           builderEyebrow: 'Plan CasaMia',
           heroSignals: ['Paquetes por estancia', 'Esenciales incluidos', 'Extras opcionales'],
-          popularTitle: 'Puntos de partida',
-          presets: [
-            { id: 'focused', title: 'Baño primero', body: 'Para la zona más delicada' },
-            { id: 'daily', title: 'Rutina diaria', body: 'Baño + dormitorio' },
-            { id: 'wholeHome', title: 'Plan vivienda', body: 'Varias estancias clave' },
-          ],
           reviewRequired: 'Requiere presupuesto',
           reviewCtaBody: 'En el siguiente paso compartes tus datos. Tu propuesta se genera al instante con los paquetes, cantidades y extras elegidos.',
           reviewCtaTitle: '¿Listo para generar tu propuesta?',
@@ -1235,12 +1133,6 @@ export function PlansPage() {
           heroReviewTitle: 'Your proposal is generated instantly.',
           builderEyebrow: 'CasaMia plan',
           heroSignals: ['Room packages', 'Essentials included', 'Optional extras'],
-          popularTitle: 'Suggested starts',
-          presets: [
-            { id: 'focused', title: 'Bathroom focus', body: 'Start with the most delicate room' },
-            { id: 'daily', title: 'Daily routine', body: 'Bathroom + bedroom' },
-            { id: 'wholeHome', title: 'Whole-home start', body: 'Several key rooms together' },
-          ],
           reviewRequired: 'Needs quote',
           reviewCtaBody: 'Next, share contact details. Your proposal is generated instantly from the packages, quantities and add-ons you selected.',
           reviewCtaTitle: 'Ready to generate your proposal?',
@@ -1260,6 +1152,8 @@ export function PlansPage() {
   const masterCatalogue = useMemo(() => catalogue.masterCatalogue ?? getMasterServiceCatalogue(), [catalogue.masterCatalogue])
   const groups = useMemo(() => buildPlansBuilderGroups(catalogue, language), [catalogue, language])
   const [selection, setSelection] = useState<PlansBuilderSelectionState>({})
+  const [showSelectedPackagesOnly, setShowSelectedPackagesOnly] = useState(false)
+  const [activeSupportFilter, setActiveSupportFilter] = useState<RoomPlannerSupportId | null>(null)
   const [customer, setCustomer] = useState<CustomerForm>(emptyCustomerForm)
   const [formErrors, setFormErrors] = useState<PlansFormErrors>({})
   const [step, setStep] = useState<PlansStep>('builder')
@@ -1342,6 +1236,38 @@ export function PlansPage() {
     [groups, language, selection],
   )
   const selectedGroups = groups.filter((group) => selection[group.homePackage.id]?.selected)
+  const selectedGroupIds = new Set(selectedGroups.map((group) => group.homePackage.id))
+  const roomPlannerSupportChips = useMemo<RoomPlannerSupportChip[]>(() =>
+    getRoomPlannerSupportChipConfig(language)
+      .map((chip) => {
+        const groupIds = groups
+          .filter((group) =>
+            group.addOnPackages.some((addOnPackage) =>
+              addOnPackage.outcomes.some((outcome) =>
+                matchesRoomPlannerSupport(chip.id, group, addOnPackage, outcome),
+              ),
+            ),
+          )
+          .map((group) => group.homePackage.id)
+
+        return { ...chip, groupIds }
+      })
+      .filter((chip) => chip.groupIds.length > 0),
+  [groups, language])
+  const activeSupportGroupIds = new Set(
+    activeSupportFilter
+      ? roomPlannerSupportChips.find((chip) => chip.id === activeSupportFilter)?.groupIds ?? []
+      : [],
+  )
+  const showingSelectedPackages = showSelectedPackagesOnly && selectedGroupIds.size > 0
+  const visibleGroups = showingSelectedPackages
+    ? groups.filter((group) => selectedGroupIds.has(group.homePackage.id))
+    : activeSupportFilter
+      ? groups.filter((group) => activeSupportGroupIds.has(group.homePackage.id))
+      : groups
+  const roomPlannerSummary = selectedGroups.length
+    ? `${copy.roomPlanner.selectedSummary}: ${selectedGroups.map((group) => group.roomLabel).join(' · ')}`
+    : copy.roomPlanner.emptySummary
   const selectedSummary = selectedGroups.map((group) => {
     const quantity = selection[group.homePackage.id]?.quantity ?? 1
     return `${quantity}x ${group.roomLabel}`
@@ -1572,21 +1498,6 @@ export function PlansPage() {
         rooms: 'Rooms',
         selectedScope: 'Selected scope',
       }
-
-  useEffect(() => {
-    if (Object.keys(selection).length || !groups.length) {
-      return
-    }
-
-    const defaultGroup = groups.find((group) => group.room.id === 'bathroom') ?? groups[0]
-    setSelection({
-      [defaultGroup.homePackage.id]: {
-        addOnOutcomeIds: [],
-        quantity: 1,
-        selected: true,
-      },
-    })
-  }, [groups, selection])
 
   useEffect(() => {
     if (!activeDetail) {
@@ -1880,27 +1791,31 @@ export function PlansPage() {
     })
   }
 
-  function applyPreset(presetId: PlansPresetId) {
-    const presetQuantities: Record<PlansPresetId, Record<string, number>> = {
-      focused: { bathroom: 1 },
-      daily: { bathroom: 1, bedroom: 1 },
-      wholeHome: { bathroom: 2, bedroom: 2, entrance: 1, kitchen: 1 },
-    }
-    const quantities = presetQuantities[presetId]
+  function togglePlannerRoom(group: PlansBuilderGroup) {
+    const isSelected = selection[group.homePackage.id]?.selected ?? false
 
-    setSelection(() => groups.reduce<PlansBuilderSelectionState>((nextSelection, group) => {
-      const quantity = quantities[group.room.id] ?? 0
+    updateRoomQuantity(group, isSelected ? 0 : 1)
+    setActiveSupportFilter(null)
+    setShowSelectedPackagesOnly(true)
+    scrollToPlansSection('plans-room-packages')
+  }
 
-      if (quantity > 0) {
-        nextSelection[group.homePackage.id] = {
-          addOnOutcomeIds: [],
-          quantity,
-          selected: true,
-        }
-      }
+  function showPlannerSelectedPackages() {
+    setActiveSupportFilter(null)
+    setShowSelectedPackagesOnly(true)
+    scrollToPlansSection('plans-room-packages')
+  }
 
-      return nextSelection
-    }, {}))
+  function viewAllPlannerRooms() {
+    setActiveSupportFilter(null)
+    setShowSelectedPackagesOnly(false)
+    scrollToPlansSection('plans-room-packages')
+  }
+
+  function togglePlannerSupportFilter(filterId: RoomPlannerSupportId) {
+    setShowSelectedPackagesOnly(false)
+    setActiveSupportFilter((current) => (current === filterId ? null : filterId))
+    scrollToPlansSection('plans-room-packages')
   }
 
   function toggleAddOnPackage(group: PlansBuilderGroup, addOnPackage: PlansBuilderAddOnPackage, checked: boolean) {
@@ -2078,7 +1993,7 @@ export function PlansPage() {
   function goToReviewStep() {
     if (!selectedGroups.length) {
       setError(copy.noSelection)
-      scrollToPlansSection('plans-builder-title')
+      scrollToPlansSection('plans-room-planner')
       return
     }
 
@@ -2393,16 +2308,11 @@ export function PlansPage() {
             <p className="section-kicker">{copy.builderEyebrow}</p>
             <h1>{copy.title}</h1>
             <p>{copy.subtitle}</p>
-            <div className="plans-preset-panel" aria-label={copy.popularTitle}>
-              <span>{copy.popularTitle}</span>
-              <div>
-                {copy.presets.map((preset) => (
-                  <button key={preset.id} type="button" onClick={() => applyPreset(preset.id)}>
-                    <strong>{preset.title}</strong>
-                    <small>{preset.body}</small>
-                  </button>
-                ))}
-              </div>
+            <div className="plans-builder-hero-actions">
+              <button className="btn btn-green" type="button" onClick={() => scrollToPlansSection('plans-room-planner')}>
+                {copy.roomPlanner.heroCta}
+                <ArrowRight size={17} aria-hidden="true" />
+              </button>
             </div>
           </div>
 
@@ -2437,26 +2347,123 @@ export function PlansPage() {
         </section>
       )}
 
-      {step === 'builder' ? <PlansCatalogueIntroSection language={language} /> : null}
-
       <main className={`plans-builder-main section-pad${step === 'contact' ? ' plans-contact-main' : ''}`}>
         {step === 'builder' ? (
         <div className="site-shell plans-builder-layout is-builder-step">
           <section className="plans-builder-workspace" aria-labelledby="plans-builder-title">
+            <section className="plans-room-planner" id="plans-room-planner" aria-labelledby="plans-room-planner-title">
+              <div className="plans-room-planner-copy">
+                <h2 id="plans-room-planner-title">{copy.roomPlanner.title}</h2>
+                <ol className="plans-room-planner-steps">
+                  {copy.roomPlanner.steps.map((stepLabel, index) => (
+                    <li key={stepLabel}>
+                      <span>{index + 1}</span>
+                      {stepLabel}
+                    </li>
+                  ))}
+                </ol>
+                <p className="plans-room-planner-live" aria-live="polite">{roomPlannerSummary}</p>
+              </div>
+
+              <div className="plans-room-planner-panel">
+                <div className="plans-room-planner-house" aria-label={copy.roomPlanner.houseLabel}>
+                  <div className="plans-room-planner-house-grid">
+                    {groups.map((group) => {
+                      const plannerVisual = roomPlannerVisuals[group.room.id] ?? roomVisuals[group.room.id]
+                      const selected = selection[group.homePackage.id]?.selected ?? false
+                      const composition = getRoomPlannerComposition(group, language)
+
+                      return (
+                        <button
+                          aria-label={`${group.roomLabel}. ${composition.summary}`}
+                          aria-pressed={selected}
+                          className={`plans-room-planner-room is-${group.room.id}${selected ? ' is-selected' : ''}`}
+                          key={`planner-${group.homePackage.id}`}
+                          type="button"
+                          onClick={() => togglePlannerRoom(group)}
+                        >
+                          <span className="plans-room-planner-room-media" aria-hidden="true">
+                            <img src={plannerVisual} alt="" loading="lazy" />
+                          </span>
+                          <span className="plans-room-planner-room-copy">
+                            <strong>{group.roomLabel}</strong>
+                            <span className="plans-room-planner-room-counts">
+                              <span>{composition.summary}</span>
+                            </span>
+                          </span>
+                          <span className="plans-room-planner-room-check" aria-hidden="true">
+                            <CheckCircle2 size={16} />
+                          </span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                {roomPlannerSupportChips.length ? (
+                  <aside className="plans-room-planner-support" aria-label={copy.roomPlanner.supportLabel}>
+                    <div>
+                      <strong>{copy.roomPlanner.supportLabel}</strong>
+                    </div>
+                    <div className="plans-room-planner-chips">
+                      {roomPlannerSupportChips.map((chip) => {
+                        const ChipIcon = chip.icon
+                        const active = activeSupportFilter === chip.id
+
+                        return (
+                          <button
+                            aria-pressed={active}
+                            className={active ? 'is-active' : undefined}
+                            key={chip.id}
+                            type="button"
+                            onClick={() => togglePlannerSupportFilter(chip.id)}
+                          >
+                            <ChipIcon size={16} aria-hidden="true" />
+                            <span>{chip.label}</span>
+                            <strong>{chip.groupIds.length}</strong>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </aside>
+                ) : null}
+              </div>
+
+              <div className="plans-room-planner-actions">
+                <button
+                  className="btn btn-blue-outline"
+                  disabled={!selectedGroups.length}
+                  type="button"
+                  onClick={showPlannerSelectedPackages}
+                >
+                  {copy.roomPlanner.actions.showSelected}
+                </button>
+                <button className="btn btn-white" type="button" onClick={viewAllPlannerRooms}>
+                  {copy.roomPlanner.actions.viewAll}
+                </button>
+                <button className="btn btn-green" type="button" onClick={goToReviewStep}>
+                  {copy.roomPlanner.actions.startReview}
+                  <ArrowRight size={16} aria-hidden="true" />
+                </button>
+              </div>
+            </section>
+
             <div className="plans-builder-heading">
               <div>
                 <p className="section-kicker">{copy.fromCatalogue}</p>
                 <h2 id="plans-builder-title">{copy.builderTitle}</h2>
-                <p>{copy.helpText}</p>
+                <p>{showingSelectedPackages ? roomPlannerSummary : copy.helpText}</p>
               </div>
             </div>
 
-            <div className="plans-room-grid">
-              {groups.map((group) => {
+            <div className="plans-room-grid" id="plans-room-packages">
+              {visibleGroups.map((group) => {
                 const Icon = roomIcons[group.room.id] ?? Home
                 const visual = roomVisuals[group.room.id]
                 const packageSelection = selection[group.homePackage.id]
                 const quantity = packageSelection?.selected ? packageSelection.quantity : 0
+                const addOnOptionCount = getAddOnOptionCount(group)
+                const benefitLine = copy.roomBenefitLines[group.room.id] ?? group.packageDescription
 
                 return (
                   <article className={`plans-room-card${quantity > 0 ? ' is-selected' : ''}`} key={group.homePackage.id}>
@@ -2475,23 +2482,17 @@ export function PlansPage() {
                         </span>
                       ) : null}
                       <div>
-                        <h3>{group.roomLabel}</h3>
-                        <p>{copy.roomDescriptions[group.room.id] ?? group.packageDescription}</p>
+                        <span className="plans-room-card-category">{group.roomLabel}</span>
+                        <h3>{group.packageLabel}</h3>
+                        <p>{benefitLine}</p>
+                        <div className="plans-room-card-pills">
+                          <span>{copy.coreIncluded}</span>
+                          <span>{group.homeOutcomes.length} {language === 'es' ? 'incluidos' : 'included'}</span>
+                          {addOnOptionCount ? <span>{addOnOptionCount} {language === 'es' ? 'extras' : 'extras'}</span> : null}
+                        </div>
                       </div>
                     </header>
                     <div className="plans-room-card-footer">
-                      <div className="plans-room-card-included">
-                        <strong className="plans-room-core-label">{copy.coreIncluded}</strong>
-                        <div className="plans-room-turnkey-note">
-                          <span className="plans-room-turnkey-icon">
-                            <PackageCheck size={16} aria-hidden="true" />
-                          </span>
-                          <div>
-                            <b>{copy.turnkeyCardLabel}</b>
-                            <small>{copy.turnkeyCardBody}</small>
-                          </div>
-                        </div>
-                      </div>
                       <div className="plans-room-card-actions">
                         <button
                           className="plans-detail-link"
@@ -2499,7 +2500,6 @@ export function PlansPage() {
                           onClick={() => openCorePackageDetails(group)}
                         >
                           {copy.viewDetails}
-                          <ArrowRight size={14} aria-hidden="true" />
                         </button>
                         <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${group.roomLabel}`}>
                           <button type="button" onClick={() => updateRoomQuantity(group, quantity - 1)}>

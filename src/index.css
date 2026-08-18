@@ -17603,89 +17603,11 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.5;
 }
 
-.plans-preset-panel {
-  display: grid;
-  gap: 13px;
-  max-width: 760px;
-  margin-top: 32px;
-}
-
-.plans-preset-panel > span {
-  color: var(--blue);
-  font-size: 12px;
-  font-weight: 950;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.plans-preset-panel > div {
+.plans-builder-hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 13px;
-}
-
-.plans-preset-panel button {
-  position: relative;
-  display: grid;
-  flex: 1 1 190px;
-  gap: 5px;
-  min-width: 0;
-  cursor: pointer;
-  border: 1px solid rgba(31, 103, 146, 0.16);
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at 12% 12%, rgba(52, 161, 211, 0.12), transparent 34%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(247, 252, 255, 0.92));
-  padding: 18px 48px 18px 20px;
-  text-align: left;
-  box-shadow: 0 18px 46px rgba(13, 30, 46, 0.075);
-  transition:
-    background 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    transform 160ms ease;
-}
-
-.plans-preset-panel button::after {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  color: var(--blue);
-  font-size: 18px;
-  font-weight: 900;
-  content: '→';
-  opacity: 0.72;
-  transition:
-    opacity 160ms ease,
-    transform 160ms ease;
-}
-
-.plans-preset-panel button:hover {
-  border-color: rgba(125, 191, 59, 0.48);
-  background:
-    radial-gradient(circle at 12% 12%, rgba(125, 191, 59, 0.12), transparent 34%),
-    linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(244, 251, 239, 0.92));
-  box-shadow: 0 24px 56px rgba(13, 30, 46, 0.115);
-  transform: translateY(-3px);
-}
-
-.plans-preset-panel button:hover::after {
-  opacity: 1;
-  transform: translateX(3px);
-}
-
-.plans-preset-panel strong {
-  color: var(--text-dark);
-  font-size: 17px;
-  font-weight: 950;
-  line-height: 1.15;
-}
-
-.plans-preset-panel small {
-  color: #5e7790;
-  font-size: 13px;
-  font-weight: 900;
-  line-height: 1.35;
+  gap: 12px;
+  margin-top: 26px;
 }
 
 .plans-hero-photo-card {
@@ -18113,6 +18035,367 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.42;
 }
 
+.btn-blue-outline {
+  border: 1px solid rgba(31, 103, 146, 0.26);
+  background: #ffffff;
+  color: var(--blue);
+  box-shadow: 0 12px 28px rgba(13, 30, 46, 0.06);
+}
+
+.btn-blue-outline:hover,
+.btn-blue-outline:focus-visible {
+  border-color: rgba(31, 103, 146, 0.44);
+  background: var(--light-blue);
+  color: var(--navy);
+}
+
+.plans-room-planner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: clamp(22px, 4vw, 42px);
+  overflow: visible;
+  scroll-margin-top: 96px;
+  margin-bottom: 34px;
+  border: 1px solid rgba(200, 220, 232, 0.95);
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 252, 255, 0.94) 58%, rgba(247, 251, 244, 0.92));
+  padding: clamp(20px, 3vw, 30px);
+  box-shadow: 0 22px 58px rgba(13, 30, 46, 0.08);
+}
+
+.plans-room-planner-copy {
+  display: grid;
+  align-content: center;
+}
+
+.plans-room-planner-copy h2 {
+  margin-top: 12px;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(34px, 4vw, 54px);
+  font-weight: 900;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.plans-room-planner-copy > p:not(.section-kicker):not(.plans-room-planner-live) {
+  max-width: 560px;
+  margin-top: 12px;
+  color: var(--text-mid);
+  font-size: 17px;
+  font-weight: 760;
+  line-height: 1.45;
+}
+
+.plans-room-planner-steps {
+  display: grid;
+  gap: 9px;
+  max-width: 520px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plans-room-planner-steps li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.plans-room-planner-steps span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid rgba(125, 184, 65, 0.35);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #477d18;
+  font-size: 13px;
+  box-shadow: 0 8px 18px rgba(13, 30, 46, 0.055);
+}
+
+.plans-room-planner-live {
+  margin-top: 18px;
+  border: 1px solid rgba(31, 103, 146, 0.16);
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 10px 14px;
+  color: var(--text-dark);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.plans-room-planner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1;
+  grid-row: 2;
+  gap: 10px;
+  align-self: start;
+  margin-top: 0;
+}
+
+.plans-room-planner-actions .btn {
+  min-height: 46px;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+.plans-room-planner-actions .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+  transform: none;
+}
+
+.plans-room-planner-panel {
+  display: grid;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-content: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.plans-room-planner-house {
+  display: grid;
+  gap: 12px;
+  border: 1px solid rgba(200, 220, 232, 0.64);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.56);
+  padding: 12px;
+  box-shadow: 0 18px 38px rgba(13, 30, 46, 0.06);
+}
+
+.plans-room-planner-house::before {
+  display: none;
+  content: none;
+}
+
+.plans-room-planner-house-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.plans-room-planner-room {
+  isolation: isolate;
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 132px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(200, 220, 232, 0.72);
+  border-radius: 18px;
+  background: #0d2f49;
+  padding: 0;
+  color: #ffffff;
+  text-align: left;
+  box-shadow: 0 12px 26px rgba(13, 30, 46, 0.07);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.plans-room-planner-room:hover,
+.plans-room-planner-room:focus-visible {
+  z-index: 5;
+  border-color: rgba(31, 103, 146, 0.34);
+  box-shadow: 0 16px 34px rgba(13, 30, 46, 0.12);
+  transform: translateY(-1px);
+}
+
+.plans-room-planner-room.is-selected {
+  border-color: rgba(125, 184, 65, 0.62);
+  box-shadow:
+    inset 0 0 0 2px rgba(125, 184, 65, 0.62),
+    0 16px 34px rgba(13, 30, 46, 0.11);
+}
+
+.plans-room-planner-room.is-entrance {
+  grid-column: 1 / -1;
+  min-height: 124px;
+}
+
+.plans-room-planner-room-media {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: #0d2f49;
+}
+
+.plans-room-planner-room-media::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(9, 34, 53, 0.03), rgba(9, 34, 53, 0.22) 46%, rgba(9, 34, 53, 0.7)),
+    linear-gradient(90deg, rgba(9, 34, 53, 0.42), rgba(9, 34, 53, 0.08) 62%, rgba(9, 34, 53, 0.22));
+  content: '';
+}
+
+.plans-room-planner-room-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 220ms ease;
+}
+
+.plans-room-planner-room:hover .plans-room-planner-room-media img,
+.plans-room-planner-room:focus-visible .plans-room-planner-room-media img {
+  transform: scale(1.045);
+}
+
+.plans-room-planner-room-copy {
+  display: grid;
+  align-content: end;
+  min-width: 0;
+  min-height: inherit;
+  padding: 54px 42px 14px 14px;
+}
+
+.plans-room-planner-room strong {
+  display: block;
+}
+
+.plans-room-planner-room strong {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1.1;
+  text-shadow: 0 1px 10px rgba(9, 34, 53, 0.4);
+}
+
+.plans-room-planner-room-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.plans-room-planner-room-counts span {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--navy);
+  font-size: 11.5px;
+  font-weight: 950;
+  line-height: 1.1;
+  padding: 6px 8px;
+  white-space: nowrap;
+}
+
+.plans-room-planner-room-counts span:first-child {
+  color: var(--navy);
+}
+
+.plans-room-planner-room-counts span + span::before {
+  content: none;
+  margin-right: 0;
+}
+
+.plans-room-planner-room-check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #477d18;
+  opacity: 0;
+  transform: scale(0.82);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.plans-room-planner-room.is-selected .plans-room-planner-room-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.plans-room-planner-support {
+  display: grid;
+  gap: 10px;
+  border-top: 1px solid rgba(200, 220, 232, 0.78);
+  padding-top: 12px;
+}
+
+.plans-room-planner-support strong {
+  display: block;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.plans-room-planner-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.plans-room-planner-chips button {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  border: 1px solid rgba(31, 103, 146, 0.18);
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 7px 9px;
+  color: var(--blue);
+  font-size: 11.5px;
+  font-weight: 950;
+  line-height: 1;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.plans-room-planner-chips button:hover,
+.plans-room-planner-chips button:focus-visible,
+.plans-room-planner-chips button.is-active {
+  border-color: rgba(125, 184, 65, 0.5);
+  background: rgba(247, 252, 242, 0.98);
+  color: #477d18;
+}
+
+.plans-room-planner-chips button:hover,
+.plans-room-planner-chips button:focus-visible {
+  transform: translateY(-1px);
+}
+
+.plans-room-planner-chips button strong {
+  display: grid;
+  min-width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--light-blue);
+  color: var(--navy);
+  font-size: 11px;
+  line-height: 1;
+}
+
 .plans-room-grid {
   display: grid;
   gap: 14px;
@@ -18217,6 +18500,25 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   letter-spacing: 0;
 }
 
+.plans-room-card-category {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--light-blue);
+  padding: 6px 10px;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.plans-room-card-category + h3 {
+  margin-top: 12px;
+}
+
 .plans-room-card p,
 .plans-module-room p {
   margin-top: 10px;
@@ -18224,6 +18526,33 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   font-size: 14px;
   font-weight: 720;
   line-height: 1.55;
+}
+
+.plans-room-card-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.plans-room-card-pills span {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  border: 1px solid rgba(200, 220, 232, 0.9);
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 7px 10px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.plans-room-card-pills span:first-child {
+  border-color: rgba(125, 184, 65, 0.38);
+  background: rgba(247, 252, 242, 0.98);
+  color: #477d18;
 }
 
 .plans-detail-link {
@@ -18268,16 +18597,10 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plans-room-card-footer {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
-  margin: 18px 22px 22px;
+  justify-items: end;
+  margin: 16px 22px 22px;
   border-top: 1px solid rgba(200, 220, 232, 0.72);
-  padding-top: 18px;
-}
-
-.plans-room-card-included {
-  display: grid;
-  gap: 9px;
-  min-width: 0;
+  padding-top: 16px;
 }
 
 .plans-room-card-actions {
@@ -18286,49 +18609,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   gap: 10px;
   align-items: center;
   justify-content: flex-end;
-}
-
-.plans-room-turnkey-note {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 12px;
-  max-width: none;
-  align-items: center;
-  border: 1px solid rgba(125, 184, 65, 0.32);
-  border-radius: 12px;
-  background:
-    linear-gradient(135deg, rgba(247, 252, 242, 0.98), rgba(255, 255, 255, 0.96));
-  padding: 12px 14px;
-  box-shadow: inset 4px 0 0 rgba(125, 184, 65, 0.72);
-}
-
-.plans-room-turnkey-icon {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border: 1px solid rgba(125, 184, 65, 0.26);
-  border-radius: 10px;
-  background: #ffffff;
-  color: var(--green);
-  box-shadow: 0 8px 18px rgba(52, 112, 23, 0.08);
-}
-
-.plans-room-turnkey-note b {
-  display: block;
-  color: var(--navy);
-  font-size: 14px;
-  font-weight: 950;
-  line-height: 1.15;
-}
-
-.plans-room-turnkey-note small {
-  display: block;
-  margin-top: 4px;
-  color: var(--text-mid);
-  font-size: 12.5px;
-  font-weight: 720;
-  line-height: 1.38;
 }
 
 .plans-room-card-footer .plans-detail-link {
@@ -18357,12 +18637,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   color: var(--navy);
   font-size: 16px;
   font-weight: 950;
-}
-
-.plans-room-core-label {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
 }
 
 .plans-quantity-control {
@@ -19750,12 +20024,68 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
     padding-top: 78px;
   }
 
-  .plans-preset-panel > div {
-    display: grid;
+  .plans-builder-hero-actions .btn {
+    width: 100%;
   }
 
-  .plans-preset-panel button {
+  .plans-room-planner {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+    padding: 18px;
+  }
+
+  .plans-room-planner-copy h2 {
+    font-size: 34px;
+  }
+
+  .plans-room-planner-actions {
+    display: grid;
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .plans-room-planner-actions .btn {
     width: 100%;
+  }
+
+  .plans-room-planner-house {
+    grid-column: auto;
+    grid-row: auto;
+    padding: 12px;
+  }
+
+  .plans-room-planner-panel {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .plans-room-planner-house-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plans-room-planner-room.is-entrance {
+    grid-column: auto;
+  }
+
+  .plans-room-planner-room {
+    min-height: 122px;
+  }
+
+  .plans-room-planner-room.is-entrance {
+    min-height: 122px;
+  }
+
+  .plans-room-planner-room-copy {
+    padding: 54px 40px 14px 14px;
+  }
+
+  .plans-room-planner-chips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .plans-room-planner-chips button {
+    justify-content: space-between;
   }
 
   .plans-summary-scope-grid {
