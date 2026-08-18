@@ -10,7 +10,6 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'bathroom-anti-slip-floor-treatment': serviceProductImage('floor-grip'),
   'bathroom-bathtub-step-through': serviceProductImage('tub-cutout'),
   'bathroom-comfort-height-toilet': serviceProductImage('toilet-rails'),
-  'bathroom-connected-guidance': serviceProductImage('motion-light'),
   'bathroom-folding-shower-seat': '/images/service-card-products/folding-shower-seat.png',
   'bathroom-grab-bars': serviceProductImage('vertical-rail'),
   'bathroom-improved-lighting': serviceProductImage('motion-light'),
