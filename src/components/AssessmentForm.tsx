@@ -1,4 +1,4 @@
-import { AlertCircle, ArrowRight, CalendarClock, CheckCircle2, LoaderCircle, Mail, MapPin, PhoneCall, UserRound } from 'lucide-react'
+import { AlertCircle, ArrowRight, CalendarClock, CheckCircle2, LoaderCircle, MapPin, UserRound } from 'lucide-react'
 import type { FormEvent, ReactNode } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -382,39 +382,28 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
               />
             </FormField>
 
-            <div className="assessment-contact-method-card">
-              <span className="assessment-contact-method-icon">
-                <PhoneCall size={18} aria-hidden="true" />
-              </span>
-              <PhoneNumberField
-                className="assessment-field"
-                error={errors.phone ?? errors.contact}
-                label={t('assessment.form.fields.phone')}
-                required
-                value={values.phone}
-                onChange={(nextValue) => updateValue('phone', nextValue)}
-              />
-            </div>
+            <PhoneNumberField
+              className="assessment-field"
+              error={errors.phone ?? errors.contact}
+              helperText={isSpanish ? 'Teléfono español de 9 dígitos.' : 'Spanish number, 9 digits.'}
+              label={t('assessment.form.fields.phone')}
+              value={values.phone}
+              onChange={(nextValue) => updateValue('phone', nextValue)}
+            />
 
-            <div className="assessment-contact-method-card">
-              <span className="assessment-contact-method-icon">
-                <Mail size={18} aria-hidden="true" />
-              </span>
-              <FormField error={errors.email ?? errors.contact} label={t('assessment.form.fields.email')} required>
-                <input
-                  aria-invalid={Boolean(errors.email ?? errors.contact)}
-                  aria-required="true"
-                  autoComplete="email"
-                  inputMode="email"
-                  name="email"
-                  onBlur={(event) => validateEmailField(event.target.value)}
-                  onChange={(event) => updateValue('email', event.target.value)}
-                  placeholder="nombre@email.com"
-                  type="email"
-                  value={values.email}
-                />
-              </FormField>
-            </div>
+            <FormField error={errors.email ?? errors.contact} label={t('assessment.form.fields.email')}>
+              <input
+                aria-invalid={Boolean(errors.email ?? errors.contact)}
+                autoComplete="email"
+                inputMode="email"
+                name="email"
+                onBlur={(event) => validateEmailField(event.target.value)}
+                onChange={(event) => updateValue('email', event.target.value)}
+                placeholder={isSpanish ? 'nombre@email.com' : 'name@email.com'}
+                type="email"
+                value={values.email}
+              />
+            </FormField>
           </div>
         </section>
 

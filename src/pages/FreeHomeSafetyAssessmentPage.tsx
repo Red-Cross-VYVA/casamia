@@ -77,6 +77,9 @@ export function FreeHomeSafetyAssessmentPage() {
   const faq = t('assessment.faq', { returnObjects: true }) as FaqCopy
   const isReportBookingFlow = searchParams.get('source') === 'free-report'
   const isSpanish = i18n.language.startsWith('es')
+  const formSectionProof = isSpanish
+    ? ['99 EUR descontables de tu plan CasaMia', 'Confirmamos disponibilidad antes de reservar', 'Revisión práctica estancia por estancia']
+    : ['99 EUR credited toward your CasaMia plan', 'Availability confirmed before booking', 'Practical room-by-room review']
   const assessmentSchema = useMemo(
     () => [
       {
@@ -326,6 +329,14 @@ export function FreeHomeSafetyAssessmentPage() {
                   : 'Tell us the best contact channel and timing so the team can confirm your in-home assessment.'
                 : t('assessment.formSection.body')}
             </p>
+            <ul className="assessment-form-proof-list">
+              {formSectionProof.map((item) => (
+                <li key={item}>
+                  <CheckCircle2 size={18} aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
           <AssessmentForm mode={isReportBookingFlow ? 'booking' : 'default'} />
         </div>

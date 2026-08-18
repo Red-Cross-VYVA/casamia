@@ -27,6 +27,11 @@ const AssistedLivingSolutionsPage = lazy(() =>
 const BeforeAfterPage = lazy(() =>
   import('./pages/BeforeAfterPage').then(({ BeforeAfterPage }) => ({ default: BeforeAfterPage })),
 )
+const BathtubStepThroughPage = lazy(() =>
+  import('./pages/BathtubStepThroughPage').then(({ BathtubStepThroughPage }) => ({
+    default: BathtubStepThroughPage,
+  })),
+)
 const BlogArticlePage = lazy(() =>
   import('./pages/BlogArticlePage').then(({ BlogArticlePage }) => ({ default: BlogArticlePage })),
 )
@@ -290,6 +295,7 @@ function AppRoutes() {
             <Route path="/provider-partners" element={<ProviderPartnersPage />} />
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/bathtub-step-through-conversion" element={<BathtubStepThroughPage />} />
             <Route path="/services/:serviceId" element={<ServiceDetailPage />} />
             <Route path="/service-areas" element={<ServiceAreasPage />} />
             <Route path="/service-areas/:citySlug" element={<ServiceAreasPage />} />

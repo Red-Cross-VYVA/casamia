@@ -77,8 +77,8 @@
       "subtitle": "Solicita una visita de CasaMia por 99 EUR para revisar riesgos de caída, accesibilidad y mejoras prácticas antes de decidir cualquier trabajo.",
       "cta": "Solicitar evaluación a domicilio",
       "secondaryCta": "Empezar informe online gratis",
-      "reassurance": "La tarifa de 99 EUR se descuenta de tu plan CasaMia si continúas.",
-      "panelTitle": "Una visita experta de 99 EUR, descontable si continúas.",
+      "reassurance": "La tarifa de 99 EUR se descuenta de tu plan CasaMia si contratas mejoras.",
+      "panelTitle": "Una visita experta de 99 EUR, descontable de tu plan CasaMia.",
       "panelBody": "Confirmamos disponibilidad y alcance antes de la cita para que no haya sorpresas."
     },
     "pricing": {
@@ -215,12 +215,12 @@
       ]
     },
     "formSection": {
-      "title": "Solicita tu visita de evaluación a domicilio",
-      "body": "Cuéntanos dónde está la vivienda y cómo prefieres que contactemos. Un representante de CasaMia confirmará disponibilidad y una cita adecuada para la visita de 99 EUR."
+      "title": "Reserva una evaluación en casa",
+      "body": "Deja tus datos y CasaMia confirmará el mejor horario para la visita a domicilio de 99 EUR antes de reservar nada."
     },
     "form": {
-      "title": "Solicitud de evaluación a domicilio",
-      "intro": "Los campos marcados con * son obligatorios. Indica teléfono o email.",
+      "title": "Solicitud de evaluación",
+      "intro": "Indica a quién debemos contactar y comparte un teléfono o email.",
       "fields": {
         "name": "Nombre completo",
         "phone": "Teléfono",

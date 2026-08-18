@@ -187,9 +187,10 @@ type PlansDetailTab = 'core' | 'optional'
 type PlansDetailActionState = {
   body: string
   disabled: boolean
+  href?: string
   label: string
   status?: string
-  variant: 'core' | 'connected' | 'review'
+  variant: 'core' | 'connected' | 'learn-more' | 'review'
 }
 
 type PlansCatalogueIntroCopy = {
@@ -1373,6 +1374,7 @@ export function PlansPage() {
         coreTab: 'Paquete base',
         includes: 'Qué incluye CasaMia',
         itemIncludes: 'Para este elemento, CasaMia incluye',
+        learnMore: 'Más información',
         next: 'Siguiente',
         noDetailItems: 'No hay elementos para mostrar en esta sección.',
         orderPackage: (roomLabel: string) => `Pedir paquete de ${roomLabel.toLocaleLowerCase('es-ES')}`,
@@ -1390,6 +1392,7 @@ export function PlansPage() {
         coreTab: 'Core package',
         includes: 'What CasaMia includes',
         itemIncludes: 'For this item, CasaMia includes',
+        learnMore: 'Learn more',
         next: 'Next',
         noDetailItems: 'No items to show in this section.',
         orderPackage: (roomLabel: string) => `Order ${roomLabel} Package`,
@@ -1453,8 +1456,20 @@ export function PlansPage() {
   const activeDetailAddOnSelected = activeDetailSlide
     ? activeDetailSelectedIds.has(activeDetailSlide.id)
     : false
+  const activeDetailLearnMorePath = activeDetailSlide?.id === 'bathroom-bathtub-step-through'
+    ? '/services/bathtub-step-through-conversion'
+    : undefined
   const activeDetailAction: PlansDetailActionState | null = activeDetailGroup && activeDetailSlide
-    ? activeDetailDisplayMode === 'core'
+    ? activeDetailLearnMorePath
+      ? {
+          body: '',
+          disabled: false,
+          href: activeDetailLearnMorePath,
+          label: detailCopy.learnMore,
+          status: undefined,
+          variant: 'learn-more',
+        }
+      : activeDetailDisplayMode === 'core'
       ? {
           body: '',
           disabled: activeDetailCoreSelected,
@@ -3040,19 +3055,26 @@ export function PlansPage() {
                     {activeDetailAction ? (
                       <div className={`plan-detail-action plan-detail-action--${activeDetailAction.variant}`}>
                         {activeDetailAction.body ? <p>{activeDetailAction.body}</p> : null}
-                        <button
-                          className="btn btn-green"
-                          disabled={activeDetailAction.disabled}
-                          type="button"
-                          onClick={handleActiveDetailAction}
-                        >
-                          {activeDetailAction.label}
-                          {activeDetailAction.disabled ? (
-                            <CheckCircle2 size={16} aria-hidden="true" />
-                          ) : (
+                        {activeDetailAction.href ? (
+                          <Link className="btn btn-green" to={activeDetailAction.href} onClick={closeDetailModal}>
+                            {activeDetailAction.label}
                             <ArrowRight size={16} aria-hidden="true" />
-                          )}
-                        </button>
+                          </Link>
+                        ) : (
+                          <button
+                            className="btn btn-green"
+                            disabled={activeDetailAction.disabled}
+                            type="button"
+                            onClick={handleActiveDetailAction}
+                          >
+                            {activeDetailAction.label}
+                            {activeDetailAction.disabled ? (
+                              <CheckCircle2 size={16} aria-hidden="true" />
+                            ) : (
+                              <ArrowRight size={16} aria-hidden="true" />
+                            )}
+                          </button>
+                        )}
                         {activeDetailAction.status ? <small>{activeDetailAction.status}</small> : null}
                       </div>
                     ) : null}

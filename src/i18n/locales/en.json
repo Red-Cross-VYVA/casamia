@@ -78,7 +78,7 @@
       "cta": "Request In-Home Assessment",
       "secondaryCta": "Start Free Online Safety Report",
       "reassurance": "The 99 EUR visit fee is credited toward your CasaMia plan if you proceed.",
-      "panelTitle": "A 99 EUR expert visit, credited if you continue.",
+      "panelTitle": "A 99 EUR expert visit, credited toward your CasaMia plan.",
       "panelBody": "We confirm availability and scope before the appointment so there are no surprises."
     },
     "pricing": {
@@ -215,12 +215,12 @@
       ]
     },
     "formSection": {
-      "title": "Request Your In-Home Assessment Visit",
-      "body": "Tell us where the home is and how you prefer to be contacted. A CasaMia representative will confirm availability and a suitable appointment time for the 99 EUR visit."
+      "title": "Book a home assessment",
+      "body": "Leave your details and CasaMia will confirm the best time for the 99 EUR in-home visit before anything is booked."
     },
     "form": {
-      "title": "In-home assessment request",
-      "intro": "Fields marked with * are required. Please provide either a phone number or email address.",
+      "title": "Assessment request",
+      "intro": "Tell us who to contact and share either a phone number or email address.",
       "fields": {
         "name": "Full name",
         "phone": "Phone number",
