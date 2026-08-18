@@ -229,7 +229,7 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bathroom-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('motion-light') },
   'bathroom-tub-cutout': { kind: 'tub-cutout', tone: 'access', image: serviceCardProduct('tub-cutout') },
   'bathroom-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
-  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-rail') },
+  'bathroom-vertical-support-rail': { kind: 'vertical-rail', tone: 'support', image: serviceCardProduct('vertical-support-rail-modern') },
   'bedroom-underbed-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('underbed-lighting') },
   'bedroom-bed-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-transfer') },
   'bedroom-bed-wedge-support': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('bed-wedge-back-support') },
