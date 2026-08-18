@@ -81,7 +81,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'kitchen-touchless-faucet': serviceProductImage('lever-tap'),
   'kitchen-voice-lighting-timers': serviceProductImage('kitchen-voice-speaker'),
   'kitchen-water-leak-sensor': serviceProductImage('kitchen-water-monitoring'),
-  'kitchen-wider-doorway': serviceProductImage('wide-doorway'),
+  'kitchen-wider-doorway': '/images/service-card-products/kitchen-wide-doorway.jpg',
   'kitchen-worktop-lighting': serviceProductImage('kitchen-worktop-lighting'),
   'living-room-connected-experience': serviceProductImage('voice-speaker-bedroom'),
   'living-room-couch-assist-frame': '/images/service-card-products/living-room-seating-support.png',
