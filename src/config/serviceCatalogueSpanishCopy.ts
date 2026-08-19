@@ -369,11 +369,11 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     includedItems: ['Medición de armario', 'Selección de herraje', 'Instalación profesional'],
   },
   'kitchen-stove-shutoff': {
-    name: 'Apagado automático de cocina',
-    shortDescription: 'Medida de seguridad para determinados fogones o placas.',
-    customerBenefit: 'Reduce riesgo cuando hay olvidos o dificultad para confirmar apagado.',
+    name: 'Temporizador de seguridad para cocinar',
+    shortDescription: 'Temporizador de corte o apoyo de control compatible para rutinas de cocina con más riesgo.',
+    customerBenefit: 'Ayuda a reducir la preocupación por fogones olvidados o sartenes quemadas cuando el aparato es compatible.',
     category: 'Seguridad de agua y electrodomésticos',
-    includedItems: ['Revisión de compatibilidad', 'Dispositivo de seguridad', 'Prueba y entrega'],
+    includedItems: ['Revisión de compatibilidad', 'Temporizador o control compatible', 'Prueba y entrega'],
   },
   'kitchen-touchless-faucet': {
     name: 'Grifo sin contacto',

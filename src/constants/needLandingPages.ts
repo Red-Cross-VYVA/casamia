@@ -244,7 +244,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Does CasaMia supply and install everything?',
         answer:
-          'CasaMia coordinates the end-to-end process: assessment, proposal, product selection, installation partners and follow-up where required.',
+          'CasaMia coordinates the end-to-end process: assessment, proposal, matching the right products, installation partners and follow-up where required.',
       },
     ],
   },

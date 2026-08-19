@@ -77,7 +77,7 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
     en: {
       eyebrow: 'Catalogue gallery',
       title: 'Kitchen items available.',
-      body: 'Products and adaptations for safer preparation, cooking, lighting, standing zones, storage and selected kitchen alerts.',
+      body: 'Products and adaptations for easier preparation, cooking safeguards, lighting, standing zones, storage and selected kitchen alerts.',
     },
     es: {
       eyebrow: 'Galería del catálogo',

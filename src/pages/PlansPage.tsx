@@ -288,6 +288,8 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Bedside light': 'Luz junto a la cama',
     'Bed height, transfer and room-fit assessment': 'Revisión de altura, transferencias y espacio del dormitorio',
     'Cable management kit': 'Kit de organizacion de cables',
+    'Compatible gas shut-off support': 'Apoyo de corte de gas compatible',
+    'Compatible stove shut-off timer or safer hob controls': 'Temporizador de corte compatible o controles de placa mas seguros',
     'Delivery and installation coordination': 'Coordinación de entrega e instalación',
     'Electric adjustable bed': 'Cama eléctrica ajustable',
     'Family contact notification setup': 'Configuracion de avisos a contactos familiares',
@@ -334,7 +336,7 @@ function getPlanDetailServiceSummaryItems(
   const taskText = specification.installationTasks.map((task) => task.name).join(' ').toLocaleLowerCase()
   const serviceItems: string[] = []
 
-  serviceItems.push(language === 'es' ? 'Seleccion del producto adecuado' : 'CasaMia product selection')
+  serviceItems.push(language === 'es' ? 'Producto adecuado para la vivienda' : 'Product matched to the home')
 
   if (/inspect|measure/.test(taskText)) {
     serviceItems.push(language === 'es' ? 'Revision de idoneidad y medidas' : 'Suitability check and measurements')
