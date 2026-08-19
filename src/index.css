@@ -17259,6 +17259,102 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   background: var(--green);
 }
 
+.assessment-plan-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  color: var(--text-dark);
+}
+
+.assessment-plan-field.is-wide {
+  grid-column: 1 / -1;
+}
+
+.assessment-plan-field legend {
+  padding: 0;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.assessment-plan-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.assessment-plan-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 54px;
+  border: 1px solid rgba(31, 103, 146, 0.18);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.assessment-plan-option:hover,
+.assessment-plan-option:focus-within {
+  border-color: rgba(39, 154, 213, 0.46);
+  box-shadow: 0 12px 28px rgba(13, 30, 46, 0.08);
+}
+
+.assessment-plan-option:hover {
+  transform: translateY(-1px);
+}
+
+.assessment-plan-option.is-selected {
+  border-color: rgba(125, 184, 65, 0.72);
+  background: rgba(125, 184, 65, 0.1);
+}
+
+.assessment-plan-option input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.assessment-plan-option-marker {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid rgba(31, 103, 146, 0.22);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.assessment-plan-option.is-selected .assessment-plan-option-marker {
+  border-color: var(--green);
+  background: var(--green);
+}
+
+.assessment-plan-option-copy {
+  display: block;
+  min-width: 0;
+}
+
+.assessment-plan-option-copy strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
 .assessment-field {
   display: grid;
   gap: 8px;
@@ -25977,7 +26073,8 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
     grid-template-columns: 1fr;
   }
 
-  .assessment-booking-timing-options {
+  .assessment-booking-timing-options,
+  .assessment-plan-options {
     grid-template-columns: 1fr;
   }
 

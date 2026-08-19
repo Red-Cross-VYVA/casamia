@@ -229,7 +229,7 @@
         "contactMethod": "Método de contacto preferido",
         "date": "Fecha preferida de evaluación",
         "message": "Mensaje / preocupaciones concretas",
-        "selectedPlan": "Opción seleccionada"
+        "selectedPlan": "¿Qué quieres revisar?"
       },
       "contactOptions": [
         {
@@ -261,19 +261,31 @@
       "planOptions": [
         {
           "value": "not-sure",
-          "label": "Aun no lo se"
+          "label": "Aún no lo sé"
         },
         {
           "value": "home-assessment",
-          "label": "Evaluacion de seguridad"
+          "label": "Evaluación de seguridad"
         },
         {
-          "value": "home-safety",
-          "label": "Plan CasaMia"
+          "value": "package-bathroom",
+          "label": "Paquete de seguridad del baño"
         },
         {
-          "value": "smart-safety",
-          "label": "Servicios de seguridad"
+          "value": "package-bedroom",
+          "label": "Paquete de seguridad del dormitorio"
+        },
+        {
+          "value": "package-kitchen",
+          "label": "Paquete de seguridad de la cocina"
+        },
+        {
+          "value": "package-living-room",
+          "label": "Paquete de seguridad del salón"
+        },
+        {
+          "value": "package-entrance",
+          "label": "Paquete de seguridad de la entrada"
         }
       ],
       "successWithPlan": "Gracias. Hemos recibido tu solicitud de visita para {{plan}}. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de 99 EUR."

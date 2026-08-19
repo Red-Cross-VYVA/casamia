@@ -301,6 +301,10 @@ function AppRoutes() {
             <Route path="/service-areas/:citySlug" element={<ServiceAreasPage />} />
             <Route path="/safe-bathroom-access" element={<LegacyPathRedirect to="/services/bathroom-safety" />} />
             <Route path="/grants-for-home-adaptations-spain" element={<LocalizedNavigate to="/grants" />} />
+            <Route
+              path="/home-safety-assessment-vs-general-contractor"
+              element={<LegacyPathRedirect to="/home-safety-assessment" />}
+            />
             <Route path="/:needSlug" element={<NeedLandingPage />} />
             <Route path="/family-dashboard" element={<LocalizedNavigate to="/tech" />} />
             <Route path="/assisted-living-solutions" element={<AssistedLivingSolutionsPage />} />

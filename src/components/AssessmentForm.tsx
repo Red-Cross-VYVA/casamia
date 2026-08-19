@@ -13,6 +13,11 @@ const DEFAULT_PLAN_VALUE = 'not-sure'
 const KNOWN_PLAN_VALUES = new Set([
   'home-assessment',
   'home-safety',
+  'package-bathroom',
+  'package-bedroom',
+  'package-kitchen',
+  'package-living-room',
+  'package-entrance',
   'smart-safety',
 ])
 
@@ -22,7 +27,7 @@ type AssessmentFormValues = {
   email: string
   city: string
   contactMethod: string
-  selectedPlan: string
+  selectedPlans: string[]
   date: string
   message: string
   consent: boolean
@@ -36,7 +41,7 @@ const initialValues: AssessmentFormValues = {
   email: '',
   city: '',
   contactMethod: 'phone',
-  selectedPlan: DEFAULT_PLAN_VALUE,
+  selectedPlans: [DEFAULT_PLAN_VALUE],
   date: '',
   message: '',
   consent: false,
@@ -74,11 +79,10 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
   const reportToken = searchParams.get('report') ?? undefined
   const [values, setValues] = useState(() => ({
     ...initialValues,
-    selectedPlan: planFromUrl,
+    selectedPlans: [planFromUrl],
   }))
   const [errors, setErrors] = useState<AssessmentFormErrors>({})
   const [submitted, setSubmitted] = useState(false)
-  const [submittedPlan, setSubmittedPlan] = useState(DEFAULT_PLAN_VALUE)
   const [submitError, setSubmitError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [contactTimings, setContactTimings] = useState<string[]>([])
@@ -90,14 +94,17 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
     value: string
     label: string
   }>
+  const selectedPlanLabels = useMemo(
+    () => getPlanLabels(values.selectedPlans, planOptions),
+    [planOptions, values.selectedPlans],
+  )
   const selectedPlanLabel = useMemo(
-    () => getPlanLabel(values.selectedPlan, planOptions),
-    [planOptions, values.selectedPlan],
+    () => formatPlanLabels(selectedPlanLabels),
+    [selectedPlanLabels],
   )
-  const submittedPlanLabel = useMemo(
-    () => getPlanLabel(submittedPlan, planOptions),
-    [planOptions, submittedPlan],
-  )
+  const selectedPlanHasSpecificChoice = values.selectedPlans.some((plan) => plan !== DEFAULT_PLAN_VALUE)
+  const [submittedPlanLabel, setSubmittedPlanLabel] = useState('')
+  const [submittedPlanHasSpecificChoice, setSubmittedPlanHasSpecificChoice] = useState(false)
   const isCheckout = mode === 'checkout'
   const isBooking = mode === 'booking'
   const isSpanish = i18n.language.startsWith('es')
@@ -110,21 +117,40 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
 
   useEffect(() => {
     setValues((current) => {
-      if (current.selectedPlan === planFromUrl) {
+      if (current.selectedPlans.length === 1 && current.selectedPlans[0] === planFromUrl) {
         return current
       }
 
-      return { ...current, selectedPlan: planFromUrl }
+      return { ...current, selectedPlans: [planFromUrl] }
     })
   }, [planFromUrl])
 
-  function updateValue(field: keyof AssessmentFormValues, value: string | boolean) {
+  function updateValue(field: keyof AssessmentFormValues, value: string | boolean | string[]) {
     setValues((current) => ({ ...current, [field]: value }))
     setErrors((current) => ({
       ...current,
       [field]: undefined,
       ...(field === 'phone' || field === 'email' ? { contact: undefined } : {}),
     }))
+    setSubmitError('')
+    setSubmitted(false)
+  }
+
+  function togglePlanInterest(planValue: string) {
+    setValues((current) => {
+      const selectedPlans = current.selectedPlans.length ? current.selectedPlans : [DEFAULT_PLAN_VALUE]
+      const selected = selectedPlans.includes(planValue)
+
+      if (planValue === DEFAULT_PLAN_VALUE) {
+        return { ...current, selectedPlans: [DEFAULT_PLAN_VALUE] }
+      }
+
+      const nextPlans = selected
+        ? selectedPlans.filter((value) => value !== planValue)
+        : [...selectedPlans.filter((value) => value !== DEFAULT_PLAN_VALUE), planValue]
+
+      return { ...current, selectedPlans: nextPlans.length ? nextPlans : [DEFAULT_PLAN_VALUE] }
+    })
     setSubmitError('')
     setSubmitted(false)
   }
@@ -222,14 +248,15 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
       })
       trackEvent('assessment_booking_completed', {
         mode,
-        selectedPlan: values.selectedPlan,
+        selectedPlan: values.selectedPlans.join(','),
         source: isBooking ? 'free-report-booking' : 'home-safety-assessment',
       })
-      setSubmittedPlan(values.selectedPlan)
+      setSubmittedPlanLabel(selectedPlanLabel)
+      setSubmittedPlanHasSpecificChoice(selectedPlanHasSpecificChoice)
       setSubmitted(true)
       setValues({
         ...initialValues,
-        selectedPlan: planFromUrl,
+        selectedPlans: [planFromUrl],
       })
       setContactTimings([])
       setErrors({})
@@ -273,7 +300,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         <div className="assessment-selected-plan">
           <CheckCircle2 size={19} aria-hidden="true" />
           <div>
-            <span>Selected option</span>
+            <span>{isSpanish ? 'Interés seleccionado' : 'Selected interest'}</span>
             <strong>{selectedPlanLabel}</strong>
           </div>
         </div>
@@ -446,19 +473,32 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
               </select>
             </FormField>
 
-            <FormField label={t('assessment.form.fields.selectedPlan')}>
-              <select
-                name="selectedPlan"
-                onChange={(event) => updateValue('selectedPlan', event.target.value)}
-                value={values.selectedPlan}
-              >
-                {planOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </FormField>
+            <fieldset className="assessment-plan-field is-wide">
+              <legend>{t('assessment.form.fields.selectedPlan')}</legend>
+              <div className="assessment-plan-options" aria-label={t('assessment.form.fields.selectedPlan')}>
+                {planOptions.map((option) => {
+                  const checked = values.selectedPlans.includes(option.value)
+
+                  return (
+                    <label className={`assessment-plan-option${checked ? ' is-selected' : ''}`} key={option.value}>
+                      <input
+                        checked={checked}
+                        name="selectedPlans"
+                        type="checkbox"
+                        value={option.value}
+                        onChange={() => togglePlanInterest(option.value)}
+                      />
+                      <span className="assessment-plan-option-marker" aria-hidden="true">
+                        {checked ? '✓' : ''}
+                      </span>
+                      <span className="assessment-plan-option-copy">
+                        <strong>{option.label}</strong>
+                      </span>
+                    </label>
+                  )
+                })}
+              </div>
+            </fieldset>
 
             <FormField label={t('assessment.form.fields.date')}>
               <input
@@ -506,7 +546,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         <button className="btn btn-green assessment-submit" disabled={isSubmitting} type="submit">
           {isSubmitting
             ? t('assessment.form.submitting')
-            : isCheckout
+              : isCheckout
               ? `Confirm ${selectedPlanLabel} request`
               : isBooking
                 ? isSpanish
@@ -529,7 +569,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
               ? isSpanish
                 ? 'Gracias. Hemos recibido tus preferencias de coordinación. CasaMia usará los datos de tu informe gratuito para confirmar la evaluación a domicilio.'
                 : 'Thank you. Your coordination preferences have been received. CasaMia will use your free report details to confirm the in-home assessment.'
-              : submittedPlan === DEFAULT_PLAN_VALUE
+              : !submittedPlanHasSpecificChoice
               ? t('assessment.form.success')
               : t('assessment.form.successWithPlan', { plan: submittedPlanLabel })}
           </p>
@@ -556,8 +596,17 @@ function normalizePlanValue(value: string | null) {
   return DEFAULT_PLAN_VALUE
 }
 
-function getPlanLabel(value: string, options: Array<{ value: string; label: string }>) {
-  return options.find((option) => option.value === value)?.label ?? options[0]?.label ?? value
+function getPlanLabels(values: string[], options: Array<{ value: string; label: string }>) {
+  const selectedValues = values.length ? values : [DEFAULT_PLAN_VALUE]
+  const labels = options
+    .filter((option) => selectedValues.includes(option.value))
+    .map((option) => option.label)
+
+  return labels.length ? labels : [options[0]?.label ?? DEFAULT_PLAN_VALUE]
+}
+
+function formatPlanLabels(labels: string[]) {
+  return labels.filter(Boolean).join(' + ')
 }
 
 function FormField({

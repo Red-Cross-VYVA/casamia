@@ -451,67 +451,6 @@ export const needLandingPages: NeedLandingPageContent[] = [
 
 export const decisionGuidePages: NeedLandingPageContent[] = [
   {
-    slug: 'home-safety-assessment-vs-general-contractor',
-    path: '/home-safety-assessment-vs-general-contractor',
-    servicePath: '/home-safety-assessment',
-    footerVisible: false,
-    icon: 'check',
-    image: '/images/assessment/casamia-inspector-tablet.jpg',
-    title: 'Home safety assessment vs general contractor',
-    seoTitle: 'Home Safety Assessment vs General Contractor | CasaMia',
-    description:
-      'Understand when a senior home safety assessment should define the scope before a contractor quotes or installs adaptations.',
-    eyebrow: 'Decision guide',
-    intro:
-      'A contractor is useful once the work is clear. A safety assessment is useful when the family is still deciding what the work should be, where risk is highest, and which changes will actually support the person using the home.',
-    whoFor: [
-      'Families who know something is unsafe but do not know what to ask an installer for',
-      'Homes where several rooms, transfers or routes are involved',
-      'Older adults whose mobility, confidence or care needs have recently changed',
-      'Families who need a clear scope before quotes, grants, landlord permission or community approval',
-    ],
-    priorities: [
-      'The person\'s routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night route',
-      'Which risks are urgent, recommended or optional',
-      'Measurements, wall types, fixing points, thresholds, door swings and site constraints',
-      'Whether a quick product, minor adaptation, larger work or connected support is the right route',
-      'A written scope that contractors can price without guessing',
-    ],
-    casamiaPlan: [
-      'Start with the daily movement problem, not a product catalogue',
-      'Map each risk to the relevant room package and optional add-ons',
-      'Prepare a practical scope with photos, priorities and installation notes',
-      'Coordinate installer requirements, handover checks and follow-up support',
-    ],
-    relatedServices: [
-      { label: 'Book a safety assessment', to: '/home-safety-assessment' },
-      { label: 'Read the fall checklist', to: '/blog/fall-prevention-home-checklist-spain' },
-      { label: 'See how it works', to: '/how-it-works' },
-    ],
-    faqs: [
-      {
-        question: 'Should I call a contractor first?',
-        answer:
-          'If the required work is obvious, measured and already specified, a contractor may be enough. If the family is unsure what should change, start with a safety assessment so the quote matches the person rather than a generic installation.',
-      },
-      {
-        question: 'Does CasaMia do the installation too?',
-        answer:
-          'CasaMia coordinates the process end to end, including assessment, practical scope, installation coordination and handover where needed.',
-      },
-      {
-        question: 'Why not ask for three contractor quotes immediately?',
-        answer:
-          'Three quotes are only comparable when they price the same scope. If each contractor guesses a different solution, the family may choose on price without knowing which option solves the real safety problem.',
-      },
-      {
-        question: 'When is a contractor enough?',
-        answer:
-          'A contractor can be enough for clearly defined work such as installing a specified handrail, changing a threshold or fitting equipment where the product, location and fixing method are already known.',
-      },
-    ],
-  },
-  {
     slug: 'smart-home-safety-vs-monitoring',
     path: '/smart-home-safety-vs-monitoring',
     servicePath: '/tech',

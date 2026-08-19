@@ -1648,7 +1648,7 @@
         "contactMethod": "Preferred contact method",
         "date": "Preferred assessment date",
         "message": "Message / specific concerns",
-        "selectedPlan": "Selected option"
+        "selectedPlan": "What should we review?"
       },
       "contactOptions": [
         {
@@ -1687,12 +1687,24 @@
           "label": "Veiligheidsbeoordeling thuis"
         },
         {
-          "value": "home-safety",
-          "label": "CasaMia plan"
+          "value": "package-bathroom",
+          "label": "Bathroom Home Safety Package"
         },
         {
-          "value": "smart-safety",
-          "label": "Optionele diensten"
+          "value": "package-bedroom",
+          "label": "Bedroom Home Safety Package"
+        },
+        {
+          "value": "package-kitchen",
+          "label": "Kitchen Home Safety Package"
+        },
+        {
+          "value": "package-living-room",
+          "label": "Living Room Home Safety Package"
+        },
+        {
+          "value": "package-entrance",
+          "label": "Entrance Home Safety Package"
         }
       ],
       "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the 99 EUR assessment visit."

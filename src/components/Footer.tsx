@@ -32,8 +32,8 @@ const footerLinkCopy = {
     visitPrep: 'Before the visit',
     fallPrevention: 'Fall prevention guide',
     bathroomSafety: 'Bathroom safety guide',
-    decisionGuides: 'Decision guides',
-    assessmentOrContractor: 'Safety assessment or contractor',
+    decisionGuides: 'Decision support',
+    assessmentOrContractor: 'Home safety assessment',
     connectedOrMonitoring: 'Connected safety or monitoring',
     preferences: 'Cookie preferences',
   },
@@ -57,8 +57,8 @@ const footerLinkCopy = {
     visitPrep: 'Antes de la visita',
     fallPrevention: 'Guía de prevención de caídas',
     bathroomSafety: 'Guía de seguridad en el baño',
-    decisionGuides: 'Guías de decisión',
-    assessmentOrContractor: 'Evaluación o contratista general',
+    decisionGuides: 'Apoyo para decidir',
+    assessmentOrContractor: 'Evaluación de seguridad',
     connectedOrMonitoring: 'Seguridad conectada o monitorización',
     preferences: 'Preferencias de cookies',
   },
@@ -96,11 +96,11 @@ export function Footer() {
     { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },
     { label: links.bathroomSafety, to: '/blog/bathroom-safety-seniors-costly-mistakes' },
   ]
-  const decisionGuideTitle = language === 'es' ? 'Guías de decisión' : links.decisionGuides
+  const decisionGuideTitle = links.decisionGuides
   const decisionGuideLinks = [
     {
-      label: language === 'es' ? 'Evaluación o contratista general' : links.assessmentOrContractor,
-      to: '/home-safety-assessment-vs-general-contractor',
+      label: links.assessmentOrContractor,
+      to: '/home-safety-assessment',
     },
     {
       label: language === 'es' ? 'Seguridad conectada o monitorización' : links.connectedOrMonitoring,

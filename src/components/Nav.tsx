@@ -206,8 +206,8 @@ export function Nav() {
       title: isSpanish ? 'Decidir con calma' : 'Decision support',
       links: [
         {
-          label: isSpanish ? 'Evaluación o contratista' : 'Assessment or contractor',
-          to: '/home-safety-assessment-vs-general-contractor',
+          label: isSpanish ? 'Evaluación de seguridad' : 'Home safety assessment',
+          to: '/home-safety-assessment',
         },
         {
           label: isSpanish ? 'Tecnología o monitorización' : 'Smart safety or monitoring',

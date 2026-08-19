@@ -475,61 +475,6 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       },
     ],
   },
-  'home-safety-assessment-vs-general-contractor': {
-    title: 'Evaluación de seguridad o contratista general',
-    seoTitle: 'Evaluación de seguridad o contratista general | CasaMia',
-    description:
-      'Entiende cuándo una evaluación de seguridad debe definir el alcance antes de pedir presupuesto o instalación a un contratista.',
-    eyebrow: 'Guía de decisión',
-    intro:
-      'Un contratista es útil cuando el trabajo ya está claro. Una evaluación de seguridad es útil cuando la familia aún decide qué obra conviene hacer, dónde está el mayor riesgo y qué cambios ayudarán realmente a la persona que vive en casa.',
-    whoFor: [
-      'Familias que saben que algo no es seguro pero no saben qué pedir a un instalador',
-      'Viviendas con varias estancias, transferencias o rutas implicadas',
-      'Personas mayores cuya movilidad, confianza o apoyo ha cambiado recientemente',
-      'Familias que necesitan alcance claro antes de presupuestos, ayudas, permiso de propietario o comunidad',
-    ],
-    priorities: [
-      'Rutina de la persona: baño, inodoro, cama, escaleras, cocina, entrada y ruta nocturna',
-      'Riesgos urgentes, recomendados u opcionales',
-      'Medidas, tipo de pared, puntos de fijación, umbrales, puertas y limitaciones del espacio',
-      'Si conviene producto rápido, pequeña adaptación, obra mayor o apoyo conectado',
-      'Un alcance escrito que el contratista pueda presupuestar sin adivinar',
-    ],
-    casamiaPlan: [
-      'Empezar por el movimiento diario, no por un catálogo de productos',
-      'Conectar cada riesgo con el paquete de estancia y extras adecuados',
-      'Preparar un alcance práctico con fotos, prioridades y notas de instalación',
-      'Coordinar requisitos de instalación, comprobación final y seguimiento',
-    ],
-    relatedServices: [
-      { label: 'Reservar evaluación', to: '/home-safety-assessment' },
-      { label: 'Leer lista de caídas', to: '/blog/fall-prevention-home-checklist-spain' },
-      { label: 'Ver el proceso', to: '/how-it-works' },
-    ],
-    faqs: [
-      {
-        question: '¿Debo llamar primero a un contratista?',
-        answer:
-          'Si el trabajo está claro, medido y definido, puede bastar. Si la familia no sabe qué cambiar, es mejor empezar con una evaluación para que el presupuesto encaje con la persona y no con una instalación genérica.',
-      },
-      {
-        question: '¿CasaMia también coordina la instalación?',
-        answer:
-          'Sí. CasaMia coordina evaluación, alcance práctico, instalación y explicación final cuando hace falta.',
-      },
-      {
-        question: '¿Por qué no pedir tres presupuestos directamente?',
-        answer:
-          'Tres presupuestos solo se comparan bien si todos valoran el mismo alcance. Si cada contratista propone algo distinto, la familia puede elegir por precio sin saber qué opción resuelve el riesgo real.',
-      },
-      {
-        question: '¿Cuándo basta con un contratista?',
-        answer:
-          'Puede bastar cuando el trabajo está definido: instalar un pasamanos concreto, cambiar un umbral o colocar un equipo cuya ubicación, producto y fijación ya están decididos.',
-      },
-    ],
-  },
   'smart-home-safety-vs-monitoring': {
     title: 'Seguridad conectada o monitorización',
     seoTitle: 'Seguridad conectada o monitorización para mayores | CasaMia',

@@ -646,7 +646,6 @@ const needCatalogueAreas: Record<string, ServicePackageArea[]> = {
   'grants-for-home-adaptations-spain': ['bathroom', 'bedroom', 'entrance', 'stairs'],
   'home-adaptations-for-elderly': ['bathroom', 'bedroom', 'entrance', 'kitchen', 'lighting'],
   'home-safety-after-hospital-discharge': ['bathroom', 'bedroom', 'entrance', 'living-room'],
-  'home-safety-assessment-vs-general-contractor': ['bathroom', 'bedroom', 'entrance', 'lighting'],
   'senior-bedroom-safety': ['bedroom'],
   'smart-home-safety-vs-monitoring': ['smart-safety', 'lighting', 'bedroom'],
 }
