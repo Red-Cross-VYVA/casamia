@@ -1,5 +1,7 @@
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import { LocalizedLink as Link } from './LocalizedLink'
 
 import {
@@ -8,12 +10,22 @@ import {
   type BeforeAfterTransformation,
 } from '../constants/beforeAfter'
 import { SafeImage } from './SafeImage'
+import { requestSafetyReportModal } from '../utils/safetyReportModal'
 
 export function BeforeAfterPreview() {
   const { t } = useTranslation()
+  const location = useLocation()
   const transformations = t('beforeAfter.transformations', {
     returnObjects: true,
   }) as BeforeAfterTransformation[]
+
+  function handleAssessmentClick(event: MouseEvent<HTMLAnchorElement>) {
+    requestSafetyReportModal()
+
+    if (/^\/(?:en|es)?\/?$/.test(location.pathname)) {
+      event.preventDefault()
+    }
+  }
 
   return (
     <section className="before-after-preview-section section-pad bg-white">
@@ -26,7 +38,7 @@ export function BeforeAfterPreview() {
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-            <Link className="btn btn-green" to="/home-safety-assessment">
+            <Link className="btn btn-green" to="/#estimate-upload" onClick={handleAssessmentClick}>
               {t('beforeAfter.preview.assessmentCta')}
             </Link>
           </div>

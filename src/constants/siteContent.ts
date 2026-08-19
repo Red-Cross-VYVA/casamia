@@ -116,15 +116,15 @@ export const primaryServices: ServicePageContent[] = [
   {
     id: 'smart-home-safety',
     path: '/services/smart-home-safety',
-    title: 'Smart Home Safety for Seniors',
-    shortTitle: 'Smart Safety',
+    title: 'Connected Care and Smart Home Technology for Seniors',
+    shortTitle: 'Connected Care',
     description:
-      'Add practical smart safety technology such as motion lighting, leak sensors, door alerts, emergency response devices, and family notifications.',
+      'Configure AI assistance, health and vitals monitoring, symptom check-ins, family dashboards, remote patient follow-up and smart-home integrations that help seniors enjoy life at home.',
     intro:
-      'Smart safety should feel simple. CasaMia focuses on useful technology that supports confidence without making the home complicated.',
+      'CasaMia designs and configures the connected layer around the person: simple voice support, useful readings, symptom context, missed-measurement visibility, family permissions and privacy-aware escalation rules.',
     icon: 'smartphone',
-    risks: ['No alert when routines change', 'Poor night visibility', 'Hidden water or smoke risks'],
-    improvements: ['Motion lighting and sensors', 'Emergency response devices', 'Simple setup and training'],
+    risks: ['Technology feels fragmented', 'Families lack a clear view', 'Readings, symptoms and safety signals stay disconnected'],
+    improvements: ['AI assistant and voice support', 'Vitals, symptoms and family dashboard', 'Remote follow-up and smart-home integration'],
     ctaPlan: 'smart-safety',
   },
 ]

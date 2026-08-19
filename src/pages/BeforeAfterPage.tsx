@@ -1,6 +1,8 @@
 import { ArrowRight, Eye, ListChecks, Route } from 'lucide-react'
+import type { MouseEvent } from 'react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import { LocalizedLink as Link } from '../components/LocalizedLink'
 
 import { BeforeAfterCard } from '../components/BeforeAfterPreview'
@@ -9,11 +11,13 @@ import {
   beforeAfterVisuals,
   type BeforeAfterTransformation,
 } from '../constants/beforeAfter'
+import { requestSafetyReportModal } from '../utils/safetyReportModal'
 
 const siteUrl = 'https://casamia.com.es'
 
 export function BeforeAfterPage() {
   const { i18n, t } = useTranslation()
+  const location = useLocation()
   const transformations = t('beforeAfter.transformations', {
     returnObjects: true,
   }) as BeforeAfterTransformation[]
@@ -107,6 +111,14 @@ export function BeforeAfterPage() {
     [body, insightCopy.body, insightCopy.steps, insightCopy.title, language, title, transformations],
   )
 
+  function handleAssessmentClick(event: MouseEvent<HTMLAnchorElement>) {
+    requestSafetyReportModal()
+
+    if (/^\/(?:en|es)?\/?$/.test(location.pathname)) {
+      event.preventDefault()
+    }
+  }
+
   return (
     <>
       <SEO
@@ -124,7 +136,7 @@ export function BeforeAfterPage() {
             {body}
           </p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Link className="btn btn-green" to="/home-safety-assessment">
+            <Link className="btn btn-green" to="/#estimate-upload" onClick={handleAssessmentClick}>
               {t('beforeAfter.preview.assessmentCta')}
               <ArrowRight size={20} aria-hidden="true" />
             </Link>

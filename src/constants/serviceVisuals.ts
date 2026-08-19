@@ -32,8 +32,8 @@ export const serviceVisuals: Record<
     note: 'Bed access, night routes, help within reach',
   },
   'smart-home-safety': {
-    badge: 'Connected reassurance',
-    image: 'https://casamia-seniors.myshopify.com/cdn/shop/files/AdobeStock_423763182-scaled.jpg',
-    note: 'Sensors, VYVA, family alerts',
+    badge: 'Connected care at home',
+    image: '/images/service-gallery/vyva-home-clinic-hero.png',
+    note: 'AI assistant, vitals, family dashboard',
   },
 }

@@ -1,12 +1,20 @@
 import {
+  Activity,
   ArrowRight,
+  Bot,
   CheckCircle2,
   ClipboardCheck,
+  HeartPulse,
   Home,
+  LayoutDashboard,
   LoaderCircle,
   MessageSquareText,
   MousePointer2,
+  Radio,
+  Settings2,
   ShieldCheck,
+  Stethoscope,
+  Wifi,
 } from 'lucide-react'
 import { lazy, Suspense, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -72,6 +80,252 @@ const detailStepsEs = [
     body: 'Si hace falta actuar, CasaMia prepara una propuesta con productos, instalación y entrega.',
   },
 ]
+
+const smartDetailSteps = [
+  {
+    icon: ClipboardCheck,
+    title: 'Define the use case',
+    body: 'Choose the outcome: independence, vitals, reminders, alerts or family view.',
+  },
+  {
+    icon: Settings2,
+    title: 'Configure and integrate',
+    body: 'CasaMia connects compatible devices, assistant flows, dashboards and permissions.',
+  },
+  {
+    icon: Home,
+    title: 'Train and support',
+    body: 'We train the senior and family, then adjust the setup as routines change.',
+  },
+]
+
+const smartDetailStepsEs = [
+  {
+    icon: ClipboardCheck,
+    title: 'Definir el caso de uso',
+    body: 'Elige el objetivo: autonomía, constantes, recordatorios, avisos o vista familiar.',
+  },
+  {
+    icon: Settings2,
+    title: 'Configurar e integrar',
+    body: 'CasaMia conecta dispositivos compatibles, asistente, paneles y permisos.',
+  },
+  {
+    icon: Home,
+    title: 'Formar y acompañar',
+    body: 'Formamos a la persona y la familia, y ajustamos la configuración cuando cambian rutinas.',
+  },
+]
+
+const smartHomeSafetyShowcaseCopy = {
+  en: {
+    eyebrow: 'Smart support at home',
+    title: 'Technology that quietly supports daily life.',
+    body:
+      'CasaMia configures the assistant, health devices, alerts and family view so the home feels easier to manage.',
+    platformTitle: 'CasaMia Connect',
+    platformBody:
+      'One managed setup for the person at home, family visibility and care follow-up.',
+    flowKicker: 'How it works',
+    flowTitle: 'Signals become useful support.',
+    flowBody:
+      'CasaMia connects voice, vitals and home signals, then shares only the agreed updates.',
+    visualAlt: 'Voice assistant device in a calm bedroom setting',
+    homeLabel: 'Senior at home',
+    homeMeta: 'Talks, asks, checks in',
+    connectLabel: 'CasaMia Connect',
+    connectMeta: 'Organises the signals',
+    careLabel: 'Family and care',
+    careMeta: 'Sees what matters',
+    assistantLabel: 'AI assistant',
+    dashboardLabel: 'Family view',
+    vitalsLabel: 'Vitals',
+    privacyLabel: 'Consent-led alerts',
+    capabilities: [
+      {
+        icon: Bot,
+        title: 'AI assistant and voice support',
+        body: 'Reminders, calls, routines and help requests.',
+      },
+      {
+        icon: HeartPulse,
+        title: 'Health and vitals monitoring',
+        body: 'Blood pressure, pulse, oxygen, weight or glucose.',
+      },
+      {
+        icon: LayoutDashboard,
+        title: 'Family dashboard',
+        body: 'Agreed updates, reminders and alerts.',
+      },
+      {
+        icon: Stethoscope,
+        title: 'Remote patient management',
+        body: 'Readings, escalation and carer follow-up.',
+      },
+      {
+        icon: Radio,
+        title: 'Smart-home safety layer',
+        body: 'Lighting, doors, water, emergency and routines.',
+      },
+      {
+        icon: Settings2,
+        title: 'Configuration and integration',
+        body: 'Device setup, app setup, training and support.',
+      },
+    ],
+    outcomes: [
+      'More independence',
+      'Clearer family reassurance',
+      'Better follow-up',
+    ],
+  },
+  es: {
+    eyebrow: 'Apoyo inteligente en casa',
+    title: 'Tecnología que acompaña la vida diaria.',
+    body:
+      'CasaMia configura el asistente, dispositivos de salud, avisos y vista familiar para que el hogar sea más fácil de gestionar.',
+    platformTitle: 'CasaMia Connect',
+    platformBody:
+      'Una configuración gestionada para la persona en casa, la familia y el seguimiento cuando procede.',
+    flowKicker: 'Cómo funciona',
+    flowTitle: 'Las señales se convierten en apoyo útil.',
+    flowBody:
+      'CasaMia conecta voz, constantes y señales del hogar, y comparte solo los avisos acordados.',
+    visualAlt: 'Dispositivo de asistencia por voz en un dormitorio tranquilo',
+    homeLabel: 'Persona en casa',
+    homeMeta: 'Habla, pregunta, avisa',
+    connectLabel: 'CasaMia Connect',
+    connectMeta: 'Ordena las señales',
+    careLabel: 'Familia y cuidado',
+    careMeta: 'Ve lo importante',
+    assistantLabel: 'Asistente IA',
+    dashboardLabel: 'Vista familiar',
+    vitalsLabel: 'Constantes',
+    privacyLabel: 'Alertas con consentimiento',
+    capabilities: [
+      {
+        icon: Bot,
+        title: 'Asistente de IA y apoyo por voz',
+        body: 'Recordatorios, llamadas, rutinas y peticiones de ayuda.',
+      },
+      {
+        icon: HeartPulse,
+        title: 'Monitorización de salud y constantes',
+        body: 'Tensión, pulso, oxígeno, peso o glucosa.',
+      },
+      {
+        icon: LayoutDashboard,
+        title: 'Panel familiar',
+        body: 'Actualizaciones, recordatorios y avisos acordados.',
+      },
+      {
+        icon: Stethoscope,
+        title: 'Seguimiento remoto del paciente',
+        body: 'Lecturas, escalado y seguimiento de cuidadores.',
+      },
+      {
+        icon: Radio,
+        title: 'Capa smart-home de seguridad',
+        body: 'Luces, puerta, agua, emergencia y rutinas.',
+      },
+      {
+        icon: Settings2,
+        title: 'Configuración e integración',
+        body: 'Dispositivos, apps, formación y soporte.',
+      },
+    ],
+    outcomes: [
+      'Más autonomía',
+      'Más tranquilidad familiar',
+      'Mejor seguimiento',
+    ],
+  },
+} as const
+
+const smartRemotePatientMonitoringCopy = {
+  en: {
+    eyebrow: 'Remote patient monitoring',
+    title: 'Health follow-up that fits the home.',
+    body:
+      'CasaMia can configure a remote monitoring pathway around the person: compatible devices, simple reminders, family visibility and escalation rules agreed before anything goes live.',
+    visualAlt: 'Connected blood pressure monitor in a home bedroom',
+    statLabel: 'Configured readings',
+    statValue: 'Vitals + symptoms',
+    workflowTitle: 'From reading to response',
+    workflow: [
+      {
+        icon: HeartPulse,
+        title: 'Measure what matters',
+        body: 'Blood pressure, oxygen, pulse, weight or glucose, selected around the person’s condition and routine.',
+      },
+      {
+        icon: MessageSquareText,
+        title: 'Capture daily context',
+        body: 'Short check-ins, reminders and symptom questions help explain changes instead of showing numbers alone.',
+      },
+      {
+        icon: LayoutDashboard,
+        title: 'See trends and gaps',
+        body: 'Family or care teams can see agreed readings, missed measurements and changes that need attention.',
+      },
+      {
+        icon: ShieldCheck,
+        title: 'Escalate with consent',
+        body: 'Alert thresholds, contacts and handover rules are configured up front to avoid noisy or intrusive monitoring.',
+      },
+    ],
+    focusTitle: 'CasaMia can coordinate',
+    focusItems: [
+      'Device selection and setup',
+      'Patient-friendly reminders',
+      'Family dashboard permissions',
+      'Missing-reading visibility',
+      'Threshold and escalation rules',
+      'Care-provider integration support',
+    ],
+  },
+  es: {
+    eyebrow: 'Seguimiento remoto',
+    title: 'Seguimiento de salud adaptado al hogar.',
+    body:
+      'CasaMia puede configurar un circuito de seguimiento alrededor de la persona: dispositivos compatibles, recordatorios sencillos, visibilidad familiar y reglas de escalado acordadas antes de activarlo.',
+    visualAlt: 'Tensiómetro conectado en un dormitorio de casa',
+    statLabel: 'Lecturas configuradas',
+    statValue: 'Constantes + síntomas',
+    workflowTitle: 'De la lectura a la respuesta',
+    workflow: [
+      {
+        icon: HeartPulse,
+        title: 'Medir lo importante',
+        body: 'Tensión, oxígeno, pulso, peso o glucosa, elegidos según la situación y la rutina de la persona.',
+      },
+      {
+        icon: MessageSquareText,
+        title: 'Añadir contexto diario',
+        body: 'Check-ins breves, recordatorios y preguntas de síntomas ayudan a entender cambios, no solo números.',
+      },
+      {
+        icon: LayoutDashboard,
+        title: 'Ver tendencias y ausencias',
+        body: 'La familia o el equipo de cuidado puede ver lecturas acordadas, mediciones omitidas y cambios relevantes.',
+      },
+      {
+        icon: ShieldCheck,
+        title: 'Escalar con consentimiento',
+        body: 'Umbrales, contactos y reglas de actuación se configuran antes para evitar avisos ruidosos o invasivos.',
+      },
+    ],
+    focusTitle: 'CasaMia puede coordinar',
+    focusItems: [
+      'Selección y configuración de dispositivos',
+      'Recordatorios fáciles para la persona',
+      'Permisos del panel familiar',
+      'Visibilidad de lecturas ausentes',
+      'Umbrales y reglas de escalado',
+      'Soporte de integración con proveedores',
+    ],
+  },
+} as const
 
 const serviceDetailUiCopy = {
   en: {
@@ -194,14 +448,14 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     improvements: ['Apoyo junto a la cama y altura adecuada', 'Iluminación nocturna con sensor', 'Rutas despejadas y ayuda al alcance'],
   },
   'smart-home-safety': {
-    title: 'Seguridad conectada para personas mayores',
-    shortTitle: 'Seguridad conectada',
+    title: 'Tecnología conectada y cuidado digital para personas mayores',
+    shortTitle: 'Cuidado conectado',
     description:
-      'Añade tecnología práctica como iluminación con sensor, alertas, sensores de fuga o puerta, dispositivos de emergencia y avisos familiares.',
+      'Configura asistente de IA, constantes, check-ins de síntomas, panel familiar, seguimiento remoto, seguridad inteligente e integraciones para vivir mejor en casa.',
     intro:
-      'La seguridad conectada debe sentirse sencilla. CasaMia se centra en tecnología útil que da confianza sin complicar la vivienda.',
-    risks: ['Sin aviso cuando cambian rutinas', 'Poca visibilidad nocturna', 'Riesgos ocultos de agua o humo'],
-    improvements: ['Iluminación y sensores con movimiento', 'Dispositivos de respuesta de emergencia', 'Configuración sencilla y formación'],
+      'CasaMia diseña y configura la capa conectada alrededor de la persona: apoyo por voz, lecturas útiles, contexto de síntomas, visibilidad de mediciones ausentes, permisos familiares y reglas de escalado respetuosas con la privacidad.',
+    risks: ['Tecnología fragmentada', 'La familia no tiene una visión clara', 'Lecturas, síntomas y señales de seguridad desconectados'],
+    improvements: ['Asistente de IA y apoyo por voz', 'Constantes, síntomas y panel familiar', 'Seguimiento remoto e integración smart-home'],
   },
 }
 
@@ -227,8 +481,8 @@ const serviceVisualCopyEs: Record<string, { badge: string; note: string }> = {
     note: 'Transferencias, rutas nocturnas y ayuda al alcance',
   },
   'smart-home-safety': {
-    badge: 'Tranquilidad conectada',
-    note: 'Sensores, VYVA y avisos familiares',
+    badge: 'Cuidado conectado en casa',
+    note: 'Asistente IA, constantes y panel familiar',
   },
 }
 
@@ -423,18 +677,24 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
   },
   'smart-home-safety': {
     ...defaultServiceDetailContentEs,
-    benefitsTitle: 'Usa tecnología solo donde haga la vida más segura.',
+    benefitsTitle: 'Tecnología que ayuda a vivir mejor, no solo a vigilar.',
     benefitsIntro:
-      'La seguridad conectada no debe convertirse en un proyecto complicado. CasaMia se centra en alertas útiles, iluminación, respuesta de emergencia y tranquilidad familiar.',
+      'CasaMia combina asistente de IA, dispositivos de salud, automatización sencilla y visibilidad familiar para que la persona disfrute más de su casa con menos fricción diaria.',
     benefits: [
-      { title: 'Aviso más temprano', body: 'Sensores pueden ayudar a detectar cambios de rutina, fugas, humo, puertas o movimiento nocturno.' },
-      { title: 'Ayuda más rápida', body: 'Botones, wearables y alertas facilitan avisar a familia o cuidadores.' },
-      { title: 'Menos fricción diaria', body: 'Voz, iluminación con sensor y automatización sencilla reducen desplazamientos y movimientos innecesarios.' },
+      { title: 'Más autonomía cotidiana', body: 'Voz, recordatorios, rutinas y controles sencillos ayudan a pedir apoyo, gestionar luces, llamadas o tareas sin pelearse con apps complejas.' },
+      { title: 'Más contexto para la familia', body: 'El panel familiar puede mostrar señales acordadas, lecturas y avisos sin convertir la casa en vigilancia constante.' },
+      { title: 'Mejor seguimiento cuando importa', body: 'Constantes, alertas y escalado pueden organizarse para cuidadores o profesionales cuando el caso lo necesita.' },
     ],
-    includedTitle: 'Qué puede incluir un plan conectado.',
-    includedIntro: 'CasaMia revisa conectividad y recomienda solo dispositivos que encajan con la persona, la vivienda y la familia.',
-    included: ['Iluminación con sensor y ruta nocturna', 'Botones de emergencia o alertas wearable', 'Sensores de fuga, humo, puerta o movimiento', 'Configuración de app y panel familiar si aplica', 'Preferencias de aviso y privacidad', 'Entrega sencilla para persona mayor y familia'],
-    finalTitle: 'Añade seguridad conectada donde realmente ayuda.',
+    includedTitle: 'Qué puede incluir una solución conectada CasaMia.',
+    includedIntro: 'Revisamos la vivienda, la conectividad, las preferencias de privacidad, los dispositivos existentes y el flujo familiar o asistencial antes de configurar nada.',
+    included: ['Asistente de IA y comandos de voz útiles', 'Dispositivos compatibles de salud y constantes', 'Panel familiar y permisos por rol', 'Sensores, iluminación, puerta, agua y alertas de emergencia', 'Seguimiento remoto o coordinación con cuidadores cuando procede', 'Configuración, integración, formación y soporte posterior'],
+    reassuranceTitle: 'Privacidad, consentimiento y sencillez primero.',
+    reassuranceBody:
+      'La tecnología solo ayuda si la persona la acepta y la familia entiende qué hace. CasaMia evita cámaras por defecto, acuerda avisos y deja instrucciones claras.',
+    reassurancePoints: ['Sin vigilancia intrusiva por defecto', 'Permisos y alertas acordados', 'Instalación, formación y soporte incluidos'],
+    finalTitle: 'Convierte la casa en un entorno conectado, útil y humano.',
+    finalBody:
+      'Cuéntanos qué quieres conseguir: más autonomía, mejor seguimiento de salud, panel familiar, asistente de IA o integración con sistemas existentes. CasaMia definirá una solución conectada práctica.',
   },
 }
 
@@ -625,41 +885,41 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Book a visit and CasaMia will review bed access, lighting, floor clearance, and emergency reach points.',
   },
   'smart-home-safety': {
-    benefitsTitle: 'Use technology only where it makes daily life safer.',
+    benefitsTitle: 'Technology that helps seniors live better, not just be monitored.',
     benefitsIntro:
-      'Smart safety should not feel like a complicated smart-home project. CasaMia focuses on useful alerts, lighting, emergency support, and family reassurance.',
+      'CasaMia combines AI assistance, health devices, simple automation and family visibility so the person can enjoy home with less friction and more confidence.',
     benefits: [
       {
-        title: 'Earlier awareness',
-        body: 'Sensors can help notice changes in routines, leaks, smoke, doors, or night movement before a small issue becomes urgent.',
+        title: 'More everyday independence',
+        body: 'Voice support, reminders, routines and simple controls help with calls, lights, questions and tasks without asking the person to manage complex apps.',
       },
       {
-        title: 'Faster help',
-        body: 'Emergency buttons, wearable support, and alerts make it easier to call family or caregivers quickly.',
+        title: 'Better family context',
+        body: 'A family dashboard can show agreed readings, reminders and alerts without turning the home into constant surveillance.',
       },
       {
-        title: 'Less daily friction',
-        body: 'Voice control, motion lighting, and simple automation can reduce rushing, bending, and unnecessary movement.',
+        title: 'Clearer follow-up when it matters',
+        body: 'Vitals, safety signals and escalation paths can be structured for carers or professionals when the situation calls for it.',
       },
     ],
-    includedTitle: 'What a smart safety plan can include.',
+    includedTitle: 'What a CasaMia connected solution can include.',
     includedIntro:
-      'CasaMia checks connectivity and recommends only devices that match the person, the home, and the family’s comfort level.',
+      'We review the home, connectivity, privacy preferences, existing devices and the family or care workflow before configuring anything.',
     included: [
-      'Motion lighting and night-route setup',
-      'Emergency buttons or wearable alert guidance',
-      'Leak, smoke, door, and movement sensor recommendations',
-      'VYVA app and caregiver dashboard setup where included',
-      'Family alert preferences and privacy settings',
-      'Simple handover for the older adult and family',
+      'AI assistant and useful voice commands',
+      'Compatible health and vitals devices',
+      'Family dashboard and role-based permissions',
+      'Sensors, lighting, door awareness, water and emergency alerts',
+      'Remote patient management or carer coordination where suitable',
+      'Configuration, integration, training and aftercare',
     ],
-    reassuranceTitle: 'No complicated gimmicks and no cameras by default.',
+    reassuranceTitle: 'Privacy, consent and simplicity come first.',
     reassuranceBody:
-      'The aim is connected reassurance: useful alerts, simple controls, and privacy-aware setup that the family understands.',
-    reassurancePoints: ['Connectivity checked first', 'Family alerts agreed in advance', 'Simple setup and handover'],
-    finalTitle: 'Add connected safety where it genuinely helps.',
+      'Technology only helps when the person accepts it and the family understands it. CasaMia avoids cameras by default, agrees alert rules and leaves a clear handover.',
+    reassurancePoints: ['No intrusive monitoring by default', 'Permissions and alerts agreed first', 'Installation, training and support included'],
+    finalTitle: 'Turn the home into a connected, useful and human support environment.',
     finalBody:
-      'Book a visit and CasaMia will review the home, connectivity, and the most useful smart safety options.',
+      'Tell us what you want to achieve: more independence, better health follow-up, a family dashboard, an AI assistant or integration with existing systems. CasaMia will scope a practical connected solution.',
   },
 }
 
@@ -759,11 +1019,13 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
 }
 
 function RoomServiceItemsSection({
+  ctaPath = plansPath,
   language,
   orderCtaLabel,
   room,
   services,
 }: {
+  ctaPath?: string
   language: string
   orderCtaLabel: string
   room: ServiceRoom
@@ -787,7 +1049,7 @@ function RoomServiceItemsSection({
         )}
 
         <div className="service-detail-actions service-detail-inline-actions">
-          <Link className="btn btn-navy" to={plansPath}>
+          <Link className="btn btn-navy" to={ctaPath}>
             {orderCtaLabel}
             <ArrowRight size={19} aria-hidden="true" />
           </Link>
@@ -1084,6 +1346,194 @@ function ServiceZoneRiskMapSection({ language, riskMap }: { language: 'en' | 'es
   )
 }
 
+function SmartHomeSafetyHeroVisual({ image, language }: { image: string; language: string }) {
+  const alt = language.toLowerCase().startsWith('es')
+    ? 'Persona mayor en casa con señales de constantes y cuidado conectado'
+    : 'Older adult at home with vitals and connected-care signals'
+
+  return (
+    <aside className="service-smart-hero-visual">
+      <SafeImage
+        src={image}
+        alt={alt}
+        className="service-smart-hero-photo"
+        imgClassName="h-full w-full object-cover"
+      />
+    </aside>
+  )
+}
+
+function SmartHomeSafetyShowcase({ language }: { language: string }) {
+  const copy = language.toLowerCase().startsWith('es')
+    ? smartHomeSafetyShowcaseCopy.es
+    : smartHomeSafetyShowcaseCopy.en
+
+  return (
+    <section className="service-detail-section service-smart-showcase bg-white" id="connected-care-stack">
+      <div className="site-shell">
+        <div className="service-smart-showcase-grid">
+          <div className="service-smart-showcase-copy">
+            <p className="eyebrow">{copy.eyebrow}</p>
+            <h2>{copy.title}</h2>
+            <p>{copy.body}</p>
+            <ul className="service-smart-outcome-list">
+              {copy.outcomes.map((outcome) => (
+                <li key={outcome}>
+                  <CheckCircle2 size={18} aria-hidden="true" />
+                  <span>{outcome}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <aside className="service-smart-platform-card" aria-label={copy.platformTitle}>
+            <div className="service-smart-platform-head">
+              <span>
+                <Wifi size={18} aria-hidden="true" />
+              </span>
+              <div>
+                <strong>{copy.platformTitle}</strong>
+                <p>{copy.platformBody}</p>
+              </div>
+            </div>
+
+            <div className="service-smart-care-visual" aria-label={copy.platformTitle}>
+              <div className="service-smart-care-media">
+                <SafeImage
+                  src="/images/service-gallery/11-voice-controls-and-smart-routines.jpg"
+                  alt={copy.visualAlt}
+                  className="service-smart-care-photo"
+                  imgClassName="h-full w-full object-cover"
+                />
+                <div className="service-smart-care-story">
+                  <span>{copy.flowKicker}</span>
+                  <strong>{copy.flowTitle}</strong>
+                  <p>{copy.flowBody}</p>
+                </div>
+              </div>
+
+              <div className="service-smart-care-panel">
+                <div className="service-smart-care-path">
+                  <article className="service-smart-care-stage is-home">
+                    <span>
+                      <Home size={21} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <strong>{copy.homeLabel}</strong>
+                      <small>{copy.homeMeta}</small>
+                    </div>
+                  </article>
+
+                  <article className="service-smart-care-stage is-connect">
+                    <span>
+                      <Activity size={22} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <strong>{copy.connectLabel}</strong>
+                      <small>{copy.connectMeta}</small>
+                    </div>
+                  </article>
+
+                  <article className="service-smart-care-stage is-care">
+                    <span>
+                      <LayoutDashboard size={21} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <strong>{copy.careLabel}</strong>
+                      <small>{copy.careMeta}</small>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+
+            <div className="service-smart-care-chip-list">
+              {copy.capabilities.map((capability) => {
+                const Icon = capability.icon
+
+                return (
+                  <span key={capability.title}>
+                    <Icon size={17} aria-hidden="true" />
+                    {capability.title}
+                  </span>
+                )
+              })}
+            </div>
+
+            <div className="service-smart-platform-status">
+              <ShieldCheck size={18} aria-hidden="true" />
+              <span>{copy.privacyLabel}</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function SmartRemotePatientMonitoringSection({ language }: { language: string }) {
+  const copy = language.toLowerCase().startsWith('es')
+    ? smartRemotePatientMonitoringCopy.es
+    : smartRemotePatientMonitoringCopy.en
+
+  return (
+    <section className="service-detail-section service-rpm-section bg-white">
+      <div className="site-shell">
+        <div className="service-rpm-grid">
+          <div className="service-rpm-visual">
+            <SafeImage
+              src="/images/service-gallery/10-health-and-vitals-monitoring.jpg"
+              alt={copy.visualAlt}
+              className="service-rpm-photo"
+              imgClassName="h-full w-full object-cover"
+            />
+            <div className="service-rpm-visual-card">
+              <span>{copy.statLabel}</span>
+              <strong>{copy.statValue}</strong>
+            </div>
+          </div>
+
+          <div className="service-rpm-copy">
+            <p className="eyebrow">{copy.eyebrow}</p>
+            <h2>{copy.title}</h2>
+            <p>{copy.body}</p>
+
+            <div className="service-rpm-workflow" aria-label={copy.workflowTitle}>
+              {copy.workflow.map((item) => {
+                const Icon = item.icon
+
+                return (
+                  <article key={item.title}>
+                    <span>
+                      <Icon size={20} aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+
+            <div className="service-rpm-focus">
+              <h3>{copy.focusTitle}</h3>
+              <ul>
+                {copy.focusItems.map((item) => (
+                  <li key={item}>
+                    <CheckCircle2 size={16} aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function ServiceDetailPage() {
   const { i18n } = useTranslation()
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
@@ -1121,7 +1571,6 @@ export function ServiceDetailPage() {
         viewAll: 'View all services',
         finalEyebrow: 'Ready for clarity?',
       }
-  const stepCopy = isSpanish ? detailStepsEs : detailSteps
   const { serviceId } = useParams()
   const serviceRoom = serviceRoomMap[serviceId ?? ''] ?? 'bathroom'
   const serviceCatalogue = useServiceCatalogue()
@@ -1153,21 +1602,52 @@ export function ServiceDetailPage() {
     .slice(0, 3)
     .map((item) => getLocalizedPrimaryService(item, i18n.language))
   const isKitchenService = service.id === 'kitchen-safety'
+  const isSmartService = service.id === 'smart-home-safety'
+  const stepCopy = isSmartService
+    ? isSpanish
+      ? smartDetailStepsEs
+      : smartDetailSteps
+    : isSpanish
+      ? detailStepsEs
+      : detailSteps
   const serviceCatalogueItems = serviceRoomMap[service.id] ? roomServices : []
-  const zoneRiskMap = isZoneRiskArea(serviceRoom) ? zoneRiskMaps[serviceRoom] : null
+  const zoneRiskMap = !isSmartService && isZoneRiskArea(serviceRoom) ? zoneRiskMaps[serviceRoom] : null
   const heroTitle = isKitchenService
     ? isSpanish
       ? 'Una cocina más segura, sin perder independencia.'
       : 'A safer kitchen, without losing independence.'
+    : isSmartService
+      ? isSpanish
+        ? 'Cuidado conectado para vivir mejor en casa.'
+        : 'Connected care that helps seniors enjoy home more.'
     : service.title
   const heroIntro = isKitchenService
     ? isSpanish
       ? 'Mejoras prácticas para estar de pie, iluminación, alcance, agua, electrodomésticos y tranquilidad familiar.'
       : 'Practical improvements for standing, lighting, reach, water, appliances and family reassurance.'
+    : isSmartService
+      ? isSpanish
+        ? 'Asistente de IA, constantes, panel familiar y seguimiento remoto configurados como un único sistema sencillo.'
+        : 'AI assistant, vitals, family dashboard and remote care, configured as one simple home system.'
     : service.intro
   const specialistEntryPoint = `service_detail_${service.id.replace(/-/g, '_')}`
   const orderRoomLabel = servicePackageGroup?.roomLabel ?? getOrderRoomLabel(serviceRoom, i18n.language)
-  const orderCtaLabel = uiCopy.orderPackage(orderRoomLabel)
+  const orderCtaLabel = isSmartService
+    ? isSpanish
+      ? 'Explorar cuidado conectado'
+      : 'Explore connected care'
+    : uiCopy.orderPackage(orderRoomLabel)
+  const primaryCtaPath = isSmartService ? '/tech#connected-inclusions' : plansPath
+  const serviceWorksEyebrow = isSmartService
+    ? isSpanish
+      ? 'Cómo se configura'
+      : 'How it is configured'
+    : sectionCopy.serviceWorks
+  const clearPlanTitle = isSmartService
+    ? isSpanish
+      ? 'De dispositivos sueltos a una experiencia conectada.'
+      : 'From disconnected devices to one connected experience.'
+    : sectionCopy.clearPlan
 
   return (
     <>
@@ -1189,7 +1669,7 @@ export function ServiceDetailPage() {
         }}
       />
 
-      <section className="service-detail-hero">
+      <section className={`service-detail-hero${isSmartService ? ' is-smart-service' : ''}`}>
         <div className="site-shell">
           <div className="service-detail-hero-grid">
             <div className="service-detail-copy">
@@ -1209,7 +1689,7 @@ export function ServiceDetailPage() {
                 ) : (
                   <Link
                     className="btn btn-green"
-                    to={plansPath}
+                    to={primaryCtaPath}
                   >
                     {orderCtaLabel}
                     <ArrowRight size={20} aria-hidden="true" />
@@ -1227,23 +1707,27 @@ export function ServiceDetailPage() {
               </div>
             </div>
 
-            <aside className="service-detail-media-card">
-              <SafeImage
-                src={visual.image}
-                alt={service.shortTitle}
-                className="service-detail-media"
-                imgClassName="h-full w-full object-cover"
-              />
-              <div className="service-detail-media-caption">
-                <span>
-                  <ServiceIcon icon={service.icon} size={22} />
-                </span>
-                <div>
-                  <strong>{service.shortTitle}</strong>
-                  <p>{visual.note}</p>
+            {isSmartService ? (
+              <SmartHomeSafetyHeroVisual image={visual.image} language={i18n.language} />
+            ) : (
+              <aside className="service-detail-media-card">
+                <SafeImage
+                  src={visual.image}
+                  alt={service.shortTitle}
+                  className="service-detail-media"
+                  imgClassName="h-full w-full object-cover"
+                />
+                <div className="service-detail-media-caption">
+                  <span>
+                    <ServiceIcon icon={service.icon} size={22} />
+                  </span>
+                  <div>
+                    <strong>{service.shortTitle}</strong>
+                    <p>{visual.note}</p>
+                  </div>
                 </div>
-              </div>
-            </aside>
+              </aside>
+            )}
           </div>
         </div>
       </section>
@@ -1259,79 +1743,87 @@ export function ServiceDetailPage() {
           />
         </>
       ) : (
-        <>
-          {zoneRiskMap ? (
-            <ServiceZoneRiskMapSection language={isSpanish ? 'es' : 'en'} riskMap={zoneRiskMap} />
-          ) : (
-            <section className="service-detail-section bg-white">
+        isSmartService ? (
+          <>
+            <SmartHomeSafetyShowcase language={i18n.language} />
+            <SmartRemotePatientMonitoringSection language={i18n.language} />
+          </>
+        ) : (
+          <>
+            {zoneRiskMap ? (
+              <ServiceZoneRiskMapSection language={isSpanish ? 'es' : 'en'} riskMap={zoneRiskMap} />
+            ) : (
+              <section className="service-detail-section bg-white">
+                <div className="site-shell">
+                  <div className="service-detail-heading">
+                    <p className="eyebrow">{sectionCopy.whatWeCheck}</p>
+                    <h2>{sectionCopy.risksTitle}</h2>
+                    <p>{sectionCopy.risksBody}</p>
+                  </div>
+
+                  <div className="service-detail-check-grid">
+                    <article>
+                      <h3>{sectionCopy.commonRisks}</h3>
+                      <ServiceChecklist items={service.risks} />
+                    </article>
+                    <article>
+                      <h3>{sectionCopy.howWeHelp}</h3>
+                      <ServiceChecklist items={service.improvements} />
+                    </article>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            <section className="service-detail-section bg-pale-blue">
               <div className="site-shell">
                 <div className="service-detail-heading">
-                  <p className="eyebrow">{sectionCopy.whatWeCheck}</p>
-                  <h2>{sectionCopy.risksTitle}</h2>
-                  <p>{sectionCopy.risksBody}</p>
+                  <p className="eyebrow">{sectionCopy.whyItHelps}</p>
+                  <h2>{detail.benefitsTitle}</h2>
+                  <p>{detail.benefitsIntro}</p>
                 </div>
 
-                <div className="service-detail-check-grid">
-                  <article>
-                    <h3>{sectionCopy.commonRisks}</h3>
-                    <ServiceChecklist items={service.risks} />
-                  </article>
-                  <article>
-                    <h3>{sectionCopy.howWeHelp}</h3>
-                    <ServiceChecklist items={service.improvements} />
-                  </article>
+                <div className="service-detail-benefit-grid">
+                  {detail.benefits.map((benefit, index) => (
+                    <article key={benefit.title}>
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                      <h3>{benefit.title}</h3>
+                      <p>{benefit.body}</p>
+                    </article>
+                  ))}
                 </div>
               </div>
             </section>
-          )}
 
-          <section className="service-detail-section bg-pale-blue">
-            <div className="site-shell">
-              <div className="service-detail-heading">
-                <p className="eyebrow">{sectionCopy.whyItHelps}</p>
-                <h2>{detail.benefitsTitle}</h2>
-                <p>{detail.benefitsIntro}</p>
-              </div>
+            <RoomServiceItemsSection
+              ctaPath={primaryCtaPath}
+              language={i18n.language}
+              orderCtaLabel={orderCtaLabel}
+              room={serviceRoom}
+              services={serviceCatalogueItems}
+            />
 
-              <div className="service-detail-benefit-grid">
-                {detail.benefits.map((benefit, index) => (
-                  <article key={benefit.title}>
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <h3>{benefit.title}</h3>
-                    <p>{benefit.body}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <RoomServiceItemsSection
-            language={i18n.language}
-            orderCtaLabel={orderCtaLabel}
-            room={serviceRoom}
-            services={serviceCatalogueItems}
-          />
-
-          <section className="service-detail-section bg-white">
-            <div className="site-shell">
-              <div className="service-detail-reassurance-card">
-                <div>
-                  <p className="eyebrow">{sectionCopy.userBenefit}</p>
-                  <h3>{detail.reassuranceTitle}</h3>
-                  <p>{detail.reassuranceBody}</p>
+            <section className="service-detail-section bg-white">
+              <div className="site-shell">
+                <div className="service-detail-reassurance-card">
+                  <div>
+                    <p className="eyebrow">{sectionCopy.userBenefit}</p>
+                    <h3>{detail.reassuranceTitle}</h3>
+                    <p>{detail.reassuranceBody}</p>
+                  </div>
+                  <ServiceChecklist items={detail.reassurancePoints} />
                 </div>
-                <ServiceChecklist items={detail.reassurancePoints} />
               </div>
-            </div>
-          </section>
-        </>
+            </section>
+          </>
+        )
       )}
 
       <section className="service-detail-section bg-pale-blue">
         <div className="site-shell">
           <div className="service-detail-heading is-centered">
-            <p className="eyebrow">{sectionCopy.serviceWorks}</p>
-            <h2>{sectionCopy.clearPlan}</h2>
+            <p className="eyebrow">{serviceWorksEyebrow}</p>
+            <h2>{clearPlanTitle}</h2>
           </div>
 
           <div className="service-detail-step-grid">
@@ -1353,42 +1845,44 @@ export function ServiceDetailPage() {
         </div>
       </section>
 
-      <section className="service-detail-section bg-white">
-        <div className="site-shell">
-          <div className="service-detail-related-header">
-            <div>
-              <p className="eyebrow">{sectionCopy.related}</p>
-              <h2>{sectionCopy.otherAreas}</h2>
+      {isSmartService ? null : (
+        <section className="service-detail-section bg-white">
+          <div className="site-shell">
+            <div className="service-detail-related-header">
+              <div>
+                <p className="eyebrow">{sectionCopy.related}</p>
+                <h2>{sectionCopy.otherAreas}</h2>
+              </div>
+              <Link to="/services">
+                {sectionCopy.viewAll}
+                <ArrowRight size={17} aria-hidden="true" />
+              </Link>
             </div>
-            <Link to="/services">
-              {sectionCopy.viewAll}
-              <ArrowRight size={17} aria-hidden="true" />
-            </Link>
-          </div>
 
-          <div className="service-detail-related-grid">
-            {relatedServices.map((item) => {
-              const relatedVisual = getLocalizedServiceVisual(item.id, i18n.language)
+            <div className="service-detail-related-grid">
+              {relatedServices.map((item) => {
+                const relatedVisual = getLocalizedServiceVisual(item.id, i18n.language)
 
-              return (
-                <Link key={item.id} to={item.path}>
-                  <SafeImage
-                    src={relatedVisual.image}
-                    alt={item.shortTitle}
-                    className="service-detail-related-image"
-                    imgClassName="h-full w-full object-cover"
-                  />
-                  <div>
-                    <span>{relatedVisual.badge}</span>
-                    <h3>{item.shortTitle}</h3>
-                    <p>{item.intro}</p>
-                  </div>
-                </Link>
-              )
-            })}
+                return (
+                  <Link key={item.id} to={item.path}>
+                    <SafeImage
+                      src={relatedVisual.image}
+                      alt={item.shortTitle}
+                      className="service-detail-related-image"
+                      imgClassName="h-full w-full object-cover"
+                    />
+                    <div>
+                      <span>{relatedVisual.badge}</span>
+                      <h3>{item.shortTitle}</h3>
+                      <p>{item.intro}</p>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="service-detail-final">
         <div className="site-shell">
@@ -1397,7 +1891,7 @@ export function ServiceDetailPage() {
             <h2>{detail.finalTitle}</h2>
             <p>{detail.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to={plansPath}>
+          <Link className="btn btn-green" to={primaryCtaPath}>
             {orderCtaLabel}
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
