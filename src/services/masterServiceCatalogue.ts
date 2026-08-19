@@ -393,6 +393,7 @@ function getSpanishCapabilityName(capabilityId: string, fallback: string) {
     'smoke-alerting': 'Detector de humo',
     'specialist-measurement': 'Medición profesional y comprobación de encaje',
     'voice-controlled-lighting': 'Iluminación controlada por voz',
+    'voice-controlled-bedside-lamps': 'Lámparas de mesilla controladas por voz',
     'voice-help-requests': 'Peticiones sencillas por voz',
     'wearable-emergency-support': 'Colgante de emergencia',
     'water-leak-alerting': 'Sensor de fuga de agua',

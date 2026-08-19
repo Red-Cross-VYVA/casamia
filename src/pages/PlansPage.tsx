@@ -321,6 +321,7 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Wider living room doorway service': 'Ensanche de puerta de salon',
     'Outdoor key safe': 'Caja de llaves exterior',
     'Voice command setup for lights, calls and help requests': 'Configuracion de voz para luces, llamadas y peticiones de ayuda',
+    'Voice-controlled bedside lamp set': 'Juego de lamparas de mesilla por voz',
     'Voice help request setup': 'Configuracion de peticiones de ayuda por voz',
   }
 

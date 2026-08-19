@@ -50,6 +50,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'bedroom-slip-resistance': '/images/service-card-products/bedside-exit-mat.png',
   'bedroom-underbed-lighting': serviceProductImage('underbed-lighting'),
   'bedroom-voice-assistance': serviceProductImage('voice-speaker-bedroom'),
+  'bedroom-voice-controlled-lamps': '/images/service-card-products/bedroom-voice-controlled-lamps.png',
   'entrance-accessibility-ramp': serviceProductImage('accessibility-ramp-modern-clean'),
   'entrance-connected-door-awareness': serviceProductImage('video-doorbell'),
   'entrance-easier-door-access': serviceProductImage('entrance-door-handle'),

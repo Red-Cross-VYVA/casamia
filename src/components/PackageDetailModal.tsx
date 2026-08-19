@@ -165,6 +165,7 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Outdoor key safe': 'Caja de llaves exterior',
     'Raised electrical outlet relocation service': 'Reubicacion de enchufes a una altura mas comoda',
     'Voice command setup for lights, calls and help requests': 'Configuracion de voz para luces, llamadas y peticiones de ayuda',
+    'Voice-controlled bedside lamp set': 'Juego de lamparas de mesilla por voz',
     'Voice help request setup': 'Configuracion de peticiones de ayuda por voz',
   }
 
