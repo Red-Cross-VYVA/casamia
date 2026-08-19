@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises'
 
 const page = await readFile(new URL('../src/pages/FreeHomeSafetyAssessmentPage.tsx', import.meta.url), 'utf8')
 const form = await readFile(new URL('../src/components/AssessmentForm.tsx', import.meta.url), 'utf8')
+const selfInspectionTool = await readFile(new URL('../src/components/SelfInspectionTool.tsx', import.meta.url), 'utf8')
+const uploadEstimator = await readFile(new URL('../src/components/UploadEstimator.tsx', import.meta.url), 'utf8')
 const en = await readFile(new URL('../src/i18n/locales/en.json', import.meta.url), 'utf8')
 const es = await readFile(new URL('../src/i18n/locales/es.json', import.meta.url), 'utf8')
 const styles = await readFile(new URL('../src/index.css', import.meta.url), 'utf8')
@@ -11,8 +13,20 @@ const esCopy = JSON.parse(es)
 
 assert.match(
   page,
-  /<SelfInspectionTool \/>[\s\S]*assessment-after-review[\s\S]*<section className="assessment-how/,
+  /<UploadEstimator renderLauncher=\{false\} \/>[\s\S]*<SelfInspectionTool \/>[\s\S]*assessment-after-review[\s\S]*<section className="assessment-how/,
   'The assessment page must explain what happens after the online review before the general how-it-works section.',
+)
+
+assert.match(
+  selfInspectionTool,
+  /requestSafetyReportModal[\s\S]*className="btn btn-navy self-inspection-open"[\s\S]*onClick=\{requestSafetyReportModal\}/,
+  'The self-check CTA must open the Review your home safety report modal.',
+)
+
+assert.match(
+  uploadEstimator,
+  /renderLauncher = true[\s\S]*location\.hash === '#self-inspection-tool'[\s\S]*openIntent === 'self-inspection'/,
+  'The safety report modal must support the assessment self-check deep link in headless mode.',
 )
 
 assert.match(

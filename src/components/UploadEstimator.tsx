@@ -145,7 +145,11 @@ const SpecialistVoiceAgentModal = lazy(() =>
   })),
 )
 
-export function UploadEstimator() {
+type UploadEstimatorProps = {
+  renderLauncher?: boolean
+}
+
+export function UploadEstimator({ renderLauncher = true }: UploadEstimatorProps = {}) {
   const { i18n, t } = useTranslation()
   const location = useLocation()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -228,8 +232,11 @@ export function UploadEstimator() {
 
     if (
       location.hash === '#estimate-upload'
+      || location.hash === '#self-inspection-tool'
       || openIntent === 'safety-report'
       || openIntent === 'photo-review'
+      || openIntent === 'self-inspection'
+      || openIntent === 'safety-review'
     ) {
       openWizard()
     }
@@ -468,38 +475,49 @@ export function UploadEstimator() {
   }
 
   return (
-    <div className="hero-estimator mt-10 max-w-xl" id="estimate-upload">
-      <div className="free-check-grid">
-        <button type="button" className="free-check-card is-primary" onClick={openWizard}>
-          <span className="free-check-icon is-report">
-            <ShieldCheck size={23} aria-hidden="true" />
-          </span>
-          <span className="free-check-copy">
-            <strong>{t('hero.safetyCheck.title')}</strong>
-          </span>
-          <span className="free-check-arrow" aria-hidden="true">
-            <ArrowRight size={20} />
-          </span>
-        </button>
-        <button
-          type="button"
-          className="free-check-card is-proposal"
-          onClick={() => {
-            setSpecialistOpen(true)
-            trackEvent('elevenlabs_specialist_opened', { location: 'hero' })
-          }}
-        >
-          <span className="free-check-icon is-grant">
-            <MessageSquareText size={23} aria-hidden="true" />
-          </span>
-          <span className="free-check-copy">
-            <strong>{t('hero.buildPlan.title')}</strong>
-          </span>
-          <span className="free-check-arrow" aria-hidden="true">
-            <ArrowRight size={20} />
-          </span>
-        </button>
-      </div>
+    <>
+      {renderLauncher ? (
+        <div className="hero-estimator mt-10 max-w-xl" id="estimate-upload">
+          <div className="free-check-grid">
+            <button type="button" className="free-check-card is-primary" onClick={openWizard}>
+              <span className="free-check-icon is-report">
+                <ShieldCheck size={23} aria-hidden="true" />
+              </span>
+              <span className="free-check-copy">
+                <strong>{t('hero.safetyCheck.title')}</strong>
+              </span>
+              <span className="free-check-arrow" aria-hidden="true">
+                <ArrowRight size={20} />
+              </span>
+            </button>
+            <button
+              type="button"
+              className="free-check-card is-proposal"
+              onClick={() => {
+                setSpecialistOpen(true)
+                trackEvent('elevenlabs_specialist_opened', { location: 'hero' })
+              }}
+            >
+              <span className="free-check-icon is-grant">
+                <MessageSquareText size={23} aria-hidden="true" />
+              </span>
+              <span className="free-check-copy">
+                <strong>{t('hero.buildPlan.title')}</strong>
+              </span>
+              <span className="free-check-arrow" aria-hidden="true">
+                <ArrowRight size={20} />
+              </span>
+            </button>
+          </div>
+
+          {fileMessage ? (
+            <p className="mt-3 rounded-md bg-white/15 p-3 text-sm font-semibold text-white">{fileMessage}</p>
+          ) : null}
+        </div>
+      ) : (
+        <span className="sr-only" id="estimate-upload" aria-hidden="true" />
+      )}
+
       <input
         ref={inputRef}
         id="home-photos"
@@ -509,10 +527,6 @@ export function UploadEstimator() {
         multiple
         onChange={handleFileChange}
       />
-
-      {fileMessage ? (
-        <p className="mt-3 rounded-md bg-white/15 p-3 text-sm font-semibold text-white">{fileMessage}</p>
-      ) : null}
 
       {wizardOpen ? createPortal(
         <div className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6">
@@ -693,7 +707,7 @@ export function UploadEstimator() {
           />
         </Suspense>
       ) : null}
-    </div>
+    </>
   )
 }
 

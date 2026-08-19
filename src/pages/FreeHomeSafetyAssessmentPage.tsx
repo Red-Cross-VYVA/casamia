@@ -21,6 +21,7 @@ import { AssessmentForm } from '../components/AssessmentForm'
 import { SEO } from '../components/SEO'
 import { SelfInspectionTool } from '../components/SelfInspectionTool'
 import { TrustBar } from '../components/TrustBar'
+import { UploadEstimator } from '../components/UploadEstimator'
 
 type BenefitItem = {
   title: string
@@ -243,6 +244,7 @@ export function FreeHomeSafetyAssessmentPage() {
         </div>
       </section>
 
+      <UploadEstimator renderLauncher={false} />
       <SelfInspectionTool />
 
       <section className="assessment-after-review section-pad">

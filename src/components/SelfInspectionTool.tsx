@@ -15,9 +15,9 @@ import {
 import type { ChangeEvent } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
 
 import { submitAssessmentRequest } from '../services/assessmentRequests'
+import { requestSafetyReportModal } from '../utils/safetyReportModal'
 import { PhoneNumberField } from './PhoneNumberField'
 
 type AnswerStatus = 'safe' | 'risk' | 'not-sure'
@@ -881,7 +881,6 @@ const inspectionRooms: InspectionRoom[] = [
 
 export function SelfInspectionTool() {
   const { i18n } = useTranslation()
-  const location = useLocation()
   const isSpanish = i18n.language.startsWith('es')
   const copy = isSpanish ? { ...selfInspectionCopy.es, ...selfInspectionCopyEsRefined } : selfInspectionCopy.en
   const localizedRooms = useMemo(
@@ -934,20 +933,6 @@ export function SelfInspectionTool() {
   const quickCheckReference = useRef(
     `QHC-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`,
   ).current
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search)
-    const openIntent = searchParams.get('open') ?? searchParams.get('modal')
-
-    if (
-      location.hash === '#self-inspection-tool'
-      || openIntent === 'self-inspection'
-      || openIntent === 'safety-review'
-    ) {
-      setModalStep(0)
-      setIsModalOpen(true)
-    }
-  }, [location.hash, location.search])
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -1172,10 +1157,7 @@ export function SelfInspectionTool() {
             <button
               className="btn btn-navy self-inspection-open"
               type="button"
-              onClick={() => {
-                setModalStep(0)
-                setIsModalOpen(true)
-              }}
+              onClick={requestSafetyReportModal}
             >
               {copy.startCheck}
               <ArrowRight size={19} aria-hidden="true" />
