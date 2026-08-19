@@ -73,7 +73,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'kitchen-pull-out-pantry-storage': serviceProductImage('pull-out-storage'),
   'kitchen-prep-mats': '/images/service-card-products/kitchen-standing-comfort-mat.png',
   'kitchen-safer-cooking': '/images/service-card-products/kitchen-cooking-safety-control.png',
-  'kitchen-safer-food-preparation': serviceProductImage('kitchen-tools'),
+  'kitchen-safer-food-preparation': '/images/service-card-products/kitchen-easier-prep-support.png',
   'kitchen-safer-movement': '/images/service-card-products/kitchen-standing-comfort-mat.png',
   'kitchen-safety-monitoring': serviceProductImage('kitchen-water-monitoring'),
   'kitchen-smart-plugs': serviceProductImage('kitchen-voice-speaker'),
