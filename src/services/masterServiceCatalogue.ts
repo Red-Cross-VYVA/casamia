@@ -456,7 +456,7 @@ function getSpanishCapabilityName(capabilityId: string, fallback: string) {
     'entrance-key-safe-access': 'Caja de llaves de emergencia',
     'motion-activated-entrance-lighting': 'Iluminación de entrada con sensor de movimiento',
     'porch-lighting': 'Iluminación de porche',
-    'wider-entrance-doorway': 'Puerta de entrada más ancha',
+    'wider-entrance-doorway': 'Paso de entrada más libre',
     'accessibility-ramp': 'Rampa de accesibilidad',
     'entrance-seating-option': 'Asiento de entrada',
   }

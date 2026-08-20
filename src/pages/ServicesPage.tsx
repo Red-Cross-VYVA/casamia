@@ -276,7 +276,11 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'entrance-motion-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('entrance-motion-lighting') },
   'entrance-connected-door-awareness': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },
   'entrance-secure-access': { kind: 'video-doorbell', tone: 'alert', image: serviceCardProduct('video-doorbell') },
-  'entrance-wider-doorway': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'entrance-wider-doorway': {
+    kind: 'wide-doorway',
+    tone: 'access',
+    image: '/images/service-card-products/entrance-door-clearance.jpg',
+  },
   'entrance-accessibility-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('accessibility-ramp-modern-clean') },
   'entrance-modular-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('accessibility-ramp-modern-clean') },
   'entrance-seating': { kind: 'entry-seat', tone: 'support', image: serviceCardProduct('entry-seat') },
