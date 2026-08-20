@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE } from '../constants/contact'
+import { SEOCollectorContext, type ResolvedSEO } from '../seo-context'
 
 const defaultSiteUrl = 'https://casamia.com.es'
 const defaultSocialImage = '/images/solutions/portrait-lovely-couple-together.jpg'
@@ -26,39 +27,55 @@ export function SEO({
   schema,
 }: SEOProps) {
   const { i18n } = useTranslation()
+  const collectSEO = useContext(SEOCollectorContext)
+  const resolvedSEO = useMemo<ResolvedSEO>(() => {
+    const siteUrl = import.meta.env.VITE_SITE_URL || defaultSiteUrl
+    const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+
+    return {
+      title: title.includes('CasaMia') ? title : `${title} | CasaMia`,
+      description,
+      canonicalUrl: new URL(path, siteUrl).toString(),
+      socialImageUrl: new URL(image, siteUrl).toString(),
+      noindex,
+      language,
+      schema: buildSchemas(siteUrl, language, schema),
+    }
+  }, [description, i18n.language, image, noindex, path, schema, title])
+
+  if (collectSEO) {
+    collectSEO(resolvedSEO)
+  }
 
   useEffect(() => {
-    const siteUrl = import.meta.env.VITE_SITE_URL || defaultSiteUrl
-    const canonicalUrl = new URL(path, siteUrl).toString()
-    const socialImageUrl = new URL(image, siteUrl).toString()
-    const fullTitle = title.includes('CasaMia') ? title : `${title} | CasaMia`
-    const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+    const fullTitle = resolvedSEO.title
+    const language = resolvedSEO.language
 
     document.title = fullTitle
     document.documentElement.lang = language
-    setMeta('description', description)
-    setMeta('robots', noindex ? 'noindex,nofollow' : 'index,follow')
+    setMeta('description', resolvedSEO.description)
+    setMeta('robots', resolvedSEO.noindex ? 'noindex,nofollow' : 'index,follow')
     setMeta('og:title', fullTitle, 'property')
-    setMeta('og:description', description, 'property')
-    setMeta('og:url', canonicalUrl, 'property')
+    setMeta('og:description', resolvedSEO.description, 'property')
+    setMeta('og:url', resolvedSEO.canonicalUrl, 'property')
     setMeta('og:site_name', 'CasaMia', 'property')
     setMeta('og:type', 'website', 'property')
     setMeta('og:locale', language === 'es' ? 'es_ES' : 'en_IE', 'property')
     setMeta('og:locale:alternate', language === 'es' ? 'en_IE' : 'es_ES', 'property')
-    setMeta('og:image', socialImageUrl, 'property')
-    setMeta('og:image:secure_url', socialImageUrl, 'property')
-    setMeta('og:image:type', getImageMimeType(socialImageUrl), 'property')
+    setMeta('og:image', resolvedSEO.socialImageUrl, 'property')
+    setMeta('og:image:secure_url', resolvedSEO.socialImageUrl, 'property')
+    setMeta('og:image:type', getImageMimeType(resolvedSEO.socialImageUrl), 'property')
     setMeta('og:image:width', defaultSocialImageWidth, 'property')
     setMeta('og:image:height', defaultSocialImageHeight, 'property')
     setMeta('og:image:alt', fullTitle, 'property')
     setMeta('twitter:card', 'summary_large_image')
     setMeta('twitter:title', fullTitle)
-    setMeta('twitter:description', description)
-    setMeta('twitter:image', socialImageUrl)
+    setMeta('twitter:description', resolvedSEO.description)
+    setMeta('twitter:image', resolvedSEO.socialImageUrl)
     setMeta('twitter:image:alt', fullTitle)
-    setCanonical(canonicalUrl)
-    setSchema(buildSchemas(siteUrl, language, schema))
-  }, [description, i18n.language, image, noindex, path, schema, title])
+    setCanonical(resolvedSEO.canonicalUrl)
+    setSchema(resolvedSEO.schema)
+  }, [resolvedSEO])
 
   return null
 }

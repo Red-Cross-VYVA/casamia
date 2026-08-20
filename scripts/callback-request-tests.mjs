@@ -508,10 +508,10 @@ try {
     if (init.signal.aborted) abort()
     else init.signal.addEventListener('abort', abort, { once: true })
   })
-  await assert.rejects(
-    () => callSupabaseRpc('slow_callback_test', {}, { timeoutMs: 5 }),
-    /Supabase request timed out/,
-  )
+  const timedOutRpc = await callSupabaseRpc('slow_callback_test', {}, { timeoutMs: 5 })
+  assert.equal(timedOutRpc.ok, false)
+  assert.equal(timedOutRpc.status, 503)
+  assert.match(timedOutRpc.body.message, /database connection timed out/i)
 } finally {
   globalThis.fetch = originalFetch
   console.error = originalConsoleError
