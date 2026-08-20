@@ -103,21 +103,25 @@ const techCopy = {
     serviceType: 'Connected health device integration, Home Clinic and telehealth setup',
     hero: {
       eyebrow: 'Connected health at home',
-      title: 'Connect the health technology you already have.',
-      accent: 'Or let us provide the complete system.',
+      title: 'Connected care at home.',
+      accent: 'Your tech, or ours.',
       body:
-        'CasaMia connects compatible health, wellbeing and safety devices to the app or care platform you already use. If you do not have one, we provide the resident experience, family view and professional dashboard—installed, configured and supported as one service.',
+        'CasaMia connects health devices, home-safety signals and family or care dashboards into one managed setup, installed, configured and supported around the person at home.',
       primaryCta: 'Plan my integration',
       secondaryCta: 'Explore the service',
-      proof: ['Keep your current system', 'Connect compatible devices', 'CasaMia platform available'],
-      visualEyebrow: 'One connected service',
-      visualTitle: 'From device to the right person',
-      visualSummary: 'Health and home-safety devices connect through an integration and setup layer to your existing system or the CasaMia platform.',
-      sources: ['Health devices', 'Home safety', 'Daily routines'],
-      hub: 'Integration & setup',
-      routeLabel: 'API · Cloud · Device',
-      destinations: ['Your app or system', 'CasaMia platform'],
-      checks: ['Compatibility reviewed', 'Permissions agreed', 'People onboarded'],
+      proof: ['AI assistant and routines', 'Vitals and home-safety signals', 'Family and care visibility'],
+      visualEyebrow: 'CasaMia Connect',
+      visualTitle: 'One managed setup',
+      visualSummary: 'CasaMia connects home signals through one managed setup so approved family members or care teams see the right updates.',
+      homeLabel: 'At home',
+      signalLabel: 'Live signals',
+      statusLabel: 'Stable setup',
+      updatesLabel: 'Agreed updates',
+      sources: ['Vitals', 'Safety', 'Routines'],
+      hub: 'CasaMia Connect',
+      routeLabel: 'Setup · Consent · Support',
+      destinations: ['Family view', 'Care follow-up'],
+      checks: ['Devices paired', 'Alerts agreed', 'Support included'],
     },
     sectionNav: {
       label: 'Explore connected care',
@@ -130,15 +134,15 @@ const techCopy = {
       ],
     },
     paths: {
-      eyebrow: 'Start with what you already have',
-      title: 'Three starting points. One accountable integration partner.',
+      eyebrow: 'Choose the route',
+      title: 'Start from your reality.',
       body:
-        'We begin with your devices, digital tools, users and desired outcome—then build only the connection and support layer you need.',
+        'CasaMia adapts the setup to what is already in the home, what the family needs to see and what professionals may need to review.',
       items: [
         {
           icon: 'link' as TechIconName,
           number: '01',
-          title: 'You already have an app or care system',
+          title: 'Connect your current system',
           body:
             'We assess its documented APIs, webhooks or approved data-transfer options and design the connection around your current workflow.',
           outcome: 'Keep the system your team already knows.',
@@ -146,7 +150,7 @@ const techCopy = {
         {
           icon: 'bluetooth' as TechIconName,
           number: '02',
-          title: 'Your devices work in separate apps',
+          title: 'Bring devices together',
           body:
             'We review compatibility, connect useful information where feasible and organise alerts so they reach the right person.',
           outcome: 'Replace fragmented notifications with a clearer flow.',
@@ -154,7 +158,7 @@ const techCopy = {
         {
           icon: 'monitor' as TechIconName,
           number: '03',
-          title: 'You need the complete solution',
+          title: 'Use the CasaMia setup',
           body:
             'CasaMia can provide the resident app, family access, professional dashboard, device setup, onboarding and ongoing support.',
           outcome: 'One service, from equipment to daily use.',
@@ -386,21 +390,25 @@ const techCopy = {
     serviceType: 'Integración de dispositivos de salud, Clínica en Casa y configuración de telesalud',
     hero: {
       eyebrow: 'Salud conectada en casa',
-      title: 'Conecta la tecnología de salud que ya tienes.',
-      accent: 'O deja que proporcionemos el sistema completo.',
+      title: 'Atención conectada en casa.',
+      accent: 'Tu tecnología, o la nuestra.',
       body:
-        'CasaMia conecta dispositivos compatibles de salud, bienestar y seguridad con la aplicación o plataforma asistencial que ya utilizas. Si no dispones de una, proporcionamos la experiencia para la persona usuaria, la vista familiar y el panel profesional, todo instalado, configurado y respaldado como un único servicio.',
+        'CasaMia conecta dispositivos de salud, señales del hogar y vistas para familia o cuidado en una configuración gestionada, instalada y respaldada alrededor de la persona en casa.',
       primaryCta: 'Planificar mi integración',
       secondaryCta: 'Explorar el servicio',
-      proof: ['Conserva tu sistema actual', 'Conecta dispositivos compatibles', 'Plataforma CasaMia disponible'],
-      visualEyebrow: 'Un único servicio conectado',
-      visualTitle: 'Del dispositivo a la persona adecuada',
-      visualSummary: 'Los dispositivos de salud y seguridad se conectan mediante una capa de integración y configuración con tu sistema actual o con la plataforma CasaMia.',
-      sources: ['Dispositivos de salud', 'Seguridad del hogar', 'Rutinas diarias'],
-      hub: 'Integración y configuración',
-      routeLabel: 'API · Nube · Dispositivo',
-      destinations: ['Tu app o sistema', 'Plataforma CasaMia'],
-      checks: ['Compatibilidad revisada', 'Permisos acordados', 'Usuarios formados'],
+      proof: ['Asistente IA y rutinas', 'Constantes y señales del hogar', 'Visibilidad familiar y asistencial'],
+      visualEyebrow: 'CasaMia Connect',
+      visualTitle: 'Una configuración gestionada',
+      visualSummary: 'CasaMia conecta señales del hogar en una configuración gestionada para que familiares o equipos autorizados vean los avisos adecuados.',
+      homeLabel: 'En casa',
+      signalLabel: 'Señales activas',
+      statusLabel: 'Configuración estable',
+      updatesLabel: 'Avisos acordados',
+      sources: ['Constantes', 'Seguridad', 'Rutinas'],
+      hub: 'CasaMia Connect',
+      routeLabel: 'Configuración · Consentimiento · Soporte',
+      destinations: ['Vista familiar', 'Seguimiento asistencial'],
+      checks: ['Dispositivos vinculados', 'Avisos acordados', 'Soporte incluido'],
     },
     sectionNav: {
       label: 'Explorar la atención conectada',
@@ -413,15 +421,15 @@ const techCopy = {
       ],
     },
     paths: {
-      eyebrow: 'Partimos de lo que ya tienes',
-      title: 'Tres puntos de partida. Un único socio responsable de la integración.',
+      eyebrow: 'Elige el punto de partida',
+      title: 'Partimos de tu realidad.',
       body:
-        'Empezamos por tus dispositivos, herramientas digitales, usuarios y objetivo; después creamos solo la conexión y el soporte que necesitas.',
+        'CasaMia adapta la configuración a lo que ya existe en casa, a lo que la familia necesita ver y a lo que los profesionales pueden necesitar revisar.',
       items: [
         {
           icon: 'link' as TechIconName,
           number: '01',
-          title: 'Ya tienes una app o sistema asistencial',
+          title: 'Conectar tu sistema actual',
           body:
             'Revisamos sus APIs, webhooks u opciones autorizadas de intercambio de datos y diseñamos la conexión en torno a tu flujo actual.',
           outcome: 'Conserva el sistema que tu equipo ya conoce.',
@@ -429,7 +437,7 @@ const techCopy = {
         {
           icon: 'bluetooth' as TechIconName,
           number: '02',
-          title: 'Tus dispositivos funcionan en apps separadas',
+          title: 'Unir dispositivos sueltos',
           body:
             'Revisamos la compatibilidad, conectamos la información útil cuando es viable y organizamos las alertas para que lleguen a quien corresponde.',
           outcome: 'Sustituye avisos fragmentados por un flujo más claro.',
@@ -437,7 +445,7 @@ const techCopy = {
         {
           icon: 'monitor' as TechIconName,
           number: '03',
-          title: 'Necesitas la solución completa',
+          title: 'Usar la configuración CasaMia',
           body:
             'CasaMia puede proporcionar la app para la persona, acceso familiar, panel profesional, configuración de dispositivos, formación y soporte.',
           outcome: 'Un único servicio, desde el equipo hasta el uso diario.',
@@ -708,30 +716,35 @@ function HeroIntegrationVisual({ copy }: { copy: (typeof techCopy)[LanguageKey][
         <strong>{copy.visualTitle}</strong>
       </div>
 
-      <div className="cm-tech-hero-route">
-        <div className="cm-tech-route-sources">
+      <div className="cm-tech-hero-experience">
+        <div className="cm-tech-home-panel">
+          <span className="cm-tech-panel-label"><House size={17} aria-hidden="true" />{copy.homeLabel}</span>
+          <div className="cm-tech-status-orb">
+            <Activity size={34} aria-hidden="true" />
+            <strong>{copy.statusLabel}</strong>
+            <small>{copy.signalLabel}</small>
+          </div>
+          <div className="cm-tech-source-chips">
           {copy.sources.map((source, index) => (
             <span key={source}>
               {index === 0 ? <HeartPulse size={18} aria-hidden="true" /> : index === 1 ? <ShieldCheck size={18} aria-hidden="true" /> : <Activity size={18} aria-hidden="true" />}
               {source}
             </span>
           ))}
+          </div>
         </div>
 
-        <span className="cm-tech-route-line" aria-hidden="true"><ChevronRight size={20} /></span>
-
-        <div className="cm-tech-route-hub">
+        <div className="cm-tech-connect-panel">
           <span><Link2 size={24} aria-hidden="true" /></span>
           <strong>{copy.hub}</strong>
           <small>{copy.routeLabel}</small>
         </div>
 
-        <span className="cm-tech-route-line" aria-hidden="true"><ChevronRight size={20} /></span>
-
-        <div className="cm-tech-route-destinations">
+        <div className="cm-tech-updates-panel">
+          <span className="cm-tech-panel-label"><UsersRound size={17} aria-hidden="true" />{copy.updatesLabel}</span>
           {copy.destinations.map((destination, index) => (
             <span key={destination}>
-              {index === 0 ? <Database size={18} aria-hidden="true" /> : <MonitorSmartphone size={18} aria-hidden="true" />}
+              {index === 0 ? <MonitorSmartphone size={18} aria-hidden="true" /> : <Database size={18} aria-hidden="true" />}
               {destination}
             </span>
           ))}

@@ -13809,6 +13809,31 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   background: rgba(255, 255, 255, 0.16);
 }
 
+@media (max-width: 560px) {
+  .cookie-consent {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-width: calc(100vw - 24px);
+    transform: none;
+    padding: 18px;
+  }
+
+  .cookie-consent h2,
+  .cookie-consent p {
+    overflow-wrap: anywhere;
+  }
+
+  .cookie-consent-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .cookie-consent-actions button {
+    width: 100%;
+  }
+}
+
 .withdrawal-page {
   padding: 80px 0;
   background: var(--light-blue);
@@ -21012,19 +21037,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   pointer-events: none;
 }
 
-.plan-detail-story-media.is-entrance-smart-access {
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle at 82% 18%, rgba(60, 166, 215, 0.14), transparent 34%),
-    linear-gradient(135deg, #f8fcff 0%, #eef8fc 100%);
-  box-shadow: inset 0 0 0 1px rgba(31, 103, 146, 0.08);
-}
-
-.plan-detail-story-media.is-entrance-smart-access::after {
-  display: none;
-}
-
 .plan-detail-story-safe-image {
   width: 100%;
   height: 100%;
@@ -21040,12 +21052,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.plan-detail-story-image.is-entrance-smart-access {
-  box-sizing: border-box;
-  object-fit: contain;
-  padding: clamp(12px, 2vw, 22px);
 }
 
 .plan-detail-story-image.is-bathroom-visibility {

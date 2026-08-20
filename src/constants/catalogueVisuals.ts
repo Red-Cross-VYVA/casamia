@@ -53,7 +53,6 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'bedroom-voice-controlled-lamps': '/images/service-card-products/bedroom-voice-controlled-lamps.png',
   'entrance-accessibility-ramp': serviceProductImage('accessibility-ramp-modern-clean'),
   'entrance-connected-door-awareness': serviceProductImage('video-doorbell'),
-  'entrance-easier-door-access': serviceProductImage('entrance-door-handle'),
   'entrance-improved-lighting': serviceProductImage('entrance-motion-lighting'),
   'entrance-key-safe': '/images/service-card-products/entrance-key-safe.jpg',
   'entrance-modular-ramp': serviceProductImage('accessibility-ramp-modern-clean'),

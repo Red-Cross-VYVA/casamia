@@ -120,7 +120,7 @@ const stepDescriptions = [
 ]
 
 const baseRecommendedServiceIds: Record<HomeZoneId, string[]> = {
-  entrance: ['entrance-safer-access', 'entrance-easier-door-access', 'entrance-motion-lighting'],
+  entrance: ['entrance-safer-access', 'entrance-motion-lighting', 'entrance-connected-door-awareness'],
   movement: ['movement-hallway-lighting', 'movement-rug-securing', 'movement-cable-management', 'movement-stand-assist'],
   kitchen: [
     'kitchen-lightweight-cookware',

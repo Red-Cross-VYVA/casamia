@@ -444,8 +444,6 @@ function getSpanishCapabilityName(capabilityId: string, fallback: string) {
     'slip-resistant-entrance-surface': 'Superficie de entrada antideslizante',
     'high-visibility-step-edge-markings': 'Señalización visible del borde del escalón',
     'secure-entrance-mat': 'Felpudo de entrada seguro',
-    'entrance-lever-door-handle': 'Manilla tipo palanca',
-    'easy-to-use-entrance-lock': 'Cerradura fácil de usar',
     'smart-video-doorbell': 'Videoportero inteligente',
     'two-way-door-communication': 'Comunicación bidireccional',
     'live-visitor-view': 'Vista en directo del visitante',

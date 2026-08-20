@@ -158,8 +158,6 @@ export function ServiceItemDetailModal({
 
   if (!service || !detail) return null
 
-  const isEntranceSmartAccess = service.id === 'entrance-easier-door-access'
-
   return (
     <div className="plan-detail-modal-backdrop service-item-detail-backdrop" role="presentation" onClick={onClose}>
       <section
@@ -182,12 +180,12 @@ export function ServiceItemDetailModal({
         </div>
 
         <div className="plan-detail-story">
-          <div className={`plan-detail-story-media${isEntranceSmartAccess ? ' is-entrance-smart-access' : ''}`}>
+          <div className="plan-detail-story-media">
             <SafeImage
               alt={detail.title}
               className="plan-detail-story-safe-image"
               fallbackLabel={detail.title}
-              imgClassName={`plan-detail-story-image${isEntranceSmartAccess ? ' is-entrance-smart-access' : ''}`}
+              imgClassName="plan-detail-story-image"
               loading="lazy"
               src={detail.image}
             />
