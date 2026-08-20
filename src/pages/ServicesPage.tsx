@@ -280,7 +280,11 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'entrance-accessibility-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('accessibility-ramp-modern-clean') },
   'entrance-modular-ramp': { kind: 'threshold-ramp', tone: 'access', image: serviceCardProduct('accessibility-ramp-modern-clean') },
   'entrance-seating': { kind: 'entry-seat', tone: 'support', image: serviceCardProduct('entry-seat') },
-  'entrance-key-safe': { kind: 'door-handle', tone: 'access', image: '/images/service-gallery/07-smart-access-devices.jpg' },
+  'entrance-key-safe': {
+    kind: 'door-handle',
+    tone: 'access',
+    image: '/images/service-card-products/entrance-key-safe.jpg',
+  },
   'movement-stair-handrails': { kind: 'stair-support', tone: 'mobility', image: '/images/service-gallery/03-stairway-and-hallway-support.jpg' },
   'movement-stair-treads': { kind: 'floor-grip', tone: 'mobility', image: '/images/service-gallery/02-anti-slip-safety-improvements.jpg' },
   'connected-emergency-button': { kind: 'emergency-button', tone: 'alert', image: '/images/service-gallery/08-emergency-response-device.jpg' },

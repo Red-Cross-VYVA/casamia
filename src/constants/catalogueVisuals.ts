@@ -55,7 +55,7 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'entrance-connected-door-awareness': serviceProductImage('video-doorbell'),
   'entrance-easier-door-access': serviceProductImage('entrance-door-handle'),
   'entrance-improved-lighting': serviceProductImage('entrance-motion-lighting'),
-  'entrance-key-safe': serviceProductImage('entrance-door-handle'),
+  'entrance-key-safe': '/images/service-card-products/entrance-key-safe.jpg',
   'entrance-modular-ramp': serviceProductImage('accessibility-ramp-modern-clean'),
   'entrance-motion-lighting': serviceProductImage('entrance-motion-lighting'),
   'entrance-safer-access': '/images/service-card-products/entrance-safer-access.png',
