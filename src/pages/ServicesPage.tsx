@@ -243,7 +243,11 @@ const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
   'bedroom-accessible-wardrobe': { kind: 'reachable-storage', tone: 'support', image: serviceCardProduct('reachable-wardrobe') },
   'bedroom-advanced-bed-transfer': { kind: 'bed-transfer', tone: 'support', image: serviceCardProduct('advanced-bed-transfer') },
   'bedroom-adjustable-bed': { kind: 'adjustable-bed', tone: 'support', image: serviceCardProduct('adjustable-bed') },
-  'bedroom-door-accessibility': { kind: 'wide-doorway', tone: 'access', image: serviceCardProduct('wide-doorway') },
+  'bedroom-door-accessibility': {
+    kind: 'wide-doorway',
+    tone: 'access',
+    image: '/images/service-card-products/bedroom-wide-doorway.jpg',
+  },
   'kitchen-easy-grip-tools': { kind: 'kitchen-tools', tone: 'food', image: serviceCardProduct('kitchen-tools') },
   'kitchen-stove-shutoff': { kind: 'hob-shutoff', tone: 'fire', image: serviceCardProduct('hob-shutoff') },
   'kitchen-worktop-lighting': { kind: 'motion-light', tone: 'light', image: serviceCardProduct('kitchen-worktop-lighting') },
