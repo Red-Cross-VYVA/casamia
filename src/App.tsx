@@ -261,7 +261,7 @@ function InternalRoute({ children }: { children: ReactNode }) {
   )
 }
 
-function AppRoutes() {
+export function AppRoutes() {
   const { i18n } = useTranslation()
   const location = useLocation()
   const pathLocale = getPathLocale(location.pathname)

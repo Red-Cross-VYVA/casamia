@@ -181,10 +181,7 @@ export function SpainCoverageMap({
             }}
             onMouseEnter={() => setActivePoint(point)}
           >
-            <title>
-              {isSpanish ? point.label.es : point.label.en}: {point.reps}{' '}
-              {point.reps === 1 ? copy.repSingular : copy.repPlural}
-            </title>
+            <title>{`${isSpanish ? point.label.es : point.label.en}: ${point.reps} ${point.reps === 1 ? copy.repSingular : copy.repPlural}`}</title>
             <circle className="about-map-pulse" r="19" />
             <circle className="about-map-point" r="8" filter="url(#aboutPointGlow)" />
           </g>

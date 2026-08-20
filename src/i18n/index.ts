@@ -10,7 +10,7 @@ const resources = {
 }
 
 const supportedLanguages = Object.keys(resources)
-const routeLanguage = window.location.pathname.split('/')[1]
+const routeLanguage = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : ''
 const initialLanguage = routeLanguage === 'es' ? 'es' : 'en'
 
 i18n.use(initReactI18next).init({
@@ -24,10 +24,16 @@ i18n.use(initReactI18next).init({
 })
 
 i18n.on('languageChanged', (language) => {
+  if (typeof document === 'undefined' || typeof window === 'undefined') {
+    return
+  }
+
   document.documentElement.lang = language
   window.localStorage.setItem('casamia-language', language)
 })
 
-document.documentElement.lang = i18n.language
+if (typeof document !== 'undefined') {
+  document.documentElement.lang = i18n.language
+}
 
 export default i18n

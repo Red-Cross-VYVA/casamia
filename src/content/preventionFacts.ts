@@ -1,5 +1,4 @@
 export const preventionFactSources = {
-  census: 'https://www.census.gov/library/stories/2020/06/old-housing-new-needs.html',
   healthMinistry: 'https://www.sanidad.gob.es/gabinete/notasPrensa.do?id=6883',
   ineHomeCare: 'https://www.ine.es/dyngs/Prensa/es/m2ECV2024.htm',
   whoEurope: 'https://www.who.int/europe/news-room/questions-and-answers/item/long-term-care',
@@ -43,12 +42,6 @@ const preventionCopy = {
     body:
       'As balance, mobility and vision change, a familiar home can become harder to navigate. The consequences are serious, but many hazards can be found and addressed before a crisis.',
     facts: [
-      {
-        value: 'ONLY 10%',
-        label: 'of U.S. homes are fully “aging-ready.”',
-        source: 'census',
-        sourceName: 'U.S. Census Bureau',
-      },
       {
         value: 'AROUND 30%',
         label: 'of people 65+ experience at least one fall each year.',
@@ -104,12 +97,6 @@ const preventionCopy = {
     body:
       'A medida que cambian el equilibrio, la movilidad y la visión, una vivienda conocida puede volverse más difícil de usar. Las consecuencias son serias, pero muchos riesgos pueden detectarse y corregirse antes de una crisis.',
     facts: [
-      {
-        value: 'SOLO EL 10%',
-        label: 'de las viviendas de EE. UU. está adaptada para envejecer en casa.',
-        source: 'census',
-        sourceName: 'Oficina del Censo de EE. UU.',
-      },
       {
         value: 'CERCA DEL 30%',
         label: 'de las personas de 65 años o más sufre al menos una caída al año.',
@@ -167,12 +154,6 @@ const preventionCopy = {
       'Wenn sich Gleichgewicht, Mobilität und Sehkraft verändern, kann eine vertraute Wohnung schwieriger zu nutzen sein. Die Folgen sind ernst, doch viele Gefahren lassen sich erkennen und beheben, bevor es zu einer Krise kommt.',
     facts: [
       {
-        value: 'NUR 10 %',
-        label: 'der US-Wohnungen sind fürs Älterwerden zu Hause geeignet.',
-        source: 'census',
-        sourceName: 'U.S. Census Bureau',
-      },
-      {
         value: 'RUND 30 %',
         label: 'der Menschen ab 65 stürzen mindestens einmal pro Jahr.',
         source: 'healthMinistry',
@@ -227,12 +208,6 @@ const preventionCopy = {
     body:
       'Lorsque l’équilibre, la mobilité et la vue évoluent, un logement familier peut devenir plus difficile à utiliser. Les conséquences sont sérieuses, mais de nombreux risques peuvent être détectés et corrigés avant une crise.',
     facts: [
-      {
-        value: 'SEULEMENT 10 %',
-        label: 'des logements aux États-Unis sont adaptés au vieillissement à domicile.',
-        source: 'census',
-        sourceName: 'Bureau du recensement des États-Unis',
-      },
       {
         value: 'ENVIRON 30 %',
         label: 'des personnes de 65 ans ou plus chutent au moins une fois par an.',
@@ -289,12 +264,6 @@ const preventionCopy = {
     body:
       'Wanneer evenwicht, mobiliteit en zicht veranderen, kan een vertrouwd huis moeilijker te gebruiken worden. De gevolgen zijn ernstig, maar veel risico’s kunnen worden opgespoord en aangepakt voordat er een crisis ontstaat.',
     facts: [
-      {
-        value: 'SLECHTS 10%',
-        label: 'van de woningen in de VS is geschikt om thuis ouder te worden.',
-        source: 'census',
-        sourceName: 'U.S. Census Bureau',
-      },
       {
         value: 'ONGEVEER 30%',
         label: 'van de mensen van 65 jaar en ouder valt minstens één keer per jaar.',

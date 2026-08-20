@@ -231,14 +231,6 @@ export function Prevention() {
               >
                 WHO Europe
               </a>
-              ,{' '}
-              <a
-                href="https://www.census.gov/library/stories/2020/06/old-housing-new-needs.html"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                U.S. Census Bureau
-              </a>
               .
             </p>
             <Link to="/blog/fall-prevention-home-checklist-spain">

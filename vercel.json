@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
@@ -24,6 +25,18 @@
           "value": "camera=(self), microphone=(self), geolocation=(), payment=()"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/home-safety-inspection",
+      "destination": "/home-safety-assessment",
+      "permanent": true
+    },
+    {
+      "source": "/es/home-safety-inspection",
+      "destination": "/es/home-safety-assessment",
+      "permanent": true
     }
   ],
   "rewrites": [

@@ -17,6 +17,16 @@ type SEOProps = {
   schema?: Record<string, unknown> | Record<string, unknown>[]
 }
 
+export type SeoSnapshot = SEOProps & {
+  language: 'en' | 'es'
+}
+
+let serverSeoCollector: ((snapshot: SeoSnapshot) => void) | undefined
+
+export function setServerSeoCollector(collector?: (snapshot: SeoSnapshot) => void) {
+  serverSeoCollector = collector
+}
+
 export function SEO({
   title,
   description,
@@ -26,13 +36,17 @@ export function SEO({
   schema,
 }: SEOProps) {
   const { i18n } = useTranslation()
+  const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+
+  if (typeof document === 'undefined') {
+    serverSeoCollector?.({ title, description, path, image, noindex, schema, language })
+  }
 
   useEffect(() => {
     const siteUrl = import.meta.env.VITE_SITE_URL || defaultSiteUrl
     const canonicalUrl = new URL(path, siteUrl).toString()
     const socialImageUrl = new URL(image, siteUrl).toString()
     const fullTitle = title.includes('CasaMia') ? title : `${title} | CasaMia`
-    const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
 
     document.title = fullTitle
     document.documentElement.lang = language
