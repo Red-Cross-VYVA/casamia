@@ -242,7 +242,7 @@ function InternalRoute({ children }: { children: ReactNode }) {
   )
 }
 
-function AppRoutes() {
+export function AppRoutes() {
   const location = useLocation()
   const isInternalRoute = location.pathname.startsWith('/internal')
   const isFocusedWizardRoute = location.pathname === '/home-safety-wizard'

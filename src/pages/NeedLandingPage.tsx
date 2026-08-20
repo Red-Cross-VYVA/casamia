@@ -34,10 +34,6 @@ export function NeedLandingPage() {
   const isSpanish = i18n.language.startsWith('es')
   const page = localizeNeedLandingPage(basePage ?? allNeedLandingPages[0], i18n.language)
 
-  if (basePage && page.path !== location.pathname) {
-    return <Navigate to={`${page.path}${location.search}${location.hash}`} replace />
-  }
-
   const isCompactNeedPage = page.slug === 'bathroom-safety-for-seniors'
   const isGrantSupportNeedPage = page.slug === 'grants-for-home-adaptations-spain'
   const copy = {
@@ -224,6 +220,11 @@ export function NeedLandingPage() {
     () => isCompactNeedPage ? [] : getNeedRecommendedResources(page.slug, localizedArticles, i18n.language),
     [isCompactNeedPage, localizedArticles, i18n.language, page.slug],
   )
+
+  if (basePage && page.path !== location.pathname) {
+    return <Navigate to={`${page.path}${location.search}${location.hash}`} replace />
+  }
+
   const visibleCatalogueServices = isCompactNeedPage ? catalogueServices.slice(0, 4) : catalogueServices
   const secondaryCtaLabel = isCompactNeedPage
     ? isSpanish ? 'Ver solución de baño' : 'See bathroom service'

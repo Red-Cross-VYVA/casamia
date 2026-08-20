@@ -576,7 +576,7 @@ function makeFinding(overrides = {}) {
   assert.equal(packages[0]?.name, 'Bathroom Home Safety Package')
   assert.equal(packages[0]?.planId, 'home-safety')
   assert.ok(
-    packages[0]?.components.includes('Safer Bathing'),
+    packages[0]?.components.includes('Bathroom Grab Bars'),
     'Wizard package cards must expose Master Catalogue outcomes.',
   )
   assert.equal(

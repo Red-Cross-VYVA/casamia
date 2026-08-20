@@ -10,12 +10,15 @@ const resources = {
 }
 
 const supportedLanguages = Object.keys(resources)
-const savedLanguage = window.localStorage.getItem('casamia-language')
-const browserLanguage = window.navigator.language.split('-')[0]
-const initialLanguage = supportedLanguages.includes(savedLanguage ?? '')
-  ? savedLanguage
-  : supportedLanguages.includes(browserLanguage)
-    ? browserLanguage
+const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
+const hasPrerenderedMarkup = isBrowser && Boolean(document.getElementById('root')?.hasChildNodes())
+export const preferredBrowserLanguage = isBrowser
+  ? window.localStorage.getItem('casamia-language') ?? window.navigator.language.split('-')[0]
+  : null
+const initialLanguage = hasPrerenderedMarkup
+  ? document.documentElement.lang
+  : supportedLanguages.includes(preferredBrowserLanguage ?? '')
+    ? preferredBrowserLanguage
     : 'en'
 
 i18n.use(initReactI18next).init({
@@ -29,10 +32,14 @@ i18n.use(initReactI18next).init({
 })
 
 i18n.on('languageChanged', (language) => {
-  document.documentElement.lang = language
-  window.localStorage.setItem('casamia-language', language)
+  if (isBrowser) {
+    document.documentElement.lang = language
+    window.localStorage.setItem('casamia-language', language)
+  }
 })
 
-document.documentElement.lang = i18n.language
+if (isBrowser) {
+  document.documentElement.lang = i18n.language
+}
 
 export default i18n

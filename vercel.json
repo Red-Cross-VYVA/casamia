@@ -1,4 +1,6 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)",
@@ -26,9 +28,33 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/home-safety-inspection",
+      "destination": "/home-safety-assessment",
+      "permanent": true
+    },
+    {
+      "source": "/free-home-safety-assessment",
+      "destination": "/home-safety-assessment",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
-      "source": "/((?!api/.*).*)",
+      "source": "/estimate/:token",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/proposal/:token",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/agreement/:token",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/internal/:path*",
       "destination": "/index.html"
     }
   ]
