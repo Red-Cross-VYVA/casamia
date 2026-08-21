@@ -289,6 +289,7 @@ function jsonResponse(body, status = 200) {
     customer: {
       email: 'ana@example.com',
       name: 'Ana Lopez',
+      notes: 'Please avoid replacing the toilet seat unless CasaMia thinks it is needed.',
       phone: '+34 600 000 000',
     },
     language: 'en',
@@ -308,9 +309,12 @@ function jsonResponse(body, status = 200) {
   assert.equal(submitted.total_estimate, 364, 'Public draft totals must be recalculated server-side.')
   assert.equal(submitted.payload_json.total_estimate, 364)
   assert.equal(submitted.payload_json.acceptance_status, 'Sent')
+  assert.equal(submitted.payload_json.notes, 'Please avoid replacing the toilet seat unless CasaMia thinks it is needed.')
+  assert.equal(submitted.payload_json.plans_builder.customer_notes, 'Please avoid replacing the toilet seat unless CasaMia thinks it is needed.')
   assert.equal(submitted.payload_json.plans_builder.recurring_monthly_estimate, 24)
   assert.deepEqual(submitted.payload_json.plans_builder.review_items, ['Shower entry review'])
   assert.match(body.publicToken, /^[A-Za-z0-9_-]{20,128}$/)
+  assert.equal(body.proposal.notes, 'Please avoid replacing the toilet seat unless CasaMia thinks it is needed.')
   assert.equal(body.proposal.status, 'Sent')
   assert.equal(body.publicUrl, `/proposal/${body.publicToken}`)
 }
@@ -354,6 +358,7 @@ function jsonResponse(body, status = 200) {
     customer: {
       email: 'ana@example.com',
       name: 'Ana Lopez',
+      notes: 'Please avoid replacing the toilet seat unless CasaMia thinks it is needed.',
       phone: '+34 600 000 000',
     },
     deliveryChannel: 'whatsapp',

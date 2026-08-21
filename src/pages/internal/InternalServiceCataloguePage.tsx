@@ -126,6 +126,7 @@ const componentRoleOptions: Array<{ label: string; value: ServiceComponentRole }
 
 const sectionOptions: Array<{ label: string; value: ServiceCatalogueSection }> = [
   { label: 'Home Safety Package', value: 'home_safety_package' },
+  { label: 'Starter Essentials', value: 'starter_essentials' },
   { label: 'Connected Room', value: 'connected_room' },
   { label: 'Optional Adaptations', value: 'optional_adaptations' },
 ]
@@ -2211,6 +2212,7 @@ function formatSectionLabel(section: ServiceCatalogueSection | undefined) {
 }
 
 function formatMasterSectionLabel(section: MasterCataloguePackage['section']) {
+  if (section === 'starter-essentials') return 'Starter Essentials'
   if (section === 'home-safety-package') return 'Home Safety Package'
   if (section === 'connected-room') return 'Connected Room'
   return 'Optional Adaptations'

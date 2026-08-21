@@ -71,6 +71,7 @@ export function createEmptyProposal(patch: Partial<ProposalData> = {}): Proposal
     inspectionReference: '',
     lineItems: [],
     overallRiskLevel: 'Moderate',
+    notes: '',
     paymentTerms: getDefaultPaymentTerms(selectedPlan),
     phone: '',
     preparedBy: 'CasaMia Operations',

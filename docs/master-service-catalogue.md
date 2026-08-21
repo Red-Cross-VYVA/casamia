@@ -28,6 +28,7 @@ Every room follows the same structure:
 
 ```text
 Room
+├── Starter Essentials
 ├── Home Safety Package
 ├── Connected Room
 └── Optional Adaptations
@@ -35,6 +36,7 @@ Room
 
 This gives every team the same mental model:
 
+- `Starter Essentials`: lower-cost fixed-scope packs for urgent core necessities.
 - `Home Safety Package`: physical improvements that reduce everyday risk.
 - `Connected Room`: configured technology experiences, not device retail.
 - `Optional Adaptations`: bespoke works requiring assessment, measurement, structural review, or specialist quotation.
@@ -67,10 +69,12 @@ Catalogue
 ├── Countries
 ├── Rooms
 │   ├── Bathroom
+│   │   ├── Starter Essentials
 │   │   ├── Home Safety Package
 │   │   ├── Connected Bathroom
 │   │   └── Optional Adaptations
 │   ├── Bedroom
+│   │   ├── Starter Essentials
 │   │   ├── Home Safety Package
 │   │   ├── Connected Bedroom
 │   │   └── Optional Adaptations
@@ -86,6 +90,17 @@ Catalogue
 ```
 
 ## Room-by-room catalogue
+
+### Starter Essentials Packs
+
+Starter packs are fixed-scope entry offers. They should stay cheaper by limiting variables: standard surfaces, limited item counts, no custom carpentry, no complex exterior works, no major adaptation and no automatic substitution of the full room package.
+
+| Pack | Catalogue price | Typical scope | Positioning |
+|---|---:|---|---|
+| Core Rails Pack | €349 | Up to three grab bars or support rails in priority areas after placement review. | Whole-home starter for main balance and transfer points. |
+| Bathroom Essentials Pack | €499 | Two bathroom support bars, transfer positioning and one basic slip-risk fix. | First step for a risky bathroom before a full bathroom package. |
+| Night Movement Pack | €399 | Motion night lighting, bed-exit support and one route trip-risk fix. | Bedroom starter for safer first steps at night. |
+| Entrance Basics Pack | €449 | One entrance rail/support, threshold visibility and safer mat or step-edge basics. | Entry access starter before a full entrance package. |
 
 ### Bathroom
 
@@ -359,9 +374,12 @@ CasaMia should price at package/outcome level first, with optional adaptations q
 
 Each room section can have one package config:
 
+- `Starter Essentials`: fixed-scope entry packs with tightly limited scope.
 - `Home Safety Package`: usually fixed/from/quote after assessment.
 - `Connected Room`: setup fee plus optional recurring monthly support.
 - `Optional Adaptations`: quote only unless a standard adaptation has a known starting price.
+
+Package prices are for a coordinated safety outcome, not an item-by-item shopping basket. CasaMia may adjust or substitute included items after the home review. If a client asks to remove included scope, credits should only apply when the reduced scope materially lowers CasaMia product, installation, or partner cost; safety-critical removals should trigger review or a custom quote.
 
 ### Item pricing
 

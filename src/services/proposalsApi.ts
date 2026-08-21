@@ -89,6 +89,8 @@ type BackendProposal = {
 }
 
 type BackendPlansBuilder = {
+  customer_notes?: string
+  customerNotes?: string
   delivery_preference?: string
   review_items?: unknown[]
   selected_package_count?: number | string
@@ -109,6 +111,7 @@ export type PublicProposalDraftPayload = {
     area?: string
     email: string
     name: string
+    notes?: string
     phone?: string
   }
   language: 'en' | 'es'
@@ -292,13 +295,14 @@ export function toBackendProposal(proposal: ProposalData) {
     grant_eligible_amount: totals.grantEligibleAmount,
     grant_support_required: proposal.grantSupportRequired,
     inspection_reference: proposal.inspectionReference,
-    notes: proposal.executiveSummary,
+    notes: proposal.notes,
     overall_risk_level: proposal.overallRiskLevel,
     payment_terms: proposal.paymentTerms,
     plan: proposal.selectedPlan,
     plans_builder: proposal.plansBuilder
       ? {
           delivery_preference: proposal.plansBuilder.deliveryPreference,
+          customer_notes: proposal.plansBuilder.customerNotes,
           review_items: proposal.plansBuilder.reviewItems,
           selected_package_count: proposal.plansBuilder.selectedPackageCount,
           selected_room_quantity: proposal.plansBuilder.selectedRoomQuantity,
@@ -338,6 +342,8 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
   const selectedPlan = normalisePlan(raw.selected_plan ?? raw.plan)
   const address = safeText(raw.address)
   const area = safeText(raw.area)
+  const executiveSummary = safeText(raw.executive_summary) || safeText(raw.notes)
+  const customerNotes = safeText(raw.notes)
 
   return createEmptyProposal({
     acceptanceDate: safeText(raw.acceptance_date),
@@ -353,7 +359,7 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
     createdAt: safeText(raw.created_at, new Date().toISOString()),
     customerName: safeText(raw.customer_name),
     email: safeText(raw.customer_email ?? raw.email),
-    executiveSummary: safeText(raw.executive_summary ?? raw.notes),
+    executiveSummary,
     grantEligibilityNote: safeText(raw.grant_eligibility_note),
     grantSupportRequired: Boolean(raw.grant_support_required),
     id: String(raw.id ?? ''),
@@ -375,6 +381,7 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
     ),
     overallRiskLevel: (safeText(raw.overall_risk_level, 'Moderate') || 'Moderate') as ProposalData['overallRiskLevel'],
     plansBuilder: normalisePlansBuilder(raw.plans_builder ?? raw.plansBuilder),
+    notes: customerNotes && customerNotes !== executiveSummary ? customerNotes : '',
     paymentTerms: safeText(raw.payment_terms, getDefaultPaymentTerms(selectedPlan)),
     phone: safeText(raw.customer_phone ?? raw.phone),
     preparedBy: safeText(raw.prepared_by, 'CasaMia Operations'),
@@ -405,6 +412,7 @@ function normalisePlansBuilder(value: BackendPlansBuilder | ProposalData['plansB
   const rawReviewItems = metadata.review_items ?? metadata.reviewItems
 
   return {
+    customerNotes: safeText(metadata.customer_notes ?? metadata.customerNotes) || undefined,
     deliveryPreference,
     reviewItems: Array.isArray(rawReviewItems) ? rawReviewItems.map((item) => safeText(item)).filter(Boolean) : undefined,
     selectedPackageCount: safeNumber(metadata.selected_package_count ?? metadata.selectedPackageCount),
@@ -727,18 +735,20 @@ function createLocalPublicProposalDraft(
     email: payload.customer.email,
     executiveSummary: payload.language === 'es'
       ? `Propuesta creada desde Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes con precio se muestran con IVA incluido. Los extras marcados como presupuesto se confirman antes de iniciar el trabajo.`
-      : `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Priced items are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
+      : `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Priced package lines are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
     grantEligibilityNote: payload.language === 'es'
       ? 'CasaMia puede orientar sobre documentación para ayudas cuando corresponda. La aprobación depende siempre de la autoridad correspondiente y no está garantizada.'
       : 'CasaMia may support documentation for applicable grants. Approval is determined solely by the relevant authority and is not guaranteed.',
     inspectionReference: 'Public Plans builder',
     lineItems: estimate.proposalLineItems,
     plansBuilder: {
+      customerNotes: payload.customer.notes?.trim() || undefined,
       deliveryPreference: payload.deliveryChannel,
       reviewItems: estimate.reviewItems,
       selectedPackageCount: estimate.selectedPackageCount,
       selectedRoomQuantity: estimate.selectedRoomQuantity,
     },
+    notes: payload.customer.notes?.trim() ?? '',
     paymentTerms: payload.language === 'es'
       ? 'Propuesta generada a partir de los paquetes, cantidades y extras seleccionados. Los trabajos y pagos solo empiezan después de la aceptación y la coordinación de fecha.'
       : 'Proposal generated from the selected packages, quantities and add-ons. Work and payments only start after acceptance and date coordination.',

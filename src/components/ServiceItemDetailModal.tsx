@@ -16,10 +16,11 @@ const modalCopy = {
   en: {
     close: 'Close',
     detailLabel: 'Service details',
-    included: 'Included in package',
+    included: 'Core package outcome',
+    starter: 'Starter essentials outcome',
     optional: 'Optional add-on',
     benefit: 'Why it helps',
-    includes: 'What CasaMia includes',
+    includes: 'Typical CasaMia scope',
     requirements: 'Planning notes',
     safetyNote: 'Important',
     assessment: 'Assessment recommended',
@@ -34,10 +35,11 @@ const modalCopy = {
   es: {
     close: 'Cerrar',
     detailLabel: 'Detalles del servicio',
-    included: 'Incluido en el paquete',
+    included: 'Resultado del paquete base',
+    starter: 'Resultado esencial de inicio',
     optional: 'Extra opcional',
     benefit: 'Por qué ayuda',
-    includes: 'Qué incluye CasaMia',
+    includes: 'Alcance habitual CasaMia',
     requirements: 'Notas de planificación',
     safetyNote: 'Importante',
     assessment: 'Valoración recomendada',
@@ -143,6 +145,7 @@ export function ServiceItemDetailModal({
     const includedItems = uniqueItems(service.includedItems)
     const requirements = getRequirementLabels(service, languageKey)
     const optional = isOptionalService(service)
+    const starter = service.section === 'starter_essentials'
 
     return {
       benefit,
@@ -152,9 +155,9 @@ export function ServiceItemDetailModal({
       optional,
       requirements,
       title,
-      typeLabel: optional ? copy.optional : copy.included,
+      typeLabel: starter ? copy.starter : optional ? copy.optional : copy.included,
     }
-  }, [copy.fallbackInclude, copy.included, copy.optional, imageSrc, languageKey, service])
+  }, [copy.fallbackInclude, copy.included, copy.optional, copy.starter, imageSrc, languageKey, service])
 
   if (!service || !detail) return null
 

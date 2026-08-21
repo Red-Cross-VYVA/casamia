@@ -19,6 +19,7 @@ const sectionMap: Record<MasterCatalogueOutcome['section'], ServiceCatalogueSect
   'connected-room': 'connected_room',
   'home-safety-package': 'home_safety_package',
   'optional-adaptations': 'optional_adaptations',
+  'starter-essentials': 'starter_essentials',
 }
 
 const packageAreaIds = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance'])
@@ -31,6 +32,9 @@ const pricingMap: Record<MasterCatalogueOutcome['pricingType'], CasaMiaService['
   range: 'from',
   recurring: 'from',
 }
+
+const PACKAGE_SCOPE_FINE_PRINT =
+  'Package prices cover a coordinated outcome, not an item-by-item basket. After the home review, CasaMia may adjust or substitute included items; credits apply only when reduced scope materially lowers CasaMia product, installation, or partner cost.'
 
 export function getMasterServiceCatalogue(): MasterServiceCatalogue {
   return clone(masterServiceCatalogue)
@@ -248,7 +252,7 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
     recurringMonthlyPrice: outcome.recurringMonthlyPrice,
     vatRate: outcome.vatRate,
     pricing: {
-      priceNotes: packageRecord?.pricingType === 'quote' ? 'Package price confirmed after assessment.' : undefined,
+      priceNotes: getPackagePriceNotes(packageRecord),
     },
     quantityType: 'per_room',
     requiresAssessment: outcome.requiresAssessment,
@@ -319,6 +323,12 @@ function mapMasterPricingType(pricingType: MasterCataloguePackage['pricingType']
   if (pricingType === 'fixed') return 'fixed'
   if (pricingType === 'from' || pricingType === 'range' || pricingType === 'recurring') return 'from'
   return 'quote_only'
+}
+
+function getPackagePriceNotes(packageRecord: MasterCataloguePackage | undefined) {
+  if (!packageRecord) return undefined
+  if (packageRecord.pricingType === 'quote') return `Package price confirmed after assessment. ${PACKAGE_SCOPE_FINE_PRINT}`
+  return PACKAGE_SCOPE_FINE_PRINT
 }
 
 function getLocalizedName(value: Partial<Record<'en' | 'es', string>>) {

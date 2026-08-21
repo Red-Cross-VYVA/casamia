@@ -24,6 +24,7 @@ export async function renderProposalPdf({ language = 'en', proposal, publicUrl =
   const customerName = text(proposal?.customer_name ?? proposal?.customerName) || copy.customerFallback
   const proposalReference = text(proposal?.id)
   const termsUrl = buildUrlFromPublicUrl(publicUrl, '/general-customer-terms')
+  const customerNotes = getCustomerNotes(proposal)
 
   drawHeader(doc, copy, proposal)
 
@@ -39,6 +40,9 @@ export async function renderProposalPdf({ language = 'en', proposal, publicUrl =
   doc.x = 44
   doc.y = 306
   drawSection(doc, copy.summaryTitle, text(proposal?.executive_summary ?? proposal?.executiveSummary) || copy.summaryFallback)
+  if (customerNotes) {
+    drawSection(doc, copy.customerNotesTitle, `${customerNotes}\n${copy.customerNotesBody}`)
+  }
   drawServicePromise(doc, copy)
 
   drawLineItems(doc, copy.selectedWorks, pricedItems.length ? pricedItems : lineItems, copy, false)
@@ -292,8 +296,11 @@ function drawLineItemCard(doc, item, copy, isReview) {
 function splitPackageDescription(description, language) {
   const raw = text(description)
   if (!raw) return { includes: [], summary: '' }
-  const marker = language === 'es' ? 'Incluye:' : 'Includes:'
-  const [summary, includedText = ''] = raw.split(marker)
+  const marker = language === 'es' ? /(?:Alcance habitual|Incluye):?\s*/i : /(?:Typical scope|Includes):?\s*/i
+  const match = raw.match(marker)
+  if (!match || typeof match.index !== 'number') return { includes: [], summary: raw }
+  const summary = raw.slice(0, match.index)
+  const includedText = raw.slice(match.index + match[0].length)
   return {
     includes: includedText
       .split(',')
@@ -401,6 +408,13 @@ function getReviewItems(proposal, lineItems) {
   })
 }
 
+function getCustomerNotes(proposal) {
+  const notes = text(proposal?.notes ?? proposal?.plans_builder?.customer_notes ?? proposal?.plansBuilder?.customerNotes)
+  const summary = text(proposal?.executive_summary ?? proposal?.executiveSummary)
+
+  return notes && notes !== summary ? notes : ''
+}
+
 function getTotals(proposal, pricedItems) {
   const subtotal = number(proposal?.total_estimate ?? proposal?.total)
     || pricedItems.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
@@ -421,9 +435,11 @@ function getCopy(isSpanish) {
         balance: 'Resto',
         contactFallback: 'Datos de contacto pendientes',
         customerFallback: 'Cliente CasaMia',
+        customerNotesBody: 'CasaMia revisa estas notas antes de confirmar alcance final o cualquier abono.',
+        customerNotesTitle: 'Notas para revision CasaMia',
         date: 'Fecha',
         deposit: 'Deposito',
-        includesLabel: 'Incluye',
+        includesLabel: 'Alcance habitual',
         kicker: 'Propuesta de seguridad del hogar',
         moreInProposal: '+{count} mas en la propuesta online',
         nextSteps:
@@ -443,7 +459,7 @@ function getCopy(isSpanish) {
         reviewTitle: 'Extras que requieren revision',
         selectedWorks: 'Trabajos incluidos con precio',
         selectedWorksBody:
-          'Cada paquete con precio incluye seleccion de productos, instalacion profesional, entrega, soporte y mantenimiento coordinados por CasaMia.',
+          'Cada paquete con precio incluye seleccion de productos, instalacion profesional, entrega, soporte y mantenimiento coordinados por CasaMia. Letra pequena: los precios de paquete cubren un resultado coordinado, no una cesta itemizada. Tras revisar la vivienda, CasaMia puede ajustar o sustituir elementos incluidos; los abonos solo se aplican cuando el alcance reducido baja materialmente el coste de producto, instalacion o proveedor de CasaMia.',
         subtotal: 'Subtotal',
         summaryFallback: 'Propuesta creada con los paquetes y extras seleccionados en CasaMia.',
         summaryTitle: 'Resumen',
@@ -462,9 +478,11 @@ function getCopy(isSpanish) {
         balance: 'Balance due',
         contactFallback: 'Contact details pending',
         customerFallback: 'CasaMia customer',
+        customerNotesBody: 'CasaMia reviews these notes before confirming final scope or any credit.',
+        customerNotesTitle: 'Notes for CasaMia review',
         date: 'Date',
         deposit: 'Deposit due',
-        includesLabel: 'Includes',
+        includesLabel: 'Typical scope',
         kicker: 'Home safety proposal',
         moreInProposal: '+{count} more in the online proposal',
         nextSteps:
@@ -484,7 +502,7 @@ function getCopy(isSpanish) {
         reviewTitle: 'Extras needing CasaMia review',
         selectedWorks: 'Priced works included',
         selectedWorksBody:
-          'Every priced package includes product selection, professional installation, handover, support and maintenance coordinated by CasaMia.',
+          'Every priced package line includes product selection, professional installation, handover, support and maintenance coordinated by CasaMia. Fine print: package prices cover a coordinated outcome, not an item-by-item basket. After the home review, CasaMia may adjust or substitute included items; credits apply only when reduced scope materially lowers CasaMia product, installation, or partner cost.',
         subtotal: 'Subtotal',
         summaryFallback: 'Proposal created from the selected CasaMia packages and add-ons.',
         summaryTitle: 'Summary',

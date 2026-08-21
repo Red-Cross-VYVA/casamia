@@ -148,6 +148,9 @@ type PlansCopy = {
   seeDraft: string
   selectedPackages: string
   specialistTitle: string
+  scopeNotes: string
+  scopeNotesHelp: string
+  scopeNotesPlaceholder: string
   summaryEmptyRooms: string
   summaryModulesTitle: string
   summaryMoreItems: string
@@ -445,7 +448,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantCta: 'Start grant check',
     grantEyebrow: 'Aid route',
     grantTitle: 'Grants may apply.',
-    heroSignals: ['Package prices first', 'Core items included', 'Optional add-ons separate'],
+    heroSignals: ['Package prices first', 'Core outcomes shown', 'Optional add-ons separate'],
     heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
     heroReviewBody:
       'Choose the rooms and add-ons, add your details, and receive a clear proposal link instantly.',
@@ -472,7 +475,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewCtaBody: 'Next, share contact details. Your proposal is generated instantly from the packages, quantities and add-ons you selected.',
     reviewCtaTitle: 'Ready to generate your proposal?',
     reviewStepEyebrow: 'Review',
-    reviewStepIntro: 'Check quantities, included core items and optional add-ons before adding your details.',
+    reviewStepIntro: 'Check quantities, typical core outcomes and optional add-ons before adding your details.',
     reviewStepTitle: 'Review your selected packages',
     roomBenefitLines: {
       bathroom: 'Bathing, toilet transfers and wet-floor movement feel safer.',
@@ -507,6 +510,9 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     seeDraft: 'Proposal preview',
     selectedPackages: 'Selected packages',
     specialistTitle: 'Specialist',
+    scopeNotes: 'Anything CasaMia should review?',
+    scopeNotesHelp: 'These notes do not change the package price automatically; CasaMia reviews them before confirming final scope or any credit.',
+    scopeNotesPlaceholder: 'Example: We prefer not to change the toilet seat unless CasaMia thinks it is needed.',
     summaryEmptyRooms: 'Choose rooms to start',
     summaryModulesTitle: 'Plan details',
     summaryMoreItems: 'more',
@@ -571,7 +577,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantCta: 'Iniciar revisión',
     grantEyebrow: 'Ayudas disponibles',
     grantTitle: 'Puede haber ayudas.',
-    heroSignals: ['Precio por paquete', 'Elementos base incluidos', 'Extras opcionales separados'],
+    heroSignals: ['Precio por paquete', 'Resultados base visibles', 'Extras opcionales separados'],
     heroPhotoAlt: 'Especialista de CasaMia revisando una cocina con una persona',
     heroReviewBody:
       'CasaMia confirma idoneidad, medidas y extras útiles antes de cerrar nada.',
@@ -596,7 +602,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     quantity: 'Cantidad',
     reviewRequired: 'Requiere revisión',
     reviewStepEyebrow: 'Revisión',
-    reviewStepIntro: 'Revisa cantidades, elementos incluidos y extras opcionales antes de añadir tus datos.',
+    reviewStepIntro: 'Revisa cantidades, resultados base habituales y extras opcionales antes de añadir tus datos.',
     reviewStepTitle: 'Revisa tus paquetes seleccionados',
     roomBenefitLines: {
       bathroom: 'La ducha, el WC y el movimiento en suelo mojado se sienten más seguros.',
@@ -631,6 +637,9 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     seeDraft: 'Vista de propuesta',
     selectedPackages: 'Paquetes seleccionados',
     specialistTitle: 'Especial',
+    scopeNotes: 'Algo que CasaMia deba revisar?',
+    scopeNotesHelp: 'Estas notas no cambian automaticamente el precio del paquete; CasaMia las revisa antes de confirmar el alcance final o cualquier abono.',
+    scopeNotesPlaceholder: 'Ejemplo: Preferimos no cambiar el asiento del WC salvo que CasaMia lo considere necesario.',
     summaryEmptyRooms: 'Elige estancias para empezar',
     summaryModulesTitle: 'Incluido en este borrador',
     summaryMoreItems: 'más',
@@ -714,8 +723,8 @@ function getRoomPlannerComposition(group: PlansBuilderGroup, language: 'en' | 'e
   0)
 
   const includedLabel = language === 'es'
-    ? `${includedCount} incluidos`
-    : `${includedCount} items`
+    ? `${includedCount} resultados`
+    : `${includedCount} outcomes`
   const extrasLabel = `${addOnCount} extras`
 
   return {
@@ -922,6 +931,7 @@ type CustomerForm = {
   email: string
   name: string
   phone: string
+  scopeNotes: string
   website: string
 }
 
@@ -935,6 +945,7 @@ const emptyCustomerForm: CustomerForm = {
   email: '',
   name: '',
   phone: '',
+  scopeNotes: '',
   website: '',
 }
 
@@ -1301,8 +1312,8 @@ export function PlansPage() {
         addedToPlan: 'A\u00f1adido al plan',
         benefit: 'Por qué ayuda',
         coreTab: 'Paquete base',
-        includes: 'Qué incluye CasaMia',
-        itemIncludes: 'Para este elemento, CasaMia incluye',
+        includes: 'Alcance habitual CasaMia',
+        itemIncludes: 'Componentes habituales de este resultado',
         learnMore: 'Más información',
         next: 'Siguiente',
         noDetailItems: 'No hay elementos para mostrar en esta sección.',
@@ -1319,8 +1330,8 @@ export function PlansPage() {
         addedToPlan: 'Added to plan',
         benefit: 'Why it helps',
         coreTab: 'Core package',
-        includes: 'What CasaMia includes',
-        itemIncludes: 'For this item, CasaMia includes',
+        includes: 'Typical CasaMia scope',
+        itemIncludes: 'Typical components for this outcome',
         learnMore: 'Learn more',
         next: 'Next',
         noDetailItems: 'No items to show in this section.',
@@ -1477,10 +1488,10 @@ export function PlansPage() {
         addOns: 'Extras',
         addOnsEmpty: 'Separados',
         estimateLabel: 'Total estimado',
-        estimateNote: 'IVA incluido. Los extras que necesitan informaci\u00f3n adicional no se suman hasta que CasaMia confirme alcance, precio y aprobaci\u00f3n contigo.',
+        estimateNote: 'IVA incluido. Los extras que necesitan informaci\u00f3n adicional no se suman hasta que CasaMia confirme alcance, precio y aprobaci\u00f3n contigo. Letra peque\u00f1a: los precios de paquete cubren un resultado coordinado, no una cesta itemizada; los abonos solo se aplican cuando el alcance reducido baja materialmente el coste de CasaMia.',
         extrasReviewBody: 'Tu paquete base puede avanzar ahora. CasaMia revisar\u00e1 estos extras contigo y confirmar\u00e1 medidas, idoneidad y precio antes de a\u00f1adirlos.',
         extrasReviewTitle: 'Extras que CasaMia confirmar\u00e1 contigo',
-        includedItems: 'elementos incluidos',
+        includedItems: 'resultados base',
         packageEstimate: 'Estimación del paquete',
         packages: 'Paquetes',
         readyLead: 'Tu enlace de propuesta está listo. Revisa el alcance elegido antes de abrirlo o compartirlo.',
@@ -1491,10 +1502,10 @@ export function PlansPage() {
         addOns: 'Add-ons',
         addOnsEmpty: 'Separate',
         estimateLabel: 'Estimated total',
-        estimateNote: 'VAT included. Extras that need more information are not added until CasaMia confirms scope, price and approval with you.',
+        estimateNote: 'VAT included. Extras that need more information are not added until CasaMia confirms scope, price and approval with you. Fine print: package prices cover a coordinated outcome, not an item-by-item basket; credits apply only when reduced scope materially lowers CasaMia cost.',
         extrasReviewBody: 'Your core package can move forward now. CasaMia will review these extras with you and confirm measurements, suitability and price before adding them.',
         extrasReviewTitle: 'Extras CasaMia will confirm with you',
-        includedItems: 'included items',
+        includedItems: 'core outcomes',
         packageEstimate: 'Package estimate',
         packages: 'Packages',
         readyLead: 'Your proposal link is ready. Review the selected scope before opening or sharing it.',
@@ -2070,6 +2081,7 @@ export function PlansPage() {
           area: customer.area,
           email: customer.email,
           name: customer.name,
+          notes: customer.scopeNotes,
           phone: customer.phone,
         },
         language,
@@ -2179,6 +2191,17 @@ export function PlansPage() {
           value={customer.address}
           onChange={(event) => updateCustomerField('address', event.target.value)}
         />
+      </label>
+      <label className="plans-notes-field">
+        <span>{copy.scopeNotes}</span>
+        <textarea
+          maxLength={1000}
+          placeholder={copy.scopeNotesPlaceholder}
+          rows={4}
+          value={customer.scopeNotes}
+          onChange={(event) => updateCustomerField('scopeNotes', event.target.value)}
+        />
+        <small>{copy.scopeNotesHelp}</small>
       </label>
       <fieldset className="plans-delivery-choice">
         <legend>{copy.deliveryChoiceTitle}</legend>

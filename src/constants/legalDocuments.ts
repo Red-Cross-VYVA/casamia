@@ -127,6 +127,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
           'Priced room packages include the works listed in the accepted proposal and are delivered as a coordinated turnkey service.',
           'Photos, illustrations and catalogue visuals are explanatory. The exact product model, finish, fixing position and installation method may vary according to the home, stock, safety requirements and technical suitability.',
           'CasaMia may recommend an equivalent or better product where the original displayed item is unavailable or not suitable for the property.',
+          'Package prices cover a coordinated safety outcome, not an item-by-item shopping basket. If the customer asks to remove included items, CasaMia may adjust or substitute the scope after review, and any credit is based on reduced CasaMia product, installation or partner cost rather than the retail price of an individual item.',
         ],
       },
       {

@@ -39,7 +39,7 @@ assert.match(
 assert.match(
   plansPage,
   /includedLabel[\s\S]*extrasLabel[\s\S]*plans-room-planner-room-counts/,
-  'Room planner tiles should show the number of included package items instead of abstract core wording.',
+  'Room planner tiles should show the number of package outcomes and available extras.',
 )
 assert.match(
   plansPage,
@@ -88,6 +88,11 @@ assert.ok(bedroomGroup, 'The public Plans builder must include the bedroom packa
     'One-time estimates must recalculate from catalogue package IDs and quantities.',
   )
   assert.equal(estimate.proposalLineItems.length, 2, 'Numeric room packages should produce proposal line items.')
+  assert.match(
+    estimate.proposalLineItems[0].description,
+    /Typical scope:/,
+    'Package proposal descriptions should describe the typical scope rather than item selection.',
+  )
   assert.match(formatPlansEstimateLabel(estimate, 'en'), /^From /)
   assert.match(formatPlansEstimateLabel(estimate, 'es'), /^Desde /)
 }

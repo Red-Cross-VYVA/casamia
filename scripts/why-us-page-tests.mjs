@@ -29,9 +29,27 @@ assert.match(
 )
 
 assert.match(
+  page,
+  /why-human-section[\s\S]*copy\.humanMoments\.map[\s\S]*casamia-inspector-tablet\.jpg[\s\S]*casamia-worker-process\.webp/,
+  'The Why Us page must include a human team-in-action story section with real service imagery.',
+)
+
+assert.match(
+  page,
+  /We meet the home before the fix[\s\S]*Vemos la vivienda antes de proponer/,
+  'The Why Us page must include concise bilingual human service copy.',
+)
+
+assert.match(
   styles,
   /\.why-verification-section[\s\S]*\.why-verification-grid[\s\S]*\.why-verification-card/,
   'The proof checks must have dedicated visual styling.',
+)
+
+assert.match(
+  styles,
+  /\.why-human-section[\s\S]*\.why-human-story-grid[\s\S]*\.why-human-mosaic/,
+  'The human team-in-action layer must have dedicated visual styling.',
 )
 
 console.log('Why Us page checks passed.')

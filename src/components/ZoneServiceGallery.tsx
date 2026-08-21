@@ -19,6 +19,7 @@ const sectionLabels: Record<ServiceCatalogueSection, { en: string; es: string }>
   connected_room: { en: 'Connected support', es: 'Apoyo conectado' },
   home_safety_package: { en: 'Home safety package', es: 'Paquete de seguridad' },
   optional_adaptations: { en: 'Optional adaptation', es: 'Adaptación opcional' },
+  starter_essentials: { en: 'Starter essentials', es: 'Esenciales de inicio' },
 }
 
 const galleryTabCopy = {
@@ -112,11 +113,17 @@ export function ZoneServiceGallery({ className = '', language, room, services }:
   const [selectedGroup, setSelectedGroup] = useState<'included' | 'optional'>('included')
   const [activeService, setActiveService] = useState<CasaMiaService | null>(null)
   const includedServices = useMemo(
-    () => services.filter((service) => (service.section ?? 'home_safety_package') === 'home_safety_package'),
+    () => services.filter((service) => {
+      const section = service.section ?? 'home_safety_package'
+      return section === 'home_safety_package' || section === 'starter_essentials'
+    }),
     [services],
   )
   const optionalServices = useMemo(
-    () => services.filter((service) => (service.section ?? 'home_safety_package') !== 'home_safety_package'),
+    () => services.filter((service) => {
+      const section = service.section ?? 'home_safety_package'
+      return section === 'connected_room' || section === 'optional_adaptations'
+    }),
     [services],
   )
   const selectedServices = selectedGroup === 'optional' ? optionalServices : includedServices

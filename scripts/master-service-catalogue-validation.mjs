@@ -10,7 +10,8 @@ const catalogue = getMasterServiceCatalogue()
 const failures = []
 const warnings = []
 const requiredRooms = ['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance']
-const requiredSections = ['home-safety-package', 'connected-room', 'optional-adaptations']
+const requiredSections = ['starter-essentials', 'home-safety-package', 'connected-room', 'optional-adaptations']
+const requiredRoomSections = ['home-safety-package', 'connected-room', 'optional-adaptations']
 
 function assert(condition, message) {
   if (!condition) failures.push(message)
@@ -61,7 +62,7 @@ for (const roomId of requiredRooms) {
   assert(roomsById.has(roomId), `${roomId}: room is missing`)
   const roomPackages = getPackagesByRoom(roomId, catalogue)
 
-  for (const section of requiredSections) {
+  for (const section of requiredRoomSections) {
     assert(
       roomPackages.some((item) => item.section === section),
       `${roomId}: missing package for ${section}`,

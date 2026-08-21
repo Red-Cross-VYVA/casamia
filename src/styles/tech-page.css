@@ -240,7 +240,7 @@
   justify-content: space-between;
   gap: 24px;
   align-items: flex-start;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .cm-tech-hero-card-heading > span {
@@ -254,29 +254,46 @@
   text-transform: uppercase;
 }
 
-.cm-tech-hero-card-heading strong {
-  max-width: 260px;
-  color: #fff;
-  font-size: 21px;
-  line-height: 1.3;
-  text-align: right;
+.cm-tech-hero-signal-dots {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding-top: 3px;
+}
+
+.cm-tech-hero-signal-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(141, 214, 245, 0.52);
+  box-shadow: 0 0 0 5px rgba(141, 214, 245, 0.08);
+}
+
+.cm-tech-hero-signal-dots i:nth-child(2) {
+  background: rgba(155, 211, 109, 0.74);
+  box-shadow: 0 0 0 5px rgba(155, 211, 109, 0.1);
+}
+
+.cm-tech-hero-signal-dots i:nth-child(3) {
+  opacity: 0.62;
 }
 
 .cm-tech-hero-experience {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(136px, 0.42fr) minmax(0, 0.9fr);
-  gap: 14px;
+  grid-template-columns: minmax(0, 1.06fr) minmax(138px, 0.42fr) minmax(0, 0.88fr);
+  gap: 16px;
   align-items: stretch;
 }
 
 .cm-tech-hero-experience::before {
   position: absolute;
   top: 50%;
-  right: 21%;
-  left: 21%;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(137, 215, 246, 0.08), rgba(137, 215, 246, 0.78), rgba(155, 211, 109, 0.62));
+  right: 18%;
+  left: 18%;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(137, 215, 246, 0.06), rgba(137, 215, 246, 0.82), rgba(155, 211, 109, 0.68));
   content: '';
 }
 
@@ -295,17 +312,18 @@
 .cm-tech-home-panel,
 .cm-tech-updates-panel {
   display: grid;
-  min-height: 310px;
-  padding: 20px;
+  min-height: 300px;
+  padding: 18px;
 }
 
 .cm-tech-home-panel {
   grid-template-rows: auto 1fr auto;
+  gap: 14px;
 }
 
 .cm-tech-updates-panel {
   align-content: center;
-  gap: 12px;
+  gap: 18px;
 }
 
 .cm-tech-panel-label {
@@ -314,7 +332,7 @@
   align-items: center;
   gap: 8px;
   border-radius: 999px;
-  padding: 8px 11px;
+  padding: 8px 12px;
   color: #c9ecfb;
   background: rgba(255, 255, 255, 0.09);
   font-size: 11px;
@@ -322,6 +340,80 @@
   letter-spacing: 0.08em;
   line-height: 1;
   text-transform: uppercase;
+}
+
+.cm-tech-room-silhouette {
+  position: relative;
+  align-self: center;
+  justify-self: stretch;
+  min-height: 168px;
+  border: 1px solid rgba(137, 215, 246, 0.2);
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0 14px, transparent 14px),
+    linear-gradient(135deg, rgba(137, 215, 246, 0.1), rgba(125, 184, 65, 0.08)),
+    rgba(3, 27, 44, 0.22);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.12), 0 18px 38px rgba(0, 17, 28, 0.16);
+}
+
+.cm-tech-room-wall {
+  position: absolute;
+  inset: 20px 24px 28px;
+  border: 2px solid rgba(191, 230, 250, 0.16);
+  border-bottom-color: rgba(155, 211, 109, 0.26);
+  border-radius: 22px;
+}
+
+.cm-tech-room-bed,
+.cm-tech-room-table {
+  position: absolute;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.cm-tech-room-bed {
+  right: 30px;
+  bottom: 34px;
+  width: 42%;
+  height: 54px;
+  box-shadow: inset 18px 0 rgba(255, 255, 255, 0.07);
+}
+
+.cm-tech-room-table {
+  bottom: 36px;
+  left: 32px;
+  width: 58px;
+  height: 46px;
+}
+
+.cm-tech-room-device {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(217, 245, 255, 0.52);
+  border-radius: 15px;
+  color: #c5f4ff;
+  background: rgba(9, 51, 80, 0.82);
+  box-shadow: 0 12px 28px rgba(0, 17, 28, 0.22);
+}
+
+.cm-tech-room-device.is-vitals {
+  top: 28px;
+  left: 36px;
+  color: #9bd36d;
+}
+
+.cm-tech-room-device.is-safety {
+  top: 44px;
+  right: 34px;
+}
+
+.cm-tech-room-device.is-routine {
+  bottom: 22px;
+  left: 46%;
 }
 
 .cm-tech-status-orb {
@@ -367,15 +459,15 @@
   gap: 8px;
 }
 
-.cm-tech-source-chips span,
-.cm-tech-updates-panel > span:not(.cm-tech-panel-label) {
+.cm-tech-source-chips > span,
+.cm-tech-update-stack span {
   display: flex;
-  min-height: 44px;
+  min-height: 42px;
   align-items: center;
   gap: 8px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 13px;
-  padding: 9px 10px;
+  padding: 8px 10px;
   color: #e8f5fb;
   background: rgba(255, 255, 255, 0.08);
   font-size: 12px;
@@ -383,18 +475,23 @@
   line-height: 1.2;
 }
 
+.cm-tech-source-chips > span {
+  justify-content: center;
+  padding-inline: 8px;
+}
+
 .cm-tech-source-chips svg,
-.cm-tech-updates-panel svg {
+.cm-tech-update-stack svg {
   flex: 0 0 auto;
   color: #86d4f5;
 }
 
 .cm-tech-connect-panel {
   display: grid;
-  min-height: 310px;
+  min-height: 300px;
   place-content: center;
   place-items: center;
-  padding: 18px;
+  padding: 18px 14px;
   background:
     linear-gradient(155deg, rgba(47, 155, 211, 0.55), rgba(125, 184, 65, 0.34)),
     rgba(255, 255, 255, 0.09);
@@ -403,30 +500,36 @@
 
 .cm-tech-connect-panel > span {
   display: grid;
-  width: 58px;
-  height: 58px;
-  margin-bottom: 14px;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 16px;
   place-items: center;
   border-radius: 18px;
   color: #0d3a58;
   background: #d8f3ff;
+  box-shadow: 0 14px 32px rgba(0, 17, 28, 0.18);
 }
 
 .cm-tech-connect-panel strong {
   color: #fff;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.15;
 }
 
-.cm-tech-connect-panel small {
-  max-width: 120px;
-  margin-top: 9px;
-  color: #e0f5fd;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  line-height: 1.5;
-  text-transform: uppercase;
+.cm-tech-update-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.cm-tech-update-stack span {
+  min-height: 58px;
+  border-color: rgba(137, 215, 246, 0.2);
+  border-radius: 16px;
+  padding: 12px 14px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06)),
+    rgba(3, 27, 44, 0.28);
+  font-size: 13px;
 }
 
 .cm-tech-hero-route {
@@ -1902,7 +2005,15 @@
 
   .cm-tech-home-panel,
   .cm-tech-connect-panel {
-    min-height: 220px;
+    min-height: 190px;
+  }
+
+  .cm-tech-room-silhouette {
+    min-height: 150px;
+  }
+
+  .cm-tech-update-stack span {
+    min-height: 52px;
   }
 
   .cm-tech-path-grid,
@@ -1978,13 +2089,14 @@
     display: grid;
   }
 
-  .cm-tech-hero-card-heading strong {
-    max-width: none;
-    text-align: left;
+  .cm-tech-hero-signal-dots {
+    justify-self: start;
   }
 
-  .cm-tech-hero-checks,
-  .cm-tech-source-chips,
+  .cm-tech-hero-checks {
+    display: none;
+  }
+
   .cm-tech-device-grid,
   .cm-tech-check-grid,
   .cm-tech-care-copy > ul,

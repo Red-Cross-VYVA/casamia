@@ -24,6 +24,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
   const pricedItems = proposal.lineItems.filter((item) => !isReviewLineItem(item))
   const reviewItems = getReviewItems(proposal)
   const selectedCategories = getSelectedCategories(proposal.lineItems)
+  const customerNotes = getCustomerNotes(proposal)
 
   return (
     <article className="proposal-print-surface overflow-hidden rounded-lg border border-border bg-white shadow-soft" ref={ref}>
@@ -219,6 +220,14 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
           </p>
         </section>
 
+        {customerNotes ? (
+          <section className="rounded-lg border border-blue/20 bg-white p-5">
+            <h3 className="text-sm font-black uppercase tracking-[0.12em] text-navy">{copy.customerNotes}</h3>
+            <p className="mt-3 max-w-5xl text-base leading-relaxed text-text-mid">{customerNotes}</p>
+            <p className="mt-3 text-sm font-bold leading-relaxed text-blue">{copy.customerNotesBody}</p>
+          </section>
+        ) : null}
+
         <section className="rounded-lg border border-border p-5">
           <h3 className="text-sm font-black uppercase tracking-[0.12em] text-navy">{copy.customerAcceptance}</h3>
           <p className="mt-3 text-sm leading-relaxed text-text-mid">{copy.acceptanceBody}</p>
@@ -256,7 +265,7 @@ function LineItemCard({ copy, item }: { copy: PreviewCopy; item: ProposalLineIte
 
       {description.included.length ? (
         <div className="mt-4 rounded-lg bg-light-blue/50 p-3">
-          <p className="text-xs font-black uppercase tracking-[0.12em] text-navy">{copy.included}</p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-navy">{copy.typicalScope}</p>
           <ul className="mt-2 grid gap-2 sm:grid-cols-2">
             {description.included.map((includedItem) => (
               <li className="flex items-start gap-2 text-sm font-bold leading-snug text-text-dark" key={includedItem}>
@@ -282,7 +291,7 @@ function splitLineItemDescription(description: string) {
     return { included: [] as string[], summary: '' }
   }
 
-  const match = cleanDescription.match(/\b(?:includes|incluye):\s*/i)
+  const match = cleanDescription.match(/\b(?:typical scope|alcance habitual|includes|incluye):\s*/i)
   if (!match || match.index === undefined) {
     return { included: [] as string[], summary: cleanDescription }
   }
@@ -345,6 +354,13 @@ function getReviewItems(proposal: ProposalData) {
   return [...new Set([...lineItems, ...metadataItems].filter(Boolean))]
 }
 
+function getCustomerNotes(proposal: ProposalData) {
+  const notes = proposal.notes?.trim() || proposal.plansBuilder?.customerNotes?.trim() || ''
+  const summary = proposal.executiveSummary?.trim() || ''
+
+  return notes && notes !== summary ? notes : ''
+}
+
 function getSelectedCategories(items: ProposalLineItem[]) {
   return [...new Set(items.map((item) => item.category).filter(Boolean))]
 }
@@ -367,6 +383,8 @@ function getProposalPreviewCopy(isSpanish: boolean) {
         customerAcceptance: 'Pedido del cliente',
         customerAddress: 'Direccion del cliente',
         customerName: 'Nombre del cliente',
+        customerNotes: 'Notas del cliente para revision CasaMia',
+        customerNotesBody: 'CasaMia revisa estas notas antes de confirmar alcance final o cualquier abono.',
         customerSummary: 'Resumen para el cliente',
         date: 'Fecha',
         defaultGrant:
@@ -404,12 +422,13 @@ function getProposalPreviewCopy(isSpanish: boolean) {
         rooms: 'Estancias',
         selectedWorks: 'Trabajos incluidos',
         selectedWorksTitle: 'Seguridad coordinada, instalada y lista para usar',
-        selectedWorksBody: 'Cada partida con precio forma parte de un paquete llave en mano: CasaMia selecciona los productos, coordina la instalacion, prueba el trabajo y queda disponible para soporte posterior.',
+        selectedWorksBody: 'Cada partida con precio forma parte de un paquete llave en mano: CasaMia selecciona los productos, coordina la instalacion, prueba el trabajo y queda disponible para soporte posterior. Letra pequena: los precios de paquete cubren un resultado coordinado, no una cesta itemizada. Tras revisar la vivienda, CasaMia puede ajustar o sustituir elementos incluidos; los abonos solo se aplican cuando el alcance reducido baja materialmente el coste de producto, instalacion o proveedor de CasaMia.',
         status: 'Estado',
         subtotal: 'Subtotal',
         terms: 'Terminos y condiciones',
         title: 'Propuesta de seguridad del hogar',
         totalEstimate: 'Total estimado',
+        typicalScope: 'Alcance habitual',
         turnkeyBody: 'CasaMia selecciona productos adecuados y coordina instalacion profesional para reducir gestiones.',
         turnkeyTitle: 'Servicio llave en mano',
         turnkeyShort: 'Llave en mano',
@@ -429,6 +448,8 @@ function getProposalPreviewCopy(isSpanish: boolean) {
         customerAcceptance: 'Customer order',
         customerAddress: 'Customer address',
         customerName: 'Customer name',
+        customerNotes: 'Customer notes for CasaMia review',
+        customerNotesBody: 'CasaMia reviews these notes before confirming final scope or any credit.',
         customerSummary: 'Customer summary',
         date: 'Date',
         defaultGrant:
@@ -466,12 +487,13 @@ function getProposalPreviewCopy(isSpanish: boolean) {
         rooms: 'Rooms',
         selectedWorks: 'Included works',
         selectedWorksTitle: 'Safety works coordinated, installed and ready to use',
-        selectedWorksBody: 'Every priced item is part of a turnkey package: CasaMia selects suitable products, coordinates installation, tests the work and remains available for aftercare.',
+        selectedWorksBody: 'Every priced package line is part of a turnkey package: CasaMia selects suitable products, coordinates installation, tests the work and remains available for aftercare. Fine print: package prices cover a coordinated outcome, not an item-by-item basket. After the home review, CasaMia may adjust or substitute included items; credits apply only when reduced scope materially lowers CasaMia product, installation, or partner cost.',
         status: 'Status',
         subtotal: 'Subtotal',
         terms: 'Terms & Conditions',
         title: 'Home Safety Proposal',
         totalEstimate: 'Total estimate',
+        typicalScope: 'Typical scope',
         turnkeyBody: 'CasaMia selects suitable products and coordinates professional installation to reduce hassle.',
         turnkeyTitle: 'Turnkey service',
         turnkeyShort: 'Turnkey',

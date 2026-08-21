@@ -40,6 +40,23 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
   const validUntil = addDays(now, 14)
   const proposalId = createProposalId(now)
   const summaryCopy = proposalCopy(language)
+  const events = [
+    { at: now.toISOString(), type: 'public-plans-proposal-created' },
+    {
+      at: now.toISOString(),
+      detail: deliveryChannel,
+      type: 'public-plans-delivery-preference',
+    },
+  ]
+
+  if (customer.notes) {
+    events.push({
+      at: now.toISOString(),
+      detail: 'Customer submitted package notes/exclusions for CasaMia review.',
+      type: 'public-plans-customer-notes',
+    })
+  }
+
   const proposalPayload = {
     acceptance_date: '',
     acceptance_status: 'Sent',
@@ -56,20 +73,14 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
         status: deliveryChannel === 'whatsapp' ? 'requested' : 'not_requested',
       },
     },
-    events: [
-      { at: now.toISOString(), type: 'public-plans-proposal-created' },
-      {
-        at: now.toISOString(),
-        detail: deliveryChannel,
-        type: 'public-plans-delivery-preference',
-      },
-    ],
+    events,
     executive_summary: summaryCopy.summary(estimate),
     grant_eligibility_note: summaryCopy.grants,
     grant_support_required: false,
     id: proposalId,
     inspection_reference: 'Public Plans builder',
     line_items: estimate.lineItems,
+    notes: customer.notes,
     overall_risk_level: 'Moderate',
     payment_terms: summaryCopy.paymentTerms,
     plan: 'Home adaptations',
@@ -85,6 +96,7 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
     total_estimate: estimate.oneTimeEstimate,
     valid_until: validUntil,
     plans_builder: {
+      customer_notes: customer.notes,
       delivery_preference: deliveryChannel,
       language,
       recurring_monthly_estimate: estimate.recurringMonthlyEstimate,
@@ -216,7 +228,7 @@ function getVisibleRoomGroups(catalogue) {
 
       return [{
         addOnPackages: packages
-          .filter((packageRecord) => packageRecord.section !== 'home-safety-package')
+          .filter((packageRecord) => packageRecord.section === 'connected-room' || packageRecord.section === 'optional-adaptations')
           .map((packageRecord) => ({
             outcomes: getOutcomesForPackage(catalogue, packageRecord.id),
             packageRecord,
@@ -305,7 +317,7 @@ function buildPackageDescription(packageRecord, outcomes, language, requiresRevi
   const names = outcomes.map((outcome) => localize(outcome.customerName, language, outcome.internalName)).filter(Boolean)
   return [
     localize(packageRecord.shortDescription, language, packageRecord.internalName),
-    names.length ? `${language === 'es' ? 'Incluye' : 'Includes'}: ${formatList(names, language)}.` : '',
+    names.length ? `${language === 'es' ? 'Alcance habitual' : 'Typical scope'}: ${formatList(names, language)}.` : '',
     requiresReview ? reviewText(language) : '',
   ].filter(Boolean).join(' ')
 }
@@ -350,6 +362,7 @@ function normaliseCustomer(customer) {
     area: text(customer?.area),
     email: text(customer?.email).toLowerCase(),
     name: text(customer?.name),
+    notes: text(customer?.notes).slice(0, 1000),
     phone: text(customer?.phone),
   }
 }
@@ -386,7 +399,7 @@ function proposalCopy(language) {
         grants: 'CasaMia may support documentation for applicable grants. Approval is determined solely by the relevant authority and is not guaranteed.',
         paymentTerms: 'Proposal generated from the selected packages, quantities and add-ons. Work and payments only start after acceptance and date coordination.',
         summary: (estimate) =>
-          `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Priced items are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
+          `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Priced package lines are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
         timeline: 'CasaMia will contact you to coordinate date, home access and installation.',
         timelineDuration: 'To be scheduled after acceptance',
       }

@@ -881,7 +881,7 @@ function ServiceSelectionStep({ recommendedServiceIds }: { recommendedServiceIds
               Recommended improvements
             </h2>
             <p className="mt-2 max-w-2xl text-base font-bold leading-relaxed text-text-mid">
-              Start with the suggested safety services. You can add, remove or keep items before requesting a quote.
+              Start with the suggested safety services. CasaMia will confirm the final package scope before quoting.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -985,7 +985,7 @@ function ServiceSelectionCard({
         </div>
         {service.includedItems && service.includedItems.length > 0 ? (
           <div className="border-t border-border pt-3">
-            <span className="text-xs font-black uppercase tracking-wide text-text-muted">Includes</span>
+            <span className="text-xs font-black uppercase tracking-wide text-text-muted">Typical scope</span>
             <p className="mt-1 text-sm font-bold leading-snug text-text-mid">
               {service.includedItems.slice(0, 3).join(' / ')}
             </p>

@@ -133,7 +133,7 @@ export function buildPlansBuilderGroups(
       return [{
         addOnPackages: customerCatalogue
           .filter(({ package: packageRecord }) =>
-            isVisiblePackage(packageRecord, publicOnly) && packageRecord.section !== 'home-safety-package',
+            isVisiblePackage(packageRecord, publicOnly) && isPlansAddOnPackage(packageRecord),
           )
           .map(({ package: packageRecord, outcomes }) => ({
             outcomes: outcomes.filter((outcome) => isVisibleOutcome(outcome, publicOnly)).sort(sortByOrder),
@@ -505,6 +505,10 @@ function isVisiblePackage(packageRecord: MasterCataloguePackage, publicOnly: boo
   return packageRecord.active && packageRecord.proposalVisible && (!publicOnly || packageRecord.websiteVisible)
 }
 
+function isPlansAddOnPackage(packageRecord: MasterCataloguePackage) {
+  return packageRecord.section === 'connected-room' || packageRecord.section === 'optional-adaptations'
+}
+
 function isVisibleOutcome(outcome: MasterCatalogueOutcome, publicOnly: boolean) {
   return outcome.active && outcome.proposalVisible && (!publicOnly || outcome.websiteVisible)
 }
@@ -544,7 +548,7 @@ function copyFor(language: string) {
     ? {
         and: 'y',
         from: 'Desde',
-        includes: 'Incluye',
+        includes: 'Alcance habitual',
         noSelection: 'Elige una estancia',
         reviewOnly: 'Presupuesto tras revisión',
         selected: 'Seleccionado',
@@ -552,7 +556,7 @@ function copyFor(language: string) {
     : {
         and: 'and',
         from: 'From',
-        includes: 'Includes',
+        includes: 'Typical scope',
         noSelection: 'Choose a room',
         reviewOnly: 'Quote after review',
         selected: 'Selected',

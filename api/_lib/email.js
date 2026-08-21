@@ -323,6 +323,7 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
   const totals = getProposalTotals(proposal, pricedItems)
   const proposalReference = text(proposal?.id)
   const termsUrl = buildUrlFromPublicUrl(publicUrl, '/general-customer-terms')
+  const customerNotes = getCustomerNotes(proposal)
   const greeting = isSpanish
     ? `Hola${firstName ? ` ${escapeHtml(firstName)}` : ''},`
     : `Hello${firstName ? ` ${escapeHtml(firstName)}` : ''},`
@@ -333,13 +334,15 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
         attached: 'PDF adjunto',
         attachedBody: 'Puedes revisar la propuesta sin volver a la web. El enlace online queda disponible para verla o pedir el paquete.',
         cta: 'Ver y pedir online',
+        customerNotesBody: 'CasaMia revisa estas notas antes de confirmar alcance final o cualquier abono.',
+        customerNotesTitle: 'Notas para revision CasaMia',
         summaryTitle: 'Resumen de la propuesta',
         totalLabel: 'Total estimado',
         depositLabel: 'Deposito estimado',
         balanceLabel: 'Resto estimado',
         includedTitle: 'Trabajos incluidos con precio',
         includedBody:
-          'Cada paquete con precio incluye seleccion de productos, instalacion profesional, entrega, soporte y mantenimiento coordinados por CasaMia.',
+          'Cada paquete con precio incluye seleccion de productos, instalacion profesional, entrega, soporte y mantenimiento coordinados por CasaMia. Letra pequena: los precios de paquete cubren un resultado coordinado, no una cesta itemizada. Tras revisar la vivienda, CasaMia puede ajustar o sustituir elementos incluidos; los abonos solo se aplican cuando el alcance reducido baja materialmente el coste de producto, instalacion o proveedor de CasaMia.',
         reviewTitle: 'Extras que requieren mas informacion',
         reviewBody: 'CasaMia confirmara medidas, idoneidad y precio antes de anadir cualquier extra, y no lo anadira sin tu aprobacion.',
         nextTitle: 'Que ocurre ahora',
@@ -358,13 +361,15 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
         attached: 'PDF attached',
         attachedBody: 'You can review the proposal without returning to the website. The online link remains available for viewing or ordering.',
         cta: 'View and order online',
+        customerNotesBody: 'CasaMia reviews these notes before confirming final scope or any credit.',
+        customerNotesTitle: 'Notes for CasaMia review',
         summaryTitle: 'Proposal summary',
         totalLabel: 'Total estimate',
         depositLabel: 'Estimated deposit',
         balanceLabel: 'Estimated balance',
         includedTitle: 'Priced works included',
         includedBody:
-          'Every priced package includes product selection, professional installation, handover, support and maintenance coordinated by CasaMia.',
+          'Every priced package line includes product selection, professional installation, handover, support and maintenance coordinated by CasaMia. Fine print: package prices cover a coordinated outcome, not an item-by-item basket. After the home review, CasaMia may adjust or substitute included items; credits apply only when reduced scope materially lowers CasaMia product, installation, or partner cost.',
         reviewTitle: 'Extras needing more information',
         reviewBody: 'CasaMia will confirm measurements, suitability and price before adding any extra, and will not add it without your approval.',
         nextTitle: 'What happens next',
@@ -420,6 +425,17 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
             </div>
           </td>
         </tr>
+        ${customerNotes ? `
+          <tr>
+            <td style="padding:0 34px 24px;">
+              <div style="border-radius:20px;background:#fbfdff;border:1px solid #c9e1ef;padding:20px;">
+                <p style="margin:0 0 10px;color:#238bc6;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;">${escapeHtml(copy.customerNotesTitle)}</p>
+                <p style="margin:0 0 10px;color:#142235;font-size:15px;line-height:1.55;font-weight:700;">${escapeHtml(customerNotes)}</p>
+                <p style="margin:0;color:#5c7080;font-size:14px;line-height:1.55;">${escapeHtml(copy.customerNotesBody)}</p>
+              </div>
+            </td>
+          </tr>
+        ` : ''}
         ${reviewItems.length ? `
           <tr>
             <td style="padding:0 34px 24px;">
@@ -455,6 +471,7 @@ function renderProposalEmailText({ isSpanish, proposal, publicUrl }) {
   const totals = getProposalTotals(proposal, pricedItems)
   const proposalReference = text(proposal?.id)
   const termsUrl = buildUrlFromPublicUrl(publicUrl, '/general-customer-terms')
+  const customerNotes = getCustomerNotes(proposal)
   const lines = (pricedItems.length ? pricedItems : lineItems)
     .slice(0, 12)
     .map((item) => `- ${item.quantity > 1 ? `${item.quantity}x ` : ''}${item.name}${item.price ? ` (${item.price})` : ''}`)
@@ -472,6 +489,7 @@ function renderProposalEmailText({ isSpanish, proposal, publicUrl }) {
       `Total estimado: ${formatEuro(totals.totalEstimate)}`,
       `Deposito estimado: ${formatEuro(totals.depositDue)}`,
       `Resto estimado: ${formatEuro(totals.balanceDue)}`,
+      customerNotes ? `Notas para revision CasaMia:\n${customerNotes}\nCasaMia revisa estas notas antes de confirmar alcance final o cualquier abono.` : '',
       lines ? `Trabajos incluidos con precio:\n${lines}` : '',
       reviewLines ? `Extras que requieren mas informacion:\n${reviewLines}` : '',
       reviewLines ? 'CasaMia confirmara medidas, idoneidad y precio antes de anadir cualquier extra, y no lo anadira sin tu aprobacion.' : '',
@@ -494,6 +512,7 @@ function renderProposalEmailText({ isSpanish, proposal, publicUrl }) {
     `Total estimate: ${formatEuro(totals.totalEstimate)}`,
     `Estimated deposit: ${formatEuro(totals.depositDue)}`,
     `Estimated balance: ${formatEuro(totals.balanceDue)}`,
+    customerNotes ? `Notes for CasaMia review:\n${customerNotes}\nCasaMia reviews these notes before confirming final scope or any credit.` : '',
     lines ? `Priced works included:\n${lines}` : '',
     reviewLines ? `Extras needing more information:\n${reviewLines}` : '',
     reviewLines ? 'CasaMia will confirm measurements, suitability and price before adding any extra, and will not add it without your approval.' : '',
@@ -553,7 +572,7 @@ function renderLineItemDescription(item, isSpanish) {
   return `
     ${summary ? `<p style="margin:8px 0 0;color:#4d6072;font-size:14px;line-height:1.45;">${escapeHtml(summary)}</p>` : ''}
     ${included.length ? `
-      <p style="margin:12px 0 6px;color:#238bc6;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;">${escapeHtml(isSpanish ? 'Incluye' : 'Includes')}</p>
+      <p style="margin:12px 0 6px;color:#238bc6;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;">${escapeHtml(isSpanish ? 'Alcance habitual' : 'Typical scope')}</p>
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
         ${chunk(included, 2).map((row) => `
           <tr>
@@ -575,7 +594,7 @@ function splitPackageDescription(description, isSpanish) {
   const value = text(description)
   if (!value) return { included: [], summary: '' }
 
-  const marker = isSpanish ? /Incluye:?\s*/i : /Includes:?\s*/i
+  const marker = isSpanish ? /(?:Alcance habitual|Incluye):?\s*/i : /(?:Typical scope|Includes):?\s*/i
   const match = value.match(marker)
 
   if (!match || typeof match.index !== 'number') {
@@ -660,6 +679,13 @@ function getReviewItems(proposal, lineItems = getLineItems(proposal)) {
   })
 
   return Array.from(byName.values())
+}
+
+function getCustomerNotes(proposal) {
+  const notes = text(proposal?.notes ?? proposal?.plans_builder?.customer_notes ?? proposal?.plansBuilder?.customerNotes)
+  const summary = text(proposal?.executive_summary ?? proposal?.executiveSummary)
+
+  return notes && notes !== summary ? notes : ''
 }
 
 function getProposalTotals(proposal, pricedItems = []) {

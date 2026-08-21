@@ -66,11 +66,13 @@ export type ProposalData = {
   lineItems: ProposalLineItem[]
   overallRiskLevel: ProposalRiskLevel
   plansBuilder?: {
+    customerNotes?: string
     deliveryPreference?: 'email' | 'whatsapp'
     reviewItems?: string[]
     selectedPackageCount?: number
     selectedRoomQuantity?: number
   }
+  notes: string
   paymentTerms: string
   phone: string
   preparedBy: string

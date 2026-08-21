@@ -28,6 +28,20 @@ type WhyCasamiaCopy = {
   eyebrow: string
   headline: string
   intro: string
+  heroImageAlt: string
+  heroHighlights: string[]
+  humanEyebrow: string
+  humanTitle: string
+  humanBody: string
+  humanMoments: Array<{
+    title: string
+    body: string
+  }>
+  humanPhotoAlts: {
+    assessment: string
+    guidance: string
+    provider: string
+  }
   coverage: SpainCoverageCopy & {
     eyebrow: string
     body: string
@@ -68,9 +82,34 @@ type WhyCasamiaCopy = {
 const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   en: {
     eyebrow: 'Why CasaMia',
-    headline: 'One turnkey service for a safer home, without the coordination headache',
+    headline: 'Real help to make home safer.',
     intro:
-      'CasaMia brings home-safety expertise, trusted local providers and clear coordination into one managed service for families who want practical help without guesswork.',
+      'CasaMia brings home-safety assessment, practical recommendations, trusted local providers and human follow-up into one managed service for families.',
+    heroImageAlt: 'CasaMia provider discussing a practical kitchen adaptation with an older homeowner',
+    heroHighlights: ['Routine first', 'Measured scope', 'Clear follow-up'],
+    humanEyebrow: 'The work, not just the plan',
+    humanTitle: 'We meet the home before the fix.',
+    humanBody:
+      'A safer home is built through small observations: how someone reaches the sink, where they pause, which route feels awkward at night and what the family needs to understand.',
+    humanMoments: [
+      {
+        title: 'Listen first',
+        body: 'We start with the person’s routine, not a product list.',
+      },
+      {
+        title: 'Check the details',
+        body: 'Measurements, access, light, grip and daily movement are reviewed on site or from clear photos.',
+      },
+      {
+        title: 'Coordinate calmly',
+        body: 'CasaMia keeps families, providers and follow-up in one managed process.',
+      },
+    ],
+    humanPhotoAlts: {
+      assessment: 'CasaMia assessor checking home details on a tablet',
+      guidance: 'Advisor explaining a home-safety plan to an older couple',
+      provider: 'CasaMia provider preparing home-adaptation work',
+    },
     coverage: {
       eyebrow: 'Spain-wide service',
       title: 'Local coverage across Spain, connected by CasaMia.',
@@ -83,16 +122,16 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       repPlural: 'representatives',
       orderNow: 'Order now',
     },
-    promiseTitle: 'A technology company with a service mindset.',
+    promiseTitle: 'Human judgement, supported by technology.',
     promiseBody:
-      'MOKA built CasaMia to make home adaptation less fragmented. Instead of sending families to guess between products, grants and installers, CasaMia brings assessment, recommendations, quotation, provider coordination and follow-up into one managed workflow.',
+      'MOKA built CasaMia to make home adaptation less fragmented. Digital tools keep the information clear, but the work stays practical and personal: understand the home, explain the choices, coordinate the right provider and check the result.',
     promisePoints: [
-      'Senior-market focus: practical safety, independence and family confidence.',
-      'Transparent recommendations: what matters, why it matters and what it may cost.',
-      'Managed delivery: vetted providers, clear handover and quality checks.',
+      'We focus on the person’s routine before recommending products.',
+      'Families see what matters, what can wait and what needs measuring.',
+      'Local providers work to a CasaMia brief, with follow-up after the visit.',
     ],
-    processEyebrow: 'Operating model',
-    processTitle: 'A managed service, not a directory of installers',
+    processEyebrow: 'How it works',
+    processTitle: 'What families actually experience',
     processSteps: [
       {
         title: 'Understand the home',
@@ -103,7 +142,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         body: 'CasaMia turns the information into practical priorities, service options and a clear scope before commitment.',
       },
       {
-        title: 'Vett and coordinate',
+        title: 'Coordinate the right help',
         body: 'Local providers are matched to the job, briefed on the standard and coordinated through the CasaMia process.',
       },
       {
@@ -195,9 +234,34 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   },
   es: {
     eyebrow: 'Por qué CasaMia',
-    headline: 'Una solución llave en mano para adaptar la vivienda sin dolores de cabeza',
+    headline: 'Ayuda real para hacer la vivienda más segura.',
     intro:
-      'CasaMia une experiencia en seguridad del hogar, profesionales locales de confianza y coordinación clara para familias que quieren ayuda práctica sin improvisar.',
+      'CasaMia combina evaluación del hogar, recomendaciones prácticas, profesionales locales de confianza y seguimiento humano en un servicio gestionado para familias.',
+    heroImageAlt: 'Profesional de CasaMia revisando una adaptación práctica de cocina con una persona mayor',
+    heroHighlights: ['Primero la rutina', 'Alcance medido', 'Seguimiento claro'],
+    humanEyebrow: 'El trabajo real, no solo el plan',
+    humanTitle: 'Vemos la vivienda antes de proponer.',
+    humanBody:
+      'Una vivienda más segura se construye observando pequeños detalles: cómo se alcanza el fregadero, dónde se detiene la persona, qué ruta resulta incómoda de noche y qué necesita entender la familia.',
+    humanMoments: [
+      {
+        title: 'Escuchar primero',
+        body: 'Empezamos por la rutina de la persona, no por una lista de productos.',
+      },
+      {
+        title: 'Comprobar los detalles',
+        body: 'Medidas, acceso, luz, agarre y movimientos diarios se revisan en casa o con fotos claras.',
+      },
+      {
+        title: 'Coordinar sin ruido',
+        body: 'CasaMia mantiene familia, profesionales y seguimiento dentro de un proceso gestionado.',
+      },
+    ],
+    humanPhotoAlts: {
+      assessment: 'Asesora de CasaMia comprobando detalles de la vivienda en una tablet',
+      guidance: 'Asesora explicando un plan de seguridad en el hogar a una pareja mayor',
+      provider: 'Profesional CasaMia preparando un trabajo de adaptación en vivienda',
+    },
     coverage: {
       eyebrow: 'Servicio en toda España',
       title: 'Cobertura local en toda España, conectada por CasaMia.',
@@ -210,16 +274,16 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       repPlural: 'representantes',
       orderNow: 'Pedir ahora',
     },
-    promiseTitle: 'Una empresa tecnológica con mentalidad de servicio.',
+    promiseTitle: 'Criterio humano, apoyado por tecnología.',
     promiseBody:
-      'MOKA creó CasaMia para que adaptar una vivienda no sea un proceso fragmentado. En lugar de dejar a la familia elegir a ciegas entre productos, ayudas e instaladores, CasaMia reúne evaluación, recomendaciones, presupuesto, coordinación y seguimiento en un flujo gestionado.',
+      'MOKA creó CasaMia para que adaptar una vivienda no sea un proceso fragmentado. Las herramientas digitales mantienen la información clara, pero el trabajo sigue siendo práctico y personal: entender la casa, explicar opciones, coordinar al profesional adecuado y comprobar el resultado.',
     promisePoints: [
-      'Foco senior: seguridad práctica, independencia y tranquilidad familiar.',
-      'Recomendaciones transparentes: qué importa, por qué importa y cuánto puede costar.',
-      'Entrega gestionada: proveedores validados, traspaso claro y control de calidad.',
+      'Nos centramos en la rutina de la persona antes de recomendar productos.',
+      'La familia ve qué importa, qué puede esperar y qué requiere medición.',
+      'Los profesionales locales trabajan con un brief CasaMia y seguimiento posterior.',
     ],
-    processEyebrow: 'Modelo operativo',
-    processTitle: 'Un servicio gestionado, no un directorio de instaladores',
+    processEyebrow: 'Cómo funciona',
+    processTitle: 'Lo que vive realmente la familia',
     processSteps: [
       {
         title: 'Entender la vivienda',
@@ -230,7 +294,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         body: 'CasaMia convierte la información en prioridades prácticas, servicios recomendados y alcance claro antes del compromiso.',
       },
       {
-        title: 'Validar y coordinar',
+        title: 'Coordinar la ayuda adecuada',
         body: 'Asignamos profesionales locales adecuados, les damos instrucciones claras y coordinamos el proceso CasaMia.',
       },
       {
@@ -419,11 +483,16 @@ export function WhyCasamiaPage() {
           <aside className="why-hero-human" aria-label={isSpanish ? 'Acompañamiento CasaMia' : 'CasaMia guidance'}>
             <figure className="why-human-card">
               <img
-                alt={isSpanish ? 'Asesora mostrando una propuesta de seguridad a personas mayores' : 'Advisor showing a home-safety plan to older adults'}
+                alt={copy.heroImageAlt}
                 className="why-human-image"
                 loading="eager"
-                src="/images/why-us/casamia-guidance-session.jpg"
+                src="/images/solutions/casamia-staff-kitchen-consultation.webp"
               />
+              <figcaption className="why-hero-highlights" aria-label={isSpanish ? 'Puntos del servicio CasaMia' : 'CasaMia service highlights'}>
+                {copy.heroHighlights.map((highlight) => (
+                  <span key={highlight}>{highlight}</span>
+                ))}
+              </figcaption>
             </figure>
           </aside>
         </div>
@@ -432,6 +501,54 @@ export function WhyCasamiaPage() {
       <TrustBar />
 
       <TrustSection />
+
+      <section className="why-human-section section-pad">
+        <div className="why-human-story-grid site-shell">
+          <div className="why-human-story-copy">
+            <p className="eyebrow">{copy.humanEyebrow}</p>
+            <h2>{copy.humanTitle}</h2>
+            <p>{copy.humanBody}</p>
+            <div className="why-human-moments">
+              {copy.humanMoments.map((moment, index) => (
+                <article className="why-human-moment" key={moment.title}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h3>{moment.title}</h3>
+                    <p>{moment.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="why-human-mosaic" aria-label={isSpanish ? 'Equipo CasaMia en acción' : 'CasaMia team in action'}>
+            <figure className="why-human-mosaic-main">
+              <img
+                alt={copy.humanPhotoAlts.assessment}
+                loading="lazy"
+                src="/images/assessment/casamia-inspector-tablet.jpg"
+              />
+              <figcaption>{copy.humanMoments[1]?.title}</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt={copy.humanPhotoAlts.guidance}
+                loading="lazy"
+                src="/images/why-us/casamia-guidance-session.jpg"
+              />
+              <figcaption>{copy.humanMoments[0]?.title}</figcaption>
+            </figure>
+            <figure>
+              <img
+                alt={copy.humanPhotoAlts.provider}
+                loading="lazy"
+                src="/images/solutions/casamia-worker-process.webp"
+              />
+              <figcaption>{copy.humanMoments[2]?.title}</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
 
       <section className="section-pad bg-white">
         <div className="about-coverage-grid site-shell">

@@ -713,22 +713,29 @@ function HeroIntegrationVisual({ copy }: { copy: (typeof techCopy)[LanguageKey][
     <div className="cm-tech-hero-card" role="img" aria-label={copy.visualSummary}>
       <div className="cm-tech-hero-card-heading">
         <span><Network size={18} aria-hidden="true" />{copy.visualEyebrow}</span>
-        <strong>{copy.visualTitle}</strong>
+        <div className="cm-tech-hero-signal-dots" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
       </div>
 
       <div className="cm-tech-hero-experience">
         <div className="cm-tech-home-panel">
           <span className="cm-tech-panel-label"><House size={17} aria-hidden="true" />{copy.homeLabel}</span>
-          <div className="cm-tech-status-orb">
-            <Activity size={34} aria-hidden="true" />
-            <strong>{copy.statusLabel}</strong>
-            <small>{copy.signalLabel}</small>
+          <div className="cm-tech-room-silhouette" aria-hidden="true">
+            <span className="cm-tech-room-wall" />
+            <span className="cm-tech-room-bed" />
+            <span className="cm-tech-room-table" />
+            <span className="cm-tech-room-device is-vitals"><HeartPulse size={20} /></span>
+            <span className="cm-tech-room-device is-safety"><ShieldCheck size={20} /></span>
+            <span className="cm-tech-room-device is-routine"><Activity size={20} /></span>
           </div>
           <div className="cm-tech-source-chips">
           {copy.sources.map((source, index) => (
-            <span key={source}>
+            <span key={source} aria-label={source}>
               {index === 0 ? <HeartPulse size={18} aria-hidden="true" /> : index === 1 ? <ShieldCheck size={18} aria-hidden="true" /> : <Activity size={18} aria-hidden="true" />}
-              {source}
+              <span className="sr-only">{source}</span>
             </span>
           ))}
           </div>
@@ -737,17 +744,18 @@ function HeroIntegrationVisual({ copy }: { copy: (typeof techCopy)[LanguageKey][
         <div className="cm-tech-connect-panel">
           <span><Link2 size={24} aria-hidden="true" /></span>
           <strong>{copy.hub}</strong>
-          <small>{copy.routeLabel}</small>
         </div>
 
         <div className="cm-tech-updates-panel">
           <span className="cm-tech-panel-label"><UsersRound size={17} aria-hidden="true" />{copy.updatesLabel}</span>
-          {copy.destinations.map((destination, index) => (
-            <span key={destination}>
-              {index === 0 ? <MonitorSmartphone size={18} aria-hidden="true" /> : <Database size={18} aria-hidden="true" />}
-              {destination}
-            </span>
-          ))}
+          <div className="cm-tech-update-stack">
+            {copy.destinations.map((destination, index) => (
+              <span key={destination}>
+                {index === 0 ? <MonitorSmartphone size={21} aria-hidden="true" /> : <Database size={21} aria-hidden="true" />}
+                {destination}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
