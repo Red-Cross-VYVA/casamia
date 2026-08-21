@@ -39,6 +39,7 @@ const grantSupportCopy = {
     seoDescription:
       'CasaMia helps families in Spain review possible home adaptation grants, prepare documents and connect grant readiness with a practical home safety plan.',
     seoPath: '/grants',
+    homeLabel: 'Home',
     menuLabel: 'Menu',
     phoneLabel: 'Call',
     whatsappLabel: 'WhatsApp',
@@ -202,6 +203,7 @@ const grantSupportCopy = {
     seoDescription:
       'En toda España existen subvenciones y programas públicos para ayudar a personas mayores, con discapacidad, dependencia o movilidad reducida a adaptar su vivienda. CasaMia identifica la ayuda adecuada y coordina todo el proceso.',
     seoPath: '/es/grants',
+    homeLabel: 'Inicio',
     menuLabel: 'Menú',
     phoneLabel: 'Llamar',
     whatsappLabel: 'WhatsApp',
@@ -409,7 +411,7 @@ export function GrantSupportSpainPage() {
       />
       <div className="grant-spain-page">
         <header className="grant-spain-subnav">
-          <a className="grant-spain-logo" href="#top">CasaMia</a>
+          <Link className="grant-spain-logo" to="/">CasaMia</Link>
           <button
             className="grant-spain-menu"
             type="button"
@@ -421,6 +423,7 @@ export function GrantSupportSpainPage() {
             {copy.menuLabel}
           </button>
           <nav id="grant-spain-links" className={menuOpen ? 'is-open' : ''}>
+            <Link to="/">{copy.homeLabel}</Link>
             {copy.navItems.map((item) => (
               <a key={item.id} href={`#${item.id}`}>
                 {item.label}
