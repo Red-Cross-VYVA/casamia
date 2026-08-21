@@ -50,6 +50,7 @@ for (const route of [
 assert.match(robots, /^User-agent:\s*\*/m, 'Robots policy must apply to all crawlers.')
 assert.match(robots, /^Allow:\s*\/$/m, 'Robots policy must allow public pages to be crawled.')
 assert.match(robots, /^Disallow:\s*\/internal\/$/m, 'Robots policy must keep internal tools out of search.')
+assert.match(robots, /^Disallow:\s*\/partner\/$/m, 'Robots policy must keep partner tools out of search.')
 assert.match(robots, /^Disallow:\s*\/estimate\/$/m, 'Robots policy must keep private estimates out of search.')
 assert.match(robots, /^Disallow:\s*\/proposal\/$/m, 'Robots policy must keep proposal pages out of search.')
 assert.match(

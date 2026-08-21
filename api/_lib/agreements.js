@@ -63,6 +63,13 @@ export function listAgreementRecords() {
   )
 }
 
+export function listAgreementRecordsForPartner(partnerEmail) {
+  return selectSupabaseRows(
+    'agreement_assignments',
+    `partner_email=eq.${encodeURIComponent(normalizeEmail(partnerEmail))}&select=${agreementSelection}&order=updated_at.desc&limit=200`,
+  )
+}
+
 export async function getAgreementRecordById(assignmentId) {
   const result = await selectSupabaseRows(
     'agreement_assignments',
@@ -400,4 +407,8 @@ function isEmail(value) {
 
 function text(value, fallback = '') {
   return typeof value === 'string' && value.trim() ? value.trim() : fallback
+}
+
+function normalizeEmail(value) {
+  return typeof value === 'string' ? value.trim().toLowerCase() : ''
 }

@@ -6,7 +6,13 @@ import {
   type LegalDocumentId,
   type LegalReviewStatus,
 } from '../constants/legalDocuments.ts'
-import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
+import {
+  getInternalAuthHeaders,
+  getPartnerAuthHeaders,
+  getPartnerEmail,
+  hasInternalBackendSession,
+  hasPartnerBackendSession,
+} from './internalAuth.ts'
 import { getPublicSiteApiBaseUrl, hasPublicSiteApi } from './publicSiteApi.ts'
 
 export type AgreementLocale = 'es' | 'en'
@@ -139,6 +145,7 @@ export type ManagedLegalDocumentRecord = {
 
 const agreementStorageKey = 'casamia_internal_agreements_v1'
 const internalAgreementsPath = '/api/internal/agreements'
+const partnerAgreementsPath = '/api/partner/agreements'
 const publicAgreementsPath = '/api/public/agreements'
 const publicAgreementRoute = '/agreement'
 
@@ -752,6 +759,38 @@ export async function loadAgreementAssignmentsWithFallback() {
   }
 }
 
+export async function loadPartnerAgreementAssignmentsWithFallback() {
+  const partnerEmail = normalizeEmail(getPartnerEmail())
+
+  if (!hasPublicSiteApi() || !hasPartnerBackendSession()) {
+    return {
+      assignments: loadAgreementAssignments().filter((assignment) =>
+        normalizeEmail(assignment.partnerEmail) === partnerEmail,
+      ),
+      partnerEmail,
+      source: 'local' as const,
+    }
+  }
+
+  try {
+    const response = await requestPartner<{ assignments: AgreementAssignment[]; partnerEmail: string }>(partnerAgreementsPath)
+    return {
+      assignments: response.assignments,
+      partnerEmail: response.partnerEmail,
+      source: 'backend' as const,
+    }
+  } catch (error) {
+    return {
+      assignments: loadAgreementAssignments().filter((assignment) =>
+        normalizeEmail(assignment.partnerEmail) === partnerEmail,
+      ),
+      error: error instanceof Error ? error.message : 'Partner agreements could not be loaded.',
+      partnerEmail,
+      source: 'local' as const,
+    }
+  }
+}
+
 export async function createAgreementAssignmentWithFallback(input: CreateAgreementAssignmentInput) {
   if (!hasPublicSiteApi() || !hasInternalBackendSession()) {
     const assignment = createAgreementAssignment(input)
@@ -1188,6 +1227,28 @@ async function requestInternal<T>(path: string, init: RequestInit = {}) {
   return response.json() as Promise<T>
 }
 
+async function requestPartner<T>(path: string, init: RequestInit = {}) {
+  const response = await fetch(`${getPublicSiteApiBaseUrl()}${path}`, {
+    ...init,
+    headers: {
+      ...getPartnerAuthHeaders(),
+      ...(init.headers ?? {}),
+    },
+  })
+
+  if (!response.ok) {
+    try {
+      const body = (await response.json()) as { message?: string }
+      throw new Error(body.message ?? `Partner agreement API returned ${response.status}.`)
+    } catch (error) {
+      if (error instanceof Error) throw error
+      throw new Error(`Partner agreement API returned ${response.status}.`)
+    }
+  }
+
+  return response.json() as Promise<T>
+}
+
 function downloadBlob(blob: Blob, fileName: string) {
   if (typeof window === 'undefined') return
 
@@ -1203,6 +1264,10 @@ function formatDate(value: string, locale: AgreementLocale = 'es') {
   if (!value) return ''
   const dateLocale = locale === 'en' ? 'en-GB' : 'es-ES'
   return new Intl.DateTimeFormat(dateLocale, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value))
+}
+
+function normalizeEmail(value: string | undefined) {
+  return typeof value === 'string' ? value.trim().toLowerCase() : ''
 }
 
 function getAgreementExportLabels(locale: AgreementLocale) {

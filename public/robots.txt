@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /internal/
+Disallow: /partner/
 Disallow: /estimate/
 Disallow: /proposal/
 

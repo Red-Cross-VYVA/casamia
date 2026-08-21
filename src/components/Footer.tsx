@@ -35,6 +35,8 @@ const footerLinkCopy = {
     decisionGuides: 'Decision support',
     assessmentOrContractor: 'Home safety assessment',
     connectedOrMonitoring: 'Connected safety or monitoring',
+    adminLogin: 'Admin login',
+    partnerLogin: 'Partner login',
     preferences: 'Cookie preferences',
   },
   es: {
@@ -60,6 +62,8 @@ const footerLinkCopy = {
     decisionGuides: 'Apoyo para decidir',
     assessmentOrContractor: 'Evaluación de seguridad',
     connectedOrMonitoring: 'Seguridad conectada o monitorización',
+    adminLogin: 'Acceso admin',
+    partnerLogin: 'Acceso colaborador',
     preferences: 'Preferencias de cookies',
   },
 } as const
@@ -179,6 +183,12 @@ export function Footer() {
         <div className="site-shell flex flex-col items-start justify-between gap-5 py-6 md:flex-row md:items-center">
           <p className="text-sm text-white/60">{t('footer.copyright')}</p>
           <div className="flex flex-wrap items-center gap-3">
+            <Link className="text-sm font-extrabold text-white/60 transition hover:text-green" to={localizeTo('/internal')}>
+              {links.adminLogin}
+            </Link>
+            <Link className="text-sm font-extrabold text-white/60 transition hover:text-green" to={localizeTo('/partner')}>
+              {links.partnerLogin}
+            </Link>
             <button
               className="footer-cookie-button"
               type="button"

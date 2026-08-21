@@ -5,7 +5,7 @@ import { LocalizedLink as Link } from './LocalizedLink'
 
 import { trackEvent } from '../utils/analytics'
 
-const hiddenRoutes = ['/internal']
+const hiddenRoutes = ['/internal', '/partner']
 
 export function StickyMobileCTA() {
   const { i18n, t } = useTranslation()

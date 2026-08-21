@@ -43,7 +43,7 @@ export function requireInternalApiKey(request, response) {
   const authorization = getRequestHeader(request, 'authorization')
   const bearerToken = authorization?.startsWith('Bearer ') ? authorization.slice('Bearer '.length) : ''
 
-  if (suppliedApiKey !== expectedApiKey && !verifyInternalSessionToken(bearerToken)) {
+  if (suppliedApiKey !== expectedApiKey && !verifySessionTokenForRole(bearerToken, 'internal')) {
     sendJson(response, 401, { message: 'Unauthorized.' })
     return false
   }
@@ -52,17 +52,60 @@ export function requireInternalApiKey(request, response) {
 }
 
 export function createInternalSessionToken() {
+  return createSessionToken({ role: 'internal' })
+}
+
+export function createPartnerSessionToken(partnerEmail) {
+  return createSessionToken({
+    partnerEmail: normalizeEmail(partnerEmail),
+    role: 'partner',
+  })
+}
+
+export function requirePartnerApiKey(request, response) {
+  if (!getInternalSessionSecret()) {
+    sendJson(response, 500, {
+      message: 'Partner sessions are not configured. Add CASAMIA_INTERNAL_SESSION_SECRET in Vercel.',
+    })
+    return null
+  }
+
+  const session = getVerifiedSessionFromRequest(request)
+
+  if (!session || session.role !== 'partner' || !session.partnerEmail) {
+    sendJson(response, 401, { message: 'Unauthorized.' })
+    return null
+  }
+
+  return session
+}
+
+export function verifyPartnerPassword(password) {
+  const expectedPassword = process.env.CASAMIA_PARTNER_PASSWORD || process.env.CASAMIA_PROVIDER_PASSWORD
+
+  if (!expectedPassword || typeof password !== 'string') {
+    return false
+  }
+
+  return safeEqual(password, expectedPassword)
+}
+
+function createSessionToken(sessionPayload) {
   const secret = getInternalSessionSecret()
+  const expiresAt = Date.now() + internalSessionDurationMs
   const payload = Buffer.from(
     JSON.stringify({
-      exp: Date.now() + internalSessionDurationMs,
+      ...sessionPayload,
+      exp: expiresAt,
       nonce: crypto.randomBytes(12).toString('hex'),
     }),
   ).toString('base64url')
   const signature = signInternalSessionPayload(payload, secret)
 
   return {
-    expiresAt: new Date(Date.now() + internalSessionDurationMs).toISOString(),
+    expiresAt: new Date(expiresAt).toISOString(),
+    partnerEmail: sessionPayload.partnerEmail,
+    role: sessionPayload.role,
     token: `${payload}.${signature}`,
   }
 }
@@ -77,28 +120,52 @@ export function verifyInternalPassword(password) {
   return safeEqual(password, expectedPassword)
 }
 
-function verifyInternalSessionToken(token) {
+function getVerifiedSessionFromRequest(request) {
+  const authorization = getRequestHeader(request, 'authorization')
+  const bearerToken = authorization?.startsWith('Bearer ') ? authorization.slice('Bearer '.length) : ''
+
+  return verifySessionToken(bearerToken)
+}
+
+function verifySessionTokenForRole(token, role) {
+  const session = verifySessionToken(token)
+
+  return Boolean(session && session.role === role)
+}
+
+function verifySessionToken(token) {
   if (!token) {
-    return false
+    return null
   }
 
   const [payload, signature] = token.split('.')
 
   if (!payload || !signature) {
-    return false
+    return null
   }
 
   const expectedSignature = signInternalSessionPayload(payload, getInternalSessionSecret())
 
   if (!safeEqual(signature, expectedSignature)) {
-    return false
+    return null
   }
 
   try {
     const parsed = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'))
-    return typeof parsed.exp === 'number' && parsed.exp > Date.now()
+    const role = parsed.role === 'partner' ? 'partner' : parsed.role === 'internal' ? 'internal' : ''
+    const partnerEmail = normalizeEmail(parsed.partnerEmail)
+
+    if (!role || typeof parsed.exp !== 'number' || parsed.exp <= Date.now()) {
+      return null
+    }
+
+    return {
+      expiresAt: new Date(parsed.exp).toISOString(),
+      partnerEmail,
+      role,
+    }
   } catch {
-    return false
+    return null
   }
 }
 
@@ -125,6 +192,10 @@ function getRequestHeader(request, name) {
   }
 
   return request.headers?.get?.(name)
+}
+
+function normalizeEmail(value) {
+  return typeof value === 'string' ? value.trim().toLowerCase() : ''
 }
 
 export function readJsonBody(request) {

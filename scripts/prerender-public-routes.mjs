@@ -42,7 +42,7 @@ console.log('removed temporary SSR bundle')
 function extractSitemapRoutes(xml) {
   const routes = [...xml.matchAll(/<loc>(https:\/\/(?:www\.)?casamia\.com\.es[^<]*)<\/loc>/g)]
     .map((match) => new URL(match[1]).pathname)
-    .filter((pathname) => !pathname.startsWith('/internal') && !pathname.startsWith('/estimate/') && !pathname.startsWith('/proposal/'))
+    .filter((pathname) => !pathname.startsWith('/internal') && !pathname.startsWith('/partner') && !pathname.startsWith('/estimate/') && !pathname.startsWith('/proposal/'))
 
   return [...new Set(routes)]
 }
