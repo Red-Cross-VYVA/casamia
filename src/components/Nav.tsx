@@ -197,8 +197,8 @@ export function Nav() {
           to: '/blog/bedroom-night-safety-older-adults',
         },
         {
-          label: isSpanish ? 'Ayudas y documentación' : 'Grants and paperwork',
-          to: '/blog/home-adaptation-grants-spain-family-guide',
+          label: isSpanish ? 'Ayudas y trámites' : 'Grants guidance',
+          to: '/grants',
         },
       ],
     },
