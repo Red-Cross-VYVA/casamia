@@ -120,6 +120,7 @@ type PlansCopy = {
   orderReceivedTitle: string
   ordering: string
   optionalTitle: string
+  optionalAddOnsLabel: string
   optionalAddOnsIntro: string
   packageDetails: string
   phone: string
@@ -481,6 +482,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     orderReceivedTitle: 'Order received',
     ordering: 'Confirming...',
     optionalTitle: 'Connected',
+    optionalAddOnsLabel: 'Optional add-ons',
     optionalAddOnsIntro: 'Some add-ons need extra information before CasaMia can quote them.',
     packageDetails: 'Package details',
     phone: 'Phone',
@@ -621,6 +623,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     orderReceivedTitle: 'Pedido recibido',
     ordering: 'Confirmando...',
     optionalTitle: 'Conectado',
+    optionalAddOnsLabel: 'Extras opcionales',
     optionalAddOnsIntro: 'Algunos extras necesitan información adicional antes de que CasaMia pueda presupuestarlos.',
     packageDetails: 'Detalles del paquete',
     phone: 'Teléfono',
@@ -726,6 +729,13 @@ const roomPlannerVisuals: Record<string, string> = {
   'living-room': '/images/solutions/portrait-senior-couple-dancing-together.webp',
 }
 
+const starterPackVisuals: Record<string, string> = {
+  'bathroom-essentials-pack': '/images/service-card-products/anti-slip-bath-mat.png',
+  'core-rails-pack': '/images/service-gallery/01-grab-bars-and-support-points.jpg',
+  'entrance-basics-pack': '/images/service-card-products/entrance-safer-access.png',
+  'night-movement-pack': '/images/service-card-products/underbed-lighting.webp',
+}
+
 type RoomPlannerSupportId = 'lighting' | 'smart-safety' | 'outdoor' | 'other'
 
 type RoomPlannerSupportChip = {
@@ -751,21 +761,14 @@ function getRoomPlannerSupportChipConfig(language: 'en' | 'es'): Array<Omit<Room
       ]
 }
 
-function getRoomPlannerComposition(group: PlansBuilderGroup, language: 'en' | 'es') {
-  const includedCount = group.homeOutcomes.length
-  const addOnCount = group.addOnPackages.reduce((count, addOnPackage) =>
-    count + (addOnPackage.packageRecord.section === 'optional-adaptations' ? addOnPackage.outcomes.length : 1),
-  0)
-
-  const includedLabel = language === 'es'
-    ? `${includedCount} resultados`
-    : `${includedCount} outcomes`
-  const extrasLabel = `${addOnCount} extras`
-
+function getRoomPlannerComposition(group: PlansBuilderGroup, copy: PlansCopy) {
+  const hasAddOns = group.addOnPackages.length > 0
+  const extrasLabel = copy.optionalAddOnsLabel
+  const includedLabel = copy.coreIncluded
   return {
     extrasLabel,
     includedLabel,
-    summary: `${includedLabel} + ${extrasLabel}`,
+    summary: hasAddOns ? `${includedLabel} + ${extrasLabel}` : includedLabel,
   }
 }
 
@@ -1288,9 +1291,6 @@ export function PlansPage() {
   const selectedGroups = groups.filter((group) => selection[group.homePackage.id]?.selected)
   const selectedStarterPacks = starterPacks.filter((starterPack) => selection[starterPack.packageRecord.id]?.selected)
   const selectedGroupIds = new Set(selectedGroups.map((group) => group.homePackage.id))
-  const starterPackPlannerCount = language === 'es'
-    ? `${starterPacks.length} ${starterPacks.length === 1 ? 'opción' : 'opciones'}`
-    : `${starterPacks.length} ${starterPacks.length === 1 ? 'option' : 'options'}`
   const roomPlannerSupportChips = useMemo<RoomPlannerSupportChip[]>(() =>
     getRoomPlannerSupportChipConfig(language)
       .map((chip) => {
@@ -1548,10 +1548,6 @@ export function PlansPage() {
   })
   const selectedPlanDetails = [...selectedStarterPlanDetails, ...selectedRoomPlanDetails]
   const selectedAddOnCount = selectedPlanDetails.reduce((sum, detail) => sum + detail.addOns.length, 0)
-  const selectedIncludedCount = selectedPlanDetails.reduce(
-    (sum, detail) => sum + detail.included.length + detail.includedMore,
-    0,
-  )
   const summaryScopeCopy = language === 'es'
     ? {
         addOns: 'Extras',
@@ -1560,7 +1556,7 @@ export function PlansPage() {
         estimateNote: 'IVA incluido. Los extras que necesitan informaci\u00f3n adicional no se suman hasta que CasaMia confirme alcance, precio y aprobaci\u00f3n contigo. Letra peque\u00f1a: los precios de paquete cubren un resultado coordinado, no una cesta itemizada; los abonos solo se aplican cuando el alcance reducido baja materialmente el coste de CasaMia.',
         extrasReviewBody: 'Tu paquete base puede avanzar ahora. CasaMia revisar\u00e1 estos extras contigo y confirmar\u00e1 medidas, idoneidad y precio antes de a\u00f1adirlos.',
         extrasReviewTitle: 'Extras que CasaMia confirmar\u00e1 contigo',
-        includedItems: 'resultados base',
+        includedItems: 'Alcance base',
         packageEstimate: 'Estimación del paquete',
         packages: 'Paquetes',
         readyLead: 'Tu enlace de propuesta está listo. Revisa el alcance elegido antes de abrirlo o compartirlo.',
@@ -1574,7 +1570,7 @@ export function PlansPage() {
         estimateNote: 'VAT included. Extras that need more information are not added until CasaMia confirms scope, price and approval with you. Fine print: package prices cover a coordinated outcome, not an item-by-item basket; credits apply only when reduced scope materially lowers CasaMia cost.',
         extrasReviewBody: 'Your core package can move forward now. CasaMia will review these extras with you and confirm measurements, suitability and price before adding them.',
         extrasReviewTitle: 'Extras CasaMia will confirm with you',
-        includedItems: 'core outcomes',
+        includedItems: 'Core scope',
         packageEstimate: 'Package estimate',
         packages: 'Packages',
         readyLead: 'Your proposal link is ready. Review the selected scope before opening or sharing it.',
@@ -2507,7 +2503,7 @@ export function PlansPage() {
                     {groups.map((group) => {
                       const plannerVisual = roomPlannerVisuals[group.room.id] ?? roomVisuals[group.room.id]
                       const selected = selection[group.homePackage.id]?.selected ?? false
-                      const composition = getRoomPlannerComposition(group, language)
+                      const composition = getRoomPlannerComposition(group, copy)
 
                       return (
                         <button
@@ -2535,7 +2531,7 @@ export function PlansPage() {
                     })}
                     {starterPacks.length ? (
                       <button
-                        aria-label={`${copy.starterPacks.plannerLabel}. ${starterPackPlannerCount}. ${copy.starterPacks.plannerSummary}`}
+                        aria-label={`${copy.starterPacks.plannerLabel}. ${copy.starterPacks.plannerSummary}`}
                         className="plans-room-planner-room is-starter-pack"
                         type="button"
                         onClick={showStarterPacks}
@@ -2544,7 +2540,7 @@ export function PlansPage() {
                         <span className="plans-room-planner-room-copy">
                           <strong>{copy.starterPacks.plannerLabel}</strong>
                           <span className="plans-room-planner-room-counts">
-                            <span>{starterPackPlannerCount}</span>
+                            <span>{copy.starterPacks.eyebrow}</span>
                             <span>{copy.starterPacks.plannerSummary}</span>
                           </span>
                         </span>
@@ -2641,8 +2637,7 @@ export function PlansPage() {
                         <p>{benefitLine}</p>
                         <div className="plans-room-card-pills">
                           <span>{copy.coreIncluded}</span>
-                          <span>{group.homeOutcomes.length} {language === 'es' ? 'incluidos' : 'included'}</span>
-                          {addOnOptionCount ? <span>{addOnOptionCount} {language === 'es' ? 'extras' : 'extras'}</span> : null}
+                          {addOnOptionCount ? <span>{copy.optionalAddOnsLabel}</span> : null}
                         </div>
                       </div>
                     </header>
@@ -2700,7 +2695,9 @@ export function PlansPage() {
                 <div className="plans-starter-pack-grid">
                   {starterPacks.map((starterPack) => {
                     const Icon = roomIcons[starterPack.room.id] ?? Sparkles
-                    const visual = roomPlannerVisuals[starterPack.room.id] ?? roomVisuals[starterPack.room.id]
+                    const visual = starterPackVisuals[starterPack.packageRecord.id]
+                      ?? roomPlannerVisuals[starterPack.room.id]
+                      ?? roomVisuals[starterPack.room.id]
                     const packageSelection = selection[starterPack.packageRecord.id]
                     const quantity = packageSelection?.selected ? packageSelection.quantity : 0
                     const selected = quantity > 0
@@ -2716,12 +2713,11 @@ export function PlansPage() {
                               <Icon size={16} aria-hidden="true" />
                               {starterPack.roomLabel}
                             </span>
-                            <strong>{starterPack.outcomes.length} {language === 'es' ? 'incluidos' : 'included'}</strong>
+                            <strong>{copy.starterPacks.eyebrow}</strong>
                           </div>
                           <h3>{starterPack.packageLabel}</h3>
                           <p>{starterPack.packageBenefit || starterPack.packageDescription}</p>
                           <div className="plans-room-card-pills">
-                            <span>{starterPack.outcomes.length} {language === 'es' ? 'incluidos' : 'included'}</span>
                             <span>{copy.starterPacks.plannerSummary}</span>
                           </div>
                           <div className="plans-starter-pack-actions">
@@ -2821,9 +2817,7 @@ export function PlansPage() {
                         <div className="plans-core-includes">
                           <div className="plans-core-includes-head">
                             <strong>{copy.starterPacks.eyebrow}</strong>
-                            <span>
-                              {starterPack.outcomes.length} {language === 'es' ? 'incluidos' : 'included'}
-                            </span>
+                            <span>{copy.starterPacks.plannerSummary}</span>
                           </div>
                           <div className="plans-core-includes-grid">
                             {starterPack.outcomes.map((outcome) => (
@@ -2855,44 +2849,42 @@ export function PlansPage() {
                     const RoomIcon = roomIcons[group.room.id] ?? Home
 
                     return (
-                    <article className="plans-module-card" key={`module-${group.homePackage.id}`}>
-                      <div className="plans-module-room">
-                        <div>
-                          <h3>{group.roomLabel}</h3>
-                          <p>
-                            {copy.quantity}: {selection[group.homePackage.id]?.quantity ?? 1}
-                          </p>
+                      <article className="plans-module-card" key={`module-${group.homePackage.id}`}>
+                        <div className="plans-module-room">
+                          <div>
+                            <h3>{group.roomLabel}</h3>
+                            <p>
+                              {copy.quantity}: {selection[group.homePackage.id]?.quantity ?? 1}
+                            </p>
+                          </div>
+                          <span>{copy.coreIncluded}</span>
                         </div>
-                        <span>{copy.coreIncluded}</span>
-                      </div>
 
-                      <div className="plans-core-includes">
-                        <div className="plans-core-includes-head">
-                          <strong>{copy.coreIncluded}</strong>
-                          <span>
-                            {group.homeOutcomes.length} {language === 'es' ? 'incluidos' : 'included'}
-                          </span>
+                        <div className="plans-core-includes">
+                          <div className="plans-core-includes-head">
+                            <strong>{copy.coreIncluded}</strong>
+                            <span>{detailCopy.includes}</span>
+                          </div>
+                          <div className="plans-core-includes-grid">
+                            {group.homeOutcomes.map((outcome) => (
+                              <button
+                                className="plans-outcome-preview-button"
+                                key={outcome.id}
+                                type="button"
+                                onClick={() => openCorePackageDetails(group, outcome.id)}
+                              >
+                                <OutcomePreviewTag
+                                  compact
+                                  embedded
+                                  eyebrow={copy.coreIncluded}
+                                  icon={RoomIcon}
+                                  language={language}
+                                  outcome={outcome}
+                                />
+                              </button>
+                            ))}
+                          </div>
                         </div>
-                        <div className="plans-core-includes-grid">
-                          {group.homeOutcomes.map((outcome) => (
-                            <button
-                              className="plans-outcome-preview-button"
-                              key={outcome.id}
-                              type="button"
-                              onClick={() => openCorePackageDetails(group, outcome.id)}
-                            >
-                              <OutcomePreviewTag
-                                compact
-                                embedded
-                                eyebrow={copy.coreIncluded}
-                                icon={RoomIcon}
-                                language={language}
-                                outcome={outcome}
-                              />
-                            </button>
-                          ))}
-                        </div>
-                      </div>
 
                       {addOnOptionCount > 0 ? (
                         <div className={`plans-addons-drawer${addOnsExpanded ? ' is-open' : ''}`}>
@@ -3113,7 +3105,7 @@ export function PlansPage() {
                 <div>
                   <span>{summaryScopeCopy.packages}</span>
                   <strong>{estimate.selectedRoomQuantity}</strong>
-                  <small>{selectedIncludedCount} {summaryScopeCopy.includedItems}</small>
+                  <small>{summaryScopeCopy.includedItems}</small>
                 </div>
                 <div>
                   <span>{summaryScopeCopy.addOns}</span>
