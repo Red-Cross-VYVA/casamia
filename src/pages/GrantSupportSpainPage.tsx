@@ -10,14 +10,16 @@ import {
   UserRoundCheck,
   X,
 } from 'lucide-react'
-import { useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LocalizedLink as Link } from '../components/LocalizedLink'
 
+import { GrantEligibilityExperience } from './GrantEligibilityPage'
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { CASAMIA_CONTACT_PHONE, CASAMIA_WHATSAPP_URL } from '../constants/contact'
 import { trackEvent } from '../utils/analytics'
+import { localizeInternalPath } from '../utils/localizedRouting'
 
 import '../styles/grant-support-spain.css'
 
@@ -41,6 +43,7 @@ const grantSupportCopy = {
     phoneLabel: 'Call',
     whatsappLabel: 'WhatsApp',
     primaryCta: 'Start review',
+    modalClose: 'Close grant check',
     navItems: [
       { id: 'ayudas-disponibles', label: 'Available grants' },
       { id: 'fuentes-oficiales', label: 'Official sources' },
@@ -203,6 +206,7 @@ const grantSupportCopy = {
     phoneLabel: 'Llamar',
     whatsappLabel: 'WhatsApp',
     primaryCta: 'Iniciar revisión',
+    modalClose: 'Cerrar revisión de ayudas',
     navItems: [
       { id: 'ayudas-disponibles', label: 'Ayudas disponibles' },
       { id: 'fuentes-oficiales', label: 'Fuentes oficiales' },
@@ -363,7 +367,36 @@ export function GrantSupportSpainPage() {
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const copy = grantSupportCopy[language]
   const [menuOpen, setMenuOpen] = useState(false)
+  const [grantCheckOpen, setGrantCheckOpen] = useState(false)
   const schema = useMemo(() => buildGrantSchema(copy), [copy])
+  const grantCheckHref = localizeInternalPath('/grant-check', i18n.language)
+
+  useEffect(() => {
+    if (!grantCheckOpen) {
+      return undefined
+    }
+
+    const previousOverflow = document.body.style.overflow
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setGrantCheckOpen(false)
+      }
+    }
+
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [grantCheckOpen])
+
+  function openGrantCheck(event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault()
+    setGrantCheckOpen(true)
+    trackEvent('grant_checker_started', { display: 'modal', locale: language })
+  }
 
   return (
     <>
@@ -399,9 +432,9 @@ export function GrantSupportSpainPage() {
               {copy.phoneLabel}
             </a>
           ) : null}
-          <Link className="grant-spain-primary" to="/grant-check" onClick={() => trackEvent('grant_checker_started')}>
+          <a className="grant-spain-primary" href={grantCheckHref} onClick={openGrantCheck}>
             {copy.primaryCta}
-          </Link>
+          </a>
         </header>
 
         <section className="grant-spain-hero" id="top">
@@ -411,9 +444,9 @@ export function GrantSupportSpainPage() {
               <h1>{copy.hero.title}</h1>
               <p>{copy.hero.body}</p>
               <div className="grant-spain-actions">
-                <Link className="grant-spain-button" to="/grant-check" onClick={() => trackEvent('grant_cta_clicked', { cta: 'hero_checker' })}>
+                <a className="grant-spain-button" href={grantCheckHref} onClick={openGrantCheck}>
                   {copy.hero.primary} <ArrowRight size={18} />
-                </Link>
+                </a>
                 <a className="grant-spain-button is-secondary" href="#fuentes-oficiales">
                   {copy.hero.secondary}
                 </a>
@@ -482,14 +515,26 @@ export function GrantSupportSpainPage() {
 
         <Section id="recursos" eyebrow={copy.resources.eyebrow} title={copy.resources.title}>
           <div className="grant-spain-resource-grid">
-            {copy.resources.cards.map(([eyebrow, title, body, to]) => (
-              <Link className="grant-spain-resource-card" key={title} to={to}>
-                <span>{eyebrow}</span>
-                <strong>{title}</strong>
-                <p>{body}</p>
-                <small>{copy.resources.action} <ArrowRight size={16} aria-hidden="true" /></small>
-              </Link>
-            ))}
+            {copy.resources.cards.map(([eyebrow, title, body, to]) => {
+              const children = (
+                <>
+                  <span>{eyebrow}</span>
+                  <strong>{title}</strong>
+                  <p>{body}</p>
+                  <small>{copy.resources.action} <ArrowRight size={16} aria-hidden="true" /></small>
+                </>
+              )
+
+              return to === '/grant-check' ? (
+                <a className="grant-spain-resource-card" href={grantCheckHref} key={title} onClick={openGrantCheck}>
+                  {children}
+                </a>
+              ) : (
+                <Link className="grant-spain-resource-card" key={title} to={to}>
+                  {children}
+                </Link>
+              )
+            })}
           </div>
         </Section>
 
@@ -504,7 +549,7 @@ export function GrantSupportSpainPage() {
             <h2>{copy.final.title}</h2>
             <p>{copy.final.body}</p>
             <div className="grant-spain-actions">
-              <Link className="grant-spain-button" to="/grant-check">{copy.final.primary}</Link>
+              <a className="grant-spain-button" href={grantCheckHref} onClick={openGrantCheck}>{copy.final.primary}</a>
               {phoneHref ? (
                 <a className="grant-spain-button is-secondary" href={phoneHref}>{copy.final.phoneCta}</a>
               ) : null}
@@ -512,6 +557,34 @@ export function GrantSupportSpainPage() {
             <small>{copy.final.note}</small>
           </div>
         </section>
+
+        {grantCheckOpen ? (
+          <div
+            className="grant-check-modal-backdrop"
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) {
+                setGrantCheckOpen(false)
+              }
+            }}
+          >
+            <div
+              aria-labelledby="grant-check-dialog-title"
+              aria-modal="true"
+              className="grant-check-modal"
+              role="dialog"
+            >
+              <button
+                aria-label={copy.modalClose}
+                className="grant-check-modal-close"
+                onClick={() => setGrantCheckOpen(false)}
+                type="button"
+              >
+                <X size={22} aria-hidden="true" />
+              </button>
+              <GrantEligibilityExperience displayMode="modal" titleId="grant-check-dialog-title" />
+            </div>
+          </div>
+        ) : null}
 
         {phoneHref || whatsappHref ? (
           <div className="grant-spain-mobile-ctas">

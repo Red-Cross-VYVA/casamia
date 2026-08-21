@@ -22,6 +22,7 @@ import { getPublicSiteJson, hasPublicSiteApi, postPublicSiteJson } from '../serv
 import { createPublicReportToken } from '../utils/publicReportToken'
 import { isReportDeliveryReady } from '../utils/reportDelivery'
 import { trackEvent } from '../utils/analytics'
+import { localizeInternalPath } from '../utils/localizedRouting'
 
 type FormState = {
   region: string
@@ -74,6 +75,18 @@ const initialForm: FormState = {
 const grantDraftStorageKey = 'casamia-grant-check-draft'
 
 export function GrantEligibilityPage() {
+  return <GrantEligibilityExperience />
+}
+
+type GrantEligibilityExperienceProps = {
+  displayMode?: 'page' | 'modal'
+  titleId?: string
+}
+
+export function GrantEligibilityExperience({
+  displayMode = 'page',
+  titleId,
+}: GrantEligibilityExperienceProps) {
   const { i18n } = useTranslation()
   const copy = useMemo(() => getGrantCopy(i18n.resolvedLanguage ?? i18n.language), [
     i18n.language,
@@ -93,6 +106,7 @@ export function GrantEligibilityPage() {
   const [grantResearch, setGrantResearch] = useState<GrantResearch | null>(null)
   const [errorMessage, setErrorMessage] = useState('')
   const [reportToken] = useState(() => getSharedGrantReportToken() || createPublicReportToken())
+  const isModal = displayMode === 'modal'
 
   const result = useMemo(() => calculateResult(form, copy), [form, copy])
   const canContinue = getStepCompletion(step, form)
@@ -237,7 +251,7 @@ export function GrantEligibilityPage() {
         reportType: 'grant',
         token: reportToken,
         reportTitle: result.title,
-        reportUrl: `${window.location.origin}/grant-check?report=${reportToken}`,
+        reportUrl: `${window.location.origin}${localizeInternalPath(`/grant-check?report=${reportToken}`, i18n.language)}`,
         grantReport: {
           form: {
             ...form,
@@ -309,36 +323,44 @@ export function GrantEligibilityPage() {
 
   return (
     <>
-      <SEO title={title} description={description} path="/grant-check" schema={schema} />
-      <section className="grant-check-hero page-hero">
-        <div className="page-hero-inner">
-          <div className="grant-hero-card">
-            <div className="grant-hero-main">
-              <Link className="grant-back-link" to="/grants">
-                <ArrowLeft size={18} aria-hidden="true" />
-                {copy.hero.back}
-              </Link>
-              <h1 className="display-title">{copy.hero.title}</h1>
-              <p className="mt-5 max-w-3xl text-xl text-text-mid">
-                {copy.hero.intro}
-              </p>
-              <div className="grant-hero-actions">
-                <a
-                  className="btn btn-green"
-                  href="#grant-check-wizard"
-                  onClick={() => trackEvent('form_start', { form: 'grant_check' })}
-                >
-                  {copy.actions.startNow}
-                  <ArrowRight size={20} aria-hidden="true" />
-                </a>
+      {isModal ? null : <SEO title={title} description={description} path={localizeInternalPath('/grant-check', i18n.language)} schema={schema} />}
+      {isModal ? (
+        <section className="grant-check-modal-intro">
+          <p>{copy.hero.pointsLabel}</p>
+          <h2 id={titleId}>{copy.hero.title}</h2>
+          <span>{copy.hero.intro}</span>
+        </section>
+      ) : (
+        <section className="grant-check-hero page-hero">
+          <div className="page-hero-inner">
+            <div className="grant-hero-card">
+              <div className="grant-hero-main">
+                <Link className="grant-back-link" to="/grants">
+                  <ArrowLeft size={18} aria-hidden="true" />
+                  {copy.hero.back}
+                </Link>
+                <h1 className="display-title">{copy.hero.title}</h1>
+                <p className="mt-5 max-w-3xl text-xl text-text-mid">
+                  {copy.hero.intro}
+                </p>
+                <div className="grant-hero-actions">
+                  <a
+                    className="btn btn-green"
+                    href="#grant-check-wizard"
+                    onClick={() => trackEvent('form_start', { form: 'grant_check' })}
+                  >
+                    {copy.actions.startNow}
+                    <ArrowRight size={20} aria-hidden="true" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="grant-check-section section-pad bg-white">
-        <div className="site-shell grant-check-shell" id="grant-check-wizard">
+      <section className={`grant-check-section ${isModal ? 'grant-check-section--modal' : 'section-pad bg-white'}`}>
+        <div className={`site-shell grant-check-shell ${isModal ? 'grant-check-shell--modal' : ''}`} id={isModal ? undefined : 'grant-check-wizard'}>
           <div className="grant-check-panel">
             <div className="grant-progress" aria-label={copy.progressLabel}>
               {copy.progress.map((label, index) => (

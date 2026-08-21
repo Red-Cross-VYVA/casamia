@@ -952,6 +952,49 @@
   display: none;
 }
 
+.grant-check-modal-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  overflow-y: auto;
+  background: rgb(10 35 54 / 62%);
+  padding: clamp(0.8rem, 2.5vw, 2rem);
+  backdrop-filter: blur(10px);
+}
+
+.grant-check-modal {
+  position: relative;
+  width: min(72rem, 100%);
+  max-height: min(92svh, 58rem);
+  margin: auto;
+  overflow: auto;
+  border: 1px solid rgb(200 220 232 / 86%);
+  border-radius: 1.45rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fcff 100%);
+  box-shadow: 0 2rem 6rem rgb(5 25 38 / 34%);
+}
+
+.grant-check-modal-close {
+  position: sticky;
+  z-index: 4;
+  top: 1rem;
+  float: right;
+  display: grid;
+  width: 3.1rem;
+  height: 3.1rem;
+  place-items: center;
+  margin: 1rem 1rem -4rem 0;
+  border: 1px solid rgb(27 94 138 / 16%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 92%);
+  color: #155f86;
+  cursor: pointer;
+  box-shadow: 0 0.9rem 2rem rgb(10 42 68 / 14%);
+  backdrop-filter: blur(10px);
+}
+
 .grant-spain-page :focus-visible {
   outline: 3px solid #f2b84b;
   outline-offset: 3px;
@@ -1096,5 +1139,20 @@
     font-weight: 950;
     text-decoration: none;
     box-shadow: 0 1rem 2rem rgb(10 42 68 / 20%);
+  }
+
+  .grant-check-modal-backdrop {
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .grant-check-modal {
+    max-height: 100svh;
+    border-radius: 0;
+  }
+
+  .grant-check-modal-close {
+    top: 0.8rem;
+    margin-right: 0.8rem;
   }
 }

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 
 import { evaluateGrantEligibility } from '../src/services/grantSupportSpain.ts'
 
@@ -87,5 +88,35 @@ const started = evaluate({
   adaptations: ['Adaptar la cocina'],
 })
 assert(started.informationToVerify.includes('Compatibilidad si la obra ya empezó o terminó'))
+
+const grantSupportPage = readFileSync(
+  new URL('../src/pages/GrantSupportSpainPage.tsx', import.meta.url),
+  'utf8',
+)
+const grantEligibilityPage = readFileSync(
+  new URL('../src/pages/GrantEligibilityPage.tsx', import.meta.url),
+  'utf8',
+)
+
+assert.match(
+  grantSupportPage,
+  /const grantCheckHref = localizeInternalPath\('\/grant-check', i18n\.language\)/,
+  'Grant checker fallback links must preserve the current site language.',
+)
+assert.match(
+  grantSupportPage,
+  /function openGrantCheck\(event: MouseEvent<HTMLAnchorElement>\)[\s\S]*event\.preventDefault\(\)[\s\S]*setGrantCheckOpen\(true\)/,
+  'Grant checker CTAs must open the in-page modal instead of navigating away.',
+)
+assert.match(
+  grantSupportPage,
+  /<GrantEligibilityExperience displayMode="modal" titleId="grant-check-dialog-title" \/>/,
+  'Grant support page must embed the grant checker as a dialog.',
+)
+assert.match(
+  grantEligibilityPage,
+  /path=\{localizeInternalPath\('\/grant-check', i18n\.language\)\}/,
+  'Standalone grant checker SEO path must also be localized.',
+)
 
 console.log('Grant support Spain tests passed')

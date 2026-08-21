@@ -22448,10 +22448,63 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
     linear-gradient(180deg, #f7fcff 0%, #ffffff 35%, #eef8fd 100%);
 }
 
+.grant-check-section--modal {
+  background: transparent;
+}
+
+.grant-check-modal-intro {
+  display: grid;
+  gap: 10px;
+  border-bottom: 1px solid rgba(200, 220, 232, 0.78);
+  background:
+    radial-gradient(circle at 84% 12%, rgba(125, 184, 65, 0.12), transparent 22rem),
+    #ffffff;
+  padding: clamp(28px, 4vw, 42px) clamp(28px, 4vw, 48px) clamp(22px, 3vw, 32px);
+}
+
+.grant-check-modal-intro p {
+  margin: 0;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.grant-check-modal-intro h2 {
+  max-width: 14ch;
+  margin: 0;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(34px, 4.8vw, 60px);
+  font-weight: 900;
+  line-height: 0.98;
+}
+
+.grant-check-modal-intro span {
+  max-width: 46rem;
+  color: var(--text-mid);
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.45;
+}
+
 .grant-check-shell {
   display: grid;
   gap: 28px;
   scroll-margin-top: 104px;
+}
+
+.grant-check-shell--modal {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: clamp(18px, 3vw, 28px);
+  scroll-margin-top: 0;
+}
+
+.grant-check-shell--modal .grant-result-card {
+  position: relative;
+  top: auto;
 }
 
 .grant-check-panel,
@@ -22517,6 +22570,10 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
 .grant-step-card {
   padding: clamp(28px, 4vw, 48px);
+}
+
+.grant-check-shell--modal .grant-step-card {
+  padding: clamp(22px, 3vw, 34px);
 }
 
 .grant-step-heading {
@@ -25238,6 +25295,10 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
     align-items: start;
   }
 
+  .grant-check-shell--modal {
+    grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+  }
+
   .grant-result-card {
     position: sticky;
     top: 104px;
@@ -26466,6 +26527,19 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   .grant-hero-main .display-title,
   .grant-hero-main p {
     overflow-wrap: anywhere;
+  }
+
+  .grant-check-modal-intro {
+    padding: 26px 22px 22px;
+  }
+
+  .grant-check-modal-intro h2 {
+    max-width: 12ch;
+    font-size: clamp(32px, 11vw, 46px);
+  }
+
+  .grant-check-shell--modal {
+    padding: 18px;
   }
 
   .grant-progress {

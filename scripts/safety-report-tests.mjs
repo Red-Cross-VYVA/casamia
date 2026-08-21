@@ -505,7 +505,7 @@ assert.match(
 assert.match(grantPageSource, /setStep\(3\)/)
 assert.match(
   grantPageSource,
-  /<SEO[\s\S]*title=\{title\}[\s\S]*description=\{description\}[\s\S]*path="\/grant-check"[\s\S]*schema=\{schema\}/,
+  /<SEO[\s\S]*title=\{title\}[\s\S]*description=\{description\}[\s\S]*path=\{localizeInternalPath\('\/grant-check', i18n\.language\)\}[\s\S]*schema=\{schema\}/,
   'Grant checker must use shared SEO metadata.',
 )
 assert.match(
