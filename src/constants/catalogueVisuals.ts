@@ -5,6 +5,17 @@ export type CatalogueVisualRoom = Extract<ServiceRoom, 'bathroom' | 'bedroom' | 
 const serviceProductImage = (name: string) => `/images/service-card-products/${name}.webp`
 
 export const catalogueOutcomeImages: Record<string, string> = {
+  'starter-bathroom-slip-risk-fix': '/images/service-card-products/anti-slip-bath-mat.png',
+  'starter-bathroom-support-bars': serviceProductImage('vertical-rail'),
+  'starter-bathroom-transfer-positioning': serviceProductImage('toilet-rails'),
+  'starter-bed-exit-support': serviceProductImage('bed-transfer'),
+  'starter-core-priority-rails': serviceProductImage('vertical-rail'),
+  'starter-core-rail-placement': serviceProductImage('vertical-support-rail-modern'),
+  'starter-entrance-mat-basics': '/images/service-card-products/entrance-safer-access.png',
+  'starter-entrance-support-rail': '/images/service-gallery/05-entryway-and-threshold-support.jpg',
+  'starter-entrance-threshold-visibility': serviceProductImage('threshold-reduction'),
+  'starter-night-motion-lighting': serviceProductImage('underbed-lighting'),
+  'starter-night-route-trip-fix': serviceProductImage('clear-night-route'),
   'bathroom-anti-slip': serviceProductImage('floor-grip'),
   'bathroom-anti-slip-bath-mat': '/images/service-card-products/anti-slip-bath-mat.png',
   'bathroom-anti-slip-floor-treatment': serviceProductImage('floor-grip'),

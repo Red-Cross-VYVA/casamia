@@ -199,6 +199,35 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
     })
   })
 
+  getVisibleStarterPacks(catalogue).forEach((starterPack) => {
+    const selected = selection[starterPack.packageRecord.id]
+
+    if (!selected?.selected) {
+      return
+    }
+
+    const quantity = normaliseQuantity(selected.quantity)
+    selectedRoomQuantity += quantity
+    selectedPackageCount += 1
+    const unitPrice = getPackageUnitPrice(starterPack.packageRecord)
+    const requiresReview = packageNeedsReview(starterPack.packageRecord, unitPrice)
+    const line = createLineItem({
+      category: roomToCategory[starterPack.room.id] ?? 'General',
+      description: buildPackageDescription(starterPack.packageRecord, starterPack.outcomes, language, requiresReview),
+      grantEligible: starterPack.outcomes.some((outcome) => outcome.grantEligible),
+      id: `plans-starter-package-${starterPack.packageRecord.id}`,
+      name: getLineName(localize(starterPack.packageRecord.customerName, language, starterPack.packageRecord.internalName), language),
+      priority: requiresReview ? 'Medium' : 'High',
+      quantity,
+      sourcePackageId: starterPack.packageRecord.id,
+      unitPrice,
+    })
+
+    lineItems.push(line)
+    if (requiresReview) reviewItems.add(line.name)
+    recurringMonthlyEstimate += getPackageRecurringMonthlyPrice(starterPack.packageRecord) * quantity
+  })
+
   return {
     lineItems,
     oneTimeEstimate: lineItems.reduce((sum, item) => sum + item.unit_price * item.quantity, 0),
@@ -207,6 +236,31 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
     selectedPackageCount,
     selectedRoomQuantity,
   }
+}
+
+function getVisibleStarterPacks(catalogue) {
+  return catalogue.rooms
+    .filter((room) => room.active && roomPackageAreas.has(room.id))
+    .sort(sortByOrder)
+    .flatMap((room) => {
+      const packages = catalogue.packages
+        .filter((packageRecord) =>
+          packageRecord.active
+          && packageRecord.proposalVisible
+          && packageRecord.websiteVisible
+          && packageRecord.roomId === room.id
+          && packageRecord.section === 'starter-essentials',
+        )
+        .sort(sortByOrder)
+
+      return packages
+        .map((packageRecord) => ({
+          outcomes: getOutcomesForPackage(catalogue, packageRecord.id),
+          packageRecord,
+          room,
+        }))
+        .filter((starterPack) => starterPack.outcomes.length > 0)
+    })
 }
 
 function getVisibleRoomGroups(catalogue) {
@@ -420,7 +474,7 @@ function formatList(items, language) {
 }
 
 function getLineName(label, language) {
-  return /package|paquete/i.test(label) ? label : `${label} ${language === 'es' ? 'paquete' : 'package'}`
+  return /package|paquete|\bpack\b/i.test(label) ? label : `${label} ${language === 'es' ? 'paquete' : 'package'}`
 }
 
 function reviewText(language) {

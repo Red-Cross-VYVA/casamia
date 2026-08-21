@@ -47,6 +47,19 @@ export type PlansBuilderGroup = {
   roomLabel: string
 }
 
+export type PlansStarterPack = {
+  outcomes: MasterCatalogueOutcome[]
+  packageBenefit: string
+  packageDescription: string
+  packageLabel: string
+  packageRecord: MasterCataloguePackage
+  packageUnitPrice: number
+  recurringMonthlyUnitPrice: number
+  requiresReview: boolean
+  room: MasterCatalogueRoom
+  roomLabel: string
+}
+
 export type PlansBuilderEstimateLine = {
   description: string
   grantEligible: boolean
@@ -76,6 +89,10 @@ export type PlansBuilderEstimate = {
 
 type BuildGroupsOptions = {
   publicOnly?: boolean
+}
+
+type CalculatePlansBuilderEstimateOptions = {
+  starterPacks?: PlansStarterPack[]
 }
 
 const masterRoomToPackageArea: Partial<Record<string, ServicePackageArea>> = {
@@ -166,15 +183,53 @@ export function buildPlansBuilderGroups(
     })
 }
 
+export function buildPlansStarterPacks(
+  catalogue: EditableServiceCatalogue,
+  language: string,
+  options: BuildGroupsOptions = {},
+): PlansStarterPack[] {
+  const masterCatalogue = catalogue.masterCatalogue ?? getMasterServiceCatalogue()
+  const publicOnly = options.publicOnly ?? true
+
+  return masterCatalogue.rooms
+    .filter((room) => room.active && Boolean(masterRoomToPackageArea[room.id]))
+    .sort(sortByOrder)
+    .flatMap((room) =>
+      getCustomerCatalogueByRoom(room.id, masterCatalogue)
+        .filter(({ package: packageRecord }) =>
+          isVisiblePackage(packageRecord, publicOnly) && packageRecord.section === 'starter-essentials',
+        )
+        .map(({ package: packageRecord, outcomes }) => {
+          const packageUnitPrice = getPackageUnitPrice(packageRecord)
+
+          return {
+            outcomes: outcomes.filter((outcome) => isVisibleOutcome(outcome, publicOnly)).sort(sortByOrder),
+            packageBenefit: localizePlansString(packageRecord.customerBenefit, language, packageRecord.internalName),
+            packageDescription: localizePlansString(packageRecord.shortDescription, language, packageRecord.internalName),
+            packageLabel: localizePlansString(packageRecord.customerName, language, packageRecord.internalName),
+            packageRecord,
+            packageUnitPrice,
+            recurringMonthlyUnitPrice: getPackageRecurringMonthlyPrice(packageRecord),
+            requiresReview: packageNeedsReview(packageRecord, packageUnitPrice),
+            room,
+            roomLabel: localizePlansString(room.name, language, room.id),
+          }
+        })
+        .filter((starterPack) => starterPack.outcomes.length > 0),
+    )
+}
+
 export function calculatePlansBuilderEstimate(
   groups: PlansBuilderGroup[],
   selection: PlansBuilderSelectionState,
   language: string,
+  options: CalculatePlansBuilderEstimateOptions = {},
 ): PlansBuilderEstimate {
   const lineItems: PlansBuilderEstimateLine[] = []
   const reviewItems = new Set<string>()
   let selectedPackageCount = 0
   let selectedRoomQuantity = 0
+  const starterPacks = options.starterPacks ?? []
 
   groups.forEach((group) => {
     const packageSelection = selection[group.homePackage.id]
@@ -285,6 +340,47 @@ export function calculatePlansBuilderEstimate(
     })
   })
 
+  starterPacks.forEach((starterPack) => {
+    const packageSelection = selection[starterPack.packageRecord.id]
+
+    if (!packageSelection?.selected) {
+      return
+    }
+
+    const quantity = normalisePlansQuantity(packageSelection.quantity)
+    selectedRoomQuantity += quantity
+    selectedPackageCount += 1
+    const starterLine = buildEstimateLine({
+      description: buildPlansStarterPackageDescription(starterPack, language),
+      grantEligible: starterPack.outcomes.some((outcome) => outcome.grantEligible),
+      id: `plans-starter-package-${starterPack.packageRecord.id}`,
+      label: getPlansPackageLineName(starterPack.packageLabel),
+      packageId: starterPack.packageRecord.id,
+      quantity,
+      requiresReview: starterPack.requiresReview,
+      reviewReason: starterPack.requiresReview ? reviewCopy(language).package : undefined,
+      roomId: starterPack.room.id,
+      unitPrice: starterPack.packageUnitPrice,
+    })
+
+    lineItems.push(starterLine)
+    if (starterLine.requiresReview) reviewItems.add(starterLine.label)
+
+    if (starterPack.recurringMonthlyUnitPrice > 0) {
+      lineItems.push(buildEstimateLine({
+        description: recurringDescription(language),
+        grantEligible: false,
+        id: `plans-starter-recurring-${starterPack.packageRecord.id}`,
+        isRecurring: true,
+        label: `${getPlansPackageLineName(starterPack.packageLabel)} support`,
+        packageId: starterPack.packageRecord.id,
+        quantity,
+        roomId: starterPack.room.id,
+        unitPrice: starterPack.recurringMonthlyUnitPrice,
+      }))
+    }
+  })
+
   const oneTimeLines = lineItems.filter((line) => !line.isRecurring)
   const recurringLines = lineItems.filter((line) => line.isRecurring)
 
@@ -303,9 +399,11 @@ export function calculatePlansBuilderEstimate(
 export function buildPlansProposalLineItems(
   groups: PlansBuilderGroup[],
   selection: PlansBuilderSelectionState,
-  options: { language?: string } = {},
+  options: { language?: string; starterPacks?: PlansStarterPack[] } = {},
 ) {
-  return calculatePlansBuilderEstimate(groups, selection, options.language ?? 'en').proposalLineItems
+  return calculatePlansBuilderEstimate(groups, selection, options.language ?? 'en', {
+    starterPacks: options.starterPacks,
+  }).proposalLineItems
 }
 
 export function buildPlansPackageDescription(group: PlansBuilderGroup, language: string) {
@@ -322,7 +420,7 @@ export function buildPlansPackageDescription(group: PlansBuilderGroup, language:
 }
 
 export function getPlansPackageLineName(label: string) {
-  return /package|paquete/i.test(label) ? label : `${label} package`
+  return /package|paquete|\bpack\b/i.test(label) ? label : `${label} package`
 }
 
 export function localizePlansString(value: LocalizedString, language: string, fallback = '') {
@@ -369,6 +467,19 @@ function buildPlansAddOnPackageDescription(
     addOnPackage.packageDescription,
     selected.length ? `${copyFor(language).selected}: ${formatReadableList(selected, language)}.` : '',
     outcomes.some(outcomeNeedsReview) ? reviewCopy(language).compatibility : '',
+  ]
+
+  return parts.filter(Boolean).join(' ')
+}
+
+function buildPlansStarterPackageDescription(starterPack: PlansStarterPack, language: string) {
+  const included = starterPack.outcomes
+    .map((outcome) => localizePlansString(outcome.customerName, language, outcome.internalName))
+    .filter(Boolean)
+  const parts = [
+    starterPack.packageDescription,
+    included.length ? `${copyFor(language).includes}: ${formatReadableList(included, language)}.` : '',
+    starterPack.requiresReview ? reviewCopy(language).package : '',
   ]
 
   return parts.filter(Boolean).join(' ')

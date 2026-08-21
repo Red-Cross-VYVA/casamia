@@ -4,12 +4,14 @@ import { readFile } from 'node:fs/promises'
 import { getDefaultServiceCatalogue } from '../src/services/serviceCatalogue.ts'
 import {
   buildPlansBuilderGroups,
+  buildPlansStarterPacks,
   calculatePlansBuilderEstimate,
   formatPlansEstimateLabel,
 } from '../src/services/plansBuilderPricing.ts'
 
 const defaultCatalogue = getDefaultServiceCatalogue()
 const plansPage = await readFile(new URL('../src/pages/PlansPage.tsx', import.meta.url), 'utf8')
+const catalogueVisuals = await readFile(new URL('../src/constants/catalogueVisuals.ts', import.meta.url), 'utf8')
 
 assert.match(
   plansPage,
@@ -48,6 +50,36 @@ assert.match(
 )
 assert.match(
   plansPage,
+  /buildPlansStarterPacks/,
+  'The Plans page should build public starter packs.',
+)
+assert.match(
+  plansPage,
+  /showStarterPacks[\s\S]*is-starter-pack/,
+  'The Plans room planner should include a Starter pack shortcut tile.',
+)
+assert.match(
+  plansPage,
+  /id="plans-room-packages"[\s\S]*plans-starter-pack-section/,
+  'The Plans page should render starter packs below the full room package catalogue.',
+)
+assert.match(
+  plansPage,
+  /updateStarterPackQuantity/,
+  'The Plans page should let starter packs be selected from their lower section.',
+)
+assert.match(
+  plansPage,
+  /plans-room-pack-toggle[\s\S]*updateRoomQuantity\(group, isSelected \? 0 : 1\)/,
+  'Full room package cards should use an Add pack button before showing quantity controls.',
+)
+assert.match(
+  catalogueVisuals,
+  /starter-bathroom-transfer-positioning[\s\S]*toilet-rails/,
+  'Starter pack detail slides should use item-specific visuals instead of room-level fallbacks.',
+)
+assert.match(
+  plansPage,
   /\{visibleGroups\.map\(\(group\) =>/,
   'The Plans package cards should render from visibleGroups.',
 )
@@ -68,11 +100,14 @@ assert.ok(
   'Default service catalogue snapshot must include master packages for proposal fallback.',
 )
 const defaultGroups = buildPlansBuilderGroups(defaultCatalogue, 'en', { publicOnly: true })
+const defaultStarterPacks = buildPlansStarterPacks(defaultCatalogue, 'en', { publicOnly: true })
 const bathroomGroup = defaultGroups.find((group) => group.room.id === 'bathroom')
 const bedroomGroup = defaultGroups.find((group) => group.room.id === 'bedroom')
+const bathroomStarterPack = defaultStarterPacks.find((starterPack) => starterPack.packageRecord.id === 'bathroom-essentials-pack')
 
 assert.ok(bathroomGroup, 'The public Plans builder must include the bathroom package.')
 assert.ok(bedroomGroup, 'The public Plans builder must include the bedroom package.')
+assert.ok(bathroomStarterPack, 'The public Plans builder must include cheaper starter packs.')
 
 {
   const estimate = calculatePlansBuilderEstimate(defaultGroups, {
@@ -95,6 +130,27 @@ assert.ok(bedroomGroup, 'The public Plans builder must include the bedroom packa
   )
   assert.match(formatPlansEstimateLabel(estimate, 'en'), /^From /)
   assert.match(formatPlansEstimateLabel(estimate, 'es'), /^Desde /)
+}
+
+{
+  const estimate = calculatePlansBuilderEstimate(defaultGroups, {
+    [bathroomStarterPack.packageRecord.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+  }, 'en', { starterPacks: defaultStarterPacks })
+
+  assert.equal(estimate.selectedRoomQuantity, 1, 'Starter pack quantities must count in the selected package quantity.')
+  assert.equal(estimate.selectedPackageCount, 1, 'A selected starter pack should count as one selected package type.')
+  assert.equal(
+    estimate.oneTimeEstimate,
+    bathroomStarterPack.packageUnitPrice,
+    'Starter pack estimates must use catalogue package pricing.',
+  )
+  assert.equal(estimate.proposalLineItems.length, 1, 'A selected starter pack should produce a proposal line item.')
+  assert.match(estimate.proposalLineItems[0].id, /plans-starter-package-bathroom-essentials-pack/)
+  assert.match(
+    estimate.proposalLineItems[0].description,
+    /Typical scope:/,
+    'Starter pack proposal descriptions should list the included starter outcomes.',
+  )
 }
 
 {
