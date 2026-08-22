@@ -8,7 +8,7 @@ import { getLegalRouteLabels } from '../constants/legalDocuments'
 import { needLandingPages } from '../constants/needLandingPages'
 import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
-import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
+import { CASAMIA_CONTACT_EMAIL, CASAMIA_FACEBOOK_URL } from '../constants/contact'
 import { localizeInternalPath } from '../utils/localizedRouting'
 
 const footerLinkCopy = {
@@ -37,6 +37,7 @@ const footerLinkCopy = {
     connectedOrMonitoring: 'Connected safety or monitoring',
     adminLogin: 'Admin login',
     partnerLogin: 'Partner login',
+    facebook: 'Facebook',
     preferences: 'Cookie preferences',
   },
   es: {
@@ -64,6 +65,7 @@ const footerLinkCopy = {
     connectedOrMonitoring: 'Seguridad conectada o monitorización',
     adminLogin: 'Acceso admin',
     partnerLogin: 'Acceso colaborador',
+    facebook: 'Facebook',
     preferences: 'Preferencias de cookies',
   },
 } as const
@@ -189,6 +191,15 @@ export function Footer() {
             <Link className="text-sm font-extrabold text-white/60 transition hover:text-green" to={localizeTo('/partner')}>
               {links.partnerLogin}
             </Link>
+            <a
+              className="text-sm font-extrabold text-white/60 transition hover:text-green"
+              href={CASAMIA_FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('social_link_clicked', { location: 'footer', network: 'facebook' })}
+            >
+              {links.facebook}
+            </a>
             <button
               className="footer-cookie-button"
               type="button"

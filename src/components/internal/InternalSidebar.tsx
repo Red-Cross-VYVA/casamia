@@ -7,6 +7,7 @@ import {
   Home,
   LayoutDashboard,
   LogOut,
+  Megaphone,
   Network,
   PackageCheck,
   PhoneCall,
@@ -25,6 +26,7 @@ const internalLinks = [
   { label: 'Customer plans', to: '/internal/orders', icon: ClipboardCheck },
   { label: 'Report builder', to: '/internal/inspection-report', icon: ClipboardList },
   { label: 'Service catalog', to: '/internal/service-catalog', icon: PackageCheck },
+  { label: 'Facebook posts', to: '/internal/facebook-posts', icon: Megaphone },
   ...(voiceAssistantFeatureEnabled
     ? [{ label: 'Voice studio', to: '/internal/voice-studio', icon: AudioLines }]
     : []),

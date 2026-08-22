@@ -176,3 +176,21 @@ live sends. The default template body must accept three text variables in this
 order: customer name, proposal reference and public proposal link. Configure the
 Meta webhook callback to `/api/public/whatsapp-webhook` and use the verify token
 above for subscription verification.
+
+## Facebook Page Publishing
+
+The internal admin panel includes a protected Facebook posts tool at
+`/internal/facebook-posts`. It publishes approved CasaMia starter posts through
+the Meta Pages API. The Page access token must stay server-side and should never
+be exposed through a `VITE_` variable.
+
+Server-only Vercel variables:
+
+```text
+META_PAGE_ID=61574255177723
+META_PAGE_ACCESS_TOKEN=...
+META_GRAPH_API_VERSION=v28.0
+```
+
+`META_PAGE_ACCESS_TOKEN` must be generated for the CasaMia Facebook Page with
+Page publishing access.
