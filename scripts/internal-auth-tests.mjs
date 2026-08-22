@@ -55,30 +55,36 @@ try {
 
   assert.deepEqual(
     config.matcher,
-    ['/admin/config-preview'],
-    'Only the legacy config-preview URL should use browser Basic Auth.',
+    [
+      '/admin/config-preview',
+      '/agreement/:path*',
+      '/estimate/:path*',
+      '/internal/proposals/:path*',
+      '/proposal/:path*',
+    ],
+    'Middleware should cover legacy Basic Auth and dynamic app-shell fallbacks.',
   )
 
   for (const pathname of ['/internal', '/internal/service-catalog']) {
     assert.equal(
-      middleware(new Request(`https://www.casamia.com.es${pathname}`)),
+      await middleware(new Request(`https://www.casamia.com.es${pathname}`)),
       undefined,
       `${pathname} should use the CasaMia password screen instead of browser Basic Auth.`,
     )
   }
 
-  const missingCredentials = middleware(new Request('https://www.casamia.com.es/admin/config-preview'))
+  const missingCredentials = await middleware(new Request('https://www.casamia.com.es/admin/config-preview'))
   assert.equal(missingCredentials?.status, 401)
   assert.match(missingCredentials?.headers.get('www-authenticate') ?? '', /^Basic\b/)
 
-  const wrongCredentials = middleware(
+  const wrongCredentials = await middleware(
     new Request('https://www.casamia.com.es/admin/config-preview', {
       headers: { authorization: basicCredentials('internal-admin', 'wrong-password') },
     }),
   )
   assert.equal(wrongCredentials?.status, 401)
 
-  const validCredentials = middleware(
+  const validCredentials = await middleware(
     new Request('https://www.casamia.com.es/admin/config-preview', {
       headers: { authorization: basicCredentials('internal-admin', 'strong-internal-password') },
     }),
@@ -126,6 +132,18 @@ try {
     orderPage,
     /<SEO[\s\S]*path="\/order"[\s\S]*noindex/,
     'The order follow-up page must not compete with public marketing pages in search.',
+  )
+
+  const middlewareSource = await readFile(resolve(projectRoot, 'middleware.ts'), 'utf8')
+  assert.match(
+    middlewareSource,
+    /appShellFallbackPath = '\/_app-shell\/private'/,
+    'Dynamic private routes must use the generated private app shell.',
+  )
+  assert.match(
+    middlewareSource,
+    /'\/internal\/proposals\/'/,
+    'Internal proposal detail pages must have an app-shell fallback.',
   )
 
   const { token } = createInternalSessionToken()

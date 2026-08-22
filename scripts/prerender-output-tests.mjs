@@ -20,6 +20,7 @@ for (const [file, route] of representativeRoutes) {
 }
 
 const protectedShellRoutes = [
+  ['dist/_app-shell/private.html', '/_app-shell/private'],
   ['dist/internal.html', '/internal'],
   ['dist/internal/service-catalog.html', '/internal/service-catalog'],
   ['dist/internal/facebook-posts.html', '/internal/facebook-posts'],

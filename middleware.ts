@@ -1,4 +1,11 @@
 const protectedPaths = ['/admin/config-preview']
+const appShellFallbackPath = '/_app-shell/private'
+const appShellFallbackPrefixes = [
+  '/agreement/',
+  '/estimate/',
+  '/internal/proposals/',
+  '/proposal/',
+]
 
 function isProtectedPath(pathname: string) {
   return protectedPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`))
@@ -39,11 +46,25 @@ function readCredentials(request: Request) {
 }
 
 export const config = {
-  matcher: ['/admin/config-preview'],
+  matcher: [
+    '/admin/config-preview',
+    '/agreement/:path*',
+    '/estimate/:path*',
+    '/internal/proposals/:path*',
+    '/proposal/:path*',
+  ],
 }
 
-export default function middleware(request: Request) {
+function shouldServeAppShell(pathname: string) {
+  return appShellFallbackPrefixes.some((path) => pathname.startsWith(path))
+}
+
+export default async function middleware(request: Request) {
   const { pathname } = new URL(request.url)
+
+  if (shouldServeAppShell(pathname)) {
+    return fetch(new URL(appShellFallbackPath, request.url))
+  }
 
   if (!isProtectedPath(pathname)) {
     return

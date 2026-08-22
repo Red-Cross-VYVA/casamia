@@ -9,6 +9,7 @@ const template = await readFile(path.join(distRoot, 'index.html'), 'utf8')
 const { render } = await import(pathToFileURL(path.join(projectRoot, 'dist-ssr', 'entry-server.js')).href)
 const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => new URL(match[1]).pathname)
 const protectedAppShellRoutes = [
+  '/_app-shell/private',
   '/admin/config-preview',
   '/internal',
   '/internal/callbacks',
