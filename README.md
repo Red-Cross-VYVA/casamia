@@ -149,3 +149,48 @@ CASAMIA_PUBLIC_SITE_URL=https://www.casamia.com.es
 
 `RESEND_API_KEY` is required for live email delivery. `CASAMIA_EMAIL_FROM` must
 use a sender/domain verified in Resend.
+
+## Proposal WhatsApp Delivery
+
+The same proposal draft endpoint can send the proposal link through the WhatsApp
+Cloud API when the customer selects WhatsApp as their preferred channel. Proposal
+creation and ordering are not blocked if WhatsApp is not configured or if Meta
+rejects a message; the delivery status is recorded on the proposal payload so
+CasaMia can follow up manually.
+
+Server-only Vercel variables:
+
+```text
+WHATSAPP_ACCESS_TOKEN=...
+WHATSAPP_PHONE_NUMBER_ID=...
+WHATSAPP_WEBHOOK_VERIFY_TOKEN=replace-with-long-random-secret
+WHATSAPP_GRAPH_API_VERSION=v23.0
+CASAMIA_WHATSAPP_PROPOSAL_TEMPLATE_EN=casamia_proposal_ready_en
+CASAMIA_WHATSAPP_PROPOSAL_TEMPLATE_ES=casamia_proposal_ready_es
+WHATSAPP_TEMPLATE_LANGUAGE_EN=en
+WHATSAPP_TEMPLATE_LANGUAGE_ES=es
+```
+
+Create and approve matching WhatsApp utility templates in Meta before enabling
+live sends. The default template body must accept three text variables in this
+order: customer name, proposal reference and public proposal link. Configure the
+Meta webhook callback to `/api/public/whatsapp-webhook` and use the verify token
+above for subscription verification.
+
+## Facebook Page Publishing
+
+The internal admin panel includes a protected Facebook posts tool at
+`/internal/facebook-posts`. It publishes approved CasaMia starter posts through
+the Meta Pages API. The Page access token must stay server-side and should never
+be exposed through a `VITE_` variable.
+
+Server-only Vercel variables:
+
+```text
+META_PAGE_ID=61574255177723
+META_PAGE_ACCESS_TOKEN=...
+META_GRAPH_API_VERSION=v28.0
+```
+
+`META_PAGE_ACCESS_TOKEN` must be generated for the CasaMia Facebook Page with
+Page publishing access.

@@ -8,7 +8,7 @@ import { getLegalRouteLabels } from '../constants/legalDocuments'
 import { needLandingPages } from '../constants/needLandingPages'
 import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
-import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
+import { CASAMIA_CONTACT_EMAIL, CASAMIA_FACEBOOK_URL } from '../constants/contact'
 
 const footerLinkCopy = {
   en: {
@@ -34,6 +34,9 @@ const footerLinkCopy = {
     decisionGuides: 'Decision guides',
     assessmentOrContractor: 'Safety assessment or contractor',
     connectedOrMonitoring: 'Connected safety or monitoring',
+    adminLogin: 'Admin login',
+    partnerLogin: 'Partner login',
+    facebook: 'Facebook',
     preferences: 'Cookie preferences',
   },
   es: {
@@ -59,6 +62,9 @@ const footerLinkCopy = {
     decisionGuides: 'Guías de decisión',
     assessmentOrContractor: 'Evaluación o contratista general',
     connectedOrMonitoring: 'Seguridad conectada o monitorización',
+    adminLogin: 'Acceso admin',
+    partnerLogin: 'Acceso colaborador',
+    facebook: 'Facebook',
     preferences: 'Preferencias de cookies',
   },
 } as const
@@ -177,6 +183,21 @@ export function Footer() {
         <div className="site-shell flex flex-col items-start justify-between gap-5 py-6 md:flex-row md:items-center">
           <p className="text-sm text-white/60">{t('footer.copyright')}</p>
           <div className="flex flex-wrap items-center gap-3">
+            <Link className="text-sm font-extrabold text-white/60 transition hover:text-green" to="/internal">
+              {links.adminLogin}
+            </Link>
+            <Link className="text-sm font-extrabold text-white/60 transition hover:text-green" to="/partner">
+              {links.partnerLogin}
+            </Link>
+            <a
+              className="text-sm font-extrabold text-white/60 transition hover:text-green"
+              href={CASAMIA_FACEBOOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('social_link_clicked', { location: 'footer', network: 'facebook' })}
+            >
+              {links.facebook}
+            </a>
             <button
               className="footer-cookie-button"
               type="button"
