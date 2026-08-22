@@ -19,9 +19,24 @@ for (const [file, route] of representativeRoutes) {
   assert.ok(html.length > 20_000, `${route} must contain substantive HTML`)
 }
 
+const protectedShellRoutes = [
+  ['dist/internal.html', '/internal'],
+  ['dist/internal/service-catalog.html', '/internal/service-catalog'],
+  ['dist/internal/facebook-posts.html', '/internal/facebook-posts'],
+  ['dist/admin/config-preview.html', '/admin/config-preview'],
+]
+
+for (const [file, route] of protectedShellRoutes) {
+  const html = await readFile(new URL(`../${file}`, import.meta.url), 'utf8')
+  assert.match(html, /<div id="root"><\/div>/i, `${route} must keep the client app shell mount point`)
+  assert.match(html, /<meta name="robots" content="noindex,nofollow" \/>/i, `${route} must be noindexed`)
+}
+
 const vercel = await readFile(new URL('../vercel.json', import.meta.url), 'utf8')
 assert.match(vercel, /"source"\s*:\s*"\/home-safety-inspection"/)
 assert.match(vercel, /"destination"\s*:\s*"\/home-safety-assessment"/)
+assert.match(vercel, /"source"\s*:\s*"\/internal"/)
+assert.match(vercel, /"source"\s*:\s*"\/internal\/\(\.\*\)"/)
 assert.doesNotMatch(vercel, /\(\?!api\/\.\*\)/, 'public pages must not be rewritten to the SPA shell')
 
 console.log('Representative prerender and redirect checks passed.')

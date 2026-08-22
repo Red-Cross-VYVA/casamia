@@ -54,7 +54,15 @@
       "destination": "/index.html"
     },
     {
-      "source": "/internal/:path*",
+      "source": "/admin/config-preview",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/internal",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/internal/(.*)",
       "destination": "/index.html"
     }
   ]

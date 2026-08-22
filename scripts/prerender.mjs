@@ -8,6 +8,22 @@ const sitemap = await readFile(path.join(projectRoot, 'public', 'sitemap.xml'), 
 const template = await readFile(path.join(distRoot, 'index.html'), 'utf8')
 const { render } = await import(pathToFileURL(path.join(projectRoot, 'dist-ssr', 'entry-server.js')).href)
 const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => new URL(match[1]).pathname)
+const protectedAppShellRoutes = [
+  '/admin/config-preview',
+  '/internal',
+  '/internal/callbacks',
+  '/internal/visits',
+  '/internal/orders',
+  '/internal/inspection-report',
+  '/internal/package-config',
+  '/internal/service-catalog',
+  '/internal/facebook-posts',
+  '/internal/voice-studio',
+  '/internal/proposals',
+  '/internal/provider-partners',
+  '/internal/agreements',
+  '/internal/proposal-generator',
+]
 
 if (!template.includes('<div id="root"></div>')) {
   throw new Error('The client HTML template is already prerendered. Run the complete build to regenerate it first.')
@@ -20,9 +36,7 @@ if (routes.length === 0) {
 for (const route of routes) {
   const { html: appHtml, seo } = await render(route)
   const documentHtml = buildDocument(template, appHtml, seo)
-  const outputPath = route === '/'
-    ? path.join(distRoot, 'index.html')
-    : path.join(distRoot, `${route.slice(1)}.html`)
+  const outputPath = getRouteHtmlOutputPath(route)
 
   await mkdir(path.dirname(outputPath), { recursive: true })
   await writeFile(outputPath, documentHtml)
@@ -37,18 +51,46 @@ for (const route of routes) {
 
 console.log(`Prerendered ${routes.length} sitemap routes with crawlable HTML.`)
 
+for (const route of protectedAppShellRoutes) {
+  const outputPath = getRouteHtmlOutputPath(route)
+
+  await mkdir(path.dirname(outputPath), { recursive: true })
+  await writeFile(outputPath, buildProtectedAppShellDocument(template))
+}
+
+console.log(`Wrote ${protectedAppShellRoutes.length} protected app shell routes.`)
+
+function getRouteHtmlOutputPath(route) {
+  return route === '/'
+    ? path.join(distRoot, 'index.html')
+    : path.join(distRoot, `${route.slice(1)}.html`)
+}
+
 function buildDocument(source, appHtml, seo) {
-  const withoutPageHead = source
-    .replace(/<title>[\s\S]*?<\/title>/i, '')
-    .replace(/\s*<meta\s+(?:name|property)="(?:description|robots|og:[^"]+|twitter:[^"]+)"[^>]*>/gi, '')
-    .replace(/\s*<link\s+rel="canonical"[^>]*>/gi, '')
-    .replace(/\s*<script\s+type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, '')
+  const withoutPageHead = stripPageHead(source)
   const head = buildHead(seo)
 
   return withoutPageHead
     .replace(/<html\s+lang="[^"]*"/i, `<html lang="${seo.language}"`)
     .replace('</head>', `${head}\n  </head>`)
     .replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
+}
+
+function buildProtectedAppShellDocument(source) {
+  const head = [
+    '<title>CasaMia protected access</title>',
+    '<meta name="robots" content="noindex,nofollow" />',
+  ]
+
+  return stripPageHead(source).replace('</head>', `\n    ${head.join('\n    ')}\n  </head>`)
+}
+
+function stripPageHead(source) {
+  return source
+    .replace(/<title>[\s\S]*?<\/title>/i, '')
+    .replace(/\s*<meta\s+(?:name|property)="(?:description|robots|og:[^"]+|twitter:[^"]+)"[^>]*>/gi, '')
+    .replace(/\s*<link\s+rel="canonical"[^>]*>/gi, '')
+    .replace(/\s*<script\s+type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, '')
 }
 
 function buildHead(seo) {
