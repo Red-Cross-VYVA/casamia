@@ -1,6 +1,15 @@
-const defaultGraphApiVersion = 'v28.0'
+const defaultGraphApiVersion = 'v26.0'
 const defaultPageId = '61574255177723'
 const allowedStarterImagePattern = /^\/brand-assets\/social\/facebook-starter-posts\/0[1-5]-[a-z0-9-]+\.jpg$/
+const supportedGraphApiVersions = new Set([
+  'v26.0',
+  'v25.0',
+  'v24.0',
+  'v23.0',
+  'v22.0',
+  'v21.0',
+  'v20.0',
+])
 
 export class FacebookPublishError extends Error {
   constructor(statusCode, message, details = {}) {
@@ -14,19 +23,25 @@ export class FacebookPublishError extends Error {
 export function getFacebookPublishingConfiguration(env = process.env) {
   const pageId = text(env.META_PAGE_ID) || defaultPageId
   const accessToken = text(env.META_PAGE_ACCESS_TOKEN)
-  const apiVersion = text(env.META_GRAPH_API_VERSION)
+  const requestedApiVersion = text(env.META_GRAPH_API_VERSION)
     || text(env.FACEBOOK_GRAPH_API_VERSION)
     || defaultGraphApiVersion
+  const apiVersion = normalizeGraphApiVersion(requestedApiVersion) || defaultGraphApiVersion
+  const unsupportedApiVersion = supportedGraphApiVersions.has(requestedApiVersion)
+    ? ''
+    : requestedApiVersion
 
   return {
     accessToken,
     apiVersion,
-    configured: Boolean(pageId && accessToken),
+    configured: Boolean(pageId && accessToken && !unsupportedApiVersion),
     missing: [
       pageId ? '' : 'META_PAGE_ID',
       accessToken ? '' : 'META_PAGE_ACCESS_TOKEN',
+      unsupportedApiVersion ? `supported META_GRAPH_API_VERSION (use ${defaultGraphApiVersion})` : '',
     ].filter(Boolean),
     pageId,
+    unsupportedApiVersion,
   }
 }
 
@@ -157,7 +172,12 @@ async function callGraphApi({
       graphResponse.status >= 400 && graphResponse.status < 500 ? 400 : 502,
       graphMessage,
       {
+        graphCode: responseBody?.error?.code,
+        graphErrorUserMessage: text(responseBody?.error?.error_user_msg),
+        graphErrorUserTitle: text(responseBody?.error?.error_user_title),
+        graphFbtraceId: text(responseBody?.error?.fbtrace_id),
         graphStatus: graphResponse.status,
+        graphSubcode: responseBody?.error?.error_subcode,
         graphType: text(responseBody?.error?.type),
       },
     )
@@ -203,6 +223,12 @@ function normalizeOrigin(value) {
   } catch {
     return ''
   }
+}
+
+function normalizeGraphApiVersion(value) {
+  const cleanValue = text(value)
+
+  return supportedGraphApiVersions.has(cleanValue) ? cleanValue : ''
 }
 
 function normalizeStarterImagePath(value) {

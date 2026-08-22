@@ -189,7 +189,7 @@ Server-only Vercel variables:
 ```text
 META_PAGE_ID=61574255177723
 META_PAGE_ACCESS_TOKEN=...
-META_GRAPH_API_VERSION=v28.0
+META_GRAPH_API_VERSION=v26.0
 ```
 
 `META_PAGE_ACCESS_TOKEN` must be generated for the CasaMia Facebook Page with

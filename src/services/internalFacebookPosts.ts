@@ -1,5 +1,5 @@
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
-import { getPublicSiteApiBaseUrl, getPublicSiteJson, hasPublicSiteApi, postPublicSiteJson } from './publicSiteApi.ts'
+import { getPublicSiteApiBaseUrl, getPublicSiteJson, hasPublicSiteApi } from './publicSiteApi.ts'
 
 export type FacebookStarterPost = {
   caption: string
@@ -14,6 +14,7 @@ export type FacebookPublishingStatus = {
   missing: string[]
   pageId: string
   pageUrl: string
+  unsupportedApiVersion?: string
 }
 
 export type FacebookPublishResult = {
@@ -117,12 +118,67 @@ export async function publishFacebookStarterPost({
 }) {
   ensureInternalPublishingAvailable()
 
-  return postPublicSiteJson<FacebookPublishResult>('/api/internal/facebook-posts', {
+  return postFacebookPublishJson<FacebookPublishResult>('/api/internal/facebook-posts', {
     imagePath,
     message,
   }, {
     headers: getInternalAuthHeaders(),
   })
+}
+
+async function postFacebookPublishJson<T>(
+  path: string,
+  payload: unknown,
+  init: RequestInit = {},
+) {
+  const response = await fetch(`${getPublicSiteApiBaseUrl()}${path}`, {
+    ...init,
+    body: JSON.stringify(payload),
+    headers: {
+      'content-type': 'application/json',
+      ...(init.headers ?? {}),
+    },
+    method: init.method ?? 'POST',
+  })
+
+  const text = await response.text()
+  const body = parseJson(text)
+
+  if (!response.ok) {
+    throw new Error(formatFacebookPublishError(response.status, body))
+  }
+
+  return (body ?? {}) as T
+}
+
+function formatFacebookPublishError(status: number, body: unknown) {
+  const errorBody = isRecord(body) ? body : {}
+  const details = isRecord(errorBody.details) ? errorBody.details : {}
+  const message = typeof errorBody.message === 'string'
+    ? errorBody.message
+    : `Facebook publishing failed with ${status}.`
+  const extra = [
+    details.graphType ? String(details.graphType) : '',
+    details.graphCode ? `code ${String(details.graphCode)}` : '',
+    details.graphSubcode ? `subcode ${String(details.graphSubcode)}` : '',
+    details.graphErrorUserTitle ? String(details.graphErrorUserTitle) : '',
+    details.graphErrorUserMessage ? String(details.graphErrorUserMessage) : '',
+    details.graphFbtraceId ? `fbtrace ${String(details.graphFbtraceId)}` : '',
+  ].filter(Boolean)
+
+  return extra.length ? `${message} (${extra.join(' · ')})` : message
+}
+
+function parseJson(value: string) {
+  try {
+    return value ? JSON.parse(value) as unknown : null
+  } catch {
+    return null
+  }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null
 }
 
 function ensureInternalPublishingAvailable() {

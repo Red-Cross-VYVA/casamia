@@ -40,7 +40,9 @@ export function InternalFacebookPostsPage() {
       setStatus(nextStatus)
       setMessage(nextStatus.configured
         ? `Connected to Facebook Page ${nextStatus.pageId}.`
-        : `Facebook publishing needs ${nextStatus.missing.join(' and ')} in Vercel.`)
+        : nextStatus.unsupportedApiVersion
+          ? `Unsupported Meta Graph version ${nextStatus.unsupportedApiVersion}. Use ${nextStatus.apiVersion} in Vercel.`
+          : `Facebook publishing needs ${nextStatus.missing.join(' and ')} in Vercel.`)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Facebook publishing status could not be loaded.')
     } finally {
@@ -175,7 +177,12 @@ export function InternalFacebookPostsPage() {
             </div>
             <div className="rounded-lg bg-white/10 p-4">
               <dt className="font-black uppercase tracking-[0.14em] text-white/50">Graph API</dt>
-              <dd className="mt-1 font-bold text-white">{status?.apiVersion ?? 'v28.0'}</dd>
+              <dd className="mt-1 font-bold text-white">{status?.apiVersion ?? 'v26.0'}</dd>
+              {status?.unsupportedApiVersion ? (
+                <dd className="mt-2 text-xs font-bold text-gold">
+                  Replace {status.unsupportedApiVersion} with {status.apiVersion}.
+                </dd>
+              ) : null}
             </div>
             <div className="rounded-lg bg-white/10 p-4">
               <dt className="font-black uppercase tracking-[0.14em] text-white/50">Required secret</dt>

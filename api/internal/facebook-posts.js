@@ -53,9 +53,16 @@ export default async function handler(request, response) {
     sendJson(response, 200, result)
   } catch (error) {
     const statusCode = error instanceof FacebookPublishError ? error.statusCode : 500
+    const details = error instanceof FacebookPublishError ? error.details : undefined
+
+    console.error('Facebook publish failed', {
+      details,
+      message: error instanceof Error ? error.message : 'Unable to publish Facebook post.',
+      statusCode,
+    })
 
     sendJson(response, statusCode, {
-      details: error instanceof FacebookPublishError ? error.details : undefined,
+      details,
       message: error instanceof Error ? error.message : 'Unable to publish Facebook post.',
     })
   }
