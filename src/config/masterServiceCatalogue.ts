@@ -1,9 +1,14 @@
 import type { MasterServiceCatalogue } from '../types/serviceCatalogue.ts'
-import { getCorePackageCataloguePrice } from '../../shared/packagePricing.js'
+import { getCorePackageCataloguePrice, getStarterPackageCataloguePrice } from '../../shared/packagePricing.js'
 
 const now = '2026-08-23T00:00:00.000Z'
 
 const defaultPackagePricing: Record<string, { fromPrice?: number; recurringMonthlyPrice?: number }> = {
+  'bathroom-essentials-pack': { fromPrice: getStarterPackageCataloguePrice('bathroom-essentials-pack') },
+  'night-movement-pack': { fromPrice: getStarterPackageCataloguePrice('night-movement-pack') },
+  'kitchen-safety-starter-pack': { fromPrice: getStarterPackageCataloguePrice('kitchen-safety-starter-pack') },
+  'core-rails-pack': { fromPrice: getStarterPackageCataloguePrice('core-rails-pack') },
+  'entrance-basics-pack': { fromPrice: getStarterPackageCataloguePrice('entrance-basics-pack') },
   'bathroom-home-safety-package': { fromPrice: getCorePackageCataloguePrice('bathroom-home-safety-package') },
   'bathroom-connected-room': { fromPrice: 240 },
   'bedroom-home-safety-package': { fromPrice: getCorePackageCataloguePrice('bedroom-home-safety-package') },
@@ -17,7 +22,7 @@ const defaultPackagePricing: Record<string, { fromPrice?: number; recurringMonth
 }
 
 export const masterServiceCatalogue: MasterServiceCatalogue = {
-  version: '1.0.0',
+  version: '1.1.0',
   updatedAt: now,
   rooms: [
     { id: 'bathroom', slug: 'bathroom', name: { en: 'Bathroom', es: 'Baño' }, active: true, sortOrder: 10 },
@@ -27,6 +32,17 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     { id: 'entrance', slug: 'entrance', name: { en: 'Entrance', es: 'Entrada' }, active: true, sortOrder: 50 },
   ],
   sections: [
+    {
+      id: 'starter-essentials',
+      slug: 'starter-essentials',
+      name: { en: 'Starter Essentials', es: 'Esenciales de inicio' },
+      description: {
+        en: 'Lower-cost fixed-scope packs for the most important safety necessities before a full room package is needed.',
+        es: 'Paquetes de alcance fijo y menor coste para las necesidades de seguridad más importantes antes de un paquete completo por estancia.',
+      },
+      active: true,
+      sortOrder: 5,
+    },
     {
       id: 'home-safety-package',
       slug: 'home-safety-package',
@@ -62,6 +78,18 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     },
   ],
   packages: [
+    packageRecord('bathroom-essentials-pack', 'bathroom', 'starter-essentials', {
+      en: 'Bathroom Essentials Pack', es: 'Pack esencial de baño',
+    }, 'Bathroom Essentials Pack', 5, false, {
+      shortDescription: {
+        en: 'A lower-cost bathroom starter pack focused on two support bars, safer transfer positioning and one simple slip-risk fix.',
+        es: 'Un pack inicial de baño de menor coste centrado en dos barras de apoyo, colocación segura para transferencias y una solución sencilla contra resbalones.',
+      },
+      customerBenefit: {
+        en: 'A practical first step when the bathroom feels risky but a complete room package is not yet needed.',
+        es: 'Un primer paso práctico cuando el baño parece arriesgado pero aún no hace falta un paquete completo.',
+      },
+    }),
     packageRecord('bathroom-home-safety-package', 'bathroom', 'home-safety-package', {
       en: 'Bathroom Home Safety Package',
       es: 'Paquete de seguridad para baño',
@@ -99,6 +127,18 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       customerBenefit: {
         en: 'Specialist add-ons for homes that need more than the standard bathroom package.',
         es: 'Complementos especializados para viviendas que necesitan más que el paquete estándar de baño.',
+      },
+    }),
+    packageRecord('night-movement-pack', 'bedroom', 'starter-essentials', {
+      en: 'Night Movement Pack', es: 'Pack de movimiento nocturno',
+    }, 'Night Movement Pack', 35, false, {
+      shortDescription: {
+        en: 'A focused starter pack combining motion lighting, bed-exit support and a simple trip-risk fix along the night route.',
+        es: 'Un pack inicial con iluminación por movimiento, apoyo al salir de la cama y una solución sencilla de tropiezos en la ruta nocturna.',
+      },
+      customerBenefit: {
+        en: 'Helps make night-time movement calmer and more visible without changing the whole bedroom.',
+        es: 'Ayuda a que el movimiento nocturno sea más tranquilo y visible sin cambiar todo el dormitorio.',
       },
     }),
     packageRecord('bedroom-home-safety-package', 'bedroom', 'home-safety-package', {
@@ -140,6 +180,18 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
         es: 'Opciones especializadas de confort y acceso cuando el paquete estándar de dormitorio no es suficiente.',
       },
     }),
+    packageRecord('kitchen-safety-starter-pack', 'kitchen', 'starter-essentials', {
+      en: 'Kitchen Safety Starter Pack', es: 'Pack inicial de seguridad para cocina',
+    }, 'Kitchen Safety Starter Pack', 65, false, {
+      shortDescription: {
+        en: 'A focused kitchen starter pack for better task visibility, one immediate slip-risk fix and more reachable everyday storage.',
+        es: 'Un pack inicial de cocina para mejorar la visibilidad de trabajo, resolver un riesgo inmediato de resbalón y acercar el almacenamiento de uso diario.',
+      },
+      customerBenefit: {
+        en: 'Makes essential kitchen routines easier and safer without committing to a complete room package.',
+        es: 'Hace que las rutinas esenciales de cocina sean más fáciles y seguras sin contratar un paquete completo.',
+      },
+    }),
     packageRecord('kitchen-home-safety-package', 'kitchen', 'home-safety-package', {
       en: 'Kitchen Home Safety Package',
       es: 'Paquete de seguridad para cocina',
@@ -179,6 +231,18 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
         es: 'Complementos concretos para alcance y acceso cuando la distribución actual de la cocina necesita más apoyo.',
       },
     }),
+    packageRecord('core-rails-pack', 'living-room', 'starter-essentials', {
+      en: 'Core-route Grab-bar Pack', es: 'Pack de barras para rutas principales',
+    }, 'Core-route Grab-bar Pack', 95, false, {
+      shortDescription: {
+        en: 'A fixed-scope starter pack for up to three grab bars or support rails in the priority areas CasaMia identifies during placement review.',
+        es: 'Un pack de alcance fijo para hasta tres barras de apoyo o pasamanos en las zonas prioritarias que CasaMia identifique durante la revisión.',
+      },
+      customerBenefit: {
+        en: 'Adds predictable hand support at the main points in the home that feel most worrying.',
+        es: 'Añade apoyo de mano predecible en los puntos principales de la vivienda que más preocupan.',
+      },
+    }),
     packageRecord('living-room-home-safety-package', 'living-room', 'home-safety-package', {
       en: 'Living Room Home Safety Package',
       es: 'Paquete de seguridad para salón',
@@ -216,6 +280,18 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       customerBenefit: {
         en: 'Specialist add-ons when comfort, access or level changes need a tailored solution.',
         es: 'Complementos especializados cuando el confort, el acceso o los cambios de nivel necesitan una solución a medida.',
+      },
+    }),
+    packageRecord('entrance-basics-pack', 'entrance', 'starter-essentials', {
+      en: 'Entrance Safety Starter Pack', es: 'Pack inicial de seguridad para entrada',
+    }, 'Entrance Safety Starter Pack', 125, false, {
+      shortDescription: {
+        en: 'A lower-cost entrance pack for one support rail, clearer threshold visibility and safer mat or step-edge basics.',
+        es: 'Un pack de entrada de menor coste con un apoyo, mejor visibilidad del umbral y básicos de felpudo o borde de escalón más seguros.',
+      },
+      customerBenefit: {
+        en: 'Makes the everyday entrance steadier before a full entrance package is needed.',
+        es: 'Hace que la entrada diaria sea más estable antes de necesitar un paquete completo de entrada.',
       },
     }),
     packageRecord('entrance-home-safety-package', 'entrance', 'home-safety-package', {
@@ -259,6 +335,20 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
     }),
   ],
   outcomes: [
+    outcome('starter-bathroom-support-bars', 'bathroom', 'starter-essentials', 'bathroom-essentials-pack', 'Bathroom Support Bars', 'Barras de apoyo para baño', 'Bathroom starter support', 'Installing two support bars in the highest-priority bathroom positions after checking the wall and routine.', 'Instala dos barras de apoyo en los puntos prioritarios del baño tras revisar la pared y la rutina.', 'Gives reliable hand support where shower, bath or toilet movement feels least steady.', 'Da apoyo fiable donde el movimiento en ducha, bañera o WC resulta menos estable.', 'essential', ['bathroom'], 4, { grantEligible: true }),
+    outcome('starter-bathroom-transfer-positioning', 'bathroom', 'starter-essentials', 'bathroom-essentials-pack', 'Toilet & Shower Transfer Positioning', 'Colocación para transferencias en WC y ducha', 'Bathroom starter support', 'Reviewing toilet and shower transfer points so the two bars are placed where they help most.', 'Revisa los puntos de transferencia en WC y ducha para colocar las dos barras donde más ayudan.', 'Keeps the pack focused on the real transfer moment.', 'Mantiene el pack centrado en el momento real de transferencia.', 'essential', ['bathroom'], 5, { grantEligible: true }),
+    outcome('starter-bathroom-slip-risk-fix', 'bathroom', 'starter-essentials', 'bathroom-essentials-pack', 'Basic Bathroom Slip-Risk Fix', 'Solución básica contra resbalones en baño', 'Bathroom starter support', 'Adding one simple slip-risk improvement such as a secure mat or small grip treatment where suitable.', 'Añade una mejora sencilla contra resbalones, como una alfombrilla segura o un tratamiento básico de agarre cuando encaje.', 'Addresses the first wet-floor risk without a full bathroom adaptation.', 'Resuelve el primer riesgo de suelo mojado sin una adaptación completa.', 'essential', ['bathroom'], 6, { grantEligible: true }),
+    outcome('starter-night-motion-lighting', 'bedroom', 'starter-essentials', 'night-movement-pack', 'Motion Night Lighting', 'Iluminación nocturna con sensor', 'Night movement starter support', 'Adding low-level motion lighting around the bed and first night route where the layout allows.', 'Añade iluminación baja con sensor alrededor de la cama y la primera ruta nocturna cuando la distribución lo permite.', 'Makes first steps at night easier to see without harsh overhead light.', 'Hace que los primeros pasos nocturnos sean más fáciles de ver sin luz fuerte de techo.', 'essential', ['bedroom', 'lighting'], 120, { grantEligible: true, technologyEnabled: true }),
+    outcome('starter-bed-exit-support', 'bedroom', 'starter-essentials', 'night-movement-pack', 'Bed Exit Support', 'Apoyo al salir de la cama', 'Night movement starter support', 'Adding a simple bedside support or bed-exit aid suited to the person, mattress and room.', 'Añade un apoyo sencillo junto a la cama adecuado para la persona, el colchón y la estancia.', 'Gives steadier support where night movement begins.', 'Da apoyo más estable donde empieza el movimiento nocturno.', 'essential', ['bedroom'], 121, { grantEligible: true }),
+    outcome('starter-night-route-trip-fix', 'bedroom', 'starter-essentials', 'night-movement-pack', 'Night Route Trip-Risk Fix', 'Solución de tropiezos en ruta nocturna', 'Night movement starter support', 'Clearing or securing the most obvious rug, cable or route hazard between the bed and first destination.', 'Despeja o fija el riesgo más evidente de alfombra, cable o paso entre la cama y el primer destino.', 'Reduces obstacles that become more dangerous in low light.', 'Reduce obstáculos que resultan más peligrosos con poca luz.', 'essential', ['bedroom', 'living-room'], 122, { grantEligible: true }),
+    outcome('starter-kitchen-task-lighting', 'kitchen', 'starter-essentials', 'kitchen-safety-starter-pack', 'Kitchen Task Visibility', 'Visibilidad de trabajo en cocina', 'Kitchen starter support', 'Improving light at the main preparation or cooking point with a suitable task-lighting solution.', 'Mejora la luz en el principal punto de preparación o cocción con una solución adecuada.', 'Makes edges, ingredients and spills easier to see.', 'Hace que bordes, ingredientes y derrames sean más fáciles de ver.', 'essential', ['kitchen', 'lighting'], 310, { grantEligible: true }),
+    outcome('starter-kitchen-slip-risk-fix', 'kitchen', 'starter-essentials', 'kitchen-safety-starter-pack', 'Kitchen Slip-Risk Fix', 'Solución de riesgo de resbalón en cocina', 'Kitchen starter support', 'Securing or replacing one immediate mat or floor hazard in the main kitchen route.', 'Fija o sustituye un felpudo o riesgo inmediato del suelo en la ruta principal de la cocina.', 'Removes a common obstacle from everyday kitchen movement.', 'Elimina un obstáculo habitual del movimiento diario en la cocina.', 'essential', ['kitchen'], 311, { grantEligible: true }),
+    outcome('starter-kitchen-reach-reset', 'kitchen', 'starter-essentials', 'kitchen-safety-starter-pack', 'Everyday Storage Reach Reset', 'Reorganización de almacenamiento diario', 'Kitchen starter support', 'Repositioning everyday items into safer, easier-to-reach storage.', 'Recoloca los objetos de uso diario en espacios más seguros y accesibles.', 'Reduces repeated stretching, bending and unsafe stool use.', 'Reduce estiramientos, agacharse y el uso inseguro de taburetes.', 'essential', ['kitchen'], 312, { grantEligible: true }),
+    outcome('starter-core-priority-rails', 'living-room', 'starter-essentials', 'core-rails-pack', 'Priority Support Rails', 'Barras de apoyo prioritarias', 'Whole-home starter support', 'Installing up to three grab bars or support rails in priority areas after checking placement and surface suitability.', 'Instala hasta tres barras de apoyo o pasamanos en zonas prioritarias tras comprobar colocación y superficie.', 'Adds reliable handholds where balance, transfers or short steps need the quickest support.', 'Añade puntos de agarre fiables donde se necesita apoyo rápido.', 'essential', ['bathroom', 'bedroom', 'living-room', 'entrance'], 400, { grantEligible: true }),
+    outcome('starter-core-rail-placement', 'living-room', 'starter-essentials', 'core-rails-pack', 'Rail Placement Review', 'Revisión de colocación de barras', 'Whole-home starter support', 'Confirming the best standard positions for the included rails.', 'Confirma las mejores posiciones estándar para las barras incluidas.', 'Keeps the fixed-scope installation focused on the resident’s real route.', 'Mantiene la instalación centrada en la ruta real de la persona.', 'essential', ['bathroom', 'bedroom', 'living-room', 'entrance'], 401, { grantEligible: true }),
+    outcome('starter-entrance-support-rail', 'entrance', 'starter-essentials', 'entrance-basics-pack', 'Entrance Support Rail', 'Pasamanos o apoyo de entrada', 'Entrance starter support', 'Adding one handrail or support bar at the everyday arrival or departure point.', 'Añade un pasamanos o barra de apoyo en el punto habitual de entrada o salida.', 'Makes the first step in or out feel steadier.', 'Hace que el primer paso al entrar o salir sea más estable.', 'essential', ['entrance', 'outdoor'], 501, { grantEligible: true }),
+    outcome('starter-entrance-threshold-visibility', 'entrance', 'starter-essentials', 'entrance-basics-pack', 'Threshold Visibility', 'Visibilidad del umbral', 'Entrance starter support', 'Making the main threshold or step edge easier to see with simple high-contrast marking where suitable.', 'Hace que el umbral o borde del escalón se vea mejor con señalización de alto contraste cuando encaje.', 'Makes small level changes easier to notice.', 'Hace que pequeños desniveles sean más fáciles de detectar.', 'essential', ['entrance', 'outdoor', 'lighting'], 502, { grantEligible: true }),
+    outcome('starter-entrance-mat-basics', 'entrance', 'starter-essentials', 'entrance-basics-pack', 'Safer Entrance Mat Basics', 'Básicos de felpudo seguro', 'Entrance starter support', 'Replacing, securing or repositioning the main entrance mat where it creates a trip or slip risk.', 'Sustituye, fija o recoloca el felpudo principal cuando genera riesgo.', 'Removes one of the simplest entrance hazards.', 'Elimina uno de los riesgos más sencillos de la entrada.', 'essential', ['entrance', 'outdoor'], 503, { grantEligible: true }),
     outcome('bathroom-safer-bathing', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Bathroom Grab Bars', 'Barras de apoyo para baño', 'Bathing safety', 'Adding fixed hand support where the person needs steadier bathing or shower movement.', 'Añade apoyo fijo para que la persona tenga más estabilidad al bañarse o ducharse.', 'Provides predictable hand support at the right wall points for entering, standing, turning or leaving the bathing area.', 'Ofrece apoyo predecible en los puntos adecuados de la pared para entrar, estar de pie, girar o salir de la zona de baño.', 'essential', ['bathroom'], 10, { legacyId: 'bathroom-grab-bars', grantEligible: true }),
     outcome('bathroom-folding-shower-seat', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Folding Shower Seat', 'Asiento abatible de ducha', 'Bathing safety', 'Adding a fixed fold-away seat for safer seated showering where the wall and layout are suitable.', 'Añade un asiento abatible fijo para ducharse sentado con más seguridad cuando la pared y la distribución lo permiten.', 'Lets the resident sit for washing, resting or longer shower routines without relying on loose furniture.', 'Permite sentarse para lavarse, descansar o ducharse con más calma sin depender de muebles sueltos.', 'essential', ['bathroom'], 12, { grantEligible: true }),
     outcome('bathroom-anti-slip-bath-mat', 'bathroom', 'home-safety-package', 'bathroom-home-safety-package', 'Secure Anti-slip Bath Mat Set', 'Juego de alfombrillas antideslizantes seguras', 'Bathing safety', 'Adding a secure mat inside the bath or shower plus an outside stepping mat where it reduces wet-foot slip risk.', 'Añade una alfombrilla segura dentro de la bañera o ducha y otra exterior para el primer paso cuando reduce el riesgo de resbalón.', 'Improves grip where the resident stands to wash and where they step out, with low-profile mats selected and positioned so they stay stable during use.', 'Mejora el agarre donde la persona se coloca para lavarse y donde pisa al salir, con alfombrillas de perfil bajo seleccionadas y colocadas para mantenerse estables.', 'essential', ['bathroom'], 14, { grantEligible: true }),
@@ -861,6 +951,20 @@ function packageOutcomeRelations() {
 
 function getMasterServiceCatalogueSeedOutcomeIds() {
   return [
+  ['bathroom-essentials-pack', 'starter-bathroom-support-bars'],
+  ['bathroom-essentials-pack', 'starter-bathroom-transfer-positioning'],
+  ['bathroom-essentials-pack', 'starter-bathroom-slip-risk-fix'],
+  ['night-movement-pack', 'starter-night-motion-lighting'],
+  ['night-movement-pack', 'starter-bed-exit-support'],
+  ['night-movement-pack', 'starter-night-route-trip-fix'],
+  ['kitchen-safety-starter-pack', 'starter-kitchen-task-lighting'],
+  ['kitchen-safety-starter-pack', 'starter-kitchen-slip-risk-fix'],
+  ['kitchen-safety-starter-pack', 'starter-kitchen-reach-reset'],
+  ['core-rails-pack', 'starter-core-priority-rails'],
+  ['core-rails-pack', 'starter-core-rail-placement'],
+  ['entrance-basics-pack', 'starter-entrance-support-rail'],
+  ['entrance-basics-pack', 'starter-entrance-threshold-visibility'],
+  ['entrance-basics-pack', 'starter-entrance-mat-basics'],
   ['bathroom-home-safety-package', 'bathroom-safer-bathing'],
   ['bathroom-home-safety-package', 'bathroom-folding-shower-seat'],
   ['bathroom-home-safety-package', 'bathroom-anti-slip-bath-mat'],
@@ -919,6 +1023,20 @@ function getMasterServiceCatalogueSeedOutcomeIds() {
 
 function outcomeCapabilityRelations() {
   const map: Record<string, string[]> = {
+    'starter-bathroom-support-bars': ['bathroom-wall-mounted-grab-bars', 'bathroom-toilet-support-rails'],
+    'starter-bathroom-transfer-positioning': ['bathroom-wall-mounted-grab-bars', 'bathroom-toilet-support-rails'],
+    'starter-bathroom-slip-risk-fix': ['bathroom-anti-slip-bath-shower-mat', 'wet-floor-grip'],
+    'starter-night-motion-lighting': ['low-level-night-lighting', 'motion-activated-lighting', 'bedroom-motion-night-lighting'],
+    'starter-bed-exit-support': ['discreet-transfer-support', 'bed-height-optimisation', 'bedside-anti-slip-mats'],
+    'starter-night-route-trip-fix': ['loose-rug-securing', 'cable-management', 'bed-to-door-clear-route'],
+    'starter-kitchen-task-lighting': ['kitchen-task-lighting'],
+    'starter-kitchen-slip-risk-fix': ['anti-slip-rug-tape', 'kitchen-circulation-space'],
+    'starter-kitchen-reach-reset': ['accessible-storage-arrangement', 'kitchen-circulation-space'],
+    'starter-core-priority-rails': ['bathroom-wall-mounted-grab-bars', 'bathroom-vertical-support-rail', 'entrance-handrail'],
+    'starter-core-rail-placement': ['bathroom-wall-mounted-grab-bars', 'entrance-handrail', 'living-room-circulation-space'],
+    'starter-entrance-support-rail': ['entrance-handrail'],
+    'starter-entrance-threshold-visibility': ['high-visibility-step-edge-markings'],
+    'starter-entrance-mat-basics': ['secure-entrance-mat', 'slip-resistant-entrance-surface'],
     'bathroom-safer-bathing': ['bathroom-wall-mounted-grab-bars'],
     'bathroom-folding-shower-seat': ['bathroom-folding-shower-seat-support'],
     'bathroom-anti-slip-bath-mat': ['bathroom-anti-slip-bath-shower-mat'],

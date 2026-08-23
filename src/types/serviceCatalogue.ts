@@ -26,6 +26,7 @@ export type ServiceComponentRole = 'core' | 'option'
 
 export type ServiceCatalogueSection =
   | 'home_safety_package'
+  | 'starter_essentials'
   | 'connected_room'
   | 'optional_adaptations'
 
@@ -35,6 +36,7 @@ export type ServiceStatus = 'draft' | 'active' | 'deprecated'
 
 export type MasterCatalogueSectionId =
   | 'home-safety-package'
+  | 'starter-essentials'
   | 'connected-room'
   | 'optional-adaptations'
 

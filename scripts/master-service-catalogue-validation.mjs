@@ -10,7 +10,7 @@ const catalogue = getMasterServiceCatalogue()
 const failures = []
 const warnings = []
 const requiredRooms = ['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance']
-const requiredSections = ['home-safety-package', 'connected-room', 'optional-adaptations']
+const requiredSections = ['starter-essentials', 'home-safety-package', 'connected-room', 'optional-adaptations']
 
 function assert(condition, message) {
   if (!condition) failures.push(message)

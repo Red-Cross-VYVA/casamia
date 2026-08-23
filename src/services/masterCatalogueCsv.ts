@@ -806,7 +806,7 @@ function parsePricingType(value: string | undefined): MasterPricingType {
 
 function parseSection(value: string | undefined): MasterCatalogueSectionId {
   const cleaned = clean(value)
-  if (cleaned === 'connected-room' || cleaned === 'optional-adaptations') return cleaned
+  if (cleaned === 'connected-room' || cleaned === 'optional-adaptations' || cleaned === 'starter-essentials') return cleaned
   return 'home-safety-package'
 }
 

@@ -19,6 +19,7 @@ const sectionMap: Record<MasterCatalogueOutcome['section'], ServiceCatalogueSect
   'connected-room': 'connected_room',
   'home-safety-package': 'home_safety_package',
   'optional-adaptations': 'optional_adaptations',
+  'starter-essentials': 'starter_essentials',
 }
 
 const packageAreaIds = new Set<ServicePackageArea>(['bathroom', 'bedroom', 'kitchen', 'living-room', 'entrance'])

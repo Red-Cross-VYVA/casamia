@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
+import { buildPublicPlansDraft } from '../api/_lib/plans-pricing.js'
 import { getDefaultServiceCatalogue } from '../src/services/serviceCatalogue.ts'
 import {
   buildPlansBuilderGroups,
+  buildPlansStarterPacks,
   calculatePlansBuilderEstimate,
   formatPlansEstimateLabel,
 } from '../src/services/plansBuilderPricing.ts'
@@ -28,6 +30,7 @@ assert.ok(
   'Default service catalogue snapshot must include master packages for proposal fallback.',
 )
 const defaultGroups = buildPlansBuilderGroups(defaultCatalogue, 'en', { publicOnly: true })
+const starterPacks = buildPlansStarterPacks(defaultCatalogue, 'en', { publicOnly: true })
 const bathroomGroup = defaultGroups.find((group) => group.room.id === 'bathroom')
 const bedroomGroup = defaultGroups.find((group) => group.room.id === 'bedroom')
 const entranceGroup = defaultGroups.find((group) => group.room.id === 'entrance')
@@ -41,6 +44,52 @@ assert.equal(bathroomGroup.packageUnitPrice, 749, 'Bathroom must use the approve
 assert.equal(bedroomGroup.packageUnitPrice, 649, 'Bedroom must use the approved VAT-included customer price.')
 assert.equal(kitchenGroup.packageUnitPrice, 699, 'Kitchen must use the approved VAT-included customer price.')
 assert.equal(entranceGroup.packageUnitPrice, 749, 'Entrance must use the approved VAT-included customer price.')
+assert.deepEqual(
+  Object.fromEntries(starterPacks.map((starterPack) => [starterPack.packageRecord.id, starterPack.packageUnitPrice])),
+  {
+    'bathroom-essentials-pack': 499,
+    'night-movement-pack': 399,
+    'kitchen-safety-starter-pack': 399,
+    'core-rails-pack': 349,
+    'entrance-basics-pack': 449,
+  },
+  'All five Starter Packs must use their approved VAT-included customer prices.',
+)
+assert.ok(starterPacks.every((starterPack) => starterPack.outcomes.length > 0), 'Every Starter Pack must include catalogue outcomes.')
+
+{
+  const bathroomStarter = starterPacks.find((starterPack) => starterPack.packageRecord.id === 'bathroom-essentials-pack')
+  const kitchenStarter = starterPacks.find((starterPack) => starterPack.packageRecord.id === 'kitchen-safety-starter-pack')
+  assert.ok(bathroomStarter && kitchenStarter)
+  const estimate = calculatePlansBuilderEstimate(defaultGroups, {
+    [bathroomStarter.packageRecord.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+    [kitchenStarter.packageRecord.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+  }, 'en', { starterPacks })
+
+  assert.equal(estimate.oneTimeEstimate, 898, 'Starter Packs must price as complete fixed-scope packages.')
+  assert.equal(estimate.selectedRoomQuantity, 2, 'Starter Pack quantities must be included in the selected package total.')
+  assert.equal(
+    estimate.lineItems.some((line) => line.id === 'plans-installation-bundle-saving'),
+    false,
+    'Starter Packs must not trigger the full-room installation discount schedule.',
+  )
+
+  const serverDraft = buildPublicPlansDraft({
+    body: {
+      consent: true,
+      customer: { email: 'starter@example.com', name: 'Starter Test' },
+      language: 'en',
+      selection: {
+        [kitchenStarter.packageRecord.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+      },
+    },
+    cataloguePayload: defaultCatalogue,
+    now: new Date('2026-08-23T12:00:00.000Z'),
+  })
+  assert.equal(serverDraft.ok, true, 'The server proposal path must accept a Starter Pack-only selection.')
+  assert.equal(serverDraft.proposalPayload?.total, 399, 'The server must use the approved Kitchen Starter Pack price.')
+  assert.equal(serverDraft.proposalPayload?.line_items[0]?.sourcePackageId, 'kitchen-safety-starter-pack')
+}
 
 {
   const staleCatalogue = structuredClone(defaultCatalogue)

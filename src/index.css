@@ -18098,6 +18098,129 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.42;
 }
 
+.plans-starter-section {
+  margin-top: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(200, 220, 232, 0.9);
+}
+
+.plans-starter-heading h3,
+.plans-full-package-heading h3 {
+  margin-top: 7px;
+  color: var(--text-dark);
+  font-size: 24px;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+.plans-starter-heading > div > p:last-child {
+  max-width: 660px;
+  margin-top: 8px;
+  color: var(--text-mid);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.plans-starter-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.plans-starter-card {
+  display: grid;
+  grid-template-rows: 172px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid rgba(200, 220, 232, 0.95);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(13, 30, 46, 0.06);
+}
+
+.plans-starter-card.is-selected {
+  border-color: rgba(125, 184, 65, 0.78);
+  box-shadow: inset 0 0 0 1px rgba(125, 184, 65, 0.18), 0 18px 38px rgba(13, 30, 46, 0.09);
+}
+
+.plans-starter-media {
+  overflow: hidden;
+  background: var(--light-blue);
+}
+
+.plans-starter-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plans-starter-content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 18px;
+}
+
+.plans-starter-topline,
+.plans-starter-topline span,
+.plans-starter-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.plans-starter-topline {
+  justify-content: space-between;
+}
+
+.plans-starter-topline span {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.plans-starter-topline strong {
+  color: var(--green);
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.plans-starter-card h4 {
+  margin-top: 12px;
+  color: var(--text-dark);
+  font-size: 21px;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+.plans-starter-card p {
+  margin-top: 8px;
+  color: var(--text-mid);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.plans-starter-chip {
+  width: fit-content;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: var(--light-blue);
+  padding: 6px 9px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.plans-starter-actions {
+  margin-top: auto;
+  padding-top: 18px;
+  justify-content: space-between;
+}
+
+.plans-full-package-heading {
+  margin-top: 30px;
+}
+
 .plans-room-grid {
   display: grid;
   gap: 14px;
@@ -19491,6 +19614,10 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   }
 
   .plans-room-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .plans-starter-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 

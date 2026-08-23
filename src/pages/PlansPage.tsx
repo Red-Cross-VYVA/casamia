@@ -49,6 +49,7 @@ import { getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
 import { getMasterServiceCatalogue, getProposalSpecificationForOutcome } from '../services/masterServiceCatalogue'
 import {
   buildPlansBuilderGroups,
+  buildPlansStarterPacks,
   calculatePlansBuilderEstimate,
   formatPlansCurrency,
   formatPlansEstimateLabel,
@@ -58,6 +59,7 @@ import {
   type PlansBuilderAddOnPackage,
   type PlansBuilderGroup,
   type PlansBuilderSelectionState,
+  type PlansStarterPack,
 } from '../services/plansBuilderPricing'
 import { createPublicProposalDraft, type PublicProposalDraftResponse } from '../services/proposalsApi'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
@@ -815,6 +817,14 @@ const roomVisuals: Record<string, string> = {
   'living-room': '/images/service-gallery/isometric/isometric-living.jpg',
 }
 
+const starterPackVisuals: Record<string, string> = {
+  'bathroom-essentials-pack': '/images/service-card-products/vertical-shower-grab-bar.png',
+  'night-movement-pack': '/images/service-card-products/underbed-lighting.webp',
+  'kitchen-safety-starter-pack': '/images/service-card-products/kitchen-worktop-lighting.webp',
+  'core-rails-pack': '/images/service-gallery/01-grab-bars-and-support-points.jpg',
+  'entrance-basics-pack': '/images/service-card-products/entrance-safer-access.png',
+}
+
 type OutcomePreviewTheme =
   | 'access'
   | 'alert'
@@ -1138,6 +1148,7 @@ export function PlansPage() {
   const catalogue = useServiceCatalogue()
   const masterCatalogue = useMemo(() => catalogue.masterCatalogue ?? getMasterServiceCatalogue(), [catalogue.masterCatalogue])
   const groups = useMemo(() => buildPlansBuilderGroups(catalogue, language), [catalogue, language])
+  const starterPacks = useMemo(() => buildPlansStarterPacks(catalogue, language), [catalogue, language])
   const [selection, setSelection] = useState<PlansBuilderSelectionState>({})
   const [customer, setCustomer] = useState<CustomerForm>(emptyCustomerForm)
   const [formErrors, setFormErrors] = useState<PlansFormErrors>({})
@@ -1211,19 +1222,20 @@ export function PlansPage() {
   const emailDeliveryStatus = emailDelivery?.status ?? ''
   const emailDeliveryMessage = getEmailDeliveryMessage(emailDelivery, language)
   const estimate = useMemo(
-    () => calculatePlansBuilderEstimate(groups, selection, language),
-    [groups, language, selection],
+    () => calculatePlansBuilderEstimate(groups, selection, language, { starterPacks }),
+    [groups, language, selection, starterPacks],
   )
   const selectedGroups = groups.filter((group) => selection[group.homePackage.id]?.selected)
-  const selectedSummary = selectedGroups.map((group) => {
-    const quantity = selection[group.homePackage.id]?.quantity ?? 1
-    return `${quantity}x ${group.roomLabel}`
-  })
+  const selectedStarterPacks = starterPacks.filter((starterPack) => selection[starterPack.packageRecord.id]?.selected)
+  const selectedSummary = [
+    ...selectedStarterPacks.map((starterPack) => `${selection[starterPack.packageRecord.id]?.quantity ?? 1}x ${starterPack.packageLabel}`),
+    ...selectedGroups.map((group) => `${selection[group.homePackage.id]?.quantity ?? 1}x ${group.roomLabel}`),
+  ]
   const oneTimeLineItems = estimate.lineItems.filter((line) => !line.isRecurring)
   const proposalReady = Boolean(draftUrl)
   const selectedCountLabel = language === 'es'
-    ? `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'paquete base seleccionado' : 'paquetes base seleccionados'}`
-    : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'core package selected' : 'core packages selected'}`
+    ? `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'paquete seleccionado' : 'paquetes seleccionados'}`
+    : `${estimate.selectedRoomQuantity} ${estimate.selectedRoomQuantity === 1 ? 'package selected' : 'packages selected'}`
   const detailCopy = language === 'es'
     ? {
         addConnected: 'A\u00f1adir apoyo conectado',
@@ -1337,7 +1349,23 @@ export function PlansPage() {
             variant: 'review',
           }
     : null
-  const selectedPlanDetails = selectedGroups.map((group) => {
+  const selectedPlanDetails = [
+    ...selectedStarterPacks.map((starterPack) => {
+      const packageSelection = selection[starterPack.packageRecord.id]
+      const packageLine = oneTimeLineItems.find((line) => line.packageId === starterPack.packageRecord.id)
+      return {
+        addOns: [],
+        description: starterPack.packageDescription,
+        id: starterPack.packageRecord.id,
+        included: starterPack.outcomes.slice(0, 4).map((outcome) => ({ id: outcome.id, outcome })),
+        includedMore: Math.max(0, starterPack.outcomes.length - 4),
+        lineTotal: packageLine?.lineTotal ?? 0,
+        packageLabel: starterPack.packageLabel,
+        quantity: packageSelection?.quantity ?? 1,
+        roomLabel: starterPack.roomLabel,
+      }
+    }),
+    ...selectedGroups.map((group) => {
     const packageSelection = selection[group.homePackage.id]
     const selectedAddOnIds = new Set(packageSelection?.addOnOutcomeIds ?? [])
     const packageLine = oneTimeLineItems.find((line) => line.packageId === group.homePackage.id)
@@ -1381,7 +1409,8 @@ export function PlansPage() {
       quantity: packageSelection?.quantity ?? 1,
       roomLabel: group.roomLabel,
     }
-  })
+    }),
+  ]
   const selectedAddOnCount = selectedPlanDetails.reduce((sum, detail) => sum + detail.addOns.length, 0)
   const selectedIncludedCount = selectedPlanDetails.reduce(
     (sum, detail) => sum + detail.included.length + detail.includedMore,
@@ -1392,7 +1421,7 @@ export function PlansPage() {
         addOns: 'Extras',
         addOnsEmpty: 'Separados',
         estimateLabel: 'Total estimado',
-        estimateNote: 'IVA incluido. Los extras que necesitan informaci\u00f3n adicional no se suman hasta que CasaMia confirme alcance, precio y aprobaci\u00f3n contigo.',
+        estimateNote: 'IVA incluido. Los precios cubren un resultado coordinado, no una cesta por elementos. Quitar un elemento no reduce automáticamente el precio; solo se aplica un crédito si el alcance reducido disminuye materialmente el coste de CasaMia.',
         extrasReviewBody: 'Tu paquete base puede avanzar ahora. CasaMia revisar\u00e1 estos extras contigo y confirmar\u00e1 medidas, idoneidad y precio antes de a\u00f1adirlos.',
         extrasReviewTitle: 'Extras que CasaMia confirmar\u00e1 contigo',
         includedItems: 'elementos incluidos',
@@ -1406,7 +1435,7 @@ export function PlansPage() {
         addOns: 'Add-ons',
         addOnsEmpty: 'Separate',
         estimateLabel: 'Estimated total',
-        estimateNote: 'VAT included. Extras that need more information are not added until CasaMia confirms scope, price and approval with you.',
+        estimateNote: 'VAT included. Package prices cover a coordinated outcome, not an item-by-item basket. Removing an item does not automatically reduce the price; a credit applies only when reduced scope materially lowers CasaMia cost.',
         extrasReviewBody: 'Your core package can move forward now. CasaMia will review these extras with you and confirm measurements, suitability and price before adding them.',
         extrasReviewTitle: 'Extras CasaMia will confirm with you',
         includedItems: 'included items',
@@ -1722,6 +1751,18 @@ export function PlansPage() {
     })
   }
 
+  function updateStarterPackQuantity(starterPack: PlansStarterPack, quantity: number) {
+    const nextQuantity = Math.max(0, Math.min(12, Math.floor(Number.isFinite(quantity) ? quantity : 0)))
+    setSelection((current) => ({
+      ...current,
+      [starterPack.packageRecord.id]: {
+        addOnOutcomeIds: [],
+        quantity: nextQuantity > 0 ? normalisePlansQuantity(nextQuantity) : 1,
+        selected: nextQuantity > 0,
+      },
+    }))
+  }
+
   function applyPreset(presetId: PlansPresetId) {
     const presetQuantities: Record<PlansPresetId, Record<string, number>> = {
       focused: { bathroom: 1 },
@@ -1834,6 +1875,19 @@ export function PlansPage() {
     })
   }
 
+  function openStarterPackDetails(starterPack: PlansStarterPack) {
+    setActiveDetailIndex(0)
+    setActiveDetailTab('core')
+    setActiveDetail({
+      body: starterPack.packageDescription,
+      items: starterPack.outcomes,
+      mode: 'core',
+      price: formatPlansCurrency(starterPack.packageUnitPrice, language),
+      title: starterPack.packageLabel,
+      typeLabel: language === 'es' ? 'Pack inicial' : 'Starter pack',
+    })
+  }
+
   function openAddOnPackageDetails(group: PlansBuilderGroup, addOnPackage: PlansBuilderAddOnPackage) {
     setActiveDetailIndex(0)
     setActiveDetailTab('optional')
@@ -1918,7 +1972,7 @@ export function PlansPage() {
   }
 
   function goToReviewStep() {
-    if (!selectedGroups.length) {
+    if (!selectedGroups.length && !selectedStarterPacks.length) {
       setError(copy.noSelection)
       scrollToPlansSection('plans-builder-title')
       return
@@ -2208,6 +2262,55 @@ export function PlansPage() {
               </div>
             </div>
 
+            <section className="plans-starter-section" aria-labelledby="plans-starter-title">
+              <div className="plans-starter-heading">
+                <div>
+                  <p className="section-kicker">{language === 'es' ? 'Primeros pasos más económicos' : 'Lower-cost first steps'}</p>
+                  <h3 id="plans-starter-title">{language === 'es' ? 'Packs iniciales' : 'Starter packs'}</h3>
+                  <p>{language === 'es' ? 'Opciones de alcance fijo para cubrir primero las necesidades esenciales.' : 'Fixed-scope options that cover the essential needs first.'}</p>
+                </div>
+              </div>
+              <div className="plans-starter-grid">
+                {starterPacks.map((starterPack) => {
+                  const Icon = roomIcons[starterPack.room.id] ?? Home
+                  const quantity = selection[starterPack.packageRecord.id]?.selected
+                    ? selection[starterPack.packageRecord.id]?.quantity ?? 1
+                    : 0
+                  const visual = starterPackVisuals[starterPack.packageRecord.id] ?? roomVisuals[starterPack.room.id]
+                  return (
+                    <article className={`plans-starter-card${quantity > 0 ? ' is-selected' : ''}`} key={starterPack.packageRecord.id}>
+                      <div className="plans-starter-media" aria-hidden="true">
+                        <img src={visual} alt="" loading="lazy" />
+                      </div>
+                      <div className="plans-starter-content">
+                        <div className="plans-starter-topline">
+                          <span><Icon size={16} aria-hidden="true" />{starterPack.roomLabel}</span>
+                          <strong>{formatPlansCurrency(starterPack.packageUnitPrice, language)}</strong>
+                        </div>
+                        <h4>{starterPack.packageLabel}</h4>
+                        <p>{starterPack.packageBenefit || starterPack.packageDescription}</p>
+                        <span className="plans-starter-chip">{language === 'es' ? 'Primeros pasos enfocados' : 'Focused first steps'}</span>
+                        <div className="plans-starter-actions">
+                          <button className="plans-detail-link" type="button" onClick={() => openStarterPackDetails(starterPack)}>
+                            {copy.viewDetails}<ArrowRight size={14} aria-hidden="true" />
+                          </button>
+                          <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${starterPack.packageLabel}`}>
+                            <button type="button" onClick={() => updateStarterPackQuantity(starterPack, quantity - 1)}><Minus size={16} aria-hidden="true" /></button>
+                            <input aria-label={`${copy.quantity}: ${starterPack.packageLabel}`} min="0" max="12" type="number" value={quantity} onChange={(event) => updateStarterPackQuantity(starterPack, Number(event.target.value))} />
+                            <button type="button" onClick={() => updateStarterPackQuantity(starterPack, quantity + 1)}><Plus size={16} aria-hidden="true" /></button>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+            </section>
+
+            <div className="plans-full-package-heading">
+              <p className="section-kicker">{language === 'es' ? 'Paquetes completos por estancia' : 'Complete room packages'}</p>
+              <h3>{language === 'es' ? 'Soluciones coordinadas para toda la estancia' : 'Coordinated whole-room solutions'}</h3>
+            </div>
             <div className="plans-room-grid">
               {groups.map((group) => {
                 const Icon = roomIcons[group.room.id] ?? Home
@@ -2284,7 +2387,7 @@ export function PlansPage() {
             <div className="plans-builder-continue">
               <div>
                 <span>{copy.selectedPackages}</span>
-                <strong>{selectedGroups.length ? selectedCountLabel : copy.summaryEmptyRooms}</strong>
+                <strong>{selectedGroups.length || selectedStarterPacks.length ? selectedCountLabel : copy.summaryEmptyRooms}</strong>
               </div>
               <button className="btn btn-green" type="button" onClick={goToReviewStep}>
                 {copy.continueToReview}
@@ -2304,7 +2407,7 @@ export function PlansPage() {
                 </div>
               </div>
 
-              {selectedGroups.length ? (
+              {selectedGroups.length || selectedStarterPacks.length ? (
                 <div className="plans-selected-overview" aria-label={copy.summaryRoomsTitle}>
                   <span>{selectedCountLabel}</span>
                   <div>
@@ -2315,8 +2418,25 @@ export function PlansPage() {
                 </div>
               ) : null}
 
-              {selectedGroups.length ? (
+              {selectedGroups.length || selectedStarterPacks.length ? (
                 <div className="plans-module-list">
+                  {selectedStarterPacks.map((starterPack) => (
+                    <article className="plans-module-card plans-module-card--starter" key={`module-${starterPack.packageRecord.id}`}>
+                      <div className="plans-module-room">
+                        <div>
+                          <h3>{starterPack.packageLabel}</h3>
+                          <p>{copy.quantity}: {selection[starterPack.packageRecord.id]?.quantity ?? 1}</p>
+                        </div>
+                        <span>{language === 'es' ? 'Pack inicial' : 'Starter pack'}</span>
+                      </div>
+                      <div className="plans-core-includes">
+                        <p>{starterPack.packageBenefit || starterPack.packageDescription}</p>
+                        <button className="plans-detail-link" type="button" onClick={() => openStarterPackDetails(starterPack)}>
+                          {copy.viewDetails}<ArrowRight size={14} aria-hidden="true" />
+                        </button>
+                      </div>
+                    </article>
+                  ))}
                   {selectedGroups.map((group) => {
                     const addOnOptionCount = getAddOnOptionCount(group)
                     const selectedAddOnCount = getSelectedAddOnCount(group)

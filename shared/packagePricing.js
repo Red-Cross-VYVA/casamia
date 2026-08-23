@@ -7,6 +7,14 @@ export const CORE_PACKAGE_CUSTOMER_PRICES = Object.freeze({
   'kitchen-home-safety-package': 699,
 })
 
+export const STARTER_PACKAGE_CUSTOMER_PRICES = Object.freeze({
+  'bathroom-essentials-pack': 499,
+  'night-movement-pack': 399,
+  'kitchen-safety-starter-pack': 399,
+  'core-rails-pack': 349,
+  'entrance-basics-pack': 449,
+})
+
 export const CORE_PACKAGE_INSTALLATION_SCHEDULE = Object.freeze([
   { packageCount: 1, totalInstallationPrice: 100 },
   { packageCount: 2, totalInstallationPrice: 170 },
@@ -23,6 +31,24 @@ export function getApprovedCorePackageCustomerPrice(packageId) {
 
 export function getCorePackageCataloguePrice(packageId, vatRate = 0.21) {
   const customerPrice = getApprovedCorePackageCustomerPrice(packageId)
+
+  if (!Number.isFinite(customerPrice) || customerPrice <= 0) {
+    return undefined
+  }
+
+  return Math.round(customerPrice / (1 + vatRate))
+}
+
+export function getApprovedStarterPackageCustomerPrice(packageId) {
+  const customerPrice = STARTER_PACKAGE_CUSTOMER_PRICES[packageId]
+
+  return Number.isFinite(customerPrice) && customerPrice > 0
+    ? customerPrice
+    : undefined
+}
+
+export function getStarterPackageCataloguePrice(packageId, vatRate = 0.21) {
+  const customerPrice = getApprovedStarterPackageCustomerPrice(packageId)
 
   if (!Number.isFinite(customerPrice) || customerPrice <= 0) {
     return undefined

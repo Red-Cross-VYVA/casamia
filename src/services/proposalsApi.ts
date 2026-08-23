@@ -19,6 +19,7 @@ import {
 import { getInternalAuthHeaders, hasInternalBackendSession } from './internalAuth.ts'
 import {
   buildPlansBuilderGroups,
+  buildPlansStarterPacks,
   calculatePlansBuilderEstimate,
   type PlansBuilderSelectionState,
 } from './plansBuilderPricing.ts'
@@ -661,7 +662,8 @@ function createLocalPublicProposalDraft(
   }
 
   const groups = buildPlansBuilderGroups(catalogue, payload.language)
-  const estimate = calculatePlansBuilderEstimate(groups, payload.selection, payload.language)
+  const starterPacks = buildPlansStarterPacks(catalogue, payload.language)
+  const estimate = calculatePlansBuilderEstimate(groups, payload.selection, payload.language, { starterPacks })
 
   if (!estimate.proposalLineItems.length) {
     throw new Error('Select at least one CasaMia package.')

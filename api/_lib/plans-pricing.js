@@ -1,5 +1,6 @@
 import {
   getApprovedCorePackageCustomerPrice,
+  getApprovedStarterPackageCustomerPrice,
   getCorePackageInstallationPolicy,
 } from '../../shared/packagePricing.js'
 
@@ -97,6 +98,7 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
   const reviewItems = new Set()
   let selectedPackageCount = 0
   let selectedRoomQuantity = 0
+  let selectedCorePackageQuantity = 0
   let recurringMonthlyEstimate = 0
 
   getVisibleRoomGroups(catalogue).forEach((group) => {
@@ -108,6 +110,7 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
 
     const quantity = normaliseQuantity(selected.quantity)
     selectedRoomQuantity += quantity
+    selectedCorePackageQuantity += quantity
     selectedPackageCount += 1
     const homeUnitPrice = getPackageUnitPrice(group.homePackage, getPackageConfig(catalogue, group.room.id))
     const homeRequiresReview = packageNeedsReview(group.homePackage, homeUnitPrice)
@@ -176,7 +179,31 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
     })
   })
 
-  const installationPolicy = getCorePackageInstallationPolicy(selectedRoomQuantity)
+  getVisibleStarterPacks(catalogue).forEach(({ packageRecord, outcomes }) => {
+    const selected = selection[packageRecord.id]
+    if (!selected?.selected) return
+
+    const quantity = normaliseQuantity(selected.quantity)
+    const unitPrice = getPackageUnitPrice(packageRecord)
+    const requiresReview = packageNeedsReview(packageRecord, unitPrice)
+    selectedRoomQuantity += quantity
+    selectedPackageCount += 1
+    const line = createLineItem({
+      category: roomToCategory[packageRecord.roomId] ?? 'General',
+      description: buildPackageDescription(packageRecord, outcomes, language, requiresReview),
+      grantEligible: outcomes.some((outcome) => outcome.grantEligible),
+      id: `plans-starter-package-${packageRecord.id}`,
+      name: getLineName(localize(packageRecord.customerName, language, packageRecord.internalName), language),
+      priority: requiresReview ? 'Medium' : 'High',
+      quantity,
+      sourcePackageId: packageRecord.id,
+      unitPrice,
+    })
+    lineItems.push(line)
+    if (requiresReview) reviewItems.add(line.name)
+  })
+
+  const installationPolicy = getCorePackageInstallationPolicy(selectedCorePackageQuantity)
 
   if (installationPolicy.discount > 0) {
     lineItems.push(createInstallationSavingLine(installationPolicy.discount, language))
@@ -215,7 +242,7 @@ function getVisibleRoomGroups(catalogue) {
 
       return [{
         addOnPackages: packages
-          .filter((packageRecord) => packageRecord.section !== 'home-safety-package')
+          .filter((packageRecord) => packageRecord.section === 'connected-room' || packageRecord.section === 'optional-adaptations')
           .map((packageRecord) => ({
             outcomes: getOutcomesForPackage(catalogue, packageRecord.id),
             packageRecord,
@@ -263,6 +290,22 @@ function createLineItem(patch) {
   }
 }
 
+function getVisibleStarterPacks(catalogue) {
+  return catalogue.packages
+    .filter((packageRecord) =>
+      packageRecord.active
+      && packageRecord.proposalVisible
+      && packageRecord.websiteVisible
+      && packageRecord.section === 'starter-essentials',
+    )
+    .sort(sortByOrder)
+    .map((packageRecord) => ({
+      outcomes: getOutcomesForPackage(catalogue, packageRecord.id),
+      packageRecord,
+    }))
+    .filter((group) => group.outcomes.length > 0)
+}
+
 function createInstallationSavingLine(discount, language) {
   const isSpanish = language === 'es'
   const amount = -Math.abs(Math.round(discount))
@@ -298,6 +341,8 @@ function getPackageConfig(catalogue, roomId) {
 function getPackageUnitPrice(packageRecord, config) {
   const approvedCustomerPrice = getApprovedCorePackageCustomerPrice(packageRecord.id)
   if (approvedCustomerPrice !== undefined) return approvedCustomerPrice
+  const approvedStarterPrice = getApprovedStarterPackageCustomerPrice(packageRecord.id)
+  if (approvedStarterPrice !== undefined) return approvedStarterPrice
 
   if (config?.active && config.pricingType !== 'quote_only') {
     return priceWithVat(config.pricingType === 'fixed' ? config.packagePrice : config.fromPrice, config.vatRate)
@@ -408,7 +453,7 @@ function proposalCopy(language) {
         grants: 'CasaMia puede orientar sobre documentación para ayudas cuando corresponda. La aprobación depende siempre de la autoridad correspondiente y no está garantizada.',
         paymentTerms: 'Propuesta generada a partir de los paquetes, cantidades y extras seleccionados. Los trabajos y pagos solo empiezan después de la aceptación y la coordinación de fecha.',
         summary: (estimate) =>
-          `Propuesta creada desde Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes con precio se muestran con IVA incluido. Los extras marcados como presupuesto se confirman antes de iniciar el trabajo.`,
+          `Propuesta creada desde Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s). Los importes con precio se muestran con IVA incluido. Los extras marcados como presupuesto se confirman antes de iniciar el trabajo.`,
         timeline: 'CasaMia contacta contigo para coordinar fecha, acceso a la vivienda e instalación.',
         timelineDuration: 'A coordinar después de aceptar',
       }
@@ -416,7 +461,7 @@ function proposalCopy(language) {
         grants: 'CasaMia may support documentation for applicable grants. Approval is determined solely by the relevant authority and is not guaranteed.',
         paymentTerms: 'Proposal generated from the selected packages, quantities and add-ons. Work and payments only start after acceptance and date coordination.',
         summary: (estimate) =>
-          `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} room package(s). Priced items are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
+          `Proposal created from the CasaMia Plans builder with ${estimate.selectedRoomQuantity} package(s). Priced items are shown VAT-included. Add-ons marked as quote items are confirmed before work starts.`,
         timeline: 'CasaMia will contact you to coordinate date, home access and installation.',
         timelineDuration: 'To be scheduled after acceptance',
       }

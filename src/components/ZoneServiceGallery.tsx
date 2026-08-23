@@ -18,6 +18,7 @@ type ZoneServiceGalleryProps = {
 const sectionLabels: Record<ServiceCatalogueSection, { en: string; es: string }> = {
   connected_room: { en: 'Connected support', es: 'Apoyo conectado' },
   home_safety_package: { en: 'Home safety package', es: 'Paquete de seguridad' },
+  starter_essentials: { en: 'Starter essentials', es: 'Esenciales de inicio' },
   optional_adaptations: { en: 'Optional adaptation', es: 'Adaptación opcional' },
 }
 
