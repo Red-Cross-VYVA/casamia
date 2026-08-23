@@ -14,6 +14,8 @@ const workflow = read('src/services/projectWorkflow.ts')
 const withdrawal = read('src/pages/WithdrawalFormPage.tsx')
 const terms = read('src/pages/TermsAndConditionsPage.tsx')
 const legalDocumentPage = read('src/pages/LegalDocumentPage.tsx')
+const legalDocuments = read('src/constants/legalDocuments.ts')
+const companyConfig = read('src/config/company.ts')
 const documents = read('src/services/contractDocuments.ts')
 const legalControls = read('src/config/legalControls.ts')
 const sitemap = read('public/sitemap.xml')
@@ -71,7 +73,15 @@ for (const headerName of [
     `Vercel must send the ${headerName} security header.`,
   )
 }
-assert.match(read('src/config/company.ts'), /commercialName:\s*'CasaMia'/, 'Commercial brand should be centralised.')
+assert.match(companyConfig, /commercialName:\s*'CasaMia'/, 'Commercial brand should be centralised.')
+assert.match(companyConfig, /legalName:\s*'MOKA DIGITECK, SOCIEDAD LIMITADA'/, 'Verified legal name should be centralised.')
+assert.match(companyConfig, /nif:\s*'B16929804'/, 'Verified company NIF should be centralised.')
+assert.doesNotMatch(companyConfig, /\[(?:insert|confirm|pending)[^\]]*\]/i, 'Public company details must not contain bracketed placeholders.')
+assert.match(legalDocuments, /title: 'Contracting model'/, 'Legal notice must explain the contracting model.')
+assert.match(legalDocuments, /title: 'Modelo de contratación'/, 'Spanish legal notice must explain the contracting model.')
+assert.match(legalDocuments, /request direct payment/, 'Legal notice must prohibit direct subcontractor payments.')
+assert.match(legalDocuments, /solicitar pagos directos/, 'Spanish legal notice must prohibit direct subcontractor payments.')
+assert.match(legalDocumentPage, /legal-document-links/, 'Legal pages must render links to related customer information.')
 assert.match(checkout, /Amount payable now: €0/, 'Quote requests must explicitly disclose that nothing is payable now.')
 assert.match(
   checkout,

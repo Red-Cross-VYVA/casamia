@@ -21,6 +21,10 @@ export type LegalDocument = {
     title: string
     body?: string
     points?: string[]
+    links?: Array<{
+      label: string
+      path: string
+    }>
   }>
 }
 
@@ -40,22 +44,24 @@ const configPoints = [
   `Commercial name: ${casamiaCompanyConfig.commercialName}`,
   `NIF: ${casamiaCompanyConfig.nif}`,
   `Registered address: ${casamiaCompanyConfig.registeredAddress}`,
-  `Registry details: ${casamiaCompanyConfig.registryDetails}`,
-]
+  casamiaCompanyConfig.registryDetails ? `Registry details: ${casamiaCompanyConfig.registryDetails}` : '',
+  `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
+].filter(Boolean)
 
 const configPointsEs = [
   `Razón social: ${casamiaCompanyConfig.legalName}`,
   `Nombre comercial: ${casamiaCompanyConfig.commercialName}`,
   `NIF: ${casamiaCompanyConfig.nif}`,
   `Domicilio social: ${casamiaCompanyConfig.registeredAddress}`,
-  `Datos registrales: ${casamiaCompanyConfig.registryDetails}`,
-]
+  casamiaCompanyConfig.registryDetails ? `Datos registrales: ${casamiaCompanyConfig.registryDetails}` : '',
+  `Correo electrónico: ${casamiaCompanyConfig.customerServiceEmail}`,
+].filter(Boolean)
 
 export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
   'legal-notice': {
     id: 'legal-notice',
     intro:
-      'This notice identifies the operator of the website and records company details that must be completed before production publication.',
+      'This Legal Notice identifies the owner and operator of the CasaMia website and explains the conditions governing its use.',
     reviewStatus: 'pending-legal-review',
     title: 'Legal Notice',
     sections: [
@@ -64,14 +70,52 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
         points: configPoints,
       },
       {
-        title: 'Contracting model',
+        title: 'Website purpose',
         body:
-          'CasaMia is intended to contract directly with customers, collect customer payments, coordinate the project, and appoint vetted local providers as subcontractors where needed.',
+          'CasaMia provides information about home-safety assessments, accessibility adaptations, installation support, connected safety services and guidance concerning relevant public assistance. Information on this website is general and does not replace a personalised proposal or professional advice.',
       },
       {
-        title: 'Legal review required',
+        title: 'Contracting model',
+        points: [
+          `Customers contract directly with ${casamiaCompanyConfig.legalName}, trading as CasaMia.`,
+          'CasaMia assesses the customer’s requirements, prepares and issues the proposal, invoices and collects payments, coordinates the work and remains the customer’s contractual point of contact for the agreed service.',
+          'CasaMia may appoint vetted independent local professionals to perform installation work as subcontractors. Their involvement does not replace CasaMia as the customer’s contracting party.',
+          'Subcontractors are not authorised to enter into a separate contract with the customer, request direct payment or agree chargeable changes to the scope on CasaMia’s behalf.',
+          'Any additional work or price change must be recorded in a written change order and accepted by the customer before that work is carried out.',
+          'The specific scope, price, payment schedule, estimated timing and any commercial guarantees are set out in the customer’s proposal and contract documents. Mandatory consumer rights remain unaffected.',
+        ],
+      },
+      {
+        title: 'Customer information and service terms',
         body:
-          'This page contains placeholders and must be completed with verified company, registry, tax and contact details before production use.',
+          'The following pages form part of CasaMia’s customer information framework and explain the service relationship in greater detail:',
+        links: [
+          { label: 'General Customer Terms', path: '/general-customer-terms' },
+          { label: 'Withdrawal and Cancellation Policy', path: '/withdrawal-cancellation' },
+          { label: 'Guarantees and Aftercare', path: '/guarantees-aftercare' },
+          { label: 'Privacy Policy', path: '/privacy-policy' },
+          { label: 'Complaints and Contact', path: '/complaints-contact' },
+        ],
+      },
+      {
+        title: 'Use of the website',
+        body:
+          'Users must access and use the website lawfully and must not interfere with its security, availability or operation. CasaMia may update, suspend or withdraw website content where reasonably necessary.',
+      },
+      {
+        title: 'Intellectual property',
+        body:
+          'The CasaMia brand, website design, text, images and other original content are protected by applicable intellectual-property laws. They may not be reproduced, distributed or used commercially without prior written permission, except where permitted by law.',
+      },
+      {
+        title: 'Responsibility and external links',
+        body:
+          'CasaMia works to keep website information accurate and available but cannot guarantee uninterrupted access or that third-party information remains current. Links to external websites are provided for convenience; those websites operate under their own terms and privacy policies.',
+      },
+      {
+        title: 'Applicable law',
+        body:
+          'This website is governed by Spanish law. Any dispute will be handled by the competent courts determined under applicable law, without limiting the mandatory rights of consumers and users.',
       },
     ],
   },
@@ -222,7 +266,9 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
         points: [
           'Statutory product-conformity rights are mandatory rights and are not optional benefits.',
           'CasaMia remains responsible for installation included in its contract with the customer.',
-          `Additional workmanship guarantee period: ${casamiaCompanyConfig.workmanshipGuaranteePeriod}.`,
+          ...(casamiaCompanyConfig.workmanshipGuaranteePeriod
+            ? [`Additional workmanship guarantee period: ${casamiaCompanyConfig.workmanshipGuaranteePeriod}.`]
+            : ['Any additional commercial workmanship guarantee will be stated in the customer proposal.']),
         ],
       },
       {
@@ -242,9 +288,9 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       {
         title: 'Customer service',
         points: [
-          `Telephone: ${casamiaCompanyConfig.customerServicePhone}`,
+          ...(casamiaCompanyConfig.customerServicePhone ? [`Telephone: ${casamiaCompanyConfig.customerServicePhone}`] : []),
           `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
-          `Hours: ${casamiaCompanyConfig.customerServiceHours}`,
+          ...(casamiaCompanyConfig.customerServiceHours ? [`Hours: ${casamiaCompanyConfig.customerServiceHours}`] : []),
           `Postal complaints address: ${casamiaCompanyConfig.complaintsAddress}`,
         ],
       },
@@ -265,7 +311,9 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       },
       {
         title: 'Dispute resolution',
-        body: `Alternative dispute-resolution status: ${casamiaCompanyConfig.adrEntityOrStatus}. Administrative and court rights remain available.`,
+        body: casamiaCompanyConfig.adrEntityOrStatus
+          ? `Alternative dispute-resolution status: ${casamiaCompanyConfig.adrEntityOrStatus}. Administrative and court rights remain available.`
+          : 'You may use the consumer complaint and dispute-resolution channels available under Spanish law. Administrative and court rights remain available.',
       },
     ],
   },
@@ -298,21 +346,59 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
   'legal-notice': {
     title: 'Aviso legal',
     intro:
-      'Este aviso identifica al operador del sitio web y recoge los datos de la empresa que deben completarse antes de la publicación en producción.',
+      'Este Aviso Legal identifica al titular y operador del sitio web de CasaMia y explica las condiciones que regulan su uso.',
     sections: [
       {
         title: 'Identificación de la empresa',
         points: configPointsEs,
       },
       {
-        title: 'Modelo de contratación',
+        title: 'Finalidad del sitio web',
         body:
-          'CasaMia está pensada para contratar directamente con los clientes, recibir los pagos, coordinar el proyecto y designar proveedores locales validados como subcontratistas cuando sea necesario.',
+          'CasaMia ofrece información sobre evaluaciones de seguridad del hogar, adaptaciones de accesibilidad, apoyo a la instalación, servicios de seguridad conectada y orientación sobre posibles ayudas públicas. La información del sitio es general y no sustituye una propuesta personalizada ni el asesoramiento profesional.',
       },
       {
-        title: 'Revisión legal pendiente',
+        title: 'Modelo de contratación',
+        points: [
+          `Los clientes contratan directamente con ${casamiaCompanyConfig.legalName}, que opera bajo el nombre comercial CasaMia.`,
+          'CasaMia evalúa las necesidades del cliente, prepara y emite la propuesta, factura y cobra los pagos, coordina los trabajos y sigue siendo el interlocutor contractual del cliente para el servicio acordado.',
+          'CasaMia puede designar a profesionales locales independientes y previamente validados para realizar los trabajos de instalación como subcontratistas. Su intervención no sustituye a CasaMia como parte contratante del cliente.',
+          'Los subcontratistas no están autorizados a celebrar un contrato separado con el cliente, solicitar pagos directos ni acordar en nombre de CasaMia cambios de alcance que generen un coste.',
+          'Cualquier trabajo adicional o cambio de precio debe constar en una orden de cambio escrita y ser aceptado por el cliente antes de su ejecución.',
+          'El alcance concreto, el precio, el calendario de pagos, los plazos estimados y cualquier garantía comercial se detallan en la propuesta y la documentación contractual del cliente. Los derechos imperativos de consumidores y usuarios no se ven afectados.',
+        ],
+      },
+      {
+        title: 'Información y condiciones del servicio',
         body:
-          'Esta página contiene información de configuración y debe completarse con datos societarios, registrales, fiscales y de contacto verificados antes de su uso en producción.',
+          'Las siguientes páginas forman parte del marco de información al cliente de CasaMia y explican con mayor detalle la relación de servicio:',
+        links: [
+          { label: 'Condiciones generales para clientes', path: '/general-customer-terms' },
+          { label: 'Desistimiento y cancelación', path: '/withdrawal-cancellation' },
+          { label: 'Garantías y servicio posventa', path: '/guarantees-aftercare' },
+          { label: 'Política de privacidad', path: '/privacy-policy' },
+          { label: 'Reclamaciones y contacto', path: '/complaints-contact' },
+        ],
+      },
+      {
+        title: 'Uso del sitio web',
+        body:
+          'Las personas usuarias deben acceder y utilizar el sitio de forma lícita y no deben interferir con su seguridad, disponibilidad o funcionamiento. CasaMia puede actualizar, suspender o retirar contenidos cuando sea razonablemente necesario.',
+      },
+      {
+        title: 'Propiedad intelectual',
+        body:
+          'La marca CasaMia, el diseño del sitio web, los textos, las imágenes y demás contenidos originales están protegidos por la normativa aplicable de propiedad intelectual. No pueden reproducirse, distribuirse ni utilizarse comercialmente sin autorización previa por escrito, salvo cuando la ley lo permita.',
+      },
+      {
+        title: 'Responsabilidad y enlaces externos',
+        body:
+          'CasaMia procura mantener la información del sitio correcta y disponible, pero no puede garantizar un acceso ininterrumpido ni que la información de terceros permanezca actualizada. Los enlaces externos se facilitan por comodidad y esos sitios se rigen por sus propias condiciones y políticas de privacidad.',
+      },
+      {
+        title: 'Legislación aplicable',
+        body:
+          'Este sitio web se rige por la legislación española. Cualquier controversia será conocida por los juzgados y tribunales competentes conforme a la normativa aplicable, sin limitar los derechos imperativos de consumidores y usuarios.',
       },
     ],
   },
@@ -453,7 +539,9 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
         points: [
           'Los derechos legales de conformidad del producto son obligatorios y no son beneficios opcionales.',
           'CasaMia sigue siendo responsable de la instalación incluida en su contrato con el cliente.',
-          `Periodo adicional de garantía de mano de obra: ${casamiaCompanyConfig.workmanshipGuaranteePeriod}.`,
+          ...(casamiaCompanyConfig.workmanshipGuaranteePeriod
+            ? [`Periodo adicional de garantía de mano de obra: ${casamiaCompanyConfig.workmanshipGuaranteePeriod}.`]
+            : ['Cualquier garantía comercial adicional de mano de obra se indicará en la propuesta del cliente.']),
         ],
       },
       {
@@ -471,9 +559,9 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       {
         title: 'Atención al cliente',
         points: [
-          `Teléfono: ${casamiaCompanyConfig.customerServicePhone}`,
+          ...(casamiaCompanyConfig.customerServicePhone ? [`Teléfono: ${casamiaCompanyConfig.customerServicePhone}`] : []),
           `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
-          `Horario: ${casamiaCompanyConfig.customerServiceHours}`,
+          ...(casamiaCompanyConfig.customerServiceHours ? [`Horario: ${casamiaCompanyConfig.customerServiceHours}`] : []),
           `Dirección postal para reclamaciones: ${casamiaCompanyConfig.complaintsAddress}`,
         ],
       },
@@ -494,7 +582,9 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       },
       {
         title: 'Resolución de disputas',
-        body: `Estado de resolución alternativa de conflictos: ${casamiaCompanyConfig.adrEntityOrStatus}. Los derechos administrativos y judiciales siguen disponibles.`,
+        body: casamiaCompanyConfig.adrEntityOrStatus
+          ? `Estado de resolución alternativa de conflictos: ${casamiaCompanyConfig.adrEntityOrStatus}. Los derechos administrativos y judiciales siguen disponibles.`
+          : 'Puedes utilizar los canales de reclamación y resolución de conflictos de consumo disponibles conforme a la legislación española. Los derechos administrativos y judiciales siguen disponibles.',
       },
     ],
   },

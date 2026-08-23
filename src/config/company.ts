@@ -1,18 +1,18 @@
 export const casamiaCompanyConfig = {
-  legalName: '[CASAMIA_LEGAL_NAME]',
+  legalName: 'MOKA DIGITECK, SOCIEDAD LIMITADA',
   commercialName: 'CasaMia',
-  nif: '[CASAMIA_NIF]',
-  registeredAddress: '[CASAMIA_REGISTERED_ADDRESS]',
-  registryDetails: '[CASAMIA_REGISTRY_DETAILS]',
-  customerServiceEmail: '[CUSTOMER_SERVICE_EMAIL]',
-  customerServicePhone: '[CUSTOMER_SERVICE_PHONE]',
-  customerServiceHours: '[CUSTOMER_SERVICE_HOURS]',
-  complaintsEmail: '[COMPLAINTS_EMAIL]',
-  complaintsAddress: '[COMPLAINTS_ADDRESS]',
-  privacyEmail: '[PRIVACY_EMAIL]',
-  insurerDetails: '[INSURER_DETAILS]',
-  adrEntityOrStatus: '[ADR_ENTITY_OR_STATUS]',
-  workmanshipGuaranteePeriod: '[WORKMANSHIP_GUARANTEE_PERIOD]',
+  nif: 'B16929804',
+  registeredAddress: 'Urbanización Sierra Blanca, Cascada de, n.º 311, 29602 Marbella (Málaga), España',
+  registryDetails: '',
+  customerServiceEmail: 'hola@casamia.com.es',
+  customerServicePhone: '',
+  customerServiceHours: '',
+  complaintsEmail: 'hola@casamia.com.es',
+  complaintsAddress: 'Urbanización Sierra Blanca, Cascada de, n.º 311, 29602 Marbella (Málaga), España',
+  privacyEmail: 'hola@casamia.com.es',
+  insurerDetails: '',
+  adrEntityOrStatus: '',
+  workmanshipGuaranteePeriod: '',
   supportedTerritories: ['Spain'],
   supportedLocales: ['es', 'en'],
   preparedLocales: ['ca', 'valencia-agreed-locale', 'gl', 'eu'],
@@ -26,5 +26,5 @@ export const legalVersionConfig = {
 } as const
 
 export function hasCompanyPlaceholder(value: string) {
-  return value.startsWith('[') && value.endsWith(']')
+  return !value.trim() || (value.startsWith('[') && value.endsWith(']'))
 }

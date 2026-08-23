@@ -1,6 +1,6 @@
-import { AlertCircle, CheckCircle2 } from 'lucide-react'
+import { CheckCircle2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import {
@@ -22,7 +22,6 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
   const siteUrl = 'https://www.casamia.com.es'
   const path = legalRouteLabels.find((link) => link.id === document.id)?.path ?? `/${document.id}`
   const meta = getLegalDocumentMeta(document, i18n.language)
-  const requiresReview = document.reviewStatus !== 'approved'
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -41,23 +40,11 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
   const copy = isSpanish
     ? {
         eyebrow: 'Información legal de CasaMia',
-        version: 'Versión',
-        effectiveDate: 'Fecha de entrada en vigor',
-        sourceLanguage: 'Idioma fuente',
-        reviewStatus: 'Estado de revisión',
-        reviewTitle: 'Revisión legal final requerida',
-        reviewBody:
-          'Esta página está estructurada a partir del marco legal y el briefing de implementación de CasaMia. Debe completarse con los datos de la empresa y validarse por asesoría legal española antes de su uso en producción.',
+        updated: 'Actualizado',
       }
     : {
         eyebrow: 'CasaMia legal information',
-        version: 'Version',
-        effectiveDate: 'Effective date',
-        sourceLanguage: 'Source language',
-        reviewStatus: 'Review status',
-        reviewTitle: 'Final legal review required',
-        reviewBody:
-          "This page is structured from CasaMia's legal framework and implementation brief. It must be completed with company data and validated by Spanish legal counsel before production use.",
+        updated: 'Updated',
       }
 
   return (
@@ -68,39 +55,12 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
           <p className="eyebrow">{copy.eyebrow}</p>
           <h1>{document.title}</h1>
           <p>{document.intro}</p>
-          <dl className="legal-meta">
-            <div>
-              <dt>{copy.version}</dt>
-              <dd>{meta.version}</dd>
-            </div>
-            <div>
-              <dt>{copy.effectiveDate}</dt>
-              <dd>{meta.effectiveDate}</dd>
-            </div>
-            <div>
-              <dt>{copy.sourceLanguage}</dt>
-              <dd>{meta.sourceLocale.toUpperCase()}</dd>
-            </div>
-            <div>
-              <dt>{copy.reviewStatus}</dt>
-              <dd>{meta.reviewStatus}</dd>
-            </div>
-          </dl>
+          <p className="legal-updated">{copy.updated}: {meta.effectiveDate}</p>
         </div>
       </section>
 
       <section className="legal-document-section section-pad">
         <div className="site-shell">
-          {requiresReview ? (
-            <div className="legal-review-alert" role="note">
-              <AlertCircle size={22} aria-hidden="true" />
-              <div>
-                <strong>{copy.reviewTitle}</strong>
-                <p>{copy.reviewBody}</p>
-              </div>
-            </div>
-          ) : null}
-
           <div className="legal-document-list">
             {document.sections.map((section) => (
               <article className="legal-document-card" key={section.title}>
@@ -115,6 +75,13 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
                       </li>
                     ))}
                   </ul>
+                ) : null}
+                {section.links ? (
+                  <nav className="legal-document-links" aria-label={section.title}>
+                    {section.links.map((link) => (
+                      <Link key={link.path} to={link.path}>{link.label}</Link>
+                    ))}
+                  </nav>
                 ) : null}
               </article>
             ))}
