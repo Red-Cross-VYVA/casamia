@@ -19,7 +19,7 @@ export type CallbackRequestInput = {
   preferredTimeWindow: WizardCallbackTimeWindow
   note?: string
   wizardReference: string
-  locale: 'en' | 'es'
+  locale: 'en' | 'es' | 'de' | 'fr' | 'nl'
   consentConfirmed: boolean
   website?: string
 }

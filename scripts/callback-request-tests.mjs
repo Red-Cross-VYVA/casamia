@@ -49,6 +49,9 @@ assert.deepEqual([...CALLBACK_TIME_WINDOWS], [...callbackTimeWindows])
 assert.deepEqual(CALLBACK_CONSENT_WORDING, {
   en: 'I agree that CasaMia may contact me about this callback request.',
   es: 'Acepto que CasaMia contacte conmigo sobre esta solicitud de llamada.',
+  de: 'Ich stimme zu, dass CasaMia mich wegen dieser Rückrufanfrage kontaktieren darf.',
+  fr: 'J’accepte que CasaMia me contacte au sujet de cette demande de rappel.',
+  nl: 'Ik ga ermee akkoord dat CasaMia contact met mij opneemt over dit terugbelverzoek.',
 })
 assert.equal(callbackRequestTimeoutMs, 15_000)
 assert.equal(supabaseRequestTimeoutMs, 15_000)

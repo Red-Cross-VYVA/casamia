@@ -137,7 +137,7 @@ export function mapLeadRecord(record, source) {
     message: source === 'callback' ? text(payload.note) || text(record?.message) : text(record?.message),
     name: text(record?.customer_name),
     notes: text(pipeline.notes),
-    locale: payload.locale === 'es' || payload.language === 'es' ? 'es' : 'en',
+    locale: normalizeLeadLocale(payload.locale || payload.language),
     notificationDelivery: object(pipeline.notificationDelivery),
     partnerNotes: text(pipeline.partnerNotes),
     phone: text(record?.customer_phone),
@@ -150,6 +150,11 @@ export function mapLeadRecord(record, source) {
     status: leadStatuses.includes(pipeline.status) ? pipeline.status : getLeadStatus(record, source),
     submittedAt: text(record?.submitted_at),
   }
+}
+
+function normalizeLeadLocale(value) {
+  const locale = text(value).toLowerCase().split(/[-_]/)[0]
+  return ['en', 'es', 'de', 'fr', 'nl'].includes(locale) ? locale : 'en'
 }
 
 function getLeadStatus(record, source) {

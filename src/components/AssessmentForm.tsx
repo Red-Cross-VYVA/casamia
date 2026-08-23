@@ -217,7 +217,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         preferredDate: values.date,
         message: isBooking ? bookingMessage : values.message.trim(),
         consentAt: new Date().toISOString(),
-        locale: isSpanish ? 'es' : 'en',
+        locale: getSupportedLocale(i18n.resolvedLanguage || i18n.language),
         source: isBooking ? 'free-report-booking' : 'home-safety-assessment',
         reportToken,
       })
@@ -558,6 +558,13 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
       ) : null}
     </div>
   )
+}
+
+function getSupportedLocale(language: string): 'en' | 'es' | 'de' | 'fr' | 'nl' {
+  const locale = language.toLowerCase().split(/[-_]/)[0]
+  return ['en', 'es', 'de', 'fr', 'nl'].includes(locale)
+    ? locale as 'en' | 'es' | 'de' | 'fr' | 'nl'
+    : 'en'
 }
 
 function normalizePlanValue(value: string | null) {

@@ -16,6 +16,9 @@ export const CALLBACK_TIME_WINDOWS = Object.freeze([
 export const CALLBACK_CONSENT_WORDING = Object.freeze({
   en: 'I agree that CasaMia may contact me about this callback request.',
   es: 'Acepto que CasaMia contacte conmigo sobre esta solicitud de llamada.',
+  de: 'Ich stimme zu, dass CasaMia mich wegen dieser Rückrufanfrage kontaktieren darf.',
+  fr: 'J’accepte que CasaMia me contacte au sujet de cette demande de rappel.',
+  nl: 'Ik ga ermee akkoord dat CasaMia contact met mij opneemt over dit terugbelverzoek.',
 })
 
 const callbackBodyLimitBytes = 16 * 1024
@@ -206,7 +209,10 @@ export function validateCallbackRequest(body, now = new Date()) {
     throw new CallbackRequestValidationError('A valid wizard reference is required.')
   }
 
-  const locale = body.locale === 'es' ? 'es' : body.locale === 'en' ? 'en' : ''
+  const locale = typeof body.locale === 'string'
+    && ['en', 'es', 'de', 'fr', 'nl'].includes(body.locale.toLowerCase())
+    ? body.locale.toLowerCase()
+    : ''
   if (!locale) {
     throw new CallbackRequestValidationError('A valid language is required.')
   }

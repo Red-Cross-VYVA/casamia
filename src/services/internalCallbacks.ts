@@ -15,7 +15,7 @@ export type InternalCallbackRequest = {
   city: string
   email: string
   id: string
-  locale: 'en' | 'es'
+  locale: 'en' | 'es' | 'de' | 'fr' | 'nl'
   name: string
   note: string
   phone: string

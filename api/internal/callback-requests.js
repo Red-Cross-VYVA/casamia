@@ -71,7 +71,7 @@ export function mapCallbackRequestRecord(record) {
     city: safeText(details.city),
     email: safeText(record?.customer_email),
     id: safeText(record?.id),
-    locale: details.locale === 'es' ? 'es' : 'en',
+    locale: ['en', 'es', 'de', 'fr', 'nl'].includes(details.locale) ? details.locale : 'en',
     name: safeText(record?.customer_name),
     note: safeText(details.note),
     phone: safeText(record?.customer_phone),

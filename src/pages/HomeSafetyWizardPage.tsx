@@ -327,7 +327,9 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
       throw new Error('A callback time is required.')
     }
 
-    const locale = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+    const language = i18n.resolvedLanguage || i18n.language
+    const languageCode = language.toLowerCase().split(/[-_]/)[0]
+    const locale = (['en', 'es', 'de', 'fr', 'nl'].includes(languageCode) ? languageCode : 'en') as 'en' | 'es' | 'de' | 'fr' | 'nl'
     const submission = await submitCallbackRequest({
       idempotencyKey: callbackIdempotencyKey,
       name: contact.fullName,
