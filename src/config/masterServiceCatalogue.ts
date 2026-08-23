@@ -1,17 +1,18 @@
 import type { MasterServiceCatalogue } from '../types/serviceCatalogue.ts'
+import { getCorePackageCataloguePrice } from '../../shared/packagePricing.js'
 
-const now = '2026-07-23T00:00:00.000Z'
+const now = '2026-08-23T00:00:00.000Z'
 
 const defaultPackagePricing: Record<string, { fromPrice?: number; recurringMonthlyPrice?: number }> = {
-  'bathroom-home-safety-package': { fromPrice: 620 },
+  'bathroom-home-safety-package': { fromPrice: getCorePackageCataloguePrice('bathroom-home-safety-package') },
   'bathroom-connected-room': { fromPrice: 240 },
-  'bedroom-home-safety-package': { fromPrice: 520 },
+  'bedroom-home-safety-package': { fromPrice: getCorePackageCataloguePrice('bedroom-home-safety-package') },
   'bedroom-connected-room': { fromPrice: 260 },
-  'kitchen-home-safety-package': { fromPrice: 540 },
+  'kitchen-home-safety-package': { fromPrice: getCorePackageCataloguePrice('kitchen-home-safety-package') },
   'kitchen-connected-room': { fromPrice: 280 },
   'living-room-home-safety-package': { fromPrice: 460 },
   'living-room-connected-room': { fromPrice: 250 },
-  'entrance-home-safety-package': { fromPrice: 520 },
+  'entrance-home-safety-package': { fromPrice: getCorePackageCataloguePrice('entrance-home-safety-package') },
   'entrance-connected-room': { fromPrice: 290 },
 }
 

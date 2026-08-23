@@ -30,9 +30,41 @@ assert.ok(
 const defaultGroups = buildPlansBuilderGroups(defaultCatalogue, 'en', { publicOnly: true })
 const bathroomGroup = defaultGroups.find((group) => group.room.id === 'bathroom')
 const bedroomGroup = defaultGroups.find((group) => group.room.id === 'bedroom')
+const entranceGroup = defaultGroups.find((group) => group.room.id === 'entrance')
+const kitchenGroup = defaultGroups.find((group) => group.room.id === 'kitchen')
 
 assert.ok(bathroomGroup, 'The public Plans builder must include the bathroom package.')
 assert.ok(bedroomGroup, 'The public Plans builder must include the bedroom package.')
+assert.ok(entranceGroup, 'The public Plans builder must include the entrance package.')
+assert.ok(kitchenGroup, 'The public Plans builder must include the kitchen package.')
+assert.equal(bathroomGroup.packageUnitPrice, 749, 'Bathroom must use the approved VAT-included customer price.')
+assert.equal(bedroomGroup.packageUnitPrice, 649, 'Bedroom must use the approved VAT-included customer price.')
+assert.equal(kitchenGroup.packageUnitPrice, 699, 'Kitchen must use the approved VAT-included customer price.')
+assert.equal(entranceGroup.packageUnitPrice, 749, 'Entrance must use the approved VAT-included customer price.')
+
+{
+  const staleCatalogue = structuredClone(defaultCatalogue)
+  staleCatalogue.packageConfigs = staleCatalogue.packageConfigs.map((config) => {
+    if (config.area !== 'bathroom') return config
+
+    return {
+      ...config,
+      active: true,
+      fromPrice: 1,
+      packagePrice: 1,
+      pricingType: 'fixed',
+    }
+  })
+
+  const staleBathroomGroup = buildPlansBuilderGroups(staleCatalogue, 'en', { publicOnly: true })
+    .find((group) => group.room.id === 'bathroom')
+
+  assert.equal(
+    staleBathroomGroup?.packageUnitPrice,
+    749,
+    'A stale saved package configuration must not override the approved bathroom launch price.',
+  )
+}
 
 {
   const estimate = calculatePlansBuilderEstimate(defaultGroups, {
@@ -48,8 +80,45 @@ assert.ok(bedroomGroup, 'The public Plans builder must include the bedroom packa
     'One-time estimates must recalculate from catalogue package IDs and quantities.',
   )
   assert.equal(estimate.proposalLineItems.length, 2, 'Numeric room packages should produce proposal line items.')
+  assert.deepEqual(
+    estimate.reviewItems,
+    ['Combined installation for 4 or more packages'],
+    'Four or more core packages must keep installation pricing subject to review.',
+  )
   assert.match(formatPlansEstimateLabel(estimate, 'en'), /^From /)
   assert.match(formatPlansEstimateLabel(estimate, 'es'), /^Desde /)
+}
+
+{
+  const twoPackageEstimate = calculatePlansBuilderEstimate(defaultGroups, {
+    [bathroomGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+    [bedroomGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+  }, 'en')
+
+  assert.equal(
+    twoPackageEstimate.oneTimeEstimate,
+    bathroomGroup.packageUnitPrice + bedroomGroup.packageUnitPrice - 30,
+    'Two core packages must use the agreed 170 EUR combined installation total.',
+  )
+  assert.equal(
+    twoPackageEstimate.lineItems.find((line) => line.id === 'plans-installation-bundle-saving')?.lineTotal,
+    -30,
+    'The two-package installation saving must be visible as a separate estimate line.',
+  )
+}
+
+{
+  const threePackageEstimate = calculatePlansBuilderEstimate(defaultGroups, {
+    [bathroomGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+    [bedroomGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+    [kitchenGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+  }, 'en')
+
+  assert.equal(
+    threePackageEstimate.oneTimeEstimate,
+    bathroomGroup.packageUnitPrice + bedroomGroup.packageUnitPrice + kitchenGroup.packageUnitPrice - 150,
+    'Three core packages must use the agreed 150 EUR combined installation total.',
+  )
 }
 
 {
@@ -76,7 +145,7 @@ assert.ok(bedroomGroup, 'The public Plans builder must include the bedroom packa
   }, 'en')
 
   assert.equal(estimate.selectedRoomQuantity, 2, 'Quantities must be normalised to whole rooms.')
-  assert.equal(estimate.oneTimeEstimate, 364, 'Fixed, range/from and quote-only pricing must be combined correctly.')
+  assert.equal(estimate.oneTimeEstimate, 334, 'Package pricing must include the two-package installation saving.')
   assert.equal(estimate.recurringMonthlyEstimate, 24, 'Recurring monthly costs must be tracked separately.')
   assert.equal(estimate.requiresReview, true, 'Quote-only items must be flagged for CasaMia review.')
   assert.deepEqual(estimate.reviewItems, ['Shower entry review'])

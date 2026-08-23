@@ -1,3 +1,8 @@
+import {
+  getApprovedCorePackageCustomerPrice,
+  getCorePackageInstallationPolicy,
+} from '../../shared/packagePricing.js'
+
 const roomToCategory = {
   bathroom: 'Bathroom',
   bedroom: 'Bedroom',
@@ -171,6 +176,16 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
     })
   })
 
+  const installationPolicy = getCorePackageInstallationPolicy(selectedRoomQuantity)
+
+  if (installationPolicy.discount > 0) {
+    lineItems.push(createInstallationSavingLine(installationPolicy.discount, language))
+  }
+
+  if (!installationPolicy.confirmed) {
+    reviewItems.add(installationReviewCopy(language))
+  }
+
   return {
     lineItems,
     oneTimeEstimate: lineItems.reduce((sum, item) => sum + item.unit_price * item.quantity, 0),
@@ -226,7 +241,7 @@ function getOutcomesForPackage(catalogue, packageId) {
 }
 
 function createLineItem(patch) {
-  return {
+  const item = {
     category: 'General',
     description: '',
     grant_eligible: false,
@@ -239,9 +254,41 @@ function createLineItem(patch) {
     unit_price: 0,
     unitPrice: 0,
     ...patch,
-    grant_eligible: Boolean(patch.grantEligible),
-    unit_price: safeMoney(patch.unitPrice),
   }
+
+  return {
+    ...item,
+    grant_eligible: Boolean(item.grantEligible),
+    unit_price: safeMoney(item.unitPrice),
+  }
+}
+
+function createInstallationSavingLine(discount, language) {
+  const isSpanish = language === 'es'
+  const amount = -Math.abs(Math.round(discount))
+
+  return {
+    category: 'General',
+    description: isSpanish
+      ? 'Ahorro aplicado porque CasaMia coordina varias instalaciones en la misma visita.'
+      : 'Saving applied because CasaMia coordinates several installations in the same visit.',
+    grant_eligible: false,
+    grantEligible: false,
+    id: 'plans-installation-bundle-saving',
+    name: isSpanish ? 'Ahorro de instalación multipaquete' : 'Multi-package installation saving',
+    priority: 'High',
+    quantity: 1,
+    source: 'catalogue',
+    sourcePackageId: 'core-package-installation',
+    unit_price: amount,
+    unitPrice: amount,
+  }
+}
+
+function installationReviewCopy(language) {
+  return language === 'es'
+    ? 'Instalación combinada para 4 o más paquetes'
+    : 'Combined installation for 4 or more packages'
 }
 
 function getPackageConfig(catalogue, roomId) {
@@ -249,6 +296,9 @@ function getPackageConfig(catalogue, roomId) {
 }
 
 function getPackageUnitPrice(packageRecord, config) {
+  const approvedCustomerPrice = getApprovedCorePackageCustomerPrice(packageRecord.id)
+  if (approvedCustomerPrice !== undefined) return approvedCustomerPrice
+
   if (config?.active && config.pricingType !== 'quote_only') {
     return priceWithVat(config.pricingType === 'fixed' ? config.packagePrice : config.fromPrice, config.vatRate)
   }

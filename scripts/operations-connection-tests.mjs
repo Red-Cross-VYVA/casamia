@@ -250,8 +250,8 @@ function jsonResponse(body, status = 200) {
   const body = parsedBody(response)
   assert.equal(response.statusCode, 200)
   assert.equal(submitted.status, 'Sent')
-  assert.equal(submitted.total_estimate, 364, 'Public draft totals must be recalculated server-side.')
-  assert.equal(submitted.payload_json.total_estimate, 364)
+  assert.equal(submitted.total_estimate, 334, 'Public draft totals must include the server-side installation saving.')
+  assert.equal(submitted.payload_json.total_estimate, 334)
   assert.equal(submitted.payload_json.acceptance_status, 'Sent')
   assert.equal(submitted.payload_json.plans_builder.recurring_monthly_estimate, 24)
   assert.deepEqual(submitted.payload_json.plans_builder.review_items, ['Shower entry review'])
@@ -271,7 +271,7 @@ function jsonResponse(body, status = 200) {
       id: 'CM-DRAFT-PLAN',
       public_token: token,
       status: 'Draft',
-      total_estimate: 364,
+      total_estimate: 334,
       payload_json: {
         acceptance_status: 'Not Sent',
         customer_email: 'ana@example.com',

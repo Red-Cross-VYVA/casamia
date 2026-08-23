@@ -1,6 +1,10 @@
 import { getCustomerCatalogueByRoom, getMasterServiceCatalogue } from './masterServiceCatalogue.ts'
 import { getPackageConfigForArea } from './serviceCatalogue.ts'
 import { createLineItem } from './proposalsStorage.ts'
+import {
+  getApprovedCorePackageCustomerPrice,
+  getCorePackageInstallationPolicy,
+} from '../../shared/packagePricing.js'
 import type {
   EditableServiceCatalogue,
   LocalizedString,
@@ -285,6 +289,16 @@ export function calculatePlansBuilderEstimate(
     })
   })
 
+  const installationPolicy = getCorePackageInstallationPolicy(selectedRoomQuantity)
+
+  if (installationPolicy.discount > 0) {
+    lineItems.push(buildInstallationSavingLine(installationPolicy.discount, language))
+  }
+
+  if (!installationPolicy.confirmed) {
+    reviewItems.add(installationReviewCopy(language))
+  }
+
   const oneTimeLines = lineItems.filter((line) => !line.isRecurring)
   const recurringLines = lineItems.filter((line) => line.isRecurring)
 
@@ -445,7 +459,36 @@ function toProposalLineItem(line: PlansBuilderEstimateLine): ProposalLineItem {
   })
 }
 
+function buildInstallationSavingLine(discount: number, language: string): PlansBuilderEstimateLine {
+  const isSpanish = language.toLowerCase().startsWith('es')
+
+  return {
+    description: isSpanish
+      ? 'Ahorro aplicado porque CasaMia coordina varias instalaciones en la misma visita.'
+      : 'Saving applied because CasaMia coordinates several installations in the same visit.',
+    grantEligible: false,
+    id: 'plans-installation-bundle-saving',
+    isRecurring: false,
+    label: isSpanish ? 'Ahorro de instalación multipaquete' : 'Multi-package installation saving',
+    lineTotal: -discount,
+    packageId: 'core-package-installation',
+    quantity: 1,
+    requiresReview: false,
+    roomId: 'general',
+    unitPrice: -discount,
+  }
+}
+
+function installationReviewCopy(language: string) {
+  return language.toLowerCase().startsWith('es')
+    ? 'Instalación combinada para 4 o más paquetes'
+    : 'Combined installation for 4 or more packages'
+}
+
 function getPackageUnitPrice(packageRecord: MasterCataloguePackage, config?: ServicePackageConfig) {
+  const approvedCustomerPrice = getApprovedCorePackageCustomerPrice(packageRecord.id)
+  if (approvedCustomerPrice !== undefined) return approvedCustomerPrice
+
   if (config?.active && config.pricingType !== 'quote_only') {
     return priceWithVat(
       config.pricingType === 'fixed' ? config.packagePrice : config.fromPrice,
