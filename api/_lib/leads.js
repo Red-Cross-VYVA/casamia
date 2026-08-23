@@ -85,7 +85,43 @@ export async function updateLeadRecord(source, id, changes) {
 
   const updated = Array.isArray(result.body) ? result.body[0] : undefined
   if (!updated) return { ok: false, status: 404, body: { message: 'Lead not found.' } }
-  return { ok: true, status: 200, body: mapLeadRecord(updated, source) }
+  return {
+    ok: true,
+    status: 200,
+    body: mapLeadRecord(updated, source),
+    previous: mapLeadRecord(record, source),
+  }
+}
+
+export async function recordLeadDelivery(source, id, key, delivery) {
+  const table = source === 'assessment' ? 'assessment_requests' : 'contact_requests'
+  const typeFilter = source === 'callback' ? '&type=eq.callback_request' : ''
+  const existing = await selectSupabaseRows(
+    table,
+    `id=eq.${encodeURIComponent(id)}${typeFilter}&select=id,payload_json&limit=1`,
+  )
+  if (!existing.ok) return existing
+
+  const record = Array.isArray(existing.body) ? existing.body[0] : undefined
+  if (!record) return { ok: false, status: 404, body: { message: 'Lead not found.' } }
+
+  const payload = object(record.payload_json)
+  const pipeline = object(payload.leadPipeline)
+  const notificationDelivery = object(pipeline.notificationDelivery)
+
+  return updateSupabaseRows(
+    table,
+    {
+      payload_json: {
+        ...payload,
+        leadPipeline: {
+          ...pipeline,
+          notificationDelivery: { ...notificationDelivery, [key]: delivery },
+        },
+      },
+    },
+    `id=eq.${encodeURIComponent(id)}${typeFilter}&select=id`,
+  )
 }
 
 export function mapLeadRecord(record, source) {
@@ -101,6 +137,8 @@ export function mapLeadRecord(record, source) {
     message: source === 'callback' ? text(payload.note) || text(record?.message) : text(record?.message),
     name: text(record?.customer_name),
     notes: text(pipeline.notes),
+    locale: payload.locale === 'es' || payload.language === 'es' ? 'es' : 'en',
+    notificationDelivery: object(pipeline.notificationDelivery),
     partnerNotes: text(pipeline.partnerNotes),
     phone: text(record?.customer_phone),
     preferredAt: source === 'assessment'

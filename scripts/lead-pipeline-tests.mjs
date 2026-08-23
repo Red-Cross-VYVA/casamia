@@ -82,6 +82,7 @@ globalThis.fetch = async (url, init) => {
   assert.equal(body.leads[0].id, assessmentId)
   assert.equal(body.leads[0].partnerNotes, 'Measure the bathroom wall.')
   assert.equal('notes' in body.leads[0], false, 'Partner responses must not expose internal notes.')
+  assert.equal('notificationDelivery' in body.leads[0], false, 'Partner responses must not expose email delivery metadata.')
 }
 
 console.log('Lead pipeline authorization checks passed.')

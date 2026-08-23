@@ -2,8 +2,10 @@ import {
   leadSources,
   leadStatuses,
   listLeadRecords,
+  recordLeadDelivery,
   updateLeadRecord,
 } from '../_lib/leads.js'
+import { sendPartnerAssignmentEmail } from '../_lib/lead-email.js'
 import {
   readJsonBody,
   requireInternalApiKey,
@@ -45,6 +47,20 @@ export default async function handler(request, response) {
     }
 
     const result = await updateLeadRecord(body.source, body.id, body)
+    if (result.ok
+      && result.body.assignedPartnerEmail
+      && result.body.assignedPartnerEmail !== result.previous?.assignedPartnerEmail) {
+      const delivery = await sendPartnerAssignmentEmail({ lead: result.body })
+      const tracked = await recordLeadDelivery(body.source, body.id, 'partnerAssignment', {
+        ...delivery,
+        recipient: result.body.assignedPartnerEmail,
+      })
+      if (!tracked.ok) console.error('Partner assignment email delivery could not be recorded.', tracked.body)
+      result.body.notificationDelivery = {
+        ...result.body.notificationDelivery,
+        partnerAssignment: delivery,
+      }
+    }
     sendJson(response, result.status, result.ok ? { lead: result.body } : result.body)
   } catch (error) {
     sendJson(response, 400, { message: error instanceof Error ? error.message : 'Invalid lead update.' })

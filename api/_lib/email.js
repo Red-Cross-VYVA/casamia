@@ -46,6 +46,72 @@ export function isProposalEmailConfigured(env = process.env) {
   return Boolean(env.RESEND_API_KEY)
 }
 
+export async function sendTransactionalEmail({
+  bcc,
+  env = process.env,
+  html,
+  replyTo,
+  subject,
+  text: textBody,
+  to,
+} = {}) {
+  const recipients = normalizeRecipients(to)
+  const apiKey = env.RESEND_API_KEY
+
+  if (!recipients.length) return skippedDelivery('recipient_missing', 'Email recipient is missing.')
+  if (!apiKey) return skippedDelivery('not_configured', 'RESEND_API_KEY is not configured.')
+
+  const body = {
+    from: text(env.CASAMIA_EMAIL_FROM || env.RESEND_FROM_EMAIL) || defaultFrom,
+    html: String(html || ''),
+    subject: text(subject) || 'CasaMia notification',
+    text: String(textBody || ''),
+    to: recipients,
+    ...(text(replyTo || env.CASAMIA_REPLY_TO_EMAIL) || defaultReplyTo
+      ? { reply_to: text(replyTo || env.CASAMIA_REPLY_TO_EMAIL) || defaultReplyTo }
+      : {}),
+    ...(normalizeRecipients(bcc).length ? { bcc: normalizeRecipients(bcc) } : {}),
+  }
+
+  try {
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      body: JSON.stringify(body),
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+    const responseText = await resendResponse.text()
+    const responseBody = parseJson(responseText)
+
+    if (!resendResponse.ok) {
+      return {
+        ok: false,
+        provider: 'resend',
+        reason: responseBody?.message || responseText.slice(0, 500) || 'Resend email request failed.',
+        status: 'failed',
+        statusCode: resendResponse.status,
+      }
+    }
+
+    return {
+      id: responseBody?.id ?? '',
+      ok: true,
+      provider: 'resend',
+      status: 'sent',
+      statusCode: resendResponse.status,
+    }
+  } catch (error) {
+    return {
+      ok: false,
+      provider: 'resend',
+      reason: error instanceof Error ? error.message : 'Resend email request failed.',
+      status: 'failed',
+    }
+  }
+}
+
 export async function sendProposalEmail({
   env = process.env,
   language = 'en',
@@ -456,6 +522,11 @@ function parseJson(value) {
   } catch {
     return null
   }
+}
+
+function normalizeRecipients(value) {
+  const values = Array.isArray(value) ? value : String(value || '').split(',')
+  return values.map((item) => text(item)).filter((item) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(item))
 }
 
 function text(value) {

@@ -19,6 +19,8 @@ export type Lead = {
   message: string
   name: string
   notes: string
+  locale: 'en' | 'es'
+  notificationDelivery: Record<string, unknown>
   partnerNotes: string
   phone: string
   preferredAt: string

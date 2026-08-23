@@ -333,6 +333,8 @@ const originalFetch = globalThis.fetch
 const originalConsoleError = console.error
 const environmentKeys = [
   'CALLBACK_RATE_LIMIT_SALT',
+  'CASAMIA_LEADS_EMAIL',
+  'RESEND_API_KEY',
   'SUPABASE_SERVICE_ROLE_KEY',
   'SUPABASE_URL',
 ]
@@ -341,6 +343,8 @@ const originalEnvironment = Object.fromEntries(
 )
 
 try {
+  delete process.env.CASAMIA_LEADS_EMAIL
+  delete process.env.RESEND_API_KEY
   Object.assign(process.env, {
     CALLBACK_RATE_LIMIT_SALT: 'callback-test-rate-limit-secret',
     SUPABASE_SERVICE_ROLE_KEY: 'supabase-service-role-test-key',
@@ -360,6 +364,12 @@ try {
       return new Response(JSON.stringify(
         insertCallCount === 1 ? [{ id: 'callback-id', status: 'New' }] : [],
       ), { status: 201 })
+    }
+    if (String(url).includes('/rest/v1/contact_requests?id=eq.callback-id') && init.method === 'GET') {
+      return new Response(JSON.stringify([{ id: 'callback-id', payload_json: {} }]), { status: 200 })
+    }
+    if (String(url).includes('/rest/v1/contact_requests?id=eq.callback-id') && init.method === 'PATCH') {
+      return new Response(JSON.stringify([{ id: 'callback-id' }]), { status: 200 })
     }
     throw new Error(`Unexpected test URL: ${url}`)
   }

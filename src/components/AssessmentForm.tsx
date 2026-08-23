@@ -217,6 +217,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         preferredDate: values.date,
         message: isBooking ? bookingMessage : values.message.trim(),
         consentAt: new Date().toISOString(),
+        locale: isSpanish ? 'es' : 'en',
         source: isBooking ? 'free-report-booking' : 'home-safety-assessment',
         reportToken,
       })

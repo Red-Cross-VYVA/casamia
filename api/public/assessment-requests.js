@@ -1,5 +1,8 @@
 import crypto from 'node:crypto'
 
+import { sendNewLeadEmails } from '../_lib/lead-email.js'
+import { mapLeadRecord, recordLeadDelivery } from '../_lib/leads.js'
+
 import {
   callSupabaseRpc,
   createSignedStorageUploadUrl,
@@ -399,6 +402,14 @@ export default async function handler(request, response) {
     if (!result.ok) {
       sendJson(response, result.status, result.body)
       return
+    }
+
+    const storedRecord = result.body.record
+    if (storedRecord) {
+      const lead = mapLeadRecord(storedRecord, 'assessment')
+      const delivery = await sendNewLeadEmails({ lead, request })
+      const tracked = await recordLeadDelivery('assessment', lead.id, 'intake', delivery)
+      if (!tracked.ok) console.error('Assessment email delivery could not be recorded.', tracked.body)
     }
 
     sendJson(response, result.status, {

@@ -1,5 +1,7 @@
 import crypto from 'node:crypto'
 
+import { sendNewLeadEmails } from '../_lib/lead-email.js'
+import { mapLeadRecord, recordLeadDelivery } from '../_lib/leads.js'
 import { applyPublicCors, getRequestHeader, isAllowedPublicOrigin } from '../_lib/public-origin.js'
 import { callSupabaseRpc, createSupabaseRowIfAbsent, sendJson } from '../_lib/supabase.js'
 
@@ -429,6 +431,12 @@ export default async function handler(request, response) {
     }
 
     const record = Array.isArray(result.body) ? result.body[0] : result.body
+    if (record?.id) {
+      const lead = mapLeadRecord(record, 'callback')
+      const delivery = await sendNewLeadEmails({ lead, request })
+      const tracked = await recordLeadDelivery('callback', lead.id, 'intake', delivery)
+      if (!tracked.ok) console.error('Callback email delivery could not be recorded.', tracked.body)
+    }
     sendJson(response, 201, { id: record?.id, status: record?.status ?? 'New' })
   } catch (error) {
     const isInvalidJson = error instanceof SyntaxError

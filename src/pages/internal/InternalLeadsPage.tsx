@@ -173,6 +173,7 @@ function LeadEditor({ lead, onSaved }: { lead: Lead; onSaved: (lead: Lead) => vo
         <Detail label="Phone" value={lead.phone} /><Detail label="Email" value={lead.email} /><Detail label="Area" value={lead.city} /><Detail label="Preferred time" value={lead.preferredAt} /><Detail label="Selected plan" value={lead.selectedPlan} />
       </dl>
       {lead.message ? <div className="mt-5 rounded-lg border border-border p-5"><p className="text-xs font-black uppercase text-text-muted">Customer message</p><p className="mt-2 whitespace-pre-wrap font-semibold leading-relaxed">{lead.message}</p></div> : null}
+      <DeliveryStatus delivery={lead.notificationDelivery} />
 
       <div className="mt-6 grid gap-5">
         <label className="grid gap-2"><span className="text-xs font-black uppercase text-text-muted">Pipeline status</span><select className="min-h-12 rounded-lg border border-border bg-white px-4 font-black outline-none focus:border-blue" value={form.status} onChange={(event) => update({ status: event.target.value as LeadStatus })}>{leadStatuses.map((status) => <option key={status}>{status}</option>)}</select></label>
@@ -187,6 +188,17 @@ function LeadEditor({ lead, onSaved }: { lead: Lead; onSaved: (lead: Lead) => vo
 }
 
 function StatusBadge({ status }: { status: LeadStatus }) { return <span className={`inline-flex shrink-0 rounded-full border px-3 py-1 text-[11px] font-black uppercase ${statusClasses[status]}`}>{status}</span> }
+function DeliveryStatus({ delivery }: { delivery: Record<string, unknown> }) {
+  const entries = Object.entries(delivery).flatMap(([group, value]) => {
+    if (!value || typeof value !== 'object') return []
+    const details = value as Record<string, unknown>
+    return Object.entries(details)
+      .filter(([key, item]) => key !== 'attemptedAt' && item && typeof item === 'object')
+      .map(([key, item]) => ({ group, key, status: String((item as Record<string, unknown>).status || 'unknown') }))
+  })
+  if (!entries.length) return null
+  return <div className="mt-5 rounded-lg border border-border bg-light-blue/35 p-5"><p className="text-xs font-black uppercase text-text-muted">Email delivery</p><div className="mt-3 flex flex-wrap gap-2">{entries.map((entry) => <span className={`rounded-full border px-3 py-1 text-xs font-black ${entry.status === 'sent' ? 'border-green/30 bg-green/10 text-[#477a16]' : 'border-gold/40 bg-gold/15 text-[#80540b]'}`} key={`${entry.group}-${entry.key}`}>{entry.key}: {entry.status.replace(/_/g, ' ')}</span>)}</div></div>
+}
 function Detail({ label, value }: { label: string; value: string }) { return <div><dt className="text-[11px] font-black uppercase text-text-muted">{label}</dt><dd className="mt-1 break-words text-sm font-black text-text-dark">{value || 'Not provided'}</dd></div> }
 function isFollowUpDue(value: string) { return Boolean(value && Date.parse(value) <= Date.now()) }
 function leadKey(lead?: Lead) { return lead ? `${lead.source}:${lead.id}` : '' }

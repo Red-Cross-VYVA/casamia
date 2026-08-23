@@ -17,6 +17,7 @@ export type AssessmentRequestInput = {
   reportToken?: string
   wizardReference?: string
   mediaManifest?: AssessmentMediaManifestItem[]
+  locale?: 'en' | 'es'
 }
 
 export type AssessmentMediaManifestItem = {

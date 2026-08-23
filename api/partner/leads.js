@@ -24,7 +24,7 @@ export default async function handler(request, response) {
   sendJson(response, 200, {
     leads: result.body
       .filter((lead) => lead.assignedPartnerEmail === session.partnerEmail)
-      .map(({ notes: _internalNotes, ...lead }) => lead),
+      .map(({ notes: _internalNotes, notificationDelivery: _delivery, ...lead }) => lead),
     partnerEmail: session.partnerEmail,
   })
 }
