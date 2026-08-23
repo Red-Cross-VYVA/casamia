@@ -15,15 +15,15 @@ import { Link } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
-import { CASAMIA_CONTACT_PHONE, CASAMIA_WHATSAPP_URL } from '../constants/contact'
+import { CASAMIA_CONTACT_PHONE, buildCasaMiaWhatsappUrl } from '../constants/contact'
 import { trackEvent } from '../utils/analytics'
 
 import '../styles/grant-support-spain.css'
 
 const phoneHref = CASAMIA_CONTACT_PHONE ? `tel:${CASAMIA_CONTACT_PHONE.replace(/\s+/g, '')}` : null
-const whatsappHref = CASAMIA_WHATSAPP_URL
-  ? `${CASAMIA_WHATSAPP_URL}${CASAMIA_WHATSAPP_URL.includes('?') ? '&' : '?'}text=${encodeURIComponent('Hola CasaMia, quiero iniciar una revisión de ayudas para adaptar una vivienda.')}`
-  : null
+const whatsappHref = buildCasaMiaWhatsappUrl(
+  'Hola CasaMia, quiero iniciar una revisión de ayudas para adaptar una vivienda.',
+) || null
 
 const grantSteps = [
   {

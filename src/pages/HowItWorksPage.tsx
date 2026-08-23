@@ -29,7 +29,7 @@ import { Link } from 'react-router-dom'
 import { SafeImage } from '../components/SafeImage'
 import { SEO } from '../components/SEO'
 import { TrustBar } from '../components/TrustBar'
-import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE, CASAMIA_WHATSAPP_URL } from '../constants/contact'
+import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE, buildCasaMiaWhatsappUrl } from '../constants/contact'
 import { IMAGE_URLS } from '../constants/shopify'
 import { serviceVisuals } from '../constants/serviceVisuals'
 import '../styles/how-it-works-process.css'
@@ -847,11 +847,15 @@ const serviceChannelIcons: Record<ServiceChannelKey, LucideIcon> = {
   email: Mail,
 }
 
-function EasyProcessJourney({ copy }: { copy: EasyProcessCopy }) {
+function EasyProcessJourney({ copy, language }: { copy: EasyProcessCopy; language: string }) {
   const callHref = CASAMIA_CONTACT_PHONE
     ? `tel:${CASAMIA_CONTACT_PHONE.replaceAll(' ', '')}`
     : null
-  const whatsappHref = CASAMIA_WHATSAPP_URL || null
+  const whatsappHref = buildCasaMiaWhatsappUrl(
+    language.startsWith('es')
+      ? 'Hola CasaMia, quiero saber cómo empezar a hacer mi hogar más seguro.'
+      : 'Hello CasaMia, I would like to know how to start making my home safer.',
+  ) || null
 
   return (
     <section className="how-easy-process" aria-labelledby="how-easy-process-title">
@@ -1038,7 +1042,7 @@ export function HowItWorksPage() {
 
       <TrustBar />
 
-      <EasyProcessJourney copy={processCopy} />
+      <EasyProcessJourney copy={processCopy} language={i18n.language} />
 
       <section className="how-review-section">
         <div className="site-shell">

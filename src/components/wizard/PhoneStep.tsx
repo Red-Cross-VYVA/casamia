@@ -1,15 +1,13 @@
 import { MessageCircle, Phone } from 'lucide-react'
 
 import type { WizardCopy } from '../../config/wizardCopy'
-import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE, CASAMIA_WHATSAPP_URL } from '../../constants/contact'
+import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE, buildCasaMiaWhatsappUrl } from '../../constants/contact'
 import { WizardStep } from './WizardStep'
 
 type PhoneStepProps = { copy: WizardCopy; reference: string }
 
 export function PhoneStep({ copy, reference }: PhoneStepProps) {
-  const whatsappHref = CASAMIA_WHATSAPP_URL
-    ? `${CASAMIA_WHATSAPP_URL}${CASAMIA_WHATSAPP_URL.includes('?') ? '&' : '?'}text=${encodeURIComponent(`CasaMia reference: ${reference}`)}`
-    : ''
+  const whatsappHref = buildCasaMiaWhatsappUrl(`CasaMia reference: ${reference}`)
 
   return (
     <WizardStep title={copy.phone.title} body={copy.phone.body} hint={copy.micro.optional} icon={<Phone size={28} />}>
