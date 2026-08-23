@@ -25,6 +25,8 @@ const protectedShellRoutes = [
   ['dist/internal/service-catalog.html', '/internal/service-catalog'],
   ['dist/internal/facebook-posts.html', '/internal/facebook-posts'],
   ['dist/admin/config-preview.html', '/admin/config-preview'],
+  ['dist/partner.html', '/partner'],
+  ['dist/partner/login.html', '/partner/login'],
 ]
 
 for (const [file, route] of protectedShellRoutes) {
@@ -38,6 +40,8 @@ assert.match(vercel, /"source"\s*:\s*"\/home-safety-inspection"/)
 assert.match(vercel, /"destination"\s*:\s*"\/home-safety-assessment"/)
 assert.match(vercel, /"source"\s*:\s*"\/internal"/)
 assert.match(vercel, /"source"\s*:\s*"\/internal\/\(\.\*\)"/)
+assert.match(vercel, /"source"\s*:\s*"\/partner"/)
+assert.match(vercel, /"source"\s*:\s*"\/partner\/\(\.\*\)"/)
 assert.doesNotMatch(vercel, /\(\?!api\/\.\*\)/, 'public pages must not be rewritten to the SPA shell')
 
 console.log('Representative prerender and redirect checks passed.')

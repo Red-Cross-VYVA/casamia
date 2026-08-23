@@ -35,6 +35,7 @@ const footerLinkCopy = {
     assessmentOrContractor: 'Safety assessment or contractor',
     connectedOrMonitoring: 'Connected safety or monitoring',
     adminLogin: 'Admin login',
+    partnerLogin: 'Partner login',
     facebook: 'Facebook',
     preferences: 'Cookie preferences',
   },
@@ -62,6 +63,7 @@ const footerLinkCopy = {
     assessmentOrContractor: 'Evaluación o contratista general',
     connectedOrMonitoring: 'Seguridad conectada o monitorización',
     adminLogin: 'Acceso admin',
+    partnerLogin: 'Acceso colaborador',
     facebook: 'Facebook',
     preferences: 'Preferencias de cookies',
   },
@@ -183,6 +185,9 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-3">
             <Link className="text-sm font-extrabold text-white/60 transition hover:text-green" to="/internal">
               {links.adminLogin}
+            </Link>
+            <Link className="text-sm font-extrabold text-white/60 transition hover:text-green" to="/partner">
+              {links.partnerLogin}
             </Link>
             <a
               className="text-sm font-extrabold text-white/60 transition hover:text-green"

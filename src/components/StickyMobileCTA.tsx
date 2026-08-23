@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { trackEvent } from '../utils/analytics'
 
-const hiddenRoutes = ['/internal']
+const hiddenRoutes = ['/internal', '/partner']
 
 export function StickyMobileCTA() {
   const { i18n, t } = useTranslation()

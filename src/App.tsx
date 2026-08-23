@@ -15,6 +15,7 @@ import { CookieConsent } from './components/CookieConsent'
 import { Footer } from './components/Footer'
 import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
+import { PartnerAccessGate } from './components/partner/PartnerAccessGate'
 import { SEO } from './components/SEO'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
 
@@ -125,6 +126,9 @@ const PlanAdaptaPage = lazy(() =>
   import('./pages/PlanAdaptaPage').then(({ PlanAdaptaPage }) => ({ default: PlanAdaptaPage })),
 )
 const PlansPage = lazy(() => import('./pages/PlansPage').then(({ PlansPage }) => ({ default: PlansPage })))
+const PartnerPortalPage = lazy(() =>
+  import('./pages/partner/PartnerPortalPage').then(({ PartnerPortalPage }) => ({ default: PartnerPortalPage })),
+)
 const ProviderPartnersPage = lazy(() =>
   import('./pages/ProviderPartnersPage').then(({ ProviderPartnersPage }) => ({ default: ProviderPartnersPage })),
 )
@@ -247,16 +251,28 @@ function InternalRoute({ children }: { children: ReactNode }) {
   )
 }
 
+function PartnerRoute({ children }: { children: ReactNode }) {
+  const location = useLocation()
+
+  return (
+    <>
+      <SEO title="CasaMia partner portal" description="Protected CasaMia partner workspace." path={location.pathname} noindex />
+      <PartnerAccessGate>{children}</PartnerAccessGate>
+    </>
+  )
+}
+
 export function AppRoutes() {
   const location = useLocation()
   const isInternalRoute = location.pathname.startsWith('/internal')
+  const isPartnerRoute = location.pathname.startsWith('/partner')
   const isFocusedWizardRoute = location.pathname === '/home-safety-wizard'
   const isPublicAgreementRoute = location.pathname.startsWith('/agreement/')
 
   return (
     <>
       <ScrollManager />
-      {isInternalRoute || isFocusedWizardRoute ? null : <Nav />}
+      {isInternalRoute || isPartnerRoute || isFocusedWizardRoute ? null : <Nav />}
       <main>
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
@@ -266,6 +282,8 @@ export function AppRoutes() {
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/plans" element={<PlansPage />} />
             <Route path="/plans/:planId" element={<Navigate to="/plans" replace />} />
+            <Route path="/partner" element={<PartnerRoute><PartnerPortalPage /></PartnerRoute>} />
+            <Route path="/partner/login" element={<Navigate to="/partner" replace />} />
             <Route path="/provider-partners" element={<ProviderPartnersPage />} />
             <Route path="/before-after" element={<BeforeAfterPage />} />
             <Route path="/services" element={<ServicesPage />} />
@@ -330,9 +348,9 @@ export function AppRoutes() {
           </Routes>
         </Suspense>
       </main>
-      {isInternalRoute || isFocusedWizardRoute ? null : <Footer />}
-      {isInternalRoute ? null : <CookieConsent />}
-      {isInternalRoute || isFocusedWizardRoute || isPublicAgreementRoute ? null : <StickyMobileCTA />}
+      {isInternalRoute || isPartnerRoute || isFocusedWizardRoute ? null : <Footer />}
+      {isInternalRoute || isPartnerRoute ? null : <CookieConsent />}
+      {isInternalRoute || isPartnerRoute || isFocusedWizardRoute || isPublicAgreementRoute ? null : <StickyMobileCTA />}
     </>
   )
 }

@@ -3,7 +3,12 @@ import { readFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { createInternalSessionToken, requireInternalApiKey } from '../api/_lib/supabase.js'
+import {
+  createInternalSessionToken,
+  createPartnerSessionToken,
+  requireInternalApiKey,
+  requirePartnerApiKey,
+} from '../api/_lib/supabase.js'
 import middleware, { config } from '../middleware.ts'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -12,6 +17,8 @@ const originalEnvironment = {
   CASAMIA_INTERNAL_PASSWORD: process.env.CASAMIA_INTERNAL_PASSWORD,
   CASAMIA_INTERNAL_SESSION_SECRET: process.env.CASAMIA_INTERNAL_SESSION_SECRET,
   CASAMIA_INTERNAL_USERNAME: process.env.CASAMIA_INTERNAL_USERNAME,
+  CASAMIA_PARTNER_PASSWORD: process.env.CASAMIA_PARTNER_PASSWORD,
+  CASAMIA_PROVIDER_PASSWORD: process.env.CASAMIA_PROVIDER_PASSWORD,
 }
 
 function restoreEnvironment() {
@@ -52,6 +59,7 @@ try {
   process.env.CASAMIA_INTERNAL_PASSWORD = 'strong-internal-password'
   process.env.CASAMIA_INTERNAL_API_KEY = 'internal-api-key'
   process.env.CASAMIA_INTERNAL_SESSION_SECRET = 'independent-session-secret'
+  process.env.CASAMIA_PARTNER_PASSWORD = 'partner-portal-password'
 
   assert.deepEqual(
     config.matcher,
@@ -133,6 +141,11 @@ try {
     /<SEO[\s\S]*path="\/order"[\s\S]*noindex/,
     'The order follow-up page must not compete with public marketing pages in search.',
   )
+  assert.match(
+    appSource,
+    /function PartnerRoute[\s\S]*<SEO[\s\S]*noindex[\s\S]*<PartnerAccessGate>/,
+    'Every partner route wrapper must publish noindex metadata.',
+  )
 
   const middlewareSource = await readFile(resolve(projectRoot, 'middleware.ts'), 'utf8')
   assert.match(
@@ -157,6 +170,37 @@ try {
   const unauthorizedResponse = createApiResponse()
   assert.equal(requireInternalApiKey({ headers: {} }, unauthorizedResponse), false)
   assert.equal(unauthorizedResponse.statusCode, 401)
+
+  const { token: partnerToken, partnerEmail, role } = createPartnerSessionToken('PARTNER@EXAMPLE.COM')
+  assert.equal(partnerEmail, 'partner@example.com')
+  assert.equal(role, 'partner')
+
+  const partnerResponse = createApiResponse()
+  assert.equal(
+    requirePartnerApiKey({ headers: { authorization: `Bearer ${partnerToken}` } }, partnerResponse)?.partnerEmail,
+    'partner@example.com',
+    'A partner session should authorize only its normalized partner identity.',
+  )
+
+  const partnerOnAdminResponse = createApiResponse()
+  assert.equal(
+    requireInternalApiKey({ headers: { authorization: `Bearer ${partnerToken}` } }, partnerOnAdminResponse),
+    false,
+    'A partner session must not authorize admin APIs.',
+  )
+  assert.equal(partnerOnAdminResponse.statusCode, 401)
+
+  const adminOnPartnerResponse = createApiResponse()
+  assert.equal(
+    requirePartnerApiKey({ headers: { authorization: `Bearer ${token}` } }, adminOnPartnerResponse),
+    null,
+    'An admin session must not impersonate a partner.',
+  )
+  assert.equal(adminOnPartnerResponse.statusCode, 401)
+
+  const partnerAgreementsSource = await readFile(resolve(projectRoot, 'api/partner/agreements.js'), 'utf8')
+  assert.match(partnerAgreementsSource, /listAgreementRecordsForPartner\(session\.partnerEmail\)/)
+  assert.doesNotMatch(partnerAgreementsSource, /listAgreementRecords\(\)/)
 
   const serviceCatalogueSource = await readFile(
     resolve(projectRoot, 'api/internal/service-catalogue.js'),

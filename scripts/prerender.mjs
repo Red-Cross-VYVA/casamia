@@ -11,6 +11,8 @@ const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => new UR
 const protectedAppShellRoutes = [
   '/_app-shell/private',
   '/admin/config-preview',
+  '/partner',
+  '/partner/login',
   '/internal',
   '/internal/callbacks',
   '/internal/visits',
