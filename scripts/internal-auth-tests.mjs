@@ -141,6 +141,13 @@ try {
     /<SEO[\s\S]*path="\/order"[\s\S]*noindex/,
     'The order follow-up page must not compete with public marketing pages in search.',
   )
+
+  const prerenderSource = await readFile(resolve(projectRoot, 'scripts/prerender.mjs'), 'utf8')
+  assert.match(
+    prerenderSource,
+    /'\/internal\/leads'/,
+    'The lead pipeline must have a generated protected app shell for direct production navigation.',
+  )
   assert.match(
     appSource,
     /function PartnerRoute[\s\S]*<SEO[\s\S]*noindex[\s\S]*<PartnerAccessGate>/,

@@ -129,6 +129,11 @@ const PlansPage = lazy(() => import('./pages/PlansPage').then(({ PlansPage }) =>
 const PartnerPortalPage = lazy(() =>
   import('./pages/partner/PartnerPortalPage').then(({ PartnerPortalPage }) => ({ default: PartnerPortalPage })),
 )
+const InternalLeadsPage = lazy(() =>
+  import('./pages/internal/InternalLeadsPage').then(({ InternalLeadsPage }) => ({
+    default: InternalLeadsPage,
+  })),
+)
 const ProviderPartnersPage = lazy(() =>
   import('./pages/ProviderPartnersPage').then(({ ProviderPartnersPage }) => ({ default: ProviderPartnersPage })),
 )
@@ -330,6 +335,7 @@ export function AppRoutes() {
             <Route path="/complaints-contact" element={<LegalDocumentPage documentId="complaints-contact" />} />
             <Route path="/accessibility-statement" element={<LegalDocumentPage documentId="accessibility-statement" />} />
             <Route path="/internal" element={<InternalRoute><InternalDashboardPage /></InternalRoute>} />
+            <Route path="/internal/leads" element={<InternalRoute><InternalLeadsPage /></InternalRoute>} />
             <Route path="/internal/callbacks" element={<InternalRoute><InternalCallbacksPage /></InternalRoute>} />
             <Route path="/internal/visits" element={<InternalRoute><InternalVisitsPage /></InternalRoute>} />
             <Route path="/internal/orders" element={<InternalRoute><InternalOrdersPage /></InternalRoute>} />

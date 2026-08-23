@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { AgreementDocument } from '../../components/agreements/AgreementDocument'
 import { BrandLogo } from '../../components/BrandLogo'
+import { PartnerLeadsPanel } from '../../components/partner/PartnerLeadsPanel'
 import {
   downloadAgreementDocx,
   downloadAgreementText,
@@ -96,6 +97,7 @@ export function PartnerPortalPage() {
         </aside>
 
         <section className="min-w-0">
+          <div className="mb-5"><PartnerLeadsPanel /></div>
           {selectedAssignment && selectedVersion ? <div className="grid gap-5">
             <div className="rounded-lg border border-border bg-white p-5 shadow-soft"><div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between"><div><p className="text-xs font-black uppercase text-text-muted">Selected assignment</p><h2 className="mt-2 font-display text-3xl font-bold text-text-dark">{selectedAssignment.partnerBusinessName}</h2><p className="mt-1 text-sm font-bold">{selectedAssignment.partnerContactName} · {selectedAssignment.partnerEmail}</p></div><div className="flex flex-wrap gap-3"><button className="btn btn-white" type="button" onClick={() => printAgreementPdf(selectedAssignment, selectedVersion)}><FileText size={17} />Print/PDF</button><button className="btn btn-white" type="button" onClick={() => downloadAgreementDocx(selectedAssignment, selectedVersion)}><Download size={17} />DOCX</button><button className="btn btn-white" type="button" onClick={() => downloadAgreementText(selectedAssignment, selectedVersion)}><Download size={17} />TXT</button></div></div></div>
             <AgreementDocument assignment={selectedAssignment} version={selectedVersion} />

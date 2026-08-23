@@ -7,12 +7,16 @@ import {
   Home,
   LayoutDashboard,
   LogOut,
+  Menu,
   Megaphone,
   Network,
   PackageCheck,
   PhoneCall,
   Route,
+  UsersRound,
+  X,
 } from 'lucide-react'
+import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 import { BrandLogo } from '../BrandLogo'
@@ -21,6 +25,7 @@ import { voiceAssistantFeatureEnabled } from '../../services/voiceAssistant'
 
 const internalLinks = [
   { label: 'Dashboard', to: '/internal', icon: LayoutDashboard },
+  { label: 'Lead pipeline', to: '/internal/leads', icon: UsersRound },
   { label: 'Callback requests', to: '/internal/callbacks', icon: PhoneCall },
   { label: 'Assessment requests', to: '/internal/visits', icon: Route },
   { label: 'Customer plans', to: '/internal/orders', icon: ClipboardCheck },
@@ -36,6 +41,8 @@ const internalLinks = [
 ]
 
 export function InternalSidebar() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
   function handleSignOut() {
     clearInternalAuthSession()
     window.location.assign('/')
@@ -43,20 +50,17 @@ export function InternalSidebar() {
 
   return (
     <aside className="border-b border-border bg-ink text-white lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:flex-col lg:border-b-0 lg:border-r lg:border-white/10">
-      <div className="flex min-h-20 items-center justify-between gap-5 px-5 py-4 lg:block lg:px-6 lg:py-7">
+      <div className="flex min-h-20 items-center justify-between gap-3 px-5 py-4 lg:block lg:px-6 lg:py-7">
         <Link className="inline-flex rounded-md bg-white px-3 py-2" to="/internal" aria-label="CasaMia Operations">
           <BrandLogo />
         </Link>
-        <Link
-          className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-extrabold text-white/80 transition hover:border-white/40 hover:text-white lg:hidden"
-          to="/"
-        >
-          <Home size={16} aria-hidden="true" />
-          Public site
-        </Link>
+        <div className="flex items-center gap-2 lg:hidden">
+          <Link className="inline-grid h-11 w-11 place-items-center rounded-lg border border-white/15 text-white/80 transition hover:border-white/40 hover:text-white" to="/" aria-label="Public site"><Home size={18} aria-hidden="true" /></Link>
+          <button className="inline-grid h-11 w-11 place-items-center rounded-lg border border-white/15 text-white" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close operations menu' : 'Open operations menu'} type="button" onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}</button>
+        </div>
       </div>
 
-      <nav className="grid gap-2 px-5 pb-4 sm:grid-cols-6 lg:flex lg:flex-col lg:px-4 lg:pb-0">
+      <nav className={`${menuOpen ? 'grid' : 'hidden'} gap-2 px-5 pb-4 sm:grid-cols-2 lg:flex lg:flex-col lg:px-4 lg:pb-0`}>
         {internalLinks.map((link) => {
           const Icon = link.icon
 
@@ -72,6 +76,7 @@ export function InternalSidebar() {
               end={link.to === '/internal'}
               key={link.to}
               to={link.to}
+              onClick={() => setMenuOpen(false)}
             >
               <Icon size={18} aria-hidden="true" />
               {link.label}
@@ -79,6 +84,8 @@ export function InternalSidebar() {
           )
         })}
       </nav>
+
+      {menuOpen ? <div className="px-5 pb-5 lg:hidden"><button className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/15 px-4 text-sm font-extrabold text-white/75" type="button" onClick={handleSignOut}><LogOut size={17} aria-hidden="true" />Sign out</button></div> : null}
 
       <div className="mt-auto hidden px-4 pb-7 pt-10 lg:block">
         <button
