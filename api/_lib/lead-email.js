@@ -90,15 +90,15 @@ function renderCustomerConfirmationHtml(lead, copy, urls) {
     copy.title,
     `<p style="margin:0 0 14px;font-size:17px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.greeting)}${firstName ? ` ${escapeHtml(firstName)}` : ''},</p>
      <p style="margin:0 0 20px;font-size:17px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.intro)}</p>
-     <h2 style="margin:0 0 10px;font-size:20px;color:#142235;">${escapeHtml(copy.summary)}</h2>
-     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:1px solid #dcecf5;">${rows}</table>
-     <div style="margin:22px 0 0;padding:18px 20px;background:#eff8e8;border:1px solid #b9de9d;border-radius:8px;">
+     <div style="margin:0;padding:18px 20px;background:#eff8e8;border:1px solid #b9de9d;border-radius:8px;">
        <h2 style="margin:0 0 8px;font-size:19px;color:#142235;">${escapeHtml(copy.nextTitle)}</h2>
        <p style="margin:0;font-size:15px;line-height:1.6;color:#4d6072;">${escapeHtml(copy.next)}</p>
      </div>
      <h2 style="margin:24px 0 8px;font-size:19px;color:#142235;">${escapeHtml(copy.aboutTitle)}</h2>
      <p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#4d6072;">${escapeHtml(copy.about)}</p>
      <p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#4d6072;">${escapeHtml(copy.contact)} <a href="mailto:hola@casamia.com.es" style="color:#0f6286;font-weight:700;">hola@casamia.com.es</a>.</p>
+     <h2 style="margin:24px 0 10px;font-size:20px;color:#142235;">${escapeHtml(copy.summary)}</h2>
+     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-bottom:20px;border-collapse:collapse;border:1px solid #dcecf5;">${rows}</table>
      <div style="padding-top:18px;border-top:1px solid #dcecf5;font-size:12px;line-height:1.6;color:#687b8b;">
        <p style="margin:0 0 8px;">${escapeHtml(copy.privacy)}</p>
        <p style="margin:0;"><a href="${escapeHtml(urls.home)}" style="color:#0f6286;">CasaMia</a> &nbsp;|&nbsp; <a href="${escapeHtml(urls.contact)}" style="color:#0f6286;">${escapeHtml(copy.contactLink)}</a> &nbsp;|&nbsp; <a href="${escapeHtml(urls.privacy)}" style="color:#0f6286;">${escapeHtml(copy.privacyLink)}</a> &nbsp;|&nbsp; <a href="${escapeHtml(urls.legal)}" style="color:#0f6286;">${escapeHtml(copy.legalLink)}</a> &nbsp;|&nbsp; <a href="${escapeHtml(urls.terms)}" style="color:#0f6286;">${escapeHtml(copy.termsLink)}</a></p>
@@ -109,10 +109,11 @@ function renderCustomerConfirmationHtml(lead, copy, urls) {
 function renderCustomerConfirmationText(lead, copy, urls) {
   const firstName = text(lead.name).split(/\s+/)[0]
   return [
-    `${copy.greeting}${firstName ? ` ${firstName}` : ''},`, '', copy.intro, '', copy.summary,
-    ...customerDetails(lead, copy).map(([label, value]) => `${label}: ${value}`),
+    `${copy.greeting}${firstName ? ` ${firstName}` : ''},`, '', copy.intro,
     '', copy.nextTitle, copy.next, '', copy.aboutTitle, copy.about, '',
-    `${copy.contact} hola@casamia.com.es.`, '', copy.privacy,
+    `${copy.contact} hola@casamia.com.es.`, '', copy.summary,
+    ...customerDetails(lead, copy).map(([label, value]) => `${label}: ${value}`),
+    '', copy.privacy,
     `${copy.contactLink}: ${urls.contact}`,
     `${copy.privacyLink}: ${urls.privacy}`,
     `${copy.legalLink}: ${urls.legal}`,
@@ -200,7 +201,7 @@ function escapeHtml(value) { return String(value || '').replace(/&/g, '&amp;').r
 const customerEmailCopy = Object.freeze({
   en: {
     subject: 'We received your CasaMia request', title: 'We received your request', greeting: 'Hello',
-    intro: 'Thank you for contacting CasaMia. Your request has been securely recorded and our team will review it shortly.',
+    intro: 'Thank you for taking the time to tell us what you need. We know that making changes at home can feel like a big decision, and we are here to make the next steps clear, practical and comfortable for you.',
     summary: 'Your request summary', type: 'Request type', callback: 'Callback request', assessment: 'Home safety assessment', area: 'City / area', preferred: 'Preferred date or time', plan: 'Selected option', message: 'Your message', notProvided: 'Not provided',
     nextTitle: 'What happens next', next: 'A CasaMia team member will contact you using the details you provided to understand your needs, confirm availability and explain any costs before you commit to a visit or installation.',
     aboutTitle: 'About CasaMia', about: 'CasaMia helps older adults and families make homes safer and easier to live in through practical assessments, accessibility adaptations, installation support and guidance on relevant public grants.',
@@ -209,7 +210,7 @@ const customerEmailCopy = Object.freeze({
   },
   es: {
     subject: 'Hemos recibido tu solicitud CasaMia', title: 'Hemos recibido tu solicitud', greeting: 'Hola',
-    intro: 'Gracias por contactar con CasaMia. Tu solicitud se ha registrado de forma segura y nuestro equipo la revisará en breve.',
+    intro: 'Gracias por dedicar unos minutos a contarnos lo que necesitas. Sabemos que hacer cambios en casa puede ser una decisión importante y estamos aquí para que los próximos pasos sean claros, prácticos y cómodos para ti.',
     summary: 'Resumen de tu solicitud', type: 'Tipo de solicitud', callback: 'Solicitud de llamada', assessment: 'Evaluación de seguridad del hogar', area: 'Ciudad / zona', preferred: 'Fecha u hora preferida', plan: 'Opción seleccionada', message: 'Tu mensaje', notProvided: 'No indicado',
     nextTitle: 'Qué ocurre ahora', next: 'Una persona del equipo de CasaMia se pondrá en contacto contigo usando los datos facilitados para entender tus necesidades, confirmar la disponibilidad y explicar cualquier coste antes de que aceptes una visita o instalación.',
     aboutTitle: 'Sobre CasaMia', about: 'CasaMia ayuda a personas mayores y familias a adaptar sus hogares para que sean más seguros y cómodos mediante evaluaciones prácticas, mejoras de accesibilidad, apoyo con la instalación y orientación sobre ayudas públicas aplicables.',
@@ -218,7 +219,7 @@ const customerEmailCopy = Object.freeze({
   },
   de: {
     subject: 'Wir haben Ihre CasaMia-Anfrage erhalten', title: 'Wir haben Ihre Anfrage erhalten', greeting: 'Hallo',
-    intro: 'Vielen Dank, dass Sie CasaMia kontaktiert haben. Ihre Anfrage wurde sicher erfasst und wird in Kürze von unserem Team geprüft.',
+    intro: 'Vielen Dank, dass Sie sich die Zeit genommen haben, uns Ihren Bedarf mitzuteilen. Veränderungen zu Hause können eine wichtige Entscheidung sein. Wir helfen Ihnen dabei, die nächsten Schritte klar, praktisch und angenehm zu gestalten.',
     summary: 'Zusammenfassung Ihrer Anfrage', type: 'Art der Anfrage', callback: 'Rückrufanfrage', assessment: 'Sicherheitsbewertung für Ihr Zuhause', area: 'Stadt / Region', preferred: 'Bevorzugtes Datum oder Uhrzeit', plan: 'Gewählte Option', message: 'Ihre Nachricht', notProvided: 'Nicht angegeben',
     nextTitle: 'Wie es weitergeht', next: 'Ein Mitglied des CasaMia-Teams wird Sie über die angegebenen Kontaktdaten erreichen, um Ihren Bedarf zu verstehen, die Verfügbarkeit zu bestätigen und alle Kosten zu erklären, bevor Sie einem Besuch oder einer Installation zustimmen.',
     aboutTitle: 'Über CasaMia', about: 'CasaMia unterstützt ältere Menschen und Familien dabei, ihr Zuhause sicherer und komfortabler zu gestalten: mit praktischen Bewertungen, barrierearmen Anpassungen, Installationshilfe und Orientierung zu passenden öffentlichen Förderungen.',
@@ -227,7 +228,7 @@ const customerEmailCopy = Object.freeze({
   },
   fr: {
     subject: 'Nous avons reçu votre demande CasaMia', title: 'Nous avons reçu votre demande', greeting: 'Bonjour',
-    intro: 'Merci d’avoir contacté CasaMia. Votre demande a été enregistrée de manière sécurisée et notre équipe l’examinera prochainement.',
+    intro: 'Merci d’avoir pris le temps de nous expliquer vos besoins. Nous savons que modifier son logement peut être une décision importante. Notre rôle est de rendre les prochaines étapes claires, pratiques et rassurantes pour vous.',
     summary: 'Récapitulatif de votre demande', type: 'Type de demande', callback: 'Demande de rappel', assessment: 'Évaluation de la sécurité du domicile', area: 'Ville / zone', preferred: 'Date ou heure souhaitée', plan: 'Option sélectionnée', message: 'Votre message', notProvided: 'Non renseigné',
     nextTitle: 'Prochaine étape', next: 'Un membre de l’équipe CasaMia vous contactera avec les coordonnées fournies afin de comprendre vos besoins, confirmer les disponibilités et expliquer les coûts éventuels avant tout engagement pour une visite ou une installation.',
     aboutTitle: 'À propos de CasaMia', about: 'CasaMia aide les personnes âgées et leurs familles à rendre leur logement plus sûr et plus confortable grâce à des évaluations pratiques, des adaptations d’accessibilité, une assistance à l’installation et des conseils sur les aides publiques disponibles.',
@@ -236,7 +237,7 @@ const customerEmailCopy = Object.freeze({
   },
   nl: {
     subject: 'We hebben uw CasaMia-aanvraag ontvangen', title: 'We hebben uw aanvraag ontvangen', greeting: 'Hallo',
-    intro: 'Bedankt dat u contact hebt opgenomen met CasaMia. Uw aanvraag is veilig geregistreerd en wordt binnenkort door ons team bekeken.',
+    intro: 'Bedankt dat u de tijd hebt genomen om ons te vertellen wat u nodig hebt. Aanpassingen in huis kunnen een belangrijke beslissing zijn. Wij helpen u om de volgende stappen duidelijk, praktisch en prettig te maken.',
     summary: 'Samenvatting van uw aanvraag', type: 'Type aanvraag', callback: 'Terugbelverzoek', assessment: 'Veiligheidsbeoordeling van de woning', area: 'Plaats / regio', preferred: 'Voorkeursdatum of -tijd', plan: 'Geselecteerde optie', message: 'Uw bericht', notProvided: 'Niet opgegeven',
     nextTitle: 'Wat gebeurt er nu', next: 'Een medewerker van CasaMia neemt contact met u op via de opgegeven gegevens om uw behoeften te bespreken, de beschikbaarheid te bevestigen en eventuele kosten uit te leggen voordat u instemt met een bezoek of installatie.',
     aboutTitle: 'Over CasaMia', about: 'CasaMia helpt ouderen en families om woningen veiliger en comfortabeler te maken met praktische beoordelingen, toegankelijkheidsaanpassingen, installatieondersteuning en advies over relevante overheidssubsidies.',

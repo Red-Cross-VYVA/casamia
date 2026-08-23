@@ -51,6 +51,18 @@ try {
   assert.match(calls[1].html, /https:\/\/www\.casamia\.com\.es\/legal-notice/)
   assert.match(calls[1].html, /https:\/\/www\.casamia\.com\.es\/general-customer-terms/)
   assert.match(calls[1].html, /hola@casamia\.com\.es/)
+  assert.ok(
+    calls[1].html.indexOf('Gracias por dedicar unos minutos')
+      < calls[1].html.indexOf('Resumen de tu solicitud'),
+  )
+  assert.ok(
+    calls[1].html.indexOf('Qué ocurre ahora')
+      < calls[1].html.indexOf('Resumen de tu solicitud'),
+  )
+  assert.ok(
+    calls[1].html.indexOf('Sobre CasaMia')
+      < calls[1].html.indexOf('Resumen de tu solicitud'),
+  )
 
   const localizedSubjects = {
     de: /Ihre CasaMia-Anfrage/,
