@@ -1,7 +1,8 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, CalendarCog } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export type Visit = {
+  appointment?: import('../../services/visitScheduling').VisitAppointment | null
   id: string
   area: string
   customerName: string
@@ -26,10 +27,12 @@ const statusClasses: Record<string, string> = {
 export function VisitTable({
   visits,
   onStatusChange,
+  onManage,
   statusOptions = [],
 }: {
   visits: Visit[]
   onStatusChange?: (visit: Visit, status: string) => void
+  onManage?: (visit: Visit) => void
   statusOptions?: readonly string[]
 }) {
   return (
@@ -74,6 +77,8 @@ export function VisitTable({
                   )}
                 </td>
                 <td className="px-5 py-4">
+                  <div className="flex flex-col items-start gap-2">
+                  {visit.status === 'Visit Scheduled' && onManage ? <button className="inline-flex items-center gap-2 text-sm font-extrabold text-blue transition hover:text-green" onClick={() => onManage(visit)} type="button"><CalendarCog size={16} />Manage visit</button> : null}
                   <Link
                     className="inline-flex items-center gap-2 text-sm font-extrabold text-navy transition hover:text-green"
                     to="/internal/inspection-report"
@@ -81,6 +86,7 @@ export function VisitTable({
                     Start Report
                     <ArrowRight size={16} aria-hidden="true" />
                   </Link>
+                  </div>
                 </td>
               </tr>
             ))}

@@ -17,6 +17,7 @@ export const internalAssessmentStatuses = [
 export type InternalAssessmentStatus = (typeof internalAssessmentStatuses)[number]
 
 export type InternalAssessmentRequest = {
+  appointment: import('./visitScheduling').VisitAppointment | null
   city: string
   email: string
   id: string

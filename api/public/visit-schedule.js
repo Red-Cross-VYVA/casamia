@@ -6,6 +6,7 @@ import { StripeConfigurationError } from '../_lib/stripe.js'
 import { verifyPaidAssessmentSession } from '../_lib/visit-scheduling-auth.js'
 import { sendVisitScheduledEmail } from '../_lib/visit-scheduling-email.js'
 import { findVisitSlot } from '../_lib/visit-scheduling.js'
+import { getVisitEndAt } from '../_lib/visit-calendar.js'
 
 export default async function handler(request, response) {
   response.setHeader('Cache-Control', 'no-store')
@@ -59,7 +60,7 @@ export default async function handler(request, response) {
       return sendJson(response, 409, { message: 'That time has just been taken. Please choose another available time.' })
     }
 
-    const appointment = { bookedAt: new Date().toISOString(), date: slot.date, slotId: slot.id, startAt: slot.startAt, time: slot.time, timeZone: 'Europe/Madrid' }
+    const appointment = { bookedAt: new Date().toISOString(), date: slot.date, endAt: getVisitEndAt(slot), slotId: slot.id, startAt: slot.startAt, time: slot.time, timeZone: 'Europe/Madrid' }
     const finalPayload = { ...object(claimed.payload_json), visitAppointment: appointment }
     delete finalPayload.visitSchedulingClaim
     const saved = await updateSupabaseRows('assessment_requests', {
@@ -74,7 +75,7 @@ export default async function handler(request, response) {
       return sendJson(response, 503, { message: 'The visit could not be scheduled. Please try again.' })
     }
 
-    const email = await sendVisitScheduledEmail({ appointment, assessment: updated, request })
+    const email = await sendVisitScheduledEmail({ appointment, assessment: updated, request, sessionId: body.sessionId })
     await updateSupabaseRows('assessment_requests', {
       payload_json: { ...finalPayload, visitAppointment: { ...appointment, confirmationEmail: email } },
     }, `id=eq.${encodeURIComponent(verified.assessmentId)}&status=eq.Visit%20Scheduled&select=id`)

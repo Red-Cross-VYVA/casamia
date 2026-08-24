@@ -3,6 +3,7 @@ import { selectSupabaseRows, sendJson } from '../_lib/supabase.js'
 import { StripeConfigurationError } from '../_lib/stripe.js'
 import { verifyPaidAssessmentSession } from '../_lib/visit-scheduling-auth.js'
 import { createVisitSlots, groupAvailableVisitSlots, visitScheduleConfig } from '../_lib/visit-scheduling.js'
+import { activeAppointment } from '../_lib/visit-appointments.js'
 
 export default async function handler(request, response) {
   response.setHeader('Cache-Control', 'no-store')
@@ -29,10 +30,7 @@ export default async function handler(request, response) {
     const assessment = Array.isArray(assessmentResult.body) ? assessmentResult.body[0] : undefined
     if (!assessment) return sendJson(response, 404, { message: 'The assessment request was not found.' })
 
-    const appointment = assessment.payload_json?.visitAppointment
-    if (appointment?.startAt) {
-      return sendJson(response, 200, { appointment, dates: [], timeZone: visitScheduleConfig.timeZone })
-    }
+    const appointment = activeAppointment(assessment)
 
     const locks = await selectSupabaseRows(
       'assessment_requests',
@@ -42,7 +40,7 @@ export default async function handler(request, response) {
     const occupied = new Set((Array.isArray(locks.body) ? locks.body : []).map((record) => record.id))
 
     sendJson(response, 200, {
-      appointment: null,
+      appointment,
       dates: groupAvailableVisitSlots(createVisitSlots(), occupied),
       timeZone: visitScheduleConfig.timeZone,
     })

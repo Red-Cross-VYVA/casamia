@@ -1,11 +1,11 @@
 import {
-  deleteSupabaseRows,
   readJsonBody,
   requireInternalApiKey,
   selectSupabaseRows,
   sendJson,
   updateSupabaseRows,
 } from '../_lib/supabase.js'
+import { cancelVisitAppointment } from '../_lib/visit-appointments.js'
 
 export const assessmentRequestStatuses = [
   'New',
@@ -44,6 +44,7 @@ export function mapAssessmentRequestRecord(record) {
 
   return {
     city: text(record?.city_area),
+    appointment: payload.visitAppointment?.startAt ? payload.visitAppointment : null,
     email: text(record?.customer_email),
     id: text(record?.id),
     message: text(record?.message),
@@ -101,6 +102,18 @@ export default async function handler(request, response) {
       return
     }
 
+    if (body.status === 'Cancelled') {
+      const cancelled = await cancelVisitAppointment({ actor: 'admin', assessmentId: body.id })
+      if (!cancelled.error) {
+        sendJson(response, 200, { request: mapAssessmentRequestRecord(cancelled.assessment) })
+        return
+      }
+      if (cancelled.status !== 409) {
+        sendJson(response, cancelled.status, { message: cancelled.error })
+        return
+      }
+    }
+
     const result = await updateSupabaseRows(
       'assessment_requests',
       { status: body.status },
@@ -115,13 +128,7 @@ export default async function handler(request, response) {
       sendJson(response, 404, { message: 'Assessment request not found.' })
       return
     }
-    const slotId = record.payload_json?.visitAppointment?.slotId
-    if (body.status === 'Cancelled' && isUuid(slotId)) {
-      await deleteSupabaseRows(
-        'assessment_requests',
-        `id=eq.${encodeURIComponent(slotId)}&type=eq.visit_slot_reservation`,
-      )
-    }
+
     sendJson(response, 200, { request: mapAssessmentRequestRecord(record) })
   } catch (error) {
     sendJson(response, 400, { message: error instanceof Error ? error.message : 'Invalid request.' })

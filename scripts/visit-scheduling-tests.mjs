@@ -8,6 +8,7 @@ import {
   groupAvailableVisitSlots,
   visitScheduleConfig,
 } from '../api/_lib/visit-scheduling.js'
+import { buildVisitCalendarLinks, getVisitEndAt, renderVisitIcs } from '../api/_lib/visit-calendar.js'
 
 assert.deepEqual(visitScheduleConfig.slotTimes, ['09:30', '12:30', '16:00'])
 assert.equal(visitScheduleConfig.timeZone, 'Europe/Madrid')
@@ -32,11 +33,28 @@ const grouped = groupAvailableVisitSlots(summerSlots.slice(0, 3), occupied)
 assert.equal(grouped[0].slots.length, 2)
 assert.ok(grouped[0].slots.every((slot) => slot.startAt !== summerSlots[0].startAt))
 
+const appointment = { endAt: '2026-07-07T09:00:00.000Z', slotId: summerSlots[0].id, startAt: summerSlots[0].startAt }
+const assessment = { city_area: 'Madrid, Centro', id: 'test-assessment', payload_json: { wizardReference: 'CM-TEST-1' } }
+assert.equal(getVisitEndAt({ startAt: summerSlots[0].startAt }), '2026-07-07T09:00:00.000Z')
+const calendarLinks = buildVisitCalendarLinks({ appointment, assessment, request: {}, sessionId: 'cs_test_calendar' })
+assert.match(calendarLinks.google, /^https:\/\/calendar\.google\.com\/calendar\/render\?/)
+assert.match(calendarLinks.outlook, /^https:\/\/outlook\.live\.com\/calendar\/0\/deeplink\/compose\?/)
+assert.match(calendarLinks.ics, /visit-calendar\?session_id=cs_test_calendar/)
+assert.match(calendarLinks.manage, /session_id=cs_test_calendar/)
+const ics = renderVisitIcs({ appointment, assessment })
+assert.match(ics, /BEGIN:VCALENDAR\r\n/)
+assert.match(ics, /DTSTART:20260707T073000Z/)
+assert.match(ics, /DTEND:20260707T090000Z/)
+assert.match(ics, /LOCATION:Madrid\\, Centro/)
+assert.match(ics, /TRIGGER:-PT24H/)
+
 const publicScheduler = readFileSync(new URL('../api/public/visit-schedule.js', import.meta.url), 'utf8')
 const availabilityApi = readFileSync(new URL('../api/public/visit-availability.js', import.meta.url), 'utf8')
 const schedulerUi = readFileSync(new URL('../src/components/wizard/VisitScheduler.tsx', import.meta.url), 'utf8')
 const webhook = readFileSync(new URL('../api/webhooks/stripe.js', import.meta.url), 'utf8')
 const assessmentAdmin = readFileSync(new URL('../api/internal/assessment-requests.js', import.meta.url), 'utf8')
+const publicManagement = readFileSync(new URL('../api/public/visit-manage.js', import.meta.url), 'utf8')
+const internalManagement = readFileSync(new URL('../api/internal/visit-appointments.js', import.meta.url), 'utf8')
 
 assert.match(publicScheduler, /verifyPaidAssessmentSession/)
 assert.match(publicScheduler, /visit_slot_reservation/)
@@ -48,6 +66,12 @@ assert.match(schedulerUi, /Choose your visit date and time/)
 assert.match(schedulerUi, /Elige la fecha y hora de tu visita/)
 assert.doesNotMatch(schedulerUi, /dateStyle: 'full', hour:/)
 assert.match(webhook, /preservesAppointment/)
-assert.match(assessmentAdmin, /body\.status === 'Cancelled'[\s\S]*visit_slot_reservation/)
+assert.match(assessmentAdmin, /body\.status === 'Cancelled'[\s\S]*cancelVisitAppointment/)
+assert.match(publicManagement, /24 \* 60 \* 60 \* 1000/)
+assert.match(publicManagement, /customerCanRebook: true/)
+assert.match(internalManagement, /requireInternalApiKey/)
+assert.match(internalManagement, /sendVisitAppointmentEmail/)
+assert.match(schedulerUi, /Google Calendar/)
+assert.match(schedulerUi, /Download \.ics/)
 
 console.log('Visit scheduling tests passed.')
