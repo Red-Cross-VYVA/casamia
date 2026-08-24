@@ -304,6 +304,10 @@ try {
     reportType: 'safety_report',
   })
   assert.equal(reportEmail.status, 'sent')
+  assert.equal(reportEmailRequest.subject, 'Your CasaMia home safety report is ready')
+  assert.match(reportEmailRequest.html, /We saved your home safety report/)
+  assert.match(reportEmailRequest.text, /Your CasaMia home safety report is ready/)
+  assert.match(reportEmailRequest.text, /Open secure report: https:\/\/www\.casamia\.com\.es\/estimate\//)
   assert.match(reportEmailRequest.html, /background:#ffffff;color:#245c16/)
   assert.match(reportEmailRequest.html, /&rarr;/)
   assert.match(reportEmailRequest.html, /MOKA DIGITECK, S\.L\./)
