@@ -13,7 +13,7 @@ import {
   ShieldCheck,
   Tags,
 } from 'lucide-react'
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 
@@ -370,6 +370,15 @@ export function WhyCasamiaPage() {
         ? 'I would like to discuss the complete connected safety and health platform for my organisation.'
         : 'I would like to discuss a connected safety and health integration.'
     : ''
+  const connectedPlan = planOptions[2] ?? planOptions[0]
+  const [selectedPlan, setSelectedPlan] = useState(planOptions[0])
+  const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    if (!connectedHealthIntent) return
+    setSelectedPlan(connectedPlan)
+    setMessage(intentMessage)
+  }, [connectedHealthIntent, connectedPlan, intentMessage])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -581,7 +590,7 @@ export function WhyCasamiaPage() {
               <ContactField label={t('pages.contact.fields.phone')} name="phone" type="tel" />
               <label className="contact-field">
                 {t('pages.contact.fields.plan')}
-                <select className="contact-input" defaultValue={connectedHealthIntent ? planOptions[2] : planOptions[0]} name="plan">
+                <select className="contact-input" name="plan" value={selectedPlan} onChange={(event) => setSelectedPlan(event.target.value)}>
                   {planOptions.map((option) => (
                     <option key={option}>{option}</option>
                   ))}
@@ -592,10 +601,11 @@ export function WhyCasamiaPage() {
               {t('pages.contact.fields.message')}
               <textarea
                 className="contact-input contact-textarea"
-                defaultValue={intentMessage}
                 name="message"
+                onChange={(event) => setMessage(event.target.value)}
                 placeholder={copy.messagePlaceholder}
                 required
+                value={message}
               />
             </label>
             <button className="btn btn-green contact-submit" disabled={isSubmitting} type="submit">

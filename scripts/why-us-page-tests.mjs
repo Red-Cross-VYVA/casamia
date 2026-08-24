@@ -36,7 +36,7 @@ assert.match(
 
 assert.match(
   page,
-  /searchParams\.get\('service'\) === 'connected-health'[\s\S]*defaultValue=\{intentMessage\}/,
+  /searchParams\.get\('service'\) === 'connected-health'[\s\S]*setSelectedPlan\(connectedPlan\)[\s\S]*setMessage\(intentMessage\)/,
   'Technology CTAs must preserve their connected-health intent in the contact form.',
 )
 
