@@ -285,7 +285,7 @@ function getPublicReportEmailCopy(reportType, isSpanish) {
           title: 'Tu informe de ayudas CasaMia está listo',
           greeting: 'Hola',
           intro: 'Hemos guardado tu informe de elegibilidad. Usa este enlace seguro para volver a ver las recomendaciones, documentos y próximos pasos.',
-          cta: 'Abrir informe seguro',
+          cta: 'Abrir',
           privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.',
           support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
           contactLink: 'Contacto', privacyLink: 'Política de privacidad', legalLink: 'Aviso legal', termsLink: 'Condiciones de contratación',
@@ -295,7 +295,7 @@ function getPublicReportEmailCopy(reportType, isSpanish) {
           title: 'Your CasaMia grant eligibility report is ready',
           greeting: 'Hello',
           intro: 'We saved your eligibility report. Use this secure link to reopen the recommendations, documents and next steps.',
-          cta: 'Open secure report',
+          cta: 'Open',
           privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.',
           support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
           contactLink: 'Contact', privacyLink: 'Privacy Policy', legalLink: 'Legal Notice', termsLink: 'Customer Terms',
@@ -308,7 +308,7 @@ function getPublicReportEmailCopy(reportType, isSpanish) {
         title: 'Tu informe de seguridad CasaMia está listo',
         greeting: 'Hola',
         intro: 'Hemos guardado tu informe de seguridad del hogar. Usa este enlace seguro para volver a ver los riesgos detectados y las recomendaciones.',
-        cta: 'Abrir informe seguro',
+        cta: 'Abrir',
         privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.',
         support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
         contactLink: 'Contacto', privacyLink: 'Política de privacidad', legalLink: 'Aviso legal', termsLink: 'Condiciones de contratación',
@@ -318,7 +318,7 @@ function getPublicReportEmailCopy(reportType, isSpanish) {
         title: 'Your CasaMia home safety report is ready',
         greeting: 'Hello',
         intro: 'We saved your home safety report. Use this secure link to reopen the risks we found and the recommendations.',
-        cta: 'Open secure report',
+        cta: 'Open',
         privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.',
         support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
         contactLink: 'Contact', privacyLink: 'Privacy Policy', legalLink: 'Legal Notice', termsLink: 'Customer Terms',
@@ -345,7 +345,7 @@ function renderPublicReportEmailHtml({ copy, customer, publicUrl, publicUrls, re
             <h1 style="margin:0 0 14px;font-family:Georgia,'Times New Roman',serif;font-size:38px;line-height:1.08;color:#142235;">${escapeHtml(copy.title)}</h1>
             ${reportTitle ? `<p style="margin:0 0 14px;font-size:16px;line-height:1.45;color:#4d6072;"><strong>${escapeHtml(reportTitle)}</strong></p>` : ''}
             <p style="margin:0 0 24px;font-size:17px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.intro)}</p>
-            <a href="${escapeAttribute(publicUrl)}" style="display:inline-block;background:#7bbf3b;color:#ffffff;text-decoration:none;font-weight:800;border-radius:999px;padding:12px 14px 12px 24px;font-size:16px;line-height:24px;">${escapeHtml(copy.cta)}<span style="display:inline-block;margin-left:10px;width:24px;height:24px;line-height:24px;text-align:center;background:#ffffff;color:#245c16;border-radius:50%;font-size:18px;font-weight:900;vertical-align:middle;">&rarr;</span></a>
+            <a href="${escapeAttribute(publicUrl)}" style="display:inline-block;background:#7bbf3b;color:#ffffff;text-decoration:none;font-weight:800;border-radius:999px;padding:13px 22px 13px 24px;font-size:17px;line-height:26px;">${escapeHtml(copy.cta)}<span style="display:inline-block;margin-left:12px;color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:27px;font-weight:900;line-height:20px;vertical-align:-2px;">&rarr;</span></a>
           </td>
         </tr>
         <tr>
