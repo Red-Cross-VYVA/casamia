@@ -94,4 +94,9 @@ export function VisitScheduler({ language, sessionId }: { language: string; sess
 function SchedulerShell({ children }: { children: ReactNode }) { return <div className="mx-auto mt-5 flex max-w-5xl items-center gap-3 rounded-lg border border-border bg-white p-5 shadow-soft" role="status">{children}</div> }
 function AppointmentConfirmation({ appointment, copy, language }: { appointment: VisitAppointment; copy: Record<string, string>; language: string }) { return <SchedulerShell><CheckCircle2 className="shrink-0 text-green" size={30} /><div><h2 className="font-display text-2xl font-bold text-text-dark">{copy.confirmed}</h2><p className="mt-1 font-black text-navy">{formatAppointment(appointment.startAt, language)}</p><p className="mt-1 text-sm font-bold text-text-muted">{copy.confirmation}</p></div></SchedulerShell> }
 function formatDate(date: string, language: string) { return new Intl.DateTimeFormat(language, { dateStyle: 'full', timeZone: 'Europe/Madrid' }).format(new Date(`${date}T12:00:00Z`)) }
-function formatAppointment(startAt: string, language: string) { return new Intl.DateTimeFormat(language, { dateStyle: 'full', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' }).format(new Date(startAt)) }
+function formatAppointment(startAt: string, language: string) {
+  return new Intl.DateTimeFormat(language, {
+    day: 'numeric', hour: '2-digit', minute: '2-digit', month: 'long',
+    timeZone: 'Europe/Madrid', weekday: 'long', year: 'numeric',
+  }).format(new Date(startAt))
+}

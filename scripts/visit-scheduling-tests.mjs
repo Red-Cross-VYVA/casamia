@@ -46,6 +46,7 @@ assert.match(availabilityApi, /groupAvailableVisitSlots/)
 assert.match(availabilityApi, /hasOrigin && !isAllowedPublicOrigin/)
 assert.match(schedulerUi, /Choose your visit date and time/)
 assert.match(schedulerUi, /Elige la fecha y hora de tu visita/)
+assert.doesNotMatch(schedulerUi, /dateStyle: 'full', hour:/)
 assert.match(webhook, /preservesAppointment/)
 assert.match(assessmentAdmin, /body\.status === 'Cancelled'[\s\S]*visit_slot_reservation/)
 
