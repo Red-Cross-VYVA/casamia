@@ -1,4 +1,4 @@
-import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
+import { applyPublicCors, getRequestHeader, isAllowedPublicOrigin } from '../_lib/public-origin.js'
 import { selectSupabaseRows, sendJson } from '../_lib/supabase.js'
 import { StripeConfigurationError } from '../_lib/stripe.js'
 import { verifyPaidAssessmentSession } from '../_lib/visit-scheduling-auth.js'
@@ -13,8 +13,9 @@ export default async function handler(request, response) {
     return
   }
   if (request.method !== 'GET') return sendJson(response, 405, { message: 'Method not allowed.' })
-  if (!isAllowedPublicOrigin(request)) return sendJson(response, 403, { message: 'Origin not allowed.' })
-  applyPublicCors(request, response)
+  const hasOrigin = Boolean(getRequestHeader(request, 'origin'))
+  if (hasOrigin && !isAllowedPublicOrigin(request)) return sendJson(response, 403, { message: 'Origin not allowed.' })
+  if (hasOrigin) applyPublicCors(request, response)
 
   try {
     const verified = await verifyPaidAssessmentSession(queryValue(request, 'session_id'))
