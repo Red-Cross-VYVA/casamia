@@ -219,8 +219,15 @@ export async function sendPublicReportEmail({
   const from = text(env.CASAMIA_EMAIL_FROM || env.RESEND_FROM_EMAIL) || defaultFrom
   const replyTo = text(env.CASAMIA_REPLY_TO_EMAIL) || defaultReplyTo
   const bcc = text(env.CASAMIA_REPORT_BCC_EMAIL || env.CASAMIA_NOTIFY_EMAIL)
-  const html = renderPublicReportEmailHtml({ copy, customer, publicUrl, report })
-  const textBody = renderPublicReportEmailText({ copy, customer, publicUrl, report })
+  const publicUrls = {
+    contact: buildAbsolutePublicUrl(undefined, '/why-us#contact-form', env),
+    home: buildAbsolutePublicUrl(undefined, '/', env),
+    legal: buildAbsolutePublicUrl(undefined, '/legal-notice', env),
+    privacy: buildAbsolutePublicUrl(undefined, '/privacy-policy', env),
+    terms: buildAbsolutePublicUrl(undefined, '/general-customer-terms', env),
+  }
+  const html = renderPublicReportEmailHtml({ copy, customer, publicUrl, publicUrls, report })
+  const textBody = renderPublicReportEmailText({ copy, customer, publicUrl, publicUrls, report })
   const body = {
     from,
     html,
@@ -281,6 +288,7 @@ function getPublicReportEmailCopy(reportType, isSpanish) {
           cta: 'Abrir informe seguro',
           privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.',
           support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
+          contactLink: 'Contacto', privacyLink: 'Política de privacidad', legalLink: 'Aviso legal', termsLink: 'Condiciones de contratación',
         }
       : {
           subject: 'Your CasaMia grant eligibility report is ready',
@@ -290,6 +298,7 @@ function getPublicReportEmailCopy(reportType, isSpanish) {
           cta: 'Open secure report',
           privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.',
           support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
+          contactLink: 'Contact', privacyLink: 'Privacy Policy', legalLink: 'Legal Notice', termsLink: 'Customer Terms',
         }
   }
 
@@ -302,6 +311,7 @@ function getPublicReportEmailCopy(reportType, isSpanish) {
         cta: 'Abrir informe seguro',
         privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.',
         support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
+        contactLink: 'Contacto', privacyLink: 'Política de privacidad', legalLink: 'Aviso legal', termsLink: 'Condiciones de contratación',
       }
     : {
         subject: 'Your CasaMia home safety report is ready',
@@ -311,10 +321,11 @@ function getPublicReportEmailCopy(reportType, isSpanish) {
         cta: 'Open secure report',
         privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.',
         support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
+        contactLink: 'Contact', privacyLink: 'Privacy Policy', legalLink: 'Legal Notice', termsLink: 'Customer Terms',
       }
 }
 
-function renderPublicReportEmailHtml({ copy, customer, publicUrl, report }) {
+function renderPublicReportEmailHtml({ copy, customer, publicUrl, publicUrls, report }) {
   const customerName = text(customer?.customer_name ?? customer?.name)
   const firstName = customerName.split(/\s+/)[0]
   const greeting = firstName ? `${escapeHtml(copy.greeting)} ${escapeHtml(firstName)},` : `${escapeHtml(copy.greeting)},`
@@ -334,7 +345,7 @@ function renderPublicReportEmailHtml({ copy, customer, publicUrl, report }) {
             <h1 style="margin:0 0 14px;font-family:Georgia,'Times New Roman',serif;font-size:38px;line-height:1.08;color:#142235;">${escapeHtml(copy.title)}</h1>
             ${reportTitle ? `<p style="margin:0 0 14px;font-size:16px;line-height:1.45;color:#4d6072;"><strong>${escapeHtml(reportTitle)}</strong></p>` : ''}
             <p style="margin:0 0 24px;font-size:17px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.intro)}</p>
-            <a href="${escapeAttribute(publicUrl)}" style="display:inline-block;background:#7bbf3b;color:#ffffff;text-decoration:none;font-weight:800;border-radius:999px;padding:15px 24px;font-size:16px;">${escapeHtml(copy.cta)} →</a>
+            <a href="${escapeAttribute(publicUrl)}" style="display:inline-block;background:#7bbf3b;color:#ffffff;text-decoration:none;font-weight:800;border-radius:999px;padding:12px 14px 12px 24px;font-size:16px;line-height:24px;">${escapeHtml(copy.cta)}<span style="display:inline-block;margin-left:10px;width:24px;height:24px;line-height:24px;text-align:center;background:#ffffff;color:#245c16;border-radius:50%;font-size:18px;font-weight:900;vertical-align:middle;">&rarr;</span></a>
           </td>
         </tr>
         <tr>
@@ -343,6 +354,10 @@ function renderPublicReportEmailHtml({ copy, customer, publicUrl, report }) {
               <p style="margin:0 0 8px;font-size:14px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.privacy)}</p>
               <p style="margin:0;font-size:14px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.support)}</p>
             </div>
+            <div style="padding-top:18px;margin-top:22px;border-top:1px solid #dcecf5;font-size:12px;line-height:1.6;color:#687b8b;">
+              <p style="margin:0 0 8px;">CasaMia · MOKA DIGITECK, S.L. · <a href="mailto:hola@casamia.com.es" style="color:#0f6286;">hola@casamia.com.es</a></p>
+              <p style="margin:0;"><a href="${escapeAttribute(publicUrls.home)}" style="color:#0f6286;">CasaMia</a> &nbsp;|&nbsp; <a href="${escapeAttribute(publicUrls.contact)}" style="color:#0f6286;">${escapeHtml(copy.contactLink)}</a> &nbsp;|&nbsp; <a href="${escapeAttribute(publicUrls.privacy)}" style="color:#0f6286;">${escapeHtml(copy.privacyLink)}</a> &nbsp;|&nbsp; <a href="${escapeAttribute(publicUrls.legal)}" style="color:#0f6286;">${escapeHtml(copy.legalLink)}</a> &nbsp;|&nbsp; <a href="${escapeAttribute(publicUrls.terms)}" style="color:#0f6286;">${escapeHtml(copy.termsLink)}</a></p>
+            </div>
           </td>
         </tr>
       </table>
@@ -350,7 +365,7 @@ function renderPublicReportEmailHtml({ copy, customer, publicUrl, report }) {
   `
 }
 
-function renderPublicReportEmailText({ copy, customer, publicUrl, report }) {
+function renderPublicReportEmailText({ copy, customer, publicUrl, publicUrls, report }) {
   const customerName = text(customer?.customer_name ?? customer?.name)
   const firstName = customerName.split(/\s+/)[0]
   const reportTitle = text(report?.report_title)
@@ -367,6 +382,12 @@ function renderPublicReportEmailText({ copy, customer, publicUrl, report }) {
     '',
     copy.privacy,
     copy.support,
+    '',
+    'CasaMia · MOKA DIGITECK, S.L. · hola@casamia.com.es',
+    `${copy.contactLink}: ${publicUrls.contact}`,
+    `${copy.privacyLink}: ${publicUrls.privacy}`,
+    `${copy.legalLink}: ${publicUrls.legal}`,
+    `${copy.termsLink}: ${publicUrls.terms}`,
   ].filter(Boolean).join('\n')
 }
 

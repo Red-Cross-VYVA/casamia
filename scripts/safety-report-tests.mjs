@@ -9,6 +9,7 @@ import {
   readOpenAiApiKey,
   safeOpenAiErrorDetails,
 } from '../api/_lib/openai-responses.js'
+import { sendPublicReportEmail } from '../api/_lib/email.js'
 import {
   buildPublicReportRecord,
   loadPublicReport,
@@ -281,6 +282,38 @@ const reportPayload = {
     summary: 'Prioritise a safer bath entry.',
     hazards: [makeFinding({ room: 'bathroom' })],
   },
+}
+
+const originalFetch = globalThis.fetch
+let reportEmailRequest
+globalThis.fetch = async (_url, init) => {
+  reportEmailRequest = JSON.parse(String(init.body))
+  return new Response(JSON.stringify({ id: 'report-email-test' }), { status: 200 })
+}
+try {
+  const reportEmail = await sendPublicReportEmail({
+    customer: reportPayload,
+    env: {
+      CASAMIA_EMAIL_FROM: 'CasaMia <hola@casamia.com.es>',
+      CASAMIA_PUBLIC_SITE_URL: 'https://www.casamia.com.es',
+      RESEND_API_KEY: 'test-resend-key',
+    },
+    language: 'en',
+    publicUrl: reportPayload.report_url,
+    report: reportPayload,
+    reportType: 'safety_report',
+  })
+  assert.equal(reportEmail.status, 'sent')
+  assert.match(reportEmailRequest.html, /background:#ffffff;color:#245c16/)
+  assert.match(reportEmailRequest.html, /&rarr;/)
+  assert.match(reportEmailRequest.html, /MOKA DIGITECK, S\.L\./)
+  assert.match(reportEmailRequest.html, /https:\/\/www\.casamia\.com\.es\/why-us#contact-form/)
+  assert.match(reportEmailRequest.html, /https:\/\/www\.casamia\.com\.es\/privacy-policy/)
+  assert.match(reportEmailRequest.html, /https:\/\/www\.casamia\.com\.es\/legal-notice/)
+  assert.match(reportEmailRequest.html, /https:\/\/www\.casamia\.com\.es\/general-customer-terms/)
+  assert.match(reportEmailRequest.text, /Privacy Policy: https:\/\/www\.casamia\.com\.es\/privacy-policy/)
+} finally {
+  globalThis.fetch = originalFetch
 }
 
 let createCall
