@@ -80,7 +80,7 @@ export default async function handler(request, response) {
     }
     sendJson(response, 200, {
       requests: (Array.isArray(result.body) ? result.body : [])
-        .filter((record) => !['visit_slot_reservation', 'visit_slot_block'].includes(record?.type))
+        .filter((record) => !['visit_slot_reservation', 'visit_slot_block', 'visit_reminder_delivery'].includes(record?.type))
         .map(mapAssessmentRequestRecord),
     })
     return

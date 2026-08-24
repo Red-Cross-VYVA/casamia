@@ -58,7 +58,10 @@ export function VisitTable({
                 </td>
                 <td className="px-5 py-4 text-text-mid">{visit.area}</td>
                 <td className="px-5 py-4 text-text-mid">{visit.selectedPlan}</td>
-                <td className="px-5 py-4 font-bold text-navy">{visit.preferredTime}</td>
+                <td className="px-5 py-4 font-bold text-navy">
+                  {visit.preferredTime}
+                  {visit.appointment?.reminder ? <span className={`mt-1 block text-xs ${visit.appointment.reminder.status === 'sent' ? 'text-green' : 'text-red-700'}`}>{visit.appointment.reminder.status === 'sent' ? `Reminder sent ${formatReminderDate(visit.appointment.reminder.attemptedAt)}` : 'Reminder failed'}</span> : visit.status === 'Visit Scheduled' ? <span className="mt-1 block text-xs text-text-muted">Reminder pending</span> : null}
+                </td>
                 <td className="px-5 py-4">
                   {onStatusChange && statusOptions.includes(visit.status) ? (
                     <select
@@ -95,4 +98,9 @@ export function VisitTable({
       </div>
     </div>
   )
+}
+
+function formatReminderDate(value: string) {
+  const date = new Date(value)
+  return Number.isNaN(date.getTime()) ? '' : new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' }).format(date)
 }

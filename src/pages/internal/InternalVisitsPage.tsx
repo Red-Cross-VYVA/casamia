@@ -1,4 +1,4 @@
-import { ArrowRight, Ban, CalendarDays, CalendarPlus, Clock3, Download, ExternalLink, RefreshCw, RotateCcw, X } from 'lucide-react'
+import { ArrowRight, Ban, CalendarDays, CalendarPlus, Clock3, Download, ExternalLink, Mail, RefreshCw, RotateCcw, X } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -16,6 +16,7 @@ import {
   downloadInternalVisitCalendar,
   getCalendarLinks,
   manageInternalVisit,
+  sendInternalVisitReminder,
   setInternalVisitSlotBlocked,
   type InternalVisitAvailability,
 } from '../../services/visitScheduling'
@@ -124,6 +125,20 @@ export function InternalVisitsPage() {
     } finally { setManagementBusy(false) }
   }
 
+  async function remindManagedVisit() {
+    if (!managingVisit) return
+    setManagementBusy(true)
+    setManagementMessage('')
+    try {
+      await sendInternalVisitReminder(managingVisit.id)
+      setManagingVisit(null)
+      await refresh()
+      setMessage('Visit reminder sent and recorded.')
+    } catch (error) {
+      setManagementMessage(error instanceof Error ? error.message : 'The reminder could not be sent.')
+    } finally { setManagementBusy(false) }
+  }
+
   return (
     <InternalLayout
       title="Assessment requests"
@@ -201,7 +216,7 @@ export function InternalVisitsPage() {
           </div>
         )}
       </section>
-      {managingVisit?.appointment ? <VisitManagementDialog availability={availability} busy={managementBusy} date={managementDate} message={managementMessage} onCancel={() => void cancelManagedVisit()} onClose={() => setManagingVisit(null)} onDateChange={(date) => { setManagementDate(date); setManagementStartAt('') }} onDownload={() => void downloadInternalVisitCalendar(managingVisit.id).catch((error) => setManagementMessage(error instanceof Error ? error.message : 'Calendar download failed.'))} onReschedule={() => void rescheduleManagedVisit()} onSlotChange={setManagementStartAt} selectedStartAt={managementStartAt} visit={managingVisit} /> : null}
+      {managingVisit?.appointment ? <VisitManagementDialog availability={availability} busy={managementBusy} date={managementDate} message={managementMessage} onCancel={() => void cancelManagedVisit()} onClose={() => setManagingVisit(null)} onDateChange={(date) => { setManagementDate(date); setManagementStartAt('') }} onDownload={() => void downloadInternalVisitCalendar(managingVisit.id).catch((error) => setManagementMessage(error instanceof Error ? error.message : 'Calendar download failed.'))} onRemind={() => void remindManagedVisit()} onReschedule={() => void rescheduleManagedVisit()} onSlotChange={setManagementStartAt} selectedStartAt={managementStartAt} visit={managingVisit} /> : null}
     </InternalLayout>
   )
 }
@@ -211,10 +226,10 @@ function formatDate(value: string) {
   return Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-GB')
 }
 
-function VisitManagementDialog({ availability, busy, date, message, onCancel, onClose, onDateChange, onDownload, onReschedule, onSlotChange, selectedStartAt, visit }: { availability: InternalVisitAvailability | null; busy: boolean; date: string; message: string; onCancel: () => void; onClose: () => void; onDateChange: (date: string) => void; onDownload: () => void; onReschedule: () => void; onSlotChange: (startAt: string) => void; selectedStartAt: string; visit: Visit }) {
+function VisitManagementDialog({ availability, busy, date, message, onCancel, onClose, onDateChange, onDownload, onRemind, onReschedule, onSlotChange, selectedStartAt, visit }: { availability: InternalVisitAvailability | null; busy: boolean; date: string; message: string; onCancel: () => void; onClose: () => void; onDateChange: (date: string) => void; onDownload: () => void; onRemind: () => void; onReschedule: () => void; onSlotChange: (startAt: string) => void; selectedStartAt: string; visit: Visit }) {
   const day = availability?.dates.find((item) => item.date === date)
   const calendar = visit.appointment ? getCalendarLinks(visit.appointment) : null
-  return <div className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/60 p-4" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) onClose() }}><section aria-labelledby="visit-management-title" aria-modal="true" className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg bg-white p-6 shadow-2xl" role="dialog"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-black uppercase text-blue">Appointment management</p><h2 id="visit-management-title" className="mt-1 font-display text-3xl font-bold text-text-dark">{visit.customerName}</h2><p className="mt-2 font-black text-navy">{formatAppointment(visit.appointment?.startAt || '')}</p><p className="mt-1 text-sm font-bold text-text-muted">{visit.area} · {visit.phone || visit.email}</p></div><button aria-label="Close" className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-navy" onClick={onClose} type="button"><X size={20} /></button></div>{calendar ? <div className="mt-5 flex flex-wrap gap-2"><a className="btn btn-white" href={calendar.google} rel="noreferrer" target="_blank"><CalendarPlus size={17} />Google<ExternalLink size={14} /></a><a className="btn btn-white" href={calendar.outlook} rel="noreferrer" target="_blank"><CalendarPlus size={17} />Outlook<ExternalLink size={14} /></a><button className="btn btn-white" onClick={onDownload} type="button"><Download size={17} />Download .ics</button></div> : null}<div className="mt-6 border-t border-border pt-5"><h3 className="font-display text-xl font-bold text-text-dark">Reschedule</h3><div className="mt-4 grid gap-4 md:grid-cols-2"><label className="text-sm font-black text-navy">New date<select className="mt-2 w-full rounded-lg border border-border bg-white px-4 py-3" value={date} onChange={(event) => onDateChange(event.target.value)}>{availability?.dates.map((item) => <option key={item.date} value={item.date}>{formatVisitDate(item.date)}</option>)}</select></label><fieldset><legend className="text-sm font-black text-navy">New time</legend><div className="mt-2 grid grid-cols-3 gap-2">{day?.slots.map((slot) => <button className={`min-h-12 rounded-lg border px-3 font-black ${selectedStartAt === slot.startAt ? 'border-navy bg-navy text-white' : 'border-border bg-pale-blue text-navy'}`} key={slot.startAt} onClick={() => onSlotChange(slot.startAt)} type="button">{slot.time}</button>)}</div></fieldset></div><div className="mt-5 flex flex-wrap justify-between gap-3"><button className="btn btn-white text-red-700" disabled={busy} onClick={onCancel} type="button"><X size={17} />Cancel visit</button><button className="btn btn-green" disabled={busy || !selectedStartAt} onClick={onReschedule} type="button">{busy ? <RefreshCw className="animate-spin" size={17} /> : <CalendarDays size={17} />}Confirm new time</button></div>{message ? <p className="mt-4 text-sm font-bold text-red-700" role="alert">{message}</p> : null}</div></section></div>
+  return <div className="fixed inset-0 z-[100] flex items-center justify-center bg-navy/60 p-4" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) onClose() }}><section aria-labelledby="visit-management-title" aria-modal="true" className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg bg-white p-6 shadow-2xl" role="dialog"><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-black uppercase text-blue">Appointment management</p><h2 id="visit-management-title" className="mt-1 font-display text-3xl font-bold text-text-dark">{visit.customerName}</h2><p className="mt-2 font-black text-navy">{formatAppointment(visit.appointment?.startAt || '')}</p><p className="mt-1 text-sm font-bold text-text-muted">{visit.area} · {visit.phone || visit.email}</p></div><button aria-label="Close" className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-navy" onClick={onClose} type="button"><X size={20} /></button></div>{calendar ? <div className="mt-5 flex flex-wrap gap-2"><a className="btn btn-white" href={calendar.google} rel="noreferrer" target="_blank"><CalendarPlus size={17} />Google<ExternalLink size={14} /></a><a className="btn btn-white" href={calendar.outlook} rel="noreferrer" target="_blank"><CalendarPlus size={17} />Outlook<ExternalLink size={14} /></a><button className="btn btn-white" onClick={onDownload} type="button"><Download size={17} />Download .ics</button><button className="btn btn-white" disabled={busy} onClick={onRemind} type="button"><Mail size={17} />Send reminder now</button></div> : null}{visit.appointment?.reminder ? <p className={`mt-3 text-sm font-bold ${visit.appointment.reminder.status === 'sent' ? 'text-green' : 'text-red-700'}`}>{visit.appointment.reminder.status === 'sent' ? `Reminder sent ${formatAppointment(visit.appointment.reminder.attemptedAt)}` : 'The last reminder attempt failed. You can retry it now.'}</p> : <p className="mt-3 text-sm font-bold text-text-muted">The automatic reminder is pending.</p>}<div className="mt-6 border-t border-border pt-5"><h3 className="font-display text-xl font-bold text-text-dark">Reschedule</h3><div className="mt-4 grid gap-4 md:grid-cols-2"><label className="text-sm font-black text-navy">New date<select className="mt-2 w-full rounded-lg border border-border bg-white px-4 py-3" value={date} onChange={(event) => onDateChange(event.target.value)}>{availability?.dates.map((item) => <option key={item.date} value={item.date}>{formatVisitDate(item.date)}</option>)}</select></label><fieldset><legend className="text-sm font-black text-navy">New time</legend><div className="mt-2 grid grid-cols-3 gap-2">{day?.slots.map((slot) => <button className={`min-h-12 rounded-lg border px-3 font-black ${selectedStartAt === slot.startAt ? 'border-navy bg-navy text-white' : 'border-border bg-pale-blue text-navy'}`} key={slot.startAt} onClick={() => onSlotChange(slot.startAt)} type="button">{slot.time}</button>)}</div></fieldset></div><div className="mt-5 flex flex-wrap justify-between gap-3"><button className="btn btn-white text-red-700" disabled={busy} onClick={onCancel} type="button"><X size={17} />Cancel visit</button><button className="btn btn-green" disabled={busy || !selectedStartAt} onClick={onReschedule} type="button">{busy ? <RefreshCw className="animate-spin" size={17} /> : <CalendarDays size={17} />}Confirm new time</button></div>{message ? <p className="mt-4 text-sm font-bold text-red-700" role="alert">{message}</p> : null}</div></section></div>
 }
 
 function formatVisitDate(value: string) {

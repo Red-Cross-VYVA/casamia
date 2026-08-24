@@ -71,6 +71,7 @@ assert.match(publicManagement, /24 \* 60 \* 60 \* 1000/)
 assert.match(publicManagement, /customerCanRebook: true/)
 assert.match(internalManagement, /requireInternalApiKey/)
 assert.match(internalManagement, /sendVisitAppointmentEmail/)
+assert.match(internalManagement, /sendAndTrackVisitReminder/)
 assert.match(schedulerUi, /Google Calendar/)
 assert.match(schedulerUi, /Download \.ics/)
 

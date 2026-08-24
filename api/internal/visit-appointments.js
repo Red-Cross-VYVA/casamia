@@ -2,6 +2,7 @@ import { readJsonBody, requireInternalApiKey, sendJson, updateSupabaseRows } fro
 import { cancelVisitAppointment, loadAssessmentAppointment, rescheduleVisitAppointment, activeAppointment } from '../_lib/visit-appointments.js'
 import { renderVisitIcs } from '../_lib/visit-calendar.js'
 import { sendVisitAppointmentEmail } from '../_lib/visit-scheduling-email.js'
+import { sendAndTrackVisitReminder } from '../_lib/visit-reminders.js'
 
 export default async function handler(request, response) {
   response.setHeader('Cache-Control', 'no-store')
@@ -22,12 +23,29 @@ export default async function handler(request, response) {
         filename: `casamia-visit-${body.assessmentId.slice(0, 8)}.ics`,
       })
     }
+    if (body.action === 'remind') {
+      const loaded = await loadAssessmentAppointment(body.assessmentId)
+      if (loaded.error) return sendJson(response, loaded.status, { message: loaded.error })
+      const appointment = activeAppointment(loaded.assessment)
+      if (!appointment) return sendJson(response, 404, { message: 'No confirmed appointment was found.' })
+      const reminder = await sendAndTrackVisitReminder({ assessment: loaded.assessment, request })
+      const status = !reminder.delivery.ok ? 502 : reminder.trackingOk ? 200 : 500
+      return sendJson(response, status, {
+        appointment: reminder.appointment,
+        delivery: reminder.delivery,
+        message: !reminder.delivery.ok
+          ? 'Reminder delivery failed.'
+          : reminder.trackingOk
+            ? 'Reminder sent.'
+            : 'Reminder sent, but its delivery status could not be recorded. Do not resend it yet.',
+      })
+    }
 
     const result = body.action === 'reschedule'
       ? await rescheduleVisitAppointment({ actor: 'admin', assessmentId: body.assessmentId, startAt: body.startAt })
       : body.action === 'cancel'
         ? await cancelVisitAppointment({ actor: 'admin', assessmentId: body.assessmentId })
-        : { error: 'Choose reschedule, cancel or calendar.', status: 400 }
+        : { error: 'Choose reschedule, cancel, remind or calendar.', status: 400 }
     if (result.error) return sendJson(response, result.status, { message: result.error })
 
     const kind = body.action === 'cancel' ? 'cancelled' : 'rescheduled'

@@ -9,6 +9,12 @@ export type VisitAppointment = {
   date: string
   endAt: string
   rescheduledAt?: string
+  reminder?: {
+    attemptedAt: string
+    delivery?: { reason?: string; status?: string }
+    startAt: string
+    status: 'failed' | 'sent'
+  }
   slotId: string
   startAt: string
   time: string
@@ -52,6 +58,12 @@ export async function setInternalVisitSlotBlocked(startAt: string, blocked: bool
 export function manageInternalVisit(assessmentId: string, action: 'cancel' | 'reschedule', startAt = '') {
   return internalRequest<{ appointment: VisitAppointment; cancelled?: boolean }>('/api/internal/visit-appointments', {
     body: JSON.stringify({ action, assessmentId, startAt }), headers: { 'content-type': 'application/json' }, method: 'POST',
+  })
+}
+
+export function sendInternalVisitReminder(assessmentId: string) {
+  return internalRequest<{ appointment: VisitAppointment; message: string }>('/api/internal/visit-appointments', {
+    body: JSON.stringify({ action: 'remind', assessmentId }), headers: { 'content-type': 'application/json' }, method: 'POST',
   })
 }
 
