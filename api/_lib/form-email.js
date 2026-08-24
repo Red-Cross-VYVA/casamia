@@ -15,7 +15,7 @@ export async function sendFormSubmissionEmails({
   const language = normalizeLocale(locale)
   const copy = getCopy(language, kind)
   const urls = {
-    contact: buildAbsolutePublicUrl(request, '/contact', env),
+    contact: buildAbsolutePublicUrl(request, '/why-us#contact-form', env),
     legal: buildAbsolutePublicUrl(request, '/legal-notice', env),
     privacy: buildAbsolutePublicUrl(request, '/privacy-policy', env),
     terms: buildAbsolutePublicUrl(request, '/general-customer-terms', env),

@@ -129,6 +129,11 @@ export async function recordLeadDelivery(source, id, key, delivery) {
 export function mapLeadRecord(record, source) {
   const payload = object(record?.payload_json)
   const pipeline = object(payload.leadPipeline)
+  const parsedMessage = parseWizardSubmission(record?.message)
+  const wizardSubmission = source === 'assessment'
+    && (record?.source === 'home-safety-wizard' || parsedMessage?.source === 'home-safety-wizard')
+    ? parsedMessage
+    : null
 
   return {
     assignedPartnerEmail: normalizeEmail(pipeline.assignedPartnerEmail),
@@ -136,7 +141,11 @@ export function mapLeadRecord(record, source) {
     email: text(record?.customer_email),
     followUpAt: text(pipeline.followUpAt),
     id: text(record?.id),
-    message: source === 'callback' ? text(payload.note) || text(record?.message) : text(record?.message),
+    message: source === 'callback'
+      ? text(payload.note) || text(record?.message)
+      : wizardSubmission
+        ? ''
+        : text(record?.message),
     name: text(record?.customer_name),
     notes: text(pipeline.notes),
     locale: normalizeLeadLocale(payload.locale || payload.language),
@@ -149,9 +158,45 @@ export function mapLeadRecord(record, source) {
     selectedPlan: source === 'assessment' ? text(record?.selected_plan) : '',
     source,
     sourceLabel: source === 'assessment' ? 'Assessment' : 'Callback',
+    submissionDetails: wizardSubmission ? buildWizardSubmissionDetails(wizardSubmission) : [],
     status: leadStatuses.includes(pipeline.status) ? pipeline.status : getLeadStatus(record, source),
     submittedAt: text(record?.submitted_at),
   }
+}
+
+function parseWizardSubmission(value) {
+  if (typeof value !== 'string' || !value.trim().startsWith('{')) return null
+  try {
+    const parsed = JSON.parse(value)
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : null
+  } catch {
+    return null
+  }
+}
+
+function buildWizardSubmissionDetails(submission) {
+  const home = object(submission.homeDetails)
+  const inspection = object(submission.inspectionChoice)
+  return [
+    detail('homeType', home.homeType),
+    detail('floorCount', home.floorCount),
+    detail('stairsType', home.stairsType),
+    detail('bedroomCount', home.bedroomCount),
+    detail('mobility', submission.mobility),
+    detail('challenges', submission.challenges),
+    detail('risks', submission.risks),
+    detail('areas', submission.areasOfConcern),
+    detail('urgency', submission.urgency),
+    detail('notes', submission.notes),
+    detail('inspection', typeof inspection.booked === 'boolean' ? (inspection.booked ? 'Yes' : 'No') : ''),
+  ].filter(Boolean)
+}
+
+function detail(key, value) {
+  const formatted = Array.isArray(value)
+    ? value.map(text).filter(Boolean).join(', ')
+    : Number.isFinite(Number(value)) && value !== '' && value !== null ? String(value) : text(value)
+  return formatted ? { key, value: formatted } : null
 }
 
 function normalizeLeadLocale(value) {

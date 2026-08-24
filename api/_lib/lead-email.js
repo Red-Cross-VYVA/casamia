@@ -3,7 +3,7 @@ import { buildAbsolutePublicUrl, sendTransactionalEmail } from './email.js'
 export async function sendNewLeadEmails({ lead, request, env = process.env }) {
   const internalUrl = buildAbsolutePublicUrl(request, '/internal/leads', env)
   const publicUrls = {
-    contact: buildAbsolutePublicUrl(request, '/contact', env),
+    contact: buildAbsolutePublicUrl(request, '/why-us#contact-form', env),
     home: buildAbsolutePublicUrl(request, '/', env),
     legal: buildAbsolutePublicUrl(request, '/legal-notice', env),
     privacy: buildAbsolutePublicUrl(request, '/privacy-policy', env),
@@ -127,6 +127,10 @@ function customerDetails(lead, copy) {
     [copy.area, text(lead.city) || copy.notProvided],
     [copy.preferred, text(lead.preferredAt) || copy.notProvided],
     ...(text(lead.selectedPlan) ? [[copy.plan, text(lead.selectedPlan)]] : []),
+    ...(Array.isArray(lead.submissionDetails) ? lead.submissionDetails.map((detail) => [
+      copy.detailLabels?.[detail.key] || detail.key,
+      text(detail.value),
+    ]) : []),
     ...(text(lead.message) ? [[copy.message, text(lead.message)]] : []),
   ]
 }
@@ -202,7 +206,7 @@ const customerEmailCopy = Object.freeze({
   en: {
     subject: 'We received your CasaMia request', title: 'We received your request', greeting: 'Hello',
     intro: 'Thank you for taking the time to tell us what you need. We know that making changes at home can feel like a big decision, and we are here to make the next steps clear, practical and comfortable for you.',
-    summary: 'Your request summary', type: 'Request type', callback: 'Callback request', assessment: 'Home safety assessment', area: 'City / area', preferred: 'Preferred date or time', plan: 'Selected option', message: 'Your message', notProvided: 'Not provided',
+    summary: 'Your request summary', type: 'Request type', callback: 'Callback request', assessment: 'Home safety assessment', area: 'City / area', preferred: 'Preferred date or time', plan: 'Selected option', message: 'Your message', notProvided: 'Not provided', detailLabels: { homeType: 'Home type', floorCount: 'Number of floors', stairsType: 'Stairs', bedroomCount: 'Bedrooms', mobility: 'Mobility', challenges: 'Daily challenges', risks: 'Current risks', areas: 'Areas of concern', urgency: 'Urgency', notes: 'Additional notes', inspection: 'Home visit requested' },
     nextTitle: 'What happens next', next: 'A CasaMia team member will contact you using the details you provided to understand your needs, confirm availability and explain any costs before you commit to a visit or installation.',
     aboutTitle: 'About CasaMia', about: 'CasaMia helps older adults and families make homes safer and easier to live in through practical assessments, accessibility adaptations, installation support and guidance on relevant public grants.',
     contact: 'To add information or ask a question, reply to this email or contact us at', privacy: 'We use your information only to handle your enquiry, contact you about the requested service and meet our legal obligations. Please see our Privacy Policy for full details.',
@@ -211,7 +215,7 @@ const customerEmailCopy = Object.freeze({
   es: {
     subject: 'Hemos recibido tu solicitud CasaMia', title: 'Hemos recibido tu solicitud', greeting: 'Hola',
     intro: 'Gracias por dedicar unos minutos a contarnos lo que necesitas. Sabemos que hacer cambios en casa puede ser una decisión importante y estamos aquí para que los próximos pasos sean claros, prácticos y cómodos para ti.',
-    summary: 'Resumen de tu solicitud', type: 'Tipo de solicitud', callback: 'Solicitud de llamada', assessment: 'Evaluación de seguridad del hogar', area: 'Ciudad / zona', preferred: 'Fecha u hora preferida', plan: 'Opción seleccionada', message: 'Tu mensaje', notProvided: 'No indicado',
+    summary: 'Resumen de tu solicitud', type: 'Tipo de solicitud', callback: 'Solicitud de llamada', assessment: 'Evaluación de seguridad del hogar', area: 'Ciudad / zona', preferred: 'Fecha u hora preferida', plan: 'Opción seleccionada', message: 'Tu mensaje', notProvided: 'No indicado', detailLabels: { homeType: 'Tipo de vivienda', floorCount: 'Número de plantas', stairsType: 'Escaleras', bedroomCount: 'Dormitorios', mobility: 'Movilidad', challenges: 'Dificultades diarias', risks: 'Riesgos actuales', areas: 'Zonas de preocupación', urgency: 'Urgencia', notes: 'Notas adicionales', inspection: 'Visita a domicilio solicitada' },
     nextTitle: 'Qué ocurre ahora', next: 'Una persona del equipo de CasaMia se pondrá en contacto contigo usando los datos facilitados para entender tus necesidades, confirmar la disponibilidad y explicar cualquier coste antes de que aceptes una visita o instalación.',
     aboutTitle: 'Sobre CasaMia', about: 'CasaMia ayuda a personas mayores y familias a adaptar sus hogares para que sean más seguros y cómodos mediante evaluaciones prácticas, mejoras de accesibilidad, apoyo con la instalación y orientación sobre ayudas públicas aplicables.',
     contact: 'Para añadir información o hacer una consulta, responde a este correo o escríbenos a', privacy: 'Usamos tus datos únicamente para gestionar tu consulta, contactarte sobre el servicio solicitado y cumplir nuestras obligaciones legales. Consulta nuestra Política de privacidad para obtener toda la información.',
@@ -220,7 +224,7 @@ const customerEmailCopy = Object.freeze({
   de: {
     subject: 'Wir haben Ihre CasaMia-Anfrage erhalten', title: 'Wir haben Ihre Anfrage erhalten', greeting: 'Hallo',
     intro: 'Vielen Dank, dass Sie sich die Zeit genommen haben, uns Ihren Bedarf mitzuteilen. Veränderungen zu Hause können eine wichtige Entscheidung sein. Wir helfen Ihnen dabei, die nächsten Schritte klar, praktisch und angenehm zu gestalten.',
-    summary: 'Zusammenfassung Ihrer Anfrage', type: 'Art der Anfrage', callback: 'Rückrufanfrage', assessment: 'Sicherheitsbewertung für Ihr Zuhause', area: 'Stadt / Region', preferred: 'Bevorzugtes Datum oder Uhrzeit', plan: 'Gewählte Option', message: 'Ihre Nachricht', notProvided: 'Nicht angegeben',
+    summary: 'Zusammenfassung Ihrer Anfrage', type: 'Art der Anfrage', callback: 'Rückrufanfrage', assessment: 'Sicherheitsbewertung für Ihr Zuhause', area: 'Stadt / Region', preferred: 'Bevorzugtes Datum oder Uhrzeit', plan: 'Gewählte Option', message: 'Ihre Nachricht', notProvided: 'Nicht angegeben', detailLabels: { homeType: 'Wohnungstyp', floorCount: 'Anzahl der Etagen', stairsType: 'Treppen', bedroomCount: 'Schlafzimmer', mobility: 'Mobilität', challenges: 'Alltägliche Schwierigkeiten', risks: 'Aktuelle Risiken', areas: 'Betroffene Bereiche', urgency: 'Dringlichkeit', notes: 'Zusätzliche Hinweise', inspection: 'Hausbesuch angefragt' },
     nextTitle: 'Wie es weitergeht', next: 'Ein Mitglied des CasaMia-Teams wird Sie über die angegebenen Kontaktdaten erreichen, um Ihren Bedarf zu verstehen, die Verfügbarkeit zu bestätigen und alle Kosten zu erklären, bevor Sie einem Besuch oder einer Installation zustimmen.',
     aboutTitle: 'Über CasaMia', about: 'CasaMia unterstützt ältere Menschen und Familien dabei, ihr Zuhause sicherer und komfortabler zu gestalten: mit praktischen Bewertungen, barrierearmen Anpassungen, Installationshilfe und Orientierung zu passenden öffentlichen Förderungen.',
     contact: 'Um Informationen zu ergänzen oder eine Frage zu stellen, antworten Sie auf diese E-Mail oder schreiben Sie an', privacy: 'Wir verwenden Ihre Daten nur zur Bearbeitung Ihrer Anfrage, zur Kontaktaufnahme bezüglich der gewünschten Leistung und zur Erfüllung gesetzlicher Pflichten. Weitere Informationen finden Sie in unserer Datenschutzerklärung.',
@@ -229,7 +233,7 @@ const customerEmailCopy = Object.freeze({
   fr: {
     subject: 'Nous avons reçu votre demande CasaMia', title: 'Nous avons reçu votre demande', greeting: 'Bonjour',
     intro: 'Merci d’avoir pris le temps de nous expliquer vos besoins. Nous savons que modifier son logement peut être une décision importante. Notre rôle est de rendre les prochaines étapes claires, pratiques et rassurantes pour vous.',
-    summary: 'Récapitulatif de votre demande', type: 'Type de demande', callback: 'Demande de rappel', assessment: 'Évaluation de la sécurité du domicile', area: 'Ville / zone', preferred: 'Date ou heure souhaitée', plan: 'Option sélectionnée', message: 'Votre message', notProvided: 'Non renseigné',
+    summary: 'Récapitulatif de votre demande', type: 'Type de demande', callback: 'Demande de rappel', assessment: 'Évaluation de la sécurité du domicile', area: 'Ville / zone', preferred: 'Date ou heure souhaitée', plan: 'Option sélectionnée', message: 'Votre message', notProvided: 'Non renseigné', detailLabels: { homeType: 'Type de logement', floorCount: 'Nombre d’étages', stairsType: 'Escaliers', bedroomCount: 'Chambres', mobility: 'Mobilité', challenges: 'Difficultés quotidiennes', risks: 'Risques actuels', areas: 'Zones préoccupantes', urgency: 'Urgence', notes: 'Notes complémentaires', inspection: 'Visite à domicile demandée' },
     nextTitle: 'Prochaine étape', next: 'Un membre de l’équipe CasaMia vous contactera avec les coordonnées fournies afin de comprendre vos besoins, confirmer les disponibilités et expliquer les coûts éventuels avant tout engagement pour une visite ou une installation.',
     aboutTitle: 'À propos de CasaMia', about: 'CasaMia aide les personnes âgées et leurs familles à rendre leur logement plus sûr et plus confortable grâce à des évaluations pratiques, des adaptations d’accessibilité, une assistance à l’installation et des conseils sur les aides publiques disponibles.',
     contact: 'Pour ajouter des informations ou poser une question, répondez à cet e-mail ou écrivez-nous à', privacy: 'Nous utilisons vos données uniquement pour traiter votre demande, vous contacter au sujet du service demandé et respecter nos obligations légales. Consultez notre Politique de confidentialité pour en savoir plus.',
@@ -238,7 +242,7 @@ const customerEmailCopy = Object.freeze({
   nl: {
     subject: 'We hebben uw CasaMia-aanvraag ontvangen', title: 'We hebben uw aanvraag ontvangen', greeting: 'Hallo',
     intro: 'Bedankt dat u de tijd hebt genomen om ons te vertellen wat u nodig hebt. Aanpassingen in huis kunnen een belangrijke beslissing zijn. Wij helpen u om de volgende stappen duidelijk, praktisch en prettig te maken.',
-    summary: 'Samenvatting van uw aanvraag', type: 'Type aanvraag', callback: 'Terugbelverzoek', assessment: 'Veiligheidsbeoordeling van de woning', area: 'Plaats / regio', preferred: 'Voorkeursdatum of -tijd', plan: 'Geselecteerde optie', message: 'Uw bericht', notProvided: 'Niet opgegeven',
+    summary: 'Samenvatting van uw aanvraag', type: 'Type aanvraag', callback: 'Terugbelverzoek', assessment: 'Veiligheidsbeoordeling van de woning', area: 'Plaats / regio', preferred: 'Voorkeursdatum of -tijd', plan: 'Geselecteerde optie', message: 'Uw bericht', notProvided: 'Niet opgegeven', detailLabels: { homeType: 'Woningtype', floorCount: 'Aantal verdiepingen', stairsType: 'Trappen', bedroomCount: 'Slaapkamers', mobility: 'Mobiliteit', challenges: 'Dagelijkse uitdagingen', risks: 'Huidige risico’s', areas: 'Aandachtsgebieden', urgency: 'Urgentie', notes: 'Aanvullende opmerkingen', inspection: 'Huisbezoek aangevraagd' },
     nextTitle: 'Wat gebeurt er nu', next: 'Een medewerker van CasaMia neemt contact met u op via de opgegeven gegevens om uw behoeften te bespreken, de beschikbaarheid te bevestigen en eventuele kosten uit te leggen voordat u instemt met een bezoek of installatie.',
     aboutTitle: 'Over CasaMia', about: 'CasaMia helpt ouderen en families om woningen veiliger en comfortabeler te maken met praktische beoordelingen, toegankelijkheidsaanpassingen, installatieondersteuning en advies over relevante overheidssubsidies.',
     contact: 'Wilt u informatie toevoegen of een vraag stellen, beantwoord dan deze e-mail of neem contact met ons op via', privacy: 'Wij gebruiken uw gegevens alleen om uw aanvraag te behandelen, contact met u op te nemen over de gevraagde dienst en aan onze wettelijke verplichtingen te voldoen. Lees ons Privacybeleid voor meer informatie.',

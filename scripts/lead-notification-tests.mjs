@@ -5,6 +5,7 @@ import {
   sendNewLeadEmails,
   sendPartnerAssignmentEmail,
 } from '../api/_lib/lead-email.js'
+import { mapLeadRecord } from '../api/_lib/leads.js'
 
 const originalFetch = globalThis.fetch
 const calls = []
@@ -35,6 +36,14 @@ const lead = {
   status: 'New',
 }
 
+const wizardRecord = {
+  city_area: 'Madrid', customer_email: 'ana@example.com', customer_name: 'Ana Lopez',
+  customer_phone: '+34600111222', id: 'wizard-record', preferred_contact_method: 'email',
+  selected_plan: 'Bathroom', source: 'home-safety-wizard', status: 'New', submitted_at: '2026-08-24T10:00:00Z',
+  message: JSON.stringify({ homeDetails: { homeType: 'Apartment', floorCount: 2 }, mobility: 'Uses cane or walker', areasOfConcern: ['bathroom', 'entrance'], notes: 'Please call my daughter.', inspectionChoice: { booked: true } }),
+  payload_json: { locale: 'es' },
+}
+
 try {
   const intake = await sendNewLeadEmails({ lead, env, request: { headers: {} } })
   assert.equal(intake.admin.status, 'sent')
@@ -63,6 +72,30 @@ try {
     calls[1].html.indexOf('Sobre CasaMia')
       < calls[1].html.indexOf('Resumen de tu solicitud'),
   )
+  assert.match(calls[1].html, /https:\/\/www\.casamia\.com\.es\/why-us#contact-form/)
+
+  const wizardLead = mapLeadRecord(wizardRecord, 'assessment')
+  assert.equal(wizardLead.message, '')
+  assert.deepEqual(wizardLead.submissionDetails, [
+    { key: 'homeType', value: 'Apartment' },
+    { key: 'floorCount', value: '2' },
+    { key: 'mobility', value: 'Uses cane or walker' },
+    { key: 'areas', value: 'bathroom, entrance' },
+    { key: 'notes', value: 'Please call my daughter.' },
+    { key: 'inspection', value: 'Yes' },
+  ])
+  const beforeWizard = calls.length
+  await sendNewLeadEmails({ lead: wizardLead, env, request: { headers: {} } })
+  const wizardCustomer = calls[beforeWizard + 1]
+  for (const readableText of [
+    'Tipo de vivienda', 'Apartment', 'Movilidad', 'Uses cane or walker',
+    'Zonas de preocupación', 'bathroom, entrance', 'Notas adicionales',
+    'Please call my daughter.', 'Visita a domicilio solicitada', 'Yes',
+  ]) {
+    assert.match(wizardCustomer.html, new RegExp(readableText))
+  }
+  assert.doesNotMatch(wizardCustomer.html, /Tu mensaje/)
+  assert.doesNotMatch(wizardCustomer.html, /homeDetails|areasOfConcern|inspectionChoice/)
 
   const localizedSubjects = {
     de: /Ihre CasaMia-Anfrage/,

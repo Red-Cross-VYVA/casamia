@@ -40,6 +40,11 @@
   ],
   "redirects": [
     {
+      "source": "/contact",
+      "destination": "/why-us#contact-form",
+      "permanent": true
+    },
+    {
       "source": "/home-safety-inspection",
       "destination": "/home-safety-assessment",
       "permanent": true

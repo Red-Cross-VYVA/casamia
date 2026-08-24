@@ -60,6 +60,7 @@ try {
   assert.match(calls[1].html, /CM-COMP-42/)
   assert.match(calls[1].html, /&lt;Barra suelta&gt;/)
   assert.match(calls[1].html, /Política de privacidad/)
+  assert.match(calls[1].html, /https:\/\/www\.casamia\.com\.es\/why-us#contact-form/)
   assert.ok(calls[1].html.indexOf('Qué ocurre ahora') < calls[1].html.indexOf('Información que nos has enviado'))
 
   const beforeBooking = calls.length
