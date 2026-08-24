@@ -7,9 +7,17 @@ export type ContactRequestInput = {
   plan: string
   message: string
   source: string
+  locale: string
+  type?: 'contact_request' | 'complaint_request'
+  orderReference?: string
+  immediateSafetyRisk?: boolean
+  consentConfirmed?: boolean
 }
 
 type ContactRequestResponse = {
+  emailDelivery?: {
+    customer?: { status?: string }
+  }
   id?: number | string
   status?: string
 }
@@ -21,7 +29,7 @@ export async function submitContactRequest(input: ContactRequestInput) {
   const payload = {
     submittedAt,
     status: 'New',
-    type: 'contact_request',
+    type: input.type ?? 'contact_request',
     customer_name: input.name,
     customer_email: input.email,
     customer_phone: input.phone,
@@ -37,6 +45,7 @@ export async function submitContactRequest(input: ContactRequestInput) {
 
     return {
       id: response.id ? String(response.id) : undefined,
+      confirmationEmailSent: response.emailDelivery?.customer?.status === 'sent',
       source: 'api' as const,
       status: response.status ?? 'New',
     }
@@ -47,6 +56,7 @@ export async function submitContactRequest(input: ContactRequestInput) {
   return {
     source: 'local-demo' as const,
     status: 'New',
+    confirmationEmailSent: false,
   }
 }
 

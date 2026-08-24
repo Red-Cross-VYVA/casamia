@@ -14,6 +14,7 @@ const workflow = read('src/services/projectWorkflow.ts')
 const withdrawal = read('src/pages/WithdrawalFormPage.tsx')
 const terms = read('src/pages/TermsAndConditionsPage.tsx')
 const legalDocumentPage = read('src/pages/LegalDocumentPage.tsx')
+const complaintForm = read('src/components/ComplaintForm.tsx')
 const legalDocuments = read('src/constants/legalDocuments.ts')
 const companyConfig = read('src/config/company.ts')
 const documents = read('src/services/contractDocuments.ts')
@@ -107,6 +108,9 @@ assert.match(
   /<SEO title=\{document\.title\} description=\{document\.intro\} path=\{path\} schema=\{schema\} \/>/,
   'Shared legal document pages must use canonical SEO metadata.',
 )
+assert.match(legalDocumentPage, /document\.id === 'complaints-contact'.*<ComplaintForm/s, 'Complaints page must expose the stored complaint form.')
+assert.match(complaintForm, /type: 'complaint_request'/, 'Complaint submissions must be identified separately from general contact requests.')
+assert.match(complaintForm, /consentConfirmed/, 'Complaint submissions must record explicit contact consent.')
 assert.match(
   legalDocumentPage,
   /legalRouteLabels\.find[\s\S]*'@type': 'WebPage'[\s\S]*#page/,

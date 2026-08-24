@@ -4,6 +4,7 @@ import {
   requirePost,
   sendJson,
 } from '../_lib/supabase.js'
+import { sendFormSubmissionEmails } from '../_lib/form-email.js'
 
 export default async function handler(request, response) {
   if (!requirePost(request, response)) return
@@ -37,7 +38,29 @@ export default async function handler(request, response) {
     }
 
     const record = Array.isArray(result.body) ? result.body[0] : result.body
+    const locale = normalizeLocale(body.locale ?? body.customer?.preferredLanguage)
+    const labels = locale === 'es' ? labelsEs : labelsEn
+    const emailDelivery = record
+      ? await sendFormSubmissionEmails({
+          details: [
+            { label: labels.email, value: payload.customer_email },
+            { label: labels.phone, value: payload.customer_phone },
+            { label: labels.address, value: [payload.installation_address, payload.postcode, payload.city, payload.province].filter(Boolean).join(', ') },
+            { label: labels.selection, value: payload.plan_label },
+            { label: labels.estimate, value: payload.plan_price },
+            { label: labels.timing, value: payload.preferred_timing },
+            { label: labels.notes, value: payload.notes },
+          ],
+          kind: payload.status === 'Visit requested' ? 'booking' : 'quote',
+          locale,
+          name: payload.customer_name,
+          recipient: payload.customer_email,
+          reference: payload.order_id,
+          request,
+        })
+      : { skipped: true, status: 'duplicate' }
     sendJson(response, 200, {
+      emailDelivery,
       id: record?.id,
       orderId: payload.order_id,
       status: record?.status ?? payload.status,
@@ -47,4 +70,16 @@ export default async function handler(request, response) {
       message: error instanceof Error ? error.message : 'Invalid order request.',
     })
   }
+}
+
+function normalizeLocale(value) {
+  return String(value || '').toLowerCase().startsWith('es') ? 'es' : 'en'
+}
+
+const labelsEn = {
+  address: 'Installation address', email: 'Email', estimate: 'Current estimate', notes: 'Notes', phone: 'Phone', selection: 'Selected work', timing: 'Preferred contact',
+}
+
+const labelsEs = {
+  address: 'Dirección de instalación', email: 'Correo electrónico', estimate: 'Estimación actual', notes: 'Notas', phone: 'Teléfono', selection: 'Trabajos seleccionados', timing: 'Contacto preferido',
 }

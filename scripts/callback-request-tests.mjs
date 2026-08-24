@@ -383,7 +383,10 @@ try {
   assert.equal(response.headers['cache-control'], 'no-store')
   assert.equal(response.headers['access-control-allow-origin'], 'https://www.casamia.com.es')
   assert.equal(response.headers.vary, 'Origin')
-  assert.deepEqual(JSON.parse(response.body), { id: 'callback-id', status: 'New' })
+  const submittedBody = JSON.parse(response.body)
+  assert.equal(submittedBody.id, 'callback-id')
+  assert.equal(submittedBody.status, 'New')
+  assert.equal(submittedBody.emailDelivery.customer.status, 'recipient_missing')
 
   const retryResponse = makeResponse()
   await callbackRequestHandler(makeRequest({ body: handlerBody }), retryResponse)

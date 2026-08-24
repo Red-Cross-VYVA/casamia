@@ -566,7 +566,7 @@ export function ProviderPartnersPage() {
     event.preventDefault()
     if (!validate()) return
 
-    const result = await submitProviderApplication(values)
+    const result = await submitProviderApplication({ ...values, locale: i18n.language })
     if (!result.ok) {
       setSubmissionMessage(result.reason)
       return

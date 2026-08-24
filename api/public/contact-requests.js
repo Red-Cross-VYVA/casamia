@@ -1,16 +1,86 @@
-import { handleSupabaseInsert } from '../_lib/supabase.js'
+import { sendFormSubmissionEmails } from '../_lib/form-email.js'
+import {
+  insertSupabaseRow,
+  readJsonBody,
+  requirePost,
+  sendJson,
+  updateSupabaseRows,
+} from '../_lib/supabase.js'
 
 export default async function handler(request, response) {
-  await handleSupabaseInsert(request, response, 'contact_requests', (body) => ({
-    submitted_at: body.submittedAt ?? new Date().toISOString(),
-    status: body.status ?? 'New',
-    type: body.type ?? 'contact_request',
-    customer_name: body.customer_name ?? body.name ?? '',
-    customer_email: body.customer_email ?? body.email ?? '',
-    customer_phone: body.customer_phone ?? body.phone ?? '',
-    selected_plan: body.selected_plan ?? body.plan ?? '',
-    source: body.source ?? 'contact',
-    message: body.message ?? '',
-    payload_json: body,
-  }))
+  if (!requirePost(request, response)) return
+
+  try {
+    const body = await readJsonBody(request)
+    const requestType = body.type === 'complaint_request' ? 'complaint_request' : 'contact_request'
+
+    if (requestType === 'complaint_request' && body.consentConfirmed !== true) {
+      sendJson(response, 400, { message: 'Consent is required to submit a complaint.' })
+      return
+    }
+    const payload = {
+      submitted_at: body.submittedAt ?? new Date().toISOString(),
+      status: body.status ?? 'New',
+      type: requestType,
+      customer_name: body.customer_name ?? body.name ?? '',
+      customer_email: body.customer_email ?? body.email ?? '',
+      customer_phone: body.customer_phone ?? body.phone ?? '',
+      selected_plan: body.selected_plan ?? body.plan ?? '',
+      source: body.source ?? (requestType === 'complaint_request' ? 'complaints-page' : 'contact'),
+      message: body.message ?? '',
+      payload_json: body,
+    }
+    const result = await insertSupabaseRow('contact_requests', payload)
+
+    if (!result.ok) {
+      sendJson(response, result.status, result.body)
+      return
+    }
+
+    const record = result.body?.record
+    const locale = normalizeLocale(body.locale ?? body.language)
+    const labels = locale === 'es' ? labelsEs : labelsEn
+    const delivery = await sendFormSubmissionEmails({
+      details: [
+        { label: labels.email, value: payload.customer_email },
+        { label: labels.phone, value: payload.customer_phone },
+        { label: labels.service, value: payload.selected_plan },
+        { label: labels.orderReference, value: body.orderReference },
+        ...(requestType === 'complaint_request'
+          ? [{ label: labels.safety, value: body.immediateSafetyRisk ? labels.yes : labels.no }]
+          : []),
+        { label: labels.message, value: payload.message },
+      ],
+      kind: requestType === 'complaint_request' ? 'complaint' : 'contact',
+      locale,
+      name: payload.customer_name,
+      recipient: payload.customer_email,
+      reference: record?.id ? `CM-${requestType === 'complaint_request' ? 'COMP' : 'CONTACT'}-${record.id}` : '',
+      request,
+    })
+
+    if (record?.id) {
+      await updateSupabaseRows('contact_requests', {
+        payload_json: { ...body, notificationDelivery: delivery },
+      }, `id=eq.${encodeURIComponent(record.id)}&select=id`)
+    }
+
+    sendJson(response, 200, { ...result.body, emailDelivery: delivery })
+  } catch (error) {
+    sendJson(response, 400, {
+      message: error instanceof Error ? error.message : 'Invalid contact request.',
+    })
+  }
+}
+
+function normalizeLocale(value) {
+  return String(value || '').toLowerCase().startsWith('es') ? 'es' : 'en'
+}
+
+const labelsEn = {
+  email: 'Email', message: 'Message', no: 'No', orderReference: 'Order or project reference', phone: 'Phone', safety: 'Immediate safety risk', service: 'Service or plan', yes: 'Yes',
+}
+
+const labelsEs = {
+  email: 'Correo electrónico', message: 'Mensaje', no: 'No', orderReference: 'Referencia del pedido o proyecto', phone: 'Teléfono', safety: 'Riesgo inmediato de seguridad', service: 'Servicio o plan', yes: 'Sí',
 }

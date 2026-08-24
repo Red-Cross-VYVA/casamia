@@ -2,6 +2,7 @@ import {
   ArrowRight,
   CalendarClock,
   Check,
+  LoaderCircle,
   Mail,
   ShieldCheck,
 } from 'lucide-react'
@@ -11,6 +12,13 @@ import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
+import {
+  callbackTimeWindows,
+  createCallbackRequestIdempotencyKey,
+  submitCallbackRequest,
+  type CallbackRequestInput,
+} from '../services/callbackRequests'
+import { createWizardReference } from '../services/wizardStorage'
 
 type OrderCopy = {
   eyebrow: string
@@ -28,11 +36,18 @@ type OrderCopy = {
   formTitle: string
   formBody: string
   name: string
+  email: string
   phone: string
+  date: string
+  time: string
+  timeOptions: Record<string, string>
   notes: string
   notesPlaceholder: string
   submit: string
   success: string
+  successSaved: string
+  error: string
+  consent: string
   back: string
   trust: string[]
 }
@@ -53,13 +68,20 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     callBody: 'Email CasaMia if the home needs urgent support or a fast answer.',
     callCta: 'Email CasaMia',
     formTitle: 'Request a callback',
-    formBody: 'This demo saves the request locally until the lead backend is connected.',
+    formBody: 'Choose a suitable time and we will email you a confirmation of your request.',
     name: 'Name',
+    email: 'Email',
     phone: 'Phone',
+    date: 'Preferred date',
+    time: 'Preferred time',
+    timeOptions: { '09:00-12:00': '09:00-12:00', '12:00-15:00': '12:00-15:00', '15:00-18:00': '15:00-18:00', '18:00-20:00': '18:00-20:00', flexible: 'Flexible' },
     notes: 'What should we know?',
     notesPlaceholder: 'Example: Madrid, bathroom safety, preferred call time...',
     submit: 'Request callback',
-    success: 'Callback request saved.',
+    success: 'Callback request received. We have emailed your confirmation.',
+    successSaved: 'Callback request received. CasaMia will contact you using the details provided.',
+    error: 'The callback request could not be submitted. Please check the details and try again.',
+    consent: 'I agree that CasaMia may use these details to arrange and confirm my callback.',
     back: 'Back to coverage map',
     trust: ['No commitment', 'Local follow-up', 'Safety and grant guidance'],
   },
@@ -78,13 +100,20 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     callBody: 'Escribe a CasaMia si la vivienda necesita apoyo urgente o una respuesta rápida.',
     callCta: 'Enviar email',
     formTitle: 'Solicitar llamada',
-    formBody: 'Esta demo guarda la solicitud localmente hasta conectar el backend de leads.',
+    formBody: 'Elige un horario adecuado y te enviaremos por email la confirmación de la solicitud.',
     name: 'Nombre',
+    email: 'Correo electrónico',
     phone: 'Teléfono',
+    date: 'Fecha preferida',
+    time: 'Horario preferido',
+    timeOptions: { '09:00-12:00': '09:00-12:00', '12:00-15:00': '12:00-15:00', '15:00-18:00': '15:00-18:00', '18:00-20:00': '18:00-20:00', flexible: 'Flexible' },
     notes: '¿Qué debemos saber?',
     notesPlaceholder: 'Ejemplo: Madrid, seguridad en baño, mejor hora para llamar...',
     submit: 'Solicitar llamada',
-    success: 'Solicitud de llamada guardada.',
+    success: 'Solicitud de llamada recibida. Te hemos enviado la confirmación por email.',
+    successSaved: 'Solicitud de llamada recibida. CasaMia se pondrá en contacto contigo usando los datos facilitados.',
+    error: 'No se pudo enviar la solicitud. Revisa los datos e inténtalo de nuevo.',
+    consent: 'Acepto que CasaMia utilice estos datos para organizar y confirmar mi llamada.',
     back: 'Volver al mapa de cobertura',
     trust: ['Sin compromiso', 'Seguimiento local', 'Guía de seguridad y ayudas'],
   },
@@ -115,7 +144,16 @@ export function OrderPage() {
   const isSpanish = i18n.language.startsWith('es')
   const selectedZone = searchParams.get('zone') ?? ''
   const zoneName = zoneLabels[selectedZone]?.[isSpanish ? 'es' : 'en'] ?? (isSpanish ? 'Toda España' : 'All Spain')
+  const minimumCallbackDate = new Intl.DateTimeFormat('en-CA', {
+    day: '2-digit',
+    month: '2-digit',
+    timeZone: 'Europe/Madrid',
+    year: 'numeric',
+  }).format(new Date())
   const [saved, setSaved] = useState(false)
+  const [confirmationEmailSent, setConfirmationEmailSent] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   const whatsappHref = useMemo(() => {
     const message = isSpanish
@@ -125,21 +163,38 @@ export function OrderPage() {
     return `${contactHref}?subject=${encodeURIComponent(`CasaMia support for ${zoneName}`)}&body=${encodeURIComponent(message)}`
   }, [isSpanish, zoneName])
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const form = new FormData(event.currentTarget)
-    const payload = {
-      createdAt: new Date().toISOString(),
-      zone: zoneName,
-      name: String(form.get('name') ?? ''),
-      phone: String(form.get('phone') ?? ''),
-      notes: String(form.get('notes') ?? ''),
-    }
+    if (isSubmitting) return
 
-    const stored = JSON.parse(localStorage.getItem('casamia_callback_requests') ?? '[]') as unknown[]
-    localStorage.setItem('casamia_callback_requests', JSON.stringify([payload, ...stored].slice(0, 20)))
-    setSaved(true)
-    event.currentTarget.reset()
+    const formElement = event.currentTarget
+    const form = new FormData(event.currentTarget)
+    setIsSubmitting(true)
+    setSaved(false)
+    setSubmitError('')
+
+    try {
+      const result = await submitCallbackRequest({
+        city: zoneName,
+        consentConfirmed: form.get('consent') === 'on',
+        email: String(form.get('email') ?? ''),
+        idempotencyKey: createCallbackRequestIdempotencyKey(),
+        locale: isSpanish ? 'es' : 'en',
+        name: String(form.get('name') ?? ''),
+        note: String(form.get('notes') ?? ''),
+        phone: String(form.get('phone') ?? ''),
+        preferredCallbackDate: String(form.get('date') ?? ''),
+        preferredTimeWindow: String(form.get('time') ?? '') as CallbackRequestInput['preferredTimeWindow'],
+        wizardReference: createWizardReference(),
+      })
+      setConfirmationEmailSent(result.confirmationEmailSent)
+      setSaved(true)
+      formElement.reset()
+    } catch {
+      setSubmitError(copy.error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -215,19 +270,40 @@ export function OrderPage() {
                 <input name="phone" required type="tel" />
               </label>
               <label>
+                <span>{copy.email}</span>
+                <input name="email" required type="email" />
+              </label>
+              <label>
+                <span>{copy.date}</span>
+                <input min={minimumCallbackDate} name="date" required type="date" />
+              </label>
+              <label>
+                <span>{copy.time}</span>
+                <select defaultValue="" name="time" required>
+                  <option disabled value="">{copy.time}</option>
+                  {callbackTimeWindows.map((window) => <option key={window} value={window}>{copy.timeOptions[window]}</option>)}
+                </select>
+              </label>
+              <label>
                 <span>{copy.notes}</span>
                 <textarea name="notes" placeholder={copy.notesPlaceholder} rows={4} />
               </label>
-              <button className="btn btn-green" type="submit">
+              <label className="order-consent">
+                <input name="consent" required type="checkbox" />
+                <span>{copy.consent}</span>
+              </label>
+              <button className="btn btn-green" disabled={isSubmitting} type="submit">
                 {copy.submit}
-                <ArrowRight size={20} aria-hidden="true" />
+                {isSubmitting ? <LoaderCircle className="animate-spin" size={20} aria-hidden="true" /> : <ArrowRight size={20} aria-hidden="true" />}
               </button>
             </form>
+
+            {submitError ? <p className="order-error" role="alert">{submitError}</p> : null}
 
             {saved ? (
               <p className="order-success">
                 <Check size={18} aria-hidden="true" />
-                {copy.success}
+                {confirmationEmailSent ? copy.success : copy.successSaved}
               </p>
             ) : null}
           </aside>

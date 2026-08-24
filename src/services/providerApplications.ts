@@ -19,7 +19,9 @@ export type ProviderApplication = {
   website: string
 }
 
-export type ProviderApplicationInput = Omit<ProviderApplication, 'createdAt' | 'id' | 'status'>
+export type ProviderApplicationInput = Omit<ProviderApplication, 'createdAt' | 'id' | 'status'> & {
+  locale?: string
+}
 
 const storageKey = 'casamia_provider_applications'
 const providerApplicationApiUrl =

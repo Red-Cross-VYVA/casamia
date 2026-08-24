@@ -101,6 +101,7 @@ export type QuoteSummary = {
 
 export type WizardSubmission = {
   configurationId: string
+  locale: 'en' | 'es'
   timestamp: string
   source: string
   campaign?: string

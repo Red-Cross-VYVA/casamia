@@ -374,6 +374,7 @@ export function WhyCasamiaPage() {
 
     try {
       await submitContactRequest({
+        locale: i18n.language,
         name: String(formData.get('name') ?? '').trim(),
         email: String(formData.get('email') ?? '').trim(),
         phone: String(formData.get('phone') ?? '').trim(),

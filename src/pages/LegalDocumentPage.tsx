@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
+import { ComplaintForm } from '../components/ComplaintForm'
 import {
   getLegalDocumentMeta,
   getLocalizedLegalDocument,
@@ -88,6 +89,7 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
           </div>
         </div>
       </section>
+      {document.id === 'complaints-contact' ? <ComplaintForm /> : null}
     </>
   )
 }

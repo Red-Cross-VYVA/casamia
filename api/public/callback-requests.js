@@ -437,13 +437,14 @@ export default async function handler(request, response) {
     }
 
     const record = Array.isArray(result.body) ? result.body[0] : result.body
+    let emailDelivery
     if (record?.id) {
       const lead = mapLeadRecord(record, 'callback')
-      const delivery = await sendNewLeadEmails({ lead, request })
-      const tracked = await recordLeadDelivery('callback', lead.id, 'intake', delivery)
+      emailDelivery = await sendNewLeadEmails({ lead, request })
+      const tracked = await recordLeadDelivery('callback', lead.id, 'intake', emailDelivery)
       if (!tracked.ok) console.error('Callback email delivery could not be recorded.', tracked.body)
     }
-    sendJson(response, 201, { id: record?.id, status: record?.status ?? 'New' })
+    sendJson(response, 201, { emailDelivery, id: record?.id, status: record?.status ?? 'New' })
   } catch (error) {
     const isInvalidJson = error instanceof SyntaxError
     const statusCode = error instanceof CallbackRequestValidationError

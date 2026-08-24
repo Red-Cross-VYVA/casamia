@@ -1095,6 +1095,7 @@ export function AssistedLivingSolutionsPage() {
 
     try {
       await submitContactRequest({
+        locale: languageKey,
         name,
         email,
         phone,

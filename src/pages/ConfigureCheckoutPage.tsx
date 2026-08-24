@@ -87,7 +87,7 @@ export function ConfigureCheckoutPage() {
     setError('')
 
     try {
-      const { submission } = await submitConfiguratorRequest(state)
+      const { submission } = await submitConfiguratorRequest(state, i18n.language)
       navigate(`/configure/confirmation?configuration=${submission.configurationId}`)
     } catch {
       setError(copy.requestError)
@@ -100,7 +100,7 @@ export function ConfigureCheckoutPage() {
     setError('')
 
     try {
-      const checkout = await createMockDepositCheckout(state)
+      const checkout = await createMockDepositCheckout(state, i18n.language)
       navigate(checkout.checkoutUrl)
     } catch {
       setError(copy.depositError)

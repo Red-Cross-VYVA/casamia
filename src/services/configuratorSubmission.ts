@@ -8,8 +8,8 @@ import { hasPublicSiteApi, postPublicSiteJson } from './publicSiteApi'
 import { getSubmittedConfigurationStorageKey } from '../context/ConfiguratorContext'
 import type { ConfiguratorState, WizardSubmission } from '../types/configurator'
 
-export async function submitConfiguratorRequest(state: ConfiguratorState) {
-  const submission = createWizardSubmission(state, 'web-configurator')
+export async function submitConfiguratorRequest(state: ConfiguratorState, locale?: string) {
+  const submission = createWizardSubmission(state, 'web-configurator', locale)
   const saved = await mockAirtableConfiguratorAdapter.saveSubmission(submission)
   await mockEmailConfiguratorAdapter.sendConfirmation(submission)
   await saveConfiguratorOrder(submission, 'Quote requested', 'quote-request')
@@ -17,8 +17,8 @@ export async function submitConfiguratorRequest(state: ConfiguratorState) {
   return { submission, saved }
 }
 
-export async function createMockDepositCheckout(state: ConfiguratorState) {
-  const submission = createWizardSubmission(state, 'web-configurator-deposit')
+export async function createMockDepositCheckout(state: ConfiguratorState, locale?: string) {
+  const submission = createWizardSubmission(state, 'web-configurator-deposit', locale)
   await mockAirtableConfiguratorAdapter.saveSubmission(submission)
   await mockEmailConfiguratorAdapter.sendConfirmation(submission)
   await saveConfiguratorOrder(submission, 'Visit requested', 'visit-deposit-pending')
@@ -52,12 +52,13 @@ async function saveConfiguratorOrder(
   })
 }
 
-export function createWizardSubmission(state: ConfiguratorState, source: string): WizardSubmission {
+export function createWizardSubmission(state: ConfiguratorState, source: string, locale?: string): WizardSubmission {
   const quote = calculateConfiguratorQuote(state)
   const timestamp = new Date().toISOString()
 
   return {
     configurationId: createConfigurationId(),
+    locale: normalizeLocale(locale || state.customer.preferredLanguage),
     timestamp,
     source,
     customer: state.customer,
@@ -82,6 +83,11 @@ export function createWizardSubmission(state: ConfiguratorState, source: string)
       },
     ],
   }
+}
+
+function normalizeLocale(value: string) {
+  const normalized = value.trim().toLowerCase()
+  return normalized.startsWith('es') || normalized.startsWith('spa') ? 'es' : 'en'
 }
 
 export function loadSavedConfiguratorSubmission() {

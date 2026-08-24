@@ -9284,6 +9284,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .order-callback-form input,
+.order-callback-form select,
 .order-callback-form textarea {
   width: 100%;
   border: 1px solid var(--border);
@@ -9295,6 +9296,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .order-callback-form input:focus,
+.order-callback-form select:focus,
 .order-callback-form textarea:focus {
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(125, 184, 65, 0.16);
@@ -12047,6 +12049,31 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   background: #f3f8fb;
 }
 
+.order-consent {
+  grid-template-columns: 20px minmax(0, 1fr) !important;
+  gap: 10px !important;
+  align-items: start;
+  line-height: 1.45;
+}
+
+.order-consent input {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  padding: 0;
+  accent-color: var(--green);
+}
+
+.order-error {
+  margin-top: 18px;
+  border-radius: 8px;
+  background: #fff0ee;
+  padding: 12px 14px;
+  color: #a3342b !important;
+  font-size: 14px;
+  font-weight: 850;
+}
+
 .legal-hero .site-shell {
   max-width: 920px;
   padding-top: 54px;
@@ -12161,6 +12188,143 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .legal-document-links a:hover {
   color: var(--blue);
   text-decoration-color: currentColor;
+}
+
+.complaint-form-section {
+  border-top: 1px solid #d7e6ee;
+  background: #eef7fb;
+  padding: 64px 0 80px;
+}
+
+.complaint-form-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(36px, 7vw, 88px);
+  align-items: start;
+  max-width: 1040px;
+}
+
+.complaint-form-layout h2 {
+  margin-top: 14px;
+  color: var(--text-dark);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.08;
+}
+
+.complaint-form-layout > div > p:not(.eyebrow) {
+  margin-top: 16px;
+  color: var(--text-mid);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.complaint-form-layout .complaint-safety-note {
+  border-left: 4px solid #d04f45;
+  padding-left: 14px;
+  color: #852e28;
+}
+
+.complaint-form {
+  display: grid;
+  gap: 18px;
+  border: 1px solid #c9e1ef;
+  border-radius: 8px;
+  background: var(--white);
+  padding: clamp(22px, 4vw, 34px);
+  box-shadow: var(--shadow-soft);
+}
+
+.complaint-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.complaint-form label:not(.complaint-checkbox) {
+  display: grid;
+  gap: 8px;
+  color: var(--text-dark);
+  font-weight: 850;
+}
+
+.complaint-form input:not([type='checkbox']),
+.complaint-form textarea {
+  width: 100%;
+  border: 1px solid #aecddd;
+  border-radius: 6px;
+  background: var(--white);
+  padding: 12px 14px;
+  color: var(--text-dark);
+  font: inherit;
+}
+
+.complaint-form textarea {
+  resize: vertical;
+}
+
+.complaint-form input:focus,
+.complaint-form textarea:focus {
+  border-color: var(--blue);
+  outline: 3px solid rgba(33, 151, 208, 0.17);
+}
+
+.complaint-checkbox {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  color: var(--text-mid);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.complaint-checkbox input {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: var(--green);
+}
+
+.complaint-form .btn {
+  justify-self: start;
+}
+
+.complaint-form-status {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 0;
+  font-weight: 800;
+}
+
+.complaint-form-status.is-success {
+  color: #39751f;
+}
+
+.complaint-form-status.is-error {
+  color: #a3342b;
+}
+
+@media (max-width: 760px) {
+  .complaint-form-section {
+    padding: 48px 0 64px;
+  }
+
+  .complaint-form-layout,
+  .complaint-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .complaint-form-layout {
+    gap: 28px;
+  }
+
+  .complaint-form .btn {
+    width: 100%;
+  }
 }
 
 .assessment-hero {

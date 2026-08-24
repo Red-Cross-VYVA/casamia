@@ -25,6 +25,9 @@ export type CallbackRequestInput = {
 }
 
 export type CallbackRequestResponse = {
+  emailDelivery?: {
+    customer?: { status?: string }
+  }
   id?: string
   status: string
 }
@@ -125,6 +128,7 @@ export async function submitCallbackRequest(
 
   return {
     id: response.id ? String(response.id) : undefined,
+    confirmationEmailSent: response.emailDelivery?.customer?.status === 'sent',
     status: response.status ?? 'New',
   }
 }
