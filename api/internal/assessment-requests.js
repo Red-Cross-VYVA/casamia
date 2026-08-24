@@ -1,4 +1,5 @@
 import {
+  deleteSupabaseRows,
   readJsonBody,
   requireInternalApiKey,
   selectSupabaseRows,
@@ -113,6 +114,13 @@ export default async function handler(request, response) {
     if (!record) {
       sendJson(response, 404, { message: 'Assessment request not found.' })
       return
+    }
+    const slotId = record.payload_json?.visitAppointment?.slotId
+    if (body.status === 'Cancelled' && isUuid(slotId)) {
+      await deleteSupabaseRows(
+        'assessment_requests',
+        `id=eq.${encodeURIComponent(slotId)}&type=eq.visit_slot_reservation`,
+      )
     }
     sendJson(response, 200, { request: mapAssessmentRequestRecord(record) })
   } catch (error) {

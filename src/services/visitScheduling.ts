@@ -3,7 +3,7 @@ import { getInternalAuthHeaders } from './internalAuth.ts'
 
 export type VisitSlot = { startAt: string; time: string }
 export type VisitDate = { date: string; slots: VisitSlot[] }
-export type VisitAppointment = { bookedAt: string; date: string; startAt: string; time: string; timeZone: string }
+export type VisitAppointment = { bookedAt: string; date: string; slotId: string; startAt: string; time: string; timeZone: string }
 export type VisitAvailability = { appointment: VisitAppointment | null; dates: VisitDate[]; timeZone: string }
 export type InternalVisitAvailability = { blocked: Array<VisitSlot & { date: string }>; booked: Array<VisitSlot & { date: string }>; dates: VisitDate[] }
 

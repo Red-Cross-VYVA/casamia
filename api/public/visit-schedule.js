@@ -59,7 +59,7 @@ export default async function handler(request, response) {
       return sendJson(response, 409, { message: 'That time has just been taken. Please choose another available time.' })
     }
 
-    const appointment = { bookedAt: new Date().toISOString(), date: slot.date, startAt: slot.startAt, time: slot.time, timeZone: 'Europe/Madrid' }
+    const appointment = { bookedAt: new Date().toISOString(), date: slot.date, slotId: slot.id, startAt: slot.startAt, time: slot.time, timeZone: 'Europe/Madrid' }
     const finalPayload = { ...object(claimed.payload_json), visitAppointment: appointment }
     delete finalPayload.visitSchedulingClaim
     const saved = await updateSupabaseRows('assessment_requests', {

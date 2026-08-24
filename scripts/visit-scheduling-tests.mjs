@@ -36,6 +36,7 @@ const publicScheduler = readFileSync(new URL('../api/public/visit-schedule.js', 
 const availabilityApi = readFileSync(new URL('../api/public/visit-availability.js', import.meta.url), 'utf8')
 const schedulerUi = readFileSync(new URL('../src/components/wizard/VisitScheduler.tsx', import.meta.url), 'utf8')
 const webhook = readFileSync(new URL('../api/webhooks/stripe.js', import.meta.url), 'utf8')
+const assessmentAdmin = readFileSync(new URL('../api/internal/assessment-requests.js', import.meta.url), 'utf8')
 
 assert.match(publicScheduler, /verifyPaidAssessmentSession/)
 assert.match(publicScheduler, /visit_slot_reservation/)
@@ -45,5 +46,6 @@ assert.match(availabilityApi, /groupAvailableVisitSlots/)
 assert.match(schedulerUi, /Choose your visit date and time/)
 assert.match(schedulerUi, /Elige la fecha y hora de tu visita/)
 assert.match(webhook, /preservesAppointment/)
+assert.match(assessmentAdmin, /body\.status === 'Cancelled'[\s\S]*visit_slot_reservation/)
 
 console.log('Visit scheduling tests passed.')
