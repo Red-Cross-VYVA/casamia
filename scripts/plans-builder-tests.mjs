@@ -13,6 +13,9 @@ import {
 const defaultCatalogue = getDefaultServiceCatalogue()
 const plansPage = await readFile(new URL('../src/pages/PlansPage.tsx', import.meta.url), 'utf8')
 
+assert.match(plansPage, /Decrease quantity[\s\S]*Increase quantity/, 'Package steppers must have accessible action names.')
+assert.match(plansPage, /Reducir cantidad[\s\S]*Aumentar cantidad/, 'Package steppers must have Spanish accessible action names.')
+
 assert.match(
   plansPage,
   /plan-detail-modal--\$\{activeDetailDisplayMode\} plan-detail-modal--compact/,

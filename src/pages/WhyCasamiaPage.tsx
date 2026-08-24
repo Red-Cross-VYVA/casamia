@@ -15,7 +15,7 @@ import {
 } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { SpainCoverageMap, type SpainCoverageCopy } from '../components/SpainCoverageMap'
@@ -352,12 +352,24 @@ function WhyIcon({ type }: { type: WhyCasamiaCopy['sections'][number]['icon'] })
 
 export function WhyCasamiaPage() {
   const { i18n, t } = useTranslation()
+  const [searchParams] = useSearchParams()
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
   const copy = getWhyCasamiaCopy(i18n.language)
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const planOptions = t('pages.contact.planOptions', { returnObjects: true }) as string[]
+  const connectedHealthIntent = searchParams.get('service') === 'connected-health'
+  const contactIntent = searchParams.get('intent')
+  const intentMessage = connectedHealthIntent
+    ? isSpanish
+      ? contactIntent === 'platform'
+        ? 'Quiero hablar sobre la plataforma completa de seguridad y salud conectada para mi organización.'
+        : 'Quiero hablar sobre una integración de seguridad y salud conectada.'
+      : contactIntent === 'platform'
+        ? 'I would like to discuss the complete connected safety and health platform for my organisation.'
+        : 'I would like to discuss a connected safety and health integration.'
+    : ''
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -569,7 +581,7 @@ export function WhyCasamiaPage() {
               <ContactField label={t('pages.contact.fields.phone')} name="phone" type="tel" />
               <label className="contact-field">
                 {t('pages.contact.fields.plan')}
-                <select className="contact-input" name="plan">
+                <select className="contact-input" defaultValue={connectedHealthIntent ? planOptions[2] : planOptions[0]} name="plan">
                   {planOptions.map((option) => (
                     <option key={option}>{option}</option>
                   ))}
@@ -580,6 +592,7 @@ export function WhyCasamiaPage() {
               {t('pages.contact.fields.message')}
               <textarea
                 className="contact-input contact-textarea"
+                defaultValue={intentMessage}
                 name="message"
                 placeholder={copy.messagePlaceholder}
                 required

@@ -8,6 +8,7 @@ import { blogArticles } from '../constants/blogContent'
 import { localizeBlogArticle, localizeBlogArticles } from '../constants/blogContentLocalization'
 import { allNeedLandingPages } from '../constants/needLandingPages'
 import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
+import { completeHomeChecklistDownloads } from '../constants/resourceDownloads'
 
 const siteUrl = 'https://casamia.com.es'
 
@@ -80,6 +81,7 @@ const articleTopicSlugs: Record<string, string[]> = {
 
 export function BlogArticlePage() {
   const { i18n } = useTranslation()
+  const checklistDownload = completeHomeChecklistDownloads[i18n.language.startsWith('es') ? 'es' : 'en']
   const { articleId } = useParams()
   const baseArticle = blogArticles.find((item) => item.id === articleId)
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
@@ -283,9 +285,9 @@ export function BlogArticlePage() {
                   {article.cta.label}
                   <ArrowRight size={18} aria-hidden="true" />
                 </Link>
-                <Link className="btn btn-white" to="/blog">
+                <a className="btn btn-white" download href={checklistDownload.href}>
                   {copy.nextStepActions.checklist}
-                </Link>
+                </a>
                 <Link className="blog-next-step-link" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
                   {copy.nextStepActions.selfCheck}
                   <ArrowRight size={17} aria-hidden="true" />

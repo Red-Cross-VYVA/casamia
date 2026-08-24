@@ -202,7 +202,7 @@ export function ConfigureConfirmationPage() {
           )}
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link className="btn btn-navy" to="/configure">
+            <Link className="btn btn-navy" to="/home-safety-wizard">
               {copy.back}
             </Link>
             <Link className="btn btn-white border border-border" to="/">

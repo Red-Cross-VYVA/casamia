@@ -44,6 +44,7 @@ const canonicalRedirectPaths = new Map([
   ['/senior-bedroom-safety', '/services/bedroom-safety'],
   ['/connected-home-for-seniors', '/services/smart-home-safety'],
 ])
+const retiredFlowPaths = new Set(['/configure'])
 
 for (const file of sourceFiles) {
   const source = fs.readFileSync(file, 'utf8')
@@ -85,6 +86,9 @@ for (const file of sourceFiles) {
       const pathname = pathAndQuery.split(/[?]/, 1)[0] || '/'
       const publicAsset = path.join(projectRoot, 'public', pathname.slice(1))
       const canonicalPath = canonicalRedirectPaths.get(pathname)
+      if (retiredFlowPaths.has(pathname)) {
+        failures.push(`${relativeFile}: internal link ${target} points to the retired configurator; link to /home-safety-wizard instead`)
+      }
       if (canonicalPath) {
         failures.push(`${relativeFile}: internal link ${target} uses a legacy room URL; link to ${canonicalPath} instead`)
       }

@@ -612,6 +612,16 @@ assert.match(
 )
 assert.match(
   footer,
+  /completeHomeChecklistDownloads\[language\]\.href[\s\S]*link\.download[\s\S]*<a[^>]*download/,
+  'The footer printable-checklist action must download the localized PDF instead of opening the generic blog.',
+)
+assert.match(
+  articlePage,
+  /completeHomeChecklistDownloads[\s\S]*checklistDownload[\s\S]*<a[^>]*download[^>]*href=\{checklistDownload\.href\}/,
+  'Article checklist actions must download the localized printable PDF.',
+)
+assert.match(
+  footer,
   /Decision guides[\s\S]*home-safety-assessment-vs-general-contractor[\s\S]*smart-home-safety-vs-monitoring/,
   'The global footer must expose the remaining decision guide routes for always-on education discovery.',
 )

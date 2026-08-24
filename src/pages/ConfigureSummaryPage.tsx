@@ -90,7 +90,7 @@ export function ConfigureSummaryPage() {
               <div className="rounded-lg border border-border bg-white p-6 shadow-soft">
                 <h2 className="font-display text-3xl font-bold text-text-dark">{copy.emptyTitle}</h2>
                 <p className="mt-2 text-lg leading-relaxed text-text-mid">{copy.emptyBody}</p>
-                <Link className="btn btn-white mt-5 w-fit border border-border" to="/configure">
+                <Link className="btn btn-white mt-5 w-fit border border-border" to="/home-safety-wizard">
                   {copy.back}
                 </Link>
               </div>

@@ -34,4 +34,10 @@ assert.match(
   'The proof checks must have dedicated visual styling.',
 )
 
+assert.match(
+  page,
+  /searchParams\.get\('service'\) === 'connected-health'[\s\S]*defaultValue=\{intentMessage\}/,
+  'Technology CTAs must preserve their connected-health intent in the contact form.',
+)
+
 console.log('Why Us page checks passed.')

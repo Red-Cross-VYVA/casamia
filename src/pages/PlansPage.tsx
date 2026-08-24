@@ -2295,9 +2295,17 @@ export function PlansPage() {
                             {copy.viewDetails}<ArrowRight size={14} aria-hidden="true" />
                           </button>
                           <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${starterPack.packageLabel}`}>
-                            <button type="button" onClick={() => updateStarterPackQuantity(starterPack, quantity - 1)}><Minus size={16} aria-hidden="true" /></button>
+                            <button
+                              aria-label={`${language === 'es' ? 'Reducir cantidad' : 'Decrease quantity'}: ${starterPack.packageLabel}`}
+                              type="button"
+                              onClick={() => updateStarterPackQuantity(starterPack, quantity - 1)}
+                            ><Minus size={16} aria-hidden="true" /></button>
                             <input aria-label={`${copy.quantity}: ${starterPack.packageLabel}`} min="0" max="12" type="number" value={quantity} onChange={(event) => updateStarterPackQuantity(starterPack, Number(event.target.value))} />
-                            <button type="button" onClick={() => updateStarterPackQuantity(starterPack, quantity + 1)}><Plus size={16} aria-hidden="true" /></button>
+                            <button
+                              aria-label={`${language === 'es' ? 'Aumentar cantidad' : 'Increase quantity'}: ${starterPack.packageLabel}`}
+                              type="button"
+                              onClick={() => updateStarterPackQuantity(starterPack, quantity + 1)}
+                            ><Plus size={16} aria-hidden="true" /></button>
                           </div>
                         </div>
                       </div>
@@ -2362,7 +2370,11 @@ export function PlansPage() {
                           <ArrowRight size={14} aria-hidden="true" />
                         </button>
                         <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${group.roomLabel}`}>
-                          <button type="button" onClick={() => updateRoomQuantity(group, quantity - 1)}>
+                          <button
+                            aria-label={`${language === 'es' ? 'Reducir cantidad' : 'Decrease quantity'}: ${group.roomLabel}`}
+                            type="button"
+                            onClick={() => updateRoomQuantity(group, quantity - 1)}
+                          >
                             <Minus size={16} aria-hidden="true" />
                           </button>
                           <input
@@ -2373,7 +2385,11 @@ export function PlansPage() {
                             value={quantity}
                             onChange={(event) => updateRoomQuantity(group, Number(event.target.value))}
                           />
-                          <button type="button" onClick={() => updateRoomQuantity(group, quantity + 1)}>
+                          <button
+                            aria-label={`${language === 'es' ? 'Aumentar cantidad' : 'Increase quantity'}: ${group.roomLabel}`}
+                            type="button"
+                            onClick={() => updateRoomQuantity(group, quantity + 1)}
+                          >
                             <Plus size={16} aria-hidden="true" />
                           </button>
                         </div>

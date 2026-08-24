@@ -6,7 +6,7 @@ const styles = await readFile(new URL('../src/styles/tech-page.css', import.meta
 
 assert.match(page, /useServicesByRoom\('connected'\)/, 'Tech page must use the live connected-services catalogue.')
 assert.match(page, /id="connected-inclusions"/, 'The existing connected-inclusions deep link must remain available.')
-assert.match(page, /\/configure\?room=connected/, 'The live catalogue must retain its configurator route.')
+assert.match(page, /\/home-safety-wizard/, 'The smart safety CTA must open the home-safety wizard directly.')
 assert.match(page, /intent=integration#contact-form/, 'Integration CTAs must preserve intent and lead to the CasaMia contact form.')
 assert.match(page, /intent=platform#contact-form/, 'Platform enquiries must preserve intent and lead to the CasaMia contact form.')
 assert.match(page, /<div className="cm-tech-page" lang=\{copy\.lang\}>/, 'The page must declare the language used by its localized copy.')

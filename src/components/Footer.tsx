@@ -9,6 +9,7 @@ import { needLandingPages } from '../constants/needLandingPages'
 import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
 import { CASAMIA_CONTACT_EMAIL, CASAMIA_FACEBOOK_URL } from '../constants/contact'
+import { completeHomeChecklistDownloads } from '../constants/resourceDownloads'
 
 const footerLinkCopy = {
   en: {
@@ -93,7 +94,7 @@ export function Footer() {
   ]
   const resourceLinks = [
     { label: links.freeTools, to: '/tools' },
-    { label: links.checklist, to: '/blog' },
+    { download: true, label: links.checklist, to: completeHomeChecklistDownloads[language].href },
     { label: links.onlineCheck, to: '/home-safety-assessment?open=self-inspection#self-inspection-tool' },
     { label: links.grantsGuide, to: '/blog/home-adaptation-grants-spain-family-guide' },
     { label: links.visitPrep, to: '/blog/family-conversation-before-home-safety-visit' },
@@ -156,9 +157,15 @@ export function Footer() {
           ))}
           <FooterSubColumn title={links.resourcesTitle}>
             {resourceLinks.map((link) => (
-              <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
-                {link.label}
-              </Link>
+              link.download ? (
+                <a className="transition hover:text-green" download key={`${link.to}-${link.label}`} href={link.to}>
+                  {link.label}
+                </a>
+              ) : (
+                <Link className="transition hover:text-green" key={`${link.to}-${link.label}`} to={link.to}>
+                  {link.label}
+                </Link>
+              )
             ))}
           </FooterSubColumn>
           <FooterSubColumn title={decisionGuideTitle}>
