@@ -45,7 +45,9 @@ export async function listLeadRecords() {
   if (!callbacks.ok) return callbacks
 
   const leads = [
-    ...(Array.isArray(assessments.body) ? assessments.body : []).map((record) => mapLeadRecord(record, 'assessment')),
+    ...(Array.isArray(assessments.body) ? assessments.body : [])
+      .filter((record) => !['visit_slot_reservation', 'visit_slot_block'].includes(record?.type))
+      .map((record) => mapLeadRecord(record, 'assessment')),
     ...(Array.isArray(callbacks.body) ? callbacks.body : []).map((record) => mapLeadRecord(record, 'callback')),
   ].sort((left, right) => Date.parse(right.submittedAt) - Date.parse(left.submittedAt))
 

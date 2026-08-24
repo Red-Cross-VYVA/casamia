@@ -9,6 +9,8 @@ import {
 export const assessmentRequestStatuses = [
   'New',
   'Contacting',
+  'Visit payment pending',
+  'Visit paid',
   'Visit Scheduled',
   'In Progress',
   'Report Pending',
@@ -75,7 +77,9 @@ export default async function handler(request, response) {
       return
     }
     sendJson(response, 200, {
-      requests: (Array.isArray(result.body) ? result.body : []).map(mapAssessmentRequestRecord),
+      requests: (Array.isArray(result.body) ? result.body : [])
+        .filter((record) => !['visit_slot_reservation', 'visit_slot_block'].includes(record?.type))
+        .map(mapAssessmentRequestRecord),
     })
     return
   }

@@ -4,6 +4,8 @@ import { getPublicSiteApiBaseUrl, hasPublicSiteApi } from './publicSiteApi.ts'
 export const internalAssessmentStatuses = [
   'New',
   'Contacting',
+  'Visit payment pending',
+  'Visit paid',
   'Visit Scheduled',
   'In Progress',
   'Report Pending',

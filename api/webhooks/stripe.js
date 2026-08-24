@@ -47,7 +47,7 @@ async function applyVisitPaymentUpdate(paymentUpdate, event) {
   const referenceColumn = paymentUpdate.recordType === 'assessment' ? 'id' : 'order_id'
   const existing = await selectSupabaseRows(
     tableName,
-    `${referenceColumn}=eq.${encodeURIComponent(paymentUpdate.orderId)}&select=id,payload_json&limit=1`,
+    `${referenceColumn}=eq.${encodeURIComponent(paymentUpdate.orderId)}&select=id,status,payload_json&limit=1`,
   )
 
   if (!existing.ok) throw new Error('The paid booking could not be loaded.')
@@ -62,8 +62,11 @@ async function applyVisitPaymentUpdate(paymentUpdate, event) {
   if (currentPayment.lastEventId === event.id) return
 
   const session = event.data.object
+  const preservesAppointment = paymentUpdate.recordType === 'assessment'
+    && order.payload_json?.visitAppointment?.startAt
+    && paymentUpdate.status === 'Visit paid'
   const updated = await updateSupabaseRows(tableName, {
-    status: paymentUpdate.status,
+    status: preservesAppointment ? order.status : paymentUpdate.status,
     payload_json: {
       ...payload,
       visitPayment: {

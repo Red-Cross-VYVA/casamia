@@ -9,7 +9,7 @@ export default async function handler(request, response) {
   }
 
   const results = await Promise.all([
-    selectSupabaseRows('assessment_requests', 'select=id,status&limit=1000'),
+    selectSupabaseRows('assessment_requests', 'select=id,type,status&limit=1000'),
     selectSupabaseRows('contact_requests', 'type=eq.callback_request&select=id,status&limit=1000'),
     selectSupabaseRows('proposals', 'select=id,status&limit=1000'),
     selectSupabaseRows('provider_applications', 'select=id,status&limit=1000'),
@@ -18,7 +18,8 @@ export default async function handler(request, response) {
   ])
   const names = ['assessments', 'callbacks', 'proposals', 'providers', 'orders', 'catalogue']
   const issues = results.flatMap((result, index) => result.ok ? [] : [`${names[index]}: ${result.body?.message ?? 'unavailable'}`])
-  const [assessments, callbacks, proposals, providers, orders, catalogue] = results.map(rows)
+  const [assessmentRows, callbacks, proposals, providers, orders, catalogue] = results.map(rows)
+  const assessments = assessmentRows.filter((row) => !['visit_slot_reservation', 'visit_slot_block'].includes(row.type))
   const services = Array.isArray(catalogue[0]?.payload_json?.services) ? catalogue[0].payload_json.services : []
 
   sendJson(response, 200, {

@@ -50,6 +50,7 @@ import { PhoneStep } from '../components/wizard/PhoneStep'
 import { PhotoUploadStep } from '../components/wizard/PhotoUploadStep'
 import { PlanResult } from '../components/wizard/PlanResult'
 import { VisitBookingStep } from '../components/wizard/VisitBookingStep'
+import { VisitScheduler } from '../components/wizard/VisitScheduler'
 import { WizardChoiceCard } from '../components/wizard/WizardChoiceCard'
 import { WizardLayout } from '../components/wizard/WizardLayout'
 import { WizardPackageDialog, wizardPackageDialogId } from '../components/wizard/WizardPackageDialog'
@@ -622,6 +623,9 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     <>
       {visitPaymentState !== 'none' ? (
         <VisitPaymentNotice language={i18n.language} status={visitPaymentState} />
+      ) : null}
+      {visitPaymentState === 'paid' && paymentSessionId ? (
+        <VisitScheduler language={i18n.language} sessionId={paymentSessionId} />
       ) : null}
       <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry' && state.currentStep !== 'callback-confirmation' && !callbackSubmitting} canSave={!state.inputMethods.includes('callback')} saveStatus={saveStatus} onBack={wizard.back} onSave={saveForLater}>
         {step}

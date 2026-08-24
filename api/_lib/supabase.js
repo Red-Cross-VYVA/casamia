@@ -511,6 +511,15 @@ export async function updateSupabaseRows(tableName, payload, query) {
   })
 }
 
+export async function deleteSupabaseRows(tableName, query) {
+  return requestSupabase(`${tableName}?${query}`, {
+    headers: {
+      Prefer: 'return=representation',
+    },
+    method: 'DELETE',
+  })
+}
+
 export async function insertSupabaseRow(tableName, payload, options = {}) {
   const result = await requestSupabase(tableName, {
     body: JSON.stringify(payload),
