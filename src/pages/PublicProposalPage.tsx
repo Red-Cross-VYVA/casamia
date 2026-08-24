@@ -152,7 +152,7 @@ export function PublicProposalPage() {
         <section className="mx-auto mb-8 max-w-5xl rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
           <div>
-            <h1 className="font-display text-5xl font-bold leading-tight text-text-dark">
+            <h1 className="font-display text-4xl font-bold leading-tight text-text-dark sm:text-5xl">
               {isPendingReview ? copy.pendingTitle : copy.readyTitle}
             </h1>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-mid">
@@ -162,7 +162,7 @@ export function PublicProposalPage() {
 
           <div className="rounded-lg bg-navy p-5 text-white">
             <p className="text-sm font-black uppercase text-white/65">{copy.proposalLabel}</p>
-            <p className="mt-2 font-display text-3xl font-black">{proposal.id}</p>
+            <p className="mt-2 break-words font-display text-2xl font-black sm:text-3xl">{proposal.id}</p>
             <p className="mt-3 text-sm text-white/75">{proposal.selectedPlan}</p>
           </div>
         </div>
@@ -194,7 +194,7 @@ export function PublicProposalPage() {
               <label className="mt-5 grid gap-2">
                 <span className="text-sm font-extrabold text-text-dark">{copy.acceptedBy}</span>
                 <input
-                  className="min-h-12 rounded-lg border border-border bg-white px-4 text-sm font-bold text-text-dark outline-none transition focus:border-green focus:ring-4 focus:ring-green/15"
+                  className="min-h-12 min-w-0 rounded-lg border border-border bg-white px-4 text-sm font-bold text-text-dark outline-none transition focus:border-green focus:ring-4 focus:ring-green/15"
                   value={acceptedBy}
                   onChange={(event) => setAcceptedBy(event.target.value)}
                 />

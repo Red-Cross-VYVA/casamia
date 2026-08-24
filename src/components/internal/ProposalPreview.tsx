@@ -18,19 +18,19 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
   const totals = calculateProposalTotals(proposal)
 
   return (
-    <article className="proposal-print-surface overflow-hidden rounded-lg border border-border bg-white shadow-soft" ref={ref}>
+    <article className="proposal-print-surface min-w-0 w-full overflow-hidden rounded-lg border border-border bg-white shadow-soft" ref={ref}>
       <div className="border-b border-border bg-white p-6 sm:p-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div>
+          <div className="min-w-0">
             <BrandLogo />
             <p className="mt-5 text-sm font-black uppercase tracking-[0.16em] text-green">
               Customer proposal
             </p>
-            <h2 className="mt-2 font-display text-4xl font-black leading-tight text-text-dark">
+            <h2 className="mt-2 font-display text-3xl font-black leading-tight text-text-dark sm:text-4xl">
               Home Safety Proposal
             </h2>
           </div>
-          <div className="rounded-lg bg-light-blue p-4 text-sm">
+          <div className="min-w-0 rounded-lg bg-light-blue p-4 text-sm sm:w-[280px]">
             <PreviewRow label="Proposal ID" value={proposal.id} />
             <PreviewRow label="Date" value={proposal.proposalDate || 'Not set'} />
             <PreviewRow label="Valid until" value={proposal.validUntil || 'Not set'} />
@@ -38,23 +38,23 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
         </div>
       </div>
 
-      <div className="grid gap-8 p-6 sm:p-8">
-        <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <div>
+      <div className="grid min-w-0 gap-8 p-6 sm:p-8">
+        <section className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <div className="min-w-0">
             <h3 className="text-sm font-black uppercase text-navy">Prepared for</h3>
-            <p className="mt-2 font-display text-3xl font-bold text-text-dark">
+            <p className="mt-2 break-words font-display text-3xl font-bold text-text-dark">
               {proposal.customerName || 'Customer name'}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-text-mid">
               {[proposal.address, proposal.area].filter(Boolean).join(', ') || 'Customer address'}
             </p>
-            <p className="mt-1 text-sm leading-relaxed text-text-mid">
+            <p className="mt-1 break-words text-sm leading-relaxed text-text-mid">
               {[proposal.phone, proposal.email].filter(Boolean).join(' · ') || 'Contact details'}
             </p>
           </div>
           <div className="rounded-lg bg-navy p-5 text-white">
             <p className="text-xs font-black uppercase text-white/65">CasaMia plan</p>
-            <p className="mt-2 font-display text-2xl font-black">{proposal.selectedPlan}</p>
+            <p className="mt-2 break-words font-display text-2xl font-black">{proposal.selectedPlan}</p>
             <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
               <div>
                 <p className="font-black text-white/65">Risk</p>
@@ -68,16 +68,44 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
           </div>
         </section>
 
-        <section>
+        <section className="min-w-0">
           <h3 className="text-sm font-black uppercase text-navy">Customer summary</h3>
-          <p className="mt-3 max-w-4xl text-base leading-relaxed text-text-mid">
+          <p className="mt-3 max-w-4xl break-words text-base leading-relaxed text-text-mid">
             {proposal.executiveSummary || 'Executive summary will appear here.'}
           </p>
         </section>
 
-        <section>
+        <section className="min-w-0">
           <h3 className="text-sm font-black uppercase text-navy">Selected improvements</h3>
-          <div className="mt-4 overflow-x-auto rounded-lg border border-border">
+          <div className="mt-4 grid gap-3 md:hidden">
+            {proposal.lineItems.length === 0 ? (
+              <p className="rounded-lg border border-border p-4 text-sm font-bold text-text-muted">
+                No line items added yet.
+              </p>
+            ) : null}
+            {proposal.lineItems.map((item) => (
+              <article className="min-w-0 rounded-lg border border-border p-4" key={`mobile-${item.id}`}>
+                <div className="flex min-w-0 items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-xs font-black uppercase text-navy">{item.category}</p>
+                    <p className="mt-1 break-words text-sm font-black text-text-dark">{item.name || 'Service item'}</p>
+                  </div>
+                  <p className="shrink-0 text-sm font-black text-text-dark">
+                    {formatCurrency(calculateLineTotal(item))}
+                  </p>
+                </div>
+                {item.description ? (
+                  <p className="mt-2 break-words text-xs leading-relaxed text-text-muted">{item.description}</p>
+                ) : null}
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-mid">
+                  <span><strong>Priority:</strong> {item.priority}</span>
+                  <span><strong>Qty:</strong> {item.quantity}</span>
+                  <span><strong>Unit:</strong> {formatCurrency(item.unitPrice)}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-4 hidden min-w-0 max-w-full overflow-x-auto rounded-lg border border-border md:block">
             <table className="min-w-[780px] w-full text-left">
               <thead className="bg-light-blue text-xs font-black uppercase text-navy">
                 <tr>
@@ -119,7 +147,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
           </div>
         </section>
 
-        <section className="grid gap-5 lg:grid-cols-2">
+        <section className="grid min-w-0 gap-5 lg:grid-cols-2">
           <div className="rounded-lg bg-light-blue p-5">
             <h3 className="text-sm font-black uppercase text-navy">Timeline</h3>
             <ul className="mt-4 space-y-3 text-sm text-text-mid">
@@ -138,7 +166,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
           </div>
         </section>
 
-        <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <section className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="rounded-lg border border-border p-5">
             <h3 className="text-sm font-black uppercase text-navy">Payment terms</h3>
             <p className="mt-3 text-sm leading-relaxed text-text-mid">{proposal.paymentTerms}</p>
@@ -167,7 +195,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
           </div>
         </section>
 
-        <section className="rounded-lg border border-border p-5">
+        <section className="min-w-0 rounded-lg border border-border p-5">
           <h3 className="text-sm font-black uppercase text-navy">Customer acceptance</h3>
           <p className="mt-3 text-sm leading-relaxed text-text-mid">
             By accepting this proposal, the customer confirms approval of the listed works, payment terms,
@@ -194,11 +222,11 @@ function PreviewRow({
   value: string
 }) {
   return (
-    <div className="mb-2 flex items-start justify-between gap-4 text-sm">
+    <div className="mb-2 flex min-w-0 items-start justify-between gap-4 text-sm">
       <span className={`font-extrabold uppercase ${inverse ? 'text-white/65' : 'text-text-muted'}`}>
         {label}
       </span>
-      <span className={`text-right font-black ${inverse ? 'text-white' : 'text-text-dark'}`}>{value}</span>
+      <span className={`min-w-0 break-words text-right font-black ${inverse ? 'text-white' : 'text-text-dark'}`}>{value}</span>
     </div>
   )
 }

@@ -129,10 +129,24 @@ try {
     resolve(projectRoot, 'src/pages/PublicProposalPage.tsx'),
     'utf8',
   )
+  const proposalPreview = await readFile(
+    resolve(projectRoot, 'src/components/internal/ProposalPreview.tsx'),
+    'utf8',
+  )
   assert.match(
     publicProposalPage,
     /<SEO[\s\S]*path=\{`\/proposal\/\$\{token\}`\}[\s\S]*noindex/,
     'Private proposal links must publish noindex metadata.',
+  )
+  assert.match(
+    proposalPreview,
+    /proposal-print-surface min-w-0 w-full/,
+    'Public proposals must contain desktop table width inside the mobile document.',
+  )
+  assert.match(
+    proposalPreview,
+    /md:hidden[\s\S]*mobile-\$\{item\.id\}[\s\S]*hidden min-w-0 max-w-full overflow-x-auto[\s\S]*md:block/,
+    'Public proposals must render stacked line items on mobile and the full table on larger screens.',
   )
 
   const orderPage = await readFile(resolve(projectRoot, 'src/pages/OrderPage.tsx'), 'utf8')
