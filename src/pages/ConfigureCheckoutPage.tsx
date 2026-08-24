@@ -1,7 +1,7 @@
 import { ArrowRight, CheckCircle2, CreditCard, FileText } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useConfigurator } from '../context/ConfiguratorContext'
 import {
@@ -9,7 +9,7 @@ import {
   formatConfiguratorCurrency,
 } from '../services/configuratorPricing'
 import {
-  createMockDepositCheckout,
+  createPaidVisitCheckout,
   submitConfiguratorRequest,
 } from '../services/configuratorSubmission'
 
@@ -28,6 +28,8 @@ const checkoutCopy = {
     quoteTitle: 'Request quote',
     quoteBody: 'Best if your answers are enough for CasaMia to confirm the next step remotely.',
     amountNow: 'Amount payable now:',
+    vatIncluded: 'VAT included',
+    quoteFree: '€0',
     saving: 'Saving...',
     requestQuote: 'Request quote',
     visitTitle: 'Reserve home visit',
@@ -37,10 +39,11 @@ const checkoutCopy = {
     estimateTitle: 'Your estimate',
     oneTime: 'One-time estimate',
     monthly: 'Monthly support',
-    deposit: 'Visit deposit if booked',
+    visitFee: 'Visit fee · VAT included',
     checkNeeded: 'CasaMia check needed',
     requestError: 'The request could not be submitted to CasaMia. Please try again.',
-    depositError: 'The deposit checkout could not be prepared. Please try again.',
+    paymentError: 'The secure visit payment could not be prepared. Please try again.',
+    paymentCancelled: 'Payment was cancelled. Your visit has not been booked and no charge was made.',
   },
   es: {
     eyebrow: 'Paso final',
@@ -56,6 +59,8 @@ const checkoutCopy = {
     quoteTitle: 'Solicitar presupuesto',
     quoteBody: 'Ideal si tus respuestas son suficientes para que CasaMia confirme el siguiente paso a distancia.',
     amountNow: 'Importe a pagar ahora:',
+    vatIncluded: 'IVA incluido',
+    quoteFree: '€0',
     saving: 'Guardando...',
     requestQuote: 'Solicitar presupuesto',
     visitTitle: 'Reservar visita a domicilio',
@@ -65,10 +70,11 @@ const checkoutCopy = {
     estimateTitle: 'Tu estimación',
     oneTime: 'Estimación inicial',
     monthly: 'Soporte mensual',
-    deposit: 'Depósito de visita si se reserva',
+    visitFee: 'Precio de la visita · IVA incluido',
     checkNeeded: 'CasaMia debe comprobar',
     requestError: 'No se pudo enviar la solicitud a CasaMia. Inténtalo de nuevo.',
-    depositError: 'No se pudo preparar la reserva de la visita. Inténtalo de nuevo.',
+    paymentError: 'No se pudo preparar el pago seguro de la visita. Inténtalo de nuevo.',
+    paymentCancelled: 'El pago se canceló. La visita no se ha reservado y no se ha realizado ningún cargo.',
   },
 } as const
 
@@ -76,9 +82,10 @@ export function ConfigureCheckoutPage() {
   const { i18n } = useTranslation()
   const { state } = useConfigurator()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const copy = i18n.language.toLowerCase().startsWith('es') ? checkoutCopy.es : checkoutCopy.en
   const quote = calculateConfiguratorQuote(state)
-  const [busyAction, setBusyAction] = useState<'quote' | 'deposit' | ''>('')
+  const [busyAction, setBusyAction] = useState<'quote' | 'visit' | ''>('')
   const [error, setError] = useState('')
   const oneTimeLines = quote.lines.filter((line) => !line.recurringMonthly)
 
@@ -96,14 +103,18 @@ export function ConfigureCheckoutPage() {
   }
 
   async function reserveVisit() {
-    setBusyAction('deposit')
+    setBusyAction('visit')
     setError('')
 
     try {
-      const checkout = await createMockDepositCheckout(state, i18n.language)
-      navigate(checkout.checkoutUrl)
+      const checkout = await createPaidVisitCheckout(state, i18n.language)
+      const checkoutUrl = new URL(checkout.checkoutUrl)
+      if (checkoutUrl.protocol !== 'https:' || checkoutUrl.hostname !== 'checkout.stripe.com') {
+        throw new Error('Unexpected checkout destination.')
+      }
+      window.location.assign(checkoutUrl.toString())
     } catch {
-      setError(copy.depositError)
+      setError(copy.paymentError)
       setBusyAction('')
     }
   }
@@ -170,7 +181,7 @@ export function ConfigureCheckoutPage() {
                 <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">{copy.quoteTitle}</h2>
                 <p className="mt-3 text-lg leading-relaxed text-text-mid">{copy.quoteBody}</p>
                 <p className="mt-6 text-sm font-black uppercase tracking-[0.08em] text-text-dark">
-                  Amount payable now: €0
+                  {copy.amountNow} {copy.quoteFree}
                 </p>
                 <button className="btn btn-navy mt-3 w-full" type="button" disabled={busyAction !== ''} onClick={requestQuote}>
                   {busyAction === 'quote' ? copy.saving : copy.requestQuote}
@@ -183,10 +194,15 @@ export function ConfigureCheckoutPage() {
                 <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">{copy.visitTitle}</h2>
                 <p className="mt-3 text-lg leading-relaxed text-text-mid">{copy.visitBody}</p>
                 <p className="mt-6 text-sm font-black uppercase tracking-[0.08em] text-text-dark">
-                  Amount payable now: {formatConfiguratorCurrency(quote.deposit)}
+                  {copy.amountNow} {formatConfiguratorCurrency(quote.visitFee)} · {copy.vatIncluded}
                 </p>
-                <button className="btn btn-green mt-3 w-full" type="button" disabled={busyAction !== ''} onClick={reserveVisit}>
-                  {busyAction === 'deposit' ? copy.preparing : copy.reserveVisit}
+                <button
+                  className="btn btn-green mt-3 w-full"
+                  type="button"
+                  disabled={busyAction !== '' || quote.visitFee === 0}
+                  onClick={reserveVisit}
+                >
+                  {busyAction === 'visit' ? copy.preparing : copy.reserveVisit}
                   <ArrowRight size={18} aria-hidden="true" />
                 </button>
               </article>
@@ -198,7 +214,7 @@ export function ConfigureCheckoutPage() {
             <dl className="mt-5 grid gap-3">
               <Row label={copy.oneTime} value={formatConfiguratorCurrency(quote.totalEstimate)} />
               <Row label={copy.monthly} value={formatConfiguratorCurrency(quote.recurringMonthlySubtotal)} />
-              <Row label={copy.deposit} value={formatConfiguratorCurrency(quote.deposit)} />
+              <Row label={copy.visitFee} value={formatConfiguratorCurrency(quote.visitFee)} />
             </dl>
             {quote.siteConfirmationItems.length > 0 ? (
               <div className="mt-5 rounded-lg bg-pale-blue p-4">
@@ -212,6 +228,11 @@ export function ConfigureCheckoutPage() {
                   ))}
                 </ul>
               </div>
+            ) : null}
+            {searchParams.get('payment') === 'cancelled' ? (
+              <p className="mt-5 rounded-lg bg-amber-50 p-4 text-base font-bold text-amber-800">
+                {copy.paymentCancelled}
+              </p>
             ) : null}
             {error ? <p className="mt-5 rounded-lg bg-red-50 p-4 text-base font-bold text-red-700">{error}</p> : null}
           </aside>

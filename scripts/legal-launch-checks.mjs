@@ -83,15 +83,16 @@ assert.match(legalDocuments, /title: 'Modelo de contratación'/, 'Spanish legal 
 assert.match(legalDocuments, /request direct payment/, 'Legal notice must prohibit direct subcontractor payments.')
 assert.match(legalDocuments, /solicitar pagos directos/, 'Spanish legal notice must prohibit direct subcontractor payments.')
 assert.match(legalDocumentPage, /legal-document-links/, 'Legal pages must render links to related customer information.')
-assert.match(checkout, /Amount payable now: €0/, 'Quote requests must explicitly disclose that nothing is payable now.')
+assert.match(checkout, /\{copy\.amountNow\} \{copy\.quoteFree\}/, 'Quote requests must explicitly disclose that nothing is payable now.')
 assert.match(
   checkout,
-  /Amount payable now: \{formatConfiguratorCurrency\(quote\.deposit\)\}/,
-  'Visit reservations must disclose the dynamic amount payable now.',
+  /\{copy\.amountNow\} \{formatConfiguratorCurrency\(quote\.visitFee\)\} · \{copy\.vatIncluded\}/,
+  'Visit reservations must disclose the VAT-included amount payable now.',
 )
 assert.match(checkout, /Request quote/, 'Checkout must offer the no-payment quote action.')
 assert.match(checkout, /Reserve visit/, 'Checkout must offer the measured-visit reservation action.')
-assert.match(checkout, /createMockDepositCheckout/, 'Visit reservation must remain on the mock checkout adapter.')
+assert.match(checkout, /createPaidVisitCheckout/, 'Visit reservations must use the paid Stripe checkout flow.')
+assert.doesNotMatch(checkout, /createMockDepositCheckout/, 'Visit reservations must not use a mock checkout adapter.')
 assert.match(withdrawal, /validate\(\)/, 'Withdrawal form must validate before submission.')
 assert.match(
   terms,

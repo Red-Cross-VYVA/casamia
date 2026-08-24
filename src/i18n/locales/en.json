@@ -74,7 +74,7 @@
     "metaDescription": "Book a CasaMia in-home safety assessment in Spain. Review fall risks, accessibility, bathroom safety, grant support and the clearest next step before choosing any work.",
     "hero": {
       "title": "Book a Professional In-Home Safety Assessment",
-      "subtitle": "Request a 99 EUR CasaMia home visit to review fall risks, accessibility needs, and practical improvements before you choose any work.",
+      "subtitle": "Book a 99 EUR CasaMia home visit, paid in advance with 21% VAT included, to review fall risks, accessibility needs, and practical improvements.",
       "cta": "Request In-Home Assessment",
       "secondaryCta": "Start Free Online Safety Report",
       "reassurance": "The 99 EUR visit fee is credited toward your CasaMia plan if you proceed.",
@@ -84,8 +84,8 @@
     "pricing": {
       "title": "Paid visit, credited toward your plan",
       "feeLabel": "Assessment visit fee",
-      "fee": "99 EUR",
-      "body": "In-home assessments require travel and specialist time, so the visit costs 99 EUR. If you proceed with CasaMia improvements, the assessment fee is credited toward your plan.",
+      "fee": "99 EUR · VAT included",
+      "body": "The home visit costs 99 EUR including 21% VAT and is paid in advance when booking. If you proceed with CasaMia improvements, the assessment fee is credited toward your plan.",
       "points": [
         "Free online safety report available first",
         "Fixed 99 EUR assessment visit",
@@ -1098,7 +1098,7 @@
       },
       "payment": {
         "title": "Simple & Transparent Payment Terms",
-        "body": "We keep payments clear and fair. The in-home assessment is paid at booking and credited toward your chosen plan. For agreed installation work, you pay 50% to get started and 50% only upon completion and customer acceptance.",
+        "body": "We keep payments clear and fair. The 99 EUR in-home assessment includes 21% VAT, is paid in advance at booking, and is credited toward your chosen plan. For agreed installation work, you pay 50% to get started and 50% only upon completion and customer acceptance.",
         "items": [
           {
             "title": "Essential",
@@ -1157,7 +1157,7 @@
           },
           {
             "question": "When do I pay?",
-            "answer": "Assessment-only services are paid at booking. Installation plans use a clear 50% deposit and 50% final payment after completion and customer acceptance."
+            "answer": "The 99 EUR assessment fee includes 21% VAT and is paid in advance at booking. Installation plans use a clear 50% deposit and 50% final payment after completion and customer acceptance."
           },
           {
             "question": "Can the plan be customized?",

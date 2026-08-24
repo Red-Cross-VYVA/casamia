@@ -43,7 +43,7 @@ function makeState(overrides = {}) {
 
   assert.equal(quote.oneTimeSubtotal, 0, 'Empty configurator should not create a one-time estimate.')
   assert.equal(quote.selectedServices.length, 0, 'Empty configurator should not create service selections.')
-  assert.equal(quote.deposit, 0, 'Empty configurator should not show a visit deposit.')
+  assert.equal(quote.visitFee, 0, 'Empty configurator should not show a visit fee.')
 }
 
 {
@@ -66,7 +66,7 @@ function makeState(overrides = {}) {
   )
   assert.equal(quote.oneTimeSubtotal, 405, 'Kitchen lighting and leak sensor should use itemised prices.')
   assert.equal(quote.vat, 85, 'Service VAT should be calculated from selected service rates.')
-  assert.equal(quote.deposit, 99, 'Service selections should keep the visit deposit visible for quote/visit follow-up.')
+  assert.equal(quote.visitFee, 99, 'Service selections should keep the VAT-included visit fee visible for booking.')
 }
 
 {

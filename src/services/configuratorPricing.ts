@@ -10,10 +10,10 @@ import type {
 import type { CasaMiaService } from '../types/serviceCatalogue.ts'
 import { getSelectedRoomIds } from './configuratorRooms.ts'
 import { getConfiguredServices } from './serviceCatalogue.ts'
+import { visitPricing } from '../config/visitPricing.ts'
 
 const configuratorPricing = {
-  currency: 'EUR',
-  depositAmount: 99,
+  currency: visitPricing.currency,
 } as const
 
 export function formatConfiguratorCurrency(amount: number) {
@@ -112,7 +112,7 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
     recurringMonthlySubtotal,
     vat,
     totalEstimate: oneTimeSubtotal + vat,
-    deposit: lines.length > 0 ? configuratorPricing.depositAmount : 0,
+    visitFee: lines.length > 0 ? visitPricing.feeGross : 0,
   }
 }
 

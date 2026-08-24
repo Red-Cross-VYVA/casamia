@@ -1,10 +1,14 @@
-import { CheckCircle2, Printer } from 'lucide-react'
+import { AlertCircle, CheckCircle2, LoaderCircle, Printer } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 
 import { formatConfiguratorCurrency } from '../services/configuratorPricing'
 import { loadSavedConfiguratorSubmission } from '../services/configuratorSubmission'
 import { getConfiguredServiceById } from '../services/serviceCatalogue'
+import { getVisitCheckoutStatus } from '../services/visitCheckout'
+
+type PaymentVerification = 'none' | 'checking' | 'paid' | 'pending' | 'failed'
 
 const confirmationCopy = {
   en: {
@@ -17,7 +21,7 @@ const confirmationCopy = {
     notProvided: 'Not provided',
     oneTime: 'One-time estimate',
     monthly: 'Monthly support',
-    deposit: 'Deposit',
+    visitFee: 'Visit fee · VAT included',
     selected: 'Selected improvements',
     print: 'Print',
     qty: 'Qty',
@@ -27,6 +31,10 @@ const confirmationCopy = {
     noPayload: 'No saved payload was found. Return to the configurator to prepare a new configuration.',
     back: 'Back to configurator',
     home: 'Return home',
+    paymentChecking: 'Confirming your secure payment with Stripe...',
+    paymentPaid: 'Payment received. Your home visit request is ready for scheduling.',
+    paymentPending: 'Stripe is still confirming the payment. We will only schedule the visit once payment is received.',
+    paymentFailed: 'We could not verify payment for this visit. No paid visit has been confirmed.',
   },
   es: {
     fallbackReference: 'Preparado localmente',
@@ -38,7 +46,7 @@ const confirmationCopy = {
     notProvided: 'No indicado',
     oneTime: 'Estimación inicial',
     monthly: 'Soporte mensual',
-    deposit: 'Depósito',
+    visitFee: 'Precio de la visita · IVA incluido',
     selected: 'Mejoras seleccionadas',
     print: 'Imprimir',
     qty: 'Cant.',
@@ -48,6 +56,10 @@ const confirmationCopy = {
     noPayload: 'No se encontró una solicitud guardada. Vuelve al configurador para preparar una nueva configuración.',
     back: 'Volver al configurador',
     home: 'Volver al inicio',
+    paymentChecking: 'Confirmando tu pago seguro con Stripe...',
+    paymentPaid: 'Pago recibido. Tu solicitud de visita a domicilio está lista para programarse.',
+    paymentPending: 'Stripe todavía está confirmando el pago. Solo programaremos la visita cuando se haya recibido.',
+    paymentFailed: 'No hemos podido verificar el pago de esta visita. No hay ninguna visita de pago confirmada.',
   },
 } as const
 
@@ -57,7 +69,11 @@ export function ConfigureConfirmationPage() {
   const [searchParams] = useSearchParams()
   const submission = loadSavedConfiguratorSubmission()
   const configurationId = searchParams.get('configuration') ?? submission?.configurationId ?? copy.fallbackReference
-  const mockCheckout = searchParams.get('mockCheckout') === '1'
+  const sessionId = searchParams.get('session_id')
+  const expectsPayment = searchParams.get('payment') === 'success' && Boolean(sessionId)
+  const [paymentVerification, setPaymentVerification] = useState<PaymentVerification>(
+    expectsPayment ? 'checking' : 'none',
+  )
   const selectedServices =
     submission?.selectedServices
       ?.map((selection) => ({
@@ -65,6 +81,31 @@ export function ConfigureConfirmationPage() {
         service: getConfiguredServiceById(selection.serviceId),
       }))
       .filter((selection) => selection.service) ?? []
+
+  useEffect(() => {
+    if (!expectsPayment || !sessionId) return
+
+    let active = true
+    setPaymentVerification('checking')
+
+    getVisitCheckoutStatus(sessionId)
+      .then((status) => {
+        if (!active) return
+        const referenceMatches = !status.orderId || status.orderId === configurationId
+        if (!referenceMatches) {
+          setPaymentVerification('failed')
+        } else {
+          setPaymentVerification(status.paymentStatus === 'paid' ? 'paid' : 'pending')
+        }
+      })
+      .catch(() => {
+        if (active) setPaymentVerification('failed')
+      })
+
+    return () => {
+      active = false
+    }
+  }, [configurationId, expectsPayment, sessionId])
 
   return (
     <section className="bg-light-blue pt-28">
@@ -78,8 +119,11 @@ export function ConfigureConfirmationPage() {
           <h1 className="display-title mt-5">{copy.title}</h1>
           <p className="mt-4 max-w-3xl text-lg leading-relaxed text-text-mid">
             {copy.reference} <strong className="text-text-dark">{configurationId}</strong>
-            {mockCheckout ? ' · mock deposit checkout prepared' : ''}
           </p>
+
+          {paymentVerification !== 'none' ? (
+            <PaymentNotice status={paymentVerification} copy={copy} />
+          ) : null}
 
           {submission ? (
             <div className="mt-8 grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
@@ -89,7 +133,10 @@ export function ConfigureConfirmationPage() {
                   <Row label={copy.customer} value={submission.customer.fullName || copy.notProvided} />
                   <Row label={copy.oneTime} value={formatConfiguratorCurrency(submission.totalEstimate)} />
                   <Row label={copy.monthly} value={formatConfiguratorCurrency(submission.recurringMonthlySubtotal)} />
-                  <Row label={copy.deposit} value={formatConfiguratorCurrency(submission.deposit)} />
+                  <Row
+                    label={copy.visitFee}
+                    value={formatConfiguratorCurrency(submission.visitFee ?? submission.deposit ?? 0)}
+                  />
                 </dl>
               </aside>
               <div>
@@ -165,6 +212,44 @@ export function ConfigureConfirmationPage() {
         </div>
       </div>
     </section>
+  )
+}
+
+function PaymentNotice({
+  status,
+  copy,
+}: {
+  status: Exclude<PaymentVerification, 'none'>
+  copy: typeof confirmationCopy.en | typeof confirmationCopy.es
+}) {
+  const content = {
+    checking: {
+      icon: <LoaderCircle className="shrink-0 animate-spin text-blue" size={24} aria-hidden="true" />,
+      message: copy.paymentChecking,
+      style: 'border-blue/30 bg-pale-blue text-text-dark',
+    },
+    paid: {
+      icon: <CheckCircle2 className="shrink-0 text-green" size={24} aria-hidden="true" />,
+      message: copy.paymentPaid,
+      style: 'border-green/30 bg-green/10 text-text-dark',
+    },
+    pending: {
+      icon: <LoaderCircle className="shrink-0 text-blue" size={24} aria-hidden="true" />,
+      message: copy.paymentPending,
+      style: 'border-blue/30 bg-pale-blue text-text-dark',
+    },
+    failed: {
+      icon: <AlertCircle className="shrink-0 text-red-700" size={24} aria-hidden="true" />,
+      message: copy.paymentFailed,
+      style: 'border-red-200 bg-red-50 text-red-800',
+    },
+  }[status]
+
+  return (
+    <div className={`mt-6 flex items-start gap-3 rounded-lg border p-4 text-base font-bold ${content.style}`} role="status">
+      {content.icon}
+      <p>{content.message}</p>
+    </div>
   )
 }
 

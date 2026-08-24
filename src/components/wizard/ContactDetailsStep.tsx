@@ -45,8 +45,8 @@ export function ContactDetailsStep({ copy, contact, onChange, onContinue }: Cont
   const validate = () => {
     const next: Errors = {}
     if (!contact.fullName.trim()) next.name = copy.contact.required
-    const emailValid = !contact.email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)
-    if (!contact.phone.trim() && !contact.email.trim()) next.contact = copy.contact.phoneOrEmail
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)
+    if (!contact.email.trim()) next.email = copy.contact.required
     else if (!emailValid) next.email = copy.contact.invalidEmail
     if (!contact.city.trim()) next.city = copy.contact.required
     if (!contact.consent) next.consent = copy.contact.required
@@ -137,7 +137,7 @@ export function ContactDetailsStep({ copy, contact, onChange, onContinue }: Cont
           <div className="safety-wizard-phone-input"><span>+34</span><input inputMode="tel" autoComplete="tel-national" placeholder="600 000 000" value={contact.phone} onChange={(event) => update('phone', event.target.value.replace(/[^0-9 ]/g, ''))} /></div>
         </Field>
         <Field icon={<AtSign size={19} />} label={copy.contact.email} error={errors.email ?? errors.contact}>
-          <input type="email" autoComplete="email" value={contact.email} onChange={(event) => update('email', event.target.value)} />
+          <input required type="email" autoComplete="email" value={contact.email} onChange={(event) => update('email', event.target.value)} />
         </Field>
         <label className="safety-wizard-field is-wide">
           <span>{copy.contact.method}</span>

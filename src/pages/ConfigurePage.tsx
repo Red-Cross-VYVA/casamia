@@ -443,8 +443,8 @@ export function ConfigurePage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-black uppercase text-text-muted">Visit deposit if booked</dt>
-                <dd className="font-bold text-text-dark">{formatConfiguratorCurrency(quote.deposit)}</dd>
+                <dt className="text-sm font-black uppercase text-text-muted">Visit fee · VAT included</dt>
+                <dd className="font-bold text-text-dark">{formatConfiguratorCurrency(quote.visitFee)}</dd>
               </div>
             </dl>
             <p className="mt-5 rounded-lg bg-pale-blue p-4 text-sm font-bold leading-relaxed text-text-mid">
@@ -1018,7 +1018,7 @@ function RecommendationStep() {
       <div className="grid gap-4 md:grid-cols-3">
         <Metric label="One-time estimate" value={formatConfiguratorCurrency(quote.totalEstimate)} />
         <Metric label="Monthly support" value={formatConfiguratorCurrency(quote.recurringMonthlySubtotal)} />
-        <Metric label="Visit deposit if booked" value={formatConfiguratorCurrency(quote.deposit)} />
+        <Metric label="Visit fee · VAT included" value={formatConfiguratorCurrency(quote.visitFee)} />
       </div>
       <div className="rounded-lg border border-border bg-white p-5">
         <h2 className="font-display text-3xl font-bold text-text-dark">Selected improvements</h2>

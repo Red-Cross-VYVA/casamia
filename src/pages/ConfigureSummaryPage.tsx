@@ -29,7 +29,7 @@ const summaryCopy = {
     vat: 'VAT estimate',
     total: 'Total estimate',
     monthly: 'Monthly support',
-    deposit: 'Visit deposit if booked',
+    visitFee: 'Visit fee · VAT included',
     next: 'Request quote or reserve visit',
   },
   es: {
@@ -51,7 +51,7 @@ const summaryCopy = {
     vat: 'IVA estimado',
     total: 'Estimación total',
     monthly: 'Soporte mensual',
-    deposit: 'Depósito de visita si se reserva',
+    visitFee: 'Precio de la visita · IVA incluido',
     next: 'Solicitar presupuesto o reservar visita',
   },
 } as const
@@ -149,7 +149,7 @@ export function ConfigureSummaryPage() {
               <SummaryRow label={copy.vat} value={formatConfiguratorCurrency(quote.vat)} />
               <SummaryRow label={copy.total} value={formatConfiguratorCurrency(quote.totalEstimate)} important />
               <SummaryRow label={copy.monthly} value={formatConfiguratorCurrency(quote.recurringMonthlySubtotal)} />
-              <SummaryRow label={copy.deposit} value={formatConfiguratorCurrency(quote.deposit)} />
+              <SummaryRow label={copy.visitFee} value={formatConfiguratorCurrency(quote.visitFee)} />
             </dl>
             <Link className="btn btn-navy mt-6 w-full" to="/home-safety-wizard">
               {copy.next}

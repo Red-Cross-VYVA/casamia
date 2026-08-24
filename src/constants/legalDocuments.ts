@@ -139,6 +139,8 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       {
         title: 'Payments',
         points: [
+          'The home visit costs €99 including 21% VAT and is paid in advance before the visit is confirmed.',
+          'The €99 visit fee is credited toward the CasaMia project if the customer proceeds with approved work.',
           '50% of the total price is payable when confirming the order.',
           'The remaining 50% is payable following successful installation.',
           'The first 50% is a payment on account, not an automatically non-refundable deposit.',
@@ -420,6 +422,8 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       {
         title: 'Pagos',
         points: [
+          'La visita a domicilio cuesta 99 € con el 21% de IVA incluido y se paga por adelantado antes de confirmar la visita.',
+          'Los 99 € de la visita se descuentan del proyecto CasaMia si el cliente continúa con los trabajos aprobados.',
           'El 50% del precio total se paga al confirmar el pedido.',
           'El 50% restante se paga tras una instalación satisfactoria.',
           'El primer 50% es un pago a cuenta, no un depósito automáticamente no reembolsable.',

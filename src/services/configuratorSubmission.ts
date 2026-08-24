@@ -1,12 +1,12 @@
 import {
   mockAirtableConfiguratorAdapter,
   mockEmailConfiguratorAdapter,
-  mockStripeConfiguratorAdapter,
 } from './configuratorAdapters'
 import { calculateConfiguratorQuote } from './configuratorPricing'
 import { hasPublicSiteApi, postPublicSiteJson } from './publicSiteApi'
 import { getSubmittedConfigurationStorageKey } from '../context/ConfiguratorContext'
 import type { ConfiguratorState, WizardSubmission } from '../types/configurator'
+import { createVisitCheckout } from './visitCheckout.ts'
 
 export async function submitConfiguratorRequest(state: ConfiguratorState, locale?: string) {
   const submission = createWizardSubmission(state, 'web-configurator', locale)
@@ -17,18 +17,18 @@ export async function submitConfiguratorRequest(state: ConfiguratorState, locale
   return { submission, saved }
 }
 
-export async function createMockDepositCheckout(state: ConfiguratorState, locale?: string) {
-  const submission = createWizardSubmission(state, 'web-configurator-deposit', locale)
+export async function createPaidVisitCheckout(state: ConfiguratorState, locale?: string) {
+  const submission = createWizardSubmission(state, 'web-configurator-visit-payment', locale)
   await mockAirtableConfiguratorAdapter.saveSubmission(submission)
   await mockEmailConfiguratorAdapter.sendConfirmation(submission)
-  await saveConfiguratorOrder(submission, 'Visit requested', 'visit-deposit-pending')
+  await saveConfiguratorOrder(submission, 'Visit payment pending', 'stripe-checkout')
 
-  return mockStripeConfiguratorAdapter.createDepositCheckout(submission)
+  return createVisitCheckout(submission.configurationId, submission.locale)
 }
 
 async function saveConfiguratorOrder(
   submission: WizardSubmission,
-  status: 'Quote requested' | 'Visit requested',
+  status: 'Quote requested' | 'Visit payment pending',
   paymentMethod: string,
 ) {
   if (!hasPublicSiteApi()) return
@@ -72,7 +72,7 @@ export function createWizardSubmission(state: ConfiguratorState, source: string,
     recurringMonthlySubtotal: quote.recurringMonthlySubtotal,
     vat: quote.vat,
     totalEstimate: quote.totalEstimate,
-    deposit: quote.deposit,
+    visitFee: quote.visitFee,
     siteConfirmationItems: quote.siteConfirmationItems,
     quoteLines: quote.lines,
     consentRecords: [

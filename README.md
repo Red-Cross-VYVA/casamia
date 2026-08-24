@@ -57,18 +57,42 @@ The following values are editable placeholders and need commercial confirmation 
 - Staircase module price
 - Conditional component prices
 - Monthly VYVA, monitoring and GPS support prices
-- Visit deposit amount
-- VAT handling
 
-## Future Integrations
+The home visit is fixed at **€99 total, including 21% VAT**, and is paid in
+advance. The quote-request path remains free. The visit fee is deducted from the
+customer's project if they continue with CasaMia.
 
-The configurator currently uses mock adapters so it works without external keys:
+## Visit Payment
 
-- Airtable/Supabase-style submission adapter
-- Confirmation email adapter
-- Stripe-ready deposit checkout adapter
+Visit reservations use Stripe Checkout. Pricing is fixed server-side, Stripe is
+configured with an inclusive 21% Spanish VAT rate, and only a verified Stripe
+webhook may change an order to `Visit paid`.
 
-Replace the mock implementations in `src/services/configuratorAdapters.ts` when production services are selected.
+Both the guided wizard at `/home-safety-wizard` and the direct assessment form
+at `/home-safety-assessment` create the assessment request before redirecting to
+Stripe. A visit is not ready for scheduling until Stripe reports it paid.
+
+Add these server-only Vercel variables:
+
+```text
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+STRIPE_VISIT_TAX_RATE_ID=txr_...
+CASAMIA_PUBLIC_SITE_URL=https://www.casamia.com.es
+```
+
+In Stripe, create an active **inclusive 21% VAT** tax rate and use its `txr_...`
+ID for `STRIPE_VISIT_TAX_RATE_ID`. Configure the webhook endpoint as
+`https://www.casamia.com.es/api/webhooks/stripe` and subscribe it to:
+
+- `checkout.session.completed`
+- `checkout.session.async_payment_succeeded`
+- `checkout.session.async_payment_failed`
+- `checkout.session.expired`
+
+Enable successful-payment email receipts in Stripe. Use matching test-mode keys,
+tax rate and webhook secret for preview testing; never expose any Stripe secret
+through a `VITE_` variable.
 
 ## ElevenLabs Voice
 

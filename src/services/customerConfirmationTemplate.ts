@@ -21,7 +21,7 @@ type CustomerDetail = {
 }
 
 const NOT_SURE_PLAN = 'Not sure yet'
-const ASSESSMENT_VISIT_FEE = '99 EUR'
+const ASSESSMENT_VISIT_FEE = '99 EUR including 21% VAT'
 const SCHEDULE_INSPECTION_URL =
   'mailto:hola@casamia.com.es?subject=Assessment%20visit%20request'
 const CasaMia_WEBSITE_URL = 'https://CasaMia-seniors.myshopify.com/'
@@ -84,7 +84,7 @@ function buildPlainText(details: CustomerDetail[], reassurance: string) {
     '',
     'What Happens Next',
     '1. A CasaMia representative will contact you shortly.',
-    `2. We will confirm your needs, local availability, and the ${ASSESSMENT_VISIT_FEE} assessment visit before booking.`,
+    `2. The ${ASSESSMENT_VISIT_FEE} assessment visit must be paid securely in advance before the appointment is confirmed.`,
     '3. If you choose a home visit, our safety team will assess the home room by room.',
     '4. You will receive clear recommended improvements and next steps.',
     '',
@@ -139,7 +139,7 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
             <h2 style="margin: 0 0 12px; color: #102235; font-size: 19px;">What Happens Next</h2>
             <ol style="margin: 0; padding-left: 22px; color: #26384a; font-size: 15px; line-height: 1.65;">
               <li>A CasaMia representative will contact you shortly.</li>
-              <li>We will confirm your needs, local availability, and the ${ASSESSMENT_VISIT_FEE} assessment visit before booking.</li>
+              <li>The ${ASSESSMENT_VISIT_FEE} assessment visit must be paid securely in advance before the appointment is confirmed.</li>
               <li>If you choose a home visit, our safety team will assess the home room by room.</li>
               <li>You will receive clear recommended improvements and next steps.</li>
             </ol>
@@ -191,7 +191,7 @@ function getPlanReassurance(value?: string) {
   const planKey = getPlanKey(value)
 
   if (planKey === 'home-assessment') {
-    return `Your request is focused on an in-home inspection and report. The assessment visit costs ${ASSESSMENT_VISIT_FEE}, credited toward approved CasaMia improvements if you proceed.`
+    return `Your request is focused on an in-home inspection and report. The assessment visit costs ${ASSESSMENT_VISIT_FEE}, is paid in advance, and is credited toward approved CasaMia improvements if you proceed.`
   }
 
   if (planKey === 'home-safety') {

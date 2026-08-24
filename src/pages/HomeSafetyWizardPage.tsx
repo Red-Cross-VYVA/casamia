@@ -10,6 +10,7 @@ import {
   Check,
   CircleHelp,
   CookingPot,
+  CreditCard,
   DoorOpen,
   Eye,
   Footprints,
@@ -18,6 +19,7 @@ import {
   House,
   LampDesk,
   Lightbulb,
+  LoaderCircle,
   MapPin,
   MessageCircle,
   Mic,
@@ -37,6 +39,7 @@ import {
 } from 'lucide-react'
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { ContactDetailsStep } from '../components/wizard/ContactDetailsStep'
@@ -62,6 +65,7 @@ import {
 import { getServicesForPackageArea, useServiceCatalogue } from '../services/serviceCatalogue'
 import { generateWizardResult } from '../services/wizardRecommendationEngine'
 import { saveSafetyWizardDraft, submitSafetyWizard } from '../services/wizardSubmission'
+import { createVisitCheckout, getVisitCheckoutStatus } from '../services/visitCheckout'
 import type { CasaMiaService } from '../types/serviceCatalogue'
 import type {
   ClientNeed,
@@ -90,6 +94,7 @@ const VoiceInputStep = lazy(() => import('../components/wizard/VoiceInputStep').
 })))
 
 type ChoiceOption<T extends string> = { value: T; icon: LucideIcon }
+type VisitPaymentState = 'none' | 'checking' | 'paid' | 'pending' | 'failed' | 'cancelled'
 
 const userOptions: ChoiceOption<WizardUserType>[] = [
   { value: 'me', icon: UserRound },
@@ -158,6 +163,7 @@ type HomeSafetyWizardPageProps = {
 
 export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageProps) {
   const { i18n } = useTranslation()
+  const [searchParams] = useSearchParams()
   const copy = useMemo(() => getWizardCopy(i18n.language), [i18n.language])
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const siteUrl = 'https://www.casamia.com.es'
@@ -175,6 +181,13 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
   )
   const [submitting, setSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error'>()
+  const paymentSessionId = searchParams.get('session_id')
+  const paymentReference = searchParams.get('reference')
+  const expectsVisitPayment = searchParams.get('payment') === 'success' && Boolean(paymentSessionId)
+  const [visitPaymentState, setVisitPaymentState] = useState<VisitPaymentState>(() => {
+    if (expectsVisitPayment) return 'checking'
+    return searchParams.get('payment') === 'cancelled' ? 'cancelled' : 'none'
+  })
   const [packageArea, setPackageArea] = useState<WizardRoom | null>(null)
   const packageTriggerRef = useRef<HTMLButtonElement | null>(null)
   const trackedVoiceConversationRef = useRef(state.voiceSession?.conversationId)
@@ -272,6 +285,33 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     window.scrollTo({ top: 0, behavior })
   }, [embedded, state.currentStep])
 
+  useEffect(() => {
+    if (!expectsVisitPayment || !paymentSessionId) return
+
+    let active = true
+    setVisitPaymentState('checking')
+
+    getVisitCheckoutStatus(paymentSessionId)
+      .then((status) => {
+        if (!active) return
+        const validAssessment = status.recordType === 'assessment'
+        const referenceMatches = !paymentReference || status.orderId === paymentReference
+
+        if (!validAssessment || !referenceMatches) {
+          setVisitPaymentState('failed')
+        } else {
+          setVisitPaymentState(status.paymentStatus === 'paid' ? 'paid' : 'pending')
+        }
+      })
+      .catch(() => {
+        if (active) setVisitPaymentState('failed')
+      })
+
+    return () => {
+      active = false
+    }
+  }, [expectsVisitPayment, paymentReference, paymentSessionId])
+
   const saveForLater = async () => {
     if (saveStatus === 'saving') return
 
@@ -314,6 +354,22 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
       const submission = await submitSafetyWizard(nextState)
       wizard.patchState({ submitted: true, photos: submission.photos, audioBriefs: submission.audioBriefs })
       trackEvent('wizard_submitted', { reference: state.wizardReference, action, userType: state.userType })
+
+      if (nextState.inspectionBooked && state.userType !== 'client') {
+        if (!submission.assessmentId) throw new Error('The saved visit request has no payment reference.')
+        const checkout = await createVisitCheckout(
+          submission.assessmentId,
+          i18n.resolvedLanguage || i18n.language,
+          'assessment',
+        )
+        const checkoutUrl = new URL(checkout.checkoutUrl)
+        if (checkoutUrl.protocol !== 'https:' || checkoutUrl.hostname !== 'checkout.stripe.com') {
+          throw new Error('Unexpected checkout destination.')
+        }
+        window.location.assign(checkoutUrl.toString())
+        return
+      }
+
       setSubmitStatus('success')
     } catch {
       setSubmitStatus('error')
@@ -564,6 +620,9 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
 
   const content = (
     <>
+      {visitPaymentState !== 'none' ? (
+        <VisitPaymentNotice language={i18n.language} status={visitPaymentState} />
+      ) : null}
       <WizardLayout copy={copy} currentIndex={wizard.currentIndex} totalSteps={wizard.progressTotalSteps} progress={wizard.progress} canGoBack={state.currentStep !== 'entry' && state.currentStep !== 'callback-confirmation' && !callbackSubmitting} canSave={!state.inputMethods.includes('callback')} saveStatus={saveStatus} onBack={wizard.back} onSave={saveForLater}>
         {step}
       </WizardLayout>
@@ -589,6 +648,38 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
       <SEO title={title} description={description} path="/home-safety-wizard" schema={schema} />
       {content}
     </>
+  )
+}
+
+function VisitPaymentNotice({ language, status }: { language: string; status: Exclude<VisitPaymentState, 'none'> }) {
+  const isSpanish = language.toLowerCase().startsWith('es')
+  const notices = {
+    checking: isSpanish ? 'Confirmando tu pago seguro con Stripe...' : 'Confirming your secure payment with Stripe...',
+    paid: isSpanish
+      ? 'Pago recibido. Tu solicitud de visita está lista para programarse.'
+      : 'Payment received. Your home visit request is ready for scheduling.',
+    pending: isSpanish
+      ? 'Stripe todavía está confirmando el pago. Programaremos la visita cuando se haya recibido.'
+      : 'Stripe is still confirming payment. We will schedule the visit once it is received.',
+    failed: isSpanish
+      ? 'No hemos podido verificar el pago. No hay ninguna visita de pago confirmada.'
+      : 'We could not verify the payment. No paid visit has been confirmed.',
+    cancelled: isSpanish
+      ? 'El pago se canceló. La visita no se ha reservado y no se ha realizado ningún cargo.'
+      : 'Payment was cancelled. Your visit has not been booked and no charge was made.',
+  }
+  const Icon = status === 'checking' ? LoaderCircle : status === 'paid' ? CreditCard : AlertTriangle
+  const tone = status === 'paid'
+    ? 'border-green/30 bg-green/10 text-text-dark'
+    : status === 'failed' || status === 'cancelled'
+      ? 'border-red-200 bg-red-50 text-red-800'
+      : 'border-blue/30 bg-pale-blue text-text-dark'
+
+  return (
+    <div className={`mx-auto mt-4 flex max-w-5xl items-start gap-3 rounded-lg border p-4 text-base font-bold ${tone}`} role="status">
+      <Icon className={`mt-0.5 shrink-0${status === 'checking' ? ' animate-spin' : ''}`} size={22} aria-hidden="true" />
+      <p>{notices[status]}</p>
+    </div>
   )
 }
 

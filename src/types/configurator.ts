@@ -96,7 +96,7 @@ export type QuoteSummary = {
   recurringMonthlySubtotal: number
   vat: number
   totalEstimate: number
-  deposit: number
+  visitFee: number
 }
 
 export type WizardSubmission = {
@@ -116,7 +116,8 @@ export type WizardSubmission = {
   recurringMonthlySubtotal: number
   vat: number
   totalEstimate: number
-  deposit: number
+  visitFee: number
+  deposit?: number
   siteConfirmationItems: SiteConfirmationItem[]
   quoteLines?: QuoteLine[]
   consentRecords: Array<{ label: string; accepted: boolean; timestamp: string }>

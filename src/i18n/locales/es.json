@@ -74,7 +74,7 @@
     "metaDescription": "Reserva una evaluación CasaMia de seguridad del hogar en España. Revisa riesgos de caída, accesibilidad, baño, ayudas públicas y el siguiente paso antes de decidir cualquier obra.",
     "hero": {
       "title": "Reserva una evaluación profesional a domicilio",
-      "subtitle": "Solicita una visita de CasaMia por 99 EUR para revisar riesgos de caída, accesibilidad y mejoras prácticas antes de decidir cualquier trabajo.",
+      "subtitle": "Reserva una visita CasaMia por 99 EUR, pagada por adelantado con el 21% de IVA incluido, para revisar riesgos de caída, accesibilidad y mejoras prácticas.",
       "cta": "Solicitar evaluación a domicilio",
       "secondaryCta": "Empezar informe online gratis",
       "reassurance": "La tarifa de 99 EUR se descuenta de tu plan CasaMia si continúas.",
@@ -84,8 +84,8 @@
     "pricing": {
       "title": "Visita de 99 EUR, descontable de tu plan",
       "feeLabel": "Tarifa de visita de evaluación",
-      "fee": "99 EUR",
-      "body": "Las evaluaciones a domicilio requieren desplazamiento y tiempo especializado, por eso la visita cuesta 99 EUR. Si contratas mejoras CasaMia, la tarifa de evaluación se descuenta de tu plan.",
+      "fee": "99 EUR · IVA incluido",
+      "body": "La visita a domicilio cuesta 99 EUR con el 21% de IVA incluido y se paga por adelantado al reservar. Si contratas mejoras CasaMia, la tarifa de evaluación se descuenta de tu plan.",
       "points": [
         "Informe online gratis disponible primero",
         "Visita de evaluación con tarifa fija de 99 EUR",
@@ -1098,7 +1098,7 @@
       },
       "payment": {
         "title": "Condiciones de pago simples y transparentes",
-        "body": "Mantenemos los pagos claros y justos. La evaluación a domicilio se paga al reservar y se descuenta del plan elegido. Para los trabajos acordados, pagas el 50% para empezar y el 50% solo al finalizar y tras la aceptación del cliente.",
+        "body": "Mantenemos los pagos claros y justos. La evaluación a domicilio cuesta 99 EUR con el 21% de IVA incluido, se paga por adelantado al reservar y se descuenta del plan elegido. Para los trabajos acordados, pagas el 50% para empezar y el 50% solo al finalizar y tras la aceptación del cliente.",
         "items": [
           {
             "title": "Essential",
@@ -1157,7 +1157,7 @@
           },
           {
             "question": "¿Cuándo pago?",
-            "answer": "Los servicios solo de evaluación se pagan al reservar. Los planes con instalación tienen un 50% de depósito y un 50% final tras completar el trabajo y recibir la aceptación del cliente."
+            "answer": "La evaluación cuesta 99 EUR con el 21% de IVA incluido y se paga por adelantado al reservar. Los planes con instalación tienen un 50% de depósito y un 50% final tras completar el trabajo y recibir la aceptación del cliente."
           },
           {
             "question": "¿El plan se puede personalizar?",

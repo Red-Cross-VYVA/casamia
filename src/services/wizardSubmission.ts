@@ -288,7 +288,7 @@ export async function submitSafetyWizard(state: SafetyWizardState) {
   })
 
   if (!mediaManifest.length) {
-    return { payload, photos: state.photos, audioBriefs: state.audioBriefs ?? [] }
+    return { assessmentId: submission.id, payload, photos: state.photos, audioBriefs: state.audioBriefs ?? [] }
   }
 
   if (!submission.id || !submission.uploadToken) {
@@ -319,6 +319,7 @@ export async function submitSafetyWizard(state: SafetyWizardState) {
   }
 
   return {
+    assessmentId: submission.id,
     payload,
     photos: attachStoredMedia(state, finalized.mediaManifest),
     audioBriefs: attachStoredAudio(state, finalized.mediaManifest),

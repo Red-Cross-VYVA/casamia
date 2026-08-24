@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
 import { submitAssessmentRequest } from '../services/assessmentRequests'
+import { createVisitCheckout } from '../services/visitCheckout'
 import { trackEvent } from '../utils/analytics'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
 import { PhoneNumberField } from './PhoneNumberField'
@@ -168,7 +169,11 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
       nextErrors.phone = phoneFormatError
     }
 
-    if (values.email.trim() && !isValidEmail(values.email)) {
+    if (!isBooking && !values.email.trim()) {
+      nextErrors.email = isSpanish
+        ? 'Introduce un email para recibir el justificante de pago.'
+        : 'Enter an email address to receive the payment receipt.'
+    } else if (values.email.trim() && !isValidEmail(values.email)) {
       nextErrors.email = emailFormatError
     }
 
@@ -207,7 +212,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
     ].filter(Boolean).join('\n')
 
     try {
-      await submitAssessmentRequest({
+      const submission = await submitAssessmentRequest({
         name: values.name.trim(),
         phone: values.phone.trim(),
         email: values.email.trim(),
@@ -226,6 +231,21 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         selectedPlan: values.selectedPlan,
         source: isBooking ? 'free-report-booking' : 'home-safety-assessment',
       })
+
+      if (!isBooking) {
+        if (!submission.id) throw new Error('The saved visit request has no payment reference.')
+        const checkout = await createVisitCheckout(
+          submission.id,
+          i18n.resolvedLanguage || i18n.language,
+          'assessment',
+        )
+        const checkoutUrl = new URL(checkout.checkoutUrl)
+        if (checkoutUrl.protocol !== 'https:' || checkoutUrl.hostname !== 'checkout.stripe.com') {
+          throw new Error('Unexpected checkout destination.')
+        }
+        window.location.assign(checkoutUrl.toString())
+        return
+      }
       setSubmittedPlan(values.selectedPlan)
       setSubmitted(true)
       setValues({
@@ -508,6 +528,14 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
 
         <p className="assessment-privacy-note">{t('assessment.form.privacy')}</p>
 
+        {!isBooking ? (
+          <p className="assessment-privacy-note">
+            {isSpanish
+              ? 'La visita cuesta 99 EUR con el 21% de IVA incluido y se paga ahora de forma segura.'
+              : 'The visit costs 99 EUR including 21% VAT and is paid securely now.'}
+          </p>
+        ) : null}
+
         {submitError ? (
           <div className="assessment-error" role="alert">
             <AlertCircle size={20} aria-hidden="true" />
@@ -524,7 +552,9 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
                 ? isSpanish
                   ? 'Enviar preferencias de coordinación'
                   : 'Send coordination preferences'
-              : t('assessment.form.submit')}
+              : isSpanish
+                ? 'Continuar al pago seguro'
+                : 'Continue to secure payment'}
           {isSubmitting ? (
             <LoaderCircle className="assessment-loading-icon" size={20} aria-hidden="true" />
           ) : (

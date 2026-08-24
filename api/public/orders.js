@@ -51,7 +51,7 @@ export default async function handler(request, response) {
             { label: labels.timing, value: payload.preferred_timing },
             { label: labels.notes, value: payload.notes },
           ],
-          kind: payload.status === 'Visit requested' ? 'booking' : 'quote',
+          kind: payload.status === 'Visit payment pending' ? 'booking' : 'quote',
           locale,
           name: payload.customer_name,
           recipient: payload.customer_email,
