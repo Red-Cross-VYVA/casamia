@@ -7,6 +7,11 @@ import {
   validateInclusiveVisitTaxRate,
   visitPaymentConfig,
 } from '../api/_lib/visit-payment.js'
+import {
+  buildProposalDepositCheckoutSession,
+  calculateProposalDepositCents,
+  mapProposalDepositPaymentEvent,
+} from '../api/_lib/proposal-payment.js'
 
 assert.deepEqual(visitPaymentConfig, {
   currency: 'eur',
@@ -70,11 +75,56 @@ assert.deepEqual(
   { orderId: 'CM-2026-TEST1234', recordType: 'order', status: 'Visit payment expired' },
 )
 
+const proposal = {
+  acceptance_status: 'Accepted',
+  customer_email: 'proposal@example.com',
+  id: 'CM-2026-PROPOSAL',
+  line_items: [
+    { quantity: 1, unit_price: 325 },
+    { quantity: 2, unit_price: 87 },
+  ],
+  public_token: 'abcdefghijklmnopqrstuvwxyz123456',
+  selected_plan: 'Home adaptations',
+  status: 'Accepted',
+}
+assert.equal(calculateProposalDepositCents(proposal), 24_950)
+
+const proposalCheckout = buildProposalDepositCheckoutSession({
+  locale: 'es',
+  origin: 'https://www.casamia.com.es',
+  proposal,
+  taxRateId: 'txr_proposal_vat',
+})
+assert.equal(proposalCheckout.line_items[0].price_data.unit_amount, 24_950)
+assert.equal(proposalCheckout.line_items[0].price_data.tax_behavior, 'inclusive')
+assert.deepEqual(proposalCheckout.line_items[0].tax_rates, ['txr_proposal_vat'])
+assert.equal(proposalCheckout.metadata.casa_mia_payment_type, 'proposal_deposit')
+assert.equal(proposalCheckout.payment_intent_data.receipt_email, 'proposal@example.com')
+assert.match(proposalCheckout.cancel_url, /payment=cancelled$/)
+assert.match(proposalCheckout.success_url, /session_id=\{CHECKOUT_SESSION_ID\}$/)
+
+const proposalPaidEvent = {
+  type: 'checkout.session.completed',
+  data: {
+    object: {
+      client_reference_id: proposal.id,
+      metadata: { casa_mia_payment_type: 'proposal_deposit', proposal_id: proposal.id },
+      payment_status: 'paid',
+    },
+  },
+}
+assert.deepEqual(mapProposalDepositPaymentEvent(proposalPaidEvent), {
+  proposalId: proposal.id,
+  status: 'Deposit Paid',
+})
+assert.equal(mapProposalDepositPaymentEvent(paidEvent), null)
+
 const checkoutPage = readFileSync(new URL('../src/pages/ConfigureCheckoutPage.tsx', import.meta.url), 'utf8')
 const confirmationPage = readFileSync(new URL('../src/pages/ConfigureConfirmationPage.tsx', import.meta.url), 'utf8')
 const webhook = readFileSync(new URL('../api/webhooks/stripe.js', import.meta.url), 'utf8')
 const wizard = readFileSync(new URL('../src/pages/HomeSafetyWizardPage.tsx', import.meta.url), 'utf8')
 const assessmentForm = readFileSync(new URL('../src/components/AssessmentForm.tsx', import.meta.url), 'utf8')
+const publicProposalPage = readFileSync(new URL('../src/pages/PublicProposalPage.tsx', import.meta.url), 'utf8')
 
 assert.match(checkoutPage, /createPaidVisitCheckout/)
 assert.doesNotMatch(checkoutPage, /createMockDepositCheckout|mockStripeConfiguratorAdapter/)
@@ -87,5 +137,8 @@ assert.match(wizard, /createVisitCheckout[\s\S]*'assessment'/)
 assert.match(wizard, /getVisitCheckoutStatus/)
 assert.match(assessmentForm, /Continue to secure payment/)
 assert.match(assessmentForm, /submission\.id[\s\S]*createVisitCheckout/)
+assert.match(publicProposalPage, /acceptPublicProposal[\s\S]*beginPayment/)
+assert.match(publicProposalPage, /Pay deposit/)
+assert.match(webhook, /mapProposalDepositPaymentEvent/)
 
 console.log('Stripe visit payment tests passed.')

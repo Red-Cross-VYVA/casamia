@@ -1,12 +1,17 @@
-import { CheckCircle2, Loader2, ShieldCheck } from 'lucide-react'
+import { CheckCircle2, CreditCard, Loader2, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 
 import { ProposalPreview } from '../components/internal/ProposalPreview'
 import { SEO } from '../components/SEO'
 import type { ProposalData } from '../services/proposalCalculations'
-import { acceptPublicProposal, loadPublicProposal } from '../services/proposalsApi'
+import {
+  acceptPublicProposal,
+  createProposalDepositCheckout,
+  getProposalDepositCheckoutStatus,
+  loadPublicProposal,
+} from '../services/proposalsApi'
 
 export function PublicProposalPage() {
   const { i18n } = useTranslation()
@@ -28,7 +33,15 @@ export function PublicProposalPage() {
         pendingNotice: 'Propuesta no activada',
         proposalLabel: 'Propuesta',
         acceptedTitle: 'Propuesta aceptada',
-        acceptedBody: 'Gracias. CasaMia contactará contigo en breve para confirmar los próximos pasos.',
+        acceptedBody: 'Tu propuesta está aceptada. Continúa con el pago seguro del depósito para reservar los trabajos.',
+        paidTitle: 'Depósito pagado',
+        paidBody: 'Hemos recibido tu pago. CasaMia contactará contigo para coordinar la fecha de los trabajos.',
+        payButton: 'Pagar depósito',
+        paying: 'Abriendo pago seguro...',
+        paymentError: 'La propuesta está aceptada, pero no hemos podido abrir el pago seguro. Inténtalo de nuevo.',
+        paymentCancelled: 'El pago no se ha completado. Tu propuesta sigue aceptada y puedes reanudar el pago cuando quieras.',
+        paymentChecking: 'Confirmando tu pago...',
+        paymentPending: 'Stripe está procesando el pago. No vuelvas a pagar; actualiza esta página dentro de unos minutos.',
         acceptTitle: 'Aceptar propuesta',
         acceptBody:
           'Al aceptar, confirmas la aprobación de los trabajos indicados, las condiciones de pago y los términos de servicio aplicables.',
@@ -52,7 +65,15 @@ export function PublicProposalPage() {
         pendingNotice: 'Proposal not activated',
         proposalLabel: 'Proposal',
         acceptedTitle: 'Proposal accepted',
-        acceptedBody: 'Thank you. CasaMia will contact you shortly to confirm next steps.',
+        acceptedBody: 'Your proposal is accepted. Continue to secure deposit payment to reserve the works.',
+        paidTitle: 'Deposit paid',
+        paidBody: 'We have received your payment. CasaMia will contact you to coordinate the works date.',
+        payButton: 'Pay deposit',
+        paying: 'Opening secure payment...',
+        paymentError: 'Your proposal is accepted, but secure payment could not be opened. Please try again.',
+        paymentCancelled: 'Payment was not completed. Your proposal remains accepted and you can resume payment at any time.',
+        paymentChecking: 'Confirming your payment...',
+        paymentPending: 'Stripe is processing the payment. Do not pay again; refresh this page in a few minutes.',
         acceptTitle: 'Accept proposal',
         acceptBody:
           'By accepting, you confirm approval of the listed works, payment terms, and applicable service terms.',
@@ -61,10 +82,15 @@ export function PublicProposalPage() {
         acceptButton: 'Accept Proposal',
       }
   const { token = '' } = useParams()
+  const [searchParams] = useSearchParams()
+  const paymentResult = searchParams.get('payment')
+  const checkoutSessionId = searchParams.get('session_id') ?? ''
   const [acceptedBy, setAcceptedBy] = useState('')
   const [error, setError] = useState('')
   const [isAccepting, setIsAccepting] = useState(false)
-  const [isAccepted, setIsAccepted] = useState(false)
+  const [isStartingPayment, setIsStartingPayment] = useState(false)
+  const [isVerifyingPayment, setIsVerifyingPayment] = useState(false)
+  const [isPaymentPending, setIsPaymentPending] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [proposal, setProposal] = useState<ProposalData | null>(null)
 
@@ -73,16 +99,48 @@ export function PublicProposalPage() {
     setIsLoading(true)
     setError('')
 
-    loadPublicProposal(token)
-      .then((loadedProposal) => {
+    async function loadProposalAndPayment() {
+      try {
+        let loadedProposal = await loadPublicProposal(token)
+        if (paymentResult === 'success' && checkoutSessionId) {
+          try {
+            setIsVerifyingPayment(true)
+            const paymentStatus = await getProposalDepositCheckoutStatus(token, checkoutSessionId)
+            if (paymentStatus.paymentStatus === 'paid') {
+              loadedProposal = await loadPublicProposal(token)
+            } else {
+              setIsPaymentPending(true)
+            }
+          } catch {
+            setError(copy.paymentError)
+          }
+        }
         setProposal(loadedProposal)
         setAcceptedBy(loadedProposal.customerName)
-      })
-      .catch(() => {
+      } catch {
         setError(copy.loadError)
-      })
-      .finally(() => setIsLoading(false))
-  }, [copy.loadError, copy.title, token])
+      } finally {
+        setIsLoading(false)
+        setIsVerifyingPayment(false)
+      }
+    }
+
+    void loadProposalAndPayment()
+  }, [checkoutSessionId, copy.loadError, copy.paymentError, copy.title, paymentResult, token])
+
+  async function beginPayment(currentProposal: ProposalData) {
+    setIsStartingPayment(true)
+    setError('')
+
+    try {
+      const checkout = await createProposalDepositCheckout(token, i18n.language)
+      window.location.assign(checkout.checkoutUrl)
+    } catch {
+      setProposal(currentProposal)
+      setError(copy.paymentError)
+      setIsStartingPayment(false)
+    }
+  }
 
   async function handleAccept() {
     if (!proposal) {
@@ -97,9 +155,12 @@ export function PublicProposalPage() {
 
       if (acceptedProposal) {
         setProposal(acceptedProposal)
+        await beginPayment(acceptedProposal)
+      } else {
+        const refreshedProposal = await loadPublicProposal(token)
+        setProposal(refreshedProposal)
+        await beginPayment(refreshedProposal)
       }
-
-      setIsAccepted(true)
     } catch {
       setError(copy.acceptError)
     } finally {
@@ -144,6 +205,8 @@ export function PublicProposalPage() {
   }
 
   const isPendingReview = proposal.status === 'Draft' || proposal.acceptanceStatus === 'Not Sent'
+  const isDepositPaid = proposal.status === 'Deposit Paid' || proposal.status === 'Scheduled' || proposal.status === 'Completed'
+  const isProposalAccepted = proposal.status === 'Accepted' || isDepositPaid
 
   return (
     <>
@@ -181,11 +244,34 @@ export function PublicProposalPage() {
                 {copy.contact}
               </Link>
             </div>
-          ) : isAccepted || proposal.status === 'Accepted' ? (
+          ) : isDepositPaid ? (
+            <div className="rounded-lg bg-green/10 p-6">
+              <CheckCircle2 className="text-green" size={34} aria-hidden="true" />
+              <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">{copy.paidTitle}</h2>
+              <p className="mt-2 text-text-mid">{copy.paidBody}</p>
+            </div>
+          ) : isProposalAccepted ? (
             <div className="rounded-lg bg-green/10 p-6">
               <CheckCircle2 className="text-green" size={34} aria-hidden="true" />
               <h2 className="mt-4 font-display text-3xl font-bold text-text-dark">{copy.acceptedTitle}</h2>
               <p className="mt-2 text-text-mid">{copy.acceptedBody}</p>
+              {paymentResult === 'cancelled' ? (
+                <p className="mt-4 rounded-lg bg-white p-4 text-sm font-bold text-text-mid">{copy.paymentCancelled}</p>
+              ) : null}
+              {isPaymentPending ? (
+                <p className="mt-4 rounded-lg bg-white p-4 text-sm font-bold text-text-mid">{copy.paymentPending}</p>
+              ) : null}
+              {isVerifyingPayment ? <p className="mt-4 text-sm font-bold text-text-mid">{copy.paymentChecking}</p> : null}
+              {error ? <p className="mt-4 rounded-lg bg-red-50 p-3 text-sm font-bold text-red-700">{error}</p> : null}
+              <button
+                className="btn btn-green mt-5"
+                type="button"
+                disabled={isStartingPayment || isVerifyingPayment || isPaymentPending}
+                onClick={() => void beginPayment(proposal)}
+              >
+                {isStartingPayment ? <Loader2 className="animate-spin" size={19} aria-hidden="true" /> : <CreditCard size={19} aria-hidden="true" />}
+                {isStartingPayment ? copy.paying : copy.payButton}
+              </button>
             </div>
           ) : (
             <>

@@ -120,6 +120,21 @@ export type PublicProposalDraftResponse = {
   publicUrlAbsolute?: string
 }
 
+export type ProposalDepositCheckout = {
+  amount: number
+  checkoutUrl: string
+  currency: string
+  proposalId: string
+  sessionId: string
+  vatIncluded: boolean
+}
+
+export type ProposalDepositCheckoutStatus = {
+  paymentStatus: string
+  proposalId: string
+  status: string
+}
+
 const apiBaseUrl = (
   import.meta.env.VITE_PROPOSALS_API_URL ||
   import.meta.env.VITE_API_BASE_URL ||
@@ -576,6 +591,21 @@ export async function acceptPublicProposal(token: string, acceptedBy: string) {
 
     throw error
   }
+}
+
+export async function createProposalDepositCheckout(token: string, locale: string) {
+  return requestJson<ProposalDepositCheckout>(`/api/public/proposals/${token}/checkout`, {
+    body: JSON.stringify({ locale }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+  })
+}
+
+export async function getProposalDepositCheckoutStatus(token: string, sessionId: string) {
+  const query = new URLSearchParams({ session_id: sessionId })
+  return requestJson<ProposalDepositCheckoutStatus>(`/api/public/proposals/${token}/checkout-status?${query}`)
 }
 
 export async function createPublicProposalDraft(

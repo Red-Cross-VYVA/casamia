@@ -1,6 +1,8 @@
 import { getStripeClient, getStripeWebhookSecret, StripeConfigurationError } from '../_lib/stripe.js'
 import { selectSupabaseRows, sendJson, updateSupabaseRows } from '../_lib/supabase.js'
 import { mapVisitPaymentEvent } from '../_lib/visit-payment.js'
+import { getProposalRecordById, mapProposalRecord, updateProposalRecord } from '../_lib/proposals.js'
+import { mapProposalDepositPaymentEvent } from '../_lib/proposal-payment.js'
 
 export default async function handler(request, response) {
   response.setHeader('Cache-Control', 'no-store')
@@ -30,9 +32,14 @@ export default async function handler(request, response) {
 
   try {
     const paymentUpdate = mapVisitPaymentEvent(event)
+    const proposalPaymentUpdate = mapProposalDepositPaymentEvent(event)
 
     if (paymentUpdate) {
       await applyVisitPaymentUpdate(paymentUpdate, event)
+    }
+
+    if (proposalPaymentUpdate) {
+      await applyProposalPaymentUpdate(proposalPaymentUpdate, event)
     }
 
     sendJson(response, 200, { received: true })
@@ -40,6 +47,40 @@ export default async function handler(request, response) {
     console.error('Stripe webhook processing failed.', error)
     sendJson(response, 500, { message: 'The Stripe event could not be processed.' })
   }
+}
+
+async function applyProposalPaymentUpdate(paymentUpdate, event) {
+  const existing = await getProposalRecordById(paymentUpdate.proposalId)
+  if (!existing.ok) throw new Error('The paid proposal was not found.')
+
+  const proposal = mapProposalRecord(existing.record)
+  const currentPayment = proposal.proposalPayment && typeof proposal.proposalPayment === 'object'
+    ? proposal.proposalPayment
+    : {}
+  if (currentPayment.lastEventId === event.id) return
+
+  const session = event.data.object
+  const isPaid = paymentUpdate.status === 'Deposit Paid'
+  if (proposal.status === 'Deposit Paid' && !isPaid) return
+  const now = new Date().toISOString()
+  const events = Array.isArray(proposal.events) ? proposal.events : []
+  const updated = await updateProposalRecord(existing.record, {
+    events: [...events, { at: now, eventId: event.id, type: isPaid ? 'deposit-paid' : 'deposit-payment-updated' }],
+    proposalPayment: {
+      ...currentPayment,
+      amount: session.amount_total,
+      currency: session.currency,
+      lastEventAt: now,
+      lastEventId: event.id,
+      ...(isPaid ? { paidAt: now } : {}),
+      paymentIntentId: typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id,
+      paymentStatus: session.payment_status,
+      sessionId: session.id,
+      status: paymentUpdate.status,
+    },
+    ...(isPaid ? { status: 'Deposit Paid' } : {}),
+  })
+  if (!updated.ok) throw new Error('The paid proposal could not be updated.')
 }
 
 async function applyVisitPaymentUpdate(paymentUpdate, event) {
