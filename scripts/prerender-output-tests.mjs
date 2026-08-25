@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
+const clientEntry = await readFile(new URL('../src/main.tsx', import.meta.url), 'utf8')
+assert.match(clientEntry, /preferredLanguage === i18n\.language[\s\S]*hydrateRoot/, 'Matching prerendered languages should hydrate normally.')
+assert.match(clientEntry, /changeLanguage\(preferredLanguage\)[\s\S]*replaceChildren\(\)[\s\S]*createRoot/, 'A different browser language must mount cleanly instead of racing hydration.')
+
 const representativeRoutes = [
   ['dist/index.html', '/'],
   ['dist/plans.html', '/plans'],

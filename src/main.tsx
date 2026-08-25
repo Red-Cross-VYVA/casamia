@@ -11,13 +11,26 @@ const application = (
   </StrictMode>
 )
 
-if (root.hasChildNodes()) {
-  hydrateRoot(root, application)
+void mountApplication()
 
-  const preferredLanguage = preferredBrowserLanguage
-  if (preferredLanguage && preferredLanguage !== i18n.language) {
-    window.setTimeout(() => void i18n.changeLanguage(preferredLanguage), 0)
+async function mountApplication() {
+  const preferredLanguage = normalizeSupportedLanguage(preferredBrowserLanguage)
+  const hasPrerenderedMarkup = root.hasChildNodes()
+
+  if (hasPrerenderedMarkup && (!preferredLanguage || preferredLanguage === i18n.language)) {
+    hydrateRoot(root, application)
+    return
   }
-} else {
+
+  if (preferredLanguage && preferredLanguage !== i18n.language) {
+    await i18n.changeLanguage(preferredLanguage)
+  }
+
+  if (hasPrerenderedMarkup) root.replaceChildren()
   createRoot(root).render(application)
+}
+
+function normalizeSupportedLanguage(language: string | null) {
+  const normalized = language?.toLowerCase().split('-')[0]
+  return normalized === 'es' || normalized === 'en' ? normalized : null
 }

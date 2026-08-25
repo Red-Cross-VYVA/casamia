@@ -7,7 +7,7 @@ export const IMAGE_URLS = {
   finalCta: '/images/solutions/close-up-senior-couple-love.jpg',
   gallery: [
     '/images/solutions/first-thing-before-getting-up.jpg',
-    'https://www.lifemark.ca/document/users/guillaume.morissette%40lifemark.ca/blog_fallhome03.jpg',
+    '/images/solutions/stairs-hallways.jpg',
     '/images/solutions/portrait-lovely-couple-together.jpg',
     '/images/solutions/adorable-mature-couple-kitchen.jpg',
     '/images/solutions/close-up-senior-couple-together-love.jpg',
