@@ -20,6 +20,7 @@
     "test:agreements": "node --experimental-strip-types scripts/agreement-management-tests.mjs",
     "test:how-it-works": "node scripts/how-it-works-page-tests.mjs",
     "test:prerender": "node scripts/prerender-output-tests.mjs",
+    "test:production": "node scripts/production-smoke-tests.mjs",
     "test:auth": "node --experimental-strip-types scripts/internal-auth-tests.mjs",
     "test:leads": "node scripts/lead-pipeline-tests.mjs",
     "test:lead-emails": "node scripts/lead-notification-tests.mjs",
