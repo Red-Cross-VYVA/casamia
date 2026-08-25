@@ -62,6 +62,7 @@ export function createEmptyProposal(patch: Partial<ProposalData> = {}): Proposal
     area: '',
     createdAt: new Date().toISOString(),
     customerName: '',
+    depositRate: 0.5,
     email: '',
     executiveSummary:
       'CasaMia reviewed the home safety priorities and prepared this proposal to reduce risk, improve comfort, and support safer independent living.',

@@ -3,6 +3,7 @@ import { buildAssessmentLeadNotification } from './leadNotificationTemplate.ts'
 import { getPublicSiteApiBaseUrl, hasPublicSiteApi } from './publicSiteApi.ts'
 
 export type AssessmentRequestInput = {
+  assessmentVisitFee?: string
   name: string
   phone: string
   email: string
@@ -75,7 +76,6 @@ const assessmentFinalizeEndpoint = configuredFinalizeUrl
   || (assessmentEndpoint.endsWith('/api/public/assessment-requests')
     ? assessmentEndpoint.replace(/\/assessment-requests$/, '/assessment-media-finalize')
     : '')
-const ASSESSMENT_VISIT_FEE = '99 EUR'
 
 export async function submitAssessmentRequest(input: AssessmentRequestInput) {
   if (!assessmentEndpoint) {
@@ -100,7 +100,7 @@ export async function submitAssessmentRequest(input: AssessmentRequestInput) {
     body: JSON.stringify({
       submittedAt,
       type: 'home_safety_assessment_visit',
-      assessmentVisitFee: ASSESSMENT_VISIT_FEE,
+      assessmentVisitFee: input.assessmentVisitFee,
       customer_name: input.name,
       customer_email: input.email,
       customer_phone: input.phone,

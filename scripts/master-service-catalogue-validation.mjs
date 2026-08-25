@@ -39,6 +39,15 @@ const outcomesById = byId(catalogue.outcomes)
 const capabilitiesById = byId(catalogue.capabilities)
 const productsById = byId(catalogue.products)
 const tasksById = byId(catalogue.installationTasks)
+const commercialSettings = catalogue.commercialSettings
+
+assert(Boolean(commercialSettings), 'commercial settings are missing')
+assert(commercialSettings.assessmentVisitFeeGross > 0, 'assessment visit fee must be positive')
+assert(commercialSettings.assessmentVisitVatRate >= 0, 'assessment visit VAT rate must not be negative')
+assert(commercialSettings.proposalDepositRate > 0 && commercialSettings.proposalDepositRate <= 1, 'proposal payment percentage must be between 1% and 100%')
+assert(commercialSettings.corePackageStandaloneInstallationPrice >= 0, 'standalone installation price must not be negative')
+assert(commercialSettings.installationQuoteFromPackageCount >= 1, 'installation quote threshold must be positive')
+assert(commercialSettings.corePackageInstallationSchedule.length > 0, 'installation schedule is missing')
 
 assert(uniqueValues(catalogue.rooms.map((item) => item.id)), 'duplicate room IDs')
 assert(uniqueValues(catalogue.sections.map((item) => item.id)), 'duplicate section IDs')

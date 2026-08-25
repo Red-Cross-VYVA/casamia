@@ -1,8 +1,7 @@
 import {
-  getApprovedCorePackageCustomerPrice,
-  getApprovedStarterPackageCustomerPrice,
   getCorePackageInstallationPolicy,
 } from '../../shared/packagePricing.js'
+import { normaliseCommercialSettings } from '../../shared/commercialSettings.js'
 
 const roomToCategory = {
   bathroom: 'Bathroom',
@@ -62,7 +61,8 @@ export function buildPublicPlansDraft({ body, cataloguePayload, now = new Date()
     inspection_reference: 'Public Plans builder',
     line_items: estimate.lineItems,
     overall_risk_level: 'Moderate',
-    payment_terms: summaryCopy.paymentTerms,
+    deposit_rate: normaliseCommercialSettings(catalogue.commercialSettings).proposalDepositRate,
+    payment_terms: paymentTerms(language, normaliseCommercialSettings(catalogue.commercialSettings).proposalDepositRate),
     plan: 'Home adaptations',
     prepared_by: 'CasaMia',
     proposal_date: proposalDate,
@@ -203,7 +203,10 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
     if (requiresReview) reviewItems.add(line.name)
   })
 
-  const installationPolicy = getCorePackageInstallationPolicy(selectedCorePackageQuantity)
+  const installationPolicy = getCorePackageInstallationPolicy(
+    selectedCorePackageQuantity,
+    normaliseCommercialSettings(catalogue.commercialSettings),
+  )
 
   if (installationPolicy.discount > 0) {
     lineItems.push(createInstallationSavingLine(installationPolicy.discount, language))
@@ -339,18 +342,13 @@ function getPackageConfig(catalogue, roomId) {
 }
 
 function getPackageUnitPrice(packageRecord, config) {
-  const approvedCustomerPrice = getApprovedCorePackageCustomerPrice(packageRecord.id)
-  if (approvedCustomerPrice !== undefined) return approvedCustomerPrice
-  const approvedStarterPrice = getApprovedStarterPackageCustomerPrice(packageRecord.id)
-  if (approvedStarterPrice !== undefined) return approvedStarterPrice
-
-  if (config?.active && config.pricingType !== 'quote_only') {
-    return priceWithVat(config.pricingType === 'fixed' ? config.packagePrice : config.fromPrice, config.vatRate)
-  }
-
   if (packageRecord.pricingType === 'fixed') return priceWithVat(packageRecord.fixedPrice, packageRecord.vatRate)
   if (packageRecord.pricingType === 'from' || packageRecord.pricingType === 'range') {
     return priceWithVat(packageRecord.fromPrice, packageRecord.vatRate)
+  }
+
+  if (config?.active && config.pricingType !== 'quote_only') {
+    return priceWithVat(config.pricingType === 'fixed' ? config.packagePrice : config.fromPrice, config.vatRate)
   }
 
   return 0
@@ -465,6 +463,14 @@ function proposalCopy(language) {
         timeline: 'CasaMia will contact you to coordinate date, home access and installation.',
         timelineDuration: 'To be scheduled after acceptance',
       }
+}
+
+function paymentTerms(language, depositRate) {
+  const upfront = Math.round(depositRate * 100)
+  const balance = 100 - upfront
+  return language === 'es'
+    ? `${upfront}% como pago a cuenta al aceptar la propuesta y ${balance}% tras finalizar y aceptar el trabajo.`
+    : `${upfront}% payment on account upon proposal acceptance and ${balance}% after completion and customer acceptance.`
 }
 
 function hasHoneypotValue(body) {

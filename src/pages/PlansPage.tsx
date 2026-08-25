@@ -1222,8 +1222,11 @@ export function PlansPage() {
   const emailDeliveryStatus = emailDelivery?.status ?? ''
   const emailDeliveryMessage = getEmailDeliveryMessage(emailDelivery, language)
   const estimate = useMemo(
-    () => calculatePlansBuilderEstimate(groups, selection, language, { starterPacks }),
-    [groups, language, selection, starterPacks],
+    () => calculatePlansBuilderEstimate(groups, selection, language, {
+      commercialSettings: masterCatalogue.commercialSettings,
+      starterPacks,
+    }),
+    [groups, language, masterCatalogue.commercialSettings, selection, starterPacks],
   )
   const selectedGroups = groups.filter((group) => selection[group.homePackage.id]?.selected)
   const selectedStarterPacks = starterPacks.filter((starterPack) => selection[starterPack.packageRecord.id]?.selected)

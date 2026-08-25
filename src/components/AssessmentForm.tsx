@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
 import { submitAssessmentRequest } from '../services/assessmentRequests'
+import { formatCommercialCurrency, getCommercialSettings } from '../services/commercialSettings'
+import { useServiceCatalogue } from '../services/serviceCatalogue'
 import { createVisitCheckout } from '../services/visitCheckout'
 import { trackEvent } from '../utils/analytics'
 import { isValidSpanishPhoneNumber } from '../utils/phone'
@@ -102,6 +104,12 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
   const isCheckout = mode === 'checkout'
   const isBooking = mode === 'booking'
   const isSpanish = i18n.language.startsWith('es')
+  const serviceCatalogue = useServiceCatalogue()
+  const commercialSettings = getCommercialSettings(serviceCatalogue)
+  const visitFee = formatCommercialCurrency(commercialSettings.assessmentVisitFeeGross, isSpanish ? 'es' : 'en')
+  const assessmentVisitFee = isSpanish
+    ? `${visitFee} con ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% de IVA incluido`
+    : `${visitFee} including ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% VAT`
   const emailFormatError = i18n.language.startsWith('es')
     ? 'Introduce un email válido, por ejemplo nombre@email.com.'
     : 'Enter a valid email address, for example name@email.com.'
@@ -213,6 +221,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
 
     try {
       const submission = await submitAssessmentRequest({
+        assessmentVisitFee,
         name: values.name.trim(),
         phone: values.phone.trim(),
         email: values.email.trim(),
@@ -531,8 +540,8 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         {!isBooking ? (
           <p className="assessment-privacy-note">
             {isSpanish
-              ? 'La visita cuesta 99 EUR con el 21% de IVA incluido y se paga ahora de forma segura.'
-              : 'The visit costs 99 EUR including 21% VAT and is paid securely now.'}
+              ? `La visita cuesta ${visitFee} con el ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% de IVA incluido y se paga ahora de forma segura.`
+              : `The visit costs ${visitFee} including ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% VAT and is paid securely now.`}
           </p>
         ) : null}
 

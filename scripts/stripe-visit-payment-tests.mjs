@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 
 import {
   buildVisitCheckoutSession,
+  getVisitPaymentConfig,
   mapVisitPaymentEvent,
   validateInclusiveVisitTaxRate,
   visitPaymentConfig,
@@ -18,6 +19,12 @@ assert.deepEqual(visitPaymentConfig, {
   feeCents: 9_900,
   vatIncluded: true,
   vatRate: 21,
+})
+assert.deepEqual(getVisitPaymentConfig({ assessmentVisitFeeGross: 125, assessmentVisitVatRate: 0.1 }), {
+  currency: 'eur',
+  feeCents: 12_500,
+  vatIncluded: true,
+  vatRate: 10,
 })
 
 const checkout = buildVisitCheckoutSession({
@@ -41,6 +48,20 @@ assert.equal(checkout.metadata.vat_included, 'true')
 assert.equal(checkout.metadata.record_type, 'assessment')
 assert.match(checkout.cancel_url, /\/home-safety-wizard\?payment=cancelled$/)
 assert.match(checkout.success_url, /session_id=\{CHECKOUT_SESSION_ID\}$/)
+
+const editedVisitCheckout = buildVisitCheckoutSession({
+  commercialSettings: { assessmentVisitFeeGross: 125, assessmentVisitVatRate: 0.1 },
+  locale: 'en',
+  order: checkoutOrder(),
+  origin: 'https://www.casamia.com.es',
+  taxRateId: 'txr_visit_vat_10',
+})
+assert.equal(editedVisitCheckout.line_items[0].price_data.unit_amount, 12_500)
+assert.equal(editedVisitCheckout.metadata.vat_rate, '10')
+assert.doesNotThrow(() => validateInclusiveVisitTaxRate(
+  { active: true, inclusive: true, percentage: 10 },
+  getVisitPaymentConfig({ assessmentVisitFeeGross: 125, assessmentVisitVatRate: 0.1 }),
+))
 
 assert.doesNotThrow(() => validateInclusiveVisitTaxRate({ active: true, inclusive: true, percentage: 21 }))
 for (const invalidTaxRate of [
@@ -88,6 +109,7 @@ const proposal = {
   status: 'Accepted',
 }
 assert.equal(calculateProposalDepositCents(proposal), 24_950)
+assert.equal(calculateProposalDepositCents({ ...proposal, deposit_rate: 0.4 }), 19_960)
 
 const proposalCheckout = buildProposalDepositCheckoutSession({
   locale: 'es',
@@ -102,6 +124,15 @@ assert.equal(proposalCheckout.metadata.casa_mia_payment_type, 'proposal_deposit'
 assert.equal(proposalCheckout.payment_intent_data.receipt_email, 'proposal@example.com')
 assert.match(proposalCheckout.cancel_url, /payment=cancelled$/)
 assert.match(proposalCheckout.success_url, /session_id=\{CHECKOUT_SESSION_ID\}$/)
+
+const editedProposalCheckout = buildProposalDepositCheckoutSession({
+  locale: 'en',
+  origin: 'https://www.casamia.com.es',
+  proposal: { ...proposal, deposit_rate: 0.4 },
+  taxRateId: 'txr_proposal_vat',
+})
+assert.equal(editedProposalCheckout.line_items[0].price_data.unit_amount, 19_960)
+assert.match(editedProposalCheckout.line_items[0].price_data.product_data.description, /40%/)
 
 const proposalPaidEvent = {
   type: 'checkout.session.completed',
@@ -140,5 +171,13 @@ assert.match(assessmentForm, /submission\.id[\s\S]*createVisitCheckout/)
 assert.match(publicProposalPage, /acceptPublicProposal[\s\S]*beginPayment/)
 assert.match(publicProposalPage, /Pay deposit/)
 assert.match(webhook, /mapProposalDepositPaymentEvent/)
+
+function checkoutOrder() {
+  return {
+    customer_email: 'customer@example.com',
+    customer_name: 'Test Customer',
+    order_id: 'CM-2026-EDITED',
+  }
+}
 
 console.log('Stripe visit payment tests passed.')

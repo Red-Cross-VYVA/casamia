@@ -18,6 +18,7 @@ import type {
   ServicePackageArea,
   ServiceRoom,
 } from '../types/serviceCatalogue.ts'
+import { normaliseCommercialSettings } from '../../shared/commercialSettings.js'
 
 const serviceCatalogueStorageKey = 'casamia-service-catalogue'
 const serviceCatalogueUpdatedEvent = 'casamia-service-catalogue-updated'
@@ -130,6 +131,11 @@ export function getServiceCatalogue(): EditableServiceCatalogue {
 
     const parsed = JSON.parse(saved) as Partial<EditableServiceCatalogue>
     const masterCatalogue = parsed.masterCatalogue
+      ? {
+          ...parsed.masterCatalogue,
+          commercialSettings: normaliseCommercialSettings(parsed.masterCatalogue.commercialSettings),
+        }
+      : undefined
     const defaults = buildServiceCatalogueFromMaster(masterCatalogue)
 
     return {
@@ -515,7 +521,11 @@ export function getDefaultCatalogueSection(service: CasaMiaService): ServiceCata
 }
 
 function normaliseServiceCatalogue(payload: Partial<EditableServiceCatalogue> | undefined): EditableServiceCatalogue {
-  const masterCatalogue = payload?.masterCatalogue ?? getMasterServiceCatalogue()
+  const suppliedMasterCatalogue = payload?.masterCatalogue ?? getMasterServiceCatalogue()
+  const masterCatalogue = {
+    ...suppliedMasterCatalogue,
+    commercialSettings: normaliseCommercialSettings(suppliedMasterCatalogue.commercialSettings),
+  }
   const defaults = buildServiceCatalogueFromMaster(masterCatalogue)
 
   return {

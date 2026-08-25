@@ -95,8 +95,8 @@ assert.ok(starterPacks.every((starterPack) => starterPack.outcomes.length > 0), 
 }
 
 {
-  const staleCatalogue = structuredClone(defaultCatalogue)
-  staleCatalogue.packageConfigs = staleCatalogue.packageConfigs.map((config) => {
+  const editedCatalogue = structuredClone(defaultCatalogue)
+  editedCatalogue.packageConfigs = editedCatalogue.packageConfigs.map((config) => {
     if (config.area !== 'bathroom') return config
 
     return {
@@ -107,15 +107,62 @@ assert.ok(starterPacks.every((starterPack) => starterPack.outcomes.length > 0), 
       pricingType: 'fixed',
     }
   })
+  editedCatalogue.masterCatalogue.packages = editedCatalogue.masterCatalogue.packages.map((packageRecord) =>
+    packageRecord.id === bathroomGroup.homePackage.id
+      ? { ...packageRecord, fromPrice: 800 / (1 + packageRecord.vatRate) }
+      : packageRecord,
+  )
+  editedCatalogue.masterCatalogue.commercialSettings = {
+    ...editedCatalogue.masterCatalogue.commercialSettings,
+    corePackageStandaloneInstallationPrice: 120,
+    installationQuoteFromPackageCount: 4,
+    corePackageInstallationSchedule: [
+      { packageCount: 1, totalInstallationPrice: 120 },
+      { packageCount: 2, totalInstallationPrice: 190 },
+      { packageCount: 3, totalInstallationPrice: 180 },
+    ],
+    proposalDepositRate: 0.4,
+  }
 
-  const staleBathroomGroup = buildPlansBuilderGroups(staleCatalogue, 'en', { publicOnly: true })
+  const editedGroups = buildPlansBuilderGroups(editedCatalogue, 'en', { publicOnly: true })
+  const editedBathroomGroup = editedGroups
     .find((group) => group.room.id === 'bathroom')
+  const editedBedroomGroup = editedGroups.find((group) => group.room.id === 'bedroom')
 
   assert.equal(
-    staleBathroomGroup?.packageUnitPrice,
-    749,
-    'A stale saved package configuration must not override the approved bathroom launch price.',
+    editedBathroomGroup?.packageUnitPrice,
+    800,
+    'The public builder must use the VAT-included package price saved in the master catalogue.',
   )
+  assert.ok(editedBathroomGroup && editedBedroomGroup)
+
+  const editedEstimate = calculatePlansBuilderEstimate(editedGroups, {
+    [editedBathroomGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+    [editedBedroomGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+  }, 'en', { commercialSettings: editedCatalogue.masterCatalogue.commercialSettings })
+  assert.equal(
+    editedEstimate.oneTimeEstimate,
+    editedBathroomGroup.packageUnitPrice + editedBedroomGroup.packageUnitPrice - 50,
+    'The browser estimate must use the edited two-package installation total.',
+  )
+
+  const serverDraft = buildPublicPlansDraft({
+    body: {
+      consent: true,
+      customer: { email: 'edited@example.com', name: 'Edited Pricing Test' },
+      language: 'en',
+      selection: {
+        [editedBathroomGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+        [editedBedroomGroup.homePackage.id]: { addOnOutcomeIds: [], quantity: 1, selected: true },
+      },
+    },
+    cataloguePayload: editedCatalogue,
+    now: new Date('2026-08-25T12:00:00.000Z'),
+  })
+  assert.equal(serverDraft.ok, true)
+  assert.equal(serverDraft.proposalPayload?.total, editedEstimate.oneTimeEstimate)
+  assert.equal(serverDraft.proposalPayload?.deposit_rate, 0.4)
+  assert.match(serverDraft.proposalPayload?.payment_terms ?? '', /40%/)
 }
 
 {

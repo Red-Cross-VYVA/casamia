@@ -44,6 +44,7 @@ import {
 import type {
   CasaMiaService,
   CasaMiaServiceTranslation,
+  CommercialSettings,
   EditableServiceCatalogue,
   MasterCatalogueOutcome,
   MasterCataloguePackage,
@@ -58,6 +59,8 @@ import type {
   ServicePriority,
   ServiceRoom,
 } from '../../types/serviceCatalogue'
+import { getCommercialSettings } from '../../services/commercialSettings'
+import { normaliseCommercialSettings } from '../../../shared/commercialSettings.js'
 import {
   safetyFindingCategories,
   type SafetyFindingCategory,
@@ -538,6 +541,23 @@ export function InternalServiceCataloguePage() {
     setStatus('Package pricing updated in the Master Catalogue preview. Save changes to publish.')
   }
 
+  function updateCommercialSettings(patch: Partial<CommercialSettings>) {
+    setMasterCatalogue((current) => {
+      const nextCatalogue: MasterServiceCatalogue = {
+        ...current,
+        commercialSettings: normaliseCommercialSettings({
+          ...getCommercialSettings(current),
+          ...patch,
+        }),
+        updatedAt: new Date().toISOString(),
+      }
+
+      syncDraftFromMasterCatalogue(nextCatalogue)
+      return nextCatalogue
+    })
+    setStatus('Commercial pricing updated in preview. Save changes to publish it for new transactions.')
+  }
+
   function restoreLatestMasterBackup() {
     const latestBackup = masterCatalogueBackups[0]
     if (!latestBackup) {
@@ -678,6 +698,11 @@ export function InternalServiceCataloguePage() {
         <StatusCard icon={ListChecks} label={`${currentRoom.label} items`} value={String(roomCounts[selectedRoom] ?? 0)} />
         <StatusCard icon={Euro} label="Edited here" value="Prices" />
       </section>
+
+      <CommercialPricingPanel
+        settings={getCommercialSettings(masterCatalogue)}
+        onChange={updateCommercialSettings}
+      />
 
       <MasterCatalogueHierarchyPanel
         catalogue={masterCatalogue}
@@ -1259,6 +1284,140 @@ function MasterCatalogueHierarchyPanel({
   )
 }
 
+function CommercialPricingPanel({
+  onChange,
+  settings,
+}: {
+  onChange: (patch: Partial<CommercialSettings>) => void
+  settings: CommercialSettings
+}) {
+  const updateSchedule = (packageCount: number, totalInstallationPrice: number) => {
+    const nextSchedule = settings.corePackageInstallationSchedule
+      .filter((entry) => entry.packageCount !== packageCount)
+      .concat({ packageCount, totalInstallationPrice })
+      .sort((a, b) => a.packageCount - b.packageCount)
+    onChange({ corePackageInstallationSchedule: nextSchedule })
+  }
+
+  return (
+    <section className="mt-6 rounded-lg border border-border bg-white p-5 shadow-soft">
+      <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
+        <div>
+          <p className="text-xs font-black uppercase tracking-wide text-blue">Commercial controls</p>
+          <h2 className="mt-1 font-display text-3xl font-bold text-text-dark">Live customer pricing rules</h2>
+          <p className="mt-2 max-w-3xl text-sm font-bold leading-relaxed text-text-mid">
+            These VAT-inclusive values control new checkouts and proposals after you save. Existing issued proposals retain their recorded payment percentage.
+          </p>
+        </div>
+        <p className="max-w-md rounded-lg bg-amber-50 px-4 py-3 text-sm font-bold leading-relaxed text-amber-900">
+          Changing visit VAT or payment percentages also changes commercial terms. Confirm the revised wording with legal and accounting advisers before publishing.
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <CommercialNumberInput
+          label="Assessment visit · VAT included"
+          suffix="EUR"
+          value={settings.assessmentVisitFeeGross}
+          onChange={(assessmentVisitFeeGross) => onChange({ assessmentVisitFeeGross })}
+        />
+        <label className="grid gap-1">
+          <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">Visit VAT</span>
+          <select
+            className="rounded-xl border border-border bg-white px-3 py-3 text-sm font-bold text-text-dark outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+            value={String(settings.assessmentVisitVatRate)}
+            onChange={(event) => onChange({ assessmentVisitVatRate: Number(event.currentTarget.value) })}
+          >
+            <option value="0.1">10%</option>
+            <option value="0.21">21%</option>
+            <option value="0">0%</option>
+          </select>
+        </label>
+        <CommercialNumberInput
+          label="Proposal payment on acceptance"
+          max={100}
+          min={1}
+          suffix="%"
+          value={Math.round(settings.proposalDepositRate * 100)}
+          onChange={(value) => onChange({ proposalDepositRate: value / 100 })}
+        />
+        <CommercialNumberInput
+          label="Installation included per core package"
+          suffix="EUR"
+          value={settings.corePackageStandaloneInstallationPrice}
+          onChange={(corePackageStandaloneInstallationPrice) => onChange({ corePackageStandaloneInstallationPrice })}
+        />
+      </div>
+
+      <div className="mt-6 border-t border-border pt-5">
+        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h3 className="font-display text-xl font-bold text-text-dark">Combined installation schedule</h3>
+            <p className="mt-1 text-sm font-bold text-text-muted">Set the total installation amount for each full-room package count.</p>
+          </div>
+          <CommercialNumberInput
+            label="Quote installation from"
+            max={12}
+            min={2}
+            suffix="packages"
+            value={settings.installationQuoteFromPackageCount}
+            onChange={(installationQuoteFromPackageCount) => onChange({ installationQuoteFromPackageCount })}
+          />
+        </div>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {[1, 2, 3].map((packageCount) => (
+            <CommercialNumberInput
+              key={packageCount}
+              label={`${packageCount} ${packageCount === 1 ? 'package' : 'packages'} · installation total`}
+              suffix="EUR"
+              value={settings.corePackageInstallationSchedule.find((entry) => entry.packageCount === packageCount)?.totalInstallationPrice ?? 0}
+              onChange={(value) => updateSchedule(packageCount, value)}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function CommercialNumberInput({
+  label,
+  max,
+  min = 0,
+  onChange,
+  suffix,
+  value,
+}: {
+  label: string
+  max?: number
+  min?: number
+  onChange: (value: number) => void
+  suffix: string
+  value: number
+}) {
+  return (
+    <label className="grid gap-1">
+      <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">{label}</span>
+      <span className="flex min-h-12 items-center overflow-hidden rounded-xl border border-border bg-white focus-within:border-blue focus-within:ring-2 focus-within:ring-blue/20">
+        <input
+          className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm font-bold text-text-dark outline-none"
+          inputMode="decimal"
+          max={max}
+          min={min}
+          step="0.01"
+          type="number"
+          value={value}
+          onChange={(event) => {
+            const next = Number(event.currentTarget.value)
+            if (Number.isFinite(next)) onChange(Math.max(min, max === undefined ? next : Math.min(max, next)))
+          }}
+        />
+        <span className="shrink-0 border-l border-border bg-light-blue px-3 py-3 text-xs font-black text-navy">{suffix}</span>
+      </span>
+    </label>
+  )
+}
+
 function MasterMetric({ label, value }: { label: string; value: number }) {
   return (
     <article className="rounded-2xl border border-white/15 bg-white/10 p-4">
@@ -1332,26 +1491,34 @@ function MasterPackagePriceEditor({
         </label>
 
         <MasterPriceInput
-          label="From"
-          value={packageRecord.fromPrice}
-          onChange={(fromPrice) => onUpdatePackage(packageRecord.id, { fromPrice })}
+          label="Customer from · VAT included"
+          value={toGrossPrice(packageRecord.fromPrice, packageRecord.vatRate)}
+          onChange={(value) => onUpdatePackage(packageRecord.id, { fromPrice: toNetPrice(value, packageRecord.vatRate) })}
         />
         <MasterPriceInput
-          label="Fixed"
-          value={packageRecord.fixedPrice}
-          onChange={(fixedPrice) => onUpdatePackage(packageRecord.id, { fixedPrice })}
+          label="Customer fixed · VAT included"
+          value={toGrossPrice(packageRecord.fixedPrice, packageRecord.vatRate)}
+          onChange={(value) => onUpdatePackage(packageRecord.id, { fixedPrice: toNetPrice(value, packageRecord.vatRate) })}
         />
         <MasterPriceInput
-          label="Monthly"
-          value={packageRecord.recurringMonthlyPrice}
-          onChange={(recurringMonthlyPrice) => onUpdatePackage(packageRecord.id, { recurringMonthlyPrice })}
+          label="Customer monthly · VAT included"
+          value={toGrossPrice(packageRecord.recurringMonthlyPrice, packageRecord.vatRate)}
+          onChange={(value) => onUpdatePackage(packageRecord.id, { recurringMonthlyPrice: toNetPrice(value, packageRecord.vatRate) })}
         />
         <label className="grid min-w-0 gap-1">
           <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">VAT</span>
           <select
             className="min-w-0 rounded-xl border border-border bg-white px-3 py-2 text-sm font-bold text-text-dark outline-none transition focus:border-blue focus:ring-2 focus:ring-blue/20"
             value={String(packageRecord.vatRate)}
-            onChange={(event) => onUpdatePackage(packageRecord.id, { vatRate: Number(event.currentTarget.value) })}
+            onChange={(event) => {
+              const vatRate = Number(event.currentTarget.value)
+              onUpdatePackage(packageRecord.id, {
+                fixedPrice: toNetPrice(toGrossPrice(packageRecord.fixedPrice, packageRecord.vatRate), vatRate),
+                fromPrice: toNetPrice(toGrossPrice(packageRecord.fromPrice, packageRecord.vatRate), vatRate),
+                recurringMonthlyPrice: toNetPrice(toGrossPrice(packageRecord.recurringMonthlyPrice, packageRecord.vatRate), vatRate),
+                vatRate,
+              })
+            }}
           >
             <option value="0.1">10%</option>
             <option value="0.21">21%</option>
@@ -1389,6 +1556,14 @@ function MasterPriceInput({
       />
     </label>
   )
+}
+
+function toGrossPrice(value: number | undefined, vatRate: number) {
+  return value === undefined ? undefined : Math.round(value * (1 + vatRate) * 100) / 100
+}
+
+function toNetPrice(value: number | undefined, vatRate: number) {
+  return value === undefined ? undefined : Math.round((value / (1 + vatRate)) * 100) / 100
 }
 
 function MasterImportMetric({ label, value }: { label: string; value: number }) {

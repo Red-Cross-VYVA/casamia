@@ -57,6 +57,7 @@ export type ProposalData = {
   area: string
   createdAt: string
   customerName: string
+  depositRate: number
   email: string
   executiveSummary: string
   grantEligibilityNote: string
@@ -108,16 +109,15 @@ export const defaultGrantNote =
 
 export const hiddenFeeReassurance = 'No hidden fees. No work begins without customer approval.'
 
-export function getDefaultPaymentTerms(plan: ProposalPlan) {
+export function getDefaultPaymentTerms(plan: ProposalPlan, depositRate = 0.5) {
   if (plan === assessmentPlan) {
     return 'Visit fee payable upon booking. Credited toward approved CasaMia improvements if the customer continues.'
   }
 
-  if (plan === smartSafetyPlan) {
-    return '50% deposit upon quotation acceptance. 50% upon completion, device setup, handover, and customer acceptance.'
-  }
-
-  return '50% deposit upon quotation acceptance. 50% upon completion, handover, and customer acceptance.'
+  const upfront = Math.round(depositRate * 100)
+  const balance = 100 - upfront
+  const handover = plan === smartSafetyPlan ? 'device setup, handover, and ' : 'handover and '
+  return `${upfront}% payment on account upon quotation acceptance. ${balance}% upon completion, ${handover}customer acceptance.`
 }
 
 export function calculateLineTotal(item: ProposalLineItem) {
@@ -131,8 +131,11 @@ export function calculateProposalTotals(proposal: ProposalData): ProposalTotals 
     0,
   )
   const canRequestPayment = proposal.status !== 'Draft' && proposal.acceptanceStatus !== 'Not Sent'
+  const depositRate = Number.isFinite(proposal.depositRate)
+    ? Math.min(1, Math.max(0.01, proposal.depositRate))
+    : 0.5
   const depositDue = canRequestPayment
-    ? proposal.selectedPlan === assessmentPlan ? subtotal : subtotal * 0.5
+    ? proposal.selectedPlan === assessmentPlan ? subtotal : subtotal * depositRate
     : 0
 
   return {

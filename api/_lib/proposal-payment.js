@@ -17,7 +17,14 @@ export function calculateProposalDepositCents(proposal) {
   }
 
   const isAssessment = proposal?.selected_plan === 'Assessment visit' || proposal?.plan === 'Assessment visit'
-  return isAssessment ? subtotalCents : Math.round(subtotalCents * proposalPaymentConfig.depositRate)
+  return isAssessment ? subtotalCents : Math.round(subtotalCents * getProposalDepositRate(proposal))
+}
+
+export function getProposalDepositRate(proposal) {
+  const value = Number(proposal?.deposit_rate ?? proposal?.depositRate)
+  return Number.isFinite(value) && value >= 0.01 && value <= 1
+    ? value
+    : proposalPaymentConfig.depositRate
 }
 
 export function buildProposalDepositCheckoutSession({ locale = 'en', origin, proposal, taxRateId }) {
@@ -33,17 +40,18 @@ export function buildProposalDepositCheckoutSession({ locale = 'en', origin, pro
   const localeCode = String(locale).toLowerCase().split(/[-_]/)[0]
   const checkoutLocale = ['de', 'es', 'fr', 'nl'].includes(localeCode) ? localeCode : 'en'
   const isAssessment = proposal?.selected_plan === 'Assessment visit' || proposal?.plan === 'Assessment visit'
+  const depositPercent = Math.round(getProposalDepositRate(proposal) * 100)
   const productCopy = checkoutLocale === 'es'
     ? {
         description: isAssessment
           ? 'Pago completo de la propuesta. IVA incluido.'
-          : 'Depósito del 50 % de la propuesta. IVA incluido.',
+          : `Pago a cuenta del ${depositPercent} % de la propuesta. IVA incluido.`,
         name: isAssessment ? 'Pago de propuesta CasaMia' : 'Depósito de propuesta CasaMia',
       }
     : {
         description: isAssessment
           ? 'Full proposal payment. VAT included.'
-          : '50% proposal deposit. VAT included.',
+          : `${depositPercent}% proposal payment on account. VAT included.`,
         name: isAssessment ? 'CasaMia proposal payment' : 'CasaMia proposal deposit',
       }
   const metadata = {

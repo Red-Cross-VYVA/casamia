@@ -1,4 +1,5 @@
 export type AssessmentCustomerConfirmationPayload = {
+  assessmentVisitFee?: string
   selectedPlan?: string
   name?: string
   phone?: string
@@ -21,7 +22,7 @@ type CustomerDetail = {
 }
 
 const NOT_SURE_PLAN = 'Not sure yet'
-const ASSESSMENT_VISIT_FEE = '99 EUR including 21% VAT'
+const DEFAULT_ASSESSMENT_VISIT_FEE = '99 EUR including 21% VAT'
 const SCHEDULE_INSPECTION_URL =
   'mailto:hola@casamia.com.es?subject=Assessment%20visit%20request'
 const CasaMia_WEBSITE_URL = 'https://CasaMia-seniors.myshopify.com/'
@@ -31,14 +32,15 @@ export function buildAssessmentCustomerConfirmation(
   payload: AssessmentCustomerConfirmationPayload,
 ): CustomerConfirmation {
   const selectedPlan = getCustomerPlanLabel(payload.selectedPlan)
+  const assessmentVisitFee = cleanText(payload.assessmentVisitFee) || DEFAULT_ASSESSMENT_VISIT_FEE
   const subject = buildSubject(selectedPlan)
-  const reassurance = getPlanReassurance(payload.selectedPlan)
-  const details = buildCustomerDetails(payload, selectedPlan)
+  const reassurance = getPlanReassurance(payload.selectedPlan, assessmentVisitFee)
+  const details = buildCustomerDetails(payload, selectedPlan, assessmentVisitFee)
 
   return {
     subject,
-    plainText: buildPlainText(details, reassurance),
-    html: buildHtml(details, reassurance),
+    plainText: buildPlainText(details, reassurance, assessmentVisitFee),
+    html: buildHtml(details, reassurance, assessmentVisitFee),
   }
 }
 
@@ -53,10 +55,11 @@ function buildSubject(selectedPlan: string) {
 function buildCustomerDetails(
   payload: AssessmentCustomerConfirmationPayload,
   selectedPlan: string,
+  assessmentVisitFee: string,
 ): CustomerDetail[] {
   return [
     { label: 'Selected option', value: selectedPlan },
-    { label: 'Assessment visit fee', value: ASSESSMENT_VISIT_FEE },
+    { label: 'Assessment visit fee', value: assessmentVisitFee },
     { label: 'Full name', value: cleanText(payload.name) || 'Not provided' },
     { label: 'Phone', value: cleanText(payload.phone) || 'Not provided' },
     { label: 'Email', value: cleanText(payload.email) || 'Not provided' },
@@ -73,7 +76,7 @@ function buildCustomerDetails(
   ]
 }
 
-function buildPlainText(details: CustomerDetail[], reassurance: string) {
+function buildPlainText(details: CustomerDetail[], reassurance: string, assessmentVisitFee: string) {
   return [
     'Thank you for contacting CasaMia',
     '',
@@ -84,7 +87,7 @@ function buildPlainText(details: CustomerDetail[], reassurance: string) {
     '',
     'What Happens Next',
     '1. A CasaMia representative will contact you shortly.',
-    `2. The ${ASSESSMENT_VISIT_FEE} assessment visit must be paid securely in advance before the appointment is confirmed.`,
+    `2. The ${assessmentVisitFee} assessment visit must be paid securely in advance before the appointment is confirmed.`,
     '3. If you choose a home visit, our safety team will assess the home room by room.',
     '4. You will receive clear recommended improvements and next steps.',
     '',
@@ -101,7 +104,7 @@ function buildPlainText(details: CustomerDetail[], reassurance: string) {
   ].join('\n')
 }
 
-function buildHtml(details: CustomerDetail[], reassurance: string) {
+function buildHtml(details: CustomerDetail[], reassurance: string, assessmentVisitFee: string) {
   const detailRows = details
     .map(
       (detail) => `
@@ -139,7 +142,7 @@ function buildHtml(details: CustomerDetail[], reassurance: string) {
             <h2 style="margin: 0 0 12px; color: #102235; font-size: 19px;">What Happens Next</h2>
             <ol style="margin: 0; padding-left: 22px; color: #26384a; font-size: 15px; line-height: 1.65;">
               <li>A CasaMia representative will contact you shortly.</li>
-              <li>The ${ASSESSMENT_VISIT_FEE} assessment visit must be paid securely in advance before the appointment is confirmed.</li>
+              <li>The ${assessmentVisitFee} assessment visit must be paid securely in advance before the appointment is confirmed.</li>
               <li>If you choose a home visit, our safety team will assess the home room by room.</li>
               <li>You will receive clear recommended improvements and next steps.</li>
             </ol>
@@ -187,22 +190,22 @@ function getCustomerPlanLabel(value?: string) {
   return NOT_SURE_PLAN
 }
 
-function getPlanReassurance(value?: string) {
+function getPlanReassurance(value: string | undefined, assessmentVisitFee: string) {
   const planKey = getPlanKey(value)
 
   if (planKey === 'home-assessment') {
-    return `Your request is focused on an in-home inspection and report. The assessment visit costs ${ASSESSMENT_VISIT_FEE}, is paid in advance, and is credited toward approved CasaMia improvements if you proceed.`
+    return `Your request is focused on an in-home inspection and report. The assessment visit costs ${assessmentVisitFee}, is paid in advance, and is credited toward approved CasaMia improvements if you proceed.`
   }
 
   if (planKey === 'home-safety') {
-    return `Your request includes practical home adaptations. After the ${ASSESSMENT_VISIT_FEE} visit, we'll prepare a clear proposal before any installation or modification begins.`
+    return `Your request includes practical home adaptations. After the ${assessmentVisitFee} visit, we'll prepare a clear proposal before any installation or modification begins.`
   }
 
   if (planKey === 'smart-safety') {
-    return `Your request includes connected safety technology. During the ${ASSESSMENT_VISIT_FEE} visit, we'll review your home, connectivity needs, monitoring preferences, and suitable devices before recommending a solution.`
+    return `Your request includes connected safety technology. During the ${assessmentVisitFee} visit, we'll review your home, connectivity needs, monitoring preferences, and suitable devices before recommending a solution.`
   }
 
-  return `No problem if you are not sure what is right. Our team will explain the ${ASSESSMENT_VISIT_FEE} assessment visit and guide you toward the best option for your home and needs.`
+  return `No problem if you are not sure what is right. Our team will explain the ${assessmentVisitFee} assessment visit and guide you toward the best option for your home and needs.`
 }
 
 function getPlanKey(value?: string) {

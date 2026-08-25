@@ -1,4 +1,5 @@
 export type AssessmentLeadNotificationPayload = {
+  assessmentVisitFee?: string
   selectedPlan?: string
   name?: string
   phone?: string
@@ -24,16 +25,17 @@ type LeadDetail = {
 
 const PLAN_NOT_SELECTED = 'Option not selected'
 const NOT_SURE_PLAN = 'Not sure yet'
-const ASSESSMENT_VISIT_FEE = '99 EUR'
+const DEFAULT_ASSESSMENT_VISIT_FEE = '99 EUR'
 
 export function buildAssessmentLeadNotification(
   payload: AssessmentLeadNotificationPayload,
 ): LeadNotification {
   const selectedPlan = getNotificationPlanLabel(payload.selectedPlan)
+  const assessmentVisitFee = cleanText(payload.assessmentVisitFee) || DEFAULT_ASSESSMENT_VISIT_FEE
   const customerName = cleanText(payload.name) || 'Unknown Customer'
   const subject = `New CasaMia Assessment Lead \u2014 ${selectedPlan} \u2014 ${customerName}`
-  const recommendedNextAction = getRecommendedNextAction(payload.selectedPlan)
-  const details = buildLeadDetails(payload, selectedPlan)
+  const recommendedNextAction = getRecommendedNextAction(payload.selectedPlan, assessmentVisitFee)
+  const details = buildLeadDetails(payload, selectedPlan, assessmentVisitFee)
 
   return {
     subject,
@@ -45,10 +47,11 @@ export function buildAssessmentLeadNotification(
 function buildLeadDetails(
   payload: AssessmentLeadNotificationPayload,
   selectedPlan: string,
+  assessmentVisitFee: string,
 ): LeadDetail[] {
   return [
     { label: 'Selected option', value: selectedPlan },
-    { label: 'Assessment visit fee', value: ASSESSMENT_VISIT_FEE },
+    { label: 'Assessment visit fee', value: assessmentVisitFee },
     { label: 'Full name', value: cleanText(payload.name) || 'Not provided' },
     { label: 'Phone', value: cleanText(payload.phone) || 'Not provided' },
     { label: 'Email', value: cleanText(payload.email) || 'Not provided' },
@@ -191,22 +194,22 @@ function getNotificationPlanLabel(value?: string) {
   return PLAN_NOT_SELECTED
 }
 
-function getRecommendedNextAction(value?: string) {
+function getRecommendedNextAction(value: string | undefined, assessmentVisitFee: string) {
   const planKey = getPlanKey(value)
 
   if (planKey === 'home-assessment') {
-    return `Call or message the customer to confirm local availability, the ${ASSESSMENT_VISIT_FEE} assessment visit, and what the in-home assessment includes.`
+    return `Call or message the customer to confirm local availability, the ${assessmentVisitFee} assessment visit, and what the in-home assessment includes.`
   }
 
   if (planKey === 'home-safety') {
-    return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit, explain that the fee is credited if they proceed with approved CasaMia improvements, and prepare to discuss likely installation needs after the visit.`
+    return `Confirm the ${assessmentVisitFee} assessment visit, explain that the fee is credited if they proceed with approved CasaMia improvements, and prepare to discuss likely installation needs after the visit.`
   }
 
   if (planKey === 'smart-safety') {
-    return `Confirm the ${ASSESSMENT_VISIT_FEE} assessment visit and prepare to discuss connected safety devices, monitoring needs, and connectivity requirements.`
+    return `Confirm the ${assessmentVisitFee} assessment visit and prepare to discuss connected safety devices, monitoring needs, and connectivity requirements.`
   }
 
-  return `Contact the customer to understand their needs, explain the ${ASSESSMENT_VISIT_FEE} in-home assessment fee, and guide them toward the right CasaMia option.`
+  return `Contact the customer to understand their needs, explain the ${assessmentVisitFee} in-home assessment fee, and guide them toward the right CasaMia option.`
 }
 
 function getPlanKey(value?: string) {

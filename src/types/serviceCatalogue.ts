@@ -304,7 +304,22 @@ export type MasterCatalogueRelation = {
   notes?: string
 }
 
+export type CommercialInstallationScheduleEntry = {
+  packageCount: number
+  totalInstallationPrice: number
+}
+
+export type CommercialSettings = {
+  assessmentVisitFeeGross: number
+  assessmentVisitVatRate: number
+  proposalDepositRate: number
+  corePackageStandaloneInstallationPrice: number
+  corePackageInstallationSchedule: CommercialInstallationScheduleEntry[]
+  installationQuoteFromPackageCount: number
+}
+
 export type MasterServiceCatalogue = {
+  commercialSettings?: CommercialSettings
   rooms: MasterCatalogueRoom[]
   sections: MasterCatalogueSection[]
   packages: MasterCataloguePackage[]

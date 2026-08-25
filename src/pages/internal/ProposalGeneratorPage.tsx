@@ -55,6 +55,7 @@ import {
   saveProposal,
 } from '../../services/proposalsStorage'
 import { getServiceCatalogue, useServiceCatalogue } from '../../services/serviceCatalogue'
+import { getCommercialSettings } from '../../services/commercialSettings'
 import type {
   EditableServiceCatalogue,
 } from '../../types/serviceCatalogue'
@@ -201,8 +202,12 @@ function buildCatalogueProposalGroups(catalogue: EditableServiceCatalogue): Cata
 function buildCatalogueLineItems(
   groups: CatalogueProposalPackageGroup[],
   selection: CatalogueSelectionState,
+  catalogue: EditableServiceCatalogue,
 ): ProposalLineItem[] {
-  return buildPlansProposalLineItems(groups, selection, { language: 'en' })
+  return buildPlansProposalLineItems(groups, selection, {
+    commercialSettings: catalogue.masterCatalogue?.commercialSettings,
+    language: 'en',
+  })
 }
 
 function buildPackageDescription(group: CatalogueProposalPackageGroup) {
@@ -260,6 +265,18 @@ export function ProposalGeneratorPage() {
   useEffect(() => {
     document.title = 'Proposal Generator | CasaMia Operations'
   }, [])
+
+  useEffect(() => {
+    if (searchParams.get('proposalId')) return
+    const depositRate = getCommercialSettings(serviceCatalogue).proposalDepositRate
+    setProposal((current) => current.depositRate === depositRate
+      ? current
+      : {
+          ...current,
+          depositRate,
+          paymentTerms: getDefaultPaymentTerms(current.selectedPlan, depositRate),
+        })
+  }, [searchParams, serviceCatalogue])
 
   useEffect(() => {
     const proposalId = searchParams.get('proposalId')
@@ -324,7 +341,7 @@ export function ProposalGeneratorPage() {
   }
 
   function applyCatalogueSelectionToProposal() {
-    const catalogueLineItems = buildCatalogueLineItems(cataloguePackageGroups, catalogueSelection)
+    const catalogueLineItems = buildCatalogueLineItems(cataloguePackageGroups, catalogueSelection, serviceCatalogue)
 
     setProposal((current) => {
       const manualLineItems = current.lineItems.filter((item) => !isCatalogueLineItem(item) && !isBlankLineItem(item))

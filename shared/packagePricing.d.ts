@@ -17,7 +17,11 @@ export function getApprovedStarterPackageCustomerPrice(packageId: string): numbe
 
 export function getStarterPackageCataloguePrice(packageId: string, vatRate?: number): number | undefined
 
-export function getCorePackageInstallationPolicy(packageCount: number): {
+export function getCorePackageInstallationPolicy(packageCount: number, commercialSettings?: {
+  corePackageStandaloneInstallationPrice?: number
+  corePackageInstallationSchedule?: ReadonlyArray<{ packageCount: number; totalInstallationPrice: number }>
+  installationQuoteFromPackageCount?: number
+}): {
   confirmed: boolean
   discount: number
   packageCount: number

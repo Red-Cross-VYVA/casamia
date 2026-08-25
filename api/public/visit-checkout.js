@@ -3,10 +3,11 @@ import { getStripeClient, StripeConfigurationError } from '../_lib/stripe.js'
 import { readJsonBody, selectSupabaseRows, sendJson, updateSupabaseRows } from '../_lib/supabase.js'
 import {
   buildVisitCheckoutSession,
+  getVisitPaymentConfig,
   getVisitTaxRateId,
   validateInclusiveVisitTaxRate,
-  visitPaymentConfig,
 } from '../_lib/visit-payment.js'
+import { normaliseCommercialSettings } from '../../shared/commercialSettings.js'
 
 export default async function handler(request, response) {
   response.setHeader('Cache-Control', 'no-store')
@@ -74,13 +75,26 @@ export default async function handler(request, response) {
       return
     }
 
+    const catalogueResult = await selectSupabaseRows(
+      'service_catalogue',
+      'id=eq.default&select=payload_json&limit=1',
+    )
+    if (!catalogueResult.ok) {
+      sendJson(response, 503, { message: 'Current visit pricing could not be loaded.' })
+      return
+    }
+    const catalogueRecord = Array.isArray(catalogueResult.body) ? catalogueResult.body[0] : undefined
+    const commercialSettings = normaliseCommercialSettings(catalogueRecord?.payload_json?.masterCatalogue?.commercialSettings)
+    const paymentConfig = getVisitPaymentConfig(commercialSettings)
+
     const stripe = getStripeClient()
     const taxRateId = getVisitTaxRateId()
     if (!taxRateId) throw new StripeConfigurationError('Add STRIPE_VISIT_TAX_RATE_ID in Vercel.')
 
-    validateInclusiveVisitTaxRate(await stripe.taxRates.retrieve(taxRateId))
+    validateInclusiveVisitTaxRate(await stripe.taxRates.retrieve(taxRateId), paymentConfig)
     const origin = getPublicOrigin(request)
     const session = await stripe.checkout.sessions.create(buildVisitCheckoutSession({
+      commercialSettings,
       locale: body.locale || order.payload_json?.locale,
       order,
       origin,
@@ -98,12 +112,12 @@ export default async function handler(request, response) {
       payload_json: {
         ...(order.payload_json && typeof order.payload_json === 'object' ? order.payload_json : {}),
         visitPayment: {
-          amount: visitPaymentConfig.feeCents,
-          currency: visitPaymentConfig.currency,
+          amount: paymentConfig.feeCents,
+          currency: paymentConfig.currency,
           sessionId: session.id,
           status: 'pending',
-          vatIncluded: visitPaymentConfig.vatIncluded,
-          vatRate: visitPaymentConfig.vatRate,
+          vatIncluded: paymentConfig.vatIncluded,
+          vatRate: paymentConfig.vatRate,
         },
       },
     }, `${referenceColumn}=eq.${encodeURIComponent(orderId)}&select=id,status`)
@@ -111,9 +125,9 @@ export default async function handler(request, response) {
     if (!updateResult.ok) throw new Error('The booking payment state could not be saved.')
 
     sendJson(response, 200, {
-      amount: visitPaymentConfig.feeCents,
+      amount: paymentConfig.feeCents,
       checkoutUrl: session.url,
-      currency: visitPaymentConfig.currency,
+      currency: paymentConfig.currency,
       orderId,
       recordType,
       vatIncluded: true,

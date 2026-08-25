@@ -116,6 +116,14 @@ assert.equal(
 )
 
 const savedCatalogue = saveServiceCatalogue({
+  masterCatalogue: {
+    ...defaultCatalogue.masterCatalogue,
+    commercialSettings: {
+      ...defaultCatalogue.masterCatalogue.commercialSettings,
+      assessmentVisitFeeGross: 125,
+      proposalDepositRate: 0.4,
+    },
+  },
   packageConfigs: [legacyBathroomPackageConfig],
   services: defaults,
 })
@@ -125,5 +133,7 @@ assert.equal(
   defaultBathroomPackage?.name,
   'Local saves must normalise legacy package defaults before persisting.',
 )
+assert.equal(savedCatalogue.masterCatalogue?.commercialSettings?.assessmentVisitFeeGross, 125)
+assert.equal(savedCatalogue.masterCatalogue?.commercialSettings?.proposalDepositRate, 0.4)
 
 console.log('Service catalogue authority checks passed.')

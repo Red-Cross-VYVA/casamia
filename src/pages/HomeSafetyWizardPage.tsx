@@ -64,6 +64,7 @@ import {
   submitCallbackRequest,
 } from '../services/callbackRequests'
 import { getServicesForPackageArea, useServiceCatalogue } from '../services/serviceCatalogue'
+import { formatCommercialCurrency, getCommercialSettings } from '../services/commercialSettings'
 import { generateWizardResult } from '../services/wizardRecommendationEngine'
 import { saveSafetyWizardDraft, submitSafetyWizard } from '../services/wizardSubmission'
 import { createVisitCheckout, getVisitCheckoutStatus } from '../services/visitCheckout'
@@ -165,15 +166,37 @@ type HomeSafetyWizardPageProps = {
 export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageProps) {
   const { i18n } = useTranslation()
   const [searchParams] = useSearchParams()
-  const copy = useMemo(() => getWizardCopy(i18n.language), [i18n.language])
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
+  const serviceCatalogue = useServiceCatalogue()
+  const commercialSettings = getCommercialSettings(serviceCatalogue)
+  const copy = useMemo(() => {
+    const base = getWizardCopy(i18n.language)
+    const fee = formatCommercialCurrency(commercialSettings.assessmentVisitFeeGross, language)
+    const exampleTotal = 650
+    const remainder = Math.max(0, exampleTotal - commercialSettings.assessmentVisitFeeGross)
+
+    return {
+      ...base,
+      visit: {
+        ...base.visit,
+        credit: language === 'es'
+          ? `La tarifa de ${fee} se descuenta de los trabajos CasaMia aprobados si continúas.`
+          : `The ${fee} fee is deducted from approved CasaMia work if you continue.`,
+        example: language === 'es'
+          ? `Ejemplo: en un proyecto de ${formatCommercialCurrency(exampleTotal, language)}, quedarían ${formatCommercialCurrency(remainder, language)} tras aplicar el descuento.`
+          : `Example: on a ${formatCommercialCurrency(exampleTotal, language)} project, ${formatCommercialCurrency(remainder, language)} remains after the visit credit.`,
+        price: language === 'es'
+          ? `${fee} · ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% de IVA incluido · pago por adelantado`
+          : `${fee} · ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% VAT included · paid in advance`,
+      },
+    }
+  }, [commercialSettings.assessmentVisitFeeGross, commercialSettings.assessmentVisitVatRate, i18n.language, language])
   const siteUrl = 'https://www.casamia.com.es'
   const title = copy.entry.title
   const description = copy.entry.body
   const wizard = useSafetyWizard()
-  const { state } = wizard
+  const { patchState, state } = wizard
   const embeddedRootRef = useRef<HTMLDivElement | null>(null)
-  const serviceCatalogue = useServiceCatalogue()
   const displayedMethodOptions = methodOptions
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [callbackSubmitting, setCallbackSubmitting] = useState(false)
@@ -192,6 +215,11 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
   const [packageArea, setPackageArea] = useState<WizardRoom | null>(null)
   const packageTriggerRef = useRef<HTMLButtonElement | null>(null)
   const trackedVoiceConversationRef = useRef(state.voiceSession?.conversationId)
+
+  useEffect(() => {
+    if (state.inspectionFee === commercialSettings.assessmentVisitFeeGross) return
+    patchState({ inspectionFee: commercialSettings.assessmentVisitFeeGross })
+  }, [commercialSettings.assessmentVisitFeeGross, patchState, state.inspectionFee])
   const packageServicesByArea = useMemo(
     () => areaOptions.reduce<Record<WizardRoom, CasaMiaService[]>>((areas, option) => {
       areas[option.value] = getServicesForPackageArea(serviceCatalogue.services, option.value)
@@ -352,7 +380,9 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     setSubmitting(true)
     setSubmitStatus(undefined)
     try {
-      const submission = await submitSafetyWizard(nextState)
+      const submission = await submitSafetyWizard(nextState, {
+        assessmentVisitVatRate: commercialSettings.assessmentVisitVatRate,
+      })
       wizard.patchState({ submitted: true, photos: submission.photos, audioBriefs: submission.audioBriefs })
       trackEvent('wizard_submitted', { reference: state.wizardReference, action, userType: state.userType })
 

@@ -2,12 +2,11 @@ import { getCustomerCatalogueByRoom, getMasterServiceCatalogue } from './masterS
 import { getPackageConfigForArea } from './serviceCatalogue.ts'
 import { createLineItem } from './proposalsStorage.ts'
 import {
-  getApprovedCorePackageCustomerPrice,
-  getApprovedStarterPackageCustomerPrice,
   getCorePackageInstallationPolicy,
 } from '../../shared/packagePricing.js'
 import type {
   EditableServiceCatalogue,
+  CommercialSettings,
   LocalizedString,
   MasterCatalogueOutcome,
   MasterCataloguePackage,
@@ -97,6 +96,7 @@ type BuildGroupsOptions = {
 }
 
 type CalculatePlansBuilderEstimateOptions = {
+  commercialSettings?: CommercialSettings
   starterPacks?: PlansStarterPack[]
 }
 
@@ -369,7 +369,7 @@ export function calculatePlansBuilderEstimate(
     if (starterLine.requiresReview) reviewItems.add(starterLine.label)
   })
 
-  const installationPolicy = getCorePackageInstallationPolicy(selectedCorePackageQuantity)
+  const installationPolicy = getCorePackageInstallationPolicy(selectedCorePackageQuantity, options.commercialSettings)
 
   if (installationPolicy.discount > 0) {
     lineItems.push(buildInstallationSavingLine(installationPolicy.discount, language))
@@ -397,9 +397,10 @@ export function calculatePlansBuilderEstimate(
 export function buildPlansProposalLineItems(
   groups: PlansBuilderGroup[],
   selection: PlansBuilderSelectionState,
-  options: { language?: string; starterPacks?: PlansStarterPack[] } = {},
+  options: { commercialSettings?: CommercialSettings; language?: string; starterPacks?: PlansStarterPack[] } = {},
 ) {
   return calculatePlansBuilderEstimate(groups, selection, options.language ?? 'en', {
+    commercialSettings: options.commercialSettings,
     starterPacks: options.starterPacks,
   }).proposalLineItems
 }
@@ -579,21 +580,16 @@ function installationReviewCopy(language: string) {
 }
 
 function getPackageUnitPrice(packageRecord: MasterCataloguePackage, config?: ServicePackageConfig) {
-  const approvedCustomerPrice = getApprovedCorePackageCustomerPrice(packageRecord.id)
-  if (approvedCustomerPrice !== undefined) return approvedCustomerPrice
-  const approvedStarterPrice = getApprovedStarterPackageCustomerPrice(packageRecord.id)
-  if (approvedStarterPrice !== undefined) return approvedStarterPrice
+  if (packageRecord.pricingType === 'fixed') return priceWithVat(packageRecord.fixedPrice, packageRecord.vatRate)
+  if (packageRecord.pricingType === 'from' || packageRecord.pricingType === 'range') {
+    return priceWithVat(packageRecord.fromPrice, packageRecord.vatRate)
+  }
 
   if (config?.active && config.pricingType !== 'quote_only') {
     return priceWithVat(
       config.pricingType === 'fixed' ? config.packagePrice : config.fromPrice,
       config.vatRate,
     )
-  }
-
-  if (packageRecord.pricingType === 'fixed') return priceWithVat(packageRecord.fixedPrice, packageRecord.vatRate)
-  if (packageRecord.pricingType === 'from' || packageRecord.pricingType === 'range') {
-    return priceWithVat(packageRecord.fromPrice, packageRecord.vatRate)
   }
 
   return 0

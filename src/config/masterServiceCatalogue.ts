@@ -1,5 +1,6 @@
 import type { MasterServiceCatalogue } from '../types/serviceCatalogue.ts'
 import { getCorePackageCataloguePrice, getStarterPackageCataloguePrice } from '../../shared/packagePricing.js'
+import { DEFAULT_COMMERCIAL_SETTINGS } from '../../shared/commercialSettings.js'
 
 const now = '2026-08-23T00:00:00.000Z'
 
@@ -24,6 +25,10 @@ const defaultPackagePricing: Record<string, { fromPrice?: number; recurringMonth
 export const masterServiceCatalogue: MasterServiceCatalogue = {
   version: '1.1.0',
   updatedAt: now,
+  commercialSettings: {
+    ...DEFAULT_COMMERCIAL_SETTINGS,
+    corePackageInstallationSchedule: DEFAULT_COMMERCIAL_SETTINGS.corePackageInstallationSchedule.map((entry) => ({ ...entry })),
+  },
   rooms: [
     { id: 'bathroom', slug: 'bathroom', name: { en: 'Bathroom', es: 'Baño' }, active: true, sortOrder: 10 },
     { id: 'bedroom', slug: 'bedroom', name: { en: 'Bedroom', es: 'Dormitorio' }, active: true, sortOrder: 20 },

@@ -1,3 +1,5 @@
+import { normaliseCommercialSettings } from '../../shared/commercialSettings.js'
+
 export const visitPaymentConfig = Object.freeze({
   currency: 'eur',
   feeCents: 9_900,
@@ -5,23 +7,33 @@ export const visitPaymentConfig = Object.freeze({
   vatRate: 21,
 })
 
+export function getVisitPaymentConfig(commercialSettings) {
+  const settings = normaliseCommercialSettings(commercialSettings)
+  return {
+    currency: 'eur',
+    feeCents: Math.round(settings.assessmentVisitFeeGross * 100),
+    vatIncluded: true,
+    vatRate: Math.round(settings.assessmentVisitVatRate * 100),
+  }
+}
+
 export function getVisitTaxRateId(env = process.env) {
   return text(env.STRIPE_VISIT_TAX_RATE_ID)
 }
 
-export function validateInclusiveVisitTaxRate(taxRate) {
+export function validateInclusiveVisitTaxRate(taxRate, config = visitPaymentConfig) {
   if (!taxRate || taxRate.deleted) {
     throw new Error('The configured Stripe visit VAT rate was not found.')
   }
 
-  if (taxRate.active !== true || taxRate.inclusive !== true || Number(taxRate.percentage) !== visitPaymentConfig.vatRate) {
-    throw new Error('STRIPE_VISIT_TAX_RATE_ID must reference an active, inclusive 21% VAT rate.')
+  if (taxRate.active !== true || taxRate.inclusive !== true || Number(taxRate.percentage) !== config.vatRate) {
+    throw new Error(`STRIPE_VISIT_TAX_RATE_ID must reference an active, inclusive ${config.vatRate}% VAT rate.`)
   }
 
   return taxRate
 }
 
-export function buildVisitCheckoutSession({ locale = 'en', order, origin, recordType = 'order', taxRateId }) {
+export function buildVisitCheckoutSession({ commercialSettings, locale = 'en', order, origin, recordType = 'order', taxRateId }) {
   const orderId = text(order?.order_id)
   const customerEmail = text(order?.customer_email)
   const customerName = text(order?.customer_name)
@@ -32,6 +44,7 @@ export function buildVisitCheckoutSession({ locale = 'en', order, origin, record
 
   const localeCode = String(locale).toLowerCase().split(/[-_]/)[0]
   const checkoutLocale = ['de', 'es', 'fr', 'nl'].includes(localeCode) ? localeCode : 'en'
+  const paymentConfig = getVisitPaymentConfig(commercialSettings)
   const productCopy = {
     de: {
       description: 'Professioneller Hausbesuch. Der Gesamtpreis enthält die Mehrwertsteuer.',
@@ -63,13 +76,13 @@ export function buildVisitCheckoutSession({ locale = 'en', order, origin, record
     customer_email: customerEmail,
     line_items: [{
       price_data: {
-        currency: visitPaymentConfig.currency,
+        currency: paymentConfig.currency,
         product_data: {
           description: productCopy.description,
           name: productCopy.name,
         },
         tax_behavior: 'inclusive',
-        unit_amount: visitPaymentConfig.feeCents,
+        unit_amount: paymentConfig.feeCents,
       },
       quantity: 1,
       tax_rates: [taxRateId],
@@ -81,7 +94,7 @@ export function buildVisitCheckoutSession({ locale = 'en', order, origin, record
       order_id: orderId,
       record_type: recordType,
       vat_included: 'true',
-      vat_rate: String(visitPaymentConfig.vatRate),
+      vat_rate: String(paymentConfig.vatRate),
     },
     mode: 'payment',
     payment_intent_data: {

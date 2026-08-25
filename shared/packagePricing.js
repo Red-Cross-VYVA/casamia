@@ -36,7 +36,7 @@ export function getCorePackageCataloguePrice(packageId, vatRate = 0.21) {
     return undefined
   }
 
-  return Math.round(customerPrice / (1 + vatRate))
+  return Math.round((customerPrice / (1 + vatRate)) * 100) / 100
 }
 
 export function getApprovedStarterPackageCustomerPrice(packageId) {
@@ -54,17 +54,25 @@ export function getStarterPackageCataloguePrice(packageId, vatRate = 0.21) {
     return undefined
   }
 
-  return Math.round(customerPrice / (1 + vatRate))
+  return Math.round((customerPrice / (1 + vatRate)) * 100) / 100
 }
 
-export function getCorePackageInstallationPolicy(packageCount) {
+export function getCorePackageInstallationPolicy(packageCount, commercialSettings = {}) {
   const count = Math.max(0, Math.floor(Number(packageCount) || 0))
-  const standaloneTotal = count * CORE_PACKAGE_STANDALONE_INSTALLATION_PRICE
-  const scheduled = CORE_PACKAGE_INSTALLATION_SCHEDULE.find((entry) => entry.packageCount === count)
+  const standalonePrice = finiteNonNegative(
+    commercialSettings.corePackageStandaloneInstallationPrice,
+    CORE_PACKAGE_STANDALONE_INSTALLATION_PRICE,
+  )
+  const configuredSchedule = Array.isArray(commercialSettings.corePackageInstallationSchedule)
+    ? commercialSettings.corePackageInstallationSchedule
+    : CORE_PACKAGE_INSTALLATION_SCHEDULE
+  const quoteFrom = Math.max(2, Math.floor(Number(commercialSettings.installationQuoteFromPackageCount) || 4))
+  const standaloneTotal = count * standalonePrice
+  const scheduled = configuredSchedule.find((entry) => Number(entry?.packageCount) === count)
 
   if (!scheduled) {
     return {
-      confirmed: count < 4,
+      confirmed: count < quoteFrom,
       discount: 0,
       packageCount: count,
       totalInstallationPrice: standaloneTotal,
@@ -73,8 +81,13 @@ export function getCorePackageInstallationPolicy(packageCount) {
 
   return {
     confirmed: true,
-    discount: Math.max(0, standaloneTotal - scheduled.totalInstallationPrice),
+    discount: Math.max(0, standaloneTotal - finiteNonNegative(scheduled.totalInstallationPrice, standaloneTotal)),
     packageCount: count,
-    totalInstallationPrice: scheduled.totalInstallationPrice,
+    totalInstallationPrice: finiteNonNegative(scheduled.totalInstallationPrice, standaloneTotal),
   }
+}
+
+function finiteNonNegative(value, fallback) {
+  const parsed = Number(value)
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback
 }

@@ -57,6 +57,7 @@ type BackendProposal = {
   customer_name?: string
   customer_phone?: string
   deposit_due?: number | string
+  deposit_rate?: number | string
   email?: string
   events?: unknown[]
   executive_summary?: string
@@ -283,6 +284,7 @@ export function toBackendProposal(proposal: ProposalData) {
     balance_due: totals.balanceDue,
     customer_email: proposal.email,
     customer_name: proposal.customerName,
+    deposit_rate: proposal.depositRate,
     customer_phone: proposal.phone,
     deposit_due: totals.depositDue,
     executive_summary: proposal.executiveSummary,
@@ -342,6 +344,7 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
     area,
     createdAt: safeText(raw.created_at, new Date().toISOString()),
     customerName: safeText(raw.customer_name),
+    depositRate: Math.min(1, Math.max(0.01, safeNumber(raw.deposit_rate) || 0.5)),
     email: safeText(raw.customer_email ?? raw.email),
     executiveSummary: safeText(raw.executive_summary ?? raw.notes),
     grantEligibilityNote: safeText(raw.grant_eligibility_note),
@@ -364,7 +367,7 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
       }),
     ),
     overallRiskLevel: (safeText(raw.overall_risk_level, 'Moderate') || 'Moderate') as ProposalData['overallRiskLevel'],
-    paymentTerms: safeText(raw.payment_terms, getDefaultPaymentTerms(selectedPlan)),
+    paymentTerms: safeText(raw.payment_terms, getDefaultPaymentTerms(selectedPlan, Math.min(1, Math.max(0.01, safeNumber(raw.deposit_rate) || 0.5)))),
     phone: safeText(raw.customer_phone ?? raw.phone),
     preparedBy: safeText(raw.prepared_by, 'CasaMia Operations'),
     proposalDate: safeText(raw.proposal_date, new Date().toISOString().slice(0, 10)),
@@ -693,18 +696,25 @@ function createLocalPublicProposalDraft(
 
   const groups = buildPlansBuilderGroups(catalogue, payload.language)
   const starterPacks = buildPlansStarterPacks(catalogue, payload.language)
-  const estimate = calculatePlansBuilderEstimate(groups, payload.selection, payload.language, { starterPacks })
+  const estimate = calculatePlansBuilderEstimate(groups, payload.selection, payload.language, {
+    commercialSettings: catalogue.masterCatalogue?.commercialSettings,
+    starterPacks,
+  })
 
   if (!estimate.proposalLineItems.length) {
     throw new Error('Select at least one CasaMia package.')
   }
 
   const publicToken = createLocalPublicToken()
+  const depositRate = catalogue.masterCatalogue?.commercialSettings?.proposalDepositRate ?? 0.5
+  const upfrontPercent = Math.round(depositRate * 100)
+  const balancePercent = 100 - upfrontPercent
   const proposal = createEmptyProposal({
     acceptanceStatus: 'Sent',
     address: payload.customer.address ?? '',
     area: payload.customer.area ?? '',
     customerName: payload.customer.name,
+    depositRate,
     email: payload.customer.email,
     executiveSummary: payload.language === 'es'
       ? `Propuesta creada desde Planes CasaMia con ${estimate.selectedRoomQuantity} paquete(s) de estancia. Los importes con precio se muestran con IVA incluido. Los extras marcados como presupuesto se confirman antes de iniciar el trabajo.`
@@ -715,8 +725,8 @@ function createLocalPublicProposalDraft(
     inspectionReference: 'Public Plans builder',
     lineItems: estimate.proposalLineItems,
     paymentTerms: payload.language === 'es'
-      ? 'Propuesta generada a partir de los paquetes, cantidades y extras seleccionados. Los trabajos y pagos solo empiezan después de la aceptación y la coordinación de fecha.'
-      : 'Proposal generated from the selected packages, quantities and add-ons. Work and payments only start after acceptance and date coordination.',
+      ? `${upfrontPercent}% como pago a cuenta al aceptar la propuesta y ${balancePercent}% tras finalizar y aceptar el trabajo.`
+      : `${upfrontPercent}% payment on account upon proposal acceptance and ${balancePercent}% after completion and customer acceptance.`,
     phone: payload.customer.phone ?? '',
     preparedBy: 'CasaMia',
     publicToken,

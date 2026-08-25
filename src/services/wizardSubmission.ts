@@ -266,12 +266,16 @@ function attachStoredAudio(
   })
 }
 
-export async function submitSafetyWizard(state: SafetyWizardState) {
+export async function submitSafetyWizard(
+  state: SafetyWizardState,
+  commercial: { assessmentVisitVatRate?: number } = {},
+) {
   const payload = createWizardSubmissionPayload(state)
   const summary = JSON.stringify(payload, null, 2)
   const mediaManifest = createWizardMediaManifest(state)
 
   const submission = await submitAssessmentRequest({
+    assessmentVisitFee: `${state.inspectionFee} EUR including ${Math.round((commercial.assessmentVisitVatRate ?? 0.21) * 100)}% VAT`,
     name: state.contact.fullName,
     phone: state.contact.phone,
     email: state.contact.email,

@@ -296,8 +296,8 @@ export type SafetyWizardState = {
   callbackRequest: WizardCallbackRequest
   callbackSubmission?: WizardCallbackSubmission
   inspectionBooked: boolean
-  inspectionFee: 99
-  inspectionCreditThreshold: 150
+  inspectionFee: number
+  inspectionCreditThreshold: number
   contact: WizardContact
   result?: WizardResult
   submitted: boolean
