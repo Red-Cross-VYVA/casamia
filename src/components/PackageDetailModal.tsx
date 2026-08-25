@@ -276,7 +276,7 @@ export function PackageDetailModal({
 
     setActiveTab('core')
     setActiveIndex(0)
-  }, [group?.homePackage.id])
+  }, [group])
 
   useEffect(() => {
     if (!group) return

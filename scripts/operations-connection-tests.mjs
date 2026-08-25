@@ -303,7 +303,9 @@ function jsonResponse(body, status = 200) {
     email: 'ana@example.com',
     name: 'Ana Lopez',
     orderId: 'CM-2026-ORDER1',
+    planId: 'grab-bar',
     planLabel: '3 selected improvements',
+    consentRecords: [{ accepted: true, label: 'Permission to contact customer' }],
     selectedServices: [{ serviceId: 'grab-bar' }],
     status: 'Quote requested',
   }, false), response)
@@ -325,9 +327,13 @@ function jsonResponse(body, status = 200) {
   const response = makeResponse()
   await publicProviderHandler(makeRequest('POST', {
     businessName: 'Madrid Access SL',
+    cities: ['Madrid'],
     contactName: 'Luis Martin',
     email: 'luis@example.com',
+    experience: 'Ten years installing accessibility adaptations.',
     id: 'PPA-TEST-1',
+    insuranceConfirmed: true,
+    phone: '+34 600 000 000',
     trades: ['Bathroom adaptations'],
   }, false), response)
   assert.equal(response.statusCode, 200)

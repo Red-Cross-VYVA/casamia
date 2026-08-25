@@ -43,24 +43,22 @@ Supporting routes:
 
 The homepage CTA card that previously opened grant checking now opens `/configure` and is labelled `Build My Safer Home`. The grant checker remains available at `/grant-check` and through other grant-related entry points.
 
-## Configurator Data
+## Catalogue And Pricing Source Of Truth
 
-Package definitions, inclusions, conditional items and placeholder pricing live in:
+The production service catalogue, package prices and commercial rules are managed at
+`/internal/service-catalog`. Saving there updates the Supabase catalogue consumed by
+public pages, proposals and checkout calculations.
 
-- `src/config/casamiaPackages.ts`
+Repository defaults and validation logic live in:
+
+- `src/config/masterServiceCatalogue.ts`
+- `src/config/serviceCatalogue.ts`
+- `src/services/masterServiceCatalogue.ts`
 - `src/services/configuratorPricing.ts`
-- `src/types/configurator.ts`
+- `src/types/serviceCatalogue.ts`
 
-The current seed data was built from the implementation brief because `CasaMia_Final_Packages_and_Wizard_Source.xlsx` is not present in the repository.
-
-## Placeholder Values To Confirm
-
-The following values are editable placeholders and need commercial confirmation before live checkout:
-
-- Base package prices
-- Staircase module price
-- Conditional component prices
-- Monthly VYVA, monitoring and GPS support prices
+Treat repository values as recovery defaults, not as the live commercial record.
+Export a JSON or CSV backup from the admin catalogue before a substantial update.
 
 The home visit is fixed at **€99 total, including 21% VAT**, and is paid in
 advance. The quote-request path remains free. The visit fee is deducted from the

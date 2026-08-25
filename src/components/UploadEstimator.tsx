@@ -1063,12 +1063,7 @@ function EstimatorIntroStep() {
     t('estimator.workflow.intro.steps', { returnObjects: true }),
     ['Upload room photos', 'Add context', 'Share contact details', 'Receive your report'],
   )
-  const icons = [
-    <Camera size={22} aria-hidden="true" />,
-    <Home size={22} aria-hidden="true" />,
-    <UserRound size={22} aria-hidden="true" />,
-    <FileText size={22} aria-hidden="true" />,
-  ]
+  const icons = [Camera, Home, UserRound, FileText]
 
   return (
     <section className="estimate-wizard-intro-slide">
@@ -1085,13 +1080,17 @@ function EstimatorIntroStep() {
         </small>
       </div>
       <div className="estimate-wizard-intro-steps" aria-label={t('estimator.workflow.progress')}>
-        {steps.map((label, index) => (
-          <article className="estimate-wizard-intro-step" key={`${label}-${index}`}>
-            <span aria-hidden="true">{icons[index] ?? <Check size={22} />}</span>
-            <strong>{String(index + 1).padStart(2, '0')}</strong>
-            <p>{label}</p>
-          </article>
-        ))}
+        {steps.map((label, index) => {
+          const Icon = icons[index] ?? Check
+
+          return (
+            <article className="estimate-wizard-intro-step" key={`${label}-${index}`}>
+              <span aria-hidden="true"><Icon size={22} /></span>
+              <strong>{String(index + 1).padStart(2, '0')}</strong>
+              <p>{label}</p>
+            </article>
+          )
+        })}
       </div>
     </section>
   )

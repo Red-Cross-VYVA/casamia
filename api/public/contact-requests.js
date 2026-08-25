@@ -6,6 +6,7 @@ import {
   sendJson,
   updateSupabaseRows,
 } from '../_lib/supabase.js'
+import { cleanString, isValidEmail } from '../_lib/public-form-validation.js'
 
 export default async function handler(request, response) {
   if (!requirePost(request, response)) return
@@ -13,6 +14,15 @@ export default async function handler(request, response) {
   try {
     const body = await readJsonBody(request)
     const requestType = body.type === 'complaint_request' ? 'complaint_request' : 'contact_request'
+
+    const customerName = cleanString(body.customer_name ?? body.name)
+    const customerEmail = cleanString(body.customer_email ?? body.email)
+    const message = cleanString(body.message)
+
+    if (!customerName || !isValidEmail(customerEmail) || !message) {
+      sendJson(response, 400, { message: 'Name, a valid email address and a message are required.' })
+      return
+    }
 
     if (requestType === 'complaint_request' && body.consentConfirmed !== true) {
       sendJson(response, 400, { message: 'Consent is required to submit a complaint.' })
@@ -22,12 +32,12 @@ export default async function handler(request, response) {
       submitted_at: body.submittedAt ?? new Date().toISOString(),
       status: body.status ?? 'New',
       type: requestType,
-      customer_name: body.customer_name ?? body.name ?? '',
-      customer_email: body.customer_email ?? body.email ?? '',
-      customer_phone: body.customer_phone ?? body.phone ?? '',
-      selected_plan: body.selected_plan ?? body.plan ?? '',
+      customer_name: customerName,
+      customer_email: customerEmail,
+      customer_phone: cleanString(body.customer_phone ?? body.phone),
+      selected_plan: cleanString(body.selected_plan ?? body.plan),
       source: body.source ?? (requestType === 'complaint_request' ? 'complaints-page' : 'contact'),
-      message: body.message ?? '',
+      message,
       payload_json: body,
     }
     const result = await insertSupabaseRow('contact_requests', payload)

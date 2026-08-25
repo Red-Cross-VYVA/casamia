@@ -5,29 +5,46 @@ import {
   sendJson,
 } from '../_lib/supabase.js'
 import { sendFormSubmissionEmails } from '../_lib/form-email.js'
+import { cleanString, hasAcceptedConsent, isValidEmail } from '../_lib/public-form-validation.js'
 
 export default async function handler(request, response) {
   if (!requirePost(request, response)) return
 
   try {
     const body = await readJsonBody(request)
+    const customerName = cleanString(body.name)
+    const customerEmail = cleanString(body.email)
+    const planId = cleanString(body.planId)
+    const planLabel = cleanString(body.planLabel)
+
+    if (
+      !customerName
+      || !isValidEmail(customerEmail)
+      || !planId
+      || !planLabel
+      || !hasAcceptedConsent(body.consentRecords)
+    ) {
+      sendJson(response, 400, { message: 'Customer details, selected work and contact consent are required.' })
+      return
+    }
+
     const payload = {
       order_id: body.orderId ?? `CM-${Date.now().toString(36).toUpperCase()}`,
       created_at: body.createdAt ?? new Date().toISOString(),
       status: body.status ?? 'New',
-      plan_id: body.planId ?? '',
-      plan_label: body.planLabel ?? '',
+      plan_id: planId,
+      plan_label: planLabel,
       plan_price: body.planPrice ?? '',
-      installation_address: body.address ?? '',
-      city: body.city ?? '',
-      postcode: body.postcode ?? '',
-      province: body.province ?? '',
-      customer_name: body.name ?? '',
-      customer_phone: body.phone ?? '',
-      customer_email: body.email ?? '',
-      preferred_timing: body.preferredTiming ?? '',
-      notes: body.notes ?? '',
-      payment_method: body.paymentMethod ?? '',
+      installation_address: cleanString(body.address),
+      city: cleanString(body.city),
+      postcode: cleanString(body.postcode),
+      province: cleanString(body.province),
+      customer_name: customerName,
+      customer_phone: cleanString(body.phone),
+      customer_email: customerEmail,
+      preferred_timing: cleanString(body.preferredTiming),
+      notes: cleanString(body.notes),
+      payment_method: cleanString(body.paymentMethod),
       payload_json: body,
     }
     const result = await createSupabaseRowIfAbsent('orders', payload, 'order_id')

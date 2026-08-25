@@ -52,6 +52,7 @@ const withdrawalCopy = {
     download: 'Download printable copy',
     submitted:
       'Your request was submitted to the configured withdrawal endpoint. Keep the downloadable copy for your records.',
+    submissionError: 'We could not submit the form. Please try again or use the email or postal address below.',
     localOnly:
       'This form was prepared locally only. Legal receipt is not confirmed until CasaMia receives it by email, post, or a configured backend.',
     alternatives: 'Alternative submission routes',
@@ -90,6 +91,7 @@ const withdrawalCopy = {
     download: 'Descargar copia imprimible',
     submitted:
       'Tu solicitud se envió al endpoint de desistimiento configurado. Guarda la copia descargable para tus registros.',
+    submissionError: 'No pudimos enviar el formulario. Inténtalo de nuevo o usa el email o la dirección postal indicados abajo.',
     localOnly:
       'Este formulario solo se preparó localmente. La recepción legal no queda confirmada hasta que CasaMia lo reciba por email, correo postal o un backend configurado.',
     alternatives: 'Vías alternativas de envío',
@@ -134,6 +136,7 @@ export function WithdrawalFormPage() {
   const [values, setValues] = useState<WithdrawalValues>(initialValues)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [confirmationReference, setConfirmationReference] = useState('')
+  const [submissionError, setSubmissionError] = useState('')
   const withdrawalApiUrl = import.meta.env.VITE_WITHDRAWAL_API_URL || (import.meta.env.PROD ? '/api/withdrawal-requests' : '')
   const withdrawalBackendConfigured = Boolean(withdrawalApiUrl)
   const downloadableText = useMemo(
@@ -163,16 +166,26 @@ export function WithdrawalFormPage() {
     event.preventDefault()
     if (!validate()) return
 
-    if (withdrawalBackendConfigured) {
-      // The public contract is defined here; production should wire this to a durable backend receipt service.
-      await fetch(withdrawalApiUrl, {
-        body: JSON.stringify(values),
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-      })
-    }
+    setSubmissionError('')
 
-    setConfirmationReference(`WD-${Date.now().toString(36).toUpperCase()}`)
+    try {
+      if (withdrawalBackendConfigured) {
+        const response = await fetch(withdrawalApiUrl, {
+          body: JSON.stringify(values),
+          headers: { 'Content-Type': 'application/json' },
+          method: 'POST',
+        })
+
+        if (!response.ok) {
+          throw new Error(`Withdrawal request returned ${response.status}.`)
+        }
+      }
+
+      setConfirmationReference(`WD-${Date.now().toString(36).toUpperCase()}`)
+    } catch (error) {
+      console.error('CasaMia withdrawal request failed', error)
+      setSubmissionError(copy.submissionError)
+    }
   }
 
   function downloadForm() {
@@ -241,6 +254,8 @@ export function WithdrawalFormPage() {
             </button>
           </div>
         </form>
+
+        {submissionError ? <p className="withdrawal-error" role="alert">{submissionError}</p> : null}
 
         {confirmationReference ? (
           <div className="withdrawal-confirmation" role="status">

@@ -1,4 +1,5 @@
 import { sendFormSubmissionEmails } from '../_lib/form-email.js'
+import { cleanString, isValidEmail } from '../_lib/public-form-validation.js'
 import { insertSupabaseRow, readJsonBody, requirePost, sendJson } from '../_lib/supabase.js'
 
 export default async function handler(request, response) {
@@ -6,19 +7,41 @@ export default async function handler(request, response) {
 
   try {
     const body = await readJsonBody(request)
+    const businessName = cleanString(body.businessName)
+    const contactName = cleanString(body.contactName)
+    const email = cleanString(body.email)
+    const phone = cleanString(body.phone)
+    const cities = Array.isArray(body.cities) ? body.cities.map(cleanString).filter(Boolean) : []
+    const trades = Array.isArray(body.trades) ? body.trades.map(cleanString).filter(Boolean) : []
+    const experience = cleanString(body.experience)
+
+    if (
+      !businessName
+      || !contactName
+      || !isValidEmail(email)
+      || !phone
+      || cities.length === 0
+      || trades.length === 0
+      || !experience
+      || body.insuranceConfirmed !== true
+    ) {
+      sendJson(response, 400, { message: 'Complete all required provider application fields and confirm insurance.' })
+      return
+    }
+
     const payload = {
       application_id: body.id ?? `PPA-${Date.now().toString(36).toUpperCase()}`,
       created_at: body.createdAt ?? new Date().toISOString(),
       status: body.status ?? 'new',
-      business_name: body.businessName ?? '',
-      contact_name: body.contactName ?? '',
-      email: body.email ?? '',
-      phone: body.phone ?? '',
-      website: body.website ?? '',
-      cities: Array.isArray(body.cities) ? body.cities : [],
-      trades: Array.isArray(body.trades) ? body.trades : [],
-      experience: body.experience ?? '',
-      availability: body.availability ?? '',
+      business_name: businessName,
+      contact_name: contactName,
+      email,
+      phone,
+      website: cleanString(body.website),
+      cities,
+      trades,
+      experience,
+      availability: cleanString(body.availability),
       insurance_confirmed: Boolean(body.insuranceConfirmed),
       payload_json: body,
     }
