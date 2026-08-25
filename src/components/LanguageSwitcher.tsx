@@ -53,7 +53,7 @@ export function LanguageSwitcher({
         } ${compact ? 'px-3' : ''}`}
         aria-expanded={open}
         aria-haspopup="listbox"
-        aria-label={t('languageSwitcher.aria')}
+        aria-label={`${currentLanguage.shortLabel} - ${t('languageSwitcher.aria')}`}
         onClick={() => setOpen((isOpen) => !isOpen)}
       >
         <span>{compact ? currentLanguage.shortLabel : currentLanguage.label}</span>

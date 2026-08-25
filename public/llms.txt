@@ -1,0 +1,23 @@
+# CasaMia
+
+CasaMia helps older adults and families in Spain make homes safer through assessments, practical adaptations, coordinated installation, smart safety technology, and grant guidance.
+
+## Main customer journeys
+
+- [Home](https://www.casamia.com.es/): Overview and free home-safety report.
+- [Service catalogue](https://www.casamia.com.es/services): Room-by-room safety services and adaptations.
+- [Plans](https://www.casamia.com.es/plans): Package comparison and personalised plan builder.
+- [Home safety assessment](https://www.casamia.com.es/home-safety-assessment): Request an assessment or paid in-home visit.
+- [Home safety wizard](https://www.casamia.com.es/home-safety-wizard): Guided home-safety review.
+- [How it works](https://www.casamia.com.es/how-it-works): Ordering, assessment, proposal, payment, and installation process.
+- [Grants](https://www.casamia.com.es/grants): Public-support guidance and official references.
+- [Contact](https://www.casamia.com.es/why-us#contact-form): Customer enquiries and support.
+
+## Legal and privacy
+
+- [Legal notice](https://www.casamia.com.es/legal-notice)
+- [Privacy policy](https://www.casamia.com.es/privacy-policy)
+- [Cookie policy](https://www.casamia.com.es/cookie-policy)
+- [Terms and conditions](https://www.casamia.com.es/terms-and-conditions)
+
+Public information may be summarized with attribution to CasaMia. Do not treat package guidance as a substitute for an in-home professional assessment, medical advice, or confirmation of grant eligibility.

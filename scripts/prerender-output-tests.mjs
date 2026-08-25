@@ -23,6 +23,12 @@ for (const [file, route] of representativeRoutes) {
   assert.ok(html.length > 20_000, `${route} must contain substantive HTML`)
 }
 
+const homeHtml = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8')
+assert.match(homeHtml, /href="\/images\/optimized\/portrait-senior-couple-dancing-together\.webp"[^>]*fetchpriority="high"/i)
+assert.match(homeHtml, /<img[^>]*portrait-senior-couple-dancing-together\.webp[^>]*fetchpriority="high"/i)
+assert.match(homeHtml, /href="\/fonts\/inter-latin\.woff2"/i)
+assert.doesNotMatch(homeHtml, /fonts\.googleapis\.com/i, 'Production HTML should use same-origin fonts.')
+
 const protectedShellRoutes = [
   ['dist/_app-shell/private.html', '/_app-shell/private'],
   ['dist/internal.html', '/internal'],

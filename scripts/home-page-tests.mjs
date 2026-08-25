@@ -5,6 +5,7 @@ const home = await readFile(new URL('../src/pages/Home2Page.tsx', import.meta.ur
 const offer = await readFile(new URL('../src/components/WhatWeOffer.tsx', import.meta.url), 'utf8')
 const uploadEstimator = await readFile(new URL('../src/components/UploadEstimator.tsx', import.meta.url), 'utf8')
 const specialistAgent = await readFile(new URL('../src/config/elevenLabsSpecialistAgent.ts', import.meta.url), 'utf8')
+const imageUrls = await readFile(new URL('../src/constants/shopify.ts', import.meta.url), 'utf8')
 const enCopy = JSON.parse(await readFile(new URL('../src/i18n/locales/en.json', import.meta.url), 'utf8'))
 const esCopy = JSON.parse(await readFile(new URL('../src/i18n/locales/es.json', import.meta.url), 'utf8'))
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
@@ -80,6 +81,18 @@ assert.match(
   specialistAgent,
   /specialistAgentKnowledgeBase[\s\S]*casamia-package-catalogue/,
   'The ElevenLabs specialist agent should include package-catalogue knowledge.',
+)
+
+assert.match(
+  imageUrls,
+  /hero: '\/images\/optimized\/portrait-senior-couple-dancing-together\.webp'/,
+  'The homepage LCP image should use the optimized same-origin asset.',
+)
+
+assert.doesNotMatch(
+  imageUrls,
+  /beautiful-senior-man-woman-hugging\.jpg/,
+  'The homepage and gallery should not depend on the former 1.6 MB third-party image.',
 )
 
 assert.doesNotMatch(

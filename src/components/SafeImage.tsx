@@ -7,6 +7,7 @@ type SafeImageProps = {
   className?: string
   imgClassName?: string
   fallbackLabel?: string
+  fetchPriority?: 'high' | 'low' | 'auto'
   loading?: 'eager' | 'lazy'
 }
 
@@ -16,6 +17,7 @@ export function SafeImage({
   className = '',
   imgClassName = '',
   fallbackLabel,
+  fetchPriority,
   loading = 'lazy',
 }: SafeImageProps) {
   const { t } = useTranslation()
@@ -35,6 +37,7 @@ export function SafeImage({
           alt={alt}
           className={imgClassName}
           loading={loading}
+          {...(fetchPriority ? { fetchpriority: fetchPriority } : {})}
           decoding="async"
           onError={() => setFailed(true)}
         />

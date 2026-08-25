@@ -504,6 +504,7 @@ export function UploadEstimator() {
         id="home-photos"
         className="sr-only"
         type="file"
+        aria-label={t('hero.uploadLabel')}
         accept="image/jpeg,image/png,image/webp"
         multiple
         onChange={handleFileChange}

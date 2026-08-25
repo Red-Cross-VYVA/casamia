@@ -105,7 +105,11 @@ export function SolutionGallery() {
                   <h3 className="font-display text-2xl font-bold text-text-dark">{item.title}</h3>
                   <p className="mt-2 text-text-mid">{item.desc}</p>
                   {link ? (
-                    <Link className="solution-card-cta" to={link}>
+                    <Link
+                      aria-label={`${t('common.learnMore')}: ${item.title}`}
+                      className="solution-card-cta"
+                      to={link}
+                    >
                       {t('common.learnMore')}
                       <ArrowRight size={17} aria-hidden="true" />
                     </Link>

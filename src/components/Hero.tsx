@@ -38,6 +38,7 @@ export function Hero() {
               className="hero-photo-frame overflow-hidden"
               imgClassName="hero-photo-img h-full w-full object-cover"
               loading="eager"
+              fetchPriority="high"
             />
           </div>
           <GrantStamp />

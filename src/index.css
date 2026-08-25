@@ -1,4 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap');
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 700 900;
+  font-display: swap;
+  src: url('/fonts/playfair-display-latin-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic;
+  font-weight: 700 900;
+  font-display: swap;
+  src: url('/fonts/playfair-display-latin-italic.woff2') format('woff2');
+}
 
 @tailwind base;
 @tailwind components;
@@ -6,15 +28,15 @@
 
 :root {
   --navy: #1b5e8a;
-  --blue: #3a9fd4;
-  --green: #7db841;
+  --blue: #1678a6;
+  --green: #527f24;
   --gold: #d8a82f;
   --white: #ffffff;
   --light-blue: #eaf5fc;
   --pale-blue: #f0f8fd;
   --text-dark: #1a2d42;
   --text-mid: #4b5563;
-  --text-muted: #5e8aa8;
+  --text-muted: #527995;
   --border: #c8dce8;
   --ink: #0d1e2e;
   --navy-mid: #2d5a7a;
@@ -26370,9 +26392,22 @@ body .hero-section .hero-title .home-accent {
 
 .hero-title .home-accent,
 body .hero-section .hero-title .home-accent {
-  color: var(--blue) !important;
-  -webkit-text-fill-color: var(--blue) !important;
-  -webkit-text-stroke-color: var(--blue) !important;
+  color: #c8f08f !important;
+  -webkit-text-fill-color: #c8f08f !important;
+  -webkit-text-stroke-color: #c8f08f !important;
+}
+
+.trust-bar-section,
+.prevention-section,
+.solution-section,
+.before-after-preview-section,
+.offer-section,
+.manufacturer-marquee-section,
+.grants-section,
+.eurosafe-section,
+.final-cta-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 .hero-safety-wizard-link {

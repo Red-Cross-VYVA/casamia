@@ -25,6 +25,15 @@ for (const [name, expected] of [
 ]) {
   assert.match(home.headers.get(name) || '', expected, `Missing or invalid ${name} header.`)
 }
+const homeHtml = await home.text()
+assert.match(homeHtml, /\/images\/optimized\/portrait-senior-couple-dancing-together\.webp/)
+assert.match(homeHtml, /fetchpriority="high"/)
+assert.doesNotMatch(homeHtml, /fonts\.googleapis\.com/)
+
+const llmsResponse = await expectStatus('LLM guidance', '/llms.txt', 200)
+const llms = await llmsResponse.text()
+assert.match(llms, /^# CasaMia/m)
+assert.match(llms, /https:\/\/www\.casamia\.com\.es\/plans/)
 
 const sitemapResponse = await expectStatus('Sitemap', '/sitemap.xml', 200)
 const sitemap = await sitemapResponse.text()
