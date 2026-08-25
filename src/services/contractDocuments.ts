@@ -58,7 +58,7 @@ Payment method selected: ${order.paymentMethod}
       title: 'Accepted quotation',
       content: `${commonHeader}Accepted CasaMia plan: ${order.planLabel}
 Accepted total: ${order.planPrice}
-Payment schedule: 50% after order confirmation, 50% after successful installation.
+Payment schedule: the initial and remaining amounts shown above apply after order confirmation and successful installation respectively.
 `,
     },
     {

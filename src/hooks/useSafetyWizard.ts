@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { DEFAULT_COMMERCIAL_SETTINGS } from '../services/commercialSettings'
 import { generateWizardResult } from '../services/wizardRecommendationEngine'
 import {
   clearWizardState,
@@ -31,7 +32,7 @@ function createInitialState(): SafetyWizardState {
       consent: false,
     },
     inspectionBooked: false,
-    inspectionFee: 99,
+    inspectionFee: DEFAULT_COMMERCIAL_SETTINGS.assessmentVisitFeeGross,
     inspectionCreditThreshold: 150,
     contact: {
       fullName: '',

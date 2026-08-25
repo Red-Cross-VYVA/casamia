@@ -20,6 +20,7 @@ import { AssessmentForm } from '../components/AssessmentForm'
 import { SEO } from '../components/SEO'
 import { SelfInspectionTool } from '../components/SelfInspectionTool'
 import { TrustBar } from '../components/TrustBar'
+import { useCommercialSettings } from '../context/CommercialSettingsContext'
 
 type BenefitItem = {
   title: string
@@ -67,6 +68,7 @@ const siteUrl = 'https://casamia.com.es'
 
 export function FreeHomeSafetyAssessmentPage() {
   const { i18n, t } = useTranslation()
+  const commercialSettings = useCommercialSettings()
   const [searchParams] = useSearchParams()
   const benefits = t('assessment.benefits.items', { returnObjects: true }) as BenefitItem[]
   const included = t('assessment.included.items', { returnObjects: true }) as IncludedItem[]
@@ -96,7 +98,7 @@ export function FreeHomeSafetyAssessmentPage() {
         serviceType: isSpanish ? 'Evaluación de seguridad del hogar senior' : 'Senior home safety assessment',
         offers: {
           '@type': 'Offer',
-          price: '99',
+          price: String(commercialSettings.assessmentVisitFeeGross),
           priceCurrency: 'EUR',
           availability: 'https://schema.org/InStock',
         },
@@ -115,7 +117,7 @@ export function FreeHomeSafetyAssessmentPage() {
         })),
       },
     ],
-    [faq.items, isSpanish, t],
+    [commercialSettings.assessmentVisitFeeGross, faq.items, isSpanish, t],
   )
 
   useEffect(() => {

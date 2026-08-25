@@ -24,6 +24,8 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useCommercialSettings } from '../context/CommercialSettingsContext'
+import { applyCommercialCopy } from '../services/commercialCopy'
 import { Link } from 'react-router-dom'
 
 import { SafeImage } from '../components/SafeImage'
@@ -282,7 +284,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
           {
             title: 'Home visit',
             body: 'We measure for you.',
-            note: '99 EUR deductible',
+            note: '{{visitFee}} deductible',
             cta: 'Book visit',
             to: '/home-safety-assessment?visit=inspector#assessment-form',
           },
@@ -475,7 +477,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
           {
             title: 'Visita a domicilio',
             body: 'Medimos por ti.',
-            note: '99 EUR descontables',
+            note: '{{visitFee}} descontables',
             cta: 'Reservar visita',
             to: '/home-safety-assessment?visit=inspector#assessment-form',
           },
@@ -952,7 +954,8 @@ function EasyProcessJourney({ copy, language }: { copy: EasyProcessCopy; languag
 
 export function HowItWorksPage() {
   const { i18n } = useTranslation()
-  const copy = getHowCopy(i18n.language)
+  const commercialSettings = useCommercialSettings()
+  const copy = applyCommercialCopy(getHowCopy(i18n.language), commercialSettings)
   const [activeReviewIndex, setActiveReviewIndex] = useState(0)
   const activeReviewArea = copy.reviewAreas[activeReviewIndex] ?? copy.reviewAreas[0]
   const ActiveReviewIcon = activeReviewArea ? howIcons[activeReviewArea.icon] : ShieldCheck

@@ -8,6 +8,8 @@ import {
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { useCommercialSettings } from '../context/CommercialSettingsContext'
+import { applyCommercialCopy } from '../services/commercialCopy'
 
 type TrustSectionCopy = {
   eyebrow: string
@@ -57,7 +59,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'acceptance',
         title: 'Customer Acceptance Before Final Payment',
-        body: 'The final 50% is due only after the customer has reviewed and accepted the completed work.',
+        body: 'The final {{proposalBalancePercent}} is due only after the customer has reviewed and accepted the completed work.',
       },
     ],
   },
@@ -96,7 +98,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'acceptance',
         title: 'Aceptación del cliente antes del pago final',
-        body: 'El 50% final se paga solo después de que el cliente revise y acepte el trabajo completado.',
+        body: 'El {{proposalBalancePercent}} final se paga solo después de que el cliente revise y acepte el trabajo completado.',
       },
     ],
   },
@@ -132,7 +134,8 @@ function TrustIcon({ type }: { type: TrustSectionCopy['cards'][number]['icon'] }
 
 export function TrustSection() {
   const { i18n } = useTranslation()
-  const copy = getTrustSectionCopy(i18n.language)
+  const commercialSettings = useCommercialSettings()
+  const copy = applyCommercialCopy(getTrustSectionCopy(i18n.language), commercialSettings)
 
   return (
     <section className="trust-section section-pad">

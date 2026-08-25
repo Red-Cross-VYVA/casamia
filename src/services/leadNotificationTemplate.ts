@@ -1,3 +1,5 @@
+import { getCommercialCopyVariables } from './commercialCopy.ts'
+
 export type AssessmentLeadNotificationPayload = {
   assessmentVisitFee?: string
   selectedPlan?: string
@@ -25,7 +27,7 @@ type LeadDetail = {
 
 const PLAN_NOT_SELECTED = 'Option not selected'
 const NOT_SURE_PLAN = 'Not sure yet'
-const DEFAULT_ASSESSMENT_VISIT_FEE = '99 EUR'
+const DEFAULT_ASSESSMENT_VISIT_FEE = getCommercialCopyVariables().visitFee
 
 export function buildAssessmentLeadNotification(
   payload: AssessmentLeadNotificationPayload,

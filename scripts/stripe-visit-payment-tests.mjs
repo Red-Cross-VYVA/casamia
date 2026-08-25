@@ -169,7 +169,8 @@ assert.match(wizard, /getVisitCheckoutStatus/)
 assert.match(assessmentForm, /Continue to secure payment/)
 assert.match(assessmentForm, /submission\.id[\s\S]*createVisitCheckout/)
 assert.match(publicProposalPage, /acceptPublicProposal[\s\S]*beginPayment/)
-assert.match(publicProposalPage, /Pay deposit/)
+assert.match(publicProposalPage, /`Pay \$\{percent\}% now`/)
+assert.match(publicProposalPage, /copy\.payButton\(paymentPercent\)/)
 assert.match(webhook, /mapProposalDepositPaymentEvent/)
 
 function checkoutOrder() {

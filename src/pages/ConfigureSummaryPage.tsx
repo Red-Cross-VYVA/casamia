@@ -61,7 +61,7 @@ export function ConfigureSummaryPage() {
   const { state } = useConfigurator()
   const serviceCatalogue = useServiceCatalogue()
   const copy = i18n.language.toLowerCase().startsWith('es') ? summaryCopy.es : summaryCopy.en
-  const quote = calculateConfiguratorQuote(state)
+  const quote = calculateConfiguratorQuote(state, serviceCatalogue.masterCatalogue?.commercialSettings)
   const selectedServices = serviceCatalogue.services.filter((item) =>
     quote.selectedServices.some((selection) => selection.serviceId === item.id),
   )

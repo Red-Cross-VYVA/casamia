@@ -1310,7 +1310,7 @@ function CommercialPricingPanel({
           </p>
         </div>
         <p className="max-w-md rounded-lg bg-amber-50 px-4 py-3 text-sm font-bold leading-relaxed text-amber-900">
-          Changing visit VAT or payment percentages also changes commercial terms. Confirm the revised wording with legal and accounting advisers before publishing.
+          Customer-facing wording updates automatically. Confirm commercial changes with legal and accounting advisers before publishing.
         </p>
       </div>
 

@@ -2,9 +2,14 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { primaryServices } from '../constants/siteContent'
+import { useCommercialSettings } from '../context/CommercialSettingsContext'
+import { formatCommercialCurrency } from '../services/commercialSettings'
 import { ServiceIcon } from './ServiceIcon'
 
 export function ServicesPreview() {
+  const commercialSettings = useCommercialSettings()
+  const visitFee = formatCommercialCurrency(commercialSettings.assessmentVisitFeeGross, 'en')
+
   return (
     <section className="services-preview-section section-pad bg-white">
       <div className="site-shell">
@@ -37,7 +42,7 @@ export function ServicesPreview() {
           <div>
             <CheckCircle2 size={24} aria-hidden="true" />
             <p>
-              Not sure which room to start with? The EUR 99 in-home visit identifies
+              Not sure which room to start with? The {visitFee} in-home visit identifies
               the priorities before any works are proposed.
             </p>
           </div>

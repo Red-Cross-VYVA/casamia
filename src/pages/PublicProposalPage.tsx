@@ -33,10 +33,10 @@ export function PublicProposalPage() {
         pendingNotice: 'Propuesta no activada',
         proposalLabel: 'Propuesta',
         acceptedTitle: 'Propuesta aceptada',
-        acceptedBody: 'Tu propuesta está aceptada. Continúa con el pago seguro del depósito para reservar los trabajos.',
-        paidTitle: 'Depósito pagado',
+        acceptedBody: 'Tu propuesta está aceptada. Continúa con el pago seguro para reservar los trabajos.',
+        paidTitle: 'Pago recibido',
         paidBody: 'Hemos recibido tu pago. CasaMia contactará contigo para coordinar la fecha de los trabajos.',
-        payButton: 'Pagar depósito',
+        payButton: (percent: number) => (percent >= 100 ? 'Pagar ahora' : `Pagar ${percent}% ahora`),
         paying: 'Abriendo pago seguro...',
         paymentError: 'La propuesta está aceptada, pero no hemos podido abrir el pago seguro. Inténtalo de nuevo.',
         paymentCancelled: 'El pago no se ha completado. Tu propuesta sigue aceptada y puedes reanudar el pago cuando quieras.',
@@ -65,10 +65,10 @@ export function PublicProposalPage() {
         pendingNotice: 'Proposal not activated',
         proposalLabel: 'Proposal',
         acceptedTitle: 'Proposal accepted',
-        acceptedBody: 'Your proposal is accepted. Continue to secure deposit payment to reserve the works.',
-        paidTitle: 'Deposit paid',
+        acceptedBody: 'Your proposal is accepted. Continue to secure payment to reserve the works.',
+        paidTitle: 'Payment received',
         paidBody: 'We have received your payment. CasaMia will contact you to coordinate the works date.',
-        payButton: 'Pay deposit',
+        payButton: (percent: number) => (percent >= 100 ? 'Pay now' : `Pay ${percent}% now`),
         paying: 'Opening secure payment...',
         paymentError: 'Your proposal is accepted, but secure payment could not be opened. Please try again.',
         paymentCancelled: 'Payment was not completed. Your proposal remains accepted and you can resume payment at any time.',
@@ -93,6 +93,7 @@ export function PublicProposalPage() {
   const [isPaymentPending, setIsPaymentPending] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [proposal, setProposal] = useState<ProposalData | null>(null)
+  const paymentPercent = Math.round((proposal?.depositRate ?? 1) * 100)
 
   useEffect(() => {
     document.title = copy.title
@@ -270,7 +271,7 @@ export function PublicProposalPage() {
                 onClick={() => void beginPayment(proposal)}
               >
                 {isStartingPayment ? <Loader2 className="animate-spin" size={19} aria-hidden="true" /> : <CreditCard size={19} aria-hidden="true" />}
-                {isStartingPayment ? copy.paying : copy.payButton}
+                {isStartingPayment ? copy.paying : copy.payButton(paymentPercent)}
               </button>
             </div>
           ) : (

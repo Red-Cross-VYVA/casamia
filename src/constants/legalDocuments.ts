@@ -1,4 +1,6 @@
 import { casamiaCompanyConfig, legalVersionConfig } from '../config/company.ts'
+import { applyCommercialCopy } from '../services/commercialCopy.ts'
+import type { CommercialSettings } from '../types/serviceCatalogue.ts'
 
 export type LegalDocumentId =
   | 'legal-notice'
@@ -139,11 +141,11 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       {
         title: 'Payments',
         points: [
-          'The home visit costs €99 including 21% VAT and is paid in advance before the visit is confirmed.',
-          'The €99 visit fee is credited toward the CasaMia project if the customer proceeds with approved work.',
-          '50% of the total price is payable when confirming the order.',
-          'The remaining 50% is payable following successful installation.',
-          'The first 50% is a payment on account, not an automatically non-refundable deposit.',
+          'The home visit costs {{visitFee}} including {{visitVatPercent}} VAT and is paid in advance before the visit is confirmed.',
+          'The {{visitFee}} visit fee is credited toward the CasaMia project if the customer proceeds with approved work.',
+          '{{proposalUpfrontPercent}} of the total price is payable when confirming the order.',
+          'The remaining {{proposalBalancePercent}} is payable following successful installation.',
+          'The first {{proposalUpfrontPercent}} is a payment on account, not an automatically non-refundable deposit.',
           'Additional work requires a written change order accepted by the customer before the work is performed.',
         ],
       },
@@ -422,11 +424,11 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       {
         title: 'Pagos',
         points: [
-          'La visita a domicilio cuesta 99 € con el 21% de IVA incluido y se paga por adelantado antes de confirmar la visita.',
-          'Los 99 € de la visita se descuentan del proyecto CasaMia si el cliente continúa con los trabajos aprobados.',
-          'El 50% del precio total se paga al confirmar el pedido.',
-          'El 50% restante se paga tras una instalación satisfactoria.',
-          'El primer 50% es un pago a cuenta, no un depósito automáticamente no reembolsable.',
+          'La visita a domicilio cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido y se paga por adelantado antes de confirmar la visita.',
+          'Los {{visitFee}} de la visita se descuentan del proyecto CasaMia si el cliente continúa con los trabajos aprobados.',
+          'El {{proposalUpfrontPercent}} del precio total se paga al confirmar el pedido.',
+          'El {{proposalBalancePercent}} restante se paga tras una instalación satisfactoria.',
+          'El primer {{proposalUpfrontPercent}} es un pago a cuenta, no un depósito automáticamente no reembolsable.',
           'Cualquier trabajo adicional requiere una orden de cambio por escrito aceptada por el cliente antes de ejecutarse.',
         ],
       },
@@ -615,19 +617,23 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
   },
 }
 
-export function getLocalizedLegalDocument(documentId: LegalDocumentId, language: string): LegalDocument | undefined {
+export function getLocalizedLegalDocument(
+  documentId: LegalDocumentId,
+  language: string,
+  commercialSettings?: CommercialSettings,
+): LegalDocument | undefined {
   const document = legalDocuments[documentId]
 
   if (!document) return undefined
 
   if (!language.toLowerCase().startsWith('es')) {
-    return document
+    return applyCommercialCopy(document, commercialSettings)
   }
 
-  return {
+  return applyCommercialCopy({
     ...document,
     ...legalDocumentsEs[documentId],
-  }
+  }, commercialSettings)
 }
 
 export function getLegalRouteLabels(language: string) {

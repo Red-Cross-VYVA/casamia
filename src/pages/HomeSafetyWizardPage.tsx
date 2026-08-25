@@ -56,6 +56,7 @@ import { WizardLayout } from '../components/wizard/WizardLayout'
 import { WizardPackageDialog, wizardPackageDialogId } from '../components/wizard/WizardPackageDialog'
 import { WizardStep } from '../components/wizard/WizardStep'
 import { getWizardCopy } from '../config/wizardCopy'
+import { useCommercialSettings } from '../context/CommercialSettingsContext'
 import { useSafetyWizard } from '../hooks/useSafetyWizard'
 import {
   clearCallbackContact,
@@ -64,7 +65,8 @@ import {
   submitCallbackRequest,
 } from '../services/callbackRequests'
 import { getServicesForPackageArea, useServiceCatalogue } from '../services/serviceCatalogue'
-import { formatCommercialCurrency, getCommercialSettings } from '../services/commercialSettings'
+import { formatCommercialCurrency } from '../services/commercialSettings'
+import { applyCommercialCopy } from '../services/commercialCopy'
 import { generateWizardResult } from '../services/wizardRecommendationEngine'
 import { saveSafetyWizardDraft, submitSafetyWizard } from '../services/wizardSubmission'
 import { createVisitCheckout, getVisitCheckoutStatus } from '../services/visitCheckout'
@@ -168,12 +170,10 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
   const [searchParams] = useSearchParams()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const serviceCatalogue = useServiceCatalogue()
-  const commercialSettings = getCommercialSettings(serviceCatalogue)
+  const commercialSettings = useCommercialSettings()
   const copy = useMemo(() => {
-    const base = getWizardCopy(i18n.language)
+    const base = applyCommercialCopy(getWizardCopy(i18n.language), commercialSettings)
     const fee = formatCommercialCurrency(commercialSettings.assessmentVisitFeeGross, language)
-    const exampleTotal = 650
-    const remainder = Math.max(0, exampleTotal - commercialSettings.assessmentVisitFeeGross)
 
     return {
       ...base,
@@ -182,15 +182,12 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
         credit: language === 'es'
           ? `La tarifa de ${fee} se descuenta de los trabajos CasaMia aprobados si continúas.`
           : `The ${fee} fee is deducted from approved CasaMia work if you continue.`,
-        example: language === 'es'
-          ? `Ejemplo: en un proyecto de ${formatCommercialCurrency(exampleTotal, language)}, quedarían ${formatCommercialCurrency(remainder, language)} tras aplicar el descuento.`
-          : `Example: on a ${formatCommercialCurrency(exampleTotal, language)} project, ${formatCommercialCurrency(remainder, language)} remains after the visit credit.`,
         price: language === 'es'
           ? `${fee} · ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% de IVA incluido · pago por adelantado`
           : `${fee} · ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% VAT included · paid in advance`,
       },
     }
-  }, [commercialSettings.assessmentVisitFeeGross, commercialSettings.assessmentVisitVatRate, i18n.language, language])
+  }, [commercialSettings, i18n.language, language])
   const siteUrl = 'https://www.casamia.com.es'
   const title = copy.entry.title
   const description = copy.entry.body

@@ -1,3 +1,5 @@
+import { getCommercialCopyVariables } from './commercialCopy.ts'
+
 export type AssessmentCustomerConfirmationPayload = {
   assessmentVisitFee?: string
   selectedPlan?: string
@@ -22,7 +24,8 @@ type CustomerDetail = {
 }
 
 const NOT_SURE_PLAN = 'Not sure yet'
-const DEFAULT_ASSESSMENT_VISIT_FEE = '99 EUR including 21% VAT'
+const defaultCommercialCopy = getCommercialCopyVariables()
+const DEFAULT_ASSESSMENT_VISIT_FEE = `${defaultCommercialCopy.visitFee} including ${defaultCommercialCopy.visitVatPercent} VAT`
 const SCHEDULE_INSPECTION_URL =
   'mailto:hola@casamia.com.es?subject=Assessment%20visit%20request'
 const CasaMia_WEBSITE_URL = 'https://CasaMia-seniors.myshopify.com/'

@@ -293,7 +293,7 @@ export function ConfigurePage() {
   const roomParamApplied = useRef(false)
   const serviceParamApplied = useRef(false)
   const serviceCatalogue = useServiceCatalogue()
-  const quote = calculateConfiguratorQuote(state)
+  const quote = calculateConfiguratorQuote(state, serviceCatalogue.masterCatalogue?.commercialSettings)
   const currentStep = Math.min(Math.max(state.currentStep, 0), wizardSteps.length - 1)
   const recommendedServiceIds = useMemo(
     () => getRecommendedServiceIds(state, serviceCatalogue.services),
@@ -1011,7 +1011,8 @@ function ServiceSelectionCard({
 
 function RecommendationStep() {
   const { state } = useConfigurator()
-  const quote = calculateConfiguratorQuote(state)
+  const serviceCatalogue = useServiceCatalogue()
+  const quote = calculateConfiguratorQuote(state, serviceCatalogue.masterCatalogue?.commercialSettings)
 
   return (
     <div className="grid gap-6">

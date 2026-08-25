@@ -3,11 +3,15 @@ import { initReactI18next } from 'react-i18next'
 
 import en from './locales/en.json'
 import es from './locales/es.json'
+import { applyCommercialCopy } from '../services/commercialCopy.ts'
+import type { CommercialSettings } from '../types/serviceCatalogue.ts'
 
-const resources = {
-  en: { translation: en },
-  es: { translation: es },
-}
+const buildResources = (settings?: CommercialSettings) => ({
+  en: { translation: applyCommercialCopy(en, settings) },
+  es: { translation: applyCommercialCopy(es, settings) },
+})
+
+const resources = buildResources()
 
 const supportedLanguages = Object.keys(resources)
 const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined'
@@ -30,6 +34,19 @@ i18n.use(initReactI18next).init({
     escapeValue: false,
   },
 })
+
+export function updateCommercialTranslationSettings(settings: CommercialSettings) {
+  const updatedResources = buildResources(settings)
+  for (const language of supportedLanguages) {
+    i18n.addResourceBundle(
+      language,
+      'translation',
+      updatedResources[language as keyof typeof updatedResources].translation,
+      true,
+      true,
+    )
+  }
+}
 
 i18n.on('languageChanged', (language) => {
   if (isBrowser) {

@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { ComplaintForm } from '../components/ComplaintForm'
+import { useCommercialSettings } from '../context/CommercialSettingsContext'
 import {
   getLegalDocumentMeta,
   getLocalizedLegalDocument,
@@ -13,8 +14,9 @@ import {
 
 export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId }) {
   const { i18n } = useTranslation()
+  const commercialSettings = useCommercialSettings()
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
-  const document = getLocalizedLegalDocument(documentId, i18n.language)
+  const document = getLocalizedLegalDocument(documentId, i18n.language, commercialSettings)
 
   if (!document) {
     return <Navigate to="/" replace />

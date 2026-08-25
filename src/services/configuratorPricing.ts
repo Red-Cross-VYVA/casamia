@@ -7,13 +7,13 @@ import type {
   ServiceSelection,
   SiteConfirmationItem,
 } from '../types/configurator.ts'
-import type { CasaMiaService } from '../types/serviceCatalogue.ts'
+import type { CasaMiaService, CommercialSettings } from '../types/serviceCatalogue.ts'
 import { getSelectedRoomIds } from './configuratorRooms.ts'
 import { getConfiguredServices } from './serviceCatalogue.ts'
-import { visitPricing } from '../config/visitPricing.ts'
+import { getCommercialSettings } from './commercialSettings.ts'
 
 const configuratorPricing = {
-  currency: visitPricing.currency,
+  currency: 'EUR',
 } as const
 
 export function formatConfiguratorCurrency(amount: number) {
@@ -24,7 +24,8 @@ export function formatConfiguratorCurrency(amount: number) {
   }).format(amount)
 }
 
-export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSummary {
+export function calculateConfiguratorQuote(state: ConfiguratorState, commercialSettings?: CommercialSettings): QuoteSummary {
+  const resolvedCommercialSettings = getCommercialSettings(commercialSettings)
   const selectedRooms = getSelectedRoomIds(state)
   const services = getConfiguredServices().filter(
     (service) =>
@@ -112,7 +113,7 @@ export function calculateConfiguratorQuote(state: ConfiguratorState): QuoteSumma
     recurringMonthlySubtotal,
     vat,
     totalEstimate: oneTimeSubtotal + vat,
-    visitFee: lines.length > 0 ? visitPricing.feeGross : 0,
+    visitFee: lines.length > 0 ? resolvedCommercialSettings.assessmentVisitFeeGross : 0,
   }
 }
 

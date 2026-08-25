@@ -9,6 +9,7 @@ import {
   useParams,
 } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
+import { CommercialSettingsProvider } from './context/CommercialSettingsContext'
 
 import { BrandLogo } from './components/BrandLogo'
 import { CookieConsent } from './components/CookieConsent'
@@ -275,7 +276,7 @@ export function AppRoutes() {
   const isPublicAgreementRoute = location.pathname.startsWith('/agreement/')
 
   return (
-    <>
+    <CommercialSettingsProvider>
       <ScrollManager />
       {isInternalRoute || isPartnerRoute || isFocusedWizardRoute ? null : <Nav />}
       <main>
@@ -357,7 +358,7 @@ export function AppRoutes() {
       {isInternalRoute || isPartnerRoute || isFocusedWizardRoute ? null : <Footer />}
       {isInternalRoute || isPartnerRoute ? null : <CookieConsent />}
       {isInternalRoute || isPartnerRoute || isFocusedWizardRoute || isPublicAgreementRoute ? null : <StickyMobileCTA />}
-    </>
+    </CommercialSettingsProvider>
   )
 }
 

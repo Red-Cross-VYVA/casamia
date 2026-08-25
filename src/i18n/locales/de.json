@@ -228,7 +228,7 @@
   "plans": {
     "title1": "Einfache Pläne,",
     "title2": "totale Sicherheit.",
-    "sub": "Free online safety report available - 99 EUR in-home assessment credited toward your plan",
+    "sub": "Free online safety report available - {{visitFee}} in-home assessment credited toward your plan",
     "popular": "Am Beliebtesten",
     "perUnit": "einmalig",
     "cta": "Diesen Plan Wählen",
@@ -240,7 +240,7 @@
         "price": "€269",
         "desc": "Eingang, Wohnzimmer und Treppenhaus. Die wichtigsten Sicherheitsverbesserungen.",
         "features": [
-          "99 EUR in-home assessment credited toward your plan",
+          "{{visitFee}} in-home assessment credited toward your plan",
           "Haltegriffe und rutschfeste Böden",
           "Bewegungsaktivierte Beleuchtung",
           "Handläufe und Treppenstreifen",
@@ -689,7 +689,7 @@
           "description": "Focused safety improvements for the highest-risk everyday areas: entrance, living room and stairs.",
           "bestFor": "Families who need practical safety upgrades without a full-home project.",
           "deliverables": [
-            "99 EUR in-home assessment credited toward your plan",
+            "{{visitFee}} in-home assessment credited toward your plan",
             "Grab bars and basic support points",
             "Anti-slip floor support where needed",
             "Motion lighting for key movement areas",
@@ -749,7 +749,7 @@
         },
         "rows": [
           {
-            "feature": "99 EUR assessment credited toward plan",
+            "feature": "{{visitFee}} assessment credited toward plan",
             "essential": "included",
             "advanced": "included",
             "premium": "included"
@@ -836,19 +836,19 @@
       },
       "payment": {
         "title": "Simple & Transparent Payment Terms",
-        "body": "We keep payments clear and fair. The in-home assessment is paid at booking and credited toward your chosen plan. For agreed installation work, you pay 50% to get started and 50% only upon completion and customer acceptance.",
+        "body": "We keep payments clear and fair. The in-home assessment is paid at booking and credited toward your chosen plan. For agreed installation work, you pay {{proposalUpfrontPercent}} to get started and {{proposalBalancePercent}} only upon completion and customer acceptance.",
         "items": [
           {
             "title": "Essential",
-            "body": "99 EUR assessment credited toward the plan, then 50% deposit and 50% upon completion."
+            "body": "{{visitFee}} assessment credited toward the plan, then {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} upon completion."
           },
           {
             "title": "Advanced",
-            "body": "99 EUR assessment credited toward the plan, then 50% deposit and 50% upon completion."
+            "body": "{{visitFee}} assessment credited toward the plan, then {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} upon completion."
           },
           {
             "title": "Premium",
-            "body": "99 EUR assessment credited toward the plan, then 50% deposit and 50% after system setup, handover and customer acceptance."
+            "body": "{{visitFee}} assessment credited toward the plan, then {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} after system setup, handover and customer acceptance."
           }
         ],
         "reassurance": "No hidden fees. No work begins without your approval. You receive a clear proposal before installation."
@@ -883,7 +883,7 @@
           },
           {
             "question": "Is the online safety report really free?",
-            "answer": "Yes. The online photo-based safety report is free. A professional in-home assessment visit costs 99 EUR, credited toward your CasaMia plan if you proceed."
+            "answer": "Yes. The online photo-based safety report is free. A professional in-home assessment visit costs {{visitFee}}, credited toward your CasaMia plan if you proceed."
           },
           {
             "question": "Do I have to proceed with installation after the assessment?",
@@ -895,7 +895,7 @@
           },
           {
             "question": "When do I pay?",
-            "answer": "Assessment-only services are paid at booking. Installation plans use a clear 50% deposit and 50% final payment after completion and customer acceptance."
+            "answer": "Assessment-only services are paid at booking. Installation plans use a clear {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} final payment after completion and customer acceptance."
           },
           {
             "question": "Can the plan be customized?",
@@ -913,7 +913,7 @@
       },
       "final": {
         "title": "Start with the right plan for a safer home.",
-        "body": "Request a 99 EUR in-home assessment visit and let CasaMia help you decide the safest, clearest next step.",
+        "body": "Request a {{visitFee}} in-home assessment visit and let CasaMia help you decide the safest, clearest next step.",
         "cta": "Request a Safety Proposal"
       }
     },
@@ -968,7 +968,7 @@
       "paymentReassurance": "No hidden fees. No unexpected costs.",
       "faqTitle": "Questions families ask",
       "finalTitle": "Ready to make your home safer?",
-      "finalBody": "Request a 99 EUR in-home assessment visit and receive personalised recommendations from our qualified safety experts.",
+      "finalBody": "Request a {{visitFee}} in-home assessment visit and receive personalised recommendations from our qualified safety experts.",
       "finalCta": "Book In-Home Assessment",
       "plans": [
         {
@@ -1234,8 +1234,8 @@
           ],
           "payment": {
             "terms": [
-              "50% deposit upon approval.",
-              "50% upon completion and customer acceptance."
+              "{{proposalUpfrontPercent}} deposit upon approval.",
+              "{{proposalBalancePercent}} upon completion and customer acceptance."
             ],
             "note": "You see the scope before work begins and only pay the final balance after the completed work is reviewed."
           },
@@ -1395,8 +1395,8 @@
           ],
           "payment": {
             "terms": [
-              "50% deposit upon approval.",
-              "50% upon completion, commissioning and customer acceptance."
+              "{{proposalUpfrontPercent}} deposit upon approval.",
+              "{{proposalBalancePercent}} upon completion, commissioning and customer acceptance."
             ],
             "note": "Final payment is only due after the system has been installed, configured and accepted by the customer."
           },
@@ -1543,22 +1543,22 @@
     "metaTitle": "In-Home Safety Assessment",
     "hero": {
       "title": "Book a Professional In-Home Safety Assessment",
-      "subtitle": "Request a 99 EUR CasaMia home visit to review fall risks, accessibility needs, and practical improvements before you choose any work.",
+      "subtitle": "Request a {{visitFee}} CasaMia home visit to review fall risks, accessibility needs, and practical improvements before you choose any work.",
       "cta": "Request In-Home Assessment",
       "secondaryCta": "Start Free Online Safety Report",
-      "reassurance": "The 99 EUR visit fee is credited toward your CasaMia plan if you proceed.",
-      "panelTitle": "A 99 EUR expert visit, credited if you continue.",
+      "reassurance": "The {{visitFee}} visit fee is credited toward your CasaMia plan if you proceed.",
+      "panelTitle": "A {{visitFee}} expert visit, credited if you continue.",
       "panelBody": "We confirm availability and scope before the appointment so there are no surprises."
     },
     "pricing": {
       "title": "Paid visit, credited toward your plan",
       "feeLabel": "Assessment visit fee",
-      "fee": "99 EUR",
-      "body": "In-home assessments require travel and specialist time, so the visit costs 99 EUR. If you proceed with CasaMia improvements, the assessment fee is credited toward your plan.",
+      "fee": "{{visitFee}}",
+      "body": "In-home assessments require travel and specialist time, so the visit costs {{visitFee}}. If you proceed with CasaMia improvements, the assessment fee is credited toward your plan.",
       "points": [
         "Free online safety report available first",
-        "Fixed 99 EUR assessment visit",
-        "99 EUR credited if you proceed with a plan"
+        "Fixed {{visitFee}} assessment visit",
+        "{{visitFee}} credited if you proceed with a plan"
       ]
     },
     "benefits": {
@@ -1625,7 +1625,7 @@
         },
         {
           "title": "We Confirm Availability",
-          "body": "CasaMia confirms the appointment, the 99 EUR visit fee, and what will be reviewed before booking."
+          "body": "CasaMia confirms the appointment, the {{visitFee}} visit fee, and what will be reviewed before booking."
         },
         {
           "title": "You Receive Recommendations",
@@ -1635,7 +1635,7 @@
     },
     "formSection": {
       "title": "Request Your In-Home Assessment Visit",
-      "body": "Tell us where the home is and how you prefer to be contacted. A CasaMia representative will confirm availability and a suitable appointment time for the 99 EUR visit."
+      "body": "Tell us where the home is and how you prefer to be contacted. A CasaMia representative will confirm availability and a suitable appointment time for the {{visitFee}} visit."
     },
     "form": {
       "title": "In-home assessment request",
@@ -1666,7 +1666,7 @@
       ],
       "submit": "Submit Request",
       "submitting": "Submitting request...",
-      "success": "Thank you. Your request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the 99 EUR assessment visit.",
+      "success": "Thank you. Your request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit.",
       "schedule": "Request Appointment",
       "error": "We couldn't submit your request. Please try again or contact CasaMia by phone.",
       "consent": "I agree to be contacted by CasaMia regarding my in-home safety assessment request.",
@@ -1695,7 +1695,7 @@
           "label": "Optionale Zusatzleistungen"
         }
       ],
-      "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the 99 EUR assessment visit."
+      "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit."
     },
     "final": {
       "title": "Ready for a professional visit?"
