@@ -25,6 +25,10 @@ npm run test:configurator
 
 `npm run test:configurator` checks the core wizard pricing and conditional logic.
 
+## Operations
+
+Use [`docs/operations-checklist.md`](docs/operations-checklist.md) for the production launch gate, live payment rehearsal, daily operating routine, appointment handling, refunds, reconciliation and incident escalation.
+
 ## Customer Configurator
 
 The customer wizard starts at `/configure`.
