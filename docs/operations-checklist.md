@@ -58,6 +58,7 @@ Primary timezone: Europe/Madrid
 - [ ] Production environment variables are present in Vercel and scoped to Production.
 - [ ] No test secret is mixed with a live Stripe tax rate or webhook secret.
 - [ ] Latest Supabase schema has been applied to production.
+- [ ] Blank consent-evidence row created by the 26 August legacy-deployment smoke check has been identified and deleted.
 - [ ] Internal admin login works with the admin password.
 - [ ] `CASAMIA_PARTNER_CREDENTIALS` binds every invited partner email to a unique password.
 - [ ] Partner login works with each partner's separate password.
