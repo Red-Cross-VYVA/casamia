@@ -57,6 +57,55 @@ export function mapProposalRecord(record) {
   }
 }
 
+export function mapPublicProposalRecord(record) {
+  const proposal = mapProposalRecord(record)
+  const allowedFields = [
+    'acceptance_date',
+    'acceptance_status',
+    'accepted_by',
+    'address',
+    'area',
+    'balance_due',
+    'created_at',
+    'customer_email',
+    'customer_name',
+    'customer_phone',
+    'deposit_due',
+    'deposit_rate',
+    'executive_summary',
+    'grant_eligibility_note',
+    'grant_eligible_amount',
+    'grant_support_required',
+    'id',
+    'inspection_reference',
+    'line_items',
+    'notes',
+    'overall_risk_level',
+    'payment_terms',
+    'plan',
+    'prepared_by',
+    'proposal_date',
+    'public_token',
+    'safety_score',
+    'selected_plan',
+    'status',
+    'subtotal',
+    'timeline_duration',
+    'timeline_notes',
+    'timeline_start_date',
+    'total',
+    'total_estimate',
+    'updated_at',
+    'valid_until',
+  ]
+
+  return Object.fromEntries(
+    allowedFields
+      .filter((field) => proposal[field] !== undefined)
+      .map((field) => [field, proposal[field]]),
+  )
+}
+
 export async function listProposalRecords() {
   return selectSupabaseRows(
     'proposals',

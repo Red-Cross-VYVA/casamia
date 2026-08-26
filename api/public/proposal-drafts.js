@@ -1,7 +1,7 @@
 import { buildPublicPlansDraft } from '../_lib/plans-pricing.js'
 import { isValidEmail, isWithinLength } from '../_lib/public-form-validation.js'
 import { buildAbsoluteProposalUrl, sendProposalEmail } from '../_lib/email.js'
-import { mapProposalRecord, saveProposalRecord, updateProposalRecord } from '../_lib/proposals.js'
+import { mapProposalRecord, mapPublicProposalRecord, saveProposalRecord, updateProposalRecord } from '../_lib/proposals.js'
 import { readJsonBody, selectSupabaseRows, sendJson } from '../_lib/supabase.js'
 
 const catalogueRowId = 'default'
@@ -96,7 +96,10 @@ export default async function handler(request, response) {
     const publicUrl = buildAbsoluteProposalUrl(request, proposal.public_token)
     const emailDelivery = await sendProposalEmail({
       language: draft.proposalPayload?.plans_builder?.language,
-      proposal,
+      proposal: mapPublicProposalRecord({
+        ...saveResult.record,
+        payload_json: proposal,
+      }),
       publicUrl,
     })
     const deliveryStatus = emailDelivery.ok

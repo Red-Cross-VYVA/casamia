@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import { Readable } from 'node:stream'
 
 import finalizeAssessmentMedia from '../api/public/assessment-media-finalize.js'
@@ -24,6 +25,14 @@ import {
 import { createSignedStorageUploadUrl, ensurePrivateStorageBucket } from '../api/_lib/supabase.js'
 import { inferRoomFromFileName } from '../src/services/roomPhotoClassification.ts'
 import { WIZARD_CALLBACK_TIME_WINDOWS } from '../src/types/wizard.ts'
+
+const supabaseSchema = readFileSync(new URL('../supabase/schema.sql', import.meta.url), 'utf8')
+for (const bucket of Object.values(WIZARD_MEDIA_BUCKETS)) {
+  assert.match(supabaseSchema, new RegExp(`'${bucket}'`), `${bucket} must be declared in the canonical Supabase schema.`)
+}
+assert.match(supabaseSchema, /'wizard-audio'[\s\S]*?false,[\s\S]*?26214400/)
+assert.match(supabaseSchema, /delete from public\.wizard_media_rate_limits[\s\S]*?interval '2 days'/)
+assert.doesNotMatch(supabaseSchema, /create policy[\s\S]*?storage\.objects[\s\S]*?(?:anon|public)/i)
 
 function openAiResult(value) {
   return {

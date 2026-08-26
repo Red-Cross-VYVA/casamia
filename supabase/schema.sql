@@ -197,6 +197,9 @@ create table if not exists public.callback_request_rate_limits (
   reservation_count integer not null default 1
 );
 
+create index if not exists wizard_media_rate_limits_window_started_at_idx
+  on public.wizard_media_rate_limits (window_started_at);
+
 create index if not exists wizard_voice_rate_limits_window_started_at_idx
   on public.wizard_voice_rate_limits (window_started_at);
 
@@ -222,6 +225,9 @@ begin
   end if;
 
   window_length := make_interval(secs => p_window_seconds);
+
+  delete from public.wizard_media_rate_limits
+  where window_started_at < now() - interval '2 days';
 
   insert into public.wizard_media_rate_limits (ip_hash, window_started_at, reservation_count)
   values (p_ip_hash, now(), 1)
@@ -376,6 +382,13 @@ grant execute on function public.release_callback_request(text) to service_role;
 -- public storage.objects read policy for this bucket.
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values
+(
+  'wizard-audio',
+  'wizard-audio',
+  false,
+  26214400,
+  array['audio/mpeg', 'audio/mp4', 'audio/webm', 'audio/wav', 'audio/ogg', 'audio/aac', 'audio/x-m4a']::text[]
+),
 (
   'wizard-images',
   'wizard-images',

@@ -2,6 +2,7 @@ import {
   getAgreementRecordByToken,
   isPublicAgreementToken,
   mapAgreementRecord,
+  mapPublicAgreementRecord,
   recordAgreementPublicView,
 } from '../../_lib/agreements.js'
 import { sendJson } from '../../_lib/supabase.js'
@@ -38,7 +39,7 @@ export default async function handler(request, response) {
     return
   }
 
-  sendJson(response, 200, assignment)
+  sendJson(response, 200, mapPublicAgreementRecord(viewed.record))
 }
 
 function getParam(request, name) {

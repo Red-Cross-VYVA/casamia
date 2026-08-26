@@ -14,6 +14,8 @@ import publicProposalHandler from '../api/public/proposals/[token].js'
 import publicProposalAcceptHandler from '../api/public/proposals/[token]/accept.js'
 import publicProposalDraftHandler from '../api/public/proposal-drafts.js'
 import publicCatalogueHandler from '../api/public/service-catalogue.js'
+import { mapPublicAgreementRecord } from '../api/_lib/agreements.js'
+import { mapPublicProposalRecord } from '../api/_lib/proposals.js'
 import { createSignedStorageUploadUrl } from '../api/_lib/supabase.js'
 
 const apiKey = 'operations-test-key'
@@ -461,6 +463,52 @@ function jsonResponse(body, status = 200) {
     assert.equal(response.statusCode, 200)
     assert.deepEqual(parsedBody(response)[collection], [])
   }
+}
+
+{
+  const publicAgreement = mapPublicAgreementRecord({
+    assigned_at: '2026-08-26T12:00:00.000Z',
+    assigned_by: 'Internal operator',
+    assignment_id: 'AGR-PUBLIC',
+    document_id: 'installation-partner-agreement',
+    expires_at: '2026-09-26T12:00:00.000Z',
+    locale: 'es',
+    partner_business_name: 'Instalaciones Demo SL',
+    partner_contact_name: 'Ana Lopez',
+    partner_email: 'ana@example.com',
+    partner_id: 'PPA-INTERNAL',
+    payload_json: {
+      auditEvents: [{ actor: 'Internal operator', details: 'Internal note', eventType: 'assigned' }],
+    },
+    signature_status: 'not-started',
+    status: 'sent',
+  })
+  assert.equal(publicAgreement.partnerEmail, 'ana@example.com')
+  assert.deepEqual(publicAgreement.auditEvents, [])
+  assert.equal('assignedBy' in publicAgreement, false)
+  assert.equal('partnerId' in publicAgreement, false)
+  assert.equal('publicToken' in publicAgreement, false)
+}
+
+{
+  const publicProposal = mapPublicProposalRecord({
+    customer_email: 'ana@example.com',
+    customer_name: 'Ana',
+    id: 'CM-PROP-PUBLIC',
+    payload_json: {
+      delivery: { proposalEmail: { provider: 'resend', status: 'sent' } },
+      events: [{ at: '2026-08-26T12:00:00.000Z', detail: 'Internal delivery detail', type: 'sent' }],
+      internal_notes: 'Do not disclose',
+      line_items: [],
+      status: 'Sent',
+    },
+    public_token: 'public-token-for-test-123456',
+    status: 'Sent',
+  })
+  assert.equal(publicProposal.customer_email, 'ana@example.com')
+  assert.equal('delivery' in publicProposal, false)
+  assert.equal('events' in publicProposal, false)
+  assert.equal('internal_notes' in publicProposal, false)
 }
 
 {

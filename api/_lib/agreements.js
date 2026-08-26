@@ -276,7 +276,7 @@ export async function recordAgreementPublicView(record) {
 }
 
 export async function acknowledgeAgreementPublicRecord(record, acceptedBy) {
-  const name = text(acceptedBy)
+  const name = text(acceptedBy).slice(0, 160)
   if (!name) {
     return invalidResult(400, 'A review contact name is required.')
   }
@@ -326,6 +326,28 @@ export function mapAgreementRecord(record, options = {}) {
     status,
     updatedAt: text(record?.updated_at ?? payload.updatedAt),
     version: text(record?.document_version ?? payload.version),
+  }
+}
+
+export function mapPublicAgreementRecord(record) {
+  const assignment = mapAgreementRecord(record)
+
+  return {
+    acknowledgedAt: assignment.acknowledgedAt,
+    assignedAt: assignment.assignedAt,
+    assignmentId: assignment.assignmentId,
+    auditEvents: [],
+    documentId: assignment.documentId,
+    expiresAt: assignment.expiresAt,
+    locale: assignment.locale,
+    partnerBusinessName: assignment.partnerBusinessName,
+    partnerContactName: assignment.partnerContactName,
+    partnerEmail: assignment.partnerEmail,
+    signatureStatus: assignment.signatureStatus,
+    signedAt: assignment.signedAt,
+    status: assignment.status,
+    updatedAt: assignment.updatedAt,
+    version: assignment.version,
   }
 }
 

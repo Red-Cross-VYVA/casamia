@@ -2,6 +2,7 @@ import {
   getProposalRecordByToken,
   isPublicProposalToken,
   mapProposalRecord,
+  mapPublicProposalRecord,
   updateProposalRecord,
 } from '../../../_lib/proposals.js'
 import { readJsonBody, sendJson } from '../../../_lib/supabase.js'
@@ -51,7 +52,7 @@ export default async function handler(request, response) {
     sendJson(response, result.status, result.body)
     return
   }
-  sendJson(response, 200, mapProposalRecord(result.record))
+  sendJson(response, 200, mapPublicProposalRecord(result.record))
 }
 
 function getParam(request, name) {

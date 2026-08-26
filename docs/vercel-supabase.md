@@ -36,6 +36,8 @@ Run `supabase/schema.sql` in the Supabase SQL editor. The Vercel API routes inse
 
 RLS is enabled on the tables. The Vercel API uses the server-side service role key, so public browser clients do not need direct table access.
 
+For an existing project, also run `supabase/media-storage-hardening.sql`. It creates or corrects all three private wizard buckets (`wizard-audio`, `wizard-images`, `wizard-videos`) and limits anonymous media rate-limit hashes to a two-day operational window. Do not add public `storage.objects` read policies for these buckets.
+
 ## Frontend API routing
 
 On Vercel, the browser uses same-origin API routes by default:
