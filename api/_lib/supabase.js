@@ -56,8 +56,10 @@ export function createInternalSessionToken() {
 }
 
 export function createPartnerSessionToken(partnerEmail) {
+  const normalizedEmail = normalizeEmail(partnerEmail)
   return createSessionToken({
-    partnerEmail: normalizeEmail(partnerEmail),
+    partnerCredentialFingerprint: getPartnerCredentialFingerprint(normalizedEmail),
+    partnerEmail: normalizedEmail,
     role: 'partner',
   })
 }
@@ -72,7 +74,18 @@ export function requirePartnerApiKey(request, response) {
 
   const session = getVerifiedSessionFromRequest(request)
 
-  if (!session || session.role !== 'partner' || !session.partnerEmail) {
+  const currentCredentialFingerprint = session?.partnerEmail
+    ? getPartnerCredentialFingerprint(session.partnerEmail)
+    : ''
+
+  if (
+    !session
+    || session.role !== 'partner'
+    || !session.partnerEmail
+    || !session.partnerCredentialFingerprint
+    || !currentCredentialFingerprint
+    || !safeEqual(session.partnerCredentialFingerprint, currentCredentialFingerprint)
+  ) {
     sendJson(response, 401, { message: 'Unauthorized.' })
     return null
   }
@@ -80,14 +93,93 @@ export function requirePartnerApiKey(request, response) {
   return session
 }
 
-export function verifyPartnerPassword(password) {
-  const expectedPassword = process.env.CASAMIA_PARTNER_PASSWORD || process.env.CASAMIA_PROVIDER_PASSWORD
+export function getPartnerCredentialConfiguration() {
+  const result = readPartnerCredentials()
 
-  if (!expectedPassword || typeof password !== 'string') {
-    return false
+  return {
+    configured: result.ok,
+    message: result.message,
+    mode: result.mode,
+  }
+}
+
+export function verifyPartnerCredentials(partnerEmail, password) {
+  if (typeof password !== 'string') return false
+
+  const result = readPartnerCredentials()
+  if (!result.ok) return false
+
+  const expectedPassword = result.credentials.get(normalizeEmail(partnerEmail))
+  return Boolean(expectedPassword && safeEqual(password, expectedPassword))
+}
+
+function getPartnerCredentialFingerprint(partnerEmail) {
+  const result = readPartnerCredentials()
+  const password = result.ok ? result.credentials.get(normalizeEmail(partnerEmail)) : ''
+  const secret = getInternalSessionSecret()
+
+  if (!password || !secret) return ''
+
+  return crypto
+    .createHmac('sha256', secret)
+    .update(`${normalizeEmail(partnerEmail)}\u0000${password}`)
+    .digest('base64url')
+}
+
+function readPartnerCredentials() {
+  const encodedCredentials = process.env.CASAMIA_PARTNER_CREDENTIALS?.trim()
+
+  if (encodedCredentials) {
+    try {
+      const parsed = JSON.parse(encodedCredentials)
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        throw new Error('Partner credentials must be a JSON object.')
+      }
+
+      const credentials = new Map()
+      for (const [email, password] of Object.entries(parsed)) {
+        const normalizedEmail = normalizeEmail(email)
+        if (!isEmail(normalizedEmail) || typeof password !== 'string' || !password) {
+          throw new Error('Every partner credential needs a valid email and non-empty password.')
+        }
+        if (credentials.has(normalizedEmail)) {
+          throw new Error('Partner credential emails must be unique after normalization.')
+        }
+        credentials.set(normalizedEmail, password)
+      }
+
+      if (!credentials.size) throw new Error('At least one partner credential is required.')
+      return { credentials, message: '', mode: 'per-partner', ok: true }
+    } catch {
+      return {
+        credentials: new Map(),
+        message: 'CASAMIA_PARTNER_CREDENTIALS must be a JSON object mapping each partner email to its own password.',
+        mode: 'invalid',
+        ok: false,
+      }
+    }
   }
 
-  return safeEqual(password, expectedPassword)
+  const legacyEmail = normalizeEmail(process.env.CASAMIA_PARTNER_EMAIL)
+  const legacyPassword = process.env.CASAMIA_PARTNER_PASSWORD || process.env.CASAMIA_PROVIDER_PASSWORD
+
+  if (legacyPassword && isEmail(legacyEmail)) {
+    return {
+      credentials: new Map([[legacyEmail, legacyPassword]]),
+      message: '',
+      mode: 'single-partner',
+      ok: true,
+    }
+  }
+
+  return {
+    credentials: new Map(),
+    message: legacyPassword
+      ? 'Bind the existing partner password to CASAMIA_PARTNER_EMAIL, or configure CASAMIA_PARTNER_CREDENTIALS for multiple partners.'
+      : 'Configure CASAMIA_PARTNER_CREDENTIALS with one password per partner email.',
+    mode: 'missing',
+    ok: false,
+  }
 }
 
 function createSessionToken(sessionPayload) {
@@ -161,6 +253,9 @@ function verifySessionToken(token) {
 
     return {
       expiresAt: new Date(parsed.exp).toISOString(),
+      partnerCredentialFingerprint: typeof parsed.partnerCredentialFingerprint === 'string'
+        ? parsed.partnerCredentialFingerprint
+        : '',
       partnerEmail,
       role,
     }
@@ -196,6 +291,10 @@ function getRequestHeader(request, name) {
 
 function normalizeEmail(value) {
   return typeof value === 'string' ? value.trim().toLowerCase() : ''
+}
+
+function isEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 }
 
 export function readJsonBody(request) {

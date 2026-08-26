@@ -59,7 +59,9 @@ Primary timezone: Europe/Madrid
 - [ ] No test secret is mixed with a live Stripe tax rate or webhook secret.
 - [ ] Latest Supabase schema has been applied to production.
 - [ ] Internal admin login works with the admin password.
-- [ ] Partner login works with the separate partner password.
+- [ ] `CASAMIA_PARTNER_CREDENTIALS` binds every invited partner email to a unique password.
+- [ ] Partner login works with each partner's separate password.
+- [ ] Cross-partner password and email combinations are rejected.
 - [ ] Partner users can see only their assigned data.
 - [ ] Database and API health checks return successfully.
 - [ ] Cron jobs are visible in Vercel for lead reminders and visit reminders.
@@ -268,4 +270,3 @@ Launch decision:
 - Decision owner:
 - Evidence location:
 - Open conditions:
-

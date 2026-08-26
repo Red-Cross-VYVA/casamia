@@ -1,17 +1,19 @@
 import {
   createPartnerSessionToken,
+  getPartnerCredentialConfiguration,
   readJsonBody,
   requirePost,
   sendJson,
-  verifyPartnerPassword,
+  verifyPartnerCredentials,
 } from '../_lib/supabase.js'
 
 export default async function handler(request, response) {
   if (!requirePost(request, response)) return
 
-  if (!process.env.CASAMIA_PARTNER_PASSWORD && !process.env.CASAMIA_PROVIDER_PASSWORD) {
+  const credentialConfiguration = getPartnerCredentialConfiguration()
+  if (!credentialConfiguration.configured) {
     sendJson(response, 500, {
-      message: 'Partner access is not configured. Add CASAMIA_PARTNER_PASSWORD in Vercel.',
+      message: `Partner access is not configured safely. ${credentialConfiguration.message}`,
     })
     return
   }
@@ -32,8 +34,8 @@ export default async function handler(request, response) {
       return
     }
 
-    if (!verifyPartnerPassword(body.password)) {
-      sendJson(response, 401, { message: 'Incorrect partner password.' })
+    if (!verifyPartnerCredentials(partnerEmail, body.password)) {
+      sendJson(response, 401, { message: 'Partner email or password is incorrect.' })
       return
     }
 

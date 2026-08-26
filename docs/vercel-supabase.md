@@ -13,10 +13,13 @@ VITE_SITE_URL=https://your-production-domain
 CASAMIA_INTERNAL_API_KEY=replace-with-a-long-random-api-key
 CASAMIA_INTERNAL_PASSWORD=replace-with-the-admin-login-password
 CASAMIA_INTERNAL_SESSION_SECRET=replace-with-a-different-long-random-secret
+CASAMIA_PARTNER_CREDENTIALS={"partner@example.com":"replace-with-a-unique-partner-password"}
 ```
 
 Do not expose the Supabase service role key with a `VITE_` prefix. It must remain server-side only.
-The three `CASAMIA_INTERNAL_*` values are also server-only and must never use a `VITE_` prefix.
+The `CASAMIA_INTERNAL_*` values and `CASAMIA_PARTNER_CREDENTIALS` are server-only and must never use a `VITE_` prefix.
+
+`CASAMIA_PARTNER_CREDENTIALS` is a JSON object that binds each normalized partner email to its own password. A password for one entry cannot open another partner's workspace. During a single-partner migration only, the existing `CASAMIA_PARTNER_PASSWORD` can be retained when `CASAMIA_PARTNER_EMAIL` explicitly identifies the one email it may authorize. Configure the JSON map before inviting a second partner.
 
 Add the internal values to the Production, Preview, and Development environments in Vercel, then redeploy the site. Environment variable changes do not update an existing deployment until it is redeployed.
 

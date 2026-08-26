@@ -6,8 +6,10 @@ import { fileURLToPath } from 'node:url'
 import {
   createInternalSessionToken,
   createPartnerSessionToken,
+  getPartnerCredentialConfiguration,
   requireInternalApiKey,
   requirePartnerApiKey,
+  verifyPartnerCredentials,
 } from '../api/_lib/supabase.js'
 import middleware, { config } from '../middleware.ts'
 
@@ -18,6 +20,8 @@ const originalEnvironment = {
   CASAMIA_INTERNAL_SESSION_SECRET: process.env.CASAMIA_INTERNAL_SESSION_SECRET,
   CASAMIA_INTERNAL_USERNAME: process.env.CASAMIA_INTERNAL_USERNAME,
   CASAMIA_PARTNER_PASSWORD: process.env.CASAMIA_PARTNER_PASSWORD,
+  CASAMIA_PARTNER_EMAIL: process.env.CASAMIA_PARTNER_EMAIL,
+  CASAMIA_PARTNER_CREDENTIALS: process.env.CASAMIA_PARTNER_CREDENTIALS,
   CASAMIA_PROVIDER_PASSWORD: process.env.CASAMIA_PROVIDER_PASSWORD,
 }
 
@@ -60,6 +64,7 @@ try {
   process.env.CASAMIA_INTERNAL_API_KEY = 'internal-api-key'
   process.env.CASAMIA_INTERNAL_SESSION_SECRET = 'independent-session-secret'
   process.env.CASAMIA_PARTNER_PASSWORD = 'partner-portal-password'
+  process.env.CASAMIA_PARTNER_EMAIL = 'partner@example.com'
 
   assert.deepEqual(
     config.matcher,
@@ -224,9 +229,48 @@ try {
   )
   assert.equal(adminOnPartnerResponse.statusCode, 401)
 
+  process.env.CASAMIA_PARTNER_PASSWORD = 'rotated-partner-password'
+  const rotatedCredentialResponse = createApiResponse()
+  assert.equal(
+    requirePartnerApiKey({ headers: { authorization: `Bearer ${partnerToken}` } }, rotatedCredentialResponse),
+    null,
+    'Rotating a partner credential must revoke sessions issued with the previous password.',
+  )
+  assert.equal(rotatedCredentialResponse.statusCode, 401)
+  process.env.CASAMIA_PARTNER_PASSWORD = 'partner-portal-password'
+
+  assert.deepEqual(getPartnerCredentialConfiguration(), {
+    configured: true,
+    message: '',
+    mode: 'single-partner',
+  })
+  assert.equal(verifyPartnerCredentials('PARTNER@EXAMPLE.COM', 'partner-portal-password'), true)
+  assert.equal(verifyPartnerCredentials('other@example.com', 'partner-portal-password'), false)
+
+  process.env.CASAMIA_PARTNER_CREDENTIALS = JSON.stringify({
+    'first@example.com': 'first-partner-password',
+    'second@example.com': 'second-partner-password',
+  })
+  assert.equal(getPartnerCredentialConfiguration().mode, 'per-partner')
+  assert.equal(verifyPartnerCredentials('first@example.com', 'first-partner-password'), true)
+  assert.equal(verifyPartnerCredentials('second@example.com', 'second-partner-password'), true)
+  assert.equal(
+    verifyPartnerCredentials('second@example.com', 'first-partner-password'),
+    false,
+    'A valid password for one partner must never authorize another partner identity.',
+  )
+
+  process.env.CASAMIA_PARTNER_CREDENTIALS = '{invalid-json'
+  assert.equal(getPartnerCredentialConfiguration().configured, false)
+  assert.equal(verifyPartnerCredentials('first@example.com', 'first-partner-password'), false)
+  delete process.env.CASAMIA_PARTNER_CREDENTIALS
+
   const partnerAgreementsSource = await readFile(resolve(projectRoot, 'api/partner/agreements.js'), 'utf8')
   assert.match(partnerAgreementsSource, /listAgreementRecordsForPartner\(session\.partnerEmail\)/)
   assert.doesNotMatch(partnerAgreementsSource, /listAgreementRecords\(\)/)
+
+  const partnerLoginSource = await readFile(resolve(projectRoot, 'api/partner/login.js'), 'utf8')
+  assert.match(partnerLoginSource, /verifyPartnerCredentials\(partnerEmail, body\.password\)/)
 
   const serviceCatalogueSource = await readFile(
     resolve(projectRoot, 'api/internal/service-catalogue.js'),

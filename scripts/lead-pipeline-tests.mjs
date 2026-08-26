@@ -8,6 +8,10 @@ import partnerHandler from '../api/partner/leads.js'
 
 process.env.CASAMIA_INTERNAL_API_KEY = 'lead-test-admin-key'
 process.env.CASAMIA_INTERNAL_SESSION_SECRET = 'lead-test-session-secret'
+process.env.CASAMIA_PARTNER_CREDENTIALS = JSON.stringify({
+  'other@example.com': 'other-partner-password',
+  'partner@example.com': 'partner-password',
+})
 process.env.SUPABASE_URL = 'https://example.supabase.co'
 process.env.SUPABASE_SERVICE_ROLE_KEY = 'lead-test-service-key'
 
@@ -83,6 +87,22 @@ globalThis.fetch = async (url, init) => {
   assert.equal(body.leads[0].partnerNotes, 'Measure the bathroom wall.')
   assert.equal('notes' in body.leads[0], false, 'Partner responses must not expose internal notes.')
   assert.equal('notificationDelivery' in body.leads[0], false, 'Partner responses must not expose email delivery metadata.')
+}
+
+{
+  const { token } = createPartnerSessionToken('other@example.com')
+  const response = makeResponse()
+  await partnerHandler(makeRequest('GET', token), response)
+  assert.equal(response.statusCode, 200)
+  const body = JSON.parse(response.body)
+  assert.equal(body.partnerEmail, 'other@example.com')
+  assert.equal(body.leads.length, 1)
+  assert.equal(body.leads[0].id, callbackId)
+  assert.equal(
+    body.leads.some((lead) => lead.id === assessmentId),
+    false,
+    'A second partner must not receive records assigned to the first partner.',
+  )
 }
 
 console.log('Lead pipeline authorization checks passed.')
