@@ -1,6 +1,9 @@
+import crypto from 'node:crypto'
+
 import { applyPublicCors, getRequestHeader } from './public-origin.js'
 import { buildAbsolutePublicUrl, sendPublicReportEmail } from './email.js'
 import {
+  callSupabaseRpc,
   createSupabaseRowIfAbsent,
   selectSupabaseRows,
   sendJson,
@@ -13,7 +16,7 @@ const publicReportLifetimeMs = 30 * 24 * 60 * 60 * 1_000
 const publicReportTokenPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 const publicReportRateWindowMs = 30 * 60 * 1_000
 const maxPublicReportsPerWindow = 10
-const publicReportRateLimits = new Map()
+const publicReportRateLimitTimeoutMs = 3_000
 
 export class PublicReportValidationError extends Error {
   constructor(message, statusCode = 400) {
@@ -251,8 +254,13 @@ export async function handlePublicReportPost(request, response, reportType) {
     sendJson(response, 405, { message: 'Method not allowed.' })
     return
   }
-  if (!reservePublicReportRequest(request)) {
-    sendJson(response, 429, { message: 'Too many report requests. Please try again later.' })
+  const reservation = await reservePublicReportRequest(request)
+  if (!reservation.ok) {
+    sendJson(response, reservation.status, {
+      message: reservation.status === 429
+        ? 'Too many report requests. Please try again later.'
+        : 'Report delivery is temporarily unavailable.',
+    })
     return
   }
 
@@ -571,25 +579,41 @@ function parsePublicReportJson(value) {
   }
 }
 
-function reservePublicReportRequest(request, now = Date.now()) {
-  for (const [key, value] of publicReportRateLimits) {
-    if (value.windowStartedAt <= now - publicReportRateWindowMs) {
-      publicReportRateLimits.delete(key)
-    }
-  }
-
+export function hashPublicReportClient(request, env = process.env) {
   const forwarded = getRequestHeader(request, 'x-forwarded-for')
   const clientIp = String(
     forwarded || getRequestHeader(request, 'x-real-ip') || request.socket?.remoteAddress || 'unknown',
   ).split(',')[0].trim()
-  const current = publicReportRateLimits.get(clientIp)
+  const secret = env.PUBLIC_REPORT_RATE_LIMIT_SALT
+    || env.CASAMIA_INTERNAL_SESSION_SECRET
+    || env.CASAMIA_INTERNAL_API_KEY
+    || env.SUPABASE_SERVICE_ROLE_KEY
 
-  if (!current || current.windowStartedAt <= now - publicReportRateWindowMs) {
-    publicReportRateLimits.set(clientIp, { count: 1, windowStartedAt: now })
-    return true
+  if (!secret) return ''
+  return crypto.createHmac('sha256', secret).update(`public-report:${clientIp}`).digest('hex')
+}
+
+export async function reservePublicReportRequest(request, dependencies = {}) {
+  const keyHash = hashPublicReportClient(request, dependencies.env ?? process.env)
+  if (!keyHash) return { ok: false, status: 503 }
+
+  const callRpc = dependencies.callRpc ?? callSupabaseRpc
+  let result
+  try {
+    result = await callRpc('reserve_public_request', {
+      p_key_hash: keyHash,
+      p_limit: maxPublicReportsPerWindow,
+      p_window_seconds: Math.round(publicReportRateWindowMs / 1_000),
+    }, { timeoutMs: publicReportRateLimitTimeoutMs })
+  } catch (error) {
+    console.error('Public report rate limit could not be checked.', {
+      errorName: error instanceof Error ? error.name : 'Error',
+    })
+    return { ok: false, status: 503 }
   }
-  if (current.count >= maxPublicReportsPerWindow) return false
 
-  current.count += 1
-  return true
+  if (!result.ok) return { ok: false, status: 503 }
+  return result.body === true
+    ? { ok: true, status: 200 }
+    : { ok: false, status: 429 }
 }

@@ -12,8 +12,10 @@ import {
 import { sendPublicReportEmail } from '../api/_lib/email.js'
 import {
   buildPublicReportRecord,
+  hashPublicReportClient,
   loadPublicReport,
   queuePublicReport,
+  reservePublicReportRequest,
 } from '../api/_lib/public-reports.js'
 import {
   buildOverallSafetyScore,
@@ -22,6 +24,46 @@ import {
 import { createPublicReportToken } from '../src/utils/publicReportToken.ts'
 import { casaMiaServices } from '../src/config/serviceCatalogue.ts'
 import { findBestServiceForPhotoAnalysis } from '../src/services/wizardSafetyReport.ts'
+
+const supabaseSchema = readFileSync(new URL('../supabase/schema.sql', import.meta.url), 'utf8')
+assert.match(supabaseSchema, /create table if not exists public\.public_request_rate_limits/)
+assert.match(supabaseSchema, /create or replace function public\.reserve_public_request/)
+assert.match(supabaseSchema, /revoke all on function public\.reserve_public_request[\s\S]*?anon, authenticated/)
+assert.match(supabaseSchema, /alter table public\.public_request_rate_limits enable row level security/)
+
+const reportRateRequest = {
+  headers: { 'x-forwarded-for': '203.0.113.8, 10.0.0.1' },
+  socket: {},
+}
+const reportRateHash = hashPublicReportClient(reportRateRequest, { PUBLIC_REPORT_RATE_LIMIT_SALT: 'test-rate-secret' })
+assert.match(reportRateHash, /^[0-9a-f]{64}$/)
+assert.doesNotMatch(reportRateHash, /203\.0\.113\.8/)
+let reportRateRpcCall
+assert.deepEqual(
+  await reservePublicReportRequest(reportRateRequest, {
+    env: { PUBLIC_REPORT_RATE_LIMIT_SALT: 'test-rate-secret' },
+    callRpc: async (...args) => {
+      reportRateRpcCall = args
+      return { ok: true, body: true }
+    },
+  }),
+  { ok: true, status: 200 },
+)
+assert.equal(reportRateRpcCall[0], 'reserve_public_request')
+assert.equal(reportRateRpcCall[1].p_key_hash, reportRateHash)
+assert.equal(reportRateRpcCall[1].p_limit, 10)
+assert.equal(reportRateRpcCall[1].p_window_seconds, 1800)
+assert.deepEqual(
+  await reservePublicReportRequest(reportRateRequest, {
+    env: { PUBLIC_REPORT_RATE_LIMIT_SALT: 'test-rate-secret' },
+    callRpc: async () => ({ ok: true, body: false }),
+  }),
+  { ok: false, status: 429 },
+)
+assert.deepEqual(
+  await reservePublicReportRequest(reportRateRequest, { env: {}, callRpc: async () => ({ ok: true, body: true }) }),
+  { ok: false, status: 503 },
+)
 
 function openAiResult(value) {
   return {

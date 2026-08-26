@@ -29,6 +29,7 @@ Current launch decision: **NO-GO for accepting live payments**. The application 
 - The canonical Supabase schema and existing-project migration define all wizard media buckets as private, including audio, and prune anonymous media rate-limit hashes after two days.
 - Public proposal bearer links now use an allowlisted customer projection and do not return internal event, delivery or notes metadata.
 - Public agreement bearer links no longer return internal audit actors, assignment operators, partner IDs or share-token metadata.
+- Safety and grant report creation uses a persistent Supabase reservation instead of process-local throttling, with scoped HMAC identifiers retained for no more than two days.
 - Latest Vercel deployment is Ready and aliased to the production domain.
 - Final production smoke tests pass against `https://www.casamia.com.es`, including all 62 sitemap routes and optimized image delivery checks.
 - Final production Lighthouse audits have 100 accessibility, best-practices and SEO scores, zero console errors, and CLS between 0.00 and 0.03 on home, plans and the home-safety assessment.
@@ -71,6 +72,7 @@ Current launch decision: **NO-GO for accepting live payments**. The application 
 - **Facebook:** publish one approved starter post and confirm it appears on Page `61574255177723`; publishing is a public side effect and was not performed during the read-only audit.
 - **Governance:** record legal/tax approval and assign payments, customer support, scheduling, refund and incident owners in `docs/operations-checklist.md`.
 - **Storage migration:** run `supabase/media-storage-hardening.sql` in the production Supabase project, then verify all three wizard buckets are private before enabling customer media uploads.
+- **Report-rate migration:** run `supabase/public-report-rate-limits.sql` and add `PUBLIC_REPORT_RATE_LIMIT_SALT` before enabling public safety or grant report delivery.
 - **Monitoring:** review Vercel Speed Insights after real traffic is available. The current runtime error scan found no application 500s; it only found Node's `url.parse()` deprecation warning on deliberate invalid-request smoke tests that correctly returned 404.
 
 ## Repeatable Checks
