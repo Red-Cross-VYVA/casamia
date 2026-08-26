@@ -9,6 +9,11 @@ import {
 const deleteConfirmation = 'DELETE BLANK RECORD'
 
 const sources = {
+  consent: {
+    key: 'id',
+    selection: 'id,timestamp,order_id,customer_reference,consent_type,wording,wording_version,terms_version,project_order_version,withdrawal_version,locale,contract_language,channel,metadata_json',
+    table: 'consent_evidence',
+  },
   contact: {
     key: 'id',
     selection: 'id,submitted_at,type,customer_name,customer_email,customer_phone,message',
@@ -32,6 +37,22 @@ const sources = {
 }
 
 export function isCompletelyBlankLegacyRecord(kind, record) {
+  if (kind === 'consent') {
+    const metadata = record?.metadata_json && typeof record.metadata_json === 'object' ? record.metadata_json : {}
+    return blank(record?.order_id)
+      && blank(record?.customer_reference)
+      && blank(record?.consent_type)
+      && blank(record?.wording)
+      && blank(record?.wording_version)
+      && blank(record?.terms_version)
+      && blank(record?.project_order_version)
+      && blank(record?.withdrawal_version)
+      && blank(record?.locale)
+      && blank(record?.contract_language)
+      && blank(record?.channel)
+      && emptyObject(metadata)
+  }
+
   if (kind === 'provider') {
     return blank(record?.business_name)
       && blank(record?.contact_name)
@@ -81,7 +102,7 @@ export function mapBlankLegacyRecord(kind, record) {
       : recordKey
 
   return {
-    createdAt: text(record?.created_at ?? record?.submitted_at),
+    createdAt: text(record?.created_at ?? record?.submitted_at ?? record?.timestamp),
     kind,
     recordKey,
     reference,

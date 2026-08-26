@@ -7,7 +7,7 @@ Production deployment verified: `dpl_HfboPuim1Pm8rLAfnBBXUHWqnprP`
 
 Current launch decision: **NO-GO for accepting live payments**. The application is technically healthy, but the Stripe live-mode rehearsal, partner credential binding, ElevenLabs permission, bilingual email rehearsal and human legal/operations approvals remain open.
 
-Important deployment note: the current production deployment predates the audited public-write validation changes. A fresh production smoke run on 26 August 2026 confirmed that the old `/api/consent-evidence` handler still accepts an empty request. That run may have created one blank `consent_evidence` row. Identify and delete that row through authenticated Supabase access before launch, then rerun the smoke suite only after the audited commits and rate-limit migration are deployed.
+Important deployment note: the current production deployment predates the audited public-write validation changes. A fresh production smoke run on 26 August 2026 confirmed that the old `/api/consent-evidence` handler still accepts an empty request. That run may have created one blank `consent_evidence` row. After deploying the audited commits, identify and delete that row through the protected Data Quality view before launch, then rerun the smoke suite only after the rate-limit migration is applied.
 
 ## Verified
 

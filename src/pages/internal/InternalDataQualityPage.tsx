@@ -10,6 +10,7 @@ import {
 } from '../../services/internalDataQuality'
 
 const kindLabels: Record<BlankLegacyRecordKind, string> = {
+  consent: 'Consent evidence',
   contact: 'Contact request',
   order: 'Customer plan',
   provider: 'Provider application',
@@ -77,7 +78,7 @@ export function InternalDataQualityPage() {
         {message}
       </p>
 
-      <section className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Blank records by type">
+      <section className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-5" aria-label="Blank records by type">
         {(Object.keys(kindLabels) as BlankLegacyRecordKind[]).map((kind) => (
           <div className="rounded-lg border border-border bg-white p-4 shadow-soft" key={kind}>
             <p className="text-xs font-black uppercase text-text-muted">{kindLabels[kind]}</p>

@@ -1,7 +1,7 @@
 import { getInternalAuthHeaders } from './internalAuth'
 import { getPublicSiteApiBaseUrl } from './publicSiteApi'
 
-export type BlankLegacyRecordKind = 'contact' | 'order' | 'provider' | 'withdrawal'
+export type BlankLegacyRecordKind = 'consent' | 'contact' | 'order' | 'provider' | 'withdrawal'
 
 export type BlankLegacyRecord = {
   createdAt: string

@@ -529,10 +529,19 @@ function jsonResponse(body, status = 200) {
   assert.equal(isCompletelyBlankLegacyRecord('order', {
     customer_email: '', customer_name: '', customer_phone: '', payload_json: { notes: 'Call customer' }, plan_id: '', plan_label: '',
   }), false)
+  assert.equal(isCompletelyBlankLegacyRecord('consent', {
+    channel: '', consent_type: '', contract_language: '', customer_reference: '', locale: '', metadata_json: {},
+    order_id: '', project_order_version: '', terms_version: '', wording: '', wording_version: '', withdrawal_version: '',
+  }), true)
+  assert.equal(isCompletelyBlankLegacyRecord('consent', {
+    channel: '', consent_type: 'contract-acceptance', contract_language: '', customer_reference: '', locale: '', metadata_json: {},
+    order_id: '', project_order_version: '', terms_version: '', wording: '', wording_version: '', withdrawal_version: '',
+  }), false)
 }
 
 {
   const records = {
+    consent_evidence: [{ channel: '', consent_type: '', contract_language: '', customer_reference: '', id: 'consent-blank', locale: '', metadata_json: {}, order_id: '', project_order_version: '', terms_version: '', timestamp: '2026-08-26T00:00:00Z', wording: '', wording_version: '', withdrawal_version: '' }],
     contact_requests: [
       { customer_email: '', customer_name: '', customer_phone: '', id: 'contact-blank', message: '', submitted_at: '2026-08-26T00:00:00Z' },
       { customer_email: 'ana@example.com', customer_name: 'Ana', customer_phone: '', id: 'contact-valid', message: 'Help' },
@@ -550,7 +559,7 @@ function jsonResponse(body, status = 200) {
   await dataQualityHandler(makeRequest('GET'), response)
   assert.equal(response.statusCode, 200)
   assert.deepEqual(parsedBody(response).records.map((record) => record.reference), [
-    'contact-blank', 'CM-BLANK', 'PPA-BLANK', 'withdrawal-blank',
+    'consent-blank', 'contact-blank', 'CM-BLANK', 'PPA-BLANK', 'withdrawal-blank',
   ])
 }
 
@@ -568,6 +577,30 @@ function jsonResponse(body, status = 200) {
   const response = makeResponse()
   await dataQualityHandler(makeRequest('DELETE', {
     confirmation: 'DELETE BLANK RECORD', kind: 'provider', recordKey: 'PPA-BLANK',
+  }), response)
+  assert.equal(response.statusCode, 200)
+  assert.equal(parsedBody(response).deleted, true)
+  assert.equal(deleted, true)
+}
+
+{
+  let deleted = false
+  globalThis.fetch = async (url, init) => {
+    if (init.method === 'GET') {
+      return jsonResponse([{
+        channel: '', consent_type: '', contract_language: '', customer_reference: '', id: 'consent-blank',
+        locale: '', metadata_json: {}, order_id: '', project_order_version: '', terms_version: '',
+        timestamp: '2026-08-26T00:00:00Z', wording: '', wording_version: '', withdrawal_version: '',
+      }])
+    }
+    assert.equal(init.method, 'DELETE')
+    assert.match(String(url), /consent_evidence\?id=eq\.consent-blank/)
+    deleted = true
+    return jsonResponse([{ id: 'consent-blank' }])
+  }
+  const response = makeResponse()
+  await dataQualityHandler(makeRequest('DELETE', {
+    confirmation: 'DELETE BLANK RECORD', kind: 'consent', recordKey: 'consent-blank',
   }), response)
   assert.equal(response.statusCode, 200)
   assert.equal(parsedBody(response).deleted, true)
