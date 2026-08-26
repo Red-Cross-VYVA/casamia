@@ -25,6 +25,7 @@ Current launch decision: **NO-GO for accepting live payments**. The application 
 - Consent evidence now requires a trusted CasaMia origin, valid legal metadata and a bounded payload before persistence.
 - Production security headers include HSTS, `nosniff`, `SAMEORIGIN` and strict-origin referrer policy.
 - React Router is upgraded to supported v7.18.2, and `npm audit --omit=dev` reports zero vulnerabilities.
+- Repository secret scanning found no committed live keys, access tokens or private keys, and the environment template now covers the server-only partner, Stripe, Meta and media settings used by production.
 - Latest Vercel deployment is Ready and aliased to the production domain.
 - Final production smoke tests pass against `https://www.casamia.com.es`, including all 62 sitemap routes and optimized image delivery checks.
 - Final production Lighthouse audits have 100 accessibility, best-practices and SEO scores, zero console errors, and CLS between 0.00 and 0.03 on home, plans and the home-safety assessment.
