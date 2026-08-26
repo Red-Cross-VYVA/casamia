@@ -1,3 +1,7 @@
+declare const process: {
+  env: Record<string, string | undefined>
+}
+
 const protectedPaths = ['/admin/config-preview']
 const appShellFallbackPath = '/_app-shell/private'
 const appShellFallbackPrefixes = [
