@@ -1,5 +1,5 @@
 import { sendFormSubmissionEmails } from '../_lib/form-email.js'
-import { cleanString, isValidEmail } from '../_lib/public-form-validation.js'
+import { cleanString, isJsonWithinBytes, isValidEmail, isWithinLength } from '../_lib/public-form-validation.js'
 import { insertSupabaseRow, readJsonBody, requirePost, sendJson } from '../_lib/supabase.js'
 
 export default async function handler(request, response) {
@@ -14,15 +14,24 @@ export default async function handler(request, response) {
     const cities = Array.isArray(body.cities) ? body.cities.map(cleanString).filter(Boolean) : []
     const trades = Array.isArray(body.trades) ? body.trades.map(cleanString).filter(Boolean) : []
     const experience = cleanString(body.experience)
+    const applicationId = cleanString(body.id)
 
     if (
-      !businessName
-      || !contactName
+      !isJsonWithinBytes(body, 32_768)
+      || !isWithinLength(businessName, 160, { required: true })
+      || !isWithinLength(contactName, 120, { required: true })
       || !isValidEmail(email)
-      || !phone
+      || !isWithinLength(phone, 40, { required: true })
       || cities.length === 0
+      || cities.length > 30
+      || cities.some((city) => !isWithinLength(city, 120, { required: true }))
       || trades.length === 0
-      || !experience
+      || trades.length > 30
+      || trades.some((trade) => !isWithinLength(trade, 120, { required: true }))
+      || !isWithinLength(experience, 5_000, { required: true })
+      || !isWithinLength(body.website, 300)
+      || !isWithinLength(body.availability, 500)
+      || (applicationId && !/^PPA-[A-Z0-9-]{4,40}$/i.test(applicationId))
       || body.insuranceConfirmed !== true
     ) {
       sendJson(response, 400, { message: 'Complete all required provider application fields and confirm insurance.' })
@@ -30,9 +39,9 @@ export default async function handler(request, response) {
     }
 
     const payload = {
-      application_id: body.id ?? `PPA-${Date.now().toString(36).toUpperCase()}`,
-      created_at: body.createdAt ?? new Date().toISOString(),
-      status: body.status ?? 'new',
+      application_id: applicationId || `PPA-${Date.now().toString(36).toUpperCase()}`,
+      created_at: new Date().toISOString(),
+      status: 'new',
       business_name: businessName,
       contact_name: contactName,
       email,

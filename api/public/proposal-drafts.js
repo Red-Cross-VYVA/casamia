@@ -1,4 +1,5 @@
 import { buildPublicPlansDraft } from '../_lib/plans-pricing.js'
+import { isValidEmail, isWithinLength } from '../_lib/public-form-validation.js'
 import { buildAbsoluteProposalUrl, sendProposalEmail } from '../_lib/email.js'
 import { mapProposalRecord, saveProposalRecord, updateProposalRecord } from '../_lib/proposals.js'
 import { readJsonBody, selectSupabaseRows, sendJson } from '../_lib/supabase.js'
@@ -158,7 +159,12 @@ function validateDraftBodyBasics(body) {
 
   const customer = body?.customer
 
-  if (!text(customer?.name) || !text(customer?.email)) {
+  if (
+    !isWithinLength(customer?.name, 120, { required: true })
+    || !isValidEmail(customer?.email)
+    || !isWithinLength(customer?.phone, 40)
+    || !isWithinLength(customer?.city, 120)
+  ) {
     return {
       body: { message: 'Name and email are required to create a proposal.' },
       status: 400,

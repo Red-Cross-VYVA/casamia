@@ -2,6 +2,7 @@ import crypto from 'node:crypto'
 
 import { sendNewLeadEmails } from '../_lib/lead-email.js'
 import { mapLeadRecord, recordLeadDelivery } from '../_lib/leads.js'
+import { cleanString, isJsonWithinBytes, isValidEmail } from '../_lib/public-form-validation.js'
 
 import {
   callSupabaseRpc,
@@ -30,22 +31,22 @@ const mediaClaimLeaseMs = 5 * 60 * 1000
 const maxMediaReservationsPerWindow = 3
 
 function mapAssessmentRequest(body, id, mediaManifest, mediaUpload, mediaIpHash) {
-  const submittedAt = mediaManifest.length ? new Date().toISOString() : (body.submittedAt ?? new Date().toISOString())
-  const source = mediaManifest.length ? 'home-safety-wizard' : (body.source ?? 'home-safety-assessment')
+  const submittedAt = new Date().toISOString()
+  const source = mediaManifest.length ? 'home-safety-wizard' : body.source
 
   return {
     id,
     submitted_at: submittedAt,
-    type: body.type ?? 'home_safety_assessment_visit',
-    status: mediaManifest.length ? 'Media pending' : (body.status ?? 'New'),
-    customer_name: body.customer_name ?? body.name ?? '',
-    customer_email: body.customer_email ?? body.email ?? '',
-    customer_phone: body.customer_phone ?? body.phone ?? '',
-    city_area: body.city_area ?? body.city ?? '',
-    preferred_contact_method: body.preferred_contact_method ?? body.preferredContactMethod ?? '',
-    preferred_assessment_date: body.preferred_assessment_date ?? body.preferredDate ?? '',
-    selected_plan: body.selected_plan ?? body.selectedPlan ?? '',
-    consent_at: body.consent_at ?? body.consentAt ?? '',
+    type: 'home_safety_assessment_visit',
+    status: mediaManifest.length ? 'Media pending' : 'New',
+    customer_name: body.customer_name,
+    customer_email: body.customer_email,
+    customer_phone: body.customer_phone,
+    city_area: body.city_area,
+    preferred_contact_method: body.preferred_contact_method,
+    preferred_assessment_date: body.preferred_assessment_date,
+    selected_plan: body.selected_plan,
+    consent_at: body.consent_at,
     source,
     message: body.message ?? '',
     payload_json: {
@@ -163,15 +164,56 @@ async function enforceMediaRateLimit(mediaIpHash) {
   return { ok: true }
 }
 
-function validateMediaContact(body) {
-  const name = String(body.customer_name ?? body.name ?? '').trim()
-  const email = String(body.customer_email ?? body.email ?? '').trim()
-  const phone = String(body.customer_phone ?? body.phone ?? '').trim()
-  const consentAt = String(body.consent_at ?? body.consentAt ?? '').trim()
+export function validateAssessmentRequest(body) {
+  const customerName = cleanString(body?.customer_name ?? body?.name)
+  const customerEmail = cleanString(body?.customer_email ?? body?.email).toLowerCase()
+  const customerPhone = cleanString(body?.customer_phone ?? body?.phone)
+  const cityArea = cleanString(body?.city_area ?? body?.city)
+  const preferredContactMethod = cleanString(body?.preferred_contact_method ?? body?.preferredContactMethod)
+  const preferredAssessmentDate = cleanString(body?.preferred_assessment_date ?? body?.preferredDate)
+  const selectedPlan = cleanString(body?.selected_plan ?? body?.selectedPlan)
+  const consentAt = cleanString(body?.consent_at ?? body?.consentAt)
+  const source = cleanString(body?.source) || 'home-safety-assessment'
+  const message = cleanString(body?.message)
 
-  if (!name || (!email && !phone) || !consentAt || body.consentConfirmed !== true) {
-    throw new WizardMediaValidationError('Contact details and consent are required before uploading media.')
+  if (
+    !isJsonWithinBytes(body, 262_144)
+    || !bounded(customerName, 120)
+    || (!customerEmail && !customerPhone)
+    || (customerEmail && !isValidEmail(customerEmail))
+    || customerPhone.length > 40
+    || cityArea.length > 160
+    || preferredContactMethod.length > 100
+    || preferredAssessmentDate.length > 100
+    || selectedPlan.length > 200
+    || source.length > 100
+    || message.length > 5_000
+    || body?.consentConfirmed !== true
+    || consentAt.length > 50
+    || !Number.isFinite(Date.parse(consentAt))
+  ) {
+    throw new WizardMediaValidationError('Valid contact details and consent are required for an assessment request.')
   }
+
+  return {
+    ...body,
+    city_area: cityArea,
+    consent_at: new Date(Date.parse(consentAt)).toISOString(),
+    customer_email: customerEmail,
+    customer_name: customerName,
+    customer_phone: customerPhone,
+    message,
+    preferred_assessment_date: preferredAssessmentDate,
+    preferred_contact_method: preferredContactMethod,
+    selected_plan: selectedPlan,
+    source,
+    status: 'New',
+    type: 'home_safety_assessment_visit',
+  }
+}
+
+function bounded(value, maxLength) {
+  return value.length > 0 && value.length <= maxLength
 }
 
 async function cleanupExpiredMediaReservations() {
@@ -342,8 +384,9 @@ export default async function handler(request, response) {
       return
     }
 
+    const validatedBody = validateAssessmentRequest(body)
+
     if (manifest.length) {
-      validateMediaContact(body)
       await cleanupExpiredMediaReservations()
       const rateLimit = await enforceMediaRateLimit(mediaIpHash)
       if (!rateLimit.ok) {
@@ -396,7 +439,7 @@ export default async function handler(request, response) {
       expiresAt: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
       tokenHash: hashWizardMediaToken(uploadToken),
     } : undefined
-    const payload = mapAssessmentRequest(body, assessmentId, uploadPlan, mediaUpload, mediaIpHash)
+    const payload = mapAssessmentRequest(validatedBody, assessmentId, uploadPlan, mediaUpload, mediaIpHash)
     const result = await insertSupabaseRow('assessment_requests', payload)
 
     if (!result.ok) {

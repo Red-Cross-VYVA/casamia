@@ -117,6 +117,7 @@ for (const [label, path] of [
   ['Empty proposal draft', '/api/public/proposal-drafts'],
   ['Empty visit checkout', '/api/public/visit-checkout'],
   ['Empty visit schedule', '/api/public/visit-schedule'],
+  ['Empty consent evidence', '/api/consent-evidence'],
 ]) {
   await expectStatus(label, path, 400, {
     body: '{}',

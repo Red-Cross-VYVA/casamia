@@ -5,7 +5,13 @@ import {
   sendJson,
 } from '../_lib/supabase.js'
 import { sendFormSubmissionEmails } from '../_lib/form-email.js'
-import { cleanString, hasAcceptedConsent, isValidEmail } from '../_lib/public-form-validation.js'
+import {
+  cleanString,
+  hasAcceptedConsent,
+  isJsonWithinBytes,
+  isValidEmail,
+  isWithinLength,
+} from '../_lib/public-form-validation.js'
 
 export default async function handler(request, response) {
   if (!requirePost(request, response)) return
@@ -16,12 +22,22 @@ export default async function handler(request, response) {
     const customerEmail = cleanString(body.email)
     const planId = cleanString(body.planId)
     const planLabel = cleanString(body.planLabel)
+    const orderId = cleanString(body.orderId)
+    const status = normalizePublicOrderStatus(body.status)
 
     if (
-      !customerName
+      !isJsonWithinBytes(body, 262_144)
+      || !isWithinLength(customerName, 120, { required: true })
       || !isValidEmail(customerEmail)
-      || !planId
-      || !planLabel
+      || !isWithinLength(planId, 500, { required: true })
+      || !isWithinLength(planLabel, 240, { required: true })
+      || (orderId && !/^CM-[A-Z0-9-]{6,40}$/i.test(orderId))
+      || !isWithinLength(body.address, 300)
+      || !isWithinLength(body.city, 120)
+      || !isWithinLength(body.postcode, 20)
+      || !isWithinLength(body.province, 120)
+      || !isWithinLength(body.phone, 40)
+      || !isWithinLength(body.notes, 5_000)
       || !hasAcceptedConsent(body.consentRecords)
     ) {
       sendJson(response, 400, { message: 'Customer details, selected work and contact consent are required.' })
@@ -29,9 +45,9 @@ export default async function handler(request, response) {
     }
 
     const payload = {
-      order_id: body.orderId ?? `CM-${Date.now().toString(36).toUpperCase()}`,
-      created_at: body.createdAt ?? new Date().toISOString(),
-      status: body.status ?? 'New',
+      order_id: orderId || `CM-${Date.now().toString(36).toUpperCase()}`,
+      created_at: new Date().toISOString(),
+      status,
       plan_id: planId,
       plan_label: planLabel,
       plan_price: body.planPrice ?? '',
@@ -87,6 +103,10 @@ export default async function handler(request, response) {
       message: error instanceof Error ? error.message : 'Invalid order request.',
     })
   }
+}
+
+export function normalizePublicOrderStatus(value) {
+  return value === 'Quote requested' || value === 'Visit payment pending' ? value : 'New'
 }
 
 function normalizeLocale(value) {

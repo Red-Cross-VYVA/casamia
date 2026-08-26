@@ -20,7 +20,9 @@ Current launch decision: **NO-GO for accepting live payments**. The application 
 - VAT-inclusive core prices are Bathroom EUR 749, Bedroom EUR 649, Kitchen EUR 699, Living room EUR 556.60 and Entrance EUR 749.
 - Visit fee is EUR 99 including 21% VAT; proposal payment is 50%; installation schedule is EUR 100 / 170 / 150 for one / two / three core packages.
 - Internal, partner and cron APIs reject unauthenticated calls; Stripe webhook rejects GET.
+- Automated endpoint inventory now classifies and exercises all 21 protected endpoints and all 31 public/webhook endpoints, and fails when a new endpoint is not explicitly covered.
 - Empty contact, provider, order, withdrawal, callback, assessment, proposal and visit submissions are rejected before persistence.
+- Consent evidence now requires a trusted CasaMia origin, valid legal metadata and a bounded payload before persistence.
 - Production security headers include HSTS, `nosniff`, `SAMEORIGIN` and strict-origin referrer policy.
 - React Router is upgraded to supported v7.18.2, and `npm audit --omit=dev` reports zero vulnerabilities.
 - Latest Vercel deployment is Ready and aliased to the production domain.
@@ -42,6 +44,9 @@ Current launch decision: **NO-GO for accepting live payments**. The application 
 ## Defects Fixed During Audit
 
 - Public contact, provider, order and withdrawal endpoints accepted empty records.
+- Assessment intake trusted client-supplied operational status/type values and relied on the database to reject blank records.
+- Consent evidence accepted empty, malformed or oversized records from arbitrary origins.
+- Public intake endpoints lacked consistent field and payload bounds, and proposal drafts accepted malformed email addresses.
 - Withdrawal UI could show a receipt after a backend failure.
 - Browser-language switching raced React hydration.
 - Prerendered markup was replaced before hydration, causing React error 421 and layout shift.

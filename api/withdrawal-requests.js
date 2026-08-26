@@ -1,4 +1,4 @@
-import { cleanString } from './_lib/public-form-validation.js'
+import { cleanString, isIsoDate, isJsonWithinBytes, isWithinLength } from './_lib/public-form-validation.js'
 import { insertSupabaseRow, readJsonBody, requirePost, sendJson } from './_lib/supabase.js'
 
 export default async function handler(request, response) {
@@ -14,12 +14,14 @@ export default async function handler(request, response) {
     const submissionDate = cleanString(body.submissionDate)
 
     if (
-      !customerName
-      || !orderReference
-      || !installationAddress
-      || !contact
-      || !orderDate
-      || !submissionDate
+      !isJsonWithinBytes(body, 32_768)
+      || !isWithinLength(customerName, 120, { required: true })
+      || !isWithinLength(orderReference, 100, { required: true })
+      || !isWithinLength(installationAddress, 300, { required: true })
+      || !isWithinLength(contact, 254, { required: true })
+      || !isIsoDate(orderDate)
+      || !isIsoDate(submissionDate)
+      || !isWithinLength(body.comments, 5_000)
       || body.declaration !== true
     ) {
       sendJson(response, 400, { message: 'Complete all required withdrawal fields and confirm the declaration.' })

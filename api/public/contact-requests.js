@@ -6,7 +6,7 @@ import {
   sendJson,
   updateSupabaseRows,
 } from '../_lib/supabase.js'
-import { cleanString, isValidEmail } from '../_lib/public-form-validation.js'
+import { cleanString, isJsonWithinBytes, isValidEmail, isWithinLength } from '../_lib/public-form-validation.js'
 
 export default async function handler(request, response) {
   if (!requirePost(request, response)) return
@@ -19,7 +19,14 @@ export default async function handler(request, response) {
     const customerEmail = cleanString(body.customer_email ?? body.email)
     const message = cleanString(body.message)
 
-    if (!customerName || !isValidEmail(customerEmail) || !message) {
+    if (
+      !isJsonWithinBytes(body, 32_768)
+      || !isWithinLength(customerName, 120, { required: true })
+      || !isValidEmail(customerEmail)
+      || !isWithinLength(message, 5_000, { required: true })
+      || !isWithinLength(body.customer_phone ?? body.phone, 40)
+      || !isWithinLength(body.selected_plan ?? body.plan, 200)
+    ) {
       sendJson(response, 400, { message: 'Name, a valid email address and a message are required.' })
       return
     }
@@ -29,14 +36,14 @@ export default async function handler(request, response) {
       return
     }
     const payload = {
-      submitted_at: body.submittedAt ?? new Date().toISOString(),
-      status: body.status ?? 'New',
+      submitted_at: new Date().toISOString(),
+      status: 'New',
       type: requestType,
       customer_name: customerName,
       customer_email: customerEmail,
       customer_phone: cleanString(body.customer_phone ?? body.phone),
       selected_plan: cleanString(body.selected_plan ?? body.plan),
-      source: body.source ?? (requestType === 'complaint_request' ? 'complaints-page' : 'contact'),
+      source: requestType === 'complaint_request' ? 'complaints-page' : 'contact',
       message,
       payload_json: body,
     }
