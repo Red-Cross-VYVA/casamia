@@ -1,0 +1,7 @@
+{
+  "contractVersion": 1,
+  "partnerIdentityBinding": 1,
+  "privateWizardMedia": 1,
+  "publicWriteValidation": 1,
+  "persistentPublicRateLimits": 1
+}

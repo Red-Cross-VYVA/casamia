@@ -36,6 +36,15 @@ assert.match(homeHtml, /<img[^>]*portrait-senior-couple-dancing-together\.webp[^
 assert.match(homeHtml, /href="\/fonts\/inter-latin\.woff2"/i)
 assert.doesNotMatch(homeHtml, /fonts\.googleapis\.com/i, 'Production HTML should use same-origin fonts.')
 
+const deploymentReadiness = JSON.parse(await readFile(new URL('../dist/deployment-readiness.json', import.meta.url), 'utf8'))
+assert.deepEqual(deploymentReadiness, {
+  contractVersion: 1,
+  partnerIdentityBinding: 1,
+  persistentPublicRateLimits: 1,
+  privateWizardMedia: 1,
+  publicWriteValidation: 1,
+}, 'The production bundle must expose the audited deployment contract.')
+
 const protectedShellRoutes = [
   ['dist/_app-shell/private.html', '/_app-shell/private'],
   ['dist/internal.html', '/internal'],

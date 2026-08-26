@@ -47,6 +47,7 @@ Important deployment note: the current production deployment predates the audite
 - All 14 authenticated operations screens load in production with their expected headings and without a login redirect, 404 or visible load failure.
 - Production contains the required named Stripe, Resend, Supabase, admin, partner, Meta, ElevenLabs and cron environment variables. Secret values and live/test modes remain subject to their controlled rehearsals.
 - The four legacy records confirmed to contain no customer or operational information were deleted through the protected Data Quality workflow. All four server-side deletions returned HTTP 200.
+- Production smoke tests now require `/deployment-readiness.json` before exercising any write path, so an outdated deployment is rejected without creating database records.
 - The production WhatsApp CTA resolves to the configured CasaMia number `+34 648 027 076` with a prefilled message.
 - The Facebook operations screen reports Page `61574255177723`, Graph API `v26.0` and a configured page access token. A controlled public post remains required to prove the token can publish.
 - The current production deployment is `Ready`, all 62 sitemap routes pass the production smoke test, and the production runtime scan found no application HTTP 5xx responses before the deliberate ElevenLabs check below.

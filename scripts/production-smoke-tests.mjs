@@ -30,6 +30,16 @@ assert.match(homeHtml, /\/images\/optimized\/portrait-senior-couple-dancing-toge
 assert.match(homeHtml, /fetchpriority="high"/)
 assert.doesNotMatch(homeHtml, /fonts\.googleapis\.com/)
 
+const readinessResponse = await expectStatus('Deployment readiness contract', '/deployment-readiness.json', 200)
+const readiness = await readinessResponse.json()
+assert.deepEqual(readiness, {
+  contractVersion: 1,
+  partnerIdentityBinding: 1,
+  persistentPublicRateLimits: 1,
+  privateWizardMedia: 1,
+  publicWriteValidation: 1,
+}, 'Production does not expose the audited deployment contract. Refusing write-path smoke tests.')
+
 const llmsResponse = await expectStatus('LLM guidance', '/llms.txt', 200)
 const llms = await llmsResponse.text()
 assert.match(llms, /^# CasaMia/m)
