@@ -22,6 +22,7 @@ Current launch decision: **NO-GO for accepting live payments**. The application 
 - Internal, partner and cron APIs reject unauthenticated calls; Stripe webhook rejects GET.
 - Empty contact, provider, order, withdrawal, callback, assessment, proposal and visit submissions are rejected before persistence.
 - Production security headers include HSTS, `nosniff`, `SAMEORIGIN` and strict-origin referrer policy.
+- React Router is upgraded to supported v7.18.2, and `npm audit --omit=dev` reports zero vulnerabilities.
 - Latest Vercel deployment is Ready and aliased to the production domain.
 - Final production smoke tests pass against `https://www.casamia.com.es`, including all 62 sitemap routes and optimized image delivery checks.
 - Final production Lighthouse audits have 100 accessibility, best-practices and SEO scores, zero console errors, and CLS between 0.00 and 0.03 on home, plans and the home-safety assessment.
@@ -49,6 +50,7 @@ Current launch decision: **NO-GO for accepting live payments**. The application 
 - Edge middleware environment typing emitted a non-fatal Vercel build diagnostic.
 - The legal notice omitted the company's Mercantile Registry details and customer-service telephone.
 - Minor React dependency, key and dead-code warnings were removed.
+- React Router v6 was replaced with v7, including the supported server-rendering import and v7 router defaults.
 - README catalogue ownership was updated to identify the admin catalogue as the live source of truth.
 
 ## External And Manual Gates

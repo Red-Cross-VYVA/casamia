@@ -1,6 +1,6 @@
 import { PassThrough } from 'node:stream'
 import { renderToPipeableStream } from 'react-dom/server'
-import { StaticRouter } from 'react-router-dom/server'
+import { StaticRouter } from 'react-router'
 
 import { AppRoutes } from './App'
 import './i18n'
