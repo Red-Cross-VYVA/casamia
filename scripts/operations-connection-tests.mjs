@@ -48,6 +48,9 @@ function makeRequest(method, body, authorized = true) {
   request.headers = {
     ...(authorized ? { 'x-api-key': apiKey } : {}),
     ...(body === undefined ? {} : { 'content-type': 'application/json' }),
+    host: 'localhost:5173',
+    origin: 'http://localhost:5173',
+    'x-forwarded-proto': 'http',
   }
   request.query = {}
   return request
@@ -143,7 +146,7 @@ function jsonResponse(body, status = 200) {
     selection: {
       'bath-core-package': { addOnOutcomeIds: [], quantity: 1, selected: true },
     },
-  }, false), response)
+  }, false), response, { callRpc: async () => ({ body: true, ok: true }) })
 
   assert.equal(response.statusCode, 400)
   assert.match(parsedBody(response).message, /Consent is required/)
@@ -181,7 +184,7 @@ function jsonResponse(body, status = 200) {
     selection: {
       'bath-core-package': { addOnOutcomeIds: [], quantity: 1, selected: true },
     },
-  }, false), response)
+  }, false), response, { callRpc: async () => ({ body: true, ok: true }) })
 
   const body = parsedBody(response)
   assert.equal(response.statusCode, 200)
@@ -202,7 +205,7 @@ function jsonResponse(body, status = 200) {
     consent: true,
     customer: { email: 'ana@example.com', name: 'Ana Lopez' },
     selection: 'not-valid',
-  }, false), response)
+  }, false), response, { callRpc: async () => ({ body: true, ok: true }) })
 
   assert.equal(response.statusCode, 400)
   assert.match(parsedBody(response).message, /Select at least one/)
@@ -248,7 +251,7 @@ function jsonResponse(body, status = 200) {
       },
     },
     total_estimate: 1,
-  }, false), response)
+  }, false), response, { callRpc: async () => ({ body: true, ok: true }) })
 
   const body = parsedBody(response)
   assert.equal(response.statusCode, 200)
@@ -260,6 +263,8 @@ function jsonResponse(body, status = 200) {
   assert.deepEqual(submitted.payload_json.plans_builder.review_items, ['Shower entry review'])
   assert.match(body.publicToken, /^[A-Za-z0-9_-]{20,128}$/)
   assert.equal(body.proposal.status, 'Sent')
+  assert.equal('delivery' in body.proposal, false)
+  assert.equal('events' in body.proposal, false)
   assert.equal(body.publicUrl, `/proposal/${body.publicToken}`)
 }
 
@@ -311,7 +316,7 @@ function jsonResponse(body, status = 200) {
     consentRecords: [{ accepted: true, label: 'Permission to contact customer' }],
     selectedServices: [{ serviceId: 'grab-bar' }],
     status: 'Quote requested',
-  }, false), response)
+  }, false), response, { callRpc: async () => ({ body: true, ok: true }) })
 
   assert.equal(response.statusCode, 200)
   assert.match(requestUrl, /orders\?on_conflict=order_id/)
@@ -338,7 +343,7 @@ function jsonResponse(body, status = 200) {
     insuranceConfirmed: true,
     phone: '+34 600 000 000',
     trades: ['Bathroom adaptations'],
-  }, false), response)
+  }, false), response, { callRpc: async () => ({ body: true, ok: true }) })
   assert.equal(response.statusCode, 200)
   assert.equal(submitted.application_id, 'PPA-TEST-1')
   assert.equal(submitted.business_name, 'Madrid Access SL')

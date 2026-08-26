@@ -1,4 +1,5 @@
 import { applyPublicCors } from '../_lib/public-origin.js'
+import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 import {
   extractOpenAiResponseText,
   openAiReasoningConfig,
@@ -122,7 +123,7 @@ export function parseRoomClassification(result) {
   return { room: parsed.room, confidence }
 }
 
-export default async function handler(request, response) {
+export default async function handler(request, response, dependencies = {}) {
   response.setHeader('Cache-Control', 'no-store')
 
   const corsAllowed = applyPublicCors(request, response)
@@ -143,7 +144,25 @@ export default async function handler(request, response) {
 
   try {
     const body = await readJsonBody(request)
-    sendJson(response, 200, await classifyRoomImage(body))
+    const reservation = await reservePublicRequest(request, {
+      callRpc: dependencies.callRpc,
+      env: dependencies.env ?? process.env,
+      limit: 30,
+      scope: 'room-photo-classification',
+      windowSeconds: 60 * 60,
+    })
+    if (!reservation.ok) {
+      sendJson(response, reservation.status, {
+        message: reservation.status === 429
+          ? 'Too many room-detection requests. Please wait and try again.'
+          : 'Automatic room detection is temporarily unavailable.',
+      })
+      return
+    }
+    sendJson(response, 200, await classifyRoomImage(body, {
+      env: dependencies.env ?? process.env,
+      fetchImpl: dependencies.fetchImpl ?? fetch,
+    }))
   } catch (error) {
     const statusCode = Number.isInteger(error?.statusCode) ? error.statusCode : 500
     if (statusCode >= 500) {

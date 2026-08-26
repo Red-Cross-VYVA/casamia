@@ -129,6 +129,10 @@ export async function enrichGrantReport(token, { env = process.env, fetchImpl = 
 
   const payload = isRecord(report.record.payload_json) ? report.record.payload_json : {}
   const recommendations = isRecord(payload.recommendations) ? payload.recommendations : {}
+  const existingResearch = getReusableGrantResearch(recommendations.grantResearch)
+  if (existingResearch) {
+    return { ok: true, status: 200, body: { grantResearch: existingResearch }, payload }
+  }
   const form = isRecord(recommendations.form) ? recommendations.form : {}
   const contact = extractContact(report.record)
   const missingData = getGrantResearchRequiredData(form, contact)
@@ -293,6 +297,20 @@ export function sanitiseGrantResearch(value) {
       360,
     ) || 'Grant support depends on the relevant public authority and cannot be guaranteed.',
   }
+}
+
+export function getReusableGrantResearch(value, now = Date.now()) {
+  if (!isRecord(value)) return null
+
+  const research = sanitiseGrantResearch(value)
+  if (research.status === 'ready' || research.status === 'needs_data') return research
+
+  const generatedAt = Date.parse(research.generatedAt)
+  return research.status === 'pending'
+    && Number.isFinite(generatedAt)
+    && generatedAt > now - 2 * 60 * 1_000
+    ? research
+    : null
 }
 
 async function loadGrantReportRecord(token) {

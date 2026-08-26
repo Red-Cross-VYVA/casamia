@@ -1,4 +1,6 @@
 import { sendFormSubmissionEmails } from '../_lib/form-email.js'
+import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
+import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 import {
   insertSupabaseRow,
   readJsonBody,
@@ -8,8 +10,21 @@ import {
 } from '../_lib/supabase.js'
 import { cleanString, isJsonWithinBytes, isValidEmail, isWithinLength } from '../_lib/public-form-validation.js'
 
-export default async function handler(request, response) {
+export default async function handler(request, response, dependencies = {}) {
+  if (request.method === 'OPTIONS') {
+    if (!applyPublicCors(request, response)) {
+      sendJson(response, 403, { message: 'Origin not allowed.' })
+      return
+    }
+    response.status(204).end()
+    return
+  }
   if (!requirePost(request, response)) return
+  if (!isAllowedPublicOrigin(request)) {
+    sendJson(response, 403, { message: 'Origin not allowed.' })
+    return
+  }
+  applyPublicCors(request, response)
 
   try {
     const body = await readJsonBody(request)
@@ -33,6 +48,21 @@ export default async function handler(request, response) {
 
     if (requestType === 'complaint_request' && body.consentConfirmed !== true) {
       sendJson(response, 400, { message: 'Consent is required to submit a complaint.' })
+      return
+    }
+    const reservation = await reservePublicRequest(request, {
+      callRpc: dependencies.callRpc,
+      env: dependencies.env ?? process.env,
+      limit: 10,
+      scope: requestType === 'complaint_request' ? 'complaint-request' : 'contact-request',
+      windowSeconds: 30 * 60,
+    })
+    if (!reservation.ok) {
+      sendJson(response, reservation.status, {
+        message: reservation.status === 429
+          ? 'Too many requests. Please try again later.'
+          : 'Contact requests are temporarily unavailable.',
+      })
       return
     }
     const payload = {

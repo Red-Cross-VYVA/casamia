@@ -5,6 +5,8 @@ import {
   sendJson,
 } from '../_lib/supabase.js'
 import { sendFormSubmissionEmails } from '../_lib/form-email.js'
+import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
+import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 import {
   cleanString,
   hasAcceptedConsent,
@@ -13,8 +15,21 @@ import {
   isWithinLength,
 } from '../_lib/public-form-validation.js'
 
-export default async function handler(request, response) {
+export default async function handler(request, response, dependencies = {}) {
+  if (request.method === 'OPTIONS') {
+    if (!applyPublicCors(request, response)) {
+      sendJson(response, 403, { message: 'Origin not allowed.' })
+      return
+    }
+    response.status(204).end()
+    return
+  }
   if (!requirePost(request, response)) return
+  if (!isAllowedPublicOrigin(request)) {
+    sendJson(response, 403, { message: 'Origin not allowed.' })
+    return
+  }
+  applyPublicCors(request, response)
 
   try {
     const body = await readJsonBody(request)
@@ -41,6 +56,22 @@ export default async function handler(request, response) {
       || !hasAcceptedConsent(body.consentRecords)
     ) {
       sendJson(response, 400, { message: 'Customer details, selected work and contact consent are required.' })
+      return
+    }
+
+    const reservation = await reservePublicRequest(request, {
+      callRpc: dependencies.callRpc,
+      env: dependencies.env ?? process.env,
+      limit: 5,
+      scope: 'order-request',
+      windowSeconds: 30 * 60,
+    })
+    if (!reservation.ok) {
+      sendJson(response, reservation.status, {
+        message: reservation.status === 429
+          ? 'Too many order requests. Please try again later.'
+          : 'Order requests are temporarily unavailable.',
+      })
       return
     }
 

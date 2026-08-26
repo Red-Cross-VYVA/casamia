@@ -99,7 +99,11 @@ function makeVoiceSession(overrides = {}) {
 function makeApiRequest(body) {
   const request = Readable.from([JSON.stringify(body)])
   request.method = 'POST'
-  request.headers = {}
+  request.headers = {
+    host: 'localhost:5173',
+    origin: 'http://localhost:5173',
+    'x-forwarded-proto': 'http',
+  }
   return request
 }
 
@@ -935,11 +939,11 @@ function makeFinding(overrides = {}) {
 
   try {
     const createResponse = makeApiResponse()
-    await assessmentRequests(makeApiRequest(draftBody), createResponse)
+    await assessmentRequests(makeApiRequest(draftBody), createResponse, { callRpc: async () => ({ body: true, ok: true }) })
     await createResponse.completed
 
     const updateResponse = makeApiResponse()
-    await assessmentRequests(makeApiRequest({ ...draftBody, currentStep: 'stairs' }), updateResponse)
+    await assessmentRequests(makeApiRequest({ ...draftBody, currentStep: 'stairs' }), updateResponse, { callRpc: async () => ({ body: true, ok: true }) })
     await updateResponse.completed
 
     assert.equal(createResponse.statusCode, 200)

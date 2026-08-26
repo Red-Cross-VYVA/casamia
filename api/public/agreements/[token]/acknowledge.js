@@ -5,10 +5,21 @@ import {
   mapAgreementRecord,
   mapPublicAgreementRecord,
 } from '../../../_lib/agreements.js'
+import { applyPublicCors } from '../../../_lib/public-origin.js'
 import { readJsonBody, sendJson } from '../../../_lib/supabase.js'
 
 export default async function handler(request, response) {
   response.setHeader('Cache-Control', 'no-store')
+
+  const corsAllowed = applyPublicCors(request, response)
+  if (request.method === 'OPTIONS') {
+    response.status(corsAllowed ? 204 : 403).end()
+    return
+  }
+  if (!corsAllowed) {
+    sendJson(response, 403, { message: 'This agreement request is not allowed.' })
+    return
+  }
 
   if (request.method !== 'POST') {
     sendJson(response, 405, { message: 'Method not allowed.' })

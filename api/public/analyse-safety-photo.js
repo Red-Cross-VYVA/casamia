@@ -1,4 +1,5 @@
 import { applyPublicCors } from '../_lib/public-origin.js'
+import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 import {
   extractOpenAiResponseText,
   openAiReasoningConfig,
@@ -296,7 +297,7 @@ function normaliseContext(value) {
   )
 }
 
-export default async function handler(request, response) {
+export default async function handler(request, response, dependencies = {}) {
   response.setHeader('Cache-Control', 'no-store')
 
   const corsAllowed = applyPublicCors(request, response)
@@ -317,7 +318,26 @@ export default async function handler(request, response) {
 
   try {
     const body = await readJsonBody(request)
-    sendJson(response, 200, await analyseSafetyImage(body))
+    const reservation = await reservePublicRequest(request, {
+      callRpc: dependencies.callRpc,
+      env: dependencies.env ?? process.env,
+      limit: 30,
+      scope: 'safety-photo-analysis',
+      windowSeconds: 60 * 60,
+    })
+    if (!reservation.ok) {
+      sendJson(response, reservation.status, {
+        code: reservation.status === 429 ? 'VISION_RATE_LIMITED' : 'VISION_UNAVAILABLE',
+        message: reservation.status === 429
+          ? 'Too many safety-analysis requests. Please wait and try again.'
+          : 'Automatic safety analysis is temporarily unavailable.',
+      })
+      return
+    }
+    sendJson(response, 200, await analyseSafetyImage(body, {
+      env: dependencies.env ?? process.env,
+      fetchImpl: dependencies.fetchImpl ?? fetch,
+    }))
   } catch (error) {
     const statusCode = Number.isInteger(error?.statusCode) ? error.statusCode : 500
     if (statusCode >= 500) {

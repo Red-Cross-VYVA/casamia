@@ -10,6 +10,7 @@ import {
   safeOpenAiErrorDetails,
 } from '../api/_lib/openai-responses.js'
 import { sendPublicReportEmail } from '../api/_lib/email.js'
+import { getReusableGrantResearch } from '../api/_lib/grant-research.js'
 import {
   buildPublicReportRecord,
   hashPublicReportClient,
@@ -35,6 +36,24 @@ const reportRateRequest = {
   headers: { 'x-forwarded-for': '203.0.113.8, 10.0.0.1' },
   socket: {},
 }
+const grantResearchNow = Date.parse('2026-08-26T12:00:00.000Z')
+assert.equal(getReusableGrantResearch({
+  generatedAt: '2026-08-26T11:00:00.000Z',
+  programmeStatus: 'Ready result',
+  status: 'ready',
+}, grantResearchNow)?.programmeStatus, 'Ready result')
+assert.equal(getReusableGrantResearch({
+  generatedAt: '2026-08-26T11:59:00.000Z',
+  status: 'pending',
+}, grantResearchNow)?.status, 'pending')
+assert.equal(getReusableGrantResearch({
+  generatedAt: '2026-08-26T11:55:00.000Z',
+  status: 'pending',
+}, grantResearchNow), null)
+assert.equal(getReusableGrantResearch({
+  generatedAt: '2026-08-26T11:59:00.000Z',
+  status: 'failed',
+}, grantResearchNow), null)
 const reportRateHash = hashPublicReportClient(reportRateRequest, { PUBLIC_REPORT_RATE_LIMIT_SALT: 'test-rate-secret' })
 assert.match(reportRateHash, /^[0-9a-f]{64}$/)
 assert.doesNotMatch(reportRateHash, /203\.0\.113\.8/)

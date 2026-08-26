@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import { readdir } from 'node:fs/promises'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -68,6 +69,55 @@ const publicGetRoutes = [
   'api/public/visit-calendar.js',
   'api/public/visit-checkout-status.js',
 ]
+
+const originDelegatingPostRoutes = new Set([
+  'api/public/grant-reports.js',
+  'api/public/safety-reports.js',
+])
+
+const rateLimitedPostRoutes = new Set([
+  'api/consent-evidence.js',
+  'api/public/analyse-safety-photo.js',
+  'api/public/assessment-requests.js',
+  'api/public/callback-requests.js',
+  'api/public/classify-room-photo.js',
+  'api/public/contact-requests.js',
+  'api/public/elevenlabs-conversation-token.js',
+  'api/public/grant-reports.js',
+  'api/public/grant-reports/[token]/research.js',
+  'api/public/orders.js',
+  'api/public/proposal-drafts.js',
+  'api/public/provider-applications.js',
+  'api/public/safety-reports.js',
+  'api/withdrawal-requests.js',
+])
+
+const capabilityProtectedPostRoutes = new Set([
+  'api/public/agreements/[token]/acknowledge.js',
+  'api/public/assessment-media-finalize.js',
+  'api/public/proposals/[token]/accept.js',
+  'api/public/proposals/[token]/checkout.js',
+  'api/public/visit-checkout.js',
+  'api/public/visit-manage.js',
+  'api/public/visit-schedule.js',
+])
+
+assert.deepEqual(
+  [...rateLimitedPostRoutes, ...capabilityProtectedPostRoutes].sort(),
+  [...publicPostRoutes].sort(),
+  'Every public write endpoint must be classified as rate-limited or protected by an unguessable capability/session.',
+)
+
+for (const route of publicPostRoutes) {
+  const source = readFileSync(path.join(root, route), 'utf8')
+  assert.match(
+    source,
+    originDelegatingPostRoutes.has(route)
+      ? /handlePublicReportPost/
+      : /applyPublicCors|isAllowedPublicOrigin/,
+    `${route} must enforce the trusted public origin boundary.`,
+  )
+}
 
 const webhookRoutes = ['api/webhooks/stripe.js']
 

@@ -1,9 +1,7 @@
-import crypto from 'node:crypto'
-
 import { applyPublicCors, getRequestHeader } from './public-origin.js'
+import { hashPublicRequestClient, reservePublicRequest } from './public-rate-limit.js'
 import { buildAbsolutePublicUrl, sendPublicReportEmail } from './email.js'
 import {
-  callSupabaseRpc,
   createSupabaseRowIfAbsent,
   selectSupabaseRows,
   sendJson,
@@ -16,7 +14,6 @@ const publicReportLifetimeMs = 30 * 24 * 60 * 60 * 1_000
 const publicReportTokenPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 const publicReportRateWindowMs = 30 * 60 * 1_000
 const maxPublicReportsPerWindow = 10
-const publicReportRateLimitTimeoutMs = 3_000
 
 export class PublicReportValidationError extends Error {
   constructor(message, statusCode = 400) {
@@ -580,40 +577,16 @@ function parsePublicReportJson(value) {
 }
 
 export function hashPublicReportClient(request, env = process.env) {
-  const forwarded = getRequestHeader(request, 'x-forwarded-for')
-  const clientIp = String(
-    forwarded || getRequestHeader(request, 'x-real-ip') || request.socket?.remoteAddress || 'unknown',
-  ).split(',')[0].trim()
-  const secret = env.PUBLIC_REPORT_RATE_LIMIT_SALT
-    || env.CASAMIA_INTERNAL_SESSION_SECRET
-    || env.CASAMIA_INTERNAL_API_KEY
-    || env.SUPABASE_SERVICE_ROLE_KEY
-
-  if (!secret) return ''
-  return crypto.createHmac('sha256', secret).update(`public-report:${clientIp}`).digest('hex')
+  return hashPublicRequestClient(request, 'public-report', env)
 }
 
 export async function reservePublicReportRequest(request, dependencies = {}) {
-  const keyHash = hashPublicReportClient(request, dependencies.env ?? process.env)
-  if (!keyHash) return { ok: false, status: 503 }
-
-  const callRpc = dependencies.callRpc ?? callSupabaseRpc
-  let result
-  try {
-    result = await callRpc('reserve_public_request', {
-      p_key_hash: keyHash,
-      p_limit: maxPublicReportsPerWindow,
-      p_window_seconds: Math.round(publicReportRateWindowMs / 1_000),
-    }, { timeoutMs: publicReportRateLimitTimeoutMs })
-  } catch (error) {
-    console.error('Public report rate limit could not be checked.', {
-      errorName: error instanceof Error ? error.name : 'Error',
-    })
-    return { ok: false, status: 503 }
-  }
-
-  if (!result.ok) return { ok: false, status: 503 }
-  return result.body === true
-    ? { ok: true, status: 200 }
-    : { ok: false, status: 429 }
+  const result = await reservePublicRequest(request, {
+    callRpc: dependencies.callRpc,
+    env: dependencies.env ?? process.env,
+    limit: maxPublicReportsPerWindow,
+    scope: 'public-report',
+    windowSeconds: Math.round(publicReportRateWindowMs / 1_000),
+  })
+  return { ok: result.ok, status: result.status }
 }

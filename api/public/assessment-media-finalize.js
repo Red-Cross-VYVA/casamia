@@ -1,5 +1,6 @@
 import crypto from 'node:crypto'
 
+import { applyPublicCors } from '../_lib/public-origin.js'
 import {
   getStorageObjectInfo,
   readJsonBody,
@@ -292,6 +293,15 @@ async function verifyUploadedManifest(manifest) {
 }
 
 export default async function handler(request, response) {
+  const corsAllowed = applyPublicCors(request, response)
+  if (request.method === 'OPTIONS') {
+    response.status(corsAllowed ? 204 : 403).end()
+    return
+  }
+  if (!corsAllowed) {
+    sendJson(response, 403, { message: 'This media request is not allowed.' })
+    return
+  }
   if (!requirePost(request, response)) return
 
   let activeClaim

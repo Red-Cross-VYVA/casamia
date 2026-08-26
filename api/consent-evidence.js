@@ -1,5 +1,6 @@
 import { applyPublicCors, isAllowedPublicOrigin } from './_lib/public-origin.js'
 import { cleanString } from './_lib/public-form-validation.js'
+import { reservePublicRequest } from './_lib/public-rate-limit.js'
 import { insertSupabaseRow, readJsonBody, sendJson } from './_lib/supabase.js'
 
 const allowedChannels = new Set(['checkout', 'withdrawal', 'proposal', 'support'])
@@ -13,7 +14,7 @@ const allowedConsentTypes = new Set([
 ])
 const maxPayloadBytes = 16_384
 
-export default async function handler(request, response) {
+export default async function handler(request, response, dependencies = {}) {
   response.setHeader('Cache-Control', 'no-store')
 
   if (request.method === 'OPTIONS') {
@@ -42,6 +43,22 @@ export default async function handler(request, response) {
 
     if (!validation.ok) {
       sendJson(response, 400, { message: validation.message })
+      return
+    }
+
+    const reservation = await reservePublicRequest(request, {
+      callRpc: dependencies.callRpc,
+      env: dependencies.env ?? process.env,
+      limit: 30,
+      scope: 'consent-evidence',
+      windowSeconds: 30 * 60,
+    })
+    if (!reservation.ok) {
+      sendJson(response, reservation.status, {
+        message: reservation.status === 429
+          ? 'Too many consent records. Please try again later.'
+          : 'Consent recording is temporarily unavailable.',
+      })
       return
     }
 

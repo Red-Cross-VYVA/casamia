@@ -2,7 +2,9 @@ import crypto from 'node:crypto'
 
 import { sendNewLeadEmails } from '../_lib/lead-email.js'
 import { mapLeadRecord, recordLeadDelivery } from '../_lib/leads.js'
+import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
 import { cleanString, isJsonWithinBytes, isValidEmail } from '../_lib/public-form-validation.js'
+import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 
 import {
   callSupabaseRpc,
@@ -365,8 +367,21 @@ async function cleanupExpiredMediaReservations() {
   }
 }
 
-export default async function handler(request, response) {
+export default async function handler(request, response, dependencies = {}) {
+  if (request.method === 'OPTIONS') {
+    if (!applyPublicCors(request, response)) {
+      sendJson(response, 403, { message: 'Origin not allowed.' })
+      return
+    }
+    response.status(204).end()
+    return
+  }
   if (!requirePost(request, response)) return
+  if (!isAllowedPublicOrigin(request)) {
+    sendJson(response, 403, { message: 'Origin not allowed.' })
+    return
+  }
+  applyPublicCors(request, response)
 
   try {
     const body = await readJsonBody(request)
@@ -380,11 +395,41 @@ export default async function handler(request, response) {
     const mediaIpHash = manifest.length ? hashClientIp(request) : undefined
 
     if (isWizardDraft(body, manifest)) {
+      const reservation = await reservePublicRequest(request, {
+        callRpc: dependencies.callRpc,
+        env: dependencies.env ?? process.env,
+        limit: 120,
+        scope: 'assessment-draft',
+        windowSeconds: 60 * 60,
+      })
+      if (!reservation.ok) {
+        sendJson(response, reservation.status, {
+          message: reservation.status === 429
+            ? 'Too many draft updates. Please wait and try again.'
+            : 'Draft saving is temporarily unavailable.',
+        })
+        return
+      }
       await saveWizardDraft(body, response)
       return
     }
 
     const validatedBody = validateAssessmentRequest(body)
+    const reservation = await reservePublicRequest(request, {
+      callRpc: dependencies.callRpc,
+      env: dependencies.env ?? process.env,
+      limit: 5,
+      scope: 'assessment-request',
+      windowSeconds: 30 * 60,
+    })
+    if (!reservation.ok) {
+      sendJson(response, reservation.status, {
+        message: reservation.status === 429
+          ? 'Too many assessment requests. Please try again later.'
+          : 'Assessment requests are temporarily unavailable.',
+      })
+      return
+    }
 
     if (manifest.length) {
       await cleanupExpiredMediaReservations()

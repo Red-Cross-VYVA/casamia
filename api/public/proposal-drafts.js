@@ -1,4 +1,6 @@
 import { buildPublicPlansDraft } from '../_lib/plans-pricing.js'
+import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
+import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 import { isValidEmail, isWithinLength } from '../_lib/public-form-validation.js'
 import { buildAbsoluteProposalUrl, sendProposalEmail } from '../_lib/email.js'
 import { mapProposalRecord, mapPublicProposalRecord, saveProposalRecord, updateProposalRecord } from '../_lib/proposals.js'
@@ -6,14 +8,15 @@ import { readJsonBody, selectSupabaseRows, sendJson } from '../_lib/supabase.js'
 
 const catalogueRowId = 'default'
 
-export default async function handler(request, response) {
+export default async function handler(request, response, dependencies = {}) {
   response.setHeader('Cache-Control', 'no-store')
 
   if (request.method === 'OPTIONS') {
-    response.status(204).setHeader('Access-Control-Allow-Origin', '*')
-    response.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-    response.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-    response.end()
+    if (!applyPublicCors(request, response)) {
+      sendJson(response, 403, { message: 'Origin not allowed.' })
+      return
+    }
+    response.status(204).end()
     return
   }
 
@@ -21,6 +24,11 @@ export default async function handler(request, response) {
     sendJson(response, 405, { message: 'Method not allowed.' })
     return
   }
+  if (!isAllowedPublicOrigin(request)) {
+    sendJson(response, 403, { message: 'Origin not allowed.' })
+    return
+  }
+  applyPublicCors(request, response)
 
   try {
     const body = await readJsonBody(request)
@@ -28,6 +36,22 @@ export default async function handler(request, response) {
 
     if (basicError) {
       sendJson(response, basicError.status, basicError.body)
+      return
+    }
+
+    const reservation = await reservePublicRequest(request, {
+      callRpc: dependencies.callRpc,
+      env: dependencies.env ?? process.env,
+      limit: 5,
+      scope: 'proposal-draft',
+      windowSeconds: 30 * 60,
+    })
+    if (!reservation.ok) {
+      sendJson(response, reservation.status, {
+        message: reservation.status === 429
+          ? 'Too many proposal requests. Please try again later.'
+          : 'Proposal creation is temporarily unavailable.',
+      })
       return
     }
 
@@ -140,7 +164,10 @@ export default async function handler(request, response) {
 
     sendJson(response, 200, {
       emailDelivery: delivery.proposalEmail,
-      proposal,
+      proposal: mapPublicProposalRecord({
+        ...saveResult.record,
+        payload_json: proposal,
+      }),
       publicToken: proposal.public_token,
       publicUrl: relativePublicUrl,
       publicUrlAbsolute: publicUrl,

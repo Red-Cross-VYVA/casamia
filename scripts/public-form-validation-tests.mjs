@@ -61,6 +61,17 @@ assert.equal(normalizePublicOrderStatus('Quote requested'), 'Quote requested')
   assert.equal(response.statusCode, 400, 'Proposal drafts must reject an invalid customer email.')
 }
 
+{
+  const request = makeRequest({
+    consent: true,
+    customer: { email: 'ana@example.com', name: 'Ana' },
+  })
+  request.headers.origin = 'https://attacker.example'
+  const response = makeResponse()
+  await proposalDraftHandler(request, response)
+  assert.equal(response.statusCode, 403, 'Proposal drafts must reject an untrusted origin.')
+}
+
 assert.throws(
   () => validateAssessmentRequest({
     consentAt: '2026-08-26T12:00:00.000Z',
@@ -94,6 +105,20 @@ assert.throws(
   const response = makeResponse()
   await consentHandler(request, response)
   assert.equal(response.statusCode, 403, 'Consent evidence must reject an untrusted origin.')
+}
+
+for (const [name, handler] of [
+  ['assessment', assessmentHandler],
+  ['contact', contactHandler],
+  ['order', orderHandler],
+  ['provider', providerHandler],
+  ['withdrawal', withdrawalHandler],
+]) {
+  const request = makeRequest({})
+  request.headers.origin = 'https://attacker.example'
+  const response = makeResponse()
+  await handler(request, response)
+  assert.equal(response.statusCode, 403, `${name} must reject an untrusted origin.`)
 }
 
 {
@@ -144,7 +169,7 @@ assert.throws(
       timestamp: '2026-08-26T12:00:00.000Z',
       wording: 'Acepto las condiciones.',
       wordingVersion: 'checkout-consents-1.0',
-    }), response)
+    }), response, { callRpc: async () => ({ body: true, ok: true }) })
     assert.equal(response.statusCode, 200)
     const receipt = JSON.parse(response.body)
     assert.equal(receipt.evidenceId, 'consent-123')
