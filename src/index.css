@@ -26397,19 +26397,6 @@ body .hero-section .hero-title .home-accent {
   -webkit-text-stroke-color: #c8f08f !important;
 }
 
-.trust-bar-section,
-.prevention-section,
-.solution-section,
-.before-after-preview-section,
-.offer-section,
-.manufacturer-marquee-section,
-.grants-section,
-.eurosafe-section,
-.final-cta-section {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
-}
-
 .hero-safety-wizard-link {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;

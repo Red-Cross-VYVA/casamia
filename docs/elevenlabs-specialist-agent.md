@@ -27,8 +27,13 @@ Use the prompt exported by `getSpecialistAgentPrompt`. Its core rules are:
 
 ## Knowledge Base Sources
 
-Create or sync these knowledge base entries from
-`specialistAgentKnowledgeBase`:
+Upload `docs/elevenlabs-casamia-knowledge-base.md` as the primary public-agent
+knowledge base. It contains the approved customer journey, assessment routes,
+catalogue, pricing rules, ordering process, payments, installation, grants,
+privacy, aftercare and escalation boundaries.
+
+The shorter entries in `specialistAgentKnowledgeBase` remain useful as runtime
+context and retrieval summaries:
 
 - `casamia-customer-journey`: package or inspection, proposal, grant paperwork,
   installation, aftercare.

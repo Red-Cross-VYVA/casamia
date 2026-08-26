@@ -17,6 +17,7 @@ import { Footer } from './components/Footer'
 import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
 import { PartnerAccessGate } from './components/partner/PartnerAccessGate'
+import { PreferredLanguageSync } from './components/PreferredLanguageSync'
 import { SEO } from './components/SEO'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
 
@@ -198,7 +199,7 @@ function RouteLoadingFallback() {
   const { t } = useTranslation()
 
   return (
-    <div className="site-shell flex min-h-[55vh] items-center justify-center py-20">
+    <div className="site-shell flex min-h-screen items-center justify-center py-20">
       <div
         className="flex flex-col items-center gap-4 rounded-lg border border-border bg-white px-8 py-7 text-center shadow-soft"
         role="status"
@@ -353,6 +354,7 @@ export function AppRoutes() {
             <Route path="/contact" element={<Navigate to="/why-us#contact-form" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          <PreferredLanguageSync />
         </Suspense>
       </main>
       {isInternalRoute || isPartnerRoute || isFocusedWizardRoute ? null : <Footer />}

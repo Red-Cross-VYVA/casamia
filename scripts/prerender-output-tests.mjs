@@ -2,8 +2,15 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
 const clientEntry = await readFile(new URL('../src/main.tsx', import.meta.url), 'utf8')
-assert.match(clientEntry, /preferredLanguage === i18n\.language[\s\S]*hydrateRoot/, 'Matching prerendered languages should hydrate normally.')
-assert.match(clientEntry, /changeLanguage\(preferredLanguage\)[\s\S]*replaceChildren\(\)[\s\S]*createRoot/, 'A different browser language must mount cleanly instead of racing hydration.')
+const languageSync = await readFile(new URL('../src/components/PreferredLanguageSync.tsx', import.meta.url), 'utf8')
+const appEntry = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
+assert.match(clientEntry, /if \(hasPrerenderedMarkup\)[\s\S]*hydrateRoot\(root, application\)[\s\S]*return/, 'Prerendered markup should always hydrate in place.')
+assert.doesNotMatch(clientEntry, /<PreferredLanguageSync \/>/, 'The root must not synchronize language before lazy routes finish hydrating.')
+assert.match(appEntry, /<Suspense[\s\S]*<Routes>[\s\S]*<\/Routes>[\s\S]*<PreferredLanguageSync \/>[\s\S]*<\/Suspense>/, 'Language synchronization should commit inside the hydrated route boundary.')
+assert.match(languageSync, /useEffect[\s\S]*changeLanguage\(preferredLanguage\)/, 'Browser language should synchronize only after hydration commits.')
+assert.match(languageSync, /startTransition[\s\S]*changeLanguage/, 'Language synchronization should run as a non-blocking transition.')
+assert.doesNotMatch(clientEntry, /replaceChildren\(\)/, 'Language selection must not erase prerendered markup and cause layout shift.')
+assert.match(appEntry, /function RouteLoadingFallback[\s\S]*min-h-screen/, 'Route loading must preserve at least one viewport of height so the footer cannot shift into view during hydration.')
 
 const representativeRoutes = [
   ['dist/index.html', '/'],

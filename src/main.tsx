@@ -17,7 +17,7 @@ async function mountApplication() {
   const preferredLanguage = normalizeSupportedLanguage(preferredBrowserLanguage)
   const hasPrerenderedMarkup = root.hasChildNodes()
 
-  if (hasPrerenderedMarkup && (!preferredLanguage || preferredLanguage === i18n.language)) {
+  if (hasPrerenderedMarkup) {
     hydrateRoot(root, application)
     return
   }
@@ -26,7 +26,6 @@ async function mountApplication() {
     await i18n.changeLanguage(preferredLanguage)
   }
 
-  if (hasPrerenderedMarkup) root.replaceChildren()
   createRoot(root).render(application)
 }
 

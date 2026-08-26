@@ -106,11 +106,10 @@ export function SolutionGallery() {
                   <p className="mt-2 text-text-mid">{item.desc}</p>
                   {link ? (
                     <Link
-                      aria-label={`${t('common.learnMore')}: ${item.title}`}
                       className="solution-card-cta"
                       to={link}
                     >
-                      {t('common.learnMore')}
+                      {t('common.learnMore')}: {item.title}
                       <ArrowRight size={17} aria-hidden="true" />
                     </Link>
                   ) : null}
