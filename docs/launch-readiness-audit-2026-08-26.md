@@ -26,6 +26,8 @@ Final verified application deployment: `dpl_ELMLJU9CUDe5r1V1nyj9oCrbHgrr`
 - Repeat Lighthouse performance scores were 58 and 71 for home, 67 for plans and 71 for the home-safety assessment. These are useful synthetic baselines; real-user Core Web Vitals should be monitored after launch.
 - The largest gallery, grants and before/after source images were converted to WebP. Representative files fell from roughly 2-15 MB each to roughly 9-192 KB each.
 - The ElevenLabs specialist-agent setup now has a versioned knowledge base covering reports, visits, pricing, ordering, installation, connected safety, grants, privacy, complaints and escalation.
+- The AEAT CIF document confirms the legal name, NIF and Marbella address used by the site. Official BORME records confirm the Málaga Mercantile Registry details now shown in the legal notice.
+- The legal production validator now passes with the verified company identity, registry details, published customer-service telephone, email, address and Spanish contract locale.
 
 ## Defects Fixed During Audit
 
@@ -36,6 +38,7 @@ Final verified application deployment: `dpl_ELMLJU9CUDe5r1V1nyj9oCrbHgrr`
 - A gallery image depended on an external host that blocked embedding.
 - Oversized PNG/JPEG assets caused unnecessary multi-megabyte downloads on public pages.
 - Edge middleware environment typing emitted a non-fatal Vercel build diagnostic.
+- The legal notice omitted the company's Mercantile Registry details and customer-service telephone.
 - Minor React dependency, key and dead-code warnings were removed.
 - README catalogue ownership was updated to identify the admin catalogue as the live source of truth.
 

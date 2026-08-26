@@ -47,6 +47,7 @@ const configPoints = [
   `NIF: ${casamiaCompanyConfig.nif}`,
   `Registered address: ${casamiaCompanyConfig.registeredAddress}`,
   casamiaCompanyConfig.registryDetails ? `Registry details: ${casamiaCompanyConfig.registryDetails}` : '',
+  `Telephone: ${casamiaCompanyConfig.customerServicePhone}`,
   `Email: ${casamiaCompanyConfig.customerServiceEmail}`,
 ].filter(Boolean)
 
@@ -56,6 +57,7 @@ const configPointsEs = [
   `NIF: ${casamiaCompanyConfig.nif}`,
   `Domicilio social: ${casamiaCompanyConfig.registeredAddress}`,
   casamiaCompanyConfig.registryDetails ? `Datos registrales: ${casamiaCompanyConfig.registryDetails}` : '',
+  `Teléfono: ${casamiaCompanyConfig.customerServicePhone}`,
   `Correo electrónico: ${casamiaCompanyConfig.customerServiceEmail}`,
 ].filter(Boolean)
 
