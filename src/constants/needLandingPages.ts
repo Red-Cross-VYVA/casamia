@@ -348,7 +348,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     servicePath: '/grant-check',
     resourcePath: '/blog/home-adaptation-grants-spain-family-guide',
     icon: 'book',
-    image: '/images/blog/grants-euro-symbol.jpg',
+    image: '/images/blog/grants-euro-symbol.webp',
     title: 'Grants for home adaptations in Spain',
     seoTitle: 'Grants for Home Adaptations in Spain',
     description:

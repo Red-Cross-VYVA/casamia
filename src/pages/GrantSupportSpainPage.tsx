@@ -117,7 +117,7 @@ export function GrantSupportSpainPage() {
         title="Ayudas para adaptar vivienda de personas mayores en España"
         description="En toda España existen subvenciones y programas públicos para ayudar a personas mayores, con discapacidad, dependencia o movilidad reducida a adaptar su vivienda. CasaMia identifica la ayuda adecuada y coordina todo el proceso."
         path="/grants"
-        image="/images/blog/grants-euro-symbol.jpg"
+        image="/images/blog/grants-euro-symbol.webp"
         schema={schema}
       />
       <div className="grant-spain-page">
@@ -153,7 +153,7 @@ export function GrantSupportSpainPage() {
             </div>
             <div className="grant-spain-hero-visual">
               <SafeImage
-                src="/images/blog/grants-euro-symbol.jpg"
+                src="/images/blog/grants-euro-symbol.webp"
                 alt="Símbolo del euro para ayudas y financiación pública"
                 className="grant-spain-hero-image"
                 imgClassName="grant-spain-hero-img"

@@ -11,33 +11,33 @@ export type BeforeAfterVisual = {
 
 export const beforeAfterVisuals: BeforeAfterVisual[] = [
   {
-    before: '/images/before-after/bathroom-before.jpg',
-    after: '/images/before-after/bathroom-after.jpg',
+    before: '/images/before-after/bathroom-before.webp',
+    after: '/images/before-after/bathroom-after.webp',
     mode: 'compare',
   },
   {
-    before: '/images/before-after/stairs-before.png',
-    after: '/images/before-after/stairs-after.png',
+    before: '/images/before-after/stairs-before.webp',
+    after: '/images/before-after/stairs-after.webp',
     mode: 'compare',
   },
   {
-    before: '/images/before-after/entry-before.jpg',
-    after: '/images/before-after/entry-after.jpg',
+    before: '/images/before-after/entry-before.webp',
+    after: '/images/before-after/entry-after.webp',
     mode: 'compare',
   },
   {
-    before: '/images/before-after/kitchen-before.png',
-    after: '/images/before-after/kitchen-after.png',
+    before: '/images/before-after/kitchen-before.webp',
+    after: '/images/before-after/kitchen-after.webp',
     mode: 'compare',
   },
   {
-    before: '/images/before-after/bedroom-before.png',
-    after: '/images/before-after/bedroom-after.png',
+    before: '/images/before-after/bedroom-before.webp',
+    after: '/images/before-after/bedroom-after.webp',
     mode: 'compare',
   },
   {
-    before: '/images/before-after/living-before.png',
-    after: '/images/before-after/living-after.png',
+    before: '/images/before-after/living-before.webp',
+    after: '/images/before-after/living-after.webp',
     mode: 'compare',
   },
 ]

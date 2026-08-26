@@ -13,6 +13,7 @@ const specialistAgent = await readFile(new URL('../src/config/elevenLabsSpeciali
 const specialistKnowledgeBase = await readFile(new URL('../docs/elevenlabs-casamia-knowledge-base.md', import.meta.url), 'utf8')
 const solutionGallery = await readFile(new URL('../src/components/SolutionGallery.tsx', import.meta.url), 'utf8')
 const imageUrls = await readFile(new URL('../src/constants/shopify.ts', import.meta.url), 'utf8')
+const beforeAfterVisuals = await readFile(new URL('../src/constants/beforeAfter.ts', import.meta.url), 'utf8')
 const enCopy = JSON.parse(await readFile(new URL('../src/i18n/locales/en.json', import.meta.url), 'utf8'))
 const esCopy = JSON.parse(await readFile(new URL('../src/i18n/locales/es.json', import.meta.url), 'utf8'))
 const sitemap = await readFile(new URL('../public/sitemap.xml', import.meta.url), 'utf8')
@@ -120,6 +121,18 @@ assert.doesNotMatch(
   imageUrls,
   /beautiful-senior-man-woman-hugging\.jpg/,
   'The homepage and gallery should not depend on the former 1.6 MB third-party image.',
+)
+
+assert.match(
+  imageUrls,
+  /first-thing-before-getting-up\.webp/,
+  'The homepage gallery should use the optimized bathroom image.',
+)
+
+assert.doesNotMatch(
+  beforeAfterVisuals,
+  /before-after\/(?:bathroom|bedroom|entry|kitchen|living|stairs)-(?:before|after)\.(?:png|jpg)/,
+  'Homepage comparison cards should use the optimized WebP assets.',
 )
 
 assert.doesNotMatch(

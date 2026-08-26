@@ -35,6 +35,19 @@ const llms = await llmsResponse.text()
 assert.match(llms, /^# CasaMia/m)
 assert.match(llms, /https:\/\/www\.casamia\.com\.es\/plans/)
 
+for (const [label, path, maxBytes] of [
+  ['Optimized gallery image', '/images/solutions/first-thing-before-getting-up.webp', 40_000],
+  ['Optimized grants image', '/images/blog/grants-euro-symbol.webp', 220_000],
+  ['Optimized bathroom comparison', '/images/before-after/bathroom-before.webp', 45_000],
+  ['Optimized bedroom comparison', '/images/before-after/bedroom-after.webp', 90_000],
+  ['Optimized living-room comparison', '/images/before-after/living-after.webp', 95_000],
+]) {
+  const response = await expectStatus(label, path, 200)
+  assert.match(response.headers.get('content-type') || '', /^image\/webp/i, `${label} must be served as WebP.`)
+  const bytes = (await response.arrayBuffer()).byteLength
+  assert.ok(bytes <= maxBytes, `${label} is ${bytes} bytes; expected at most ${maxBytes}.`)
+}
+
 const sitemapResponse = await expectStatus('Sitemap', '/sitemap.xml', 200)
 const sitemap = await sitemapResponse.text()
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1])

@@ -23,12 +23,12 @@ export const serviceVisuals: Record<
   },
   'kitchen-safety': {
     badge: 'Routine and reach',
-    image: '/images/before-after/kitchen-after.png',
+    image: '/images/before-after/kitchen-after.webp',
     note: 'Reach, lighting, appliances and water risk',
   },
   'bedroom-safety': {
     badge: 'Rest and night routines',
-    image: '/images/before-after/bedroom-after.png',
+    image: '/images/before-after/bedroom-after.webp',
     note: 'Bed access, night routes, help within reach',
   },
   'smart-home-safety': {

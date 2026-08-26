@@ -5,9 +5,9 @@ export const IMAGE_URLS = {
     'https://casamia-seniors.myshopify.com/cdn/shop/files/AdobeStock_423763182-scaled.jpg',
   finalCta: '/images/solutions/close-up-senior-couple-love.jpg',
   gallery: [
-    '/images/solutions/first-thing-before-getting-up.jpg',
-    '/images/solutions/stairs-hallways.jpg',
-    '/images/solutions/portrait-lovely-couple-together.jpg',
+    '/images/solutions/first-thing-before-getting-up.webp',
+    '/images/solutions/stairs-hallways.webp',
+    '/images/solutions/portrait-lovely-couple-together.webp',
     '/images/solutions/adorable-mature-couple-kitchen.jpg',
     '/images/solutions/close-up-senior-couple-together-love.jpg',
     '/images/solutions/adorable-mature-couple-kitchen.webp',
