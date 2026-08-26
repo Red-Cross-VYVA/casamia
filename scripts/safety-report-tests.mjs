@@ -54,13 +54,13 @@ assert.equal(getReusableGrantResearch({
   generatedAt: '2026-08-26T11:59:00.000Z',
   status: 'failed',
 }, grantResearchNow), null)
-const reportRateHash = hashPublicReportClient(reportRateRequest, { PUBLIC_REPORT_RATE_LIMIT_SALT: 'test-rate-secret' })
+const reportRateHash = hashPublicReportClient(reportRateRequest, { CASAMIA_PUBLIC_WRITE_RATE_LIMIT_SALT: 'test-rate-secret' })
 assert.match(reportRateHash, /^[0-9a-f]{64}$/)
 assert.doesNotMatch(reportRateHash, /203\.0\.113\.8/)
 let reportRateRpcCall
 assert.deepEqual(
   await reservePublicReportRequest(reportRateRequest, {
-    env: { PUBLIC_REPORT_RATE_LIMIT_SALT: 'test-rate-secret' },
+    env: { CASAMIA_PUBLIC_WRITE_RATE_LIMIT_SALT: 'test-rate-secret' },
     callRpc: async (...args) => {
       reportRateRpcCall = args
       return { ok: true, body: true }
@@ -74,7 +74,7 @@ assert.equal(reportRateRpcCall[1].p_limit, 10)
 assert.equal(reportRateRpcCall[1].p_window_seconds, 1800)
 assert.deepEqual(
   await reservePublicReportRequest(reportRateRequest, {
-    env: { PUBLIC_REPORT_RATE_LIMIT_SALT: 'test-rate-secret' },
+    env: { CASAMIA_PUBLIC_WRITE_RATE_LIMIT_SALT: 'test-rate-secret' },
     callRpc: async () => ({ ok: true, body: false }),
   }),
   { ok: false, status: 429 },

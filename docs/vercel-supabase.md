@@ -38,7 +38,7 @@ RLS is enabled on the tables. The Vercel API uses the server-side service role k
 
 For an existing project, also run `supabase/media-storage-hardening.sql`. It creates or corrects all three private wizard buckets (`wizard-audio`, `wizard-images`, `wizard-videos`) and limits anonymous media rate-limit hashes to a two-day operational window. Do not add public `storage.objects` read policies for these buckets.
 
-Run `supabase/public-report-rate-limits.sql` before enabling public forms or report delivery. This provides persistent, scoped, hashed-IP throttles that work across Vercel instances. Set `PUBLIC_REQUEST_RATE_LIMIT_SALT` to a long random server-only value; the report salt and internal session secret remain compatibility fallbacks.
+Run `supabase/public-report-rate-limits.sql` before enabling public forms or report delivery. This provides persistent, scoped, hashed-IP throttles that work across Vercel instances. Set `CASAMIA_PUBLIC_WRITE_RATE_LIMIT_SALT` to a long random server-only value; the internal session secret remains a fallback.
 
 ## Frontend API routing
 

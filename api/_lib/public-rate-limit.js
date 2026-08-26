@@ -12,8 +12,7 @@ export function hashPublicRequestClient(request, scope, env = process.env) {
   const clientIp = String(
     forwarded || getRequestHeader(request, 'x-real-ip') || request.socket?.remoteAddress || 'unknown',
   ).split(',')[0].trim()
-  const secret = env.PUBLIC_REQUEST_RATE_LIMIT_SALT
-    || env.PUBLIC_REPORT_RATE_LIMIT_SALT
+  const secret = env.CASAMIA_PUBLIC_WRITE_RATE_LIMIT_SALT
     || env.CASAMIA_INTERNAL_SESSION_SECRET
     || env.CASAMIA_INTERNAL_API_KEY
     || env.SUPABASE_SERVICE_ROLE_KEY
