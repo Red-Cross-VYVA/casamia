@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import { webcrypto } from 'node:crypto'
+import { readFileSync } from 'node:fs'
 
 if (!globalThis.crypto) {
   Object.defineProperty(globalThis, 'crypto', { value: webcrypto })
@@ -21,6 +22,13 @@ const {
 } = await import('../src/services/agreementManagement.ts')
 
 const templates = listAgreementTemplates()
+
+const agreementMigration = readFileSync(new URL('../supabase/agreement-management.sql', import.meta.url), 'utf8')
+for (const table of ['agreement_assignments', 'agreement_audit_events']) {
+  assert.match(agreementMigration, new RegExp(`create table if not exists public\\.${table}`))
+  assert.match(agreementMigration, new RegExp(`alter table public\\.${table} enable row level security`))
+}
+
 assert.equal(templates.length, 1)
 assert.equal(templates[0].documentId, 'installation-partner-agreement')
 assert.equal(templates[0].activeVersion, '1.0.0')

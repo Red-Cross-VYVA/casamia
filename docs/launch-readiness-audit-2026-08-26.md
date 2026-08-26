@@ -48,6 +48,8 @@ Important deployment note: the current production deployment predates the audite
 - Production contains the required named Stripe, Resend, Supabase, admin, partner, Meta, ElevenLabs and cron environment variables. Secret values and live/test modes remain subject to their controlled rehearsals.
 - The four legacy records confirmed to contain no customer or operational information were deleted through the protected Data Quality workflow. All four server-side deletions returned HTTP 200.
 - Production smoke tests now require `/deployment-readiness.json` before exercising any write path, so an outdated deployment is rejected without creating database records.
+- The production Supabase project `cujrvvxpcmxxuvzwwdmx` received the media-storage, persistent public-rate-limit and Security Advisor migrations on 26 August 2026. Read-only verification confirmed all three wizard buckets are private, both reservation functions are restricted to the service role, the public request-limit table has RLS enabled and the Security Advisor reports zero errors and zero warnings.
+- The single blank consent-evidence row created by the legacy-deployment smoke check was deleted with an exact id and an all-fields-blank guard. Post-migration verification confirmed it no longer exists.
 - The production WhatsApp CTA resolves to the configured CasaMia number `+34 648 027 076` with a prefilled message.
 - The Facebook operations screen reports Page `61574255177723`, Graph API `v26.0` and a configured page access token. A controlled public post remains required to prove the token can publish.
 - The current production deployment is `Ready`, all 62 sitemap routes pass the production smoke test, and the production runtime scan found no application HTTP 5xx responses before the deliberate ElevenLabs check below.
@@ -74,12 +76,10 @@ Important deployment note: the current production deployment predates the audite
 - **ElevenLabs:** retested on 26 August 2026 at 19:07 Europe/Madrid. Live token creation returned HTTP 502 and the production log again reported that the API key is missing `convai_write`.
 - **Stripe:** the connected Stripe dashboard opened in `Entorno de prueba de CasaMia` / Test mode on 26 August 2026. Live payment acceptance is therefore not approved. Confirm a live secret key, inclusive 21% live tax-rate ID and production webhook secret, then complete one controlled EUR 99 payment, webhook, scheduling, calendar, email and refund rehearsal.
 - **Access:** the current production API rejects unauthenticated partner calls, and production has no partner assignments yet. Per-partner credential binding and cross-partner rejection are implemented and tested locally but must not deploy until `CASAMIA_PARTNER_CREDENTIALS` or the single-partner migration variables are configured. Then sign in as two partner identities and confirm each sees only its assigned records.
+- **Agreement schema:** production is missing `agreement_assignments` and `agreement_audit_events`. Apply `supabase/agreement-management.sql` and verify both RLS-enabled tables before testing admin or partner agreements.
 - **Email:** confirm one real English and one real Spanish customer journey using a company-controlled address, including customer and operations copies.
 - **Facebook:** publish one approved starter post and confirm it appears on Page `61574255177723`; publishing is a public side effect and was not performed during the read-only audit.
 - **Governance:** record legal/tax approval and assign payments, customer support, scheduling, refund and incident owners in `docs/operations-checklist.md`.
-- **Storage migration:** run `supabase/media-storage-hardening.sql` in the production Supabase project, then verify all three wizard buckets are private before enabling customer media uploads.
-- **Public-write migration:** run `supabase/public-report-rate-limits.sql` before deploying the scoped public-write limits.
-- **Security Advisor:** run `supabase/security-advisor-hardening.sql`, rerun the Supabase linter and confirm the two exposed `public.rls_auto_enable()` execute warnings are cleared.
 - **Monitoring:** review Vercel Speed Insights after real traffic is available. The current runtime error scan found no application 500s; it only found Node's `url.parse()` deprecation warning on deliberate invalid-request smoke tests that correctly returned 404.
 
 ## Repeatable Checks
