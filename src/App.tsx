@@ -131,6 +131,11 @@ const PlansPage = lazy(() => import('./pages/PlansPage').then(({ PlansPage }) =>
 const PartnerPortalPage = lazy(() =>
   import('./pages/partner/PartnerPortalPage').then(({ PartnerPortalPage }) => ({ default: PartnerPortalPage })),
 )
+const InternalDataQualityPage = lazy(() =>
+  import('./pages/internal/InternalDataQualityPage').then(({ InternalDataQualityPage }) => ({
+    default: InternalDataQualityPage,
+  })),
+)
 const InternalLeadsPage = lazy(() =>
   import('./pages/internal/InternalLeadsPage').then(({ InternalLeadsPage }) => ({
     default: InternalLeadsPage,
@@ -348,6 +353,7 @@ export function AppRoutes() {
             <Route path="/internal/voice-studio" element={<InternalRoute><InternalVoiceStudioPage /></InternalRoute>} />
             <Route path="/internal/proposals" element={<InternalRoute><InternalProposalsPage /></InternalRoute>} />
             <Route path="/internal/provider-partners" element={<InternalRoute><InternalProviderPartnersPage /></InternalRoute>} />
+            <Route path="/internal/data-quality" element={<InternalRoute><InternalDataQualityPage /></InternalRoute>} />
             <Route path="/internal/agreements" element={<InternalRoute><InternalAgreementsPage /></InternalRoute>} />
             <Route path="/internal/proposal-generator" element={<InternalRoute><ProposalGeneratorPage /></InternalRoute>} />
             <Route path="/internal/proposals/:proposalId" element={<InternalRoute><ProposalDetailPage /></InternalRoute>} />

@@ -28,6 +28,7 @@ Final verified application deployment: `dpl_ELMLJU9CUDe5r1V1nyj9oCrbHgrr`
 - The ElevenLabs specialist-agent setup now has a versioned knowledge base covering reports, visits, pricing, ordering, installation, connected safety, grants, privacy, complaints and escalation.
 - The AEAT CIF document confirms the legal name, NIF and Marbella address used by the site. Official BORME records confirm the Málaga Mercantile Registry details now shown in the legal notice.
 - The legal production validator now passes with the verified company identity, registry details, published customer-service telephone, email, address and Spanish contract locale.
+- The protected Data Quality view identifies only legacy records whose customer and operational fields are all empty. Its API revalidates the record immediately before deletion and refuses any populated record.
 
 ## Defects Fixed During Audit
 
@@ -49,7 +50,7 @@ Final verified application deployment: `dpl_ELMLJU9CUDe5r1V1nyj9oCrbHgrr`
 - **Access:** sign in once with the production admin password and once with the partner password; confirm the partner sees only records assigned to that partner email.
 - **Email:** confirm one real English and one real Spanish customer journey using a company-controlled address, including customer and operations copies.
 - **Governance:** record legal/tax approval and assign payments, customer support, scheduling, refund and incident owners in `docs/operations-checklist.md`.
-- **Audit data:** remove the four blank records created while reproducing the now-fixed validation defect.
+- **Audit data:** review and remove the four blank records created while reproducing the now-fixed validation defect through `/internal/data-quality`.
 - **Monitoring:** review Vercel Speed Insights after real traffic is available. The current runtime error scan found no application 500s; it only found Node's `url.parse()` deprecation warning on deliberate invalid-request smoke tests that correctly returned 404.
 
 ## Repeatable Checks

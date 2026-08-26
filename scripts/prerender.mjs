@@ -25,6 +25,7 @@ const protectedAppShellRoutes = [
   '/internal/voice-studio',
   '/internal/proposals',
   '/internal/provider-partners',
+  '/internal/data-quality',
   '/internal/agreements',
   '/internal/proposal-generator',
 ]

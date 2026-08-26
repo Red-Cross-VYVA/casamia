@@ -3,6 +3,7 @@ import { Readable } from 'node:stream'
 
 import assessmentHandler from '../api/internal/assessment-requests.js'
 import dashboardHandler from '../api/internal/dashboard.js'
+import dataQualityHandler, { isCompletelyBlankLegacyRecord } from '../api/internal/data-quality.js'
 import orderQueueHandler from '../api/internal/orders.js'
 import providerQueueHandler from '../api/internal/provider-applications.js'
 import internalCatalogueHandler from '../api/internal/service-catalogue.js'
@@ -460,6 +461,76 @@ function jsonResponse(body, status = 200) {
     assert.equal(response.statusCode, 200)
     assert.deepEqual(parsedBody(response)[collection], [])
   }
+}
+
+{
+  assert.equal(isCompletelyBlankLegacyRecord('provider', {
+    business_name: '', cities: [], contact_name: '', email: '', experience: '', phone: '', trades: [],
+  }), true)
+  assert.equal(isCompletelyBlankLegacyRecord('provider', {
+    business_name: 'Madrid Access SL', cities: [], contact_name: '', email: '', experience: '', phone: '', trades: [],
+  }), false)
+  assert.equal(isCompletelyBlankLegacyRecord('order', {
+    customer_email: '', customer_name: '', customer_phone: '', payload_json: {}, plan_id: '', plan_label: '',
+  }), true)
+  assert.equal(isCompletelyBlankLegacyRecord('order', {
+    customer_email: '', customer_name: '', customer_phone: '', payload_json: { notes: 'Call customer' }, plan_id: '', plan_label: '',
+  }), false)
+}
+
+{
+  const records = {
+    contact_requests: [
+      { customer_email: '', customer_name: '', customer_phone: '', id: 'contact-blank', message: '', submitted_at: '2026-08-26T00:00:00Z' },
+      { customer_email: 'ana@example.com', customer_name: 'Ana', customer_phone: '', id: 'contact-valid', message: 'Help' },
+    ],
+    orders: [{ customer_email: '', customer_name: '', customer_phone: '', id: 'order-db', order_id: 'CM-BLANK', payload_json: {}, plan_id: '', plan_label: '' }],
+    provider_applications: [{ application_id: 'PPA-BLANK', business_name: '', cities: [], contact_name: '', email: '', experience: '', phone: '', trades: [] }],
+    withdrawal_requests: [{ contact: '', customer_name: '', id: 'withdrawal-blank', installation_address: '', order_date: '', order_reference: '', submission_date: '' }],
+  }
+  globalThis.fetch = async (url, init) => {
+    assert.equal(init.method, 'GET')
+    const table = new URL(String(url)).pathname.split('/').at(-1)
+    return jsonResponse(records[table] ?? [])
+  }
+  const response = makeResponse()
+  await dataQualityHandler(makeRequest('GET'), response)
+  assert.equal(response.statusCode, 200)
+  assert.deepEqual(parsedBody(response).records.map((record) => record.reference), [
+    'contact-blank', 'CM-BLANK', 'PPA-BLANK', 'withdrawal-blank',
+  ])
+}
+
+{
+  let deleted = false
+  globalThis.fetch = async (url, init) => {
+    if (init.method === 'GET') {
+      return jsonResponse([{ application_id: 'PPA-BLANK', business_name: '', cities: [], contact_name: '', email: '', experience: '', phone: '', trades: [] }])
+    }
+    assert.equal(init.method, 'DELETE')
+    assert.match(String(url), /provider_applications\?application_id=eq\.PPA-BLANK/)
+    deleted = true
+    return jsonResponse([{ application_id: 'PPA-BLANK' }])
+  }
+  const response = makeResponse()
+  await dataQualityHandler(makeRequest('DELETE', {
+    confirmation: 'DELETE BLANK RECORD', kind: 'provider', recordKey: 'PPA-BLANK',
+  }), response)
+  assert.equal(response.statusCode, 200)
+  assert.equal(parsedBody(response).deleted, true)
+  assert.equal(deleted, true)
+}
+
+{
+  globalThis.fetch = async () => jsonResponse([{
+    application_id: 'PPA-VALID', business_name: 'Madrid Access SL', cities: [], contact_name: '', email: '', experience: '', phone: '', trades: [],
+  }])
+  const response = makeResponse()
+  await dataQualityHandler(makeRequest('DELETE', {
+    confirmation: 'DELETE BLANK RECORD', kind: 'provider', recordKey: 'PPA-VALID',
+  }), response)
+  assert.equal(response.statusCode, 409)
+  assert.match(parsedBody(response).message, /contains customer or operational data/)
 }
 
 function makePlansCataloguePayload() {

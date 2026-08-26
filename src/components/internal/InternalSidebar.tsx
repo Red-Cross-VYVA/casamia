@@ -2,6 +2,7 @@ import {
   AudioLines,
   ClipboardList,
   ClipboardCheck,
+  DatabaseZap,
   FileSignature,
   FileText,
   Home,
@@ -38,6 +39,7 @@ const internalLinks = [
   { label: 'Proposals', to: '/internal/proposals', icon: FileText },
   { label: 'Agreements', to: '/internal/agreements', icon: FileSignature },
   { label: 'Provider partners', to: '/internal/provider-partners', icon: Network },
+  { label: 'Data quality', to: '/internal/data-quality', icon: DatabaseZap },
 ]
 
 export function InternalSidebar() {

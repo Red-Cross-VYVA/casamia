@@ -163,6 +163,11 @@ try {
     'The lead pipeline must have a generated protected app shell for direct production navigation.',
   )
   assert.match(
+    prerenderSource,
+    /'\/internal\/data-quality'/,
+    'The data-quality page must have a generated protected app shell for direct production navigation.',
+  )
+  assert.match(
     appSource,
     /function PartnerRoute[\s\S]*<SEO[\s\S]*noindex[\s\S]*<PartnerAccessGate>/,
     'Every partner route wrapper must publish noindex metadata.',
