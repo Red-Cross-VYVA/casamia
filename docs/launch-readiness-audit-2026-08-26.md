@@ -2,14 +2,14 @@
 
 Date: 2026-08-26  
 Production: https://www.casamia.com.es  
-Audited commits: `d549e1a`, `6b0bce7`, `5b4a909`, `0f09dc3`, `6409950`, `2a759ff`
-Final verified application deployment: `dpl_ELMLJU9CUDe5r1V1nyj9oCrbHgrr`
+Audited commits: `d549e1a`, `6b0bce7`, `5b4a909`, `0f09dc3`, `6409950`, `2a759ff`, `7a45965`, `b376e42`
+Final verified application deployment: `dpl_94jS6qQfaFzJhA4qwZwuhnmmZddb`
 
 ## Verified
 
 - Complete repository test suite passes.
 - TypeScript and production builds pass.
-- Production prerenders 62 public sitemap routes and 18 protected application shells.
+- Production prerenders 62 public sitemap routes and 19 protected application shells.
 - All 62 production sitemap routes return HTTP 200.
 - Mobile and desktop browser checks pass at 390 x 844 and 1440 x 900.
 - Representative public, legal, admin-login and partner-login pages have no overflow, broken images, failed requests, console errors or hydration errors.
@@ -29,6 +29,8 @@ Final verified application deployment: `dpl_ELMLJU9CUDe5r1V1nyj9oCrbHgrr`
 - The AEAT CIF document confirms the legal name, NIF and Marbella address used by the site. Official BORME records confirm the Málaga Mercantile Registry details now shown in the legal notice.
 - The legal production validator now passes with the verified company identity, registry details, published customer-service telephone, email, address and Spanish contract locale.
 - The protected Data Quality view identifies only legacy records whose customer and operational fields are all empty. Its API revalidates the record immediately before deletion and refuses any populated record.
+- All 14 authenticated operations screens load in production with their expected headings and without a login redirect, 404 or visible load failure.
+- Production contains the required named Stripe, Resend, Supabase, admin, partner, Meta, ElevenLabs and cron environment variables. Secret values and live/test modes remain subject to their controlled rehearsals.
 
 ## Defects Fixed During Audit
 

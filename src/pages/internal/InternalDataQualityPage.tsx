@@ -21,6 +21,7 @@ export function InternalDataQualityPage() {
   const [message, setMessage] = useState('Checking production records...')
   const [isLoading, setIsLoading] = useState(true)
   const [deletingKey, setDeletingKey] = useState('')
+  const [recordToDelete, setRecordToDelete] = useState<BlankLegacyRecord | null>(null)
 
   const refresh = useCallback(async () => {
     setIsLoading(true)
@@ -47,11 +48,7 @@ export function InternalDataQualityPage() {
   ) as Record<BlankLegacyRecordKind, number>, [records])
 
   async function removeRecord(record: BlankLegacyRecord) {
-    const confirmed = window.confirm(
-      `Delete blank ${kindLabels[record.kind].toLowerCase()} ${record.reference}? This cannot be undone.`,
-    )
-    if (!confirmed) return
-
+    setRecordToDelete(null)
     setDeletingKey(`${record.kind}:${record.recordKey}`)
     try {
       await deleteBlankLegacyRecord(record)
@@ -107,7 +104,7 @@ export function InternalDataQualityPage() {
                     className="btn btn-white border-red-200 text-red-700 hover:bg-red-50"
                     disabled={Boolean(deletingKey)}
                     type="button"
-                    onClick={() => void removeRecord(record)}
+                    onClick={() => setRecordToDelete(record)}
                   >
                     <Trash2 size={18} aria-hidden="true" />
                     {deletingKey === key ? 'Deleting...' : 'Delete blank record'}
@@ -131,6 +128,34 @@ export function InternalDataQualityPage() {
         <AlertTriangle className="mt-0.5 shrink-0" size={20} aria-hidden="true" />
         <p>Deletion is available only when every protected field is still blank. The server checks the record again immediately before deletion.</p>
       </aside>
+
+      {recordToDelete ? (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-navy/70 p-4" role="presentation">
+          <section
+            aria-labelledby="delete-blank-record-title"
+            aria-modal="true"
+            className="w-full max-w-lg rounded-lg bg-white p-6 shadow-2xl"
+            role="dialog"
+          >
+            <p className="text-xs font-black uppercase text-red-700">Permanent deletion</p>
+            <h2 className="mt-2 font-display text-3xl font-bold text-text-dark" id="delete-blank-record-title">
+              Delete this blank record?
+            </h2>
+            <p className="mt-3 font-semibold leading-relaxed text-text-mid">
+              {kindLabels[recordToDelete.kind]} <strong>{recordToDelete.reference}</strong> contains no customer or operational information. This action cannot be undone.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-end gap-3">
+              <button className="btn btn-white" type="button" onClick={() => setRecordToDelete(null)}>
+                Cancel
+              </button>
+              <button className="btn bg-red-700 text-white hover:bg-red-800" type="button" onClick={() => void removeRecord(recordToDelete)}>
+                <Trash2 size={18} aria-hidden="true" />
+                Delete blank record
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
     </InternalLayout>
   )
 }
