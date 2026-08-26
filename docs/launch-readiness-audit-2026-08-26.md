@@ -79,6 +79,7 @@ Important deployment note: the current production deployment predates the audite
 - **Governance:** record legal/tax approval and assign payments, customer support, scheduling, refund and incident owners in `docs/operations-checklist.md`.
 - **Storage migration:** run `supabase/media-storage-hardening.sql` in the production Supabase project, then verify all three wizard buckets are private before enabling customer media uploads.
 - **Public-write migration:** run `supabase/public-report-rate-limits.sql` before deploying the scoped public-write limits.
+- **Security Advisor:** run `supabase/security-advisor-hardening.sql`, rerun the Supabase linter and confirm the two exposed `public.rls_auto_enable()` execute warnings are cleared.
 - **Monitoring:** review Vercel Speed Insights after real traffic is available. The current runtime error scan found no application 500s; it only found Node's `url.parse()` deprecation warning on deliberate invalid-request smoke tests that correctly returned 404.
 
 ## Repeatable Checks
