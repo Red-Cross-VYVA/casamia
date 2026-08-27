@@ -55,6 +55,7 @@ Important deployment note: the current production deployment predates the audite
 - The agreement-management migration was applied on 27 August 2026. Production now has the empty `agreement_assignments` and `agreement_audit_events` tables with all 28 expected columns, four required secondary indexes, RLS enabled and no public policies. The post-migration Security Advisor reports zero errors and zero warnings.
 - The production WhatsApp CTA resolves to the configured CasaMia number `+34 648 027 076` with a prefilled message.
 - The Facebook operations screen reports Page `61574255177723`, Graph API `v26.0` and a configured page access token. A controlled public post remains required to prove the token can publish.
+- The public Facebook Page resolves to CasaMia and displays the expected bio, Marbella address, telephone, email, website, WhatsApp route, profile imagery and an existing welcome post. This proves the public Page configuration, but not publishing through the CasaMia API integration.
 - The current production deployment is `Ready`, all 62 sitemap routes pass the production smoke test, and the production runtime scan found no application HTTP 5xx responses before the deliberate ElevenLabs check below.
 
 ## Defects Fixed During Audit
@@ -77,7 +78,7 @@ Important deployment note: the current production deployment predates the audite
 ## External And Manual Gates
 
 - **ElevenLabs:** retested on 27 August 2026 at 09:36 Europe/Madrid. Live token creation returned HTTP 502 and the production log again reported that the API key is missing `convai_write`.
-- **Stripe:** the connected Stripe dashboard opened in `Entorno de prueba de CasaMia` / Test mode on 26 August 2026. Live payment acceptance is therefore not approved. Confirm a live secret key, inclusive 21% live tax-rate ID and production webhook secret, then complete one controlled EUR 99 payment, webhook, scheduling, calendar, email and refund rehearsal.
+- **Stripe:** retested on 27 August 2026. The connected dashboard is still `Entorno de prueba de CasaMia`, explicitly reports Sandbox mode, exposes only `sk_test_...` / `pk_test_...` keys and shows business verification as `Not Started`. Live payment acceptance is therefore not approved. Complete Stripe business verification, activate live mode, configure a live secret key, inclusive 21% live tax-rate ID and production webhook secret, then complete one controlled EUR 99 payment, webhook, scheduling, calendar, email and refund rehearsal.
 - **Access:** the current production API rejects unauthenticated partner calls, and production has no partner assignments yet. Per-partner credential binding and cross-partner rejection are implemented and tested locally but must not deploy until `CASAMIA_PARTNER_CREDENTIALS` or the single-partner migration variables are configured. Then sign in as two partner identities and confirm each sees only its assigned records.
 - **Email:** confirm one real English and one real Spanish customer journey using a company-controlled address, including customer and operations copies.
 - **Facebook:** publish one approved starter post and confirm it appears on Page `61574255177723`; publishing is a public side effect and was not performed during the read-only audit.
