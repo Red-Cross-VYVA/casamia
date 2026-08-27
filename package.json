@@ -21,6 +21,7 @@
     "test:how-it-works": "node scripts/how-it-works-page-tests.mjs",
     "test:prerender": "node scripts/prerender-output-tests.mjs",
     "test:production": "node scripts/production-smoke-tests.mjs",
+    "test:production-partner": "node scripts/production-partner-tests.mjs",
     "test:auth": "node --experimental-strip-types scripts/internal-auth-tests.mjs",
     "test:api-security": "node scripts/api-security-tests.mjs",
     "test:environment": "node scripts/environment-config-tests.mjs",

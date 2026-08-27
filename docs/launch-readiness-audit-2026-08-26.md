@@ -3,8 +3,8 @@
 Date: 2026-08-26  
 Last updated: 2026-08-27  
 Production: https://www.casamia.com.es  
-Production commit verified: `c97c032`
-Production deployment verified: `dpl_HfboPuim1Pm8rLAfnBBXUHWqnprP`
+Production commit verified: `9a90d52`
+Production deployment verified: `dpl_4ZKcQnFqhtA4utrrqLgruHyGTqrJ`
 
 Current launch decision: **NO-GO for accepting live payments**. The application is technically healthy, but the Stripe live-mode rehearsal, partner credential binding, ElevenLabs permission, bilingual email rehearsal and human legal/operations approvals remain open.
 
@@ -57,6 +57,8 @@ Important deployment note: the current production deployment predates the audite
 - The Facebook operations screen reports Page `61574255177723`, Graph API `v26.0` and a configured page access token. A controlled public post remains required to prove the token can publish.
 - The public Facebook Page resolves to CasaMia and displays the expected bio, Marbella address, telephone, email, website, WhatsApp route, profile imagery and an existing welcome post. This proves the public Page configuration, but not publishing through the CasaMia API integration.
 - The current production deployment is `Ready`, all 62 sitemap routes pass the production smoke test, and the production runtime scan found no application HTTP 5xx responses before the deliberate ElevenLabs check below.
+- The audited build was deployed on 27 August 2026 and `/deployment-readiness.json` now gates the production smoke suite. The post-deployment suite passed all 62 sitemap routes, protected API boundaries, invalid-write rejection and the 20-package / 67-outcome / 123-capability / 101-product catalogue contract.
+- Single-partner access is bound to `gm@4cksa.com` through the existing hidden partner password. A live production login succeeded, the portal identified the signed-in partner correctly, and backend-filtered leads and agreements both returned empty partner-owned collections as expected because no records are assigned yet.
 
 ## Defects Fixed During Audit
 
@@ -79,7 +81,7 @@ Important deployment note: the current production deployment predates the audite
 
 - **ElevenLabs:** retested on 27 August 2026 at 09:36 Europe/Madrid. Live token creation returned HTTP 502 and the production log again reported that the API key is missing `convai_write`.
 - **Stripe:** retested on 27 August 2026. The connected dashboard is still `Entorno de prueba de CasaMia`, explicitly reports Sandbox mode, exposes only `sk_test_...` / `pk_test_...` keys and shows business verification as `Not Started`. Live payment acceptance is therefore not approved. Complete Stripe business verification, activate live mode, configure a live secret key, inclusive 21% live tax-rate ID and production webhook secret, then complete one controlled EUR 99 payment, webhook, scheduling, calendar, email and refund rehearsal.
-- **Access:** the current production API rejects unauthenticated partner calls, and production has no partner assignments yet. Per-partner credential binding and cross-partner rejection are implemented and tested locally but must not deploy until `CASAMIA_PARTNER_CREDENTIALS` or the single-partner migration variables are configured. Then sign in as two partner identities and confirm each sees only its assigned records.
+- **Access:** single-partner identity binding, authenticated login and backend-filtered partner data are verified in production for `gm@4cksa.com`. Production currently has no partner assignments. Multi-partner credentials and cross-partner rejection are implemented and covered by automated tests; perform a live two-identity isolation rehearsal when a second partner is invited.
 - **Email:** confirm one real English and one real Spanish customer journey using a company-controlled address, including customer and operations copies.
 - **Facebook:** publish one approved starter post and confirm it appears on Page `61574255177723`; publishing is a public side effect and was not performed during the read-only audit.
 - **Governance:** record legal/tax approval and assign payments, customer support, scheduling, refund and incident owners in `docs/operations-checklist.md`.

@@ -53,9 +53,9 @@ Primary timezone: Europe/Madrid
 
 ## 3. Production Infrastructure Gate
 
-- [ ] Latest production deployment is `Ready` in Vercel.
-- [ ] `https://www.casamia.com.es` resolves to the intended production deployment.
-- [ ] Production environment variables are present in Vercel and scoped to Production.
+- [x] Latest production deployment is `Ready` in Vercel.
+- [x] `https://www.casamia.com.es` resolves to the intended production deployment.
+- [x] Production environment variables are present in Vercel and scoped to Production.
 - [ ] No test secret is mixed with a live Stripe tax rate or webhook secret.
 - [x] Latest Supabase schema has been applied to production.
 - [x] Wizard-media privacy and persistent public-request rate-limit migrations have been applied and verified.
@@ -63,13 +63,13 @@ Primary timezone: Europe/Madrid
 - [x] Blank consent-evidence row created by the 26 August legacy-deployment smoke check has been identified and deleted.
 - [x] Agreement assignment and audit tables have been created with RLS using `supabase/agreement-management.sql`.
 - [ ] Internal admin login works with the admin password.
-- [ ] `CASAMIA_PARTNER_CREDENTIALS` binds every invited partner email to a unique password.
-- [ ] Partner login works with each partner's separate password.
+- [x] `CASAMIA_PARTNER_CREDENTIALS`, or the single-partner email/password pair, binds every currently invited partner email to a unique password.
+- [x] Partner login works with each currently invited partner's separate password.
 - [ ] Cross-partner password and email combinations are rejected.
-- [ ] Partner users can see only their assigned data.
-- [ ] Database and API health checks return successfully.
+- [x] Partner users can see only their assigned data.
+- [x] Database and API health checks return successfully.
 - [ ] Cron jobs are visible in Vercel for lead reminders and visit reminders.
-- [ ] Production logs can be accessed by the technical owner.
+- [x] Production logs can be accessed by the technical owner.
 
 ## 4. Stripe Live Configuration
 
