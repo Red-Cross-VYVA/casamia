@@ -61,6 +61,7 @@ Primary timezone: Europe/Madrid
 - [x] Wizard-media privacy and persistent public-request rate-limit migrations have been applied and verified.
 - [x] Supabase Security Advisor reports no exposed `SECURITY DEFINER` function warnings.
 - [x] Blank consent-evidence row created by the 26 August legacy-deployment smoke check has been identified and deleted.
+- [ ] Agreement assignment and audit tables have been created with RLS using `supabase/agreement-management.sql`.
 - [ ] Internal admin login works with the admin password.
 - [ ] `CASAMIA_PARTNER_CREDENTIALS` binds every invited partner email to a unique password.
 - [ ] Partner login works with each partner's separate password.

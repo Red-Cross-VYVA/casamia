@@ -7,7 +7,7 @@ Production deployment verified: `dpl_HfboPuim1Pm8rLAfnBBXUHWqnprP`
 
 Current launch decision: **NO-GO for accepting live payments**. The application is technically healthy, but the Stripe live-mode rehearsal, partner credential binding, ElevenLabs permission, bilingual email rehearsal and human legal/operations approvals remain open.
 
-Important deployment note: the current production deployment predates the audited public-write validation changes. A fresh production smoke run on 26 August 2026 confirmed that the old `/api/consent-evidence` handler still accepts an empty request. That run may have created one blank `consent_evidence` row. After deploying the audited commits, identify and delete that row through the protected Data Quality view before launch, then rerun the smoke suite only after the rate-limit migration is applied.
+Important deployment note: the current production deployment predates the audited public-write validation changes. A fresh production smoke run on 26 August 2026 confirmed that the old `/api/consent-evidence` handler accepts an empty request. The resulting blank `consent_evidence` row was deleted with an exact-id, all-fields-blank guard after the approved database migrations were applied. Do not rerun the production smoke suite until the audited build is deployed and `/deployment-readiness.json` is available; the old deployment still returns HTTP 404 for that marker.
 
 ## Verified
 
@@ -45,7 +45,7 @@ Important deployment note: the current production deployment predates the audite
 - The legal production validator now passes with the verified company identity, registry details, published customer-service telephone, email, address and Spanish contract locale.
 - The protected Data Quality view identifies only legacy records whose customer and operational fields are all empty. Its API revalidates the record immediately before deletion and refuses any populated record.
 - All 14 authenticated operations screens load in production with their expected headings and without a login redirect, 404 or visible load failure.
-- Production contains the required named Stripe, Resend, Supabase, admin, partner, Meta, ElevenLabs and cron environment variables. Secret values and live/test modes remain subject to their controlled rehearsals.
+- Production contains the required named Stripe, Resend, Supabase, admin, Meta, ElevenLabs and cron environment variables. Partner access is intentionally not deployment-ready: `CASAMIA_PARTNER_PASSWORD` exists, but it is not yet bound to a partner identity through `CASAMIA_PARTNER_EMAIL` or replaced by `CASAMIA_PARTNER_CREDENTIALS`.
 - The four legacy records confirmed to contain no customer or operational information were deleted through the protected Data Quality workflow. All four server-side deletions returned HTTP 200.
 - Production smoke tests now require `/deployment-readiness.json` before exercising any write path, so an outdated deployment is rejected without creating database records.
 - The production Supabase project `cujrvvxpcmxxuvzwwdmx` received the media-storage, persistent public-rate-limit and Security Advisor migrations on 26 August 2026. Read-only verification confirmed all three wizard buckets are private, both reservation functions are restricted to the service role, the public request-limit table has RLS enabled and the Security Advisor reports zero errors and zero warnings.
