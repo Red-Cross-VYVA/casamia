@@ -1,6 +1,7 @@
 # CasaMia Launch Readiness Audit
 
 Date: 2026-08-26  
+Last updated: 2026-08-27  
 Production: https://www.casamia.com.es  
 Production commit verified: `c97c032`
 Production deployment verified: `dpl_HfboPuim1Pm8rLAfnBBXUHWqnprP`
@@ -13,6 +14,7 @@ Important deployment note: the current production deployment predates the audite
 
 - Complete repository test suite passes.
 - TypeScript and production builds pass.
+- The complete automated gate was rerun on 27 August 2026 against the current audited commit: all application tests, the production build, legal validation, 62-route prerender verification and the production dependency audit passed. Lint reported warnings only, including pre-existing Fast Refresh warnings and one warning in the untracked local `.codex_tmp` workspace.
 - Production prerenders 62 public sitemap routes and 19 protected application shells.
 - All 62 production sitemap routes return HTTP 200.
 - Mobile and desktop browser checks pass at 390 x 844 and 1440 x 900.
@@ -73,7 +75,7 @@ Important deployment note: the current production deployment predates the audite
 
 ## External And Manual Gates
 
-- **ElevenLabs:** retested on 26 August 2026 at 19:07 Europe/Madrid. Live token creation returned HTTP 502 and the production log again reported that the API key is missing `convai_write`.
+- **ElevenLabs:** retested on 27 August 2026 at 09:36 Europe/Madrid. Live token creation returned HTTP 502 and the production log again reported that the API key is missing `convai_write`.
 - **Stripe:** the connected Stripe dashboard opened in `Entorno de prueba de CasaMia` / Test mode on 26 August 2026. Live payment acceptance is therefore not approved. Confirm a live secret key, inclusive 21% live tax-rate ID and production webhook secret, then complete one controlled EUR 99 payment, webhook, scheduling, calendar, email and refund rehearsal.
 - **Access:** the current production API rejects unauthenticated partner calls, and production has no partner assignments yet. Per-partner credential binding and cross-partner rejection are implemented and tested locally but must not deploy until `CASAMIA_PARTNER_CREDENTIALS` or the single-partner migration variables are configured. Then sign in as two partner identities and confirm each sees only its assigned records.
 - **Agreement schema:** production is missing `agreement_assignments` and `agreement_audit_events`. Apply `supabase/agreement-management.sql` and verify both RLS-enabled tables before testing admin or partner agreements.
