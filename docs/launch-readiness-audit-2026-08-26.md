@@ -3,8 +3,8 @@
 Date: 2026-08-26  
 Last updated: 2026-08-27  
 Production: https://www.casamia.com.es  
-Production commit verified: `9a90d52`
-Production deployment verified: `dpl_4ZKcQnFqhtA4utrrqLgruHyGTqrJ`
+Production branch verified: `main`
+Production alias verified: `https://www.casamia.com.es`
 
 Current launch decision: **NO-GO for accepting live payments**. The application is technically healthy, but the Stripe live-mode rehearsal, partner credential binding, ElevenLabs permission, bilingual email rehearsal and human legal/operations approvals remain open.
 
