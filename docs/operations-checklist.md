@@ -62,7 +62,7 @@ Primary timezone: Europe/Madrid
 - [x] Supabase Security Advisor reports no exposed `SECURITY DEFINER` function warnings.
 - [x] Blank consent-evidence row created by the 26 August legacy-deployment smoke check has been identified and deleted.
 - [x] Agreement assignment and audit tables have been created with RLS using `supabase/agreement-management.sql`.
-- [ ] Internal admin login works with the admin password.
+- [x] Internal admin login works with the admin password.
 - [x] `CASAMIA_PARTNER_CREDENTIALS`, or the single-partner email/password pair, binds every currently invited partner email to a unique password.
 - [x] Partner login works with each currently invited partner's separate password.
 - [ ] Cross-partner password and email combinations are rejected.
