@@ -69,15 +69,19 @@ export async function inspectFacebookPublishingAccess({
   const permissionRows = Array.isArray(permissionsResult.body?.data)
     ? permissionsResult.body.data
     : []
+  const permissionsChecked = permissionsResult.ok
   const grantedPermissions = permissionRows
     .filter((row) => text(row?.status).toLowerCase() === 'granted')
     .map((row) => text(row?.permission))
     .filter(Boolean)
-  const missingPermissions = requiredPagePermissions.filter(
-    (permission) => !grantedPermissions.includes(permission),
-  )
-  const pageAccessible = pageResult.ok && text(pageResult.body?.id) === config.pageId
-  const errors = [identityResult, permissionsResult, pageResult]
+  const missingPermissions = permissionsChecked
+    ? requiredPagePermissions.filter((permission) => !grantedPermissions.includes(permission))
+    : []
+  const identityId = text(identityResult.body?.id)
+  const pageMatchesIdentity = Boolean(identityId) && identityId === config.pageId
+  const pageAccessible = pageMatchesIdentity
+    || pageResult.ok && text(pageResult.body?.id) === config.pageId
+  const errors = [identityResult, pageResult]
     .filter((result) => !result.ok)
     .map((result) => result.message)
     .filter(Boolean)
@@ -86,12 +90,15 @@ export async function inspectFacebookPublishingAccess({
     checked: true,
     errors,
     grantedPermissions,
-    identityId: text(identityResult.body?.id),
+    identityId,
     identityName: text(identityResult.body?.name),
     missingPermissions,
     pageAccessible,
+    pageMatchesIdentity,
     pageName: text(pageResult.body?.name),
-    ready: pageAccessible && missingPermissions.length === 0,
+    permissionsChecked,
+    permissionsMessage: permissionsChecked ? '' : permissionsResult.message,
+    ready: pageAccessible && permissionsChecked && missingPermissions.length === 0,
   }
 }
 

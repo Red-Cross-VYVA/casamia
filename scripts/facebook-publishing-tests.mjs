@@ -34,6 +34,8 @@ const ready = await inspectFacebookPublishingAccess({
 
 assert.equal(ready.ready, true)
 assert.equal(ready.pageAccessible, true)
+assert.equal(ready.pageMatchesIdentity, true)
+assert.equal(ready.permissionsChecked, true)
 assert.deepEqual(ready.missingPermissions, [])
 assert.equal(ready.identityName, 'CasaMia')
 
@@ -50,5 +52,23 @@ const missingPermission = await inspectFacebookPublishingAccess({
 
 assert.equal(missingPermission.ready, false)
 assert.deepEqual(missingPermission.missingPermissions, ['pages_manage_posts'])
+
+const pageToken = await inspectFacebookPublishingAccess({
+  env,
+  fetchImpl: async (url) => {
+    const path = new URL(url).pathname
+    if (path.endsWith('/me')) return jsonResponse({ id: env.META_PAGE_ID, name: 'CasaMia' })
+    if (path.endsWith('/me/permissions')) {
+      return jsonResponse({ error: { message: 'Tried accessing nonexisting field (permissions)' } }, 400)
+    }
+    return jsonResponse({ error: { message: 'Unsupported get request.' } }, 400)
+  },
+})
+
+assert.equal(pageToken.identityId, env.META_PAGE_ID)
+assert.equal(pageToken.pageMatchesIdentity, true)
+assert.equal(pageToken.pageAccessible, true)
+assert.equal(pageToken.permissionsChecked, false)
+assert.deepEqual(pageToken.missingPermissions, [])
 
 console.log('Facebook publishing tests passed.')

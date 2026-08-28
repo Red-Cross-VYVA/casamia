@@ -198,6 +198,7 @@ export function InternalFacebookPostsPage() {
                 {tokenDiagnostics.identityName ? (
                   <dd className="mt-2 text-xs font-bold text-white/70">
                     Token identity: {tokenDiagnostics.identityName}
+                    {tokenDiagnostics.identityId ? ` (${tokenDiagnostics.identityId})` : ''}
                   </dd>
                 ) : null}
                 <dd className="mt-2 text-xs font-bold text-white/70">
@@ -206,6 +207,11 @@ export function InternalFacebookPostsPage() {
                 {tokenDiagnostics.missingPermissions.length ? (
                   <dd className="mt-2 text-xs font-bold text-gold">
                     Missing from token: {tokenDiagnostics.missingPermissions.join(', ')}
+                  </dd>
+                ) : null}
+                {tokenDiagnostics.permissionsChecked === false ? (
+                  <dd className="mt-2 text-xs font-bold text-white/70">
+                    Meta does not expose a permission list for this token type.
                   </dd>
                 ) : null}
                 {tokenDiagnostics.errors?.length ? (

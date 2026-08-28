@@ -22,7 +22,10 @@ export type FacebookPublishingStatus = {
     identityName?: string
     missingPermissions: string[]
     pageAccessible: boolean
+    pageMatchesIdentity?: boolean
     pageName?: string
+    permissionsChecked?: boolean
+    permissionsMessage?: string
     ready: boolean
   }
   unsupportedApiVersion?: string
