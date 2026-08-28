@@ -88,5 +88,10 @@ assert.match(facebookStarterPostsSource, /home-safety-wizard\?utm_source=faceboo
 assert.match(facebookStarterPostsSource, /services\/bathroom-safety\?utm_source=facebook&utm_medium=organic_social&utm_campaign=bathroom_safety/)
 assert.match(facebookStarterPostsSource, /grants\?utm_source=facebook&utm_medium=organic_social&utm_campaign=grant_guidance/)
 assert.match(facebookStarterPostsSource, /plans\?utm_source=facebook&utm_medium=organic_social&utm_campaign=starter_packs/)
+assert.match(facebookStarterPostsSource, /language: 'English'/)
+assert.match(facebookStarterPostsSource, /language: 'Spanish'/)
+assert.match(facebookStarterPostsSource, /utm_content=en/)
+assert.match(facebookStarterPostsSource, /utm_content=es/)
+assert.match(facebookPostsPageSource, /both English and Spanish/)
 
 console.log('Facebook publishing tests passed.')

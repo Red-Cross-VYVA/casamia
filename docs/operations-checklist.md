@@ -71,6 +71,7 @@ Primary timezone: Europe/Madrid
 - [ ] Cron jobs are visible in Vercel for lead reminders and visit reminders.
 - [x] Production logs can be accessed by the technical owner.
 - [x] CasaMia Facebook Page is owned by the Casamia business portfolio and the restricted `CasaMia Publisher` system user can publish Page content through the production API.
+- [x] Every Facebook campaign is prepared and published as an English and Spanish pair, with matching tracked destination links.
 - [ ] Assign a Meta token-rotation owner and replace the 60-day publishing token before 27 October 2026.
 
 ## 4. Stripe Live Configuration

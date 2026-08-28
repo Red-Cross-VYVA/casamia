@@ -81,7 +81,7 @@ export function InternalFacebookPostsPage() {
           message: 'Published to Facebook.',
         },
       }))
-      setMessage(`Published "${post.title}" to Facebook.`)
+      setMessage(`Published "${post.title}" in ${post.language} to Facebook.`)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Facebook post could not be published.')
     } finally {
@@ -95,7 +95,7 @@ export function InternalFacebookPostsPage() {
   return (
     <InternalLayout
       title="Facebook posts"
-      subtitle="Publish approved CasaMia starter posts to the connected Facebook Page."
+      subtitle="Publish every approved CasaMia campaign in both English and Spanish."
       actions={
         <>
           <button className="btn btn-white" disabled={isLoadingStatus} type="button" onClick={() => void loadStatus()}>
@@ -120,7 +120,9 @@ export function InternalFacebookPostsPage() {
                 <img className="aspect-square w-full object-cover" src={post.imagePath} alt={`${post.title} social post`} />
                 <div className="grid gap-4 p-5">
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.16em] text-blue">Starter post</p>
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-blue">
+                      Starter post · {post.language}
+                    </p>
                     <h2 className="mt-2 font-display text-2xl font-bold text-text-dark">{post.title}</h2>
                   </div>
                   <label className="grid gap-2 text-sm font-extrabold text-text-dark">
