@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { ReportDeliveryFormValue } from '../utils/reportDelivery'
+import { CASAMIA_WHATSAPP_DELIVERY_ENABLED } from '../constants/contact'
 import { PhoneNumberField } from './PhoneNumberField'
 
 type ReportDeliveryFormProps = {
@@ -61,13 +62,15 @@ export function ReportDeliveryForm({
           body={t('reportDelivery.emailDeliveryBody')}
           onChange={(checked) => onChange('deliveryEmail', checked)}
         />
-        <ToggleCard
-          checked={value.deliveryWhatsapp}
-          icon={<MessageCircle size={20} aria-hidden="true" />}
-          title={t('reportDelivery.whatsappDelivery')}
-          body={t('reportDelivery.whatsappDeliveryBody')}
-          onChange={(checked) => onChange('deliveryWhatsapp', checked)}
-        />
+        {CASAMIA_WHATSAPP_DELIVERY_ENABLED ? (
+          <ToggleCard
+            checked={value.deliveryWhatsapp}
+            icon={<MessageCircle size={20} aria-hidden="true" />}
+            title={t('reportDelivery.whatsappDelivery')}
+            body={t('reportDelivery.whatsappDeliveryBody')}
+            onChange={(checked) => onChange('deliveryWhatsapp', checked)}
+          />
+        ) : null}
       </div>
       <label className="estimate-consent">
         <input

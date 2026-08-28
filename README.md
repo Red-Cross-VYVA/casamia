@@ -189,19 +189,26 @@ Server-only Vercel variables:
 ```text
 WHATSAPP_ACCESS_TOKEN=...
 WHATSAPP_PHONE_NUMBER_ID=...
+WHATSAPP_APP_SECRET=...
 WHATSAPP_WEBHOOK_VERIFY_TOKEN=replace-with-long-random-secret
-WHATSAPP_GRAPH_API_VERSION=v23.0
+WHATSAPP_GRAPH_API_VERSION=v26.0
 CASAMIA_WHATSAPP_PROPOSAL_TEMPLATE_EN=casamia_proposal_ready_en
 CASAMIA_WHATSAPP_PROPOSAL_TEMPLATE_ES=casamia_proposal_ready_es
+CASAMIA_WHATSAPP_REPORT_TEMPLATE_EN=casamia_report_ready_en
+CASAMIA_WHATSAPP_REPORT_TEMPLATE_ES=casamia_report_ready_es
 WHATSAPP_TEMPLATE_LANGUAGE_EN=en
 WHATSAPP_TEMPLATE_LANGUAGE_ES=es
+VITE_CASAMIA_WHATSAPP_DELIVERY_ENABLED=true
 ```
 
 Create and approve matching WhatsApp utility templates in Meta before enabling
-live sends. The default template body must accept three text variables in this
-order: customer name, proposal reference and public proposal link. Configure the
-Meta webhook callback to `/api/public/whatsapp-webhook` and use the verify token
-above for subscription verification.
+live sends. Both proposal and report templates must accept three text variables
+in this order: customer name, proposal/report reference and the secure public
+link. Configure the Meta webhook callback to `/api/webhooks/whatsapp`, use the
+verify token above for subscription verification, and subscribe to message
+status updates. Set `VITE_CASAMIA_WHATSAPP_DELIVERY_ENABLED=true` only after a
+real English and Spanish delivery test succeeds. Click-to-chat links do not
+depend on this flag.
 
 ## Facebook Page Publishing
 

@@ -106,6 +106,11 @@ Primary timezone: Europe/Madrid
 - [ ] Payment, appointment, reschedule, cancellation and reminder emails contain working links.
 - [ ] Failed deliveries are visible to the operations team and have a manual follow-up route.
 - [ ] WhatsApp templates are approved before WhatsApp is presented as an active delivery channel.
+- [x] WhatsApp Cloud API sender, signed webhook and delivery-status persistence are implemented with graceful fallback.
+- [ ] Production has `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_APP_SECRET` and `WHATSAPP_WEBHOOK_VERIFY_TOKEN`.
+- [ ] English and Spanish proposal/report utility templates are approved and their names are configured in Production.
+- [ ] Meta webhook `/api/webhooks/whatsapp` is verified and subscribed to message status updates.
+- [ ] A real English and Spanish WhatsApp delivery reaches the test phone before `VITE_CASAMIA_WHATSAPP_DELIVERY_ENABLED=true` is enabled.
 
 ## 6. Visit Availability and Calendar Gate
 

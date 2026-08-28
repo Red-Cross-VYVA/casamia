@@ -119,7 +119,7 @@ for (const route of publicPostRoutes) {
   )
 }
 
-const webhookRoutes = ['api/webhooks/stripe.js']
+const webhookRoutes = ['api/webhooks/stripe.js', 'api/webhooks/whatsapp.js']
 
 const discoveredProtectedAreaRoutes = [
   ...(await walk('api/cron')),
@@ -185,7 +185,7 @@ try {
   }
 
   for (const route of webhookRoutes) {
-    await assertUnsupportedMethod(route, 'GET')
+    await assertUnsupportedMethod(route, route.endsWith('/whatsapp.js') ? 'PUT' : 'GET')
   }
 } finally {
   for (const [key, value] of previousEnvironment) {

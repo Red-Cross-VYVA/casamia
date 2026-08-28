@@ -20,6 +20,7 @@ import {
   Lightbulb,
   Loader2,
   MapPin,
+  MessageCircle,
   Minus,
   PackageCheck,
   Pill,
@@ -46,6 +47,7 @@ import { PhoneNumberField } from '../components/PhoneNumberField'
 import { SEO } from '../components/SEO'
 import { SafeImage } from '../components/SafeImage'
 import { getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
+import { CASAMIA_WHATSAPP_DELIVERY_ENABLED } from '../constants/contact'
 import { getMasterServiceCatalogue, getProposalSpecificationForOutcome } from '../services/masterServiceCatalogue'
 import {
   buildPlansBuilderGroups,
@@ -961,6 +963,7 @@ type CustomerForm = {
   address: string
   area: string
   consent: boolean
+  deliveryWhatsapp: boolean
   email: string
   name: string
   phone: string
@@ -971,6 +974,7 @@ const emptyCustomerForm: CustomerForm = {
   address: '',
   area: '',
   consent: false,
+  deliveryWhatsapp: false,
   email: '',
   name: '',
   phone: '',
@@ -1057,6 +1061,23 @@ function getEmailDeliveryMessage(
   return isSpanish
     ? `La propuesta se ha creado, pero el email no se ha confirmado. Estado: ${status}.`
     : `The proposal was created, but email delivery was not confirmed. Status: ${status}.`
+}
+
+function getWhatsappDeliveryMessage(
+  whatsappDelivery: PublicProposalDraftResponse['whatsappDelivery'] | null,
+  language: 'en' | 'es',
+) {
+  const status = whatsappDelivery?.status
+  if (!status || status === 'not_requested') return ''
+  if (status === 'sent' || status === 'delivered' || status === 'read') {
+    return language === 'es'
+      ? 'La propuesta también se ha enviado por WhatsApp.'
+      : 'The proposal was also sent by WhatsApp.'
+  }
+
+  return language === 'es'
+    ? 'La propuesta se ha creado, pero no se pudo confirmar el envío por WhatsApp. Puedes abrirla desde este enlace.'
+    : 'The proposal was created, but WhatsApp delivery could not be confirmed. You can still open it from this link.'
 }
 
 export function PlansPage() {
@@ -1159,6 +1180,7 @@ export function PlansPage() {
   const [activeDetailTab, setActiveDetailTab] = useState<PlansDetailTab>('core')
   const [draftUrl, setDraftUrl] = useState('')
   const [emailDelivery, setEmailDelivery] = useState<PublicProposalDraftResponse['emailDelivery'] | null>(null)
+  const [whatsappDelivery, setWhatsappDelivery] = useState<PublicProposalDraftResponse['whatsappDelivery'] | null>(null)
   const [error, setError] = useState('')
   const [isDetectingLocation, setIsDetectingLocation] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -1633,6 +1655,10 @@ export function PlansPage() {
       nextErrors.phone = phoneFormatError
     }
 
+    if (customer.deliveryWhatsapp && !customer.phone.trim()) {
+      nextErrors.phone = requiredFieldError
+    }
+
     if (!customer.consent) {
       nextErrors.consent = consentFieldError
     }
@@ -2016,6 +2042,7 @@ export function PlansPage() {
     setError('')
     setDraftUrl('')
     setEmailDelivery(null)
+    setWhatsappDelivery(null)
 
     if (!estimate.proposalLineItems.length) {
       setError(copy.noSelection)
@@ -2032,6 +2059,7 @@ export function PlansPage() {
         catalogueSnapshot: catalogue,
         companyWebsite: customer.website,
         consent: customer.consent,
+        deliveryWhatsapp: customer.deliveryWhatsapp,
         customer: {
           address: customer.address,
           area: customer.area,
@@ -2045,6 +2073,7 @@ export function PlansPage() {
       const publicUrl = new URL(result.publicUrl || `/proposal/${result.publicToken}`, window.location.origin)
       setDraftUrl(publicUrl.toString())
       setEmailDelivery(result.emailDelivery ?? null)
+      setWhatsappDelivery(result.whatsappDelivery ?? null)
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : copy.finalReview)
     } finally {
@@ -2169,6 +2198,19 @@ export function PlansPage() {
         />
         <span>{copy.consent}</span>
       </label>
+      {CASAMIA_WHATSAPP_DELIVERY_ENABLED ? (
+        <label className="plans-consent">
+          <input
+            checked={customer.deliveryWhatsapp}
+            type="checkbox"
+            onChange={(event) => updateCustomerField('deliveryWhatsapp', event.target.checked)}
+          />
+          <span>
+            <MessageCircle size={17} aria-hidden="true" />
+            {language === 'es' ? 'Enviar también la propuesta por WhatsApp.' : 'Also send the proposal by WhatsApp.'}
+          </span>
+        </label>
+      ) : null}
       {formErrors.consent ? <small className="plans-field-error">{formErrors.consent}</small> : null}
 
       {error ? <p className="plans-form-error">{error}</p> : null}
@@ -2183,6 +2225,9 @@ export function PlansPage() {
               : copy.draftCreated}
           </p>
           {emailDeliveryMessage ? <p className="plans-email-delivery-note">{emailDeliveryMessage}</p> : null}
+          {getWhatsappDeliveryMessage(whatsappDelivery, language) ? (
+            <p className="plans-email-delivery-note">{getWhatsappDeliveryMessage(whatsappDelivery, language)}</p>
+          ) : null}
           <Link to={new URL(draftUrl).pathname}>
             {copy.seeDraft}
             <ArrowRight size={16} aria-hidden="true" />

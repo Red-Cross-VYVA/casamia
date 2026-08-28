@@ -96,6 +96,7 @@ export type PublicProposalDraftPayload = {
   catalogueSnapshot?: EditableServiceCatalogue
   companyWebsite?: string
   consent: boolean
+  deliveryWhatsapp?: boolean
   customer: {
     address?: string
     area?: string
@@ -111,6 +112,13 @@ export type PublicProposalDraftPayload = {
 export type PublicProposalDraftResponse = {
   emailDelivery?: {
     at?: string
+    provider?: string
+    reason?: string
+    status?: string
+  }
+  whatsappDelivery?: {
+    at?: string
+    messageId?: string
     provider?: string
     reason?: string
     status?: string
@@ -629,6 +637,7 @@ export async function createPublicProposalDraft(
     publicToken?: string
     publicUrl?: string
     publicUrlAbsolute?: string
+    whatsappDelivery?: PublicProposalDraftResponse['whatsappDelivery']
   }
 
   try {
@@ -638,8 +647,12 @@ export async function createPublicProposalDraft(
       publicToken?: string
       publicUrl?: string
       publicUrlAbsolute?: string
+      whatsappDelivery?: PublicProposalDraftResponse['whatsappDelivery']
     }>('/api/public/proposal-drafts', {
-      body: JSON.stringify(payload),
+      body: JSON.stringify({
+        ...payload,
+        delivery_whatsapp: payload.deliveryWhatsapp === true,
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -665,6 +678,7 @@ export async function createPublicProposalDraft(
     publicToken: raw.publicToken ?? proposal.publicToken ?? '',
     publicUrl: raw.publicUrl ?? (proposal.publicToken ? `/proposal/${proposal.publicToken}` : ''),
     publicUrlAbsolute: raw.publicUrlAbsolute,
+    whatsappDelivery: raw.whatsappDelivery,
   }
 }
 

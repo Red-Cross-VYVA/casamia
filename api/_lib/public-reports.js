@@ -1,6 +1,7 @@
 import { applyPublicCors, getRequestHeader } from './public-origin.js'
 import { hashPublicRequestClient, reservePublicRequest } from './public-rate-limit.js'
 import { buildAbsolutePublicUrl, sendPublicReportEmail } from './email.js'
+import { getWhatsappTemplate, sendWhatsappTemplate } from './whatsapp.js'
 import {
   createSupabaseRowIfAbsent,
   selectSupabaseRows,
@@ -299,6 +300,9 @@ async function deliverPublicReport({
 }) {
   const nextDelivery = { ...delivery }
   const payload = isRecord(reportRecord?.payload_json) ? reportRecord.payload_json : {}
+  const deliveryEvents = []
+  let emailDelivery = null
+  let whatsappDelivery = null
 
   if (nextDelivery.email === 'queued' || nextDelivery.email === 'failed') {
     const sendEmail = dependencies.sendEmail ?? sendPublicReportEmail
@@ -308,7 +312,7 @@ async function deliverPublicReport({
       reportUrl,
       dependencies.env ?? process.env,
     )
-    const emailDelivery = await sendEmail({
+    emailDelivery = await sendEmail({
       customer: reportRecord,
       env: dependencies.env ?? process.env,
       language: getPublicReportLanguage(payload),
@@ -319,25 +323,67 @@ async function deliverPublicReport({
 
     nextDelivery.email = emailDelivery.ok ? 'sent' : 'failed'
 
+    deliveryEvents.push({
+      at: new Date().toISOString(),
+      channel: 'email',
+      provider: emailDelivery.provider ?? 'resend',
+      reason: cleanText(emailDelivery.reason, 500),
+      status: nextDelivery.email,
+    })
+  }
+
+  if (nextDelivery.whatsapp === 'queued' || nextDelivery.whatsapp === 'failed') {
+    const env = dependencies.env ?? process.env
+    const language = getPublicReportLanguage(payload)
+    const template = getWhatsappTemplate(env, 'report', language)
+    const publicUrl = buildAbsolutePublicUrl(
+      dependencies.request,
+      cleanText(payload.report_url, 2_000),
+      env,
+    )
+    const sendWhatsapp = dependencies.sendWhatsapp ?? sendWhatsappTemplate
+    whatsappDelivery = await sendWhatsapp({
+      bodyParameters: [
+        cleanText(reportRecord?.customer_name, 160),
+        cleanText(payload.report_title, 180) || (reportType === 'grant_report' ? 'CasaMia grant report' : 'CasaMia safety report'),
+        publicUrl,
+      ],
+      env,
+      languageCode: template.languageCode,
+      templateName: template.templateName,
+      to: reportRecord?.customer_phone,
+    })
+    nextDelivery.whatsapp = whatsappDelivery.ok ? 'sent' : 'failed'
+    deliveryEvents.push({
+      at: new Date().toISOString(),
+      channel: 'whatsapp',
+      provider: whatsappDelivery.provider ?? 'meta-whatsapp',
+      reason: cleanText(whatsappDelivery.reason, 500),
+      status: nextDelivery.whatsapp,
+    })
+  }
+
+  if (deliveryEvents.length) {
     await persistPublicReportDelivery({
       dependencies,
       delivery: nextDelivery,
-      emailDelivery,
+      deliveryEvents,
       payload,
       reportType,
       token,
+      whatsappDelivery,
     })
+  }
 
-    if (!emailDelivery.ok) {
-      return {
-        ok: false,
-        status: 503,
-        body: {
-          message: emailDelivery.skipped
-            ? emailDelivery.reason
-            : 'Report email delivery failed.',
-        },
-      }
+  if (emailDelivery && !emailDelivery.ok) {
+    return {
+      ok: false,
+      status: 503,
+      body: {
+        message: emailDelivery.skipped
+          ? emailDelivery.reason
+          : 'Report email delivery failed.',
+      },
     }
   }
 
@@ -347,27 +393,30 @@ async function deliverPublicReport({
 async function persistPublicReportDelivery({
   dependencies,
   delivery,
-  emailDelivery,
+  deliveryEvents,
   payload,
   reportType,
   token,
+  whatsappDelivery,
 }) {
   const update = dependencies.update ?? updateSupabaseRows
   const existingEvents = Array.isArray(payload.delivery_events) ? payload.delivery_events : []
-  const at = new Date().toISOString()
   const updatedPayload = {
     ...payload,
     delivery,
     delivery_events: [
       ...existingEvents,
-      {
-        at,
-        channel: 'email',
-        provider: emailDelivery.provider ?? 'resend',
-        reason: cleanText(emailDelivery.reason, 500),
-        status: delivery.email,
-      },
+      ...deliveryEvents,
     ],
+    ...(whatsappDelivery ? {
+      whatsapp_delivery: {
+        message_id: cleanText(whatsappDelivery.messageId, 300),
+        provider: whatsappDelivery.provider ?? 'meta-whatsapp',
+        reason: cleanText(whatsappDelivery.reason, 500),
+        recipient: cleanText(whatsappDelivery.recipient, 40),
+        status: whatsappDelivery.status,
+      },
+    } : {}),
   }
   const result = await update(
     'assessment_requests',

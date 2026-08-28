@@ -5,6 +5,7 @@ import { isValidEmail, isWithinLength } from '../_lib/public-form-validation.js'
 import { buildAbsoluteProposalUrl, sendProposalEmail } from '../_lib/email.js'
 import { mapProposalRecord, mapPublicProposalRecord, saveProposalRecord, updateProposalRecord } from '../_lib/proposals.js'
 import { readJsonBody, selectSupabaseRows, sendJson } from '../_lib/supabase.js'
+import { getWhatsappTemplate, sendWhatsappTemplate } from '../_lib/whatsapp.js'
 
 const catalogueRowId = 'default'
 
@@ -126,6 +127,25 @@ export default async function handler(request, response, dependencies = {}) {
       }),
       publicUrl,
     })
+    const whatsappRequested = body?.delivery_whatsapp === true
+    const whatsappTemplate = getWhatsappTemplate(
+      dependencies.env ?? process.env,
+      'proposal',
+      draft.proposalPayload?.plans_builder?.language,
+    )
+    const whatsappDelivery = whatsappRequested
+      ? await (dependencies.sendWhatsapp ?? sendWhatsappTemplate)({
+          bodyParameters: [
+            proposal.customer_name,
+            proposal.id,
+            publicUrl,
+          ],
+          env: dependencies.env ?? process.env,
+          languageCode: whatsappTemplate.languageCode,
+          templateName: whatsappTemplate.templateName,
+          to: proposal.customer_phone,
+        })
+      : { ok: false, provider: 'meta-whatsapp', status: 'not_requested' }
     const deliveryStatus = emailDelivery.ok
       ? 'sent'
       : emailDelivery.skipped
@@ -135,7 +155,12 @@ export default async function handler(request, response, dependencies = {}) {
       ? 'proposal-email-sent'
       : emailDelivery.skipped
         ? 'proposal-email-skipped'
-        : 'proposal-email-failed'
+      : 'proposal-email-failed'
+    const whatsappEventType = !whatsappRequested
+      ? 'proposal-whatsapp-not-requested'
+      : whatsappDelivery.ok
+        ? 'proposal-whatsapp-sent'
+        : 'proposal-whatsapp-failed'
     const events = Array.isArray(proposal.events) ? proposal.events : []
     const delivery = {
       ...(proposal.delivery && typeof proposal.delivery === 'object' ? proposal.delivery : {}),
@@ -144,6 +169,14 @@ export default async function handler(request, response, dependencies = {}) {
         provider: emailDelivery.provider ?? 'resend',
         reason: emailDelivery.reason ?? '',
         status: deliveryStatus,
+      },
+      proposalWhatsapp: {
+        at: new Date().toISOString(),
+        messageId: whatsappDelivery.messageId ?? '',
+        provider: whatsappDelivery.provider ?? 'meta-whatsapp',
+        reason: whatsappDelivery.reason ?? '',
+        recipient: whatsappDelivery.recipient ?? '',
+        status: whatsappDelivery.status,
       },
     }
     const updateResult = await updateProposalRecord(saveResult.record, {
@@ -155,6 +188,12 @@ export default async function handler(request, response, dependencies = {}) {
           detail: emailDelivery.reason ?? '',
           type: eventType,
         },
+        ...(whatsappRequested ? [{
+          at: delivery.proposalWhatsapp.at,
+          detail: whatsappDelivery.reason ?? '',
+          messageId: whatsappDelivery.messageId ?? '',
+          type: whatsappEventType,
+        }] : []),
       ],
     })
 
@@ -164,6 +203,7 @@ export default async function handler(request, response, dependencies = {}) {
 
     sendJson(response, 200, {
       emailDelivery: delivery.proposalEmail,
+      whatsappDelivery: delivery.proposalWhatsapp,
       proposal: mapPublicProposalRecord({
         ...saveResult.record,
         payload_json: proposal,
@@ -194,6 +234,7 @@ function validateDraftBodyBasics(body) {
     || !isValidEmail(customer?.email)
     || !isWithinLength(customer?.phone, 40)
     || !isWithinLength(customer?.city, 120)
+    || (body?.delivery_whatsapp === true && !isWithinLength(customer?.phone, 40, { required: true }))
   ) {
     return {
       body: { message: 'Name and email are required to create a proposal.' },
