@@ -1,6 +1,7 @@
 import {
   FacebookPublishError,
   getFacebookPublishingConfiguration,
+  inspectFacebookPublishingAccess,
   publishFacebookPost,
 } from '../_lib/facebook.js'
 import {
@@ -28,11 +29,13 @@ export default async function handler(request, response) {
 
   if (request.method === 'GET') {
     const config = getFacebookPublishingConfiguration()
+    const tokenDiagnostics = await inspectFacebookPublishingAccess()
     delete config.accessToken
 
     sendJson(response, 200, {
       ...config,
       pageUrl,
+      tokenDiagnostics,
     })
     return
   }

@@ -14,6 +14,17 @@ export type FacebookPublishingStatus = {
   missing: string[]
   pageId: string
   pageUrl: string
+  tokenDiagnostics?: {
+    checked: boolean
+    errors?: string[]
+    grantedPermissions?: string[]
+    identityId?: string
+    identityName?: string
+    missingPermissions: string[]
+    pageAccessible: boolean
+    pageName?: string
+    ready: boolean
+  }
   unsupportedApiVersion?: string
 }
 

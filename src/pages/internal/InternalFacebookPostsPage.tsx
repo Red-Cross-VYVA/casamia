@@ -92,6 +92,7 @@ export function InternalFacebookPostsPage() {
   }
 
   const publishingEnabled = Boolean(status?.configured)
+  const tokenDiagnostics = status?.tokenDiagnostics
 
   return (
     <InternalLayout
@@ -188,6 +189,32 @@ export function InternalFacebookPostsPage() {
               <dt className="font-black uppercase tracking-[0.14em] text-white/50">Required secret</dt>
               <dd className="mt-1 font-bold text-white">META_PAGE_ACCESS_TOKEN</dd>
             </div>
+            {tokenDiagnostics?.checked ? (
+              <div className="rounded-lg bg-white/10 p-4">
+                <dt className="font-black uppercase tracking-[0.14em] text-white/50">Token access</dt>
+                <dd className={`mt-1 font-bold ${tokenDiagnostics.ready ? 'text-green' : 'text-gold'}`}>
+                  {tokenDiagnostics.ready ? 'Ready to publish' : 'Needs attention'}
+                </dd>
+                {tokenDiagnostics.identityName ? (
+                  <dd className="mt-2 text-xs font-bold text-white/70">
+                    Token identity: {tokenDiagnostics.identityName}
+                  </dd>
+                ) : null}
+                <dd className="mt-2 text-xs font-bold text-white/70">
+                  Page access: {tokenDiagnostics.pageAccessible ? tokenDiagnostics.pageName || 'Confirmed' : 'Not confirmed'}
+                </dd>
+                {tokenDiagnostics.missingPermissions.length ? (
+                  <dd className="mt-2 text-xs font-bold text-gold">
+                    Missing from token: {tokenDiagnostics.missingPermissions.join(', ')}
+                  </dd>
+                ) : null}
+                {tokenDiagnostics.errors?.length ? (
+                  <dd className="mt-2 text-xs font-bold text-gold">
+                    {tokenDiagnostics.errors.join(' ')}
+                  </dd>
+                ) : null}
+              </div>
+            ) : null}
           </dl>
         </aside>
       </section>

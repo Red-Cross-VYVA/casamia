@@ -1,5 +1,6 @@
 const defaultGraphApiVersion = 'v26.0'
 const defaultPageId = '61574255177723'
+const requiredPagePermissions = ['pages_read_engagement', 'pages_manage_posts']
 const allowedStarterImagePattern = /^\/brand-assets\/social\/facebook-starter-posts\/0[1-5]-[a-z0-9-]+\.jpg$/
 const supportedGraphApiVersions = new Set([
   'v26.0',
@@ -42,6 +43,55 @@ export function getFacebookPublishingConfiguration(env = process.env) {
     ].filter(Boolean),
     pageId,
     unsupportedApiVersion,
+  }
+}
+
+export async function inspectFacebookPublishingAccess({
+  env = process.env,
+  fetchImpl = fetch,
+} = {}) {
+  const config = getFacebookPublishingConfiguration(env)
+
+  if (!config.configured) {
+    return {
+      checked: false,
+      missingPermissions: [...requiredPagePermissions],
+      pageAccessible: false,
+      ready: false,
+    }
+  }
+
+  const [identityResult, permissionsResult, pageResult] = await Promise.all([
+    readGraphApi({ config, fetchImpl, path: 'me', searchParams: { fields: 'id,name' } }),
+    readGraphApi({ config, fetchImpl, path: 'me/permissions' }),
+    readGraphApi({ config, fetchImpl, path: config.pageId, searchParams: { fields: 'id,name' } }),
+  ])
+  const permissionRows = Array.isArray(permissionsResult.body?.data)
+    ? permissionsResult.body.data
+    : []
+  const grantedPermissions = permissionRows
+    .filter((row) => text(row?.status).toLowerCase() === 'granted')
+    .map((row) => text(row?.permission))
+    .filter(Boolean)
+  const missingPermissions = requiredPagePermissions.filter(
+    (permission) => !grantedPermissions.includes(permission),
+  )
+  const pageAccessible = pageResult.ok && text(pageResult.body?.id) === config.pageId
+  const errors = [identityResult, permissionsResult, pageResult]
+    .filter((result) => !result.ok)
+    .map((result) => result.message)
+    .filter(Boolean)
+
+  return {
+    checked: true,
+    errors,
+    grantedPermissions,
+    identityId: text(identityResult.body?.id),
+    identityName: text(identityResult.body?.name),
+    missingPermissions,
+    pageAccessible,
+    pageName: text(pageResult.body?.name),
+    ready: pageAccessible && missingPermissions.length === 0,
   }
 }
 
@@ -222,6 +272,44 @@ function normalizeOrigin(value) {
     return new URL(value).origin
   } catch {
     return ''
+  }
+}
+
+async function readGraphApi({
+  config,
+  fetchImpl,
+  path,
+  searchParams = {},
+}) {
+  const url = new URL(
+    `https://graph.facebook.com/${encodeURIComponent(config.apiVersion)}/${path
+      .split('/')
+      .map((part) => encodeURIComponent(part))
+      .join('/')}`,
+  )
+
+  Object.entries(searchParams).forEach(([key, value]) => url.searchParams.set(key, value))
+
+  try {
+    const graphResponse = await fetchImpl(url, {
+      headers: { Authorization: `Bearer ${config.accessToken}` },
+    })
+    const responseText = await graphResponse.text()
+    const responseBody = parseJson(responseText)
+
+    return {
+      body: responseBody || {},
+      message: graphResponse.ok
+        ? ''
+        : text(responseBody?.error?.message) || `Meta returned HTTP ${graphResponse.status}.`,
+      ok: graphResponse.ok,
+    }
+  } catch (error) {
+    return {
+      body: {},
+      message: error instanceof Error ? error.message : 'Meta access check failed.',
+      ok: false,
+    }
   }
 }
 
