@@ -113,6 +113,11 @@ const InternalFacebookPostsPage = lazy(() =>
     default: InternalFacebookPostsPage,
   })),
 )
+const InternalWhatsAppSetupPage = lazy(() =>
+  import('./pages/internal/InternalWhatsAppSetupPage').then(({ InternalWhatsAppSetupPage }) => ({
+    default: InternalWhatsAppSetupPage,
+  })),
+)
 const InternalVoiceStudioPage = lazy(() =>
   import('./pages/internal/InternalVoiceStudioPage').then(({ InternalVoiceStudioPage }) => ({
     default: InternalVoiceStudioPage,
@@ -350,6 +355,7 @@ export function AppRoutes() {
             <Route path="/internal/package-config" element={<Navigate to="/internal/service-catalog" replace />} />
             <Route path="/internal/service-catalog" element={<InternalRoute><InternalServiceCataloguePage /></InternalRoute>} />
             <Route path="/internal/facebook-posts" element={<InternalRoute><InternalFacebookPostsPage /></InternalRoute>} />
+            <Route path="/internal/whatsapp-setup" element={<InternalRoute><InternalWhatsAppSetupPage /></InternalRoute>} />
             <Route path="/internal/voice-studio" element={<InternalRoute><InternalVoiceStudioPage /></InternalRoute>} />
             <Route path="/internal/proposals" element={<InternalRoute><InternalProposalsPage /></InternalRoute>} />
             <Route path="/internal/provider-partners" element={<InternalRoute><InternalProviderPartnersPage /></InternalRoute>} />
