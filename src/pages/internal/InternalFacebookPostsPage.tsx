@@ -27,6 +27,7 @@ export function InternalFacebookPostsPage() {
     [],
   )
   const [captions, setCaptions] = useState(initialCaptions)
+  const [confirmingPostId, setConfirmingPostId] = useState('')
   const [message, setMessage] = useState('Checking Facebook connection...')
   const [publishingPostId, setPublishingPostId] = useState('')
   const [results, setResults] = useState<PublishResults>({})
@@ -65,10 +66,7 @@ export function InternalFacebookPostsPage() {
       return
     }
 
-    if (!window.confirm(`Publish "${post.title}" to the CasaMia Facebook Page now?`)) {
-      return
-    }
-
+    setConfirmingPostId('')
     setPublishingPostId(post.id)
     try {
       const result = await publishFacebookStarterPost({
@@ -145,15 +143,37 @@ export function InternalFacebookPostsPage() {
                       ) : null}
                     </div>
                   ) : null}
-                  <button
-                    className="btn btn-green justify-center"
-                    disabled={!publishingEnabled || isPublishing || Boolean(publishingPostId)}
-                    type="button"
-                    onClick={() => void handlePublish(post.id)}
-                  >
-                    <Send size={18} aria-hidden="true" />
-                    {isPublishing ? 'Publishing...' : 'Publish to Facebook'}
-                  </button>
+                  {confirmingPostId === post.id ? (
+                    <div className="grid gap-2 sm:grid-cols-2" role="group" aria-label={`Confirm publishing ${post.title}`}>
+                      <button
+                        className="btn btn-white justify-center"
+                        disabled={Boolean(publishingPostId)}
+                        type="button"
+                        onClick={() => setConfirmingPostId('')}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="btn btn-green justify-center"
+                        disabled={!publishingEnabled || Boolean(publishingPostId)}
+                        type="button"
+                        onClick={() => void handlePublish(post.id)}
+                      >
+                        <Send size={18} aria-hidden="true" />
+                        Confirm publish
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      className="btn btn-green justify-center"
+                      disabled={!publishingEnabled || isPublishing || Boolean(publishingPostId)}
+                      type="button"
+                      onClick={() => setConfirmingPostId(post.id)}
+                    >
+                      <Send size={18} aria-hidden="true" />
+                      {isPublishing ? 'Publishing...' : 'Publish to Facebook'}
+                    </button>
+                  )}
                 </div>
               </article>
             )

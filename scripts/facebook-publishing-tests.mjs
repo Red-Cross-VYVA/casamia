@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFile } from 'node:fs/promises'
 
 import { inspectFacebookPublishingAccess } from '../api/_lib/facebook.js'
 
@@ -70,5 +71,14 @@ assert.equal(pageToken.pageMatchesIdentity, true)
 assert.equal(pageToken.pageAccessible, true)
 assert.equal(pageToken.permissionsChecked, false)
 assert.deepEqual(pageToken.missingPermissions, [])
+
+const facebookPostsPageSource = await readFile(
+  new URL('../src/pages/internal/InternalFacebookPostsPage.tsx', import.meta.url),
+  'utf8',
+)
+
+assert.doesNotMatch(facebookPostsPageSource, /window\.confirm/)
+assert.match(facebookPostsPageSource, /Confirm publish/)
+assert.match(facebookPostsPageSource, /setConfirmingPostId/)
 
 console.log('Facebook publishing tests passed.')
