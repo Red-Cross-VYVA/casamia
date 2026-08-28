@@ -1,5 +1,5 @@
 const defaultGraphApiVersion = 'v26.0'
-const defaultPageId = '61574255177723'
+const defaultPageId = '605133552680332'
 const requiredPagePermissions = ['pages_read_engagement', 'pages_manage_posts']
 const allowedStarterImagePattern = /^\/brand-assets\/social\/facebook-starter-posts\/0[1-5]-[a-z0-9-]+\.jpg$/
 const supportedGraphApiVersions = new Set([

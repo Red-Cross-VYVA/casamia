@@ -174,7 +174,7 @@ export function InternalFacebookPostsPage() {
           <dl className="mt-6 grid gap-3 text-sm">
             <div className="rounded-lg bg-white/10 p-4">
               <dt className="font-black uppercase tracking-[0.14em] text-white/50">Page ID</dt>
-              <dd className="mt-1 font-bold text-white">{status?.pageId ?? '61574255177723'}</dd>
+              <dd className="mt-1 font-bold text-white">{status?.pageId ?? '605133552680332'}</dd>
             </div>
             <div className="rounded-lg bg-white/10 p-4">
               <dt className="font-black uppercase tracking-[0.14em] text-white/50">Graph API</dt>

@@ -5,7 +5,7 @@ import { inspectFacebookPublishingAccess } from '../api/_lib/facebook.js'
 const env = {
   META_GRAPH_API_VERSION: 'v26.0',
   META_PAGE_ACCESS_TOKEN: 'test-token',
-  META_PAGE_ID: '61574255177723',
+  META_PAGE_ID: '605133552680332',
 }
 
 function jsonResponse(body, status = 200) {
