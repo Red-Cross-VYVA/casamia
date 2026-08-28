@@ -76,9 +76,17 @@ const facebookPostsPageSource = await readFile(
   new URL('../src/pages/internal/InternalFacebookPostsPage.tsx', import.meta.url),
   'utf8',
 )
+const facebookStarterPostsSource = await readFile(
+  new URL('../src/services/internalFacebookPosts.ts', import.meta.url),
+  'utf8',
+)
 
 assert.doesNotMatch(facebookPostsPageSource, /window\.confirm/)
 assert.match(facebookPostsPageSource, /Confirm publish/)
 assert.match(facebookPostsPageSource, /setConfirmingPostId/)
+assert.match(facebookStarterPostsSource, /home-safety-wizard\?utm_source=facebook&utm_medium=organic_social&utm_campaign=home_safety_review/)
+assert.match(facebookStarterPostsSource, /services\/bathroom-safety\?utm_source=facebook&utm_medium=organic_social&utm_campaign=bathroom_safety/)
+assert.match(facebookStarterPostsSource, /grants\?utm_source=facebook&utm_medium=organic_social&utm_campaign=grant_guidance/)
+assert.match(facebookStarterPostsSource, /plans\?utm_source=facebook&utm_medium=organic_social&utm_campaign=starter_packs/)
 
 console.log('Facebook publishing tests passed.')
