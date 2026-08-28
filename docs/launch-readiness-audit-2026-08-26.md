@@ -1,7 +1,7 @@
 # CasaMia Launch Readiness Audit
 
 Date: 2026-08-26  
-Last updated: 2026-08-27  
+Last updated: 2026-08-28
 Production: https://www.casamia.com.es  
 Production branch verified: `main`
 Production alias verified: `https://www.casamia.com.es`
@@ -54,8 +54,8 @@ Important deployment note: the current production deployment predates the audite
 - The single blank consent-evidence row created by the legacy-deployment smoke check was deleted with an exact id and an all-fields-blank guard. Post-migration verification confirmed it no longer exists.
 - The agreement-management migration was applied on 27 August 2026. Production now has the empty `agreement_assignments` and `agreement_audit_events` tables with all 28 expected columns, four required secondary indexes, RLS enabled and no public policies. The post-migration Security Advisor reports zero errors and zero warnings.
 - The production WhatsApp CTA resolves to the configured CasaMia number `+34 648 027 076` with a prefilled message.
-- Facebook uses Graph API Page ID `605133552680332` for CasaMia while the same Page's public profile URL uses ID `61574255177723`. Protected token diagnostics confirmed the deployed token belongs to API Page `605133552680332`, and Facebook redirects that Page to the expected public CasaMia profile. Earlier controlled attempts incorrectly targeted the public profile ID through Graph API and created no post. The server configuration has been corrected; repeat the controlled publish test after deployment.
-- The public Facebook Page resolves to CasaMia and displays the expected bio, Marbella address, telephone, email, website, WhatsApp route, profile imagery and an existing welcome post. This proves the public Page configuration, but not publishing through the CasaMia API integration.
+- Facebook uses Graph API Page ID `605133552680332` for CasaMia while the same Page's public profile URL uses ID `61574255177723`. The Page is owned by the Casamia business portfolio, and the restricted `CasaMia Publisher` employee system user has Page content access and app test access only. A 60-day system-user credential was exchanged for the Page token deployed as `META_PAGE_ACCESS_TOKEN` in Production and Preview.
+- The controlled Home Safety Review post was published successfully through the production CasaMia API on 28 August 2026. Meta returned post ID `605133552680332_122185145600808505`; the post is publicly visible at `https://www.facebook.com/605133552680332_122185145600808505` with the approved caption and image. Earlier failed attempts created no posts.
 - The current production deployment is `Ready`, all 62 sitemap routes pass the production smoke test, and the production runtime scan found no application HTTP 5xx responses before the deliberate ElevenLabs check below.
 - The audited build was deployed on 27 August 2026 and `/deployment-readiness.json` now gates the production smoke suite. The post-deployment suite passed all 62 sitemap routes, protected API boundaries, invalid-write rejection and the 20-package / 67-outcome / 123-capability / 101-product catalogue contract.
 - Single-partner access is bound to `gm@4cksa.com` through the existing hidden partner password. A live production login succeeded, the portal identified the signed-in partner correctly, and backend-filtered leads and agreements both returned empty partner-owned collections as expected because no records are assigned yet.
@@ -83,7 +83,6 @@ Important deployment note: the current production deployment predates the audite
 - **Stripe:** retested on 27 August 2026. The connected dashboard is still `Entorno de prueba de CasaMia`, explicitly reports Sandbox mode, exposes only `sk_test_...` / `pk_test_...` keys and shows business verification as `Not Started`. Live payment acceptance is therefore not approved. Complete Stripe business verification, activate live mode, configure a live secret key, inclusive 21% live tax-rate ID and production webhook secret, then complete one controlled EUR 99 payment, webhook, scheduling, calendar, email and refund rehearsal.
 - **Access:** single-partner identity binding, authenticated login and backend-filtered partner data are verified in production for `gm@4cksa.com`. Production currently has no partner assignments. Multi-partner credentials and cross-partner rejection are implemented and covered by automated tests; perform a live two-identity isolation rehearsal when a second partner is invited.
 - **Email:** confirm one real English and one real Spanish customer journey using a company-controlled address, including customer and operations copies.
-- **Facebook:** after deploying Graph API Page ID `605133552680332`, publish one approved starter post and confirm it appears on public profile `61574255177723`. The earlier 28 August controlled attempts created no post.
 - **Governance:** record legal/tax approval and assign payments, customer support, scheduling, refund and incident owners in `docs/operations-checklist.md`.
 - **Monitoring:** review Vercel Speed Insights after real traffic is available. The current runtime error scan found no application 500s; it only found Node's `url.parse()` deprecation warning on deliberate invalid-request smoke tests that correctly returned 404.
 
