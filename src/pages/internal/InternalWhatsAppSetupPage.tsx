@@ -191,10 +191,12 @@ export function InternalWhatsAppSetupPage() {
     let oauthRedirectUri = ''
     const originalOpen = window.open
     window.open = function captureMetaOauthPopup(url, target, features) {
-      if (typeof url === 'string') {
+      if (url) {
         try {
-          const popupUrl = new URL(url, window.location.href)
-          if (popupUrl.hostname.endsWith('facebook.com') && popupUrl.pathname.includes('/dialog/oauth')) {
+          const popupUrl = new URL(String(url), window.location.href)
+          const isFacebookHost = popupUrl.hostname === 'facebook.com'
+            || popupUrl.hostname.endsWith('.facebook.com')
+          if (isFacebookHost && popupUrl.pathname.includes('/dialog/oauth')) {
             oauthRedirectUri = popupUrl.searchParams.get('redirect_uri') || ''
           }
         } catch {
