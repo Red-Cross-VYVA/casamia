@@ -1,10 +1,11 @@
 import { CheckCircle2, LoaderCircle, MessageCircle, ShieldCheck } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
 
 const metaAppId = '1061863269720823'
 const embeddedSignupConfigurationId = '1853049535662758'
+const transferTimeoutMs = 45_000
 
 type EmbeddedSignupResult = {
   businessId?: string
@@ -59,6 +60,14 @@ export function InternalWhatsAppSetupPage() {
   const [isStarting, setIsStarting] = useState(false)
   const [message, setMessage] = useState('Loading Meta Embedded Signup...')
   const [result, setResult] = useState<EmbeddedSignupResult>({})
+  const transferTimeoutRef = useRef<number | null>(null)
+
+  function clearTransferTimeout() {
+    if (transferTimeoutRef.current === null) return
+
+    window.clearTimeout(transferTimeoutRef.current)
+    transferTimeoutRef.current = null
+  }
 
   useEffect(() => {
     document.title = 'WhatsApp Setup | CasaMia Operations'
@@ -68,6 +77,8 @@ export function InternalWhatsAppSetupPage() {
       if (!payload) return
 
       if (payload.event === 'FINISH') {
+        clearTransferTimeout()
+        setIsStarting(false)
         setResult((current) => ({
           ...current,
           businessId: payload.data?.business_id,
@@ -76,9 +87,11 @@ export function InternalWhatsAppSetupPage() {
         }))
         setMessage('Meta returned the WhatsApp account and phone identifiers.')
       } else if (payload.event === 'CANCEL') {
+        clearTransferTimeout()
         setIsStarting(false)
         setMessage('Embedded Signup was cancelled before completion.')
       } else if (payload.event === 'ERROR') {
+        clearTransferTimeout()
         setIsStarting(false)
         setResult((current) => ({ ...current, error: 'Meta reported an Embedded Signup error.' }))
         setMessage('Meta could not complete Embedded Signup.')
@@ -111,6 +124,7 @@ export function InternalWhatsAppSetupPage() {
     }
 
     return () => {
+      clearTransferTimeout()
       window.removeEventListener('message', onSessionMessage)
     }
   }, [])
@@ -121,14 +135,23 @@ export function InternalWhatsAppSetupPage() {
     setIsStarting(true)
     setMessage('Complete the Meta transfer window to continue.')
     setResult({})
+    clearTransferTimeout()
+    transferTimeoutRef.current = window.setTimeout(() => {
+      transferTimeoutRef.current = null
+      setIsStarting(false)
+      setMessage('Meta did not finish within 45 seconds. Close any Meta popup, then retry the transfer.')
+    }, transferTimeoutMs)
 
     window.FB.login((response) => {
       const code = response.authResponse?.code
 
       if (code) {
+        clearTransferTimeout()
+        setIsStarting(false)
         setResult((current) => ({ ...current, code }))
         setMessage('Authorization received. Finish any remaining Meta steps in the popup.')
       } else {
+        clearTransferTimeout()
         setIsStarting(false)
         setMessage(response.status === 'unknown'
           ? 'Meta login was closed before authorization.'
@@ -197,6 +220,17 @@ export function InternalWhatsAppSetupPage() {
               <ResultField label="Business ID" value={result.businessId} />
               <ResultField label="Authorization" value={result.code ? 'Received securely' : undefined} />
             </dl>
+            {result.code ? (
+              <input
+                aria-label="Meta authorization code"
+                autoComplete="off"
+                className="sr-only"
+                readOnly
+                tabIndex={-1}
+                type="password"
+                value={result.code}
+              />
+            ) : null}
             {result.error ? <p className="mt-4 font-bold text-red-700">{result.error}</p> : null}
           </article>
         ) : null}
