@@ -82,10 +82,10 @@ export function InternalWhatsAppSetupPage() {
     setMessage('Meta completed the transfer and CasaMia verified the WhatsApp account identifiers.')
   }
 
-  async function resolveIdentifiers(code: string, redirectUri: string) {
+  async function resolveIdentifiers(code: string) {
     try {
       const response = await fetch(`${getPublicSiteApiBaseUrl()}/api/internal/whatsapp-embedded-signup`, {
-        body: JSON.stringify({ code, redirectUri }),
+        body: JSON.stringify({ code }),
         headers: {
           'Content-Type': 'application/json',
           ...getInternalAuthHeaders(),
@@ -188,8 +188,6 @@ export function InternalWhatsAppSetupPage() {
   function startEmbeddedSignup() {
     if (!window.FB || !isReady) return
 
-    const oauthRedirectUri = new URL('/internal/whatsapp-setup', window.location.origin).href
-
     setIsStarting(true)
     setMessage('Complete every step in the Meta window and keep it open until Meta confirms completion.')
     setResult({})
@@ -222,7 +220,7 @@ export function InternalWhatsAppSetupPage() {
           setMessage('Meta completed the transfer and returned the WhatsApp account identifiers.')
         } else {
           setMessage('Authorization received. CasaMia is verifying the WhatsApp account and phone number with Meta...')
-          void resolveIdentifiers(code, oauthRedirectUri)
+          void resolveIdentifiers(code)
         }
       } else {
         clearTransferTimeout()
@@ -238,7 +236,6 @@ export function InternalWhatsAppSetupPage() {
         setup: {},
       },
       override_default_response_type: true,
-      redirect_uri: oauthRedirectUri,
       response_type: 'code',
     })
   }

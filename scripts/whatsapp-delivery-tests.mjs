@@ -32,7 +32,6 @@ const signupRequests = []
 const signupResult = await completeWhatsappEmbeddedSignup({
   code: 'one-time-code',
   env,
-  redirectUri: 'https://www.casamia.com.es/internal/whatsapp-setup',
   fetchImpl: async (url, init = {}) => {
     const parsedUrl = new URL(url)
     signupRequests.push({ authorization: init.headers?.Authorization, path: parsedUrl.pathname })
@@ -41,7 +40,7 @@ const signupResult = await completeWhatsappEmbeddedSignup({
       assert.equal(parsedUrl.searchParams.get('client_secret'), 'test-app-secret')
       assert.equal(
         parsedUrl.searchParams.get('redirect_uri'),
-        'https://www.casamia.com.es/internal/whatsapp-setup',
+        'https://www.facebook.com/connect/login_success.html',
       )
       return Response.json({ access_token: 'embedded-token' })
     }
@@ -62,21 +61,6 @@ assert.deepEqual(signupResult, {
   wabaId: 'waba-1',
 })
 assert.equal(signupRequests.some((request) => request.authorization === 'Bearer embedded-token'), true)
-
-let rejectedRedirectRequestedMeta = false
-await assert.rejects(
-  completeWhatsappEmbeddedSignup({
-    code: 'one-time-code',
-    env,
-    redirectUri: 'https://example.com/oauth/callback',
-    fetchImpl: async () => {
-      rejectedRedirectRequestedMeta = true
-      return Response.json({})
-    },
-  }),
-  /Meta did not provide the OAuth callback/,
-)
-assert.equal(rejectedRedirectRequestedMeta, false)
 
 assert.equal(getWhatsappConfiguration(env).configured, true)
 assert.equal(getWhatsappConfiguration({}).configured, false)
@@ -218,7 +202,7 @@ const proposalSource = await readFile(new URL('../api/public/proposal-drafts.js'
 const reportSource = await readFile(new URL('../api/_lib/public-reports.js', import.meta.url), 'utf8')
 const deliveryFormSource = await readFile(new URL('../src/components/ReportDeliveryForm.tsx', import.meta.url), 'utf8')
 const embeddedSignupSource = await readFile(new URL('../src/pages/internal/InternalWhatsAppSetupPage.tsx', import.meta.url), 'utf8')
-assert.match(embeddedSignupSource, /redirect_uri: oauthRedirectUri/)
+assert.doesNotMatch(embeddedSignupSource, /redirect_uri:/)
 assert.doesNotMatch(embeddedSignupSource, /window\.open\s*=/)
 assert.match(proposalSource, /delivery_whatsapp/)
 assert.match(proposalSource, /proposalWhatsapp/)

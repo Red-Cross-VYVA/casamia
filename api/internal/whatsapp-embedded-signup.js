@@ -22,7 +22,6 @@ export default async function handler(request, response) {
     const body = await readJsonBody(request)
     const result = await completeWhatsappEmbeddedSignup({
       code: body.code,
-      redirectUri: body.redirectUri,
     })
     sendJson(response, 200, result)
   } catch (error) {
