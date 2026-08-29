@@ -309,10 +309,13 @@ function getConfiguredWhatsappNumber(env) {
 function getWhatsappOauthRedirectUri(value) {
   try {
     const url = new URL(clean(value))
-    const isMetaCallback = url.protocol === 'https:'
-      && ['staticxx.facebook.com', 'www.facebook.com'].includes(url.hostname)
-      && ['/x/connect/xd_arbiter/', '/connect/login_success.html'].includes(url.pathname)
-    return isMetaCallback ? url.href : ''
+    const isCasaMiaCallback = url.protocol === 'https:'
+      && ['casamia.com.es', 'www.casamia.com.es'].includes(url.hostname)
+      && url.pathname === '/internal/whatsapp-setup'
+    const isLocalCallback = url.protocol === 'http:'
+      && ['localhost', '127.0.0.1'].includes(url.hostname)
+      && url.pathname === '/internal/whatsapp-setup'
+    return isCasaMiaCallback || isLocalCallback ? url.href : ''
   } catch {
     return ''
   }

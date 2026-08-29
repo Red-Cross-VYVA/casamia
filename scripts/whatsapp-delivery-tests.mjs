@@ -32,7 +32,7 @@ const signupRequests = []
 const signupResult = await completeWhatsappEmbeddedSignup({
   code: 'one-time-code',
   env,
-  redirectUri: 'https://staticxx.facebook.com/x/connect/xd_arbiter/?version=46#cb=test-callback',
+  redirectUri: 'https://www.casamia.com.es/internal/whatsapp-setup',
   fetchImpl: async (url, init = {}) => {
     const parsedUrl = new URL(url)
     signupRequests.push({ authorization: init.headers?.Authorization, path: parsedUrl.pathname })
@@ -41,7 +41,7 @@ const signupResult = await completeWhatsappEmbeddedSignup({
       assert.equal(parsedUrl.searchParams.get('client_secret'), 'test-app-secret')
       assert.equal(
         parsedUrl.searchParams.get('redirect_uri'),
-        'https://staticxx.facebook.com/x/connect/xd_arbiter/?version=46#cb=test-callback',
+        'https://www.casamia.com.es/internal/whatsapp-setup',
       )
       return Response.json({ access_token: 'embedded-token' })
     }
@@ -217,6 +217,9 @@ assert.equal(storedReportPayload.delivery.whatsapp, 'sent')
 const proposalSource = await readFile(new URL('../api/public/proposal-drafts.js', import.meta.url), 'utf8')
 const reportSource = await readFile(new URL('../api/_lib/public-reports.js', import.meta.url), 'utf8')
 const deliveryFormSource = await readFile(new URL('../src/components/ReportDeliveryForm.tsx', import.meta.url), 'utf8')
+const embeddedSignupSource = await readFile(new URL('../src/pages/internal/InternalWhatsAppSetupPage.tsx', import.meta.url), 'utf8')
+assert.match(embeddedSignupSource, /redirect_uri: oauthRedirectUri/)
+assert.doesNotMatch(embeddedSignupSource, /window\.open\s*=/)
 assert.match(proposalSource, /delivery_whatsapp/)
 assert.match(proposalSource, /proposalWhatsapp/)
 assert.match(reportSource, /sendWhatsappTemplate/)
