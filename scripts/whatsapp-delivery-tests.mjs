@@ -40,7 +40,7 @@ const signupResult = await completeWhatsappEmbeddedSignup({
       assert.equal(parsedUrl.searchParams.get('client_secret'), 'test-app-secret')
       assert.equal(
         parsedUrl.searchParams.get('redirect_uri'),
-        'https://www.facebook.com/connect/login_success.html',
+        'https://www.casamia.com.es/internal/whatsapp-setup',
       )
       return Response.json({ access_token: 'embedded-token' })
     }
@@ -61,6 +61,30 @@ assert.deepEqual(signupResult, {
   wabaId: 'waba-1',
 })
 assert.equal(signupRequests.some((request) => request.authorization === 'Bearer embedded-token'), true)
+
+let explicitRedirectUri
+await completeWhatsappEmbeddedSignup({
+  code: 'another-one-time-code',
+  env,
+  redirectUri: 'https://casamia.com.es/internal/whatsapp-setup',
+  fetchImpl: async (url) => {
+    const parsedUrl = new URL(url)
+    if (parsedUrl.pathname.endsWith('/oauth/access_token')) {
+      explicitRedirectUri = parsedUrl.searchParams.get('redirect_uri')
+      return Response.json({ access_token: 'embedded-token' })
+    }
+    if (parsedUrl.pathname.endsWith('/me/businesses')) return Response.json({ data: [{ id: 'business-1' }] })
+    if (parsedUrl.pathname.endsWith('/business-1/owned_whatsapp_business_accounts')) {
+      return Response.json({ data: [{ id: 'waba-1', name: 'CasaMia' }] })
+    }
+    if (parsedUrl.pathname.endsWith('/business-1/client_whatsapp_business_accounts')) return Response.json({ data: [] })
+    if (parsedUrl.pathname.endsWith('/waba-1/phone_numbers')) {
+      return Response.json({ data: [{ display_phone_number: '+34 664 33 89 91', id: 'phone-1' }] })
+    }
+    return Response.json({ error: { message: 'Unexpected test URL.' } }, { status: 404 })
+  },
+})
+assert.equal(explicitRedirectUri, 'https://casamia.com.es/internal/whatsapp-setup')
 
 assert.equal(getWhatsappConfiguration(env).configured, true)
 assert.equal(getWhatsappConfiguration({}).configured, false)
