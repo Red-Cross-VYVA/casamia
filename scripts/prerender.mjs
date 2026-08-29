@@ -22,6 +22,7 @@ const protectedAppShellRoutes = [
   '/internal/package-config',
   '/internal/service-catalog',
   '/internal/facebook-posts',
+  '/internal/whatsapp-setup',
   '/internal/voice-studio',
   '/internal/proposals',
   '/internal/provider-partners',

@@ -50,6 +50,7 @@ const protectedShellRoutes = [
   ['dist/internal.html', '/internal'],
   ['dist/internal/service-catalog.html', '/internal/service-catalog'],
   ['dist/internal/facebook-posts.html', '/internal/facebook-posts'],
+  ['dist/internal/whatsapp-setup.html', '/internal/whatsapp-setup'],
   ['dist/admin/config-preview.html', '/admin/config-preview'],
   ['dist/partner.html', '/partner'],
   ['dist/partner/login.html', '/partner/login'],
