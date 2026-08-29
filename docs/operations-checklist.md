@@ -108,6 +108,7 @@ Primary timezone: Europe/Madrid
 - [ ] WhatsApp templates are approved before WhatsApp is presented as an active delivery channel.
 - [x] WhatsApp Cloud API sender, signed webhook and delivery-status persistence are implemented with graceful fallback.
 - [ ] Production has `WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_APP_SECRET` and `WHATSAPP_WEBHOOK_VERIFY_TOKEN`.
+- [ ] Embedded Signup uses CasaMia app `1061863269720823`, business `1411528653558134` and public number `34664338991` (override with `WHATSAPP_APP_ID`, `WHATSAPP_BUSINESS_ID` and `WHATSAPP_PUBLIC_PHONE_NUMBER` only if these assets change).
 - [ ] English and Spanish proposal/report utility templates are approved and their names are configured in Production.
 - [ ] Meta webhook `/api/webhooks/whatsapp` is verified and subscribed to message status updates.
 - [ ] A real English and Spanish WhatsApp delivery reaches the test phone before `VITE_CASAMIA_WHATSAPP_DELIVERY_ENABLED=true` is enabled.

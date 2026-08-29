@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises'
 import whatsappWebhookHandler from '../api/webhooks/whatsapp.js'
 import { queuePublicReport } from '../api/_lib/public-reports.js'
 import {
+  completeWhatsappEmbeddedSignup,
   extractWhatsappStatuses,
   getWhatsappConfiguration,
   getWhatsappTemplate,
@@ -18,12 +19,44 @@ const env = {
   CASAMIA_WHATSAPP_REPORT_TEMPLATE_ES: 'casamia_report_ready_es',
   WHATSAPP_ACCESS_TOKEN: 'test-token',
   WHATSAPP_APP_SECRET: 'test-app-secret',
+  WHATSAPP_BUSINESS_ID: 'business-1',
   WHATSAPP_GRAPH_API_VERSION: 'v26.0',
   WHATSAPP_PHONE_NUMBER_ID: '123456789',
+  WHATSAPP_PUBLIC_PHONE_NUMBER: '34664338991',
   WHATSAPP_TEMPLATE_LANGUAGE_EN: 'en',
   WHATSAPP_TEMPLATE_LANGUAGE_ES: 'es',
   WHATSAPP_WEBHOOK_VERIFY_TOKEN: 'verify-me',
 }
+
+const signupRequests = []
+const signupResult = await completeWhatsappEmbeddedSignup({
+  code: 'one-time-code',
+  env,
+  fetchImpl: async (url, init = {}) => {
+    const parsedUrl = new URL(url)
+    signupRequests.push({ authorization: init.headers?.Authorization, path: parsedUrl.pathname })
+
+    if (parsedUrl.pathname.endsWith('/oauth/access_token')) {
+      assert.equal(parsedUrl.searchParams.get('client_secret'), 'test-app-secret')
+      return Response.json({ access_token: 'embedded-token' })
+    }
+    if (parsedUrl.pathname.endsWith('/me/businesses')) return Response.json({ data: [{ id: 'business-1' }] })
+    if (parsedUrl.pathname.endsWith('/business-1/owned_whatsapp_business_accounts')) {
+      return Response.json({ data: [{ id: 'waba-1', name: 'CasaMia' }] })
+    }
+    if (parsedUrl.pathname.endsWith('/business-1/client_whatsapp_business_accounts')) return Response.json({ data: [] })
+    if (parsedUrl.pathname.endsWith('/waba-1/phone_numbers')) {
+      return Response.json({ data: [{ display_phone_number: '+34 664 33 89 91', id: 'phone-1' }] })
+    }
+    return Response.json({ error: { message: 'Unexpected test URL.' } }, { status: 404 })
+  },
+})
+assert.deepEqual(signupResult, {
+  businessId: 'business-1',
+  phoneNumberId: 'phone-1',
+  wabaId: 'waba-1',
+})
+assert.equal(signupRequests.some((request) => request.authorization === 'Bearer embedded-token'), true)
 
 assert.equal(getWhatsappConfiguration(env).configured, true)
 assert.equal(getWhatsappConfiguration({}).configured, false)

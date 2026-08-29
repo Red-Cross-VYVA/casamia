@@ -2,6 +2,9 @@ import crypto from 'node:crypto'
 
 const defaultGraphApiVersion = 'v26.0'
 const graphApiVersionPattern = /^v\d+\.\d+$/
+const defaultWhatsappAppId = '1061863269720823'
+const defaultWhatsappBusinessId = '1411528653558134'
+const defaultWhatsappPublicNumber = '34664338991'
 
 export function getWhatsappConfiguration(env = process.env) {
   const apiVersion = clean(env.WHATSAPP_GRAPH_API_VERSION) || defaultGraphApiVersion
@@ -11,10 +14,121 @@ export function getWhatsappConfiguration(env = process.env) {
   return {
     accessToken,
     apiVersion: graphApiVersionPattern.test(apiVersion) ? apiVersion : defaultGraphApiVersion,
+    appId: clean(env.WHATSAPP_APP_ID) || defaultWhatsappAppId,
     appSecret: clean(env.WHATSAPP_APP_SECRET),
+    businessId: clean(env.WHATSAPP_BUSINESS_ID) || defaultWhatsappBusinessId,
     configured: Boolean(accessToken && phoneNumberId),
     phoneNumberId,
     verifyToken: clean(env.WHATSAPP_WEBHOOK_VERIFY_TOKEN),
+  }
+}
+
+export async function completeWhatsappEmbeddedSignup({
+  code,
+  env = process.env,
+  fetchImpl = fetch,
+}) {
+  const config = getWhatsappConfiguration(env)
+  const authorizationCode = clean(code)
+
+  if (!authorizationCode) throw new WhatsappSignupError('Meta did not return an authorization code.', 400)
+  if (!config.appSecret) {
+    throw new WhatsappSignupError('WHATSAPP_APP_SECRET is not configured in Vercel.', 500)
+  }
+
+  const tokenUrl = new URL(`https://graph.facebook.com/${config.apiVersion}/oauth/access_token`)
+  tokenUrl.searchParams.set('client_id', config.appId)
+  tokenUrl.searchParams.set('client_secret', config.appSecret)
+  tokenUrl.searchParams.set('code', authorizationCode)
+
+  const tokenPayload = await requestMetaJson(tokenUrl, {}, fetchImpl)
+  const accessToken = clean(tokenPayload?.access_token)
+  if (!accessToken) throw new WhatsappSignupError('Meta authorized CasaMia but did not issue an access token.', 502)
+
+  const businessIds = new Set([config.businessId])
+  try {
+    const businesses = await graphCollection({
+      accessToken,
+      apiVersion: config.apiVersion,
+      fetchImpl,
+      path: 'me/businesses',
+    })
+    for (const business of businesses) {
+      const id = clean(business?.id)
+      if (id) businessIds.add(id)
+    }
+  } catch {
+    // A business-scoped token can still query the configured CasaMia business directly.
+  }
+
+  const whatsappAccounts = new Map()
+  for (const businessId of businessIds) {
+    for (const edge of ['owned_whatsapp_business_accounts', 'client_whatsapp_business_accounts']) {
+      try {
+        const accounts = await graphCollection({
+          accessToken,
+          apiVersion: config.apiVersion,
+          fetchImpl,
+          path: `${businessId}/${edge}`,
+        })
+        for (const account of accounts) {
+          const id = clean(account?.id)
+          if (id) whatsappAccounts.set(id, { businessId, id, name: clean(account?.name) })
+        }
+      } catch {
+        // The token may grant only one of the owned/client edges.
+      }
+    }
+  }
+
+  const targetPhone = getConfiguredWhatsappNumber(env)
+  const candidates = []
+  for (const account of whatsappAccounts.values()) {
+    try {
+      const phoneNumbers = await graphCollection({
+        accessToken,
+        apiVersion: config.apiVersion,
+        fetchImpl,
+        path: `${account.id}/phone_numbers`,
+      })
+      for (const phone of phoneNumbers) {
+        const phoneNumberId = clean(phone?.id)
+        if (!phoneNumberId) continue
+        candidates.push({
+          businessId: account.businessId,
+          displayPhoneNumber: normaliseWhatsappRecipient(phone?.display_phone_number),
+          phoneNumberId,
+          wabaId: account.id,
+        })
+      }
+    } catch {
+      // Ignore accounts that were visible but not granted to this authorization.
+    }
+  }
+
+  const match = targetPhone
+    ? candidates.find((candidate) => candidate.displayPhoneNumber === targetPhone)
+    : candidates.length === 1 ? candidates[0] : null
+
+  if (!match) {
+    const reason = candidates.length
+      ? `Meta returned ${candidates.length} WhatsApp phone number(s), but none matched the configured CasaMia number.`
+      : 'Meta authorized CasaMia but did not grant access to a WhatsApp phone number.'
+    throw new WhatsappSignupError(reason, 422)
+  }
+
+  return {
+    businessId: match.businessId,
+    phoneNumberId: match.phoneNumberId,
+    wabaId: match.wabaId,
+  }
+}
+
+export class WhatsappSignupError extends Error {
+  constructor(message, statusCode = 500) {
+    super(message)
+    this.name = 'WhatsappSignupError'
+    this.statusCode = statusCode
   }
 }
 
@@ -142,6 +256,48 @@ async function readJson(response) {
   } catch {
     return null
   }
+}
+
+async function graphCollection({ accessToken, apiVersion, fetchImpl, path }) {
+  const url = new URL(`https://graph.facebook.com/${apiVersion}/${path}`)
+  url.searchParams.set('fields', path.endsWith('/phone_numbers')
+    ? 'id,display_phone_number,verified_name'
+    : 'id,name')
+  url.searchParams.set('limit', '100')
+
+  const payload = await requestMetaJson(url, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  }, fetchImpl)
+
+  return Array.isArray(payload?.data) ? payload.data : []
+}
+
+async function requestMetaJson(url, init, fetchImpl) {
+  let response
+  try {
+    response = await fetchImpl(url, init)
+  } catch {
+    throw new WhatsappSignupError('Meta could not be reached. Please retry the transfer.', 502)
+  }
+
+  const payload = await readJson(response)
+  if (!response.ok || payload?.error) {
+    throw new WhatsappSignupError(
+      clean(payload?.error?.message) || `Meta rejected the WhatsApp setup request (${response.status}).`,
+      response.status >= 400 && response.status < 500 ? 422 : 502,
+    )
+  }
+
+  return payload
+}
+
+function getConfiguredWhatsappNumber(env) {
+  const explicit = normaliseWhatsappRecipient(env.WHATSAPP_PUBLIC_PHONE_NUMBER)
+  if (explicit) return explicit
+
+  const url = clean(env.VITE_CASAMIA_WHATSAPP_URL)
+  return normaliseWhatsappRecipient(url.replace(/^.*wa\.me\//, '').split(/[?/#]/)[0])
+    || defaultWhatsappPublicNumber
 }
 
 function normaliseTimestamp(value) {

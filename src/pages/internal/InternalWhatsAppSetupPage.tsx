@@ -2,6 +2,8 @@ import { CheckCircle2, LoaderCircle, MessageCircle, ShieldCheck } from 'lucide-r
 import { useEffect, useRef, useState } from 'react'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
+import { getInternalAuthHeaders } from '../../services/internalAuth'
+import { getPublicSiteApiBaseUrl } from '../../services/publicSiteApi'
 
 const metaAppId = '1061863269720823'
 const embeddedSignupConfigurationId = '1853049535662758'
@@ -13,6 +15,12 @@ type EmbeddedSignupResult = {
   error?: string
   phoneNumberId?: string
   wabaId?: string
+}
+
+type EmbeddedSignupCompletion = {
+  businessId: string
+  phoneNumberId: string
+  wabaId: string
 }
 
 type FacebookLoginResponse = {
@@ -66,6 +74,40 @@ export function InternalWhatsAppSetupPage() {
   const sessionFinishedRef = useRef(false)
   const transferTimeoutRef = useRef<number | null>(null)
 
+  function finishWithIdentifiers(identifiers: EmbeddedSignupCompletion) {
+    sessionFinishedRef.current = true
+    clearTransferTimeout()
+    setIsStarting(false)
+    setResult((current) => ({ ...current, ...identifiers, error: undefined }))
+    setMessage('Meta completed the transfer and CasaMia verified the WhatsApp account identifiers.')
+  }
+
+  async function resolveIdentifiers(code: string) {
+    try {
+      const response = await fetch(`${getPublicSiteApiBaseUrl()}/api/internal/whatsapp-embedded-signup`, {
+        body: JSON.stringify({ code }),
+        headers: {
+          'Content-Type': 'application/json',
+          ...getInternalAuthHeaders(),
+        },
+        method: 'POST',
+      })
+      const payload = await response.json() as Partial<EmbeddedSignupCompletion> & { message?: string }
+      if (!response.ok || !payload.businessId || !payload.phoneNumberId || !payload.wabaId) {
+        throw new Error(payload.message || 'Meta did not return the WhatsApp account identifiers.')
+      }
+
+      finishWithIdentifiers(payload as EmbeddedSignupCompletion)
+    } catch (error) {
+      if (sessionFinishedRef.current) return
+      clearTransferTimeout()
+      setIsStarting(false)
+      const reason = error instanceof Error ? error.message : 'Unable to verify the WhatsApp account identifiers.'
+      setResult((current) => ({ ...current, error: reason }))
+      setMessage('Authorization was received, but CasaMia could not verify the transferred WhatsApp number.')
+    }
+  }
+
   function clearTransferTimeout() {
     if (transferTimeoutRef.current === null) return
 
@@ -95,16 +137,11 @@ export function InternalWhatsAppSetupPage() {
           return
         }
 
-        sessionFinishedRef.current = true
-        clearTransferTimeout()
-        setIsStarting(false)
-        setResult((current) => ({
-          ...current,
+        finishWithIdentifiers({
           businessId: payload.data?.business_id,
           phoneNumberId,
           wabaId,
-        }))
-        setMessage('Meta completed the transfer and returned the WhatsApp account identifiers.')
+        } as EmbeddedSignupCompletion)
       } else if (payload.event === 'CANCEL') {
         clearTransferTimeout()
         setIsStarting(false)
@@ -182,7 +219,8 @@ export function InternalWhatsAppSetupPage() {
           setIsStarting(false)
           setMessage('Meta completed the transfer and returned the WhatsApp account identifiers.')
         } else {
-          setMessage('Authorization received. Keep the Meta window open and finish the WhatsApp account and phone-number steps.')
+          setMessage('Authorization received. CasaMia is verifying the WhatsApp account and phone number with Meta...')
+          void resolveIdentifiers(code)
         }
       } else {
         clearTransferTimeout()
