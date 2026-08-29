@@ -5,7 +5,7 @@ import { InternalLayout } from '../../components/internal/InternalLayout'
 
 const metaAppId = '1061863269720823'
 const embeddedSignupConfigurationId = '1853049535662758'
-const transferTimeoutMs = 45_000
+const transferTimeoutMs = 180_000
 
 type EmbeddedSignupResult = {
   businessId?: string
@@ -22,6 +22,15 @@ type FacebookLoginResponse = {
   status?: string
 }
 
+type EmbeddedSignupSessionEvent = {
+  data?: {
+    business_id?: string
+    phone_number_id?: string
+    waba_id?: string
+  }
+  event?: 'CANCEL' | 'ERROR' | 'FINISH'
+}
+
 declare global {
   interface Window {
     FB?: {
@@ -35,21 +44,14 @@ declare global {
   }
 }
 
-function parseSessionEvent(event: MessageEvent) {
+function parseSessionEvent(event: MessageEvent): EmbeddedSignupSessionEvent | null {
   if (!['https://www.facebook.com', 'https://web.facebook.com'].includes(event.origin)) return null
 
   try {
     const payload = typeof event.data === 'string' ? JSON.parse(event.data) : event.data
     if (!payload || payload.type !== 'WA_EMBEDDED_SIGNUP') return null
 
-    return payload as {
-      data?: {
-        business_id?: string
-        phone_number_id?: string
-        waba_id?: string
-      }
-      event?: string
-    }
+    return payload as EmbeddedSignupSessionEvent
   } catch {
     return null
   }
@@ -60,6 +62,8 @@ export function InternalWhatsAppSetupPage() {
   const [isStarting, setIsStarting] = useState(false)
   const [message, setMessage] = useState('Loading Meta Embedded Signup...')
   const [result, setResult] = useState<EmbeddedSignupResult>({})
+  const authorizationReceivedRef = useRef(false)
+  const sessionFinishedRef = useRef(false)
   const transferTimeoutRef = useRef<number | null>(null)
 
   function clearTransferTimeout() {
@@ -77,15 +81,30 @@ export function InternalWhatsAppSetupPage() {
       if (!payload) return
 
       if (payload.event === 'FINISH') {
+        const phoneNumberId = payload.data?.phone_number_id
+        const wabaId = payload.data?.waba_id
+
+        if (!phoneNumberId || !wabaId) {
+          clearTransferTimeout()
+          setIsStarting(false)
+          setResult((current) => ({
+            ...current,
+            error: 'Meta finished without returning the required WhatsApp account identifiers.',
+          }))
+          setMessage('Meta closed the signup flow without a WABA ID and phone-number ID. No migration was completed.')
+          return
+        }
+
+        sessionFinishedRef.current = true
         clearTransferTimeout()
         setIsStarting(false)
         setResult((current) => ({
           ...current,
           businessId: payload.data?.business_id,
-          phoneNumberId: payload.data?.phone_number_id,
-          wabaId: payload.data?.waba_id,
+          phoneNumberId,
+          wabaId,
         }))
-        setMessage('Meta returned the WhatsApp account and phone identifiers.')
+        setMessage('Meta completed the transfer and returned the WhatsApp account identifiers.')
       } else if (payload.event === 'CANCEL') {
         clearTransferTimeout()
         setIsStarting(false)
@@ -133,23 +152,38 @@ export function InternalWhatsAppSetupPage() {
     if (!window.FB || !isReady) return
 
     setIsStarting(true)
-    setMessage('Complete the Meta transfer window to continue.')
+    setMessage('Complete every step in the Meta window and keep it open until Meta confirms completion.')
     setResult({})
+    authorizationReceivedRef.current = false
+    sessionFinishedRef.current = false
     clearTransferTimeout()
     transferTimeoutRef.current = window.setTimeout(() => {
       transferTimeoutRef.current = null
       setIsStarting(false)
-      setMessage('Meta did not finish within 45 seconds. Close any Meta popup, then retry the transfer.')
+      setResult((current) => ({
+        ...current,
+        error: authorizationReceivedRef.current
+          ? 'Meta authorized CasaMia but did not return the WhatsApp account identifiers.'
+          : 'Meta did not complete the authorization or asset transfer.',
+      }))
+      setMessage(authorizationReceivedRef.current
+        ? 'Authorization was received, but Meta did not finish the WhatsApp asset transfer. No migration was completed.'
+        : 'Meta did not finish within three minutes. Close any Meta popup, then retry the transfer.')
     }, transferTimeoutMs)
 
     window.FB.login((response) => {
       const code = response.authResponse?.code
 
       if (code) {
-        clearTransferTimeout()
-        setIsStarting(false)
+        authorizationReceivedRef.current = true
         setResult((current) => ({ ...current, code }))
-        setMessage('Authorization received. Finish any remaining Meta steps in the popup.')
+        if (sessionFinishedRef.current) {
+          clearTransferTimeout()
+          setIsStarting(false)
+          setMessage('Meta completed the transfer and returned the WhatsApp account identifiers.')
+        } else {
+          setMessage('Authorization received. Keep the Meta window open and finish the WhatsApp account and phone-number steps.')
+        }
       } else {
         clearTransferTimeout()
         setIsStarting(false)
