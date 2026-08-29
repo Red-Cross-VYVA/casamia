@@ -20,10 +20,7 @@ export default async function handler(request, response) {
 
   try {
     const body = await readJsonBody(request)
-    const result = await completeWhatsappEmbeddedSignup({
-      code: body.code,
-      redirectUri: body.redirectUri,
-    })
+    const result = await completeWhatsappEmbeddedSignup({ code: body.code })
     sendJson(response, 200, result)
   } catch (error) {
     const statusCode = error instanceof WhatsappSignupError ? error.statusCode : 500

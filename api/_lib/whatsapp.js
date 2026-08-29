@@ -5,7 +5,6 @@ const graphApiVersionPattern = /^v\d+\.\d+$/
 const defaultWhatsappAppId = '1061863269720823'
 const defaultWhatsappBusinessId = '1411528653558134'
 const defaultWhatsappPublicNumber = '34664338991'
-const defaultWhatsappOauthRedirectUri = 'https://www.casamia.com.es/internal/whatsapp-setup'
 
 export function getWhatsappConfiguration(env = process.env) {
   const apiVersion = clean(env.WHATSAPP_GRAPH_API_VERSION) || defaultGraphApiVersion
@@ -19,7 +18,6 @@ export function getWhatsappConfiguration(env = process.env) {
     appSecret: clean(env.WHATSAPP_APP_SECRET),
     businessId: clean(env.WHATSAPP_BUSINESS_ID) || defaultWhatsappBusinessId,
     configured: Boolean(accessToken && phoneNumberId),
-    oauthRedirectUri: clean(env.WHATSAPP_OAUTH_REDIRECT_URI) || defaultWhatsappOauthRedirectUri,
     phoneNumberId,
     verifyToken: clean(env.WHATSAPP_WEBHOOK_VERIFY_TOKEN),
   }
@@ -29,11 +27,9 @@ export async function completeWhatsappEmbeddedSignup({
   code,
   env = process.env,
   fetchImpl = fetch,
-  redirectUri,
 }) {
   const config = getWhatsappConfiguration(env)
   const authorizationCode = clean(code)
-  const oauthRedirectUri = getWhatsappOauthRedirectUri(redirectUri, config.oauthRedirectUri)
 
   if (!authorizationCode) throw new WhatsappSignupError('Meta did not return an authorization code.', 400)
   if (!config.appSecret) {
@@ -44,7 +40,6 @@ export async function completeWhatsappEmbeddedSignup({
   tokenUrl.searchParams.set('client_id', config.appId)
   tokenUrl.searchParams.set('client_secret', config.appSecret)
   tokenUrl.searchParams.set('code', authorizationCode)
-  tokenUrl.searchParams.set('redirect_uri', oauthRedirectUri)
 
   const tokenPayload = await requestMetaJson(tokenUrl, {}, fetchImpl)
   const accessToken = clean(tokenPayload?.access_token)
@@ -303,23 +298,6 @@ function getConfiguredWhatsappNumber(env) {
   const url = clean(env.VITE_CASAMIA_WHATSAPP_URL)
   return normaliseWhatsappRecipient(url.replace(/^.*wa\.me\//, '').split(/[?/#]/)[0])
     || defaultWhatsappPublicNumber
-}
-
-function getWhatsappOauthRedirectUri(value, fallback) {
-  const candidate = clean(value) || clean(fallback)
-
-  try {
-    const url = new URL(candidate)
-    const isCasaMiaHost = ['casamia.com.es', 'www.casamia.com.es'].includes(url.hostname)
-    const isLocalDevelopment = ['localhost', '127.0.0.1'].includes(url.hostname)
-    if ((url.protocol === 'https:' && isCasaMiaHost) || (url.protocol === 'http:' && isLocalDevelopment)) {
-      return url.href
-    }
-  } catch {
-    // Fall through to the canonical production callback.
-  }
-
-  return defaultWhatsappOauthRedirectUri
 }
 
 function normaliseTimestamp(value) {
