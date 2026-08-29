@@ -5,6 +5,7 @@ const graphApiVersionPattern = /^v\d+\.\d+$/
 const defaultWhatsappAppId = '1061863269720823'
 const defaultWhatsappBusinessId = '1411528653558134'
 const defaultWhatsappPublicNumber = '34664338991'
+const defaultWhatsappOauthRedirectUri = 'https://www.facebook.com/connect/login_success.html'
 
 export function getWhatsappConfiguration(env = process.env) {
   const apiVersion = clean(env.WHATSAPP_GRAPH_API_VERSION) || defaultGraphApiVersion
@@ -18,6 +19,7 @@ export function getWhatsappConfiguration(env = process.env) {
     appSecret: clean(env.WHATSAPP_APP_SECRET),
     businessId: clean(env.WHATSAPP_BUSINESS_ID) || defaultWhatsappBusinessId,
     configured: Boolean(accessToken && phoneNumberId),
+    oauthRedirectUri: clean(env.WHATSAPP_OAUTH_REDIRECT_URI) || defaultWhatsappOauthRedirectUri,
     phoneNumberId,
     verifyToken: clean(env.WHATSAPP_WEBHOOK_VERIFY_TOKEN),
   }
@@ -40,6 +42,7 @@ export async function completeWhatsappEmbeddedSignup({
   tokenUrl.searchParams.set('client_id', config.appId)
   tokenUrl.searchParams.set('client_secret', config.appSecret)
   tokenUrl.searchParams.set('code', authorizationCode)
+  tokenUrl.searchParams.set('redirect_uri', config.oauthRedirectUri)
 
   const tokenPayload = await requestMetaJson(tokenUrl, {}, fetchImpl)
   const accessToken = clean(tokenPayload?.access_token)

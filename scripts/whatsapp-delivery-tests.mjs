@@ -38,6 +38,10 @@ const signupResult = await completeWhatsappEmbeddedSignup({
 
     if (parsedUrl.pathname.endsWith('/oauth/access_token')) {
       assert.equal(parsedUrl.searchParams.get('client_secret'), 'test-app-secret')
+      assert.equal(
+        parsedUrl.searchParams.get('redirect_uri'),
+        'https://www.facebook.com/connect/login_success.html',
+      )
       return Response.json({ access_token: 'embedded-token' })
     }
     if (parsedUrl.pathname.endsWith('/me/businesses')) return Response.json({ data: [{ id: 'business-1' }] })
@@ -60,6 +64,10 @@ assert.equal(signupRequests.some((request) => request.authorization === 'Bearer 
 
 assert.equal(getWhatsappConfiguration(env).configured, true)
 assert.equal(getWhatsappConfiguration({}).configured, false)
+assert.equal(
+  getWhatsappConfiguration({ WHATSAPP_OAUTH_REDIRECT_URI: 'https://example.com/meta-callback' }).oauthRedirectUri,
+  'https://example.com/meta-callback',
+)
 assert.equal(normaliseWhatsappRecipient('600 123 456'), '34600123456')
 assert.equal(normaliseWhatsappRecipient('+34 600 123 456'), '34600123456')
 assert.equal(normaliseWhatsappRecipient('0034 600 123 456'), '34600123456')
