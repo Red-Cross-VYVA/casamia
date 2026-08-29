@@ -1468,7 +1468,7 @@ function MasterPackagePriceEditor({
         </label>
       </div>
 
-      <div className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 2xl:grid-cols-[minmax(160px,1.2fr)_repeat(3,minmax(96px,0.8fr))_96px]">
+      <div className="mt-4 grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-3">
         <label className="grid min-w-0 gap-1">
           <span className="text-[11px] font-black uppercase tracking-wide text-text-muted">Type</span>
           <select
@@ -1491,17 +1491,17 @@ function MasterPackagePriceEditor({
         </label>
 
         <MasterPriceInput
-          label="Customer from · VAT included"
+          label="From price · inc VAT"
           value={toGrossPrice(packageRecord.fromPrice, packageRecord.vatRate)}
           onChange={(value) => onUpdatePackage(packageRecord.id, { fromPrice: toNetPrice(value, packageRecord.vatRate) })}
         />
         <MasterPriceInput
-          label="Customer fixed · VAT included"
+          label="Fixed price · inc VAT"
           value={toGrossPrice(packageRecord.fixedPrice, packageRecord.vatRate)}
           onChange={(value) => onUpdatePackage(packageRecord.id, { fixedPrice: toNetPrice(value, packageRecord.vatRate) })}
         />
         <MasterPriceInput
-          label="Customer monthly · VAT included"
+          label="Monthly · inc VAT"
           value={toGrossPrice(packageRecord.recurringMonthlyPrice, packageRecord.vatRate)}
           onChange={(value) => onUpdatePackage(packageRecord.id, { recurringMonthlyPrice: toNetPrice(value, packageRecord.vatRate) })}
         />
