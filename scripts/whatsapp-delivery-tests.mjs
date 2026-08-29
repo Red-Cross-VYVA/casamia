@@ -32,13 +32,17 @@ const signupRequests = []
 const signupResult = await completeWhatsappEmbeddedSignup({
   code: 'one-time-code',
   env,
+  redirectUri: 'https://staticxx.facebook.com/x/connect/xd_arbiter/?version=46#cb=test-callback',
   fetchImpl: async (url, init = {}) => {
     const parsedUrl = new URL(url)
     signupRequests.push({ authorization: init.headers?.Authorization, path: parsedUrl.pathname })
 
     if (parsedUrl.pathname.endsWith('/oauth/access_token')) {
       assert.equal(parsedUrl.searchParams.get('client_secret'), 'test-app-secret')
-      assert.equal(parsedUrl.searchParams.has('redirect_uri'), false)
+      assert.equal(
+        parsedUrl.searchParams.get('redirect_uri'),
+        'https://staticxx.facebook.com/x/connect/xd_arbiter/?version=46#cb=test-callback',
+      )
       return Response.json({ access_token: 'embedded-token' })
     }
     if (parsedUrl.pathname.endsWith('/me/businesses')) return Response.json({ data: [{ id: 'business-1' }] })
@@ -58,6 +62,21 @@ assert.deepEqual(signupResult, {
   wabaId: 'waba-1',
 })
 assert.equal(signupRequests.some((request) => request.authorization === 'Bearer embedded-token'), true)
+
+let rejectedRedirectRequestedMeta = false
+await assert.rejects(
+  completeWhatsappEmbeddedSignup({
+    code: 'one-time-code',
+    env,
+    redirectUri: 'https://example.com/oauth/callback',
+    fetchImpl: async () => {
+      rejectedRedirectRequestedMeta = true
+      return Response.json({})
+    },
+  }),
+  /Meta did not provide the OAuth callback/,
+)
+assert.equal(rejectedRedirectRequestedMeta, false)
 
 assert.equal(getWhatsappConfiguration(env).configured, true)
 assert.equal(getWhatsappConfiguration({}).configured, false)

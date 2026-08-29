@@ -27,11 +27,16 @@ export async function completeWhatsappEmbeddedSignup({
   code,
   env = process.env,
   fetchImpl = fetch,
+  redirectUri,
 }) {
   const config = getWhatsappConfiguration(env)
   const authorizationCode = clean(code)
+  const oauthRedirectUri = getWhatsappOauthRedirectUri(redirectUri)
 
   if (!authorizationCode) throw new WhatsappSignupError('Meta did not return an authorization code.', 400)
+  if (!oauthRedirectUri) {
+    throw new WhatsappSignupError('Meta did not provide the OAuth callback used for this authorization.', 400)
+  }
   if (!config.appSecret) {
     throw new WhatsappSignupError('WHATSAPP_APP_SECRET is not configured in Vercel.', 500)
   }
@@ -40,6 +45,7 @@ export async function completeWhatsappEmbeddedSignup({
   tokenUrl.searchParams.set('client_id', config.appId)
   tokenUrl.searchParams.set('client_secret', config.appSecret)
   tokenUrl.searchParams.set('code', authorizationCode)
+  tokenUrl.searchParams.set('redirect_uri', oauthRedirectUri)
 
   const tokenPayload = await requestMetaJson(tokenUrl, {}, fetchImpl)
   const accessToken = clean(tokenPayload?.access_token)
@@ -298,6 +304,18 @@ function getConfiguredWhatsappNumber(env) {
   const url = clean(env.VITE_CASAMIA_WHATSAPP_URL)
   return normaliseWhatsappRecipient(url.replace(/^.*wa\.me\//, '').split(/[?/#]/)[0])
     || defaultWhatsappPublicNumber
+}
+
+function getWhatsappOauthRedirectUri(value) {
+  try {
+    const url = new URL(clean(value))
+    const isMetaCallback = url.protocol === 'https:'
+      && ['staticxx.facebook.com', 'www.facebook.com'].includes(url.hostname)
+      && ['/x/connect/xd_arbiter/', '/connect/login_success.html'].includes(url.pathname)
+    return isMetaCallback ? url.href : ''
+  } catch {
+    return ''
+  }
 }
 
 function normaliseTimestamp(value) {
