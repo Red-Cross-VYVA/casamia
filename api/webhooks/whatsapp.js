@@ -1,4 +1,4 @@
-import { extractWhatsappStatuses, getWhatsappConfiguration, verifyWhatsappWebhookSignature } from '../_lib/whatsapp.js'
+import { extractWhatsappMessages, extractWhatsappStatuses, getWhatsappConfiguration, verifyWhatsappWebhookSignature } from '../_lib/whatsapp.js'
 import { selectSupabaseRows, sendJson, updateSupabaseRows } from '../_lib/supabase.js'
 
 export default async function handler(request, response, dependencies = {}) {
@@ -40,9 +40,29 @@ export default async function handler(request, response, dependencies = {}) {
   }
 
   const statuses = extractWhatsappStatuses(payload)
+  const messages = extractWhatsappMessages(payload)
   const applyStatus = dependencies.applyStatus ?? applyWhatsappStatus
   await Promise.all(statuses.map((status) => applyStatus(status)))
-  sendJson(response, 200, { received: true })
+  const applyMessage = dependencies.applyMessage ?? logInboundWhatsappMessage
+  await Promise.all(messages.map((message) => applyMessage(message)))
+  sendJson(response, 200, {
+    messages: messages.length,
+    received: true,
+    statuses: statuses.length,
+  })
+}
+
+function logInboundWhatsappMessage(message) {
+  console.info('[whatsapp-webhook] inbound message', {
+    at: message.at,
+    from: maskPhone(message.from),
+    messageId: message.messageId,
+    type: message.type,
+  })
+}
+
+function maskPhone(value) {
+  return value.length > 4 ? `${'*'.repeat(value.length - 4)}${value.slice(-4)}` : '****'
 }
 
 async function applyWhatsappStatus(status) {

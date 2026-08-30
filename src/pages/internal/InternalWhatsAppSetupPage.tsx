@@ -1,4 +1,4 @@
-import { CheckCircle2, LoaderCircle, MessageCircle, ShieldCheck } from 'lucide-react'
+import { CheckCircle2, LoaderCircle, MessageCircle, RefreshCw, Send, ShieldCheck } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
@@ -39,6 +39,34 @@ type EmbeddedSignupSessionEvent = {
   event?: 'CANCEL' | 'ERROR' | 'FINISH'
 }
 
+type WhatsappDiagnostics = {
+  apiVersion?: string
+  configured?: boolean
+  metaError?: string
+  phoneNumberId?: string
+  sender?: {
+    codeVerificationStatus?: string
+    displayPhoneNumber?: string
+    id?: string
+    qualityRating?: string
+    verifiedName?: string
+  }
+  signatureConfigured?: boolean
+  templates?: Record<'proposal' | 'report', Record<'en' | 'es', {
+    languageCode: string
+    templateName: string
+  }>>
+  webhookConfigured?: boolean
+  webhookUrl?: string
+  usingTestCredentials?: boolean
+}
+
+type WhatsappTestResult = {
+  messageId?: string
+  reason?: string
+  status?: string
+}
+
 declare global {
   interface Window {
     FB?: {
@@ -70,6 +98,14 @@ export function InternalWhatsAppSetupPage() {
   const [isStarting, setIsStarting] = useState(false)
   const [message, setMessage] = useState('Loading Meta Embedded Signup...')
   const [result, setResult] = useState<EmbeddedSignupResult>({})
+  const [diagnostics, setDiagnostics] = useState<WhatsappDiagnostics | null>(null)
+  const [diagnosticsError, setDiagnosticsError] = useState('')
+  const [isLoadingDiagnostics, setIsLoadingDiagnostics] = useState(false)
+  const [isSendingTest, setIsSendingTest] = useState(false)
+  const [testLanguage, setTestLanguage] = useState<'en' | 'es'>('en')
+  const [testMode, setTestMode] = useState<'connectivity' | 'proposal' | 'report'>('connectivity')
+  const [testRecipient, setTestRecipient] = useState('')
+  const [testResult, setTestResult] = useState<WhatsappTestResult | null>(null)
   const authorizationReceivedRef = useRef(false)
   const sessionFinishedRef = useRef(false)
   const transferTimeoutRef = useRef<number | null>(null)
@@ -117,6 +153,7 @@ export function InternalWhatsAppSetupPage() {
 
   useEffect(() => {
     document.title = 'WhatsApp Setup | CasaMia Operations'
+    void loadDiagnostics()
 
     const onSessionMessage = (event: MessageEvent) => {
       const payload = parseSessionEvent(event)
@@ -184,6 +221,48 @@ export function InternalWhatsAppSetupPage() {
       window.removeEventListener('message', onSessionMessage)
     }
   }, [])
+
+  async function loadDiagnostics() {
+    setIsLoadingDiagnostics(true)
+    setDiagnosticsError('')
+    try {
+      const response = await fetch(`${getPublicSiteApiBaseUrl()}/api/internal/whatsapp-testing`, {
+        headers: getInternalAuthHeaders(),
+      })
+      const payload = await response.json() as WhatsappDiagnostics & { message?: string }
+      if (!response.ok) throw new Error(payload.message || 'WhatsApp diagnostics could not be loaded.')
+      setDiagnostics(payload)
+    } catch (error) {
+      setDiagnosticsError(error instanceof Error ? error.message : 'WhatsApp diagnostics could not be loaded.')
+    } finally {
+      setIsLoadingDiagnostics(false)
+    }
+  }
+
+  async function sendTestMessage() {
+    setIsSendingTest(true)
+    setTestResult(null)
+    try {
+      const response = await fetch(`${getPublicSiteApiBaseUrl()}/api/internal/whatsapp-testing`, {
+        body: JSON.stringify({ language: testLanguage, mode: testMode, to: testRecipient }),
+        headers: {
+          'Content-Type': 'application/json',
+          ...getInternalAuthHeaders(),
+        },
+        method: 'POST',
+      })
+      const payload = await response.json() as { message?: string; result?: WhatsappTestResult }
+      const nextResult = payload.result ?? { reason: payload.message || 'The test message could not be sent.', status: 'failed' }
+      setTestResult(nextResult)
+    } catch (error) {
+      setTestResult({
+        reason: error instanceof Error ? error.message : 'The test message could not be sent.',
+        status: 'failed',
+      })
+    } finally {
+      setIsSendingTest(false)
+    }
+  }
 
   function startEmbeddedSignup() {
     if (!window.FB || !isReady) return
@@ -306,8 +385,120 @@ export function InternalWhatsAppSetupPage() {
             {result.error ? <p className="mt-4 font-bold text-red-700">{result.error}</p> : null}
           </article>
         ) : null}
+
+        <article className="rounded-lg border border-border bg-white p-6 shadow-soft md:p-8">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-green">Cloud API test</p>
+              <h2 className="mt-2 font-display text-2xl font-bold text-text-dark">Test WhatsApp without the live number</h2>
+              <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-text-mid">
+                Use Meta's test sender while the production-number permissions are under review. Connectivity uses Meta's standard English template; CasaMia templates can be checked in English or Spanish.
+              </p>
+            </div>
+            <button
+              aria-label="Refresh WhatsApp status"
+              className="btn btn-outline"
+              disabled={isLoadingDiagnostics}
+              type="button"
+              onClick={() => void loadDiagnostics()}
+            >
+              <RefreshCw className={isLoadingDiagnostics ? 'animate-spin' : ''} size={18} aria-hidden="true" />
+              Refresh
+            </button>
+          </div>
+
+          {diagnosticsError ? <p className="mt-5 font-bold text-red-700">{diagnosticsError}</p> : null}
+          {diagnostics ? (
+            <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-5">
+              <StatusField label="Cloud API" ready={diagnostics.configured} />
+              <StatusField
+                label="Sender mode"
+                ready={diagnostics.usingTestCredentials}
+                value={diagnostics.usingTestCredentials ? 'Meta test number' : 'Live fallback'}
+              />
+              <StatusField label="Webhook token" ready={diagnostics.webhookConfigured} />
+              <StatusField label="Signed webhook" ready={diagnostics.signatureConfigured} />
+              <StatusField
+                label="Meta sender"
+                ready={Boolean(diagnostics.sender?.id)}
+                value={diagnostics.sender?.displayPhoneNumber || diagnostics.metaError}
+              />
+            </dl>
+          ) : null}
+
+          <div className="mt-7 grid gap-5 border-t border-border pt-6 md:grid-cols-3">
+            <label className="text-sm font-extrabold text-text-dark">
+              Recipient number
+              <input
+                className="mt-2 w-full rounded-lg border border-border px-4 py-3 font-semibold"
+                inputMode="tel"
+                placeholder="+34 600 000 000"
+                type="tel"
+                value={testRecipient}
+                onChange={(event) => setTestRecipient(event.target.value)}
+              />
+            </label>
+            <label className="text-sm font-extrabold text-text-dark">
+              Test type
+              <select
+                className="mt-2 w-full rounded-lg border border-border bg-white px-4 py-3 font-semibold"
+                value={testMode}
+                onChange={(event) => setTestMode(event.target.value as typeof testMode)}
+              >
+                <option value="connectivity">Meta connectivity</option>
+                <option value="proposal">CasaMia proposal</option>
+                <option value="report">CasaMia safety report</option>
+              </select>
+            </label>
+            <label className="text-sm font-extrabold text-text-dark">
+              Language
+              <select
+                className="mt-2 w-full rounded-lg border border-border bg-white px-4 py-3 font-semibold"
+                disabled={testMode === 'connectivity'}
+                value={testMode === 'connectivity' ? 'en' : testLanguage}
+                onChange={(event) => setTestLanguage(event.target.value as typeof testLanguage)}
+              >
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+              </select>
+            </label>
+          </div>
+
+          <button
+            className="btn btn-green mt-5"
+            disabled={isSendingTest || !testRecipient.trim() || !diagnostics?.configured}
+            type="button"
+            onClick={() => void sendTestMessage()}
+          >
+            {isSendingTest ? <LoaderCircle className="animate-spin" size={18} aria-hidden="true" /> : <Send size={18} aria-hidden="true" />}
+            {isSendingTest ? 'Sending test...' : 'Send WhatsApp test'}
+          </button>
+
+          {testResult ? (
+            <div className={`mt-5 rounded-lg border px-4 py-4 text-sm font-bold ${testResult.messageId ? 'border-green/30 bg-green/10 text-text-dark' : 'border-red-200 bg-red-50 text-red-800'}`} role="status">
+              {testResult.messageId
+                ? `Accepted by Meta. Message ID: ${testResult.messageId}`
+                : testResult.reason || `Meta returned status: ${testResult.status || 'failed'}`}
+            </div>
+          ) : null}
+
+          {diagnostics?.webhookUrl ? (
+            <p className="mt-5 break-all text-xs font-semibold text-text-muted">Webhook: {diagnostics.webhookUrl}</p>
+          ) : null}
+        </article>
       </section>
     </InternalLayout>
+  )
+}
+
+function StatusField({ label, ready, value }: { label: string; ready?: boolean; value?: string }) {
+  return (
+    <div className="rounded-lg bg-pale-blue p-4">
+      <dt className="text-xs font-black uppercase tracking-wide text-text-muted">{label}</dt>
+      <dd className="mt-2 font-extrabold text-text-dark">
+        {ready ? 'Ready' : 'Needs setup'}{value ? ` · ${value}` : ''}
+      </dd>
+    </div>
   )
 }
 

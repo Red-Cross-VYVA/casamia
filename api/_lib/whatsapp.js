@@ -158,6 +158,18 @@ export async function sendWhatsappTemplate({
     return whatsappResult('template_not_configured', 'The WhatsApp template is not configured.')
   }
 
+  const parameters = bodyParameters.map((value) => clean(value))
+  const template = {
+    language: { code: clean(languageCode) },
+    name: clean(templateName),
+  }
+  if (parameters.length) {
+    template.components = [{
+      parameters: parameters.map((text) => ({ text, type: 'text' })),
+      type: 'body',
+    }]
+  }
+
   let response
   try {
     response = await fetchImpl(
@@ -166,14 +178,7 @@ export async function sendWhatsappTemplate({
         body: JSON.stringify({
           messaging_product: 'whatsapp',
           recipient_type: 'individual',
-          template: {
-            components: [{
-              parameters: bodyParameters.map((value) => ({ text: clean(value), type: 'text' })),
-              type: 'body',
-            }],
-            language: { code: clean(languageCode) },
-            name: clean(templateName),
-          },
+          template,
           to: recipient,
           type: 'template',
         }),
@@ -203,6 +208,57 @@ export async function sendWhatsappTemplate({
     provider: 'meta-whatsapp',
     recipient,
     status: 'sent',
+  }
+}
+
+export async function getWhatsappDiagnostics({ env = process.env, fetchImpl = fetch } = {}) {
+  const config = getWhatsappConfiguration(env)
+  const templates = {
+    proposal: {
+      en: getWhatsappTemplate(env, 'proposal', 'en'),
+      es: getWhatsappTemplate(env, 'proposal', 'es'),
+    },
+    report: {
+      en: getWhatsappTemplate(env, 'report', 'en'),
+      es: getWhatsappTemplate(env, 'report', 'es'),
+    },
+  }
+  const diagnostics = {
+    apiVersion: config.apiVersion,
+    appId: config.appId,
+    businessId: config.businessId,
+    configured: config.configured,
+    phoneNumberId: config.phoneNumberId,
+    signatureConfigured: Boolean(config.appSecret),
+    templates,
+    webhookConfigured: Boolean(config.verifyToken),
+  }
+
+  if (!config.configured) return diagnostics
+
+  const url = new URL(`https://graph.facebook.com/${config.apiVersion}/${config.phoneNumberId}`)
+  url.searchParams.set('fields', 'id,display_phone_number,verified_name,code_verification_status,quality_rating,platform_type')
+
+  try {
+    const payload = await requestMetaJson(url, {
+      headers: { Authorization: `Bearer ${config.accessToken}` },
+    }, fetchImpl)
+    return {
+      ...diagnostics,
+      sender: {
+        codeVerificationStatus: clean(payload?.code_verification_status),
+        displayPhoneNumber: clean(payload?.display_phone_number),
+        id: clean(payload?.id),
+        platformType: clean(payload?.platform_type),
+        qualityRating: clean(payload?.quality_rating),
+        verifiedName: clean(payload?.verified_name),
+      },
+    }
+  } catch (error) {
+    return {
+      ...diagnostics,
+      metaError: error instanceof Error ? error.message : 'Meta diagnostics could not be loaded.',
+    }
   }
 }
 
@@ -244,6 +300,26 @@ export function extractWhatsappStatuses(payload) {
       status: clean(status?.status),
     }))
     .filter((status) => status.messageId && ['sent', 'delivered', 'read', 'failed'].includes(status.status))
+}
+
+export function extractWhatsappMessages(payload) {
+  if (!payload || typeof payload !== 'object') return []
+
+  return (Array.isArray(payload.entry) ? payload.entry : [])
+    .flatMap((entry) => Array.isArray(entry?.changes) ? entry.changes : [])
+    .flatMap((change) => {
+      const value = change?.value
+      const contactName = clean(value?.contacts?.[0]?.profile?.name)
+      return (Array.isArray(value?.messages) ? value.messages : []).map((message) => ({
+        at: normaliseTimestamp(message?.timestamp),
+        contactName,
+        from: normaliseWhatsappRecipient(message?.from),
+        messageId: clean(message?.id),
+        text: clean(message?.text?.body).slice(0, 4_000),
+        type: clean(message?.type),
+      }))
+    })
+    .filter((message) => message.messageId && message.from && message.type)
 }
 
 function whatsappResult(status, reason) {

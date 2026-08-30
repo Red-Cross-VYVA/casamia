@@ -3,10 +3,13 @@ import crypto from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 
 import whatsappWebhookHandler from '../api/webhooks/whatsapp.js'
+import whatsappTestingHandler from '../api/internal/whatsapp-testing.js'
 import { queuePublicReport } from '../api/_lib/public-reports.js'
 import {
   completeWhatsappEmbeddedSignup,
+  extractWhatsappMessages,
   extractWhatsappStatuses,
+  getWhatsappDiagnostics,
   getWhatsappConfiguration,
   getWhatsappTemplate,
   normaliseWhatsappRecipient,
@@ -22,6 +25,8 @@ const env = {
   WHATSAPP_BUSINESS_ID: 'business-1',
   WHATSAPP_GRAPH_API_VERSION: 'v26.0',
   WHATSAPP_PHONE_NUMBER_ID: '123456789',
+  WHATSAPP_TEST_ACCESS_TOKEN: 'test-channel-token',
+  WHATSAPP_TEST_PHONE_NUMBER_ID: 'test-channel-phone',
   WHATSAPP_PUBLIC_PHONE_NUMBER: '34664338991',
   WHATSAPP_TEMPLATE_LANGUAGE_EN: 'en',
   WHATSAPP_TEMPLATE_LANGUAGE_ES: 'es',
@@ -99,6 +104,38 @@ assert.deepEqual(
   ['Ana', 'CM-123', 'https://www.casamia.com.es/proposal/token'],
 )
 
+let connectivityRequest
+const connectivityResult = await sendWhatsappTemplate({
+  bodyParameters: [],
+  env,
+  fetchImpl: async (_url, init) => {
+    connectivityRequest = JSON.parse(init.body)
+    return Response.json({ messages: [{ id: 'wamid.connectivity' }] })
+  },
+  languageCode: 'en_US',
+  templateName: 'hello_world',
+  to: '600 123 456',
+})
+assert.equal(connectivityResult.ok, true)
+assert.equal('components' in connectivityRequest.template, false)
+
+const diagnostics = await getWhatsappDiagnostics({
+  env,
+  fetchImpl: async (url, init) => {
+    assert.match(String(url), /123456789\?fields=/)
+    assert.equal(init.headers.Authorization, 'Bearer test-token')
+    return Response.json({
+      display_phone_number: '+1 555 667 6038',
+      id: '123456789',
+      quality_rating: 'GREEN',
+      verified_name: 'CasaMia Test',
+    })
+  },
+})
+assert.equal(diagnostics.configured, true)
+assert.equal(diagnostics.sender.displayPhoneNumber, '+1 555 667 6038')
+assert.equal(diagnostics.accessToken, undefined)
+
 assert.equal((await sendWhatsappTemplate({ env: {}, to: '600123456' })).status, 'not_configured')
 assert.equal((await sendWhatsappTemplate({ env, templateName: '', to: '600123456' })).status, 'template_not_configured')
 
@@ -116,6 +153,30 @@ const webhookPayload = {
     }],
   }],
 }
+const inboundPayload = {
+  entry: [{
+    changes: [{
+      value: {
+        contacts: [{ profile: { name: 'Ana' } }],
+        messages: [{
+          from: '34600123456',
+          id: 'wamid.inbound',
+          text: { body: 'Necesito ayuda con el baño.' },
+          timestamp: '1787927001',
+          type: 'text',
+        }],
+      },
+    }],
+  }],
+}
+assert.deepEqual(extractWhatsappMessages(inboundPayload)[0], {
+  at: new Date(1787927001 * 1_000).toISOString(),
+  contactName: 'Ana',
+  from: '34600123456',
+  messageId: 'wamid.inbound',
+  text: 'Necesito ayuda con el baño.',
+  type: 'text',
+})
 const rawWebhook = Buffer.from(JSON.stringify(webhookPayload))
 const signature = `sha256=${crypto.createHmac('sha256', env.WHATSAPP_APP_SECRET).update(rawWebhook).digest('hex')}`
 assert.equal(verifyWhatsappWebhookSignature(rawWebhook, signature, env), true)
@@ -149,6 +210,60 @@ await whatsappWebhookHandler({
 assert.equal(eventResponse.statusCode, 200)
 assert.equal(JSON.parse(eventResponse.body).received, true)
 assert.equal(appliedStatus.messageId, 'wamid.test-message')
+
+let appliedMessage
+const inboundRaw = Buffer.from(JSON.stringify(inboundPayload))
+const inboundSignature = `sha256=${crypto.createHmac('sha256', env.WHATSAPP_APP_SECRET).update(inboundRaw).digest('hex')}`
+const inboundResponse = responseRecorder()
+await whatsappWebhookHandler({
+  body: inboundRaw,
+  headers: { 'x-hub-signature-256': inboundSignature },
+  method: 'POST',
+}, inboundResponse, {
+  applyMessage: async (message) => { appliedMessage = message },
+  env,
+})
+assert.equal(inboundResponse.statusCode, 200)
+assert.equal(JSON.parse(inboundResponse.body).messages, 1)
+assert.equal(appliedMessage.messageId, 'wamid.inbound')
+
+process.env.CASAMIA_INTERNAL_API_KEY = 'whatsapp-test-key'
+const testingGetResponse = responseRecorder()
+await whatsappTestingHandler({
+  headers: { 'x-api-key': 'whatsapp-test-key' },
+  method: 'GET',
+}, testingGetResponse, {
+  env,
+  getDiagnostics: async ({ env: diagnosticsEnv }) => {
+    assert.equal(diagnosticsEnv.WHATSAPP_ACCESS_TOKEN, 'test-channel-token')
+    assert.equal(diagnosticsEnv.WHATSAPP_PHONE_NUMBER_ID, 'test-channel-phone')
+    return { configured: true, phoneNumberId: 'test-channel-phone' }
+  },
+})
+assert.equal(testingGetResponse.statusCode, 200)
+assert.equal(JSON.parse(testingGetResponse.body).configured, true)
+assert.equal(JSON.parse(testingGetResponse.body).usingTestCredentials, true)
+assert.equal(JSON.parse(testingGetResponse.body).accessToken, undefined)
+
+let adminTestSend
+const testingPostResponse = responseRecorder()
+await whatsappTestingHandler({
+  body: { language: 'en', mode: 'connectivity', to: '600 123 456' },
+  headers: { 'x-api-key': 'whatsapp-test-key' },
+  method: 'POST',
+}, testingPostResponse, {
+  env,
+  sendWhatsapp: async (request) => {
+    adminTestSend = request
+    return { messageId: 'wamid.admin-test', ok: true, status: 'sent' }
+  },
+})
+assert.equal(testingPostResponse.statusCode, 200)
+assert.equal(adminTestSend.templateName, 'hello_world')
+assert.equal(adminTestSend.languageCode, 'en_US')
+assert.equal(adminTestSend.env.WHATSAPP_ACCESS_TOKEN, 'test-channel-token')
+assert.equal(adminTestSend.env.WHATSAPP_PHONE_NUMBER_ID, 'test-channel-phone')
+assert.deepEqual(adminTestSend.bodyParameters, [])
 
 let storedReportPayload
 let reportSend
