@@ -12,11 +12,12 @@ export type CustomerCrmRecord = {
   nextAction: string
   nextActionDueAt: string
   owner: string
+  ownerEmail: string
   updatedAt: string
 }
 
 export type ManagedCustomerRecord = CustomerRecord & { crm: CustomerCrmRecord }
-export type CustomerCrmChanges = Pick<CustomerCrmRecord, 'internalNotes' | 'lifecycleStatus' | 'nextAction' | 'nextActionDueAt' | 'owner'>
+export type CustomerCrmChanges = Pick<CustomerCrmRecord, 'internalNotes' | 'lifecycleStatus' | 'nextAction' | 'nextActionDueAt' | 'owner' | 'ownerEmail'>
 
 export async function loadCustomerCrmRecords() {
   ensureAvailable()
@@ -63,6 +64,7 @@ function emptyCustomerCrm(customer: CustomerRecord): CustomerCrmRecord {
     nextAction: '',
     nextActionDueAt: '',
     owner: '',
+    ownerEmail: '',
     updatedAt: '',
   }
 }

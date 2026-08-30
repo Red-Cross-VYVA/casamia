@@ -42,6 +42,7 @@ export default async function handler(request, response) {
       next_action: clean(body.nextAction),
       next_action_due_at: body.nextActionDueAt || null,
       owner: clean(body.owner),
+      owner_email: clean(body.ownerEmail).toLowerCase(),
       updated_at: new Date().toISOString(),
     }
     const result = await upsertSupabaseRow('customer_crm_records', payload, 'customer_key')
@@ -56,6 +57,7 @@ function validate(body) {
   if (typeof body.customerKey !== 'string' || !body.customerKey.trim() || body.customerKey.length > 220) return 'A valid customer key is required.'
   if (!lifecycleStatuses.includes(body.lifecycleStatus)) return 'Choose a valid lifecycle status.'
   if (!validText(body.owner, 160)) return 'Owner is too long.'
+  if (!validText(body.ownerEmail, 254) || (body.ownerEmail && !isEmail(body.ownerEmail))) return 'Enter a valid owner email.'
   if (!validText(body.internalNotes, 8000)) return 'Internal notes are too long.'
   if (!validText(body.nextAction, 500)) return 'Next action is too long.'
   if (body.nextActionDueAt && Number.isNaN(Date.parse(body.nextActionDueAt))) return 'Choose a valid next action due date.'
@@ -64,6 +66,7 @@ function validate(body) {
 
 function validText(value, max) { return value == null || (typeof value === 'string' && value.length <= max) }
 function clean(value) { return typeof value === 'string' ? value.trim() : '' }
+function isEmail(value) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean(value)) }
 function mapRecord(row) {
   return {
     customerKey: row.customer_key,
@@ -72,6 +75,7 @@ function mapRecord(row) {
     nextAction: row.next_action || '',
     nextActionDueAt: row.next_action_due_at || '',
     owner: row.owner || '',
+    ownerEmail: row.owner_email || '',
     updatedAt: row.updated_at || '',
   }
 }

@@ -446,6 +446,7 @@ function jsonResponse(body, status = 200) {
     newAssessments: 1,
     newCustomerPlans: 1,
     openCallbacks: 1,
+    overdueFollowUps: 0,
     pendingProposals: 1,
     providerLeads: 1,
   })

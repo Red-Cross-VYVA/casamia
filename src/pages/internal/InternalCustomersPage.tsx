@@ -234,6 +234,7 @@ function CustomerDetail({ customer, onSave }: { customer: ManagedCustomerRecord;
       </div>
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
         <Field label="Owner"><input className="form-input" maxLength={160} placeholder="Team member or role" value={form.owner} onChange={(event) => setForm({ ...form, owner: event.target.value })} /></Field>
+        <Field label="Owner email"><input className="form-input" maxLength={254} placeholder="name@company.com" type="email" value={form.ownerEmail} onChange={(event) => setForm({ ...form, ownerEmail: event.target.value })} /></Field>
         <Field label="Lifecycle status"><select className="form-input" value={form.lifecycleStatus} onChange={(event) => setForm({ ...form, lifecycleStatus: event.target.value as CustomerCrmChanges['lifecycleStatus'] })}>{customerLifecycleStatuses.map((status) => <option key={status}>{status}</option>)}</select></Field>
         <Field label="Next action"><input className="form-input" maxLength={500} placeholder="What needs to happen next?" value={form.nextAction} onChange={(event) => setForm({ ...form, nextAction: event.target.value })} /></Field>
         <Field label="Due date and time"><input className="form-input" type="datetime-local" value={form.nextActionDueAt} onChange={(event) => setForm({ ...form, nextActionDueAt: event.target.value })} /></Field>
@@ -267,7 +268,7 @@ function ActionRow({ action }: { action: CustomerAction }) {
 function StageBadge({ stage }: { stage: CustomerStage }) { return <span className={`inline-flex shrink-0 rounded-full border px-3 py-1 text-[11px] font-black uppercase ${stageClasses[stage]}`}>{stage}</span> }
 function Detail({ label, value }: { label: string; value: string }) { return <div><dt className="text-[11px] font-black uppercase text-text-muted">{label}</dt><dd className="mt-1 break-words text-sm font-black text-text-dark">{value || 'Not provided'}</dd></div> }
 function Field({ children, label }: { children: React.ReactNode; label: string }) { return <label className="grid gap-2 text-xs font-black uppercase text-text-muted"><span>{label}</span>{children}</label> }
-function crmChanges(record: CustomerCrmRecord): CustomerCrmChanges { return { internalNotes: record.internalNotes, lifecycleStatus: record.lifecycleStatus, nextAction: record.nextAction, nextActionDueAt: fromIsoDate(record.nextActionDueAt), owner: record.owner } }
+function crmChanges(record: CustomerCrmRecord): CustomerCrmChanges { return { internalNotes: record.internalNotes, lifecycleStatus: record.lifecycleStatus, nextAction: record.nextAction, nextActionDueAt: fromIsoDate(record.nextActionDueAt), owner: record.owner, ownerEmail: record.ownerEmail } }
 function fromIsoDate(value: string) { const date = new Date(value); if (!value || Number.isNaN(date.getTime())) return ''; const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000); return local.toISOString().slice(0, 16) }
 function toIsoDate(value: string) { if (!value) return ''; const date = new Date(value); return Number.isNaN(date.getTime()) ? '' : date.toISOString() }
 function formatDate(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? 'No date' : new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(date) }

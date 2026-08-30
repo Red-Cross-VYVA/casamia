@@ -35,6 +35,9 @@ globalThis.fetch = async (url, init) => {
   if (init.method === 'GET' && address.includes('contact_requests?type=eq.callback_request')) {
     return json([])
   }
+  if (init.method === 'GET' && address.includes('customer_crm_records?select=')) {
+    return json([])
+  }
   if (init.method === 'GET' && address.includes(`assessment_requests?id=eq.${record.id}`)) {
     return json([{ id: record.id, payload_json: record.payload_json }])
   }

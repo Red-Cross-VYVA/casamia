@@ -12,7 +12,7 @@ let lastRequest
 globalThis.fetch = async (url, init) => {
   lastRequest = { init, url: String(url) }
   if (init.method === 'GET') return jsonResponse([])
-  if (init.method === 'POST') return jsonResponse([{ customer_key: 'email:maria@example.com', lifecycle_status: 'Contacted', owner: 'Karim', internal_notes: 'Called customer', next_action: 'Book visit', next_action_due_at: '2026-09-01T08:00:00.000Z', updated_at: '2026-08-30T12:00:00.000Z' }])
+  if (init.method === 'POST') return jsonResponse([{ customer_key: 'email:maria@example.com', lifecycle_status: 'Contacted', owner: 'Karim', owner_email: 'karim@example.com', internal_notes: 'Called customer', next_action: 'Book visit', next_action_due_at: '2026-09-01T08:00:00.000Z', updated_at: '2026-08-30T12:00:00.000Z' }])
   throw new Error(`Unexpected request ${init.method}`)
 }
 
@@ -30,11 +30,12 @@ globalThis.fetch = async (url, init) => {
 
 {
   const response = makeResponse()
-  await handler(makeRequest('PATCH', { customerKey: 'email:maria@example.com', lifecycleStatus: 'Contacted', owner: 'Karim', internalNotes: 'Called customer', nextAction: 'Book visit', nextActionDueAt: '2026-09-01T08:00:00.000Z' }, true), response)
+  await handler(makeRequest('PATCH', { customerKey: 'email:maria@example.com', lifecycleStatus: 'Contacted', owner: 'Karim', ownerEmail: 'karim@example.com', internalNotes: 'Called customer', nextAction: 'Book visit', nextActionDueAt: '2026-09-01T08:00:00.000Z' }, true), response)
   assert.equal(response.statusCode, 200)
   assert.match(lastRequest.url, /customer_crm_records\?on_conflict=customer_key/)
   const saved = JSON.parse(response.body).customer
   assert.equal(saved.owner, 'Karim')
+  assert.equal(saved.ownerEmail, 'karim@example.com')
   assert.equal(saved.nextAction, 'Book visit')
 }
 

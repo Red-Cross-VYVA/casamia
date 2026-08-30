@@ -3,11 +3,15 @@ create table if not exists public.customer_crm_records (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   owner text not null default '',
+  owner_email text not null default '',
   lifecycle_status text not null default 'New',
   internal_notes text not null default '',
   next_action text not null default '',
   next_action_due_at timestamptz
 );
+
+alter table public.customer_crm_records
+  add column if not exists owner_email text not null default '';
 
 create index if not exists customer_crm_records_due_at_idx
   on public.customer_crm_records (next_action_due_at)
@@ -15,4 +19,3 @@ create index if not exists customer_crm_records_due_at_idx
 
 create index if not exists customer_crm_records_status_idx
   on public.customer_crm_records (lifecycle_status);
-
