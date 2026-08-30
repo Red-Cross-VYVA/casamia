@@ -44,6 +44,7 @@
     "test:visit-scheduling": "node scripts/visit-scheduling-tests.mjs",
     "test:callback": "node --experimental-strip-types scripts/callback-request-tests.mjs",
     "test:callbacks-admin": "node scripts/internal-callback-tests.mjs",
+    "test:customers": "node --experimental-strip-types scripts/customer-timeline-tests.mjs",
     "test:voice": "node scripts/voice-assistant-tests.mjs",
     "test:tech": "node scripts/tech-page-tests.mjs",
     "test:wizard": "node --experimental-strip-types scripts/home-safety-wizard-tests.mjs",

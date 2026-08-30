@@ -2,6 +2,7 @@ import {
   AudioLines,
   ClipboardList,
   ClipboardCheck,
+  ContactRound,
   DatabaseZap,
   FileSignature,
   FileText,
@@ -26,6 +27,7 @@ import { voiceAssistantFeatureEnabled } from '../../services/voiceAssistant'
 
 const internalLinks = [
   { label: 'Dashboard', to: '/internal', icon: LayoutDashboard },
+  { label: 'Customer records', to: '/internal/customers', icon: ContactRound },
   { label: 'Lead pipeline', to: '/internal/leads', icon: UsersRound },
   { label: 'Callback requests', to: '/internal/callbacks', icon: PhoneCall },
   { label: 'Assessment requests', to: '/internal/visits', icon: Route },
