@@ -38,10 +38,7 @@ const signupResult = await completeWhatsappEmbeddedSignup({
 
     if (parsedUrl.pathname.endsWith('/oauth/access_token')) {
       assert.equal(parsedUrl.searchParams.get('client_secret'), 'test-app-secret')
-      assert.equal(
-        parsedUrl.searchParams.get('redirect_uri'),
-        'https://www.facebook.com/connect/login_success.html',
-      )
+      assert.equal(parsedUrl.searchParams.has('redirect_uri'), false)
       return Response.json({ access_token: 'embedded-token' })
     }
     if (parsedUrl.pathname.endsWith('/me/businesses')) return Response.json({ data: [{ id: 'business-1' }] })
