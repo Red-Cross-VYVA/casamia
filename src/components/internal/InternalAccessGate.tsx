@@ -5,10 +5,13 @@ import {
   hasInternalAuthSession,
   isLocalInternalDemoAvailable,
   loginInternalAdmin,
+  loginMetaReviewer,
   startLocalInternalDemoSession,
 } from '../../services/internalAuth'
 
 export function InternalAccessGate({ children }: { children: ReactNode }) {
+  const isMetaReview = typeof window !== 'undefined'
+    && new URLSearchParams(window.location.search).get('review') === 'meta'
   const [hasAccess, setHasAccess] = useState(() => hasInternalAuthSession())
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -20,7 +23,7 @@ export function InternalAccessGate({ children }: { children: ReactNode }) {
     setError('')
 
     try {
-      await loginInternalAdmin(password)
+      await (isMetaReview ? loginMetaReviewer(password) : loginInternalAdmin(password))
       setHasAccess(true)
     } catch (authError) {
       setError(authError instanceof Error ? authError.message : 'Unable to verify admin access.')
@@ -60,15 +63,21 @@ export function InternalAccessGate({ children }: { children: ReactNode }) {
           <form className="p-8 md:p-10" onSubmit={handleSubmit}>
             <div className="inline-flex items-center gap-2 rounded-full bg-pale-blue px-4 py-2 text-sm font-black uppercase tracking-wide text-blue">
               <LockKeyhole size={17} aria-hidden="true" />
-              Admin only
+              {isMetaReview ? 'Meta reviewer' : 'Admin only'}
             </div>
-            <h2 className="mt-8 font-display text-4xl font-bold text-text-dark">Enter the admin password.</h2>
+            <h2 className="mt-8 font-display text-4xl font-bold text-text-dark">
+              {isMetaReview ? 'Enter the reviewer password.' : 'Enter the admin password.'}
+            </h2>
             <p className="mt-3 text-base font-bold leading-relaxed text-text-muted">
-              This keeps the internal tools separate from the public CasaMia site.
+              {isMetaReview
+                ? 'This restricted session opens only the WhatsApp setup evidence required for Meta review.'
+                : 'This keeps the internal tools separate from the public CasaMia site.'}
             </p>
 
             <label className="mt-8 grid gap-2">
-              <span className="text-xs font-black uppercase tracking-wide text-text-muted">Admin password</span>
+              <span className="text-xs font-black uppercase tracking-wide text-text-muted">
+                {isMetaReview ? 'Reviewer password' : 'Admin password'}
+              </span>
               <input
                 className="min-h-14 rounded-lg border border-border bg-light-blue/40 px-4 text-lg font-bold text-text-dark outline-none transition focus:border-blue focus:bg-white"
                 autoComplete="current-password"
@@ -87,7 +96,7 @@ export function InternalAccessGate({ children }: { children: ReactNode }) {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <button className="btn btn-navy" type="submit" disabled={isSubmitting || password.trim().length === 0}>
-                {isSubmitting ? 'Checking...' : 'Enter internal panel'}
+                {isSubmitting ? 'Checking...' : isMetaReview ? 'Open review screen' : 'Enter internal panel'}
               </button>
               {isLocalInternalDemoAvailable() ? (
                 <button className="btn btn-white" type="button" onClick={handleLocalDemo}>

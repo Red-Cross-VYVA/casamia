@@ -21,6 +21,7 @@ const protectedRoutes = [
   'api/internal/visit-appointments.js',
   'api/internal/visit-availability.js',
   'api/internal/voice-preview.js',
+  'api/internal/whatsapp-embedded-signup.js',
   'api/partner/agreements.js',
   'api/partner/leads.js',
   'api/proposals.js',

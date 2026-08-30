@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { InternalSidebar } from './InternalSidebar'
+import { isMetaReviewerSession } from '../../services/internalAuth'
 
 export function InternalLayout({
   actions,
@@ -13,9 +14,11 @@ export function InternalLayout({
   subtitle?: string
   title: string
 }) {
+  const isReviewer = isMetaReviewerSession()
+
   return (
-    <div className="min-h-screen bg-pale-blue text-text-mid lg:grid lg:grid-cols-[280px_minmax(0,1fr)]">
-      <InternalSidebar />
+    <div className={`min-h-screen bg-pale-blue text-text-mid ${isReviewer ? '' : 'lg:grid lg:grid-cols-[280px_minmax(0,1fr)]'}`}>
+      {isReviewer ? null : <InternalSidebar />}
       <div className="min-w-0">
         <header className="border-b border-border bg-white/95 px-5 py-5 shadow-[0_8px_24px_rgba(13,30,46,0.05)] lg:px-8">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">

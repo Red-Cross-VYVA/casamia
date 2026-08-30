@@ -6,8 +6,10 @@ import { fileURLToPath } from 'node:url'
 import {
   createInternalSessionToken,
   createPartnerSessionToken,
+  createReviewerSessionToken,
   getPartnerCredentialConfiguration,
   requireInternalApiKey,
+  requireInternalOrReviewer,
   requirePartnerApiKey,
   verifyPartnerCredentials,
 } from '../api/_lib/supabase.js'
@@ -20,6 +22,7 @@ const originalEnvironment = {
   CASAMIA_INTERNAL_SESSION_SECRET: process.env.CASAMIA_INTERNAL_SESSION_SECRET,
   CASAMIA_INTERNAL_USERNAME: process.env.CASAMIA_INTERNAL_USERNAME,
   CASAMIA_PARTNER_PASSWORD: process.env.CASAMIA_PARTNER_PASSWORD,
+  CASAMIA_META_REVIEW_PASSWORD: process.env.CASAMIA_META_REVIEW_PASSWORD,
   CASAMIA_PARTNER_EMAIL: process.env.CASAMIA_PARTNER_EMAIL,
   CASAMIA_PARTNER_CREDENTIALS: process.env.CASAMIA_PARTNER_CREDENTIALS,
   CASAMIA_PROVIDER_PASSWORD: process.env.CASAMIA_PROVIDER_PASSWORD,
@@ -106,6 +109,11 @@ try {
 
   const appSource = await readFile(resolve(projectRoot, 'src/App.tsx'), 'utf8')
   assert.match(appSource, /function InternalRoute[\s\S]*?<InternalAccessGate>/)
+  assert.match(
+    appSource,
+    /isMetaReviewerSession\(\)[\s\S]*location\.pathname !== '\/internal\/whatsapp-setup'[\s\S]*<Navigate/,
+    'Meta reviewer sessions must be restricted to the WhatsApp setup page.',
+  )
   assert.match(
     appSource,
     /function InternalRoute[\s\S]*<SEO[\s\S]*noindex[\s\S]*<InternalAccessGate>/,
@@ -201,6 +209,30 @@ try {
   const unauthorizedResponse = createApiResponse()
   assert.equal(requireInternalApiKey({ headers: {} }, unauthorizedResponse), false)
   assert.equal(unauthorizedResponse.statusCode, 401)
+
+  const { token: reviewerToken, role: reviewerRole } = createReviewerSessionToken()
+  assert.equal(reviewerRole, 'reviewer')
+
+  const reviewerResponse = createApiResponse()
+  assert.equal(
+    requireInternalOrReviewer(
+      { headers: { authorization: `Bearer ${reviewerToken}` } },
+      reviewerResponse,
+    ),
+    true,
+    'A signed reviewer session should authorize the Meta review endpoint.',
+  )
+
+  const reviewerOnAdminResponse = createApiResponse()
+  assert.equal(
+    requireInternalApiKey(
+      { headers: { authorization: `Bearer ${reviewerToken}` } },
+      reviewerOnAdminResponse,
+    ),
+    false,
+    'A Meta reviewer session must not authorize general admin APIs.',
+  )
+  assert.equal(reviewerOnAdminResponse.statusCode, 401)
 
   const { token: partnerToken, partnerEmail, role } = createPartnerSessionToken('PARTNER@EXAMPLE.COM')
   assert.equal(partnerEmail, 'partner@example.com')

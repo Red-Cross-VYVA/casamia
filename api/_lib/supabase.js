@@ -51,8 +51,29 @@ export function requireInternalApiKey(request, response) {
   return true
 }
 
+export function requireInternalOrReviewer(request, response) {
+  const expectedApiKey = process.env.CASAMIA_INTERNAL_API_KEY
+  const suppliedApiKey = getRequestHeader(request, 'x-api-key')
+  const authorization = getRequestHeader(request, 'authorization')
+  const bearerToken = authorization?.startsWith('Bearer ') ? authorization.slice('Bearer '.length) : ''
+  const session = verifySessionToken(bearerToken)
+
+  if (expectedApiKey && suppliedApiKey === expectedApiKey) return true
+
+  if (!session || !['internal', 'reviewer'].includes(session.role)) {
+    sendJson(response, 401, { message: 'Unauthorized.' })
+    return false
+  }
+
+  return true
+}
+
 export function createInternalSessionToken() {
   return createSessionToken({ role: 'internal' })
+}
+
+export function createReviewerSessionToken() {
+  return createSessionToken({ role: 'reviewer' })
 }
 
 export function createPartnerSessionToken(partnerEmail) {
@@ -212,6 +233,16 @@ export function verifyInternalPassword(password) {
   return safeEqual(password, expectedPassword)
 }
 
+export function verifyMetaReviewerPassword(password) {
+  const expectedPassword = process.env.CASAMIA_META_REVIEW_PASSWORD
+
+  if (!expectedPassword || typeof password !== 'string') {
+    return false
+  }
+
+  return safeEqual(password, expectedPassword)
+}
+
 function getVerifiedSessionFromRequest(request) {
   const authorization = getRequestHeader(request, 'authorization')
   const bearerToken = authorization?.startsWith('Bearer ') ? authorization.slice('Bearer '.length) : ''
@@ -244,7 +275,7 @@ function verifySessionToken(token) {
 
   try {
     const parsed = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'))
-    const role = parsed.role === 'partner' ? 'partner' : parsed.role === 'internal' ? 'internal' : ''
+    const role = ['internal', 'partner', 'reviewer'].includes(parsed.role) ? parsed.role : ''
     const partnerEmail = normalizeEmail(parsed.partnerEmail)
 
     if (!role || typeof parsed.exp !== 'number' || parsed.exp <= Date.now()) {

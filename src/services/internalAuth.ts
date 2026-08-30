@@ -8,7 +8,7 @@ type InternalAuthSession = {
   expiresAt: string
   localDemo?: boolean
   partnerEmail?: string
-  role?: 'internal' | 'partner'
+  role?: 'internal' | 'partner' | 'reviewer'
   token: string
 }
 
@@ -46,6 +46,10 @@ export function hasInternalBackendSession() {
   const session = getInternalAuthSession()
 
   return Boolean(session && !session.localDemo)
+}
+
+export function isMetaReviewerSession() {
+  return getInternalAuthSession()?.role === 'reviewer'
 }
 
 export function getPartnerAuthSession() {
@@ -104,6 +108,21 @@ export async function loginInternalAdmin(password: string) {
   const session = (await response.json()) as InternalAuthSession
   saveInternalAuthSession(session)
 
+  return session
+}
+
+export async function loginMetaReviewer(password: string) {
+  const apiBaseUrl = getPublicSiteApiBaseUrl()
+  const response = await fetch(`${apiBaseUrl}/api/internal/login`, {
+    body: JSON.stringify({ password, review: 'meta' }),
+    headers: { 'content-type': 'application/json' },
+    method: 'POST',
+  })
+
+  if (!response.ok) throw new Error(await readAuthError(response))
+
+  const session = (await response.json()) as InternalAuthSession
+  saveInternalAuthSession(session)
   return session
 }
 

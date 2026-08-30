@@ -20,6 +20,7 @@ import { PartnerAccessGate } from './components/partner/PartnerAccessGate'
 import { PreferredLanguageSync } from './components/PreferredLanguageSync'
 import { SEO } from './components/SEO'
 import { StickyMobileCTA } from './components/StickyMobileCTA'
+import { isMetaReviewerSession } from './services/internalAuth'
 
 const AboutPage = lazy(() => import('./pages/AboutPage').then(({ AboutPage }) => ({ default: AboutPage })))
 const AssistedLivingSolutionsPage = lazy(() =>
@@ -254,6 +255,10 @@ function LegacyResourceRedirect() {
 
 function InternalRoute({ children }: { children: ReactNode }) {
   const location = useLocation()
+
+  if (isMetaReviewerSession() && location.pathname !== '/internal/whatsapp-setup') {
+    return <Navigate to="/internal/whatsapp-setup?review=meta" replace />
+  }
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { readJsonBody, requireInternalApiKey, sendJson } from '../_lib/supabase.js'
+import { readJsonBody, requireInternalOrReviewer, sendJson } from '../_lib/supabase.js'
 import { completeWhatsappEmbeddedSignup, WhatsappSignupError } from '../_lib/whatsapp.js'
 
 export default async function handler(request, response) {
@@ -12,7 +12,7 @@ export default async function handler(request, response) {
     return
   }
 
-  if (!requireInternalApiKey(request, response)) return
+  if (!requireInternalOrReviewer(request, response)) return
   if (request.method !== 'POST') {
     sendJson(response, 405, { message: 'Method not allowed.' })
     return

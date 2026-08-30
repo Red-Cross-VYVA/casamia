@@ -1,9 +1,11 @@
 import {
   createInternalSessionToken,
+  createReviewerSessionToken,
   readJsonBody,
   requirePost,
   sendJson,
   verifyInternalPassword,
+  verifyMetaReviewerPassword,
 } from '../_lib/supabase.js'
 
 export default async function handler(request, response) {
@@ -20,6 +22,16 @@ export default async function handler(request, response) {
 
   try {
     const body = await readJsonBody(request)
+
+    if (body.review === 'meta') {
+      if (!verifyMetaReviewerPassword(body.password)) {
+        sendJson(response, 401, { message: 'Incorrect reviewer password.' })
+        return
+      }
+
+      sendJson(response, 200, createReviewerSessionToken())
+      return
+    }
 
     if (!verifyInternalPassword(body.password)) {
       sendJson(response, 401, { message: 'Incorrect admin password.' })
