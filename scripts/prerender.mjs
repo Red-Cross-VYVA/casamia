@@ -14,6 +14,7 @@ const protectedAppShellRoutes = [
   '/partner',
   '/partner/login',
   '/internal',
+  '/internal/customers',
   '/internal/leads',
   '/internal/callbacks',
   '/internal/visits',

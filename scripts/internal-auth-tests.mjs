@@ -172,6 +172,11 @@ try {
   const prerenderSource = await readFile(resolve(projectRoot, 'scripts/prerender.mjs'), 'utf8')
   assert.match(
     prerenderSource,
+    /'\/internal\/customers'/,
+    'The customer workspace must have a generated protected app shell for direct production navigation.',
+  )
+  assert.match(
+    prerenderSource,
     /'\/internal\/leads'/,
     'The lead pipeline must have a generated protected app shell for direct production navigation.',
   )
