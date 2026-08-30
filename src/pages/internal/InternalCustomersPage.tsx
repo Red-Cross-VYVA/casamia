@@ -18,6 +18,15 @@ import { Link } from 'react-router-dom'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import { StatCard } from '../../components/internal/StatCard'
+import {
+  applyCustomerCrm,
+  customerLifecycleStatuses,
+  loadCustomerCrmRecords,
+  updateCustomerCrmRecord,
+  type CustomerCrmChanges,
+  type CustomerCrmRecord,
+  type ManagedCustomerRecord,
+} from '../../services/customerCrm'
 import { buildCustomerRecords, type CustomerAction, type CustomerRecord, type CustomerStage } from '../../services/customerTimeline'
 import { loadInternalAssessmentRequests } from '../../services/internalAssessments'
 import { loadInternalCallbackRequests } from '../../services/internalCallbacks'
@@ -39,7 +48,8 @@ const stageClasses: Record<CustomerStage, string> = {
 }
 
 export function InternalCustomersPage() {
-  const [customers, setCustomers] = useState<CustomerRecord[]>([])
+  const [baseCustomers, setBaseCustomers] = useState<CustomerRecord[]>([])
+  const [crmRecords, setCrmRecords] = useState<CustomerCrmRecord[]>([])
   const [selectedId, setSelectedId] = useState('')
   const [filter, setFilter] = useState<ViewFilter>('Needs action')
   const [query, setQuery] = useState('')
@@ -49,12 +59,13 @@ export function InternalCustomersPage() {
   const refresh = useCallback(async () => {
     setIsLoading(true)
     setMessages([])
-    const [leads, assessments, callbacks, orders, proposals] = await Promise.allSettled([
+    const [leads, assessments, callbacks, orders, proposals, crm] = await Promise.allSettled([
       loadInternalLeads(),
       loadInternalAssessmentRequests(),
       loadInternalCallbackRequests(),
       loadInternalOrders(),
       loadProposalsWithFallback(),
+      loadCustomerCrmRecords(),
     ])
 
     const notices: string[] = []
@@ -76,10 +87,26 @@ export function InternalCustomersPage() {
       orders: orderResult.orders,
       proposals: proposalResult.source === 'backend' ? proposalResult.proposals : [],
     })
-    setCustomers(records)
+    if (crm.status === 'rejected') notices.push(crm.reason instanceof Error ? crm.reason.message : 'Customer operations data is unavailable.')
+    setBaseCustomers(records)
+    setCrmRecords(crm.status === 'fulfilled' ? crm.value.customers : [])
     setMessages(Array.from(new Set(notices)))
-    setSelectedId((current) => records.some((record) => record.id === current) ? current : records[0]?.id ?? '')
+    const hashId = typeof window === 'undefined' ? '' : decodeURIComponent(window.location.hash.slice(1))
+    setSelectedId((current) => records.some((record) => record.id === current)
+      ? current
+      : records.some((record) => record.id === hashId) ? hashId : records[0]?.id ?? '')
     setIsLoading(false)
+  }, [])
+
+  const customers = useMemo(() => {
+    const records = new Map(crmRecords.map((record) => [record.customerKey, record]))
+    return baseCustomers.map((customer) => applyCustomerCrm(customer, records.get(customer.id)))
+  }, [baseCustomers, crmRecords])
+
+  const saveCustomer = useCallback(async (customerKey: string, changes: CustomerCrmChanges) => {
+    const saved = await updateCustomerCrmRecord(customerKey, changes)
+    setCrmRecords((current) => [...current.filter((record) => record.customerKey !== customerKey), saved])
+    return saved
   }, [])
 
   useEffect(() => {
@@ -141,14 +168,14 @@ export function InternalCustomersPage() {
               {isLoading ? <p className="p-10 text-center font-bold text-text-muted">Loading customer records...</p> : null}
             </div>
           </div>
-          {selectedCustomer ? <CustomerDetail customer={selectedCustomer} /> : <div className="grid place-items-center p-10 text-center font-bold text-text-muted"><div><UserRound className="mx-auto mb-3" size={28} /><p>Select a customer to review their history.</p></div></div>}
+          {selectedCustomer ? <CustomerDetail customer={selectedCustomer} onSave={saveCustomer} /> : <div className="grid place-items-center p-10 text-center font-bold text-text-muted"><div><UserRound className="mx-auto mb-3" size={28} /><p>Select a customer to review their history.</p></div></div>}
         </div>
       </section>
     </InternalLayout>
   )
 }
 
-function CustomerListItem({ customer, onSelect, selected }: { customer: CustomerRecord; onSelect: () => void; selected: boolean }) {
+function CustomerListItem({ customer, onSelect, selected }: { customer: ManagedCustomerRecord; onSelect: () => void; selected: boolean }) {
   const nextAction = customer.actions[0]
   return <button className={`block w-full border-b border-border p-5 text-left transition ${selected ? 'bg-light-blue' : 'hover:bg-pale-blue/45'}`} type="button" onClick={onSelect}>
     <div className="flex items-start justify-between gap-3">
@@ -160,7 +187,29 @@ function CustomerListItem({ customer, onSelect, selected }: { customer: Customer
   </button>
 }
 
-function CustomerDetail({ customer }: { customer: CustomerRecord }) {
+function CustomerDetail({ customer, onSave }: { customer: ManagedCustomerRecord; onSave: (customerKey: string, changes: CustomerCrmChanges) => Promise<CustomerCrmRecord> }) {
+  const [form, setForm] = useState<CustomerCrmChanges>(() => crmChanges(customer.crm))
+  const [saveMessage, setSaveMessage] = useState('')
+  const [isSaving, setIsSaving] = useState(false)
+
+  useEffect(() => {
+    setForm(crmChanges(customer.crm))
+    setSaveMessage('')
+  }, [customer.id, customer.crm])
+
+  async function save() {
+    setIsSaving(true)
+    setSaveMessage('')
+    try {
+      await onSave(customer.id, { ...form, nextActionDueAt: toIsoDate(form.nextActionDueAt) })
+      setSaveMessage('Customer operations updated.')
+    } catch (error) {
+      setSaveMessage(error instanceof Error ? error.message : 'Customer operations could not be updated.')
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   const whatsapp = customer.phone ? `https://wa.me/${customer.phone.replace(/\D/g, '')}?text=${encodeURIComponent(`Hello ${customer.name || ''}, this is CasaMia following up on your home safety enquiry.`)}` : ''
   return <div className="p-5 lg:p-7">
     <div className="flex flex-col gap-4 border-b border-border pb-5 sm:flex-row sm:items-start sm:justify-between">
@@ -177,6 +226,21 @@ function CustomerDetail({ customer }: { customer: CustomerRecord }) {
     <dl className="mt-5 grid gap-4 bg-pale-blue/60 p-5 sm:grid-cols-2">
       <Detail label="Phone" value={customer.phone} /><Detail label="Email" value={customer.email} /><Detail label="Area" value={customer.city} /><Detail label="Plan" value={customer.plan} />
     </dl>
+
+    <section className="mt-7 border-y border-border py-7">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div><p className="text-xs font-black uppercase text-blue">Internal operations</p><h3 className="mt-1 font-display text-2xl font-bold text-text-dark">Ownership and next step</h3></div>
+        <button className="btn btn-navy" disabled={isSaving} type="button" onClick={() => void save()}>{isSaving ? 'Saving...' : 'Save changes'}</button>
+      </div>
+      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        <Field label="Owner"><input className="form-input" maxLength={160} placeholder="Team member or role" value={form.owner} onChange={(event) => setForm({ ...form, owner: event.target.value })} /></Field>
+        <Field label="Lifecycle status"><select className="form-input" value={form.lifecycleStatus} onChange={(event) => setForm({ ...form, lifecycleStatus: event.target.value as CustomerCrmChanges['lifecycleStatus'] })}>{customerLifecycleStatuses.map((status) => <option key={status}>{status}</option>)}</select></Field>
+        <Field label="Next action"><input className="form-input" maxLength={500} placeholder="What needs to happen next?" value={form.nextAction} onChange={(event) => setForm({ ...form, nextAction: event.target.value })} /></Field>
+        <Field label="Due date and time"><input className="form-input" type="datetime-local" value={form.nextActionDueAt} onChange={(event) => setForm({ ...form, nextActionDueAt: event.target.value })} /></Field>
+        <div className="sm:col-span-2"><Field label="Internal notes"><textarea className="form-input min-h-28 resize-y" maxLength={8000} placeholder="Private operational context, calls and decisions" value={form.internalNotes} onChange={(event) => setForm({ ...form, internalNotes: event.target.value })} /></Field></div>
+      </div>
+      {saveMessage ? <p className={`mt-4 text-sm font-black ${saveMessage.includes('updated') ? 'text-green' : 'text-red-700'}`} role="status">{saveMessage}</p> : null}
+    </section>
 
     <section className="mt-7 border-b border-border pb-7">
       <div className="flex items-center justify-between gap-3"><h3 className="font-display text-2xl font-bold text-text-dark">Action queue</h3><span className="text-xs font-black uppercase text-text-muted">{customer.actions.length} open</span></div>
@@ -202,5 +266,9 @@ function ActionRow({ action }: { action: CustomerAction }) {
 
 function StageBadge({ stage }: { stage: CustomerStage }) { return <span className={`inline-flex shrink-0 rounded-full border px-3 py-1 text-[11px] font-black uppercase ${stageClasses[stage]}`}>{stage}</span> }
 function Detail({ label, value }: { label: string; value: string }) { return <div><dt className="text-[11px] font-black uppercase text-text-muted">{label}</dt><dd className="mt-1 break-words text-sm font-black text-text-dark">{value || 'Not provided'}</dd></div> }
+function Field({ children, label }: { children: React.ReactNode; label: string }) { return <label className="grid gap-2 text-xs font-black uppercase text-text-muted"><span>{label}</span>{children}</label> }
+function crmChanges(record: CustomerCrmRecord): CustomerCrmChanges { return { internalNotes: record.internalNotes, lifecycleStatus: record.lifecycleStatus, nextAction: record.nextAction, nextActionDueAt: fromIsoDate(record.nextActionDueAt), owner: record.owner } }
+function fromIsoDate(value: string) { const date = new Date(value); if (!value || Number.isNaN(date.getTime())) return ''; const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000); return local.toISOString().slice(0, 16) }
+function toIsoDate(value: string) { if (!value) return ''; const date = new Date(value); return Number.isNaN(date.getTime()) ? '' : date.toISOString() }
 function formatDate(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? 'No date' : new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium' }).format(date) }
 function formatDateTime(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? 'Date unavailable' : new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Madrid' }).format(date) }

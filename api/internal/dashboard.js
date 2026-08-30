@@ -15,12 +15,15 @@ export default async function handler(request, response) {
     selectSupabaseRows('provider_applications', 'select=id,status&limit=1000'),
     selectSupabaseRows('orders', 'select=id,status&limit=1000'),
     selectSupabaseRows('service_catalogue', 'id=eq.default&select=payload_json&limit=1'),
+    selectSupabaseRows('customer_crm_records', 'select=customer_key,owner,next_action,next_action_due_at,lifecycle_status&order=next_action_due_at.asc&limit=1000'),
   ])
-  const names = ['assessments', 'callbacks', 'proposals', 'providers', 'orders', 'catalogue']
+  const names = ['assessments', 'callbacks', 'proposals', 'providers', 'orders', 'catalogue', 'customer follow-ups']
   const issues = results.flatMap((result, index) => result.ok ? [] : [`${names[index]}: ${result.body?.message ?? 'unavailable'}`])
-  const [assessmentRows, callbacks, proposals, providers, orders, catalogue] = results.map(rows)
+  const [assessmentRows, callbacks, proposals, providers, orders, catalogue, customerFollowUps] = results.map(rows)
   const assessments = assessmentRows.filter((row) => !['visit_slot_reservation', 'visit_slot_block'].includes(row.type))
   const services = Array.isArray(catalogue[0]?.payload_json?.services) ? catalogue[0].payload_json.services : []
+  const now = Date.now()
+  const overdueFollowUps = customerFollowUps.filter((row) => row.next_action_due_at && Date.parse(row.next_action_due_at) < now)
 
   sendJson(response, 200, {
     issues,
@@ -31,7 +34,14 @@ export default async function handler(request, response) {
       openCallbacks: callbacks.filter((row) => ['New', 'Contacting'].includes(row.status)).length,
       pendingProposals: proposals.filter((row) => ['Draft', 'Sent'].includes(row.status)).length,
       providerLeads: providers.filter((row) => ['new', 'reviewing'].includes(row.status)).length,
+      overdueFollowUps: overdueFollowUps.length,
     },
+    overdueFollowUps: overdueFollowUps.slice(0, 8).map((row) => ({
+      customerKey: row.customer_key,
+      dueAt: row.next_action_due_at,
+      nextAction: row.next_action,
+      owner: row.owner || 'Unassigned',
+    })),
   })
 }
 

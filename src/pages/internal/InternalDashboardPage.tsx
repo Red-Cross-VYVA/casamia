@@ -7,6 +7,7 @@ import {
   PackageCheck,
   PhoneCall,
   RefreshCw,
+  UserRoundCheck,
 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -22,10 +23,11 @@ const emptyStats: InternalDashboardData['stats'] = {
   openCallbacks: 0,
   pendingProposals: 0,
   providerLeads: 0,
+  overdueFollowUps: 0,
 }
 
 export function InternalDashboardPage() {
-  const [data, setData] = useState<InternalDashboardData>({ issues: [], stats: emptyStats })
+  const [data, setData] = useState<InternalDashboardData>({ issues: [], overdueFollowUps: [], stats: emptyStats })
   const [message, setMessage] = useState('Loading live operations data...')
   const [isLoading, setIsLoading] = useState(true)
 
@@ -56,6 +58,7 @@ export function InternalDashboardPage() {
     { label: 'Pending proposals', value: data.stats.pendingProposals, icon: FileText, accent: 'gold' as const },
     { label: 'Provider leads', value: data.stats.providerLeads, icon: Network, accent: 'navy' as const },
     { label: 'Active services', value: data.stats.activeServices, icon: PackageCheck, accent: 'blue' as const },
+    { label: 'Overdue follow-ups', value: data.stats.overdueFollowUps, icon: UserRoundCheck, accent: 'gold' as const },
   ], [data.stats])
 
   return (
@@ -127,6 +130,13 @@ export function InternalDashboardPage() {
           )}
         </aside>
       </section>
+
+      <section className="mt-8 border-t border-border pt-7">
+        <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black uppercase text-blue">Customer operations</p><h2 className="mt-1 font-display text-3xl font-bold text-text-dark">Overdue follow-ups</h2></div><Link className="btn btn-white" to="/internal/customers">Open customer records <ArrowRight size={17} /></Link></div>
+        {data.overdueFollowUps.length ? <div className="mt-5 divide-y divide-border border-y border-border">{data.overdueFollowUps.map((item) => <Link className="flex flex-col gap-2 py-4 transition hover:bg-pale-blue/40 sm:flex-row sm:items-center sm:justify-between sm:px-3" key={item.customerKey} to={`/internal/customers#${encodeURIComponent(item.customerKey)}`}><div><p className="font-black text-text-dark">{item.nextAction}</p><p className="mt-1 text-sm font-bold text-text-muted">{item.owner}</p></div><p className="text-sm font-black text-red-700">Due {formatDashboardDate(item.dueAt)}</p></Link>)}</div> : <p className="mt-5 border-y border-border py-5 font-bold text-green">No overdue customer follow-ups.</p>}
+      </section>
     </InternalLayout>
   )
 }
+
+function formatDashboardDate(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? 'date unavailable' : new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Madrid' }).format(date) }

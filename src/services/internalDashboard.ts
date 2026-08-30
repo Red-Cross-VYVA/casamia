@@ -3,6 +3,7 @@ import { getPublicSiteApiBaseUrl, hasPublicSiteApi } from './publicSiteApi.ts'
 
 export type InternalDashboardData = {
   issues: string[]
+  overdueFollowUps: Array<{ customerKey: string; dueAt: string; nextAction: string; owner: string }>
   stats: {
     activeServices: number
     newAssessments: number
@@ -10,6 +11,7 @@ export type InternalDashboardData = {
     openCallbacks: number
     pendingProposals: number
     providerLeads: number
+    overdueFollowUps: number
   }
 }
 
