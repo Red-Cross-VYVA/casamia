@@ -1,6 +1,7 @@
 import {
   ExternalLink,
   RefreshCw,
+  Repeat2,
   Send,
   ShieldCheck,
 } from 'lucide-react'
@@ -12,6 +13,7 @@ import {
   facebookStarterPosts,
   getFacebookPublishingStatus,
   publishFacebookStarterPost,
+  replacePreviousFacebookCampaign,
   type FacebookPublishingStatus,
 } from '../../services/internalFacebookPosts'
 
@@ -33,6 +35,8 @@ export function InternalFacebookPostsPage() {
   const [results, setResults] = useState<PublishResults>({})
   const [status, setStatus] = useState<FacebookPublishingStatus | null>(null)
   const [isLoadingStatus, setIsLoadingStatus] = useState(true)
+  const [isReplacingCampaign, setIsReplacingCampaign] = useState(false)
+  const [showReplacementConfirmation, setShowReplacementConfirmation] = useState(false)
 
   const loadStatus = useCallback(async () => {
     setIsLoadingStatus(true)
@@ -89,6 +93,25 @@ export function InternalFacebookPostsPage() {
     }
   }
 
+  async function handleReplaceCampaign() {
+    setShowReplacementConfirmation(false)
+    setIsReplacingCampaign(true)
+    setMessage('Removing the previous campaign before publishing the redesigned posts...')
+    try {
+      const result = await replacePreviousFacebookCampaign()
+      setMessage(`Campaign replaced: ${result.deleted} old posts removed and ${result.published.length} redesigned posts published.`)
+      setResults(Object.fromEntries(result.published.map((post) => [post.id, {
+        facebookPostId: post.facebookPostId || post.facebookId,
+        facebookUrl: post.facebookUrl,
+        message: 'Published as part of the redesigned campaign.',
+      }])))
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'The Facebook campaign could not be replaced.')
+    } finally {
+      setIsReplacingCampaign(false)
+    }
+  }
+
   const publishingEnabled = Boolean(status?.configured)
   const tokenDiagnostics = status?.tokenDiagnostics
 
@@ -109,6 +132,33 @@ export function InternalFacebookPostsPage() {
         </>
       }
     >
+      <section className="mb-6 rounded-lg border border-border bg-white p-5 shadow-soft">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-blue">Campaign update</p>
+            <h2 className="mt-1 font-display text-2xl font-bold text-text-dark">Replace the previous starter campaign</h2>
+            <p className="mt-2 max-w-3xl text-sm font-semibold leading-relaxed text-text-muted">
+              Removes only the ten known CasaMia campaign posts and publishes the ten redesigned English and Spanish replacements below. Two unrelated Page posts are preserved.
+            </p>
+          </div>
+          {showReplacementConfirmation ? (
+            <div className="grid shrink-0 gap-2 sm:grid-cols-2">
+              <button className="btn btn-white justify-center" disabled={isReplacingCampaign} type="button" onClick={() => setShowReplacementConfirmation(false)}>
+                Cancel
+              </button>
+              <button className="btn btn-green justify-center" disabled={!publishingEnabled || isReplacingCampaign} type="button" onClick={() => void handleReplaceCampaign()}>
+                <Repeat2 size={18} aria-hidden="true" />
+                Confirm replacement
+              </button>
+            </div>
+          ) : (
+            <button className="btn btn-green shrink-0 justify-center" disabled={!publishingEnabled || isReplacingCampaign || Boolean(publishingPostId)} type="button" onClick={() => setShowReplacementConfirmation(true)}>
+              <Repeat2 size={18} aria-hidden="true" />
+              {isReplacingCampaign ? 'Replacing campaign...' : 'Replace old campaign'}
+            </button>
+          )}
+        </div>
+      </section>
       <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="grid gap-6 lg:grid-cols-2">
           {facebookStarterPosts.map((post) => {

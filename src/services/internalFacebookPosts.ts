@@ -64,6 +64,24 @@ function bilingualPost(campaign: Omit<FacebookStarterPost, 'caption' | 'id' | 'l
   ]
 }
 
+export type FacebookCampaignReplacementResult = {
+  deleted: number
+  published: Array<FacebookPublishResult & { id: string }>
+}
+
+const previousCampaignPostIds = [
+  '605133552680332_122185150880808505',
+  '605133552680332_122185150778808505',
+  '605133552680332_122185150598808505',
+  '605133552680332_122185150436808505',
+  '605133552680332_122185150310808505',
+  '605133552680332_122185150190808505',
+  '605133552680332_122185149950808505',
+  '605133552680332_122185149788808505',
+  '605133552680332_122185148726808505',
+  '605133552680332_122185145600808505',
+] as const
+
 export const facebookStarterPosts: FacebookStarterPost[] = [
   ...bilingualPost({
     id: 'welcome-safer-homes',
@@ -155,6 +173,36 @@ export async function publishFacebookStarterPost({
   }, {
     headers: getInternalAuthHeaders(),
   })
+}
+
+export async function replacePreviousFacebookCampaign(): Promise<FacebookCampaignReplacementResult> {
+  ensureInternalPublishingAvailable()
+
+  const deletion = await postFacebookPublishJson<{
+    deleted: number
+    failed: number
+    ok: boolean
+  }>('/api/internal/facebook-posts', {
+    postIds: previousCampaignPostIds,
+  }, {
+    headers: getInternalAuthHeaders(),
+    method: 'DELETE',
+  })
+
+  if (!deletion.ok || deletion.deleted !== previousCampaignPostIds.length || deletion.failed) {
+    throw new Error(`Facebook removed ${deletion.deleted} of ${previousCampaignPostIds.length} old campaign posts. No replacements were published.`)
+  }
+
+  const published: FacebookCampaignReplacementResult['published'] = []
+  for (const post of facebookStarterPosts) {
+    const result = await publishFacebookStarterPost({
+      imagePath: post.imagePath,
+      message: post.caption,
+    })
+    published.push({ ...result, id: post.id })
+  }
+
+  return { deleted: deletion.deleted, published }
 }
 
 async function postFacebookPublishJson<T>(
