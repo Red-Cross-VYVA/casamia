@@ -1,4 +1,5 @@
 import {
+  deleteFacebookPosts,
   FacebookPublishError,
   getFacebookPublishingConfiguration,
   inspectFacebookPublishingAccess,
@@ -17,7 +18,7 @@ export default async function handler(request, response) {
 
   if (request.method === 'OPTIONS') {
     response.status(204).setHeader('Access-Control-Allow-Origin', '*')
-    response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    response.setHeader('Access-Control-Allow-Methods', 'DELETE, GET, POST, OPTIONS')
     response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-api-key')
     response.end()
     return
@@ -40,13 +41,19 @@ export default async function handler(request, response) {
     return
   }
 
-  if (request.method !== 'POST') {
+  if (!['DELETE', 'POST'].includes(request.method)) {
     sendJson(response, 405, { message: 'Method not allowed.' })
     return
   }
 
   try {
     const body = await readJsonBody(request)
+    if (request.method === 'DELETE') {
+      const result = await deleteFacebookPosts({ postIds: body.postIds })
+      sendJson(response, result.ok ? 200 : 207, result)
+      return
+    }
+
     const result = await publishFacebookPost({
       imagePath: body.imagePath,
       message: body.message,

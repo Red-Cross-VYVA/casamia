@@ -136,6 +136,55 @@ export async function publishFacebookPost({
   })
 }
 
+export async function deleteFacebookPosts({
+  env = process.env,
+  fetchImpl = fetch,
+  postIds,
+} = {}) {
+  const config = getFacebookPublishingConfiguration(env)
+
+  if (!config.configured) {
+    throw new FacebookPublishError(500, `Facebook publishing is not configured. Add ${config.missing.join(' and ')} in Vercel.`)
+  }
+
+  if (!Array.isArray(postIds) || postIds.length === 0 || postIds.length > 20) {
+    throw new FacebookPublishError(400, 'Provide between 1 and 20 Facebook post IDs.')
+  }
+
+  const cleanPostIds = [...new Set(postIds.map(text).filter(Boolean))]
+  const expectedPrefix = `${config.pageId}_`
+
+  if (cleanPostIds.length === 0 || cleanPostIds.some((postId) => !postId.startsWith(expectedPrefix))) {
+    throw new FacebookPublishError(400, 'Every post ID must belong to the configured CasaMia Facebook Page.')
+  }
+
+  const results = []
+  for (const postId of cleanPostIds) {
+    try {
+      const responseBody = await callGraphApi({
+        config,
+        fetchImpl,
+        method: 'DELETE',
+        path: postId,
+      })
+      results.push({ deleted: responseBody.success === true, postId })
+    } catch (error) {
+      results.push({
+        deleted: false,
+        message: error instanceof Error ? error.message : 'Facebook post deletion failed.',
+        postId,
+      })
+    }
+  }
+
+  return {
+    deleted: results.filter((result) => result.deleted).length,
+    failed: results.filter((result) => !result.deleted).length,
+    ok: results.every((result) => result.deleted),
+    results,
+  }
+}
+
 async function publishFacebookPhoto({
   config,
   env,
@@ -203,10 +252,15 @@ async function callGraphApi({
   body,
   config,
   edge,
+  fetchImpl = fetch,
   method,
+  path,
 }) {
-  const graphResponse = await fetch(
-    `https://graph.facebook.com/${encodeURIComponent(config.apiVersion)}/${encodeURIComponent(config.pageId)}/${edge}`,
+  const graphPath = path
+    ? path.split('/').map((part) => encodeURIComponent(part)).join('/')
+    : `${encodeURIComponent(config.pageId)}/${edge}`
+  const graphResponse = await fetchImpl(
+    `https://graph.facebook.com/${encodeURIComponent(config.apiVersion)}/${graphPath}`,
     {
       body,
       headers: {

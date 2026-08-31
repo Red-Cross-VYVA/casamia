@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
-import { inspectFacebookPublishingAccess } from '../api/_lib/facebook.js'
+import { deleteFacebookPosts, inspectFacebookPublishingAccess } from '../api/_lib/facebook.js'
 
 const env = {
   META_GRAPH_API_VERSION: 'v26.0',
@@ -71,6 +71,26 @@ assert.equal(pageToken.pageMatchesIdentity, true)
 assert.equal(pageToken.pageAccessible, true)
 assert.equal(pageToken.permissionsChecked, false)
 assert.deepEqual(pageToken.missingPermissions, [])
+
+const deleted = await deleteFacebookPosts({
+  env,
+  fetchImpl: async (url, init) => {
+    assert.equal(init.method, 'DELETE')
+    assert.match(String(url), /\/605133552680332_123$/)
+    assert.equal(init.headers.Authorization, 'Bearer test-token')
+    return jsonResponse({ success: true })
+  },
+  postIds: ['605133552680332_123'],
+})
+
+assert.equal(deleted.ok, true)
+assert.equal(deleted.deleted, 1)
+assert.equal(deleted.failed, 0)
+
+await assert.rejects(
+  deleteFacebookPosts({ env, postIds: ['999_123'] }),
+  /configured CasaMia Facebook Page/,
+)
 
 const facebookPostsPageSource = await readFile(
   new URL('../src/pages/internal/InternalFacebookPostsPage.tsx', import.meta.url),
