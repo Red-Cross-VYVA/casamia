@@ -29,6 +29,13 @@ export type Lead = {
   sourceLabel: string
   status: LeadStatus
   submittedAt: string
+  visitAppointment: {
+    date: string
+    endAt: string
+    startAt: string
+    time: string
+    timeZone: string
+  } | null
 }
 
 export type LeadChanges = Pick<Lead, 'assignedPartnerEmail' | 'followUpAt' | 'notes' | 'partnerNotes' | 'status'>

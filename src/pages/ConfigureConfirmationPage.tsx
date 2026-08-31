@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 
+import { VisitScheduler } from '../components/wizard/VisitScheduler'
 import { formatConfiguratorCurrency } from '../services/configuratorPricing'
 import { loadSavedConfiguratorSubmission } from '../services/configuratorSubmission'
 import { getConfiguredServiceById } from '../services/serviceCatalogue'
@@ -210,6 +211,9 @@ export function ConfigureConfirmationPage() {
             </Link>
           </div>
         </div>
+        {paymentVerification === 'paid' && sessionId ? (
+          <VisitScheduler language={i18n.language} sessionId={sessionId} />
+        ) : null}
       </div>
     </section>
   )

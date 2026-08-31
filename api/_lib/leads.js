@@ -161,6 +161,19 @@ export function mapLeadRecord(record, source) {
     submissionDetails: wizardSubmission ? buildWizardSubmissionDetails(wizardSubmission) : [],
     status: leadStatuses.includes(pipeline.status) ? pipeline.status : getLeadStatus(record, source),
     submittedAt: text(record?.submitted_at),
+    visitAppointment: mapVisitAppointment(payload.visitAppointment),
+  }
+}
+
+function mapVisitAppointment(value) {
+  const appointment = object(value)
+  if (!text(appointment.startAt) || text(appointment.cancelledAt)) return null
+  return {
+    date: text(appointment.date),
+    endAt: text(appointment.endAt),
+    startAt: text(appointment.startAt),
+    time: text(appointment.time),
+    timeZone: text(appointment.timeZone) || 'Europe/Madrid',
   }
 }
 

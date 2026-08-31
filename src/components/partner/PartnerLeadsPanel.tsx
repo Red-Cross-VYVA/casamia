@@ -43,6 +43,16 @@ export function PartnerLeadsPanel() {
                 <p className="inline-flex items-center gap-2"><MapPin size={16} />{lead.city || 'Area not provided'}</p>
                 <p className="inline-flex items-center gap-2"><CalendarClock size={16} />{lead.followUpAt ? formatDateTime(lead.followUpAt) : 'No follow-up scheduled'}</p>
               </div>
+              {lead.visitAppointment ? (
+                <div className="mt-4 rounded-lg border border-blue/20 bg-white p-4">
+                  <p className="text-xs font-black uppercase text-blue">Reserved home visit</p>
+                  <p className="mt-2 inline-flex items-center gap-2 text-sm font-extrabold text-text-dark">
+                    <CalendarClock size={17} aria-hidden="true" />
+                    {formatDateTime(lead.visitAppointment.startAt)}
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-text-muted">Europe/Madrid time</p>
+                </div>
+              ) : null}
               {lead.partnerNotes ? <div className="mt-4 rounded-lg bg-white p-4"><p className="text-xs font-black uppercase text-text-muted">CasaMia instructions</p><p className="mt-2 whitespace-pre-wrap text-sm font-semibold leading-relaxed">{lead.partnerNotes}</p></div> : null}
               <div className="mt-4 flex flex-wrap gap-2">
                 {lead.phone ? <a className="btn btn-white" href={`tel:${lead.phone}`}><Phone size={16} />Call</a> : null}
