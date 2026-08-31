@@ -44,19 +44,20 @@ export type FacebookPublishResult = {
 function bilingualPost(campaign: Omit<FacebookStarterPost, 'caption' | 'id' | 'language'> & {
   captions: { en: string; es: string }
   id: string
+  imagePaths?: { en: string; es: string }
 }): FacebookStarterPost[] {
   return [
     {
       caption: campaign.captions.en,
       id: `${campaign.id}-en`,
-      imagePath: campaign.imagePath,
+      imagePath: campaign.imagePaths?.en ?? campaign.imagePath,
       language: 'English',
       title: campaign.title,
     },
     {
       caption: campaign.captions.es,
       id: `${campaign.id}-es`,
-      imagePath: campaign.imagePath,
+      imagePath: campaign.imagePaths?.es ?? campaign.imagePath,
       language: 'Spanish',
       title: campaign.title,
     },
@@ -67,6 +68,10 @@ export const facebookStarterPosts: FacebookStarterPost[] = [
   ...bilingualPost({
     id: 'welcome-safer-homes',
     imagePath: '/brand-assets/social/facebook-starter-posts/01-welcome-safer-homes.jpg',
+    imagePaths: {
+      en: '/brand-assets/social/facebook-starter-posts/01-welcome-safer-homes-en.jpg',
+      es: '/brand-assets/social/facebook-starter-posts/01-welcome-safer-homes-es.jpg',
+    },
     title: 'Welcome to CasaMia',
     captions: {
       en: 'Welcome to CasaMia.\n\nWe help older adults live more safely and confidently at home with practical home safety assessments, room-by-room adaptation packages, grant guidance and trusted installation support across Spain.\n\nStart with the rooms that matter most. We will help you turn concerns into a clear plan.\n\nLearn more: https://www.casamia.com.es/?utm_source=facebook&utm_medium=organic_social&utm_campaign=welcome&utm_content=en\n\n#CasaMia #HomeSafety #AgingInPlace #Spain',
@@ -76,6 +81,10 @@ export const facebookStarterPosts: FacebookStarterPost[] = [
   ...bilingualPost({
     id: 'home-safety-review',
     imagePath: '/brand-assets/social/facebook-starter-posts/02-home-safety-review.jpg',
+    imagePaths: {
+      en: '/brand-assets/social/facebook-starter-posts/02-home-safety-review-en.jpg',
+      es: '/brand-assets/social/facebook-starter-posts/02-home-safety-review-es.jpg',
+    },
     title: 'Home Safety Review',
     captions: {
       en: 'Not sure what the home really needs?\n\nCasaMia starts with a practical safety review: the daily routes, bathroom, kitchen, bedroom, entrance and the moments where support would make life calmer.\n\nThe result is a clear next-step plan, not a confusing product list.\n\nBook your home safety review: https://www.casamia.com.es/home-safety-wizard?utm_source=facebook&utm_medium=organic_social&utm_campaign=home_safety_review&utm_content=en\n\n#HomeSafetyAssessment #SeniorSafety #CasaMia',
@@ -85,6 +94,10 @@ export const facebookStarterPosts: FacebookStarterPost[] = [
   ...bilingualPost({
     id: 'bathroom-safety',
     imagePath: '/brand-assets/social/facebook-starter-posts/03-bathroom-safety.jpg',
+    imagePaths: {
+      en: '/brand-assets/social/facebook-starter-posts/03-bathroom-safety-en.jpg',
+      es: '/brand-assets/social/facebook-starter-posts/03-bathroom-safety-es.jpg',
+    },
     title: 'Bathroom Safety',
     captions: {
       en: 'Bathrooms are one of the most common places families worry about.\n\nSupport rails, safer surfaces, better visibility and easier transfers can make daily routines feel more secure without making the room feel institutional.\n\nCasaMia helps choose the right level of support for the person and the bathroom.\n\nExplore bathroom safety support: https://www.casamia.com.es/services/bathroom-safety?utm_source=facebook&utm_medium=organic_social&utm_campaign=bathroom_safety&utm_content=en\n\n#BathroomSafety #FallPrevention #AgingAtHome',
@@ -94,6 +107,10 @@ export const facebookStarterPosts: FacebookStarterPost[] = [
   ...bilingualPost({
     id: 'grant-guidance',
     imagePath: '/brand-assets/social/facebook-starter-posts/04-grant-guidance.jpg',
+    imagePaths: {
+      en: '/brand-assets/social/facebook-starter-posts/04-grant-guidance-en.jpg',
+      es: '/brand-assets/social/facebook-starter-posts/04-grant-guidance-es.jpg',
+    },
     title: 'Grant Guidance',
     captions: {
       en: 'Some home adaptations may qualify for public support or local grant routes.\n\nCasaMia helps families understand the likely route, prepare practical evidence and connect the grant file to a realistic adaptation plan.\n\nAvailability and approval always depend on the relevant authority.\n\nCheck grant guidance: https://www.casamia.com.es/grants?utm_source=facebook&utm_medium=organic_social&utm_campaign=grant_guidance&utm_content=en\n\n#HomeAdaptationGrants #Accessibility #Spain',
@@ -103,6 +120,10 @@ export const facebookStarterPosts: FacebookStarterPost[] = [
   ...bilingualPost({
     id: 'starter-packs',
     imagePath: '/brand-assets/social/facebook-starter-posts/05-core-safety-packs.jpg',
+    imagePaths: {
+      en: '/brand-assets/social/facebook-starter-posts/05-core-safety-packs-en.jpg',
+      es: '/brand-assets/social/facebook-starter-posts/05-core-safety-packs-es.jpg',
+    },
     title: 'Starter Packs',
     captions: {
       en: 'You do not need to redesign the whole home to make a safer start.\n\nCasaMia starter packs focus on practical first steps: safer bathroom support, clearer bedroom movement, kitchen visibility, entrance access and the everyday routes that matter.\n\nChoose a starter pack or build room by room.\n\nExplore starter packs: https://www.casamia.com.es/plans?utm_source=facebook&utm_medium=organic_social&utm_campaign=starter_packs&utm_content=en\n\n#HomeAdaptations #SeniorLiving #CasaMia',
