@@ -377,6 +377,30 @@ try {
   assert.match(reportEmailRequest.html, /https:\/\/www\.casamia\.com\.es\/legal-notice/)
   assert.match(reportEmailRequest.html, /https:\/\/www\.casamia\.com\.es\/general-customer-terms/)
   assert.match(reportEmailRequest.text, /Privacy Policy: https:\/\/www\.casamia\.com\.es\/privacy-policy/)
+
+  const localizedReportCases = [
+    { locale: 'de', subject: 'Ihr CasaMia-Sicherheitsbericht ist fertig', body: /Sicherheit Ihres Zuhauses/ },
+    { locale: 'fr', subject: 'Votre rapport de sécurité CasaMia est prêt', body: /sécurité du logement/ },
+    { locale: 'nl', subject: 'Uw CasaMia-veiligheidsrapport is klaar', body: /woningveiligheidsrapport/ },
+  ]
+
+  for (const testCase of localizedReportCases) {
+    const localizedReportEmail = await sendPublicReportEmail({
+      customer: reportPayload,
+      env: {
+        CASAMIA_EMAIL_FROM: 'CasaMia <hola@casamia.com.es>',
+        CASAMIA_PUBLIC_SITE_URL: 'https://www.casamia.com.es',
+        RESEND_API_KEY: 'test-resend-key',
+      },
+      language: testCase.locale,
+      publicUrl: reportPayload.report_url,
+      report: reportPayload,
+      reportType: 'safety_report',
+    })
+    assert.equal(localizedReportEmail.status, 'sent')
+    assert.equal(reportEmailRequest.subject, testCase.subject)
+    assert.match(reportEmailRequest.html, testCase.body)
+  }
 } finally {
   globalThis.fetch = originalFetch
 }

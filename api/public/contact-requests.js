@@ -1,4 +1,4 @@
-import { sendFormSubmissionEmails } from '../_lib/form-email.js'
+import { normalizeEmailLocale, sendFormSubmissionEmails } from '../_lib/form-email.js'
 import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
 import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 import {
@@ -85,8 +85,8 @@ export default async function handler(request, response, dependencies = {}) {
     }
 
     const record = result.body?.record
-    const locale = normalizeLocale(body.locale ?? body.language)
-    const labels = locale === 'es' ? labelsEs : labelsEn
+    const locale = normalizeEmailLocale(body.locale ?? body.language)
+    const labels = labelsByLocale[locale]
     const delivery = await sendFormSubmissionEmails({
       details: [
         { label: labels.email, value: payload.customer_email },
@@ -120,14 +120,10 @@ export default async function handler(request, response, dependencies = {}) {
   }
 }
 
-function normalizeLocale(value) {
-  return String(value || '').toLowerCase().startsWith('es') ? 'es' : 'en'
-}
-
-const labelsEn = {
-  email: 'Email', message: 'Message', no: 'No', orderReference: 'Order or project reference', phone: 'Phone', safety: 'Immediate safety risk', service: 'Service or plan', yes: 'Yes',
-}
-
-const labelsEs = {
-  email: 'Correo electrónico', message: 'Mensaje', no: 'No', orderReference: 'Referencia del pedido o proyecto', phone: 'Teléfono', safety: 'Riesgo inmediato de seguridad', service: 'Servicio o plan', yes: 'Sí',
+const labelsByLocale = {
+  en: { email: 'Email', message: 'Message', no: 'No', orderReference: 'Order or project reference', phone: 'Phone', safety: 'Immediate safety risk', service: 'Service or plan', yes: 'Yes' },
+  es: { email: 'Correo electrónico', message: 'Mensaje', no: 'No', orderReference: 'Referencia del pedido o proyecto', phone: 'Teléfono', safety: 'Riesgo inmediato de seguridad', service: 'Servicio o plan', yes: 'Sí' },
+  de: { email: 'E-Mail', message: 'Nachricht', no: 'Nein', orderReference: 'Bestell- oder Projektreferenz', phone: 'Telefon', safety: 'Unmittelbares Sicherheitsrisiko', service: 'Dienstleistung oder Paket', yes: 'Ja' },
+  fr: { email: 'E-mail', message: 'Message', no: 'Non', orderReference: 'Référence de commande ou de projet', phone: 'Téléphone', safety: 'Risque de sécurité immédiat', service: 'Service ou formule', yes: 'Oui' },
+  nl: { email: 'E-mail', message: 'Bericht', no: 'Nee', orderReference: 'Bestel- of projectreferentie', phone: 'Telefoon', safety: 'Onmiddellijk veiligheidsrisico', service: 'Dienst of pakket', yes: 'Ja' },
 }

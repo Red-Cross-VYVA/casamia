@@ -133,15 +133,14 @@ export async function sendProposalEmail({
     return skippedDelivery('proposal_url_missing', 'Proposal URL is missing.')
   }
 
-  const isSpanish = String(language).toLowerCase().startsWith('es')
+  const locale = normalizeCustomerLocale(language)
+  const copy = proposalEmailCopy[locale]
   const from = text(env.CASAMIA_EMAIL_FROM || env.RESEND_FROM_EMAIL) || defaultFrom
   const replyTo = text(env.CASAMIA_REPLY_TO_EMAIL) || defaultReplyTo
   const bcc = text(env.CASAMIA_PROPOSAL_BCC_EMAIL || env.CASAMIA_NOTIFY_EMAIL)
-  const subject = isSpanish
-    ? 'Tu propuesta CasaMia está lista'
-    : 'Your CasaMia proposal is ready'
-  const html = renderProposalEmailHtml({ isSpanish, proposal, publicUrl })
-  const textBody = renderProposalEmailText({ isSpanish, proposal, publicUrl })
+  const subject = copy.subject
+  const html = renderProposalEmailHtml({ copy, proposal, publicUrl })
+  const textBody = renderProposalEmailText({ copy, proposal, publicUrl })
   const body = {
     from,
     html,
@@ -214,8 +213,7 @@ export async function sendPublicReportEmail({
     return skippedDelivery('report_url_missing', 'Report URL is missing.')
   }
 
-  const isSpanish = String(language).toLowerCase().startsWith('es')
-  const copy = getPublicReportEmailCopy(reportType, isSpanish)
+  const copy = getPublicReportEmailCopy(reportType, normalizeCustomerLocale(language))
   const from = text(env.CASAMIA_EMAIL_FROM || env.RESEND_FROM_EMAIL) || defaultFrom
   const replyTo = text(env.CASAMIA_REPLY_TO_EMAIL) || defaultReplyTo
   const bcc = text(env.CASAMIA_REPORT_BCC_EMAIL || env.CASAMIA_NOTIFY_EMAIL)
@@ -277,52 +275,33 @@ export async function sendPublicReportEmail({
   }
 }
 
-function getPublicReportEmailCopy(reportType, isSpanish) {
-  if (reportType === 'grant_report') {
-    return isSpanish
-      ? {
-          subject: 'Tu informe de ayudas CasaMia está listo',
-          title: 'Tu informe de ayudas CasaMia está listo',
-          greeting: 'Hola',
-          intro: 'Hemos guardado tu informe de elegibilidad. Usa este enlace seguro para volver a ver las recomendaciones, documentos y próximos pasos.',
-          cta: 'Abrir',
-          privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.',
-          support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
-          contactLink: 'Contacto', privacyLink: 'Política de privacidad', legalLink: 'Aviso legal', termsLink: 'Condiciones de contratación',
-        }
-      : {
-          subject: 'Your CasaMia grant eligibility report is ready',
-          title: 'Your CasaMia grant eligibility report is ready',
-          greeting: 'Hello',
-          intro: 'We saved your eligibility report. Use this secure link to reopen the recommendations, documents and next steps.',
-          cta: 'Open',
-          privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.',
-          support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
-          contactLink: 'Contact', privacyLink: 'Privacy Policy', legalLink: 'Legal Notice', termsLink: 'Customer Terms',
-        }
-  }
+const proposalEmailCopy = {
+  en: { subject: 'Your CasaMia proposal is ready', greeting: 'Hello', intro: 'We generated your proposal using the packages, quantities and add-ons you selected.', cta: 'Open proposal', summaryTitle: 'Included', totalLabel: 'Estimated total', emptyItems: 'Selected packages are included in your proposal.', footer: 'Prices are VAT-included. Add-ons that require a quote are confirmed before work starts.', support: 'If you need help, reply to this email or write to hola@casamia.com.es.' },
+  es: { subject: 'Tu propuesta CasaMia está lista', greeting: 'Hola', intro: 'Hemos generado tu propuesta con los paquetes, cantidades y extras que seleccionaste.', cta: 'Abrir propuesta', summaryTitle: 'Incluye', totalLabel: 'Importe estimado', emptyItems: 'Los paquetes seleccionados están incluidos en tu propuesta.', footer: 'Los importes se muestran con IVA incluido. Los extras que requieren presupuesto se confirman antes de iniciar el trabajo.', support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.' },
+  de: { subject: 'Ihr CasaMia-Angebot ist fertig', greeting: 'Hallo', intro: 'Wir haben Ihr Angebot mit den ausgewählten Paketen, Mengen und Zusatzleistungen erstellt.', cta: 'Angebot öffnen', summaryTitle: 'Enthalten', totalLabel: 'Geschätzter Gesamtbetrag', emptyItems: 'Die ausgewählten Pakete sind in Ihrem Angebot enthalten.', footer: 'Die Preise verstehen sich inklusive Mehrwertsteuer. Zusatzleistungen, die ein separates Angebot erfordern, werden vor Beginn der Arbeiten bestätigt.', support: 'Wenn Sie Hilfe benötigen, antworten Sie auf diese E-Mail oder schreiben Sie an hola@casamia.com.es.' },
+  fr: { subject: 'Votre proposition CasaMia est prête', greeting: 'Bonjour', intro: 'Nous avons préparé votre proposition avec les formules, quantités et options sélectionnées.', cta: 'Ouvrir la proposition', summaryTitle: 'Inclus', totalLabel: 'Total estimé', emptyItems: 'Les formules sélectionnées sont incluses dans votre proposition.', footer: 'Les prix incluent la TVA. Les options nécessitant un devis sont confirmées avant le début des travaux.', support: 'Pour toute aide, répondez à cet e-mail ou écrivez-nous à hola@casamia.com.es.' },
+  nl: { subject: 'Uw CasaMia-voorstel is klaar', greeting: 'Hallo', intro: 'We hebben uw voorstel opgesteld met de gekozen pakketten, aantallen en extra opties.', cta: 'Voorstel openen', summaryTitle: 'Inbegrepen', totalLabel: 'Geschat totaalbedrag', emptyItems: 'De geselecteerde pakketten zijn in uw voorstel opgenomen.', footer: 'De prijzen zijn inclusief btw. Extra opties waarvoor een offerte nodig is, worden bevestigd voordat de werkzaamheden beginnen.', support: 'Hebt u hulp nodig, beantwoord dan deze e-mail of schrijf naar hola@casamia.com.es.' },
+}
 
-  return isSpanish
-    ? {
-        subject: 'Tu informe de seguridad CasaMia está listo',
-        title: 'Tu informe de seguridad CasaMia está listo',
-        greeting: 'Hola',
-        intro: 'Hemos guardado tu informe de seguridad del hogar. Usa este enlace seguro para volver a ver los riesgos detectados y las recomendaciones.',
-        cta: 'Abrir',
-        privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.',
-        support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
-        contactLink: 'Contacto', privacyLink: 'Política de privacidad', legalLink: 'Aviso legal', termsLink: 'Condiciones de contratación',
-      }
-    : {
-        subject: 'Your CasaMia home safety report is ready',
-        title: 'Your CasaMia home safety report is ready',
-        greeting: 'Hello',
-        intro: 'We saved your home safety report. Use this secure link to reopen the risks we found and the recommendations.',
-        cta: 'Open',
-        privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.',
-        support: 'If you need help, reply to this email or write to hola@casamia.com.es.',
-        contactLink: 'Contact', privacyLink: 'Privacy Policy', legalLink: 'Legal Notice', termsLink: 'Customer Terms',
-      }
+const reportSharedCopy = {
+  en: { greeting: 'Hello', cta: 'Open', privacy: 'For privacy, this email only includes the secure link. The full details stay inside the report.', support: 'If you need help, reply to this email or write to hola@casamia.com.es.', contactLink: 'Contact', privacyLink: 'Privacy Policy', legalLink: 'Legal Notice', termsLink: 'Customer Terms' },
+  es: { greeting: 'Hola', cta: 'Abrir', privacy: 'Por privacidad, el email solo incluye el enlace seguro. Los detalles completos permanecen dentro del informe.', support: 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.', contactLink: 'Contacto', privacyLink: 'Política de privacidad', legalLink: 'Aviso legal', termsLink: 'Condiciones de contratación' },
+  de: { greeting: 'Hallo', cta: 'Öffnen', privacy: 'Aus Datenschutzgründen enthält diese E-Mail nur den sicheren Link. Die vollständigen Angaben bleiben im Bericht.', support: 'Wenn Sie Hilfe benötigen, antworten Sie auf diese E-Mail oder schreiben Sie an hola@casamia.com.es.', contactLink: 'Kontakt', privacyLink: 'Datenschutzerklärung', legalLink: 'Impressum', termsLink: 'Kundenbedingungen' },
+  fr: { greeting: 'Bonjour', cta: 'Ouvrir', privacy: 'Pour protéger votre vie privée, cet e-mail contient uniquement le lien sécurisé. Les informations complètes restent dans le rapport.', support: 'Pour toute aide, répondez à cet e-mail ou écrivez-nous à hola@casamia.com.es.', contactLink: 'Contact', privacyLink: 'Politique de confidentialité', legalLink: 'Mentions légales', termsLink: 'Conditions clients' },
+  nl: { greeting: 'Hallo', cta: 'Openen', privacy: 'Om uw privacy te beschermen bevat deze e-mail alleen de beveiligde link. De volledige gegevens blijven in het rapport.', support: 'Hebt u hulp nodig, beantwoord dan deze e-mail of schrijf naar hola@casamia.com.es.', contactLink: 'Contact', privacyLink: 'Privacybeleid', legalLink: 'Juridische kennisgeving', termsLink: 'Klantvoorwaarden' },
+}
+
+const publicReportEmailCopy = Object.fromEntries(Object.entries({
+  en: { grant: ['Your CasaMia grant eligibility report is ready', 'We saved your eligibility report. Use this secure link to reopen the recommendations, documents and next steps.'], safety: ['Your CasaMia home safety report is ready', 'We saved your home safety report. Use this secure link to reopen the risks we found and the recommendations.'] },
+  es: { grant: ['Tu informe de ayudas CasaMia está listo', 'Hemos guardado tu informe de elegibilidad. Usa este enlace seguro para volver a ver las recomendaciones, documentos y próximos pasos.'], safety: ['Tu informe de seguridad CasaMia está listo', 'Hemos guardado tu informe de seguridad del hogar. Usa este enlace seguro para volver a ver los riesgos detectados y las recomendaciones.'] },
+  de: { grant: ['Ihr CasaMia-Fördermittelbericht ist fertig', 'Wir haben Ihren Berechtigungsbericht gespeichert. Über diesen sicheren Link können Sie Empfehlungen, Dokumente und nächste Schritte erneut aufrufen.'], safety: ['Ihr CasaMia-Sicherheitsbericht ist fertig', 'Wir haben Ihren Bericht zur Sicherheit Ihres Zuhauses gespeichert. Über diesen sicheren Link können Sie die erkannten Risiken und Empfehlungen erneut aufrufen.'] },
+  fr: { grant: ['Votre rapport CasaMia sur les aides est prêt', 'Nous avons enregistré votre rapport d’éligibilité. Utilisez ce lien sécurisé pour consulter à nouveau les recommandations, documents et prochaines étapes.'], safety: ['Votre rapport de sécurité CasaMia est prêt', 'Nous avons enregistré votre rapport sur la sécurité du logement. Utilisez ce lien sécurisé pour consulter à nouveau les risques détectés et les recommandations.'] },
+  nl: { grant: ['Uw CasaMia-rapport over subsidies is klaar', 'We hebben uw geschiktheidsrapport opgeslagen. Via deze beveiligde link kunt u de aanbevelingen, documenten en volgende stappen opnieuw bekijken.'], safety: ['Uw CasaMia-veiligheidsrapport is klaar', 'We hebben uw woningveiligheidsrapport opgeslagen. Via deze beveiligde link kunt u de vastgestelde risico’s en aanbevelingen opnieuw bekijken.'] },
+}).map(([locale, types]) => [locale, Object.fromEntries(Object.entries(types).map(([type, [title, intro]]) => [type, { ...reportSharedCopy[locale], subject: title, title, intro }]))]))
+
+function getPublicReportEmailCopy(reportType, locale) {
+  const type = reportType === 'grant_report' ? 'grant' : 'safety'
+  return publicReportEmailCopy[locale][type]
 }
 
 function renderPublicReportEmailHtml({ copy, customer, publicUrl, publicUrls, report }) {
@@ -391,27 +370,12 @@ function renderPublicReportEmailText({ copy, customer, publicUrl, publicUrls, re
   ].filter(Boolean).join('\n')
 }
 
-function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
+function renderProposalEmailHtml({ copy, proposal, publicUrl }) {
   const customerName = text(proposal?.customer_name ?? proposal?.customerName)
   const firstName = customerName.split(/\s+/)[0]
   const lineItems = getLineItems(proposal)
   const total = formatEuro(proposal?.total_estimate ?? proposal?.total)
-  const greeting = isSpanish
-    ? `Hola${firstName ? ` ${escapeHtml(firstName)}` : ''},`
-    : `Hello${firstName ? ` ${escapeHtml(firstName)}` : ''},`
-  const title = isSpanish ? 'Tu propuesta CasaMia está lista' : 'Your CasaMia proposal is ready'
-  const intro = isSpanish
-    ? 'Hemos generado tu propuesta con los paquetes, cantidades y extras que seleccionaste.'
-    : 'We generated your proposal using the packages, quantities and add-ons you selected.'
-  const cta = isSpanish ? 'Abrir propuesta' : 'Open proposal'
-  const summaryTitle = isSpanish ? 'Incluye' : 'Included'
-  const totalLabel = isSpanish ? 'Importe estimado' : 'Estimated total'
-  const footer = isSpanish
-    ? 'Los importes se muestran con IVA incluido. Los extras que requieren presupuesto se confirman antes de iniciar el trabajo.'
-    : 'Prices are VAT-included. Add-ons that require a quote are confirmed before work starts.'
-  const support = isSpanish
-    ? 'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.'
-    : 'If you need help, reply to this email or write to hola@casamia.com.es.'
+  const greeting = `${copy.greeting}${firstName ? ` ${escapeHtml(firstName)}` : ''},`
 
   return `
     <div style="margin:0;background:#eef7fb;padding:32px 16px;font-family:Arial,Helvetica,sans-serif;color:#142235;">
@@ -424,24 +388,24 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
         <tr>
           <td style="padding:0 32px 28px;">
             <p style="margin:0 0 12px;font-size:17px;line-height:1.55;color:#4d6072;">${greeting}</p>
-            <h1 style="margin:0 0 14px;font-family:Georgia,'Times New Roman',serif;font-size:42px;line-height:1.03;color:#142235;">${escapeHtml(title)}</h1>
-            <p style="margin:0 0 24px;font-size:17px;line-height:1.55;color:#4d6072;">${escapeHtml(intro)}</p>
-            <a href="${escapeAttribute(publicUrl)}" style="display:inline-block;background:#7bbf3b;color:#ffffff;text-decoration:none;font-weight:800;border-radius:999px;padding:15px 24px;font-size:16px;">${escapeHtml(cta)} →</a>
+            <h1 style="margin:0 0 14px;font-family:Georgia,'Times New Roman',serif;font-size:42px;line-height:1.03;color:#142235;">${escapeHtml(copy.subject)}</h1>
+            <p style="margin:0 0 24px;font-size:17px;line-height:1.55;color:#4d6072;">${escapeHtml(copy.intro)}</p>
+            <a href="${escapeAttribute(publicUrl)}" style="display:inline-block;background:#7bbf3b;color:#ffffff;text-decoration:none;font-weight:800;border-radius:999px;padding:15px 24px;font-size:16px;">${escapeHtml(copy.cta)} →</a>
           </td>
         </tr>
         <tr>
           <td style="padding:0 32px 30px;">
             <div style="border-radius:20px;background:#f2f9fd;border:1px solid #c9e1ef;padding:20px;">
-              <p style="margin:0 0 10px;color:#238bc6;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;">${escapeHtml(summaryTitle)}</p>
-              ${total ? `<p style="margin:0 0 14px;font-size:22px;font-weight:800;color:#142235;">${escapeHtml(totalLabel)}: ${escapeHtml(total)}</p>` : ''}
-              ${renderLineItems(lineItems, isSpanish)}
+              <p style="margin:0 0 10px;color:#238bc6;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;">${escapeHtml(copy.summaryTitle)}</p>
+              ${total ? `<p style="margin:0 0 14px;font-size:22px;font-weight:800;color:#142235;">${escapeHtml(copy.totalLabel)}: ${escapeHtml(total)}</p>` : ''}
+              ${renderLineItems(lineItems, copy)}
             </div>
           </td>
         </tr>
         <tr>
           <td style="padding:0 32px 32px;">
-            <p style="margin:0 0 8px;font-size:14px;line-height:1.55;color:#5c7080;">${escapeHtml(footer)}</p>
-            <p style="margin:0;font-size:14px;line-height:1.55;color:#5c7080;">${escapeHtml(support)}</p>
+            <p style="margin:0 0 8px;font-size:14px;line-height:1.55;color:#5c7080;">${escapeHtml(copy.footer)}</p>
+            <p style="margin:0;font-size:14px;line-height:1.55;color:#5c7080;">${escapeHtml(copy.support)}</p>
           </td>
         </tr>
       </table>
@@ -449,7 +413,7 @@ function renderProposalEmailHtml({ isSpanish, proposal, publicUrl }) {
   `
 }
 
-function renderProposalEmailText({ isSpanish, proposal, publicUrl }) {
+function renderProposalEmailText({ copy, proposal, publicUrl }) {
   const customerName = text(proposal?.customer_name ?? proposal?.customerName)
   const firstName = customerName.split(/\s+/)[0]
   const total = formatEuro(proposal?.total_estimate ?? proposal?.total)
@@ -458,38 +422,23 @@ function renderProposalEmailText({ isSpanish, proposal, publicUrl }) {
     .map((item) => `- ${item.quantity > 1 ? `${item.quantity}x ` : ''}${item.name}`)
     .join('\n')
 
-  if (isSpanish) {
-    return [
-      `Hola${firstName ? ` ${firstName}` : ''},`,
-      '',
-      'Tu propuesta CasaMia está lista.',
-      total ? `Importe estimado: ${total}` : '',
-      lines ? `Incluye:\n${lines}` : '',
-      '',
-      `Abrir propuesta: ${publicUrl}`,
-      '',
-      'Los importes se muestran con IVA incluido. Los extras que requieren presupuesto se confirman antes de iniciar el trabajo.',
-      'Si necesitas ayuda, responde a este email o escríbenos a hola@casamia.com.es.',
-    ].filter(Boolean).join('\n')
-  }
-
   return [
-    `Hello${firstName ? ` ${firstName}` : ''},`,
+    `${copy.greeting}${firstName ? ` ${firstName}` : ''},`,
     '',
-    'Your CasaMia proposal is ready.',
-    total ? `Estimated total: ${total}` : '',
-    lines ? `Included:\n${lines}` : '',
+    copy.subject,
+    total ? `${copy.totalLabel}: ${total}` : '',
+    lines ? `${copy.summaryTitle}:\n${lines}` : '',
     '',
-    `Open proposal: ${publicUrl}`,
+    `${copy.cta}: ${publicUrl}`,
     '',
-    'Prices are VAT-included. Add-ons that require a quote are confirmed before work starts.',
-    'If you need help, reply to this email or write to hola@casamia.com.es.',
+    copy.footer,
+    copy.support,
   ].filter(Boolean).join('\n')
 }
 
-function renderLineItems(items, isSpanish) {
+function renderLineItems(items, copy) {
   if (!items.length) {
-    return `<p style="margin:0;color:#4d6072;">${escapeHtml(isSpanish ? 'Paquetes seleccionados en tu propuesta.' : 'Selected packages are included in your proposal.')}</p>`
+    return `<p style="margin:0;color:#4d6072;">${escapeHtml(copy.emptyItems)}</p>`
   }
 
   return `
@@ -548,6 +497,11 @@ function parseJson(value) {
 function normalizeRecipients(value) {
   const values = Array.isArray(value) ? value : String(value || '').split(',')
   return values.map((item) => text(item)).filter((item) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(item))
+}
+
+function normalizeCustomerLocale(value) {
+  const locale = String(value || '').toLowerCase().split(/[-_]/)[0]
+  return ['en', 'es', 'de', 'fr', 'nl'].includes(locale) ? locale : 'en'
 }
 
 function text(value) {

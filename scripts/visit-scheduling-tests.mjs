@@ -9,6 +9,7 @@ import {
   visitScheduleConfig,
 } from '../api/_lib/visit-scheduling.js'
 import { buildVisitCalendarLinks, getVisitEndAt, renderVisitIcs } from '../api/_lib/visit-calendar.js'
+import { sendVisitAppointmentEmail } from '../api/_lib/visit-scheduling-email.js'
 
 assert.deepEqual(visitScheduleConfig.slotTimes, ['09:30', '12:30', '16:00'])
 assert.equal(visitScheduleConfig.timeZone, 'Europe/Madrid')
@@ -81,5 +82,49 @@ assert.match(configurationConfirmation, /paymentVerification === 'paid' && sessi
 assert.match(configurationConfirmation, /<VisitScheduler language=\{i18n\.language\} sessionId=\{sessionId\}/)
 assert.match(leadMapper, /visitAppointment: mapVisitAppointment\(payload\.visitAppointment\)/)
 assert.match(partnerLeads, /Reserved home visit/)
+
+const originalFetch = globalThis.fetch
+const emailCalls = []
+globalThis.fetch = async (_url, init) => {
+  emailCalls.push(JSON.parse(String(init.body)))
+  return new Response(JSON.stringify({ id: `visit-email-${emailCalls.length}` }), { status: 200 })
+}
+
+try {
+  const env = {
+    CASAMIA_EMAIL_FROM: 'CasaMia <hola@casamia.com.es>',
+    CASAMIA_PUBLIC_SITE_URL: 'https://www.casamia.com.es',
+    RESEND_API_KEY: 'test-resend-key',
+  }
+  const languageCases = [
+    ['en', /visit is scheduled/, /Date and time/],
+    ['es', /visita CasaMia está programada/, /Fecha y hora/],
+    ['de', /CasaMia-Besuch ist geplant/, /Datum und Uhrzeit/],
+    ['fr', /visite CasaMia est programmée/, /Date et heure/],
+    ['nl', /CasaMia-bezoek is gepland/, /Datum en tijd/],
+  ]
+
+  for (const [locale, subject, body] of languageCases) {
+    await sendVisitAppointmentEmail({
+      appointment,
+      assessment: {
+        ...assessment,
+        customer_email: `${locale}@example.com`,
+        customer_name: 'Test Customer',
+        payload_json: { ...assessment.payload_json, locale },
+      },
+      env,
+      request: { headers: {} },
+      sessionId: 'cs_test_localized',
+    })
+    const message = emailCalls.at(-1)
+    assert.match(message.subject, subject)
+    assert.match(message.html, body)
+    assert.match(message.html, /privacy-policy/)
+    assert.match(message.html, /general-customer-terms/)
+  }
+} finally {
+  globalThis.fetch = originalFetch
+}
 
 console.log('Visit scheduling tests passed.')

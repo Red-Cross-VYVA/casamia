@@ -4,7 +4,7 @@ import {
   requirePost,
   sendJson,
 } from '../_lib/supabase.js'
-import { sendFormSubmissionEmails } from '../_lib/form-email.js'
+import { normalizeEmailLocale, sendFormSubmissionEmails } from '../_lib/form-email.js'
 import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
 import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 import {
@@ -102,8 +102,8 @@ export default async function handler(request, response, dependencies = {}) {
     }
 
     const record = Array.isArray(result.body) ? result.body[0] : result.body
-    const locale = normalizeLocale(body.locale ?? body.customer?.preferredLanguage)
-    const labels = locale === 'es' ? labelsEs : labelsEn
+    const locale = normalizeEmailLocale(body.locale ?? body.customer?.preferredLanguage)
+    const labels = labelsByLocale[locale]
     const emailDelivery = record
       ? await sendFormSubmissionEmails({
           details: [
@@ -140,14 +140,10 @@ export function normalizePublicOrderStatus(value) {
   return value === 'Quote requested' || value === 'Visit payment pending' ? value : 'New'
 }
 
-function normalizeLocale(value) {
-  return String(value || '').toLowerCase().startsWith('es') ? 'es' : 'en'
-}
-
-const labelsEn = {
-  address: 'Installation address', email: 'Email', estimate: 'Current estimate', notes: 'Notes', phone: 'Phone', selection: 'Selected work', timing: 'Preferred contact',
-}
-
-const labelsEs = {
-  address: 'Dirección de instalación', email: 'Correo electrónico', estimate: 'Estimación actual', notes: 'Notas', phone: 'Teléfono', selection: 'Trabajos seleccionados', timing: 'Contacto preferido',
+const labelsByLocale = {
+  en: { address: 'Installation address', email: 'Email', estimate: 'Current estimate', notes: 'Notes', phone: 'Phone', selection: 'Selected work', timing: 'Preferred contact' },
+  es: { address: 'Dirección de instalación', email: 'Correo electrónico', estimate: 'Estimación actual', notes: 'Notas', phone: 'Teléfono', selection: 'Trabajos seleccionados', timing: 'Contacto preferido' },
+  de: { address: 'Installationsadresse', email: 'E-Mail', estimate: 'Aktuelle Schätzung', notes: 'Hinweise', phone: 'Telefon', selection: 'Ausgewählte Arbeiten', timing: 'Bevorzugte Kontaktzeit' },
+  fr: { address: 'Adresse d’installation', email: 'E-mail', estimate: 'Estimation actuelle', notes: 'Notes', phone: 'Téléphone', selection: 'Travaux sélectionnés', timing: 'Contact souhaité' },
+  nl: { address: 'Installatieadres', email: 'E-mail', estimate: 'Huidige raming', notes: 'Opmerkingen', phone: 'Telefoon', selection: 'Geselecteerde werkzaamheden', timing: 'Voorkeurscontact' },
 }

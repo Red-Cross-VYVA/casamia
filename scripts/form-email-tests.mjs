@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { sendProposalEmail } from '../api/_lib/email.js'
 import { sendFormSubmissionEmails } from '../api/_lib/form-email.js'
 
 const originalFetch = globalThis.fetch
@@ -89,6 +90,52 @@ try {
     request: { headers: {} },
   })
   assert.match(calls[beforeProvider + 1].subject, /solicitud de proveedor/)
+
+  const localizedCases = [
+    { kind: 'contact', locale: 'de', subject: /Nachricht/, body: /Ihre übermittelten Angaben/ },
+    { kind: 'quote', locale: 'fr', subject: /devis/, body: /Informations que vous avez fournies/ },
+    { kind: 'provider', locale: 'nl', subject: /partneraanvraag/, body: /Door u ingediende informatie/ },
+  ]
+
+  for (const testCase of localizedCases) {
+    const before = calls.length
+    await sendFormSubmissionEmails({
+      details: [{ label: 'Test', value: 'Localized value' }],
+      env,
+      kind: testCase.kind,
+      locale: testCase.locale,
+      name: 'Test Customer',
+      recipient: `${testCase.locale}@example.com`,
+      reference: `CM-${testCase.locale.toUpperCase()}-TEST`,
+      request: { headers: {} },
+    })
+    assert.match(calls[before + 1].subject, testCase.subject)
+    assert.match(calls[before + 1].html, testCase.body)
+  }
+
+  const proposalCases = [
+    { locale: 'de', subject: 'Ihr CasaMia-Angebot ist fertig', body: /Angebot öffnen/ },
+    { locale: 'fr', subject: 'Votre proposition CasaMia est prête', body: /Ouvrir la proposition/ },
+    { locale: 'nl', subject: 'Uw CasaMia-voorstel is klaar', body: /Voorstel openen/ },
+  ]
+
+  for (const testCase of proposalCases) {
+    const before = calls.length
+    const proposalEmail = await sendProposalEmail({
+      env,
+      language: testCase.locale,
+      proposal: {
+        customer_email: `${testCase.locale}-proposal@example.com`,
+        customer_name: 'Test Customer',
+        line_items: [{ name: 'Safety package', quantity: 1 }],
+        total_estimate: 699,
+      },
+      publicUrl: 'https://www.casamia.com.es/proposal/test-token',
+    })
+    assert.equal(proposalEmail.status, 'sent')
+    assert.equal(calls[before].subject, testCase.subject)
+    assert.match(calls[before].html, testCase.body)
+  }
 
   const skipped = await sendFormSubmissionEmails({ kind: 'contact', recipient: 'a@example.com' })
   assert.equal(skipped.customer.status, 'not_configured')

@@ -1,4 +1,4 @@
-import { sendFormSubmissionEmails } from '../_lib/form-email.js'
+import { normalizeEmailLocale, sendFormSubmissionEmails } from '../_lib/form-email.js'
 import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
 import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 import { cleanString, isJsonWithinBytes, isValidEmail, isWithinLength } from '../_lib/public-form-validation.js'
@@ -92,8 +92,8 @@ export default async function handler(request, response, dependencies = {}) {
       return
     }
 
-    const isSpanish = String(body.locale || '').toLowerCase().startsWith('es')
-    const labels = isSpanish ? labelsEs : labelsEn
+    const locale = normalizeEmailLocale(body.locale)
+    const labels = labelsByLocale[locale]
     const emailDelivery = await sendFormSubmissionEmails({
       details: [
         { label: labels.business, value: payload.business_name },
@@ -104,7 +104,7 @@ export default async function handler(request, response, dependencies = {}) {
         { label: labels.availability, value: payload.availability },
       ],
       kind: 'provider',
-      locale: isSpanish ? 'es' : 'en',
+      locale,
       name: payload.contact_name,
       recipient: payload.email,
       reference: payload.application_id,
@@ -119,10 +119,10 @@ export default async function handler(request, response, dependencies = {}) {
   }
 }
 
-const labelsEn = {
-  availability: 'Availability', business: 'Business', cities: 'Coverage areas', email: 'Email', phone: 'Phone', trades: 'Services',
-}
-
-const labelsEs = {
-  availability: 'Disponibilidad', business: 'Empresa', cities: 'Zonas de cobertura', email: 'Correo electrónico', phone: 'Teléfono', trades: 'Servicios',
+const labelsByLocale = {
+  en: { availability: 'Availability', business: 'Business', cities: 'Coverage areas', email: 'Email', phone: 'Phone', trades: 'Services' },
+  es: { availability: 'Disponibilidad', business: 'Empresa', cities: 'Zonas de cobertura', email: 'Correo electrónico', phone: 'Teléfono', trades: 'Servicios' },
+  de: { availability: 'Verfügbarkeit', business: 'Unternehmen', cities: 'Einsatzgebiete', email: 'E-Mail', phone: 'Telefon', trades: 'Leistungen' },
+  fr: { availability: 'Disponibilité', business: 'Entreprise', cities: 'Zones d’intervention', email: 'E-mail', phone: 'Téléphone', trades: 'Services' },
+  nl: { availability: 'Beschikbaarheid', business: 'Bedrijf', cities: 'Werkgebieden', email: 'E-mail', phone: 'Telefoon', trades: 'Diensten' },
 }
