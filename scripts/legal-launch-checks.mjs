@@ -46,7 +46,7 @@ for (const route of [
 ]) {
   assert.match(
     sitemap,
-    new RegExp(`https://casamia\\.com\\.es${route.replaceAll('-', '\\-')}`),
+    new RegExp(`https://www\\.casamia\\.com\\.es${route.replaceAll('-', '\\-')}`),
     `Sitemap must include the public legal route ${route}.`,
   )
 }
@@ -58,7 +58,7 @@ assert.match(robots, /^Disallow:\s*\/estimate\/$/m, 'Robots policy must keep pri
 assert.match(robots, /^Disallow:\s*\/proposal\/$/m, 'Robots policy must keep proposal pages out of search.')
 assert.match(
   robots,
-  /^Sitemap:\s*https:\/\/casamia\.com\.es\/sitemap\.xml$/m,
+  /^Sitemap:\s*https:\/\/www\.casamia\.com\.es\/sitemap\.xml$/m,
   'Robots policy must point search engines to the canonical CasaMia sitemap.',
 )
 for (const headerName of [

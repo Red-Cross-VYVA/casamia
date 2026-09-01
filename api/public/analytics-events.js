@@ -1,4 +1,6 @@
 import { insertSupabaseRow, readJsonBody, sendJson } from '../_lib/supabase.js'
+import { applyPublicCors, isAllowedPublicOrigin } from '../_lib/public-origin.js'
+import { reservePublicRequest } from '../_lib/public-rate-limit.js'
 
 const allowedEvents = new Set([
   'appointment_rescheduled',
@@ -16,12 +18,20 @@ const allowedEvents = new Set([
   'wizard_submitted',
 ])
 
-export default async function handler(request, response) {
+export default async function handler(request, response, dependencies = {}) {
   response.setHeader('Cache-Control', 'no-store')
+  const env = dependencies.env ?? process.env
+  if (request.method === 'OPTIONS') {
+    if (!applyPublicCors(request, response, env)) return sendJson(response, 403, { message: 'Origin not allowed.' })
+    response.status(204).end()
+    return
+  }
   if (request.method !== 'POST') {
     sendJson(response, 405, { message: 'Method not allowed.' })
     return
   }
+  if (!isAllowedPublicOrigin(request, env)) return sendJson(response, 403, { message: 'Origin not allowed.' })
+  applyPublicCors(request, response, env)
 
   let body
   try {
@@ -37,15 +47,24 @@ export default async function handler(request, response) {
     return
   }
 
+  const reservation = await reservePublicRequest(request, {
+    callRpc: dependencies.callRpc,
+    env,
+    limit: 180,
+    scope: 'analytics-event',
+    windowSeconds: 10 * 60,
+  })
+  if (!reservation.ok) return sendJson(response, reservation.status, { message: 'Analytics storage is temporarily unavailable.' })
+
   const pathname = cleanPath(body.pathname)
-  const result = await insertSupabaseRow('analytics_events', {
+  const result = await (dependencies.insertRow ?? insertSupabaseRow)('analytics_events', {
     event_name: eventName,
     flow: normalizeFlow(eventName, body.flow, pathname),
     language: normalizeLanguage(body.language),
     pathname,
     properties_json: cleanProperties(body.properties),
     session_id: cleanText(body.sessionId, 100),
-  })
+  }, dependencies.supabaseOptions)
 
   if (!result.ok) {
     sendJson(response, 503, { message: 'Analytics storage is not available.' })

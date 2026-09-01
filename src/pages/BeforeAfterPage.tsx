@@ -10,7 +10,7 @@ import {
   type BeforeAfterTransformation,
 } from '../constants/beforeAfter'
 
-const siteUrl = 'https://casamia.com.es'
+const siteUrl = 'https://www.casamia.com.es'
 
 export function BeforeAfterPage() {
   const { i18n, t } = useTranslation()

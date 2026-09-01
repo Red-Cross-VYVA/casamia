@@ -64,7 +64,7 @@ type FaqCopy = {
 
 const benefitIcons = [ShieldCheck, SmilePlus, Home, Stethoscope, ClipboardCheck, UsersRound]
 const afterReviewIcons = [MessageCircle, FileText, CalendarCheck, Wrench]
-const siteUrl = 'https://casamia.com.es'
+const siteUrl = 'https://www.casamia.com.es'
 
 export function FreeHomeSafetyAssessmentPage() {
   const { i18n, t } = useTranslation()

@@ -87,7 +87,7 @@ assert.match(
 )
 assert.match(
   sitemap,
-  /https:\/\/casamia\.com\.es\/home-safety-wizard/,
+  /https:\/\/www\.casamia\.com\.es\/home-safety-wizard/,
   'The standalone home safety wizard must be listed in the sitemap.',
 )
 assert.match(
@@ -382,7 +382,7 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /'@type': 'Service'[\s\S]*url: `https:\/\/casamia\.com\.es\$\{page\.path\}`,[\s\S]*image: `https:\/\/casamia\.com\.es\$\{page\.image\}`/,
+  /'@type': 'Service'[\s\S]*url: `https:\/\/www\.casamia\.com\.es\$\{page\.path\}`,[\s\S]*image: `https:\/\/www\.casamia\.com\.es\$\{page\.image\}`/,
   'Need landing page Service structured data must include the page image.',
 )
 assert.match(
@@ -632,32 +632,32 @@ assert.doesNotMatch(
 )
 assert.match(
   linkChecks,
-  /https:\\\/\\\/casamia\\\.com\\\.es/,
+  /www\.casamia\.com\.es/,
   'The link checker must validate sitemap routes against the production casamia.com.es domain.',
 )
 assert.match(
   sitemap,
-  /https:\/\/casamia\.com\.es\/tools<\/loc>/,
+  /https:\/\/www\.casamia\.com\.es\/tools<\/loc>/,
   'The public sitemap must include the free tools index.',
 )
 assert.match(
   sitemap,
-  /https:\/\/casamia\.com\.es\/tools\/is-my-parent-safe-at-home/,
+  /https:\/\/www\.casamia\.com\.es\/tools\/is-my-parent-safe-at-home/,
   'The public sitemap must include the parent safety quiz.',
 )
 assert.match(
   sitemap,
-  /https:\/\/casamia\.com\.es\/blog\/family-conversation-before-home-safety-visit/,
+  /https:\/\/www\.casamia\.com\.es\/blog\/family-conversation-before-home-safety-visit/,
   'The public sitemap must include the family conversation resource guide.',
 )
 assert.match(
   sitemap,
-  /https:\/\/casamia\.com\.es\/blog\/hospital-discharge-home-safety-checklist/,
+  /https:\/\/www\.casamia\.com\.es\/blog\/hospital-discharge-home-safety-checklist/,
   'The public sitemap must include the hospital-discharge checklist guide.',
 )
 assert.match(
   sitemap,
-  /https:\/\/casamia\.com\.es\/blog\/when-home-adaptations-are-not-enough/,
+  /https:\/\/www\.casamia\.com\.es\/blog\/when-home-adaptations-are-not-enough/,
   'The public sitemap must include the home-vs-residence decision guide.',
 )
 assert.match(
@@ -692,7 +692,7 @@ assert.match(
 )
 assert.match(
   articlePage,
-  /const siteUrl = 'https:\/\/casamia\.com\.es'[\s\S]*articleUrl[\s\S]*articleImageUrl/,
+  /const siteUrl = 'https:\/\/www\.casamia\.com\.es'[\s\S]*articleUrl[\s\S]*articleImageUrl/,
   'Resource article pages must build absolute canonical URLs for structured data.',
 )
 assert.match(

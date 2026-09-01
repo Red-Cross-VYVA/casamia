@@ -1,6 +1,7 @@
 import { track } from '@vercel/analytics'
 
 import { hasCookieConsent } from './cookieConsent'
+import { trackMetaConversion } from './metaTracking'
 
 type AnalyticsPayload = Record<string, string | number | boolean | null | undefined>
 
@@ -17,6 +18,7 @@ export function trackEvent(event: string, payload: AnalyticsPayload = {}) {
   }
 
   window.dispatchEvent(new CustomEvent('casamia:analytics', { detail }))
+  trackMetaConversion(event, payload)
   if (hasCookieConsent('analytics')) {
     window.dataLayer?.push(detail)
     track(event, payload)

@@ -7,7 +7,7 @@ import { SEO } from '../components/SEO'
 import { trackEvent } from '../utils/analytics'
 import '../styles/parent-safety-quiz.css'
 
-const siteUrl = 'https://casamia.com.es'
+const siteUrl = 'https://www.casamia.com.es'
 
 type Language = 'en' | 'es'
 

@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
 import { SEO } from '../components/SEO'
 import '../styles/tools-page.css'
 
-const siteUrl = 'https://casamia.com.es'
+const siteUrl = 'https://www.casamia.com.es'
 
 type Language = 'en' | 'es'
 

@@ -282,10 +282,10 @@ function slugify(value: string) {
 }
 
 function buildGrantSchema() {
-  const path = 'https://casamia.com.es/grants'
+  const path = 'https://www.casamia.com.es/grants'
   return [
-    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://casamia.com.es/' }, { '@type': 'ListItem', position: 2, name: 'Ayudas para adaptar vivienda', item: path }] },
-    { '@context': 'https://schema.org', '@type': 'Service', name: 'Revisión de ayudas para adaptar vivienda', serviceType: 'Ayudas accesibilidad vivienda España', areaServed: 'España', provider: { '@id': 'https://casamia.com.es/#organization' } },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.casamia.com.es/' }, { '@type': 'ListItem', position: 2, name: 'Ayudas para adaptar vivienda', item: path }] },
+    { '@context': 'https://schema.org', '@type': 'Service', name: 'Revisión de ayudas para adaptar vivienda', serviceType: 'Ayudas accesibilidad vivienda España', areaServed: 'España', provider: { '@id': 'https://www.casamia.com.es/#organization' } },
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) },
   ]
 }

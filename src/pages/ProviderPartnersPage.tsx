@@ -487,14 +487,14 @@ export function ProviderPartnersPage() {
       '@type': 'WebPage',
       name: copy.title,
       description: copy.metaDescription,
-      url: 'https://casamia.com.es/provider-partners',
+      url: 'https://www.casamia.com.es/provider-partners',
       inLanguage: isSpanish ? 'es-ES' : 'en',
       about: ['senior home safety provider network', 'home adaptation installation', 'provider onboarding'],
     },
     {
       '@context': 'https://schema.org',
       '@type': 'HowTo',
-      '@id': 'https://casamia.com.es/provider-partners#provider-onboarding',
+      '@id': 'https://www.casamia.com.es/provider-partners#provider-onboarding',
       name: copy.registrationTitle,
       description: copy.registrationBody,
       step: copy.onboarding.map((step, index) => ({
@@ -506,7 +506,7 @@ export function ProviderPartnersPage() {
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      '@id': 'https://casamia.com.es/provider-partners#partner-profiles',
+      '@id': 'https://www.casamia.com.es/provider-partners#partner-profiles',
       name: copy.profilesTitle,
       itemListElement: copy.partnerPaths.map((path, index) => ({
         '@type': 'ListItem',
@@ -518,7 +518,7 @@ export function ProviderPartnersPage() {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      '@id': 'https://casamia.com.es/provider-partners#faq',
+      '@id': 'https://www.casamia.com.es/provider-partners#faq',
       mainEntity: copy.faqItems.map((item) => ({
         '@type': 'Question',
         name: item.question,

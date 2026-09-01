@@ -10,7 +10,7 @@ import { allNeedLandingPages } from '../constants/needLandingPages'
 import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { completeHomeChecklistDownloads } from '../constants/resourceDownloads'
 
-const siteUrl = 'https://casamia.com.es'
+const siteUrl = 'https://www.casamia.com.es'
 
 const articleShellCopy = {
   en: {

@@ -6,7 +6,7 @@ import { SEO } from '../components/SEO'
 import { getServiceAreaCitySlug, serviceAreaCities } from '../constants/serviceAreas'
 import { trackEvent } from '../utils/analytics'
 
-const siteUrl = 'https://casamia.com.es'
+const siteUrl = 'https://www.casamia.com.es'
 
 const serviceAreaCopy = {
   en: {

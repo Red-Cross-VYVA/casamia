@@ -148,8 +148,8 @@ export function NeedLandingPage() {
         name: 'Spain',
       },
       serviceType: page.eyebrow,
-      url: `https://casamia.com.es${page.path}`,
-      image: `https://casamia.com.es${page.image}`,
+      url: `https://www.casamia.com.es${page.path}`,
+      image: `https://www.casamia.com.es${page.image}`,
     },
     {
       '@context': 'https://schema.org',
@@ -159,19 +159,19 @@ export function NeedLandingPage() {
           '@type': 'ListItem',
           position: 1,
           name: copy.home,
-          item: 'https://casamia.com.es/',
+          item: 'https://www.casamia.com.es/',
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: copy.resources,
-          item: 'https://casamia.com.es/blog',
+          item: 'https://www.casamia.com.es/blog',
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: page.title,
-          item: `https://casamia.com.es${page.path}`,
+          item: `https://www.casamia.com.es${page.path}`,
         },
       ],
     },
@@ -192,7 +192,7 @@ export function NeedLandingPage() {
           {
             '@context': 'https://schema.org',
             '@type': 'HowTo',
-            '@id': `https://casamia.com.es${page.path}#what-to-share`,
+            '@id': `https://www.casamia.com.es${page.path}#what-to-share`,
             name: copy.evidenceTitle,
             description: copy.evidenceBody,
             step: copy.evidenceItems.map((item, index) => ({

@@ -83,13 +83,13 @@ assert.match(
 
 assert.match(
   sitemap,
-  /https:\/\/casamia\.com\.es\/service-areas/,
+  /https:\/\/www\.casamia\.com\.es\/service-areas/,
   'The public sitemap must include the Service Areas page.',
 )
 
 assert.match(
   sitemap,
-  /https:\/\/casamia\.com\.es\/service-areas\/madrid[\s\S]*https:\/\/casamia\.com\.es\/service-areas\/barcelona[\s\S]*https:\/\/casamia\.com\.es\/service-areas\/valencia/,
+  /https:\/\/www\.casamia\.com\.es\/service-areas\/madrid[\s\S]*https:\/\/www\.casamia\.com\.es\/service-areas\/barcelona[\s\S]*https:\/\/www\.casamia\.com\.es\/service-areas\/valencia/,
   'The public sitemap must include priority city service-area pages.',
 )
 

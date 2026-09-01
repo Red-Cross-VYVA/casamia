@@ -14,6 +14,7 @@ import { CommercialSettingsProvider } from './context/CommercialSettingsContext'
 
 import { BrandLogo } from './components/BrandLogo'
 import { CookieConsent } from './components/CookieConsent'
+import { MetaPageTracking } from './components/MetaPageTracking'
 import { Footer } from './components/Footer'
 import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
@@ -305,6 +306,7 @@ export function AppRoutes() {
   return (
     <CommercialSettingsProvider>
       <ScrollManager />
+      <MetaPageTracking />
       {isInternalRoute || isPartnerRoute || isFocusedWizardRoute ? null : <Nav />}
       <main>
         <Suspense fallback={<RouteLoadingFallback />}>
