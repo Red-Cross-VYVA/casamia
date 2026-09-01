@@ -2,6 +2,7 @@ import { ChevronDown } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { getLocalizedPublicPath } from '../services/localizedRoutes'
 import { trackEvent } from '../utils/analytics'
 
 const languages = [
@@ -89,8 +90,14 @@ export function LanguageSwitcher({
                     from: i18n.language,
                     to: language.code,
                   })
-                  void i18n.changeLanguage(language.code)
                   setOpen(false)
+                  const localizedPath = getLocalizedPublicPath(
+                    window.location.pathname,
+                    language.code,
+                  )
+                  window.location.assign(
+                    `${localizedPath}${window.location.search}${window.location.hash}`,
+                  )
                 }}
               >
                 <span>{language.label}</span>

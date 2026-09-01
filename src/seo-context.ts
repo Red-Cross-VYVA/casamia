@@ -7,6 +7,11 @@ export type ResolvedSEO = {
   socialImageUrl: string
   noindex: boolean
   language: 'en' | 'es'
+  alternateUrls: {
+    en: string
+    es: string
+    xDefault: string
+  }
   schema: Record<string, unknown>[]
 }
 

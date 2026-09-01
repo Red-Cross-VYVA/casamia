@@ -9,6 +9,7 @@
     "build:production": "npm run validate:legal-config && npm run build",
     "lint": "oxlint",
     "preview": "vite preview",
+    "seo:sitemap": "node scripts/generate-localized-sitemap.mjs",
     "test": "node scripts/legal-launch-checks.mjs && npm run test:environment && npm run test:auth && npm run test:api-security && npm run test:facebook && npm run test:whatsapp && npm run test:leads && npm run test:lead-emails && npm run test:form-emails && npm run test:form-validation && npm run test:lead-reminders && npm run test:customer-reminders && npm run test:visit-reminders && npm run test:voice && npm run test:callback && npm run test:callbacks-admin && npm run test:operations && npm run test:customers && npm run test:catalogue && npm run test:commercial-copy && npm run test:master-catalogue && npm run test:agreements && npm run test:plans && npm run test:home && npm run test:assessment && npm run test:services && npm run test:resources && npm run test:service-areas && npm run test:why-us && npm run test:wizard && npm run test:report && npm run test:configurator && npm run test:stripe && npm run test:visit-scheduling && npm run test:links && npm run test:tech && npm run test:assisted && npm run test:how-it-works",
     "test:assisted": "node scripts/assisted-living-page-tests.mjs",
     "test:catalogue": "node --experimental-strip-types scripts/service-catalogue-authority-tests.mjs",

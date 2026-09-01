@@ -1,65 +1,871 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://casamia.com.es/</loc><priority>1.0</priority></url>
-  <url><loc>https://casamia.com.es/how-it-works</loc><priority>0.9</priority></url>
-  <url><loc>https://casamia.com.es/home-safety-assessment</loc><priority>0.95</priority></url>
-  <url><loc>https://casamia.com.es/services</loc><priority>0.95</priority></url>
-  <url><loc>https://casamia.com.es/services/bathroom-safety</loc><priority>0.9</priority></url>
-  <url><loc>https://casamia.com.es/services/stair-safety</loc><priority>0.9</priority></url>
-  <url><loc>https://casamia.com.es/services/entrance-accessibility</loc><priority>0.85</priority></url>
-  <url><loc>https://casamia.com.es/services/kitchen-safety</loc><priority>0.85</priority></url>
-  <url><loc>https://casamia.com.es/services/bedroom-safety</loc><priority>0.85</priority></url>
-  <url><loc>https://casamia.com.es/services/smart-home-safety</loc><priority>0.85</priority></url>
-  <url><loc>https://casamia.com.es/fall-prevention-at-home</loc><priority>0.9</priority></url>
-  <url><loc>https://casamia.com.es/aging-in-place-home-assessment</loc><priority>0.9</priority></url>
-  <url><loc>https://casamia.com.es/home-adaptations-for-elderly</loc><priority>0.88</priority></url>
-  <url><loc>https://casamia.com.es/home-safety-after-hospital-discharge</loc><priority>0.86</priority></url>
-  <url><loc>https://casamia.com.es/home-safety-assessment-vs-general-contractor</loc><priority>0.78</priority></url>
-  <url><loc>https://casamia.com.es/smart-home-safety-vs-monitoring</loc><priority>0.78</priority></url>
-  <url><loc>https://casamia.com.es/plans</loc><priority>0.9</priority></url>
-  <url><loc>https://casamia.com.es/assisted-living-solutions</loc><priority>0.8</priority></url>
-  <url><loc>https://casamia.com.es/provider-partners</loc><priority>0.75</priority></url>
-  <url><loc>https://casamia.com.es/service-areas</loc><priority>0.74</priority></url>
-  <url><loc>https://casamia.com.es/service-areas/madrid</loc><priority>0.7</priority></url>
-  <url><loc>https://casamia.com.es/service-areas/barcelona</loc><priority>0.7</priority></url>
-  <url><loc>https://casamia.com.es/service-areas/valencia</loc><priority>0.7</priority></url>
-  <url><loc>https://casamia.com.es/service-areas/malaga</loc><priority>0.68</priority></url>
-  <url><loc>https://casamia.com.es/service-areas/alicante</loc><priority>0.68</priority></url>
-  <url><loc>https://casamia.com.es/service-areas/seville</loc><priority>0.68</priority></url>
-  <url><loc>https://casamia.com.es/service-areas/bilbao</loc><priority>0.62</priority></url>
-  <url><loc>https://casamia.com.es/service-areas/zaragoza</loc><priority>0.62</priority></url>
-  <url><loc>https://casamia.com.es/grants</loc><priority>0.85</priority></url>
-  <url><loc>https://casamia.com.es/grant-check</loc><priority>0.8</priority></url>
-  <url><loc>https://casamia.com.es/home-safety-wizard</loc><priority>0.82</priority></url>
-  <url><loc>https://casamia.com.es/tools</loc><priority>0.78</priority></url>
-  <url><loc>https://casamia.com.es/tools/is-my-parent-safe-at-home</loc><priority>0.78</priority></url>
-  <url><loc>https://casamia.com.es/plan-adapta</loc><priority>0.85</priority></url>
-  <url><loc>https://casamia.com.es/why-us</loc><priority>0.8</priority></url>
-  <url><loc>https://casamia.com.es/about</loc><priority>0.7</priority></url>
-  <url><loc>https://casamia.com.es/before-after</loc><priority>0.55</priority></url>
-  <url><loc>https://casamia.com.es/tech</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog</loc><priority>0.75</priority></url>
-  <url><loc>https://casamia.com.es/blog/fall-prevention-home-checklist-spain</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/bathroom-safety-seniors-costly-mistakes</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/home-adaptation-grants-spain-family-guide</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/smart-home-safety-without-overcomplicating</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/choose-home-safety-provider-spain</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/family-conversation-before-home-safety-visit</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/hospital-discharge-home-safety-checklist</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/when-home-adaptations-are-not-enough</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/dementia-friendly-home-safety</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/stair-safety-handrails-older-adults</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/kitchen-safety-aging-in-place</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/bedroom-night-safety-older-adults</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/blog/emergency-plan-aging-parents-home</loc><priority>0.65</priority></url>
-  <url><loc>https://casamia.com.es/terms-and-conditions</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/legal-notice</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/general-customer-terms</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/privacy-policy</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/cookie-policy</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/withdrawal-cancellation</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/withdrawal-form</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/guarantees-aftercare</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/complaints-contact</loc><priority>0.3</priority></url>
-  <url><loc>https://casamia.com.es/accessibility-statement</loc><priority>0.3</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.casamia.com.es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/" />
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/how-it-works</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/how-it-works" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/how-it-works" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/how-it-works" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/home-safety-assessment</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-safety-assessment" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-safety-assessment" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-safety-assessment" />
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/services</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services" />
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/services/bathroom-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/bathroom-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/bathroom-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/bathroom-safety" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/services/stair-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/stair-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/stair-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/stair-safety" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/services/entrance-accessibility</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/entrance-accessibility" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/entrance-accessibility" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/entrance-accessibility" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/services/kitchen-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/kitchen-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/kitchen-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/kitchen-safety" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/services/bedroom-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/bedroom-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/bedroom-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/bedroom-safety" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/services/smart-home-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/smart-home-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/smart-home-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/smart-home-safety" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/fall-prevention-at-home</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/fall-prevention-at-home" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/fall-prevention-at-home" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/fall-prevention-at-home" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/aging-in-place-home-assessment</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/aging-in-place-home-assessment" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/aging-in-place-home-assessment" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/aging-in-place-home-assessment" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/home-adaptations-for-elderly</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-adaptations-for-elderly" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-adaptations-for-elderly" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-adaptations-for-elderly" />
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/home-safety-after-hospital-discharge</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-safety-after-hospital-discharge" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-safety-after-hospital-discharge" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-safety-after-hospital-discharge" />
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/home-safety-assessment-vs-general-contractor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-safety-assessment-vs-general-contractor" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-safety-assessment-vs-general-contractor" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-safety-assessment-vs-general-contractor" />
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/smart-home-safety-vs-monitoring</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/smart-home-safety-vs-monitoring" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/smart-home-safety-vs-monitoring" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/smart-home-safety-vs-monitoring" />
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/plans</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/plans" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/plans" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/plans" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/assisted-living-solutions</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/assisted-living-solutions" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/assisted-living-solutions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/assisted-living-solutions" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/provider-partners</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/provider-partners" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/provider-partners" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/provider-partners" />
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas" />
+    <priority>0.74</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas/madrid</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/madrid" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/madrid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/madrid" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas/barcelona</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/barcelona" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/barcelona" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/barcelona" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas/valencia</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/valencia" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/valencia" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/valencia" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas/malaga</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/malaga" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/malaga" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/malaga" />
+    <priority>0.68</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas/alicante</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/alicante" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/alicante" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/alicante" />
+    <priority>0.68</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas/seville</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/seville" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/seville" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/seville" />
+    <priority>0.68</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas/bilbao</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/bilbao" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/bilbao" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/bilbao" />
+    <priority>0.62</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/service-areas/zaragoza</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/zaragoza" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/zaragoza" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/zaragoza" />
+    <priority>0.62</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/grants</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/grants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/grants" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/grants" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/grant-check</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/grant-check" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/grant-check" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/grant-check" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/home-safety-wizard</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-safety-wizard" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-safety-wizard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-safety-wizard" />
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/tools" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/tools" />
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/tools/is-my-parent-safe-at-home</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/tools/is-my-parent-safe-at-home" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/tools/is-my-parent-safe-at-home" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/tools/is-my-parent-safe-at-home" />
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/plan-adapta</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/plan-adapta" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/plan-adapta" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/plan-adapta" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/why-us</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/why-us" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/why-us" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/why-us" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/about" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/before-after</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/before-after" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/before-after" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/before-after" />
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/tech</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/tech" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/tech" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/tech" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog" />
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/fall-prevention-home-checklist-spain</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/fall-prevention-home-checklist-spain" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/fall-prevention-home-checklist-spain" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/fall-prevention-home-checklist-spain" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/bathroom-safety-seniors-costly-mistakes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/bathroom-safety-seniors-costly-mistakes" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/bathroom-safety-seniors-costly-mistakes" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/bathroom-safety-seniors-costly-mistakes" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/home-adaptation-grants-spain-family-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/home-adaptation-grants-spain-family-guide" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/home-adaptation-grants-spain-family-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/home-adaptation-grants-spain-family-guide" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/smart-home-safety-without-overcomplicating</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/smart-home-safety-without-overcomplicating" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/smart-home-safety-without-overcomplicating" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/smart-home-safety-without-overcomplicating" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/choose-home-safety-provider-spain</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/choose-home-safety-provider-spain" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/choose-home-safety-provider-spain" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/choose-home-safety-provider-spain" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/family-conversation-before-home-safety-visit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/family-conversation-before-home-safety-visit" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/family-conversation-before-home-safety-visit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/family-conversation-before-home-safety-visit" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/hospital-discharge-home-safety-checklist</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/hospital-discharge-home-safety-checklist" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/hospital-discharge-home-safety-checklist" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/hospital-discharge-home-safety-checklist" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/when-home-adaptations-are-not-enough</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/when-home-adaptations-are-not-enough" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/when-home-adaptations-are-not-enough" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/when-home-adaptations-are-not-enough" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/dementia-friendly-home-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/dementia-friendly-home-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/dementia-friendly-home-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/dementia-friendly-home-safety" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/stair-safety-handrails-older-adults</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/stair-safety-handrails-older-adults" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/stair-safety-handrails-older-adults" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/stair-safety-handrails-older-adults" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/kitchen-safety-aging-in-place</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/kitchen-safety-aging-in-place" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/kitchen-safety-aging-in-place" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/kitchen-safety-aging-in-place" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/bedroom-night-safety-older-adults</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/bedroom-night-safety-older-adults" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/bedroom-night-safety-older-adults" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/bedroom-night-safety-older-adults" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/blog/emergency-plan-aging-parents-home</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/emergency-plan-aging-parents-home" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/emergency-plan-aging-parents-home" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/emergency-plan-aging-parents-home" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/terms-and-conditions</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/terms-and-conditions" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/terms-and-conditions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/terms-and-conditions" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/legal-notice</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/legal-notice" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/legal-notice" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/legal-notice" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/general-customer-terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/general-customer-terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/general-customer-terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/general-customer-terms" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/privacy-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/privacy-policy" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/cookie-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/cookie-policy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/cookie-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/cookie-policy" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/withdrawal-cancellation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/withdrawal-cancellation" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/withdrawal-cancellation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/withdrawal-cancellation" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/withdrawal-form</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/withdrawal-form" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/withdrawal-form" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/withdrawal-form" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/guarantees-aftercare</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/guarantees-aftercare" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/guarantees-aftercare" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/guarantees-aftercare" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/complaints-contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/complaints-contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/complaints-contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/complaints-contact" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/accessibility-statement</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/accessibility-statement" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/accessibility-statement" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/accessibility-statement" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/" />
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/how-it-works</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/how-it-works" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/how-it-works" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/how-it-works" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/home-safety-assessment</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-safety-assessment" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-safety-assessment" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-safety-assessment" />
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/services</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services" />
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/services/bathroom-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/bathroom-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/bathroom-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/bathroom-safety" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/services/stair-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/stair-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/stair-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/stair-safety" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/services/entrance-accessibility</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/entrance-accessibility" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/entrance-accessibility" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/entrance-accessibility" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/services/kitchen-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/kitchen-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/kitchen-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/kitchen-safety" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/services/bedroom-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/bedroom-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/bedroom-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/bedroom-safety" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/services/smart-home-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/services/smart-home-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/services/smart-home-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/services/smart-home-safety" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/fall-prevention-at-home</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/fall-prevention-at-home" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/fall-prevention-at-home" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/fall-prevention-at-home" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/aging-in-place-home-assessment</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/aging-in-place-home-assessment" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/aging-in-place-home-assessment" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/aging-in-place-home-assessment" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/home-adaptations-for-elderly</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-adaptations-for-elderly" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-adaptations-for-elderly" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-adaptations-for-elderly" />
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/home-safety-after-hospital-discharge</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-safety-after-hospital-discharge" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-safety-after-hospital-discharge" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-safety-after-hospital-discharge" />
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/home-safety-assessment-vs-general-contractor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-safety-assessment-vs-general-contractor" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-safety-assessment-vs-general-contractor" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-safety-assessment-vs-general-contractor" />
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/smart-home-safety-vs-monitoring</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/smart-home-safety-vs-monitoring" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/smart-home-safety-vs-monitoring" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/smart-home-safety-vs-monitoring" />
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/plans</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/plans" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/plans" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/plans" />
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/assisted-living-solutions</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/assisted-living-solutions" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/assisted-living-solutions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/assisted-living-solutions" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/provider-partners</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/provider-partners" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/provider-partners" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/provider-partners" />
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas" />
+    <priority>0.74</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas/madrid</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/madrid" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/madrid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/madrid" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas/barcelona</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/barcelona" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/barcelona" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/barcelona" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas/valencia</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/valencia" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/valencia" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/valencia" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas/malaga</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/malaga" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/malaga" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/malaga" />
+    <priority>0.68</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas/alicante</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/alicante" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/alicante" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/alicante" />
+    <priority>0.68</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas/seville</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/seville" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/seville" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/seville" />
+    <priority>0.68</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas/bilbao</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/bilbao" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/bilbao" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/bilbao" />
+    <priority>0.62</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/service-areas/zaragoza</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/service-areas/zaragoza" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/service-areas/zaragoza" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/service-areas/zaragoza" />
+    <priority>0.62</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/grants</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/grants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/grants" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/grants" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/grant-check</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/grant-check" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/grant-check" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/grant-check" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/home-safety-wizard</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/home-safety-wizard" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/home-safety-wizard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/home-safety-wizard" />
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/tools</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/tools" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/tools" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/tools" />
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/tools/is-my-parent-safe-at-home</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/tools/is-my-parent-safe-at-home" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/tools/is-my-parent-safe-at-home" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/tools/is-my-parent-safe-at-home" />
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/plan-adapta</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/plan-adapta" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/plan-adapta" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/plan-adapta" />
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/why-us</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/why-us" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/why-us" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/why-us" />
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/about" />
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/before-after</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/before-after" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/before-after" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/before-after" />
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/tech</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/tech" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/tech" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/tech" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog" />
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/fall-prevention-home-checklist-spain</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/fall-prevention-home-checklist-spain" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/fall-prevention-home-checklist-spain" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/fall-prevention-home-checklist-spain" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/bathroom-safety-seniors-costly-mistakes</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/bathroom-safety-seniors-costly-mistakes" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/bathroom-safety-seniors-costly-mistakes" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/bathroom-safety-seniors-costly-mistakes" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/home-adaptation-grants-spain-family-guide</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/home-adaptation-grants-spain-family-guide" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/home-adaptation-grants-spain-family-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/home-adaptation-grants-spain-family-guide" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/smart-home-safety-without-overcomplicating</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/smart-home-safety-without-overcomplicating" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/smart-home-safety-without-overcomplicating" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/smart-home-safety-without-overcomplicating" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/choose-home-safety-provider-spain</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/choose-home-safety-provider-spain" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/choose-home-safety-provider-spain" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/choose-home-safety-provider-spain" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/family-conversation-before-home-safety-visit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/family-conversation-before-home-safety-visit" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/family-conversation-before-home-safety-visit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/family-conversation-before-home-safety-visit" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/hospital-discharge-home-safety-checklist</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/hospital-discharge-home-safety-checklist" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/hospital-discharge-home-safety-checklist" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/hospital-discharge-home-safety-checklist" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/when-home-adaptations-are-not-enough</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/when-home-adaptations-are-not-enough" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/when-home-adaptations-are-not-enough" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/when-home-adaptations-are-not-enough" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/dementia-friendly-home-safety</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/dementia-friendly-home-safety" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/dementia-friendly-home-safety" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/dementia-friendly-home-safety" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/stair-safety-handrails-older-adults</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/stair-safety-handrails-older-adults" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/stair-safety-handrails-older-adults" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/stair-safety-handrails-older-adults" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/kitchen-safety-aging-in-place</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/kitchen-safety-aging-in-place" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/kitchen-safety-aging-in-place" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/kitchen-safety-aging-in-place" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/bedroom-night-safety-older-adults</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/bedroom-night-safety-older-adults" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/bedroom-night-safety-older-adults" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/bedroom-night-safety-older-adults" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/blog/emergency-plan-aging-parents-home</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/blog/emergency-plan-aging-parents-home" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/blog/emergency-plan-aging-parents-home" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/blog/emergency-plan-aging-parents-home" />
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/terms-and-conditions</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/terms-and-conditions" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/terms-and-conditions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/terms-and-conditions" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/legal-notice</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/legal-notice" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/legal-notice" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/legal-notice" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/general-customer-terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/general-customer-terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/general-customer-terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/general-customer-terms" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/privacy-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/privacy-policy" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/cookie-policy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/cookie-policy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/cookie-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/cookie-policy" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/withdrawal-cancellation</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/withdrawal-cancellation" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/withdrawal-cancellation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/withdrawal-cancellation" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/withdrawal-form</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/withdrawal-form" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/withdrawal-form" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/withdrawal-form" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/guarantees-aftercare</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/guarantees-aftercare" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/guarantees-aftercare" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/guarantees-aftercare" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/complaints-contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/complaints-contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/complaints-contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/complaints-contact" />
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.casamia.com.es/es/accessibility-statement</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.casamia.com.es/accessibility-statement" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.casamia.com.es/es/accessibility-statement" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.casamia.com.es/accessibility-statement" />
+    <priority>0.3</priority>
+  </url>
 </urlset>

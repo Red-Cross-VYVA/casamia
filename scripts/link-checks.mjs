@@ -106,20 +106,25 @@ for (const file of sourceFiles) {
 }
 
 const sitemap = fs.readFileSync(path.join(projectRoot, 'public', 'sitemap.xml'), 'utf8')
-for (const match of sitemap.matchAll(/<loc>https:\/\/casamia\.com\.es([^<]*)<\/loc>/g)) {
-  const pathname = match[1] || '/'
-  const canonicalPath = canonicalRedirectPaths.get(pathname)
-  if (canonicalPath) {
-    failures.push(`public/sitemap.xml: ${pathname} redirects to ${canonicalPath}; list only the canonical service URL`)
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]))
+
+for (const sitemapUrl of sitemapUrls) {
+  const pathname = sitemapUrl.pathname || '/'
+  const logicalPathname = pathname === '/es' ? '/' : pathname.startsWith('/es/') ? pathname.slice(3) : pathname
+  const canonicalPath = canonicalRedirectPaths.get(logicalPathname)
+
+  if (sitemapUrl.hostname !== 'www.casamia.com.es') {
+    failures.push(`public/sitemap.xml: ${sitemapUrl.href} does not use the preferred www host`)
   }
-  if (!routeMatches(pathname)) {
+  if (canonicalPath) {
+    failures.push(`public/sitemap.xml: ${logicalPathname} redirects to ${canonicalPath}; list only the canonical service URL`)
+  }
+  if (!routeMatches(logicalPathname)) {
     failures.push(`public/sitemap.xml: ${pathname} has no matching route`)
   }
 }
 
-const sitemapPaths = new Set(
-  [...sitemap.matchAll(/<loc>https:\/\/casamia\.com\.es([^<]*)<\/loc>/g)].map((match) => match[1] || '/'),
-)
+const sitemapPaths = new Set(sitemapUrls.map((sitemapUrl) => sitemapUrl.pathname || '/'))
 
 const sitemapSourceChecks = [
   {

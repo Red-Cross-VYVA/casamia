@@ -8,6 +8,7 @@ import {
   useLocation,
   useParams,
 } from 'react-router-dom'
+import { getLanguageBasename } from './services/localizedRoutes'
 import { Analytics } from '@vercel/analytics/react'
 import { CommercialSettingsProvider } from './context/CommercialSettingsContext'
 
@@ -388,8 +389,10 @@ export function AppRoutes() {
 }
 
 export default function App() {
+  const basename = getLanguageBasename(window.location.pathname)
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AppRoutes />
       <Analytics />
     </BrowserRouter>

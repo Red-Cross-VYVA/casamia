@@ -44,13 +44,14 @@ for (const route of routes) {
   const { html: appHtml, seo } = await render(route)
   const documentHtml = buildDocument(template, appHtml, seo)
   const outputPath = getRouteHtmlOutputPath(route)
+  const logicalRoute = route === '/es' ? '/' : route.startsWith('/es/') ? route.slice(3) : route
 
   await mkdir(path.dirname(outputPath), { recursive: true })
   await writeFile(outputPath, documentHtml)
 
   const visibleText = appHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
-  const hasExpectedNavigation = route === '/home-safety-wizard' || /<nav\b/i.test(appHtml)
-  const minimumVisibleText = route === '/home-safety-wizard' ? 120 : 400
+  const hasExpectedNavigation = logicalRoute === '/home-safety-wizard' || /<nav\b/i.test(appHtml)
+  const minimumVisibleText = logicalRoute === '/home-safety-wizard' ? 120 : 400
   if (!/<main\b/i.test(appHtml) || !/<h1\b/i.test(appHtml) || !hasExpectedNavigation || visibleText.length < minimumVisibleText) {
     throw new Error(`Prerendered route ${route} is missing substantive navigation, heading, or body content.`)
   }
@@ -97,11 +98,14 @@ function stripPageHead(source) {
     .replace(/<title>[\s\S]*?<\/title>/i, '')
     .replace(/\s*<meta\s+(?:name|property)="(?:description|robots|og:[^"]+|twitter:[^"]+)"[^>]*>/gi, '')
     .replace(/\s*<link\s+rel="canonical"[^>]*>/gi, '')
+    .replace(/\s*<link\s+rel="alternate"[^>]*>/gi, '')
     .replace(/\s*<script\s+type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, '')
 }
 
 function buildHead(seo) {
-  const robots = seo.noindex ? 'noindex,nofollow' : 'index,follow'
+  const robots = seo.noindex
+    ? 'noindex,nofollow'
+    : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
   const locale = seo.language === 'es' ? 'es_ES' : 'en_IE'
   const alternateLocale = seo.language === 'es' ? 'en_IE' : 'es_ES'
   const imageType = new URL(seo.socialImageUrl).pathname.toLowerCase().endsWith('.png')
@@ -130,6 +134,9 @@ function buildHead(seo) {
     meta('name', 'twitter:image', seo.socialImageUrl),
     meta('name', 'twitter:image:alt', seo.title),
     `<link rel="canonical" href="${escapeHtml(seo.canonicalUrl)}" />`,
+    `<link rel="alternate" hreflang="en" href="${escapeHtml(seo.alternateUrls.en)}" />`,
+    `<link rel="alternate" hreflang="es" href="${escapeHtml(seo.alternateUrls.es)}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${escapeHtml(seo.alternateUrls.xDefault)}" />`,
   ]
 
   if (seo.schema.length > 0) {
