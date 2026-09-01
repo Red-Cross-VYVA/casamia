@@ -80,6 +80,11 @@ const InternalDashboardPage = lazy(() =>
     default: InternalDashboardPage,
   })),
 )
+const InternalConversionAnalyticsPage = lazy(() =>
+  import('./pages/internal/InternalConversionAnalyticsPage').then(({ InternalConversionAnalyticsPage }) => ({
+    default: InternalConversionAnalyticsPage,
+  })),
+)
 const InternalCustomersPage = lazy(() =>
   import('./pages/internal/InternalCustomersPage').then(({ InternalCustomersPage }) => ({
     default: InternalCustomersPage,
@@ -358,6 +363,7 @@ export function AppRoutes() {
             <Route path="/complaints-contact" element={<LegalDocumentPage documentId="complaints-contact" />} />
             <Route path="/accessibility-statement" element={<LegalDocumentPage documentId="accessibility-statement" />} />
             <Route path="/internal" element={<InternalRoute><InternalDashboardPage /></InternalRoute>} />
+            <Route path="/internal/conversions" element={<InternalRoute><InternalConversionAnalyticsPage /></InternalRoute>} />
             <Route path="/internal/customers" element={<InternalRoute><InternalCustomersPage /></InternalRoute>} />
             <Route path="/internal/leads" element={<InternalRoute><InternalLeadsPage /></InternalRoute>} />
             <Route path="/internal/callbacks" element={<InternalRoute><InternalCallbacksPage /></InternalRoute>} />

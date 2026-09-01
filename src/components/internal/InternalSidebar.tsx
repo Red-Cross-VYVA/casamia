@@ -1,5 +1,6 @@
 import {
   AudioLines,
+  ChartNoAxesCombined,
   ClipboardList,
   ClipboardCheck,
   ContactRound,
@@ -27,6 +28,7 @@ import { voiceAssistantFeatureEnabled } from '../../services/voiceAssistant'
 
 const internalLinks = [
   { label: 'Dashboard', to: '/internal', icon: LayoutDashboard },
+  { label: 'Conversion analytics', to: '/internal/conversions', icon: ChartNoAxesCombined },
   { label: 'Customer records', to: '/internal/customers', icon: ContactRound },
   { label: 'Lead pipeline', to: '/internal/leads', icon: UsersRound },
   { label: 'Callback requests', to: '/internal/callbacks', icon: PhoneCall },
