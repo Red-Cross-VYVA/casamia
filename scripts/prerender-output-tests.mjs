@@ -73,6 +73,7 @@ assert.deepEqual(deploymentReadiness, {
 const protectedShellRoutes = [
   ['dist/_app-shell/private.html', '/_app-shell/private'],
   ['dist/internal.html', '/internal'],
+  ['dist/internal/conversions.html', '/internal/conversions'],
   ['dist/internal/service-catalog.html', '/internal/service-catalog'],
   ['dist/internal/facebook-posts.html', '/internal/facebook-posts'],
   ['dist/internal/whatsapp-setup.html', '/internal/whatsapp-setup'],
