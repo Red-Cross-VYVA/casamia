@@ -2,6 +2,7 @@ import { MessageCircle, Phone } from 'lucide-react'
 
 import type { WizardCopy } from '../../config/wizardCopy'
 import { CASAMIA_CONTACT_EMAIL, CASAMIA_CONTACT_PHONE, buildCasaMiaWhatsappUrl } from '../../constants/contact'
+import { trackEvent } from '../../utils/analytics'
 import { WizardStep } from './WizardStep'
 
 type PhoneStepProps = { copy: WizardCopy; reference: string }
@@ -22,7 +23,7 @@ export function PhoneStep({ copy, reference }: PhoneStepProps) {
             </a>
           ) : null}
           {whatsappHref ? (
-            <a className="btn btn-white" href={whatsappHref} target="_blank" rel="noreferrer">
+            <a className="btn btn-white" href={whatsappHref} target="_blank" rel="noreferrer" onClick={() => trackEvent('whatsapp_clicked', { location: 'wizard_phone_step' })}>
               <MessageCircle size={20} aria-hidden="true" /> {copy.phone.whatsapp}
             </a>
           ) : null}

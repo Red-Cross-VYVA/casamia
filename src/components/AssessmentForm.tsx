@@ -252,6 +252,10 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
         if (checkoutUrl.protocol !== 'https:' || checkoutUrl.hostname !== 'checkout.stripe.com') {
           throw new Error('Unexpected checkout destination.')
         }
+        trackEvent('payment_checkout_started', {
+          flow: 'assessment_visit',
+          language: i18n.resolvedLanguage || i18n.language,
+        })
         window.location.assign(checkoutUrl.toString())
         return
       }

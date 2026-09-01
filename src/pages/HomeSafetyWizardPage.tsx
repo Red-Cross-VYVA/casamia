@@ -326,7 +326,11 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
         if (!validAssessment || !referenceMatches) {
           setVisitPaymentState('failed')
         } else {
-          setVisitPaymentState(status.paymentStatus === 'paid' ? 'paid' : 'pending')
+          const paymentState = status.paymentStatus === 'paid' ? 'paid' : 'pending'
+          setVisitPaymentState(paymentState)
+          if (paymentState === 'paid') {
+            trackEvent('payment_completed', { flow: 'assessment_visit', language })
+          }
         }
       })
       .catch(() => {
@@ -336,7 +340,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
     return () => {
       active = false
     }
-  }, [expectsVisitPayment, paymentReference, paymentSessionId])
+  }, [expectsVisitPayment, language, paymentReference, paymentSessionId])
 
   const saveForLater = async () => {
     if (saveStatus === 'saving') return
@@ -394,6 +398,10 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
         if (checkoutUrl.protocol !== 'https:' || checkoutUrl.hostname !== 'checkout.stripe.com') {
           throw new Error('Unexpected checkout destination.')
         }
+        trackEvent('payment_checkout_started', {
+          flow: 'assessment_visit',
+          language: i18n.resolvedLanguage || i18n.language,
+        })
         window.location.assign(checkoutUrl.toString())
         return
       }

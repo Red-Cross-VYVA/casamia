@@ -8,6 +8,7 @@ import { formatConfiguratorCurrency } from '../services/configuratorPricing'
 import { loadSavedConfiguratorSubmission } from '../services/configuratorSubmission'
 import { getConfiguredServiceById } from '../services/serviceCatalogue'
 import { getVisitCheckoutStatus } from '../services/visitCheckout'
+import { trackEvent } from '../utils/analytics'
 
 type PaymentVerification = 'none' | 'checking' | 'paid' | 'pending' | 'failed'
 
@@ -96,7 +97,11 @@ export function ConfigureConfirmationPage() {
         if (!referenceMatches) {
           setPaymentVerification('failed')
         } else {
-          setPaymentVerification(status.paymentStatus === 'paid' ? 'paid' : 'pending')
+          const paymentState = status.paymentStatus === 'paid' ? 'paid' : 'pending'
+          setPaymentVerification(paymentState)
+          if (paymentState === 'paid') {
+            trackEvent('payment_completed', { flow: 'configurator_visit', language: i18n.language })
+          }
         }
       })
       .catch(() => {
@@ -106,7 +111,7 @@ export function ConfigureConfirmationPage() {
     return () => {
       active = false
     }
-  }, [configurationId, expectsPayment, sessionId])
+  }, [configurationId, expectsPayment, i18n.language, sessionId])
 
   return (
     <section className="bg-light-blue pt-28">

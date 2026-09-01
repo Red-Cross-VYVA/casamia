@@ -12,6 +12,7 @@ import {
   getProposalDepositCheckoutStatus,
   loadPublicProposal,
 } from '../services/proposalsApi'
+import { trackEvent } from '../utils/analytics'
 
 export function PublicProposalPage() {
   const { i18n } = useTranslation()
@@ -108,6 +109,7 @@ export function PublicProposalPage() {
             setIsVerifyingPayment(true)
             const paymentStatus = await getProposalDepositCheckoutStatus(token, checkoutSessionId)
             if (paymentStatus.paymentStatus === 'paid') {
+              trackEvent('payment_completed', { flow: 'proposal_deposit', language: i18n.language })
               loadedProposal = await loadPublicProposal(token)
             } else {
               setIsPaymentPending(true)
@@ -127,7 +129,7 @@ export function PublicProposalPage() {
     }
 
     void loadProposalAndPayment()
-  }, [checkoutSessionId, copy.loadError, copy.paymentError, copy.title, paymentResult, token])
+  }, [checkoutSessionId, copy.loadError, copy.paymentError, copy.title, i18n.language, paymentResult, token])
 
   async function beginPayment(currentProposal: ProposalData) {
     setIsStartingPayment(true)
@@ -135,6 +137,7 @@ export function PublicProposalPage() {
 
     try {
       const checkout = await createProposalDepositCheckout(token, i18n.language)
+      trackEvent('payment_checkout_started', { flow: 'proposal_deposit', language: i18n.language })
       window.location.assign(checkout.checkoutUrl)
     } catch {
       setProposal(currentProposal)
@@ -156,10 +159,12 @@ export function PublicProposalPage() {
 
       if (acceptedProposal) {
         setProposal(acceptedProposal)
+        trackEvent('proposal_accepted', { language: i18n.language })
         await beginPayment(acceptedProposal)
       } else {
         const refreshedProposal = await loadPublicProposal(token)
         setProposal(refreshedProposal)
+        trackEvent('proposal_accepted', { language: i18n.language })
         await beginPayment(refreshedProposal)
       }
     } catch {

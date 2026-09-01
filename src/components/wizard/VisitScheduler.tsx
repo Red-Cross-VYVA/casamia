@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import {
   getCustomerCalendarLinks, loadVisitAvailability, manageVisit, scheduleVisit, type VisitAppointment, type VisitAvailability,
 } from '../../services/visitScheduling'
+import { trackEvent } from '../../utils/analytics'
 
 export function VisitScheduler({ language, sessionId }: { language: string; sessionId: string }) {
   const isSpanish = language.toLowerCase().startsWith('es')
@@ -44,6 +45,7 @@ export function VisitScheduler({ language, sessionId }: { language: string; sess
       const result = mode === 'reschedule'
         ? await manageVisit(sessionId, 'reschedule', selectedStartAt)
         : await scheduleVisit(sessionId, selectedStartAt)
+      trackEvent(mode === 'reschedule' ? 'appointment_rescheduled' : 'appointment_scheduled', { language })
       const refreshed = await loadVisitAvailability(sessionId).catch(() => null)
       setAvailability(refreshed || ((current) => current ? { ...current, appointment: result.appointment } : current))
       setMode('book')
