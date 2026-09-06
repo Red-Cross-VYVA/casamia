@@ -2310,59 +2310,6 @@ export function PlansPage() {
               </div>
             </div>
 
-            <section className="plans-starter-section" aria-labelledby="plans-starter-title">
-              <div className="plans-starter-heading">
-                <div>
-                  <p className="section-kicker">{language === 'es' ? 'Primeros pasos más económicos' : 'Lower-cost first steps'}</p>
-                  <h3 id="plans-starter-title">{language === 'es' ? 'Packs iniciales' : 'Starter packs'}</h3>
-                  <p>{language === 'es' ? 'Opciones de alcance fijo para cubrir primero las necesidades esenciales.' : 'Fixed-scope options that cover the essential needs first.'}</p>
-                </div>
-              </div>
-              <div className="plans-starter-grid">
-                {starterPacks.map((starterPack) => {
-                  const Icon = roomIcons[starterPack.room.id] ?? Home
-                  const quantity = selection[starterPack.packageRecord.id]?.selected
-                    ? selection[starterPack.packageRecord.id]?.quantity ?? 1
-                    : 0
-                  const visual = starterPackVisuals[starterPack.packageRecord.id] ?? roomVisuals[starterPack.room.id]
-                  return (
-                    <article className={`plans-starter-card${quantity > 0 ? ' is-selected' : ''}`} key={starterPack.packageRecord.id}>
-                      <div className="plans-starter-media" aria-hidden="true">
-                        <img src={visual} alt="" loading="lazy" />
-                      </div>
-                      <div className="plans-starter-content">
-                        <div className="plans-starter-topline">
-                          <span><Icon size={16} aria-hidden="true" />{starterPack.roomLabel}</span>
-                          <strong>{formatPlansCurrency(starterPack.packageUnitPrice, language)}</strong>
-                        </div>
-                        <h4>{starterPack.packageLabel}</h4>
-                        <p>{starterPack.packageBenefit || starterPack.packageDescription}</p>
-                        <span className="plans-starter-chip">{language === 'es' ? 'Primeros pasos enfocados' : 'Focused first steps'}</span>
-                        <div className="plans-starter-actions">
-                          <button className="plans-detail-link" type="button" onClick={() => openStarterPackDetails(starterPack)}>
-                            {copy.viewDetails}<ArrowRight size={14} aria-hidden="true" />
-                          </button>
-                          <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${starterPack.packageLabel}`}>
-                            <button
-                              aria-label={`${language === 'es' ? 'Reducir cantidad' : 'Decrease quantity'}: ${starterPack.packageLabel}`}
-                              type="button"
-                              onClick={() => updateStarterPackQuantity(starterPack, quantity - 1)}
-                            ><Minus size={16} aria-hidden="true" /></button>
-                            <input aria-label={`${copy.quantity}: ${starterPack.packageLabel}`} min="0" max="12" type="number" value={quantity} onChange={(event) => updateStarterPackQuantity(starterPack, Number(event.target.value))} />
-                            <button
-                              aria-label={`${language === 'es' ? 'Aumentar cantidad' : 'Increase quantity'}: ${starterPack.packageLabel}`}
-                              type="button"
-                              onClick={() => updateStarterPackQuantity(starterPack, quantity + 1)}
-                            ><Plus size={16} aria-hidden="true" /></button>
-                          </div>
-                        </div>
-                      </div>
-                    </article>
-                  )
-                })}
-              </div>
-            </section>
-
             <div className="plans-full-package-heading">
               <p className="section-kicker">{language === 'es' ? 'Paquetes completos por estancia' : 'Complete room packages'}</p>
               <h3>{language === 'es' ? 'Soluciones coordinadas para toda la estancia' : 'Coordinated whole-room solutions'}</h3>
@@ -2447,6 +2394,59 @@ export function PlansPage() {
                 )
               })}
             </div>
+
+            <section className="plans-starter-section" aria-labelledby="plans-starter-title">
+              <div className="plans-starter-heading">
+                <div>
+                  <p className="section-kicker">{language === 'es' ? 'Primeros pasos más económicos' : 'Lower-cost first steps'}</p>
+                  <h3 id="plans-starter-title">{language === 'es' ? 'Packs iniciales' : 'Starter packs'}</h3>
+                  <p>{language === 'es' ? 'Opciones de alcance fijo para cubrir primero las necesidades esenciales.' : 'Fixed-scope options that cover the essential needs first.'}</p>
+                </div>
+              </div>
+              <div className="plans-starter-grid">
+                {starterPacks.map((starterPack) => {
+                  const Icon = roomIcons[starterPack.room.id] ?? Home
+                  const quantity = selection[starterPack.packageRecord.id]?.selected
+                    ? selection[starterPack.packageRecord.id]?.quantity ?? 1
+                    : 0
+                  const visual = starterPackVisuals[starterPack.packageRecord.id] ?? roomVisuals[starterPack.room.id]
+                  return (
+                    <article className={`plans-starter-card${quantity > 0 ? ' is-selected' : ''}`} key={starterPack.packageRecord.id}>
+                      <div className="plans-starter-media" aria-hidden="true">
+                        <img src={visual} alt="" loading="lazy" />
+                      </div>
+                      <div className="plans-starter-content">
+                        <div className="plans-starter-topline">
+                          <span><Icon size={16} aria-hidden="true" />{starterPack.roomLabel}</span>
+                          <strong>{formatPlansCurrency(starterPack.packageUnitPrice, language)}</strong>
+                        </div>
+                        <h4>{starterPack.packageLabel}</h4>
+                        <p>{starterPack.packageBenefit || starterPack.packageDescription}</p>
+                        <span className="plans-starter-chip">{language === 'es' ? 'Primeros pasos enfocados' : 'Focused first steps'}</span>
+                        <div className="plans-starter-actions">
+                          <button className="plans-detail-link" type="button" onClick={() => openStarterPackDetails(starterPack)}>
+                            {copy.viewDetails}<ArrowRight size={14} aria-hidden="true" />
+                          </button>
+                          <div className="plans-quantity-control" aria-label={`${copy.quantity}: ${starterPack.packageLabel}`}>
+                            <button
+                              aria-label={`${language === 'es' ? 'Reducir cantidad' : 'Decrease quantity'}: ${starterPack.packageLabel}`}
+                              type="button"
+                              onClick={() => updateStarterPackQuantity(starterPack, quantity - 1)}
+                            ><Minus size={16} aria-hidden="true" /></button>
+                            <input aria-label={`${copy.quantity}: ${starterPack.packageLabel}`} min="0" max="12" type="number" value={quantity} onChange={(event) => updateStarterPackQuantity(starterPack, Number(event.target.value))} />
+                            <button
+                              aria-label={`${language === 'es' ? 'Aumentar cantidad' : 'Increase quantity'}: ${starterPack.packageLabel}`}
+                              type="button"
+                              onClick={() => updateStarterPackQuantity(starterPack, quantity + 1)}
+                            ><Plus size={16} aria-hidden="true" /></button>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+            </section>
 
             <div className="plans-builder-continue">
               <div>

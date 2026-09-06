@@ -12,6 +12,7 @@ import {
 
 const defaultCatalogue = getDefaultServiceCatalogue()
 const plansPage = await readFile(new URL('../src/pages/PlansPage.tsx', import.meta.url), 'utf8')
+const catalogueVisuals = await readFile(new URL('../src/constants/catalogueVisuals.ts', import.meta.url), 'utf8')
 
 assert.match(plansPage, /Decrease quantity[\s\S]*Increase quantity/, 'Package steppers must have accessible action names.')
 assert.match(plansPage, /Reducir cantidad[\s\S]*Aumentar cantidad/, 'Package steppers must have Spanish accessible action names.')
@@ -59,6 +60,16 @@ assert.deepEqual(
   'All five Starter Packs must use their approved VAT-included customer prices.',
 )
 assert.ok(starterPacks.every((starterPack) => starterPack.outcomes.length > 0), 'Every Starter Pack must include catalogue outcomes.')
+assert.match(
+  plansPage,
+  /'core-rails-pack': '\/images\/service-gallery\/01-grab-bars-and-support-points\.jpg'/,
+  'Support Rail Starter Pack should use a representative grab-bar card image.',
+)
+assert.match(
+  catalogueVisuals,
+  /'starter-core-priority-rails': '\/images\/service-gallery\/01-grab-bars-and-support-points\.jpg'/,
+  'Essential Support Rails should use the representative grab-bar modal image.',
+)
 
 {
   const bathroomStarter = starterPacks.find((starterPack) => starterPack.packageRecord.id === 'bathroom-essentials-pack')

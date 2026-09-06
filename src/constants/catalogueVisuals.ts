@@ -113,6 +113,8 @@ export const catalogueOutcomeImages: Record<string, string> = {
   'movement-stair-handrails': '/images/service-gallery/03-stairway-and-hallway-support.jpg',
   'movement-stair-treads': '/images/service-gallery/02-anti-slip-safety-improvements.jpg',
   'seating-height-adjustment': '/images/service-card-products/living-room-seating-support.png',
+  'starter-core-priority-rails': '/images/service-gallery/01-grab-bars-and-support-points.jpg',
+  'starter-core-rail-placement': '/images/service-gallery/01-grab-bars-and-support-points.jpg',
   'connected-emergency-button': serviceProductImage('emergency-button'),
   'connected-family-alerts': '/images/how-it-works-smartphone.jpg',
   'connected-fall-detection': '/images/service-gallery/09-fall-detection-sensors.jpg',
