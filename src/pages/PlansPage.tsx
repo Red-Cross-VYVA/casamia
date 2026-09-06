@@ -1271,7 +1271,7 @@ export function PlansPage() {
         itemIncludes: 'Para este elemento, CasaMia incluye',
         next: 'Siguiente',
         noDetailItems: 'No hay elementos para mostrar en esta sección.',
-        orderPackage: (roomLabel: string) => `Pedir paquete de ${roomLabel.toLocaleLowerCase('es-ES')}`,
+        orderPackage: (roomLabel: string) => `A\u00f1adir paquete de ${roomLabel.toLocaleLowerCase('es-ES')}`,
         optionalTab: 'Extras opcionales',
         previous: 'Anterior',
         requestReview: 'Pedir valoraci\u00f3n del extra',
@@ -1288,7 +1288,7 @@ export function PlansPage() {
         itemIncludes: 'For this item, CasaMia includes',
         next: 'Next',
         noDetailItems: 'No items to show in this section.',
-        orderPackage: (roomLabel: string) => `Order ${roomLabel} Package`,
+        orderPackage: (roomLabel: string) => `Add ${roomLabel} package`,
         optionalTab: 'Optional add-ons',
         previous: 'Previous',
         requestReview: 'Request extra review',
@@ -1470,21 +1470,6 @@ export function PlansPage() {
         rooms: 'Rooms',
         selectedScope: 'Selected scope',
       }
-
-  useEffect(() => {
-    if (Object.keys(selection).length || !groups.length) {
-      return
-    }
-
-    const defaultGroup = groups.find((group) => group.room.id === 'bathroom') ?? groups[0]
-    setSelection({
-      [defaultGroup.homePackage.id]: {
-        addOnOutcomeIds: [],
-        quantity: 1,
-        selected: true,
-      },
-    })
-  }, [groups, selection])
 
   useEffect(() => {
     if (!activeDetail) {
@@ -2915,14 +2900,6 @@ export function PlansPage() {
                     </span>
                     <h3>{activeDetailSlideTitle}</h3>
 
-                    <div className="plan-detail-benefit">
-                      <Sparkles size={18} aria-hidden="true" />
-                      <div>
-                        <strong>{detailCopy.benefit}</strong>
-                        <p>{activeDetailSlideBenefit}</p>
-                      </div>
-                    </div>
-
                     <div className="plan-detail-included-card">
                       <h4>{activeDetailIncludesHeading}</h4>
                       <ul>
@@ -2933,6 +2910,14 @@ export function PlansPage() {
                           </li>
                         ))}
                       </ul>
+                    </div>
+
+                    <div className="plan-detail-benefit">
+                      <Sparkles size={18} aria-hidden="true" />
+                      <div>
+                        <strong>{detailCopy.benefit}</strong>
+                        <p>{activeDetailSlideBenefit}</p>
+                      </div>
                     </div>
 
                     {activeDetailAction ? (

@@ -425,16 +425,8 @@ export function PackageDetailModal({
                 </span>
                 <h3>{slideTitle}</h3>
 
-                <div className="plan-detail-benefit">
-                  <Sparkles size={18} aria-hidden="true" />
-                  <div>
-                    <strong>{copy.benefit}</strong>
-                    <p>{slideBenefit}</p>
-                  </div>
-                </div>
-
                 <div className="plan-detail-included-card">
-                    <h4>{includesHeading}</h4>
+                  <h4>{includesHeading}</h4>
                   <ul>
                     {includedItems.map((item) => (
                       <li key={item}>
@@ -443,6 +435,14 @@ export function PackageDetailModal({
                       </li>
                     ))}
                   </ul>
+                </div>
+
+                <div className="plan-detail-benefit">
+                  <Sparkles size={18} aria-hidden="true" />
+                  <div>
+                    <strong>{copy.benefit}</strong>
+                    <p>{slideBenefit}</p>
+                  </div>
                 </div>
               </article>
             </div>

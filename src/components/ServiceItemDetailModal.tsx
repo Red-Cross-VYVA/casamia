@@ -199,14 +199,6 @@ export function ServiceItemDetailModal({
             <span className="plan-detail-story-kicker">{service.category}</span>
             <h3>{detail.title}</h3>
 
-            <div className="plan-detail-benefit">
-              <Sparkles size={18} aria-hidden="true" />
-              <div>
-                <strong>{copy.benefit}</strong>
-                <p>{detail.benefit}</p>
-              </div>
-            </div>
-
             <div className="plan-detail-included-card">
               <h4>{copy.includes}</h4>
               <ul>
@@ -217,6 +209,14 @@ export function ServiceItemDetailModal({
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="plan-detail-benefit">
+              <Sparkles size={18} aria-hidden="true" />
+              <div>
+                <strong>{copy.benefit}</strong>
+                <p>{detail.benefit}</p>
+              </div>
             </div>
 
             {detail.requirements.length ? (

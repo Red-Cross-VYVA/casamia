@@ -13,9 +13,28 @@ import {
 const defaultCatalogue = getDefaultServiceCatalogue()
 const plansPage = await readFile(new URL('../src/pages/PlansPage.tsx', import.meta.url), 'utf8')
 const catalogueVisuals = await readFile(new URL('../src/constants/catalogueVisuals.ts', import.meta.url), 'utf8')
+const packageDetailModal = await readFile(new URL('../src/components/PackageDetailModal.tsx', import.meta.url), 'utf8')
+const serviceItemDetailModal = await readFile(new URL('../src/components/ServiceItemDetailModal.tsx', import.meta.url), 'utf8')
+
+function assertIncludedAppearsBeforeBenefit(source, label) {
+  const includedIndex = source.indexOf('className="plan-detail-included-card"')
+  const benefitIndex = source.indexOf('className="plan-detail-benefit"')
+
+  assert.ok(includedIndex >= 0, `${label} should render an included-items card.`)
+  assert.ok(benefitIndex >= 0, `${label} should render a why-it-helps block.`)
+  assert.ok(includedIndex < benefitIndex, `${label} should show included items before why-it-helps copy.`)
+}
 
 assert.match(plansPage, /Decrease quantity[\s\S]*Increase quantity/, 'Package steppers must have accessible action names.')
 assert.match(plansPage, /Reducir cantidad[\s\S]*Aumentar cantidad/, 'Package steppers must have Spanish accessible action names.')
+assert.doesNotMatch(
+  plansPage,
+  /defaultGroup\s*=\s*groups\.find|setSelection\(\{\s*\[defaultGroup\.homePackage\.id\]/,
+  'Plans should not auto-select a package before the user chooses one.',
+)
+assertIncludedAppearsBeforeBenefit(plansPage, 'Plans package detail modal')
+assertIncludedAppearsBeforeBenefit(packageDetailModal, 'Reusable package detail modal')
+assertIncludedAppearsBeforeBenefit(serviceItemDetailModal, 'Service item detail modal')
 
 assert.match(
   plansPage,
