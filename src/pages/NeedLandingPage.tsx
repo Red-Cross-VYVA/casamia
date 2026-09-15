@@ -120,7 +120,7 @@ export function NeedLandingPage() {
           {
             question: 'Can I send photos or videos before a visit?',
             answer:
-              'Yes. A few photos or a short video often helps us understand the space, route and support points. If measurements, compatibility or installation checks are needed, CasaMia confirms that before moving forward.',
+              'Yes. A few photos or a short video often helps us understand the space, route and support points. If measurements, compatibility or installation checks are needed, we agree that with you before moving forward.',
           },
         ],
     questionsCta: isSpanish ? 'Empezar con mi caso' : 'Start with my situation',

@@ -23,7 +23,7 @@ const copy = {
     installationLabel: 'Installed and tested',
     quoteDetail: 'Final scope and price are confirmed after the home check, so the proposal reflects the real room and materials.',
     quoteLabel: 'Measured quote',
-    standard: 'CasaMia checks fit, coordinates installation, tests the result and explains safe use before handover.',
+    standard: 'We check the home first, fit the right option, test it in place and explain safe use before handover.',
     bestForPrefix: 'Best for',
     bestForFallback: 'families who want a practical improvement matched to the existing home before work begins.',
     noHiddenFit: 'No guesswork on fit',
@@ -33,11 +33,12 @@ const copy = {
     quoteChip: 'Measured quote',
     consentChip: 'Consent-aware',
     typicalTime: 'Typical on-site task time',
-    verifiedPrefix: 'CasaMia verifies',
-    measuredFit: 'fit, measurements and home conditions',
-    installedFinish: 'professional installation or setup, testing and handover',
-    quoteFinish: 'final scope and price after the home review',
-    grantFinish: 'supporting evidence for grants where local criteria apply',
+    beforePrefix: 'Before fitting, we check',
+    measuredFit: 'measurements, fixing points and home conditions',
+    installedFinish: 'then install or set it up professionally and test it in place',
+    quoteFinish: 'we confirm the final scope and price after the home review',
+    grantFinish: 'we flag useful paperwork where local grant criteria may apply',
+    dailyRoutineFit: 'that it suits the room and daily routine',
   },
   es: {
     assessmentDetail: 'CasaMia revisa a la persona, la distribución y la rutina diaria antes de confirmar la recomendación final.',
@@ -54,7 +55,7 @@ const copy = {
     installationLabel: 'Instalado y probado',
     quoteDetail: 'El alcance y precio final se confirman tras revisar la vivienda, para que la propuesta refleje la estancia y materiales reales.',
     quoteLabel: 'Presupuesto medido',
-    standard: 'CasaMia comprueba el encaje, coordina la instalación, prueba el resultado y explica el uso seguro antes de la entrega.',
+    standard: 'Revisamos la vivienda, elegimos la opción adecuada, la probamos instalada y explicamos su uso antes de la entrega.',
     bestForPrefix: 'Ideal para',
     bestForFallback: 'familias que quieren una mejora práctica adaptada a la vivienda existente antes de empezar.',
     noHiddenFit: 'Sin suposiciones',
@@ -64,11 +65,12 @@ const copy = {
     quoteChip: 'Presupuesto medido',
     consentChip: 'Con consentimiento',
     typicalTime: 'Tiempo orientativo de trabajo en casa',
-    verifiedPrefix: 'CasaMia comprueba',
-    measuredFit: 'encaje, medidas y condiciones de la vivienda',
-    installedFinish: 'instalación o configuración profesional, prueba y entrega',
-    quoteFinish: 'alcance y precio final tras la revisión de la vivienda',
-    grantFinish: 'documentación de apoyo para subvenciones cuando aplican criterios locales',
+    beforePrefix: 'Antes de instalarlo, comprobamos',
+    measuredFit: 'medidas, puntos de fijación y condiciones de la vivienda',
+    installedFinish: 'después lo instalamos o configuramos de forma profesional y lo probamos en su sitio',
+    quoteFinish: 'confirmamos el alcance y precio final tras revisar la vivienda',
+    grantFinish: 'indicamos documentación útil cuando pueden aplicar criterios locales de subvención',
+    dailyRoutineFit: 'que encaje con la estancia y la rutina diaria',
   },
 } as const
 
@@ -97,25 +99,34 @@ export function getServiceBestFor(service: CasaMiaService, language: string) {
 
 export function getServiceCredibleDescription(service: CasaMiaService, language: string) {
   const text = copy[languageKey(language)]
-  const baseDescription = (service.customerDescription ?? service.shortDescription).trim()
+  const baseDescription = polishServiceDescription((service.customerDescription ?? service.shortDescription).trim())
+  const needsFitCheck = Boolean(
+    service.requiresAssessment
+    || service.requirements?.assessment
+    || service.requiresMeasurement
+    || service.requiresCompatibilityCheck,
+  )
   const proofParts = [
-    (service.requiresAssessment || service.requirements?.assessment || service.requiresMeasurement || service.requiresCompatibilityCheck)
-      ? text.measuredFit
-      : null,
+    needsFitCheck ? text.measuredFit : text.dailyRoutineFit,
     (service.requiresInstallation || service.requirements?.installation) ? text.installedFinish : null,
     (service.requiresQuote || service.requirements?.quote || service.pricingType === 'quote_only') ? text.quoteFinish : null,
     service.grant?.eligible ? text.grantFinish : null,
   ].filter(Boolean) as string[]
 
-  if (!proofParts.length) {
-    return baseDescription
-  }
-
-  const proofSentence = `${text.verifiedPrefix} ${proofParts.join(', ')}.`
+  const proofSentence = `${text.beforePrefix} ${proofParts.join('; ')}.`
 
   return baseDescription.endsWith(proofSentence)
     ? baseDescription
     : `${baseDescription.replace(/\s+$/, '').replace(/\.$/, '')}. ${proofSentence}`
+}
+
+function polishServiceDescription(description: string) {
+  return description
+    .replace(/^Adding\b/, 'Adds')
+    .replace(/^Providing\b/, 'Provides')
+    .replace(/^Installing\b/, 'Installs')
+    .replace(/^Configuring\b/, 'Configures')
+    .replace(/^Replacing\b/, 'Replaces')
 }
 
 export function getServiceProofChips(service: CasaMiaService, language: string) {

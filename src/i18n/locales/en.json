@@ -180,7 +180,7 @@
         },
         {
           "title": "We Confirm Availability",
-          "body": "CasaMia confirms the appointment, the {{visitFee}} visit fee, and what will be reviewed before booking."
+          "body": "You see the appointment, the {{visitFee}} visit fee, and what will be reviewed before booking."
         },
         {
           "title": "You Receive Recommendations",
@@ -206,7 +206,7 @@
         },
         {
           "question": "Can we use photos, videos or a phone call before a visit?",
-          "answer": "Yes. Many families start online with guided answers, photos, short videos, voice notes or a call. If measurement or professional review is needed, CasaMia confirms the visit before booking."
+          "answer": "Yes. Many families start online with guided answers, photos, short videos, voice notes or a call. If measurement or professional review is needed, you see the visit details before booking."
         },
         {
           "question": "Can CasaMia help with public grants?",

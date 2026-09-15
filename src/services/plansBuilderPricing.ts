@@ -554,22 +554,14 @@ function toProposalLineItem(line: PlansBuilderEstimateLine): ProposalLineItem {
 }
 
 export function getPlansOutcomeCredibleDescription(outcome: MasterCatalogueOutcome, language: string) {
-  const baseDescription = localizePlansString(
-    outcome.detailedDescription ?? outcome.shortDescription,
-    language,
-    outcome.internalName,
-  ).trim()
-  const copy = trustCopy(language)
-  const proofParts = [
-    (outcome.requiresAssessment || outcome.requiresMeasurement || outcome.requiresCompatibilityCheck || outcome.requiresSiteVisit)
-      ? copy.fit
-      : null,
-    outcome.requiresQuote || outcome.pricingType === 'quote' ? copy.scope : null,
-    outcome.grantEligible ? copy.grant : null,
-    copy.handover,
-  ].filter(Boolean) as string[]
-
-  const proofSentence = `${copy.prefix} ${proofParts.join(', ')}.`
+  const baseDescription = polishPlansDescription(
+    localizePlansString(
+      outcome.detailedDescription ?? outcome.shortDescription,
+      language,
+      outcome.internalName,
+    ).trim(),
+  )
+  const proofSentence = buildOutcomeTrustSentence(outcome, language)
 
   return baseDescription.endsWith(proofSentence)
     ? baseDescription
@@ -696,8 +688,8 @@ function formatReadableList(items: string[], language: string) {
 
 function recurringDescription(language: string) {
   return language.toLowerCase().startsWith('es')
-    ? 'Coste mensual mostrado por separado. CasaMia confirma compatibilidad antes de activar el servicio.'
-    : 'Monthly cost shown separately. CasaMia confirms compatibility before activating the service.'
+    ? 'Coste mensual mostrado por separado. Revisamos compatibilidad antes de activar el servicio.'
+    : 'Monthly cost shown separately. We check compatibility before activating the service.'
 }
 
 function copyFor(language: string) {
@@ -732,20 +724,45 @@ function reviewCopy(language: string) {
       }
 }
 
+function buildOutcomeTrustSentence(outcome: MasterCatalogueOutcome, language: string) {
+  const copy = trustCopy(language)
+  const needsFitCheck = outcome.requiresAssessment
+    || outcome.requiresMeasurement
+    || outcome.requiresCompatibilityCheck
+    || outcome.requiresSiteVisit
+  const needsQuote = outcome.requiresQuote || outcome.pricingType === 'quote'
+  const fitText = needsFitCheck ? copy.fit : copy.fitLight
+  const scopeText = needsQuote ? ` ${copy.scope}` : ''
+  const grantText = outcome.grantEligible ? ` ${copy.grant}` : ''
+
+  return `${copy.before} ${fitText}${scopeText}${grantText} ${copy.handover}`
+}
+
+function polishPlansDescription(description: string) {
+  return description
+    .replace(/^Adding\b/, 'Adds')
+    .replace(/^Providing\b/, 'Provides')
+    .replace(/^Installing\b/, 'Installs')
+    .replace(/^Configuring\b/, 'Configures')
+    .replace(/^Replacing\b/, 'Replaces')
+}
+
 function trustCopy(language: string) {
   return language.toLowerCase().startsWith('es')
     ? {
-        fit: 'idoneidad, medidas y condiciones reales de la estancia',
-        grant: 'documentación de apoyo para subvenciones cuando aplica',
-        handover: 'prueba de uso y entrega clara',
-        prefix: 'CasaMia confirma',
-        scope: 'alcance y precio final antes de presupuestar',
+        before: 'Antes de instalarlo, comprobamos',
+        fit: 'medidas, superficie de fijación y el espacio exacto;',
+        fitLight: 'que encaje con la estancia y la rutina diaria;',
+        grant: 'también indicamos la documentación útil si puede optar a subvención;',
+        handover: 'después lo probamos y explicamos su uso con claridad.',
+        scope: 'confirmamos el alcance y precio final antes de presupuestar;',
       }
     : {
-        fit: 'suitability, measurements and real room conditions',
-        grant: 'grant evidence where eligible',
-        handover: 'testing and clear handover',
-        prefix: 'CasaMia confirms',
-        scope: 'final scope and price before quoting',
+        before: 'Before fitting, we check',
+        fit: 'measurements, fixing surfaces and the actual space;',
+        fitLight: 'that it suits the room and daily routine;',
+        grant: 'we also flag useful paperwork if grant support may apply;',
+        handover: 'then we test it and explain safe use clearly.',
+        scope: 'we agree the final scope and price before preparing the quote;',
       }
 }

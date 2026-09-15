@@ -40,7 +40,7 @@ const modalCopy = {
     compatibility: 'Compatibility check',
     quote: 'Quote confirmed after review',
     grant: 'May be eligible for grant support',
-    fallbackInclude: 'CasaMia confirms the final scope and fit before installation.',
+    fallbackInclude: 'We check fit and final scope before installation.',
   },
   es: {
     close: 'Cerrar',
@@ -62,7 +62,7 @@ const modalCopy = {
     compatibility: 'Comprobación de compatibilidad',
     quote: 'Presupuesto confirmado tras revisión',
     grant: 'Puede optar a apoyo de subvención',
-    fallbackInclude: 'CasaMia confirma el alcance final y el encaje antes de instalar.',
+    fallbackInclude: 'Revisamos encaje y alcance final antes de instalar.',
   },
 }
 

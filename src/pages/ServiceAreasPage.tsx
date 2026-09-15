@@ -42,7 +42,7 @@ const serviceAreaCopy = {
     ],
     cityTitle: 'Priority cities',
     cityIntro:
-      'Coverage expands as CasaMia verifies local partners and support routes. If your city is not listed, you can still ask us to check it.',
+      'Coverage expands as local partners and support routes are checked. If your city is not listed, you can still ask us to check it.',
     unknownTitle: 'Not listed?',
     unknownBody:
       'Send your postcode and the rooms you are worried about. CasaMia can confirm whether we can help remotely, coordinate a visit, or advise the best next route.',

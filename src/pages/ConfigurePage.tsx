@@ -450,7 +450,7 @@ export function ConfigurePage() {
             </dl>
             <p className="mt-5 rounded-lg bg-pale-blue p-4 text-sm font-bold leading-relaxed text-text-mid">
               {state.selectedServiceIds.length > 0
-                ? 'This estimate uses the selected improvements. CasaMia confirms measurements, compatibility and final availability before any work starts.'
+                ? 'This estimate uses the selected improvements. We check measurements, compatibility and final availability before any work starts.'
                 : 'Select rooms and answer the guided questions. Your estimate appears once you choose individual improvements.'}
             </p>
           </aside>

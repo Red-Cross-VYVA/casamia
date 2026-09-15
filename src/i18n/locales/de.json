@@ -1625,7 +1625,7 @@
         },
         {
           "title": "We Confirm Availability",
-          "body": "CasaMia confirms the appointment, the {{visitFee}} visit fee, and what will be reviewed before booking."
+          "body": "You see the appointment, the {{visitFee}} visit fee, and what will be reviewed before booking."
         },
         {
           "title": "You Receive Recommendations",

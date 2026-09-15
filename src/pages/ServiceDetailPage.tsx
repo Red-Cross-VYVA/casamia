@@ -93,7 +93,7 @@ const serviceDetailUiCopy = {
     improvedEyebrow: 'What gets improved',
     improvedTitle: 'Choose the improvements that fit.',
     improvedBody:
-      'Pick useful services one by one. CasaMia confirms measurements and compatibility before work starts.',
+      'Pick useful services one by one. We check measurements and compatibility before any work starts.',
     planEyebrow: 'Your CasaMia plan',
     buildMyPlan: 'Build my plan',
     managedBy: 'Managed by CasaMia',
@@ -118,7 +118,7 @@ const serviceDetailUiCopy = {
     improvedEyebrow: 'Qué se mejora',
     improvedTitle: 'Elige las mejoras que encajan.',
     improvedBody:
-      'Selecciona servicios útiles uno a uno. CasaMia confirma medidas y compatibilidad antes de empezar.',
+      'Selecciona servicios útiles uno a uno. Revisamos medidas y compatibilidad antes de empezar.',
     planEyebrow: 'Tu plan CasaMia',
     buildMyPlan: 'Crear mi plan',
     managedBy: 'Gestionado por CasaMia',
