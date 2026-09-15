@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
 import { SafeImage } from './SafeImage'
@@ -19,27 +19,95 @@ type PackageDetailTab = 'core' | 'optional'
 const packageModalCopy = {
   en: {
     benefit: 'Why it helps',
+    bestFor: 'Best fit',
     close: 'Close',
     coreTab: 'Core package',
     includes: 'What CasaMia includes',
     itemIncludes: 'For this item, CasaMia includes',
+    professionalFitting: 'Professional fitting',
+    familyReady: 'Family handover',
+    grantChip: 'Grant support',
+    quoteChip: 'Measured quote',
+    noHiddenFit: 'No guesswork on fit',
     next: 'Next',
     noDetailItems: 'No items to show in this section.',
     optionalTab: 'Optional add-ons',
     previous: 'Previous',
     slideLabel: 'Item',
+    standard: 'CasaMia checks fit, coordinates installation, tests the result and explains safe use before handover.',
+    trust: 'Why families can trust it',
+    trustSignals: {
+      assessment: {
+        label: 'Checked before recommendation',
+        detail: 'CasaMia reviews the resident, room layout and daily routine before confirming the final scope.',
+      },
+      compatibility: {
+        label: 'Compatibility reviewed',
+        detail: 'Measurements, surface strength, device fit and home conditions are checked before installation is agreed.',
+      },
+      grant: {
+        label: 'Grant-aware scope',
+        detail: 'This improvement may support grant paperwork where local criteria apply. Approval is always decided by the authority.',
+      },
+      handover: {
+        label: 'CasaMia handover',
+        detail: 'The resident or family receives a practical handover so the improvement is understood before the job is closed.',
+      },
+      installation: {
+        label: 'Installed and tested',
+        detail: 'Professional fitting is followed by a practical use and stability check before handover.',
+      },
+      quote: {
+        label: 'Measured quote',
+        detail: 'Final scope and price are confirmed after review, so the proposal reflects the real room and materials.',
+      },
+    },
   },
   es: {
-    benefit: 'Por que ayuda',
+    benefit: 'Por qué ayuda',
+    bestFor: 'Cuándo encaja',
     close: 'Cerrar',
     coreTab: 'Paquete base',
-    includes: 'Que incluye CasaMia',
+    includes: 'Qué incluye CasaMia',
     itemIncludes: 'Para este elemento, CasaMia incluye',
+    professionalFitting: 'Instalación profesional',
+    familyReady: 'Entrega a la familia',
+    grantChip: 'Apoyo subvención',
+    quoteChip: 'Presupuesto medido',
+    noHiddenFit: 'Sin suposiciones',
     next: 'Siguiente',
-    noDetailItems: 'No hay elementos para mostrar en esta seccion.',
+    noDetailItems: 'No hay elementos para mostrar en esta sección.',
     optionalTab: 'Extras opcionales',
     previous: 'Anterior',
     slideLabel: 'Elemento',
+    standard: 'CasaMia comprueba el encaje, coordina la instalación, prueba el resultado y explica el uso seguro antes de la entrega.',
+    trust: 'Por qué aporta confianza',
+    trustSignals: {
+      assessment: {
+        label: 'Revisado antes de recomendar',
+        detail: 'CasaMia revisa a la persona, la distribución y la rutina diaria antes de confirmar el alcance final.',
+      },
+      compatibility: {
+        label: 'Compatibilidad revisada',
+        detail: 'Se comprueban medidas, resistencia de superficies, compatibilidad de dispositivos y condiciones de la vivienda antes de acordar la instalación.',
+      },
+      grant: {
+        label: 'Alcance orientado a subvención',
+        detail: 'Esta mejora puede ayudar en la documentación de subvenciones cuando se cumplen criterios locales. La aprobación siempre depende de la administración.',
+      },
+      handover: {
+        label: 'Entrega CasaMia',
+        detail: 'La persona o la familia recibe una entrega práctica para entender la mejora antes de cerrar el trabajo.',
+      },
+      installation: {
+        label: 'Instalado y probado',
+        detail: 'La instalación profesional se completa con una comprobación práctica de uso y estabilidad antes de la entrega.',
+      },
+      quote: {
+        label: 'Presupuesto medido',
+        detail: 'El alcance y precio final se confirman tras la revisión, para que la propuesta refleje la estancia y materiales reales.',
+      },
+    },
   },
 } as const
 
@@ -110,6 +178,76 @@ function getDetailBenefit(outcome: MasterCatalogueOutcome, language: 'en' | 'es'
     language,
     localizePlansString(outcome.shortDescription, language, outcome.internalName),
   )
+}
+
+function getDetailDescription(outcome: MasterCatalogueOutcome, language: 'en' | 'es') {
+  return localizePlansString(
+    outcome.detailedDescription ?? outcome.shortDescription,
+    language,
+    localizePlansString(outcome.customerBenefit, language, outcome.internalName),
+  )
+}
+
+function getOutcomeProofChips(
+  outcome: MasterCatalogueOutcome,
+  catalogue: MasterServiceCatalogue,
+  language: 'en' | 'es',
+) {
+  const text = packageModalCopy[language]
+  const specification = getProposalSpecificationForOutcome(outcome.id, catalogue)
+  const hasInstallation = specification.installationTasks.length > 0
+  const chips = [
+    (outcome.requiresAssessment || outcome.requiresMeasurement || outcome.requiresCompatibilityCheck || outcome.requiresSiteVisit)
+      ? text.noHiddenFit
+      : null,
+    hasInstallation ? text.professionalFitting : null,
+    outcome.grantEligible ? text.grantChip : null,
+    outcome.requiresQuote || outcome.pricingType === 'quote' ? text.quoteChip : null,
+    text.familyReady,
+  ].filter(Boolean) as string[]
+
+  return [...new Set(chips)].slice(0, 3)
+}
+
+function getOutcomeBestFit(outcome: MasterCatalogueOutcome, language: 'en' | 'es') {
+  const text = packageModalCopy[language]
+  const benefit = getDetailBenefit(outcome, language).trim().replace(/\.$/, '')
+
+  return `${text.bestFor} ${benefit ? benefit.charAt(0).toLocaleLowerCase(language) + benefit.slice(1) : getDetailDescription(outcome, language).toLocaleLowerCase(language)}`
+}
+
+function getOutcomeTrustSignals(
+  outcome: MasterCatalogueOutcome,
+  catalogue: MasterServiceCatalogue,
+  language: 'en' | 'es',
+) {
+  const text = packageModalCopy[language].trustSignals
+  const specification = getProposalSpecificationForOutcome(outcome.id, catalogue)
+  const signals = []
+
+  if (outcome.requiresAssessment || outcome.requiresSiteVisit) {
+    signals.push(text.assessment)
+  }
+
+  if (outcome.requiresMeasurement || outcome.requiresCompatibilityCheck) {
+    signals.push(text.compatibility)
+  }
+
+  if (specification.installationTasks.length > 0) {
+    signals.push(text.installation)
+  }
+
+  if (outcome.grantEligible) {
+    signals.push(text.grant)
+  }
+
+  if (outcome.requiresQuote || outcome.pricingType === 'quote') {
+    signals.push(text.quote)
+  }
+
+  signals.push(text.handover)
+
+  return signals.slice(0, 5)
 }
 
 function localizeDetailItem(item: string, language: 'en' | 'es') {
@@ -318,10 +456,14 @@ export function PackageDetailModal({
   const displayMode = currentTab === 'optional' ? 'optional' : 'core'
   const title = group?.packageLabel ?? ''
   const slideTitle = activeSlide ? getDetailSlideTitle(activeSlide, languageKey) : ''
+  const slideDescription = activeSlide ? getDetailDescription(activeSlide, languageKey) : ''
   const slideBenefit = activeSlide ? getDetailBenefit(activeSlide, languageKey) : ''
   const slideImage = activeSlide ? getDetailSlideImage(activeSlide) : ''
   const includesHeading = activeSlide ? copy.itemIncludes : copy.includes
   const includedItems = activeSlide ? getDetailIncludedItems(activeSlide, catalogue, languageKey) : []
+  const proofChips = activeSlide ? getOutcomeProofChips(activeSlide, catalogue, languageKey) : []
+  const bestFit = activeSlide ? getOutcomeBestFit(activeSlide, languageKey) : ''
+  const trustSignals = activeSlide ? getOutcomeTrustSignals(activeSlide, catalogue, languageKey) : []
   const hasMultiple = slides.length > 1
 
   if (!group) return null
@@ -351,6 +493,14 @@ export function PackageDetailModal({
           <div>
             <p>{displayMode === 'optional' ? copy.optionalTab : copy.coreTab}</p>
             <h2 id="package-detail-title">{title}</h2>
+            {slideDescription ? <span>{slideDescription}</span> : null}
+            {proofChips.length ? (
+              <div className="package-detail-proof-row" aria-label={copy.trust}>
+                {proofChips.map((chip) => (
+                  <strong key={chip}>{chip}</strong>
+                ))}
+              </div>
+            ) : null}
           </div>
           <button type="button" aria-label={copy.close} onClick={onClose}>
             <X size={18} aria-hidden="true" />
@@ -444,6 +594,36 @@ export function PackageDetailModal({
                     <p>{slideBenefit}</p>
                   </div>
                 </div>
+
+                <div className="plan-detail-benefit package-detail-best-fit">
+                  <ShieldCheck size={18} aria-hidden="true" />
+                  <div>
+                    <strong>{copy.bestFor}</strong>
+                    <p>{bestFit}</p>
+                  </div>
+                </div>
+
+                {trustSignals.length ? (
+                  <div className="plan-detail-included-card package-detail-trust">
+                    <h4>{copy.trust}</h4>
+                    <ul>
+                      {trustSignals.map((signal) => (
+                        <li key={signal.label}>
+                          <CheckCircle2 size={16} aria-hidden="true" />
+                          <span>
+                            <strong>{signal.label}</strong>
+                            <small>{signal.detail}</small>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+
+                <p className="package-detail-standard">
+                  <ShieldCheck size={16} aria-hidden="true" />
+                  <span>{copy.standard}</span>
+                </p>
               </article>
             </div>
 

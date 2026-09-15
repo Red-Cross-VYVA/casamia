@@ -19997,6 +19997,24 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.5;
 }
 
+.package-detail-proof-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.package-detail-proof-row strong {
+  border: 1px solid rgba(31, 103, 146, 0.16);
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 6px 9px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+}
+
 .plan-detail-modal-head > button {
   display: inline-flex;
   align-items: center;
@@ -20312,6 +20330,10 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.42;
 }
 
+.package-detail-best-fit {
+  background: #f4fbec;
+}
+
 .plan-detail-included-card {
   margin-top: 18px;
   border: 1px solid rgba(31, 103, 146, 0.16);
@@ -20358,6 +20380,42 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plan-detail-included-card li svg {
   margin-top: 2px;
   color: var(--green);
+}
+
+.package-detail-trust {
+  background: linear-gradient(180deg, #ffffff, #f6fbfe);
+}
+
+.package-detail-trust li span {
+  display: grid;
+  gap: 3px;
+}
+
+.package-detail-trust li span strong {
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.package-detail-trust li span small {
+  color: var(--text-mid);
+  font-size: 13px;
+  font-weight: 760;
+  line-height: 1.35;
+}
+
+.package-detail-standard {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-top: 12px;
+  background: rgba(31, 103, 146, 0.09);
+  color: var(--navy);
+}
+
+.package-detail-standard svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
 }
 
 .plan-detail-action {
