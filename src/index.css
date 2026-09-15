@@ -17894,6 +17894,44 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.35;
 }
 
+.plans-cart-shortcut {
+  position: fixed;
+  z-index: 60;
+  top: 88px;
+  right: max(18px, calc((100vw - 1480px) / 2 + 24px));
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  max-width: min(360px, calc(100vw - 36px));
+  cursor: pointer;
+  border: 1px solid rgba(125, 184, 65, 0.5);
+  border-radius: 999px;
+  background: var(--green);
+  padding: 0 18px;
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 18px 44px rgba(57, 113, 16, 0.24);
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.plans-cart-shortcut:hover {
+  background: #3f7f1e;
+  box-shadow: 0 22px 54px rgba(57, 113, 16, 0.3);
+  transform: translateY(-1px);
+}
+
+.plans-cart-shortcut span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .plans-hero-photo-card {
   position: relative;
   align-self: center;
@@ -19862,6 +19900,16 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 @media (max-width: 760px) {
+  .plans-cart-shortcut {
+    top: 74px;
+    right: 12px;
+    min-height: 42px;
+    max-width: calc(100vw - 24px);
+    gap: 8px;
+    padding: 0 13px;
+    font-size: 13px;
+  }
+
   .plans-hero-photo-card {
     min-height: 520px;
   }

@@ -27,6 +27,7 @@ import {
   Plus,
   Radio,
   ShowerHead,
+  ShoppingCart,
   Sofa,
   Sparkles,
   Thermometer,
@@ -2234,6 +2235,18 @@ export function PlansPage() {
   return (
     <>
       <SEO title={copy.metaTitle} description={seoDescription} path="/plans" schema={schema} />
+      {step === 'builder' && (selectedGroups.length || selectedStarterPacks.length) ? (
+        <button
+          aria-label={`${copy.continueToReview}: ${selectedCountLabel}`}
+          className="plans-cart-shortcut"
+          type="button"
+          onClick={goToReviewStep}
+        >
+          <ShoppingCart size={19} aria-hidden="true" />
+          <span>{selectedCountLabel}</span>
+          <ArrowRight size={16} aria-hidden="true" />
+        </button>
+      ) : null}
       {step === 'builder' ? (
       <section className="plans-builder-shell">
         <div className="site-shell plans-builder-hero">
