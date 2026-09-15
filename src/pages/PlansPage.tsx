@@ -1270,6 +1270,7 @@ export function PlansPage() {
         addedToPlan: 'A\u00f1adido al plan',
         benefit: 'Por qué ayuda',
         coreTab: 'Paquete base',
+        description: 'Descripción del elemento',
         includes: 'Qué incluye CasaMia',
         itemIncludes: 'Para este elemento, CasaMia incluye',
         next: 'Siguiente',
@@ -1287,6 +1288,7 @@ export function PlansPage() {
         addedToPlan: 'Added to plan',
         benefit: 'Why it helps',
         coreTab: 'Core package',
+        description: 'Item description',
         includes: 'What CasaMia includes',
         itemIncludes: 'For this item, CasaMia includes',
         next: 'Next',
@@ -2905,7 +2907,11 @@ export function PlansPage() {
                       {activeDetailSlide.category || (activeDetailDisplayMode === 'optional' ? detailCopy.optionalTab : activeDetail.typeLabel)}
                     </span>
                     <h3>{activeDetailSlideTitle}</h3>
-                    <p className="plan-detail-story-description">{activeDetailSlideDescription}</p>
+
+                    <div className="plan-detail-description-card">
+                      <h4>{detailCopy.description}</h4>
+                      <p>{activeDetailSlideDescription}</p>
+                    </div>
 
                     <div className="plan-detail-included-card">
                       <h4>{activeDetailIncludesHeading}</h4>

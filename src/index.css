@@ -20286,14 +20286,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   font-size: clamp(30px, 3vw, 42px);
 }
 
-.plan-detail-story-description {
-  margin-top: 12px;
-  color: var(--text-mid);
-  font-size: 15px;
-  font-weight: 750;
-  line-height: 1.55;
-}
-
 .plan-detail-benefit {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -20318,11 +20310,38 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .plan-detail-benefit strong,
+.plan-detail-description-card h4,
 .plan-detail-included-card h4 {
   display: block;
   color: var(--text-dark);
   font-size: 14px;
   font-weight: 950;
+}
+
+.plan-detail-description-card {
+  margin-top: 16px;
+  border-left: 4px solid var(--green);
+  border-radius: 14px;
+  background: #f7fbf5;
+  padding: 16px 18px;
+}
+
+.plan-detail-modal--compact .plan-detail-description-card {
+  margin-top: 12px;
+  padding: 14px 16px;
+}
+
+.plan-detail-description-card p {
+  margin-top: 8px;
+  color: var(--text-mid);
+  font-size: 16px;
+  font-weight: 760;
+  line-height: 1.55;
+}
+
+.plan-detail-modal--compact .plan-detail-description-card p {
+  font-size: 15px;
+  line-height: 1.48;
 }
 
 .plan-detail-benefit p {

@@ -25,6 +25,7 @@ const modalCopy = {
     detailLabel: 'Service details',
     included: 'Included in package',
     optional: 'Optional add-on',
+    description: 'Item description',
     benefit: 'Why it helps',
     bestFor: 'Best fit',
     includes: 'What CasaMia includes',
@@ -46,6 +47,7 @@ const modalCopy = {
     detailLabel: 'Detalles del servicio',
     included: 'Incluido en el paquete',
     optional: 'Extra opcional',
+    description: 'Descripción del elemento',
     benefit: 'Por qué ayuda',
     bestFor: 'Cuándo encaja',
     includes: 'Qué incluye CasaMia',
@@ -189,7 +191,6 @@ export function ServiceItemDetailModal({
           <div>
             <p>{detail.typeLabel}</p>
             <h2 id="service-item-detail-title">{detail.title}</h2>
-            <span>{detail.description}</span>
             <div className="service-item-detail-proof-row" aria-label={copy.trust}>
               {detail.proofChips.map((chip) => (
                 <strong key={chip}>{chip}</strong>
@@ -221,6 +222,11 @@ export function ServiceItemDetailModal({
           <article className="plan-detail-story-panel">
             <span className="plan-detail-story-kicker">{service.category}</span>
             <h3>{detail.title}</h3>
+
+            <div className="plan-detail-description-card">
+              <h4>{copy.description}</h4>
+              <p>{detail.description}</p>
+            </div>
 
             <div className="plan-detail-included-card">
               <h4>{copy.includes}</h4>

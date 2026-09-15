@@ -22,6 +22,7 @@ const packageModalCopy = {
     bestFor: 'Best fit',
     close: 'Close',
     coreTab: 'Core package',
+    description: 'Item description',
     includes: 'What CasaMia includes',
     itemIncludes: 'For this item, CasaMia includes',
     professionalFitting: 'Professional fitting',
@@ -68,6 +69,7 @@ const packageModalCopy = {
     bestFor: 'Cuándo encaja',
     close: 'Cerrar',
     coreTab: 'Paquete base',
+    description: 'Descripción del elemento',
     includes: 'Qué incluye CasaMia',
     itemIncludes: 'Para este elemento, CasaMia incluye',
     professionalFitting: 'Instalación profesional',
@@ -487,7 +489,6 @@ export function PackageDetailModal({
           <div>
             <p>{displayMode === 'optional' ? copy.optionalTab : copy.coreTab}</p>
             <h2 id="package-detail-title">{title}</h2>
-            {slideDescription ? <span>{slideDescription}</span> : null}
             {proofChips.length ? (
               <div className="package-detail-proof-row" aria-label={copy.trust}>
                 {proofChips.map((chip) => (
@@ -568,6 +569,11 @@ export function PackageDetailModal({
                   {activeSlide.category || (displayMode === 'optional' ? copy.optionalTab : copy.coreTab)}
                 </span>
                 <h3>{slideTitle}</h3>
+
+                <div className="plan-detail-description-card">
+                  <h4>{copy.description}</h4>
+                  <p>{slideDescription}</p>
+                </div>
 
                 <div className="plan-detail-included-card">
                   <h4>{includesHeading}</h4>
