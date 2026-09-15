@@ -9,7 +9,7 @@ Service area: Spain, subject to confirmed local availability
 
 CasaMia helps older adults and families make homes safer, easier and more
 comfortable to live in. CasaMia combines practical home-safety reviews,
-ready-made room packages, tailored adaptations, product selection, installation
+ready-made room packages, tailored adaptations, suitable equipment, installation
 coordination, grant-document support where relevant and aftercare.
 
 The customer contracts with MOKA DIGITECK, SOCIEDAD LIMITADA, trading as
@@ -319,4 +319,3 @@ Question: Who installs the work?
 Answer: CasaMia coordinates the project and may assign a vetted local
 professional. Your contract and payments remain with CasaMia, which also remains
 your point of contact for installation and aftercare.
-

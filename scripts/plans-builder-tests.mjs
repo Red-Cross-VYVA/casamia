@@ -15,6 +15,13 @@ const plansPage = await readFile(new URL('../src/pages/PlansPage.tsx', import.me
 const catalogueVisuals = await readFile(new URL('../src/constants/catalogueVisuals.ts', import.meta.url), 'utf8')
 const packageDetailModal = await readFile(new URL('../src/components/PackageDetailModal.tsx', import.meta.url), 'utf8')
 const serviceItemDetailModal = await readFile(new URL('../src/components/ServiceItemDetailModal.tsx', import.meta.url), 'utf8')
+const serviceCatalogue = await readFile(new URL('../src/config/serviceCatalogue.ts', import.meta.url), 'utf8')
+const serviceCatalogueSpanishCopy = await readFile(
+  new URL('../src/config/serviceCatalogueSpanishCopy.ts', import.meta.url),
+  'utf8',
+)
+const masterServiceCatalogue = await readFile(new URL('../src/config/masterServiceCatalogue.ts', import.meta.url), 'utf8')
+const needLandingPages = await readFile(new URL('../src/constants/needLandingPages.ts', import.meta.url), 'utf8')
 
 function assertIncludedAppearsBeforeBenefit(source, label) {
   const includedIndex = source.indexOf('className="plan-detail-included-card"')
@@ -31,6 +38,11 @@ assert.doesNotMatch(
   plansPage,
   /defaultGroup\s*=\s*groups\.find|setSelection\(\{\s*\[defaultGroup\.homePackage\.id\]/,
   'Plans should not auto-select a package before the user chooses one.',
+)
+assert.doesNotMatch(
+  `${plansPage}\n${packageDetailModal}\n${serviceCatalogue}\n${serviceCatalogueSpanishCopy}\n${masterServiceCatalogue}\n${needLandingPages}`,
+  /CasaMia product selection|Seleccion del producto adecuado|product selection|seleccionar productos|Rail selection|Compatible plug selection|Selected light fittings|Selecci[oó]n (del )?pasamanos|Selecci[oó]n de fijaci[oó]n|Selecci[oó]n de silla|Selecci[oó]n de herramientas|Selecci[oó]n de menaje|Selecci[oó]n de herraje|Selecci[oó]n compatible/,
+  'Public package modals and catalogue copy should show concrete deliverables, not internal product-selection wording.',
 )
 assertIncludedAppearsBeforeBenefit(plansPage, 'Plans package detail modal')
 assertIncludedAppearsBeforeBenefit(packageDetailModal, 'Reusable package detail modal')

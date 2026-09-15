@@ -180,8 +180,8 @@ function PhotoAnalysisCard({
               <span>{isSpanish ? 'Siguiente paso CasaMia' : 'A practical CasaMia next step'}</span>
               <strong>{isSpanish ? recommendation.finding.action : recommendation.service.name}</strong>
               <p>{isSpanish
-                ? 'Seleccionamos la solución adecuada, coordinamos la instalación y comprobamos el resultado.'
-                : 'We select the right solution, coordinate installation and check the result.'}
+                ? 'Confirmamos el encaje, coordinamos la instalación y comprobamos el resultado.'
+                : 'We confirm fit, coordinate installation and check the result.'}
               </p>
             </div>
             <div className="estimate-photo-solution-action">

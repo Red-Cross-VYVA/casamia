@@ -100,8 +100,8 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       es: 'Paquete de seguridad para baño',
     }, 'Bathroom Home Safety Package', 10, false, {
       shortDescription: {
-        en: 'A turnkey daily-hygiene safety package for bathing, toilet transfers, wet-floor grip, temperature control, lighting, leak alerts and support rails, with suitable products selected and installed by CasaMia.',
-        es: 'Un paquete llave en mano para la seguridad diaria del baño: ducha, transferencias al WC, agarre en suelo mojado, control de temperatura, iluminación, alertas de fugas y barras de apoyo, con productos adecuados seleccionados e instalados por CasaMia.',
+        en: 'A turnkey daily-hygiene safety package for bathing, toilet transfers, wet-floor grip, temperature control, lighting, leak alerts and support rails, installed and handed over by CasaMia.',
+        es: 'Un paquete llave en mano para la seguridad diaria del baño: ducha, transferencias al WC, agarre en suelo mojado, control de temperatura, iluminación, alertas de fugas y barras de apoyo, instalado y entregado por CasaMia.',
       },
       customerBenefit: {
         en: 'One coordinated bathroom plan that improves confidence without making the home feel clinical.',
@@ -206,8 +206,8 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
         es: 'Un paquete de cocina práctico y llave en mano para preparación más segura, mejor alcance, comodidad al estar de pie, iluminación, seguridad al cocinar y avisos seleccionados de agua, gas o humo.',
       },
       customerBenefit: {
-        en: 'A more usable kitchen that supports independence while CasaMia handles product selection, setup and installation.',
-        es: 'Una cocina más usable que apoya la independencia mientras CasaMia se encarga de seleccionar productos, configurar e instalar.',
+        en: 'A more usable kitchen that supports independence, with setup, installation and final handover coordinated by CasaMia.',
+        es: 'Una cocina más usable que apoya la independencia, con configuración, instalación y entrega final coordinadas por CasaMia.',
       },
     }),
     packageRecord('kitchen-connected-room', 'kitchen', 'connected-room', {

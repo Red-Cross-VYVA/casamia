@@ -527,8 +527,6 @@ function getPlanDetailServiceSummaryItems(
   const taskText = specification.installationTasks.map((task) => task.name).join(' ').toLocaleLowerCase()
   const serviceItems: string[] = []
 
-  serviceItems.push(language === 'es' ? 'Seleccion del producto adecuado' : 'CasaMia product selection')
-
   if (/inspect|measure/.test(taskText)) {
     serviceItems.push(language === 'es' ? 'Revision de idoneidad y medidas' : 'Suitability check and measurements')
   }

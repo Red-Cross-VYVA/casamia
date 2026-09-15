@@ -37,7 +37,7 @@ export const casaMiaServices: CasaMiaService[] = [
     requiresMeasurement: true,
     requiresSiteVisit: true,
     requiresCompatibilityCheck: true,
-    includedItems: ['Support position review', 'Rail selection', 'Professional fixing'],
+    includedItems: ['Support position review', 'Rail and fixing hardware', 'Professional fixing'],
     active: true,
   },
   {
@@ -173,7 +173,7 @@ export const casaMiaServices: CasaMiaService[] = [
     requiresMeasurement: true,
     requiresSiteVisit: true,
     requiresCompatibilityCheck: true,
-    includedItems: ['Stair measurement', 'Rail selection', 'Professional fitting'],
+    includedItems: ['Stair measurement', 'Rail and fixing hardware', 'Professional fitting'],
     active: true,
   },
   {
@@ -1134,7 +1134,7 @@ export const casaMiaServices: CasaMiaService[] = [
     requiresMeasurement: true,
     requiresSiteVisit: false,
     requiresCompatibilityCheck: true,
-    includedItems: ['Task-light placement', 'Selected light fittings', 'Switch or control setup'],
+    includedItems: ['Task-light placement', 'Light fittings', 'Switch or control setup'],
     active: true,
   },
   {
@@ -1174,7 +1174,7 @@ export const casaMiaServices: CasaMiaService[] = [
     requiresMeasurement: false,
     requiresSiteVisit: false,
     requiresCompatibilityCheck: true,
-    includedItems: ['Compatible plug selection', 'App or voice setup', 'Safe-use guidance'],
+    includedItems: ['Compatible smart plug', 'App or voice setup', 'Safe-use guidance'],
     safetyNotice: 'Only suitable for compatible low-risk appliances after review.',
     active: true,
   },

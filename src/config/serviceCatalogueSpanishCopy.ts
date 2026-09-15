@@ -13,7 +13,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Apoyo estable junto a escalones o una entrada elevada.',
     customerBenefit: 'Aporta confianza al entrar, salir o girar junto a la puerta.',
     category: 'Apoyo de acceso',
-    includedItems: ['Revisión de posición', 'Selección del pasamanos', 'Fijación profesional'],
+    includedItems: ['Revisión de posición', 'Pasamanos y fijaciones', 'Fijación profesional'],
   },
   'entrance-threshold-treatment': {
     name: 'Tratamiento de umbral',
@@ -64,7 +64,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Apoyo estable en uno o ambos lados de la escalera.',
     customerBenefit: 'Mejora la confianza y el control al moverse entre niveles.',
     category: 'Seguridad en escaleras',
-    includedItems: ['Medición de escalera', 'Selección de pasamanos', 'Instalación profesional'],
+    includedItems: ['Medición de escalera', 'Pasamanos y fijaciones', 'Instalación profesional'],
   },
   'movement-stair-treads': {
     name: 'Peldaños antideslizantes',
@@ -113,14 +113,14 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Apoyo fijo para ducha, inodoro o lavabo.',
     customerBenefit: 'Sustituye apoyos improvisados por puntos seguros donde realmente hacen falta.',
     category: 'Apoyo de transferencia',
-    includedItems: ['Ubicación de barras', 'Selección de fijación', 'Instalación profesional'],
+    includedItems: ['Ubicación de barras', 'Fijaciones de montaje', 'Instalación profesional'],
   },
   'bathroom-shower-chair': {
     name: 'Silla de ducha',
     shortDescription: 'Asiento seguro para ducharse con menos esfuerzo.',
     customerBenefit: 'Reduce cansancio y riesgo durante la ducha.',
     category: 'Seguridad en ducha',
-    includedItems: ['Comprobación de espacio', 'Selección de silla', 'Orientación de uso'],
+    includedItems: ['Comprobación de espacio', 'Silla de ducha compatible', 'Orientación de uso'],
   },
   'bathroom-raised-toilet': {
     name: 'Apoyo para inodoro elevado',
@@ -310,14 +310,14 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Herramientas que reducen esfuerzo de manos y muñecas.',
     customerBenefit: 'Facilita preparar comida sin forzar ni usar agarres inseguros.',
     category: 'Preparación diaria',
-    includedItems: ['Selección de herramientas', 'Prueba de agarre', 'Consejos de uso'],
+    includedItems: ['Utensilios de agarre fácil', 'Prueba de agarre', 'Consejos de uso'],
   },
   'kitchen-lightweight-cookware': {
     name: 'Menaje ligero',
     shortDescription: 'Sartenes y recipientes más fáciles de levantar y mover.',
     customerBenefit: 'Reduce esfuerzo y riesgo al cocinar o transportar comida.',
     category: 'Preparación diaria',
-    includedItems: ['Revisión de rutina', 'Selección de menaje', 'Entrega de uso'],
+    includedItems: ['Revisión de rutina', 'Menaje ligero o de fácil agarre', 'Entrega de uso'],
   },
   'kitchen-anti-fatigue-mat': {
     name: 'Alfombra antideslizante antifatiga',
@@ -366,7 +366,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Baja objetos de armarios altos a una zona más accesible.',
     customerBenefit: 'Reduce estiramientos, taburetes y movimientos por encima del hombro.',
     category: 'Alcance y almacenamiento',
-    includedItems: ['Medición de armario', 'Selección de herraje', 'Instalación profesional'],
+    includedItems: ['Medición de armario', 'Herraje extraíble compatible', 'Instalación profesional'],
   },
   'kitchen-stove-shutoff': {
     name: 'Apagado automático de cocina',
@@ -380,6 +380,6 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Control de agua sin girar mandos.',
     customerBenefit: 'Reduce esfuerzo, mejora higiene y puede ayudar a evitar agua abierta.',
     category: 'Seguridad de agua y electrodomésticos',
-    includedItems: ['Revisión de grifo', 'Selección compatible', 'Instalación y prueba'],
+    includedItems: ['Revisión de grifo', 'Grifo compatible', 'Instalación y prueba'],
   },
 }
