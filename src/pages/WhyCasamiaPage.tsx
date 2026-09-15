@@ -68,7 +68,7 @@ type WhyCasamiaCopy = {
 const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   en: {
     eyebrow: 'Why CasaMia',
-    headline: 'One turnkey service for a safer home, without the coordination headache',
+    headline: 'One managed service for a safer home, without the coordination headache',
     intro:
       'CasaMia brings home-safety expertise, trusted local providers and clear coordination into one managed service for families who want practical help without guesswork.',
     coverage: {
@@ -190,12 +190,12 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     messagePlaceholder:
       'Example: My father is struggling with the stairs at night, we are in Marbella, and we need to understand what to fix first.',
     formNote:
-      'Your request is reviewed by the CasaMia team so we can confirm the best next step and local availability.',
+      'Your request is reviewed by the CasaMia team so we can agree the best next step and check local availability.',
     ctaButton: 'Request In-Home Assessment',
   },
   es: {
     eyebrow: 'Por qué CasaMia',
-    headline: 'Una solución llave en mano para adaptar la vivienda sin dolores de cabeza',
+    headline: 'Un servicio gestionado para adaptar la vivienda sin dolores de cabeza',
     intro:
       'CasaMia une experiencia en seguridad del hogar, profesionales locales de confianza y coordinación clara para familias que quieren ayuda práctica sin improvisar.',
     coverage: {
@@ -317,7 +317,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     messagePlaceholder:
       'Ejemplo: Mi padre tiene dificultades con las escaleras por la noche, estamos en Marbella y necesitamos saber qué arreglar primero.',
     formNote:
-      'Tu solicitud la revisa el equipo CasaMia para confirmar el mejor siguiente paso y la disponibilidad local.',
+      'Tu solicitud la revisa el equipo CasaMia para acordar el mejor siguiente paso y comprobar la disponibilidad local.',
     ctaButton: 'Solicitar evaluación a domicilio',
   },
 }

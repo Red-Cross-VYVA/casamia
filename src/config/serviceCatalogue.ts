@@ -458,7 +458,7 @@ export const casaMiaServices: CasaMiaService[] = [
     pricing: {
       vatReason: 'Support product for reduced mobility; invoice treatment should be confirmed.',
     },
-    safetyNotice: 'Wall suitability and user requirements must be confirmed.',
+    safetyNotice: 'Wall strength and user needs are checked before fitting.',
     active: true,
   },
   {
@@ -919,7 +919,7 @@ export const casaMiaServices: CasaMiaService[] = [
     pricing: {
       vatReason: 'Support product for reduced mobility; invoice treatment should be confirmed.',
     },
-    safetyNotice: 'Wall suitability and positioning require assessment.',
+    safetyNotice: 'Wall strength and positioning are checked before fitting.',
     active: true,
   },
   {

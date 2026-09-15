@@ -290,7 +290,7 @@ const upgrades: SelectableCard<UpgradeId>[] = [
 
 const processSteps = [
   ['Book assessment', 'Choose a home visit or start with self-inspection photos.'],
-  ['We review the home', 'CasaMia checks the rooms, routines and real safety priorities.'],
+  ['We review the home', 'We check the rooms, routines and real safety priorities.'],
   ['Receive your report', 'You get clear recommendations and a confirmed next step.'],
   ['Choose improvements', 'Start with essentials and add only what is useful.'],
   ['Enjoy a safer home', 'Everything is installed, tested and ready to use.'],
@@ -493,7 +493,7 @@ export function HomePage() {
               className="home-overview-image"
               imgClassName="h-full w-full object-cover"
             />
-            <div className="home-hotspot-layer" aria-label="Home areas CasaMia reviews">
+            <div className="home-hotspot-layer" aria-label="Home areas we review">
               {rooms.map((room) => {
                 const Icon = room.icon
 

@@ -218,7 +218,7 @@ export const providerQualityStandards = [
 
 export const providerOnboardingSteps = [
   'Submit basic company and service details online.',
-  'CasaMia reviews city coverage, trade fit, insurance and references.',
+  'We review city coverage, trade fit, insurance and references.',
   'Short onboarding call to explain customer handling and project standards.',
   'Approved providers receive suitable project opportunities when coverage matches.',
 ] as const

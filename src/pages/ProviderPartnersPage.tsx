@@ -119,7 +119,7 @@ const providerPartnerCopy = {
     registrationEyebrow: 'Self-registration',
     registrationTitle: 'Apply to join the provider network.',
     registrationBody:
-      'Share basic company details, coverage and service types. CasaMia will review fit before assigning any customer work.',
+      'Share basic company details, coverage and service types. We review fit before assigning any customer work.',
     faqEyebrow: 'Before you apply',
     faqTitle: 'Clear answers for serious local providers.',
     faqItems: [
@@ -169,7 +169,7 @@ const providerPartnerCopy = {
       experience: 'Tell us briefly about your relevant experience.',
       insuranceConfirmed: 'Confirm that insurance can be evidenced.',
     },
-    submitted: (id: string) => `Application ${id} submitted. CasaMia will review your fit and city coverage.`,
+    submitted: (id: string) => `Application ${id} submitted. We will review your fit and city coverage.`,
     saved: (id: string) =>
       `Application ${id} saved locally for review. Deploy on Vercel with Supabase configured before using this as a live application inbox.`,
     marketSignals: providerMarketSignals,

@@ -201,7 +201,7 @@ function getServiceConfirmationReason(service: CasaMiaService) {
   }
 
   if (service.requiresCompatibilityCheck) {
-    return 'CasaMia checks compatibility before confirming the final scope.'
+    return 'We check compatibility before agreeing the final scope.'
   }
 
   return 'A visit may be needed before final confirmation.'

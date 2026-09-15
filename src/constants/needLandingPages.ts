@@ -50,7 +50,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Practical bathroom safety for seniors: safer access, bathing, toilet transfers, anti-slip support, lighting, water controls and CasaMia-managed installation.',
     eyebrow: 'Bathroom safety',
     intro:
-      'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. CasaMia reviews the real routine, recommends the right package and coordinates the work.',
+      'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. We review the real routine, recommend the right package and coordinate the work.',
     whoFor: [
       'Older adults unsteady in the bathroom',
       'Families worried about transfers',
@@ -77,7 +77,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       riskDetails: [
         {
           solution: 'Secure the surface',
-          helps: 'CasaMia removes loose mats or swaps in fixed anti-slip options at the shower exit.',
+          helps: 'Loose mats are removed or replaced with fixed anti-slip options at the shower exit.',
           product: 'Anti-slip bath or shower mat, or floor-grip treatment.',
           stat: 'CDC bathroom-injury data found falls caused 81.1% of nonfatal bathroom injuries.',
         },
@@ -109,7 +109,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
         },
         {
           solution: 'Check access width',
-          helps: 'CasaMia checks whether the door limits help, walking aids or emergency access before recommending work.',
+          helps: 'We check whether the door limits help, walking aids or emergency access before recommending work.',
           product: 'Door hardware changes or wider-doorway review.',
         },
       ],
@@ -204,12 +204,12 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'What is included in an aging-in-place assessment?',
         answer:
-          'CasaMia reviews the home context, mobility needs, priority rooms, photos or notes where available, and recommends practical safety improvements.',
+          'We review the home context, mobility needs, priority rooms, photos or notes where available, and recommend practical safety improvements.',
       },
       {
         question: 'Can the assessment be done before a visit?',
         answer:
-          'Yes. Families can start online with guided questions, photos, videos or a voice brief. A site visit can confirm measurements and installation details later.',
+          'Yes. Families can start online with guided questions, photos, videos or a voice brief. A site visit can check measurements and installation details later.',
       },
     ],
   },
@@ -313,7 +313,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
         },
         {
           solution: 'Add steady support',
-          helps: 'CasaMia checks where the person naturally reaches and adds support only where it is useful.',
+          helps: 'We check where the person naturally reaches and add support only where it is useful.',
           product: 'Bedside support handle or furniture positioning.',
         },
         {

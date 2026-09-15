@@ -528,7 +528,7 @@ function getPlanDetailServiceSummaryItems(
   const serviceItems: string[] = []
 
   if (/inspect|measure/.test(taskText)) {
-    serviceItems.push(language === 'es' ? 'Revision de idoneidad y medidas' : 'Suitability check and measurements')
+    serviceItems.push(language === 'es' ? 'Revision de medidas y encaje' : 'Measurement and fit check')
   }
 
   if (/configure|alert/.test(taskText)) {
@@ -608,8 +608,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Receive proposal',
     continueToReview: 'Review selected packages',
     coreIncluded: 'Core package',
-    turnkeyCardLabel: 'Installed turnkey service',
-    turnkeyCardBody: 'Products, fitting, handover and aftercare are coordinated by CasaMia.',
+    turnkeyCardLabel: 'Installed and checked',
+    turnkeyCardBody: 'Products, fitting, handover and aftercare are handled as one plan.',
     closeDetails: 'Close',
     createDraft: 'Generate proposal',
     creatingDraft: 'Generating proposal...',
@@ -621,7 +621,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     flow: [
       { title: 'Rooms', body: 'Pick quantities' },
       { title: 'Options', body: 'Add support' },
-      { title: 'Review', body: 'We confirm' },
+      { title: 'Review', body: 'Check scope' },
     ],
     fromCatalogue: 'Catalogue-based estimate',
     grantBody: 'Check possible aid before final scope.',
@@ -701,9 +701,9 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
   es: {
     backToBuilder: 'Editar paquete',
     backToRooms: 'Volver a estancias',
-    contactIntro: 'Añade tus datos para que CasaMia revise las estancias elegidas, confirme el alcance y prepare la propuesta.',
-    contactStepEyebrow: 'Revisión CasaMia',
-    reviewCtaBody: 'En el siguiente paso compartes tus datos. CasaMia revisará fotos, medidas e idoneidad antes de enviar la propuesta final.',
+    contactIntro: 'Añade tus datos para revisar las estancias elegidas, acordar el alcance y preparar la propuesta.',
+    contactStepEyebrow: 'Revisión del plan',
+    reviewCtaBody: 'En el siguiente paso compartes tus datos. Revisaremos fotos, medidas y encaje antes de enviar la propuesta final.',
     reviewCtaTitle: '¿Listo para que CasaMia lo revise?',
     addModule: 'Añadir módulo',
     builderEyebrow: 'Constructor de planes',
@@ -712,8 +712,8 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Enviar a revisión',
     continueToReview: 'Revisar paquetes elegidos',
     coreIncluded: 'Paquete base',
-    turnkeyCardLabel: 'Servicio llave en mano',
-    turnkeyCardBody: 'CasaMia coordina productos, instalación, entrega y soporte posterior.',
+    turnkeyCardLabel: 'Instalado y revisado',
+    turnkeyCardBody: 'Productos, instalación, entrega y soporte posterior se gestionan como un solo plan.',
     closeDetails: 'Cerrar',
     createDraft: 'Crear borrador',
     creatingDraft: 'Creando borrador...',
@@ -721,11 +721,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     email: 'Email',
     estimateLead: 'IVA incluido · pendiente de revisión',
     estimateTitle: 'Resumen del plan',
-    finalReview: 'Revisión CasaMia',
+    finalReview: 'Revisión del plan',
     flow: [
       { title: 'Estancias', body: 'Define cantidades' },
       { title: 'Opciones', body: 'Añade apoyo' },
-      { title: 'Revisión', body: 'Confirmamos' },
+      { title: 'Revisión', body: 'Revisar alcance' },
     ],
     fromCatalogue: 'Estimación del catálogo',
     grantBody: 'Revisa posibles ayudas antes del alcance final.',
@@ -735,7 +735,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     heroSignals: ['Precio por paquete', 'Elementos base incluidos', 'Extras opcionales separados'],
     heroPhotoAlt: 'Especialista de CasaMia revisando una cocina con una residente',
     heroReviewBody:
-      'CasaMia confirma idoneidad, medidas y extras útiles antes de cerrar nada.',
+      'Revisamos encaje, medidas y extras útiles antes de cerrar nada.',
     heroReviewEyebrow: 'Revisión CasaMia',
     heroReviewPoints: ['Revisión por estancia', 'Siguiente propuesta clara'],
     heroReviewTitle: 'Revisado antes de proponer.',
@@ -785,7 +785,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryEmptyRooms: 'Elige estancias para empezar',
     summaryModulesTitle: 'Incluido en este borrador',
     summaryMoreItems: 'más',
-    summaryNextBody: 'CasaMia confirma medidas, fotos e idoneidad antes de enviar la propuesta final.',
+    summaryNextBody: 'Revisamos medidas, fotos y encaje antes de enviar la propuesta final.',
     summaryNextTitle: 'Siguiente paso',
     summaryRoomsTitle: 'Estancias elegidas',
     subtitle:
@@ -1279,7 +1279,7 @@ export function PlansPage() {
         optionalTab: 'Extras opcionales',
         previous: 'Anterior',
         requestReview: 'Pedir valoraci\u00f3n del extra',
-        reviewBody: 'Puedes pedir el paquete base ahora. CasaMia revisar\u00e1 este extra contigo y confirmar\u00e1 medidas, idoneidad y precio antes de presupuestarlo.',
+        reviewBody: 'Puedes pedir el paquete base ahora. Revisaremos este extra contigo y acordaremos medidas, encaje y precio antes de presupuestarlo.',
         reviewRequested: 'Valoraci\u00f3n solicitada',
         slideLabel: 'Elemento',
       }
@@ -1297,7 +1297,7 @@ export function PlansPage() {
         optionalTab: 'Optional add-ons',
         previous: 'Previous',
         requestReview: 'Request extra review',
-        reviewBody: 'You can order the core package now. CasaMia will review this extra with you and confirm measurements, suitability and price before quoting it.',
+        reviewBody: 'You can order the core package now. We will review this extra with you and agree measurements, fit and price before quoting it.',
         reviewRequested: 'Extra review requested',
         slideLabel: 'Item',
       }
@@ -1452,8 +1452,8 @@ export function PlansPage() {
         addOnsEmpty: 'Separados',
         estimateLabel: 'Total estimado',
         estimateNote: 'IVA incluido. Los precios cubren un resultado coordinado, no una cesta por elementos. Quitar un elemento no reduce automáticamente el precio; solo se aplica un crédito si el alcance reducido disminuye materialmente el coste de CasaMia.',
-        extrasReviewBody: 'Tu paquete base puede avanzar ahora. CasaMia revisar\u00e1 estos extras contigo y confirmar\u00e1 medidas, idoneidad y precio antes de a\u00f1adirlos.',
-        extrasReviewTitle: 'Extras que CasaMia confirmar\u00e1 contigo',
+        extrasReviewBody: 'Tu paquete base puede avanzar ahora. Revisaremos estos extras contigo y acordaremos medidas, encaje y precio antes de a\u00f1adirlos.',
+        extrasReviewTitle: 'Extras que revisaremos contigo',
         includedItems: 'elementos incluidos',
         packageEstimate: 'Estimación del paquete',
         packages: 'Paquetes',
@@ -1466,8 +1466,8 @@ export function PlansPage() {
         addOnsEmpty: 'Separate',
         estimateLabel: 'Estimated total',
         estimateNote: 'VAT included. Package prices cover a coordinated outcome, not an item-by-item basket. Removing an item does not automatically reduce the price; a credit applies only when reduced scope materially lowers CasaMia cost.',
-        extrasReviewBody: 'Your core package can move forward now. CasaMia will review these extras with you and confirm measurements, suitability and price before adding them.',
-        extrasReviewTitle: 'Extras CasaMia will confirm with you',
+        extrasReviewBody: 'Your core package can move forward now. We will review these extras with you and agree measurements, fit and price before adding them.',
+        extrasReviewTitle: 'Extras we will review with you',
         includedItems: 'included items',
         packageEstimate: 'Package estimate',
         packages: 'Packages',

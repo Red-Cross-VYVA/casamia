@@ -95,7 +95,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Check access width',
-            helps: 'CasaMia checks whether the door limits help, walking aids or emergency access before recommending work.',
+            helps: 'We check whether the door limits help, walking aids or emergency access before recommending work.',
             product: 'Door hardware changes or wider-doorway review.',
           },
         ],
@@ -111,7 +111,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
         riskDetails: [
           {
             solution: 'Fijar la superficie',
-            helps: 'CasaMia retira alfombrillas sueltas o propone opciones antideslizantes fijas en la salida de ducha.',
+            helps: 'Retiramos alfombrillas sueltas o proponemos opciones antideslizantes fijas en la salida de ducha.',
             product: 'Alfombrilla segura o tratamiento antideslizante.',
             stat: 'Datos de CDC sobre lesiones en el baño indican que el 81,1% fueron caídas.',
           },
@@ -143,7 +143,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Comprobar acceso',
-            helps: 'CasaMia revisa si la puerta limita ayuda, andador o acceso de emergencia antes de proponer obra.',
+            helps: 'Revisamos si la puerta limita ayuda, andador o acceso de emergencia antes de proponer obra.',
             product: 'Cambio de herrajes o revisión de anchura.',
           },
         ],
@@ -175,7 +175,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
         riskDetails: [
           {
             solution: 'Fix the floor edge',
-            helps: 'CasaMia removes loose rugs or secures them so night movement starts on a stable surface.',
+            helps: 'Loose rugs are removed or secured so night movement starts on a stable surface.',
             product: 'Rug grip, floor transition or clear-route reset.',
           },
           {
@@ -200,7 +200,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Open the wardrobe route',
-            helps: 'CasaMia checks reach, door swing and walking space before recommending storage changes.',
+            helps: 'We check reach, door swing and walking space before recommending storage changes.',
             product: 'Accessible wardrobe review or pull-down storage.',
           },
           {
@@ -283,7 +283,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
         riskDetails: [
           {
             solution: 'Control the wet zone',
-            helps: 'CasaMia checks splash points and surface grip around the sink before recommending changes.',
+            helps: 'We check splash points and surface grip around the sink before recommending changes.',
             product: 'Anti-slip treatment or safer sink-area mat.',
           },
           {
@@ -421,7 +421,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Widen the passage',
-            helps: 'CasaMia checks whether the archway allows safe passage with a helper or walking aid.',
+            helps: 'We check whether the archway allows safe passage with a helper or walking aid.',
             product: 'Route clearance or doorway review.',
           },
         ],
@@ -437,7 +437,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
         riskDetails: [
           {
             solution: 'Aplanar bordes',
-            helps: 'CasaMia retira, fija o sustituye alfombras que pueden enganchar el pie en movimientos normales.',
+            helps: 'Retiramos, fijamos o sustituimos alfombras que pueden enganchar el pie en movimientos normales.',
             product: 'Fijación de alfombra, alfombrilla baja o ruta despejada.',
           },
           {
@@ -524,7 +524,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Widen the pass',
-            helps: 'CasaMia checks whether the entrance works with bags, a helper or mobility aid.',
+            helps: 'We check whether the entrance works with bags, a helper or mobility aid.',
             product: 'Door-access review or route clearance.',
           },
           {

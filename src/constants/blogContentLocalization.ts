@@ -526,7 +526,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Evita presupuestos confusos',
         body: [
           'El alcance debe estar separado por estancia o necesidad, con IVA, instalación y exclusiones claras.',
-          'CasaMia está diseñado como solución llave en mano para reducir la carga de coordinar proveedores, fechas y decisiones técnicas.',
+          'CasaMia está diseñado como servicio gestionado para reducir la carga de coordinar proveedores, fechas y decisiones técnicas.',
         ],
       },
     ],

@@ -35,12 +35,12 @@ const packageModalCopy = {
     optionalTab: 'Optional add-ons',
     previous: 'Previous',
     slideLabel: 'Item',
-    standard: 'CasaMia checks fit, coordinates installation, tests the result and explains safe use before handover.',
+    standard: 'We check the fit, coordinate installation, test the result and explain safe use before handover.',
     trust: 'Why families can trust it',
     trustSignals: {
       assessment: {
         label: 'Checked before recommendation',
-        detail: 'CasaMia reviews the resident, room layout and daily routine before confirming the final scope.',
+        detail: 'We review the resident, room layout and daily routine before agreeing the final scope.',
       },
       compatibility: {
         label: 'Compatibility reviewed',
@@ -60,7 +60,7 @@ const packageModalCopy = {
       },
       quote: {
         label: 'Measured quote',
-        detail: 'Final scope and price are confirmed after review, so the proposal reflects the real room and materials.',
+        detail: 'Final scope and price are agreed after review, so the proposal reflects the real room and materials.',
       },
     },
   },
@@ -82,12 +82,12 @@ const packageModalCopy = {
     optionalTab: 'Extras opcionales',
     previous: 'Anterior',
     slideLabel: 'Elemento',
-    standard: 'CasaMia comprueba el encaje, coordina la instalación, prueba el resultado y explica el uso seguro antes de la entrega.',
+    standard: 'Revisamos el encaje, coordinamos la instalación, probamos el resultado y explicamos el uso seguro antes de la entrega.',
     trust: 'Por qué aporta confianza',
     trustSignals: {
       assessment: {
         label: 'Revisado antes de recomendar',
-        detail: 'CasaMia revisa a la persona, la distribución y la rutina diaria antes de confirmar el alcance final.',
+        detail: 'Revisamos a la persona, la distribución y la rutina diaria antes de acordar el alcance final.',
       },
       compatibility: {
         label: 'Compatibilidad revisada',
@@ -107,7 +107,7 @@ const packageModalCopy = {
       },
       quote: {
         label: 'Presupuesto medido',
-        detail: 'El alcance y precio final se confirman tras la revisión, para que la propuesta refleje la estancia y materiales reales.',
+        detail: 'El alcance y precio final se acuerdan tras la revisión, para que la propuesta refleje la estancia y materiales reales.',
       },
     },
   },
@@ -317,7 +317,7 @@ function getDetailServiceSummaryItems(
   const serviceItems: string[] = []
 
   if (/inspect|measure/.test(taskText)) {
-    serviceItems.push(language === 'es' ? 'Revision de idoneidad y medidas' : 'Suitability check and measurements')
+    serviceItems.push(language === 'es' ? 'Revision de medidas y encaje' : 'Measurement and fit check')
   }
 
   if (/configure|alert/.test(taskText)) {

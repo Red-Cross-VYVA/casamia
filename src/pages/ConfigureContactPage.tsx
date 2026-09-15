@@ -15,7 +15,7 @@ const contactCopy = {
   en: {
     eyebrow: 'Customer details',
     title: 'Where should CasaMia send your plan?',
-    body: 'Add the best contact details so we can confirm your quote or arrange a visit.',
+    body: 'Add the best contact details so we can agree your quote details or arrange a visit.',
     fullName: 'Full name',
     email: 'Email address',
     telephone: 'Telephone',
@@ -40,7 +40,7 @@ const contactCopy = {
   es: {
     eyebrow: 'Datos de contacto',
     title: '¿Dónde enviamos tu plan CasaMia?',
-    body: 'Añade tus datos para que podamos confirmar el presupuesto o concertar una visita.',
+    body: 'Añade tus datos para que podamos acordar los detalles del presupuesto o concertar una visita.',
     fullName: 'Nombre completo',
     email: 'Email',
     telephone: 'Teléfono',

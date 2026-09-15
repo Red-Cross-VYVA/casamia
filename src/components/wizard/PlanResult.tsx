@@ -173,7 +173,7 @@ export function PlanResult({
                 <ShieldCheck size={22} aria-hidden="true" />
                 <div>
                   <strong>{copy.result.plans.assessment}</strong>
-                  <p>{isSpanish ? 'Revisaremos la vivienda antes de confirmar productos y precio.' : 'We will review the home before confirming products and price.'}</p>
+                  <p>{isSpanish ? 'Revisaremos la vivienda antes de acordar productos y precio.' : 'We will review the home before agreeing products and price.'}</p>
                 </div>
               </div>
             )}

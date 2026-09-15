@@ -473,7 +473,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Focus on wet-room fall risk', 'Recommendations matched to mobility', 'Installation guidance before buying products'],
     finalTitle: 'Make the bathroom safer before the next near miss.',
     finalBody:
-      'Book a visit and CasaMia will review transfers, surfaces, support points, and practical improvements room by room.',
+      'Book a visit and we will review transfers, surfaces, support points, and practical improvements room by room.',
   },
   'stair-safety': {
     benefitsTitle: 'Make every step easier to read and easier to trust.',
@@ -495,7 +495,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     includedTitle: 'What a stair safety plan can include.',
     includedIntro:
-      'CasaMia checks the whole movement route, not just the staircase itself.',
+      'We check the whole movement route, not just the staircase itself.',
     included: [
       'Continuous handrail and grab-point review',
       'Step-edge contrast and anti-slip guidance',
@@ -505,16 +505,16 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'Small changes can protect an important route.',
     reassuranceBody:
-      'When stairs feel unsafe, whole parts of the home can become harder to use. CasaMia focuses on keeping movement routes clear, visible, and supported.',
+      'When stairs feel unsafe, whole parts of the home can become harder to use. The focus is keeping movement routes clear, visible, and supported.',
     reassurancePoints: ['Support along the full route', 'Clearer step edges', 'Lighting where hesitation happens'],
     finalTitle: 'Make stairs feel safer before they become avoided.',
     finalBody:
-      'Book a visit and CasaMia will review rails, lighting, contrast, and the full route used every day.',
+      'Book a visit and we will review rails, lighting, contrast, and the full route used every day.',
   },
   'entrance-accessibility': {
     benefitsTitle: 'Make arriving and leaving the home calmer.',
     benefitsIntro:
-      'Entrance safety shapes independence. CasaMia checks the path from outside to inside, including steps, thresholds, lighting, support, visitors, and access routines.',
+      'Entrance safety shapes independence. We check the path from outside to inside, including steps, thresholds, lighting, support, visitors, and access routines.',
     benefits: [
       {
         title: 'Easier daily access',
@@ -531,9 +531,9 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     includedTitle: 'What an entrance safety plan can include.',
     includedIntro:
-      'CasaMia reviews the entrance as a route, from exterior lighting through the doorway and into the first safe standing area.',
+      'We review the entrance as a route, from exterior lighting through the doorway and into the first safe standing area.',
     included: [
-      'Threshold, step, and ramp suitability review',
+      'Threshold, step, and ramp fit review',
       'Exterior and doorway lighting guidance',
       'Support-point and handrail recommendations',
       'Door access, visitor, and key routine review',
@@ -545,12 +545,12 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Safer thresholds', 'Better doorway support', 'Clearer access routines'],
     finalTitle: 'Make the entrance easier to cross every day.',
     finalBody:
-      'Book a visit and CasaMia will review thresholds, lighting, support, and access options together.',
+      'Book a visit and we will review thresholds, lighting, support, and access options together.',
   },
   'kitchen-safety': {
     benefitsTitle: 'Make the kitchen safer, easier and less tiring.',
     benefitsIntro:
-      'CasaMia reviews how the kitchen is used, then recommends only the improvements that reduce daily risk or effort.',
+      'We review how the kitchen is used, then recommend only the improvements that reduce daily risk or effort.',
     benefits: [
       {
         title: 'Less effort',
@@ -581,12 +581,12 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and handover managed'],
     finalTitle: 'Keep cooking possible, safer, and calmer.',
     finalBody:
-      'Book a visit and CasaMia will review reach, lighting, appliances, water risk, and the practical kitchen plan that fits the home.',
+      'Book a visit and we will review reach, lighting, appliances, water risk, and the practical kitchen plan that fits the home.',
   },
   'bedroom-safety': {
     benefitsTitle: 'Make nights calmer, safer, and easier to manage.',
     benefitsIntro:
-      'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. CasaMia designs the room around safer bed access, clearer night routes, and help within reach.',
+      'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. The room is planned around safer bed access, clearer night routes, and help within reach.',
     benefits: [
       {
         title: 'Getting in and out of bed',
@@ -603,7 +603,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     includedTitle: 'What a bedroom safety plan can include.',
     includedIntro:
-      'CasaMia reviews the room as a night-time routine: bed access, lighting, furniture, flooring, medication reach, and the path to the next room.',
+      'We review the room as a night-time routine: bed access, lighting, furniture, flooring, medication reach, and the path to the next room.',
     included: [
       'Bed height, bedside support, and first-step review',
       'Motion night lighting from bed to door or bathroom',
@@ -614,7 +614,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'Designed for independence and family peace of mind.',
     reassuranceBody:
-      'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. CasaMia keeps the focus on comfort, dignity, and practical prevention.',
+      'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on comfort, dignity, and practical prevention.',
     reassurancePoints: [
       'Less risk during night bathroom trips',
       'More confidence getting in and out of bed',
@@ -622,12 +622,12 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     finalTitle: 'Make the bedroom safer before night routines become stressful.',
     finalBody:
-      'Book a visit and CasaMia will review bed access, lighting, floor clearance, and emergency reach points.',
+      'Book a visit and we will review bed access, lighting, floor clearance, and emergency reach points.',
   },
   'smart-home-safety': {
     benefitsTitle: 'Use technology only where it makes daily life safer.',
     benefitsIntro:
-      'Smart safety should not feel like a complicated smart-home project. CasaMia focuses on useful alerts, lighting, emergency support, and family reassurance.',
+      'Smart safety should not feel like a complicated smart-home project. We focus on useful alerts, lighting, emergency support, and family reassurance.',
     benefits: [
       {
         title: 'Earlier awareness',
@@ -644,7 +644,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     includedTitle: 'What a smart safety plan can include.',
     includedIntro:
-      'CasaMia checks connectivity and recommends only devices that match the person, the home, and the family’s comfort level.',
+      'We check connectivity and recommend only devices that match the person, the home, and the family’s comfort level.',
     included: [
       'Motion lighting and night-route setup',
       'Emergency buttons or wearable alert guidance',
@@ -659,7 +659,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Connectivity checked first', 'Family alerts agreed in advance', 'Simple setup and handover'],
     finalTitle: 'Add connected safety where it genuinely helps.',
     finalBody:
-      'Book a visit and CasaMia will review the home, connectivity, and the most useful smart safety options.',
+      'Book a visit and we will review the home, connectivity, and the most useful smart safety options.',
   },
 }
 

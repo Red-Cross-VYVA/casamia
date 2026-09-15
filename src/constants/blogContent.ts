@@ -436,7 +436,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Combine smart support with physical safety',
         body: [
           'Technology cannot replace a stable handrail, safer shower access, or clear walking route. The strongest plans combine physical adaptations with smart support where it adds value.',
-          'CasaMia reviews both the home environment and the support routine before recommending smart safety options.',
+          'We review both the home environment and the support routine before recommending smart safety options.',
         ],
       },
     ],

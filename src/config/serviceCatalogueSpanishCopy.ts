@@ -157,7 +157,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     customerBenefit: 'Permite una ducha más segura sentado y ahorra espacio cuando no se usa.',
     category: 'Seguridad en el baño',
     includedItems: ['Asiento abatible de ducha', 'Fijaciones de montaje'],
-    safetyNotice: 'Debe confirmarse la idoneidad de la pared y las necesidades de la persona.',
+    safetyNotice: 'Revisamos la resistencia de la pared y las necesidades de la persona antes de instalar.',
   },
   'bathroom-anti-slip-floor-treatment': {
     name: 'Tratamiento antideslizante de suelo',
@@ -181,7 +181,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     customerBenefit: 'Reduce el esfuerzo al sentarse y levantarse.',
     category: 'Seguridad en el baño',
     includedItems: ['Elevador de inodoro', 'Fijaciones necesarias'],
-    safetyNotice: 'Debe confirmarse la compatibilidad del inodoro y la altura adecuada.',
+    safetyNotice: 'Revisamos la compatibilidad del inodoro y la altura adecuada antes de instalar.',
   },
   'bathroom-toilet-support-rails': {
     name: 'Barras de apoyo para inodoro',
@@ -221,7 +221,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     customerBenefit: 'Requiere menos fuerza de agarre que los mandos tradicionales.',
     category: 'Accesibilidad',
     includedItems: ['Grifo monomando de palanca', 'Fijaciones estándar'],
-    safetyNotice: 'Debe confirmarse la compatibilidad con la fontanería existente.',
+    safetyNotice: 'Revisamos la compatibilidad con la fontanería existente antes de instalar.',
   },
   'bathroom-thermostatic-valve': {
     name: 'Válvula termostática antiescaldaduras',

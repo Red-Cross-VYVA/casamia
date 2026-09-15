@@ -9,9 +9,9 @@ export type ServiceTrustSignal = {
 
 const copy = {
   en: {
-    assessmentDetail: 'CasaMia reviews the resident, room layout and daily routine before confirming the final recommendation.',
+    assessmentDetail: 'We review the resident, room layout and daily routine before agreeing the final recommendation.',
     assessmentLabel: 'Checked before recommendation',
-    compatibilityDetail: 'We confirm measurements, surface strength, device fit or home conditions before installation is agreed.',
+    compatibilityDetail: 'We check measurements, surface strength, device fit or home conditions before installation is agreed.',
     compatibilityLabel: 'Compatibility reviewed',
     consentDetail: 'Smart or family-alert features are configured only where suitable, understood and consented.',
     consentLabel: 'Consent-aware setup',
@@ -21,7 +21,7 @@ const copy = {
     handoverLabel: 'CasaMia handover',
     installationDetail: 'Professional fitting is followed by a practical use and stability check before handover.',
     installationLabel: 'Installed and tested',
-    quoteDetail: 'Final scope and price are confirmed after the home check, so the proposal reflects the real room and materials.',
+    quoteDetail: 'Final scope and price are agreed after the home check, so the proposal reflects the real room and materials.',
     quoteLabel: 'Measured quote',
     standard: 'We check the home first, fit the right option, test it in place and explain safe use before handover.',
     bestForPrefix: 'Best for',
@@ -41,7 +41,7 @@ const copy = {
     dailyRoutineFit: 'that it suits the room and daily routine',
   },
   es: {
-    assessmentDetail: 'CasaMia revisa a la persona, la distribución y la rutina diaria antes de confirmar la recomendación final.',
+    assessmentDetail: 'Revisamos a la persona, la distribución y la rutina diaria antes de acordar la recomendación final.',
     assessmentLabel: 'Revisado antes de recomendar',
     compatibilityDetail: 'Confirmamos medidas, resistencia de superficies, compatibilidad de dispositivos o condiciones de la vivienda antes de acordar la instalación.',
     compatibilityLabel: 'Compatibilidad revisada',
@@ -53,7 +53,7 @@ const copy = {
     handoverLabel: 'Entrega CasaMia',
     installationDetail: 'La instalación profesional se completa con una comprobación práctica de uso y estabilidad antes de la entrega.',
     installationLabel: 'Instalado y probado',
-    quoteDetail: 'El alcance y precio final se confirman tras revisar la vivienda, para que la propuesta refleje la estancia y materiales reales.',
+    quoteDetail: 'El alcance y precio final se acuerdan tras revisar la vivienda, para que la propuesta refleje la estancia y materiales reales.',
     quoteLabel: 'Presupuesto medido',
     standard: 'Revisamos la vivienda, elegimos la opción adecuada, la probamos instalada y explicamos su uso antes de la entrega.',
     bestForPrefix: 'Ideal para',

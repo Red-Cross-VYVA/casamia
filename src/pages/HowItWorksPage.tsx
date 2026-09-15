@@ -242,7 +242,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     heroEyebrow: 'Clear path to a safer home',
     heroTitle: 'From home photos to safer daily routines.',
     heroBody:
-      'CasaMia reviews the rooms that matter, prioritises the real risks, and coordinates practical adaptations or smart safety when they are useful.',
+      'We review the rooms that matter, prioritise the real risks, and coordinate practical adaptations or smart safety when they are useful.',
     primaryCta: 'Start Free Safety Report',
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',

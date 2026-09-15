@@ -573,8 +573,8 @@ function buildInstallationSavingLine(discount: number, language: string): PlansB
 
   return {
     description: isSpanish
-      ? 'Ahorro aplicado porque CasaMia coordina varias instalaciones en la misma visita.'
-      : 'Saving applied because CasaMia coordinates several installations in the same visit.',
+      ? 'Ahorro aplicado porque varias instalaciones se coordinan en la misma visita.'
+      : 'Saving applied because several installations are coordinated in the same visit.',
     grantEligible: false,
     id: 'plans-installation-bundle-saving',
     isRecurring: false,
@@ -715,7 +715,7 @@ function copyFor(language: string) {
 function reviewCopy(language: string) {
   return language.toLowerCase().startsWith('es')
     ? {
-        compatibility: 'CasaMia confirmará compatibilidad y alcance antes de aprobar la propuesta.',
+        compatibility: 'Revisaremos compatibilidad y alcance antes de aprobar la propuesta.',
         package: 'Precio confirmado después de la revisión de CasaMia.',
       }
     : {

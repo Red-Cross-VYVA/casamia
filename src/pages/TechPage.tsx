@@ -330,7 +330,7 @@ const techCopy = {
       empty: 'No connected components are currently available. Ask CasaMia for a compatibility review.',
       cardTitle: 'Connected components and setup',
       cardBody:
-        'CasaMia checks compatibility, installs where needed, configures alerts and explains the handover. This list is maintained as the available components change.',
+        'We check compatibility, install where needed, configure alerts and explain the handover. This list is maintained as the available components change.',
       cta: 'Configure smart safety',
     },
     faq: {
@@ -373,7 +373,7 @@ const techCopy = {
       eyebrow: 'Start with your real setup',
       title: 'Tell us what you already have. We will show you the clearest way to connect it.',
       body:
-        'Bring a device list, an existing system or simply the outcome you need. CasaMia will review the starting point and define a practical connected-care plan.',
+        'Bring a device list, an existing system or simply the outcome you need. We will review the starting point and define a practical connected-care plan.',
       primaryCta: 'Discuss my integration',
       secondaryCta: 'I need the complete platform',
     },
