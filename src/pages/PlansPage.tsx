@@ -170,7 +170,6 @@ type PlansDetailActionState = {
   body: string
   disabled: boolean
   label: string
-  status?: string
   variant: 'core' | 'connected' | 'review'
 }
 
@@ -1363,7 +1362,6 @@ export function PlansPage() {
           body: '',
           disabled: activeDetailCoreSelected,
           label: activeDetailCoreSelected ? detailCopy.addedToPlan : detailCopy.orderPackage(activeDetailGroup.roomLabel),
-          status: activeDetailCoreSelected ? detailCopy.addedToPlan : undefined,
           variant: 'core',
         }
       : activeDetailDisplayMode === 'optional'
@@ -1371,14 +1369,12 @@ export function PlansPage() {
             body: '',
             disabled: activeDetailAddOnSelected,
             label: activeDetailAddOnSelected ? detailCopy.addedToPlan : detailCopy.addConnected,
-            status: activeDetailAddOnSelected ? detailCopy.addedToPlan : undefined,
             variant: 'connected',
           }
         : {
             body: detailCopy.reviewBody,
             disabled: activeDetailAddOnSelected,
             label: activeDetailAddOnSelected ? detailCopy.reviewRequested : detailCopy.requestReview,
-            status: undefined,
             variant: 'review',
           }
     : null
@@ -2949,7 +2945,6 @@ export function PlansPage() {
                             <ArrowRight size={16} aria-hidden="true" />
                           )}
                         </button>
-                        {activeDetailAction.status ? <small>{activeDetailAction.status}</small> : null}
                       </div>
                     ) : null}
                   </article>
