@@ -3,6 +3,12 @@ import { useEffect, useMemo } from 'react'
 
 import { catalogueOutcomeImages, getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
 import type { CasaMiaService } from '../types/serviceCatalogue'
+import {
+  getServiceBestFor,
+  getServiceProofChips,
+  getServiceTrustSignals,
+  getServiceTrustStandard,
+} from '../utils/serviceTrust'
 import { SafeImage } from './SafeImage'
 
 type ServiceItemDetailModalProps = {
@@ -19,8 +25,11 @@ const modalCopy = {
     included: 'Included in package',
     optional: 'Optional add-on',
     benefit: 'Why it helps',
+    bestFor: 'Best fit',
     includes: 'What CasaMia includes',
     requirements: 'Planning notes',
+    trust: 'Why families can trust it',
+    standard: 'CasaMia standard',
     safetyNote: 'Important',
     assessment: 'Assessment recommended',
     installation: 'Professional installation',
@@ -37,8 +46,11 @@ const modalCopy = {
     included: 'Incluido en el paquete',
     optional: 'Extra opcional',
     benefit: 'Por qué ayuda',
+    bestFor: 'Cuándo encaja',
     includes: 'Qué incluye CasaMia',
     requirements: 'Notas de planificación',
+    trust: 'Por qué aporta confianza',
+    standard: 'Estándar CasaMia',
     safetyNote: 'Importante',
     assessment: 'Valoración recomendada',
     installation: 'Instalación profesional',
@@ -143,15 +155,20 @@ export function ServiceItemDetailModal({
     const includedItems = uniqueItems(service.includedItems)
     const requirements = getRequirementLabels(service, languageKey)
     const optional = isOptionalService(service)
+    const trustSignals = getServiceTrustSignals(service, languageKey)
 
     return {
+      bestFor: getServiceBestFor(service, languageKey),
       benefit,
       description,
       image: getServiceImage(service, imageSrc),
       includedItems: includedItems.length ? includedItems : [copy.fallbackInclude],
       optional,
+      proofChips: getServiceProofChips(service, languageKey),
       requirements,
+      standard: getServiceTrustStandard(languageKey),
       title,
+      trustSignals,
       typeLabel: optional ? copy.optional : copy.included,
     }
   }, [copy.fallbackInclude, copy.included, copy.optional, imageSrc, languageKey, service])
@@ -172,6 +189,11 @@ export function ServiceItemDetailModal({
             <p>{detail.typeLabel}</p>
             <h2 id="service-item-detail-title">{detail.title}</h2>
             <span>{detail.description}</span>
+            <div className="service-item-detail-proof-row" aria-label={copy.trust}>
+              {detail.proofChips.map((chip) => (
+                <strong key={chip}>{chip}</strong>
+              ))}
+            </div>
           </div>
           <button type="button" aria-label={copy.close} onClick={onClose}>
             <X size={18} aria-hidden="true" />
@@ -219,6 +241,14 @@ export function ServiceItemDetailModal({
               </div>
             </div>
 
+            <div className="plan-detail-benefit service-item-detail-best-fit">
+              <ShieldCheck size={18} aria-hidden="true" />
+              <div>
+                <strong>{copy.bestFor}</strong>
+                <p>{detail.bestFor}</p>
+              </div>
+            </div>
+
             {detail.requirements.length ? (
               <div className="plan-detail-included-card service-item-detail-requirements">
                 <h4>{copy.requirements}</h4>
@@ -233,12 +263,32 @@ export function ServiceItemDetailModal({
               </div>
             ) : null}
 
+            <div className="plan-detail-included-card service-item-detail-trust">
+              <h4>{copy.trust}</h4>
+              <ul>
+                {detail.trustSignals.map((signal) => (
+                  <li key={signal.label}>
+                    <CheckCircle2 size={16} aria-hidden="true" />
+                    <span>
+                      <strong>{signal.label}</strong>
+                      <small>{signal.detail}</small>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             {service.safetyNotice ? (
               <p className="plan-detail-footnote">
                 <ShieldCheck size={16} aria-hidden="true" />
                 <span><strong>{copy.safetyNote}:</strong> {service.safetyNotice}</span>
               </p>
             ) : null}
+
+            <p className="plan-detail-footnote service-item-detail-standard">
+              <ShieldCheck size={16} aria-hidden="true" />
+              <span><strong>{copy.standard}:</strong> {detail.standard}</span>
+            </p>
           </article>
         </div>
       </section>

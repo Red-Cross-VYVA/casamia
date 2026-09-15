@@ -27,6 +27,7 @@ import { getMasterServiceCatalogue } from '../services/masterServiceCatalogue'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServicePackageArea, ServiceRoom } from '../types/serviceCatalogue'
+import { getServiceBestFor, getServiceProofChips } from '../utils/serviceTrust'
 import '../styles/home-hero-ctas.css'
 import '../styles/services-catalogue.css'
 
@@ -717,36 +718,49 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
   return (
     <>
       <div className="service-kitchen-component-grid is-itemised">
-        {services.map((item) => (
-          <article key={item.id}>
-            <div className="service-kitchen-component-copy">
-              <div className="service-kitchen-component-topline">
-                <span>{item.category}</span>
+        {services.map((item) => {
+          const proofChips = getServiceProofChips(item, language)
+
+          return (
+            <article key={item.id}>
+              <div className="service-kitchen-component-copy">
+                <div className="service-kitchen-component-topline">
+                  <span>{item.category}</span>
+                </div>
+                <h3>{item.name}</h3>
+                <p>{item.customerDescription ?? item.shortDescription}</p>
               </div>
-              <h3>{item.name}</h3>
-              <p>{item.shortDescription}</p>
-            </div>
-            <div className="service-kitchen-component-details">
-              <p className="service-kitchen-component-benefit">
-                <CheckCircle2 size={17} aria-hidden="true" />
-                {item.customerBenefit}
-              </p>
-              {item.includedItems && item.includedItems.length > 0 ? (
-                <ul className="service-kitchen-component-inclusions" aria-label={`${copy.includedWith} ${item.name}`}>
-                  {item.includedItems.slice(0, 3).map((includedItem) => (
-                    <li key={includedItem}>{includedItem}</li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-            <div className="service-kitchen-component-actions">
-              <button className="catalogue-item-detail-button" type="button" onClick={() => setActiveService(item)}>
-                {viewDetailsLabel}
-                <ArrowRight size={15} aria-hidden="true" />
-              </button>
-            </div>
-          </article>
-        ))}
+              <div className="service-kitchen-component-details">
+                <p className="service-kitchen-component-benefit">
+                  <CheckCircle2 size={17} aria-hidden="true" />
+                  {item.customerBenefit}
+                </p>
+                <p className="services-catalogue-service-best-for service-kitchen-component-best-for">
+                  <ShieldCheck size={16} aria-hidden="true" />
+                  <span>{getServiceBestFor(item, language)}</span>
+                </p>
+                {proofChips.length ? (
+                  <div className="services-catalogue-proof-chips" aria-label={language.toLowerCase().startsWith('es') ? 'Señales de confianza' : 'Trust signals'}>
+                    {proofChips.map((chip) => <span key={chip}>{chip}</span>)}
+                  </div>
+                ) : null}
+                {item.includedItems && item.includedItems.length > 0 ? (
+                  <ul className="service-kitchen-component-inclusions" aria-label={`${copy.includedWith} ${item.name}`}>
+                    {item.includedItems.slice(0, 3).map((includedItem) => (
+                      <li key={includedItem}>{includedItem}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+              <div className="service-kitchen-component-actions">
+                <button className="catalogue-item-detail-button" type="button" onClick={() => setActiveService(item)}>
+                  {viewDetailsLabel}
+                  <ArrowRight size={15} aria-hidden="true" />
+                </button>
+              </div>
+            </article>
+          )
+        })}
       </div>
       <ServiceItemDetailModal
         language={language}

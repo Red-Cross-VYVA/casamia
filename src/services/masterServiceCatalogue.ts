@@ -185,6 +185,8 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
   const products = uniqueById(capabilities.flatMap((capability) => getProductsByCapability(capability.id, catalogue)))
   const tasks = uniqueById(capabilities.flatMap((capability) => getTasksByCapability(capability.id, catalogue)))
   const packageRecord = catalogue.packages.find((item) => item.id === outcome.packageId)
+  const englishDescription = outcome.detailedDescription?.en ?? outcome.shortDescription.en ?? ''
+  const spanishDescription = outcome.detailedDescription?.es ?? outcome.shortDescription.es
   const includedItems = uniqueTextItems(capabilities.map((capability) => capability.name))
   const spanishIncludedItems = uniqueTextItems(
     capabilities.map((capability) => getSpanishCapabilityName(capability.id, capability.name)),
@@ -216,7 +218,7 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
     customerName: outcome.customerName.en ?? outcome.internalName,
     internalName: outcome.internalName,
     shortDescription: outcome.shortDescription.en ?? '',
-    customerDescription: outcome.shortDescription.en ?? '',
+    customerDescription: englishDescription,
     customerBenefit: outcome.customerBenefit.en ?? '',
     outcome: outcome.customerBenefit.en ?? '',
     plainLanguageSummary: outcome.shortDescription.en ?? '',
@@ -287,7 +289,7 @@ function flattenOutcome(outcome: MasterCatalogueOutcome, catalogue: MasterServic
     translations: {
       es: {
         customerBenefit: outcome.customerBenefit.es,
-        customerDescription: outcome.shortDescription.es,
+        customerDescription: spanishDescription,
         customerName: outcome.customerName.es,
         includedItems: spanishIncludedItems,
         name: outcome.customerName.es,

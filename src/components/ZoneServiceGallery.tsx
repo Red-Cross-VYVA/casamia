@@ -1,10 +1,11 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ShieldCheck } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { SafeImage } from './SafeImage'
 import { ServiceItemDetailModal } from './ServiceItemDetailModal'
 import { getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
 import type { CasaMiaService, ServiceCatalogueSection, ServiceRoom } from '../types/serviceCatalogue'
+import { getServiceBestFor, getServiceProofChips } from '../utils/serviceTrust'
 
 type ZoneGalleryRoom = Extract<ServiceRoom, 'bathroom' | 'bedroom' | 'entrance' | 'kitchen' | 'living-room'>
 
@@ -195,6 +196,7 @@ function ZoneServiceGalleryCard({
   const section = service.section ?? 'home_safety_package'
   const title = service.customerName ?? service.name
   const description = service.customerDescription || service.customerBenefit || service.shortDescription
+  const proofChips = getServiceProofChips(service, languageKey)
 
   return (
     <article className="zone-service-gallery-card">
@@ -210,6 +212,15 @@ function ZoneServiceGalleryCard({
         <span>{sectionLabels[section][languageKey]}</span>
         <h3>{title}</h3>
         <p>{description}</p>
+        <p className="services-catalogue-service-best-for zone-service-gallery-best-for">
+          <ShieldCheck size={16} aria-hidden="true" />
+          <span>{getServiceBestFor(service, languageKey)}</span>
+        </p>
+        {proofChips.length ? (
+          <div className="services-catalogue-proof-chips zone-service-gallery-proof-chips" aria-label={languageKey === 'es' ? 'Señales de confianza' : 'Trust signals'}>
+            {proofChips.map((chip) => <span key={chip}>{chip}</span>)}
+          </div>
+        ) : null}
         <div className="zone-service-gallery-card-actions">
           <button className="catalogue-item-detail-button" type="button" onClick={() => onViewDetails(service)}>
             {viewDetailsLabel}
