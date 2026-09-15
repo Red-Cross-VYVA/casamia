@@ -35,7 +35,7 @@ import type {
   MasterServiceCatalogue,
   ServicePackageArea,
 } from '../types/serviceCatalogue'
-import { getServiceBestFor, getServiceProofChips } from '../utils/serviceTrust'
+import { getServiceBestFor, getServiceCredibleDescription, getServiceProofChips } from '../utils/serviceTrust'
 import '../styles/services-catalogue.css'
 
 type CatalogueGroupId = ServicePackageArea | 'other'
@@ -417,8 +417,8 @@ function getRequirementLabels(service: CasaMiaService, copy: ServicesPageCopy) {
 }
 
 const getCustomerServiceName = (service: CasaMiaService) => service.customerName ?? service.name
-const getCustomerServiceDescription = (service: CasaMiaService) =>
-  service.customerDescription ?? service.shortDescription
+const getCustomerServiceDescription = (service: CasaMiaService, language: string) =>
+  getServiceCredibleDescription(service, language)
 const getCustomerServiceBenefit = (service: CasaMiaService) =>
   service.outcome ?? service.customerBenefit
 
@@ -654,7 +654,7 @@ export function ServicesPage() {
             '@type': 'ListItem',
             position: index + 1,
             name: getCustomerServiceName(service),
-            description: getCustomerServiceDescription(service),
+            description: getCustomerServiceDescription(service, language),
           })),
         }}
       />
@@ -848,7 +848,7 @@ export function ServicesPage() {
                       const visibleIncludedItems = includedItems.slice(0, 2)
                       const remainingIncludedItems = includedItems.length - visibleIncludedItems.length
                       const optionalAddOn = isOptionalAddOn(service)
-                      const description = getCustomerServiceDescription(service)
+                      const description = getCustomerServiceDescription(service, language)
                       const benefit = getCustomerServiceBenefit(service)
                       const proofChips = getServiceProofChips(service, language)
                       const bestFor = getServiceBestFor(service, language)

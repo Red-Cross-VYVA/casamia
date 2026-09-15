@@ -5,6 +5,7 @@ import { catalogueOutcomeImages, getCatalogueOutcomeImage } from '../constants/c
 import type { CasaMiaService } from '../types/serviceCatalogue'
 import {
   getServiceBestFor,
+  getServiceCredibleDescription,
   getServiceProofChips,
   getServiceTrustSignals,
   getServiceTrustStandard,
@@ -150,7 +151,7 @@ export function ServiceItemDetailModal({
     if (!service) return null
 
     const title = service.customerName ?? service.name
-    const description = service.customerDescription ?? service.shortDescription
+    const description = getServiceCredibleDescription(service, languageKey)
     const benefit = service.outcome ?? service.customerBenefit ?? description
     const includedItems = uniqueItems(service.includedItems)
     const requirements = getRequirementLabels(service, languageKey)

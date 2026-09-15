@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { SafeImage } from './SafeImage'
 import { getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
 import { getProposalSpecificationForOutcome } from '../services/masterServiceCatalogue'
-import { localizePlansString, type PlansBuilderGroup } from '../services/plansBuilderPricing'
+import { getPlansOutcomeCredibleDescription, localizePlansString, type PlansBuilderGroup } from '../services/plansBuilderPricing'
 import type { MasterCatalogueOutcome, MasterServiceCatalogue } from '../types/serviceCatalogue'
 
 type PackageDetailModalProps = {
@@ -181,11 +181,7 @@ function getDetailBenefit(outcome: MasterCatalogueOutcome, language: 'en' | 'es'
 }
 
 function getDetailDescription(outcome: MasterCatalogueOutcome, language: 'en' | 'es') {
-  return localizePlansString(
-    outcome.detailedDescription ?? outcome.shortDescription,
-    language,
-    localizePlansString(outcome.customerBenefit, language, outcome.internalName),
-  )
+  return getPlansOutcomeCredibleDescription(outcome, language)
 }
 
 function getOutcomeProofChips(

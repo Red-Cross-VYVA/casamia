@@ -28,6 +28,7 @@ import { getSelectedRoomIds, isRoomSelected } from '../services/configuratorRoom
 import { formatServicePrice, useServiceCatalogue } from '../services/serviceCatalogue'
 import type { ConfiguratorRoomId, ConfiguratorState, CustomerAnswer } from '../types/configurator'
 import type { CasaMiaService } from '../types/serviceCatalogue'
+import { getServiceCredibleDescription } from '../utils/serviceTrust'
 
 type HomeZoneId = ConfiguratorRoomId
 
@@ -973,7 +974,7 @@ function ServiceSelectionCard({
             ) : null}
           </div>
           <h4 className="mt-3 text-xl font-black leading-tight text-text-dark">{service.name}</h4>
-          <p className="mt-2 text-sm font-bold leading-relaxed text-text-mid">{service.shortDescription}</p>
+          <p className="mt-2 text-sm font-bold leading-relaxed text-text-mid">{getServiceCredibleDescription(service, 'en')}</p>
         </div>
       </div>
 

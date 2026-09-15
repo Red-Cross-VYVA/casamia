@@ -488,7 +488,7 @@ function buildPlansOutcomeDescription(
   language: string,
 ) {
   const packageName = localizePlansString(packageRecord.customerName, language, packageRecord.internalName)
-  const description = localizePlansString(outcome.shortDescription, language, outcome.internalName)
+  const description = getPlansOutcomeCredibleDescription(outcome, language)
   const parts = [
     `${packageName}.`,
     description,
@@ -551,6 +551,29 @@ function toProposalLineItem(line: PlansBuilderEstimateLine): ProposalLineItem {
     sourcePackageId: line.packageId,
     unitPrice: line.unitPrice,
   })
+}
+
+export function getPlansOutcomeCredibleDescription(outcome: MasterCatalogueOutcome, language: string) {
+  const baseDescription = localizePlansString(
+    outcome.detailedDescription ?? outcome.shortDescription,
+    language,
+    outcome.internalName,
+  ).trim()
+  const copy = trustCopy(language)
+  const proofParts = [
+    (outcome.requiresAssessment || outcome.requiresMeasurement || outcome.requiresCompatibilityCheck || outcome.requiresSiteVisit)
+      ? copy.fit
+      : null,
+    outcome.requiresQuote || outcome.pricingType === 'quote' ? copy.scope : null,
+    outcome.grantEligible ? copy.grant : null,
+    copy.handover,
+  ].filter(Boolean) as string[]
+
+  const proofSentence = `${copy.prefix} ${proofParts.join(', ')}.`
+
+  return baseDescription.endsWith(proofSentence)
+    ? baseDescription
+    : `${baseDescription.replace(/\s+$/, '').replace(/\.$/, '')}. ${proofSentence}`
 }
 
 function buildInstallationSavingLine(discount: number, language: string): PlansBuilderEstimateLine {
@@ -706,5 +729,23 @@ function reviewCopy(language: string) {
     : {
         compatibility: 'CasaMia will confirm compatibility and scope before approving the proposal.',
         package: 'Price confirmed after CasaMia review.',
+      }
+}
+
+function trustCopy(language: string) {
+  return language.toLowerCase().startsWith('es')
+    ? {
+        fit: 'idoneidad, medidas y condiciones reales de la estancia',
+        grant: 'documentación de apoyo para subvenciones cuando aplica',
+        handover: 'prueba de uso y entrega clara',
+        prefix: 'CasaMia confirma',
+        scope: 'alcance y precio final antes de presupuestar',
+      }
+    : {
+        fit: 'suitability, measurements and real room conditions',
+        grant: 'grant evidence where eligible',
+        handover: 'testing and clear handover',
+        prefix: 'CasaMia confirms',
+        scope: 'final scope and price before quoting',
       }
 }

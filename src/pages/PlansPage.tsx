@@ -55,6 +55,7 @@ import {
   calculatePlansBuilderEstimate,
   formatPlansCurrency,
   formatPlansEstimateLabel,
+  getPlansOutcomeCredibleDescription,
   getPlansOutcomeUnitPrice,
   localizePlansString,
   normalisePlansQuantity,
@@ -819,6 +820,10 @@ const roomVisuals: Record<string, string> = {
   'living-room': '/images/service-gallery/isometric/isometric-living.jpg',
 }
 
+function getPlanDetailDescription(outcome: MasterCatalogueOutcome, language: 'en' | 'es') {
+  return getPlansOutcomeCredibleDescription(outcome, language)
+}
+
 const starterPackVisuals: Record<string, string> = {
   'bathroom-essentials-pack': '/images/service-card-products/vertical-shower-grab-bar.png',
   'night-movement-pack': '/images/service-card-products/underbed-lighting.webp',
@@ -932,7 +937,7 @@ function OutcomePreviewTag({
   showCheck = true,
 }: OutcomePreviewTagProps) {
   const label = localizePlansString(outcome.customerName, language, outcome.internalName)
-  const description = localizePlansString(outcome.shortDescription, language, outcome.internalName)
+  const description = getPlansOutcomeCredibleDescription(outcome, language)
   const benefit = localizePlansString(outcome.customerBenefit, language, description)
   const preview = getOutcomePreviewMeta(outcome, Icon)
   const PreviewIcon = preview.icon
@@ -1325,6 +1330,9 @@ export function PlansPage() {
     : ''
   const activeDetailSlideBenefit = activeDetailSlide
     ? getPlanDetailBenefit(activeDetailSlide, language)
+    : ''
+  const activeDetailSlideDescription = activeDetailSlide
+    ? getPlanDetailDescription(activeDetailSlide, language)
     : ''
   const activeDetailSlideImage = activeDetailSlide
     ? getPlanDetailSlideImage(activeDetailSlide)
@@ -1924,7 +1932,7 @@ export function PlansPage() {
     setActiveDetailIndex(0)
     setActiveDetailTab('core')
     setActiveDetail({
-      body: localizePlansString(outcome.shortDescription, language, outcome.internalName),
+      body: getPlansOutcomeCredibleDescription(outcome, language),
       groupPackageId: group.homePackage.id,
       items: [outcome],
       mode: 'specialist',
@@ -2899,6 +2907,7 @@ export function PlansPage() {
                       {activeDetailSlide.category || (activeDetailDisplayMode === 'optional' ? detailCopy.optionalTab : activeDetail.typeLabel)}
                     </span>
                     <h3>{activeDetailSlideTitle}</h3>
+                    <p className="plan-detail-story-description">{activeDetailSlideDescription}</p>
 
                     <div className="plan-detail-included-card">
                       <h4>{activeDetailIncludesHeading}</h4>

@@ -20286,6 +20286,14 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   font-size: clamp(30px, 3vw, 42px);
 }
 
+.plan-detail-story-description {
+  margin-top: 12px;
+  color: var(--text-mid);
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.55;
+}
+
 .plan-detail-benefit {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);

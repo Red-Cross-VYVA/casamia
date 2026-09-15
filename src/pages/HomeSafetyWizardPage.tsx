@@ -670,6 +670,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
           areaLabel={copy.areas.options[packageArea]}
           copy={copy.areas}
           isAllOptions={packageArea === 'not-sure'}
+          language={i18n.language}
           onClose={() => setPackageArea(null)}
           returnFocusTo={packageTriggerRef.current}
           services={packageServicesByArea[packageArea]}

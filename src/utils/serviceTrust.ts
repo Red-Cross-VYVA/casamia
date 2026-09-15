@@ -33,6 +33,11 @@ const copy = {
     quoteChip: 'Measured quote',
     consentChip: 'Consent-aware',
     typicalTime: 'Typical on-site task time',
+    verifiedPrefix: 'CasaMia verifies',
+    measuredFit: 'fit, measurements and home conditions',
+    installedFinish: 'professional installation or setup, testing and handover',
+    quoteFinish: 'final scope and price after the home review',
+    grantFinish: 'supporting evidence for grants where local criteria apply',
   },
   es: {
     assessmentDetail: 'CasaMia revisa a la persona, la distribución y la rutina diaria antes de confirmar la recomendación final.',
@@ -59,6 +64,11 @@ const copy = {
     quoteChip: 'Presupuesto medido',
     consentChip: 'Con consentimiento',
     typicalTime: 'Tiempo orientativo de trabajo en casa',
+    verifiedPrefix: 'CasaMia comprueba',
+    measuredFit: 'encaje, medidas y condiciones de la vivienda',
+    installedFinish: 'instalación o configuración profesional, prueba y entrega',
+    quoteFinish: 'alcance y precio final tras la revisión de la vivienda',
+    grantFinish: 'documentación de apoyo para subvenciones cuando aplican criterios locales',
   },
 } as const
 
@@ -83,6 +93,29 @@ export function getServiceBestFor(service: CasaMiaService, language: string) {
   const cleanedBenefit = benefit.trim().replace(/\.$/, '')
 
   return `${text.bestForPrefix} ${cleanedBenefit ? cleanedBenefit.charAt(0).toLowerCase() + cleanedBenefit.slice(1) : text.bestForFallback}`
+}
+
+export function getServiceCredibleDescription(service: CasaMiaService, language: string) {
+  const text = copy[languageKey(language)]
+  const baseDescription = (service.customerDescription ?? service.shortDescription).trim()
+  const proofParts = [
+    (service.requiresAssessment || service.requirements?.assessment || service.requiresMeasurement || service.requiresCompatibilityCheck)
+      ? text.measuredFit
+      : null,
+    (service.requiresInstallation || service.requirements?.installation) ? text.installedFinish : null,
+    (service.requiresQuote || service.requirements?.quote || service.pricingType === 'quote_only') ? text.quoteFinish : null,
+    service.grant?.eligible ? text.grantFinish : null,
+  ].filter(Boolean) as string[]
+
+  if (!proofParts.length) {
+    return baseDescription
+  }
+
+  const proofSentence = `${text.verifiedPrefix} ${proofParts.join(', ')}.`
+
+  return baseDescription.endsWith(proofSentence)
+    ? baseDescription
+    : `${baseDescription.replace(/\s+$/, '').replace(/\.$/, '')}. ${proofSentence}`
 }
 
 export function getServiceProofChips(service: CasaMiaService, language: string) {
