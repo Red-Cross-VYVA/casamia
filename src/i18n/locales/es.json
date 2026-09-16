@@ -35,7 +35,7 @@
     "badge": "Especialistas en seguridad del hogar · Toda España",
     "line1": "Home Sweet",
     "line2": "Home",
-    "sub": "Haz que la casa sea más segura, cómoda y tranquila para quien quieres, con orientación clara y adaptaciones prácticas gestionadas por CasaMia.",
+    "sub": "Haz que moverse por casa sea más seguro, con orientación por estancias, adaptaciones acordadas y coordinación CasaMia.",
     "uploadLabel": "¿Tu hogar es seguro? Descúbrelo gratis.",
     "uploadRooms": "Baño · Cocina · Escalera · Salón",
     "uploadReport": "Informe gratis: riesgos por cada foto",
@@ -75,7 +75,7 @@
     "metaDescription": "Reserva una evaluación CasaMia de seguridad del hogar en España. Revisa riesgos de caída, accesibilidad, baño, ayudas públicas y el siguiente paso antes de decidir cualquier obra.",
     "hero": {
       "title": "Reserva una evaluación profesional a domicilio",
-      "subtitle": "Reserva una visita CasaMia por {{visitFee}}, pagada por adelantado con el {{visitVatPercent}} de IVA incluido, para revisar riesgos de caída, accesibilidad y mejoras prácticas.",
+      "subtitle": "Reserva una visita CasaMia por {{visitFee}}, pagada por adelantado con el {{visitVatPercent}} de IVA incluido, para revisar riesgos de caída, accesibilidad, medidas y acciones prioritarias.",
       "cta": "Solicitar evaluación a domicilio",
       "secondaryCta": "Empezar informe online gratis",
       "reassurance": "La tarifa de {{visitFee}} se descuenta de tu plan CasaMia si continúas.",
@@ -106,25 +106,25 @@
         },
         {
           "title": "Apoyar la vida independiente",
-          "body": "Crea un entorno más seguro que ayude a mantener rutinas diarias con confianza."
+          "body": "Reduce los riesgos diarios que complican baño, escaleras, entrada, cocina o movimiento nocturno."
         },
         {
           "title": "Recibir recomendaciones expertas",
-          "body": "Obtén orientación práctica de personas que entienden la seguridad para envejecer en casa."
+          "body": "Recibe recomendaciones por estancia de personas que entienden la seguridad para envejecer en casa."
         },
         {
-          "title": "Planificar adaptaciones con confianza",
+          "title": "Planificar adaptaciones con menos dudas",
           "body": "Sabe qué importa primero antes de elegir equipamiento, instalación o nivel de servicio."
         },
         {
-          "title": "Tranquilidad para toda la familia",
-          "body": "Da a los familiares una visión más clara del hogar y del siguiente paso más seguro."
+          "title": "Información para quienes ayudan",
+          "body": "Da a los contactos autorizados una visión más clara de la vivienda y del siguiente paso más seguro."
         }
       ]
     },
     "included": {
       "title": "Qué incluye la evaluación a domicilio",
-      "body": "Una visita enfocada de seguridad del hogar, pensada para darte próximos pasos claros antes de decidir cualquier instalación.",
+      "body": "Una visita enfocada de seguridad del hogar para identificar riesgos prioritarios, medidas y acciones recomendadas antes de decidir cualquier instalación.",
       "items": [
         {
           "title": "Inspección de seguridad estancia por estancia",
@@ -136,7 +136,7 @@
         },
         {
           "title": "Baño, escaleras, entrada, cocina y zonas exteriores",
-          "body": "Las zonas de mayor riesgo se revisan para detectar mejoras prácticas de seguridad y comodidad."
+          "body": "Las zonas de mayor riesgo se revisan para mejorar movimiento, alcance, iluminación, apoyo y acceso."
         },
         {
           "title": "Recomendaciones personalizadas",
@@ -150,15 +150,15 @@
     },
     "afterReview": {
       "eyebrow": "Después de la revisión",
-      "title": "Próximos pasos claros, sin tener que coordinarlo todo.",
-      "body": "Empieces online o solicites una visita, CasaMia convierte tus respuestas en una ruta práctica: qué conviene atender primero, qué puede esperar y qué podemos coordinar por ti.",
+      "title": "Prioridades, alcance y coordinación en un solo lugar.",
+      "body": "Empieces online o solicites una visita, CasaMia convierte tus respuestas en una ruta: qué conviene atender primero, qué puede esperar y qué podemos coordinar por ti.",
       "cards": [
         {
           "title": "Revisamos el contexto",
           "body": "Fotos, notas, movilidad, riesgos por estancia y prioridades se revisan en conjunto."
         },
         {
-          "title": "Recibes un resumen claro",
+          "title": "Recibes un resumen con prioridades",
           "body": "Explicamos las zonas de riesgo, el siguiente paso recomendado y cualquier dato que falte."
         },
         {
@@ -203,7 +203,7 @@
         },
         {
           "question": "¿Qué gestiona CasaMia si seguimos adelante?",
-          "answer": "CasaMia puede coordinar la ruta práctica de principio a fin: alcance, propuesta, productos compatibles, instaladores verificados, preparación de ayudas cuando corresponda, agenda, entrega y seguimiento."
+          "answer": "CasaMia puede coordinar la ruta de principio a fin: alcance, propuesta, productos compatibles, instaladores verificados, preparación de documentación para ayudas cuando corresponda, agenda, explicación de uso seguro y seguimiento."
         },
         {
           "question": "¿Podemos usar fotos, vídeos o una llamada antes de una visita?",
@@ -355,7 +355,7 @@
       {
         "icon": "Paso 1",
         "title": "Elige por dónde empezar",
-        "desc": "Escoge uno de nuestros paquetes de seguridad ya preparados o solicita una inspección física para que un técnico de CasaMia recomiende la mejor solución para la vivienda.",
+        "desc": "Elige un paquete inicial o solicita una inspección para que CasaMia confirme la estancia, las medidas y el alcance más seguro por donde empezar.",
         "points": [
           "Paquetes preparados",
           "Inspección opcional",
@@ -365,7 +365,7 @@
       {
         "icon": "Paso 2",
         "title": "Revisa tu propuesta",
-        "desc": "Compartimos una propuesta clara con mejoras prácticas para el hogar, prioridades y precios, para que sepas exactamente qué hará la vivienda más segura.",
+        "desc": "Compartimos una propuesta con acciones prioritarias, elementos incluidos, supuestos y precios, para que sepas qué se recomienda y por qué.",
         "points": [
           "Sugerencias por estancia",
           "Prioridades claras",
@@ -468,8 +468,8 @@
     "showItem": "Empezar la galería con {{title}}"
   },
   "plans": {
-    "title1": "Planes sencillos,",
-    "title2": "total tranquilidad.",
+    "title1": "Empieza con el alcance adecuado,",
+    "title2": "y decide con confianza.",
     "sub": "Informe online gratis disponible - evaluación a domicilio de {{visitFee}} descontable de tu plan",
     "popular": "Más Popular",
     "perUnit": "pago único",
@@ -524,7 +524,7 @@
     "badge": "Ayudas y subvenciones",
     "title": "Puede haber apoyo más cerca de lo que parece.",
     "sub": "CasaMia gestiona el camino de principio a fin.",
-    "body": "Buscamos posibles ayudas, ordenamos el papeleo y te acompañamos en los siguientes pasos para que adaptar la vivienda sea más fácil de empezar.",
+    "body": "Buscamos posibles ayudas, ordenamos la documentación y te acompañamos en los siguientes pasos para que adaptar la vivienda sea más fácil de empezar.",
     "cta": "Explorar ayudas",
     "stats": [
       {
@@ -535,7 +535,7 @@
       {
         "eyebrow": "02",
         "value": "Tranquilidad",
-        "label": "Nos ocupamos del papeleo"
+        "label": "Ordenamos la documentación"
       },
       {
         "eyebrow": "03",
@@ -927,7 +927,7 @@
         },
         {
           "title": "Instalamos y tramitamos ayudas",
-          "desc": "Nuestro equipo instala las adaptaciones acordadas y gestiona el papeleo de Plan Adapta para que tu familia no tenga que perseguir formularios."
+        "desc": "Nuestro equipo instala las adaptaciones acordadas y prepara la documentación de Plan Adapta para que no tengas que perseguir formularios."
         }
       ],
       "cta": "Empezar con un informe gratis"
@@ -936,13 +936,13 @@
       "metaTitle": "Planes y precios",
       "hero": {
         "title": "Elige el plan de seguridad adecuado para tu hogar",
-        "subtitle": "Tanto si necesitas orientación experta, adaptaciones prácticas o tecnología de seguridad inteligente, CasaMia te ayuda a crear un hogar más seguro y cómodo para envejecer en casa.",
+      "subtitle": "Tanto si necesitas orientación experta, adaptaciones o tecnología de seguridad inteligente, CasaMia te ayuda a priorizar qué revisar y qué instalar primero.",
         "primaryCta": "Reservar evaluación a domicilio",
         "secondaryCta": "Comparar planes"
       },
       "explainer": {
         "title": "Tres formas claras de empezar",
-        "body": "Empieza con claridad, pasa a adaptaciones prácticas o añade tecnología conectada para más tranquilidad. Todo empieza por entender la vivienda."
+        "body": "Empieza con una revisión, pasa a adaptaciones o añade tecnología conectada cuando resuelva un riesgo concreto. Todo empieza por entender la vivienda."
       },
       "cardsTitle": "Compara tres planes CasaMia.",
       "cardsIntro": "La evaluación a domicilio es el punto de partida. Estos planes muestran niveles habituales de apoyo; el alcance final se construye con las mejoras que tu vivienda necesita.",
@@ -953,7 +953,7 @@
           "name": "Essential",
           "price": "€269",
           "description": "Mejoras de seguridad enfocadas en las zonas de mayor riesgo: entrada, salón y escaleras.",
-          "bestFor": "Familias que necesitan mejoras prácticas sin hacer un proyecto completo en toda la vivienda.",
+          "bestFor": "Viviendas que necesitan mejoras enfocadas sin hacer un proyecto completo.",
           "deliverables": [
             "Evaluación de {{visitFee}} descontada del plan",
             "Barras de apoyo y puntos básicos de soporte",
@@ -984,8 +984,8 @@
           "id": "premium",
           "name": "Premium",
           "price": "€1.449",
-          "description": "Adaptación completa de seguridad más apoyo inteligente, monitorización y tranquilidad familiar.",
-          "bestFor": "Familias que quieren la capa de seguridad más completa para envejecer en casa.",
+          "description": "Adaptación completa de seguridad más apoyo inteligente, monitorización y alertas a contactos autorizados.",
+          "bestFor": "Viviendas que necesitan la capa de seguridad más completa para envejecer en casa.",
           "deliverables": [
             "Todo lo de Advanced",
             "Sensores de detección de caídas",
@@ -1153,7 +1153,7 @@
           },
           {
             "question": "¿Tengo que hacer instalación después de la evaluación?",
-            "answer": "No. Primero recibes recomendaciones y después decides qué encaja con la vivienda y la familia."
+            "answer": "No. Primero recibes recomendaciones y después decides qué encaja con la vivienda y las personas implicadas."
           },
           {
             "question": "¿Los instaladores están asegurados?",
@@ -1184,7 +1184,7 @@
       }
     },
     "grants": {
-      "title": "Ayudas sin laberinto de papeleo.",
+      "title": "Ayudas con documentación más clara.",
       "intro": "Plan Adapta puede cubrir una parte importante de las obras de accesibilidad. CasaMia prepara, presenta y hace seguimiento de la solicitud por ti.",
       "eligibilityTitle": "Señales habituales de elegibilidad",
       "eligibility": [
@@ -1262,7 +1262,7 @@
             {
               "icon": "room",
               "title": "Evaluación estancia por estancia",
-              "body": "Baños, cocina, dormitorios, salón, entradas y escaleras se revisan con una secuencia práctica."
+              "body": "Baños, cocina, dormitorios, salón, entradas y escaleras se revisan con una secuencia de riesgo por estancia."
             },
             {
               "icon": "fall",
@@ -1325,7 +1325,7 @@
           "process": [
             {
               "title": "Evaluación del hogar",
-              "body": "Inspeccionamos la vivienda, escuchamos a la familia e identificamos prioridades prácticas de seguridad."
+              "body": "Inspeccionamos la vivienda, escuchamos a las personas implicadas e identificamos las prioridades de seguridad a resolver primero."
             },
             {
               "title": "Propuesta y aprobación",
@@ -1342,7 +1342,7 @@
             "Prioridades estancia por estancia",
             "Lista recomendada de productos y adaptaciones",
             "Propuesta clara si hacen falta mejoras",
-            "Explicación sencilla para la familia",
+            "Explicación clara para la persona y contactos autorizados",
             "Orientación de seguimiento"
           ],
           "payment": {
@@ -1385,7 +1385,7 @@
             "Personas recuperándose de una cirugía",
             "Personas con movilidad reducida"
           ],
-          "includedIntro": "Todo lo del Plan Evaluación del Hogar, más productos de seguridad prácticos e instalación profesional.",
+          "includedIntro": "Todo lo del Plan Evaluación del Hogar, más productos de seguridad adecuados para el uso diario e instalación profesional.",
           "included": [
             {
               "icon": "inspection",
@@ -1527,7 +1527,7 @@
         {
           "id": "smart-safety",
           "title": "Plan Seguridad Smart",
-          "subtitle": "Una solución conectada que combina adaptaciones del hogar, dispositivos inteligentes, el asistente VYVA y tranquilidad familiar para envejecer en casa.",
+          "subtitle": "Una configuración conectada que combina adaptaciones del hogar, dispositivos inteligentes, el asistente VYVA y alertas acordadas para envejecer en casa.",
           "heroPoints": [
             "Dispositivos conectados",
             "App VYVA: 1 año incluido",
@@ -1535,7 +1535,7 @@
             "Formación y entrega"
           ],
           "who": [
-            "Familias que quieren más tranquilidad",
+            "Hogares que quieren alertas para contactos autorizados",
             "Personas mayores que se benefician de alertas y apoyo conectado",
             "Viviendas con riesgos de movimiento, agua, humo o acceso que conviene monitorizar",
             "Cuidadores que quieren una capa inteligente después de las adaptaciones físicas"
@@ -1545,7 +1545,7 @@
             {
               "icon": "inspection",
               "title": "Todo lo del Plan Seguridad",
-              "body": "Primero se incluyen evaluación, adaptaciones prácticas, coordinación de instalación y aceptación del cliente."
+              "body": "Primero se incluyen evaluación, adaptaciones acordadas, coordinación de instalación y aceptación del cliente."
             },
             {
               "icon": "lighting",
@@ -1565,7 +1565,7 @@
             {
               "icon": "smoke",
               "title": "Detección de humo",
-              "body": "Opciones conectadas de detección de humo para alertas tempranas y conocimiento familiar."
+              "body": "Opciones conectadas de detección de humo para alertas tempranas a contactos acordados."
             },
             {
               "icon": "doorbell",
@@ -1580,12 +1580,12 @@
             {
               "icon": "health",
               "title": "Configuración de monitorización de salud",
-              "body": "Apoyo con dispositivos compatibles cuando la familia quiere una capa adicional de información."
+              "body": "Apoyo con dispositivos compatibles cuando se quiere una capa adicional de información acordada."
             },
             {
               "icon": "health",
               "title": "Asistente VYVA + suscripción de 1 año",
-              "body": "Incluye un año de suscripción VYVA para recordatorios por voz, checks de bienestar, alertas a cuidadores y un panel familiar más claro."
+              "body": "Incluye un año de suscripción VYVA para recordatorios por voz, checks de bienestar, alertas a cuidadores y vista para contactos autorizados."
             },
             {
               "icon": "settings",
@@ -1595,7 +1595,7 @@
             {
               "icon": "training",
               "title": "Formación al usuario",
-              "body": "Explicamos el sistema con claridad para que personas mayores y familiares sepan usarlo."
+              "body": "Explicamos el sistema para que la persona en casa y los contactos autorizados sepan usarlo."
             }
           ],
           "rooms": [
@@ -1632,7 +1632,7 @@
             {
               "icon": "outdoor",
               "title": "Zonas exteriores",
-              "body": "Apoyar movimiento exterior con iluminación, revisión de accesos y monitorización cuando sea útil."
+              "body": "Apoyar movimiento exterior con iluminación, revisión de accesos y monitorización cuando reduzca un riesgo concreto."
             }
           ],
           "process": [
@@ -1646,7 +1646,7 @@
             },
             {
               "title": "Instalación profesional y entrega",
-              "body": "CasaMia instala, configura, pone en marcha y forma a la familia en el sistema final."
+              "body": "CasaMia instala, configura, pone en marcha y explica el sistema final a quienes lo usarán."
             }
           ],
           "deliverables": [
@@ -1669,7 +1669,7 @@
           "faqs": [
             {
               "question": "¿Puedo controlarlo todo desde el móvil?",
-              "answer": "Muchos dispositivos pueden controlarse desde el móvil si son compatibles, pero CasaMia prioriza una configuración práctica y fácil de usar."
+              "answer": "Muchos dispositivos pueden controlarse desde el móvil si son compatibles, pero CasaMia prioriza una configuración entendible y probada antes del uso diario."
             },
             {
               "question": "¿Los dispositivos smart necesitan Wi-Fi?",
@@ -1807,17 +1807,17 @@
   },
   "beforeAfter": {
     "preview": {
-      "title": "Cambios sencillos para vivir en casa con más confianza.",
-      "body": "Inspírate con mejoras que reducen riesgos y hacen más fácil moverse, ducharse, entrar y descansar con tranquilidad.",
+      "title": "Cambios enfocados que reducen riesgos diarios.",
+      "body": "Mira mejoras que hacen más seguro moverse, ducharse, entrar y descansar sin cambiar toda la vivienda.",
       "viewCta": "Ver ejemplos →",
       "assessmentCta": "Empezar gratis"
     },
     "page": {
       "title": "Antes y después",
-      "body": "Explora mejoras prácticas de seguridad que hacen que moverse por casa sea más fácil, tranquilo y seguro.",
+      "body": "Explora mejoras de seguridad que hacen que moverse por casa sea más seguro y manejable.",
       "galleryCta": "Ver galería",
       "galleryTitle": "De riesgos cotidianos a rutinas más seguras",
-      "galleryBody": "Cada transformación muestra el tipo de problema que CasaMia revisa y la mejora práctica que podemos proponer tras una evaluación de seguridad del hogar.",
+      "galleryBody": "Cada transformación muestra el riesgo que CasaMia revisa y la mejora que puede definirse tras una evaluación de seguridad del hogar.",
       "compareCta": "Comparar planes"
     },
     "labels": {

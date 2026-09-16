@@ -57,6 +57,7 @@ import {
   formatPlansCurrency,
   formatPlansEstimateLabel,
   getPlansOutcomeCredibleDescription,
+  getPlansOutcomePreviewDescription,
   getPlansOutcomeUnitPrice,
   localizePlansString,
   normalisePlansQuantity,
@@ -933,7 +934,7 @@ function OutcomePreviewTag({
   showCheck = true,
 }: OutcomePreviewTagProps) {
   const label = localizePlansString(outcome.customerName, language, outcome.internalName)
-  const description = getPlansOutcomeCredibleDescription(outcome, language)
+  const description = getPlansOutcomePreviewDescription(outcome, language)
   const benefit = localizePlansString(outcome.customerBenefit, language, description)
   const preview = getOutcomePreviewMeta(outcome, Icon)
   const PreviewIcon = preview.icon

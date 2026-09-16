@@ -35,7 +35,7 @@
     "badge": "Home safety specialists · All Spain",
     "line1": "Home Sweet",
     "line2": "Home",
-    "sub": "Make the home safer, easier and less worrying for the people you love, with clear guidance and practical adaptations managed by CasaMia.",
+    "sub": "Make daily movement safer at home, with room-by-room guidance, agreed adaptations and CasaMia coordination.",
     "uploadLabel": "Is your home safe? Find out for free.",
     "uploadRooms": "Bathroom · Kitchen · Stairway · Living room",
     "uploadReport": "Free report: risks in every photo",
@@ -75,7 +75,7 @@
     "metaDescription": "Book a CasaMia in-home safety assessment in Spain. Review fall risks, accessibility, bathroom safety, grant support and the clearest next step before choosing any work.",
     "hero": {
       "title": "Book a Professional In-Home Safety Assessment",
-      "subtitle": "Book a {{visitFee}} CasaMia home visit, paid in advance with {{visitVatPercent}} VAT included, to review fall risks, accessibility needs, and practical improvements.",
+      "subtitle": "Book a {{visitFee}} CasaMia home visit, paid in advance with {{visitVatPercent}} VAT included, to review fall risks, accessibility needs, measurements and priority actions.",
       "cta": "Request In-Home Assessment",
       "secondaryCta": "Start Free Online Safety Report",
       "reassurance": "The {{visitFee}} visit fee is credited toward your CasaMia plan if you proceed.",
@@ -106,14 +106,14 @@
         },
         {
           "title": "Support independent living",
-          "body": "Create a safer home environment that helps seniors keep daily routines with confidence."
+          "body": "Reduce the daily risks that make bathing, stairs, entrance, cooking or night movement harder."
         },
         {
           "title": "Get expert recommendations",
-          "body": "Receive practical guidance from people who understand aging-in-place safety."
+          "body": "Receive room-by-room recommendations from people who understand aging-in-place safety."
         },
         {
-          "title": "Plan home modifications with confidence",
+          "title": "Plan home modifications with fewer unknowns",
           "body": "Know what matters first before choosing equipment, installation, or service level."
         },
         {
@@ -124,7 +124,7 @@
     },
     "included": {
       "title": "What's Included in the In-Home Assessment",
-      "body": "A focused home safety visit designed to give you clear, useful next steps before any installation decision.",
+      "body": "A focused home safety visit that identifies priority risks, measurements and recommended actions before any installation decision.",
       "items": [
         {
           "title": "Room-by-room safety inspection",
@@ -136,7 +136,7 @@
         },
         {
           "title": "Bathroom, stairway, entrance, kitchen, and outdoor safety check",
-          "body": "High-risk zones are checked for practical safety and comfort improvements."
+          "body": "High-risk zones are checked for safer movement, better reach, lighting, support and access."
         },
         {
           "title": "Personalized recommendations",
@@ -144,14 +144,14 @@
         },
         {
           "title": "Clear next-step proposal if improvements are needed",
-          "body": "If adaptations are useful, we explain the recommended scope, products, and next step clearly."
+          "body": "If adaptations are recommended, we explain the scope, products, measurements and decision needed next."
         }
       ]
     },
     "afterReview": {
       "eyebrow": "After your review",
-      "title": "Clear next steps, without the coordination headache.",
-      "body": "Whether you start online or request a visit, CasaMia turns your answers into a practical route: what matters first, what can wait, and what we can coordinate for you.",
+      "title": "Priorities, scope and coordination in one place.",
+      "body": "Whether you start online or request a visit, CasaMia turns your answers into a route: what to address first, what can wait, and what we can coordinate for you.",
       "cards": [
         {
           "title": "We review the context",
@@ -162,7 +162,7 @@
           "body": "We explain the likely risk areas, recommended next step and any missing information."
         },
         {
-          "title": "A visit is confirmed only if useful",
+          "title": "A visit is confirmed only when measurements or room checks are needed",
           "body": "If the home needs measurement or professional review, we confirm timing and scope first."
         },
         {
@@ -203,7 +203,7 @@
         },
         {
           "question": "What does CasaMia manage if we continue?",
-          "answer": "CasaMia can coordinate the practical route end to end: scope, proposal, compatible products, vetted installers, grant-support preparation where relevant, scheduling, handover and follow-up."
+          "answer": "CasaMia can coordinate the route end to end: scope, proposal, compatible products, vetted installers, grant-document preparation where relevant, scheduling, safe-use explanation and follow-up."
         },
         {
           "question": "Can we use photos, videos or a phone call before a visit?",
@@ -355,7 +355,7 @@
       {
         "icon": "Step 1",
         "title": "Choose your starting point",
-        "desc": "Pick one of our ready-made safety packages, or request a physical inspection so a CasaMia technician can recommend the best solution for the home.",
+        "desc": "Choose a starter package or request a home inspection so CasaMia can confirm the room, measurements and safest starting scope.",
         "points": [
           "Ready-made packages",
           "Optional home inspection",
@@ -365,7 +365,7 @@
       {
         "icon": "Step 2",
         "title": "Review your proposal",
-        "desc": "We share a clear proposal with practical home improvement suggestions, priorities and pricing, so you know exactly what will make the home safer.",
+        "desc": "We share a proposal with priority actions, included items, assumptions and pricing, so you know what is being recommended and why.",
         "points": [
           "Room-by-room suggestions",
           "Clear priorities",
@@ -468,8 +468,8 @@
     "showItem": "Start gallery with {{title}}"
   },
   "plans": {
-    "title1": "Simple plans,",
-    "title2": "total peace of mind.",
+    "title1": "Start with the right scope,",
+    "title2": "then decide with confidence.",
     "sub": "Free online safety report available - {{visitFee}} in-home assessment credited toward your plan",
     "popular": "Most Popular",
     "perUnit": "one-time",
@@ -953,7 +953,7 @@
           "name": "Essential",
           "price": "€269",
           "description": "Focused safety improvements for the highest-risk everyday areas: entrance, living room and stairs.",
-          "bestFor": "Families who need practical safety upgrades without a full-home project.",
+          "bestFor": "Homes that need focused safety upgrades without a full-home project.",
           "deliverables": [
             "{{visitFee}} in-home assessment credited toward your plan",
             "Grab bars and basic support points",
@@ -984,8 +984,8 @@
           "id": "premium",
           "name": "Premium",
           "price": "€1,449",
-          "description": "Full safety adaptation plus connected smart support, monitoring and family reassurance.",
-          "bestFor": "Families who want the strongest safety layer for aging in place.",
+          "description": "Full safety adaptation plus connected smart support, monitoring and approved-contact alerts.",
+          "bestFor": "Homes that need the strongest safety layer for aging in place.",
           "deliverables": [
             "Everything in Advanced",
             "Fall detection sensors",
@@ -1117,7 +1117,7 @@
             "body": "{{visitFee}} assessment credited toward the plan, then {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} after system setup, handover and customer acceptance."
           }
         ],
-        "reassurance": "No hidden fees. No work begins without your approval. You receive a clear proposal before installation."
+        "reassurance": "No hidden fees. No work begins without your approval. You receive scope, pricing and assumptions before installation."
       },
       "next": {
         "title": "What Happens After You Choose a Plan?",
@@ -1132,7 +1132,7 @@
           },
           {
             "title": "You receive a proposal",
-            "body": "We provide clear recommendations, pricing, and next steps before any work begins."
+            "body": "We provide recommendations, pricing, assumptions and the next decision before any work begins."
           },
           {
             "title": "We deliver the solution",
@@ -1165,7 +1165,7 @@
           },
           {
             "question": "Can the plan be customized?",
-            "answer": "Yes. The final scope is tailored to the home, the resident, and the safety priorities found during assessment."
+            "answer": "Yes. The final scope is matched to the home, the person using it, and the safety priorities found during assessment."
           },
           {
             "question": "Do you support smart safety devices?",
@@ -1262,7 +1262,7 @@
             {
               "icon": "room",
               "title": "Room-by-Room Assessment",
-              "body": "Bathrooms, kitchens, bedrooms, living spaces, entrances and stairs are reviewed in a practical sequence."
+              "body": "Bathrooms, kitchens, bedrooms, living spaces, entrances and stairs are reviewed in a room-by-room risk sequence."
             },
             {
               "icon": "fall",
@@ -1325,11 +1325,11 @@
           "process": [
             {
               "title": "Home Assessment",
-              "body": "We inspect the home, listen to the family and identify practical safety priorities."
+              "body": "We inspect the home, listen to the people involved and identify the safety priorities to address first."
             },
             {
               "title": "Proposal & Approval",
-              "body": "You receive a clear report and recommendations before deciding what to do next."
+              "body": "You receive a written report and recommendations before deciding what to do next."
             },
             {
               "title": "Professional Installation & Handover",
@@ -1385,7 +1385,7 @@
             "People recovering from surgery",
             "Individuals with reduced mobility"
           ],
-          "includedIntro": "Everything in the Home Assessment Plan, plus practical safety products and professional installation.",
+          "includedIntro": "Everything in the Home Assessment Plan, plus daily-use safety products and professional installation.",
           "included": [
             {
               "icon": "inspection",
@@ -1527,7 +1527,7 @@
         {
           "id": "smart-safety",
           "title": "Smart Safety Plan",
-          "subtitle": "A connected safety setup that combines home adaptations, smart devices, the VYVA assistant and family reassurance for aging in place.",
+          "subtitle": "A connected safety setup that combines home adaptations, smart devices, the VYVA assistant and agreed alerts for aging in place.",
           "heroPoints": [
             "Connected safety devices",
             "VYVA app: 1 year included",
@@ -1585,7 +1585,7 @@
             {
               "icon": "health",
               "title": "VYVA Assistant + 1-Year Subscription",
-              "body": "Includes one year of VYVA subscription access for voice reminders, wellbeing check-ins, caregiver alerts and a clearer family dashboard."
+              "body": "Includes one year of VYVA subscription access for voice reminders, wellbeing check-ins, caregiver alerts and an approved-contact view."
             },
             {
               "icon": "settings",
@@ -1632,7 +1632,7 @@
             {
               "icon": "outdoor",
               "title": "Outdoor Areas",
-              "body": "Support exterior movement with lighting, access checks and monitoring where useful."
+            "body": "Support exterior movement with lighting, access checks and monitoring where it reduces a specific risk."
             }
           ],
           "process": [
@@ -1807,17 +1807,17 @@
   },
   "beforeAfter": {
     "preview": {
-      "title": "Simple changes that make home feel safer.",
-      "body": "Get inspired by practical upgrades that reduce risk and make moving, showering, entering and resting feel calmer.",
+      "title": "Focused changes that reduce everyday risk.",
+      "body": "See upgrades that make moving, showering, entering and resting safer without changing the whole home.",
       "viewCta": "See Examples →",
       "assessmentCta": "Start Free"
     },
     "page": {
       "title": "Before & After",
-      "body": "Explore practical safety upgrades that make everyday movement easier, calmer, and more secure at home.",
+      "body": "Explore safety upgrades that make everyday movement safer and easier to manage at home.",
       "galleryCta": "View Gallery",
       "galleryTitle": "From everyday risk to safer daily routines",
-      "galleryBody": "Each transformation shows the kind of problem CasaMia looks for and the practical improvement we can deliver after a home safety assessment.",
+      "galleryBody": "Each transformation shows the risk CasaMia looks for and the improvement that can be scoped after a home safety assessment.",
       "compareCta": "Compare Plans"
     },
     "labels": {
