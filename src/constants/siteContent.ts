@@ -65,7 +65,7 @@ export const primaryServices: ServicePageContent[] = [
     description:
       'Reduce stair and hallway risks with continuous handrails, better lighting, contrast strips, and safer movement between levels.',
     intro:
-      'Stairs and hallways should be easy to understand at a glance, with reliable support from the first step to the last.',
+      'Stairs and hallways should show every step edge clearly, with reliable support from the first step to the last.',
     icon: 'stairs',
     risks: ['Missing or interrupted handrails', 'Poor step contrast', 'Low lighting on landings'],
     improvements: ['Continuous handrail support', 'Step-edge visibility', 'Motion lighting and safer movement'],
@@ -77,7 +77,7 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Entrance Accessibility Improvements',
     shortTitle: 'Safe Entrances',
     description:
-      'Improve home entrances with safer thresholds, ramps where suitable, lighting, support points, and clearer access.',
+      'Improve home entrances with lower-risk thresholds, ramps where suitable, lighting, support points, and safer arrival space.',
     intro:
       'The entrance is where daily independence begins. Small changes can make arriving, leaving, and receiving visitors safer.',
     icon: 'door',
@@ -91,7 +91,7 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Kitchen Safety for Aging in Place',
     shortTitle: 'Kitchen Safety',
     description:
-      'Make kitchens easier and safer with better reach, clearer walking space, lighting, storage changes, and appliance safety measures.',
+      'Make kitchens safer with better reach, open walking space, task lighting, storage changes, and appliance safeguards.',
     intro:
       'A safer kitchen keeps daily routines manageable by reducing unnecessary reaching, bending, clutter, and appliance risk.',
     icon: 'kitchen',
@@ -105,7 +105,7 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Bedroom Safety for Seniors',
     shortTitle: 'Bedroom Safety',
     description:
-      'Make bedrooms safer for older adults with easier bed access, night lighting, clear floor space, bedside support, and emergency reach points.',
+      'Make bedrooms safer for older adults with steadier bed access, night lighting, open floor space, bedside support, and reachable help.',
     intro:
       'Bedrooms need to support safe rest and safe movement, especially at night when low light, fatigue, and urgent routines can increase fall risk.',
     icon: 'bedroom',
@@ -147,7 +147,7 @@ export const resourcePages: ResourcePageContent[] = [
       {
         title: 'Prioritise support and visibility',
         body:
-          'Handrails, grab bars, motion lighting, step contrast, and clearer walking space can make a home easier to use without changing how it feels.',
+          'Handrails, grab bars, motion lighting, step contrast, and open walking space can reduce daily risk without making the home feel clinical.',
       },
       {
         title: 'Get a professional review before works begin',
@@ -215,7 +215,7 @@ export const resourcePages: ResourcePageContent[] = [
     description:
       'A practical guide to helping older adults live safely and comfortably at home in Spain.',
     intro:
-      'Aging in place works best when prevention, practical home improvements, well-matched technology and clear support work together.',
+      'Aging in place works best when prevention, practical home improvements, well-matched technology and agreed support work together.',
     sections: [
       {
         title: 'Make the home easier before a crisis',

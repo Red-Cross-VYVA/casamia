@@ -89,7 +89,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
             product: 'Anti-slip floor treatment for compatible wet areas.',
           },
           {
-            solution: 'Clear the route',
+            solution: 'Move cables out of the way',
             helps: 'Cables are moved, clipped or replaced with safer lighting placement away from walking lines.',
             product: 'Cable management plus motion-activated night lighting.',
           },
@@ -167,16 +167,16 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
       en: {
         eyebrow: 'Bedroom risk map',
         title: 'Night-time risk starts around the bed.',
-        body: 'Low light, bedside clutter, rugs, shoes and door routes matter most when someone is tired or moving quickly at night.',
+        body: 'Low light, bedside clutter, rugs, shoes and doorway obstacles matter most when someone is tired or moving quickly at night.',
         imageAlt: 'Annotated bedroom map showing night-time movement and transfer risks',
-        risks: ['Loose rug', 'Bed edge transfer', 'Shoes by bed', 'Door threshold', 'Bedside clutter', 'Wardrobe route', 'Narrow doorway'],
-        mapLabels: ['Loose rug', 'Bed edge', 'Shoes', 'Threshold', 'Bedside clutter', 'Wardrobe route', 'Narrow door'],
+        risks: ['Loose rug', 'Bed edge transfer', 'Shoes by bed', 'Door threshold', 'Bedside clutter', 'Wardrobe access', 'Narrow doorway'],
+        mapLabels: ['Loose rug', 'Bed edge', 'Shoes', 'Threshold', 'Bedside clutter', 'Wardrobe access', 'Narrow door'],
         legend: ['High risk', 'Medium risk'],
         riskDetails: [
           {
             solution: 'Fix the floor edge',
             helps: 'Loose rugs are removed or secured so night movement starts on a stable surface.',
-            product: 'Rug grip, floor transition or clear-route reset.',
+            product: 'Rug grip, floor transition or bedside path reset.',
           },
           {
             solution: 'Support bed access',
@@ -185,7 +185,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Clear the first step',
-            helps: 'We move trip points away from the bed edge and define a clear night route.',
+            helps: 'We move trip points away from the bed edge and keep the first night-time steps visible.',
             product: 'Bedside layout reset plus low night lighting.',
           },
           {
@@ -199,7 +199,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
             product: 'Bedside organisation and cable management.',
           },
           {
-            solution: 'Open the wardrobe route',
+            solution: 'Open wardrobe access',
             helps: 'We check reach, door swing and walking space before recommending storage changes.',
             product: 'Accessible wardrobe review or pull-down storage.',
           },
@@ -222,7 +222,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           {
             solution: 'Fijar el borde',
             helps: 'CasaMia retira o fija alfombras para que el movimiento nocturno empiece sobre una superficie estable.',
-            product: 'Fijación de alfombra, transición o ruta despejada.',
+            product: 'Fijación de alfombra, transición o paso junto a la cama despejado.',
           },
           {
             solution: 'Apoyar la transferencia',
@@ -231,7 +231,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Despejar el primer paso',
-            helps: 'Quitamos obstáculos junto a la cama y definimos una ruta nocturna clara.',
+            helps: 'Quitamos obstáculos junto a la cama y mantenemos visibles los primeros pasos nocturnos.',
             product: 'Redistribución de mesilla y luz nocturna baja.',
           },
           {
@@ -245,7 +245,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
             product: 'Organización de mesilla y gestión de cables.',
           },
           {
-            solution: 'Abrir la ruta al armario',
+            solution: 'Abrir acceso al armario',
             helps: 'CasaMia revisa alcance, apertura de puertas y espacio de paso antes de proponer cambios.',
             product: 'Revisión de armario accesible o almacenaje extraíble.',
           },
@@ -276,7 +276,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
         eyebrow: 'Kitchen risk map',
         title: 'Kitchen risk comes from reach, heat and movement.',
         body: 'Many kitchen incidents happen while carrying, turning, reaching, cooking or moving between wet and busy work zones.',
-        imageAlt: 'Annotated kitchen map showing common reach, cooking and route risks',
+        imageAlt: 'Annotated kitchen map showing common reach, cooking and movement risks',
         risks: ['Wet sink zone', 'Loose mat', 'High storage', 'Poor task light', 'Hot hob zone', 'Open drawer', 'Trailing cable'],
         mapLabels: ['Wet sink', 'Loose mat', 'High storage', 'Task light', 'Hot hob', 'Open drawer', 'Cable'],
         legend: ['High risk', 'Medium risk'],
@@ -307,8 +307,8 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
             product: 'Stove shut-off or safer hob-control setup.',
           },
           {
-            solution: 'Protect the route',
-            helps: 'Drawer and cabinet routes are checked so open storage does not block turning space.',
+            solution: 'Protect turning space',
+            helps: 'Drawers and cabinets are checked so open storage does not block turning space.',
             product: 'Storage layout review and pull-out fittings.',
           },
           {
@@ -382,9 +382,9 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
     copy: {
       en: {
         eyebrow: 'Living room risk map',
-        title: 'Living rooms need clear routes, not just comfort.',
+        title: 'Living rooms need safe walking space, not just comfort.',
         body: 'Rugs, cables, low tables, soft seating and narrow passages can turn ordinary sitting, standing and walking into risk points.',
-        imageAlt: 'Annotated living room map showing route, furniture and cable risks',
+        imageAlt: 'Annotated living room map showing walking space, furniture and cable risks',
         risks: ['Rug edge', 'TV cable', 'Low table', 'Poor side light', 'Lamp cable', 'Soft sofa transfer', 'Narrow archway'],
         mapLabels: ['Rug edge', 'TV cable', 'Low table', 'Side light', 'Lamp cable', 'Sofa transfer', 'Arch'],
         legend: ['High risk', 'Medium risk'],
@@ -392,7 +392,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           {
             solution: 'Flatten rug edges',
             helps: 'CasaMia removes, secures or replaces rugs that catch feet during normal room movement.',
-            product: 'Rug grip, low-profile mat or clear-route reset.',
+            product: 'Rug grip, low-profile mat or walking-space reset.',
           },
           {
             solution: 'Route TV cables',
@@ -406,12 +406,12 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Improve side lighting',
-            helps: 'Soft route lighting helps the person see furniture edges without switching on harsh light.',
+            helps: 'Low-level lighting helps the person see furniture edges without switching on harsh light.',
             product: 'Motion night lights or side lamps with safer controls.',
           },
           {
             solution: 'Tidy lamp cables',
-            helps: 'Lamp cables are clipped or rerouted so they do not cross the sitting or walking route.',
+            helps: 'Lamp cables are clipped or rerouted so they do not cross the sitting or walking line.',
             product: 'Cable clips and safer lamp placement.',
           },
           {
@@ -422,7 +422,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           {
             solution: 'Widen the passage',
             helps: 'We check whether the archway allows safe passage with a helper or walking aid.',
-            product: 'Route clearance or doorway review.',
+            product: 'Walking-space reset or doorway review.',
           },
         ],
       },
@@ -430,7 +430,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
         eyebrow: 'Mapa de riesgos del salón',
         title: 'El salón necesita rutas claras, no solo comodidad.',
         body: 'Alfombras, cables, mesas bajas, asientos blandos y pasos estrechos pueden convertir movimientos normales en puntos de riesgo.',
-        imageAlt: 'Mapa anotado de salón con riesgos de ruta, muebles y cables',
+        imageAlt: 'Mapa anotado de salón con riesgos de paso, muebles y cables',
         risks: ['Borde de alfombra', 'Cable de TV', 'Mesa baja', 'Poca luz lateral', 'Cable de lámpara', 'Sofá blando', 'Paso estrecho'],
         mapLabels: ['Alfombra', 'Cable TV', 'Mesa baja', 'Luz lateral', 'Cable', 'Sofá', 'Paso'],
         legend: ['Riesgo alto', 'Riesgo medio'],
@@ -438,7 +438,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           {
             solution: 'Aplanar bordes',
             helps: 'Retiramos, fijamos o sustituimos alfombras que pueden enganchar el pie en movimientos normales.',
-            product: 'Fijación de alfombra, alfombrilla baja o ruta despejada.',
+            product: 'Fijación de alfombra, alfombrilla baja o espacio de paso despejado.',
           },
           {
             solution: 'Guiar cables TV',
@@ -452,7 +452,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Mejorar luz lateral',
-            helps: 'La iluminación suave de ruta ayuda a ver bordes sin encender una luz intensa.',
+            helps: 'La iluminación baja ayuda a ver bordes sin encender una luz intensa.',
             product: 'Luces con sensor o lámparas con controles más seguros.',
           },
           {
@@ -490,10 +490,10 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
     copy: {
       en: {
         eyebrow: 'Entrance risk map',
-        title: 'Entrances concentrate route, light and threshold risks.',
-        body: 'A front door route can combine low light, loose mats, clutter, high thresholds and support gaps in only a few steps.',
-        imageAlt: 'Annotated entrance and hallway map showing route, lighting and threshold risks',
-        risks: ['Low light', 'Loose doormat', 'Obstacle in route', 'Shoes in route', 'High threshold', 'Narrow pass', 'Step edge'],
+        title: 'Entrances concentrate light, threshold and support risks.',
+        body: 'A front door can combine low light, loose mats, clutter, high thresholds and support gaps in only a few steps.',
+        imageAlt: 'Annotated entrance and hallway map showing lighting, threshold and support risks',
+        risks: ['Low light', 'Loose doormat', 'Obstacle in passage', 'Shoes in passage', 'High threshold', 'Narrow pass', 'Step edge'],
         mapLabels: ['Low light', 'Loose mat', 'Obstacle', 'Shoes', 'Threshold', 'Narrow pass', 'Step edge'],
         legend: ['High risk', 'Medium risk'],
         riskDetails: [
@@ -508,8 +508,8 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
             product: 'Low-profile non-slip entrance mat.',
           },
           {
-            solution: 'Clear the route',
-            helps: 'We remove route obstacles so the person can enter without weaving or twisting.',
+            solution: 'Clear the passage',
+            helps: 'We remove obstacles so the person can enter without weaving or twisting.',
             product: 'Entrance layout reset.',
           },
           {
@@ -525,20 +525,20 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           {
             solution: 'Widen the pass',
             helps: 'We check whether the entrance works with bags, a helper or mobility aid.',
-            product: 'Door-access review or route clearance.',
+            product: 'Door-access review or passage reset.',
           },
           {
             solution: 'Mark the step edge',
-            helps: 'Step edges become easier to see, with a support point added when the route lacks a safe handhold.',
+            helps: 'Step edges become easier to see, with a support point added when there is no safe handhold.',
             product: 'Step contrast, handrail or grab point.',
           },
         ],
       },
       es: {
         eyebrow: 'Mapa de riesgos de la entrada',
-        title: 'La entrada concentra riesgos de ruta, luz y umbrales.',
-        body: 'La ruta de acceso puede mezclar poca luz, alfombrillas, obstáculos, umbrales altos y falta de apoyo en pocos pasos.',
-        imageAlt: 'Mapa anotado de entrada y pasillo con riesgos de ruta, iluminación y umbrales',
+        title: 'La entrada concentra riesgos de luz, umbrales y apoyo.',
+        body: 'La entrada puede mezclar poca luz, alfombrillas, obstáculos, umbrales altos y falta de apoyo en pocos pasos.',
+        imageAlt: 'Mapa anotado de entrada y pasillo con riesgos de iluminación, umbrales y apoyo',
         risks: ['Poca luz', 'Felpudo suelto', 'Obstáculo en ruta', 'Zapatos en ruta', 'Umbral alto', 'Paso estrecho', 'Borde de escalón'],
         mapLabels: ['Poca luz', 'Felpudo', 'Obstáculo', 'Zapatos', 'Umbral', 'Paso estrecho', 'Escalón'],
         legend: ['Riesgo alto', 'Riesgo medio'],
@@ -571,7 +571,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           {
             solution: 'Ampliar el paso',
             helps: 'CasaMia comprueba si la entrada funciona con bolsas, ayuda o andador.',
-            product: 'Revisión de acceso o despeje de ruta.',
+            product: 'Revisión de acceso o despeje del paso.',
           },
           {
             solution: 'Marcar el escalón',
@@ -598,8 +598,8 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
     copy: {
       en: {
         eyebrow: 'Stair and hallway risk map',
-        title: 'Stairs need continuous support and clear visibility.',
-        body: 'Risk builds where handrails stop, step edges are unclear, landings are dim or the route changes level without enough support.',
+        title: 'Stairs need continuous support and visible step edges.',
+        body: 'Risk builds where handrails stop, step edges are hard to see, landings are dim or the level changes without enough support.',
         imageAlt: 'Stairway and hallway with handrail and lighting for safer movement',
         risks: ['Interrupted handrail', 'Low landing light', 'Poor step contrast', 'Loose runner', 'Turn on stairs', 'No support at first step', 'Narrow hallway'],
         mapLabels: [],
