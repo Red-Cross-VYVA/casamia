@@ -80,7 +80,7 @@
       "secondaryCta": "Start Free Online Safety Report",
       "reassurance": "The {{visitFee}} visit fee is credited toward your CasaMia plan if you proceed.",
       "panelTitle": "A {{visitFee}} expert visit, credited if you continue.",
-      "panelBody": "We confirm availability and scope before the appointment so there are no surprises."
+      "panelBody": "We confirm availability and what the visit will cover before the appointment so there are no surprises."
     },
     "pricing": {
       "title": "Paid visit, credited toward your plan",
@@ -144,13 +144,13 @@
         },
         {
           "title": "Clear proposal if improvements are needed",
-          "body": "If adaptations are recommended, we explain the scope, products, measurements and decision needed next."
+          "body": "If adaptations are recommended, we explain what should be included, which products fit, what needs measuring and the decision needed next."
         }
       ]
     },
     "afterReview": {
       "eyebrow": "After your review",
-      "title": "Priorities, scope and coordination in one place.",
+      "title": "Priorities, next steps and coordination in one place.",
       "body": "Whether you start online or request a visit, CasaMia turns your answers into priorities: what to address first, what can wait, and what needs measurement before work starts.",
       "cards": [
         {
@@ -163,14 +163,14 @@
         },
         {
           "title": "A visit is confirmed only when measurements or room checks are needed",
-          "body": "If the home needs measurement or professional review, we confirm timing and scope first."
+          "body": "If the home needs measurement or professional review, we confirm timing and what the visit should cover first."
         },
         {
           "title": "CasaMia coordinates the work",
           "body": "Proposal, products, installers, grants where relevant, and follow-up stay under one plan."
         }
       ],
-      "note": "You stay in control: no installation is booked until the scope is clear and accepted."
+      "note": "You stay in control: no installation is booked until the agreed work is clear and accepted."
     },
     "how": {
       "title": "How It Works",
@@ -191,7 +191,7 @@
     },
     "faq": {
       "title": "Questions people usually ask before booking.",
-      "body": "Short answers, clear expectations, and no pressure to proceed before the home and scope are understood.",
+      "body": "Short answers, clear expectations, and no pressure to proceed before the home and next decision are understood.",
       "items": [
         {
           "question": "Is the online safety report free?",
@@ -203,7 +203,7 @@
         },
         {
           "question": "What does CasaMia manage if we continue?",
-          "answer": "CasaMia can coordinate the work from scope to handover: proposal, compatible products, insured installers, grant-document preparation where relevant, scheduling, safe-use explanation and follow-up."
+          "answer": "CasaMia can coordinate the work from proposal to handover: compatible products, insured installers, grant-application support where relevant, scheduling, safe-use explanation and follow-up."
         },
         {
           "question": "Can we use photos, videos or a phone call before a visit?",
@@ -332,7 +332,7 @@
     "badge": "HOW CASAMIA WORKS",
     "line1": "Start with the room",
     "line2": "that worries you most.",
-    "intro": "Begin with photos, a package or an inspection. CasaMia turns the concern into room priorities, confirmed scope, grant notes where relevant and coordinated installation.",
+    "intro": "Begin with photos, a package or an inspection. CasaMia turns the concern into room priorities, work to review, grant notes where relevant and coordinated installation.",
     "ctaPrimary": "Build your CasaMia plan",
     "ctaSecondary": "Ask us to contact you",
     "proposalSnapshot": {
@@ -355,7 +355,7 @@
       {
         "icon": "Step 1",
         "title": "Show us the concern",
-        "desc": "Start with photos, a starter package or a home inspection so the room, measurements and first safety scope can be confirmed.",
+        "desc": "Start with photos, a starter package or a home inspection so the room, measurements and first safety priorities can be confirmed.",
         "points": [
           "Photo or starter package review",
           "Optional home inspection",
@@ -374,8 +374,8 @@
       },
       {
         "icon": "Step 3",
-        "title": "Check grant paperwork early",
-        "desc": "When work may be eligible, CasaMia prepares the supporting notes before the final scope is agreed.",
+        "title": "Check grant requirements early",
+        "desc": "When work may be eligible, CasaMia prepares the supporting notes before the agreed work is confirmed.",
         "points": [
           "Eligibility check",
           "Document support",
@@ -468,7 +468,7 @@
     "showItem": "Start gallery with {{title}}"
   },
   "plans": {
-    "title1": "Start with the right scope,",
+    "title1": "Start with the right priorities,",
     "title2": "then approve the right work.",
     "sub": "Free online safety report available - {{visitFee}} in-home assessment credited toward your plan",
     "popular": "Most Popular",
@@ -945,7 +945,7 @@
         "body": "Start with a review, move into adaptations, or add connected technology when it solves a specific risk. Every path begins with understanding the home first."
       },
       "cardsTitle": "Compare three CasaMia starting plans.",
-      "cardsIntro": "The in-home assessment is the starting point. These plans show common levels of support; the final scope is built from the improvements your home actually needs.",
+      "cardsIntro": "The in-home assessment is the starting point. These plans show common levels of support; the agreed work is built from the improvements your home actually needs.",
       "bestForLabel": "When this fits",
       "cards": [
         {
@@ -999,7 +999,7 @@
       ],
       "comparison": {
         "title": "Compare Plans",
-        "intro": "The assessment helps define the exact scope. This table compares common service levels, not the assessment visit itself.",
+        "intro": "The assessment helps define what should be included. This table compares common service levels, not the assessment visit itself.",
         "headers": [
           "Feature",
           "Essential",
@@ -1117,7 +1117,7 @@
             "body": "{{visitFee}} assessment credited toward the plan, then {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} after system setup, handover and customer acceptance."
           }
         ],
-        "reassurance": "No hidden fees. No work begins without your approval. You receive scope, pricing and assumptions before installation."
+        "reassurance": "No hidden fees. No work begins without your approval. You receive the agreed work, pricing and assumptions before installation."
       },
       "next": {
         "title": "What Happens After You Choose a Plan?",
@@ -1165,7 +1165,7 @@
           },
           {
             "question": "Can the plan be customized?",
-            "answer": "Yes. The final scope is matched to the home, the person using it, and the safety priorities found during assessment."
+            "answer": "Yes. The agreed work is matched to the home, the person using it, and the safety priorities found during assessment."
           },
           {
             "question": "Do you support smart safety devices?",
@@ -1179,12 +1179,12 @@
       },
       "final": {
         "title": "Start with the right plan for a safer home.",
-        "body": "Request a {{visitFee}} in-home assessment and receive room priorities, scope notes and the action to confirm next.",
+        "body": "Request a {{visitFee}} in-home assessment and receive room priorities, notes on what to include and the action to confirm next.",
         "cta": "Request a Safety Proposal"
       }
     },
     "grants": {
-      "title": "Grant support with the paperwork made clear.",
+      "title": "Grant support with the requirements made clear.",
       "intro": "Plan Adapta can cover a significant part of accessibility works. CasaMia prepares the application file, submits it where authorised and tracks the authority response.",
       "eligibilityTitle": "Typical eligibility signals",
       "eligibility": [
@@ -1195,7 +1195,7 @@
       "processTitle": "What we manage",
       "process": [
         "Collecting the required home, applicant and ownership details.",
-        "Preparing evidence notes, scope wording and accessibility work documents.",
+        "Preparing evidence notes, work descriptions and accessibility documents.",
         "Submitting through the relevant grant channel where authorised and tracking progress."
       ]
     },
@@ -1482,7 +1482,7 @@
             },
             {
               "title": "Proposal & Approval",
-              "body": "You approve the recommended scope and pricing before any installation begins."
+              "body": "You approve the recommended work and pricing before any installation begins."
             },
             {
               "title": "Professional Installation & Handover",
@@ -1503,16 +1503,16 @@
               "{{proposalUpfrontPercent}} deposit upon approval.",
               "{{proposalBalancePercent}} upon completion and customer acceptance."
             ],
-            "note": "You see the scope before work begins and only pay the final balance after the completed work is reviewed."
+            "note": "You see the agreed work before anything begins and only pay the final balance after the completed work is reviewed."
           },
           "faqs": [
             {
               "question": "How long do installations take?",
-              "answer": "Many safety upgrades can be completed in a day, while larger adaptation scopes depend on the home and selected products."
+              "answer": "Many safety upgrades can be completed in a day, while larger adaptations depend on the home and selected products."
             },
             {
               "question": "Who carries out the work?",
-              "answer": "CasaMia coordinates insured installation partners, checks the agreed scope and completes a customer acceptance walkthrough."
+              "answer": "CasaMia coordinates insured installation partners, checks the agreed work and completes a customer acceptance walkthrough."
             },
             {
               "question": "Are products guaranteed?",
@@ -1520,7 +1520,7 @@
             },
             {
               "question": "Can I choose which recommendations to proceed with?",
-              "answer": "Yes. You approve the final scope before any installation work begins."
+              "answer": "Yes. You approve the agreed work before any installation begins."
             }
           ]
         },
@@ -1715,7 +1715,7 @@
     "planAdapta": {
       "hero": {
         "title": "Plan Adapta Grant Support",
-        "subtitle": "CasaMia checks whether the proposed home adaptations could fit an active grant route, then prepares the evidence and paperwork if they do.",
+        "subtitle": "CasaMia checks whether the proposed home adaptations could fit an active grant route, then prepares the evidence and application file if they do.",
         "cta": "Check my grant fit",
         "panelTitle": "Know what can be submitted before you rely on a grant",
         "panelBody": "CasaMia identifies the likely criteria, missing documents and work description needed before an application is sent."
@@ -1723,7 +1723,7 @@
       "what": {
         "kicker": "What is Plan Adapta?",
         "title": "Support for safer, more accessible homes.",
-        "body": "Plan Adapta can help with certain accessibility and safety adaptations, but only when the local authority, open call, applicant details, documents and proposed works all fit. CasaMia helps you understand that fit before paperwork is prepared."
+        "body": "Plan Adapta can help with certain accessibility and safety adaptations, but only when the local authority, open call, applicant details, documents and proposed works all fit. CasaMia helps you understand that fit before an application is prepared."
       },
       "help": {
         "kicker": "What CasaMia prepares",
@@ -1739,7 +1739,7 @@
           },
           {
             "title": "Application forms",
-            "body": "We complete the forms for the chosen grant channel using the agreed work scope and customer information."
+            "body": "We complete the forms for the chosen grant channel using the agreed work and customer information."
           },
           {
             "title": "Coordination with authorities where authorised",
@@ -1817,7 +1817,7 @@
       "body": "Explore upgrades that reduce everyday movement, transfer, entrance and night-time risks at home.",
       "galleryCta": "View Gallery",
       "galleryTitle": "From everyday risk to safer daily routines",
-      "galleryBody": "Each transformation shows the risk CasaMia looks for and the improvement that can be scoped after a home safety assessment.",
+      "galleryBody": "Each transformation shows the risk CasaMia looks for and the improvement that can be reviewed after a home safety assessment.",
       "compareCta": "Compare Plans"
     },
     "labels": {

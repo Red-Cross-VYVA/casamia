@@ -56,12 +56,12 @@ const copy = {
       {
         question: 'Do the tools replace a professional visit?',
         answer:
-          'No. They organise the first decision. A visit still matters when measurements, installation scope, several rooms or a grant application are involved.',
+          'No. They organise the first decision. A visit still matters when measurements, installation details, several rooms or a grant application are involved.',
       },
       {
         question: 'Can CasaMia use my answers later?',
         answer:
-          'Yes, when you choose to share them. We use them to avoid repeating the same details and prepare room priorities, scope notes and visit questions.',
+          'Yes, when you choose to share them. We use them to avoid repeating the same details and prepare room priorities, work notes and visit questions.',
       },
     ],
   },
@@ -209,7 +209,7 @@ const nextToolSteps = [
     icon: ShieldCheck,
     title: { en: 'Priorities ready to use', es: 'Prioridades listas para usar' },
     body: {
-      en: 'Turn the result into room priorities, scope notes and a prepared visit or proposal.',
+      en: 'Turn the result into room priorities, work notes and a prepared visit or proposal.',
       es: 'Convierte el resultado en prioridades por estancia, notas de alcance y una visita o propuesta preparada.',
     },
   },

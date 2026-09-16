@@ -28,7 +28,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     eyebrow: 'How CasaMia checks the work',
     headline: 'Know why a change is recommended before anything is fitted',
     body:
-      'Every project starts with the person, the home and the routine. CasaMia confirms fit, scope, measurements, installation needs and safe-use handover before work is treated as complete.',
+      'Every project starts with the person, the home and the routine. CasaMia confirms fit, measurements, what should be included, installation needs and safe-use handover before work is treated as complete.',
     learnMore: 'Learn why CasaMia',
     cards: [
       {
@@ -49,7 +49,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'pricing',
         title: 'Price before commitment',
-        body: 'You see the recommended scope, assumptions and price before deciding whether the work goes ahead.',
+        body: 'You see the recommended work, assumptions and price before deciding whether anything goes ahead.',
       },
       {
         icon: 'products',

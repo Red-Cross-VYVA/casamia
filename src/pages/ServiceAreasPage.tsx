@@ -12,7 +12,7 @@ const serviceAreaCopy = {
   en: {
     seoTitle: 'CasaMia service areas in Spain',
     seoDescription:
-      'See where CasaMia coordinates senior home-safety assessments, agreed adaptations, connected-living setup and grant-document preparation across Spain.',
+      'See where CasaMia coordinates senior home-safety assessments, agreed adaptations, connected-living setup and grant-application support across Spain.',
     eyebrow: 'Service areas',
     title: 'Senior home safety support, coordinated city by city.',
     intro:
@@ -33,7 +33,7 @@ const serviceAreaCopy = {
       },
       {
         title: 'Local fit checked',
-        body: 'We check the room type, urgency, postcode, provider availability and whether measurements are needed before work is scoped.',
+        body: 'We check the room type, urgency, postcode, provider availability and whether measurements are needed before work is agreed.',
       },
       {
         title: 'Review path confirmed',
@@ -49,7 +49,7 @@ const serviceAreaCopy = {
     unknownCta: 'Check my postcode',
     citySeoTitle: (city: string) => `Senior home safety services in ${city}`,
     citySeoDescription: (city: string, region: string) =>
-      `CasaMia coordinates senior home-safety checks, scoped adaptations, provider availability and grant-ready notes in ${city}, ${region}.`,
+      `CasaMia coordinates senior home-safety checks, agreed adaptations, provider availability and grant-ready notes in ${city}, ${region}.`,
     cityEyebrow: 'Local service check',
     cityPageTitle: (city: string) => `Home safety support in ${city}`,
     cityIntroPrefix: 'In',
@@ -75,7 +75,7 @@ const serviceAreaCopy = {
       {
         question: `Does CasaMia install directly in ${city}?`,
         answer:
-          'CasaMia coordinates the work path: remote review, scoped proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, scope and confirmed provider availability.',
+          'CasaMia coordinates the work path: remote review, proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, agreed work and confirmed provider availability.',
       },
       {
         question: `What happens with grants and required documents in ${city}?`,

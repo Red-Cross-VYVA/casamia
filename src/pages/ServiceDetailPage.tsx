@@ -1092,16 +1092,16 @@ export function ServiceDetailPage() {
         finalEyebrow: '¿Quieres claridad?',
       }
     : {
-        whatWeCheck: 'What we check',
+        whatWeCheck: 'What CasaMia reviews',
         risksTitle: 'Focused on the risks that make daily life harder.',
         risksBody:
-          'CasaMia separates visible hazards from scoped improvements, so you know what matters before buying products or starting work.',
+          'CasaMia separates visible hazards from the improvements worth considering, so you know what matters before buying products or starting work.',
         commonRisks: 'Common risks we look for',
         howWeHelp: 'What CasaMia checks',
         whyItHelps: 'Why it helps',
         userBenefit: 'User benefit',
         serviceWorks: 'How the service works',
-        clearPlan: 'From concern to the scope to review.',
+        clearPlan: 'From concern to work you can review.',
         related: 'Related services',
         otherAreas: 'Other areas to review next.',
         viewAll: 'View all services',

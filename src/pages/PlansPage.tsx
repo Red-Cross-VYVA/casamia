@@ -622,17 +622,17 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     flow: [
       { title: 'Rooms', body: 'Pick quantities' },
       { title: 'Options', body: 'Choose add-ons' },
-      { title: 'Review', body: 'Check scope' },
+      { title: 'Review', body: 'Check selections' },
     ],
     fromCatalogue: 'Catalogue-based estimate',
-    grantBody: 'Check documents and criteria before final scope.',
+    grantBody: 'Check documents and criteria before the work is confirmed.',
     grantCta: 'Start grant check',
     grantEyebrow: 'Grant readiness',
     grantTitle: 'Grants may apply.',
-    heroSignals: ['Clear scope first', 'Core items included', 'Optional add-ons separate'],
+    heroSignals: ['Clear work first', 'Core items included', 'Optional add-ons separate'],
     heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
     heroReviewBody:
-      'Choose the rooms and add-ons, add your details, and receive a proposal link showing selected scope, terms and next steps.',
+      'Choose the rooms and add-ons, add your details, and receive a proposal link showing selected work, terms and next steps.',
     heroReviewEyebrow: 'Instant proposal',
     heroReviewPoints: ['Package-led plan', 'Scope to review'],
     heroReviewTitle: 'Your proposal is generated instantly.',
@@ -688,7 +688,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryNextTitle: 'Next step',
     summaryRoomsTitle: 'Selected rooms',
     subtitle:
-      'Pick the rooms that need support, choose add-ons only when they match the routine, and receive a proposal showing scope, review items and next steps.',
+      'Pick the rooms that need support, choose add-ons only when they match the routine, and receive a proposal showing selected work, review items and next steps.',
     title: 'Create a safer-home plan, room by room.',
     town: 'Town / area',
     address: 'Address',
@@ -1146,9 +1146,9 @@ export function PlansPage() {
           ],
           fromCatalogue: 'Service catalogue',
           heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
-          heroReviewBody: 'Choose the rooms and add-ons, add your details, and receive a proposal link showing selected scope, terms and next steps.',
+          heroReviewBody: 'Choose the rooms and add-ons, add your details, and receive a proposal link showing selected work, terms and next steps.',
           heroReviewEyebrow: 'Instant proposal',
-          heroReviewPoints: ['Package-led plan', 'Scope to review'],
+          heroReviewPoints: ['Package-led plan', 'Work to review'],
           heroReviewTitle: 'Your proposal is generated instantly.',
           builderEyebrow: 'CasaMia plan',
           heroSignals: ['Room packages', 'Essentials included', 'Optional extras'],
@@ -1163,7 +1163,7 @@ export function PlansPage() {
           reviewCtaTitle: 'Ready to generate your proposal?',
           summaryModulesTitle: 'Plan details',
           summaryNextBody: 'Your proposal is generated from the selected packages, quantities and add-ons.',
-          subtitle: 'Choose rooms, set quantities and add only relevant extras. Get a CasaMia proposal with selected scope, terms and next steps.',
+          subtitle: 'Choose rooms, set quantities and add only relevant extras. Get a CasaMia proposal with selected work, terms and next steps.',
           title: 'Build your CasaMia plan.',
           seeDraft: 'Open proposal',
         }),
@@ -1464,15 +1464,15 @@ export function PlansPage() {
         addOns: 'Add-ons',
         addOnsEmpty: 'Separate',
         estimateLabel: 'Estimated total',
-        estimateNote: 'VAT included. Package prices cover a coordinated outcome, not an item-by-item basket. Removing an item does not automatically reduce the price; a credit applies only when reduced scope materially lowers CasaMia cost.',
+        estimateNote: 'VAT included. Package prices cover a coordinated outcome, not an item-by-item basket. Removing an item does not automatically reduce the price; a credit applies only when reduced work materially lowers CasaMia cost.',
         extrasReviewBody: 'Your core package can move forward now. We will review these extras with you and agree measurements, fit and price before adding them.',
         extrasReviewTitle: 'Extras we will review with you',
         includedItems: 'included items',
         packageEstimate: 'Package estimate',
         packages: 'Packages',
-        readyLead: 'Your proposal link is ready. Review the selected scope before opening or sharing it.',
+        readyLead: 'Your proposal link is ready. Review the selected work before opening or sharing it.',
         rooms: 'Rooms',
-        selectedScope: 'Selected scope',
+        selectedScope: 'Selected work',
       }
 
   useEffect(() => {
@@ -2389,7 +2389,7 @@ export function PlansPage() {
                 <div>
                   <p className="section-kicker">{language === 'es' ? 'Primeros pasos enfocados' : 'Focused first steps'}</p>
                   <h3 id="plans-starter-title">{language === 'es' ? 'Packs iniciales' : 'Starter packs'}</h3>
-                  <p>{language === 'es' ? 'Opciones de alcance fijo para cubrir primero las necesidades esenciales.' : 'Fixed-scope options that cover the essential needs first.'}</p>
+                  <p>{language === 'es' ? 'Opciones enfocadas para cubrir primero las necesidades esenciales.' : 'Focused options that cover the essential needs first.'}</p>
                 </div>
               </div>
               <div className="plans-starter-grid">

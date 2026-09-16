@@ -200,7 +200,7 @@ const supportJourney: SupportJourneyStep[] = [
     title: 'Review your proposal',
     body: 'See the included work, optional items, assumptions, measurements still needed and expected cost before deciding.',
     icon: ClipboardCheck,
-    points: ['Included scope', 'Clear priorities', 'Transparent pricing'],
+    points: ['Included work', 'Clear priorities', 'Transparent pricing'],
     visual: {
       src: '/images/solutions/casamia-staff-kitchen-consultation.webp',
       alt: 'CasaMia advisor discussing safety improvements in a kitchen',
@@ -531,7 +531,7 @@ export function HomePage() {
               <p className="home-redesign-kicker">How CasaMia works</p>
               <h2>A safer home, handled step by step.</h2>
               <p>
-                Choose the starting point that matches the home. CasaMia turns it into priorities, confirmed scope, grant checks and coordinated installation.
+                Choose the starting point that matches the home. CasaMia turns it into priorities, work to review, grant checks and coordinated installation.
               </p>
             </div>
             <div className="home-journey-grid" aria-label="CasaMia end-to-end service steps">

@@ -101,16 +101,16 @@ const homeZones: HomeZone[] = [
 
 const wizardSteps = ['Welcome', 'Property', 'Rooms', 'Home details', 'Questions', 'Improvements', 'Summary']
 const stepHeadings = [
-  'Build a room-by-room safety scope.',
+  'Build a room-by-room safety plan.',
   'Tell us about the home.',
   'Select the rooms, entrance points or movement moments that feel risky.',
   'Confirm the home details.',
   'Answer the home-safety questions.',
   'Review the recommended improvements.',
-  'Review your safety scope.',
+  'Review your selected safety work.',
 ]
 const stepDescriptions = [
-  'Answer a few room-by-room questions and CasaMia will build a draft scope around the risky moments, rooms and checks you select.',
+  'Answer a few room-by-room questions and CasaMia will build a first plan around the risky moments, rooms and checks you select.',
   'These basics help us match recommendations to the property type, access points, stairs and location.',
   'Select one or more spaces. Hover or focus a zone to see why that part of the home matters.',
   'Set how many rooms, entrances or staircases should be included in the estimate.',
@@ -846,7 +846,7 @@ function AreaConfigurationStep() {
       {isRoomSelected(state, 'connected') ? <ConnectedQuestions /> : null}
       {getSelectedRoomIds(state).length === 0 ? (
         <p className="rounded-lg border border-border bg-pale-blue p-5 text-lg font-bold text-text-mid">
-          Select at least one room, entrance or movement area so CasaMia can build the first scope.
+          Select at least one room, entrance or movement area so CasaMia can build the first plan.
         </p>
       ) : null}
     </div>

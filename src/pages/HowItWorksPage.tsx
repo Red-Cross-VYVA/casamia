@@ -168,7 +168,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     title: 'Start your way.',
     body: 'CasaMia handles the rest.',
     heroOutcomeEyebrow: 'What you receive',
-    heroOutcomeText: 'Room priorities, recommended actions, quoted scope and CasaMia coordination.',
+    heroOutcomeText: 'Room priorities, recommended actions, quoted work and CasaMia coordination.',
     channelsTitle: 'Choose a channel',
     channelsBody: 'Every option reaches the same CasaMia team.',
     humanAlt: 'Older woman smiling while using her smartphone at home',
@@ -238,7 +238,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
   en: {
     seoTitle: 'How CasaMia Works',
     seoDescription:
-      'See how CasaMia turns photos, visits, expert review, installation, grant-document checks, and smart safety into a room-by-room home safety plan.',
+      'See how CasaMia turns photos, visits, expert review, installation, grant-application checks and smart safety into a room-by-room home safety plan.',
     heroEyebrow: 'From concern to checked work',
     heroTitle: 'From home photos to safer daily routines.',
     heroBody:
@@ -247,18 +247,18 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
     statusTitle: 'Four practical steps',
-    statusIntro: 'You choose the starting point. CasaMia turns it into priorities, scope and follow-up.',
+    statusIntro: 'You choose the starting point. CasaMia turns it into priorities, agreed work and follow-up.',
     statusRows: [
       { label: 'One call or click', value: 'Start' },
       { label: 'Risks and routines reviewed', value: 'Review' },
-      { label: 'Scope agreed before work', value: 'Plan' },
+      { label: 'Work agreed before installation', value: 'Plan' },
       { label: 'Installed, checked and explained', value: 'Handover' },
     ],
     statusNote: 'One team from first contact to follow-up.',
     processEyebrow: 'How the review moves forward',
     processTitle: 'One call or one click. We coordinate the rest.',
     processBody:
-      'Tell us what is happening at home. CasaMia turns the first conversation into room priorities, agreed scope, coordinated installation and follow-up.',
+      'Tell us what is happening at home. CasaMia turns the first conversation into room priorities, agreed work, coordinated installation and follow-up.',
     steps: [
       {
         icon: 'phone',
@@ -293,9 +293,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'We coordinate the installation',
-        body: 'We agree the scope and date, coordinate the work and check the result.',
+        body: 'We agree the work and date, coordinate installation and check the result.',
         tag: 'Handover',
-        proof: 'Scope · date · final check',
+        proof: 'Work · date · final check',
       },
       {
         icon: 'heart',
@@ -364,12 +364,12 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'clipboard',
-        title: 'Scoped plan',
+        title: 'Work to review',
         body: 'Works, safety services or smart setup.',
       },
       {
         icon: 'badge',
-        title: 'Grant-document guidance',
+        title: 'Grant application guidance',
         body: 'Documents and eligible work notes.',
       },
     ],

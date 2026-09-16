@@ -85,7 +85,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     },
     promiseTitle: 'Clear decisions before work starts.',
     promiseBody:
-      'CasaMia turns a home concern into room priorities, measured scope, price assumptions, grant-document checks and coordinated delivery.',
+      'CasaMia turns a home concern into room priorities, agreed work, price assumptions, grant-application checks and coordinated delivery.',
     promisePoints: [
       'Practical focus: daily movement, support points, lighting, access and wet-floor risk.',
       'Transparent recommendations: what matters, why it matters and what it may cost.',
@@ -104,7 +104,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Vet and coordinate',
-        body: 'Local providers are matched to the room, job type, location and agreed scope before work is coordinated through CasaMia.',
+        body: 'Local providers are matched to the room, job type, location and agreed work before anything is coordinated through CasaMia.',
       },
       {
         title: 'Check the result',
@@ -156,8 +156,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'insured',
         title: 'Quality control built in',
         body:
-          'Every project needs more than a product list. CasaMia keeps the agreed scope, installation notes, customer updates and safe-use explanation connected.',
-        points: ['Defined scope before work starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
+          'Every project needs more than a product list. CasaMia keeps the agreed work, installation notes, customer updates and safe-use explanation connected.',
+        points: ['Agreed work before work starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
       },
       {
         icon: 'products',
@@ -170,7 +170,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'pricing',
         title: 'Scope, price and grant checks',
         body:
-          'You should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant-document support.',
+          'You should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant-application support.',
         points: ['Clear estimate before commitment', 'Optional items separated from essentials', 'Grant guidance without false promises'],
       },
       {
