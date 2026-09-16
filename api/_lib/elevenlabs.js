@@ -45,7 +45,7 @@ export function getElevenLabsApiBaseUrl(serverLocation) {
 }
 
 export function getElevenLabsAgentConfiguration(env = process.env) {
-  const apiKey = env.ELEVENLABS_API_KEY?.trim() ?? ''
+  const apiKey = env.ELEVENLABS_AGENT_API_KEY?.trim() || env.ELEVENLABS_API_KEY?.trim() || ''
   const agentId = env.ELEVENLABS_AGENT_ID?.trim() ?? ''
   const environment = env.ELEVENLABS_AGENT_ENVIRONMENT?.trim() || 'production'
   const serverLocation = getElevenLabsServerLocation(env)
@@ -56,7 +56,7 @@ export function getElevenLabsAgentConfiguration(env = process.env) {
     configured: Boolean(apiKey && agentId),
     environment,
     missing: [
-      ...(apiKey ? [] : ['ELEVENLABS_API_KEY']),
+      ...(apiKey ? [] : ['ELEVENLABS_AGENT_API_KEY or ELEVENLABS_API_KEY']),
       ...(agentId ? [] : ['ELEVENLABS_AGENT_ID']),
     ],
     serverLocation,
