@@ -107,13 +107,13 @@ const questions: Array<{
 const copy = {
   en: {
     lang: 'en',
-    seoTitle: 'Is My Parent Safe at Home? Quick Family Quiz | CasaMia',
+    seoTitle: 'Is Your Home Senior-Friendly? Quick Safety Check | CasaMia',
     seoDescription:
-      'Answer five practical questions to understand whether an older parent may need a home safety review, room checklist or urgent next step.',
-    eyebrow: 'Family safety quiz',
-    title: 'Is home still working safely for them?',
+      'Answer five practical questions to understand whether a home may need a senior safety review, room checklist or urgent next step.',
+    eyebrow: 'Senior-friendly home check',
+    title: 'Is your home senior-friendly?',
     body:
-      'Use this quick, non-medical check to spot whether the next step should be a simple family checklist, an online review or a focused CasaMia assessment.',
+      'Use this quick, non-medical check for yourself or someone you care about. It helps decide whether the next step should be a room checklist, an online review or a focused CasaMia assessment.',
     startCta: 'Answer the 5 questions',
     resultEyebrow: 'Suggested next step',
     restart: 'Retake quiz',
@@ -134,17 +134,17 @@ const copy = {
       body:
         'Your answers suggest several risk points. Focus on entry, bedroom, bathroom, night routes and how help is requested. A guided review is the sensible next step.',
     },
-    caveat: 'This is not a medical diagnosis. It is a practical family prompt to help decide what to review next.',
+    caveat: 'This is not a medical diagnosis. It is a practical home-safety prompt to help decide what to review next.',
   },
   es: {
     lang: 'es',
-    seoTitle: '¿Mi padre o madre está seguro en casa? Quiz rápido | CasaMia',
+    seoTitle: '¿Tu casa es adecuada para mayores? Revisión rápida | CasaMia',
     seoDescription:
-      'Responde cinco preguntas prácticas para saber si conviene una revisión de seguridad, una lista por estancias o un siguiente paso urgente.',
-    eyebrow: 'Quiz de seguridad familiar',
-    title: '¿La casa sigue funcionando con seguridad?',
+      'Responde cinco preguntas prácticas para saber si una vivienda necesita una revisión de seguridad senior, una lista por estancias o un siguiente paso urgente.',
+    eyebrow: 'Revisión de vivienda senior',
+    title: '¿Tu casa es adecuada para mayores?',
     body:
-      'Usa esta revisión breve, no médica, para decidir si el siguiente paso debe ser una lista familiar, una revisión online o una evaluación CasaMia.',
+      'Usa esta revisión breve, no médica, para ti o para alguien a quien cuidas. Ayuda a decidir si el siguiente paso debe ser una lista por estancias, una revisión online o una evaluación CasaMia.',
     startCta: 'Responder 5 preguntas',
     resultEyebrow: 'Siguiente paso sugerido',
     restart: 'Repetir quiz',
@@ -165,7 +165,7 @@ const copy = {
       body:
         'Tus respuestas sugieren varios puntos de riesgo. Revisa entrada, dormitorio, baño, rutas nocturnas y cómo se pide ayuda. Una revisión guiada es el siguiente paso prudente.',
     },
-    caveat: 'No es un diagnóstico médico. Es una guía práctica para decidir qué revisar a continuación.',
+    caveat: 'No es un diagnóstico médico. Es una guía práctica de seguridad en casa para decidir qué revisar a continuación.',
   },
 } as const
 
