@@ -176,7 +176,7 @@
       "title": "Visit steps",
       "items": [
         {
-          "title": "Request the visit",
+          "title": "Book the visit",
           "body": "Share the home location, preferred timing, selected plan, and any concerns."
         },
         {
@@ -216,7 +216,7 @@
       ]
     },
     "formSection": {
-      "title": "Request Your In-Home Assessment Visit",
+      "title": "Book your in-home assessment visit",
       "body": "Tell us where the home is and how you prefer to be contacted. The CasaMia team will confirm availability and a suitable appointment time for the {{visitFee}} visit."
     },
     "form": {
@@ -249,7 +249,7 @@
       "submit": "Send assessment request",
       "submitting": "Sending request...",
       "success": "Thank you. Your request has been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit.",
-      "schedule": "Request visit time",
+      "schedule": "Choose visit time",
       "error": "We couldn't submit your request. Please try again or contact CasaMia by phone.",
       "consent": "I agree to be contacted by CasaMia regarding my in-home safety assessment request.",
       "privacy": "Your information is only used to arrange your assessment visit. We never sell your data.",
@@ -1179,7 +1179,7 @@
       },
       "final": {
         "title": "Start with the right plan for a safer home.",
-        "body": "Request a {{visitFee}} in-home assessment and receive room priorities, notes on what to include and the action to confirm next.",
+        "body": "Book a {{visitFee}} in-home assessment and receive room priorities, notes on what to include and the action to confirm next.",
         "cta": "Book home assessment"
       }
     },
@@ -1641,8 +1641,8 @@
               "body": "We review both physical risks and the home connectivity needed for smart safety devices."
             },
             {
-              "title": "Proposal & Approval",
-              "body": "You approve the adaptations, devices, setup requirements and pricing before work begins."
+              "title": "Review and approval",
+              "body": "You approve the adaptations, devices, setup requirements and pricing before installation begins."
             },
             {
               "title": "Professional Installation & Handover",

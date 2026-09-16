@@ -33,7 +33,7 @@ const serviceAreaCopy = {
       },
       {
         title: 'Local fit checked',
-        body: 'We check the room type, urgency, postcode, provider availability and whether measurements are needed before work is agreed.',
+        body: 'We check the room type, urgency, postcode, provider availability and whether measurements are needed before adaptations are agreed.',
       },
       {
         title: 'Review path confirmed',

@@ -28,7 +28,7 @@ const confirmationCopy = {
     print: 'Print',
     qty: 'Qty',
     empty:
-      'CasaMia has saved your request. We will confirm the exact improvements before any work starts.',
+      'CasaMia has saved your request. We will confirm the exact improvements before installation starts.',
     confirmBefore: 'To confirm before installation',
     noPayload: 'No saved payload was found. Return to the configurator to prepare a new configuration.',
     back: 'Back to configurator',

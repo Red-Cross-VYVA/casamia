@@ -25,10 +25,10 @@ type TrustSectionCopy = {
 
 const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
   en: {
-    eyebrow: 'How CasaMia checks the work',
+    eyebrow: 'How CasaMia checks the plan',
     headline: 'Know why a change is recommended before anything is fitted',
     body:
-      'Every project starts with the person, the home and the routine. CasaMia confirms fit, measurements, what should be included, installation needs and safe-use handover before work is treated as complete.',
+      'Every project starts with the person, the home and the routine. CasaMia confirms fit, measurements, what should be included, installation needs and safe-use handover before the plan is treated as complete.',
     learnMore: 'Learn why CasaMia',
     cards: [
       {

@@ -405,7 +405,7 @@ export function HomePage() {
               </Link>
             </div>
             <div className="home-redesign-trust-points" aria-label="CasaMia reassurance points">
-              {['Fit checked first', 'Assessment credited back', 'Scope confirmed before work'].map((item) => (
+              {['Fit checked first', 'Assessment credited back', 'Plan confirmed before installation'].map((item) => (
                 <span key={item}>
                   <CheckCircle2 size={20} aria-hidden="true" />
                   {item}
