@@ -21,6 +21,10 @@ export function EstimateReportPage() {
   const [status, setStatus] = useState<ReportStatus>('loading')
   const [report, setReport] = useState<EstimateReport | null>(null)
   const risk = report ? getEstimateRiskAssessment(report, i18n.language) : null
+  const activeLanguage = getBaseLanguage(i18n.language)
+  const reportLanguage = report?.locale ? getBaseLanguage(report.locale) : activeLanguage
+  const hasLanguageMismatch = status === 'success' && report && reportLanguage !== activeLanguage
+  const newReportPath = activeLanguage === 'es' ? '/es#estimate-upload' : '/#estimate-upload'
 
   useEffect(() => {
     let active = true
@@ -93,6 +97,21 @@ export function EstimateReportPage() {
           {status === 'success' && report ? (
             <div className="estimate-report-grid">
               <article className="estimate-report-card">
+                {hasLanguageMismatch ? (
+                  <div className="estimate-report-language-note">
+                    <strong>{t('estimator.report.languageMismatchTitle')}</strong>
+                    <p>
+                      {t('estimator.report.languageMismatchBody', {
+                        reportLanguage: getLanguageName(reportLanguage, i18n.language),
+                        currentLanguage: getLanguageName(activeLanguage, i18n.language),
+                      })}
+                    </p>
+                    <Link to={newReportPath}>
+                      {t('estimator.report.languageMismatchCta')}
+                      <ArrowRight size={16} aria-hidden="true" />
+                    </Link>
+                  </div>
+                ) : null}
                 <p className="estimate-wizard-kicker">{t('estimator.report.summaryLabel')}</p>
                 <h2>{t('estimator.report.findingsTitle')}</h2>
                 <p>{report.summary}</p>
@@ -180,6 +199,20 @@ function fallbackRiskLevelLabel(riskLevel: EstimateRiskLevel, locale: string) {
   }
 
   return labels[riskLevel][isSpanish ? 1 : 0]
+}
+
+function getBaseLanguage(locale: string) {
+  return locale.toLowerCase().startsWith('es') ? 'es' : 'en'
+}
+
+function getLanguageName(language: string, displayLocale: string) {
+  const isSpanishDisplay = displayLocale.toLowerCase().startsWith('es')
+
+  if (language === 'es') {
+    return isSpanishDisplay ? 'español' : 'Spanish'
+  }
+
+  return isSpanishDisplay ? 'inglés' : 'English'
 }
 
 function getPreventionStats(report: EstimateReport, translatedStats: unknown) {

@@ -79,6 +79,7 @@ export type EstimatePreventionStat = {
 
 export type EstimateReport = {
   token: string
+  locale?: string
   createdAt: string
   expiresAt: string
   reportUrl: string
@@ -338,6 +339,7 @@ function buildPublicReportPayload(input: ReportDeliveryInput) {
     return {
       ...basePayload,
       type: 'safety_report',
+      language: report?.locale,
       created_at: report?.createdAt,
       expires_at: report?.expiresAt,
       context: report?.context,
@@ -405,9 +407,17 @@ function normalisePublicSafetyReport(raw: Record<string, unknown>, token: string
   const createdAt = safeString(raw.created_at ?? raw.createdAt, new Date().toISOString())
   const expiresAt = safeString(raw.expires_at ?? raw.expiresAt, getDefaultExpiry(createdAt))
   const publicDelivery = getRecord(raw.delivery)
+  const locale = normaliseReportLocale(
+    raw.language ??
+      raw.locale ??
+      context?.locale ??
+      recommendations.language ??
+      recommendations.locale,
+  )
 
   return {
     token: reportToken,
+    locale,
     createdAt,
     expiresAt,
     reportUrl: `${window.location.origin}/estimate/${reportToken}`,
@@ -502,6 +512,12 @@ function safeNumber(value: unknown) {
   const parsed = typeof value === 'number' ? value : Number.parseFloat(String(value ?? '0'))
 
   return Number.isFinite(parsed) ? parsed : 0
+}
+
+function normaliseReportLocale(value: unknown) {
+  const locale = safeString(value, 'en').toLowerCase().split(/[-_]/)[0]
+
+  return locale === 'es' ? 'es' : 'en'
 }
 
 function getDefaultExpiry(createdAt: string) {
@@ -634,6 +650,7 @@ function enrichReportWithPhotoAnalysis(
 
   return {
     ...report,
+    locale: normaliseReportLocale(input.locale),
     summary: buildSmartReportSummary(input, photoAnalyses, hazards),
     riskScore: scoring.riskScore,
     riskLevel: scoring.riskLevel,
@@ -660,6 +677,7 @@ function buildLocalReport(
 
   return {
     token,
+    locale: normaliseReportLocale(input.locale),
     createdAt,
     expiresAt,
     reportUrl: `${window.location.origin}/estimate/${token}`,

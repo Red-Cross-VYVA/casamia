@@ -57,6 +57,10 @@
   ],
   "rewrites": [
     {
+      "source": "/es/estimate/:token",
+      "destination": "/index.html"
+    },
+    {
       "source": "/estimate/:token",
       "destination": "/index.html"
     },

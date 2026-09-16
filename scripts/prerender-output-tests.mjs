@@ -89,6 +89,8 @@ for (const [file, route] of protectedShellRoutes) {
 }
 
 const vercel = await readFile(new URL('../vercel.json', import.meta.url), 'utf8')
+assert.match(vercel, /"source"\s*:\s*"\/es\/estimate\/:token"/)
+assert.match(vercel, /"source"\s*:\s*"\/estimate\/:token"/)
 assert.match(vercel, /"source"\s*:\s*"\/home-safety-inspection"/)
 assert.match(vercel, /"destination"\s*:\s*"\/home-safety-assessment"/)
 assert.match(vercel, /"source"\s*:\s*"\/internal"/)

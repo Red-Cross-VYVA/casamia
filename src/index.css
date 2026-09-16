@@ -22962,6 +22962,42 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   box-shadow: 0 20px 56px rgba(13, 30, 46, 0.1);
 }
 
+.estimate-report-language-note {
+  margin-bottom: 24px;
+  border: 1px solid rgba(85, 141, 38, 0.28);
+  border-left: 5px solid var(--green);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(236, 248, 228, 0.9), rgba(255, 255, 255, 0.95));
+  padding: 18px 20px;
+}
+
+.estimate-report-language-note strong {
+  display: block;
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.estimate-report-language-note p {
+  margin: 8px 0 0;
+  color: var(--text-mid);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.estimate-report-language-note a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 950;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .estimate-result-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
