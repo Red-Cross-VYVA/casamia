@@ -517,7 +517,7 @@ export function UploadEstimator() {
       {wizardOpen ? createPortal(
         <div className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-3 md:p-6">
           <div
-            className="estimate-wizard-modal w-full overflow-hidden bg-white text-left shadow-soft"
+            className={`estimate-wizard-modal is-step-${showIntro ? 'intro' : step} w-full overflow-hidden bg-white text-left shadow-soft`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="estimate-wizard-title"
@@ -634,7 +634,7 @@ export function UploadEstimator() {
                 </button>
               </div>
             ) : step < 3 ? (
-              <div className={`estimate-wizard-footer ${step === 0 ? 'is-single-action' : ''}`}>
+              <div className={`estimate-wizard-footer ${step === 0 ? 'is-single-action' : ''} ${step === 2 ? 'is-contact-step' : ''}`}>
                 {step > 0 ? (
                   <button
                     type="button"
@@ -853,7 +853,7 @@ function DeliveryStep({
   const { t } = useTranslation()
 
   return (
-    <section className="estimate-step-grid">
+    <section className="estimate-step-grid estimate-contact-step">
       <StepIntro
         icon={<UserRound size={24} aria-hidden="true" />}
         title={t('estimator.workflow.contact.title')}

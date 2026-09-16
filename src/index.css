@@ -22110,7 +22110,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .estimate-wizard-modal {
   display: flex;
   flex-direction: column;
-  max-width: min(1040px, calc(100vw - 32px));
+  max-width: min(1180px, calc(100vw - 32px));
   max-height: min(96vh, 820px);
   border-radius: 18px;
   background: #f7fbfe;
@@ -22168,13 +22168,14 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .estimate-wizard-progress {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   flex: 0 0 auto;
-  gap: 9px;
+  gap: 12px;
   overflow-x: auto;
   border-bottom: 1px solid var(--border);
   background: white;
-  padding: 9px clamp(22px, 4vw, 34px);
+  padding: 10px clamp(22px, 4vw, 34px) 12px;
   scrollbar-width: none;
 }
 
@@ -22184,9 +22185,8 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
 .estimate-progress-step {
   display: flex;
-  flex: 1 0 0;
-  min-width: 138px;
-  min-height: 36px;
+  min-width: 0;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -22244,6 +22244,10 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
     linear-gradient(0deg, rgba(27, 94, 138, 0.025) 1px, transparent 1px),
     #f7fbfe;
   background-size: 72px 72px, 72px 72px, auto;
+}
+
+.estimate-wizard-modal.is-step-2 .estimate-wizard-body {
+  padding-top: clamp(18px, 2.4vw, 26px);
 }
 
 .estimate-wizard-intro-slide {
@@ -22572,6 +22576,14 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   resize: vertical;
 }
 
+.estimate-field input:focus,
+.estimate-field select:focus,
+.estimate-field textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(125, 184, 65, 0.16);
+  outline: none;
+}
+
 .phone-number-field {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -22773,11 +22785,23 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .estimate-wizard-footer {
   display: flex;
   flex: 0 0 auto;
+  align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: 16px;
   border-top: 1px solid var(--border);
-  padding: 10px clamp(22px, 4vw, 34px);
-  background: #f7fbfe;
+  padding: 12px clamp(22px, 4vw, 34px);
+  background: white;
+}
+
+.estimate-wizard-footer.is-contact-step {
+  display: grid;
+  grid-template-columns: minmax(140px, auto) minmax(0, 1fr) minmax(260px, auto);
+  gap: 18px;
+}
+
+.estimate-wizard-footer.is-contact-step .wizard-action-hint {
+  justify-self: center;
+  text-align: center;
 }
 
 .estimate-wizard-footer.is-single-action {
@@ -22794,6 +22818,100 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   cursor: not-allowed;
   opacity: 0.48;
   transform: none;
+}
+
+.estimate-contact-step {
+  gap: clamp(24px, 3.4vw, 34px);
+}
+
+.estimate-contact-step .estimate-step-intro {
+  align-self: stretch;
+  min-height: 290px;
+  padding: clamp(26px, 3vw, 32px);
+}
+
+.estimate-contact-step .estimate-step-intro h3 {
+  max-width: 290px;
+  font-size: clamp(34px, 3.3vw, 44px);
+  line-height: 0.96;
+}
+
+.estimate-contact-step .estimate-step-intro p {
+  max-width: 280px;
+  font-size: 16px;
+}
+
+.estimate-contact-step .estimate-step-content {
+  gap: 22px;
+  padding: clamp(20px, 3vw, 28px);
+}
+
+.estimate-contact-step .report-delivery-intro {
+  margin-bottom: 0;
+}
+
+.estimate-contact-step .estimate-form-grid {
+  gap: 20px 22px;
+  align-items: start;
+}
+
+.estimate-contact-step .estimate-field {
+  gap: 10px;
+}
+
+.estimate-contact-step .estimate-field input,
+.estimate-contact-step .phone-number-field,
+.estimate-contact-step .phone-number-prefix {
+  min-height: 62px;
+}
+
+.estimate-contact-step .estimate-field input {
+  border-radius: 12px;
+  background: #edf5ff;
+  color: #071a2e;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.estimate-contact-step .phone-number-field {
+  border-radius: 12px;
+  background: #edf5ff;
+}
+
+.estimate-contact-step .phone-number-field input {
+  min-height: 62px;
+  color: #071a2e;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.estimate-contact-step .phone-number-prefix {
+  padding: 0 18px;
+  font-size: 18px;
+}
+
+.estimate-contact-step .phone-number-help {
+  max-width: 300px;
+  color: var(--text-dark);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+.estimate-contact-step .estimate-delivery-grid {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 380px;
+}
+
+.estimate-contact-step .estimate-toggle-card {
+  min-height: 132px;
+  padding: 22px;
+}
+
+.estimate-contact-step .estimate-consent {
+  align-items: flex-start;
+  border-radius: 12px;
+  padding: 14px 16px;
 }
 
 .estimate-result-loading,
