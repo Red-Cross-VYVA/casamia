@@ -825,10 +825,9 @@ export function ServicesPage() {
                   <div className="services-catalogue-service-grid">
                     {selectedGroup.services.map((service) => {
                       const includedItems = uniqueIncludedItems(service.includedItems)
-                      const visibleIncludedItems = includedItems.slice(0, 2)
-                      const remainingIncludedItems = includedItems.length - visibleIncludedItems.length
                       const optionalAddOn = isOptionalAddOn(service)
                       const description = getCustomerServiceDescription(service)
+                      const inclusionLabel = includedItems.length === 1 ? copy.includedItemSingular : copy.includedItemPlural
 
                       return (
                         <article
@@ -847,21 +846,12 @@ export function ServicesPage() {
                             {description}
                           </p>
 
-                          {visibleIncludedItems.length ? (
-                            <div className="services-catalogue-key-inclusions">
-                              <ul>
-                                {visibleIncludedItems.map((item) => (
-                                  <li key={item}>
-                                    <CheckCircle2 size={16} aria-hidden="true" />
-                                    <span>{item}</span>
-                                  </li>
-                                ))}
-                                {remainingIncludedItems > 0 ? (
-                                  <li className="services-catalogue-more-inclusions">
-                                    +{remainingIncludedItems} {language === 'es' ? 'más' : 'more'}
-                                  </li>
-                                ) : null}
-                              </ul>
+                          {includedItems.length ? (
+                            <div className="services-catalogue-key-inclusions" aria-label={copy.included}>
+                              <span>
+                                <CheckCircle2 size={16} aria-hidden="true" />
+                                {includedItems.length} {inclusionLabel}
+                              </span>
                             </div>
                           ) : null}
 

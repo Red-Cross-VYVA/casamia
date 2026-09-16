@@ -1397,11 +1397,13 @@
   list-style: none;
 }
 
+.services-catalogue-key-inclusions > span,
 .services-catalogue-key-inclusions li {
   display: inline-flex;
   min-width: 0;
   align-items: center;
   gap: 0.35rem;
+  margin-top: 0.75rem;
   border: 1px solid #d7e8f0;
   border-radius: 999px;
   background: #f8fcff;
@@ -1412,6 +1414,17 @@
   line-height: 1.2;
 }
 
+.services-catalogue-key-inclusions li {
+  margin-top: 0;
+}
+
+.services-catalogue-key-inclusions > span {
+  border-color: #d8ecc8;
+  background: #f4fbef;
+  color: #4f7f24;
+}
+
+.services-catalogue-key-inclusions > span svg,
 .services-catalogue-key-inclusions li svg {
   flex: 0 0 auto;
   color: #79ad43;
