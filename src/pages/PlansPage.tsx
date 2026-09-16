@@ -621,13 +621,13 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     finalReview: 'Requires quote',
     flow: [
       { title: 'Rooms', body: 'Pick quantities' },
-      { title: 'Options', body: 'Add support' },
+      { title: 'Options', body: 'Choose add-ons' },
       { title: 'Review', body: 'Check scope' },
     ],
     fromCatalogue: 'Catalogue-based estimate',
-    grantBody: 'Check possible aid before final scope.',
+    grantBody: 'Check documents and criteria before final scope.',
     grantCta: 'Start grant check',
-    grantEyebrow: 'Aid route',
+    grantEyebrow: 'Grant readiness',
     grantTitle: 'Grants may apply.',
     heroSignals: ['Clear scope first', 'Core items included', 'Optional add-ons separate'],
     heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
@@ -663,7 +663,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       bathroom:
         'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes grab bars, seating, anti-slip treatment, lever controls and water-temperature safety when they fit the room.',
       bedroom:
-        'Focuses on getting in and out of bed, moving safely at night and keeping daily routines predictable. Combines bedside support, better lighting, clear walking routes, furniture positioning and fire-safety basics.',
+        'Focuses on getting in and out of bed, moving safely at night and keeping daily routines predictable. Combines bedside support, better lighting, clearer bed-to-bathroom movement, furniture positioning and fire-safety basics.',
       entrance:
         'Makes the first and last steps of the day safer: thresholds, handrails, lighting, door hardware and visitor awareness. Helps with steps, mats, locks and seeing who is at the door before opening.',
       kitchen:
@@ -673,9 +673,9 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     },
     rooms: [
       { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
-      { title: 'Bedroom', body: 'Bed access, night lighting and clear routes.' },
+      { title: 'Bedroom', body: 'Bed access, night lighting and bathroom trips.' },
       { title: 'Kitchen', body: 'Cooking, reach, visibility and safer movement.' },
-      { title: 'Living Room', body: 'Sitting, standing, rugs, cables and daily routes.' },
+      { title: 'Living Room', body: 'Sitting, standing, rugs, cables and everyday movement.' },
       { title: 'Entrance', body: 'Steps, thresholds, door use and visitor awareness.' },
     ],
     seeDraft: 'Open proposal',
@@ -1141,7 +1141,7 @@ export function PlansPage() {
           finalReview: 'Requires quote',
           flow: [
             { title: 'Rooms', body: 'Pick quantities' },
-            { title: 'Add-ons', body: 'Add support' },
+            { title: 'Add-ons', body: 'Choose extras' },
             { title: 'Proposal', body: 'Receive instantly' },
           ],
           fromCatalogue: 'Service catalogue',

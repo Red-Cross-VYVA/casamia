@@ -37,7 +37,7 @@ const grantsCopy = {
     roleTitle: 'Guidance, not public approval.',
     roleBody:
       'CasaMia checks which published grant criteria may fit your project and prepares the document trail when authorised. Any initial eligibility assessment is indicative only. The responsible public authority makes the final decision.',
-    roleListTitle: 'Grant-support services',
+    roleListTitle: 'What CasaMia can help prepare',
     roleItems: [
       'General information about possible public assistance programmes.',
       'Initial eligibility screening based on information provided by the customer.',
@@ -127,10 +127,10 @@ const grantsCopy = {
     roleEyebrow: 'Papel de CasaMia',
     roleTitle: 'Orientación, no aprobación pública.',
     roleBody:
-      'CasaMia revisa qué rutas publicadas pueden encajar con tu proyecto y prepara la documentación cuando existe autorización. Cualquier revisión inicial de elegibilidad es orientativa. La decisión final corresponde a la administración responsable.',
-    roleListTitle: 'Servicios de apoyo para ayudas',
+      'CasaMia revisa qué criterios publicados pueden encajar con tu proyecto y prepara la documentación cuando existe autorización. Cualquier revisión inicial de elegibilidad es orientativa. La decisión final corresponde a la administración responsable.',
+    roleListTitle: 'Qué puede ayudar a preparar CasaMia',
     roleItems: [
-      'Información general sobre posibles vías de ayuda pública.',
+      'Información general sobre posibles programas de ayuda pública.',
       'Revisión inicial de elegibilidad según la información facilitada por el cliente.',
       'Ayuda para preparar una lista de documentos para un programa concreto.',
       'Apoyo en la preparación de solicitudes cuando el programa y el caso lo permiten.',
@@ -246,16 +246,16 @@ export function GrantsPage() {
           },
           {
             title: 'Prepare documents',
-            body: 'See what is usually needed for the route.',
+            body: 'See which documents are usually requested.',
           },
           {
-            title: 'Plan clearly',
+            title: 'Plan before spending',
             body: 'Separate CasaMia pricing, possible assistance and timing.',
           },
         ],
         supportTitle: 'Know what to prepare before you apply.',
         supportBody:
-          'Answer a few questions and see the likely route, missing documents and what must be checked before any work is started.',
+          'Answer a few questions and see likely grant criteria, missing documents and what must be checked before any work is started.',
         programmesTitle: 'Published programmes',
         programmesBody:
           'We only show programmes with an official source, status and review date.',
