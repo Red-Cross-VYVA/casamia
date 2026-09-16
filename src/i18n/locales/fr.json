@@ -65,6 +65,7 @@
     "whatsappDelivery": "Lien WhatsApp",
     "whatsappDeliveryBody": "Message bref uniquement. Les détails sensibles restent dans le rapport.",
     "sendSuccess": "Envoi du rapport préparé.",
+    "termsLink": "Terms and Conditions",
     "postcode": "Postcode"
   },
   "alts": {

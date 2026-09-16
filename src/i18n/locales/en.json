@@ -67,6 +67,7 @@
     "emailDeliveryBody": "Best for the complete secure report link.",
     "whatsappDelivery": "WhatsApp link",
     "whatsappDeliveryBody": "Short message only. Sensitive details stay in the report.",
+    "termsLink": "Terms and Conditions",
     "sendSuccess": "Report delivery queued."
   },
   "assessment": {

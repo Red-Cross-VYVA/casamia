@@ -1,6 +1,7 @@
 import { Mail, MessageCircle } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 import type { ReportDeliveryFormValue } from '../utils/reportDelivery'
 import { CASAMIA_WHATSAPP_DELIVERY_ENABLED } from '../constants/contact'
@@ -78,7 +79,12 @@ export function ReportDeliveryForm({
           checked={value.consent}
           onChange={(event) => onChange('consent', event.target.checked)}
         />
-        <span>{consentText}</span>
+        <span>
+          {consentText}{' '}
+          <Link to="/terms-and-conditions" onClick={(event) => event.stopPropagation()}>
+            {t('reportDelivery.termsLink')}
+          </Link>
+        </span>
       </label>
     </div>
   )

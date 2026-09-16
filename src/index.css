@@ -22782,6 +22782,13 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   accent-color: var(--green);
 }
 
+.estimate-consent a {
+  color: var(--navy);
+  font-weight: 950;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .estimate-wizard-footer {
   display: flex;
   flex: 0 0 auto;

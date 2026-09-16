@@ -67,6 +67,7 @@
     "emailDeliveryBody": "Ideal para recibir el enlace seguro del informe completo.",
     "whatsappDelivery": "Enlace por WhatsApp",
     "whatsappDeliveryBody": "Mensaje breve solamente. Los detalles sensibles quedan en el informe.",
+    "termsLink": "Términos y condiciones",
     "sendSuccess": "Envío del informe preparado."
   },
   "assessment": {
