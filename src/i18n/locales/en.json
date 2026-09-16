@@ -1715,31 +1715,31 @@
     "planAdapta": {
       "hero": {
         "title": "Plan Adapta Grant Support",
-        "subtitle": "CasaMia coordinates grant application preparation for home safety and accessibility works, from documentation to submission.",
-        "cta": "Book Free Assessment",
-        "panelTitle": "Administrative support from start to submission",
-        "panelBody": "CasaMia clarifies likely requirements, prepares the application file and coordinates authorised follow-up."
+        "subtitle": "CasaMia checks whether the proposed home adaptations could fit an active grant route, then prepares the evidence and paperwork if they do.",
+        "cta": "Check my grant fit",
+        "panelTitle": "Know what can be submitted before you rely on a grant",
+        "panelBody": "CasaMia identifies the likely criteria, missing documents and work description needed before an application is sent."
       },
       "what": {
         "kicker": "What is Plan Adapta?",
         "title": "Support for safer, more accessible homes.",
-        "body": "Plan Adapta may support eligible home adaptations that improve accessibility, safety, and independent living. Available support depends on the relevant authority, open calls, eligibility criteria, documentation, and the approved scope of works."
+        "body": "Plan Adapta can help with certain accessibility and safety adaptations, but only when the local authority, open call, applicant details, documents and proposed works all fit. CasaMia helps you understand that fit before paperwork is prepared."
       },
       "help": {
         "kicker": "What CasaMia prepares",
-        "title": "We prepare the grant file around the works proposed.",
+        "title": "We turn the proposed works into a grant-ready file.",
         "items": [
           {
             "title": "Eligibility notes",
-            "body": "We compare the home, applicant and proposed works with the basic conditions of the relevant programme."
+            "body": "We check whether the person, home and proposed work appear to match the grant rules before you spend time on forms."
           },
           {
             "title": "Documentation preparation",
-            "body": "We organise the required documents and prepare the application file before submission."
+            "body": "We list what is missing, organise the documents provided and prepare the application file before submission."
           },
           {
             "title": "Application forms",
-            "body": "We complete the required forms and administrative steps for the chosen grant channel."
+            "body": "We complete the forms for the chosen grant channel using the agreed work scope and customer information."
           },
           {
             "title": "Coordination with authorities where authorised",
@@ -1747,11 +1747,11 @@
           },
           {
             "title": "Proposal preparation",
-            "body": "We prepare recommendations and proposal wording that explains the safety and accessibility works."
+            "body": "We write the proposed work in practical terms: what will change, where, and why it supports safer use of the home."
           },
           {
             "title": "Application tracking",
-            "body": "We track the next administrative steps and keep the customer informed while the application is being reviewed."
+            "body": "We track what has been submitted, what is still pending and any response from the authority."
           }
         ]
       },
@@ -1774,11 +1774,11 @@
       },
       "process": {
         "kicker": "How it works",
-        "title": "From assessment to grant support.",
+        "title": "From home evidence to a grant-ready submission.",
         "steps": [
           {
             "title": "Book your free assessment",
-            "body": "Start by requesting a CasaMia assessment so the home risks and likely adaptation needs are documented."
+            "body": "Start by requesting a CasaMia review so the home risks, measurements and likely adaptation needs are documented."
           },
           {
             "title": "We inspect your home",
@@ -1786,11 +1786,11 @@
           },
           {
             "title": "We prepare recommendations",
-            "body": "You receive room priorities, grant-ready evidence notes and a proposal for the confirmed improvements."
+            "body": "You receive room priorities, evidence notes and a proposal that names the confirmed improvements."
           },
           {
             "title": "We support your grant application",
-            "body": "When the programme fits and CasaMia is authorised, we prepare and submit the required documentation."
+            "body": "When the programme appears to fit and CasaMia is authorised, we prepare and submit the required documentation."
           },
           {
             "title": "Once approved, we coordinate the works",
@@ -1849,7 +1849,7 @@
         ]
       },
       {
-        "title": "Easy & Safe Entry",
+        "title": "Safer Entrance Access",
         "before": "Raised thresholds, narrow entry points, or poor lighting at arrival.",
         "after": "A smoother, better-lit entrance with support where balance is needed.",
         "benefits": [

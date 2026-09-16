@@ -1715,31 +1715,31 @@
     "planAdapta": {
       "hero": {
         "title": "Soporte para ayudas Plan Adapta",
-        "subtitle": "CasaMia coordina la preparación de solicitudes de ayudas para obras de seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
-        "cta": "Reservar evaluación gratis",
-        "panelTitle": "Apoyo administrativo desde el inicio hasta la presentación",
-        "panelBody": "CasaMia aclara los requisitos probables, prepara el expediente y coordina el seguimiento autorizado."
+        "subtitle": "CasaMia revisa si las adaptaciones propuestas encajan con una vía de ayuda activa y prepara la evidencia y documentación cuando encajan.",
+        "cta": "Comprobar encaje de ayuda",
+        "panelTitle": "Sabe qué puede presentarse antes de contar con la ayuda",
+        "panelBody": "CasaMia identifica criterios probables, documentos que faltan y descripción de obra necesaria antes de enviar una solicitud."
       },
       "what": {
         "kicker": "Qué es Plan Adapta",
         "title": "Apoyo para hogares más seguros y accesibles.",
-        "body": "Plan Adapta puede apoyar adaptaciones del hogar elegibles que mejoran la accesibilidad, la seguridad y la vida independiente. La ayuda disponible depende de la autoridad competente, convocatorias abiertas, criterios de elegibilidad, documentación y alcance aprobado de las obras."
+        "body": "Plan Adapta puede apoyar ciertas adaptaciones de accesibilidad y seguridad, pero solo cuando autoridad local, convocatoria abierta, datos de la persona, documentos y obras propuestas encajan. CasaMia ayuda a entender ese encaje antes de preparar el expediente."
       },
       "help": {
         "kicker": "Qué prepara CasaMia",
-        "title": "Preparamos el expediente de ayuda alrededor de las obras propuestas.",
+        "title": "Convertimos las obras propuestas en un expediente listo para ayuda.",
         "items": [
           {
             "title": "Notas de elegibilidad",
-            "body": "Comparamos la vivienda, la persona solicitante y las obras propuestas con las condiciones básicas de la vía correspondiente."
+            "body": "Revisamos si la persona, la vivienda y la obra propuesta parecen encajar con las reglas antes de dedicar tiempo a formularios."
           },
           {
             "title": "Preparación de documentación",
-            "body": "Organizamos los documentos necesarios y preparamos el expediente antes de presentarlo."
+            "body": "Indicamos qué falta, ordenamos la documentación aportada y preparamos el expediente antes de presentarlo."
           },
           {
             "title": "Formularios de solicitud",
-            "body": "Completamos los formularios y pasos administrativos requeridos para el canal de ayuda elegido."
+            "body": "Completamos los formularios del canal elegido con el alcance acordado y los datos del cliente."
           },
           {
             "title": "Coordinación con autoridades cuando exista autorización",
@@ -1747,11 +1747,11 @@
           },
           {
             "title": "Preparación de propuesta",
-            "body": "Preparamos recomendaciones y texto de propuesta que explica las obras de seguridad y accesibilidad."
+            "body": "Redactamos la obra propuesta de forma práctica: qué cambia, dónde y por qué mejora el uso seguro de la vivienda."
           },
           {
             "title": "Seguimiento de solicitud",
-            "body": "Seguimos los próximos pasos administrativos y mantenemos informado al cliente mientras se revisa la solicitud."
+            "body": "Seguimos qué se ha presentado, qué queda pendiente y cualquier respuesta de la autoridad."
           }
         ]
       },
@@ -1774,11 +1774,11 @@
       },
       "process": {
         "kicker": "Cómo funciona",
-        "title": "De la evaluación al soporte de ayudas.",
+        "title": "De evidencia de la vivienda a expediente listo para ayuda.",
         "steps": [
           {
             "title": "Reserva tu evaluación gratis",
-            "body": "Empieza solicitando una evaluación CasaMia para documentar los riesgos de la vivienda y las posibles necesidades de adaptación."
+            "body": "Empieza solicitando una revisión CasaMia para documentar riesgos, medidas y posibles necesidades de adaptación."
           },
           {
             "title": "Inspeccionamos tu hogar",
@@ -1786,11 +1786,11 @@
           },
           {
             "title": "Preparamos recomendaciones",
-            "body": "Recibes prioridades por estancia, notas de evidencia para ayudas y una propuesta de las mejoras confirmadas."
+            "body": "Recibes prioridades por estancia, notas de evidencia y una propuesta que nombra las mejoras confirmadas."
           },
           {
             "title": "Apoyamos tu solicitud de ayuda",
-            "body": "Cuando el programa encaja y CasaMia está autorizada, preparamos y presentamos la documentación requerida."
+            "body": "Cuando el programa parece encajar y CasaMia está autorizada, preparamos y presentamos la documentación requerida."
           },
           {
             "title": "Una vez aprobada, coordinamos las obras",
