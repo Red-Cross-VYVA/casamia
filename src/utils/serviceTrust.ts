@@ -119,12 +119,12 @@ export function getServicePreviewDescription(service: CasaMiaService) {
     .map((value) => compactPreviewDescription(polishServiceDescription(value?.trim() ?? '')))
     .find((value) => value.length > 0) ?? ''
 
-  const preview = description
+  const preview = compactCardPreview(description
     .replace(/\s+/g, ' ')
     .replace(/\.$/, '')
     .replace(/\s+(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar)\b.*$/i, '')
     .replace(/\s+(?:we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag|CasaMia confirms|Confirmamos)\b.*$/i, '')
-    .trim()
+    .trim())
 
   return preview ? `${preview.replace(/[.]+$/, '')}.` : ''
 }
@@ -162,6 +162,29 @@ function compactPreviewDescription(description: string) {
   const lastSpace = clipped.lastIndexOf(' ')
 
   return `${clipped.slice(0, lastSpace > 56 ? lastSpace : clipped.length).trim()}...`
+}
+
+function compactCardPreview(description: string) {
+  const cleaned = description
+    .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, when the layout allows|, after checking|, when the existing|, donde sea adecuado|, cuando encaja|, si procede|, tras revisar|, cuando la distribución|, cuando la instalación)\s*/i)[0]
+    .trim()
+
+  const words = cleaned.split(/\s+/).filter(Boolean)
+
+  if (words.length <= 10 && cleaned.length <= 78) {
+    return cleaned
+  }
+
+  const wordLimited = words.slice(0, 10).join(' ')
+
+  if (wordLimited.length <= 78) {
+    return wordLimited
+  }
+
+  const clipped = wordLimited.slice(0, 74)
+  const lastSpace = clipped.lastIndexOf(' ')
+
+  return clipped.slice(0, lastSpace > 48 ? lastSpace : clipped.length).trim()
 }
 
 function formatTrustList(items: string[], language: string) {
