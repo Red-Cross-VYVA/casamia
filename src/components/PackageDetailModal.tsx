@@ -25,7 +25,7 @@ const packageModalCopy = {
     includes: 'Included in this package',
     itemIncludes: 'Included for this item',
     professionalFitting: 'Fitted and tested',
-    familyReady: 'Clear handover',
+    familyReady: 'Clear explanation',
     grantChip: 'Grant route explained',
     quoteChip: 'Price confirmed first',
     noHiddenFit: 'Fit checked first',
@@ -50,7 +50,7 @@ const packageModalCopy = {
         detail: 'We flag when this improvement may support grant paperwork. The authority still decides approval.',
       },
       handover: {
-        label: 'Clear handover',
+        label: 'Clear explanation',
         detail: 'The person using it understands what changed and how to use it safely before the job is closed.',
       },
       installation: {
@@ -247,7 +247,7 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Automatic water shut-off valve': 'Válvula automática de corte de agua',
     'Bathroom door adjustment': 'Ajuste de puerta de baño',
     'Easy-release privacy lock': 'Cierre de privacidad con desbloqueo fácil',
-    'Family or carer alert setup': 'Avisos para familia o cuidador',
+    'Family or carer alert setup': 'Avisos a contactos de confianza',
     'Folding shower seat': 'Asiento abatible de ducha',
     'Grab bar': 'Barra de apoyo',
     'Lever door handle': 'Manilla tipo palanca',
@@ -266,7 +266,9 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Cable management kit': 'Kit de organización de cables',
     'Delivery and installation coordination': 'Coordinación de entrega e instalación',
     'Electric adjustable bed': 'Cama eléctrica ajustable',
-    'Family contact notification setup': 'Configuración de avisos a contactos familiares',
+    'Family contact notification setup': 'Configuración de avisos a contactos de confianza',
+    'Trusted-contact alert setup': 'Avisos a contactos de confianza',
+    'Trusted-contact notification setup': 'Configuración de avisos a contactos de confianza',
     'Hands-free calling setup': 'Configuración de llamadas manos libres',
     'Medication and routine reminder setup': 'Configuración de recordatorios y rutinas',
     'Mattress and pressure-comfort guidance': 'Orientación sobre colchón, presión y confort',
@@ -274,6 +276,7 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Raised toilet seat': 'Elevador de inodoro',
     'Resident phone alert setup': 'Avisos al telefono del residente',
     'Remote control setup and handover': 'Configuración de mando y explicación de uso',
+    'Remote control setup and safe-use explanation': 'Configuración de mando y explicación de uso',
     'Safer hot-water temperature setting': 'Ajuste seguro de agua caliente',
     'Secure anti-slip bath mat': 'Alfombrilla antideslizante segura',
     'Secure anti-slip bath and exit mat set': 'Juego de alfombrillas antideslizantes para bañera y salida',
@@ -324,7 +327,7 @@ function getDetailServiceSummaryItems(
   }
 
   if (taskText) {
-    serviceItems.push(language === 'es' ? 'Prueba, explicación de uso y soporte posterior' : 'Testing, handover and aftercare')
+    serviceItems.push(language === 'es' ? 'Prueba, explicación de uso y soporte posterior' : 'Testing, safe-use explanation and support')
   }
 
   return serviceItems

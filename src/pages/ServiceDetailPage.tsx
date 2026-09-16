@@ -711,7 +711,6 @@ function groupServicesByCategory(services: CasaMiaService[]) {
 }
 
 function ServiceItemGrid({ language, services }: { language: string; services: CasaMiaService[] }) {
-  const copy = language.toLowerCase().startsWith('es') ? serviceDetailUiCopy.es : serviceDetailUiCopy.en
   const viewDetailsLabel = language.toLowerCase().startsWith('es') ? 'Ver detalles' : 'View details'
   const [activeService, setActiveService] = useState<CasaMiaService | null>(null)
 
@@ -730,24 +729,13 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
                 <h3>{item.name}</h3>
                 <p>{getServicePreviewDescription(item)}</p>
               </div>
-              <div className="service-kitchen-component-details">
-                <p className="service-kitchen-component-benefit">
-                  <CheckCircle2 size={17} aria-hidden="true" />
-                  {item.customerBenefit}
-                </p>
-                {proofChips.length ? (
+              {proofChips.length ? (
+                <div className="service-kitchen-component-details">
                   <div className="services-catalogue-proof-chips" aria-label={language.toLowerCase().startsWith('es') ? 'Señales de confianza' : 'Trust signals'}>
                     {proofChips.map((chip) => <span key={chip}>{chip}</span>)}
                   </div>
-                ) : null}
-                {item.includedItems && item.includedItems.length > 0 ? (
-                  <ul className="service-kitchen-component-inclusions" aria-label={`${copy.includedWith} ${item.name}`}>
-                    {item.includedItems.slice(0, 3).map((includedItem) => (
-                      <li key={includedItem}>{includedItem}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
+                </div>
+              ) : null}
               <div className="service-kitchen-component-actions">
                 <button className="catalogue-item-detail-button" type="button" onClick={() => setActiveService(item)}>
                   {viewDetailsLabel}

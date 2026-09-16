@@ -18,7 +18,7 @@ const copy = {
     grantDetail: 'We flag when an improvement may support grant paperwork. The public authority still decides approval.',
     grantLabel: 'Grant route explained',
     handoverDetail: 'Before the job is closed, the person using it knows what changed and how to use it safely.',
-    handoverLabel: 'Clear handover',
+    handoverLabel: 'Clear explanation',
     installationDetail: 'The item is fitted or set up, tested in the real room and adjusted if something does not feel right.',
     installationLabel: 'Fitted and tested',
     quoteDetail: 'Scope and price are agreed after the home details are known, so the proposal reflects the real room.',
@@ -26,7 +26,7 @@ const copy = {
     standard: 'We confirm fit, install or set up the right option, test it in place and explain safe use.',
     noHiddenFit: 'Fit checked first',
     professionalFitting: 'Fitted and tested',
-    familyReady: 'Clear handover',
+    familyReady: 'Clear explanation',
     grantChip: 'Grant route explained',
     quoteChip: 'Price confirmed first',
     consentChip: 'Consent checked',
@@ -133,18 +133,20 @@ function polishServiceDescription(description: string) {
 function compactPreviewDescription(description: string) {
   const withoutOperationalProof = description
     .replace(/\s+(Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar)[^.]*\./gi, '')
+    .replace(/\s+(Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar)[^.!?]*$/gi, '')
     .replace(/\s+(CasaMia confirms|Confirmamos)[^.]*\./gi, '')
+    .replace(/\s+(CasaMia confirms|Confirmamos)[^.!?]*$/gi, '')
     .trim()
 
   const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)
-  const summary = (sentences?.slice(0, 2).join(' ') ?? withoutOperationalProof).trim()
+  const summary = (sentences?.slice(0, 1).join(' ') ?? withoutOperationalProof).trim()
 
-  if (summary.length <= 145) return summary
+  if (summary.length <= 96) return summary
 
-  const clipped = summary.slice(0, 142)
+  const clipped = summary.slice(0, 93)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 90 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 62 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {
