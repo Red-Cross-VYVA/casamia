@@ -1127,7 +1127,7 @@
 
 .services-catalogue-service-grid {
   display: grid;
-  gap: 0.72rem;
+  gap: 0.9rem;
   padding: 0.9rem;
   background: #f5f9fb;
 }
@@ -1137,6 +1137,7 @@
   display: grid;
   min-width: 0;
   align-content: start;
+  grid-template-rows: auto auto auto 1fr;
   border: 1px solid #d1e2eb;
   border-radius: 0.7rem;
   background: #fff;
@@ -1351,6 +1352,7 @@
   line-height: 1.45;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .services-catalogue-proof-chips {
@@ -1459,7 +1461,8 @@
 
 .services-catalogue-service-actions {
   display: flex;
-  margin-top: 0.9rem;
+  align-self: end;
+  margin-top: 1rem;
 }
 
 .services-catalogue-service-actions .catalogue-item-detail-button {
@@ -1616,7 +1619,7 @@
   }
 
   .services-catalogue-service-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   }
 
   .services-zone-risk-list {

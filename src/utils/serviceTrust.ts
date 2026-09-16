@@ -142,12 +142,12 @@ function compactPreviewDescription(description: string) {
   const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)
   const summary = (sentences?.slice(0, 1).join(' ') ?? withoutOperationalProof).trim()
 
-  if (summary.length <= 96) return summary
+  if (summary.length <= 78) return summary
 
-  const clipped = summary.slice(0, 93)
+  const clipped = summary.slice(0, 75)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 62 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 52 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {

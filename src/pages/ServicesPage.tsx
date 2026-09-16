@@ -34,7 +34,7 @@ import type {
   MasterServiceCatalogue,
   ServicePackageArea,
 } from '../types/serviceCatalogue'
-import { getServicePreviewDescription, getServiceProofChips } from '../utils/serviceTrust'
+import { getServicePreviewDescription } from '../utils/serviceTrust'
 import '../styles/services-catalogue.css'
 
 type CatalogueGroupId = ServicePackageArea | 'other'
@@ -829,7 +829,6 @@ export function ServicesPage() {
                       const remainingIncludedItems = includedItems.length - visibleIncludedItems.length
                       const optionalAddOn = isOptionalAddOn(service)
                       const description = getCustomerServiceDescription(service)
-                      const proofChips = getServiceProofChips(service, language).slice(0, 2)
 
                       return (
                         <article
@@ -847,12 +846,6 @@ export function ServicesPage() {
                           <p className="services-catalogue-service-description">
                             {description}
                           </p>
-
-                          {proofChips.length ? (
-                            <div className="services-catalogue-proof-chips" aria-label={language === 'es' ? 'Señales de confianza' : 'Trust signals'}>
-                              {proofChips.map((chip) => <span key={chip}>{chip}</span>)}
-                            </div>
-                          ) : null}
 
                           {visibleIncludedItems.length ? (
                             <div className="services-catalogue-key-inclusions">

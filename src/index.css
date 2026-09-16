@@ -7993,8 +7993,8 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
 .zone-service-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
   margin-top: 22px;
 }
 
@@ -8011,7 +8011,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
 .zone-service-gallery-media {
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   background: var(--pale-blue);
 }
 
@@ -8026,7 +8026,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   display: flex;
   min-height: 0;
   flex-direction: column;
-  padding: 15px;
+  padding: 18px;
 }
 
 .zone-service-gallery-card-copy > span {
@@ -8067,10 +8067,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
-}
-
-.zone-service-gallery-proof-chips {
-  margin-top: 12px;
 }
 
 .zone-service-gallery-card-actions,
