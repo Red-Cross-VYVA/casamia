@@ -83,7 +83,7 @@ const serviceDetailUiCopy = {
     installed: 'Installed',
     product: 'Product',
     includedWith: 'Included with',
-    kitchenEyebrow: 'Kitchen independence',
+    kitchenEyebrow: 'Kitchen safety',
     kitchenStatsLabel: 'Kitchen safety services summary',
     safetyServices: 'safety services',
     managedInstalls: 'managed installs',
@@ -280,7 +280,7 @@ const defaultServiceDetailContent: ServiceDetailContent = {
   benefits: [
     {
       title: 'Fewer unsupported movements',
-      body: 'Reduce the small moments where someone pauses, reaches, twists, or feels unsure about moving through the room.',
+      body: 'Reduce the moments where someone pauses, reaches, twists or needs support but has nothing reliable nearby.',
     },
     {
       title: 'Clearer support',
@@ -288,7 +288,7 @@ const defaultServiceDetailContent: ServiceDetailContent = {
     },
     {
       title: 'More clarity for the next decision',
-      body: 'Make it clearer what has been checked, what matters most and what should be improved first.',
+      body: 'Show what has been checked, what matters most and which improvement should happen first.',
     },
   ],
   includedTitle: 'A room-specific plan, not a generic product list.',
@@ -302,7 +302,7 @@ const defaultServiceDetailContent: ServiceDetailContent = {
   ],
   reassuranceTitle: 'Matched to the person using the room.',
   reassuranceBody:
-    'The goal is not to make the home look clinical. It is to make everyday movement safer while keeping the home comfortable and familiar.',
+    'The goal is not to make the home look clinical. It is to make everyday movement safer while keeping familiar routines in place.',
   reassurancePoints: ['Matched to the existing home', 'Explained before work starts', 'Focused on prevention before incidents happen'],
   finalTitle: 'Start with the room that worries you most.',
   finalBody:
@@ -476,7 +476,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Book a visit and we will review transfers, surfaces, support points and the changes that fit the room.',
   },
   'stair-safety': {
-    benefitsTitle: 'Make every stair edge and support point easier to identify.',
+    benefitsTitle: 'Make stair edges and support points visible before moving.',
     benefitsIntro:
       'Stair safety depends on continuous support, visible edges, predictable lighting, and reducing the need to rush or carry too much.',
     benefits: [
@@ -486,7 +486,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Better visibility',
-        body: 'Use contrast and lighting so step edges, landings and turns are easier to see before moving.',
+        body: 'Use contrast and lighting so step edges, landings and turns are visible before the person moves.',
       },
       {
         title: 'Less fear of using the home',
@@ -517,7 +517,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Entrance safety starts at the path from outside to inside: steps, thresholds, lighting, hand support, visitors and access routines.',
     benefits: [
       {
-        title: 'Easier daily access',
+        title: 'Safer daily access',
         body: 'Reduce awkward thresholds, steps and unsupported moments when entering or leaving the home.',
       },
       {
@@ -562,7 +562,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Clearer cooking checks',
-        body: 'Sensors, timers, smart plugs and optional shut-off support make it clearer what needs checking after cooking.',
+        body: 'Sensors, timers, smart plugs and optional shut-off support show what needs checking after cooking.',
       },
     ],
     includedTitle: 'Build your kitchen plan from individual services.',
@@ -586,7 +586,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   'bedroom-safety': {
     benefitsTitle: 'Reduce night-time movement risk from bed to bathroom.',
     benefitsIntro:
-      'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. The room is planned around safer bed access, clearer night routes, and help within reach.',
+      'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. The room is planned around steadier bed access, visible night routes, and help within reach.',
     benefits: [
       {
         title: 'Getting in and out of bed',
@@ -627,7 +627,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   'smart-home-safety': {
     benefitsTitle: 'Use technology only where it reduces a named risk.',
     benefitsIntro:
-      'Smart safety should not feel like a complicated smart-home project. We focus on alerts, lighting and emergency support that are agreed, easy to explain and useful in the daily routine.',
+      'Smart safety should not feel like a complicated smart-home project. We focus on alerts, lighting and emergency support that are agreed, explainable and useful in the daily routine.',
     benefits: [
       {
         title: 'Earlier awareness',
@@ -635,7 +635,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Faster help',
-        body: 'Emergency buttons, wearable support and alerts make it easier to call the right helper quickly.',
+        body: 'Emergency buttons, wearable support and alerts help contact the right responder quickly.',
       },
       {
         title: 'Less daily friction',

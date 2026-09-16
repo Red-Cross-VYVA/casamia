@@ -253,9 +253,9 @@ export function GrantsPage() {
             body: 'Separate CasaMia pricing, possible assistance and timing.',
           },
         ],
-        supportTitle: 'CasaMia makes the route clearer.',
+        supportTitle: 'Know what to prepare before you apply.',
         supportBody:
-          'Answer a few questions and get a practical view: possible route, missing documents and next step.',
+          'Answer a few questions and see the likely route, missing documents and next step before any work is started.',
         programmesTitle: 'Published programmes',
         programmesBody:
           'We only show programmes with an official source, status and review date.',

@@ -163,7 +163,7 @@ const techCopy = {
     },
     devices: {
       eyebrow: 'Device integration',
-      title: 'Bring the devices. We make the information easier to act on.',
+      title: 'Turn device readings into a response plan.',
       body:
         'CasaMia can assess compatible health, wellbeing and home-safety technology, connect the agreed signals and route them to the people responsible for responding.',
       items: [
@@ -237,11 +237,11 @@ const techCopy = {
     },
     telehealth: {
       eyebrow: 'Telehealth option',
-      title: 'Make the video consultation easy before it begins.',
+      title: 'Prepare the video consultation before it begins.',
       body:
-        'CasaMia can add a telehealth option so the person at home can join a scheduled consultation more easily. We configure the chosen device, test the connection, provide reminders and prepare agreed information for the appointment.',
+        'CasaMia can add a telehealth option so the person at home can join a scheduled consultation with fewer last-minute problems. We configure the chosen device, test the connection, provide reminders and prepare agreed information for the appointment.',
       features: [
-        'Simple access to video consultations',
+        'One-tap access to video consultations',
         'Camera, sound and connection checks',
         'Appointment reminders',
         'Agreed readings ready for review',
@@ -382,7 +382,7 @@ const techCopy = {
     lang: 'es',
     seoTitle: 'Dispositivos de Salud Conectados, Clínica en Casa y Telesalud',
     seoDescription:
-      'CasaMia conecta dispositivos compatibles de salud y seguridad con tu app o sistema asistencial, o proporciona una solución completa con app sencilla, vista para contactos autorizados, panel profesional, Clínica en Casa y telesalud.',
+      'CasaMia conecta dispositivos compatibles de salud y seguridad con tu app o sistema asistencial, o proporciona una configuración gestionada con app, vista para contactos autorizados, panel profesional, Clínica en Casa y telesalud.',
     serviceType: 'Integración de dispositivos de salud, Clínica en Casa y configuración de telesalud',
     hero: {
       eyebrow: 'Salud conectada en casa',
@@ -432,12 +432,12 @@ const techCopy = {
           title: 'Tus dispositivos funcionan en apps separadas',
           body:
             'Revisamos la compatibilidad, conectamos las señales importantes y organizamos las alertas para que lleguen a quien corresponde.',
-          outcome: 'Sustituye avisos fragmentados por un flujo más claro.',
+          outcome: 'Dirige cada aviso al responsable adecuado.',
         },
         {
           icon: 'monitor' as TechIconName,
           number: '03',
-          title: 'Necesitas la solución completa',
+          title: 'Necesitas una configuración conectada completa',
           body:
             'CasaMia puede proporcionar la app para la persona, acceso para contactos autorizados, panel profesional, configuración de dispositivos, formación y soporte.',
           outcome: 'Un único servicio, desde el equipo hasta el uso diario.',
@@ -448,7 +448,7 @@ const techCopy = {
       eyebrow: 'Integración de dispositivos',
       title: 'Tú aportas los dispositivos. Nosotros hacemos que la información sea más accionable.',
       body:
-        'CasaMia puede evaluar tecnología compatible de salud, bienestar y seguridad doméstica, conectar las señales adecuadas y convertir datos dispersos en próximos pasos más claros.',
+        'CasaMia evalúa tecnología compatible de salud, bienestar y seguridad doméstica, conecta las señales acordadas y define quién debe responder a cada aviso.',
       items: [
         {
           icon: 'heart' as TechIconName,
@@ -473,7 +473,7 @@ const techCopy = {
       ],
       compatibilityTitle: 'La compatibilidad es lo primero',
       compatibilityBody:
-        'No todos los dispositivos permiten una conexión segura o compatible. Confirmamos la viabilidad técnica y contractual antes de prometer una integración. Si no es posible una conexión directa, proponemos un dispositivo adecuado o una alternativa práctica.',
+        'No todos los dispositivos permiten una conexión segura o compatible. Confirmamos la viabilidad técnica y contractual antes de prometer una integración. Si no es posible una conexión directa, proponemos un dispositivo compatible u otra ruta de respuesta.',
     },
     integration: {
       eyebrow: 'Arquitectura de integración',
@@ -524,7 +524,7 @@ const techCopy = {
       body:
         'CasaMia puede incorporar una opción de telesalud para que la persona participe en una consulta programada desde casa. Configuramos el dispositivo elegido, comprobamos la conexión, enviamos recordatorios y preparamos la información acordada para la cita.',
       features: [
-        'Acceso sencillo a videoconsultas',
+        'Acceso directo a videoconsultas',
         'Comprobación de cámara, sonido y conexión',
         'Recordatorios antes de la cita',
         'Lecturas acordadas listas para revisión',
@@ -588,7 +588,7 @@ const techCopy = {
         { title: 'Diseñar', body: 'Confirmamos compatibilidad, flujos de datos, permisos, alertas y responsabilidades.' },
         { title: 'Conectar', body: 'Suministramos los dispositivos acordados, instalamos, integramos, configuramos y probamos.' },
         { title: 'Formar', body: 'Acompañamos a personas usuarias, contactos autorizados, equipos y profesionales en el uso diario.' },
-        { title: 'Dar soporte', body: 'Mantenemos las conexiones acordadas, resolvemos incidencias y adaptamos la solución.' },
+        { title: 'Dar soporte', body: 'Mantenemos las conexiones acordadas, resolvemos incidencias y ajustamos la configuración cuando cambian las necesidades.' },
       ],
       imageAlt: 'Equipo de atención conectada CasaMia y materiales de formación preparados en una vivienda',
     },
@@ -669,7 +669,7 @@ function getTechCopy(language: string) {
 
 const spanishCatalogueLabels: Record<string, string> = {
   'Emergency support': 'Apoyo de emergencia',
-  'Simple controls': 'Controles sencillos',
+  'Simple controls': 'Controles directos',
   'Approved-contact alerts': 'Avisos a contactos autorizados',
   'Emergency call button': 'Botón de llamada de emergencia',
   'Voice hub setup': 'Configuración de asistente por voz',
