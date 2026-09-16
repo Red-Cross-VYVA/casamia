@@ -46,7 +46,7 @@ const copy = {
     consentDetail: 'Los avisos inteligentes solo se configuran si la persona entiende quién recibe las notificaciones y lo acepta.',
     consentLabel: 'Consentimiento comprobado',
     grantDetail: 'Indicamos cuándo una mejora puede ayudar en la documentación de subvenciones. La aprobación depende de la administración.',
-    grantLabel: 'Ruta de subvención explicada',
+    grantLabel: 'Subvención revisada',
     handoverDetail: 'Antes de cerrar el trabajo, la persona que lo usa entiende qué ha cambiado y cómo usarlo con seguridad.',
     handoverLabel: 'Explicación clara',
     installationDetail: 'El elemento se instala o configura, se prueba en la estancia real y se ajusta si algo no resulta cómodo.',
@@ -57,7 +57,7 @@ const copy = {
     noHiddenFit: 'Encaje revisado',
     professionalFitting: 'Instalado y probado',
     familyReady: 'Explicación clara',
-    grantChip: 'Subvención explicada',
+    grantChip: 'Subvención revisada',
     quoteChip: 'Precio confirmado',
     consentChip: 'Consentimiento',
     typicalTime: 'Tiempo orientativo de trabajo en casa',
@@ -125,7 +125,7 @@ export function getServicePreviewDescription(service: CasaMiaService) {
     .replace(/\s+(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar)\b.*$/i, '')
     .replace(/\s+(?:we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag|CasaMia confirms|Confirmamos)\b.*$/i, '')
     .split(/\s+/)
-    .slice(0, 11)
+    .slice(0, 8)
     .join(' ')
     .trim()
 
@@ -153,12 +153,12 @@ function compactPreviewDescription(description: string) {
     .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, when the layout allows|, after checking|, when the existing|, donde sea adecuado|, cuando encaja|, si procede|, tras revisar|, cuando la distribución|, cuando la instalación)\s*/i)[0]
     .trim()
 
-  if (summary.length <= 78) return summary
+  if (summary.length <= 58) return summary
 
-  const clipped = summary.slice(0, 75)
+  const clipped = summary.slice(0, 55)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 52 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 38 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {

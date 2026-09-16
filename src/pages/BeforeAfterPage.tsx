@@ -43,7 +43,7 @@ export function BeforeAfterPage() {
         }
       : {
           eyebrow: 'How to read the examples',
-          title: 'Do not just look at the change. Look at the routine.',
+          title: 'Look at the routine, not only the finished room.',
           body: 'Each image helps identify a daily situation: where the risk appears, what support is missing, and what must be checked before deciding.',
           steps: [
             {
