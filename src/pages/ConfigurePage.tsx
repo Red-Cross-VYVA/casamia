@@ -107,7 +107,7 @@ const stepHeadings = [
   'Confirm the home details.',
   'Answer the home-safety questions.',
   'Review the recommended improvements.',
-  'Review your selected safety work.',
+  'Review your selected safety adaptations.',
 ]
 const stepDescriptions = [
   'Answer a few room-by-room questions and CasaMia will build a first plan around the risky moments, rooms and checks you select.',
@@ -450,7 +450,7 @@ export function ConfigurePage() {
             </dl>
             <p className="mt-5 rounded-lg bg-pale-blue p-4 text-sm font-bold leading-relaxed text-text-mid">
               {state.selectedServiceIds.length > 0
-                ? 'This estimate uses the selected improvements. We check measurements, compatibility and final availability before any work starts.'
+                ? 'This estimate uses the selected improvements. We check measurements, compatibility and final availability before installation starts.'
                 : 'Select rooms and answer the guided questions. Your estimate appears once you choose individual improvements.'}
             </p>
           </aside>

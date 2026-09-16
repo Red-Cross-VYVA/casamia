@@ -93,7 +93,7 @@ const serviceDetailUiCopy = {
     improvedEyebrow: 'What gets improved',
     improvedTitle: 'Choose the improvements that fit.',
     improvedBody:
-      'Pick services one by one. We check measurements and compatibility before any work starts.',
+      'Pick services one by one. We check measurements and compatibility before installation starts.',
     planEyebrow: 'Your CasaMia plan',
     buildMyPlan: 'Build my plan',
     managedBy: 'Managed by CasaMia',
@@ -303,10 +303,10 @@ const defaultServiceDetailContent: ServiceDetailContent = {
   reassuranceTitle: 'Matched to the person using the room.',
   reassuranceBody:
     'The goal is not to make the home look clinical. It is to make everyday movement safer while keeping familiar routines in place.',
-  reassurancePoints: ['Matched to the existing home', 'Explained before work starts', 'Focused on prevention before incidents happen'],
+  reassurancePoints: ['Matched to the existing home', 'Explained before installation starts', 'Focused on prevention before incidents happen'],
   finalTitle: 'Start with the room that worries you most.',
   finalBody:
-    'CasaMia can check this area alongside the rest of the home, then separate quick fixes from work that still needs measurement.',
+    'CasaMia can check this area alongside the rest of the home, then separate quick fixes from adaptations that still need measurement.',
 }
 
 const defaultServiceDetailContentEs: ServiceDetailContent = {

@@ -30,7 +30,7 @@ const summaryCopy = {
     total: 'Total estimate',
     monthly: 'Monthly support',
     visitFee: 'Visit fee · VAT included',
-    next: 'Request quote or reserve visit',
+    next: 'Ask for review or reserve visit',
   },
   es: {
     eyebrow: 'Resumen de recomendación',

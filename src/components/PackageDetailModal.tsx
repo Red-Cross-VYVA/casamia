@@ -43,7 +43,7 @@ const packageModalCopy = {
       },
       compatibility: {
         label: 'Fit confirmed first',
-        detail: 'Measurements, fixing points, surfaces and home conditions are checked before work starts.',
+        detail: 'Measurements, fixing points, surfaces and home conditions are checked before installation starts.',
       },
       grant: {
         label: 'Grant criteria explained',
