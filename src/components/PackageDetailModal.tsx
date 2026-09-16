@@ -516,42 +516,66 @@ export function PackageDetailModal({
 
         {activeSlide ? (
           <>
-            <div className="plan-detail-story">
-              <div className="plan-detail-story-media">
-                <SafeImage
-                  alt={slideTitle}
-                  className="plan-detail-story-safe-image"
-                  fallbackLabel={slideTitle}
-                  imgClassName={`plan-detail-story-image ${getDetailImageClass(activeSlide)}`.trim()}
-                  loading="lazy"
-                  src={slideImage}
-                />
-                <div className="plan-detail-story-badge">
-                  <span>{copy.slideLabel}</span>
-                  <strong>
-                    {safeIndex + 1} / {slides.length}
-                  </strong>
+            <div className="plan-detail-story package-detail-story">
+              <div className="plan-detail-media-column package-detail-media-column">
+                <div className="plan-detail-story-media">
+                  <SafeImage
+                    alt={slideTitle}
+                    className="plan-detail-story-safe-image"
+                    fallbackLabel={slideTitle}
+                    imgClassName={`plan-detail-story-image ${getDetailImageClass(activeSlide)}`.trim()}
+                    loading="lazy"
+                    src={slideImage}
+                  />
+                  <div className="plan-detail-story-badge">
+                    <span>{copy.slideLabel}</span>
+                    <strong>
+                      {safeIndex + 1} / {slides.length}
+                    </strong>
+                  </div>
+                  {hasMultiple ? (
+                    <div className="plan-detail-story-controls" aria-label={`${title} navigation`}>
+                      <button
+                        aria-label={copy.previous}
+                        className="plan-detail-arrow"
+                        type="button"
+                        onClick={goToPreviousSlide}
+                      >
+                        <ArrowLeft size={18} aria-hidden="true" />
+                      </button>
+                      <button
+                        aria-label={copy.next}
+                        className="plan-detail-arrow"
+                        type="button"
+                        onClick={goToNextSlide}
+                      >
+                        <ArrowRight size={18} aria-hidden="true" />
+                      </button>
+                    </div>
+                  ) : null}
                 </div>
-                {hasMultiple ? (
-                  <div className="plan-detail-story-controls" aria-label={`${title} navigation`}>
-                    <button
-                      aria-label={copy.previous}
-                      className="plan-detail-arrow"
-                      type="button"
-                      onClick={goToPreviousSlide}
-                    >
-                      <ArrowLeft size={18} aria-hidden="true" />
-                    </button>
-                    <button
-                      aria-label={copy.next}
-                      className="plan-detail-arrow"
-                      type="button"
-                      onClick={goToNextSlide}
-                    >
-                      <ArrowRight size={18} aria-hidden="true" />
-                    </button>
+
+                {trustSignals.length ? (
+                  <div className="plan-detail-included-card package-detail-trust">
+                    <h4>{copy.trust}</h4>
+                    <ul>
+                      {trustSignals.map((signal) => (
+                        <li key={signal.label}>
+                          <CheckCircle2 size={16} aria-hidden="true" />
+                          <span>
+                            <strong>{signal.label}</strong>
+                            <small>{signal.detail}</small>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 ) : null}
+
+                <p className="package-detail-standard">
+                  <ShieldCheck size={16} aria-hidden="true" />
+                  <span>{copy.standard}</span>
+                </p>
               </div>
 
               <article className="plan-detail-story-panel">
@@ -585,27 +609,6 @@ export function PackageDetailModal({
                   </div>
                 </div>
 
-                {trustSignals.length ? (
-                  <div className="plan-detail-included-card package-detail-trust">
-                    <h4>{copy.trust}</h4>
-                    <ul>
-                      {trustSignals.map((signal) => (
-                        <li key={signal.label}>
-                          <CheckCircle2 size={16} aria-hidden="true" />
-                          <span>
-                            <strong>{signal.label}</strong>
-                            <small>{signal.detail}</small>
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-
-                <p className="package-detail-standard">
-                  <ShieldCheck size={16} aria-hidden="true" />
-                  <span>{copy.standard}</span>
-                </p>
               </article>
             </div>
 

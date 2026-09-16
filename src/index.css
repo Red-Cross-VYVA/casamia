@@ -8102,7 +8102,19 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .service-item-detail-modal {
-  width: min(980px, 100%);
+  width: min(1120px, 100%);
+}
+
+.service-item-detail-story,
+.package-detail-story {
+  grid-template-columns: minmax(340px, 0.92fr) minmax(360px, 0.9fr);
+  align-items: start;
+}
+
+.plan-detail-media-column {
+  display: grid;
+  gap: 14px;
+  align-content: start;
 }
 
 .service-item-detail-proof-row {
@@ -8133,7 +8145,18 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .service-item-detail-trust {
+  margin-top: 0;
   background: linear-gradient(180deg, #ffffff, #f6fbfe);
+}
+
+.plan-detail-media-column .service-item-detail-trust {
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.plan-detail-media-column .service-item-detail-trust ul {
+  gap: 9px;
+  margin-top: 12px;
 }
 
 .service-item-detail-trust li span {
@@ -8169,6 +8192,13 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .service-item-detail-standard {
   background: rgba(31, 103, 146, 0.09);
   color: var(--navy);
+}
+
+.plan-detail-media-column .service-item-detail-standard {
+  margin-top: 0;
+  border: 1px solid rgba(31, 103, 146, 0.14);
+  border-radius: 18px;
+  padding: 14px 16px;
 }
 
 .service-kitchen-component-grid {
@@ -20385,7 +20415,18 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .package-detail-trust {
+  margin-top: 0;
   background: linear-gradient(180deg, #ffffff, #f6fbfe);
+}
+
+.plan-detail-media-column .package-detail-trust {
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.plan-detail-media-column .package-detail-trust ul {
+  gap: 9px;
+  margin-top: 12px;
 }
 
 .package-detail-trust li span {
@@ -20410,9 +20451,15 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   display: flex;
   gap: 8px;
   align-items: flex-start;
-  margin-top: 12px;
+  margin-top: 0;
+  border: 1px solid rgba(31, 103, 146, 0.14);
+  border-radius: 18px;
   background: rgba(31, 103, 146, 0.09);
+  padding: 14px 16px;
   color: var(--navy);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
 }
 
 .package-detail-standard svg {
@@ -21193,6 +21240,15 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
   .plan-detail-story {
     grid-template-columns: 1fr;
+  }
+
+  .service-item-detail-story,
+  .package-detail-story {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-detail-media-column {
+    gap: 12px;
   }
 
   .plan-detail-story-media,

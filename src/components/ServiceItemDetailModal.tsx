@@ -199,20 +199,42 @@ export function ServiceItemDetailModal({
           </button>
         </div>
 
-        <div className="plan-detail-story">
-          <div className="plan-detail-story-media">
-            <SafeImage
-              alt={detail.title}
-              className="plan-detail-story-safe-image"
-              fallbackLabel={detail.title}
-              imgClassName="plan-detail-story-image"
-              loading="lazy"
-              src={detail.image}
-            />
-            <div className="plan-detail-story-badge">
-              <span>{copy.detailLabel}</span>
-              <strong>{detail.typeLabel}</strong>
+        <div className="plan-detail-story service-item-detail-story">
+          <div className="plan-detail-media-column service-item-detail-media-column">
+            <div className="plan-detail-story-media">
+              <SafeImage
+                alt={detail.title}
+                className="plan-detail-story-safe-image"
+                fallbackLabel={detail.title}
+                imgClassName="plan-detail-story-image"
+                loading="lazy"
+                src={detail.image}
+              />
+              <div className="plan-detail-story-badge">
+                <span>{copy.detailLabel}</span>
+                <strong>{detail.typeLabel}</strong>
+              </div>
             </div>
+
+            <div className="plan-detail-included-card service-item-detail-trust">
+              <h4>{copy.trust}</h4>
+              <ul>
+                {detail.trustSignals.map((signal) => (
+                  <li key={signal.label}>
+                    <CheckCircle2 size={16} aria-hidden="true" />
+                    <span>
+                      <strong>{signal.label}</strong>
+                      <small>{signal.detail}</small>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="plan-detail-footnote service-item-detail-standard">
+              <ShieldCheck size={16} aria-hidden="true" />
+              <span><strong>{copy.standard}:</strong> {detail.standard}</span>
+            </p>
           </div>
 
           <article className="plan-detail-story-panel">
@@ -258,32 +280,12 @@ export function ServiceItemDetailModal({
               </div>
             ) : null}
 
-            <div className="plan-detail-included-card service-item-detail-trust">
-              <h4>{copy.trust}</h4>
-              <ul>
-                {detail.trustSignals.map((signal) => (
-                  <li key={signal.label}>
-                    <CheckCircle2 size={16} aria-hidden="true" />
-                    <span>
-                      <strong>{signal.label}</strong>
-                      <small>{signal.detail}</small>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             {service.safetyNotice ? (
               <p className="plan-detail-footnote">
                 <ShieldCheck size={16} aria-hidden="true" />
                 <span><strong>{copy.safetyNote}:</strong> {service.safetyNotice}</span>
               </p>
             ) : null}
-
-            <p className="plan-detail-footnote service-item-detail-standard">
-              <ShieldCheck size={16} aria-hidden="true" />
-              <span><strong>{copy.standard}:</strong> {detail.standard}</span>
-            </p>
           </article>
         </div>
       </section>
