@@ -25,8 +25,8 @@ type TrustSectionCopy = {
 
 const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
   en: {
-    eyebrow: 'Why people trust CasaMia',
-    headline: 'What makes the recommendation easier to trust',
+    eyebrow: 'How CasaMia checks the work',
+    headline: 'Know why a change is recommended before anything is fitted',
     body:
       'Every project starts with the person, the home and the routine. CasaMia confirms fit, scope, installer route and safe-use handover before work is treated as complete.',
     learnMore: 'Learn why CasaMia',
@@ -43,13 +43,13 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       },
       {
         icon: 'insured',
-        title: 'Fully Insured Services',
-        body: 'Projects are structured around insured professional work, from review to installation.',
+        title: 'Insured professional work',
+        body: 'Installation routes are structured around insured professional work, from review to handover.',
       },
       {
         icon: 'pricing',
-        title: 'Transparent Pricing',
-        body: 'You see the recommended scope, assumptions and price before committing to the work.',
+        title: 'Price before commitment',
+        body: 'You see the recommended scope, assumptions and price before deciding whether the work goes ahead.',
       },
       {
         icon: 'products',
@@ -64,8 +64,8 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     ],
   },
   es: {
-    eyebrow: 'Por qué confiar en CasaMia',
-    headline: 'Qué hace más fiable la recomendación',
+    eyebrow: 'Cómo comprueba CasaMia el trabajo',
+    headline: 'Sabe por qué se recomienda un cambio antes de instalar nada',
     body:
       'Cada proyecto empieza por la persona, la vivienda y la rutina. CasaMia confirma encaje, alcance, vía de instalación y explicación de uso seguro antes de dar el trabajo por cerrado.',
     learnMore: 'Ver por qué CasaMia',
@@ -82,13 +82,13 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       },
       {
         icon: 'insured',
-        title: 'Servicios asegurados',
-        body: 'Los proyectos se estructuran con trabajo profesional asegurado, desde la evaluación hasta la instalación.',
+        title: 'Trabajo profesional asegurado',
+        body: 'Las rutas de instalación se estructuran con trabajo profesional asegurado, desde la revisión hasta la entrega.',
       },
       {
         icon: 'pricing',
-        title: 'Precios transparentes',
-        body: 'Ves claramente el alcance recomendado y el precio antes de comprometerte.',
+        title: 'Precio antes del compromiso',
+        body: 'Ves el alcance recomendado, los supuestos y el precio antes de decidir si el trabajo sigue adelante.',
       },
       {
         icon: 'products',

@@ -330,9 +330,9 @@
   },
   "offer": {
     "badge": "CÓMO FUNCIONA CASAMIA",
-    "line1": "Un hogar más seguro,",
-    "line2": "paso a paso.",
-    "intro": "Elige la ruta que mejor encaje con la vivienda. Convertimos el paquete adecuado o una inspección en prioridades por estancia, alcance acordado, documentación de ayudas cuando proceda e instalación coordinada.",
+    "line1": "Empieza por la estancia",
+    "line2": "que más preocupa.",
+    "intro": "Empieza con fotos, un paquete o una inspección. CasaMia convierte la preocupación en prioridades por estancia, alcance confirmado, notas para ayudas cuando proceda e instalación coordinada.",
     "ctaPrimary": "Crear mi plan CasaMia",
     "ctaSecondary": "Pedid que os contactemos",
     "proposalSnapshot": {
@@ -354,18 +354,18 @@
     "cards": [
       {
         "icon": "Paso 1",
-        "title": "Elige por dónde empezar",
-        "desc": "Elige un paquete inicial o solicita una inspección para que CasaMia confirme la estancia, las medidas y el primer alcance seguro.",
+        "title": "Muestra la preocupación",
+        "desc": "Empieza con fotos, un paquete inicial o una inspección para confirmar la estancia, las medidas y el primer alcance de seguridad.",
         "points": [
-          "Paquetes preparados",
+          "Fotos o ruta de paquete",
           "Inspección opcional",
-          "Recomendación técnica"
+          "Revisión de estancia y medidas"
         ]
       },
       {
         "icon": "Paso 2",
-        "title": "Revisa tu propuesta",
-        "desc": "Compartimos una propuesta con acciones prioritarias, elementos incluidos, supuestos y precios, para que sepas qué se recomienda y por qué.",
+        "title": "Revisa qué va a cambiar",
+        "desc": "La propuesta separa acciones prioritarias, elementos incluidos, supuestos y precios, para que veas qué se recomienda y por qué.",
         "points": [
           "Sugerencias por estancia",
           "Prioridades claras",
@@ -374,8 +374,8 @@
       },
       {
         "icon": "Paso 3",
-        "title": "Solicita las ayudas disponibles",
-        "desc": "CasaMia prepara documentación de ayudas para obras elegibles, de modo que el posible apoyo público se revise antes de cerrar el alcance final.",
+        "title": "Revisa las ayudas pronto",
+        "desc": "Cuando el trabajo pueda encajar, CasaMia prepara notas de apoyo antes de cerrar el alcance final.",
         "points": [
           "Revisión de elegibilidad",
           "Apoyo documental",
@@ -384,8 +384,8 @@
       },
       {
         "icon": "Paso 4",
-        "title": "Instalación y soporte",
-        "desc": "CasaMia coordina la instalación, comprueba que todo funcione correctamente y sigue siendo tu contacto para dudas, ajustes y soporte continuo.",
+        "title": "Instalar, probar y explicar",
+        "desc": "CasaMia coordina la instalación, comprueba el resultado en la estancia y explica el uso seguro antes de cerrar el trabajo.",
         "points": [
           "Instalación profesional",
           "Revisión final",
@@ -551,8 +551,8 @@
     "desc": "Comprometidos con reducir accidentes en el hogar y mejorar la seguridad de los mayores en toda Europa."
   },
   "finalCta": {
-    "title": "El hogar de tus padres,\nhecho seguro.",
-    "body": "Sube unas fotos hoy. Recibe gratis un informe online de seguridad con posibles riesgos por estancia y qué adaptar primero.",
+    "title": "Ve qué necesita\nprimero tu hogar.",
+    "body": "Sube unas fotos de las estancias y recibe gratis un informe online con riesgos visibles, límites y qué revisar después.",
     "cta": "Obtener informe gratis"
   },
   "footer": {

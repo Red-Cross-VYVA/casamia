@@ -330,9 +330,9 @@
   },
   "offer": {
     "badge": "HOW CASAMIA WORKS",
-    "line1": "A safer home,",
-    "line2": "handled step by step.",
-    "intro": "Choose the starting route that fits the home. CasaMia turns the package or inspection into room priorities, agreed scope, grant documents where relevant and coordinated installation.",
+    "line1": "Start with the room",
+    "line2": "that worries you most.",
+    "intro": "Begin with photos, a package or an inspection. CasaMia turns the concern into room priorities, confirmed scope, grant notes where relevant and coordinated installation.",
     "ctaPrimary": "Build your CasaMia plan",
     "ctaSecondary": "Ask us to contact you",
     "proposalSnapshot": {
@@ -354,18 +354,18 @@
     "cards": [
       {
         "icon": "Step 1",
-        "title": "Choose your starting point",
-        "desc": "Choose a starter package or request a home inspection so CasaMia can confirm the room, measurements and first safe scope.",
+        "title": "Show us the concern",
+        "desc": "Start with photos, a starter package or a home inspection so the room, measurements and first safety scope can be confirmed.",
         "points": [
-          "Ready-made packages",
+          "Photos or package route",
           "Optional home inspection",
-          "Technician guidance"
+          "Room and measurement check"
         ]
       },
       {
         "icon": "Step 2",
-        "title": "Review your proposal",
-        "desc": "We share a proposal with priority actions, included items, assumptions and pricing, so you know what is being recommended and why.",
+        "title": "Review what will change",
+        "desc": "Your proposal separates priority actions, included items, assumptions and pricing, so you can see what is recommended and why.",
         "points": [
           "Room-by-room suggestions",
           "Clear priorities",
@@ -374,8 +374,8 @@
       },
       {
         "icon": "Step 3",
-        "title": "Claim available grant support",
-        "desc": "CasaMia prepares grant documents for eligible works, so possible public support is checked before the final scope is agreed.",
+        "title": "Check grant paperwork early",
+        "desc": "When work may be eligible, CasaMia prepares the supporting notes before the final scope is agreed.",
         "points": [
           "Eligibility check",
           "Document support",
@@ -384,8 +384,8 @@
       },
       {
         "icon": "Step 4",
-        "title": "Install and stay supported",
-        "desc": "CasaMia coordinates installation, checks everything is working properly and remains your contact for questions, adjustments and ongoing support.",
+        "title": "Install, test and explain",
+        "desc": "CasaMia coordinates installation, checks the result in the room and explains safe use before the work is closed.",
         "points": [
           "Professional installation",
           "Handover check",
@@ -551,8 +551,8 @@
     "desc": "Committed to reducing home accidents and improving senior safety across Europe."
   },
   "finalCta": {
-    "title": "Your parents' home,\nmade safe.",
-    "body": "Upload a few photos today. Get a free online safety report showing potential room risks and what to adapt first.",
+    "title": "See what your home\nneeds first.",
+    "body": "Upload a few room photos and get a free online safety report showing visible risks, limits and what to review next.",
     "cta": "Get My Free Report"
   },
   "footer": {
