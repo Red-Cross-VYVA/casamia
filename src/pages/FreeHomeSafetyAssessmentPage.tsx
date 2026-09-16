@@ -157,8 +157,8 @@ export function FreeHomeSafetyAssessmentPage() {
             <p>
               {isReportBookingFlow
                 ? isSpanish
-                  ? 'Ya has completado el informe gratuito. Elige el mejor canal y horario para que CasaMia coordine la visita.'
-                  : 'You have completed the free report. Choose the best way and time for CasaMia to coordinate the visit.'
+                  ? 'Ya has completado el informe gratuito. Indica cómo y cuándo debe contactarte CasaMia para confirmar la visita.'
+                  : 'You have completed the free report. Tell CasaMia how and when to contact you to confirm the visit.'
                 : t('assessment.hero.subtitle')}
             </p>
             <div className="assessment-hero-actions">
@@ -323,8 +323,8 @@ export function FreeHomeSafetyAssessmentPage() {
             <p>
               {isReportBookingFlow
                 ? isSpanish
-                  ? 'Indica el canal y horario más cómodo para que el equipo confirme tu evaluación a domicilio.'
-                  : 'Tell us the best contact channel and timing so the team can confirm your in-home assessment.'
+                  ? 'Indica el canal y horario para confirmar la evaluación, la dirección y cualquier prioridad detectada en el informe.'
+                  : 'Share the contact channel and timing to confirm the assessment, address and any priorities found in the report.'
                 : t('assessment.formSection.body')}
             </p>
           </div>

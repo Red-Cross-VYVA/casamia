@@ -291,7 +291,7 @@ const upgrades: SelectableCard<UpgradeId>[] = [
 const processSteps = [
   ['Book assessment', 'Choose a home visit or start with self-inspection photos.'],
   ['We review the home', 'We check the rooms, routines and real safety priorities.'],
-  ['Receive your report', 'You get clear recommendations and a confirmed next step.'],
+  ['Receive your report', 'You get room priorities, visible risks and the action to confirm next.'],
   ['Choose improvements', 'Start with essentials, then add what clearly helps.'],
   ['Enjoy a safer home', 'Everything is installed, tested and ready to use.'],
 ]
@@ -666,10 +666,10 @@ export function HomePage() {
         <div className="home-configurator-layout site-shell">
           <div className="home-configurator-intro">
             <p className="home-redesign-kicker">Build your safer home</p>
-            <h2>Answer a few quick questions.</h2>
+            <h2>Answer the key home-safety questions.</h2>
             <p>
-              See a helpful starting point before sharing any personal details. The final quote is confirmed
-              after assessment.
+              See which rooms and risks should be reviewed first before sharing contact details. Final pricing is
+              confirmed after the home is assessed.
             </p>
             <Link
               className="btn btn-green"
@@ -901,8 +901,7 @@ export function HomePage() {
           <div className="home-agent-panel" role="dialog" aria-label="CasaMia Assistant">
             <strong>Hi, I am the CasaMia Assistant.</strong>
             <p>
-              I can explain our services, help you understand what your home might need, or guide you
-              toward booking an assessment.
+              I can explain packages, inspections, grants and the safest next step for the room that concerns you.
             </p>
             <div>
               <Link to={configuratorPath} onClick={() => handleConfiguratorClick('assistant')}>
