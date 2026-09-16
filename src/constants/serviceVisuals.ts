@@ -12,7 +12,7 @@ export const serviceVisuals: Record<
     note: 'Transfers, water, support points',
   },
   'stair-safety': {
-    badge: 'Daily movement route',
+    badge: 'Daily movement',
     image: '/images/solutions/stairs-hallways.jpg',
     note: 'Handrails, contrast, lighting',
   },
@@ -29,10 +29,10 @@ export const serviceVisuals: Record<
   'bedroom-safety': {
     badge: 'Rest and night routines',
     image: '/images/before-after/bedroom-after.webp',
-    note: 'Bed access, night routes, help within reach',
+    note: 'Bed access, night movement, help within reach',
   },
   'smart-home-safety': {
-    badge: 'Connected reassurance',
+    badge: 'Connected safety',
     image: 'https://casamia-seniors.myshopify.com/cdn/shop/files/AdobeStock_423763182-scaled.jpg',
     note: 'Sensors, VYVA, trusted-contact alerts',
   },

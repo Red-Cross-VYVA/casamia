@@ -63,12 +63,12 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Stair Safety and Handrails',
     shortTitle: 'Stair Safety',
     description:
-      'Reduce stair and hallway risks with continuous handrails, better lighting, contrast strips, and safer movement routes.',
+      'Reduce stair and hallway risks with continuous handrails, better lighting, contrast strips, and safer movement between levels.',
     intro:
       'Stairs and hallways should be easy to understand at a glance, with reliable support from the first step to the last.',
     icon: 'stairs',
     risks: ['Missing or interrupted handrails', 'Poor step contrast', 'Low lighting on landings'],
-    improvements: ['Continuous handrail support', 'Step-edge visibility', 'Motion lighting and safer routes'],
+    improvements: ['Continuous handrail support', 'Step-edge visibility', 'Motion lighting and safer movement'],
     ctaPlan: 'home-safety',
   },
   {
@@ -77,7 +77,7 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Entrance Accessibility Improvements',
     shortTitle: 'Safe Entrances',
     description:
-      'Improve home entrances with safer thresholds, ramps when they fit the route, lighting, support points, and clearer access routes.',
+      'Improve home entrances with safer thresholds, ramps where suitable, lighting, support points, and clearer access.',
     intro:
       'The entrance is where daily independence begins. Small changes can make arriving, leaving, and receiving visitors safer.',
     icon: 'door',
@@ -91,11 +91,11 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Kitchen Safety for Aging in Place',
     shortTitle: 'Kitchen Safety',
     description:
-      'Make kitchens easier and safer with better reach, clearer movement routes, lighting, storage changes, and appliance safety measures.',
+      'Make kitchens easier and safer with better reach, clearer walking space, lighting, storage changes, and appliance safety measures.',
     intro:
       'A safer kitchen keeps daily routines manageable by reducing unnecessary reaching, bending, clutter, and appliance risk.',
     icon: 'kitchen',
-    risks: ['Hard-to-reach daily items', 'Cluttered movement routes', 'Poor task lighting'],
+    risks: ['Hard-to-reach daily items', 'Cluttered walking space', 'Poor task lighting'],
     improvements: ['Safer storage and reach', 'Clearer circulation', 'Lighting and appliance safeguards'],
     ctaPlan: 'home-safety',
   },
@@ -105,12 +105,12 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Bedroom Safety for Seniors',
     shortTitle: 'Bedroom Safety',
     description:
-      'Make bedrooms safer for older adults with easier bed access, night lighting, clear walking routes, bedside support, and emergency reach points.',
+      'Make bedrooms safer for older adults with easier bed access, night lighting, clear floor space, bedside support, and emergency reach points.',
     intro:
       'Bedrooms need to support safe rest and safe movement, especially at night when low light, fatigue, and urgent routines can increase fall risk.',
     icon: 'bedroom',
-    risks: ['Difficulty getting in and out of bed', 'Dark night-time routes', 'Emergency help out of reach'],
-    improvements: ['Bedside support and transfer aids', 'Motion night lighting', 'Clear routes and emergency reach points'],
+    risks: ['Difficulty getting in and out of bed', 'Dark night-time movement', 'Emergency help out of reach'],
+    improvements: ['Bedside support and transfer aids', 'Motion night lighting', 'Clear floor space and emergency reach points'],
     ctaPlan: 'home-safety',
   },
   {
@@ -121,7 +121,7 @@ export const primaryServices: ServicePageContent[] = [
     description:
       'Add practical smart safety technology such as motion lighting, leak sensors, door alerts, emergency response devices, and approved-contact notifications.',
     intro:
-      'Smart safety should feel simple. CasaMia focuses on practical technology that supports confidence without making the home complicated.',
+      'Smart safety should be understandable. CasaMia focuses on practical technology that reduces a named risk without making the home complicated.',
     icon: 'smartphone',
     risks: ['No alert when routines change', 'Poor night visibility', 'Hidden water or smoke risks'],
     improvements: ['Motion lighting and sensors', 'Emergency response devices', 'Simple setup and training'],
@@ -147,7 +147,7 @@ export const resourcePages: ResourcePageContent[] = [
       {
         title: 'Prioritise support and visibility',
         body:
-          'Handrails, grab bars, motion lighting, step contrast, and clearer walking routes can make a home easier to use without changing how it feels.',
+          'Handrails, grab bars, motion lighting, step contrast, and clearer walking space can make a home easier to use without changing how it feels.',
       },
       {
         title: 'Get a professional review before works begin',
@@ -194,7 +194,7 @@ export const resourcePages: ResourcePageContent[] = [
       {
         title: 'Where to check first',
         body:
-          'Start with the home address, then check the autonomous community, municipality, social services route and national subsidy database for open calls.',
+          'Start with the home address, then check the autonomous community, municipality, social services office and national subsidy database for open calls.',
       },
       {
         title: 'What to prepare',
@@ -225,7 +225,7 @@ export const resourcePages: ResourcePageContent[] = [
       {
         title: 'Use technology only where it helps',
         body:
-          'Smart lighting, sensors, and alerts can support independence, but they should remain simple for the person living at home.',
+          'Smart lighting, sensors, and alerts can support independence, but they should remain understandable for the person living at home.',
       },
       {
         title: 'Create a phased plan',

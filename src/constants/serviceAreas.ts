@@ -22,8 +22,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
       es: 'Coordinación ágil para pisos, viviendas familiares y vueltas a casa.',
     },
     focus: {
-      en: ['bathroom safety', 'night routes', 'post-hospital priorities'],
-      es: ['seguridad en baño', 'rutas nocturnas', 'prioridades tras hospital'],
+      en: ['bathroom safety', 'night movement', 'post-hospital priorities'],
+      es: ['seguridad en baño', 'movimiento nocturno', 'prioridades tras hospital'],
     },
   },
   {
@@ -35,8 +35,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
       es: 'Apoyo en adaptaciones senior para pisos urbanos y edificios antiguos.',
     },
     focus: {
-      en: ['access routes', 'bathroom access', 'connected support'],
-      es: ['rutas de acceso', 'acceso al baño', 'apoyo conectado'],
+      en: ['entrance access', 'bathroom access', 'connected support'],
+      es: ['acceso de entrada', 'acceso al baño', 'apoyo conectado'],
     },
   },
   {
@@ -100,8 +100,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
       es: 'Despliegue prioritario en el norte según se confirme la red de profesionales.',
     },
     focus: {
-      en: ['provider matching', 'home assessment', 'aftercare route'],
-      es: ['asignación profesional', 'revisión de vivienda', 'ruta de seguimiento'],
+      en: ['provider matching', 'home assessment', 'aftercare steps'],
+      es: ['asignación profesional', 'revisión de vivienda', 'pasos de seguimiento'],
     },
   },
   {
@@ -109,8 +109,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Aragon',
     status: 'planned',
     headline: {
-      en: 'Central coverage route for practical adaptations and family decision support.',
-      es: 'Ruta de cobertura central para adaptaciones prácticas y apoyo a familias.',
+      en: 'Central coverage for practical adaptations and household decision support.',
+      es: 'Cobertura central para adaptaciones prácticas y apoyo en decisiones del hogar.',
     },
     focus: {
       en: ['safety plan', 'visit coordination', 'grant criteria'],

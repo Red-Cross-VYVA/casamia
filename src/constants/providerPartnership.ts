@@ -46,10 +46,10 @@ export const providerExpertisePillars = [
   {
     title: 'Practical safety, not product pushing',
     body:
-      'Recommendations focus on transfers, thresholds, lighting, support points, bathroom use, night routes and safe daily use.',
+      'Recommendations focus on transfers, thresholds, lighting, support points, bathroom use, night movement and safe daily use.',
   },
   {
-    title: 'Professional customer journey',
+    title: 'Professional customer process',
     body:
       'Providers work inside a structured flow: assessment, scoped plan, installation brief, acceptance record and follow-up notes.',
   },
@@ -125,7 +125,7 @@ export const providerMarketingAssets = [
   {
     title: 'Window and van sticker concept',
     body:
-      'A simple decal concept providers can adapt for approved vehicles, offices or showrooms.',
+      'A concise decal concept providers can adapt for approved vehicles, offices or showrooms.',
     format: 'SVG concept',
     usage: 'Vehicle, office window, showroom counter',
   },
@@ -149,7 +149,7 @@ export const providerMarketingRules = [
 export const providerPartnerPaths = [
   {
     title: 'Accessibility installers',
-    body: 'Grab rails, ramps, thresholds, support points and safer movement routes.',
+    body: 'Grab rails, ramps, thresholds, support points and safer movement between rooms.',
   },
   {
     title: 'Bathroom specialists',
@@ -157,7 +157,7 @@ export const providerPartnerPaths = [
   },
   {
     title: 'Electrical and lighting teams',
-    body: 'Motion lighting, stair visibility, night routes, switches and safer access points.',
+    body: 'Motion lighting, stair visibility, night movement, switches and safer access points.',
   },
   {
     title: 'Smart safety technicians',
