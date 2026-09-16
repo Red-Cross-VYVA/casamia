@@ -68,7 +68,7 @@ const serviceAreaCopy = {
     cityFaqCta: 'Start your home review',
     cityFaqItems: (city: string) => [
       {
-        question: `Can CasaMia help if my home in ${city} is not ready for a visit yet?`,
+        question: `Can I start before my home in ${city} is ready for a visit?`,
         answer:
           'Yes. You can start with guided questions, photos, videos or a voice brief. We will tell you whether a remote plan is enough or whether a local visit makes sense.',
       },
@@ -78,9 +78,9 @@ const serviceAreaCopy = {
           'CasaMia coordinates the route: remote review, scoped proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, scope and confirmed provider availability.',
       },
       {
-        question: `Can CasaMia help with grants and required documents in ${city}?`,
+        question: `What happens with grants and required documents in ${city}?`,
         answer:
-          'CasaMia can help structure the project information and identify the likely route, but public authorities decide eligibility, approval, amount and timing.',
+          'CasaMia structures the project information and likely grant route, but public authorities decide eligibility, approval, amount and timing.',
       },
     ],
     cityBack: 'View all service areas',
@@ -144,7 +144,7 @@ const serviceAreaCopy = {
     cityFaqCta: 'Empezar revisión',
     cityFaqItems: (city: string) => [
       {
-        question: `¿CasaMia puede ayudar si mi vivienda en ${city} aún no está lista para una visita?`,
+        question: `¿Puedo empezar si mi vivienda en ${city} aún no está lista para una visita?`,
         answer:
           'Sí. Puedes empezar con preguntas guiadas, fotos, vídeos o una nota de voz. Te indicaremos si basta con un plan remoto o si conviene una visita local.',
       },
@@ -154,9 +154,9 @@ const serviceAreaCopy = {
           'CasaMia coordina la ruta: revisión remota, propuesta definida, encaje con profesionales verificados, planificación de instalación y seguimiento. La entrega local depende del alcance, los tiempos y la disponibilidad confirmada.',
       },
       {
-        question: `¿CasaMia ayuda con ayudas o documentación en ${city}?`,
+        question: `¿Qué pasa con ayudas y documentación en ${city}?`,
         answer:
-          'CasaMia puede ayudar a ordenar la información del proyecto e identificar la ruta probable, pero la administración pública decide elegibilidad, aprobación, importe y plazos.',
+          'CasaMia ordena la información del proyecto e identifica la ruta probable, pero la administración pública decide elegibilidad, aprobación, importe y plazos.',
       },
     ],
     cityBack: 'Ver todas las zonas',

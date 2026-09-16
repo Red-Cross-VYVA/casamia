@@ -87,7 +87,7 @@ const pageCopy = {
     pathwaysEyebrow: 'Choose the closest situation',
     pathwaysTitle: 'Help by decision, not by article title.',
     pathwaysBody:
-      'Most people arrive with one urgent question. Start there, then move into the guide, checklist or tool that helps you make the next decision calmly.',
+      'Most people arrive with one urgent question. Start there, then use the guide, checklist or tool that gives you the next decision.',
     pathwayCta: 'Start here',
     familyStarterEyebrow: '10-minute home discussion',
     familyStarterTitle: 'Before choosing products, name the risk to solve.',
@@ -145,7 +145,7 @@ const pageCopy = {
       {
         question: 'Can I use these resources before booking CasaMia?',
         answer:
-          'Yes. The checklist, guides and tools are designed to help you prepare calmly before deciding whether professional help is needed.',
+          'Yes. Use the checklist, guides and tools to prepare notes before deciding whether a professional visit is needed.',
       },
       {
         question: 'When should we arrange a home visit?',
@@ -155,13 +155,13 @@ const pageCopy = {
       {
         question: 'Can CasaMia help with grants and documents?',
         answer:
-          'CasaMia can help organise the route, documents, quotation information and next steps. Public authorities make the final grant decision.',
+          'CasaMia organises the route, document checklist, quotation information and next steps. Public authorities make the final grant decision.',
       },
     ],
     finalEyebrow: 'Need a plan for a real home?',
     finalTitle: 'Turn the checklist into a prioritised conversion plan.',
     finalBody:
-      'CasaMia can review the home, separate urgent changes from future improvements and define the next action, scope and evidence needed.',
+      'CasaMia reviews the home, separates urgent changes from future improvements and defines the next action, scope and evidence needed.',
     finalCta: 'Request a home assessment',
   },
   es: {
@@ -282,15 +282,15 @@ const pageCopy = {
           'Una visita ayuda cuando hacen falta medidas, detalles de instalación, revisión de movilidad o una propuesta final que afecte a varias estancias.',
       },
       {
-        question: '¿CasaMia puede ayudar con ayudas y documentos?',
+        question: '¿Cómo se ordenan las ayudas y documentos?',
         answer:
-          'CasaMia puede ayudar a ordenar el proceso, documentos, información del presupuesto y próximos pasos. La autoridad pública decide la aprobación final.',
+          'CasaMia ordena el proceso, la lista de documentos, la información del presupuesto y los próximos pasos. La autoridad pública decide la aprobación final.',
       },
     ],
     finalEyebrow: '¿Necesitas un plan para una vivienda real?',
     finalTitle: 'Convierte la lista en un plan de adaptación con prioridades.',
     finalBody:
-      'CasaMia puede revisar la vivienda, separar los cambios urgentes de las mejoras futuras y definir alcance, evidencia y siguiente acción.',
+      'CasaMia revisa la vivienda, separa los cambios urgentes de las mejoras futuras y define alcance, evidencia y siguiente acción.',
     finalCta: 'Solicitar una evaluación',
   },
 } as const

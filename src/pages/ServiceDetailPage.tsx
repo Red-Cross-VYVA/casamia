@@ -631,7 +631,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     benefits: [
       {
         title: 'Earlier awareness',
-        body: 'Sensors can help notice changes in routines, leaks, smoke, doors, or night movement before a small issue becomes urgent.',
+        body: 'Sensors can flag routine changes, leaks, smoke, doors or night movement before a small issue becomes urgent.',
       },
       {
         title: 'Faster help',
@@ -1092,7 +1092,7 @@ export function ServiceDetailPage() {
         risksBody:
           'CasaMia separa peligros visibles de mejoras con alcance definido para saber qué importa antes de comprar productos o empezar obras.',
         commonRisks: 'Riesgos habituales que buscamos',
-        howWeHelp: 'Cómo puede ayudar CasaMia',
+        howWeHelp: 'Qué revisa CasaMia',
         whyItHelps: 'Por qué ayuda',
         userBenefit: 'Beneficio para la persona',
         serviceWorks: 'Cómo funciona el servicio',
@@ -1108,13 +1108,13 @@ export function ServiceDetailPage() {
         risksBody:
           'CasaMia separates visible hazards from scoped improvements, so you know what matters before buying products or starting work.',
         commonRisks: 'Common risks we look for',
-        howWeHelp: 'How CasaMia can help',
+        howWeHelp: 'What CasaMia checks',
         whyItHelps: 'Why it helps',
         userBenefit: 'User benefit',
         serviceWorks: 'How the service works',
         clearPlan: 'From concern to a clear plan.',
         related: 'Related services',
-        otherAreas: 'Other areas often worth checking.',
+        otherAreas: 'Other areas to review next.',
         viewAll: 'View all services',
         finalEyebrow: 'Ready for clarity?',
       }

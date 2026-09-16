@@ -30,7 +30,7 @@ export function PublicProposalPage() {
           'Revisa los trabajos recomendados, las condiciones de pago y los próximos pasos. Cuando todo esté correcto, puedes aceptar la propuesta de forma segura abajo.',
         pendingTitle: 'Este enlace todavía no está listo para aceptar',
         pendingBody:
-          'Si has recibido este enlace, CasaMia puede ayudarte a activar la propuesta o generar una nueva desde Planes.',
+          'Si has recibido este enlace, contacta con CasaMia para activar la propuesta o generar una nueva desde Planes.',
         pendingNotice: 'Propuesta no activada',
         proposalLabel: 'Propuesta',
         acceptedTitle: 'Propuesta aceptada',
@@ -62,7 +62,7 @@ export function PublicProposalPage() {
           'Review the recommended works, payment terms, and next steps. When everything looks right, you can accept the proposal securely below.',
         pendingTitle: 'This link is not ready for acceptance yet',
         pendingBody:
-          'If you received this link, CasaMia can help activate the proposal or generate a fresh one from Plans.',
+          'If you received this link, contact CasaMia to activate the proposal or generate a fresh one from Plans.',
         pendingNotice: 'Proposal not activated',
         proposalLabel: 'Proposal',
         acceptedTitle: 'Proposal accepted',
