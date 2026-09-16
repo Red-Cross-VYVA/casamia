@@ -477,8 +477,8 @@ const topicRoutes = [
     to: '/home-adaptations-for-elderly',
     title: { en: 'Home adaptations', es: 'Adaptaciones del hogar' },
     body: {
-      en: 'See which home changes protect useful routines while reducing daily risk.',
-      es: 'Revisa qué cambios protegen rutinas útiles mientras reducen riesgo diario.',
+      en: 'See which home changes protect washing, cooking, rest and movement while reducing daily risk.',
+      es: 'Revisa qué cambios protegen baño, cocina, descanso y movimiento mientras reducen riesgo diario.',
     },
     pill: { en: 'Turnkey support', es: 'Servicio integral' },
   },

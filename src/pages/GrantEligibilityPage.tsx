@@ -1800,7 +1800,7 @@ function getGrantCopy(language: string) {
           'Verify the active call for your region, municipality, and home type.',
           'Classify the improvements as accessibility, preventive safety, or smart support.',
           'Prepare the final document list and correct order before anything is filed.',
-          'Turn the need into a clear proposal so you know what is being requested and why.',
+          'Turn the need into a proposal that states the requested work, evidence and reason for each item.',
         ],
         watch: [
           'Start with the free online safety report so the initial scope is clearer.',

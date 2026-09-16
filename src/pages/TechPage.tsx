@@ -133,7 +133,7 @@ const techCopy = {
       eyebrow: 'Start with what you already have',
       title: 'Three starting points. One accountable integration partner.',
       body:
-        'We begin with your devices, digital tools, users and desired outcome—then build only the connection and support layer you need.',
+        'We begin with your devices, digital tools, users and response rules, then connect only the readings, alerts and access roles you need.',
       items: [
         {
           icon: 'link' as TechIconName,
@@ -277,7 +277,7 @@ const techCopy = {
       eyebrow: 'Use your platform—or ours',
       title: 'Keep your current system, or let CasaMia provide the digital layer.',
       body:
-        'The setup changes with your starting point. The aim stays the same: easy daily use for the person at home and permission-based information for the people supporting them.',
+        'The setup changes with your starting point. The aim stays the same: controls the person at home can use, and permission-based information for approved contacts.',
       yourSystem: {
         kicker: 'Connect to what you have',
         visualLabel: 'API / webhook',

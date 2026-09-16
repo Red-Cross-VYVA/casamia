@@ -194,7 +194,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'An aging-in-place assessment gives you a clear view of what matters now, what can wait and which changes help someone remain safer and more comfortable at home.',
     whoFor: ['Households planning before a fall or hospital discharge', 'Older adults who want to stay independent at home', 'Homes where people disagree on what to fix first'],
     priorities: ['Mobility and transfer routines', 'Room-by-room safety risks', 'Practical adaptation options', 'Grant-readiness and documentation where relevant'],
-    casamiaPlan: ['Listen to the household and daily priorities', 'Review the home, photos or guided answers', 'Prepare a clear proposal with next steps'],
+    casamiaPlan: ['Listen to the household and daily priorities', 'Review the home, photos or guided answers', 'Prepare a proposal with scope, review items and next steps'],
     relatedServices: [
       { label: 'Book a home assessment', to: '/home-safety-assessment' },
       { label: 'Build your plan', to: '/home-safety-wizard' },

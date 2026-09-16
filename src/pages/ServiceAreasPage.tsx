@@ -25,7 +25,7 @@ const serviceAreaCopy = {
     planned: 'Priority rollout',
     howTitle: 'How coverage works',
     howIntro:
-      'We do not simply list cities. We check whether the right professional support, timing and scope are realistic before asking you to commit.',
+      'We check postcode, room type, provider availability, measurement needs and timing before asking you to commit.',
     howItems: [
       {
         title: 'Start with the concern',
@@ -45,7 +45,7 @@ const serviceAreaCopy = {
       'Coverage expands as local partners, timing and delivery checks are confirmed. If your city is not listed, you can still ask us to check it.',
     unknownTitle: 'Not listed?',
     unknownBody:
-      'Send your postcode and the rooms you are worried about. We can tell you whether a remote review, a visit, or another review path makes most sense.',
+      'Send your postcode and the rooms you are worried about. We will tell you whether to start with a remote review, a visit, grant preparation or a staged plan.',
     unknownCta: 'Check my postcode',
     citySeoTitle: (city: string) => `Senior home safety services in ${city}`,
     citySeoDescription: (city: string, region: string) =>

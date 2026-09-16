@@ -653,7 +653,7 @@ export const blogArticles: BlogArticle[] = [
     checklist: [
       'Are bathroom and bedroom routes recognisable at night?',
       'Are mirrors, shadows, or dark corners causing confusion?',
-      'Are kitchen risks managed without removing useful routines unnecessarily?',
+      'Can cooking routines stay familiar while reducing reach, heat, slip and appliance risks?',
       'Can agreed contacts respond if the resident leaves unexpectedly?',
       'Are labels, colours, and lighting consistent across the home?',
     ],
@@ -793,7 +793,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Should older adults stop cooking alone?',
         answer:
-          'Not automatically. The right decision depends on mobility, memory, vision, appliance use, and recent incidents. Many kitchens can be made safer while preserving useful routines.',
+          'Not automatically. The decision depends on mobility, memory, vision, appliance use and recent incidents. Many kitchens can be made safer while keeping familiar meal routines.',
       },
       {
         question: 'What kitchen change helps most for seniors?',

@@ -606,7 +606,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     builderEyebrow: 'Plan builder',
     builderTitle: 'Choose rooms',
     consent: 'CasaMia may contact me about this proposal.',
-    contactIntro: 'Add contact details so CasaMia can generate your proposal and send you a clear link instantly.',
+    contactIntro: 'Add contact details so CasaMia can generate a proposal link with the selected rooms, add-ons and terms.',
     contactStepEyebrow: 'Instant proposal',
     contactTitle: 'Receive proposal',
     continueToReview: 'Review selected packages',
@@ -632,7 +632,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     heroSignals: ['Clear scope first', 'Core items included', 'Optional add-ons separate'],
     heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
     heroReviewBody:
-      'Choose the rooms and add-ons, add your details, and receive a clear proposal link instantly.',
+      'Choose the rooms and add-ons, add your details, and receive a proposal link showing selected scope, terms and next steps.',
     heroReviewEyebrow: 'Instant proposal',
     heroReviewPoints: ['Package-led plan', 'Scope to review'],
     heroReviewTitle: 'Your proposal is generated instantly.',
@@ -667,9 +667,9 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       entrance:
         'Makes the first and last steps of the day safer: thresholds, handrails, lighting, door hardware and visitor awareness. Helps with steps, mats, locks and seeing who is at the door before opening.',
       kitchen:
-        'Designed for safer cooking without unnecessary strain: safer food preparation, reduced reach, better visibility and clear movement routes. Adds selected smoke or leak alerts and safer controls when they match the kitchen.',
+        'Designed for lower-risk cooking: steadier preparation space, shorter reach, better task lighting and safer movement between sink, hob, storage and appliances.',
       'living-room':
-        'Supports the room people use most for sitting, standing, relaxing and moving around. Addresses rugs, cables, unstable furniture, seating support and clear circulation without making the space clinical.',
+        'Focuses on the room used for sitting, standing and moving between furniture. Addresses rugs, cables, unstable furniture, seating support and daily circulation.',
     },
     rooms: [
       { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
@@ -688,7 +688,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryNextTitle: 'Next step',
     summaryRoomsTitle: 'Selected rooms',
     subtitle:
-      'Pick the rooms that need support, choose optional add-ons only when they match the routine, and receive a clear proposal once your details are captured.',
+      'Pick the rooms that need support, choose add-ons only when they match the routine, and receive a proposal showing scope, review items and next steps.',
     title: 'Create a safer-home plan, room by room.',
     town: 'Town / area',
     address: 'Address',
@@ -1130,7 +1130,7 @@ export function PlansPage() {
         }
       : {
           consent: 'CasaMia may contact me about this proposal.',
-          contactIntro: 'Add contact details so CasaMia can generate your proposal and send you a clear link instantly.',
+          contactIntro: 'Add contact details so CasaMia can generate a proposal link with the selected rooms, add-ons and terms.',
           contactStepEyebrow: 'Instant proposal',
           contactTitle: 'Receive proposal',
           createDraft: 'Generate proposal',
@@ -1146,7 +1146,7 @@ export function PlansPage() {
           ],
           fromCatalogue: 'Service catalogue',
           heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
-          heroReviewBody: 'Choose the rooms and add-ons, add your details, and receive a clear proposal link instantly.',
+          heroReviewBody: 'Choose the rooms and add-ons, add your details, and receive a proposal link showing selected scope, terms and next steps.',
           heroReviewEyebrow: 'Instant proposal',
           heroReviewPoints: ['Package-led plan', 'Scope to review'],
           heroReviewTitle: 'Your proposal is generated instantly.',
@@ -1163,7 +1163,7 @@ export function PlansPage() {
           reviewCtaTitle: 'Ready to generate your proposal?',
           summaryModulesTitle: 'Plan details',
           summaryNextBody: 'Your proposal is generated from the selected packages, quantities and add-ons.',
-          subtitle: 'Choose the rooms, set quantities and add only the extras that matter. Get a clear CasaMia proposal instantly.',
+          subtitle: 'Choose rooms, set quantities and add only relevant extras. Get a CasaMia proposal with selected scope, terms and next steps.',
           title: 'Build your CasaMia plan.',
           seeDraft: 'Open proposal',
         }),

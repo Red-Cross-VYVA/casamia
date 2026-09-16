@@ -47,7 +47,7 @@ export const specialistAgentKnowledgeBase = [
     title: 'CasaMia customer journey',
     content: `
 Visitors start by choosing a ready-made home-safety package, combining several packages, or requesting a physical inspection by a CasaMia technician.
-CasaMia then shares a clear proposal with home improvement suggestions, priorities, and transparent pricing.
+CasaMia then shares a proposal with selected improvements, priority order, exclusions, review items and transparent pricing.
 CasaMia checks likely grant criteria and prepares documents for eligible works where authorised, but public support is never guaranteed until the authority approves it.
 CasaMia coordinates installation, checks the work, explains safe use, and remains available for questions or adjustments.
 `.trim(),

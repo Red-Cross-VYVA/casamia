@@ -51,7 +51,7 @@ const detailSteps = [
   {
     icon: Home,
     title: 'Defined next step',
-    body: 'If work makes sense, CasaMia prepares a clear proposal with scope, installation and safe-use explanation.',
+    body: 'If work is appropriate, CasaMia prepares a proposal with included items, exclusions, installation notes and safe-use handover.',
   },
 ]
 
@@ -655,7 +655,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'No complicated gimmicks and no cameras by default.',
     reassuranceBody:
-      'The aim is connected safety: helpful alerts, understandable controls and privacy-aware setup that everyone involved understands.',
+      'The aim is connected safety: named alerts, agreed recipients, understandable controls and privacy-aware setup.',
     reassurancePoints: ['Connectivity checked first', 'Alert recipients agreed in advance', 'Setup and explanation included'],
     finalTitle: 'Add connected safety only where there is a clear use case.',
     finalBody:
@@ -1143,8 +1143,8 @@ export function ServiceDetailPage() {
   const zoneRiskMap = isZoneRiskArea(serviceRoom) ? zoneRiskMaps[serviceRoom] : null
   const heroTitle = isKitchenService
     ? isSpanish
-      ? 'Una cocina más segura, sin perder rutinas útiles.'
-      : 'A safer kitchen, without losing useful routines.'
+      ? 'Una cocina más segura para cocinar, alcanzar y moverse.'
+      : 'A safer kitchen for cooking, reaching and moving.'
     : service.title
   const heroIntro = isKitchenService
     ? isSpanish
