@@ -54,7 +54,7 @@ const pageCopy = {
     downloadEyebrow: 'Free printable workbook',
     downloadTitle: 'The Complete Senior Home Conversion Checklist',
     downloadBody:
-      'Walk through the home with the person who lives there, identify quick wins, flag work that needs professional review and finish with a clear action plan.',
+      'Walk through the home with the person who lives there, identify visible first fixes, flag work that needs professional review and finish with a clear action plan.',
     downloadStats: [
       { value: '10', label: 'home areas' },
       { value: '100+', label: 'room checks' },
@@ -109,7 +109,7 @@ const pageCopy = {
     momentsEyebrow: 'When people usually need help',
     momentsTitle: 'Resources for the moments that create pressure.',
     momentsBody:
-      'Use these as quick routes into CasaMia advice when something has changed at home, in hospital, or in the support conversation.',
+      'Use these routes when something has changed at home, after hospital, or during a support conversation.',
     todayEyebrow: 'A clear first 20 minutes',
     todayTitle: 'Three checks worth doing today.',
     todayBody:
@@ -298,10 +298,10 @@ const pageCopy = {
 const toolContent = [
   {
     icon: HelpCircle,
-    title: { en: 'Is my parent safe at home?', es: '¿Está seguro en casa?' },
+    title: { en: 'Is this home safe day to day?', es: '¿Esta casa es segura en el día a día?' },
     body: {
-      en: 'Answer five everyday questions and get a clear next step: checklist, guided review or focused CasaMia assessment.',
-      es: 'Responde cinco preguntas cotidianas y obtén un siguiente paso claro: lista, revisión guiada o evaluación CasaMia.',
+      en: 'Answer five everyday questions and see whether to monitor, check one room or request a focused CasaMia review.',
+      es: 'Responde cinco preguntas cotidianas y ve si conviene observar, revisar una estancia o pedir una revisión CasaMia.',
     },
     to: '/tools/is-my-parent-safe-at-home',
   },
@@ -358,7 +358,7 @@ const educationHubSteps = [
     label: { en: 'Capture', es: 'Capturar' },
     title: { en: 'Add real-home evidence', es: 'Añade evidencia real' },
     body: {
-      en: 'Photos, notes and context make priorities easier to compare.',
+      en: 'Photos, notes and context show which priority should be checked first.',
       es: 'Fotos, notas y contexto ayudan a comparar prioridades.',
     },
   },
@@ -590,7 +590,7 @@ const printableMaterials = [
     icon: MoonStar,
     title: { en: 'Night route mini-check', es: 'Mini revisión de la ruta nocturna' },
     body: {
-      en: 'A quick printable prompt for bed-to-bathroom movement, lighting and support points.',
+      en: 'A focused printable prompt for bed-to-bathroom movement, lighting and support points.',
       es: 'Una guía breve para revisar ruta cama-baño, iluminación y puntos de apoyo.',
     },
     kind: { en: 'Quick checklist', es: 'Lista breve' },

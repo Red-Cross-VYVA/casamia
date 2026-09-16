@@ -113,7 +113,7 @@ const copy = {
     eyebrow: 'Senior-friendly home check',
     title: 'Is your home senior-friendly?',
     body:
-      'Use this quick, non-medical check for yourself or someone you care about. It helps decide whether the next step should be a room checklist, an online review or a focused CasaMia assessment.',
+      'Use this five-question, non-medical check for yourself or someone you care about. It helps decide whether the next step should be a room checklist, an online review or a focused CasaMia assessment.',
     startCta: 'Answer the 5 questions',
     progressLabel: 'Progress',
     scoreLabel: 'Safety score',

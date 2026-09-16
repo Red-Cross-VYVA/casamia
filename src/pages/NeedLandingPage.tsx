@@ -697,10 +697,10 @@ const needResourceReferences: Record<string, NeedResourceReference[]> = {
     {
       kind: 'tool',
       to: '/tools/is-my-parent-safe-at-home',
-      title: { en: 'Is my parent safe at home?', es: '¿Está mi familiar seguro en casa?' },
+      title: { en: 'Is this home safe day to day?', es: '¿Esta casa es segura en el día a día?' },
       description: {
-        en: 'A short quiz to spot common warning signs before a fall or crisis.',
-        es: 'Un test breve para detectar señales habituales antes de una caída o crisis.',
+        en: 'Five focused questions to spot warning signs before a fall or crisis.',
+        es: 'Cinco preguntas concretas para detectar señales antes de una caída o crisis.',
       },
     },
   ],

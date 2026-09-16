@@ -24,14 +24,14 @@ const copy = {
     seoDescription:
       'Use CasaMia free tools to check home safety, prepare grant questions, compare options and decide what to do first.',
     eyebrow: 'Free home-safety tools',
-    title: 'Choose the quickest way to understand what to do next.',
+    title: 'Choose the right starting point for the safety question in front of you.',
     body:
       'Choose the situation closest to yours. Each tool gives you a first decision: monitor for now, check one room, prepare evidence, or ask CasaMia to review the next step.',
     featuredLabel: 'Start here if you are unsure',
     featuredTitle: 'Is this home still safe day to day?',
     featuredBody:
       'Five everyday questions to spot whether the next step is monitoring, a focused room check or faster action.',
-    featuredCta: 'Take the quick quiz',
+    featuredCta: 'Start the safety check',
     sectionEyebrow: 'Choose your route',
     sectionTitle: 'Routes for real home-safety decisions.',
     openTool: 'Open tool',
@@ -45,13 +45,13 @@ const copy = {
     finalBody:
       'CasaMia can turn your answers into priorities: what to change now, what can wait, what needs measurements and what may support a grant application.',
     finalCta: 'Start guided review',
-    faqEyebrow: 'Quick answers',
+    faqEyebrow: 'Tool guidance',
     faqTitle: 'How to use the tools well.',
     faqItems: [
       {
         question: 'Which tool should I start with?',
         answer:
-          'If you are unsure, start with the quick safety quiz. If one room already worries you, use photos or the room-by-room check.',
+          'If you are unsure, start with the five-question safety check. If one room already worries you, use photos or the room-by-room check.',
       },
       {
         question: 'Do the tools replace a professional visit?',
@@ -71,14 +71,14 @@ const copy = {
     seoDescription:
       'Utiliza herramientas gratuitas de CasaMia para revisar seguridad en casa, preparar ayudas y decidir qué hacer primero.',
     eyebrow: 'Herramientas gratis de seguridad en casa',
-    title: 'Elige la forma más rápida de saber qué hacer después.',
+    title: 'Elige el punto de partida adecuado para la duda de seguridad que tienes ahora.',
     body:
       'Elige la situación más cercana a la tuya. Cada herramienta te deja una primera decisión: observar, revisar una estancia, preparar evidencia o pedir a CasaMia que revise el siguiente paso.',
     featuredLabel: 'Empieza aquí si dudas',
     featuredTitle: '¿Esta casa sigue siendo segura en el día a día?',
     featuredBody:
       'Cinco preguntas cotidianas para saber si toca observar, revisar una estancia o actuar con más rapidez.',
-    featuredCta: 'Hacer el quiz rápido',
+    featuredCta: 'Empezar revisión de seguridad',
     sectionEyebrow: 'Elige tu ruta',
     sectionTitle: 'Rutas para decisiones reales de seguridad.',
     openTool: 'Abrir herramienta',
@@ -92,13 +92,13 @@ const copy = {
     finalBody:
       'CasaMia puede convertir tus respuestas en prioridades: qué cambiar ahora, qué puede esperar, qué necesita medidas y qué puede apoyar una solicitud de ayuda.',
     finalCta: 'Empezar revisión guiada',
-    faqEyebrow: 'Respuestas rápidas',
+    faqEyebrow: 'Guía de herramientas',
     faqTitle: 'Cómo usar bien las herramientas.',
     faqItems: [
       {
         question: '¿Con qué herramienta debería empezar?',
         answer:
-          'Si no lo tienes claro, empieza con el quiz rápido. Si ya preocupa una estancia concreta, usa fotos o la revisión por estancias.',
+          'Si no lo tienes claro, empieza con la revisión de cinco preguntas. Si ya preocupa una estancia concreta, usa fotos o la revisión por estancias.',
       },
       {
         question: '¿Sustituyen estas herramientas a una visita profesional?',
@@ -119,8 +119,8 @@ const tools = [
     icon: HelpCircle,
     title: { en: 'Is this home still safe?', es: '¿Esta casa sigue siendo segura?' },
     body: {
-      en: 'A quick check when movement, balance or routines have started to feel different.',
-      es: 'Una comprobación rápida cuando movimiento, equilibrio o rutinas empiezan a cambiar.',
+      en: 'Five focused questions when movement, balance or routines have started to feel different.',
+      es: 'Cinco preguntas concretas cuando movimiento, equilibrio o rutinas empiezan a cambiar.',
     },
     to: '/tools/is-my-parent-safe-at-home',
   },
@@ -156,10 +156,10 @@ const tools = [
 const chooserRoutes = [
   {
     icon: HelpCircle,
-    title: { en: 'Something feels different', es: 'Algo ha cambiado' },
+    title: { en: 'Movement or routine has changed', es: 'Ha cambiado el movimiento o la rutina' },
     body: {
-      en: 'Use the quick quiz to decide whether to monitor, check one room or act sooner.',
-      es: 'Usa el quiz rápido para decidir si observar, revisar una estancia o actuar antes.',
+      en: 'Use the five-question check to decide whether to monitor, check one room or act sooner.',
+      es: 'Usa la revisión de cinco preguntas para decidir si observar, revisar una estancia o actuar antes.',
     },
   },
   {
