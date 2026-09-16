@@ -57,40 +57,40 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Start with the moments where falls actually happen',
         body: [
-          'Walk through the day with the resident: standing from bed, reaching the bathroom, entering the shower, preparing food, carrying laundry, answering the door and getting up at night. Note where they pause, rush, hold furniture or avoid a route.',
+          'Walk through the day with the person at home: standing from bed, reaching the bathroom, entering the shower, preparing food, carrying laundry, answering the door and getting up at night. Note where they pause, rush, hold furniture or avoid a space.',
           'Those details matter more than a generic shopping list. A grab bar, rail, motion light, threshold change or furniture move only helps when it supports the movement the person is already trying to make.',
         ],
       },
       {
         title: 'Remove trip hazards, but do not stop there',
         body: [
-          'Loose rugs, curling mats, cables, cluttered routes and unstable furniture should be fixed immediately. But the bigger pattern matters too: no support where the person transfers, light switches too far away, shoes that slip, or a bathroom route that becomes risky at night.',
-          'A clear review sequence is bathroom, bedroom-to-bathroom route, stairs, entrance, kitchen and living areas. This keeps the review focused on daily risk rather than trying to redesign every room at once.',
+          'Loose rugs, curling mats, cables, cluttered walking space and unstable furniture should be fixed immediately. But the bigger pattern matters too: no support where the person transfers, light switches too far away, shoes that slip, or a bathroom trip that becomes risky at night.',
+          'A useful review sequence is bathroom, bedroom-to-bathroom movement, stairs, entrance, kitchen and living areas. This keeps the review focused on daily risk rather than trying to redesign every room at once.',
         ],
       },
       {
         title: 'Separate urgent fixes from planned adaptations',
         body: [
-          'Urgent fixes are the issues most likely to cause harm this week: a wet transfer with no support, a dark stair route, a high threshold used daily, an unstable toilet transfer, or a phone left out of reach. Planned adaptations are still important, but may need measuring, quotes, landlord or community permission, or grant checks.',
-          'CasaMia assessments are designed to make that order clear: what to remove today, what to adapt first, what needs a proposal, and what can be monitored over time.',
+          'Urgent fixes are the issues most likely to cause harm this week: a wet transfer with no support, a dark stair, a high threshold used daily, an unstable toilet transfer, or a phone left out of reach. Planned adaptations are still important, but may need measuring, quotes, landlord or community permission, or grant checks.',
+          'CasaMia assessments separate those decisions: what to remove today, what to adapt first, what needs a proposal, and what can be watched over time.',
         ],
       },
       {
         title: 'Connect the home review with health and daily support',
         body: [
           'A home can be made safer, but falls prevention is not only construction. Ask whether the person has new dizziness, pain, vision changes, foot problems, medication changes, urinary urgency, confusion, weakness or fear of falling. Those signals may need a clinician, physiotherapist, pharmacist or optician alongside home changes.',
-          'A strong action plan names who will handle each part: clear routes, install support, organise lighting, review medication questions with a professional, test emergency reach and check back after the first changes are in place.',
+          'A strong action plan names who will handle each part: open walking space, install support, organise lighting, review medication questions with a professional, test emergency reach and check back after the first changes are in place.',
         ],
       },
     ],
     checklist: [
-      'Walk every daily route and mark where the person reaches for walls, furniture or doorframes.',
-      'Remove or fix loose rugs, curled mats, cables, low furniture and clutter from walking routes.',
+      'Walk through every daily movement and mark where the person reaches for walls, furniture or doorframes.',
+      'Remove or fix loose rugs, curled mats, cables, low furniture and clutter from walking space.',
       'Check that bed, toilet and favourite chair heights allow the person to stand without pulling unstable furniture.',
-      'Make the route from bed to bathroom visible at night without glare.',
+      'Make the path from bed to bathroom visible at night without glare.',
       'Confirm stairs, steps and thresholds have stable support where the person actually needs it.',
       'Review bathroom transfers, wet surfaces, towel reach and shower entry together.',
-      'Keep phone, emergency button or agreed help route reachable from bed and bathroom.',
+      'Keep phone, emergency button or agreed help method reachable from bed and bathroom.',
       'Ask a health professional about dizziness, medication changes, vision, foot pain or repeated near falls.',
     ],
     resources: [
@@ -120,7 +120,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'What is the first thing to fix to reduce fall risk at home?',
         answer:
-          'Start with the route or movement that is both frequent and already unsafe. For many homes that is the bathroom, stairs, entrance, or the route from bed to toilet at night.',
+          'Start with the movement that is both frequent and already unsafe. For many homes that is bathroom use, stairs, the entrance, or getting from bed to toilet at night.',
       },
       {
         question: 'Do all older adults need grab bars?',
@@ -176,7 +176,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Mistake 3: Forgetting toilet transfers and night use',
         body: [
-          'Many falls are linked to urgency, fatigue or getting to the bathroom at night. The toilet area needs enough space, stable side support where useful, reachable paper, good light and a route that does not require turning sharply around clutter.',
+          'Many falls are linked to urgency, fatigue or getting to the bathroom at night. The toilet area needs enough space, stable side support where useful, reachable paper, good light and a path that does not require turning sharply around clutter.',
           'Check how the person reaches the bathroom from bed, whether they use a walking aid, whether the door opens safely, and whether emergency help is reachable if they sit or fall.',
         ],
       },
@@ -286,7 +286,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Translate the home problem into eligible works',
         body: [
-          'Applications are stronger when the proposed works are connected to a concrete daily risk: unsafe shower entry, wet transfers, high thresholds, lack of hand support, poor night lighting, narrow doorways, difficult kitchen reach, or a route that cannot be used with a walker or wheelchair.',
+          'Applications are stronger when the proposed works are connected to a concrete daily risk: unsafe shower entry, wet transfers, high thresholds, lack of hand support, poor night lighting, narrow doorways, difficult kitchen reach, or a passage that cannot be used with a walker or wheelchair.',
           'Avoid vague language such as "modernise the bathroom". Use specific wording: replace bathtub with accessible shower, lower a threshold, add fixed support bars, improve non-slip flooring, widen a passage, add motion lighting, install an accessible intercom, or adapt a kitchen so the person can prepare food safely.',
         ],
       },
@@ -316,7 +316,7 @@ export const blogArticles: BlogArticle[] = [
       'Confirm the municipality, autonomous community and whether the home is owner-occupied, rented or in a community building.',
       'Search the national subsidy database and the local housing/social-services pages for open calls.',
       'Check eligibility: age, disability, dependency, income, habitual residence, ownership or rental permission.',
-      'Photograph the current barriers: bathroom, entrance, stairs, thresholds, kitchen reach, night route and shared access.',
+      'Photograph the current barriers: bathroom, entrance, stairs, thresholds, kitchen reach, night-time movement and shared access.',
       'Prepare itemised quotes that separate accessibility/safety works from cosmetic renovation.',
       'Ask whether works can start before approval, inspection or publication of the call.',
       'Collect certificates, padrón, bank details, community/landlord permissions and technical reports where required.',
@@ -435,7 +435,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Combine smart support with physical safety',
         body: [
-          'Technology cannot replace a stable handrail, safer shower access, or clear walking route. The strongest plans combine physical adaptations with smart support where it adds value.',
+          'Technology cannot replace a stable handrail, safer shower access, or open walking space. The strongest plans combine physical adaptations with smart support where it adds value.',
           'We review both the home environment and the support routine before recommending smart safety options.',
         ],
       },
@@ -565,7 +565,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Name the routines that create stress',
         body: [
           'Instead of saying “the bathroom is unsafe”, describe the exact moment: stepping into the shower, standing from the toilet, drying after bathing, walking to the bathroom at night, carrying laundry, or opening the front door.',
-          'This turns a broad concern into a usable brief. CasaMia can then prioritise safer transfers, visible routes, lighting, support points, emergency help, or a professional visit where needed.',
+          'This turns a broad concern into a usable brief. CasaMia can then prioritise safer transfers, visible walking space, lighting, support points, emergency help, or a professional visit where needed.',
         ],
       },
       {
@@ -579,14 +579,14 @@ export const blogArticles: BlogArticle[] = [
         title: 'Clarify decision roles and next steps',
         body: [
           'Before the assessment, decide who receives the report, who discusses budget, who can approve work, and whether grant support should be explored.',
-          'You do not need every answer immediately. The clear outcome is a shared starting point: what worries us most, what we want to preserve, and what decision we need CasaMia to help us make next.',
+          'You do not need every answer immediately. The useful outcome is a shared starting point: what worries us most, what we want to preserve, and what decision we need CasaMia to help us make next.',
         ],
       },
     ],
     checklist: [
       'What changed recently that made the home feel less safe?',
       'Which routine creates the most worry this week?',
-      'Which rooms, routes, or transfers should be reviewed first?',
+      'Which rooms, walking spaces, or transfers should be reviewed first?',
       'What should remain discreet, familiar, or unchanged if possible?',
       'Who needs to receive the report and approve next steps?',
       'Should CasaMia check grant readiness or organise a visit?',
@@ -621,17 +621,17 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Editorial illustration of a calm dementia-friendly home layout',
     keywords: ['dementia home safety', 'memory friendly home', 'senior safety dementia'],
     intro:
-      'When memory or confusion becomes part of daily life, home safety needs to do more than prevent falls. The home should make key routes, objects and responses easier to recognise for the person living there.',
+      'When memory or confusion becomes part of daily life, home safety needs to do more than prevent falls. The home should make key spaces, objects and responses easier to recognise for the person living there.',
     takeaways: [
-      'Use visible lighting, contrast, labels, and uncluttered routes.',
+      'Use visible lighting, contrast, labels, and uncluttered walking space.',
       'Reduce confusing hazards around bathrooms, kitchens, exits, and night routines.',
       'Agree trusted-contact alerts and support routines without making the person at home feel watched.',
     ],
     sections: [
       {
-        title: 'Make important routes obvious',
+        title: 'Make important spaces obvious',
         body: [
-          'A dementia-friendly home should make the next step easier to recognise. The route to the bathroom, bedroom, kitchen, and front door should be visible, well lit, and free from visual clutter.',
+          'A dementia-friendly home should make the next step easier to recognise. Bathroom, bedroom, kitchen, and front-door access should be visible, well lit, and free from visual clutter.',
           'Contrast can help: a visible toilet seat, clear door markings, direct labels, and lighting that removes shadows can reduce hesitation.',
         ],
       },
@@ -651,7 +651,7 @@ export const blogArticles: BlogArticle[] = [
       },
     ],
     checklist: [
-      'Are bathroom and bedroom routes recognisable at night?',
+      'Are bathroom and bedroom spaces recognisable at night?',
       'Are mirrors, shadows, or dark corners causing confusion?',
       'Can cooking routines stay familiar while reducing reach, heat, slip and appliance risks?',
       'Can agreed contacts respond if the resident leaves unexpectedly?',
@@ -666,7 +666,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'What dementia-friendly home improvement should come first?',
         answer:
-          'Clear night lighting and uncluttered routes are often strong first improvements because they support daily movement without requiring the person to learn something new.',
+          'Visible night lighting and uncluttered walking space are often strong first improvements because they support daily movement without requiring the person to learn something new.',
       },
     ],
     cta: {
@@ -687,7 +687,7 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Editorial illustration of safer stairs with clear rail and step rhythm',
     keywords: ['stair safety seniors', 'handrails older adults', 'stair fall prevention'],
     intro:
-      'Stairs become safer when support, visibility, rhythm, and confidence work together. A single handrail may help, but the full route needs to be reviewed from first step to landing.',
+      'Stairs become safer when support, visibility and step rhythm work together. A single handrail may help, but the full stair movement needs to be reviewed from first step to landing.',
     takeaways: [
       'Continuous handrails matter more than decorative rails.',
       'Lighting and step contrast help the brain read each step clearly.',
@@ -698,7 +698,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Look for interruptions in support',
         body: [
           'Many staircases have rails that stop too early, start too late, or disappear at a turn. These gaps are exactly where someone may reach for a wall or furniture.',
-          'A safer route gives reliable support before the first step and after the last step, with special care at landings.',
+          'Safer stairs give reliable support before the first step and after the last step, with special care at landings.',
         ],
       },
       {
@@ -745,7 +745,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/kitchen-safety-aging-in-place',
     title: 'Kitchen Safety for Aging in Place: Reduce Reaching, Bending, and Appliance Risk',
     description:
-      'A kitchen safety guide for older adults, covering storage, lighting, movement routes, appliances, seating, and support routines.',
+      'A kitchen safety guide for older adults, covering storage, lighting, walking space, appliances, seating, and support routines.',
     category: 'Kitchen safety',
     readTime: '6 min read',
     date: '2026-07-11',
@@ -756,7 +756,7 @@ export const blogArticles: BlogArticle[] = [
       'The kitchen is not just a room; it is a sequence of movements. Safer kitchens reduce unnecessary reaching, bending, carrying, turning, and rushing around hot surfaces or sharp tools.',
     takeaways: [
       'Store daily items between shoulder and waist height.',
-      'Keep movement routes clear and task lighting strong.',
+      'Keep walking space open and task lighting strong.',
       'Review appliance habits, not just appliance features.',
     ],
     sections: [
@@ -798,7 +798,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'What kitchen change helps most for seniors?',
         answer:
-          'Reducing reach and bend for daily items is often the highest-value first change, followed by better task lighting and visible movement routes.',
+          'Reducing reach and bend for daily items is often the highest-value first change, followed by better task lighting and visible walking space.',
       },
     ],
     cta: {
@@ -811,18 +811,18 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/bedroom-night-safety-older-adults',
     title: 'Bedroom and Night-Time Safety for Older Adults',
     description:
-      'How to make bedrooms and night routes safer for older adults with bed transfers, low-glare lighting, bathroom routes, bedside reach and emergency support.',
+      'How to make bedrooms and night-time movement safer for older adults with bed transfers, low-glare lighting, bathroom access, bedside reach and emergency support.',
     category: 'Night safety',
     readTime: '9 min read',
     date: '2026-08-10',
     image: '/images/blog/bedroom-night-safety.webp',
-    imageAlt: 'Editorial illustration of a calm bedroom night safety route',
+    imageAlt: 'Editorial illustration of bedroom night safety lighting',
     keywords: ['bedroom safety seniors', 'night fall prevention', 'older adult night safety'],
     intro:
-      'Night-time risk is easy to underestimate because the home looks familiar in daylight. At night the person may be half asleep, urgency is higher, lighting is lower, medication effects may be stronger and the route to the bathroom can become the hardest route in the home.',
+      'Night-time risk is easy to underestimate because the home looks familiar in daylight. At night the person may be half asleep, urgency is higher, lighting is lower, medication effects may be stronger and getting to the bathroom can become the hardest movement in the home.',
     takeaways: [
       'Review the whole night routine: sitting up, standing, finding footwear, reaching a walking aid, leaving the room and using the bathroom.',
-      'Use soft route lighting that reduces shadows without causing glare or disorientation.',
+      'Use low-level lighting that reduces shadows without causing glare or disorientation.',
       'Check bed height, bedside reach, floor hazards, doorways, thresholds and bathroom access together.',
       'Make emergency help reachable from bed and bathroom, and agree who responds.',
     ],
@@ -835,16 +835,16 @@ export const blogArticles: BlogArticle[] = [
         ],
       },
       {
-        title: 'Light the route, not just the room',
+        title: 'Light the path, not just the room',
         body: [
           'Strong overhead light can be disorienting, while darkness hides floor changes and furniture edges. Low-level motion lighting can make the path visible without forcing the person to search for switches.',
-          'Check the actual route from bed to bathroom: the side of the bed used, the first step, doorway, hallway, thresholds, rugs, bathroom entrance and toilet position. Shadows and glare matter as much as brightness.',
+          'Check the actual path from bed to bathroom: the side of the bed used, the first step, doorway, hallway, thresholds, rugs, bathroom entrance and toilet position. Shadows and glare matter as much as brightness.',
         ],
       },
       {
         title: 'Reduce urgency and rushing where possible',
         body: [
-          'Bathroom urgency is one reason night routes become risky. Families should ask whether the person avoids drinking, rushes, wakes confused, has dizziness on standing, or takes medication that affects balance or sleep.',
+          'Bathroom urgency is one reason night-time movement becomes risky. Ask whether the person avoids drinking, rushes, wakes confused, has dizziness on standing, or takes medication that affects balance or sleep.',
           'The home plan can reduce trip risk, but repeated night urgency or dizziness should also be discussed with a clinician. Safer lighting and support are not a substitute for checking health causes.',
         ],
       },
@@ -860,8 +860,8 @@ export const blogArticles: BlogArticle[] = [
       'Can the resident sit up and stand without pulling unstable furniture?',
       'Are glasses, phone, water, medication and walking aid reachable before standing?',
       'Is footwear stable, easy to put on and kept in the same place?',
-      'Is the bed-to-bathroom route visible with soft light and minimal glare?',
-      'Are rugs, cables, storage boxes and low furniture removed from the night route?',
+      'Is the bed-to-bathroom path visible with low light and minimal glare?',
+      'Are rugs, cables, storage boxes and low furniture removed from the night-time walking space?',
       'Can the bathroom door, toilet and light be used without awkward reaching or turning?',
       'Is emergency help reachable from both bed and bathroom?',
       'Has the family agreed who responds and how they can enter if needed?',
@@ -879,7 +879,7 @@ export const blogArticles: BlogArticle[] = [
         source: 'CDC STEADI',
         href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
         description:
-          'Prompts for floors, stairs, bedroom, bathroom and lighting to use during a night-route review.',
+          'Prompts for floors, stairs, bedroom, bathroom and lighting to use during a night-safety review.',
       },
       {
         title: 'Aging in place: growing older at home',
@@ -903,7 +903,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'What if the person gets up many times each night?',
         answer:
-          'Review the route immediately, but also raise the pattern with a health professional. Urgency, dizziness, medication timing, pain or confusion may need medical advice as well as home changes.',
+          'Review the bedroom-to-bathroom movement immediately, but also raise the pattern with a health professional. Urgency, dizziness, medication timing, pain or confusion may need medical advice as well as home changes.',
       },
     ],
     cta: {
@@ -924,17 +924,17 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Family preparing the home before an older adult returns from hospital',
     keywords: ['hospital discharge home safety', 'senior home safety after hospital', 'home checklist after surgery'],
     intro:
-      'The first days after hospital discharge are often when small home barriers become big problems. Use this checklist to focus on the safest route home, the bedroom, the bathroom, medication, help and the first week of daily routines.',
+      'The first days after hospital discharge are often when small home barriers become big problems. Use this checklist to focus on entering the home, the bedroom, the bathroom, medication, help and the first week of daily routines.',
     takeaways: [
-      'Prepare entry, bed, bathroom and night routes before the person returns home.',
+      'Prepare entry, bed, bathroom and night-time movement before the person returns home.',
       'Confirm who helps, how help is requested and what should happen if the first plan fails.',
       'Separate urgent safety actions from works that can wait for a measured proposal.',
     ],
     sections: [
       {
-        title: 'Confirm the first route home',
+        title: 'Confirm the first arrival home',
         body: [
-          'Before discharge, walk the route from building entrance to the main resting place. Look for steps, thresholds, narrow turns, loose mats, poor lighting and places where the person may need to pause.',
+          'Before discharge, walk from the building entrance to the main resting place. Look for steps, thresholds, narrow turns, loose mats, poor lighting and places where the person may need to pause.',
           'If stairs, lifts, parking or building access are uncertain, plan the arrival with the person who will bring them home rather than improvising at the door.',
         ],
       },
@@ -942,14 +942,14 @@ export const blogArticles: BlogArticle[] = [
         title: 'Make the bedroom and bathroom work first',
         body: [
           'The priority rooms are usually the bedroom and bathroom. Check bed height, transfer space, night lighting, toilet access, shower/bath access and whether support points are available exactly where movement happens.',
-          'Do not wait for a perfect long-term plan before solving urgent risks such as unclear night routes, wet floors, unsupported toilet transfers or hard-to-reach help.',
+          'Do not wait for a perfect long-term plan before solving urgent risks such as dark night-time walking space, wet floors, unsupported toilet transfers or hard-to-reach help.',
         ],
       },
       {
         title: 'Agree the first-week support plan',
         body: [
           'Write down who visits, who calls, how medication is checked, who handles follow-up appointments and what happens if pain, dizziness, confusion or mobility becomes worse.',
-          'CasaMia can help turn this into a practical home safety route: remote review, expert visit, urgent works, proposal, grant-readiness notes or staged installation.',
+          'CasaMia can help turn this into a practical home safety plan: remote review, expert visit, urgent works, proposal, grant-readiness notes or staged installation.',
         ],
       },
     ],
@@ -970,7 +970,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Should families adapt the whole home before discharge?',
         answer:
-          'Usually no. Focus first on the route home, sleeping, toileting, washing and asking for help. Larger works can be measured and planned after the urgent risks are understood.',
+          'Usually no. Focus first on entry, sleeping, toileting, washing and asking for help. Larger works can be measured and planned after the urgent risks are understood.',
       },
     ],
     cta: {
@@ -983,7 +983,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/when-home-adaptations-are-not-enough',
     title: 'When Home Adaptations Are Not Enough: A Family Decision Guide',
     description:
-      'A practical guide for families deciding whether home adaptations, extra support, a staged plan or a residence route is the safer next step.',
+      'A practical guide for families deciding whether home adaptations, extra support, a staged plan or residential care is the safer next step.',
     category: 'Family decisions',
     readTime: '8 min read',
     date: '2026-07-24',
@@ -993,8 +993,8 @@ export const blogArticles: BlogArticle[] = [
     intro:
       'Aging at home should feel safe, familiar and realistic. The question is not whether home is always better; it is whether the right support can make daily life safer without exhausting the resident or the family.',
     takeaways: [
-      'Home adaptations work best when the resident can still use the home with clearer routes, support points and sensible routines.',
-      'A residence or higher-care route may be safer when supervision, transfers, confusion or night-time risk cannot be managed reliably at home.',
+      'Home adaptations work best when the resident can still use the home with open walking space, support points and sensible routines.',
+      'Residential or higher-care support may be safer when supervision, transfers, confusion or night-time risk cannot be managed reliably at home.',
       'The best decision compares safety, dignity, family capacity, cost, timing and the resident wishes together.',
     ],
     sections: [
@@ -1006,9 +1006,9 @@ export const blogArticles: BlogArticle[] = [
         ],
       },
       {
-        title: 'Signals that home adaptation may still be the right route',
+        title: 'Signals that home adaptation may still be realistic',
         body: [
-          'Home usually remains a strong option when the person wants to stay, recognises the space, can follow simple routines and the main risks are physical or environmental: bathroom access, lighting, stairs, thresholds, getting in and out of bed or emergency reach.',
+          'Home usually remains a strong option when the person wants to stay, recognises the space, can follow familiar routines and the main risks are physical or environmental: bathroom access, lighting, stairs, thresholds, getting in and out of bed or emergency reach.',
           'In that case, a staged plan often works well: fix urgent risk first, then add comfort, connected support or larger adaptations where they clearly improve daily life.',
         ],
       },
@@ -1022,8 +1022,8 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Use a decision frame everyone can understand',
         body: [
-          'A useful family decision compares five things: what the resident wants, what is currently unsafe, what can realistically be changed, who will help day to day, and what each route costs over the next 6 to 24 months.',
-          'CasaMia can help with the home side of that decision: safety review, practical proposal, staged works, grant-readiness notes and a clear explanation of what home adaptation can and cannot solve.',
+          'A useful family decision compares five things: what the resident wants, what is currently unsafe, what can realistically be changed, who will help day to day, and what each option costs over the next 6 to 24 months.',
+          'CasaMia can help with the home side of that decision: safety review, practical proposal, staged works, grant-readiness notes and a direct explanation of what home adaptation can and cannot solve.',
         ],
       },
     ],
@@ -1033,7 +1033,7 @@ export const blogArticles: BlogArticle[] = [
       'Are falls, near misses or night-time incidents becoming more frequent?',
       'Can family or carers realistically support the routine without burning out?',
       'Would a staged home plan solve the main risks, or only delay a bigger decision?',
-      'Has the family compared the cost and timing of adapting home versus a residence or higher-care route?',
+      'Has the family compared the cost and timing of adapting home versus residential or higher-care support?',
     ],
     faqs: [
       {
@@ -1044,7 +1044,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Should we adapt the home before considering a residence?',
         answer:
-          'Not always. Some families should compare both routes early. A focused home safety review can show what can be solved at home, what needs professional support and what may be better handled through a higher-care option.',
+          'Not always. Some families should compare both options early. A focused home safety review can show what can be solved at home, what needs professional support and what may be better handled through a higher-care option.',
       },
     ],
     cta: {
