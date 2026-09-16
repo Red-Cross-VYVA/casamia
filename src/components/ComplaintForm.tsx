@@ -111,7 +111,7 @@ const copyEn = {
   submit: 'Submit complaint',
   success: 'Your complaint was recorded. A confirmation email has been sent to you.',
   successSaved: 'Your complaint was recorded. CasaMia will contact you using the details provided.',
-  title: 'Tell CasaMia what needs attention.',
+  title: 'Tell CasaMia what went wrong.',
 }
 
 const copyEs = {
@@ -130,5 +130,5 @@ const copyEs = {
   submit: 'Enviar reclamación',
   success: 'Tu reclamación ha quedado registrada. Te hemos enviado un correo de confirmación.',
   successSaved: 'Tu reclamación ha quedado registrada. CasaMia se pondrá en contacto contigo usando los datos facilitados.',
-  title: 'Cuéntanos qué necesita atención.',
+  title: 'Cuéntanos qué ha fallado.',
 }

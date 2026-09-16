@@ -63,22 +63,22 @@ const providerPartnerCopy = {
     metaDescription:
       'Join CasaMia’s provider network for home-safety adaptations, installation, smart safety setup and follow-up support across Spain.',
     heroEyebrow: 'Provider partnership programme',
-    heroTitle: 'Deliver scoped senior home-safety work with CasaMia.',
+    heroTitle: 'Deliver prepared senior home-safety work with CasaMia.',
     heroBody:
       'CasaMia prepares assessed requests with resident context, room priorities, access notes and completion expectations before approved providers visit, price, install or support the work.',
-    proof: ['Assessed projects, not cold leads', 'Scope and access notes before the visit', 'CasaMia manages customer communication'],
+    proof: ['Assessed projects, not cold leads', 'Work and access notes before the visit', 'CasaMia manages customer communication'],
     apply: 'Apply to collaborate',
     viewStandards: 'View standards',
     panelTitle: 'What partners receive',
     panelBody:
-      'A defined job: resident context, room priorities, agreed scope, access notes and safe-use expectations before work starts.',
+      'A defined job: resident context, room priorities, agreed work, access notes and safe-use expectations before work starts.',
     workflowEyebrow: 'How the work flows',
     workflowTitle: 'CasaMia prepares the job before providers arrive.',
     workflowBody:
-      'We qualify the request, gather context, shape the scope, coordinate customer communication and keep the project record clear. Approved providers step in when the work is ready to be priced, visited, installed or supported.',
+      'We qualify the request, gather context, shape the work, coordinate customer communication and keep the project record clear. Approved providers step in when the work is ready to be priced, visited, installed or supported.',
     workflow: [
       { title: 'Qualified request', body: 'Home, resident context, photos, urgency and customer priority are captured first.' },
-      { title: 'Provider brief', body: 'You receive the room, scope, access notes, constraints and customer expectations.' },
+      { title: 'Provider brief', body: 'You receive the room, agreed work, access notes, constraints and customer expectations.' },
       { title: 'Coordinated delivery', body: 'CasaMia keeps the customer loop, changes, approvals and completion notes organised.' },
       { title: 'Documented outcome', body: 'Completion notes, photos, quality checks and follow-up stay attached to the project.' },
     ],
@@ -107,7 +107,7 @@ const providerPartnerCopy = {
     standardsEyebrow: 'How collaboration works',
     standardsTitle: 'Standards, handover and payment boundaries.',
     standardsBody:
-      'Providers remain independent businesses, but customer work is coordinated through CasaMia. Installers and subcontractors must not request direct customer payments or approve paid scope changes independently.',
+      'Providers remain independent businesses, but customer work is coordinated through CasaMia. Installers and subcontractors must not request direct customer payments or approve paid changes independently.',
     coverageEyebrow: 'Coverage focus',
     coverageTitle: 'Main city coverage first.',
     coverageBody:
@@ -126,7 +126,7 @@ const providerPartnerCopy = {
       {
         question: 'Is CasaMia a lead marketplace?',
         answer:
-          'No. CasaMia qualifies the customer request, structures the scope and coordinates the relationship before approved providers are asked to price, visit or install.',
+          'No. CasaMia qualifies the customer request, structures the work and coordinates the relationship before approved providers are asked to price, visit or install.',
       },
       {
         question: 'Can providers choose which work to accept?',
@@ -198,14 +198,14 @@ const providerPartnerCopy = {
     viewStandards: 'Ver estándares',
     panelTitle: 'Qué reciben los colaboradores',
     panelBody:
-      'Un trabajo más claro: contexto de la persona, prioridades por estancia, alcance acordado, notas de acceso y expectativas de uso seguro antes de empezar.',
+      'Un trabajo más claro: contexto de la persona, prioridades por estancia, trabajo acordado, notas de acceso y expectativas de uso seguro antes de empezar.',
     workflowEyebrow: 'Cómo fluye el trabajo',
     workflowTitle: 'CasaMia prepara el trabajo antes de la visita.',
     workflowBody:
-      'Cualificamos la solicitud, recogemos contexto, damos forma al alcance, coordinamos el contacto con el cliente y dejamos el proyecto documentado. Los colaboradores aprobados entran cuando el trabajo ya está listo para valorar, visitar, instalar o mantener.',
+      'Cualificamos la solicitud, recogemos contexto, damos forma al trabajo, coordinamos el contacto con el cliente y dejamos el proyecto documentado. Los colaboradores aprobados entran cuando el trabajo ya está listo para valorar, visitar, instalar o mantener.',
     workflow: [
       { title: 'Solicitud cualificada', body: 'Primero recogemos vivienda, contexto de la persona, fotos, urgencia y prioridad del cliente.' },
-      { title: 'Brief claro', body: 'Recibes estancia, alcance, acceso, limitaciones y expectativas del cliente.' },
+      { title: 'Brief claro', body: 'Recibes estancia, trabajo acordado, acceso, limitaciones y expectativas del cliente.' },
       { title: 'Entrega coordinada', body: 'CasaMia organiza cliente, cambios, aprobaciones y notas de finalización.' },
       { title: 'Resultado documentado', body: 'Notas, fotos, comprobaciones de calidad y seguimiento quedan unidos al proyecto.' },
     ],
@@ -325,11 +325,11 @@ const providerPartnerCopy = {
       { title: 'Proveedores de seguimiento', body: 'Mantenimiento, ajustes menores, explicación de uso y visitas de seguimiento.' },
     ],
     resources: [
-      { title: 'Briefings estructurados', body: 'Contexto del cliente, prioridades por estancia, fotos disponibles, alcance acordado, notas de acceso y prioridades de seguridad antes de la visita.' },
+      { title: 'Briefings estructurados', body: 'Contexto del cliente, prioridades por estancia, fotos disponibles, trabajo acordado, notas de acceso y prioridades de seguridad antes de la visita.' },
       { title: 'Playbooks de seguridad senior', body: 'Guías prácticas para baños, escaleras, entradas, dormitorios, iluminación, transferencias y seguridad inteligente.' },
-      { title: 'Plantillas de propuesta y cierre', body: 'Formatos reutilizables para alcance, notas de finalización, registros de producto, comprobaciones de seguridad e instrucciones al cliente.' },
+      { title: 'Plantillas de propuesta y cierre', body: 'Formatos reutilizables para trabajo acordado, notas de finalización, registros de producto, comprobaciones de seguridad e instrucciones al cliente.' },
       { title: 'Bucle de calidad', body: 'CasaMia recoge feedback del cliente, resultados de instalación y notas de seguimiento para que los mejores proveedores sigan mejorando.' },
-      { title: 'Coordinación operativa', body: 'Apoyo con planificación, comunicación con clientes, cambios de alcance y expectativas de seguimiento.' },
+      { title: 'Coordinación operativa', body: 'Apoyo con planificación, comunicación con clientes, cambios del trabajo acordado y expectativas de seguimiento.' },
       { title: 'Formación y onboarding', body: 'Módulos breves para entender comunicación senior, trabajo sin presión, documentación y estándares de aceptación.' },
     ],
     assets: [
@@ -435,7 +435,7 @@ CasaMia coordinates resident-centred assessments, measured adaptation plans and 
   }
 
   if (title.includes('Website')) {
-    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the project brief and consent-aware customer communication, while our team supports local delivery within agreed scope and safety standards.`
+    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the project brief and consent-aware customer communication, while our team supports local delivery within agreed work and safety standards.`
   }
 
   if (title.includes('Window')) {
