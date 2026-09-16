@@ -69,7 +69,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Lower the entry',
-            helps: 'We check the threshold and recommend a lower profile, transition strip or tub cut-out where suitable.',
+            helps: 'We check the threshold and recommend the right lower-profile option: transition strip or tub cut-out.',
             product: 'Low-profile transition strip or bath cut-out.',
           },
           {
@@ -529,7 +529,7 @@ export const zoneRiskMaps: Record<ZoneRiskArea, ZoneRiskMap> = {
           },
           {
             solution: 'Mark the step edge',
-            helps: 'Step edges become easier to see and use with a clear support point where needed.',
+            helps: 'Step edges become easier to see, with a support point added when the route lacks a safe handhold.',
             product: 'Step contrast, handrail or grab point.',
           },
         ],

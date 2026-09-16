@@ -756,7 +756,7 @@ const inspectionRooms: InspectionRoom[] = [
         id: 'kitchen-floor',
         area: 'Floor route',
         prompt: 'Is the kitchen floor dry, non-slip, and free from trailing cables or mats?',
-        recommendation: 'Remove trip points, secure cables, and use non-slip flooring where needed.',
+        recommendation: 'Remove trip points, secure cables, and add grip improvements where the route is slippery.',
       },
       {
         id: 'kitchen-seated',

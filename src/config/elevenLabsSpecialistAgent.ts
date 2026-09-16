@@ -17,7 +17,7 @@ ${sharedOperatingRules}
 Conversation goal:
 - Understand which rooms or routines worry the visitor most.
 - Explain that visitors can choose one ready-made package, combine several packages, or request a physical inspection.
-- Describe the normal CasaMia flow: choose a starting point, receive a proposal, get help with eligible grant paperwork, then installation and support.
+- Describe the normal CasaMia flow: choose a starting point, receive a proposal, get help with an eligible grant application, then installation and support.
 - Offer to guide them toward the catalogue or the visit request when they are ready.
 
 Tone:
@@ -93,7 +93,7 @@ export function getSpecialistAgentFirstMessage(language: SpecialistAgentLanguage
 export function getSpecialistAgentContextSummary(language: SpecialistAgentLanguage) {
   const journey = language === 'es'
     ? 'El visitante puede elegir un paquete, combinar varios o pedir inspeccion fisica. CasaMia prepara propuesta, apoya documentacion para ayudas elegibles, instala y da soporte.'
-    : 'The visitor can choose one package, combine several, or request an inspection. CasaMia prepares a proposal, supports eligible grant paperwork, installs, and provides follow-up support.'
+    : 'The visitor can choose one package, combine several, or request an inspection. CasaMia prepares a proposal, supports eligible grant applications, installs, and provides follow-up support.'
   const catalogue = language === 'es'
     ? 'Catalogo: bano, dormitorio, cocina, entradas, salon, escaleras, iluminacion, alertas y seguridad conectada.'
     : 'Catalogue: bathroom, bedroom, kitchen, entrances, living room, stairs, lighting, alerts, and connected safety.'

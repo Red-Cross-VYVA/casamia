@@ -23,27 +23,27 @@ const copy = {
     seoTitle: 'Free Senior Home Safety Tools | CasaMia',
     seoDescription:
       'Use CasaMia free tools to check home safety, prepare grant questions, compare options and decide what to do first.',
-    eyebrow: 'Free practical tools',
-    title: 'Start with the tool that matches today’s question.',
+    eyebrow: 'Free home-safety tools',
+    title: 'Choose the quickest way to understand what to do next.',
     body:
-      'Choose the situation closest to yours. Each tool gives you a clear first decision: watch and wait, fix one room, prepare evidence or ask CasaMia to help.',
+      'Choose the situation closest to yours. Each tool gives you a clear first decision: keep an eye on things, check one room, prepare evidence, or ask CasaMia to help.',
     featuredLabel: 'Start here if you are unsure',
     featuredTitle: 'Is this home still safe day to day?',
     featuredBody:
       'Five everyday questions to spot whether the next step is reassurance, a focused room check or faster action.',
     featuredCta: 'Take the quick quiz',
     sectionEyebrow: 'Choose your route',
-    sectionTitle: 'Tools for decisions, not guesswork.',
+    sectionTitle: 'Simple routes for real home-safety decisions.',
     openTool: 'Open tool',
     chooserEyebrow: 'Not sure which one?',
     chooserTitle: 'Pick the question you need answered.',
     chooserBody:
-      'The tools are deliberately short. Start with the concern in front of you, then keep the result as notes or share it when you want a proposal.',
+      'Start with the concern in front of you. Keep the result as notes, or share it when you want a visit, report or proposal.',
     nextEyebrow: 'After the tool',
     nextTitle: 'Leave with a decision, not more confusion.',
     finalTitle: 'Need help turning answers into a plan?',
     finalBody:
-      'CasaMia can turn your answers into priorities: what to change now, what can wait, what needs measurements and what may support grant paperwork.',
+      'CasaMia can turn your answers into priorities: what to change now, what can wait, what needs measurements and what may help with a grant application.',
     finalCta: 'Start guided review',
     faqEyebrow: 'Quick answers',
     faqTitle: 'How to use the tools well.',
@@ -56,7 +56,7 @@ const copy = {
       {
         question: 'Do the tools replace a professional visit?',
         answer:
-          'No. They help organise the first decision. A visit still matters when measurements, installation scope, several rooms or grant paperwork are involved.',
+          'No. They help organise the first decision. A visit still matters when measurements, installation scope, several rooms or a grant application are involved.',
       },
       {
         question: 'Can CasaMia use my answers later?',
@@ -70,8 +70,8 @@ const copy = {
     seoTitle: 'Herramientas gratis de seguridad en casa | CasaMia',
     seoDescription:
       'Utiliza herramientas gratuitas de CasaMia para revisar seguridad en casa, preparar ayudas y decidir qué hacer primero.',
-    eyebrow: 'Herramientas prácticas gratuitas',
-    title: 'Empieza con la herramienta que responde a la pregunta de hoy.',
+    eyebrow: 'Herramientas gratis de seguridad en casa',
+    title: 'Elige la forma más rápida de saber qué hacer después.',
     body:
       'Elige la situación más cercana a la tuya. Cada herramienta te deja una primera decisión clara: observar, revisar una estancia, preparar evidencia o pedir ayuda a CasaMia.',
     featuredLabel: 'Empieza aquí si dudas',
@@ -80,17 +80,17 @@ const copy = {
       'Cinco preguntas cotidianas para saber si toca tranquilidad, revisión focalizada o actuar con más rapidez.',
     featuredCta: 'Hacer el quiz rápido',
     sectionEyebrow: 'Elige tu ruta',
-    sectionTitle: 'Herramientas para decidir, no para adivinar.',
+    sectionTitle: 'Rutas sencillas para decisiones reales de seguridad.',
     openTool: 'Abrir herramienta',
     chooserEyebrow: '¿No sabes cuál elegir?',
     chooserTitle: 'Elige la pregunta que necesitas responder.',
     chooserBody:
-      'Las rutas son breves a propósito. Empieza por la preocupación que tienes delante y guarda el resultado como notas o compártelo cuando quieras una propuesta.',
+      'Empieza por la preocupación que tienes delante. Guarda el resultado como notas o compártelo cuando quieras una visita, informe o propuesta.',
     nextEyebrow: 'Después de la herramienta',
     nextTitle: 'Sal con una decisión, no con más dudas.',
     finalTitle: '¿Necesitas convertir respuestas en un plan?',
     finalBody:
-      'CasaMia puede convertir tus respuestas en prioridades: qué cambiar ahora, qué puede esperar, qué necesita medidas y qué puede ayudar en una subvención.',
+      'CasaMia puede convertir tus respuestas en prioridades: qué cambiar ahora, qué puede esperar, qué necesita medidas y qué puede ayudar en una solicitud de ayuda.',
     finalCta: 'Empezar revisión guiada',
     faqEyebrow: 'Respuestas rápidas',
     faqTitle: 'Cómo usar bien las herramientas.',

@@ -156,7 +156,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'insured',
         title: 'Quality control built in',
         body:
-          'Every project needs more than a product list. CasaMia keeps the scope, installation notes, customer communication and handover details connected.',
+          'Every project needs more than a product list. CasaMia keeps the agreed scope, installation notes, customer updates and safe-use explanation connected.',
         points: ['Defined scope before work starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
       },
       {
@@ -178,7 +178,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         title: 'Values that guide the work',
         body:
           'The senior market depends on trust. CasaMia is built around respect for the person living at home, honest communication and careful execution.',
-        points: ['Respect and independence first', 'No pressure or confusing handovers', 'Accountability from first contact to follow-up'],
+        points: ['Respect and independence first', 'No pressure or confusing explanations', 'Accountability from first contact to follow-up'],
       },
     ],
     contactEyebrow: 'Speak with CasaMia',

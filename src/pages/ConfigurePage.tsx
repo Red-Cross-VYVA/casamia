@@ -114,7 +114,7 @@ const stepDescriptions = [
   'These basics help us avoid recommending work that does not match the property.',
   'Select one or more spaces. Hover or focus a zone to see why that part of the home matters.',
   'Set how many rooms, entrances or staircases should be included in the estimate.',
-  'A few practical choices help CasaMia recommend useful services and avoid unnecessary work.',
+  'A few choices help CasaMia suggest services that fit the home and avoid unnecessary work.',
   'Add or remove the recommended safety services before seeing the estimate.',
   'Check your selected improvements and anything that needs final confirmation.',
 ]

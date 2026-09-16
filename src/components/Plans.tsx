@@ -10,7 +10,7 @@ const coreFeatures = [
   'Guided room-by-room safety review',
   'Recommended improvements matched to the resident',
   'Clear estimate before work is confirmed',
-  'Managed installation, setup and handover where needed',
+  'Coordinated installation, setup and safe-use explanation',
 ]
 
 export function Plans({ standalone = false }: PlansProps) {
@@ -21,10 +21,10 @@ export function Plans({ standalone = false }: PlansProps) {
       <div className="site-shell">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="display-title">
-            Build a safer home, <span className="italic-accent">one useful improvement at a time.</span>
+            Build a safer home, <span className="italic-accent">one clear improvement at a time.</span>
           </h2>
           <p className="mt-4 text-xl text-text-mid">
-            Choose the rooms that matter, answer simple questions and let CasaMia recommend the right services.
+            Choose the rooms that matter, answer simple questions and see which services fit the home.
           </p>
         </div>
 

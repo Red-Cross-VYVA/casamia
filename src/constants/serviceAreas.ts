@@ -61,8 +61,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
       es: 'Cobertura en crecimiento para costa, familias internacionales y operadores senior.',
     },
     focus: {
-      en: ['home access', 'bathroom safety', 'family reassurance'],
-      es: ['acceso a vivienda', 'seguridad en baño', 'tranquilidad familiar'],
+      en: ['home access', 'bathroom safety', 'trusted-contact alerts'],
+      es: ['acceso a vivienda', 'seguridad en baño', 'avisos a contactos de confianza'],
     },
   },
   {

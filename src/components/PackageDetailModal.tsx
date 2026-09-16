@@ -47,7 +47,7 @@ const packageModalCopy = {
       },
       grant: {
         label: 'Grant route explained',
-        detail: 'We flag when this improvement may support grant paperwork. The authority still decides approval.',
+        detail: 'We flag when this improvement may support a grant application. The authority still decides approval.',
       },
       handover: {
         label: 'Clear explanation',

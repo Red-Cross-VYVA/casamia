@@ -63,7 +63,7 @@ const pageCopy = {
     downloadBenefits: [
       'Entrances, stairs, living areas, bedroom, bathroom and kitchen',
       'Lighting, emergency planning, connected safety and outdoor areas',
-      'Priority guide, quotation prompts and a handover recheck',
+      'Priority guide, quotation prompts and a safe-use recheck',
     ],
     downloadPrimary: 'Download the English PDF',
     downloadSecondary: 'Descargar en español',

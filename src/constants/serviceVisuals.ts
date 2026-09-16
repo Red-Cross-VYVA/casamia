@@ -34,6 +34,6 @@ export const serviceVisuals: Record<
   'smart-home-safety': {
     badge: 'Connected reassurance',
     image: 'https://casamia-seniors.myshopify.com/cdn/shop/files/AdobeStock_423763182-scaled.jpg',
-    note: 'Sensors, VYVA, family alerts',
+    note: 'Sensors, VYVA, trusted-contact alerts',
   },
 }

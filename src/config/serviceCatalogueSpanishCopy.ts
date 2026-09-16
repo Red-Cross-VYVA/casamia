@@ -6,7 +6,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Luz automática en la puerta, camino o umbral.',
     customerBenefit: 'Hace las llegadas más seguras cuando hay poca visibilidad o las manos están ocupadas.',
     category: 'Acceso y visibilidad',
-    includedItems: ['Luminaria con sensor', 'Revisión de ubicación', 'Entrega por el instalador'],
+    includedItems: ['Luminaria con sensor', 'Revisión de ubicación', 'Explicación de uso seguro'],
   },
   'entrance-step-handrail': {
     name: 'Pasamanos de entrada',
@@ -24,11 +24,11 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
   },
   'entrance-secure-access': {
     name: 'Apoyo de acceso seguro',
-    shortDescription: 'Cerradura inteligente, teclado o timbre cuando encaja.',
-    customerBenefit: 'Ayuda a familiares o cuidadores a acceder sin prisas inseguras ni llaves escondidas.',
+    shortDescription: 'Cerradura inteligente, teclado o timbre tras comprobar compatibilidad.',
+    customerBenefit: 'Ayuda a contactos de confianza a acceder sin prisas inseguras ni llaves escondidas.',
     category: 'Acceso y visibilidad',
     includedItems: ['Comprobación de compatibilidad', 'Configuración del dispositivo', 'Explicación de uso seguro'],
-    safetyNotice: 'Los permisos de acceso deben acordarse con la persona residente o familiar autorizado.',
+    safetyNotice: 'Los permisos de acceso deben acordarse con la persona residente o contacto autorizado.',
   },
   'entrance-modular-ramp': {
     name: 'Rampa modular de acceso',
@@ -85,7 +85,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Apoyo para entrar y salir de la cama.',
     customerBenefit: 'Hace que entrar y salir de la cama sea más estable sin dar un aspecto clínico al dormitorio.',
     category: 'Acceso a la cama',
-    includedItems: ['Comprobación de cama', 'Asa de apoyo', 'Entrega de uso seguro'],
+    includedItems: ['Comprobación de cama', 'Asa de apoyo', 'Explicación de uso seguro'],
   },
   'bedroom-underbed-lighting': {
     name: 'Iluminación bajo cama con sensor',
@@ -275,14 +275,14 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Control por voz para rutinas sencillas cuando ayuda.',
     customerBenefit: 'Reduce movimientos innecesarios para luces, llamadas o recordatorios básicos.',
     category: 'Controles sencillos',
-    includedItems: ['Compatibilidad', 'Configuración inicial', 'Entrega a usuario y familia'],
+    includedItems: ['Compatibilidad', 'Configuración inicial', 'Explicación de uso seguro'],
   },
   'connected-family-alerts': {
-    name: 'Configuración de avisos familiares',
-    shortDescription: 'Avisos acordados para familiares o cuidadores.',
+    name: 'Configuración de avisos a contactos de confianza',
+    shortDescription: 'Avisos acordados para contactos de confianza.',
     customerBenefit: 'Aporta visibilidad sin complicar la vida diaria de la persona residente.',
-    category: 'Tranquilidad familiar',
-    includedItems: ['Preferencias de aviso', 'Configuración familiar', 'Prueba de notificación'],
+    category: 'Avisos con consentimiento',
+    includedItems: ['Preferencias de aviso', 'Contactos autorizados', 'Prueba de notificación'],
   },
   'connected-fall-detection': {
     name: 'Revisión de detección de caídas',
@@ -294,7 +294,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
   'connected-monitoring': {
     name: 'Opción de respuesta profesional',
     shortDescription: 'Revisión de opción de respuesta profesional cuando procede.',
-    customerBenefit: 'Aclara si la familia necesita apoyo externo además de avisos familiares.',
+    customerBenefit: 'Aclara si hace falta apoyo externo además de avisos a contactos de confianza.',
     category: 'Apoyo de emergencia',
     includedItems: ['Revisión de necesidad', 'Opciones disponibles', 'Explicación de funcionamiento'],
   },

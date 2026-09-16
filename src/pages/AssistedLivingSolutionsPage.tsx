@@ -230,7 +230,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       inputs: [
         { title: 'Residents', body: 'Abilities, risks, routines and consent' },
         { title: 'Residence', body: 'Rooms, bathrooms, coverage and connectivity' },
-        { title: 'Care model', body: 'Staff roles, escalation and handover' },
+        { title: 'Care model', body: 'Staff roles, escalation and shift notes' },
         { title: 'Current systems', body: 'Nurse call, care platform, apps and data routes' },
       ],
       outcomeLabel: 'Your CasaMia blueprint',
@@ -256,7 +256,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         },
         {
           title: 'Care workflow layer',
-          body: 'Alerts are routed to the right role with context, escalation and handover so teams can act clearly.',
+          body: 'Alerts are routed to the right role with context, escalation rules and shift notes so teams can act clearly.',
           metric: 'Team response',
         },
       ],
@@ -284,7 +284,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           title: 'Bathroom and continence insights',
           body:
             'Compatible continence sensors can prompt a change; supported toilet or urine-analysis devices can surface selected measurements or trends for authorised review.',
-          points: ['Saturation and change prompts', 'Toileting-event patterns', 'Professional review where appropriate'],
+          points: ['Saturation and change prompts', 'Toileting-event patterns', 'Professional review for flagged changes'],
           visualLabel: 'Bathroom signals, not cameras',
         },
         {
@@ -347,7 +347,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       layerCapabilities: ['Consent & access', 'Event rules', 'Role routing'],
       destinations: [
         { title: 'Caregiver mobile', body: 'The next action, with context' },
-        { title: 'Operator view', body: 'Ownership, status and handover' },
+        { title: 'Operator view', body: 'Ownership, status and shift notes' },
         { title: 'Existing systems', body: 'Supported nurse-call or care platforms' },
       ],
       flow: ['Signal detected', 'Route to role', 'Respond or escalate', 'Record the action'],
@@ -384,7 +384,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         context: 'Camera-free room sensor · resident context available to authorised staff',
         primaryAction: 'I am responding',
         secondaryAction: 'Escalate',
-        footer: 'Acknowledge · act · add a note · hand over',
+        footer: 'Acknowledge · act · add a note · brief the next shift',
       },
     },
     rollout: {
@@ -400,13 +400,13 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ],
       onboardingLabel: 'Resident activation',
       onboarding: ['Add resident', 'Assign roles', 'Pair devices', 'Activate'],
-      ready: 'One clear handover for every resident and every shift.',
+      ready: 'One clear record for every resident and every shift.',
     },
     trust: {
       title: 'What the pilot must prove.',
       outcomes: [
         { title: 'Useful signals', body: 'The agreed events are relevant enough for staff to trust and act on.' },
-        { title: 'Clear ownership', body: 'The right role can acknowledge, respond, escalate and hand over.' },
+        { title: 'Clear ownership', body: 'The right role can acknowledge, respond, escalate and brief the next shift.' },
         { title: 'Workflow fit', body: 'The pilot supports existing routines instead of creating another isolated screen.' },
         { title: 'Repeatable standards', body: 'The model is documented before it expands to more rooms or sites.' },
       ],

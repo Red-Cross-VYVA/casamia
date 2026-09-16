@@ -62,16 +62,16 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     title: 'Technology and service for',
     accent: 'safer ageing at home.',
     intro:
-      'CasaMia brings home safety assessment, practical adaptations, connected technology, and funding guidance into one clear service for families across Spain.',
+      'CasaMia brings home safety assessment, practical adaptations, connected technology, and funding guidance into one clear service for people adapting a home in Spain.',
     primaryCta: 'Check home safety',
     secondaryCta: 'Check grant eligibility',
     provider: {
       kicker: 'Technology and service partner',
       title: 'Built with MOKA DigiTech.',
       body:
-        'MOKA DigiTech supports CasaMia as a technology and service provider dedicated to senior empowerment: making care easier to access, homes easier to adapt, and families better informed before risk becomes an emergency.',
+        'MOKA DigiTech supports CasaMia as a technology and service provider dedicated to senior empowerment: making support easier to access, homes easier to adapt, and decisions clearer before risk becomes an emergency.',
       bullets: [
-        'Service design for families, installers, and care partners',
+        'Service design for residents, installers, and care partners',
         'Digital workflows for safety reports and grant-readiness checks',
         'Senior-focused technology experience through references such as VYVA and COCOON',
       ],
@@ -80,7 +80,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       eyebrow: 'Spain-wide service',
       title: 'Representatives across Spain, supported by one digital workflow.',
       body:
-        'CasaMia is designed for national coverage: local representatives can help families understand the home, while the digital report keeps every assessment, recommendation, and follow-up consistent.',
+        'CasaMia is designed for national coverage: local representatives can help understand the home, while the digital report keeps every assessment, recommendation, and follow-up consistent.',
       badge: 'All Spain',
       legend: 'Representative coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
@@ -98,7 +98,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         'Canary Islands',
       ],
     },
-    credibilityEyebrow: 'Why families can trust the model',
+    credibilityEyebrow: 'Why the model is trustworthy',
     credibilityTitle: 'CasaMia is built around prevention, evidence, and practical follow-through.',
     proof: [
       {
@@ -125,13 +125,13 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'funding',
         title: 'Funding readiness without false promises',
         body:
-          'CasaMia helps families prepare practical evidence for regional, public, and EU-backed support routes where available: the home need, proposed adaptation, and document checklist. Approval always depends on the relevant authority.',
+          'CasaMia helps prepare practical evidence for regional, public, and EU-backed support routes where available: the home need, proposed adaptation, and document checklist. Approval always depends on the relevant authority.',
       },
       {
         icon: 'service',
         title: 'A service layer after the report',
         body:
-          'The goal is not only to detect risks. CasaMia turns findings into a plan, installation scope, grant-readiness checklist, and next step a family can act on.',
+          'The goal is not only to detect risks. CasaMia turns findings into a plan, installation scope, grant-readiness checklist, and a next step you can act on.',
       },
     ],
     workflowEyebrow: 'How we work',
@@ -139,7 +139,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     workflow: [
       {
         title: 'Free check',
-        body: 'Families start with either a home safety report or a grant eligibility check.',
+        body: 'Start with either a home safety report or a grant eligibility check.',
       },
       {
         title: 'Clear recommendation',
@@ -157,7 +157,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     sourcesTitle: 'Credibility references',
     sourcesIntro:
       'These references support the safety and senior-tech context behind CasaMia. They do not imply grant approval or institutional endorsement.',
-    finalTitle: 'Start with the free check that fits your family.',
+    finalTitle: 'Start with the free check that fits your situation.',
     finalBody:
       'Use the safety report to understand home risks, or the grant check to understand readiness before starting an adaptation project.',
   },
@@ -166,16 +166,16 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     title: 'Tecnología y servicio para',
     accent: 'envejecer con más seguridad en casa.',
     intro:
-      'CasaMia une evaluación del hogar, adaptaciones prácticas, tecnología conectada y orientación sobre ayudas en un servicio claro para familias en toda España.',
+      'CasaMia une evaluación del hogar, adaptaciones prácticas, tecnología conectada y orientación sobre ayudas en un servicio claro para adaptar una vivienda en España.',
     primaryCta: 'Comprobar seguridad',
     secondaryCta: 'Comprobar ayudas',
     provider: {
       kicker: 'Partner tecnológico y de servicio',
       title: 'Construido con MOKA DigiTech.',
       body:
-        'MOKA DigiTech apoya CasaMia como proveedor tecnológico y de servicio dedicado al empowerment de las personas mayores: hacer la atención más accesible, las viviendas más fáciles de adaptar y las familias mejor informadas antes de que el riesgo se convierta en emergencia.',
+        'MOKA DigiTech apoya CasaMia como proveedor tecnológico y de servicio dedicado al empowerment de las personas mayores: hacer el apoyo más accesible, las viviendas más fáciles de adaptar y las decisiones más claras antes de que el riesgo se convierta en emergencia.',
       bullets: [
-        'Diseño de servicio para familias, instaladores y partners de cuidado',
+        'Diseño de servicio para residentes, instaladores y partners de cuidado',
         'Flujos digitales para informes de seguridad y checks de ayudas',
         'Experiencia en tecnología senior con referencias como VYVA y COCOON',
       ],
@@ -243,7 +243,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     workflow: [
       {
         title: 'Check gratuito',
-        body: 'La familia empieza con un informe de seguridad del hogar o un check de elegibilidad de ayudas.',
+        body: 'Empieza con un informe de seguridad del hogar o un check de elegibilidad de ayudas.',
       },
       {
         title: 'Recomendación clara',
@@ -261,7 +261,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     sourcesTitle: 'Referencias de credibilidad',
     sourcesIntro:
       'Estas referencias apoyan el contexto de seguridad y tecnología senior detrás de CasaMia. No implican aprobación de ayudas ni respaldo institucional.',
-    finalTitle: 'Empieza con el check gratuito que encaja con tu familia.',
+    finalTitle: 'Empieza con el check gratuito que encaja con tu situación.',
     finalBody:
       'Usa el informe de seguridad para entender los riesgos del hogar, o el check de ayudas para saber si estáis preparados antes de iniciar una adaptación.',
   },

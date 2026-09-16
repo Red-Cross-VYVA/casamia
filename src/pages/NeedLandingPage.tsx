@@ -115,7 +115,7 @@ export function NeedLandingPage() {
           {
             question: 'Can I start without knowing what to buy?',
             answer:
-              'Yes. We start with the daily routine and visible risk, not a product list. Then we turn the need into priorities, a visit or a quote where needed.',
+              'Yes. We start with the daily routine and visible risk, not a product list. Then we turn the need into priorities, a visit or a quote when the next step needs measurements.',
           },
           {
             question: 'Can I send photos or videos before a visit?',

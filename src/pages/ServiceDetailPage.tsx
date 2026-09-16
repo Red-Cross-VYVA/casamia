@@ -610,7 +610,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Clearance around furniture, rugs, cables, and walking aids',
       'Bedside emergency button, phone, or wearable alert placement',
       'Medication, water, glasses, and daily essentials within safer reach',
-      'Optional smart sensor or VYVA alert support where appropriate',
+      'Optional smart sensor or VYVA alert support after consent and placement are checked',
     ],
     reassuranceTitle: 'Designed for independence and calmer nights.',
     reassuranceBody:

@@ -338,7 +338,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     emptyBody: 'Activate services in the CasaMia admin catalogue to publish them here.',
     finalEyebrow: 'Need help choosing?',
     finalTitle: 'Start with the concern. We will shape the right package.',
-    finalBody: 'A short guided review helps identify the most useful services before you request a quote or book a visit.',
+    finalBody: 'A short guided review helps identify which services fit the home before you request a quote or book a visit.',
     startCta: 'Start guided review',
     contactCta: 'Contact CasaMia',
   },

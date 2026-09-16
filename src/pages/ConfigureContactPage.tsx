@@ -26,7 +26,7 @@ const contactCopy = {
     propertyAddress: 'Property address',
     preferredLanguage: 'Preferred language',
     notes: 'Notes',
-    notesPlaceholder: 'Access details, preferred timing or anything useful for the team.',
+    notesPlaceholder: 'Access details, preferred timing, mobility needs or anything the visit team should know.',
     consent: 'I give CasaMia permission to contact me about this plan.',
     submit: 'Choose next step',
     errors: {
@@ -51,7 +51,7 @@ const contactCopy = {
     propertyAddress: 'Dirección de la vivienda',
     preferredLanguage: 'Idioma preferido',
     notes: 'Notas',
-    notesPlaceholder: 'Acceso, horario preferido o cualquier detalle útil para el equipo.',
+    notesPlaceholder: 'Acceso, horario preferido, movilidad o cualquier detalle que el equipo deba saber.',
     consent: 'Autorizo a CasaMia a contactarme sobre este plan.',
     submit: 'Elegir siguiente paso',
     errors: {

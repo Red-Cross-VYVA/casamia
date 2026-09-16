@@ -19,8 +19,8 @@ export function ServicesPreview() {
             Make the rooms used every day safer, easier, and calmer.
           </h2>
           <p>
-            CasaMia focuses on practical changes families can understand: safer bathrooms,
-            stairs, entrances, bedrooms, kitchens, and smart safety where it genuinely helps.
+            CasaMia helps you choose changes that make daily routines easier: safer bathrooms,
+            steadier stairs, clearer entrances, calmer bedrooms, safer kitchens, and smart support only when it helps.
           </p>
         </div>
 
