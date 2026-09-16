@@ -93,7 +93,7 @@ function PhotoAnalysisCard({
           <h5>{analysis.headline}</h5>
           <span>
             {formatRoom(analysis.detectedRoom || analysis.assignedRoom, isSpanish)}
-            {analysed && confidence > 0 ? ` · ${confidence}% ${isSpanish ? 'confianza de estancia' : 'room confidence'}` : ''}
+            {analysed && confidence > 0 ? ` · ${confidence}% ${isSpanish ? 'evidencia visual' : 'visual evidence'}` : ''}
           </span>
         </div>
         <div className={`estimate-photo-score risk-${analysis.riskLevel}`}>
@@ -122,7 +122,7 @@ function PhotoAnalysisCard({
                     {severityLabel(finding.severity, isSpanish)}
                   </span>
                   <strong>{finding.title}</strong>
-                  <small>{Math.round(finding.confidence * 100)}% {isSpanish ? 'confianza' : 'confidence'}</small>
+                  <small>{Math.round(finding.confidence * 100)}% {isSpanish ? 'evidencia' : 'evidence'}</small>
                 </div>
                 <dl>
                   <div>
@@ -177,7 +177,7 @@ function PhotoAnalysisCard({
           <div className="estimate-photo-solution">
             <span className="estimate-photo-solution-icon" aria-hidden="true"><House size={19} /></span>
             <div>
-              <span>{isSpanish ? 'Siguiente paso CasaMia' : 'A practical CasaMia next step'}</span>
+              <span>{isSpanish ? 'Acción recomendada CasaMia' : 'Recommended CasaMia action'}</span>
               <strong>{isSpanish ? recommendation.finding.action : recommendation.service.name}</strong>
               <p>{isSpanish
                 ? 'Confirmamos el encaje, coordinamos la instalación y comprobamos el resultado.'
@@ -189,7 +189,7 @@ function PhotoAnalysisCard({
               <Link
                 to="/home-safety-wizard"
               >
-                {isSpanish ? 'Ver solución' : 'See solution'}
+                {isSpanish ? 'Ver acción' : 'See action'}
                 <ArrowRight size={15} aria-hidden="true" />
               </Link>
             </div>

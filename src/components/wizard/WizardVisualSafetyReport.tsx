@@ -251,7 +251,7 @@ function RoomReportCard({
                   <header>
                     <span className={`is-${finding.severity}`}>{severityLabel(finding.severity, isSpanish)}</span>
                     <strong>{finding.title}</strong>
-                    <small>{Math.round(finding.confidence * 100)}% {isSpanish ? 'confianza' : 'confidence'}</small>
+                    <small>{Math.round(finding.confidence * 100)}% {isSpanish ? 'evidencia' : 'evidence'}</small>
                   </header>
                   <dl>
                     <div><dt><Eye size={15} />{isSpanish ? 'Evidencia' : 'Evidence'}</dt><dd>{finding.evidence}</dd></div>
@@ -301,7 +301,7 @@ function scoreBand(score?: number) {
 }
 
 function summaryHeading(report: WizardSafetyReport, isSpanish: boolean) {
-  if (report.status === 'questionnaire-only') return isSpanish ? 'Necesitamos revisar mejor las fotos' : 'We need a clearer visual review'
+  if (report.status === 'questionnaire-only') return isSpanish ? 'Necesitamos fotos con más evidencia' : 'We need stronger photo evidence'
   if (report.priority === 'urgent') return isSpanish ? 'Hay mejoras que conviene priorizar' : 'Some improvements should be prioritised'
   if (report.priority === 'attention') return isSpanish ? 'Hay puntos concretos que mejorar' : 'There are clear areas to improve'
   return isSpanish ? 'Una buena base, con algunos puntos por confirmar' : 'A good base, with a few points to confirm'
@@ -315,15 +315,15 @@ function summaryBody(report: WizardSafetyReport, isSpanish: boolean) {
   }
 
   return isSpanish
-    ? `Hemos consolidado ${report.topFindings.length} prioridades principales y relacionado las necesidades visibles con mejoras concretas.`
-    : `We consolidated ${report.topFindings.length} main priorities and linked the visible needs to practical improvements.`
+    ? `Hemos consolidado ${report.topFindings.length} prioridades principales y relacionado las necesidades visibles con acciones concretas.`
+    : `We consolidated ${report.topFindings.length} main priorities and linked the visible needs to specific actions.`
 }
 
 function confidenceLabel(confidence: WizardSafetyReport['confidence'], isSpanish: boolean) {
   const labels = {
-    high: isSpanish ? 'Confianza visual alta' : 'High visual confidence',
-    medium: isSpanish ? 'Confianza visual media' : 'Medium visual confidence',
-    low: isSpanish ? 'Confianza visual limitada' : 'Limited visual confidence',
+    high: isSpanish ? 'Evidencia visual alta' : 'Strong visual evidence',
+    medium: isSpanish ? 'Evidencia visual media' : 'Moderate visual evidence',
+    low: isSpanish ? 'Evidencia visual limitada' : 'Limited visual evidence',
   }
   return labels[confidence]
 }

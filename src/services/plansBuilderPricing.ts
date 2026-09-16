@@ -575,19 +575,17 @@ export function getPlansOutcomePreviewDescription(outcome: MasterCatalogueOutcom
     outcome.internalName,
   )
   const withoutOperationalProof = polishPlansDescription(previewSource)
-    .replace(/\s+(Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar)[^.]*\./gi, '')
-    .replace(/\s+(Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar)[^.!?]*$/gi, '')
-    .replace(/\s+(we check|we confirm|CasaMia confirms|Confirmamos)[^.]*\./gi, '')
+    .split(/\s*(?:Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar|we check|we confirm|CasaMia confirms|Confirmamos)\b/i)[0]
     .trim()
 
   const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)
   const summary = (sentences?.slice(0, 1).join(' ') ?? withoutOperationalProof).trim()
 
-  if (summary.length <= 112) return summary.replace(/\.$/, '').concat('.')
+  if (summary.length <= 72) return summary.replace(/\.$/, '').concat('.')
 
-  const clipped = summary.slice(0, 109)
+  const clipped = summary.slice(0, 69)
   const lastSpace = clipped.lastIndexOf(' ')
-  const end = lastSpace > 72 ? lastSpace : clipped.length
+  const end = lastSpace > 48 ? lastSpace : clipped.length
 
   return `${clipped.slice(0, end).trim()}...`
 }

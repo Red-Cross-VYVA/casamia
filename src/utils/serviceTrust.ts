@@ -133,21 +133,18 @@ function polishServiceDescription(description: string) {
 
 function compactPreviewDescription(description: string) {
   const withoutOperationalProof = description
-    .replace(/\s+(Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar)[^.]*\./gi, '')
-    .replace(/\s+(Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar)[^.!?]*$/gi, '')
-    .replace(/\s+(CasaMia confirms|Confirmamos)[^.]*\./gi, '')
-    .replace(/\s+(CasaMia confirms|Confirmamos)[^.!?]*$/gi, '')
+    .split(/\s*(?:Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar|CasaMia confirms|Confirmamos)\b/i)[0]
     .trim()
 
   const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)
   const summary = (sentences?.slice(0, 1).join(' ') ?? withoutOperationalProof).trim()
 
-  if (summary.length <= 78) return summary
+  if (summary.length <= 68) return summary
 
-  const clipped = summary.slice(0, 75)
+  const clipped = summary.slice(0, 65)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 52 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 46 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {

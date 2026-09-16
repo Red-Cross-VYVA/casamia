@@ -428,7 +428,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿Tenemos que saber qué productos necesitamos antes de pedir una visita?',
         answer:
-          'No. Es mejor describir el problema diario y el resultado deseado. CasaMia puede traducirlo después en mejoras físicas, apoyo conectado, trabajos opcionales o una propuesta clara.',
+          'No. Es mejor describir el problema diario y el resultado deseado. CasaMia puede traducirlo después en mejoras físicas, apoyo conectado, trabajos opcionales o una propuesta con alcance definido.',
       },
     ],
     cta: { label: 'Empezar revisión guiada', to: '/tools/is-my-parent-safe-at-home' },
@@ -437,22 +437,22 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     title: 'Seguridad inteligente sin complicar la casa',
     description:
       'Cómo usar tecnología en el hogar de una persona mayor sin invadir, abrumar ni depender de sistemas difíciles de mantener.',
-    category: 'Tecnología sencilla',
+    category: 'Tecnología enfocada',
     readTime: '6 min de lectura',
-    imageAlt: 'Ilustración de tecnología doméstica sencilla para seguridad',
+    imageAlt: 'Ilustración de tecnología doméstica para seguridad',
     keywords: ['seguridad inteligente mayores', 'tecnología hogar mayores', 'sensores seguridad casa'],
     intro:
-      'La tecnología debe hacer la casa más fácil, no más difícil. En hogares con personas mayores, lo importante es elegir señales claras, respuestas acordadas y controles fáciles de entender.',
+      'La tecnología debe reducir un riesgo concreto. En hogares con personas mayores, lo importante es elegir señales claras, respuestas acordadas y controles fáciles de entender.',
     takeaways: [
       'Empieza por riesgos concretos: noche, baño, entrada, medicación o emergencia.',
       'Evita sistemas que requieran demasiada configuración diaria.',
-      'La mejor tecnología se combina con instalación, soporte y consentimiento.',
+      'La tecnología útil se combina con instalación, soporte y consentimiento.',
     ],
     sections: [
       {
         title: 'Menos dispositivos, mejores señales',
         body: [
-          'No hace falta convertir toda la casa en un laboratorio. A menudo basta con iluminación automática, aviso de emergencia, sensores discretos o rutinas simples.',
+          'No hace falta convertir toda la casa en un laboratorio. A menudo basta con iluminación automática, aviso de emergencia, sensores discretos o rutinas acordadas.',
           'Cada dispositivo debe responder a una pregunta clara: ¿hay riesgo de caída?, ¿se ha pedido ayuda?, ¿la ruta nocturna está iluminada?',
         ],
       },
@@ -460,14 +460,14 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Respeta privacidad y comodidad',
         body: [
           'Muchas personas quieren seguridad sin cámaras ni vigilancia constante. Existen opciones ambientales y wearables que pueden aportar información sin invadir la vida diaria.',
-          'La conversación con la persona que vive en la casa es parte de la solución: qué acepta, qué entiende y qué está dispuesta a usar.',
+          'La conversación con la persona que vive en la casa es parte del alcance: qué acepta, qué entiende y qué está dispuesta a usar.',
         ],
       },
       {
         title: 'Piensa en quién responde',
         body: [
           'Un aviso solo sirve si alguien sabe qué hacer. La tecnología debe conectarse a una respuesta de contactos de confianza, profesional o de servicio.',
-          'CasaMia ayuda a elegir soluciones que encajan con la vivienda y con la capacidad real de seguimiento.',
+          'CasaMia ayuda a elegir dispositivos que encajan con la vivienda y con la capacidad real de seguimiento.',
         ],
       },
     ],
@@ -495,7 +495,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
   'choose-home-safety-provider-spain': {
     title: 'Cómo elegir un proveedor de seguridad del hogar para una persona mayor',
     description:
-      'Criterios prácticos para elegir apoyo profesional: evaluación, instalación, claridad de precios, seguimiento y responsabilidad.',
+      'Criterios para elegir apoyo profesional: evaluación, instalación, claridad de precios, seguimiento y responsabilidad.',
     category: 'Elegir proveedor',
     readTime: '7 min de lectura',
     imageAlt: 'Familia revisando opciones de adaptación del hogar',
@@ -509,7 +509,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     ],
     sections: [
       {
-        title: 'Pide una evaluación práctica',
+        title: 'Pide una evaluación basada en rutinas reales',
         body: [
           'Un buen proveedor pregunta por movilidad, rutinas, estancias críticas, apoyos disponibles y urgencia. No empieza vendiendo una lista estándar.',
           'La evaluación debe terminar en prioridades claras: qué resolver ahora, qué planificar y qué no hace falta todavía.',
@@ -519,7 +519,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Comprueba instalación y soporte',
         body: [
           'La seguridad depende de cómo se instala y de quién responde si algo falla. Pregunta por profesionales, garantías, tiempos y revisión final.',
-          'También importa recibir una explicación sencilla del resultado y de cómo usar los cambios.',
+          'También importa recibir una explicación concreta del resultado y de cómo usar los cambios.',
         ],
       },
       {
@@ -541,7 +541,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿Es mejor contratar instaladores por separado?',
         answer:
-          'Puede funcionar para trabajos simples, pero un servicio coordinado ayuda cuando hay varias estancias, ayudas, tecnología o seguimiento.',
+          'Puede funcionar para un trabajo definido, pero un servicio coordinado ayuda cuando hay varias estancias, ayudas, tecnología o seguimiento.',
       },
       {
         question: '¿Qué debe incluir una propuesta seria?',
@@ -552,15 +552,15 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Por qué CasaMia', to: '/why-us' },
   },
   'dementia-friendly-home-safety': {
-    title: 'Seguridad del hogar para demencia: cambios sencillos que reducen confusión',
+    title: 'Seguridad del hogar para demencia: cambios que reducen confusión',
     description:
-      'Ideas prácticas para hacer la vivienda más comprensible, tranquila y segura cuando hay deterioro cognitivo o desorientación.',
+      'Ideas para hacer la vivienda más reconocible y segura cuando hay deterioro cognitivo o desorientación.',
     category: 'Demencia y orientación',
     readTime: '6 min de lectura',
-    imageAlt: 'Hogar con señales visuales sencillas para orientación',
+    imageAlt: 'Hogar con señales visuales para orientación',
     keywords: ['hogar amigable demencia', 'seguridad demencia casa', 'adaptar vivienda deterioro cognitivo'],
     intro:
-      'Cuando hay demencia o desorientación, la seguridad no depende solo de barras o luces. También importa que la vivienda sea fácil de entender, con menos obstáculos y rutinas más previsibles.',
+      'Cuando hay demencia o desorientación, la seguridad no depende solo de barras o luces. También importa que la vivienda sea más reconocible, con menos obstáculos y rutinas previsibles.',
     takeaways: [
       'Reduce ruido visual y decisiones innecesarias.',
       'Mejora iluminación, contraste y rutas conocidas.',
@@ -570,7 +570,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         title: 'Haz que las rutas importantes sean obvias',
         body: [
-          'La ruta al baño, la salida y el dormitorio deben ser fáciles de reconocer. La iluminación suave, el contraste y señales discretas pueden ayudar.',
+          'La ruta al baño, la salida y el dormitorio deben ser reconocibles. La iluminación suave, el contraste y señales discretas pueden ayudar.',
           'Evita reorganizar toda la casa de golpe. Los cambios bruscos pueden aumentar confusión.',
         ],
       },
@@ -600,12 +600,12 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿Conviene poner muchas señales en casa?',
         answer:
-          'Solo las necesarias. Demasiadas señales pueden saturar. Es mejor usar pocas, claras y colocadas donde realmente ayudan.',
+          'Solo las necesarias. Demasiadas señales pueden saturar. Es mejor usar pocas, claras y colocadas donde responden a una ruta o tarea concreta.',
       },
       {
         question: '¿La tecnología ayuda en demencia?',
         answer:
-          'Puede ayudar si es discreta y sencilla, pero no sustituye una vivienda ordenada, rutinas previsibles y apoyo humano.',
+          'Puede ayudar si es discreta y comprensible, pero no sustituye una vivienda ordenada, rutinas previsibles y apoyo humano.',
       },
     ],
     cta: { label: 'Solicitar revisión del hogar', to: '/home-safety-assessment' },
@@ -619,7 +619,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     imageAlt: 'Escalera con pasamanos, iluminación y contraste',
     keywords: ['seguridad escaleras mayores', 'pasamanos personas mayores', 'contraste escalones'],
     intro:
-      'Las escaleras combinan esfuerzo, equilibrio y visión. Pequeñas mejoras en apoyo, iluminación y contraste pueden cambiar mucho la confianza al subir y bajar.',
+      'Las escaleras combinan esfuerzo, equilibrio y visión. Pequeñas mejoras en apoyo, iluminación y contraste pueden reducir la duda al subir y bajar.',
     takeaways: [
       'Revisa pasamanos, iluminación, superficie y contraste juntos.',
       'Las rutas exteriores también cuentan: entrada, portal, garaje o jardín.',
@@ -973,7 +973,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Empieza por escenarios realistas',
         body: [
           'Piensa en una caída, mareo, puerta cerrada, corte de luz, fuga de agua o desorientación. No hace falta imaginar todo, solo lo más probable.',
-          'Cada escenario debe tener una acción simple y una persona responsable.',
+          'Cada escenario debe tener una acción definida y una persona responsable.',
         ],
       },
       {

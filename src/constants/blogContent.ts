@@ -151,7 +151,7 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Illustration of bathroom safety mistakes to avoid',
     keywords: ['bathroom safety for seniors', 'grab bars Spain', 'accessible bathroom older adults'],
     intro:
-      'Bathrooms combine water, hard surfaces, urgency, small spaces and transfers. That is why a quick purchase can create false confidence: the room may look safer while the person still has to step, twist, reach or stand without the right support.',
+      'Bathrooms combine water, hard surfaces, urgency, small spaces and transfers. A quick purchase can hide the real issue: the person may still need to step, twist, reach or stand without the right support.',
     takeaways: [
       'Plan the movement, not just the product: entering, washing, turning, drying, toileting and leaving.',
       'Avoid towel rails, suction handles and furniture as body-weight support.',
@@ -184,7 +184,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Mistake 4: Mixing hot water risk with reach problems',
         body: [
           'Water controls can be difficult when grip, vision or reaction speed changes. If the resident cannot easily set temperature, reach a hand shower, or turn water off while seated, the bathroom may still feel unsafe even after bars are installed.',
-          'Thermostatic controls, clearer handles, reachable storage and a hand-held shower can reduce strain, but they should be matched to the existing plumbing, wall surfaces and user habits.',
+          'Thermostatic controls, visible handles, reachable storage and a hand-held shower can reduce strain, but they should be matched to the existing plumbing, wall surfaces and user habits.',
         ],
       },
     ],
@@ -228,7 +228,7 @@ export const blogArticles: BlogArticle[] = [
           'They should not be used as primary body-weight support. If balance or transfers depend on the support, use professionally fixed bars or other appropriate equipment.',
       },
       {
-        question: 'Is a walk-in shower always the best option?',
+        question: 'Is a walk-in shower always the right first option?',
         answer:
           'Not always. It depends on the resident mobility, bathroom layout, drainage, budget, and urgency. Sometimes immediate support and anti-slip changes come first.',
       },
@@ -246,9 +246,9 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'home-adaptation-grants-spain-family-guide',
     path: '/blog/home-adaptation-grants-spain-family-guide',
-    title: 'Home Adaptation Grants in Spain: A Practical Family Guide',
+    title: 'Home Adaptation Grants in Spain: How to Prepare the File',
     description:
-      'How families in Spain can prepare for accessibility and home adaptation grants, with eligibility checks, document lists, timing risks and official resources.',
+      'How people in Spain can prepare for accessibility and home adaptation grants, with eligibility checks, document lists, timing risks and official resources.',
     category: 'Grants and funding',
     readTime: '11 min read',
     date: '2026-08-10',
@@ -287,7 +287,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Translate the home problem into eligible works',
         body: [
           'Applications are stronger when the proposed works are connected to a concrete daily risk: unsafe shower entry, wet transfers, high thresholds, lack of hand support, poor night lighting, narrow doorways, difficult kitchen reach, or a route that cannot be used with a walker or wheelchair.',
-          'Avoid vague language such as "modernise the bathroom". Use practical wording: replace bathtub with accessible shower, lower a threshold, add fixed support bars, improve non-slip flooring, widen a passage, add motion lighting, install an accessible intercom, or adapt a kitchen so the person can prepare food safely.',
+          'Avoid vague language such as "modernise the bathroom". Use specific wording: replace bathtub with accessible shower, lower a threshold, add fixed support bars, improve non-slip flooring, widen a passage, add motion lighting, install an accessible intercom, or adapt a kitchen so the person can prepare food safely.',
         ],
       },
       {
@@ -308,7 +308,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'If the problem is in a shared building area',
         body: [
           'Lifts, entrance ramps, portal doors, stair routes and other common elements can involve the community of owners. Spain\'s Horizontal Property Law includes rules for necessary accessibility works and reasonable adjustments, especially when residents with disability or people over 70 are involved, but the practical process still depends on the building, budget and administrator.',
-          'For these cases, prepare a short note for the administrator: the resident need, the affected route, photos, the proposed solution, whether a grant call exists, and what decision the community must take. Good paperwork reduces friction before a community meeting.',
+          'For these cases, prepare a short note for the administrator: the resident need, the affected route, photos, the proposed works, whether a grant call exists, and what decision the community must take. Good paperwork reduces friction before a community meeting.',
         ],
       },
     ],
@@ -403,17 +403,17 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/smart-home-safety-without-overcomplicating',
     title: 'Smart Home Safety for Seniors Without Making the Home Complicated',
     description:
-      'How smart lighting, sensors, emergency alerts and simple routines can support older adults without overwhelming the home.',
+      'How smart lighting, sensors, emergency alerts and agreed routines can reduce specific home risks without overwhelming the home.',
     category: 'Smart safety',
     readTime: '6 min read',
     date: '2026-07-11',
     image: '/images/blog/smart-safety-simple.webp',
-    imageAlt: 'Illustration of simple smart home safety support',
+    imageAlt: 'Illustration of smart home safety support',
     keywords: ['smart home safety seniors', 'elderly emergency alerts', 'aging in place technology'],
     intro:
-      'Smart safety works best when it disappears into daily life. The aim is not to turn a senior home into a gadget showroom, but to add simple support where it reduces risk or gives agreed contacts clearer awareness.',
+      'Smart safety works when it fits daily life. The aim is not to turn a senior home into a gadget showroom, but to add support where it reduces a named risk or gives agreed contacts usable information.',
     takeaways: [
-      'Start with simple wins: motion lighting, emergency buttons, leak or smoke alerts.',
+      'Start with named risks: night lighting, emergency reach, leak detection or smoke alerts.',
       'Avoid cameras by default unless there is a clear, consent-based reason.',
       'Testing and clear explanation are essential so the person using the setup trusts it.',
     ],
@@ -421,14 +421,14 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Choose technology for a specific risk',
         body: [
-          'Motion lighting can reduce night-time hesitation. Door alerts can support routines. Emergency buttons can make help easier to reach. Sensors can detect hidden water or smoke risks.',
+          'Motion lighting can reduce night-time hesitation. Door alerts can support agreed routines. Emergency buttons can put help within reach. Sensors can detect hidden water or smoke risks.',
           'Each device should answer a clear question: what risk does this reduce, and who responds if it triggers?',
         ],
       },
       {
         title: 'Design around the resident, not the app',
         body: [
-          'The person at home should not need to manage complex settings or remember new steps during a stressful moment. Dashboards are helpful only when the daily experience remains simple.',
+          'The person at home should not need to manage complex settings or remember new steps during a stressful moment. Dashboards are useful only when the daily experience remains understandable.',
           'Good setup includes testing, labels, household training, and agreement on who receives alerts.',
         ],
       },
@@ -451,12 +451,12 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'What smart safety device is best to start with?',
         answer:
-          'For many homes, motion lighting and an easy emergency contact option are the simplest first steps. The right choice depends on the resident routine and risks.',
+          'For many homes, motion lighting and an emergency contact option are useful first checks. The right choice depends on the resident routine and risks.',
       },
       {
         question: 'Do seniors need cameras for home safety?',
         answer:
-          'Usually no. Cameras should not be the default. Less intrusive options such as lighting, sensors, and agreed alerts are often more respectful and practical.',
+          'Usually no. Cameras should not be the default. Less intrusive options such as lighting, sensors, and agreed alerts are often more respectful and targeted.',
       },
     ],
     cta: {
@@ -479,7 +479,7 @@ export const blogArticles: BlogArticle[] = [
     intro:
       'Choosing a home safety provider is not the same as choosing a product supplier. The provider needs to understand older adults, home routines, installation quality, coordination, documentation, and follow-up.',
     takeaways: [
-      'Look for assessment before sales, clear scope, and practical priorities.',
+      'Look for assessment before sales, clear scope, and ranked priorities.',
       'Ask how installers are coordinated and how quality is checked.',
       'Make sure follow-up and safe-use explanation are part of the service.',
     ],
@@ -488,11 +488,11 @@ export const blogArticles: BlogArticle[] = [
         title: 'Assessment should come before recommendations',
         body: [
           'A trustworthy provider asks about the person at home, mobility, recent falls, daily routines, carers, and main concerns before recommending products.',
-          'If the conversation jumps straight to equipment, the solution may miss the real risk.',
+          'If the conversation jumps straight to equipment, the recommendation may miss the real risk.',
         ],
       },
       {
-        title: 'The proposal should be easy to understand',
+        title: 'The proposal should separate scope, assumptions and decisions',
         body: [
           'You should receive a clear explanation of what is included, why it matters, what is optional, what depends on site conditions, and what happens next.',
           'Transparent scope protects both the person at home and the budget.',
@@ -517,7 +517,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Should you hire one installer directly or use a coordinated service?',
         answer:
-          'For a single simple job, one installer may be enough. For room-by-room safety, grants, multiple trades, or several decision-makers, a managed service can reduce confusion.',
+          'For one defined job, one installer may be enough. For room-by-room safety, grants, multiple trades, or several decision-makers, a managed service can reduce confusion.',
       },
       {
         question: 'What makes CasaMia different from a product shop?',
@@ -535,7 +535,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/family-conversation-before-home-safety-visit',
     title: 'Before a Home Safety Visit: Questions Families Should Agree First',
     description:
-      'A practical family conversation guide before booking a senior home safety assessment, with prompts for mobility, routines, dignity, budget, grants, and decision-making.',
+      'A home-safety conversation guide before booking a senior home safety assessment, with prompts for mobility, routines, preferences, budget, grants, and decision-making.',
     category: 'Family planning',
     readTime: '6 min read',
     date: '2026-07-24',
@@ -550,14 +550,14 @@ export const blogArticles: BlogArticle[] = [
       'Families often know something needs to change, but not everyone names the same worry. A short conversation before a visit helps CasaMia understand the person, the home, and the decision the family actually needs to make.',
     takeaways: [
       'Agree the daily moments that feel hardest before discussing products.',
-      'Separate urgent safety needs from comfort, confidence, and future planning.',
+      'Separate urgent safety needs from preferences, future planning and work that can wait.',
       'Decide who must be involved in the proposal, budget, grant route, and final approval.',
     ],
     sections: [
       {
         title: 'Start with the person, not the room',
         body: [
-          'Ask what has changed recently: a fall, near miss, hospital stay, new medication, fatigue, fear of bathing, night-time bathroom trips, or less confidence leaving the home.',
+          'Ask what has changed recently: a fall, near miss, hospital stay, new medication, fatigue, fear of bathing, night-time bathroom trips, or hesitation leaving the home.',
           'The same bathroom, bedroom, or staircase can mean very different things depending on strength, balance, memory, vision, pain, and whether the person lives alone.',
         ],
       },
@@ -565,14 +565,14 @@ export const blogArticles: BlogArticle[] = [
         title: 'Name the routines that create stress',
         body: [
           'Instead of saying “the bathroom is unsafe”, describe the exact moment: stepping into the shower, standing from the toilet, drying after bathing, walking to the bathroom at night, carrying laundry, or opening the front door.',
-          'This turns a broad concern into a practical brief. CasaMia can then prioritise safer transfers, clearer routes, lighting, support points, emergency help, or a professional visit where needed.',
+          'This turns a broad concern into a usable brief. CasaMia can then prioritise safer transfers, visible routes, lighting, support points, emergency help, or a professional visit where needed.',
         ],
       },
       {
         title: 'Agree what must stay familiar',
         body: [
-          'Safety should not make the home feel clinical. Talk about what matters emotionally: privacy, independence, preferred routines, favourite furniture, the look of the bathroom, or whether visible equipment would be upsetting.',
-          'A good plan protects dignity as well as movement. Sometimes the best improvement is the one the resident will actually accept and use every day.',
+          'Safety should not make the home feel clinical. Talk about what matters personally: privacy, preferred routines, favourite furniture, the look of the bathroom, or whether visible equipment would be upsetting.',
+          'A good plan protects consent and daily movement. Sometimes the right improvement is the one the resident will actually accept and use every day.',
         ],
       },
       {
@@ -595,12 +595,12 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Should the older adult be part of the home safety conversation?',
         answer:
-          'Yes, wherever possible. The person living in the home should help explain what feels difficult, what they would accept, and what routines matter most. Family input is useful, but dignity and consent still matter.',
+          'Yes, wherever possible. The person living in the home should help explain what feels difficult, what they would accept, and what routines matter most. Relative or carer input is useful, but consent still matters.',
       },
       {
         question: 'Do we need to know the exact products before requesting a visit?',
         answer:
-          'No. It is better to describe the daily problem and the outcome you want. CasaMia can then translate that into suitable physical improvements, connected support, optional works, or a clearer proposal.',
+          'No. It is better to describe the daily problem and the outcome you want. CasaMia can then translate that into suitable physical improvements, connected support, optional works, or a scoped proposal.',
       },
     ],
     cta: {
@@ -611,7 +611,7 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'dementia-friendly-home-safety',
     path: '/blog/dementia-friendly-home-safety',
-    title: 'Dementia-Friendly Home Safety: Simple Changes That Reduce Confusion',
+    title: 'Dementia-Friendly Home Safety: Changes That Reduce Confusion',
     description:
       'Dementia-friendly home safety ideas, including lighting, visual cues, safer routines, exits, bathrooms, and trusted-contact alerts.',
     category: 'Memory support',
@@ -621,9 +621,9 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Editorial illustration of a calm dementia-friendly home layout',
     keywords: ['dementia home safety', 'memory friendly home', 'senior safety dementia'],
     intro:
-      'When memory or confusion becomes part of daily life, home safety needs to do more than prevent falls. The home should become easier to understand, calmer to move through, and more predictable for the person living there.',
+      'When memory or confusion becomes part of daily life, home safety needs to do more than prevent falls. The home should make key routes, objects and responses easier to recognise for the person living there.',
     takeaways: [
-      'Use clearer lighting, contrast, labels, and uncluttered routes.',
+      'Use visible lighting, contrast, labels, and uncluttered routes.',
       'Reduce confusing hazards around bathrooms, kitchens, exits, and night routines.',
       'Agree trusted-contact alerts and support routines without making the person at home feel watched.',
     ],
@@ -631,30 +631,30 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Make important routes obvious',
         body: [
-          'A dementia-friendly home should make the next step easy to understand. The route to the bathroom, bedroom, kitchen, and front door should be clear, well lit, and free from visual clutter.',
-          'Contrast can help: a visible toilet seat, clear door markings, simple labels, and lighting that removes shadows can reduce hesitation.',
+          'A dementia-friendly home should make the next step easier to recognise. The route to the bathroom, bedroom, kitchen, and front door should be visible, well lit, and free from visual clutter.',
+          'Contrast can help: a visible toilet seat, clear door markings, direct labels, and lighting that removes shadows can reduce hesitation.',
         ],
       },
       {
         title: 'Reduce hidden risk in familiar routines',
         body: [
           'Confusion often appears during ordinary tasks: cooking, bathing, taking medication, opening doors, or waking at night. Review these routines before buying products.',
-          'Simple changes can include automatic night lights, safer appliance habits, removing trip hazards, and placing important items where they are easy to see.',
+          'Useful changes can include automatic night lights, safer appliance habits, removing trip hazards, and placing important items where they are visible.',
         ],
       },
       {
-        title: 'Balance safety and dignity',
+        title: 'Balance safety, consent and privacy',
         body: [
           'Families may need alerts, door awareness, or emergency support, but the least intrusive option should come first. The resident should stay involved wherever possible.',
-          'A good plan protects privacy, reduces stress, and gives carers a clearer response routine.',
+          'A good plan protects privacy, reduces stress, and gives carers a defined response routine.',
         ],
       },
     ],
     checklist: [
-      'Are bathroom and bedroom routes easy to recognise at night?',
+      'Are bathroom and bedroom routes recognisable at night?',
       'Are mirrors, shadows, or dark corners causing confusion?',
-      'Are kitchen risks managed without removing independence unnecessarily?',
-      'Can family members respond if the resident leaves unexpectedly?',
+      'Are kitchen risks managed without removing useful routines unnecessarily?',
+      'Can agreed contacts respond if the resident leaves unexpectedly?',
       'Are labels, colours, and lighting consistent across the home?',
     ],
     faqs: [
@@ -664,9 +664,9 @@ export const blogArticles: BlogArticle[] = [
           'Usually not as a first step. Consider less intrusive options first, such as lighting, door alerts, agreed check-ins, and emergency call support.',
       },
       {
-        question: 'What is the simplest dementia-friendly home improvement?',
+        question: 'What dementia-friendly home improvement should come first?',
         answer:
-          'Clear night lighting and uncluttered routes are often the best first improvements because they support daily movement without requiring the person to learn something new.',
+          'Clear night lighting and uncluttered routes are often strong first improvements because they support daily movement without requiring the person to learn something new.',
       },
     ],
     cta: {
@@ -745,7 +745,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/kitchen-safety-aging-in-place',
     title: 'Kitchen Safety for Aging in Place: Reduce Reaching, Bending, and Appliance Risk',
     description:
-      'A practical guide to kitchen safety for older adults, covering storage, lighting, movement routes, appliances, seating, and family support.',
+      'A kitchen safety guide for older adults, covering storage, lighting, movement routes, appliances, seating, and support routines.',
     category: 'Kitchen safety',
     readTime: '6 min read',
     date: '2026-07-11',
@@ -755,7 +755,7 @@ export const blogArticles: BlogArticle[] = [
     intro:
       'The kitchen is not just a room; it is a sequence of movements. Safer kitchens reduce unnecessary reaching, bending, carrying, turning, and rushing around hot surfaces or sharp tools.',
     takeaways: [
-      'Bring daily items into easy reach between shoulder and waist height.',
+      'Store daily items between shoulder and waist height.',
       'Keep movement routes clear and task lighting strong.',
       'Review appliance habits, not just appliance features.',
     ],
@@ -764,41 +764,41 @@ export const blogArticles: BlogArticle[] = [
         title: 'Start with the daily items',
         body: [
           'Plates, cups, medication, kettle, pans, cleaning products, and breakfast items should be reviewed first. If the resident climbs, bends deeply, or stretches daily, risk builds quietly.',
-          'Moving items is often faster and cheaper than buying new furniture, and it can make the kitchen feel easier immediately.',
+          'Moving items is often faster and cheaper than buying new furniture, and it can reduce daily reach and bending immediately.',
         ],
       },
       {
         title: 'Reduce carrying and turning',
         body: [
           'Many kitchen incidents happen when someone carries a hot drink, turns quickly, or navigates a narrow space with both hands full.',
-          'A safer setup may include clearer work zones, a stable place to rest items, better lighting, and reducing floor clutter.',
+          'A safer setup may include defined work zones, a stable place to rest items, better lighting, and reduced floor clutter.',
         ],
       },
       {
         title: 'Review appliance routines',
         body: [
-          'Induction, automatic shut-off devices, smoke and heat alerts, and clearer controls can help, but the right solution depends on how the resident cooks.',
-          'For some families, the safest first step is a routine change supported by simple reminders or family check-ins.',
+          'Induction, automatic shut-off devices, smoke and heat alerts, and visible controls can help, but the right recommendation depends on how the resident cooks.',
+          'For some homes, the safest first step is a routine change supported by reminders or agreed check-ins.',
         ],
       },
     ],
     checklist: [
-      'Are daily items stored within easy reach?',
+      'Are daily items stored between shoulder and waist height?',
       'Can the resident prepare food without crossing the room repeatedly?',
       'Is task lighting strong at counters, sink, and cooker?',
       'Are floor mats secure and edges flat?',
-      'Are appliance controls easy to read and remember?',
+      'Are appliance controls visible, readable and familiar?',
     ],
     faqs: [
       {
         question: 'Should older adults stop cooking alone?',
         answer:
-          'Not automatically. The right decision depends on mobility, memory, vision, appliance use, and recent incidents. Many kitchens can be made safer while preserving independence.',
+          'Not automatically. The right decision depends on mobility, memory, vision, appliance use, and recent incidents. Many kitchens can be made safer while preserving useful routines.',
       },
       {
         question: 'What kitchen change helps most for seniors?',
         answer:
-          'Reducing reach and bend for daily items is often the highest-value first change, followed by better task lighting and clearer movement routes.',
+          'Reducing reach and bend for daily items is often the highest-value first change, followed by better task lighting and visible movement routes.',
       },
     ],
     cta: {
