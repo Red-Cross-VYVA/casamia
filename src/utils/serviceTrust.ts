@@ -110,10 +110,10 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
 
 export function getServicePreviewDescription(service: CasaMiaService) {
   const description = [
-    service.shortDescription,
-    service.plainLanguageSummary,
     service.customerBenefit,
     service.outcome,
+    service.shortDescription,
+    service.plainLanguageSummary,
     service.customerDescription,
   ]
     .map((value) => compactPreviewDescription(polishServiceDescription(value?.trim() ?? '')))
@@ -137,7 +137,7 @@ function polishServiceDescription(description: string) {
 function compactPreviewDescription(description: string) {
   const withoutOperationalProof = description
     .replace(/\s+/g, ' ')
-    .split(/\s*(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar|CasaMia confirms|Confirmamos|we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag useful paperwork|where local grant criteria may apply|donde puedan aplicar criterios de subvención|grant paperwork|final scope|scope and price|measurements, fixing points|home conditions|the final scope|el alcance final)\b/i)[0]
+    .split(/\s*(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar|CasaMia confirms|Confirmamos|we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag useful paperwork|where local grant criteria may apply|donde puedan aplicar criterios de subvención|grant paperwork|final scope|scope and price|measurements, fixing points|fixing points and home conditions|home conditions|the final scope|el alcance final|paperwork where local grant criteria may apply|and price after the home review)\b/i)[0]
     .trim()
 
   const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)

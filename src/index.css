@@ -8059,15 +8059,15 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .zone-service-gallery-card-copy p {
   display: -webkit-box;
   overflow: hidden;
-  max-height: 3.62rem;
+  max-height: 2.84rem;
   margin-top: 9px;
   color: var(--text-mid);
   font-size: 14px;
   font-weight: 760;
   line-height: 1.42;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .zone-service-gallery-card-actions,
