@@ -23,7 +23,7 @@ export const serviceVisuals: Record<
   },
   'kitchen-safety': {
     badge: 'Routine and reach',
-    image: '/images/before-after/kitchen-after.webp',
+    image: '/images/before-after/kitchen-after.png',
     note: 'Reach, lighting, appliances and water risk',
   },
   'bedroom-safety': {
