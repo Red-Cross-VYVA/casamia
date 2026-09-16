@@ -34,7 +34,7 @@ import type {
   MasterServiceCatalogue,
   ServicePackageArea,
 } from '../types/serviceCatalogue'
-import { getServiceProofChips } from '../utils/serviceTrust'
+import { getServicePreviewDescription, getServiceProofChips } from '../utils/serviceTrust'
 import '../styles/services-catalogue.css'
 
 type CatalogueGroupId = ServicePackageArea | 'other'
@@ -401,28 +401,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
 }
 
 const getCustomerServiceName = (service: CasaMiaService) => service.customerName ?? service.name
-const getCustomerServiceDescription = (service: CasaMiaService) => {
-  const description = (
-    service.plainLanguageSummary
-    ?? service.customerDescription
-    ?? service.shortDescription
-  ).trim()
-
-  return polishCardDescription(description)
-}
-
-function polishCardDescription(description: string) {
-  const polished = description
-    .replace(/^Adding\b/, 'Adds')
-    .replace(/^Providing\b/, 'Provides')
-    .replace(/^Installing\b/, 'Installs')
-    .replace(/^Configuring\b/, 'Configures')
-    .replace(/^Replacing\b/, 'Replaces')
-    .replace(/\s+/g, ' ')
-    .trim()
-
-  return polished.endsWith('.') ? polished : `${polished}.`
-}
+const getCustomerServiceDescription = (service: CasaMiaService) => getServicePreviewDescription(service)
 
 const isWebsiteVisible = (service: CasaMiaService) =>
   service.websiteVisible ?? service.visibility?.website ?? true

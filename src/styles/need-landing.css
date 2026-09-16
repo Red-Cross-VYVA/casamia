@@ -1006,9 +1006,13 @@
 }
 
 .need-catalogue-card p {
+  display: -webkit-box;
+  overflow: hidden;
   margin: 0.45rem 0 0;
   color: #4d657b;
   line-height: 1.48;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .need-zone-gallery {

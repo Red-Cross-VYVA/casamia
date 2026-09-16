@@ -20,7 +20,7 @@ import { localizeNeedLandingPage } from '../constants/needLandingPagesLocalizati
 import { getServicesForPackageArea } from '../services/serviceCatalogue'
 import { useLocalizedServiceCatalogue } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServiceCatalogueSection, ServicePackageArea } from '../types/serviceCatalogue'
-import { getServiceCredibleDescription } from '../utils/serviceTrust'
+import { getServicePreviewDescription } from '../utils/serviceTrust'
 
 import '../styles/need-landing.css'
 
@@ -823,7 +823,7 @@ function CatalogueServiceCard({
   compact?: boolean
 }) {
   const section = service.section ?? 'home_safety_package'
-  const summary = getServiceCredibleDescription(service, language)
+  const summary = getServicePreviewDescription(service)
   const languageKey = language.toLowerCase().startsWith('es') ? 'es' : 'en'
 
   return (

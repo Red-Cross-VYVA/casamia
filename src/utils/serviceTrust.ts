@@ -108,6 +108,19 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
     : `${baseDescription.replace(/\s+$/, '').replace(/\.$/, '')}. ${proofSentence}`
 }
 
+export function getServicePreviewDescription(service: CasaMiaService) {
+  const description = (
+    service.plainLanguageSummary
+    ?? service.customerDescription
+    ?? service.shortDescription
+  ).trim()
+
+  return polishServiceDescription(description)
+    .replace(/\s+/g, ' ')
+    .replace(/\.$/, '')
+    .concat('.')
+}
+
 function polishServiceDescription(description: string) {
   return description
     .replace(/^Adding\b/, 'Adds')

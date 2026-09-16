@@ -27,7 +27,7 @@ import { getMasterServiceCatalogue } from '../services/masterServiceCatalogue'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServicePackageArea, ServiceRoom } from '../types/serviceCatalogue'
-import { getServiceCredibleDescription, getServiceProofChips } from '../utils/serviceTrust'
+import { getServicePreviewDescription, getServiceProofChips } from '../utils/serviceTrust'
 import '../styles/home-hero-ctas.css'
 import '../styles/services-catalogue.css'
 
@@ -728,7 +728,7 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
                   <span>{item.category}</span>
                 </div>
                 <h3>{item.name}</h3>
-                <p>{getServiceCredibleDescription(item, language)}</p>
+                <p>{getServicePreviewDescription(item)}</p>
               </div>
               <div className="service-kitchen-component-details">
                 <p className="service-kitchen-component-benefit">

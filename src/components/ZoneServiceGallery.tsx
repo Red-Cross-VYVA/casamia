@@ -5,7 +5,7 @@ import { SafeImage } from './SafeImage'
 import { ServiceItemDetailModal } from './ServiceItemDetailModal'
 import { getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
 import type { CasaMiaService, ServiceCatalogueSection, ServiceRoom } from '../types/serviceCatalogue'
-import { getServiceCredibleDescription, getServiceProofChips } from '../utils/serviceTrust'
+import { getServicePreviewDescription, getServiceProofChips } from '../utils/serviceTrust'
 
 type ZoneGalleryRoom = Extract<ServiceRoom, 'bathroom' | 'bedroom' | 'entrance' | 'kitchen' | 'living-room'>
 
@@ -195,7 +195,7 @@ function ZoneServiceGalleryCard({
 }) {
   const section = service.section ?? 'home_safety_package'
   const title = service.customerName ?? service.name
-  const description = getServiceCredibleDescription(service, languageKey)
+  const description = getServicePreviewDescription(service)
   const proofChips = getServiceProofChips(service, languageKey)
 
   return (
