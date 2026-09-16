@@ -1346,14 +1346,14 @@
 .services-catalogue-service-description {
   display: -webkit-box;
   overflow: hidden;
-  max-height: 2.7rem;
+  max-height: 4.05rem;
   margin: 0.72rem 0 0;
   color: #536879;
   font-size: 0.9rem;
   line-height: 1.45;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .services-catalogue-proof-chips {

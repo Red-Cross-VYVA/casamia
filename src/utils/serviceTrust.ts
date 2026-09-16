@@ -110,10 +110,10 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
 
 export function getServicePreviewDescription(service: CasaMiaService) {
   const description = [
+    service.shortDescription,
+    service.plainLanguageSummary,
     service.customerBenefit,
     service.outcome,
-    service.plainLanguageSummary,
-    service.shortDescription,
     service.customerDescription,
   ]
     .map((value) => compactPreviewDescription(polishServiceDescription(value?.trim() ?? '')))
@@ -136,7 +136,8 @@ function polishServiceDescription(description: string) {
 
 function compactPreviewDescription(description: string) {
   const withoutOperationalProof = description
-    .split(/\s*(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar|CasaMia confirms|Confirmamos|we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag useful paperwork|where local grant criteria may apply|donde puedan aplicar criterios de subvención|grant paperwork|final scope|scope and price|measurements, fixing points|home conditions)\b/i)[0]
+    .replace(/\s+/g, ' ')
+    .split(/\s*(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar|CasaMia confirms|Confirmamos|we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag useful paperwork|where local grant criteria may apply|donde puedan aplicar criterios de subvención|grant paperwork|final scope|scope and price|measurements, fixing points|home conditions|the final scope|el alcance final)\b/i)[0]
     .trim()
 
   const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)
@@ -145,12 +146,12 @@ function compactPreviewDescription(description: string) {
     .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, when the layout allows|, after checking|, when the existing|, donde sea adecuado|, cuando encaja|, si procede|, tras revisar|, cuando la distribución|, cuando la instalación)\s*/i)[0]
     .trim()
 
-  if (summary.length <= 72) return summary
+  if (summary.length <= 96) return summary
 
-  const clipped = summary.slice(0, 69)
+  const clipped = summary.slice(0, 93)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 50 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 64 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {

@@ -276,7 +276,7 @@ type ServiceDetailContent = {
 const defaultServiceDetailContent: ServiceDetailContent = {
   benefitsTitle: 'Reduce the room risks that interrupt daily routines.',
   benefitsIntro:
-    'CasaMia focuses on the moments that make a room harder to use: reaching, turning, standing, poor light, wet floors or not having support in the right place.',
+    'CasaMia reviews the exact moments that make a room harder to use: reaching, turning, standing, poor light, wet floors or support missing where it is needed.',
   benefits: [
     {
       title: 'Fewer unsupported movements',
@@ -298,7 +298,7 @@ const defaultServiceDetailContent: ServiceDetailContent = {
     'Room and routine review',
     'Risk priorities explained in plain language',
     'Product and installation recommendations that fit the room',
-    'Clear next step for urgent, recommended and optional improvements',
+    'Next action separated into urgent, recommended and optional improvements',
   ],
   reassuranceTitle: 'Matched to the person using the room.',
   reassuranceBody:
@@ -306,13 +306,13 @@ const defaultServiceDetailContent: ServiceDetailContent = {
   reassurancePoints: ['Matched to the existing home', 'Explained before work starts', 'Focused on prevention before incidents happen'],
   finalTitle: 'Start with the room that worries you most.',
   finalBody:
-    'CasaMia can check this area alongside the rest of the home, then show what should happen first.',
+    'CasaMia can check this area alongside the rest of the home, then confirm what to change first and what still needs measurement.',
 }
 
 const defaultServiceDetailContentEs: ServiceDetailContent = {
   benefitsTitle: 'Reduce los riesgos de la estancia que interrumpen la rutina diaria.',
   benefitsIntro:
-    'CasaMia se centra en los momentos que hacen difícil usar una estancia: alcanzar, girar, levantarse, poca luz, suelo mojado o falta de apoyo en el lugar correcto.',
+    'CasaMia revisa los momentos exactos que hacen difícil usar una estancia: alcanzar, girar, levantarse, poca luz, suelo mojado o falta de apoyo donde se necesita.',
   benefits: [
     {
       title: 'Menos movimientos sin apoyo',
@@ -334,7 +334,7 @@ const defaultServiceDetailContentEs: ServiceDetailContent = {
     'Revisión de estancia y rutina',
     'Prioridades de riesgo explicadas de forma clara',
     'Recomendaciones de producto e instalación que encajan con la estancia',
-    'Siguiente paso claro para mejoras urgentes, recomendadas y opcionales',
+    'Acción siguiente separada entre mejoras urgentes, recomendadas y opcionales',
   ],
   reassuranceTitle: 'Adaptado a la persona que usa la estancia.',
   reassuranceBody:
@@ -342,7 +342,7 @@ const defaultServiceDetailContentEs: ServiceDetailContent = {
   reassurancePoints: ['Adaptado a la vivienda actual', 'Explicado antes de empezar', 'Prevención antes de que ocurra un incidente'],
   finalTitle: 'Empieza por la estancia que más te preocupa.',
   finalBody:
-    'CasaMia puede revisar esta zona junto con el resto de la vivienda y mostrar qué debería pasar primero.',
+    'CasaMia puede revisar esta zona junto con el resto de la vivienda y confirmar qué cambiar primero y qué todavía necesita medidas.',
 }
 
 const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
@@ -354,7 +354,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefits: [
       { title: 'Transferencias más seguras', body: 'Apoyo para entrar en la ducha, sentarse, levantarse y usar el inodoro sin depender de toalleros o muebles.' },
       { title: 'Menos riesgo de resbalón', body: 'Mejor agarre y rutas más claras donde agua, alfombras, umbrales o espacios estrechos crean riesgo.' },
-      { title: 'Menos ayuda física directa', body: 'Ayuda a ducharse, girar y usar el inodoro con apoyo más seguro donde realmente hace falta.' },
+      { title: 'Menos ayuda física directa', body: 'Apoyo más seguro en los puntos donde la persona se ducha, gira o usa el inodoro.' },
     ],
     includedTitle: 'Qué puede incluir un plan de seguridad de baño.',
     includedIntro: 'CasaMia prioriza las mejoras que más cambian el baño, el aseo y el movimiento seguro en zona húmeda.',
@@ -454,7 +454,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Less need for hands-on help',
-        body: 'Help the person wash, turn and use the toilet with safer support where it is actually needed.',
+        body: 'Place safer support at the points where the person washes, turns or uses the toilet.',
       },
     ],
     includedTitle: 'What a bathroom safety plan can include.',
