@@ -224,7 +224,7 @@ const serviceVisualCopyEs: Record<string, { badge: string; note: string }> = {
   },
   'bedroom-safety': {
     badge: 'Descanso y rutinas nocturnas',
-    note: 'Transferencias, rutas nocturnas y ayuda al alcance',
+    note: 'Transferencias, movimiento nocturno y ayuda al alcance',
   },
   'smart-home-safety': {
     badge: 'Tranquilidad conectada',
@@ -450,7 +450,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Lower slip risk',
-        body: 'Improve traction and route clarity where water, mats, thresholds, and tight layouts create avoidable risk.',
+        body: 'Improve traction and make the safest bathroom path easier to see where water, mats, thresholds and tight layouts create avoidable risk.',
       },
       {
         title: 'Less need for hands-on help',
@@ -482,7 +482,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     benefits: [
       {
         title: 'More stable movement',
-        body: 'Improve hand support from the first step to the last so the person is not left unsupported mid-route.',
+        body: 'Improve hand support from the first step to the last so the person is not left unsupported halfway.',
       },
       {
         title: 'Better visibility',
@@ -495,7 +495,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     includedTitle: 'What a stair safety plan can include.',
     includedIntro:
-      'We check the whole movement route, not just the staircase itself.',
+      'We check the whole path through the stairs, hall and landings, not just the staircase itself.',
     included: [
       'Continuous handrail and grab-point review',
       'Step-edge contrast and anti-slip guidance',
@@ -503,13 +503,13 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Trip hazard and clutter review',
       'Recommendations for safer carrying and daily movement routines',
     ],
-    reassuranceTitle: 'Small changes can protect an important route.',
+    reassuranceTitle: 'Small changes can protect an important daily path.',
     reassuranceBody:
-      'When stairs feel unsafe, whole parts of the home can become harder to use. The focus is keeping movement routes clear, visible, and supported.',
-    reassurancePoints: ['Support along the full route', 'Clearer step edges', 'Lighting where hesitation happens'],
+      'When stairs feel unsafe, whole parts of the home can become harder to use. The focus is keeping daily paths clear, visible, and supported.',
+    reassurancePoints: ['Support along the full stair path', 'Clearer step edges', 'Lighting where hesitation happens'],
     finalTitle: 'Make stairs feel safer before they become avoided.',
     finalBody:
-      'Book a visit to review rails, lighting, step contrast and the full route used every day.',
+      'Book a visit to review rails, lighting, step contrast and the stairs or hallway used every day.',
   },
   'entrance-accessibility': {
     benefitsTitle: 'Reduce risk at the doorway used every day.',
@@ -531,7 +531,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     includedTitle: 'What an entrance safety plan can include.',
     includedIntro:
-      'We review the entrance as a route, from exterior lighting through the doorway and into the first safe standing area.',
+      'We review the entrance from exterior lighting through the doorway and into the first safe standing area.',
     included: [
       'Threshold, step, and ramp fit review',
       'Exterior and doorway lighting guidance',
@@ -586,7 +586,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   'bedroom-safety': {
     benefitsTitle: 'Reduce night-time movement risk from bed to bathroom.',
     benefitsIntro:
-      'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. The room is planned around steadier bed access, visible night routes, and help within reach.',
+      'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. The room is planned around steadier bed access, visible night-time movement, and help within reach.',
     benefits: [
       {
         title: 'Getting in and out of bed',
@@ -594,7 +594,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Safer night movement',
-        body: 'Reduce disorientation with motion lighting, clear floor paths, and safer routes from bed to bathroom or hallway.',
+        body: 'Reduce disorientation with motion lighting, clear floor paths, and safer movement from bed to bathroom or hallway.',
       },
       {
         title: 'Help within reach',
@@ -614,11 +614,11 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'Designed for safer night movement.',
     reassuranceBody:
-      'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on night routes, support points and prevention.',
+      'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on night-time movement, support points and prevention.',
     reassurancePoints: [
       'Less risk during night bathroom trips',
       'Steadier bed entry and exit',
-      'Clearer emergency access for the right helper',
+      'Clearer emergency access for the agreed contact',
     ],
     finalTitle: 'Make the bedroom safer before night routines become stressful.',
     finalBody:
@@ -635,7 +635,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Faster help',
-        body: 'Emergency buttons, wearable support and alerts help contact the right responder quickly.',
+        body: 'Emergency buttons, wearable support and alerts help contact the agreed responder quickly.',
       },
       {
         title: 'Less daily friction',
@@ -646,7 +646,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     includedIntro:
       'We check connectivity and recommend only devices that match the person, the home and the agreed privacy level.',
     included: [
-      'Motion lighting and night-route setup',
+      'Motion lighting and night movement setup',
       'Emergency buttons or wearable alert guidance',
       'Leak, smoke, door, and movement sensor recommendations',
       'VYVA app and caregiver dashboard setup where included',

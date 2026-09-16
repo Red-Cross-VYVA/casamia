@@ -26,7 +26,7 @@ const packageModalCopy = {
     itemIncludes: 'Included for this item',
     professionalFitting: 'Fitted and tested',
     familyReady: 'Clear explanation',
-    grantChip: 'Grant route explained',
+    grantChip: 'Grant criteria explained',
     quoteChip: 'Price confirmed first',
     noHiddenFit: 'Fit checked first',
     next: 'Next',
@@ -46,7 +46,7 @@ const packageModalCopy = {
         detail: 'Measurements, fixing points, surfaces and home conditions are checked before work starts.',
       },
       grant: {
-        label: 'Grant route explained',
+        label: 'Grant criteria explained',
         detail: 'We flag when this improvement may support a grant application. The authority still decides approval.',
       },
       handover: {

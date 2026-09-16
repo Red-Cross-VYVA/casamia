@@ -36,19 +36,19 @@ function getNavLocale(language: string): NavLocale {
 
 const solutionMenuCopy = {
   en: {
-    eyebrow: 'Popular paths',
+    eyebrow: 'Popular needs',
     title: 'What do you need to make safer?',
-    mobileHeading: 'Choose a safety path',
+    mobileHeading: 'Choose a safety need',
   },
   es: {
-    eyebrow: 'Rutas frecuentes',
+    eyebrow: 'Necesidades frecuentes',
     title: '¿Qué necesitas hacer más seguro?',
-    mobileHeading: 'Elige una ruta de seguridad',
+    mobileHeading: 'Elige una necesidad de seguridad',
   },
   nl: {
     eyebrow: 'Populaire keuzes',
     title: 'Wat moet veiliger worden?',
-    mobileHeading: 'Kies een veiligheidsroute',
+    mobileHeading: 'Kies een veiligheidsbehoefte',
   },
 } satisfies Record<NavLocale, Record<string, string>>
 
@@ -78,9 +78,9 @@ const solutionMenuItems = [
     to: '/services/bedroom-safety',
     title: { en: 'Bedroom & night', es: 'Dormitorio y noche', nl: 'Slaapkamer en nacht' },
     description: {
-      en: 'Bed access, lighting and night routes.',
-      es: 'Cama, luz y rutas nocturnas.',
-      nl: 'Bed, verlichting en nachtroutes.',
+      en: 'Bed access, lighting and night bathroom trips.',
+      es: 'Cama, luz y trayectos nocturnos al baño.',
+      nl: 'Bed, verlichting en nachtelijke badkamerbezoeken.',
     },
   },
   {
@@ -108,9 +108,9 @@ const solutionMenuItems = [
     to: '/grants',
     title: { en: 'Grants guidance', es: 'Ayudas y trámites', nl: 'Subsidiehulp' },
     description: {
-      en: 'Check possible routes and documents.',
-      es: 'Revisa rutas posibles y documentos.',
-      nl: 'Check routes en documenten.',
+      en: 'Check possible criteria and documents.',
+      es: 'Revisa criterios posibles y documentos.',
+      nl: 'Check criteria en documenten.',
     },
   },
 ] as const

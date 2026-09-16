@@ -44,7 +44,7 @@ const specialistCopy = {
     ending: 'Ending...',
     error: 'The specialist could not connect right now. Please try again shortly.',
     fallback: 'You can also use the catalogue or request a visit if voice is unavailable.',
-    items: ['Room priority', 'Visit or photos', 'Grant route'],
+    items: ['Room priority', 'Visit or photos', 'Grant criteria'],
     listening: 'Listening',
     mute: 'Mute',
     permission: 'Microphone permission is required to start the specialist voice chat.',
