@@ -78,14 +78,14 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     },
     coverage: {
       eyebrow: 'Spain-wide service',
-      title: 'Representatives across Spain, supported by one digital workflow.',
+      title: 'Local teams across Spain, supported by one shared workflow.',
       body:
-        'CasaMia is designed for national coverage: local representatives can review the home, while the digital report keeps every assessment, recommendation and follow-up consistent.',
+        'CasaMia is designed for national coverage: local teams can review the home, while the digital report keeps every assessment, recommendation and follow-up consistent.',
       badge: 'All Spain',
-      legend: 'Representative coverage areas',
+      legend: 'Local coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
-      repSingular: 'representative',
-      repPlural: 'representatives',
+      repSingular: 'local team',
+      repPlural: 'local teams',
       orderNow: 'Order now',
       regions: [
         'Madrid',
@@ -131,7 +131,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'service',
         title: 'From report to action',
         body:
-          'The goal is not only to detect risks. CasaMia turns findings into room priorities, work to review, a grant-readiness checklist and the decision still needed before work starts.',
+          'The goal is not only to detect risks. CasaMia turns findings into room priorities, adaptations to review, a grant-readiness checklist and the decision still needed before installation starts.',
       },
     ],
     workflowEyebrow: 'How we work',

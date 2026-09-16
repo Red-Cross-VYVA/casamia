@@ -72,11 +72,11 @@
   },
   "assessment": {
     "metaTitle": "In-Home Safety Assessment",
-    "metaDescription": "Book a CasaMia in-home safety assessment in Spain. Review fall risks, accessibility, bathroom safety, grant support and what to confirm before choosing any work.",
+    "metaDescription": "Book a CasaMia in-home safety assessment in Spain. Review fall risks, accessibility, bathroom safety, grant support and what to confirm before choosing any adaptations.",
     "hero": {
       "title": "Book a Professional In-Home Safety Assessment",
       "subtitle": "Book a {{visitFee}} CasaMia home visit, paid in advance with {{visitVatPercent}} VAT included, to review fall risks, accessibility needs, measurements and priority actions.",
-      "cta": "Request In-Home Assessment",
+      "cta": "Book home assessment",
       "secondaryCta": "Start Free Online Safety Report",
       "reassurance": "The {{visitFee}} visit fee is credited toward your CasaMia plan if you proceed.",
       "panelTitle": "A {{visitFee}} expert visit, credited if you continue.",
@@ -143,7 +143,7 @@
           "body": "Your assessment focuses on the home, the person, and the changes most likely to reduce daily risk."
         },
         {
-          "title": "Clear proposal if improvements are needed",
+          "title": "Clear plan if improvements are needed",
           "body": "If adaptations are recommended, we explain what should be included, which products fit, what needs measuring and the decision needed next."
         }
       ]
@@ -151,7 +151,7 @@
     "afterReview": {
       "eyebrow": "After your review",
       "title": "Priorities, next steps and coordination in one place.",
-      "body": "Whether you start online or request a visit, CasaMia turns your answers into priorities: what to address first, what can wait, and what needs measurement before work starts.",
+      "body": "Whether you start online or book a visit, CasaMia turns your answers into priorities: what to address first, what can wait, and what needs measurement before installation starts.",
       "cards": [
         {
           "title": "We review the context",
@@ -185,7 +185,7 @@
         },
         {
           "title": "You Receive Recommendations",
-          "body": "After the visit, you receive the main risks, priorities, recommended actions and any measurements needed before work starts."
+          "body": "After the visit, you receive the main risks, priorities, recommended actions and any measurements needed before installation starts."
         }
       ]
     },
@@ -332,7 +332,7 @@
     "badge": "HOW CASAMIA WORKS",
     "line1": "Start with the room",
     "line2": "that worries you most.",
-    "intro": "Begin with photos, a package or an inspection. CasaMia turns the concern into room priorities, work to review, grant notes where relevant and coordinated installation.",
+    "intro": "Begin with photos, a package or an inspection. CasaMia turns the concern into room priorities, adaptations to review, grant notes where relevant and coordinated installation.",
     "ctaPrimary": "Build your CasaMia plan",
     "ctaSecondary": "Ask us to contact you",
     "proposalSnapshot": {
@@ -524,7 +524,7 @@
     "badge": "Grants and assistance",
     "title": "Extra support may be closer than you think.",
     "sub": "CasaMia checks likely grant fit before you commit to home adaptations.",
-    "body": "We identify relevant schemes, list the documents usually needed and prepare proposal wording that explains the safety work clearly. Approval always remains with the public authority.",
+    "body": "We identify relevant schemes, list the documents usually needed and prepare plan wording that explains the safety adaptations clearly. Approval always remains with the public authority.",
     "cta": "Check grant fit",
     "stats": [
       {
@@ -535,7 +535,7 @@
       {
         "eyebrow": "02",
         "value": "Prepare",
-        "label": "Get the file and proposal wording ready"
+        "label": "Get the file and plan wording ready"
       },
       {
         "eyebrow": "03",
@@ -961,7 +961,7 @@
             "Motion lighting for key movement areas",
             "Stairway handrails and tread support"
           ],
-          "cta": "Request Essential"
+          "cta": "Choose Essential"
         },
         {
           "id": "advanced",
@@ -977,7 +977,7 @@
             "Furniture and movement-flow optimisation",
             "Professional installation coordination"
           ],
-          "cta": "Request Advanced",
+          "cta": "Choose Advanced",
           "featured": true
         },
         {
@@ -994,7 +994,7 @@
             "Approved-contact and emergency alerts",
             "Smart handover and user training"
           ],
-          "cta": "Request Premium"
+          "cta": "Choose Premium"
         }
       ],
       "comparison": {
@@ -1101,8 +1101,8 @@
         ]
       },
       "payment": {
-        "title": "Clear payment terms before work starts",
-        "body": "We keep payments clear and fair. The {{visitFee}} in-home assessment includes {{visitVatPercent}} VAT, is paid in advance at booking, and is credited toward your chosen plan. For agreed installation work, you pay {{proposalUpfrontPercent}} to get started and {{proposalBalancePercent}} only upon completion and customer acceptance.",
+        "title": "Clear payment terms before installation starts",
+        "body": "We keep payments clear and fair. The {{visitFee}} in-home assessment includes {{visitVatPercent}} VAT, is paid in advance at booking, and is credited toward your chosen plan. For agreed installation adaptations, you pay {{proposalUpfrontPercent}} to get started and {{proposalBalancePercent}} only upon completion and customer acceptance.",
         "items": [
           {
             "title": "Essential",
@@ -1172,15 +1172,15 @@
             "answer": "Yes. The Smart Safety Plan can include sensors, emergency response devices, smart lighting, access devices and setup support when they fit the home and consent is clear."
           },
           {
-            "question": "What happens after the work is completed?",
-            "answer": "We complete a handover, confirm the customer accepts the work, and explain who to contact if the home or routine changes later."
+            "question": "What happens after installation is completed?",
+            "answer": "We complete a handover, confirm the customer accepts the installation, and explain who to contact if the home or routine changes later."
           }
         ]
       },
       "final": {
         "title": "Start with the right plan for a safer home.",
         "body": "Request a {{visitFee}} in-home assessment and receive room priorities, notes on what to include and the action to confirm next.",
-        "cta": "Request a safety proposal"
+        "cta": "Book home assessment"
       }
     },
     "grants": {
@@ -1240,7 +1240,7 @@
         {
           "id": "home-assessment",
           "title": "Home Assessment Plan",
-          "subtitle": "A qualified home safety inspection that identifies room risks, priorities and next actions before any work starts.",
+          "subtitle": "A home safety inspection that identifies room risks, priorities and next actions before any installation starts.",
           "heroPoints": [
             "Expert safety review",
             "Written recommendations",
@@ -1341,7 +1341,7 @@
             "Written safety report",
             "Room-by-room priorities",
             "Recommended product and adaptation list",
-            "Clear proposal if improvements are needed",
+            "Clear plan if improvements are needed",
             "Clear explanation for the person and approved contacts",
             "Aftercare guidance"
           ],
@@ -1825,7 +1825,7 @@
       "after": "After",
       "focus": "Safety focus"
     },
-    "cardCta": "Request Similar Upgrade",
+    "cardCta": "Review a similar upgrade",
     "disclaimer": "Images are for illustration purposes. Every home is assessed individually and recommended improvements may vary.",
     "transformations": [
       {

@@ -70,17 +70,17 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     eyebrow: 'Why CasaMia',
     headline: 'A safer home plan with one accountable team',
     intro:
-      'CasaMia shows what needs changing, what can wait, who should do the work and how the result will be checked.',
+      'CasaMia shows what needs changing, what can wait, who should install it and how the result will be checked.',
     coverage: {
       eyebrow: 'Spain-wide service',
       title: 'Local coverage across Spain, connected by CasaMia.',
       body:
-        'CasaMia combines local representatives with one shared process, so the advice, proposal and follow-up stay consistent wherever the home is.',
+        'CasaMia combines local teams with one shared process, so the advice, plan and follow-up stay consistent wherever the home is.',
       badge: 'All Spain',
-      legend: 'Representative coverage areas',
+      legend: 'Local coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
-      repSingular: 'representative',
-      repPlural: 'representatives',
+      repSingular: 'local team',
+      repPlural: 'local teams',
       orderNow: 'Order now',
     },
     promiseTitle: 'Clear decisions before installation starts.',
@@ -191,7 +191,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       'Example: My father is struggling with the stairs at night, we are in Marbella, and we need to understand what to fix first.',
     formNote:
       'CasaMia checks your request, likely review path and local availability before recommending what to do first.',
-    ctaButton: 'Request In-Home Assessment',
+    ctaButton: 'Book home assessment',
   },
   es: {
     eyebrow: 'Por qué CasaMia',
