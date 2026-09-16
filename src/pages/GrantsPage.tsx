@@ -14,11 +14,11 @@ const grantsCopy = {
   en: {
     seoTitle: 'Grants and financial assistance for home adaptations',
     seoDescription:
-      'Understand possible public grant support for home safety and accessibility works, including eligibility, documents, timing and CasaMia support.',
+      'Understand possible public grant support for home safety and accessibility adaptations, including eligibility, documents, timing and CasaMia support.',
     heroEyebrow: 'Public funding guidance',
     heroTitle: 'Grants and financial assistance',
     heroBody:
-      'Public grants may be available for certain accessibility improvements, home adaptations or energy-related works. Availability, eligibility, funding levels and deadlines depend on the relevant public programme and the customer’s individual circumstances. CasaMia does not award grants and cannot guarantee that an application will be approved.',
+      'Public grants may be available for certain accessibility improvements, home adaptations or energy-related upgrades. Availability, eligibility, funding levels and deadlines depend on the relevant public programme and the customer’s individual circumstances. CasaMia does not award grants and cannot guarantee that an application will be approved.',
     heroPrimary: 'Check possible assistance',
     heroSecondary: 'Explore available programmes',
     importantTitle: 'Important before relying on a grant',
@@ -31,7 +31,7 @@ const grantsCopy = {
       ['Contract price', 'Shown separately, including VAT.'],
       ['Payment schedule', 'Confirmed in your Project Order.'],
       ['Possible grant', 'Indicative only until the authority approves it.'],
-      ['Customer finance', 'You may need to fund works before reimbursement.'],
+      ['Customer finance', 'You may need to fund approved adaptations before reimbursement.'],
     ],
     roleEyebrow: 'CasaMia’s role',
     roleTitle: 'Guidance, not public approval.',
@@ -237,7 +237,7 @@ export function GrantsPage() {
     : {
         heroTitle: 'Find possible help for home adaptations.',
         heroBody:
-          'Review possible grant criteria, missing documents and what must be confirmed before starting works.',
+          'Review possible grant criteria, missing documents and what must be confirmed before starting adaptations.',
         heroSecondary: 'What we check',
         quickCards: [
           {
@@ -255,7 +255,7 @@ export function GrantsPage() {
         ],
         supportTitle: 'Know what to prepare before you apply.',
         supportBody:
-          'Answer a few questions and see likely grant criteria, missing documents and what must be checked before any work is started.',
+          'Answer a few questions and see likely grant criteria, missing documents and what must be checked before any adaptation is started.',
         programmesTitle: 'Published programmes',
         programmesBody:
           'We only show programmes with an official source, status and review date.',

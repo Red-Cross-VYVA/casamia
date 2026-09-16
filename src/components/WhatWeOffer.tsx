@@ -50,7 +50,7 @@ type ProposalSnapshotCopy = {
 }
 
 const fallbackProposalSnapshot: ProposalSnapshotCopy = {
-  heading: 'Safety Proposal',
+  heading: 'Home-safety plan',
   items: ['Bathroom access', 'Kitchen reach', 'Night route'],
   label: 'Sample CasaMia proposal snapshot',
   priorityLabel: 'Priority',

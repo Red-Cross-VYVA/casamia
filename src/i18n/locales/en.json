@@ -337,7 +337,7 @@
     "ctaSecondary": "Ask us to contact you",
     "proposalSnapshot": {
       "label": "Sample CasaMia proposal snapshot",
-      "heading": "Safety Proposal",
+      "heading": "Home-safety plan",
       "priorityLabel": "Priority",
       "priorityTitle": "Room-by-room plan",
       "items": [
@@ -937,7 +937,7 @@
       "hero": {
         "title": "Choose the Right Safety Plan for Your Home",
         "subtitle": "Whether you need guidance, home adaptations or connected safety, CasaMia shows what to review and confirm first.",
-        "primaryCta": "Book In-Home Assessment",
+        "primaryCta": "Book home assessment",
         "secondaryCta": "Compare options"
       },
       "explainer": {
@@ -1224,7 +1224,7 @@
       "metaTitleSuffix": "CasaMia Plan",
       "backToPlans": "Back to plans",
       "comparePlans": "Compare options",
-      "primaryCta": "Book In-Home Assessment",
+      "primaryCta": "Book home assessment",
       "whoTitle": "Who this plan is for",
       "includedTitle": "What's included",
       "roomTitle": "Room-by-room improvements",
@@ -1234,8 +1234,8 @@
       "paymentReassurance": "No hidden fees. No unexpected costs.",
       "faqTitle": "Questions people ask",
       "finalTitle": "Ready to make your home safer?",
-      "finalBody": "Request a {{visitFee}} in-home assessment visit and receive room-specific recommendations from our qualified safety experts.",
-      "finalCta": "Book In-Home Assessment",
+      "finalBody": "Book a {{visitFee}} home assessment and receive room-specific priorities, recommendations and next actions.",
+      "finalCta": "Book home assessment",
       "plans": [
         {
           "id": "home-assessment",
