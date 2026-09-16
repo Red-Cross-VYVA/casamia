@@ -66,7 +66,7 @@ const providerPartnerCopy = {
     heroTitle: 'Join the senior home-safety market before it becomes crowded.',
     heroBody:
       'CasaMia turns home-safety concerns into scoped projects with resident context, room priorities and acceptance notes. We are building a trusted provider network for person-centred adaptations, installation, smart safety setup and follow-up across Spain’s main cities.',
-    proof: ['Assessed projects, not cold leads', 'Scope and access notes before the visit', 'CasaMia coordinates the customer'],
+    proof: ['Assessed projects, not cold leads', 'Scope and access notes before the visit', 'CasaMia manages customer communication'],
     apply: 'Apply to collaborate',
     viewStandards: 'View standards',
     panelTitle: 'What partners receive',
@@ -75,7 +75,7 @@ const providerPartnerCopy = {
     workflowEyebrow: 'How the work flows',
     workflowTitle: 'CasaMia handles the messy middle, so providers can focus on quality work.',
     workflowBody:
-      'We qualify the request, gather context, shape the scope, coordinate the customer loop and keep the record clean. Approved providers step in when the work is ready to be priced, visited, installed or supported.',
+      'We qualify the request, gather context, shape the scope, coordinate customer communication and keep the project record clean. Approved providers step in when the work is ready to be priced, visited, installed or supported.',
     workflow: [
       { title: 'Qualified request', body: 'Home, resident context, photos, urgency and customer priority are captured first.' },
       { title: 'Provider brief', body: 'You receive the room, scope, access notes, constraints and customer expectations.' },
@@ -193,7 +193,7 @@ const providerPartnerCopy = {
     heroTitle: 'Únete al mercado de seguridad senior en el hogar antes de que se sature.',
     heroBody:
       'CasaMia convierte las preocupaciones de seguridad en proyectos claros para el hogar. Estamos creando una red de profesionales para adaptaciones centradas en la persona, instalación, seguridad inteligente y seguimiento en las principales ciudades de España.',
-    proof: ['Proyectos evaluados, no leads fríos', 'Brief claro antes de la visita', 'CasaMia coordina al cliente'],
+    proof: ['Proyectos evaluados, no leads fríos', 'Brief claro antes de la visita', 'CasaMia gestiona la comunicación con el cliente'],
     apply: 'Solicitar colaboración',
     viewStandards: 'Ver estándares',
     panelTitle: 'Qué reciben los colaboradores',
@@ -435,7 +435,7 @@ CasaMia coordinates resident-centred assessments, measured adaptation plans and 
   }
 
   if (title.includes('Website')) {
-    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the customer route, project brief and consent-aware communication, while our team supports local delivery within agreed scope and safety standards.`
+    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the project brief and consent-aware customer communication, while our team supports local delivery within agreed scope and safety standards.`
   }
 
   if (title.includes('Window')) {

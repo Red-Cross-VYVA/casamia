@@ -72,7 +72,7 @@ export function NeedLandingPage() {
           },
           {
             title: 'The space',
-            body: 'Photos or a short video of the route, support point, doorway, floor or place where the person hesitates.',
+            body: 'Photos or a short video of the daily path, support point, doorway, floor or place where the person hesitates.',
           },
           {
             title: 'The change',
@@ -120,7 +120,7 @@ export function NeedLandingPage() {
           {
             question: 'Can I send photos or videos before a visit?',
             answer:
-              'Yes. Photos or a short video show the space, route and support points. If measurements, compatibility or installation checks are needed, CasaMia confirms that before moving forward.',
+              'Yes. Photos or a short video show the space, daily path and support points. If measurements, compatibility or installation checks are needed, CasaMia confirms that before moving forward.',
           },
         ],
     questionsCta: isSpanish ? 'Empezar con mi caso' : 'Start with my situation',
@@ -711,8 +711,8 @@ const needResourceReferences: Record<string, NeedResourceReference[]> = {
       to: '/plan-adapta',
       title: { en: 'Grant-readiness check', es: 'Revisión de ayudas' },
       description: {
-        en: 'See which documents, eligibility details and timing questions shape the grant route.',
-        es: 'Ve qué documentos, datos de elegibilidad y plazos condicionan la ruta de ayudas.',
+        en: 'See which documents, eligibility details and timing questions shape grant readiness.',
+        es: 'Ve qué documentos, datos de elegibilidad y plazos condicionan la preparación de ayudas.',
       },
     },
   ],

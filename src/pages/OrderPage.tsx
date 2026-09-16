@@ -57,7 +57,7 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     eyebrow: 'Start your CasaMia order',
     title: 'Choose how you want the local team to contact you.',
     intro:
-      'Choose the contact route for your home: visit request, proposal question, grant route or local availability.',
+      'Choose the contact option for your home: visit request, proposal question, grant criteria or local availability.',
     regionLabel: 'Selected zone',
     whatsappTitle: 'Email',
     whatsappBody: 'Send the home location, main concern and preferred contact time so CasaMia can reply with what to confirm first.',
