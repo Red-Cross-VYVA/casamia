@@ -148,15 +148,15 @@ const techCopy = {
           number: '02',
           title: 'Your devices work in separate apps',
           body:
-            'We confirm which readings or alerts are useful, then route only those signals to the agreed responder.',
-          outcome: 'Route fragmented notifications to the right responder.',
+            'We confirm which readings or alerts matter, then send only those signals to the agreed responder.',
+          outcome: 'Send fragmented notifications to the agreed responder.',
         },
         {
           icon: 'monitor' as TechIconName,
           number: '03',
           title: 'You need the complete connected-care setup',
           body:
-            'CasaMia can provide the user app, approved-contact access, professional dashboard, device setup, onboarding and ongoing support.',
+            'CasaMia can provide the user app, approved-contact access, professional dashboard, device setup, onboarding and ongoing support with agreed response rules.',
           outcome: 'One service, from equipment to daily use.',
         },
       ],
@@ -239,7 +239,7 @@ const techCopy = {
       eyebrow: 'Telehealth option',
       title: 'Prepare the video consultation before it begins.',
       body:
-        'CasaMia can add a telehealth option so the person at home can join a scheduled consultation with fewer last-minute problems. We configure the chosen device, test the connection, provide reminders and prepare agreed information for the appointment.',
+        'CasaMia can add a telehealth option so the person at home can join a scheduled consultation with fewer last-minute problems. We configure the chosen device, test the connection, provide reminders and prepare the agreed readings or notes for the appointment.',
       features: [
         'One-tap access to video consultations',
         'Camera, sound and connection checks',
@@ -263,7 +263,7 @@ const techCopy = {
       eyebrow: 'Monitoring and alerts',
       title: 'Relevant alerts. Agreed responses. Less unnecessary noise.',
       body:
-        'CasaMia configures notifications around the household’s needs and the responsibilities agreed with approved contacts or professionals. Alerts can be routed by type, priority and time of day.',
+        'CasaMia configures notifications around the household’s needs and the responsibilities agreed with approved contacts or professionals. Alerts can be assigned by type, priority and time of day.',
       items: [
         { icon: 'wifi' as TechIconName, title: 'Connection', body: 'Device offline or pairing problem' },
         { icon: 'activity' as TechIconName, title: 'Routine', body: 'Agreed check or measurement missed' },
@@ -299,11 +299,11 @@ const techCopy = {
       eyebrow: 'What CasaMia actually delivers',
       title: 'One accountable service from discovery to support.',
       body:
-        'We do more than pair a device. CasaMia coordinates the technical setup, permissions, onboarding and response route required to make connected care usable in real life.',
+        'We do more than pair a device. CasaMia coordinates the technical setup, permissions, onboarding and response rules required to make connected care usable in real life.',
       items: [
         { title: 'Discover', body: 'Inventory devices, systems, users, connectivity and the outcome you need.' },
         { title: 'Design', body: 'Confirm compatibility, data flows, permissions, alerts and response responsibilities.' },
-        { title: 'Connect', body: 'Source agreed devices, install, integrate, configure and test the complete route.' },
+        { title: 'Connect', body: 'Source agreed devices, install, integrate, configure and test the complete setup.' },
         { title: 'Onboard', body: 'Guide residents, approved contacts, staff and authorised professionals through safe daily use.' },
         { title: 'Support', body: 'Maintain agreed connections, resolve issues and adapt the setup as needs change.' },
       ],
@@ -317,7 +317,7 @@ const techCopy = {
       items: [
         { icon: 'lock' as TechIconName, title: 'Consent and access', body: 'Role-based access and agreed visibility for residents, approved contacts and professionals.' },
         { icon: 'shield' as TechIconName, title: 'Clear boundaries', body: 'Clinical, emergency and response responsibilities are documented before launch.' },
-        { icon: 'wrench' as TechIconName, title: 'Reliability first', body: 'Connectivity, device placement, fallbacks and support routes are tested before daily use.' },
+        { icon: 'wrench' as TechIconName, title: 'Reliability first', body: 'Connectivity, device placement, fallbacks and support contacts are tested before daily use.' },
       ],
     },
     catalogue: {
@@ -345,7 +345,7 @@ const techCopy = {
         {
           question: 'Can we keep our current app or care system?',
           answer:
-            'Yes, when that system exposes a supported and authorised integration route. CasaMia first reviews the available APIs, webhooks or approved exchange methods and then scopes the data flow, permissions and responsibilities.',
+            'Yes, when that system exposes a supported and authorised integration path. CasaMia first reviews the available APIs, webhooks or approved exchange methods and then scopes the data flow, permissions and responsibilities.',
         },
         {
           question: 'What if we have devices but no app or dashboard?',
@@ -365,13 +365,13 @@ const techCopy = {
         {
           question: 'Who receives an alert?',
           answer:
-            'That is agreed before activation. Alerts can be routed by type, priority and schedule to named contacts, care staff or contracted response services. CasaMia does not assume emergency responsibility unless explicitly contracted.',
+            'That is agreed before activation. Alerts can be assigned by type, priority and schedule to named contacts, care staff or contracted response services. CasaMia does not assume emergency responsibility unless explicitly contracted.',
         },
       ],
     },
     final: {
       eyebrow: 'Start with your real setup',
-      title: 'Tell us what you already have. We will map the connection route.',
+      title: 'Tell us what you already have. We will map the connection path.',
       body:
         'Bring a device list, an existing system or the outcome you need. We will review the starting point, compatibility, alert recipients and response rules.',
       primaryCta: 'Discuss my integration',

@@ -50,7 +50,7 @@
     },
     "grantCheck": {
       "title": "Ayudas",
-      "body": "Comprueba si una vía de ayuda puede encajar antes de planificar obras.",
+      "body": "Comprueba posible encaje de ayudas y documentos pendientes antes de planificar obras.",
       "cta": "Comprobar elegibilidad"
     },
     "buildPlan": {
@@ -140,11 +140,11 @@
         },
         {
           "title": "Recomendaciones por estancia",
-          "body": "La evaluación se adapta a la vivienda, la persona y los cambios que más ayudarían."
+          "body": "La evaluación se adapta a la vivienda, la persona y los cambios con más probabilidad de reducir riesgo diario."
         },
         {
           "title": "Propuesta clara si hacen falta mejoras",
-          "body": "Si conviene adaptar algo, explicamos alcance recomendado, productos y siguiente paso con claridad."
+          "body": "Si conviene adaptar algo, explicamos alcance recomendado, productos y qué hay que decidir después."
         }
       ]
     },
@@ -203,7 +203,7 @@
         },
         {
           "question": "¿Qué gestiona CasaMia si seguimos adelante?",
-          "answer": "CasaMia puede coordinar la ruta de principio a fin: alcance, propuesta, productos compatibles, instaladores verificados, preparación de documentación para ayudas cuando corresponda, agenda, explicación de uso seguro y seguimiento."
+          "answer": "CasaMia puede coordinar el trabajo desde el alcance hasta la entrega: propuesta, productos compatibles, instaladores asegurados, documentación para ayudas cuando corresponda, agenda, explicación de uso seguro y seguimiento."
         },
         {
           "question": "¿Podemos usar fotos, vídeos o una llamada antes de una visita?",
@@ -211,7 +211,7 @@
         },
         {
           "question": "¿CasaMia puede ayudar con ayudas públicas?",
-          "answer": "CasaMia revisa posibles rutas de ayuda y prepara documentación de apoyo cuando la obra encaja. La administración pública decide siempre elegibilidad, aprobación, importe y plazos."
+          "answer": "CasaMia revisa el posible encaje de ayudas y prepara documentación de apoyo cuando el programa coincide con la obra. La administración pública decide siempre elegibilidad, aprobación, importe y plazos."
         }
       ]
     },
@@ -1201,7 +1201,7 @@
     },
     "contact": {
       "title": "Habla con CasaMia.",
-      "intro": "Cuéntanos cómo es la vivienda y CasaMia responderá con la ruta que conviene confirmar primero: informe con fotos, visita, propuesta, ayudas o revisión smart.",
+      "intro": "Cuéntanos cómo es la vivienda y CasaMia responderá con qué conviene confirmar primero: informe con fotos, visita, propuesta, ayudas o revisión smart.",
       "fields": {
         "name": "Nombre",
         "email": "Email",
@@ -1333,7 +1333,7 @@
             },
             {
               "title": "Instalación profesional y entrega",
-              "body": "Si decides avanzar, CasaMia coordina productos, instaladores y revisión final."
+              "body": "Si decides avanzar, CasaMia coordina productos acordados, equipo de instalación y revisión final."
             }
           ],
           "deliverables": [
@@ -1580,7 +1580,7 @@
             {
               "icon": "health",
               "title": "Configuración de monitorización de salud",
-              "body": "Apoyo con dispositivos compatibles cuando se quiere una capa adicional de información acordada."
+              "body": "Apoyo con dispositivos compatibles cuando la persona residente y los contactos autorizados acuerdan qué información compartir."
             },
             {
               "icon": "health",
@@ -1715,7 +1715,7 @@
     "planAdapta": {
       "hero": {
         "title": "Soporte para ayudas Plan Adapta",
-        "subtitle": "CasaMia coordina la ruta de solicitud de ayudas para obras de seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
+        "subtitle": "CasaMia coordina la preparación de solicitudes de ayudas para obras de seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
         "cta": "Reservar evaluación gratis",
         "panelTitle": "Apoyo administrativo desde el inicio hasta la presentación",
         "panelBody": "CasaMia aclara los requisitos probables, prepara el expediente y coordina el seguimiento autorizado."

@@ -325,7 +325,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     customerBenefit: 'Why it helps',
     customPackageEyebrow: 'Need a different mix?',
     customPackageTitle: 'Customise your own package',
-    customPackageBody: 'Choose the rooms, routines and services that matter most. CasaMia will turn them into one clear plan.',
+    customPackageBody: 'Choose the rooms, routines and services that matter most. CasaMia turns them into a scope to review before any proposal.',
     customPackageCta: 'Build my package',
     requirements: {
       installation: 'Professional installation',
@@ -337,8 +337,8 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     emptyTitle: 'No active services are available yet.',
     emptyBody: 'Activate services in the CasaMia admin catalogue to publish them here.',
     finalEyebrow: 'Need help choosing?',
-    finalTitle: 'Start with the concern. We will shape the right package.',
-    finalBody: 'A short guided review helps identify which services fit the home before you request a quote or book a visit.',
+    finalTitle: 'Start with the concern. We will identify what needs review.',
+    finalBody: 'A short guided review shows which rooms, measurements or service details need checking before you request a quote or book a visit.',
     startCta: 'Start guided review',
     contactCta: 'Contact CasaMia',
   },
@@ -381,7 +381,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     customerBenefit: 'Por qué ayuda',
     customPackageEyebrow: '¿Necesitas otra combinación?',
     customPackageTitle: 'Crea tu paquete a medida',
-    customPackageBody: 'Elige las estancias, rutinas y servicios que más importan. CasaMia lo convierte en un plan claro.',
+    customPackageBody: 'Elige las estancias, rutinas y servicios que más importan. CasaMia lo convierte en un alcance para revisar antes de cualquier propuesta.',
     customPackageCta: 'Crear mi paquete',
     requirements: {
       installation: 'Instalación profesional',

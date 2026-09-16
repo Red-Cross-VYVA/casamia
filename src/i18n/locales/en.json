@@ -50,7 +50,7 @@
     },
     "grantCheck": {
       "title": "Grant Check",
-      "body": "Check whether a grant route may fit before you plan works.",
+      "body": "Check likely grant fit and missing documents before you plan works.",
       "cta": "Check eligibility"
     },
     "buildPlan": {
@@ -140,10 +140,10 @@
         },
         {
           "title": "Room-specific recommendations",
-          "body": "Your assessment focuses on the home, the person, and the changes that would help most."
+          "body": "Your assessment focuses on the home, the person, and the changes most likely to reduce daily risk."
         },
         {
-          "title": "Clear next-step proposal if improvements are needed",
+          "title": "Clear proposal if improvements are needed",
           "body": "If adaptations are recommended, we explain the scope, products, measurements and decision needed next."
         }
       ]
@@ -203,7 +203,7 @@
         },
         {
           "question": "What does CasaMia manage if we continue?",
-          "answer": "CasaMia can coordinate the route end to end: scope, proposal, compatible products, vetted installers, grant-document preparation where relevant, scheduling, safe-use explanation and follow-up."
+          "answer": "CasaMia can coordinate the work from scope to handover: proposal, compatible products, insured installers, grant-document preparation where relevant, scheduling, safe-use explanation and follow-up."
         },
         {
           "question": "Can we use photos, videos or a phone call before a visit?",
@@ -211,7 +211,7 @@
         },
         {
           "question": "Can CasaMia help with public grants?",
-          "answer": "CasaMia checks possible grant routes and prepares supporting documents when the route fits the work. The public authority decides eligibility, approval, amount and timing."
+          "answer": "CasaMia checks possible grant fit and prepares supporting documents when the programme matches the work. The public authority decides eligibility, approval, amount and timing."
         }
       ]
     },
@@ -1201,7 +1201,7 @@
     },
     "contact": {
       "title": "Talk to CasaMia.",
-      "intro": "Tell us about the home and CasaMia will reply with the route to confirm first: photo report, visit, proposal, grant check or smart-safety review.",
+      "intro": "Tell us about the home and CasaMia will reply with what to confirm first: photo report, visit, proposal, grant check or smart-safety review.",
       "fields": {
         "name": "Name",
         "email": "Email",
@@ -1333,7 +1333,7 @@
             },
             {
               "title": "Professional Installation & Handover",
-              "body": "If you proceed, CasaMia coordinates the right products, installers and final walkthrough."
+              "body": "If you proceed, CasaMia coordinates the agreed products, installation team and final walkthrough."
             }
           ],
           "deliverables": [
@@ -1366,7 +1366,7 @@
             },
             {
               "question": "Can someone attend with me?",
-              "answer": "Yes. A relative, caregiver or trusted contact can join so the recommendations are understood by the people involved."
+              "answer": "Yes. A relative, caregiver or approved contact can join so the recommendations are understood by the people involved."
             }
           ]
         },
@@ -1410,7 +1410,7 @@
             {
               "icon": "bathroom",
               "title": "Bathroom Improvements",
-              "body": "Support bars, safer shower access, toilet support, slip reduction and safer fixtures where needed."
+              "body": "Support bars, safer shower access, toilet support, slip reduction and safer fixtures where the room review shows a need."
             },
             {
               "icon": "kitchen",
@@ -1580,7 +1580,7 @@
             {
               "icon": "health",
               "title": "Health Monitoring Setup",
-              "body": "Support for compatible monitoring devices when an agreed extra layer of information is useful."
+              "body": "Setup support for compatible monitoring devices when the resident and approved contacts agree what information should be shared."
             },
             {
               "icon": "health",
@@ -1715,7 +1715,7 @@
     "planAdapta": {
       "hero": {
         "title": "Plan Adapta Grant Support",
-        "subtitle": "CasaMia coordinates the grant application route for home safety and accessibility works, from documentation to submission.",
+        "subtitle": "CasaMia coordinates grant application preparation for home safety and accessibility works, from documentation to submission.",
         "cta": "Book Free Assessment",
         "panelTitle": "Administrative support from start to submission",
         "panelBody": "CasaMia clarifies likely requirements, prepares the application file and coordinates authorised follow-up."
@@ -1731,7 +1731,7 @@
         "items": [
           {
             "title": "Eligibility notes",
-            "body": "We compare the home, applicant and proposed works with the basic conditions of the relevant route."
+            "body": "We compare the home, applicant and proposed works with the basic conditions of the relevant programme."
           },
           {
             "title": "Documentation preparation",

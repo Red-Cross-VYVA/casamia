@@ -306,7 +306,7 @@ const defaultServiceDetailContent: ServiceDetailContent = {
   reassurancePoints: ['Matched to the existing home', 'Explained before work starts', 'Focused on prevention before incidents happen'],
   finalTitle: 'Start with the room that worries you most.',
   finalBody:
-    'CasaMia can check this area alongside the rest of the home, then confirm what to change first and what still needs measurement.',
+    'CasaMia can check this area alongside the rest of the home, then separate quick fixes from work that still needs measurement.',
 }
 
 const defaultServiceDetailContentEs: ServiceDetailContent = {
@@ -473,7 +473,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Focus on wet-room fall risk', 'Recommendations matched to mobility', 'Installation guidance before buying products'],
     finalTitle: 'Make the bathroom safer before the next near miss.',
     finalBody:
-      'Book a visit and we will review transfers, surfaces, support points and the changes that fit the room.',
+      'Book a visit to review transfers, surfaces, support points and which bathroom changes need measurement.',
   },
   'stair-safety': {
     benefitsTitle: 'Make stair edges and support points visible before moving.',
@@ -509,7 +509,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Support along the full route', 'Clearer step edges', 'Lighting where hesitation happens'],
     finalTitle: 'Make stairs feel safer before they become avoided.',
     finalBody:
-      'Book a visit and we will review rails, lighting, contrast, and the full route used every day.',
+      'Book a visit to review rails, lighting, step contrast and the full route used every day.',
   },
   'entrance-accessibility': {
     benefitsTitle: 'Reduce risk at the doorway used every day.',
@@ -545,7 +545,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Safer thresholds', 'Better doorway support', 'Clearer access routines'],
     finalTitle: 'Reduce entrance risk before it limits daily outings.',
     finalBody:
-      'Book a visit and we will review thresholds, lighting, support, and access options together.',
+      'Book a visit to review thresholds, lighting, support points and access options at the entrance used most.',
   },
   'kitchen-safety': {
     benefitsTitle: 'Reduce kitchen reach, slip and appliance risks.',
@@ -581,7 +581,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and explanation managed'],
     finalTitle: 'Keep cooking possible, safer, and calmer.',
     finalBody:
-      'Book a visit and we will review reach, lighting, appliances, water risk, and the kitchen plan that fits the home.',
+      'Book a visit to review reach, lighting, appliances, water risk and the kitchen changes that need measurement.',
   },
   'bedroom-safety': {
     benefitsTitle: 'Reduce night-time movement risk from bed to bathroom.',
@@ -627,7 +627,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   'smart-home-safety': {
     benefitsTitle: 'Use technology only where it reduces a named risk.',
     benefitsIntro:
-      'Smart safety should not feel like a complicated smart-home project. We focus on alerts, lighting and emergency support that are agreed, explainable and useful in the daily routine.',
+      'Smart safety should not feel like a complicated smart-home project. We focus on agreed alerts, lighting and emergency support that the resident can actually use.',
     benefits: [
       {
         title: 'Earlier awareness',
@@ -657,9 +657,9 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassuranceBody:
       'The aim is connected safety: helpful alerts, understandable controls and privacy-aware setup that everyone involved understands.',
     reassurancePoints: ['Connectivity checked first', 'Alert recipients agreed in advance', 'Setup and explanation included'],
-    finalTitle: 'Add connected safety where it genuinely helps.',
+    finalTitle: 'Add connected safety only where there is a clear use case.',
     finalBody:
-      'Book a visit and we will review the home, connectivity and the connected options that match the routine.',
+      'Book a visit to review the home, connectivity and which connected options match the routine.',
   },
 }
 
@@ -1096,7 +1096,7 @@ export function ServiceDetailPage() {
         whyItHelps: 'Por qué ayuda',
         userBenefit: 'Beneficio para la persona',
         serviceWorks: 'Cómo funciona el servicio',
-        clearPlan: 'De la preocupación a un plan claro.',
+        clearPlan: 'De la preocupación al alcance que hay que revisar.',
         related: 'Servicios relacionados',
         otherAreas: 'Otras zonas que suelen merecer revisión.',
         viewAll: 'Ver todos los servicios',
@@ -1112,7 +1112,7 @@ export function ServiceDetailPage() {
         whyItHelps: 'Why it helps',
         userBenefit: 'User benefit',
         serviceWorks: 'How the service works',
-        clearPlan: 'From concern to a clear plan.',
+        clearPlan: 'From concern to the scope to review.',
         related: 'Related services',
         otherAreas: 'Other areas to review next.',
         viewAll: 'View all services',
