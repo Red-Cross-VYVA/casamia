@@ -8,6 +8,7 @@ import { trackEvent } from '../utils/analytics'
 import '../styles/parent-safety-quiz.css'
 
 const siteUrl = 'https://www.casamia.com.es'
+const toolPath = '/tools/senior-friendly-home-check'
 
 type Language = 'en' | 'es'
 
@@ -127,16 +128,16 @@ const copy = {
     resultEyebrow: 'Suggested next step',
     restart: 'Retake quiz',
     assessmentCta: 'Start guided review',
-    checklistCta: 'Open Resources',
+    checklistCta: 'Open checklist',
     resultLow: {
-      title: 'Keep observing, then review one room',
+      title: 'Keep observing, then check one room',
       body:
-        'There is no strong warning pattern in your answers. Start with the printable checklist and keep an eye on night routes, bathroom movement, new pain, dizziness or medication changes.',
+        'There is no strong warning pattern in your answers. Use the checklist for the room that feels least steady, and watch for changes in night routes, bathroom movement, pain, dizziness or medication.',
     },
     resultMedium: {
-      title: 'A focused home safety review would help',
+      title: 'A focused home safety review is worth doing',
       body:
-        'There are enough signals to review the home properly. Start online, collect photos or notes, and decide which room or routine should be checked first.',
+        'There are enough signals to review the home properly. Start online, collect photos or notes, and identify the room or routine that should be checked first.',
     },
     resultHigh: {
       title: 'Prioritise safety before it becomes urgent',
@@ -167,16 +168,16 @@ const copy = {
     resultEyebrow: 'Siguiente paso sugerido',
     restart: 'Repetir quiz',
     assessmentCta: 'Empezar revisión guiada',
-    checklistCta: 'Abrir Recursos',
+    checklistCta: 'Abrir lista',
     resultLow: {
-      title: 'Observad y revisad una estancia',
+      title: 'Observa y revisa una estancia',
       body:
-        'No aparece un patrón fuerte de alerta. Empieza con la lista para imprimir y vigila rutas nocturnas, baño y cambios recientes.',
+        'No aparece un patrón fuerte de alerta. Usa la lista para la estancia que parezca menos estable y vigila cambios en rutas nocturnas, baño, dolor, mareos o medicación.',
     },
     resultMedium: {
-      title: 'Una revisión focalizada puede ayudar',
+      title: 'Conviene una revisión focalizada',
       body:
-        'Hay señales suficientes para revisar la vivienda con más detalle. Empieza online, reúne fotos o notas y decide qué estancia o rutina revisar primero.',
+        'Hay señales suficientes para revisar la vivienda con más detalle. Empieza online, reúne fotos o notas e identifica qué estancia o rutina revisar primero.',
     },
     resultHigh: {
       title: 'Prioriza seguridad antes de la urgencia',
@@ -215,11 +216,11 @@ export function ParentSafetyQuizPage() {
     {
       '@context': 'https://schema.org',
       '@type': 'WebApplication',
-      '@id': `${siteUrl}/tools/is-my-parent-safe-at-home#tool`,
+      '@id': `${siteUrl}${toolPath}#tool`,
       name: pageCopy.seoTitle,
       applicationCategory: 'HealthApplication',
       operatingSystem: 'Web',
-      url: `${siteUrl}/tools/is-my-parent-safe-at-home`,
+      url: `${siteUrl}${toolPath}`,
       provider: { '@type': 'Organization', name: 'CasaMia', url: siteUrl },
     },
     {
@@ -241,7 +242,7 @@ export function ParentSafetyQuizPage() {
       <SEO
         title={pageCopy.seoTitle}
         description={pageCopy.seoDescription}
-        path="/tools/is-my-parent-safe-at-home"
+        path={toolPath}
         schema={schema}
       />
 

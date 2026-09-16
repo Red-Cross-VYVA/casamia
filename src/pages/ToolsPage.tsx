@@ -122,7 +122,7 @@ const tools = [
       en: 'Five focused questions when movement, balance or routines have started to feel different.',
       es: 'Cinco preguntas concretas cuando movimiento, equilibrio o rutinas empiezan a cambiar.',
     },
-    to: '/tools/is-my-parent-safe-at-home',
+    to: '/tools/senior-friendly-home-check',
   },
   {
     icon: FileCheck2,
@@ -280,7 +280,7 @@ export function ToolsPage() {
             <h1>{pageCopy.title}</h1>
             <p>{pageCopy.body}</p>
           </div>
-          <Link className="tools-featured-card" to="/tools/is-my-parent-safe-at-home">
+          <Link className="tools-featured-card" to="/tools/senior-friendly-home-check">
             <span>
               <ShieldCheck size={30} aria-hidden="true" />
             </span>
@@ -403,7 +403,7 @@ export function ToolsPage() {
             <h2>{pageCopy.finalTitle}</h2>
             <p>{pageCopy.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to="/tools/is-my-parent-safe-at-home">
+          <Link className="btn btn-green" to="/tools/senior-friendly-home-check">
             {pageCopy.finalCta}
             <ArrowRight size={18} aria-hidden="true" />
           </Link>

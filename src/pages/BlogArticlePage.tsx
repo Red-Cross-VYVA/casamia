@@ -288,7 +288,7 @@ export function BlogArticlePage() {
                 <a className="btn btn-white" download href={checklistDownload.href}>
                   {copy.nextStepActions.checklist}
                 </a>
-                <Link className="blog-next-step-link" to="/tools/is-my-parent-safe-at-home">
+                <Link className="blog-next-step-link" to="/tools/senior-friendly-home-check">
                   {copy.nextStepActions.selfCheck}
                   <ArrowRight size={17} aria-hidden="true" />
                 </Link>

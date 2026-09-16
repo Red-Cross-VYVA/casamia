@@ -431,7 +431,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
           'No. Es mejor describir el problema diario y el resultado deseado. CasaMia puede traducirlo después en mejoras físicas, apoyo conectado, trabajos opcionales o una propuesta con alcance definido.',
       },
     ],
-    cta: { label: 'Empezar revisión guiada', to: '/tools/is-my-parent-safe-at-home' },
+    cta: { label: 'Empezar revisión guiada', to: '/tools/senior-friendly-home-check' },
   },
   'smart-home-safety-without-overcomplicating': {
     title: 'Seguridad inteligente sin complicar la casa',
@@ -951,7 +951,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
           'No siempre. Algunas familias deben comparar ambas rutas pronto. Una revisión de seguridad puede mostrar qué se resuelve en casa, qué necesita apoyo profesional y qué quizá conviene tratar con una opción de mayor cuidado.',
       },
     ],
-    cta: { label: 'Empezar revisión de seguridad', to: '/tools/is-my-parent-safe-at-home' },
+    cta: { label: 'Empezar revisión de seguridad', to: '/tools/senior-friendly-home-check' },
   },
   'emergency-plan-aging-parents-home': {
     title: 'Plan de emergencia para padres mayores que viven en casa',
