@@ -83,8 +83,6 @@ type PlansCopy = {
   contactTitle: string
   continueToReview: string
   coreIncluded: string
-  turnkeyCardLabel: string
-  turnkeyCardBody: string
   closeDetails: string
   createDraft: string
   creatingDraft: string
@@ -608,8 +606,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Receive proposal',
     continueToReview: 'Review selected packages',
     coreIncluded: 'Core package',
-    turnkeyCardLabel: 'Installed and checked',
-    turnkeyCardBody: 'Products, fitting, handover and aftercare are handled as one plan.',
     closeDetails: 'Close',
     createDraft: 'Generate proposal',
     creatingDraft: 'Generating proposal...',
@@ -712,8 +708,6 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     contactTitle: 'Enviar a revisión',
     continueToReview: 'Revisar paquetes elegidos',
     coreIncluded: 'Paquete base',
-    turnkeyCardLabel: 'Instalado y revisado',
-    turnkeyCardBody: 'Productos, instalación, entrega y soporte posterior se gestionan como un solo plan.',
     closeDetails: 'Cerrar',
     createDraft: 'Crear borrador',
     creatingDraft: 'Creando borrador...',
@@ -2345,18 +2339,6 @@ export function PlansPage() {
                       </div>
                     </header>
                     <div className="plans-room-card-footer">
-                      <div className="plans-room-card-included">
-                        <strong className="plans-room-core-label">{copy.coreIncluded}</strong>
-                        <div className="plans-room-turnkey-note">
-                          <span className="plans-room-turnkey-icon">
-                            <PackageCheck size={16} aria-hidden="true" />
-                          </span>
-                          <div>
-                            <b>{copy.turnkeyCardLabel}</b>
-                            <small>{copy.turnkeyCardBody}</small>
-                          </div>
-                        </div>
-                      </div>
                       <div className="plans-room-card-actions">
                         <button
                           className="plans-detail-link"
