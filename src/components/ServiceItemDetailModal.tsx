@@ -36,9 +36,9 @@ const modalCopy = {
     measurement: 'Measurement required',
     visit: 'Home visit required',
     compatibility: 'Compatibility check',
-    quote: 'Quote confirmed after review',
+    quote: 'Price confirmed after review',
     grant: 'May be eligible for grant support',
-    fallbackInclude: 'We check fit and final scope before installation.',
+    fallbackInclude: 'We confirm fit and the agreed work before installation.',
   },
   es: {
     close: 'Cerrar',
@@ -57,9 +57,9 @@ const modalCopy = {
     measurement: 'Requiere medición',
     visit: 'Requiere visita',
     compatibility: 'Comprobación de compatibilidad',
-    quote: 'Presupuesto confirmado tras revisión',
+    quote: 'Precio confirmado tras revisión',
     grant: 'Puede optar a apoyo de subvención',
-    fallbackInclude: 'Revisamos encaje y alcance final antes de instalar.',
+    fallbackInclude: 'Confirmamos el encaje y el trabajo acordado antes de instalar.',
   },
 }
 

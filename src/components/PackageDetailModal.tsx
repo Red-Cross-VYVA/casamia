@@ -39,7 +39,7 @@ const packageModalCopy = {
     trustSignals: {
       assessment: {
         label: 'Checked against daily use',
-        detail: 'We look at the person, the room and the routine before agreeing the final scope.',
+        detail: 'We look at the person, the room and the routine before agreeing what should be included.',
       },
       compatibility: {
         label: 'Fit confirmed first',
@@ -59,7 +59,7 @@ const packageModalCopy = {
       },
       quote: {
         label: 'Price confirmed first',
-        detail: 'Scope and price are agreed after the home details are known, so the proposal reflects the real room.',
+        detail: 'The agreed work and price are confirmed after the home details are known, so the proposal reflects the real room.',
       },
     },
   },
@@ -85,7 +85,7 @@ const packageModalCopy = {
     trustSignals: {
       assessment: {
         label: 'Revisado según el uso diario',
-        detail: 'Miramos a la persona, la estancia y la rutina antes de acordar el alcance final.',
+        detail: 'Miramos a la persona, la estancia y la rutina antes de acordar qué debe incluirse.',
       },
       compatibility: {
         label: 'Encaje confirmado primero',
@@ -93,7 +93,7 @@ const packageModalCopy = {
       },
       grant: {
         label: 'Ruta de subvención explicada',
-        detail: 'Indicamos cuándo esta mejora puede ayudar en la documentación de subvenciones. La aprobación depende de la administración.',
+        detail: 'Indicamos cuándo esta mejora puede ayudar en una solicitud de subvención. La aprobación depende de la administración.',
       },
       handover: {
         label: 'Explicación clara',
@@ -105,7 +105,7 @@ const packageModalCopy = {
       },
       quote: {
         label: 'Precio confirmado primero',
-        detail: 'El alcance y precio se acuerdan cuando ya se conocen los detalles de la vivienda.',
+        detail: 'El trabajo acordado y el precio se confirman cuando ya se conocen los detalles de la vivienda.',
       },
     },
   },

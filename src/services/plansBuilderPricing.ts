@@ -776,19 +776,19 @@ function polishPlansDescription(description: string) {
 function trustCopy(language: string) {
   return language.toLowerCase().startsWith('es')
     ? {
-        before: 'Antes de proponerlo, confirmamos',
+        before: 'Antes de recomendarlo, confirmamos',
         fit: 'medidas, fijaciones y espacio real',
         fitLight: 'que encaje con la estancia y la rutina diaria',
         grant: 'si puede ayudar en una solicitud de subvención',
         handover: 'Después se prueba instalado y se explica cómo usarlo con seguridad.',
-        scope: 'alcance y precio antes de presupuestar',
+        scope: 'trabajo acordado y precio antes de presupuestar',
       }
     : {
-        before: 'Before recommending it, we confirm',
+        before: 'Before we recommend it, we confirm',
         fit: 'measurements, fixing points and real room conditions',
         fitLight: 'that it suits the room and daily routine',
-        grant: 'whether it may support grant paperwork',
+        grant: 'whether it may support a grant application',
         handover: 'After installation, we test it in place and explain safe use.',
-        scope: 'scope and price before quoting',
+        scope: 'the agreed work and price before quoting',
       }
 }
