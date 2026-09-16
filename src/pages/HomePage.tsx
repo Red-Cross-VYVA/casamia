@@ -812,7 +812,7 @@ export function HomePage() {
         <div className="site-shell">
           <div className="home-process-grid">
             <div>
-              <p className="home-redesign-kicker">How it works</p>
+              <p className="home-redesign-kicker">Safety journey</p>
               <h2>From first visit to finished home.</h2>
             </div>
             <div className="home-process-timeline">
