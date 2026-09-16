@@ -83,11 +83,8 @@ export function BeforeAfterCard({
                 imgClassName="before-after-image-media h-full w-full object-cover"
                 src={visual.after}
               />
-              <figcaption className="before-after-badge before-after-badge-before rounded-full bg-navy px-4 py-2 text-xs font-black uppercase text-white">
-                {labels.before}
-              </figcaption>
-              <figcaption className="before-after-badge before-after-badge-after rounded-full bg-green px-4 py-2 text-xs font-black uppercase text-white">
-                {labels.after}
+              <figcaption className="sr-only">
+                {labels.before} / {labels.after}
               </figcaption>
             </>
           ) : (
