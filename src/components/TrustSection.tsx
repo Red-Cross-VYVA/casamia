@@ -49,7 +49,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'pricing',
         title: 'Price before commitment',
-        body: 'You see the recommended work, assumptions and price before deciding whether anything goes ahead.',
+        body: 'You see the recommended adaptations, assumptions and price before deciding whether anything goes ahead.',
       },
       {
         icon: 'products',

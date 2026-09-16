@@ -75,7 +75,7 @@ const serviceAreaCopy = {
       {
         question: `Does CasaMia install directly in ${city}?`,
         answer:
-          'CasaMia coordinates the work path: remote review, proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, agreed work and confirmed provider availability.',
+          'CasaMia coordinates the path: remote review, proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, agreed adaptations and confirmed provider availability.',
       },
       {
         question: `What happens with grants and required documents in ${city}?`,

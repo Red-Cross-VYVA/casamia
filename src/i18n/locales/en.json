@@ -166,11 +166,11 @@
           "body": "If the home needs measurement or professional review, we confirm timing and what the visit should cover first."
         },
         {
-          "title": "CasaMia coordinates the work",
+          "title": "CasaMia coordinates the plan",
           "body": "Proposal, products, installers, grants where relevant, and follow-up stay under one plan."
         }
       ],
-      "note": "You stay in control: no installation is booked until the agreed work is clear and accepted."
+      "note": "You stay in control: no installation is booked until the agreed adaptations are clear and accepted."
     },
     "how": {
       "title": "How It Works",
@@ -375,7 +375,7 @@
       {
         "icon": "Step 3",
         "title": "Check grant requirements early",
-        "desc": "When work may be eligible, CasaMia prepares the supporting notes before the agreed work is confirmed.",
+        "desc": "When adaptations may be eligible, CasaMia prepares the supporting notes before the final plan is confirmed.",
         "points": [
           "Eligibility check",
           "Document support",
@@ -945,7 +945,7 @@
         "body": "Start with a review, move into adaptations, or add connected technology when it solves a specific risk. Every path begins with understanding the home first."
       },
       "cardsTitle": "Compare three CasaMia starting plans.",
-      "cardsIntro": "The in-home assessment is the starting point. These plans show common levels of support; the agreed work is built from the improvements your home actually needs.",
+      "cardsIntro": "The in-home assessment is the starting point. These plans show common levels of support; the final plan is built from the improvements your home actually needs.",
       "bestForLabel": "When this fits",
       "cards": [
         {
@@ -1117,7 +1117,7 @@
             "body": "{{visitFee}} assessment credited toward the plan, then {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} after system setup, handover and customer acceptance."
           }
         ],
-        "reassurance": "No hidden fees. No work begins without your approval. You receive the agreed work, pricing and assumptions before installation."
+        "reassurance": "No hidden fees. No installation begins without your approval. You receive the agreed adaptations, pricing and assumptions before installation."
       },
       "next": {
         "title": "What Happens After You Choose a Plan?",
@@ -1132,10 +1132,10 @@
           },
           {
             "title": "You receive a proposal",
-            "body": "We provide recommendations, pricing, assumptions and the next decision before any work begins."
+            "body": "We provide recommendations, pricing, assumptions and the next decision before installation begins."
           },
           {
-            "title": "We complete the agreed work",
+            "title": "We complete the approved adaptations",
             "body": "If you approve, our team coordinates products, installers, and final handover."
           }
         ]
@@ -1165,7 +1165,7 @@
           },
           {
             "question": "Can the plan be customized?",
-            "answer": "Yes. The agreed work is matched to the home, the person using it, and the safety priorities found during assessment."
+            "answer": "Yes. The agreed adaptations are matched to the home, the person using it, and the safety priorities found during assessment."
           },
           {
             "question": "Do you support smart safety devices?",
@@ -1228,8 +1228,8 @@
       "whoTitle": "Who this plan is for",
       "includedTitle": "What's included",
       "roomTitle": "Room-by-room improvements",
-      "processTitle": "Our process",
-      "deliverablesTitle": "What You'll Receive",
+      "processTitle": "What happens next",
+      "deliverablesTitle": "What you receive",
       "paymentTitle": "Payment terms",
       "paymentReassurance": "No hidden fees. No unexpected costs.",
       "faqTitle": "Questions people ask",
@@ -1349,7 +1349,7 @@
             "terms": [
               "100% payable upon booking."
             ],
-            "note": "The assessment is a standalone service. You decide afterwards whether to proceed with any recommended work."
+            "note": "The assessment is a standalone service. You decide afterwards whether to proceed with any recommended adaptations."
           },
           "faqs": [
             {
@@ -1481,12 +1481,12 @@
               "body": "We inspect the home and identify the adaptations that should come first."
             },
             {
-              "title": "Proposal & Approval",
-              "body": "You approve the recommended work and pricing before any installation begins."
+              "title": "Review and approval",
+              "body": "You review the recommended adaptations and pricing before any installation begins."
             },
             {
               "title": "Professional Installation & Handover",
-              "body": "Trusted installers complete the work and CasaMia walks you through the finished improvements."
+              "body": "Trusted installers complete the approved adaptations and CasaMia walks you through the finished improvements."
             }
           ],
           "deliverables": [
@@ -1503,7 +1503,7 @@
               "{{proposalUpfrontPercent}} deposit upon approval.",
               "{{proposalBalancePercent}} upon completion and customer acceptance."
             ],
-            "note": "You see the agreed work before anything begins and only pay the final balance after the completed work is reviewed."
+            "note": "You see the agreed adaptations before anything begins and only pay the final balance after the completed installation is reviewed."
           },
           "faqs": [
             {
@@ -1512,7 +1512,7 @@
             },
             {
               "question": "Who carries out the work?",
-              "answer": "CasaMia coordinates insured installation partners, checks the agreed work and completes a customer acceptance walkthrough."
+              "answer": "CasaMia coordinates insured installation partners, checks the agreed adaptations and completes a customer acceptance walkthrough."
             },
             {
               "question": "Are products guaranteed?",
@@ -1520,7 +1520,7 @@
             },
             {
               "question": "Can I choose which recommendations to proceed with?",
-              "answer": "Yes. You approve the agreed work before any installation begins."
+              "answer": "Yes. You approve the agreed adaptations before any installation begins."
             }
           ]
         },
@@ -1739,7 +1739,7 @@
           },
           {
             "title": "Application forms",
-            "body": "We complete the forms for the chosen grant channel using the agreed work and customer information."
+            "body": "We complete the forms for the chosen grant channel using the agreed adaptations and customer information."
           },
           {
             "title": "Coordination with authorities where authorised",

@@ -1705,7 +1705,7 @@ function getGrantCopy(language: string) {
       handoffPoints: [
         'We do not ask for certificates now if you do not already have them.',
         'Nothing is filed before the call is checked and confirmed with you.',
-        'Follow-up focuses on permissions, agreed work and real documentation.',
+        'Follow-up focuses on permissions, agreed adaptations and real documentation.',
       ],
       readyTitle: 'Your report is ready.',
       readyBody: (region: string) =>

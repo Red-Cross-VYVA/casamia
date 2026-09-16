@@ -325,7 +325,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     customerBenefit: 'Why it helps',
     customPackageEyebrow: 'Need a different mix?',
     customPackageTitle: 'Customise your own package',
-    customPackageBody: 'Choose the rooms, routines and services that matter most. CasaMia turns them into work you can review before any proposal.',
+    customPackageBody: 'Choose the rooms, routines and services that matter most. CasaMia turns them into adaptations you can review before any proposal.',
     customPackageCta: 'Build my package',
     requirements: {
       installation: 'Professional installation',
@@ -336,7 +336,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     safetyNote: 'Important',
     emptyTitle: 'No active services are available yet.',
     emptyBody: 'Activate services in the CasaMia admin catalogue to publish them here.',
-    finalEyebrow: 'Need help choosing?',
+    finalEyebrow: 'Unsure where to start?',
     finalTitle: 'Start with the concern. We will identify what needs review.',
     finalBody: 'A short guided review shows which rooms, measurements or service details need checking before you request a quote or book a visit.',
     startCta: 'Start guided review',

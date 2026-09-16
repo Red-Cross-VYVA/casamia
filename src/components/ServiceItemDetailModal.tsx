@@ -38,7 +38,7 @@ const modalCopy = {
     compatibility: 'Compatibility check',
     quote: 'Price confirmed after review',
     grant: 'May be eligible for grant support',
-    fallbackInclude: 'We confirm fit and the agreed work before installation.',
+    fallbackInclude: 'We confirm fit and the agreed adaptation before installation.',
   },
   es: {
     close: 'Cerrar',

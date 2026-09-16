@@ -83,20 +83,20 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       repPlural: 'representatives',
       orderNow: 'Order now',
     },
-    promiseTitle: 'Clear decisions before work starts.',
+    promiseTitle: 'Clear decisions before installation starts.',
     promiseBody:
-      'CasaMia turns a home concern into room priorities, agreed work, price assumptions, grant-application checks and coordinated delivery.',
+      'CasaMia turns a home concern into room priorities, agreed adaptations, price assumptions, grant-application checks and coordinated delivery.',
     promisePoints: [
       'Practical focus: daily movement, support points, lighting, access and wet-floor risk.',
       'Transparent recommendations: what matters, why it matters and what it may cost.',
-      'Managed delivery: fit confirmed first, work coordinated and results checked.',
+      'Managed delivery: fit confirmed first, installation coordinated and results checked.',
     ],
     processEyebrow: 'Operating model',
-    processTitle: 'Know what happens before, during and after the work',
+    processTitle: 'Know what happens before, during and after installation',
     processSteps: [
       {
         title: 'Understand the home',
-        body: 'We look at the room, daily routine, access, photos and measurements before recommending work.',
+        body: 'We look at the room, daily routine, access, photos and measurements before recommending adaptations.',
       },
       {
         title: 'Set priorities',
@@ -104,7 +104,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Vet and coordinate',
-        body: 'Local providers are matched to the room, job type, location and agreed work before anything is coordinated through CasaMia.',
+        body: 'Local providers are matched to the room, job type, location and agreed adaptations before anything is coordinated through CasaMia.',
       },
       {
         title: 'Check the result',
@@ -156,8 +156,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'insured',
         title: 'Quality control built in',
         body:
-          'Every project needs more than a product list. CasaMia keeps the agreed work, installation notes, customer updates and safe-use explanation connected.',
-        points: ['Agreed work before work starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
+          'Every project needs more than a product list. CasaMia keeps the agreed adaptations, installation notes, customer updates and safe-use explanation connected.',
+        points: ['Agreed adaptations before installation starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
       },
       {
         icon: 'products',

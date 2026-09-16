@@ -59,7 +59,7 @@ const packageModalCopy = {
       },
       quote: {
         label: 'Price confirmed first',
-        detail: 'The agreed work and price are confirmed after the home details are known, so the proposal reflects the real room.',
+        detail: 'The agreed adaptation and price are confirmed after the home details are known, so the proposal reflects the real room.',
       },
     },
   },

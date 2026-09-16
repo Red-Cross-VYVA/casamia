@@ -168,7 +168,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     title: 'Start your way.',
     body: 'CasaMia handles the rest.',
     heroOutcomeEyebrow: 'What you receive',
-    heroOutcomeText: 'Room priorities, recommended actions, quoted work and CasaMia coordination.',
+    heroOutcomeText: 'Room priorities, recommended adaptations, pricing and CasaMia coordination.',
     channelsTitle: 'Choose a channel',
     channelsBody: 'Every option reaches the same CasaMia team.',
     humanAlt: 'Older woman smiling while using her smartphone at home',
@@ -190,7 +190,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
       },
       {
         title: 'Review your plan',
-        body: 'See the recommended work and price before you decide.',
+        body: 'See the recommended adaptations and price before you decide.',
       },
       {
         title: 'We coordinate and follow up',
@@ -239,26 +239,26 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     seoTitle: 'How CasaMia Works',
     seoDescription:
       'See how CasaMia turns photos, visits, expert review, installation, grant-application checks and smart safety into a room-by-room home safety plan.',
-    heroEyebrow: 'From concern to checked work',
+    heroEyebrow: 'From concern to checked plan',
     heroTitle: 'From home photos to safer daily routines.',
     heroBody:
-      'We review the rooms used every day, identify the risks that affect movement, and coordinate the work only where it fits the routine.',
+      'We review the rooms used every day, identify the risks that affect movement, and coordinate adaptations only where they fit the routine.',
     primaryCta: 'Start Free Safety Report',
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
     statusTitle: 'Four practical steps',
-    statusIntro: 'You choose the starting point. CasaMia turns it into priorities, agreed work and follow-up.',
+    statusIntro: 'You choose the starting point. CasaMia turns it into priorities, agreed adaptations and follow-up.',
     statusRows: [
       { label: 'One call or click', value: 'Start' },
       { label: 'Risks and routines reviewed', value: 'Review' },
-      { label: 'Work agreed before installation', value: 'Plan' },
+      { label: 'Adaptations agreed before installation', value: 'Plan' },
       { label: 'Installed, checked and explained', value: 'Handover' },
     ],
     statusNote: 'One team from first contact to follow-up.',
     processEyebrow: 'How the review moves forward',
     processTitle: 'One call or one click. We coordinate the rest.',
     processBody:
-      'Tell us what is happening at home. CasaMia turns the first conversation into room priorities, agreed work, coordinated installation and follow-up.',
+      'Tell us what is happening at home. CasaMia turns the first conversation into room priorities, agreed adaptations, coordinated installation and follow-up.',
     steps: [
       {
         icon: 'phone',
@@ -293,9 +293,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'We coordinate the installation',
-        body: 'We agree the work and date, coordinate installation and check the result.',
+        body: 'We agree the adaptations and date, coordinate installation and check the result.',
         tag: 'Handover',
-        proof: 'Work · date · final check',
+        proof: 'Adaptations · date · final check',
       },
       {
         icon: 'heart',
