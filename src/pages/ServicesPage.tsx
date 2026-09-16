@@ -9,7 +9,6 @@ import {
   Home,
   MousePointer2,
   PackageCheck,
-  ShieldCheck,
   Sparkles,
   X,
   type LucideIcon,
@@ -35,7 +34,7 @@ import type {
   MasterServiceCatalogue,
   ServicePackageArea,
 } from '../types/serviceCatalogue'
-import { getServiceCredibleDescription, getServiceProofChips } from '../utils/serviceTrust'
+import { getServiceProofChips } from '../utils/serviceTrust'
 import '../styles/services-catalogue.css'
 
 type CatalogueGroupId = ServicePackageArea | 'other'
@@ -137,8 +136,6 @@ type ServicesPageCopy = {
   addOnSingular: string
   addOnPlural: string
   selectedEyebrow: string
-  coreComponent: string
-  optionalComponent: string
   included: string
   customerBenefit: string
   customPackageEyebrow: string
@@ -324,8 +321,6 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     addOnSingular: 'optional add-on',
     addOnPlural: 'optional add-ons',
     selectedEyebrow: 'Package area',
-    coreComponent: 'Included in package',
-    optionalComponent: 'Optional add-on',
     included: 'What is included',
     customerBenefit: 'Why it helps',
     customPackageEyebrow: 'Need a different mix?',
@@ -382,8 +377,6 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     addOnSingular: 'extra opcional',
     addOnPlural: 'extras opcionales',
     selectedEyebrow: 'Zona del paquete',
-    coreComponent: 'Incluido en el paquete',
-    optionalComponent: 'Extra opcional',
     included: 'Qué incluye',
     customerBenefit: 'Por qué ayuda',
     customPackageEyebrow: '¿Necesitas otra combinación?',
@@ -407,20 +400,29 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
   },
 }
 
-function getRequirementLabels(service: CasaMiaService, copy: ServicesPageCopy) {
-  return [
-    (service.requirements?.installation ?? service.requiresInstallation) ? copy.requirements.installation : null,
-    (service.requirements?.measurement ?? service.requiresMeasurement) ? copy.requirements.measurement : null,
-    (service.requirements?.siteVisit ?? service.requiresSiteVisit) ? copy.requirements.visit : null,
-    (service.requirements?.compatibilityCheck ?? service.requiresCompatibilityCheck) ? copy.requirements.compatibility : null,
-  ].filter((item): item is string => Boolean(item))
+const getCustomerServiceName = (service: CasaMiaService) => service.customerName ?? service.name
+const getCustomerServiceDescription = (service: CasaMiaService) => {
+  const description = (
+    service.plainLanguageSummary
+    ?? service.customerDescription
+    ?? service.shortDescription
+  ).trim()
+
+  return polishCardDescription(description)
 }
 
-const getCustomerServiceName = (service: CasaMiaService) => service.customerName ?? service.name
-const getCustomerServiceDescription = (service: CasaMiaService, language: string) =>
-  getServiceCredibleDescription(service, language)
-const getCustomerServiceBenefit = (service: CasaMiaService) =>
-  service.outcome ?? service.customerBenefit
+function polishCardDescription(description: string) {
+  const polished = description
+    .replace(/^Adding\b/, 'Adds')
+    .replace(/^Providing\b/, 'Provides')
+    .replace(/^Installing\b/, 'Installs')
+    .replace(/^Configuring\b/, 'Configures')
+    .replace(/^Replacing\b/, 'Replaces')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  return polished.endsWith('.') ? polished : `${polished}.`
+}
 
 const isWebsiteVisible = (service: CasaMiaService) =>
   service.websiteVisible ?? service.visibility?.website ?? true
@@ -654,7 +656,7 @@ export function ServicesPage() {
             '@type': 'ListItem',
             position: index + 1,
             name: getCustomerServiceName(service),
-            description: getCustomerServiceDescription(service, language),
+            description: getCustomerServiceDescription(service),
           })),
         }}
       />
@@ -843,14 +845,12 @@ export function ServicesPage() {
 
                   <div className="services-catalogue-service-grid">
                     {selectedGroup.services.map((service) => {
-                      const requirements = getRequirementLabels(service, copy)
                       const includedItems = uniqueIncludedItems(service.includedItems)
                       const visibleIncludedItems = includedItems.slice(0, 2)
                       const remainingIncludedItems = includedItems.length - visibleIncludedItems.length
                       const optionalAddOn = isOptionalAddOn(service)
-                      const description = getCustomerServiceDescription(service, language)
-                      const benefit = getCustomerServiceBenefit(service)
-                      const proofChips = getServiceProofChips(service, language)
+                      const description = getCustomerServiceDescription(service)
+                      const proofChips = getServiceProofChips(service, language).slice(0, 2)
 
                       return (
                         <article
@@ -863,9 +863,6 @@ export function ServicesPage() {
                               <small>{service.category}</small>
                               <h3>{getCustomerServiceName(service)}</h3>
                             </div>
-                            <span className="services-catalogue-component-role">
-                              {optionalAddOn ? copy.optionalComponent : copy.coreComponent}
-                            </span>
                           </header>
 
                           <p className="services-catalogue-service-description">
@@ -894,26 +891,6 @@ export function ServicesPage() {
                                 ) : null}
                               </ul>
                             </div>
-                          ) : null}
-
-                          {benefit !== description ? (
-                            <p className="services-catalogue-service-benefit">
-                              <Sparkles size={16} aria-hidden="true" />
-                              <span>{benefit}</span>
-                            </p>
-                          ) : null}
-
-                          {requirements.length ? (
-                            <div className="services-catalogue-requirements">
-                              {requirements.map((requirement) => <span key={requirement}>{requirement}</span>)}
-                            </div>
-                          ) : null}
-
-                          {service.safetyNotice ? (
-                            <p className="services-catalogue-safety-note">
-                              <ShieldCheck size={17} aria-hidden="true" />
-                              <span><strong>{copy.safetyNote}:</strong> {service.safetyNotice}</span>
-                            </p>
                           ) : null}
 
                           <div className="services-catalogue-service-actions">

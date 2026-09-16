@@ -1140,7 +1140,7 @@
   border: 1px solid #d1e2eb;
   border-radius: 0.7rem;
   background: #fff;
-  padding: 1rem;
+  padding: 0.95rem;
   box-shadow: 0 0.45rem 1.1rem rgb(18 58 80 / 5%);
 }
 
@@ -1169,16 +1169,16 @@
 .services-catalogue-service > header {
   display: grid;
   align-items: flex-start;
-  gap: 0.85rem;
+  gap: 0.72rem;
   grid-template-columns: auto minmax(0, 1fr);
 }
 
 .services-catalogue-card-visual {
   position: relative;
   display: grid;
-  width: 8.45rem;
-  height: 5.45rem;
-  flex: 0 0 8.45rem;
+  width: 7.85rem;
+  height: 5rem;
+  flex: 0 0 7.85rem;
   place-items: center;
   overflow: hidden;
   border: 1px solid #cddfe9;
@@ -1319,34 +1319,12 @@
 }
 
 .services-catalogue-service h3 {
-  margin: 0.35rem 0 0;
+  margin: 0.26rem 0 0;
   color: #142d43;
   font-size: 1.06rem;
   font-weight: 900;
   letter-spacing: 0;
   line-height: 1.18;
-}
-
-.services-catalogue-component-role {
-  display: inline-flex;
-  flex: 0 0 auto;
-  width: fit-content;
-  grid-column: 2;
-  justify-self: start;
-  margin-top: -0.25rem;
-  border-radius: 999px;
-  background: #e9f6fc;
-  padding: 0.32rem 0.55rem;
-  color: #0f638d;
-  font-size: 0.64rem;
-  font-weight: 900;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.services-catalogue-service.is-optional-add-on .services-catalogue-component-role {
-  background: #edf8e7;
-  color: #4f7f24;
 }
 
 .services-catalogue-service.is-optional-add-on header small {
@@ -1367,19 +1345,19 @@
 .services-catalogue-service-description {
   display: -webkit-box;
   overflow: hidden;
-  margin: 0.7rem 0 0;
+  margin: 0.78rem 0 0;
   color: #536879;
   font-size: 0.9rem;
   line-height: 1.45;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
 }
 
 .services-catalogue-proof-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.38rem;
-  margin-top: 0.58rem;
+  margin-top: 0.66rem;
 }
 
 .services-catalogue-proof-chips span {
@@ -1392,22 +1370,6 @@
   font-weight: 920;
   line-height: 1.05;
   box-shadow: 0 0.35rem 0.8rem rgb(18 58 80 / 5%);
-}
-
-.services-catalogue-service-benefit {
-  display: flex;
-  gap: 0.5rem;
-  margin: 0.7rem 0 0;
-  color: #435f74;
-  font-size: 0.84rem;
-  font-weight: 780;
-  line-height: 1.42;
-}
-
-.services-catalogue-service-benefit > svg {
-  flex: 0 0 auto;
-  margin-top: 0.05rem;
-  color: #75ae3d;
 }
 
 .services-catalogue-inclusions {
@@ -1495,42 +1457,9 @@
   color: #79ad43;
 }
 
-.services-catalogue-requirements {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.8rem;
-}
-
-.services-catalogue-requirements span {
-  border: 1px solid #d0e2eb;
-  border-radius: 999px;
-  background: #f7fafc;
-  padding: 0.34rem 0.52rem;
-  color: #526879;
-  font-size: 0.66rem;
-  font-weight: 800;
-}
-
-.services-catalogue-safety-note {
-  display: flex;
-  gap: 0.55rem;
-  margin: 0.8rem 0 0;
-  border-top: 1px solid #e1ebf0;
-  padding-top: 0.75rem;
-  color: #667889;
-  font-size: 0.75rem;
-  line-height: 1.45;
-}
-
-.services-catalogue-safety-note svg {
-  flex: 0 0 auto;
-  color: #17648e;
-}
-
 .services-catalogue-service-actions {
   display: flex;
-  margin-top: 1rem;
+  margin-top: 0.9rem;
 }
 
 .services-catalogue-service-actions .catalogue-item-detail-button {
