@@ -45,7 +45,7 @@ const preventionCopy = {
     facts: [
       {
         value: 'ONLY 10%',
-        label: 'of U.S. homes are fully “aging-ready.”',
+        label: 'of homes are fully “aging-ready.”',
         source: 'census',
         sourceName: 'U.S. Census Bureau',
       },
