@@ -15,9 +15,9 @@ import {
 
 const spanishCopy = {
   acknowledgeBody:
-    'Esta acción crea un evento de auditoría y prepara el expediente para una futura firma digital o firma manual.',
-  acknowledgeButton: 'Confirmar recepción',
-  acknowledgeTitle: 'Confirmar recepción para revisión',
+    'Confirma solo que has recibido el documento y lo estás revisando. Esto registra el evento, pero no sustituye la firma digital o manual.',
+  acknowledgeButton: 'Registrar recepción',
+  acknowledgeTitle: 'Registrar recepción del documento',
   acknowledgedBody:
     'CasaMia ha registrado la recepción del documento. Para continuar, completa la firma por el canal acordado.',
   acknowledgedTitle: 'Revisión registrada',
@@ -31,7 +31,7 @@ const spanishCopy = {
   nameLabel: 'Nombre de la persona que revisa',
   pdf: 'Exportar PDF',
   readyBody:
-    'Revisa el documento, descarga una copia y confirma que queda recibido para revisión. Esta confirmación no sustituye una firma electrónica.',
+    'Revisa el documento, descarga una copia y registra la recepción cuando lo tengas para revisión. La firma se completa después por el canal acordado.',
   readyTitle: 'Tu acuerdo CasaMia está listo.',
   title: 'Acuerdo de colaborador CasaMia',
   unavailable: 'Enlace no disponible',
@@ -40,9 +40,9 @@ const spanishCopy = {
 
 const englishCopy = {
   acknowledgeBody:
-    'This action creates an audit event and prepares the file for a future digital or manual signature.',
-  acknowledgeButton: 'Confirm receipt',
-  acknowledgeTitle: 'Confirm receipt for review',
+    'Confirm only that you have received the document and are reviewing it. This records the event, but does not replace digital or manual signature.',
+  acknowledgeButton: 'Record receipt',
+  acknowledgeTitle: 'Record document receipt',
   acknowledgedBody:
     'CasaMia has recorded receipt of the document. To continue, complete signature through the agreed channel.',
   acknowledgedTitle: 'Review recorded',
@@ -56,7 +56,7 @@ const englishCopy = {
   nameLabel: 'Name of the person reviewing',
   pdf: 'Export PDF',
   readyBody:
-    'Review the document, download a copy and confirm it has been received for review. This confirmation does not replace an electronic signature.',
+    'Review the document, download a copy and record receipt when you have it for review. Signature is completed later through the agreed channel.',
   readyTitle: 'Your CasaMia agreement is ready.',
   title: 'CasaMia partner agreement',
   unavailable: 'Link unavailable',

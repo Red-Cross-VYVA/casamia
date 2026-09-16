@@ -27,14 +27,14 @@ export function PublicProposalPage() {
         contact: 'Contactar con CasaMia',
         readyTitle: 'Tu propuesta CasaMia está lista',
         readyBody:
-          'Revisa el alcance incluido, cualquier partida opcional o pendiente de medición, las condiciones de pago y los términos aplicables. Cuando todo esté correcto, puedes aceptar la propuesta de forma segura abajo.',
+          'Revisa el alcance incluido, lo que queda pendiente de medición, las partidas opcionales, las condiciones de pago y los términos aplicables. Acepta solo cuando quieras aprobar este alcance y pasar al pago seguro.',
         pendingTitle: 'Este enlace todavía no está listo para aceptar',
         pendingBody:
           'Si has recibido este enlace, contacta con CasaMia para activar la propuesta o generar una nueva desde Planes.',
         pendingNotice: 'Propuesta no activada',
         proposalLabel: 'Propuesta',
         acceptedTitle: 'Propuesta aceptada',
-        acceptedBody: 'Tu propuesta está aceptada. Continúa con el pago seguro para reservar los trabajos.',
+        acceptedBody: 'Tu propuesta está aceptada. Continúa con el pago seguro para reservar la planificación de los trabajos.',
         paidTitle: 'Pago recibido',
         paidBody: 'Hemos recibido tu pago. CasaMia contactará contigo para coordinar la fecha de los trabajos.',
         payButton: (percent: number) => (percent >= 100 ? 'Pagar ahora' : `Pagar ${percent}% ahora`),
@@ -45,7 +45,7 @@ export function PublicProposalPage() {
         paymentPending: 'Stripe está procesando el pago. No vuelvas a pagar; actualiza esta página dentro de unos minutos.',
         acceptTitle: 'Aceptar propuesta',
         acceptBody:
-          'Al aceptar, confirmas que apruebas el alcance indicado, las condiciones de pago y los términos de servicio aplicables.',
+          'Al aceptar, confirmas que apruebas el alcance mostrado, las exclusiones o partidas pendientes, las condiciones de pago y los términos de servicio aplicables.',
         acceptedBy: 'Aceptada por',
         accepting: 'Aceptando...',
         acceptButton: 'Aceptar propuesta',
@@ -59,14 +59,14 @@ export function PublicProposalPage() {
         contact: 'Contact CasaMia',
         readyTitle: 'Your CasaMia proposal is ready',
         readyBody:
-          'Review the included scope, any optional or measurement-dependent items, payment terms and applicable service terms. When everything looks right, you can accept the proposal securely below.',
+          'Review the included scope, what still needs measurement, optional items, payment terms and applicable service terms. Accept only when you want to approve this scope and continue to secure payment.',
         pendingTitle: 'This link is not ready for acceptance yet',
         pendingBody:
           'If you received this link, contact CasaMia to activate the proposal or generate a fresh one from Plans.',
         pendingNotice: 'Proposal not activated',
         proposalLabel: 'Proposal',
         acceptedTitle: 'Proposal accepted',
-        acceptedBody: 'Your proposal is accepted. Continue to secure payment to reserve the works.',
+        acceptedBody: 'Your proposal is accepted. Continue to secure payment to reserve work planning.',
         paidTitle: 'Payment received',
         paidBody: 'We have received your payment. CasaMia will contact you to coordinate the works date.',
         payButton: (percent: number) => (percent >= 100 ? 'Pay now' : `Pay ${percent}% now`),
@@ -77,7 +77,7 @@ export function PublicProposalPage() {
         paymentPending: 'Stripe is processing the payment. Do not pay again; refresh this page in a few minutes.',
         acceptTitle: 'Accept proposal',
         acceptBody:
-          'By accepting, you confirm approval of the listed scope, payment terms, and applicable service terms.',
+          'By accepting, you approve the displayed scope, exclusions or pending items, payment terms and applicable service terms.',
         acceptedBy: 'Accepted by',
         accepting: 'Accepting...',
         acceptButton: 'Accept Proposal',
