@@ -193,7 +193,7 @@ export function Nav() {
           to: '/blog/bedroom-night-safety-older-adults',
         },
         {
-          label: isSpanish ? 'Ayudas y documentación' : 'Grants and paperwork',
+          label: isSpanish ? 'Ayudas y documentación' : 'Grants and documents',
           to: '/blog/home-adaptation-grants-spain-family-guide',
         },
       ],

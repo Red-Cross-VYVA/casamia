@@ -280,7 +280,7 @@ const homeTypes: SelectableCard<HomeTypeId>[] = [
 
 const upgrades: SelectableCard<UpgradeId>[] = [
   { id: 'voice', title: 'Voice assistant', body: 'Hands-free support.', icon: Volume2 },
-  { id: 'family', title: 'Family dashboard', body: 'Approved updates.', icon: HeartHandshake },
+  { id: 'family', title: 'Contact updates', body: 'Approved notifications.', icon: HeartHandshake },
   { id: 'health', title: 'Health monitoring', body: 'Connected vitals.', icon: Activity },
   { id: 'lighting', title: 'Smart lighting', body: 'Motion routes.', icon: Lightbulb },
   { id: 'fall', title: 'Fall detection', body: 'Emergency alerts.', icon: ShieldCheck },
@@ -292,7 +292,7 @@ const processSteps = [
   ['Book assessment', 'Choose a home visit or start with self-inspection photos.'],
   ['We review the home', 'We check the rooms, routines and real safety priorities.'],
   ['Receive your report', 'You get clear recommendations and a confirmed next step.'],
-  ['Choose improvements', 'Start with essentials and add only what is useful.'],
+  ['Choose improvements', 'Start with essentials, then add what clearly helps.'],
   ['Enjoy a safer home', 'Everything is installed, tested and ready to use.'],
 ]
 
@@ -831,10 +831,10 @@ export function HomePage() {
       <section className="home-redesign-section home-family-section">
         <div className="home-family-grid site-shell">
           <div className="home-family-panel">
-            <p className="home-redesign-kicker">For families</p>
-            <h2>Peace of mind, wherever you are.</h2>
+            <p className="home-redesign-kicker">For approved contacts</p>
+            <h2>Peace of mind without taking over.</h2>
             <p>
-              With the senior's consent, approved family members can receive important updates, selected
+              With consent, approved contacts can receive important updates, selected
               health information and safety alerts without taking away independence.
             </p>
             <ul>
@@ -857,7 +857,7 @@ export function HomePage() {
             <h2>We also help care organisations.</h2>
             <p>
               Custom quotation for voice assistants, smart-room technology, fall detection, connected health,
-              staff and family dashboards, resident engagement, emergency alerts and integrations.
+              staff dashboards, approved-contact updates, engagement tools, emergency alerts and integrations.
             </p>
             <strong className="home-organisation-quote">Custom quotation</strong>
             <div className="home-organisation-types">

@@ -1780,11 +1780,11 @@ function getGrantCopy(language: string) {
       reasons: {
         region: (region: string) => `${region} can be checked against regional and municipal accessibility calls.`,
         missingRegion: 'Region is still needed because most grant routes are managed locally.',
-        age75: 'A resident aged 75+ is often a strong signal for accessibility support.',
-        age65: 'A resident over 65 can match many senior accessibility criteria.',
-        family: 'Family-led applications are common, but CasaMia should confirm the resident details.',
+        age75: 'A person aged 75+ is often a strong signal for accessibility support.',
+        age65: 'A person over 65 can match many senior accessibility criteria.',
+        family: 'Applications managed by relatives are common, but CasaMia should confirm the details of the person who lives there.',
         recognisedStatus: 'Recognised disability or dependency can strengthen the application and funding level.',
-        statusInProgress: 'A pending disability or dependency application may still be useful for regional review.',
+        statusInProgress: 'A pending disability or dependency application may still be relevant for regional review.',
         privateStatus: 'Sensitive status can be reviewed privately later if it becomes relevant.',
         mobilityNeed: 'Current mobility needs make accessibility works easier to justify.',
         balance: 'Balance or mobility concerns support a prevention-led safety case.',
@@ -1817,7 +1817,7 @@ function getGrantCopy(language: string) {
         review: {
           title: 'Needs regional review',
           summary:
-            'There are useful signals, but the grant route depends on region, permissions, and whether the adaptation is classified correctly.',
+            'There are relevant signals, but the grant route depends on region, permissions, and whether the adaptation is classified correctly.',
         },
         watch: {
           title: 'Safety plan first',

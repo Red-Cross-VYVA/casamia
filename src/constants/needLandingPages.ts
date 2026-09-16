@@ -356,7 +356,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     eyebrow: 'Grants and assistance',
     intro:
       'Grant routes depend on region, municipality, open calls and personal circumstances. CasaMia helps you understand what may fit and what documents are usually needed.',
-    whoFor: ['People considering accessibility or safety works', 'Older adults who may qualify for public assistance', 'Households needing help with paperwork and next steps'],
+    whoFor: ['People considering accessibility or safety works', 'Older adults who may qualify for public assistance', 'Households needing help with documents and next steps'],
     priorities: ['Region and postcode check', 'Ownership or permission status', 'Dependency, disability or age documentation', 'Clear scope and quotation for eligible works'],
     casamiaPlan: ['Check possible routes from official sources', 'Show missing documents and timing', 'Manage the process end to end when commissioned'],
     relatedServices: [
@@ -471,7 +471,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       'Households that need a clear scope before quotes, grants, landlord permission or community approval',
     ],
     priorities: [
-      'The resident routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night route',
+      'The daily routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night route',
       'Which risks are urgent, recommended or optional',
       'Measurements, wall types, fixing points, thresholds, door swings and site constraints',
       'Whether a quick product, minor adaptation, larger work or connected support is the right route',
@@ -492,7 +492,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'Should I call a contractor first?',
         answer:
-          'If the required work is obvious, measured and already specified, a contractor may be enough. If you are unsure what should change, start with a safety assessment so the quote matches the resident rather than a generic installation.',
+          'If the required work is obvious, measured and already specified, a contractor may be enough. If you are unsure what should change, start with a safety assessment so the quote matches the person at home rather than a generic installation.',
       },
       {
         question: 'Does CasaMia do the installation too?',
@@ -532,7 +532,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       'Households that need to agree who receives alerts and what happens next',
     ],
     priorities: [
-      'Consent, privacy and the resident comfort with every device',
+      'Consent, privacy and comfort with every device',
       'The practical risk: night movement, water leaks, medication reminders, calls, door access or emergency reach',
       'Who receives alerts, how quickly they respond and what they can do',
       'Reliability: Wi-Fi, power, batteries, fallbacks and ongoing support',
@@ -541,7 +541,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     casamiaPlan: [
       'Define the daily problem before choosing devices',
       'Prioritise simple routines such as night lighting, easy calls, reminders and selected alerts',
-      'Configure compatible tools so the resident experience stays familiar',
+      'Configure compatible tools so the experience stays familiar',
       'Document consent, alert recipients, response rules and maintenance checks',
     ],
     relatedServices: [
@@ -558,7 +558,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'What is the simplest connected setup?',
         answer:
-          'A simple setup often starts with night lighting, easy calls, reminders and selected alerts. The right mix depends on the resident, home layout, Wi-Fi reliability and who can respond.',
+          'A simple setup often starts with night lighting, easy calls, reminders and selected alerts. The right mix depends on the person at home, the layout, Wi-Fi reliability and who can respond.',
       },
       {
         question: 'When is monitoring better than smart safety?',
@@ -568,7 +568,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'What should be avoided?',
         answer:
-          'Avoid devices the resident does not understand, alerts nobody responds to, hidden monitoring, cameras without clear consent, and systems that fail quietly when Wi-Fi or batteries stop working.',
+          'Avoid devices the person at home does not understand, alerts nobody responds to, hidden monitoring, cameras without clear consent, and systems that fail quietly when Wi-Fi or batteries stop working.',
       },
     ],
   },

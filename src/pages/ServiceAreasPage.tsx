@@ -78,7 +78,7 @@ const serviceAreaCopy = {
           'CasaMia coordinates the route: remote review, scoped proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, scope and confirmed provider availability.',
       },
       {
-        question: `Can CasaMia help with grants or paperwork in ${city}?`,
+        question: `Can CasaMia help with grants and required documents in ${city}?`,
         answer:
           'CasaMia can help structure the project information and identify the likely route, but public authorities decide eligibility, approval, amount and timing.',
       },
@@ -156,7 +156,7 @@ const serviceAreaCopy = {
       {
         question: `¿CasaMia ayuda con ayudas o documentación en ${city}?`,
         answer:
-          'CasaMia puede ayudar a estructurar la información del proyecto e identificar la ruta probable, pero la administración pública decide elegibilidad, aprobación, importe y plazos.',
+          'CasaMia puede ayudar a ordenar la información del proyecto e identificar la ruta probable, pero la administración pública decide elegibilidad, aprobación, importe y plazos.',
       },
     ],
     cityBack: 'Ver todas las zonas',

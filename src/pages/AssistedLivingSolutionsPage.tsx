@@ -302,7 +302,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           title: 'Wearables when they add value',
           body:
             'Compatible watches, wristbands and pendants can support SOS, location, activity or selected health readings for residents who accept and reliably use them.',
-          points: ['Optional—not required for ambient detection', 'Useful beyond the resident room', 'Integrated only with consent and a clear response'],
+          points: ['Optional—not required for ambient detection', 'Works beyond one room', 'Integrated only with consent and a clear response'],
           visualLabel: 'Wearable, pendant and fixed-call options',
         },
       ],

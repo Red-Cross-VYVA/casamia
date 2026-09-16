@@ -43,7 +43,7 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
     en: {
       eyebrow: 'Catalogue gallery',
       title: 'Bathroom items available.',
-      body: 'A visual view of the products and adaptations CasaMia can combine around the bathroom, routine and level of support needed.',
+      body: 'Products and adaptations for safer showering, toilet use, wet floors, lighting and hand support.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
@@ -55,7 +55,7 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
     en: {
       eyebrow: 'Catalogue gallery',
       title: 'Bedroom items available.',
-      body: 'Practical supports for getting in and out of bed, night movement, lighting, storage and emergency reach, selected around the resident’s routine.',
+      body: 'Supports for getting in and out of bed, moving at night, improving light and keeping help within reach.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
@@ -67,7 +67,7 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
     en: {
       eyebrow: 'Catalogue gallery',
       title: 'Entrance items available.',
-      body: 'Support for thresholds, door access, lighting, visitor awareness and safer pauses around the entrance people actually use.',
+      body: 'Support for thresholds, doorway access, lighting, visitor awareness and steadier arrivals.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
@@ -79,7 +79,7 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
     en: {
       eyebrow: 'Catalogue gallery',
       title: 'Kitchen items available.',
-      body: 'Products and adaptations for safer preparation, cooking, lighting, standing zones, storage and selected kitchen alerts.',
+      body: 'Products and adaptations for safer cooking, prep, lighting, standing zones, storage and selected alerts.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
@@ -91,7 +91,7 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
     en: {
       eyebrow: 'Catalogue gallery',
       title: 'Living room items available.',
-      body: 'Supports for sitting, standing, clearer movement, safer furniture, lighting and simple connected reassurance.',
+      body: 'Supports for sitting, standing, clearer movement, safer furniture, lighting and simple connected alerts.',
     },
     es: {
       eyebrow: 'Galería del catálogo',

@@ -174,7 +174,7 @@ const chooserRoutes = [
     icon: FileCheck2,
     title: { en: 'Funding may matter', es: 'Las ayudas pueden importar' },
     body: {
-      en: 'Use the grant route early if paperwork, timing or regional criteria could affect the project.',
+      en: 'Use the grant route early if documents, timing or regional criteria could affect the project.',
       es: 'Usa la ruta de ayudas pronto si documentos, plazos o criterios autonómicos pueden afectar.',
     },
   },

@@ -163,8 +163,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'products',
         title: 'Detail-led recommendations',
         body:
-          'Small details matter in senior safety: height, reach, lighting, door swing, wet surfaces, transfer points and what the resident will actually use.',
-        points: ['Room and routine considered together', 'Useful adaptations before decorative upgrades', 'Smart devices only when they solve a real problem'],
+          'Small details matter in senior safety: height, reach, lighting, door swing, wet surfaces, transfer points and what the person at home will actually use.',
+        points: ['Room and routine considered together', 'Safety improvements before decorative upgrades', 'Smart devices only when they solve a real problem'],
       },
       {
         icon: 'pricing',

@@ -28,7 +28,7 @@ const footerLinkCopy = {
     freeTools: 'Free safety tools',
     checklist: 'Printable home checklist',
     onlineCheck: 'Online safety review',
-    grantsGuide: 'Grants and paperwork',
+    grantsGuide: 'Grants and documents',
     visitPrep: 'Before the visit',
     fallPrevention: 'Fall prevention guide',
     bathroomSafety: 'Bathroom safety guide',

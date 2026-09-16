@@ -239,7 +239,7 @@ const techCopy = {
       eyebrow: 'Telehealth option',
       title: 'Make the video consultation easy before it begins.',
       body:
-        'CasaMia can add a telehealth option so the resident can join a scheduled consultation from home. We configure the chosen device, test the connection, provide reminders and prepare agreed information for the appointment.',
+        'CasaMia can add a telehealth option so the person at home can join a scheduled consultation more easily. We configure the chosen device, test the connection, provide reminders and prepare agreed information for the appointment.',
       features: [
         'Simple access to video consultations',
         'Camera, sound and connection checks',
@@ -261,7 +261,7 @@ const techCopy = {
     },
     monitoring: {
       eyebrow: 'Monitoring and alerts',
-      title: 'Useful signals. Clear next steps. Less unnecessary noise.',
+      title: 'Relevant signals. Clear next steps. Less unnecessary noise.',
       body:
         'CasaMia configures notifications around the household’s needs and the responsibilities agreed with approved contacts or professionals. Alerts can be routed by type, priority and time of day.',
       items: [
@@ -277,7 +277,7 @@ const techCopy = {
       eyebrow: 'Use your platform—or ours',
       title: 'Keep your current system, or let CasaMia provide the digital layer.',
       body:
-        'The delivery model changes with your starting point. The goal is the same: one understandable experience for the resident and clear, permission-based information for everyone supporting them.',
+        'The delivery model changes with your starting point. The goal is the same: one understandable experience for the person at home and clear, permission-based information for everyone supporting them.',
       yourSystem: {
         kicker: 'Connect to what you have',
         visualLabel: 'API / webhook',

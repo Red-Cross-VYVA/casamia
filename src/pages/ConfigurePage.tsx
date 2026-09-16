@@ -85,7 +85,7 @@ const homeZones: HomeZone[] = [
     eyebrow: 'Alerts',
     icon: Smartphone,
     stat: 'CDC reports nearly 3 million emergency-department visits for older-adult falls in 2021, while also stressing that falls can be prevented.',
-    summary: 'Simple alerts, emergency button, family updates and connected routines.',
+    summary: 'Simple alerts, emergency button, agreed contacts and connected routines.',
     mapClassName: 'md:col-start-2 md:row-start-2',
   },
   {
@@ -660,13 +660,13 @@ function PropertyStep() {
           },
           {
             value: 'family',
-            title: 'A family member',
+            title: 'Someone I support',
             description: 'I am helping someone I care about.',
             icon: UsersRound,
           },
           {
             value: 'professional',
-            title: 'A resident or client',
+            title: 'A client or care setting',
             description: 'I manage support for someone else.',
             icon: ShieldCheck,
           },
@@ -693,7 +693,7 @@ function ZoneStep() {
           <span className="text-xs font-black uppercase tracking-wide text-blue">Choose the starting points</span>
           <h2 className="mt-1 font-display text-3xl font-bold leading-tight text-text-dark">Select the spaces that matter most.</h2>
           <p className="mt-2 max-w-2xl text-base leading-relaxed text-text-mid">
-            Tap a room, route or entrance. We will ask only the questions needed to suggest useful improvements.
+            Tap a room, route or entrance. We will ask focused questions so the plan matches the home and daily routine.
           </p>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full bg-pale-blue px-4 py-2 text-sm font-black text-blue whitespace-nowrap">
@@ -1242,7 +1242,7 @@ function ConnectedQuestions() {
       <SelectAnswer label="Need protection outside the home?" answerKey="connected-outsideProtection" options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
       <TextField label="Emergency contacts" value={String(state.answers['connected-emergencyContacts'] ?? '')} onChange={(value) => setAnswer('connected-emergencyContacts', value)} />
       <p className="rounded-lg bg-pale-blue p-4 text-base font-bold text-text-mid">
-        Connected Safety requires consent from the resident and clear agreement on who receives alerts.
+        Connected safety requires consent from the person at home and clear agreement on who receives alerts.
       </p>
     </QuestionGroup>
   )

@@ -575,7 +575,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Selected smart plugs plus leak and gas or carbon-monoxide sensors',
       'Optional pull-down shelf, automatic stove shut-off or touchless faucet when it fits the kitchen',
     ],
-    reassuranceTitle: "A safer kitchen should still feel like the resident's kitchen.",
+    reassuranceTitle: 'A safer kitchen should still feel familiar.',
     reassuranceBody:
       'We keep familiar routines where possible, choose the changes that reduce risk, coordinate installation and explain the setup clearly.',
     reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and explanation managed'],
