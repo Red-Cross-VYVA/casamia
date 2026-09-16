@@ -93,7 +93,7 @@ const providerPartnerCopy = {
     profilesEyebrow: 'Partner profiles',
     profilesTitle: 'Multiple ways to collaborate.',
     profilesBody:
-      'CasaMia needs dependable specialists across the services that make older homes easier and safer to use every day.',
+      'CasaMia needs dependable specialists for measured adaptations, safe installation, handover and follow-up in older homes.',
     toolsEyebrow: 'Tools and resources',
     toolsTitle: 'We help collaborators deliver excellent work.',
     toolsBody:

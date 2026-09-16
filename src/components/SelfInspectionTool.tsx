@@ -194,8 +194,8 @@ const selfInspectionCopy = {
     reportStatus: 'Nothing flagged yet',
     residentContext: 'Who it’s for',
     residentNeeds: 'Who it’s for',
-    residentNeedsHelp: 'Falls, confidence, routines, and daily support.',
-    residentHelp: 'Only what helps us understand risk and comfort.',
+    residentNeedsHelp: 'Falls, recent changes, routines and daily support.',
+    residentHelp: 'Only what helps us understand risk, support needs and room use.',
     residentName: 'Name',
     roomNotes: 'Room notes',
     roomNotesPlaceholder: (room: string) => `Add notes about ${room.toLowerCase()}...`,
@@ -664,7 +664,7 @@ const inspectionRooms: InspectionRoom[] = [
   {
     id: 'stairs',
     title: 'Stairs',
-    intro: 'Handrails, step contrast, landings, lighting, and route confidence.',
+    intro: 'Handrails, step contrast, landings, lighting, and hesitation points.',
     questions: [
       {
         id: 'stairs-handrails',

@@ -87,7 +87,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     promiseBody:
       'MOKA built CasaMia so home adaptation does not become a puzzle of products, grants, installers and unanswered questions. We turn the home situation into priorities, scope, price clarity and coordinated delivery.',
     promisePoints: [
-      'Senior-market focus: daily safety, independence and usable routines at home.',
+      'Senior-market focus: daily risk points, usable routines and accepted changes at home.',
       'Transparent recommendations: what matters, why it matters and what it may cost.',
       'Managed delivery: fit confirmed first, work coordinated and results checked.',
     ],
@@ -142,8 +142,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'inspectors',
         title: 'Senior-focused technology',
         body:
-          'MOKA DigiTech focuses on technology and services for older adults: prevention, independence, easier access to support and decision-ready information.',
-        points: ['Built for ageing-in-place needs', 'Digital tools that support human decisions', 'Technology only where it makes life easier'],
+          'MOKA DigiTech focuses on technology and services for older adults: prevention, support access and decision-ready information.',
+        points: ['Built for ageing-in-place needs', 'Digital tools that support human decisions', 'Technology only where it reduces a named risk'],
       },
       {
         icon: 'partners',
@@ -178,7 +178,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         title: 'Values that guide the work',
         body:
           'The senior market depends on trust. CasaMia is built around respect for the person living at home, honest communication and careful execution.',
-        points: ['Respect and independence first', 'No pressure or confusing explanations', 'Accountability from first contact to follow-up'],
+        points: ['Respect for the person at home', 'No pressure or confusing explanations', 'Accountability from first contact to follow-up'],
       },
     ],
     contactEyebrow: 'Speak with CasaMia',

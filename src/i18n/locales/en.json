@@ -101,11 +101,11 @@
           "body": "Spot small hazards that are easy to miss but can lead to slips, trips, or avoidable accidents."
         },
         {
-          "title": "Improve safety and comfort",
-          "body": "Understand which changes can make movement easier, calmer, and more secure."
+          "title": "Know which changes reduce risk",
+          "body": "See which changes address movement, lighting, support, reach or transfer problems."
         },
         {
-          "title": "Support independent living",
+          "title": "Prioritise daily risk points",
           "body": "Reduce the daily risks that make bathing, stairs, entrance, cooking or night movement harder."
         },
         {
@@ -118,7 +118,7 @@
         },
         {
           "title": "Shared information for the people involved",
-          "body": "Give the person at home and approved contacts a clearer picture of risks, priorities and the next safest step."
+          "body": "Give the person at home and approved contacts the same risk priorities and next action."
         }
       ]
     },
@@ -442,7 +442,7 @@
       },
       {
         "title": "Bedroom Safety",
-        "desc": "Safer bed access, clearer night routes, bedside support, lighting routines and help within reach.",
+        "desc": "Bed access, night route lighting, bedside support and emergency reach points.",
         "features": [
           "Bed access",
           "Night lighting",
@@ -451,7 +451,7 @@
       },
       {
         "title": "Living Areas",
-        "desc": "Clearer circulation, safer seating, lighting routines and simple supports for everyday independence.",
+        "desc": "Walking routes, seating height, rug or cable risks, lighting and support near the main seat.",
         "features": [
           "Clear pathways",
           "Safer seating",
@@ -469,7 +469,7 @@
   },
   "plans": {
     "title1": "Start with the right scope,",
-    "title2": "then decide with confidence.",
+    "title2": "then approve the right work.",
     "sub": "Free online safety report available - {{visitFee}} in-home assessment credited toward your plan",
     "popular": "Most Popular",
     "perUnit": "one-time",
@@ -556,7 +556,7 @@
     "cta": "Get My Free Report"
   },
   "footer": {
-    "tagline": "Senior home adaptation in Spain: safer bathrooms, easier access, grant support and managed installation.",
+    "tagline": "Senior home adaptation in Spain: bathroom safety, entrance access, grant support and managed installation.",
     "phone": "+34 900 000 000",
     "company": {
       "title": "Company",
@@ -906,7 +906,7 @@
       "summaryLabel": "Your review at a glance",
       "findingsTitle": "What deserves attention first",
       "privateLabel": "Private by design",
-      "privateBody": "Your photo files remain private. The report stores only the evidence-led review and practical recommendations.",
+      "privateBody": "Your photo files remain private. The report stores the evidence-led review, risk priorities and recommended next actions.",
       "photoCount": "Photos reviewed",
       "postcode": "Postcode",
       "expires": "Link expires"
@@ -1478,7 +1478,7 @@
           "process": [
             {
               "title": "Home Assessment",
-              "body": "We inspect the home and identify the practical adaptations that should come first."
+              "body": "We inspect the home and identify the adaptations that should come first."
             },
             {
               "title": "Proposal & Approval",
@@ -1550,7 +1550,7 @@
             {
               "icon": "lighting",
               "title": "Smart Lighting",
-              "body": "Motion or schedule-based lighting to reduce night-time risk and make daily movement easier."
+              "body": "Motion or schedule-based lighting to reduce night-time trips, shadows and missed switches."
             },
             {
               "icon": "motion",
@@ -1575,7 +1575,7 @@
             {
               "icon": "emergency",
               "title": "Emergency Response Devices",
-              "body": "Wearable or wall-mounted call options to keep help easier to reach."
+              "body": "Wearable or wall-mounted call options placed where help may be needed."
             },
             {
               "icon": "health",
@@ -1727,7 +1727,7 @@
       },
       "help": {
         "kicker": "How CasaMia helps",
-        "title": "We make the application process easier to manage.",
+        "title": "We prepare the grant file around the works proposed.",
         "items": [
           {
             "title": "Eligibility guidance",
@@ -1735,7 +1735,7 @@
           },
           {
             "title": "Documentation preparation",
-            "body": "We help organize the required documents and make the application file clearer before submission."
+            "body": "We help organize the required documents and prepare the application file before submission."
           },
           {
             "title": "Application support",
@@ -1747,7 +1747,7 @@
           },
           {
             "title": "Proposal preparation",
-            "body": "We prepare practical recommendations and proposals that explain the recommended safety and accessibility works."
+            "body": "We prepare recommendations and proposals that explain the safety and accessibility works."
           },
           {
             "title": "Follow-up support",
@@ -1814,7 +1814,7 @@
     },
     "page": {
       "title": "Before & After",
-      "body": "Explore safety upgrades that make everyday movement safer and easier to manage at home.",
+      "body": "Explore upgrades that reduce everyday movement, transfer, entrance and night-time risks at home.",
       "galleryCta": "View Gallery",
       "galleryTitle": "From everyday risk to safer daily routines",
       "galleryBody": "Each transformation shows the risk CasaMia looks for and the improvement that can be scoped after a home safety assessment.",
@@ -1841,7 +1841,7 @@
       {
         "title": "Safer Stairs",
         "before": "Steps that feel uncertain because support, contrast, or lighting is limited.",
-        "after": "Continuous handrails, clearer step edges, and safer movement between floors.",
+        "after": "Continuous handrails, visible step edges, and safer movement between floors.",
         "benefits": [
           "Continuous handrail support",
           "Improved step visibility",
@@ -1853,7 +1853,7 @@
         "before": "Raised thresholds, narrow entry points, or poor lighting at arrival.",
         "after": "A smoother, better-lit entrance with support where balance is needed.",
         "benefits": [
-          "Thresholds made easier to cross",
+          "Lower-risk thresholds",
           "Better lighting at the entrance",
           "Support points for arrival and exit"
         ]
@@ -1871,7 +1871,7 @@
       {
         "title": "Bedroom Safety Upgrade",
         "before": "Getting in and out of bed can be harder when lighting, support or floor space is limited.",
-        "after": "Better bedside lighting, clear routes, stable support and calmer night-time movement.",
+        "after": "Better bedside lighting, clear routes, stable support and lower-risk night movement.",
         "benefits": [
           "Bedside support where needed",
           "Clear route to the bathroom",
@@ -1881,7 +1881,7 @@
       {
         "title": "Living Area Safety",
         "before": "Chairs, rugs, cables and tight routes can make everyday sitting and movement less secure.",
-        "after": "Clearer circulation, safer seating height and simple supports for daily independence.",
+        "after": "Clear walking routes, safer seating height and support near daily-use areas.",
         "benefits": [
           "Safer seating and transfers",
           "Clearer walking routes",
@@ -1914,7 +1914,7 @@
       "actionTitle": "What to do first",
       "actionBody": "Start with grab bars and a secure bath transfer seat before planning larger works.",
       "nextTitle": "Your next step",
-      "nextBody": "Use the report to talk with family, check grant support, or book an in-home assessment."
+      "nextBody": "Use the report to align the people involved, check grant support, or book an in-home assessment."
     },
     "points": [
       {

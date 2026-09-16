@@ -101,11 +101,11 @@
           "body": "Identifica pequeños peligros que suelen pasar desapercibidos y pueden causar resbalones, tropiezos o accidentes evitables."
         },
         {
-          "title": "Mejorar seguridad y comodidad",
-          "body": "Entiende qué cambios pueden hacer que moverse por casa sea más fácil, tranquilo y seguro."
+          "title": "Saber qué cambios reducen riesgo",
+          "body": "Ve qué cambios responden a problemas de movimiento, luz, apoyo, alcance o transferencias."
         },
         {
-          "title": "Apoyar la vida independiente",
+          "title": "Priorizar los puntos de riesgo diario",
           "body": "Reduce los riesgos diarios que complican baño, escaleras, entrada, cocina o movimiento nocturno."
         },
         {
@@ -118,7 +118,7 @@
         },
         {
           "title": "Información para quienes ayudan",
-          "body": "Da a los contactos autorizados una visión más clara de la vivienda y del siguiente paso más seguro."
+          "body": "Da a la persona en casa y a los contactos autorizados las mismas prioridades de riesgo y próxima acción."
         }
       ]
     },
@@ -442,7 +442,7 @@
       },
       {
         "title": "Seguridad en dormitorio",
-        "desc": "Acceso más seguro a la cama, rutas nocturnas claras, apoyo junto a la cama, rutinas de iluminación y ayuda al alcance.",
+        "desc": "Acceso a la cama, iluminación de ruta nocturna, apoyo junto a la cama y ayuda de emergencia al alcance.",
         "features": [
           "Acceso a la cama",
           "Luz nocturna",
@@ -451,7 +451,7 @@
       },
       {
         "title": "Zonas de estar",
-        "desc": "Circulación más clara, asientos más seguros, rutinas de iluminación y apoyos sencillos para la vida diaria.",
+        "desc": "Rutas de paso, altura de asiento, alfombras o cables, iluminación y apoyo cerca del asiento principal.",
         "features": [
           "Pasos despejados",
           "Asientos seguros",
@@ -469,7 +469,7 @@
   },
   "plans": {
     "title1": "Empieza con el alcance adecuado,",
-    "title2": "y decide con confianza.",
+    "title2": "y aprueba el trabajo adecuado.",
     "sub": "Informe online gratis disponible - evaluación a domicilio de {{visitFee}} descontable de tu plan",
     "popular": "Más Popular",
     "perUnit": "pago único",
@@ -1478,7 +1478,7 @@
           "process": [
             {
               "title": "Evaluación del hogar",
-              "body": "Inspeccionamos la vivienda e identificamos las adaptaciones prácticas que conviene priorizar."
+              "body": "Inspeccionamos la vivienda e identificamos las adaptaciones que conviene priorizar."
             },
             {
               "title": "Propuesta y aprobación",
@@ -1550,7 +1550,7 @@
             {
               "icon": "lighting",
               "title": "Iluminación smart",
-              "body": "Iluminación por movimiento u horarios para reducir riesgo nocturno y facilitar desplazamientos diarios."
+              "body": "Iluminación por movimiento u horarios para reducir tropiezos nocturnos, sombras e interruptores difíciles de encontrar."
             },
             {
               "icon": "motion",
@@ -1575,7 +1575,7 @@
             {
               "icon": "emergency",
               "title": "Dispositivos de emergencia",
-              "body": "Botones o dispositivos portátiles para que pedir ayuda sea más fácil."
+              "body": "Botones o dispositivos portátiles colocados donde puede hacer falta pedir ayuda."
             },
             {
               "icon": "health",
@@ -1727,7 +1727,7 @@
       },
       "help": {
         "kicker": "Cómo ayuda CasaMia",
-        "title": "Hacemos que el proceso de solicitud sea más fácil de gestionar.",
+        "title": "Preparamos el expediente de ayuda alrededor de las obras propuestas.",
         "items": [
           {
             "title": "Orientación de elegibilidad",
@@ -1735,7 +1735,7 @@
           },
           {
             "title": "Preparación de documentación",
-            "body": "Ayudamos a organizar los documentos necesarios y a preparar un expediente más claro antes de la presentación."
+            "body": "Ayudamos a organizar los documentos necesarios y preparar el expediente antes de presentarlo."
           },
           {
             "title": "Soporte de solicitud",
@@ -1747,7 +1747,7 @@
           },
           {
             "title": "Preparación de propuesta",
-            "body": "Preparamos recomendaciones prácticas y propuestas que explican las obras de seguridad y accesibilidad recomendadas."
+            "body": "Preparamos recomendaciones y propuestas que explican las obras de seguridad y accesibilidad."
           },
           {
             "title": "Seguimiento",
@@ -1814,7 +1814,7 @@
     },
     "page": {
       "title": "Antes y después",
-      "body": "Explora mejoras de seguridad que hacen que moverse por casa sea más seguro y manejable.",
+      "body": "Explora mejoras que reducen riesgos de movimiento, transferencias, entrada y noche en casa.",
       "galleryCta": "Ver galería",
       "galleryTitle": "De riesgos cotidianos a rutinas más seguras",
       "galleryBody": "Cada transformación muestra el riesgo que CasaMia revisa y la mejora que puede definirse tras una evaluación de seguridad del hogar.",

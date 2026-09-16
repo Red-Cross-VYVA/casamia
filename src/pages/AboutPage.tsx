@@ -69,7 +69,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       kicker: 'Technology and service partner',
       title: 'Built with MOKA DigiTech.',
       body:
-        'MOKA DigiTech supports CasaMia as a technology and service provider for senior empowerment: easier access to support, better-scoped home adaptations and earlier decisions before risk becomes an emergency.',
+        'MOKA DigiTech supports CasaMia with the digital workflow behind reports, provider coordination, grant-readiness checks and earlier decisions before risk becomes an emergency.',
       bullets: [
         'Service design for residents, installers, and care partners',
         'Digital workflows for safety reports and grant-readiness checks',
@@ -103,7 +103,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     proof: [
       {
         icon: 'seniors',
-        title: 'Senior empowerment, not complicated technology',
+        title: 'Decision support, not complicated technology',
         body:
           'Projects and references such as VYVA and COCOON show the same direction CasaMia is taking: voice support, reminders, wellbeing checks, and emergency workflows that extend care without replacing human support.',
         link: {
@@ -173,7 +173,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       kicker: 'Partner tecnológico y de servicio',
       title: 'Construido con MOKA DigiTech.',
       body:
-        'MOKA DigiTech apoya CasaMia como proveedor tecnológico y de servicio dedicado al empowerment de las personas mayores: hacer el apoyo más accesible, las viviendas más fáciles de adaptar y las decisiones más claras antes de que el riesgo se convierta en emergencia.',
+        'MOKA DigiTech apoya CasaMia con el flujo digital para informes, coordinación de proveedores, checks de ayudas y decisiones más tempranas antes de que el riesgo se convierta en emergencia.',
       bullets: [
         'Diseño de servicio para residentes, instaladores y partners de cuidado',
         'Flujos digitales para informes de seguridad y checks de ayudas',
