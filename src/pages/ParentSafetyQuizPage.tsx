@@ -25,81 +25,81 @@ const questions: Array<{
   {
     id: 'recent-change',
     title: {
-      en: 'Has anything changed recently?',
-      es: '¿Ha cambiado algo recientemente?',
+      en: 'In the last 30 days, has there been a fall, near fall or medical change?',
+      es: 'En los últimos 30 días, ¿ha habido una caída, casi caída o cambio médico?',
     },
     hint: {
-      en: 'Think about falls, surgery, hospital stay, new medication, pain or reduced confidence.',
-      es: 'Piensa en caídas, cirugía, ingreso, medicación nueva, dolor o pérdida de confianza.',
+      en: 'Include hospital visits, surgery, new medication, dizziness, new pain or a clear drop in walking confidence.',
+      es: 'Incluye ingresos, cirugía, medicación nueva, mareos, dolor nuevo o una bajada clara de confianza al caminar.',
     },
     options: [
-      { label: { en: 'Yes, something significant', es: 'Sí, algo importante' }, score: 3 },
-      { label: { en: 'A small change', es: 'Un cambio pequeño' }, score: 2 },
-      { label: { en: 'No clear change', es: 'Nada claro' }, score: 0 },
+      { label: { en: 'Yes, a fall or medical change', es: 'Sí, caída o cambio médico' }, score: 3 },
+      { label: { en: 'New pain, dizziness or hesitation', es: 'Dolor, mareos o dudas nuevas' }, score: 2 },
+      { label: { en: 'No recent change noticed', es: 'No hemos notado cambios' }, score: 0 },
     ],
   },
   {
     id: 'bathroom-confidence',
     title: {
-      en: 'Does bathing or toilet use feel less safe?',
-      es: '¿El baño, la ducha o el inodoro se sienten menos seguros?',
+      en: 'In the bathroom, do they hold walls, furniture or towel rails for support?',
+      es: 'En el baño, ¿se apoya en paredes, muebles o toalleros para moverse?',
     },
     hint: {
-      en: 'Bathroom transfers, wet floors and night-time toilet trips are common warning signs.',
-      es: 'Transferencias, suelo mojado e idas nocturnas al baño suelen ser señales importantes.',
+      en: 'Check shower entry, toilet transfers, wet floors, bath mats and night-time toilet trips.',
+      es: 'Revisa entrada a la ducha, sentarse y levantarse del inodoro, suelo mojado, alfombrillas e idas nocturnas.',
     },
     options: [
-      { label: { en: 'Yes, often', es: 'Sí, a menudo' }, score: 3 },
-      { label: { en: 'Sometimes', es: 'A veces' }, score: 2 },
-      { label: { en: 'Not really', es: 'No mucho' }, score: 0 },
+      { label: { en: 'Yes, most bathroom visits', es: 'Sí, casi siempre' }, score: 3 },
+      { label: { en: 'Sometimes or only at night', es: 'A veces o solo de noche' }, score: 2 },
+      { label: { en: 'No, movement looks stable', es: 'No, se mueve estable' }, score: 0 },
     ],
   },
   {
     id: 'night-route',
     title: {
-      en: 'Is the night route clear and well lit?',
-      es: '¿La ruta nocturna está despejada e iluminada?',
+      en: 'From bed to bathroom at night, are there trip hazards or dark spots?',
+      es: 'De la cama al baño por la noche, ¿hay tropiezos o zonas oscuras?',
     },
     hint: {
-      en: 'Look from bed to bathroom: shadows, rugs, cables, thresholds and where support is reached.',
-      es: 'Mira de cama a baño: sombras, alfombras, cables, umbrales y puntos de apoyo.',
+      en: 'Look for rugs, cables, thresholds, furniture corners, shadows and whether a light is reachable before standing.',
+      es: 'Busca alfombras, cables, umbrales, esquinas de muebles, sombras y si puede encender una luz antes de levantarse.',
     },
     options: [
-      { label: { en: 'No, it worries us', es: 'No, nos preocupa' }, score: 3 },
-      { label: { en: 'Mostly, but not perfect', es: 'Más o menos, pero no perfecto' }, score: 1 },
-      { label: { en: 'Yes, it is clear', es: 'Sí, está clara' }, score: 0 },
+      { label: { en: 'Yes, several hazards', es: 'Sí, varios riesgos' }, score: 3 },
+      { label: { en: 'One or two small issues', es: 'Uno o dos detalles' }, score: 1 },
+      { label: { en: 'No, clear and lit', es: 'No, está despejado e iluminado' }, score: 0 },
     ],
   },
   {
     id: 'stairs-entry',
     title: {
-      en: 'Are entrances, stairs or thresholds difficult?',
-      es: '¿Cuestan la entrada, las escaleras o los umbrales?',
+      en: 'At the entrance, stairs or thresholds, do they pause, pull up or need help?',
+      es: 'En la entrada, escaleras o umbrales, ¿se para, se impulsa o necesita ayuda?',
     },
     hint: {
-      en: 'The first and last metres of the day often decide whether home still feels manageable.',
-      es: 'Los primeros y últimos metros del día suelen decidir si la casa sigue siendo manejable.',
+      en: 'Watch for reaching for the wall, dragging feet, avoiding steps, carrying items awkwardly or struggling with the door.',
+      es: 'Observa si busca la pared, arrastra los pies, evita escalones, lleva cosas con dificultad o le cuesta la puerta.',
     },
     options: [
-      { label: { en: 'Yes, clearly difficult', es: 'Sí, claramente' }, score: 3 },
-      { label: { en: 'Sometimes', es: 'A veces' }, score: 2 },
-      { label: { en: 'No major issue', es: 'Sin problema claro' }, score: 0 },
+      { label: { en: 'Yes, help is often needed', es: 'Sí, suele necesitar ayuda' }, score: 3 },
+      { label: { en: 'Sometimes or when tired', es: 'A veces o si está cansado/a' }, score: 2 },
+      { label: { en: 'No, they manage safely', es: 'No, lo gestiona con seguridad' }, score: 0 },
     ],
   },
   {
     id: 'help-response',
     title: {
-      en: 'Can they ask for help from the risky rooms?',
-      es: '¿Puede pedir ayuda desde las estancias de riesgo?',
+      en: 'If they fell in the bedroom, bathroom or kitchen, could they call for help without standing?',
+      es: 'Si se cayera en dormitorio, baño o cocina, ¿podría pedir ayuda sin levantarse?',
     },
     hint: {
-      en: 'A phone or alert only helps if it is reachable from bedroom, bathroom and daily living areas.',
-      es: 'Un teléfono o aviso ayuda solo si está al alcance en dormitorio, baño y zonas de uso diario.',
+      en: 'A phone, pendant, watch or voice assistant only helps if it is reachable from the floor in the rooms where falls are most likely.',
+      es: 'Un teléfono, colgante, reloj o asistente de voz solo ayuda si está al alcance desde el suelo en las estancias de más riesgo.',
     },
     options: [
-      { label: { en: 'No, not reliably', es: 'No, no de forma fiable' }, score: 3 },
+      { label: { en: 'No, not from the floor', es: 'No, no desde el suelo' }, score: 3 },
       { label: { en: 'Only in some rooms', es: 'Solo en algunas estancias' }, score: 2 },
-      { label: { en: 'Yes, help is reachable', es: 'Sí, la ayuda está al alcance' }, score: 0 },
+      { label: { en: 'Yes, in the key rooms', es: 'Sí, en las estancias clave' }, score: 0 },
     ],
   },
 ]
@@ -122,7 +122,7 @@ const copy = {
     resultLow: {
       title: 'Keep observing, then review one room',
       body:
-        'There is no strong warning pattern in your answers. Start with the printable checklist and keep an eye on night routes, bathroom use and recent changes.',
+        'There is no strong warning pattern in your answers. Start with the printable checklist and keep an eye on night routes, bathroom movement, new pain, dizziness or medication changes.',
     },
     resultMedium: {
       title: 'A focused home safety review would help',
