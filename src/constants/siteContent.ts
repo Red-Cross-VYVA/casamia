@@ -77,7 +77,7 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Entrance Accessibility Improvements',
     shortTitle: 'Safe Entrances',
     description:
-      'Improve home entrances with safer thresholds, ramps where suitable, lighting, support points, and clearer access routes.',
+      'Improve home entrances with safer thresholds, ramps when they fit the route, lighting, support points, and clearer access routes.',
     intro:
       'The entrance is where daily independence begins. Small changes can make arriving, leaving, and receiving visitors safer.',
     icon: 'door',
@@ -119,9 +119,9 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Smart Home Safety for Seniors',
     shortTitle: 'Smart Safety',
     description:
-      'Add practical smart safety technology such as motion lighting, leak sensors, door alerts, emergency response devices, and family notifications.',
+      'Add practical smart safety technology such as motion lighting, leak sensors, door alerts, emergency response devices, and approved-contact notifications.',
     intro:
-      'Smart safety should feel simple. CasaMia focuses on useful technology that supports confidence without making the home complicated.',
+      'Smart safety should feel simple. CasaMia focuses on practical technology that supports confidence without making the home complicated.',
     icon: 'smartphone',
     risks: ['No alert when routines change', 'Poor night visibility', 'Hidden water or smoke risks'],
     improvements: ['Motion lighting and sensors', 'Emergency response devices', 'Simple setup and training'],
@@ -135,7 +135,7 @@ export const resourcePages: ResourcePageContent[] = [
     path: '/blog/fall-prevention-home-checklist-spain',
     title: 'Preventing Falls at Home for Older Adults',
     description:
-      'A practical guide for families who want to reduce fall risks at home with room-by-room prevention steps.',
+      'A practical guide for reducing fall risks at home with room-by-room prevention steps.',
     intro:
       'Fall prevention starts with noticing the small details that make daily movement harder: lighting, support, surfaces, furniture, and emergency access.',
     sections: [
@@ -152,7 +152,7 @@ export const resourcePages: ResourcePageContent[] = [
       {
         title: 'Get a professional review before works begin',
         body:
-          'A structured assessment helps families decide which changes matter most, what can wait, and whether a practical installation plan is needed.',
+          'A structured assessment helps identify which changes matter most, what can wait, and whether a practical installation plan is needed.',
       },
     ],
   },
@@ -189,7 +189,7 @@ export const resourcePages: ResourcePageContent[] = [
     description:
       'Prepare a grant-ready file with the right authority, eligibility checks, documents, timing rules and official resources.',
     intro:
-      'Spain has national accessibility frameworks, but families usually apply through regional or municipal calls. This guide shows what to verify before paying for works.',
+      'Spain has national accessibility frameworks, but applications usually go through regional or municipal calls. This guide shows what to verify before paying for works.',
     sections: [
       {
         title: 'Where to check first',
@@ -197,9 +197,9 @@ export const resourcePages: ResourcePageContent[] = [
           'Start with the home address, then check the autonomous community, municipality, social services route and national subsidy database for open calls.',
       },
       {
-        title: 'What families should prepare',
+        title: 'What to prepare',
         body:
-          'Useful documents may include ID, padrón, proof of ownership or permission, disability or dependency documents, photos, technical reports and itemised quotes.',
+          'Documents may include ID, padrón, proof of ownership or permission, disability or dependency documents, photos, technical reports and itemised quotes.',
       },
       {
         title: 'How CasaMia helps',
@@ -215,7 +215,7 @@ export const resourcePages: ResourcePageContent[] = [
     description:
       'A practical guide to helping older adults live safely and comfortably at home in Spain.',
     intro:
-      'Aging in place works best when families combine prevention, practical home improvements, technology where useful, and clear support.',
+      'Aging in place works best when prevention, practical home improvements, well-matched technology and clear support work together.',
     sections: [
       {
         title: 'Make the home easier before a crisis',
@@ -245,7 +245,7 @@ export const serviceHubHighlights: ServiceHubHighlight[] = [
   {
     icon: 'check',
     title: 'Practical improvements',
-    body: 'Recommendations focus on changes families can understand and act on.',
+    body: 'Recommendations focus on changes people can understand and act on.',
   },
   {
     icon: 'light',

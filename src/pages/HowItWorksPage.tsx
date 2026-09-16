@@ -242,7 +242,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     heroEyebrow: 'Clear path to a safer home',
     heroTitle: 'From home photos to safer daily routines.',
     heroBody:
-      'We review the rooms that matter, prioritise the real risks, and coordinate practical adaptations or smart safety when they are useful.',
+      'We review the rooms that matter, prioritise the real risks, and coordinate practical adaptations or smart safety when they match the routine.',
     primaryCta: 'Start Free Safety Report',
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
@@ -258,7 +258,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     processEyebrow: 'That simple',
     processTitle: 'One call or one click. We coordinate the rest.',
     processBody:
-      'Tell us what you need. CasaMia turns the first conversation into a clear plan, coordinated installation and ongoing support.',
+      'Tell us what is happening at home. CasaMia turns the first conversation into clear priorities, coordinated installation and follow-up support.',
     steps: [
       {
         icon: 'phone',
@@ -376,7 +376,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     teamEyebrow: 'Behind the scenes',
     teamTitle: 'Experts, installers, and tracking in one flow.',
     teamBody:
-      'CasaMia keeps review notes, visit planning, proposals, installation status, and family updates together.',
+      'CasaMia keeps review notes, visit planning, proposals, installation status, and approved updates together.',
     team: [
       {
         icon: 'shield',
@@ -386,12 +386,12 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'Installer coordination',
-        body: 'Work planned and handed over.',
+        body: 'Work planned and explained clearly.',
       },
       {
         icon: 'monitor',
         title: 'Smart support',
-        body: 'VYVA, alerts, and setup.',
+        body: 'VYVA, alerts and consent-aware setup.',
       },
       {
         icon: 'badge',
@@ -426,7 +426,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'monitor',
         title: 'Smart Safety',
-        body: 'Sensors, alerts, VYVA, and family reassurance.',
+        body: 'Sensors, alerts, VYVA and approved-contact reassurance.',
         cta: 'See Smart Safety',
         to: '/tech',
       },
@@ -444,12 +444,12 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     heroEyebrow: 'Camino claro hacia un hogar m\u00e1s seguro',
     heroTitle: 'De fotos del hogar a rutinas diarias m\u00e1s seguras.',
     heroBody:
-      'CasaMia revisa las estancias importantes, prioriza los riesgos reales y coordina adaptaciones o seguridad smart cuando aporta valor.',
+      'CasaMia revisa las estancias importantes, prioriza los riesgos reales y coordina adaptaciones o seguridad smart cuando encajan con la rutina.',
     primaryCta: 'Empezar informe gratis',
     secondaryCta: 'Reservar visita',
     heroAlt: 'Profesional de CasaMia preparado para una evaluación de seguridad en casa',
     statusTitle: 'Cuatro pasos claros',
-    statusIntro: 'CasaMia acompaña a la familia desde la primera revisión hasta la acción práctica.',
+    statusIntro: 'CasaMia te acompaña desde la primera revisión hasta la acción práctica.',
     statusRows: [
       { label: 'Envía fotos o reserva visita', value: 'Inicio' },
       { label: 'Revisamos los riesgos', value: 'Revisión' },
@@ -500,9 +500,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'Instalaci\u00f3n y apoyo',
-        body: 'Coordinamos al instalador, confirmamos el trabajo realizado y mantenemos informada a la familia.',
+        body: 'Coordinamos al instalador, confirmamos el trabajo realizado y explicamos el uso seguro.',
         tag: 'Apoyo',
-        proof: 'Instalador y familia informados',
+        proof: 'Trabajo explicado con claridad',
       },
     ],
     reviewEyebrow: 'Estancia por estancia',
@@ -576,7 +576,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     teamEyebrow: 'Entre bastidores',
     teamTitle: 'Expertos, instaladores y seguimiento en un solo flujo.',
     teamBody:
-      'CasaMia mantiene juntas notas, visita, propuesta, instalaci\u00f3n y actualizaciones familiares.',
+      'CasaMia mantiene juntas notas, visita, propuesta, instalaci\u00f3n y actualizaciones autorizadas.',
     team: [
       {
         icon: 'shield',
@@ -586,7 +586,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'Instalaci\u00f3n',
-        body: 'Trabajo y entrega.',
+        body: 'Trabajo y explicación.',
       },
       {
         icon: 'monitor',

@@ -53,7 +53,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. We review the real routine, recommend the right package and coordinate the work.',
     whoFor: [
       'Older adults unsteady in the bathroom',
-      'Families worried about transfers',
+      'Anyone worried about transfers',
       'Small or wet bathrooms',
     ],
     priorities: [
@@ -64,7 +64,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     casamiaPlan: [
       'Review the real routine',
       'Confirm fit and fixing points',
-      'Coordinate install and handover',
+      'Coordinate installation and safe-use explanation',
     ],
     riskSection: {
       eyebrow: 'Bathroom risk map',
@@ -83,7 +83,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
         },
         {
           solution: 'Lower the entry',
-          helps: 'We check the threshold and recommend a lower profile, transition strip or tub cut-out where suitable.',
+          helps: 'We check the threshold and recommend a lower profile, transition strip or tub cut-out when it fits the room.',
           product: 'Low-profile transition strip, threshold reduction or bath cut-out.',
         },
         {
@@ -105,7 +105,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
         {
           solution: 'Clear the route',
           helps: 'Cables are moved, clipped or replaced with safer lighting placement away from walking lines.',
-          product: 'Cable management plus motion-activated night lighting where useful.',
+          product: 'Cable management plus motion-activated night lighting when it improves the route.',
         },
         {
           solution: 'Check access width',
@@ -157,7 +157,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     eyebrow: 'Prevention first',
     intro:
       'Fall prevention is not one product. It is a practical plan across the rooms and routines where risk builds up: transfers, lighting, floor surfaces, stairs and support points.',
-    whoFor: ['Families noticing slips, near misses or reduced confidence', 'Older adults recovering from a fall or mobility change', 'Homes that need a calm prevention plan before a crisis'],
+    whoFor: ['People noticing slips, near misses or reduced confidence', 'Older adults recovering from a fall or mobility change', 'Homes that need a calm prevention plan before a crisis'],
     priorities: ['Bathroom and toilet transfer safety', 'Bedroom-to-bathroom night route', 'Stairs, entrances and thresholds', 'Emergency reach and simple connected support'],
     casamiaPlan: ['Identify the highest-risk routines first', 'Match improvements to the person, not just the property', 'Phase works into urgent, recommended and optional actions'],
     relatedServices: [
@@ -174,7 +174,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Does fall prevention mean changing the whole home at once?',
         answer:
-          'No. A good plan separates immediate safety priorities from later improvements so families can act in a sensible order.',
+          'No. A good plan separates immediate safety priorities from later improvements so the household can act in a sensible order.',
       },
     ],
   },
@@ -191,8 +191,8 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Book an aging-in-place home assessment with CasaMia to understand safety priorities, adaptations, grants and practical next steps.',
     eyebrow: 'Home assessment',
     intro:
-      'An aging-in-place assessment gives families a clear view of what matters now, what can wait and which changes help someone remain safer and more comfortable at home.',
-    whoFor: ['Families planning before a fall or hospital discharge', 'Older adults who want to stay independent at home', 'Homes where relatives disagree on what to fix first'],
+      'An aging-in-place assessment gives you a clear view of what matters now, what can wait and which changes help someone remain safer and more comfortable at home.',
+    whoFor: ['Households planning before a fall or hospital discharge', 'Older adults who want to stay independent at home', 'Homes where people disagree on what to fix first'],
     priorities: ['Mobility and transfer routines', 'Room-by-room safety risks', 'Practical adaptation options', 'Grant-readiness and documentation where relevant'],
     casamiaPlan: ['Listen to the household and daily priorities', 'Review the home, photos or guided answers', 'Prepare a clear proposal with next steps'],
     relatedServices: [
@@ -209,7 +209,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Can the assessment be done before a visit?',
         answer:
-          'Yes. Families can start online with guided questions, photos, videos or a voice brief. A site visit can check measurements and installation details later.',
+          'Yes. You can start online with guided questions, photos, videos or a voice brief. A site visit can check measurements and installation details later.',
       },
     ],
   },
@@ -227,9 +227,9 @@ export const needLandingPages: NeedLandingPageContent[] = [
     eyebrow: 'Home adaptations',
     intro:
       'Good home adaptation is not about adding random products. It is about preserving independence, comfort and dignity while removing everyday friction and safety risks.',
-    whoFor: ['Families who need one coordinated plan', 'Older adults with changing mobility or confidence', 'Homes needing practical works, smart support or grant guidance'],
+    whoFor: ['Households that need one coordinated plan', 'Older adults with changing mobility or confidence', 'Homes needing practical works, smart support or grant guidance'],
     priorities: ['Safer bathroom access', 'Bedroom and night-time movement', 'Entrance, threshold and stairs support', 'Connected routines where helpful'],
-    casamiaPlan: ['Translate needs into customer-friendly outcomes', 'Coordinate products, installers and timings', 'Keep pricing, scope and handover clear'],
+    casamiaPlan: ['Translate needs into customer-friendly outcomes', 'Coordinate products, installers and timings', 'Keep pricing, scope and safe-use explanation clear'],
     relatedServices: [
       { label: 'Service catalogue', to: '/services' },
       { label: 'Process', to: '/how-it-works' },
@@ -313,13 +313,13 @@ export const needLandingPages: NeedLandingPageContent[] = [
         },
         {
           solution: 'Add steady support',
-          helps: 'We check where the person naturally reaches and add support only where it is useful.',
+          helps: 'We check where the person naturally reaches and add support only where it can be used safely.',
           product: 'Bedside support handle or furniture positioning.',
         },
         {
           solution: 'Smooth transitions',
           helps: 'Door thresholds and floor edges are checked so the route remains predictable underfoot.',
-          product: 'Threshold review or safer transition strip where suitable.',
+          product: 'Threshold review or safer transition strip when it fits the route.',
         },
       ],
       legend: ['Higher risk', 'Medium risk'],
@@ -355,8 +355,8 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Check grant readiness for home adaptations in Spain, including possible requirements, documents, timing and CasaMia-managed grant support.',
     eyebrow: 'Grants and assistance',
     intro:
-      'Grant routes depend on region, municipality, open calls and personal circumstances. CasaMia helps families understand what may fit and what documents are usually needed.',
-    whoFor: ['Families considering accessibility or safety works', 'Older adults who may qualify for public assistance', 'Households needing help with paperwork and next steps'],
+      'Grant routes depend on region, municipality, open calls and personal circumstances. CasaMia helps you understand what may fit and what documents are usually needed.',
+    whoFor: ['People considering accessibility or safety works', 'Older adults who may qualify for public assistance', 'Households needing help with paperwork and next steps'],
     priorities: ['Region and postcode check', 'Ownership or permission status', 'Dependency, disability or age documentation', 'Clear scope and quotation for eligible works'],
     casamiaPlan: ['Check possible routes from official sources', 'Show missing documents and timing', 'Manage the process end to end when commissioned'],
     relatedServices: [
@@ -371,9 +371,9 @@ export const needLandingPages: NeedLandingPageContent[] = [
           'No. The relevant public authority decides eligibility, approval, amount and timing. CasaMia can help prepare and manage the process.',
       },
       {
-        question: 'What information is useful for a grant check?',
+        question: 'What information do I need for a grant check?',
         answer:
-          'Region, postcode, home type, ownership or permission status, age band, mobility situation, dependency or disability status and planned adaptations are useful starting points.',
+          'Region, postcode, home type, ownership or permission status, age band, mobility situation, dependency or disability status and planned adaptations are the starting points.',
       },
     ],
   },
@@ -390,9 +390,9 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Prepare a safer return home after hospital discharge with CasaMia: bathroom access, bedroom transfers, routes, support points and urgent priorities.',
     eyebrow: 'Return home safely',
     intro:
-      'After a hospital stay, the home may need to work differently. CasaMia helps families focus on the first safe days back: movement, washing, sleeping, stairs and support.',
-    whoFor: ['Families preparing for discharge', 'Older adults returning home with reduced mobility', 'Homes needing fast priorities rather than a long wish list'],
-    priorities: ['Bed, bathroom and toilet transfer support', 'Clear walking routes and lighting', 'Entrance or stair safety', 'Emergency contact and family visibility'],
+      'After a hospital stay, the home may need to work differently. CasaMia helps focus on the first safe days back: movement, washing, sleeping, stairs and support.',
+    whoFor: ['Households preparing for discharge', 'Older adults returning home with reduced mobility', 'Homes needing fast priorities rather than a long wish list'],
+    priorities: ['Bed, bathroom and toilet transfer support', 'Clear walking routes and lighting', 'Entrance or stair safety', 'Emergency contact and approved-contact visibility'],
     casamiaPlan: ['Identify what is needed before return', 'Separate urgent changes from later improvements', 'Coordinate practical installation and follow-up'],
     relatedServices: [
       { label: 'Book an assessment', to: '/home-safety-assessment' },
@@ -401,7 +401,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     ],
     faqs: [
       {
-        question: 'What should families check before hospital discharge?',
+        question: 'What should be checked before hospital discharge?',
         answer:
           'Check how the person will enter the home, get to bed, use the toilet, shower, move at night and call for help if something changes.',
       },
@@ -422,12 +422,12 @@ export const needLandingPages: NeedLandingPageContent[] = [
     title: 'Connected home for seniors',
     seoTitle: 'Connected Home for Seniors Without Complication',
     description:
-      'Connected home support for seniors with voice assistance, smart lighting, reminders, leak alerts, emergency options and family reassurance.',
+      'Connected home support for seniors with voice assistance, smart lighting, reminders, leak alerts, emergency options and approved-contact reassurance.',
     eyebrow: 'Connected living',
     intro:
       'CasaMia does not sell gadgets for their own sake. We configure simple connected experiences that support everyday routines, safety and reassurance.',
-    whoFor: ['Older adults who benefit from voice help or reminders', 'Families who want practical reassurance without intrusive monitoring', 'Homes where lighting, alerts or routines can reduce friction'],
-    priorities: ['Voice assistance and hands-free calls', 'Smart lighting and night routines', 'Medication or appointment reminders', 'Leak, emergency or family notifications where useful'],
+    whoFor: ['Older adults who benefit from voice help or reminders', 'People who want practical reassurance without intrusive monitoring', 'Homes where lighting, alerts or routines can reduce friction'],
+    priorities: ['Voice assistance and hands-free calls', 'Smart lighting and night routines', 'Medication or appointment reminders', 'Leak, emergency or approved-contact notifications when agreed'],
     casamiaPlan: ['Choose technology only where it supports a routine', 'Configure compatible devices into one simple experience', 'Train the household and keep support clear'],
     relatedServices: [
       { label: 'Connected safety services', to: '/services/smart-home-safety' },
@@ -438,12 +438,12 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Is a connected home the same as monitoring?',
         answer:
-          'No. CasaMia focuses on useful connected living: lighting, reminders, alerts and simple controls. Any response setup must be clearly agreed.',
+          'No. CasaMia focuses on practical connected living: lighting, reminders, alerts and simple controls. Any response setup must be clearly agreed.',
       },
       {
         question: 'Does the person need to be technical?',
         answer:
-          'No. The experience should be simple, usually centred around familiar voice commands, easy routines and clear family support.',
+          'No. The experience should be simple, usually centred around familiar voice commands, easy routines and clear support from approved contacts.',
       },
     ],
   },
@@ -463,12 +463,12 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       'Understand when a senior home safety assessment should define the scope before a contractor quotes or installs adaptations.',
     eyebrow: 'Decision guide',
     intro:
-      'A contractor is useful once the work is clear. A safety assessment is useful when the family is still deciding what the work should be, where risk is highest, and which changes will actually support the person using the home.',
+      'A contractor is the right call once the work is clear. A safety assessment helps when you are still deciding what the work should be, where risk is highest, and which changes will actually support the person using the home.',
     whoFor: [
-      'Families who know something is unsafe but do not know what to ask an installer for',
+      'People who know something is unsafe but do not know what to ask an installer for',
       'Homes where several rooms, transfers or routes are involved',
       'Older adults whose mobility, confidence or care needs have recently changed',
-      'Families who need a clear scope before quotes, grants, landlord permission or community approval',
+      'Households that need a clear scope before quotes, grants, landlord permission or community approval',
     ],
     priorities: [
       'The resident routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night route',
@@ -481,7 +481,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       'Start with the daily movement problem, not a product catalogue',
       'Map each risk to the relevant room package and optional add-ons',
       'Prepare a practical scope with photos, priorities and installation notes',
-      'Coordinate installer requirements, handover checks and follow-up support',
+      'Coordinate installer requirements, completion checks and follow-up support',
     ],
     relatedServices: [
       { label: 'Book a safety assessment', to: '/home-safety-assessment' },
@@ -492,17 +492,17 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'Should I call a contractor first?',
         answer:
-          'If the required work is obvious, measured and already specified, a contractor may be enough. If the family is unsure what should change, start with a safety assessment so the quote matches the resident rather than a generic installation.',
+          'If the required work is obvious, measured and already specified, a contractor may be enough. If you are unsure what should change, start with a safety assessment so the quote matches the resident rather than a generic installation.',
       },
       {
         question: 'Does CasaMia do the installation too?',
         answer:
-          'CasaMia coordinates the process end to end, including assessment, practical scope, installation coordination and handover where needed.',
+          'CasaMia coordinates the process end to end, including assessment, practical scope, installation coordination and safe-use explanation when needed.',
       },
       {
         question: 'Why not ask for three contractor quotes immediately?',
         answer:
-          'Three quotes are only comparable when they price the same scope. If each contractor guesses a different solution, the family may choose on price without knowing which option solves the real safety problem.',
+          'Three quotes are only comparable when they price the same scope. If each contractor guesses a different solution, you may choose on price without knowing which option solves the real safety problem.',
       },
       {
         question: 'When is a contractor enough?',
@@ -524,12 +524,12 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       'Compare practical smart home safety, simple alerts and monitoring-style services for seniors without overcomplicating the home.',
     eyebrow: 'Decision guide',
     intro:
-      'Not every connected device is monitoring, and not every family needs a monitoring service. The right choice depends on what problem you are solving: safer movement, easier reminders, emergency reach, family awareness or formal response.',
+      'Not every connected device is monitoring, and not every home needs a monitoring service. The right choice depends on what problem you are solving: safer movement, easier reminders, emergency reach, approved-contact awareness or formal response.',
     whoFor: [
-      'Families considering sensors, voice assistance, water alerts, smart lighting or emergency buttons',
+      'People considering sensors, voice assistance, water alerts, smart lighting or emergency buttons',
       'Older adults who want support without feeling watched',
       'Homes where simple automation could reduce daily friction',
-      'Families who need to agree who receives alerts and what happens next',
+      'Households that need to agree who receives alerts and what happens next',
     ],
     priorities: [
       'Consent, privacy and the resident comfort with every device',
@@ -561,9 +561,9 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
           'A simple setup often starts with night lighting, easy calls, reminders and selected alerts. The right mix depends on the resident, home layout, Wi-Fi reliability and who can respond.',
       },
       {
-        question: 'When does a family need monitoring rather than smart safety?',
+        question: 'When is monitoring better than smart safety?',
         answer:
-          'Monitoring may be worth considering when nobody can reliably respond to alerts, the person has repeated emergencies, or the family needs a formal response protocol rather than simple home support.',
+          'Monitoring may be worth considering when nobody can reliably respond to alerts, the person has repeated emergencies, or the household needs a formal response protocol rather than simple home support.',
       },
       {
         question: 'What should be avoided?',
