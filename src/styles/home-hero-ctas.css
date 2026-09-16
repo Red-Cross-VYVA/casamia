@@ -406,7 +406,7 @@ body .hero-section .free-check-card:focus-visible {
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 24px;
+  gap: 18px;
   min-height: 100%;
   padding: clamp(28px, 5vw, 54px);
   background: #0a496a;
@@ -414,9 +414,43 @@ body .hero-section .free-check-card:focus-visible {
   text-align: center;
 }
 
+.specialist-voice-avatar {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.specialist-voice-avatar > span {
+  display: grid;
+  width: 68px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.38), transparent 34%),
+    rgba(255, 255, 255, 0.13);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+}
+
+.specialist-voice-avatar strong {
+  font-size: 20px;
+  font-weight: 950;
+  line-height: 1.05;
+}
+
+.specialist-voice-avatar small {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .specialist-voice-mic-status {
   display: grid;
-  width: clamp(150px, 18vw, 220px);
+  width: clamp(140px, 16vw, 198px);
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.36);
@@ -563,8 +597,24 @@ body .hero-section .free-check-card:focus-visible {
   margin-top: 26px;
 }
 
+.specialist-voice-actions--visual {
+  justify-content: center;
+  margin-top: 4px;
+}
+
 .specialist-voice-actions .btn {
   min-height: 52px;
+}
+
+.specialist-voice-actions--visual .btn {
+  border-color: rgba(255, 255, 255, 0.32);
+  background: #ffffff;
+  color: #17648e;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.2);
+}
+
+.specialist-voice-actions--visual .btn:disabled {
+  opacity: 0.7;
 }
 
 .specialist-voice-error {
@@ -747,12 +797,12 @@ body .hero-section .free-check-card:focus-visible {
   }
 
   .specialist-voice-visual {
-    min-height: 240px;
+    min-height: 340px;
     padding: 42px 22px 30px;
   }
 
   .specialist-voice-mic-status {
-    width: 132px;
+    width: 128px;
   }
 
   .specialist-voice-content {
@@ -763,6 +813,10 @@ body .hero-section .free-check-card:focus-visible {
 
   .specialist-voice-content h2 {
     font-size: clamp(42px, 15vw, 58px);
+  }
+
+  .specialist-voice-actions--visual {
+    width: min(100%, 360px);
   }
 
   .specialist-voice-actions .btn {

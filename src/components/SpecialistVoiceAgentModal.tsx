@@ -1,6 +1,7 @@
 import { ConversationProvider, useConversation } from '@elevenlabs/react'
 import {
   CheckCircle2,
+  Headphones,
   LoaderCircle,
   MessageSquareText,
   Mic,
@@ -293,7 +294,12 @@ function SpecialistVoiceAgentDialog({
         </button>
 
         <div className="specialist-voice-grid">
-          <div className="specialist-voice-visual" aria-hidden="true">
+          <div className="specialist-voice-visual">
+            <div className="specialist-voice-avatar">
+              <span><Headphones size={30} aria-hidden="true" /></span>
+              <strong>{copy.assistant}</strong>
+              <small>{connected ? statusLabel : copy.agentLabel}</small>
+            </div>
             <div className={`specialist-voice-mic-status is-${conversation.status}`}>
               {busy ? <LoaderCircle size={54} /> : connected && conversation.isMuted ? <MicOff size={54} /> : <Mic size={54} />}
             </div>
@@ -304,6 +310,32 @@ function SpecialistVoiceAgentDialog({
               <span />
             </div>
             <p>{statusLabel}</p>
+            <div className="specialist-voice-actions specialist-voice-actions--visual">
+              {connected ? (
+                <>
+                  <button type="button" className="btn btn-white" onClick={() => conversation.setMuted(!conversation.isMuted)}>
+                    {conversation.isMuted ? <Mic size={19} /> : <MicOff size={19} />}
+                    {conversation.isMuted ? copy.unmute : copy.mute}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-white"
+                    onClick={() => {
+                      setIsEnding(true)
+                      conversation.endSession()
+                    }}
+                  >
+                    <PhoneOff size={19} />
+                    {copy.stop}
+                  </button>
+                </>
+              ) : (
+                <button type="button" className="btn btn-white" disabled={!supported || busy} onClick={start}>
+                  {busy ? <LoaderCircle className="specialist-voice-spin" size={20} /> : <Mic size={20} />}
+                  {copy.start}
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="specialist-voice-content">
@@ -330,33 +362,6 @@ function SpecialistVoiceAgentDialog({
 
             {!supported ? <div className="specialist-voice-error" role="status">{copy.unavailable}</div> : null}
             {error ? <div className="specialist-voice-error" role="alert">{error}</div> : null}
-
-            <div className="specialist-voice-actions">
-              {connected ? (
-                <>
-                  <button type="button" className="btn btn-white" onClick={() => conversation.setMuted(!conversation.isMuted)}>
-                    {conversation.isMuted ? <Mic size={19} /> : <MicOff size={19} />}
-                    {conversation.isMuted ? copy.unmute : copy.mute}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-navy"
-                    onClick={() => {
-                      setIsEnding(true)
-                      conversation.endSession()
-                    }}
-                  >
-                    <PhoneOff size={19} />
-                    {copy.stop}
-                  </button>
-                </>
-              ) : (
-                <button type="button" className="btn btn-navy" disabled={!supported || busy} onClick={start}>
-                  {busy ? <LoaderCircle className="specialist-voice-spin" size={20} /> : <Mic size={20} />}
-                  {copy.start}
-                </button>
-              )}
-            </div>
 
             <p className="specialist-voice-fallback">{copy.fallback}</p>
 
