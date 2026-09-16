@@ -142,7 +142,7 @@ const selfInspectionCopy = {
     ageRange: 'Age',
     ageRangePlaceholder: 'Age band',
     answerAnswered: 'answered',
-    answerNeedsAttention: 'Needs attention',
+    answerUnsafe: 'Unsafe',
     answerNotSure: 'Not sure',
     answerSafe: 'Safe',
     attachedPhotos: (count: number) => `${count} photo${count === 1 ? '' : 's'} attached`,
@@ -187,7 +187,7 @@ const selfInspectionCopy = {
     propertyTypePlaceholder: 'Apartment, house...',
     recentFalls: 'Recent falls',
     recentFallsPlaceholder: 'Fall history',
-    reportEmpty: 'Items marked Needs attention or Not sure will appear here.',
+    reportEmpty: 'Items marked Unsafe or Not sure will appear here.',
     reportContext: 'Home and person summary',
     reportPreview: 'Report preview',
     reportReady: 'Report ready to submit',
@@ -224,9 +224,9 @@ const selfInspectionCopy = {
     ageRange: 'Edad',
     ageRangePlaceholder: 'Franja',
     answerAnswered: 'respondidas',
-    answerNeedsAttention: 'Revisar',
+    answerUnsafe: 'Inseguro',
     answerNotSure: 'No sé',
-    answerSafe: 'Bien',
+    answerSafe: 'Seguro',
     attachedPhotos: (count: number) => `${count} foto${count === 1 ? '' : 's'} adjunta${count === 1 ? '' : 's'}`,
     consent: 'Acepto que CasaMia use este cuestionario para preparar el informe y contactarme.',
     close: 'Cerrar',
@@ -269,7 +269,7 @@ const selfInspectionCopy = {
     propertyTypePlaceholder: 'Piso, casa...',
     recentFalls: 'Caídas recientes',
     recentFallsPlaceholder: 'Historial',
-    reportEmpty: 'Los puntos marcados como Revisar o No sé aparecerán aquí.',
+    reportEmpty: 'Los puntos marcados como Inseguro o No sé aparecerán aquí.',
     reportContext: 'Resumen de vivienda y persona',
     reportPreview: 'Vista del informe',
     reportReady: 'Informe listo para enviar',
@@ -1605,7 +1605,7 @@ export function SelfInspectionTool() {
                         />
                         <AnswerButton
                           active={answer === 'risk'}
-                          label={copy.answerNeedsAttention}
+                          label={copy.answerUnsafe}
                           onClick={() => answerQuestion(question.id, 'risk')}
                         />
                         <AnswerButton
