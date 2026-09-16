@@ -8059,6 +8059,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .zone-service-gallery-card-copy p {
   display: -webkit-box;
   overflow: hidden;
+  max-height: 2.45rem;
   margin-top: 9px;
   color: var(--text-mid);
   font-size: 14px;

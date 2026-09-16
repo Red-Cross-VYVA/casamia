@@ -66,7 +66,7 @@ const audiences: SelectableCard<AudienceId>[] = [
   {
     id: 'myself',
     title: 'Myself',
-    body: 'I would like to stay independent and feel safer at home.',
+    body: 'I want to know which daily routes need support.',
     icon: Home,
     visual: {
       src: '/images/before-after/living-after-home.webp',
@@ -76,7 +76,7 @@ const audiences: SelectableCard<AudienceId>[] = [
   {
     id: 'parents',
     title: 'My Parents',
-    body: 'I want them to stay safe without taking away their independence.',
+    body: 'I want to reduce risk while keeping familiar routines.',
     icon: HeartHandshake,
     visual: {
       src: '/images/solutions/portrait-lovely-couple-together.jpg',
@@ -96,7 +96,7 @@ const audiences: SelectableCard<AudienceId>[] = [
   {
     id: 'residence',
     title: 'I Manage a Residence',
-    body: 'I am looking for solutions for multiple residents.',
+    body: 'I need a repeatable safety route for several residents.',
     icon: Building2,
     visual: {
       src: '/images/solutions/adorable-mature-couple-kitchen.jpg',
@@ -125,7 +125,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'bedroom',
     title: 'Bedroom',
-    body: 'Better night movement and easier bed access.',
+    body: 'Safer night movement and steadier bed access.',
     icon: BedDouble,
     position: 'home-hotspot-bedroom',
     improvements: ['Bedside lighting', 'Bed rail where required', 'Clear movement path'],
@@ -136,7 +136,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
     body: 'Safer reach, lighting and daily routines.',
     icon: Utensils,
     position: 'home-hotspot-kitchen',
-    improvements: ['Anti-slip protection', 'Anti-scald solutions', 'Better lighting', 'Easy-reach guidance'],
+    improvements: ['Anti-slip protection', 'Anti-scald checks', 'Better lighting', 'Reach-height guidance'],
   },
   {
     id: 'living',
@@ -149,7 +149,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'hallways',
     title: 'Hallways',
-    body: 'Make routes clear and easier to navigate.',
+    body: 'Keep daily routes open, lit and supported.',
     icon: Lightbulb,
     position: 'home-hotspot-hallways',
     improvements: ['Motion lighting', 'Clear pathways', 'Support points'],
@@ -234,10 +234,10 @@ const supportJourney: SupportJourneyStep[] = [
 
 const solutionCategories = [
   {
-    title: 'Voice & Independence',
-    body: 'Voice control, reminders, calls, music and simple daily routines.',
+    title: 'Voice & Daily Support',
+    body: 'Voice control, reminders, calls, music and agreed daily routines.',
     price: 'From EUR 199 installed',
-    cta: 'Explore Voice Solutions',
+    cta: 'Explore Voice Support',
     to: '/tech',
     image: '/images/service-gallery/11-voice-controls-and-smart-routines.jpg',
     icon: Volume2,
@@ -362,14 +362,14 @@ export function HomePage() {
     <>
       <SEO
         title="CasaMia | Safer Homes for Independent Living"
-        description="CasaMia helps make homes safer and easier to use with practical assessments, clear proposals, installation coordination and aftercare."
+        description="CasaMia helps make homes safer with room checks, clear proposals, installation coordination and aftercare."
         path="/"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'LocalBusiness',
           name: 'CasaMia',
           description:
-            'Home safety assessments, installation and personalised independent-living solutions.',
+            'Home safety assessments, installation and personalised home-safety support.',
           url: 'https://www.casamia.com.es',
           areaServed: 'Spain',
         }}
@@ -384,7 +384,7 @@ export function HomePage() {
               <span>Home</span>
             </h1>
             <p>
-              Practical changes that make daily movement safer, clearer and easier without turning the home into a clinic.
+              Room changes that make daily movement safer, better lit and better supported without turning the home into a clinic.
             </p>
             <div className="home-redesign-actions">
               <Link
@@ -478,7 +478,7 @@ export function HomePage() {
             <p className="home-redesign-kicker">Room by room</p>
             <h2>Every safer home starts here.</h2>
             <p>
-              We focus on the areas that matter most to help prevent falls and make daily living easier.
+              We focus on the areas that matter most to reduce fall risks and protect daily routines.
             </p>
             <Link className="home-redesign-secondary" to="#core-plan">
               See What Is Included
@@ -835,7 +835,7 @@ export function HomePage() {
             <h2>Helpful alerts without taking over.</h2>
             <p>
               With consent, approved contacts can receive important updates, selected
-              health information and safety alerts without taking away independence.
+              health information and safety alerts while familiar routines stay in place.
             </p>
             <ul>
               {['Safety alerts', 'Health and activity updates', 'Medication reminders', 'Check-in notifications'].map(
@@ -882,8 +882,7 @@ export function HomePage() {
           <p className="home-redesign-kicker">Next step</p>
           <h2>Every safer home starts with one conversation.</h2>
           <p>
-            Let us explore how we can help you or someone you love live more safely, independently and
-            confidently at home.
+            Let us review the home, agree the first priority and turn it into a safer next step.
           </p>
           <div className="home-redesign-actions">
             <Link className="btn btn-green" to={configuratorPath} onClick={() => handleConfiguratorClick('final_cta')}>

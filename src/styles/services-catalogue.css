@@ -1346,6 +1346,7 @@
 .services-catalogue-service-description {
   display: -webkit-box;
   overflow: hidden;
+  max-height: 2.65rem;
   margin: 0.78rem 0 0;
   color: #536879;
   font-size: 0.9rem;
