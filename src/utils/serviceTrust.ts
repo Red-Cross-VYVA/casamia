@@ -110,10 +110,10 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
 
 export function getServicePreviewDescription(service: CasaMiaService) {
   const description = [
-    service.shortDescription,
-    service.outcome,
-    service.customerBenefit,
     service.plainLanguageSummary,
+    service.shortDescription,
+    service.customerBenefit,
+    service.outcome,
     service.customerDescription,
   ]
     .map((value) => compactPreviewDescription(polishServiceDescription(value?.trim() ?? '')))
@@ -124,16 +124,16 @@ export function getServicePreviewDescription(service: CasaMiaService) {
     .replace(/\.$/, '')
     .replace(/\s+(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar)\b.*$/i, '')
     .replace(/\s+(?:we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag|CasaMia confirms|Confirmamos)\b.*$/i, '')
-    .split(/\s+/)
-    .slice(0, 8)
-    .join(' ')
     .trim()
 
-  return preview ? preview.replace(/\.$/, '').concat('.') : ''
+  return preview ? `${preview.replace(/[.]+$/, '')}.` : ''
 }
 
 function polishServiceDescription(description: string) {
   return description
+    .replace(/^Making\b/, 'Makes')
+    .replace(/^Helping\b/, 'Helps')
+    .replace(/^Replacing, securing or repositioning\b/, 'Replaces, secures or repositions')
     .replace(/^Adding\b/, 'Adds')
     .replace(/^Providing\b/, 'Provides')
     .replace(/^Installing\b/, 'Installs')
@@ -153,12 +153,15 @@ function compactPreviewDescription(description: string) {
     .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, when the layout allows|, after checking|, when the existing|, donde sea adecuado|, cuando encaja|, si procede|, tras revisar|, cuando la distribución|, cuando la instalación)\s*/i)[0]
     .trim()
 
-  if (summary.length <= 58) return summary
+  const words = summary.split(/\s+/).filter(Boolean)
+  const wordLimited = words.length > 16 ? words.slice(0, 16).join(' ') : summary
 
-  const clipped = summary.slice(0, 55)
+  if (wordLimited.length <= 110) return wordLimited
+
+  const clipped = wordLimited.slice(0, 104)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 38 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 56 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {
