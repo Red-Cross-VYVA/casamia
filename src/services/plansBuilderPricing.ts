@@ -570,22 +570,24 @@ export function getPlansOutcomeCredibleDescription(outcome: MasterCatalogueOutco
 
 export function getPlansOutcomePreviewDescription(outcome: MasterCatalogueOutcome, language: string) {
   const previewSource = localizePlansString(
-    outcome.shortDescription ?? outcome.customerBenefit ?? outcome.detailedDescription,
+    outcome.customerBenefit ?? outcome.shortDescription ?? outcome.detailedDescription,
     language,
     outcome.internalName,
   )
   const withoutOperationalProof = polishPlansDescription(previewSource)
-    .split(/\s*(?:Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar|we check|we confirm|CasaMia confirms|Confirmamos)\b/i)[0]
+    .split(/\s*(?:Before fitting|Before recommending it|Before quoting|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Después de instalar|we check|we confirm|we also confirm|then install|then set it up|then we install|then we set it up|then test|then we test|we flag useful paperwork|where local grant criteria may apply|CasaMia confirms|Confirmamos)\b/i)[0]
     .trim()
 
   const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)
-  const summary = (sentences?.slice(0, 1).join(' ') ?? withoutOperationalProof).trim()
+  const summary = (sentences?.slice(0, 1).join(' ') ?? withoutOperationalProof)
+    .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, cuando encaja|, si procede)\s*/i)[0]
+    .trim()
 
-  if (summary.length <= 72) return summary.replace(/\.$/, '').concat('.')
+  if (summary.length <= 96) return summary.replace(/\.$/, '').concat('.')
 
-  const clipped = summary.slice(0, 69)
+  const clipped = summary.slice(0, 93)
   const lastSpace = clipped.lastIndexOf(' ')
-  const end = lastSpace > 48 ? lastSpace : clipped.length
+  const end = lastSpace > 68 ? lastSpace : clipped.length
 
   return `${clipped.slice(0, end).trim()}...`
 }
