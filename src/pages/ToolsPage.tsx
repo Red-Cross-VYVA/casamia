@@ -22,11 +22,11 @@ const copy = {
     lang: 'en',
     seoTitle: 'Free Senior Home Safety Tools | CasaMia',
     seoDescription:
-      'Use CasaMia free checks to decide whether to monitor, review one room, prepare grant evidence or request a home assessment.',
+      'Use CasaMia free checks to decide whether to monitor, review one room, prepare grant evidence or book a home assessment.',
     eyebrow: 'Free home-safety tools',
     title: 'Choose the check that matches today’s safety concern.',
     body:
-      'Pick the closest situation. Each check ends with a practical decision: monitor for now, review one room, prepare evidence or request CasaMia input.',
+      'Pick the closest situation. Each check ends with a practical decision: monitor for now, review one room, prepare evidence or ask CasaMia what to do next.',
     featuredLabel: 'Start here if you are unsure',
     featuredTitle: 'Is this home still safe day to day?',
     featuredBody:
@@ -38,7 +38,7 @@ const copy = {
     chooserEyebrow: 'Match the tool to the concern',
     chooserTitle: 'Pick the question you need answered.',
     chooserBody:
-      'Start with the concern in front of you. Keep the result as notes, or share it when you want a visit, report or proposal.',
+      'Start with the concern in front of you. Keep the result as notes, or share it when you want a visit, report or priced plan.',
     nextEyebrow: 'After the tool',
     nextTitle: 'Leave with a decision, not more confusion.',
     finalTitle: 'Ready to turn answers into a plan?',
@@ -61,7 +61,7 @@ const copy = {
       {
         question: 'Can CasaMia use my answers later?',
         answer:
-          'Yes, when you choose to share them. We use them to avoid repeating the same details and prepare room priorities, work notes and visit questions.',
+          'Yes, when you choose to share them. We use them to avoid repeating the same details and prepare room priorities, adaptation notes and visit questions.',
       },
     ],
   },
@@ -166,7 +166,7 @@ const chooserQuestions = [
     icon: Camera,
     title: { en: 'You can show the room', es: 'Puedes mostrar la estancia' },
     body: {
-      en: 'Use photos when a visible problem needs an initial action before a proposal.',
+      en: 'Use photos when a visible problem needs an initial action before a priced plan.',
       es: 'Usa fotos cuando un problema visible necesita una primera acción clara antes de pedir propuesta.',
     },
   },
@@ -209,7 +209,7 @@ const nextToolSteps = [
     icon: ShieldCheck,
     title: { en: 'Priorities ready to use', es: 'Prioridades listas para usar' },
     body: {
-      en: 'Turn the result into room priorities, work notes and a prepared visit or proposal.',
+      en: 'Turn the result into room priorities, adaptation notes and a prepared visit or priced plan.',
       es: 'Convierte el resultado en prioridades por estancia, notas de alcance y una visita o propuesta preparada.',
     },
   },

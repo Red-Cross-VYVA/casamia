@@ -114,16 +114,16 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     proofEyebrow: 'What we verify',
     proofTitle: 'Clear checks before you commit.',
     proofBody:
-      'The biggest risk is not choosing the wrong product. It is starting work without knowing who is responsible, what is included, what still needs confirmation and how the result will be checked.',
+      'The biggest risk is not choosing the wrong product. It is booking installation without knowing who is responsible, what is included, what still needs confirmation and how the result will be checked.',
     proofItems: [
       {
         title: 'Provider fit',
-        body: 'The provider must match the room, work type, location, availability and senior-home standard.',
+        body: 'The provider must match the room, adaptation type, location, availability and senior-home standard.',
         outcome: 'Fewer handoffs',
       },
       {
-        title: 'Scope and price clarity',
-        body: 'The proposal separates included work, optional items, measurement-dependent work and grant steps.',
+        title: 'Plan and price clarity',
+        body: 'The plan separates included adaptations, optional items, measurement-dependent decisions and grant steps.',
         outcome: 'No vague quote',
       },
       {
@@ -175,16 +175,16 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'acceptance',
-        title: 'Values that guide the work',
+        title: 'Values that guide the plan',
         body:
-          'CasaMia keeps the person at home visible in every decision: what changes, who enters the home, what is explained and what happens after the work.',
+          'CasaMia keeps the person at home visible in every decision: what changes, who enters the home, what is explained and what happens after installation.',
         points: ['Respect for the person at home', 'No pressure or confusing explanations', 'Accountability from first contact to follow-up'],
       },
     ],
     contactEyebrow: 'Speak with CasaMia',
     contactTitle: 'Tell us what worries you about the home.',
     contactBody:
-      'Share the room, routine, location and urgency. A CasaMia coordinator will confirm whether to start with photos, a visit, a proposal or a grant check.',
+      'Share the room, routine, location and urgency. A CasaMia coordinator will confirm whether to start with photos, a visit, a priced plan or a grant check.',
     callTitle: 'Call CasaMia',
     emailTitle: 'Email support',
     messagePlaceholder:

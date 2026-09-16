@@ -197,10 +197,10 @@ const supportJourney: SupportJourneyStep[] = [
   {
     id: 'proposal',
     eyebrow: 'Step 2',
-    title: 'Review your proposal',
-    body: 'See the included work, optional items, assumptions, measurements still needed and expected cost before deciding.',
+    title: 'Review the plan',
+    body: 'See the included adaptations, optional items, assumptions, measurements still needed and expected cost before deciding.',
     icon: ClipboardCheck,
-    points: ['Included work', 'Clear priorities', 'Transparent pricing'],
+    points: ['Included adaptations', 'Clear priorities', 'Transparent pricing'],
     visual: {
       src: '/images/solutions/casamia-staff-kitchen-consultation.webp',
       alt: 'CasaMia advisor discussing safety improvements in a kitchen',
@@ -222,7 +222,7 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'installation',
     eyebrow: 'Step 4',
     title: 'Install and stay supported',
-    body: 'CasaMia coordinates the work, checks safe use with you and remains the contact if something needs adjustment.',
+    body: 'CasaMia coordinates installation, checks safe use with you and remains the contact if something needs adjustment.',
     icon: Wrench,
     points: ['Professional installation', 'Safe-use explanation', 'Aftercare contact'],
     visual: {
@@ -531,7 +531,7 @@ export function HomePage() {
               <p className="home-redesign-kicker">How CasaMia works</p>
               <h2>A safer home, handled step by step.</h2>
               <p>
-                Choose the starting point that matches the home. CasaMia turns it into priorities, work to review, grant checks and coordinated installation.
+                Choose the starting point that matches the home. CasaMia turns it into priorities, a plan to review, grant checks and coordinated installation.
               </p>
             </div>
             <div className="home-journey-grid" aria-label="CasaMia end-to-end service steps">

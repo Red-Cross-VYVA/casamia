@@ -51,7 +51,7 @@ const detailSteps = [
   {
     icon: Home,
     title: 'Defined next step',
-    body: 'If work is appropriate, CasaMia prepares a proposal with included items, exclusions, installation notes and safe-use handover.',
+    body: 'If installation is appropriate, CasaMia prepares a priced plan with included items, exclusions, installation notes and safe-use handover.',
   },
 ]
 
@@ -1095,7 +1095,7 @@ export function ServiceDetailPage() {
         whatWeCheck: 'What CasaMia reviews',
         risksTitle: 'Focused on the risks that make daily life harder.',
         risksBody:
-          'CasaMia separates visible hazards from the improvements worth considering, so you know what matters before buying products or starting work.',
+          'CasaMia separates visible hazards from the improvements worth considering, so you know what matters before buying products or booking installation.',
         commonRisks: 'Common risks we look for',
         howWeHelp: 'What CasaMia checks',
         whyItHelps: 'Why it helps',
