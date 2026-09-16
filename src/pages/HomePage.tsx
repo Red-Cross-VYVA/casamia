@@ -66,7 +66,7 @@ const audiences: SelectableCard<AudienceId>[] = [
   {
     id: 'myself',
     title: 'Myself',
-    body: 'I want to know which daily routes need support.',
+    body: 'I want to know which routes, rooms or routines to fix first.',
     icon: Home,
     visual: {
       src: '/images/before-after/living-after-home.webp',
@@ -96,7 +96,7 @@ const audiences: SelectableCard<AudienceId>[] = [
   {
     id: 'residence',
     title: 'I Manage a Residence',
-    body: 'I need a repeatable safety route for several residents.',
+    body: 'I need one repeatable process for several rooms or residents.',
     icon: Building2,
     visual: {
       src: '/images/solutions/adorable-mature-couple-kitchen.jpg',
@@ -117,7 +117,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'bathroom',
     title: 'Bathroom',
-    body: 'Often the first room to make safer.',
+    body: 'Transfers, wet floors and night toilet trips.',
     icon: Bath,
     position: 'home-hotspot-bathroom',
     improvements: ['Grab bars', 'Raised toilet seat', 'Handheld shower', 'Anti-slip protection'],
@@ -133,7 +133,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'kitchen',
     title: 'Kitchen',
-    body: 'Safer reach, lighting and daily routines.',
+    body: 'Reach, lighting, water, heat and standing tasks.',
     icon: Utensils,
     position: 'home-hotspot-kitchen',
     improvements: ['Anti-slip protection', 'Anti-scald checks', 'Better lighting', 'Reach-height guidance'],
@@ -149,7 +149,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'hallways',
     title: 'Hallways',
-    body: 'Keep daily routes open, lit and supported.',
+    body: 'Keep daily routes clear, lit and easier to follow.',
     icon: Lightbulb,
     position: 'home-hotspot-hallways',
     improvements: ['Motion lighting', 'Clear pathways', 'Support points'],
@@ -186,7 +186,7 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'assessment',
     eyebrow: 'Step 1',
     title: 'Choose your starting point',
-    body: 'Start with a package, photo review or home visit depending on how clear the risk already is.',
+    body: 'Use a package, photo review or home visit depending on whether the risk is already clear or still needs checking.',
     icon: CalendarCheck,
     points: ['Package route', 'Photo or home review', 'Fit confirmed first'],
     visual: {
@@ -198,7 +198,7 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'proposal',
     eyebrow: 'Step 2',
     title: 'Review your proposal',
-    body: 'You see what is included, what is optional, what still needs measurement and what it may cost.',
+    body: 'See the included work, optional items, assumptions, measurements still needed and expected cost before deciding.',
     icon: ClipboardCheck,
     points: ['Included scope', 'Clear priorities', 'Transparent pricing'],
     visual: {
@@ -210,7 +210,7 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'grants',
     eyebrow: 'Step 3',
     title: 'Claim available grant support',
-    body: 'When a public grant route may apply, CasaMia helps prepare the project information and documents.',
+    body: 'When a public grant route may fit, CasaMia prepares the project information and flags what the authority must decide.',
     icon: HeartHandshake,
     points: ['Route check', 'Document support', 'No false promises'],
     visual: {
@@ -222,7 +222,7 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'installation',
     eyebrow: 'Step 4',
     title: 'Install and stay supported',
-    body: 'CasaMia coordinates the work, checks the result and remains your contact for questions or adjustments.',
+    body: 'CasaMia coordinates the work, checks safe use with you and remains the contact if something needs adjustment.',
     icon: Wrench,
     points: ['Professional installation', 'Safe-use explanation', 'Aftercare contact'],
     visual: {
@@ -384,7 +384,7 @@ export function HomePage() {
               <span>Home</span>
             </h1>
             <p>
-              Room changes that make daily movement safer, better lit and better supported without turning the home into a clinic.
+              Practical room changes for safer movement, better light and steadier routines without turning the home into a clinic.
             </p>
             <div className="home-redesign-actions">
               <Link
@@ -405,7 +405,7 @@ export function HomePage() {
               </Link>
             </div>
             <div className="home-redesign-trust-points" aria-label="CasaMia reassurance points">
-              {['Professional installation', 'Assessment credited back', 'Designed around your home'].map((item) => (
+              {['Fit checked first', 'Assessment credited back', 'Scope confirmed before work'].map((item) => (
                 <span key={item}>
                   <CheckCircle2 size={20} aria-hidden="true" />
                   {item}
@@ -478,7 +478,7 @@ export function HomePage() {
             <p className="home-redesign-kicker">Room by room</p>
             <h2>Every safer home starts here.</h2>
             <p>
-              We focus on the areas that matter most to reduce fall risks and protect daily routines.
+              Start with the rooms and routes used every day, then confirm what should change first.
             </p>
             <Link className="home-redesign-secondary" to="#core-plan">
               See What Is Included
@@ -531,7 +531,7 @@ export function HomePage() {
               <p className="home-redesign-kicker">How CasaMia works</p>
               <h2>A safer home, handled step by step.</h2>
               <p>
-                Choose the route that matches the home. CasaMia turns the package or inspection into a clear proposal, grant route check and coordinated installation.
+                Choose the route that matches the home. CasaMia turns it into priorities, confirmed scope, grant-route checks and coordinated installation.
               </p>
             </div>
             <div className="home-journey-grid" aria-label="CasaMia end-to-end service steps">
@@ -856,8 +856,8 @@ export function HomePage() {
             <p className="home-redesign-kicker">For organisations</p>
             <h2>We also help care organisations.</h2>
             <p>
-              Custom quotation for voice assistants, smart-room technology, fall detection, connected health,
-              staff dashboards, approved-contact updates, engagement tools, emergency alerts and integrations.
+              One pilot route for voice assistants, smart-room technology, fall detection, connected health,
+              staff dashboards, approved-contact updates, emergency alerts and integrations.
             </p>
             <strong className="home-organisation-quote">Custom quotation</strong>
             <div className="home-organisation-types">
@@ -882,7 +882,7 @@ export function HomePage() {
           <p className="home-redesign-kicker">Next step</p>
           <h2>Every safer home starts with one conversation.</h2>
           <p>
-            Let us review the home, agree the first priority and turn it into a safer next step.
+            Share the home, the routine and the concern. CasaMia will help confirm the first priority.
           </p>
           <div className="home-redesign-actions">
             <Link className="btn btn-green" to={configuratorPath} onClick={() => handleConfiguratorClick('final_cta')}>
@@ -901,7 +901,7 @@ export function HomePage() {
           <div className="home-agent-panel" role="dialog" aria-label="CasaMia Assistant">
             <strong>Hi, I am the CasaMia Assistant.</strong>
             <p>
-              I can explain packages, inspections, grants and the safest next step for the room that concerns you.
+              I can explain packages, inspections, grants and what to review first for the room that concerns you.
             </p>
             <div>
               <Link to={configuratorPath} onClick={() => handleConfiguratorClick('assistant')}>

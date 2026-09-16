@@ -26,20 +26,20 @@ type TrustSectionCopy = {
 const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
   en: {
     eyebrow: 'Why people trust CasaMia',
-    headline: 'Why CasaMia feels safer to choose',
+    headline: 'What makes the recommendation easier to trust',
     body:
-      'Every project starts with the person, the home and the daily routine. CasaMia checks fit, coordinates qualified help and confirms the scope before work begins.',
+      'Every project starts with the person, the home and the routine. CasaMia confirms fit, scope, installer route and safe-use handover before work is treated as complete.',
     learnMore: 'Learn why CasaMia',
     cards: [
       {
         icon: 'inspectors',
-        title: 'Qualified Safety Inspectors',
-        body: 'Risks are reviewed by specialists who understand falls, access, lighting and everyday movement.',
+        title: 'Room risks checked first',
+        body: 'Falls, access, lighting, transfers and daily movement are reviewed before products are recommended.',
       },
       {
         icon: 'partners',
-        title: 'Trusted Installation Partners',
-        body: 'CasaMia works with reliable installers who adapt homes carefully and respectfully.',
+        title: 'Installer fit reviewed',
+        body: 'The work route is matched to the home, the surface, the measurements and the level of installation needed.',
       },
       {
         icon: 'insured',
@@ -53,32 +53,32 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       },
       {
         icon: 'products',
-        title: 'Quality Products',
-        body: 'We choose durable safety products that fit daily routines, not confusing gadgetry.',
+        title: 'Products chosen for use',
+        body: 'Items are selected for the routine, room and safe use, not because they are the biggest upgrade available.',
       },
       {
         icon: 'acceptance',
-        title: 'Customer Acceptance Before Final Payment',
-        body: 'The final {{proposalBalancePercent}} is due only after the customer has reviewed and accepted the completed work.',
+        title: 'Acceptance before final payment',
+        body: 'The final {{proposalBalancePercent}} is due only after the completed work has been reviewed and accepted.',
       },
     ],
   },
   es: {
     eyebrow: 'Por qué confiar en CasaMia',
-    headline: 'Por qué CasaMia da más seguridad al elegir',
+    headline: 'Qué hace más fiable la recomendación',
     body:
-      'Cada proyecto empieza por la persona, la vivienda y la rutina diaria. CasaMia revisa el encaje, coordina ayuda cualificada y confirma el alcance antes de empezar.',
+      'Cada proyecto empieza por la persona, la vivienda y la rutina. CasaMia confirma encaje, alcance, vía de instalación y explicación de uso seguro antes de dar el trabajo por cerrado.',
     learnMore: 'Ver por qué CasaMia',
     cards: [
       {
         icon: 'inspectors',
-        title: 'Inspectores de seguridad cualificados',
-        body: 'Los riesgos del hogar los revisan especialistas que entienden caídas, accesos, iluminación y movilidad diaria.',
+        title: 'Riesgos revisados primero',
+        body: 'Caídas, accesos, iluminación, transferencias y movimiento diario se revisan antes de recomendar productos.',
       },
       {
         icon: 'partners',
-        title: 'Partners de instalación de confianza',
-        body: 'CasaMia trabaja con partners fiables que adaptan cada vivienda con cuidado y respeto.',
+        title: 'Encaje de instalación revisado',
+        body: 'La vía de trabajo se ajusta a la vivienda, superficie, medidas y nivel de instalación necesario.',
       },
       {
         icon: 'insured',
@@ -92,13 +92,13 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       },
       {
         icon: 'products',
-        title: 'Productos de calidad',
-        body: 'Elegimos productos de seguridad duraderos que encajan con la rutina diaria.',
+        title: 'Productos elegidos por uso',
+        body: 'Los elementos se seleccionan por rutina, estancia y uso seguro, no por ser la mejora más grande disponible.',
       },
       {
         icon: 'acceptance',
-        title: 'Aceptación del cliente antes del pago final',
-        body: 'El {{proposalBalancePercent}} final se paga solo después de que el cliente revise y acepte el trabajo completado.',
+        title: 'Aceptación antes del pago final',
+        body: 'El {{proposalBalancePercent}} final se paga solo después de revisar y aceptar el trabajo completado.',
       },
     ],
   },
