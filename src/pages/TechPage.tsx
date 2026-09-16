@@ -149,12 +149,12 @@ const techCopy = {
           title: 'Your devices work in separate apps',
           body:
             'We review compatibility, connect the signals that matter and organise alerts so they reach the right person.',
-          outcome: 'Replace fragmented notifications with a clearer flow.',
+          outcome: 'Route fragmented notifications to the right responder.',
         },
         {
           icon: 'monitor' as TechIconName,
           number: '03',
-          title: 'You need the complete solution',
+          title: 'You need the complete connected-care setup',
           body:
             'CasaMia can provide the user app, approved-contact access, professional dashboard, device setup, onboarding and ongoing support.',
           outcome: 'One service, from equipment to daily use.',
@@ -277,7 +277,7 @@ const techCopy = {
       eyebrow: 'Use your platform—or ours',
       title: 'Keep your current system, or let CasaMia provide the digital layer.',
       body:
-        'The delivery model changes with your starting point. The goal is the same: one understandable experience for the person at home and clear, permission-based information for everyone supporting them.',
+        'The delivery model changes with your starting point. The goal is the same: one understandable experience for the person at home and permission-based information for everyone supporting them.',
       yourSystem: {
         kicker: 'Connect to what you have',
         visualLabel: 'API / webhook',
@@ -299,7 +299,7 @@ const techCopy = {
       eyebrow: 'What CasaMia actually delivers',
       title: 'One accountable service from discovery to support.',
       body:
-        'We do more than pair a device. CasaMia coordinates the practical, technical and human work required to make connected care usable in real life.',
+        'We do more than pair a device. CasaMia coordinates the technical setup, permissions, onboarding and response route required to make connected care usable in real life.',
       items: [
         { title: 'Discover', body: 'Inventory devices, systems, users, connectivity and the outcome you need.' },
         { title: 'Design', body: 'Confirm compatibility, data flows, permissions, alerts and response responsibilities.' },
@@ -345,7 +345,7 @@ const techCopy = {
         {
           question: 'Can we keep our current app or care system?',
           answer:
-            'Yes, when that system exposes a supported and authorised integration route. CasaMia first reviews the available APIs, webhooks or approved exchange methods and then scopes the work clearly.',
+            'Yes, when that system exposes a supported and authorised integration route. CasaMia first reviews the available APIs, webhooks or approved exchange methods and then scopes the data flow, permissions and responsibilities.',
         },
         {
           question: 'What if we have devices but no app or dashboard?',
@@ -670,7 +670,7 @@ function getTechCopy(language: string) {
 const spanishCatalogueLabels: Record<string, string> = {
   'Emergency support': 'Apoyo de emergencia',
   'Simple controls': 'Controles sencillos',
-  'Family reassurance': 'Tranquilidad para contactos',
+  'Approved-contact alerts': 'Avisos a contactos autorizados',
   'Emergency call button': 'Botón de llamada de emergencia',
   'Voice hub setup': 'Configuración de asistente por voz',
   'Family alert setup': 'Configuración de alertas a contactos',

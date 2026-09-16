@@ -87,7 +87,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     promiseBody:
       'MOKA built CasaMia so home adaptation does not become a puzzle of products, grants, installers and unanswered questions. We turn the home situation into priorities, scope, price clarity and coordinated delivery.',
     promisePoints: [
-      'Senior-market focus: practical safety, independence and confidence at home.',
+      'Senior-market focus: daily safety, independence and usable routines at home.',
       'Transparent recommendations: what matters, why it matters and what it may cost.',
       'Managed delivery: fit confirmed first, work coordinated and results checked.',
     ],
@@ -99,12 +99,12 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         body: 'We look at the room, daily routine, access, photos and measurements before recommending work.',
       },
       {
-        title: 'Recommend clearly',
+        title: 'Set priorities',
         body: 'You see what matters first, what is optional and what still needs measurement or confirmation.',
       },
       {
         title: 'Vett and coordinate',
-        body: 'Local providers are matched to the job, briefed clearly and coordinated through CasaMia.',
+        body: 'Local providers are matched to the job, briefed with the agreed scope and coordinated through CasaMia.',
       },
       {
         title: 'Check the result',
@@ -142,7 +142,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'inspectors',
         title: 'Senior-focused technology',
         body:
-          'MOKA DigiTech focuses on technology and services for older adults: prevention, independence, simpler access to support and clearer information for decisions.',
+          'MOKA DigiTech focuses on technology and services for older adults: prevention, independence, easier access to support and decision-ready information.',
         points: ['Built for ageing-in-place needs', 'Digital tools that support human decisions', 'Technology only where it makes life easier'],
       },
       {
@@ -170,7 +170,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'pricing',
         title: 'Transparent commercial model',
         body:
-          'You should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant support clearly.',
+          'You should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant-document support.',
         points: ['Clear estimate before commitment', 'Optional items separated from essentials', 'Grant guidance without false promises'],
       },
       {

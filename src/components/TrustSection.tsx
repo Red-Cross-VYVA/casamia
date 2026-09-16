@@ -28,7 +28,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     eyebrow: 'Why people trust CasaMia',
     headline: 'Why CasaMia feels safer to choose',
     body:
-      'Every project starts with the person, the home and the daily routine. CasaMia checks what fits, coordinates qualified help and keeps the scope clear before work begins.',
+      'Every project starts with the person, the home and the daily routine. CasaMia checks fit, coordinates qualified help and confirms the scope before work begins.',
     learnMore: 'Learn why CasaMia',
     cards: [
       {
@@ -49,7 +49,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'pricing',
         title: 'Transparent Pricing',
-        body: 'You see the recommended scope and price clearly before committing to the work.',
+        body: 'You see the recommended scope, assumptions and price before committing to the work.',
       },
       {
         icon: 'products',
@@ -67,7 +67,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     eyebrow: 'Por qué confiar en CasaMia',
     headline: 'Por qué CasaMia da más seguridad al elegir',
     body:
-      'Cada proyecto empieza por la persona, la vivienda y la rutina diaria. CasaMia revisa qué encaja, coordina ayuda cualificada y mantiene el alcance claro antes de empezar.',
+      'Cada proyecto empieza por la persona, la vivienda y la rutina diaria. CasaMia revisa el encaje, coordina ayuda cualificada y confirma el alcance antes de empezar.',
     learnMore: 'Ver por qué CasaMia',
     cards: [
       {

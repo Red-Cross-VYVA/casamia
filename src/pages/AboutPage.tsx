@@ -62,14 +62,14 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     title: 'Technology and service for',
     accent: 'safer ageing at home.',
     intro:
-      'CasaMia brings home safety assessment, practical adaptations, connected technology, and funding guidance into one clear service for people adapting a home in Spain.',
+      'CasaMia brings home-safety assessment, agreed adaptations, connected technology and grant-document guidance into one coordinated service for people adapting a home in Spain.',
     primaryCta: 'Check home safety',
     secondaryCta: 'Check grant eligibility',
     provider: {
       kicker: 'Technology and service partner',
       title: 'Built with MOKA DigiTech.',
       body:
-        'MOKA DigiTech supports CasaMia as a technology and service provider dedicated to senior empowerment: making support easier to access, homes easier to adapt, and decisions clearer before risk becomes an emergency.',
+        'MOKA DigiTech supports CasaMia as a technology and service provider for senior empowerment: easier access to support, better-scoped home adaptations and earlier decisions before risk becomes an emergency.',
       bullets: [
         'Service design for residents, installers, and care partners',
         'Digital workflows for safety reports and grant-readiness checks',
@@ -99,7 +99,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       ],
     },
     credibilityEyebrow: 'Why the model is trustworthy',
-    credibilityTitle: 'CasaMia is built around prevention, evidence, and practical follow-through.',
+    credibilityTitle: 'CasaMia is built around prevention, evidence and follow-through.',
     proof: [
       {
         icon: 'seniors',
@@ -125,7 +125,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'funding',
         title: 'Funding readiness without false promises',
         body:
-          'CasaMia helps prepare practical evidence for regional, public, and EU-backed support routes where available: the home need, proposed adaptation, and document checklist. Approval always depends on the relevant authority.',
+          'CasaMia helps prepare evidence for regional, public, and EU-backed support routes where available: the home need, proposed adaptation, and document checklist. Approval always depends on the relevant authority.',
       },
       {
         icon: 'service',
@@ -143,7 +143,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Clear recommendation',
-        body: 'CasaMia explains the risks, the likely adaptation level, and the practical next step.',
+        body: 'CasaMia explains the risks, the likely adaptation level, and the next decision needed.',
       },
       {
         title: 'Local follow-up',
@@ -166,7 +166,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     title: 'Tecnología y servicio para',
     accent: 'envejecer con más seguridad en casa.',
     intro:
-      'CasaMia une evaluación del hogar, adaptaciones prácticas, tecnología conectada y orientación sobre ayudas en un servicio claro para adaptar una vivienda en España.',
+      'CasaMia une evaluación del hogar, adaptaciones acordadas, tecnología conectada y orientación documental para ayudas en un servicio coordinado para adaptar una vivienda en España.',
     primaryCta: 'Comprobar seguridad',
     secondaryCta: 'Comprobar ayudas',
     provider: {

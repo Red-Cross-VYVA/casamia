@@ -12,11 +12,11 @@ const serviceAreaCopy = {
   en: {
     seoTitle: 'CasaMia service areas in Spain',
     seoDescription:
-      'See where CasaMia coordinates senior home-safety assessments, practical adaptations, connected living setup and grant-support preparation across Spain.',
+      'See where CasaMia coordinates senior home-safety assessments, agreed adaptations, connected-living setup and grant-document preparation across Spain.',
     eyebrow: 'Service areas',
     title: 'Senior home safety support, coordinated city by city.',
     intro:
-      'CasaMia is building reliable local coverage across Spain: clear home checks, scoped proposals, vetted provider coordination and follow-up you can understand.',
+      'CasaMia is building reliable local coverage across Spain: home checks, scoped proposals, vetted provider coordination and follow-up in one route.',
     primaryCta: 'Start your home review',
     secondaryCta: 'Ask about your area',
     mapLabel: 'Spain coverage',
@@ -37,7 +37,7 @@ const serviceAreaCopy = {
       },
       {
         title: 'Clear next step',
-        body: 'You receive a practical route: remote check, expert visit, proposal, grant route or staged plan.',
+        body: 'You receive a defined route: remote check, expert visit, proposal, grant route or staged plan.',
       },
     ],
     cityTitle: 'Priority cities',
@@ -49,7 +49,7 @@ const serviceAreaCopy = {
     unknownCta: 'Check my postcode',
     citySeoTitle: (city: string) => `Senior home safety services in ${city}`,
     citySeoDescription: (city: string, region: string) =>
-      `CasaMia coordinates senior home-safety checks, practical adaptations and local next steps in ${city}, ${region}.`,
+      `CasaMia coordinates senior home-safety checks, agreed adaptations and local next steps in ${city}, ${region}.`,
     cityEyebrow: 'Local service route',
     cityPageTitle: (city: string) => `Home safety support in ${city}`,
     cityIntroPrefix: 'CasaMia helps people in',
@@ -60,7 +60,7 @@ const serviceAreaCopy = {
     cityProcess: [
       'Start online with a guided review, photos, video, voice brief or a call.',
       'We check the home context, urgency, rooms and local delivery fit.',
-      'You get a clear next step: remote plan, expert visit, proposal, grant route or staged installation.',
+      'You get the next route: remote plan, expert visit, proposal, grant route or staged installation.',
     ],
     cityFaqTitle: (city: string) => `Questions people ask in ${city}`,
     cityFaqIntro:
