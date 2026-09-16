@@ -628,7 +628,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     grantCta: 'Start grant check',
     grantEyebrow: 'Aid route',
     grantTitle: 'Grants may apply.',
-    heroSignals: ['Package prices first', 'Core items included', 'Optional add-ons separate'],
+    heroSignals: ['Clear scope first', 'Core items included', 'Optional add-ons separate'],
     heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
     heroReviewBody:
       'Choose the rooms and add-ons, add your details, and receive a clear proposal link instantly.',
@@ -1901,7 +1901,7 @@ export function PlansPage() {
       body: starterPack.packageDescription,
       items: starterPack.outcomes,
       mode: 'core',
-      price: formatPlansCurrency(starterPack.packageUnitPrice, language),
+      price: copy.reviewRequired,
       title: starterPack.packageLabel,
       typeLabel: language === 'es' ? 'Pack inicial' : 'Starter pack',
     })
@@ -2400,7 +2400,7 @@ export function PlansPage() {
             <section className="plans-starter-section" aria-labelledby="plans-starter-title">
               <div className="plans-starter-heading">
                 <div>
-                  <p className="section-kicker">{language === 'es' ? 'Primeros pasos más económicos' : 'Lower-cost first steps'}</p>
+                  <p className="section-kicker">{language === 'es' ? 'Primeros pasos enfocados' : 'Focused first steps'}</p>
                   <h3 id="plans-starter-title">{language === 'es' ? 'Packs iniciales' : 'Starter packs'}</h3>
                   <p>{language === 'es' ? 'Opciones de alcance fijo para cubrir primero las necesidades esenciales.' : 'Fixed-scope options that cover the essential needs first.'}</p>
                 </div>
@@ -2420,7 +2420,6 @@ export function PlansPage() {
                       <div className="plans-starter-content">
                         <div className="plans-starter-topline">
                           <span><Icon size={16} aria-hidden="true" />{starterPack.roomLabel}</span>
-                          <strong>{formatPlansCurrency(starterPack.packageUnitPrice, language)}</strong>
                         </div>
                         <h4>{starterPack.packageLabel}</h4>
                         <p>{starterPack.packageBenefit || starterPack.packageDescription}</p>
