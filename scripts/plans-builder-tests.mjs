@@ -93,13 +93,13 @@ assert.deepEqual(
 assert.ok(starterPacks.every((starterPack) => starterPack.outcomes.length > 0), 'Every Starter Pack must include catalogue outcomes.')
 assert.match(
   plansPage,
-  /'core-rails-pack': '\/images\/service-gallery\/01-grab-bars-and-support-points\.jpg'/,
-  'Support Rail Starter Pack should use a representative grab-bar card image.',
+  /'core-rails-pack': '\/images\/service-card-products\/living-room-seating-support\.png'/,
+  'Support Rail Starter Pack should use a representative living-room support card image.',
 )
 assert.match(
   catalogueVisuals,
-  /'starter-core-priority-rails': '\/images\/service-gallery\/01-grab-bars-and-support-points\.jpg'/,
-  'Essential Support Rails should use the representative grab-bar modal image.',
+  /'starter-core-priority-rails': '\/images\/service-card-products\/living-room-seating-support\.png'/,
+  'Essential Support Rails should use the representative living-room support modal image.',
 )
 
 {

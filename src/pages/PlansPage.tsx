@@ -826,7 +826,7 @@ const starterPackVisuals: Record<string, string> = {
   'bathroom-essentials-pack': '/images/service-card-products/vertical-shower-grab-bar.png',
   'night-movement-pack': '/images/service-card-products/underbed-lighting.webp',
   'kitchen-safety-starter-pack': '/images/service-card-products/kitchen-worktop-lighting.webp',
-  'core-rails-pack': '/images/service-gallery/01-grab-bars-and-support-points.jpg',
+  'core-rails-pack': '/images/service-card-products/living-room-seating-support.png',
   'entrance-basics-pack': '/images/service-card-products/entrance-safer-access.png',
 }
 

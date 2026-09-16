@@ -212,7 +212,7 @@ const catalogueGuideVisualImages = [
 ]
 
 const serviceCardVisuals: Record<string, ServiceCardVisualConfig> = {
-  'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: '/images/service-gallery/01-grab-bars-and-support-points.jpg' },
+  'bathroom-grab-bars': { kind: 'vertical-rail', tone: 'support', image: '/images/service-card-products/vertical-shower-grab-bar.png' },
   'bathroom-folding-shower-seat': { kind: 'shower-seat', tone: 'water', image: '/images/service-card-products/folding-shower-seat.png' },
   'bathroom-raised-toilet-seat': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
   'bathroom-toilet-support-rails': { kind: 'toilet-rails', tone: 'support', image: serviceCardProduct('toilet-rails') },
