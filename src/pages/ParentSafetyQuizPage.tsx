@@ -35,23 +35,23 @@ const questions: Array<{
     options: [
       { label: { en: 'Yes, a fall or medical change', es: 'Sí, caída o cambio médico' }, score: 3 },
       { label: { en: 'New pain, dizziness or hesitation', es: 'Dolor, mareos o dudas nuevas' }, score: 2 },
-      { label: { en: 'No recent change noticed', es: 'No hemos notado cambios' }, score: 0 },
+      { label: { en: 'No recent change noticed', es: 'No se han notado cambios' }, score: 0 },
     ],
   },
   {
     id: 'bathroom-confidence',
     title: {
-      en: 'In the bathroom, do they hold walls, furniture or towel rails for support?',
-      es: 'En el baño, ¿se apoya en paredes, muebles o toalleros para moverse?',
+      en: 'In the bathroom, is support needed from walls, furniture or towel rails?',
+      es: 'En el baño, ¿hace falta apoyarse en paredes, muebles o toalleros?',
     },
     hint: {
-      en: 'Check shower entry, toilet transfers, wet floors, bath mats and night-time toilet trips.',
+      en: 'Check shower entry, getting on and off the toilet, wet floors, bath mats and night-time toilet trips.',
       es: 'Revisa entrada a la ducha, sentarse y levantarse del inodoro, suelo mojado, alfombrillas e idas nocturnas.',
     },
     options: [
       { label: { en: 'Yes, most bathroom visits', es: 'Sí, casi siempre' }, score: 3 },
       { label: { en: 'Sometimes or only at night', es: 'A veces o solo de noche' }, score: 2 },
-      { label: { en: 'No, movement looks stable', es: 'No, se mueve estable' }, score: 0 },
+      { label: { en: 'No, movement is stable', es: 'No, el movimiento es estable' }, score: 0 },
     ],
   },
   {
@@ -62,7 +62,7 @@ const questions: Array<{
     },
     hint: {
       en: 'Look for rugs, cables, thresholds, furniture corners, shadows and whether a light is reachable before standing.',
-      es: 'Busca alfombras, cables, umbrales, esquinas de muebles, sombras y si puede encender una luz antes de levantarse.',
+      es: 'Busca alfombras, cables, umbrales, esquinas de muebles, sombras y si hay una luz al alcance antes de levantarse.',
     },
     options: [
       { label: { en: 'Yes, several hazards', es: 'Sí, varios riesgos' }, score: 3 },
@@ -73,24 +73,24 @@ const questions: Array<{
   {
     id: 'stairs-entry',
     title: {
-      en: 'At the entrance, stairs or thresholds, do they pause, pull up or need help?',
-      es: 'En la entrada, escaleras o umbrales, ¿se para, se impulsa o necesita ayuda?',
+      en: 'At entrances, stairs or thresholds, is there pausing, pulling up or need for help?',
+      es: 'En entradas, escaleras o umbrales, ¿hay pausas, impulsos o necesidad de ayuda?',
     },
     hint: {
       en: 'Watch for reaching for the wall, dragging feet, avoiding steps, carrying items awkwardly or struggling with the door.',
-      es: 'Observa si busca la pared, arrastra los pies, evita escalones, lleva cosas con dificultad o le cuesta la puerta.',
+      es: 'Observa si se busca la pared, se arrastran los pies, se evitan escalones, cuesta llevar cosas o abrir la puerta.',
     },
     options: [
       { label: { en: 'Yes, help is often needed', es: 'Sí, suele necesitar ayuda' }, score: 3 },
       { label: { en: 'Sometimes or when tired', es: 'A veces o si está cansado/a' }, score: 2 },
-      { label: { en: 'No, they manage safely', es: 'No, lo gestiona con seguridad' }, score: 0 },
+      { label: { en: 'No, it is manageable', es: 'No, es manejable' }, score: 0 },
     ],
   },
   {
     id: 'help-response',
     title: {
-      en: 'If they fell in the bedroom, bathroom or kitchen, could they call for help without standing?',
-      es: 'Si se cayera en dormitorio, baño o cocina, ¿podría pedir ayuda sin levantarse?',
+      en: 'After a fall in the bedroom, bathroom or kitchen, could help be called without standing?',
+      es: 'Tras una caída en dormitorio, baño o cocina, ¿se podría pedir ayuda sin levantarse?',
     },
     hint: {
       en: 'A phone, pendant, watch or voice assistant only helps if it is reachable from the floor in the rooms where falls are most likely.',
