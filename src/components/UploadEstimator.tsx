@@ -931,7 +931,6 @@ function ResultStep({
     return null
   }
 
-  const hasHighPriorityRisk = report.hazards.some((hazard) => hazard.severity === 'high')
   const risk = getEstimateRiskAssessment(report, i18n.language)
   const preventionStats = getPreventionStats(
     report,
@@ -955,11 +954,9 @@ function ResultStep({
           <Metric label={t('estimator.workflow.result.risksFound')} value={`${report.hazards.length}`} />
           <Metric
             label={t('estimator.workflow.result.preventionPriority')}
-            value={t(
-              hasHighPriorityRisk
-                ? 'estimator.workflow.result.priorityHigh'
-                : 'estimator.workflow.result.priorityMedium',
-            )}
+            value={t(`estimator.workflow.result.riskLevels.${risk.riskLevel}`, {
+              defaultValue: fallbackRiskLevelLabel(risk.riskLevel, i18n.language),
+            })}
             accent
             riskLevel={risk.riskLevel}
           />
@@ -1224,6 +1221,18 @@ function Metric({
       <strong>{value}</strong>
     </div>
   )
+}
+
+function fallbackRiskLevelLabel(riskLevel: EstimateRiskLevel, locale: string) {
+  const isSpanish = locale.startsWith('es')
+  const labels: Record<EstimateRiskLevel, [string, string]> = {
+    low: ['Low priority', 'Prioridad baja'],
+    moderate: ['Moderate priority', 'Prioridad media'],
+    elevated: ['Elevated priority', 'Prioridad elevada'],
+    high: ['High priority', 'Prioridad alta'],
+  }
+
+  return labels[riskLevel][isSpanish ? 1 : 0]
 }
 
 function getRiskToneClass(riskLevel: EstimateRiskLevel) {

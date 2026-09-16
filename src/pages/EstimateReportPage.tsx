@@ -108,11 +108,11 @@ export function EstimateReportPage() {
                   <div className={`is-accent ${risk ? getRiskToneClass(risk.riskLevel) : ''}`}>
                     <p>{t('estimator.workflow.result.preventionPriority')}</p>
                     <strong>
-                      {t(
-                        report.hazards.some((hazard) => hazard.severity === 'high')
-                          ? 'estimator.workflow.result.priorityHigh'
-                          : 'estimator.workflow.result.priorityMedium',
-                      )}
+                      {risk
+                        ? t(`estimator.workflow.result.riskLevels.${risk.riskLevel}`, {
+                            defaultValue: fallbackRiskLevelLabel(risk.riskLevel, i18n.language),
+                          })
+                        : fallbackRiskLevelLabel('moderate', i18n.language)}
                     </strong>
                   </div>
                 </div>
@@ -171,6 +171,18 @@ function getRiskToneClass(riskLevel: EstimateRiskLevel) {
   if (riskLevel === 'elevated') return 'is-elevated'
   if (riskLevel === 'moderate') return 'is-moderate'
   return 'is-low'
+}
+
+function fallbackRiskLevelLabel(riskLevel: EstimateRiskLevel, locale: string) {
+  const isSpanish = locale.startsWith('es')
+  const labels: Record<EstimateRiskLevel, [string, string]> = {
+    low: ['Low priority', 'Prioridad baja'],
+    moderate: ['Moderate priority', 'Prioridad media'],
+    elevated: ['Elevated priority', 'Prioridad elevada'],
+    high: ['High priority', 'Prioridad alta'],
+  }
+
+  return labels[riskLevel][isSpanish ? 1 : 0]
 }
 
 function getPreventionStats(report: EstimateReport, translatedStats: unknown) {
