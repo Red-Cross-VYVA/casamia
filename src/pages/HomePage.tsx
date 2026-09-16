@@ -66,7 +66,7 @@ const audiences: SelectableCard<AudienceId>[] = [
   {
     id: 'myself',
     title: 'Myself',
-    body: 'I want to know which routes, rooms or routines to fix first.',
+    body: 'I want to know which room, daily path or routine to fix first.',
     icon: Home,
     visual: {
       src: '/images/before-after/living-after-home.webp',
@@ -188,7 +188,7 @@ const supportJourney: SupportJourneyStep[] = [
     title: 'Choose your starting point',
     body: 'Use a package, photo review or home visit depending on whether the risk is already clear or still needs checking.',
     icon: CalendarCheck,
-    points: ['Package route', 'Photo or home review', 'Fit confirmed first'],
+    points: ['Starter package', 'Photo or home review', 'Fit confirmed first'],
     visual: {
       src: '/images/assessment/casamia-inspector-tablet.jpg',
       alt: 'CasaMia technician reviewing a home safety inspection on a tablet',
@@ -210,9 +210,9 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'grants',
     eyebrow: 'Step 3',
     title: 'Claim available grant support',
-    body: 'When a public grant route may fit, CasaMia prepares the project information and flags what the authority must decide.',
+    body: 'When public grant criteria may fit, CasaMia prepares the project information and flags what the authority must decide.',
     icon: HeartHandshake,
-    points: ['Route check', 'Document support', 'No false promises'],
+    points: ['Grant criteria check', 'Document support', 'No false promises'],
     visual: {
       src: '/images/blog/grants-readiness.webp',
       alt: 'Grant support documents prepared for a home safety application',
@@ -531,7 +531,7 @@ export function HomePage() {
               <p className="home-redesign-kicker">How CasaMia works</p>
               <h2>A safer home, handled step by step.</h2>
               <p>
-                Choose the route that matches the home. CasaMia turns it into priorities, confirmed scope, grant-route checks and coordinated installation.
+                Choose the starting point that matches the home. CasaMia turns it into priorities, confirmed scope, grant checks and coordinated installation.
               </p>
             </div>
             <div className="home-journey-grid" aria-label="CasaMia end-to-end service steps">
@@ -856,7 +856,7 @@ export function HomePage() {
             <p className="home-redesign-kicker">For organisations</p>
             <h2>We also help care organisations.</h2>
             <p>
-              One pilot route for voice assistants, smart-room technology, fall detection, connected health,
+              One focused pilot for voice assistants, smart-room technology, fall detection, connected health,
               staff dashboards, approved-contact updates, emergency alerts and integrations.
             </p>
             <strong className="home-organisation-quote">Custom quotation</strong>

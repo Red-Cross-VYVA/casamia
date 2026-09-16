@@ -170,7 +170,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     heroOutcomeEyebrow: 'What you receive',
     heroOutcomeText: 'Room priorities, recommended actions, quoted scope and CasaMia coordination.',
     channelsTitle: 'Choose a channel',
-    channelsBody: 'Every route reaches the same CasaMia team.',
+    channelsBody: 'Every option reaches the same CasaMia team.',
     humanAlt: 'Older woman smiling while using her smartphone at home',
     channels: [
       { key: 'online', title: 'Online', body: 'Guided room questions' },
@@ -204,7 +204,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     heroOutcomeEyebrow: 'Qu\u00e9 recibes',
     heroOutcomeText: 'Prioridades por estancia, acciones recomendadas, alcance presupuestado y coordinación CasaMia.',
     channelsTitle: 'Elige tu canal',
-    channelsBody: 'Todas las v\u00edas llegan al mismo equipo CasaMia.',
+    channelsBody: 'Todas las opciones llegan al mismo equipo CasaMia.',
     humanAlt: 'Mujer mayor sonriendo mientras usa su tel\u00e9fono m\u00f3vil en casa',
     channels: [
       { key: 'online', title: 'Online', body: 'Preguntas guiadas por estancia' },
@@ -277,7 +277,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
           {
             title: 'Self-inspection',
             body: 'Photos + measurements.',
-            note: 'Fastest route',
+            note: 'Fastest option',
             cta: 'Upload photos',
             to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
           },

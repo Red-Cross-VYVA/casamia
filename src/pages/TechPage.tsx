@@ -111,7 +111,7 @@ const techCopy = {
       secondaryCta: 'Explore the service',
       proof: ['Keep your current system', 'Connect compatible devices', 'CasaMia platform available'],
       visualEyebrow: 'One connected service',
-      visualTitle: 'From device to the right person',
+      visualTitle: 'From device signal to the person who can act',
       visualSummary: 'Health and home-safety devices connect through an integration and setup layer to your existing system or the CasaMia platform.',
       sources: ['Health devices', 'Home safety', 'Daily routines'],
       hub: 'Integration & setup',
@@ -190,7 +190,7 @@ const techCopy = {
       ],
       compatibilityTitle: 'Compatibility comes first',
       compatibilityBody:
-        'Not every device exposes a safe or supported connection. We confirm technical and contractual compatibility before promising an integration. If a direct connection is not possible, we recommend a compatible device or another response route.',
+        'Not every device exposes a safe or supported connection. We confirm technical and contractual compatibility before promising an integration. If a direct connection is not possible, we recommend a compatible device or another response option.',
     },
     integration: {
       eyebrow: 'Integration architecture',
@@ -277,7 +277,7 @@ const techCopy = {
       eyebrow: 'Use your platform—or ours',
       title: 'Keep your current system, or let CasaMia provide the digital layer.',
       body:
-        'The setup changes with your starting point. The aim stays the same: simple daily use for the person at home and permission-based information for the people supporting them.',
+        'The setup changes with your starting point. The aim stays the same: easy daily use for the person at home and permission-based information for the people supporting them.',
       yourSystem: {
         kicker: 'Connect to what you have',
         visualLabel: 'API / webhook',
@@ -394,7 +394,7 @@ const techCopy = {
       secondaryCta: 'Explorar el servicio',
       proof: ['Conserva tu sistema actual', 'Conecta dispositivos compatibles', 'Plataforma CasaMia disponible'],
       visualEyebrow: 'Un único servicio conectado',
-      visualTitle: 'Del dispositivo a la persona adecuada',
+      visualTitle: 'De la señal del dispositivo a la persona que puede actuar',
       visualSummary: 'Los dispositivos de salud y seguridad se conectan mediante una capa de integración y configuración con tu sistema actual o con la plataforma CasaMia.',
       sources: ['Dispositivos de salud', 'Seguridad del hogar', 'Rutinas diarias'],
       hub: 'Integración y configuración',
@@ -473,7 +473,7 @@ const techCopy = {
       ],
       compatibilityTitle: 'La compatibilidad es lo primero',
       compatibilityBody:
-        'No todos los dispositivos permiten una conexión segura o compatible. Confirmamos la viabilidad técnica y contractual antes de prometer una integración. Si no es posible una conexión directa, proponemos un dispositivo compatible u otra ruta de respuesta.',
+        'No todos los dispositivos permiten una conexión segura o compatible. Confirmamos la viabilidad técnica y contractual antes de prometer una integración. Si no es posible una conexión directa, proponemos un dispositivo compatible u otra opción de respuesta.',
     },
     integration: {
       eyebrow: 'Arquitectura de integración',
@@ -654,7 +654,7 @@ const techCopy = {
     },
     final: {
       eyebrow: 'Empieza por tu situación real',
-      title: 'Cuéntanos qué tienes. Mapearemos la ruta de conexión.',
+      title: 'Cuéntanos qué tienes. Definiremos la conexión adecuada.',
       body:
         'Puedes traer una lista de dispositivos, un sistema existente o el resultado que necesitas. CasaMia revisará el punto de partida, la compatibilidad, los destinatarios de alertas y las reglas de respuesta.',
       primaryCta: 'Hablar de mi integración',
