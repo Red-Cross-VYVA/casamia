@@ -61,7 +61,7 @@ const copy = {
       {
         question: 'Can CasaMia use my answers later?',
         answer:
-          'Yes, when you choose to share them. The aim is to avoid repeating the same story and turn your answers into clearer priorities.',
+          'Yes, when you choose to share them. The aim is to avoid repeating the same story and turn your answers into room priorities, scope notes and visit preparation.',
       },
     ],
   },
@@ -108,7 +108,7 @@ const copy = {
       {
         question: '¿Puede CasaMia usar mis respuestas después?',
         answer:
-          'Sí, cuando decidas compartirlas. La idea es no repetir la misma historia y convertir tus respuestas en prioridades más claras.',
+          'Sí, cuando decidas compartirlas. La idea es no repetir la misma historia y convertir tus respuestas en prioridades por estancia, notas de alcance y preparación de visita.',
       },
     ],
   },
@@ -146,8 +146,8 @@ const tools = [
     icon: Camera,
     title: { en: 'Photo safety report', es: 'Informe con fotos' },
     body: {
-      en: 'Upload a few photos to turn visible issues into clearer first actions.',
-      es: 'Sube algunas fotos para convertir problemas visibles en primeras acciones más claras.',
+      en: 'Upload a few photos to identify visible issues and the first action to consider.',
+      es: 'Sube algunas fotos para identificar problemas visibles y la primera acción a considerar.',
     },
     to: '/#estimate-upload',
   },
@@ -166,7 +166,7 @@ const chooserRoutes = [
     icon: Camera,
     title: { en: 'You can show the room', es: 'Puedes mostrar la estancia' },
     body: {
-      en: 'Use photos when a visible problem needs a clearer first action before a proposal.',
+      en: 'Use photos when a visible problem needs an initial action before a proposal.',
       es: 'Usa fotos cuando un problema visible necesita una primera acción clara antes de pedir propuesta.',
     },
   },
@@ -191,7 +191,7 @@ const chooserRoutes = [
 const nextToolSteps = [
   {
     icon: ClipboardCheck,
-    title: { en: 'A clearer starting point', es: 'Un punto de partida claro' },
+    title: { en: 'The next route to take', es: 'La siguiente ruta a seguir' },
     body: {
       en: 'Know whether the next step is a checklist, room review, grant check or visit.',
       es: 'Saber si toca lista, revisión por estancia, ayudas o visita.',

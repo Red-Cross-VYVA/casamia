@@ -274,12 +274,12 @@ type ServiceDetailContent = {
 }
 
 const defaultServiceDetailContent: ServiceDetailContent = {
-  benefitsTitle: 'Make the space easier to use every day.',
+  benefitsTitle: 'Reduce the room risks that interrupt daily routines.',
   benefitsIntro:
     'CasaMia focuses on the moments that make a room harder to use: reaching, turning, standing, poor light, wet floors or not having support in the right place.',
   benefits: [
     {
-      title: 'Less daily hesitation',
+      title: 'Fewer unsupported movements',
       body: 'Reduce the small moments where someone pauses, reaches, twists, or feels unsure about moving through the room.',
     },
     {
@@ -310,12 +310,12 @@ const defaultServiceDetailContent: ServiceDetailContent = {
 }
 
 const defaultServiceDetailContentEs: ServiceDetailContent = {
-  benefitsTitle: 'Haz que el espacio sea más fácil de usar cada día.',
+  benefitsTitle: 'Reduce los riesgos de la estancia que interrumpen la rutina diaria.',
   benefitsIntro:
     'CasaMia se centra en los momentos que hacen difícil usar una estancia: alcanzar, girar, levantarse, poca luz, suelo mojado o falta de apoyo en el lugar correcto.',
   benefits: [
     {
-      title: 'Menos dudas diarias',
+      title: 'Menos movimientos sin apoyo',
       body: 'Reduce los momentos en los que alguien se detiene, se estira, gira o no se siente seguro al moverse.',
     },
     {
@@ -363,7 +363,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
   },
   'stair-safety': {
     ...defaultServiceDetailContentEs,
-    benefitsTitle: 'Haz que cada escalón sea más visible y más fiable.',
+    benefitsTitle: 'Haz que cada borde de escalón y punto de apoyo se identifique mejor.',
     benefitsIntro:
       'La seguridad en escaleras depende de apoyo continuo, bordes visibles, iluminación predecible y reducir prisas o cargas innecesarias.',
     benefits: [
@@ -384,16 +384,16 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefits: [
       { title: 'Acceso diario más fácil', body: 'Reduce umbrales incómodos, escalones y momentos sin apoyo al entrar o salir.' },
       { title: 'Rutinas de visita más seguras', body: 'Facilita abrir la puerta, recibir entregas o hablar con visitas sin correr.' },
-      { title: 'Más confianza fuera de casa', body: 'El primer y último tramo de cada salida se vuelve más predecible.' },
+      { title: 'Salida y llegada más predecibles', body: 'El primer y último tramo de cada salida se vuelve más predecible.' },
     ],
     includedTitle: 'Qué puede incluir un plan de entrada.',
     includedIntro: 'CasaMia revisa la entrada como una ruta completa, desde la luz exterior hasta el primer punto seguro dentro.',
     included: ['Umbrales, escalones y opciones de rampa', 'Iluminación exterior y de puerta', 'Pasamanos y puntos de apoyo', 'Rutina de llaves, visitas y acceso', 'Timbre o control de acceso cuando ayuda'],
-    finalTitle: 'Haz que la entrada sea más fácil de cruzar cada día.',
+    finalTitle: 'Reduce el riesgo de entrada antes de que limite las salidas diarias.',
   },
   'kitchen-safety': {
     ...defaultServiceDetailContentEs,
-    benefitsTitle: 'Haz la cocina más segura, fácil y menos cansada.',
+    benefitsTitle: 'Reduce riesgos de alcance, resbalón y electrodomésticos en la cocina.',
     benefitsIntro:
       'CasaMia revisa cómo se usa la cocina y recomienda solo las mejoras que reducen riesgo o esfuerzo diario.',
     benefits: [
@@ -404,11 +404,11 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     includedTitle: 'Crea tu plan de cocina desde servicios individuales.',
     includedIntro: 'Selecciona mejoras útiles, revisa una estimación y decide si subir fotos o reservar una visita.',
     included: ['Zonas antideslizantes de preparación', 'Utensilios de agarre fácil y menaje ligero', 'Iluminación de encimera, voz y temporizadores', 'Enchufes inteligentes, sensores de fuga, gas o CO', 'Estante abatible, apagado automático o grifo sin contacto cuando encaje'],
-    finalTitle: 'Mantén la cocina posible, segura y tranquila.',
+    finalTitle: 'Mantén la cocina utilizable con menos riesgo diario.',
   },
   'bedroom-safety': {
     ...defaultServiceDetailContentEs,
-    benefitsTitle: 'Haz que las noches sean más tranquilas y seguras.',
+    benefitsTitle: 'Reduce el riesgo de movimiento nocturno entre cama y baño.',
     benefitsIntro:
       'Muchas situaciones de riesgo ocurren con sueño, poca luz o prisa por llegar al baño. CasaMia diseña el dormitorio alrededor de cama, ruta nocturna y ayuda al alcance.',
     benefits: [
@@ -423,7 +423,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
   },
   'smart-home-safety': {
     ...defaultServiceDetailContentEs,
-    benefitsTitle: 'Usa tecnología solo donde haga la vida más segura.',
+    benefitsTitle: 'Usa tecnología solo donde reduzca un riesgo concreto.',
     benefitsIntro:
       'La seguridad conectada no debe convertirse en un proyecto complicado. CasaMia se centra en alertas claras, iluminación, respuesta de emergencia y contactos autorizados.',
     benefits: [
@@ -467,16 +467,16 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Lighting, reach, and clutter review',
       'Optional shower seat, raised toilet or access changes when they improve daily use',
     ],
-    reassuranceTitle: 'Better support without making the bathroom feel institutional.',
+    reassuranceTitle: 'Support where bathing and toilet transfers actually happen.',
     reassuranceBody:
-      'We recommend discreet, practical changes that fit the room and the person using it, then explain what is urgent and what can wait.',
+      'We recommend discreet changes that fit the room and the person using it, then explain what is urgent and what can wait.',
     reassurancePoints: ['Focus on wet-room fall risk', 'Recommendations matched to mobility', 'Installation guidance before buying products'],
     finalTitle: 'Make the bathroom safer before the next near miss.',
     finalBody:
       'Book a visit and we will review transfers, surfaces, support points, and practical improvements room by room.',
   },
   'stair-safety': {
-    benefitsTitle: 'Make every step easier to read and easier to trust.',
+    benefitsTitle: 'Make every stair edge and support point easier to identify.',
     benefitsIntro:
       'Stair safety depends on continuous support, visible edges, predictable lighting, and reducing the need to rush or carry too much.',
     benefits: [
@@ -512,9 +512,9 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Book a visit and we will review rails, lighting, contrast, and the full route used every day.',
   },
   'entrance-accessibility': {
-    benefitsTitle: 'Make arriving and leaving the home calmer.',
+    benefitsTitle: 'Reduce risk at the doorway used every day.',
     benefitsIntro:
-      'Entrance safety shapes independence. We check the path from outside to inside, including steps, thresholds, lighting, support, visitors, and access routines.',
+      'Entrance safety starts at the path from outside to inside: steps, thresholds, lighting, hand support, visitors and access routines.',
     benefits: [
       {
         title: 'Easier daily access',
@@ -522,11 +522,11 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Safer visitor routines',
-        body: 'Make it easier to open the door, receive deliveries, or speak with visitors without rushing.',
+        body: 'Reduce rushing when opening the door, receiving deliveries or speaking with visitors.',
       },
       {
         title: 'A steadier first and last step',
-        body: 'Support independence by making the first and last part of every outing more predictable.',
+        body: 'Make the first and last part of every outing more predictable.',
       },
     ],
     includedTitle: 'What an entrance safety plan can include.',
@@ -543,12 +543,12 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassuranceBody:
       'We focus on access improvements that fit the home, the person using it and the everyday arrival routine.',
     reassurancePoints: ['Safer thresholds', 'Better doorway support', 'Clearer access routines'],
-    finalTitle: 'Make the entrance easier to cross every day.',
+    finalTitle: 'Reduce entrance risk before it limits daily outings.',
     finalBody:
       'Book a visit and we will review thresholds, lighting, support, and access options together.',
   },
   'kitchen-safety': {
-    benefitsTitle: 'Make the kitchen safer, easier and less tiring.',
+    benefitsTitle: 'Reduce kitchen reach, slip and appliance risks.',
     benefitsIntro:
       'We review how the kitchen is used, then recommend only the improvements that reduce daily risk or effort.',
     benefits: [
@@ -584,7 +584,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Book a visit and we will review reach, lighting, appliances, water risk, and the kitchen plan that fits the home.',
   },
   'bedroom-safety': {
-    benefitsTitle: 'Make nights calmer, safer, and easier to manage.',
+    benefitsTitle: 'Reduce night-time movement risk from bed to bathroom.',
     benefitsIntro:
       'Bedroom safety matters because many risky moments happen when someone is tired, moving in low light, or trying to reach the bathroom quickly. The room is planned around safer bed access, clearer night routes, and help within reach.',
     benefits: [
@@ -625,9 +625,9 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Book a visit and we will review bed access, lighting, floor clearance, and emergency reach points.',
   },
   'smart-home-safety': {
-    benefitsTitle: 'Use technology only where it makes daily life safer.',
+    benefitsTitle: 'Use technology only where it reduces a named risk.',
     benefitsIntro:
-      'Smart safety should not feel like a complicated smart-home project. We focus on alerts, lighting and emergency support that are easy to explain, consented to and useful in the daily routine.',
+      'Smart safety should not feel like a complicated smart-home project. We focus on alerts, lighting and emergency support that are agreed, easy to explain and useful in the daily routine.',
     benefits: [
       {
         title: 'Earlier awareness',

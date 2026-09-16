@@ -21,9 +21,9 @@ type CategoryKey = 'access' | 'bathroom' | 'dailyLiving' | 'homecare' | 'mobilit
 const copyByLanguage: Record<SupportedLanguage, MarqueeCopy> = {
   en: {
     eyebrow: 'Accessible home products',
-    title: 'Designed for safer, easier living.',
+    title: 'Products to compare after the room risk is known.',
     description:
-      'Examples of manufacturers developing accessible home solutions across Spain and Europe.',
+      'Examples of manufacturers developing accessible home products across Spain and Europe.',
     pause: 'Pause brand carousel',
     play: 'Play brand carousel',
     note: 'Industry examples only. Inclusion does not imply a partnership or endorsement. Product suitability and availability vary.',

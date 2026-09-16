@@ -24,7 +24,7 @@ export function Plans({ standalone = false }: PlansProps) {
             Build a safer home, <span className="italic-accent">one clear improvement at a time.</span>
           </h2>
           <p className="mt-4 text-xl text-text-mid">
-            Choose the rooms that matter, answer simple questions and see which services fit the home.
+            Choose the rooms that need review, answer focused questions and see which services match the risks found.
           </p>
         </div>
 
@@ -37,7 +37,7 @@ export function Plans({ standalone = false }: PlansProps) {
             <p className="text-sm font-extrabold uppercase text-white/70">Recommended improvements</p>
             <p className="mt-3 font-display text-5xl font-black leading-none">Clear first</p>
             <p className="mt-4 text-white/80">
-              A practical route from home risks to selected services, estimate, quote and coordinated installation.
+              A route from identified home risks to selected services, estimate, quote and coordinated installation.
             </p>
 
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">
