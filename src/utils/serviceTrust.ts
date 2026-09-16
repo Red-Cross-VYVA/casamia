@@ -110,9 +110,9 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
 
 export function getServicePreviewDescription(service: CasaMiaService) {
   const description = [
-    service.customerBenefit,
-    service.outcome,
     service.shortDescription,
+    service.outcome,
+    service.customerBenefit,
     service.plainLanguageSummary,
     service.customerDescription,
   ]
@@ -125,7 +125,7 @@ export function getServicePreviewDescription(service: CasaMiaService) {
     .replace(/\s+(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar)\b.*$/i, '')
     .replace(/\s+(?:we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag|CasaMia confirms|Confirmamos)\b.*$/i, '')
     .split(/\s+/)
-    .slice(0, 18)
+    .slice(0, 14)
     .join(' ')
     .trim()
 

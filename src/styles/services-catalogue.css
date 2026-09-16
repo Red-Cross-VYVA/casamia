@@ -1134,10 +1134,9 @@
 
 .services-catalogue-service {
   position: relative;
-  display: grid;
+  display: flex;
   min-width: 0;
-  align-content: start;
-  grid-template-rows: auto auto minmax(2.6rem, auto) 1fr auto;
+  flex-direction: column;
   border: 1px solid #d1e2eb;
   border-radius: 0.7rem;
   background: #fff;
@@ -1346,14 +1345,15 @@
 .services-catalogue-service-description {
   display: -webkit-box;
   overflow: hidden;
-  max-height: 4.05rem;
+  min-height: 2.55rem;
+  max-height: 2.55rem;
   margin: 0.72rem 0 0;
   color: #536879;
   font-size: 0.9rem;
   line-height: 1.45;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .services-catalogue-proof-chips {
@@ -1392,7 +1392,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin: 0.85rem 0 0;
+  margin: 0.75rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -1463,7 +1463,9 @@
 .services-catalogue-service-actions {
   display: flex;
   align-self: end;
-  margin-top: 1.05rem;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 1.05rem;
 }
 
 .services-catalogue-service-actions .catalogue-item-detail-button {
