@@ -119,10 +119,17 @@ export function getServicePreviewDescription(service: CasaMiaService) {
     .map((value) => compactPreviewDescription(polishServiceDescription(value?.trim() ?? '')))
     .find((value) => value.length > 0) ?? ''
 
-  return description
+  const preview = description
     .replace(/\s+/g, ' ')
     .replace(/\.$/, '')
-    .concat('.')
+    .replace(/\s+(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar)\b.*$/i, '')
+    .replace(/\s+(?:we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag|CasaMia confirms|Confirmamos)\b.*$/i, '')
+    .split(/\s+/)
+    .slice(0, 18)
+    .join(' ')
+    .trim()
+
+  return preview ? preview.replace(/\.$/, '').concat('.') : ''
 }
 
 function polishServiceDescription(description: string) {

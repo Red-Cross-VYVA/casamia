@@ -7994,6 +7994,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .zone-service-gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: stretch;
   gap: 18px;
   margin-top: 22px;
 }
@@ -8059,6 +8060,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .zone-service-gallery-card-copy p {
   display: -webkit-box;
   overflow: hidden;
+  min-height: 2.84rem;
   max-height: 2.84rem;
   margin-top: 9px;
   color: var(--text-mid);
@@ -8307,7 +8309,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .service-kitchen-component-grid.is-itemised article {
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto;
   gap: 0;
   padding: 0;
 }
@@ -8465,6 +8467,9 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .service-kitchen-component-copy {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
   padding: 16px 18px 0;
 }
 
@@ -8484,6 +8489,11 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   display: grid;
   gap: 10px;
   margin: 14px 18px 18px;
+}
+
+.service-kitchen-component-grid.is-itemised .service-kitchen-component-actions {
+  margin-top: auto;
+  padding: 16px 18px 18px;
 }
 
 .service-kitchen-component-benefit {

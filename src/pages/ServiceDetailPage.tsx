@@ -27,7 +27,7 @@ import { getMasterServiceCatalogue } from '../services/masterServiceCatalogue'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServicePackageArea, ServiceRoom } from '../types/serviceCatalogue'
-import { getServicePreviewDescription, getServiceProofChips } from '../utils/serviceTrust'
+import { getServicePreviewDescription } from '../utils/serviceTrust'
 import '../styles/home-hero-ctas.css'
 import '../styles/services-catalogue.css'
 
@@ -717,34 +717,23 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
   return (
     <>
       <div className="service-kitchen-component-grid is-itemised">
-        {services.map((item) => {
-          const proofChips = getServiceProofChips(item, language)
-
-          return (
-            <article key={item.id}>
-              <div className="service-kitchen-component-copy">
-                <div className="service-kitchen-component-topline">
-                  <span>{item.category}</span>
-                </div>
-                <h3>{item.name}</h3>
-                <p>{getServicePreviewDescription(item)}</p>
+        {services.map((item) => (
+          <article key={item.id}>
+            <div className="service-kitchen-component-copy">
+              <div className="service-kitchen-component-topline">
+                <span>{item.category}</span>
               </div>
-              {proofChips.length ? (
-                <div className="service-kitchen-component-details">
-                  <div className="services-catalogue-proof-chips" aria-label={language.toLowerCase().startsWith('es') ? 'Señales de confianza' : 'Trust signals'}>
-                    {proofChips.map((chip) => <span key={chip}>{chip}</span>)}
-                  </div>
-                </div>
-              ) : null}
-              <div className="service-kitchen-component-actions">
-                <button className="catalogue-item-detail-button" type="button" onClick={() => setActiveService(item)}>
-                  {viewDetailsLabel}
-                  <ArrowRight size={15} aria-hidden="true" />
-                </button>
-              </div>
-            </article>
-          )
-        })}
+              <h3>{item.name}</h3>
+              <p>{getServicePreviewDescription(item)}</p>
+            </div>
+            <div className="service-kitchen-component-actions">
+              <button className="catalogue-item-detail-button" type="button" onClick={() => setActiveService(item)}>
+                {viewDetailsLabel}
+                <ArrowRight size={15} aria-hidden="true" />
+              </button>
+            </div>
+          </article>
+        ))}
       </div>
       <ServiceItemDetailModal
         language={language}
