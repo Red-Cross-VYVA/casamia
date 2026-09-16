@@ -117,7 +117,7 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'bathroom',
     title: 'Bathroom',
-    body: 'The highest priority room for many families.',
+    body: 'Often the first room to make safer.',
     icon: Bath,
     position: 'home-hotspot-bathroom',
     improvements: ['Grab bars', 'Raised toilet seat', 'Handheld shower', 'Anti-slip protection'],
@@ -186,9 +186,9 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'assessment',
     eyebrow: 'Step 1',
     title: 'Choose your starting point',
-    body: 'Pick one of our ready-made safety packages, or request a physical inspection so a CasaMia technician can recommend the best solution for the home.',
+    body: 'Start with a package, photo review or home visit depending on how clear the risk already is.',
     icon: CalendarCheck,
-    points: ['Ready-made packages', 'Optional home inspection', 'Technician guidance'],
+    points: ['Package route', 'Photo or home review', 'Fit confirmed first'],
     visual: {
       src: '/images/assessment/casamia-inspector-tablet.jpg',
       alt: 'CasaMia technician reviewing a home safety inspection on a tablet',
@@ -198,9 +198,9 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'proposal',
     eyebrow: 'Step 2',
     title: 'Review your proposal',
-    body: 'We share a clear proposal with practical home improvement suggestions, priorities and pricing, so you know exactly what will make the home safer.',
+    body: 'You see what is included, what is optional, what still needs measurement and what it may cost.',
     icon: ClipboardCheck,
-    points: ['Room-by-room suggestions', 'Clear priorities', 'Transparent pricing'],
+    points: ['Included scope', 'Clear priorities', 'Transparent pricing'],
     visual: {
       src: '/images/solutions/casamia-staff-kitchen-consultation.webp',
       alt: 'CasaMia advisor discussing safety improvements in a kitchen',
@@ -210,9 +210,9 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'grants',
     eyebrow: 'Step 3',
     title: 'Claim available grant support',
-    body: 'Our team helps prepare the grant application and documents for eligible works, so public financial support can help fund the improvements where available.',
+    body: 'When a public grant route may apply, CasaMia helps prepare the project information and documents.',
     icon: HeartHandshake,
-    points: ['Eligibility check', 'Document support', 'Application guidance'],
+    points: ['Route check', 'Document support', 'No false promises'],
     visual: {
       src: '/images/blog/grants-readiness.webp',
       alt: 'Grant support documents prepared for a home safety application',
@@ -222,9 +222,9 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'installation',
     eyebrow: 'Step 4',
     title: 'Install and stay supported',
-    body: 'CasaMia coordinates installation, checks everything is working properly and remains your contact for questions, adjustments and ongoing support.',
+    body: 'CasaMia coordinates the work, checks the result and remains your contact for questions or adjustments.',
     icon: Wrench,
-    points: ['Professional installation', 'Handover check', 'Aftercare support'],
+    points: ['Professional installation', 'Safe-use explanation', 'Aftercare contact'],
     visual: {
       src: '/images/solutions/casamia-worker-process.webp',
       alt: 'CasaMia installer preparing home safety equipment',
@@ -235,7 +235,7 @@ const supportJourney: SupportJourneyStep[] = [
 const solutionCategories = [
   {
     title: 'Voice & Independence',
-    body: 'Voice control, reminders, family calls, music and simple daily support.',
+    body: 'Voice control, reminders, calls, music and simple daily routines.',
     price: 'From EUR 199 installed',
     cta: 'Explore Voice Solutions',
     to: '/tech',
@@ -244,7 +244,7 @@ const solutionCategories = [
   },
   {
     title: 'Connected Health',
-    body: 'Vitals monitoring, health routines and sharing with approved family or care teams.',
+    body: 'Vitals routines and selected sharing with approved contacts or care teams.',
     price: 'From EUR 99 installed',
     cta: 'Explore Connected Health',
     to: '/tech',
@@ -362,7 +362,7 @@ export function HomePage() {
     <>
       <SEO
         title="CasaMia | Safer Homes for Independent Living"
-        description="CasaMia helps seniors and families create safer, smarter and more accessible homes through professional assessments, installation and personalised home-safety solutions."
+        description="CasaMia helps make homes safer and easier to use with practical assessments, clear proposals, installation coordination and aftercare."
         path="/"
         schema={{
           '@context': 'https://schema.org',
@@ -384,8 +384,7 @@ export function HomePage() {
               <span>Home</span>
             </h1>
             <p>
-              Thoughtful solutions that help you or someone you love live independently, with greater
-              comfort, confidence and peace of mind.
+              Practical changes that make daily movement safer, clearer and easier without turning the home into a clinic.
             </p>
             <div className="home-redesign-actions">
               <Link
@@ -422,8 +421,8 @@ export function HomePage() {
               imgClassName="h-full w-full object-cover"
               loading="eager"
             />
-            <div className="home-redesign-rating-card" aria-label="Trusted by families, 4.9 out of 5">
-              <strong>Trusted by families</strong>
+            <div className="home-redesign-rating-card" aria-label="Trusted CasaMia service, 4.9 out of 5">
+              <strong>Trusted service</strong>
               <span>{'\u2605'.repeat(5)}</span>
               <b>4.9/5</b>
             </div>
@@ -532,8 +531,7 @@ export function HomePage() {
               <p className="home-redesign-kicker">How CasaMia works</p>
               <h2>A safer home, handled step by step.</h2>
               <p>
-                Choose the route that suits your family. We turn the right package or inspection
-                into a clear proposal, grant support and professional installation.
+                Choose the route that matches the home. CasaMia turns the package or inspection into a clear proposal, grant route check and coordinated installation.
               </p>
             </div>
             <div className="home-journey-grid" aria-label="CasaMia end-to-end service steps">

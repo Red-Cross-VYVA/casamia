@@ -110,12 +110,12 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
 
 export function getServicePreviewDescription(service: CasaMiaService) {
   const description = (
-    service.plainLanguageSummary
+    service.shortDescription
+    ?? service.plainLanguageSummary
     ?? service.customerDescription
-    ?? service.shortDescription
   ).trim()
 
-  return polishServiceDescription(description)
+  return compactPreviewDescription(polishServiceDescription(description))
     .replace(/\s+/g, ' ')
     .replace(/\.$/, '')
     .concat('.')
@@ -128,6 +128,23 @@ function polishServiceDescription(description: string) {
     .replace(/^Installing\b/, 'Installs')
     .replace(/^Configuring\b/, 'Configures')
     .replace(/^Replacing\b/, 'Replaces')
+}
+
+function compactPreviewDescription(description: string) {
+  const withoutOperationalProof = description
+    .replace(/\s+(Before fitting|Before recommending it|Antes de recomendarlo|Antes de instalar)[^.]*\./gi, '')
+    .replace(/\s+(CasaMia confirms|Confirmamos)[^.]*\./gi, '')
+    .trim()
+
+  const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)
+  const summary = (sentences?.slice(0, 2).join(' ') ?? withoutOperationalProof).trim()
+
+  if (summary.length <= 145) return summary
+
+  const clipped = summary.slice(0, 142)
+  const lastSpace = clipped.lastIndexOf(' ')
+
+  return `${clipped.slice(0, lastSpace > 90 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {

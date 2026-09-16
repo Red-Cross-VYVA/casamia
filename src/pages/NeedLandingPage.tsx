@@ -46,10 +46,10 @@ export function NeedLandingPage() {
     checkFirst: isSpanish ? 'Qué revisar primero' : 'What to check first',
     handlesIt: isSpanish ? 'Cómo lo gestiona CasaMia' : 'How CasaMia handles it',
     evidenceEyebrow: isSpanish ? 'Lo que ayuda a decidir' : 'What helps us decide',
-    evidenceTitle: isSpanish ? 'Tres detalles hacen el plan más claro.' : 'Three details make the plan clearer.',
+    evidenceTitle: isSpanish ? 'Tres detalles ayudan a decidir mejor.' : 'Three details help decide the right next step.',
     evidenceBody: isSpanish
-      ? 'No necesitas preparar un informe perfecto. CasaMia solo necesita entender la rutina, el espacio y lo que ha cambiado para orientar mejor el siguiente paso.'
-      : 'You do not need to prepare a perfect brief. CasaMia just needs to understand the routine, the space and what has changed so the next step is easier to recommend.',
+      ? 'No necesitas preparar un informe perfecto. Con rutina, espacio y cambios recientes podemos orientar el siguiente paso con más precisión.'
+      : 'You do not need to prepare a perfect brief. The routine, the space and recent changes are enough to point the next step in the right direction.',
     evidenceItems: isSpanish
       ? [
           {
@@ -79,8 +79,8 @@ export function NeedLandingPage() {
             body: 'A recent fall, hospital discharge, less strength, dizziness, fear or a new need for help.',
           },
         ],
-    recommendedEyebrow: isSpanish ? 'Guías útiles' : 'Helpful guides',
-    recommendedTitle: isSpanish ? 'Más contexto, sin complicarlo.' : 'More context, without the noise.',
+    recommendedEyebrow: isSpanish ? 'Guías relacionadas' : 'Related guides',
+    recommendedTitle: isSpanish ? 'Entiende la decisión sin complicarla.' : 'Understand the decision without extra noise.',
     recommendedBody: isSpanish
       ? 'Lecturas breves para entender mejor el riesgo y elegir el siguiente paso con calma.'
       : 'Short reads to understand the risk and choose the next step calmly.',
@@ -88,13 +88,13 @@ export function NeedLandingPage() {
     useTool: isSpanish ? 'Usar herramienta' : 'Use tool',
     catalogueEyebrow: isSpanish ? 'Catálogo CasaMia actual' : 'Current CasaMia catalogue',
     catalogueTitle: isSpanish
-      ? 'Apoyos prácticos para esta necesidad.'
-      : 'Practical supports matched to this need.',
+      ? 'Opciones que pueden encajar con esta necesidad.'
+      : 'Options that may fit this need.',
     catalogueBody: isSpanish
-      ? 'Una vista clara de los elementos base y extras opcionales que pueden encajar. La combinación final se confirma con tus respuestas, fotos o visita.'
-      : 'A clear look at the core items and optional add-ons that may fit. The final mix is confirmed from your answers, photos or visit.',
+      ? 'Una vista clara de elementos base y extras opcionales. La combinación final se confirma con tus respuestas, fotos o visita.'
+      : 'A clear look at core items and optional add-ons. The final mix is confirmed from your answers, photos or visit.',
     catalogueCta: isSpanish ? 'Ver el catálogo completo' : 'Review the full catalogue',
-    questions: isSpanish ? 'Preguntas que suelen hacer las familias' : 'Questions families ask',
+    questions: isSpanish ? 'Preguntas antes de empezar' : 'Questions before you start',
     questionsIntro: isSpanish
       ? 'Respuestas rápidas para decidir si conviene empezar online, enviar fotos o pedir una evaluación.'
       : 'Quick answers to help you decide whether to start online, send photos or request an assessment.',
@@ -103,7 +103,7 @@ export function NeedLandingPage() {
           {
             question: '¿Puedo empezar sin saber qué comprar?',
             answer:
-              'Sí. CasaMia empieza por la rutina y el riesgo visible, no por una lista de productos. Después traducimos la necesidad en una ruta práctica con prioridades, visita o presupuesto si hace falta.',
+              'Sí. Empezamos por la rutina y el riesgo visible, no por una lista de productos. Después traducimos la necesidad en prioridades, visita o presupuesto si hace falta.',
           },
           {
             question: '¿Puedo enviar fotos o vídeos antes de una visita?',
@@ -115,7 +115,7 @@ export function NeedLandingPage() {
           {
             question: 'Can I start without knowing what to buy?',
             answer:
-              'Yes. CasaMia starts with the daily routine and visible risk, not a product list. We then turn the need into a practical route with priorities, a visit or a quote where needed.',
+              'Yes. We start with the daily routine and visible risk, not a product list. Then we turn the need into priorities, a visit or a quote where needed.',
           },
           {
             question: 'Can I send photos or videos before a visit?',
@@ -125,7 +125,7 @@ export function NeedLandingPage() {
         ],
     questionsCta: isSpanish ? 'Empezar con mi caso' : 'Start with my situation',
     ready: isSpanish ? 'Cuando quieras' : 'Ready when you are',
-    finalTitle: isSpanish ? 'Recibe una recomendación CasaMia práctica.' : 'Get a practical CasaMia recommendation.',
+    finalTitle: isSpanish ? 'Recibe una recomendación clara para tu caso.' : 'Get a clear recommendation for your situation.',
     finalBody: isSpanish
       ? 'Empieza online, envía fotos o pide una llamada. Convertimos la información en un plan más claro antes de comprometerte con trabajos.'
       : 'Start online, send photos or ask for a call. We turn the information into a clearer plan before you commit to works.',
