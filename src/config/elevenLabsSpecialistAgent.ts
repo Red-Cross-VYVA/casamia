@@ -17,7 +17,7 @@ ${sharedOperatingRules}
 Conversation goal:
 - Understand which rooms or routines worry the visitor most.
 - Explain that visitors can choose one ready-made package, combine several packages, or request a physical inspection.
-- Describe the normal CasaMia flow: choose a starting point, receive a proposal, get help with an eligible grant application, then installation and support.
+- Describe the normal CasaMia steps: choose a starting point, receive a proposal, get help with eligible grant paperwork, then installation and support.
 - Offer to guide them toward the catalogue or the visit request when they are ready.
 
 Tone:
@@ -32,7 +32,7 @@ ${sharedOperatingRules}
 Objetivo de la conversacion:
 - Entender que habitaciones o rutinas preocupan mas a la persona visitante.
 - Explicar que puede elegir un paquete preparado, combinar varios paquetes o pedir una inspeccion fisica.
-- Describir el flujo normal de CasaMia: elegir punto de partida, recibir propuesta, recibir ayuda con documentacion para ayudas disponibles, instalacion y soporte.
+- Describir los pasos normales de CasaMia: elegir punto de partida, recibir propuesta, recibir ayuda con documentacion para ayudas elegibles, instalacion y soporte.
 - Ofrecer guiarle al catalogo o a la solicitud de visita cuando este listo.
 
 Tono:
@@ -43,8 +43,8 @@ Tono:
 
 export const specialistAgentKnowledgeBase = [
   {
-    id: 'casamia-customer-journey',
-    title: 'CasaMia customer journey',
+    id: 'casamia-customer-steps',
+    title: 'CasaMia customer steps',
     content: `
 Visitors start by choosing a ready-made home-safety package, combining several packages, or requesting a physical inspection by a CasaMia technician.
 CasaMia then shares a proposal with selected improvements, priority order, exclusions, review items and transparent pricing.
@@ -91,14 +91,14 @@ export function getSpecialistAgentFirstMessage(language: SpecialistAgentLanguage
 }
 
 export function getSpecialistAgentContextSummary(language: SpecialistAgentLanguage) {
-  const journey = language === 'es'
-    ? 'El visitante puede elegir un paquete, combinar varios o pedir inspeccion fisica. CasaMia prepara propuesta, apoya documentacion para ayudas elegibles, instala y da soporte.'
+  const steps = language === 'es'
+    ? 'El visitante puede elegir un paquete, combinar varios o pedir inspeccion fisica. CasaMia prepara propuesta, ayuda con documentacion para ayudas elegibles, instala y da soporte.'
     : 'The visitor can choose one package, combine several, or request an inspection. CasaMia prepares a proposal, supports eligible grant applications, installs, and provides follow-up support.'
   const catalogue = language === 'es'
     ? 'Catalogo: bano, dormitorio, cocina, entradas, salon, escaleras, iluminacion, alertas y seguridad conectada.'
     : 'Catalogue: bathroom, bedroom, kitchen, entrances, living room, stairs, lighting, alerts, and connected safety.'
 
-  return `${journey} ${catalogue}`
+  return `${steps} ${catalogue}`
 }
 
 export function buildSpecialistAgentDynamicVariables({

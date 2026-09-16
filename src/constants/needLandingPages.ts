@@ -153,12 +153,12 @@ export const needLandingPages: NeedLandingPageContent[] = [
     title: 'Fall prevention at home',
     seoTitle: 'Fall Prevention at Home for Older Adults',
     description:
-      'A room-by-room fall prevention route for older adults at home, covering bathrooms, bedrooms, stairs, entrances, lighting and support points.',
+      'Room-by-room fall prevention for older adults at home, covering bathrooms, bedrooms, stairs, entrances, lighting and support points.',
     eyebrow: 'Prevention first',
     intro:
       'Fall prevention is not one product. It is a practical plan across the rooms and routines where risk builds up: transfers, lighting, floor surfaces, stairs and support points.',
-    whoFor: ['People noticing slips, near misses or reduced confidence', 'Older adults recovering from a fall or mobility change', 'Homes that need a calm prevention plan before a crisis'],
-    priorities: ['Bathroom and toilet transfer safety', 'Bedroom-to-bathroom night route', 'Stairs, entrances and thresholds', 'Emergency reach and simple connected support'],
+    whoFor: ['People noticing slips, near misses or new hesitation at home', 'Older adults recovering from a fall or mobility change', 'Homes that need prevention priorities before a crisis'],
+    priorities: ['Bathroom and toilet transfer safety', 'Bedroom-to-bathroom night movement', 'Stairs, entrances and thresholds', 'Emergency reach and agreed connected support'],
     casamiaPlan: ['Identify the highest-risk routines first', 'Match improvements to the person, not just the property', 'Phase works into urgent, recommended and optional actions'],
     relatedServices: [
       { label: 'All safety services', to: '/services' },
@@ -191,10 +191,10 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Book an aging-in-place home assessment with CasaMia to understand safety priorities, adaptations, grants and practical next steps.',
     eyebrow: 'Home assessment',
     intro:
-      'An aging-in-place assessment gives you a clear view of what matters now, what can wait and which changes help someone remain safer and more comfortable at home.',
+      'An aging-in-place assessment identifies what should change first, what can wait and which checks are needed before work is quoted.',
     whoFor: ['Households planning before a fall or hospital discharge', 'Older adults who want to stay independent at home', 'Homes where people disagree on what to fix first'],
     priorities: ['Mobility and transfer routines', 'Room-by-room safety risks', 'Practical adaptation options', 'Grant-readiness and documentation where relevant'],
-    casamiaPlan: ['Listen to the household and daily priorities', 'Review the home, photos or guided answers', 'Prepare a proposal with scope, review items and next steps'],
+    casamiaPlan: ['Listen to the person at home and daily priorities', 'Review the home, photos or guided answers', 'Prepare a proposal with scope, review items and next steps'],
     relatedServices: [
       { label: 'Book a home assessment', to: '/home-safety-assessment' },
       { label: 'Build your plan', to: '/home-safety-wizard' },
@@ -226,10 +226,10 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'CasaMia coordinates elderly home adaptations across bathrooms, bedrooms, entrances, kitchens, lighting and connected living support.',
     eyebrow: 'Home adaptations',
     intro:
-      'Good home adaptation is not about adding random products. It is about preserving independence, comfort and dignity while removing everyday friction and safety risks.',
-    whoFor: ['Households that need one coordinated plan', 'Older adults with changing mobility or confidence', 'Homes needing practical works, smart support or grant guidance'],
+      'Good home adaptation starts with the daily task that has become harder: bathing, stairs, bed transfers, cooking, entering the home or asking for help.',
+    whoFor: ['Households that need one coordinated plan', 'Older adults with changing mobility or new hesitation at home', 'Homes needing practical works, smart support or grant guidance'],
     priorities: ['Safer bathroom access', 'Bedroom and night-time movement', 'Entrance, threshold and stairs support', 'Connected routines where helpful'],
-    casamiaPlan: ['Translate needs into customer-friendly outcomes', 'Coordinate products, installers and timings', 'Keep pricing, scope and safe-use explanation clear'],
+    casamiaPlan: ['Translate daily problems into room-by-room work', 'Coordinate products, installers and timings', 'Confirm pricing, scope and safe-use explanation before work starts'],
     relatedServices: [
       { label: 'Service catalogue', to: '/services' },
       { label: 'Process', to: '/how-it-works' },
@@ -268,7 +268,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Bedrooms where lighting, floor edges or furniture layout make independent movement harder than it should be',
     ],
     priorities: ['Motion-activated night lighting', 'Bedside support', 'Clear route from bed to door', 'Emergency call options and connected routines'],
-    casamiaPlan: ['Review the bedroom and night routine', 'Recommend core and optional bedroom package components', 'Install, configure and explain everything clearly'],
+    casamiaPlan: ['Review the bedroom and night routine', 'Recommend core and optional bedroom package components', 'Install, configure and explain what changed'],
     riskSection: {
       eyebrow: 'Bedroom risk map',
       title: 'Where night-time risk builds up.',
@@ -302,7 +302,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
           product: 'Rug removal, anti-slip rug tape or matched bedside exit mats.',
         },
         {
-          solution: 'Clear the night route',
+          solution: 'Clear the night path',
           helps: 'Furniture, cables and stored items are moved away from the natural path to the door or bathroom.',
           product: 'Furniture repositioning and cable management.',
         },
@@ -338,7 +338,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Can connected bedroom features be optional?',
         answer:
-          'Yes. Connected bedroom support such as voice routines, reminders or alerts should be used only where it adds comfort and confidence.',
+          'Yes. Connected bedroom support such as voice routines, reminders or alerts should be used only when the person understands it, accepts it and someone is ready to respond.',
       },
     ],
   },
@@ -422,13 +422,13 @@ export const needLandingPages: NeedLandingPageContent[] = [
     title: 'Connected home for seniors',
     seoTitle: 'Connected Home for Seniors Without Complication',
     description:
-      'Connected home support for seniors with voice assistance, smart lighting, reminders, leak alerts, emergency options and approved-contact reassurance.',
+      'Connected home support for seniors with voice assistance, smart lighting, reminders, leak alerts, emergency options and approved-contact notifications.',
     eyebrow: 'Connected living',
     intro:
-      'CasaMia does not sell gadgets for their own sake. We configure simple connected experiences that support everyday routines, safety and reassurance.',
-    whoFor: ['Older adults who benefit from voice help or reminders', 'People who want practical reassurance without intrusive monitoring', 'Homes where lighting, alerts or routines can reduce friction'],
+      'CasaMia only adds connected devices when they solve a specific problem: lighting, reminders, water alerts, emergency reach or agreed contact notifications.',
+    whoFor: ['Older adults who benefit from voice help or reminders', 'People who want practical alerts without intrusive monitoring', 'Homes where lighting, alerts or routines can reduce daily friction'],
     priorities: ['Voice assistance and hands-free calls', 'Smart lighting and night routines', 'Medication or appointment reminders', 'Leak, emergency or approved-contact notifications when agreed'],
-    casamiaPlan: ['Choose technology only where it supports a routine', 'Configure compatible devices into one simple experience', 'Train the household and keep support clear'],
+    casamiaPlan: ['Choose technology only where it supports a routine', 'Configure compatible devices around agreed responders', 'Train the household and document who receives alerts'],
     relatedServices: [
       { label: 'Connected safety services', to: '/services/smart-home-safety' },
       { label: 'Technology approach', to: '/tech' },
@@ -438,12 +438,12 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Is a connected home the same as monitoring?',
         answer:
-          'No. CasaMia focuses on practical connected living: lighting, reminders, alerts and simple controls. Any response setup must be clearly agreed.',
+          'No. CasaMia focuses on practical connected living: lighting, reminders, alerts and usable controls. Any response setup must name who is notified and what they should do.',
       },
       {
         question: 'Does the person need to be technical?',
         answer:
-          'No. The experience should be simple, usually centred around familiar voice commands, easy routines and clear support from approved contacts.',
+          'No. The setup should use familiar actions such as voice commands, scheduled lights or one-tap help, with support from approved contacts.',
       },
     ],
   },
@@ -467,14 +467,14 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     whoFor: [
       'People who know something is unsafe but do not know what to ask an installer for',
       'Homes where several rooms, transfers or routes are involved',
-      'Older adults whose mobility, confidence or care needs have recently changed',
+      'Older adults whose mobility, hesitation or care needs have recently changed',
       'Households that need a clear scope before quotes, grants, landlord permission or community approval',
     ],
     priorities: [
-      'The daily routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night route',
+      'The daily routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night movement',
       'Which risks are urgent, recommended or optional',
       'Measurements, wall types, fixing points, thresholds, door swings and site constraints',
-      'Whether a quick product, minor adaptation, larger work or connected support is the right route',
+      'Whether the right answer is a product, minor adaptation, larger work or connected support',
       'A written scope that contractors can price without guessing',
     ],
     casamiaPlan: [
@@ -540,7 +540,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     ],
     casamiaPlan: [
       'Define the daily problem before choosing devices',
-      'Prioritise simple routines such as night lighting, easy calls, reminders and selected alerts',
+      'Prioritise familiar routines such as night lighting, easy calls, reminders and selected alerts',
       'Configure compatible tools so the experience stays familiar',
       'Document consent, alert recipients, response rules and maintenance checks',
     ],
@@ -558,12 +558,12 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'What is the simplest connected setup?',
         answer:
-          'A simple setup often starts with night lighting, easy calls, reminders and selected alerts. The right mix depends on the person at home, the layout, Wi-Fi reliability and who can respond.',
+          'A first setup often starts with night lighting, easy calls, reminders and selected alerts. The right mix depends on the person at home, the layout, Wi-Fi reliability and who can respond.',
       },
       {
         question: 'When is monitoring better than smart safety?',
         answer:
-          'Monitoring may be worth considering when nobody can reliably respond to alerts, the person has repeated emergencies, or the household needs a formal response protocol rather than simple home support.',
+          'Monitoring may be worth considering when nobody can reliably respond to alerts, the person has repeated emergencies, or the household needs a formal response protocol rather than household support.',
       },
       {
         question: 'What should be avoided?',
