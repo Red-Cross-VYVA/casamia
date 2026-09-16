@@ -62,7 +62,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     title: 'Technology and service for',
     accent: 'safer ageing at home.',
     intro:
-      'CasaMia brings room checks, agreed adaptations, connected alerts and grant-document guidance into one coordinated process for adapting a home in Spain.',
+      'CasaMia brings room checks, agreed adaptations, connected alerts and grant-application guidance into one coordinated process for adapting a home in Spain.',
     primaryCta: 'Check home safety',
     secondaryCta: 'Check grant eligibility',
     provider: {
@@ -131,7 +131,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'service',
         title: 'From report to action',
         body:
-          'The goal is not only to detect risks. CasaMia turns findings into room priorities, an installation scope, a grant-readiness checklist and the decision still needed before work starts.',
+          'The goal is not only to detect risks. CasaMia turns findings into room priorities, work to review, a grant-readiness checklist and the decision still needed before work starts.',
       },
     ],
     workflowEyebrow: 'How we work',

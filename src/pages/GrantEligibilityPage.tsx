@@ -1705,7 +1705,7 @@ function getGrantCopy(language: string) {
       handoffPoints: [
         'We do not ask for certificates now if you do not already have them.',
         'Nothing is filed before the call is checked and confirmed with you.',
-        'Follow-up focuses on permissions, scope, and real documentation.',
+        'Follow-up focuses on permissions, agreed work and real documentation.',
       ],
       readyTitle: 'Your report is ready.',
       readyBody: (region: string) =>
@@ -1803,7 +1803,7 @@ function getGrantCopy(language: string) {
           'Turn the need into a proposal that states the requested work, evidence and reason for each item.',
         ],
         watch: [
-          'Start with the free online safety report so the initial scope is clearer.',
+          'Start with the free online safety report so the first work priorities are clearer.',
           'Collect only the minimum details a specific funding option may require.',
           'Keep the home on a regional watch list and notify you if a relevant call appears.',
         ],

@@ -132,7 +132,7 @@ const pageCopy = {
     actionRouteEyebrow: 'From reading to action',
     actionRouteTitle: 'Turn advice into a home safety plan.',
     actionRouteBody:
-      'Use the resources to understand the risk, then move into a guided CasaMia review when you need priorities, measured scope, grant-document checks or a managed proposal.',
+      'Use the resources to understand the risk, then move into a guided CasaMia review when you need priorities, measurements, grant-application checks or a managed proposal.',
     actionRouteCta: 'Start the guided review',
     faqEyebrow: 'Common questions',
     faqTitle: 'Quick answers before you choose a resource.',
@@ -161,7 +161,7 @@ const pageCopy = {
     finalEyebrow: 'Need a plan for a real home?',
     finalTitle: 'Turn the checklist into a prioritised conversion plan.',
     finalBody:
-      'CasaMia reviews the home, separates urgent changes from future improvements and defines the next action, scope and evidence needed.',
+      'CasaMia reviews the home, separates urgent changes from future improvements and defines the next action, evidence and work to review.',
     finalCta: 'Request a home assessment',
   },
   es: {
@@ -367,7 +367,7 @@ const educationHubSteps = [
     label: { en: 'Act', es: 'Actuar' },
     title: { en: 'Move into a managed plan', es: 'Pasa a un plan gestionado' },
     body: {
-      en: 'CasaMia can coordinate assessment, proposal, grant-document checks and installation.',
+      en: 'CasaMia can coordinate assessment, proposal, grant-application checks and installation.',
       es: 'CasaMia puede coordinar evaluación, propuesta, revisión documental para ayudas e instalación.',
     },
   },
@@ -397,7 +397,7 @@ const resourceJourneys = [
       es: 'Empieza por la estancia donde la persona duda, busca apoyo, evita moverse o necesita ayuda con más frecuencia.',
     },
     steps: {
-      en: ['Pick the room', 'Check the common risk points', 'Compare scoped options'],
+      en: ['Pick the room', 'Check the common risk points', 'Compare practical options'],
       es: ['Elige la estancia', 'Revisa los puntos de riesgo habituales', 'Compara opciones con alcance'],
     },
     to: '/services/bathroom-safety',
@@ -467,7 +467,7 @@ const topicRoutes = [
     to: '/grants',
     title: { en: 'Grants and documents', es: 'Ayudas y documentos' },
     body: {
-      en: 'Prepare the location, documents and scope questions before relying on funding.',
+      en: 'Prepare the location, documents and work questions before relying on funding.',
       es: 'Prepara ubicación, documentos y alcance antes de contar con financiación.',
     },
     pill: { en: 'Funding readiness', es: 'Preparación ayudas' },
@@ -516,7 +516,7 @@ const decisionPathways = [
     image: '/images/solutions/adorable-mature-couple-kitchen.jpg',
     title: { en: 'I want to understand grants or funding', es: 'Quiero entender ayudas o financiación' },
     body: {
-      en: 'Prepare the documents, eligibility questions and scope notes before relying on any programme.',
+      en: 'Prepare the documents, eligibility questions and work notes before relying on any programme.',
       es: 'Prepara documentos, requisitos y notas de alcance antes de contar con una ayuda.',
     },
     actions: [
@@ -696,7 +696,7 @@ const actionRouteSteps = [
     icon: HandHeart,
     title: { en: 'Let CasaMia coordinate', es: 'Dejar que CasaMia coordine' },
     body: {
-      en: 'Move from information to assessment, proposal, grant-document support and managed installation.',
+      en: 'Move from information to assessment, proposal, grant-application support and managed installation.',
       es: 'Pasa de información a evaluación, propuesta, apoyo documental para ayudas e instalación gestionada.',
     },
   },
@@ -715,7 +715,7 @@ const localSpainRoutes = [
     icon: SearchCheck,
     title: { en: 'Check what needs evidence', es: 'Ver qué necesita evidencia' },
     body: {
-      en: 'Photos, room notes, ownership status and mobility context help turn a worry into a scoped proposal.',
+      en: 'Photos, room notes, ownership status and mobility context help turn a worry into a proposal you can review.',
       es: 'Fotos, notas por estancia, situación de la vivienda y movilidad ayudan a convertir una preocupación en propuesta.',
     },
   },

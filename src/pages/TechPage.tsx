@@ -324,7 +324,7 @@ const techCopy = {
       eyebrow: 'Available connected components',
       title: 'Current smart-safety components, maintained by CasaMia.',
       body:
-        'This live list reflects CasaMia’s current connected-safety catalogue. Home Clinic, telehealth and custom integrations are scoped separately after a compatibility review.',
+        'This live list reflects CasaMia’s current connected-safety catalogue. Home Clinic, telehealth and custom integrations are reviewed separately after a compatibility check.',
       countLabel: 'active services',
       groupLabel: 'Current catalogue',
       empty: 'No connected components are currently available. Ask CasaMia for a compatibility review.',
@@ -345,7 +345,7 @@ const techCopy = {
         {
           question: 'Can we keep our current app or care system?',
           answer:
-            'Yes, when that system exposes a supported and authorised integration path. CasaMia first reviews the available APIs, webhooks or approved exchange methods and then scopes the data flow, permissions and responsibilities.',
+            'Yes, when that system exposes a supported and authorised integration path. CasaMia first reviews the available APIs, webhooks or approved exchange methods, then agrees the data flow, permissions and responsibilities.',
         },
         {
           question: 'What if we have devices but no app or dashboard?',

@@ -128,7 +128,7 @@ export function NeedLandingPage() {
     finalTitle: isSpanish ? 'Recibe una recomendación clara para tu caso.' : 'Get a clear recommendation for your situation.',
     finalBody: isSpanish
       ? 'Empieza online, envía fotos o pide una llamada. CasaMia convierte la información en alcance, prioridades y siguiente acción antes de comprometerte con trabajos.'
-      : 'Start online, send photos or ask for a call. CasaMia turns the information into scope, priorities and the next action before you commit to works.',
+      : 'Start online, send photos or ask for a call. CasaMia turns the information into priorities, work to review and the next action before you commit to anything.',
     startPlan: isSpanish ? 'Empezar mi plan' : 'Start my plan',
     bookAssessment: isSpanish ? 'Reservar evaluación' : 'Book an assessment',
   }

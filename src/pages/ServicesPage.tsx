@@ -325,7 +325,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     customerBenefit: 'Why it helps',
     customPackageEyebrow: 'Need a different mix?',
     customPackageTitle: 'Customise your own package',
-    customPackageBody: 'Choose the rooms, routines and services that matter most. CasaMia turns them into a scope to review before any proposal.',
+    customPackageBody: 'Choose the rooms, routines and services that matter most. CasaMia turns them into work you can review before any proposal.',
     customPackageCta: 'Build my package',
     requirements: {
       installation: 'Professional installation',

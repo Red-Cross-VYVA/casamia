@@ -42,8 +42,8 @@ export const masterServiceCatalogue: MasterServiceCatalogue = {
       slug: 'starter-essentials',
       name: { en: 'Starter Essentials', es: 'Esenciales de inicio' },
       description: {
-        en: 'Lower-cost fixed-scope packs for the most important safety necessities before a full room package is needed.',
-        es: 'Paquetes de alcance fijo y menor coste para las necesidades de seguridad más importantes antes de un paquete completo por estancia.',
+        en: 'Lower-cost starter packs for the most important safety needs before a full room package is needed.',
+        es: 'Paquetes iniciales de menor coste para las necesidades de seguridad más importantes antes de un paquete completo por estancia.',
       },
       active: true,
       sortOrder: 5,
