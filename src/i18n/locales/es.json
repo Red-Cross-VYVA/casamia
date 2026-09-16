@@ -72,7 +72,7 @@
   },
   "assessment": {
     "metaTitle": "Evaluación a domicilio de seguridad del hogar",
-    "metaDescription": "Reserva una evaluación CasaMia de seguridad del hogar en España. Revisa riesgos de caída, accesibilidad, baño, ayudas públicas y el siguiente paso antes de decidir cualquier obra.",
+    "metaDescription": "Reserva una evaluación CasaMia de seguridad del hogar en España. Revisa riesgos de caída, accesibilidad, baño, ayudas públicas y qué confirmar antes de decidir cualquier obra.",
     "hero": {
       "title": "Reserva una evaluación profesional a domicilio",
       "subtitle": "Reserva una visita CasaMia por {{visitFee}}, pagada por adelantado con el {{visitVatPercent}} de IVA incluido, para revisar riesgos de caída, accesibilidad, medidas y acciones prioritarias.",
@@ -151,7 +151,7 @@
     "afterReview": {
       "eyebrow": "Después de la revisión",
       "title": "Prioridades, alcance y coordinación en un solo lugar.",
-      "body": "Empieces online o solicites una visita, CasaMia convierte tus respuestas en una ruta: qué conviene atender primero, qué puede esperar y qué podemos coordinar por ti.",
+      "body": "Empieces online o solicites una visita, CasaMia convierte tus respuestas en prioridades: qué conviene atender primero, qué puede esperar y qué requiere medición antes de empezar.",
       "cards": [
         {
           "title": "Revisamos el contexto",
@@ -159,7 +159,7 @@
         },
         {
           "title": "Recibes un resumen con prioridades",
-          "body": "Explicamos las zonas de riesgo, el siguiente paso recomendado y cualquier dato que falte."
+          "body": "Explicamos las zonas de riesgo, qué confirmar primero y cualquier dato que falte."
         },
         {
           "title": "La visita se confirma solo si ayuda",
@@ -936,7 +936,7 @@
       "metaTitle": "Planes y precios",
       "hero": {
         "title": "Elige el plan de seguridad adecuado para tu hogar",
-      "subtitle": "Tanto si el siguiente paso es orientación, adaptaciones o seguridad conectada, CasaMia muestra qué revisar y confirmar primero.",
+      "subtitle": "Tanto si necesitas orientación, adaptaciones o seguridad conectada, CasaMia muestra qué revisar y confirmar primero.",
         "primaryCta": "Reservar evaluación a domicilio",
         "secondaryCta": "Comparar planes"
       },
@@ -1157,7 +1157,7 @@
           },
           {
             "question": "¿Los instaladores están asegurados?",
-            "answer": "CasaMia trabaja con partners de instalación de confianza y estructura los proyectos con trabajo profesional asegurado."
+            "answer": "CasaMia estructura los proyectos con trabajo profesional asegurado, entrega documentada y aceptación del cliente."
           },
           {
             "question": "¿Cuándo pago?",
@@ -1362,7 +1362,7 @@
             },
             {
               "question": "¿Recibiré un informe escrito?",
-              "answer": "Sí. Recibirés un informe claro con riesgos, prioridades y próximos pasos recomendados."
+              "answer": "Sí. Recibirás un informe claro con riesgos, prioridades y qué revisar o decidir primero."
             },
             {
               "question": "¿Pueden asistir familiares?",
@@ -1435,7 +1435,7 @@
             {
               "icon": "installation",
               "title": "Instalación profesional",
-              "body": "CasaMia coordina instaladores de confianza y realiza una revisión de aceptación con el cliente."
+              "body": "CasaMia coordina instaladores asegurados y realiza una revisión de aceptación con el cliente."
             }
           ],
           "rooms": [
@@ -1512,7 +1512,7 @@
             },
             {
               "question": "¿Quién realiza el trabajo?",
-              "answer": "CasaMia coordina partners de instalación de confianza que entienden seguridad senior, accesibilidad y trabajo respetuoso en casa."
+              "answer": "CasaMia coordina partners de instalación asegurados, revisa el alcance acordado y realiza una aceptación final con el cliente."
             },
             {
               "question": "¿Los productos tienen garantía?",
@@ -1718,7 +1718,7 @@
         "subtitle": "CasaMia coordina la ruta de solicitud de ayudas para obras de seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
         "cta": "Reservar evaluación gratis",
         "panelTitle": "Apoyo administrativo desde el inicio hasta la presentación",
-        "panelBody": "CasaMia aclara los requisitos probables, prepara el expediente y coordina los siguientes pasos cuando existe autorización."
+        "panelBody": "CasaMia aclara los requisitos probables, prepara el expediente y coordina el seguimiento autorizado."
       },
       "what": {
         "kicker": "Qué es Plan Adapta",
@@ -1790,7 +1790,7 @@
           },
           {
             "title": "Apoyamos tu solicitud de ayuda",
-            "body": "Cuando corresponda, CasaMia ayuda a preparar y presentar la documentación requerida."
+            "body": "Cuando el programa encaja y CasaMia está autorizada, preparamos y presentamos la documentación requerida."
           },
           {
             "title": "Una vez aprobada, coordinamos las obras",
@@ -1913,7 +1913,7 @@
       "riskBody": "El borde de la bañera es alto y falta apoyo continuo junto a la ducha.",
       "actionTitle": "Qué hacer primero",
       "actionBody": "Empezar con barras de apoyo y un asiento seguro antes de planificar obras mayores.",
-      "nextTitle": "Tu siguiente paso",
+      "nextTitle": "Qué hacer ahora",
       "nextBody": "Usa el informe para hablar con la familia, comprobar ayudas o reservar una visita a domicilio."
     },
     "points": [

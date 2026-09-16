@@ -72,7 +72,7 @@
   },
   "assessment": {
     "metaTitle": "In-Home Safety Assessment",
-    "metaDescription": "Book a CasaMia in-home safety assessment in Spain. Review fall risks, accessibility, bathroom safety, grant support and the clearest next step before choosing any work.",
+    "metaDescription": "Book a CasaMia in-home safety assessment in Spain. Review fall risks, accessibility, bathroom safety, grant support and what to confirm before choosing any work.",
     "hero": {
       "title": "Book a Professional In-Home Safety Assessment",
       "subtitle": "Book a {{visitFee}} CasaMia home visit, paid in advance with {{visitVatPercent}} VAT included, to review fall risks, accessibility needs, measurements and priority actions.",
@@ -151,7 +151,7 @@
     "afterReview": {
       "eyebrow": "After your review",
       "title": "Priorities, scope and coordination in one place.",
-      "body": "Whether you start online or request a visit, CasaMia turns your answers into a route: what to address first, what can wait, and what we can coordinate for you.",
+      "body": "Whether you start online or request a visit, CasaMia turns your answers into priorities: what to address first, what can wait, and what needs measurement before work starts.",
       "cards": [
         {
           "title": "We review the context",
@@ -159,7 +159,7 @@
         },
         {
           "title": "You get a priority summary",
-          "body": "We explain the likely risk areas, recommended next step and any missing information."
+          "body": "We explain the likely risk areas, what to confirm first and any missing information."
         },
         {
           "title": "A visit is confirmed only when measurements or room checks are needed",
@@ -936,7 +936,7 @@
       "metaTitle": "Plans and Pricing",
       "hero": {
         "title": "Choose the Right Safety Plan for Your Home",
-        "subtitle": "Whether the next step is guidance, home adaptations or connected safety, CasaMia shows what to review and confirm first.",
+        "subtitle": "Whether you need guidance, home adaptations or connected safety, CasaMia shows what to review and confirm first.",
         "primaryCta": "Book In-Home Assessment",
         "secondaryCta": "Compare Plans"
       },
@@ -1157,7 +1157,7 @@
           },
           {
             "question": "Are installers insured?",
-            "answer": "CasaMia works with trusted installation partners and structures projects around insured professional work."
+            "answer": "CasaMia structures projects around insured professional work, documented handover and customer acceptance."
           },
           {
             "question": "When do I pay?",
@@ -1184,7 +1184,7 @@
       }
     },
     "grants": {
-      "title": "Grant support without the paperwork maze.",
+      "title": "Grant support with the paperwork made clear.",
       "intro": "Plan Adapta can cover a significant part of accessibility works. CasaMia prepares the application file, submits it where authorised and tracks the authority response.",
       "eligibilityTitle": "Typical eligibility signals",
       "eligibility": [
@@ -1362,7 +1362,7 @@
             },
             {
               "question": "Will I receive a written report?",
-              "answer": "Yes. You receive a clear report with risks, priorities and recommended next steps."
+              "answer": "Yes. You receive a clear report with risks, priorities and what to check or decide first."
             },
             {
               "question": "Can someone attend with me?",
@@ -1435,7 +1435,7 @@
             {
               "icon": "installation",
               "title": "Professional Installation",
-              "body": "CasaMia coordinates trusted installers and completes a customer acceptance walkthrough."
+              "body": "CasaMia coordinates insured installers and completes a customer acceptance walkthrough."
             }
           ],
           "rooms": [
@@ -1512,7 +1512,7 @@
             },
             {
               "question": "Who carries out the work?",
-              "answer": "CasaMia coordinates trusted installation partners who understand senior safety, access and respectful in-home work."
+              "answer": "CasaMia coordinates insured installation partners, checks the agreed scope and completes a customer acceptance walkthrough."
             },
             {
               "question": "Are products guaranteed?",
@@ -1718,7 +1718,7 @@
         "subtitle": "CasaMia coordinates the grant application route for home safety and accessibility works, from documentation to submission.",
         "cta": "Book Free Assessment",
         "panelTitle": "Administrative support from start to submission",
-        "panelBody": "CasaMia clarifies likely requirements, prepares the application file and coordinates next steps where authorised."
+        "panelBody": "CasaMia clarifies likely requirements, prepares the application file and coordinates authorised follow-up."
       },
       "what": {
         "kicker": "What is Plan Adapta?",
@@ -1790,7 +1790,7 @@
           },
           {
             "title": "We support your grant application",
-            "body": "Where applicable, CasaMia helps prepare and submit the required documentation."
+            "body": "When the programme fits and CasaMia is authorised, we prepare and submit the required documentation."
           },
           {
             "title": "Once approved, we coordinate the works",
@@ -1913,7 +1913,7 @@
       "riskBody": "The bath edge is high and there is no continuous hand support near the shower.",
       "actionTitle": "What to do first",
       "actionBody": "Start with grab bars and a secure bath transfer seat before planning larger works.",
-      "nextTitle": "Your next step",
+      "nextTitle": "What to do next",
       "nextBody": "Use the report to align the people involved, check grant support, or book an in-home assessment."
     },
     "points": [

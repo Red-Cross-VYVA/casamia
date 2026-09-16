@@ -98,8 +98,8 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         'Canary Islands',
       ],
     },
-    credibilityEyebrow: 'Why the model is trustworthy',
-    credibilityTitle: 'CasaMia turns visible home risks into scoped next steps.',
+    credibilityEyebrow: 'How decisions are checked',
+    credibilityTitle: 'CasaMia turns visible home risks into room priorities and confirmed actions.',
     proof: [
       {
         icon: 'seniors',
@@ -125,13 +125,13 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'funding',
         title: 'Funding readiness without false promises',
         body:
-          'CasaMia helps prepare evidence for regional, public, and EU-backed support routes where available: the home need, proposed adaptation, and document checklist. Approval always depends on the relevant authority.',
+          'CasaMia prepares the home-need notes, proposed adaptation summary and document checklist for relevant support routes. Approval always depends on the public authority.',
       },
       {
         icon: 'service',
         title: 'From report to action',
         body:
-          'The goal is not only to detect risks. CasaMia turns findings into a plan, installation scope, grant-readiness checklist and the next decision to make.',
+          'The goal is not only to detect risks. CasaMia turns findings into room priorities, an installation scope, a grant-readiness checklist and the decision still needed before work starts.',
       },
     ],
     workflowEyebrow: 'How we work',

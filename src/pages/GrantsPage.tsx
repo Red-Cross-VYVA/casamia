@@ -42,7 +42,7 @@ const grantsCopy = {
       'General information about possible public assistance routes.',
       'Initial eligibility screening based on information provided by the customer.',
       'Help preparing a document checklist for a specific programme.',
-      'Application-preparation support where the programme and customer circumstances are suitable.',
+      'Application-preparation support when the programme fits the work and the customer has authorised CasaMia in writing.',
       'Submission as an authorised representative only with a separate written mandate.',
       'Referral to an independent adviser or gestor where specialist advice is needed.',
     ],
@@ -237,7 +237,7 @@ export function GrantsPage() {
     : {
         heroTitle: 'Find possible help for home adaptations.',
         heroBody:
-          'Review possible grant routes, missing documents and next steps before starting works.',
+          'Review possible grant routes, missing documents and what must be confirmed before starting works.',
         heroSecondary: 'What we check',
         quickCards: [
           {
@@ -255,7 +255,7 @@ export function GrantsPage() {
         ],
         supportTitle: 'Know what to prepare before you apply.',
         supportBody:
-          'Answer a few questions and see the likely route, missing documents and next step before any work is started.',
+          'Answer a few questions and see the likely route, missing documents and what must be checked before any work is started.',
         programmesTitle: 'Published programmes',
         programmesBody:
           'We only show programmes with an official source, status and review date.',

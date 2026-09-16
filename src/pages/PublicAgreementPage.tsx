@@ -19,7 +19,7 @@ const spanishCopy = {
   acknowledgeButton: 'Confirmar recepción',
   acknowledgeTitle: 'Confirmar recepción para revisión',
   acknowledgedBody:
-    'CasaMia ha registrado que el documento fue recibido para revisión. El siguiente paso será completar la firma por el canal acordado.',
+    'CasaMia ha registrado la recepción del documento. Para continuar, completa la firma por el canal acordado.',
   acknowledgedTitle: 'Revisión registrada',
   assignment: 'Asignación',
   confirming: 'Registrando...',
@@ -44,7 +44,7 @@ const englishCopy = {
   acknowledgeButton: 'Confirm receipt',
   acknowledgeTitle: 'Confirm receipt for review',
   acknowledgedBody:
-    'CasaMia has recorded that the document was received for review. The next step is to complete signature through the agreed channel.',
+    'CasaMia has recorded receipt of the document. To continue, complete signature through the agreed channel.',
   acknowledgedTitle: 'Review recorded',
   assignment: 'Assignment',
   confirming: 'Recording...',

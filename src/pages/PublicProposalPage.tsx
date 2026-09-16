@@ -27,7 +27,7 @@ export function PublicProposalPage() {
         contact: 'Contactar con CasaMia',
         readyTitle: 'Tu propuesta CasaMia está lista',
         readyBody:
-          'Revisa los trabajos recomendados, las condiciones de pago y los próximos pasos. Cuando todo esté correcto, puedes aceptar la propuesta de forma segura abajo.',
+          'Revisa el alcance incluido, cualquier partida opcional o pendiente de medición, las condiciones de pago y los términos aplicables. Cuando todo esté correcto, puedes aceptar la propuesta de forma segura abajo.',
         pendingTitle: 'Este enlace todavía no está listo para aceptar',
         pendingBody:
           'Si has recibido este enlace, contacta con CasaMia para activar la propuesta o generar una nueva desde Planes.',
@@ -45,7 +45,7 @@ export function PublicProposalPage() {
         paymentPending: 'Stripe está procesando el pago. No vuelvas a pagar; actualiza esta página dentro de unos minutos.',
         acceptTitle: 'Aceptar propuesta',
         acceptBody:
-          'Al aceptar, confirmas la aprobación de los trabajos indicados, las condiciones de pago y los términos de servicio aplicables.',
+          'Al aceptar, confirmas que apruebas el alcance indicado, las condiciones de pago y los términos de servicio aplicables.',
         acceptedBy: 'Aceptada por',
         accepting: 'Aceptando...',
         acceptButton: 'Aceptar propuesta',
@@ -59,7 +59,7 @@ export function PublicProposalPage() {
         contact: 'Contact CasaMia',
         readyTitle: 'Your CasaMia proposal is ready',
         readyBody:
-          'Review the recommended works, payment terms, and next steps. When everything looks right, you can accept the proposal securely below.',
+          'Review the included scope, any optional or measurement-dependent items, payment terms and applicable service terms. When everything looks right, you can accept the proposal securely below.',
         pendingTitle: 'This link is not ready for acceptance yet',
         pendingBody:
           'If you received this link, contact CasaMia to activate the proposal or generate a fresh one from Plans.',
@@ -77,7 +77,7 @@ export function PublicProposalPage() {
         paymentPending: 'Stripe is processing the payment. Do not pay again; refresh this page in a few minutes.',
         acceptTitle: 'Accept proposal',
         acceptBody:
-          'By accepting, you confirm approval of the listed works, payment terms, and applicable service terms.',
+          'By accepting, you confirm approval of the listed scope, payment terms, and applicable service terms.',
         acceptedBy: 'Accepted by',
         accepting: 'Accepting...',
         acceptButton: 'Accept Proposal',
