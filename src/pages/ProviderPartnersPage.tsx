@@ -63,22 +63,22 @@ const providerPartnerCopy = {
     metaDescription:
       'Join CasaMia’s provider network for home-safety adaptations, installation, smart safety setup and follow-up support across Spain.',
     heroEyebrow: 'Provider partnership programme',
-    heroTitle: 'Deliver prepared senior home-safety work with CasaMia.',
+    heroTitle: 'Deliver prepared senior home-safety projects with CasaMia.',
     heroBody:
-      'CasaMia prepares assessed requests with resident context, room priorities, access notes and completion expectations before approved providers visit, price, install or support the work.',
-    proof: ['Assessed projects, not cold leads', 'Work and access notes before the visit', 'CasaMia manages customer communication'],
+      'CasaMia prepares assessed projects with resident context, room priorities, access notes and completion expectations before approved providers visit, price, install or support them.',
+    proof: ['Assessed projects, not cold leads', 'Project and access notes before the visit', 'CasaMia manages customer communication'],
     apply: 'Apply to collaborate',
     viewStandards: 'View standards',
     panelTitle: 'What partners receive',
     panelBody:
-      'A defined job: resident context, room priorities, agreed work, access notes and safe-use expectations before work starts.',
+      'A defined brief: resident context, room priorities, agreed tasks, access notes and safe-use expectations before installation is booked.',
     workflowEyebrow: 'How the work flows',
     workflowTitle: 'CasaMia prepares the job before providers arrive.',
     workflowBody:
-      'We qualify the request, gather context, shape the work, coordinate customer communication and keep the project record clear. Approved providers step in when the work is ready to be priced, visited, installed or supported.',
+      'We qualify the request, gather context, shape the brief, coordinate customer communication and keep the project record clear. Approved providers step in when the project is ready to be priced, visited, installed or supported.',
     workflow: [
       { title: 'Qualified request', body: 'Home, resident context, photos, urgency and customer priority are captured first.' },
-      { title: 'Provider brief', body: 'You receive the room, agreed work, access notes, constraints and customer expectations.' },
+      { title: 'Provider brief', body: 'You receive the room, agreed tasks, access notes, constraints and customer expectations.' },
       { title: 'Coordinated delivery', body: 'CasaMia keeps the customer loop, changes, approvals and completion notes organised.' },
       { title: 'Documented outcome', body: 'Completion notes, photos, quality checks and follow-up stay attached to the project.' },
     ],
@@ -435,7 +435,7 @@ CasaMia coordinates resident-centred assessments, measured adaptation plans and 
   }
 
   if (title.includes('Website')) {
-    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the project brief and consent-aware customer communication, while our team supports local delivery within agreed work and safety standards.`
+    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the project brief and consent-aware customer communication, while our team supports local delivery within agreed task and safety standards.`
   }
 
   if (title.includes('Window')) {

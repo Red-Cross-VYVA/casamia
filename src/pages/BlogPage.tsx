@@ -161,8 +161,8 @@ const pageCopy = {
     finalEyebrow: 'Need a plan for a real home?',
     finalTitle: 'Turn the checklist into a prioritised conversion plan.',
     finalBody:
-      'CasaMia reviews the home, separates urgent changes from future improvements and defines the next action, evidence and work to review.',
-    finalCta: 'Request a home assessment',
+      'CasaMia reviews the home, separates urgent changes from future improvements and gives you a clear next-step plan to review.',
+    finalCta: 'Book a home assessment',
   },
   es: {
     lang: 'es',
@@ -686,7 +686,7 @@ const actionRouteSteps = [
   },
   {
     icon: ClipboardCheck,
-    title: { en: 'Prioritise the first works', es: 'Priorizar los primeros cambios' },
+    title: { en: 'Prioritise the first changes', es: 'Priorizar los primeros cambios' },
     body: {
       en: 'Separate urgent safety actions from later improvements before spending money.',
       es: 'Separa acciones urgentes de seguridad de mejoras posteriores antes de gastar.',
@@ -723,7 +723,7 @@ const localSpainRoutes = [
     icon: FileCheck2,
     title: { en: 'Prepare grant support early', es: 'Preparar ayudas desde el inicio' },
     body: {
-      en: 'Regional support depends on timing, documents and official criteria, so the file should be structured before work starts.',
+      en: 'Regional support depends on timing, documents and official criteria, so organise the file before installation is booked.',
       es: 'Las ayudas autonómicas dependen de plazos, documentos y criterios oficiales; conviene ordenar el expediente antes de empezar.',
     },
   },

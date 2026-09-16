@@ -181,7 +181,7 @@ export function HomeSafetyWizardPage({ embedded = false }: HomeSafetyWizardPageP
         ...base.visit,
         credit: language === 'es'
           ? `La tarifa de ${fee} se descuenta de los trabajos CasaMia aprobados si continúas.`
-          : `The ${fee} fee is deducted from approved CasaMia work if you continue.`,
+          : `The ${fee} fee is deducted from approved CasaMia installation if you continue.`,
         price: language === 'es'
           ? `${fee} · ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% de IVA incluido · pago por adelantado`
           : `${fee} · ${Math.round(commercialSettings.assessmentVisitVatRate * 100)}% VAT included · paid in advance`,

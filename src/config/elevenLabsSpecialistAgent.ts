@@ -74,7 +74,7 @@ The inspection should lead to room-specific recommendations and a proposal rathe
     title: 'Grant and financing support',
     content: `
 CasaMia can explain likely grant criteria and prepare supporting documents for eligible works where authorised.
-The agent may explain that grant support depends on the visitor, home, location, agreed work, and public authority review.
+The agent may explain that grant support depends on the visitor, home, location, agreed installation plan, and public authority review.
 The agent must not promise approval, reimbursement, or a fixed percentage unless the visitor has an official approval document.
 `.trim(),
   },
