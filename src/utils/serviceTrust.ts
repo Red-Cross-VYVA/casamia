@@ -111,12 +111,15 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
 export function getServicePreviewDescription(service: CasaMiaService) {
   const description = [
     service.customerBenefit,
-    service.shortDescription,
+    service.outcome,
     service.plainLanguageSummary,
+    service.shortDescription,
     service.customerDescription,
-  ].find((value) => value?.trim())?.trim() ?? ''
+  ]
+    .map((value) => compactPreviewDescription(polishServiceDescription(value?.trim() ?? '')))
+    .find((value) => value.length > 0) ?? ''
 
-  return compactPreviewDescription(polishServiceDescription(description))
+  return description
     .replace(/\s+/g, ' ')
     .replace(/\.$/, '')
     .concat('.')
@@ -133,21 +136,21 @@ function polishServiceDescription(description: string) {
 
 function compactPreviewDescription(description: string) {
   const withoutOperationalProof = description
-    .split(/\s*(?:Before fitting|Before recommending it|Before quoting|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Después de instalar|CasaMia confirms|Confirmamos|we check|we confirm|we also confirm|then install|then set it up|then we install|then we set it up|then test|then we test|we flag useful paperwork|where local grant criteria may apply|donde puedan aplicar criterios de subvención)\b/i)[0]
+    .split(/\s*(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar|CasaMia confirms|Confirmamos|we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag useful paperwork|where local grant criteria may apply|donde puedan aplicar criterios de subvención|grant paperwork|final scope|scope and price|measurements, fixing points|home conditions)\b/i)[0]
     .trim()
 
   const sentences = withoutOperationalProof.match(/[^.!?]+[.!?]+/g)
   const firstSentence = (sentences?.slice(0, 1).join(' ') ?? withoutOperationalProof).trim()
   const summary = firstSentence
-    .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, cuando encaja|, si procede)\s*/i)[0]
+    .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, when the layout allows|, after checking|, when the existing|, donde sea adecuado|, cuando encaja|, si procede|, tras revisar|, cuando la distribución|, cuando la instalación)\s*/i)[0]
     .trim()
 
-  if (summary.length <= 96) return summary
+  if (summary.length <= 82) return summary
 
-  const clipped = summary.slice(0, 93)
+  const clipped = summary.slice(0, 79)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 68 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 56 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {
