@@ -207,7 +207,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Technology integration for senior living',
       title: 'Pilot safer rooms without adding another disconnected system.',
       body:
-        'CasaMia helps residences test camera-free fall detection, room sensors, continence prompts, connected health checks and caregiver workflows around one priority use case.',
+        'Start with one priority: falls, continence, room safety, health checks or staff response. CasaMia designs the pilot, connects the right devices and shows how the team should act.',
       primaryCta: 'Design a facility pilot',
       secondaryCta: 'See pilot options',
       proof: ['One use case first', 'Camera-free options', 'Existing systems reviewed', 'Staff workflow included'],
@@ -216,7 +216,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       imageAlt: 'Discreet camera-free room sensor in a calm senior-living residence',
       visualEyebrow: 'Passive safety, active response',
       visualTitle: 'A signal only matters when the team knows what to do next.',
-      visualBody: 'Supported sensors and devices route agreed events to the right role, with context and a clear response path.',
+      visualBody: 'Agreed room events go to the right role with context, ownership and the next action.',
       visualEvent: 'Suspected fall',
       visualRoom: 'Suite 214 · private room',
       visualRoute: 'Routed to the care team',
@@ -226,7 +226,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Designed around your residence',
       title: 'Every residence is different. Its technology plan should be too.',
       body:
-        'We begin with the building, residents, staff routines and systems already in place. Then we select, connect and pilot only the technology that fits.',
+        'We review the building, residents, staff routines and current systems first. The pilot then uses only the devices and workflows that fit that reality.',
       inputs: [
         { title: 'Residents', body: 'Abilities, risks, routines and consent' },
         { title: 'Residence', body: 'Rooms, bathrooms, coverage and connectivity' },
@@ -242,7 +242,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'What CasaMia delivers',
       title: 'Not just devices. A working operating model for the residence.',
       body:
-        'The value is not a sensor on a wall. It is knowing which resident, which room, which event, who owns the response and what happens next—without creating another disconnected tool for staff.',
+        'The value is not another sensor. It is a reliable answer to: which resident, which room, which event, who responds and what happens next.',
       cards: [
         {
           title: 'Home clinic layer',
@@ -265,16 +265,16 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'High-value pilot options',
       title: 'Choose the first use case worth proving.',
       body:
-        'Start with the resident risk or operational bottleneck that matters most. CasaMia validates the device fit, coverage, permissions and staff response before anything scales.',
+        'Choose the risk or workflow problem that matters most. CasaMia checks device fit, room coverage, permissions and response ownership before anything expands.',
       compatibility:
-        'Device compatibility, room coverage, consent, certification and response ownership are checked before the pilot.',
+        'Before the pilot: compatibility, coverage, consent, certification and response ownership are confirmed.',
       items: [
         {
           kind: 'fall',
           tag: 'Camera-free options',
           title: 'Ambient fall detection',
           body:
-            'Supported radar, bed-exit, presence and environmental sensors can add passive coverage without asking a resident to press a button.',
+            'Radar, bed-exit, presence and environment sensors can add passive room coverage without asking the resident to press a button.',
           points: ['Wall or ceiling radar', 'Bed-exit and occupancy sensing', 'Door, temperature, air or leak events'],
           visualLabel: 'Examples: radar · bed exit · environment',
         },
@@ -283,7 +283,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Dignity by design',
           title: 'Bathroom and continence insights',
           body:
-            'Compatible continence sensors can prompt a change; supported toilet or urine-analysis devices can surface selected measurements or trends for authorised review.',
+            'Continence sensors can prompt a change. Selected toilet or urine-analysis devices can surface measurements or trends for authorised review.',
           points: ['Saturation and change prompts', 'Toileting-event patterns', 'Professional review for flagged changes'],
           visualLabel: 'Bathroom signals, not cameras',
         },
@@ -292,7 +292,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Opt-in health check',
           title: 'rPPG mirror and connected health',
           body:
-            'A supported smart mirror can estimate selected signals during a deliberate optical rPPG check-in. Compatible blood-pressure monitors, oximeters, thermometers and scales can join the same authorised workflow.',
+            'A smart mirror can support deliberate optical rPPG check-ins. Blood-pressure monitors, oximeters, thermometers and scales can feed the same authorised workflow.',
           points: ['Opt-in, not continuous room monitoring', 'Selected pulse and breathing signals', 'Certification and intended use reviewed'],
           visualLabel: 'rPPG mirror concept · optical check-in',
         },
@@ -301,7 +301,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Optional personal devices',
           title: 'Wearables when they add value',
           body:
-            'Compatible watches, wristbands and pendants can support SOS, location, activity or selected health readings for residents who accept and reliably use them.',
+            'Watches, wristbands and pendants are useful only when residents accept them and use them reliably for SOS, location, activity or selected readings.',
           points: ['Optional—not required for ambient detection', 'Works beyond one room', 'Integrated only with consent and a clear response'],
           visualLabel: 'Wearable, pendant and fixed-call options',
         },
@@ -311,7 +311,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Technology relationships and ecosystem',
       title: 'Specialist technology, brought together around the residence.',
       body:
-        'CasaMia combines senior-technology experience with a vendor-aware selection process. We validate supported interfaces, market availability and the operating workflow before recommending any product.',
+        'CasaMia compares the use case, vendor route, market availability and staff workflow before recommending a product.',
       providerLabel: 'CasaMia technology and service provider',
       providerName: 'MOKA DigiTech',
       providerBody: 'Senior-focused service design, digital workflows and technology integration.',
@@ -320,7 +320,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         { name: 'VYVA', category: 'Health assistant and caregiver workflows', href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion' },
         { name: 'COCOON', category: 'Assistive-technology experience', href: 'https://www.cocoon.services/assistive-technology' },
       ],
-      examplesLabel: 'Specialist technologies we can assess',
+      examplesLabel: 'Specialist technologies CasaMia can assess',
       examples: [
         { name: 'Vayyar Care', category: 'Camera-free room radar', href: 'https://vayyar.com/care-pages/how/' },
         { name: 'TENA SmartCare', category: 'Digital continence care', href: 'https://www.tena.co.uk/professionals/products/digital-care-solutions/change-indicator/tena-smartcare-change-indicator-sensor-strip/' },
@@ -336,7 +336,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Signal to action',
       title: 'From a room signal to a managed response.',
       body:
-        'CasaMia connects agreed device events into workflows run by your authorised team: who sees it, who owns it, what context they receive and how the action is recorded.',
+        'CasaMia turns agreed device events into a workflow your authorised team can run: who sees it, who owns it, what context appears and how the action is recorded.',
       aria:
         'Resident room sensors and compatible devices connect through CasaMia integration to caregiver, operator and existing care-system workflows.',
       sourceTitle: 'Resident space',
@@ -391,7 +391,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'A responsible rollout',
       title: 'One contained pilot, then evidence-based scale.',
       body:
-        'Begin with one use case, one area and one success measure. Validate coverage, response time and staff adoption before expanding across rooms, wings or sites.',
+        'Begin with one use case, one area and one success measure. Expand only after coverage, response time and staff adoption are proven.',
       steps: [
         { title: 'Assess', body: 'Define the use case, site and success measure.' },
         { title: 'Configure', body: 'Validate devices, integrations and routing.' },
@@ -421,12 +421,12 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         {
           question: 'Do residents need to wear a pendant?',
           answer:
-            'Not with supported ambient options. We validate coverage, resident suitability and the response protocol during the pilot.',
+            'Not always. Ambient room options can cover selected risks without a pendant. CasaMia confirms coverage, suitability and response protocol during the pilot.',
         },
         {
           question: 'Can CasaMia work with our existing nurse-call or care system?',
           answer:
-            'Where supported, yes. We validate interfaces, permissions and vendor requirements; if direct integration is unavailable, we propose a clearly scoped alternative.',
+            'Yes when the system exposes a safe integration route. If direct integration is unavailable, CasaMia defines the closest practical alternative before the pilot starts.',
         },
         {
           question: 'Do bathroom or urine sensors diagnose health conditions?',
@@ -444,10 +444,10 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Start with one use case',
       title: 'Start with the first pilot.',
       body:
-        'Tell us about the site, current systems and first priority. We will recommend the smallest pilot that can prove staff response, coverage and resident suitability.',
+        'Tell us about the site, current systems and first priority. CasaMia will propose the smallest pilot that can prove coverage, staff response and resident suitability.',
       emailLabel: 'Prefer email?',
       cardTitle: 'Request a facility consultation',
-      cardIntro: 'A few details help us bring the right specialist to the first call.',
+      cardIntro: 'Share enough context for CasaMia to route the first call properly.',
       organisation: 'Organisation',
       role: 'Your role',
       facilityType: 'Facility type',
@@ -485,7 +485,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Integración tecnológica para residencias',
       title: 'Pilota habitaciones más seguras sin añadir otro sistema aislado.',
       body:
-        'CasaMia ayuda a residencias a probar detección de caídas sin cámara, sensores de habitación, avisos de continencia, controles de salud conectados y flujos para cuidadores alrededor de una prioridad concreta.',
+        'Empieza por una prioridad: caídas, continencia, seguridad de habitación, controles de salud o respuesta del equipo. CasaMia diseña el piloto, conecta los dispositivos adecuados y define cómo debe actuar el equipo.',
       primaryCta: 'Diseñar un piloto',
       secondaryCta: 'Ver opciones de piloto',
       proof: ['Un caso de uso primero', 'Opciones sin cámara', 'Sistemas actuales revisados', 'Flujo del equipo incluido'],
@@ -494,7 +494,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       imageAlt: 'Sensor discreto sin cámara en una residencia senior tranquila',
       visualEyebrow: 'Seguridad pasiva, respuesta activa',
       visualTitle: 'Una señal solo aporta valor si el equipo sabe qué hacer después.',
-      visualBody: 'Sensores y dispositivos compatibles envían eventos acordados al rol adecuado, con contexto y una ruta clara de respuesta.',
+      visualBody: 'Los eventos acordados llegan al rol adecuado con contexto, responsable y siguiente acción.',
       visualEvent: 'Posible caída',
       visualRoom: 'Habitación 214 · espacio privado',
       visualRoute: 'Enviado al equipo asistencial',
@@ -504,7 +504,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Diseñado alrededor de tu residencia',
       title: 'Cada residencia es distinta. Su plan tecnológico también debe serlo.',
       body:
-        'Empezamos por el edificio, los residentes, las rutinas del personal y los sistemas actuales. Después seleccionamos, conectamos y pilotamos solo la tecnología que encaja.',
+        'Revisamos edificio, residentes, rutinas del personal y sistemas actuales. El piloto usa solo los dispositivos y flujos que encajan con esa realidad.',
       inputs: [
         { title: 'Residentes', body: 'Capacidades, riesgos, rutinas y consentimiento' },
         { title: 'Residencia', body: 'Habitaciones, baños, cobertura y conectividad' },
@@ -512,7 +512,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         { title: 'Sistemas actuales', body: 'Llamada, plataforma asistencial, apps y datos' },
       ],
       outcomeLabel: 'Tu blueprint CasaMia',
-      outcomeTitle: 'Una solución a medida con un modelo operativo claro.',
+      outcomeTitle: 'Un piloto conectado con un modelo operativo claro.',
       outcomes: ['Dispositivos seleccionados', 'Ruta de integración', 'Modelo de aviso y respuesta', 'Plan de formación y despliegue'],
       note: 'Empieza por una prioridad. Amplía solo cuando el flujo funcione en la práctica.',
     },
@@ -520,7 +520,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Qué entrega CasaMia',
       title: 'No solo dispositivos. Un modelo operativo que funciona en la residencia.',
       body:
-        'El valor no está en colocar un sensor. Está en saber qué residente, qué habitación, qué evento, quién responde y cuál es el siguiente paso, sin crear otra herramienta aislada para el equipo.',
+        'El valor no es otro sensor. Es responder con fiabilidad: qué residente, qué habitación, qué evento, quién responde y qué pasa después.',
       cards: [
         {
           title: 'Capa de home clinic',
@@ -543,16 +543,16 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Opciones de piloto de alto valor',
       title: 'Elige el primer caso de uso que merece validarse.',
       body:
-        'Empieza por el riesgo del residente o el cuello de botella operativo que más importa. CasaMia valida dispositivo, cobertura, permisos y respuesta del equipo antes de escalar.',
+        'Elige el riesgo o problema operativo que más importa. CasaMia comprueba encaje del dispositivo, cobertura, permisos y responsable de respuesta antes de ampliar.',
       compatibility:
-        'Validamos compatibilidad, cobertura, consentimiento, certificación y responsables de respuesta antes del piloto.',
+        'Antes del piloto se confirman compatibilidad, cobertura, consentimiento, certificación y responsable de respuesta.',
       items: [
         {
           kind: 'fall',
           tag: 'Opciones sin cámara',
           title: 'Detección ambiental de caídas',
           body:
-            'Los sensores compatibles de radar, salida de cama, presencia y ambiente pueden aportar cobertura pasiva sin pedir al residente que pulse un botón.',
+            'Radar, salida de cama, presencia y sensores ambientales pueden aportar cobertura pasiva sin pedir al residente que pulse un botón.',
           points: ['Radar de pared o techo', 'Salida de cama y ocupación', 'Puerta, temperatura, aire o fugas'],
           visualLabel: 'Ejemplos: radar · salida de cama · ambiente',
         },
@@ -561,7 +561,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Dignidad desde el diseño',
           title: 'Información de baño y continencia',
           body:
-            'Los sensores de continencia compatibles pueden avisar de un cambio; determinados dispositivos de inodoro o análisis de orina pueden mostrar mediciones o tendencias para una revisión autorizada.',
+            'Los sensores de continencia pueden avisar de un cambio. Determinados dispositivos de inodoro o análisis de orina pueden mostrar mediciones o tendencias para revisión autorizada.',
           points: ['Avisos de saturación y cambio', 'Patrones de uso del baño', 'Revisión profesional cuando corresponda'],
           visualLabel: 'Señales de baño, no cámaras',
         },
@@ -570,7 +570,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Control de salud opcional',
           title: 'Espejo rPPG y salud conectada',
           body:
-            'Un espejo inteligente compatible puede estimar determinadas señales durante un control óptico rPPG deliberado. Tensiómetros, pulsioxímetros, termómetros y básculas compatibles pueden unirse al mismo flujo autorizado.',
+            'Un espejo inteligente puede apoyar controles ópticos rPPG deliberados. Tensiómetros, pulsioxímetros, termómetros y básculas pueden alimentar el mismo flujo autorizado.',
           points: ['Uso opcional, no monitorización continua', 'Señales seleccionadas de pulso y respiración', 'Revisión de certificación y finalidad prevista'],
           visualLabel: 'Concepto de espejo rPPG · control óptico',
         },
@@ -579,7 +579,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Dispositivos personales opcionales',
           title: 'Wearables cuando aportan valor',
           body:
-            'Relojes, pulseras y colgantes compatibles pueden apoyar SOS, localización, actividad o determinadas lecturas de salud cuando el residente los acepta y utiliza de forma fiable.',
+            'Relojes, pulseras y colgantes solo aportan valor cuando la persona los acepta y los usa de forma fiable para SOS, localización, actividad o lecturas seleccionadas.',
           points: ['Opcional: no necesario para la detección ambiental', 'Útil también fuera de la habitación', 'Integración con consentimiento y respuesta clara'],
           visualLabel: 'Wearable, colgante y llamada fija',
         },
@@ -589,7 +589,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Relaciones tecnológicas y ecosistema',
       title: 'Tecnología especializada, reunida alrededor de la residencia.',
       body:
-        'CasaMia combina experiencia en tecnología senior con una selección abierta a distintos fabricantes. Validamos interfaces, disponibilidad y el flujo operativo antes de recomendar un producto.',
+        'CasaMia compara caso de uso, ruta del fabricante, disponibilidad y flujo del equipo antes de recomendar un producto.',
       providerLabel: 'Proveedor tecnológico y de servicio de CasaMia',
       providerName: 'MOKA DigiTech',
       providerBody: 'Diseño de servicios senior, flujos digitales e integración tecnológica.',
@@ -598,7 +598,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         { name: 'VYVA', category: 'Asistente de salud y flujos para cuidadores', href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion' },
         { name: 'COCOON', category: 'Experiencia en tecnología asistencial', href: 'https://www.cocoon.services/assistive-technology' },
       ],
-      examplesLabel: 'Tecnologías especializadas que podemos evaluar',
+      examplesLabel: 'Tecnologías especializadas que CasaMia puede evaluar',
       examples: [
         { name: 'Vayyar Care', category: 'Radar de habitación sin cámara', href: 'https://vayyar.com/care-pages/how/' },
         { name: 'TENA SmartCare', category: 'Continencia digital', href: 'https://www.tena.co.uk/professionals/products/digital-care-solutions/change-indicator/tena-smartcare-change-indicator-sensor-strip/' },
@@ -614,7 +614,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'De la señal a la acción',
       title: 'De una señal en la habitación a una respuesta gestionada.',
       body:
-        'CasaMia conecta los eventos acordados con los flujos de tu equipo autorizado: quién lo ve, quién responde, qué contexto recibe y cómo queda registrada la acción.',
+        'CasaMia convierte los eventos acordados en un flujo que tu equipo autorizado puede ejecutar: quién lo ve, quién responde, qué contexto aparece y cómo se registra la acción.',
       aria:
         'Los sensores de habitación y dispositivos compatibles se conectan mediante la integración CasaMia con los flujos de cuidadores, operadores y sistemas existentes.',
       sourceTitle: 'Espacio del residente',
@@ -669,7 +669,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Un despliegue responsable',
       title: 'Un piloto acotado, después escala con evidencia.',
       body:
-        'Empieza por un caso de uso, una zona y una medida de éxito. Valida cobertura, tiempo de respuesta y adopción del equipo antes de ampliar a más habitaciones, alas o centros.',
+        'Empieza por un caso de uso, una zona y una medida de éxito. Amplía solo cuando cobertura, tiempo de respuesta y adopción del equipo estén probados.',
       steps: [
         { title: 'Evaluar', body: 'Definimos el caso de uso, la zona y la medida de éxito.' },
         { title: 'Configurar', body: 'Validamos dispositivos, integraciones y enrutamiento.' },
@@ -699,12 +699,12 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         {
           question: '¿Los residentes tienen que llevar un colgante?',
           answer:
-            'No con las opciones ambientales compatibles. Validamos la cobertura, la idoneidad para el residente y el protocolo de respuesta durante el piloto.',
+            'No siempre. Las opciones ambientales pueden cubrir riesgos concretos sin colgante. CasaMia confirma cobertura, idoneidad y protocolo de respuesta durante el piloto.',
         },
         {
           question: '¿CasaMia puede trabajar con nuestro sistema de llamada o cuidados?',
           answer:
-            'Cuando existe compatibilidad, sí. Validamos interfaces, permisos y requisitos del proveedor; si no hay integración directa, proponemos una alternativa claramente delimitada.',
+            'Sí cuando el sistema ofrece una ruta de integración segura. Si no hay integración directa, CasaMia define la alternativa práctica antes de iniciar el piloto.',
         },
         {
           question: '¿Los sensores de baño u orina diagnostican problemas de salud?',
@@ -722,10 +722,10 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Empieza por un caso de uso',
       title: 'Empieza por el primer piloto.',
       body:
-        'Cuéntanos el centro, los sistemas actuales y la prioridad. Recomendaremos el piloto práctico más pequeño que merece probarse.',
+        'Cuéntanos el centro, los sistemas actuales y la prioridad. CasaMia propondrá el piloto más pequeño que pueda demostrar cobertura, respuesta del equipo e idoneidad para residentes.',
       emailLabel: '¿Prefieres email?',
       cardTitle: 'Solicita una consulta para tu centro',
-      cardIntro: 'Unos datos nos ayudan a asignar al especialista adecuado.',
+      cardIntro: 'Comparte el contexto necesario para dirigir bien la primera llamada.',
       organisation: 'Organización',
       role: 'Tu cargo',
       facilityType: 'Tipo de centro',
