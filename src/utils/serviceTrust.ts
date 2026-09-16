@@ -110,10 +110,10 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
 
 export function getServicePreviewDescription(service: CasaMiaService) {
   const description = [
-    service.plainLanguageSummary,
-    service.shortDescription,
     service.customerBenefit,
     service.outcome,
+    service.plainLanguageSummary,
+    service.shortDescription,
     service.customerDescription,
   ]
     .map((value) => compactPreviewDescription(polishServiceDescription(value?.trim() ?? '')))
@@ -154,11 +154,11 @@ function compactPreviewDescription(description: string) {
     .trim()
 
   const words = summary.split(/\s+/).filter(Boolean)
-  const wordLimited = words.length > 16 ? words.slice(0, 16).join(' ') : summary
+  const wordLimited = words.length > 13 ? words.slice(0, 13).join(' ') : summary
 
-  if (wordLimited.length <= 110) return wordLimited
+  if (wordLimited.length <= 92) return wordLimited
 
-  const clipped = wordLimited.slice(0, 104)
+  const clipped = wordLimited.slice(0, 86)
   const lastSpace = clipped.lastIndexOf(' ')
 
   return `${clipped.slice(0, lastSpace > 56 ? lastSpace : clipped.length).trim()}...`
