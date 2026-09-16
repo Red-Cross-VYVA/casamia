@@ -16,11 +16,11 @@ export function ServicesPreview() {
         <div className="services-preview-heading">
           <span className="eyebrow">Room-by-room safety</span>
           <h2 className="display-title">
-            Make the rooms used every day safer, easier, and calmer.
+            Start with the rooms where risk shows up every day.
           </h2>
           <p>
-            CasaMia helps you choose changes that make daily routines easier: safer bathrooms,
-            steadier stairs, clearer entrances, calmer bedrooms, safer kitchens, and smart support only when it helps.
+            Compare bathroom, stair, entrance, bedroom, kitchen and living-area checks, then focus on
+            the changes that reduce the most obvious movement, reach, lighting or support risk first.
           </p>
         </div>
 
@@ -42,8 +42,8 @@ export function ServicesPreview() {
           <div>
             <CheckCircle2 size={24} aria-hidden="true" />
             <p>
-              Not sure which room to start with? The {visitFee} in-home visit identifies
-              the priorities before any works are proposed.
+              Not sure which room to start with? The {visitFee} in-home visit ranks
+              the main risks before any works are proposed.
             </p>
           </div>
           <Link className="btn btn-green" to="/home-safety-assessment">

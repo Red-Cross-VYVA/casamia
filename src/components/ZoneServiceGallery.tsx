@@ -42,61 +42,61 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
   bathroom: {
     en: {
       eyebrow: 'Catalogue gallery',
-      title: 'Bathroom items available.',
-      body: 'Products and adaptations for safer showering, toilet use, wet floors, lighting and hand support.',
+      title: 'Bathroom checks and items to compare.',
+      body: 'Review shower entry, toilet transfers, wet-floor grip, lighting and hand support before choosing items.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
-      title: 'Elementos de baño disponibles.',
-      body: 'Una vista visual de los productos y adaptaciones que CasaMia puede combinar según el baño, la rutina y el nivel de apoyo necesario.',
+      title: 'Revisiones y elementos de baño para comparar.',
+      body: 'Revisa entrada de ducha, transferencias al WC, agarre en suelo mojado, iluminación y puntos de apoyo antes de elegir.',
     },
   },
   bedroom: {
     en: {
       eyebrow: 'Catalogue gallery',
-      title: 'Bedroom items available.',
-      body: 'Supports for getting in and out of bed, moving at night, improving light and keeping help within reach.',
+      title: 'Bedroom checks and items to compare.',
+      body: 'Review bed transfers, night movement, lighting, clear routes and how help is reached from bed.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
-      title: 'Elementos de dormitorio disponibles.',
-      body: 'Apoyos prácticos para entrar y salir de la cama, moverse de noche, mejorar la iluminación, ordenar el almacenamiento y tener ayuda al alcance.',
+      title: 'Revisiones y elementos de dormitorio para comparar.',
+      body: 'Revisa entrada y salida de la cama, ruta nocturna, iluminación, obstáculos y cómo pedir ayuda desde la cama.',
     },
   },
   entrance: {
     en: {
       eyebrow: 'Catalogue gallery',
-      title: 'Entrance items available.',
-      body: 'Support for thresholds, doorway access, lighting, visitor awareness and steadier arrivals.',
+      title: 'Entrance checks and items to compare.',
+      body: 'Review thresholds, doorway width, lighting, hand support and visitor awareness at the entrance used most.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
-      title: 'Elementos de entrada disponibles.',
-      body: 'Apoyo para umbrales, acceso a la puerta, iluminación, control de visitas y pausas más seguras en la entrada que realmente se usa.',
+      title: 'Revisiones y elementos de entrada para comparar.',
+      body: 'Revisa umbrales, ancho de puerta, iluminación, apoyo de mano y control de visitas en la entrada que más se usa.',
     },
   },
   kitchen: {
     en: {
       eyebrow: 'Catalogue gallery',
-      title: 'Kitchen items available.',
-      body: 'Products and adaptations for safer cooking, prep, lighting, standing zones, storage and selected alerts.',
+      title: 'Kitchen checks and items to compare.',
+      body: 'Review reach, preparation zones, lighting, standing tolerance, storage and appliance or leak safeguards.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
-      title: 'Elementos de cocina disponibles.',
-      body: 'Productos y adaptaciones para preparar, cocinar, iluminar, estar de pie, almacenar y recibir avisos útiles con más seguridad.',
+      title: 'Revisiones y elementos de cocina para comparar.',
+      body: 'Revisa alcance, zonas de preparación, iluminación, tiempo de pie, almacenamiento y protección frente a fugas o electrodomésticos.',
     },
   },
   'living-room': {
     en: {
       eyebrow: 'Catalogue gallery',
-      title: 'Living room items available.',
-      body: 'Supports for sitting, standing, clearer movement, safer furniture, lighting and simple connected alerts.',
+      title: 'Living room checks and items to compare.',
+      body: 'Review seating height, rugs, cables, furniture stability, lighting and movement routes through the room.',
     },
     es: {
       eyebrow: 'Galería del catálogo',
-      title: 'Elementos de salón disponibles.',
-      body: 'Apoyos para sentarse, levantarse, moverse con más claridad, asegurar muebles, mejorar la luz y añadir tranquilidad conectada.',
+      title: 'Revisiones y elementos de salón para comparar.',
+      body: 'Revisa altura de asiento, alfombras, cables, estabilidad de muebles, iluminación y rutas de paso por la estancia.',
     },
   },
 }

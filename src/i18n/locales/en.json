@@ -64,7 +64,7 @@
     "phone": "Phone",
     "postcode": "Postcode",
     "emailDelivery": "Email report",
-    "emailDeliveryBody": "Best for the complete secure report link.",
+    "emailDeliveryBody": "Receive the full report and secure link in your inbox.",
     "whatsappDelivery": "WhatsApp link",
     "whatsappDeliveryBody": "Short message only. Sensitive details stay in the report.",
     "termsLink": "Terms and Conditions",
@@ -523,24 +523,24 @@
   "grants": {
     "badge": "Grants and assistance",
     "title": "Extra support may be closer than you think.",
-    "sub": "CasaMia handles the grant journey end to end.",
-    "body": "We look for possible assistance, organise the paperwork and stay with you through the next steps, so your safer-home project feels easier to start.",
+    "sub": "CasaMia checks likely routes before you commit to works.",
+    "body": "We identify relevant schemes, list the documents usually needed and prepare proposal wording that explains the safety work clearly. Approval always remains with the public authority.",
     "cta": "Explore support",
     "stats": [
       {
         "eyebrow": "01",
-        "value": "Discover",
+        "value": "Check fit",
         "label": "See what support may fit"
       },
       {
         "eyebrow": "02",
-        "value": "Relax",
-        "label": "We handle the paperwork"
+        "value": "Prepare",
+        "label": "Get the file and proposal wording ready"
       },
       {
         "eyebrow": "03",
-        "value": "Move ahead",
-        "label": "We keep the process moving"
+        "value": "Decide",
+        "label": "Know what can proceed now and what must wait"
       }
     ],
     "disclaimer": "Fine print: grant availability, eligibility criteria, funding levels and deadlines may change. CasaMia does not award grants and cannot guarantee approval; the relevant public authority makes the final decision."
@@ -609,13 +609,13 @@
       "intro": {
         "caption": "Quick intro",
         "eyebrow": "Before you start",
-        "title": "A clearer home-safety view in a few minutes.",
-        "body": "Upload wide photos of the key rooms. CasaMia combines visible risks with your context and prepares a simple room-by-room safety report.",
+        "title": "See which room risks deserve attention first.",
+        "body": "Upload wide photos of key rooms. CasaMia reviews visible hazards with your context and returns a room-by-room report with the next action to consider.",
         "time": "Usually takes 3-5 minutes. No obligation.",
         "start": "Start report",
         "steps": [
           "Upload room photos",
-          "Add practical context",
+          "Add mobility and routine context",
           "Share contact details",
           "Receive your report"
         ]
@@ -646,7 +646,7 @@
       },
       "home": {
         "title": "Tell us what worries you.",
-        "body": "We only need practical context to read the photos better and prioritise the real risks in the home.",
+        "body": "Tell us what changed, who uses the room and which routines feel risky so the report prioritises the right issues.",
         "region": "Autonomous community",
         "postcode": "Postcode",
         "homeType": "Home type",
@@ -664,7 +664,7 @@
         "email": "Email",
         "phone": "Phone",
         "emailDelivery": "Email full report",
-        "emailDeliveryBody": "Best for the complete safety report and secure link.",
+        "emailDeliveryBody": "Receive the full safety report and secure link in your inbox.",
         "whatsappDelivery": "WhatsApp secure link",
         "whatsappDeliveryBody": "Short message only. Sensitive details stay on the report page.",
         "consent": "I agree CasaMia can process my home photos, safety information, and contact details to prepare and send my free safety report."
@@ -946,14 +946,14 @@
       },
       "cardsTitle": "Compare three CasaMia starting plans.",
       "cardsIntro": "The in-home assessment is the starting point. These plans show common levels of support; the final scope is built from the improvements your home actually needs.",
-      "bestForLabel": "Best for",
+      "bestForLabel": "When this fits",
       "cards": [
         {
           "id": "essential",
           "name": "Essential",
           "price": "€269",
           "description": "Focused safety improvements for the highest-risk everyday areas: entrance, living room and stairs.",
-          "bestFor": "Homes that need focused safety upgrades without a full-home project.",
+          "bestFor": "One or two high-risk areas need work before a wider home project is needed.",
           "deliverables": [
             "{{visitFee}} in-home assessment credited toward your plan",
             "Grab bars and basic support points",
@@ -968,7 +968,7 @@
           "name": "Advanced",
           "price": "€1,149",
           "description": "A broader home safety plan covering multiple rooms, access points and daily routines.",
-          "bestFor": "Seniors who need coordinated safety improvements across the home.",
+          "bestFor": "Several rooms or daily routines need coordinated changes and installation planning.",
           "deliverables": [
             "Everything in Essential",
             "Bathroom, kitchen, entrance and stair adaptations",
@@ -985,7 +985,7 @@
           "name": "Premium",
           "price": "€1,449",
           "description": "Full safety adaptation plus connected smart support, monitoring and approved-contact alerts.",
-          "bestFor": "Homes that need the strongest safety layer for aging in place.",
+          "bestFor": "The home needs physical adaptations plus connected alerts agreed with the person using them.",
           "deliverables": [
             "Everything in Advanced",
             "Fall detection sensors",
@@ -1101,7 +1101,7 @@
         ]
       },
       "payment": {
-        "title": "Simple & Transparent Payment Terms",
+        "title": "Clear payment terms before work starts",
         "body": "We keep payments clear and fair. The {{visitFee}} in-home assessment includes {{visitVatPercent}} VAT, is paid in advance at booking, and is credited toward your chosen plan. For agreed installation work, you pay {{proposalUpfrontPercent}} to get started and {{proposalBalancePercent}} only upon completion and customer acceptance.",
         "items": [
           {
@@ -1135,7 +1135,7 @@
             "body": "We provide recommendations, pricing, assumptions and the next decision before any work begins."
           },
           {
-            "title": "We deliver the solution",
+            "title": "We complete the agreed work",
             "body": "If you approve, our team coordinates products, installers, and final handover."
           }
         ]

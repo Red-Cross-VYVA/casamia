@@ -64,7 +64,7 @@
     "phone": "Teléfono",
     "postcode": "Código postal",
     "emailDelivery": "Enviar por email",
-    "emailDeliveryBody": "Ideal para recibir el enlace seguro del informe completo.",
+    "emailDeliveryBody": "Recibe el informe completo y el enlace seguro en tu email.",
     "whatsappDelivery": "Enlace por WhatsApp",
     "whatsappDeliveryBody": "Mensaje breve solamente. Los detalles sensibles quedan en el informe.",
     "termsLink": "Términos y condiciones",
@@ -396,7 +396,7 @@
     "health": {
       "icon": "H",
       "title": "Monitorización de Salud y Constantes",
-      "desc": "Presión arterial, frecuencia cardiaca, recordatorios de medicación y alertas familiares. Tranquilidad estés donde estés.",
+      "desc": "Presión arterial, frecuencia cardiaca, recordatorios de medicación y avisos a contactos autorizados cuando se configuran.",
       "badge": "Solo Premium"
     }
   },
@@ -523,24 +523,24 @@
   "grants": {
     "badge": "Ayudas y subvenciones",
     "title": "Puede haber apoyo más cerca de lo que parece.",
-    "sub": "CasaMia gestiona el camino de principio a fin.",
-    "body": "Buscamos posibles ayudas, ordenamos la documentación y te acompañamos en los siguientes pasos para que adaptar la vivienda sea más fácil de empezar.",
+    "sub": "CasaMia revisa las vías probables antes de que apruebes obras.",
+    "body": "Identificamos programas relevantes, listamos la documentación que suele pedirse y preparamos textos de propuesta que explican claramente el trabajo de seguridad. La aprobación siempre depende de la administración.",
     "cta": "Explorar ayudas",
     "stats": [
       {
         "eyebrow": "01",
-        "value": "Descubrir",
+        "value": "Comprobar",
         "label": "Vemos qué apoyo puede encajar"
       },
       {
         "eyebrow": "02",
-        "value": "Tranquilidad",
-        "label": "Ordenamos la documentación"
+        "value": "Preparar",
+        "label": "Dejamos listo el expediente y la propuesta"
       },
       {
         "eyebrow": "03",
-        "value": "Avanzar",
-        "label": "Mantenemos el proceso en marcha"
+        "value": "Decidir",
+        "label": "Sabes qué puede avanzar ahora y qué debe esperar"
       }
     ],
     "disclaimer": "Letra pequeña: la disponibilidad, criterios, importes y plazos pueden cambiar. CasaMia no concede ayudas ni puede garantizar la aprobación; la decisión final corresponde a la autoridad pública."
@@ -609,13 +609,13 @@
       "intro": {
         "caption": "Introducción breve",
         "eyebrow": "Antes de empezar",
-        "title": "Una visión más clara de la seguridad del hogar en pocos minutos.",
-        "body": "Sube fotos amplias de las estancias clave. CasaMia combina los riesgos visibles con tu contexto y prepara un informe sencillo por estancia.",
+        "title": "Ve qué riesgos de la vivienda merecen atención primero.",
+        "body": "Sube fotos amplias de estancias clave. CasaMia revisa riesgos visibles junto con tu contexto y devuelve un informe por estancia con el siguiente paso a considerar.",
         "time": "Suele tardar 3-5 minutos. Sin compromiso.",
         "start": "Empezar informe",
         "steps": [
           "Sube fotos de estancias",
-          "Añade contexto práctico",
+          "Añade contexto de movilidad y rutina",
           "Deja tus datos",
           "Recibe tu informe"
         ]
@@ -646,7 +646,7 @@
       },
       "home": {
         "title": "Cuéntanos qué te preocupa.",
-        "body": "Solo necesitamos contexto práctico para leer mejor las fotos y priorizar los riesgos reales de la vivienda.",
+        "body": "Cuéntanos qué ha cambiado, quién usa la estancia y qué rutinas se sienten inseguras para priorizar los riesgos adecuados.",
         "region": "Comunidad autónoma",
         "postcode": "Código postal",
         "homeType": "Tipo de vivienda",
@@ -664,7 +664,7 @@
         "email": "Email",
         "phone": "Teléfono",
         "emailDelivery": "Enviar informe por email",
-        "emailDeliveryBody": "Ideal para recibir el informe de seguridad completo y el enlace seguro.",
+        "emailDeliveryBody": "Recibe el informe completo y el enlace seguro en tu email.",
         "whatsappDelivery": "Enlace seguro por WhatsApp",
         "whatsappDeliveryBody": "Mensaje breve solamente. Los detalles sensibles quedan en el informe.",
         "consent": "Acepto que CasaMia procese las fotos de mi hogar, la información de seguridad y mis datos de contacto para preparar y enviar mi informe gratuito de seguridad."
@@ -946,14 +946,14 @@
       },
       "cardsTitle": "Compara tres planes CasaMia.",
       "cardsIntro": "La evaluación a domicilio es el punto de partida. Estos planes muestran niveles habituales de apoyo; el alcance final se construye con las mejoras que tu vivienda necesita.",
-      "bestForLabel": "Ideal para",
+      "bestForLabel": "Cuándo encaja",
       "cards": [
         {
           "id": "essential",
           "name": "Essential",
           "price": "€269",
           "description": "Mejoras de seguridad enfocadas en las zonas de mayor riesgo: entrada, salón y escaleras.",
-          "bestFor": "Viviendas que necesitan mejoras enfocadas sin hacer un proyecto completo.",
+          "bestFor": "Una o dos zonas de riesgo necesitan intervención antes de plantear un proyecto más amplio.",
           "deliverables": [
             "Evaluación de {{visitFee}} descontada del plan",
             "Barras de apoyo y puntos básicos de soporte",
@@ -968,7 +968,7 @@
           "name": "Advanced",
           "price": "€1.149",
           "description": "Un plan más completo para varias estancias, accesos y rutinas diarias.",
-          "bestFor": "Personas mayores que necesitan mejoras coordinadas de seguridad en casa.",
+          "bestFor": "Varias estancias o rutinas diarias necesitan cambios coordinados y planificación de instalación.",
           "deliverables": [
             "Todo lo de Essential",
             "Adaptaciones en baño, cocina, entrada y escaleras",
@@ -985,7 +985,7 @@
           "name": "Premium",
           "price": "€1.449",
           "description": "Adaptación completa de seguridad más apoyo inteligente, monitorización y alertas a contactos autorizados.",
-          "bestFor": "Viviendas que necesitan la capa de seguridad más completa para envejecer en casa.",
+          "bestFor": "La vivienda necesita adaptaciones físicas y avisos conectados acordados con la persona que los usará.",
           "deliverables": [
             "Todo lo de Advanced",
             "Sensores de detección de caídas",
@@ -1101,7 +1101,7 @@
         ]
       },
       "payment": {
-        "title": "Condiciones de pago simples y transparentes",
+        "title": "Condiciones de pago claras antes de empezar",
         "body": "Mantenemos los pagos claros y justos. La evaluación a domicilio cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido, se paga por adelantado al reservar y se descuenta del plan elegido. Para los trabajos acordados, pagas el {{proposalUpfrontPercent}} para empezar y el {{proposalBalancePercent}} solo al finalizar y tras la aceptación del cliente.",
         "items": [
           {
@@ -1135,7 +1135,7 @@
             "body": "Te damos recomendaciones claras, precio y próximos pasos antes de iniciar cualquier trabajo."
           },
           {
-            "title": "Entregamos la solución",
+            "title": "Realizamos el trabajo acordado",
             "body": "Si apruebas la propuesta, coordinamos productos, instaladores y entrega final."
           }
         ]
