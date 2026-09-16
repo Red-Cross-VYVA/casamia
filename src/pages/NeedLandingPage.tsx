@@ -46,7 +46,7 @@ export function NeedLandingPage() {
     checkFirst: isSpanish ? 'Qué revisar primero' : 'What to check first',
     handlesIt: isSpanish ? 'Cómo lo gestiona CasaMia' : 'How CasaMia handles it',
     evidenceEyebrow: isSpanish ? 'Lo que ayuda a decidir' : 'What helps us decide',
-    evidenceTitle: isSpanish ? 'Tres detalles ayudan a decidir mejor.' : 'Three details help decide the right next step.',
+    evidenceTitle: isSpanish ? 'Tres detalles orientan el siguiente paso.' : 'Three details point to the right next step.',
     evidenceBody: isSpanish
       ? 'No necesitas preparar un informe perfecto. Con rutina, espacio y cambios recientes podemos orientar el siguiente paso con más precisión.'
       : 'You do not need to prepare a perfect brief. The routine, the space and recent changes are enough to point the next step in the right direction.',
@@ -127,8 +127,8 @@ export function NeedLandingPage() {
     ready: isSpanish ? 'Cuando quieras' : 'Ready when you are',
     finalTitle: isSpanish ? 'Recibe una recomendación clara para tu caso.' : 'Get a clear recommendation for your situation.',
     finalBody: isSpanish
-      ? 'Empieza online, envía fotos o pide una llamada. Convertimos la información en un plan más claro antes de comprometerte con trabajos.'
-      : 'Start online, send photos or ask for a call. We turn the information into a clearer plan before you commit to works.',
+      ? 'Empieza online, envía fotos o pide una llamada. Convertimos la información en alcance, prioridades y siguiente acción antes de comprometerte con trabajos.'
+      : 'Start online, send photos or ask for a call. We turn the information into scope, priorities and the next action before you commit to works.',
     startPlan: isSpanish ? 'Empezar mi plan' : 'Start my plan',
     bookAssessment: isSpanish ? 'Reservar evaluación' : 'Book an assessment',
   }
@@ -228,7 +228,7 @@ export function NeedLandingPage() {
 
   const visibleCatalogueServices = isCompactNeedPage ? catalogueServices.slice(0, 4) : catalogueServices
   const secondaryCtaLabel = isCompactNeedPage
-    ? isSpanish ? 'Ver solución de baño' : 'See bathroom service'
+    ? isSpanish ? 'Ver servicio de baño' : 'See bathroom service'
     : copy.secondaryCta
   const primaryCtaTarget = isGrantSupportNeedPage ? '/grant-check' : '/home-safety-wizard'
   const primaryCtaLabel = isGrantSupportNeedPage
@@ -781,7 +781,7 @@ function getNeedRecommendedResources(
   language: string,
 ): NeedRecommendedResource[] {
   const languageKey = language.toLowerCase().startsWith('es') ? 'es' : 'en'
-  const articleLabel = languageKey === 'es' ? 'Guía práctica' : 'Practical guide'
+  const articleLabel = languageKey === 'es' ? 'Guía' : 'Guide'
   const toolLabel = languageKey === 'es' ? 'Herramienta' : 'Tool'
   const references = needResourceReferences[slug] ?? []
 

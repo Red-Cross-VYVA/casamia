@@ -89,7 +89,7 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     eyebrow: 'Empieza tu pedido CasaMia',
     title: 'Elige cómo quieres que contacte el equipo local.',
     intro:
-      'Escoge la opción más cómoda. CasaMia te conecta con el representante adecuado para tu zona y siguiente paso.',
+      'Escoge el canal que prefieras. CasaMia te conecta con el representante adecuado para tu zona y siguiente paso.',
     regionLabel: 'Zona seleccionada',
     whatsappTitle: 'Email',
     whatsappBody: 'Envía un email y recibe respuesta con la siguiente opción disponible.',
@@ -108,7 +108,7 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     time: 'Horario preferido',
     timeOptions: { '09:00-12:00': '09:00-12:00', '12:00-15:00': '12:00-15:00', '15:00-18:00': '15:00-18:00', '18:00-20:00': '18:00-20:00', flexible: 'Flexible' },
     notes: '¿Qué debemos saber?',
-    notesPlaceholder: 'Ejemplo: Madrid, seguridad en baño, mejor hora para llamar...',
+    notesPlaceholder: 'Ejemplo: Madrid, seguridad en baño, horario preferido...',
     submit: 'Solicitar llamada',
     success: 'Solicitud de llamada recibida. Te hemos enviado la confirmación por email.',
     successSaved: 'Solicitud de llamada recibida. CasaMia se pondrá en contacto contigo usando los datos facilitados.',

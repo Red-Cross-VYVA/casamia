@@ -661,15 +661,15 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewStepTitle: 'Review your selected packages',
     roomDescriptions: {
       bathroom:
-        'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes practical fixes such as grab bars, seating, anti-slip treatment, lever controls and water-temperature safety when they fit the room.',
+        'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes grab bars, seating, anti-slip treatment, lever controls and water-temperature safety when they fit the room.',
       bedroom:
-        'Focuses on getting in and out of bed, moving safely at night and keeping daily routines calm. Combines bedside support, better lighting, clearer routes, furniture positioning and fire-safety basics.',
+        'Focuses on getting in and out of bed, moving safely at night and keeping daily routines predictable. Combines bedside support, better lighting, clear walking routes, furniture positioning and fire-safety basics.',
       entrance:
         'Makes the first and last steps of the day safer: thresholds, handrails, lighting, door hardware and visitor awareness. Helps with steps, mats, locks and seeing who is at the door before opening.',
       kitchen:
-        'Designed for safer cooking without unnecessary strain: easier food preparation, safer reach, better visibility and clearer movement. Adds selected smoke or leak alerts and safer controls when they match the kitchen.',
+        'Designed for safer cooking without unnecessary strain: safer food preparation, reduced reach, better visibility and clear movement routes. Adds selected smoke or leak alerts and safer controls when they match the kitchen.',
       'living-room':
-        'Supports the room people use most for sitting, standing, relaxing and moving around. Addresses rugs, cables, unstable furniture, seating support and clearer circulation without making the space clinical.',
+        'Supports the room people use most for sitting, standing, relaxing and moving around. Addresses rugs, cables, unstable furniture, seating support and clear circulation without making the space clinical.',
     },
     rooms: [
       { title: 'Bathroom', body: 'Bathing, toilet transfers, wet floors and safe access.' },
@@ -761,15 +761,15 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewStepTitle: 'Revisa tus paquetes seleccionados',
     roomDescriptions: {
       bathroom:
-        'Cubre ducha, transferencias al WC, agarre en suelo mojado, acceso seguro y visibilidad nocturna. Incluye soluciones como barras, asiento, tratamiento antideslizante, mandos de palanca y seguridad de temperatura cuando encaje.',
+        'Cubre ducha, transferencias al WC, agarre en suelo mojado, acceso seguro y visibilidad nocturna. Incluye barras, asiento, tratamiento antideslizante, mandos de palanca y seguridad de temperatura cuando encaje.',
       bedroom:
-        'Pensado para entrar y salir de la cama, moverse de noche y mantener rutinas tranquilas. Combina apoyo para transferencias, mejor iluminación, rutas despejadas, distribución del mobiliario y seguridad básica contra incendios.',
+        'Pensado para entrar y salir de la cama, moverse de noche y mantener rutinas previsibles. Combina apoyo para transferencias, mejor iluminación, rutas despejadas, distribución del mobiliario y seguridad básica contra incendios.',
       entrance:
         'Hace más seguros los primeros y últimos pasos del día: umbrales, pasamanos, iluminación, herrajes de puerta y control de visitas. Útil para escalones, felpudos, cerraduras y ver quién llama antes de abrir.',
       kitchen:
-        'Diseñado para cocinar con menos esfuerzo y más seguridad: preparación más fácil, mejor alcance, más visibilidad y movimiento despejado. Añade avisos seleccionados de humo o fugas y controles más seguros cuando aporten valor.',
+        'Diseñado para cocinar con menos esfuerzo y más seguridad: preparación más segura, menos alcance, más visibilidad y movimiento despejado. Añade avisos seleccionados de humo o fugas y controles más seguros cuando aporten valor.',
       'living-room':
-        'Refuerza la estancia donde más se descansa, se camina y se convive. Atiende alfombras, cables, muebles inestables, apoyo para sentarse y levantarse, y rutas más claras sin convertir el salón en un espacio clínico.',
+        'Refuerza la estancia donde más se descansa, se camina y se convive. Atiende alfombras, cables, muebles inestables, apoyo para sentarse y levantarse, y rutas despejadas sin convertir el salón en un espacio clínico.',
     },
     rooms: [
       { title: 'Baño', body: 'Ducha, transferencias al WC, suelo mojado y acceso seguro.' },
@@ -2313,7 +2313,7 @@ export function PlansPage() {
 
             <div className="plans-full-package-heading">
               <p className="section-kicker">{language === 'es' ? 'Paquetes completos por estancia' : 'Complete room packages'}</p>
-              <h3>{language === 'es' ? 'Soluciones coordinadas para toda la estancia' : 'Coordinated whole-room solutions'}</h3>
+              <h3>{language === 'es' ? 'Plan coordinado para toda la estancia' : 'Coordinated whole-room plan'}</h3>
             </div>
             <div className="plans-room-grid">
               {groups.map((group) => {

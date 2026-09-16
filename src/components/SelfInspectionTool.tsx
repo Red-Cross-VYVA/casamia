@@ -276,7 +276,7 @@ const selfInspectionCopy = {
     reportStatus: 'Sin riesgos marcados',
     residentContext: 'Contexto de la persona',
     residentNeeds: 'Persona',
-    residentNeedsHelp: 'Caídas, confianza, rutinas y apoyo diario.',
+    residentNeedsHelp: 'Caídas, rutinas, movilidad y apoyo diario.',
     residentHelp: 'Solo lo que orienta la revisión.',
     residentName: 'Nombre',
     roomNotes: 'Notas',
@@ -285,7 +285,7 @@ const selfInspectionCopy = {
     startCheck: 'Empezar revisión',
     stepCards: [
       ['Datos básicos', 'Vivienda, accesos, habitaciones y apoyo diario.'],
-      ['Zonas clave', 'Preguntas sencillas para cada espacio.'],
+      ['Zonas clave', 'Preguntas concretas para cada espacio.'],
       ['Fotos útiles', 'Solo donde ayuden a explicar algo.'],
     ],
     steps: ['Vivienda', 'Zonas', 'Resumen'],
@@ -325,12 +325,12 @@ const selfInspectionCopyEsRefined: Partial<typeof selfInspectionCopy.en> = {
   reportContext: 'Resumen de vivienda y persona',
   residentContext: 'Para quién es',
   residentNeeds: 'Para quién es',
-  residentNeedsHelp: 'Caídas, confianza, rutinas y apoyo diario.',
-  residentHelp: 'Solo lo que ayuda a entender riesgo y comodidad.',
+  residentNeedsHelp: 'Caídas, rutinas, movilidad y apoyo diario.',
+  residentHelp: 'Solo lo que ayuda a entender riesgo, apoyo y uso diario.',
   roomNotesPlaceholder: (room: string) => `Añade notas sobre ${room.toLowerCase()}...`,
   stepCards: [
     ['Datos básicos', 'Vivienda, accesos y apoyo diario.'],
-    ['Zonas clave', 'Preguntas sencillas para cada espacio.'],
+    ['Zonas clave', 'Preguntas concretas para cada espacio.'],
     ['Fotos útiles', 'Solo donde ayuden a explicar algo.'],
   ],
   steps: ['Vivienda', 'Para quién es', 'Zonas', 'Resumen'],
@@ -367,7 +367,7 @@ const roomCopyEs: Record<string, Pick<InspectionRoom, 'title' | 'intro'>> = {
   },
   stairs: {
     title: 'Escaleras',
-    intro: 'Pasamanos, contraste, descansillos, iluminación y confianza al subir o bajar.',
+    intro: 'Pasamanos, contraste, descansillos, iluminación y pausas al subir o bajar.',
   },
 }
 
@@ -384,7 +384,7 @@ const questionCopyEs: Record<string, Pick<InspectionQuestion, 'area' | 'prompt' 
   },
   'bathroom-toilet': {
     area: 'Uso del WC',
-    prompt: '¿La altura del WC es cómoda y hay apoyo al sentarse o levantarse?',
+    prompt: '¿La altura del WC permite sentarse y levantarse con apoyo estable?',
     recommendation: 'Añadir elevador de WC, marco de apoyo o barra fijada a pared.',
   },
   'bathroom-lighting': {
@@ -399,7 +399,7 @@ const questionCopyEs: Record<string, Pick<InspectionQuestion, 'area' | 'prompt' 
   },
   'bathroom-temperature': {
     area: 'Agua segura',
-    prompt: '¿Los grifos y mandos de ducha son fáciles de usar y sin riesgo de agua demasiado caliente?',
+    prompt: '¿Los grifos y mandos de ducha se entienden y se usan sin riesgo de agua demasiado caliente?',
     recommendation: 'Revisar mezcladores, añadir marcas claras y valorar protección termostática si hay riesgo de quemadura.',
   },
   'stairs-handrails': {
@@ -455,7 +455,7 @@ const questionCopyEs: Record<string, Pick<InspectionQuestion, 'area' | 'prompt' 
   'kitchen-storage': {
     area: 'Almacenaje',
     prompt: '¿Los objetos diarios están guardados entre altura de hombros y rodillas?',
-    recommendation: 'Mover lo diario a armarios fáciles de alcanzar o usar almacenaje extraíble.',
+    recommendation: 'Mover lo diario a armarios entre hombros y cintura o usar almacenaje extraíble.',
   },
   'kitchen-lighting': {
     area: 'Luz de trabajo',
@@ -490,7 +490,7 @@ const questionCopyEs: Record<string, Pick<InspectionQuestion, 'area' | 'prompt' 
   'entrance-keys': {
     area: 'Rutina de puerta',
     prompt: '¿Abrir, cerrar y usar llaves se puede hacer sin prisas ni agacharse?',
-    recommendation: 'Valorar manillas más fáciles, caja de llaves, acceso inteligente o una rutina de llegada más clara.',
+    recommendation: 'Valorar manillas de palanca, caja de llaves, acceso inteligente o una rutina de llegada definida.',
   },
   'entrance-width': {
     area: 'Anchura',
@@ -500,7 +500,7 @@ const questionCopyEs: Record<string, Pick<InspectionQuestion, 'area' | 'prompt' 
   'entrance-seating': {
     area: 'Zapatos y bolsas',
     prompt: '¿Hay un lugar estable para sentarse o apoyarse al ponerse zapatos, abrigo o manejar bolsas?',
-    recommendation: 'Añadir silla firme, colgadores a altura cómoda y superficie segura para bolsas o llaves.',
+    recommendation: 'Añadir silla firme, colgadores a altura de alcance y superficie estable para bolsas o llaves.',
   },
   'outdoor-path': {
     area: 'Camino',
@@ -612,7 +612,7 @@ const valueCopyEs: Record<string, string> = {
   'Getting to bathroom at night': 'Ir al baño por la noche',
   'Showering safely': 'Ducharse con seguridad',
   'Using stairs': 'Usar escaleras',
-  'Cooking independently': 'Cocinar con autonomía',
+  'Cooking independently': 'Cocinar con seguridad',
   'Entering the home': 'Entrar en casa',
   'Emergency response': 'Respuesta ante emergencias',
 }
@@ -638,7 +638,7 @@ const inspectionRooms: InspectionRoom[] = [
       {
         id: 'bathroom-toilet',
         area: 'Toilet transfer',
-        prompt: 'Is the toilet height comfortable, with support available when sitting or standing?',
+        prompt: 'Does the toilet height allow sitting and standing with stable support?',
         recommendation: 'Add a raised toilet seat, toilet frame, or wall-mounted support rail.',
       },
       {
@@ -651,12 +651,12 @@ const inspectionRooms: InspectionRoom[] = [
         id: 'bathroom-reach',
         area: 'Reach and drying',
         prompt: 'Can towels, clothes, soap, and controls be reached without twisting, bending, or stepping away from support?',
-        recommendation: 'Move daily items within easy reach and add shelving or hooks beside the safest transfer point.',
+        recommendation: 'Move daily items beside the safest transfer point and add shelving or hooks within reach.',
       },
       {
         id: 'bathroom-temperature',
         area: 'Water safety',
-        prompt: 'Are taps and shower controls easy to use, with low risk of sudden hot water or confusing settings?',
+        prompt: 'Are taps and shower controls clear to understand, with low risk of sudden hot water or confusing settings?',
         recommendation: 'Review mixer controls, add clear markings, and consider thermostatic protection if scald risk is possible.',
       },
     ],
@@ -675,7 +675,7 @@ const inspectionRooms: InspectionRoom[] = [
       {
         id: 'stairs-contrast',
         area: 'Step visibility',
-        prompt: 'Are step edges easy to see in normal and low light?',
+        prompt: 'Are step edges clearly visible in normal and low light?',
         recommendation: 'Add contrast strips to step edges and improve stair lighting.',
       },
       {
@@ -744,7 +744,7 @@ const inspectionRooms: InspectionRoom[] = [
         id: 'kitchen-storage',
         area: 'Storage',
         prompt: 'Are everyday items stored between shoulder and knee height?',
-        recommendation: 'Move daily-use items to easy-reach cupboards or pull-out storage.',
+        recommendation: 'Move daily-use items to shoulder-to-waist-height cupboards or pull-out storage.',
       },
       {
         id: 'kitchen-lighting',
@@ -793,7 +793,7 @@ const inspectionRooms: InspectionRoom[] = [
         id: 'entrance-keys',
         area: 'Door routine',
         prompt: 'Is locking, unlocking, and opening the door manageable without rushing or bending?',
-        recommendation: 'Consider easier handles, key-safe support, smart access, or a clearer arrival routine.',
+        recommendation: 'Consider lever handles, key-safe support, smart access, or a defined arrival routine.',
       },
       {
         id: 'entrance-width',
@@ -817,7 +817,7 @@ const inspectionRooms: InspectionRoom[] = [
       {
         id: 'outdoor-path',
         area: 'Pathway',
-        prompt: 'Are outdoor paths even, stable, and wide enough for confident walking?',
+        prompt: 'Are outdoor paths even, stable, and wide enough for steady walking?',
         recommendation: 'Repair uneven paths, remove loose stones, and widen tight approach routes where possible.',
       },
       {
@@ -872,7 +872,7 @@ const inspectionRooms: InspectionRoom[] = [
       {
         id: 'living-controls',
         area: 'Controls and help',
-        prompt: 'Are phone, remote controls, heating controls, and emergency support easy to reach from the main seat?',
+        prompt: 'Are phone, remote controls, heating controls, and emergency support within reach from the main seat?',
         recommendation: 'Create a reachable control zone and consider voice controls or a wearable alert for emergencies.',
       },
     ],
