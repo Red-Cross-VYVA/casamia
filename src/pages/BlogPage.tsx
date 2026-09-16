@@ -77,17 +77,17 @@ const pageCopy = {
       'Each tool has one clear job. Use it online, save your observations and bring the result into a home discussion or professional assessment.',
     openTool: 'Open tool',
     journeyEyebrow: 'Choose by current concern',
-    journeyTitle: 'Start where the risk is already showing.',
+    journeyTitle: 'Start with the concern you can see.',
     journeyBody:
-      'A safer home usually starts with one pressure point: a recent change, a worrying room, or a decision that needs structure.',
+      'Pick the situation that matches the home today, then use the checklist, guide or tool that shows what to check first.',
     topicsEyebrow: 'Explore by safety topic',
     topicsTitle: 'Go straight to the area you are trying to understand.',
     topicsBody:
       'These topic pages bring together the guidance, tools and CasaMia next steps for one home-safety question.',
     pathwaysEyebrow: 'Choose the closest situation',
-    pathwaysTitle: 'Help by decision, not by article title.',
+    pathwaysTitle: 'Choose by the decision you need to make.',
     pathwaysBody:
-      'Most people arrive with one urgent question. Start there, then use the guide, checklist or tool that shows what to check or decide first.',
+      'Most people arrive with one practical question. Start there, then use the guide, checklist or tool that makes the next step clearer.',
     pathwayCta: 'Start here',
     familyStarterEyebrow: '10-minute home discussion',
     familyStarterTitle: 'Before choosing products, name the risk to solve.',
@@ -130,9 +130,9 @@ const pageCopy = {
     searchEmpty: 'No matching guides yet. Try bathroom, falls, grants, bedroom, stairs or provider.',
     readGuide: 'Read guide',
     actionRouteEyebrow: 'From reading to action',
-    actionRouteTitle: 'Turn good advice into a calm home safety plan.',
+    actionRouteTitle: 'Turn advice into a home safety plan.',
     actionRouteBody:
-      'Use the Resources hub to learn what matters, then move into a guided CasaMia review when you want priorities, scope, grant readiness or a managed proposal.',
+      'Use the resources to understand the risk, then move into a guided CasaMia review when you need priorities, measured scope, grant-document checks or a managed proposal.',
     actionRouteCta: 'Start the guided review',
     faqEyebrow: 'Common questions',
     faqTitle: 'Quick answers before you choose a resource.',
@@ -206,17 +206,17 @@ const pageCopy = {
       'Cada herramienta tiene una función clara. Úsala online, guarda tus observaciones y llévalas a una conversación sobre la vivienda o a una evaluación profesional.',
     openTool: 'Abrir herramienta',
     journeyEyebrow: 'Elige por preocupación actual',
-    journeyTitle: 'Empieza donde el riesgo ya se nota.',
+    journeyTitle: 'Empieza por la preocupación que ya se ve.',
     journeyBody:
-      'Un hogar más seguro suele empezar por un punto de presión: un cambio reciente, una estancia que preocupa o una decisión que necesita orden.',
+      'Elige la situación que encaja con la vivienda hoy y usa la lista, guía o herramienta que indica qué revisar primero.',
     topicsEyebrow: 'Explora por tema de seguridad',
     topicsTitle: 'Ve directamente al área que quieres entender.',
     topicsBody:
       'Estas páginas reúnen guías, herramientas y próximos pasos CasaMia para una pregunta concreta de seguridad en casa.',
     pathwaysEyebrow: 'Elige la situación más cercana',
-    pathwaysTitle: 'Ayuda por decisión, no por título de artículo.',
+    pathwaysTitle: 'Elige según la decisión que necesitas tomar.',
     pathwaysBody:
-      'Muchas personas llegan con una pregunta urgente. Empieza ahí y pasa después a la guía, lista o herramienta que muestra qué revisar o decidir primero.',
+      'Muchas personas llegan con una pregunta concreta. Empieza ahí y usa la guía, lista o herramienta que aclara el próximo paso.',
     pathwayCta: 'Empezar aquí',
     familyStarterEyebrow: 'Primeros 10 minutos de conversación',
     familyStarterTitle: 'Antes de elegir productos, nombrad el riesgo que queréis resolver.',
@@ -259,7 +259,7 @@ const pageCopy = {
     searchEmpty: 'No hay guías que coincidan. Prueba baño, caídas, ayudas, dormitorio, escaleras o proveedor.',
     readGuide: 'Leer guía',
     actionRouteEyebrow: 'De la lectura a la acción',
-    actionRouteTitle: 'Convierte buenos consejos en un plan claro para la vivienda.',
+    actionRouteTitle: 'Convierte la información en un plan de seguridad para la vivienda.',
     actionRouteBody:
       'Usa Recursos para entender qué importa y pasa a una revisión guiada CasaMia cuando quieras prioridades, alcance, preparación de ayudas o una propuesta gestionada.',
     actionRouteCta: 'Empezar revisión guiada',
@@ -367,8 +367,8 @@ const educationHubSteps = [
     label: { en: 'Act', es: 'Actuar' },
     title: { en: 'Move into a managed plan', es: 'Pasa a un plan gestionado' },
     body: {
-      en: 'CasaMia can coordinate assessment, proposal, grant support and installation.',
-      es: 'CasaMia puede coordinar evaluación, propuesta, ayudas e instalación.',
+      en: 'CasaMia can coordinate assessment, proposal, grant-document checks and installation.',
+      es: 'CasaMia puede coordinar evaluación, propuesta, revisión documental para ayudas e instalación.',
     },
   },
 ] as const
@@ -376,14 +376,14 @@ const educationHubSteps = [
 const resourceJourneys = [
   {
     icon: Stethoscope,
-    title: { en: 'Something changed recently', es: 'Algo ha cambiado hace poco' },
+    title: { en: 'A fall, hospital stay or new difficulty', es: 'Caída, hospital o nueva dificultad' },
     body: {
-      en: 'A fall, hospital stay, new diagnosis or hesitation when walking can make the home feel different overnight.',
-      es: 'Una caída, ingreso, diagnóstico o dudas al caminar pueden cambiar la vivienda de un día para otro.',
+      en: 'Use this when mobility, confidence, pain, medication or daily movement has changed and the home needs a fresh check.',
+      es: 'Úsalo cuando movilidad, confianza, dolor, medicación o movimiento diario hayan cambiado y la casa necesite una revisión.',
     },
     steps: {
-      en: ['Check the urgent routes', 'Collect photos or notes', 'Decide what needs review first'],
-      es: ['Revisa las rutas urgentes', 'Reúne fotos o notas', 'Decide qué revisar primero'],
+      en: ['Check entry, bathroom and bed access', 'Collect photos or notes', 'Decide what needs review first'],
+      es: ['Revisa entrada, baño y acceso a la cama', 'Reúne fotos o notas', 'Decide qué revisar primero'],
     },
     to: '/blog/hospital-discharge-home-safety-checklist',
     cta: { en: 'Use discharge checklist', es: 'Usar lista del alta' },
@@ -391,14 +391,14 @@ const resourceJourneys = [
   },
   {
     icon: Bath,
-    title: { en: 'One room is creating worry', es: 'Una estancia preocupa más' },
+    title: { en: 'One room feels least safe', es: 'Una estancia parece menos segura' },
     body: {
-      en: 'Bathrooms, stairs, bedrooms and entrances are often the first places where small changes reduce daily risk.',
-      es: 'Baños, escaleras, dormitorios y entradas suelen ser los primeros lugares donde pequeños cambios reducen riesgo diario.',
+      en: 'Start with the room where the person hesitates, reaches for support, avoids movement or needs help most often.',
+      es: 'Empieza por la estancia donde la persona duda, busca apoyo, evita moverse o necesita ayuda con más frecuencia.',
     },
     steps: {
-      en: ['Pick the room', 'Read the focused guide', 'Compare scoped options'],
-      es: ['Elige la estancia', 'Lee la guía específica', 'Compara opciones con alcance'],
+      en: ['Pick the room', 'Check the common risk points', 'Compare scoped options'],
+      es: ['Elige la estancia', 'Revisa los puntos de riesgo habituales', 'Compara opciones con alcance'],
     },
     to: '/services/bathroom-safety',
     cta: { en: 'See a room guide', es: 'Ver guía por estancia' },
@@ -406,10 +406,10 @@ const resourceJourneys = [
   },
   {
     icon: HandHeart,
-    title: { en: 'The support circle needs a plan', es: 'El círculo de apoyo necesita un plan' },
+    title: { en: 'Several people need to agree', es: 'Varias personas deben ponerse de acuerdo' },
     body: {
-      en: 'When relatives disagree, a shared checklist and priorities make the conversation calmer and more useful.',
-      es: 'Cuando hay opiniones distintas, una lista compartida y prioridades claras ordenan la conversación.',
+      en: 'Use a shared checklist when the person at home, relatives or carers need the same facts before choosing what to do.',
+      es: 'Usa una lista compartida cuando la persona en casa, familiares o cuidadores necesitan los mismos datos antes de decidir.',
     },
     steps: {
       en: ['Download the checklist', 'Mark what feels unsafe', 'Bring the notes into one conversation'],
@@ -445,12 +445,12 @@ const topicRoutes = [
   {
     icon: MoonStar,
     to: '/services/bedroom-safety',
-    title: { en: 'Bedroom and night routes', es: 'Dormitorio y ruta nocturna' },
+    title: { en: 'Bedroom and night movement', es: 'Dormitorio y movimiento nocturno' },
     body: {
-      en: 'Review getting out of bed, night lighting and the route to the bathroom.',
-      es: 'Mejora la salida de la cama, la luz nocturna y la ruta hacia el baño.',
+      en: 'Review getting out of bed, night lighting, obstacles and bathroom trips.',
+      es: 'Revisa salida de la cama, luz nocturna, obstáculos y desplazamientos al baño.',
     },
-    pill: { en: 'Night route', es: 'Ruta nocturna' },
+    pill: { en: 'Night movement', es: 'Movimiento nocturno' },
   },
   {
     icon: Home,
@@ -460,7 +460,7 @@ const topicRoutes = [
       en: 'See when a guided review is needed before choosing products or installation.',
       es: 'Comprueba cuándo una revisión guiada convierte preocupaciones sueltas en un plan claro.',
     },
-    pill: { en: 'Professional route', es: 'Ruta profesional' },
+    pill: { en: 'Guided review', es: 'Revisión guiada' },
   },
   {
     icon: FileCheck2,
@@ -529,8 +529,8 @@ const decisionPathways = [
     image: '/images/blog/provider-choice.webp',
     title: { en: 'We are unsure if staying home is still realistic', es: 'No sabemos si seguir en casa sigue siendo realista' },
     body: {
-      en: 'Compare what home adaptations can solve with the point where more support or a residence route should be considered.',
-      es: 'Compara lo que puede resolver una adaptación con el momento en que conviene valorar más apoyo o una residencia.',
+      en: 'Compare what home adaptations can solve with the point where more daily support or residential care should be considered.',
+      es: 'Compara lo que puede resolver una adaptación con el momento en que conviene valorar más apoyo diario o una residencia.',
     },
     actions: [
       { label: { en: 'Read decision guide', es: 'Leer guía de decisión' }, to: '/blog/when-home-adaptations-are-not-enough' },
@@ -588,7 +588,7 @@ const printableMaterials = [
   },
   {
     icon: MoonStar,
-    title: { en: 'Night route mini-check', es: 'Mini revisión de la ruta nocturna' },
+    title: { en: 'Night movement mini-check', es: 'Mini revisión del movimiento nocturno' },
     body: {
       en: 'A focused printable prompt for bed-to-bathroom movement, lighting and support points.',
       es: 'Una guía breve para revisar ruta cama-baño, iluminación y puntos de apoyo.',
@@ -615,8 +615,8 @@ const familyMoments = [
     icon: Stethoscope,
     title: { en: 'After a fall, surgery or hospital stay', es: 'Después de una caída, operación u hospital' },
     body: {
-      en: 'Prioritise entry, bathroom, bedroom routes and the first week back home.',
-      es: 'Prioriza entrada, baño, rutas del dormitorio y la primera semana en casa.',
+      en: 'Prioritise entry, bathroom, bed access and the first week back home.',
+      es: 'Prioriza entrada, baño, acceso a la cama y la primera semana en casa.',
     },
     to: '/blog/hospital-discharge-home-safety-checklist',
   },
@@ -643,7 +643,7 @@ const familyMoments = [
 const quickChecks = [
   {
     icon: MoonStar,
-    title: { en: 'Walk the night route', es: 'Recorre la ruta nocturna' },
+    title: { en: 'Check the night walk', es: 'Revisa el trayecto nocturno' },
     body: {
       en: 'Check the route from bed to bathroom in low light. Note shadows, thresholds, cables and what the person reaches for.',
       es: 'Revisa con poca luz el recorrido de la cama al baño. Anota sombras, umbrales, cables y dónde busca apoyo la persona.',
@@ -696,8 +696,8 @@ const actionRouteSteps = [
     icon: HandHeart,
     title: { en: 'Let CasaMia coordinate', es: 'Dejar que CasaMia coordine' },
     body: {
-      en: 'Move from information to assessment, proposal, grant support and managed installation.',
-      es: 'Pasa de información a evaluación, propuesta, apoyo con ayudas e instalación gestionada.',
+      en: 'Move from information to assessment, proposal, grant-document support and managed installation.',
+      es: 'Pasa de información a evaluación, propuesta, apoyo documental para ayudas e instalación gestionada.',
     },
   },
 ] as const
@@ -707,8 +707,8 @@ const localSpainRoutes = [
     icon: Home,
     title: { en: 'Start with the real home', es: 'Empezar por la vivienda real' },
     body: {
-      en: 'Apartment, villa, old building, stairs, narrow bathrooms and rented homes can all change the safest route.',
-      es: 'Piso, chalet, edificio antiguo, escaleras, baños estrechos o alquiler pueden cambiar la ruta más segura.',
+      en: 'Apartment, villa, old building, stairs, narrow bathrooms and rented homes can all change what should be checked first.',
+      es: 'Piso, chalet, edificio antiguo, escaleras, baños estrechos o alquiler pueden cambiar qué conviene revisar primero.',
     },
   },
   {
@@ -723,8 +723,8 @@ const localSpainRoutes = [
     icon: FileCheck2,
     title: { en: 'Prepare grant support early', es: 'Preparar ayudas desde el inicio' },
     body: {
-      en: 'Regional routes can depend on timing, documentation and official criteria, so the file should be structured before work starts.',
-      es: 'Las rutas autonómicas dependen de plazos, documentos y criterios oficiales; conviene ordenar el expediente antes de empezar.',
+      en: 'Regional support depends on timing, documents and official criteria, so the file should be structured before work starts.',
+      es: 'Las ayudas autonómicas dependen de plazos, documentos y criterios oficiales; conviene ordenar el expediente antes de empezar.',
     },
   },
   {
