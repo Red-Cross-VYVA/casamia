@@ -46,11 +46,11 @@ const detailSteps = [
   {
     icon: ShieldCheck,
     title: 'Clear priorities',
-    body: 'You see which risks matter most and which improvements are practical for the home.',
+    body: 'You see which risks matter most and which improvements fit the home.',
   },
   {
     icon: Home,
-    title: 'Practical next step',
+    title: 'Defined next step',
     body: 'If work makes sense, CasaMia prepares a clear proposal with scope, installation and safe-use explanation.',
   },
 ]
@@ -64,11 +64,11 @@ const detailStepsEs = [
   {
     icon: ShieldCheck,
     title: 'Prioridades claras',
-    body: 'Ves qué riesgos importan más y qué mejoras son prácticas para la vivienda.',
+    body: 'Ves qué riesgos importan más y qué mejoras encajan con la vivienda.',
   },
   {
     icon: Home,
-    title: 'Siguiente paso práctico',
+    title: 'Siguiente paso definido',
     body: 'Si hace falta actuar, CasaMia prepara una propuesta con productos, instalación y entrega.',
   },
 ]
@@ -147,7 +147,7 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad en el baño para personas mayores',
     shortTitle: 'Seguridad en baño',
     description:
-      'Haz el baño más seguro con barras de apoyo, superficies antideslizantes, transferencias más fáciles, iluminación y mejoras de accesibilidad.',
+      'Haz el baño más seguro con barras de apoyo, superficies antideslizantes, transferencias más estables, iluminación y mejoras de accesibilidad.',
     intro:
       'El baño es una de las estancias más importantes porque el agua, las transferencias y la falta de apoyo aumentan rápido el riesgo de caída.',
     risks: ['Suelos mojados resbaladizos', 'Transferencias difíciles al inodoro', 'Acceso inseguro a la ducha'],
@@ -177,7 +177,7 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad en cocina para envejecer en casa',
     shortTitle: 'Seguridad en cocina',
     description:
-      'Haz la cocina más cómoda y segura con mejor alcance, rutas despejadas, iluminación, almacenamiento y medidas de seguridad en electrodomésticos.',
+      'Haz la cocina más segura con menos alcance, rutas despejadas, mejor iluminación, almacenamiento y control de electrodomésticos.',
     intro:
       'Una cocina más segura mantiene rutinas diarias con menos alcances, flexiones, desorden y riesgo con aparatos.',
     risks: ['Objetos diarios difíciles de alcanzar', 'Rutas de movimiento con obstáculos', 'Poca luz en la zona de trabajo'],
@@ -197,11 +197,11 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad conectada para personas mayores',
     shortTitle: 'Seguridad conectada',
     description:
-      'Añade tecnología práctica como iluminación con sensor, alertas, sensores de fuga o puerta, dispositivos de emergencia y avisos a contactos acordados.',
+      'Añade tecnología enfocada: iluminación con sensor, alertas, sensores de fuga o puerta, dispositivos de emergencia y avisos a contactos acordados.',
     intro:
-      'La seguridad conectada debe sentirse sencilla. CasaMia se centra en tecnología útil que da confianza sin complicar la vivienda.',
+      'La seguridad conectada debe entenderse rápido. CasaMia se centra en tecnología útil que reduce riesgos concretos sin complicar la vivienda.',
     risks: ['Sin aviso cuando cambian rutinas', 'Poca visibilidad nocturna', 'Riesgos ocultos de agua o humo'],
-    improvements: ['Iluminación y sensores con movimiento', 'Dispositivos de respuesta de emergencia', 'Configuración sencilla y formación'],
+    improvements: ['Iluminación y sensores con movimiento', 'Dispositivos de respuesta de emergencia', 'Configuración clara y formación'],
   },
 }
 
@@ -338,7 +338,7 @@ const defaultServiceDetailContentEs: ServiceDetailContent = {
   ],
   reassuranceTitle: 'Adaptado a la persona que usa la estancia.',
   reassuranceBody:
-    'El objetivo no es que la vivienda parezca clínica, sino que el movimiento diario sea más seguro manteniendo comodidad y familiaridad.',
+    'El objetivo no es que la vivienda parezca clínica, sino que el movimiento diario sea más seguro manteniendo rutinas reconocibles.',
   reassurancePoints: ['Adaptado a la vivienda actual', 'Explicado antes de empezar', 'Prevención antes de que ocurra un incidente'],
   finalTitle: 'Empieza por la estancia que más te preocupa.',
   finalBody:
@@ -354,7 +354,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefits: [
       { title: 'Transferencias más seguras', body: 'Apoyo para entrar en la ducha, sentarse, levantarse y usar el inodoro sin depender de toalleros o muebles.' },
       { title: 'Menos riesgo de resbalón', body: 'Mejor agarre y rutas más claras donde agua, alfombras, umbrales o espacios estrechos crean riesgo.' },
-      { title: 'Más privacidad e independencia', body: 'Ayuda a mantener las rutinas de baño con menos asistencia física.' },
+      { title: 'Menos ayuda física directa', body: 'Ayuda a ducharse, girar y usar el inodoro con apoyo más seguro donde realmente hace falta.' },
     ],
     includedTitle: 'Qué puede incluir un plan de seguridad de baño.',
     includedIntro: 'CasaMia prioriza las mejoras que más cambian el baño, el aseo y el movimiento seguro en zona húmeda.',
@@ -382,7 +382,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefitsIntro:
       'La entrada condiciona la independencia. CasaMia revisa el recorrido desde fuera hasta dentro: escalones, umbrales, luz, apoyo, visitas y rutinas de acceso.',
     benefits: [
-      { title: 'Acceso diario más fácil', body: 'Reduce umbrales incómodos, escalones y momentos sin apoyo al entrar o salir.' },
+      { title: 'Acceso diario más seguro', body: 'Reduce umbrales incómodos, escalones y momentos sin apoyo al entrar o salir.' },
       { title: 'Rutinas de visita más seguras', body: 'Facilita abrir la puerta, recibir entregas o hablar con visitas sin correr.' },
       { title: 'Salida y llegada más predecibles', body: 'El primer y último tramo de cada salida se vuelve más predecible.' },
     ],
@@ -397,7 +397,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefitsIntro:
       'CasaMia revisa cómo se usa la cocina y recomienda solo las mejoras que reducen riesgo o esfuerzo diario.',
     benefits: [
-      { title: 'Menos esfuerzo', body: 'Objetos, herramientas e iluminación se colocan para cocinar con menos alcance, flexión y carga.' },
+      { title: 'Menos alcance y carga', body: 'Objetos, herramientas e iluminación se colocan para cocinar con menos alcance, flexión y peso.' },
       { title: 'Menos momentos de riesgo', body: 'Reducimos desencadenantes habituales: suelos mojados, cables, giros, poca luz y encimeras saturadas.' },
       { title: 'Avisos y controles más claros', body: 'Sensores, temporizadores, enchufes inteligentes y apagado opcional aclaran qué revisar después de cocinar.' },
     ],
@@ -412,7 +412,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefitsIntro:
       'Muchas situaciones de riesgo ocurren con sueño, poca luz o prisa por llegar al baño. CasaMia diseña el dormitorio alrededor de cama, ruta nocturna y ayuda al alcance.',
     benefits: [
-      { title: 'Entrar y salir de la cama con más seguridad', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas prácticas.' },
+      { title: 'Entrar y salir de la cama con más seguridad', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas que encajan con la rutina.' },
       { title: 'Movimiento nocturno más seguro', body: 'Iluminación con sensor, rutas despejadas y menos desorientación.' },
       { title: 'Ayuda al alcance', body: 'Botón, teléfono, wearable o aviso conectado donde pueda usarse en el momento.' },
     ],
@@ -429,11 +429,11 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefits: [
       { title: 'Aviso más temprano', body: 'Sensores pueden ayudar a detectar cambios de rutina, fugas, humo, puertas o movimiento nocturno.' },
       { title: 'Ayuda más rápida', body: 'Botones, wearables y alertas facilitan avisar a los contactos acordados.' },
-      { title: 'Menos fricción diaria', body: 'Voz, iluminación con sensor y automatización sencilla reducen desplazamientos y movimientos innecesarios.' },
+      { title: 'Menos movimientos innecesarios', body: 'Voz, iluminación con sensor y automatización clara reducen desplazamientos, flexiones y prisas.' },
     ],
     includedTitle: 'Qué puede incluir un plan conectado.',
     includedIntro: 'CasaMia revisa conectividad y recomienda solo dispositivos que encajan con la persona, la vivienda y los contactos autorizados.',
-    included: ['Iluminación con sensor y ruta nocturna', 'Botones de emergencia o alertas wearable', 'Sensores de fuga, humo, puerta o movimiento', 'Configuración de app y vista de contactos si aplica', 'Preferencias de aviso y privacidad', 'Explicación sencilla para el uso diario'],
+    included: ['Iluminación con sensor y ruta nocturna', 'Botones de emergencia o alertas wearable', 'Sensores de fuga, humo, puerta o movimiento', 'Configuración de app y vista de contactos si aplica', 'Preferencias de aviso y privacidad', 'Explicación clara para el uso diario'],
     finalTitle: 'Añade seguridad conectada donde realmente ayuda.',
   },
 }
@@ -453,8 +453,8 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
         body: 'Improve traction and route clarity where water, mats, thresholds, and tight layouts create avoidable risk.',
       },
       {
-        title: 'More privacy and independence',
-        body: 'Help the person keep bathroom routines manageable with less physical assistance.',
+        title: 'Less need for hands-on help',
+        body: 'Help the person wash, turn and use the toilet with safer support where it is actually needed.',
       },
     ],
     includedTitle: 'What a bathroom safety plan can include.',
@@ -473,7 +473,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Focus on wet-room fall risk', 'Recommendations matched to mobility', 'Installation guidance before buying products'],
     finalTitle: 'Make the bathroom safer before the next near miss.',
     finalBody:
-      'Book a visit and we will review transfers, surfaces, support points, and practical improvements room by room.',
+      'Book a visit and we will review transfers, surfaces, support points and the changes that fit the room.',
   },
   'stair-safety': {
     benefitsTitle: 'Make every stair edge and support point easier to identify.',
@@ -486,7 +486,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Better visibility',
-        body: 'Use contrast and lighting to make step edges, landings, and turns easier to understand at a glance.',
+        body: 'Use contrast and lighting so step edges, landings and turns are easier to see before moving.',
       },
       {
         title: 'Less fear of using the home',
@@ -518,7 +518,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     benefits: [
       {
         title: 'Easier daily access',
-        body: 'Reduce awkward thresholds, steps, and unsupported moments when entering or leaving the home.',
+        body: 'Reduce awkward thresholds, steps and unsupported moments when entering or leaving the home.',
       },
       {
         title: 'Safer visitor routines',
@@ -539,7 +539,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Door access, visitor, and key routine review',
       'Smart doorbell or access control guidance when it improves daily access',
     ],
-    reassuranceTitle: 'The entrance should support independence, not create stress.',
+    reassuranceTitle: 'The entrance should make leaving and arriving less risky.',
     reassuranceBody:
       'We focus on access improvements that fit the home, the person using it and the everyday arrival routine.',
     reassurancePoints: ['Safer thresholds', 'Better doorway support', 'Clearer access routines'],
@@ -612,9 +612,9 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Medication, water, glasses, and daily essentials within safer reach',
       'Optional smart sensor or VYVA alert support after consent and placement are checked',
     ],
-    reassuranceTitle: 'Designed for independence and calmer nights.',
+    reassuranceTitle: 'Designed for safer night movement.',
     reassuranceBody:
-      'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on comfort, dignity, and prevention.',
+      'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on night routes, support points and prevention.',
     reassurancePoints: [
       'Less risk during night bathroom trips',
       'Steadier bed entry and exit',
@@ -1086,11 +1086,11 @@ export function ServiceDetailPage() {
   const isSpanish = i18n.language.toLowerCase().startsWith('es')
   const uiCopy = isSpanish ? serviceDetailUiCopy.es : serviceDetailUiCopy.en
   const sectionCopy = isSpanish
-    ? {
+      ? {
         whatWeCheck: 'Qué revisamos',
         risksTitle: 'Centrado en los riesgos que complican la vida diaria.',
         risksBody:
-          'CasaMia separa peligros visibles de mejoras prácticas para saber qué importa antes de comprar productos o empezar obras.',
+          'CasaMia separa peligros visibles de mejoras con alcance definido para saber qué importa antes de comprar productos o empezar obras.',
         commonRisks: 'Riesgos habituales que buscamos',
         howWeHelp: 'Cómo puede ayudar CasaMia',
         whyItHelps: 'Por qué ayuda',
@@ -1154,13 +1154,13 @@ export function ServiceDetailPage() {
   const zoneRiskMap = isZoneRiskArea(serviceRoom) ? zoneRiskMaps[serviceRoom] : null
   const heroTitle = isKitchenService
     ? isSpanish
-      ? 'Una cocina más segura, sin perder independencia.'
-      : 'A safer kitchen, without losing independence.'
+      ? 'Una cocina más segura, sin perder rutinas útiles.'
+      : 'A safer kitchen, without losing useful routines.'
     : service.title
   const heroIntro = isKitchenService
     ? isSpanish
-      ? 'Mejoras prácticas para estar de pie, iluminación, alcance, agua, electrodomésticos y rutinas con más confianza.'
-      : 'Practical improvements for standing, lighting, reach, water, appliances and more confident routines.'
+      ? 'Mejoras para estar de pie, iluminación, alcance, agua, electrodomésticos y rutinas con menos riesgo.'
+      : 'Improvements for standing, lighting, reach, water, appliances and lower-risk routines.'
     : service.intro
   const specialistEntryPoint = `service_detail_${service.id.replace(/-/g, '_')}`
   const orderRoomLabel = servicePackageGroup?.roomLabel ?? getOrderRoomLabel(serviceRoom, i18n.language)

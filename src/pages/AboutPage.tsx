@@ -99,7 +99,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       ],
     },
     credibilityEyebrow: 'Why the model is trustworthy',
-    credibilityTitle: 'CasaMia is built around prevention, evidence and follow-through.',
+    credibilityTitle: 'CasaMia turns visible home risks into scoped next steps.',
     proof: [
       {
         icon: 'seniors',
@@ -129,9 +129,9 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         icon: 'service',
-        title: 'A service layer after the report',
+        title: 'From report to action',
         body:
-          'The goal is not only to detect risks. CasaMia turns findings into a plan, installation scope, grant-readiness checklist, and a next step you can act on.',
+          'The goal is not only to detect risks. CasaMia turns findings into a plan, installation scope, grant-readiness checklist and the next decision to make.',
       },
     ],
     workflowEyebrow: 'How we work',
@@ -143,7 +143,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Clear recommendation',
-        body: 'CasaMia explains the risks, the likely adaptation level, and the next decision needed.',
+        body: 'CasaMia explains the risks, the likely adaptation level and the next decision needed.',
       },
       {
         title: 'Local follow-up',
@@ -203,11 +203,11 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       ],
     },
     credibilityEyebrow: 'Por qué confiar en el modelo',
-    credibilityTitle: 'CasaMia se basa en prevención, evidencia y seguimiento práctico.',
+    credibilityTitle: 'CasaMia convierte riesgos visibles en siguientes pasos con alcance.',
     proof: [
       {
         icon: 'seniors',
-        title: 'Empowerment senior, no tecnología complicada',
+        title: 'Apoyo para seniors, no tecnología complicada',
         body:
           'Proyectos y referencias como VYVA y COCOON apuntan en la misma dirección que CasaMia: asistencia por voz, recordatorios, checks de bienestar y flujos de emergencia que amplían el cuidado sin sustituir el apoyo humano.',
         link: {
@@ -233,9 +233,9 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         icon: 'service',
-        title: 'Un servicio después del informe',
+        title: 'Del informe a la acción',
         body:
-          'El objetivo no es solo detectar riesgos. CasaMia convierte los hallazgos en un plan, alcance de instalación, checklist de ayudas y próximo paso accionable.',
+          'El objetivo no es solo detectar riesgos. CasaMia convierte los hallazgos en un plan, alcance de instalación, checklist de ayudas y la siguiente decisión a tomar.',
       },
     ],
     workflowEyebrow: 'Cómo trabajamos',
@@ -247,7 +247,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Recomendación clara',
-        body: 'CasaMia explica los riesgos, el nivel probable de adaptación y el siguiente paso práctico.',
+        body: 'CasaMia explica los riesgos, el nivel probable de adaptación y la siguiente decisión necesaria.',
       },
       {
         title: 'Seguimiento local',

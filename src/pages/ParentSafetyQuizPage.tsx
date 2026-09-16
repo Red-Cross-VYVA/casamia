@@ -29,8 +29,8 @@ const questions: Array<{
       es: 'En los últimos 30 días, ¿ha habido una caída, casi caída o cambio médico?',
     },
     hint: {
-      en: 'Include hospital visits, surgery, new medication, dizziness, new pain or a clear drop in walking confidence.',
-      es: 'Incluye ingresos, cirugía, medicación nueva, mareos, dolor nuevo o una bajada clara de confianza al caminar.',
+      en: 'Include hospital visits, surgery, new medication, dizziness, new pain or hesitation when walking.',
+      es: 'Incluye ingresos, cirugía, medicación nueva, mareos, dolor nuevo o dudas al caminar.',
     },
     options: [
       { label: { en: 'Yes, a fall or medical change', es: 'Sí, caída o cambio médico' }, score: 3 },
@@ -109,7 +109,7 @@ const copy = {
     lang: 'en',
     seoTitle: 'Is Your Home Senior-Friendly? Quick Safety Check | CasaMia',
     seoDescription:
-      'Answer five practical questions to understand whether a home may need a senior safety review, room checklist or urgent next step.',
+      'Answer five everyday safety questions to see whether a home needs a room checklist, online review or urgent safety check.',
     eyebrow: 'Senior-friendly home check',
     title: 'Is your home senior-friendly?',
     body:
@@ -118,7 +118,7 @@ const copy = {
     progressLabel: 'Progress',
     scoreLabel: 'Safety score',
     noAnswersTitle: 'Start answering to see the risk level',
-    noAnswersBody: 'The score updates after each answer, then suggests the next practical step.',
+    noAnswersBody: 'The score updates after each answer and points to the room or routine to check next.',
     liveRiskEyebrow: 'Current risk level',
     riskLow: 'Low signal',
     riskMedium: 'Review recommended',
@@ -136,20 +136,20 @@ const copy = {
     resultMedium: {
       title: 'A focused home safety review would help',
       body:
-        'There are enough signals to justify a practical review. Start online, collect photos or notes, and decide which room or routine should be checked first.',
+        'There are enough signals to review the home properly. Start online, collect photos or notes, and decide which room or routine should be checked first.',
     },
     resultHigh: {
       title: 'Prioritise safety before it becomes urgent',
       body:
         'Your answers suggest several risk points. Focus on entry, bedroom, bathroom, night routes and how help is requested. A guided review is the sensible next step.',
     },
-    caveat: 'This is not a medical diagnosis. It is a practical home-safety prompt to help decide what to review next.',
+    caveat: 'This is not a medical diagnosis. It helps identify which home-safety area to review next.',
   },
   es: {
     lang: 'es',
     seoTitle: '¿Tu casa es adecuada para mayores? Revisión rápida | CasaMia',
     seoDescription:
-      'Responde cinco preguntas prácticas para saber si una vivienda necesita una revisión de seguridad senior, una lista por estancias o un siguiente paso urgente.',
+      'Responde cinco preguntas de seguridad diaria para saber si la vivienda necesita una lista por estancias, revisión online o comprobación urgente.',
     eyebrow: 'Revisión de vivienda senior',
     title: '¿Tu casa es adecuada para mayores?',
     body:
@@ -158,7 +158,7 @@ const copy = {
     progressLabel: 'Progreso',
     scoreLabel: 'Puntuación de seguridad',
     noAnswersTitle: 'Empieza a responder para ver el nivel de riesgo',
-    noAnswersBody: 'La puntuación se actualiza con cada respuesta y luego sugiere el siguiente paso práctico.',
+    noAnswersBody: 'La puntuación se actualiza con cada respuesta e indica qué estancia o rutina revisar después.',
     liveRiskEyebrow: 'Nivel de riesgo actual',
     riskLow: 'Señal baja',
     riskMedium: 'Revisión recomendada',
@@ -176,14 +176,14 @@ const copy = {
     resultMedium: {
       title: 'Una revisión focalizada puede ayudar',
       body:
-        'Hay señales suficientes para hacer una revisión práctica. Empieza online, reúne fotos o notas y decide qué estancia o rutina revisar primero.',
+        'Hay señales suficientes para revisar la vivienda con más detalle. Empieza online, reúne fotos o notas y decide qué estancia o rutina revisar primero.',
     },
     resultHigh: {
       title: 'Prioriza seguridad antes de la urgencia',
       body:
         'Tus respuestas sugieren varios puntos de riesgo. Revisa entrada, dormitorio, baño, rutas nocturnas y cómo se pide ayuda. Una revisión guiada es el siguiente paso prudente.',
     },
-    caveat: 'No es un diagnóstico médico. Es una guía práctica de seguridad en casa para decidir qué revisar a continuación.',
+    caveat: 'No es un diagnóstico médico. Ayuda a identificar qué área de seguridad revisar a continuación.',
   },
 } as const
 

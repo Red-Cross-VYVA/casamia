@@ -76,7 +76,7 @@ const homeZones: HomeZone[] = [
     eyebrow: 'Reach & prep',
     icon: CookingPot,
     stat: 'NIA room-by-room guidance calls out kitchen fixes such as keeping items within easy reach and cleaning spills quickly.',
-    summary: 'Safer preparation, better lighting, easier reach and leak or gas alerts.',
+    summary: 'Safer preparation, stronger task lighting, less reach and leak or gas alerts.',
     mapClassName: 'md:col-start-1 md:row-start-2',
   },
   {
@@ -85,7 +85,7 @@ const homeZones: HomeZone[] = [
     eyebrow: 'Alerts',
     icon: Smartphone,
     stat: 'CDC reports nearly 3 million emergency-department visits for older-adult falls in 2021, while also stressing that falls can be prevented.',
-    summary: 'Simple alerts, emergency button, agreed contacts and connected routines.',
+    summary: 'Emergency button, agreed contacts, alerts and connected routines.',
     mapClassName: 'md:col-start-2 md:row-start-2',
   },
   {
@@ -105,16 +105,16 @@ const stepHeadings = [
   'Tell us about the home.',
   'Choose the rooms that matter most.',
   'Confirm the home details.',
-  'Answer the practical questions.',
+  'Answer the home-safety questions.',
   'Choose your recommended improvements.',
   'Review your safer home plan.',
 ]
 const stepDescriptions = [
-  'Answer a few simple questions and CasaMia will build a practical plan around the improvements that fit your home.',
+  'Answer a few room-by-room questions and CasaMia will build a plan around the improvements that fit your home.',
   'These basics help us avoid recommending work that does not match the property.',
   'Select one or more spaces. Hover or focus a zone to see why that part of the home matters.',
   'Set how many rooms, entrances or staircases should be included in the estimate.',
-  'A few choices help CasaMia suggest services that fit the home and avoid unnecessary work.',
+  'Your answers help CasaMia suggest services that fit the home and avoid unnecessary work.',
   'Add or remove the recommended safety services before seeing the estimate.',
   'Check your selected improvements and anything that needs final confirmation.',
 ]
@@ -504,7 +504,7 @@ function WelcomeStep() {
         <Sparkles className="mb-5 text-blue" size={42} aria-hidden="true" />
         <strong className="block font-display text-3xl font-bold leading-tight text-text-dark">Start new plan</strong>
         <span className="mt-3 block text-lg leading-relaxed text-text-mid">
-          Choose rooms, answer practical questions and review recommended improvements.
+          Choose rooms, answer home-safety questions and review recommended improvements.
         </span>
       </button>
       <button className="soft-card text-left" type="button" onClick={() => setCurrentStep(getSavedProgressStep(state))}>
@@ -563,7 +563,7 @@ function PropertyStep() {
         <div>
           <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">Start with the home basics.</h2>
           <p className="mt-2 max-w-2xl text-base font-bold leading-relaxed text-text-mid">
-            These answers keep the plan practical: the right rooms, the right access points, and no unnecessary products.
+            These answers keep the plan focused: the right rooms, the right access points, and no unnecessary products.
           </p>
         </div>
         <span className="mt-4 inline-flex w-fit rounded-full bg-white px-4 py-2 text-sm font-black uppercase text-blue md:mt-0">
@@ -655,7 +655,7 @@ function PropertyStep() {
           {
             value: 'myself',
             title: 'My own home',
-            description: 'I want more confidence at home.',
+            description: 'I want to know what needs checking.',
             icon: UserRound,
           },
           {

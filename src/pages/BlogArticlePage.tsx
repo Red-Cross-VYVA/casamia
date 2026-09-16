@@ -26,9 +26,9 @@ const articleShellCopy = {
     allResources: 'All Resources',
     readNext: 'Read next',
     nextStepEyebrow: 'Useful next step',
-    nextStepTitle: 'Turn this guide into a practical plan.',
+    nextStepTitle: 'Turn this guide into a clear next step.',
     nextStepBody:
-      'Use the guide as a starting point, then choose the action that best matches what your family needs today.',
+      'Use the guide as a starting point, then choose the action that matches the home, the risk and the decision needed today.',
     nextStepActions: {
       checklist: 'Get the printable checklist',
       selfCheck: 'Start the online safety review',
@@ -50,9 +50,9 @@ const articleShellCopy = {
     allResources: 'Todos los recursos',
     readNext: 'Leer después',
     nextStepEyebrow: 'Siguiente paso útil',
-    nextStepTitle: 'Convierte esta guía en un plan práctico.',
+    nextStepTitle: 'Convierte esta guía en un siguiente paso claro.',
     nextStepBody:
-      'Usa la guía como punto de partida y elige la acción que mejor encaje con lo que tu familia necesita hoy.',
+      'Usa la guía como punto de partida y elige la acción que encaje con la vivienda, el riesgo y la decisión de hoy.',
     nextStepActions: {
       checklist: 'Descargar la lista para imprimir',
       selfCheck: 'Empezar la revisión online',
