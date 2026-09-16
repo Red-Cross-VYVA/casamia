@@ -201,14 +201,14 @@ function getPlanReassurance(value: string | undefined, assessmentVisitFee: strin
   }
 
   if (planKey === 'home-safety') {
-    return `Your request includes practical home adaptations. After the ${assessmentVisitFee} visit, we'll prepare a clear proposal before any installation or modification begins.`
+    return `Your request includes home adaptations. After the ${assessmentVisitFee} visit, we'll prepare a clear proposal before any installation or modification begins.`
   }
 
   if (planKey === 'smart-safety') {
-    return `Your request includes connected safety technology. During the ${assessmentVisitFee} visit, we'll review your home, connectivity needs, monitoring preferences, and suitable devices before recommending a solution.`
+    return `Your request includes connected safety technology. During the ${assessmentVisitFee} visit, we'll review your home, connectivity needs, monitoring preferences, and suitable devices before recommending the setup.`
   }
 
-  return `No problem if you are not sure what is right. Our team will explain the ${assessmentVisitFee} assessment visit and guide you toward the best option for your home and needs.`
+  return `No problem if you are not sure what is right. Our team will explain the ${assessmentVisitFee} assessment visit and help identify the safest next step for your home and needs.`
 }
 
 function getPlanKey(value?: string) {

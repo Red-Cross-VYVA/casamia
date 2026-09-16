@@ -1159,7 +1159,7 @@ function buildHazards(input: EstimateWorkflowInput, rooms: string[]) {
       room: 'Whole home',
       issue: 'The description mentions fall concerns, so emergency response should be part of the plan.',
       severity: 'high',
-      recommendation: 'Add emergency call buttons, fall detection, and family alerts.',
+      recommendation: 'Review emergency call buttons, fall detection, and alerts to agreed contacts.',
     })
   }
 
@@ -1168,7 +1168,7 @@ function buildHazards(input: EstimateWorkflowInput, rooms: string[]) {
       room: roomList[0],
       issue: 'Potential trip, lighting, or access risks need a room-by-room review.',
       severity: 'medium',
-      recommendation: 'Start with grab support, clearer pathways, and motion lighting where needed.',
+      recommendation: 'Start with reachable support, clear walking routes, and motion lighting where needed.',
     })
   }
 
@@ -1252,7 +1252,7 @@ export function buildPhotoHazards(input: EstimateWorkflowInput) {
         }),
         severity: isFallConcern ? 'high' : 'medium',
         recommendation: localiseReportText(input.locale, {
-          en: 'Review pull-out storage, anti-fatigue mats, stove alarms, clearer pathways, and task lighting.',
+          en: 'Review pull-out storage, anti-fatigue mats, stove alarms, clear walking routes, and task lighting.',
           es: 'Revisar almacenamiento extraíble, alfombrillas seguras, alarmas de cocina, pasos despejados e iluminación de trabajo.',
         }),
       }
@@ -1277,8 +1277,8 @@ export function buildPhotoHazards(input: EstimateWorkflowInput) {
       ...hazards[0],
       severity: 'high',
       recommendation: `${hazards[0].recommendation} ${localiseReportText(input.locale, {
-        en: 'Include emergency call buttons or family alerts in the next review.',
-        es: 'Incluir botones de emergencia o avisos familiares en la siguiente revisión.',
+        en: 'Include emergency call buttons or alerts to agreed contacts in the next review.',
+        es: 'Incluir botones de emergencia o avisos a contactos acordados en la siguiente revisión.',
       })}`,
     }
   }

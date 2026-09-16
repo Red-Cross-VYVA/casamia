@@ -37,10 +37,10 @@ const siteUrl = 'https://www.casamia.com.es'
 const pageCopy = {
   en: {
     lang: 'en',
-    seoTitle: 'Senior Home Safety Checklist & Practical Resources | CasaMia',
+    seoTitle: 'Senior Home Safety Checklist & Decision Tools | CasaMia',
     seoDescription:
       'Download CasaMia\'s free room-by-room senior home conversion checklist for Spain and use clear tools for home safety, grant readiness and planning.',
-    heroEyebrow: 'Practical resources for real homes',
+    heroEyebrow: 'Decision tools for real homes',
     heroTitle: 'Make the home safer, one room at a time.',
     heroBody:
       'Start with a complete printable checklist, then use the right online tool or focused guide for the decision in front of you.',
@@ -57,7 +57,7 @@ const pageCopy = {
       'Walk through the home with the person who lives there, identify quick wins, flag work that needs professional review and finish with a clear action plan.',
     downloadStats: [
       { value: '10', label: 'home areas' },
-      { value: '100+', label: 'practical checks' },
+      { value: '100+', label: 'room checks' },
       { value: '1', label: 'action plan' },
     ],
     downloadBenefits: [
@@ -68,7 +68,7 @@ const pageCopy = {
     downloadPrimary: 'Download the English PDF',
     downloadSecondary: 'Descargar en español',
     downloadNote: 'Print-friendly PDF. No email or sign-up required.',
-    coverLabel: 'CASAMIA PRACTICAL GUIDE',
+    coverLabel: 'CASAMIA HOME CHECKLIST',
     coverFooter: 'Room by room. Priority by priority.',
     previewRooms: ['Entrance', 'Bathroom', 'Bedroom', 'Kitchen'],
     toolsEyebrow: 'Choose one clear next step',
@@ -118,7 +118,7 @@ const pageCopy = {
     localTitle: 'Turn general advice into the right route for a Spanish home.',
     localBody:
       'CasaMia resources are designed for the questions people face in Spain: local homes, regional grant routes, measurements, installers and application documents.',
-    guideEyebrow: 'Practical guidance by situation',
+    guideEyebrow: 'Guidance by situation',
     guideTitle: 'Find the answer without scrolling through a wall of articles.',
     guideBody:
       'Guides are grouped around the decision you are trying to make. Choose the closest situation and go straight to the relevant advice.',
@@ -168,8 +168,8 @@ const pageCopy = {
     lang: 'es',
     seoTitle: 'Lista de seguridad y recursos para adaptar viviendas | CasaMia',
     seoDescription:
-      'Descarga gratis la lista de CasaMia para adaptar una vivienda estancia por estancia y utiliza herramientas claras de seguridad, ayudas y planificación.',
-    heroEyebrow: 'Recursos prácticos para hogares reales',
+      'Descarga gratis la lista de CasaMia para revisar una vivienda estancia por estancia y utiliza herramientas claras de seguridad, ayudas y planificación.',
+    heroEyebrow: 'Herramientas para decisiones reales',
     heroTitle: 'Haz el hogar más seguro, estancia por estancia.',
     heroBody:
       'Empieza con una lista completa para imprimir y utiliza después la herramienta o guía adecuada para la decisión que tienes delante.',
@@ -197,7 +197,7 @@ const pageCopy = {
     downloadPrimary: 'Descargar el PDF en español',
     downloadSecondary: 'Download in English',
     downloadNote: 'PDF preparado para imprimir. Sin email ni registro.',
-    coverLabel: 'GUÍA PRÁCTICA CASAMIA',
+    coverLabel: 'LISTA CASAMIA',
     coverFooter: 'Estancia por estancia. Prioridad por prioridad.',
     previewRooms: ['Entrada', 'Baño', 'Dormitorio', 'Cocina'],
     toolsEyebrow: 'Elige un siguiente paso claro',
@@ -242,12 +242,12 @@ const pageCopy = {
     todayEyebrow: 'Primeros 20 minutos claros',
     todayTitle: 'Tres comprobaciones que merece la pena hacer hoy.',
     todayBody:
-      'Son observaciones sencillas, no trabajos de obra. Si algo está inestable o parece peligroso, deja de usarlo y solicita una revisión adecuada.',
+      'Son observaciones, no trabajos de obra. Si algo está inestable o parece peligroso, deja de usarlo y solicita una revisión adecuada.',
     localEyebrow: 'Ayuda adaptada a España',
     localTitle: 'Convierte el consejo general en la ruta adecuada para una vivienda en España.',
     localBody:
       'Los recursos CasaMia están pensados para preguntas reales en España: tipos de vivienda, ayudas autonómicas, mediciones, instaladores y documentos de solicitud.',
-    guideEyebrow: 'Guías prácticas por situación',
+    guideEyebrow: 'Guías por situación',
     guideTitle: 'Encuentra la respuesta sin recorrer una pared de artículos.',
     guideBody:
       'Las guías están agrupadas según la decisión que necesitas tomar. Elige la situación más cercana y ve directamente al consejo relevante.',
@@ -290,7 +290,7 @@ const pageCopy = {
     finalEyebrow: '¿Necesitas un plan para una vivienda real?',
     finalTitle: 'Convierte la lista en un plan de adaptación con prioridades.',
     finalBody:
-      'CasaMia puede revisar la vivienda, separar los cambios urgentes de las mejoras futuras y explicar los siguientes pasos prácticos.',
+      'CasaMia puede revisar la vivienda, separar los cambios urgentes de las mejoras futuras y definir alcance, evidencia y siguiente acción.',
     finalCta: 'Solicitar una evaluación',
   },
 } as const
@@ -309,8 +309,8 @@ const toolContent = [
     icon: ClipboardCheck,
     title: { en: '15-minute room-by-room check', es: 'Revisión online por estancias' },
     body: {
-      en: 'Answer guided questions across seven areas and leave with a practical list of items to review.',
-      es: 'Responde preguntas guiadas en siete zonas y obtén una lista práctica de puntos que revisar.',
+      en: 'Answer guided questions across seven areas and leave with a room-by-room list of items to review.',
+      es: 'Responde preguntas guiadas en siete zonas y obtén una lista por estancia de puntos que revisar.',
     },
     to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
   },
@@ -318,8 +318,8 @@ const toolContent = [
     icon: Camera,
     title: { en: 'Photo safety review', es: 'Revisión de seguridad con fotos' },
     body: {
-      en: 'Organise room photos and context so the biggest concerns are easier to discuss and prioritise.',
-      es: 'Organiza fotos y contexto para comentar y priorizar con más facilidad las principales preocupaciones.',
+      en: 'Organise room photos and context so the visible concerns can be compared and prioritised.',
+      es: 'Organiza fotos y contexto para comparar y priorizar las preocupaciones visibles.',
     },
     to: '/#estimate-upload',
   },
@@ -347,7 +347,7 @@ const educationHubSteps = [
   {
     icon: ClipboardCheck,
     label: { en: 'Check', es: 'Revisar' },
-    title: { en: 'Use one practical tool', es: 'Usa una herramienta práctica' },
+    title: { en: 'Use one focused tool', es: 'Usa una herramienta concreta' },
     body: {
       en: 'Checklist, room guide, cost planner, grant check or short safety quiz.',
       es: 'Lista, guía por estancia, comparador de costes, ayudas o test breve.',
@@ -358,8 +358,8 @@ const educationHubSteps = [
     label: { en: 'Capture', es: 'Capturar' },
     title: { en: 'Add real-home evidence', es: 'Añade evidencia real' },
     body: {
-      en: 'Photos, notes and context make priorities easier to discuss.',
-      es: 'Fotos, notas y contexto hacen más fácil priorizar.',
+      en: 'Photos, notes and context make priorities easier to compare.',
+      es: 'Fotos, notas y contexto ayudan a comparar prioridades.',
     },
   },
   {
@@ -378,8 +378,8 @@ const resourceJourneys = [
     icon: Stethoscope,
     title: { en: 'Something changed recently', es: 'Algo ha cambiado hace poco' },
     body: {
-      en: 'A fall, hospital stay, new diagnosis or reduced confidence can make the home feel different overnight.',
-      es: 'Una caída, ingreso, diagnóstico o pérdida de confianza puede cambiar la vivienda de un día para otro.',
+      en: 'A fall, hospital stay, new diagnosis or hesitation when walking can make the home feel different overnight.',
+      es: 'Una caída, ingreso, diagnóstico o dudas al caminar pueden cambiar la vivienda de un día para otro.',
     },
     steps: {
       en: ['Check the urgent routes', 'Collect photos or notes', 'Decide what needs review first'],
@@ -393,12 +393,12 @@ const resourceJourneys = [
     icon: Bath,
     title: { en: 'One room is creating worry', es: 'Una estancia preocupa más' },
     body: {
-      en: 'Bathrooms, stairs, bedrooms and entrances often become the first place where small changes restore confidence.',
-      es: 'Baños, escaleras, dormitorios y entradas suelen ser el primer lugar donde pequeños cambios devuelven confianza.',
+      en: 'Bathrooms, stairs, bedrooms and entrances are often the first places where small changes reduce daily risk.',
+      es: 'Baños, escaleras, dormitorios y entradas suelen ser los primeros lugares donde pequeños cambios reducen riesgo diario.',
     },
     steps: {
-      en: ['Pick the room', 'Read the focused guide', 'Compare practical options'],
-      es: ['Elige la estancia', 'Lee la guía específica', 'Compara opciones prácticas'],
+      en: ['Pick the room', 'Read the focused guide', 'Compare scoped options'],
+      es: ['Elige la estancia', 'Lee la guía específica', 'Compara opciones con alcance'],
     },
     to: '/services/bathroom-safety',
     cta: { en: 'See a room guide', es: 'Ver guía por estancia' },
@@ -447,10 +447,10 @@ const topicRoutes = [
     to: '/services/bedroom-safety',
     title: { en: 'Bedroom and night routes', es: 'Dormitorio y ruta nocturna' },
     body: {
-      en: 'Make getting out of bed, night lighting and the route to the bathroom easier to manage.',
+      en: 'Review getting out of bed, night lighting and the route to the bathroom.',
       es: 'Mejora la salida de la cama, la luz nocturna y la ruta hacia el baño.',
     },
-    pill: { en: 'Night confidence', es: 'Confianza nocturna' },
+    pill: { en: 'Night route', es: 'Ruta nocturna' },
   },
   {
     icon: Home,
@@ -477,8 +477,8 @@ const topicRoutes = [
     to: '/home-adaptations-for-elderly',
     title: { en: 'Home adaptations', es: 'Adaptaciones del hogar' },
     body: {
-      en: 'Learn how practical changes can preserve comfort, independence and dignity.',
-      es: 'Aprende cómo los cambios prácticos preservan comodidad, autonomía y dignidad.',
+      en: 'See which home changes protect useful routines while reducing daily risk.',
+      es: 'Revisa qué cambios protegen rutinas útiles mientras reducen riesgo diario.',
     },
     pill: { en: 'Turnkey support', es: 'Servicio integral' },
   },
@@ -527,7 +527,7 @@ const decisionPathways = [
   {
     icon: Home,
     image: '/images/blog/provider-choice.webp',
-    title: { en: 'We are unsure if home is still the right route', es: 'No sabemos si casa sigue siendo la mejor opción' },
+    title: { en: 'We are unsure if staying home is still realistic', es: 'No sabemos si seguir en casa sigue siendo realista' },
     body: {
       en: 'Compare what home adaptations can solve with the point where more support or a residence route should be considered.',
       es: 'Compara lo que puede resolver una adaptación con el momento en que conviene valorar más apoyo o una residencia.',
@@ -558,10 +558,10 @@ const familyStarterPrompts = [
   },
   {
     icon: HandHeart,
-    title: { en: 'What must stay easy or familiar?', es: '¿Qué debe seguir siendo cómodo o familiar?' },
+    title: { en: 'What must stay familiar?', es: '¿Qué debe seguir siendo reconocible?' },
     body: {
-      en: 'Preserve dignity, routines, favourite spaces and the look of the home wherever safety allows.',
-      es: 'Preservar dignidad, rutinas, espacios favoritos y el aspecto del hogar siempre que la seguridad lo permita.',
+      en: 'Name the routines, rooms and details that should stay familiar wherever safety allows.',
+      es: 'Nombra las rutinas, estancias y detalles que conviene mantener reconocibles siempre que la seguridad lo permita.',
     },
   },
   {
@@ -715,7 +715,7 @@ const localSpainRoutes = [
     icon: SearchCheck,
     title: { en: 'Check what needs evidence', es: 'Ver qué necesita evidencia' },
     body: {
-      en: 'Photos, room notes, ownership status and mobility context help turn a worry into a practical proposal.',
+      en: 'Photos, room notes, ownership status and mobility context help turn a worry into a scoped proposal.',
       es: 'Fotos, notas por estancia, situación de la vivienda y movilidad ayudan a convertir una preocupación en propuesta.',
     },
   },
@@ -750,7 +750,7 @@ const guideGroups = [
   },
   {
     icon: Home,
-    title: { en: 'Support routines and independence', es: 'Apoyar rutinas y autonomía' },
+    title: { en: 'Support routines and daily safety', es: 'Apoyar rutinas y seguridad diaria' },
     articleIds: [
       'kitchen-safety-aging-in-place',
       'dementia-friendly-home-safety',
