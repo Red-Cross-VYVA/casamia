@@ -157,17 +157,17 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad en escaleras y pasamanos',
     shortTitle: 'Seguridad en escaleras',
     description:
-      'Reduce riesgos en escaleras y pasillos con pasamanos continuos, mejor iluminación, bandas de contraste y rutas más seguras.',
+      'Reduce riesgos en escaleras y pasillos con pasamanos continuos, mejor iluminación, bandas de contraste y movimiento más seguro.',
     intro:
       'Las escaleras y pasillos deben entenderse de un vistazo, con apoyo fiable desde el primer escalón hasta el último.',
     risks: ['Pasamanos ausentes o interrumpidos', 'Poco contraste en escalones', 'Baja iluminación en descansillos'],
-    improvements: ['Apoyo continuo con pasamanos', 'Bordes de escalón más visibles', 'Iluminación con sensor y rutas más seguras'],
+    improvements: ['Apoyo continuo con pasamanos', 'Bordes de escalón más visibles', 'Iluminación con sensor y movimiento más seguro'],
   },
   'entrance-accessibility': {
     title: 'Mejoras de accesibilidad en la entrada',
     shortTitle: 'Entradas seguras',
     description:
-      'Mejora entradas con umbrales más seguros, rampas cuando encajan, iluminación, puntos de apoyo y rutas de acceso claras.',
+      'Mejora entradas con umbrales más seguros, rampas cuando encajan, iluminación, puntos de apoyo y acceso más claro.',
     intro:
       'La entrada es donde empieza la independencia diaria. Pequeños cambios pueden hacer más seguro entrar, salir y recibir visitas.',
     risks: ['Umbrales elevados', 'Poca iluminación exterior', 'Apoyo limitado junto a la puerta'],
@@ -177,7 +177,7 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad en cocina para envejecer en casa',
     shortTitle: 'Seguridad en cocina',
     description:
-      'Haz la cocina más segura con menos alcance, rutas despejadas, mejor iluminación, almacenamiento y control de electrodomésticos.',
+      'Haz la cocina más segura con menos alcance, zonas de paso despejadas, mejor iluminación, almacenamiento y control de electrodomésticos.',
     intro:
       'Una cocina más segura mantiene rutinas diarias con menos alcances, flexiones, desorden y riesgo con aparatos.',
     risks: ['Objetos diarios difíciles de alcanzar', 'Rutas de movimiento con obstáculos', 'Poca luz en la zona de trabajo'],
@@ -187,11 +187,11 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad en dormitorio para personas mayores',
     shortTitle: 'Seguridad en dormitorio',
     description:
-      'Haz el dormitorio más seguro con entradas y salidas de la cama más estables, iluminación nocturna, rutas despejadas, apoyo junto a la cama y ayuda al alcance.',
+      'Haz el dormitorio más seguro con entradas y salidas de la cama más estables, iluminación nocturna, suelo despejado, apoyo junto a la cama y ayuda al alcance.',
     intro:
       'El dormitorio debe apoyar descanso y movimiento seguro, especialmente por la noche cuando la poca luz y la urgencia aumentan el riesgo.',
-    risks: ['Entrar y salir de la cama cuesta o da inseguridad', 'Rutas nocturnas oscuras', 'Ayuda de emergencia fuera de alcance'],
-    improvements: ['Apoyo junto a la cama y altura adecuada', 'Iluminación nocturna con sensor', 'Rutas despejadas y ayuda al alcance'],
+    risks: ['Entrar y salir de la cama cuesta o da inseguridad', 'Trayectos nocturnos oscuros', 'Ayuda de emergencia fuera de alcance'],
+    improvements: ['Apoyo junto a la cama y altura adecuada', 'Iluminación nocturna con sensor', 'Suelo despejado y ayuda al alcance'],
   },
   'smart-home-safety': {
     title: 'Seguridad conectada para personas mayores',
@@ -372,7 +372,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
       { title: 'Menos miedo a usar la casa', body: 'Mantiene accesibles zonas importantes haciendo que escaleras y pasillos se sientan menos arriesgados.' },
     ],
     includedTitle: 'Qué puede incluir un plan de escaleras.',
-    includedIntro: 'CasaMia revisa toda la ruta de movimiento, no solo la escalera.',
+    includedIntro: 'CasaMia revisa escaleras, pasillos y descansillos juntos, no solo la escalera.',
     included: ['Pasamanos continuos y puntos de apoyo', 'Contraste y agarre en bordes', 'Iluminación con sensor', 'Revisión de obstáculos', 'Recomendaciones de rutina para subir y bajar con más seguridad'],
     finalTitle: 'Haz que las escaleras sean más seguras antes de que se eviten.',
   },
@@ -410,14 +410,14 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     ...defaultServiceDetailContentEs,
     benefitsTitle: 'Reduce el riesgo de movimiento nocturno entre cama y baño.',
     benefitsIntro:
-      'Muchas situaciones de riesgo ocurren con sueño, poca luz o prisa por llegar al baño. CasaMia diseña el dormitorio alrededor de cama, ruta nocturna y ayuda al alcance.',
+      'Muchas situaciones de riesgo ocurren con sueño, poca luz o prisa por llegar al baño. CasaMia diseña el dormitorio alrededor de cama, movimiento nocturno y ayuda al alcance.',
     benefits: [
       { title: 'Entrar y salir de la cama con más seguridad', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas que encajan con la rutina.' },
-      { title: 'Movimiento nocturno más seguro', body: 'Iluminación con sensor, rutas despejadas y menos desorientación.' },
+      { title: 'Movimiento nocturno más seguro', body: 'Iluminación con sensor, suelo despejado y menos desorientación.' },
       { title: 'Ayuda al alcance', body: 'Botón, teléfono, wearable o aviso conectado donde pueda usarse en el momento.' },
     ],
     includedTitle: 'Qué puede incluir un plan de dormitorio.',
-    includedIntro: 'CasaMia revisa la rutina nocturna completa: cama, luz, muebles, suelo, medicación y ruta a la siguiente estancia.',
+    includedIntro: 'CasaMia revisa la rutina nocturna completa: cama, luz, muebles, suelo, medicación y trayecto a la siguiente estancia.',
     included: ['Altura de cama y apoyo junto a la cama', 'Iluminación nocturna de cama a puerta o baño', 'Espacio libre alrededor de muebles, alfombras y cables', 'Botón de emergencia, teléfono o alerta wearable', 'Elementos diarios al alcance seguro'],
     finalTitle: 'Haz el dormitorio más seguro antes de que la noche preocupe.',
   },
@@ -495,7 +495,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     includedTitle: 'What a stair safety plan can include.',
     includedIntro:
-      'We check the whole path through the stairs, hall and landings, not just the staircase itself.',
+      'We check the stairs, hall and landings together, not just the staircase itself.',
     included: [
       'Continuous handrail and grab-point review',
       'Step-edge contrast and anti-slip guidance',
@@ -505,7 +505,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'Small changes can protect an important daily path.',
     reassuranceBody:
-      'When stairs feel unsafe, whole parts of the home can become harder to use. The focus is keeping daily paths clear, visible, and supported.',
+      'When stairs feel unsafe, whole parts of the home can become harder to use. The focus is keeping everyday movement visible, supported and less rushed.',
     reassurancePoints: ['Support along the full stair path', 'Clearer step edges', 'Lighting where hesitation happens'],
     finalTitle: 'Make stairs feel safer before they become avoided.',
     finalBody:
@@ -594,7 +594,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Safer night movement',
-        body: 'Reduce disorientation with motion lighting, clear floor paths, and safer movement from bed to bathroom or hallway.',
+        body: 'Reduce disorientation with motion lighting, clear floor space, and safer movement from bed to bathroom or hallway.',
       },
       {
         title: 'Help within reach',
@@ -612,7 +612,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Medication, water, glasses, and daily essentials within safer reach',
       'Optional smart sensor or VYVA alert support after consent and placement are checked',
     ],
-    reassuranceTitle: 'Designed for safer night movement.',
+    reassuranceTitle: 'Planned around safer night movement.',
     reassuranceBody:
       'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on night-time movement, support points and prevention.',
     reassurancePoints: [
@@ -657,7 +657,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassuranceBody:
       'The aim is connected safety: named alerts, agreed recipients, understandable controls and privacy-aware setup.',
     reassurancePoints: ['Connectivity checked first', 'Alert recipients agreed in advance', 'Setup and explanation included'],
-    finalTitle: 'Add connected safety only where there is a clear use case.',
+    finalTitle: 'Add connected safety only where it reduces a named risk.',
     finalBody:
       'Book a visit to review the home, connectivity and which connected options match the routine.',
   },

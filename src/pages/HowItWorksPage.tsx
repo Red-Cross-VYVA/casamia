@@ -238,15 +238,15 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
   en: {
     seoTitle: 'How CasaMia Works',
     seoDescription:
-      'See how CasaMia turns photos, visits, expert review, installation, grants support, and smart safety into a clear home safety plan.',
-    heroEyebrow: 'Clear path to a safer home',
+      'See how CasaMia turns photos, visits, expert review, installation, grant-document checks, and smart safety into a room-by-room home safety plan.',
+    heroEyebrow: 'From concern to checked work',
     heroTitle: 'From home photos to safer daily routines.',
     heroBody:
       'We review the rooms used every day, identify the risks that affect movement, and coordinate the work only where it fits the routine.',
     primaryCta: 'Start Free Safety Report',
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
-    statusTitle: 'Four clear steps',
+    statusTitle: 'Four practical steps',
     statusIntro: 'You choose the starting point. CasaMia turns it into priorities, scope and follow-up.',
     statusRows: [
       { label: 'One call or click', value: 'Start' },
@@ -255,7 +255,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       { label: 'Installed, checked and explained', value: 'Handover' },
     ],
     statusNote: 'One team from first contact to follow-up.',
-    processEyebrow: 'How it moves forward',
+    processEyebrow: 'How the review moves forward',
     processTitle: 'One call or one click. We coordinate the rest.',
     processBody:
       'Tell us what is happening at home. CasaMia turns the first conversation into room priorities, agreed scope, coordinated installation and follow-up.',
@@ -323,28 +323,28 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'heart',
         title: 'Bedroom',
-        body: 'Bed access, night routes, bedside reach, and emergency access.',
+        body: 'Bed access, night movement, bedside reach, and emergency access.',
         visualKey: 'bedroom-safety',
         alt: 'Bedroom routine safety',
       },
       {
         icon: 'monitor',
         title: 'Living areas',
-        body: 'Clear routes, safer seating, lighting, cables, rugs, and everyday movement.',
+        body: 'Walking space, safer seating, lighting, cables, rugs, and everyday movement.',
         visualKey: 'smart-home-safety',
         alt: 'Living area risk map showing common trip hazards',
       },
       {
         icon: 'door',
         title: 'Entrance',
-        body: 'Thresholds, steps, lighting, hand support, door clearance, and a clear route in and out.',
+        body: 'Thresholds, steps, lighting, hand support, door clearance, and safer entry or exit.',
         visualKey: 'entrance-safety',
         alt: 'Entrance safety risk map highlighting low light, a loose doormat, obstacles and shoes in the route, a high threshold, a narrow passage, and an unmarked step.',
       },
       {
         icon: 'kitchen',
         title: 'Kitchen',
-        body: 'Wet floors, reach, task lighting, out-of-reach storage, appliance use, and clear work routes.',
+        body: 'Wet floors, reach, task lighting, out-of-reach storage, appliance use, and safer work zones.',
         visualKey: 'kitchen-safety',
         alt: 'Kitchen safety risk map highlighting a wet floor, a loose mat, items stored out of reach, poor task lighting, a pan handle facing out, an open drawer, and a visible cable.',
       },
@@ -369,7 +369,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'badge',
-        title: 'Grant guidance',
+        title: 'Grant-document guidance',
         body: 'Documents and eligible work notes.',
       },
     ],
@@ -399,8 +399,8 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         body: 'Eligibility notes, documents and follow-up.',
       },
     ],
-    nextEyebrow: 'Choose your path',
-    nextTitle: 'Start where you are.',
+    nextEyebrow: 'Choose your first step',
+    nextTitle: 'Start with what you already know.',
     pathways: [
       {
         icon: 'camera',
@@ -440,15 +440,15 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
   es: {
     seoTitle: 'C\u00f3mo funciona CasaMia',
     seoDescription:
-      'Descubre c\u00f3mo CasaMia convierte fotos, visitas, revisi\u00f3n experta, instalaci\u00f3n, ayudas y seguridad smart en un plan claro para la vivienda.',
-    heroEyebrow: 'Camino claro hacia un hogar m\u00e1s seguro',
+      'Descubre c\u00f3mo CasaMia convierte fotos, visitas, revisi\u00f3n experta, instalaci\u00f3n, revisi\u00f3n documental de ayudas y seguridad smart en un plan por estancia.',
+    heroEyebrow: 'De la preocupaci\u00f3n al trabajo comprobado',
     heroTitle: 'De fotos del hogar a rutinas diarias m\u00e1s seguras.',
     heroBody:
       'CasaMia revisa las estancias importantes, prioriza los riesgos reales y coordina adaptaciones o seguridad smart cuando encajan con la rutina.',
     primaryCta: 'Empezar informe gratis',
     secondaryCta: 'Reservar visita',
     heroAlt: 'Profesional de CasaMia preparado para una evaluación de seguridad en casa',
-    statusTitle: 'Cuatro pasos claros',
+    statusTitle: 'Cuatro pasos pr\u00e1cticos',
     statusIntro: 'Tú eliges el punto de partida. CasaMia lo convierte en prioridades, alcance y seguimiento.',
     statusRows: [
       { label: 'Envía fotos o reserva visita', value: 'Inicio' },
@@ -457,7 +457,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       { label: 'Instalado, probado y explicado', value: 'Entrega' },
     ],
     statusNote: 'Un solo equipo desde el primer contacto hasta el seguimiento.',
-    processEyebrow: 'Cómo avanza',
+    processEyebrow: 'C\u00f3mo avanza la revisi\u00f3n',
     processTitle: 'Una llamada, fotos o una visita. CasaMia coordina el resto.',
     processBody: 'Cuéntanos qué ocurre en casa. CasaMia convierte esa información en prioridades por estancia, alcance acordado, instalación coordinada y seguimiento.',
     steps: [
@@ -471,7 +471,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
           {
             title: 'Autoinspecci\u00f3n',
             body: 'Fotos + medidas.',
-            note: 'Ruta m\u00e1s r\u00e1pida',
+            note: 'Opci\u00f3n m\u00e1s r\u00e1pida',
             cta: 'Subir fotos',
             to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
           },
@@ -524,28 +524,28 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'heart',
         title: 'Dormitorio',
-        body: 'Cama, rutas nocturnas, alcance desde la mesilla y ayuda cercana.',
+        body: 'Cama, movimiento nocturno, alcance desde la mesilla y ayuda cercana.',
         visualKey: 'bedroom-safety',
         alt: 'Rutina segura en dormitorio',
       },
       {
         icon: 'monitor',
         title: 'Sal\u00f3n',
-        body: 'Rutas despejadas, asientos, iluminaci\u00f3n, cables, alfombras y movimiento diario.',
+        body: 'Zonas de paso, asientos, iluminaci\u00f3n, cables, alfombras y movimiento diario.',
         visualKey: 'smart-home-safety',
         alt: 'Mapa de riesgos del sal\u00f3n con obst\u00e1culos y zonas de paso',
       },
       {
         icon: 'door',
         title: 'Entrada',
-        body: 'Umbrales, escalones, iluminaci\u00f3n, apoyos, apertura de la puerta y una ruta despejada.',
+        body: 'Umbrales, escalones, iluminaci\u00f3n, apoyos, apertura de la puerta y entrada o salida m\u00e1s segura.',
         visualKey: 'entrance-safety',
         alt: 'Mapa de seguridad de la entrada que destaca poca luz, un felpudo suelto, obst\u00e1culos y calzado en el paso, un umbral alto, un paso estrecho y un escal\u00f3n sin se\u00f1alizar.',
       },
       {
         icon: 'kitchen',
         title: 'Cocina',
-        body: 'Suelos mojados, alcance, luz de trabajo, almacenamiento fuera de alcance, aparatos y rutas despejadas.',
+        body: 'Suelos mojados, alcance, luz de trabajo, almacenamiento fuera de alcance, aparatos y zonas de trabajo m\u00e1s seguras.',
         visualKey: 'kitchen-safety',
         alt: 'Mapa de seguridad de la cocina que destaca un suelo mojado, una alfombra suelta, objetos fuera de alcance, poca luz de trabajo, un mango de sart\u00e9n hacia fuera, un caj\u00f3n abierto y un cable visible.',
       },
@@ -570,7 +570,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'badge',
-        title: 'Ayudas',
+        title: 'Documentos para ayudas',
         body: 'Documentos y trabajos elegibles.',
       },
     ],
@@ -600,8 +600,8 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         body: 'Notas de elegibilidad, documentos y seguimiento.',
       },
     ],
-    nextEyebrow: 'Elige tu camino',
-    nextTitle: 'Empieza donde est\u00e1s.',
+    nextEyebrow: 'Elige tu primer paso',
+    nextTitle: 'Empieza con lo que ya sabes.',
     pathways: [
       {
         icon: 'camera',

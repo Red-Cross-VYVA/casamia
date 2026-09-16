@@ -66,7 +66,7 @@ const audiences: SelectableCard<AudienceId>[] = [
   {
     id: 'myself',
     title: 'Myself',
-    body: 'I want to know which room, daily path or routine to fix first.',
+    body: 'I want to know which room, movement moment or routine to fix first.',
     icon: Home,
     visual: {
       src: '/images/before-after/living-after-home.webp',
@@ -149,10 +149,10 @@ const rooms: Array<SelectableCard<RoomId> & { improvements: string[]; position: 
   {
     id: 'hallways',
     title: 'Hallways',
-    body: 'Keep daily routes clear, lit and easier to follow.',
+    body: 'Make everyday walking between rooms clearer and better lit.',
     icon: Lightbulb,
     position: 'home-hotspot-hallways',
-    improvements: ['Motion lighting', 'Clear pathways', 'Support points'],
+    improvements: ['Motion lighting', 'Clear walking space', 'Support points'],
   },
   {
     id: 'stairs',
@@ -186,7 +186,7 @@ const supportJourney: SupportJourneyStep[] = [
     id: 'assessment',
     eyebrow: 'Step 1',
     title: 'Choose your starting point',
-    body: 'Use a package, photo review or home visit depending on whether the risk is already clear or still needs checking.',
+    body: 'Use a package, photo review or home visit depending on whether the concern is already obvious or still needs checking.',
     icon: CalendarCheck,
     points: ['Starter package', 'Photo or home review', 'Fit confirmed first'],
     visual: {
@@ -209,7 +209,7 @@ const supportJourney: SupportJourneyStep[] = [
   {
     id: 'grants',
     eyebrow: 'Step 3',
-    title: 'Claim available grant support',
+    title: 'Check grant documents early',
     body: 'When public grant criteria may fit, CasaMia prepares the project information and flags what the authority must decide.',
     icon: HeartHandshake,
     points: ['Grant criteria check', 'Document support', 'No false promises'],
@@ -275,14 +275,14 @@ const homeTypes: SelectableCard<HomeTypeId>[] = [
   { id: 'apartment', title: 'Apartment', body: 'One-level living or shared access.', icon: Building2 },
   { id: 'townhouse', title: 'Townhouse', body: 'Internal stairs and entrance checks.', icon: Home },
   { id: 'detached', title: 'Detached Home', body: 'Room-by-room safety planning.', icon: Home },
-  { id: 'villa', title: 'Villa', body: 'Indoor and outdoor access routes.', icon: Home },
+  { id: 'villa', title: 'Villa', body: 'Indoor and outdoor access points.', icon: Home },
 ]
 
 const upgrades: SelectableCard<UpgradeId>[] = [
   { id: 'voice', title: 'Voice assistant', body: 'Hands-free support.', icon: Volume2 },
   { id: 'family', title: 'Contact updates', body: 'Approved notifications.', icon: HeartHandshake },
   { id: 'health', title: 'Health monitoring', body: 'Connected vitals.', icon: Activity },
-  { id: 'lighting', title: 'Smart lighting', body: 'Motion routes.', icon: Lightbulb },
+  { id: 'lighting', title: 'Smart lighting', body: 'Motion-lit movement.', icon: Lightbulb },
   { id: 'fall', title: 'Fall detection', body: 'Emergency alerts.', icon: ShieldCheck },
   { id: 'door', title: 'Smart door access', body: 'Safer entry.', icon: DoorOpen },
   { id: 'alerts', title: 'Emergency alerts', body: 'Fast notifications.', icon: BellRing },
@@ -292,7 +292,7 @@ const processSteps = [
   ['Book assessment', 'Choose a home visit or start with self-inspection photos.'],
   ['We review the home', 'We check the rooms, routines and real safety priorities.'],
   ['Receive your report', 'You get room priorities, visible risks and the action to confirm next.'],
-  ['Choose improvements', 'Start with essentials, then add what clearly helps.'],
+  ['Choose improvements', 'Start with essentials, then add what solves a named risk.'],
   ['Enjoy a safer home', 'Everything is installed, tested and ready to use.'],
 ]
 
