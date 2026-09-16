@@ -22998,8 +22998,9 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .estimate-result-metrics div.is-accent.risk-low {
-  background: linear-gradient(145deg, var(--blue), var(--navy));
-  box-shadow: 0 16px 34px rgba(31, 104, 147, 0.18);
+  background: linear-gradient(145deg, var(--green), #4f8122);
+  color: white;
+  box-shadow: 0 16px 34px rgba(79, 129, 34, 0.2);
 }
 
 .estimate-result-metrics p {
@@ -23119,13 +23120,14 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .estimate-risk-score.risk-moderate {
   background:
     radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.3), transparent 34%),
-    linear-gradient(145deg, var(--green), #5f9730);
+    linear-gradient(145deg, #efb445, #c98216);
+  color: #082238;
 }
 
 .estimate-risk-score.risk-low {
   background:
     radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.3), transparent 34%),
-    linear-gradient(145deg, var(--blue), var(--navy));
+    linear-gradient(145deg, var(--green), #4f8122);
 }
 
 .estimate-risk-score span {

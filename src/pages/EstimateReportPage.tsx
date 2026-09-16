@@ -167,10 +167,7 @@ export function EstimateReportPage() {
 }
 
 function getRiskToneClass(riskLevel: EstimateRiskLevel) {
-  if (riskLevel === 'high') return 'is-high'
-  if (riskLevel === 'elevated') return 'is-elevated'
-  if (riskLevel === 'moderate') return 'is-moderate'
-  return 'is-low'
+  return `risk-${riskLevel}`
 }
 
 function fallbackRiskLevelLabel(riskLevel: EstimateRiskLevel, locale: string) {
