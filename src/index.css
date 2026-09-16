@@ -18485,11 +18485,16 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .plans-starter-card p {
+  display: -webkit-box;
+  overflow: hidden;
   margin-top: 8px;
   color: var(--text-mid);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .plans-starter-chip {
@@ -19212,10 +19217,15 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .plans-outcome-preview-copy span {
+  display: -webkit-box;
+  overflow: hidden;
   color: var(--text-mid);
   font-size: 12px;
   font-weight: 750;
   line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .plans-outcome-preview-tag.is-compact {

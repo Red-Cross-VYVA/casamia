@@ -145,12 +145,12 @@ function compactPreviewDescription(description: string) {
     .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, when the layout allows|, after checking|, when the existing|, donde sea adecuado|, cuando encaja|, si procede|, tras revisar|, cuando la distribución|, cuando la instalación)\s*/i)[0]
     .trim()
 
-  if (summary.length <= 82) return summary
+  if (summary.length <= 72) return summary
 
-  const clipped = summary.slice(0, 79)
+  const clipped = summary.slice(0, 69)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 56 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 50 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {

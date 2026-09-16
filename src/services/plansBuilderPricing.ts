@@ -583,11 +583,11 @@ export function getPlansOutcomePreviewDescription(outcome: MasterCatalogueOutcom
     .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, cuando encaja|, si procede)\s*/i)[0]
     .trim()
 
-  if (summary.length <= 96) return summary.replace(/\.$/, '').concat('.')
+  if (summary.length <= 74) return summary.replace(/\.$/, '').concat('.')
 
-  const clipped = summary.slice(0, 93)
+  const clipped = summary.slice(0, 71)
   const lastSpace = clipped.lastIndexOf(' ')
-  const end = lastSpace > 68 ? lastSpace : clipped.length
+  const end = lastSpace > 52 ? lastSpace : clipped.length
 
   return `${clipped.slice(0, end).trim()}...`
 }
