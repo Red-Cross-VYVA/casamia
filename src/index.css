@@ -8023,9 +8023,9 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .zone-service-gallery-card-copy {
-  display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
-  align-content: start;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
   padding: 15px;
 }
 
@@ -8044,11 +8044,16 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 }
 
 .zone-service-gallery-card-copy h3 {
+  display: -webkit-box;
+  overflow: hidden;
   margin-top: 12px;
   color: var(--text-dark);
   font-size: 20px;
   font-weight: 950;
   line-height: 1.08;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .zone-service-gallery-card-copy p {
@@ -8061,12 +8066,22 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.42;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.zone-service-gallery-proof-chips {
+  margin-top: 12px;
 }
 
 .zone-service-gallery-card-actions,
 .service-kitchen-component-actions {
   display: flex;
   margin-top: 16px;
+}
+
+.zone-service-gallery-card-actions {
+  margin-top: auto;
+  padding-top: 16px;
 }
 
 .catalogue-item-detail-button {
@@ -8272,6 +8287,7 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.35;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .service-kitchen-component-grid ul {

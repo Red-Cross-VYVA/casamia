@@ -196,7 +196,7 @@ function ZoneServiceGalleryCard({
   const section = service.section ?? 'home_safety_package'
   const title = service.customerName ?? service.name
   const description = getServicePreviewDescription(service)
-  const proofChips = getServiceProofChips(service, languageKey)
+  const proofChips = getServiceProofChips(service, languageKey).slice(0, 2)
 
   return (
     <article className="zone-service-gallery-card">

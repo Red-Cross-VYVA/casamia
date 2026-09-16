@@ -110,8 +110,9 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
 
 export function getServicePreviewDescription(service: CasaMiaService) {
   const description = (
-    service.shortDescription
+    service.customerBenefit
     ?? service.plainLanguageSummary
+    ?? service.shortDescription
     ?? service.customerDescription
   ).trim()
 
