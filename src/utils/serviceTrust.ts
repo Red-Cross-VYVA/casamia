@@ -16,7 +16,7 @@ const copy = {
     consentDetail: 'Smart alerts are only set up when the person understands who is notified and agrees to it.',
     consentLabel: 'Consent checked',
     grantDetail: 'We flag when an improvement may support grant paperwork. The public authority still decides approval.',
-    grantLabel: 'Grant route explained',
+    grantLabel: 'Grant support checked',
     handoverDetail: 'Before the job is closed, the person using it knows what changed and how to use it safely.',
     handoverLabel: 'Clear explanation',
     installationDetail: 'The item is fitted or set up, tested in the real room and adjusted if something does not feel right.',
@@ -27,7 +27,7 @@ const copy = {
     noHiddenFit: 'Fit checked first',
     professionalFitting: 'Fitted and tested',
     familyReady: 'Clear explanation',
-    grantChip: 'Grant route explained',
+    grantChip: 'Grant support checked',
     quoteChip: 'Price confirmed first',
     consentChip: 'Consent checked',
     typicalTime: 'Typical on-site task time',
@@ -125,7 +125,7 @@ export function getServicePreviewDescription(service: CasaMiaService) {
     .replace(/\s+(?:Before fitting|Before recommending it|Before quoting|Before work starts|Before installation|After installation|Antes de recomendarlo|Antes de instalar|Antes de presupuestar|Antes de empezar|Después de instalar)\b.*$/i, '')
     .replace(/\s+(?:we check|we confirm|we also confirm|we review|we measure|then install|then set it up|then we install|then we set it up|then test|then we test|we flag|CasaMia confirms|Confirmamos)\b.*$/i, '')
     .split(/\s+/)
-    .slice(0, 14)
+    .slice(0, 11)
     .join(' ')
     .trim()
 
@@ -153,12 +153,12 @@ function compactPreviewDescription(description: string) {
     .split(/\s*(?:;|, where suitable|, where needed|, if suitable|, if needed|, when suitable|, where it fits|, when the layout allows|, after checking|, when the existing|, donde sea adecuado|, cuando encaja|, si procede|, tras revisar|, cuando la distribución|, cuando la instalación)\s*/i)[0]
     .trim()
 
-  if (summary.length <= 96) return summary
+  if (summary.length <= 78) return summary
 
-  const clipped = summary.slice(0, 93)
+  const clipped = summary.slice(0, 75)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 64 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 52 ? lastSpace : clipped.length).trim()}...`
 }
 
 function formatTrustList(items: string[], language: string) {

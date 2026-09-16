@@ -85,9 +85,9 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     },
     promiseTitle: 'Clear decisions before work starts.',
     promiseBody:
-      'MOKA built CasaMia so home adaptation does not become a puzzle of products, grants, installers and unanswered questions. CasaMia turns the home situation into priorities, confirmed scope, price assumptions and coordinated delivery.',
+      'CasaMia turns a home concern into room priorities, measured scope, price assumptions, grant-document checks and coordinated delivery.',
     promisePoints: [
-      'Senior-market focus: daily risk points, usable routines and accepted changes at home.',
+      'Practical focus: daily movement, support points, lighting, access and wet-floor risk.',
       'Transparent recommendations: what matters, why it matters and what it may cost.',
       'Managed delivery: fit confirmed first, work coordinated and results checked.',
     ],
@@ -140,9 +140,9 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     sections: [
       {
         icon: 'inspectors',
-        title: 'Senior-focused technology',
+        title: 'Practical safety technology',
         body:
-          'MOKA DigiTech builds technology and services around older adults: prevention, access to support and information that helps people decide.',
+          'CasaMia uses digital tools to make the review clearer: room photos, priorities, notes, handover evidence and follow-up stay connected.',
         points: ['Built for ageing-in-place needs', 'Digital tools that support human decisions', 'Technology only where it reduces a named risk'],
       },
       {
@@ -168,7 +168,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'pricing',
-        title: 'Transparent commercial model',
+        title: 'Scope, price and grant checks',
         body:
           'You should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant-document support.',
         points: ['Clear estimate before commitment', 'Optional items separated from essentials', 'Grant guidance without false promises'],
@@ -212,9 +212,9 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     },
     promiseTitle: 'Decisiones claras antes de empezar.',
     promiseBody:
-      'MOKA creó CasaMia para que adaptar una vivienda no sea un rompecabezas de productos, ayudas, instaladores y dudas sin responder. CasaMia convierte la situación de la casa en prioridades, alcance confirmado, supuestos de precio y ejecución coordinada.',
+      'CasaMia convierte una preocupación sobre la vivienda en prioridades por estancia, alcance medido, supuestos de precio, revisión de documentación para ayudas y entrega coordinada.',
     promisePoints: [
-      'Foco senior: seguridad práctica, independencia y confianza en casa.',
+      'Foco práctico: movimiento diario, puntos de apoyo, iluminación, accesos y suelos mojados.',
       'Recomendaciones transparentes: qué importa, por qué importa y cuánto puede costar.',
       'Entrega gestionada: encaje confirmado, trabajo coordinado y resultado comprobado.',
     ],
@@ -259,7 +259,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         outcome: 'Útil en casa',
       },
       {
-        title: 'Ruta de seguimiento',
+        title: 'Seguimiento acordado',
         body: 'Sabes qué ocurre después: explicación, dudas, fotos, notas y seguimiento.',
         outcome: 'Un contacto',
       },
@@ -267,10 +267,10 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     sections: [
       {
         icon: 'inspectors',
-        title: 'Tecnología centrada en seniors',
+        title: 'Tecnología práctica para seguridad',
         body:
-          'MOKA DigiTech crea tecnología y servicios alrededor de personas mayores: prevención, acceso al apoyo e información útil para decidir.',
-        points: ['Diseñado para envejecer mejor en casa', 'Herramientas digitales que apoyan decisiones humanas', 'Tecnología solo cuando facilita la vida'],
+          'CasaMia usa herramientas digitales para que la revisión sea más clara: fotos, prioridades, notas, evidencia de entrega y seguimiento quedan conectados.',
+        points: ['Diseñado para envejecer mejor en casa', 'Herramientas digitales que apoyan decisiones humanas', 'Tecnología solo cuando reduce un riesgo concreto'],
       },
       {
         icon: 'partners',
@@ -295,7 +295,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'pricing',
-        title: 'Modelo comercial transparente',
+        title: 'Alcance, precio y ayudas claras',
         body:
           'Debes saber qué está incluido, qué es opcional y qué requiere medición o confirmación. CasaMia separa claramente asesoramiento, instalación y apoyo con ayudas.',
         points: ['Estimación clara antes del compromiso', 'Opcionales separados de lo esencial', 'Orientación sobre ayudas sin falsas promesas'],
@@ -317,7 +317,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     messagePlaceholder:
       'Ejemplo: Mi padre tiene dificultades con las escaleras por la noche, estamos en Marbella y necesitamos saber qué arreglar primero.',
     formNote:
-      'CasaMia comprueba tu solicitud, la vía de revisión probable y la disponibilidad local antes de recomendar qué hacer primero.',
+      'CasaMia comprueba tu solicitud, el primer paso recomendado y la disponibilidad local antes de decirte qué conviene hacer primero.',
     ctaButton: 'Solicitar evaluación a domicilio',
   },
 }
