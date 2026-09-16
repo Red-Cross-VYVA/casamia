@@ -37,7 +37,7 @@ export function Plans({ standalone = false }: PlansProps) {
             <p className="text-sm font-extrabold uppercase text-white/70">Recommended improvements</p>
             <p className="mt-3 font-display text-5xl font-black leading-none">Clear first</p>
             <p className="mt-4 text-white/80">
-              A route from identified home risks to selected services, estimate, quote and coordinated installation.
+              Identified home risks become selected services, an estimate, a quote and coordinated installation.
             </p>
 
             <ul className="mt-7 grid gap-3 sm:grid-cols-2">

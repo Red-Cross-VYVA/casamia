@@ -36,10 +36,10 @@ const grantsCopy = {
     roleEyebrow: 'CasaMia’s role',
     roleTitle: 'Guidance, not public approval.',
     roleBody:
-      'CasaMia checks which published routes may fit your project and prepares the document trail when authorised. Any initial eligibility assessment is indicative only. The responsible public authority makes the final decision.',
+      'CasaMia checks which published grant criteria may fit your project and prepares the document trail when authorised. Any initial eligibility assessment is indicative only. The responsible public authority makes the final decision.',
     roleListTitle: 'Grant-support services',
     roleItems: [
-      'General information about possible public assistance routes.',
+      'General information about possible public assistance programmes.',
       'Initial eligibility screening based on information provided by the customer.',
       'Help preparing a document checklist for a specific programme.',
       'Application-preparation support when the programme fits the work and the customer has authorised CasaMia in writing.',
@@ -237,7 +237,7 @@ export function GrantsPage() {
     : {
         heroTitle: 'Find possible help for home adaptations.',
         heroBody:
-          'Review possible grant routes, missing documents and what must be confirmed before starting works.',
+          'Review possible grant criteria, missing documents and what must be confirmed before starting works.',
         heroSecondary: 'What we check',
         quickCards: [
           {

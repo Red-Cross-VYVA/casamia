@@ -103,7 +103,7 @@ const wizardSteps = ['Welcome', 'Property', 'Rooms', 'Home details', 'Questions'
 const stepHeadings = [
   'Make your home safer, room by room.',
   'Tell us about the home.',
-  'Select the rooms or routes that feel risky.',
+  'Select the rooms or daily paths that feel risky.',
   'Confirm the home details.',
   'Answer the home-safety questions.',
   'Review the recommended improvements.',
@@ -616,7 +616,7 @@ function PropertyStep() {
 
       <ChoiceTileGroup
         label="Are there internal stairs?"
-        helper="This affects handrails, tread contrast, lighting and movement-route support."
+        helper="This affects handrails, tread contrast, lighting and support along the stairs."
         value={state.property.hasInternalStairs}
         gridClassName="md:grid-cols-3"
         options={[
@@ -693,7 +693,7 @@ function ZoneStep() {
           <span className="text-xs font-black uppercase tracking-wide text-blue">Where risk shows up</span>
           <h2 className="mt-1 font-display text-3xl font-bold leading-tight text-text-dark">Select the spaces that matter most.</h2>
           <p className="mt-2 max-w-2xl text-base leading-relaxed text-text-mid">
-            Tap a room, route or entrance. We will ask focused questions so the plan matches the home and daily routine.
+            Tap a room, daily path or entrance. We will ask focused questions so the plan matches the home and daily routine.
           </p>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full bg-pale-blue px-4 py-2 text-sm font-black text-blue whitespace-nowrap">
@@ -846,7 +846,7 @@ function AreaConfigurationStep() {
       {isRoomSelected(state, 'connected') ? <ConnectedQuestions /> : null}
       {getSelectedRoomIds(state).length === 0 ? (
         <p className="rounded-lg border border-border bg-pale-blue p-5 text-lg font-bold text-text-mid">
-          Select the rooms, routes or support areas CasaMia should review.
+          Select the rooms, entrances or support areas CasaMia should review.
         </p>
       ) : null}
     </div>
