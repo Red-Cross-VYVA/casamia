@@ -51,7 +51,7 @@ const detailSteps = [
   {
     icon: Home,
     title: 'Practical next step',
-    body: 'If work is needed, CasaMia prepares a proposal around products, installation, and handover.',
+    body: 'If work makes sense, CasaMia prepares a clear proposal with scope, installation and safe-use explanation.',
   },
 ]
 
@@ -93,7 +93,7 @@ const serviceDetailUiCopy = {
     improvedEyebrow: 'What gets improved',
     improvedTitle: 'Choose the improvements that fit.',
     improvedBody:
-      'Pick useful services one by one. We check measurements and compatibility before any work starts.',
+      'Pick services one by one. We check measurements and compatibility before any work starts.',
     planEyebrow: 'Your CasaMia plan',
     buildMyPlan: 'Build my plan',
     managedBy: 'Managed by CasaMia',
@@ -197,7 +197,7 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     title: 'Seguridad conectada para personas mayores',
     shortTitle: 'Seguridad conectada',
     description:
-      'Añade tecnología práctica como iluminación con sensor, alertas, sensores de fuga o puerta, dispositivos de emergencia y avisos familiares.',
+      'Añade tecnología práctica como iluminación con sensor, alertas, sensores de fuga o puerta, dispositivos de emergencia y avisos a contactos acordados.',
     intro:
       'La seguridad conectada debe sentirse sencilla. CasaMia se centra en tecnología útil que da confianza sin complicar la vivienda.',
     risks: ['Sin aviso cuando cambian rutinas', 'Poca visibilidad nocturna', 'Riesgos ocultos de agua o humo'],
@@ -228,7 +228,7 @@ const serviceVisualCopyEs: Record<string, { badge: string; note: string }> = {
   },
   'smart-home-safety': {
     badge: 'Tranquilidad conectada',
-    note: 'Sensores, VYVA y avisos familiares',
+    note: 'Sensores, VYVA y avisos acordados',
   },
 }
 
@@ -284,7 +284,7 @@ const defaultServiceDetailContent: ServiceDetailContent = {
     },
     {
       title: 'Clearer support',
-      body: 'Place support where it is actually useful for the person, not just where a product happens to fit.',
+      body: 'Place support where the person can reach it naturally, not just where a product happens to fit.',
     },
     {
       title: 'More clarity for the next decision',
@@ -320,7 +320,7 @@ const defaultServiceDetailContentEs: ServiceDetailContent = {
     },
     {
       title: 'Apoyo más claro',
-      body: 'Coloca el apoyo donde realmente sirve para la persona, no solo donde cabe un producto.',
+      body: 'Coloca el apoyo donde la persona puede alcanzarlo de forma natural, no solo donde cabe un producto.',
     },
     {
       title: 'Más claridad para decidir',
@@ -354,7 +354,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefits: [
       { title: 'Transferencias más seguras', body: 'Apoyo para entrar en la ducha, sentarse, levantarse y usar el inodoro sin depender de toalleros o muebles.' },
       { title: 'Menos riesgo de resbalón', body: 'Mejor agarre y rutas más claras donde agua, alfombras, umbrales o espacios estrechos crean riesgo.' },
-      { title: 'Más privacidad e independencia', body: 'Ayuda a mantener las rutinas de baño con menos asistencia física de familiares o cuidadores.' },
+      { title: 'Más privacidad e independencia', body: 'Ayuda a mantener las rutinas de baño con menos asistencia física.' },
     ],
     includedTitle: 'Qué puede incluir un plan de seguridad de baño.',
     includedIntro: 'CasaMia prioriza las mejoras que más cambian el baño, el aseo y el movimiento seguro en zona húmeda.',
@@ -399,11 +399,11 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefits: [
       { title: 'Menos esfuerzo', body: 'Objetos, herramientas e iluminación se colocan para cocinar con menos alcance, flexión y carga.' },
       { title: 'Menos momentos de riesgo', body: 'Reducimos desencadenantes habituales: suelos mojados, cables, giros, poca luz y encimeras saturadas.' },
-      { title: 'Más tranquilidad', body: 'Sensores, temporizadores, enchufes inteligentes y apagado opcional ayudan a la familia después de cocinar.' },
+      { title: 'Más tranquilidad', body: 'Sensores, temporizadores, enchufes inteligentes y apagado opcional aclaran qué revisar después de cocinar.' },
     ],
     includedTitle: 'Crea tu plan de cocina desde servicios individuales.',
     includedIntro: 'Selecciona mejoras útiles, revisa una estimación y decide si subir fotos o reservar una visita.',
-    included: ['Zonas antideslizantes de preparación', 'Utensilios de agarre fácil y menaje ligero', 'Iluminación de encimera, voz y temporizadores', 'Enchufes inteligentes, sensores de fuga, gas o CO', 'Estante abatible, apagado automático o grifo sin contacto si procede'],
+    included: ['Zonas antideslizantes de preparación', 'Utensilios de agarre fácil y menaje ligero', 'Iluminación de encimera, voz y temporizadores', 'Enchufes inteligentes, sensores de fuga, gas o CO', 'Estante abatible, apagado automático o grifo sin contacto cuando encaje'],
     finalTitle: 'Mantén la cocina posible, segura y tranquila.',
   },
   'bedroom-safety': {
@@ -412,7 +412,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefitsIntro:
       'Muchas situaciones de riesgo ocurren con sueño, poca luz o prisa por llegar al baño. CasaMia diseña el dormitorio alrededor de cama, ruta nocturna y ayuda al alcance.',
     benefits: [
-      { title: 'Entrar y salir de la cama con más seguridad', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas cuando hacen falta.' },
+      { title: 'Entrar y salir de la cama con más seguridad', body: 'Mejor altura, espacio, apoyo junto a la cama y ayudas prácticas.' },
       { title: 'Movimiento nocturno más seguro', body: 'Iluminación con sensor, rutas despejadas y menos desorientación.' },
       { title: 'Ayuda al alcance', body: 'Botón, teléfono, wearable o aviso conectado donde pueda usarse en el momento.' },
     ],
@@ -425,15 +425,15 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     ...defaultServiceDetailContentEs,
     benefitsTitle: 'Usa tecnología solo donde haga la vida más segura.',
     benefitsIntro:
-      'La seguridad conectada no debe convertirse en un proyecto complicado. CasaMia se centra en alertas útiles, iluminación, respuesta de emergencia y tranquilidad familiar.',
+      'La seguridad conectada no debe convertirse en un proyecto complicado. CasaMia se centra en alertas claras, iluminación, respuesta de emergencia y contactos autorizados.',
     benefits: [
       { title: 'Aviso más temprano', body: 'Sensores pueden ayudar a detectar cambios de rutina, fugas, humo, puertas o movimiento nocturno.' },
-      { title: 'Ayuda más rápida', body: 'Botones, wearables y alertas facilitan avisar a familia o cuidadores.' },
+      { title: 'Ayuda más rápida', body: 'Botones, wearables y alertas facilitan avisar a los contactos acordados.' },
       { title: 'Menos fricción diaria', body: 'Voz, iluminación con sensor y automatización sencilla reducen desplazamientos y movimientos innecesarios.' },
     ],
     includedTitle: 'Qué puede incluir un plan conectado.',
-    includedIntro: 'CasaMia revisa conectividad y recomienda solo dispositivos que encajan con la persona, la vivienda y la familia.',
-    included: ['Iluminación con sensor y ruta nocturna', 'Botones de emergencia o alertas wearable', 'Sensores de fuga, humo, puerta o movimiento', 'Configuración de app y panel familiar si aplica', 'Preferencias de aviso y privacidad', 'Entrega sencilla para persona mayor y familia'],
+    includedIntro: 'CasaMia revisa conectividad y recomienda solo dispositivos que encajan con la persona, la vivienda y los contactos autorizados.',
+    included: ['Iluminación con sensor y ruta nocturna', 'Botones de emergencia o alertas wearable', 'Sensores de fuga, humo, puerta o movimiento', 'Configuración de app y vista de contactos si aplica', 'Preferencias de aviso y privacidad', 'Explicación sencilla para el uso diario'],
     finalTitle: 'Añade seguridad conectada donde realmente ayuda.',
   },
 }
@@ -454,7 +454,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'More privacy and independence',
-        body: 'Help the person keep bathroom routines manageable with less physical help from family or caregivers.',
+        body: 'Help the person keep bathroom routines manageable with less physical assistance.',
       },
     ],
     includedTitle: 'What a bathroom safety plan can include.',
@@ -541,7 +541,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'The entrance should support independence, not create stress.',
     reassuranceBody:
-      'We focus on practical access improvements that fit the home, the resident, and the way family or caregivers visit.',
+      'We focus on practical access improvements that fit the home, the person using it and the everyday arrival routine.',
     reassurancePoints: ['Safer thresholds', 'Better doorway support', 'Clearer access routines'],
     finalTitle: 'Make the entrance easier to cross every day.',
     finalBody:
@@ -573,11 +573,11 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Easy-grip utensils, openers, and lightweight cookware',
       'Improved worktop lighting, voice lighting, and timers',
       'Selected smart plugs plus leak and gas or carbon-monoxide sensors',
-      'Optional pull-down shelf, automatic stove shut-off, or touchless faucet where needed',
+      'Optional pull-down shelf, automatic stove shut-off or touchless faucet when it fits the kitchen',
     ],
     reassuranceTitle: "A safer kitchen should still feel like the resident's kitchen.",
     reassuranceBody:
-      'We keep familiar routines where possible, choose what helps, coordinate installation, and explain the setup clearly.',
+      'We keep familiar routines where possible, choose the changes that reduce risk, coordinate installation and explain the setup clearly.',
     reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and explanation managed'],
     finalTitle: 'Keep cooking possible, safer, and calmer.',
     finalBody:
@@ -590,7 +590,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     benefits: [
       {
         title: 'Getting in and out of bed',
-        body: 'Support the first movement of the day with the right bed height, clearance, bedside support, and practical aids where needed.',
+        body: 'Support the first movement of the day with the right bed height, clearance, bedside support and practical aids.',
       },
       {
         title: 'Safer night movement',
@@ -659,7 +659,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassurancePoints: ['Connectivity checked first', 'Alert recipients agreed in advance', 'Simple setup and explanation'],
     finalTitle: 'Add connected safety where it genuinely helps.',
     finalBody:
-      'Book a visit and we will review the home, connectivity, and the most useful smart safety options.',
+      'Book a visit and we will review the home, connectivity and the connected options that match the routine.',
   },
 }
 

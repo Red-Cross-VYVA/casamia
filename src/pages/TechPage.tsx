@@ -99,14 +99,14 @@ const techCopy = {
     lang: 'en',
     seoTitle: 'Connected Health Devices, Home Clinic & Telehealth Spain',
     seoDescription:
-      'CasaMia connects compatible health and safety devices to your existing app or care system, or provides a complete resident app, family view, professional dashboard, Home Clinic and telehealth setup.',
+      'CasaMia connects compatible health and safety devices to your existing app or care system, or provides a simple user app, approved-contact view, professional dashboard, Home Clinic and telehealth setup.',
     serviceType: 'Connected health device integration, Home Clinic and telehealth setup',
     hero: {
       eyebrow: 'Connected health at home',
       title: 'Connect the health technology you already have.',
       accent: 'Or let us provide the complete system.',
       body:
-        'CasaMia connects compatible health, wellbeing and safety devices to the app or care platform you already use. If you do not have one, we provide the resident experience, family view and professional dashboard—installed, configured and supported as one service.',
+        'CasaMia connects compatible health, wellbeing and safety devices to the app or care platform you already use. If you do not have one, we provide the user experience, approved-contact view and professional dashboard, installed and supported as one service.',
       primaryCta: 'Plan my integration',
       secondaryCta: 'Explore the service',
       proof: ['Keep your current system', 'Connect compatible devices', 'CasaMia platform available'],
@@ -148,7 +148,7 @@ const techCopy = {
           number: '02',
           title: 'Your devices work in separate apps',
           body:
-            'We review compatibility, connect useful information where feasible and organise alerts so they reach the right person.',
+            'We review compatibility, connect the signals that matter and organise alerts so they reach the right person.',
           outcome: 'Replace fragmented notifications with a clearer flow.',
         },
         {
@@ -156,16 +156,16 @@ const techCopy = {
           number: '03',
           title: 'You need the complete solution',
           body:
-            'CasaMia can provide the resident app, family access, professional dashboard, device setup, onboarding and ongoing support.',
+            'CasaMia can provide the user app, approved-contact access, professional dashboard, device setup, onboarding and ongoing support.',
           outcome: 'One service, from equipment to daily use.',
         },
       ],
     },
     devices: {
       eyebrow: 'Device integration',
-      title: 'Bring the devices. We make them useful together.',
+      title: 'Bring the devices. We make the information easier to act on.',
       body:
-        'CasaMia can assess compatible health, wellbeing and home-safety technology, connect the useful signals and make the resulting information easier to act on.',
+        'CasaMia can assess compatible health, wellbeing and home-safety technology, connect the right signals and turn scattered device data into clearer next steps.',
       items: [
         {
           icon: 'heart' as TechIconName,
@@ -220,7 +220,7 @@ const techCopy = {
       eyebrow: 'The CasaMia Home Clinic',
       title: 'Useful health support at home—without making the home feel clinical.',
       body:
-        'Home Clinic combines a selected set of compatible devices, simple measurement routines and one organised digital view. CasaMia installs and pairs the equipment, explains each step and helps make agreed information available to approved family members or professionals.',
+        'Home Clinic combines selected compatible devices, simple measurement routines and one organised digital view. CasaMia installs and pairs the equipment, explains each step and helps make agreed information available to approved contacts or professionals.',
       imageAlt: 'Connected blood pressure monitor prepared for a guided health measurement at home',
       visualLabel: 'Home Clinic ready',
       visualItems: ['Device paired', 'Routine explained', 'Readings organised'],
@@ -230,7 +230,7 @@ const techCopy = {
         'Clear history of agreed readings',
         'Reminders for selected routines',
         'Information prepared for appointments',
-        'Optional family or professional visibility',
+        'Optional approved-contact or professional visibility',
       ],
       boundary:
         'Home Clinic supports organisation and communication. It does not diagnose conditions or replace advice from a qualified healthcare professional.',
@@ -263,7 +263,7 @@ const techCopy = {
       eyebrow: 'Monitoring and alerts',
       title: 'Useful signals. Clear next steps. Less unnecessary noise.',
       body:
-        'CasaMia configures notifications around the household’s needs and the responsibilities agreed with family or professionals. Alerts can be routed by type, priority and time of day.',
+        'CasaMia configures notifications around the household’s needs and the responsibilities agreed with approved contacts or professionals. Alerts can be routed by type, priority and time of day.',
       items: [
         { icon: 'wifi' as TechIconName, title: 'Connection', body: 'Device offline or pairing problem' },
         { icon: 'activity' as TechIconName, title: 'Routine', body: 'Agreed check or measurement missed' },
@@ -291,8 +291,8 @@ const techCopy = {
         visualLabel: 'CasaMia platform view',
         title: 'CasaMia connected-care platform',
         body:
-          'A simpler resident experience, family access and a professional dashboard for agreed reminders, readings, alerts and follow-up.',
-        points: ['Resident app and optional VYVA voice support', 'Family view with role-based access', 'Professional dashboard and support'],
+          'A simpler user experience, approved-contact access and a professional dashboard for agreed reminders, readings, alerts and follow-up.',
+        points: ['User app and optional VYVA voice support', 'Approved-contact view with role-based access', 'Professional dashboard and support'],
       },
     },
     delivery: {
@@ -303,8 +303,8 @@ const techCopy = {
       items: [
         { title: 'Discover', body: 'Inventory devices, systems, users, connectivity and the outcome you need.' },
         { title: 'Design', body: 'Confirm compatibility, data flows, permissions, alerts and response responsibilities.' },
-        { title: 'Connect', body: 'Procure where needed, install, integrate, configure and test the complete route.' },
-        { title: 'Onboard', body: 'Train residents, families, staff and authorised professionals with a clear handover.' },
+        { title: 'Connect', body: 'Source agreed devices, install, integrate, configure and test the complete route.' },
+        { title: 'Onboard', body: 'Guide residents, approved contacts, staff and authorised professionals through safe daily use.' },
         { title: 'Support', body: 'Maintain agreed connections, resolve issues and adapt the setup as needs change.' },
       ],
       imageAlt: 'CasaMia connected-care equipment and onboarding materials prepared in a home',
@@ -315,9 +315,9 @@ const techCopy = {
       body:
         'Before activation, CasaMia documents who may access each type of information, which alerts each person receives and who is responsible for responding. We aim to collect and share only what the agreed service needs.',
       items: [
-        { icon: 'lock' as TechIconName, title: 'Consent and access', body: 'Role-based access and agreed visibility for residents, families and professionals.' },
+        { icon: 'lock' as TechIconName, title: 'Consent and access', body: 'Role-based access and agreed visibility for residents, approved contacts and professionals.' },
         { icon: 'shield' as TechIconName, title: 'Clear boundaries', body: 'Clinical, emergency and response responsibilities are documented before launch.' },
-        { icon: 'wrench' as TechIconName, title: 'Reliability first', body: 'Connectivity, device placement, fallbacks and support routes are tested before handover.' },
+        { icon: 'wrench' as TechIconName, title: 'Reliability first', body: 'Connectivity, device placement, fallbacks and support routes are tested before daily use.' },
       ],
     },
     catalogue: {
@@ -330,7 +330,7 @@ const techCopy = {
       empty: 'No connected components are currently available. Ask CasaMia for a compatibility review.',
       cardTitle: 'Connected components and setup',
       cardBody:
-        'We check compatibility, install where needed, configure alerts and explain the handover. This list is maintained as the available components change.',
+        'We check compatibility, install agreed components, configure alerts and explain safe daily use. This list is maintained as the available components change.',
       cta: 'Configure smart safety',
     },
     faq: {
@@ -350,7 +350,7 @@ const techCopy = {
         {
           question: 'What if we have devices but no app or dashboard?',
           answer:
-            'CasaMia can provide the complete digital layer: a simple resident experience, family access, a professional dashboard and optional VYVA voice support, together with setup and onboarding.',
+            'CasaMia can provide the complete digital layer: a simple user experience, approved-contact access, a professional dashboard and optional VYVA voice support, together with setup and onboarding.',
         },
         {
           question: 'Does Home Clinic diagnose or provide medical advice?',
@@ -365,7 +365,7 @@ const techCopy = {
         {
           question: 'Who receives an alert?',
           answer:
-            'That is agreed before activation. Alerts can be routed by type, priority and schedule to named family members, care staff or contracted response services. CasaMia does not assume emergency responsibility unless explicitly contracted.',
+            'That is agreed before activation. Alerts can be routed by type, priority and schedule to named contacts, care staff or contracted response services. CasaMia does not assume emergency responsibility unless explicitly contracted.',
         },
       ],
     },
@@ -382,14 +382,14 @@ const techCopy = {
     lang: 'es',
     seoTitle: 'Dispositivos de Salud Conectados, Clínica en Casa y Telesalud',
     seoDescription:
-      'CasaMia conecta dispositivos compatibles de salud y seguridad con tu app o sistema asistencial, o proporciona una solución completa con app, panel familiar, Clínica en Casa y telesalud.',
+      'CasaMia conecta dispositivos compatibles de salud y seguridad con tu app o sistema asistencial, o proporciona una solución completa con app sencilla, vista para contactos autorizados, panel profesional, Clínica en Casa y telesalud.',
     serviceType: 'Integración de dispositivos de salud, Clínica en Casa y configuración de telesalud',
     hero: {
       eyebrow: 'Salud conectada en casa',
       title: 'Conecta la tecnología de salud que ya tienes.',
       accent: 'O deja que proporcionemos el sistema completo.',
       body:
-        'CasaMia conecta dispositivos compatibles de salud, bienestar y seguridad con la aplicación o plataforma asistencial que ya utilizas. Si no dispones de una, proporcionamos la experiencia para la persona usuaria, la vista familiar y el panel profesional, todo instalado, configurado y respaldado como un único servicio.',
+        'CasaMia conecta dispositivos compatibles de salud, bienestar y seguridad con la aplicación o plataforma asistencial que ya utilizas. Si no dispones de una, proporcionamos la experiencia para la persona usuaria, la vista para contactos autorizados y el panel profesional, todo instalado y respaldado como un único servicio.',
       primaryCta: 'Planificar mi integración',
       secondaryCta: 'Explorar el servicio',
       proof: ['Conserva tu sistema actual', 'Conecta dispositivos compatibles', 'Plataforma CasaMia disponible'],
@@ -431,7 +431,7 @@ const techCopy = {
           number: '02',
           title: 'Tus dispositivos funcionan en apps separadas',
           body:
-            'Revisamos la compatibilidad, conectamos la información útil cuando es viable y organizamos las alertas para que lleguen a quien corresponde.',
+            'Revisamos la compatibilidad, conectamos las señales importantes y organizamos las alertas para que lleguen a quien corresponde.',
           outcome: 'Sustituye avisos fragmentados por un flujo más claro.',
         },
         {
@@ -439,16 +439,16 @@ const techCopy = {
           number: '03',
           title: 'Necesitas la solución completa',
           body:
-            'CasaMia puede proporcionar la app para la persona, acceso familiar, panel profesional, configuración de dispositivos, formación y soporte.',
+            'CasaMia puede proporcionar la app para la persona, acceso para contactos autorizados, panel profesional, configuración de dispositivos, formación y soporte.',
           outcome: 'Un único servicio, desde el equipo hasta el uso diario.',
         },
       ],
     },
     devices: {
       eyebrow: 'Integración de dispositivos',
-      title: 'Tú aportas los dispositivos. Nosotros hacemos que sean útiles juntos.',
+      title: 'Tú aportas los dispositivos. Nosotros hacemos que la información sea más accionable.',
       body:
-        'CasaMia puede evaluar tecnología compatible de salud, bienestar y seguridad doméstica, conectar las señales útiles y facilitar que la información se convierta en una acción clara.',
+        'CasaMia puede evaluar tecnología compatible de salud, bienestar y seguridad doméstica, conectar las señales adecuadas y convertir datos dispersos en próximos pasos más claros.',
       items: [
         {
           icon: 'heart' as TechIconName,
@@ -494,7 +494,7 @@ const techCopy = {
         {
           icon: 'cloud' as TechIconName,
           label: '3. Destino',
-          items: ['Tu aplicación', 'Sistema asistencial u operativo', 'App CasaMia', 'Vista familiar o profesional'],
+          items: ['Tu aplicación', 'Sistema asistencial u operativo', 'App CasaMia', 'Vista de contacto autorizado o profesional'],
         },
       ],
       footer: 'Persona usuaria · Familia · Profesional autorizado · Equipo asistencial',
@@ -503,7 +503,7 @@ const techCopy = {
       eyebrow: 'La Clínica en Casa de CasaMia',
       title: 'Apoyo práctico para la salud en casa, sin convertirla en un entorno clínico.',
       body:
-        'Clínica en Casa combina dispositivos compatibles seleccionados, rutinas sencillas de medición y una vista digital organizada. CasaMia instala y vincula los equipos, explica cada paso y facilita que la información acordada esté disponible para familiares o profesionales autorizados.',
+        'Clínica en Casa combina dispositivos compatibles seleccionados, rutinas sencillas de medición y una vista digital organizada. CasaMia instala y vincula los equipos, explica cada paso y facilita que la información acordada esté disponible para contactos autorizados o profesionales.',
       imageAlt: 'Tensiómetro conectado preparado para una medición guiada de salud en casa',
       visualLabel: 'Clínica en Casa lista',
       visualItems: ['Dispositivo vinculado', 'Rutina explicada', 'Lecturas organizadas'],
@@ -513,7 +513,7 @@ const techCopy = {
         'Historial claro de lecturas acordadas',
         'Recordatorios de rutinas seleccionadas',
         'Información preparada para consultas',
-        'Visibilidad familiar o profesional opcional',
+        'Visibilidad opcional para contactos autorizados o profesionales',
       ],
       boundary:
         'Clínica en Casa facilita la organización y la comunicación. No realiza diagnósticos ni sustituye el asesoramiento de un profesional sanitario cualificado.',
@@ -528,7 +528,7 @@ const techCopy = {
         'Comprobación de cámara, sonido y conexión',
         'Recordatorios antes de la cita',
         'Lecturas acordadas listas para revisión',
-        'Participación familiar con consentimiento',
+        'Participación de contactos autorizados con consentimiento',
         'Seguimiento organizado en un único lugar',
       ],
       boundary:
@@ -546,7 +546,7 @@ const techCopy = {
       eyebrow: 'Monitorización y alertas',
       title: 'Señales útiles. Próximos pasos claros. Menos avisos innecesarios.',
       body:
-        'CasaMia configura las notificaciones según las necesidades del hogar y las responsabilidades acordadas con familiares o profesionales. Las alertas pueden dirigirse por tipo, prioridad y horario.',
+        'CasaMia configura las notificaciones según las necesidades del hogar y las responsabilidades acordadas con contactos autorizados o profesionales. Las alertas pueden dirigirse por tipo, prioridad y horario.',
       items: [
         { icon: 'wifi' as TechIconName, title: 'Conexión', body: 'Dispositivo desconectado o problema de vinculación' },
         { icon: 'activity' as TechIconName, title: 'Rutina', body: 'Seguimiento o medición acordada pendiente' },
@@ -574,8 +574,8 @@ const techCopy = {
         visualLabel: 'Vista CasaMia en directo',
         title: 'Plataforma de atención conectada CasaMia',
         body:
-          'Una experiencia sencilla para la persona, acceso familiar y un panel profesional para recordatorios, lecturas, alertas y seguimientos acordados.',
-        points: ['App para la persona y asistencia VYVA opcional', 'Vista familiar con acceso por roles', 'Panel profesional y soporte'],
+          'Una experiencia sencilla para la persona, acceso para contactos autorizados y un panel profesional para recordatorios, lecturas, alertas y seguimientos acordados.',
+        points: ['App para la persona y asistencia VYVA opcional', 'Vista para contactos autorizados con acceso por roles', 'Panel profesional y soporte'],
       },
     },
     delivery: {
@@ -586,8 +586,8 @@ const techCopy = {
       items: [
         { title: 'Analizar', body: 'Inventariamos dispositivos, sistemas, usuarios, conectividad y el resultado que necesitas.' },
         { title: 'Diseñar', body: 'Confirmamos compatibilidad, flujos de datos, permisos, alertas y responsabilidades.' },
-        { title: 'Conectar', body: 'Suministramos cuando hace falta, instalamos, integramos, configuramos y probamos.' },
-        { title: 'Formar', body: 'Acompañamos a personas usuarias, familias, equipos y profesionales autorizados.' },
+        { title: 'Conectar', body: 'Suministramos los dispositivos acordados, instalamos, integramos, configuramos y probamos.' },
+        { title: 'Formar', body: 'Acompañamos a personas usuarias, contactos autorizados, equipos y profesionales en el uso diario.' },
         { title: 'Dar soporte', body: 'Mantenemos las conexiones acordadas, resolvemos incidencias y adaptamos la solución.' },
       ],
       imageAlt: 'Equipo de atención conectada CasaMia y materiales de formación preparados en una vivienda',
@@ -598,9 +598,9 @@ const techCopy = {
       body:
         'Antes de activar el servicio, CasaMia documenta quién puede acceder a cada tipo de información, qué alertas recibe cada persona y quién es responsable de responder. Procuramos recoger y compartir solo lo necesario para el servicio acordado.',
       items: [
-        { icon: 'lock' as TechIconName, title: 'Consentimiento y acceso', body: 'Acceso por roles y visibilidad acordada para personas, familias y profesionales.' },
+        { icon: 'lock' as TechIconName, title: 'Consentimiento y acceso', body: 'Acceso por roles y visibilidad acordada para personas, contactos autorizados y profesionales.' },
         { icon: 'shield' as TechIconName, title: 'Límites claros', body: 'Las responsabilidades clínicas, de emergencia y respuesta se documentan antes de empezar.' },
-        { icon: 'wrench' as TechIconName, title: 'Fiabilidad primero', body: 'Probamos conectividad, ubicación, alternativas y soporte antes de la entrega.' },
+        { icon: 'wrench' as TechIconName, title: 'Fiabilidad primero', body: 'Probamos conectividad, ubicación, alternativas y soporte antes del uso diario.' },
       ],
     },
     catalogue: {
@@ -613,7 +613,7 @@ const techCopy = {
       empty: 'Ahora mismo no hay componentes conectados disponibles. Solicita a CasaMia una revisión de compatibilidad.',
       cardTitle: 'Componentes conectados y configuración',
       cardBody:
-        'CasaMia comprueba la compatibilidad, instala cuando hace falta, configura las alertas y explica la entrega. Esta lista se mantiene actualizada a medida que cambian los componentes disponibles.',
+        'CasaMia comprueba la compatibilidad, instala los componentes acordados, configura las alertas y explica el uso seguro. Esta lista se mantiene actualizada a medida que cambian los componentes disponibles.',
       cta: 'Configurar seguridad inteligente',
     },
     faq: {
@@ -633,7 +633,7 @@ const techCopy = {
         {
           question: '¿Qué ocurre si tenemos dispositivos, pero no una app o un panel?',
           answer:
-            'CasaMia puede proporcionar la capa digital completa: una experiencia sencilla para la persona, acceso familiar, panel profesional y asistencia VYVA por voz opcional, además de configuración y formación.',
+            'CasaMia puede proporcionar la capa digital completa: una experiencia sencilla para la persona, acceso para contactos autorizados, panel profesional y asistencia VYVA por voz opcional, además de configuración y formación.',
         },
         {
           question: '¿Clínica en Casa diagnostica o da consejo médico?',
@@ -648,7 +648,7 @@ const techCopy = {
         {
           question: '¿Quién recibe una alerta?',
           answer:
-            'Se acuerda antes de activar el servicio. Las alertas se pueden dirigir por tipo, prioridad y horario a familiares, equipos asistenciales o servicios de respuesta contratados. CasaMia no asume responsabilidad de emergencias salvo contratación expresa.',
+            'Se acuerda antes de activar el servicio. Las alertas se pueden dirigir por tipo, prioridad y horario a contactos designados, equipos asistenciales o servicios de respuesta contratados. CasaMia no asume responsabilidad de emergencias salvo contratación expresa.',
         },
       ],
     },
@@ -670,10 +670,10 @@ function getTechCopy(language: string) {
 const spanishCatalogueLabels: Record<string, string> = {
   'Emergency support': 'Apoyo de emergencia',
   'Simple controls': 'Controles sencillos',
-  'Family reassurance': 'Tranquilidad familiar',
+  'Family reassurance': 'Tranquilidad para contactos',
   'Emergency call button': 'Botón de llamada de emergencia',
   'Voice hub setup': 'Configuración de asistente por voz',
-  'Family alert setup': 'Configuración de alertas familiares',
+  'Family alert setup': 'Configuración de alertas a contactos',
   'Fall detection review': 'Evaluación de detección de caídas',
   'Professional monitoring option': 'Opción de monitorización profesional',
 }

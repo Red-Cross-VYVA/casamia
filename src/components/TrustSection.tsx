@@ -25,31 +25,31 @@ type TrustSectionCopy = {
 
 const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
   en: {
-    eyebrow: 'Why families trust CasaMia',
-    headline: 'Why Families Trust CasaMia',
+    eyebrow: 'Why people trust CasaMia',
+    headline: 'Why CasaMia feels safer to choose',
     body:
-      'Every CasaMia project is delivered with care, professionalism, and transparency. From the first inspection to the final installation, we work with qualified experts and trusted partners to help seniors age safely and comfortably at home.',
+      'Every project starts with the person, the home and the daily routine. CasaMia checks what fits, coordinates qualified help and keeps the scope clear before work begins.',
     learnMore: 'Learn why CasaMia',
     cards: [
       {
         icon: 'inspectors',
         title: 'Qualified Safety Inspectors',
-        body: 'Home risks are reviewed by trained safety specialists who understand falls, access, lighting, and daily mobility.',
+        body: 'Risks are reviewed by specialists who understand falls, access, lighting and everyday movement.',
       },
       {
         icon: 'partners',
         title: 'Trusted Installation Partners',
-        body: 'CasaMia works through reliable installation partners who can adapt each home with care and respect.',
+        body: 'CasaMia works with reliable installers who adapt homes carefully and respectfully.',
       },
       {
         icon: 'insured',
         title: 'Fully Insured Services',
-        body: 'Projects are structured around insured professional work, giving families reassurance from assessment to installation.',
+        body: 'Projects are structured around insured professional work, from review to installation.',
       },
       {
         icon: 'pricing',
         title: 'Transparent Pricing',
-        body: 'Families see the recommended scope and pricing clearly before committing to the work.',
+        body: 'You see the recommended scope and price clearly before committing to the work.',
       },
       {
         icon: 'products',
@@ -64,10 +64,10 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     ],
   },
   es: {
-    eyebrow: 'Por qué confían las familias',
-    headline: 'Por qué las familias confían en CasaMia',
+    eyebrow: 'Por qué confiar en CasaMia',
+    headline: 'Por qué CasaMia da más seguridad al elegir',
     body:
-      'Cada proyecto CasaMia se entrega con cuidado, profesionalidad y transparencia. Desde la primera inspección hasta la instalación final, trabajamos con expertos cualificados y partners de confianza para ayudar a las personas mayores a vivir mejor y con más seguridad en casa.',
+      'Cada proyecto empieza por la persona, la vivienda y la rutina diaria. CasaMia revisa qué encaja, coordina ayuda cualificada y mantiene el alcance claro antes de empezar.',
     learnMore: 'Ver por qué CasaMia',
     cards: [
       {
@@ -88,7 +88,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'pricing',
         title: 'Precios transparentes',
-        body: 'La familia ve claramente el alcance recomendado y el precio antes de comprometerse.',
+        body: 'Ves claramente el alcance recomendado y el precio antes de comprometerte.',
       },
       {
         icon: 'products',
