@@ -16,12 +16,12 @@ const homeSeoCopy = {
   en: {
     title: 'CasaMia | Home Safety Adaptations for Seniors in Spain',
     description:
-      'CasaMia helps families make homes safer for older adults with room-by-room assessment, practical adaptations, trusted installers and clear follow-up.',
+      'CasaMia helps make daily movement safer at home with room-by-room assessment, agreed adaptations, coordinated installers and clear follow-up.',
   },
   es: {
     title: 'CasaMia | Adaptación y seguridad del hogar para mayores en España',
     description:
-      'CasaMia ayuda a las familias a hacer la vivienda más segura para personas mayores con evaluación por estancias, adaptaciones prácticas, instaladores coordinados y seguimiento claro.',
+      'CasaMia ayuda a hacer más seguro el movimiento diario en casa con evaluación por estancias, adaptaciones acordadas, instaladores coordinados y seguimiento claro.',
   },
 } as const
 

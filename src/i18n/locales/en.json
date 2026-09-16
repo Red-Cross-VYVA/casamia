@@ -117,8 +117,8 @@
           "body": "Know what matters first before choosing equipment, installation, or service level."
         },
         {
-          "title": "Peace of mind for the whole family",
-          "body": "Give relatives a clearer picture of the home and the next safest step."
+          "title": "Shared information for the people involved",
+          "body": "Give the person at home and approved contacts a clearer picture of risks, priorities and the next safest step."
         }
       ]
     },
@@ -158,7 +158,7 @@
           "body": "Photos, notes, mobility needs, room risks and priorities are reviewed together."
         },
         {
-          "title": "You get a clear summary",
+          "title": "You get a priority summary",
           "body": "We explain the likely risk areas, recommended next step and any missing information."
         },
         {
@@ -185,12 +185,12 @@
         },
         {
           "title": "You Receive Recommendations",
-          "body": "After the visit, you receive clear guidance on risks, priorities, and next steps."
+          "body": "After the visit, you receive the main risks, priorities, recommended actions and any measurements needed before work starts."
         }
       ]
     },
     "faq": {
-      "title": "Questions families usually ask before booking.",
+      "title": "Questions people usually ask before booking.",
       "body": "Short answers, clear expectations, and no pressure to proceed before the home and scope are understood.",
       "items": [
         {
@@ -207,11 +207,11 @@
         },
         {
           "question": "Can we use photos, videos or a phone call before a visit?",
-          "answer": "Yes. Many families start online with guided answers, photos, short videos, voice notes or a call. If measurement or professional review is needed, you see the visit details before booking."
+          "answer": "Yes. You can start online with guided answers, photos, short videos, voice notes or a call. If measurement or professional review is needed, you see the visit details before booking."
         },
         {
           "question": "Can CasaMia help with public grants?",
-          "answer": "CasaMia can help identify relevant grant routes and prepare support where appropriate. The public authority always decides eligibility, approval, amount and timing."
+          "answer": "CasaMia can help identify relevant grant routes and prepare the supporting documents when the route fits the work. The public authority always decides eligibility, approval, amount and timing."
         }
       ]
     },
@@ -332,7 +332,7 @@
     "badge": "HOW CASAMIA WORKS",
     "line1": "A safer home,",
     "line2": "handled step by step.",
-    "intro": "Choose the route that suits your family. We turn the right package or inspection into a clear proposal, grant support and professional installation.",
+    "intro": "Choose the starting route that fits the home. CasaMia turns the package or inspection into priorities, scope, grant support where relevant and coordinated installation.",
     "ctaPrimary": "Build your CasaMia plan",
     "ctaSecondary": "Ask us to contact you",
     "proposalSnapshot": {
@@ -396,7 +396,7 @@
     "health": {
       "icon": "H",
       "title": "Health & Vitals Monitoring",
-      "desc": "Blood pressure, heart rate, medication reminders, family alerts. Peace of mind wherever you are.",
+      "desc": "Blood pressure, heart rate, medication reminders and agreed alerts for approved contacts.",
       "badge": "Premium only"
     }
   },
@@ -459,7 +459,7 @@
         ]
       }
     ],
-    "intro": "See how CasaMia supports the places families worry about most: bathrooms, stairs, entrances, kitchens, bedrooms and everyday living areas.",
+    "intro": "See how CasaMia supports the places where everyday movement often becomes harder: bathrooms, stairs, entrances, kitchens, bedrooms and living areas.",
     "controlsLabel": "Gallery controls",
     "previous": "Show previous spaces",
     "next": "Show next spaces",
@@ -915,7 +915,7 @@
   "pages": {
     "howItWorks": {
       "title": "A safer home in three clear steps.",
-      "intro": "CasaMia keeps the process simple: upload photos, receive a tailored plan, and let certified installers handle the adaptations.",
+      "intro": "Start with photos or a home visit, receive clear priorities, then approve only the adaptations that make sense for the home.",
       "steps": [
         {
           "title": "Upload your home photos",
@@ -927,7 +927,7 @@
         },
         {
           "title": "Install and file grants",
-          "desc": "Our team installs the agreed adaptations and manages Plan Adapta paperwork so your family does not have to chase forms."
+          "desc": "Our team installs the agreed adaptations and prepares Plan Adapta documentation where grant support may apply."
         }
       ],
       "cta": "Start with a free safety report"
@@ -936,13 +936,13 @@
       "metaTitle": "Plans and Pricing",
       "hero": {
         "title": "Choose the Right Safety Plan for Your Home",
-        "subtitle": "Whether you need expert guidance, practical home modifications, or smart safety technology, CasaMia helps you create a safer and more comfortable home for aging in place.",
+        "subtitle": "Whether you need expert guidance, home adaptations or smart safety technology, CasaMia helps you decide what to review and install first.",
         "primaryCta": "Book In-Home Assessment",
         "secondaryCta": "Compare Plans"
       },
       "explainer": {
         "title": "Three clear ways to start",
-        "body": "Start with clarity, move into practical adaptations, or add connected technology for extra reassurance. Every path begins with understanding the home first."
+        "body": "Start with a review, move into adaptations, or add connected technology when it solves a specific risk. Every path begins with understanding the home first."
       },
       "cardsTitle": "Compare three CasaMia starting plans.",
       "cardsIntro": "The in-home assessment is the starting point. These plans show common levels of support; the final scope is built from the improvements your home actually needs.",
@@ -991,7 +991,7 @@
             "Fall detection sensors",
             "Health and vitals monitoring setup",
             "Voice-activated controls",
-            "24/7 family and emergency alerts",
+            "Approved-contact and emergency alerts",
             "Smart handover and user training"
           ],
           "cta": "Request Premium"
@@ -1141,7 +1141,7 @@
         ]
       },
       "faq": {
-        "title": "Questions families ask before choosing a plan.",
+        "title": "Questions people ask before choosing a plan.",
         "items": [
           {
             "question": "Which plan should I choose?",
@@ -1153,7 +1153,7 @@
           },
           {
             "question": "Do I have to proceed with installation after the assessment?",
-            "answer": "No. You receive recommendations first, then decide what feels right for the home and family."
+            "answer": "No. You receive recommendations first, then decide what fits the home, the person using it and any approved contacts."
           },
           {
             "question": "Are installers insured?",
@@ -1169,7 +1169,7 @@
           },
           {
             "question": "Do you support smart safety devices?",
-            "answer": "Yes. The Smart Safety Plan can include sensors, emergency response devices, smart lighting, access devices, and setup support where appropriate."
+            "answer": "Yes. The Smart Safety Plan can include sensors, emergency response devices, smart lighting, access devices and setup support when they fit the home and consent is clear."
           },
           {
             "question": "What happens after the work is completed?",
@@ -1232,7 +1232,7 @@
       "deliverablesTitle": "What You'll Receive",
       "paymentTitle": "Payment terms",
       "paymentReassurance": "No hidden fees. No unexpected costs.",
-      "faqTitle": "Questions families ask",
+      "faqTitle": "Questions people ask",
       "finalTitle": "Ready to make your home safer?",
       "finalBody": "Request a {{visitFee}} in-home assessment visit and receive personalised recommendations from our qualified safety experts.",
       "finalCta": "Book In-Home Assessment",
@@ -1240,14 +1240,14 @@
         {
           "id": "home-assessment",
           "title": "Home Assessment Plan",
-          "subtitle": "A qualified home safety inspection that helps families understand risks, priorities and next steps before starting any work.",
+          "subtitle": "A qualified home safety inspection that helps identify risks, priorities and next steps before starting any work.",
           "heroPoints": [
             "Expert safety review",
             "Written recommendations",
             "Clear next steps"
           ],
           "who": [
-            "Families who want clarity before committing to adaptations",
+            "People who want clarity before committing to adaptations",
             "Seniors wishing to age in place safely",
             "People recovering from surgery or a health event",
             "Individuals with reduced mobility or new accessibility needs"
@@ -1342,7 +1342,7 @@
             "Room-by-room priorities",
             "Recommended product and adaptation list",
             "Clear proposal if improvements are needed",
-            "Family-friendly explanation of next steps",
+            "Clear explanation for the person and approved contacts",
             "Aftercare guidance"
           ],
           "payment": {
@@ -1365,15 +1365,15 @@
               "answer": "Yes. You receive a clear report with risks, priorities and recommended next steps."
             },
             {
-              "question": "Can family members attend?",
-              "answer": "Yes. We encourage family members or caregivers to join so everyone understands the recommendations."
+              "question": "Can someone attend with me?",
+              "answer": "Yes. A relative, caregiver or trusted contact can join so the recommendations are understood by the people involved."
             }
           ]
         },
         {
           "id": "home-safety",
           "title": "CasaMia plan",
-          "subtitle": "Professional home modifications that help seniors live safely, independently and comfortably at home.",
+          "subtitle": "Professional home modifications that make daily movement, access and routines safer at home.",
           "heroPoints": [
             "Essential adaptations",
             "Professional installation",
@@ -1381,7 +1381,7 @@
           ],
           "who": [
             "Seniors wishing to age in place",
-            "Families caring for elderly parents",
+            "Relatives or caregivers supporting someone at home",
             "People recovering from surgery",
             "Individuals with reduced mobility"
           ],
@@ -1535,17 +1535,17 @@
             "Training and handover"
           ],
           "who": [
-            "Families who want extra reassurance",
+            "Homes that need approved-contact alerts",
             "Seniors who benefit from alerts and connected support",
             "Homes where movement, water, smoke or access risks need monitoring",
-            "Caregivers who want a smarter safety layer after physical adaptations"
+            "Caregivers who need a smarter safety layer after physical adaptations"
           ],
           "includedIntro": "Everything in your CasaMia plan, plus smart safety technology, VYVA access, setup and user training.",
           "included": [
             {
               "icon": "inspection",
               "title": "Everything in Home Safety",
-              "body": "Assessment, practical adaptations, installation coordination and customer acceptance are included first."
+              "body": "Assessment, agreed adaptations, installation coordination and customer acceptance are included first."
             },
             {
               "icon": "lighting",
@@ -1555,7 +1555,7 @@
             {
               "icon": "motion",
               "title": "Motion Sensors",
-              "body": "Sensors that support safer routines and can help families understand movement patterns."
+              "body": "Sensors that support safer routines and help approved contacts understand agreed movement alerts."
             },
             {
               "icon": "water",
@@ -1565,7 +1565,7 @@
             {
               "icon": "smoke",
               "title": "Smoke Detection",
-              "body": "Connected smoke detection options to support earlier alerts and family awareness."
+              "body": "Connected smoke detection options to support earlier alerts to approved contacts."
             },
             {
               "icon": "doorbell",
@@ -1580,7 +1580,7 @@
             {
               "icon": "health",
               "title": "Health Monitoring Setup",
-              "body": "Support for compatible monitoring devices where the family wants an added layer of insight."
+              "body": "Support for compatible monitoring devices when an agreed extra layer of information is useful."
             },
             {
               "icon": "health",
@@ -1595,7 +1595,7 @@
             {
               "icon": "training",
               "title": "User Training",
-              "body": "We explain the system clearly so seniors and family members know how to use it."
+              "body": "We explain the system so the person at home and approved contacts know how to use it."
             }
           ],
           "rooms": [
@@ -1607,7 +1607,7 @@
             {
               "icon": "kitchen",
               "title": "Kitchen",
-              "body": "Add leak alerts, lighting, smart plugs or appliance safety support where appropriate."
+              "body": "Add leak alerts, lighting, smart plugs or appliance safety support when it fits the kitchen and routine."
             },
             {
               "icon": "bedroom",
@@ -1718,7 +1718,7 @@
         "subtitle": "CasaMia helps you manage the application process for home safety and accessibility grants, from documentation to submission.",
         "cta": "Book Free Assessment",
         "panelTitle": "Administrative support from start to submission",
-        "panelBody": "We help families understand what may be needed, prepare the application file, and coordinate next steps where authorised."
+        "panelBody": "We help clarify what may be needed, prepare the application file, and coordinate next steps where authorised."
       },
       "what": {
         "kicker": "What is Plan Adapta?",

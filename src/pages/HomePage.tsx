@@ -832,7 +832,7 @@ export function HomePage() {
         <div className="home-family-grid site-shell">
           <div className="home-family-panel">
             <p className="home-redesign-kicker">For approved contacts</p>
-            <h2>Peace of mind without taking over.</h2>
+            <h2>Helpful alerts without taking over.</h2>
             <p>
               With consent, approved contacts can receive important updates, selected
               health information and safety alerts without taking away independence.
