@@ -101,20 +101,20 @@ const homeZones: HomeZone[] = [
 
 const wizardSteps = ['Welcome', 'Property', 'Rooms', 'Home details', 'Questions', 'Improvements', 'Summary']
 const stepHeadings = [
-  'Make your home safer, room by room.',
+  'Build a room-by-room safety scope.',
   'Tell us about the home.',
   'Select the rooms or daily paths that feel risky.',
   'Confirm the home details.',
   'Answer the home-safety questions.',
   'Review the recommended improvements.',
-  'Review your safer home plan.',
+  'Review your safety scope.',
 ]
 const stepDescriptions = [
-  'Answer a few room-by-room questions and CasaMia will build a plan around the improvements that fit your home.',
-  'These basics help us avoid recommending work that does not match the property.',
+  'Answer a few room-by-room questions and CasaMia will build a draft scope around the risky moments, rooms and checks you select.',
+  'These basics help us match recommendations to the property type, access points, stairs and location.',
   'Select one or more spaces. Hover or focus a zone to see why that part of the home matters.',
   'Set how many rooms, entrances or staircases should be included in the estimate.',
-  'Your answers help CasaMia suggest services that fit the home and avoid unnecessary work.',
+  'Your answers tell CasaMia what needs measuring, what can be handled remotely and what should wait for review.',
   'Add or remove the recommended safety services before seeing the estimate.',
   'Check your selected improvements and anything that needs final confirmation.',
 ]
@@ -563,7 +563,7 @@ function PropertyStep() {
         <div>
           <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">Start with the details that change the plan.</h2>
           <p className="mt-2 max-w-2xl text-base font-bold leading-relaxed text-text-mid">
-            These answers keep the plan focused: the right rooms, the right access points, and no unnecessary products.
+            These answers shape the room count, stair checks, access points and whether a visit is needed before pricing.
           </p>
         </div>
         <span className="mt-4 inline-flex w-fit rounded-full bg-white px-4 py-2 text-sm font-black uppercase text-blue md:mt-0">
@@ -616,7 +616,7 @@ function PropertyStep() {
 
       <ChoiceTileGroup
         label="Are there internal stairs?"
-        helper="This affects handrails, tread contrast, lighting and support along the stairs."
+        helper="This affects handrails, step-edge contrast, landing lighting and where stair movement needs support."
         value={state.property.hasInternalStairs}
         gridClassName="md:grid-cols-3"
         options={[
@@ -846,7 +846,7 @@ function AreaConfigurationStep() {
       {isRoomSelected(state, 'connected') ? <ConnectedQuestions /> : null}
       {getSelectedRoomIds(state).length === 0 ? (
         <p className="rounded-lg border border-border bg-pale-blue p-5 text-lg font-bold text-text-mid">
-          Select the rooms, entrances or support areas CasaMia should review.
+          Select at least one room, entrance or daily route so CasaMia can build the first scope.
         </p>
       ) : null}
     </div>
@@ -1093,7 +1093,7 @@ function MovementQuestions() {
   return (
     <QuestionGroup title="Movement routes">
       <SelectAnswer
-        label="What should voice control help with?"
+        label="Which tasks should voice control cover?"
         answerKey="voice-control-scope"
         options={[
           ['lighting', 'Lighting only'],
@@ -1242,7 +1242,7 @@ function ConnectedQuestions() {
       <SelectAnswer label="Need protection outside the home?" answerKey="connected-outsideProtection" options={yesNoUnsure()} setAnswer={setAnswer} state={state} />
       <TextField label="Emergency contacts" value={String(state.answers['connected-emergencyContacts'] ?? '')} onChange={(value) => setAnswer('connected-emergencyContacts', value)} />
       <p className="rounded-lg bg-pale-blue p-4 text-base font-bold text-text-mid">
-        Connected safety requires consent from the person at home and clear agreement on who receives alerts.
+        Connected safety requires consent from the person at home, named alert recipients and an agreed response routine.
       </p>
     </QuestionGroup>
   )
