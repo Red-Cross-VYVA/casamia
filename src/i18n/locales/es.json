@@ -6,7 +6,7 @@
   "common": {
     "close": "Cerrar",
     "imageFallback": "Imagen no disponible",
-    "learnMore": "Más información",
+    "learnMore": "Ver detalles",
     "loading": "Cargando...",
     "selectedPhotos": "Fotos seleccionadas"
   },
@@ -36,7 +36,7 @@
     "line1": "Home Sweet",
     "line2": "Home",
     "sub": "Haz que moverse por casa sea más seguro, con orientación por estancias, adaptaciones acordadas y coordinación CasaMia.",
-    "uploadLabel": "¿Tu hogar es seguro? Descúbrelo gratis.",
+    "uploadLabel": "Revisa gratis riesgos visibles en casa.",
     "uploadRooms": "Baño · Cocina · Escalera · Salón",
     "uploadReport": "Informe gratis: riesgos por cada foto",
     "uploadNote": "Baño, cocina, escalera o salón: señalamos peligros y qué adaptar primero.",
@@ -45,12 +45,12 @@
     "micro": "Sube fotos · Sin compromiso",
     "safetyCheck": {
       "title": "¿Es seguro tu hogar?",
-      "body": "Descubre riesgos ocultos en casa y qué revisar primero.",
+      "body": "Revisa riesgos visibles en casa y qué mirar primero.",
       "cta": "Empezar informe gratis"
     },
     "grantCheck": {
       "title": "Ayudas",
-      "body": "Ve si podrías optar a apoyo antes de planificar obras.",
+      "body": "Comprueba si una vía de ayuda puede encajar antes de planificar obras.",
       "cta": "Comprobar elegibilidad"
     },
     "buildPlan": {
@@ -310,7 +310,7 @@
     "badge": "Por qué importa",
     "stat": "8 de cada 10",
     "sub": "caídas de mayores son prevenibles.",
-    "body": "Las caídas son la principal causa de lesiones en adultos mayores de 65 años, y la mayoría ocurren en casa. Las adaptaciones adecuadas se instalan en menos de un día y pueden cambiarlo todo.",
+    "body": "Las caídas son la principal causa de lesiones en adultos mayores de 65 años, y la mayoría ocurren en casa. Las adaptaciones adecuadas reducen riesgos diarios concretos antes de que se vuelvan urgentes.",
     "stats": [
       {
         "value": "78%",
@@ -332,7 +332,7 @@
     "badge": "CÓMO FUNCIONA CASAMIA",
     "line1": "Un hogar más seguro,",
     "line2": "paso a paso.",
-    "intro": "Elige la ruta que mejor encaje con tu familia. Convertimos el paquete adecuado o una inspección en una propuesta clara, apoyo con ayudas e instalación profesional.",
+    "intro": "Elige la ruta que mejor encaje con la vivienda. Convertimos el paquete adecuado o una inspección en prioridades por estancia, alcance acordado, documentación de ayudas cuando proceda e instalación coordinada.",
     "ctaPrimary": "Crear mi plan CasaMia",
     "ctaSecondary": "Pedid que os contactemos",
     "proposalSnapshot": {
@@ -355,7 +355,7 @@
       {
         "icon": "Paso 1",
         "title": "Elige por dónde empezar",
-        "desc": "Elige un paquete inicial o solicita una inspección para que CasaMia confirme la estancia, las medidas y el alcance más seguro por donde empezar.",
+        "desc": "Elige un paquete inicial o solicita una inspección para que CasaMia confirme la estancia, las medidas y el primer alcance seguro.",
         "points": [
           "Paquetes preparados",
           "Inspección opcional",
@@ -375,7 +375,7 @@
       {
         "icon": "Paso 3",
         "title": "Solicita las ayudas disponibles",
-        "desc": "Nuestro equipo prepara la documentación para obras elegibles, de modo que el apoyo público disponible se tenga en cuenta antes de cerrar el alcance final.",
+        "desc": "CasaMia prepara documentación de ayudas para obras elegibles, de modo que el posible apoyo público se revise antes de cerrar el alcance final.",
         "points": [
           "Revisión de elegibilidad",
           "Apoyo documental",
@@ -525,7 +525,7 @@
     "title": "Puede haber apoyo más cerca de lo que parece.",
     "sub": "CasaMia revisa las vías probables antes de que apruebes obras.",
     "body": "Identificamos programas relevantes, listamos la documentación que suele pedirse y preparamos textos de propuesta que explican claramente el trabajo de seguridad. La aprobación siempre depende de la administración.",
-    "cta": "Explorar ayudas",
+    "cta": "Comprobar vías de ayuda",
     "stats": [
       {
         "eyebrow": "01",

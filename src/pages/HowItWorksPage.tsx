@@ -247,18 +247,18 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     secondaryCta: 'Book In-Home Visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
     statusTitle: 'Four clear steps',
-    statusIntro: 'You start. CasaMia coordinates the rest.',
+    statusIntro: 'You choose the starting point. CasaMia turns it into priorities, scope and follow-up.',
     statusRows: [
       { label: 'One call or click', value: 'Start' },
-      { label: 'We understand the home', value: 'Discover' },
-      { label: 'We coordinate the work', value: 'Install' },
-      { label: 'We stay with you', value: 'Support' },
+      { label: 'Risks and routines reviewed', value: 'Review' },
+      { label: 'Scope agreed before work', value: 'Plan' },
+      { label: 'Installed, checked and explained', value: 'Handover' },
     ],
     statusNote: 'One team from first contact to follow-up.',
     processEyebrow: 'How it moves forward',
     processTitle: 'One call or one click. We coordinate the rest.',
     processBody:
-      'Tell us what is happening at home. CasaMia turns the first conversation into clear priorities, coordinated installation and follow-up support.',
+      'Tell us what is happening at home. CasaMia turns the first conversation into room priorities, agreed scope, coordinated installation and follow-up.',
     steps: [
       {
         icon: 'phone',
@@ -270,9 +270,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'home',
         title: 'We understand the home',
-        body: 'Together, we review the space, daily routines and priorities.',
-        tag: 'Discover',
-        proof: 'Home · routines · priorities',
+        body: 'Together, we review the space, daily routines and the moments that feel least safe.',
+        tag: 'Review',
+        proof: 'Rooms · routines · risk points',
         options: [
           {
             title: 'Self-inspection',
@@ -294,14 +294,14 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         icon: 'wrench',
         title: 'We coordinate the installation',
         body: 'We agree the scope and date, coordinate the work and check the result.',
-        tag: 'Install',
-        proof: 'Plan · date · final check',
+        tag: 'Handover',
+        proof: 'Scope · date · final check',
       },
       {
         icon: 'heart',
         title: 'We stay with you',
-        body: 'We answer questions, follow up and adapt the plan when needs change.',
-        tag: 'Support',
+        body: 'We answer questions, follow up and review the plan if needs change.',
+        tag: 'Follow-up',
         proof: 'Follow-up stays active',
       },
     ],
@@ -355,33 +355,33 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'file',
         title: 'Safety report',
-        body: 'Main risks and priorities.',
+        body: 'Main risks and what to address first.',
       },
       {
         icon: 'check',
         title: 'Room recommendations',
-        body: 'Specific changes by space.',
+        body: 'Specific changes by room.',
       },
       {
         icon: 'clipboard',
         title: 'Scoped plan',
-        body: 'Works, safety services, or smart setup.',
+        body: 'Works, safety services or smart setup.',
       },
       {
         icon: 'badge',
         title: 'Grant guidance',
-        body: 'Documents and eligible works.',
+        body: 'Documents and eligible work notes.',
       },
     ],
     teamEyebrow: 'Behind the scenes',
     teamTitle: 'Experts, installers, and tracking in one flow.',
     teamBody:
-      'CasaMia keeps review notes, visit planning, proposals, installation status, and approved updates together.',
+      'CasaMia keeps review notes, visit planning, proposals, installation status and approved updates together.',
     team: [
       {
         icon: 'shield',
         title: 'Safety review',
-        body: 'Risk and routine checked.',
+        body: 'Risk points and routine checked.',
       },
       {
         icon: 'wrench',
@@ -396,7 +396,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'badge',
         title: 'Grant management',
-        body: 'Eligibility, documents, and follow-up.',
+        body: 'Eligibility notes, documents and follow-up.',
       },
     ],
     nextEyebrow: 'Choose your path',
@@ -405,14 +405,14 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'camera',
         title: 'Photo report',
-        body: 'Quick first view from uploaded room photos.',
+        body: 'First risk notes from uploaded room photos.',
         cta: 'Upload Photos',
         to: '/#estimate-upload',
       },
       {
         icon: 'home',
         title: 'In-home assessment',
-        body: 'Best when measurements or transfer checks matter.',
+        body: 'For measurements, transfer checks or installation decisions.',
         cta: 'Book Assessment',
         to: '/home-safety-assessment',
       },
@@ -426,7 +426,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'monitor',
         title: 'Smart Safety',
-        body: 'Sensors, alerts, VYVA and approved-contact reassurance.',
+        body: 'Sensors, alerts, VYVA and approved-contact setup.',
         cta: 'See Smart Safety',
         to: '/tech',
       },
@@ -434,7 +434,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     finalEyebrow: 'Next step',
     finalTitle: 'Start with photos or book the visit.',
     finalBody:
-      'You do not need to choose the perfect product first. CasaMia starts with the home.',
+      'You do not need to choose a product first. CasaMia starts with the room, routine and risk.',
     finalCta: 'Contact CasaMia',
   },
   es: {
@@ -449,23 +449,24 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     secondaryCta: 'Reservar visita',
     heroAlt: 'Profesional de CasaMia preparado para una evaluación de seguridad en casa',
     statusTitle: 'Cuatro pasos claros',
-    statusIntro: 'CasaMia convierte la primera revisión en prioridades, alcance y coordinación.',
+    statusIntro: 'Tú eliges el punto de partida. CasaMia lo convierte en prioridades, alcance y seguimiento.',
     statusRows: [
       { label: 'Envía fotos o reserva visita', value: 'Inicio' },
-      { label: 'Revisamos los riesgos', value: 'Revisión' },
-      { label: 'Recibes un plan claro', value: 'Plan' },
+      { label: 'Riesgos y rutinas revisados', value: 'Revisión' },
+      { label: 'Alcance acordado antes de actuar', value: 'Plan' },
+      { label: 'Instalado, probado y explicado', value: 'Entrega' },
     ],
     statusNote: 'Un solo equipo desde el primer contacto hasta el seguimiento.',
     processEyebrow: 'Cómo avanza',
     processTitle: 'Una llamada, fotos o una visita. CasaMia coordina el resto.',
-    processBody: 'Cuéntanos qué ocurre en casa. CasaMia convierte esa información en prioridades, alcance coordinado y seguimiento.',
+    processBody: 'Cuéntanos qué ocurre en casa. CasaMia convierte esa información en prioridades por estancia, alcance acordado, instalación coordinada y seguimiento.',
     steps: [
       {
         icon: 'camera',
         title: 'Elige c\u00f3mo empezar',
         body: 'Empieza por teléfono, online, WhatsApp o fotos. Registramos estancia, rutina y urgencia.',
         tag: 'Inicio',
-        proof: 'Inicio claro',
+        proof: 'Canal, estancia y urgencia',
         options: [
           {
             title: 'Autoinspecci\u00f3n',
@@ -488,20 +489,20 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
         title: 'Revisi\u00f3n e informe',
         body: 'Miramos ca\u00eddas, apoyos, accesos, iluminaci\u00f3n, rutinas y emergencias, y mostramos las prioridades con claridad.',
         tag: 'Informe',
-        proof: 'Riesgos y prioridades revisados',
+        proof: 'Riesgos, rutina y prioridades',
       },
       {
         icon: 'clipboard',
         title: 'Plan adecuado',
         body: 'CasaMia convierte las prioridades en mejoras seleccionadas, documentaci\u00f3n para ayudas o configuraci\u00f3n smart.',
         tag: 'Plan',
-        proof: 'Alcance y paso siguiente',
+        proof: 'Alcance y siguiente acci\u00f3n',
       },
       {
         icon: 'wrench',
         title: 'Instalaci\u00f3n y apoyo',
         body: 'Coordinamos al instalador, confirmamos el trabajo realizado y explicamos el uso seguro.',
-        tag: 'Apoyo',
+        tag: 'Entrega',
         proof: 'Trabajo explicado con claridad',
       },
     ],
@@ -555,22 +556,22 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'file',
         title: 'Informe',
-        body: 'Riesgos y prioridades.',
+        body: 'Riesgos y qu\u00e9 abordar primero.',
       },
       {
         icon: 'check',
         title: 'Recomendaciones',
-        body: 'Cambios por estancia.',
+        body: 'Cambios concretos por estancia.',
       },
       {
         icon: 'clipboard',
         title: 'Plan definido',
-        body: 'Paquete, obra o smart.',
+        body: 'Paquete, obra o configuraci\u00f3n smart.',
       },
       {
         icon: 'badge',
         title: 'Ayudas',
-        body: 'Documentos y trabajos.',
+        body: 'Documentos y trabajos elegibles.',
       },
     ],
     teamEyebrow: 'Entre bastidores',
@@ -581,22 +582,22 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'shield',
         title: 'Revisi\u00f3n',
-        body: 'Riesgo y rutina.',
+        body: 'Riesgos y rutina revisados.',
       },
       {
         icon: 'wrench',
         title: 'Instalaci\u00f3n',
-        body: 'Trabajo y explicación.',
+        body: 'Trabajo planificado y explicado.',
       },
       {
         icon: 'monitor',
         title: 'Soporte smart',
-        body: 'VYVA y alertas.',
+        body: 'VYVA, alertas y consentimiento.',
       },
       {
         icon: 'badge',
         title: 'Gestión de ayudas',
-        body: 'Elegibilidad, documentos y seguimiento.',
+        body: 'Notas de elegibilidad, documentos y seguimiento.',
       },
     ],
     nextEyebrow: 'Elige tu camino',
@@ -605,14 +606,14 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'camera',
         title: 'Informe con fotos',
-        body: 'Primera revisi\u00f3n con fotos.',
+        body: 'Primeras notas de riesgo desde fotos de la estancia.',
         cta: 'Subir fotos',
         to: '/#estimate-upload',
       },
       {
         icon: 'home',
         title: 'Evaluaci\u00f3n en casa',
-        body: 'Cuando hacen falta medidas.',
+        body: 'Para medidas, transferencias o decisiones de instalación.',
         cta: 'Reservar',
         to: '/home-safety-assessment',
       },
@@ -626,7 +627,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'monitor',
         title: 'Smart Safety',
-        body: 'Sensores, VYVA y alertas.',
+        body: 'Sensores, VYVA y alertas con contactos autorizados.',
         cta: 'Ver smart',
         to: '/tech',
       },
@@ -634,7 +635,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     finalEyebrow: 'Siguiente paso',
     finalTitle: 'Empieza con fotos o reserva la visita.',
     finalBody:
-      'No necesitas elegir primero el producto perfecto. CasaMia empieza por la vivienda.',
+      'No necesitas elegir primero un producto. CasaMia empieza por la estancia, la rutina y el riesgo.',
     finalCta: 'Contactar con CasaMia',
   },
 }

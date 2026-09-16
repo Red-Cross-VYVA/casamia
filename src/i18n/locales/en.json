@@ -6,7 +6,7 @@
   "common": {
     "close": "Close",
     "imageFallback": "Image unavailable",
-    "learnMore": "Learn more",
+    "learnMore": "View details",
     "loading": "Loading...",
     "selectedPhotos": "Selected photos"
   },
@@ -36,7 +36,7 @@
     "line1": "Home Sweet",
     "line2": "Home",
     "sub": "Make daily movement safer at home, with room-by-room guidance, agreed adaptations and CasaMia coordination.",
-    "uploadLabel": "Is your home safe? Find out for free.",
+    "uploadLabel": "Check visible home-safety risks for free.",
     "uploadRooms": "Bathroom · Kitchen · Stairway · Living room",
     "uploadReport": "Free report: risks in every photo",
     "uploadNote": "Bathroom, kitchen, stairs or living room: we flag the dangers and what to adapt first.",
@@ -45,12 +45,12 @@
     "micro": "Upload photos · No commitment",
     "safetyCheck": {
       "title": "Is your home safe?",
-      "body": "Find hidden risks at home and what to review first.",
+      "body": "Check visible risks at home and what to review first.",
       "cta": "Start free report"
     },
     "grantCheck": {
       "title": "Grant Check",
-      "body": "See whether support may apply before you plan works.",
+      "body": "Check whether a grant route may fit before you plan works.",
       "cta": "Check eligibility"
     },
     "buildPlan": {
@@ -301,7 +301,7 @@
     "shortLine1": "UP TO",
     "stat": "90%",
     "line2": "COVERED",
-    "helper": "We handle the filing.",
+    "helper": "We prepare the file.",
     "ribbonHelper": "Grant filing included",
     "badgeLabel": "GRANTS",
     "badgeHelper": "Filing included"
@@ -310,7 +310,7 @@
     "badge": "Why it matters",
     "stat": "8 in 10",
     "sub": "senior falls are preventable.",
-    "body": "Falls are the leading cause of injury in adults over 65 — and most happen at home. The right adaptations take less than a day to install and can change everything.",
+    "body": "Falls are the leading cause of injury in adults over 65, and most happen at home. The right adaptations reduce specific daily risks before they become urgent.",
     "stats": [
       {
         "value": "78%",
@@ -332,7 +332,7 @@
     "badge": "HOW CASAMIA WORKS",
     "line1": "A safer home,",
     "line2": "handled step by step.",
-    "intro": "Choose the starting route that fits the home. CasaMia turns the package or inspection into priorities, scope, grant support where relevant and coordinated installation.",
+    "intro": "Choose the starting route that fits the home. CasaMia turns the package or inspection into room priorities, agreed scope, grant documents where relevant and coordinated installation.",
     "ctaPrimary": "Build your CasaMia plan",
     "ctaSecondary": "Ask us to contact you",
     "proposalSnapshot": {
@@ -355,7 +355,7 @@
       {
         "icon": "Step 1",
         "title": "Choose your starting point",
-        "desc": "Choose a starter package or request a home inspection so CasaMia can confirm the room, measurements and safest starting scope.",
+        "desc": "Choose a starter package or request a home inspection so CasaMia can confirm the room, measurements and first safe scope.",
         "points": [
           "Ready-made packages",
           "Optional home inspection",
@@ -375,7 +375,7 @@
       {
         "icon": "Step 3",
         "title": "Claim available grant support",
-        "desc": "Our team prepares the grant documents for eligible works, so available public support is considered before the final scope is agreed.",
+        "desc": "CasaMia prepares grant documents for eligible works, so possible public support is checked before the final scope is agreed.",
         "points": [
           "Eligibility check",
           "Document support",
@@ -525,7 +525,7 @@
     "title": "Extra support may be closer than you think.",
     "sub": "CasaMia checks likely routes before you commit to works.",
     "body": "We identify relevant schemes, list the documents usually needed and prepare proposal wording that explains the safety work clearly. Approval always remains with the public authority.",
-    "cta": "Explore support",
+    "cta": "Check grant routes",
     "stats": [
       {
         "eyebrow": "01",
