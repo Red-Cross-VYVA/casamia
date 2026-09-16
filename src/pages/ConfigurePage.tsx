@@ -103,10 +103,10 @@ const wizardSteps = ['Welcome', 'Property', 'Rooms', 'Home details', 'Questions'
 const stepHeadings = [
   'Make your home safer, room by room.',
   'Tell us about the home.',
-  'Choose the rooms that matter most.',
+  'Select the rooms or routes that feel risky.',
   'Confirm the home details.',
   'Answer the home-safety questions.',
-  'Choose your recommended improvements.',
+  'Review the recommended improvements.',
   'Review your safer home plan.',
 ]
 const stepDescriptions = [
@@ -504,7 +504,7 @@ function WelcomeStep() {
         <Sparkles className="mb-5 text-blue" size={42} aria-hidden="true" />
         <strong className="block font-display text-3xl font-bold leading-tight text-text-dark">Start new plan</strong>
         <span className="mt-3 block text-lg leading-relaxed text-text-mid">
-          Choose rooms, answer home-safety questions and review recommended improvements.
+          Select rooms, answer home-safety questions and review the first recommended improvements.
         </span>
       </button>
       <button className="soft-card text-left" type="button" onClick={() => setCurrentStep(getSavedProgressStep(state))}>
@@ -561,7 +561,7 @@ function PropertyStep() {
     <div className="grid gap-6">
       <div className="rounded-lg border border-border bg-pale-blue p-5 md:flex md:items-center md:justify-between md:gap-6">
         <div>
-          <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">Start with the home basics.</h2>
+          <h2 className="font-display text-3xl font-bold leading-tight text-text-dark">Start with the details that change the plan.</h2>
           <p className="mt-2 max-w-2xl text-base font-bold leading-relaxed text-text-mid">
             These answers keep the plan focused: the right rooms, the right access points, and no unnecessary products.
           </p>
@@ -597,7 +597,7 @@ function PropertyStep() {
           {
             value: 'other',
             title: 'Other',
-            description: 'We will adapt the plan around it.',
+            description: 'CasaMia will confirm the right route later.',
             icon: Sparkles,
           },
         ]}
@@ -635,7 +635,7 @@ function PropertyStep() {
           {
             value: 'unsure',
             title: "I'm not sure",
-            description: 'CasaMia can confirm later.',
+            description: 'CasaMia will confirm during review.',
             icon: Sparkles,
           },
         ]}
@@ -690,14 +690,14 @@ function ZoneStep() {
     <section className="rounded-lg border border-border bg-white p-4 shadow-soft md:p-5">
       <div className="mb-4 flex flex-col gap-3 border-b border-border pb-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <span className="text-xs font-black uppercase tracking-wide text-blue">Choose the starting points</span>
+          <span className="text-xs font-black uppercase tracking-wide text-blue">Where risk shows up</span>
           <h2 className="mt-1 font-display text-3xl font-bold leading-tight text-text-dark">Select the spaces that matter most.</h2>
           <p className="mt-2 max-w-2xl text-base leading-relaxed text-text-mid">
             Tap a room, route or entrance. We will ask focused questions so the plan matches the home and daily routine.
           </p>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full bg-pale-blue px-4 py-2 text-sm font-black text-blue whitespace-nowrap">
-          {selectedZones.length > 0 ? `${selectedZones.length} selected` : 'Choose at least one'}
+          {selectedZones.length > 0 ? `${selectedZones.length} selected` : 'Select at least one'}
         </span>
       </div>
 
@@ -846,7 +846,7 @@ function AreaConfigurationStep() {
       {isRoomSelected(state, 'connected') ? <ConnectedQuestions /> : null}
       {getSelectedRoomIds(state).length === 0 ? (
         <p className="rounded-lg border border-border bg-pale-blue p-5 text-lg font-bold text-text-mid">
-          Choose the rooms and support areas you want CasaMia to configure.
+          Select the rooms, routes or support areas CasaMia should review.
         </p>
       ) : null}
     </div>
@@ -881,7 +881,7 @@ function ServiceSelectionStep({ recommendedServiceIds }: { recommendedServiceIds
               Recommended improvements
             </h2>
             <p className="mt-2 max-w-2xl text-base font-bold leading-relaxed text-text-mid">
-              Start with the suggested safety services. You can add, remove or keep items before requesting a quote.
+              Start with the items suggested by your answers. You can add, remove or keep them before requesting a quote.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
