@@ -148,7 +148,7 @@ const techCopy = {
           number: '02',
           title: 'Your devices work in separate apps',
           body:
-            'We review compatibility, connect the signals that matter and organise alerts so they reach the right person.',
+            'We confirm which readings or alerts are useful, then route only those signals to the agreed responder.',
           outcome: 'Route fragmented notifications to the right responder.',
         },
         {
@@ -165,7 +165,7 @@ const techCopy = {
       eyebrow: 'Device integration',
       title: 'Turn device readings into a response plan.',
       body:
-        'CasaMia can assess compatible health, wellbeing and home-safety technology, connect the agreed signals and route them to the people responsible for responding.',
+        'CasaMia checks which devices are compatible, which readings matter and who should receive each alert before anything is connected.',
       items: [
         {
           icon: 'heart' as TechIconName,
@@ -220,7 +220,7 @@ const techCopy = {
       eyebrow: 'The CasaMia Home Clinic',
       title: 'Health readings at home without turning the home into a clinic.',
       body:
-        'Home Clinic combines selected compatible devices, guided measurement routines and one organised digital view. CasaMia installs and pairs the equipment, explains each step and helps make agreed information available to approved contacts or professionals.',
+        'Home Clinic combines selected compatible devices, guided measurement routines and one organised view. CasaMia installs and pairs the equipment, explains each step and shares agreed readings only with approved contacts or professionals.',
       imageAlt: 'Connected blood pressure monitor prepared for a guided health measurement at home',
       visualLabel: 'Home Clinic ready',
       visualItems: ['Device paired', 'Routine explained', 'Readings organised'],
@@ -261,14 +261,14 @@ const techCopy = {
     },
     monitoring: {
       eyebrow: 'Monitoring and alerts',
-      title: 'Relevant signals. Clear next steps. Less unnecessary noise.',
+      title: 'Relevant alerts. Agreed responses. Less unnecessary noise.',
       body:
         'CasaMia configures notifications around the household’s needs and the responsibilities agreed with approved contacts or professionals. Alerts can be routed by type, priority and time of day.',
       items: [
         { icon: 'wifi' as TechIconName, title: 'Connection', body: 'Device offline or pairing problem' },
         { icon: 'activity' as TechIconName, title: 'Routine', body: 'Agreed check or measurement missed' },
         { icon: 'bell' as TechIconName, title: 'Attention', body: 'Safety or wellbeing signal needs review' },
-        { icon: 'user' as TechIconName, title: 'Response', body: 'Named contact receives the next step' },
+        { icon: 'user' as TechIconName, title: 'Response', body: 'Named contact sees what happened and what to do' },
       ],
       boundary:
         'CasaMia monitoring is not an emergency service unless a specifically contracted response service states otherwise.',
@@ -277,7 +277,7 @@ const techCopy = {
       eyebrow: 'Use your platform—or ours',
       title: 'Keep your current system, or let CasaMia provide the digital layer.',
       body:
-        'The delivery model changes with your starting point. The goal is the same: one understandable experience for the person at home and permission-based information for everyone supporting them.',
+        'The setup changes with your starting point. The aim stays the same: simple daily use for the person at home and permission-based information for the people supporting them.',
       yourSystem: {
         kicker: 'Connect to what you have',
         visualLabel: 'API / webhook',
@@ -355,7 +355,7 @@ const techCopy = {
         {
           question: 'Does Home Clinic diagnose or provide medical advice?',
           answer:
-            'No. Home Clinic helps organise compatible devices, routines and agreed information. Diagnosis and medical advice remain with qualified healthcare professionals.',
+            'No. Home Clinic organises compatible devices, routines and agreed readings. Diagnosis and medical advice remain with qualified healthcare professionals.',
         },
         {
           question: 'Who provides the telehealth consultation?',
@@ -431,7 +431,7 @@ const techCopy = {
           number: '02',
           title: 'Tus dispositivos funcionan en apps separadas',
           body:
-            'Revisamos la compatibilidad, conectamos las señales importantes y organizamos las alertas para que lleguen a quien corresponde.',
+            'Confirmamos qué lecturas o avisos son útiles y dirigimos solo esas señales a la persona acordada.',
           outcome: 'Dirige cada aviso al responsable adecuado.',
         },
         {
@@ -448,7 +448,7 @@ const techCopy = {
       eyebrow: 'Integración de dispositivos',
       title: 'Tú aportas los dispositivos. Nosotros hacemos que la información sea más accionable.',
       body:
-        'CasaMia evalúa tecnología compatible de salud, bienestar y seguridad doméstica, conecta las señales acordadas y define quién debe responder a cada aviso.',
+        'CasaMia comprueba qué dispositivos son compatibles, qué lecturas importan y quién debe recibir cada aviso antes de conectar nada.',
       items: [
         {
           icon: 'heart' as TechIconName,
@@ -503,7 +503,7 @@ const techCopy = {
       eyebrow: 'La Clínica en Casa de CasaMia',
       title: 'Lecturas de salud en casa sin convertirla en una clínica.',
       body:
-        'Clínica en Casa combina dispositivos compatibles seleccionados, rutinas guiadas de medición y una vista digital organizada. CasaMia instala y vincula los equipos, explica cada paso y facilita que la información acordada esté disponible para contactos autorizados o profesionales.',
+        'Clínica en Casa combina dispositivos compatibles seleccionados, rutinas guiadas de medición y una vista organizada. CasaMia instala y vincula los equipos, explica cada paso y comparte las lecturas acordadas solo con contactos autorizados o profesionales.',
       imageAlt: 'Tensiómetro conectado preparado para una medición guiada de salud en casa',
       visualLabel: 'Clínica en Casa lista',
       visualItems: ['Dispositivo vinculado', 'Rutina explicada', 'Lecturas organizadas'],
@@ -544,14 +544,14 @@ const techCopy = {
     },
     monitoring: {
       eyebrow: 'Monitorización y alertas',
-      title: 'Señales relevantes. Pasos acordados. Menos avisos innecesarios.',
+      title: 'Avisos relevantes. Respuestas acordadas. Menos ruido innecesario.',
       body:
         'CasaMia configura las notificaciones según las necesidades del hogar y las responsabilidades acordadas con contactos autorizados o profesionales. Las alertas pueden dirigirse por tipo, prioridad y horario.',
       items: [
         { icon: 'wifi' as TechIconName, title: 'Conexión', body: 'Dispositivo desconectado o problema de vinculación' },
         { icon: 'activity' as TechIconName, title: 'Rutina', body: 'Seguimiento o medición acordada pendiente' },
         { icon: 'bell' as TechIconName, title: 'Atención', body: 'Señal de seguridad o bienestar que requiere revisión' },
-        { icon: 'user' as TechIconName, title: 'Respuesta', body: 'El contacto designado recibe el siguiente paso' },
+        { icon: 'user' as TechIconName, title: 'Respuesta', body: 'El contacto designado ve qué ocurrió y qué hacer' },
       ],
       boundary:
         'La monitorización de CasaMia no constituye un servicio de emergencias salvo que exista un servicio de respuesta específicamente contratado.',
@@ -560,7 +560,7 @@ const techCopy = {
       eyebrow: 'Usa tu plataforma o la nuestra',
       title: 'Conserva tu sistema actual o deja que CasaMia proporcione la capa digital.',
       body:
-        'El modelo de entrega cambia según tu punto de partida. El objetivo es el mismo: una experiencia comprensible para la persona y datos claros, con permisos, para quienes la apoyan.',
+        'La configuración cambia según tu punto de partida. El objetivo es el mismo: uso diario sencillo para la persona en casa e información con permisos para quienes la apoyan.',
       yourSystem: {
         kicker: 'Conecta lo que ya tienes',
         visualLabel: 'API / webhook',
@@ -638,7 +638,7 @@ const techCopy = {
         {
           question: '¿Clínica en Casa diagnostica o da consejo médico?',
           answer:
-            'No. Clínica en Casa ayuda a organizar dispositivos compatibles, rutinas e información acordada. El diagnóstico y el consejo médico corresponden a profesionales sanitarios cualificados.',
+            'No. Clínica en Casa organiza dispositivos compatibles, rutinas y lecturas acordadas. El diagnóstico y el consejo médico corresponden a profesionales sanitarios cualificados.',
         },
         {
           question: '¿Quién presta la consulta de telesalud?',

@@ -16,7 +16,7 @@ const serviceAreaCopy = {
     eyebrow: 'Service areas',
     title: 'Senior home safety support, coordinated city by city.',
     intro:
-      'CasaMia is building reliable local coverage across Spain: home checks, scoped proposals, vetted provider coordination and follow-up in one route.',
+      'CasaMia checks the home concern, confirms what can be reviewed remotely and coordinates local visits or providers when the work needs measurements.',
     primaryCta: 'Start your home review',
     secondaryCta: 'Ask about your area',
     mapLabel: 'Spain coverage',
@@ -28,16 +28,16 @@ const serviceAreaCopy = {
       'We do not simply list cities. We check whether the right professional support, timing and scope are realistic before asking you to commit.',
     howItems: [
       {
-        title: 'Online first',
-        body: 'Start with guided questions, photos, video or a call so the home and the person are understood before the next step.',
+        title: 'Start with the concern',
+        body: 'Share the rooms, routines, photos or video that show what has become difficult, unsafe or uncertain.',
       },
       {
         title: 'Local fit checked',
-        body: 'We check room type, urgency, service area, provider fit and whether a visit or measurement is needed.',
+        body: 'We check the room type, urgency, postcode, provider availability and whether measurements are needed before work is scoped.',
       },
       {
-        title: 'Clear next step',
-        body: 'You receive a defined route: remote check, expert visit, proposal, grant route or staged plan.',
+        title: 'Route confirmed',
+        body: 'You receive the practical route to follow: remote review, expert visit, proposal, grant preparation or staged plan.',
       },
     ],
     cityTitle: 'Priority cities',
@@ -49,28 +49,28 @@ const serviceAreaCopy = {
     unknownCta: 'Check my postcode',
     citySeoTitle: (city: string) => `Senior home safety services in ${city}`,
     citySeoDescription: (city: string, region: string) =>
-      `CasaMia coordinates senior home-safety checks, agreed adaptations and local next steps in ${city}, ${region}.`,
+      `CasaMia coordinates senior home-safety checks, scoped adaptations, provider availability and grant-ready notes in ${city}, ${region}.`,
     cityEyebrow: 'Local service route',
     cityPageTitle: (city: string) => `Home safety support in ${city}`,
-    cityIntroPrefix: 'CasaMia helps people in',
+    cityIntroPrefix: 'In',
     cityIntroSuffix:
-      'understand what to fix first, what can be handled remotely, and when a local visit or installation partner is the right next step.',
+      'CasaMia checks what should be reviewed first, what can be handled remotely and when a local visit or installation partner is needed.',
     cityFocusTitle: 'Common local priorities',
-    cityProcessTitle: 'How we help locally',
+    cityProcessTitle: 'What happens locally',
     cityProcess: [
       'Start online with a guided review, photos, video, voice brief or a call.',
       'We check the home context, urgency, rooms and local delivery fit.',
-      'You get the next route: remote plan, expert visit, proposal, grant route or staged installation.',
+      'You receive a practical route: remote plan, expert visit, proposal, grant preparation or staged installation.',
     ],
     cityFaqTitle: (city: string) => `Questions people ask in ${city}`,
     cityFaqIntro:
-      'Start with the concern, the rooms involved and the postcode. We will tell you whether a remote plan is enough or a local visit makes sense.',
+      'Start with the concern, the rooms involved and the postcode. We will confirm whether a remote plan is enough or a local visit is needed.',
     cityFaqCta: 'Start your home review',
     cityFaqItems: (city: string) => [
       {
         question: `Can I start before my home in ${city} is ready for a visit?`,
         answer:
-          'Yes. You can start with guided questions, photos, videos or a voice brief. We will tell you whether a remote plan is enough or whether a local visit makes sense.',
+          'Yes. You can start with guided questions, photos, videos or a voice brief. We will confirm whether a remote plan is enough or whether a local visit is needed.',
       },
       {
         question: `Does CasaMia install directly in ${city}?`,
@@ -92,7 +92,7 @@ const serviceAreaCopy = {
     eyebrow: 'Zonas de servicio',
     title: 'Seguridad en casa para mayores, coordinada ciudad a ciudad.',
     intro:
-      'CasaMia construye cobertura local fiable en España: revisión clara de la vivienda, propuesta definida, coordinación de profesionales y seguimiento fácil de entender.',
+      'CasaMia revisa la preocupación en casa, confirma qué puede verse en remoto y coordina visitas o profesionales locales cuando el trabajo necesita medidas.',
     primaryCta: 'Empezar revisión',
     secondaryCta: 'Preguntar por mi zona',
     mapLabel: 'Cobertura en España',
@@ -104,16 +104,16 @@ const serviceAreaCopy = {
       'No se trata solo de listar ciudades. Revisamos si el apoyo profesional, los tiempos y el alcance son realistas antes de pedirte compromiso.',
     howItems: [
       {
-        title: 'Primero online',
-        body: 'Empieza con preguntas guiadas, fotos, vídeo o llamada para entender la vivienda y la persona.',
+        title: 'Empieza por la preocupación',
+        body: 'Comparte estancias, rutinas, fotos o vídeo que muestren qué se ha vuelto difícil, inseguro o incierto.',
       },
       {
         title: 'Encaje local',
-        body: 'Comprobamos estancia, urgencia, zona, profesional adecuado y si hace falta visita o medición.',
+        body: 'Comprobamos estancia, urgencia, código postal, disponibilidad profesional y si hacen falta medidas antes de definir el trabajo.',
       },
       {
-        title: 'Siguiente paso claro',
-        body: 'Recibes una ruta práctica: revisión remota, visita experta, propuesta, ruta de ayudas o plan por fases.',
+        title: 'Ruta confirmada',
+        body: 'Recibes la ruta práctica a seguir: revisión remota, visita experta, propuesta, preparación de ayudas o plan por fases.',
       },
     ],
     cityTitle: 'Ciudades prioritarias',
@@ -125,28 +125,28 @@ const serviceAreaCopy = {
     unknownCta: 'Comprobar mi código postal',
     citySeoTitle: (city: string) => `Servicios de seguridad del hogar senior en ${city}`,
     citySeoDescription: (city: string, region: string) =>
-      `CasaMia coordina revisiones de seguridad, adaptaciones prácticas y próximos pasos locales en ${city}, ${region}.`,
+      `CasaMia coordina revisiones de seguridad, adaptaciones definidas, disponibilidad profesional y notas preparadas para ayudas en ${city}, ${region}.`,
     cityEyebrow: 'Ruta local de servicio',
     cityPageTitle: (city: string) => `Seguridad en casa para mayores en ${city}`,
-    cityIntroPrefix: 'CasaMia ayuda a personas en',
+    cityIntroPrefix: 'En',
     cityIntroSuffix:
-      'a entender qué conviene resolver primero, qué puede revisarse en remoto y cuándo una visita o instalación local es el siguiente paso adecuado.',
+      'CasaMia revisa qué conviene resolver primero, qué puede verse en remoto y cuándo hace falta una visita o instalación local.',
     cityFocusTitle: 'Prioridades frecuentes en la zona',
-    cityProcessTitle: 'Cómo ayudamos localmente',
+    cityProcessTitle: 'Qué ocurre localmente',
     cityProcess: [
       'Empieza online con revisión guiada, fotos, vídeo, nota de voz o llamada.',
       'Revisamos contexto, urgencia, estancias y encaje con la entrega local.',
-      'Recibes una ruta clara: plan remoto, visita experta, propuesta, ruta de ayudas o instalación por fases.',
+      'Recibes una ruta práctica: plan remoto, visita experta, propuesta, preparación de ayudas o instalación por fases.',
     ],
     cityFaqTitle: (city: string) => `Preguntas frecuentes en ${city}`,
     cityFaqIntro:
-      'Empieza por la preocupación, las estancias y el código postal. Te diremos si basta con un plan remoto o si conviene una visita local.',
+      'Empieza por la preocupación, las estancias y el código postal. Confirmaremos si basta con un plan remoto o si hace falta visita local.',
     cityFaqCta: 'Empezar revisión',
     cityFaqItems: (city: string) => [
       {
         question: `¿Puedo empezar si mi vivienda en ${city} aún no está lista para una visita?`,
         answer:
-          'Sí. Puedes empezar con preguntas guiadas, fotos, vídeos o una nota de voz. Te indicaremos si basta con un plan remoto o si conviene una visita local.',
+          'Sí. Puedes empezar con preguntas guiadas, fotos, vídeos o una nota de voz. Confirmaremos si basta con un plan remoto o si hace falta visita local.',
       },
       {
         question: `¿CasaMia instala directamente en ${city}?`,

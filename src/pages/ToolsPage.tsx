@@ -30,7 +30,7 @@ const copy = {
     featuredLabel: 'Start here if you are unsure',
     featuredTitle: 'Is this home still safe day to day?',
     featuredBody:
-      'Five everyday questions to spot whether the next step is monitoring, a focused room check or faster action.',
+      'Five everyday questions to decide whether to keep watching, check one room or act sooner.',
     featuredCta: 'Start the safety check',
     sectionEyebrow: 'Choose your route',
     sectionTitle: 'Checks for real home-safety decisions.',
@@ -61,7 +61,7 @@ const copy = {
       {
         question: 'Can CasaMia use my answers later?',
         answer:
-          'Yes, when you choose to share them. The aim is to avoid repeating the same story and turn your answers into room priorities, scope notes and visit preparation.',
+          'Yes, when you choose to share them. We use them to avoid repeating the same story and prepare room priorities, scope notes and visit questions.',
       },
     ],
   },
@@ -77,7 +77,7 @@ const copy = {
     featuredLabel: 'Empieza aquí si dudas',
     featuredTitle: '¿Esta casa sigue siendo segura en el día a día?',
     featuredBody:
-      'Cinco preguntas cotidianas para saber si toca observar, revisar una estancia o actuar con más rapidez.',
+      'Cinco preguntas cotidianas para decidir si conviene seguir observando, revisar una estancia o actuar antes.',
     featuredCta: 'Empezar revisión de seguridad',
     sectionEyebrow: 'Elige tu ruta',
     sectionTitle: 'Revisiones para decisiones reales de seguridad.',
@@ -108,7 +108,7 @@ const copy = {
       {
         question: '¿Puede CasaMia usar mis respuestas después?',
         answer:
-          'Sí, cuando decidas compartirlas. La idea es no repetir la misma historia y convertir tus respuestas en prioridades por estancia, notas de alcance y preparación de visita.',
+          'Sí, cuando decidas compartirlas. Las usamos para no repetir la misma historia y preparar prioridades por estancia, notas de alcance y preguntas para la visita.',
       },
     ],
   },
