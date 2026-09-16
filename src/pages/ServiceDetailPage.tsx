@@ -27,7 +27,7 @@ import { getMasterServiceCatalogue } from '../services/masterServiceCatalogue'
 import { useServiceCatalogue } from '../services/serviceCatalogue'
 import { useLocalizedServicesByRoom } from '../services/serviceCatalogueLocalization'
 import type { CasaMiaService, ServicePackageArea, ServiceRoom } from '../types/serviceCatalogue'
-import { getServiceBestFor, getServiceCredibleDescription, getServiceProofChips } from '../utils/serviceTrust'
+import { getServiceCredibleDescription, getServiceProofChips } from '../utils/serviceTrust'
 import '../styles/home-hero-ctas.css'
 import '../styles/services-catalogue.css'
 
@@ -734,10 +734,6 @@ function ServiceItemGrid({ language, services }: { language: string; services: C
                 <p className="service-kitchen-component-benefit">
                   <CheckCircle2 size={17} aria-hidden="true" />
                   {item.customerBenefit}
-                </p>
-                <p className="services-catalogue-service-best-for service-kitchen-component-best-for">
-                  <ShieldCheck size={16} aria-hidden="true" />
-                  <span>{getServiceBestFor(item, language)}</span>
                 </p>
                 {proofChips.length ? (
                   <div className="services-catalogue-proof-chips" aria-label={language.toLowerCase().startsWith('es') ? 'Señales de confianza' : 'Trust signals'}>

@@ -588,12 +588,8 @@
   line-height: 1.5;
 }
 
-.safety-wizard-package-service > .safety-wizard-package-service-best-for {
-  margin-top: 10px;
-}
-
 .safety-wizard-package-service > .safety-wizard-package-proof-chips {
-  margin: 10px 0 0 39px;
+  margin: 8px 0 0 39px;
 }
 
 .safety-wizard-package-includes {

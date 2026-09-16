@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 
 import type { WizardCopy } from '../../config/wizardCopy'
 import type { CasaMiaService } from '../../types/serviceCatalogue'
-import { getServiceBestFor, getServiceCredibleDescription, getServiceProofChips } from '../../utils/serviceTrust'
+import { getServiceCredibleDescription, getServiceProofChips } from '../../utils/serviceTrust'
 
 export const wizardPackageDialogId = 'safety-wizard-package-dialog'
 
@@ -89,7 +89,6 @@ export function WizardPackageDialog({
             const includedItems = (service.includedItems ?? []).filter((item) => item.trim())
             const serviceName = service.customerName ?? service.name
             const serviceDescription = getServiceCredibleDescription(service, language)
-            const bestFor = getServiceBestFor(service, language)
             const proofChips = getServiceProofChips(service, language)
 
             return (
@@ -102,10 +101,6 @@ export function WizardPackageDialog({
                   </div>
                 </div>
                 <p>{serviceDescription}</p>
-                <p className="services-catalogue-service-best-for safety-wizard-package-service-best-for">
-                  <Check size={16} aria-hidden="true" />
-                  <span>{bestFor}</span>
-                </p>
                 {proofChips.length ? (
                   <div className="services-catalogue-proof-chips safety-wizard-package-proof-chips">
                     {proofChips.map((chip) => <span key={chip}>{chip}</span>)}

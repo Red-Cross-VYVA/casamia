@@ -19,7 +19,6 @@ type PackageDetailTab = 'core' | 'optional'
 const packageModalCopy = {
   en: {
     benefit: 'Why it helps',
-    bestFor: 'Best fit',
     close: 'Close',
     coreTab: 'Core package',
     description: 'Item description',
@@ -66,7 +65,6 @@ const packageModalCopy = {
   },
   es: {
     benefit: 'Por qué ayuda',
-    bestFor: 'Cuándo encaja',
     close: 'Cerrar',
     coreTab: 'Paquete base',
     description: 'Descripción del elemento',
@@ -205,13 +203,6 @@ function getOutcomeProofChips(
   ].filter(Boolean) as string[]
 
   return [...new Set(chips)].slice(0, 3)
-}
-
-function getOutcomeBestFit(outcome: MasterCatalogueOutcome, language: 'en' | 'es') {
-  const text = packageModalCopy[language]
-  const benefit = getDetailBenefit(outcome, language).trim().replace(/\.$/, '')
-
-  return `${text.bestFor} ${benefit ? benefit.charAt(0).toLocaleLowerCase(language) + benefit.slice(1) : getDetailDescription(outcome, language).toLocaleLowerCase(language)}`
 }
 
 function getOutcomeTrustSignals(
@@ -458,7 +449,6 @@ export function PackageDetailModal({
   const includesHeading = activeSlide ? copy.itemIncludes : copy.includes
   const includedItems = activeSlide ? getDetailIncludedItems(activeSlide, catalogue, languageKey) : []
   const proofChips = activeSlide ? getOutcomeProofChips(activeSlide, catalogue, languageKey) : []
-  const bestFit = activeSlide ? getOutcomeBestFit(activeSlide, languageKey) : ''
   const trustSignals = activeSlide ? getOutcomeTrustSignals(activeSlide, catalogue, languageKey) : []
   const hasMultiple = slides.length > 1
 
@@ -592,14 +582,6 @@ export function PackageDetailModal({
                   <div>
                     <strong>{copy.benefit}</strong>
                     <p>{slideBenefit}</p>
-                  </div>
-                </div>
-
-                <div className="plan-detail-benefit package-detail-best-fit">
-                  <ShieldCheck size={18} aria-hidden="true" />
-                  <div>
-                    <strong>{copy.bestFor}</strong>
-                    <p>{bestFit}</p>
                   </div>
                 </div>
 

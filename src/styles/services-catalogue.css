@@ -1375,31 +1375,11 @@
   -webkit-line-clamp: 2;
 }
 
-.services-catalogue-service-best-for {
-  display: flex;
-  gap: 0.48rem;
-  margin: 0.72rem 0 0;
-  border-left: 3px solid #79ad43;
-  border-radius: 0.5rem;
-  background: #f7fbf3;
-  padding: 0.58rem 0.65rem;
-  color: #38596f;
-  font-size: 0.78rem;
-  font-weight: 820;
-  line-height: 1.36;
-}
-
-.services-catalogue-service-best-for svg {
-  flex: 0 0 auto;
-  margin-top: 0.04rem;
-  color: #639a30;
-}
-
 .services-catalogue-proof-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.38rem;
-  margin-top: 0.7rem;
+  margin-top: 0.58rem;
 }
 
 .services-catalogue-proof-chips span {
@@ -1447,7 +1427,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin: 0.8rem 0 0;
+  margin: 0.7rem 0 0;
   padding: 0;
   list-style: none;
 }

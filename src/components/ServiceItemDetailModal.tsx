@@ -4,7 +4,6 @@ import { useEffect, useMemo } from 'react'
 import { catalogueOutcomeImages, getCatalogueOutcomeImage } from '../constants/catalogueVisuals'
 import type { CasaMiaService } from '../types/serviceCatalogue'
 import {
-  getServiceBestFor,
   getServiceCredibleDescription,
   getServiceProofChips,
   getServiceTrustSignals,
@@ -27,7 +26,6 @@ const modalCopy = {
     optional: 'Optional add-on',
     description: 'Item description',
     benefit: 'Why it helps',
-    bestFor: 'Best fit',
     includes: 'What CasaMia includes',
     requirements: 'Planning notes',
     trust: 'Why families can trust it',
@@ -49,7 +47,6 @@ const modalCopy = {
     optional: 'Extra opcional',
     description: 'Descripción del elemento',
     benefit: 'Por qué ayuda',
-    bestFor: 'Cuándo encaja',
     includes: 'Qué incluye CasaMia',
     requirements: 'Notas de planificación',
     trust: 'Por qué aporta confianza',
@@ -161,7 +158,6 @@ export function ServiceItemDetailModal({
     const trustSignals = getServiceTrustSignals(service, languageKey)
 
     return {
-      bestFor: getServiceBestFor(service, languageKey),
       benefit,
       description,
       image: getServiceImage(service, imageSrc),
@@ -245,14 +241,6 @@ export function ServiceItemDetailModal({
               <div>
                 <strong>{copy.benefit}</strong>
                 <p>{detail.benefit}</p>
-              </div>
-            </div>
-
-            <div className="plan-detail-benefit service-item-detail-best-fit">
-              <ShieldCheck size={18} aria-hidden="true" />
-              <div>
-                <strong>{copy.bestFor}</strong>
-                <p>{detail.bestFor}</p>
               </div>
             </div>
 

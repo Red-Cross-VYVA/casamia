@@ -8059,14 +8059,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.42;
 }
 
-.zone-service-gallery-best-for {
-  margin-top: 12px;
-}
-
-.zone-service-gallery-proof-chips {
-  margin-top: 10px;
-}
-
 .zone-service-gallery-card-actions,
 .service-kitchen-component-actions {
   display: flex;
@@ -8136,10 +8128,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   line-height: 1.15;
 }
 
-.service-item-detail-best-fit {
-  background: #f4fbec;
-}
-
 .service-item-detail-requirements {
   background: linear-gradient(180deg, #fffaf1, #ffffff);
 }
@@ -8187,10 +8175,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   display: grid;
   gap: 18px;
   margin-top: 44px;
-}
-
-.service-kitchen-component-best-for {
-  margin-top: 0;
 }
 
 .service-kitchen-component-grid article {
@@ -20403,10 +20387,6 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 .plan-detail-modal--compact .plan-detail-benefit p {
   font-size: 15px;
   line-height: 1.42;
-}
-
-.package-detail-best-fit {
-  background: #f4fbec;
 }
 
 .plan-detail-included-card {

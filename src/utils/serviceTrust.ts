@@ -24,8 +24,6 @@ const copy = {
     quoteDetail: 'Final scope and price are agreed after the home check, so the proposal reflects the real room and materials.',
     quoteLabel: 'Measured quote',
     standard: 'We check the home first, fit the right option, test it in place and explain safe use before handover.',
-    bestForPrefix: 'Best for',
-    bestForFallback: 'families who want a practical improvement matched to the existing home before work begins.',
     noHiddenFit: 'No guesswork on fit',
     professionalFitting: 'Professional fitting',
     familyReady: 'Family handover',
@@ -56,8 +54,6 @@ const copy = {
     quoteDetail: 'El alcance y precio final se acuerdan tras revisar la vivienda, para que la propuesta refleje la estancia y materiales reales.',
     quoteLabel: 'Presupuesto medido',
     standard: 'Revisamos la vivienda, elegimos la opción adecuada, la probamos instalada y explicamos su uso antes de la entrega.',
-    bestForPrefix: 'Ideal para',
-    bestForFallback: 'familias que quieren una mejora práctica adaptada a la vivienda existente antes de empezar.',
     noHiddenFit: 'Sin suposiciones',
     professionalFitting: 'Instalación profesional',
     familyReady: 'Entrega a la familia',
@@ -87,14 +83,6 @@ function usesSmartOrConsent(service: CasaMiaService) {
 
 export function getServiceTrustStandard(language: string) {
   return copy[languageKey(language)].standard
-}
-
-export function getServiceBestFor(service: CasaMiaService, language: string) {
-  const text = copy[languageKey(language)]
-  const benefit = service.outcome ?? service.customerBenefit ?? service.shortDescription
-  const cleanedBenefit = benefit.trim().replace(/\.$/, '')
-
-  return `${text.bestForPrefix} ${cleanedBenefit ? cleanedBenefit.charAt(0).toLowerCase() + cleanedBenefit.slice(1) : text.bestForFallback}`
 }
 
 export function getServiceCredibleDescription(service: CasaMiaService, language: string) {
