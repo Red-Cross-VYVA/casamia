@@ -1179,13 +1179,13 @@
       },
       "final": {
         "title": "Empieza con el plan adecuado para un hogar más seguro.",
-        "body": "Solicita una visita de evaluación a domicilio de {{visitFee}} y deja que CasaMia te ayude a decidir el siguiente paso más seguro y claro.",
+        "body": "Solicita una evaluación a domicilio de {{visitFee}} y recibe prioridades por estancia, notas de alcance y la acción que conviene confirmar después.",
         "cta": "Solicitar propuesta de seguridad"
       }
     },
     "grants": {
       "title": "Ayudas con documentación más clara.",
-      "intro": "Plan Adapta puede cubrir una parte importante de las obras de accesibilidad. CasaMia prepara, presenta y hace seguimiento de la solicitud por ti.",
+      "intro": "Plan Adapta puede cubrir una parte importante de las obras de accesibilidad. CasaMia prepara el expediente, lo presenta cuando existe autorización y hace seguimiento de la respuesta de la administración.",
       "eligibilityTitle": "Señales habituales de elegibilidad",
       "eligibility": [
         "La vivienda está en España y necesita mejoras de accesibilidad o seguridad.",
@@ -1194,19 +1194,19 @@
       ],
       "processTitle": "Qué gestionamos",
       "process": [
-        "Recopilar la información necesaria de la vivienda y la persona residente.",
-        "Preparar la documentación de las obras de accesibilidad.",
-        "Presentar la solicitud en el canal correspondiente y hacer seguimiento."
+        "Recopilar datos necesarios de vivienda, solicitante y titularidad.",
+        "Preparar notas de evidencia, texto de alcance y documentación de accesibilidad.",
+        "Presentar la solicitud por el canal correspondiente cuando exista autorización y hacer seguimiento."
       ]
     },
     "contact": {
       "title": "Habla con CasaMia.",
-      "intro": "Cuéntanos cómo es la vivienda y te ayudaremos a elegir el siguiente paso más seguro.",
+      "intro": "Cuéntanos cómo es la vivienda y CasaMia responderá con la ruta que conviene confirmar primero: informe con fotos, visita, propuesta, ayudas o revisión smart.",
       "fields": {
         "name": "Nombre",
         "email": "Email",
         "phone": "Teléfono",
-        "plan": "¿Con qué necesitas ayuda?",
+        "plan": "¿Qué debe revisar CasaMia?",
         "message": "Mensaje"
       },
       "planOptions": [
@@ -1229,7 +1229,7 @@
       "includedTitle": "Qué incluye",
       "roomTitle": "Mejoras estancia por estancia",
       "processTitle": "Nuestro proceso",
-      "deliverablesTitle": "Qué recibirés",
+      "deliverablesTitle": "Qué recibirás",
       "paymentTitle": "Condiciones de pago",
       "paymentReassurance": "Sin costes ocultos. Sin gastos inesperados.",
       "faqTitle": "Preguntas frecuentes",
@@ -1240,11 +1240,11 @@
         {
           "id": "home-assessment",
           "title": "Plan Evaluación del Hogar",
-          "subtitle": "Una inspección cualificada de seguridad del hogar que ayuda a la familia a entender riesgos, prioridades y próximos pasos antes de iniciar cualquier trabajo.",
+          "subtitle": "Una inspección cualificada de seguridad del hogar que identifica riesgos por estancia, prioridades y acciones siguientes antes de iniciar cualquier trabajo.",
           "heroPoints": [
             "Revisión experta de seguridad",
             "Recomendaciones por escrito",
-            "Próximos pasos claros"
+            "Acciones siguientes confirmadas"
           ],
           "who": [
             "Familias que quieren claridad antes de adaptar la vivienda",
@@ -1272,12 +1272,12 @@
             {
               "icon": "accessibility",
               "title": "Revisión de accesibilidad",
-              "body": "Comprobamos si las rutinas diarias pueden hacerse con comodidad según la movilidad y necesidades actuales."
+              "body": "Comprobamos dónde las rutinas diarias quedan limitadas por acceso, alcance, transferencias, iluminación o necesidad de apoyo."
             },
             {
               "icon": "report",
               "title": "Informe de seguridad por estancia",
-              "body": "Recibes un informe claro que explica riesgos prioritarios y mejoras recomendadas."
+              "body": "Recibes un informe escrito que ordena los riesgos prioritarios y explica las mejoras recomendadas."
             },
             {
               "icon": "recommendation",
@@ -1718,7 +1718,7 @@
         "subtitle": "CasaMia coordina la ruta de solicitud de ayudas para obras de seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
         "cta": "Reservar evaluación gratis",
         "panelTitle": "Apoyo administrativo desde el inicio hasta la presentación",
-        "panelBody": "Ayudamos a las familias a entender qué puede ser necesario, preparar el expediente y coordinar los siguientes pasos cuando exista autorización."
+        "panelBody": "CasaMia aclara los requisitos probables, prepara el expediente y coordina los siguientes pasos cuando existe autorización."
       },
       "what": {
         "kicker": "Qué es Plan Adapta",
@@ -1726,20 +1726,20 @@
         "body": "Plan Adapta puede apoyar adaptaciones del hogar elegibles que mejoran la accesibilidad, la seguridad y la vida independiente. La ayuda disponible depende de la autoridad competente, convocatorias abiertas, criterios de elegibilidad, documentación y alcance aprobado de las obras."
       },
       "help": {
-        "kicker": "Cómo ayuda CasaMia",
+        "kicker": "Qué prepara CasaMia",
         "title": "Preparamos el expediente de ayuda alrededor de las obras propuestas.",
         "items": [
           {
-            "title": "Orientación de elegibilidad",
-            "body": "Ayudamos a revisar las condiciones básicas que pueden influir en si un hogar puede solicitar la ayuda."
+            "title": "Notas de elegibilidad",
+            "body": "Comparamos la vivienda, la persona solicitante y las obras propuestas con las condiciones básicas de la vía correspondiente."
           },
           {
             "title": "Preparación de documentación",
-            "body": "Ayudamos a organizar los documentos necesarios y preparar el expediente antes de presentarlo."
+            "body": "Organizamos los documentos necesarios y preparamos el expediente antes de presentarlo."
           },
           {
-            "title": "Soporte de solicitud",
-            "body": "Apoyamos la cumplimentación de formularios y los pasos administrativos necesarios para la solicitud."
+            "title": "Formularios de solicitud",
+            "body": "Completamos los formularios y pasos administrativos requeridos para el canal de ayuda elegido."
           },
           {
             "title": "Coordinación con autoridades cuando exista autorización",
@@ -1747,11 +1747,11 @@
           },
           {
             "title": "Preparación de propuesta",
-            "body": "Preparamos recomendaciones y propuestas que explican las obras de seguridad y accesibilidad."
+            "body": "Preparamos recomendaciones y texto de propuesta que explica las obras de seguridad y accesibilidad."
           },
           {
-            "title": "Seguimiento",
-            "body": "Ayudamos a seguir los próximos pasos y mantener informado al cliente mientras se revisa la solicitud."
+            "title": "Seguimiento de solicitud",
+            "body": "Seguimos los próximos pasos administrativos y mantenemos informado al cliente mientras se revisa la solicitud."
           }
         ]
       },
@@ -1778,7 +1778,7 @@
         "steps": [
           {
             "title": "Reserva tu evaluación gratis",
-            "body": "Empieza solicitando una evaluación de CasaMia para entender la vivienda y las posibles necesidades de adaptación."
+            "body": "Empieza solicitando una evaluación CasaMia para documentar los riesgos de la vivienda y las posibles necesidades de adaptación."
           },
           {
             "title": "Inspeccionamos tu hogar",
@@ -1786,7 +1786,7 @@
           },
           {
             "title": "Preparamos recomendaciones",
-            "body": "Recibes recomendaciones claras y una propuesta de las mejoras que pueden ser relevantes."
+            "body": "Recibes prioridades por estancia, notas de evidencia para ayudas y una propuesta de las mejoras confirmadas."
           },
           {
             "title": "Apoyamos tu solicitud de ayuda",

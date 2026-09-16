@@ -1179,13 +1179,13 @@
       },
       "final": {
         "title": "Start with the right plan for a safer home.",
-        "body": "Request a {{visitFee}} in-home assessment visit and let CasaMia help you decide the safest, clearest next step.",
+        "body": "Request a {{visitFee}} in-home assessment and receive room priorities, scope notes and the action to confirm next.",
         "cta": "Request a Safety Proposal"
       }
     },
     "grants": {
       "title": "Grant support without the paperwork maze.",
-      "intro": "Plan Adapta can cover a significant part of accessibility works. CasaMia prepares, files, and follows up on the application for you.",
+      "intro": "Plan Adapta can cover a significant part of accessibility works. CasaMia prepares the application file, submits it where authorised and tracks the authority response.",
       "eligibilityTitle": "Typical eligibility signals",
       "eligibility": [
         "The home is in Spain and needs accessibility or safety improvements.",
@@ -1194,19 +1194,19 @@
       ],
       "processTitle": "What we manage",
       "process": [
-        "Collecting the required home and resident details.",
-        "Preparing the accessibility work documentation.",
-        "Filing with the relevant grant channel and tracking progress."
+        "Collecting the required home, applicant and ownership details.",
+        "Preparing evidence notes, scope wording and accessibility work documents.",
+        "Submitting through the relevant grant channel where authorised and tracking progress."
       ]
     },
     "contact": {
       "title": "Talk to CasaMia.",
-      "intro": "Tell us about the home and we will help you choose the safest next step.",
+      "intro": "Tell us about the home and CasaMia will reply with the route to confirm first: photo report, visit, proposal, grant check or smart-safety review.",
       "fields": {
         "name": "Name",
         "email": "Email",
         "phone": "Phone",
-        "plan": "What do you need help with?",
+        "plan": "What should CasaMia review?",
         "message": "Message"
       },
       "planOptions": [
@@ -1240,11 +1240,11 @@
         {
           "id": "home-assessment",
           "title": "Home Assessment Plan",
-          "subtitle": "A qualified home safety inspection that helps identify risks, priorities and next steps before starting any work.",
+          "subtitle": "A qualified home safety inspection that identifies room risks, priorities and next actions before any work starts.",
           "heroPoints": [
             "Expert safety review",
             "Written recommendations",
-            "Clear next steps"
+            "Confirmed next actions"
           ],
           "who": [
             "People who want clarity before committing to adaptations",
@@ -1272,12 +1272,12 @@
             {
               "icon": "accessibility",
               "title": "Accessibility Review",
-              "body": "We check whether daily routines can be completed comfortably with current mobility and support needs."
+              "body": "We check where daily routines are limited by access, reach, transfers, lighting or support needs."
             },
             {
               "icon": "report",
               "title": "Room-by-room safety report",
-              "body": "You receive a clear written report that explains the priority risks and recommended improvements."
+              "body": "You receive a written report that ranks priority risks and explains the recommended improvements."
             },
             {
               "icon": "recommendation",
@@ -1718,7 +1718,7 @@
         "subtitle": "CasaMia coordinates the grant application route for home safety and accessibility works, from documentation to submission.",
         "cta": "Book Free Assessment",
         "panelTitle": "Administrative support from start to submission",
-        "panelBody": "We help clarify what may be needed, prepare the application file, and coordinate next steps where authorised."
+        "panelBody": "CasaMia clarifies likely requirements, prepares the application file and coordinates next steps where authorised."
       },
       "what": {
         "kicker": "What is Plan Adapta?",
@@ -1726,20 +1726,20 @@
         "body": "Plan Adapta may support eligible home adaptations that improve accessibility, safety, and independent living. Available support depends on the relevant authority, open calls, eligibility criteria, documentation, and the approved scope of works."
       },
       "help": {
-        "kicker": "How CasaMia helps",
+        "kicker": "What CasaMia prepares",
         "title": "We prepare the grant file around the works proposed.",
         "items": [
           {
-            "title": "Eligibility guidance",
-            "body": "We help review the basic conditions that may affect whether a household can apply."
+            "title": "Eligibility notes",
+            "body": "We compare the home, applicant and proposed works with the basic conditions of the relevant route."
           },
           {
             "title": "Documentation preparation",
-            "body": "We help organize the required documents and prepare the application file before submission."
+            "body": "We organise the required documents and prepare the application file before submission."
           },
           {
-            "title": "Application support",
-            "body": "We support completion of the forms and the administrative steps required for the application."
+            "title": "Application forms",
+            "body": "We complete the required forms and administrative steps for the chosen grant channel."
           },
           {
             "title": "Coordination with authorities where authorised",
@@ -1747,11 +1747,11 @@
           },
           {
             "title": "Proposal preparation",
-            "body": "We prepare recommendations and proposals that explain the safety and accessibility works."
+            "body": "We prepare recommendations and proposal wording that explains the safety and accessibility works."
           },
           {
-            "title": "Follow-up support",
-            "body": "We help track next steps and keep the customer informed while the application is being reviewed."
+            "title": "Application tracking",
+            "body": "We track the next administrative steps and keep the customer informed while the application is being reviewed."
           }
         ]
       },
@@ -1778,7 +1778,7 @@
         "steps": [
           {
             "title": "Book your free assessment",
-            "body": "Start by requesting a CasaMia assessment so we can understand the home and the likely adaptation needs."
+            "body": "Start by requesting a CasaMia assessment so the home risks and likely adaptation needs are documented."
           },
           {
             "title": "We inspect your home",
