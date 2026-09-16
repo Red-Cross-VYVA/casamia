@@ -117,7 +117,7 @@ const fallbackConcerns: Option[] = [
   { value: 'Stairs or access', label: 'Stairs or access' },
   { value: 'Emergency alerts', label: 'Emergency alerts' },
   { value: 'Smart home support', label: 'Smart home support' },
-  { value: 'Not sure yet', label: 'Not sure yet' },
+  { value: 'Help me choose', label: 'Help me choose' },
 ]
 
 const fallbackUrgencies: Option[] = [
@@ -133,11 +133,12 @@ const fallbackMobilityProfiles: Option[] = [
   { value: 'Uses cane or walker', label: 'Uses cane or walker' },
   { value: 'Wheelchair or reduced mobility', label: 'Wheelchair or reduced mobility' },
   { value: 'Recent fall', label: 'Recent fall' },
-  { value: 'Not sure yet', label: 'Not sure yet' },
+  { value: 'Help me choose', label: 'Help me choose' },
 ]
 
 const fallbackStepLabels = ['Photos', 'Home', 'Contact', 'Report']
 const estimatorDraftStorageKey = 'casamia-estimator-draft'
+const helpMeChooseOption = 'Help me choose'
 const SpecialistVoiceAgentModal = lazy(() =>
   import('./SpecialistVoiceAgentModal').then((module) => ({
     default: module.SpecialistVoiceAgentModal,
@@ -1134,14 +1135,14 @@ function MultiSelectField({
   onChange: (values: string[]) => void
 }) {
   function toggleValue(value: string) {
-    if (value === 'Not sure yet') {
+    if (value === helpMeChooseOption) {
       onChange(values.includes(value) ? [] : [value])
       return
     }
 
     const nextValues = values.includes(value)
       ? values.filter((item) => item !== value)
-      : [...values.filter((item) => item !== 'Not sure yet'), value]
+      : [...values.filter((item) => item !== helpMeChooseOption), value]
 
     onChange(nextValues)
   }

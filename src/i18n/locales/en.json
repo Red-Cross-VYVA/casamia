@@ -199,11 +199,11 @@
         },
         {
           "question": "Do I have to install anything after the assessment?",
-          "answer": "No. The assessment gives you clarity first. CasaMia explains what looks urgent, what can wait, and what would need a proposal before any work is booked."
+          "answer": "No. The assessment gives you clarity first. CasaMia explains what looks urgent, what can wait, and what would need a priced plan before installation is booked."
         },
         {
           "question": "What does CasaMia manage if we continue?",
-          "answer": "CasaMia can coordinate the work from proposal to handover: compatible products, insured installers, grant-application support where relevant, scheduling, safe-use explanation and follow-up."
+          "answer": "CasaMia can coordinate the whole plan: compatible products, insured installers, grant-application support where relevant, scheduling, safe-use explanation and follow-up."
         },
         {
           "question": "Can we use photos, videos or a phone call before a visit?",
@@ -211,7 +211,7 @@
         },
         {
           "question": "Can CasaMia help with public grants?",
-          "answer": "CasaMia checks possible grant fit and prepares supporting documents when the programme matches the work. The public authority decides eligibility, approval, amount and timing."
+          "answer": "CasaMia checks possible grant fit and prepares supporting documents when the programme matches the planned adaptations. The public authority decides eligibility, approval, amount and timing."
         }
       ]
     },
@@ -220,7 +220,7 @@
       "body": "Tell us where the home is and how you prefer to be contacted. The CasaMia team will confirm availability and a suitable appointment time for the {{visitFee}} visit."
     },
     "form": {
-      "title": "In-home assessment request",
+      "title": "Book an in-home assessment",
       "intro": "Fields marked with * are required. Please provide either a phone number or email address.",
       "fields": {
         "name": "Full name",
@@ -246,23 +246,23 @@
           "label": "Email"
         }
       ],
-      "submit": "Send assessment request",
-      "submitting": "Sending request...",
-      "success": "Thank you. Your request has been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit.",
+      "submit": "Book assessment visit",
+      "submitting": "Sending details...",
+      "success": "Thank you. Your details have been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit.",
       "schedule": "Choose visit time",
-      "error": "We couldn't submit your request. Please try again or contact CasaMia by phone.",
-      "consent": "I agree to be contacted by CasaMia regarding my in-home safety assessment request.",
+      "error": "We couldn't send your details. Please try again or contact CasaMia by phone.",
+      "consent": "I agree to be contacted by CasaMia about my in-home safety assessment.",
       "privacy": "Your information is only used to arrange your assessment visit. We never sell your data.",
       "errors": {
         "name": "Please enter your full name.",
         "contact": "Please enter a phone number or email address.",
         "city": "Please enter your city or area.",
-        "consent": "Please agree to be contacted about your assessment request."
+        "consent": "Please agree to be contacted about your assessment."
       },
       "planOptions": [
         {
           "value": "not-sure",
-          "label": "Not sure yet"
+          "label": "Help me choose"
         },
         {
           "value": "home-assessment",
@@ -277,7 +277,7 @@
           "label": "Safety services"
         }
       ],
-      "successWithPlan": "Thank you. Your {{plan}} visit request has been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit."
+      "successWithPlan": "Thank you. Your {{plan}} visit details have been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit."
     },
     "final": {
       "title": "Ready for a professional visit?"
@@ -385,7 +385,7 @@
       {
         "icon": "Step 4",
         "title": "Install, test and explain",
-        "desc": "CasaMia coordinates installation, checks the result in the room and explains safe use before the work is closed.",
+        "desc": "CasaMia coordinates installation, checks the result in the room and explains safe use before the job is signed off.",
         "points": [
           "Professional installation",
           "Handover check",
@@ -469,7 +469,7 @@
   },
   "plans": {
     "title1": "Start with the right priorities,",
-    "title2": "then approve the right work.",
+    "title2": "then approve the right plan.",
     "sub": "Free online safety report available - {{visitFee}} in-home assessment credited toward your plan",
     "popular": "Most Popular",
     "perUnit": "one-time",
@@ -837,8 +837,8 @@
           "label": "Smart home support"
         },
         {
-          "value": "Not sure yet",
-          "label": "Not sure yet"
+          "value": "Help me choose",
+          "label": "Help me choose"
         }
       ],
       "urgencies": [
@@ -881,8 +881,8 @@
           "label": "Recent fall"
         },
         {
-          "value": "Not sure yet",
-          "label": "Not sure yet"
+          "value": "Help me choose",
+          "label": "Help me choose"
         }
       ],
       "validation": {
@@ -1157,7 +1157,7 @@
           },
           {
             "question": "Are installers insured?",
-            "answer": "CasaMia structures projects around insured professional work, documented handover and customer acceptance."
+            "answer": "CasaMia structures projects around insured professional installation, documented handover and customer acceptance."
           },
           {
             "question": "When do I pay?",
@@ -1190,18 +1190,18 @@
       "eligibility": [
         "The home is in Spain and needs accessibility or safety improvements.",
         "The resident is over 65, has mobility needs, or has a recognised disability.",
-        "The work improves daily safety: bathrooms, stairs, access, doors, lighting, or emergency systems."
+        "The adaptation improves daily safety: bathrooms, stairs, access, doors, lighting, or emergency systems."
       ],
       "processTitle": "What we manage",
       "process": [
         "Collecting the required home, applicant and ownership details.",
-        "Preparing evidence notes, work descriptions and accessibility documents.",
+        "Preparing evidence notes, adaptation descriptions and accessibility documents.",
         "Sending the application through the relevant grant channel where authorised and tracking progress."
       ]
     },
     "contact": {
       "title": "Talk to CasaMia.",
-      "intro": "Tell us about the home and CasaMia will reply with what to confirm first: photo report, visit, proposal, grant check or smart-safety review.",
+      "intro": "Tell us about the home and CasaMia will reply with the clearest next step: photo report, visit, grant check, smart-safety review or priced plan.",
       "fields": {
         "name": "Name",
         "email": "Email",
@@ -1213,7 +1213,7 @@
         "Assessment visit",
         "Home adaptations",
         "Connected safety",
-        "Not sure yet"
+        "Help me choose"
       ],
       "submit": "Send message",
       "submitting": "Sending...",
@@ -1718,7 +1718,7 @@
         "subtitle": "CasaMia checks whether the proposed home adaptations could fit an active grant route, then prepares the evidence and application file if they do.",
         "cta": "Check my grant fit",
         "panelTitle": "Know what can be submitted before you rely on a grant",
-        "panelBody": "CasaMia identifies the likely criteria, missing documents and work description needed before an application is sent."
+        "panelBody": "CasaMia identifies the likely criteria, missing documents and adaptation description needed before an application is sent."
       },
       "what": {
         "kicker": "What is Plan Adapta?",
@@ -1731,7 +1731,7 @@
         "items": [
           {
             "title": "Eligibility notes",
-            "body": "We check whether the person, home and proposed work appear to match the grant rules before you spend time on forms."
+            "body": "We check whether the person, home and planned adaptations appear to match the grant rules before you spend time on forms."
           },
           {
             "title": "Documentation preparation",
@@ -1746,8 +1746,8 @@
             "body": "Where the customer authorises it, CasaMia can liaise with the relevant authority about the application."
           },
           {
-            "title": "Proposal preparation",
-            "body": "We write the proposed work in practical terms: what will change, where, and why it supports safer use of the home."
+            "title": "Adaptation summary",
+            "body": "We write the planned adaptations in practical terms: what will change, where, and why it supports safer use of the home."
           },
           {
             "title": "Application tracking",
@@ -1778,7 +1778,7 @@
         "steps": [
           {
             "title": "Book your free assessment",
-            "body": "Start by requesting a CasaMia review so the home risks, measurements and likely adaptation needs are documented."
+            "body": "Start with a CasaMia review so the home risks, measurements and likely adaptation needs are documented."
           },
           {
             "title": "We inspect your home",
@@ -1786,7 +1786,7 @@
           },
           {
             "title": "We prepare recommendations",
-            "body": "You receive room priorities, evidence notes and a proposal that names the confirmed improvements."
+            "body": "You receive room priorities, evidence notes and a clear list of confirmed improvements."
           },
           {
             "title": "We support your grant application",

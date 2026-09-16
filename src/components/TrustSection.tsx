@@ -39,12 +39,12 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'partners',
         title: 'Installer fit reviewed',
-        body: 'The proposed work is matched to the home, the surface, the measurements and the installation level needed.',
+        body: 'The planned adaptation is matched to the home, the surface, the measurements and the installation level needed.',
       },
       {
         icon: 'insured',
-        title: 'Insured professional work',
-        body: 'Work is planned around insured professional fitting, final checks and a clear handover.',
+        title: 'Insured professional installation',
+        body: 'Installation is planned around insured professional fitting, final checks and a clear handover.',
       },
       {
         icon: 'pricing',
