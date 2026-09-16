@@ -132,7 +132,7 @@ const copy = {
     resultLow: {
       title: 'Keep observing, then check one room',
       body:
-        'There is no strong warning pattern in your answers. Use the checklist for the room that feels least steady, and watch for changes in night routes, bathroom movement, pain, dizziness or medication.',
+        'There is no strong warning pattern in your answers. Use the checklist for the room that feels least steady, and watch for changes in night movement, bathroom use, pain, dizziness or medication.',
     },
     resultMedium: {
       title: 'A focused home safety review is worth doing',
@@ -142,7 +142,7 @@ const copy = {
     resultHigh: {
       title: 'Prioritise safety before it becomes urgent',
       body:
-        'Your answers suggest several risk points. Focus on entry, bedroom, bathroom, night routes and how help is requested. A guided review is the safest action to take first.',
+        'Your answers suggest several risk points. Focus on entry, bedroom, bathroom, night movement and how help is requested. A guided review is the safest action to take first.',
     },
     caveat: 'This is not a medical diagnosis. It helps identify which home-safety area to review next.',
   },
@@ -172,7 +172,7 @@ const copy = {
     resultLow: {
       title: 'Observa y revisa una estancia',
       body:
-        'No aparece un patrón fuerte de alerta. Usa la lista para la estancia que parezca menos estable y vigila cambios en rutas nocturnas, baño, dolor, mareos o medicación.',
+        'No aparece un patrón fuerte de alerta. Usa la lista para la estancia que parezca menos estable y vigila cambios en movimiento nocturno, baño, dolor, mareos o medicación.',
     },
     resultMedium: {
       title: 'Conviene una revisión focalizada',
@@ -182,7 +182,7 @@ const copy = {
     resultHigh: {
       title: 'Prioriza seguridad antes de la urgencia',
       body:
-        'Tus respuestas sugieren varios puntos de riesgo. Revisa entrada, dormitorio, baño, rutas nocturnas y cómo se pide ayuda. Una revisión guiada es la acción más prudente primero.',
+        'Tus respuestas sugieren varios puntos de riesgo. Revisa entrada, dormitorio, baño, movimiento nocturno y cómo se pide ayuda. Una revisión guiada es la acción más prudente primero.',
     },
     caveat: 'No es un diagnóstico médico. Ayuda a identificar qué área de seguridad revisar a continuación.',
   },

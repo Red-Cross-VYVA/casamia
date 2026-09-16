@@ -61,7 +61,7 @@ const copy = {
       {
         question: 'Can CasaMia use my answers later?',
         answer:
-          'Yes, when you choose to share them. We use them to avoid repeating the same story and prepare room priorities, scope notes and visit questions.',
+          'Yes, when you choose to share them. We use them to avoid repeating the same details and prepare room priorities, scope notes and visit questions.',
       },
     ],
   },
@@ -108,7 +108,7 @@ const copy = {
       {
         question: '¿Puede CasaMia usar mis respuestas después?',
         answer:
-          'Sí, cuando decidas compartirlas. Las usamos para no repetir la misma historia y preparar prioridades por estancia, notas de alcance y preguntas para la visita.',
+          'Sí, cuando decidas compartirlas. Las usamos para no repetir los mismos datos y preparar prioridades por estancia, notas de alcance y preguntas para la visita.',
       },
     ],
   },
@@ -153,7 +153,7 @@ const tools = [
   },
 ] as const
 
-const chooserRoutes = [
+const chooserQuestions = [
   {
     icon: HelpCircle,
     title: { en: 'Movement or routine has changed', es: 'Ha cambiado el movimiento o la rutina' },
@@ -201,8 +201,8 @@ const nextToolSteps = [
     icon: Camera,
     title: { en: 'Evidence you can share', es: 'Evidencia que puedes compartir' },
     body: {
-      en: 'Bring photos, answers or notes into one calm conversation.',
-      es: 'Llevar fotos, respuestas o notas a una conversación tranquila.',
+      en: 'Bring photos, answers or notes into one practical conversation.',
+      es: 'Llevar fotos, respuestas o notas a una conversación práctica.',
     },
   },
   {
@@ -259,7 +259,7 @@ export function ToolsPage() {
         name: pageCopy.chooserTitle,
         description: pageCopy.chooserBody,
         inLanguage: pageCopy.lang,
-        step: chooserRoutes.map((route, index) => ({
+        step: chooserQuestions.map((route, index) => ({
           '@type': 'HowToStep',
           position: index + 1,
           name: route.title[language],
@@ -303,7 +303,7 @@ export function ToolsPage() {
             <p>{pageCopy.chooserBody}</p>
           </div>
           <div className="tools-chooser-grid">
-            {chooserRoutes.map((route, index) => {
+            {chooserQuestions.map((route, index) => {
               const Icon = route.icon
 
               return (
