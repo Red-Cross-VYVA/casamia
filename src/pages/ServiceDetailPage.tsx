@@ -89,7 +89,7 @@ const serviceDetailUiCopy = {
     managedInstalls: 'managed installs',
     checkedBeforeInstall: 'checked before install',
     kitchenVisualNote:
-      'Built around real kitchen moments: reach, prep, cooking, washing and reassurance.',
+      'Built around real kitchen moments: reach, prep, cooking, washing and after-cooking checks.',
     improvedEyebrow: 'What gets improved',
     improvedTitle: 'Choose the improvements that fit.',
     improvedBody:
@@ -114,7 +114,7 @@ const serviceDetailUiCopy = {
     managedInstalls: 'instalaciones gestionadas',
     checkedBeforeInstall: 'revisados antes de instalar',
     kitchenVisualNote:
-      'Diseñado alrededor de momentos reales de cocina: alcance, preparación, cocción, lavado y tranquilidad.',
+      'Diseñado alrededor de momentos reales de cocina: alcance, preparación, cocción, lavado y revisión posterior.',
     improvedEyebrow: 'Qué se mejora',
     improvedTitle: 'Elige las mejoras que encajan.',
     improvedBody:
@@ -291,7 +291,7 @@ const defaultServiceDetailContent: ServiceDetailContent = {
       body: 'Make it clearer what has been checked, what matters most and what should be improved first.',
     },
   ],
-  includedTitle: 'A practical plan, not a generic product list.',
+  includedTitle: 'A room-specific plan, not a generic product list.',
   includedIntro:
     'The visit connects the room layout, daily routine, mobility profile, and installation options before recommending changes.',
   included: [
@@ -300,10 +300,10 @@ const defaultServiceDetailContent: ServiceDetailContent = {
     'Product and installation recommendations that fit the room',
     'Clear next step for urgent, recommended and optional improvements',
   ],
-  reassuranceTitle: 'Designed around the person using the room.',
+  reassuranceTitle: 'Matched to the person using the room.',
   reassuranceBody:
     'The goal is not to make the home look clinical. It is to make everyday movement safer while keeping the home comfortable and familiar.',
-  reassurancePoints: ['Practical for the existing home', 'Explained clearly before work starts', 'Focused on prevention before incidents happen'],
+  reassurancePoints: ['Matched to the existing home', 'Explained before work starts', 'Focused on prevention before incidents happen'],
   finalTitle: 'Start with the room that worries you most.',
   finalBody:
     'CasaMia can check this area alongside the rest of the home, then show what should happen first.',
@@ -327,7 +327,7 @@ const defaultServiceDetailContentEs: ServiceDetailContent = {
       body: 'Queda más claro qué se ha revisado, qué importa más y qué conviene mejorar primero.',
     },
   ],
-  includedTitle: 'Un plan práctico, no una lista genérica de productos.',
+  includedTitle: 'Un plan específico para la estancia, no una lista genérica de productos.',
   includedIntro:
     'La visita conecta distribución, rutina diaria, movilidad y opciones de instalación antes de recomendar cambios.',
   included: [
@@ -336,10 +336,10 @@ const defaultServiceDetailContentEs: ServiceDetailContent = {
     'Recomendaciones de producto e instalación que encajan con la estancia',
     'Siguiente paso claro para mejoras urgentes, recomendadas y opcionales',
   ],
-  reassuranceTitle: 'Diseñado alrededor de la persona que usa la estancia.',
+  reassuranceTitle: 'Adaptado a la persona que usa la estancia.',
   reassuranceBody:
     'El objetivo no es que la vivienda parezca clínica, sino que el movimiento diario sea más seguro manteniendo comodidad y familiaridad.',
-  reassurancePoints: ['Práctico para la vivienda actual', 'Explicado con claridad antes de empezar', 'Prevención antes de que ocurra un incidente'],
+  reassurancePoints: ['Adaptado a la vivienda actual', 'Explicado antes de empezar', 'Prevención antes de que ocurra un incidente'],
   finalTitle: 'Empieza por la estancia que más te preocupa.',
   finalBody:
     'CasaMia puede revisar esta zona junto con el resto de la vivienda y mostrar qué debería pasar primero.',
@@ -399,7 +399,7 @@ const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
     benefits: [
       { title: 'Menos esfuerzo', body: 'Objetos, herramientas e iluminación se colocan para cocinar con menos alcance, flexión y carga.' },
       { title: 'Menos momentos de riesgo', body: 'Reducimos desencadenantes habituales: suelos mojados, cables, giros, poca luz y encimeras saturadas.' },
-      { title: 'Más tranquilidad', body: 'Sensores, temporizadores, enchufes inteligentes y apagado opcional aclaran qué revisar después de cocinar.' },
+      { title: 'Avisos y controles más claros', body: 'Sensores, temporizadores, enchufes inteligentes y apagado opcional aclaran qué revisar después de cocinar.' },
     ],
     includedTitle: 'Crea tu plan de cocina desde servicios individuales.',
     includedIntro: 'Selecciona mejoras útiles, revisa una estimación y decide si subir fotos o reservar una visita.',
@@ -525,7 +525,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
         body: 'Make it easier to open the door, receive deliveries, or speak with visitors without rushing.',
       },
       {
-        title: 'More confidence outside the home',
+        title: 'A steadier first and last step',
         body: 'Support independence by making the first and last part of every outing more predictable.',
       },
     ],
@@ -541,7 +541,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'The entrance should support independence, not create stress.',
     reassuranceBody:
-      'We focus on practical access improvements that fit the home, the person using it and the everyday arrival routine.',
+      'We focus on access improvements that fit the home, the person using it and the everyday arrival routine.',
     reassurancePoints: ['Safer thresholds', 'Better doorway support', 'Clearer access routines'],
     finalTitle: 'Make the entrance easier to cross every day.',
     finalBody:
@@ -561,8 +561,8 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
         body: 'We reduce common triggers: wet floors, trailing cables, awkward turns, poor light, and cluttered worktops.',
       },
       {
-        title: 'More reassurance',
-        body: 'Sensors, timers, smart plugs and optional shut-off support make it clearer when cooking routines are safer.',
+        title: 'Clearer cooking checks',
+        body: 'Sensors, timers, smart plugs and optional shut-off support make it clearer what needs checking after cooking.',
       },
     ],
     includedTitle: 'Build your kitchen plan from individual services.',
@@ -575,13 +575,13 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Selected smart plugs plus leak and gas or carbon-monoxide sensors',
       'Optional pull-down shelf, automatic stove shut-off or touchless faucet when it fits the kitchen',
     ],
-    reassuranceTitle: 'A safer kitchen should still feel familiar.',
+    reassuranceTitle: 'A safer kitchen should still work like your kitchen.',
     reassuranceBody:
-      'We keep familiar routines where possible, choose the changes that reduce risk, coordinate installation and explain the setup clearly.',
+      'We keep familiar routines where possible, choose the changes that reduce risk, coordinate installation and explain how the setup works.',
     reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and explanation managed'],
     finalTitle: 'Keep cooking possible, safer, and calmer.',
     finalBody:
-      'Book a visit and we will review reach, lighting, appliances, water risk, and the practical kitchen plan that fits the home.',
+      'Book a visit and we will review reach, lighting, appliances, water risk, and the kitchen plan that fits the home.',
   },
   'bedroom-safety': {
     benefitsTitle: 'Make nights calmer, safer, and easier to manage.',
@@ -590,7 +590,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     benefits: [
       {
         title: 'Getting in and out of bed',
-        body: 'Support the first movement of the day with the right bed height, clearance, bedside support and practical aids.',
+        body: 'Support the first movement of the day with the right bed height, clearance, bedside support and chosen aids.',
       },
       {
         title: 'Safer night movement',
@@ -614,10 +614,10 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     reassuranceTitle: 'Designed for independence and calmer nights.',
     reassuranceBody:
-      'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on comfort, dignity, and practical prevention.',
+      'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on comfort, dignity, and prevention.',
     reassurancePoints: [
       'Less risk during night bathroom trips',
-      'More confidence getting in and out of bed',
+      'Steadier bed entry and exit',
       'Clearer emergency access for the right helper',
     ],
     finalTitle: 'Make the bedroom safer before night routines become stressful.',
@@ -627,7 +627,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   'smart-home-safety': {
     benefitsTitle: 'Use technology only where it makes daily life safer.',
     benefitsIntro:
-      'Smart safety should not feel like a complicated smart-home project. We focus on alerts, lighting and emergency support that are simple to understand and consented to.',
+      'Smart safety should not feel like a complicated smart-home project. We focus on alerts, lighting and emergency support that are easy to explain, consented to and useful in the daily routine.',
     benefits: [
       {
         title: 'Earlier awareness',
@@ -639,7 +639,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Less daily friction',
-        body: 'Voice control, motion lighting, and simple automation can reduce rushing, bending, and unnecessary movement.',
+        body: 'Voice control, motion lighting, and focused automation can reduce rushing, bending, and unnecessary movement.',
       },
     ],
     includedTitle: 'What a smart safety plan can include.',
@@ -651,12 +651,12 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Leak, smoke, door, and movement sensor recommendations',
       'VYVA app and caregiver dashboard setup where included',
       'Alert preferences and privacy settings',
-      'Simple safe-use explanation for the person using it',
+      'Plain safe-use explanation for the person using it',
     ],
     reassuranceTitle: 'No complicated gimmicks and no cameras by default.',
     reassuranceBody:
-      'The aim is connected reassurance: helpful alerts, simple controls and privacy-aware setup that everyone involved understands.',
-    reassurancePoints: ['Connectivity checked first', 'Alert recipients agreed in advance', 'Simple setup and explanation'],
+      'The aim is connected safety: helpful alerts, understandable controls and privacy-aware setup that everyone involved understands.',
+    reassurancePoints: ['Connectivity checked first', 'Alert recipients agreed in advance', 'Setup and explanation included'],
     finalTitle: 'Add connected safety where it genuinely helps.',
     finalBody:
       'Book a visit and we will review the home, connectivity and the connected options that match the routine.',
@@ -1106,7 +1106,7 @@ export function ServiceDetailPage() {
         whatWeCheck: 'What we check',
         risksTitle: 'Focused on the risks that make daily life harder.',
         risksBody:
-          'CasaMia separates visible hazards from practical improvements, so you know what matters before buying products or starting work.',
+          'CasaMia separates visible hazards from scoped improvements, so you know what matters before buying products or starting work.',
         commonRisks: 'Common risks we look for',
         howWeHelp: 'How CasaMia can help',
         whyItHelps: 'Why it helps',
