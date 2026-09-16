@@ -251,6 +251,21 @@ try {
   assert.deepEqual(JSON.parse(response.body), { serverLocation: 'us', token: 'handler-token' })
   assert.equal(calls.some((call) => call.url.includes('/rpc/reserve_wizard_voice_session')), true)
 
+  const serviceDetailResponse = makeResponse()
+  await conversationTokenHandler(
+    makeRequest({
+      body: {
+        consentConfirmed: true,
+        entryPoint: 'service_detail_bathroom_safety',
+        locale: 'en',
+        wizardReference: 'CM-SVC123',
+      },
+    }),
+    serviceDetailResponse,
+  )
+  assert.equal(serviceDetailResponse.statusCode, 200)
+  assert.deepEqual(JSON.parse(serviceDetailResponse.body), { serverLocation: 'us', token: 'handler-token' })
+
   const rejectedOriginResponse = makeResponse()
   await conversationTokenHandler(
     makeRequest({ origin: 'https://attacker.example' }),

@@ -16,6 +16,10 @@ const voiceSessionWindowSeconds = 30 * 60
 const maxVoiceSessionsPerWindow = 5
 const allowedVoiceEntryPoints = new Set(['home_hero', 'home_safety_wizard'])
 
+function isAllowedVoiceEntryPoint(value) {
+  return allowedVoiceEntryPoints.has(value) || /^service_detail_[a-z0-9_]+$/i.test(value)
+}
+
 function getClientIp(request) {
   const forwarded = request.headers?.['x-forwarded-for']
   const value = Array.isArray(forwarded) ? forwarded[0] : forwarded
@@ -120,7 +124,7 @@ export default async function handler(request, response) {
     if (
       !/^CM-[A-Z0-9]{6}$/i.test(wizardReference)
       || !locale
-      || !allowedVoiceEntryPoints.has(entryPoint)
+      || !isAllowedVoiceEntryPoint(entryPoint)
       || body.consentConfirmed !== true
     ) {
       sendJson(response, 400, { message: 'A valid wizard session and voice consent are required.' })
