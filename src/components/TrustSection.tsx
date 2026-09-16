@@ -28,7 +28,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     eyebrow: 'How CasaMia checks the work',
     headline: 'Know why a change is recommended before anything is fitted',
     body:
-      'Every project starts with the person, the home and the routine. CasaMia confirms fit, scope, installer route and safe-use handover before work is treated as complete.',
+      'Every project starts with the person, the home and the routine. CasaMia confirms fit, scope, measurements, installation needs and safe-use handover before work is treated as complete.',
     learnMore: 'Learn why CasaMia',
     cards: [
       {
@@ -39,12 +39,12 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'partners',
         title: 'Installer fit reviewed',
-        body: 'The work route is matched to the home, the surface, the measurements and the level of installation needed.',
+        body: 'The proposed work is matched to the home, the surface, the measurements and the installation level needed.',
       },
       {
         icon: 'insured',
         title: 'Insured professional work',
-        body: 'Installation routes are structured around insured professional work, from review to handover.',
+        body: 'Work is planned around insured professional fitting, final checks and a clear handover.',
       },
       {
         icon: 'pricing',
@@ -67,7 +67,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     eyebrow: 'Cómo comprueba CasaMia el trabajo',
     headline: 'Sabe por qué se recomienda un cambio antes de instalar nada',
     body:
-      'Cada proyecto empieza por la persona, la vivienda y la rutina. CasaMia confirma encaje, alcance, vía de instalación y explicación de uso seguro antes de dar el trabajo por cerrado.',
+      'Cada proyecto empieza por la persona, la vivienda y la rutina. CasaMia confirma encaje, alcance, medidas, necesidades de instalación y explicación de uso seguro antes de dar el trabajo por cerrado.',
     learnMore: 'Ver por qué CasaMia',
     cards: [
       {
@@ -78,12 +78,12 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'partners',
         title: 'Encaje de instalación revisado',
-        body: 'La vía de trabajo se ajusta a la vivienda, superficie, medidas y nivel de instalación necesario.',
+        body: 'El trabajo propuesto se ajusta a la vivienda, superficie, medidas y nivel de instalación necesario.',
       },
       {
         icon: 'insured',
         title: 'Trabajo profesional asegurado',
-        body: 'Las rutas de instalación se estructuran con trabajo profesional asegurado, desde la revisión hasta la entrega.',
+        body: 'El trabajo se planifica con instalación profesional asegurada, comprobaciones finales y una entrega clara.',
       },
       {
         icon: 'pricing',

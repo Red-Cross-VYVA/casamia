@@ -216,7 +216,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       imageAlt: 'Discreet camera-free room sensor in a calm senior-living residence',
       visualEyebrow: 'Passive safety, active response',
       visualTitle: 'A signal only matters when the team knows what to do next.',
-      visualBody: 'Agreed room events go to the right role with context, ownership and the next action.',
+      visualBody: 'Agreed room events show the responsible team member, the resident context and the action to take.',
       visualEvent: 'Suspected fall',
       visualRoom: 'Suite 214 · private room',
       visualRoute: 'Routed to the care team',
@@ -231,16 +231,16 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         { title: 'Residents', body: 'Abilities, risks, routines and consent' },
         { title: 'Residence', body: 'Rooms, bathrooms, coverage and connectivity' },
         { title: 'Care model', body: 'Staff roles, escalation and shift notes' },
-        { title: 'Current systems', body: 'Nurse call, care platform, apps and data routes' },
+        { title: 'Current systems', body: 'Nurse call, care platform, apps and data access' },
       ],
       outcomeLabel: 'Your CasaMia blueprint',
-      outcomeTitle: 'One connected pilot with a clear operating model.',
-      outcomes: ['Selected devices', 'Integration route', 'Alert and response model', 'Training and rollout plan'],
+      outcomeTitle: 'One connected pilot with clear daily responsibilities.',
+      outcomes: ['Selected devices', 'Connection plan', 'Alert and response rules', 'Training and rollout plan'],
       note: 'Start with one priority. Scale only after the workflow works in practice.',
     },
     operatingModel: {
       eyebrow: 'What CasaMia delivers',
-      title: 'Not just devices. A working operating model for the residence.',
+      title: 'Not just devices. A working response plan for the residence.',
       body:
         'The value is not another sensor. It is a reliable answer to: which resident, which room, which event, who responds and what happens next.',
       cards: [
@@ -256,7 +256,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         },
         {
           title: 'Care workflow layer',
-          body: 'Alerts are routed to the right role with context, escalation rules and shift notes so teams can act clearly.',
+          body: 'Each alert shows who should respond, what context matters, when to escalate and what to brief at shift handover.',
           metric: 'Team response',
         },
       ],
@@ -301,7 +301,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Optional personal devices',
           title: 'Wearables when they add value',
           body:
-            'Watches, wristbands and pendants are useful only when residents accept them and use them reliably for SOS, location, activity or selected readings.',
+            'Watches, wristbands and pendants are considered only when residents will accept them and use them reliably for SOS, location, activity or selected readings.',
           points: ['Optional—not required for ambient detection', 'Works beyond one room', 'Integrated only with consent and a clear response'],
           visualLabel: 'Wearable, pendant and fixed-call options',
         },
@@ -311,7 +311,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Technology relationships and ecosystem',
       title: 'Specialist technology, brought together around the residence.',
       body:
-        'CasaMia compares the use case, vendor route, market availability and staff workflow before recommending a product.',
+        'CasaMia compares the use case, supplier availability, integration options and staff workflow before recommending a product.',
       providerLabel: 'CasaMia technology and service provider',
       providerName: 'MOKA DigiTech',
       providerBody: 'Senior-focused service design, digital workflows and technology integration.',
@@ -405,8 +405,8 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     trust: {
       title: 'What the pilot must prove.',
       outcomes: [
-        { title: 'Useful signals', body: 'The agreed events are relevant enough for staff to trust and act on.' },
-        { title: 'Clear ownership', body: 'The right role can acknowledge, respond, escalate and brief the next shift.' },
+        { title: 'Actionable signals', body: 'The events are specific enough for staff to understand, trust and respond to.' },
+        { title: 'Clear ownership', body: 'A named team or role can acknowledge, respond, escalate and brief the next shift.' },
         { title: 'Workflow fit', body: 'The pilot supports existing routines instead of creating another isolated screen.' },
         { title: 'Repeatable standards', body: 'The model is documented before it expands to more rooms or sites.' },
       ],
@@ -426,7 +426,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         {
           question: 'Can CasaMia work with our existing nurse-call or care system?',
           answer:
-            'Yes when the system exposes a safe integration route. If direct integration is unavailable, CasaMia defines the closest practical alternative before the pilot starts.',
+            'Yes when the system supports a safe connection. If direct integration is unavailable, CasaMia defines the closest practical alternative before the pilot starts.',
         },
         {
           question: 'Do bathroom or urine sensors diagnose health conditions?',
@@ -447,7 +447,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         'Tell us about the site, current systems and first priority. CasaMia will propose the smallest pilot that can prove coverage, staff response and resident suitability.',
       emailLabel: 'Prefer email?',
       cardTitle: 'Request a facility consultation',
-      cardIntro: 'Share enough context for CasaMia to route the first call properly.',
+      cardIntro: 'Share the basics so the first call can focus on the right pilot.',
       organisation: 'Organisation',
       role: 'Your role',
       facilityType: 'Facility type',
@@ -494,7 +494,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       imageAlt: 'Sensor discreto sin cámara en una residencia senior tranquila',
       visualEyebrow: 'Seguridad pasiva, respuesta activa',
       visualTitle: 'Una señal solo aporta valor si el equipo sabe qué hacer después.',
-      visualBody: 'Los eventos acordados llegan al rol adecuado con contexto, responsable y siguiente acción.',
+      visualBody: 'Los eventos acordados muestran quién responde, el contexto del residente y la acción que toca.',
       visualEvent: 'Posible caída',
       visualRoom: 'Habitación 214 · espacio privado',
       visualRoute: 'Enviado al equipo asistencial',
@@ -512,13 +512,13 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         { title: 'Sistemas actuales', body: 'Llamada, plataforma asistencial, apps y datos' },
       ],
       outcomeLabel: 'Tu blueprint CasaMia',
-      outcomeTitle: 'Un piloto conectado con un modelo operativo claro.',
-      outcomes: ['Dispositivos seleccionados', 'Ruta de integración', 'Modelo de aviso y respuesta', 'Plan de formación y despliegue'],
+      outcomeTitle: 'Un piloto conectado con responsabilidades diarias claras.',
+      outcomes: ['Dispositivos seleccionados', 'Plan de conexión', 'Reglas de aviso y respuesta', 'Plan de formación y despliegue'],
       note: 'Empieza por una prioridad. Amplía solo cuando el flujo funcione en la práctica.',
     },
     operatingModel: {
       eyebrow: 'Qué entrega CasaMia',
-      title: 'No solo dispositivos. Un modelo operativo que funciona en la residencia.',
+      title: 'No solo dispositivos. Un plan de respuesta que funciona en la residencia.',
       body:
         'El valor no es otro sensor. Es responder con fiabilidad: qué residente, qué habitación, qué evento, quién responde y qué pasa después.',
       cards: [
@@ -534,7 +534,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         },
         {
           title: 'Capa de flujo asistencial',
-          body: 'Los avisos llegan al rol adecuado con contexto, escalado y relevo para que el equipo actúe con claridad.',
+          body: 'Cada aviso muestra quién responde, qué contexto importa, cuándo escalar y qué pasar en el relevo.',
           metric: 'Respuesta del equipo',
         },
       ],
@@ -589,7 +589,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Relaciones tecnológicas y ecosistema',
       title: 'Tecnología especializada, reunida alrededor de la residencia.',
       body:
-        'CasaMia compara caso de uso, ruta del fabricante, disponibilidad y flujo del equipo antes de recomendar un producto.',
+        'CasaMia compara caso de uso, disponibilidad del proveedor, opciones de integración y flujo del equipo antes de recomendar un producto.',
       providerLabel: 'Proveedor tecnológico y de servicio de CasaMia',
       providerName: 'MOKA DigiTech',
       providerBody: 'Diseño de servicios senior, flujos digitales e integración tecnológica.',
@@ -621,14 +621,14 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       sourceBody: 'Sensores pasivos y dispositivos de salud compatibles',
       layerBadge: 'Nube de integración',
       layerTitle: 'Nube CasaMia',
-      layerBody: 'Permisos, reglas de evento y enrutamiento',
+      layerBody: 'Permisos, reglas de evento y avisos al equipo',
       layerCapabilities: ['Acceso y consentimiento', 'Reglas de evento', 'Aviso por rol'],
       destinations: [
         { title: 'Móvil del cuidador', body: 'La siguiente acción con contexto' },
         { title: 'Vista del operador', body: 'Responsable, estado y relevo' },
         { title: 'Sistemas existentes', body: 'Plataformas compatibles de llamada o cuidados' },
       ],
-      flow: ['Señal detectada', 'Aviso al rol adecuado', 'Responder o escalar', 'Registrar la acción'],
+      flow: ['Señal detectada', 'Aviso al equipo responsable', 'Responder o escalar', 'Registrar la acción'],
     },
     interfaces: {
       eyebrow: 'Diseñado para cada rol',
@@ -672,7 +672,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         'Empieza por un caso de uso, una zona y una medida de éxito. Amplía solo cuando cobertura, tiempo de respuesta y adopción del equipo estén probados.',
       steps: [
         { title: 'Evaluar', body: 'Definimos el caso de uso, la zona y la medida de éxito.' },
-        { title: 'Configurar', body: 'Validamos dispositivos, integraciones y enrutamiento.' },
+        { title: 'Configurar', body: 'Validamos dispositivos, integraciones y reglas de aviso.' },
         { title: 'Pilotar', body: 'Instalamos, formamos y ensayamos la respuesta.' },
         { title: 'Escalar', body: 'Revisamos, mejoramos y ampliamos.' },
       ],
@@ -683,8 +683,8 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     trust: {
       title: 'Qué debe demostrar el piloto.',
       outcomes: [
-        { title: 'Señales útiles', body: 'Los eventos acordados son relevantes para que el equipo confíe y actúe.' },
-        { title: 'Responsables claros', body: 'El rol adecuado puede confirmar, responder, escalar y pasar relevo.' },
+        { title: 'Señales accionables', body: 'Los eventos son concretos para que el equipo los entienda, confíe y responda.' },
+        { title: 'Responsables claros', body: 'Un equipo o rol definido puede confirmar, responder, escalar y pasar relevo.' },
         { title: 'Encaje operativo', body: 'El piloto apoya las rutinas actuales sin crear otra pantalla aislada.' },
         { title: 'Estándares replicables', body: 'El modelo queda documentado antes de ampliar a más habitaciones o centros.' },
       ],
@@ -704,7 +704,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
         {
           question: '¿CasaMia puede trabajar con nuestro sistema de llamada o cuidados?',
           answer:
-            'Sí cuando el sistema ofrece una ruta de integración segura. Si no hay integración directa, CasaMia define la alternativa práctica antes de iniciar el piloto.',
+            'Sí cuando el sistema permite una conexión segura. Si no hay integración directa, CasaMia define la alternativa práctica antes de iniciar el piloto.',
         },
         {
           question: '¿Los sensores de baño u orina diagnostican problemas de salud?',

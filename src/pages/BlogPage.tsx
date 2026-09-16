@@ -83,7 +83,7 @@ const pageCopy = {
     topicsEyebrow: 'Explore by safety topic',
     topicsTitle: 'Go straight to the area you are trying to understand.',
     topicsBody:
-      'These topic pages bring together the guidance, tools and CasaMia routes around one home-safety question.',
+      'These topic pages bring together the guidance, tools and CasaMia next steps for one home-safety question.',
     pathwaysEyebrow: 'Choose the closest situation',
     pathwaysTitle: 'Help by decision, not by article title.',
     pathwaysBody:
@@ -92,13 +92,13 @@ const pageCopy = {
     familyStarterEyebrow: '10-minute home discussion',
     familyStarterTitle: 'Before choosing products, name the risk to solve.',
     familyStarterBody:
-      'Use these prompts with the person at home and anyone helping them. The aim is not to diagnose the home in one sitting; it is to agree one room, route or routine to review first.',
+      'Use these prompts with the person at home and anyone helping them. The aim is not to diagnose the home in one sitting; it is to agree the first room, daily path or routine to review.',
     familyStarterFinalTitle: 'Leave with one agreed action',
     familyStarterFinalBody:
-      'Choose the room, route or routine causing the most concern this week. Then use the checklist, online review or CasaMia assessment to define the next action.',
+      'Choose the room, daily path or routine causing the most concern this week. Then use the checklist, online review or CasaMia assessment to define the next action.',
     familyStarterCta: 'Start the guided review',
     comparisonEyebrow: 'Decision guides',
-    comparisonTitle: 'Compare the routes before you commit.',
+    comparisonTitle: 'Compare your options before you commit.',
     comparisonBody:
       'Short guides for the moments when you are choosing between review, adaptation, grant preparation or doing nothing yet.',
     downloadsEyebrow: 'Printable materials',
@@ -109,7 +109,7 @@ const pageCopy = {
     momentsEyebrow: 'When people usually need help',
     momentsTitle: 'Resources for the moments that create pressure.',
     momentsBody:
-      'Use these routes when something has changed at home, after hospital, or during a support conversation.',
+      'Use these quick checks when something has changed at home, after hospital, or during a support conversation.',
     todayEyebrow: 'A clear first 20 minutes',
     todayTitle: 'Three checks worth doing today.',
     todayBody:
@@ -117,7 +117,7 @@ const pageCopy = {
     localEyebrow: 'Spain-specific help',
     localTitle: 'Turn general advice into checks that fit a Spanish home.',
     localBody:
-      'CasaMia resources are designed for the questions people face in Spain: local homes, regional grant routes, measurements, installers and application documents.',
+      'CasaMia resources are designed for the questions people face in Spain: local homes, regional grant criteria, measurements, installers and application documents.',
     guideEyebrow: 'Guidance by situation',
     guideTitle: 'Find the answer without scrolling through a wall of articles.',
     guideBody:
@@ -130,7 +130,7 @@ const pageCopy = {
     searchEmpty: 'No matching guides yet. Try bathroom, falls, grants, bedroom, stairs or provider.',
     readGuide: 'Read guide',
     actionRouteEyebrow: 'From reading to action',
-    actionRouteTitle: 'Turn good advice into a calm home safety route.',
+    actionRouteTitle: 'Turn good advice into a calm home safety plan.',
     actionRouteBody:
       'Use the Resources hub to learn what matters, then move into a guided CasaMia review when you want priorities, scope, grant readiness or a managed proposal.',
     actionRouteCta: 'Start the guided review',
@@ -155,7 +155,7 @@ const pageCopy = {
       {
         question: 'Can CasaMia help with grants and documents?',
         answer:
-          'CasaMia organises the grant route, document checklist and quotation information. Public authorities make the final grant decision.',
+          'CasaMia organises the grant document checklist, safety wording and quotation information. Public authorities make the final grant decision.',
       },
     ],
     finalEyebrow: 'Need a plan for a real home?',
@@ -212,7 +212,7 @@ const pageCopy = {
     topicsEyebrow: 'Explora por tema de seguridad',
     topicsTitle: 'Ve directamente al área que quieres entender.',
     topicsBody:
-      'Estas páginas reúnen guías, herramientas y rutas CasaMia alrededor de una pregunta concreta de seguridad en casa.',
+      'Estas páginas reúnen guías, herramientas y próximos pasos CasaMia para una pregunta concreta de seguridad en casa.',
     pathwaysEyebrow: 'Elige la situación más cercana',
     pathwaysTitle: 'Ayuda por decisión, no por título de artículo.',
     pathwaysBody:
@@ -221,10 +221,10 @@ const pageCopy = {
     familyStarterEyebrow: 'Primeros 10 minutos de conversación',
     familyStarterTitle: 'Antes de elegir productos, nombrad el riesgo que queréis resolver.',
     familyStarterBody:
-      'Usa estas preguntas con la persona que vive en casa y quienes la apoyan. No se trata de diagnosticar la vivienda en una conversación, sino de acordar una estancia, ruta o rutina para revisar primero.',
+      'Usa estas preguntas con la persona que vive en casa y quienes la apoyan. No se trata de diagnosticar la vivienda en una conversación, sino de acordar la primera estancia, paso diario o rutina para revisar.',
     familyStarterFinalTitle: 'Terminad con una acción acordada',
     familyStarterFinalBody:
-      'Elegid la estancia, ruta o rutina que más preocupa esta semana. Después usad la lista, la revisión online o una evaluación CasaMia para definir la próxima acción.',
+      'Elegid la estancia, paso diario o rutina que más preocupa esta semana. Después usad la lista, la revisión online o una evaluación CasaMia para definir la próxima acción.',
     familyStarterCta: 'Empezar revisión guiada',
     comparisonEyebrow: 'Guías de decisión',
     comparisonTitle: 'Compara las opciones antes de decidir.',
@@ -238,7 +238,7 @@ const pageCopy = {
     momentsEyebrow: 'Cuándo suele hacer falta ayuda',
     momentsTitle: 'Recursos para los momentos que generan presión.',
     momentsBody:
-      'Usa estas rutas rápidas cuando algo ha cambiado en casa, en el hospital o en la conversación de apoyo.',
+      'Usa estas revisiones rápidas cuando algo ha cambiado en casa, tras el hospital o durante una conversación de apoyo.',
     todayEyebrow: 'Primeros 20 minutos claros',
     todayTitle: 'Tres comprobaciones que merece la pena hacer hoy.',
     todayBody:
@@ -259,7 +259,7 @@ const pageCopy = {
     searchEmpty: 'No hay guías que coincidan. Prueba baño, caídas, ayudas, dormitorio, escaleras o proveedor.',
     readGuide: 'Leer guía',
     actionRouteEyebrow: 'De la lectura a la acción',
-    actionRouteTitle: 'Convierte buenos consejos en una ruta clara para la vivienda.',
+    actionRouteTitle: 'Convierte buenos consejos en un plan claro para la vivienda.',
     actionRouteBody:
       'Usa Recursos para entender qué importa y pasa a una revisión guiada CasaMia cuando quieras prioridades, alcance, preparación de ayudas o una propuesta gestionada.',
     actionRouteCta: 'Empezar revisión guiada',
