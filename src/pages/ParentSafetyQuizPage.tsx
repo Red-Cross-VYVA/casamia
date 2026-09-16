@@ -114,7 +114,7 @@ const copy = {
     eyebrow: 'Senior-friendly home check',
     title: 'Is your home senior-friendly?',
     body:
-      'Use this five-question, non-medical check for yourself or someone you care about. It helps decide whether the next step should be a room checklist, an online review or a focused CasaMia assessment.',
+      'Use this five-question, non-medical check for yourself or someone you care about. It helps decide whether to use a room checklist, start an online review or book a focused CasaMia assessment.',
     startCta: 'Answer the 5 questions',
     progressLabel: 'Progress',
     scoreLabel: 'Safety score',
@@ -125,7 +125,7 @@ const copy = {
     riskMedium: 'Review recommended',
     riskHigh: 'High priority',
     answeredLabel: 'answered',
-    resultEyebrow: 'Suggested next step',
+    resultEyebrow: 'Suggested action',
     restart: 'Retake quiz',
     assessmentCta: 'Start guided review',
     checklistCta: 'Open checklist',
@@ -142,7 +142,7 @@ const copy = {
     resultHigh: {
       title: 'Prioritise safety before it becomes urgent',
       body:
-        'Your answers suggest several risk points. Focus on entry, bedroom, bathroom, night routes and how help is requested. A guided review is the sensible next step.',
+        'Your answers suggest several risk points. Focus on entry, bedroom, bathroom, night routes and how help is requested. A guided review is the safest action to take first.',
     },
     caveat: 'This is not a medical diagnosis. It helps identify which home-safety area to review next.',
   },
@@ -154,7 +154,7 @@ const copy = {
     eyebrow: 'Revisión de vivienda senior',
     title: '¿Tu casa es adecuada para mayores?',
     body:
-      'Usa esta revisión breve, no médica, para ti o para alguien a quien cuidas. Ayuda a decidir si el siguiente paso debe ser una lista por estancias, una revisión online o una evaluación CasaMia.',
+      'Usa esta revisión breve, no médica, para ti o para alguien a quien cuidas. Ayuda a decidir si conviene usar una lista por estancias, iniciar una revisión online o reservar una evaluación CasaMia.',
     startCta: 'Responder 5 preguntas',
     progressLabel: 'Progreso',
     scoreLabel: 'Puntuación de seguridad',
@@ -165,7 +165,7 @@ const copy = {
     riskMedium: 'Revisión recomendada',
     riskHigh: 'Prioridad alta',
     answeredLabel: 'respondidas',
-    resultEyebrow: 'Siguiente paso sugerido',
+    resultEyebrow: 'Acción sugerida',
     restart: 'Repetir quiz',
     assessmentCta: 'Empezar revisión guiada',
     checklistCta: 'Abrir lista',
@@ -182,7 +182,7 @@ const copy = {
     resultHigh: {
       title: 'Prioriza seguridad antes de la urgencia',
       body:
-        'Tus respuestas sugieren varios puntos de riesgo. Revisa entrada, dormitorio, baño, rutas nocturnas y cómo se pide ayuda. Una revisión guiada es el siguiente paso prudente.',
+        'Tus respuestas sugieren varios puntos de riesgo. Revisa entrada, dormitorio, baño, rutas nocturnas y cómo se pide ayuda. Una revisión guiada es la acción más prudente primero.',
     },
     caveat: 'No es un diagnóstico médico. Ayuda a identificar qué área de seguridad revisar a continuación.',
   },

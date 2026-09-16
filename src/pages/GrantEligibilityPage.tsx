@@ -1451,7 +1451,7 @@ function getGrantCopy(language: string) {
         managedTitle: 'Qué gestionará CasaMia',
         handoffTitle: 'El informe ya tiene lo esencial.',
         handoffBody:
-          'En el siguiente paso puedes enviarlo por email o WhatsApp. CasaMia usará estos datos para revisar la vía de ayuda y decirte exactamente qué falta.',
+          'Puedes enviarlo por email o WhatsApp. CasaMia usará estos datos para revisar la vía de ayuda y decirte exactamente qué falta.',
         handoffPoints: [
           'No pedimos certificados ahora si no los tienes.',
           'No presentamos nada sin revisar la convocatoria y confirmarlo contigo.',
@@ -1466,9 +1466,9 @@ function getGrantCopy(language: string) {
         research: {
           kicker: 'Revisión enriquecida',
           pendingTitle: 'CasaMia está revisando las ayudas activas.',
-          pendingBody: 'Buscaremos fuentes oficiales y de confianza para preparar un resumen claro.',
+          pendingBody: 'Buscaremos fuentes oficiales para preparar un resumen con requisitos, documentos y límites.',
           readyTitle: 'Ruta de ayudas preparada',
-          readyBody: 'Ya tienes una revisión visual con requisitos, documentos y próximos pasos.',
+          readyBody: 'Ya tienes una revisión visual con requisitos, documentos y lo que falta confirmar.',
           failedTitle: 'Revisión manual en curso',
           failedBody: 'El informe básico está guardado. CasaMia puede revisar la ruta activa y hacer seguimiento.',
           needsDataTitle: 'Faltan algunos datos',
@@ -1591,7 +1591,7 @@ function getGrantCopy(language: string) {
         'This is not a grant approval. Support depends on your autonomous community, open calls, home details, and documentation.',
       helper: 'Takes a few minutes and you do not need documents to start.',
       pointsLabel: 'What the check includes',
-      points: ['No photo upload', 'Instant report', 'Clear next steps'],
+      points: ['No photo upload', 'Instant report', 'Documents and checks to confirm'],
     },
     progressLabel: 'Grant check progress',
     progress: ['Home', 'Resident', 'Needs', 'Report', 'Send'],
@@ -1709,15 +1709,15 @@ function getGrantCopy(language: string) {
       ],
       readyTitle: 'Your report is ready.',
       readyBody: (region: string) =>
-        `CasaMia can review the grant route for ${region} and send a clear summary of what is still needed if you choose delivery.`,
+        `CasaMia can review the grant route for ${region} and send a summary of requirements, documents and what is still missing if you choose delivery.`,
       placeholder: 'Answer the questions to see your eligibility report. No photos needed.',
       detailsSummary: 'View report summary',
       research: {
         kicker: 'Enriched review',
         pendingTitle: 'CasaMia is checking active grant routes.',
-        pendingBody: 'We will review official and trusted sources and prepare a clear summary.',
+        pendingBody: 'We will review official sources and prepare a summary with requirements, documents and limits.',
         readyTitle: 'Grant route prepared',
-        readyBody: 'Your visual review includes requirements, documents and next steps.',
+        readyBody: 'Your visual review includes requirements, documents and what still needs confirmation.',
         failedTitle: 'Manual review in progress',
         failedBody: 'The basic report is saved. CasaMia can review the active route and follow up.',
         needsDataTitle: 'A few details are missing',

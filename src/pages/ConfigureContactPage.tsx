@@ -53,7 +53,7 @@ const contactCopy = {
     notes: 'Notas',
     notesPlaceholder: 'Acceso, horario preferido, movilidad o cualquier detalle que el equipo deba saber.',
     consent: 'Autorizo a CasaMia a contactarme sobre este plan.',
-    submit: 'Elegir siguiente paso',
+    submit: 'Elegir revisión',
     errors: {
       fullName: 'Indica tu nombre completo.',
       email: 'Introduce un email válido.',

@@ -46,7 +46,7 @@ const pageCopy = {
       'Start with a complete printable checklist, then use the right online tool or focused guide for the decision in front of you.',
     heroPrimary: 'Get the free checklist',
     heroSecondary: 'Use the online self-check',
-    heroSignals: ['No sign-up needed', 'English and Spanish', 'Clear next step in minutes'],
+    heroSignals: ['No sign-up needed', 'English and Spanish', 'Know what to check first'],
     educationEyebrow: 'CasaMia education hub',
     educationTitle: 'Find the check that matches today’s concern.',
     educationBody:
@@ -71,7 +71,7 @@ const pageCopy = {
     coverLabel: 'CASAMIA HOME CHECKLIST',
     coverFooter: 'Room by room. Priority by priority.',
     previewRooms: ['Entrance', 'Bathroom', 'Bedroom', 'Kitchen'],
-    toolsEyebrow: 'Choose one clear next step',
+    toolsEyebrow: 'Choose the check you need',
     toolsTitle: 'Start with the task you need today.',
     toolsBody:
       'Each tool has one clear job. Use it online, save your observations and bring the result into a home discussion or professional assessment.',
@@ -87,20 +87,20 @@ const pageCopy = {
     pathwaysEyebrow: 'Choose the closest situation',
     pathwaysTitle: 'Help by decision, not by article title.',
     pathwaysBody:
-      'Most people arrive with one urgent question. Start there, then use the guide, checklist or tool that gives you the next decision.',
+      'Most people arrive with one urgent question. Start there, then use the guide, checklist or tool that shows what to check or decide first.',
     pathwayCta: 'Start here',
     familyStarterEyebrow: '10-minute home discussion',
     familyStarterTitle: 'Before choosing products, name the risk to solve.',
     familyStarterBody:
       'Use these prompts with the person at home and anyone helping them. The aim is not to diagnose the home in one sitting; it is to agree one room, route or routine to review first.',
-    familyStarterFinalTitle: 'Leave with one clear decision',
+    familyStarterFinalTitle: 'Leave with one agreed action',
     familyStarterFinalBody:
       'Choose the room, route or routine causing the most concern this week. Then use the checklist, online review or CasaMia assessment to define the next action.',
     familyStarterCta: 'Start the guided review',
     comparisonEyebrow: 'Decision guides',
     comparisonTitle: 'Compare the routes before you commit.',
     comparisonBody:
-      'Short guides for the moments when you are choosing between two very different next steps.',
+      'Short guides for the moments when you are choosing between review, adaptation, grant preparation or doing nothing yet.',
     downloadsEyebrow: 'Printable materials',
     downloadsTitle: 'Documents to share before a decision.',
     downloadsBody:
@@ -115,7 +115,7 @@ const pageCopy = {
     todayBody:
       'These are observations, not building work. If anything feels unstable or unsafe, stop using it and arrange an appropriate review.',
     localEyebrow: 'Spain-specific help',
-    localTitle: 'Turn general advice into the right route for a Spanish home.',
+    localTitle: 'Turn general advice into checks that fit a Spanish home.',
     localBody:
       'CasaMia resources are designed for the questions people face in Spain: local homes, regional grant routes, measurements, installers and application documents.',
     guideEyebrow: 'Guidance by situation',
@@ -155,7 +155,7 @@ const pageCopy = {
       {
         question: 'Can CasaMia help with grants and documents?',
         answer:
-          'CasaMia organises the route, document checklist, quotation information and next steps. Public authorities make the final grant decision.',
+          'CasaMia organises the grant route, document checklist and quotation information. Public authorities make the final grant decision.',
       },
     ],
     finalEyebrow: 'Need a plan for a real home?',
@@ -175,7 +175,7 @@ const pageCopy = {
       'Empieza con una lista completa para imprimir y utiliza después la herramienta o guía adecuada para la decisión que tienes delante.',
     heroPrimary: 'Descargar la lista gratuita',
     heroSecondary: 'Usar la revisión online',
-    heroSignals: ['Sin registro', 'Español e inglés', 'Siguiente paso en minutos'],
+    heroSignals: ['Sin registro', 'Español e inglés', 'Qué revisar primero'],
     educationEyebrow: 'Centro de aprendizaje CasaMia',
     educationTitle: 'Encuentra la revisión que encaja con la preocupación de hoy.',
     educationBody:
@@ -200,7 +200,7 @@ const pageCopy = {
     coverLabel: 'LISTA CASAMIA',
     coverFooter: 'Estancia por estancia. Prioridad por prioridad.',
     previewRooms: ['Entrada', 'Baño', 'Dormitorio', 'Cocina'],
-    toolsEyebrow: 'Elige un siguiente paso claro',
+    toolsEyebrow: 'Elige la revisión que necesitas',
     toolsTitle: 'Empieza por lo que necesitas hoy.',
     toolsBody:
       'Cada herramienta tiene una función clara. Úsala online, guarda tus observaciones y llévalas a una conversación sobre la vivienda o a una evaluación profesional.',
@@ -216,20 +216,20 @@ const pageCopy = {
     pathwaysEyebrow: 'Elige la situación más cercana',
     pathwaysTitle: 'Ayuda por decisión, no por título de artículo.',
     pathwaysBody:
-      'Muchas personas llegan con una pregunta urgente. Empieza ahí y pasa después a la guía, lista o herramienta que ayuda a decidir con calma el siguiente paso.',
+      'Muchas personas llegan con una pregunta urgente. Empieza ahí y pasa después a la guía, lista o herramienta que muestra qué revisar o decidir primero.',
     pathwayCta: 'Empezar aquí',
     familyStarterEyebrow: 'Primeros 10 minutos de conversación',
     familyStarterTitle: 'Antes de elegir productos, nombrad el riesgo que queréis resolver.',
     familyStarterBody:
       'Usa estas preguntas con la persona que vive en casa y quienes la apoyan. No se trata de diagnosticar la vivienda en una conversación, sino de acordar una estancia, ruta o rutina para revisar primero.',
-    familyStarterFinalTitle: 'Terminad con una decisión clara',
+    familyStarterFinalTitle: 'Terminad con una acción acordada',
     familyStarterFinalBody:
       'Elegid la estancia, ruta o rutina que más preocupa esta semana. Después usad la lista, la revisión online o una evaluación CasaMia para definir la próxima acción.',
     familyStarterCta: 'Empezar revisión guiada',
     comparisonEyebrow: 'Guías de decisión',
     comparisonTitle: 'Compara las opciones antes de decidir.',
     comparisonBody:
-      'Guías breves para cuando hay que elegir entre dos caminos distintos.',
+      'Guías breves para cuando hay que elegir entre revisar, adaptar, preparar ayudas o no actuar todavía.',
     downloadsEyebrow: 'Materiales para imprimir',
     downloadsTitle: 'Documentos para compartir antes de decidir.',
     downloadsBody:
@@ -244,7 +244,7 @@ const pageCopy = {
     todayBody:
       'Son observaciones, no trabajos de obra. Si algo está inestable o parece peligroso, deja de usarlo y solicita una revisión adecuada.',
     localEyebrow: 'Ayuda adaptada a España',
-    localTitle: 'Convierte el consejo general en la ruta adecuada para una vivienda en España.',
+    localTitle: 'Convierte el consejo general en revisiones útiles para una vivienda en España.',
     localBody:
       'Los recursos CasaMia están pensados para preguntas reales en España: tipos de vivienda, ayudas autonómicas, mediciones, instaladores y documentos de solicitud.',
     guideEyebrow: 'Guías por situación',
@@ -284,7 +284,7 @@ const pageCopy = {
       {
         question: '¿Cómo se ordenan las ayudas y documentos?',
         answer:
-          'CasaMia ordena el proceso, la lista de documentos, la información del presupuesto y los próximos pasos. La autoridad pública decide la aprobación final.',
+          'CasaMia ordena la vía de ayuda, la lista de documentos y la información del presupuesto. La autoridad pública decide la aprobación final.',
       },
     ],
     finalEyebrow: '¿Necesitas un plan para una vivienda real?',
@@ -457,7 +457,7 @@ const topicRoutes = [
     to: '/aging-in-place-home-assessment',
     title: { en: 'Home assessment', es: 'Evaluación del hogar' },
     body: {
-      en: 'See when a guided review helps turn scattered worries into a clear action plan.',
+      en: 'See when a guided review is needed before choosing products or installation.',
       es: 'Comprueba cuándo una revisión guiada convierte preocupaciones sueltas en un plan claro.',
     },
     pill: { en: 'Professional route', es: 'Ruta profesional' },
@@ -516,8 +516,8 @@ const decisionPathways = [
     image: '/images/solutions/adorable-mature-couple-kitchen.jpg',
     title: { en: 'I want to understand grants or funding', es: 'Quiero entender ayudas o financiación' },
     body: {
-      en: 'Prepare the documents, eligibility questions and next steps before relying on any programme.',
-      es: 'Prepara documentos, requisitos y próximos pasos antes de contar con una ayuda.',
+      en: 'Prepare the documents, eligibility questions and scope notes before relying on any programme.',
+      es: 'Prepara documentos, requisitos y notas de alcance antes de contar con una ayuda.',
     },
     actions: [
       { label: { en: 'Grant check', es: 'Revisar ayudas' }, to: '/grant-check' },
@@ -568,7 +568,7 @@ const familyStarterPrompts = [
     icon: ClipboardCheck,
     title: { en: 'What decision is needed this week?', es: '¿Qué decisión hace falta esta semana?' },
     body: {
-      en: 'Choose one next step: clear a route, download the checklist, send photos, request a visit or compare home with residence.',
+      en: 'Choose one action: clear a route, download the checklist, send photos, request a visit or compare home with residence.',
       es: 'Elegid un paso: despejar una ruta, descargar la lista, enviar fotos, pedir una visita o comparar casa y residencia.',
     },
   },

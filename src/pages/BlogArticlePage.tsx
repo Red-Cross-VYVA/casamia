@@ -25,8 +25,8 @@ const articleShellCopy = {
     related: 'Related CasaMia articles',
     allResources: 'All Resources',
     readNext: 'Read next',
-    nextStepEyebrow: 'Useful next step',
-    nextStepTitle: 'Turn this guide into a clear next step.',
+    nextStepEyebrow: 'Useful action',
+    nextStepTitle: 'Turn this guide into a clear action.',
     nextStepBody:
       'Use the guide as a starting point, then choose the action that matches the home, the risk and the decision needed today.',
     nextStepActions: {
@@ -49,8 +49,8 @@ const articleShellCopy = {
     related: 'Artículos relacionados de CasaMia',
     allResources: 'Todos los recursos',
     readNext: 'Leer después',
-    nextStepEyebrow: 'Siguiente paso útil',
-    nextStepTitle: 'Convierte esta guía en un siguiente paso claro.',
+    nextStepEyebrow: 'Acción útil',
+    nextStepTitle: 'Convierte esta guía en una acción clara.',
     nextStepBody:
       'Usa la guía como punto de partida y elige la acción que encaje con la vivienda, el riesgo y la decisión de hoy.',
     nextStepActions: {

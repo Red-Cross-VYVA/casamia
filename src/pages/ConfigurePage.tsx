@@ -597,7 +597,7 @@ function PropertyStep() {
           {
             value: 'other',
             title: 'Other',
-            description: 'CasaMia will confirm the right route later.',
+            description: 'CasaMia will confirm the home type before any proposal.',
             icon: Sparkles,
           },
         ]}

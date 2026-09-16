@@ -205,7 +205,7 @@ export function GrantsPage() {
     ? {
         heroTitle: 'Encuentra posibles ayudas para adaptar tu vivienda.',
         heroBody:
-          'Revisa posibles rutas de ayuda, documentos pendientes y próximos pasos antes de empezar una obra.',
+          'Revisa posibles rutas de ayuda, documentos pendientes y qué confirmar antes de empezar una obra.',
         heroSecondary: 'Qué revisamos',
         quickCards: [
           {
@@ -223,7 +223,7 @@ export function GrantsPage() {
         ],
         supportTitle: 'CasaMia aclara la ruta.',
         supportBody:
-          'Respondes unas preguntas. Te devolvemos una lectura práctica: posible vía, documentación pendiente y siguiente paso.',
+          'Respondes unas preguntas. Te devolvemos una lectura práctica: posible vía, documentación pendiente y qué revisar primero.',
         programmesTitle: 'Programas publicados',
         programmesBody:
           'Solo mostramos programas cuando tienen fuente oficial, estado y fecha de revisión.',

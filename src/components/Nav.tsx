@@ -303,7 +303,7 @@ export function Nav() {
                     <div className="site-header-mega-panel">
                       <div className="site-header-mega-intro">
                         <span>{isSpanish ? 'Recursos por situación' : 'Resources by situation'}</span>
-                        <strong>{isSpanish ? 'Encuentra el siguiente paso útil.' : 'Find the next useful step.'}</strong>
+                        <strong>{isSpanish ? 'Encuentra qué revisar primero.' : 'Find what to check first.'}</strong>
                         <Link to="/blog" onClick={() => dismissDesktopMenu('resources')}>
                           {isSpanish ? 'Ver todos los recursos' : 'View all resources'}
                         </Link>

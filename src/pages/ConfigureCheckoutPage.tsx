@@ -47,7 +47,7 @@ const checkoutCopy = {
   },
   es: {
     eyebrow: 'Paso final',
-    title: 'Decide si el siguiente paso necesita visita.',
+    title: 'Decide si hace falta una visita.',
     body:
       'Revisa las mejoras seleccionadas y elige presupuesto remoto o visita medida cuando aún haya que comprobar encaje, acceso o medidas.',
     selectedTitle: 'Mejoras seleccionadas',
