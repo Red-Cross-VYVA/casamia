@@ -169,7 +169,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     body: 'CasaMia handles the rest.',
     heroOutcomeEyebrow: 'What you receive',
     heroOutcomeText: 'Room priorities, recommended adaptations, pricing and CasaMia coordination.',
-    channelsTitle: 'Choose a channel',
+    channelsTitle: 'Choose how to start',
     channelsBody: 'Every option reaches the same CasaMia team.',
     humanAlt: 'Older woman smiling while using her smartphone at home',
     channels: [
@@ -243,8 +243,8 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     heroTitle: 'From home photos to safer daily routines.',
     heroBody:
       'We review the rooms used every day, identify the risks that affect movement, and coordinate adaptations only where they fit the routine.',
-    primaryCta: 'Start Free Safety Report',
-    secondaryCta: 'Book In-Home Visit',
+    primaryCta: 'Start free safety report',
+    secondaryCta: 'Book home visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
     statusTitle: 'Four practical steps',
     statusIntro: 'You choose the starting point. CasaMia turns it into priorities, agreed adaptations and follow-up.',

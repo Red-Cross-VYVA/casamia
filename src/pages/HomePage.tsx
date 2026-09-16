@@ -400,7 +400,7 @@ export function HomePage() {
                 to="/how-it-works"
                 onClick={() => trackEvent('hero_how_it_works_clicked')}
               >
-                See How It Works
+                See how CasaMia helps
                 <ArrowRight size={17} aria-hidden="true" />
               </Link>
             </div>

@@ -35,7 +35,7 @@ const copy = {
     sectionEyebrow: 'Choose your check',
     sectionTitle: 'Checks for real home-safety decisions.',
     openTool: 'Open tool',
-    chooserEyebrow: 'Not sure which one?',
+    chooserEyebrow: 'Match the tool to the concern',
     chooserTitle: 'Pick the question you need answered.',
     chooserBody:
       'Start with the concern in front of you. Keep the result as notes, or share it when you want a visit, report or proposal.',

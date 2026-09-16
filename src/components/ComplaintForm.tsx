@@ -108,7 +108,7 @@ const copyEn = {
   reference: 'Order or project reference',
   safety: 'If anyone is in immediate danger, stop using the affected installation and call 112.',
   sending: 'Sending...',
-  submit: 'Submit complaint',
+  submit: 'Send complaint',
   success: 'Your complaint was recorded. A confirmation email has been sent to you.',
   successSaved: 'Your complaint was recorded. CasaMia will contact you using the details provided.',
   title: 'Tell CasaMia what went wrong.',

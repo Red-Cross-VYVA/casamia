@@ -173,10 +173,10 @@
       "note": "You stay in control: no installation is booked until the agreed adaptations are clear and accepted."
     },
     "how": {
-      "title": "How It Works",
+      "title": "Visit steps",
       "items": [
         {
-          "title": "Request the Visit",
+          "title": "Request the visit",
           "body": "Share the home location, preferred timing, selected plan, and any concerns."
         },
         {
@@ -217,7 +217,7 @@
     },
     "formSection": {
       "title": "Request Your In-Home Assessment Visit",
-      "body": "Tell us where the home is and how you prefer to be contacted. A CasaMia representative will confirm availability and a suitable appointment time for the {{visitFee}} visit."
+      "body": "Tell us where the home is and how you prefer to be contacted. The CasaMia team will confirm availability and a suitable appointment time for the {{visitFee}} visit."
     },
     "form": {
       "title": "In-home assessment request",
@@ -248,7 +248,7 @@
       ],
       "submit": "Send assessment request",
       "submitting": "Sending request...",
-      "success": "Thank you. Your request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit.",
+      "success": "Thank you. Your request has been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit.",
       "schedule": "Request visit time",
       "error": "We couldn't submit your request. Please try again or contact CasaMia by phone.",
       "consent": "I agree to be contacted by CasaMia regarding my in-home safety assessment request.",
@@ -277,7 +277,7 @@
           "label": "Safety services"
         }
       ],
-      "successWithPlan": "Thank you. Your {{plan}} visit request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit."
+      "successWithPlan": "Thank you. Your {{plan}} visit request has been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit."
     },
     "final": {
       "title": "Ready for a professional visit?"
@@ -561,7 +561,7 @@
     "company": {
       "title": "Company",
       "links": [
-        "How It Works",
+        "How CasaMia helps",
         "Plans",
         "Before & After",
         "Grants",
@@ -1124,11 +1124,11 @@
         "steps": [
           {
             "title": "We contact you",
-            "body": "A CasaMia representative gets in touch to understand your needs and schedule the visit."
+            "body": "The CasaMia team gets in touch to understand your needs and schedule the visit."
           },
           {
             "title": "We assess your home",
-            "body": "Our qualified safety team performs a room-by-room inspection and identifies risks."
+            "body": "CasaMia reviews each relevant room and identifies the risks to address first."
           },
           {
             "title": "You receive a proposal",

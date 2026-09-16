@@ -156,7 +156,7 @@ const providerPartnerCopy = {
       trades: 'Services offered *',
       experience: 'Relevant experience',
       insurance: 'I can provide insurance, trading details and references if CasaMia requests them.',
-      submit: 'Submit provider application',
+      submit: 'Send provider application',
     },
     errors: {
       businessName: 'Enter your business name.',
