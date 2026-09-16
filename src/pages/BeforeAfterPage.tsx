@@ -37,7 +37,7 @@ export function BeforeAfterPage() {
             },
             {
               title: 'Convierte la idea en plan',
-              body: 'CasaMia separa mejoras simples, trabajos que necesitan visita y opciones que requieren presupuesto o compatibilidad.',
+              body: 'CasaMia separa ajustes visibles, trabajos que necesitan visita y opciones que requieren presupuesto o compatibilidad.',
             },
           ],
         }
@@ -56,7 +56,7 @@ export function BeforeAfterPage() {
             },
             {
               title: 'Turn the idea into a plan',
-              body: 'CasaMia separates simple improvements, work that needs a visit and options that require a quote or compatibility check.',
+              body: 'CasaMia separates visible first fixes, work that needs a visit and options that require a quote or compatibility check.',
             },
           ],
         }
