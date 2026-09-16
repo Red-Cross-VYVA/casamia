@@ -45,11 +45,11 @@ export function NeedLandingPage() {
     whoHelps: isSpanish ? 'A quién ayuda' : 'Who this helps',
     checkFirst: isSpanish ? 'Qué revisar primero' : 'What to check first',
     handlesIt: isSpanish ? 'Cómo lo gestiona CasaMia' : 'How CasaMia handles it',
-    evidenceEyebrow: isSpanish ? 'Lo que ayuda a decidir' : 'What helps us decide',
-    evidenceTitle: isSpanish ? 'Tres detalles orientan el siguiente paso.' : 'Three details point to the right next step.',
+    evidenceEyebrow: isSpanish ? 'Qué compartir' : 'What to share',
+    evidenceTitle: isSpanish ? 'Tres detalles bastan para empezar.' : 'Three details are enough to start.',
     evidenceBody: isSpanish
-      ? 'No necesitas preparar un informe perfecto. Con rutina, espacio y cambios recientes podemos orientar el siguiente paso con más precisión.'
-      : 'You do not need to prepare a perfect brief. The routine, the space and recent changes are enough to point the next step in the right direction.',
+      ? 'No necesitas preparar un informe perfecto. Rutina, espacio y cambios recientes permiten decidir si toca herramienta online, fotos, llamada o visita.'
+      : 'You do not need a perfect brief. The routine, the space and recent changes show whether to start online, send photos, call or book a visit.',
     evidenceItems: isSpanish
       ? [
           {
@@ -88,11 +88,11 @@ export function NeedLandingPage() {
     useTool: isSpanish ? 'Usar herramienta' : 'Use tool',
     catalogueEyebrow: isSpanish ? 'Catálogo CasaMia actual' : 'Current CasaMia catalogue',
     catalogueTitle: isSpanish
-      ? 'Opciones que pueden encajar con esta necesidad.'
-      : 'Options that may fit this need.',
+      ? 'Opciones que se revisan para esta necesidad.'
+      : 'Options CasaMia reviews for this need.',
     catalogueBody: isSpanish
-      ? 'Una vista clara de elementos base y extras opcionales. La combinación final se confirma con tus respuestas, fotos o visita.'
-      : 'A clear look at core items and optional add-ons. The final mix is confirmed from your answers, photos or visit.',
+      ? 'Mira elementos base y extras opcionales. La combinación final se confirma con tus respuestas, fotos o visita.'
+      : 'Review core items and optional add-ons. The final mix is confirmed from your answers, photos or visit.',
     catalogueCta: isSpanish ? 'Ver el catálogo completo' : 'Review the full catalogue',
     questions: isSpanish ? 'Preguntas antes de empezar' : 'Questions before you start',
     questionsIntro: isSpanish
@@ -108,7 +108,7 @@ export function NeedLandingPage() {
           {
             question: '¿Puedo enviar fotos o vídeos antes de una visita?',
             answer:
-              'Sí. Unas fotos o un vídeo corto suelen ayudar a entender el espacio, la ruta y los puntos de apoyo. Si hacen falta medidas, compatibilidad o instalación, CasaMia lo confirma antes de avanzar.',
+              'Sí. Fotos o un vídeo corto muestran espacio, ruta y puntos de apoyo. Si hacen falta medidas, compatibilidad o instalación, CasaMia lo confirma antes de avanzar.',
           },
         ]
       : [
@@ -120,15 +120,15 @@ export function NeedLandingPage() {
           {
             question: 'Can I send photos or videos before a visit?',
             answer:
-              'Yes. A few photos or a short video often helps us understand the space, route and support points. If measurements, compatibility or installation checks are needed, we agree that with you before moving forward.',
+              'Yes. Photos or a short video show the space, route and support points. If measurements, compatibility or installation checks are needed, CasaMia confirms that before moving forward.',
           },
         ],
     questionsCta: isSpanish ? 'Empezar con mi caso' : 'Start with my situation',
     ready: isSpanish ? 'Cuando quieras' : 'Ready when you are',
     finalTitle: isSpanish ? 'Recibe una recomendación clara para tu caso.' : 'Get a clear recommendation for your situation.',
     finalBody: isSpanish
-      ? 'Empieza online, envía fotos o pide una llamada. Convertimos la información en alcance, prioridades y siguiente acción antes de comprometerte con trabajos.'
-      : 'Start online, send photos or ask for a call. We turn the information into scope, priorities and the next action before you commit to works.',
+      ? 'Empieza online, envía fotos o pide una llamada. CasaMia convierte la información en alcance, prioridades y siguiente acción antes de comprometerte con trabajos.'
+      : 'Start online, send photos or ask for a call. CasaMia turns the information into scope, priorities and the next action before you commit to works.',
     startPlan: isSpanish ? 'Empezar mi plan' : 'Start my plan',
     bookAssessment: isSpanish ? 'Reservar evaluación' : 'Book an assessment',
   }
@@ -711,8 +711,8 @@ const needResourceReferences: Record<string, NeedResourceReference[]> = {
       to: '/plan-adapta',
       title: { en: 'Grant-readiness check', es: 'Revisión de ayudas' },
       description: {
-        en: 'Understand what information usually helps prepare a grant route.',
-        es: 'Entiende qué información suele ayudar a preparar una ruta de ayudas.',
+        en: 'See which documents, eligibility details and timing questions shape the grant route.',
+        es: 'Ve qué documentos, datos de elegibilidad y plazos condicionan la ruta de ayudas.',
       },
     },
   ],
