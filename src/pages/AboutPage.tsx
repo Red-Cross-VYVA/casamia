@@ -62,7 +62,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     title: 'Technology and service for',
     accent: 'safer ageing at home.',
     intro:
-      'CasaMia brings room checks, agreed adaptations, connected alerts and grant-document guidance into one coordinated route for adapting a home in Spain.',
+      'CasaMia brings room checks, agreed adaptations, connected alerts and grant-document guidance into one coordinated process for adapting a home in Spain.',
     primaryCta: 'Check home safety',
     secondaryCta: 'Check grant eligibility',
     provider: {
@@ -147,7 +147,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Local follow-up',
-        body: 'Representatives can review the home, organise installation and prepare documents.',
+        body: 'Representatives can review the home, organise installation details and prepare required documents.',
       },
       {
         title: 'Ongoing support',
@@ -166,7 +166,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     title: 'Tecnología y servicio para',
     accent: 'envejecer con más seguridad en casa.',
     intro:
-      'CasaMia une revisión por estancias, adaptaciones acordadas, avisos conectados y orientación documental para ayudas en una ruta coordinada para adaptar una vivienda en España.',
+      'CasaMia une revisión por estancias, adaptaciones acordadas, avisos conectados y orientación documental para ayudas en un proceso coordinado para adaptar una vivienda en España.',
     primaryCta: 'Comprobar seguridad',
     secondaryCta: 'Comprobar ayudas',
     provider: {

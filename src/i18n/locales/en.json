@@ -357,7 +357,7 @@
         "title": "Show us the concern",
         "desc": "Start with photos, a starter package or a home inspection so the room, measurements and first safety scope can be confirmed.",
         "points": [
-          "Photos or package route",
+          "Photo or starter package review",
           "Optional home inspection",
           "Room and measurement check"
         ]
@@ -523,9 +523,9 @@
   "grants": {
     "badge": "Grants and assistance",
     "title": "Extra support may be closer than you think.",
-    "sub": "CasaMia checks likely routes before you commit to works.",
+    "sub": "CasaMia checks likely grant fit before you commit to works.",
     "body": "We identify relevant schemes, list the documents usually needed and prepare proposal wording that explains the safety work clearly. Approval always remains with the public authority.",
-    "cta": "Check grant routes",
+    "cta": "Check grant fit",
     "stats": [
       {
         "eyebrow": "01",
@@ -923,7 +923,7 @@
         },
         {
           "title": "Receive your safety report",
-          "desc": "The report highlights visible room risks, explains what to review first, and shows which CasaMia route could reduce those risks."
+          "desc": "The report highlights visible room risks, explains what to review first, and shows which CasaMia option could reduce those risks."
         },
         {
           "title": "Install and file grants",

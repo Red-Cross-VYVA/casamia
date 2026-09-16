@@ -357,7 +357,7 @@
         "title": "Muestra la preocupación",
         "desc": "Empieza con fotos, un paquete inicial o una inspección para confirmar la estancia, las medidas y el primer alcance de seguridad.",
         "points": [
-          "Fotos o ruta de paquete",
+          "Revisión con fotos o paquete inicial",
           "Inspección opcional",
           "Revisión de estancia y medidas"
         ]
@@ -923,7 +923,7 @@
         },
         {
           "title": "Recibe tu informe de seguridad",
-          "desc": "El informe señala riesgos visibles por estancia, qué revisar primero y qué ruta CasaMia podría reducir esos riesgos."
+          "desc": "El informe señala riesgos visibles por estancia, qué revisar primero y qué opción CasaMia podría reducir esos riesgos."
         },
         {
           "title": "Instalamos y tramitamos ayudas",

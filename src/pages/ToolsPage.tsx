@@ -26,13 +26,13 @@ const copy = {
     eyebrow: 'Free home-safety tools',
     title: 'Choose the check that matches today’s safety concern.',
     body:
-      'Pick the closest situation. Each route ends with a practical decision: monitor for now, review one room, prepare evidence or request CasaMia input.',
+      'Pick the closest situation. Each check ends with a practical decision: monitor for now, review one room, prepare evidence or request CasaMia input.',
     featuredLabel: 'Start here if you are unsure',
     featuredTitle: 'Is this home still safe day to day?',
     featuredBody:
       'Five everyday questions to decide whether to keep watching, check one room or act sooner.',
     featuredCta: 'Start the safety check',
-    sectionEyebrow: 'Choose your route',
+    sectionEyebrow: 'Choose your check',
     sectionTitle: 'Checks for real home-safety decisions.',
     openTool: 'Open tool',
     chooserEyebrow: 'Not sure which one?',
@@ -73,13 +73,13 @@ const copy = {
     eyebrow: 'Herramientas gratis de seguridad en casa',
     title: 'Elige la revisión que encaja con la preocupación de hoy.',
     body:
-      'Elige la situación más cercana. Cada ruta termina en una decisión práctica: observar, revisar una estancia, preparar evidencia o pedir opinión a CasaMia.',
+      'Elige la situación más cercana. Cada revisión termina en una decisión práctica: observar, revisar una estancia, preparar evidencia o pedir opinión a CasaMia.',
     featuredLabel: 'Empieza aquí si dudas',
     featuredTitle: '¿Esta casa sigue siendo segura en el día a día?',
     featuredBody:
       'Cinco preguntas cotidianas para decidir si conviene seguir observando, revisar una estancia o actuar antes.',
     featuredCta: 'Empezar revisión de seguridad',
-    sectionEyebrow: 'Elige tu ruta',
+    sectionEyebrow: 'Elige tu revisión',
     sectionTitle: 'Revisiones para decisiones reales de seguridad.',
     openTool: 'Abrir herramienta',
     chooserEyebrow: '¿No sabes cuál elegir?',
@@ -174,8 +174,8 @@ const chooserRoutes = [
     icon: FileCheck2,
     title: { en: 'Funding may matter', es: 'Las ayudas pueden importar' },
     body: {
-      en: 'Use the grant route early if documents, timing or regional criteria could change the project.',
-      es: 'Usa la ruta de ayudas pronto si documentos, plazos o criterios autonómicos pueden cambiar el proyecto.',
+      en: 'Use the grant check early if documents, timing or regional criteria could change the project.',
+      es: 'Usa la revisión de ayudas pronto si documentos, plazos o criterios autonómicos pueden cambiar el proyecto.',
     },
   },
   {
@@ -191,7 +191,7 @@ const chooserRoutes = [
 const nextToolSteps = [
   {
     icon: ClipboardCheck,
-    title: { en: 'The next route to take', es: 'La siguiente ruta a seguir' },
+    title: { en: 'The review to use next', es: 'La revisión que conviene usar' },
     body: {
       en: 'Know whether to use a checklist, room review, grant check or visit.',
       es: 'Saber si toca lista, revisión por estancia, revisión de ayudas o visita.',

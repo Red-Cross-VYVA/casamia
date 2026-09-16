@@ -129,10 +129,10 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       {
         title: 'Daily-use fit',
         body: 'Recommendations consider whether the person living there will actually use the change day to day.',
-        outcome: 'Useful at home',
+        outcome: 'Used day to day',
       },
       {
-        title: 'Aftercare route',
+        title: 'Aftercare follow-up',
         body: 'You know what happens after installation: explanation, questions, photos, notes and follow-up.',
         outcome: 'One contact',
       },
@@ -190,7 +190,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     messagePlaceholder:
       'Example: My father is struggling with the stairs at night, we are in Marbella, and we need to understand what to fix first.',
     formNote:
-      'CasaMia checks your request, likely route and local availability before recommending a next action.',
+      'CasaMia checks your request, likely review path and local availability before recommending what to do first.',
     ctaButton: 'Request In-Home Assessment',
   },
   es: {
@@ -317,7 +317,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     messagePlaceholder:
       'Ejemplo: Mi padre tiene dificultades con las escaleras por la noche, estamos en Marbella y necesitamos saber qué arreglar primero.',
     formNote:
-      'CasaMia comprueba tu solicitud, la ruta probable y la disponibilidad local antes de recomendar una acción siguiente.',
+      'CasaMia comprueba tu solicitud, la vía de revisión probable y la disponibilidad local antes de recomendar qué hacer primero.',
     ctaButton: 'Solicitar evaluación a domicilio',
   },
 }

@@ -36,21 +36,21 @@ const serviceAreaCopy = {
         body: 'We check the room type, urgency, postcode, provider availability and whether measurements are needed before work is scoped.',
       },
       {
-        title: 'Route confirmed',
-        body: 'You receive the practical route to follow: remote review, expert visit, proposal, grant preparation or staged plan.',
+        title: 'Review path confirmed',
+        body: 'You receive a practical recommendation: remote review, expert visit, proposal, grant preparation or staged plan.',
       },
     ],
     cityTitle: 'Priority cities',
     cityIntro:
-      'Coverage expands as local partners and support routes are checked. If your city is not listed, you can still ask us to check it.',
+      'Coverage expands as local partners, timing and delivery checks are confirmed. If your city is not listed, you can still ask us to check it.',
     unknownTitle: 'Not listed?',
     unknownBody:
-      'Send your postcode and the rooms you are worried about. We can tell you whether a remote review, a visit, or another route makes most sense.',
+      'Send your postcode and the rooms you are worried about. We can tell you whether a remote review, a visit, or another review path makes most sense.',
     unknownCta: 'Check my postcode',
     citySeoTitle: (city: string) => `Senior home safety services in ${city}`,
     citySeoDescription: (city: string, region: string) =>
       `CasaMia coordinates senior home-safety checks, scoped adaptations, provider availability and grant-ready notes in ${city}, ${region}.`,
-    cityEyebrow: 'Local service route',
+    cityEyebrow: 'Local service check',
     cityPageTitle: (city: string) => `Home safety support in ${city}`,
     cityIntroPrefix: 'In',
     cityIntroSuffix:
@@ -60,7 +60,7 @@ const serviceAreaCopy = {
     cityProcess: [
       'Start online with a guided review, photos, video, voice brief or a call.',
       'We check the home context, urgency, rooms and local delivery fit.',
-      'You receive a practical route: remote plan, expert visit, proposal, grant preparation or staged installation.',
+      'You receive a practical recommendation: remote plan, expert visit, proposal, grant preparation or staged installation.',
     ],
     cityFaqTitle: (city: string) => `Questions people ask in ${city}`,
     cityFaqIntro:
@@ -75,12 +75,12 @@ const serviceAreaCopy = {
       {
         question: `Does CasaMia install directly in ${city}?`,
         answer:
-          'CasaMia coordinates the route: remote review, scoped proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, scope and confirmed provider availability.',
+          'CasaMia coordinates the work path: remote review, scoped proposal, vetted provider fit, installation planning and follow-up. Local delivery depends on timing, scope and confirmed provider availability.',
       },
       {
         question: `What happens with grants and required documents in ${city}?`,
         answer:
-          'CasaMia structures the project information and likely grant route, but public authorities decide eligibility, approval, amount and timing.',
+          'CasaMia structures the project information and likely grant fit, but public authorities decide eligibility, approval, amount and timing.',
       },
     ],
     cityBack: 'View all service areas',
@@ -112,21 +112,21 @@ const serviceAreaCopy = {
         body: 'Comprobamos estancia, urgencia, código postal, disponibilidad profesional y si hacen falta medidas antes de definir el trabajo.',
       },
       {
-        title: 'Ruta confirmada',
-        body: 'Recibes la ruta práctica a seguir: revisión remota, visita experta, propuesta, preparación de ayudas o plan por fases.',
+        title: 'Revisión confirmada',
+        body: 'Recibes una recomendación práctica: revisión remota, visita experta, propuesta, preparación de ayudas o plan por fases.',
       },
     ],
     cityTitle: 'Ciudades prioritarias',
     cityIntro:
-      'La cobertura crece a medida que revisamos colaboradores locales y rutas de apoyo. Si tu ciudad no aparece, igualmente podemos revisarla.',
+      'La cobertura crece a medida que confirmamos colaboradores locales, tiempos y condiciones de entrega. Si tu ciudad no aparece, igualmente podemos revisarla.',
     unknownTitle: '¿Tu zona no aparece?',
     unknownBody:
-      'Envíanos el código postal y las estancias que te preocupan. Te indicaremos si conviene una revisión remota, una visita u otra ruta.',
+      'Envíanos el código postal y las estancias que te preocupan. Te indicaremos si conviene una revisión remota, una visita u otra vía de revisión.',
     unknownCta: 'Comprobar mi código postal',
     citySeoTitle: (city: string) => `Servicios de seguridad del hogar senior en ${city}`,
     citySeoDescription: (city: string, region: string) =>
       `CasaMia coordina revisiones de seguridad, adaptaciones definidas, disponibilidad profesional y notas preparadas para ayudas en ${city}, ${region}.`,
-    cityEyebrow: 'Ruta local de servicio',
+    cityEyebrow: 'Revisión local del servicio',
     cityPageTitle: (city: string) => `Seguridad en casa para mayores en ${city}`,
     cityIntroPrefix: 'En',
     cityIntroSuffix:
@@ -136,7 +136,7 @@ const serviceAreaCopy = {
     cityProcess: [
       'Empieza online con revisión guiada, fotos, vídeo, nota de voz o llamada.',
       'Revisamos contexto, urgencia, estancias y encaje con la entrega local.',
-      'Recibes una ruta práctica: plan remoto, visita experta, propuesta, preparación de ayudas o instalación por fases.',
+      'Recibes una recomendación práctica: plan remoto, visita experta, propuesta, preparación de ayudas o instalación por fases.',
     ],
     cityFaqTitle: (city: string) => `Preguntas frecuentes en ${city}`,
     cityFaqIntro:
@@ -151,12 +151,12 @@ const serviceAreaCopy = {
       {
         question: `¿CasaMia instala directamente en ${city}?`,
         answer:
-          'CasaMia coordina la ruta: revisión remota, propuesta definida, encaje con profesionales verificados, planificación de instalación y seguimiento. La entrega local depende del alcance, los tiempos y la disponibilidad confirmada.',
+          'CasaMia coordina el proceso: revisión remota, propuesta definida, encaje con profesionales verificados, planificación de instalación y seguimiento. La entrega local depende del alcance, los tiempos y la disponibilidad confirmada.',
       },
       {
         question: `¿Qué pasa con ayudas y documentación en ${city}?`,
         answer:
-          'CasaMia ordena la información del proyecto e identifica la ruta probable, pero la administración pública decide elegibilidad, aprobación, importe y plazos.',
+          'CasaMia ordena la información del proyecto e identifica el posible encaje de ayudas, pero la administración pública decide elegibilidad, aprobación, importe y plazos.',
       },
     ],
     cityBack: 'Ver todas las zonas',
@@ -464,7 +464,7 @@ export function ServiceAreasPage() {
                     ))}
                   </ul>
                   <Link className="service-areas-city-link" to={`/service-areas/${getServiceAreaCitySlug(area.city)}`}>
-                    {language === 'es' ? 'Ver ruta local' : 'View local route'}
+                    {language === 'es' ? 'Ver revisión local' : 'View local check'}
                     <ArrowRight size={16} aria-hidden="true" />
                   </Link>
                 </article>
