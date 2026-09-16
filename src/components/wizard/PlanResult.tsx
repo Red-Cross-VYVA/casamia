@@ -41,7 +41,7 @@ type PlanResultProps = {
 
 const spanishImprovementLabels: Record<string, string> = {
   'secure-flooring': 'Asegurar alfombras y superficies resbaladizas',
-  'improve-lighting': 'Mejorar la iluminación en rutas habituales',
+  'improve-lighting': 'Mejorar la iluminación en zonas de paso habituales',
   'secure-rugs': 'Retirar o fijar alfombras sueltas',
   'stair-support': 'Añadir agarre, luz y apoyo en escaleras',
   'threshold-access': 'Reducir o señalizar umbrales difíciles',
@@ -49,13 +49,13 @@ const spanishImprovementLabels: Record<string, string> = {
   'bathroom-support': 'Mejorar el acceso y los apoyos del baño',
   'emergency-alert': 'Añadir una opción de alerta de emergencia',
   'bathroom-review': 'Revisar transferencias y apoyos del baño',
-  'bedroom-route': 'Hacer más segura la cama y la ruta nocturna',
+  'bedroom-route': 'Hacer más seguros la cama y el movimiento nocturno',
   'kitchen-reach': 'Mejorar alcance, luz y agarre en la cocina',
-  'living-route': 'Crear una ruta despejada en el salón',
+  'living-route': 'Crear una zona de paso despejada en el salón',
   'stairs-review': 'Revisar pasamanos, contraste e iluminación',
   'entrance-support': 'Mejorar acceso y apoyo en la entrada',
   'outdoor-route': 'Mejorar caminos, escalones y luz exterior',
-  'motion-lighting': 'Añadir luz con sensor en la ruta nocturna',
+  'motion-lighting': 'Añadir luz con sensor para movimiento nocturno',
   'smart-safety': 'Revisar alertas, sensores y seguridad inteligente',
   'professional-review': 'Realizar una revisión guiada estancia por estancia',
 }

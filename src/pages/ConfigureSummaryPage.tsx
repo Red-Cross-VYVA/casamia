@@ -16,7 +16,7 @@ const summaryCopy = {
     body: 'Review the selected improvements, the estimate and the items CasaMia still needs to confirm before final pricing.',
     print: 'Print',
     emptyTitle: 'No improvements selected yet',
-    emptyBody: 'Go back and select the rooms or routes that need review first.',
+    emptyBody: 'Go back and select the rooms, entrances or support areas that need review first.',
     back: 'Back to configurator',
     qty: 'Qty',
     included: 'Included',

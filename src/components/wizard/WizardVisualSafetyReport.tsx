@@ -130,7 +130,7 @@ export function WizardVisualSafetyReport({ language, report, state }: WizardVisu
         <section className="wizard-positive-features">
           <div>
             <CheckCircle2 size={22} aria-hidden="true" />
-            <h3>{isSpanish ? 'Lo que ya ayuda' : 'What already helps'}</h3>
+            <h3>{isSpanish ? 'Lo que ya reduce riesgo' : 'What already reduces risk'}</h3>
           </div>
           <ul>{report.positiveFeatures.map((feature) => <li key={feature}>{feature}</li>)}</ul>
         </section>

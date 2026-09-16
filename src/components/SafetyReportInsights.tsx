@@ -160,7 +160,7 @@ function PhotoAnalysisCard({
           <div className="estimate-photo-context-grid">
             {analysis.strengths.length > 0 ? (
               <div className="is-positive">
-                <strong><Check size={16} />{isSpanish ? 'Lo que ayuda' : 'What helps'}</strong>
+                <strong><Check size={16} />{isSpanish ? 'Lo que ya reduce riesgo' : 'What already reduces risk'}</strong>
                 <ul>{analysis.strengths.map((item) => <li key={item}>{item}</li>)}</ul>
               </div>
             ) : null}
