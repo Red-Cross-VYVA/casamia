@@ -27,7 +27,7 @@ export const defaultSpanishServiceCopy: Record<string, CasaMiaServiceTranslation
     shortDescription: 'Cerradura inteligente, teclado o timbre cuando encaja.',
     customerBenefit: 'Ayuda a familiares o cuidadores a acceder sin prisas inseguras ni llaves escondidas.',
     category: 'Acceso y visibilidad',
-    includedItems: ['Comprobación de compatibilidad', 'Configuración del dispositivo', 'Entrega a la familia'],
+    includedItems: ['Comprobación de compatibilidad', 'Configuración del dispositivo', 'Explicación de uso seguro'],
     safetyNotice: 'Los permisos de acceso deben acordarse con la persona residente o familiar autorizado.',
   },
   'entrance-modular-ramp': {

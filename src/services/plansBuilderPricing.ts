@@ -731,11 +731,13 @@ function buildOutcomeTrustSentence(outcome: MasterCatalogueOutcome, language: st
     || outcome.requiresCompatibilityCheck
     || outcome.requiresSiteVisit
   const needsQuote = outcome.requiresQuote || outcome.pricingType === 'quote'
-  const fitText = needsFitCheck ? copy.fit : copy.fitLight
-  const scopeText = needsQuote ? ` ${copy.scope}` : ''
-  const grantText = outcome.grantEligible ? ` ${copy.grant}` : ''
+  const checks = [
+    needsFitCheck ? copy.fit : copy.fitLight,
+    needsQuote ? copy.scope : null,
+    outcome.grantEligible ? copy.grant : null,
+  ].filter(Boolean) as string[]
 
-  return `${copy.before} ${fitText}${scopeText}${grantText} ${copy.handover}`
+  return `${copy.before} ${formatReadableList(checks, language)}. ${copy.handover}`
 }
 
 function polishPlansDescription(description: string) {
@@ -750,19 +752,19 @@ function polishPlansDescription(description: string) {
 function trustCopy(language: string) {
   return language.toLowerCase().startsWith('es')
     ? {
-        before: 'Antes de instalarlo, comprobamos',
-        fit: 'medidas, superficie de fijación y el espacio exacto;',
-        fitLight: 'que encaje con la estancia y la rutina diaria;',
-        grant: 'también indicamos la documentación útil si puede optar a subvención;',
-        handover: 'después lo probamos y explicamos su uso con claridad.',
-        scope: 'confirmamos el alcance y precio final antes de presupuestar;',
+        before: 'Antes de proponerlo, confirmamos',
+        fit: 'medidas, fijaciones y espacio real',
+        fitLight: 'que encaje con la estancia y la rutina diaria',
+        grant: 'si puede ayudar en una solicitud de subvención',
+        handover: 'Después se prueba instalado y se explica cómo usarlo con seguridad.',
+        scope: 'alcance y precio antes de presupuestar',
       }
     : {
-        before: 'Before fitting, we check',
-        fit: 'measurements, fixing surfaces and the actual space;',
-        fitLight: 'that it suits the room and daily routine;',
-        grant: 'we also flag useful paperwork if grant support may apply;',
-        handover: 'then we test it and explain safe use clearly.',
-        scope: 'we agree the final scope and price before preparing the quote;',
+        before: 'Before recommending it, we confirm',
+        fit: 'measurements, fixing points and real room conditions',
+        fitLight: 'that it suits the room and daily routine',
+        grant: 'whether it may support grant paperwork',
+        handover: 'After installation, we test it in place and explain safe use.',
+        scope: 'scope and price before quoting',
       }
 }

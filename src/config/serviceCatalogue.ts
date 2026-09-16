@@ -76,7 +76,7 @@ export const casaMiaServices: CasaMiaService[] = [
     requiresMeasurement: false,
     requiresSiteVisit: false,
     requiresCompatibilityCheck: true,
-    includedItems: ['Device compatibility check', 'Access device setup', 'Family handover'],
+    includedItems: ['Device compatibility check', 'Access device setup', 'Clear safe-use handover'],
     safetyNotice: 'Access permissions must be agreed with the resident or authorised family member.',
     active: true,
   },
@@ -336,7 +336,7 @@ export const casaMiaServices: CasaMiaService[] = [
     wizardVisible: false,
     proposalVisible: false,
     inspectorVisible: false,
-    includedItems: ['Sensor placement', 'Alert setup', 'Family handover'],
+    includedItems: ['Sensor placement', 'Alert setup', 'Clear safe-use handover'],
     smartDependencies: [
       {
         dependencyType: 'smart_speaker',

@@ -9,63 +9,63 @@ export type ServiceTrustSignal = {
 
 const copy = {
   en: {
-    assessmentDetail: 'We review the resident, room layout and daily routine before agreeing the final recommendation.',
-    assessmentLabel: 'Checked before recommendation',
-    compatibilityDetail: 'We check measurements, surface strength, device fit or home conditions before installation is agreed.',
-    compatibilityLabel: 'Compatibility reviewed',
-    consentDetail: 'Smart or family-alert features are configured only where suitable, understood and consented.',
-    consentLabel: 'Consent-aware setup',
-    grantDetail: 'This type of improvement may support grant paperwork where local criteria apply. Approval is always decided by the authority.',
-    grantLabel: 'Grant-aware scope',
-    handoverDetail: 'The resident or family receives a practical handover so the improvement is understood before CasaMia closes the job.',
-    handoverLabel: 'CasaMia handover',
-    installationDetail: 'Professional fitting is followed by a practical use and stability check before handover.',
-    installationLabel: 'Installed and tested',
-    quoteDetail: 'Final scope and price are agreed after the home check, so the proposal reflects the real room and materials.',
-    quoteLabel: 'Measured quote',
-    standard: 'We check the home first, fit the right option, test it in place and explain safe use before handover.',
-    noHiddenFit: 'No guesswork on fit',
-    professionalFitting: 'Professional fitting',
-    familyReady: 'Family handover',
-    grantChip: 'Grant support',
-    quoteChip: 'Measured quote',
-    consentChip: 'Consent-aware',
+    assessmentDetail: 'We look at the person, the room and the daily routine before recommending the final option.',
+    assessmentLabel: 'Checked against daily use',
+    compatibilityDetail: 'Measurements, fixing points, surfaces, device fit and home conditions are confirmed before work starts.',
+    compatibilityLabel: 'Fit confirmed first',
+    consentDetail: 'Smart alerts are only set up when the person understands who is notified and agrees to it.',
+    consentLabel: 'Consent checked',
+    grantDetail: 'We flag when an improvement may support grant paperwork. The public authority still decides approval.',
+    grantLabel: 'Grant route explained',
+    handoverDetail: 'Before the job is closed, the person using it knows what changed and how to use it safely.',
+    handoverLabel: 'Clear handover',
+    installationDetail: 'The item is fitted or set up, tested in the real room and adjusted if something does not feel right.',
+    installationLabel: 'Fitted and tested',
+    quoteDetail: 'Scope and price are agreed after the home details are known, so the proposal reflects the real room.',
+    quoteLabel: 'Price confirmed first',
+    standard: 'We confirm fit, install or set up the right option, test it in place and explain safe use.',
+    noHiddenFit: 'Fit checked first',
+    professionalFitting: 'Fitted and tested',
+    familyReady: 'Clear handover',
+    grantChip: 'Grant route explained',
+    quoteChip: 'Price confirmed first',
+    consentChip: 'Consent checked',
     typicalTime: 'Typical on-site task time',
-    beforePrefix: 'Before fitting, we check',
-    measuredFit: 'measurements, fixing points and home conditions',
-    installedFinish: 'then install or set it up professionally and test it in place',
-    quoteFinish: 'we confirm the final scope and price after the home review',
-    grantFinish: 'we flag useful paperwork where local grant criteria may apply',
+    beforePrefix: 'Before recommending it, we confirm',
+    measuredFit: 'measurements, fixing points and real room conditions',
+    installedFinish: 'it can be fitted or set up and tested in place',
+    quoteFinish: 'scope and price before quoting',
+    grantFinish: 'whether it may support grant paperwork',
     dailyRoutineFit: 'that it suits the room and daily routine',
   },
   es: {
-    assessmentDetail: 'Revisamos a la persona, la distribución y la rutina diaria antes de acordar la recomendación final.',
-    assessmentLabel: 'Revisado antes de recomendar',
-    compatibilityDetail: 'Confirmamos medidas, resistencia de superficies, compatibilidad de dispositivos o condiciones de la vivienda antes de acordar la instalación.',
-    compatibilityLabel: 'Compatibilidad revisada',
-    consentDetail: 'Las funciones inteligentes o avisos familiares se configuran solo cuando encajan, se entienden y cuentan con consentimiento.',
-    consentLabel: 'Configuración con consentimiento',
-    grantDetail: 'Este tipo de mejora puede ayudar en la documentación de subvenciones cuando se cumplen criterios locales. La aprobación siempre depende de la administración.',
-    grantLabel: 'Alcance orientado a subvención',
-    handoverDetail: 'La persona o la familia recibe una entrega práctica para entender la mejora antes de cerrar el trabajo.',
-    handoverLabel: 'Entrega CasaMia',
-    installationDetail: 'La instalación profesional se completa con una comprobación práctica de uso y estabilidad antes de la entrega.',
+    assessmentDetail: 'Miramos a la persona, la estancia y la rutina diaria antes de recomendar la opción final.',
+    assessmentLabel: 'Revisado según el uso diario',
+    compatibilityDetail: 'Confirmamos medidas, puntos de fijación, superficies, compatibilidad y condiciones de la vivienda antes de empezar.',
+    compatibilityLabel: 'Encaje confirmado primero',
+    consentDetail: 'Los avisos inteligentes solo se configuran si la persona entiende quién recibe las notificaciones y lo acepta.',
+    consentLabel: 'Consentimiento comprobado',
+    grantDetail: 'Indicamos cuándo una mejora puede ayudar en la documentación de subvenciones. La aprobación depende de la administración.',
+    grantLabel: 'Ruta de subvención explicada',
+    handoverDetail: 'Antes de cerrar el trabajo, la persona que lo usa entiende qué ha cambiado y cómo usarlo con seguridad.',
+    handoverLabel: 'Explicación clara',
+    installationDetail: 'El elemento se instala o configura, se prueba en la estancia real y se ajusta si algo no resulta cómodo.',
     installationLabel: 'Instalado y probado',
-    quoteDetail: 'El alcance y precio final se acuerdan tras revisar la vivienda, para que la propuesta refleje la estancia y materiales reales.',
-    quoteLabel: 'Presupuesto medido',
-    standard: 'Revisamos la vivienda, elegimos la opción adecuada, la probamos instalada y explicamos su uso antes de la entrega.',
-    noHiddenFit: 'Sin suposiciones',
-    professionalFitting: 'Instalación profesional',
-    familyReady: 'Entrega a la familia',
-    grantChip: 'Apoyo subvención',
-    quoteChip: 'Presupuesto medido',
-    consentChip: 'Con consentimiento',
+    quoteDetail: 'El alcance y precio se acuerdan cuando ya se conocen los detalles de la vivienda.',
+    quoteLabel: 'Precio confirmado primero',
+    standard: 'Confirmamos el encaje, instalamos o configuramos la opción adecuada, la probamos y explicamos su uso seguro.',
+    noHiddenFit: 'Encaje revisado',
+    professionalFitting: 'Instalado y probado',
+    familyReady: 'Explicación clara',
+    grantChip: 'Subvención explicada',
+    quoteChip: 'Precio confirmado',
+    consentChip: 'Consentimiento',
     typicalTime: 'Tiempo orientativo de trabajo en casa',
-    beforePrefix: 'Antes de instalarlo, comprobamos',
-    measuredFit: 'medidas, puntos de fijación y condiciones de la vivienda',
-    installedFinish: 'después lo instalamos o configuramos de forma profesional y lo probamos en su sitio',
-    quoteFinish: 'confirmamos el alcance y precio final tras revisar la vivienda',
-    grantFinish: 'indicamos documentación útil cuando pueden aplicar criterios locales de subvención',
+    beforePrefix: 'Antes de recomendarlo, confirmamos',
+    measuredFit: 'medidas, puntos de fijación y condiciones reales de la estancia',
+    installedFinish: 'que pueda instalarse o configurarse y probarse en su sitio',
+    quoteFinish: 'alcance y precio antes de presupuestar',
+    grantFinish: 'si puede ayudar en la documentación de subvención',
     dailyRoutineFit: 'que encaje con la estancia y la rutina diaria',
   },
 } as const
@@ -101,7 +101,7 @@ export function getServiceCredibleDescription(service: CasaMiaService, language:
     service.grant?.eligible ? text.grantFinish : null,
   ].filter(Boolean) as string[]
 
-  const proofSentence = `${text.beforePrefix} ${proofParts.join('; ')}.`
+  const proofSentence = `${text.beforePrefix} ${formatTrustList(proofParts, language)}.`
 
   return baseDescription.endsWith(proofSentence)
     ? baseDescription
@@ -128,6 +128,16 @@ function polishServiceDescription(description: string) {
     .replace(/^Installing\b/, 'Installs')
     .replace(/^Configuring\b/, 'Configures')
     .replace(/^Replacing\b/, 'Replaces')
+}
+
+function formatTrustList(items: string[], language: string) {
+  const conjunction = languageKey(language) === 'es' ? 'y' : 'and'
+
+  if (items.length <= 2) {
+    return items.join(items.length === 2 ? ` ${conjunction} ` : '')
+  }
+
+  return `${items.slice(0, -1).join(', ')} ${conjunction} ${items[items.length - 1]}`
 }
 
 export function getServiceProofChips(service: CasaMiaService, language: string) {

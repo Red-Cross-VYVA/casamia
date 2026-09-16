@@ -21,45 +21,45 @@ const packageModalCopy = {
     benefit: 'Why it helps',
     close: 'Close',
     coreTab: 'Core package',
-    description: 'Item description',
-    includes: 'What CasaMia includes',
-    itemIncludes: 'For this item, CasaMia includes',
-    professionalFitting: 'Professional fitting',
-    familyReady: 'Family handover',
-    grantChip: 'Grant support',
-    quoteChip: 'Measured quote',
-    noHiddenFit: 'No guesswork on fit',
+    description: 'What this changes',
+    includes: 'Included in this package',
+    itemIncludes: 'Included for this item',
+    professionalFitting: 'Fitted and tested',
+    familyReady: 'Clear handover',
+    grantChip: 'Grant route explained',
+    quoteChip: 'Price confirmed first',
+    noHiddenFit: 'Fit checked first',
     next: 'Next',
     noDetailItems: 'No items to show in this section.',
     optionalTab: 'Optional add-ons',
     previous: 'Previous',
     slideLabel: 'Item',
-    standard: 'We check the fit, coordinate installation, test the result and explain safe use before handover.',
-    trust: 'Why families can trust it',
+    standard: 'We confirm fit, coordinate the work, test it in place and explain safe use.',
+    trust: 'Why you can trust it',
     trustSignals: {
       assessment: {
-        label: 'Checked before recommendation',
-        detail: 'We review the resident, room layout and daily routine before agreeing the final scope.',
+        label: 'Checked against daily use',
+        detail: 'We look at the person, the room and the routine before agreeing the final scope.',
       },
       compatibility: {
-        label: 'Compatibility reviewed',
-        detail: 'Measurements, surface strength, device fit and home conditions are checked before installation is agreed.',
+        label: 'Fit confirmed first',
+        detail: 'Measurements, fixing points, surfaces and home conditions are checked before work starts.',
       },
       grant: {
-        label: 'Grant-aware scope',
-        detail: 'This improvement may support grant paperwork where local criteria apply. Approval is always decided by the authority.',
+        label: 'Grant route explained',
+        detail: 'We flag when this improvement may support grant paperwork. The authority still decides approval.',
       },
       handover: {
-        label: 'CasaMia handover',
-        detail: 'The resident or family receives a practical handover so the improvement is understood before the job is closed.',
+        label: 'Clear handover',
+        detail: 'The person using it understands what changed and how to use it safely before the job is closed.',
       },
       installation: {
-        label: 'Installed and tested',
-        detail: 'Professional fitting is followed by a practical use and stability check before handover.',
+        label: 'Fitted and tested',
+        detail: 'The item is fitted or set up, tested in the real room and adjusted if something does not feel right.',
       },
       quote: {
-        label: 'Measured quote',
-        detail: 'Final scope and price are agreed after review, so the proposal reflects the real room and materials.',
+        label: 'Price confirmed first',
+        detail: 'Scope and price are agreed after the home details are known, so the proposal reflects the real room.',
       },
     },
   },
@@ -67,45 +67,45 @@ const packageModalCopy = {
     benefit: 'Por qué ayuda',
     close: 'Cerrar',
     coreTab: 'Paquete base',
-    description: 'Descripción del elemento',
-    includes: 'Qué incluye CasaMia',
-    itemIncludes: 'Para este elemento, CasaMia incluye',
-    professionalFitting: 'Instalación profesional',
-    familyReady: 'Entrega a la familia',
-    grantChip: 'Apoyo subvención',
-    quoteChip: 'Presupuesto medido',
-    noHiddenFit: 'Sin suposiciones',
+    description: 'Qué mejora',
+    includes: 'Incluido en el paquete',
+    itemIncludes: 'Incluido para este elemento',
+    professionalFitting: 'Instalado y probado',
+    familyReady: 'Explicación clara',
+    grantChip: 'Subvención explicada',
+    quoteChip: 'Precio confirmado',
+    noHiddenFit: 'Encaje revisado',
     next: 'Siguiente',
     noDetailItems: 'No hay elementos para mostrar en esta sección.',
     optionalTab: 'Extras opcionales',
     previous: 'Anterior',
     slideLabel: 'Elemento',
-    standard: 'Revisamos el encaje, coordinamos la instalación, probamos el resultado y explicamos el uso seguro antes de la entrega.',
-    trust: 'Por qué aporta confianza',
+    standard: 'Confirmamos el encaje, coordinamos el trabajo, lo probamos instalado y explicamos su uso seguro.',
+    trust: 'Por qué puedes confiar',
     trustSignals: {
       assessment: {
-        label: 'Revisado antes de recomendar',
-        detail: 'Revisamos a la persona, la distribución y la rutina diaria antes de acordar el alcance final.',
+        label: 'Revisado según el uso diario',
+        detail: 'Miramos a la persona, la estancia y la rutina antes de acordar el alcance final.',
       },
       compatibility: {
-        label: 'Compatibilidad revisada',
-        detail: 'Se comprueban medidas, resistencia de superficies, compatibilidad de dispositivos y condiciones de la vivienda antes de acordar la instalación.',
+        label: 'Encaje confirmado primero',
+        detail: 'Confirmamos medidas, puntos de fijación, superficies y condiciones de la vivienda antes de empezar.',
       },
       grant: {
-        label: 'Alcance orientado a subvención',
-        detail: 'Esta mejora puede ayudar en la documentación de subvenciones cuando se cumplen criterios locales. La aprobación siempre depende de la administración.',
+        label: 'Ruta de subvención explicada',
+        detail: 'Indicamos cuándo esta mejora puede ayudar en la documentación de subvenciones. La aprobación depende de la administración.',
       },
       handover: {
-        label: 'Entrega CasaMia',
-        detail: 'La persona o la familia recibe una entrega práctica para entender la mejora antes de cerrar el trabajo.',
+        label: 'Explicación clara',
+        detail: 'La persona que lo usa entiende qué ha cambiado y cómo usarlo con seguridad antes de cerrar el trabajo.',
       },
       installation: {
         label: 'Instalado y probado',
-        detail: 'La instalación profesional se completa con una comprobación práctica de uso y estabilidad antes de la entrega.',
+        detail: 'El elemento se instala o configura, se prueba en la estancia real y se ajusta si algo no resulta cómodo.',
       },
       quote: {
-        label: 'Presupuesto medido',
-        detail: 'El alcance y precio final se acuerdan tras la revisión, para que la propuesta refleje la estancia y materiales reales.',
+        label: 'Precio confirmado primero',
+        detail: 'El alcance y precio se acuerdan cuando ya se conocen los detalles de la vivienda.',
       },
     },
   },
@@ -244,27 +244,31 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
 
   const translations: Record<string, string> = {
     'Anti-slip floor treatment': 'Tratamiento antideslizante de suelo',
-    'Automatic water shut-off valve': 'Valvula automatica de corte de agua',
-    'Bathroom door adjustment': 'Ajuste de puerta de bano',
-    'Easy-release privacy lock': 'Cierre de privacidad con desbloqueo facil',
+    'Automatic water shut-off valve': 'Válvula automática de corte de agua',
+    'Bathroom door adjustment': 'Ajuste de puerta de baño',
+    'Easy-release privacy lock': 'Cierre de privacidad con desbloqueo fácil',
     'Family or carer alert setup': 'Avisos para familia o cuidador',
     'Folding shower seat': 'Asiento abatible de ducha',
     'Grab bar': 'Barra de apoyo',
     'Lever door handle': 'Manilla tipo palanca',
     'Lever mixer tap': 'Grifo monomando de palanca',
     'Lever-operated shower control': 'Mando de ducha de palanca',
-    'Low-threshold transition strip': 'Perfil de transicion de bajo umbral',
-    'Loose rug securing or removal': 'Fijacion o retirada de alfombras sueltas',
+    'handrail': 'Pasamanos',
+    'Handrail': 'Pasamanos',
+    'Entrance handrail': 'Pasamanos de entrada',
+    'Stair handrail': 'Pasamanos de escalera',
+    'Low-threshold transition strip': 'Perfil de transición de bajo umbral',
+    'Loose rug securing or removal': 'Fijación o retirada de alfombras sueltas',
     'Low-level floor light': 'Luz baja de suelo',
     'Bed-to-door route clearance service': 'Despeje de ruta entre cama y puerta',
     'Bedside light': 'Luz junto a la cama',
     'Bed height, transfer and room-fit assessment': 'Revisión de altura, transferencias y espacio del dormitorio',
-    'Cable management kit': 'Kit de organizacion de cables',
+    'Cable management kit': 'Kit de organización de cables',
     'Delivery and installation coordination': 'Coordinación de entrega e instalación',
     'Electric adjustable bed': 'Cama eléctrica ajustable',
-    'Family contact notification setup': 'Configuracion de avisos a contactos familiares',
-    'Hands-free calling setup': 'Configuracion de llamadas manos libres',
-    'Medication and routine reminder setup': 'Configuracion de recordatorios y rutinas',
+    'Family contact notification setup': 'Configuración de avisos a contactos familiares',
+    'Hands-free calling setup': 'Configuración de llamadas manos libres',
+    'Medication and routine reminder setup': 'Configuración de recordatorios y rutinas',
     'Mattress and pressure-comfort guidance': 'Orientación sobre colchón, presión y confort',
     'Motion sensor': 'Sensor de movimiento',
     'Raised toilet seat': 'Elevador de inodoro',
@@ -275,24 +279,24 @@ function localizeDetailItem(item: string, language: 'en' | 'es') {
     'Secure anti-slip bath and exit mat set': 'Juego de alfombrillas antideslizantes para bañera y salida',
     'Smart speaker': 'Altavoz inteligente',
     'Smoke detector': 'Detector de humo',
-    'Thermostatic anti-scald valve': 'Valvula termostatica antiquemaduras',
+    'Thermostatic anti-scald valve': 'Válvula termostática antiquemaduras',
     'Toilet support rail': 'Barra de apoyo para inodoro',
     'Vertical support rail': 'Barra de apoyo vertical',
     'Water leak sensor': 'Sensor de fuga de agua',
-    'Wider bathroom doorway': 'Puerta de bano mas ancha',
-    'Wider bathroom doorway service': 'Ensanche de puerta de bano',
-    'Wider bedroom doorway': 'Puerta de dormitorio mas ancha',
+    'Wider bathroom doorway': 'Puerta de baño más ancha',
+    'Wider bathroom doorway service': 'Ensanche de puerta de baño',
+    'Wider bedroom doorway': 'Puerta de dormitorio más ancha',
     'Wider bedroom doorway service': 'Ensanche de puerta de dormitorio',
-    'Wider entrance doorway': 'Puerta de entrada mas ancha',
+    'Wider entrance doorway': 'Puerta de entrada más ancha',
     'Wider entrance doorway service': 'Ensanche de puerta de entrada',
-    'Wider kitchen doorway': 'Puerta de cocina mas ancha',
+    'Wider kitchen doorway': 'Puerta de cocina más ancha',
     'Wider kitchen doorway service': 'Ensanche de puerta de cocina',
-    'Wider living room doorway': 'Puerta de salon mas ancha',
-    'Wider living room doorway service': 'Ensanche de puerta de salon',
+    'Wider living room doorway': 'Puerta de salón más ancha',
+    'Wider living room doorway service': 'Ensanche de puerta de salón',
     'Outdoor key safe': 'Caja de llaves exterior',
-    'Raised electrical outlet relocation service': 'Reubicacion de enchufes a una altura mas comoda',
-    'Voice command setup for lights, calls and help requests': 'Configuracion de voz para luces, llamadas y peticiones de ayuda',
-    'Voice help request setup': 'Configuracion de peticiones de ayuda por voz',
+    'Raised electrical outlet relocation service': 'Reubicación de enchufes a una altura más cómoda',
+    'Voice command setup for lights, calls and help requests': 'Configuración de voz para luces, llamadas y peticiones de ayuda',
+    'Voice help request setup': 'Configuración de peticiones de ayuda por voz',
   }
 
   return translations[item] ?? item
@@ -308,19 +312,19 @@ function getDetailServiceSummaryItems(
   const serviceItems: string[] = []
 
   if (/inspect|measure/.test(taskText)) {
-    serviceItems.push(language === 'es' ? 'Revision de medidas y encaje' : 'Measurement and fit check')
+    serviceItems.push(language === 'es' ? 'Revisión de medidas y encaje' : 'Measurement and fit check')
   }
 
   if (/configure|alert/.test(taskText)) {
-    serviceItems.push(language === 'es' ? 'Configuracion y prueba de avisos con consentimiento' : 'Consent-aware setup and testing')
+    serviceItems.push(language === 'es' ? 'Configuración y prueba de avisos con consentimiento' : 'Consent-aware setup and testing')
   }
 
   if (/install|fit|apply|reduce|mark|set|adjust/.test(taskText)) {
-    serviceItems.push(language === 'es' ? 'Instalacion o ajuste profesional' : 'Professional installation or setup')
+    serviceItems.push(language === 'es' ? 'Instalación o ajuste profesional' : 'Professional installation or setup')
   }
 
   if (taskText) {
-    serviceItems.push(language === 'es' ? 'Prueba, explicacion de uso y soporte posterior' : 'Testing, handover and aftercare')
+    serviceItems.push(language === 'es' ? 'Prueba, explicación de uso y soporte posterior' : 'Testing, handover and aftercare')
   }
 
   return serviceItems
