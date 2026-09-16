@@ -36,7 +36,7 @@ const grantsCopy = {
     roleEyebrow: 'CasaMia’s role',
     roleTitle: 'Guidance, not public approval.',
     roleBody:
-      'CasaMia can help identify programmes that may be relevant to your project. Any initial eligibility assessment is indicative only. The responsible public authority makes the final decision.',
+      'CasaMia checks which published routes may fit your project and prepares the document trail when authorised. Any initial eligibility assessment is indicative only. The responsible public authority makes the final decision.',
     roleListTitle: 'Grant-support services',
     roleItems: [
       'General information about possible public assistance routes.',
@@ -127,7 +127,7 @@ const grantsCopy = {
     roleEyebrow: 'Papel de CasaMia',
     roleTitle: 'Orientación, no aprobación pública.',
     roleBody:
-      'CasaMia puede ayudarte a identificar programas que podrían encajar con tu proyecto. Cualquier revisión inicial de elegibilidad es orientativa. La decisión final corresponde a la administración responsable.',
+      'CasaMia revisa qué rutas publicadas pueden encajar con tu proyecto y prepara la documentación cuando existe autorización. Cualquier revisión inicial de elegibilidad es orientativa. La decisión final corresponde a la administración responsable.',
     roleListTitle: 'Servicios de apoyo para ayudas',
     roleItems: [
       'Información general sobre posibles vías de ayuda pública.',
@@ -205,7 +205,7 @@ export function GrantsPage() {
     ? {
         heroTitle: 'Encuentra posibles ayudas para adaptar tu vivienda.',
         heroBody:
-          'CasaMia te ayuda a revisar rutas de ayuda, documentos y próximos pasos antes de empezar una obra.',
+          'Revisa posibles rutas de ayuda, documentos pendientes y próximos pasos antes de empezar una obra.',
         heroSecondary: 'Qué revisamos',
         quickCards: [
           {
@@ -237,7 +237,7 @@ export function GrantsPage() {
     : {
         heroTitle: 'Find possible help for home adaptations.',
         heroBody:
-          'CasaMia helps you review grant routes, documents and next steps before starting works.',
+          'Review possible grant routes, missing documents and next steps before starting works.',
         heroSecondary: 'What we check',
         quickCards: [
           {

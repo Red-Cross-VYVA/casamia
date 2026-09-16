@@ -43,7 +43,7 @@ const copy = {
     nextTitle: 'Leave with a decision, not more confusion.',
     finalTitle: 'Need help turning answers into a plan?',
     finalBody:
-      'CasaMia can turn your answers into priorities: what to change now, what can wait, what needs measurements and what may support a grant application.',
+      'Use your answers to create priorities: what to change now, what can wait, what needs measurement and what may support a grant application.',
     finalCta: 'Start guided review',
     faqEyebrow: 'Tool guidance',
     faqTitle: 'How to use the tools well.',
@@ -90,7 +90,7 @@ const copy = {
     nextTitle: 'Sal con una decisión, no con más dudas.',
     finalTitle: '¿Necesitas convertir respuestas en un plan?',
     finalBody:
-      'CasaMia puede convertir tus respuestas en prioridades: qué cambiar ahora, qué puede esperar, qué necesita medidas y qué puede apoyar una solicitud de ayuda.',
+      'Usa tus respuestas para crear prioridades: qué cambiar ahora, qué puede esperar, qué necesita medidas y qué puede apoyar una solicitud de ayuda.',
     finalCta: 'Empezar revisión guiada',
     faqEyebrow: 'Guía de herramientas',
     faqTitle: 'Cómo usar bien las herramientas.',
@@ -207,10 +207,10 @@ const nextToolSteps = [
   },
   {
     icon: ShieldCheck,
-    title: { en: 'A route into action', es: 'Una ruta hacia la acción' },
+    title: { en: 'Priorities ready to use', es: 'Prioridades listas para usar' },
     body: {
-      en: 'CasaMia can turn the result into priorities, scope and managed next steps.',
-      es: 'CasaMia puede convertirlo en prioridades, alcance y próximos pasos gestionados.',
+      en: 'Turn the result into room priorities, scope notes and a prepared visit or proposal.',
+      es: 'Convierte el resultado en prioridades por estancia, notas de alcance y una visita o propuesta preparada.',
     },
   },
 ] as const

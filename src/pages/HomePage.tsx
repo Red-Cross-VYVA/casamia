@@ -362,14 +362,14 @@ export function HomePage() {
     <>
       <SEO
         title="CasaMia | Safer Homes for Independent Living"
-        description="CasaMia helps make homes safer with room checks, clear proposals, installation coordination and aftercare."
+        description="CasaMia turns room checks into clear home-safety priorities, measured proposals, coordinated installation and aftercare."
         path="/"
         schema={{
           '@context': 'https://schema.org',
           '@type': 'LocalBusiness',
           name: 'CasaMia',
           description:
-            'Home safety assessments, installation and personalised home-safety support.',
+            'Room-by-room home safety assessments, measured installation proposals and aftercare.',
           url: 'https://www.casamia.com.es',
           areaServed: 'Spain',
         }}

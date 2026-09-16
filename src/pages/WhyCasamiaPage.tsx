@@ -70,7 +70,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     eyebrow: 'Why CasaMia',
     headline: 'A safer home plan with one accountable team',
     intro:
-      'CasaMia helps you understand what needs changing, what can wait, who should do the work and how the result will be checked.',
+      'CasaMia shows what needs changing, what can wait, who should do the work and how the result will be checked.',
     coverage: {
       eyebrow: 'Spain-wide service',
       title: 'Local coverage across Spain, connected by CasaMia.',
@@ -197,7 +197,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     eyebrow: 'Por qué CasaMia',
     headline: 'Un plan de hogar más seguro con un equipo responsable',
     intro:
-      'CasaMia te ayuda a entender qué conviene cambiar, qué puede esperar, quién debe hacerlo y cómo se comprobará el resultado.',
+      'CasaMia muestra qué conviene cambiar, qué puede esperar, quién debe hacerlo y cómo se comprobará el resultado.',
     coverage: {
       eyebrow: 'Servicio en toda España',
       title: 'Cobertura local en toda España, conectada por CasaMia.',
