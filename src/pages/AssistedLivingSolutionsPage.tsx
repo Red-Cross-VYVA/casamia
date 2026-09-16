@@ -3,29 +3,19 @@ import {
   AlertCircle,
   ArrowRight,
   BadgeCheck,
-  BedDouble,
-  BellRing,
   Building2,
   Check,
   CheckCircle2,
   ChevronRight,
-  CircleDot,
   ClipboardCheck,
-  Cloud,
-  Droplets,
-  ExternalLink,
-  HeartPulse,
-  LayoutDashboard,
   LifeBuoy,
   Link2,
   LoaderCircle,
   LockKeyhole,
   Mail,
-  Network,
   Plug,
   Radio,
   ShieldCheck,
-  Smartphone,
   Sparkles,
   UserRoundCheck,
   UsersRound,
@@ -215,18 +205,18 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       'CasaMia integrates non-wearable fall detection, senior-living sensors, connected health devices, caregiver apps and operator workflows for residences in Spain.',
     hero: {
       eyebrow: 'Technology integration for senior living',
-      title: 'A smarter safety layer for every residence workflow.',
+      title: 'Pilot safer rooms without adding another disconnected system.',
       body:
-        'CasaMia helps assisted-living teams connect fall detection, advanced room sensors, bathroom and continence insights, optional home-clinic checks and caregiver workflows into one practical operating model.',
+        'CasaMia helps residences test camera-free fall detection, room sensors, continence prompts, connected health checks and caregiver workflows around one priority use case.',
       primaryCta: 'Design a facility pilot',
-      secondaryCta: 'Explore the technology',
-      proof: ['Non-wearable options', 'Works with existing systems', 'Privacy by design', 'Pilot-to-scale support'],
+      secondaryCta: 'See pilot options',
+      proof: ['One use case first', 'Camera-free options', 'Existing systems reviewed', 'Staff workflow included'],
       audiencesLabel: 'Built for',
       audiences: ['Assisted living', 'Senior residences', 'Senior communities', 'Multi-site operators'],
       imageAlt: 'Discreet camera-free room sensor in a calm senior-living residence',
       visualEyebrow: 'Passive safety, active response',
-      visualTitle: 'Residents stay comfortable. Teams get clearer signals when something needs attention.',
-      visualBody: 'Supported sensors and devices route agreed events to the right role, with context and next steps.',
+      visualTitle: 'A signal only matters when the team knows what to do next.',
+      visualBody: 'Supported sensors and devices route agreed events to the right role, with context and a clear response path.',
       visualEvent: 'Suspected fall',
       visualRoom: 'Suite 214 · private room',
       visualRoute: 'Routed to the care team',
@@ -272,12 +262,12 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ],
     },
     technology: {
-      eyebrow: 'Technology examples',
-      title: 'From fall detection to home-clinic checks—chosen for the use case.',
+      eyebrow: 'High-value pilot options',
+      title: 'Choose the first use case worth proving.',
       body:
-        'The right mix may combine passive room coverage, bathroom insights, rPPG check-ins, telehealth devices or personal wearables. We validate what fits the residence before recommending anything.',
+        'Start with the resident risk or operational bottleneck that matters most. CasaMia validates the device fit, coverage, permissions and staff response before anything scales.',
       compatibility:
-        'Device compatibility, room coverage and applicable certification are validated for each site before the pilot.',
+        'Device compatibility, room coverage, consent, certification and response ownership are checked before the pilot.',
       items: [
         {
           kind: 'fall',
@@ -399,9 +389,9 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     },
     rollout: {
       eyebrow: 'A responsible rollout',
-      title: 'Start small. Prove it. Then scale with confidence.',
+      title: 'One contained pilot, then evidence-based scale.',
       body:
-        'Begin with one use case, one area and one success measure. Validate coverage, response and staff adoption, then expand across rooms, wings or sites.',
+        'Begin with one use case, one area and one success measure. Validate coverage, response time and staff adoption before expanding across rooms, wings or sites.',
       steps: [
         { title: 'Assess', body: 'Define the use case, site and success measure.' },
         { title: 'Configure', body: 'Validate devices, integrations and routing.' },
@@ -413,12 +403,12 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ready: 'One clear handover for every resident and every shift.',
     },
     trust: {
-      title: 'Built for smoother operations—not more screens.',
+      title: 'What the pilot must prove.',
       outcomes: [
-        { title: 'Alerts without a button press', body: 'Supported ambient options can surface a possible event without resident action.' },
-        { title: 'Clear ownership', body: 'The right role can acknowledge, respond or escalate.' },
-        { title: 'Fewer disconnected tools', body: 'Compatible devices can feed one agreed workflow.' },
-        { title: 'Repeatable standards', body: 'Pilot once, document the model and scale responsibly.' },
+        { title: 'Useful signals', body: 'The agreed events are relevant enough for staff to trust and act on.' },
+        { title: 'Clear ownership', body: 'The right role can acknowledge, respond, escalate and hand over.' },
+        { title: 'Workflow fit', body: 'The pilot supports existing routines instead of creating another isolated screen.' },
+        { title: 'Repeatable standards', body: 'The model is documented before it expands to more rooms or sites.' },
       ],
       boundaryTitle: 'Responsible technology boundary',
       boundary:
@@ -452,9 +442,9 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     },
     form: {
       eyebrow: 'Start with one use case',
-      title: 'What should work better in your residence?',
+      title: 'Start with the first pilot.',
       body:
-        'Tell us about the site, current systems and first priority. We will propose the safest practical next step.',
+        'Tell us about the site, current systems and first priority. We will recommend the smallest practical pilot worth testing.',
       emailLabel: 'Prefer email?',
       cardTitle: 'Request a facility consultation',
       cardIntro: 'A few details help us bring the right specialist to the first call.',
@@ -493,18 +483,18 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       'CasaMia integra detección de caídas sin wearables, sensores para senior living, dispositivos de salud, apps para cuidadores y flujos para residencias en España.',
     hero: {
       eyebrow: 'Integración tecnológica para residencias',
-      title: 'Una capa de seguridad inteligente para cada flujo de la residencia.',
+      title: 'Pilota habitaciones más seguras sin añadir otro sistema aislado.',
       body:
-        'CasaMia ayuda a equipos de residencias a conectar detección de caídas, sensores avanzados de habitación, baño y continencia, controles opcionales de home clinic y flujos para cuidadores en un modelo operativo práctico.',
+        'CasaMia ayuda a residencias a probar detección de caídas sin cámara, sensores de habitación, avisos de continencia, controles de salud conectados y flujos para cuidadores alrededor de una prioridad concreta.',
       primaryCta: 'Diseñar un piloto',
-      secondaryCta: 'Ver la tecnología',
-      proof: ['Opciones sin wearables', 'Integrable con sistemas actuales', 'Privacidad desde el diseño', 'Del piloto al despliegue'],
+      secondaryCta: 'Ver opciones de piloto',
+      proof: ['Un caso de uso primero', 'Opciones sin cámara', 'Sistemas actuales revisados', 'Flujo del equipo incluido'],
       audiencesLabel: 'Pensado para',
       audiences: ['Residencias asistidas', 'Residencias senior', 'Comunidades senior', 'Operadores multicentro'],
       imageAlt: 'Sensor discreto sin cámara en una residencia senior tranquila',
       visualEyebrow: 'Seguridad pasiva, respuesta activa',
-      visualTitle: 'El residente mantiene su comodidad. El equipo recibe señales más claras cuando algo requiere atención.',
-      visualBody: 'Sensores y dispositivos compatibles envían eventos acordados al rol adecuado, con contexto y siguiente paso.',
+      visualTitle: 'Una señal solo aporta valor si el equipo sabe qué hacer después.',
+      visualBody: 'Sensores y dispositivos compatibles envían eventos acordados al rol adecuado, con contexto y una ruta clara de respuesta.',
       visualEvent: 'Posible caída',
       visualRoom: 'Habitación 214 · espacio privado',
       visualRoute: 'Enviado al equipo asistencial',
@@ -550,12 +540,12 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ],
     },
     technology: {
-      eyebrow: 'Ejemplos de tecnología',
-      title: 'De la detección de caídas a controles de home clinic, elegidos según el caso.',
+      eyebrow: 'Opciones de piloto de alto valor',
+      title: 'Elige el primer caso de uso que merece validarse.',
       body:
-        'La combinación adecuada puede unir cobertura pasiva, señales de baño, controles rPPG, dispositivos de telesalud o wearables personales. Validamos qué encaja antes de recomendar nada.',
+        'Empieza por el riesgo del residente o el cuello de botella operativo que más importa. CasaMia valida dispositivo, cobertura, permisos y respuesta del equipo antes de escalar.',
       compatibility:
-        'Validamos la compatibilidad, la cobertura y la certificación aplicable en cada centro antes del piloto.',
+        'Validamos compatibilidad, cobertura, consentimiento, certificación y responsables de respuesta antes del piloto.',
       items: [
         {
           kind: 'fall',
@@ -677,9 +667,9 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     },
     rollout: {
       eyebrow: 'Un despliegue responsable',
-      title: 'Empieza pequeño. Valídalo. Escala con confianza.',
+      title: 'Un piloto acotado, después escala con evidencia.',
       body:
-        'Empieza por un caso de uso, una zona y una medida de éxito. Valida cobertura, respuesta y adopción del equipo antes de ampliar a más habitaciones, alas o centros.',
+        'Empieza por un caso de uso, una zona y una medida de éxito. Valida cobertura, tiempo de respuesta y adopción del equipo antes de ampliar a más habitaciones, alas o centros.',
       steps: [
         { title: 'Evaluar', body: 'Definimos el caso de uso, la zona y la medida de éxito.' },
         { title: 'Configurar', body: 'Validamos dispositivos, integraciones y enrutamiento.' },
@@ -691,12 +681,12 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       ready: 'Un relevo claro para cada residente y cada turno.',
     },
     trust: {
-      title: 'Diseñado para simplificar la operación, no para añadir más pantallas.',
+      title: 'Qué debe demostrar el piloto.',
       outcomes: [
-        { title: 'Avisos sin pulsar un botón', body: 'Las opciones ambientales pueden señalar un posible evento sin acción del residente.' },
-        { title: 'Responsables claros', body: 'El rol adecuado puede confirmar, responder o escalar.' },
-        { title: 'Menos herramientas aisladas', body: 'Los dispositivos compatibles pueden alimentar un flujo acordado.' },
-        { title: 'Estándares replicables', body: 'Pilota, documenta el modelo y escala de forma responsable.' },
+        { title: 'Señales útiles', body: 'Los eventos acordados son relevantes para que el equipo confíe y actúe.' },
+        { title: 'Responsables claros', body: 'El rol adecuado puede confirmar, responder, escalar y pasar relevo.' },
+        { title: 'Encaje operativo', body: 'El piloto apoya las rutinas actuales sin crear otra pantalla aislada.' },
+        { title: 'Estándares replicables', body: 'El modelo queda documentado antes de ampliar a más habitaciones o centros.' },
       ],
       boundaryTitle: 'Límite responsable de la tecnología',
       boundary:
@@ -730,9 +720,9 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
     },
     form: {
       eyebrow: 'Empieza por un caso de uso',
-      title: '¿Qué debería funcionar mejor en tu residencia?',
+      title: 'Empieza por el primer piloto.',
       body:
-        'Cuéntanos el centro, los sistemas actuales y la prioridad. Propondremos el siguiente paso más seguro y práctico.',
+        'Cuéntanos el centro, los sistemas actuales y la prioridad. Recomendaremos el piloto práctico más pequeño que merece probarse.',
       emailLabel: '¿Prefieres email?',
       cardTitle: 'Solicita una consulta para tu centro',
       cardIntro: 'Unos datos nos ayudan a asignar al especialista adecuado.',
@@ -766,9 +756,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
   },
 }
 
-const expertiseIcons: LucideIcon[] = [UsersRound, Building2, UserRoundCheck, Network]
 const rolloutIcons: LucideIcon[] = [ClipboardCheck, Link2, UserRoundCheck, Sparkles]
-const destinationIcons: LucideIcon[] = [Smartphone, LayoutDashboard, Network]
 
 function getLanguageKey(language: string): LanguageKey {
   return language.toLowerCase().startsWith('es') ? 'es' : 'en'
@@ -801,32 +789,6 @@ function HeroFacilityVisual({ copy }: { copy: AssistedLivingCopy['hero'] }) {
             <span><CheckCircle2 size={14} aria-hidden="true" />{copy.visualRoute}</span>
           </div>
         </div>
-      </div>
-    </div>
-  )
-}
-
-function CustomSolutionBlueprint({ copy }: { copy: AssistedLivingCopy['expertise'] }) {
-  return (
-    <div className="alx-blueprint" role="img" aria-label={`${copy.inputs.map((item) => item.title).join(', ')}. ${copy.outcomeTitle}`}>
-      <div className="alx-blueprint-inputs">
-        {copy.inputs.map((item, index) => {
-          const Icon = expertiseIcons[index] ?? BadgeCheck
-          return (
-            <article key={item.title}>
-              <span className="alx-blueprint-number">0{index + 1}</span>
-              <span className="alx-blueprint-icon"><Icon size={19} aria-hidden="true" /></span>
-              <div><strong>{item.title}</strong><small>{item.body}</small></div>
-            </article>
-          )
-        })}
-      </div>
-      <span className="alx-blueprint-connector" aria-hidden="true"><ChevronRight size={24} /></span>
-      <div className="alx-blueprint-output">
-        <div className="alx-blueprint-brand"><span>Casa<span>Mia</span></span><small>{copy.outcomeLabel}</small></div>
-        <h3>{copy.outcomeTitle}</h3>
-        <ul>{copy.outcomes.map((item) => <li key={item}><CheckCircle2 size={16} aria-hidden="true" />{item}</li>)}</ul>
-        <p><Sparkles size={16} aria-hidden="true" />{copy.note}</p>
       </div>
     </div>
   )
@@ -888,146 +850,6 @@ function TechnologyVisual({ kind, label, lang }: { kind: TechnologyKind; label: 
         <span><LifeBuoy size={18} /><small>{isSpanish ? 'Colgante SOS' : 'SOS pendant'}</small></span>
       </div>
       <div className="alx-visual-caption"><Sparkles size={15} />{label}</div>
-    </div>
-  )
-}
-
-function TechnologyEcosystem({ copy }: { copy: AssistedLivingCopy['partners'] }) {
-  return (
-    <div className="alx-partner-ecosystem">
-      <div className="alx-partner-proof">
-        <article className="alx-provider-card">
-          <span className="alx-provider-mark">M<span>D</span></span>
-          <div><small>{copy.providerLabel}</small><h3>{copy.providerName}</h3><p>{copy.providerBody}</p></div>
-          <BadgeCheck size={22} aria-hidden="true" />
-        </article>
-        <div className="alx-reference-group">
-          <strong>{copy.referencesLabel}</strong>
-          <div>
-            {copy.references.map((item) => (
-              <a href={item.href} key={item.name} target="_blank" rel="noopener noreferrer">
-                <span>{item.name}</span><small>{item.category}</small><ExternalLink size={15} aria-hidden="true" />
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="alx-example-group">
-        <strong>{copy.examplesLabel}</strong>
-        <div className="alx-example-track">
-          {copy.examples.map((item) => (
-            <a href={item.href} key={item.name} target="_blank" rel="noopener noreferrer">
-              <span>{item.name}</span><small>{item.category}</small><ExternalLink size={14} aria-hidden="true" />
-            </a>
-          ))}
-        </div>
-      </div>
-      <p className="alx-partner-note"><ShieldCheck size={17} aria-hidden="true" />{copy.note}</p>
-    </div>
-  )
-}
-
-function EcosystemFlow({ copy }: { copy: AssistedLivingCopy['ecosystem'] }) {
-  return (
-    <div className="alx-ecosystem-map" role="img" aria-label={copy.aria}>
-      <article className="alx-eco-source">
-        <div className="alx-suite-mini">
-          <span><BedDouble size={25} /></span>
-          <i className="sensor-one"><Radio size={13} /></i>
-          <i className="sensor-two"><Droplets size={13} /></i>
-          <i className="sensor-three"><HeartPulse size={13} /></i>
-        </div>
-        <div><small>01</small><h3>{copy.sourceTitle}</h3><p>{copy.sourceBody}</p></div>
-      </article>
-
-      <span className="alx-eco-arrow" aria-hidden="true"><ChevronRight size={23} /></span>
-
-      <article className="alx-eco-layer">
-        <span className="alx-eco-stage"><small>02</small>{copy.layerBadge}</span>
-        <div className="alx-eco-cloud" aria-hidden="true">
-          <Cloud size={178} strokeWidth={1.15} />
-          <span>Casa<span>Mia</span></span>
-        </div>
-        <div className="alx-eco-layer-copy"><h3>{copy.layerTitle}</h3><p>{copy.layerBody}</p></div>
-        <ul className="alx-eco-capabilities">
-          {copy.layerCapabilities.map((item) => <li key={item}><Check size={13} aria-hidden="true" />{item}</li>)}
-        </ul>
-      </article>
-
-      <span className="alx-eco-arrow" aria-hidden="true"><ChevronRight size={23} /></span>
-
-      <div className="alx-eco-destinations">
-        {copy.destinations.map((item, index) => {
-          const Icon = destinationIcons[index] ?? CircleDot
-          return (
-            <article key={item.title}>
-              <span><Icon size={19} aria-hidden="true" /></span>
-              <div><h3>{item.title}</h3><p>{item.body}</p></div>
-            </article>
-          )
-        })}
-      </div>
-
-      <ol className="alx-event-flow">
-        {copy.flow.map((item, index) => (
-          <li key={item}><span>{index + 1}</span><strong>{item}</strong></li>
-        ))}
-      </ol>
-    </div>
-  )
-}
-
-function TeamInterfaces({ copy }: { copy: AssistedLivingCopy['interfaces'] }) {
-  return (
-    <div className="alx-interface-stage" role="img" aria-label={copy.body}>
-      <article className="alx-operator-view">
-        <header>
-          <div className="alx-dashboard-brand"><span>Casa<span>Mia</span></span><small>{copy.operator.label}</small></div>
-          <span className="alx-system-status"><i />{copy.operator.status}</span>
-        </header>
-        <div className="alx-dashboard-title">
-          <div><small>{copy.operator.summary}</small><h3>{copy.operator.title}</h3></div>
-          <BellRing size={21} aria-hidden="true" />
-        </div>
-        <div className="alx-dashboard-metrics">
-          {copy.operator.metrics.slice(0, 2).map((metric, index) => (
-            <div key={metric.label} className={index === 0 ? 'is-highlight' : undefined}>
-              <strong>{metric.value}</strong><span>{metric.label}</span>
-            </div>
-          ))}
-        </div>
-        <div className="alx-dashboard-queue">
-          <strong>{copy.operator.queueTitle}</strong>
-          {copy.operator.queue.slice(0, 2).map((item) => (
-            <div key={`${item.room}-${item.event}`}>
-              <span className={`alx-queue-tone is-${item.tone}`} />
-              <span><strong>{item.room}</strong><small>{item.event}</small></span>
-              <span><strong>{item.owner}</strong><small>{item.state}</small></span>
-            </div>
-          ))}
-        </div>
-      </article>
-
-      <article className="alx-caregiver-phone">
-        <div className="alx-phone-speaker" />
-        <header><span>09:41</span><Wifi size={14} aria-hidden="true" /></header>
-        <div className="alx-phone-appbar">
-          <span><UsersRound size={18} aria-hidden="true" /></span>
-          <div><small>{copy.caregiver.label}</small><strong>{copy.caregiver.shift}</strong></div>
-        </div>
-        <div className="alx-phone-event">
-          <div className="alx-phone-event-heading">
-            <span><Activity size={20} aria-hidden="true" /></span>
-            <div><small>{copy.caregiver.title}</small><strong>{copy.caregiver.eventType}</strong></div>
-            <time>{copy.caregiver.eventTime}</time>
-          </div>
-          <h3>{copy.caregiver.eventRoom}</h3>
-          <p>{copy.caregiver.context}</p>
-          <span className="alx-phone-action"><CheckCircle2 size={17} aria-hidden="true" />{copy.caregiver.primaryAction}</span>
-          <span className="alx-phone-action is-secondary">{copy.caregiver.secondaryAction}</span>
-        </div>
-        <p className="alx-phone-footer">{copy.caregiver.footer}</p>
-      </article>
     </div>
   )
 }
@@ -1157,40 +979,6 @@ export function AssistedLivingSolutionsPage() {
           </div>
         </section>
 
-        <section className="alx-section alx-expertise" aria-labelledby="alx-expertise-title">
-          <div className="site-shell alx-expertise-layout">
-            <div className="alx-section-copy">
-              <p className="eyebrow">{copy.expertise.eyebrow}</p>
-              <h2 id="alx-expertise-title">{copy.expertise.title}</h2>
-              <p>{copy.expertise.body}</p>
-            </div>
-            <CustomSolutionBlueprint copy={copy.expertise} />
-          </div>
-        </section>
-
-        <section className="alx-operating-model" aria-labelledby="alx-operating-model-title">
-          <div className="site-shell">
-            <header className="alx-operating-heading">
-              <p className="eyebrow">{copy.operatingModel.eyebrow}</p>
-              <h2 id="alx-operating-model-title">{copy.operatingModel.title}</h2>
-              <p>{copy.operatingModel.body}</p>
-            </header>
-            <div className="alx-operating-stack">
-              {copy.operatingModel.cards.map((card, index) => {
-                const Icon = [HeartPulse, Radio, Smartphone][index] ?? Sparkles
-                return (
-                  <article className="alx-operating-card" key={card.title}>
-                    <span className="alx-operating-icon"><Icon size={24} aria-hidden="true" /></span>
-                    <small>{card.metric}</small>
-                    <h3>{card.title}</h3>
-                    <p>{card.body}</p>
-                  </article>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-
         <section className="alx-section alx-technology" id="technology" aria-labelledby="alx-technology-title">
           <div className="site-shell">
             <header className="alx-section-heading">
@@ -1212,36 +1000,6 @@ export function AssistedLivingSolutionsPage() {
               ))}
             </div>
             <p className="alx-compatibility-note"><Plug size={18} aria-hidden="true" />{copy.technology.compatibility}</p>
-          </div>
-        </section>
-
-        <section className="alx-section alx-partners" id="technology-ecosystem" aria-labelledby="alx-partners-title">
-          <div className="site-shell">
-            <header className="alx-section-heading">
-              <div><p className="eyebrow">{copy.partners.eyebrow}</p><h2 id="alx-partners-title">{copy.partners.title}</h2></div>
-              <p>{copy.partners.body}</p>
-            </header>
-            <TechnologyEcosystem copy={copy.partners} />
-          </div>
-        </section>
-
-        <section className="alx-section alx-ecosystem" aria-labelledby="alx-ecosystem-title">
-          <div className="site-shell">
-            <header className="alx-section-heading is-inverse">
-              <div><p className="eyebrow alx-eyebrow-light">{copy.ecosystem.eyebrow}</p><h2 id="alx-ecosystem-title">{copy.ecosystem.title}</h2></div>
-              <p>{copy.ecosystem.body}</p>
-            </header>
-            <EcosystemFlow copy={copy.ecosystem} />
-          </div>
-        </section>
-
-        <section className="alx-section alx-interfaces" aria-labelledby="alx-interfaces-title">
-          <div className="site-shell">
-            <header className="alx-section-heading is-centred">
-              <div><p className="eyebrow">{copy.interfaces.eyebrow}</p><h2 id="alx-interfaces-title">{copy.interfaces.title}</h2></div>
-              <p>{copy.interfaces.body}</p>
-            </header>
-            <TeamInterfaces copy={copy.interfaces} />
           </div>
         </section>
 
