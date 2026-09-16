@@ -139,7 +139,7 @@
           "body": "High-risk zones are checked for safer movement, better reach, lighting, support and access."
         },
         {
-          "title": "Personalized recommendations",
+          "title": "Room-specific recommendations",
           "body": "Your assessment focuses on the home, the person, and the changes that would help most."
         },
         {
@@ -211,7 +211,7 @@
         },
         {
           "question": "Can CasaMia help with public grants?",
-          "answer": "CasaMia can help identify relevant grant routes and prepare the supporting documents when the route fits the work. The public authority always decides eligibility, approval, amount and timing."
+          "answer": "CasaMia checks possible grant routes and prepares supporting documents when the route fits the work. The public authority decides eligibility, approval, amount and timing."
         }
       ]
     },
@@ -375,7 +375,7 @@
       {
         "icon": "Step 3",
         "title": "Claim available grant support",
-        "desc": "Our team helps prepare the grant application and documents for eligible works, so public financial support can help fund the improvements where available.",
+        "desc": "Our team prepares the grant documents for eligible works, so available public support is considered before the final scope is agreed.",
         "points": [
           "Eligibility check",
           "Document support",
@@ -677,7 +677,7 @@
         "analysisRetryBody": "Keep your uploaded photos and refresh the report now.",
         "analysisRetryButton": "Retry photo analysis",
         "kicker": "Report ready",
-        "title": "Your personalised home-safety review",
+        "title": "Your room-by-room home-safety review",
         "reportTitle": "Safety Report",
         "photoReviewKicker": "Visual review",
         "photoReviewTitle": "What each photo shows",
@@ -895,7 +895,7 @@
     },
     "report": {
       "back": "Start a new safety report",
-      "title": "Your personalised CasaMia safety review.",
+      "title": "Your CasaMia room-by-room safety review.",
       "intro": "See what is visible in each photo, why it matters, what to do next, and exactly how your prevention-priority score was calculated.",
       "loading": "Loading report...",
       "notFoundTitle": "Report not found",
@@ -923,7 +923,7 @@
         },
         {
           "title": "Receive your safety report",
-          "desc": "The report highlights potential room risks, explains what to review first, and shows how CasaMia can help reduce those risks."
+          "desc": "The report highlights visible room risks, explains what to review first, and shows which CasaMia route could reduce those risks."
         },
         {
           "title": "Install and file grants",
@@ -936,7 +936,7 @@
       "metaTitle": "Plans and Pricing",
       "hero": {
         "title": "Choose the Right Safety Plan for Your Home",
-        "subtitle": "Whether you need expert guidance, home adaptations or smart safety technology, CasaMia helps you decide what to review and install first.",
+        "subtitle": "Whether the next step is guidance, home adaptations or connected safety, CasaMia shows what to review and confirm first.",
         "primaryCta": "Book In-Home Assessment",
         "secondaryCta": "Compare Plans"
       },
@@ -1173,7 +1173,7 @@
           },
           {
             "question": "What happens after the work is completed?",
-            "answer": "We complete a handover, confirm the customer accepts the work, and explain any support options for future needs."
+            "answer": "We complete a handover, confirm the customer accepts the work, and explain who to contact if the home or routine changes later."
           }
         ]
       },
@@ -1234,7 +1234,7 @@
       "paymentReassurance": "No hidden fees. No unexpected costs.",
       "faqTitle": "Questions people ask",
       "finalTitle": "Ready to make your home safer?",
-      "finalBody": "Request a {{visitFee}} in-home assessment visit and receive personalised recommendations from our qualified safety experts.",
+      "finalBody": "Request a {{visitFee}} in-home assessment visit and receive room-specific recommendations from our qualified safety experts.",
       "finalCta": "Book In-Home Assessment",
       "plans": [
         {
@@ -1276,7 +1276,7 @@
             },
             {
               "icon": "report",
-              "title": "Personalised Safety Report",
+              "title": "Room-by-room safety report",
               "body": "You receive a clear written report that explains the priority risks and recommended improvements."
             },
             {
@@ -1617,7 +1617,7 @@
             {
               "icon": "living",
               "title": "Living Room",
-              "body": "Configure lighting, voice control and emergency access around the main daily living space."
+              "body": "Configure lighting, voice control and emergency access around the room used most each day."
             },
             {
               "icon": "stairway",
@@ -1669,7 +1669,7 @@
           "faqs": [
             {
               "question": "Can I control everything from my phone?",
-              "answer": "Many devices can be controlled from a phone when compatible, but CasaMia keeps the setup practical and easy to use."
+              "answer": "Many devices can be controlled from a phone when compatible, but CasaMia limits the setup to controls the person can reliably use."
             },
             {
               "question": "Do smart devices require Wi-Fi?",
@@ -1715,7 +1715,7 @@
     "planAdapta": {
       "hero": {
         "title": "Plan Adapta Grant Support",
-        "subtitle": "CasaMia helps you manage the application process for home safety and accessibility grants, from documentation to submission.",
+        "subtitle": "CasaMia coordinates the grant application route for home safety and accessibility works, from documentation to submission.",
         "cta": "Book Free Assessment",
         "panelTitle": "Administrative support from start to submission",
         "panelBody": "We help clarify what may be needed, prepare the application file, and coordinate next steps where authorised."

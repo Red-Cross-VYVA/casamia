@@ -139,7 +139,7 @@
           "body": "Las zonas de mayor riesgo se revisan para mejorar movimiento, alcance, iluminación, apoyo y acceso."
         },
         {
-          "title": "Recomendaciones personalizadas",
+          "title": "Recomendaciones por estancia",
           "body": "La evaluación se adapta a la vivienda, la persona y los cambios que más ayudarían."
         },
         {
@@ -211,7 +211,7 @@
         },
         {
           "question": "¿CasaMia puede ayudar con ayudas públicas?",
-          "answer": "CasaMia puede ayudar a identificar rutas de ayuda relevantes y preparar soporte cuando corresponda. La administración pública decide siempre elegibilidad, aprobación, importe y plazos."
+          "answer": "CasaMia revisa posibles rutas de ayuda y prepara documentación de apoyo cuando la obra encaja. La administración pública decide siempre elegibilidad, aprobación, importe y plazos."
         }
       ]
     },
@@ -375,7 +375,7 @@
       {
         "icon": "Paso 3",
         "title": "Solicita las ayudas disponibles",
-        "desc": "Nuestro equipo ayuda a preparar la solicitud y la documentación para obras elegibles, de modo que el apoyo público pueda financiar las mejoras cuando esté disponible.",
+        "desc": "Nuestro equipo prepara la documentación para obras elegibles, de modo que el apoyo público disponible se tenga en cuenta antes de cerrar el alcance final.",
         "points": [
           "Revisión de elegibilidad",
           "Apoyo documental",
@@ -677,7 +677,7 @@
         "analysisRetryBody": "Conserva las fotos subidas y actualiza ahora el informe.",
         "analysisRetryButton": "Reintentar análisis",
         "kicker": "Informe listo",
-        "title": "Tu revisión personalizada de seguridad",
+        "title": "Tu revisión de seguridad por estancia",
         "reportTitle": "Informe de seguridad",
         "photoReviewKicker": "Revisión visual",
         "photoReviewTitle": "Qué muestra cada foto",
@@ -895,7 +895,7 @@
     },
     "report": {
       "back": "Crear nuevo informe de seguridad",
-      "title": "Tu revisión personalizada de seguridad CasaMia.",
+      "title": "Tu revisión CasaMia de seguridad por estancia.",
       "intro": "Descubre qué muestra cada foto, por qué importa, qué hacer a continuación y cómo se ha calculado tu prioridad preventiva.",
       "loading": "Cargando informe...",
       "notFoundTitle": "Informe no encontrado",
@@ -915,7 +915,7 @@
   "pages": {
     "howItWorks": {
       "title": "Un hogar más seguro en tres pasos claros.",
-      "intro": "CasaMia simplifica el proceso: sube fotos, recibe un plan personalizado y deja que instaladores certificados se encarguen de las adaptaciones.",
+      "intro": "Empieza con fotos o una visita a domicilio, recibe prioridades claras y aprueba solo las adaptaciones que tienen sentido para la vivienda.",
       "steps": [
         {
           "title": "Sube fotos de tu vivienda",
@@ -923,7 +923,7 @@
         },
         {
           "title": "Recibe tu informe de seguridad",
-          "desc": "El informe señala posibles riesgos por estancia, qué revisar primero y cómo CasaMia puede ayudar a reducirlos."
+          "desc": "El informe señala riesgos visibles por estancia, qué revisar primero y qué ruta CasaMia podría reducir esos riesgos."
         },
         {
           "title": "Instalamos y tramitamos ayudas",
@@ -936,7 +936,7 @@
       "metaTitle": "Planes y precios",
       "hero": {
         "title": "Elige el plan de seguridad adecuado para tu hogar",
-      "subtitle": "Tanto si necesitas orientación experta, adaptaciones o tecnología de seguridad inteligente, CasaMia te ayuda a priorizar qué revisar y qué instalar primero.",
+      "subtitle": "Tanto si el siguiente paso es orientación, adaptaciones o seguridad conectada, CasaMia muestra qué revisar y confirmar primero.",
         "primaryCta": "Reservar evaluación a domicilio",
         "secondaryCta": "Comparar planes"
       },
@@ -1173,7 +1173,7 @@
           },
           {
             "question": "¿Qué pasa cuando termina el trabajo?",
-            "answer": "Realizamos la entrega, confirmamos la aceptación del cliente y explicamos las opciones de soporte para necesidades futuras."
+            "answer": "Realizamos la entrega, confirmamos la aceptación del cliente y explicamos con quién contactar si cambia la vivienda o la rutina."
           }
         ]
       },
@@ -1234,7 +1234,7 @@
       "paymentReassurance": "Sin costes ocultos. Sin gastos inesperados.",
       "faqTitle": "Preguntas frecuentes",
       "finalTitle": "¿Listo para hacer tu hogar más seguro?",
-      "finalBody": "Solicita una visita de evaluación a domicilio de {{visitFee}} y recibe recomendaciones personalizadas de nuestros expertos cualificados.",
+      "finalBody": "Solicita una visita de evaluación a domicilio de {{visitFee}} y recibe recomendaciones por estancia de nuestros expertos cualificados.",
       "finalCta": "Reservar evaluación a domicilio",
       "plans": [
         {
@@ -1276,7 +1276,7 @@
             },
             {
               "icon": "report",
-              "title": "Informe personalizado de seguridad",
+              "title": "Informe de seguridad por estancia",
               "body": "Recibes un informe claro que explica riesgos prioritarios y mejoras recomendadas."
             },
             {
@@ -1617,7 +1617,7 @@
             {
               "icon": "living",
               "title": "Salón",
-              "body": "Configurar iluminación, voz y acceso de emergencia en la estancia principal."
+              "body": "Configurar iluminación, voz y acceso de emergencia en la estancia que más se usa cada día."
             },
             {
               "icon": "stairway",
@@ -1715,7 +1715,7 @@
     "planAdapta": {
       "hero": {
         "title": "Soporte para ayudas Plan Adapta",
-        "subtitle": "CasaMia te ayuda a gestionar el proceso de solicitud de ayudas para seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
+        "subtitle": "CasaMia coordina la ruta de solicitud de ayudas para obras de seguridad y accesibilidad en el hogar, desde la documentación hasta la presentación.",
         "cta": "Reservar evaluación gratis",
         "panelTitle": "Apoyo administrativo desde el inicio hasta la presentación",
         "panelBody": "Ayudamos a las familias a entender qué puede ser necesario, preparar el expediente y coordinar los siguientes pasos cuando exista autorización."
