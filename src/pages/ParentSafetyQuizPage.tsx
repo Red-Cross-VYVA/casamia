@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, HelpCircle, Home, ShieldAlert, ShieldCheck } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Home, ShieldAlert, ShieldCheck } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -115,6 +115,15 @@ const copy = {
     body:
       'Use this quick, non-medical check for yourself or someone you care about. It helps decide whether the next step should be a room checklist, an online review or a focused CasaMia assessment.',
     startCta: 'Answer the 5 questions',
+    progressLabel: 'Progress',
+    scoreLabel: 'Safety score',
+    noAnswersTitle: 'Start answering to see the risk level',
+    noAnswersBody: 'The score updates after each answer, then suggests the next practical step.',
+    liveRiskEyebrow: 'Current risk level',
+    riskLow: 'Low signal',
+    riskMedium: 'Review recommended',
+    riskHigh: 'High priority',
+    answeredLabel: 'answered',
     resultEyebrow: 'Suggested next step',
     restart: 'Retake quiz',
     assessmentCta: 'Start guided review',
@@ -146,6 +155,15 @@ const copy = {
     body:
       'Usa esta revisión breve, no médica, para ti o para alguien a quien cuidas. Ayuda a decidir si el siguiente paso debe ser una lista por estancias, una revisión online o una evaluación CasaMia.',
     startCta: 'Responder 5 preguntas',
+    progressLabel: 'Progreso',
+    scoreLabel: 'Puntuación de seguridad',
+    noAnswersTitle: 'Empieza a responder para ver el nivel de riesgo',
+    noAnswersBody: 'La puntuación se actualiza con cada respuesta y luego sugiere el siguiente paso práctico.',
+    liveRiskEyebrow: 'Nivel de riesgo actual',
+    riskLow: 'Señal baja',
+    riskMedium: 'Revisión recomendada',
+    riskHigh: 'Prioridad alta',
+    answeredLabel: 'respondidas',
     resultEyebrow: 'Siguiente paso sugerido',
     restart: 'Repetir quiz',
     assessmentCta: 'Empezar revisión guiada',
@@ -178,8 +196,20 @@ export function ParentSafetyQuizPage() {
   const answeredCount = Object.keys(answers).length
   const totalScore = useMemo(() => Object.values(answers).reduce((sum, score) => sum + score, 0), [answers])
   const isComplete = answeredCount === questions.length
+  const maxScore = questions.length * 3
+  const scorePercent = Math.min(100, Math.round((totalScore / maxScore) * 100))
+  const averageScore = answeredCount ? totalScore / answeredCount : 0
+  const liveRiskLevel = answeredCount === 0 ? 'none' : averageScore >= 2.35 ? 'high' : averageScore >= 1.1 ? 'medium' : 'low'
+  const liveRiskLabel =
+    liveRiskLevel === 'high'
+      ? pageCopy.riskHigh
+      : liveRiskLevel === 'medium'
+        ? pageCopy.riskMedium
+        : liveRiskLevel === 'low'
+          ? pageCopy.riskLow
+          : pageCopy.progressLabel
   const result = totalScore >= 10 ? pageCopy.resultHigh : totalScore >= 5 ? pageCopy.resultMedium : pageCopy.resultLow
-  const ResultIcon = totalScore >= 10 ? ShieldAlert : totalScore >= 5 ? ShieldCheck : CheckCircle2
+  const ResultIcon = liveRiskLevel === 'high' || totalScore >= 10 ? ShieldAlert : liveRiskLevel === 'medium' || totalScore >= 5 ? ShieldCheck : CheckCircle2
 
   const schema = [
     {
@@ -260,13 +290,22 @@ export function ParentSafetyQuizPage() {
             ))}
           </div>
 
-          <aside className={`parent-safety-result ${isComplete ? 'is-ready' : ''}`} aria-live="polite">
+          <aside className={`parent-safety-result is-${liveRiskLevel}${isComplete ? ' is-ready' : ''}`} aria-live="polite">
+            <div className="parent-safety-live-score">
+              <span className="parent-safety-result-icon">
+                <ResultIcon size={30} aria-hidden="true" />
+              </span>
+              <div>
+                <p className="eyebrow">{isComplete ? pageCopy.resultEyebrow : pageCopy.liveRiskEyebrow}</p>
+                <strong>{liveRiskLabel}</strong>
+                <small>{answeredCount}/{questions.length} {pageCopy.answeredLabel} · {pageCopy.scoreLabel}: {totalScore}/{maxScore}</small>
+              </div>
+            </div>
+            <div className="parent-safety-score-meter" aria-label={`${pageCopy.scoreLabel}: ${totalScore}/${maxScore}`}>
+              <span style={{ width: `${scorePercent}%` }} />
+            </div>
             {isComplete ? (
               <>
-                <span className="parent-safety-result-icon">
-                  <ResultIcon size={30} aria-hidden="true" />
-                </span>
-                <p className="eyebrow">{pageCopy.resultEyebrow}</p>
                 <h2>{result.title}</h2>
                 <p>{result.body}</p>
                 <div className="parent-safety-result-actions">
@@ -289,9 +328,8 @@ export function ParentSafetyQuizPage() {
               </>
             ) : (
               <>
-                <HelpCircle size={34} aria-hidden="true" />
-                <h2>{pageCopy.startCta}</h2>
-                <p>{pageCopy.caveat}</p>
+                <h2>{answeredCount ? liveRiskLabel : pageCopy.noAnswersTitle}</h2>
+                <p>{answeredCount ? pageCopy.caveat : pageCopy.noAnswersBody}</p>
               </>
             )}
           </aside>
