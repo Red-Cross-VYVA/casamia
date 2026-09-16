@@ -46,9 +46,9 @@ const homeZones: HomeZone[] = [
   {
     id: 'bedroom',
     title: 'Bedroom',
-    eyebrow: 'Night route',
+    eyebrow: 'Night movement',
     icon: BedDouble,
-    stat: 'In a U.S. emergency-department study, 79.2% of older-adult fall visits were from falls at home, and bedrooms were one of the most common home locations.',
+    stat: 'Night movement often combines low light, tiredness and urgency, so bed access and the first steps need checking together.',
     summary: 'Getting out of bed, low light, slippers, rugs and the first steps after waking.',
     mapClassName: 'md:col-start-1 md:row-start-1',
   },
@@ -64,10 +64,10 @@ const homeZones: HomeZone[] = [
   {
     id: 'movement',
     title: 'Stairs & halls',
-    eyebrow: 'Daily route',
+    eyebrow: 'Daily movement',
     icon: Footprints,
-    stat: 'A U.S. ED study found the most common home fall locations were bedroom, bathroom and stairs; Stanford also flags halls and pathways as trouble areas.',
-    summary: 'Handrails, contrast, lighting, rugs, cables and support along the route.',
+    stat: 'Stairs, halls and room-to-room movement create risk when support, lighting, contrast or floor space are inconsistent.',
+    summary: 'Handrails, contrast, lighting, rugs, cables and support between rooms.',
     mapClassName: 'md:col-start-3 md:row-start-1 md:row-span-2',
   },
   {
@@ -84,7 +84,7 @@ const homeZones: HomeZone[] = [
     title: 'Whole home',
     eyebrow: 'Alerts',
     icon: Smartphone,
-    stat: 'CDC reports nearly 3 million emergency-department visits for older-adult falls in 2021, while also stressing that falls can be prevented.',
+    stat: 'Connected alerts are useful only when the right person is notified and the resident understands how help is requested.',
     summary: 'Emergency button, agreed contacts, alerts and connected routines.',
     mapClassName: 'md:col-start-2 md:row-start-2',
   },
@@ -103,7 +103,7 @@ const wizardSteps = ['Welcome', 'Property', 'Rooms', 'Home details', 'Questions'
 const stepHeadings = [
   'Build a room-by-room safety scope.',
   'Tell us about the home.',
-  'Select the rooms or daily paths that feel risky.',
+  'Select the rooms, entrance points or movement moments that feel risky.',
   'Confirm the home details.',
   'Answer the home-safety questions.',
   'Review the recommended improvements.',
@@ -846,7 +846,7 @@ function AreaConfigurationStep() {
       {isRoomSelected(state, 'connected') ? <ConnectedQuestions /> : null}
       {getSelectedRoomIds(state).length === 0 ? (
         <p className="rounded-lg border border-border bg-pale-blue p-5 text-lg font-bold text-text-mid">
-          Select at least one room, entrance or daily route so CasaMia can build the first scope.
+          Select at least one room, entrance or movement area so CasaMia can build the first scope.
         </p>
       ) : null}
     </div>
@@ -881,7 +881,7 @@ function ServiceSelectionStep({ recommendedServiceIds }: { recommendedServiceIds
               Recommended improvements
             </h2>
             <p className="mt-2 max-w-2xl text-base font-bold leading-relaxed text-text-mid">
-              Start with the items suggested by your answers. You can add, remove or keep them before requesting a quote.
+              Start with the items suggested by your answers. Keep only the changes that match the room and routine before requesting a quote.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
