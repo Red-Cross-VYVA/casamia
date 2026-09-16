@@ -54,7 +54,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'products',
         title: 'Quality Products',
-        body: 'We focus on durable, practical safety products chosen for daily use, not confusing gadgetry.',
+        body: 'We choose durable safety products that fit daily routines, not confusing gadgetry.',
       },
       {
         icon: 'acceptance',
@@ -93,7 +93,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'products',
         title: 'Productos de calidad',
-        body: 'Priorizamos productos de seguridad duraderos y prácticos para el uso diario.',
+        body: 'Elegimos productos de seguridad duraderos que encajan con la rutina diaria.',
       },
       {
         icon: 'acceptance',

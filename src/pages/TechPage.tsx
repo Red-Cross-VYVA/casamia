@@ -99,7 +99,7 @@ const techCopy = {
     lang: 'en',
     seoTitle: 'Connected Health Devices, Home Clinic & Telehealth Spain',
     seoDescription:
-      'CasaMia connects compatible health and safety devices to your existing app or care system, or provides a simple user app, approved-contact view, professional dashboard, Home Clinic and telehealth setup.',
+      'CasaMia connects compatible health and safety devices to your existing app or care system, or provides a user app, approved-contact view, professional dashboard, Home Clinic and telehealth setup.',
     serviceType: 'Connected health device integration, Home Clinic and telehealth setup',
     hero: {
       eyebrow: 'Connected health at home',
@@ -165,7 +165,7 @@ const techCopy = {
       eyebrow: 'Device integration',
       title: 'Bring the devices. We make the information easier to act on.',
       body:
-        'CasaMia can assess compatible health, wellbeing and home-safety technology, connect the right signals and turn scattered device data into clearer next steps.',
+        'CasaMia can assess compatible health, wellbeing and home-safety technology, connect the agreed signals and route them to the people responsible for responding.',
       items: [
         {
           icon: 'heart' as TechIconName,
@@ -190,7 +190,7 @@ const techCopy = {
       ],
       compatibilityTitle: 'Compatibility comes first',
       compatibilityBody:
-        'Not every device exposes a safe or supported connection. We confirm technical and contractual compatibility before promising an integration. If a direct connection is not possible, we recommend a suitable device or a practical alternative.',
+        'Not every device exposes a safe or supported connection. We confirm technical and contractual compatibility before promising an integration. If a direct connection is not possible, we recommend a compatible device or another response route.',
     },
     integration: {
       eyebrow: 'Integration architecture',
@@ -218,9 +218,9 @@ const techCopy = {
     },
     homeClinic: {
       eyebrow: 'The CasaMia Home Clinic',
-      title: 'Useful health support at home—without making the home feel clinical.',
+      title: 'Health readings at home without turning the home into a clinic.',
       body:
-        'Home Clinic combines selected compatible devices, simple measurement routines and one organised digital view. CasaMia installs and pairs the equipment, explains each step and helps make agreed information available to approved contacts or professionals.',
+        'Home Clinic combines selected compatible devices, guided measurement routines and one organised digital view. CasaMia installs and pairs the equipment, explains each step and helps make agreed information available to approved contacts or professionals.',
       imageAlt: 'Connected blood pressure monitor prepared for a guided health measurement at home',
       visualLabel: 'Home Clinic ready',
       visualItems: ['Device paired', 'Routine explained', 'Readings organised'],
@@ -291,7 +291,7 @@ const techCopy = {
         visualLabel: 'CasaMia platform view',
         title: 'CasaMia connected-care platform',
         body:
-          'A simpler user experience, approved-contact access and a professional dashboard for agreed reminders, readings, alerts and follow-up.',
+          'A focused user experience, approved-contact access and a professional dashboard for agreed reminders, readings, alerts and follow-up.',
         points: ['User app and optional VYVA voice support', 'Approved-contact view with role-based access', 'Professional dashboard and support'],
       },
     },
@@ -350,7 +350,7 @@ const techCopy = {
         {
           question: 'What if we have devices but no app or dashboard?',
           answer:
-            'CasaMia can provide the complete digital layer: a simple user experience, approved-contact access, a professional dashboard and optional VYVA voice support, together with setup and onboarding.',
+            'CasaMia can provide the complete digital layer: user app, approved-contact access, professional dashboard and optional VYVA voice support, together with setup and onboarding.',
         },
         {
           question: 'Does Home Clinic diagnose or provide medical advice?',
@@ -371,9 +371,9 @@ const techCopy = {
     },
     final: {
       eyebrow: 'Start with your real setup',
-      title: 'Tell us what you already have. We will show you the clearest way to connect it.',
+      title: 'Tell us what you already have. We will map the connection route.',
       body:
-        'Bring a device list, an existing system or simply the outcome you need. We will review the starting point and define a practical connected-care plan.',
+        'Bring a device list, an existing system or the outcome you need. We will review the starting point, compatibility, alert recipients and response rules.',
       primaryCta: 'Discuss my integration',
       secondaryCta: 'I need the complete platform',
     },
@@ -501,9 +501,9 @@ const techCopy = {
     },
     homeClinic: {
       eyebrow: 'La Clínica en Casa de CasaMia',
-      title: 'Apoyo práctico para la salud en casa, sin convertirla en un entorno clínico.',
+      title: 'Lecturas de salud en casa sin convertirla en una clínica.',
       body:
-        'Clínica en Casa combina dispositivos compatibles seleccionados, rutinas sencillas de medición y una vista digital organizada. CasaMia instala y vincula los equipos, explica cada paso y facilita que la información acordada esté disponible para contactos autorizados o profesionales.',
+        'Clínica en Casa combina dispositivos compatibles seleccionados, rutinas guiadas de medición y una vista digital organizada. CasaMia instala y vincula los equipos, explica cada paso y facilita que la información acordada esté disponible para contactos autorizados o profesionales.',
       imageAlt: 'Tensiómetro conectado preparado para una medición guiada de salud en casa',
       visualLabel: 'Clínica en Casa lista',
       visualItems: ['Dispositivo vinculado', 'Rutina explicada', 'Lecturas organizadas'],
@@ -544,7 +544,7 @@ const techCopy = {
     },
     monitoring: {
       eyebrow: 'Monitorización y alertas',
-      title: 'Señales útiles. Próximos pasos claros. Menos avisos innecesarios.',
+      title: 'Señales relevantes. Pasos acordados. Menos avisos innecesarios.',
       body:
         'CasaMia configura las notificaciones según las necesidades del hogar y las responsabilidades acordadas con contactos autorizados o profesionales. Las alertas pueden dirigirse por tipo, prioridad y horario.',
       items: [
@@ -574,7 +574,7 @@ const techCopy = {
         visualLabel: 'Vista CasaMia en directo',
         title: 'Plataforma de atención conectada CasaMia',
         body:
-          'Una experiencia sencilla para la persona, acceso para contactos autorizados y un panel profesional para recordatorios, lecturas, alertas y seguimientos acordados.',
+          'Una experiencia enfocada para la persona, acceso para contactos autorizados y un panel profesional para recordatorios, lecturas, alertas y seguimientos acordados.',
         points: ['App para la persona y asistencia VYVA opcional', 'Vista para contactos autorizados con acceso por roles', 'Panel profesional y soporte'],
       },
     },
@@ -582,7 +582,7 @@ const techCopy = {
       eyebrow: 'Qué entrega realmente CasaMia',
       title: 'Un único servicio responsable desde el análisis hasta el soporte.',
       body:
-        'Hacemos mucho más que vincular un dispositivo. CasaMia coordina el trabajo práctico, técnico y humano necesario para que la atención conectada funcione en la vida real.',
+        'Hacemos mucho más que vincular un dispositivo. CasaMia coordina instalación, compatibilidad, permisos, alertas y uso diario para que la atención conectada funcione en casa.',
       items: [
         { title: 'Analizar', body: 'Inventariamos dispositivos, sistemas, usuarios, conectividad y el resultado que necesitas.' },
         { title: 'Diseñar', body: 'Confirmamos compatibilidad, flujos de datos, permisos, alertas y responsabilidades.' },
@@ -633,7 +633,7 @@ const techCopy = {
         {
           question: '¿Qué ocurre si tenemos dispositivos, pero no una app o un panel?',
           answer:
-            'CasaMia puede proporcionar la capa digital completa: una experiencia sencilla para la persona, acceso para contactos autorizados, panel profesional y asistencia VYVA por voz opcional, además de configuración y formación.',
+            'CasaMia puede proporcionar la capa digital completa: app de usuario, acceso para contactos autorizados, panel profesional y asistencia VYVA por voz opcional, además de configuración y formación.',
         },
         {
           question: '¿Clínica en Casa diagnostica o da consejo médico?',
@@ -654,9 +654,9 @@ const techCopy = {
     },
     final: {
       eyebrow: 'Empieza por tu situación real',
-      title: 'Cuéntanos qué tienes. Te mostraremos la forma más clara de conectarlo.',
+      title: 'Cuéntanos qué tienes. Mapearemos la ruta de conexión.',
       body:
-        'Puedes traer una lista de dispositivos, un sistema existente o simplemente el resultado que necesitas. CasaMia revisará el punto de partida y definirá un plan práctico de atención conectada.',
+        'Puedes traer una lista de dispositivos, un sistema existente o el resultado que necesitas. CasaMia revisará el punto de partida, la compatibilidad, los destinatarios de alertas y las reglas de respuesta.',
       primaryCta: 'Hablar de mi integración',
       secondaryCta: 'Necesito la plataforma completa',
     },

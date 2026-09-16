@@ -168,13 +168,13 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     title: 'Start your way.',
     body: 'CasaMia handles the rest.',
     heroOutcomeEyebrow: 'What you receive',
-    heroOutcomeText: 'Clear priorities, practical next steps, and CasaMia coordinating the work.',
+    heroOutcomeText: 'Room priorities, recommended actions, quoted scope and CasaMia coordination.',
     channelsTitle: 'Choose a channel',
     channelsBody: 'Every route reaches the same CasaMia team.',
     humanAlt: 'Older woman smiling while using her smartphone at home',
     channels: [
-      { key: 'online', title: 'Online', body: 'Simple guided questions' },
-      { key: 'voice', title: 'Voice', body: 'Tell us naturally' },
+      { key: 'online', title: 'Online', body: 'Guided room questions' },
+      { key: 'voice', title: 'Voice', body: 'Describe the concern out loud' },
       { key: 'whatsapp', title: 'WhatsApp', body: 'Message us from your phone' },
       { key: 'call', title: 'Phone', body: 'Call us or request a callback' },
       { key: 'email', title: 'Email', body: 'hola@casamia.com.es' },
@@ -182,7 +182,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     steps: [
       {
         title: 'Tell us what you need',
-        body: 'Share what feels difficult, unsafe or urgent.',
+        body: 'Share the room, routine, recent change or urgent concern.',
       },
       {
         title: 'We assess your home',
@@ -202,13 +202,13 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     title: 'Empieza como prefieras.',
     body: 'CasaMia se encarga del resto.',
     heroOutcomeEyebrow: 'Qu\u00e9 recibes',
-    heroOutcomeText: 'Prioridades claras, pasos prácticos y CasaMia coordinando el trabajo.',
+    heroOutcomeText: 'Prioridades por estancia, acciones recomendadas, alcance presupuestado y coordinación CasaMia.',
     channelsTitle: 'Elige tu canal',
     channelsBody: 'Todas las v\u00edas llegan al mismo equipo CasaMia.',
     humanAlt: 'Mujer mayor sonriendo mientras usa su tel\u00e9fono m\u00f3vil en casa',
     channels: [
-      { key: 'online', title: 'Online', body: 'Preguntas sencillas y guiadas' },
-      { key: 'voice', title: 'Voz', body: 'Habla con naturalidad' },
+      { key: 'online', title: 'Online', body: 'Preguntas guiadas por estancia' },
+      { key: 'voice', title: 'Voz', body: 'Describe la preocupación en voz alta' },
       { key: 'whatsapp', title: 'WhatsApp', body: 'Escr\u00edbenos desde el m\u00f3vil' },
       { key: 'call', title: 'Tel\u00e9fono', body: 'Ll\u00e1manos o pide que te llamemos' },
       { key: 'email', title: 'Email', body: 'hola@casamia.com.es' },
@@ -216,7 +216,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
     steps: [
       {
         title: 'Cu\u00e9ntanos qu\u00e9 necesitas',
-        body: 'Expl\u00edcanos qu\u00e9 resulta dif\u00edcil, inseguro o urgente.',
+        body: 'Indica la estancia, rutina, cambio reciente o preocupación urgente.',
       },
       {
         title: 'Evaluamos la vivienda',
@@ -255,7 +255,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       { label: 'We stay with you', value: 'Support' },
     ],
     statusNote: 'One team from first contact to follow-up.',
-    processEyebrow: 'That simple',
+    processEyebrow: 'How it moves forward',
     processTitle: 'One call or one click. We coordinate the rest.',
     processBody:
       'Tell us what is happening at home. CasaMia turns the first conversation into clear priorities, coordinated installation and follow-up support.',
@@ -263,7 +263,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'phone',
         title: 'Call us or start online',
-        body: 'Choose what feels easiest. We listen and guide you from the first moment.',
+        body: 'Start by phone, online, WhatsApp or photos. We capture the room, routine and urgency.',
         tag: 'Start',
         proof: 'Phone or online',
       },
@@ -308,7 +308,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     reviewEyebrow: 'Room-by-room',
     reviewTitle: 'We review the spaces that shape daily safety.',
     reviewBody:
-      'Bathrooms, bedrooms, living areas, entrances, and kitchens all affect confidence at home.',
+      'Bathrooms, bedrooms, living areas, entrances and kitchens each create different risks, so CasaMia checks them room by room.',
     reviewCta: 'View Services',
     previousRoomLabel: 'Show previous room',
     nextRoomLabel: 'Show next room',
@@ -350,7 +350,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
     ],
     deliverablesEyebrow: 'What you get',
-    deliverablesTitle: 'The output is clear and practical.',
+    deliverablesTitle: 'You leave with concrete decisions.',
     deliverables: [
       {
         icon: 'file',
@@ -449,21 +449,21 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     secondaryCta: 'Reservar visita',
     heroAlt: 'Profesional de CasaMia preparado para una evaluación de seguridad en casa',
     statusTitle: 'Cuatro pasos claros',
-    statusIntro: 'CasaMia te acompaña desde la primera revisión hasta la acción práctica.',
+    statusIntro: 'CasaMia convierte la primera revisión en prioridades, alcance y coordinación.',
     statusRows: [
       { label: 'Envía fotos o reserva visita', value: 'Inicio' },
       { label: 'Revisamos los riesgos', value: 'Revisión' },
       { label: 'Recibes un plan claro', value: 'Plan' },
     ],
     statusNote: 'Un solo equipo desde el primer contacto hasta el seguimiento.',
-    processEyebrow: 'As\u00ed de f\u00e1cil',
-    processTitle: 'Empieza como te resulte m\u00e1s c\u00f3modo.',
-    processBody: 'Sube fotos o reserva visita. En ambos casos, llegas a un siguiente paso claro.',
+    processEyebrow: 'Cómo avanza',
+    processTitle: 'Una llamada, fotos o una visita. CasaMia coordina el resto.',
+    processBody: 'Cuéntanos qué ocurre en casa. CasaMia convierte esa información en prioridades, alcance coordinado y seguimiento.',
     steps: [
       {
         icon: 'camera',
         title: 'Elige c\u00f3mo empezar',
-        body: 'Fotos ahora o visita a domicilio.',
+        body: 'Empieza por teléfono, online, WhatsApp o fotos. Registramos estancia, rutina y urgencia.',
         tag: 'Inicio',
         proof: 'Inicio claro',
         options: [
@@ -508,7 +508,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     reviewEyebrow: 'Estancia por estancia',
     reviewTitle: 'Revisamos los espacios que marcan la seguridad diaria.',
     reviewBody:
-      'Ba\u00f1o, dormitorio, sal\u00f3n, entrada y cocina influyen en la confianza y la seguridad en casa.',
+      'Baño, dormitorio, salón, entrada y cocina crean riesgos distintos, por eso CasaMia los revisa estancia por estancia.',
     reviewCta: 'Ver servicios',
     previousRoomLabel: 'Mostrar la estancia anterior',
     nextRoomLabel: 'Mostrar la estancia siguiente',
@@ -550,7 +550,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
     ],
     deliverablesEyebrow: 'Qu\u00e9 recibes',
-    deliverablesTitle: 'El resultado es claro y pr\u00e1ctico.',
+    deliverablesTitle: 'Sales con decisiones concretas.',
     deliverables: [
       {
         icon: 'file',
