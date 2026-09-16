@@ -276,7 +276,7 @@ type ServiceDetailContent = {
 const defaultServiceDetailContent: ServiceDetailContent = {
   benefitsTitle: 'Make the space easier to use every day.',
   benefitsIntro:
-    'CasaMia focuses on practical outcomes: fewer risky movements, clearer support, better visibility, and a home that feels easier for the person living there.',
+    'CasaMia focuses on the moments that make a room harder to use: reaching, turning, standing, poor light, wet floors or not having support in the right place.',
   benefits: [
     {
       title: 'Less daily hesitation',
@@ -287,8 +287,8 @@ const defaultServiceDetailContent: ServiceDetailContent = {
       body: 'Place support where it is actually useful for the person, not just where a product happens to fit.',
     },
     {
-      title: 'More family confidence',
-      body: 'Give relatives a clearer view of what has been checked, what matters most, and what can be improved first.',
+      title: 'More clarity for the next decision',
+      body: 'Make it clearer what has been checked, what matters most and what should be improved first.',
     },
   ],
   includedTitle: 'A practical plan, not a generic product list.',
@@ -297,22 +297,22 @@ const defaultServiceDetailContent: ServiceDetailContent = {
   included: [
     'Room and routine review',
     'Risk priorities explained in plain language',
-    'Product and installation recommendations where useful',
-    'Clear next step for urgent, useful, and optional improvements',
+    'Product and installation recommendations that fit the room',
+    'Clear next step for urgent, recommended and optional improvements',
   ],
   reassuranceTitle: 'Designed around the person using the room.',
   reassuranceBody:
     'The goal is not to make the home look clinical. It is to make everyday movement safer while keeping the home comfortable and familiar.',
-  reassurancePoints: ['Practical for the existing home', 'Explained for the family', 'Focused on prevention before incidents happen'],
+  reassurancePoints: ['Practical for the existing home', 'Explained clearly before work starts', 'Focused on prevention before incidents happen'],
   finalTitle: 'Start with the room that worries you most.',
   finalBody:
-    'CasaMia can review this service area alongside the rest of the home, then recommend what should happen first.',
+    'CasaMia can check this area alongside the rest of the home, then show what should happen first.',
 }
 
 const defaultServiceDetailContentEs: ServiceDetailContent = {
   benefitsTitle: 'Haz que el espacio sea más fácil de usar cada día.',
   benefitsIntro:
-    'CasaMia se centra en resultados prácticos: menos movimientos de riesgo, apoyo más claro, mejor visibilidad y una vivienda más fácil para quien vive allí.',
+    'CasaMia se centra en los momentos que hacen difícil usar una estancia: alcanzar, girar, levantarse, poca luz, suelo mojado o falta de apoyo en el lugar correcto.',
   benefits: [
     {
       title: 'Menos dudas diarias',
@@ -323,8 +323,8 @@ const defaultServiceDetailContentEs: ServiceDetailContent = {
       body: 'Coloca el apoyo donde realmente sirve para la persona, no solo donde cabe un producto.',
     },
     {
-      title: 'Más confianza familiar',
-      body: 'La familia entiende qué se ha revisado, qué importa más y qué conviene mejorar primero.',
+      title: 'Más claridad para decidir',
+      body: 'Queda más claro qué se ha revisado, qué importa más y qué conviene mejorar primero.',
     },
   ],
   includedTitle: 'Un plan práctico, no una lista genérica de productos.',
@@ -333,16 +333,16 @@ const defaultServiceDetailContentEs: ServiceDetailContent = {
   included: [
     'Revisión de estancia y rutina',
     'Prioridades de riesgo explicadas de forma clara',
-    'Recomendaciones de producto e instalación cuando aportan valor',
-    'Siguiente paso claro para mejoras urgentes, útiles y opcionales',
+    'Recomendaciones de producto e instalación que encajan con la estancia',
+    'Siguiente paso claro para mejoras urgentes, recomendadas y opcionales',
   ],
   reassuranceTitle: 'Diseñado alrededor de la persona que usa la estancia.',
   reassuranceBody:
     'El objetivo no es que la vivienda parezca clínica, sino que el movimiento diario sea más seguro manteniendo comodidad y familiaridad.',
-  reassurancePoints: ['Práctico para la vivienda actual', 'Explicado para la familia', 'Prevención antes de que ocurra un incidente'],
+  reassurancePoints: ['Práctico para la vivienda actual', 'Explicado con claridad antes de empezar', 'Prevención antes de que ocurra un incidente'],
   finalTitle: 'Empieza por la estancia que más te preocupa.',
   finalBody:
-    'CasaMia puede revisar esta zona junto con el resto de la vivienda y recomendar qué debe pasar primero.',
+    'CasaMia puede revisar esta zona junto con el resto de la vivienda y mostrar qué debería pasar primero.',
 }
 
 const serviceDetailContentEs: Record<string, ServiceDetailContent> = {
@@ -465,7 +465,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Anti-slip surfaces, mats, or flooring guidance',
       'Safer shower entry and toilet transfer recommendations',
       'Lighting, reach, and clutter review',
-      'Optional shower seat, raised toilet, or access changes where useful',
+      'Optional shower seat, raised toilet or access changes when they improve daily use',
     ],
     reassuranceTitle: 'Better support without making the bathroom feel institutional.',
     reassuranceBody:
@@ -537,7 +537,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Exterior and doorway lighting guidance',
       'Support-point and handrail recommendations',
       'Door access, visitor, and key routine review',
-      'Smart doorbell or access control guidance where useful',
+      'Smart doorbell or access control guidance when it improves daily access',
     ],
     reassuranceTitle: 'The entrance should support independence, not create stress.',
     reassuranceBody:
@@ -562,12 +562,12 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'More reassurance',
-        body: 'Sensors, timers, smart plugs, and optional shut-off support help family feel confident after cooking.',
+        body: 'Sensors, timers, smart plugs and optional shut-off support make it clearer when cooking routines are safer.',
       },
     ],
     includedTitle: 'Build your kitchen plan from individual services.',
     includedIntro:
-      'Select the useful improvements, see an estimate, then decide whether to upload photos or book a visit.',
+      'Select the improvements that match the kitchen, see an estimate, then decide whether to upload photos or book a visit.',
     included: [
       'Non-slip preparation and anti-fatigue standing zones',
       'Easy-grip utensils, openers, and lightweight cookware',
@@ -578,7 +578,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassuranceTitle: "A safer kitchen should still feel like the resident's kitchen.",
     reassuranceBody:
       'We keep familiar routines where possible, choose what helps, coordinate installation, and explain the setup clearly.',
-    reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and handover managed'],
+    reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and explanation managed'],
     finalTitle: 'Keep cooking possible, safer, and calmer.',
     finalBody:
       'Book a visit and we will review reach, lighting, appliances, water risk, and the practical kitchen plan that fits the home.',
@@ -612,13 +612,13 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Medication, water, glasses, and daily essentials within safer reach',
       'Optional smart sensor or VYVA alert support where appropriate',
     ],
-    reassuranceTitle: 'Designed for independence and family peace of mind.',
+    reassuranceTitle: 'Designed for independence and calmer nights.',
     reassuranceBody:
       'The bedroom should help someone rest, move, and call for help without turning the room into a clinical space. The focus stays on comfort, dignity, and practical prevention.',
     reassurancePoints: [
       'Less risk during night bathroom trips',
       'More confidence getting in and out of bed',
-      'Clearer emergency access for family or caregivers',
+      'Clearer emergency access for the right helper',
     ],
     finalTitle: 'Make the bedroom safer before night routines become stressful.',
     finalBody:
@@ -627,7 +627,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   'smart-home-safety': {
     benefitsTitle: 'Use technology only where it makes daily life safer.',
     benefitsIntro:
-      'Smart safety should not feel like a complicated smart-home project. We focus on useful alerts, lighting, emergency support, and family reassurance.',
+      'Smart safety should not feel like a complicated smart-home project. We focus on alerts, lighting and emergency support that are simple to understand and consented to.',
     benefits: [
       {
         title: 'Earlier awareness',
@@ -635,7 +635,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       },
       {
         title: 'Faster help',
-        body: 'Emergency buttons, wearable support, and alerts make it easier to call family or caregivers quickly.',
+        body: 'Emergency buttons, wearable support and alerts make it easier to call the right helper quickly.',
       },
       {
         title: 'Less daily friction',
@@ -644,19 +644,19 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     ],
     includedTitle: 'What a smart safety plan can include.',
     includedIntro:
-      'We check connectivity and recommend only devices that match the person, the home, and the family’s comfort level.',
+      'We check connectivity and recommend only devices that match the person, the home and the agreed privacy level.',
     included: [
       'Motion lighting and night-route setup',
       'Emergency buttons or wearable alert guidance',
       'Leak, smoke, door, and movement sensor recommendations',
       'VYVA app and caregiver dashboard setup where included',
-      'Family alert preferences and privacy settings',
-      'Simple handover for the older adult and family',
+      'Alert preferences and privacy settings',
+      'Simple safe-use explanation for the person using it',
     ],
     reassuranceTitle: 'No complicated gimmicks and no cameras by default.',
     reassuranceBody:
-      'The aim is connected reassurance: useful alerts, simple controls, and privacy-aware setup that the family understands.',
-    reassurancePoints: ['Connectivity checked first', 'Family alerts agreed in advance', 'Simple setup and handover'],
+      'The aim is connected reassurance: helpful alerts, simple controls and privacy-aware setup that everyone involved understands.',
+    reassurancePoints: ['Connectivity checked first', 'Alert recipients agreed in advance', 'Simple setup and explanation'],
     finalTitle: 'Add connected safety where it genuinely helps.',
     finalBody:
       'Book a visit and we will review the home, connectivity, and the most useful smart safety options.',
@@ -1102,7 +1102,7 @@ export function ServiceDetailPage() {
         whatWeCheck: 'Qué revisamos',
         risksTitle: 'Centrado en los riesgos que complican la vida diaria.',
         risksBody:
-          'CasaMia separa peligros visibles de mejoras prácticas para que la familia entienda qué importa antes de comprar productos o empezar obras.',
+          'CasaMia separa peligros visibles de mejoras prácticas para saber qué importa antes de comprar productos o empezar obras.',
         commonRisks: 'Riesgos habituales que buscamos',
         howWeHelp: 'Cómo puede ayudar CasaMia',
         whyItHelps: 'Por qué ayuda',
@@ -1118,7 +1118,7 @@ export function ServiceDetailPage() {
         whatWeCheck: 'What we check',
         risksTitle: 'Focused on the risks that make daily life harder.',
         risksBody:
-          'CasaMia separates visible hazards from practical improvements, so families understand what matters before buying products or starting work.',
+          'CasaMia separates visible hazards from practical improvements, so you know what matters before buying products or starting work.',
         commonRisks: 'Common risks we look for',
         howWeHelp: 'How CasaMia can help',
         whyItHelps: 'Why it helps',
@@ -1171,8 +1171,8 @@ export function ServiceDetailPage() {
     : service.title
   const heroIntro = isKitchenService
     ? isSpanish
-      ? 'Mejoras prácticas para estar de pie, iluminación, alcance, agua, electrodomésticos y tranquilidad familiar.'
-      : 'Practical improvements for standing, lighting, reach, water, appliances and family reassurance.'
+      ? 'Mejoras prácticas para estar de pie, iluminación, alcance, agua, electrodomésticos y rutinas con más confianza.'
+      : 'Practical improvements for standing, lighting, reach, water, appliances and more confident routines.'
     : service.intro
   const specialistEntryPoint = `service_detail_${service.id.replace(/-/g, '_')}`
   const orderRoomLabel = servicePackageGroup?.roomLabel ?? getOrderRoomLabel(serviceRoom, i18n.language)

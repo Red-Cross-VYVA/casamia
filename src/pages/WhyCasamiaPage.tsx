@@ -68,14 +68,14 @@ type WhyCasamiaCopy = {
 const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   en: {
     eyebrow: 'Why CasaMia',
-    headline: 'One managed service for a safer home, without the coordination headache',
+    headline: 'A safer home plan with one accountable team',
     intro:
-      'CasaMia brings home-safety expertise, trusted local providers and clear coordination into one managed service for families who want practical help without guesswork.',
+      'CasaMia helps you understand what needs changing, what can wait, who should do the work and how the result will be checked.',
     coverage: {
       eyebrow: 'Spain-wide service',
       title: 'Local coverage across Spain, connected by CasaMia.',
       body:
-        'CasaMia combines local representatives with one digital workflow, so assessments, recommendations and follow-up stay consistent wherever a family lives.',
+        'CasaMia combines local representatives with one shared process, so the advice, proposal and follow-up stay consistent wherever the home is.',
       badge: 'All Spain',
       legend: 'Representative coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
@@ -83,38 +83,38 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       repPlural: 'representatives',
       orderNow: 'Order now',
     },
-    promiseTitle: 'A technology company with a service mindset.',
+    promiseTitle: 'Clear decisions before work starts.',
     promiseBody:
-      'MOKA built CasaMia to make home adaptation less fragmented. Instead of sending families to guess between products, grants and installers, CasaMia brings assessment, recommendations, quotation, provider coordination and follow-up into one managed workflow.',
+      'MOKA built CasaMia so home adaptation does not become a puzzle of products, grants, installers and unanswered questions. We turn the home situation into priorities, scope, price clarity and coordinated delivery.',
     promisePoints: [
-      'Senior-market focus: practical safety, independence and family confidence.',
+      'Senior-market focus: practical safety, independence and confidence at home.',
       'Transparent recommendations: what matters, why it matters and what it may cost.',
-      'Managed delivery: vetted providers, clear handover and quality checks.',
+      'Managed delivery: fit confirmed first, work coordinated and results checked.',
     ],
     processEyebrow: 'Operating model',
-    processTitle: 'A managed service, not a directory of installers',
+    processTitle: 'Know what happens before, during and after the work',
     processSteps: [
       {
         title: 'Understand the home',
-        body: 'We collect the room, resident, photos, access, measurements and daily-routine context before recommending work.',
+        body: 'We look at the room, daily routine, access, photos and measurements before recommending work.',
       },
       {
         title: 'Recommend clearly',
-        body: 'CasaMia turns the information into practical priorities, service options and a clear scope before commitment.',
+        body: 'You see what matters first, what is optional and what still needs measurement or confirmation.',
       },
       {
         title: 'Vett and coordinate',
-        body: 'Local providers are matched to the job, briefed on the standard and coordinated through the CasaMia process.',
+        body: 'Local providers are matched to the job, briefed clearly and coordinated through CasaMia.',
       },
       {
         title: 'Check the result',
-        body: 'The job is followed through with handover notes, family updates and a clear point of contact after delivery.',
+        body: 'The result is checked, explained and kept connected to one CasaMia point of contact.',
       },
     ],
     proofEyebrow: 'What we verify',
-    proofTitle: 'Clear checks before a family commits.',
+    proofTitle: 'Clear checks before you commit.',
     proofBody:
-      'The biggest risk for families is not choosing the wrong grab bar. It is starting work without knowing who is responsible, what is included, what still needs confirmation and how the result will be checked.',
+      'The biggest risk is not choosing the wrong product. It is starting work without knowing who is responsible, what is included, what still needs confirmation and how the result will be checked.',
     proofItems: [
       {
         title: 'Provider fit',
@@ -123,17 +123,17 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Scope and price clarity',
-        body: 'The proposal separates included work, optional items, measurement-dependent work and grant-support steps.',
+        body: 'The proposal separates included work, optional items, measurement-dependent work and grant steps.',
         outcome: 'No vague quote',
       },
       {
-        title: 'Resident acceptance',
-        body: 'Recommendations consider whether the person will actually use the change day to day.',
+        title: 'Daily-use fit',
+        body: 'Recommendations consider whether the person living there will actually use the change day to day.',
         outcome: 'Useful at home',
       },
       {
         title: 'Aftercare route',
-        body: 'The family knows what happens after installation: handover, questions, photos, notes and follow-up.',
+        body: 'You know what happens after installation: explanation, questions, photos, notes and follow-up.',
         outcome: 'One contact',
       },
     ],
@@ -142,7 +142,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'inspectors',
         title: 'Senior-focused technology',
         body:
-          'MOKA DigiTech focuses on technology and services for older adults: prevention, independence, simpler access to support and clearer information for families.',
+          'MOKA DigiTech focuses on technology and services for older adults: prevention, independence, simpler access to support and clearer information for decisions.',
         points: ['Built for ageing-in-place needs', 'Digital tools that support human decisions', 'Technology only where it makes life easier'],
       },
       {
@@ -156,8 +156,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'insured',
         title: 'Quality control built in',
         body:
-          'Every project needs more than a product list. CasaMia keeps the scope, installation notes, family communication and handover details connected.',
-        points: ['Defined scope before work starts', 'Installation and handover tracked', 'Follow-up after the key step'],
+          'Every project needs more than a product list. CasaMia keeps the scope, installation notes, customer communication and handover details connected.',
+        points: ['Defined scope before work starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
       },
       {
         icon: 'products',
@@ -170,39 +170,39 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'pricing',
         title: 'Transparent commercial model',
         body:
-          'Families should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant support clearly.',
+          'You should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant support clearly.',
         points: ['Clear estimate before commitment', 'Optional items separated from essentials', 'Grant guidance without false promises'],
       },
       {
         icon: 'acceptance',
         title: 'Values that guide the work',
         body:
-          'The senior market depends on trust. CasaMia is built around respect for the resident, honest communication with the family and careful execution in the home.',
+          'The senior market depends on trust. CasaMia is built around respect for the person living at home, honest communication and careful execution.',
         points: ['Respect and independence first', 'No pressure or confusing handovers', 'Accountability from first contact to follow-up'],
       },
     ],
     contactEyebrow: 'Speak with CasaMia',
     contactTitle: 'Tell us what worries you about the home.',
     contactBody:
-      'Share the room, routine, location, and urgency. A CasaMia coordinator will route your request to the right next step.',
+      'Share the room, routine, location and urgency. A CasaMia coordinator will suggest the right next step.',
     callTitle: 'Call CasaMia',
     emailTitle: 'Email support',
     messagePlaceholder:
       'Example: My father is struggling with the stairs at night, we are in Marbella, and we need to understand what to fix first.',
     formNote:
-      'Your request is reviewed by the CasaMia team so we can agree the best next step and check local availability.',
+      'CasaMia checks your request, the likely route and local availability before recommending the next step.',
     ctaButton: 'Request In-Home Assessment',
   },
   es: {
     eyebrow: 'Por qué CasaMia',
-    headline: 'Un servicio gestionado para adaptar la vivienda sin dolores de cabeza',
+    headline: 'Un plan de hogar más seguro con un equipo responsable',
     intro:
-      'CasaMia une experiencia en seguridad del hogar, profesionales locales de confianza y coordinación clara para familias que quieren ayuda práctica sin improvisar.',
+      'CasaMia te ayuda a entender qué conviene cambiar, qué puede esperar, quién debe hacerlo y cómo se comprobará el resultado.',
     coverage: {
       eyebrow: 'Servicio en toda España',
       title: 'Cobertura local en toda España, conectada por CasaMia.',
       body:
-        'CasaMia combina representantes locales con un único flujo digital para mantener evaluaciones, recomendaciones y seguimiento consistentes, viva donde viva la familia.',
+        'CasaMia combina representantes locales con un proceso compartido para que el consejo, la propuesta y el seguimiento sean consistentes esté donde esté la vivienda.',
       badge: 'Toda España',
       legend: 'Zonas con cobertura representativa',
       hint: 'Pasa el cursor o toca un punto para ver el equipo local.',
@@ -210,38 +210,38 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       repPlural: 'representantes',
       orderNow: 'Pedir ahora',
     },
-    promiseTitle: 'Una empresa tecnológica con mentalidad de servicio.',
+    promiseTitle: 'Decisiones claras antes de empezar.',
     promiseBody:
-      'MOKA creó CasaMia para que adaptar una vivienda no sea un proceso fragmentado. En lugar de dejar a la familia elegir a ciegas entre productos, ayudas e instaladores, CasaMia reúne evaluación, recomendaciones, presupuesto, coordinación y seguimiento en un flujo gestionado.',
+      'MOKA creó CasaMia para que adaptar una vivienda no sea un rompecabezas de productos, ayudas, instaladores y dudas sin responder. Convertimos la situación de la casa en prioridades, alcance, precio claro y ejecución coordinada.',
     promisePoints: [
-      'Foco senior: seguridad práctica, independencia y tranquilidad familiar.',
+      'Foco senior: seguridad práctica, independencia y confianza en casa.',
       'Recomendaciones transparentes: qué importa, por qué importa y cuánto puede costar.',
-      'Entrega gestionada: proveedores validados, traspaso claro y control de calidad.',
+      'Entrega gestionada: encaje confirmado, trabajo coordinado y resultado comprobado.',
     ],
     processEyebrow: 'Modelo operativo',
-    processTitle: 'Un servicio gestionado, no un directorio de instaladores',
+    processTitle: 'Saber qué ocurre antes, durante y después del trabajo',
     processSteps: [
       {
         title: 'Entender la vivienda',
-        body: 'Recogemos contexto de estancias, persona, fotos, accesos, medidas y rutinas antes de recomendar trabajos.',
+        body: 'Miramos la estancia, la rutina diaria, accesos, fotos y medidas antes de recomendar trabajos.',
       },
       {
         title: 'Recomendar con claridad',
-        body: 'CasaMia convierte la información en prioridades prácticas, servicios recomendados y alcance claro antes del compromiso.',
+        body: 'Ves qué importa primero, qué es opcional y qué todavía requiere medidas o confirmación.',
       },
       {
         title: 'Validar y coordinar',
-        body: 'Asignamos profesionales locales adecuados, les damos instrucciones claras y coordinamos el proceso CasaMia.',
+        body: 'Asignamos profesionales locales adecuados, les damos instrucciones claras y coordinamos el proceso.',
       },
       {
         title: 'Comprobar el resultado',
-        body: 'El trabajo se cierra con notas de entrega, actualización a la familia y un punto de contacto para seguimiento.',
+        body: 'El resultado se comprueba, se explica y queda conectado a un punto de contacto CasaMia.',
       },
     ],
     proofEyebrow: 'Qué comprobamos',
-    proofTitle: 'Comprobaciones claras antes de que la familia se comprometa.',
+    proofTitle: 'Comprobaciones claras antes de comprometerte.',
     proofBody:
-      'El mayor riesgo para una familia no es elegir una barra concreta. Es empezar trabajos sin saber quién responde, qué está incluido, qué falta por confirmar y cómo se comprobará el resultado.',
+      'El mayor riesgo no es elegir un producto concreto. Es empezar trabajos sin saber quién responde, qué está incluido, qué falta por confirmar y cómo se comprobará el resultado.',
     proofItems: [
       {
         title: 'Encaje del profesional',
@@ -250,17 +250,17 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Alcance y precio claros',
-        body: 'La propuesta separa trabajo incluido, opcionales, partidas que requieren medida y apoyo con ayudas.',
+        body: 'La propuesta separa trabajo incluido, opcionales, partidas que requieren medida y pasos de ayuda o subvención.',
         outcome: 'Sin presupuesto vago',
       },
       {
-        title: 'Aceptación de la persona',
+        title: 'Encaje con el uso diario',
         body: 'Las recomendaciones consideran si la persona realmente usará el cambio en su rutina diaria.',
         outcome: 'Útil en casa',
       },
       {
         title: 'Ruta de seguimiento',
-        body: 'La familia sabe qué ocurre después: entrega, dudas, fotos, notas y seguimiento.',
+        body: 'Sabes qué ocurre después: explicación, dudas, fotos, notas y seguimiento.',
         outcome: 'Un contacto',
       },
     ],
@@ -269,7 +269,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'inspectors',
         title: 'Tecnología centrada en seniors',
         body:
-          'MOKA DigiTech trabaja en tecnología y servicios para personas mayores: prevención, independencia, acceso más sencillo al apoyo e información clara para las familias.',
+          'MOKA DigiTech trabaja en tecnología y servicios para personas mayores: prevención, independencia, acceso más sencillo al apoyo e información clara para decidir.',
         points: ['Diseñado para envejecer mejor en casa', 'Herramientas digitales que apoyan decisiones humanas', 'Tecnología solo cuando facilita la vida'],
       },
       {
@@ -283,8 +283,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'insured',
         title: 'Control de calidad integrado',
         body:
-          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene conectados alcance, notas de instalación, comunicación familiar y entrega.',
-        points: ['Alcance definido antes de empezar', 'Instalación y entrega trazadas', 'Seguimiento después del paso clave'],
+          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene conectados alcance, notas de instalación, comunicación y explicación final.',
+        points: ['Alcance definido antes de empezar', 'Instalación y explicación trazadas', 'Seguimiento después del paso clave'],
       },
       {
         icon: 'products',
@@ -297,27 +297,27 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'pricing',
         title: 'Modelo comercial transparente',
         body:
-          'La familia debe saber qué está incluido, qué es opcional y qué requiere medición o confirmación. CasaMia separa claramente asesoramiento, instalación y apoyo con ayudas.',
+          'Debes saber qué está incluido, qué es opcional y qué requiere medición o confirmación. CasaMia separa claramente asesoramiento, instalación y apoyo con ayudas.',
         points: ['Estimación clara antes del compromiso', 'Opcionales separados de lo esencial', 'Orientación sobre ayudas sin falsas promesas'],
       },
       {
         icon: 'acceptance',
         title: 'Valores que guían el trabajo',
         body:
-          'El mercado senior exige confianza. CasaMia trabaja con respeto por la persona, comunicación honesta con la familia y ejecución cuidadosa dentro del hogar.',
+          'El mercado senior exige confianza. CasaMia trabaja con respeto por la persona que vive en casa, comunicación honesta y ejecución cuidadosa.',
         points: ['Respeto e independencia primero', 'Sin presión ni traspasos confusos', 'Responsabilidad desde el primer contacto hasta el seguimiento'],
       },
     ],
     contactEyebrow: 'Habla con CasaMia',
     contactTitle: 'Cuéntanos qué te preocupa del hogar.',
     contactBody:
-      'Comparte la estancia, rutina, ubicación y urgencia. Un coordinador de CasaMia dirigirá tu solicitud al siguiente paso correcto.',
+      'Comparte la estancia, rutina, ubicación y urgencia. Un coordinador de CasaMia te propondrá el siguiente paso adecuado.',
     callTitle: 'Llamar a CasaMia',
     emailTitle: 'Email de soporte',
     messagePlaceholder:
       'Ejemplo: Mi padre tiene dificultades con las escaleras por la noche, estamos en Marbella y necesitamos saber qué arreglar primero.',
     formNote:
-      'Tu solicitud la revisa el equipo CasaMia para acordar el mejor siguiente paso y comprobar la disponibilidad local.',
+      'CasaMia comprueba tu solicitud, la ruta probable y la disponibilidad local antes de recomendar el siguiente paso.',
     ctaButton: 'Solicitar evaluación a domicilio',
   },
 }

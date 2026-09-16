@@ -22,28 +22,28 @@ const copy = {
     lang: 'en',
     seoTitle: 'Free Senior Home Safety Tools | CasaMia',
     seoDescription:
-      'Use CasaMia free tools to check parent safety at home, compare home adaptation with residence costs, prepare grants and start a room-by-room review.',
+      'Use CasaMia free tools to check home safety, prepare grant questions, compare options and decide what to do first.',
     eyebrow: 'Free practical tools',
     title: 'Start with the tool that matches today’s question.',
     body:
-      'Families rarely need a wall of advice. Choose one practical tool, get a clear next step, then decide whether a checklist, online review or CasaMia assessment is useful.',
-    featuredLabel: 'Most useful first step',
-    featuredTitle: 'Is my parent safe at home?',
+      'Choose the situation closest to yours. Each tool gives you a clear first decision: watch and wait, fix one room, prepare evidence or ask CasaMia to help.',
+    featuredLabel: 'Start here if you are unsure',
+    featuredTitle: 'Is this home still safe day to day?',
     featuredBody:
-      'Five everyday questions to understand whether the next step is observation, a focused review or faster action.',
+      'Five everyday questions to spot whether the next step is reassurance, a focused room check or faster action.',
     featuredCta: 'Take the quick quiz',
     sectionEyebrow: 'Choose your route',
     sectionTitle: 'Tools for decisions, not guesswork.',
     openTool: 'Open tool',
     chooserEyebrow: 'Not sure which one?',
-    chooserTitle: 'Use the tool that matches the decision you need to make.',
+    chooserTitle: 'Pick the question you need answered.',
     chooserBody:
-      'Each route is deliberately short. Start with the question closest to your situation, then CasaMia can turn the answer into a practical home plan if you want help.',
+      'The tools are deliberately short. Start with the concern in front of you, then keep the result as notes or share it when you want a proposal.',
     nextEyebrow: 'After the tool',
-    nextTitle: 'Leave with something the family can use.',
+    nextTitle: 'Leave with a decision, not more confusion.',
     finalTitle: 'Need help turning answers into a plan?',
     finalBody:
-      'CasaMia can review the home, prioritise what matters and explain what can be done now, later or with professional support.',
+      'CasaMia can turn your answers into priorities: what to change now, what can wait, what needs measurements and what may support grant paperwork.',
     finalCta: 'Start guided review',
     faqEyebrow: 'Quick answers',
     faqTitle: 'How to use the tools well.',
@@ -51,12 +51,12 @@ const copy = {
       {
         question: 'Which tool should I start with?',
         answer:
-          'If you are unsure, start with the parent safety quiz. If one room is already worrying, use photos or the room-by-room review.',
+          'If you are unsure, start with the quick safety quiz. If one room already worries you, use photos or the room-by-room check.',
       },
       {
         question: 'Do the tools replace a professional visit?',
         answer:
-          'No. They help organise the first decision. A visit is still useful when measurements, installation scope, several rooms or grant paperwork need review.',
+          'No. They help organise the first decision. A visit still matters when measurements, installation scope, several rooms or grant paperwork are involved.',
       },
       {
         question: 'Can CasaMia use my answers later?',
@@ -69,28 +69,28 @@ const copy = {
     lang: 'es',
     seoTitle: 'Herramientas gratis de seguridad en casa | CasaMia',
     seoDescription:
-      'Utiliza herramientas gratuitas de CasaMia para revisar seguridad, comparar casa y residencia, preparar ayudas y empezar una revisión por estancias.',
+      'Utiliza herramientas gratuitas de CasaMia para revisar seguridad en casa, preparar ayudas y decidir qué hacer primero.',
     eyebrow: 'Herramientas prácticas gratuitas',
     title: 'Empieza con la herramienta que responde a la pregunta de hoy.',
     body:
-      'Las familias no necesitan una pared de consejos. Elige una herramienta práctica, obtén un siguiente paso claro y decide si conviene una lista, revisión online o evaluación CasaMia.',
-    featuredLabel: 'Primer paso más útil',
-    featuredTitle: '¿Está seguro en casa?',
+      'Elige la situación más cercana a la tuya. Cada herramienta te deja una primera decisión clara: observar, revisar una estancia, preparar evidencia o pedir ayuda a CasaMia.',
+    featuredLabel: 'Empieza aquí si dudas',
+    featuredTitle: '¿Esta casa sigue siendo segura en el día a día?',
     featuredBody:
-      'Cinco preguntas cotidianas para saber si toca observar, hacer una revisión focalizada o actuar con más rapidez.',
+      'Cinco preguntas cotidianas para saber si toca tranquilidad, revisión focalizada o actuar con más rapidez.',
     featuredCta: 'Hacer el quiz rápido',
     sectionEyebrow: 'Elige tu ruta',
     sectionTitle: 'Herramientas para decidir, no para adivinar.',
     openTool: 'Abrir herramienta',
     chooserEyebrow: '¿No sabes cuál elegir?',
-    chooserTitle: 'Usa la herramienta que encaja con la decisión que necesitas tomar.',
+    chooserTitle: 'Elige la pregunta que necesitas responder.',
     chooserBody:
-      'Cada ruta es breve a propósito. Empieza por la pregunta más cercana a tu situación y CasaMia puede convertir la respuesta en un plan práctico si quieres ayuda.',
+      'Las rutas son breves a propósito. Empieza por la preocupación que tienes delante y guarda el resultado como notas o compártelo cuando quieras una propuesta.',
     nextEyebrow: 'Después de la herramienta',
-    nextTitle: 'Sal con algo útil para la conversación familiar.',
+    nextTitle: 'Sal con una decisión, no con más dudas.',
     finalTitle: '¿Necesitas convertir respuestas en un plan?',
     finalBody:
-      'CasaMia puede revisar la vivienda, priorizar lo importante y explicar qué hacer ahora, más adelante o con apoyo profesional.',
+      'CasaMia puede convertir tus respuestas en prioridades: qué cambiar ahora, qué puede esperar, qué necesita medidas y qué puede ayudar en una subvención.',
     finalCta: 'Empezar revisión guiada',
     faqEyebrow: 'Respuestas rápidas',
     faqTitle: 'Cómo usar bien las herramientas.',
@@ -98,12 +98,12 @@ const copy = {
       {
         question: '¿Con qué herramienta debería empezar?',
         answer:
-          'Si no lo tienes claro, empieza con el quiz de seguridad. Si ya preocupa una estancia concreta, usa fotos o la revisión por estancias.',
+          'Si no lo tienes claro, empieza con el quiz rápido. Si ya preocupa una estancia concreta, usa fotos o la revisión por estancias.',
       },
       {
         question: '¿Sustituyen estas herramientas a una visita profesional?',
         answer:
-          'No. Ayudan a ordenar la primera decisión. La visita sigue siendo útil cuando hacen falta medidas, alcance de instalación, varias estancias o documentación para ayudas.',
+          'No. Ayudan a ordenar la primera decisión. La visita sigue siendo importante cuando hay medidas, alcance de instalación, varias estancias o documentación para ayudas.',
       },
       {
         question: '¿Puede CasaMia usar mis respuestas después?',
@@ -117,10 +117,10 @@ const copy = {
 const tools = [
   {
     icon: HelpCircle,
-    title: { en: 'Is my parent safe at home?', es: '¿Está seguro en casa?' },
+    title: { en: 'Is this home still safe?', es: '¿Esta casa sigue siendo segura?' },
     body: {
-      en: 'A quick family triage when something feels different but you are not sure where to start.',
-      es: 'Una orientación rápida cuando algo parece distinto y no sabes por dónde empezar.',
+      en: 'A quick check when movement, confidence or routines have started to feel different.',
+      es: 'Una comprobación rápida cuando movimiento, confianza o rutinas empiezan a cambiar.',
     },
     to: '/tools/is-my-parent-safe-at-home',
   },
@@ -137,8 +137,8 @@ const tools = [
     icon: ClipboardCheck,
     title: { en: 'Room-by-room online review', es: 'Revisión online por estancias' },
     body: {
-      en: 'Answer guided questions about the home and leave with clearer priorities.',
-      es: 'Responde preguntas guiadas sobre la vivienda y sal con prioridades más claras.',
+      en: 'Check the rooms that matter most and see which risks deserve attention first.',
+      es: 'Revisa las estancias más importantes y ve qué riesgos merecen atención primero.',
     },
     to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
   },
@@ -146,8 +146,8 @@ const tools = [
     icon: Camera,
     title: { en: 'Photo safety report', es: 'Informe con fotos' },
     body: {
-      en: 'Upload a few photos so visible risks and first actions are easier to discuss.',
-      es: 'Sube algunas fotos para comentar riesgos visibles y primeras acciones.',
+      en: 'Upload a few photos to turn visible issues into clearer first actions.',
+      es: 'Sube algunas fotos para convertir problemas visibles en primeras acciones más claras.',
     },
     to: '/#estimate-upload',
   },
@@ -158,7 +158,7 @@ const chooserRoutes = [
     icon: HelpCircle,
     title: { en: 'Something feels different', es: 'Algo ha cambiado' },
     body: {
-      en: 'Use the quick quiz to decide whether to observe, review one room or act faster.',
+      en: 'Use the quick quiz to decide whether to monitor, check one room or act sooner.',
       es: 'Usa el quiz rápido para decidir si observar, revisar una estancia o actuar antes.',
     },
   },
@@ -166,8 +166,8 @@ const chooserRoutes = [
     icon: Camera,
     title: { en: 'You can show the room', es: 'Puedes mostrar la estancia' },
     body: {
-      en: 'Use photos when the family needs visible priorities before asking for a proposal.',
-      es: 'Usa fotos cuando la familia necesita prioridades visibles antes de pedir propuesta.',
+      en: 'Use photos when a visible problem needs a clearer first action before a proposal.',
+      es: 'Usa fotos cuando un problema visible necesita una primera acción clara antes de pedir propuesta.',
     },
   },
   {
@@ -182,8 +182,8 @@ const chooserRoutes = [
     icon: Home,
     title: { en: 'You want a full plan', es: 'Quieres un plan completo' },
     body: {
-      en: 'Use the guided review when several rooms, routines or family decisions need to be organised.',
-      es: 'Usa la revisión guiada cuando hay varias estancias, rutinas o decisiones familiares que ordenar.',
+      en: 'Use the guided review when several rooms, routines or decisions need to be organised.',
+      es: 'Usa la revisión guiada cuando hay varias estancias, rutinas o decisiones que ordenar.',
     },
   },
 ] as const
@@ -201,8 +201,8 @@ const nextToolSteps = [
     icon: Camera,
     title: { en: 'Evidence you can share', es: 'Evidencia que puedes compartir' },
     body: {
-      en: 'Bring photos, answers or notes into one calm family conversation.',
-      es: 'Llevar fotos, respuestas o notas a una conversación familiar tranquila.',
+      en: 'Bring photos, answers or notes into one calm conversation.',
+      es: 'Llevar fotos, respuestas o notas a una conversación tranquila.',
     },
   },
   {
