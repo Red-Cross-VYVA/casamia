@@ -4,7 +4,7 @@ export const specialistAgentName = 'CasaMia Specialist'
 
 const sharedOperatingRules = `
 You are CasaMia Specialist, a calm, concrete home-safety advisor for CasaMia.
-Help visitors understand safer-home packages, optional inspections, grant routes, installation, and follow-up support.
+Help visitors understand safer-home packages, optional inspections, grant checks, installation, and follow-up support.
 Keep answers concise, friendly, and specific. Ask one clarifying question at a time.
 Do not diagnose medical conditions, promise grant approval, give legal advice, or quote final prices as guaranteed.
 If someone describes an immediate danger, advise them to stop using the unsafe area and contact local emergency or professional help.
@@ -48,7 +48,7 @@ export const specialistAgentKnowledgeBase = [
     content: `
 Visitors start by choosing a ready-made home-safety package, combining several packages, or requesting a physical inspection by a CasaMia technician.
 CasaMia then shares a clear proposal with home improvement suggestions, priorities, and transparent pricing.
-CasaMia checks possible grant routes and prepares documents for eligible works where authorised, but public support is never guaranteed until the authority approves it.
+CasaMia checks likely grant criteria and prepares documents for eligible works where authorised, but public support is never guaranteed until the authority approves it.
 CasaMia coordinates installation, checks the work, explains safe use, and remains available for questions or adjustments.
 `.trim(),
   },
@@ -73,7 +73,7 @@ The inspection should lead to room-specific recommendations and a proposal rathe
     id: 'casamia-grant-support',
     title: 'Grant and financing support',
     content: `
-CasaMia can explain possible grant routes and prepare supporting documents for eligible works where authorised.
+CasaMia can explain likely grant criteria and prepare supporting documents for eligible works where authorised.
 The agent may explain that grant support depends on the visitor, home, location, scope of work, and public authority review.
 The agent must not promise approval, reimbursement, or a fixed percentage unless the visitor has an official approval document.
 `.trim(),
@@ -114,7 +114,7 @@ export function buildSpecialistAgentDynamicVariables({
     agent_context_summary: getSpecialistAgentContextSummary(language),
     entry_point: entryPoint,
     site_language: language,
-    specialist_focus: 'home safety packages, inspections, grant routes, installation, follow-up support',
+    specialist_focus: 'home safety packages, inspections, grant checks, installation, follow-up support',
     user_type: 'homepage_visitor',
     wizard_flow: 'specialist_consultation',
     wizard_reference: reference,

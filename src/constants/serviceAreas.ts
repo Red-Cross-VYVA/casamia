@@ -113,8 +113,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
       es: 'Ruta de cobertura central para adaptaciones prácticas y apoyo a familias.',
     },
     focus: {
-      en: ['safety plan', 'visit coordination', 'grant route'],
-      es: ['plan de seguridad', 'coordinación de visita', 'ruta de ayudas'],
+      en: ['safety plan', 'visit coordination', 'grant criteria'],
+      es: ['plan de seguridad', 'coordinación de visita', 'criterios de ayuda'],
     },
   },
 ]

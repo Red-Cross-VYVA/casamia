@@ -355,10 +355,10 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Check grant readiness for home adaptations in Spain, including possible requirements, documents, timing and CasaMia-managed grant support.',
     eyebrow: 'Grants and assistance',
     intro:
-      'Grant routes depend on region, municipality, open calls and personal circumstances. CasaMia helps you understand what may fit and what documents are usually needed.',
+      'Grant eligibility depends on region, municipality, open calls and personal circumstances. CasaMia helps you understand what may fit and what documents are usually needed.',
     whoFor: ['People considering accessibility or safety works', 'Older adults who may qualify for public assistance', 'Households needing help with documents and next steps'],
     priorities: ['Region and postcode check', 'Ownership or permission status', 'Dependency, disability or age documentation', 'Clear scope and quotation for eligible works'],
-    casamiaPlan: ['Check possible routes from official sources', 'Show missing documents and timing', 'Manage the process end to end when commissioned'],
+    casamiaPlan: ['Check possible options from official sources', 'Show missing documents and timing', 'Manage the process end to end when commissioned'],
     relatedServices: [
       { label: 'Grant check', to: '/grant-check' },
       { label: 'Plan Adapta', to: '/plan-adapta' },

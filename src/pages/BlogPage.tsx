@@ -284,7 +284,7 @@ const pageCopy = {
       {
         question: '¿Cómo se ordenan las ayudas y documentos?',
         answer:
-          'CasaMia ordena la vía de ayuda, la lista de documentos y la información del presupuesto. La autoridad pública decide la aprobación final.',
+          'CasaMia ordena los criterios de ayuda, la lista de documentos y la información del presupuesto. La autoridad pública decide la aprobación final.',
       },
     ],
     finalEyebrow: '¿Necesitas un plan para una vivienda real?',

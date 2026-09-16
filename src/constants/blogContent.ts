@@ -551,7 +551,7 @@ export const blogArticles: BlogArticle[] = [
     takeaways: [
       'Agree the daily moments that feel hardest before discussing products.',
       'Separate urgent safety needs from preferences, future planning and work that can wait.',
-      'Decide who must be involved in the proposal, budget, grant route, and final approval.',
+      'Decide who must be involved in the proposal, budget, grant paperwork, and final approval.',
     ],
     sections: [
       {
@@ -1015,7 +1015,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Signals that the family should consider more support',
         body: [
-          'A higher-support route may need to be discussed when the person cannot request help reliably, falls repeatedly despite changes, becomes unsafe at night, needs transfers that one person cannot manage, or has confusion that creates frequent risk.',
+          'More support may need to be discussed when the person cannot request help reliably, falls repeatedly despite changes, becomes unsafe at night, needs transfers that one person cannot manage, or has confusion that creates frequent risk.',
           'This does not automatically mean a residence. It may mean more home care, respite, technology-supported routines, a professional visit, or a transition plan. The point is to be honest before a crisis decides for everyone.',
         ],
       },

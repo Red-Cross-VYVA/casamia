@@ -205,7 +205,7 @@ export function GrantsPage() {
     ? {
         heroTitle: 'Encuentra posibles ayudas para adaptar tu vivienda.',
         heroBody:
-          'Revisa posibles rutas de ayuda, documentos pendientes y qué confirmar antes de empezar una obra.',
+          'Revisa posibles criterios de ayuda, documentos pendientes y qué confirmar antes de empezar una obra.',
         heroSecondary: 'Qué revisamos',
         quickCards: [
           {
@@ -214,16 +214,16 @@ export function GrantsPage() {
           },
           {
             title: 'Preparar documentos',
-            body: 'Te indicamos qué suele hacer falta según la ruta.',
+            body: 'Te indicamos qué suele hacer falta según los criterios.',
           },
           {
             title: 'Planificar sin sorpresas',
             body: 'Separamos precio CasaMia, posible ayuda y plazos.',
           },
         ],
-        supportTitle: 'CasaMia aclara la ruta.',
+        supportTitle: 'CasaMia aclara los requisitos.',
         supportBody:
-          'Respondes unas preguntas. Te devolvemos una lectura práctica: posible vía, documentación pendiente y qué revisar primero.',
+          'Respondes unas preguntas. Te devolvemos una lectura práctica: posible encaje, documentación pendiente y qué revisar primero.',
         programmesTitle: 'Programas publicados',
         programmesBody:
           'Solo mostramos programas cuando tienen fuente oficial, estado y fecha de revisión.',

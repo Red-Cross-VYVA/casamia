@@ -68,7 +68,7 @@ const specialistCopy = {
     ending: 'Terminando...',
     error: 'No se pudo conectar con el especialista ahora. Inténtalo de nuevo en unos minutos.',
     fallback: 'También puedes usar el catálogo o solicitar una visita si la voz no está disponible.',
-    items: ['Prioridad por estancia', 'Visita o fotos', 'Ruta de ayudas'],
+    items: ['Prioridad por estancia', 'Visita o fotos', 'Revisión de ayudas'],
     listening: 'Escuchando',
     mute: 'Silenciar',
     permission: 'Debes permitir el micrófono para iniciar el chat de voz con especialista.',

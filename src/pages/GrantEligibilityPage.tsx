@@ -1451,7 +1451,7 @@ function getGrantCopy(language: string) {
         managedTitle: 'Qué gestionará CasaMia',
         handoffTitle: 'El informe ya tiene lo esencial.',
         handoffBody:
-          'Puedes enviarlo por email o WhatsApp. CasaMia usará estos datos para revisar la vía de ayuda y decirte exactamente qué falta.',
+          'Puedes enviarlo por email o WhatsApp. CasaMia usará estos datos para revisar los criterios de ayuda y decirte exactamente qué falta.',
         handoffPoints: [
           'No pedimos certificados ahora si no los tienes.',
           'No presentamos nada sin revisar la convocatoria y confirmarlo contigo.',
@@ -1459,7 +1459,7 @@ function getGrantCopy(language: string) {
         ],
         readyTitle: 'Tu informe está listo.',
         readyBody: (region: string) =>
-          `CasaMia puede revisar la vía de ayuda para ${region} y enviarte un resumen claro de lo que falta si eliges recibirlo.`,
+          `CasaMia puede revisar los criterios de ayuda para ${region} y enviarte un resumen claro de lo que falta si eliges recibirlo.`,
         placeholder:
           'Responde las preguntas para ver tu informe de elegibilidad. No necesitas subir fotos.',
         detailsSummary: 'Ver resumen del informe',
@@ -1467,10 +1467,10 @@ function getGrantCopy(language: string) {
           kicker: 'Revisión enriquecida',
           pendingTitle: 'CasaMia está revisando las ayudas activas.',
           pendingBody: 'Buscaremos fuentes oficiales para preparar un resumen con requisitos, documentos y límites.',
-          readyTitle: 'Ruta de ayudas preparada',
+          readyTitle: 'Revisión de ayudas preparada',
           readyBody: 'Ya tienes una revisión visual con requisitos, documentos y lo que falta confirmar.',
           failedTitle: 'Revisión manual en curso',
-          failedBody: 'El informe básico está guardado. CasaMia puede revisar la ruta activa y hacer seguimiento.',
+          failedBody: 'El informe básico está guardado. CasaMia puede revisar la ayuda activa y hacer seguimiento.',
           needsDataTitle: 'Faltan algunos datos',
           needsDataBody: 'Completa estos puntos para que CasaMia pueda investigar la ruta correcta.',
           missingTitle: 'Datos pendientes',
@@ -1531,12 +1531,12 @@ function getGrantCopy(language: string) {
       calculation: {
         reasons: {
           region: (region: string) => `${region} puede revisarse frente a convocatorias regionales o municipales.`,
-          missingRegion: 'Falta la comunidad autónoma, necesaria para revisar la ruta de ayuda correcta.',
+          missingRegion: 'Falta la comunidad autónoma, necesaria para revisar los criterios de ayuda correctos.',
           age75: 'Una persona residente de 75+ suele ser una señal fuerte para ayudas de accesibilidad.',
           age65: 'Una persona mayor de 65 puede encajar en muchos criterios de accesibilidad.',
           family: 'Las solicitudes gestionadas por familiares son habituales, pero conviene confirmar los datos de la persona residente.',
           recognisedStatus: 'La discapacidad o dependencia reconocida puede reforzar la solicitud.',
-          statusInProgress: 'Una solicitud en trámite puede ser útil para revisar la vía regional.',
+          statusInProgress: 'Una solicitud en trámite puede ser útil para revisar los criterios regionales.',
           privateStatus: 'La información sensible puede revisarse más adelante de forma privada si hace falta.',
           mobilityNeed: 'Las necesidades actuales de movilidad ayudan a justificar obras de accesibilidad.',
           balance: 'Los problemas de equilibrio o movilidad apoyan un caso preventivo de seguridad.',
@@ -1564,12 +1564,12 @@ function getGrantCopy(language: string) {
           strong: {
             title: 'Buen encaje para ayudas',
             summary:
-              'Tus respuestas muestran varias señales habituales de elegibilidad. CasaMia debería verificar la vía regional activa y preparar la documentación.',
+              'Tus respuestas muestran varias señales habituales de elegibilidad. CasaMia debería verificar los criterios regionales activos y preparar la documentación.',
           },
           review: {
             title: 'Necesita revisión regional',
             summary:
-              'Hay señales útiles, pero la vía de ayuda depende de la comunidad, permisos y clasificación correcta de la adaptación.',
+              'Hay señales útiles, pero la elegibilidad depende de la comunidad, permisos y clasificación correcta de la adaptación.',
           },
           watch: {
             title: 'Primero plan de seguridad',
@@ -1701,7 +1701,7 @@ function getGrantCopy(language: string) {
       managedTitle: 'What CasaMia will manage',
       handoffTitle: 'The report now has the essentials.',
       handoffBody:
-        'In the next step you can send it by email or WhatsApp. CasaMia will use these details to review the grant route and tell you exactly what is still missing.',
+        'In the next step you can send it by email or WhatsApp. CasaMia will use these details to check likely grant criteria and tell you exactly what is still missing.',
       handoffPoints: [
         'We do not ask for certificates now if you do not already have them.',
         'Nothing is filed before the call is checked and confirmed with you.',
@@ -1709,19 +1709,19 @@ function getGrantCopy(language: string) {
       ],
       readyTitle: 'Your report is ready.',
       readyBody: (region: string) =>
-        `CasaMia can review the grant route for ${region} and send a summary of requirements, documents and what is still missing if you choose delivery.`,
+        `CasaMia can check likely grant criteria for ${region} and send a summary of requirements, documents and what is still missing if you choose delivery.`,
       placeholder: 'Answer the questions to see your eligibility report. No photos needed.',
       detailsSummary: 'View report summary',
       research: {
         kicker: 'Enriched review',
-        pendingTitle: 'CasaMia is checking active grant routes.',
+        pendingTitle: 'CasaMia is checking active grant options.',
         pendingBody: 'We will review official sources and prepare a summary with requirements, documents and limits.',
-        readyTitle: 'Grant route prepared',
+        readyTitle: 'Grant check prepared',
         readyBody: 'Your visual review includes requirements, documents and what still needs confirmation.',
         failedTitle: 'Manual review in progress',
         failedBody: 'The basic report is saved. CasaMia can review the active route and follow up.',
         needsDataTitle: 'A few details are missing',
-        needsDataBody: 'Complete these points so CasaMia can research the right grant route.',
+        needsDataBody: 'Complete these points so CasaMia can research the relevant grant criteria.',
         missingTitle: 'Missing details',
         routesTitle: 'Possible routes',
         requirementsTitle: 'Requirements',
@@ -1779,7 +1779,7 @@ function getGrantCopy(language: string) {
     calculation: {
       reasons: {
         region: (region: string) => `${region} can be checked against regional and municipal accessibility calls.`,
-        missingRegion: 'Region is still needed because most grant routes are managed locally.',
+        missingRegion: 'Region is still needed because most grant criteria are managed locally.',
         age75: 'A person aged 75+ is often a strong signal for accessibility support.',
         age65: 'A person over 65 can match many senior accessibility criteria.',
         family: 'Applications managed by relatives are common, but CasaMia should confirm the details of the person who lives there.',
@@ -1812,12 +1812,12 @@ function getGrantCopy(language: string) {
         strong: {
           title: 'Strong grant match',
           summary:
-            'The answers show several common eligibility signals. CasaMia should now verify the active regional route and prepare the documentation file.',
+            'The answers show several common eligibility signals. CasaMia should now verify the active regional criteria and prepare the documentation file.',
         },
         review: {
           title: 'Needs regional review',
           summary:
-            'There are relevant signals, but the grant route depends on region, permissions, and whether the adaptation is classified correctly.',
+            'There are relevant signals, but eligibility depends on region, permissions, and whether the adaptation is classified correctly.',
         },
         watch: {
           title: 'Safety plan first',

@@ -238,7 +238,7 @@ export function GrantSupportSpainPage() {
         <section className="grant-spain-final" id="contacto">
           <div className="site-shell">
             <h2>Solicita una revisión inicial.</h2>
-            <p>Identificamos la vía de ayuda más probable y qué documentación conviene preparar antes de avanzar.</p>
+            <p>Identificamos la opción de ayuda más probable y qué documentación conviene preparar antes de avanzar.</p>
             <div className="grant-spain-actions">
               <Link className="grant-spain-button" to="/grant-check">Iniciar revisión</Link>
               {phoneHref ? (
