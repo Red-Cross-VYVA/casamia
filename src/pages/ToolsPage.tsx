@@ -403,7 +403,7 @@ export function ToolsPage() {
             <h2>{pageCopy.finalTitle}</h2>
             <p>{pageCopy.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to="/home-safety-assessment?open=self-inspection#self-inspection-tool">
+          <Link className="btn btn-green" to="/tools/is-my-parent-safe-at-home">
             {pageCopy.finalCta}
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
