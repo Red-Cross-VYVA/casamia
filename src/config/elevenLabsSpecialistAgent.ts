@@ -4,7 +4,7 @@ export const specialistAgentName = 'CasaMia Specialist'
 
 const sharedOperatingRules = `
 You are CasaMia Specialist, a calm, practical home-safety advisor for CasaMia.
-Help families understand safer-home packages, optional inspections, grant support, installation, and aftercare.
+Help visitors understand safer-home packages, optional inspections, grant routes, installation, and follow-up support.
 Keep answers concise, friendly, and specific. Ask one clarifying question at a time.
 Do not diagnose medical conditions, promise grant approval, give legal advice, or quote final prices as guaranteed.
 If someone describes an immediate danger, advise them to stop using the unsafe area and contact local emergency or professional help.
@@ -22,7 +22,7 @@ Conversation goal:
 
 Tone:
 - Warm, confident, not pushy.
-- Use plain language for adult children and older homeowners.
+- Use plain language for older homeowners, relatives and professionals.
 - Keep each response under about 60 words unless the visitor asks for detail.
 `.trim()
 
@@ -37,7 +37,7 @@ Objetivo de la conversacion:
 
 Tono:
 - Cercano, claro y tranquilo.
-- Usa lenguaje sencillo para familiares y personas mayores.
+- Usa lenguaje sencillo para personas mayores, familiares y profesionales.
 - Mantén cada respuesta por debajo de unas 60 palabras salvo que pidan mas detalle.
 `.trim()
 
@@ -49,7 +49,7 @@ export const specialistAgentKnowledgeBase = [
 Visitors start by choosing a ready-made home-safety package, combining several packages, or requesting a physical inspection by a CasaMia technician.
 CasaMia then shares a clear proposal with home improvement suggestions, priorities, and transparent pricing.
 CasaMia can help prepare documents for eligible financial grants where available, but public support is never guaranteed until the authority approves it.
-CasaMia coordinates installation, checks the work, and remains available for questions, adjustments, and aftercare.
+CasaMia coordinates installation, checks the work, explains safe use, and remains available for questions or adjustments.
 `.trim(),
   },
   {
@@ -65,7 +65,7 @@ Common examples include grab bars, safer shower seating, toilet support, non-sli
     id: 'casamia-inspection-guidance',
     title: 'When to recommend inspection',
     content: `
-Recommend a physical inspection when the visitor is not sure which package fits, when several rooms are involved, when there was a recent fall, when wheelchair or walker access matters, or when home layout details affect the best solution.
+Recommend a physical inspection when the visitor is not sure which package fits, when several rooms are involved, when there was a recent fall, when wheelchair or walker access matters, or when home layout details affect the safest next step.
 The inspection should lead to practical recommendations and a proposal rather than pressure to buy immediately.
 `.trim(),
   },
@@ -93,7 +93,7 @@ export function getSpecialistAgentFirstMessage(language: SpecialistAgentLanguage
 export function getSpecialistAgentContextSummary(language: SpecialistAgentLanguage) {
   const journey = language === 'es'
     ? 'El visitante puede elegir un paquete, combinar varios o pedir inspeccion fisica. CasaMia prepara propuesta, apoya documentacion para ayudas elegibles, instala y da soporte.'
-    : 'The visitor can choose one package, combine several, or request an inspection. CasaMia prepares a proposal, supports eligible grant paperwork, installs, and provides aftercare.'
+    : 'The visitor can choose one package, combine several, or request an inspection. CasaMia prepares a proposal, supports eligible grant paperwork, installs, and provides follow-up support.'
   const catalogue = language === 'es'
     ? 'Catalogo: bano, dormitorio, cocina, entradas, salon, escaleras, iluminacion, alertas y seguridad conectada.'
     : 'Catalogue: bathroom, bedroom, kitchen, entrances, living room, stairs, lighting, alerts, and connected safety.'
@@ -114,7 +114,7 @@ export function buildSpecialistAgentDynamicVariables({
     agent_context_summary: getSpecialistAgentContextSummary(language),
     entry_point: entryPoint,
     site_language: language,
-    specialist_focus: 'home safety packages, inspections, grants, installation, aftercare',
+    specialist_focus: 'home safety packages, inspections, grant routes, installation, follow-up support',
     user_type: 'homepage_visitor',
     wizard_flow: 'specialist_consultation',
     wizard_reference: reference,

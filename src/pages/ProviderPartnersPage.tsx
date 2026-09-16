@@ -61,35 +61,35 @@ const providerPartnerCopy = {
   en: {
     title: 'Provider Partnership Programme | CasaMia',
     metaDescription:
-      'Join CasaMia’s provider network for senior home-safety adaptations, installation, smart safety setup and aftercare across Spain.',
+      'Join CasaMia’s provider network for home-safety adaptations, installation, smart safety setup and follow-up support across Spain.',
     heroEyebrow: 'Provider partnership programme',
     heroTitle: 'Join the senior home-safety market before it becomes crowded.',
     heroBody:
-      'CasaMia turns family concerns into clear, scoped home-safety projects. We are building a trusted provider network for senior-friendly adaptations, installation, smart safety setup and aftercare across Spain’s main cities.',
+      'CasaMia turns home-safety concerns into clear, scoped projects. We are building a trusted provider network for person-centred adaptations, installation, smart safety setup and follow-up support across Spain’s main cities.',
     proof: ['Assessed projects, not cold leads', 'Clear briefs before the visit', 'CasaMia coordinates the customer'],
     apply: 'Apply to collaborate',
     viewStandards: 'View standards',
     panelTitle: 'What partners receive',
     panelBody:
-      'A clearer job: resident context, room priorities, agreed scope, family expectations and a handover standard before work starts.',
+      'A clearer job: resident context, room priorities, agreed scope, access notes and safe-use expectations before work starts.',
     workflowEyebrow: 'How the work flows',
     workflowTitle: 'CasaMia handles the messy middle, so providers can focus on quality work.',
     workflowBody:
-      'We qualify the request, gather context, shape the scope, coordinate the family and keep the record clean. Approved providers step in when the work is ready to be priced, visited, installed or supported.',
+      'We qualify the request, gather context, shape the scope, coordinate the customer loop and keep the record clean. Approved providers step in when the work is ready to be priced, visited, installed or supported.',
     workflow: [
-      { title: 'Qualified request', body: 'Home, resident context, photos, urgency and family priority are captured first.' },
-      { title: 'Clear provider brief', body: 'You receive the room, scope, access notes, constraints and family expectations.' },
-      { title: 'Coordinated delivery', body: 'CasaMia keeps the customer loop, changes, approvals and handover organised.' },
+      { title: 'Qualified request', body: 'Home, resident context, photos, urgency and customer priority are captured first.' },
+      { title: 'Clear provider brief', body: 'You receive the room, scope, access notes, constraints and customer expectations.' },
+      { title: 'Coordinated delivery', body: 'CasaMia keeps the customer loop, changes, approvals and completion notes organised.' },
       { title: 'Documented outcome', body: 'Completion notes, photos, quality checks and follow-up stay attached to the project.' },
     ],
     marketEyebrow: 'Market opportunity',
     marketTitle: 'Senior home safety is becoming a mainstream service category.',
     marketBody:
-      'Spain has an ageing population, families are trying to keep parents independent at home for longer, and homes often need practical adaptations before a crisis happens. CasaMia turns that need into a repeatable, professional workflow for local providers.',
+      'Spain has an ageing population, more people want to stay independent at home for longer, and homes often need practical adaptations before a crisis happens. CasaMia turns that need into a repeatable, professional workflow for local providers.',
     expertiseEyebrow: 'CasaMia expertise',
     expertiseTitle: 'We understand the senior space, not just installation work.',
     expertiseBody:
-      'Good providers already know their trade. CasaMia adds the senior-specific layer: resident context, family communication, safety priorities, installation acceptance and follow-up.',
+      'Good providers already know their trade. CasaMia adds the senior-specific layer: resident context, consent-aware communication, safety priorities, installation acceptance and follow-up.',
     profilesEyebrow: 'Partner profiles',
     profilesTitle: 'Multiple ways to collaborate.',
     profilesBody:
@@ -105,7 +105,7 @@ const providerPartnerCopy = {
     sample: 'Download sample',
     usageRules: 'Usage rules',
     standardsEyebrow: 'How collaboration works',
-    standardsTitle: 'Clear standards, respectful work, better handovers.',
+    standardsTitle: 'Clear standards, respectful work, better completion notes.',
     standardsBody:
       'Providers remain independent businesses, but customer work is coordinated through CasaMia. Installers and subcontractors must not request direct customer payments or approve paid scope changes independently.',
     coverageEyebrow: 'Coverage focus',
@@ -115,7 +115,7 @@ const providerPartnerCopy = {
     cityEyebrow: 'City opportunity',
     cityTitle: 'Early partners can help define local coverage.',
     cityBody:
-      'The first strong partners in each city help CasaMia understand response times, typical property layouts, trade depth and where families need the most support.',
+      'The first strong partners in each city help CasaMia understand response times, typical property layouts, trade depth and where customers need the most support.',
     registrationEyebrow: 'Self-registration',
     registrationTitle: 'Apply to join the provider network.',
     registrationBody:
@@ -126,7 +126,7 @@ const providerPartnerCopy = {
       {
         question: 'Is CasaMia a lead marketplace?',
         answer:
-          'No. CasaMia qualifies the family request, structures the scope and coordinates the customer relationship before approved providers are asked to price, visit or install.',
+          'No. CasaMia qualifies the customer request, structures the scope and coordinates the relationship before approved providers are asked to price, visit or install.',
       },
       {
         question: 'Can providers choose which work to accept?',
@@ -136,12 +136,12 @@ const providerPartnerCopy = {
       {
         question: 'What makes a provider a good fit?',
         answer:
-          'Respectful home work, clear communication, insurance, reliable documentation and comfort working around older people and their families.',
+          'Respectful home work, clear communication, insurance, reliable documentation and comfort working around older people, relatives or carers.',
       },
       {
         question: 'Does CasaMia manage the customer after installation?',
         answer:
-          'Yes. CasaMia keeps the family informed, collects handover notes and supports follow-up so providers are not left managing every customer detail alone.',
+          'Yes. CasaMia keeps the customer loop informed, collects completion notes and supports follow-up so providers are not left managing every detail alone.',
       },
     ],
     fields: {
@@ -188,35 +188,35 @@ const providerPartnerCopy = {
   es: {
     title: 'Programa de colaboradores profesionales | CasaMia',
     metaDescription:
-      'Únete a la red CasaMia de profesionales para adaptaciones senior, instalación, seguridad inteligente y seguimiento en España.',
+      'Únete a la red CasaMia de profesionales para adaptaciones del hogar, instalación, seguridad inteligente y seguimiento en España.',
     heroEyebrow: 'Programa de colaboradores',
     heroTitle: 'Únete al mercado de seguridad senior en el hogar antes de que se sature.',
     heroBody:
-      'CasaMia convierte las preocupaciones familiares en proyectos claros de seguridad en el hogar. Estamos creando una red de profesionales para adaptaciones senior, instalación, seguridad inteligente y seguimiento en las principales ciudades de España.',
+      'CasaMia convierte las preocupaciones de seguridad en proyectos claros para el hogar. Estamos creando una red de profesionales para adaptaciones centradas en la persona, instalación, seguridad inteligente y seguimiento en las principales ciudades de España.',
     proof: ['Proyectos evaluados, no leads fríos', 'Brief claro antes de la visita', 'CasaMia coordina al cliente'],
     apply: 'Solicitar colaboración',
     viewStandards: 'Ver estándares',
     panelTitle: 'Qué reciben los colaboradores',
     panelBody:
-      'Un trabajo más claro: contexto de la persona, prioridades por estancia, alcance acordado, expectativas familiares y estándar de entrega antes de empezar.',
+      'Un trabajo más claro: contexto de la persona, prioridades por estancia, alcance acordado, notas de acceso y expectativas de uso seguro antes de empezar.',
     workflowEyebrow: 'Cómo fluye el trabajo',
     workflowTitle: 'CasaMia gestiona la parte compleja para que los profesionales se centren en entregar bien.',
     workflowBody:
-      'Cualificamos la solicitud, recogemos contexto, damos forma al alcance, coordinamos con la familia y dejamos el proyecto documentado. Los colaboradores aprobados entran cuando el trabajo ya está listo para valorar, visitar, instalar o mantener.',
+      'Cualificamos la solicitud, recogemos contexto, damos forma al alcance, coordinamos el contacto con el cliente y dejamos el proyecto documentado. Los colaboradores aprobados entran cuando el trabajo ya está listo para valorar, visitar, instalar o mantener.',
     workflow: [
-      { title: 'Solicitud cualificada', body: 'Primero recogemos vivienda, contexto de la persona, fotos, urgencia y prioridad familiar.' },
-      { title: 'Brief claro', body: 'Recibes estancia, alcance, acceso, limitaciones y expectativas de la familia.' },
-      { title: 'Entrega coordinada', body: 'CasaMia organiza cliente, cambios, aprobaciones y entrega.' },
+      { title: 'Solicitud cualificada', body: 'Primero recogemos vivienda, contexto de la persona, fotos, urgencia y prioridad del cliente.' },
+      { title: 'Brief claro', body: 'Recibes estancia, alcance, acceso, limitaciones y expectativas del cliente.' },
+      { title: 'Entrega coordinada', body: 'CasaMia organiza cliente, cambios, aprobaciones y notas de finalización.' },
       { title: 'Resultado documentado', body: 'Notas, fotos, comprobaciones de calidad y seguimiento quedan unidos al proyecto.' },
     ],
     marketEyebrow: 'Oportunidad de mercado',
     marketTitle: 'La seguridad senior en casa se está convirtiendo en una categoría principal.',
     marketBody:
-      'España envejece, las familias quieren mantener a sus padres independientes durante más tiempo y muchas viviendas necesitan adaptaciones prácticas antes de una crisis. CasaMia convierte esa necesidad en un flujo profesional repetible para proveedores locales.',
+      'España envejece, más personas quieren mantenerse independientes en casa durante más tiempo y muchas viviendas necesitan adaptaciones prácticas antes de una crisis. CasaMia convierte esa necesidad en un flujo profesional repetible para proveedores locales.',
     expertiseEyebrow: 'Experiencia CasaMia',
     expertiseTitle: 'Entendemos el mercado senior, no solo la instalación.',
     expertiseBody:
-      'Los buenos profesionales ya dominan su oficio. CasaMia añade la capa específica senior: contexto del residente, comunicación familiar, prioridades de seguridad, aceptación de la instalación y seguimiento.',
+      'Los buenos profesionales ya dominan su oficio. CasaMia añade la capa específica senior: contexto de la persona, comunicación con consentimiento, prioridades de seguridad, aceptación de la instalación y seguimiento.',
     profilesEyebrow: 'Perfiles de colaboradores',
     profilesTitle: 'Varias formas de colaborar.',
     profilesBody:
@@ -232,7 +232,7 @@ const providerPartnerCopy = {
     sample: 'Descargar muestra',
     usageRules: 'Normas de uso',
     standardsEyebrow: 'Cómo funciona la colaboración',
-    standardsTitle: 'Estándares claros, trabajo respetuoso y mejores entregas.',
+    standardsTitle: 'Estándares claros, trabajo respetuoso y mejores notas de finalización.',
     standardsBody:
       'Los proveedores siguen siendo empresas independientes, pero el trabajo con clientes se coordina a través de CasaMia. Instaladores y subcontratas no deben pedir pagos directos al cliente ni aprobar cambios de alcance de pago por su cuenta.',
     coverageEyebrow: 'Cobertura prioritaria',
@@ -242,7 +242,7 @@ const providerPartnerCopy = {
     cityEyebrow: 'Oportunidad por ciudad',
     cityTitle: 'Los primeros colaboradores ayudan a definir la cobertura local.',
     cityBody:
-      'Los primeros socios fuertes en cada ciudad ayudan a CasaMia a entender tiempos de respuesta, tipologías de vivienda, profundidad de oficios y dónde las familias necesitan más apoyo.',
+      'Los primeros socios fuertes en cada ciudad ayudan a CasaMia a entender tiempos de respuesta, tipologías de vivienda, profundidad de oficios y dónde los clientes necesitan más apoyo.',
     registrationEyebrow: 'Auto-registro',
     registrationTitle: 'Solicita unirte a la red de proveedores.',
     registrationBody:
@@ -253,7 +253,7 @@ const providerPartnerCopy = {
       {
         question: '¿CasaMia es un marketplace de leads?',
         answer:
-          'No. CasaMia cualifica la solicitud familiar, estructura el alcance y coordina la relación con el cliente antes de pedir a proveedores aprobados que valoren, visiten o instalen.',
+          'No. CasaMia cualifica la solicitud del cliente, estructura el alcance y coordina la relación antes de pedir a proveedores aprobados que valoren, visiten o instalen.',
       },
       {
         question: '¿Los proveedores pueden elegir qué trabajos aceptar?',
@@ -263,12 +263,12 @@ const providerPartnerCopy = {
       {
         question: '¿Qué hace que un proveedor encaje bien?',
         answer:
-          'Trabajo respetuoso en vivienda, comunicación clara, seguro, documentación fiable y comodidad trabajando con personas mayores y sus familias.',
+          'Trabajo respetuoso en vivienda, comunicación clara, seguro, documentación fiable y comodidad trabajando con personas mayores, familiares o cuidadores.',
       },
       {
         question: '¿CasaMia gestiona al cliente después de instalar?',
         answer:
-          'Sí. CasaMia mantiene informada a la familia, recoge notas de entrega y apoya el seguimiento para que el proveedor no tenga que gestionar cada detalle solo.',
+          'Sí. CasaMia mantiene informado el contacto con el cliente, recoge notas de finalización y apoya el seguimiento para que el proveedor no tenga que gestionar cada detalle solo.',
       },
     ],
     fields: {
@@ -300,15 +300,15 @@ const providerPartnerCopy = {
     saved: (id: string) =>
       `Solicitud ${id} guardada localmente para revisión. Despliega en Vercel con Supabase configurado antes de usarlo como bandeja real de solicitudes.`,
     marketSignals: [
-      { value: 'Viviendas que envejecen', label: 'Más familias necesitan adaptaciones prácticas que mantengan la independencia en casa.' },
+      { value: 'Viviendas que envejecen', label: 'Más personas necesitan adaptaciones prácticas que mantengan la independencia en casa.' },
       { value: 'Falta de especialistas', label: 'Muchos oficios instalan productos, pero menos entienden rutinas senior, dignidad y contexto de riesgo.' },
       { value: 'Despliegue urbano', label: 'CasaMia crea cobertura fiable ciudad por ciudad, empezando donde la demanda y la logística pueden escalar.' },
     ],
     expertisePillars: [
-      { title: 'Diseño de proyecto senior-first', body: 'CasaMia revisa residente, rutinas, cambios de movilidad, preocupaciones familiares y riesgo estancia por estancia antes de recomendar trabajos.' },
-      { title: 'Seguridad práctica, no venta de productos', body: 'Las recomendaciones se centran en transferencias, umbrales, iluminación, puntos de apoyo, baño, rutas nocturnas y entrega segura.' },
+      { title: 'Diseño de proyecto centrado en la persona', body: 'CasaMia revisa persona, rutinas, cambios de movilidad, preocupaciones del hogar y riesgo estancia por estancia antes de recomendar trabajos.' },
+      { title: 'Seguridad práctica, no venta de productos', body: 'Las recomendaciones se centran en transferencias, umbrales, iluminación, puntos de apoyo, baño, rutas nocturnas y uso seguro.' },
       { title: 'Recorrido profesional del cliente', body: 'Los proveedores trabajan dentro de un flujo estructurado: evaluación, plan acotado, briefing de instalación, aceptación y notas de seguimiento.' },
-      { title: 'Confianza con familias', body: 'CasaMia sigue como punto central de contacto para que las familias sepan quién responde y los proveedores se concentren en entregar calidad.' },
+      { title: 'Contacto centralizado', body: 'CasaMia sigue como punto central de contacto para que cada cliente sepa quién responde y los proveedores se concentren en entregar calidad.' },
     ],
     benefits: [
       { title: 'Demanda local cualificada', body: 'CasaMia canaliza proyectos evaluados hacia proveedores capaces de entregar con respeto, limpieza y puntualidad.' },
@@ -320,15 +320,15 @@ const providerPartnerCopy = {
       { title: 'Instaladores de accesibilidad', body: 'Barras, rampas, umbrales, puntos de apoyo y rutas de movimiento más seguras.' },
       { title: 'Especialistas en baño', body: 'Duchas seguras, entrada al plato, apoyo de inodoro, ayudas de transferencia y antideslizantes.' },
       { title: 'Equipos eléctricos e iluminación', body: 'Iluminación por movimiento, visibilidad en escaleras, rutas nocturnas, interruptores y accesos.' },
-      { title: 'Técnicos de seguridad inteligente', body: 'Sensores, alertas, botones de emergencia, conectividad y configuración para tranquilidad familiar.' },
+      { title: 'Técnicos de seguridad inteligente', body: 'Sensores, alertas, botones de emergencia, conectividad y configuración para contactos autorizados.' },
       { title: 'Terapeutas ocupacionales', body: 'Evaluación centrada en la persona, contexto de movilidad y prioridades prácticas de adaptación.' },
-      { title: 'Proveedores de seguimiento', body: 'Mantenimiento, ajustes menores, apoyo de entrega y visitas de seguimiento.' },
+      { title: 'Proveedores de seguimiento', body: 'Mantenimiento, ajustes menores, explicación de uso y visitas de seguimiento.' },
     ],
     resources: [
       { title: 'Briefings estructurados', body: 'Contexto del cliente, prioridades por estancia, fotos disponibles, alcance acordado, notas de acceso y prioridades de seguridad antes de la visita.' },
-      { title: 'Playbooks de seguridad senior', body: 'Guías prácticas para baños, escaleras, entradas, dormitorios, iluminación, transferencias y entrega de seguridad inteligente.' },
-      { title: 'Plantillas de propuesta y entrega', body: 'Formatos reutilizables para alcance, notas de finalización, registros de producto, comprobaciones de seguridad e instrucciones al cliente.' },
-      { title: 'Bucle de calidad', body: 'CasaMia recoge feedback familiar, resultados de instalación y notas de seguimiento para que los mejores proveedores sigan mejorando.' },
+      { title: 'Playbooks de seguridad senior', body: 'Guías prácticas para baños, escaleras, entradas, dormitorios, iluminación, transferencias y seguridad inteligente.' },
+      { title: 'Plantillas de propuesta y cierre', body: 'Formatos reutilizables para alcance, notas de finalización, registros de producto, comprobaciones de seguridad e instrucciones al cliente.' },
+      { title: 'Bucle de calidad', body: 'CasaMia recoge feedback del cliente, resultados de instalación y notas de seguimiento para que los mejores proveedores sigan mejorando.' },
       { title: 'Coordinación operativa', body: 'Apoyo con planificación, comunicación con clientes, cambios de alcance y expectativas de seguimiento.' },
       { title: 'Formación y onboarding', body: 'Módulos breves para entender comunicación senior, trabajo sin presión, documentación y estándares de aceptación.' },
     ],
@@ -362,7 +362,7 @@ const providerPartnerCopy = {
       'Los proveedores aprobados reciben oportunidades cuando la cobertura encaja.',
     ],
     opportunities: [
-      { city: 'Madrid', status: 'Alta prioridad', note: 'Gran área metropolitana y fuerte demanda de decisores familiares.' },
+      { city: 'Madrid', status: 'Alta prioridad', note: 'Gran área metropolitana y fuerte demanda de decisores de hogar.' },
       { city: 'Barcelona', status: 'Alta prioridad', note: 'Viviendas urbanas densas, edificios antiguos y necesidad amplia de cobertura.' },
       { city: 'Valencia', status: 'Alta prioridad', note: 'Gran ciudad costera con oportunidad en accesibilidad y envejecimiento en casa.' },
       { city: 'Málaga', status: 'Construyendo red', note: 'Mercado senior e internacional en crecimiento en la costa.' },
@@ -382,7 +382,7 @@ const providerPartnerCopy = {
         'Smart home and sensors': 'Hogar inteligente y sensores',
         'General building works': 'Obras generales',
         'Occupational therapy assessment': 'Evaluación de terapia ocupacional',
-        'Maintenance and aftercare': 'Mantenimiento y seguimiento',
+        'Maintenance and follow-up': 'Mantenimiento y seguimiento',
       })[trade] ?? trade,
   },
 } as const
@@ -429,13 +429,13 @@ function createMarketingAssetContent(title: string) {
   if (title.includes('Social')) {
     return `We are pleased to collaborate with CasaMia on senior home-safety projects.
 
-CasaMia coordinates resident-centred assessments, practical adaptation plans and family handover. Our role is to help deliver careful local work for older people who want to live more safely at home.
+CasaMia coordinates resident-centred assessments, practical adaptation plans and safe-use follow-up. Our role is to help deliver careful local work for older people who want to live more safely at home.
 
 #SeniorSafety #AgeingAtHome #HomeAdaptations #CasaMia`
   }
 
   if (title.includes('Website')) {
-    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the customer journey, project brief and family communication, while our team supports local delivery within agreed scope and safety standards.`
+    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the customer journey, project brief and consent-aware communication, while our team supports local delivery within agreed scope and safety standards.`
   }
 
   if (title.includes('Window')) {
@@ -827,8 +827,8 @@ export function ProviderPartnersPage() {
                         </strong>
                         <small>
                           {isSpanish
-                            ? 'Evaluación centrada en la persona, adaptación práctica y entrega familiar.'
-                            : 'Resident-centred assessment, practical adaptation and family handover.'}
+                            ? 'Evaluación centrada en la persona, adaptación práctica y seguimiento de uso seguro.'
+                            : 'Resident-centred assessment, practical adaptation and safe-use follow-up.'}
                         </small>
                       </div>
                     ) : (

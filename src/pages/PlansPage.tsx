@@ -466,7 +466,7 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Automatic water shut-off valve': 'Válvula automática de corte de agua',
     'Bathroom door adjustment': 'Ajuste de puerta de baño',
     'Easy-release privacy lock': 'Cierre de privacidad con desbloqueo fácil',
-    'Family or carer alert setup': 'Avisos para familia o cuidador',
+    'Family or carer alert setup': 'Avisos para contactos o cuidadores',
     'Folding shower seat': 'Asiento abatible de ducha',
     'Grab bar': 'Barra de apoyo',
     'Lever door handle': 'Manilla tipo palanca',
@@ -485,7 +485,7 @@ function localizePlanDetailItem(item: string, language: 'en' | 'es') {
     'Cable management kit': 'Kit de organización de cables',
     'Delivery and installation coordination': 'Coordinación de entrega e instalación',
     'Electric adjustable bed': 'Cama eléctrica ajustable',
-    'Family contact notification setup': 'Configuración de avisos a contactos familiares',
+    'Family contact notification setup': 'Configuración de avisos a contactos autorizados',
     'Hands-free calling setup': 'Configuración de llamadas manos libres',
     'Medication and routine reminder setup': 'Configuración de recordatorios y rutinas',
     'Mattress and pressure-comfort guidance': 'Orientación sobre colchón, presión y confort',
@@ -542,7 +542,7 @@ function getPlanDetailServiceSummaryItems(
   }
 
   if (taskText) {
-    serviceItems.push(language === 'es' ? 'Prueba, explicación de uso y soporte posterior' : 'Testing, handover and aftercare')
+    serviceItems.push(language === 'es' ? 'Prueba, explicación de uso y soporte posterior' : 'Testing, safe-use explanation and follow-up support')
   }
 
   return serviceItems
@@ -635,7 +635,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     heroReviewEyebrow: 'Instant proposal',
     heroReviewPoints: ['Package-led plan', 'Clear next steps'],
     heroReviewTitle: 'Your proposal is generated instantly.',
-    helpText: 'Use the steppers. Add connected or specialist modules only where useful.',
+    helpText: 'Use the steppers. Add connected or specialist modules only when they match the routine.',
     metaTitle: 'Plans Builder | CasaMia',
     modulesTitle: 'Core packages',
     monthly: 'Monthly',
@@ -660,13 +660,13 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewStepTitle: 'Review your selected packages',
     roomDescriptions: {
       bathroom:
-        'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes practical fixes such as grab bars, seating, anti-slip treatment, lever controls and water-temperature safety where suitable.',
+        'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes practical fixes such as grab bars, seating, anti-slip treatment, lever controls and water-temperature safety when they fit the room.',
       bedroom:
         'Focuses on getting in and out of bed, moving safely at night and keeping daily routines calm. Combines bedside support, better lighting, clearer routes, furniture positioning and fire-safety basics.',
       entrance:
-        'Makes the first and last steps of the day safer: thresholds, handrails, lighting, door hardware and visitor awareness. Useful for steps, mats, locks and seeing who is at the door before opening.',
+        'Makes the first and last steps of the day safer: thresholds, handrails, lighting, door hardware and visitor awareness. Helps with steps, mats, locks and seeing who is at the door before opening.',
       kitchen:
-        'Designed for safer cooking without unnecessary strain: easier food preparation, safer reach, better visibility and clearer movement. Adds selected smoke or leak alerts and safer controls where useful.',
+        'Designed for safer cooking without unnecessary strain: easier food preparation, safer reach, better visibility and clearer movement. Adds selected smoke or leak alerts and safer controls when they match the kitchen.',
       'living-room':
         'Supports the room people use most for sitting, standing, relaxing and moving around. Addresses rugs, cables, unstable furniture, seating support and clearer circulation without making the space clinical.',
     },
@@ -687,7 +687,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     summaryNextTitle: 'Next step',
     summaryRoomsTitle: 'Selected rooms',
     subtitle:
-      'Pick the rooms that need support, choose optional add-ons only where useful, and receive a clear proposal once your details are captured.',
+      'Pick the rooms that need support, choose optional add-ons only when they match the routine, and receive a clear proposal once your details are captured.',
     title: 'Create a safer-home plan, room by room.',
     town: 'Town / area',
     address: 'Address',

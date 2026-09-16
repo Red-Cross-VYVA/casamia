@@ -19,13 +19,13 @@ export const providerTrades = [
   'Smart home and sensors',
   'General building works',
   'Occupational therapy assessment',
-  'Maintenance and aftercare',
+  'Maintenance and follow-up',
 ] as const
 
 export const providerMarketSignals = [
   {
     value: 'Ageing homes',
-    label: 'More families need practical adaptations that preserve independence at home.',
+    label: 'More people need practical adaptations that preserve independence at home.',
   },
   {
     value: 'Specialist gap',
@@ -39,24 +39,24 @@ export const providerMarketSignals = [
 
 export const providerExpertisePillars = [
   {
-    title: 'Senior-first project design',
+    title: 'Person-centred project design',
     body:
-      'CasaMia looks at the resident, daily routines, mobility changes, family concerns and room-by-room risk before recommending work.',
+      'CasaMia looks at the person, daily routines, mobility changes, household concerns and room-by-room risk before recommending work.',
   },
   {
     title: 'Practical safety, not product pushing',
     body:
-      'Recommendations focus on transfers, thresholds, lighting, support points, bathroom use, night routes and safe handover.',
+      'Recommendations focus on transfers, thresholds, lighting, support points, bathroom use, night routes and safe daily use.',
   },
   {
     title: 'Professional customer journey',
     body:
-      'Providers work inside a structured flow: assessment, scoped plan, installation brief, acceptance record and aftercare notes.',
+      'Providers work inside a structured flow: assessment, scoped plan, installation brief, acceptance record and follow-up notes.',
   },
   {
-    title: 'Trust with families',
+    title: 'Central customer contact',
     body:
-      'CasaMia remains the central point of contact so families know who is responsible and providers can focus on quality delivery.',
+      'CasaMia remains the central point of contact so each customer knows who is responsible and providers can focus on quality delivery.',
   },
 ] as const
 
@@ -69,22 +69,22 @@ export const providerEnablementResources = [
   {
     title: 'Senior-safety playbooks',
     body:
-      'Practical guidance for bathrooms, stairs, entrances, bedrooms, lighting, transfers and smart-safety handover.',
+      'Practical guidance for bathrooms, stairs, entrances, bedrooms, lighting, transfers and smart safety.',
   },
   {
-    title: 'Proposal and handover templates',
+    title: 'Proposal and completion templates',
     body:
       'Reusable formats for scoped work, completion notes, product records, safety checks and customer instructions.',
   },
   {
     title: 'Quality feedback loop',
     body:
-      'CasaMia captures family feedback, installation outcomes and follow-up notes so strong providers can keep improving.',
+      'CasaMia captures customer feedback, installation outcomes and follow-up notes so strong providers can keep improving.',
   },
   {
     title: 'Operational coordination',
     body:
-      'Support with scheduling context, customer communication, change-order handling and aftercare expectations.',
+      'Support with scheduling context, customer communication, change-order handling and follow-up expectations.',
   },
   {
     title: 'Training and onboarding',
@@ -161,20 +161,20 @@ export const providerPartnerPaths = [
   },
   {
     title: 'Smart safety technicians',
-    body: 'Sensors, alerts, emergency buttons, connectivity checks and family reassurance setup.',
+    body: 'Sensors, alerts, emergency buttons, connectivity checks and approved-contact setup.',
   },
   {
     title: 'Occupational therapists',
     body: 'Resident-centred assessment, mobility context and practical adaptation priorities.',
   },
   {
-    title: 'Aftercare providers',
-    body: 'Maintenance, minor adjustments, handover support and follow-up visits.',
+    title: 'Follow-up providers',
+    body: 'Maintenance, minor adjustments, safe-use support and follow-up visits.',
   },
 ] as const
 
 export const providerCityOpportunities = [
-  { city: 'Madrid', status: 'High priority', note: 'Large metro area and strong family decision-maker demand.' },
+  { city: 'Madrid', status: 'High priority', note: 'Large metro area and strong household decision-maker demand.' },
   { city: 'Barcelona', status: 'High priority', note: 'Dense urban homes, older buildings and broad service coverage needs.' },
   { city: 'Valencia', status: 'High priority', note: 'Major coastal city with accessibility and ageing-at-home opportunity.' },
   { city: 'Malaga', status: 'Building network', note: 'Growing senior and international-resident market along the coast.' },
@@ -212,7 +212,7 @@ export const providerQualityStandards = [
   'Insurance appropriate for the services offered.',
   'Respectful work inside homes occupied by older residents.',
   'Ability to provide clear availability, pricing inputs and completion notes.',
-  'Willingness to follow CasaMia handover, safety and no-direct-payment rules.',
+  'Willingness to follow CasaMia completion, safe-use and no-direct-payment rules.',
   'Commitment to document material defects or incomplete scope honestly.',
 ] as const
 
