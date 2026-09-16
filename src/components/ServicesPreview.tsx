@@ -43,7 +43,7 @@ export function ServicesPreview() {
             <CheckCircle2 size={24} aria-hidden="true" />
             <p>
               Not sure which room to start with? The {visitFee} in-home visit ranks
-              the main risks before any works are proposed.
+              the main risks before any paid adaptation is proposed.
             </p>
           </div>
           <Link className="btn btn-green" to="/home-safety-assessment">

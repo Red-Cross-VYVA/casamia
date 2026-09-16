@@ -50,7 +50,7 @@
     },
     "grantCheck": {
       "title": "Grant Check",
-      "body": "Check likely grant fit and missing documents before you plan works.",
+      "body": "Check likely grant fit and missing documents before you plan home adaptations.",
       "cta": "Check eligibility"
     },
     "buildPlan": {
@@ -246,10 +246,10 @@
           "label": "Email"
         }
       ],
-      "submit": "Submit Request",
-      "submitting": "Submitting request...",
+      "submit": "Send assessment request",
+      "submitting": "Sending request...",
       "success": "Thank you. Your request has been received. A CasaMia representative will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit.",
-      "schedule": "Request Appointment",
+      "schedule": "Request visit time",
       "error": "We couldn't submit your request. Please try again or contact CasaMia by phone.",
       "consent": "I agree to be contacted by CasaMia regarding my in-home safety assessment request.",
       "privacy": "Your information is only used to arrange your assessment visit. We never sell your data.",
@@ -523,7 +523,7 @@
   "grants": {
     "badge": "Grants and assistance",
     "title": "Extra support may be closer than you think.",
-    "sub": "CasaMia checks likely grant fit before you commit to works.",
+    "sub": "CasaMia checks likely grant fit before you commit to home adaptations.",
     "body": "We identify relevant schemes, list the documents usually needed and prepare proposal wording that explains the safety work clearly. Approval always remains with the public authority.",
     "cta": "Check grant fit",
     "stats": [
@@ -938,7 +938,7 @@
         "title": "Choose the Right Safety Plan for Your Home",
         "subtitle": "Whether you need guidance, home adaptations or connected safety, CasaMia shows what to review and confirm first.",
         "primaryCta": "Book In-Home Assessment",
-        "secondaryCta": "Compare Plans"
+        "secondaryCta": "Compare options"
       },
       "explainer": {
         "title": "Three clear ways to start",
@@ -998,7 +998,7 @@
         }
       ],
       "comparison": {
-        "title": "Compare Plans",
+        "title": "Compare options",
         "intro": "The assessment helps define what should be included. This table compares common service levels, not the assessment visit itself.",
         "headers": [
           "Feature",
@@ -1180,12 +1180,12 @@
       "final": {
         "title": "Start with the right plan for a safer home.",
         "body": "Request a {{visitFee}} in-home assessment and receive room priorities, notes on what to include and the action to confirm next.",
-        "cta": "Request a Safety Proposal"
+        "cta": "Request a safety proposal"
       }
     },
     "grants": {
       "title": "Grant support with the requirements made clear.",
-      "intro": "Plan Adapta can cover a significant part of accessibility works. CasaMia prepares the application file, submits it where authorised and tracks the authority response.",
+      "intro": "Plan Adapta can cover a significant part of eligible accessibility adaptations. CasaMia prepares the application file, sends it where authorised and tracks the authority response.",
       "eligibilityTitle": "Typical eligibility signals",
       "eligibility": [
         "The home is in Spain and needs accessibility or safety improvements.",
@@ -1196,7 +1196,7 @@
       "process": [
         "Collecting the required home, applicant and ownership details.",
         "Preparing evidence notes, work descriptions and accessibility documents.",
-        "Submitting through the relevant grant channel where authorised and tracking progress."
+        "Sending the application through the relevant grant channel where authorised and tracking progress."
       ]
     },
     "contact": {
@@ -1215,7 +1215,7 @@
         "Connected safety",
         "Not sure yet"
       ],
-      "submit": "Send Message",
+      "submit": "Send message",
       "submitting": "Sending...",
       "error": "We could not send your message. Please try again or contact CasaMia by phone.",
       "success": "Thank you. CasaMia will follow up shortly."
@@ -1223,7 +1223,7 @@
     "planDetail": {
       "metaTitleSuffix": "CasaMia Plan",
       "backToPlans": "Back to plans",
-      "comparePlans": "Compare Plans",
+      "comparePlans": "Compare options",
       "primaryCta": "Book In-Home Assessment",
       "whoTitle": "Who this plan is for",
       "includedTitle": "What's included",
@@ -1723,11 +1723,11 @@
       "what": {
         "kicker": "What is Plan Adapta?",
         "title": "Support for safer, more accessible homes.",
-        "body": "Plan Adapta can help with certain accessibility and safety adaptations, but only when the local authority, open call, applicant details, documents and proposed works all fit. CasaMia helps you understand that fit before an application is prepared."
+        "body": "Plan Adapta can help with certain accessibility and safety adaptations, but only when the local authority, open call, applicant details, documents and proposed adaptations all fit. CasaMia helps you understand that fit before an application is prepared."
       },
       "help": {
         "kicker": "What CasaMia prepares",
-        "title": "We turn the proposed works into a grant-ready file.",
+        "title": "We turn the proposed adaptations into a grant-ready file.",
         "items": [
           {
             "title": "Eligibility notes",
@@ -1773,7 +1773,7 @@
         ]
       },
       "process": {
-        "kicker": "How it works",
+        "kicker": "Grant application steps",
         "title": "From home evidence to a grant-ready submission.",
         "steps": [
           {
@@ -1793,15 +1793,15 @@
             "body": "When the programme appears to fit and CasaMia is authorised, we prepare and submit the required documentation."
           },
           {
-            "title": "Once approved, we coordinate the works",
-            "body": "If the authority approves the application, we coordinate the approved safety and accessibility works."
+            "title": "Once approved, we coordinate the approved adaptations",
+            "body": "If the authority approves the application, we coordinate the safety and accessibility adaptations named in the approval."
           }
         ]
       },
       "terms": {
         "title": "Grant terms and responsibilities",
         "body": "CasaMia provides grant management assistance as an administrative service only. The final grant decision always belongs to the relevant authority.",
-        "cta": "Learn more about our Grant Terms →"
+        "cta": "Read the grant terms →"
       }
     }
   },
@@ -1818,7 +1818,7 @@
       "galleryCta": "View Gallery",
       "galleryTitle": "From everyday risk to safer daily routines",
       "galleryBody": "Each transformation shows the risk CasaMia looks for and the improvement that can be reviewed after a home safety assessment.",
-      "compareCta": "Compare Plans"
+      "compareCta": "Compare options"
     },
     "labels": {
       "before": "Before",
@@ -1912,7 +1912,7 @@
       "riskTitle": "What looks risky",
       "riskBody": "The bath edge is high and there is no continuous hand support near the shower.",
       "actionTitle": "What to do first",
-      "actionBody": "Start with grab bars and a secure bath transfer seat before planning larger works.",
+      "actionBody": "Start with grab bars and a secure bath transfer seat before planning larger adaptations.",
       "nextTitle": "What to do next",
       "nextBody": "Use the report to align the people involved, check grant support, or book an in-home assessment."
     },
