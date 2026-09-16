@@ -39,7 +39,7 @@ const pageCopy = {
     lang: 'en',
     seoTitle: 'Senior Home Safety Checklist & Practical Resources | CasaMia',
     seoDescription:
-      'Download CasaMia\'s free room-by-room senior home conversion checklist for Spain and use practical tools for home safety, grant readiness and family planning.',
+      'Download CasaMia\'s free room-by-room senior home conversion checklist for Spain and use clear tools for home safety, grant readiness and planning.',
     heroEyebrow: 'Practical resources for real homes',
     heroTitle: 'Make the home safer, one room at a time.',
     heroBody:
@@ -50,11 +50,11 @@ const pageCopy = {
     educationEyebrow: 'CasaMia education hub',
     educationTitle: 'Learn enough to make the next decision calmly.',
     educationBody:
-      'The best resource is the one that moves the family forward. CasaMia groups guides, tools and checklists around the real sequence families follow before committing to work.',
+      'The best resource is the one that helps you decide the next step. CasaMia groups guides, tools and checklists around the real sequence people follow before committing to work.',
     downloadEyebrow: 'Free printable workbook',
     downloadTitle: 'The Complete Senior Home Conversion Checklist',
     downloadBody:
-      'Walk through the home with the person who lives there, identify quick wins, flag work that needs professional review and finish with a clear family action plan.',
+      'Walk through the home with the person who lives there, identify quick wins, flag work that needs professional review and finish with a clear action plan.',
     downloadStats: [
       { value: '10', label: 'home areas' },
       { value: '100+', label: 'practical checks' },
@@ -71,57 +71,57 @@ const pageCopy = {
     coverLabel: 'CASAMIA PRACTICAL GUIDE',
     coverFooter: 'Room by room. Priority by priority.',
     previewRooms: ['Entrance', 'Bathroom', 'Bedroom', 'Kitchen'],
-    toolsEyebrow: 'Choose one useful next step',
+    toolsEyebrow: 'Choose one clear next step',
     toolsTitle: 'Start with the task you need today.',
     toolsBody:
-      'Each tool has one clear job. Use it online, save your observations and bring the result into a family discussion or professional assessment.',
+      'Each tool has one clear job. Use it online, save your observations and bring the result into a home discussion or professional assessment.',
     openTool: 'Open tool',
     journeyEyebrow: 'Not sure where to begin?',
     journeyTitle: 'Choose the situation that sounds closest.',
     journeyBody:
-      'A safer home usually starts with one pressure point: a recent change, a worrying room, or a family decision that needs structure.',
+      'A safer home usually starts with one pressure point: a recent change, a worrying room, or a decision that needs structure.',
     topicsEyebrow: 'Explore by safety topic',
     topicsTitle: 'Go straight to the area you are trying to understand.',
     topicsBody:
-      'These topic pages bring together the practical guidance, tools and CasaMia routes around one family question.',
+      'These topic pages bring together the guidance, tools and CasaMia routes around one home-safety question.',
     pathwaysEyebrow: 'Choose the closest situation',
     pathwaysTitle: 'Practical help by decision, not by article title.',
     pathwaysBody:
-      'Families usually arrive with one urgent question. Start there, then move into the guide, checklist or tool that helps you make the next decision calmly.',
+      'Most people arrive with one urgent question. Start there, then move into the guide, checklist or tool that helps you make the next decision calmly.',
     pathwayCta: 'Start here',
-    familyStarterEyebrow: '10-minute family starter',
+    familyStarterEyebrow: '10-minute conversation starter',
     familyStarterTitle: 'Before choosing a solution, agree what problem you are solving.',
     familyStarterBody:
       'Use these prompts with a parent, partner, sibling or carer. The aim is not to diagnose the home in one sitting — it is to turn scattered worries into one calm next step.',
-    familyStarterFinalTitle: 'Leave with one useful decision',
+    familyStarterFinalTitle: 'Leave with one clear decision',
     familyStarterFinalBody:
       'Choose the room, route or routine that creates the most worry this week. Then use the checklist, online review or a CasaMia assessment to make it practical.',
     familyStarterCta: 'Start the guided review',
     comparisonEyebrow: 'Decision guides',
     comparisonTitle: 'Compare the routes before you commit.',
     comparisonBody:
-      'Short, practical guides for the moments when the family is choosing between two very different next steps.',
+      'Short guides for the moments when you are choosing between two very different next steps.',
     downloadsEyebrow: 'Printable materials',
-    downloadsTitle: 'Useful documents to share around the table.',
+    downloadsTitle: 'Documents to share before a decision.',
     downloadsBody:
-      'Download simple, family-friendly materials you can print, annotate, send to relatives or take into a professional visit.',
+      'Download simple materials you can print, annotate, send to trusted contacts or take into a professional visit.',
     downloadAction: 'Download',
-    momentsEyebrow: 'When families usually need help',
+    momentsEyebrow: 'When people usually need help',
     momentsTitle: 'Resources for the moments that create pressure.',
     momentsBody:
-      'Use these as quick routes into CasaMia advice when something has changed at home, in hospital, or in the family conversation.',
-    todayEyebrow: 'A useful first 20 minutes',
+      'Use these as quick routes into CasaMia advice when something has changed at home, in hospital, or in the support conversation.',
+    todayEyebrow: 'A clear first 20 minutes',
     todayTitle: 'Three checks worth doing today.',
     todayBody:
       'These are simple observations, not building work. If anything feels unstable or unsafe, stop using it and arrange an appropriate review.',
     localEyebrow: 'Spain-specific help',
     localTitle: 'Turn general advice into the right route for a Spanish home.',
     localBody:
-      'CasaMia resources are designed for the practical questions families face in Spain: local homes, regional grant routes, measurements, installers and paperwork.',
+      'CasaMia resources are designed for the questions people face in Spain: local homes, regional grant routes, measurements, installers and application documents.',
     guideEyebrow: 'Practical guidance by situation',
     guideTitle: 'Find the answer without scrolling through a wall of articles.',
     guideBody:
-      'Guides are grouped around the decision a family is trying to make. Choose the closest situation and go straight to the relevant advice.',
+      'Guides are grouped around the decision you are trying to make. Choose the closest situation and go straight to the relevant advice.',
     guideLanguage: 'Guides are currently available in English.',
     searchLabel: 'Search resources',
     searchPlaceholder: 'Try bathroom, falls, grants, night safety...',
@@ -130,9 +130,9 @@ const pageCopy = {
     searchEmpty: 'No matching guides yet. Try bathroom, falls, grants, bedroom, stairs or provider.',
     readGuide: 'Read guide',
     actionRouteEyebrow: 'From reading to action',
-    actionRouteTitle: 'Turn useful advice into a calm home safety route.',
+    actionRouteTitle: 'Turn good advice into a calm home safety route.',
     actionRouteBody:
-      'Use the Resources hub to learn what matters, then move into a guided CasaMia review when you want priorities, scope, grant-readiness or a managed proposal.',
+      'Use the Resources hub to learn what matters, then move into a guided CasaMia review when you want priorities, scope, grant readiness or a managed proposal.',
     actionRouteCta: 'Start the guided review',
     faqEyebrow: 'Common questions',
     faqTitle: 'Quick answers before you choose a resource.',
@@ -145,7 +145,7 @@ const pageCopy = {
       {
         question: 'Can I use these resources before booking CasaMia?',
         answer:
-          'Yes. The checklist, guides and tools are designed to help families prepare calmly before deciding whether they need professional help.',
+          'Yes. The checklist, guides and tools are designed to help you prepare calmly before deciding whether professional help is needed.',
       },
       {
         question: 'When should we arrange a home visit?',
@@ -153,7 +153,7 @@ const pageCopy = {
           'A visit is useful when measurements, installation details, mobility needs or several rooms need to be reviewed before a final proposal.',
       },
       {
-        question: 'Can CasaMia help with grants and paperwork?',
+        question: 'Can CasaMia help with grants and documents?',
         answer:
           'CasaMia can help organise the route, documents, quotation information and next steps. Public authorities make the final grant decision.',
       },
@@ -168,7 +168,7 @@ const pageCopy = {
     lang: 'es',
     seoTitle: 'Lista de seguridad y recursos para adaptar viviendas | CasaMia',
     seoDescription:
-      'Descarga gratis la lista de CasaMia para adaptar una vivienda estancia por estancia y utiliza herramientas prácticas de seguridad, ayudas y planificación familiar.',
+      'Descarga gratis la lista de CasaMia para adaptar una vivienda estancia por estancia y utiliza herramientas claras de seguridad, ayudas y planificación.',
     heroEyebrow: 'Recursos prácticos para hogares reales',
     heroTitle: 'Haz el hogar más seguro, estancia por estancia.',
     heroBody:
@@ -179,11 +179,11 @@ const pageCopy = {
     educationEyebrow: 'Centro de aprendizaje CasaMia',
     educationTitle: 'Aprende lo justo para decidir el siguiente paso con calma.',
     educationBody:
-      'El mejor recurso es el que ayuda a la familia a avanzar. CasaMia agrupa guías, herramientas y listas según la secuencia real antes de confirmar cualquier trabajo.',
+      'El mejor recurso es el que ayuda a decidir el siguiente paso. CasaMia agrupa guías, herramientas y listas según la secuencia real antes de confirmar cualquier trabajo.',
     downloadEyebrow: 'Cuaderno gratuito para imprimir',
     downloadTitle: 'Lista completa para adaptar la vivienda de una persona mayor',
     downloadBody:
-      'Recorre la vivienda con la persona que vive en ella, identifica mejoras rápidas, señala los trabajos que necesitan revisión profesional y termina con un plan de acción familiar.',
+      'Recorre la vivienda con la persona que vive en ella, identifica mejoras rápidas, señala los trabajos que necesitan revisión profesional y termina con un plan de acción claro.',
     downloadStats: [
       { value: '10', label: 'zonas del hogar' },
       { value: '100+', label: 'comprobaciones' },
@@ -200,57 +200,57 @@ const pageCopy = {
     coverLabel: 'GUÍA PRÁCTICA CASAMIA',
     coverFooter: 'Estancia por estancia. Prioridad por prioridad.',
     previewRooms: ['Entrada', 'Baño', 'Dormitorio', 'Cocina'],
-    toolsEyebrow: 'Elige un siguiente paso útil',
+    toolsEyebrow: 'Elige un siguiente paso claro',
     toolsTitle: 'Empieza por lo que necesitas hoy.',
     toolsBody:
-      'Cada herramienta tiene una función clara. Úsala online, guarda tus observaciones y llévalas a la conversación familiar o a una evaluación profesional.',
+      'Cada herramienta tiene una función clara. Úsala online, guarda tus observaciones y llévalas a una conversación sobre la vivienda o a una evaluación profesional.',
     openTool: 'Abrir herramienta',
     journeyEyebrow: '¿No sabes por dónde empezar?',
     journeyTitle: 'Elige la situación que más se parece.',
     journeyBody:
-      'Un hogar más seguro suele empezar por un punto de presión: un cambio reciente, una estancia que preocupa o una decisión familiar que necesita orden.',
+      'Un hogar más seguro suele empezar por un punto de presión: un cambio reciente, una estancia que preocupa o una decisión que necesita orden.',
     topicsEyebrow: 'Explora por tema de seguridad',
     topicsTitle: 'Ve directamente al área que quieres entender.',
     topicsBody:
-      'Estas páginas reúnen guías, herramientas y rutas CasaMia alrededor de una pregunta familiar concreta.',
+      'Estas páginas reúnen guías, herramientas y rutas CasaMia alrededor de una pregunta concreta de seguridad en casa.',
     pathwaysEyebrow: 'Elige la situación más cercana',
     pathwaysTitle: 'Ayuda práctica por decisión, no por título de artículo.',
     pathwaysBody:
-      'Las familias suelen llegar con una pregunta urgente. Empieza ahí y pasa después a la guía, lista o herramienta que ayuda a decidir con calma el siguiente paso.',
+      'Muchas personas llegan con una pregunta urgente. Empieza ahí y pasa después a la guía, lista o herramienta que ayuda a decidir con calma el siguiente paso.',
     pathwayCta: 'Empezar aquí',
-    familyStarterEyebrow: 'Primeros 10 minutos en familia',
+    familyStarterEyebrow: 'Primeros 10 minutos de conversación',
     familyStarterTitle: 'Antes de elegir una solución, acordad qué problema queréis resolver.',
     familyStarterBody:
       'Usa estas preguntas con madre, padre, pareja, hermanos o cuidador. No se trata de diagnosticar la vivienda en una conversación, sino de convertir preocupaciones sueltas en un siguiente paso claro.',
-    familyStarterFinalTitle: 'Terminad con una decisión útil',
+    familyStarterFinalTitle: 'Terminad con una decisión clara',
     familyStarterFinalBody:
       'Elegid la estancia, ruta o rutina que más preocupa esta semana. Después usad la lista, la revisión online o una evaluación CasaMia para hacerlo práctico.',
     familyStarterCta: 'Empezar revisión guiada',
     comparisonEyebrow: 'Guías de decisión',
     comparisonTitle: 'Compara las opciones antes de decidir.',
     comparisonBody:
-      'Guías breves y prácticas para cuando la familia tiene que elegir entre dos caminos distintos.',
+      'Guías breves para cuando hay que elegir entre dos caminos distintos.',
     downloadsEyebrow: 'Materiales para imprimir',
-    downloadsTitle: 'Documentos útiles para compartir en familia.',
+    downloadsTitle: 'Documentos para compartir antes de decidir.',
     downloadsBody:
-      'Descarga materiales sencillos para imprimir, anotar, enviar a familiares o llevar a una visita profesional.',
+      'Descarga materiales sencillos para imprimir, anotar, enviar a contactos de confianza o llevar a una visita profesional.',
     downloadAction: 'Descargar',
     momentsEyebrow: 'Cuándo suele hacer falta ayuda',
     momentsTitle: 'Recursos para los momentos que generan presión.',
     momentsBody:
-      'Usa estas rutas rápidas cuando algo ha cambiado en casa, en el hospital o en la conversación familiar.',
-    todayEyebrow: 'Unos primeros 20 minutos útiles',
+      'Usa estas rutas rápidas cuando algo ha cambiado en casa, en el hospital o en la conversación de apoyo.',
+    todayEyebrow: 'Primeros 20 minutos claros',
     todayTitle: 'Tres comprobaciones que merece la pena hacer hoy.',
     todayBody:
       'Son observaciones sencillas, no trabajos de obra. Si algo está inestable o parece peligroso, deja de usarlo y solicita una revisión adecuada.',
     localEyebrow: 'Ayuda adaptada a España',
     localTitle: 'Convierte el consejo general en la ruta adecuada para una vivienda en España.',
     localBody:
-      'Los recursos CasaMia están pensados para preguntas reales en España: tipos de vivienda, ayudas autonómicas, mediciones, instaladores y documentación.',
+      'Los recursos CasaMia están pensados para preguntas reales en España: tipos de vivienda, ayudas autonómicas, mediciones, instaladores y documentos de solicitud.',
     guideEyebrow: 'Guías prácticas por situación',
     guideTitle: 'Encuentra la respuesta sin recorrer una pared de artículos.',
     guideBody:
-      'Las guías están agrupadas según la decisión que una familia intenta tomar. Elige la situación más cercana y ve directamente al consejo relevante.',
+      'Las guías están agrupadas según la decisión que necesitas tomar. Elige la situación más cercana y ve directamente al consejo relevante.',
     guideLanguage: '',
     searchLabel: 'Buscar recursos',
     searchPlaceholder: 'Prueba baño, caídas, ayudas, noche...',
@@ -259,7 +259,7 @@ const pageCopy = {
     searchEmpty: 'No hay guías que coincidan. Prueba baño, caídas, ayudas, dormitorio, escaleras o proveedor.',
     readGuide: 'Leer guía',
     actionRouteEyebrow: 'De la lectura a la acción',
-    actionRouteTitle: 'Convierte consejos útiles en una ruta clara para la vivienda.',
+    actionRouteTitle: 'Convierte buenos consejos en una ruta clara para la vivienda.',
     actionRouteBody:
       'Usa Recursos para entender qué importa y pasa a una revisión guiada CasaMia cuando quieras prioridades, alcance, preparación de ayudas o una propuesta gestionada.',
     actionRouteCta: 'Empezar revisión guiada',
@@ -274,7 +274,7 @@ const pageCopy = {
       {
         question: '¿Puedo usar estos recursos antes de contratar a CasaMia?',
         answer:
-          'Sí. La lista, las guías y las herramientas ayudan a preparar la conversación familiar antes de decidir si hace falta apoyo profesional.',
+          'Sí. La lista, las guías y las herramientas ayudan a preparar la conversación antes de decidir si hace falta apoyo profesional.',
       },
       {
         question: '¿Cuándo conviene pedir una visita a domicilio?',
@@ -282,7 +282,7 @@ const pageCopy = {
           'Una visita ayuda cuando hacen falta medidas, detalles de instalación, revisión de movilidad o una propuesta final que afecte a varias estancias.',
       },
       {
-        question: '¿CasaMia puede ayudar con ayudas y documentación?',
+        question: '¿CasaMia puede ayudar con ayudas y documentos?',
         answer:
           'CasaMia puede ayudar a ordenar el proceso, documentos, información del presupuesto y próximos pasos. La autoridad pública decide la aprobación final.',
       },
@@ -406,10 +406,10 @@ const resourceJourneys = [
   },
   {
     icon: HandHeart,
-    title: { en: 'The family needs a plan', es: 'La familia necesita un plan' },
+    title: { en: 'The support circle needs a plan', es: 'El círculo de apoyo necesita un plan' },
     body: {
       en: 'When relatives disagree, a shared checklist and priorities make the conversation calmer and more useful.',
-      es: 'Cuando la familia no se pone de acuerdo, una lista compartida y prioridades claras ordenan la conversación.',
+      es: 'Cuando hay opiniones distintas, una lista compartida y prioridades claras ordenan la conversación.',
     },
     steps: {
       en: ['Download the checklist', 'Mark what feels unsafe', 'Bring the notes into one conversation'],
@@ -465,7 +465,7 @@ const topicRoutes = [
   {
     icon: FileCheck2,
     to: '/grants',
-    title: { en: 'Grants and paperwork', es: 'Ayudas y documentación' },
+    title: { en: 'Grants and documents', es: 'Ayudas y documentos' },
     body: {
       en: 'Prepare the location, documents and scope questions before relying on funding.',
       es: 'Prepara ubicación, documentos y alcance antes de contar con financiación.',
@@ -579,8 +579,8 @@ const printableMaterials = [
     icon: ClipboardCheck,
     title: { en: 'Complete home conversion checklist', es: 'Lista completa de adaptación del hogar' },
     body: {
-      en: 'Room-by-room workbook with priorities, notes and family action planning.',
-      es: 'Cuaderno estancia por estancia con prioridades, notas y plan familiar.',
+      en: 'Room-by-room workbook with priorities, notes and an action plan.',
+      es: 'Cuaderno estancia por estancia con prioridades, notas y plan de acción.',
     },
     kind: { en: 'PDF workbook', es: 'Cuaderno PDF' },
     getHref: (language: ResourceDownloadLanguage) => completeHomeChecklistDownloads[language].href,
@@ -622,7 +622,7 @@ const familyMoments = [
   },
   {
     icon: HandHeart,
-    title: { en: 'When family disagrees on what to fix', es: 'Cuando la familia no se pone de acuerdo' },
+    title: { en: 'When people disagree on what to fix', es: 'Cuando no hay acuerdo sobre qué cambiar' },
     body: {
       en: 'Use a shared checklist and a clear risk-first plan instead of scattered opinions.',
       es: 'Usa una lista compartida y un plan por riesgo, no opiniones dispersas.',
@@ -672,8 +672,8 @@ const actionRouteSteps = [
     icon: SearchCheck,
     title: { en: 'Learn what matters', es: 'Entender lo importante' },
     body: {
-      en: 'Start with the checklist, room guide or decision page that matches the family concern.',
-      es: 'Empieza con la lista, guía por estancia o página de decisión que encaja con la preocupación familiar.',
+      en: 'Start with the checklist, room guide or decision page that matches the main concern.',
+      es: 'Empieza con la lista, guía por estancia o página de decisión que encaja con la preocupación principal.',
     },
   },
   {
@@ -731,8 +731,8 @@ const localSpainRoutes = [
     icon: HandHeart,
     title: { en: 'Move into one managed plan', es: 'Pasar a un plan gestionado' },
     body: {
-      en: 'When the family is ready, CasaMia connects assessment, proposal, products, installation and follow-up.',
-      es: 'Cuando la familia esté lista, CasaMia conecta evaluación, propuesta, productos, instalación y seguimiento.',
+      en: 'When you are ready, CasaMia connects assessment, proposal, products, installation and follow-up.',
+      es: 'Cuando estés listo, CasaMia conecta evaluación, propuesta, productos, instalación y seguimiento.',
     },
   },
 ] as const

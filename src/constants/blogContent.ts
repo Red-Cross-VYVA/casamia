@@ -36,9 +36,9 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'fall-prevention-home-checklist-spain',
     path: '/blog/fall-prevention-home-checklist-spain',
-    title: 'Fall Prevention at Home: A Practical Checklist for Families in Spain',
+    title: 'Fall Prevention at Home: A Practical Checklist for Spain',
     description:
-      'A practical fall prevention checklist for families supporting an older adult at home, with room-by-room checks, warning signs and credible resources.',
+      'A practical fall prevention checklist for making an older adult’s home safer, with room-by-room checks, warning signs and credible resources.',
     category: 'Fall prevention',
     readTime: '10 min read',
     date: '2026-08-10',
@@ -46,7 +46,7 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Illustrated home safety checklist for fall prevention',
     keywords: ['fall prevention at home', 'senior home safety Spain', 'aging in place checklist'],
     intro:
-      'Most falls are not caused by one single problem. Risk builds when health changes, medication, vision, footwear, lighting, floors, furniture and rushed routines all meet in the same moment. A good home checklist helps the family spot those combinations before a fall happens.',
+      'Most falls are not caused by one single problem. Risk builds when health changes, medication, vision, footwear, lighting, floors, furniture and rushed routines all meet in the same moment. A good home checklist helps spot those combinations before a fall happens.',
     takeaways: [
       'Walk the home by routine: getting up, washing, dressing, cooking, leaving the home and going to the bathroom at night.',
       'Prioritise loose rugs, poor lighting, unsupported transfers, stairs, bathroom access and emergency reach.',
@@ -64,22 +64,22 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Remove trip hazards, but do not stop there',
         body: [
-          'Loose rugs, curling mats, cables, cluttered routes and unstable furniture should be fixed immediately. But many families stop there and miss the bigger pattern: no support where the person transfers, light switches too far away, shoes that slip, or a bathroom route that becomes risky at night.',
-          'A useful sequence is bathroom, bedroom-to-bathroom route, stairs, entrance, kitchen and living areas. This keeps the review focused on daily risk rather than trying to redesign every room at once.',
+          'Loose rugs, curling mats, cables, cluttered routes and unstable furniture should be fixed immediately. But the bigger pattern matters too: no support where the person transfers, light switches too far away, shoes that slip, or a bathroom route that becomes risky at night.',
+          'A clear review sequence is bathroom, bedroom-to-bathroom route, stairs, entrance, kitchen and living areas. This keeps the review focused on daily risk rather than trying to redesign every room at once.',
         ],
       },
       {
         title: 'Separate urgent fixes from planned adaptations',
         body: [
           'Urgent fixes are the issues most likely to cause harm this week: a wet transfer with no support, a dark stair route, a high threshold used daily, an unstable toilet transfer, or a phone left out of reach. Planned adaptations are still important, but may need measuring, quotes, landlord or community permission, or grant checks.',
-          'CasaMia assessments are designed to make that order clear: what to remove today, what to adapt first, what needs a proposal, and what the family can monitor over time.',
+          'CasaMia assessments are designed to make that order clear: what to remove today, what to adapt first, what needs a proposal, and what can be monitored over time.',
         ],
       },
       {
         title: 'Connect the home review with health and daily support',
         body: [
           'A home can be made safer, but falls prevention is not only construction. Ask whether the person has new dizziness, pain, vision changes, foot problems, medication changes, urinary urgency, confusion, weakness or fear of falling. Those signals may need a clinician, physiotherapist, pharmacist or optician alongside home changes.',
-          'The most useful family plan names who will handle each part: clear routes, install support, organise lighting, review medication questions with a professional, test emergency reach and check back after the first changes are in place.',
+          'A strong action plan names who will handle each part: clear routes, install support, organise lighting, review medication questions with a professional, test emergency reach and check back after the first changes are in place.',
         ],
       },
     ],
@@ -99,14 +99,14 @@ export const blogArticles: BlogArticle[] = [
         source: 'CDC STEADI',
         href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
         description:
-          'A practical room-by-room home safety checklist for older adults and families, including floors, stairs, kitchen, bathroom and bedroom.',
+          'A room-by-room home safety checklist for older adults and trusted supporters, including floors, stairs, kitchen, bathroom and bedroom.',
       },
       {
         title: 'Prevent falls and fractures',
         source: 'National Institute on Aging',
         href: 'https://www.nia.nih.gov/health/falls-and-falls-prevention/prevent-falls-and-fractures',
         description:
-          'Clear health guidance on fall risks, exercise, vision, medicine review and home changes that families should combine with home adaptation.',
+          'Clear health guidance on fall risks, exercise, vision, medicine review and home changes to combine with home adaptation.',
       },
       {
         title: 'Preventing falls at home',
@@ -128,9 +128,9 @@ export const blogArticles: BlogArticle[] = [
           'No. Grab bars help when they are needed, positioned correctly, and fixed to suitable surfaces. A review should consider mobility, transfers, wall type, and the resident habits.',
       },
       {
-        question: 'When should a family ask for professional help?',
+        question: 'When should you ask for professional help?',
         answer:
-          'Ask for help when there has been a fall or near fall, the person is changing how they move, multiple rooms are involved, or the family is unsure which works should happen first.',
+          'Ask for help when there has been a fall or near fall, the person is changing how they move, multiple rooms are involved, or it is unclear which works should happen first.',
       },
     ],
     cta: {
@@ -403,7 +403,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/smart-home-safety-without-overcomplicating',
     title: 'Smart Home Safety for Seniors Without Making the Home Complicated',
     description:
-      'How families can use smart lighting, sensors, emergency alerts, and simple routines to support older adults without overwhelming them.',
+      'How smart lighting, sensors, emergency alerts and simple routines can support older adults without overwhelming the home.',
     category: 'Smart safety',
     readTime: '6 min read',
     date: '2026-07-11',
@@ -411,11 +411,11 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Illustration of simple smart home safety support',
     keywords: ['smart home safety seniors', 'elderly emergency alerts', 'aging in place technology'],
     intro:
-      'Smart safety works best when it disappears into daily life. The aim is not to turn a senior home into a gadget showroom, but to add simple support where it reduces risk or gives family members clearer awareness.',
+      'Smart safety works best when it disappears into daily life. The aim is not to turn a senior home into a gadget showroom, but to add simple support where it reduces risk or gives agreed contacts clearer awareness.',
     takeaways: [
       'Start with simple wins: motion lighting, emergency buttons, leak or smoke alerts.',
       'Avoid cameras by default unless there is a clear, consent-based reason.',
-      'Training and handover are essential so the resident trusts the setup.',
+      'Testing and clear explanation are essential so the person using the setup trusts it.',
     ],
     sections: [
       {
@@ -428,7 +428,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Design around the resident, not the app',
         body: [
-          'The resident should not need to manage complex settings or remember new steps during a stressful moment. Family dashboards are useful only when the resident experience remains simple.',
+          'The person at home should not need to manage complex settings or remember new steps during a stressful moment. Dashboards are helpful only when the daily experience remains simple.',
           'Good setup includes testing, labels, household training, and agreement on who receives alerts.',
         ],
       },
@@ -449,7 +449,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     faqs: [
       {
-        question: 'What smart safety device should families start with?',
+        question: 'What smart safety device is best to start with?',
         answer:
           'For many homes, motion lighting and an easy emergency contact option are the simplest first steps. The right choice depends on the resident routine and risks.',
       },
@@ -469,7 +469,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/choose-home-safety-provider-spain',
     title: 'How to Choose a Home Safety Provider for an Older Adult in Spain',
     description:
-      'What families should look for when choosing a provider for senior home safety adaptations, from assessment quality to installation standards and aftercare.',
+      'What to look for when choosing a provider for senior home safety adaptations, from assessment quality to installation standards and follow-up.',
     category: 'Choosing providers',
     readTime: '7 min read',
     date: '2026-07-11',
@@ -477,32 +477,32 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Illustration of a trusted home safety provider checklist',
     keywords: ['home safety provider Spain', 'senior home adaptation service', 'aging in place provider'],
     intro:
-      'Choosing a home safety provider is not the same as choosing a product supplier. Families need someone who understands older adults, home routines, installation quality, coordination, documentation, and aftercare.',
+      'Choosing a home safety provider is not the same as choosing a product supplier. The provider needs to understand older adults, home routines, installation quality, coordination, documentation, and follow-up.',
     takeaways: [
       'Look for assessment before sales, clear scope, and practical priorities.',
       'Ask how installers are coordinated and how quality is checked.',
-      'Make sure aftercare and handover are part of the service.',
+      'Make sure follow-up and safe-use explanation are part of the service.',
     ],
     sections: [
       {
         title: 'Assessment should come before recommendations',
         body: [
-          'A trustworthy provider asks about the resident, mobility, recent falls, daily routines, carers, and family concerns before recommending products.',
+          'A trustworthy provider asks about the person at home, mobility, recent falls, daily routines, carers, and main concerns before recommending products.',
           'If the conversation jumps straight to equipment, the solution may miss the real risk.',
         ],
       },
       {
         title: 'The proposal should be easy to understand',
         body: [
-          'Families should receive a clear explanation of what is included, why it matters, what is optional, what depends on site conditions, and what happens next.',
-          'Transparent scope protects both the resident and the family budget.',
+          'You should receive a clear explanation of what is included, why it matters, what is optional, what depends on site conditions, and what happens next.',
+          'Transparent scope protects both the person at home and the budget.',
         ],
       },
       {
-        title: 'Delivery and aftercare matter',
+        title: 'Delivery and follow-up matter',
         body: [
           'Senior home safety work often involves different trades: accessibility installers, bathroom specialists, electricians, smart safety technicians, and sometimes therapists.',
-          'A good provider coordinates the handover, checks the finished work, and remains available if something needs adjustment.',
+          'A good provider explains the finished work, checks it in the real room, and remains available if something needs adjustment.',
         ],
       },
     ],
@@ -510,19 +510,19 @@ export const blogArticles: BlogArticle[] = [
       'Do they assess the resident routine and not just the room?',
       'Do they explain urgent, recommended, and optional works separately?',
       'Can they coordinate trusted local providers?',
-      'Do they provide written scope, acceptance, and aftercare details?',
+      'Do they provide written scope, acceptance, and follow-up details?',
       'Do they avoid promising grant approval or unrealistic outcomes?',
     ],
     faqs: [
       {
-        question: 'Should families hire one installer directly or use a coordinated service?',
+        question: 'Should you hire one installer directly or use a coordinated service?',
         answer:
-          'For a single simple job, one installer may be enough. For room-by-room safety, grants, multiple trades, or family coordination, a managed service can reduce confusion.',
+          'For a single simple job, one installer may be enough. For room-by-room safety, grants, multiple trades, or several decision-makers, a managed service can reduce confusion.',
       },
       {
         question: 'What makes CasaMia different from a product shop?',
         answer:
-          'CasaMia starts with assessment, prioritises practical safety, coordinates local delivery, and supports the family through proposal, installation, and handover.',
+          'CasaMia starts with assessment, prioritises daily safety, coordinates local delivery, and supports the process through proposal, installation and safe-use explanation.',
       },
     ],
     cta: {
@@ -579,7 +579,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Clarify decision roles and next steps',
         body: [
           'Before the assessment, decide who receives the report, who discusses budget, who can approve work, and whether grant support should be explored.',
-          'The family does not need every answer immediately. The useful outcome is a shared starting point: what worries us most, what we want to preserve, and what decision we need CasaMia to help us make next.',
+          'You do not need every answer immediately. The clear outcome is a shared starting point: what worries us most, what we want to preserve, and what decision we need CasaMia to help us make next.',
         ],
       },
     ],
@@ -613,7 +613,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/dementia-friendly-home-safety',
     title: 'Dementia-Friendly Home Safety: Simple Changes That Reduce Confusion',
     description:
-      'Practical dementia-friendly home safety ideas for families, including lighting, visual cues, safer routines, exits, bathrooms, and family alerts.',
+      'Dementia-friendly home safety ideas, including lighting, visual cues, safer routines, exits, bathrooms, and trusted-contact alerts.',
     category: 'Memory support',
     readTime: '7 min read',
     date: '2026-07-11',
@@ -625,7 +625,7 @@ export const blogArticles: BlogArticle[] = [
     takeaways: [
       'Use clearer lighting, contrast, labels, and uncluttered routes.',
       'Reduce confusing hazards around bathrooms, kitchens, exits, and night routines.',
-      'Agree family alerts and support routines without making the resident feel watched.',
+      'Agree trusted-contact alerts and support routines without making the person at home feel watched.',
     ],
     sections: [
       {
@@ -679,7 +679,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/stair-safety-handrails-older-adults',
     title: 'Stair Safety for Older Adults: Handrails, Lighting, and Step Contrast',
     description:
-      'How families can improve stair safety for older adults with continuous handrails, better lighting, visible step edges, and safer routines.',
+      'How to improve stair safety for older adults with continuous handrails, better lighting, visible step edges, and safer routines.',
     category: 'Stair safety',
     readTime: '6 min read',
     date: '2026-07-11',
@@ -879,7 +879,7 @@ export const blogArticles: BlogArticle[] = [
         source: 'CDC STEADI',
         href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
         description:
-          'Practical prompts for floors, stairs, bedroom, bathroom and lighting that families can use during a night-route review.',
+          'Prompts for floors, stairs, bedroom, bathroom and lighting to use during a night-route review.',
       },
       {
         title: 'Aging in place: growing older at home',

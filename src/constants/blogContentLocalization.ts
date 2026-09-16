@@ -19,9 +19,9 @@ type BlogArticleTranslation = Pick<
 
 const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
   'fall-prevention-home-checklist-spain': {
-    title: 'Prevención de caídas en casa: lista práctica para familias en España',
+    title: 'Prevención de caídas en casa: lista práctica para España',
     description:
-      'Lista práctica para reducir el riesgo de caídas en casa: rutinas, señales de alarma, prioridades y recursos fiables para familias.',
+      'Lista práctica para reducir el riesgo de caídas en casa: rutinas, señales de alarma, prioridades y recursos fiables.',
     category: 'Prevención de caídas',
     readTime: '10 min de lectura',
     imageAlt: 'Lista ilustrada de seguridad del hogar para prevenir caídas',
@@ -45,22 +45,22 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         title: 'Retira tropiezos, pero no te quedes ahí',
         body: [
-          'Alfombras sueltas, felpudos levantados, cables, rutas con objetos y muebles inestables deben resolverse rápido. Pero muchas familias se quedan ahí y no revisan lo importante: falta de apoyo en transferencias, interruptores lejos, calzado que resbala o una ruta nocturna al baño mal iluminada.',
-          'Una secuencia útil es baño, ruta dormitorio-baño, escaleras, entrada, cocina y zonas de estar. Así la familia se centra en riesgo diario, no en reformar todo a la vez.',
+          'Alfombras sueltas, felpudos levantados, cables, rutas con objetos y muebles inestables deben resolverse rápido. Pero también hay que revisar el patrón completo: falta de apoyo en transferencias, interruptores lejos, calzado que resbala o una ruta nocturna al baño mal iluminada.',
+          'Una secuencia clara es baño, ruta dormitorio-baño, escaleras, entrada, cocina y zonas de estar. Así la revisión se centra en riesgo diario, no en reformar todo a la vez.',
         ],
       },
       {
         title: 'Separa arreglos urgentes de adaptaciones planificadas',
         body: [
           'Los cambios urgentes son los que pueden causar daño esta semana: ducha mojada sin apoyo, escalera oscura, umbral alto usado cada día, transferencia difícil al inodoro o teléfono fuera de alcance. Las adaptaciones planificadas también importan, pero pueden requerir medición, presupuesto, permisos o ayudas.',
-          'CasaMia ayuda a ordenar ese mapa: qué retirar hoy, qué adaptar primero, qué necesita propuesta y qué puede observar la familia con calma.',
+          'CasaMia ayuda a ordenar ese mapa: qué retirar hoy, qué adaptar primero, qué necesita propuesta y qué puede observarse con calma.',
         ],
       },
       {
         title: 'Conecta la revisión de casa con la salud',
         body: [
           'Una vivienda puede hacerse más segura, pero prevenir caídas no es solo obra. Pregunta si hay mareos, dolor, cambios de visión, problemas de pies, medicación nueva, urgencia para ir al baño, confusión, debilidad o miedo a caer.',
-          'El plan familiar debe repartir responsabilidades: despejar rutas, instalar apoyos, mejorar iluminación, consultar medicación con un profesional, probar la ayuda de emergencia y revisar si los cambios funcionan.',
+          'Un buen plan reparte responsabilidades: despejar rutas, instalar apoyos, mejorar iluminación, consultar medicación con un profesional, probar la ayuda de emergencia y revisar si los cambios funcionan.',
         ],
       },
     ],
@@ -111,7 +111,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿Cuándo conviene pedir ayuda profesional?',
         answer:
-          'Cuando ya hubo una caída o casi caída, la persona cambia su forma de moverse, hay varias estancias implicadas o la familia no sabe qué obra debe ir primero.',
+          'Cuando ya hubo una caída o casi caída, la persona cambia su forma de moverse, hay varias estancias implicadas o no está claro qué obra debe ir primero.',
       },
     ],
     cta: { label: 'Reservar evaluación de seguridad', to: '/home-safety-assessment' },
@@ -261,7 +261,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Monta el expediente antes de ir con prisa',
         body: [
           'La mayoría de expedientes combinan documentos personales, documentos de la vivienda y pruebas técnicas. Empieza por DNI/NIE, padrón o residencia habitual, propiedad o permiso de alquiler, certificado de discapacidad o dependencia si existe, información de ingresos si la piden, fotos del riesgo actual y una propuesta desglosada.',
-          'Pregunta si el programa necesita informe técnico, visita de arquitecto o técnico, licencia o declaración responsable, acuerdo de comunidad, autorización del propietario, facturas registradas, justificantes bancarios o documentación final tras la obra. Guarda presupuestos, fotos, facturas y autorizaciones en una misma carpeta.',
+          'Pregunta si el programa necesita informe técnico, visita de arquitecto o técnico, licencia o declaración responsable, acuerdo de comunidad, autorización del propietario, facturas registradas, justificantes bancarios o documentos finales tras la obra. Guarda presupuestos, fotos, facturas y autorizaciones en una misma carpeta.',
         ],
       },
       {
@@ -275,7 +275,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Si el problema está en una zona común',
         body: [
           'Ascensores, rampas de entrada, puertas de portal, escaleras y otros elementos comunes pueden implicar a la comunidad de propietarios. La Ley de Propiedad Horizontal recoge reglas sobre obras de accesibilidad necesarias y ajustes razonables, especialmente cuando hay personas con discapacidad o mayores de 70 años, pero la tramitación práctica depende del edificio, el presupuesto y el administrador.',
-          'En estos casos prepara una nota breve para el administrador: necesidad de la persona, ruta afectada, fotos, solución propuesta, si existe convocatoria de ayuda y qué decisión debe tomar la comunidad. Una buena documentación reduce conflictos antes de la junta.',
+          'En estos casos prepara una nota breve para el administrador: necesidad de la persona, ruta afectada, fotos, solución propuesta, si existe convocatoria de ayuda y qué decisión debe tomar la comunidad. Un expediente claro reduce conflictos antes de la junta.',
         ],
       },
     ],
@@ -407,7 +407,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Clarificad quién decide y qué paso viene después',
         body: [
           'Antes de la evaluación, decidid quién recibe el informe, quién habla de presupuesto, quién puede aprobar trabajos y si conviene explorar ayudas.',
-          'La familia no necesita tener todas las respuestas. El resultado útil es un punto de partida compartido: qué preocupa más, qué queremos preservar y qué decisión queremos que CasaMia nos ayude a tomar.',
+          'No hace falta tener todas las respuestas. El resultado claro es un punto de partida compartido: qué preocupa más, qué queremos preservar y qué decisión queremos que CasaMia nos ayude a tomar.',
         ],
       },
     ],
@@ -442,7 +442,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     imageAlt: 'Ilustración de tecnología doméstica sencilla para seguridad',
     keywords: ['seguridad inteligente mayores', 'tecnología hogar mayores', 'sensores seguridad casa'],
     intro:
-      'La tecnología debe hacer la casa más fácil, no más difícil. En hogares con personas mayores, lo importante es elegir señales útiles, respuestas claras y controles que la familia pueda entender.',
+      'La tecnología debe hacer la casa más fácil, no más difícil. En hogares con personas mayores, lo importante es elegir señales claras, respuestas acordadas y controles fáciles de entender.',
     takeaways: [
       'Empieza por riesgos concretos: noche, baño, entrada, medicación o emergencia.',
       'Evita sistemas que requieran demasiada configuración diaria.',
@@ -459,14 +459,14 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         title: 'Respeta privacidad y comodidad',
         body: [
-          'Muchas familias quieren seguridad sin cámaras ni vigilancia constante. Existen opciones ambientales y wearables que pueden aportar información sin invadir la vida diaria.',
+          'Muchas personas quieren seguridad sin cámaras ni vigilancia constante. Existen opciones ambientales y wearables que pueden aportar información sin invadir la vida diaria.',
           'La conversación con la persona que vive en la casa es parte de la solución: qué acepta, qué entiende y qué está dispuesta a usar.',
         ],
       },
       {
         title: 'Piensa en quién responde',
         body: [
-          'Un aviso solo sirve si alguien sabe qué hacer. La tecnología debe conectarse a una respuesta familiar, profesional o de servicio.',
+          'Un aviso solo sirve si alguien sabe qué hacer. La tecnología debe conectarse a una respuesta de contactos de confianza, profesional o de servicio.',
           'CasaMia ayuda a elegir soluciones que encajan con la vivienda y con la capacidad real de seguimiento.',
         ],
       },
@@ -501,7 +501,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     imageAlt: 'Familia revisando opciones de adaptación del hogar',
     keywords: ['proveedor seguridad hogar mayores', 'adaptar vivienda España', 'empresa adaptación hogar'],
     intro:
-      'Elegir proveedor no debería ser una carrera por comprar productos. La familia necesita entender riesgos, prioridades, coste, instalación y seguimiento antes de decidir.',
+      'Elegir proveedor no debería ser una carrera por comprar productos. Antes de decidir conviene entender riesgos, prioridades, coste, instalación y seguimiento.',
     takeaways: [
       'Busca evaluación clara antes de presupuesto cerrado.',
       'Pide alcance, precios, responsabilidades y seguimiento por escrito.',
@@ -511,7 +511,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         title: 'Pide una evaluación práctica',
         body: [
-          'Un buen proveedor pregunta por movilidad, rutinas, estancias críticas, ayudas familiares y urgencia. No empieza vendiendo una lista estándar.',
+          'Un buen proveedor pregunta por movilidad, rutinas, estancias críticas, apoyos disponibles y urgencia. No empieza vendiendo una lista estándar.',
           'La evaluación debe terminar en prioridades claras: qué resolver ahora, qué planificar y qué no hace falta todavía.',
         ],
       },
@@ -519,7 +519,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Comprueba instalación y soporte',
         body: [
           'La seguridad depende de cómo se instala y de quién responde si algo falla. Pregunta por profesionales, garantías, tiempos y revisión final.',
-          'También importa que la familia reciba una explicación sencilla del resultado y de cómo usar los cambios.',
+          'También importa recibir una explicación sencilla del resultado y de cómo usar los cambios.',
         ],
       },
       {
@@ -535,13 +535,13 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       '¿El presupuesto separa productos, instalación y soporte?',
       '¿Hay responsable único para coordinar el proyecto?',
       '¿Se explica qué es urgente y qué puede esperar?',
-      '¿La familia sabe cómo pedir ayuda después?',
+      '¿Está claro cómo pedir ayuda después?',
     ],
     faqs: [
       {
         question: '¿Es mejor contratar instaladores por separado?',
         answer:
-          'Puede funcionar para trabajos simples, pero muchas familias prefieren un servicio coordinado cuando hay varias estancias, ayudas, tecnología o seguimiento.',
+          'Puede funcionar para trabajos simples, pero un servicio coordinado ayuda cuando hay varias estancias, ayudas, tecnología o seguimiento.',
       },
       {
         question: '¿Qué debe incluir una propuesta seria?',
