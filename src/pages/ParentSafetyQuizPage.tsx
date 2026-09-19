@@ -108,11 +108,11 @@ const questions: Array<{
 const copy = {
   en: {
     lang: 'en',
-    seoTitle: 'Is Your Home Senior-Friendly? Quick Safety Check | CasaMia',
+    seoTitle: 'Is Your Home Safe Day to Day? Quick Safety Check | CasaMia',
     seoDescription:
       'Answer five everyday safety questions to see whether a home needs a room checklist, online review or urgent safety check.',
-    eyebrow: 'Senior-friendly home check',
-    title: 'Is your home senior-friendly?',
+    eyebrow: 'Quick home safety check',
+    title: 'Is your home safe day to day?',
     body:
       'Use this five-question, non-medical check for yourself or someone you care about. It helps decide whether to use a room checklist, start an online review or book a focused CasaMia assessment.',
     startCta: 'Answer the 5 questions',
@@ -148,11 +148,11 @@ const copy = {
   },
   es: {
     lang: 'es',
-    seoTitle: '¿Tu casa es adecuada para mayores? Revisión rápida | CasaMia',
+    seoTitle: '¿Tu casa es segura en el día a día? Revisión rápida | CasaMia',
     seoDescription:
       'Responde cinco preguntas de seguridad diaria para saber si la vivienda necesita una lista por estancias, revisión online o comprobación urgente.',
-    eyebrow: 'Revisión de vivienda senior',
-    title: '¿Tu casa es adecuada para mayores?',
+    eyebrow: 'Revisión rápida de seguridad',
+    title: '¿Tu casa es segura en el día a día?',
     body:
       'Usa esta revisión breve, no médica, para ti o para alguien a quien cuidas. Ayuda a decidir si conviene usar una lista por estancias, iniciar una revisión online o reservar una evaluación CasaMia.',
     startCta: 'Responder 5 preguntas',
