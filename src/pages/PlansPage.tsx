@@ -606,15 +606,15 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     builderEyebrow: 'Plan builder',
     builderTitle: 'Choose rooms',
     consent: 'CasaMia may contact me about this plan.',
-    contactIntro: 'Add contact details so CasaMia can create a plan link with the selected rooms, add-ons and terms.',
-    contactStepEyebrow: 'Plan link',
-    contactTitle: 'Receive your plan',
-    continueToReview: 'Review selected packages',
+    contactIntro: 'Add contact details so CasaMia can send a secure link with your selected rooms, add-ons and next steps.',
+    contactStepEyebrow: 'Secure plan link',
+    contactTitle: 'Receive your selected plan',
+    continueToReview: 'Review selections',
     coreIncluded: 'Core package',
     closeDetails: 'Close',
-    createDraft: 'Create plan link',
-    creatingDraft: 'Creating plan link...',
-    draftCreated: 'Plan link created. Open it to review selected packages, add-ons and payment terms.',
+    createDraft: 'Create secure link',
+    creatingDraft: 'Creating secure link...',
+    draftCreated: 'Secure link created. Open it to review selected rooms, add-ons and next steps.',
     email: 'Email',
     estimateLead: 'VAT included · pending review',
     estimateTitle: 'Plan snapshot',
@@ -632,13 +632,13 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     heroSignals: ['Clear plan first', 'Core items included', 'Optional add-ons separate'],
     heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
     heroReviewBody:
-      'Choose the rooms and add-ons, add your details, and receive a plan link showing selected adaptations, terms and next steps.',
-    heroReviewEyebrow: 'Plan link',
-    heroReviewPoints: ['Package-led plan', 'Selections to review'],
-    heroReviewTitle: 'Your plan link is created instantly.',
+      'Choose the rooms and add-ons, add your details, and receive a secure link showing what you selected and what CasaMia should review next.',
+    heroReviewEyebrow: 'Secure plan link',
+    heroReviewPoints: ['Room choices saved', 'Next checks clear'],
+    heroReviewTitle: 'Save your selected rooms and next steps.',
     helpText: 'Use the steppers. Add connected or specialist modules only when they match the routine.',
     metaTitle: 'Plans Builder | CasaMia',
-    modulesTitle: 'Core packages',
+    modulesTitle: 'Selected rooms and options',
     monthly: 'Monthly',
     name: 'Name',
     noSelection: 'Choose at least one room.',
@@ -654,11 +654,11 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     ],
     quantity: 'Quantity',
     reviewRequired: 'Needs quote',
-    reviewCtaBody: 'Next, share contact details. Your plan link is created instantly from the packages, quantities and add-ons you selected.',
-    reviewCtaTitle: 'Ready to create your plan link?',
+    reviewCtaBody: 'Next, share contact details so CasaMia can send a secure link with your selected rooms, quantities and add-ons.',
+    reviewCtaTitle: 'Ready to save these selections?',
     reviewStepEyebrow: 'Review',
-    reviewStepIntro: 'Check quantities, included core items and optional add-ons before adding your details.',
-    reviewStepTitle: 'Review your selected packages',
+    reviewStepIntro: 'Check quantities, included items and optional add-ons before adding your details.',
+    reviewStepTitle: 'Review your selected rooms',
     roomDescriptions: {
       bathroom:
         'Covers showering, WC transfers, wet-floor grip, safer access and night visibility. Includes grab bars, seating, anti-slip treatment, lever controls and water-temperature safety when they fit the room.',
@@ -679,16 +679,16 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       { title: 'Entrance', body: 'Steps, thresholds, door use and visitor awareness.' },
     ],
     seeDraft: 'Open plan',
-    selectedPackages: 'Selected packages',
+    selectedPackages: 'Selected rooms',
     specialistTitle: 'Specialist',
     summaryEmptyRooms: 'Choose rooms to start',
     summaryModulesTitle: 'Plan details',
     summaryMoreItems: 'more',
-    summaryNextBody: 'Your plan link is created from the selected packages, quantities and add-ons.',
+    summaryNextBody: 'Your secure link is created from the selected rooms, quantities and add-ons.',
     summaryNextTitle: 'Next step',
     summaryRoomsTitle: 'Selected rooms',
     subtitle:
-      'Pick the rooms that need support, choose add-ons only when they match the routine, and receive a plan showing selected adaptations, review items and next steps.',
+      'Pick the rooms that need support, choose add-ons only when they match the routine, and save a clear selection showing what to review next.',
     title: 'Create a safer-home plan, room by room.',
     town: 'Town / area',
     address: 'Address',
@@ -702,21 +702,21 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
   es: {
     backToBuilder: 'Editar paquete',
     backToRooms: 'Volver a estancias',
-    contactIntro: 'Añade tus datos para revisar las estancias elegidas, acordar el alcance y preparar la propuesta.',
-    contactStepEyebrow: 'Revisión del plan',
-    reviewCtaBody: 'Comparte tus datos para que revisemos fotos, medidas y encaje antes de enviar la propuesta final.',
-    reviewCtaTitle: '¿Listo para que CasaMia lo revise?',
+    contactIntro: 'Añade tus datos para recibir un enlace seguro con las estancias elegidas, extras y siguientes pasos.',
+    contactStepEyebrow: 'Enlace seguro',
+    reviewCtaBody: 'Comparte tus datos para que CasaMia pueda enviar un enlace seguro con las estancias, cantidades y extras seleccionados.',
+    reviewCtaTitle: '¿Listo para guardar esta selección?',
     addModule: 'Añadir módulo',
     builderEyebrow: 'Constructor de planes',
     builderTitle: 'Elige estancias',
-    consent: 'CasaMia puede contactarme para revisar este borrador.',
-    contactTitle: 'Enviar a revisión',
-    continueToReview: 'Revisar paquetes elegidos',
+    consent: 'CasaMia puede contactarme sobre esta selección.',
+    contactTitle: 'Recibir selección',
+    continueToReview: 'Revisar selección',
     coreIncluded: 'Paquete base',
     closeDetails: 'Cerrar',
-    createDraft: 'Crear borrador',
-    creatingDraft: 'Creando borrador...',
-    draftCreated: 'Borrador creado. CasaMia lo revisará antes de enviar la propuesta final.',
+    createDraft: 'Crear enlace seguro',
+    creatingDraft: 'Creando enlace seguro...',
+    draftCreated: 'Enlace seguro creado. Ábrelo para revisar estancias, extras y siguientes pasos.',
     email: 'Email',
     estimateLead: 'IVA incluido · pendiente de revisión',
     estimateTitle: 'Resumen del plan',
@@ -724,7 +724,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     flow: [
       { title: 'Estancias', body: 'Define cantidades' },
       { title: 'Opciones', body: 'Añade apoyo' },
-      { title: 'Revisión', body: 'Revisar alcance' },
+      { title: 'Revisión', body: 'Comprueba selección' },
     ],
     fromCatalogue: 'Estimación del catálogo',
     grantBody: 'Revisa posibles ayudas antes del alcance final.',
@@ -734,13 +734,13 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     heroSignals: ['Precio por paquete', 'Elementos base incluidos', 'Extras opcionales separados'],
     heroPhotoAlt: 'Especialista de CasaMia revisando una cocina con una residente',
     heroReviewBody:
-      'Revisamos encaje, medidas y extras útiles antes de cerrar nada.',
-    heroReviewEyebrow: 'Revisión CasaMia',
-    heroReviewPoints: ['Revisión por estancia', 'Siguiente propuesta clara'],
-    heroReviewTitle: 'Revisado antes de proponer.',
+      'Elige estancias y extras, añade tus datos y recibe un enlace seguro con lo seleccionado y qué revisar después.',
+    heroReviewEyebrow: 'Enlace seguro',
+    heroReviewPoints: ['Estancias guardadas', 'Siguientes comprobaciones claras'],
+    heroReviewTitle: 'Guarda las estancias y siguientes pasos.',
     helpText: 'Usa los controles. Añade módulos conectados o especiales solo donde aporten valor.',
     metaTitle: 'Constructor de planes | CasaMia',
-    modulesTitle: 'Paquetes base',
+    modulesTitle: 'Estancias y opciones seleccionadas',
     monthly: 'Mensual',
     name: 'Nombre',
     noSelection: 'Elige al menos una estancia.',
@@ -758,7 +758,7 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
     reviewRequired: 'Requiere revisión',
     reviewStepEyebrow: 'Revisión',
     reviewStepIntro: 'Revisa cantidades, elementos incluidos y extras opcionales antes de añadir tus datos.',
-    reviewStepTitle: 'Revisa tus paquetes seleccionados',
+    reviewStepTitle: 'Revisa tus estancias seleccionadas',
     roomDescriptions: {
       bathroom:
         'Cubre ducha, transferencias al WC, agarre en suelo mojado, acceso seguro y visibilidad nocturna. Incluye barras, asiento, tratamiento antideslizante, mandos de palanca y seguridad de temperatura cuando encaje.',
@@ -778,17 +778,17 @@ const plansCopy: Record<'en' | 'es', PlansCopy> = {
       { title: 'Salón', body: 'Sentarse, levantarse, alfombras, cables y rutas diarias.' },
       { title: 'Entrada', body: 'Escalones, umbrales, uso de puerta y control de visitas.' },
     ],
-    seeDraft: 'Abrir borrador',
-    selectedPackages: 'Paquetes seleccionados',
+    seeDraft: 'Abrir selección',
+    selectedPackages: 'Estancias seleccionadas',
     specialistTitle: 'Especial',
     summaryEmptyRooms: 'Elige estancias para empezar',
-    summaryModulesTitle: 'Incluido en este borrador',
+    summaryModulesTitle: 'Incluido en esta selección',
     summaryMoreItems: 'más',
-    summaryNextBody: 'Revisamos medidas, fotos y encaje antes de enviar la propuesta final.',
-    summaryNextTitle: 'Qué revisamos',
+    summaryNextBody: 'El enlace se crea con las estancias, cantidades y extras seleccionados.',
+    summaryNextTitle: 'Siguiente paso',
     summaryRoomsTitle: 'Estancias elegidas',
     subtitle:
-      'Elige las estancias que necesitan apoyo, añade extras opcionales solo donde aporten valor y envía un borrador claro para que CasaMia lo revise antes de la propuesta final.',
+      'Elige las estancias que necesitan apoyo, añade extras opcionales solo donde aporten valor y guarda una selección clara con qué revisar después.',
     title: 'Crea un plan de hogar más seguro, estancia por estancia.',
     town: 'Ciudad / zona',
     address: 'Dirección',
@@ -1032,37 +1032,37 @@ function getEmailDeliveryMessage(
 
   if (status === 'not_configured') {
     return isSpanish
-      ? 'La propuesta se ha creado, pero el envío por email no está configurado en este despliegue.'
-      : 'The proposal was created, but email delivery is not configured on this deployment.'
+      ? 'El enlace seguro se ha creado, pero el envío por email no está configurado en este despliegue.'
+      : 'The secure link was created, but email delivery is not configured on this deployment.'
   }
 
   if (status === 'recipient_missing') {
     return isSpanish
-      ? 'La propuesta se ha creado, pero falta el email del cliente para enviarla.'
-      : 'The proposal was created, but the customer email is missing.'
+      ? 'El enlace seguro se ha creado, pero falta el email del cliente para enviarlo.'
+      : 'The secure link was created, but the customer email is missing.'
   }
 
   if (status === 'proposal_url_missing') {
     return isSpanish
-      ? 'La propuesta se ha creado, pero falta el enlace público para enviarla por email.'
-      : 'The proposal was created, but the public proposal link is missing.'
+      ? 'El enlace seguro se ha creado, pero falta el enlace público para enviarlo por email.'
+      : 'The secure link was created, but the public link is missing.'
   }
 
   if (status === 'failed') {
     return isSpanish
-      ? 'La propuesta se ha creado, pero el proveedor de email no la ha aceptado. Revisa la configuración del remitente/dominio.'
-      : 'The proposal was created, but the email provider did not accept the send. Check sender/domain setup.'
+      ? 'El enlace seguro se ha creado, pero el proveedor de email no ha aceptado el envío. Revisa la configuración del remitente/dominio.'
+      : 'The secure link was created, but the email provider did not accept the send. Check sender/domain setup.'
   }
 
   if (status === 'local_demo') {
     return isSpanish
-      ? 'Modo local: la propuesta se crea aquí, pero el email solo se envía desde producción.'
-      : 'Local mode: the proposal is created here, but email only sends from production.'
+      ? 'Modo local: el enlace seguro se crea aquí, pero el email solo se envía desde producción.'
+      : 'Local mode: the secure link is created here, but email only sends from production.'
   }
 
   return isSpanish
-    ? `La propuesta se ha creado, pero el email no se ha confirmado. Estado: ${status}.`
-    : `The proposal was created, but email delivery was not confirmed. Status: ${status}.`
+    ? `El enlace seguro se ha creado, pero el email no se ha confirmado. Estado: ${status}.`
+    : `The secure link was created, but email delivery was not confirmed. Status: ${status}.`
 }
 
 function getWhatsappDeliveryMessage(
@@ -1073,13 +1073,13 @@ function getWhatsappDeliveryMessage(
   if (!status || status === 'not_requested') return ''
   if (status === 'sent' || status === 'delivered' || status === 'read') {
     return language === 'es'
-      ? 'La propuesta también se ha enviado por WhatsApp.'
-      : 'The proposal was also sent by WhatsApp.'
+      ? 'El enlace seguro también se ha enviado por WhatsApp.'
+      : 'The secure link was also sent by WhatsApp.'
   }
 
   return language === 'es'
-    ? 'La propuesta se ha creado, pero no se pudo confirmar el envío por WhatsApp. Puedes abrirla desde este enlace.'
-    : 'The proposal was created, but WhatsApp delivery could not be confirmed. You can still open it from this link.'
+    ? 'El enlace seguro se ha creado, pero no se pudo confirmar el envío por WhatsApp. Puedes abrirlo desde este enlace.'
+    : 'The secure link was created, but WhatsApp delivery could not be confirmed. You can still open it from this link.'
 }
 
 export function PlansPage() {
@@ -1090,27 +1090,27 @@ export function PlansPage() {
     ...baseCopy,
     ...(language === 'es'
       ? {
-          consent: 'CasaMia puede contactarme sobre esta propuesta.',
-          contactIntro: 'Añade tus datos para que CasaMia genere tu propuesta y te entregue un enlace claro al instante.',
-          contactStepEyebrow: 'Propuesta al instante',
-          contactTitle: 'Recibir propuesta',
-          createDraft: 'Generar propuesta',
-          creatingDraft: 'Generando propuesta...',
-          draftCreated: 'Propuesta creada. Abre el enlace para ver los paquetes elegidos, extras y siguientes pasos.',
-          estimateLead: 'IVA incluido · propuesta generada al instante',
-          estimateTitle: 'Resumen de la propuesta',
+          consent: 'CasaMia puede contactarme sobre esta selección.',
+          contactIntro: 'Añade tus datos para recibir un enlace seguro con las estancias elegidas, extras y siguientes pasos.',
+          contactStepEyebrow: 'Enlace seguro',
+          contactTitle: 'Recibir selección',
+          createDraft: 'Crear enlace seguro',
+          creatingDraft: 'Creando enlace seguro...',
+          draftCreated: 'Enlace seguro creado. Ábrelo para revisar estancias, extras y siguientes pasos.',
+          estimateLead: 'IVA incluido · pendiente de revisión',
+          estimateTitle: 'Resumen de la selección',
           finalReview: 'Requiere presupuesto',
           flow: [
             { title: 'Estancias', body: 'Define cantidades' },
             { title: 'Extras', body: 'Añade apoyo' },
-            { title: 'Propuesta', body: 'La recibes al instante' },
+            { title: 'Enlace', body: 'Comprueba selección' },
           ],
           fromCatalogue: 'Catálogo de servicios',
           heroPhotoAlt: 'Especialista de CasaMia ayudando a planificar mejoras del hogar en una cocina',
-          heroReviewBody: 'Elige estancias y extras, añade tus datos y recibe un enlace claro de propuesta al instante.',
-          heroReviewEyebrow: 'Propuesta al instante',
-          heroReviewPoints: ['Plan por paquetes', 'Siguientes pasos claros'],
-          heroReviewTitle: 'Tu propuesta se genera al instante.',
+          heroReviewBody: 'Elige estancias y extras, añade tus datos y recibe un enlace seguro con lo seleccionado y qué revisar después.',
+          heroReviewEyebrow: 'Enlace seguro',
+          heroReviewPoints: ['Estancias guardadas', 'Siguientes comprobaciones claras'],
+          heroReviewTitle: 'Guarda las estancias y siguientes pasos.',
           builderEyebrow: 'Plan CasaMia',
           heroSignals: ['Paquetes por estancia', 'Esenciales incluidos', 'Extras opcionales'],
           popularTitle: 'Puntos de partida',
@@ -1120,36 +1120,36 @@ export function PlansPage() {
             { id: 'wholeHome', title: 'Plan vivienda', body: 'Varias estancias clave' },
           ],
           reviewRequired: 'Requiere presupuesto',
-          reviewCtaBody: 'Comparte tus datos y genera una propuesta con los paquetes, cantidades y extras elegidos.',
-          reviewCtaTitle: '¿Listo para generar tu propuesta?',
-          summaryModulesTitle: 'Detalle del plan',
-          summaryNextBody: 'Tu propuesta se genera a partir de los paquetes, cantidades y extras elegidos.',
-          subtitle: 'Elige estancias, ajusta cantidades y añade solo los extras que aporten valor. Recibe una propuesta CasaMia clara al instante.',
+          reviewCtaBody: 'Comparte tus datos para crear un enlace seguro con las estancias, cantidades y extras elegidos.',
+          reviewCtaTitle: '¿Listo para guardar esta selección?',
+          summaryModulesTitle: 'Detalle de la selección',
+          summaryNextBody: 'El enlace se crea con las estancias, cantidades y extras elegidos.',
+          subtitle: 'Elige estancias, ajusta cantidades y añade solo los extras que aporten valor. Guarda una selección clara con qué revisar después.',
           title: 'Crea tu plan CasaMia.',
-          seeDraft: 'Abrir propuesta',
+          seeDraft: 'Abrir selección',
         }
       : {
-          consent: 'CasaMia may contact me about this plan.',
-          contactIntro: 'Add contact details so CasaMia can create a plan link with the selected rooms, add-ons and terms.',
-          contactStepEyebrow: 'Plan link',
-          contactTitle: 'Receive your plan',
-          createDraft: 'Create plan link',
-          creatingDraft: 'Creating plan link...',
-          draftCreated: 'Plan link created. Open it to review selected packages, add-ons and payment terms.',
-          estimateLead: 'VAT included · generated instantly',
-          estimateTitle: 'Plan summary',
+          consent: 'CasaMia may contact me about this selection.',
+          contactIntro: 'Add contact details so CasaMia can send a secure link with your selected rooms, add-ons and next steps.',
+          contactStepEyebrow: 'Secure link',
+          contactTitle: 'Receive your selection',
+          createDraft: 'Create secure link',
+          creatingDraft: 'Creating secure link...',
+          draftCreated: 'Secure link created. Open it to review selected rooms, add-ons and next steps.',
+          estimateLead: 'VAT included · pending review',
+          estimateTitle: 'Selection summary',
           finalReview: 'Requires quote',
           flow: [
             { title: 'Rooms', body: 'Pick quantities' },
             { title: 'Add-ons', body: 'Choose extras' },
-            { title: 'Plan link', body: 'Receive instantly' },
+            { title: 'Secure link', body: 'Review selection' },
           ],
           fromCatalogue: 'Service catalogue',
           heroPhotoAlt: 'CasaMia specialist helping plan home improvements in a kitchen',
-          heroReviewBody: 'Choose the rooms and add-ons, add your details, and receive a plan link showing selected adaptations, terms and next steps.',
-          heroReviewEyebrow: 'Plan link',
-          heroReviewPoints: ['Package-led plan', 'Selections to review'],
-          heroReviewTitle: 'Your plan link is created instantly.',
+          heroReviewBody: 'Choose the rooms and add-ons, add your details, and receive a secure link showing what you selected and what CasaMia should review next.',
+          heroReviewEyebrow: 'Secure link',
+          heroReviewPoints: ['Room choices saved', 'Next checks clear'],
+          heroReviewTitle: 'Save your selected rooms and next steps.',
           builderEyebrow: 'CasaMia plan',
           heroSignals: ['Room packages', 'Essentials included', 'Optional extras'],
           popularTitle: 'Suggested starts',
@@ -1159,13 +1159,13 @@ export function PlansPage() {
             { id: 'wholeHome', title: 'Whole-home start', body: 'Several key rooms together' },
           ],
           reviewRequired: 'Needs quote',
-          reviewCtaBody: 'Next, share contact details. Your plan link is created instantly from the packages, quantities and add-ons you selected.',
-          reviewCtaTitle: 'Ready to create your plan link?',
-          summaryModulesTitle: 'Plan details',
-          summaryNextBody: 'Your plan link is created from the selected packages, quantities and add-ons.',
-          subtitle: 'Choose rooms, set quantities and add only relevant extras. Get a CasaMia plan with selected adaptations, terms and next steps.',
+          reviewCtaBody: 'Next, share contact details so CasaMia can send a secure link with your selected rooms, quantities and add-ons.',
+          reviewCtaTitle: 'Ready to save these selections?',
+          summaryModulesTitle: 'Selection details',
+          summaryNextBody: 'Your secure link is created from the selected rooms, quantities and add-ons.',
+          subtitle: 'Choose rooms, set quantities and add only relevant extras. Save a clear selection showing what to review next.',
           title: 'Build your CasaMia plan.',
-          seeDraft: 'Open plan',
+          seeDraft: 'Open selection',
         }),
   }), [baseCopy, language])
   const catalogue = useServiceCatalogue()
@@ -1456,7 +1456,7 @@ export function PlansPage() {
         includedItems: 'elementos incluidos',
         packageEstimate: 'Estimación del paquete',
         packages: 'Paquetes',
-        readyLead: 'Tu enlace de propuesta está listo. Revisa el alcance elegido antes de abrirlo o compartirlo.',
+        readyLead: 'Tu enlace seguro está listo. Revisa las estancias y opciones elegidas antes de abrirlo o compartirlo.',
         rooms: 'Estancias',
         selectedScope: 'Alcance elegido',
       }
@@ -1470,7 +1470,7 @@ export function PlansPage() {
         includedItems: 'included items',
         packageEstimate: 'Package estimate',
         packages: 'Packages',
-        readyLead: 'Your plan link is ready. Review the selected adaptations before opening or sharing it.',
+        readyLead: 'Your secure link is ready. Review the selected rooms and options before opening or sharing it.',
         rooms: 'Rooms',
         selectedScope: 'Selected adaptations',
       }
@@ -2312,8 +2312,8 @@ export function PlansPage() {
             </div>
 
             <div className="plans-full-package-heading">
-              <p className="section-kicker">{language === 'es' ? 'Paquetes completos por estancia' : 'Complete room packages'}</p>
-              <h3>{language === 'es' ? 'Plan coordinado para toda la estancia' : 'Coordinated whole-room plan'}</h3>
+              <p className="section-kicker">{language === 'es' ? 'Estancias completas' : 'Whole-room selections'}</p>
+              <h3>{language === 'es' ? 'Elige la estancia que necesita revisión' : 'Choose the room that needs review'}</h3>
             </div>
             <div className="plans-room-grid">
               {groups.map((group) => {
@@ -2388,8 +2388,8 @@ export function PlansPage() {
               <div className="plans-starter-heading">
                 <div>
                   <p className="section-kicker">{language === 'es' ? 'Primeros pasos enfocados' : 'Focused first steps'}</p>
-                  <h3 id="plans-starter-title">{language === 'es' ? 'Packs iniciales' : 'Starter packs'}</h3>
-                  <p>{language === 'es' ? 'Opciones enfocadas para cubrir primero las necesidades esenciales.' : 'Focused options that cover the essential needs first.'}</p>
+                  <h3 id="plans-starter-title">{language === 'es' ? 'Necesidades concretas' : 'Specific needs'}</h3>
+                  <p>{language === 'es' ? 'Elige una necesidad concreta si no hace falta revisar una estancia completa todavía.' : 'Choose a focused need when a whole-room review is not needed yet.'}</p>
                 </div>
               </div>
               <div className="plans-starter-grid">
@@ -2410,7 +2410,7 @@ export function PlansPage() {
                         </div>
                         <h4>{starterPack.packageLabel}</h4>
                         <p>{starterPack.packageBenefit || starterPack.packageDescription}</p>
-                        <span className="plans-starter-chip">{language === 'es' ? 'Primeros pasos enfocados' : 'Focused first steps'}</span>
+                        <span className="plans-starter-chip">{language === 'es' ? 'Necesidad concreta' : 'Specific need'}</span>
                         <div className="plans-starter-actions">
                           <button className="plans-detail-link" type="button" onClick={() => openStarterPackDetails(starterPack)}>
                             {copy.viewDetails}<ArrowRight size={14} aria-hidden="true" />

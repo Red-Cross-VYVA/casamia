@@ -313,6 +313,7 @@ function SpecialistVoiceAgentDialog({
               <span />
               <span />
             </div>
+            <p className="specialist-voice-visual-status">{statusLabel}</p>
             <div className="specialist-voice-actions specialist-voice-actions--visual">
               {connected ? (
                 <>
@@ -339,7 +340,6 @@ function SpecialistVoiceAgentDialog({
                 </button>
               )}
             </div>
-            <p className="specialist-voice-visual-status">{statusLabel}</p>
           </div>
 
           <div className="specialist-voice-content">

@@ -398,18 +398,21 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 0.84fr) minmax(0, 1fr);
+  grid-template-columns: minmax(320px, 0.86fr) minmax(0, 1fr);
   min-height: min(610px, calc(100dvh - 32px));
 }
 
 .specialist-voice-visual {
   display: grid;
-  align-content: center;
+  grid-template-rows: auto 1fr auto auto auto;
+  align-content: stretch;
   justify-items: center;
-  gap: 18px;
+  gap: 16px;
   min-height: 100%;
-  padding: clamp(28px, 5vw, 54px);
-  background: #0a496a;
+  padding: clamp(30px, 4vw, 48px);
+  background:
+    radial-gradient(circle at 50% 31%, rgba(255, 255, 255, 0.12), transparent 28%),
+    linear-gradient(155deg, #0c5878 0%, #064562 100%);
   color: #ffffff;
   text-align: center;
 }
@@ -418,19 +421,19 @@ body .hero-section .free-check-card:focus-visible {
   display: flex;
   align-items: center;
   gap: 14px;
-  width: min(100%, 300px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 14px;
-  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.16);
+  width: min(100%, 340px);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 14px 10px 10px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.14);
   text-align: left;
 }
 
 .specialist-voice-avatar > span {
   display: grid;
   flex: 0 0 auto;
-  width: 58px;
+  width: 54px;
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.28);
@@ -465,8 +468,9 @@ body .hero-section .free-check-card:focus-visible {
 }
 
 .specialist-voice-mic-status {
+  align-self: center;
   display: grid;
-  width: clamp(156px, 15vw, 190px);
+  width: clamp(170px, 17vw, 220px);
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.36);
@@ -486,10 +490,11 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-wave {
   display: flex;
-  height: 34px;
+  height: 28px;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  margin-top: -2px;
 }
 
 .specialist-voice-wave span {
@@ -515,8 +520,8 @@ body .hero-section .free-check-card:focus-visible {
 }
 
 .specialist-voice-visual-status {
-  width: min(100%, 300px);
-  margin: -4px 0 0;
+  width: min(100%, 340px);
+  margin: -2px 0 0;
   color: rgba(255, 255, 255, 0.88);
   font-size: 15px;
   font-weight: 900;
@@ -618,8 +623,8 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-actions--visual {
   justify-content: center;
-  width: min(100%, 300px);
-  margin-top: 0;
+  width: min(100%, 340px);
+  margin-top: 2px;
 }
 
 .specialist-voice-actions .btn {
@@ -628,6 +633,7 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-actions--visual .btn {
   width: 100%;
+  min-height: 56px;
   border-color: rgba(255, 255, 255, 0.32);
   background: #ffffff;
   color: #17648e;
