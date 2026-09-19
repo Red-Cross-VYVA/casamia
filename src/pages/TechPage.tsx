@@ -297,11 +297,11 @@ const techCopy = {
     },
     delivery: {
       eyebrow: 'What CasaMia actually sets up',
-      title: 'One service from discovery to support.',
+      title: 'One service from setup check to support.',
       body:
         'CasaMia does more than pair a device. We set up the equipment, permissions, training and response rules needed to make connected support usable in daily life.',
       items: [
-        { title: 'Discover', body: 'Inventory devices, systems, users, connectivity and the outcome you need.' },
+        { title: 'Check setup', body: 'Inventory devices, systems, users, connectivity and the outcome you need.' },
         { title: 'Design', body: 'Confirm compatibility, shared information, permissions, alerts and response responsibilities.' },
         { title: 'Connect', body: 'Source agreed devices, install, integrate, configure and test the complete setup.' },
         { title: 'Onboard', body: 'Guide the person at home, approved contacts, staff and authorised professionals through safe daily use.' },
