@@ -218,7 +218,7 @@
         ]
       }
     ],
-    "intro": "See how CasaMia supports the places families worry about most: bathrooms, stairs, entrances, kitchens, bedrooms and everyday living areas.",
+    "intro": "See how CasaMia reviews the places used every day: bathrooms, stairs, entrances, kitchens, bedrooms and everyday living areas.",
     "controlsLabel": "Gallery controls",
     "previous": "Show previous spaces",
     "next": "Show next spaces",
@@ -315,7 +315,7 @@
     "cta": "Get My Free Report"
   },
   "footer": {
-    "tagline": "Wij helpen families in heel Europa veilig en waardig thuis ouder te worden.",
+    "tagline": "Wij helpen mensen in heel Europa veiliger en waardiger thuis te wonen.",
     "phone": "+34 900 000 000",
     "company": {
       "title": "Bedrijf",
@@ -967,7 +967,7 @@
       "deliverablesTitle": "What You'll Receive",
       "paymentTitle": "Payment terms",
       "paymentReassurance": "No hidden fees. No unexpected costs.",
-      "faqTitle": "Questions families ask",
+      "faqTitle": "Questions people ask",
       "finalTitle": "Ready to make your home safer?",
       "finalBody": "Request a {{visitFee}} in-home assessment visit and receive personalised recommendations from our qualified safety experts.",
       "finalCta": "Book In-Home Assessment",
@@ -975,15 +975,15 @@
         {
           "id": "home-assessment",
           "title": "Home Assessment Plan",
-          "subtitle": "A qualified home safety inspection that helps families understand risks, priorities and next steps before starting any work.",
+          "subtitle": "A qualified home safety inspection that explains risks, priorities and next steps before any work starts.",
           "heroPoints": [
             "Expert safety review",
             "Written recommendations",
             "Clear next steps"
           ],
           "who": [
-            "Families who want clarity before committing to adaptations",
-            "Seniors wishing to age in place safely",
+            "People who want clarity before committing to adaptations",
+            "People who want the home to feel safer day to day",
             "People recovering from surgery or a health event",
             "Individuals with reduced mobility or new accessibility needs"
           ],
@@ -1108,15 +1108,15 @@
         {
           "id": "home-safety",
           "title": "CasaMia plan",
-          "subtitle": "Professional home modifications that help seniors live safely, independently and comfortably at home.",
+          "subtitle": "Professional home modifications that support safer, more comfortable daily routines at home.",
           "heroPoints": [
             "Essential adaptations",
             "Professional installation",
             "Customer acceptance walkthrough"
           ],
           "who": [
-            "Seniors wishing to age in place",
-            "Families caring for elderly parents",
+            "People who want to stay comfortable at home",
+            "Households supporting safer daily routines",
             "People recovering from surgery",
             "Individuals with reduced mobility"
           ],
@@ -1262,7 +1262,7 @@
         {
           "id": "smart-safety",
           "title": "Smart Safety Plan",
-          "subtitle": "A connected safety setup that combines home adaptations, smart devices, the VYVA assistant and family reassurance for aging in place.",
+          "subtitle": "A connected safety setup that combines home adaptations, smart devices, the VYVA assistant and approved-contact alerts where they help.",
           "heroPoints": [
             "Connected safety devices",
             "VYVA app: 1 year included",
@@ -1270,8 +1270,8 @@
             "Training and handover"
           ],
           "who": [
-            "Families who want extra reassurance",
-            "Seniors who benefit from alerts and connected support",
+            "People who want extra reassurance",
+            "People who benefit from alerts and connected support",
             "Homes where movement, water, smoke or access risks need monitoring",
             "Caregivers who want a smarter safety layer after physical adaptations"
           ],
@@ -1290,7 +1290,7 @@
             {
               "icon": "motion",
               "title": "Motion Sensors",
-              "body": "Sensors that support safer routines and can help families understand movement patterns."
+              "body": "Sensors that support safer routines and show approved contacts useful movement patterns."
             },
             {
               "icon": "water",
@@ -1330,7 +1330,7 @@
             {
               "icon": "training",
               "title": "User Training",
-              "body": "We explain the system clearly so seniors and family members know how to use it."
+              "body": "We explain the system clearly so the person at home and approved contacts know how to use it."
             }
           ],
           "rooms": [
@@ -1453,7 +1453,7 @@
         "subtitle": "CasaMia helps you manage the application process for home safety and accessibility grants, from documentation to submission.",
         "cta": "Book Free Assessment",
         "panelTitle": "Administrative support from start to submission",
-        "panelBody": "We help families understand what may be needed, prepare the application file, and coordinate next steps where authorised."
+        "panelBody": "We help organise what may be needed, prepare the application file, and coordinate next steps where authorised."
       },
       "what": {
         "kicker": "What is Plan Adapta?",
@@ -1575,18 +1575,18 @@
         },
         {
           "title": "Support independent living",
-          "body": "Create a safer home environment that helps seniors keep daily routines with confidence."
+          "body": "Create a safer home environment that supports daily routines with confidence."
         },
         {
           "title": "Get expert recommendations",
-          "body": "Receive practical guidance from people who understand aging-in-place safety."
+          "body": "Receive practical guidance from people who understand safer daily living at home."
         },
         {
           "title": "Plan home modifications with confidence",
           "body": "Know what matters first before choosing equipment, installation, or service level."
         },
         {
-          "title": "Peace of mind for the whole family",
+          "title": "Clearer support for everyone involved",
           "body": "Give relatives a clearer picture of the home and the next safest step."
         }
       ]

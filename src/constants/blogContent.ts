@@ -44,7 +44,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-08-10',
     image: '/images/blog/fall-prevention-checklist.webp',
     imageAlt: 'Illustrated home safety checklist for fall prevention',
-    keywords: ['fall prevention at home', 'senior home safety Spain', 'aging in place checklist'],
+    keywords: ['fall prevention at home', 'home safety Spain', 'safer daily living checklist'],
     intro:
       'Most falls are not caused by one single problem. Risk builds when health changes, medication, vision, footwear, lighting, floors, furniture and rushed routines all meet in the same moment. A good home checklist helps spot those combinations before a fall happens.',
     takeaways: [
@@ -149,7 +149,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-08-10',
     image: '/images/blog/bathroom-mistakes.webp',
     imageAlt: 'Illustration of bathroom safety mistakes to avoid',
-    keywords: ['bathroom safety for seniors', 'grab bars Spain', 'accessible bathroom older adults'],
+    keywords: ['bathroom safety at home', 'grab bars Spain', 'accessible bathroom safety'],
     intro:
       'Bathrooms combine water, hard surfaces, urgency, small spaces and transfers. A quick purchase can hide the real issue: the person may still need to step, twist, reach or stand without the right support.',
     takeaways: [
@@ -409,7 +409,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-07-11',
     image: '/images/blog/smart-safety-simple.webp',
     imageAlt: 'Illustration of smart home safety support',
-    keywords: ['smart home safety seniors', 'elderly emergency alerts', 'aging in place technology'],
+    keywords: ['smart home safety', 'emergency alerts at home', 'safer daily living technology'],
     intro:
       'Smart safety works when it fits daily life. The aim is not to turn the home into a gadget showroom, but to add support where it reduces a named risk or gives agreed contacts usable information.',
     takeaways: [
@@ -475,7 +475,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-07-11',
     image: '/images/blog/provider-choice.webp',
     imageAlt: 'Illustration of a trusted home safety checklist',
-    keywords: ['home safety provider Spain', 'senior home adaptation service', 'aging in place provider'],
+    keywords: ['home safety provider Spain', 'home adaptation service', 'safer daily living provider'],
     intro:
       'Choosing help for home safety is not just buying equipment. The right service should understand the person, the daily routine, the home, the fitting details and what support is needed after installation.',
     takeaways: [
@@ -685,7 +685,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-07-11',
     image: '/images/blog/stair-safety-handrails.webp',
     imageAlt: 'Editorial illustration of safer stairs with clear rail and step rhythm',
-    keywords: ['stair safety seniors', 'handrails older adults', 'stair fall prevention'],
+    keywords: ['stair safety at home', 'handrails for safer movement', 'stair fall prevention'],
     intro:
       'Stairs become safer when support, visibility and step rhythm work together. A single handrail may help, but the full stair movement needs to be reviewed from first step to landing.',
     takeaways: [
@@ -751,7 +751,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-07-11',
     image: '/images/blog/kitchen-safety-aging.webp',
     imageAlt: 'Editorial illustration of a safer kitchen workflow',
-    keywords: ['kitchen safety seniors', 'aging in place kitchen', 'safe kitchen older adults'],
+    keywords: ['kitchen safety at home', 'safer kitchen routines', 'accessible kitchen safety'],
     intro:
       'The kitchen is not just a room; it is a sequence of movements. Safer kitchens reduce unnecessary reaching, bending, carrying, turning, and rushing around hot surfaces or sharp tools.',
     takeaways: [
@@ -817,7 +817,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-08-10',
     image: '/images/blog/bedroom-night-safety.webp',
     imageAlt: 'Editorial illustration of bedroom night safety lighting',
-    keywords: ['bedroom safety seniors', 'night fall prevention', 'older adult night safety'],
+    keywords: ['bedroom safety at home', 'night fall prevention', 'night movement safety'],
     intro:
       'Night-time risk is easy to underestimate because the home looks familiar in daylight. At night the person may be half asleep, urgency is higher, lighting is lower, medication effects may be stronger and getting to the bathroom can become the hardest movement in the home.',
     takeaways: [
@@ -989,7 +989,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-07-24',
     image: '/images/blog/provider-choice.webp',
     imageAlt: 'People comparing home safety and care options around a table',
-    keywords: ['aging in place decision', 'home adaptations vs care home', 'when home is no longer safe'],
+    keywords: ['staying at home safely', 'home adaptations vs care home', 'when home is no longer safe'],
     intro:
       'Staying at home should feel safe, familiar and realistic. The question is not whether home is always better; it is whether the right support can make daily life safer without exhausting the person or their helpers.',
     takeaways: [
