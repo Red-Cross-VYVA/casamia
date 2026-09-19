@@ -1277,9 +1277,9 @@ export function PlansPage() {
         orderPackage: (roomLabel: string) => `A\u00f1adir paquete de ${roomLabel.toLocaleLowerCase('es-ES')}`,
         optionalTab: 'Extras opcionales',
         previous: 'Anterior',
-        requestReview: 'Pedir valoraci\u00f3n del extra',
+        requestReview: 'Revisar este extra',
         reviewBody: 'Puedes pedir el paquete base ahora. Revisaremos este extra contigo y acordaremos medidas, encaje y precio antes de presupuestarlo.',
-        reviewRequested: 'Valoraci\u00f3n solicitada',
+        reviewRequested: 'Extra marcado para revisar',
         slideLabel: 'Elemento',
       }
     : {
@@ -1295,9 +1295,9 @@ export function PlansPage() {
         orderPackage: (roomLabel: string) => `Add ${roomLabel} package`,
         optionalTab: 'Optional add-ons',
         previous: 'Previous',
-        requestReview: 'Request extra review',
-        reviewBody: 'You can order the core package now. We will review this extra with you and agree measurements, fit and price before quoting it.',
-        reviewRequested: 'Extra review requested',
+        requestReview: 'Review this add-on',
+        reviewBody: 'You can order the core package now. We will review this add-on with you and agree measurements, fit and price before it is included.',
+        reviewRequested: 'Add-on marked for review',
         slideLabel: 'Item',
       }
   const activeDetailOptionalItems = activeDetail?.optionalItems ?? []

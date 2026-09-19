@@ -291,7 +291,7 @@ const defaultServiceDetailContent: ServiceDetailContent = {
       body: 'Show what has been checked, what matters most and which improvement should happen first.',
     },
   ],
-  includedTitle: 'A room-specific plan, not a generic product list.',
+  includedTitle: 'A plan built around this room.',
   includedIntro:
     'The visit connects the room layout, daily routine, mobility profile, and installation options before recommending changes.',
   included: [
