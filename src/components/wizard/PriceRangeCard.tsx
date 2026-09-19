@@ -39,7 +39,7 @@ export function PriceRangeCard({
         </small>
       ) : null}
       {range.requiresQuote ? (
-        <small>{isSpanish ? 'Algunas adaptaciones requieren presupuesto a medida.' : 'Some adaptations require a tailored quote.'}</small>
+        <small>{isSpanish ? 'Algunas adaptaciones requieren medidas y presupuesto final.' : 'Some adaptations need measurements before the final quote.'}</small>
       ) : null}
       <p><Info size={17} aria-hidden="true" /> {copy.result.priceDisclaimer}</p>
       {range.source === 'service-catalogue' ? (

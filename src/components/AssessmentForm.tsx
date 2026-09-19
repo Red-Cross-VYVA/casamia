@@ -457,7 +457,7 @@ export function AssessmentForm({ mode = 'default' }: AssessmentFormProps) {
             <span><MapPin size={20} aria-hidden="true" /></span>
             <div>
               <strong>{i18n.language.startsWith('es') ? 'Zona y preferencias' : 'Area and preferences'}</strong>
-              <p>{i18n.language.startsWith('es') ? 'Ayúdanos a preparar la evaluación antes de llamarte.' : 'Help us prepare the assessment before we call you.'}</p>
+              <p>{i18n.language.startsWith('es') ? 'Indica la zona y la preocupación para preparar la llamada.' : 'Share the area and concern so we can prepare the call.'}</p>
             </div>
           </div>
           <div className="assessment-form-grid">
