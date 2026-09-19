@@ -1332,17 +1332,17 @@ function getGrantCopy(language: string) {
     return {
       hero: {
         back: 'Volver a ayudas',
-        title: 'Comprueba ayudas para adaptar tu vivienda.',
+        title: 'Comprueba si vale la pena preparar una ayuda.',
         intro:
-          'Responde unas preguntas y recibe una orientación inicial gratuita.',
+          'Responde unas preguntas y recibe una orientación inicial gratuita sobre encaje, documentos y próximos pasos.',
         note:
           'No es una aprobación de ayudas. Las opciones dependen de la comunidad autónoma, convocatorias abiertas, vivienda y documentación.',
         helper: 'Tarda unos minutos y no necesitas documentos para empezar.',
         pointsLabel: 'Qué incluye el check',
-        points: ['Sin subir fotos', 'Informe inmediato', 'Próximos pasos claros'],
+        points: ['Sin subir fotos', 'Resultado inmediato', 'Documentos a confirmar'],
       },
-      progressLabel: 'Progreso de elegibilidad',
-      progress: ['Vivienda', 'Persona', 'Necesidades', 'Informe', 'Enviar'],
+      progressLabel: 'Progreso de preparación para ayudas',
+      progress: ['Vivienda', 'Persona', 'Mejoras', 'Resultado', 'Enviar'],
       steps: {
         home: {
           kicker: 'Paso 1',
@@ -1352,13 +1352,13 @@ function getGrantCopy(language: string) {
         },
         resident: {
           kicker: 'Paso 2',
-          title: '¿Quién necesita la adaptación?',
+          title: '¿Para quién es la adaptación?',
           intro:
             'Mantén la información general. CasaMia solo revisaría documentos sensibles más adelante si fueran necesarios.',
         },
         needs: {
           kicker: 'Paso 3',
-          title: '¿Qué necesita mejorar?',
+          title: '¿Qué mejora se está valorando?',
           intro:
             'Selecciona las adaptaciones o riesgos que ya conoces. Esta revisión no necesita fotos.',
         },
@@ -1366,19 +1366,19 @@ function getGrantCopy(language: string) {
           kicker: 'Tu informe',
         },
         send: {
-          kicker: 'Enviar informe',
-          title: 'Envía tu informe de elegibilidad',
+          kicker: 'Enviar resultado',
+          title: 'Envía tu informe de preparación',
           intro:
-            'El resultado ya está visible. Añade tus datos solo si quieres recibirlo por email o WhatsApp.',
+            'El resultado ya está visible. Añade tus datos solo si quieres recibir el enlace seguro por email o WhatsApp.',
           consent:
-            'Acepto que CasaMia use esta información para enviarme mi informe de elegibilidad y contactarme sobre posibles ayudas regionales.',
+            'Acepto que CasaMia use esta información para enviarme mi informe y contactarme sobre posibles ayudas regionales.',
         },
       },
       fields: {
         region: 'Comunidad autónoma',
         postcode: 'Código postal',
         homeType: 'Tipo de vivienda',
-        ownership: 'Situación de la vivienda',
+        ownership: 'Tenencia o permiso',
         residentAge: 'Edad de la persona residente',
         mobility: 'Movilidad',
         recognisedStatus: 'Discapacidad o dependencia',
@@ -1404,7 +1404,7 @@ function getGrantCopy(language: string) {
         ],
         ownership: [
           { value: 'Owner occupied', label: 'Propietario residente' },
-          { value: 'Owned by family', label: 'Propiedad familiar' },
+          { value: 'Owned by family', label: 'Propiedad de familiar o persona cercana' },
           { value: 'Rented home', label: 'Vivienda alquilada' },
           { value: 'Community building works', label: 'Obras en zona común' },
         ],
@@ -1412,7 +1412,7 @@ function getGrantCopy(language: string) {
           { value: 'Under 65', label: 'Menos de 65' },
           { value: '65 to 74', label: '65 a 74' },
           { value: '75+', label: '75+' },
-          { value: 'Family member answering', label: 'Responde un familiar' },
+          { value: 'Family member answering', label: 'Responde otra persona autorizada' },
         ],
         mobility: [
           { value: 'No major mobility issue', label: 'Sin problema importante de movilidad' },
@@ -1446,29 +1446,29 @@ function getGrantCopy(language: string) {
       },
       result: {
         readiness: 'preparación',
-        instantReport: 'Informe instantáneo',
+        instantReport: 'Resultado inicial',
         reasonsTitle: 'Por qué aparece este resultado',
-        managedTitle: 'Qué gestionará CasaMia',
-        handoffTitle: 'El informe ya tiene lo esencial.',
+        managedTitle: 'Qué puede preparar CasaMia',
+        handoffTitle: 'El resultado ya tiene lo esencial.',
         handoffBody:
-          'Puedes enviarlo por email o WhatsApp. CasaMia usará estos datos para revisar los criterios de ayuda y decirte exactamente qué falta.',
+          'Puedes enviarlo por email o WhatsApp. CasaMia usará estos datos para revisar criterios activos y decirte qué falta confirmar.',
         handoffPoints: [
           'No pedimos certificados ahora si no los tienes.',
           'No presentamos nada sin revisar la convocatoria y confirmarlo contigo.',
           'El seguimiento se centra en permisos, adaptaciones necesarias y documentación real.',
         ],
-        readyTitle: 'Tu informe está listo.',
+        readyTitle: 'Tu resultado está listo.',
         readyBody: (region: string) =>
-          `CasaMia puede revisar los criterios de ayuda para ${region} y enviarte un resumen claro de lo que falta si eliges recibirlo.`,
+          `CasaMia puede revisar los criterios de ayuda para ${region} y enviarte un resumen claro de documentos, requisitos y datos pendientes si eliges recibirlo.`,
         placeholder:
-          'Responde las preguntas para ver tu informe de elegibilidad. No necesitas subir fotos.',
+          'Responde las preguntas para ver tu preparación inicial. No necesitas subir fotos.',
         detailsSummary: 'Ver resumen del informe',
         research: {
-          kicker: 'Revisión enriquecida',
+          kicker: 'Revisión con fuentes',
           pendingTitle: 'CasaMia está revisando las ayudas activas.',
           pendingBody: 'Buscaremos fuentes oficiales para preparar un resumen con requisitos, documentos y límites.',
           readyTitle: 'Revisión de ayudas preparada',
-          readyBody: 'Ya tienes una revisión visual con requisitos, documentos y lo que falta confirmar.',
+          readyBody: 'Ya tienes una revisión con requisitos, documentos y lo que falta confirmar.',
           failedTitle: 'Revisión manual en curso',
           failedBody: 'El informe básico está guardado. CasaMia puede revisar los criterios activos y hacer seguimiento.',
           needsDataTitle: 'Faltan algunos datos',
@@ -1493,15 +1493,15 @@ function getGrantCopy(language: string) {
         back: 'Atrás',
         continue: 'Continuar',
         startNow: 'Empezar ahora',
-        sendThisReport: 'Enviar este informe',
-        sendReport: 'Enviar informe',
+        sendThisReport: 'Enviar este resultado',
+        sendReport: 'Enviar resultado',
         sending: 'Preparando envío',
       },
       validation: {
         completeFields: (fields: string) => `Completa: ${fields}.`,
         needs: 'Selecciona al menos una necesidad para continuar.',
         contact:
-          'Añade tus datos, elige un método de envío y acepta el consentimiento para continuar.',
+          'Añade tus datos, elige un método de envío y acepta el consentimiento para recibir el enlace seguro.',
       },
       delivery: {
         email: 'Hemos enviado el enlace seguro del informe por email.',
@@ -1511,7 +1511,7 @@ function getGrantCopy(language: string) {
         delivery: 'No pudimos preparar el envío del informe. Inténtalo de nuevo.',
       },
       summary: {
-        title: 'Informe CasaMia de elegibilidad de ayudas',
+        title: 'Informe CasaMia de preparación para ayudas',
         result: 'Resultado',
         region: 'Comunidad',
         postcode: 'Código postal',
@@ -1534,7 +1534,7 @@ function getGrantCopy(language: string) {
           missingRegion: 'Falta la comunidad autónoma, necesaria para revisar los criterios de ayuda correctos.',
           age75: 'Una persona residente de 75+ suele ser una señal fuerte para ayudas de accesibilidad.',
           age65: 'Una persona mayor de 65 puede encajar en muchos criterios de accesibilidad.',
-          family: 'Las solicitudes gestionadas por familiares son habituales, pero conviene confirmar los datos de la persona residente.',
+          family: 'Si responde otra persona, conviene confirmar después los datos de quien vive en la vivienda.',
           recognisedStatus: 'La discapacidad o dependencia reconocida puede reforzar la solicitud.',
           statusInProgress: 'Una solicitud en trámite puede ser útil para revisar los criterios regionales.',
           privateStatus: 'La información sensible puede revisarse más adelante de forma privada si hace falta.',
@@ -1542,7 +1542,7 @@ function getGrantCopy(language: string) {
           balance: 'Los problemas de equilibrio o movilidad apoyan un caso preventivo de seguridad.',
           commonWorks: 'Las adaptaciones seleccionadas son categorías habituales en ayudas de accesibilidad.',
           safetyNeeds: 'Las necesidades seleccionadas pueden apoyar una revisión de adaptación del hogar.',
-          owner: 'La propiedad propia o familiar suele simplificar permisos y documentación.',
+          owner: 'Tener propiedad o permiso claro suele simplificar documentación y autorizaciones.',
           rented: 'En vivienda alquilada puede ser posible, pero normalmente hará falta permiso del propietario.',
           community: 'Las obras en zonas comunes pueden requerir aprobación de la comunidad.',
           urgent: 'Un plazo cercano ayuda a priorizar convocatorias y preparación documental.',
@@ -1562,19 +1562,19 @@ function getGrantCopy(language: string) {
         },
         results: {
           strong: {
-            title: 'Buen encaje para ayudas',
+            title: 'Buen punto de partida para ayudas',
             summary:
-              'Tus respuestas muestran varias señales habituales de elegibilidad. CasaMia debería verificar los criterios regionales activos y preparar la documentación.',
+              'Tus respuestas muestran varias señales útiles. CasaMia debería verificar los criterios regionales activos y preparar la documentación.',
           },
           review: {
-            title: 'Necesita revisión regional',
+            title: 'Requiere revisión regional',
             summary:
               'Hay señales útiles, pero la elegibilidad depende de la comunidad, permisos y clasificación correcta de la adaptación.',
           },
           watch: {
-            title: 'Primero plan de seguridad',
+            title: 'Primero aclarar la mejora necesaria',
             summary:
-              'Todavía no hay suficiente información para un encaje fuerte. CasaMia puede crear un plan de seguridad y vigilar futuras convocatorias.',
+              'Todavía no hay suficiente información para un encaje fuerte. CasaMia puede aclarar la mejora necesaria y vigilar futuras convocatorias.',
           },
         },
       },
@@ -1584,17 +1584,17 @@ function getGrantCopy(language: string) {
   return {
     hero: {
       back: 'Back to grants',
-      title: 'Check home adaptation grants.',
+      title: 'Check whether a grant is worth preparing.',
       intro:
-        'Answer a few questions and get free initial guidance.',
+        'Answer a few questions and get free initial guidance on fit, documents and next steps.',
       note:
         'This is not a grant approval. Support depends on your autonomous community, open calls, home details, and documentation.',
       helper: 'Takes a few minutes and you do not need documents to start.',
       pointsLabel: 'What the check includes',
-      points: ['No photo upload', 'Instant report', 'Documents and checks to confirm'],
+      points: ['No photo upload', 'Instant result', 'Documents and checks to confirm'],
     },
-    progressLabel: 'Grant check progress',
-    progress: ['Home', 'Resident', 'Needs', 'Report', 'Send'],
+    progressLabel: 'Grant-readiness progress',
+    progress: ['Home', 'Person', 'Improvements', 'Result', 'Send'],
     steps: {
       home: {
         kicker: 'Step 1',
@@ -1604,31 +1604,31 @@ function getGrantCopy(language: string) {
       },
       resident: {
         kicker: 'Step 2',
-        title: 'Who needs the adaptation?',
+        title: 'Who is the adaptation for?',
         intro: 'Keep this broad. CasaMia can review sensitive documents later only if they are needed.',
       },
       needs: {
         kicker: 'Step 3',
-        title: 'What needs to change?',
+        title: 'Which improvement are you considering?',
         intro: 'Select the adaptations or risks you already know about. This check does not need photos.',
       },
       report: {
-        kicker: 'Your report',
+        kicker: 'Your result',
       },
       send: {
-        kicker: 'Send report',
-        title: 'Send your grant eligibility report',
+        kicker: 'Send result',
+        title: 'Send your grant-readiness result',
         intro:
-          'Your result is already visible. Add contact details only if you want CasaMia to send it by email or WhatsApp.',
+          'Your result is already visible. Add contact details only if you want CasaMia to send the secure link by email or WhatsApp.',
         consent:
-          'I agree CasaMia can use this information to send my grant eligibility report and contact me about relevant regional options.',
+          'I agree CasaMia can use this information to send my report and contact me about relevant regional options.',
       },
     },
     fields: {
       region: 'Autonomous community',
       postcode: 'Postcode',
       homeType: 'Home type',
-      ownership: 'Ownership situation',
+      ownership: 'Ownership or permission',
       residentAge: 'Resident age',
       mobility: 'Mobility situation',
       recognisedStatus: 'Disability or dependency status',
@@ -1654,7 +1654,7 @@ function getGrantCopy(language: string) {
       ],
       ownership: [
         { value: 'Owner occupied', label: 'Owner occupied' },
-        { value: 'Owned by family', label: 'Owned by family' },
+        { value: 'Owned by family', label: 'Owned by a relative or trusted person' },
         { value: 'Rented home', label: 'Rented home' },
         { value: 'Community building works', label: 'Community building works' },
       ],
@@ -1662,7 +1662,7 @@ function getGrantCopy(language: string) {
         { value: 'Under 65', label: 'Under 65' },
         { value: '65 to 74', label: '65 to 74' },
         { value: '75+', label: '75+' },
-        { value: 'Family member answering', label: 'Family member answering' },
+        { value: 'Family member answering', label: 'Authorised person answering' },
       ],
       mobility: [
         { value: 'No major mobility issue', label: 'No major mobility issue' },
@@ -1696,28 +1696,28 @@ function getGrantCopy(language: string) {
     },
     result: {
       readiness: 'readiness',
-      instantReport: 'Instant report',
+      instantReport: 'Initial result',
       reasonsTitle: 'Why this result appears',
-      managedTitle: 'What CasaMia will manage',
-      handoffTitle: 'The report now has the essentials.',
+      managedTitle: 'What CasaMia can prepare',
+      handoffTitle: 'The result now has the essentials.',
       handoffBody:
-        'In the next step you can send it by email or WhatsApp. CasaMia will use these details to check likely grant criteria and tell you exactly what is still missing.',
+        'In the next step you can send it by email or WhatsApp. CasaMia will use these details to check active criteria and tell you what still needs confirmation.',
       handoffPoints: [
         'We do not ask for certificates now if you do not already have them.',
         'Nothing is filed before the call is checked and confirmed with you.',
         'Follow-up focuses on permissions, agreed adaptations and real documentation.',
       ],
-      readyTitle: 'Your report is ready.',
+      readyTitle: 'Your result is ready.',
       readyBody: (region: string) =>
-        `CasaMia can check likely grant criteria for ${region} and send a summary of requirements, documents and what is still missing if you choose delivery.`,
-      placeholder: 'Answer the questions to see your eligibility report. No photos needed.',
+        `CasaMia can check likely grant criteria for ${region} and send a summary of requirements, documents and missing details if you choose delivery.`,
+      placeholder: 'Answer the questions to see your initial readiness. No photos needed.',
       detailsSummary: 'View report summary',
       research: {
-        kicker: 'Enriched review',
+        kicker: 'Source-based review',
         pendingTitle: 'CasaMia is checking active grant options.',
         pendingBody: 'We will review official sources and prepare a summary with requirements, documents and limits.',
         readyTitle: 'Grant check prepared',
-        readyBody: 'Your visual review includes requirements, documents and what still needs confirmation.',
+        readyBody: 'Your review includes requirements, documents and what still needs confirmation.',
         failedTitle: 'Manual review in progress',
         failedBody: 'The basic report is saved. CasaMia can review the active criteria and follow up.',
         needsDataTitle: 'A few details are missing',
@@ -1742,14 +1742,14 @@ function getGrantCopy(language: string) {
       back: 'Back',
       continue: 'Continue',
       startNow: 'Start now',
-      sendThisReport: 'Send this report',
-      sendReport: 'Send report',
+      sendThisReport: 'Send this result',
+      sendReport: 'Send result',
       sending: 'Preparing delivery',
     },
     validation: {
       completeFields: (fields: string) => `Complete: ${fields}.`,
       needs: 'Select at least one need to continue.',
-      contact: 'Add contact details, choose a delivery method, and accept consent to continue.',
+      contact: 'Add contact details, choose a delivery method, and accept consent to receive the secure link.',
     },
     delivery: {
       email: 'The secure report link has been sent by email.',
@@ -1759,7 +1759,7 @@ function getGrantCopy(language: string) {
       delivery: 'We could not queue the report delivery. Please try again.',
     },
     summary: {
-      title: 'CasaMia grant-readiness report',
+      title: 'CasaMia grant-readiness result',
       result: 'Result',
       region: 'Region',
       postcode: 'Postcode',
@@ -1782,7 +1782,7 @@ function getGrantCopy(language: string) {
         missingRegion: 'Region is still needed because most grant criteria are managed locally.',
         age75: 'A person aged 75+ is often a strong signal for accessibility support.',
         age65: 'A person over 65 can match many senior accessibility criteria.',
-        family: 'Applications managed by relatives are common, but CasaMia should confirm the details of the person who lives there.',
+        family: 'If someone else is answering, CasaMia should later confirm the details of the person who lives there.',
         recognisedStatus: 'Recognised disability or dependency can strengthen the application and funding level.',
         statusInProgress: 'A pending disability or dependency application may still be relevant for regional review.',
         privateStatus: 'Sensitive status can be reviewed privately later if it becomes relevant.',
@@ -1790,7 +1790,7 @@ function getGrantCopy(language: string) {
         balance: 'Balance or mobility concerns support a prevention-led safety case.',
         commonWorks: 'The selected adaptation types are common accessibility grant categories.',
         safetyNeeds: 'The selected safety needs can still support a home adaptation review.',
-        owner: 'Owner or family ownership usually makes permissions and documentation simpler.',
+        owner: 'Clear ownership or permission usually makes documentation and authorisations simpler.',
         rented: 'A rented home may still be possible, but landlord permission will likely be needed.',
         community: 'Shared-building adaptations may need community approval before filing.',
         urgent: 'A near-term timeline helps CasaMia prioritise call deadlines and document prep.',
@@ -1810,9 +1810,9 @@ function getGrantCopy(language: string) {
       },
       results: {
         strong: {
-          title: 'Strong grant match',
+          title: 'Strong starting point for grants',
           summary:
-            'The answers show several common eligibility signals. CasaMia should now verify the active regional criteria and prepare the documentation file.',
+            'The answers show several useful signals. CasaMia should now verify the active regional criteria and prepare the documentation file.',
         },
         review: {
           title: 'Needs regional review',
@@ -1820,9 +1820,9 @@ function getGrantCopy(language: string) {
             'There are relevant signals, but eligibility depends on region, permissions, and whether the adaptation is classified correctly.',
         },
         watch: {
-          title: 'Safety plan first',
+          title: 'Clarify the improvement first',
           summary:
-            'There may not be enough information yet for a strong grant match. CasaMia can still build a safety plan and monitor suitable calls.',
+            'There may not be enough information yet for a strong grant match. CasaMia can clarify the needed improvement and monitor suitable calls.',
         },
       },
     },
