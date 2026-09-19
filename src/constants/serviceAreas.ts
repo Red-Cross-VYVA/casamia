@@ -18,8 +18,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Comunidad de Madrid',
     status: 'active',
     headline: {
-      en: 'Fast coordination for apartments, family homes and return-home plans.',
-      es: 'Coordinación ágil para pisos, viviendas familiares y vueltas a casa.',
+      en: 'Quick help for apartments, family homes and safer returns from hospital.',
+      es: 'Ayuda rápida para pisos, viviendas familiares y vueltas a casa tras el hospital.',
     },
     focus: {
       en: ['bathroom safety', 'night movement', 'post-hospital priorities'],
@@ -31,8 +31,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Catalonia',
     status: 'active',
     headline: {
-      en: 'Senior-friendly adaptation support for dense urban homes and older buildings.',
-      es: 'Apoyo en adaptaciones senior para pisos urbanos y edificios antiguos.',
+      en: 'Practical changes for older apartments, narrow entrances and daily bathroom use.',
+      es: 'Cambios prácticos para pisos antiguos, entradas estrechas y uso diario del baño.',
     },
     focus: {
       en: ['entrance access', 'bathroom access', 'connected support'],
@@ -44,8 +44,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Comunitat Valenciana',
     status: 'active',
     headline: {
-      en: 'Practical home-safety reviews for families planning calm, staged improvements.',
-      es: 'Revisiones prácticas para familias que quieren mejorar por fases.',
+      en: 'Clear room-by-room reviews when you want to improve the home in sensible stages.',
+      es: 'Revisiones claras por estancias para mejorar la vivienda por fases.',
     },
     focus: {
       en: ['fall prevention', 'bathroom transfers', 'grant preparation'],
@@ -57,8 +57,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Andalusia',
     status: 'building',
     headline: {
-      en: 'Growing support for coastal homes, international families and assisted living operators.',
-      es: 'Cobertura en crecimiento para costa, familias internacionales y operadores senior.',
+      en: 'Support for coastal homes, international households and senior living properties.',
+      es: 'Apoyo para viviendas de costa, hogares internacionales y propiedades senior.',
     },
     focus: {
       en: ['home access', 'bathroom safety', 'trusted-contact alerts'],
@@ -70,8 +70,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Comunitat Valenciana',
     status: 'building',
     headline: {
-      en: 'Coastal coverage for ageing-at-home adaptations and safer everyday routines.',
-      es: 'Cobertura de costa para adaptar la vivienda y hacer más segura la rutina diaria.',
+      en: 'Help making coastal homes easier to use safely every day.',
+      es: 'Ayuda para que las viviendas de costa sean más fáciles y seguras a diario.',
     },
     focus: {
       en: ['bathroom access', 'bedroom safety', 'connected living'],
@@ -83,8 +83,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Andalusia',
     status: 'building',
     headline: {
-      en: 'Home-safety planning for families balancing comfort, independence and local delivery.',
-      es: 'Planificación de seguridad para familias que buscan comodidad, independencia y ejecución local.',
+      en: 'Plans that protect comfort and independence without making the home feel clinical.',
+      es: 'Planes que cuidan la comodidad y la independencia sin convertir la casa en algo clínico.',
     },
     focus: {
       en: ['entry safety', 'lighting', 'room-by-room planning'],
@@ -96,12 +96,12 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Basque Country',
     status: 'planned',
     headline: {
-      en: 'Priority northern rollout as vetted provider coverage is confirmed.',
-      es: 'Despliegue prioritario en el norte según se confirme la red de profesionales.',
+      en: 'Northern coverage is opening as reliable local visit options become available.',
+      es: 'La cobertura en el norte se abre a medida que haya visitas locales fiables.',
     },
     focus: {
-      en: ['provider matching', 'home assessment', 'aftercare steps'],
-      es: ['asignación profesional', 'revisión de vivienda', 'pasos de seguimiento'],
+      en: ['right professional', 'home assessment', 'follow-up steps'],
+      es: ['profesional adecuado', 'revisión de vivienda', 'pasos de seguimiento'],
     },
   },
   {
@@ -109,12 +109,12 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Aragon',
     status: 'planned',
     headline: {
-      en: 'Central coverage for practical adaptations and household decision support.',
-      es: 'Cobertura central para adaptaciones prácticas y apoyo en decisiones del hogar.',
+      en: 'Practical guidance for choosing which home changes matter first.',
+      es: 'Orientación práctica para decidir qué cambios de la vivienda importan primero.',
     },
     focus: {
-      en: ['safety plan', 'visit coordination', 'grant criteria'],
-      es: ['plan de seguridad', 'coordinación de visita', 'criterios de ayuda'],
+      en: ['safety plan', 'visit options', 'grant questions'],
+      es: ['plan de seguridad', 'opciones de visita', 'dudas sobre ayudas'],
     },
   },
 ]
