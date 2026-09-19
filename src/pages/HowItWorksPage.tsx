@@ -166,9 +166,9 @@ type EasyProcessCopy = {
 const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
   en: {
     title: 'Start your way.',
-    body: 'CasaMia handles the rest.',
+    body: 'CasaMia helps you turn it into a clear next step.',
     heroOutcomeEyebrow: 'What you receive',
-    heroOutcomeText: 'Room priorities, recommended adaptations, pricing and CasaMia coordination.',
+    heroOutcomeText: 'Room priorities, recommended changes, price guidance and next steps.',
     channelsTitle: 'Choose how to start',
     channelsBody: 'Every option reaches the same CasaMia team.',
     humanAlt: 'Older woman smiling while using her smartphone at home',
@@ -193,16 +193,16 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
         body: 'See the recommended adaptations and price before you decide.',
       },
       {
-        title: 'We coordinate and follow up',
-        body: 'We arrange installation, check the result and stay available.',
+        title: 'We check and follow up',
+        body: 'We arrange the agreed work, check the result and stay available.',
       },
     ],
   },
   es: {
     title: 'Empieza como prefieras.',
-    body: 'CasaMia se encarga del resto.',
+    body: 'CasaMia te ayuda a convertirlo en un siguiente paso claro.',
     heroOutcomeEyebrow: 'Qu\u00e9 recibes',
-    heroOutcomeText: 'Prioridades por estancia, acciones recomendadas, alcance presupuestado y coordinación CasaMia.',
+    heroOutcomeText: 'Prioridades por estancia, cambios recomendados, guía de precio y siguientes pasos.',
     channelsTitle: 'Elige tu canal',
     channelsBody: 'Todas las opciones llegan al mismo equipo CasaMia.',
     humanAlt: 'Mujer mayor sonriendo mientras usa su tel\u00e9fono m\u00f3vil en casa',
@@ -227,8 +227,8 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
         body: 'Consulta las mejoras recomendadas y el precio antes de decidir.',
       },
       {
-        title: 'Coordinamos y hacemos seguimiento',
-        body: 'Organizamos el trabajo, comprobamos el resultado y seguimos disponibles.',
+        title: 'Comprobamos y seguimos',
+        body: 'Organizamos el trabajo acordado, comprobamos el resultado y seguimos disponibles.',
       },
     ],
   },
@@ -242,7 +242,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     heroEyebrow: 'From concern to checked plan',
     heroTitle: 'From home photos to safer daily routines.',
     heroBody:
-      'We review the rooms used every day, identify the risks that affect movement, and coordinate adaptations only where they fit the routine.',
+      'We review the rooms used every day, identify the risks that affect movement, and recommend changes only where they fit the routine.',
     primaryCta: 'Start free safety report',
     secondaryCta: 'Book home visit',
     heroAlt: 'CasaMia home safety worker ready for a home assessment',
@@ -256,9 +256,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     ],
     statusNote: 'One team from first contact to follow-up.',
     processEyebrow: 'How the review moves forward',
-    processTitle: 'One call or one click. We coordinate the rest.',
+    processTitle: 'One call or one click. Then you know what to do next.',
     processBody:
-      'Tell us what is happening at home. CasaMia turns the first conversation into room priorities, agreed adaptations, coordinated installation and follow-up.',
+      'Tell us what is happening at home. CasaMia turns the first conversation into room priorities, practical options, checks before work starts and follow-up.',
     steps: [
       {
         icon: 'phone',
@@ -292,9 +292,9 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'wrench',
-        title: 'We coordinate the installation',
-        body: 'We agree the adaptations and date, coordinate installation and check the result.',
-        tag: 'Handover',
+        title: 'We check the work before it starts',
+        body: 'You agree the adaptation, date and fitting details before installation is arranged and the result is checked.',
+        tag: 'Work',
         proof: 'Adaptations · date · final check',
       },
       {
@@ -365,18 +365,18 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'clipboard',
         title: 'Adaptations to review',
-        body: 'Safety adaptations, services or smart setup.',
+        body: 'What may need fitting, measuring or confirming.',
       },
       {
         icon: 'badge',
         title: 'Grant application guidance',
-        body: 'Documents and eligible adaptation notes.',
+        body: 'Documents and grant-readiness notes.',
       },
     ],
-    teamEyebrow: 'Behind the scenes',
-    teamTitle: 'Experts, installers, and tracking in one flow.',
+    teamEyebrow: 'What stays organised',
+    teamTitle: 'Notes, visits, fitting and follow-up in one place.',
     teamBody:
-      'CasaMia keeps review notes, visit planning, priced plans, installation status and approved updates together.',
+      'CasaMia keeps review notes, visit planning, priced plans, installation status and approved updates together so you do not have to repeat the story.',
     team: [
       {
         icon: 'shield',
@@ -385,8 +385,8 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'wrench',
-        title: 'Installer coordination',
-        body: 'Installation planned and explained clearly.',
+        title: 'Fitting details',
+        body: 'Who comes, what they fit and what will be checked.',
       },
       {
         icon: 'monitor',
@@ -395,8 +395,8 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'badge',
-        title: 'Grant management',
-        body: 'Eligibility notes, documents and follow-up.',
+        title: 'Grant notes',
+        body: 'Likely fit, missing documents and next steps.',
       },
     ],
     nextEyebrow: 'Choose your first step',
@@ -444,12 +444,12 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     heroEyebrow: 'De la preocupaci\u00f3n al trabajo comprobado',
     heroTitle: 'De fotos del hogar a rutinas diarias m\u00e1s seguras.',
     heroBody:
-      'CasaMia revisa las estancias importantes, prioriza los riesgos reales y coordina adaptaciones o seguridad smart cuando encajan con la rutina.',
+      'CasaMia revisa las estancias importantes, prioriza los riesgos reales y recomienda cambios o seguridad smart cuando encajan con la rutina.',
     primaryCta: 'Empezar informe gratis',
     secondaryCta: 'Reservar visita',
     heroAlt: 'Profesional de CasaMia preparado para una evaluación de seguridad en casa',
     statusTitle: 'Cuatro pasos pr\u00e1cticos',
-    statusIntro: 'Tú eliges el punto de partida. CasaMia lo convierte en prioridades, alcance y seguimiento.',
+    statusIntro: 'Tú eliges el punto de partida. CasaMia lo convierte en prioridades, opciones claras y seguimiento.',
     statusRows: [
       { label: 'Envía fotos o reserva visita', value: 'Inicio' },
       { label: 'Riesgos y rutinas revisados', value: 'Revisión' },
@@ -458,8 +458,8 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
     ],
     statusNote: 'Un solo equipo desde el primer contacto hasta el seguimiento.',
     processEyebrow: 'C\u00f3mo avanza la revisi\u00f3n',
-    processTitle: 'Una llamada, fotos o una visita. CasaMia coordina el resto.',
-    processBody: 'Cuéntanos qué ocurre en casa. CasaMia convierte esa información en prioridades por estancia, alcance acordado, instalación coordinada y seguimiento.',
+    processTitle: 'Una llamada, fotos o una visita. Después sabes qué hacer.',
+    processBody: 'Cuéntanos qué ocurre en casa. CasaMia convierte esa información en prioridades por estancia, opciones prácticas, comprobaciones antes del trabajo y seguimiento.',
     steps: [
       {
         icon: 'camera',
@@ -501,7 +501,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'Instalaci\u00f3n y apoyo',
-        body: 'Coordinamos al instalador, confirmamos el trabajo realizado y explicamos el uso seguro.',
+        body: 'Antes de organizar el trabajo, acordamos la adaptación, fecha y detalles de encaje; después comprobamos el resultado y explicamos el uso seguro.',
         tag: 'Entrega',
         proof: 'Trabajo explicado con claridad',
       },
@@ -566,18 +566,18 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'clipboard',
         title: 'Plan definido',
-        body: 'Paquete, obra o configuraci\u00f3n smart.',
+        body: 'Qué puede necesitar instalación, medida o confirmación.',
       },
       {
         icon: 'badge',
         title: 'Documentos para ayudas',
-        body: 'Documentos y trabajos elegibles.',
+        body: 'Documentos y notas para revisar encaje de ayudas.',
       },
     ],
-    teamEyebrow: 'Entre bastidores',
-    teamTitle: 'Expertos, instaladores y seguimiento en un solo flujo.',
+    teamEyebrow: 'Qué queda ordenado',
+    teamTitle: 'Notas, visita, instalación y seguimiento en un solo lugar.',
     teamBody:
-      'CasaMia mantiene juntas notas, visita, propuesta, instalaci\u00f3n y actualizaciones autorizadas.',
+      'CasaMia mantiene juntas notas, visita, plan con precio, estado de instalación y actualizaciones autorizadas para que no tengas que repetir la historia.',
     team: [
       {
         icon: 'shield',
@@ -587,7 +587,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'Instalaci\u00f3n',
-        body: 'Trabajo planificado y explicado.',
+        body: 'Quién viene, qué se instala y qué se comprueba.',
       },
       {
         icon: 'monitor',
@@ -596,8 +596,8 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'badge',
-        title: 'Gestión de ayudas',
-        body: 'Notas de elegibilidad, documentos y seguimiento.',
+        title: 'Notas de ayudas',
+        body: 'Posible encaje, documentos pendientes y siguientes pasos.',
       },
     ],
     nextEyebrow: 'Elige tu primer paso',
