@@ -211,10 +211,10 @@ const techCopy = {
         {
           icon: 'cloud' as TechIconName,
           label: '3. Destination',
-          items: ['Your application', 'Care team system', 'CasaMia resident app', 'Family or professional view'],
+          items: ['Your application', 'Care team system', 'CasaMia home app', 'Approved-contact or professional view'],
         },
       ],
-      footer: 'Resident · Family · Authorised professional · Care team',
+      footer: 'Person at home · Approved contact · Authorised professional · Care team',
     },
     homeClinic: {
       eyebrow: 'The CasaMia Home Clinic',
@@ -245,7 +245,7 @@ const techCopy = {
         'Camera, sound and connection checks',
         'Appointment reminders',
         'Agreed readings ready for review',
-        'Family participation where consented',
+        'Approved-contact participation where consented',
         'Follow-up actions kept together',
       ],
       boundary:
@@ -304,7 +304,7 @@ const techCopy = {
         { title: 'Discover', body: 'Inventory devices, systems, users, connectivity and the outcome you need.' },
         { title: 'Design', body: 'Confirm compatibility, shared information, permissions, alerts and response responsibilities.' },
         { title: 'Connect', body: 'Source agreed devices, install, integrate, configure and test the complete setup.' },
-        { title: 'Onboard', body: 'Guide residents, approved contacts, staff and authorised professionals through safe daily use.' },
+        { title: 'Onboard', body: 'Guide the person at home, approved contacts, staff and authorised professionals through safe daily use.' },
         { title: 'Support', body: 'Maintain agreed connections, resolve issues and adapt the setup as needs change.' },
       ],
       imageAlt: 'CasaMia connected-care equipment and onboarding materials prepared in a home',
@@ -315,7 +315,7 @@ const techCopy = {
       body:
         'Before activation, CasaMia documents who may access each type of information, which alerts each person receives and who is responsible for responding. We aim to collect and share only what the agreed service needs.',
       items: [
-        { icon: 'lock' as TechIconName, title: 'Consent and access', body: 'Role-based access and agreed visibility for residents, approved contacts and professionals.' },
+        { icon: 'lock' as TechIconName, title: 'Consent and access', body: 'Role-based access and agreed visibility for the person at home, approved contacts and professionals.' },
         { icon: 'shield' as TechIconName, title: 'Clear boundaries', body: 'Clinical, emergency and response responsibilities are documented before launch.' },
         { icon: 'wrench' as TechIconName, title: 'Reliability first', body: 'Connectivity, device placement, fallbacks and support contacts are tested before daily use.' },
       ],

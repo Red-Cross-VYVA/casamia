@@ -86,7 +86,7 @@ const serviceDetailUiCopy = {
     kitchenEyebrow: 'Kitchen safety',
     kitchenStatsLabel: 'Kitchen safety services summary',
     safetyServices: 'safety services',
-    managedInstalls: 'managed installs',
+    managedInstalls: 'checked installs',
     checkedBeforeInstall: 'checked before install',
     kitchenVisualNote:
       'Built around real kitchen moments: reach, prep, cooking, washing and after-cooking checks.',
@@ -96,8 +96,8 @@ const serviceDetailUiCopy = {
       'Pick services one by one. We check measurements and compatibility before installation starts.',
     planEyebrow: 'Your CasaMia plan',
     buildMyPlan: 'Build my plan',
-    managedBy: 'Managed by CasaMia',
-    startsAt: 'Senior Home Safety Spain',
+    managedBy: 'Coordinated by CasaMia',
+    startsAt: 'Home safety in Spain',
   },
   es: {
     explorePackage: (roomLabel: string) => `Explorar paquete de ${roomLabel.toLocaleLowerCase('es')}`,
@@ -111,7 +111,7 @@ const serviceDetailUiCopy = {
     kitchenEyebrow: 'Autonomía en la cocina',
     kitchenStatsLabel: 'Resumen de servicios de seguridad en cocina',
     safetyServices: 'servicios de seguridad',
-    managedInstalls: 'instalaciones gestionadas',
+    managedInstalls: 'instalaciones comprobadas',
     checkedBeforeInstall: 'revisados antes de instalar',
     kitchenVisualNote:
       'Diseñado alrededor de momentos reales de cocina: alcance, preparación, cocción, lavado y revisión posterior.',
@@ -121,8 +121,8 @@ const serviceDetailUiCopy = {
       'Selecciona servicios útiles uno a uno. Revisamos medidas y compatibilidad antes de empezar.',
     planEyebrow: 'Tu plan CasaMia',
     buildMyPlan: 'Crear mi plan',
-    managedBy: 'Gestionado por CasaMia',
-    startsAt: 'Seguridad del hogar senior en España',
+    managedBy: 'Coordinado por CasaMia',
+    startsAt: 'Seguridad del hogar en España',
   },
 } as const
 
@@ -578,7 +578,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
     reassuranceTitle: 'A safer kitchen should still work like your kitchen.',
     reassuranceBody:
       'We keep familiar routines where possible, choose the changes that reduce risk, coordinate installation and explain how the setup works.',
-    reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation and explanation managed'],
+    reassurancePoints: ['Daily items within safer reach', 'Clearer work and walking zones', 'Installation checked and explained'],
     finalTitle: 'Keep cooking possible, safer, and calmer.',
     finalBody:
       'Book a visit to review reach, lighting, appliances, water risk and the kitchen changes that need measurement.',
@@ -627,7 +627,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
   'smart-home-safety': {
     benefitsTitle: 'Use technology only where it reduces a named risk.',
     benefitsIntro:
-      'Smart safety should not feel like a complicated smart-home project. We focus on agreed alerts, lighting and emergency support that the resident can actually use.',
+      'Smart safety should not feel like a complicated smart-home project. We focus on agreed alerts, lighting and emergency support the person at home can actually use.',
     benefits: [
       {
         title: 'Earlier awareness',
@@ -649,7 +649,7 @@ const serviceDetailContent: Record<string, ServiceDetailContent> = {
       'Motion lighting and night movement setup',
       'Emergency buttons or wearable alert guidance',
       'Leak, smoke, door, and movement sensor recommendations',
-      'VYVA app and caregiver dashboard setup where included',
+      'VYVA app and approved-contact dashboard setup where included',
       'Alert preferences and privacy settings',
       'Plain safe-use explanation for the person using it',
     ],
