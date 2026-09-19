@@ -720,7 +720,7 @@
         "readyToSend": "¿Quieres guardarlo? En el siguiente paso puedes recibir el enlace seguro por email o WhatsApp.",
         "emailQueued": "Hemos enviado el enlace seguro del informe por email.",
         "whatsappQueued": "Tu informe queda guardado para envío por WhatsApp. El mensaje incluirá solamente un enlace seguro.",
-        "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
+        "demoMode": "Este informe queda guardado en este dispositivo por ahora. Para conservarlo, envíate el enlace seguro por email o WhatsApp.",
         "viewReport": "Ver página del informe",
         "bookAssessment": "Reservar evaluación a domicilio"
       },
@@ -899,7 +899,7 @@
       "intro": "Descubre qué muestra cada foto, por qué importa, qué hacer a continuación y cómo se ha calculado tu prioridad preventiva.",
       "loading": "Cargando informe...",
       "notFoundTitle": "Informe no encontrado",
-      "notFoundBody": "Puede que el enlace haya caducado o que el informe solo exista en el dispositivo original en modo demo.",
+      "notFoundBody": "Puede que el enlace haya caducado o que el informe solo esté disponible en el dispositivo donde se creó.",
       "languageMismatchTitle": "Este informe se preparó en {{reportLanguage}}",
       "languageMismatchBody": "Los controles de la página están ahora en {{currentLanguage}}, pero el texto guardado del informe permanece en {{reportLanguage}} porque se creó a partir de la revisión original de las fotos. Para recibir un informe completo en {{currentLanguage}}, empieza un nuevo informe de seguridad en ese idioma.",
       "languageMismatchCta": "Crear un nuevo informe en este idioma",

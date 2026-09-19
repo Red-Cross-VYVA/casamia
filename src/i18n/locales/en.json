@@ -170,7 +170,7 @@
           "body": "Priced plan, products, installers, grants where relevant, and follow-up stay in one place."
         }
       ],
-      "note": "You stay in control: no installation is booked until the agreed adaptations are clear and accepted."
+      "note": "You stay in control: no installation is booked until the agreed adaptations are clear and approved."
     },
     "how": {
       "title": "Visit steps",
@@ -720,7 +720,7 @@
         "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
         "emailQueued": "The secure report link has been sent by email.",
         "whatsappQueued": "Your report is saved for WhatsApp delivery. The message will contain only a secure report link.",
-        "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
+        "demoMode": "This report is saved on this device for now. To keep it, send yourself the secure link by email or WhatsApp.",
         "viewReport": "View report page",
         "bookAssessment": "Book in-home assessment"
       },
@@ -899,7 +899,7 @@
       "intro": "See what is visible in each photo, why it matters, what to do next, and exactly how your prevention-priority score was calculated.",
       "loading": "Loading report...",
       "notFoundTitle": "Report not found",
-      "notFoundBody": "This link may have expired or the report may only exist on the original device in demo mode.",
+      "notFoundBody": "This link may have expired, or the report may only be available on the device where it was created.",
       "languageMismatchTitle": "This report was prepared in {{reportLanguage}}",
       "languageMismatchBody": "The page controls are now in {{currentLanguage}}, but the saved report text stays in {{reportLanguage}} because it was created from the original photo review. To receive a full report in {{currentLanguage}}, start a new safety report in that language.",
       "languageMismatchCta": "Start a new report in this language",

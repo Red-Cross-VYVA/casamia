@@ -33,7 +33,7 @@ const trustBarCopy: Record<'en' | 'es', TrustBarCopy> = {
     satisfaction: 'Aftercare promise',
     satisfactionAria: 'Satisfaction guaranteed',
     deposit: 'Pay in two steps',
-    depositAria: '50 percent deposit and 50 percent after customer acceptance',
+    depositAria: '50 percent deposit and 50 percent after your final review',
   },
   es: {
     sectionLabel: 'Garantias CasaMia',
@@ -46,7 +46,7 @@ const trustBarCopy: Record<'en' | 'es', TrustBarCopy> = {
     satisfaction: 'Compromiso posventa',
     satisfactionAria: 'Satisfaccion garantizada',
     deposit: 'Pago en dos pasos',
-    depositAria: '50 por ciento de reserva y 50 por ciento tras aceptacion del cliente',
+    depositAria: '50 por ciento de reserva y 50 por ciento tras tu revisión final',
   },
 }
 

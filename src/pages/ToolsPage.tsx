@@ -103,12 +103,12 @@ const copy = {
       {
         question: '¿Sustituyen estas herramientas a una visita profesional?',
         answer:
-          'No. Ordenan la primera decisión. La visita sigue siendo importante cuando hay medidas, alcance de instalación, varias estancias o documentación para ayudas.',
+          'No. Ordenan la primera decisión. La visita sigue siendo importante cuando hay medidas, instalación que revisar, varias estancias o documentación para ayudas.',
       },
       {
         question: '¿Puede CasaMia usar mis respuestas después?',
         answer:
-          'Sí, cuando decidas compartirlas. Las usamos para no repetir los mismos datos y preparar prioridades por estancia, notas de alcance y preguntas para la visita.',
+          'Sí, cuando decidas compartirlas. Las usamos para no repetir los mismos datos y preparar prioridades por estancia, notas de adaptación y preguntas para la visita.',
       },
     ],
   },
@@ -210,7 +210,7 @@ const nextToolSteps = [
     title: { en: 'Priorities ready to use', es: 'Prioridades listas para usar' },
     body: {
       en: 'Turn the result into room priorities, adaptation notes and a prepared visit or priced plan.',
-      es: 'Convierte el resultado en prioridades por estancia, notas de alcance y una visita o propuesta preparada.',
+      es: 'Convierte el resultado en prioridades por estancia, notas de adaptación y una visita o plan con precio.',
     },
   },
 ] as const

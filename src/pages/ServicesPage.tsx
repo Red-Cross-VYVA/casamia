@@ -381,7 +381,7 @@ const servicesPageCopy: Record<'en' | 'es', ServicesPageCopy> = {
     customerBenefit: 'Por qué ayuda',
     customPackageEyebrow: '¿Necesitas otra combinación?',
     customPackageTitle: 'Crea tu paquete a medida',
-    customPackageBody: 'Elige las estancias, rutinas y servicios que más importan. CasaMia lo convierte en un alcance para revisar antes de cualquier propuesta.',
+    customPackageBody: 'Elige las estancias, rutinas y servicios que más importan. CasaMia lo convierte en un plan para revisar antes de darte un precio.',
     customPackageCta: 'Crear mi paquete',
     requirements: {
       installation: 'Instalación profesional',

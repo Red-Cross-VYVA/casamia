@@ -58,8 +58,8 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       },
       {
         icon: 'acceptance',
-        title: 'Acceptance before final payment',
-        body: 'The final {{proposalBalancePercent}} is due only after the completed installation has been reviewed and accepted.',
+        title: 'Final review before final payment',
+        body: 'The final {{proposalBalancePercent}} is due only after the completed installation has been reviewed with you.',
       },
     ],
   },
@@ -97,8 +97,8 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       },
       {
         icon: 'acceptance',
-        title: 'Aceptación antes del pago final',
-        body: 'El {{proposalBalancePercent}} final se paga solo después de revisar y aceptar la instalación completada.',
+        title: 'Revisión final antes del pago final',
+        body: 'El {{proposalBalancePercent}} final se paga solo después de revisar contigo la instalación completada.',
       },
     ],
   },
