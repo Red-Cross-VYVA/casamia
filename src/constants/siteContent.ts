@@ -49,12 +49,12 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Bathroom Safety for Seniors',
     shortTitle: 'Bathroom Safety',
     description:
-      'Make bathrooms safer for older adults with grab bars, anti-slip surfaces, safer transfers, lighting, and accessibility improvements.',
+      'Review shower entry, toilet transfers, wet-floor grip, night lighting and support points before choosing bathroom adaptations.',
     intro:
       'Bathrooms are one of the most important rooms to review because water, transfers, and limited support can quickly increase fall risk.',
     icon: 'bath',
     risks: ['Slippery wet floors', 'Low or difficult toilet transfers', 'Unsafe shower access'],
-    improvements: ['Grab bars and support points', 'Anti-slip flooring and mats', 'Safer shower and toilet access'],
+    improvements: ['Support where movement happens', 'Wet-floor grip', 'Safer shower and toilet access'],
     ctaPlan: 'home-safety',
   },
   {
@@ -63,12 +63,12 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Stair Safety and Handrails',
     shortTitle: 'Stair Safety',
     description:
-      'Reduce stair and hallway risks with continuous handrails, better lighting, contrast strips, and safer movement between levels.',
+      'Check handrail continuity, step-edge visibility, landing space and lighting so stairs are easier to judge and hold onto.',
     intro:
       'Stairs and hallways should show every step edge clearly, with reliable support from the first step to the last.',
     icon: 'stairs',
     risks: ['Missing or interrupted handrails', 'Poor step contrast', 'Low lighting on landings'],
-    improvements: ['Continuous handrail support', 'Step-edge visibility', 'Motion lighting and safer movement'],
+    improvements: ['Continuous handrail support', 'Step-edge visibility', 'Lighting for every landing'],
     ctaPlan: 'home-safety',
   },
   {
@@ -77,9 +77,9 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Entrance Accessibility Improvements',
     shortTitle: 'Safe Entrances',
     description:
-      'Improve home entrances with lower-risk thresholds, ramps where suitable, lighting, support points, and safer arrival space.',
+      'Review the everyday arrival route: thresholds, steps, lighting, door handling, hand support and space for bags or mobility aids.',
     intro:
-      'The entrance is where daily independence begins. Small changes can make arriving, leaving, and receiving visitors safer.',
+      'The entrance should feel manageable when arriving home, leaving in a hurry or receiving visitors, not only on a calm daytime check.',
     icon: 'door',
     risks: ['Raised thresholds', 'Poor exterior lighting', 'Limited support near the door'],
     improvements: ['Threshold and ramp guidance', 'Entrance lighting', 'Support points for balance'],
@@ -91,9 +91,9 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Kitchen Safety for Aging in Place',
     shortTitle: 'Kitchen Safety',
     description:
-      'Make kitchens safer with better reach, open walking space, task lighting, storage changes, and appliance safeguards.',
+      'Review reach, lighting, floor clutter, work zones and appliance use so cooking tasks need less stretching, bending and rushing.',
     intro:
-      'A safer kitchen keeps daily routines manageable by reducing unnecessary reaching, bending, clutter, and appliance risk.',
+      'A safer kitchen keeps the main food and drink routines manageable by reducing unnecessary reaching, bending, clutter and appliance risk.',
     icon: 'kitchen',
     risks: ['Hard-to-reach daily items', 'Cluttered walking space', 'Poor task lighting'],
     improvements: ['Safer storage and reach', 'Clearer circulation', 'Lighting and appliance safeguards'],
@@ -105,12 +105,12 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Bedroom Safety for Seniors',
     shortTitle: 'Bedroom Safety',
     description:
-      'Make bedrooms safer for older adults with steadier bed access, night lighting, open floor space, bedside support, and reachable help.',
+      'Review bed height, the first step out of bed, night lighting, floor space and whether help is reachable from the bed.',
     intro:
       'Bedrooms need to support safe rest and safe movement, especially at night when low light, fatigue, and urgent routines can increase fall risk.',
     icon: 'bedroom',
     risks: ['Difficulty getting in and out of bed', 'Dark night-time movement', 'Emergency help out of reach'],
-    improvements: ['Bedside support and transfer aids', 'Motion night lighting', 'Clear floor space and emergency reach points'],
+    improvements: ['Steadier bed transfers', 'Motion night lighting', 'Clear route and reachable help'],
     ctaPlan: 'home-safety',
   },
   {
@@ -119,12 +119,12 @@ export const primaryServices: ServicePageContent[] = [
     title: 'Smart Home Safety for Seniors',
     shortTitle: 'Smart Safety',
     description:
-      'Add practical smart safety technology such as motion lighting, leak sensors, door alerts, emergency response devices, and approved-contact notifications.',
+      'Use connected support only where it solves a clear problem: night lighting, water alerts, door awareness, reminders or help requests.',
     intro:
       'Smart safety should be understandable. CasaMia focuses on practical technology that reduces a named risk without making the home complicated.',
     icon: 'smartphone',
     risks: ['No alert when routines change', 'Poor night visibility', 'Hidden water or smoke risks'],
-    improvements: ['Motion lighting and sensors', 'Emergency response devices', 'Simple setup and training'],
+    improvements: ['Motion lighting and sensors', 'Help-request options', 'Clear setup and testing'],
     ctaPlan: 'smart-safety',
   },
 ]
@@ -159,7 +159,7 @@ export const resourcePages: ResourcePageContent[] = [
   {
     id: 'bathroom-safety-for-seniors',
     path: '/blog/bathroom-safety-seniors-costly-mistakes',
-    title: 'Bathroom Safety for Seniors: What Families Should Check',
+    title: 'Bathroom Safety for Seniors: What to Check First',
     description:
       'Learn what to check in a senior bathroom, from wet floors and shower transfers to grab bars and anti-slip surfaces.',
     intro:
@@ -168,7 +168,7 @@ export const resourcePages: ResourcePageContent[] = [
       {
         title: 'Look at transfers first',
         body:
-          'Check whether the person can safely enter the shower, sit or stand, use the toilet, and reach towels or support without twisting.',
+          'Check whether shower entry, sitting, standing, toilet use and reaching towels or controls can happen without twisting away from support.',
       },
       {
         title: 'Avoid improvised support',
@@ -204,16 +204,16 @@ export const resourcePages: ResourcePageContent[] = [
       {
         title: 'How CasaMia helps',
         body:
-          'CasaMia can help connect the safety need to practical adaptations and organise a grant-ready plan. Approval, amount and payment timing remain with the authority.',
+          'CasaMia can connect the safety need to practical adaptations and prepare clear grant-readiness notes. Approval, amount and payment timing remain with the authority.',
       },
     ],
   },
   {
     id: 'aging-in-place-spain',
     path: '/blog/fall-prevention-home-checklist-spain',
-    title: 'Aging in Place in Spain: A Practical Family Guide',
+    title: 'Aging in Place in Spain: A Practical Home Guide',
     description:
-      'A practical guide to helping older adults live safely and comfortably at home in Spain.',
+      'A practical guide to making daily life at home safer and easier for older adults in Spain.',
     intro:
       'Aging in place works best when prevention, practical home improvements, well-matched technology and agreed support come together.',
     sections: [
@@ -240,7 +240,7 @@ export const serviceHubHighlights: ServiceHubHighlight[] = [
   {
     icon: 'shield',
     title: 'Room-by-room safety',
-    body: 'We identify risks in the places seniors use every day.',
+    body: 'We identify risks in the rooms and routes used every day.',
   },
   {
     icon: 'check',
