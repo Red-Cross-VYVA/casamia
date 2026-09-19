@@ -1102,7 +1102,7 @@
       },
       "payment": {
         "title": "Clear payment terms before installation starts",
-        "body": "We keep payments clear and fair. The {{visitFee}} in-home assessment includes {{visitVatPercent}} VAT, is paid in advance at booking, and is credited toward your chosen plan. For agreed installation adaptations, you pay {{proposalUpfrontPercent}} to get started and {{proposalBalancePercent}} only upon completion and customer acceptance.",
+        "body": "We keep payments clear and fair. The {{visitFee}} in-home assessment includes {{visitVatPercent}} VAT, is paid in advance at booking, and is credited toward your chosen plan. For agreed installation adaptations, you pay {{proposalUpfrontPercent}} to get started and {{proposalBalancePercent}} only after completion and your approval.",
         "items": [
           {
             "title": "Essential",
@@ -1161,7 +1161,7 @@
           },
           {
             "question": "When do I pay?",
-            "answer": "The {{visitFee}} assessment fee includes {{visitVatPercent}} VAT and is paid in advance at booking. Installation plans use a clear {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} final payment after completion and customer acceptance."
+            "answer": "The {{visitFee}} assessment fee includes {{visitVatPercent}} VAT and is paid in advance at booking. Installation plans use a clear {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} final payment after completion and your approval."
           },
           {
             "question": "Can the plan be customized?",
@@ -1377,7 +1377,7 @@
           "heroPoints": [
             "Essential adaptations",
             "Professional installation",
-            "Customer acceptance walkthrough"
+            "Final review with you"
           ],
           "who": [
             "Seniors wishing to age in place",
@@ -1435,7 +1435,7 @@
             {
               "icon": "installation",
               "title": "Professional Installation",
-              "body": "CasaMia coordinates insured installers and completes a customer acceptance walkthrough."
+              "body": "CasaMia coordinates insured installers and completes a final review with you."
             }
           ],
           "rooms": [
@@ -1501,7 +1501,7 @@
           "payment": {
             "terms": [
               "{{proposalUpfrontPercent}} deposit upon approval.",
-              "{{proposalBalancePercent}} upon completion and customer acceptance."
+              "{{proposalBalancePercent}} upon completion and your approval."
             ],
             "note": "You see the agreed adaptations before anything begins and only pay the final balance after the completed installation is reviewed."
           },
@@ -1512,7 +1512,7 @@
             },
             {
               "question": "Who carries out the work?",
-              "answer": "CasaMia coordinates insured installation partners, checks the agreed adaptations and completes a customer acceptance walkthrough."
+              "answer": "CasaMia coordinates insured installation partners, checks the agreed adaptations and completes a final review with you."
             },
             {
               "question": "Are products guaranteed?",
@@ -1545,7 +1545,7 @@
             {
               "icon": "inspection",
               "title": "Everything in Home Safety",
-              "body": "Assessment, agreed adaptations, installation coordination and customer acceptance are included first."
+              "body": "Assessment, agreed adaptations, installation coordination and a final review with you are included first."
             },
             {
               "icon": "lighting",

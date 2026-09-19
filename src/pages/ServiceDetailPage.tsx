@@ -51,7 +51,7 @@ const detailSteps = [
   {
     icon: Home,
     title: 'Defined next step',
-    body: 'If installation is appropriate, CasaMia prepares a priced plan with included items, exclusions, installation notes and safe-use handover.',
+    body: 'If installation is appropriate, CasaMia prepares a priced plan with included items, exclusions, installation notes and a clear safe-use explanation.',
   },
 ]
 
@@ -69,7 +69,7 @@ const detailStepsEs = [
   {
     icon: Home,
     title: 'Siguiente paso definido',
-    body: 'Si hace falta actuar, CasaMia prepara una propuesta con productos, instalación y entrega.',
+    body: 'Si hace falta actuar, CasaMia prepara un plan con precio, productos incluidos, notas de instalación y una explicación clara de uso seguro.',
   },
 ]
 
