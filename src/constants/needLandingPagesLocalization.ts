@@ -20,10 +20,10 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Seguridad en el baño para mayores',
     seoTitle: 'Seguridad en el baño para mayores en España',
     description:
-      'Seguridad práctica en el baño para personas mayores: acceso, ducha, inodoro, apoyo antideslizante, iluminación, controles de agua e instalación coordinada por CasaMia.',
+      'Seguridad práctica en el baño para personas mayores: acceso, ducha, inodoro, apoyo antideslizante, iluminación, controles de agua y encaje comprobado.',
     eyebrow: 'Seguridad en el baño',
     intro:
-      'Haz que ducharse, usar el inodoro y acceder al baño sea más seguro sin convertirlo en una clínica. CasaMia revisa la rutina real, recomienda la solución adecuada y coordina el trabajo.',
+      'Haz que ducharse, usar el inodoro y acceder al baño sea más seguro sin convertirlo en una clínica. CasaMia revisa la rutina real, recomienda lo que encaja y comprueba detalles antes de organizar el trabajo.',
     whoFor: [
       'Mayores inseguros en el baño',
       'Familias preocupadas por transferencias',
@@ -37,7 +37,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     casamiaPlan: [
       'Revisar la rutina real',
       'Confirmar medidas y fijaciones',
-      'Coordinar instalación y entrega',
+      'Comprobar encaje y explicar el uso seguro',
     ],
     riskSection: {
       eyebrow: 'Mapa de riesgos del baño',
@@ -213,12 +213,12 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Adaptaciones del hogar para personas mayores',
     seoTitle: 'Adaptaciones del hogar para personas mayores en España',
     description:
-      'CasaMia coordina adaptaciones para personas mayores en baño, dormitorio, entrada, cocina, iluminación y apoyo conectado.',
+      'CasaMia ayuda a planificar adaptaciones para personas mayores en baño, dormitorio, entrada, cocina, iluminación y apoyo conectado.',
     eyebrow: 'Adaptaciones del hogar',
     intro:
       'Una buena adaptación no consiste en añadir productos al azar. Consiste en preservar independencia, comodidad y dignidad eliminando riesgos y fricciones diarias.',
     whoFor: [
-      'Familias que necesitan un plan coordinado',
+      'Familias que necesitan un plan claro',
       'Personas mayores con cambios de movilidad o confianza',
       'Viviendas que combinan obras prácticas, apoyo conectado o ayudas',
     ],
@@ -230,8 +230,8 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     ],
     casamiaPlan: [
       'Traducir necesidades en resultados fáciles de entender',
-      'Coordinar productos, instaladores y tiempos',
-      'Mantener claro alcance, precio y entrega',
+      'Comprobar productos, encaje y tiempos',
+      'Mantener claros precio, adaptaciones incluidas y explicación final',
     ],
     relatedServices: [
       { label: 'Catálogo de servicios', to: '/services' },
@@ -247,7 +247,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿CasaMia suministra e instala todo?',
         answer:
-          'CasaMia coordina el proceso de principio a fin: evaluación, propuesta, selección, instalación y seguimiento cuando corresponde.',
+          'CasaMia ayuda a definir el plan: evaluación, productos adecuados, encaje comprobado, explicación de uso seguro y seguimiento cuando corresponde.',
       },
     ],
   },
@@ -353,7 +353,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Ayudas para adaptar viviendas en España',
     seoTitle: 'Ayudas para adaptar viviendas en España',
     description:
-      'Revisa la preparación para ayudas de adaptación del hogar en España: requisitos, documentos, plazos y apoyo gestionado por CasaMia.',
+      'Revisa la preparación para ayudas de adaptación del hogar en España: requisitos, documentos, plazos y qué puede faltar todavía.',
     eyebrow: 'Ayudas y asistencia',
     intro:
       'Las ayudas dependen de la región, municipio, convocatorias y situación personal. CasaMia ayuda a entender qué puede encajar y qué documentos suelen hacer falta.',
@@ -366,12 +366,12 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Región y código postal',
       'Propiedad o permiso de la vivienda',
       'Documentos de dependencia, discapacidad o edad',
-      'Alcance claro y presupuesto de trabajos elegibles',
+      'Plan claro y presupuesto de trabajos que podrían encajar',
     ],
     casamiaPlan: [
       'Revisar posibles rutas con fuentes oficiales',
       'Mostrar documentos pendientes y tiempos',
-      'Gestionar el proceso de principio a fin cuando se contrate',
+      'Preparar próximos pasos sin prometer aprobación',
     ],
     relatedServices: [
       { label: 'Revisar ayudas', to: '/grant-check' },
@@ -382,7 +382,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿CasaMia puede garantizar una ayuda?',
         answer:
-          'No. La autoridad pública decide requisitos, aprobación, importe y plazos. CasaMia ayuda a preparar y gestionar el proceso.',
+          'No. La autoridad pública decide requisitos, aprobación, importe y plazos. CasaMia ayuda a ordenar la información y preparar mejor el expediente.',
       },
       {
         question: '¿Qué información ayuda para revisar una ayuda?',
@@ -479,7 +479,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Evaluación de seguridad o contratista general',
     seoTitle: 'Evaluación de seguridad o contratista general | CasaMia',
     description:
-      'Entiende cuándo una evaluación de seguridad debe definir el alcance antes de pedir presupuesto o instalación a un contratista.',
+      'Entiende cuándo una evaluación de seguridad debe definir el plan antes de pedir presupuesto o instalación a un contratista.',
     eyebrow: 'Guía de decisión',
     intro:
       'Un contratista es útil cuando el trabajo ya está claro. Una evaluación de seguridad es útil cuando la familia aún decide qué obra conviene hacer, dónde está el mayor riesgo y qué cambios ayudarán realmente a la persona que vive en casa.',
@@ -487,20 +487,20 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Familias que saben que algo no es seguro pero no saben qué pedir a un instalador',
       'Viviendas con varias estancias, transferencias o rutas implicadas',
       'Personas mayores cuya movilidad, confianza o apoyo ha cambiado recientemente',
-      'Familias que necesitan alcance claro antes de presupuestos, ayudas, permiso de propietario o comunidad',
+      'Familias que necesitan un plan claro antes de presupuestos, ayudas, permiso de propietario o comunidad',
     ],
     priorities: [
       'Rutina de la persona: baño, inodoro, cama, escaleras, cocina, entrada y ruta nocturna',
       'Riesgos urgentes, recomendados u opcionales',
       'Medidas, tipo de pared, puntos de fijación, umbrales, puertas y limitaciones del espacio',
       'Si conviene producto rápido, pequeña adaptación, obra mayor o apoyo conectado',
-      'Un alcance escrito que el contratista pueda presupuestar sin adivinar',
+      'Un plan escrito que el contratista pueda presupuestar sin adivinar',
     ],
     casamiaPlan: [
       'Empezar por el movimiento diario, no por un catálogo de productos',
       'Conectar cada riesgo con el paquete de estancia y extras adecuados',
-      'Preparar un alcance práctico con fotos, prioridades y notas de instalación',
-      'Coordinar requisitos de instalación, comprobación final y seguimiento',
+      'Preparar un plan práctico con fotos, prioridades y notas de instalación',
+      'Definir requisitos de encaje, comprobación final y seguimiento',
     ],
     relatedServices: [
       { label: 'Reservar evaluación', to: '/home-safety-assessment' },
@@ -514,14 +514,14 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
           'Si el trabajo está claro, medido y definido, puede bastar. Si la familia no sabe qué cambiar, es mejor empezar con una evaluación para que el presupuesto encaje con la persona y no con una instalación genérica.',
       },
       {
-        question: '¿CasaMia también coordina la instalación?',
+        question: '¿CasaMia también ayuda con la instalación?',
         answer:
-          'Sí. CasaMia coordina evaluación, alcance práctico, instalación y explicación final cuando hace falta.',
+          'Sí. CasaMia ayuda a llevar el plan por los pasos clave: evaluación, planificación práctica, encaje comprobado y explicación final cuando hace falta.',
       },
       {
         question: '¿Por qué no pedir tres presupuestos directamente?',
         answer:
-          'Tres presupuestos solo se comparan bien si todos valoran el mismo alcance. Si cada contratista propone algo distinto, la familia puede elegir por precio sin saber qué opción resuelve el riesgo real.',
+          'Tres presupuestos solo se comparan bien si todos valoran el mismo plan. Si cada contratista propone algo distinto, la familia puede elegir por precio sin saber qué opción resuelve el riesgo real.',
       },
       {
         question: '¿Cuándo basta con un contratista?',

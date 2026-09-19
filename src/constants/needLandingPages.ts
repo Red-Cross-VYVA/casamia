@@ -47,10 +47,10 @@ export const needLandingPages: NeedLandingPageContent[] = [
     title: 'Bathroom safety for seniors',
     seoTitle: 'Bathroom Safety for Seniors in Spain',
     description:
-      'Practical bathroom safety for seniors: safer access, bathing, toilet transfers, anti-slip support, lighting, water controls and CasaMia-managed installation.',
+      'Practical bathroom safety for seniors: safer access, bathing, toilet transfers, anti-slip support, lighting, water controls and checked fitting.',
     eyebrow: 'Bathroom safety',
     intro:
-      'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. We review the real routine, recommend the right package and coordinate installation.',
+      'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. We review the real routine, recommend what fits and check the fitting details before work starts.',
     whoFor: [
       'Older adults unsteady in the bathroom',
       'Anyone worried about transfers',
@@ -64,7 +64,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     casamiaPlan: [
       'Review the real routine',
       'Confirm fit and fixing points',
-      'Coordinate installation and safe-use explanation',
+      'Check fitting and explain safe use',
     ],
     riskSection: {
       eyebrow: 'Bathroom risk map',
@@ -223,13 +223,13 @@ export const needLandingPages: NeedLandingPageContent[] = [
     title: 'Home adaptations for elderly people',
     seoTitle: 'Home Adaptations for Elderly People in Spain',
     description:
-      'CasaMia coordinates elderly home adaptations across bathrooms, bedrooms, entrances, kitchens, lighting and connected living support.',
+      'CasaMia helps plan elderly home adaptations across bathrooms, bedrooms, entrances, kitchens, lighting and connected living support.',
     eyebrow: 'Home adaptations',
     intro:
       'Good home adaptation starts with the daily task that has become harder: bathing, stairs, bed transfers, cooking, entering the home or asking for help.',
-    whoFor: ['Households that need one coordinated plan', 'Older adults with changing mobility or new hesitation at home', 'Homes needing practical adaptations, smart support or grant guidance'],
+    whoFor: ['Households that need one clear plan', 'Older adults with changing mobility or new hesitation at home', 'Homes needing practical adaptations, smart support or grant guidance'],
     priorities: ['Safer bathroom access', 'Bedroom and night-time movement', 'Entrance, threshold and stairs support', 'Connected routines where helpful'],
-    casamiaPlan: ['Translate daily problems into room-by-room adaptations', 'Coordinate products, installers and timings', 'Confirm pricing, included adaptations and safe-use explanation before installation starts'],
+    casamiaPlan: ['Translate daily problems into room-by-room adaptations', 'Check products, fitting details and timings', 'Confirm pricing, included adaptations and safe-use explanation before installation starts'],
     relatedServices: [
       { label: 'Service catalogue', to: '/services' },
       { label: 'Process', to: '/how-it-works' },
@@ -244,7 +244,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Does CasaMia supply and install everything?',
         answer:
-          'CasaMia coordinates the end-to-end plan: assessment, suitable equipment, installation partners and follow-up where required.',
+          'CasaMia helps define the plan: assessment, suitable equipment, checked fitting, safe-use explanation and follow-up where required.',
       },
     ],
   },
@@ -352,13 +352,13 @@ export const needLandingPages: NeedLandingPageContent[] = [
     title: 'Grants for home adaptations in Spain',
     seoTitle: 'Grants for Home Adaptations in Spain',
     description:
-      'Check grant readiness for home adaptations in Spain, including possible requirements, documents, timing and CasaMia-managed grant support.',
+      'Check grant readiness for home adaptations in Spain, including possible requirements, documents, timing and what may still be missing.',
     eyebrow: 'Grants and assistance',
     intro:
       'Grant eligibility depends on region, municipality, open calls and personal circumstances. CasaMia helps you understand what may fit and what documents are usually needed.',
     whoFor: ['People considering accessibility or safety works', 'Older adults who may qualify for public assistance', 'Households needing help with documents and next steps'],
-    priorities: ['Region and postcode check', 'Ownership or permission status', 'Dependency, disability or age documentation', 'Clear scope and quotation for eligible works'],
-    casamiaPlan: ['Check possible options from official sources', 'Show missing documents and timing', 'Manage the process end to end when commissioned'],
+    priorities: ['Region and postcode check', 'Ownership or permission status', 'Dependency, disability or age documentation', 'Clear plan and quotation for works that may qualify'],
+    casamiaPlan: ['Check possible options from official sources', 'Show missing documents and timing', 'Prepare next steps without promising approval'],
     relatedServices: [
       { label: 'Grant check', to: '/grant-check' },
       { label: 'Plan Adapta', to: '/plan-adapta' },
@@ -368,7 +368,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Can CasaMia guarantee a grant?',
         answer:
-          'No. The relevant public authority decides eligibility, approval, amount and timing. CasaMia can help prepare and manage the process.',
+          'No. The relevant public authority decides eligibility, approval, amount and timing. CasaMia can help organise the information and prepare a stronger file.',
       },
       {
         question: 'What information do I need for a grant check?',
@@ -481,7 +481,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       'Start with the daily movement problem, not a product catalogue',
       'Map each risk to the relevant room package and optional add-ons',
       'Prepare a practical plan with photos, priorities and installation notes',
-      'Coordinate installer requirements, completion checks and follow-up support',
+      'Set out fitting requirements, completion checks and follow-up support',
     ],
     relatedServices: [
       { label: 'Book a safety assessment', to: '/home-safety-assessment' },
@@ -497,7 +497,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'Does CasaMia do the installation too?',
         answer:
-          'CasaMia coordinates the plan end to end, including assessment, practical planning, installation coordination and safe-use explanation when needed.',
+          'CasaMia helps carry the plan through the key steps: assessment, practical planning, checked fitting and safe-use explanation when needed.',
       },
       {
         question: 'Why not ask for three contractor quotes immediately?',
