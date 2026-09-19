@@ -66,12 +66,12 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     primaryCta: 'Check home safety',
     secondaryCta: 'Check grant eligibility',
     provider: {
-      kicker: 'Technology behind the service',
-      title: 'Built with MOKA DigiTech.',
+      kicker: 'Tools behind the service',
+      title: 'Built to make each step easier to follow.',
       body:
-        'MOKA DigiTech supports CasaMia with tools that keep reports, visits, grant checks and follow-up easy to follow from the first concern to the agreed plan.',
+        'MOKA DigiTech supports CasaMia with tools that keep reports, visits, grant checks and follow-up organised from the first concern to the agreed plan.',
       bullets: [
-        'Services designed around older people, families and the professionals entering the home',
+        'Services designed around the person at home and the people helping them',
         'Clear reports, room notes and grant-readiness checks',
         'Experience with practical support tools through references such as VYVA and COCOON',
       ],
@@ -105,7 +105,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'seniors',
         title: 'Decision support, not complicated technology',
         body:
-          'Projects and references such as VYVA and COCOON show the same direction CasaMia is taking: voice support, reminders, wellbeing checks and emergency help that is easy to understand and act on.',
+          'Projects and references such as VYVA and COCOON show the same direction CasaMia is taking: voice support, reminders, wellbeing checks and emergency help that should be easy to understand and act on.',
         link: {
           label: 'VYVA and COCOON reference',
           href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion',
@@ -131,7 +131,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'service',
         title: 'From report to action',
         body:
-          'The goal is not only to detect risks. CasaMia turns findings into room priorities, adaptations to consider, grant-readiness notes and the next decision before anything is installed.',
+          'The goal is not only to detect risks. CasaMia turns findings into room priorities, changes to consider, grant-readiness notes and the next decision before anything is fitted.',
       },
     ],
     workflowEyebrow: 'How we work',
@@ -151,7 +151,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Ongoing support',
-        body: 'Follow-up, notes and optional alerts help keep the safety plan visible after installation.',
+        body: 'Follow-up, notes and optional alerts help keep the safety plan visible after fitting.',
       },
     ],
     sourcesTitle: 'Credibility references',
@@ -170,12 +170,12 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     primaryCta: 'Comprobar seguridad',
     secondaryCta: 'Comprobar ayudas',
     provider: {
-      kicker: 'Tecnología detrás del servicio',
-      title: 'Construido con MOKA DigiTech.',
+      kicker: 'Herramientas detrás del servicio',
+      title: 'Diseñado para que cada paso sea fácil de seguir.',
       body:
-        'MOKA DigiTech apoya CasaMia con herramientas para que informes, visitas, revisión de ayudas y seguimiento sean fáciles de entender desde la primera preocupación hasta el plan acordado.',
+        'MOKA DigiTech apoya CasaMia con herramientas para mantener informes, visitas, revisión de ayudas y seguimiento ordenados desde la primera preocupación hasta el plan acordado.',
       bullets: [
-        'Servicios pensados alrededor de personas mayores, familias y profesionales que entran en casa',
+        'Servicios pensados alrededor de la persona que vive en casa y quienes la ayudan',
         'Informes claros, notas por estancia y revisión de ayudas',
         'Experiencia con herramientas prácticas de apoyo como VYVA y COCOON',
       ],
@@ -209,7 +209,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'seniors',
         title: 'Apoyo para personas mayores, no tecnología complicada',
         body:
-          'Proyectos y referencias como VYVA y COCOON apuntan en la misma dirección que CasaMia: asistencia por voz, recordatorios, revisiones de bienestar y ayuda de emergencia fácil de entender y activar.',
+          'Proyectos y referencias como VYVA y COCOON apuntan en la misma dirección que CasaMia: asistencia por voz, recordatorios, revisiones de bienestar y ayuda de emergencia que debe ser fácil de entender y activar.',
         link: {
           label: 'Referencia VYVA y COCOON',
           href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion',
@@ -229,13 +229,13 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'funding',
         title: 'Preparación para ayudas sin falsas promesas',
         body:
-          'CasaMia ayuda a preparar evidencia práctica para vías regionales, públicas y de financiación europea cuando existan: necesidad de la vivienda, adaptación propuesta y checklist documental. La aprobación depende siempre de la autoridad competente.',
+          'CasaMia ayuda a preparar evidencia práctica cuando pueda encajar una ayuda: necesidad de la vivienda, adaptación propuesta y checklist documental. La aprobación depende siempre de la administración.',
       },
       {
         icon: 'service',
         title: 'Del informe a la acción',
         body:
-          'El objetivo no es solo detectar riesgos. CasaMia convierte los hallazgos en prioridades por estancia, adaptaciones a valorar, notas para ayudas y la siguiente decisión antes de instalar nada.',
+          'El objetivo no es solo detectar riesgos. CasaMia convierte los hallazgos en prioridades por estancia, cambios a valorar, notas para ayudas y la siguiente decisión antes de instalar nada.',
       },
     ],
     workflowEyebrow: 'Cómo trabajamos',
@@ -255,7 +255,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Soporte continuo',
-        body: 'El seguimiento, las notas y los avisos opcionales ayudan a mantener visible el plan tras la instalación.',
+        body: 'El seguimiento, las notas y los avisos opcionales ayudan a mantener visible el plan tras el montaje.',
       },
     ],
     sourcesTitle: 'Referencias de credibilidad',

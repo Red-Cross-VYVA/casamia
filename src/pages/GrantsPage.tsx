@@ -14,11 +14,11 @@ const grantsCopy = {
   en: {
     seoTitle: 'Grants and financial assistance for home adaptations',
     seoDescription:
-      'Understand possible public grant support for home safety and accessibility adaptations, including eligibility, documents, timing and CasaMia support.',
+      'Check possible public grant support for home safety and accessibility adaptations, including criteria, documents, timing and what CasaMia can prepare.',
     heroEyebrow: 'Public funding guidance',
-    heroTitle: 'Grants and financial assistance',
+    heroTitle: 'Check possible grant help before you commit',
     heroBody:
-      'Public grants may be available for certain accessibility improvements, home adaptations or energy-related upgrades. Availability, eligibility, funding levels and deadlines depend on the relevant public programme and the customer’s individual circumstances. CasaMia does not award grants and cannot guarantee that an application will be approved.',
+      'Some accessibility or home-adaptation work may fit public grant criteria. CasaMia can help you understand what to check, which documents are usually requested and what must be confirmed before you spend money.',
     heroPrimary: 'Check possible assistance',
     heroSecondary: 'Explore available programmes',
     importantTitle: 'Important before relying on a grant',
@@ -34,9 +34,9 @@ const grantsCopy = {
       ['Customer finance', 'You may need to fund approved adaptations before reimbursement.'],
     ],
     roleEyebrow: 'CasaMia’s role',
-    roleTitle: 'Guidance, not public approval.',
+    roleTitle: 'Guidance, not approval.',
     roleBody:
-      'CasaMia checks which published grant criteria may fit your adaptation plan and prepares the document trail when authorised. Any initial eligibility assessment is indicative only. The responsible public authority makes the final decision.',
+      'CasaMia checks which published criteria may fit your adaptation plan and helps prepare the document trail when authorised. Any initial fit check is indicative only. The public authority makes the final decision.',
     roleListTitle: 'What CasaMia can help prepare',
     roleItems: [
       'General information about possible public assistance programmes.',
@@ -76,9 +76,9 @@ const grantsCopy = {
       'Property-community approval where required.',
       'Income information where the programme requests it.',
       'Disability or dependency documentation where relevant.',
-      'Project quotation.',
+      'Itemised adaptation quote.',
       'Invoices and payment evidence.',
-      'Technical reports.',
+      'Technical report where required.',
       'Bank-account certificate.',
     ],
     privacyTitle: 'Privacy and sensitive documents',
@@ -105,11 +105,11 @@ const grantsCopy = {
   es: {
     seoTitle: 'Ayudas y subvenciones para adaptar viviendas',
     seoDescription:
-      'Entiende posibles ayudas públicas para seguridad y accesibilidad en el hogar, con elegibilidad, documentos, plazos y soporte CasaMia.',
+      'Revisa posibles ayudas públicas para seguridad y accesibilidad en el hogar, con criterios, documentos, plazos y qué puede preparar CasaMia.',
     heroEyebrow: 'Orientación sobre ayudas públicas',
-    heroTitle: 'Ayudas y asistencia financiera',
+    heroTitle: 'Comprueba posibles ayudas antes de comprometerte',
     heroBody:
-      'Puede haber ayudas públicas para determinadas mejoras de accesibilidad, adaptación de vivienda o eficiencia energética. La disponibilidad, los requisitos, las cuantías y los plazos dependen del programa público aplicable y de las circunstancias de cada cliente. CasaMia no concede ayudas y no puede garantizar la aprobación de una solicitud.',
+      'Algunas mejoras de accesibilidad o adaptación pueden encajar con criterios de ayudas públicas. CasaMia puede ayudarte a entender qué revisar, qué documentos suelen pedirse y qué confirmar antes de gastar dinero.',
     heroPrimary: 'Comprobar posibles ayudas',
     heroSecondary: 'Ver programas disponibles',
     importantTitle: 'Importante antes de contar con una ayuda',
@@ -125,9 +125,9 @@ const grantsCopy = {
       ['Financiación del cliente', 'Puede que tengas que pagar trabajos antes del reembolso.'],
     ],
     roleEyebrow: 'Papel de CasaMia',
-    roleTitle: 'Orientación, no aprobación pública.',
+    roleTitle: 'Orientación, no aprobación.',
     roleBody:
-      'CasaMia revisa qué criterios publicados pueden encajar con tu proyecto y prepara la documentación cuando existe autorización. Cualquier revisión inicial de elegibilidad es orientativa. La decisión final corresponde a la administración responsable.',
+      'CasaMia revisa qué criterios publicados pueden encajar con tu plan de adaptación y ayuda a preparar la documentación cuando existe autorización. Cualquier revisión inicial es orientativa. La administración toma la decisión final.',
     roleListTitle: 'Qué puede ayudar a preparar CasaMia',
     roleItems: [
       'Información general sobre posibles programas de ayuda pública.',
@@ -167,9 +167,9 @@ const grantsCopy = {
       'Aprobación de la comunidad cuando corresponda.',
       'Información de ingresos si el programa la solicita.',
       'Documentación de discapacidad o dependencia cuando sea relevante.',
-      'Presupuesto del proyecto.',
+      'Presupuesto desglosado de la adaptación.',
       'Facturas y justificantes de pago.',
-      'Informes técnicos.',
+      'Informe técnico cuando se requiere.',
       'Certificado de cuenta bancaria.',
     ],
     privacyTitle: 'Privacidad y documentos sensibles',
