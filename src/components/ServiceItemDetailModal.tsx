@@ -37,7 +37,7 @@ const modalCopy = {
     visit: 'Home visit required',
     compatibility: 'Compatibility check',
     quote: 'Price confirmed after review',
-    grant: 'May be eligible for grant support',
+    grant: 'Grant criteria may apply',
     fallbackInclude: 'We confirm fit and the agreed adaptation before installation.',
   },
   es: {
@@ -58,7 +58,7 @@ const modalCopy = {
     visit: 'Requiere visita',
     compatibility: 'Comprobación de compatibilidad',
     quote: 'Precio confirmado tras revisión',
-    grant: 'Puede optar a apoyo de subvención',
+    grant: 'Pueden aplicar criterios de ayuda',
     fallbackInclude: 'Confirmamos el encaje y el trabajo acordado antes de instalar.',
   },
 }
