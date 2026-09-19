@@ -97,6 +97,22 @@ export function BeforeAfterCard({
 
       <div className="before-after-card-content p-6">
         <h3 className="font-display text-2xl font-bold leading-tight text-text-dark">{item.title}</h3>
+        {item.before || item.after ? (
+          <div className="mt-5 grid gap-3 text-sm leading-relaxed text-text-mid">
+            {item.before ? (
+              <p className="rounded-lg border border-border bg-light-blue/45 p-3">
+                <strong className="mb-1 block text-xs uppercase text-blue">{labels.before}</strong>
+                {item.before}
+              </p>
+            ) : null}
+            {item.after ? (
+              <p className="rounded-lg border border-green/30 bg-green/10 p-3">
+                <strong className="mb-1 block text-xs uppercase text-green">{labels.after}</strong>
+                {item.after}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         <ul className="mt-5 space-y-3">
           {item.benefits.map((benefit) => (
             <li className="flex gap-3 text-text-mid" key={benefit}>

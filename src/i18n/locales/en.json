@@ -1807,85 +1807,85 @@
   },
   "beforeAfter": {
     "preview": {
-      "title": "Focused changes that reduce everyday risk.",
-      "body": "See upgrades that make moving, showering, entering and resting safer without changing the whole home.",
+      "title": "See what a safer home can look like.",
+      "body": "Compare common risk points with practical changes for bathrooms, stairs, entrances, kitchens, bedrooms and living areas.",
       "viewCta": "See Examples →",
-      "assessmentCta": "Start Free"
+      "assessmentCta": "Start free check"
     },
     "page": {
-      "title": "Before & After",
-      "body": "Explore upgrades that reduce everyday movement, transfer, entrance and night-time risks at home.",
+      "title": "Before and after: safer daily routines at home",
+      "body": "Use these examples to spot what may be making a room harder to use, then see the kind of practical change CasaMia can review.",
       "galleryCta": "View Gallery",
       "galleryTitle": "From everyday risk to safer daily routines",
       "galleryBody": "Each transformation shows the risk CasaMia looks for and the improvement that can be reviewed after a home safety assessment.",
-      "compareCta": "Compare options"
+      "compareCta": "Check my rooms"
     },
     "labels": {
       "before": "Before",
       "after": "After",
       "focus": "Safety focus"
     },
-    "cardCta": "Review a similar upgrade",
-    "disclaimer": "Images are for illustration purposes. Every home is assessed individually and recommended improvements may vary.",
+    "cardCta": "See what to check",
+    "disclaimer": "These examples are a guide, not a final recommendation. CasaMia checks the room layout, measurements, routines and fitting conditions before confirming any work.",
     "transformations": [
       {
-        "title": "Bathroom Safety Upgrade",
-        "before": "Wet-floor transfers with little support around the shower or toilet.",
-        "after": "Clear support points, anti-slip surfaces, and safer daily bathroom movement.",
+        "title": "Bathroom safety",
+        "before": "Wet-floor transfers with little reliable support around the shower or toilet.",
+        "after": "Support points, slip-resistant surfaces and clearer movement through the daily bathroom routine.",
         "benefits": [
-          "Grab bars where support is needed",
-          "Anti-slip surfaces for wet zones",
-          "Safer shower and toilet transfers"
+          "Check where support is needed",
+          "Reduce wet-floor slip risk",
+          "Make shower and toilet transfers steadier"
         ]
       },
       {
-        "title": "Safer Stairs",
+        "title": "Stair safety",
         "before": "Steps that feel uncertain because support, contrast, or lighting is limited.",
-        "after": "Continuous handrails, visible step edges, and safer movement between floors.",
+        "after": "Continuous handrails, visible step edges and better light so each step is easier to judge.",
         "benefits": [
-          "Continuous handrail support",
-          "Improved step visibility",
-          "Reduced slip and trip risk"
+          "Review handrail continuity",
+          "Make step edges easier to see",
+          "Reduce slips, trips and hesitation"
         ]
       },
       {
-        "title": "Safer Entrance Access",
-        "before": "Raised thresholds, narrow entry points, or poor lighting at arrival.",
-        "after": "A smoother, better-lit entrance with support where balance is needed.",
+        "title": "Entrance access",
+        "before": "Raised thresholds, narrow entry points or poor lighting when arriving or leaving.",
+        "after": "A smoother, better-lit entrance with support where balance or mobility aids need it.",
         "benefits": [
-          "Lower-risk thresholds",
-          "Better lighting at the entrance",
-          "Support points for arrival and exit"
+          "Check thresholds and trip points",
+          "Improve light at arrival",
+          "Add support for entry and exit"
         ]
       },
       {
-        "title": "Kitchen Safety Upgrade",
-        "before": "Busy kitchen routines can mean awkward reach, slippery zones, hot surfaces or cluttered movement routes.",
-        "after": "Clearer work zones, safer reach, anti-slip flooring, lighting and appliance safeguards.",
+        "title": "Kitchen safety",
+        "before": "Busy routines can mean awkward reach, slippery areas, hot surfaces or cluttered routes.",
+        "after": "Clearer work zones, safer reach, slip reduction, better light and appliance safeguards where needed.",
         "benefits": [
-          "Safer reach for daily items",
-          "Clearer work zones and routes",
-          "Appliance and leak-risk safeguards"
+          "Bring daily items within safer reach",
+          "Clear work zones and routes",
+          "Review appliance and leak risks"
         ]
       },
       {
-        "title": "Bedroom Safety Upgrade",
+        "title": "Bedroom and night route",
         "before": "Getting in and out of bed can be harder when lighting, support or floor space is limited.",
-        "after": "Better bedside lighting, clear routes, stable support and lower-risk night movement.",
+        "after": "Better bedside light, clearer routes, stable support and a lower-risk path to the bathroom.",
         "benefits": [
-          "Bedside support where needed",
-          "Clear route to the bathroom",
-          "Night lighting and trip reduction"
+          "Review bed height and support",
+          "Clear the route to the bathroom",
+          "Reduce night-time trip risks"
         ]
       },
       {
-        "title": "Living Area Safety",
-        "before": "Chairs, rugs, cables and tight routes can make everyday sitting and movement less secure.",
-        "after": "Clear walking routes, safer seating height and support near daily-use areas.",
+        "title": "Living area safety",
+        "before": "Chairs, rugs, cables and tight routes can make sitting, standing and moving less secure.",
+        "after": "Clearer walking routes, safer seating height and support near the places used every day.",
         "benefits": [
-          "Safer seating and transfers",
-          "Clearer walking routes",
-          "Reduced rug and cable trip risks"
+          "Check seating height and stability",
+          "Clear walking routes",
+          "Reduce rug and cable trip risks"
         ]
       }
     ]

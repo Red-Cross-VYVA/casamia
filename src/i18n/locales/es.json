@@ -1807,85 +1807,85 @@
   },
   "beforeAfter": {
     "preview": {
-      "title": "Cambios enfocados que reducen riesgos diarios.",
-      "body": "Mira mejoras que hacen más seguro moverse, ducharse, entrar y descansar sin cambiar toda la vivienda.",
+      "title": "Mira cómo puede verse una vivienda más segura.",
+      "body": "Compara riesgos habituales con cambios prácticos para baño, escaleras, entrada, cocina, dormitorio y salón.",
       "viewCta": "Ver ejemplos →",
-      "assessmentCta": "Empezar gratis"
+      "assessmentCta": "Empezar revisión gratis"
     },
     "page": {
-      "title": "Antes y después",
-      "body": "Explora mejoras que reducen riesgos de movimiento, transferencias, entrada y noche en casa.",
+      "title": "Antes y después: rutinas más seguras en casa",
+      "body": "Usa estos ejemplos para detectar qué puede estar haciendo difícil una estancia y ver qué tipo de cambio práctico puede revisar CasaMia.",
       "galleryCta": "Ver galería",
       "galleryTitle": "De riesgos cotidianos a rutinas más seguras",
       "galleryBody": "Cada transformación muestra el riesgo que CasaMia revisa y la mejora que puede definirse tras una evaluación de seguridad del hogar.",
-      "compareCta": "Comparar planes"
+      "compareCta": "Revisar mis estancias"
     },
     "labels": {
       "before": "Antes",
       "after": "Después",
       "focus": "Enfoque de seguridad"
     },
-    "cardCta": "Solicitar una mejora similar",
-    "disclaimer": "Las imágenes son ilustrativas. Cada hogar se evalúa individualmente y las mejoras recomendadas pueden variar.",
+    "cardCta": "Ver qué revisar",
+    "disclaimer": "Estos ejemplos sirven como orientación, no como recomendación final. CasaMia revisa la distribución, medidas, rutinas y condiciones de instalación antes de confirmar cualquier trabajo.",
     "transformations": [
       {
-        "title": "Mejora de seguridad en baño",
-        "before": "Transferencias en suelo mojado con poco apoyo junto a ducha o inodoro.",
-        "after": "Puntos de apoyo claros, superficies antideslizantes y movimiento diario más seguro.",
+        "title": "Seguridad en baño",
+        "before": "Transferencias en suelo mojado con poco apoyo fiable junto a ducha o inodoro.",
+        "after": "Puntos de apoyo, superficies antideslizantes y movimiento más claro en la rutina diaria del baño.",
         "benefits": [
-          "Barras de apoyo donde se necesitan",
-          "Superficies antideslizantes en zonas húmedas",
-          "Transferencias más seguras en ducha e inodoro"
+          "Revisar dónde hace falta apoyo",
+          "Reducir el riesgo de resbalón en zonas húmedas",
+          "Hacer más estables las transferencias"
         ]
       },
       {
-        "title": "Escaleras más seguras",
+        "title": "Seguridad en escaleras",
         "before": "Peldaños inseguros por falta de apoyo, contraste o iluminación.",
-        "after": "Pasamanos continuos, bordes más visibles y desplazamiento más seguro entre plantas.",
+        "after": "Pasamanos continuos, bordes más visibles y mejor luz para calcular cada paso.",
         "benefits": [
-          "Apoyo continuo con pasamanos",
-          "Mejor visibilidad de los peldaños",
-          "Menor riesgo de resbalones y tropiezos"
+          "Revisar continuidad del pasamanos",
+          "Hacer más visibles los bordes",
+          "Reducir resbalones, tropiezos y dudas"
         ]
       },
       {
-        "title": "Entrada fácil y segura",
-        "before": "Umbrales elevados, accesos estrechos o poca iluminación al entrar.",
-        "after": "Una entrada más fluida, mejor iluminada y con apoyo donde se necesita equilibrio.",
+        "title": "Acceso de entrada",
+        "before": "Umbrales elevados, accesos estrechos o poca iluminación al entrar o salir.",
+        "after": "Una entrada más fluida, mejor iluminada y con apoyo donde el equilibrio o las ayudas de movilidad lo necesitan.",
         "benefits": [
-          "Umbrales más fáciles de cruzar",
-          "Mejor iluminación en la entrada",
-          "Puntos de apoyo para entrar y salir"
+          "Revisar umbrales y puntos de tropiezo",
+          "Mejorar la luz al llegar",
+          "Añadir apoyo para entrar y salir"
         ]
       },
       {
-        "title": "Mejora de seguridad en cocina",
-        "before": "Las rutinas de cocina pueden implicar alcances incómodos, zonas resbaladizas, calor o pasos bloqueados.",
-        "after": "Zonas de trabajo más claras, alcance seguro, suelo antideslizante, luz y protección de electrodomésticos.",
+        "title": "Seguridad en cocina",
+        "before": "Las rutinas pueden implicar alcances incómodos, zonas resbaladizas, calor o pasos bloqueados.",
+        "after": "Zonas de trabajo más claras, alcance más seguro, menos resbalones, mejor luz y protección donde haga falta.",
         "benefits": [
-          "Acceso más seguro a objetos diarios",
-          "Zonas de trabajo y paso despejadas",
-          "Protección ante aparatos y fugas"
+          "Acercar objetos de uso diario",
+          "Despejar zonas de trabajo y paso",
+          "Revisar riesgos de aparatos y fugas"
         ]
       },
       {
-        "title": "Mejora de seguridad en dormitorio",
+        "title": "Dormitorio y ruta nocturna",
         "before": "Entrar y salir de la cama puede ser difícil si falta luz, apoyo o espacio libre.",
-        "after": "Mejor luz junto a la cama, rutas despejadas, apoyo estable y movimientos nocturnos más tranquilos.",
+        "after": "Mejor luz junto a la cama, rutas despejadas, apoyo estable y un camino más seguro hacia el baño.",
         "benefits": [
-          "Apoyo junto a la cama si hace falta",
-          "Ruta despejada hacia el baño",
-          "Luz nocturna y menos tropiezos"
+          "Revisar altura y apoyo de la cama",
+          "Despejar la ruta hacia el baño",
+          "Reducir tropiezos nocturnos"
         ]
       },
       {
         "title": "Seguridad en salón",
-        "before": "Sillas, alfombras, cables y pasos estrechos pueden hacer menos seguros los movimientos diarios.",
-        "after": "Circulación más clara, asientos más seguros y apoyos sencillos para la independencia diaria.",
+        "before": "Sillas, alfombras, cables y pasos estrechos pueden hacer menos seguro sentarse, levantarse y moverse.",
+        "after": "Rutas más claras, altura de asiento más segura y apoyo cerca de las zonas que se usan a diario.",
         "benefits": [
-          "Asientos y transferencias más seguros",
-          "Rutas de paso más despejadas",
-          "Menos riesgos por alfombras y cables"
+          "Revisar altura y estabilidad del asiento",
+          "Despejar rutas de paso",
+          "Reducir riesgos por alfombras y cables"
         ]
       }
     ]
