@@ -207,7 +207,7 @@
         },
         {
           "question": "¿Podemos usar fotos, vídeos o una llamada antes de una visita?",
-          "answer": "Sí. Muchas familias empiezan online con respuestas guiadas, fotos, vídeos cortos, notas de voz o llamada. Si hace falta medición o revisión profesional, CasaMia confirma la visita antes de reservar."
+          "answer": "Sí. Puedes empezar online con respuestas guiadas, fotos, vídeos cortos, notas de voz o llamada. Si hace falta medición o revisión profesional, CasaMia confirma la visita antes de reservar."
         },
         {
           "question": "¿CasaMia puede ayudar con ayudas públicas?",
@@ -289,11 +289,11 @@
     "finalCta": "Pareja mayor abrazándose en casa",
     "gallery": [
       "Baño pequeño con ventana, lavabo y bañera",
-      "Pareja mayor usando pasamanos en las escaleras de casa",
-      "Persona mayor moviéndose con seguridad cerca de una entrada",
-      "Pareja mayor en una cocina segura en casa",
-      "Pareja mayor descansando junta en un dormitorio seguro",
-      "Pareja mayor en una zona de estar cómoda en casa"
+      "Persona usando pasamanos en las escaleras de casa",
+      "Persona moviéndose con seguridad cerca de una entrada",
+      "Personas en una cocina más segura en casa",
+      "Personas descansando juntas en un dormitorio más seguro",
+      "Personas en una zona de estar cómoda en casa"
     ]
   },
   "grantStamp": {
@@ -309,7 +309,7 @@
   "prevention": {
     "badge": "Por qué importa",
     "stat": "8 de cada 10",
-    "sub": "caídas de mayores son prevenibles.",
+    "sub": "muchas caídas en casa son prevenibles.",
     "body": "Las caídas son la principal causa de lesiones en adultos mayores de 65 años, y la mayoría ocurren en casa. Las adaptaciones adecuadas reducen riesgos diarios concretos antes de que se vuelvan urgentes.",
     "stats": [
       {
@@ -318,7 +318,7 @@
       },
       {
         "value": "9,93M",
-        "label": "mayores en España,\ncada año más"
+        "label": "personas mayores en España,\ncada año más"
       },
       {
         "value": "€6.000",
@@ -459,7 +459,7 @@
         ]
       }
     ],
-    "intro": "Mira cómo CasaMia refuerza las zonas que más preocupan a las familias: baños, escaleras, entradas, cocinas, dormitorios y espacios de vida diaria.",
+    "intro": "Mira cómo CasaMia refuerza las zonas que más preocupan en casa: baños, escaleras, entradas, cocinas, dormitorios y espacios de vida diaria.",
     "controlsLabel": "Controles de la galería",
     "previous": "Mostrar espacios anteriores",
     "next": "Mostrar espacios siguientes",
@@ -468,7 +468,7 @@
     "showItem": "Empezar la galería con {{title}}"
   },
   "plans": {
-    "title1": "Empieza con el alcance adecuado,",
+    "title1": "Empieza con la revisión adecuada,",
     "title2": "y aprueba el trabajo adecuado.",
     "sub": "Informe online gratis disponible - evaluación a domicilio de {{visitFee}} descontable de tu plan",
     "popular": "Más Popular",
@@ -514,7 +514,7 @@
           "Todo lo de Advanced",
           "Monitorización de salud y constantes",
           "Sensores de detección de caídas",
-          "Alertas familiares y de emergencia 24/7",
+          "Alertas a contactos autorizados y emergencia 24/7",
           "Controles activados por voz"
         ]
       }
@@ -548,7 +548,7 @@
   "eurosafe": {
     "prefix": "EN COLABORACIÓN CON",
     "logo": "EuroSafe",
-    "desc": "Comprometidos con reducir accidentes en el hogar y mejorar la seguridad de los mayores en toda Europa."
+    "desc": "Comprometidos con reducir accidentes en el hogar y mejorar la seguridad diaria en toda Europa."
   },
   "finalCta": {
     "title": "Ve qué necesita\nprimero tu hogar.",
@@ -556,7 +556,7 @@
     "cta": "Obtener informe gratis"
   },
   "footer": {
-    "tagline": "Adaptación de viviendas para mayores en España: baño seguro, acceso, ayudas y mejoras prácticas.",
+    "tagline": "Adaptación de viviendas en España: baño seguro, acceso, ayudas y mejoras prácticas.",
     "phone": "+34 900 000 000",
     "company": {
       "title": "Empresa",
@@ -968,7 +968,7 @@
           "name": "Advanced",
           "price": "€1.149",
           "description": "Un plan más completo para varias estancias, accesos y rutinas diarias.",
-          "bestFor": "Varias estancias o rutinas diarias necesitan cambios coordinados y planificación de instalación.",
+          "bestFor": "Varias estancias o rutinas diarias necesitan cambios planificados en el orden correcto.",
           "deliverables": [
             "Todo lo de Essential",
             "Adaptaciones en baño, cocina, entrada y escaleras",
@@ -991,7 +991,7 @@
             "Sensores de detección de caídas",
             "Configuración de monitorización de salud",
             "Controles activados por voz",
-            "Alertas familiares y de emergencia 24/7",
+            "Alertas a contactos autorizados y emergencia 24/7",
             "Configuración smart y formación al usuario"
           ],
           "cta": "Solicitar Premium"
@@ -999,7 +999,7 @@
       ],
       "comparison": {
         "title": "Comparar planes",
-        "intro": "La evaluación ayuda a definir el alcance exacto. Esta tabla compara niveles habituales de servicio, no la visita de evaluación.",
+        "intro": "La evaluación ayuda a definir qué debe incluirse. Esta tabla compara niveles habituales de servicio, no la visita de evaluación.",
         "headers": [
           "Prestación",
           "Essential",
@@ -1247,8 +1247,8 @@
             "Acciones siguientes confirmadas"
           ],
           "who": [
-            "Familias que quieren claridad antes de adaptar la vivienda",
-            "Personas mayores que desean envejecer en casa con seguridad",
+            "Hogares que quieren claridad antes de adaptar la vivienda",
+            "Personas que quieren seguir viviendo en casa con seguridad",
             "Personas recuperándose de una cirugía o problema de salud",
             "Personas con movilidad reducida o nuevas necesidades de accesibilidad"
           ],
@@ -1325,10 +1325,10 @@
           "process": [
             {
               "title": "Evaluación del hogar",
-              "body": "Inspeccionamos la vivienda, escuchamos a las personas implicadas e identificamos las prioridades de seguridad a resolver primero."
+              "body": "Revisamos la vivienda, escuchamos las prioridades diarias e identificamos qué conviene resolver primero."
             },
             {
-              "title": "Propuesta y aprobación",
+              "title": "Recomendación y decisión",
               "body": "Recibes un informe claro y recomendaciones antes de decidir el siguiente paso."
             },
             {
@@ -1341,7 +1341,7 @@
             "Informe de seguridad por escrito",
             "Prioridades estancia por estancia",
             "Lista recomendada de productos y adaptaciones",
-            "Propuesta clara si hacen falta mejoras",
+            "Siguientes pasos claros si hacen falta mejoras",
             "Explicación clara para la persona y contactos autorizados",
             "Orientación de seguimiento"
           ],
@@ -1365,23 +1365,23 @@
               "answer": "Sí. Recibirás un informe claro con riesgos, prioridades y qué revisar o decidir primero."
             },
             {
-              "question": "¿Pueden asistir familiares?",
-              "answer": "Sí. Recomendamos que familiares o cuidadores participen para entender bien las recomendaciones."
+              "question": "¿Pueden asistir otras personas?",
+              "answer": "Sí. Puede participar cualquier persona autorizada que ayude a entender la rutina, tomar decisiones o revisar las recomendaciones."
             }
           ]
         },
         {
           "id": "home-safety",
           "title": "Plan Seguridad del Hogar",
-          "subtitle": "Adaptaciones profesionales del hogar que ayudan a las personas mayores a vivir con más seguridad, independencia y comodidad en casa.",
+          "subtitle": "Adaptaciones profesionales del hogar que ayudan a vivir con más seguridad, independencia y comodidad en casa.",
           "heroPoints": [
             "Adaptaciones esenciales",
             "Instalación profesional",
             "Revisión final contigo"
           ],
           "who": [
-            "Personas mayores que desean envejecer en casa",
-            "Familias que cuidan de padres mayores",
+            "Personas que quieren seguir viviendo en casa",
+            "Hogares que necesitan apoyo para decidir qué adaptar",
             "Personas recuperándose de una cirugía",
             "Personas con movilidad reducida"
           ],
@@ -1527,7 +1527,7 @@
         {
           "id": "smart-safety",
           "title": "Plan Seguridad Smart",
-          "subtitle": "Una configuración conectada que combina adaptaciones del hogar, dispositivos inteligentes, el asistente VYVA y alertas acordadas para envejecer en casa.",
+          "subtitle": "Una configuración conectada que combina adaptaciones del hogar, dispositivos inteligentes, el asistente VYVA y alertas acordadas para vivir en casa con más apoyo.",
           "heroPoints": [
             "Dispositivos conectados",
             "App VYVA: 1 año incluido",
@@ -1536,9 +1536,9 @@
           ],
           "who": [
             "Hogares que quieren alertas para contactos autorizados",
-            "Personas mayores que se benefician de alertas y apoyo conectado",
+            "Personas que se benefician de alertas y apoyo conectado",
             "Viviendas con riesgos de movimiento, agua, humo o acceso que conviene monitorizar",
-            "Cuidadores que quieren una capa inteligente después de las adaptaciones físicas"
+            "Contactos autorizados que necesitan una capa clara de avisos después de las adaptaciones físicas"
           ],
           "includedIntro": "Todo lo del Plan Seguridad del Hogar, más tecnología smart, acceso a VYVA, configuración y formación.",
           "included": [
@@ -1585,7 +1585,7 @@
             {
               "icon": "health",
               "title": "Asistente VYVA + suscripción de 1 año",
-              "body": "Incluye un año de suscripción VYVA para recordatorios por voz, checks de bienestar, alertas a cuidadores y vista para contactos autorizados."
+              "body": "Incluye un año de suscripción VYVA para recordatorios por voz, checks de bienestar, avisos acordados y vista para contactos autorizados."
             },
             {
               "icon": "settings",
@@ -1914,7 +1914,7 @@
       "actionTitle": "Qué hacer primero",
       "actionBody": "Empezar con barras de apoyo y un asiento seguro antes de planificar obras mayores.",
       "nextTitle": "Qué hacer ahora",
-      "nextBody": "Usa el informe para hablar con la familia, comprobar ayudas o reservar una visita a domicilio."
+      "nextBody": "Usa el informe para hablar con quien ayude a decidir, comprobar ayudas o reservar una visita a domicilio."
     },
     "points": [
       {

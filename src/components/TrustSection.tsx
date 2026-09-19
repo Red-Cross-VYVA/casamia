@@ -59,7 +59,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'acceptance',
         title: 'Final review before final payment',
-        body: 'The final {{proposalBalancePercent}} is due only after the completed installation has been reviewed with you.',
+        body: 'The final {{proposalBalancePercent}} is due only after the completed installation has been checked with you.',
       },
     ],
   },
@@ -78,7 +78,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'partners',
         title: 'Encaje de instalación revisado',
-        body: 'La adaptación propuesta se ajusta a la vivienda, superficie, medidas y nivel de instalación necesario.',
+        body: 'Comprobamos que el cambio recomendado encaja con la vivienda, superficie, medidas y nivel de instalación necesario.',
       },
       {
         icon: 'insured',
@@ -98,7 +98,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'acceptance',
         title: 'Revisión final antes del pago final',
-        body: 'El {{proposalBalancePercent}} final se paga solo después de revisar contigo la instalación completada.',
+        body: 'El {{proposalBalancePercent}} final se paga solo después de comprobar contigo la instalación completada.',
       },
     ],
   },

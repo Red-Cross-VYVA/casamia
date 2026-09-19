@@ -289,11 +289,11 @@
     "finalCta": "Senior couple embracing at home",
     "gallery": [
       "Small bathroom with window, sink and bathtub",
-      "Senior couple using stair handrail support at home",
-      "Older adult moving safely near a home entry",
-      "Senior couple in a safe kitchen at home",
-      "Senior couple resting together in a safe bedroom",
-      "Older couple in a comfortable living area at home"
+      "Person using stair handrail support at home",
+      "Person moving safely near a home entry",
+      "People in a safer kitchen at home",
+      "People resting together in a safer bedroom",
+      "People in a comfortable living area at home"
     ]
   },
   "grantStamp": {
@@ -309,7 +309,7 @@
   "prevention": {
     "badge": "Why it matters",
     "stat": "8 in 10",
-    "sub": "senior falls are preventable.",
+    "sub": "many home falls are preventable.",
     "body": "Falls are the leading cause of injury in adults over 65, and most happen at home. The right adaptations reduce specific daily risks before they become urgent.",
     "stats": [
       {
@@ -318,7 +318,7 @@
       },
       {
         "value": "9.93M",
-        "label": "seniors in Spain,\ngrowing every year"
+        "label": "older people in Spain,\ngrowing every year"
       },
       {
         "value": "€6,000",
@@ -548,7 +548,7 @@
   "eurosafe": {
     "prefix": "IN PARTNERSHIP WITH",
     "logo": "EuroSafe",
-    "desc": "Committed to reducing home accidents and improving senior safety across Europe."
+    "desc": "Committed to reducing home accidents and improving daily safety across Europe."
   },
   "finalCta": {
     "title": "See what your home\nneeds first.",
@@ -556,7 +556,7 @@
     "cta": "Get My Free Report"
   },
   "footer": {
-    "tagline": "Senior home adaptation in Spain: bathroom safety, entrance access, grant support and practical fitting.",
+    "tagline": "Home adaptation in Spain: bathroom safety, entrance access, grant support and practical fitting.",
     "phone": "+34 900 000 000",
     "company": {
       "title": "Company",
@@ -968,7 +968,7 @@
           "name": "Advanced",
           "price": "€1,149",
           "description": "A broader home safety plan covering multiple rooms, access points and daily routines.",
-          "bestFor": "Several rooms or daily routines need coordinated changes and installation planning.",
+          "bestFor": "Several rooms or daily routines need changes planned in the right order.",
           "deliverables": [
             "Everything in Essential",
             "Bathroom, kitchen, entrance and stair adaptations",
@@ -1248,7 +1248,7 @@
           ],
           "who": [
             "People who want clarity before committing to adaptations",
-            "Seniors wishing to age in place safely",
+            "People who want to keep living safely at home",
             "People recovering from surgery or a health event",
             "Individuals with reduced mobility or new accessibility needs"
           ],
@@ -1366,7 +1366,7 @@
             },
             {
               "question": "Can someone attend with me?",
-              "answer": "Yes. A relative, caregiver or approved contact can join so the recommendations are understood by the people involved."
+              "answer": "Yes. Any approved person can join so the recommendations are understood by the people involved."
             }
           ]
         },
@@ -1380,8 +1380,8 @@
             "Final review with you"
           ],
           "who": [
-            "Seniors wishing to age in place",
-            "Relatives or caregivers supporting someone at home",
+            "People who want to keep living safely at home",
+            "Approved contacts helping with home decisions",
             "People recovering from surgery",
             "Individuals with reduced mobility"
           ],
@@ -1527,7 +1527,7 @@
         {
           "id": "smart-safety",
           "title": "Smart Safety Plan",
-          "subtitle": "A connected safety setup that combines home adaptations, smart devices, the VYVA assistant and agreed alerts for aging in place.",
+          "subtitle": "A connected safety setup that combines home adaptations, smart devices, the VYVA assistant and agreed alerts for safer living at home.",
           "heroPoints": [
             "Connected safety devices",
             "VYVA app: 1 year included",
@@ -1536,9 +1536,9 @@
           ],
           "who": [
             "Homes that need approved-contact alerts",
-            "Seniors who benefit from alerts and connected support",
+            "People who benefit from alerts and connected support",
             "Homes where movement, water, smoke or access risks need monitoring",
-            "Caregivers who need a smarter safety layer after physical adaptations"
+            "Approved contacts who need a clearer alert layer after physical adaptations"
           ],
           "includedIntro": "Everything in your CasaMia plan, plus smart safety technology, VYVA access, setup and user training.",
           "included": [
@@ -1585,7 +1585,7 @@
             {
               "icon": "health",
               "title": "VYVA Assistant + 1-Year Subscription",
-              "body": "Includes one year of VYVA subscription access for voice reminders, wellbeing check-ins, caregiver alerts and an approved-contact view."
+              "body": "Includes one year of VYVA subscription access for voice reminders, wellbeing check-ins, agreed alerts and an approved-contact view."
             },
             {
               "icon": "settings",

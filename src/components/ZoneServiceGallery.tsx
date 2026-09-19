@@ -84,7 +84,7 @@ const zoneGalleryCopy: Record<ZoneGalleryRoom, { en: { eyebrow: string; title: s
     es: {
       eyebrow: 'Galería del catálogo',
       title: 'Revisiones y elementos de cocina para comparar.',
-      body: 'Revisa alcance, zonas de preparación, iluminación, tiempo de pie, almacenamiento y protección frente a fugas o electrodomésticos.',
+      body: 'Revisa si los objetos quedan a mano, las zonas de preparación, la iluminación, el tiempo de pie, el almacenamiento y la protección frente a fugas o electrodomésticos.',
     },
   },
   'living-room': {
