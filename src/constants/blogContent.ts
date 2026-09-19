@@ -125,7 +125,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Do all older adults need grab bars?',
         answer:
-          'No. Grab bars help when they are needed, positioned correctly, and fixed to suitable surfaces. A review should consider mobility, transfers, wall type, and the resident habits.',
+          'No. Grab bars help when they are needed, positioned correctly, and fixed to suitable surfaces. A review should consider mobility, transfers, wall type, and daily habits.',
       },
       {
         question: 'When should you ask for professional help?',
@@ -141,9 +141,9 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'bathroom-safety-seniors-costly-mistakes',
     path: '/blog/bathroom-safety-seniors-costly-mistakes',
-    title: 'Bathroom Safety for Seniors: 7 Mistakes Families Should Avoid',
+    title: 'Bathroom Safety: 7 Mistakes to Avoid',
     description:
-      'Avoid common bathroom safety mistakes when adapting a home for an older adult, from unsafe supports to shower entry, toilet transfers, wet floors and water controls.',
+      'Avoid common bathroom safety mistakes, from unsafe supports to shower entry, toilet transfers, wet floors and water controls.',
     category: 'Bathroom safety',
     readTime: '9 min read',
     date: '2026-08-10',
@@ -169,7 +169,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Mistake 2: Fixing the shower seat but ignoring the entry',
         body: [
-          'Families often buy a shower stool or folding seat but leave a high bath edge, narrow door or slippery entry unchanged. If the resident still has to lift a foot over an edge while wet, tired or unsupported, the main risk remains.',
+          'A shower stool or folding seat can help, but it does not solve a high bath edge, narrow door or slippery entry. If the person still has to lift a foot over an edge while wet, tired or unsupported, the main risk remains.',
           'A safer plan considers entry height, anti-slip surface, seating, hand-held shower reach, drainage, screen or curtain clearance, towel reach and where a helper can stand if assistance is needed.',
         ],
       },
@@ -183,20 +183,20 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Mistake 4: Mixing hot water risk with reach problems',
         body: [
-          'Water controls can be difficult when grip, vision or reaction speed changes. If the resident cannot easily set temperature, reach a hand shower, or turn water off while seated, the bathroom may still feel unsafe even after bars are installed.',
+          'Water controls can be difficult when grip, vision or reaction speed changes. If the person cannot easily set temperature, reach a hand shower, or turn water off while seated, the bathroom may still feel unsafe even after bars are installed.',
           'Thermostatic controls, visible handles, reachable storage and a hand-held shower can reduce strain, but they should be matched to the existing plumbing, wall surfaces and user habits.',
         ],
       },
     ],
     checklist: [
-      'Watch the resident enter, wash, turn, dry, use the toilet and leave if they are comfortable being observed.',
+      'If the person is comfortable being observed, watch how they enter, wash, turn, dry, use the toilet and leave.',
       'Remove or replace loose bath mats and any object that slides when wet.',
       'Confirm the shower or bath entry has support before, during and after the step or transfer.',
       'Check whether toilet height and side support allow sit-to-stand without pulling a towel rail or sink.',
       'Make water controls, soap, towels and clothing reachable without twisting or bending.',
       'Add low-glare night lighting from bedroom to bathroom and inside the bathroom.',
       'Keep an emergency call option reachable from the bathroom.',
-      'Plan where a carer can stand without blocking the resident or slipping.',
+      'Plan where a helper can stand without blocking movement or slipping.',
     ],
     resources: [
       {
@@ -223,14 +223,14 @@ export const blogArticles: BlogArticle[] = [
     ],
     faqs: [
       {
-        question: 'Are suction grab bars safe for seniors?',
+        question: 'Are suction grab bars safe?',
         answer:
           'They should not be used as primary body-weight support. If balance or transfers depend on the support, use professionally fixed bars or other appropriate equipment.',
       },
       {
         question: 'Is a walk-in shower always the right first option?',
         answer:
-          'Not always. It depends on the resident mobility, bathroom layout, drainage, budget, and urgency. Sometimes immediate support and anti-slip changes come first.',
+          'Not always. It depends on mobility, bathroom layout, drainage, budget, and urgency. Sometimes immediate support and anti-slip changes come first.',
       },
       {
         question: 'Should the bathroom door open outwards?',
@@ -261,18 +261,18 @@ export const blogArticles: BlogArticle[] = [
       'accessibility grants Spain',
     ],
     intro:
-      'Spain does not have one single grant that every family applies for in the same way. National housing plans set a framework, but the real application usually happens through your autonomous community, city council, housing office or social services team. The safest approach is to prepare the home evidence first, then match it to the open call.',
+      'Spain does not have one single grant that every household applies for in the same way. National housing plans set a framework, but the real application usually happens through your autonomous community, city council, housing office or social services team. The safest approach is to prepare the home evidence first, then match it to the open call.',
     takeaways: [
       'Check the live call for the exact home address; rules change by autonomous community and municipality.',
       'Prepare a clear safety need, photos, certificates, permissions and itemised quotes before a deadline appears.',
       'Do not start paid works until the call confirms whether prior works are allowed.',
-      'No provider can guarantee approval; the public authority decides eligibility, grant amount and payment timing.',
+      'No company can guarantee approval; the public authority decides eligibility, grant amount and payment timing.',
     ],
     sections: [
       {
         title: 'Start with the right authority, not a generic promise',
         body: [
-          'For most families, the first question is not "how much can we get?" but "which authority covers this address and this type of work?" A home in Madrid city may have a municipal Plan Adapta route. A home in Girona, Tarragona, Lleida or Terres de l\'Ebre may fall under an Agència de l\'Habitatge de Catalunya call. Other areas may use autonomous-community rehabilitation grants, municipal social services, disability support, dependency support or building-accessibility programmes.',
+          'The first question is not "how much can we get?" but "which authority covers this address and this type of work?" A home in Madrid city may have a municipal Plan Adapta route. A home in Girona, Tarragona, Lleida or Terres de l\'Ebre may fall under an Agència de l\'Habitatge de Catalunya call. Other areas may use autonomous-community rehabilitation grants, municipal social services, disability support, dependency support or building-accessibility programmes.',
           'Use the national subsidy database to search open calls, then confirm details with the local housing office or social services. If the home is in a building with shared entrances, stairs, lifts or portals, the community of owners and building administrator may also need to be involved.',
         ],
       },
@@ -280,7 +280,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Know what the national framework can support',
         body: [
           'The Plan Estatal de Vivienda 2026-2030 includes accessibility works such as ramps, lifts, stair lifts, accessible routes, communication and alarm systems, domotics that support personal autonomy, and interventions that improve safety of use and accessibility. The BOE framework sets maximum amounts and percentages, but access is through public calls from autonomous communities and Ceuta or Melilla.',
-          'That distinction matters. A headline maximum is not the same as an approved grant for one home. Each call can restrict who may apply, which homes qualify, what income thresholds apply, whether the resident must be over 65 or have a recognised disability, whether quotes must be submitted before works start, and how payment is made.',
+          'That distinction matters. A headline maximum is not the same as an approved grant for one home. Each call can restrict who may apply, which homes qualify, what income thresholds apply, whether the person must be over 65 or have a recognised disability, whether quotes must be submitted before works start, and how payment is made.',
         ],
       },
       {
@@ -293,22 +293,22 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Build the file before the call forces a rush',
         body: [
-          'Most grant files need a mix of personal documents, home documents and technical evidence. Start with DNI/NIE, padrón or proof of habitual residence, ownership or rental permission, disability or dependency certificates where relevant, income or household documents if required, photos of the existing risk, and a clear itemised proposal.',
+          'Most grant files need a mix of personal documents, home documents and technical evidence. Start with DNI/NIE, padrón or proof of habitual residence, ownership or rental permission, disability or dependency certificates where relevant, income or household documents if required, photos of the existing risk, and a clear itemised quote.',
           'Ask each programme whether it needs a technical report, architect or technician visit, licence or declaración responsable, community-of-owners agreement, landlord authorisation, registered invoices, bank proof of payment, or justification documents after the works. Keep every quote, photo, invoice and approval in one folder.',
         ],
       },
       {
         title: 'Watch timing, cash flow and reimbursement rules',
         body: [
-          'Some calls are first-come-first-served, some are competitive, some close when funds run out and some reimburse only after the family has paid and justified the work. Others require approval or inspection before work begins. For example, Catalonia\'s 2026 interior-arrangement call says works must not have started before the call publication or before the technical inspection by the housing agency.',
-          'Before signing or paying, confirm three things in writing: whether the works may start now, whether the quote format is acceptable, and when money is expected to be paid. This protects the family from assuming a grant will arrive before cash is needed.',
+          'Some calls are first-come-first-served, some are competitive, some close when funds run out and some reimburse only after the work has been paid and justified. Others require approval or inspection before work begins. For example, Catalonia\'s 2026 interior-arrangement call says works must not have started before the call publication or before the technical inspection by the housing agency.',
+          'Before signing or paying, confirm three things in writing: whether the works may start now, whether the quote format is acceptable, and when money is expected to be paid. This avoids assuming a grant will arrive before cash is needed.',
         ],
       },
       {
         title: 'If the problem is in a shared building area',
         body: [
           'Lifts, entrance ramps, portal doors, stair routes and other common elements can involve the community of owners. Spain\'s Horizontal Property Law includes rules for necessary accessibility works and reasonable adjustments, especially when residents with disability or people over 70 are involved, but the practical process still depends on the building, budget and administrator.',
-          'For these cases, prepare a short note for the administrator: the resident need, the affected route, photos, the proposed works, whether a grant call exists, and what decision the community must take. Good paperwork reduces friction before a community meeting.',
+          'For these cases, prepare a short note for the administrator: the daily need, the affected route, photos, the proposed works, whether a grant call exists, and what decision the community must take. Good paperwork reduces friction before a community meeting.',
         ],
       },
     ],
@@ -356,7 +356,7 @@ export const blogArticles: BlogArticle[] = [
         source: 'CEAPAT / Imserso',
         href: 'https://ceapat.imserso.es/catalogo-productos-apoyo',
         description:
-          'Public catalogue for support products available in Spain. Helpful when comparing aids, but still match products to the resident and home layout.',
+          'Public catalogue for support products available in Spain. Helpful when comparing aids, but still match products to the person and home layout.',
       },
       {
         title: 'Horizontal Property Law',
@@ -368,17 +368,17 @@ export const blogArticles: BlogArticle[] = [
     ],
     faqs: [
       {
-        question: 'Which grant should a family apply for first?',
+        question: 'Which grant should you check first?',
         answer:
-          'Start with the home address. Check the autonomous community, city council and social-services routes for that municipality, then compare the open call with the resident situation and the works needed.',
+          'Start with the home address. Check the autonomous community, city council and social-services routes for that municipality, then compare the open call with the person’s situation and the works needed.',
       },
       {
         question: 'Can CasaMia guarantee a home adaptation grant?',
         answer:
-          'No. CasaMia can help define the safety need, prepare evidence and organise a grant-ready proposal, but the public authority decides eligibility, approval, amount and payment.',
+          'No. CasaMia can help define the safety need, prepare evidence and organise grant-ready quote information, but the public authority decides eligibility, approval, amount and payment.',
       },
       {
-        question: 'Should families adapt the home before applying?',
+        question: 'Should work start before applying?',
         answer:
           'Only after checking the specific call. Some programmes reject works started too early or require a prior inspection. If there is an urgent safety risk, separate the immediate safety decision from the grant decision.',
       },
@@ -411,7 +411,7 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Illustration of smart home safety support',
     keywords: ['smart home safety seniors', 'elderly emergency alerts', 'aging in place technology'],
     intro:
-      'Smart safety works when it fits daily life. The aim is not to turn a senior home into a gadget showroom, but to add support where it reduces a named risk or gives agreed contacts usable information.',
+      'Smart safety works when it fits daily life. The aim is not to turn the home into a gadget showroom, but to add support where it reduces a named risk or gives agreed contacts usable information.',
     takeaways: [
       'Start with named risks: night lighting, emergency reach, leak detection or smoke alerts.',
       'Avoid cameras by default unless there is a clear, consent-based reason.',
@@ -426,7 +426,7 @@ export const blogArticles: BlogArticle[] = [
         ],
       },
       {
-        title: 'Design around the resident, not the app',
+        title: 'Design around the person, not the app',
         body: [
           'The person at home should not need to manage complex settings or remember new steps during a stressful moment. Dashboards are useful only when the daily experience remains understandable.',
           'Good setup includes testing, labels, household training, and agreement on who receives alerts.',
@@ -445,16 +445,16 @@ export const blogArticles: BlogArticle[] = [
       'Confirm Wi-Fi, power, and signal reliability.',
       'Decide who receives alerts and what they should do.',
       'Avoid intrusive monitoring unless consent and need are clear.',
-      'Test the system with the resident present.',
+      'Test the system with the person present.',
     ],
     faqs: [
       {
         question: 'What smart safety device is best to start with?',
         answer:
-          'For many homes, motion lighting and an emergency contact option are useful first checks. The right choice depends on the resident routine and risks.',
+          'For many homes, motion lighting and an emergency contact option are useful first checks. The right choice depends on daily routine and risk points.',
       },
       {
-        question: 'Do seniors need cameras for home safety?',
+        question: 'Are cameras needed for home safety?',
         answer:
           'Usually no. Cameras should not be the default. Less intrusive options such as lighting, sensors, and agreed alerts are often more respectful and targeted.',
       },
@@ -467,14 +467,14 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'choose-home-safety-provider-spain',
     path: '/blog/choose-home-safety-provider-spain',
-    title: 'How to Choose a Home Safety Provider for an Older Adult in Spain',
+    title: 'How to Choose Home Safety Help in Spain',
     description:
-      'What to check before choosing help with senior home safety, from the first review to fitting quality and follow-up.',
-    category: 'Choosing providers',
+      'What to check before choosing home safety help, from the first review to fitting quality and follow-up.',
+    category: 'Choosing help',
     readTime: '7 min read',
     date: '2026-07-11',
     image: '/images/blog/provider-choice.webp',
-    imageAlt: 'Illustration of a trusted home safety provider checklist',
+    imageAlt: 'Illustration of a trusted home safety checklist',
     keywords: ['home safety provider Spain', 'senior home adaptation service', 'aging in place provider'],
     intro:
       'Choosing help for home safety is not just buying equipment. The right service should understand the person, the daily routine, the home, the fitting details and what support is needed after installation.',
@@ -487,7 +487,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Assessment should come before recommendations',
         body: [
-          'A trustworthy service asks about the person at home, mobility, recent falls, daily routines, carers, and main concerns before recommending products.',
+          'A trustworthy service asks about the person at home, mobility, recent falls, daily routines, approved helpers, and main concerns before recommending products.',
           'If the conversation jumps straight to equipment, the recommendation may miss the real risk.',
         ],
       },
@@ -501,13 +501,13 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Fitting and follow-up matter',
         body: [
-          'Senior home safety work often involves different trades: accessibility installers, bathroom specialists, electricians, smart safety technicians, and sometimes therapists.',
+          'Home safety work often involves different trades: accessibility installers, bathroom specialists, electricians, smart safety technicians, and sometimes therapists.',
           'A good service checks the finished work in the real room, explains how to use it safely, and remains available if something needs adjustment.',
         ],
       },
     ],
     checklist: [
-      'Do they assess the resident routine and not just the room?',
+      'Do they assess the daily routine and not just the room?',
       'Do they explain urgent, recommended, and optional works separately?',
       'Can they bring in the right local professional when needed?',
       'Do they provide a written plan, approval steps, and follow-up details?',
@@ -533,25 +533,25 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'family-conversation-before-home-safety-visit',
     path: '/blog/family-conversation-before-home-safety-visit',
-    title: 'Before a Home Safety Visit: Questions Families Should Agree First',
+    title: 'Before a Home Safety Visit: Questions to Agree First',
     description:
-      'A home-safety conversation guide before booking a senior home safety assessment, with prompts for mobility, routines, preferences, budget, grants, and decision-making.',
-    category: 'Family planning',
+      'A home-safety conversation guide before booking an assessment, with prompts for mobility, routines, preferences, budget, grants, and decision-making.',
+    category: 'Planning',
     readTime: '6 min read',
     date: '2026-07-24',
     image: '/images/blog/provider-choice.webp',
-    imageAlt: 'Family planning checklist for a senior home safety conversation',
+    imageAlt: 'Planning checklist for a home safety conversation',
     keywords: [
       'senior home safety assessment questions',
       'aging parents family conversation',
       'prepare for home safety visit',
     ],
     intro:
-      'Families often know something needs to change, but not everyone names the same worry. A short conversation before a visit helps CasaMia understand the person, the home, and the decision the family actually needs to make.',
+      'People often know something needs to change, but not everyone names the same worry. A short conversation before a visit helps CasaMia understand the person, the home, and the decision that needs to be made.',
     takeaways: [
       'Agree the daily moments that feel hardest before discussing products.',
       'Separate urgent safety needs from preferences, future planning and work that can wait.',
-      'Decide who must be involved in the proposal, budget, grant paperwork, and final approval.',
+      'Decide who must be involved in pricing, grant paperwork, and final approval.',
     ],
     sections: [
       {
@@ -572,7 +572,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Agree what must stay familiar',
         body: [
           'Safety should not make the home feel clinical. Talk about what matters personally: privacy, preferred routines, favourite furniture, the look of the bathroom, or whether visible equipment would be upsetting.',
-          'A good plan protects consent and daily movement. Sometimes the right improvement is the one the resident will actually accept and use every day.',
+          'A good plan protects consent and daily movement. Sometimes the right improvement is the one the person will actually accept and use every day.',
         ],
       },
       {
@@ -595,12 +595,12 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Should the older adult be part of the home safety conversation?',
         answer:
-          'Yes, wherever possible. The person living in the home should help explain what feels difficult, what they would accept, and what routines matter most. Relative or carer input is useful, but consent still matters.',
+          'Yes, wherever possible. The person living in the home should help explain what feels difficult, what they would accept, and what routines matter most. Input from relatives or helpers is useful, but consent still matters.',
       },
       {
         question: 'Do we need to know the exact products before requesting a visit?',
         answer:
-          'No. It is better to describe the daily problem and the outcome you want. CasaMia can then translate that into suitable physical improvements, connected support, optional works, or a scoped proposal.',
+          'No. It is better to describe the daily problem and the outcome you want. CasaMia can then translate that into suitable physical improvements, connected support, optional works, or a clear plan.',
       },
     ],
     cta: {
@@ -645,8 +645,8 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Balance safety, consent and privacy',
         body: [
-          'Families may need alerts, door awareness, or emergency support, but the least intrusive option should come first. The resident should stay involved wherever possible.',
-          'A good plan protects privacy, reduces stress, and gives carers a defined response routine.',
+          'Alerts, door awareness, or emergency support may be useful, but the least intrusive option should come first. The person at home should stay involved wherever possible.',
+          'A good plan protects privacy, reduces stress, and gives approved helpers a defined response routine.',
         ],
       },
     ],
@@ -654,7 +654,7 @@ export const blogArticles: BlogArticle[] = [
       'Are bathroom and bedroom spaces recognisable at night?',
       'Are mirrors, shadows, or dark corners causing confusion?',
       'Can cooking routines stay familiar while reducing reach, heat, slip and appliance risks?',
-      'Can agreed contacts respond if the resident leaves unexpectedly?',
+      'Can agreed contacts respond if the person leaves unexpectedly?',
       'Are labels, colours, and lighting consistent across the home?',
     ],
     faqs: [
@@ -677,9 +677,9 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'stair-safety-handrails-older-adults',
     path: '/blog/stair-safety-handrails-older-adults',
-    title: 'Stair Safety for Older Adults: Handrails, Lighting, and Step Contrast',
+    title: 'Stair Safety: Handrails, Lighting, and Step Contrast',
     description:
-      'How to improve stair safety for older adults with continuous handrails, better lighting, visible step edges, and safer routines.',
+      'How to improve stair safety with continuous handrails, better lighting, visible step edges, and safer routines.',
     category: 'Stair safety',
     readTime: '6 min read',
     date: '2026-07-11',
@@ -704,14 +704,14 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Improve how each step is seen',
         body: [
-          'Poor lighting, shiny surfaces, patterned flooring, and low contrast can make steps harder to judge. This is especially important for older adults with reduced vision or fatigue.',
+          'Poor lighting, shiny surfaces, patterned flooring, and low contrast can make steps harder to judge, especially when vision, confidence or energy has changed.',
           'Motion lighting, step-edge contrast, and reducing glare can make the staircase easier to understand at a glance.',
         ],
       },
       {
         title: 'Plan around daily use',
         body: [
-          'Ask when the stairs are used, whether the resident carries laundry or shopping, whether they pause halfway, and whether they avoid the stairs when tired.',
+          'Ask when the stairs are used, whether the person carries laundry or shopping, whether they pause halfway, and whether they avoid the stairs when tired.',
           'The recommendation may include rails, lighting, contrast, storage changes, or changing routines.',
         ],
       },
@@ -719,15 +719,15 @@ export const blogArticles: BlogArticle[] = [
     checklist: [
       'Is there reliable support before the first step and after the last?',
       'Are landings and turns clearly lit?',
-      'Can the resident see each step edge?',
+      'Can the person see each step edge?',
       'Are objects stored on or near the stairs?',
-      'Does the resident carry items that block one hand from using the rail?',
+      'Does the person carry items that block one hand from using the rail?',
     ],
     faqs: [
       {
-        question: 'Is one handrail enough for older adults?',
+        question: 'Is one handrail enough?',
         answer:
-          'Sometimes, but not always. It depends on the staircase, the resident mobility, direction of travel, turns, and whether two-sided support is needed.',
+          'Sometimes, but not always. It depends on the staircase, mobility, direction of travel, turns, and whether two-sided support is needed.',
       },
       {
         question: 'Do stair treads help prevent falls?',
@@ -743,9 +743,9 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'kitchen-safety-aging-in-place',
     path: '/blog/kitchen-safety-aging-in-place',
-    title: 'Kitchen Safety for Aging in Place: Reduce Reaching, Bending, and Appliance Risk',
+    title: 'Kitchen Safety: Reduce Reaching, Bending, and Appliance Risk',
     description:
-      'A kitchen safety guide for older adults, covering storage, lighting, walking space, appliances, seating, and support routines.',
+      'A kitchen safety guide covering storage, lighting, walking space, appliances, seating, and support routines.',
     category: 'Kitchen safety',
     readTime: '6 min read',
     date: '2026-07-11',
@@ -763,7 +763,7 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Start with the daily items',
         body: [
-          'Plates, cups, medication, kettle, pans, cleaning products, and breakfast items should be reviewed first. If the resident climbs, bends deeply, or stretches daily, risk builds quietly.',
+          'Plates, cups, medication, kettle, pans, cleaning products, and breakfast items should be reviewed first. If the person climbs, bends deeply, or stretches daily, risk builds quietly.',
           'Moving items is often faster and cheaper than buying new furniture, and it can reduce daily reach and bending immediately.',
         ],
       },
@@ -777,26 +777,26 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Review appliance routines',
         body: [
-          'Induction, automatic shut-off devices, smoke and heat alerts, and visible controls can help, but the right recommendation depends on how the resident cooks.',
+          'Induction, automatic shut-off devices, smoke and heat alerts, and visible controls can help, but the right recommendation depends on how the person cooks.',
           'For some homes, the safest first step is a routine change supported by reminders or agreed check-ins.',
         ],
       },
     ],
     checklist: [
       'Are daily items stored between shoulder and waist height?',
-      'Can the resident prepare food without crossing the room repeatedly?',
+      'Can the person prepare food without crossing the room repeatedly?',
       'Is task lighting strong at counters, sink, and cooker?',
       'Are floor mats secure and edges flat?',
       'Are appliance controls visible, readable and familiar?',
     ],
     faqs: [
       {
-        question: 'Should older adults stop cooking alone?',
+        question: 'Should someone stop cooking alone?',
         answer:
           'Not automatically. The decision depends on mobility, memory, vision, appliance use and recent incidents. Many kitchens can be made safer while keeping familiar meal routines.',
       },
       {
-        question: 'What kitchen change helps most for seniors?',
+        question: 'What kitchen change helps most first?',
         answer:
           'Reducing reach and bend for daily items is often the highest-value first change, followed by better task lighting and visible walking space.',
       },
@@ -809,9 +809,9 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'bedroom-night-safety-older-adults',
     path: '/blog/bedroom-night-safety-older-adults',
-    title: 'Bedroom and Night-Time Safety for Older Adults',
+    title: 'Bedroom and Night-Time Safety',
     description:
-      'How to make bedrooms and night-time movement safer for older adults with bed transfers, low-glare lighting, bathroom access, bedside reach and emergency support.',
+      'How to make bedrooms and night-time movement safer with bed transfers, low-glare lighting, bathroom access, bedside reach and emergency support.',
     category: 'Night safety',
     readTime: '9 min read',
     date: '2026-08-10',
@@ -831,7 +831,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Start at the bedside, before the person stands',
         body: [
           'The first movement of the night is usually sitting up, placing feet, reaching for glasses or walking aid, standing and turning. Bed height, mattress softness, footwear, bedside furniture and support points all affect that moment.',
-          'If the resident pushes on a light bedside table, reaches behind them for a phone, or has to stand before finding a walking aid, the layout is asking too much of a tired person.',
+          'If the person pushes on a light bedside table, reaches behind them for a phone, or has to stand before finding a walking aid, the layout is asking too much of a tired person.',
         ],
       },
       {
@@ -852,19 +852,19 @@ export const blogArticles: BlogArticle[] = [
         title: 'Keep help reachable from the two riskiest places',
         body: [
           'Emergency buttons, phones or agreed alert systems should be reachable from the bed and bathroom. Charging the phone across the room may keep the battery full but leave help out of reach.',
-          'The family should agree who responds, how they enter if the door is locked, and what happens if help is triggered at night.',
+          'Agreed contacts should know who responds, how they enter if the door is locked, and what happens if help is triggered at night.',
         ],
       },
     ],
     checklist: [
-      'Can the resident sit up and stand without pulling unstable furniture?',
+      'Can the person sit up and stand without pulling unstable furniture?',
       'Are glasses, phone, water, medication and walking aid reachable before standing?',
       'Is footwear stable, easy to put on and kept in the same place?',
       'Is the bed-to-bathroom path visible with low light and minimal glare?',
       'Are rugs, cables, storage boxes and low furniture removed from the night-time walking space?',
       'Can the bathroom door, toilet and light be used without awkward reaching or turning?',
       'Is emergency help reachable from both bed and bathroom?',
-      'Has the family agreed who responds and how they can enter if needed?',
+      'Have agreed contacts confirmed who responds and how they can enter if needed?',
     ],
     resources: [
       {
@@ -898,7 +898,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Does bed height matter for fall prevention?',
         answer:
-          'Yes. A bed that is too low or too high can make transfers harder. Bed height should suit the resident leg strength, balance, and support needs.',
+          'Yes. A bed that is too low or too high can make transfers harder. Bed height should suit leg strength, balance, and support needs.',
       },
       {
         question: 'What if the person gets up many times each night?',
@@ -916,12 +916,12 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/hospital-discharge-home-safety-checklist',
     title: 'Hospital Discharge Home Safety Checklist',
     description:
-      'A practical home safety checklist for families preparing an older adult to return home after hospital discharge, surgery or a mobility change.',
+      'A practical home safety checklist before returning home after hospital discharge, surgery or a mobility change.',
     category: 'After hospital discharge',
     readTime: '8 min read',
     date: '2026-07-24',
     image: '/images/blog/emergency-plan-home.webp',
-    imageAlt: 'Family preparing the home before an older adult returns from hospital',
+    imageAlt: 'Preparing the home before someone returns from hospital',
     keywords: ['hospital discharge home safety', 'senior home safety after hospital', 'home checklist after surgery'],
     intro:
       'The first days after hospital discharge are often when small home barriers become big problems. Use this checklist to focus on entering the home, the bedroom, the bathroom, medication, help and the first week of daily routines.',
@@ -949,7 +949,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Agree the first-week support plan',
         body: [
           'Write down who visits, who calls, how medication is checked, who handles follow-up appointments and what happens if pain, dizziness, confusion or mobility becomes worse.',
-          'CasaMia can help turn this into a practical home safety plan: remote review, expert visit, urgent fixes, priced plan, grant-readiness notes or staged installation.',
+          'CasaMia can help turn this into a practical home safety plan: remote review, expert visit, urgent fixes, clear pricing, grant-readiness notes or staged installation.',
         ],
       },
     ],
@@ -963,12 +963,12 @@ export const blogArticles: BlogArticle[] = [
     ],
     faqs: [
       {
-        question: 'What should be prepared before an older adult returns home from hospital?',
+        question: 'What should be prepared before returning home from hospital?',
         answer:
           'Start with entry access, bedroom transfers, bathroom and toilet use, night lighting, medication notes, emergency contacts and who will help during the first week.',
       },
       {
-        question: 'Should families adapt the whole home before discharge?',
+        question: 'Should the whole home be adapted before discharge?',
         answer:
           'Usually no. Focus first on entry, sleeping, toileting, washing and asking for help. Larger works can be measured and planned after the urgent risks are understood.',
       },
@@ -981,28 +981,28 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'when-home-adaptations-are-not-enough',
     path: '/blog/when-home-adaptations-are-not-enough',
-    title: 'When Home Adaptations Are Not Enough: A Family Decision Guide',
+    title: 'When Home Adaptations Are Not Enough: A Decision Guide',
     description:
-      'A practical guide for families deciding whether home adaptations, extra support, a staged plan or residential care is the safer next step.',
-    category: 'Family decisions',
+      'A practical guide for deciding whether home adaptations, extra support, a staged plan or residential care is the safer next step.',
+    category: 'Care decisions',
     readTime: '8 min read',
     date: '2026-07-24',
     image: '/images/blog/provider-choice.webp',
-    imageAlt: 'Family comparing home safety and care options around a table',
+    imageAlt: 'People comparing home safety and care options around a table',
     keywords: ['aging in place decision', 'home adaptations vs care home', 'when home is no longer safe'],
     intro:
-      'Aging at home should feel safe, familiar and realistic. The question is not whether home is always better; it is whether the right support can make daily life safer without exhausting the resident or the family.',
+      'Staying at home should feel safe, familiar and realistic. The question is not whether home is always better; it is whether the right support can make daily life safer without exhausting the person or their helpers.',
     takeaways: [
-      'Home adaptations work best when the resident can still use the home with open walking space, support points and sensible routines.',
+      'Home adaptations work best when the person can still use the home with open walking space, support points and sensible routines.',
       'Residential or higher-care support may be safer when supervision, transfers, confusion or night-time risk cannot be managed reliably at home.',
-      'The best decision compares safety, dignity, family capacity, cost, timing and the resident wishes together.',
+      'The best decision compares safety, dignity, helper capacity, cost, timing and the person’s wishes together.',
     ],
     sections: [
       {
         title: 'Start with the daily routine, not the building',
         body: [
           'A home can look suitable during a quick visit and still fail at the exact moments that matter: getting out of bed, reaching the toilet at night, showering, cooking, using stairs or calling for help.',
-          'If those moments can be made safer with practical adaptations, routines and support, staying at home may remain realistic. If they depend on constant improvisation, the family needs a wider conversation.',
+          'If those moments can be made safer with practical adaptations, routines and support, staying at home may remain realistic. If they depend on constant improvisation, a wider support conversation is needed.',
         ],
       },
       {
@@ -1013,7 +1013,7 @@ export const blogArticles: BlogArticle[] = [
         ],
       },
       {
-        title: 'Signals that the family should consider more support',
+        title: 'Signals that more support should be considered',
         body: [
           'More support may need to be discussed when the person cannot request help reliably, falls repeatedly despite changes, becomes unsafe at night, needs transfers that one person cannot manage, or has confusion that creates frequent risk.',
           'This does not automatically mean a residence. It may mean more home care, respite, technology-supported routines, a professional visit, or a transition plan. The point is to be honest before a crisis decides for everyone.',
@@ -1022,8 +1022,8 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Use a decision frame everyone can understand',
         body: [
-          'A useful family decision compares five things: what the resident wants, what is currently unsafe, what can realistically be changed, who will help day to day, and what each option costs over the next 6 to 24 months.',
-          'CasaMia can help with the home side of that decision: safety review, practical proposal, staged works, grant-readiness notes and a direct explanation of what home adaptation can and cannot solve.',
+          'A useful decision compares five things: what the person wants, what is currently unsafe, what can realistically be changed, who will help day to day, and what each option costs over the next 6 to 24 months.',
+          'CasaMia can help with the home side of that decision: safety review, practical plan, staged works, grant-readiness notes and a direct explanation of what home adaptation can and cannot solve.',
         ],
       },
     ],
@@ -1031,9 +1031,9 @@ export const blogArticles: BlogArticle[] = [
       'Can the person reach the toilet, bed, kitchen and entrance safely on a normal day?',
       'Can help be requested from the rooms where risk is highest?',
       'Are falls, near misses or night-time incidents becoming more frequent?',
-      'Can family or carers realistically support the routine without burning out?',
+      'Can approved helpers realistically support the routine without burning out?',
       'Would a staged home plan solve the main risks, or only delay a bigger decision?',
-      'Has the family compared the cost and timing of adapting home versus residential or higher-care support?',
+      'Have the cost and timing of adapting home been compared with residential or higher-care support?',
     ],
     faqs: [
       {
@@ -1044,7 +1044,7 @@ export const blogArticles: BlogArticle[] = [
       {
         question: 'Should we adapt the home before considering a residence?',
         answer:
-          'Not always. Some families should compare both options early. A focused home safety review can show what can be solved at home, what needs professional support and what may be better handled through a higher-care option.',
+          'Not always. Some situations should compare both options early. A focused home safety review can show what can be solved at home, what needs professional support and what may be better handled through a higher-care option.',
       },
     ],
     cta: {
@@ -1055,20 +1055,20 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'emergency-plan-aging-parents-home',
     path: '/blog/emergency-plan-aging-parents-home',
-    title: 'Emergency Planning for Aging Parents Living at Home',
+    title: 'Emergency Planning for Safer Living at Home',
     description:
-      'A practical emergency plan for families with aging parents at home, covering alerts, access, contacts, medication, responders, and home information.',
-    category: 'Family planning',
+      'A practical emergency plan for alerts, access, contacts, medication, responders, and home information.',
+    category: 'Emergency planning',
     readTime: '7 min read',
     date: '2026-07-11',
     image: '/images/blog/emergency-plan-home.webp',
-    imageAlt: 'Editorial illustration of an emergency plan connecting home and family response',
+    imageAlt: 'Editorial illustration of an emergency plan connecting home and trusted response',
     keywords: ['emergency plan aging parents', 'senior emergency response home', 'family safety plan elderly'],
     intro:
-      'A safer home also needs a response plan. Families should know how help is requested, who responds, how they enter the home, and what information is needed in the first few minutes.',
+      'A safer home also needs a response plan. Agreed contacts should know how help is requested, who responds, how they enter the home, and what information is needed in the first few minutes.',
     takeaways: [
       'Emergency support should be reachable from the rooms where risk is highest.',
-      'Family response roles should be clear before an incident happens.',
+      'Response roles should be clear before an incident happens.',
       'Access, medication, contacts, and home notes should be easy to find.',
     ],
     sections: [
@@ -1082,15 +1082,15 @@ export const blogArticles: BlogArticle[] = [
       {
         title: 'Make access practical',
         body: [
-          'If a family member or responder cannot enter, response is delayed. Consider keys, trusted contacts, building access, door communication, and any alarm codes.',
-          'Access planning should be secure and agreed with the resident, not improvised after a crisis.',
+          'If an approved contact or responder cannot enter, response is delayed. Consider keys, trusted contacts, building access, door communication, and any alarm codes.',
+          'Access planning should be secure and agreed with the person at home, not improvised after a crisis.',
         ],
       },
       {
         title: 'Create a short home information sheet',
         body: [
-          'Keep essential information easy to find: medication list, allergies, doctor contact, family contacts, preferred hospital, mobility notes, and where important documents are kept.',
-          'This is especially useful when more than one family member or carer may respond.',
+          'Keep essential information easy to find: medication list, allergies, doctor contact, approved contacts, preferred hospital, mobility notes, and where important documents are kept.',
+          'This is especially useful when more than one approved contact or helper may respond.',
         ],
       },
     ],
@@ -1099,18 +1099,18 @@ export const blogArticles: BlogArticle[] = [
       'Can help be requested from bathroom, bedroom, and living areas?',
       'How does a trusted responder enter the home?',
       'Where are medication and medical notes kept?',
-      'What should neighbours, carers, or family do first?',
+      'What should neighbours, helpers, or approved contacts do first?',
     ],
     faqs: [
       {
-        question: 'Do aging parents need an emergency button?',
+        question: 'Is an emergency button needed?',
         answer:
-          'It depends on mobility, fall history, living situation, and family response time. Emergency buttons are most useful when the resident will wear or use them consistently.',
+          'It depends on mobility, fall history, living situation, and response time. Emergency buttons are most useful when the person will wear or use them consistently.',
       },
       {
-        question: 'What should be included in a family emergency plan?',
+        question: 'What should be included in an emergency plan?',
         answer:
-          'Include contact order, home access, medication information, known risks, preferred responders, and how alerts are handled overnight or when family members are away.',
+          'Include contact order, home access, medication information, known risks, preferred responders, and how alerts are handled overnight or when usual contacts are away.',
       },
     ],
     cta: {
