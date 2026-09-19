@@ -1102,7 +1102,7 @@
       },
       "payment": {
         "title": "Condiciones de pago claras antes de empezar",
-        "body": "Mantenemos los pagos claros y justos. La evaluación a domicilio cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido, se paga por adelantado al reservar y se descuenta del plan elegido. Para las adaptaciones acordadas, pagas el {{proposalUpfrontPercent}} para empezar y el {{proposalBalancePercent}} solo al finalizar y tras la aceptación del cliente.",
+        "body": "Mantenemos los pagos claros y justos. La evaluación a domicilio cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido, se paga por adelantado al reservar y se descuenta del plan elegido. Para las adaptaciones acordadas, pagas el {{proposalUpfrontPercent}} para empezar y el {{proposalBalancePercent}} solo al finalizar y tras tu aprobación.",
         "items": [
           {
             "title": "Essential",
@@ -1114,7 +1114,7 @@
           },
           {
             "title": "Premium",
-            "body": "Evaluación de {{visitFee}} descontada del plan, después {{proposalUpfrontPercent}} de depósito y {{proposalBalancePercent}} tras configuración, entrega y aceptación del cliente."
+            "body": "Evaluación de {{visitFee}} descontada del plan, después {{proposalUpfrontPercent}} de depósito y {{proposalBalancePercent}} tras la puesta en marcha, explicación de uso seguro y tu aprobación."
           }
         ],
         "reassurance": "Sin costes ocultos. Ninguna instalación empieza sin tu aprobación. Recibes un plan claro antes de la instalación."
@@ -1136,7 +1136,7 @@
           },
           {
             "title": "Realizamos la instalación acordada",
-            "body": "Si apruebas el plan, coordinamos productos, instaladores y entrega final."
+            "body": "Si apruebas el plan, coordinamos productos, instaladores, comprobaciones finales y explicación de uso seguro."
           }
         ]
       },
@@ -1157,11 +1157,11 @@
           },
           {
             "question": "¿Los instaladores están asegurados?",
-            "answer": "CasaMia estructura los proyectos con instalación profesional asegurada, entrega documentada y aceptación del cliente."
+            "answer": "CasaMia estructura los proyectos con instalación profesional asegurada, comprobaciones finales y tu aprobación antes del pago final."
           },
           {
             "question": "¿Cuándo pago?",
-            "answer": "La evaluación cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido y se paga por adelantado al reservar. Los planes con instalación tienen un {{proposalUpfrontPercent}} de depósito y un {{proposalBalancePercent}} final tras completar la instalación y recibir la aceptación del cliente."
+            "answer": "La evaluación cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido y se paga por adelantado al reservar. Los planes con instalación tienen un {{proposalUpfrontPercent}} de depósito y un {{proposalBalancePercent}} final tras completar la instalación y recibir tu aprobación."
           },
           {
             "question": "¿El plan se puede personalizar?",
@@ -1173,14 +1173,14 @@
           },
           {
             "question": "¿Qué pasa cuando termina la instalación?",
-            "answer": "Realizamos la entrega, confirmamos la aceptación del cliente y explicamos con quién contactar si cambia la vivienda o la rutina."
+            "answer": "Explicamos cómo usar los cambios con seguridad, confirmamos que la instalación queda aprobada y dejamos claro con quién contactar si cambia la vivienda o la rutina."
           }
         ]
       },
       "final": {
         "title": "Empieza con el plan adecuado para un hogar más seguro.",
-        "body": "Solicita una evaluación a domicilio de {{visitFee}} y recibe prioridades por estancia, notas de alcance y la acción que conviene confirmar después.",
-        "cta": "Solicitar propuesta de seguridad"
+        "body": "Solicita una evaluación a domicilio de {{visitFee}} y recibe prioridades por estancia, notas sobre qué incluir y la acción que conviene confirmar después.",
+        "cta": "Solicitar plan de seguridad"
       }
     },
     "grants": {
@@ -1332,7 +1332,7 @@
               "body": "Recibes un informe claro y recomendaciones antes de decidir el siguiente paso."
             },
             {
-              "title": "Instalación profesional y entrega",
+              "title": "Instalación profesional y explicación de uso",
               "body": "Si decides avanzar, CasaMia coordina productos acordados, equipo de instalación y revisión final."
             }
           ],
@@ -1377,7 +1377,7 @@
           "heroPoints": [
             "Adaptaciones esenciales",
             "Instalación profesional",
-            "Revisión y aceptación del cliente"
+            "Revisión final contigo"
           ],
           "who": [
             "Personas mayores que desean envejecer en casa",
@@ -1481,11 +1481,11 @@
               "body": "Inspeccionamos la vivienda e identificamos las adaptaciones que conviene priorizar."
             },
             {
-              "title": "Propuesta y aprobación",
-              "body": "Apruebas el alcance recomendado y el precio antes de que empiece cualquier instalación."
+              "title": "Plan y aprobación",
+              "body": "Apruebas las adaptaciones recomendadas y el precio antes de que empiece cualquier instalación."
             },
             {
-              "title": "Instalación profesional y entrega",
+              "title": "Instalación profesional y explicación de uso",
               "body": "Instaladores de confianza completan el trabajo y CasaMia revisa contigo las mejoras terminadas."
             }
           ],
@@ -1495,24 +1495,24 @@
             "Instaladores cualificados",
             "Productos de seguridad premium",
             "Garantías del fabricante cuando aplique",
-            "Revisión de aceptación del cliente",
+            "Revisión final contigo",
             "Soporte posterior"
           ],
           "payment": {
             "terms": [
               "{{proposalUpfrontPercent}} de depósito al aprobar.",
-              "{{proposalBalancePercent}} al finalizar y tras la aceptación del cliente."
+              "{{proposalBalancePercent}} al finalizar y tras tu aprobación."
             ],
-            "note": "Ves el alcance antes de empezar y solo pagas el saldo final después de revisar el trabajo completado."
+            "note": "Ves las adaptaciones acordadas antes de empezar y solo pagas el saldo final después de revisar la instalación completada."
           },
           "faqs": [
             {
               "question": "¿Cuánto duran las instalaciones?",
-              "answer": "Muchas mejoras pueden completarse en un día. Los alcances más grandes dependen de la vivienda y los productos elegidos."
+              "answer": "Muchas mejoras pueden completarse en un día. Las adaptaciones más grandes dependen de la vivienda y los productos elegidos."
             },
             {
               "question": "¿Quién realiza el trabajo?",
-              "answer": "CasaMia coordina partners de instalación asegurados, revisa el alcance acordado y realiza una aceptación final con el cliente."
+              "answer": "CasaMia coordina instaladores asegurados, revisa las adaptaciones acordadas y realiza una comprobación final contigo."
             },
             {
               "question": "¿Los productos tienen garantía?",
@@ -1532,7 +1532,7 @@
             "Dispositivos conectados",
             "App VYVA: 1 año incluido",
             "Preparado para monitorización",
-            "Formación y entrega"
+            "Formación y guía de uso"
           ],
           "who": [
             "Hogares que quieren alertas para contactos autorizados",
@@ -1545,7 +1545,7 @@
             {
               "icon": "inspection",
               "title": "Todo lo del Plan Seguridad",
-              "body": "Primero se incluyen evaluación, adaptaciones acordadas, coordinación de instalación y aceptación del cliente."
+              "body": "Primero se incluyen evaluación, adaptaciones acordadas, coordinación de instalación y revisión final contigo."
             },
             {
               "icon": "lighting",
@@ -1589,8 +1589,8 @@
             },
             {
               "icon": "settings",
-              "title": "Configuración smart home",
-              "body": "CasaMia configura dispositivos compatibles, rutinas y alertas alrededor de la vivienda."
+              "title": "Puesta en marcha smart home",
+              "body": "CasaMia deja preparados los dispositivos compatibles, rutinas y alertas alrededor de la vivienda y la rutina diaria."
             },
             {
               "icon": "training",
@@ -1645,8 +1645,8 @@
               "body": "Apruebas adaptaciones, dispositivos, requisitos de instalación y precio antes de empezar."
             },
             {
-              "title": "Instalación profesional y entrega",
-              "body": "CasaMia instala, configura, pone en marcha y explica el sistema final a quienes lo usarán."
+              "title": "Instalación profesional y guía de uso",
+              "body": "CasaMia instala, deja preparado y explica el sistema final a quienes lo usarán."
             }
           ],
           "deliverables": [
@@ -1656,15 +1656,15 @@
             "Productos premium y dispositivos smart",
             "Un año gratis de suscripción VYVA",
             "Garantías del fabricante cuando aplique",
-            "Configuración y puesta en marcha",
+            "Puesta en marcha y comprobaciones finales",
             "Formación y soporte posterior"
           ],
           "payment": {
             "terms": [
               "{{proposalUpfrontPercent}} de depósito al aprobar.",
-              "{{proposalBalancePercent}} al finalizar, poner en marcha el sistema y recibir la aceptación del cliente."
+              "{{proposalBalancePercent}} al finalizar, comprobar el sistema y recibir tu aprobación."
             ],
-            "note": "El pago final solo se realiza después de instalar, configurar y aceptar el sistema."
+            "note": "El pago final solo se realiza después de instalar, comprobar y aprobar el sistema."
           },
           "faqs": [
             {
@@ -1677,7 +1677,7 @@
             },
             {
               "question": "¿Me enseñaréis a usar el sistema?",
-              "answer": "Sí. La formación y entrega forman parte del Plan Seguridad Smart."
+              "answer": "Sí. La formación y la guía de uso forman parte del Plan Seguridad Smart."
             },
             {
               "question": "¿Se pueden añadir dispositivos más adelante?",

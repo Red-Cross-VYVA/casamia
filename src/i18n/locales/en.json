@@ -388,7 +388,7 @@
         "desc": "CasaMia coordinates installation, checks the result in the room and explains safe use before the job is signed off.",
         "points": [
           "Professional installation",
-          "Handover check",
+          "Safe-use check",
           "Aftercare support"
         ]
       }
@@ -992,7 +992,7 @@
             "Health and vitals monitoring setup",
             "Voice-activated controls",
             "Approved-contact and emergency alerts",
-            "Smart handover and user training"
+            "Smart setup and user training"
           ],
           "cta": "Choose Premium"
         }
@@ -1114,7 +1114,7 @@
           },
           {
             "title": "Premium",
-            "body": "{{visitFee}} assessment credited toward the plan, then {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} after system setup, handover and customer acceptance."
+            "body": "{{visitFee}} assessment credited toward the plan, then {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} after setup, safe-use explanation and your approval."
           }
         ],
         "reassurance": "No hidden fees. No installation begins without your approval. You receive the agreed adaptations, pricing and assumptions before installation."
@@ -1136,7 +1136,7 @@
           },
           {
             "title": "We complete the approved adaptations",
-            "body": "If you approve, our team coordinates products, installers, and final handover."
+            "body": "If you approve, our team coordinates products, installers, final checks and safe-use guidance."
           }
         ]
       },
@@ -1157,7 +1157,7 @@
           },
           {
             "question": "Are installers insured?",
-            "answer": "CasaMia structures projects around insured professional installation, documented handover and customer acceptance."
+            "answer": "CasaMia structures projects around insured professional installation, final checks and your approval before final payment."
           },
           {
             "question": "When do I pay?",
@@ -1173,7 +1173,7 @@
           },
           {
             "question": "What happens after installation is completed?",
-            "answer": "We complete a handover, confirm the customer accepts the installation, and explain who to contact if the home or routine changes later."
+            "answer": "We explain how to use the changes safely, confirm you are happy with the installation and make clear who to contact if the home or routine changes later."
           }
         ]
       },
@@ -1332,7 +1332,7 @@
               "body": "You receive a written report and recommendations before deciding what to do next."
             },
             {
-              "title": "Professional Installation & Handover",
+              "title": "Professional Installation & Safe-Use Check",
               "body": "If you proceed, CasaMia coordinates the agreed products, installation team and final walkthrough."
             }
           ],
@@ -1485,7 +1485,7 @@
               "body": "You review the recommended adaptations and pricing before any installation begins."
             },
             {
-              "title": "Professional Installation & Handover",
+              "title": "Professional Installation & Safe-Use Check",
               "body": "Trusted installers complete the approved adaptations and CasaMia walks you through the finished improvements."
             }
           ],
@@ -1495,7 +1495,7 @@
             "Qualified installers",
             "Premium safety products",
             "Manufacturer warranties where applicable",
-            "Customer acceptance walkthrough",
+            "Final review with you",
             "Aftercare support"
           ],
           "payment": {
@@ -1532,7 +1532,7 @@
             "Connected safety devices",
             "VYVA app: 1 year included",
             "Monitoring readiness",
-            "Training and handover"
+            "Training and safe-use guidance"
           ],
           "who": [
             "Homes that need approved-contact alerts",
@@ -1589,8 +1589,8 @@
             },
             {
               "icon": "settings",
-              "title": "Smart Home Configuration",
-              "body": "CasaMia configures compatible devices, routines and alerts around the home setup."
+              "title": "Smart Home Setup",
+              "body": "CasaMia sets up compatible devices, routines and alerts around the home and daily routine."
             },
             {
               "icon": "training",
@@ -1645,8 +1645,8 @@
               "body": "You approve the adaptations, devices, setup requirements and pricing before installation begins."
             },
             {
-              "title": "Professional Installation & Handover",
-              "body": "CasaMia installs, configures, commissions and trains the household on the final system."
+              "title": "Professional Installation & Safe-Use Guidance",
+              "body": "CasaMia installs, sets up and explains the final system to the people who will use it."
             }
           ],
           "deliverables": [
@@ -1656,15 +1656,15 @@
             "Premium safety products and smart devices",
             "One year free VYVA subscription",
             "Manufacturer warranties where applicable",
-            "Configuration and commissioning",
+            "Setup and final checks",
             "User training and aftercare support"
           ],
           "payment": {
             "terms": [
               "{{proposalUpfrontPercent}} deposit upon approval.",
-              "{{proposalBalancePercent}} upon completion, commissioning and customer acceptance."
+              "{{proposalBalancePercent}} upon completion, final checks and customer approval."
             ],
-            "note": "Final payment is only due after the system has been installed, configured and accepted by the customer."
+            "note": "Final payment is only due after the system has been installed, checked and approved by the customer."
           },
           "faqs": [
             {
@@ -1677,7 +1677,7 @@
             },
             {
               "question": "Will you train me to use the system?",
-              "answer": "Yes. Training and handover are part of the Smart Safety Plan."
+              "answer": "Yes. Training and safe-use guidance are part of the Smart Safety Plan."
             },
             {
               "question": "Can additional devices be added later?",
