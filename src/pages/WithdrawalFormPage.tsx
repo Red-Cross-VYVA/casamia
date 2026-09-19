@@ -51,10 +51,10 @@ const withdrawalCopy = {
     submit: 'Submit form',
     download: 'Download printable copy',
     submitted:
-      'Your request was submitted to the configured withdrawal endpoint. Keep the downloadable copy for your records.',
+      'Your request was submitted. Keep the downloadable copy for your records.',
     submissionError: 'We could not submit the form. Please try again or use the email or postal address below.',
     localOnly:
-      'This form was prepared locally only. Legal receipt is not confirmed until CasaMia receives it by email, post, or a configured backend.',
+      'This form has been prepared on this device. Legal receipt is confirmed when CasaMia receives it by email, post, or the online submission.',
     alternatives: 'Alternative submission routes',
     email: 'Email:',
     post: 'Post:',
@@ -90,10 +90,10 @@ const withdrawalCopy = {
     submit: 'Enviar formulario',
     download: 'Descargar copia imprimible',
     submitted:
-      'Tu solicitud se envió al endpoint de desistimiento configurado. Guarda la copia descargable para tus registros.',
+      'Tu solicitud se envió. Guarda la copia descargable para tus registros.',
     submissionError: 'No pudimos enviar el formulario. Inténtalo de nuevo o usa el email o la dirección postal indicados abajo.',
     localOnly:
-      'Este formulario solo se preparó localmente. La recepción legal no queda confirmada hasta que CasaMia lo reciba por email, correo postal o un backend configurado.',
+      'Este formulario se ha preparado en este dispositivo. La recepción legal se confirma cuando CasaMia lo recibe por email, correo postal o envío online.',
     alternatives: 'Vías alternativas de envío',
     email: 'Email:',
     post: 'Correo postal:',

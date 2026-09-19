@@ -89,7 +89,7 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     eyebrow: 'Empieza tu pedido CasaMia',
     title: 'Elige cómo quieres que contacte el equipo local.',
     intro:
-      'Elige la vía de contacto para la vivienda: visita, propuesta, ayudas o disponibilidad local.',
+      'Elige la vía de contacto para la vivienda: visita, plan con precio, ayudas o disponibilidad local.',
     regionLabel: 'Zona seleccionada',
     whatsappTitle: 'Email',
     whatsappBody: 'Envía la ubicación, la preocupación principal y cuándo contactarte para responder con qué conviene confirmar primero.',

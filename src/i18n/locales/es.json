@@ -1715,23 +1715,23 @@
     "planAdapta": {
       "hero": {
         "title": "Soporte para ayudas Plan Adapta",
-        "subtitle": "CasaMia revisa si las adaptaciones propuestas encajan con una vía de ayuda activa y prepara la evidencia y documentación cuando encajan.",
+        "subtitle": "CasaMia revisa si las adaptaciones que necesitas encajan con una vía de ayuda activa y prepara la evidencia y documentación cuando encajan.",
         "cta": "Comprobar encaje de ayuda",
         "panelTitle": "Sabe qué puede presentarse antes de contar con la ayuda",
-        "panelBody": "CasaMia identifica criterios probables, documentos que faltan y descripción de obra necesaria antes de enviar una solicitud."
+        "panelBody": "CasaMia identifica criterios probables, documentos que faltan y cómo describir la adaptación antes de enviar una solicitud."
       },
       "what": {
         "kicker": "Qué es Plan Adapta",
         "title": "Apoyo para hogares más seguros y accesibles.",
-        "body": "Plan Adapta puede apoyar ciertas adaptaciones de accesibilidad y seguridad, pero solo cuando autoridad local, convocatoria abierta, datos de la persona, documentos y obras propuestas encajan. CasaMia ayuda a entender ese encaje antes de preparar el expediente."
+        "body": "Plan Adapta puede apoyar ciertas adaptaciones de accesibilidad y seguridad, pero solo cuando autoridad local, convocatoria abierta, datos de la persona, documentos y mejoras previstas encajan. CasaMia ayuda a entender ese encaje antes de preparar el expediente."
       },
       "help": {
         "kicker": "Qué prepara CasaMia",
-        "title": "Convertimos las obras propuestas en un expediente listo para ayuda.",
+        "title": "Convertimos las adaptaciones necesarias en un expediente listo para ayuda.",
         "items": [
           {
             "title": "Notas de elegibilidad",
-            "body": "Revisamos si la persona, la vivienda y la obra propuesta parecen encajar con las reglas antes de dedicar tiempo a formularios."
+            "body": "Revisamos si la persona, la vivienda y la adaptación necesaria parecen encajar con las reglas antes de dedicar tiempo a formularios."
           },
           {
             "title": "Preparación de documentación",
@@ -1739,15 +1739,15 @@
           },
           {
             "title": "Formularios de solicitud",
-            "body": "Completamos los formularios del canal elegido con el alcance acordado y los datos del cliente."
+            "body": "Completamos los formularios del canal elegido con las adaptaciones acordadas y los datos del cliente."
           },
           {
             "title": "Coordinación con autoridades cuando exista autorización",
             "body": "Cuando el cliente lo autorice, CasaMia puede comunicarse con la autoridad competente sobre la solicitud."
           },
           {
-            "title": "Preparación de propuesta",
-            "body": "Redactamos la obra propuesta de forma práctica: qué cambia, dónde y por qué mejora el uso seguro de la vivienda."
+            "title": "Preparación del plan",
+            "body": "Redactamos la adaptación de forma práctica: qué cambia, dónde y por qué mejora el uso seguro de la vivienda."
           },
           {
             "title": "Seguimiento de solicitud",
@@ -1786,15 +1786,15 @@
           },
           {
             "title": "Preparamos recomendaciones",
-            "body": "Recibes prioridades por estancia, notas de evidencia y una propuesta que nombra las mejoras confirmadas."
+            "body": "Recibes prioridades por estancia, notas de evidencia y un plan que nombra las mejoras confirmadas."
           },
           {
             "title": "Apoyamos tu solicitud de ayuda",
             "body": "Cuando el programa parece encajar y CasaMia está autorizada, preparamos y presentamos la documentación requerida."
           },
           {
-            "title": "Una vez aprobada, coordinamos las obras",
-            "body": "Si la autoridad aprueba la solicitud, coordinamos las obras de seguridad y accesibilidad aprobadas."
+            "title": "Una vez aprobada, coordinamos las adaptaciones",
+            "body": "Si la autoridad aprueba la solicitud, coordinamos las adaptaciones de seguridad y accesibilidad aprobadas."
           }
         ]
       },
