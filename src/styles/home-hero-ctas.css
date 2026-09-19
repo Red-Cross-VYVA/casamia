@@ -406,7 +406,7 @@ body .hero-section .free-check-card:focus-visible {
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 18px;
+  gap: 24px;
   min-height: 100%;
   padding: clamp(28px, 5vw, 54px);
   background: #0a496a;
@@ -417,7 +417,13 @@ body .hero-section .free-check-card:focus-visible {
 .specialist-voice-avatar {
   display: grid;
   justify-items: center;
-  gap: 8px;
+  gap: 10px;
+  width: min(100%, 320px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 22px 20px 20px;
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.16);
 }
 
 .specialist-voice-avatar > span {
@@ -434,17 +440,18 @@ body .hero-section .free-check-card:focus-visible {
 }
 
 .specialist-voice-avatar strong {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 950;
   line-height: 1.05;
 }
 
 .specialist-voice-avatar small {
+  max-width: 220px;
   color: rgba(255, 255, 255, 0.76);
   font-size: 12px;
   font-weight: 900;
-  letter-spacing: 0.08em;
-  line-height: 1;
+  letter-spacing: 0;
+  line-height: 1.25;
   text-transform: uppercase;
 }
 
@@ -470,7 +477,7 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-wave {
   display: flex;
-  height: 52px;
+  height: 34px;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -496,12 +503,6 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-wave span:nth-child(4) {
   animation-delay: 330ms;
-}
-
-.specialist-voice-visual p {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 850;
 }
 
 .specialist-voice-content {
@@ -599,7 +600,8 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-actions--visual {
   justify-content: center;
-  margin-top: 4px;
+  width: min(100%, 320px);
+  margin-top: 0;
 }
 
 .specialist-voice-actions .btn {
@@ -607,6 +609,7 @@ body .hero-section .free-check-card:focus-visible {
 }
 
 .specialist-voice-actions--visual .btn {
+  width: 100%;
   border-color: rgba(255, 255, 255, 0.32);
   background: #ffffff;
   color: #17648e;

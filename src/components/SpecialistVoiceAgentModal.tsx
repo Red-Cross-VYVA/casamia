@@ -297,8 +297,8 @@ function SpecialistVoiceAgentDialog({
           <div className="specialist-voice-visual">
             <div className="specialist-voice-avatar">
               <span><Headphones size={30} aria-hidden="true" /></span>
-              <strong>{copy.assistant}</strong>
-              <small>{connected ? statusLabel : copy.agentLabel}</small>
+              <strong>{copy.agentLabel}</strong>
+              <small>{connected ? statusLabel : copy.assistant}</small>
             </div>
             <div className={`specialist-voice-mic-status is-${conversation.status}`}>
               {busy ? <LoaderCircle size={54} /> : connected && conversation.isMuted ? <MicOff size={54} /> : <Mic size={54} />}
@@ -309,7 +309,6 @@ function SpecialistVoiceAgentDialog({
               <span />
               <span />
             </div>
-            <p>{statusLabel}</p>
             <div className="specialist-voice-actions specialist-voice-actions--visual">
               {connected ? (
                 <>
