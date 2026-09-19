@@ -70,12 +70,12 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     eyebrow: 'Why CasaMia',
     headline: 'A safer home plan with one accountable team',
     intro:
-      'CasaMia shows what needs changing, what can wait, who should install it and how the result will be checked.',
+      'CasaMia helps you decide what to fix first, what can wait, who should do the work and how the finished change will be checked.',
     coverage: {
       eyebrow: 'Spain-wide service',
-      title: 'Local coverage across Spain, connected by CasaMia.',
+      title: 'Local help across Spain, with one CasaMia standard.',
       body:
-        'CasaMia combines local teams with one shared way of working, so the advice, plan and follow-up stay consistent wherever the home is.',
+        'Wherever the home is, CasaMia keeps the review, explanation and follow-up consistent while matching the work to local availability.',
       badge: 'All Spain',
       legend: 'Local coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
@@ -83,48 +83,48 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       repPlural: 'local teams',
       orderNow: 'Order now',
     },
-    promiseTitle: 'Clear decisions before installation starts.',
+    promiseTitle: 'Clear choices before any work starts.',
     promiseBody:
-      'CasaMia turns a home concern into room priorities, agreed adaptations, price expectations, grant-application checks and clear follow-through.',
+      'CasaMia turns a home concern into room priorities, practical recommendations, price expectations, grant checks where relevant and a clear next step.',
     promisePoints: [
-      'Practical focus: daily movement, support points, lighting, access and wet-floor risk.',
-      'Transparent recommendations: what matters, why it matters and what it may cost.',
-      'Managed follow-through: fit confirmed first, installation coordinated and results checked.',
+      'Daily-use focus: movement, support points, lighting, access and wet-floor risk.',
+      'Plain explanations: what matters, why it matters and what may need checking on site.',
+      'Checked follow-through: fit confirmed first, work arranged carefully and results reviewed.',
     ],
     processEyebrow: 'How CasaMia helps',
     processTitle: 'Know what happens before, during and after the work',
     processSteps: [
       {
-        title: 'Understand the home',
-        body: 'We look at the room, daily routine, access, photos and measurements before recommending adaptations.',
+        title: 'Understand the daily routine',
+        body: 'We look at the room, movement route, access, photos and measurements before recommending a change.',
       },
       {
-        title: 'Set priorities',
-        body: 'You see what matters first, what is optional and what still needs measurement or confirmation.',
+        title: 'Separate urgent from optional',
+        body: 'You see what deserves attention first, what is optional and what still needs measurement or confirmation.',
       },
       {
-        title: 'Choose the right help',
-        body: 'The professional, timing and fitting details are checked against the room, location and agreed adaptations before work is arranged.',
+        title: 'Match the right help',
+        body: 'Before work is arranged, the fitting details are checked against the room, location and recommended change.',
       },
       {
-        title: 'Check the result',
-        body: 'The result is checked, explained and kept connected to one CasaMia point of contact.',
+        title: 'Review the finished change',
+        body: 'The result is checked with you, explained clearly and kept with one CasaMia point of contact.',
       },
     ],
     proofEyebrow: 'What we verify',
     proofTitle: 'Clear checks before you commit.',
     proofBody:
-      'The biggest risk is not choosing the wrong product. It is booking installation without knowing who is responsible, what is included, what still needs confirmation and how the result will be checked.',
+      'The risk is not only choosing the wrong product. It is starting work without knowing what is included, what still needs confirmation, who is responsible and how the result will be checked.',
     proofItems: [
       {
         title: 'Right professional',
-        body: 'The person doing the work must fit the room, adaptation type, location, availability and senior-home standard.',
-        outcome: 'Fewer handoffs',
+        body: 'The person doing the work must fit the room, change type, location, availability and standard needed for an occupied home.',
+        outcome: 'Clear responsibility',
       },
       {
         title: 'Plan and price clarity',
-        body: 'The plan separates included adaptations, optional items, measurement-dependent decisions and grant steps.',
-        outcome: 'No vague quote',
+        body: 'The recommendation separates included work, optional items, measurement-dependent decisions and grant checks where relevant.',
+        outcome: 'No vague list',
       },
       {
         title: 'Daily-use fit',
@@ -133,44 +133,44 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Aftercare follow-up',
-        body: 'You know what happens after installation: explanation, questions, photos, notes and follow-up.',
+        body: 'You know what happens after installation: explanation, questions, photos, notes and any follow-up needed.',
         outcome: 'One contact',
       },
     ],
     sections: [
       {
         icon: 'inspectors',
-        title: 'Practical safety technology',
+        title: 'Clear digital record',
         body:
-          'CasaMia uses digital tools to keep the review clear: room photos, priorities, decisions and follow-up stay in one place.',
-        points: ['Built for ageing-in-place needs', 'Digital tools that support human decisions', 'Technology only where it reduces a named risk'],
+          'CasaMia keeps photos, priorities, decisions and follow-up notes together so everyone can see what was recommended and why.',
+        points: ['Built around real home routines', 'Notes and photos kept together', 'Technology only where it reduces a named risk'],
       },
       {
         icon: 'partners',
-        title: 'Checked local professionals',
+        title: 'Local professionals checked for fit',
         body:
-          'CasaMia checks local professionals for fit, availability, communication and respectful work in occupied senior homes.',
-        points: ['Local fit checked first', 'Clear briefing before the visit', 'Respectful work in occupied homes'],
+          'CasaMia checks local professionals for the room, type of work, availability, communication and respectful work in occupied homes.',
+        points: ['Local fit checked first', 'Clear briefing before the visit', 'Respectful work in the home'],
       },
       {
         icon: 'insured',
         title: 'Quality control built in',
         body:
-          'Every project needs more than a product list. CasaMia keeps the agreed adaptations, installation notes, customer updates and safe-use explanation connected.',
-        points: ['Agreed adaptations before installation starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
+          'Every project needs more than a product list. CasaMia keeps the agreed work, installation notes, updates and safe-use explanation in one place.',
+        points: ['Agreed work before installation starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
       },
       {
         icon: 'products',
-        title: 'Detail-led recommendations',
+        title: 'Recommendations based on use',
         body:
-          'Small details matter in senior safety: height, reach, lighting, door swing, wet surfaces, transfer points and what the person at home will actually use.',
+          'Small details matter: height, reach, lighting, door swing, wet surfaces, transfer points and what the person at home will actually use.',
         points: ['Room and routine considered together', 'Safety improvements before decorative upgrades', 'Smart devices only when they solve a real problem'],
       },
       {
         icon: 'pricing',
         title: 'Price and grant checks',
         body:
-          'You should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant-application support.',
+          'You should know what is included, what is optional and what still needs measurement or confirmation before deciding.',
         points: ['Clear estimate before commitment', 'Optional items separated from essentials', 'Grant guidance without false promises'],
       },
       {
@@ -184,25 +184,25 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     contactEyebrow: 'Speak with CasaMia',
     contactTitle: 'Tell us what worries you about the home.',
     contactBody:
-      'Share the room, routine, location and urgency. A CasaMia coordinator will confirm whether to start with photos, a visit, a priced plan or a grant check.',
+      'Share the room, routine, location and urgency. CasaMia will suggest whether to start with photos, a visit, a priced plan or a grant check.',
     callTitle: 'Call CasaMia',
     emailTitle: 'Email support',
     messagePlaceholder:
-      'Example: My father is struggling with the stairs at night, we are in Marbella, and we need to understand what to fix first.',
+      'Example: The stairs feel unsafe at night, the home is in Marbella, and we need to understand what to fix first.',
     formNote:
-      'CasaMia checks your situation, likely review path and local availability before recommending what to do first.',
+      'CasaMia checks the situation, likely review path and local availability before recommending what to do first.',
     ctaButton: 'Book home assessment',
   },
   es: {
     eyebrow: 'Por qué CasaMia',
-    headline: 'Un plan de hogar más seguro con un equipo responsable',
+    headline: 'Un hogar más seguro con un equipo responsable',
     intro:
-      'CasaMia muestra qué conviene cambiar, qué puede esperar, quién debe hacerlo y cómo se comprobará el resultado.',
+      'CasaMia te ayuda a decidir qué conviene arreglar primero, qué puede esperar, quién debe hacerlo y cómo se comprobará el resultado.',
     coverage: {
       eyebrow: 'Servicio en toda España',
-      title: 'Cobertura local en toda España, conectada por CasaMia.',
+      title: 'Ayuda local en toda España, con un estándar CasaMia.',
       body:
-      'CasaMia combina ayuda local con una forma compartida de trabajar para que el consejo, el plan y el seguimiento sean consistentes esté donde esté la vivienda.',
+      'Esté donde esté la vivienda, CasaMia mantiene una revisión, explicación y seguimiento consistentes, adaptados a la disponibilidad local.',
       badge: 'Toda España',
       legend: 'Zonas con cobertura representativa',
       hint: 'Pasa el cursor o toca un punto para ver el equipo local.',
@@ -210,48 +210,48 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       repPlural: 'representantes',
       orderNow: 'Pedir ahora',
     },
-    promiseTitle: 'Decisiones claras antes de empezar.',
+    promiseTitle: 'Decisiones claras antes de empezar cualquier trabajo.',
     promiseBody:
-      'CasaMia convierte una preocupación sobre la vivienda en prioridades por estancia, adaptaciones medidas, expectativas de precio, revisión de documentación para ayudas y seguimiento claro.',
+      'CasaMia convierte una preocupación sobre la vivienda en prioridades por estancia, recomendaciones prácticas, expectativas de precio, revisión de ayudas cuando aplique y un siguiente paso claro.',
     promisePoints: [
-      'Foco práctico: movimiento diario, puntos de apoyo, iluminación, accesos y suelos mojados.',
-      'Recomendaciones transparentes: qué importa, por qué importa y cuánto puede costar.',
-      'Seguimiento gestionado: encaje confirmado, instalación coordinada y resultado comprobado.',
+      'Foco en el uso diario: movimiento, puntos de apoyo, iluminación, accesos y suelos mojados.',
+      'Explicaciones claras: qué importa, por qué importa y qué puede requerir revisión en casa.',
+      'Seguimiento comprobado: encaje confirmado, trabajo organizado con cuidado y resultado revisado.',
     ],
     processEyebrow: 'Cómo ayuda CasaMia',
     processTitle: 'Saber qué ocurre antes, durante y después del trabajo',
     processSteps: [
       {
-        title: 'Entender la vivienda',
-        body: 'Miramos la estancia, la rutina diaria, accesos, fotos y medidas antes de recomendar adaptaciones.',
+        title: 'Entender la rutina diaria',
+        body: 'Miramos la estancia, la ruta de movimiento, accesos, fotos y medidas antes de recomendar un cambio.',
       },
       {
-        title: 'Recomendar con claridad',
-        body: 'Ves qué importa primero, qué es opcional y qué todavía requiere medidas o confirmación.',
+        title: 'Separar lo urgente de lo opcional',
+        body: 'Ves qué merece atención primero, qué es opcional y qué todavía requiere medidas o confirmación.',
       },
       {
         title: 'Elegir la ayuda adecuada',
-        body: 'El profesional, los tiempos y los detalles de encaje se comprueban con la estancia, ubicación y adaptaciones acordadas antes de organizar el trabajo.',
+        body: 'Antes de organizar el trabajo, los detalles de instalación se comprueban con la estancia, ubicación y cambio recomendado.',
       },
       {
-        title: 'Comprobar el resultado',
-        body: 'El resultado se comprueba, se explica y queda conectado a un punto de contacto CasaMia.',
+        title: 'Revisar el cambio terminado',
+        body: 'El resultado se comprueba contigo, se explica con claridad y queda conectado a un punto de contacto CasaMia.',
       },
     ],
     proofEyebrow: 'Qué comprobamos',
     proofTitle: 'Comprobaciones claras antes de comprometerte.',
     proofBody:
-      'El mayor riesgo no es elegir un producto concreto. Es empezar trabajos sin saber quién responde, qué está incluido, qué falta por confirmar y cómo se comprobará el resultado.',
+      'El riesgo no es solo elegir un producto equivocado. Es empezar trabajos sin saber qué está incluido, qué falta por confirmar, quién responde y cómo se comprobará el resultado.',
     proofItems: [
       {
         title: 'Profesional adecuado',
-        body: 'La persona que realiza el trabajo debe encajar con la estancia, tipo de adaptación, ubicación, disponibilidad y estándar de seguridad senior.',
-        outcome: 'Menos traspasos',
+        body: 'La persona que realiza el trabajo debe encajar con la estancia, tipo de cambio, ubicación, disponibilidad y estándar necesario para una vivienda habitada.',
+        outcome: 'Responsabilidad clara',
       },
       {
         title: 'Plan y precio claros',
-        body: 'El plan separa adaptaciones incluidas, opciones, partidas que requieren medida y pasos de ayuda o subvención.',
-        outcome: 'Sin presupuesto vago',
+        body: 'La recomendación separa trabajo incluido, opciones, decisiones que requieren medida y revisión de ayudas cuando aplique.',
+        outcome: 'Sin lista vaga',
       },
       {
         title: 'Encaje con el uso diario',
@@ -260,44 +260,44 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Seguimiento acordado',
-        body: 'Sabes qué ocurre después: explicación, dudas, fotos, notas y seguimiento.',
+        body: 'Sabes qué ocurre después: explicación, dudas, fotos, notas y el seguimiento que haga falta.',
         outcome: 'Un contacto',
       },
     ],
     sections: [
       {
         icon: 'inspectors',
-        title: 'Tecnología práctica para seguridad',
+        title: 'Registro claro de la revisión',
         body:
-          'CasaMia usa herramientas digitales para que la revisión sea más clara: fotos, prioridades, notas, comprobaciones finales y seguimiento quedan conectados.',
-        points: ['Diseñado para envejecer mejor en casa', 'Herramientas digitales que apoyan decisiones humanas', 'Tecnología solo cuando reduce un riesgo concreto'],
+          'CasaMia mantiene fotos, prioridades, decisiones y notas de seguimiento juntas para que se entienda qué se recomendó y por qué.',
+        points: ['Pensado para rutinas reales en casa', 'Notas y fotos juntas', 'Tecnología solo cuando reduce un riesgo concreto'],
       },
       {
         icon: 'partners',
-        title: 'Profesionales locales comprobados',
+        title: 'Profesionales locales revisados por encaje',
         body:
-          'CasaMia comprueba profesionales locales por encaje, disponibilidad, comunicación y capacidad de trabajar con respeto en hogares habitados por personas mayores.',
-        points: ['Encaje local comprobado primero', 'Instrucciones claras antes de la visita', 'Trabajo respetuoso en viviendas habitadas'],
+          'CasaMia comprueba profesionales locales por estancia, tipo de trabajo, disponibilidad, comunicación y capacidad de trabajar con respeto en una vivienda habitada.',
+        points: ['Encaje local comprobado primero', 'Instrucciones claras antes de la visita', 'Trabajo respetuoso en casa'],
       },
       {
         icon: 'insured',
         title: 'Control de calidad integrado',
         body:
-          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene conectados el plan acordado, notas de instalación, comunicación y explicación final.',
-        points: ['Plan definido antes de empezar', 'Instalación y explicación trazadas', 'Seguimiento después del paso clave'],
+          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene juntos el trabajo acordado, notas de instalación, comunicación y explicación final.',
+        points: ['Trabajo definido antes de empezar', 'Instalación y explicación trazadas', 'Seguimiento después del paso clave'],
       },
       {
         icon: 'products',
-        title: 'Recomendaciones con atención al detalle',
+        title: 'Recomendaciones basadas en el uso',
         body:
-          'En seguridad senior los detalles importan: altura, alcance, iluminación, giro de puertas, superficies mojadas, transferencias y lo que la persona realmente usará.',
+          'Los detalles importan: altura, alcance, iluminación, giro de puertas, superficies mojadas, transferencias y lo que la persona realmente usará.',
         points: ['Estancia y rutina se analizan juntas', 'Adaptaciones útiles antes que mejoras decorativas', 'Dispositivos smart solo si resuelven un problema real'],
       },
       {
         icon: 'pricing',
         title: 'Plan, precio y ayudas claras',
         body:
-          'Debes saber qué está incluido, qué es opcional y qué requiere medición o confirmación. CasaMia separa claramente asesoramiento, instalación y apoyo con ayudas.',
+          'Debes saber qué está incluido, qué es opcional y qué requiere medición o confirmación antes de decidir.',
         points: ['Estimación clara antes del compromiso', 'Opcionales separados de lo esencial', 'Orientación sobre ayudas sin falsas promesas'],
       },
       {
@@ -311,11 +311,11 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     contactEyebrow: 'Habla con CasaMia',
     contactTitle: 'Cuéntanos qué te preocupa del hogar.',
     contactBody:
-      'Comparte estancia, rutina, ubicación y urgencia. Un coordinador de CasaMia confirmará si conviene empezar con fotos, visita, plan con precio o revisión de ayudas.',
+      'Comparte estancia, rutina, ubicación y urgencia. CasaMia te dirá si conviene empezar con fotos, una visita, un plan con precio o una revisión de ayudas.',
     callTitle: 'Llamar a CasaMia',
     emailTitle: 'Email de soporte',
     messagePlaceholder:
-      'Ejemplo: Mi padre tiene dificultades con las escaleras por la noche, estamos en Marbella y necesitamos saber qué arreglar primero.',
+      'Ejemplo: Las escaleras parecen inseguras por la noche, la vivienda está en Marbella y necesitamos saber qué arreglar primero.',
     formNote:
       'CasaMia comprueba tu solicitud, el primer paso recomendado y la disponibilidad local antes de decirte qué conviene hacer primero.',
     ctaButton: 'Solicitar evaluación a domicilio',
