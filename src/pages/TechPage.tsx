@@ -97,30 +97,30 @@ const iconMap: Record<TechIconName, LucideIcon> = {
 const techCopy = {
   en: {
     lang: 'en',
-    seoTitle: 'Connected Health Devices, Home Clinic & Telehealth Spain',
+    seoTitle: 'Connected Home Safety, Health Devices & Telehealth Spain',
     seoDescription:
-      'CasaMia connects compatible health and safety devices to your existing app or care system, or provides a user app, approved-contact view, professional dashboard, Home Clinic and telehealth setup.',
+      'CasaMia connects compatible health and safety devices to your existing app or support system, or provides a user app, approved-contact view, professional dashboard, Home Clinic and telehealth setup.',
     serviceType: 'Connected health device integration, Home Clinic and telehealth setup',
     hero: {
       eyebrow: 'Connected health at home',
-      title: 'Connect the health technology you already have.',
-      accent: 'Or let us provide the complete system.',
+      title: 'Make connected devices useful at home.',
+      accent: 'Keep your current system, or use CasaMia’s.',
       body:
-        'CasaMia connects compatible health, wellbeing and safety devices to the app or care platform you already use. If you do not have one, we provide the user experience, approved-contact view and professional dashboard, installed and supported as one service.',
-      primaryCta: 'Plan my integration',
+        'CasaMia connects compatible health, wellbeing and safety devices so readings, reminders and alerts reach the right person with agreed consent. If you already use an app or support platform, we check whether it can connect safely. If not, CasaMia can provide the app, approved-contact view and support.',
+      primaryCta: 'Check my setup',
       secondaryCta: 'Explore the service',
       proof: ['Keep your current system', 'Connect compatible devices', 'CasaMia platform available'],
       visualEyebrow: 'One connected service',
-      visualTitle: 'From device signal to the person who can act',
-      visualSummary: 'Health and home-safety devices send the right readings and alerts to your existing system or to the CasaMia platform.',
+      visualTitle: 'From device signal to a clear response',
+      visualSummary: 'Health and home-safety devices send agreed readings and alerts to your existing system or to the CasaMia platform.',
       sources: ['Health devices', 'Home safety', 'Daily routines'],
       hub: 'Integration & setup',
       routeLabel: 'API · Cloud · Setup',
       destinations: ['Your app or system', 'CasaMia platform'],
-      checks: ['Compatibility reviewed', 'Permissions agreed', 'People onboarded'],
+      checks: ['Compatibility checked', 'Permissions agreed', 'Responder named'],
     },
     sectionNav: {
-      label: 'Explore connected care',
+      label: 'Explore connected support',
       items: [
         { label: 'How we connect', href: '#integration-paths' },
         { label: 'Home Clinic', href: '#home-clinic' },
@@ -131,17 +131,17 @@ const techCopy = {
     },
     paths: {
       eyebrow: 'Start with what you already have',
-      title: 'Three starting points. One team to make it usable.',
+      title: 'Three starting points. One setup that people can actually use.',
       body:
-        'We begin with your devices, digital tools, users and response rules, then connect only the readings, alerts and access roles you need.',
+        'CasaMia begins with your devices, digital tools, users and response rules, then connects only the readings, alerts and access roles that are useful.',
       items: [
         {
           icon: 'link' as TechIconName,
           number: '01',
-          title: 'You already have an app or care system',
+          title: 'You already have an app or support system',
           body:
-            'We check what your system can safely share, then design the connection around how your team already works.',
-          outcome: 'Keep the system your team already knows.',
+            'We check what your system can safely share, then design the connection around the routine already in place.',
+          outcome: 'Keep the setup people already know.',
         },
         {
           icon: 'bluetooth' as TechIconName,
@@ -149,21 +149,21 @@ const techCopy = {
           title: 'Your devices work in separate apps',
           body:
             'We confirm which readings or alerts matter, then send only those signals to the agreed responder.',
-          outcome: 'Send fragmented notifications to the agreed responder.',
+          outcome: 'Send important alerts to the agreed responder.',
         },
         {
           icon: 'monitor' as TechIconName,
           number: '03',
-          title: 'You need the complete connected-care setup',
+          title: 'You need the complete connected setup',
           body:
             'CasaMia can provide the user app, approved-contact access, professional dashboard, device setup, onboarding and ongoing support with agreed response rules.',
-          outcome: 'One service, from equipment to daily use.',
+          outcome: 'One service from equipment to daily use.',
         },
       ],
     },
     devices: {
       eyebrow: 'Device integration',
-      title: 'Turn device readings into a response plan.',
+      title: 'Turn device readings into a clear response.',
       body:
         'CasaMia checks which devices are compatible, which readings matter and who should receive each alert before anything is connected.',
       items: [
@@ -190,13 +190,13 @@ const techCopy = {
       ],
       compatibilityTitle: 'Compatibility comes first',
       compatibilityBody:
-        'Not every device exposes a safe or supported connection. We confirm technical and contractual compatibility before promising an integration. If a direct connection is not possible, we recommend a compatible device or another response option.',
+        'Not every device has a safe or supported connection. CasaMia confirms technical and contractual compatibility before promising an integration. If a direct connection is not possible, we recommend a compatible device or another response option.',
     },
     integration: {
       eyebrow: 'How information moves',
-      title: 'From the device to the person who needs the information.',
+      title: 'From the device to the person who needs to act.',
       body:
-        'Where it is technically safe, CasaMia connects supported readings and alerts. Together we define what is shared, who can see it, what creates an alert and what stays in the original system.',
+        'Where it is technically safe, CasaMia connects supported readings and alerts. Together we define what is shared, who sees it, what creates an alert and what stays in the original system.',
       columns: [
         {
           icon: 'radio' as TechIconName,
@@ -218,7 +218,7 @@ const techCopy = {
     },
     homeClinic: {
       eyebrow: 'The CasaMia Home Clinic',
-      title: 'Health readings at home without turning the home into a clinic.',
+      title: 'Health readings at home without making the home feel clinical.',
       body:
         'Home Clinic combines selected compatible devices, guided measurement routines and one organised view. CasaMia installs and pairs the equipment, explains each step and shares agreed readings only with approved contacts or professionals.',
       imageAlt: 'Connected blood pressure monitor prepared for a guided health measurement at home',
@@ -237,7 +237,7 @@ const techCopy = {
     },
     telehealth: {
       eyebrow: 'Telehealth option',
-      title: 'Prepare the video consultation before it begins.',
+      title: 'Prepare the video consultation before it starts.',
       body:
         'CasaMia can add a telehealth option so the person at home can join a scheduled consultation with fewer last-minute problems. We configure the chosen device, test the connection, provide reminders and prepare the agreed readings or notes for the appointment.',
       features: [
@@ -281,25 +281,25 @@ const techCopy = {
       yourSystem: {
         kicker: 'Connect to what you have',
         visualLabel: 'API / webhook',
-        title: 'Your app or care system',
+        title: 'Your app or support system',
         body:
-          'We connect compatible information to your application, care platform or dashboard where the system allows it.',
+          'We connect compatible information to your app, support platform or dashboard where the system allows it.',
         points: ['Current routine protected', 'Safe connection checked', 'Alert ownership documented'],
       },
       ourSystem: {
         kicker: 'No platform? We provide one',
         visualLabel: 'CasaMia platform view',
-        title: 'CasaMia connected-care platform',
+        title: 'CasaMia connected support platform',
         body:
-          'A focused user experience, approved-contact access and a professional dashboard for agreed reminders, readings, alerts and follow-up.',
+          'A simple app for the person at home, approved-contact access and a professional dashboard for agreed reminders, readings, alerts and follow-up.',
         points: ['User app and optional VYVA voice support', 'Approved-contact view with role-based access', 'Professional dashboard and support'],
       },
     },
     delivery: {
       eyebrow: 'What CasaMia actually sets up',
-      title: 'One accountable service from discovery to support.',
+      title: 'One service from discovery to support.',
       body:
-        'We do more than pair a device. CasaMia sets up the equipment, permissions, training and response rules needed to make connected care usable in daily life.',
+        'CasaMia does more than pair a device. We set up the equipment, permissions, training and response rules needed to make connected support usable in daily life.',
       items: [
         { title: 'Discover', body: 'Inventory devices, systems, users, connectivity and the outcome you need.' },
         { title: 'Design', body: 'Confirm compatibility, shared information, permissions, alerts and response responsibilities.' },
@@ -307,11 +307,11 @@ const techCopy = {
         { title: 'Onboard', body: 'Guide the person at home, approved contacts, staff and authorised professionals through safe daily use.' },
         { title: 'Support', body: 'Maintain agreed connections, resolve issues and adapt the setup as needs change.' },
       ],
-      imageAlt: 'CasaMia connected-care equipment and onboarding materials prepared in a home',
+      imageAlt: 'CasaMia connected support equipment and onboarding materials prepared in a home',
     },
     governance: {
       eyebrow: 'Privacy, reliability and responsibility',
-      title: 'Connected care only works when everyone knows what happens next.',
+      title: 'Connected support only works when everyone knows what happens next.',
       body:
         'Before activation, CasaMia documents who may access each type of information, which alerts each person receives and who is responsible for responding. We aim to collect and share only what the agreed service needs.',
       items: [
@@ -343,7 +343,7 @@ const techCopy = {
             'We can review many health and safety devices, but a direct integration depends on the manufacturer’s supported interfaces, permissions, connectivity and contractual conditions. We confirm compatibility before proposing a connection.',
         },
         {
-          question: 'Can we keep our current app or care system?',
+          question: 'Can we keep our current app or support system?',
           answer:
             'Yes, when that system exposes a supported and authorised integration path. CasaMia first reviews the available APIs, webhooks or approved exchange methods, then agrees the data flow, permissions and responsibilities.',
         },
@@ -380,30 +380,30 @@ const techCopy = {
   },
   es: {
     lang: 'es',
-    seoTitle: 'Dispositivos de Salud Conectados, Clínica en Casa y Telesalud',
+    seoTitle: 'Seguridad conectada, dispositivos de salud y telesalud en España',
     seoDescription:
-      'CasaMia conecta dispositivos compatibles de salud y seguridad con tu app o sistema asistencial, o proporciona una configuración gestionada con app, vista para contactos autorizados, panel profesional, Clínica en Casa y telesalud.',
+      'CasaMia conecta dispositivos compatibles de salud y seguridad con tu app o sistema de apoyo, o proporciona una configuración gestionada con app, vista para contactos autorizados, panel profesional, Clínica en Casa y telesalud.',
     serviceType: 'Integración de dispositivos de salud, Clínica en Casa y configuración de telesalud',
     hero: {
       eyebrow: 'Salud conectada en casa',
-      title: 'Conecta la tecnología de salud que ya tienes.',
-      accent: 'O deja que proporcionemos el sistema completo.',
+      title: 'Haz útiles los dispositivos conectados en casa.',
+      accent: 'Conserva tu sistema actual o usa el de CasaMia.',
       body:
-        'CasaMia conecta dispositivos compatibles de salud, bienestar y seguridad con la aplicación o plataforma asistencial que ya utilizas. Si no dispones de una, proporcionamos la experiencia para la persona usuaria, la vista para contactos autorizados y el panel profesional, todo instalado y respaldado como un único servicio.',
-      primaryCta: 'Planificar mi integración',
+        'CasaMia conecta dispositivos compatibles de salud, bienestar y seguridad para que lecturas, recordatorios y avisos lleguen a la persona adecuada con consentimiento acordado. Si ya usas una app o plataforma, comprobamos si puede conectarse de forma segura. Si no, CasaMia puede proporcionar la app, la vista para contactos autorizados y el soporte.',
+      primaryCta: 'Revisar mi configuración',
       secondaryCta: 'Explorar el servicio',
       proof: ['Conserva tu sistema actual', 'Conecta dispositivos compatibles', 'Plataforma CasaMia disponible'],
       visualEyebrow: 'Un único servicio conectado',
-      visualTitle: 'De la señal del dispositivo a la persona que puede actuar',
-      visualSummary: 'Los dispositivos de salud y seguridad envían las lecturas y avisos adecuados a tu sistema actual o a la plataforma CasaMia.',
+      visualTitle: 'De la señal del dispositivo a una respuesta clara',
+      visualSummary: 'Los dispositivos de salud y seguridad envían las lecturas y avisos acordados a tu sistema actual o a la plataforma CasaMia.',
       sources: ['Dispositivos de salud', 'Seguridad del hogar', 'Rutinas diarias'],
       hub: 'Integración y configuración',
       routeLabel: 'API · Nube · Configuración',
       destinations: ['Tu app o sistema', 'Plataforma CasaMia'],
-      checks: ['Compatibilidad revisada', 'Permisos acordados', 'Usuarios formados'],
+      checks: ['Compatibilidad comprobada', 'Permisos acordados', 'Responsable definido'],
     },
     sectionNav: {
-      label: 'Explorar la atención conectada',
+      label: 'Explorar el soporte conectado',
       items: [
         { label: 'Cómo conectamos', href: '#integration-paths' },
         { label: 'Clínica en Casa', href: '#home-clinic' },
@@ -414,17 +414,17 @@ const techCopy = {
     },
     paths: {
       eyebrow: 'Partimos de lo que ya tienes',
-      title: 'Tres puntos de partida. Un equipo para hacerlo usable.',
+      title: 'Tres puntos de partida. Una configuración que se pueda usar.',
       body:
-        'Empezamos por tus dispositivos, herramientas digitales, usuarios y objetivo; después creamos solo la conexión y el soporte que necesitas.',
+        'CasaMia empieza por tus dispositivos, herramientas digitales, usuarios y reglas de respuesta; después conecta solo las lecturas, avisos y accesos que aportan valor.',
       items: [
         {
           icon: 'link' as TechIconName,
           number: '01',
-          title: 'Ya tienes una app o sistema asistencial',
+          title: 'Ya tienes una app o sistema de apoyo',
           body:
-            'Comprobamos qué puede compartir tu sistema de forma segura y diseñamos la conexión en torno a cómo trabaja ya tu equipo.',
-          outcome: 'Conserva el sistema que tu equipo ya conoce.',
+            'Comprobamos qué puede compartir tu sistema de forma segura y diseñamos la conexión en torno a la rutina que ya existe.',
+          outcome: 'Conserva la configuración que ya conocéis.',
         },
         {
           icon: 'bluetooth' as TechIconName,
@@ -432,7 +432,7 @@ const techCopy = {
           title: 'Tus dispositivos funcionan en apps separadas',
           body:
             'Confirmamos qué lecturas o avisos son útiles y dirigimos solo esas señales a la persona acordada.',
-          outcome: 'Dirige cada aviso al responsable adecuado.',
+          outcome: 'Dirige los avisos importantes al responsable acordado.',
         },
         {
           icon: 'monitor' as TechIconName,
@@ -446,7 +446,7 @@ const techCopy = {
     },
     devices: {
       eyebrow: 'Integración de dispositivos',
-      title: 'Tú aportas los dispositivos. Nosotros hacemos que la información sea más accionable.',
+      title: 'Convierte las lecturas en una respuesta clara.',
       body:
         'CasaMia comprueba qué dispositivos son compatibles, qué lecturas importan y quién debe recibir cada aviso antes de conectar nada.',
       items: [
@@ -473,11 +473,11 @@ const techCopy = {
       ],
       compatibilityTitle: 'La compatibilidad es lo primero',
       compatibilityBody:
-        'No todos los dispositivos permiten una conexión segura o compatible. Confirmamos la viabilidad técnica y contractual antes de prometer una integración. Si no es posible una conexión directa, proponemos un dispositivo compatible u otra opción de respuesta.',
+        'No todos los dispositivos permiten una conexión segura o compatible. CasaMia confirma la viabilidad técnica y contractual antes de prometer una integración. Si no es posible una conexión directa, proponemos un dispositivo compatible u otra opción de respuesta.',
     },
     integration: {
       eyebrow: 'Cómo se mueve la información',
-      title: 'Del dispositivo a la persona que necesita la información.',
+      title: 'Del dispositivo a la persona que necesita actuar.',
       body:
         'Cuando es técnicamente seguro, CasaMia conecta lecturas y avisos compatibles. Juntos definimos qué se comparte, quién puede verlo, qué genera una alerta y qué permanece en el sistema original.',
       columns: [
@@ -494,14 +494,14 @@ const techCopy = {
         {
           icon: 'cloud' as TechIconName,
           label: '3. Destino',
-          items: ['Tu aplicación', 'Sistema del equipo asistencial', 'App CasaMia', 'Vista de contacto autorizado o profesional'],
+          items: ['Tu aplicación', 'Sistema de apoyo', 'App CasaMia', 'Vista de contacto autorizado o profesional'],
         },
       ],
-      footer: 'Persona usuaria · Familia · Profesional autorizado · Equipo asistencial',
+      footer: 'Persona en casa · Contacto autorizado · Profesional · Servicio de respuesta',
     },
     homeClinic: {
       eyebrow: 'La Clínica en Casa de CasaMia',
-      title: 'Lecturas de salud en casa sin convertirla en una clínica.',
+      title: 'Lecturas de salud en casa sin que parezca una clínica.',
       body:
         'Clínica en Casa combina dispositivos compatibles seleccionados, rutinas guiadas de medición y una vista organizada. CasaMia instala y vincula los equipos, explica cada paso y comparte las lecturas acordadas solo con contactos autorizados o profesionales.',
       imageAlt: 'Tensiómetro conectado preparado para una medición guiada de salud en casa',
@@ -522,7 +522,7 @@ const techCopy = {
       eyebrow: 'Opción de telesalud',
       title: 'Facilita la videoconsulta antes de que empiece.',
       body:
-        'CasaMia puede incorporar una opción de telesalud para que la persona participe en una consulta programada desde casa. Configuramos el dispositivo elegido, comprobamos la conexión, enviamos recordatorios y preparamos la información acordada para la cita.',
+        'CasaMia puede incorporar una opción de telesalud para que la persona participe en una consulta programada desde casa con menos problemas de última hora. Configuramos el dispositivo elegido, comprobamos la conexión, enviamos recordatorios y preparamos la información acordada para la cita.',
       features: [
         'Acceso directo a videoconsultas',
         'Comprobación de cámara, sonido y conexión',
@@ -564,25 +564,25 @@ const techCopy = {
       yourSystem: {
         kicker: 'Conecta lo que ya tienes',
         visualLabel: 'API / webhook',
-        title: 'Tu app o sistema asistencial',
+        title: 'Tu app o sistema de apoyo',
         body:
-          'Conectamos información compatible con tu aplicación, plataforma asistencial o panel cuando el sistema lo permite.',
+          'Conectamos información compatible con tu aplicación, plataforma de apoyo o panel cuando el sistema lo permite.',
         points: ['Se protege la rutina actual', 'Se comprueba la conexión segura', 'Queda claro quién responde a cada aviso'],
       },
       ourSystem: {
         kicker: '¿Sin plataforma? La proporcionamos',
         visualLabel: 'Vista CasaMia en directo',
-        title: 'Plataforma de atención conectada CasaMia',
+        title: 'Plataforma de soporte conectado CasaMia',
         body:
-          'Una experiencia enfocada para la persona, acceso para contactos autorizados y un panel profesional para recordatorios, lecturas, alertas y seguimientos acordados.',
+          'Una app sencilla para la persona en casa, acceso para contactos autorizados y un panel profesional para recordatorios, lecturas, alertas y seguimientos acordados.',
         points: ['App para la persona y asistencia VYVA opcional', 'Vista para contactos autorizados con acceso por roles', 'Panel profesional y soporte'],
       },
     },
     delivery: {
       eyebrow: 'Qué configura realmente CasaMia',
-      title: 'Un único servicio responsable desde el análisis hasta el soporte.',
+      title: 'Un servicio desde el análisis hasta el soporte.',
       body:
-        'Hacemos mucho más que vincular un dispositivo. CasaMia configura equipos, permisos, formación y reglas de respuesta para que la atención conectada funcione en el día a día.',
+        'CasaMia hace mucho más que vincular un dispositivo. Configuramos equipos, permisos, formación y reglas de respuesta para que el soporte conectado funcione en el día a día.',
       items: [
         { title: 'Analizar', body: 'Inventariamos dispositivos, sistemas, usuarios, conectividad y el resultado que necesitas.' },
         { title: 'Diseñar', body: 'Confirmamos compatibilidad, información compartida, permisos, alertas y responsabilidades.' },
@@ -590,11 +590,11 @@ const techCopy = {
         { title: 'Formar', body: 'Acompañamos a personas usuarias, contactos autorizados, equipos y profesionales en el uso diario.' },
         { title: 'Dar soporte', body: 'Mantenemos las conexiones acordadas, resolvemos incidencias y ajustamos la configuración cuando cambian las necesidades.' },
       ],
-      imageAlt: 'Equipo de atención conectada CasaMia y materiales de formación preparados en una vivienda',
+      imageAlt: 'Equipo de soporte conectado CasaMia y materiales de formación preparados en una vivienda',
     },
     governance: {
       eyebrow: 'Privacidad, fiabilidad y responsabilidad',
-      title: 'La atención conectada solo funciona cuando todos saben qué ocurre después.',
+      title: 'El soporte conectado solo funciona cuando todos saben qué ocurre después.',
       body:
         'Antes de activar el servicio, CasaMia documenta quién puede acceder a cada tipo de información, qué alertas recibe cada persona y quién es responsable de responder. Procuramos recoger y compartir solo lo necesario para el servicio acordado.',
       items: [
@@ -626,7 +626,7 @@ const techCopy = {
             'Podemos revisar numerosos dispositivos de salud y seguridad, pero una integración directa depende de las interfaces compatibles del fabricante, los permisos, la conectividad y las condiciones contractuales. Confirmamos la compatibilidad antes de proponer una conexión.',
         },
         {
-          question: '¿Podemos conservar nuestra app o sistema asistencial?',
+          question: '¿Podemos conservar nuestra app o sistema de apoyo?',
           answer:
             'Sí, cuando el sistema ofrece una vía de integración compatible y autorizada. CasaMia revisa primero las APIs, webhooks u opciones de intercambio disponibles y después define claramente el alcance.',
         },
@@ -648,7 +648,7 @@ const techCopy = {
         {
           question: '¿Quién recibe una alerta?',
           answer:
-            'Se acuerda antes de activar el servicio. Las alertas se pueden dirigir por tipo, prioridad y horario a contactos designados, equipos asistenciales o servicios de respuesta contratados. CasaMia no asume responsabilidad de emergencias salvo contratación expresa.',
+            'Se acuerda antes de activar el servicio. Las alertas se pueden dirigir por tipo, prioridad y horario a contactos designados, profesionales o servicios de respuesta contratados. CasaMia no asume responsabilidad de emergencias salvo contratación expresa.',
         },
       ],
     },
@@ -657,7 +657,7 @@ const techCopy = {
       title: 'Cuéntanos qué tienes. Definiremos la conexión adecuada.',
       body:
         'Puedes traer una lista de dispositivos, un sistema existente o el resultado que necesitas. CasaMia revisará el punto de partida, la compatibilidad, los destinatarios de alertas y las reglas de respuesta.',
-      primaryCta: 'Hablar de mi integración',
+      primaryCta: 'Revisar mi configuración',
       secondaryCta: 'Necesito la plataforma completa',
     },
   },
