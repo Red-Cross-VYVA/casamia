@@ -59,28 +59,28 @@ type AboutCopy = {
 const aboutCopy: Record<'en' | 'es', AboutCopy> = {
   en: {
     eyebrow: 'About CasaMia',
-    title: 'Technology and service for',
+    title: 'Practical help for',
     accent: 'safer ageing at home.',
     intro:
-      'CasaMia brings room checks, agreed adaptations, connected alerts and grant-application guidance into one coordinated plan for adapting a home in Spain.',
+      'CasaMia helps you understand what is unsafe at home, what to change first, what it may cost and whether grant paperwork is worth preparing.',
     primaryCta: 'Check home safety',
     secondaryCta: 'Check grant eligibility',
     provider: {
-      kicker: 'Technology and service partner',
+      kicker: 'Technology behind the service',
       title: 'Built with MOKA DigiTech.',
       body:
-        'MOKA DigiTech supports CasaMia with the tools that keep reports, local visits, grant checks and follow-up clear from the first concern to the agreed plan.',
+        'MOKA DigiTech supports CasaMia with tools that keep reports, visits, grant checks and follow-up easy to follow from the first concern to the agreed plan.',
       bullets: [
-        'Services designed for older people, families, installers and care partners',
-        'Clear digital reports, room notes and grant-readiness checks',
+        'Services designed around older people, families and the professionals entering the home',
+        'Clear reports, room notes and grant-readiness checks',
         'Experience with practical support tools through references such as VYVA and COCOON',
       ],
     },
     coverage: {
       eyebrow: 'Spain-wide service',
-      title: 'Local teams across Spain, guided by one clear process.',
+      title: 'Local help across Spain, guided by one clear standard.',
       body:
-        'CasaMia is designed for national coverage: local teams can review the home, while the digital report keeps every assessment, recommendation and follow-up consistent.',
+        'CasaMia is designed for national coverage: local teams can review the home, while the report keeps the advice, priorities and next steps consistent.',
       badge: 'All Spain',
       legend: 'Local coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
@@ -135,23 +135,23 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
     ],
     workflowEyebrow: 'How we work',
-    workflowTitle: 'Digital first, human where it matters.',
+    workflowTitle: 'Start online. Bring in people when the home needs it.',
     workflow: [
       {
         title: 'Free check',
-        body: 'Start with either a home safety report or a grant eligibility check.',
+        body: 'Start with a home safety report or a grant check, depending on what you need to decide first.',
       },
       {
         title: 'Clear recommendation',
-        body: 'CasaMia explains the risks, the likely adaptation level and the next decision needed.',
+        body: 'CasaMia explains what looks risky, what could help and which decision comes next.',
       },
       {
         title: 'Local follow-up',
-        body: 'Representatives can review the home, organise installation details and prepare required documents.',
+        body: 'Local professionals can review the home, check measurements and prepare the documents needed for the next step.',
       },
       {
         title: 'Ongoing support',
-        body: 'Connected alerts and service follow-up keep the safety plan visible after installation.',
+        body: 'Follow-up, notes and optional alerts help keep the safety plan visible after installation.',
       },
     ],
     sourcesTitle: 'Credibility references',
@@ -163,30 +163,30 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
   },
   es: {
     eyebrow: 'Sobre CasaMia',
-    title: 'Tecnología y servicio para',
+    title: 'Ayuda práctica para',
     accent: 'envejecer con más seguridad en casa.',
     intro:
-      'CasaMia une revisión por estancias, adaptaciones acordadas, avisos conectados y orientación documental para ayudas en un proceso coordinado para adaptar una vivienda en España.',
+      'CasaMia te ayuda a entender qué es inseguro en casa, qué cambiar primero, cuánto puede costar y si merece la pena preparar documentación para ayudas.',
     primaryCta: 'Comprobar seguridad',
     secondaryCta: 'Comprobar ayudas',
     provider: {
-      kicker: 'Partner tecnológico y de servicio',
+      kicker: 'Tecnología detrás del servicio',
       title: 'Construido con MOKA DigiTech.',
       body:
-        'MOKA DigiTech apoya CasaMia con herramientas que mantienen claros los informes, las visitas locales, la revisión de ayudas y el seguimiento desde la primera preocupación hasta el plan acordado.',
+        'MOKA DigiTech apoya CasaMia con herramientas para que informes, visitas, revisión de ayudas y seguimiento sean fáciles de entender desde la primera preocupación hasta el plan acordado.',
       bullets: [
-        'Servicios pensados para personas mayores, familias, instaladores y partners de cuidado',
-        'Informes digitales claros, notas por estancia y revisión de ayudas',
+        'Servicios pensados alrededor de personas mayores, familias y profesionales que entran en casa',
+        'Informes claros, notas por estancia y revisión de ayudas',
         'Experiencia con herramientas prácticas de apoyo como VYVA y COCOON',
       ],
     },
     coverage: {
       eyebrow: 'Servicio en toda España',
-      title: 'Representantes en toda España, guiados por un proceso claro.',
+      title: 'Ayuda local en toda España, guiada por un estándar claro.',
       body:
-        'CasaMia está pensada para cobertura nacional: representantes locales revisan la vivienda, mientras el informe digital mantiene cada evaluación, recomendación y seguimiento ordenados.',
+        'CasaMia está pensada para cobertura nacional: equipos locales pueden revisar la vivienda, mientras el informe mantiene el consejo, las prioridades y los siguientes pasos ordenados.',
       badge: 'Toda España',
-      legend: 'Zonas con cobertura representativa',
+      legend: 'Zonas con cobertura local',
       hint: 'Pasa el cursor o toca un punto para ver el equipo local.',
       repSingular: 'representante',
       repPlural: 'representantes',
@@ -239,23 +239,23 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
     ],
     workflowEyebrow: 'Cómo trabajamos',
-    workflowTitle: 'Digital primero, humano donde importa.',
+    workflowTitle: 'Empieza online. Añade personas cuando la vivienda lo necesita.',
     workflow: [
       {
         title: 'Check gratuito',
-        body: 'Empieza con un informe de seguridad del hogar o un check de elegibilidad de ayudas.',
+        body: 'Empieza con un informe de seguridad o un check de ayudas, según lo que necesites decidir primero.',
       },
       {
         title: 'Recomendación clara',
-        body: 'CasaMia explica los riesgos, el nivel probable de adaptación y la siguiente decisión necesaria.',
+        body: 'CasaMia explica qué parece arriesgado, qué podría ayudar y qué decisión viene después.',
       },
       {
         title: 'Seguimiento local',
-        body: 'Los representantes pueden revisar la vivienda, organizar instalación y preparar documentos.',
+        body: 'Profesionales locales pueden revisar la vivienda, comprobar medidas y preparar los documentos necesarios para el siguiente paso.',
       },
       {
         title: 'Soporte continuo',
-        body: 'Los avisos conectados y el seguimiento mantienen visible el plan de seguridad tras la instalación.',
+        body: 'El seguimiento, las notas y los avisos opcionales ayudan a mantener visible el plan tras la instalación.',
       },
     ],
     sourcesTitle: 'Referencias de credibilidad',

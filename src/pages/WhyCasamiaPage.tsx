@@ -91,8 +91,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       'Transparent recommendations: what matters, why it matters and what it may cost.',
       'Managed follow-through: fit confirmed first, installation coordinated and results checked.',
     ],
-    processEyebrow: 'How CasaMia coordinates',
-    processTitle: 'Know what happens before, during and after installation',
+    processEyebrow: 'How CasaMia helps',
+    processTitle: 'Know what happens before, during and after the work',
     processSteps: [
       {
         title: 'Understand the home',
@@ -103,8 +103,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         body: 'You see what matters first, what is optional and what still needs measurement or confirmation.',
       },
       {
-        title: 'Vet and coordinate',
-        body: 'Local providers are matched to the room, job type, location and agreed adaptations before anything is coordinated through CasaMia.',
+        title: 'Choose the right help',
+        body: 'The professional, timing and fitting details are checked against the room, location and agreed adaptations before work is arranged.',
       },
       {
         title: 'Check the result',
@@ -117,8 +117,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       'The biggest risk is not choosing the wrong product. It is booking installation without knowing who is responsible, what is included, what still needs confirmation and how the result will be checked.',
     proofItems: [
       {
-        title: 'Provider fit',
-        body: 'The provider must match the room, adaptation type, location, availability and senior-home standard.',
+        title: 'Right professional',
+        body: 'The person doing the work must fit the room, adaptation type, location, availability and senior-home standard.',
         outcome: 'Fewer handoffs',
       },
       {
@@ -147,10 +147,10 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'partners',
-        title: 'Vetted provider model',
+        title: 'Checked local professionals',
         body:
-          'CasaMia selects providers for fit, availability, communication and the ability to work respectfully in senior homes.',
-        points: ['Local providers checked before assignment', 'Clear briefing before the visit', 'Respectful work in occupied homes'],
+          'CasaMia checks local professionals for fit, availability, communication and respectful work in occupied senior homes.',
+        points: ['Local fit checked first', 'Clear briefing before the visit', 'Respectful work in occupied homes'],
       },
       {
         icon: 'insured',
@@ -202,7 +202,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       eyebrow: 'Servicio en toda España',
       title: 'Cobertura local en toda España, conectada por CasaMia.',
       body:
-      'CasaMia combina representantes locales con un proceso compartido para que el consejo, el plan y el seguimiento sean consistentes esté donde esté la vivienda.',
+      'CasaMia combina ayuda local con una forma compartida de trabajar para que el consejo, el plan y el seguimiento sean consistentes esté donde esté la vivienda.',
       badge: 'Toda España',
       legend: 'Zonas con cobertura representativa',
       hint: 'Pasa el cursor o toca un punto para ver el equipo local.',
@@ -230,8 +230,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         body: 'Ves qué importa primero, qué es opcional y qué todavía requiere medidas o confirmación.',
       },
       {
-        title: 'Validar y coordinar',
-        body: 'Asignamos profesionales locales adecuados, les damos instrucciones claras y coordinamos el proceso.',
+        title: 'Elegir la ayuda adecuada',
+        body: 'El profesional, los tiempos y los detalles de encaje se comprueban con la estancia, ubicación y adaptaciones acordadas antes de organizar el trabajo.',
       },
       {
         title: 'Comprobar el resultado',
@@ -244,8 +244,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       'El mayor riesgo no es elegir un producto concreto. Es empezar trabajos sin saber quién responde, qué está incluido, qué falta por confirmar y cómo se comprobará el resultado.',
     proofItems: [
       {
-        title: 'Encaje del profesional',
-        body: 'El profesional debe encajar con la estancia, tipo de adaptación, ubicación, disponibilidad y estándar de seguridad senior.',
+        title: 'Profesional adecuado',
+        body: 'La persona que realiza el trabajo debe encajar con la estancia, tipo de adaptación, ubicación, disponibilidad y estándar de seguridad senior.',
         outcome: 'Menos traspasos',
       },
       {
@@ -274,10 +274,10 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'partners',
-        title: 'Modelo de proveedores validados',
+        title: 'Profesionales locales comprobados',
         body:
-          'CasaMia no es un directorio abierto. Seleccionamos proveedores por encaje, disponibilidad, comunicación y capacidad de trabajar con respeto en hogares de personas mayores.',
-        points: ['Profesionales revisados antes de asignar', 'Briefing claro antes de la visita', 'Trabajo respetuoso en viviendas habitadas'],
+          'CasaMia comprueba profesionales locales por encaje, disponibilidad, comunicación y capacidad de trabajar con respeto en hogares habitados por personas mayores.',
+        points: ['Encaje local comprobado primero', 'Instrucciones claras antes de la visita', 'Trabajo respetuoso en viviendas habitadas'],
       },
       {
         icon: 'insured',
