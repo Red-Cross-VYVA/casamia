@@ -59,15 +59,15 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'acceptance',
         title: 'Acceptance before final payment',
-        body: 'The final {{proposalBalancePercent}} is due only after the completed work has been reviewed and accepted.',
+        body: 'The final {{proposalBalancePercent}} is due only after the completed installation has been reviewed and accepted.',
       },
     ],
   },
   es: {
-    eyebrow: 'Cómo comprueba CasaMia el trabajo',
+    eyebrow: 'Cómo comprueba CasaMia el plan',
     headline: 'Sabe por qué se recomienda un cambio antes de instalar nada',
     body:
-      'Cada proyecto empieza por la persona, la vivienda y la rutina. CasaMia confirma encaje, alcance, medidas, necesidades de instalación y explicación de uso seguro antes de dar el trabajo por cerrado.',
+      'Cada proyecto empieza por la persona, la vivienda y la rutina. CasaMia confirma encaje, adaptaciones incluidas, medidas, necesidades de instalación y explicación de uso seguro antes de dar el plan por cerrado.',
     learnMore: 'Ver por qué CasaMia',
     cards: [
       {
@@ -78,17 +78,17 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'partners',
         title: 'Encaje de instalación revisado',
-        body: 'El trabajo propuesto se ajusta a la vivienda, superficie, medidas y nivel de instalación necesario.',
+        body: 'La adaptación propuesta se ajusta a la vivienda, superficie, medidas y nivel de instalación necesario.',
       },
       {
         icon: 'insured',
         title: 'Trabajo profesional asegurado',
-        body: 'El trabajo se planifica con instalación profesional asegurada, comprobaciones finales y una entrega clara.',
+        body: 'La instalación se planifica con profesionales asegurados, comprobaciones finales y una entrega clara.',
       },
       {
         icon: 'pricing',
         title: 'Precio antes del compromiso',
-        body: 'Ves el alcance recomendado, los supuestos y el precio antes de decidir si el trabajo sigue adelante.',
+        body: 'Ves las adaptaciones recomendadas, los supuestos y el precio antes de decidir si el plan sigue adelante.',
       },
       {
         icon: 'products',
@@ -98,7 +98,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'acceptance',
         title: 'Aceptación antes del pago final',
-        body: 'El {{proposalBalancePercent}} final se paga solo después de revisar y aceptar el trabajo completado.',
+        body: 'El {{proposalBalancePercent}} final se paga solo después de revisar y aceptar la instalación completada.',
       },
     ],
   },

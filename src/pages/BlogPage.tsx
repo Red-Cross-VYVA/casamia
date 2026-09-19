@@ -467,8 +467,8 @@ const topicRoutes = [
     to: '/grants',
     title: { en: 'Grants and documents', es: 'Ayudas y documentos' },
     body: {
-      en: 'Prepare the location, documents and work questions before relying on funding.',
-      es: 'Prepara ubicación, documentos y alcance antes de contar con financiación.',
+      en: 'Prepare the location, documents and adaptation questions before relying on funding.',
+      es: 'Prepara ubicación, documentos y adaptaciones previstas antes de contar con financiación.',
     },
     pill: { en: 'Funding readiness', es: 'Preparación ayudas' },
   },
@@ -516,8 +516,8 @@ const decisionPathways = [
     image: '/images/solutions/adorable-mature-couple-kitchen.jpg',
     title: { en: 'I want to understand grants or funding', es: 'Quiero entender ayudas o financiación' },
     body: {
-      en: 'Prepare the documents, eligibility questions and work notes before relying on any programme.',
-      es: 'Prepara documentos, requisitos y notas de alcance antes de contar con una ayuda.',
+      en: 'Prepare the documents, eligibility questions and adaptation notes before relying on any programme.',
+      es: 'Prepara documentos, requisitos y notas de adaptación antes de contar con una ayuda.',
     },
     actions: [
       { label: { en: 'Grant check', es: 'Revisar ayudas' }, to: '/grant-check' },
@@ -568,7 +568,7 @@ const familyStarterPrompts = [
     icon: ClipboardCheck,
     title: { en: 'What decision is needed this week?', es: '¿Qué decisión hace falta esta semana?' },
     body: {
-      en: 'Choose one action: clear a route, download the checklist, send photos, request a visit or compare home with residence.',
+      en: 'Choose one action: clear a route, download the checklist, send photos, book a visit or compare home with residence.',
       es: 'Elegid un paso: despejar una ruta, descargar la lista, enviar fotos, pedir una visita o comparar casa y residencia.',
     },
   },
@@ -696,8 +696,8 @@ const actionRouteSteps = [
     icon: HandHeart,
     title: { en: 'Let CasaMia coordinate', es: 'Dejar que CasaMia coordine' },
     body: {
-      en: 'Move from information to assessment, proposal, grant-application support and managed installation.',
-      es: 'Pasa de información a evaluación, propuesta, apoyo documental para ayudas e instalación gestionada.',
+      en: 'Move from information to assessment, priced plan, grant-application support and managed installation.',
+      es: 'Pasa de información a evaluación, plan con precio, apoyo documental para ayudas e instalación gestionada.',
     },
   },
 ] as const
@@ -715,8 +715,8 @@ const localSpainRoutes = [
     icon: SearchCheck,
     title: { en: 'Check what needs evidence', es: 'Ver qué necesita evidencia' },
     body: {
-      en: 'Photos, room notes, ownership status and mobility context help turn a worry into a proposal you can review.',
-      es: 'Fotos, notas por estancia, situación de la vivienda y movilidad ayudan a convertir una preocupación en propuesta.',
+      en: 'Photos, room notes, ownership status and mobility context help turn a worry into a plan you can review.',
+      es: 'Fotos, notas por estancia, situación de la vivienda y movilidad ayudan a convertir una preocupación en un plan revisable.',
     },
   },
   {
@@ -731,8 +731,8 @@ const localSpainRoutes = [
     icon: HandHeart,
     title: { en: 'Move into one managed plan', es: 'Pasar a un plan gestionado' },
     body: {
-      en: 'When you are ready, CasaMia connects assessment, proposal, products, installation and follow-up.',
-      es: 'Cuando estés listo, CasaMia conecta evaluación, propuesta, productos, instalación y seguimiento.',
+      en: 'When you are ready, CasaMia connects assessment, priced planning, products, installation and follow-up.',
+      es: 'Cuando estés listo, CasaMia conecta evaluación, plan con precio, productos, instalación y seguimiento.',
     },
   },
 ] as const
