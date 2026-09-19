@@ -38,7 +38,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/fall-prevention-home-checklist-spain',
     title: 'Fall Prevention at Home: A Practical Checklist for Spain',
     description:
-      'A practical fall prevention checklist for making an older adult’s home safer, with room-by-room checks, warning signs and credible resources.',
+      'A practical fall prevention checklist for making daily movement safer at home, with room-by-room checks, warning signs and credible resources.',
     category: 'Fall prevention',
     readTime: '10 min read',
     date: '2026-08-10',
@@ -99,7 +99,7 @@ export const blogArticles: BlogArticle[] = [
         source: 'CDC STEADI',
         href: 'https://www.cdc.gov/steadi/media/pdfs/STEADI-Brochure-CheckForSafety-508.pdf',
         description:
-          'A room-by-room home safety checklist for older adults and trusted supporters, including floors, stairs, kitchen, bathroom and bedroom.',
+          'A room-by-room home safety checklist covering floors, stairs, kitchen, bathroom and bedroom.',
       },
       {
         title: 'Prevent falls and fractures',
@@ -123,9 +123,9 @@ export const blogArticles: BlogArticle[] = [
           'Start with the movement that is both frequent and already unsafe. For many homes that is bathroom use, stairs, the entrance, or getting from bed to toilet at night.',
       },
       {
-        question: 'Do all older adults need grab bars?',
+        question: 'Does every bathroom need grab bars?',
         answer:
-          'No. Grab bars help when they are needed, positioned correctly, and fixed to suitable surfaces. A review should consider mobility, transfers, wall type, and daily habits.',
+          'No. Grab bars help when they are needed, positioned correctly, and fixed to suitable surfaces. A review should consider mobility, transfers, wall type and daily habits.',
       },
       {
         question: 'When should you ask for professional help?',
@@ -401,7 +401,7 @@ export const blogArticles: BlogArticle[] = [
   {
     id: 'smart-home-safety-without-overcomplicating',
     path: '/blog/smart-home-safety-without-overcomplicating',
-    title: 'Smart Home Safety for Seniors Without Making the Home Complicated',
+    title: 'Smart Home Safety Without Making the Home Complicated',
     description:
       'How smart lighting, sensors, emergency alerts and agreed routines can reduce specific home risks without overwhelming the home.',
     category: 'Smart safety',
@@ -535,7 +535,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/family-conversation-before-home-safety-visit',
     title: 'Before a Home Safety Visit: Questions to Agree First',
     description:
-      'A home-safety conversation guide before booking an assessment, with prompts for mobility, routines, preferences, budget, grants, and decision-making.',
+      'A home-safety conversation guide before booking an assessment, with prompts for mobility, routines, preferences, budget, grants and decision-making.',
     category: 'Planning',
     readTime: '6 min read',
     date: '2026-07-24',
@@ -593,7 +593,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     faqs: [
       {
-        question: 'Should the older adult be part of the home safety conversation?',
+        question: 'Should the person living at home be part of the safety conversation?',
         answer:
           'Yes, wherever possible. The person living in the home should help explain what feels difficult, what they would accept, and what routines matter most. Input from relatives or helpers is useful, but consent still matters.',
       },
@@ -750,7 +750,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: '6 min read',
     date: '2026-07-11',
     image: '/images/blog/kitchen-safety-aging.webp',
-    imageAlt: 'Editorial illustration of a safer kitchen workflow for older adults',
+    imageAlt: 'Editorial illustration of a safer kitchen workflow',
     keywords: ['kitchen safety seniors', 'aging in place kitchen', 'safe kitchen older adults'],
     intro:
       'The kitchen is not just a room; it is a sequence of movements. Safer kitchens reduce unnecessary reaching, bending, carrying, turning, and rushing around hot surfaces or sharp tools.',
@@ -1037,7 +1037,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     faqs: [
       {
-        question: 'How do we know if aging at home is still realistic?',
+        question: 'How do we know if staying at home is still realistic?',
         answer:
           'Look at daily routines, not the idea of the home. If bathroom use, night movement, transfers, meals and help requests can be made reliable, home may still be realistic. If several of those remain unsafe despite support, consider a wider care plan.',
       },

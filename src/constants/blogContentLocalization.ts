@@ -104,7 +104,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
           'Empieza por la ruta o movimiento que sea frecuente y ya resulte inseguro. En muchas viviendas es el baño, las escaleras, la entrada o el camino de la cama al baño por la noche.',
       },
       {
-        question: '¿Siempre hacen falta barras de apoyo?',
+        question: '¿Todos los baños necesitan barras de apoyo?',
         answer:
           'No siempre. Ayudan cuando son necesarias, están bien colocadas y están fijadas a una superficie adecuada. Hay que revisar movilidad, transferencias, tipo de pared y hábitos.',
       },
@@ -434,7 +434,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Empezar revisión guiada', to: '/tools/senior-friendly-home-check' },
   },
   'smart-home-safety-without-overcomplicating': {
-    title: 'Seguridad inteligente sin complicar la casa',
+    title: 'Seguridad conectada sin complicar la casa',
     description:
       'Cómo usar tecnología en casa sin invadir, abrumar ni depender de sistemas difíciles de mantener.',
     category: 'Tecnología enfocada',
@@ -552,7 +552,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Por qué CasaMia', to: '/why-us' },
   },
   'dementia-friendly-home-safety': {
-    title: 'Seguridad del hogar para demencia: cambios que reducen confusión',
+    title: 'Seguridad en casa con demencia: cambios que reducen confusión',
     description:
       'Ideas para hacer la vivienda más reconocible y segura cuando hay deterioro cognitivo o desorientación.',
     category: 'Demencia y orientación',
