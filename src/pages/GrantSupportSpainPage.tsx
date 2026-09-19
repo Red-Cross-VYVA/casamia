@@ -28,23 +28,23 @@ const whatsappHref = buildCasaMiaWhatsappUrl(
 const grantSteps = [
   {
     icon: <SearchCheck size={24} />,
-    title: 'Identificamos la ayuda adecuada',
-    body: 'CasaMia revisa tu perfil, vivienda, región y situación familiar para orientar la vía más probable.',
+    title: 'Vemos qué vía puede encajar',
+    body: 'CasaMia revisa región, vivienda, edad, movilidad, dependencia y tipo de adaptación para orientar la ruta más probable.',
   },
   {
     icon: <FileCheck2 size={24} />,
-    title: 'Preparamos la solicitud',
-    body: 'Te ayudamos a reunir los datos, completar formularios y presentar la documentación requerida.',
+    title: 'Señalamos qué falta',
+    body: 'Te indicamos qué documentos, permisos, fotos, informes o presupuestos pueden hacer falta antes de perder tiempo con trámites.',
   },
   {
     icon: <UserRoundCheck size={24} />,
-    title: 'Coordinamos la revisión técnica',
-    body: 'Cuando haga falta, te ayudamos a encontrar el técnico o inspector adecuado para validar la vivienda.',
+    title: 'Comprobamos la parte técnica',
+    body: 'Cuando haga falta, revisamos si la vivienda necesita medición, informe técnico o una visita antes de preparar el expediente.',
   },
   {
     icon: <ClipboardCheck size={24} />,
-    title: 'Preparamos un plan con precio',
-    body: 'CasaMia prepara un plan claro para adaptar el hogar y respaldar el expediente de ayuda.',
+    title: 'Conectamos ayuda y adaptación',
+    body: 'CasaMia convierte la necesidad de la vivienda en un plan claro, con precio cuando corresponda y notas útiles para justificar la actuación.',
   },
 ]
 
@@ -80,14 +80,14 @@ const services = [
   'Evaluación del hogar',
   'Informe de accesibilidad',
   'Diseño de adaptación',
-  'Presupuesto subvencionable',
-  'Coordinación técnica',
-  'Preparación documental',
-  'Gestión de autorizaciones',
-  'Ejecución de la reforma',
-  'Seguimiento del expediente',
-  'Justificación de gastos',
-  'Servicio post-reforma',
+  'Presupuesto preparado para revisión',
+  'Revisión técnica cuando haga falta',
+  'Lista de documentos pendientes',
+  'Permisos que conviene confirmar',
+  'Adaptaciones que pueden encajar',
+  'Seguimiento de próximos pasos',
+  'Notas para justificar gastos',
+  'Revisión tras la adaptación',
 ]
 
 const faqs = [
@@ -104,7 +104,7 @@ const faqs = [
   ['¿Servicios Sociales es el primer paso?', 'Puede ser uno de los primeros contactos, especialmente en situaciones de dependencia o vulnerabilidad. También pueden intervenir oficinas de vivienda, rehabilitación, ayuntamientos y organismos autonómicos.'],
   ['¿Qué ocurre si no hay una convocatoria abierta?', 'CasaMia puede identificar programas próximos, ayudas alternativas, convocatorias municipales o vías complementarias.'],
   ['¿Qué significa IPREM?', 'Es una referencia pública de ingresos. Muchas ayudas la usan para priorizar hogares con ingresos bajos o medios. CasaMia puede ayudarte a entender qué tramo puede aplicar.'],
-  ['¿CasaMia garantiza la concesión?', 'CasaMia identifica programas, prepara el caso y ayuda durante todo el proceso. La resolución final corresponde a la administración pública.'],
+  ['¿CasaMia garantiza la concesión?', 'No. CasaMia ordena la información, señala la vía probable y ayuda a preparar el caso. La resolución final corresponde a la administración pública.'],
 ]
 
 export function GrantSupportSpainPage() {
@@ -115,7 +115,7 @@ export function GrantSupportSpainPage() {
     <>
       <SEO
         title="Ayudas para adaptar vivienda de personas mayores en España"
-        description="En toda España existen subvenciones y programas públicos para ayudar a personas mayores, con discapacidad, dependencia o movilidad reducida a adaptar su vivienda. CasaMia identifica la ayuda adecuada y coordina todo el proceso."
+        description="En toda España existen subvenciones y programas públicos para ayudar a personas mayores, con discapacidad, dependencia o movilidad reducida a adaptar su vivienda. CasaMia revisa la vía probable, los documentos pendientes y el plan de adaptación."
         path="/grants"
         image="/images/blog/grants-euro-symbol.webp"
         schema={schema}
@@ -145,7 +145,7 @@ export function GrantSupportSpainPage() {
             <div className="grant-spain-hero-copy">
               <p className="grant-spain-kicker">Ayudas para adaptar viviendas</p>
               <h1>Tu hogar puede adaptarse. Y existen ayudas para hacerlo.</h1>
-              <p>En toda España existen subvenciones y programas públicos para ayudar a personas mayores, con discapacidad, dependencia o movilidad reducida a adaptar su vivienda. CasaMia identifica la ayuda adecuada y coordina todo el proceso.</p>
+              <p>En toda España existen programas públicos que pueden ayudar a mejorar accesibilidad, eliminar barreras y adaptar viviendas. CasaMia te ayuda a ver si tu situación, vivienda y obra pueden encajar antes de empezar.</p>
               <div className="grant-spain-actions">
                 <Link className="grant-spain-button" to="/grant-check" onClick={() => trackEvent('grant_cta_clicked', { cta: 'hero_checker' })}>Iniciar revisión <ArrowRight size={18} /></Link>
                 <a className="grant-spain-button is-secondary" href="#fuentes-oficiales">Ver referencias oficiales</a>
@@ -194,11 +194,11 @@ export function GrantSupportSpainPage() {
         </section>
 
         <Section id="ayudas-disponibles" eyebrow="Guía paso a paso" title="Cómo aprovechar una ayuda.">
-          <p className="grant-spain-lead">Un proceso sencillo: identificar la ayuda, preparar la solicitud y convertirla en una adaptación viable.</p>
+          <p className="grant-spain-lead">Una revisión práctica: ver qué ayuda podría encajar, qué falta por preparar y qué adaptación tendría sentido en la vivienda.</p>
           <div className="grant-spain-step-grid">
             {grantSteps.map((card, index) => <StepCard key={card.title} step={index + 1} {...card} />)}
           </div>
-          <div className="grant-spain-callout">CasaMia acompaña el proceso de principio a fin: orientación, documentación, revisión técnica y plan con precio.</div>
+          <div className="grant-spain-callout">CasaMia no puede garantizar una ayuda. Sí puede ayudarte a ordenar la información, evitar pasos inútiles y preparar mejor la decisión.</div>
         </Section>
 
         <Section id="fuentes-oficiales" eyebrow="Fuentes oficiales" title="Referencias públicas.">
@@ -219,7 +219,7 @@ export function GrantSupportSpainPage() {
             {[
               ['Guía práctica', 'Ayudas para adaptar viviendas en España: qué debe preparar una familia', 'Documentos, adaptaciones, requisitos y expectativas realistas.', '/blog/home-adaptation-grants-spain-family-guide'],
               ['Herramienta', 'Revisión inicial de ayudas', 'Ruta orientativa y documentos pendientes en unos minutos.', '/grant-check'],
-              ['Plan CasaMia', 'Crear un plan de adaptación', 'Conecta la posible ayuda con servicios reales del catálogo.', '/plans'],
+              ['Plan CasaMia', 'Crear un plan de adaptación', 'Conecta la posible ayuda con cambios reales que la vivienda podría necesitar.', '/plans'],
             ].map(([eyebrow, title, body, to]) => (
               <Link className="grant-spain-resource-card" key={title} to={to}>
                 <span>{eyebrow}</span>
