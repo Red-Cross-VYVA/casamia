@@ -36,13 +36,13 @@ const grantsCopy = {
     roleEyebrow: 'CasaMia’s role',
     roleTitle: 'Guidance, not public approval.',
     roleBody:
-      'CasaMia checks which published grant criteria may fit your project and prepares the document trail when authorised. Any initial eligibility assessment is indicative only. The responsible public authority makes the final decision.',
+      'CasaMia checks which published grant criteria may fit your adaptation plan and prepares the document trail when authorised. Any initial eligibility assessment is indicative only. The responsible public authority makes the final decision.',
     roleListTitle: 'What CasaMia can help prepare',
     roleItems: [
       'General information about possible public assistance programmes.',
       'Initial eligibility screening based on information provided by the customer.',
       'Help preparing a document checklist for a specific programme.',
-      'Application-preparation support when the programme fits the work and the customer has authorised CasaMia in writing.',
+      'Application-preparation support when the programme fits the adaptation plan and the customer has authorised CasaMia in writing.',
       'Submission as an authorised representative only with a separate written mandate.',
       'Referral to an independent adviser or gestor where specialist advice is needed.',
     ],
@@ -53,7 +53,7 @@ const grantsCopy = {
       ['Application-support fee', 'Must be disclosed separately, including VAT and whether payable if the grant is rejected.'],
       ['Independent adviser or gestor', 'Any referral fee or commercial relationship must be disclosed before referral.'],
     ],
-    beforeApprovalTitle: 'If work starts before approval',
+    beforeApprovalTitle: 'If installation starts before approval',
     beforeApprovalBody:
       'If a customer chooses to proceed with a CasaMia project before a grant decision, the checkout or Project Order must show a specific acknowledgement only when relevant:',
     beforeApprovalQuote:
@@ -67,7 +67,7 @@ const grantsCopy = {
     emptyTitle: 'No grant programme is currently published by CasaMia.',
     emptyBody:
       'CasaMia will only list a programme after its official source, status, dates, eligibility rules, translation approval and review date have been checked. Use the grant check for an initial readiness review, then confirm details against the public authority source.',
-    emptyCta: 'Request an initial eligibility review',
+    emptyCta: 'Check initial eligibility',
     documentsTitle: 'Documents often requested',
     documentItems: [
       'Identity documentation.',
@@ -92,7 +92,7 @@ const grantsCopy = {
       dates: 'Opening / closing date',
       applicants: 'Eligible applicants',
       properties: 'Eligible properties',
-      work: 'Eligible work',
+      work: 'Eligible adaptations',
       exclusions: 'Main exclusions',
       funding: 'Funding',
       timing: 'Payment timing',

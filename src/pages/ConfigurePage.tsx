@@ -597,7 +597,7 @@ function PropertyStep() {
           {
             value: 'other',
             title: 'Other',
-            description: 'CasaMia will confirm the home type before any proposal.',
+            description: 'CasaMia will confirm the home type before final pricing.',
             icon: Sparkles,
           },
         ]}
@@ -881,7 +881,7 @@ function ServiceSelectionStep({ recommendedServiceIds }: { recommendedServiceIds
               Recommended improvements
             </h2>
             <p className="mt-2 max-w-2xl text-base font-bold leading-relaxed text-text-mid">
-              Start with the items suggested by your answers. Keep only the changes that match the room and routine before requesting a quote.
+              Start with the items suggested by your answers. Keep only the changes that match the room and routine before asking for pricing.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
