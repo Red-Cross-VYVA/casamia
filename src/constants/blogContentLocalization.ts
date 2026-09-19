@@ -53,7 +53,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Separa arreglos urgentes de adaptaciones planificadas',
         body: [
           'Los cambios urgentes son los que pueden causar daño esta semana: ducha mojada sin apoyo, escalera oscura, umbral alto usado cada día, transferencia difícil al inodoro o teléfono fuera de alcance. Las adaptaciones planificadas también importan, pero pueden requerir medición, presupuesto, permisos o ayudas.',
-          'CasaMia ayuda a ordenar ese mapa: qué retirar hoy, qué adaptar primero, qué necesita propuesta y qué puede observarse con calma.',
+          'CasaMia ayuda a ordenar ese mapa: qué retirar hoy, qué adaptar primero, qué necesita medición o presupuesto claro y qué puede observarse con calma.',
         ],
       },
       {
@@ -493,47 +493,47 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Ver tecnología CasaMia', to: '/tech' },
   },
   'choose-home-safety-provider-spain': {
-    title: 'Cómo elegir un proveedor de seguridad del hogar para una persona mayor',
+    title: 'Cómo elegir ayuda para hacer una vivienda más segura',
     description:
-      'Criterios para elegir apoyo profesional: evaluación, instalación, claridad de precios, seguimiento y responsabilidad.',
-    category: 'Elegir proveedor',
+      'Qué revisar antes de elegir apoyo profesional para seguridad senior: evaluación, instalación, claridad del plan y seguimiento.',
+    category: 'Elegir ayuda',
     readTime: '7 min de lectura',
     imageAlt: 'Familia revisando opciones de adaptación del hogar',
     keywords: ['proveedor seguridad hogar mayores', 'adaptar vivienda España', 'empresa adaptación hogar'],
     intro:
-      'Elegir proveedor no debería ser una carrera por comprar productos. Antes de decidir conviene entender riesgos, prioridades, coste, instalación y seguimiento.',
+      'Elegir ayuda para una vivienda más segura no debería empezar por comprar productos. Primero conviene entender a la persona, su rutina diaria, la vivienda, los detalles de instalación y qué apoyo hará falta después.',
     takeaways: [
-      'Busca evaluación clara antes de presupuesto cerrado.',
-      'Pide alcance, precios, responsabilidades y seguimiento por escrito.',
-      'El proveedor debe coordinar personas, productos e instalación.',
+      'Busca una revisión de seguridad antes de hablar de productos.',
+      'Pide un plan claro que separe lo urgente, lo recomendable y lo opcional.',
+      'Comprueba que instalación, explicación de uso y seguimiento estén incluidos.',
     ],
     sections: [
       {
         title: 'Pide una evaluación basada en rutinas reales',
         body: [
-          'Un buen proveedor pregunta por movilidad, rutinas, estancias críticas, apoyos disponibles y urgencia. No empieza vendiendo una lista estándar.',
+          'Un buen servicio pregunta por movilidad, rutinas, estancias críticas, apoyos disponibles y urgencia. No empieza vendiendo una lista estándar.',
           'La evaluación debe terminar en prioridades claras: qué resolver ahora, qué planificar y qué no hace falta todavía.',
         ],
       },
       {
-        title: 'Comprueba instalación y soporte',
+        title: 'Comprueba instalación, explicación y seguimiento',
         body: [
-          'La seguridad depende de cómo se instala y de quién responde si algo falla. Pregunta por profesionales, garantías, tiempos y revisión final.',
+          'La seguridad depende de cómo se instala y de quién responde si algo falla. Pregunta quién mide, quién instala, cómo se revisa el resultado y qué garantía o ajuste queda disponible.',
           'También importa recibir una explicación concreta del resultado y de cómo usar los cambios.',
         ],
       },
       {
-        title: 'Evita presupuestos confusos',
+        title: 'Evita planes confusos',
         body: [
-          'El alcance debe estar separado por estancia o necesidad, con IVA, instalación y exclusiones claras.',
-          'CasaMia está diseñado como servicio gestionado para reducir la carga de coordinar proveedores, fechas y decisiones técnicas.',
+          'El plan debe separar qué está incluido, qué es opcional, qué depende de mediciones o condiciones de la vivienda, y qué decisión viene después.',
+          'Esto evita que la persona mayor o la familia tengan que organizar profesionales, fechas y decisiones técnicas sin una guía clara.',
         ],
       },
     ],
     checklist: [
       '¿La evaluación se centra en rutinas reales?',
-      '¿El presupuesto separa productos, instalación y soporte?',
-      '¿Hay responsable único para coordinar el proyecto?',
+      '¿El plan separa lo urgente, lo recomendable y lo opcional?',
+      '¿Está claro quién mide, instala y revisa el resultado?',
       '¿Se explica qué es urgente y qué puede esperar?',
       '¿Está claro cómo pedir ayuda después?',
     ],
@@ -541,12 +541,12 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿Es mejor contratar instaladores por separado?',
         answer:
-          'Puede funcionar para un trabajo definido, pero un servicio coordinado ayuda cuando hay varias estancias, ayudas, tecnología o seguimiento.',
+          'Puede funcionar para un trabajo definido. Cuando hay varias estancias, ayudas públicas, tecnología o varias personas decidiendo, un servicio guiado reduce confusión.',
       },
       {
         question: '¿Qué debe incluir una propuesta seria?',
         answer:
-          'Necesidad detectada, solución recomendada, alcance, precio, plazo, instalación, garantías y próximos pasos claros.',
+          'La necesidad detectada, la solución recomendada, qué está incluido, qué queda por decidir, precio cuando proceda, plazo, instalación, garantías y próximos pasos claros.',
       },
     ],
     cta: { label: 'Por qué CasaMia', to: '/why-us' },
@@ -839,7 +839,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     takeaways: [
       'Prepara entrada, cama, baño y rutas nocturnas antes de la vuelta a casa.',
       'Aclara quién ayuda, cómo se pide ayuda y qué ocurre si el primer plan falla.',
-      'Separa acciones urgentes de seguridad de obras que pueden esperar una propuesta medida.',
+      'Separa acciones urgentes de seguridad de obras que pueden esperar medición o presupuesto claro.',
     ],
     sections: [
       {
@@ -860,7 +860,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Acordad el apoyo de la primera semana',
         body: [
           'Anota quién visita, quién llama, cómo se revisa la medicación, quién gestiona citas de seguimiento y qué hacer si aumentan dolor, mareos, confusión o dificultad para moverse.',
-          'CasaMia puede convertirlo en una ruta práctica: revisión remota, visita experta, trabajos urgentes, propuesta, notas para ayudas o instalación por fases.',
+          'CasaMia puede convertirlo en una ruta práctica: revisión remota, visita experta, arreglos urgentes, presupuesto claro, notas para ayudas o instalación por fases.',
         ],
       },
     ],
@@ -927,7 +927,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Usa un marco de decisión claro',
         body: [
           'Una conversación útil compara cinco cosas: qué quiere la persona, qué es inseguro ahora, qué se puede cambiar de forma realista, quién ayuda en el día a día y cuánto cuesta cada ruta en 6 a 24 meses.',
-          'CasaMia puede ayudar con la parte de vivienda: revisión de seguridad, propuesta práctica, trabajos por fases, preparación para ayudas y una explicación clara de lo que la adaptación puede y no puede resolver.',
+          'CasaMia puede ayudar con la parte de vivienda: revisión de seguridad, plan práctico, trabajos por fases, preparación para ayudas y una explicación clara de lo que la adaptación puede y no puede resolver.',
         ],
       },
     ],

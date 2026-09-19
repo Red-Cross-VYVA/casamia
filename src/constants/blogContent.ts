@@ -72,7 +72,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Separate urgent fixes from planned adaptations',
         body: [
           'Urgent fixes are the issues most likely to cause harm this week: a wet transfer with no support, a dark stair, a high threshold used daily, an unstable toilet transfer, or a phone left out of reach. Planned adaptations are still important, but may need measuring, quotes, landlord or community permission, or grant checks.',
-          'CasaMia assessments separate those decisions: what to remove today, what to adapt first, what needs a proposal, and what can be watched over time.',
+          'CasaMia assessments separate those decisions: what to remove today, what to adapt first, what needs measuring or a priced plan, and what can be watched over time.',
         ],
       },
       {
@@ -469,7 +469,7 @@ export const blogArticles: BlogArticle[] = [
     path: '/blog/choose-home-safety-provider-spain',
     title: 'How to Choose a Home Safety Provider for an Older Adult in Spain',
     description:
-      'What to look for when choosing a provider for senior home safety adaptations, from assessment quality to installation standards and follow-up.',
+      'What to check before choosing help with senior home safety, from the first review to fitting quality and follow-up.',
     category: 'Choosing providers',
     readTime: '7 min read',
     date: '2026-07-11',
@@ -477,52 +477,52 @@ export const blogArticles: BlogArticle[] = [
     imageAlt: 'Illustration of a trusted home safety provider checklist',
     keywords: ['home safety provider Spain', 'senior home adaptation service', 'aging in place provider'],
     intro:
-      'Choosing a home safety provider is not the same as choosing a product supplier. The provider needs to understand older adults, home routines, installation quality, coordination, documentation, and follow-up.',
+      'Choosing help for home safety is not just buying equipment. The right service should understand the person, the daily routine, the home, the fitting details and what support is needed after installation.',
     takeaways: [
-      'Look for assessment before sales, clear scope, and ranked priorities.',
-      'Ask how installers are coordinated and how quality is checked.',
-      'Make sure follow-up and safe-use explanation are part of the service.',
+      'Expect a safety review before product recommendations.',
+      'Ask for a clear written plan with urgent, recommended and optional steps separated.',
+      'Make sure fitting, handover and follow-up are included.',
     ],
     sections: [
       {
         title: 'Assessment should come before recommendations',
         body: [
-          'A trustworthy provider asks about the person at home, mobility, recent falls, daily routines, carers, and main concerns before recommending products.',
+          'A trustworthy service asks about the person at home, mobility, recent falls, daily routines, carers, and main concerns before recommending products.',
           'If the conversation jumps straight to equipment, the recommendation may miss the real risk.',
         ],
       },
       {
-        title: 'The proposal should separate scope, assumptions and decisions',
+        title: 'The written plan should separate what is included and what still needs a decision',
         body: [
-          'You should receive a clear explanation of what is included, why it matters, what is optional, what depends on site conditions, and what happens next.',
-          'Transparent scope protects both the person at home and the budget.',
+          'You should receive a clear explanation of what is included, why it matters, what is optional, what depends on measurements or site conditions, and what happens next.',
+          'This protects both the person at home and the budget, especially when more than one room or trade is involved.',
         ],
       },
       {
-        title: 'Delivery and follow-up matter',
+        title: 'Fitting and follow-up matter',
         body: [
           'Senior home safety work often involves different trades: accessibility installers, bathroom specialists, electricians, smart safety technicians, and sometimes therapists.',
-          'A good provider explains the finished work, checks it in the real room, and remains available if something needs adjustment.',
+          'A good service checks the finished work in the real room, explains how to use it safely, and remains available if something needs adjustment.',
         ],
       },
     ],
     checklist: [
       'Do they assess the resident routine and not just the room?',
       'Do they explain urgent, recommended, and optional works separately?',
-      'Can they coordinate trusted local providers?',
-      'Do they provide written scope, acceptance, and follow-up details?',
+      'Can they bring in the right local professional when needed?',
+      'Do they provide a written plan, approval steps, and follow-up details?',
       'Do they avoid promising grant approval or unrealistic outcomes?',
     ],
     faqs: [
       {
-        question: 'Should you hire one installer directly or use a coordinated service?',
+        question: 'Should you hire one installer directly or use a guided service?',
         answer:
-          'For one defined job, one installer may be enough. For room-by-room safety, grants, multiple trades, or several decision-makers, a managed service can reduce confusion.',
+          'For one defined job, one installer may be enough. For room-by-room safety, grant paperwork, several trades, or several decision-makers, a guided service can reduce confusion.',
       },
       {
         question: 'What makes CasaMia different from a product shop?',
         answer:
-          'CasaMia starts with assessment, prioritises daily safety, coordinates local delivery, and supports the process through proposal, installation and safe-use explanation.',
+          'CasaMia starts with a safety review, prioritises daily routines, brings in the right local professional when needed, and supports the process through fitting, checks and safe-use explanation.',
       },
     ],
     cta: {
@@ -928,7 +928,7 @@ export const blogArticles: BlogArticle[] = [
     takeaways: [
       'Prepare entry, bed, bathroom and night-time movement before the person returns home.',
       'Confirm who helps, how help is requested and what should happen if the first plan fails.',
-      'Separate urgent safety actions from works that can wait for a measured proposal.',
+      'Separate urgent safety actions from works that can wait for measurement or a priced plan.',
     ],
     sections: [
       {
@@ -949,7 +949,7 @@ export const blogArticles: BlogArticle[] = [
         title: 'Agree the first-week support plan',
         body: [
           'Write down who visits, who calls, how medication is checked, who handles follow-up appointments and what happens if pain, dizziness, confusion or mobility becomes worse.',
-          'CasaMia can help turn this into a practical home safety plan: remote review, expert visit, urgent works, proposal, grant-readiness notes or staged installation.',
+          'CasaMia can help turn this into a practical home safety plan: remote review, expert visit, urgent fixes, priced plan, grant-readiness notes or staged installation.',
         ],
       },
     ],
