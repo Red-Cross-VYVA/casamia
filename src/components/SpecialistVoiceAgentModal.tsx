@@ -318,10 +318,6 @@ function SpecialistVoiceAgentDialog({
               <span />
               <span />
             </div>
-            <div className="specialist-voice-visual-agent">
-              <strong>{copy.visualSubtitle}</strong>
-              <span>{statusLabel}</span>
-            </div>
             <div className="specialist-voice-actions specialist-voice-actions--visual">
               {connected ? (
                 <>
@@ -347,6 +343,9 @@ function SpecialistVoiceAgentDialog({
                   {copy.start}
                 </button>
               )}
+            </div>
+            <div className="specialist-voice-visual-agent">
+              <span>{statusLabel}</span>
             </div>
           </div>
 
