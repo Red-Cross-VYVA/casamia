@@ -332,7 +332,7 @@
     "badge": "CÓMO FUNCIONA CASAMIA",
     "line1": "Empieza por la estancia",
     "line2": "que más preocupa.",
-    "intro": "Empieza con fotos, un paquete o una inspección. CasaMia convierte la preocupación en prioridades por estancia, alcance confirmado, notas para ayudas cuando proceda e instalación coordinada.",
+    "intro": "Empieza con fotos, un paquete inicial o una visita. CasaMia convierte la preocupación en prioridades claras por estancia: qué resolver ahora, qué necesita medición y qué revisar después.",
     "ctaPrimary": "Crear mi plan CasaMia",
     "ctaSecondary": "Pedid que os contactemos",
     "proposalSnapshot": {
@@ -355,41 +355,41 @@
       {
         "icon": "Paso 1",
         "title": "Muestra la preocupación",
-        "desc": "Empieza con fotos, un paquete inicial o una inspección para confirmar la estancia, las medidas y el primer alcance de seguridad.",
+        "desc": "Empieza por la estancia o rutina que se siente menos segura. Fotos, un paquete inicial o una visita ayudan a confirmar qué se ve, qué hay que medir y qué importa primero.",
         "points": [
-          "Revisión con fotos o paquete inicial",
-          "Inspección opcional",
+          "Fotos o revisión guiada",
+          "Visita opcional",
           "Revisión de estancia y medidas"
         ]
       },
       {
         "icon": "Paso 2",
-        "title": "Revisa qué va a cambiar",
-        "desc": "El plan separa acciones prioritarias, elementos incluidos, supuestos y precios, para que veas qué se recomienda y por qué.",
+        "title": "Ve las prioridades",
+        "desc": "El plan separa arreglos urgentes, mejoras útiles y elementos opcionales, para decidir sin adivinar para qué sirve cada cambio.",
         "points": [
-          "Sugerencias por estancia",
-          "Prioridades claras",
-          "Precios transparentes"
+          "Acciones por estancia",
+          "Urgente frente a opcional",
+          "Siguientes pasos claros"
         ]
       },
       {
         "icon": "Paso 3",
-        "title": "Revisa las ayudas pronto",
-        "desc": "Cuando las adaptaciones puedan encajar, CasaMia prepara notas de apoyo antes de cerrar el plan final.",
+        "title": "Revisa trámites pronto",
+        "desc": "Si pueden aplicar ayudas o permisos, CasaMia lo señala antes de empezar y ayuda a preparar textos claros, fotos y notas desglosadas.",
         "points": [
-          "Revisión de elegibilidad",
-          "Apoyo documental",
-          "Guía de solicitud"
+          "Encaje con ayudas",
+          "Lista de documentos",
+          "Notas desglosadas"
         ]
       },
       {
         "icon": "Paso 4",
-        "title": "Instalar, probar y explicar",
-        "desc": "CasaMia coordina la instalación, comprueba el resultado en la estancia y explica el uso seguro antes de cerrar el trabajo.",
+        "title": "Instalar, revisar y explicar",
+        "desc": "Tras la instalación, se comprueba el resultado en la estancia real y se explica con claridad para que la persona sepa usar el cambio con seguridad.",
         "points": [
           "Instalación profesional",
-          "Revisión final",
-          "Soporte posterior"
+          "Explicación de uso seguro",
+          "Seguimiento si hace falta"
         ]
       }
     ],
@@ -486,7 +486,7 @@
           "Barras de apoyo y suelo antideslizante",
           "Iluminación con sensor de movimiento",
           "Pasamanos y bandas en escaleras",
-          "Gestión de ayudas incluida"
+          "Guía para trámites de ayudas"
         ]
       },
       {
@@ -501,7 +501,7 @@
           "Botón de emergencia",
           "Seguridad en escaleras y pasillos",
           "Optimización del mobiliario",
-          "Gestión de ayudas incluida"
+          "Guía para trámites de ayudas"
         ],
         "popular": true
       },
@@ -556,7 +556,7 @@
     "cta": "Obtener informe gratis"
   },
   "footer": {
-    "tagline": "Adaptación de viviendas para mayores en España: seguridad, confort y coordinación de principio a fin.",
+    "tagline": "Adaptación de viviendas para mayores en España: baño seguro, acceso, ayudas y mejoras prácticas.",
     "phone": "+34 900 000 000",
     "company": {
       "title": "Empresa",

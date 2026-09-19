@@ -332,7 +332,7 @@
     "badge": "HOW CASAMIA WORKS",
     "line1": "Start with the room",
     "line2": "that worries you most.",
-    "intro": "Begin with photos, a package or an inspection. CasaMia turns the concern into room priorities, adaptations to review, grant notes where relevant and coordinated installation.",
+    "intro": "Begin with photos, a starter pack or a home visit. CasaMia turns the concern into clear room priorities, what can be fixed now, what needs measuring, and what to review next.",
     "ctaPrimary": "Build your CasaMia plan",
     "ctaSecondary": "Ask us to contact you",
     "proposalSnapshot": {
@@ -355,41 +355,41 @@
       {
         "icon": "Step 1",
         "title": "Show us the concern",
-        "desc": "Start with photos, a starter package or a home inspection so the room, measurements and first safety priorities can be confirmed.",
+        "desc": "Start with the room or routine that feels unsafe. Photos, a starter pack or a home visit help confirm what is visible, what needs measuring and what matters first.",
         "points": [
-          "Photo or starter package review",
-          "Optional home inspection",
+          "Photos or guided review",
+          "Optional home visit",
           "Room and measurement check"
         ]
       },
       {
         "icon": "Step 2",
-        "title": "Review what will change",
-        "desc": "Your plan separates priority actions, included items, assumptions and pricing, so you can see what is recommended and why.",
+        "title": "See the priorities",
+        "desc": "Your plan separates urgent fixes, useful improvements and optional items, so you can decide without guessing what each change is for.",
         "points": [
-          "Room-by-room suggestions",
-          "Clear priorities",
-          "Transparent pricing"
+          "Room-by-room actions",
+          "Urgent vs optional",
+          "Plain next steps"
         ]
       },
       {
         "icon": "Step 3",
-        "title": "Check grant requirements early",
-        "desc": "When adaptations may be eligible, CasaMia prepares the supporting notes before the final plan is confirmed.",
+        "title": "Check paperwork early",
+        "desc": "If grant criteria or permission may apply, CasaMia flags it before work starts and helps prepare clear wording, photos and itemised notes.",
         "points": [
-          "Eligibility check",
-          "Document support",
-          "Application guidance"
+          "Grant fit check",
+          "Document list",
+          "Itemised notes"
         ]
       },
       {
         "icon": "Step 4",
-        "title": "Install, test and explain",
-        "desc": "CasaMia coordinates installation, checks the result in the room and explains safe use before the job is signed off.",
+        "title": "Fit, check and explain",
+        "desc": "After fitting, the result is checked in the real room and explained clearly, so the person at home knows how to use the change safely.",
         "points": [
-          "Professional installation",
-          "Safe-use check",
-          "Aftercare support"
+          "Professional fitting",
+          "Safe-use explanation",
+          "Follow-up if needed"
         ]
       }
     ],
@@ -486,7 +486,7 @@
           "Grab bars & non-slip flooring",
           "Motion-activated lighting",
           "Stairway handrails & treads",
-          "Grant filing managed for you"
+          "Grant paperwork guidance"
         ]
       },
       {
@@ -501,7 +501,7 @@
           "Emergency call button",
           "Stair & hallway safety",
           "Furniture optimisation",
-          "Grant filing managed for you"
+          "Grant paperwork guidance"
         ],
         "popular": true
       },
@@ -556,7 +556,7 @@
     "cta": "Get My Free Report"
   },
   "footer": {
-    "tagline": "Senior home adaptation in Spain: bathroom safety, entrance access, grant support and managed installation.",
+    "tagline": "Senior home adaptation in Spain: bathroom safety, entrance access, grant support and practical fitting.",
     "phone": "+34 900 000 000",
     "company": {
       "title": "Company",

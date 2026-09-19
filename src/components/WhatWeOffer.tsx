@@ -182,7 +182,7 @@ export function WhatWeOffer() {
         </h2>
         {intro ? <p className="offer-intro">{intro}</p> : null}
 
-        <div className="offer-grid" aria-label="CasaMia service journey">
+        <div className="offer-grid" aria-label="How CasaMia helps">
           {cards.map((card, index) => {
             const visual = offerVisuals[index] ?? offerVisuals[0]
             const Icon = visual.Icon
