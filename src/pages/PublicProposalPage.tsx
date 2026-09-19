@@ -34,7 +34,7 @@ export function PublicProposalPage() {
         pendingNotice: 'Plan no activado',
         proposalLabel: 'Plan',
         acceptedTitle: 'Plan aprobado',
-        acceptedBody: 'Tu plan está aprobado. Continúa con el pago seguro para reservar la planificación de la instalación.',
+        acceptedBody: 'Tu plan está aprobado. El siguiente paso es el pago seguro para reservar la planificación de la instalación.',
         paidTitle: 'Pago recibido',
         paidBody: 'Hemos recibido tu pago. CasaMia contactará contigo para coordinar la fecha de instalación.',
         payButton: (percent: number) => (percent >= 100 ? 'Pagar ahora' : `Pagar ${percent}% ahora`),
@@ -43,12 +43,12 @@ export function PublicProposalPage() {
         paymentCancelled: 'El pago no se ha completado. Tu plan sigue aprobado y puedes reanudar el pago cuando quieras.',
         paymentChecking: 'Confirmando tu pago...',
         paymentPending: 'Stripe está procesando el pago. No vuelvas a pagar; actualiza esta página dentro de unos minutos.',
-        acceptTitle: 'Aprobar plan',
+        acceptTitle: 'Aprobar y continuar',
         acceptBody:
-          'Al aprobar, confirmas que aceptas las adaptaciones mostradas, exclusiones o partidas pendientes, condiciones de pago y términos de servicio aplicables.',
+          'Antes de aprobar, revisa las adaptaciones incluidas, exclusiones, partidas pendientes, condiciones de pago y términos aplicables. Después se abrirá el pago seguro.',
         acceptedBy: 'Aprobado por',
         accepting: 'Aprobando...',
-        acceptButton: 'Aprobar plan',
+        acceptButton: 'Aprobar y abrir pago seguro',
       }
     : {
         title: 'Your CasaMia plan',
@@ -66,7 +66,7 @@ export function PublicProposalPage() {
         pendingNotice: 'Plan not activated',
         proposalLabel: 'Plan',
         acceptedTitle: 'Plan approved',
-        acceptedBody: 'Your plan is approved. Continue to secure payment to reserve installation planning.',
+        acceptedBody: 'Your plan is approved. The next step is secure payment to reserve installation planning.',
         paidTitle: 'Payment received',
         paidBody: 'We have received your payment. CasaMia will contact you to coordinate the installation date.',
         payButton: (percent: number) => (percent >= 100 ? 'Pay now' : `Pay ${percent}% now`),
@@ -75,12 +75,12 @@ export function PublicProposalPage() {
         paymentCancelled: 'Payment was not completed. Your plan remains approved and you can resume payment at any time.',
         paymentChecking: 'Confirming your payment...',
         paymentPending: 'Stripe is processing the payment. Do not pay again; refresh this page in a few minutes.',
-        acceptTitle: 'Approve plan',
+        acceptTitle: 'Approve and continue',
         acceptBody:
-          'By accepting, you approve the displayed adaptations, exclusions or pending items, payment terms and applicable service terms.',
+          'Before approving, review the included adaptations, exclusions, pending items, payment terms and applicable service terms. Secure payment will open next.',
         acceptedBy: 'Approved by',
         accepting: 'Approving...',
-        acceptButton: 'Approve plan',
+        acceptButton: 'Approve and open secure payment',
       }
   const { token = '' } = useParams()
   const [searchParams] = useSearchParams()
