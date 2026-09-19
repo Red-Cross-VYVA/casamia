@@ -85,11 +85,11 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     },
     promiseTitle: 'Clear decisions before installation starts.',
     promiseBody:
-      'CasaMia turns a home concern into room priorities, agreed adaptations, price assumptions, grant-application checks and coordinated delivery.',
+      'CasaMia turns a home concern into room priorities, agreed adaptations, price expectations, grant-application checks and clear follow-through.',
     promisePoints: [
       'Practical focus: daily movement, support points, lighting, access and wet-floor risk.',
       'Transparent recommendations: what matters, why it matters and what it may cost.',
-      'Managed delivery: fit confirmed first, installation coordinated and results checked.',
+      'Managed follow-through: fit confirmed first, installation coordinated and results checked.',
     ],
     processEyebrow: 'How CasaMia coordinates',
     processTitle: 'Know what happens before, during and after installation',
@@ -202,7 +202,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       eyebrow: 'Servicio en toda España',
       title: 'Cobertura local en toda España, conectada por CasaMia.',
       body:
-        'CasaMia combina representantes locales con un proceso compartido para que el consejo, la propuesta y el seguimiento sean consistentes esté donde esté la vivienda.',
+      'CasaMia combina representantes locales con un proceso compartido para que el consejo, el plan y el seguimiento sean consistentes esté donde esté la vivienda.',
       badge: 'Toda España',
       legend: 'Zonas con cobertura representativa',
       hint: 'Pasa el cursor o toca un punto para ver el equipo local.',
@@ -212,18 +212,18 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     },
     promiseTitle: 'Decisiones claras antes de empezar.',
     promiseBody:
-      'CasaMia convierte una preocupación sobre la vivienda en prioridades por estancia, alcance medido, supuestos de precio, revisión de documentación para ayudas y entrega coordinada.',
+      'CasaMia convierte una preocupación sobre la vivienda en prioridades por estancia, adaptaciones medidas, expectativas de precio, revisión de documentación para ayudas y seguimiento claro.',
     promisePoints: [
       'Foco práctico: movimiento diario, puntos de apoyo, iluminación, accesos y suelos mojados.',
       'Recomendaciones transparentes: qué importa, por qué importa y cuánto puede costar.',
-      'Entrega gestionada: encaje confirmado, trabajo coordinado y resultado comprobado.',
+      'Seguimiento gestionado: encaje confirmado, instalación coordinada y resultado comprobado.',
     ],
-    processEyebrow: 'Modelo operativo',
+    processEyebrow: 'Cómo ayuda CasaMia',
     processTitle: 'Saber qué ocurre antes, durante y después del trabajo',
     processSteps: [
       {
         title: 'Entender la vivienda',
-        body: 'Miramos la estancia, la rutina diaria, accesos, fotos y medidas antes de recomendar trabajos.',
+        body: 'Miramos la estancia, la rutina diaria, accesos, fotos y medidas antes de recomendar adaptaciones.',
       },
       {
         title: 'Recomendar con claridad',
@@ -245,12 +245,12 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     proofItems: [
       {
         title: 'Encaje del profesional',
-        body: 'El proveedor debe encajar con la estancia, tipo de trabajo, ubicación, disponibilidad y estándar senior.',
+        body: 'El profesional debe encajar con la estancia, tipo de adaptación, ubicación, disponibilidad y estándar de seguridad senior.',
         outcome: 'Menos traspasos',
       },
       {
-        title: 'Alcance y precio claros',
-        body: 'La propuesta separa trabajo incluido, opcionales, partidas que requieren medida y pasos de ayuda o subvención.',
+        title: 'Plan y precio claros',
+        body: 'El plan separa adaptaciones incluidas, opciones, partidas que requieren medida y pasos de ayuda o subvención.',
         outcome: 'Sin presupuesto vago',
       },
       {
@@ -269,7 +269,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'inspectors',
         title: 'Tecnología práctica para seguridad',
         body:
-          'CasaMia usa herramientas digitales para que la revisión sea más clara: fotos, prioridades, notas, evidencia de entrega y seguimiento quedan conectados.',
+          'CasaMia usa herramientas digitales para que la revisión sea más clara: fotos, prioridades, notas, comprobaciones finales y seguimiento quedan conectados.',
         points: ['Diseñado para envejecer mejor en casa', 'Herramientas digitales que apoyan decisiones humanas', 'Tecnología solo cuando reduce un riesgo concreto'],
       },
       {
@@ -283,8 +283,8 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'insured',
         title: 'Control de calidad integrado',
         body:
-          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene conectados alcance, notas de instalación, comunicación y explicación final.',
-        points: ['Alcance definido antes de empezar', 'Instalación y explicación trazadas', 'Seguimiento después del paso clave'],
+          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene conectados el plan acordado, notas de instalación, comunicación y explicación final.',
+        points: ['Plan definido antes de empezar', 'Instalación y explicación trazadas', 'Seguimiento después del paso clave'],
       },
       {
         icon: 'products',
@@ -295,7 +295,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'pricing',
-        title: 'Alcance, precio y ayudas claras',
+        title: 'Plan, precio y ayudas claras',
         body:
           'Debes saber qué está incluido, qué es opcional y qué requiere medición o confirmación. CasaMia separa claramente asesoramiento, instalación y apoyo con ayudas.',
         points: ['Estimación clara antes del compromiso', 'Opcionales separados de lo esencial', 'Orientación sobre ayudas sin falsas promesas'],
@@ -311,7 +311,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     contactEyebrow: 'Habla con CasaMia',
     contactTitle: 'Cuéntanos qué te preocupa del hogar.',
     contactBody:
-      'Comparte estancia, rutina, ubicación y urgencia. Un coordinador de CasaMia confirmará si conviene empezar con fotos, visita, propuesta o revisión de ayudas.',
+      'Comparte estancia, rutina, ubicación y urgencia. Un coordinador de CasaMia confirmará si conviene empezar con fotos, visita, plan con precio o revisión de ayudas.',
     callTitle: 'Llamar a CasaMia',
     emailTitle: 'Email de soporte',
     messagePlaceholder:

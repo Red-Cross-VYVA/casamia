@@ -338,7 +338,7 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-modal {
   position: relative;
-  width: min(980px, calc(100vw - 32px));
+  width: min(1080px, calc(100vw - 32px));
   max-height: min(760px, calc(100dvh - 32px));
   overflow: hidden;
   border: 1px solid rgba(189, 215, 231, 0.95);
@@ -398,7 +398,7 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-grid {
   display: grid;
-  grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1fr);
+  grid-template-columns: minmax(330px, 0.9fr) minmax(0, 1fr);
   min-height: min(610px, calc(100dvh - 32px));
 }
 
@@ -406,7 +406,7 @@ body .hero-section .free-check-card:focus-visible {
   display: grid;
   align-content: center;
   justify-items: center;
-  gap: 24px;
+  gap: 20px;
   min-height: 100%;
   padding: clamp(28px, 5vw, 54px);
   background: #0a496a;
@@ -415,20 +415,22 @@ body .hero-section .free-check-card:focus-visible {
 }
 
 .specialist-voice-avatar {
-  display: grid;
-  justify-items: center;
-  gap: 8px;
-  width: min(100%, 300px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(100%, 340px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.08);
-  padding: 18px 18px 16px;
+  padding: 16px;
   box-shadow: 0 22px 54px rgba(0, 0, 0, 0.16);
+  text-align: left;
 }
 
 .specialist-voice-avatar > span {
   display: grid;
-  width: 68px;
+  flex: 0 0 auto;
+  width: 64px;
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.28);
@@ -439,15 +441,22 @@ body .hero-section .free-check-card:focus-visible {
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
 }
 
+.specialist-voice-avatar > div {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
 .specialist-voice-avatar strong {
+  color: #ffffff;
   font-size: 20px;
   font-weight: 950;
-  line-height: 1.05;
+  line-height: 1.12;
 }
 
 .specialist-voice-avatar small {
   max-width: 220px;
-  color: rgba(255, 255, 255, 0.76);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0;
@@ -457,7 +466,7 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-mic-status {
   display: grid;
-  width: clamp(150px, 16vw, 200px);
+  width: clamp(148px, 15vw, 188px);
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.36);
@@ -517,7 +526,7 @@ body .hero-section .free-check-card:focus-visible {
 .specialist-voice-content {
   max-height: min(760px, calc(100dvh - 32px));
   overflow: auto;
-  padding: clamp(34px, 4.4vw, 54px);
+  padding: clamp(34px, 4.2vw, 52px);
   padding-right: clamp(72px, 7vw, 88px);
   scrollbar-gutter: stable;
 }
@@ -542,9 +551,9 @@ body .hero-section .free-check-card:focus-visible {
   margin: 0;
   color: #142a3f;
   font-family: var(--font-display);
-  font-size: clamp(44px, 5vw, 68px);
+  font-size: clamp(38px, 4.3vw, 58px);
   font-weight: 900;
-  line-height: 0.98;
+  line-height: 1;
   letter-spacing: 0;
 }
 
