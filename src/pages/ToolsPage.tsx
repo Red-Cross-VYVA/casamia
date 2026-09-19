@@ -20,30 +20,30 @@ type Language = 'en' | 'es'
 const copy = {
   en: {
     lang: 'en',
-    seoTitle: 'Free Senior Home Safety Tools | CasaMia',
+    seoTitle: 'Free Home Safety Tools | CasaMia',
     seoDescription:
-      'Use CasaMia free checks to decide whether to monitor, review one room, prepare grant evidence or book a home assessment.',
+      'Use CasaMia free checks to decide whether to keep watching, review one room, prepare grant documents or book a home assessment.',
     eyebrow: 'Free home-safety tools',
     title: 'Choose the check that matches today’s safety concern.',
     body:
-      'Pick the closest situation. Each check ends with a practical decision: monitor for now, review one room, prepare evidence or ask CasaMia what to do next.',
+      'Pick the closest situation. Each check should leave you with a practical next step: keep watching, review one room, gather documents or ask CasaMia what to do next.',
     featuredLabel: 'Start here if you are unsure',
     featuredTitle: 'Is this home still safe day to day?',
     featuredBody:
-      'Five everyday questions to decide whether to keep watching, check one room or act sooner.',
+      'Five everyday questions to decide whether the home feels stable, uncertain or worth reviewing sooner.',
     featuredCta: 'Start the safety check',
     sectionEyebrow: 'Choose your check',
-    sectionTitle: 'Checks for real home-safety decisions.',
+    sectionTitle: 'Pick the tool for the decision you need to make.',
     openTool: 'Open tool',
     chooserEyebrow: 'Match the tool to the concern',
     chooserTitle: 'Pick the question you need answered.',
     chooserBody:
-      'Start with the concern in front of you. Keep the result as notes, or share it when you want a visit, report or priced plan.',
+      'Start with the concern in front of you. Keep the result as notes, or share it when you want a visit, report or clearer recommendation.',
     nextEyebrow: 'After the tool',
-    nextTitle: 'Leave with a decision, not more confusion.',
+    nextTitle: 'Leave with a next step, not more confusion.',
     finalTitle: 'Ready to turn answers into a plan?',
     finalBody:
-      'Use your answers to set priorities: what to change now, what can wait, what needs measurement and what may support a grant application.',
+      'Use your answers to set priorities: what to change now, what can wait, what needs measurement and what may help with a grant check.',
     finalCta: 'Start guided review',
     faqEyebrow: 'Tool guidance',
     faqTitle: 'How to use the tools well.',
@@ -51,17 +51,17 @@ const copy = {
       {
         question: 'Which tool should I start with?',
         answer:
-          'If you are unsure, start with the five-question safety check. If one room already worries you, use photos or the room-by-room check.',
+          'If you are unsure, start with the five-question safety check. If one room already worries you, use photos or the room-by-room review.',
       },
       {
         question: 'Do the tools replace a professional visit?',
         answer:
-          'No. They organise the first decision. A visit still matters when measurements, installation details, several rooms or a grant application are involved.',
+          'No. They organise the first decision. A visit still matters when measurements, installation details, several rooms or grant documents are involved.',
       },
       {
         question: 'Can CasaMia use my answers later?',
         answer:
-          'Yes, when you choose to share them. We use them to avoid repeating the same details and prepare room priorities, adaptation notes and visit questions.',
+          'Yes, when you choose to share them. CasaMia uses them to avoid repeating the same details and prepare room priorities, adaptation notes and visit questions.',
       },
     ],
   },
@@ -73,24 +73,24 @@ const copy = {
     eyebrow: 'Herramientas gratis de seguridad en casa',
     title: 'Elige la revisión que encaja con la preocupación de hoy.',
     body:
-      'Elige la situación más cercana. Cada revisión termina en una decisión práctica: observar, revisar una estancia, preparar evidencia o pedir opinión a CasaMia.',
+      'Elige la situación más cercana. Cada revisión debe dejarte un siguiente paso práctico: seguir observando, revisar una estancia, reunir documentos o preguntar a CasaMia qué hacer después.',
     featuredLabel: 'Empieza aquí si dudas',
     featuredTitle: '¿Esta casa sigue siendo segura en el día a día?',
     featuredBody:
-      'Cinco preguntas cotidianas para decidir si conviene seguir observando, revisar una estancia o actuar antes.',
+      'Cinco preguntas cotidianas para decidir si la vivienda parece estable, genera dudas o merece revisión antes.',
     featuredCta: 'Empezar revisión de seguridad',
     sectionEyebrow: 'Elige tu revisión',
-    sectionTitle: 'Revisiones para decisiones reales de seguridad.',
+    sectionTitle: 'Elige la herramienta para la decisión que necesitas tomar.',
     openTool: 'Abrir herramienta',
     chooserEyebrow: '¿No sabes cuál elegir?',
     chooserTitle: 'Elige la pregunta que necesitas responder.',
     chooserBody:
-      'Empieza por la preocupación que tienes delante. Guarda el resultado como notas o compártelo cuando quieras una visita, informe o plan con precio.',
+      'Empieza por la preocupación que tienes delante. Guarda el resultado como notas o compártelo cuando quieras una visita, informe o recomendación más clara.',
     nextEyebrow: 'Después de la herramienta',
-    nextTitle: 'Sal con una decisión, no con más dudas.',
+    nextTitle: 'Sal con un siguiente paso, no con más dudas.',
     finalTitle: '¿Listo para convertir respuestas en un plan?',
     finalBody:
-      'Usa tus respuestas para fijar prioridades: qué cambiar ahora, qué puede esperar, qué necesita medidas y qué puede apoyar una solicitud de ayuda.',
+      'Usa tus respuestas para fijar prioridades: qué cambiar ahora, qué puede esperar, qué necesita medidas y qué puede ayudar en una revisión de ayudas.',
     finalCta: 'Empezar revisión guiada',
     faqEyebrow: 'Guía de herramientas',
     faqTitle: 'Cómo usar bien las herramientas.',
@@ -103,12 +103,12 @@ const copy = {
       {
         question: '¿Sustituyen estas herramientas a una visita profesional?',
         answer:
-          'No. Ordenan la primera decisión. La visita sigue siendo importante cuando hay medidas, instalación que revisar, varias estancias o documentación para ayudas.',
+          'No. Ordenan la primera decisión. La visita sigue siendo importante cuando hay medidas, detalles de instalación, varias estancias o documentos para ayudas.',
       },
       {
         question: '¿Puede CasaMia usar mis respuestas después?',
         answer:
-          'Sí, cuando decidas compartirlas. Las usamos para no repetir los mismos datos y preparar prioridades por estancia, notas de adaptación y preguntas para la visita.',
+          'Sí, cuando decidas compartirlas. CasaMia las usa para no repetir los mismos datos y preparar prioridades por estancia, notas de adaptación y preguntas para la visita.',
       },
     ],
   },
@@ -117,19 +117,19 @@ const copy = {
 const tools = [
   {
     icon: HelpCircle,
-    title: { en: 'Is this home still safe?', es: '¿Esta casa sigue siendo segura?' },
+    title: { en: 'Quick home safety check', es: 'Revisión rápida de seguridad' },
     body: {
-      en: 'Five focused questions when movement, balance or routines have started to feel different.',
-      es: 'Cinco preguntas concretas cuando movimiento, equilibrio o rutinas empiezan a cambiar.',
+      en: 'Answer five questions to see whether the home feels stable, uncertain or worth reviewing sooner.',
+      es: 'Responde cinco preguntas para ver si la vivienda parece estable, genera dudas o merece revisión antes.',
     },
     to: '/tools/senior-friendly-home-check',
   },
   {
     icon: FileCheck2,
-    title: { en: 'Grant-readiness check', es: 'Revisión para ayudas' },
+    title: { en: 'Grant document check', es: 'Revisión de documentos para ayudas' },
     body: {
-      en: 'List the documents, eligibility questions and timing risks before relying on funding.',
-      es: 'Enumera documentos, preguntas de elegibilidad y riesgos de plazo antes de contar con una ayuda.',
+      en: 'See which documents and timing questions to check before counting on public assistance.',
+      es: 'Ve qué documentos y plazos revisar antes de contar con una ayuda pública.',
     },
     to: '/grant-check',
   },
@@ -137,8 +137,8 @@ const tools = [
     icon: ClipboardCheck,
     title: { en: 'Room-by-room online review', es: 'Revisión online por estancias' },
     body: {
-      en: 'Check the rooms that matter most and see which risks deserve attention first.',
-      es: 'Revisa las estancias más importantes y ve qué riesgos merecen atención primero.',
+      en: 'Work through each room and mark what feels safe, unsafe or uncertain.',
+      es: 'Revisa cada estancia y marca qué parece seguro, inseguro o dudoso.',
     },
     to: '/home-safety-assessment?open=self-inspection#self-inspection-tool',
   },
@@ -146,8 +146,8 @@ const tools = [
     icon: Camera,
     title: { en: 'Photo safety report', es: 'Informe con fotos' },
     body: {
-      en: 'Upload a few photos to identify visible issues and the first action to consider.',
-      es: 'Sube algunas fotos para identificar problemas visibles y la primera acción a considerar.',
+      en: 'Upload photos to flag visible issues, limits of the review and the first action to consider.',
+      es: 'Sube fotos para señalar problemas visibles, límites de la revisión y primera acción a valorar.',
     },
     to: '/#estimate-upload',
   },
@@ -156,33 +156,33 @@ const tools = [
 const chooserQuestions = [
   {
     icon: HelpCircle,
-    title: { en: 'Movement or routine has changed', es: 'Ha cambiado el movimiento o la rutina' },
+    title: { en: 'Movement or routine feels different', es: 'Movimiento o rutina se sienten distintos' },
     body: {
-      en: 'Use the five-question check to decide whether to monitor, check one room or act sooner.',
-      es: 'Usa la revisión de cinco preguntas para decidir si observar, revisar una estancia o actuar antes.',
+      en: 'Use the quick check to decide whether to keep watching, review one room or ask for help sooner.',
+      es: 'Usa la revisión rápida para decidir si seguir observando, revisar una estancia o pedir ayuda antes.',
     },
   },
   {
     icon: Camera,
     title: { en: 'You can show the room', es: 'Puedes mostrar la estancia' },
     body: {
-      en: 'Use photos when a visible problem needs an initial action before a priced plan.',
-      es: 'Usa fotos cuando un problema visible necesita una primera acción clara antes de pedir un plan con precio.',
+      en: 'Use photos when a visible issue needs an initial read before a visit or quote.',
+      es: 'Usa fotos cuando un problema visible necesita una primera lectura antes de visita o presupuesto.',
     },
   },
   {
     icon: FileCheck2,
     title: { en: 'Funding may matter', es: 'Las ayudas pueden importar' },
     body: {
-      en: 'Use the grant check early if documents, timing or regional criteria could change the project.',
-      es: 'Usa la revisión de ayudas pronto si documentos, plazos o criterios autonómicos pueden cambiar el proyecto.',
+      en: 'Use the grant check early if documents, timing or local criteria could change the next step.',
+      es: 'Usa la revisión de ayudas pronto si documentos, plazos o criterios locales pueden cambiar el siguiente paso.',
     },
   },
   {
     icon: Home,
     title: { en: 'You want a full plan', es: 'Quieres un plan completo' },
     body: {
-      en: 'Use the guided review when several rooms, routines or decisions need to be organised.',
+      en: 'Use the guided review when several rooms, routines or decisions need organising.',
       es: 'Usa la revisión guiada cuando hay varias estancias, rutinas o decisiones que ordenar.',
     },
   },
@@ -191,10 +191,10 @@ const chooserQuestions = [
 const nextToolSteps = [
   {
     icon: ClipboardCheck,
-    title: { en: 'The review to use next', es: 'La revisión que conviene usar' },
+    title: { en: 'The next review to use', es: 'La siguiente revisión a usar' },
     body: {
-      en: 'Know whether to use a checklist, room review, grant check or visit.',
-      es: 'Saber si toca lista, revisión por estancia, revisión de ayudas o visita.',
+      en: 'Know whether to use a checklist, room review, grant check or home visit.',
+      es: 'Saber si toca lista, revisión por estancia, revisión de ayudas o visita en casa.',
     },
   },
   {
@@ -202,15 +202,15 @@ const nextToolSteps = [
     title: { en: 'Evidence you can share', es: 'Evidencia que puedes compartir' },
     body: {
       en: 'Bring photos, answers or notes into one practical conversation.',
-      es: 'Llevar fotos, respuestas o notas a una conversación práctica.',
+      es: 'Reunir fotos, respuestas o notas en una conversación práctica.',
     },
   },
   {
     icon: ShieldCheck,
     title: { en: 'Priorities ready to use', es: 'Prioridades listas para usar' },
     body: {
-      en: 'Turn the result into room priorities, adaptation notes and a prepared visit or priced plan.',
-      es: 'Convierte el resultado en prioridades por estancia, notas de adaptación y una visita o plan con precio.',
+      en: 'Turn the result into room priorities, adaptation notes and prepared visit questions.',
+      es: 'Convierte el resultado en prioridades por estancia, notas de adaptación y preguntas para la visita.',
     },
   },
 ] as const
