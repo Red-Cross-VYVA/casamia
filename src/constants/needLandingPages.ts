@@ -44,15 +44,15 @@ export const needLandingPages: NeedLandingPageContent[] = [
     resourcePath: '/blog/bathroom-safety-seniors-costly-mistakes',
     icon: 'bath',
     image: '/images/blog/bathroom-mistakes.webp',
-    title: 'Bathroom safety for seniors',
-    seoTitle: 'Bathroom Safety for Seniors in Spain',
+    title: 'Bathroom safety at home',
+    seoTitle: 'Bathroom Safety at Home in Spain',
     description:
-      'Practical bathroom safety for seniors: safer access, bathing, toilet transfers, anti-slip support, lighting, water controls and checked fitting.',
+      'Practical bathroom safety: safer access, bathing, toilet transfers, anti-slip support, lighting, water controls and checked fitting.',
     eyebrow: 'Bathroom safety',
     intro:
       'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. We review the real routine, recommend what fits and check the fitting details before work starts.',
     whoFor: [
-      'Older adults unsteady in the bathroom',
+      'People who feel unsteady in the bathroom',
       'Anyone worried about transfers',
       'Small or wet bathrooms',
     ],
@@ -122,7 +122,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     ],
     faqs: [
       {
-        question: 'What should be checked first in a senior bathroom?',
+        question: 'What should be checked first in a bathroom?',
         answer:
           'Start with shower access, toilet transfers, wet floors, support points, night lighting and whether taps or shower controls are easy to use.',
       },
@@ -157,7 +157,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     eyebrow: 'Prevention first',
     intro:
       'Fall prevention is not one product. It is a practical plan across the rooms and routines where risk builds up: transfers, lighting, floor surfaces, stairs and support points.',
-    whoFor: ['People noticing slips, near misses or new hesitation at home', 'Older adults recovering from a fall or mobility change', 'Homes that need prevention priorities before a crisis'],
+    whoFor: ['People noticing slips, near misses or new hesitation at home', 'Anyone recovering from a fall or mobility change', 'Homes that need prevention priorities before a crisis'],
     priorities: ['Bathroom and toilet transfer safety', 'Bedroom-to-bathroom night movement', 'Stairs, entrances and thresholds', 'Emergency reach and agreed connected support'],
     casamiaPlan: ['Identify the highest-risk routines first', 'Match improvements to the person, not just the property', 'Phase adaptations into urgent, recommended and optional actions'],
     relatedServices: [
@@ -185,16 +185,16 @@ export const needLandingPages: NeedLandingPageContent[] = [
     resourcePath: '/blog/fall-prevention-home-checklist-spain',
     icon: 'home',
     image: '/images/assessment/casamia-inspector-tablet.jpg',
-    title: 'Aging-in-place home assessment',
-    seoTitle: 'Aging in Place Home Assessment in Spain',
+    title: 'Home safety assessment',
+    seoTitle: 'Home Safety Assessment in Spain',
     description:
-      'Book an aging-in-place home assessment with CasaMia to understand safety priorities, adaptations, grants and practical next steps.',
+      'Book a CasaMia home safety assessment to understand safety priorities, adaptations, grants and practical next steps.',
     eyebrow: 'Home assessment',
     intro:
-      'An aging-in-place assessment identifies what should change first, what can wait and which checks are needed before final pricing.',
-    whoFor: ['Households planning before a fall or hospital discharge', 'Older adults who want to stay independent at home', 'Homes where people disagree on what to fix first'],
+      'A home safety assessment identifies what should change first, what can wait and which checks are needed before final pricing.',
+    whoFor: ['Households planning before a fall or hospital discharge', 'People who want to stay independent at home', 'Homes where people disagree on what to fix first'],
     priorities: ['Mobility and transfer routines', 'Room-by-room safety risks', 'Practical adaptation options', 'Grant-readiness and documentation where relevant'],
-    casamiaPlan: ['Listen to the person at home and daily priorities', 'Review the home, photos or guided answers', 'Prepare a priced plan with review items and next steps'],
+    casamiaPlan: ['Listen to the person at home and daily priorities', 'Review the home, photos or guided answers', 'Prepare clear priorities, review items and next steps'],
     relatedServices: [
       { label: 'Book a home assessment', to: '/home-safety-assessment' },
       { label: 'Build your plan', to: '/home-safety-wizard' },
@@ -220,14 +220,14 @@ export const needLandingPages: NeedLandingPageContent[] = [
     resourcePath: '/blog/choose-home-safety-provider-spain',
     icon: 'check',
     image: '/images/service-gallery/04-bathroom-and-kitchen-adaptations.jpg',
-    title: 'Home adaptations for elderly people',
-    seoTitle: 'Home Adaptations for Elderly People in Spain',
+    title: 'Home adaptations for safer daily living',
+    seoTitle: 'Home Adaptations for Safer Daily Living in Spain',
     description:
-      'Practical home adaptations for older adults: safer bathrooms, bedrooms, entrances, kitchens, lighting and help within reach.',
+      'Practical home adaptations: safer bathrooms, bedrooms, entrances, kitchens, lighting and help within reach.',
     eyebrow: 'Home adaptations',
     intro:
       'Good home adaptation starts with the daily task that has become harder: bathing, stairs, bed transfers, cooking, entering the home or asking for help.',
-    whoFor: ['Older adults who want to stay comfortable at home', 'Homes where movement, bathing, stairs or night routines now feel less safe', 'Households that need practical changes, connected support or grant guidance'],
+    whoFor: ['People who want to stay comfortable at home', 'Homes where movement, bathing, stairs or night routines now feel less safe', 'Households that need practical changes, connected support or grant guidance'],
     priorities: ['Safer bathroom access', 'Bedroom and night-time movement', 'Entrance, threshold and stairs support', 'Connected routines where helpful'],
     casamiaPlan: ['Turn daily problems into room-by-room actions', 'Check measurements, fitting details and practical timing', 'Confirm what is included and explain safe use before work is closed'],
     relatedServices: [
@@ -255,16 +255,16 @@ export const needLandingPages: NeedLandingPageContent[] = [
     resourcePath: '/blog/bedroom-night-safety-older-adults',
     icon: 'bedroom',
     image: '/images/blog/bedroom-night-safety-hero.png',
-    title: 'Senior bedroom safety',
-    seoTitle: 'Senior Bedroom Safety and Night-Time Fall Prevention',
+    title: 'Bedroom safety at night',
+    seoTitle: 'Bedroom Safety and Night-Time Fall Prevention',
     description:
-      'Senior bedroom safety for getting in and out of bed, safer walking routes, night lighting, emergency support and connected bedroom routines.',
+      'Bedroom safety for getting in and out of bed, safer walking routes, night lighting, emergency support and connected bedroom routines.',
     eyebrow: 'Bedroom safety',
     intro:
       'The bedroom should support rest and safe movement, especially at night. CasaMia focuses on getting in and out of bed, clear walking routes, lighting and emergency reach.',
     whoFor: [
-      'Older adults who wake at night and need a safer route to the bathroom',
-      'Seniors who want the first step out of bed to feel steadier and calmer',
+      'People who wake at night and need a safer route to the bathroom',
+      'Anyone who wants the first step out of bed to feel steadier and calmer',
       'Bedrooms where lighting, floor edges or furniture layout make independent movement harder than it should be',
     ],
     priorities: ['Motion-activated night lighting', 'Bedside support', 'Clear route from bed to door', 'Emergency call options and connected routines'],
@@ -331,7 +331,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     ],
     faqs: [
       {
-        question: 'What makes a bedroom safer for seniors?',
+        question: 'What makes a bedroom safer at night?',
         answer:
           'Good bedroom safety usually starts with easier bed access, night lighting, clear walking routes, safe floor surfaces and a reachable way to ask for help.',
       },
@@ -356,7 +356,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     eyebrow: 'Grants and assistance',
     intro:
       'Grant eligibility depends on region, municipality, open calls and personal circumstances. CasaMia helps you understand what may fit and what documents are usually needed.',
-    whoFor: ['People considering accessibility or safety works', 'Older adults who may qualify for public assistance', 'Households needing help with documents and next steps'],
+    whoFor: ['People considering accessibility or safety works', 'Anyone who may qualify for public assistance', 'Households needing help with documents and next steps'],
     priorities: ['Region and postcode check', 'Ownership or permission status', 'Dependency, disability or age documentation', 'Clear plan and quotation for works that may qualify'],
     casamiaPlan: ['Check possible options from official sources', 'Show missing documents and timing', 'Prepare next steps without promising approval'],
     relatedServices: [
@@ -391,7 +391,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     eyebrow: 'Return home safely',
     intro:
       'After a hospital stay, the home may need to work differently. CasaMia helps focus on the first safe days back: movement, washing, sleeping, stairs and support.',
-    whoFor: ['Households preparing for discharge', 'Older adults returning home with reduced mobility', 'Homes needing fast priorities rather than a long wish list'],
+    whoFor: ['Households preparing for discharge', 'People returning home with reduced mobility', 'Homes needing fast priorities rather than a long wish list'],
     priorities: ['Bed, bathroom and toilet transfer support', 'Clear walking routes and lighting', 'Entrance or stair safety', 'Emergency contact and approved-contact visibility'],
     casamiaPlan: ['Identify what is needed before return', 'Separate urgent changes from later improvements', 'Coordinate practical installation and follow-up'],
     relatedServices: [
@@ -419,14 +419,14 @@ export const needLandingPages: NeedLandingPageContent[] = [
     resourcePath: '/blog/smart-home-safety-without-overcomplicating',
     icon: 'smartphone',
     image: '/images/blog/smart-safety-simple.webp',
-    title: 'Connected home for seniors',
-    seoTitle: 'Connected Home for Seniors Without Complication',
+    title: 'Connected home support',
+    seoTitle: 'Connected Home Support Without Complication',
     description:
-      'Connected home support for seniors with voice assistance, smart lighting, reminders, leak alerts, emergency options and approved-contact notifications.',
+      'Connected home support with voice assistance, smart lighting, reminders, leak alerts, emergency options and approved-contact notifications.',
     eyebrow: 'Connected living',
     intro:
       'CasaMia only adds connected devices when they solve a specific problem: lighting, reminders, water alerts, emergency reach or agreed contact notifications.',
-    whoFor: ['Older adults who benefit from voice help or reminders', 'People who want practical alerts without intrusive monitoring', 'Homes where lighting, alerts or routines can reduce daily friction'],
+    whoFor: ['People who benefit from voice help or reminders', 'People who want practical alerts without intrusive monitoring', 'Homes where lighting, alerts or routines can reduce daily friction'],
     priorities: ['Voice assistance and hands-free calls', 'Smart lighting and night routines', 'Medication or appointment reminders', 'Leak, emergency or approved-contact notifications when agreed'],
     casamiaPlan: ['Choose technology only where it supports a routine', 'Configure compatible devices around agreed responders', 'Train the household and document who receives alerts'],
     relatedServices: [
@@ -460,14 +460,14 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     title: 'Home safety assessment vs general contractor',
     seoTitle: 'Home Safety Assessment vs General Contractor | CasaMia',
     description:
-      'Know when to start with a senior home safety assessment before asking a contractor to quote or install work.',
+      'Know when to start with a home safety assessment before asking a contractor to quote or install work.',
     eyebrow: 'Decision guide',
     intro:
       'A contractor is the right call once the adaptation is clear. A safety assessment helps when you are still deciding what should change, where risk is highest, and which changes will actually support the person using the home.',
     whoFor: [
       'People who know something is unsafe but do not know what to ask an installer for',
       'Homes where several rooms, transfers or routes are involved',
-      'Older adults whose mobility, hesitation or care needs have recently changed',
+      'People whose mobility, hesitation or support needs have recently changed',
       'Households that need a clear adaptation plan before quotes, grants, landlord permission or community approval',
     ],
     priorities: [
@@ -519,15 +519,15 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     icon: 'smartphone',
     image: '/images/blog/smart-safety-simple.webp',
     title: 'Smart home safety vs monitoring',
-    seoTitle: 'Smart Home Safety vs Monitoring for Seniors | CasaMia',
+    seoTitle: 'Smart Home Safety vs Monitoring | CasaMia',
     description:
-      'Compare practical smart home safety, simple alerts and monitoring-style services for seniors without overcomplicating the home.',
+      'Compare practical smart home safety, simple alerts and monitoring-style services without overcomplicating the home.',
     eyebrow: 'Decision guide',
     intro:
       'Not every connected device is monitoring, and not every home needs a monitoring service. The right choice depends on what problem you are solving: safer movement, easier reminders, emergency reach, approved-contact awareness or formal response.',
     whoFor: [
       'People considering sensors, voice assistance, water alerts, smart lighting or emergency buttons',
-      'Older adults who want support without feeling watched',
+      'People who want support without feeling watched',
       'Homes where simple automation could reduce daily friction',
       'Households that need to agree who receives alerts and what happens next',
     ],

@@ -17,16 +17,16 @@ type NeedLandingPageTranslation = Pick<
 
 const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
   'bathroom-safety-for-seniors': {
-    title: 'Seguridad en el baño para mayores',
-    seoTitle: 'Seguridad en el baño para mayores en España',
+    title: 'Seguridad en el baño en casa',
+    seoTitle: 'Seguridad en el baño en casa en España',
     description:
-      'Seguridad práctica en el baño para personas mayores: acceso, ducha, inodoro, apoyo antideslizante, iluminación, controles de agua y encaje comprobado.',
+      'Seguridad práctica en el baño: acceso, ducha, inodoro, apoyo antideslizante, iluminación, controles de agua y encaje comprobado.',
     eyebrow: 'Seguridad en el baño',
     intro:
       'Haz que ducharse, usar el inodoro y acceder al baño sea más seguro sin convertirlo en una clínica. CasaMia revisa la rutina real, recomienda lo que encaja y comprueba detalles antes de organizar el trabajo.',
     whoFor: [
-      'Mayores inseguros en el baño',
-      'Familias preocupadas por transferencias',
+      'Personas que se sienten inseguras en el baño',
+      'Hogares preocupados por transferencias',
       'Baños pequeños o con suelo mojado',
     ],
     priorities: [
@@ -104,7 +104,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     ],
     faqs: [
       {
-        question: '¿Qué conviene revisar primero en un baño para mayores?',
+        question: '¿Qué conviene revisar primero en un baño?',
         answer:
           'Empieza por acceso a la ducha, transferencias al inodoro, suelos mojados, puntos de apoyo, luz nocturna y facilidad de uso de grifos y controles.',
       },
@@ -127,15 +127,15 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
   },
   'fall-prevention-at-home': {
     title: 'Prevención de caídas en casa',
-    seoTitle: 'Prevención de caídas en casa para personas mayores',
+    seoTitle: 'Prevención de caídas en casa',
     description:
       'Una ruta estancia por estancia para prevenir caídas en casa: baño, dormitorio, escaleras, entrada, iluminación y puntos de apoyo.',
     eyebrow: 'Prevenir primero',
     intro:
       'Prevenir caídas no es comprar un producto. Es ordenar las estancias y rutinas donde se acumula el riesgo: transferencias, luz, suelos, escaleras y apoyos.',
     whoFor: [
-      'Familias que han notado resbalones, sustos o pérdida de confianza',
-      'Personas mayores tras una caída o un cambio de movilidad',
+      'Personas que han notado resbalones, sustos o pérdida de confianza',
+      'Personas tras una caída o un cambio de movilidad',
       'Viviendas que necesitan un plan tranquilo antes de una urgencia',
     ],
     priorities: [
@@ -163,7 +163,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿Prevenir caídas significa cambiar toda la casa de golpe?',
         answer:
-          'No. Un buen plan separa prioridades inmediatas de mejoras posteriores para que la familia pueda avanzar con orden.',
+          'No. Un buen plan separa prioridades inmediatas de mejoras posteriores para avanzar con orden.',
       },
     ],
   },
@@ -176,9 +176,9 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     intro:
       'Una evaluación del hogar ayuda a ver qué importa ahora, qué puede esperar y qué cambios facilitan seguir viviendo en casa con más seguridad y comodidad.',
     whoFor: [
-      'Familias que quieren planificar antes de una caída o alta hospitalaria',
-      'Personas mayores que quieren mantener independencia en casa',
-      'Hogares donde la familia no sabe qué arreglar primero',
+      'Hogares que quieren planificar antes de una caída o alta hospitalaria',
+      'Personas que quieren mantener independencia en casa',
+      'Hogares donde no está claro qué arreglar primero',
     ],
     priorities: [
       'Movilidad y transferencias diarias',
@@ -187,9 +187,9 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Preparación de ayudas y documentación cuando proceda',
     ],
     casamiaPlan: [
-      'Escuchar prioridades de la familia y la persona',
+      'Escuchar prioridades de la persona y del hogar',
       'Revisar vivienda, fotos o respuestas guiadas',
-      'Preparar una propuesta clara con próximos pasos',
+      'Preparar prioridades claras y próximos pasos',
     ],
     relatedServices: [
       { label: 'Reservar evaluación', to: '/home-safety-assessment' },
@@ -205,20 +205,20 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿Se puede empezar antes de una visita?',
         answer:
-          'Sí. La familia puede empezar online con preguntas guiadas, fotos, vídeos o una nota de voz. La visita confirma medidas e instalación si hace falta.',
+          'Sí. Puedes empezar online con preguntas guiadas, fotos, vídeos o una nota de voz. La visita confirma medidas e instalación si hace falta.',
       },
     ],
   },
   'home-adaptations-for-elderly': {
-    title: 'Adaptaciones del hogar para personas mayores',
-    seoTitle: 'Adaptaciones del hogar para personas mayores en España',
+    title: 'Adaptaciones del hogar para vivir con más seguridad',
+    seoTitle: 'Adaptaciones del hogar para vivir con más seguridad en España',
     description:
-      'Adaptaciones prácticas para personas mayores: baño, dormitorio, entrada, cocina, iluminación y ayuda al alcance.',
+      'Adaptaciones prácticas para el hogar: baño, dormitorio, entrada, cocina, iluminación y ayuda al alcance.',
     eyebrow: 'Adaptaciones del hogar',
     intro:
       'Una buena adaptación no consiste en añadir productos al azar. Consiste en preservar independencia, comodidad y dignidad eliminando riesgos y fricciones diarias.',
     whoFor: [
-      'Personas mayores que quieren seguir cómodas en casa',
+      'Personas que quieren seguir cómodas en casa',
       'Viviendas donde baño, escaleras, noche o entradas se sienten menos seguros',
       'Hogares que necesitan cambios prácticos, apoyo conectado o guía para ayudas',
     ],
@@ -252,7 +252,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     ],
   },
   'senior-bedroom-safety': {
-    title: 'Seguridad en el dormitorio para mayores',
+    title: 'Seguridad nocturna en el dormitorio',
     seoTitle: 'Seguridad en el dormitorio y prevención nocturna de caídas',
     description:
       'Seguridad en el dormitorio para levantarse mejor de la cama, caminar con más seguridad, mejorar la luz nocturna y tener ayuda al alcance.',
@@ -260,8 +260,8 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     intro:
       'El dormitorio debe favorecer descanso y movimiento seguro, sobre todo de noche. CasaMia se centra en entrar y salir de la cama, rutas despejadas, iluminación y ayuda al alcance.',
     whoFor: [
-      'Personas mayores que se levantan de noche y necesitan una ruta más segura al baño',
-      'Personas mayores que quieren que el primer paso fuera de la cama sea más estable y tranquilo',
+      'Personas que se levantan de noche y necesitan una ruta más segura al baño',
+      'Personas que quieren que el primer paso fuera de la cama sea más estable y tranquilo',
       'Dormitorios donde la luz, los bordes del suelo o la distribución dificultan moverse con autonomía',
     ],
     priorities: [
@@ -359,7 +359,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Las ayudas dependen de la región, municipio, convocatorias y situación personal. CasaMia ayuda a entender qué puede encajar y qué documentos suelen hacer falta.',
     whoFor: [
       'Familias que valoran obras de accesibilidad o seguridad',
-      'Personas mayores que podrían optar a ayuda pública',
+      'Personas que podrían optar a ayuda pública',
       'Hogares que necesitan apoyo con documentación y próximos pasos',
     ],
     priorities: [
@@ -400,15 +400,15 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     intro:
       'Después de una estancia hospitalaria, la vivienda puede necesitar funcionar de otra manera. CasaMia ayuda a priorizar los primeros días: moverse, lavarse, dormir, escaleras y apoyos.',
     whoFor: [
-      'Familias que preparan un alta hospitalaria',
-      'Personas mayores que vuelven con movilidad reducida',
+      'Hogares que preparan un alta hospitalaria',
+      'Personas que vuelven con movilidad reducida',
       'Viviendas que necesitan prioridades rápidas, no una lista interminable',
     ],
     priorities: [
       'Cama, baño e inodoro',
       'Rutas despejadas e iluminación',
       'Entrada o escaleras',
-      'Contacto de emergencia y visibilidad familiar',
+      'Contacto de emergencia y visibilidad para personas autorizadas',
     ],
     casamiaPlan: [
       'Identificar qué hace falta antes de volver',
@@ -434,23 +434,23 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     ],
   },
   'connected-home-for-seniors': {
-    title: 'Hogar conectado para personas mayores',
-    seoTitle: 'Hogar conectado para mayores sin complicaciones',
+    title: 'Apoyo conectado en casa',
+    seoTitle: 'Apoyo conectado en casa sin complicaciones',
     description:
-      'Apoyo conectado para mayores con voz, iluminación inteligente, recordatorios, alertas de fuga, emergencia y tranquilidad familiar.',
+      'Apoyo conectado con voz, iluminación inteligente, recordatorios, alertas de fuga, emergencia y avisos a contactos autorizados.',
     eyebrow: 'Vida conectada',
     intro:
       'CasaMia no vende tecnología porque sí. Configuramos experiencias sencillas que apoyan rutinas, seguridad y tranquilidad.',
     whoFor: [
-      'Personas mayores que se benefician de ayuda por voz o recordatorios',
-      'Familias que quieren tranquilidad práctica sin vigilancia intrusiva',
+      'Personas que se benefician de ayuda por voz o recordatorios',
+      'Hogares que quieren tranquilidad práctica sin vigilancia intrusiva',
       'Hogares donde luz, avisos o rutinas reducen fricción diaria',
     ],
     priorities: [
       'Asistencia por voz y llamadas manos libres',
       'Iluminación inteligente y rutinas nocturnas',
       'Recordatorios de medicación o citas',
-      'Avisos de fuga, emergencia o familia cuando aportan valor',
+      'Avisos de fuga, emergencia o contactos autorizados cuando aportan valor',
     ],
     casamiaPlan: [
       'Elegir tecnología solo cuando ayuda a una rutina',
@@ -471,7 +471,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿La persona tiene que saber de tecnología?',
         answer:
-          'No. La experiencia debe ser simple, normalmente con voz, rutinas fáciles y apoyo familiar claro.',
+          'No. La experiencia debe ser simple, normalmente con voz, rutinas fáciles y apoyo claro de contactos autorizados.',
       },
     ],
   },
@@ -486,7 +486,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     whoFor: [
       'Personas que notan algo inseguro pero no saben qué pedir a un instalador',
       'Viviendas con varias estancias, transferencias o rutas implicadas',
-      'Personas mayores cuya movilidad, confianza o apoyo ha cambiado recientemente',
+      'Personas cuya movilidad, confianza o apoyo ha cambiado recientemente',
       'Hogares que necesitan un plan claro antes de presupuestos, ayudas, permiso de propietario o comunidad',
     ],
     priorities: [
@@ -532,17 +532,17 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
   },
   'smart-home-safety-vs-monitoring': {
     title: 'Seguridad conectada o monitorización',
-    seoTitle: 'Seguridad conectada o monitorización para mayores | CasaMia',
+    seoTitle: 'Seguridad conectada o monitorización | CasaMia',
     description:
-      'Compara seguridad conectada práctica, alertas sencillas y servicios de monitorización para personas mayores sin complicar la vivienda.',
+      'Compara seguridad conectada práctica, alertas sencillas y servicios de monitorización sin complicar la vivienda.',
     eyebrow: 'Guía de decisión',
     intro:
-      'No todo dispositivo conectado es monitorización, y no toda familia necesita un servicio de vigilancia. La decisión depende del problema: moverse con más seguridad, recordar rutinas, pedir ayuda, informar a la familia o contar con respuesta formal.',
+      'No todo dispositivo conectado es monitorización, y no todo hogar necesita un servicio de vigilancia. La decisión depende del problema: moverse con más seguridad, recordar rutinas, pedir ayuda, informar a contactos autorizados o contar con respuesta formal.',
     whoFor: [
-      'Familias que valoran sensores, voz, avisos de agua, luces inteligentes o botones de emergencia',
-      'Personas mayores que quieren apoyo sin sentirse vigiladas',
+      'Hogares que valoran sensores, voz, avisos de agua, luces inteligentes o botones de emergencia',
+      'Personas que quieren apoyo sin sentirse vigiladas',
       'Viviendas donde la automatización sencilla reduce fricción diaria',
-      'Familias que deben acordar quién recibe avisos y qué hace después',
+      'Hogares que deben acordar quién recibe avisos y qué hace después',
     ],
     priorities: [
       'Consentimiento, privacidad y comodidad de la persona con cada dispositivo',
@@ -576,7 +576,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿Cuándo hace falta monitorización en vez de seguridad conectada?',
         answer:
-          'Puede tener sentido si nadie puede responder de forma fiable, hay emergencias repetidas o la familia necesita un protocolo formal en lugar de apoyo doméstico sencillo.',
+          'Puede tener sentido si nadie puede responder de forma fiable, hay emergencias repetidas o hace falta un protocolo formal en lugar de apoyo doméstico sencillo.',
       },
       {
         question: '¿Qué conviene evitar?',
