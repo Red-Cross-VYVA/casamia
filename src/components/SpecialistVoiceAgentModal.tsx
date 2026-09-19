@@ -1,6 +1,7 @@
 import { ConversationProvider, useConversation } from '@elevenlabs/react'
 import {
   CheckCircle2,
+  Headphones,
   LoaderCircle,
   MessageSquareText,
   Mic,
@@ -8,7 +9,6 @@ import {
   PhoneOff,
   ShieldCheck,
   Sparkles,
-  UserRound,
   X,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -297,7 +297,7 @@ function SpecialistVoiceAgentDialog({
           <div className="specialist-voice-visual">
             <div className="specialist-voice-avatar">
               <span>
-                <UserRound size={34} aria-hidden="true" />
+                <Headphones size={34} aria-hidden="true" />
               </span>
               <div>
                 <small>{copy.agentLabel}</small>
@@ -313,7 +313,6 @@ function SpecialistVoiceAgentDialog({
               <span />
               <span />
             </div>
-            <p className="specialist-voice-visual-status">{statusLabel}</p>
             <div className="specialist-voice-actions specialist-voice-actions--visual">
               {connected ? (
                 <>
@@ -340,6 +339,7 @@ function SpecialistVoiceAgentDialog({
                 </button>
               )}
             </div>
+            <p className="specialist-voice-visual-status">{statusLabel}</p>
           </div>
 
           <div className="specialist-voice-content">
