@@ -52,8 +52,8 @@ export const needLandingPages: NeedLandingPageContent[] = [
     intro:
       'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. We review the real routine, recommend what fits and check the fitting details before work starts.',
     whoFor: [
-      'People who feel unsteady in the bathroom',
-      'Anyone worried about transfers',
+      'People who feel unsteady when washing, showering or using the toilet',
+      'Anyone worried about sitting, standing or transferring safely',
       'Small or wet bathrooms',
     ],
     priorities: [
@@ -150,13 +150,13 @@ export const needLandingPages: NeedLandingPageContent[] = [
     resourcePath: '/blog/fall-prevention-home-checklist-spain',
     icon: 'shield',
     image: '/images/blog/fall-prevention-checklist.webp',
-    title: 'Fall prevention at home',
+    title: 'Prevent falls at home',
     seoTitle: 'Fall Prevention at Home',
     description:
       'Room-by-room fall prevention at home, covering bathrooms, bedrooms, stairs, entrances, lighting and support points.',
     eyebrow: 'Prevention first',
     intro:
-      'Fall prevention is not one product. It is a practical plan across the rooms and routines where risk builds up: transfers, lighting, floor surfaces, stairs and support points.',
+      'Fall prevention is not one product. It is a practical plan for the rooms and routines where risk builds up: transfers, lighting, floor surfaces, stairs and support points.',
     whoFor: ['People noticing slips, near misses or new hesitation at home', 'Anyone recovering from a fall or mobility change', 'Homes that need prevention priorities before a crisis'],
     priorities: ['Bathroom and toilet transfer safety', 'Bedroom-to-bathroom night movement', 'Stairs, entrances and thresholds', 'Emergency reach and agreed connected support'],
     casamiaPlan: ['Identify the highest-risk routines first', 'Match improvements to the person, not just the property', 'Phase adaptations into urgent, recommended and optional actions'],
@@ -191,7 +191,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Book a CasaMia home safety assessment to understand safety priorities, adaptations, grants and practical next steps.',
     eyebrow: 'Home assessment',
     intro:
-      'A home safety assessment identifies what should change first, what can wait and which checks are needed before final pricing.',
+      'A home safety assessment helps you decide what should change first, what can wait and which checks are needed before final pricing.',
     whoFor: ['Households planning before a fall or hospital discharge', 'People who want to stay independent at home', 'Homes where people disagree on what to fix first'],
     priorities: ['Mobility and transfer routines', 'Room-by-room safety risks', 'Practical adaptation options', 'Grant-readiness and documentation where relevant'],
     casamiaPlan: ['Listen to the person at home and daily priorities', 'Review the home, photos or guided answers', 'Prepare clear priorities, review items and next steps'],
@@ -261,7 +261,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Bedroom safety for getting in and out of bed, safer walking routes, night lighting, emergency support and connected bedroom routines.',
     eyebrow: 'Bedroom safety',
     intro:
-      'The bedroom should support rest and safe movement, especially at night. CasaMia focuses on getting in and out of bed, clear walking routes, lighting and emergency reach.',
+      'The bedroom should support rest and safe movement, especially at night. CasaMia focuses on getting in and out of bed, clear walking routes, lighting and help within reach.',
     whoFor: [
       'People who wake at night and need a safer route to the bathroom',
       'Anyone who wants the first step out of bed to feel steadier and calmer',
