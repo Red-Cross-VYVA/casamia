@@ -1360,7 +1360,7 @@ function getGrantCopy(language: string) {
           kicker: 'Paso 3',
           title: '¿Qué necesita mejorar?',
           intro:
-            'Selecciona las adaptaciones o riesgos que ya conoces. Este flujo no necesita fotos.',
+            'Selecciona las adaptaciones o riesgos que ya conoces. Esta revisión no necesita fotos.',
         },
         report: {
           kicker: 'Tu informe',
@@ -1455,7 +1455,7 @@ function getGrantCopy(language: string) {
         handoffPoints: [
           'No pedimos certificados ahora si no los tienes.',
           'No presentamos nada sin revisar la convocatoria y confirmarlo contigo.',
-          'El seguimiento se centra en permisos, alcance y documentación real.',
+          'El seguimiento se centra en permisos, adaptaciones necesarias y documentación real.',
         ],
         readyTitle: 'Tu informe está listo.',
         readyBody: (region: string) =>
@@ -1552,10 +1552,10 @@ function getGrantCopy(language: string) {
             'Verificar la convocatoria activa para tu comunidad, municipio y tipo de vivienda.',
             'Clasificar las mejoras como accesibilidad, seguridad preventiva o soporte inteligente.',
             'Preparar la lista final de documentos y el orden correcto antes de presentar nada.',
-            'Convertir la necesidad en una propuesta clara para que sepas qué se solicita y por qué.',
+            'Convertir la necesidad en un plan claro para que sepas qué se solicita y por qué.',
           ],
           watch: [
-            'Empezar con el informe online gratuito para aclarar el alcance inicial.',
+            'Empezar con el informe online gratuito para aclarar qué adaptación se necesita primero.',
             'Completar solo los datos mínimos que una ayuda concreta pueda exigir.',
             'Mantener la vivienda en seguimiento y avisarte si aparece una convocatoria relevante.',
           ],

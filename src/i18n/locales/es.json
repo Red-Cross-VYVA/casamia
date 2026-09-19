@@ -80,7 +80,7 @@
       "secondaryCta": "Empezar informe online gratis",
       "reassurance": "La tarifa de {{visitFee}} se descuenta de tu plan CasaMia si continúas.",
       "panelTitle": "Una visita experta de {{visitFee}}, descontable si continúas.",
-      "panelBody": "Confirmamos disponibilidad y alcance antes de la cita para que no haya sorpresas."
+      "panelBody": "Confirmamos disponibilidad y qué se revisará antes de la cita para que no haya sorpresas."
     },
     "pricing": {
       "title": "Visita de {{visitFee}}, descontable de tu plan",
@@ -144,7 +144,7 @@
         },
         {
           "title": "Propuesta clara si hacen falta mejoras",
-          "body": "Si conviene adaptar algo, explicamos alcance recomendado, productos y qué hay que decidir después."
+          "body": "Si conviene adaptar algo, explicamos el plan recomendado, productos y qué hay que decidir después."
         }
       ]
     },
@@ -203,7 +203,7 @@
         },
         {
           "question": "¿Qué gestiona CasaMia si seguimos adelante?",
-          "answer": "CasaMia puede coordinar el plan desde la revisión hasta la entrega: precio, productos compatibles, instaladores asegurados, documentación para ayudas cuando corresponda, agenda, explicación de uso seguro y seguimiento."
+          "answer": "CasaMia puede coordinar el plan desde la revisión hasta el seguimiento: precio, productos compatibles, instaladores asegurados, documentación para ayudas cuando corresponda, agenda y explicación de uso seguro."
         },
         {
           "question": "¿Podemos usar fotos, vídeos o una llamada antes de una visita?",
@@ -524,7 +524,7 @@
     "badge": "Ayudas y subvenciones",
     "title": "Puede haber apoyo más cerca de lo que parece.",
     "sub": "CasaMia revisa las vías probables antes de que apruebes obras.",
-    "body": "Identificamos programas relevantes, listamos la documentación que suele pedirse y preparamos textos de propuesta que explican claramente el trabajo de seguridad. La aprobación siempre depende de la administración.",
+    "body": "Identificamos programas relevantes, listamos la documentación que suele pedirse y preparamos textos claros que explican qué adaptación se pide y por qué mejora la seguridad. La aprobación siempre depende de la administración.",
     "cta": "Comprobar vías de ayuda",
     "stats": [
       {
@@ -535,7 +535,7 @@
       {
         "eyebrow": "02",
         "value": "Preparar",
-        "label": "Dejamos listo el expediente y la propuesta"
+        "label": "Dejamos listo el expediente y el plan"
       },
       {
         "eyebrow": "03",
@@ -1195,13 +1195,13 @@
       "processTitle": "Qué gestionamos",
       "process": [
         "Recopilar datos necesarios de vivienda, solicitante y titularidad.",
-        "Preparar notas de evidencia, texto de alcance y documentación de accesibilidad.",
+        "Preparar notas de evidencia, descripción de las adaptaciones y documentación de accesibilidad.",
         "Presentar la solicitud por el canal correspondiente cuando exista autorización y hacer seguimiento."
       ]
     },
     "contact": {
       "title": "Habla con CasaMia.",
-      "intro": "Cuéntanos cómo es la vivienda y CasaMia responderá con qué conviene confirmar primero: informe con fotos, visita, propuesta, ayudas o revisión smart.",
+      "intro": "Cuéntanos cómo es la vivienda y CasaMia responderá con qué conviene confirmar primero: informe con fotos, visita, plan con precio, ayudas o revisión smart.",
       "fields": {
         "name": "Nombre",
         "email": "Email",
@@ -1435,7 +1435,7 @@
             {
               "icon": "installation",
               "title": "Instalación profesional",
-              "body": "CasaMia coordina instaladores asegurados y realiza una revisión de aceptación con el cliente."
+              "body": "CasaMia coordina instaladores asegurados y realiza una revisión final contigo."
             }
           ],
           "rooms": [

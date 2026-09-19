@@ -43,8 +43,8 @@ const grantSteps = [
   },
   {
     icon: <ClipboardCheck size={24} />,
-    title: 'Emitimos el presupuesto de reforma',
-    body: 'CasaMia prepara una propuesta clara para adaptar el hogar y respaldar el expediente de ayuda.',
+    title: 'Preparamos un plan con precio',
+    body: 'CasaMia prepara un plan claro para adaptar el hogar y respaldar el expediente de ayuda.',
   },
 ]
 
@@ -172,7 +172,7 @@ export function GrantSupportSpainPage() {
             {[
               ['Hasta 13.000 €', 'Referencia estatal para obras de accesibilidad.'],
               ['Gestión territorial', 'Convocatorias estatales, autonómicas, municipales y sociales.'],
-              ['Expediente preparado', 'Documentos, presupuesto y alcance antes de solicitar.'],
+              ['Expediente preparado', 'Documentos, precio y adaptaciones antes de solicitar.'],
             ].map(([title, body]) => (
               <article key={title}>
                 <CheckCircle2 size={20} aria-hidden="true" />
@@ -194,11 +194,11 @@ export function GrantSupportSpainPage() {
         </section>
 
         <Section id="ayudas-disponibles" eyebrow="Guía paso a paso" title="Cómo aprovechar una ayuda.">
-          <p className="grant-spain-lead">Un proceso sencillo: identificar la ayuda, preparar la solicitud y convertirla en una reforma viable.</p>
+          <p className="grant-spain-lead">Un proceso sencillo: identificar la ayuda, preparar la solicitud y convertirla en una adaptación viable.</p>
           <div className="grant-spain-step-grid">
             {grantSteps.map((card, index) => <StepCard key={card.title} step={index + 1} {...card} />)}
           </div>
-          <div className="grant-spain-callout">CasaMia acompaña el proceso de principio a fin: orientación, documentación, inspección técnica y presupuesto de reforma.</div>
+          <div className="grant-spain-callout">CasaMia acompaña el proceso de principio a fin: orientación, documentación, revisión técnica y plan con precio.</div>
         </Section>
 
         <Section id="fuentes-oficiales" eyebrow="Fuentes oficiales" title="Referencias públicas.">
@@ -217,7 +217,7 @@ export function GrantSupportSpainPage() {
         <Section id="recursos" eyebrow="Recursos recomendados" title="Siguiente paso.">
           <div className="grant-spain-resource-grid">
             {[
-              ['Guía práctica', 'Ayudas para adaptar viviendas en España: qué debe preparar una familia', 'Documentos, alcance, requisitos y expectativas realistas.', '/blog/home-adaptation-grants-spain-family-guide'],
+              ['Guía práctica', 'Ayudas para adaptar viviendas en España: qué debe preparar una familia', 'Documentos, adaptaciones, requisitos y expectativas realistas.', '/blog/home-adaptation-grants-spain-family-guide'],
               ['Herramienta', 'Revisión inicial de ayudas', 'Ruta orientativa y documentos pendientes en unos minutos.', '/grant-check'],
               ['Plan CasaMia', 'Crear un plan de adaptación', 'Conecta la posible ayuda con servicios reales del catálogo.', '/plans'],
             ].map(([eyebrow, title, body, to]) => (
