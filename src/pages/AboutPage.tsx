@@ -69,16 +69,16 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       kicker: 'Technology and service partner',
       title: 'Built with MOKA DigiTech.',
       body:
-        'MOKA DigiTech supports CasaMia with the digital workflow behind reports, provider coordination, grant-readiness checks and earlier decisions while risks are still manageable.',
+        'MOKA DigiTech supports CasaMia with the tools that keep reports, local visits, grant checks and follow-up clear from the first concern to the agreed plan.',
       bullets: [
-        'Service design for residents, installers, and care partners',
-        'Digital workflows for safety reports and grant-readiness checks',
-        'Senior-focused technology experience through references such as VYVA and COCOON',
+        'Services designed for older people, families, installers and care partners',
+        'Clear digital reports, room notes and grant-readiness checks',
+        'Experience with practical support tools through references such as VYVA and COCOON',
       ],
     },
     coverage: {
       eyebrow: 'Spain-wide service',
-      title: 'Local teams across Spain, supported by one shared workflow.',
+      title: 'Local teams across Spain, guided by one clear process.',
       body:
         'CasaMia is designed for national coverage: local teams can review the home, while the digital report keeps every assessment, recommendation and follow-up consistent.',
       badge: 'All Spain',
@@ -105,7 +105,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'seniors',
         title: 'Decision support, not complicated technology',
         body:
-          'Projects and references such as VYVA and COCOON show the same direction CasaMia is taking: voice support, reminders, wellbeing checks and emergency workflows that help the right person respond sooner.',
+          'Projects and references such as VYVA and COCOON show the same direction CasaMia is taking: voice support, reminders, wellbeing checks and emergency help that is easy to understand and act on.',
         link: {
           label: 'VYVA and COCOON reference',
           href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion',
@@ -131,7 +131,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'service',
         title: 'From report to action',
         body:
-          'The goal is not only to detect risks. CasaMia turns findings into room priorities, adaptations to review, a grant-readiness checklist and the decision still needed before installation starts.',
+          'The goal is not only to detect risks. CasaMia turns findings into room priorities, adaptations to consider, grant-readiness notes and the next decision before anything is installed.',
       },
     ],
     workflowEyebrow: 'How we work',
@@ -156,7 +156,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     ],
     sourcesTitle: 'Credibility references',
     sourcesIntro:
-      'These references support the safety and senior-tech context behind CasaMia. They do not imply grant approval or institutional endorsement.',
+      'These references support the home-safety and practical support context behind CasaMia. They do not imply grant approval or institutional endorsement.',
     finalTitle: 'Start with the free check that fits your situation.',
     finalBody:
       'Use the safety report to understand home risks, or the grant check to understand readiness before starting an adaptation project.',
@@ -173,16 +173,16 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       kicker: 'Partner tecnológico y de servicio',
       title: 'Construido con MOKA DigiTech.',
       body:
-        'MOKA DigiTech apoya CasaMia con el flujo digital para informes, coordinación de proveedores, revisión de ayudas y decisiones tempranas mientras los riesgos aún son manejables.',
+        'MOKA DigiTech apoya CasaMia con herramientas que mantienen claros los informes, las visitas locales, la revisión de ayudas y el seguimiento desde la primera preocupación hasta el plan acordado.',
       bullets: [
-        'Diseño de servicio para residentes, instaladores y partners de cuidado',
-        'Flujos digitales para informes de seguridad y checks de ayudas',
-        'Experiencia en tecnología senior con referencias como VYVA y COCOON',
+        'Servicios pensados para personas mayores, familias, instaladores y partners de cuidado',
+        'Informes digitales claros, notas por estancia y revisión de ayudas',
+        'Experiencia con herramientas prácticas de apoyo como VYVA y COCOON',
       ],
     },
     coverage: {
       eyebrow: 'Servicio en toda España',
-      title: 'Representantes en toda España, conectados por un mismo flujo digital.',
+      title: 'Representantes en toda España, guiados por un proceso claro.',
       body:
         'CasaMia está pensada para cobertura nacional: representantes locales revisan la vivienda, mientras el informe digital mantiene cada evaluación, recomendación y seguimiento ordenados.',
       badge: 'Toda España',
@@ -203,13 +203,13 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       ],
     },
     credibilityEyebrow: 'Por qué confiar en el modelo',
-    credibilityTitle: 'CasaMia convierte riesgos visibles en siguientes pasos con alcance.',
+    credibilityTitle: 'CasaMia convierte riesgos visibles en siguientes pasos claros.',
     proof: [
       {
         icon: 'seniors',
-        title: 'Apoyo para seniors, no tecnología complicada',
+        title: 'Apoyo para personas mayores, no tecnología complicada',
         body:
-          'Proyectos y referencias como VYVA y COCOON apuntan en la misma dirección que CasaMia: asistencia por voz, recordatorios, revisiones de bienestar y flujos de emergencia que ayudan a avisar antes a la persona adecuada.',
+          'Proyectos y referencias como VYVA y COCOON apuntan en la misma dirección que CasaMia: asistencia por voz, recordatorios, revisiones de bienestar y ayuda de emergencia fácil de entender y activar.',
         link: {
           label: 'Referencia VYVA y COCOON',
           href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion',
@@ -235,7 +235,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'service',
         title: 'Del informe a la acción',
         body:
-          'El objetivo no es solo detectar riesgos. CasaMia convierte los hallazgos en un plan, alcance de instalación, checklist de ayudas y la siguiente decisión a tomar.',
+          'El objetivo no es solo detectar riesgos. CasaMia convierte los hallazgos en prioridades por estancia, adaptaciones a valorar, notas para ayudas y la siguiente decisión antes de instalar nada.',
       },
     ],
     workflowEyebrow: 'Cómo trabajamos',
@@ -260,7 +260,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     ],
     sourcesTitle: 'Referencias de credibilidad',
     sourcesIntro:
-      'Estas referencias apoyan el contexto de seguridad y tecnología senior detrás de CasaMia. No implican aprobación de ayudas ni respaldo institucional.',
+      'Estas referencias apoyan el contexto de seguridad en casa y apoyo práctico detrás de CasaMia. No implican aprobación de ayudas ni respaldo institucional.',
     finalTitle: 'Empieza con el check gratuito que encaja con tu situación.',
     finalBody:
       'Usa el informe de seguridad para entender los riesgos del hogar, o el check de ayudas para saber si estáis preparados antes de iniciar una adaptación.',

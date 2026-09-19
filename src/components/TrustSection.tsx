@@ -28,7 +28,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     eyebrow: 'How CasaMia checks the plan',
     headline: 'Know why a change is recommended before anything is fitted',
     body:
-      'Every project starts with the person, the home and the routine. CasaMia confirms fit, measurements, what should be included, installation needs and safe-use handover before the plan is treated as complete.',
+      'Every project starts with the person, the home and the routine. CasaMia confirms fit, measurements, what is included, installation needs and how to use the change safely before the plan is complete.',
     learnMore: 'Learn why CasaMia',
     cards: [
       {
@@ -44,7 +44,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'insured',
         title: 'Insured professional installation',
-        body: 'Installation is planned around insured professional fitting, final checks and a clear handover.',
+        body: 'Installation is planned around insured professional fitting, final checks and a clear safe-use explanation.',
       },
       {
         icon: 'pricing',
@@ -67,7 +67,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
     eyebrow: 'Cómo comprueba CasaMia el plan',
     headline: 'Sabe por qué se recomienda un cambio antes de instalar nada',
     body:
-      'Cada proyecto empieza por la persona, la vivienda y la rutina. CasaMia confirma encaje, adaptaciones incluidas, medidas, necesidades de instalación y explicación de uso seguro antes de dar el plan por cerrado.',
+      'Cada proyecto empieza por la persona, la vivienda y la rutina. CasaMia confirma encaje, medidas, qué está incluido, necesidades de instalación y cómo usar el cambio con seguridad antes de cerrar el plan.',
     learnMore: 'Ver por qué CasaMia',
     cards: [
       {
@@ -83,7 +83,7 @@ const trustSectionCopy: Record<'en' | 'es', TrustSectionCopy> = {
       {
         icon: 'insured',
         title: 'Trabajo profesional asegurado',
-        body: 'La instalación se planifica con profesionales asegurados, comprobaciones finales y una entrega clara.',
+        body: 'La instalación se planifica con profesionales asegurados, comprobaciones finales y una explicación clara de uso seguro.',
       },
       {
         icon: 'pricing',
