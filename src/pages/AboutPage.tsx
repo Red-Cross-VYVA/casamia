@@ -59,28 +59,28 @@ type AboutCopy = {
 const aboutCopy: Record<'en' | 'es', AboutCopy> = {
   en: {
     eyebrow: 'About CasaMia',
-    title: 'Practical help for',
-    accent: 'safer ageing at home.',
+    title: 'Practical help when',
+    accent: 'home needs to feel safer.',
     intro:
-      'CasaMia helps you see what feels unsafe at home, what to fix first, what can wait and when a visit, quote or grant check is worth doing.',
+      'CasaMia helps you work out what is making daily life harder at home, what to check first, what can wait and when a visit, quote or grant check is worth doing.',
     primaryCta: 'Check home safety',
     secondaryCta: 'Check grant eligibility',
     provider: {
-      kicker: 'How the service stays organised',
-      title: 'Clear notes, photos and next steps in one place.',
+      kicker: 'How the service stays clear',
+      title: 'Notes, photos, decisions and next steps in one place.',
       body:
-        'MOKA DigiTech supports CasaMia with tools that keep reports, visit notes, grant checks and follow-up easy to follow from the first concern to the agreed next step.',
+        'MOKA DigiTech supports CasaMia with tools that keep reports, visit notes, grant checks and follow-up easy to follow from the first concern to the next agreed action.',
       bullets: [
-        'Designed around the person at home and whoever helps with decisions',
-        'Room notes, photos and grant-readiness checks kept together',
-        'Practical support experience through references such as VYVA and COCOON',
+        'Built around the person at home and any trusted contact helping with decisions',
+        'Room notes, photos, recommendations and grant-readiness checks kept together',
+        'Practical support experience informed by references such as VYVA and COCOON',
       ],
     },
     coverage: {
       eyebrow: 'Spain-wide service',
-      title: 'Local help across Spain, guided by one clear standard.',
+      title: 'Local help across Spain, with one clear way of working.',
       body:
-        'CasaMia is designed for national coverage: local help can review the home, while the report keeps the advice, priorities and next steps consistent.',
+        'CasaMia is designed for national coverage: local help can review the home, while the report keeps the advice, priorities, evidence and next steps consistent.',
       badge: 'All Spain',
       legend: 'Local coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
@@ -98,14 +98,14 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         'Canary Islands',
       ],
     },
-    credibilityEyebrow: 'How decisions are checked',
-    credibilityTitle: 'CasaMia turns home concerns into room priorities and clear actions.',
+    credibilityEyebrow: 'What guides the advice',
+    credibilityTitle: 'CasaMia turns home concerns into room priorities and next actions.',
     proof: [
       {
         icon: 'seniors',
-        title: 'Simple support, not complicated technology',
+        title: 'Support should stay simple',
         body:
-          'Projects and references such as VYVA and COCOON point to the same idea CasaMia follows: voice help, reminders, wellbeing checks and emergency support should be easy to understand and use.',
+          'References such as VYVA and COCOON point to the same idea CasaMia follows: reminders, wellbeing checks, voice help and emergency support should be easy to understand and use.',
         link: {
           label: 'VYVA and COCOON reference',
           href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion',
@@ -113,9 +113,9 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         icon: 'safety',
-        title: 'Aligned with European safety priorities',
+        title: 'Grounded in home-safety priorities',
         body:
-          'The service is framed around injury prevention, safer homes, and older adults ageing safely, consistent with the European safety agenda promoted by EuroSafe.',
+          'The service is framed around injury prevention, safer homes and practical daily routines, consistent with the European safety agenda promoted by EuroSafe.',
         link: {
           label: 'EuroSafe safety context',
           href: 'https://www.eurosafe.eu.com/home',
@@ -125,7 +125,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'funding',
         title: 'Grant readiness without false promises',
         body:
-          'CasaMia helps prepare home-need notes, an adaptation summary and a document checklist where grant criteria may apply. Approval always depends on the public authority.',
+          'CasaMia helps prepare home-need notes, an adaptation summary and a document checklist where grant criteria may apply. Approval always belongs to the public authority.',
       },
       {
         icon: 'service',
@@ -143,7 +143,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Clear recommendation',
-        body: 'CasaMia explains what looks risky, what could help and which decision comes next.',
+        body: 'CasaMia explains what looks risky, what could help, what needs measuring and which decision comes next.',
       },
       {
         title: 'Local follow-up',
@@ -151,40 +151,40 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Ongoing support',
-        body: 'Follow-up notes and optional alerts help keep the safety plan visible after fitting.',
+        body: 'Follow-up notes and optional alerts help keep the safety plan visible after work is fitted or a routine changes.',
       },
     ],
     sourcesTitle: 'Credibility references',
     sourcesIntro:
-      'These references support the home-safety and practical support context behind CasaMia. They do not imply grant approval or institutional endorsement.',
-    finalTitle: 'Start with the free check that fits your situation.',
+      'These references support the home-safety and practical support context behind CasaMia. They do not imply grant approval, medical advice or institutional endorsement.',
+    finalTitle: 'Start with the check that fits the decision in front of you.',
     finalBody:
-      'Use the safety check to understand home risks, or the grant check to understand readiness before starting adaptation work.',
+      'Use the safety check to understand room risks, or the grant check to understand document readiness before starting adaptation work.',
   },
   es: {
     eyebrow: 'Sobre CasaMia',
-    title: 'Ayuda práctica para',
-    accent: 'envejecer con más seguridad en casa.',
+    title: 'Ayuda práctica cuando',
+    accent: 'la casa necesita sentirse más segura.',
     intro:
-      'CasaMia te ayuda a ver qué se siente inseguro en casa, qué conviene arreglar primero, qué puede esperar y cuándo merece la pena hacer una visita, pedir precio o revisar ayudas.',
+      'CasaMia te ayuda a entender qué dificulta el día a día en casa, qué conviene revisar primero, qué puede esperar y cuándo merece la pena hacer una visita, pedir precio o revisar ayudas.',
     primaryCta: 'Comprobar seguridad',
     secondaryCta: 'Comprobar ayudas',
     provider: {
-      kicker: 'Cómo se mantiene organizado el servicio',
-      title: 'Notas, fotos y siguientes pasos en un solo lugar.',
+      kicker: 'Cómo se mantiene claro el servicio',
+      title: 'Notas, fotos, decisiones y siguientes pasos en un solo lugar.',
       body:
-        'MOKA DigiTech apoya CasaMia con herramientas para que informes, notas de visita, revisión de ayudas y seguimiento sean fáciles de seguir desde la primera preocupación hasta el siguiente paso acordado.',
+        'MOKA DigiTech apoya CasaMia con herramientas para que informes, notas de visita, revisión de ayudas y seguimiento sean fáciles de seguir desde la primera preocupación hasta la siguiente acción acordada.',
       bullets: [
-        'Pensado para la persona que vive en casa y quien ayuda a decidir',
-        'Notas por estancia, fotos y revisión de ayudas en un solo lugar',
-        'Experiencia con herramientas prácticas de apoyo como VYVA y COCOON',
+        'Pensado para la persona que vive en casa y cualquier contacto de confianza que ayude a decidir',
+        'Notas por estancia, fotos, recomendaciones y revisión de ayudas en un solo lugar',
+        'Experiencia práctica informada por referencias como VYVA y COCOON',
       ],
     },
     coverage: {
       eyebrow: 'Servicio en toda España',
-      title: 'Ayuda local en toda España, guiada por un estándar claro.',
+      title: 'Ayuda local en toda España, con una forma clara de trabajar.',
       body:
-        'CasaMia está pensada para cobertura nacional: la ayuda local puede revisar la vivienda, mientras el informe mantiene el consejo, las prioridades y los siguientes pasos ordenados.',
+        'CasaMia está pensada para cobertura nacional: la ayuda local puede revisar la vivienda, mientras el informe mantiene consejo, prioridades, evidencia y siguientes pasos ordenados.',
       badge: 'Toda España',
       legend: 'Zonas con cobertura local',
       hint: 'Pasa el cursor o toca un punto para ver el equipo local.',
@@ -202,14 +202,14 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         'Canarias',
       ],
     },
-    credibilityEyebrow: 'Cómo se revisan las decisiones',
-    credibilityTitle: 'CasaMia convierte preocupaciones del hogar en prioridades y acciones claras.',
+    credibilityEyebrow: 'Qué guía el consejo',
+    credibilityTitle: 'CasaMia convierte preocupaciones del hogar en prioridades y próximos pasos.',
     proof: [
       {
         icon: 'seniors',
-        title: 'Apoyo sencillo, no tecnología complicada',
+        title: 'El apoyo debe seguir siendo sencillo',
         body:
-          'Proyectos y referencias como VYVA y COCOON apuntan a la misma idea que sigue CasaMia: la asistencia por voz, recordatorios, revisiones de bienestar y ayuda de emergencia deben ser fáciles de entender y usar.',
+          'Referencias como VYVA y COCOON apuntan a la misma idea que sigue CasaMia: recordatorios, revisiones de bienestar, asistencia por voz y ayuda de emergencia deben ser fáciles de entender y usar.',
         link: {
           label: 'Referencia VYVA y COCOON',
           href: 'https://www.cocoon.services/meet-vyva-your-own-health-assistant-and-everyday-companion',
@@ -217,9 +217,9 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         icon: 'safety',
-        title: 'Alineado con prioridades europeas de seguridad',
+        title: 'Basado en prioridades de seguridad en casa',
         body:
-          'El servicio se construye alrededor de la prevención de lesiones, hogares más seguros y envejecimiento seguro, en línea con la agenda europea de seguridad que promueve EuroSafe.',
+          'El servicio se construye alrededor de la prevención de lesiones, hogares más seguros y rutinas diarias prácticas, en línea con la agenda europea de seguridad que promueve EuroSafe.',
         link: {
           label: 'Contexto EuroSafe',
           href: 'https://www.eurosafe.eu.com/home',
@@ -229,7 +229,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'funding',
         title: 'Preparación de ayudas sin falsas promesas',
         body:
-          'CasaMia ayuda a preparar evidencia práctica cuando pueda encajar una ayuda: necesidad de la vivienda, resumen de adaptación y checklist documental. La aprobación depende siempre de la administración.',
+          'CasaMia ayuda a preparar evidencia práctica cuando pueda encajar una ayuda: necesidad de la vivienda, resumen de adaptación y lista documental. La aprobación depende siempre de la administración.',
       },
       {
         icon: 'service',
@@ -247,7 +247,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Recomendación clara',
-        body: 'CasaMia explica qué parece arriesgado, qué podría ayudar y qué decisión viene después.',
+        body: 'CasaMia explica qué parece arriesgado, qué podría ayudar, qué necesita medidas y qué decisión viene después.',
       },
       {
         title: 'Seguimiento local',
@@ -255,15 +255,15 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
       },
       {
         title: 'Soporte continuo',
-        body: 'Las notas de seguimiento y los avisos opcionales ayudan a mantener visible el plan tras el montaje.',
+        body: 'Las notas de seguimiento y los avisos opcionales ayudan a mantener visible el plan tras el montaje o cuando cambia una rutina.',
       },
     ],
     sourcesTitle: 'Referencias de credibilidad',
     sourcesIntro:
-      'Estas referencias apoyan el contexto de seguridad en casa y apoyo práctico detrás de CasaMia. No implican aprobación de ayudas ni respaldo institucional.',
-    finalTitle: 'Empieza con el check gratuito que encaja con tu situación.',
+      'Estas referencias apoyan el contexto de seguridad en casa y apoyo práctico detrás de CasaMia. No implican aprobación de ayudas, consejo médico ni respaldo institucional.',
+    finalTitle: 'Empieza con el check que encaja con la decisión de hoy.',
     finalBody:
-      'Usa el check de seguridad para entender los riesgos del hogar, o el check de ayudas para saber si conviene preparar documentación antes de iniciar una adaptación.',
+      'Usa el check de seguridad para entender riesgos por estancia, o el check de ayudas para saber si conviene preparar documentación antes de iniciar una adaptación.',
   },
 }
 
@@ -314,7 +314,7 @@ export function AboutPage() {
   const seoTitle =
     language === 'es'
       ? 'Sobre CasaMia | Seguridad y adaptación del hogar en España'
-      : 'About CasaMia | Senior Home Safety and Adaptation in Spain'
+      : 'About CasaMia | Home Safety and Adaptation in Spain'
   const seoDescription = copy.intro
 
   const schema = useMemo(
