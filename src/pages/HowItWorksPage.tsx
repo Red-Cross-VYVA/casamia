@@ -176,7 +176,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
       { key: 'online', title: 'Online', body: 'Guided room questions' },
       { key: 'voice', title: 'Voice', body: 'Describe the concern out loud' },
       { key: 'whatsapp', title: 'WhatsApp', body: 'Message us from your phone' },
-      { key: 'call', title: 'Phone', body: 'Call us or request a callback' },
+      { key: 'call', title: 'Phone', body: 'Call us or book a callback' },
       { key: 'email', title: 'Email', body: 'hola@casamia.com.es' },
     ],
     steps: [
@@ -194,7 +194,7 @@ const easyProcessCopy: Record<'en' | 'es', EasyProcessCopy> = {
       },
       {
         title: 'We coordinate and follow up',
-        body: 'We arrange the work, check the result and stay available.',
+        body: 'We arrange installation, check the result and stay available.',
       },
     ],
   },
@@ -364,19 +364,19 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       },
       {
         icon: 'clipboard',
-        title: 'Work to review',
-        body: 'Works, safety services or smart setup.',
+        title: 'Adaptations to review',
+        body: 'Safety adaptations, services or smart setup.',
       },
       {
         icon: 'badge',
         title: 'Grant application guidance',
-        body: 'Documents and eligible work notes.',
+        body: 'Documents and eligible adaptation notes.',
       },
     ],
     teamEyebrow: 'Behind the scenes',
     teamTitle: 'Experts, installers, and tracking in one flow.',
     teamBody:
-      'CasaMia keeps review notes, visit planning, proposals, installation status and approved updates together.',
+      'CasaMia keeps review notes, visit planning, priced plans, installation status and approved updates together.',
     team: [
       {
         icon: 'shield',
@@ -386,7 +386,7 @@ const howCopy: Record<'en' | 'es', HowCopy> = {
       {
         icon: 'wrench',
         title: 'Installer coordination',
-        body: 'Work planned and explained clearly.',
+        body: 'Installation planned and explained clearly.',
       },
       {
         icon: 'monitor',

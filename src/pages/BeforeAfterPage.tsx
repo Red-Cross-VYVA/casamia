@@ -56,7 +56,7 @@ export function BeforeAfterPage() {
             },
             {
               title: 'Turn the idea into a plan',
-              body: 'CasaMia separates visible first fixes, work that needs a visit and options that require a quote or compatibility check.',
+              body: 'CasaMia separates visible first fixes, adaptations that need a visit and options that require a quote or compatibility check.',
             },
           ],
         }
