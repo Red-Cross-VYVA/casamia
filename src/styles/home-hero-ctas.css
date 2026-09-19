@@ -338,7 +338,7 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-modal {
   position: relative;
-  width: min(1080px, calc(100vw - 32px));
+  width: min(1100px, calc(100vw - 32px));
   max-height: min(760px, calc(100dvh - 32px));
   overflow: hidden;
   border: 1px solid rgba(189, 215, 231, 0.95);
@@ -398,16 +398,16 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-grid {
   display: grid;
-  grid-template-columns: minmax(320px, 0.86fr) minmax(0, 1fr);
+  grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1fr);
   min-height: min(610px, calc(100dvh - 32px));
 }
 
 .specialist-voice-visual {
   display: grid;
-  grid-template-rows: auto 1fr auto auto auto;
+  grid-template-rows: auto 1fr auto auto;
   align-content: stretch;
   justify-items: center;
-  gap: 16px;
+  gap: 18px;
   min-height: 100%;
   padding: clamp(30px, 4vw, 48px);
   background:
@@ -433,7 +433,7 @@ body .hero-section .free-check-card:focus-visible {
 .specialist-voice-avatar > span {
   display: grid;
   flex: 0 0 auto;
-  width: 54px;
+  width: 62px;
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.28);
@@ -452,9 +452,10 @@ body .hero-section .free-check-card:focus-visible {
 
 .specialist-voice-avatar strong {
   color: #ffffff;
-  font-size: 18px;
+  font-family: var(--font-display);
+  font-size: 30px;
   font-weight: 950;
-  line-height: 1.12;
+  line-height: 1;
 }
 
 .specialist-voice-avatar small {
@@ -470,7 +471,7 @@ body .hero-section .free-check-card:focus-visible {
 .specialist-voice-mic-status {
   align-self: center;
   display: grid;
-  width: clamp(170px, 17vw, 220px);
+  width: clamp(154px, 15vw, 196px);
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.36);
@@ -519,9 +520,23 @@ body .hero-section .free-check-card:focus-visible {
   animation-delay: 330ms;
 }
 
-.specialist-voice-visual-status {
+.specialist-voice-visual-agent {
+  display: grid;
   width: min(100%, 340px);
+  gap: 6px;
   margin: -2px 0 0;
+  text-align: center;
+}
+
+.specialist-voice-visual-agent strong {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.specialist-voice-visual-agent span {
+  width: min(100%, 340px);
   color: rgba(255, 255, 255, 0.88);
   font-size: 15px;
   font-weight: 900;
@@ -531,7 +546,7 @@ body .hero-section .free-check-card:focus-visible {
 .specialist-voice-content {
   max-height: min(760px, calc(100dvh - 32px));
   overflow: auto;
-  padding: clamp(32px, 4vw, 48px);
+  padding: clamp(30px, 3.5vw, 44px);
   padding-right: clamp(68px, 6vw, 84px);
   scrollbar-gutter: stable;
 }
@@ -552,13 +567,13 @@ body .hero-section .free-check-card:focus-visible {
 }
 
 .specialist-voice-content h2 {
-  max-width: 560px;
+  max-width: 540px;
   margin: 0;
   color: #142a3f;
   font-family: var(--font-display);
-  font-size: clamp(38px, 3.9vw, 52px);
+  font-size: clamp(40px, 4.6vw, 64px);
   font-weight: 900;
-  line-height: 0.98;
+  line-height: 0.96;
   letter-spacing: 0;
 }
 
@@ -624,7 +639,7 @@ body .hero-section .free-check-card:focus-visible {
 .specialist-voice-actions--visual {
   justify-content: center;
   width: min(100%, 340px);
-  margin-top: 2px;
+  margin-top: 0;
 }
 
 .specialist-voice-actions .btn {
@@ -637,6 +652,8 @@ body .hero-section .free-check-card:focus-visible {
   border-color: rgba(255, 255, 255, 0.32);
   background: #ffffff;
   color: #17648e;
+  font-size: 17px;
+  font-weight: 950;
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.2);
 }
 

@@ -9,6 +9,7 @@ import {
   PhoneOff,
   ShieldCheck,
   Sparkles,
+  UserRound,
   X,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -54,6 +55,8 @@ const specialistCopy = {
     speaking: 'Speaking',
     start: 'Start voice chat',
     stop: 'End call',
+    visualTitle: 'Jo',
+    visualSubtitle: 'CasaMia voice specialist',
     title: 'Talk to a CasaMia specialist',
     transcript: 'Conversation notes',
     unavailable: 'Live voice is not supported in this browser.',
@@ -78,6 +81,8 @@ const specialistCopy = {
     speaking: 'Hablando',
     start: 'Iniciar voz',
     stop: 'Terminar llamada',
+    visualTitle: 'Jo',
+    visualSubtitle: 'Especialista de voz CasaMia',
     title: 'Habla con un especialista CasaMia',
     transcript: 'Notas de conversación',
     unavailable: 'Este navegador no permite voz en directo.',
@@ -297,15 +302,15 @@ function SpecialistVoiceAgentDialog({
           <div className="specialist-voice-visual">
             <div className="specialist-voice-avatar">
               <span>
-                <Headphones size={34} aria-hidden="true" />
+                <UserRound size={34} aria-hidden="true" />
               </span>
               <div>
                 <small>{copy.agentLabel}</small>
-                <strong>{copy.assistant}</strong>
+                <strong>{copy.visualTitle}</strong>
               </div>
             </div>
             <div className={`specialist-voice-mic-status is-${conversation.status}`}>
-              {busy ? <LoaderCircle size={54} /> : connected && conversation.isMuted ? <MicOff size={54} /> : <Mic size={54} />}
+              {busy ? <LoaderCircle size={48} /> : connected && conversation.isMuted ? <MicOff size={48} /> : <Headphones size={48} />}
             </div>
             <div className="specialist-voice-wave">
               <span />
@@ -313,7 +318,10 @@ function SpecialistVoiceAgentDialog({
               <span />
               <span />
             </div>
-            <p className="specialist-voice-visual-status">{statusLabel}</p>
+            <div className="specialist-voice-visual-agent">
+              <strong>{copy.visualSubtitle}</strong>
+              <span>{statusLabel}</span>
+            </div>
             <div className="specialist-voice-actions specialist-voice-actions--visual">
               {connected ? (
                 <>
