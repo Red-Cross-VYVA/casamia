@@ -137,9 +137,9 @@ export const needLandingPages: NeedLandingPageContent[] = [
           'No. It includes the doorway, toilet transfer, bath or shower access, floor surfaces, controls, visibility and safe reach for support.',
       },
       {
-        question: 'When is a specialist quote needed?',
+        question: 'When is a measured quote needed?',
         answer:
-          'Door widening, bathtub step-through conversion and structural changes usually need measurement, assessment and a specialist quotation.',
+          'Door widening, bathtub step-through conversion and structural changes usually need measurement, assessment and a quote based on the actual home.',
       },
     ],
   },
@@ -151,9 +151,9 @@ export const needLandingPages: NeedLandingPageContent[] = [
     icon: 'shield',
     image: '/images/blog/fall-prevention-checklist.webp',
     title: 'Fall prevention at home',
-    seoTitle: 'Fall Prevention at Home for Older Adults',
+    seoTitle: 'Fall Prevention at Home',
     description:
-      'Room-by-room fall prevention for older adults at home, covering bathrooms, bedrooms, stairs, entrances, lighting and support points.',
+      'Room-by-room fall prevention at home, covering bathrooms, bedrooms, stairs, entrances, lighting and support points.',
     eyebrow: 'Prevention first',
     intro:
       'Fall prevention is not one product. It is a practical plan across the rooms and routines where risk builds up: transfers, lighting, floor surfaces, stairs and support points.',
@@ -202,7 +202,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     ],
     faqs: [
       {
-        question: 'What is included in an aging-in-place assessment?',
+        question: 'What is included in a home safety assessment?',
         answer:
           'We review the home context, mobility needs, priority rooms, photos or notes where available, and recommend practical safety improvements.',
       },
@@ -357,7 +357,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
     intro:
       'Grant eligibility depends on region, municipality, open calls and personal circumstances. CasaMia helps you understand what may fit and what documents are usually needed.',
     whoFor: ['People considering accessibility or safety works', 'Anyone who may qualify for public assistance', 'Households needing help with documents and next steps'],
-    priorities: ['Region and postcode check', 'Ownership or permission status', 'Dependency, disability or age documentation', 'Clear plan and quotation for works that may qualify'],
+    priorities: ['Region and postcode check', 'Ownership or permission status', 'Dependency, disability or age documentation', 'Clear plan and quote for works that may qualify'],
     casamiaPlan: ['Check possible options from official sources', 'Show missing documents and timing', 'Prepare next steps without promising approval'],
     relatedServices: [
       { label: 'Grant check', to: '/grant-check' },

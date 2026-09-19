@@ -119,9 +119,9 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
           'No. Incluye puerta, inodoro, bañera o ducha, suelos, controles, visibilidad y apoyos seguros.',
       },
       {
-        question: '¿Cuándo hace falta presupuesto especialista?',
+        question: '¿Cuándo hace falta un presupuesto medido?',
         answer:
-          'Ampliar puertas, convertir bañeras o hacer cambios estructurales suele requerir medición, evaluación y presupuesto específico.',
+          'Ampliar puertas, convertir bañeras o hacer cambios estructurales suele requerir medición, evaluación y un presupuesto basado en la vivienda real.',
       },
     ],
   },
@@ -168,8 +168,8 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     ],
   },
   'aging-in-place-home-assessment': {
-    title: 'Evaluación del hogar para seguir viviendo en casa',
-    seoTitle: 'Evaluación del hogar para envejecer en casa en España',
+    title: 'Evaluación del hogar para vivir con más seguridad',
+    seoTitle: 'Evaluación del hogar para vivir con más seguridad en España',
     description:
       'Reserva una evaluación CasaMia para entender prioridades de seguridad, adaptaciones, ayudas y próximos pasos prácticos.',
     eyebrow: 'Evaluación del hogar',
@@ -358,7 +358,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     intro:
       'Las ayudas dependen de la región, municipio, convocatorias y situación personal. CasaMia ayuda a entender qué puede encajar y qué documentos suelen hacer falta.',
     whoFor: [
-      'Familias que valoran obras de accesibilidad o seguridad',
+      'Hogares que valoran obras de accesibilidad o seguridad',
       'Personas que podrían optar a ayuda pública',
       'Hogares que necesitan apoyo con documentación y próximos pasos',
     ],

@@ -18,8 +18,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Comunidad de Madrid',
     status: 'active',
     headline: {
-      en: 'Quick help for apartments, family homes and safer returns from hospital.',
-      es: 'Ayuda rápida para pisos, viviendas familiares y vueltas a casa tras el hospital.',
+      en: 'Quick help for apartments, everyday homes and safer returns from hospital.',
+      es: 'Ayuda rápida para pisos, viviendas habituales y vueltas a casa tras el hospital.',
     },
     focus: {
       en: ['bathroom safety', 'night movement', 'post-hospital priorities'],
@@ -57,8 +57,8 @@ export const serviceAreaCities: ServiceAreaCity[] = [
     region: 'Andalusia',
     status: 'building',
     headline: {
-      en: 'Support for coastal homes, international households and senior living properties.',
-      es: 'Apoyo para viviendas de costa, hogares internacionales y propiedades senior.',
+      en: 'Support for coastal homes, international households and safer daily living.',
+      es: 'Apoyo para viviendas de costa, hogares internacionales y vida diaria más segura.',
     },
     focus: {
       en: ['home access', 'bathroom safety', 'trusted-contact alerts'],
