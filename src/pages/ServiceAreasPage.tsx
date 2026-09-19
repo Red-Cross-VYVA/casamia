@@ -12,20 +12,20 @@ const serviceAreaCopy = {
   en: {
     seoTitle: 'CasaMia service areas in Spain',
     seoDescription:
-      'See where CasaMia coordinates senior home-safety assessments, agreed adaptations, connected-living setup and grant-application support across Spain.',
+      'See where CasaMia can help with senior home-safety reviews, practical adaptations, connected-living setup and grant questions across Spain.',
     eyebrow: 'Service areas',
-    title: 'Senior home safety support, coordinated city by city.',
+    title: 'Senior home safety help, checked city by city.',
     intro:
-      'CasaMia checks the home concern, confirms what can be reviewed remotely and coordinates local visits or providers when adaptations need measurements.',
+      'Tell us the postcode and what feels unsafe. CasaMia confirms what can be reviewed remotely and when a local visit or measured adaptation is needed.',
     primaryCta: 'Start your home review',
     secondaryCta: 'Ask about your area',
     mapLabel: 'Spain coverage',
-    active: 'Active coordination',
-    building: 'Building provider network',
-    planned: 'Priority rollout',
+    active: 'Active local help',
+    building: 'Local support being added',
+    planned: 'Next area to check',
     howTitle: 'How coverage works',
     howIntro:
-      'We check postcode, room type, provider availability, measurement needs and timing before asking you to commit.',
+      'We check postcode, room type, visit availability, measurement needs and timing before asking you to commit.',
     howItems: [
       {
         title: 'Start with the concern',
@@ -33,7 +33,7 @@ const serviceAreaCopy = {
       },
       {
         title: 'Local fit checked',
-        body: 'We check the room type, urgency, postcode, provider availability and whether measurements are needed before adaptations are agreed.',
+        body: 'We check the room type, urgency, postcode, local visit options and whether measurements are needed before adaptations are agreed.',
       },
       {
         title: 'Review path confirmed',
@@ -49,7 +49,7 @@ const serviceAreaCopy = {
     unknownCta: 'Check my postcode',
     citySeoTitle: (city: string) => `Senior home safety services in ${city}`,
     citySeoDescription: (city: string, region: string) =>
-      `CasaMia coordinates senior home-safety checks, agreed adaptations, provider availability and grant-ready notes in ${city}, ${region}.`,
+      `CasaMia helps with senior home-safety checks, agreed adaptations, local visit options and grant-ready notes in ${city}, ${region}.`,
     cityEyebrow: 'Local service check',
     cityPageTitle: (city: string) => `Home safety support in ${city}`,
     cityIntroPrefix: 'In',
@@ -75,7 +75,7 @@ const serviceAreaCopy = {
       {
         question: `Does CasaMia install directly in ${city}?`,
         answer:
-          'CasaMia coordinates the path: remote review, priced plan, checked local professional, installation planning and follow-up. Local support depends on timing, agreed adaptations and confirmed availability.',
+          'CasaMia helps set the path: remote review, priced plan, checked local professional, installation planning and follow-up. Local support depends on timing, agreed adaptations and confirmed availability.',
       },
       {
         question: `What happens with grants and required documents in ${city}?`,
@@ -88,20 +88,20 @@ const serviceAreaCopy = {
   es: {
     seoTitle: 'Zonas de servicio de CasaMia en España',
     seoDescription:
-      'Consulta dónde coordina CasaMia revisiones de seguridad, adaptaciones prácticas, configuración conectada y apoyo con ayudas para viviendas senior en España.',
+      'Consulta dónde puede ayudar CasaMia con revisiones de seguridad, adaptaciones prácticas, configuración conectada y dudas sobre ayudas en España.',
     eyebrow: 'Zonas de servicio',
-    title: 'Seguridad en casa para mayores, coordinada ciudad a ciudad.',
+    title: 'Seguridad en casa para mayores, revisada ciudad a ciudad.',
     intro:
-      'CasaMia revisa la preocupación en casa, confirma qué puede verse en remoto y coordina visitas o profesionales locales cuando las adaptaciones necesitan medidas.',
+      'Indica el código postal y qué se siente inseguro. CasaMia confirma qué puede revisarse en remoto y cuándo hace falta visita local o una adaptación medida.',
     primaryCta: 'Empezar revisión',
     secondaryCta: 'Preguntar por mi zona',
     mapLabel: 'Cobertura en España',
-    active: 'Coordinación activa',
-    building: 'Red en desarrollo',
-    planned: 'Despliegue prioritario',
+    active: 'Ayuda activa',
+    building: 'Apoyo local en preparación',
+    planned: 'Siguiente zona a revisar',
     howTitle: 'Cómo funciona la cobertura',
     howIntro:
-      'No se trata solo de listar ciudades. Revisamos si el apoyo profesional, los tiempos y las adaptaciones son realistas antes de pedirte compromiso.',
+      'No se trata solo de listar ciudades. Revisamos si la visita, los tiempos y las adaptaciones son realistas antes de pedirte compromiso.',
     howItems: [
       {
         title: 'Empieza por la preocupación',
@@ -109,7 +109,7 @@ const serviceAreaCopy = {
       },
       {
         title: 'Encaje local',
-        body: 'Comprobamos estancia, urgencia, código postal, disponibilidad profesional y si hacen falta medidas antes de definir el plan.',
+        body: 'Comprobamos estancia, urgencia, código postal, opciones de visita local y si hacen falta medidas antes de definir el plan.',
       },
       {
         title: 'Revisión confirmada',
@@ -125,7 +125,7 @@ const serviceAreaCopy = {
     unknownCta: 'Comprobar mi código postal',
     citySeoTitle: (city: string) => `Servicios de seguridad del hogar senior en ${city}`,
     citySeoDescription: (city: string, region: string) =>
-      `CasaMia coordina revisiones de seguridad, adaptaciones definidas, disponibilidad profesional y notas preparadas para ayudas en ${city}, ${region}.`,
+      `CasaMia ayuda con revisiones de seguridad, adaptaciones definidas, opciones de visita local y notas preparadas para ayudas en ${city}, ${region}.`,
     cityEyebrow: 'Revisión local del servicio',
     cityPageTitle: (city: string) => `Seguridad en casa para mayores en ${city}`,
     cityIntroPrefix: 'En',
@@ -151,7 +151,7 @@ const serviceAreaCopy = {
       {
         question: `¿CasaMia instala directamente en ${city}?`,
         answer:
-          'CasaMia coordina el plan: revisión remota, precio definido, profesional local revisado, planificación de instalación y seguimiento. El apoyo local depende de las adaptaciones, los tiempos y la disponibilidad confirmada.',
+          'CasaMia ayuda a definir el camino: revisión remota, precio definido, profesional local revisado, planificación de instalación y seguimiento. El apoyo local depende de las adaptaciones, los tiempos y la disponibilidad confirmada.',
       },
       {
         question: `¿Qué pasa con ayudas y documentación en ${city}?`,
