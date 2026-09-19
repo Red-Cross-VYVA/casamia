@@ -46,7 +46,7 @@ export const primaryServices: ServicePageContent[] = [
   {
     id: 'bathroom-safety',
     path: '/services/bathroom-safety',
-    title: 'Bathroom Safety for Seniors',
+    title: 'Bathroom Safety at Home',
     shortTitle: 'Bathroom Safety',
     description:
       'Review shower entry, toilet transfers, wet-floor grip, night lighting and support points before choosing bathroom adaptations.',
@@ -88,7 +88,7 @@ export const primaryServices: ServicePageContent[] = [
   {
     id: 'kitchen-safety',
     path: '/services/kitchen-safety',
-    title: 'Kitchen Safety for Aging in Place',
+    title: 'Kitchen Safety at Home',
     shortTitle: 'Kitchen Safety',
     description:
       'Review reach, lighting, floor clutter, work zones and appliance use so cooking tasks need less stretching, bending and rushing.',
@@ -102,7 +102,7 @@ export const primaryServices: ServicePageContent[] = [
   {
     id: 'bedroom-safety',
     path: '/services/bedroom-safety',
-    title: 'Bedroom Safety for Seniors',
+    title: 'Bedroom Safety at Night',
     shortTitle: 'Bedroom Safety',
     description:
       'Review bed height, the first step out of bed, night lighting, floor space and whether help is reachable from the bed.',
@@ -116,7 +116,7 @@ export const primaryServices: ServicePageContent[] = [
   {
     id: 'smart-home-safety',
     path: '/services/smart-home-safety',
-    title: 'Smart Home Safety for Seniors',
+    title: 'Smart Home Safety',
     shortTitle: 'Smart Safety',
     description:
       'Use connected support only where it solves a clear problem: night lighting, water alerts, door awareness, reminders or help requests.',
@@ -133,7 +133,7 @@ export const resourcePages: ResourcePageContent[] = [
   {
     id: 'preventing-falls-at-home',
     path: '/blog/fall-prevention-home-checklist-spain',
-    title: 'Preventing Falls at Home for Older Adults',
+    title: 'Preventing Falls at Home',
     description:
       'A practical guide for reducing fall risks at home with room-by-room prevention steps.',
     intro:
@@ -159,9 +159,9 @@ export const resourcePages: ResourcePageContent[] = [
   {
     id: 'bathroom-safety-for-seniors',
     path: '/blog/bathroom-safety-seniors-costly-mistakes',
-    title: 'Bathroom Safety for Seniors: What to Check First',
+    title: 'Bathroom Safety at Home: What to Check First',
     description:
-      'Learn what to check in a senior bathroom, from wet floors and shower transfers to grab bars and anti-slip surfaces.',
+      'Learn what to check in a bathroom, from wet floors and shower transfers to grab bars and anti-slip surfaces.',
     intro:
       'Bathrooms deserve special attention because slips, transfers, and limited support often happen in a small space.',
     sections: [
@@ -211,11 +211,11 @@ export const resourcePages: ResourcePageContent[] = [
   {
     id: 'aging-in-place-spain',
     path: '/blog/fall-prevention-home-checklist-spain',
-    title: 'Aging in Place in Spain: A Practical Home Guide',
+    title: 'Safer Living at Home in Spain: A Practical Guide',
     description:
-      'A practical guide to making daily life at home safer and easier for older adults in Spain.',
+      'A practical guide to making daily life at home safer, easier and more comfortable in Spain.',
     intro:
-      'Aging in place works best when prevention, practical home improvements, well-matched technology and agreed support come together.',
+      'Safer living at home works best when prevention, practical improvements, well-matched technology and agreed support come together.',
     sections: [
       {
         title: 'Make the home easier before a crisis',
@@ -254,7 +254,7 @@ export const serviceHubHighlights: ServiceHubHighlight[] = [
   },
   {
     icon: 'home',
-    title: 'Aging in place',
+    title: 'Safer living at home',
     body: 'Every recommendation supports safer, more comfortable living at home.',
   },
   {

@@ -14,12 +14,12 @@ import { SEO } from '../components/SEO'
 
 const homeSeoCopy = {
   en: {
-    title: 'CasaMia | Home Safety Adaptations for Seniors in Spain',
+    title: 'CasaMia | Home Safety Adaptations in Spain',
     description:
       'CasaMia helps make daily movement safer at home with room-by-room assessment, agreed adaptations, coordinated installers and clear follow-up.',
   },
   es: {
-    title: 'CasaMia | Adaptación y seguridad del hogar para mayores en España',
+    title: 'CasaMia | Adaptación y seguridad del hogar en España',
     description:
       'CasaMia ayuda a hacer más seguro el movimiento diario en casa con evaluación por estancias, adaptaciones acordadas, instaladores coordinados y seguimiento claro.',
   },

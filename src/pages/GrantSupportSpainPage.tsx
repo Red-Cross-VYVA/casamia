@@ -114,8 +114,8 @@ export function GrantSupportSpainPage() {
   return (
     <>
       <SEO
-        title="Ayudas para adaptar vivienda de personas mayores en España"
-        description="En toda España existen subvenciones y programas públicos para ayudar a personas mayores, con discapacidad, dependencia o movilidad reducida a adaptar su vivienda. CasaMia revisa la vía probable, los documentos pendientes y el plan de adaptación."
+        title="Ayudas para adaptar una vivienda en España"
+        description="En toda España existen subvenciones y programas públicos para mejorar accesibilidad, seguridad, dependencia o movilidad en casa. CasaMia revisa la vía probable, los documentos pendientes y el plan de adaptación."
         path="/grants"
         image="/images/blog/grants-euro-symbol.webp"
         schema={schema}
@@ -187,9 +187,9 @@ export function GrantSupportSpainPage() {
           <div className="site-shell grant-spain-promise-grid">
             <div>
               <p className="grant-spain-kicker">Mensaje principal</p>
-              <h2 id="grant-spain-promise-title">Existen ayudas para adaptar el hogar de las personas mayores.</h2>
+              <h2 id="grant-spain-promise-title">Existen ayudas para adaptar una vivienda cuando la seguridad o la accesibilidad lo requieren.</h2>
             </div>
-            <p>En España, las administraciones públicas ofrecen subvenciones y programas para mejorar la accesibilidad, eliminar barreras y permitir que las personas mayores continúen viviendo en casa con seguridad e independencia.</p>
+            <p>En España, las administraciones públicas ofrecen subvenciones y programas para mejorar la accesibilidad, eliminar barreras y facilitar una vida diaria más segura en casa. Algunas convocatorias priorizan edad, discapacidad, dependencia, movilidad o ingresos.</p>
           </div>
         </section>
 

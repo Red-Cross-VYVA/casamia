@@ -144,7 +144,7 @@ const servicePackageAreaMap: Partial<Record<string, ServicePackageArea>> = {
 
 const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number]>> = {
   'bathroom-safety': {
-    title: 'Seguridad en el baño para personas mayores',
+    title: 'Seguridad en el baño en casa',
     shortTitle: 'Seguridad en baño',
     description:
       'Haz el baño más seguro con barras de apoyo, superficies antideslizantes, transferencias más estables, iluminación y mejoras de accesibilidad.',
@@ -174,7 +174,7 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     improvements: ['Guía sobre umbrales y rampas', 'Iluminación de entrada', 'Puntos de apoyo para equilibrio'],
   },
   'kitchen-safety': {
-    title: 'Seguridad en cocina para envejecer en casa',
+    title: 'Seguridad en la cocina en casa',
     shortTitle: 'Seguridad en cocina',
     description:
       'Haz la cocina más segura con menos alcance, zonas de paso despejadas, mejor iluminación, almacenamiento y control de electrodomésticos.',
@@ -184,7 +184,7 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     improvements: ['Almacenamiento y alcance más seguros', 'Circulación más despejada', 'Iluminación y protección de aparatos'],
   },
   'bedroom-safety': {
-    title: 'Seguridad en dormitorio para personas mayores',
+    title: 'Seguridad nocturna en el dormitorio',
     shortTitle: 'Seguridad en dormitorio',
     description:
       'Haz el dormitorio más seguro con entradas y salidas de la cama más estables, iluminación nocturna, suelo despejado, apoyo junto a la cama y ayuda al alcance.',
@@ -194,7 +194,7 @@ const primaryServiceCopyEs: Record<string, Partial<typeof primaryServices[number
     improvements: ['Apoyo junto a la cama y altura adecuada', 'Iluminación nocturna con sensor', 'Suelo despejado y ayuda al alcance'],
   },
   'smart-home-safety': {
-    title: 'Seguridad conectada para personas mayores',
+    title: 'Seguridad conectada en casa',
     shortTitle: 'Seguridad conectada',
     description:
       'Añade tecnología enfocada: iluminación con sensor, alertas, sensores de fuga o puerta, dispositivos de emergencia y avisos a contactos acordados.',
