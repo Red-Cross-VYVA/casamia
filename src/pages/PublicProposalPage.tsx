@@ -53,7 +53,7 @@ export function PublicProposalPage() {
     : {
         title: 'Your CasaMia plan',
         loadError: 'We could not load this plan link. Please contact CasaMia for assistance.',
-        acceptError: 'We could not approve this plan online. Please contact CasaMia and we will help you.',
+        acceptError: 'We could not approve this plan online. Contact CasaMia so we can confirm the plan and next step.',
         loading: 'Loading your plan',
         unavailableTitle: 'Plan link unavailable',
         contact: 'Contact CasaMia',

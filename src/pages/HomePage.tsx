@@ -75,8 +75,8 @@ const audiences: SelectableCard<AudienceId>[] = [
   },
   {
     id: 'parents',
-    title: 'My Parents',
-    body: 'I want to reduce risk while keeping familiar routines.',
+    title: 'A parent or relative',
+    body: 'I want to reduce risk without disrupting familiar routines.',
     icon: HeartHandshake,
     visual: {
       src: '/images/solutions/portrait-lovely-couple-together.jpg',
@@ -85,8 +85,8 @@ const audiences: SelectableCard<AudienceId>[] = [
   },
   {
     id: 'family',
-    title: 'A Family Member',
-    body: 'We are adapting a home after illness, surgery or injury.',
+    title: 'Someone I support',
+    body: 'We need the home reviewed after illness, surgery or injury.',
     icon: ShieldCheck,
     visual: {
       src: '/images/before-after/bedroom-after-card.webp',
@@ -293,7 +293,7 @@ const processSteps = [
   ['We review the home', 'We check the rooms, routines and real safety priorities.'],
   ['Receive your report', 'You get room priorities, visible risks and the action to confirm next.'],
   ['Choose improvements', 'Start with essentials, then add what solves a named risk.'],
-  ['Enjoy a safer home', 'Everything is installed, tested and ready to use.'],
+  ['Use the changes safely', 'Everything is installed, tested and explained before handover.'],
 ]
 
 const organisationTypes = [
@@ -812,8 +812,8 @@ export function HomePage() {
         <div className="site-shell">
           <div className="home-process-grid">
             <div>
-              <p className="home-redesign-kicker">Safety journey</p>
-              <h2>From first visit to finished home.</h2>
+              <p className="home-redesign-kicker">Safety plan</p>
+              <h2>From first check to safe use.</h2>
             </div>
             <div className="home-process-timeline">
               {processSteps.map(([title, body], index) => (
@@ -880,7 +880,7 @@ export function HomePage() {
       <section className="home-final-section">
         <div className="home-final-panel site-shell">
           <p className="home-redesign-kicker">Next step</p>
-          <h2>Every safer home starts with one conversation.</h2>
+          <h2>Start with the room or routine that worries you most.</h2>
           <p>
             Share the home, the routine and the concern. CasaMia will help confirm the first priority.
           </p>

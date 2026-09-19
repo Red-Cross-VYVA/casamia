@@ -1228,7 +1228,7 @@ function ConnectedQuestions() {
         <legend className="mb-4 text-lg font-black text-text-dark">Who should receive alerts?</legend>
         <div className="grid gap-3 md:grid-cols-3">
           {[
-            ['family', 'Family'],
+            ['family', 'Approved contact'],
             ['caregiver', 'Caregiver'],
             ['monitoring', 'Professional response centre'],
           ].map(([value, label]) => (
