@@ -95,7 +95,7 @@ export function FreeHomeSafetyAssessmentPage() {
           '@type': 'Country',
           name: 'Spain',
         },
-        serviceType: isSpanish ? 'Evaluación de seguridad del hogar senior' : 'Senior home safety assessment',
+        serviceType: isSpanish ? 'Evaluación de seguridad del hogar' : 'Home safety assessment',
         offers: {
           '@type': 'Offer',
           price: String(commercialSettings.assessmentVisitFeeGross),
@@ -181,9 +181,9 @@ export function FreeHomeSafetyAssessmentPage() {
             <div className="assessment-visit-overlay">
               <div>
                 <span className="assessment-visit-kicker">
-                  {isSpanish ? 'Visita opcional' : 'Optional expert visit'}
+                  {isSpanish ? 'Visita opcional' : 'Optional home visit'}
                 </span>
-                <h2>{isSpanish ? 'Un experto revisa la vivienda contigo.' : 'An expert reviews the home with you.'}</h2>
+                <h2>{isSpanish ? 'Revisamos la vivienda contigo.' : 'We review the home with you.'}</h2>
                 <ul>
                   {included.slice(0, 2).map((item) => (
                     <li key={item.title}>

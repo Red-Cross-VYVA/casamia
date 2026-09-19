@@ -72,63 +72,63 @@
   },
   "assessment": {
     "metaTitle": "In-Home Safety Assessment",
-    "metaDescription": "Book a CasaMia in-home safety assessment in Spain. Review fall risks, accessibility, bathroom safety, grant support and what to confirm before choosing any adaptations.",
+    "metaDescription": "Book a CasaMia in-home safety assessment in Spain when photos are not enough. Review fall risks, access, measurements and what to confirm before choosing adaptations.",
     "hero": {
-      "title": "Book a Professional In-Home Safety Assessment",
-      "subtitle": "Book a {{visitFee}} CasaMia home visit, paid in advance with {{visitVatPercent}} VAT included, to review fall risks, accessibility needs, measurements and priority actions.",
-      "cta": "Book home assessment",
+      "title": "Book a home safety visit when the next step needs measuring.",
+      "subtitle": "Use the free online report first, or book a {{visitFee}} CasaMia visit when the home needs measurements, transfer checks or room-by-room review.",
+      "cta": "Request a home visit",
       "secondaryCta": "Start Free Online Safety Report",
-      "reassurance": "The {{visitFee}} visit fee is credited toward your CasaMia plan if you proceed.",
-      "panelTitle": "A {{visitFee}} expert visit, credited if you continue.",
-      "panelBody": "We confirm availability and what the visit will cover before the appointment so there are no surprises."
+      "reassurance": "The {{visitFee}} visit fee is credited if you continue with agreed CasaMia work.",
+      "panelTitle": "A {{visitFee}} visit for decisions that need the home checked.",
+      "panelBody": "Before the appointment, CasaMia confirms what will be reviewed and why the visit is useful."
     },
     "pricing": {
-      "title": "Paid visit, credited toward your plan",
+      "title": "Paid visit, credited if work goes ahead",
       "feeLabel": "Assessment visit fee",
       "fee": "{{visitFee}} · VAT included",
-      "body": "The home visit costs {{visitFee}} including {{visitVatPercent}} VAT and is paid in advance when booking. If you proceed with CasaMia improvements, the assessment fee is credited toward your plan.",
+      "body": "The home visit costs {{visitFee}} including {{visitVatPercent}} VAT and is paid in advance when booking. If you proceed with agreed CasaMia improvements, the assessment fee is credited toward that work.",
       "points": [
         "Free online safety report available first",
         "Fixed {{visitFee}} assessment visit",
-        "{{visitFee}} credited if you proceed with a plan"
+        "{{visitFee}} credited if agreed work goes ahead"
       ]
     },
     "benefits": {
-      "title": "What You'll Gain",
+      "title": "What the visit helps you decide",
       "items": [
         {
-          "title": "Identify hidden fall risks",
-          "body": "Spot small hazards that are easy to miss but can lead to slips, trips, or avoidable accidents."
+          "title": "See the risk points in the actual room",
+          "body": "Check the places where slips, trips, awkward reaches or unsafe transfers are most likely to happen."
         },
         {
-          "title": "Know which changes reduce risk",
-          "body": "See which changes address movement, lighting, support, reach or transfer problems."
+          "title": "Know what should change first",
+          "body": "Separate urgent fixes from improvements that can wait, so the next decision is easier."
         },
         {
-          "title": "Prioritise daily risk points",
-          "body": "Reduce the daily risks that make bathing, stairs, entrance, cooking or night movement harder."
+          "title": "Focus on daily routines",
+          "body": "Review bathing, stairs, entrance, cooking and night movement by how they are actually used."
         },
         {
-          "title": "Get expert recommendations",
-          "body": "Receive room-by-room recommendations from people who understand aging-in-place safety."
+          "title": "Get room-by-room recommendations",
+          "body": "Receive practical notes on support, lighting, access, reach, emergency help and fit."
         },
         {
-          "title": "Plan home modifications with fewer unknowns",
-          "body": "Know what matters first before choosing equipment, installation, or service level."
+          "title": "Reduce unknowns before a quote",
+          "body": "Know what needs measuring, what may need professional fitting and what can be handled more simply."
         },
         {
           "title": "Shared information for the people involved",
-          "body": "Give the person at home and approved contacts the same risk priorities and next action."
+          "body": "Give the person at home and approved contacts the same priorities and next action."
         }
       ]
     },
     "included": {
-      "title": "What's Included in the In-Home Assessment",
-      "body": "A focused home safety visit that identifies priority risks, measurements and recommended actions before any installation decision.",
+      "title": "What is checked during the visit",
+      "body": "A focused home safety visit to identify priority risks, measurements and recommended actions before any installation decision.",
       "items": [
         {
           "title": "Room-by-room safety inspection",
-          "body": "We review the spaces where daily movement, transfers, and routines happen."
+          "body": "CasaMia reviews the spaces where daily movement, transfers and routines happen."
         },
         {
           "title": "Fall-risk and accessibility review",
@@ -140,18 +140,18 @@
         },
         {
           "title": "Room-specific recommendations",
-          "body": "Your assessment focuses on the home, the person, and the changes most likely to reduce daily risk."
+          "body": "The visit focuses on the home, the person using it and the changes most likely to reduce daily risk."
         },
         {
-          "title": "Clear plan if improvements are needed",
-          "body": "If adaptations are recommended, we explain what should be included, which products fit, what needs measuring and the decision needed next."
+          "title": "Clear next step if improvements are needed",
+          "body": "If adaptations are recommended, CasaMia explains what should be included, what needs measuring and what decision comes next."
         }
       ]
     },
     "afterReview": {
       "eyebrow": "After your review",
-      "title": "Priorities, next steps and coordination in one place.",
-      "body": "Whether you start online or book a visit, CasaMia turns your answers into priorities: what to address first, what can wait, and what needs measurement before installation starts.",
+      "title": "Priorities and next steps in one place.",
+      "body": "Whether you start online or book a visit, CasaMia turns your answers into priorities: what to address first, what can wait and what needs measurement before any work starts.",
       "cards": [
         {
           "title": "We review the context",
@@ -163,11 +163,11 @@
         },
         {
           "title": "A visit is confirmed only when measurements or room checks are needed",
-          "body": "If the home needs measurement or professional review, we confirm timing and what the visit should cover first."
+          "body": "If the home needs measurement or an on-site check, we confirm timing and what the visit should cover first."
         },
         {
-          "title": "CasaMia coordinates the plan",
-          "body": "Priced plan, products, installers, grants where relevant, and follow-up stay in one place."
+          "title": "CasaMia keeps the next step organised",
+          "body": "Scope, price where confirmed, products, installers, grants where relevant and follow-up stay in one place."
         }
       ],
       "note": "You stay in control: no installation is booked until the agreed adaptations are clear and approved."
@@ -177,15 +177,15 @@
       "items": [
         {
           "title": "Book the visit",
-          "body": "Share the home location, preferred timing, selected plan, and any concerns."
+          "body": "Share the home location, preferred timing and the rooms or routines that need review."
         },
         {
-          "title": "We Confirm Availability",
+          "title": "We confirm availability",
           "body": "You see the appointment, the {{visitFee}} visit fee, and what will be reviewed before booking."
         },
         {
-          "title": "You Receive Recommendations",
-          "body": "After the visit, you receive the main risks, priorities, recommended actions and any measurements needed before installation starts."
+          "title": "You receive recommendations",
+          "body": "After the visit, you receive the main risks, priorities, recommended actions and any measurements needed before work starts."
         }
       ]
     },
@@ -195,7 +195,7 @@
       "items": [
         {
           "question": "Is the online safety report free?",
-          "answer": "Yes. You can start with the online safety report at no cost. A professional in-home assessment visit costs {{visitFee}} and is credited toward your CasaMia plan if you proceed with approved improvements."
+          "answer": "Yes. You can start with the online safety report at no cost. An in-home assessment visit costs {{visitFee}} and is credited if you proceed with agreed CasaMia improvements."
         },
         {
           "question": "Do I have to install anything after the assessment?",
@@ -207,7 +207,7 @@
         },
         {
           "question": "Can we use photos, videos or a phone call before a visit?",
-          "answer": "Yes. You can start online with guided answers, photos, short videos, voice notes or a call. If measurement or professional review is needed, you see the visit details before booking."
+          "answer": "Yes. You can start online with guided answers, photos, short videos, voice notes or a call. If measurement or an on-site check is needed, you see the visit details before booking."
         },
         {
           "question": "Can CasaMia help with public grants?",
@@ -216,12 +216,12 @@
       ]
     },
     "formSection": {
-      "title": "Book your in-home assessment visit",
-      "body": "Tell us where the home is and how you prefer to be contacted. The CasaMia team will confirm availability and a suitable appointment time for the {{visitFee}} visit."
+      "title": "Request your in-home assessment visit",
+      "body": "Tell us where the home is, what needs review and how you prefer to be contacted. CasaMia will confirm availability and a suitable time for the {{visitFee}} visit."
     },
     "form": {
-      "title": "Book an in-home assessment",
-      "intro": "Fields marked with * are required. Please provide either a phone number or email address.",
+      "title": "Request an in-home assessment",
+      "intro": "Fields marked with * are required. Add a phone number or email so CasaMia can confirm the visit.",
       "fields": {
         "name": "Full name",
         "phone": "Phone number",
@@ -229,8 +229,8 @@
         "city": "City / Area",
         "contactMethod": "Preferred contact method",
         "date": "Preferred assessment date",
-        "message": "Message / specific concerns",
-        "selectedPlan": "Selected option"
+        "message": "Rooms or concerns to review",
+        "selectedPlan": "Starting point"
       },
       "contactOptions": [
         {
@@ -246,13 +246,13 @@
           "label": "Email"
         }
       ],
-      "submit": "Book assessment visit",
+      "submit": "Request assessment visit",
       "submitting": "Sending details...",
-      "success": "Thank you. Your details have been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit.",
+      "success": "Thank you. Your details have been received. CasaMia will contact you shortly to confirm availability and a suitable time for the {{visitFee}} assessment visit.",
       "schedule": "Choose visit time",
       "error": "We couldn't send your details. Please try again or contact CasaMia by phone.",
       "consent": "I agree to be contacted by CasaMia about my in-home safety assessment.",
-      "privacy": "Your information is only used to arrange your assessment visit. We never sell your data.",
+      "privacy": "Your information is used to arrange your assessment visit and related follow-up. We never sell your data.",
       "errors": {
         "name": "Please enter your full name.",
         "contact": "Please enter a phone number or email address.",
@@ -266,21 +266,21 @@
         },
         {
           "value": "home-assessment",
-          "label": "Home Safety Assessment"
+          "label": "Home safety visit"
         },
         {
           "value": "home-safety",
-          "label": "CasaMia plan"
+          "label": "Not sure what to choose"
         },
         {
           "value": "smart-safety",
-          "label": "Safety services"
+          "label": "Specific safety service"
         }
       ],
-      "successWithPlan": "Thank you. Your {{plan}} visit details have been received. The CasaMia team will contact you shortly to confirm availability and an appointment time for the {{visitFee}} assessment visit."
+      "successWithPlan": "Thank you. Your {{plan}} visit details have been received. CasaMia will contact you shortly to confirm availability and a suitable time for the {{visitFee}} assessment visit."
     },
     "final": {
-      "title": "Ready for a professional visit?"
+      "title": "Ready for a home safety visit?"
     }
   },
   "alts": {

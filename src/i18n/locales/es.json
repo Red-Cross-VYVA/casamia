@@ -72,49 +72,49 @@
   },
   "assessment": {
     "metaTitle": "Evaluación a domicilio de seguridad del hogar",
-    "metaDescription": "Reserva una evaluación CasaMia de seguridad del hogar en España. Revisa riesgos de caída, accesibilidad, baño, ayudas públicas y qué confirmar antes de decidir cualquier obra.",
+    "metaDescription": "Reserva una evaluación CasaMia de seguridad del hogar en España cuando las fotos no bastan. Revisa riesgos, accesos, medidas y qué confirmar antes de decidir adaptaciones.",
     "hero": {
-      "title": "Reserva una evaluación profesional a domicilio",
-      "subtitle": "Reserva una visita CasaMia por {{visitFee}}, pagada por adelantado con el {{visitVatPercent}} de IVA incluido, para revisar riesgos de caída, accesibilidad, medidas y acciones prioritarias.",
-      "cta": "Solicitar evaluación a domicilio",
+      "title": "Reserva una visita cuando el siguiente paso necesita medidas.",
+      "subtitle": "Empieza con el informe online gratis o reserva una visita CasaMia de {{visitFee}} cuando la vivienda necesite medidas, revisión de transferencias o comprobación por estancia.",
+      "cta": "Solicitar visita a domicilio",
       "secondaryCta": "Empezar informe online gratis",
-      "reassurance": "La tarifa de {{visitFee}} se descuenta de tu plan CasaMia si continúas.",
-      "panelTitle": "Una visita experta de {{visitFee}}, descontable si continúas.",
-      "panelBody": "Confirmamos disponibilidad y qué se revisará antes de la cita para que no haya sorpresas."
+      "reassurance": "La tarifa de {{visitFee}} se descuenta si continúas con trabajos CasaMia acordados.",
+      "panelTitle": "Una visita de {{visitFee}} para decisiones que requieren revisar la vivienda.",
+      "panelBody": "Antes de la cita, CasaMia confirma qué se revisará y por qué la visita aporta valor."
     },
     "pricing": {
-      "title": "Visita de {{visitFee}}, descontable de tu plan",
+      "title": "Visita de pago, descontable si el trabajo sigue adelante",
       "feeLabel": "Tarifa de visita de evaluación",
       "fee": "{{visitFee}} · IVA incluido",
-      "body": "La visita a domicilio cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido y se paga por adelantado al reservar. Si contratas mejoras CasaMia, la tarifa de evaluación se descuenta de tu plan.",
+      "body": "La visita a domicilio cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido y se paga por adelantado al reservar. Si continúas con mejoras CasaMia acordadas, la tarifa de evaluación se descuenta de ese trabajo.",
       "points": [
         "Informe online gratis disponible primero",
         "Visita de evaluación con tarifa fija de {{visitFee}}",
-        "Los {{visitFee}} se descuentan si contratas un plan"
+        "Los {{visitFee}} se descuentan si el trabajo acordado sigue adelante"
       ]
     },
     "benefits": {
-      "title": "Qué conseguirás",
+      "title": "Qué te ayuda a decidir la visita",
       "items": [
         {
-          "title": "Detectar riesgos ocultos de caída",
-          "body": "Identifica pequeños peligros que suelen pasar desapercibidos y pueden causar resbalones, tropiezos o accidentes evitables."
+          "title": "Ver los puntos de riesgo en la estancia real",
+          "body": "Revisa dónde pueden aparecer resbalones, tropiezos, alcances forzados o transferencias inseguras."
         },
         {
-          "title": "Saber qué cambios reducen riesgo",
-          "body": "Ve qué cambios responden a problemas de movimiento, luz, apoyo, alcance o transferencias."
+          "title": "Saber qué cambiar primero",
+          "body": "Separa arreglos urgentes de mejoras que pueden esperar, para decidir con más calma."
         },
         {
-          "title": "Priorizar los puntos de riesgo diario",
-          "body": "Reduce los riesgos diarios que complican baño, escaleras, entrada, cocina o movimiento nocturno."
+          "title": "Centrarte en las rutinas diarias",
+          "body": "Revisa baño, escaleras, entrada, cocina y movimiento nocturno según cómo se usan de verdad."
         },
         {
-          "title": "Recibir recomendaciones expertas",
-          "body": "Recibe recomendaciones por estancia de personas que entienden la seguridad para envejecer en casa."
+          "title": "Recibir recomendaciones por estancia",
+          "body": "Obtén notas prácticas sobre apoyos, luz, accesos, alcance, ayuda de emergencia y encaje."
         },
         {
-          "title": "Planificar adaptaciones con menos dudas",
-          "body": "Sabe qué importa primero antes de elegir equipamiento, instalación o nivel de servicio."
+          "title": "Reducir dudas antes de un presupuesto",
+          "body": "Sabe qué necesita medida, qué puede requerir instalación profesional y qué se puede resolver de forma más sencilla."
         },
         {
           "title": "Información para quienes ayudan",
@@ -123,12 +123,12 @@
       ]
     },
     "included": {
-      "title": "Qué incluye la evaluación a domicilio",
+      "title": "Qué se revisa durante la visita",
       "body": "Una visita enfocada de seguridad del hogar para identificar riesgos prioritarios, medidas y acciones recomendadas antes de decidir cualquier instalación.",
       "items": [
         {
           "title": "Inspección de seguridad estancia por estancia",
-          "body": "Revisamos los espacios donde ocurren los movimientos, transferencias y rutinas diarias."
+          "body": "CasaMia revisa los espacios donde ocurren los movimientos, transferencias y rutinas diarias."
         },
         {
           "title": "Revisión de riesgo de caída y accesibilidad",
@@ -140,18 +140,18 @@
         },
         {
           "title": "Recomendaciones por estancia",
-          "body": "La evaluación se adapta a la vivienda, la persona y los cambios con más probabilidad de reducir riesgo diario."
+          "body": "La visita se centra en la vivienda, la persona que la usa y los cambios con más probabilidad de reducir riesgo diario."
         },
         {
-          "title": "Propuesta clara si hacen falta mejoras",
-          "body": "Si conviene adaptar algo, explicamos el plan recomendado, productos y qué hay que decidir después."
+          "title": "Siguiente paso claro si hacen falta mejoras",
+          "body": "Si conviene adaptar algo, CasaMia explica qué debería incluirse, qué necesita medida y qué decisión viene después."
         }
       ]
     },
     "afterReview": {
       "eyebrow": "Después de la revisión",
-      "title": "Prioridades, adaptaciones y coordinación en un solo lugar.",
-      "body": "Empieces online o reserves una visita, CasaMia convierte tus respuestas en prioridades: qué conviene atender primero, qué puede esperar y qué requiere medición antes de empezar.",
+      "title": "Prioridades y siguientes pasos en un solo lugar.",
+      "body": "Empieces online o reserves una visita, CasaMia convierte tus respuestas en prioridades: qué conviene atender primero, qué puede esperar y qué requiere medición antes de cualquier trabajo.",
       "cards": [
         {
           "title": "Revisamos el contexto",
@@ -163,11 +163,11 @@
         },
         {
           "title": "La visita se confirma solo si ayuda",
-          "body": "Si la vivienda requiere medición o revisión profesional, confirmamos horario y qué cubrirá la visita."
+          "body": "Si la vivienda requiere medición o revisión en casa, confirmamos horario y qué cubrirá la visita."
         },
         {
-          "title": "CasaMia coordina el plan",
-          "body": "Plan con precio, productos, instaladores, ayudas cuando corresponda y seguimiento en un solo lugar."
+          "title": "CasaMia mantiene ordenado el siguiente paso",
+          "body": "Alcance, precio cuando esté confirmado, productos, instaladores, ayudas cuando corresponda y seguimiento quedan en un solo lugar."
         }
       ],
       "note": "Tú mantienes el control: no se reserva ninguna instalación hasta que las adaptaciones estén claras y aceptadas."
@@ -177,7 +177,7 @@
       "items": [
         {
           "title": "Reserva la visita",
-          "body": "Comparte la ubicación, horario preferido, plan seleccionado y cualquier preocupación."
+          "body": "Comparte la ubicación, horario preferido y las estancias o rutinas que conviene revisar."
         },
         {
           "title": "Confirmamos disponibilidad",
@@ -185,7 +185,7 @@
         },
         {
           "title": "Recibes recomendaciones",
-          "body": "Tras la visita, recibes orientación clara sobre riesgos, prioridades y próximos pasos."
+          "body": "Tras la visita, recibes riesgos principales, prioridades, acciones recomendadas y medidas necesarias antes del trabajo."
         }
       ]
     },
@@ -195,7 +195,7 @@
       "items": [
         {
           "question": "¿El informe online de seguridad es gratis?",
-          "answer": "Sí. Puedes empezar con el informe online sin coste. La visita profesional a domicilio cuesta {{visitFee}} y se descuenta de tu plan CasaMia si continúas con mejoras aprobadas."
+          "answer": "Sí. Puedes empezar con el informe online sin coste. La visita a domicilio cuesta {{visitFee}} y se descuenta si continúas con mejoras CasaMia acordadas."
         },
         {
           "question": "¿Tengo que instalar algo después de la evaluación?",
@@ -207,7 +207,7 @@
         },
         {
           "question": "¿Podemos usar fotos, vídeos o una llamada antes de una visita?",
-          "answer": "Sí. Puedes empezar online con respuestas guiadas, fotos, vídeos cortos, notas de voz o llamada. Si hace falta medición o revisión profesional, CasaMia confirma la visita antes de reservar."
+          "answer": "Sí. Puedes empezar online con respuestas guiadas, fotos, vídeos cortos, notas de voz o llamada. Si hace falta medición o revisión en casa, CasaMia confirma la visita antes de reservar."
         },
         {
           "question": "¿CasaMia puede ayudar con ayudas públicas?",
@@ -217,11 +217,11 @@
     },
     "formSection": {
       "title": "Solicita tu visita de evaluación a domicilio",
-      "body": "Cuéntanos dónde está la vivienda y cómo prefieres que contactemos. Un representante de CasaMia confirmará disponibilidad y una cita adecuada para la visita de {{visitFee}}."
+      "body": "Cuéntanos dónde está la vivienda, qué conviene revisar y cómo prefieres que contactemos. CasaMia confirmará disponibilidad y una cita adecuada para la visita de {{visitFee}}."
     },
     "form": {
-      "title": "Reserva de evaluación a domicilio",
-      "intro": "Los campos marcados con * son obligatorios. Indica teléfono o email.",
+      "title": "Solicitar evaluación a domicilio",
+      "intro": "Los campos marcados con * son obligatorios. Añade teléfono o email para que CasaMia pueda confirmar la visita.",
       "fields": {
         "name": "Nombre completo",
         "phone": "Teléfono",
@@ -229,8 +229,8 @@
         "city": "Ciudad / zona",
         "contactMethod": "Método de contacto preferido",
         "date": "Fecha preferida de evaluación",
-        "message": "Mensaje / preocupaciones concretas",
-        "selectedPlan": "Opción seleccionada"
+        "message": "Estancias o preocupaciones a revisar",
+        "selectedPlan": "Punto de partida"
       },
       "contactOptions": [
         {
@@ -246,13 +246,13 @@
           "label": "Email"
         }
       ],
-      "submit": "Reservar evaluación",
+      "submit": "Solicitar evaluación",
       "submitting": "Enviando datos...",
-      "success": "Gracias. Hemos recibido tus datos. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita que encaje contigo para la visita de evaluación de {{visitFee}}.",
+      "success": "Gracias. Hemos recibido tus datos. CasaMia contactará contigo en breve para confirmar disponibilidad y una cita que encaje contigo para la visita de evaluación de {{visitFee}}.",
       "schedule": "Elegir cita",
       "error": "No pudimos enviar tus datos. Inténtalo de nuevo o contacta con CasaMia por teléfono.",
       "consent": "Acepto que CasaMia contacte conmigo sobre mi evaluación de seguridad a domicilio.",
-      "privacy": "Tu información solo se usa para organizar tu visita de evaluación. Nunca vendemos tus datos.",
+      "privacy": "Tu información se usa para organizar tu visita de evaluación y el seguimiento relacionado. Nunca vendemos tus datos.",
       "errors": {
         "name": "Introduce tu nombre completo.",
         "contact": "Introduce un teléfono o email.",
@@ -262,25 +262,25 @@
       "planOptions": [
         {
           "value": "not-sure",
-          "label": "Aun no lo se"
+          "label": "Aún no lo sé"
         },
         {
           "value": "home-assessment",
-          "label": "Evaluacion de seguridad"
+          "label": "Visita de seguridad"
         },
         {
           "value": "home-safety",
-          "label": "Plan CasaMia"
+          "label": "No sé qué elegir"
         },
         {
           "value": "smart-safety",
-          "label": "Servicios de seguridad"
+          "label": "Servicio de seguridad concreto"
         }
       ],
-      "successWithPlan": "Gracias. Hemos recibido tus datos para {{plan}}. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de {{visitFee}}."
+      "successWithPlan": "Gracias. Hemos recibido tus datos para {{plan}}. CasaMia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de {{visitFee}}."
     },
     "final": {
-      "title": "¿Listo para una visita profesional?"
+      "title": "¿Listo para una visita de seguridad en casa?"
     }
   },
   "alts": {
