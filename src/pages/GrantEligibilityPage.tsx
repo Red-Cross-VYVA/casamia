@@ -1588,7 +1588,7 @@ function getGrantCopy(language: string) {
       intro:
         'Answer a few questions and get free initial guidance on fit, documents and next steps.',
       note:
-        'This is not a grant approval. Support depends on your autonomous community, open calls, home details, and documentation.',
+        'This is not a grant approval. Public support depends on your autonomous community, open calls, home details, and documentation.',
       helper: 'Takes a few minutes and you do not need documents to start.',
       pointsLabel: 'What the check includes',
       points: ['No photo upload', 'Instant result', 'Documents and checks to confirm'],
@@ -1781,7 +1781,7 @@ function getGrantCopy(language: string) {
         region: (region: string) => `${region} can be checked against regional and municipal accessibility calls.`,
         missingRegion: 'Region is still needed because most grant criteria are managed locally.',
         age75: 'A person aged 75+ is often a strong signal for accessibility support.',
-        age65: 'A person over 65 can match many senior accessibility criteria.',
+        age65: 'A person over 65 can match many accessibility criteria.',
         family: 'If someone else is answering, CasaMia should later confirm the details of the person who lives there.',
         recognisedStatus: 'Recognised disability or dependency can strengthen the application and funding level.',
         statusInProgress: 'A pending disability or dependency application may still be relevant for regional review.',

@@ -217,7 +217,7 @@ export function GrantSupportSpainPage() {
         <Section id="recursos" eyebrow="Recursos recomendados" title="Siguiente paso.">
           <div className="grant-spain-resource-grid">
             {[
-              ['Guía práctica', 'Ayudas para adaptar viviendas en España: qué debe preparar una familia', 'Documentos, adaptaciones, requisitos y expectativas realistas.', '/blog/home-adaptation-grants-spain-family-guide'],
+              ['Guía práctica', 'Ayudas para adaptar viviendas en España: qué conviene preparar', 'Documentos, adaptaciones, requisitos y expectativas realistas.', '/blog/home-adaptation-grants-spain-family-guide'],
               ['Herramienta', 'Revisión inicial de ayudas', 'Ruta orientativa y documentos pendientes en unos minutos.', '/grant-check'],
               ['Plan CasaMia', 'Crear un plan de adaptación', 'Conecta la posible ayuda con cambios reales que la vivienda podría necesitar.', '/plans'],
             ].map(([eyebrow, title, body, to]) => (
