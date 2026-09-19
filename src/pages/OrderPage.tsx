@@ -57,17 +57,17 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     eyebrow: 'Start your CasaMia order',
     title: 'Choose how you want the local team to contact you.',
     intro:
-      'Choose the contact option for your home: visit request, proposal question, grant criteria or local availability.',
+      'Choose the best contact option for your home: book a visit, ask about a plan, check grant criteria or confirm local availability.',
     regionLabel: 'Selected zone',
     whatsappTitle: 'Email',
     whatsappBody: 'Send the home location, main concern and preferred contact time so CasaMia can reply with what to confirm first.',
     whatsappCta: 'Email CasaMia',
     callbackTitle: 'Call me',
-    callbackBody: 'Leave your number and CasaMia will prepare a callback request for the local team.',
+    callbackBody: 'Leave your number and CasaMia will prepare the callback for the local team.',
     callTitle: 'Contact us',
     callBody: 'Email CasaMia if the home needs urgent support or a fast answer.',
     callCta: 'Email CasaMia',
-    formTitle: 'Request a callback',
+    formTitle: 'Book a callback',
     formBody: 'Choose when CasaMia should call to confirm the home, concern and next action.',
     name: 'Name',
     email: 'Email',
@@ -77,10 +77,10 @@ const orderCopy: Record<'en' | 'es', OrderCopy> = {
     timeOptions: { '09:00-12:00': '09:00-12:00', '12:00-15:00': '12:00-15:00', '15:00-18:00': '15:00-18:00', '18:00-20:00': '18:00-20:00', flexible: 'Flexible' },
     notes: 'What should we know?',
     notesPlaceholder: 'Example: Madrid, bathroom safety, preferred call time...',
-    submit: 'Request callback',
-    success: 'Callback request received. We have emailed your confirmation.',
-    successSaved: 'Callback request received. CasaMia will contact you using the details provided.',
-    error: 'The callback request could not be submitted. Please check the details and try again.',
+    submit: 'Book callback',
+    success: 'Callback details received. We have emailed your confirmation.',
+    successSaved: 'Callback details received. CasaMia will contact you using the details provided.',
+    error: 'We could not send your callback details. Please check the details and try again.',
     consent: 'I agree that CasaMia may use these details to arrange and confirm my callback.',
     back: 'Back to coverage map',
     trust: ['No commitment', 'Local follow-up', 'Safety and grant guidance'],
@@ -158,7 +158,7 @@ export function OrderPage() {
   const whatsappHref = useMemo(() => {
     const message = isSpanish
       ? `Hola CasaMia, quiero pedir información para ${zoneName}.`
-      : `Hello CasaMia, I want to request support for ${zoneName}.`
+      : `Hello CasaMia, I'd like help with ${zoneName}.`
 
     return `${contactHref}?subject=${encodeURIComponent(`CasaMia support for ${zoneName}`)}&body=${encodeURIComponent(message)}`
   }, [isSpanish, zoneName])
