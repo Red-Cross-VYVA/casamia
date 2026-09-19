@@ -1714,27 +1714,27 @@
     },
     "planAdapta": {
       "hero": {
-        "title": "Plan Adapta Grant Support",
-        "subtitle": "CasaMia checks whether the proposed home adaptations could fit an active grant route, then prepares the evidence and application file if they do.",
-        "cta": "Check my grant fit",
-        "panelTitle": "Know what can be submitted before you rely on a grant",
-        "panelBody": "CasaMia identifies the likely criteria, missing documents and adaptation description needed before an application is sent."
+        "title": "Check grant fit before you plan the work.",
+        "subtitle": "CasaMia reviews the home need, proposed adaptations, documents and local grant route before you rely on funding or start preparing an application.",
+        "cta": "Check grant readiness",
+        "panelTitle": "Know what must be confirmed first",
+        "panelBody": "CasaMia flags the likely criteria, missing documents, timing risks and adaptation wording needed before an application is sent."
       },
       "what": {
         "kicker": "What is Plan Adapta?",
-        "title": "Support for safer, more accessible homes.",
-        "body": "Plan Adapta can help with certain accessibility and safety adaptations, but only when the local authority, open call, applicant details, documents and proposed adaptations all fit. CasaMia helps you understand that fit before an application is prepared."
+        "title": "Grant support depends on the call, the home and the paperwork.",
+        "body": "Plan Adapta or similar local programmes may support certain accessibility and safety adaptations, but only when the authority, open call, applicant details, documents, timing and proposed work all fit. CasaMia helps you understand that fit before an application is prepared."
       },
       "help": {
         "kicker": "What CasaMia prepares",
-        "title": "We turn the proposed adaptations into a grant-ready file.",
+        "title": "We turn the home need into a clearer grant file.",
         "items": [
           {
-            "title": "Eligibility notes",
-            "body": "We check whether the person, home and planned adaptations appear to match the grant rules before you spend time on forms."
+            "title": "Fit check before paperwork",
+            "body": "We check whether the person, home, timing and planned adaptations appear to match the grant rules before you spend time on forms."
           },
           {
-            "title": "Documentation preparation",
+            "title": "Missing document list",
             "body": "We list what is missing, organise the documents provided and prepare the application file before submission."
           },
           {
@@ -1746,8 +1746,8 @@
             "body": "Where the customer authorises it, CasaMia can liaise with the relevant authority about the application."
           },
           {
-            "title": "Adaptation summary",
-            "body": "We write the planned adaptations in practical terms: what will change, where, and why it supports safer use of the home."
+            "title": "Adaptation wording",
+            "body": "We describe the planned adaptations in practical terms: what will change, where, and why it supports safer use of the home."
           },
           {
             "title": "Application tracking",
@@ -1756,12 +1756,12 @@
         ]
       },
       "disclaimer": {
-        "title": "Important disclaimer",
-        "body": "Grant approval is determined solely by the relevant authority. CasaMia cannot guarantee eligibility, approval, funding level, or processing time."
+        "title": "Important: grant support is not guaranteed",
+        "body": "Grant approval is determined solely by the relevant authority. CasaMia cannot guarantee eligibility, approval, funding level, processing time or whether work may begin before a decision."
       },
       "improvements": {
-        "kicker": "Typical eligible improvements",
-        "title": "Adaptations that may support safer living.",
+        "kicker": "Work that may need evidence",
+        "title": "Adaptations that often need clear wording and measurements.",
         "items": [
           "Bathroom safety adaptations",
           "Ramps and threshold improvements",
@@ -1773,34 +1773,34 @@
         ]
       },
       "process": {
-        "kicker": "Grant application steps",
-        "title": "From home evidence to a grant-ready submission.",
+        "kicker": "Grant-readiness steps",
+        "title": "From home evidence to a file you can review.",
         "steps": [
           {
-            "title": "Book your free assessment",
-            "body": "Start with a CasaMia review so the home risks, measurements and likely adaptation needs are documented."
+            "title": "Start with the home need",
+            "body": "Use a CasaMia review so the room risks, measurements and likely adaptation needs are documented."
           },
           {
-            "title": "We inspect your home",
-            "body": "A CasaMia specialist reviews the relevant rooms, access points, and safety concerns."
+            "title": "Confirm the practical scope",
+            "body": "A CasaMia specialist reviews the relevant rooms, access points, fitting conditions and safety concerns."
           },
           {
-            "title": "We prepare recommendations",
-            "body": "You receive room priorities, evidence notes and a clear list of confirmed improvements."
+            "title": "Prepare the evidence",
+            "body": "You receive room priorities, evidence notes and a clear list of improvements to confirm."
           },
           {
             "title": "We support your grant application",
             "body": "When the programme appears to fit and CasaMia is authorised, we prepare and submit the required documentation."
           },
           {
-            "title": "Once approved, we coordinate the approved adaptations",
-            "body": "If the authority approves the application, we coordinate the safety and accessibility adaptations named in the approval."
+            "title": "Coordinate approved work",
+            "body": "If the authority approves the application, CasaMia coordinates the safety and accessibility adaptations named in the approval."
           }
         ]
       },
       "terms": {
         "title": "Grant terms and responsibilities",
-        "body": "CasaMia provides grant management assistance as an administrative service only. The final grant decision always belongs to the relevant authority.",
+        "body": "CasaMia provides grant management assistance as an administrative support service only. The final grant decision always belongs to the relevant authority.",
         "cta": "Read the grant terms →"
       }
     }

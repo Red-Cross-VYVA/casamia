@@ -1714,27 +1714,27 @@
     },
     "planAdapta": {
       "hero": {
-        "title": "Soporte para ayudas Plan Adapta",
-        "subtitle": "CasaMia revisa si las adaptaciones que necesitas encajan con una vía de ayuda activa y prepara la evidencia y documentación cuando encajan.",
-        "cta": "Comprobar encaje de ayuda",
-        "panelTitle": "Sabe qué puede presentarse antes de contar con la ayuda",
-        "panelBody": "CasaMia identifica criterios probables, documentos que faltan y cómo describir la adaptación antes de enviar una solicitud."
+        "title": "Revisa el encaje de ayudas antes de planificar la obra.",
+        "subtitle": "CasaMia revisa la necesidad de la vivienda, las adaptaciones previstas, los documentos y la vía de ayuda local antes de contar con financiación o preparar una solicitud.",
+        "cta": "Comprobar preparación de ayudas",
+        "panelTitle": "Sabe qué debe confirmarse primero",
+        "panelBody": "CasaMia señala criterios probables, documentos que faltan, riesgos de plazo y cómo describir la adaptación antes de enviar una solicitud."
       },
       "what": {
         "kicker": "Qué es Plan Adapta",
-        "title": "Apoyo para hogares más seguros y accesibles.",
-        "body": "Plan Adapta puede apoyar ciertas adaptaciones de accesibilidad y seguridad, pero solo cuando autoridad local, convocatoria abierta, datos de la persona, documentos y mejoras previstas encajan. CasaMia ayuda a entender ese encaje antes de preparar el expediente."
+        "title": "La ayuda depende de la convocatoria, la vivienda y la documentación.",
+        "body": "Plan Adapta u otros programas locales pueden apoyar ciertas adaptaciones de accesibilidad y seguridad, pero solo cuando autoridad, convocatoria abierta, datos de la persona, documentos, plazos y obra prevista encajan. CasaMia ayuda a entender ese encaje antes de preparar el expediente."
       },
       "help": {
         "kicker": "Qué prepara CasaMia",
-        "title": "Convertimos las adaptaciones necesarias en un expediente listo para ayuda.",
+        "title": "Convertimos la necesidad de la vivienda en un expediente más claro.",
         "items": [
           {
-            "title": "Notas de elegibilidad",
-            "body": "Revisamos si la persona, la vivienda y la adaptación necesaria parecen encajar con las reglas antes de dedicar tiempo a formularios."
+            "title": "Revisión antes del papeleo",
+            "body": "Revisamos si la persona, la vivienda, los plazos y la adaptación prevista parecen encajar con las reglas antes de dedicar tiempo a formularios."
           },
           {
-            "title": "Preparación de documentación",
+            "title": "Lista de documentos pendientes",
             "body": "Indicamos qué falta, ordenamos la documentación aportada y preparamos el expediente antes de presentarlo."
           },
           {
@@ -1746,8 +1746,8 @@
             "body": "Cuando el cliente lo autorice, CasaMia puede comunicarse con la autoridad competente sobre la solicitud."
           },
           {
-            "title": "Preparación del plan",
-            "body": "Redactamos la adaptación de forma práctica: qué cambia, dónde y por qué mejora el uso seguro de la vivienda."
+            "title": "Redacción de la adaptación",
+            "body": "Describimos la adaptación de forma práctica: qué cambia, dónde y por qué mejora el uso seguro de la vivienda."
           },
           {
             "title": "Seguimiento de solicitud",
@@ -1756,12 +1756,12 @@
         ]
       },
       "disclaimer": {
-        "title": "Aviso importante",
-        "body": "La aprobación de la ayuda depende exclusivamente de la autoridad competente. CasaMia no puede garantizar elegibilidad, aprobación, nivel de financiación ni plazo de tramitación."
+        "title": "Importante: la ayuda no está garantizada",
+        "body": "La aprobación depende exclusivamente de la autoridad competente. CasaMia no puede garantizar elegibilidad, aprobación, importe, plazo de tramitación ni si una obra puede empezar antes de la resolución."
       },
       "improvements": {
-        "kicker": "Mejoras típicamente elegibles",
-        "title": "Adaptaciones que pueden favorecer una vida más segura.",
+        "kicker": "Trabajos que pueden necesitar evidencia",
+        "title": "Adaptaciones que suelen necesitar redacción clara y medidas.",
         "items": [
           "Adaptaciones de seguridad en baño",
           "Rampas y mejoras de umbrales",
@@ -1773,34 +1773,34 @@
         ]
       },
       "process": {
-        "kicker": "Cómo funciona",
-        "title": "De evidencia de la vivienda a expediente listo para ayuda.",
+        "kicker": "Pasos para preparar ayudas",
+        "title": "De evidencia de la vivienda a expediente revisable.",
         "steps": [
           {
-            "title": "Reserva tu evaluación gratis",
-            "body": "Empieza solicitando una revisión CasaMia para documentar riesgos, medidas y posibles necesidades de adaptación."
+            "title": "Empieza por la necesidad de la vivienda",
+            "body": "Usa una revisión CasaMia para documentar riesgos por estancia, medidas y posibles necesidades de adaptación."
           },
           {
-            "title": "Inspeccionamos tu hogar",
-            "body": "Un especialista de CasaMia revisa las estancias, accesos y preocupaciones de seguridad relevantes."
+            "title": "Confirmamos el alcance práctico",
+            "body": "Un especialista de CasaMia revisa estancias, accesos, condiciones de instalación y preocupaciones de seguridad."
           },
           {
-            "title": "Preparamos recomendaciones",
-            "body": "Recibes prioridades por estancia, notas de evidencia y un plan que nombra las mejoras confirmadas."
+            "title": "Preparamos la evidencia",
+            "body": "Recibes prioridades por estancia, notas de evidencia y una lista de mejoras por confirmar."
           },
           {
             "title": "Apoyamos tu solicitud de ayuda",
             "body": "Cuando el programa parece encajar y CasaMia está autorizada, preparamos y presentamos la documentación requerida."
           },
           {
-            "title": "Una vez aprobada, coordinamos las adaptaciones",
-            "body": "Si la autoridad aprueba la solicitud, coordinamos las adaptaciones de seguridad y accesibilidad aprobadas."
+            "title": "Coordinamos la obra aprobada",
+            "body": "Si la autoridad aprueba la solicitud, CasaMia coordina las adaptaciones de seguridad y accesibilidad incluidas en la resolución."
           }
         ]
       },
       "terms": {
         "title": "Condiciones y responsabilidades de ayudas",
-        "body": "CasaMia presta asistencia en la gestión de ayudas únicamente como servicio administrativo. La decisión final siempre corresponde a la autoridad competente.",
+        "body": "CasaMia presta asistencia en la gestión de ayudas únicamente como servicio de apoyo administrativo. La decisión final siempre corresponde a la autoridad competente.",
         "cta": "Más información sobre las condiciones de ayudas →"
       }
     }
