@@ -50,7 +50,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Practical bathroom safety for seniors: safer access, bathing, toilet transfers, anti-slip support, lighting, water controls and CasaMia-managed installation.',
     eyebrow: 'Bathroom safety',
     intro:
-      'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. We review the real routine, recommend the right package and coordinate the work.',
+      'Make bathing, toilet use and bathroom access safer without turning the room into a clinic. We review the real routine, recommend the right package and coordinate installation.',
     whoFor: [
       'Older adults unsteady in the bathroom',
       'Anyone worried about transfers',
@@ -109,7 +109,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
         },
         {
           solution: 'Check access width',
-          helps: 'We check whether the door limits help, walking aids or emergency access before recommending work.',
+          helps: 'We check whether the door limits help, walking aids or emergency access before recommending an adaptation.',
           product: 'Door hardware changes or wider-doorway review.',
         },
       ],
@@ -129,7 +129,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Can CasaMia keep the bathroom looking like a normal home?',
         answer:
-          'Yes. The goal is safer use with discreet, practical improvements wherever possible, not a clinical look unless specialist works are needed.',
+          'Yes. The goal is safer use with discreet, practical improvements wherever possible, not a clinical look unless specialist adaptations are needed.',
       },
       {
         question: 'Is bathroom access only about the shower?',
@@ -159,7 +159,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Fall prevention is not one product. It is a practical plan across the rooms and routines where risk builds up: transfers, lighting, floor surfaces, stairs and support points.',
     whoFor: ['People noticing slips, near misses or new hesitation at home', 'Older adults recovering from a fall or mobility change', 'Homes that need prevention priorities before a crisis'],
     priorities: ['Bathroom and toilet transfer safety', 'Bedroom-to-bathroom night movement', 'Stairs, entrances and thresholds', 'Emergency reach and agreed connected support'],
-    casamiaPlan: ['Identify the highest-risk routines first', 'Match improvements to the person, not just the property', 'Phase works into urgent, recommended and optional actions'],
+    casamiaPlan: ['Identify the highest-risk routines first', 'Match improvements to the person, not just the property', 'Phase adaptations into urgent, recommended and optional actions'],
     relatedServices: [
       { label: 'All safety services', to: '/services' },
       { label: 'How CasaMia works', to: '/how-it-works' },
@@ -191,10 +191,10 @@ export const needLandingPages: NeedLandingPageContent[] = [
       'Book an aging-in-place home assessment with CasaMia to understand safety priorities, adaptations, grants and practical next steps.',
     eyebrow: 'Home assessment',
     intro:
-      'An aging-in-place assessment identifies what should change first, what can wait and which checks are needed before work is quoted.',
+      'An aging-in-place assessment identifies what should change first, what can wait and which checks are needed before final pricing.',
     whoFor: ['Households planning before a fall or hospital discharge', 'Older adults who want to stay independent at home', 'Homes where people disagree on what to fix first'],
     priorities: ['Mobility and transfer routines', 'Room-by-room safety risks', 'Practical adaptation options', 'Grant-readiness and documentation where relevant'],
-    casamiaPlan: ['Listen to the person at home and daily priorities', 'Review the home, photos or guided answers', 'Prepare a proposal with scope, review items and next steps'],
+    casamiaPlan: ['Listen to the person at home and daily priorities', 'Review the home, photos or guided answers', 'Prepare a priced plan with review items and next steps'],
     relatedServices: [
       { label: 'Book a home assessment', to: '/home-safety-assessment' },
       { label: 'Build your plan', to: '/home-safety-wizard' },
@@ -227,9 +227,9 @@ export const needLandingPages: NeedLandingPageContent[] = [
     eyebrow: 'Home adaptations',
     intro:
       'Good home adaptation starts with the daily task that has become harder: bathing, stairs, bed transfers, cooking, entering the home or asking for help.',
-    whoFor: ['Households that need one coordinated plan', 'Older adults with changing mobility or new hesitation at home', 'Homes needing practical works, smart support or grant guidance'],
+    whoFor: ['Households that need one coordinated plan', 'Older adults with changing mobility or new hesitation at home', 'Homes needing practical adaptations, smart support or grant guidance'],
     priorities: ['Safer bathroom access', 'Bedroom and night-time movement', 'Entrance, threshold and stairs support', 'Connected routines where helpful'],
-    casamiaPlan: ['Translate daily problems into room-by-room work', 'Coordinate products, installers and timings', 'Confirm pricing, scope and safe-use explanation before work starts'],
+    casamiaPlan: ['Translate daily problems into room-by-room adaptations', 'Coordinate products, installers and timings', 'Confirm pricing, included adaptations and safe-use explanation before installation starts'],
     relatedServices: [
       { label: 'Service catalogue', to: '/services' },
       { label: 'Process', to: '/how-it-works' },
@@ -244,7 +244,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Does CasaMia supply and install everything?',
         answer:
-          'CasaMia coordinates the end-to-end process: assessment, proposal, suitable equipment, installation partners and follow-up where required.',
+          'CasaMia coordinates the end-to-end plan: assessment, suitable equipment, installation partners and follow-up where required.',
       },
     ],
   },
@@ -460,27 +460,27 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     title: 'Home safety assessment vs general contractor',
     seoTitle: 'Home Safety Assessment vs General Contractor | CasaMia',
     description:
-      'Understand when a senior home safety assessment should define the scope before a contractor quotes or installs adaptations.',
+      'Understand when a senior home safety assessment should define the adaptation plan before a contractor quotes or installs adaptations.',
     eyebrow: 'Decision guide',
     intro:
-      'A contractor is the right call once the work is clear. A safety assessment helps when you are still deciding what the work should be, where risk is highest, and which changes will actually support the person using the home.',
+      'A contractor is the right call once the adaptation is clear. A safety assessment helps when you are still deciding what should change, where risk is highest, and which changes will actually support the person using the home.',
     whoFor: [
       'People who know something is unsafe but do not know what to ask an installer for',
       'Homes where several rooms, transfers or routes are involved',
       'Older adults whose mobility, hesitation or care needs have recently changed',
-      'Households that need a clear scope before quotes, grants, landlord permission or community approval',
+      'Households that need a clear adaptation plan before quotes, grants, landlord permission or community approval',
     ],
     priorities: [
       'The daily routine: bathing, toileting, bed transfers, stairs, cooking, entrance and night movement',
       'Which risks are urgent, recommended or optional',
       'Measurements, wall types, fixing points, thresholds, door swings and site constraints',
-      'Whether the right answer is a product, minor adaptation, larger work or connected support',
-      'A written scope that contractors can price without guessing',
+      'Whether the right answer is a product, minor adaptation, larger installation or connected support',
+      'A written plan that contractors can price without guessing',
     ],
     casamiaPlan: [
       'Start with the daily movement problem, not a product catalogue',
       'Map each risk to the relevant room package and optional add-ons',
-      'Prepare a practical scope with photos, priorities and installation notes',
+      'Prepare a practical plan with photos, priorities and installation notes',
       'Coordinate installer requirements, completion checks and follow-up support',
     ],
     relatedServices: [
@@ -492,22 +492,22 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'Should I call a contractor first?',
         answer:
-          'If the required work is obvious, measured and already specified, a contractor may be enough. If you are unsure what should change, start with a safety assessment so the quote matches the person at home rather than a generic installation.',
+          'If the required adaptation is obvious, measured and already specified, a contractor may be enough. If you are unsure what should change, start with a safety assessment so the quote matches the person at home rather than a one-size-fits-all installation.',
       },
       {
         question: 'Does CasaMia do the installation too?',
         answer:
-          'CasaMia coordinates the process end to end, including assessment, practical scope, installation coordination and safe-use explanation when needed.',
+          'CasaMia coordinates the plan end to end, including assessment, practical planning, installation coordination and safe-use explanation when needed.',
       },
       {
         question: 'Why not ask for three contractor quotes immediately?',
         answer:
-          'Three quotes are only comparable when they price the same scope. If each contractor guesses a different solution, you may choose on price without knowing which option solves the real safety problem.',
+          'Three quotes are only comparable when they price the same plan. If each contractor guesses a different solution, you may choose on price without knowing which option solves the real safety problem.',
       },
       {
         question: 'When is a contractor enough?',
         answer:
-          'A contractor can be enough for clearly defined work such as installing a specified handrail, changing a threshold or fitting equipment where the product, location and fixing method are already known.',
+          'A contractor can be enough for clearly defined installation such as fitting a specified handrail, changing a threshold or adding equipment where the product, location and fixing method are already known.',
       },
     ],
   },

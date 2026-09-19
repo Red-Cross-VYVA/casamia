@@ -150,7 +150,7 @@ export const resourcePages: ResourcePageContent[] = [
           'Handrails, grab bars, motion lighting, step contrast, and open walking space can reduce daily risk without making the home feel clinical.',
       },
       {
-        title: 'Get a professional review before works begin',
+        title: 'Get a professional review before installation begins',
         body:
           'A structured assessment helps identify which changes matter most, what can wait, and whether a practical installation plan is needed.',
       },
@@ -189,7 +189,7 @@ export const resourcePages: ResourcePageContent[] = [
     description:
       'Prepare a grant-ready file with the right authority, eligibility checks, documents, timing rules and official resources.',
     intro:
-      'Spain has national accessibility frameworks, but applications usually go through regional or municipal calls. This guide shows what to verify before paying for works.',
+      'Spain has national accessibility frameworks, but applications usually go through regional or municipal calls. This guide shows what to verify before paying for adaptations.',
     sections: [
       {
         title: 'Where to check first',
@@ -204,7 +204,7 @@ export const resourcePages: ResourcePageContent[] = [
       {
         title: 'How CasaMia helps',
         body:
-          'CasaMia can help connect the safety need to practical works and organise a proposal. Approval, amount and payment timing remain with the authority.',
+          'CasaMia can help connect the safety need to practical adaptations and organise a grant-ready plan. Approval, amount and payment timing remain with the authority.',
       },
     ],
   },
@@ -215,7 +215,7 @@ export const resourcePages: ResourcePageContent[] = [
     description:
       'A practical guide to helping older adults live safely and comfortably at home in Spain.',
     intro:
-      'Aging in place works best when prevention, practical home improvements, well-matched technology and agreed support work together.',
+      'Aging in place works best when prevention, practical home improvements, well-matched technology and agreed support come together.',
     sections: [
       {
         title: 'Make the home easier before a crisis',
@@ -260,6 +260,6 @@ export const serviceHubHighlights: ServiceHubHighlight[] = [
   {
     icon: 'book',
     title: 'Clear next steps',
-    body: 'Reports and proposals explain what to do now, later, or only if needed.',
+    body: 'Reports and plans explain what to do now, later, or only if needed.',
   },
 ]
