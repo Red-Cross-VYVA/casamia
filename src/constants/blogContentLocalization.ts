@@ -370,8 +370,8 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     readTime: '6 min de lectura',
     imageAlt: 'Lista para preparar una conversación sobre seguridad del hogar',
     keywords: [
-      'preguntas evaluación seguridad hogar mayores',
-      'conversación familia padres mayores',
+      'preguntas evaluación seguridad hogar',
+      'conversación seguridad hogar',
       'preparar visita seguridad hogar',
     ],
     intro:
@@ -960,7 +960,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     category: 'Plan de emergencia',
     readTime: '6 min de lectura',
     imageAlt: 'Plan de emergencia para una vivienda con respuesta acordada',
-    keywords: ['plan emergencia padres mayores', 'seguridad personas mayores casa', 'aviso emergencia hogar'],
+    keywords: ['plan emergencia hogar', 'seguridad en casa', 'aviso emergencia hogar'],
     intro:
       'Un plan de emergencia no tiene que ser complejo. Debe responder a tres preguntas: qué puede pasar, cómo se pide ayuda y quién responde.',
     takeaways: [

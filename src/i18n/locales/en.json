@@ -1164,7 +1164,7 @@
             "answer": "The {{visitFee}} assessment fee includes {{visitVatPercent}} VAT and is paid in advance at booking. Installation plans use a clear {{proposalUpfrontPercent}} deposit and {{proposalBalancePercent}} final payment after completion and your approval."
           },
           {
-            "question": "Can the plan be customized?",
+            "question": "Can the plan be personalised?",
             "answer": "Yes. The agreed adaptations are matched to the home, the person using it, and the safety priorities found during assessment."
           },
           {
@@ -1789,7 +1789,7 @@
             "body": "You receive room priorities, evidence notes and a clear list of improvements to confirm."
           },
           {
-            "title": "We support your grant application",
+            "title": "Prepare the grant application",
             "body": "When the programme appears to fit and CasaMia is authorised, we prepare and submit the required documentation."
           },
           {

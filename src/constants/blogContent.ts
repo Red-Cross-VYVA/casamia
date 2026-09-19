@@ -542,8 +542,8 @@ export const blogArticles: BlogArticle[] = [
     image: '/images/blog/provider-choice.webp',
     imageAlt: 'Planning checklist for a home safety conversation',
     keywords: [
-      'senior home safety assessment questions',
-      'aging parents family conversation',
+      'home safety assessment questions',
+      'home safety conversation',
       'prepare for home safety visit',
     ],
     intro:
@@ -1063,7 +1063,7 @@ export const blogArticles: BlogArticle[] = [
     date: '2026-07-11',
     image: '/images/blog/emergency-plan-home.webp',
     imageAlt: 'Editorial illustration of an emergency plan connecting home and trusted response',
-    keywords: ['emergency plan aging parents', 'senior emergency response home', 'family safety plan elderly'],
+    keywords: ['emergency plan at home', 'emergency response home', 'home safety response plan'],
     intro:
       'A safer home also needs a response plan. Agreed contacts should know how help is requested, who responds, how they enter the home, and what information is needed in the first few minutes.',
     takeaways: [
