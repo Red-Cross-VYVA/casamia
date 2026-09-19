@@ -54,7 +54,7 @@ const pageCopy = {
     downloadEyebrow: 'Free printable workbook',
     downloadTitle: 'The Complete Senior Home Conversion Checklist',
     downloadBody:
-      'Walk through the home with the person who lives there, identify visible first fixes, flag work that needs professional review and finish with a clear action plan.',
+      'Walk through the home with the person who lives there, identify visible first fixes, flag adaptations that need expert review and finish with a clear action plan.',
     downloadStats: [
       { value: '10', label: 'home areas' },
       { value: '100+', label: 'room checks' },
@@ -132,7 +132,7 @@ const pageCopy = {
     actionRouteEyebrow: 'From reading to action',
     actionRouteTitle: 'Turn advice into a home safety plan.',
     actionRouteBody:
-      'Use the resources to understand the risk, then move into a guided CasaMia review when you need priorities, measurements, grant-application checks or a managed proposal.',
+      'Use the resources to understand the risk, then move into a guided CasaMia review when you need priorities, measurements, grant-application checks or a priced plan.',
     actionRouteCta: 'Start the guided review',
     faqEyebrow: 'Common questions',
     faqTitle: 'Quick answers before you choose a resource.',
@@ -150,7 +150,7 @@ const pageCopy = {
       {
         question: 'When should we arrange a home visit?',
         answer:
-          'A visit is useful when measurements, installation details, mobility needs or several rooms need to be reviewed before a final proposal.',
+          'A visit is useful when measurements, installation details, mobility needs or several rooms need to be reviewed before final pricing.',
       },
       {
         question: 'Can CasaMia help with grants and documents?',
@@ -300,7 +300,7 @@ const toolContent = [
     icon: HelpCircle,
     title: { en: 'Is this home safe day to day?', es: '¿Esta casa es segura en el día a día?' },
     body: {
-      en: 'Answer five everyday questions and see whether to monitor, check one room or request a focused CasaMia review.',
+      en: 'Answer five everyday questions and see whether to monitor, check one room or book a focused CasaMia review.',
       es: 'Responde cinco preguntas cotidianas y ve si conviene observar, revisar una estancia o pedir una revisión CasaMia.',
     },
     to: '/tools/senior-friendly-home-check',
@@ -367,7 +367,7 @@ const educationHubSteps = [
     label: { en: 'Act', es: 'Actuar' },
     title: { en: 'Move into a managed plan', es: 'Pasa a un plan gestionado' },
     body: {
-      en: 'CasaMia can coordinate assessment, proposal, grant-application checks and installation.',
+      en: 'CasaMia can coordinate assessment, priced planning, grant-application checks and installation.',
       es: 'CasaMia puede coordinar evaluación, propuesta, revisión documental para ayudas e instalación.',
     },
   },
