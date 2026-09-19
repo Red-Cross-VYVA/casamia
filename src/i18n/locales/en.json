@@ -167,7 +167,7 @@
         },
         {
           "title": "CasaMia coordinates the plan",
-          "body": "Proposal, products, installers, grants where relevant, and follow-up stay under one plan."
+          "body": "Priced plan, products, installers, grants where relevant, and follow-up stay in one place."
         }
       ],
       "note": "You stay in control: no installation is booked until the agreed adaptations are clear and accepted."
@@ -336,7 +336,7 @@
     "ctaPrimary": "Build your CasaMia plan",
     "ctaSecondary": "Ask us to contact you",
     "proposalSnapshot": {
-      "label": "Sample CasaMia proposal snapshot",
+      "label": "Sample CasaMia plan snapshot",
       "heading": "Home-safety plan",
       "priorityLabel": "Priority",
       "priorityTitle": "Room-by-room plan",
@@ -365,7 +365,7 @@
       {
         "icon": "Step 2",
         "title": "Review what will change",
-        "desc": "Your proposal separates priority actions, included items, assumptions and pricing, so you can see what is recommended and why.",
+        "desc": "Your plan separates priority actions, included items, assumptions and pricing, so you can see what is recommended and why.",
         "points": [
           "Room-by-room suggestions",
           "Clear priorities",
@@ -719,7 +719,7 @@
         "deliveryTitle": "Delivery status",
         "readyToSend": "Want to keep it? Send the secure report link by email or WhatsApp in the next step.",
         "emailQueued": "The secure report link has been sent by email.",
-        "whatsappQueued": "Your request is saved for WhatsApp delivery. The message will contain only a secure report link.",
+        "whatsappQueued": "Your report is saved for WhatsApp delivery. The message will contain only a secure report link.",
         "demoMode": "Demo mode: this report is saved locally until the Supabase/email/WhatsApp backend is connected.",
         "viewReport": "View report page",
         "bookAssessment": "Book in-home assessment"
@@ -1131,7 +1131,7 @@
             "body": "CasaMia reviews each relevant room and identifies the risks to address first."
           },
           {
-            "title": "You receive a proposal",
+            "title": "You receive a priced plan",
             "body": "We provide recommendations, pricing, assumptions and the next decision before installation begins."
           },
           {

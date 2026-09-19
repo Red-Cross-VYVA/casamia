@@ -150,8 +150,8 @@
     },
     "afterReview": {
       "eyebrow": "Después de la revisión",
-      "title": "Prioridades, alcance y coordinación en un solo lugar.",
-      "body": "Empieces online o solicites una visita, CasaMia convierte tus respuestas en prioridades: qué conviene atender primero, qué puede esperar y qué requiere medición antes de empezar.",
+      "title": "Prioridades, adaptaciones y coordinación en un solo lugar.",
+      "body": "Empieces online o reserves una visita, CasaMia convierte tus respuestas en prioridades: qué conviene atender primero, qué puede esperar y qué requiere medición antes de empezar.",
       "cards": [
         {
           "title": "Revisamos el contexto",
@@ -163,20 +163,20 @@
         },
         {
           "title": "La visita se confirma solo si ayuda",
-          "body": "Si la vivienda requiere medición o revisión profesional, confirmamos horario y alcance primero."
+          "body": "Si la vivienda requiere medición o revisión profesional, confirmamos horario y qué cubrirá la visita."
         },
         {
-          "title": "CasaMia coordina el trabajo",
-          "body": "Propuesta, productos, instaladores, ayudas cuando corresponda y seguimiento en un solo plan."
+          "title": "CasaMia coordina el plan",
+          "body": "Plan con precio, productos, instaladores, ayudas cuando corresponda y seguimiento en un solo lugar."
         }
       ],
-      "note": "Tú mantienes el control: no se reserva ninguna instalación hasta que el alcance esté claro y aceptado."
+      "note": "Tú mantienes el control: no se reserva ninguna instalación hasta que las adaptaciones estén claras y aceptadas."
     },
     "how": {
       "title": "Cómo funciona",
       "items": [
         {
-          "title": "Solicita la visita",
+          "title": "Reserva la visita",
           "body": "Comparte la ubicación, horario preferido, plan seleccionado y cualquier preocupación."
         },
         {
@@ -191,7 +191,7 @@
     },
     "faq": {
       "title": "Preguntas habituales antes de reservar.",
-      "body": "Respuestas breves, expectativas claras y sin presión para avanzar antes de entender la vivienda y el alcance.",
+      "body": "Respuestas breves, expectativas claras y sin presión para avanzar antes de entender la vivienda y el siguiente paso.",
       "items": [
         {
           "question": "¿El informe online de seguridad es gratis?",
@@ -199,11 +199,11 @@
         },
         {
           "question": "¿Tengo que instalar algo después de la evaluación?",
-          "answer": "No. La evaluación sirve para tener claridad primero. CasaMia explica qué parece urgente, qué puede esperar y qué necesitaría propuesta antes de reservar cualquier trabajo."
+          "answer": "No. La evaluación sirve para tener claridad primero. CasaMia explica qué parece urgente, qué puede esperar y qué necesitaría precio cerrado antes de reservar cualquier instalación."
         },
         {
           "question": "¿Qué gestiona CasaMia si seguimos adelante?",
-          "answer": "CasaMia puede coordinar el trabajo desde el alcance hasta la entrega: propuesta, productos compatibles, instaladores asegurados, documentación para ayudas cuando corresponda, agenda, explicación de uso seguro y seguimiento."
+          "answer": "CasaMia puede coordinar el plan desde la revisión hasta la entrega: precio, productos compatibles, instaladores asegurados, documentación para ayudas cuando corresponda, agenda, explicación de uso seguro y seguimiento."
         },
         {
           "question": "¿Podemos usar fotos, vídeos o una llamada antes de una visita?",
@@ -220,7 +220,7 @@
       "body": "Cuéntanos dónde está la vivienda y cómo prefieres que contactemos. Un representante de CasaMia confirmará disponibilidad y una cita adecuada para la visita de {{visitFee}}."
     },
     "form": {
-      "title": "Solicitud de evaluación a domicilio",
+      "title": "Reserva de evaluación a domicilio",
       "intro": "Los campos marcados con * son obligatorios. Indica teléfono o email.",
       "fields": {
         "name": "Nombre completo",
@@ -246,18 +246,18 @@
           "label": "Email"
         }
       ],
-      "submit": "Enviar solicitud",
-      "submitting": "Enviando solicitud...",
-      "success": "Gracias. Hemos recibido tu solicitud. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita que encaje contigo para la visita de evaluación de {{visitFee}}.",
-      "schedule": "Solicitar cita",
-      "error": "No pudimos enviar tu solicitud. Inténtalo de nuevo o contacta con CasaMia por teléfono.",
-      "consent": "Acepto que CasaMia contacte conmigo sobre mi solicitud de evaluación de seguridad a domicilio.",
+      "submit": "Reservar evaluación",
+      "submitting": "Enviando datos...",
+      "success": "Gracias. Hemos recibido tus datos. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita que encaje contigo para la visita de evaluación de {{visitFee}}.",
+      "schedule": "Elegir cita",
+      "error": "No pudimos enviar tus datos. Inténtalo de nuevo o contacta con CasaMia por teléfono.",
+      "consent": "Acepto que CasaMia contacte conmigo sobre mi evaluación de seguridad a domicilio.",
       "privacy": "Tu información solo se usa para organizar tu visita de evaluación. Nunca vendemos tus datos.",
       "errors": {
         "name": "Introduce tu nombre completo.",
         "contact": "Introduce un teléfono o email.",
         "city": "Introduce tu ciudad o zona.",
-        "consent": "Acepta que podamos contactarte sobre tu solicitud de evaluación."
+        "consent": "Acepta que podamos contactarte sobre tu evaluación."
       },
       "planOptions": [
         {
@@ -277,7 +277,7 @@
           "label": "Servicios de seguridad"
         }
       ],
-      "successWithPlan": "Gracias. Hemos recibido tu solicitud de visita para {{plan}}. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de {{visitFee}}."
+      "successWithPlan": "Gracias. Hemos recibido tus datos para {{plan}}. Un representante de CasaMia contactará contigo en breve para confirmar disponibilidad y una cita para la evaluación de {{visitFee}}."
     },
     "final": {
       "title": "¿Listo para una visita profesional?"
@@ -336,8 +336,8 @@
     "ctaPrimary": "Crear mi plan CasaMia",
     "ctaSecondary": "Pedid que os contactemos",
     "proposalSnapshot": {
-      "label": "Ejemplo visual de propuesta CasaMia",
-      "heading": "Propuesta de seguridad",
+      "label": "Ejemplo visual de plan CasaMia",
+      "heading": "Plan de seguridad",
       "priorityLabel": "Prioridad",
       "priorityTitle": "Plan por estancia",
       "items": [
@@ -365,7 +365,7 @@
       {
         "icon": "Paso 2",
         "title": "Revisa qué va a cambiar",
-        "desc": "La propuesta separa acciones prioritarias, elementos incluidos, supuestos y precios, para que veas qué se recomienda y por qué.",
+        "desc": "El plan separa acciones prioritarias, elementos incluidos, supuestos y precios, para que veas qué se recomienda y por qué.",
         "points": [
           "Sugerencias por estancia",
           "Prioridades claras",
@@ -375,7 +375,7 @@
       {
         "icon": "Paso 3",
         "title": "Revisa las ayudas pronto",
-        "desc": "Cuando el trabajo pueda encajar, CasaMia prepara notas de apoyo antes de cerrar el alcance final.",
+        "desc": "Cuando las adaptaciones puedan encajar, CasaMia prepara notas de apoyo antes de cerrar el plan final.",
         "points": [
           "Revisión de elegibilidad",
           "Apoyo documental",
@@ -719,7 +719,7 @@
         "deliveryTitle": "Estado del envío",
         "readyToSend": "¿Quieres guardarlo? En el siguiente paso puedes recibir el enlace seguro por email o WhatsApp.",
         "emailQueued": "Hemos enviado el enlace seguro del informe por email.",
-        "whatsappQueued": "Tu solicitud queda guardada para envío por WhatsApp. El mensaje incluirá solamente un enlace seguro.",
+        "whatsappQueued": "Tu informe queda guardado para envío por WhatsApp. El mensaje incluirá solamente un enlace seguro.",
         "demoMode": "Modo demo: este informe se guarda localmente hasta conectar el backend de Supabase/email/WhatsApp.",
         "viewReport": "Ver página del informe",
         "bookAssessment": "Reservar evaluación a domicilio"
@@ -945,7 +945,7 @@
         "body": "Empieza con una revisión, pasa a adaptaciones o añade tecnología conectada cuando resuelva un riesgo concreto. Todo empieza por entender la vivienda."
       },
       "cardsTitle": "Compara tres planes CasaMia.",
-      "cardsIntro": "La evaluación a domicilio es el punto de partida. Estos planes muestran niveles habituales de apoyo; el alcance final se construye con las mejoras que tu vivienda necesita.",
+      "cardsIntro": "La evaluación a domicilio es el punto de partida. Estos planes muestran niveles habituales de apoyo; el plan final se construye con las mejoras que tu vivienda necesita.",
       "bestForLabel": "Cuándo encaja",
       "cards": [
         {
@@ -1102,7 +1102,7 @@
       },
       "payment": {
         "title": "Condiciones de pago claras antes de empezar",
-        "body": "Mantenemos los pagos claros y justos. La evaluación a domicilio cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido, se paga por adelantado al reservar y se descuenta del plan elegido. Para los trabajos acordados, pagas el {{proposalUpfrontPercent}} para empezar y el {{proposalBalancePercent}} solo al finalizar y tras la aceptación del cliente.",
+        "body": "Mantenemos los pagos claros y justos. La evaluación a domicilio cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido, se paga por adelantado al reservar y se descuenta del plan elegido. Para las adaptaciones acordadas, pagas el {{proposalUpfrontPercent}} para empezar y el {{proposalBalancePercent}} solo al finalizar y tras la aceptación del cliente.",
         "items": [
           {
             "title": "Essential",
@@ -1117,7 +1117,7 @@
             "body": "Evaluación de {{visitFee}} descontada del plan, después {{proposalUpfrontPercent}} de depósito y {{proposalBalancePercent}} tras configuración, entrega y aceptación del cliente."
           }
         ],
-        "reassurance": "Sin costes ocultos. Ningún trabajo empieza sin tu aprobación. Recibes una propuesta clara antes de la instalación."
+        "reassurance": "Sin costes ocultos. Ninguna instalación empieza sin tu aprobación. Recibes un plan claro antes de la instalación."
       },
       "next": {
         "title": "¿Qué ocurre después de elegir un plan?",
@@ -1131,12 +1131,12 @@
             "body": "Nuestro equipo cualificado revisa estancia por estancia e identifica riesgos."
           },
           {
-            "title": "Recibes una propuesta",
-            "body": "Te damos recomendaciones claras, precio y próximos pasos antes de iniciar cualquier trabajo."
+            "title": "Recibes un plan con precio",
+            "body": "Te damos recomendaciones claras, precio y próximos pasos antes de iniciar cualquier instalación."
           },
           {
-            "title": "Realizamos el trabajo acordado",
-            "body": "Si apruebas la propuesta, coordinamos productos, instaladores y entrega final."
+            "title": "Realizamos la instalación acordada",
+            "body": "Si apruebas el plan, coordinamos productos, instaladores y entrega final."
           }
         ]
       },
@@ -1157,22 +1157,22 @@
           },
           {
             "question": "¿Los instaladores están asegurados?",
-            "answer": "CasaMia estructura los proyectos con trabajo profesional asegurado, entrega documentada y aceptación del cliente."
+            "answer": "CasaMia estructura los proyectos con instalación profesional asegurada, entrega documentada y aceptación del cliente."
           },
           {
             "question": "¿Cuándo pago?",
-            "answer": "La evaluación cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido y se paga por adelantado al reservar. Los planes con instalación tienen un {{proposalUpfrontPercent}} de depósito y un {{proposalBalancePercent}} final tras completar el trabajo y recibir la aceptación del cliente."
+            "answer": "La evaluación cuesta {{visitFee}} con el {{visitVatPercent}} de IVA incluido y se paga por adelantado al reservar. Los planes con instalación tienen un {{proposalUpfrontPercent}} de depósito y un {{proposalBalancePercent}} final tras completar la instalación y recibir la aceptación del cliente."
           },
           {
             "question": "¿El plan se puede personalizar?",
-            "answer": "Sí. El alcance final se adapta a la vivienda, la persona y las prioridades de seguridad detectadas durante la evaluación."
+            "answer": "Sí. El plan final se adapta a la vivienda, la persona y las prioridades de seguridad detectadas durante la evaluación."
           },
           {
             "question": "¿Incluís dispositivos inteligentes de seguridad?",
             "answer": "Sí. El Plan Seguridad Smart puede incluir sensores, dispositivos de emergencia, iluminación inteligente, dispositivos de acceso y ayuda con la configuración cuando corresponda."
           },
           {
-            "question": "¿Qué pasa cuando termina el trabajo?",
+            "question": "¿Qué pasa cuando termina la instalación?",
             "answer": "Realizamos la entrega, confirmamos la aceptación del cliente y explicamos con quién contactar si cambia la vivienda o la rutina."
           }
         ]
@@ -1234,13 +1234,13 @@
       "paymentReassurance": "Sin costes ocultos. Sin gastos inesperados.",
       "faqTitle": "Preguntas frecuentes",
       "finalTitle": "¿Listo para hacer tu hogar más seguro?",
-      "finalBody": "Solicita una visita de evaluación a domicilio de {{visitFee}} y recibe recomendaciones por estancia de nuestros expertos cualificados.",
+      "finalBody": "Reserva una visita de evaluación a domicilio de {{visitFee}} y recibe recomendaciones por estancia de nuestros expertos.",
       "finalCta": "Reservar evaluación a domicilio",
       "plans": [
         {
           "id": "home-assessment",
           "title": "Plan Evaluación del Hogar",
-          "subtitle": "Una inspección cualificada de seguridad del hogar que identifica riesgos por estancia, prioridades y acciones siguientes antes de iniciar cualquier trabajo.",
+          "subtitle": "Una inspección de seguridad del hogar que identifica riesgos por estancia, prioridades y acciones siguientes antes de iniciar cualquier instalación.",
           "heroPoints": [
             "Revisión experta de seguridad",
             "Recomendaciones por escrito",
@@ -1520,7 +1520,7 @@
             },
             {
               "question": "¿Puedo elegir qué recomendaciones aceptar?",
-              "answer": "Sí. Apruebas el alcance final antes de que empiece cualquier instalación."
+              "answer": "Sí. Apruebas el plan final antes de que empiece cualquier instalación."
             }
           ]
         },
