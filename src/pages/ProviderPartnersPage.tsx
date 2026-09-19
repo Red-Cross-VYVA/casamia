@@ -63,45 +63,45 @@ const providerPartnerCopy = {
     metaDescription:
       'Join CasaMia’s provider network for home-safety adaptations, installation, smart safety setup and follow-up support across Spain.',
     heroEyebrow: 'Provider partnership programme',
-    heroTitle: 'Deliver prepared senior home-safety projects with CasaMia.',
+    heroTitle: 'Receive home-safety jobs that are already understood.',
     heroBody:
-      'CasaMia prepares assessed projects with resident context, room priorities, access notes and completion expectations before approved providers visit, price, install or support them.',
-    proof: ['Assessed projects, not cold leads', 'Project and access notes before the visit', 'CasaMia manages customer communication'],
+      'CasaMia gathers the room concern, photos where available, access notes, resident needs and expected outcome before asking an approved provider to visit, quote, install or support the work.',
+    proof: ['Real project context, not cold leads', 'Room and access notes before the visit', 'Customer communication stays coordinated'],
     apply: 'Apply to collaborate',
     viewStandards: 'View standards',
     panelTitle: 'What partners receive',
     panelBody:
-      'A defined brief: resident context, room priorities, agreed tasks, access notes and safe-use expectations before installation is booked.',
+      'A practical brief: what room needs help, what has already been agreed, what to check on site and what the customer expects after handover.',
     workflowEyebrow: 'How the work flows',
-    workflowTitle: 'CasaMia prepares the job before providers arrive.',
+    workflowTitle: 'You arrive with the problem already framed.',
     workflowBody:
-      'We qualify the request, gather context, shape the brief, coordinate customer communication and keep the project record clear. Approved providers step in when the project is ready to be priced, visited, installed or supported.',
+      'We qualify the request, gather context, shape the brief and keep the project record clear. Approved providers step in when a job is ready for pricing, a site visit, installation or follow-up.',
     workflow: [
-      { title: 'Qualified request', body: 'Home, resident context, photos, urgency and customer priority are captured first.' },
-      { title: 'Provider brief', body: 'You receive the room, agreed tasks, access notes, constraints and customer expectations.' },
-      { title: 'Coordinated delivery', body: 'CasaMia keeps the customer loop, changes, approvals and completion notes organised.' },
-      { title: 'Documented outcome', body: 'Completion notes, photos, quality checks and follow-up stay attached to the project.' },
+      { title: 'Qualified request', body: 'Room, resident needs, photos, urgency and customer priority are captured first.' },
+      { title: 'Provider brief', body: 'You receive the room, likely task, access notes, constraints and decision points.' },
+      { title: 'Coordinated delivery', body: 'CasaMia keeps customer messages, scope changes, approvals and completion notes organised.' },
+      { title: 'Documented outcome', body: 'Photos, completion notes, quality checks and follow-up stay attached to the project.' },
     ],
     marketEyebrow: 'Market opportunity',
-    marketTitle: 'Senior home safety is becoming a mainstream service category.',
+    marketTitle: 'More homes need small, measured safety work before a crisis.',
     marketBody:
-      'Spain has an ageing population, more people want to stay independent at home for longer, and homes often need measured adaptations before a crisis happens. CasaMia turns that need into a repeatable workflow for local providers.',
+      'Many people want to stay at home, but the work is often practical: rails in the right place, safer bathroom movement, better lighting, clearer thresholds and follow-up when something changes. CasaMia turns that demand into clearer work for local providers.',
     expertiseEyebrow: 'CasaMia expertise',
-    expertiseTitle: 'We understand the senior space, not just installation work.',
+    expertiseTitle: 'We add the home-safety context around your trade.',
     expertiseBody:
-      'Good providers already know their trade. CasaMia adds the senior-specific layer: resident context, consent-aware communication, safety priorities, installation acceptance and follow-up.',
+      'Good providers already know their trade. CasaMia adds the extra context: how the person uses the room, what support is missing, who may approve changes, how safe use is explained and what should be documented.',
     profilesEyebrow: 'Partner profiles',
-    profilesTitle: 'Multiple ways to collaborate.',
+    profilesTitle: 'The provider roles CasaMia needs.',
     profilesBody:
-      'CasaMia needs dependable specialists for measured adaptations, safe installation, handover and follow-up in older homes.',
+      'CasaMia needs dependable specialists for measured adaptations, careful installation, clear handover and follow-up in homes where daily routines matter.',
     toolsEyebrow: 'Tools and resources',
     toolsTitle: 'Clear briefs, fewer surprises on site.',
     toolsBody:
-      'CasaMia gives partners structure, context and job tools so every home visit starts with the room, routine, access limits and expected handover already understood.',
+      'CasaMia gives partners structure, context and job tools so each visit starts with the room, routine, access limits and expected handover already understood.',
     marketingEyebrow: 'Marketing kit',
-    marketingTitle: 'Show the relationship clearly.',
+    marketingTitle: 'Explain the relationship without overclaiming.',
     marketingBody:
-      'Approved collaborators can use CasaMia partner materials to explain they work in a specialist senior-safety network without suggesting employment, certification or public grant approval.',
+      'Approved collaborators can use CasaMia materials to explain the relationship clearly, without suggesting employment, certification or public grant approval.',
     sample: 'Download sample',
     usageRules: 'Usage rules',
     standardsEyebrow: 'How collaboration works',
@@ -109,19 +109,19 @@ const providerPartnerCopy = {
     standardsBody:
       'Providers remain independent businesses, but customer work is coordinated through CasaMia. Installers and subcontractors must not request direct customer payments or approve paid changes independently.',
     coverageEyebrow: 'Coverage focus',
-    coverageTitle: 'Main city coverage first.',
+    coverageTitle: 'Reliable city coverage comes first.',
     coverageBody:
-      'CasaMia is prioritising strong provider coverage in major cities and surrounding areas, then expanding once service quality and response times are reliable.',
+      'CasaMia is prioritising provider coverage in major cities and surrounding areas, then expanding once quality, availability and response times are reliable.',
     cityEyebrow: 'City opportunity',
-    cityTitle: 'Early partners help prove local response times.',
+    cityTitle: 'Early partners help define how each city works.',
     cityBody:
-      'The first strong partners in each city help CasaMia confirm response times, common property layouts, trade depth and where customers need the most support.',
+      'The first strong partners in each city help CasaMia understand response times, common property layouts, trade availability and where customers need the most support.',
     registrationEyebrow: 'Self-registration',
-    registrationTitle: 'Apply to join the provider network.',
+    registrationTitle: 'Tell us where you work and what you can deliver.',
     registrationBody:
-      'Share basic company details, coverage and service types. We review fit before assigning any customer work.',
+      'Share your company details, service area and relevant experience. CasaMia reviews fit before sending any customer work.',
     faqEyebrow: 'Before you apply',
-    faqTitle: 'Answers for serious local providers.',
+    faqTitle: 'Questions providers usually ask first.',
     faqItems: [
       {
         question: 'Is CasaMia a lead marketplace?',
@@ -136,7 +136,7 @@ const providerPartnerCopy = {
       {
         question: 'What makes a provider a good fit?',
         answer:
-          'Respectful home work, clear communication, insurance, reliable documentation and comfort working around older people, relatives or carers.',
+          'Respectful work inside occupied homes, clear communication, insurance, reliable documentation and comfort working around residents, relatives or carers.',
       },
       {
         question: 'Does CasaMia manage the customer after installation?',
@@ -190,45 +190,45 @@ const providerPartnerCopy = {
     metaDescription:
       'Únete a la red CasaMia de profesionales para adaptaciones del hogar, instalación, seguridad inteligente y seguimiento en España.',
     heroEyebrow: 'Programa de colaboradores',
-    heroTitle: 'Trabaja con proyectos de seguridad senior ya preparados.',
+    heroTitle: 'Recibe trabajos de seguridad en casa ya entendidos.',
     heroBody:
-      'CasaMia prepara solicitudes revisadas con contexto de la persona, prioridades por estancia, notas de acceso y expectativas de finalización antes de que un proveedor aprobado visite, valore, instale o dé soporte.',
-    proof: ['Proyectos evaluados, no leads fríos', 'Brief claro antes de la visita', 'CasaMia gestiona la comunicación con el cliente'],
+      'CasaMia recoge la estancia, fotos si existen, notas de acceso, necesidades de la persona y resultado esperado antes de pedir a un proveedor aprobado que visite, valore, instale o dé soporte.',
+    proof: ['Contexto real, no leads fríos', 'Estancia y acceso claros antes de la visita', 'Comunicación coordinada con el cliente'],
     apply: 'Solicitar colaboración',
     viewStandards: 'Ver estándares',
     panelTitle: 'Qué reciben los colaboradores',
     panelBody:
-      'Un trabajo más claro: contexto de la persona, prioridades por estancia, trabajo acordado, notas de acceso y expectativas de uso seguro antes de empezar.',
+      'Un briefing práctico: qué estancia necesita ayuda, qué se ha acordado, qué revisar en la visita y qué espera el cliente tras la entrega.',
     workflowEyebrow: 'Cómo fluye el trabajo',
-    workflowTitle: 'CasaMia prepara el trabajo antes de la visita.',
+    workflowTitle: 'Llegas con el problema ya acotado.',
     workflowBody:
-      'Cualificamos la solicitud, recogemos contexto, damos forma al trabajo, coordinamos el contacto con el cliente y dejamos el proyecto documentado. Los colaboradores aprobados entran cuando el trabajo ya está listo para valorar, visitar, instalar o mantener.',
+      'Cualificamos la solicitud, recogemos contexto, damos forma al trabajo y dejamos el proyecto documentado. Los colaboradores aprobados entran cuando un trabajo está listo para valorar, visitar, instalar o hacer seguimiento.',
     workflow: [
-      { title: 'Solicitud cualificada', body: 'Primero recogemos vivienda, contexto de la persona, fotos, urgencia y prioridad del cliente.' },
-      { title: 'Brief claro', body: 'Recibes estancia, trabajo acordado, acceso, limitaciones y expectativas del cliente.' },
-      { title: 'Entrega coordinada', body: 'CasaMia organiza cliente, cambios, aprobaciones y notas de finalización.' },
-      { title: 'Resultado documentado', body: 'Notas, fotos, comprobaciones de calidad y seguimiento quedan unidos al proyecto.' },
+      { title: 'Solicitud cualificada', body: 'Primero recogemos estancia, necesidades de la persona, fotos, urgencia y prioridad del cliente.' },
+      { title: 'Brief claro', body: 'Recibes estancia, tarea probable, acceso, limitaciones y puntos que decidir.' },
+      { title: 'Entrega coordinada', body: 'CasaMia organiza mensajes, cambios de alcance, aprobaciones y notas de finalización.' },
+      { title: 'Resultado documentado', body: 'Fotos, notas, comprobaciones de calidad y seguimiento quedan unidos al proyecto.' },
     ],
     marketEyebrow: 'Oportunidad de mercado',
-    marketTitle: 'La seguridad senior en casa se está convirtiendo en una categoría principal.',
+    marketTitle: 'Más viviendas necesitan pequeñas mejoras medidas antes de una crisis.',
     marketBody:
-      'España envejece, más personas quieren mantenerse independientes en casa durante más tiempo y muchas viviendas necesitan adaptaciones prácticas antes de una crisis. CasaMia convierte esa necesidad en un flujo profesional repetible para proveedores locales.',
+      'Muchas personas quieren seguir en casa, pero el trabajo suele ser práctico: apoyos bien colocados, baño más seguro, mejor luz, umbrales claros y seguimiento cuando algo cambia. CasaMia convierte esa demanda en trabajos más claros para proveedores locales.',
     expertiseEyebrow: 'Experiencia CasaMia',
-    expertiseTitle: 'Entendemos el mercado senior, no solo la instalación.',
+    expertiseTitle: 'Añadimos contexto de seguridad alrededor de tu oficio.',
     expertiseBody:
-      'Los buenos profesionales ya dominan su oficio. CasaMia añade la capa específica senior: contexto de la persona, comunicación con consentimiento, prioridades de seguridad, aceptación de la instalación y seguimiento.',
+      'Los buenos profesionales ya dominan su oficio. CasaMia añade el contexto: cómo se usa la estancia, qué apoyo falta, quién puede aprobar cambios, cómo se explica el uso seguro y qué debe documentarse.',
     profilesEyebrow: 'Perfiles de colaboradores',
-    profilesTitle: 'Varias formas de colaborar.',
+    profilesTitle: 'Los perfiles profesionales que CasaMia necesita.',
     profilesBody:
-      'CasaMia necesita especialistas fiables en los servicios prácticos que hacen que las viviendas de personas mayores sean más fáciles y seguras cada día.',
+      'CasaMia necesita especialistas fiables para adaptaciones medidas, instalación cuidadosa, entrega clara y seguimiento en viviendas donde las rutinas diarias importan.',
     toolsEyebrow: 'Herramientas y recursos',
     toolsTitle: 'Briefs claros y menos sorpresas en casa.',
     toolsBody:
       'CasaMia da estructura, contexto y herramientas prácticas para que cada visita empiece con estancia, rutina, límites de acceso y entrega esperada ya entendidos.',
     marketingEyebrow: 'Kit de marketing',
-    marketingTitle: 'Explica la relación con claridad.',
+    marketingTitle: 'Explica la relación sin exagerar.',
     marketingBody:
-      'Los colaboradores aprobados pueden usar materiales de CasaMia para explicar que trabajan dentro de una red especializada en seguridad senior sin sugerir empleo, certificación o aprobación pública de ayudas.',
+      'Los colaboradores aprobados pueden usar materiales de CasaMia para explicar la relación con claridad, sin sugerir empleo, certificación o aprobación pública de ayudas.',
     sample: 'Descargar muestra',
     usageRules: 'Normas de uso',
     standardsEyebrow: 'Cómo funciona la colaboración',
@@ -236,19 +236,19 @@ const providerPartnerCopy = {
     standardsBody:
       'Los proveedores siguen siendo empresas independientes, pero el trabajo con clientes se coordina a través de CasaMia. Instaladores y subcontratas no deben pedir pagos directos al cliente ni aprobar cambios de alcance de pago por su cuenta.',
     coverageEyebrow: 'Cobertura prioritaria',
-    coverageTitle: 'Primero cobertura sólida en grandes ciudades.',
+    coverageTitle: 'Primero cobertura fiable por ciudad.',
     coverageBody:
-      'CasaMia prioriza una cobertura fuerte en ciudades principales y alrededores, y expande cuando la calidad del servicio y los tiempos de respuesta son fiables.',
+      'CasaMia prioriza cobertura en ciudades principales y alrededores, y expande cuando la calidad, disponibilidad y tiempos de respuesta son fiables.',
     cityEyebrow: 'Oportunidad por ciudad',
-    cityTitle: 'Los primeros colaboradores validan tiempos de respuesta.',
+    cityTitle: 'Los primeros colaboradores definen cómo funciona cada ciudad.',
     cityBody:
-      'Los primeros socios fuertes en cada ciudad ayudan a CasaMia a confirmar tiempos de respuesta, tipologías de vivienda, profundidad de oficios y dónde los clientes necesitan más apoyo.',
+      'Los primeros colaboradores sólidos ayudan a CasaMia a entender tiempos de respuesta, tipos de vivienda, disponibilidad de oficios y dónde los clientes necesitan más apoyo.',
     registrationEyebrow: 'Auto-registro',
-    registrationTitle: 'Solicita unirte a la red de proveedores.',
+    registrationTitle: 'Cuéntanos dónde trabajas y qué puedes entregar.',
     registrationBody:
-      'Comparte datos básicos de empresa, cobertura y tipos de servicio. CasaMia revisará el encaje antes de asignar cualquier trabajo con clientes.',
+      'Comparte datos de empresa, zona de servicio y experiencia relevante. CasaMia revisa el encaje antes de enviar cualquier trabajo con clientes.',
     faqEyebrow: 'Antes de solicitar',
-    faqTitle: 'Respuestas claras para proveedores locales serios.',
+    faqTitle: 'Preguntas que suelen hacerse los proveedores.',
     faqItems: [
       {
         question: '¿CasaMia es un marketplace de leads?',
@@ -263,7 +263,7 @@ const providerPartnerCopy = {
       {
         question: '¿Qué hace que un proveedor encaje bien?',
         answer:
-          'Trabajo respetuoso en vivienda, comunicación clara, seguro, documentación fiable y comodidad trabajando con personas mayores, familiares o cuidadores.',
+          'Trabajo respetuoso en viviendas habitadas, comunicación clara, seguro, documentación fiable y comodidad trabajando con residentes, familiares o cuidadores.',
       },
       {
         question: '¿CasaMia gestiona al cliente después de instalar?',
@@ -300,18 +300,18 @@ const providerPartnerCopy = {
     saved: (id: string) =>
       `Solicitud ${id} guardada localmente para revisión. Despliega en Vercel con Supabase configurado antes de usarlo como bandeja real de solicitudes.`,
     marketSignals: [
-      { value: 'Viviendas que envejecen', label: 'Más personas necesitan adaptaciones prácticas que mantengan la independencia en casa.' },
-      { value: 'Falta de especialistas', label: 'Muchos oficios instalan productos, pero menos entienden rutinas senior, dignidad y contexto de riesgo.' },
-      { value: 'Despliegue urbano', label: 'CasaMia crea cobertura fiable ciudad por ciudad, empezando donde la demanda y la logística pueden escalar.' },
+      { value: 'Mejoras prácticas en casa', label: 'Más viviendas necesitan apoyos, luz, umbrales, baño seguro y rutas claras antes de una caída o vuelta del hospital.' },
+      { value: 'Falta de contexto', label: 'Muchos oficios instalan productos, pero menos llegan con rutina diaria, preocupación de riesgo y decisores ya claros.' },
+      { value: 'Cobertura ciudad a ciudad', label: 'CasaMia crea cobertura local donde visitas, disponibilidad de oficios y seguimiento se pueden gestionar bien.' },
     ],
     expertisePillars: [
-      { title: 'Diseño de proyecto centrado en la persona', body: 'CasaMia revisa persona, rutinas, cambios de movilidad, preocupaciones del hogar y riesgo estancia por estancia antes de recomendar trabajos.' },
-      { title: 'Seguridad práctica, no venta de productos', body: 'Las recomendaciones se centran en transferencias, umbrales, iluminación, puntos de apoyo, baño, rutas nocturnas y uso seguro.' },
-      { title: 'Recorrido profesional del cliente', body: 'Los proveedores trabajan dentro de un flujo estructurado: evaluación, plan acotado, briefing de instalación, aceptación y notas de seguimiento.' },
-      { title: 'Contacto centralizado', body: 'CasaMia sigue como punto central de contacto para que cada cliente sepa quién responde y los proveedores se concentren en entregar calidad.' },
+      { title: 'Contexto de estancia y rutina', body: 'CasaMia revisa persona, rutinas, cambios de movilidad, preocupaciones del hogar y riesgo estancia por estancia antes de enviar trabajos.' },
+      { title: 'Seguridad práctica primero', body: 'Las recomendaciones se centran en transferencias, umbrales, iluminación, puntos de apoyo, baño, rutas nocturnas y uso seguro.' },
+      { title: 'Proceso de proyecto claro', body: 'Los proveedores trabajan dentro de un flujo estructurado: evaluación, plan acotado, briefing de instalación, aceptación y notas de seguimiento.' },
+      { title: 'Un contacto para el cliente', body: 'CasaMia sigue como punto central de contacto para que cada cliente sepa quién responde y los proveedores se concentren en entregar calidad.' },
     ],
     benefits: [
-      { title: 'Demanda local cualificada', body: 'CasaMia canaliza proyectos evaluados hacia proveedores capaces de entregar con respeto, limpieza y puntualidad.' },
+      { title: 'Demanda local revisada', body: 'CasaMia canaliza proyectos de seguridad en casa hacia proveedores capaces de entregar con respeto, limpieza y puntualidad.' },
       { title: 'Alcance claro antes de la visita', body: 'Los proveedores reciben briefing, fotos o notas disponibles y expectativas definidas antes de empezar.' },
       { title: 'Coordinación central', body: 'CasaMia mantiene el contacto con el cliente, gestiona el flujo y reduce idas y vueltas para el proveedor.' },
       { title: 'Cobertura recurrente por ciudad', body: 'El programa está diseñado para crear cobertura fiable en las principales ciudades de España y alrededores.' },
@@ -326,15 +326,15 @@ const providerPartnerCopy = {
     ],
     resources: [
       { title: 'Briefings estructurados', body: 'Contexto del cliente, prioridades por estancia, fotos disponibles, trabajo acordado, notas de acceso y prioridades de seguridad antes de la visita.' },
-      { title: 'Playbooks de seguridad senior', body: 'Guías prácticas para baños, escaleras, entradas, dormitorios, iluminación, transferencias y seguridad inteligente.' },
+      { title: 'Playbooks de seguridad por estancia', body: 'Guías prácticas para baños, escaleras, entradas, dormitorios, iluminación, transferencias y seguridad conectada.' },
       { title: 'Plantillas de propuesta y cierre', body: 'Formatos reutilizables para trabajo acordado, notas de finalización, registros de producto, comprobaciones de seguridad e instrucciones al cliente.' },
       { title: 'Bucle de calidad', body: 'CasaMia recoge feedback del cliente, resultados de instalación y notas de seguimiento para que los mejores proveedores sigan mejorando.' },
       { title: 'Coordinación operativa', body: 'Apoyo con planificación, comunicación con clientes, cambios del trabajo acordado y expectativas de seguimiento.' },
-      { title: 'Formación y onboarding', body: 'Módulos breves para entender comunicación senior, trabajo sin presión, documentación y estándares de aceptación.' },
+      { title: 'Formación y onboarding', body: 'Módulos breves para gestionar visitas sensibles, trabajo sin presión, documentación y estándares de aceptación.' },
     ],
     assets: [
       { title: 'Sello de colaborador aprobado', body: 'Insignia para web y propuestas tras revisión y aceptación en la red CasaMia.', format: 'Insignia SVG', usage: 'Pie de web, presupuestos, landing pages' },
-      { title: 'Insignia de partner de seguridad senior', body: 'Sello más suave para perfiles y galerías centradas en hogares seguros para mayores.', format: 'Insignia SVG', usage: 'Portfolio, galerías antes/después, páginas locales' },
+      { title: 'Insignia de partner de seguridad en casa', body: 'Sello más suave para perfiles y galerías centradas en rutinas diarias más seguras.', format: 'Insignia SVG', usage: 'Portfolio, galerías antes/después, páginas locales' },
       { title: 'Bloque de firma de email', body: 'Firma breve para explicar la colaboración con CasaMia en comunicaciones diarias.', format: 'Firma HTML', usage: 'Firmas de email, facturas, seguimiento' },
       { title: 'Texto para anuncio social', body: 'Texto de lanzamiento para LinkedIn, Facebook o Google Business Profile al unirse al programa.', format: 'Texto breve', usage: 'Redes sociales y perfiles locales' },
       { title: 'Concepto de vinilo para ventana o vehículo', body: 'Concepto sencillo adaptable para vehículos, oficinas o showrooms aprobados.', format: 'Concepto SVG', usage: 'Vehículo, escaparate, mostrador' },
@@ -350,7 +350,7 @@ const providerPartnerCopy = {
     standards: [
       'Registro profesional activo o datos equivalentes de actividad.',
       'Seguro adecuado para los servicios ofrecidos.',
-      'Trabajo respetuoso en viviendas ocupadas por personas mayores.',
+      'Trabajo respetuoso en viviendas habitadas.',
       'Capacidad para aportar disponibilidad, datos de precio y notas de finalización.',
       'Disposición a seguir normas CasaMia de entrega, seguridad y no cobro directo.',
       'Compromiso de documentar defectos materiales o alcance incompleto con honestidad.',
@@ -365,7 +365,7 @@ const providerPartnerCopy = {
       { city: 'Madrid', status: 'Alta prioridad', note: 'Gran área metropolitana y fuerte demanda de decisores de hogar.' },
       { city: 'Barcelona', status: 'Alta prioridad', note: 'Viviendas urbanas densas, edificios antiguos y necesidad amplia de cobertura.' },
       { city: 'Valencia', status: 'Alta prioridad', note: 'Gran ciudad costera con oportunidad en accesibilidad y envejecimiento en casa.' },
-      { city: 'Málaga', status: 'Construyendo red', note: 'Mercado senior e internacional en crecimiento en la costa.' },
+      { city: 'Málaga', status: 'Construyendo red', note: 'Demanda costera creciente de viviendas más seguras y adaptaciones prácticas.' },
       { city: 'Alicante', status: 'Construyendo red', note: 'Alto potencial de cobertura costera y necesidades recurrentes de adaptación.' },
       { city: 'Sevilla', status: 'Construyendo red', note: 'Hub regional para adaptación de vivienda y servicios prácticos de seguridad.' },
       { city: 'Bilbao', status: 'Próxima apertura', note: 'Cobertura prioritaria en el norte cuando se confirme profundidad de partners.' },
@@ -407,7 +407,7 @@ function createPartnerBadgeSvg(title: string, subtitle: string, accent: 'blue' |
   <path d="M130 226L151 247L190 201" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="270" y="218" fill="#071F3A" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700">${title}</text>
   <text x="272" y="263" fill="#1F6A98" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">${subtitle}</text>
-  <text x="272" y="305" fill="#344154" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600">Senior home-safety projects coordinated through CasaMia.</text>
+  <text x="272" y="305" fill="#344154" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="600">Home-safety projects coordinated through CasaMia.</text>
   <text x="272" y="332" fill="#344154" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600">Provider remains an independent business.</text>
 </svg>`
 }
@@ -419,7 +419,7 @@ function createMarketingAssetContent(title: string) {
     <td style="border-left:4px solid #7DB841; padding-left:14px;">
       <div style="font-size:18px; font-weight:800;">[Provider Name]</div>
       <div style="font-size:13px; color:#344154; margin-top:2px;">CasaMia approved collaborator</div>
-      <div style="font-size:12px; color:#1F6A98; font-weight:700; margin-top:8px;">Senior home-safety projects coordinated through CasaMia</div>
+      <div style="font-size:12px; color:#1F6A98; font-weight:700; margin-top:8px;">Home-safety projects coordinated through CasaMia</div>
       <div style="font-size:11px; color:#667085; margin-top:6px;">Independent provider. No direct customer payment requests.</div>
     </td>
   </tr>
@@ -427,26 +427,26 @@ function createMarketingAssetContent(title: string) {
   }
 
   if (title.includes('Social')) {
-    return `We are pleased to collaborate with CasaMia on senior home-safety projects.
+    return `We are pleased to collaborate with CasaMia on practical home-safety projects.
 
-CasaMia coordinates resident-centred assessments, measured adaptation plans and safe-use follow-up. Our role is to help deliver careful local work for older people who want to live more safely at home.
+CasaMia coordinates room reviews, measured adaptation plans and safe-use follow-up. Our role is to help deliver careful local work for people who want to live more safely at home.
 
-#SeniorSafety #AgeingAtHome #HomeAdaptations #CasaMia`
+#HomeSafety #AgeingAtHome #HomeAdaptations #CasaMia`
   }
 
   if (title.includes('Website')) {
-    return `We collaborate with CasaMia on selected senior home-safety projects. CasaMia coordinates the project brief and consent-aware customer communication, while our team supports local delivery within agreed task and safety standards.`
+    return `We collaborate with CasaMia on selected home-safety projects. CasaMia coordinates the project brief and consent-aware customer communication, while our team supports local delivery within agreed task and safety standards.`
   }
 
   if (title.includes('Window')) {
-    return createPartnerBadgeSvg('CasaMia collaborator', 'Senior home-safety provider', 'green')
+    return createPartnerBadgeSvg('CasaMia collaborator', 'Home-safety provider', 'green')
   }
 
-  if (title.includes('Senior')) {
-    return createPartnerBadgeSvg('Senior home-safety partner', 'In collaboration with CasaMia', 'green')
+  if (title.includes('Home-safety') || title.includes('seguridad en casa')) {
+    return createPartnerBadgeSvg('Home-safety partner', 'In collaboration with CasaMia', 'green')
   }
 
-  return createPartnerBadgeSvg('CasaMia approved collaborator', 'Senior home-safety network', 'green')
+  return createPartnerBadgeSvg('CasaMia approved collaborator', 'Home-safety network', 'green')
 }
 
 function downloadMarketingAsset(title: string, format: string) {
@@ -466,7 +466,7 @@ function downloadMarketingAsset(title: string, format: string) {
 }
 
 function getMarketingAssetVariant(title: string) {
-  if (title.includes('Senior')) return 'senior'
+  if (title.includes('Home-safety') || title.includes('seguridad en casa')) return 'senior'
   if (title.includes('Email')) return 'email'
   if (title.includes('Social')) return 'social'
   if (title.includes('Window')) return 'sticker'
@@ -489,7 +489,7 @@ export function ProviderPartnersPage() {
       description: copy.metaDescription,
       url: 'https://www.casamia.com.es/provider-partners',
       inLanguage: isSpanish ? 'es-ES' : 'en',
-      about: ['senior home safety provider network', 'home adaptation installation', 'provider onboarding'],
+      about: ['home safety provider network', 'home adaptation installation', 'provider onboarding'],
     },
     {
       '@context': 'https://schema.org',
@@ -779,8 +779,8 @@ export function ProviderPartnersPage() {
                         <strong>
                           {variant === 'senior'
                             ? isSpanish
-                              ? 'Partner de seguridad senior'
-                              : 'Senior home-safety partner'
+                              ? 'Partner de seguridad en casa'
+                              : 'Home-safety partner'
                             : variant === 'sticker'
                               ? isSpanish
                                 ? 'Colaborador CasaMia'
@@ -795,7 +795,7 @@ export function ProviderPartnersPage() {
                               ? 'Vinilo para vehículo / ventana'
                               : 'Vehicle / window decal'
                             : isSpanish
-                              ? 'Entrega local de confianza'
+                              ? 'Entrega local coordinada'
                               : 'Trusted local delivery'}
                         </small>
                       </div>
@@ -805,8 +805,8 @@ export function ProviderPartnersPage() {
                         <span>{isSpanish ? 'Colaborador aprobado CasaMia' : 'CasaMia approved collaborator'}</span>
                         <small>
                           {isSpanish
-                            ? 'Proyectos de seguridad senior coordinados por CasaMia'
-                            : 'Senior home-safety projects coordinated through CasaMia'}
+                            ? 'Proyectos de seguridad en casa coordinados por CasaMia'
+                            : 'Home-safety projects coordinated through CasaMia'}
                         </small>
                       </div>
                     ) : variant === 'social' ? (
@@ -814,8 +814,8 @@ export function ProviderPartnersPage() {
                         <span>{isSpanish ? 'Nueva colaboración' : 'New collaboration'}</span>
                         <strong>
                           {isSpanish
-                            ? 'Colaboramos con CasaMia en proyectos de seguridad senior'
-                            : 'Working with CasaMia on senior home-safety projects'}
+                            ? 'Colaboramos con CasaMia en proyectos de seguridad en casa'
+                            : 'Working with CasaMia on home-safety projects'}
                         </strong>
                         <small>#AgeingAtHome #HomeAdaptations</small>
                       </div>

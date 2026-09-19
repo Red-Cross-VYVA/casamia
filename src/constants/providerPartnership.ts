@@ -24,37 +24,37 @@ export const providerTrades = [
 
 export const providerMarketSignals = [
   {
-    value: 'Ageing homes',
-    label: 'More people need practical adaptations that preserve independence at home.',
+    value: 'Practical home fixes',
+    label: 'More homes need rails, lighting, thresholds, bathroom support and safer routes before a fall or hospital return.',
   },
   {
-    value: 'Specialist gap',
-    label: 'Many trades can install products, but fewer understand senior routines, dignity and fall-risk context.',
+    value: 'Context gap',
+    label: 'Many trades can install products, but fewer arrive with the daily routine, risk concern and decision-maker context already clear.',
   },
   {
-    value: 'City rollout',
-    label: 'CasaMia is building reliable coverage city by city, starting where demand and logistics can scale.',
+    value: 'City-by-city coverage',
+    label: 'CasaMia is building reliable local coverage where visit times, trade availability and follow-up can be managed well.',
   },
 ] as const
 
 export const providerExpertisePillars = [
   {
-    title: 'Person-centred project design',
+    title: 'Room and routine context',
     body:
-      'CasaMia looks at the person, daily routines, mobility changes, household concerns and room-by-room risk before recommending work.',
+      'CasaMia looks at the person, daily routines, mobility changes, household concerns and room-by-room risk before sending work out.',
   },
   {
-    title: 'Practical safety, not product pushing',
+    title: 'Practical safety first',
     body:
       'Recommendations focus on transfers, thresholds, lighting, support points, bathroom use, night movement and safe daily use.',
   },
   {
-    title: 'Professional customer process',
+    title: 'Clear project process',
     body:
       'Providers work inside a structured flow: assessment, scoped plan, installation brief, acceptance record and follow-up notes.',
   },
   {
-    title: 'Central customer contact',
+    title: 'One customer contact',
     body:
       'CasaMia remains the central point of contact so each customer knows who is responsible and providers can focus on quality delivery.',
   },
@@ -67,9 +67,9 @@ export const providerEnablementResources = [
       'Clear customer context, room priorities, photos where available, agreed scope, access notes and safety priorities before the visit.',
   },
   {
-    title: 'Senior-safety playbooks',
+    title: 'Room safety playbooks',
     body:
-      'Practical guidance for bathrooms, stairs, entrances, bedrooms, lighting, transfers and smart safety.',
+      'Practical guidance for bathrooms, stairs, entrances, bedrooms, lighting, transfers and connected safety.',
   },
   {
     title: 'Proposal and completion templates',
@@ -89,7 +89,7 @@ export const providerEnablementResources = [
   {
     title: 'Training and onboarding',
     body:
-      'Short onboarding modules help teams understand senior communication, no-pressure work, documentation and acceptance standards.',
+      'Short onboarding modules help teams handle sensitive home visits, no-pressure work, documentation and acceptance standards.',
   },
 ] as const
 
@@ -102,9 +102,9 @@ export const providerMarketingAssets = [
     usage: 'Website footer, quote documents, landing pages',
   },
   {
-    title: 'Senior home-safety partner badge',
+    title: 'Home-safety partner badge',
     body:
-      'A softer online badge for partner profile pages and project galleries focused on senior-safe homes.',
+      'A softer online badge for partner profile pages and project galleries focused on safer daily routines at home.',
     format: 'SVG badge',
     usage: 'Portfolio pages, before-and-after galleries, local service pages',
   },
@@ -165,7 +165,7 @@ export const providerPartnerPaths = [
   },
   {
     title: 'Occupational therapists',
-    body: 'Resident-centred assessment, mobility context and practical adaptation priorities.',
+    body: 'Person-centred assessment, mobility context and practical adaptation priorities.',
   },
   {
     title: 'Follow-up providers',
@@ -177,7 +177,7 @@ export const providerCityOpportunities = [
   { city: 'Madrid', status: 'High priority', note: 'Large metro area and strong household decision-maker demand.' },
   { city: 'Barcelona', status: 'High priority', note: 'Dense urban homes, older buildings and broad service coverage needs.' },
   { city: 'Valencia', status: 'High priority', note: 'Major coastal city with accessibility and ageing-at-home opportunity.' },
-  { city: 'Malaga', status: 'Building network', note: 'Growing senior and international-resident market along the coast.' },
+  { city: 'Malaga', status: 'Building network', note: 'Growing coastal demand for safer homes and practical adaptation work.' },
   { city: 'Alicante', status: 'Building network', note: 'Strong coastal coverage potential and recurring adaptation needs.' },
   { city: 'Seville', status: 'Building network', note: 'Regional hub for home adaptation and practical safety services.' },
   { city: 'Bilbao', status: 'Opening soon', note: 'Priority northern coverage once partner depth is confirmed.' },
@@ -188,7 +188,7 @@ export const providerProgrammeBenefits = [
   {
     title: 'Qualified local demand',
     body:
-      'CasaMia channels assessed home-safety projects to providers who can deliver respectfully, neatly and on schedule.',
+      'CasaMia channels reviewed home-safety projects to providers who can deliver respectfully, neatly and on schedule.',
   },
   {
     title: 'Clear scope before site visits',
@@ -210,7 +210,7 @@ export const providerProgrammeBenefits = [
 export const providerQualityStandards = [
   'Active professional registration or equivalent trading details.',
   'Insurance appropriate for the services offered.',
-  'Respectful work inside homes occupied by older residents.',
+  'Respectful work inside occupied homes.',
   'Ability to provide clear availability, pricing inputs and completion notes.',
   'Willingness to follow CasaMia completion, safe-use and no-direct-payment rules.',
   'Commitment to document material defects or incomplete scope honestly.',
