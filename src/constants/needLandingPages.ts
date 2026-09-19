@@ -223,17 +223,17 @@ export const needLandingPages: NeedLandingPageContent[] = [
     title: 'Home adaptations for elderly people',
     seoTitle: 'Home Adaptations for Elderly People in Spain',
     description:
-      'CasaMia helps plan elderly home adaptations across bathrooms, bedrooms, entrances, kitchens, lighting and connected living support.',
+      'Practical home adaptations for older adults: safer bathrooms, bedrooms, entrances, kitchens, lighting and help within reach.',
     eyebrow: 'Home adaptations',
     intro:
       'Good home adaptation starts with the daily task that has become harder: bathing, stairs, bed transfers, cooking, entering the home or asking for help.',
-    whoFor: ['Households that need one clear plan', 'Older adults with changing mobility or new hesitation at home', 'Homes needing practical adaptations, smart support or grant guidance'],
+    whoFor: ['Older adults who want to stay comfortable at home', 'Homes where movement, bathing, stairs or night routines now feel less safe', 'Households that need practical changes, connected support or grant guidance'],
     priorities: ['Safer bathroom access', 'Bedroom and night-time movement', 'Entrance, threshold and stairs support', 'Connected routines where helpful'],
-    casamiaPlan: ['Translate daily problems into room-by-room adaptations', 'Check products, fitting details and timings', 'Confirm pricing, included adaptations and safe-use explanation before installation starts'],
+    casamiaPlan: ['Turn daily problems into room-by-room actions', 'Check measurements, fitting details and practical timing', 'Confirm what is included and explain safe use before work is closed'],
     relatedServices: [
       { label: 'Service catalogue', to: '/services' },
       { label: 'Process', to: '/how-it-works' },
-      { label: 'Provider guide', to: '/blog/choose-home-safety-provider-spain' },
+      { label: 'Choosing help guide', to: '/blog/choose-home-safety-provider-spain' },
     ],
     faqs: [
       {
@@ -244,7 +244,7 @@ export const needLandingPages: NeedLandingPageContent[] = [
       {
         question: 'Does CasaMia supply and install everything?',
         answer:
-          'CasaMia helps define the plan: assessment, suitable equipment, checked fitting, safe-use explanation and follow-up where required.',
+          'CasaMia helps define the plan, select suitable items, check fitting details, explain safe use and arrange follow-up where required.',
       },
     ],
   },
@@ -460,7 +460,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
     title: 'Home safety assessment vs general contractor',
     seoTitle: 'Home Safety Assessment vs General Contractor | CasaMia',
     description:
-      'Understand when a senior home safety assessment should define the adaptation plan before a contractor quotes or installs adaptations.',
+      'Know when to start with a senior home safety assessment before asking a contractor to quote or install work.',
     eyebrow: 'Decision guide',
     intro:
       'A contractor is the right call once the adaptation is clear. A safety assessment helps when you are still deciding what should change, where risk is highest, and which changes will actually support the person using the home.',
@@ -475,12 +475,12 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       'Which risks are urgent, recommended or optional',
       'Measurements, wall types, fixing points, thresholds, door swings and site constraints',
       'Whether the right answer is a product, minor adaptation, larger installation or connected support',
-      'A written plan that contractors can price without guessing',
+      'A written plan that can be priced without guessing',
     ],
     casamiaPlan: [
       'Start with the daily movement problem, not a product catalogue',
       'Map each risk to the relevant room package and optional add-ons',
-      'Prepare a practical plan with photos, priorities and installation notes',
+      'Prepare a practical plan with photos, priorities and fitting notes',
       'Set out fitting requirements, completion checks and follow-up support',
     ],
     relatedServices: [
@@ -492,7 +492,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'Should I call a contractor first?',
         answer:
-          'If the required adaptation is obvious, measured and already specified, a contractor may be enough. If you are unsure what should change, start with a safety assessment so the quote matches the person at home rather than a one-size-fits-all installation.',
+          'If the exact work is obvious, measured and already specified, a contractor may be enough. If you are unsure what should change, start with a safety assessment so the quote matches the person at home.',
       },
       {
         question: 'Does CasaMia do the installation too?',
@@ -502,7 +502,7 @@ export const decisionGuidePages: NeedLandingPageContent[] = [
       {
         question: 'Why not ask for three contractor quotes immediately?',
         answer:
-          'Three quotes are only comparable when they price the same plan. If each contractor guesses a different solution, you may choose on price without knowing which option solves the real safety problem.',
+          'Three quotes only help when they price the same work. If each person guesses a different fix, the cheapest quote may not solve the real safety problem.',
       },
       {
         question: 'When is a contractor enough?',

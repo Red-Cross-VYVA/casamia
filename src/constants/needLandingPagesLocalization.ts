@@ -213,14 +213,14 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Adaptaciones del hogar para personas mayores',
     seoTitle: 'Adaptaciones del hogar para personas mayores en España',
     description:
-      'CasaMia ayuda a planificar adaptaciones para personas mayores en baño, dormitorio, entrada, cocina, iluminación y apoyo conectado.',
+      'Adaptaciones prácticas para personas mayores: baño, dormitorio, entrada, cocina, iluminación y ayuda al alcance.',
     eyebrow: 'Adaptaciones del hogar',
     intro:
       'Una buena adaptación no consiste en añadir productos al azar. Consiste en preservar independencia, comodidad y dignidad eliminando riesgos y fricciones diarias.',
     whoFor: [
-      'Familias que necesitan un plan claro',
-      'Personas mayores con cambios de movilidad o confianza',
-      'Viviendas que combinan obras prácticas, apoyo conectado o ayudas',
+      'Personas mayores que quieren seguir cómodas en casa',
+      'Viviendas donde baño, escaleras, noche o entradas se sienten menos seguros',
+      'Hogares que necesitan cambios prácticos, apoyo conectado o guía para ayudas',
     ],
     priorities: [
       'Acceso más seguro al baño',
@@ -229,14 +229,14 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       'Rutinas conectadas cuando aportan valor',
     ],
     casamiaPlan: [
-      'Traducir necesidades en resultados fáciles de entender',
-      'Comprobar productos, encaje y tiempos',
-      'Mantener claros precio, adaptaciones incluidas y explicación final',
+      'Convertir problemas diarios en acciones por estancia',
+      'Comprobar medidas, encaje y tiempos prácticos',
+      'Confirmar qué está incluido y explicar el uso seguro antes de cerrar',
     ],
     relatedServices: [
       { label: 'Catálogo de servicios', to: '/services' },
       { label: 'Proceso', to: '/how-it-works' },
-      { label: 'Guía para elegir proveedor', to: '/blog/choose-home-safety-provider-spain' },
+      { label: 'Guía para elegir ayuda', to: '/blog/choose-home-safety-provider-spain' },
     ],
     faqs: [
       {
@@ -247,7 +247,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿CasaMia suministra e instala todo?',
         answer:
-          'CasaMia ayuda a definir el plan: evaluación, productos adecuados, encaje comprobado, explicación de uso seguro y seguimiento cuando corresponde.',
+          'CasaMia ayuda a definir el plan, elegir elementos adecuados, comprobar el encaje, explicar el uso seguro y organizar seguimiento cuando corresponde.',
       },
     ],
   },
@@ -479,27 +479,27 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
     title: 'Evaluación de seguridad o contratista general',
     seoTitle: 'Evaluación de seguridad o contratista general | CasaMia',
     description:
-      'Entiende cuándo una evaluación de seguridad debe definir el plan antes de pedir presupuesto o instalación a un contratista.',
+      'Cuándo empezar con una evaluación de seguridad antes de pedir presupuesto o instalación.',
     eyebrow: 'Guía de decisión',
     intro:
-      'Un contratista es útil cuando el trabajo ya está claro. Una evaluación de seguridad es útil cuando la familia aún decide qué obra conviene hacer, dónde está el mayor riesgo y qué cambios ayudarán realmente a la persona que vive en casa.',
+      'Un contratista es útil cuando el trabajo ya está claro. Una evaluación de seguridad ayuda cuando todavía no sabes qué debe cambiar, dónde está el mayor riesgo y qué apoyará de verdad a la persona que vive en casa.',
     whoFor: [
-      'Familias que saben que algo no es seguro pero no saben qué pedir a un instalador',
+      'Personas que notan algo inseguro pero no saben qué pedir a un instalador',
       'Viviendas con varias estancias, transferencias o rutas implicadas',
       'Personas mayores cuya movilidad, confianza o apoyo ha cambiado recientemente',
-      'Familias que necesitan un plan claro antes de presupuestos, ayudas, permiso de propietario o comunidad',
+      'Hogares que necesitan un plan claro antes de presupuestos, ayudas, permiso de propietario o comunidad',
     ],
     priorities: [
       'Rutina de la persona: baño, inodoro, cama, escaleras, cocina, entrada y ruta nocturna',
       'Riesgos urgentes, recomendados u opcionales',
       'Medidas, tipo de pared, puntos de fijación, umbrales, puertas y limitaciones del espacio',
       'Si conviene producto rápido, pequeña adaptación, obra mayor o apoyo conectado',
-      'Un plan escrito que el contratista pueda presupuestar sin adivinar',
+      'Un plan escrito que pueda presupuestarse sin adivinar',
     ],
     casamiaPlan: [
       'Empezar por el movimiento diario, no por un catálogo de productos',
       'Conectar cada riesgo con el paquete de estancia y extras adecuados',
-      'Preparar un plan práctico con fotos, prioridades y notas de instalación',
+      'Preparar un plan práctico con fotos, prioridades y notas de encaje',
       'Definir requisitos de encaje, comprobación final y seguimiento',
     ],
     relatedServices: [
@@ -511,7 +511,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿Debo llamar primero a un contratista?',
         answer:
-          'Si el trabajo está claro, medido y definido, puede bastar. Si la familia no sabe qué cambiar, es mejor empezar con una evaluación para que el presupuesto encaje con la persona y no con una instalación genérica.',
+          'Si el trabajo exacto está claro, medido y definido, puede bastar. Si no sabes qué cambiar, es mejor empezar con una evaluación para que el presupuesto encaje con la persona que vive en casa.',
       },
       {
         question: '¿CasaMia también ayuda con la instalación?',
@@ -521,7 +521,7 @@ const spanishNeedLandingPages: Record<string, NeedLandingPageTranslation> = {
       {
         question: '¿Por qué no pedir tres presupuestos directamente?',
         answer:
-          'Tres presupuestos solo se comparan bien si todos valoran el mismo plan. Si cada contratista propone algo distinto, la familia puede elegir por precio sin saber qué opción resuelve el riesgo real.',
+          'Tres presupuestos solo ayudan si todos valoran el mismo trabajo. Si cada persona propone algo distinto, el presupuesto más barato quizá no resuelva el riesgo real.',
       },
       {
         question: '¿Cuándo basta con un contratista?',
