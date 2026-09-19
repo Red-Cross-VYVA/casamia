@@ -122,7 +122,7 @@ const tools = [
       en: 'Answer five questions to see whether the home feels stable, uncertain or worth reviewing sooner.',
       es: 'Responde cinco preguntas para ver si la vivienda parece estable, genera dudas o merece revisión antes.',
     },
-    to: '/tools/senior-friendly-home-check',
+    to: '/tools/home-safety-check',
   },
   {
     icon: FileCheck2,
@@ -280,7 +280,7 @@ export function ToolsPage() {
             <h1>{pageCopy.title}</h1>
             <p>{pageCopy.body}</p>
           </div>
-          <Link className="tools-featured-card" to="/tools/senior-friendly-home-check">
+          <Link className="tools-featured-card" to="/tools/home-safety-check">
             <span>
               <ShieldCheck size={30} aria-hidden="true" />
             </span>
@@ -403,7 +403,7 @@ export function ToolsPage() {
             <h2>{pageCopy.finalTitle}</h2>
             <p>{pageCopy.finalBody}</p>
           </div>
-          <Link className="btn btn-green" to="/tools/senior-friendly-home-check">
+          <Link className="btn btn-green" to="/tools/home-safety-check">
             {pageCopy.finalCta}
             <ArrowRight size={18} aria-hidden="true" />
           </Link>

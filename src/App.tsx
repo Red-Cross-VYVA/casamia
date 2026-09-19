@@ -350,6 +350,7 @@ export function AppRoutes() {
             <Route path="/tools/grant-eligibility" element={<Navigate to="/grant-check" replace />} />
             <Route path="/tools/is-my-parent-safe-at-home" element={<ParentSafetyQuizPage />} />
             <Route path="/tools/senior-friendly-home-check" element={<ParentSafetyQuizPage />} />
+            <Route path="/tools/home-safety-check" element={<ParentSafetyQuizPage />} />
             <Route path="/grants" element={<GrantSupportSpainPage />} />
             <Route path="/grant-check" element={<GrantEligibilityPage />} />
             <Route path="/estimate/:token" element={<EstimateReportPage />} />

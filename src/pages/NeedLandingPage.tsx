@@ -696,7 +696,7 @@ const needResourceReferences: Record<string, NeedResourceReference[]> = {
     { kind: 'article', id: 'bedroom-night-safety-older-adults' },
     {
       kind: 'tool',
-      to: '/tools/senior-friendly-home-check',
+      to: '/tools/home-safety-check',
       title: { en: 'Is this home safe day to day?', es: '¿Esta casa es segura en el día a día?' },
       description: {
         en: 'Five focused questions to spot warning signs before a fall or crisis.',

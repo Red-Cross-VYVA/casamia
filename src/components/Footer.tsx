@@ -95,7 +95,7 @@ export function Footer() {
   const resourceLinks = [
     { label: links.freeTools, to: '/tools' },
     { download: true, label: links.checklist, to: completeHomeChecklistDownloads[language].href },
-    { label: links.onlineCheck, to: '/tools/senior-friendly-home-check' },
+    { label: links.onlineCheck, to: '/tools/home-safety-check' },
     { label: links.grantsGuide, to: '/blog/home-adaptation-grants-spain-family-guide' },
     { label: links.visitPrep, to: '/blog/family-conversation-before-home-safety-visit' },
     { label: links.fallPrevention, to: '/blog/fall-prevention-home-checklist-spain' },

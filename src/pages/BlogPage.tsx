@@ -303,7 +303,7 @@ const toolContent = [
       en: 'Answer five everyday questions and see whether to monitor, check one room or book a focused CasaMia review.',
       es: 'Responde cinco preguntas cotidianas y ve si conviene observar, revisar una estancia o pedir una revisión CasaMia.',
     },
-    to: '/tools/senior-friendly-home-check',
+    to: '/tools/home-safety-check',
   },
   {
     icon: ClipboardCheck,
@@ -1241,7 +1241,7 @@ export function BlogPage() {
                 <p className="eyebrow">{copy.familyStarterEyebrow}</p>
                 <h2 id="resource-family-starter-title">{copy.familyStarterTitle}</h2>
                 <p>{copy.familyStarterBody}</p>
-                <Link className="btn btn-green" to="/tools/senior-friendly-home-check">
+                <Link className="btn btn-green" to="/tools/home-safety-check">
                   {copy.familyStarterCta}
                   <ArrowRight size={18} aria-hidden="true" />
                 </Link>
@@ -1538,7 +1538,7 @@ export function BlogPage() {
               <p className="eyebrow">{copy.actionRouteEyebrow}</p>
               <h2 id="resource-action-route-title">{copy.actionRouteTitle}</h2>
               <p>{copy.actionRouteBody}</p>
-              <Link className="btn btn-green" to="/tools/senior-friendly-home-check">
+              <Link className="btn btn-green" to="/tools/home-safety-check">
                 {copy.actionRouteCta}
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
