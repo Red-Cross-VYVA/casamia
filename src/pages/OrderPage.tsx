@@ -54,68 +54,68 @@ type OrderCopy = {
 
 const orderCopy: Record<'en' | 'es', OrderCopy> = {
   en: {
-    eyebrow: 'Start your CasaMia order',
-    title: 'Choose how you want the local team to contact you.',
+    eyebrow: 'Contact CasaMia',
+    title: 'Tell us what the home needs help with.',
     intro:
-      'Choose the best contact option for your home: book a visit, ask about a plan, check grant criteria or confirm local availability.',
+      'Choose the easiest way to ask about a visit, a room plan, grant-readiness or local availability. We will confirm what to check next before anything is booked.',
     regionLabel: 'Selected zone',
-    whatsappTitle: 'Email',
-    whatsappBody: 'Send the home location, main concern and preferred contact time so CasaMia can reply with what to confirm first.',
-    whatsappCta: 'Email CasaMia',
-    callbackTitle: 'Call me',
-    callbackBody: 'Leave your number and CasaMia will prepare the callback for the local team.',
-    callTitle: 'Contact us',
-    callBody: 'Email CasaMia if the home needs urgent support or a fast answer.',
-    callCta: 'Email CasaMia',
-    formTitle: 'Book a callback',
-    formBody: 'Choose when CasaMia should call to confirm the home, concern and next action.',
+    whatsappTitle: 'Send a quick email',
+    whatsappBody: 'Best if you already know the location, room or concern and want CasaMia to reply with the first things to confirm.',
+    whatsappCta: 'Write email',
+    callbackTitle: 'Request a callback',
+    callbackBody: 'Best if you want CasaMia to call, understand the situation and suggest the next useful check.',
+    callTitle: 'Need a fast answer?',
+    callBody: 'Email CasaMia directly if the situation is time-sensitive or you are unsure which option to choose.',
+    callCta: 'Contact CasaMia',
+    formTitle: 'Request a callback',
+    formBody: 'Choose a preferred time and add the room, routine or concern you want to discuss.',
     name: 'Name',
     email: 'Email',
     phone: 'Phone',
     date: 'Preferred date',
     time: 'Preferred time',
     timeOptions: { '09:00-12:00': '09:00-12:00', '12:00-15:00': '12:00-15:00', '15:00-18:00': '15:00-18:00', '18:00-20:00': '18:00-20:00', flexible: 'Flexible' },
-    notes: 'What should we know?',
-    notesPlaceholder: 'Example: Madrid, bathroom safety, preferred call time...',
-    submit: 'Book callback',
-    success: 'Callback details received. We have emailed your confirmation.',
-    successSaved: 'Callback details received. CasaMia will contact you using the details provided.',
+    notes: 'What should we understand first?',
+    notesPlaceholder: 'Example: Madrid, bathroom transfers, night route, grant question...',
+    submit: 'Request callback',
+    success: 'Callback request received. We have emailed your confirmation.',
+    successSaved: 'Callback request received. CasaMia will contact you using the details provided.',
     error: 'We could not send your callback details. Please check the details and try again.',
     consent: 'I agree that CasaMia may use these details to arrange and confirm my callback.',
     back: 'Back to coverage map',
-    trust: ['No commitment', 'Local follow-up', 'Safety and grant guidance'],
+    trust: ['No commitment', 'Room-first guidance', 'Safety and grant-readiness support'],
   },
   es: {
-    eyebrow: 'Empieza tu pedido CasaMia',
-    title: 'Elige cómo quieres que contacte el equipo local.',
+    eyebrow: 'Contacta con CasaMia',
+    title: 'Cuéntanos en qué necesita ayuda la vivienda.',
     intro:
-      'Elige la vía de contacto para la vivienda: visita, plan con precio, ayudas o disponibilidad local.',
+      'Elige la forma más sencilla de preguntar por una visita, un plan por estancia, preparación de ayudas o disponibilidad local. Confirmaremos qué revisar antes de reservar nada.',
     regionLabel: 'Zona seleccionada',
-    whatsappTitle: 'Email',
-    whatsappBody: 'Envía la ubicación, la preocupación principal y cuándo contactarte para responder con qué conviene confirmar primero.',
-    whatsappCta: 'Enviar email',
-    callbackTitle: 'Llamadme',
-    callbackBody: 'Deja tu número y CasaMia preparará una solicitud de llamada para el equipo local.',
-    callTitle: 'Contactar',
-    callBody: 'Escribe a CasaMia si la vivienda necesita apoyo urgente o una respuesta rápida.',
-    callCta: 'Enviar email',
+    whatsappTitle: 'Enviar un email rápido',
+    whatsappBody: 'Mejor si ya sabes la ubicación, estancia o preocupación y quieres que CasaMia responda con lo primero que conviene confirmar.',
+    whatsappCta: 'Escribir email',
+    callbackTitle: 'Solicitar una llamada',
+    callbackBody: 'Mejor si quieres que CasaMia llame, entienda la situación y sugiera la revisión más útil.',
+    callTitle: '¿Necesitas respuesta rápida?',
+    callBody: 'Escribe directamente a CasaMia si la situación tiene prisa o no sabes qué opción elegir.',
+    callCta: 'Contactar con CasaMia',
     formTitle: 'Solicitar llamada',
-    formBody: 'Elige cuándo debe llamar CasaMia para confirmar la vivienda, la preocupación y qué revisar primero.',
+    formBody: 'Elige un horario preferido y añade la estancia, rutina o preocupación que quieres comentar.',
     name: 'Nombre',
     email: 'Correo electrónico',
     phone: 'Teléfono',
     date: 'Fecha preferida',
     time: 'Horario preferido',
     timeOptions: { '09:00-12:00': '09:00-12:00', '12:00-15:00': '12:00-15:00', '15:00-18:00': '15:00-18:00', '18:00-20:00': '18:00-20:00', flexible: 'Flexible' },
-    notes: '¿Qué debemos saber?',
-    notesPlaceholder: 'Ejemplo: Madrid, seguridad en baño, horario preferido...',
+    notes: '¿Qué debemos entender primero?',
+    notesPlaceholder: 'Ejemplo: Madrid, transferencias en baño, ruta nocturna, duda de ayudas...',
     submit: 'Solicitar llamada',
     success: 'Solicitud de llamada recibida. Te hemos enviado la confirmación por email.',
-    successSaved: 'Solicitud de llamada recibida. CasaMia se pondrá en contacto contigo usando los datos facilitados.',
+    successSaved: 'Solicitud de llamada recibida. CasaMia contactará usando los datos facilitados.',
     error: 'No se pudo enviar la solicitud. Revisa los datos e inténtalo de nuevo.',
     consent: 'Acepto que CasaMia utilice estos datos para organizar y confirmar mi llamada.',
     back: 'Volver al mapa de cobertura',
-    trust: ['Sin compromiso', 'Seguimiento local', 'Guía de seguridad y ayudas'],
+    trust: ['Sin compromiso', 'Orientación por estancia', 'Apoyo en seguridad y preparación de ayudas'],
   },
 }
 
@@ -157,10 +157,12 @@ export function OrderPage() {
 
   const whatsappHref = useMemo(() => {
     const message = isSpanish
-      ? `Hola CasaMia, quiero pedir información para ${zoneName}.`
-      : `Hello CasaMia, I'd like help with ${zoneName}.`
+      ? `Hola CasaMia, quiero pedir información para ${zoneName}.\n\nLa estancia o preocupación principal es:\nEl mejor momento para contactarme es:`
+      : `Hello CasaMia, I'd like help with ${zoneName}.\n\nThe main room or concern is:\nThe best time to contact me is:`
 
-    return `${contactHref}?subject=${encodeURIComponent(`CasaMia support for ${zoneName}`)}&body=${encodeURIComponent(message)}`
+    const subject = isSpanish ? `Consulta CasaMia para ${zoneName}` : `CasaMia enquiry for ${zoneName}`
+
+    return `${contactHref}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`
   }, [isSpanish, zoneName])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
