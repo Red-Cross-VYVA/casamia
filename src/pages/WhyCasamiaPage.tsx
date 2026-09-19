@@ -68,14 +68,14 @@ type WhyCasamiaCopy = {
 const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
   en: {
     eyebrow: 'Why CasaMia',
-    headline: 'A safer home plan with one accountable team',
+    headline: 'Know what to change, who will do it and how it will be checked',
     intro:
       'CasaMia helps you decide what to fix first, what can wait, who should do the work and how the finished change will be checked.',
     coverage: {
       eyebrow: 'Spain-wide service',
-      title: 'Local help across Spain, with one CasaMia standard.',
+      title: 'Local help across Spain, with one clear CasaMia process.',
       body:
-        'Wherever the home is, CasaMia keeps the review, explanation and follow-up consistent while matching the work to local availability.',
+        'Wherever the home is, CasaMia keeps the review, explanation and follow-up consistent while checking what local help is actually available.',
       badge: 'All Spain',
       legend: 'Local coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
@@ -83,16 +83,16 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       repPlural: 'local teams',
       orderNow: 'Order now',
     },
-    promiseTitle: 'Clear choices before any work starts.',
+    promiseTitle: 'Clear decisions before any work starts.',
     promiseBody:
-      'CasaMia turns a home concern into room priorities, practical recommendations, price expectations, grant checks where relevant and a clear next step.',
+      'CasaMia turns a home concern into room priorities, practical recommendations, what needs measuring, what can wait and what the next decision is.',
     promisePoints: [
       'Daily-use focus: movement, support points, lighting, access and wet-floor risk.',
-      'Plain explanations: what matters, why it matters and what may need checking on site.',
-      'Checked follow-through: fit confirmed first, work arranged carefully and results reviewed.',
+      'Plain explanations: what matters, why it matters and what still needs checking.',
+      'Checked follow-through: fit confirmed first, work arranged carefully and the result reviewed.',
     ],
     processEyebrow: 'How CasaMia helps',
-    processTitle: 'Know what happens before, during and after the work',
+    processTitle: 'Know what happens before, during and after the next step',
     processSteps: [
       {
         title: 'Understand the daily routine',
@@ -104,27 +104,27 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Match the right help',
-        body: 'Before work is arranged, the fitting details are checked against the room, location and recommended change.',
+        body: 'Before work is arranged, fit and availability are checked against the room, location and recommended change.',
       },
       {
-        title: 'Review the finished change',
+        title: 'Review the result',
         body: 'The result is checked with you, explained clearly and kept with one CasaMia point of contact.',
       },
     ],
     proofEyebrow: 'What we verify',
     proofTitle: 'Clear checks before you commit.',
     proofBody:
-      'The risk is not only choosing the wrong product. It is starting work without knowing what is included, what still needs confirmation, who is responsible and how the result will be checked.',
+      'The risk is not only choosing the wrong product. It is starting without knowing what is included, what still needs confirmation, who is responsible and how the result will be checked.',
     proofItems: [
       {
-        title: 'Right professional',
-        body: 'The person doing the work must fit the room, change type, location, availability and standard needed for an occupied home.',
+        title: 'Right person for the work',
+        body: 'The person doing the work must fit the room, change type, location, availability and standard needed for a lived-in home.',
         outcome: 'Clear responsibility',
       },
       {
         title: 'Plan and price clarity',
         body: 'The recommendation separates included work, optional items, measurement-dependent decisions and grant checks where relevant.',
-        outcome: 'No vague list',
+        outcome: 'Clear scope',
       },
       {
         title: 'Daily-use fit',
@@ -133,30 +133,30 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Aftercare follow-up',
-        body: 'You know what happens after installation: explanation, questions, photos, notes and any follow-up needed.',
+        body: 'You know what happens after the key step: explanation, questions, photos, notes and any follow-up needed.',
         outcome: 'One contact',
       },
     ],
     sections: [
       {
         icon: 'inspectors',
-        title: 'Clear digital record',
+        title: 'A clear record of the decision',
         body:
-          'CasaMia keeps photos, priorities, decisions and follow-up notes together so everyone can see what was recommended and why.',
+          'CasaMia keeps photos, priorities, decisions and follow-up notes together so the recommendation is easy to understand later.',
         points: ['Built around real home routines', 'Notes and photos kept together', 'Technology only where it reduces a named risk'],
       },
       {
         icon: 'partners',
-        title: 'Local professionals checked for fit',
+        title: 'Local help checked for fit',
         body:
-          'CasaMia checks local professionals for the room, type of work, availability, communication and respectful work in occupied homes.',
+          'CasaMia checks local help for the room, type of work, availability, communication and respectful work in lived-in homes.',
         points: ['Local fit checked first', 'Clear briefing before the visit', 'Respectful work in the home'],
       },
       {
         icon: 'insured',
-        title: 'Quality control built in',
+        title: 'Quality checks built in',
         body:
-          'Every project needs more than a product list. CasaMia keeps the agreed work, installation notes, updates and safe-use explanation in one place.',
+          'Every project needs more than a product list. CasaMia keeps the agreed scope, notes, updates and safe-use explanation in one place.',
         points: ['Agreed work before installation starts', 'Installation and explanation tracked', 'Follow-up after the key step'],
       },
       {
@@ -168,16 +168,16 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'pricing',
-        title: 'Price and grant checks',
+        title: 'Price and grant checks stay separate',
         body:
           'You should know what is included, what is optional and what still needs measurement or confirmation before deciding.',
         points: ['Clear estimate before commitment', 'Optional items separated from essentials', 'Grant guidance without false promises'],
       },
       {
         icon: 'acceptance',
-        title: 'Values that guide the plan',
+        title: 'Respect guides the work',
         body:
-          'CasaMia keeps the person at home visible in every decision: what changes, who enters the home, what is explained and what happens after installation.',
+          'CasaMia keeps the person at home visible in every decision: what changes, who enters the home, what is explained and what happens after.',
         points: ['Respect for the person at home', 'No pressure or confusing explanations', 'Accountability from first contact to follow-up'],
       },
     ],
@@ -191,18 +191,18 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       'Example: The stairs feel unsafe at night, the home is in Marbella, and we need to understand what to fix first.',
     formNote:
       'CasaMia checks the situation, likely review path and local availability before recommending what to do first.',
-    ctaButton: 'Book home assessment',
+    ctaButton: 'Request home review',
   },
   es: {
     eyebrow: 'Por qué CasaMia',
-    headline: 'Un hogar más seguro con un equipo responsable',
+    headline: 'Sabe qué cambiar, quién lo hará y cómo se comprobará',
     intro:
       'CasaMia te ayuda a decidir qué conviene arreglar primero, qué puede esperar, quién debe hacerlo y cómo se comprobará el resultado.',
     coverage: {
       eyebrow: 'Servicio en toda España',
-      title: 'Ayuda local en toda España, con un estándar CasaMia.',
+      title: 'Ayuda local en toda España, con un proceso CasaMia claro.',
       body:
-      'Esté donde esté la vivienda, CasaMia mantiene una revisión, explicación y seguimiento consistentes, adaptados a la disponibilidad local.',
+      'Esté donde esté la vivienda, CasaMia mantiene una revisión, explicación y seguimiento consistentes, comprobando qué ayuda local está realmente disponible.',
       badge: 'Toda España',
       legend: 'Zonas con cobertura representativa',
       hint: 'Pasa el cursor o toca un punto para ver el equipo local.',
@@ -212,14 +212,14 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     },
     promiseTitle: 'Decisiones claras antes de empezar cualquier trabajo.',
     promiseBody:
-      'CasaMia convierte una preocupación sobre la vivienda en prioridades por estancia, recomendaciones prácticas, expectativas de precio, revisión de ayudas cuando aplique y un siguiente paso claro.',
+      'CasaMia convierte una preocupación sobre la vivienda en prioridades por estancia, recomendaciones prácticas, qué necesita medida, qué puede esperar y cuál es la siguiente decisión.',
     promisePoints: [
       'Foco en el uso diario: movimiento, puntos de apoyo, iluminación, accesos y suelos mojados.',
-      'Explicaciones claras: qué importa, por qué importa y qué puede requerir revisión en casa.',
+      'Explicaciones claras: qué importa, por qué importa y qué queda por comprobar.',
       'Seguimiento comprobado: encaje confirmado, trabajo organizado con cuidado y resultado revisado.',
     ],
     processEyebrow: 'Cómo ayuda CasaMia',
-    processTitle: 'Saber qué ocurre antes, durante y después del trabajo',
+    processTitle: 'Saber qué ocurre antes, durante y después del siguiente paso',
     processSteps: [
       {
         title: 'Entender la rutina diaria',
@@ -231,10 +231,10 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Elegir la ayuda adecuada',
-        body: 'Antes de organizar el trabajo, los detalles de instalación se comprueban con la estancia, ubicación y cambio recomendado.',
+        body: 'Antes de organizar el trabajo, el encaje y la disponibilidad se comprueban con la estancia, ubicación y cambio recomendado.',
       },
       {
-        title: 'Revisar el cambio terminado',
+        title: 'Revisar el resultado',
         body: 'El resultado se comprueba contigo, se explica con claridad y queda conectado a un punto de contacto CasaMia.',
       },
     ],
@@ -244,14 +244,14 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       'El riesgo no es solo elegir un producto equivocado. Es empezar trabajos sin saber qué está incluido, qué falta por confirmar, quién responde y cómo se comprobará el resultado.',
     proofItems: [
       {
-        title: 'Profesional adecuado',
-        body: 'La persona que realiza el trabajo debe encajar con la estancia, tipo de cambio, ubicación, disponibilidad y estándar necesario para una vivienda habitada.',
+        title: 'Persona adecuada para el trabajo',
+        body: 'La persona que realiza el trabajo debe encajar con la estancia, tipo de cambio, ubicación, disponibilidad y estándar necesario para una vivienda en uso.',
         outcome: 'Responsabilidad clara',
       },
       {
         title: 'Plan y precio claros',
         body: 'La recomendación separa trabajo incluido, opciones, decisiones que requieren medida y revisión de ayudas cuando aplique.',
-        outcome: 'Sin lista vaga',
+        outcome: 'Alcance claro',
       },
       {
         title: 'Encaje con el uso diario',
@@ -260,30 +260,30 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         title: 'Seguimiento acordado',
-        body: 'Sabes qué ocurre después: explicación, dudas, fotos, notas y el seguimiento que haga falta.',
+        body: 'Sabes qué ocurre después del paso clave: explicación, dudas, fotos, notas y el seguimiento que haga falta.',
         outcome: 'Un contacto',
       },
     ],
     sections: [
       {
         icon: 'inspectors',
-        title: 'Registro claro de la revisión',
+        title: 'Registro claro de la decisión',
         body:
-          'CasaMia mantiene fotos, prioridades, decisiones y notas de seguimiento juntas para que se entienda qué se recomendó y por qué.',
+          'CasaMia mantiene fotos, prioridades, decisiones y notas de seguimiento juntas para que la recomendación se entienda más adelante.',
         points: ['Pensado para rutinas reales en casa', 'Notas y fotos juntas', 'Tecnología solo cuando reduce un riesgo concreto'],
       },
       {
         icon: 'partners',
-        title: 'Profesionales locales revisados por encaje',
+        title: 'Ayuda local revisada por encaje',
         body:
-          'CasaMia comprueba profesionales locales por estancia, tipo de trabajo, disponibilidad, comunicación y capacidad de trabajar con respeto en una vivienda habitada.',
+          'CasaMia comprueba la ayuda local por estancia, tipo de trabajo, disponibilidad, comunicación y capacidad de trabajar con respeto en una vivienda en uso.',
         points: ['Encaje local comprobado primero', 'Instrucciones claras antes de la visita', 'Trabajo respetuoso en casa'],
       },
       {
         icon: 'insured',
-        title: 'Control de calidad integrado',
+        title: 'Comprobaciones de calidad integradas',
         body:
-          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene juntos el trabajo acordado, notas de instalación, comunicación y explicación final.',
+          'Cada proyecto necesita más que una lista de productos. CasaMia mantiene juntos el alcance acordado, notas, comunicación y explicación final.',
         points: ['Trabajo definido antes de empezar', 'Instalación y explicación trazadas', 'Seguimiento después del paso clave'],
       },
       {
@@ -295,14 +295,14 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'pricing',
-        title: 'Plan, precio y ayudas claras',
+        title: 'Precio y ayudas, por separado',
         body:
           'Debes saber qué está incluido, qué es opcional y qué requiere medición o confirmación antes de decidir.',
         points: ['Estimación clara antes del compromiso', 'Opcionales separados de lo esencial', 'Orientación sobre ayudas sin falsas promesas'],
       },
       {
         icon: 'acceptance',
-        title: 'Valores que guían el trabajo',
+        title: 'El respeto guía el trabajo',
         body:
           'CasaMia mantiene visible a la persona que vive en casa en cada decisión: qué cambia, quién entra en la vivienda, qué se explica y qué ocurre después.',
         points: ['Respeto e independencia primero', 'Sin presión ni traspasos confusos', 'Responsabilidad desde el primer contacto hasta el seguimiento'],
@@ -318,7 +318,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       'Ejemplo: Las escaleras parecen inseguras por la noche, la vivienda está en Marbella y necesitamos saber qué arreglar primero.',
     formNote:
       'CasaMia comprueba tu solicitud, el primer paso recomendado y la disponibilidad local antes de decirte qué conviene hacer primero.',
-    ctaButton: 'Solicitar evaluación a domicilio',
+    ctaButton: 'Solicitar revisión en casa',
   },
 }
 
@@ -441,7 +441,7 @@ export function WhyCasamiaPage() {
           <aside className="why-hero-human" aria-label={isSpanish ? 'Acompañamiento CasaMia' : 'CasaMia guidance'}>
             <figure className="why-human-card">
               <img
-                alt={isSpanish ? 'Asesora mostrando una propuesta de seguridad a personas mayores' : 'Advisor showing a home-safety plan to older adults'}
+                alt={isSpanish ? 'Asesora mostrando una revisión de seguridad del hogar' : 'Advisor showing a home-safety review'}
                 className="why-human-image"
                 loading="eager"
                 src="/images/why-us/casamia-guidance-session.jpg"
