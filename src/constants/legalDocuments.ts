@@ -65,7 +65,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
   'legal-notice': {
     id: 'legal-notice',
     intro:
-      'This Legal Notice identifies the owner and operator of the CasaMia website and explains the conditions governing its use.',
+      'Who runs CasaMia, what this website is for, and where to find the service terms that apply before you book or buy.',
     reviewStatus: 'pending-legal-review',
     title: 'Legal Notice',
     sections: [
@@ -76,7 +76,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       {
         title: 'Website purpose',
         body:
-          'CasaMia provides information about home-safety assessments, accessibility adaptations, installation support, connected safety services and guidance concerning relevant public assistance. Information on this website is general and does not replace a personalised proposal or professional advice.',
+          'CasaMia helps people review home-safety needs, plan practical adaptations, arrange installation support, consider connected safety options and understand possible public-grant routes. Website information is general. Your confirmed scope, price and timing are set out in your proposal or contract.',
       },
       {
         title: 'Contracting model',
@@ -92,7 +92,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       {
         title: 'Customer information and service terms',
         body:
-          'The following pages form part of CasaMia’s customer information framework and explain the service relationship in greater detail:',
+          'Use these pages when you want the detail behind booking, payment, cancellation, guarantees, privacy or complaints:',
         links: [
           { label: 'General Customer Terms', path: '/general-customer-terms' },
           { label: 'Withdrawal and Cancellation Policy', path: '/withdrawal-cancellation' },
@@ -114,7 +114,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       {
         title: 'Responsibility and external links',
         body:
-          'CasaMia works to keep website information accurate and available but cannot guarantee uninterrupted access or that third-party information remains current. Links to external websites are provided for convenience; those websites operate under their own terms and privacy policies.',
+          'CasaMia works to keep website information accurate and available, but external grants, laws, services and third-party websites can change. Links are provided to help you check the source; those websites have their own terms and privacy policies.',
       },
       {
         title: 'Applicable law',
@@ -126,14 +126,14 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
   'general-customer-terms': {
     id: 'general-customer-terms',
     intro:
-      'These customer terms summarise the operating model. They are not a substitute for final Spanish legal review of the complete contract set.',
+      'A plain-English summary of how CasaMia bookings, payments, local professionals, changes and completion work.',
     reviewStatus: 'pending-legal-review',
     title: 'General Customer Terms',
     sections: [
       {
         title: 'Who you contract with',
         body:
-          'You contract directly with CasaMia. CasaMia assesses requirements, prepares the proposal, collects payments, coordinates the work and remains responsible for the contracted service.',
+          'You contract directly with CasaMia. We review the requirement, prepare the proposal, collect payments, coordinate the work and remain responsible for the contracted service.',
       },
       {
         title: 'Local professionals',
@@ -152,6 +152,11 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
         ],
       },
       {
+        title: 'Before work changes',
+        body:
+          'If the home needs something different from the agreed scope, we explain the change, price and timing before chargeable work continues. A local installer cannot add paid work on the spot without CasaMia and customer approval.',
+      },
+      {
         title: 'Successful installation',
         body:
           'Installation is considered successfully completed when the essential agreed work has been completed, the applicable functional and safety checks have been passed, the work area has been left safe and reasonably clean, the customer has received the relevant instructions, and no material defect prevents the safe intended use of the installation.',
@@ -166,7 +171,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
   'privacy-policy': {
     id: 'privacy-policy',
     intro:
-      'This privacy policy explains the intended data roles and processing activities. Final controller details, retention periods and processors must be confirmed.',
+      'What information CasaMia uses to review the home, prepare a proposal, coordinate work and provide aftercare.',
     reviewStatus: 'pending-legal-review',
     title: 'Privacy Policy',
     sections: [
@@ -192,6 +197,14 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
           'Assigned providers should receive only the information necessary for the assigned project and must not use it for their own commercial purposes.',
       },
       {
+        title: 'Why we use it',
+        points: [
+          'To understand the rooms, routines and safety priorities you ask us to review.',
+          'To prepare recommendations, proposals, visit notes, installation plans and aftercare records.',
+          'To contact you about bookings, reports, quotes, payments, changes, complaints or safety follow-up.',
+        ],
+      },
+      {
         title: 'Optional AI voice assistant',
         body:
           'The Home Safety Wizard can connect you to a clearly identified AI voice assistant supplied by ElevenLabs. Starting a conversation is optional and requires microphone permission. Audio is sent securely to ElevenLabs for live speech processing, and you can end the conversation at any time. You can use the written note instead.',
@@ -205,7 +218,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
   'cookie-policy': {
     id: 'cookie-policy',
     intro:
-      'This cookie policy records the expected consent approach. Non-essential cookies must stay disabled until consent.',
+      'How CasaMia uses essential site storage and how you control optional cookies such as analytics or marketing cookies.',
     reviewStatus: 'pending-legal-review',
     title: 'Cookie Policy',
     sections: [
@@ -220,14 +233,14 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       {
         title: 'Current implementation note',
         body:
-          'A complete cookie banner and preference centre must be validated before production if analytics or advertising cookies are enabled.',
+          'If analytics or advertising cookies are enabled, the banner and preference centre must let you accept, reject or change those choices clearly.',
       },
     ],
   },
   'withdrawal-cancellation': {
     id: 'withdrawal-cancellation',
     intro:
-      'This page explains withdrawal and cancellation principles for eligible distance and off-premises contracts.',
+      'When you may be able to cancel, how to withdraw, and what can happen if you ask CasaMia to start during the withdrawal period.',
     reviewStatus: 'pending-legal-review',
     title: 'Withdrawal and Cancellation Policy',
     sections: [
@@ -251,14 +264,14 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       },
       {
         title: 'How to withdraw',
-        body: `Use the public withdrawal form at /withdrawal-form, contact customer service at ${casamiaCompanyConfig.customerServiceEmail}, or write by post to ${casamiaCompanyConfig.registeredAddress}. Backend receipt must be configured before online submission is treated as durable legal receipt.`,
+        body: `Use the public withdrawal form at /withdrawal-form, email ${casamiaCompanyConfig.customerServiceEmail}, or write by post to ${casamiaCompanyConfig.registeredAddress}. Keep a copy of what you send and the date sent.`,
       },
     ],
   },
   'guarantees-aftercare': {
     id: 'guarantees-aftercare',
     intro:
-      'This page explains how product, installation and workmanship issues should be handled after installation.',
+      'What to do if something feels wrong after installation, and how CasaMia handles product, installation and workmanship issues.',
     reviewStatus: 'pending-legal-review',
     title: 'Guarantees and Aftercare',
     sections: [
@@ -280,14 +293,14 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
       {
         title: 'Dangerous defects',
         body:
-          'If an installation appears loose, unstable, electrically unsafe or otherwise dangerous, stop using it and contact CasaMia immediately. In an emergency, call 112.',
+          'If an installation appears loose, unstable, electrically unsafe or otherwise dangerous, stop using it and contact CasaMia immediately. If there is an immediate danger, call 112.',
       },
     ],
   },
   'complaints-contact': {
     id: 'complaints-contact',
     intro:
-      'Use this page for service issues, safety concerns, complaints and aftercare questions.',
+      'How to contact CasaMia about a service issue, safety concern, complaint or aftercare question.',
     reviewStatus: 'pending-legal-review',
     title: 'Complaints and Contact',
     sections: [
@@ -311,6 +324,11 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
         ],
       },
       {
+        title: 'What happens next',
+        body:
+          'CasaMia reviews the issue, checks whether there is an immediate safety concern, and confirms the next practical step. That may be a support reply, a document check, a photo review, a provider follow-up or an inspection where needed.',
+      },
+      {
         title: 'Safety escalation',
         body:
           'If an installation appears loose, unstable, electrically unsafe or otherwise dangerous, stop using it and contact CasaMia immediately. In an emergency, call 112.',
@@ -326,7 +344,7 @@ export const legalDocuments: Record<LegalDocumentId, LegalDocument> = {
   'accessibility-statement': {
     id: 'accessibility-statement',
     intro:
-      'CasaMia serves senior customers and families, so accessibility is treated as a core service requirement.',
+      'CasaMia is designed for people who may need clearer text, assisted booking, keyboard access or a more comfortable way to complete a home-safety review.',
     reviewStatus: 'pending-legal-review',
     title: 'Accessibility Statement',
     sections: [
@@ -352,7 +370,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
   'legal-notice': {
     title: 'Aviso legal',
     intro:
-      'Este Aviso Legal identifica al titular y operador del sitio web de CasaMia y explica las condiciones que regulan su uso.',
+      'Quién gestiona CasaMia, para qué sirve este sitio web y dónde encontrar las condiciones aplicables antes de reservar o contratar.',
     sections: [
       {
         title: 'Identificación de la empresa',
@@ -361,7 +379,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       {
         title: 'Finalidad del sitio web',
         body:
-          'CasaMia ofrece información sobre evaluaciones de seguridad del hogar, adaptaciones de accesibilidad, apoyo a la instalación, servicios de seguridad conectada y orientación sobre posibles ayudas públicas. La información del sitio es general y no sustituye una propuesta personalizada ni el asesoramiento profesional.',
+          'CasaMia ayuda a revisar necesidades de seguridad en casa, planificar adaptaciones prácticas, organizar apoyo de instalación, valorar opciones de seguridad conectada y entender posibles vías de ayudas públicas. La información del sitio es general. El alcance, precio y plazo confirmados aparecen en tu propuesta o contrato.',
       },
       {
         title: 'Modelo de contratación',
@@ -377,7 +395,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       {
         title: 'Información y condiciones del servicio',
         body:
-          'Las siguientes páginas forman parte del marco de información al cliente de CasaMia y explican con mayor detalle la relación de servicio:',
+          'Usa estas páginas cuando quieras ver el detalle sobre reserva, pago, cancelación, garantías, privacidad o reclamaciones:',
         links: [
           { label: 'Condiciones generales para clientes', path: '/general-customer-terms' },
           { label: 'Desistimiento y cancelación', path: '/withdrawal-cancellation' },
@@ -399,7 +417,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       {
         title: 'Responsabilidad y enlaces externos',
         body:
-          'CasaMia procura mantener la información del sitio correcta y disponible, pero no puede garantizar un acceso ininterrumpido ni que la información de terceros permanezca actualizada. Los enlaces externos se facilitan por comodidad y esos sitios se rigen por sus propias condiciones y políticas de privacidad.',
+          'CasaMia procura mantener la información del sitio correcta y disponible, pero las ayudas, normas, servicios y páginas de terceros pueden cambiar. Los enlaces ayudan a consultar la fuente; esas páginas tienen sus propias condiciones y políticas de privacidad.',
       },
       {
         title: 'Legislación aplicable',
@@ -411,12 +429,12 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
   'general-customer-terms': {
     title: 'Condiciones generales para clientes',
     intro:
-      'Estas condiciones resumen el modelo operativo para clientes. No sustituyen la revisión legal española final del conjunto contractual completo.',
+      'Un resumen claro de cómo funcionan las reservas, pagos, profesionales locales, cambios y finalización del servicio CasaMia.',
     sections: [
       {
         title: 'Con quién contratas',
         body:
-          'Contratas directamente con CasaMia. CasaMia evalúa las necesidades, prepara la propuesta, cobra los pagos, coordina los trabajos y sigue siendo responsable del servicio contratado.',
+          'Contratas directamente con CasaMia. Revisamos la necesidad, preparamos la propuesta, cobramos los pagos, coordinamos los trabajos y seguimos siendo responsables del servicio contratado.',
       },
       {
         title: 'Profesionales locales',
@@ -435,6 +453,11 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
         ],
       },
       {
+        title: 'Antes de cambiar los trabajos',
+        body:
+          'Si la vivienda necesita algo distinto del alcance acordado, explicamos el cambio, el precio y el plazo antes de continuar con trabajos con coste. Un instalador local no puede añadir trabajos de pago en el momento sin aprobación de CasaMia y del cliente.',
+      },
+      {
         title: 'Instalación satisfactoria',
         body:
           'La instalación se considera completada satisfactoriamente cuando se han realizado los trabajos esenciales acordados, se han superado las comprobaciones funcionales y de seguridad aplicables, la zona de trabajo queda segura y razonablemente limpia, el cliente ha recibido las instrucciones pertinentes y no existe ningún defecto material que impida el uso seguro previsto.',
@@ -449,7 +472,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
   'privacy-policy': {
     title: 'Política de privacidad',
     intro:
-      'Esta política de privacidad explica los roles de datos y las actividades de tratamiento previstas. Deben confirmarse los datos finales del responsable, los plazos de conservación y los encargados.',
+      'Qué información usa CasaMia para revisar la vivienda, preparar una propuesta, coordinar trabajos y prestar atención posterior.',
     sections: [
       {
         title: 'Responsable',
@@ -473,6 +496,14 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
           'Los proveedores asignados deben recibir solo la información necesaria para el proyecto asignado y no pueden usarla para sus propios fines comerciales.',
       },
       {
+        title: 'Para qué la usamos',
+        points: [
+          'Para entender las estancias, rutinas y prioridades de seguridad que nos pides revisar.',
+          'Para preparar recomendaciones, propuestas, notas de visita, planes de instalación y registros de atención posterior.',
+          'Para contactarte sobre reservas, informes, presupuestos, pagos, cambios, reclamaciones o seguimiento de seguridad.',
+        ],
+      },
+      {
         title: 'Asistente de voz IA opcional',
         body:
           'El asistente de seguridad del hogar puede conectarte con un asistente de voz IA claramente identificado y suministrado por ElevenLabs. Iniciar una conversación es opcional y requiere permiso de micrófono. El audio se envía de forma segura a ElevenLabs para el procesamiento de voz en directo, y puedes finalizar la conversación en cualquier momento. También puedes usar la nota escrita.',
@@ -486,7 +517,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
   'cookie-policy': {
     title: 'Política de cookies',
     intro:
-      'Esta política de cookies recoge el enfoque previsto de consentimiento. Las cookies no esenciales deben permanecer desactivadas hasta que exista consentimiento.',
+      'Cómo usa CasaMia el almacenamiento esencial del sitio y cómo controlas las cookies opcionales, como analítica o marketing.',
     sections: [
       {
         title: 'Elección',
@@ -499,14 +530,14 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       {
         title: 'Nota de implementación actual',
         body:
-          'El banner de cookies y el centro de preferencias completos deben validarse antes de producción si se activan cookies analíticas o publicitarias.',
+          'Si se activan cookies analíticas o publicitarias, el banner y el centro de preferencias deben permitir aceptar, rechazar o cambiar esas opciones de forma clara.',
       },
     ],
   },
   'withdrawal-cancellation': {
     title: 'Desistimiento y cancelación',
     intro:
-      'Esta página explica los principios de desistimiento y cancelación para contratos a distancia y fuera de establecimiento cuando sean aplicables.',
+      'Cuándo puedes cancelar, cómo desistir y qué puede ocurrir si pides a CasaMia empezar durante el plazo de desistimiento.',
     sections: [
       {
         title: 'Plazo de desistimiento',
@@ -528,14 +559,14 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       },
       {
         title: 'Cómo desistir',
-        body: `Usa el formulario público en /withdrawal-form, contacta con atención al cliente en ${casamiaCompanyConfig.customerServiceEmail}, o escribe por correo postal a ${casamiaCompanyConfig.registeredAddress}. La recepción backend debe estar configurada antes de tratar el envío online como recepción legal duradera.`,
+        body: `Usa el formulario público en /withdrawal-form, escribe a ${casamiaCompanyConfig.customerServiceEmail}, o envía una carta a ${casamiaCompanyConfig.registeredAddress}. Guarda una copia de lo enviado y la fecha de envío.`,
       },
     ],
   },
   'guarantees-aftercare': {
     title: 'Garantías y servicio posventa',
     intro:
-      'Esta página explica cómo deben gestionarse las incidencias de producto, instalación y mano de obra después de la instalación.',
+      'Qué hacer si algo no parece correcto después de la instalación y cómo CasaMia gestiona incidencias de producto, instalación y mano de obra.',
     sections: [
       {
         title: 'CasaMia sigue siendo tu punto de contacto',
@@ -555,14 +586,14 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
       {
         title: 'Defectos peligrosos',
         body:
-          'Si una instalación parece suelta, inestable, eléctricamente insegura o peligrosa de cualquier otro modo, deja de usarla y contacta con CasaMia inmediatamente. En caso de emergencia, llama al 112.',
+          'Si una instalación parece suelta, inestable, eléctricamente insegura o peligrosa de cualquier otro modo, deja de usarla y contacta con CasaMia inmediatamente. Si hay peligro inmediato, llama al 112.',
       },
     ],
   },
   'complaints-contact': {
     title: 'Reclamaciones y contacto',
     intro:
-      'Usa esta página para incidencias de servicio, preocupaciones de seguridad, reclamaciones y preguntas de atención posterior.',
+      'Cómo contactar con CasaMia por una incidencia de servicio, preocupación de seguridad, reclamación o pregunta de atención posterior.',
     sections: [
       {
         title: 'Atención al cliente',
@@ -584,6 +615,11 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
         ],
       },
       {
+        title: 'Qué ocurre después',
+        body:
+          'CasaMia revisa la incidencia, comprueba si hay una preocupación de seguridad inmediata y confirma el siguiente paso práctico. Puede ser una respuesta de soporte, revisión documental, revisión de fotos, seguimiento con proveedor o inspección cuando haga falta.',
+      },
+      {
         title: 'Escalada de seguridad',
         body:
           'Si una instalación parece suelta, inestable, eléctricamente insegura o peligrosa de cualquier otro modo, deja de usarla y contacta con CasaMia inmediatamente. En caso de emergencia, llama al 112.',
@@ -599,7 +635,7 @@ const legalDocumentsEs: Record<LegalDocumentId, Pick<LegalDocument, 'title' | 'i
   'accessibility-statement': {
     title: 'Declaración de accesibilidad',
     intro:
-      'CasaMia atiende a personas mayores y familias, por lo que la accesibilidad se considera un requisito central del servicio.',
+      'CasaMia está pensada para personas que pueden necesitar textos más claros, reserva asistida, navegación con teclado o una forma más cómoda de completar una revisión de seguridad en casa.',
     sections: [
       {
         title: 'Compromiso actual',

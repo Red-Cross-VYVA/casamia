@@ -1688,26 +1688,26 @@
       ]
     },
     "terms": {
-      "title": "Terms & Conditions",
-      "intro": "Important terms for CasaMia services, support and grant-management assistance.",
+      "title": "Terms and conditions",
+      "intro": "Clear service terms for CasaMia visits, support, installation coordination and grant-administration help.",
       "grantManagement": {
-        "kicker": "Grant Management",
-        "title": "Grant Management Terms",
-        "body": "CasaMia provides grant management assistance as an administrative service only.",
+        "kicker": "Grant administration",
+        "title": "Grant help: what CasaMia can and cannot do",
+        "body": "CasaMia can help organise the grant file, but the public authority decides whether funding is available, whether the person qualifies and when a decision is made.",
         "serviceTitle": "Our service may include",
         "services": [
-          "Assessing eligibility",
-          "Preparing documentation",
-          "Completing application forms",
-          "Submitting applications on behalf of customers",
-          "Liaising with the relevant authority where authorised"
+          "Checking the likely fit between the person, home, planned work and grant rules",
+          "Listing missing documents before time is spent on forms",
+          "Preparing application forms from the information provided",
+          "Submitting applications on behalf of customers where authorised",
+          "Tracking authority responses and explaining what is still pending"
         ],
-        "importantTitle": "Important",
+        "importantTitle": "What to know before relying on funding",
         "important": [
-          "Grant approval is entirely at the discretion of the relevant authority.",
+          "Grant approval is entirely decided by the relevant authority.",
           "CasaMia cannot guarantee approval or eligibility.",
           "Estimated grant percentages are indicative only.",
-          "Customers remain responsible for providing accurate information.",
+          "Customers must provide accurate, complete and up-to-date information.",
           "CasaMia is not responsible for delays or decisions made by the granting authority."
         ]
       }

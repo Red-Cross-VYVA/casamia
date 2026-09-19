@@ -1689,25 +1689,25 @@
     },
     "terms": {
       "title": "Términos y condiciones",
-      "intro": "Condiciones importantes sobre los servicios de CasaMia, el soporte y la gestión administrativa de ayudas.",
+      "intro": "Condiciones claras sobre visitas, soporte, coordinación de instalación y ayuda administrativa con subvenciones de CasaMia.",
       "grantManagement": {
-        "kicker": "Gestión de ayudas",
-        "title": "Condiciones de gestión de ayudas",
-        "body": "CasaMia presta asistencia en la gestión de ayudas únicamente como servicio administrativo.",
+        "kicker": "Administración de ayudas",
+        "title": "Ayudas públicas: qué puede y qué no puede hacer CasaMia",
+        "body": "CasaMia puede ayudar a ordenar el expediente, pero la autoridad pública decide si hay financiación disponible, si la persona cumple los requisitos y cuándo se resuelve.",
         "serviceTitle": "Nuestro servicio puede incluir",
         "services": [
-          "Evaluar la elegibilidad",
-          "Preparar documentación",
-          "Completar formularios de solicitud",
-          "Presentar solicitudes en nombre de los clientes",
-          "Comunicarse con la autoridad competente cuando exista autorización"
+          "Revisar el encaje probable entre la persona, la vivienda, la obra prevista y las reglas de la ayuda",
+          "Indicar documentos pendientes antes de dedicar tiempo a formularios",
+          "Preparar formularios con la información facilitada",
+          "Presentar solicitudes en nombre del cliente cuando exista autorización",
+          "Seguir respuestas de la autoridad y explicar qué sigue pendiente"
         ],
-        "importantTitle": "Importante",
+        "importantTitle": "Qué saber antes de contar con financiación",
         "important": [
-          "La aprobación de ayudas queda enteramente a discreción de la autoridad competente.",
+          "La aprobación de ayudas la decide exclusivamente la autoridad competente.",
           "CasaMia no puede garantizar la aprobación ni la elegibilidad.",
           "Los porcentajes estimados de ayuda son solo indicativos.",
-          "Los clientes siguen siendo responsables de proporcionar información precisa.",
+          "El cliente debe facilitar información exacta, completa y actualizada.",
           "CasaMia no se responsabiliza de retrasos o decisiones tomadas por la autoridad concedente."
         ]
       }
