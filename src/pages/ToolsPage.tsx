@@ -167,7 +167,7 @@ const chooserQuestions = [
     title: { en: 'You can show the room', es: 'Puedes mostrar la estancia' },
     body: {
       en: 'Use photos when a visible problem needs an initial action before a priced plan.',
-      es: 'Usa fotos cuando un problema visible necesita una primera acción clara antes de pedir propuesta.',
+      es: 'Usa fotos cuando un problema visible necesita una primera acción clara antes de pedir un plan con precio.',
     },
   },
   {

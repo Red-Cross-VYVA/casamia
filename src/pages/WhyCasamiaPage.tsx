@@ -142,7 +142,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'inspectors',
         title: 'Practical safety technology',
         body:
-          'CasaMia uses digital tools to make the review clearer: room photos, priorities, notes, handover evidence and follow-up stay connected.',
+          'CasaMia uses digital tools to keep the review clear: room photos, priorities, decisions and follow-up stay in one place.',
         points: ['Built for ageing-in-place needs', 'Digital tools that support human decisions', 'Technology only where it reduces a named risk'],
       },
       {
