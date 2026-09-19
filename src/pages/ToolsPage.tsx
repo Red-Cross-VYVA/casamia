@@ -85,7 +85,7 @@ const copy = {
     chooserEyebrow: '¿No sabes cuál elegir?',
     chooserTitle: 'Elige la pregunta que necesitas responder.',
     chooserBody:
-      'Empieza por la preocupación que tienes delante. Guarda el resultado como notas o compártelo cuando quieras una visita, informe o propuesta.',
+      'Empieza por la preocupación que tienes delante. Guarda el resultado como notas o compártelo cuando quieras una visita, informe o plan con precio.',
     nextEyebrow: 'Después de la herramienta',
     nextTitle: 'Sal con una decisión, no con más dudas.',
     finalTitle: '¿Listo para convertir respuestas en un plan?',

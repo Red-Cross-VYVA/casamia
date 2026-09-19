@@ -75,7 +75,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       eyebrow: 'Spain-wide service',
       title: 'Local coverage across Spain, connected by CasaMia.',
       body:
-        'CasaMia combines local teams with one shared process, so the advice, plan and follow-up stay consistent wherever the home is.',
+        'CasaMia combines local teams with one shared way of working, so the advice, plan and follow-up stay consistent wherever the home is.',
       badge: 'All Spain',
       legend: 'Local coverage areas',
       hint: 'Hover or tap a marker to see the local team.',
@@ -91,7 +91,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       'Transparent recommendations: what matters, why it matters and what it may cost.',
       'Managed delivery: fit confirmed first, installation coordinated and results checked.',
     ],
-    processEyebrow: 'Operating model',
+    processEyebrow: 'How CasaMia coordinates',
     processTitle: 'Know what happens before, during and after installation',
     processSteps: [
       {
@@ -149,7 +149,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
         icon: 'partners',
         title: 'Vetted provider model',
         body:
-          'CasaMia is not an open marketplace. Providers are selected for fit, availability, communication and the ability to work respectfully in senior homes.',
+          'CasaMia selects providers for fit, availability, communication and the ability to work respectfully in senior homes.',
         points: ['Local providers checked before assignment', 'Clear briefing before the visit', 'Respectful work in occupied homes'],
       },
       {
@@ -168,7 +168,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
       },
       {
         icon: 'pricing',
-        title: 'Scope, price and grant checks',
+        title: 'Price and grant checks',
         body:
           'You should know what is included, what is optional and what still needs measurement or confirmation. CasaMia separates advice, installation and grant-application support.',
         points: ['Clear estimate before commitment', 'Optional items separated from essentials', 'Grant guidance without false promises'],
@@ -190,7 +190,7 @@ const whyCasamiaCopy: Record<'en' | 'es', WhyCasamiaCopy> = {
     messagePlaceholder:
       'Example: My father is struggling with the stairs at night, we are in Marbella, and we need to understand what to fix first.',
     formNote:
-      'CasaMia checks your request, likely review path and local availability before recommending what to do first.',
+      'CasaMia checks your situation, likely review path and local availability before recommending what to do first.',
     ctaButton: 'Book home assessment',
   },
   es: {

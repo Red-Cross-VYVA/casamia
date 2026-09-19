@@ -62,7 +62,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
     title: 'Technology and service for',
     accent: 'safer ageing at home.',
     intro:
-      'CasaMia brings room checks, agreed adaptations, connected alerts and grant-application guidance into one coordinated process for adapting a home in Spain.',
+      'CasaMia brings room checks, agreed adaptations, connected alerts and grant-application guidance into one coordinated plan for adapting a home in Spain.',
     primaryCta: 'Check home safety',
     secondaryCta: 'Check grant eligibility',
     provider: {
@@ -125,7 +125,7 @@ const aboutCopy: Record<'en' | 'es', AboutCopy> = {
         icon: 'funding',
         title: 'Funding readiness without false promises',
         body:
-          'CasaMia prepares the home-need notes, proposed adaptation summary and document checklist for relevant grant criteria. Approval always depends on the public authority.',
+          'CasaMia prepares the home-need notes, adaptation summary and document checklist for relevant grant criteria. Approval always depends on the public authority.',
       },
       {
         icon: 'service',
