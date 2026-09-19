@@ -18,44 +18,44 @@ const grantsCopy = {
     heroEyebrow: 'Public funding guidance',
     heroTitle: 'Check possible grant help before you commit',
     heroBody:
-      'Some accessibility or home-adaptation work may fit public grant criteria. CasaMia can help you understand what to check, which documents are usually requested and what must be confirmed before you spend money.',
+      'Some accessibility or home-adaptation work may fit public grant criteria. CasaMia helps you check the likely route, the documents usually requested and what to confirm before spending money.',
     heroPrimary: 'Check possible assistance',
     heroSecondary: 'Explore available programmes',
-    importantTitle: 'Important before relying on a grant',
+    importantTitle: 'Important before counting on a grant',
     importantBody: [
-      'Applying for a grant is separate from purchasing CasaMia’s services. A grant enquiry does not create an installation contract, reserve public funds or guarantee eligibility.',
-      'Your CasaMia contract price is not conditional on receiving a grant unless your Project Order expressly states otherwise. You remain responsible for the agreed payments even if a grant application is delayed, reduced or rejected.',
+      'A grant check is separate from buying CasaMia services. It does not create an installation contract, reserve public funds or guarantee eligibility.',
+      'Unless your Project Order clearly says otherwise, the CasaMia price is not conditional on receiving a grant. You remain responsible for agreed payments if an application is delayed, reduced or rejected.',
     ],
     priceTitle: 'How prices should be read',
     priceRows: [
       ['Contract price', 'Shown separately, including VAT.'],
       ['Payment schedule', 'Confirmed in your Project Order.'],
-      ['Possible grant', 'Indicative only until the authority approves it.'],
-      ['Customer finance', 'You may need to fund approved adaptations before reimbursement.'],
+      ['Possible grant', 'Only indicative until the authority approves it.'],
+      ['Customer funding', 'Some programmes reimburse after you have already paid.'],
     ],
     roleEyebrow: 'CasaMia’s role',
     roleTitle: 'Guidance, not approval.',
     roleBody:
-      'CasaMia checks which published criteria may fit your adaptation plan and helps prepare the document trail when authorised. Any initial fit check is indicative only. The public authority makes the final decision.',
+      'CasaMia checks which published criteria may fit the work being considered and helps prepare the document trail when authorised. Any first check is indicative only. The public authority makes the final decision.',
     roleListTitle: 'What CasaMia can help prepare',
     roleItems: [
       'General information about possible public assistance programmes.',
-      'Initial eligibility screening based on information provided by the customer.',
-      'Help preparing a document checklist for a specific programme.',
-      'Application-preparation support when the programme fits the adaptation plan and the customer has authorised CasaMia in writing.',
+      'Initial readiness check based on the information you provide.',
+      'A document checklist for a specific programme.',
+      'Application-preparation support when the programme fits the planned work and you authorise CasaMia in writing.',
       'Submission as an authorised representative only with a separate written mandate.',
       'Referral to an independent adviser or gestor where specialist advice is needed.',
     ],
     feeTitle: 'Grant-support fees',
     feeRows: [
       ['General information', 'Free.'],
-      ['Initial eligibility screening', 'Free unless a Project Order or grant-support agreement says otherwise.'],
+      ['Initial readiness check', 'Free unless a Project Order or grant-support agreement says otherwise.'],
       ['Application-support fee', 'Must be disclosed separately, including VAT and whether payable if the grant is rejected.'],
       ['Independent adviser or gestor', 'Any referral fee or commercial relationship must be disclosed before referral.'],
     ],
     beforeApprovalTitle: 'If installation starts before approval',
     beforeApprovalBody:
-      'If a customer chooses to proceed with a CasaMia project before a grant decision, the checkout or Project Order must show a specific acknowledgement only when relevant:',
+      'If you choose to proceed with a CasaMia project before a grant decision, the checkout or Project Order must show a specific acknowledgement only when relevant:',
     beforeApprovalQuote:
       'I understand that my grant application has not yet been approved and that I remain responsible for the CasaMia contract price and payment schedule.',
     beforeApprovalFooter:
@@ -63,27 +63,27 @@ const grantsCopy = {
     programmesEyebrow: 'Verified programme cards',
     programmesTitle: 'Available programme information',
     programmesBody:
-      'Last verified dates and official sources are required before a programme appears here. Always check the official programme page before making a financial decision.',
+      'Each programme shown here needs an official source, status and review date. Always check the official page before making a financial decision.',
     emptyTitle: 'No grant programme is currently published by CasaMia.',
     emptyBody:
-      'CasaMia will only list a programme after its official source, status, dates, eligibility rules, translation approval and review date have been checked. Use the grant check for an initial readiness review, then confirm details against the public authority source.',
+      'CasaMia only lists a programme after its official source, status, dates, eligibility rules, translation and review date have been checked. Use the grant check for a first readiness review, then confirm details with the public authority.',
     emptyCta: 'Check initial eligibility',
     documentsTitle: 'Documents often requested',
     documentItems: [
-      'Identity documentation.',
+      'Identity document.',
       'Proof of residence.',
-      'Ownership or tenancy documentation.',
-      'Property-community approval where required.',
-      'Income information where the programme requests it.',
-      'Disability or dependency documentation where relevant.',
+      'Ownership or rental permission.',
+      'Community-of-owners approval where required.',
+      'Income information if requested.',
+      'Disability or dependency documents where relevant.',
       'Itemised adaptation quote.',
-      'Invoices and payment evidence.',
+      'Invoices and payment proof.',
       'Technical report where required.',
       'Bank-account certificate.',
     ],
     privacyTitle: 'Privacy and sensitive documents',
     privacyBody: [
-      'Grant applications may involve financial, disability, dependency or health-related information. CasaMia should collect those documents only through a secure process for a specific programme, not through ordinary marketing or contact forms.',
+      'Grant applications may involve financial, disability, dependency or health-related information. CasaMia should collect those documents only through a secure process for a specific programme, not through ordinary contact forms.',
       'A separate grant-assistance privacy notice and written representative mandate are required before CasaMia submits an application or receives notifications on your behalf.',
     ],
     programmeLabels: {
@@ -109,44 +109,44 @@ const grantsCopy = {
     heroEyebrow: 'Orientación sobre ayudas públicas',
     heroTitle: 'Comprueba posibles ayudas antes de comprometerte',
     heroBody:
-      'Algunas mejoras de accesibilidad o adaptación pueden encajar con criterios de ayudas públicas. CasaMia puede ayudarte a entender qué revisar, qué documentos suelen pedirse y qué confirmar antes de gastar dinero.',
+      'Algunas mejoras de accesibilidad o adaptación pueden encajar con criterios de ayudas públicas. CasaMia te ayuda a revisar la vía probable, los documentos que suelen pedirse y qué confirmar antes de gastar dinero.',
     heroPrimary: 'Comprobar posibles ayudas',
     heroSecondary: 'Ver programas disponibles',
     importantTitle: 'Importante antes de contar con una ayuda',
     importantBody: [
-      'Solicitar una ayuda es independiente de contratar los servicios de CasaMia. Una consulta sobre ayudas no crea un contrato de instalación, no reserva fondos públicos y no garantiza elegibilidad.',
-      'El precio del contrato con CasaMia no depende de recibir una ayuda, salvo que tu orden de proyecto lo indique expresamente. Sigues siendo responsable de los pagos acordados aunque la ayuda se retrase, se reduzca o sea rechazada.',
+      'Revisar una ayuda es independiente de contratar servicios CasaMia. No crea un contrato de instalación, no reserva fondos públicos y no garantiza elegibilidad.',
+      'Salvo que tu orden de proyecto lo diga expresamente, el precio de CasaMia no depende de recibir una ayuda. Sigues siendo responsable de los pagos acordados si la solicitud se retrasa, se reduce o se rechaza.',
     ],
     priceTitle: 'Cómo leer los precios',
     priceRows: [
       ['Precio del contrato', 'Se muestra por separado, con IVA incluido.'],
       ['Calendario de pagos', 'Se confirma en tu orden de proyecto.'],
-      ['Posible ayuda', 'Es orientativa hasta que la administración la apruebe.'],
-      ['Financiación del cliente', 'Puede que tengas que pagar trabajos antes del reembolso.'],
+      ['Posible ayuda', 'Solo es orientativa hasta que la administración la apruebe.'],
+      ['Pago por parte del cliente', 'Algunos programas reembolsan después de haber pagado.'],
     ],
     roleEyebrow: 'Papel de CasaMia',
     roleTitle: 'Orientación, no aprobación.',
     roleBody:
-      'CasaMia revisa qué criterios publicados pueden encajar con tu plan de adaptación y ayuda a preparar la documentación cuando existe autorización. Cualquier revisión inicial es orientativa. La administración toma la decisión final.',
+      'CasaMia revisa qué criterios publicados pueden encajar con el trabajo que se está valorando y ayuda a preparar la documentación cuando existe autorización. La primera revisión es orientativa. La administración toma la decisión final.',
     roleListTitle: 'Qué puede ayudar a preparar CasaMia',
     roleItems: [
       'Información general sobre posibles programas de ayuda pública.',
-      'Revisión inicial de elegibilidad según la información facilitada por el cliente.',
-      'Ayuda para preparar una lista de documentos para un programa concreto.',
-      'Apoyo en la preparación de solicitudes cuando el programa y el caso lo permiten.',
+      'Revisión inicial de preparación según la información que facilites.',
+      'Lista de documentos para un programa concreto.',
+      'Apoyo en la preparación de solicitudes cuando el programa encaja con el trabajo previsto.',
       'Presentación como representante autorizado solo con mandato escrito separado.',
       'Derivación a un asesor independiente o gestor cuando haga falta apoyo especializado.',
     ],
     feeTitle: 'Costes del apoyo para ayudas',
     feeRows: [
       ['Información general', 'Gratuita.'],
-      ['Revisión inicial de elegibilidad', 'Gratuita salvo que una orden de proyecto o acuerdo de apoyo indique lo contrario.'],
+      ['Revisión inicial de preparación', 'Gratuita salvo que una orden de proyecto o acuerdo de apoyo indique lo contrario.'],
       ['Apoyo en la solicitud', 'Debe comunicarse por separado, con IVA y aclarando si se paga aunque la ayuda sea rechazada.'],
       ['Asesor independiente o gestor', 'Cualquier comisión o relación comercial debe comunicarse antes de la derivación.'],
     ],
     beforeApprovalTitle: 'Si los trabajos empiezan antes de la aprobación',
     beforeApprovalBody:
-      'Si un cliente decide seguir adelante con un proyecto CasaMia antes de recibir la decisión sobre la ayuda, el checkout o la orden de proyecto debe mostrar una aceptación específica solo cuando corresponda:',
+      'Si decides seguir adelante con un proyecto CasaMia antes de recibir la decisión sobre la ayuda, el checkout o la orden de proyecto debe mostrar una aceptación específica solo cuando corresponda:',
     beforeApprovalQuote:
       'Entiendo que mi solicitud de ayuda aún no ha sido aprobada y que sigo siendo responsable del precio del contrato CasaMia y del calendario de pagos.',
     beforeApprovalFooter:
@@ -154,19 +154,19 @@ const grantsCopy = {
     programmesEyebrow: 'Programas verificados',
     programmesTitle: 'Información de programas disponibles',
     programmesBody:
-      'Antes de publicar un programa aquí se requieren fechas de verificación y fuentes oficiales. Comprueba siempre la página oficial antes de tomar una decisión financiera.',
+      'Cada programa mostrado aquí necesita fuente oficial, estado y fecha de revisión. Comprueba siempre la página oficial antes de tomar una decisión financiera.',
     emptyTitle: 'CasaMia no tiene ningún programa de ayudas publicado ahora mismo.',
     emptyBody:
-      'CasaMia solo mostrará un programa después de revisar su fuente oficial, estado, fechas, requisitos, traducción y próxima fecha de revisión. Usa la comprobación de ayudas para una revisión inicial y confirma después los detalles con la administración pública.',
+      'CasaMia solo muestra un programa después de revisar su fuente oficial, estado, fechas, requisitos, traducción y fecha de revisión. Usa la comprobación de ayudas para una primera revisión y confirma después los detalles con la administración pública.',
     emptyCta: 'Solicitar revisión inicial',
     documentsTitle: 'Documentos que suelen solicitarse',
     documentItems: [
       'Documento de identidad.',
       'Prueba de residencia.',
-      'Documentación de propiedad o alquiler.',
+      'Documentación de propiedad o permiso de alquiler.',
       'Aprobación de la comunidad cuando corresponda.',
-      'Información de ingresos si el programa la solicita.',
-      'Documentación de discapacidad o dependencia cuando sea relevante.',
+      'Información de ingresos si se solicita.',
+      'Documentos de discapacidad o dependencia cuando sean relevantes.',
       'Presupuesto desglosado de la adaptación.',
       'Facturas y justificantes de pago.',
       'Informe técnico cuando se requiere.',
@@ -174,7 +174,7 @@ const grantsCopy = {
     ],
     privacyTitle: 'Privacidad y documentos sensibles',
     privacyBody: [
-      'Las solicitudes de ayuda pueden incluir información financiera, discapacidad, dependencia o datos de salud. CasaMia solo debe recoger esos documentos mediante un proceso seguro para un programa concreto, no a través de formularios generales de marketing o contacto.',
+      'Las solicitudes de ayuda pueden incluir información financiera, discapacidad, dependencia o datos de salud. CasaMia solo debe recoger esos documentos mediante un proceso seguro para un programa concreto, no a través de formularios generales de contacto.',
       'Antes de que CasaMia presente una solicitud o reciba notificaciones en tu nombre se requiere un aviso de privacidad específico para ayudas y un mandato de representación por escrito.',
     ],
     programmeLabels: {
@@ -205,25 +205,25 @@ export function GrantsPage() {
     ? {
         heroTitle: 'Encuentra posibles ayudas para adaptar tu vivienda.',
         heroBody:
-          'Revisa posibles criterios de ayuda, documentos pendientes y qué confirmar antes de empezar una obra.',
+          'Comprueba si puede haber una vía de ayuda, qué documentos faltan y qué confirmar antes de empezar una obra.',
         heroSecondary: 'Qué revisamos',
         quickCards: [
           {
             title: 'Comprobar encaje',
-            body: 'Una orientación inicial gratuita. No es aprobación pública.',
+            body: 'Primera orientación gratuita. No es aprobación pública.',
           },
           {
             title: 'Preparar documentos',
-            body: 'Te indicamos qué suele hacer falta según los criterios.',
+            body: 'Ves qué suele hacer falta según los criterios publicados.',
           },
           {
             title: 'Planificar sin sorpresas',
-            body: 'Separamos precio CasaMia, posible ayuda y plazos.',
+            body: 'Separamos precio CasaMia, posible ayuda, pagos y plazos.',
           },
         ],
-        supportTitle: 'CasaMia aclara los requisitos.',
+        supportTitle: 'CasaMia te ayuda a preparar la revisión.',
         supportBody:
-          'Respondes unas preguntas. Te devolvemos una lectura práctica: posible encaje, documentación pendiente y qué revisar primero.',
+          'Respondes unas preguntas y recibes una lectura práctica: posible encaje, documentación pendiente y qué revisar primero.',
         programmesTitle: 'Programas publicados',
         programmesBody:
           'Solo mostramos programas cuando tienen fuente oficial, estado y fecha de revisión.',
@@ -237,25 +237,25 @@ export function GrantsPage() {
     : {
         heroTitle: 'Find possible help for home adaptations.',
         heroBody:
-          'Review possible grant criteria, missing documents and what must be confirmed before starting adaptations.',
+          'Check whether there may be a grant route, which documents are missing and what to confirm before starting adaptation work.',
         heroSecondary: 'What we check',
         quickCards: [
           {
             title: 'Check fit',
-            body: 'Free initial guidance. Not a public approval.',
+            body: 'Free first guidance. Not a public approval.',
           },
           {
             title: 'Prepare documents',
-            body: 'See which documents are usually requested.',
+            body: 'See what is usually needed under published criteria.',
           },
           {
             title: 'Plan before spending',
-            body: 'Separate CasaMia pricing, possible assistance and timing.',
+            body: 'Separate CasaMia pricing, possible assistance, payments and timing.',
           },
         ],
-        supportTitle: 'Know what to prepare before you apply.',
+        supportTitle: 'Know what to prepare before applying.',
         supportBody:
-          'Answer a few questions and see likely grant criteria, missing documents and what must be checked before any adaptation is started.',
+          'Answer a few questions and receive a practical read: possible fit, missing documents and what to check first.',
         programmesTitle: 'Published programmes',
         programmesBody:
           'We only show programmes with an official source, status and review date.',
