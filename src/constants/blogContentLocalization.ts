@@ -104,7 +104,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
           'Empieza por la ruta o movimiento que sea frecuente y ya resulte inseguro. En muchas viviendas es el baño, las escaleras, la entrada o el camino de la cama al baño por la noche.',
       },
       {
-        question: '¿Todas las personas mayores necesitan barras de apoyo?',
+        question: '¿Siempre hacen falta barras de apoyo?',
         answer:
           'No siempre. Ayudan cuando son necesarias, están bien colocadas y están fijadas a una superficie adecuada. Hay que revisar movilidad, transferencias, tipo de pared y hábitos.',
       },
@@ -117,9 +117,9 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Reservar evaluación de seguridad', to: '/home-safety-assessment' },
   },
   'bathroom-safety-seniors-costly-mistakes': {
-    title: 'Seguridad en el baño para mayores: 7 errores que conviene evitar',
+    title: 'Seguridad en el baño: 7 errores que conviene evitar',
     description:
-      'Errores habituales al adaptar un baño para una persona mayor: apoyos inseguros, ducha, inodoro, suelo mojado y controles de agua.',
+      'Errores habituales al mejorar la seguridad del baño: apoyos inseguros, ducha, inodoro, suelo mojado y controles de agua.',
     category: 'Seguridad en el baño',
     readTime: '9 min de lectura',
     imageAlt: 'Ilustración de errores de seguridad en el baño',
@@ -170,7 +170,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       'Haz alcanzables mandos, jabón, toallas y ropa sin girar ni agacharse.',
       'Añade iluminación nocturna sin deslumbrar desde dormitorio hasta baño y dentro del baño.',
       'Deja una forma de pedir ayuda al alcance desde el baño.',
-      'Planifica dónde puede colocarse una persona cuidadora sin bloquear ni resbalar.',
+      'Planifica dónde puede colocarse una persona de apoyo sin bloquear ni resbalar.',
     ],
     resources: [
       {
@@ -215,7 +215,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Ver servicios para baño', to: '/services/bathroom-safety' },
   },
   'home-adaptation-grants-spain-family-guide': {
-    title: 'Ayudas para adaptar viviendas en España: guía práctica para familias',
+    title: 'Ayudas para adaptar viviendas en España: cómo preparar el expediente',
     description:
       'Cómo preparar ayudas de accesibilidad y adaptación del hogar en España: requisitos, documentos, tiempos, errores habituales y enlaces oficiales.',
     category: 'Ayudas y financiación',
@@ -228,18 +228,18 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       'subvenciones accesibilidad vivienda',
     ],
     intro:
-      'En España no existe una única ayuda que todas las familias soliciten de la misma forma. El plan estatal marca un marco general, pero la solicitud real suele tramitarse a través de la comunidad autónoma, el ayuntamiento, la oficina de vivienda o servicios sociales. Lo más seguro es preparar primero las pruebas de la vivienda y después encajarlas con la convocatoria abierta.',
+      'En España no existe una única ayuda que todos los hogares soliciten de la misma forma. El plan estatal marca un marco general, pero la solicitud real suele tramitarse a través de la comunidad autónoma, el ayuntamiento, la oficina de vivienda o servicios sociales. Lo más seguro es preparar primero las pruebas de la vivienda y después encajarlas con la convocatoria abierta.',
     takeaways: [
       'Comprueba la convocatoria para la dirección exacta de la vivienda; las reglas cambian por comunidad autónoma y municipio.',
       'Prepara necesidad, fotos, certificados, permisos y presupuestos desglosados antes de que aparezca una fecha límite.',
       'No empieces obras pagadas hasta confirmar si la convocatoria permite trabajos previos.',
-      'Ningún proveedor puede garantizar aprobación: la administración decide elegibilidad, importe y pago.',
+      'Ninguna empresa puede garantizar aprobación: la administración decide elegibilidad, importe y pago.',
     ],
     sections: [
       {
         title: 'Empieza por la administración correcta, no por una promesa genérica',
         body: [
-          'Para una familia, la primera pregunta no es “cuánto nos darán”, sino “qué administración cubre esta dirección y este tipo de obra”. Una vivienda en Madrid capital puede tener una vía municipal como Plan Adapta. Una vivienda en Girona, Tarragona, Lleida o Terres de l’Ebre puede encajar en una convocatoria de la Agència de l’Habitatge de Catalunya. En otros territorios puede haber ayudas autonómicas de rehabilitación, servicios sociales municipales, discapacidad, dependencia o programas de accesibilidad del edificio.',
+          'La primera pregunta no es “cuánto nos darán”, sino “qué administración cubre esta dirección y este tipo de obra”. Una vivienda en Madrid capital puede tener una vía municipal como Plan Adapta. Una vivienda en Girona, Tarragona, Lleida o Terres de l’Ebre puede encajar en una convocatoria de la Agència de l’Habitatge de Catalunya. En otros territorios puede haber ayudas autonómicas de rehabilitación, servicios sociales municipales, discapacidad, dependencia o programas de accesibilidad del edificio.',
           'Usa la base nacional de subvenciones para buscar convocatorias abiertas y confirma los detalles con la oficina local de vivienda o servicios sociales. Si el problema está en portal, escaleras, ascensor o zonas comunes, también puede intervenir la comunidad de propietarios y el administrador de la finca.',
         ],
       },
@@ -260,15 +260,15 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         title: 'Monta el expediente antes de ir con prisa',
         body: [
-          'La mayoría de expedientes combinan documentos personales, documentos de la vivienda y pruebas técnicas. Empieza por DNI/NIE, padrón o residencia habitual, propiedad o permiso de alquiler, certificado de discapacidad o dependencia si existe, información de ingresos si la piden, fotos del riesgo actual y una propuesta desglosada.',
+          'La mayoría de expedientes combinan documentos personales, documentos de la vivienda y pruebas técnicas. Empieza por DNI/NIE, padrón o residencia habitual, propiedad o permiso de alquiler, certificado de discapacidad o dependencia si existe, información de ingresos si la piden, fotos del riesgo actual y un presupuesto desglosado.',
           'Pregunta si el programa necesita informe técnico, visita de arquitecto o técnico, licencia o declaración responsable, acuerdo de comunidad, autorización del propietario, facturas registradas, justificantes bancarios o documentos finales tras la obra. Guarda presupuestos, fotos, facturas y autorizaciones en una misma carpeta.',
         ],
       },
       {
         title: 'Cuida los plazos, el pago y las reglas de reembolso',
         body: [
-          'Algunas ayudas son por orden de llegada, otras son competitivas, otras cierran al agotarse fondos y algunas se pagan después de que la familia haya pagado y justificado la obra. Otras exigen aprobación o inspección previa. Por ejemplo, la convocatoria catalana de 2026 para arreglos interiores indica que las obras no pueden haberse iniciado antes de la publicación de la convocatoria ni antes de la inspección técnica de la Agencia.',
-          'Antes de firmar o pagar, confirma por escrito tres cosas: si se puede empezar la obra, si el formato del presupuesto sirve y cuándo se espera cobrar la ayuda. Así la familia no depende de una ayuda que quizá llegue después de necesitar el dinero.',
+          'Algunas ayudas son por orden de llegada, otras son competitivas, otras cierran al agotarse fondos y algunas se pagan después de que la obra se haya pagado y justificado. Otras exigen aprobación o inspección previa. Por ejemplo, la convocatoria catalana de 2026 para arreglos interiores indica que las obras no pueden haberse iniciado antes de la publicación de la convocatoria ni antes de la inspección técnica de la Agencia.',
+          'Antes de firmar o pagar, confirma por escrito tres cosas: si se puede empezar la obra, si el formato del presupuesto sirve y cuándo se espera cobrar la ayuda. Así no dependes de una ayuda que quizá llegue después de necesitar el dinero.',
         ],
       },
       {
@@ -342,7 +342,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿CasaMia puede garantizar una ayuda?',
         answer:
-          'No. CasaMia puede ayudarte a definir la necesidad, preparar pruebas y ordenar una propuesta lista para solicitar, pero la administración decide elegibilidad, aprobación, importe y pago.',
+          'No. CasaMia puede ayudarte a definir la necesidad, preparar pruebas y ordenar presupuesto y documentación para solicitar, pero la administración decide elegibilidad, aprobación, importe y pago.',
       },
       {
         question: '¿Conviene adaptar la vivienda antes de solicitar?',
@@ -363,23 +363,23 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Comprobar preparación para ayudas', to: '/grant-check' },
   },
   'family-conversation-before-home-safety-visit': {
-    title: 'Antes de una visita de seguridad: preguntas que conviene acordar en familia',
+    title: 'Antes de una visita de seguridad: preguntas que conviene acordar',
     description:
-      'Guía práctica para hablar en familia antes de pedir una evaluación de seguridad del hogar: movilidad, rutinas, dignidad, presupuesto, ayudas y decisión.',
-    category: 'Planificación familiar',
+      'Guía práctica antes de pedir una evaluación de seguridad del hogar: movilidad, rutinas, preferencias, presupuesto, ayudas y decisión.',
+    category: 'Planificación',
     readTime: '6 min de lectura',
-    imageAlt: 'Lista familiar para preparar una conversación sobre seguridad del hogar',
+    imageAlt: 'Lista para preparar una conversación sobre seguridad del hogar',
     keywords: [
       'preguntas evaluación seguridad hogar mayores',
       'conversación familia padres mayores',
       'preparar visita seguridad hogar',
     ],
     intro:
-      'Muchas familias saben que algo debe cambiar, pero no siempre nombran la misma preocupación. Una conversación breve antes de la visita ayuda a CasaMia a entender a la persona, la vivienda y la decisión que la familia necesita tomar.',
+      'A veces se sabe que algo debe cambiar, pero no todos nombran la misma preocupación. Una conversación breve antes de la visita ayuda a CasaMia a entender a la persona, la vivienda y la decisión que hay que tomar.',
     takeaways: [
       'Acordad primero los momentos diarios que resultan más difíciles, antes de hablar de productos.',
       'Separad necesidades urgentes de seguridad, comodidad, confianza y planificación futura.',
-      'Decidid quién debe participar en la propuesta, presupuesto, ayudas y aprobación final.',
+      'Decidid quién debe participar en el precio, las ayudas y la aprobación final.',
     ],
     sections: [
       {
@@ -421,14 +421,14 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     ],
     faqs: [
       {
-        question: '¿Debe participar la persona mayor en la conversación?',
+        question: '¿Debe participar la persona que vive en casa?',
         answer:
-          'Sí, siempre que sea posible. La persona que vive en la casa debe explicar qué le cuesta, qué aceptaría y qué rutinas quiere mantener. La familia ayuda, pero la dignidad y el consentimiento siguen siendo importantes.',
+          'Sí, siempre que sea posible. La persona que vive en la casa debe explicar qué le cuesta, qué aceptaría y qué rutinas quiere mantener. Familiares o personas de apoyo pueden ayudar, pero la dignidad y el consentimiento siguen siendo importantes.',
       },
       {
         question: '¿Tenemos que saber qué productos necesitamos antes de pedir una visita?',
         answer:
-          'No. Es mejor describir el problema diario y el resultado deseado. CasaMia puede traducirlo después en mejoras físicas, apoyo conectado, trabajos opcionales o una propuesta con alcance definido.',
+          'No. Es mejor describir el problema diario y el resultado deseado. CasaMia puede traducirlo después en mejoras físicas, apoyo conectado, trabajos opcionales o un plan claro.',
       },
     ],
     cta: { label: 'Empezar revisión guiada', to: '/tools/senior-friendly-home-check' },
@@ -436,13 +436,13 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
   'smart-home-safety-without-overcomplicating': {
     title: 'Seguridad inteligente sin complicar la casa',
     description:
-      'Cómo usar tecnología en el hogar de una persona mayor sin invadir, abrumar ni depender de sistemas difíciles de mantener.',
+      'Cómo usar tecnología en casa sin invadir, abrumar ni depender de sistemas difíciles de mantener.',
     category: 'Tecnología enfocada',
     readTime: '6 min de lectura',
     imageAlt: 'Ilustración de tecnología doméstica para seguridad',
     keywords: ['seguridad inteligente mayores', 'tecnología hogar mayores', 'sensores seguridad casa'],
     intro:
-      'La tecnología debe reducir un riesgo concreto. En hogares con personas mayores, lo importante es elegir señales claras, respuestas acordadas y controles fáciles de entender.',
+      'La tecnología debe reducir un riesgo concreto. Lo importante es elegir señales claras, respuestas acordadas y controles fáciles de entender.',
     takeaways: [
       'Empieza por riesgos concretos: noche, baño, entrada, medicación o emergencia.',
       'Evita sistemas que requieran demasiada configuración diaria.',
@@ -495,7 +495,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
   'choose-home-safety-provider-spain': {
     title: 'Cómo elegir ayuda para hacer una vivienda más segura',
     description:
-      'Qué revisar antes de elegir apoyo profesional para seguridad senior: evaluación, instalación, claridad del plan y seguimiento.',
+      'Qué revisar antes de elegir apoyo profesional para mejorar la seguridad en casa: evaluación, instalación, claridad del plan y seguimiento.',
     category: 'Elegir ayuda',
     readTime: '7 min de lectura',
     imageAlt: 'Familia revisando opciones de adaptación del hogar',
@@ -526,7 +526,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Evita planes confusos',
         body: [
           'El plan debe separar qué está incluido, qué es opcional, qué depende de mediciones o condiciones de la vivienda, y qué decisión viene después.',
-          'Esto evita que la persona mayor o la familia tengan que organizar profesionales, fechas y decisiones técnicas sin una guía clara.',
+          'Esto evita que quien vive en casa o sus apoyos tengan que organizar profesionales, fechas y decisiones técnicas sin una guía clara.',
         ],
       },
     ],
@@ -544,7 +544,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
           'Puede funcionar para un trabajo definido. Cuando hay varias estancias, ayudas públicas, tecnología o varias personas decidiendo, un servicio guiado reduce confusión.',
       },
       {
-        question: '¿Qué debe incluir una propuesta seria?',
+        question: '¿Qué debe incluir un plan serio?',
         answer:
           'La necesidad detectada, la solución recomendada, qué está incluido, qué queda por decidir, precio cuando proceda, plazo, instalación, garantías y próximos pasos claros.',
       },
@@ -585,7 +585,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Cuida seguridad sin encerrar',
         body: [
           'Puede ser necesario revisar cocina, puertas, agua caliente, medicación y salidas. La solución debe equilibrar autonomía, dignidad y protección.',
-          'CasaMia puede ayudar a priorizar cambios según la rutina y el nivel de apoyo familiar.',
+          'CasaMia puede ayudar a priorizar cambios según la rutina y el nivel de apoyo disponible.',
         ],
       },
     ],
@@ -594,7 +594,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       '¿Hay contraste suficiente en escalones, interruptores y puertas?',
       '¿Los objetos importantes están siempre en el mismo lugar?',
       '¿La cocina tiene medidas para reducir olvidos o riesgos?',
-      '¿La familia sabe qué señales de cambio debe observar?',
+      '¿Los contactos autorizados saben qué señales de cambio deben observar?',
     ],
     faqs: [
       {
@@ -611,7 +611,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Solicitar revisión del hogar', to: '/home-safety-assessment' },
   },
   'stair-safety-handrails-older-adults': {
-    title: 'Seguridad en escaleras para personas mayores: pasamanos, luz y contraste',
+    title: 'Seguridad en escaleras: pasamanos, luz y contraste',
     description:
       'Cómo revisar escaleras interiores y exteriores para reducir tropiezos, mejorar apoyo y hacer los desniveles más visibles.',
     category: 'Escaleras y desniveles',
@@ -623,7 +623,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     takeaways: [
       'Revisa pasamanos, iluminación, superficie y contraste juntos.',
       'Las rutas exteriores también cuentan: entrada, portal, garaje o jardín.',
-      'No esperes a una caída si la persona ya evita la escalera.',
+      'No esperes a una caída si alguien ya evita la escalera.',
     ],
     sections: [
       {
@@ -670,12 +670,12 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Ver servicios de entrada y movilidad', to: '/services/entryway-safety' },
   },
   'kitchen-safety-aging-in-place': {
-    title: 'Seguridad en cocina para envejecer en casa',
+    title: 'Seguridad en cocina: menos alcance, agacharse y riesgo con electrodomésticos',
     description:
       'Cómo reducir riesgos de alcance, flexión, calor, agua y electrodomésticos sin quitar independencia en la cocina.',
     category: 'Cocina y rutinas',
     readTime: '6 min de lectura',
-    imageAlt: 'Cocina organizada para una persona mayor',
+    imageAlt: 'Cocina organizada para un uso diario más seguro',
     keywords: ['seguridad cocina mayores', 'adaptar cocina persona mayor', 'envejecer en casa cocina'],
     intro:
       'La cocina es una zona de autonomía, pero también mezcla calor, agua, peso, alcance y movimiento. La adaptación debe proteger sin quitar control innecesariamente.',
@@ -729,7 +729,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Ver seguridad en cocina', to: '/services/kitchen-safety' },
   },
   'bedroom-night-safety-older-adults': {
-    title: 'Seguridad en dormitorio y noche para personas mayores',
+    title: 'Seguridad nocturna en el dormitorio',
     description:
       'Cómo hacer más seguros dormitorio y rutas nocturnas: levantarse de la cama, iluminación sin deslumbrar, baño, alcance y ayuda de emergencia.',
     category: 'Dormitorio y noche',
@@ -742,7 +742,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       'Revisa toda la rutina nocturna: incorporarse, ponerse en pie, calzarse, coger el apoyo, salir y usar el baño.',
       'Usa luz suave de ruta que reduzca sombras sin deslumbrar ni desorientar.',
       'Comprueba altura de cama, alcance desde la mesilla, obstáculos, puertas, umbrales y acceso al baño juntos.',
-      'La ayuda de emergencia debe estar al alcance desde cama y baño, con una respuesta familiar acordada.',
+      'La ayuda de emergencia debe estar al alcance desde cama y baño, con una respuesta acordada.',
     ],
     sections: [
       {
@@ -770,7 +770,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Deja la ayuda al alcance en los dos puntos críticos',
         body: [
           'Botones, teléfonos o avisos acordados deben estar al alcance desde cama y baño. Cargar el móvil lejos de la cama puede cuidar la batería, pero dejar la ayuda fuera de alcance.',
-          'La familia debe acordar quién responde, cómo entra si la puerta está cerrada y qué hacer si se activa una alerta de noche.',
+          'Los contactos acordados deben saber quién responde, cómo entrar si la puerta está cerrada y qué hacer si se activa una alerta de noche.',
         ],
       },
     ],
@@ -782,7 +782,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       '¿No hay alfombras, cables, cajas o muebles bajos en la ruta nocturna?',
       '¿La puerta, inodoro y luz del baño se usan sin giros o alcances forzados?',
       '¿La ayuda de emergencia se alcanza desde cama y baño?',
-      '¿La familia sabe quién responde y cómo entra si hace falta?',
+      '¿Los contactos acordados saben quién responde y cómo entrar si hace falta?',
     ],
     resources: [
       {
@@ -829,10 +829,10 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
   'hospital-discharge-home-safety-checklist': {
     title: 'Lista de seguridad en casa tras el alta hospitalaria',
     description:
-      'Una guía práctica para preparar la vivienda antes de que una persona mayor vuelva a casa tras un ingreso, cirugía o cambio de movilidad.',
+      'Una guía práctica para preparar la vivienda antes de volver a casa tras un ingreso, cirugía o cambio de movilidad.',
     category: 'Tras el alta hospitalaria',
     readTime: '8 min de lectura',
-    imageAlt: 'Familia preparando la vivienda antes de la vuelta a casa tras el hospital',
+    imageAlt: 'Vivienda preparada antes de la vuelta a casa tras el hospital',
     keywords: ['alta hospitalaria seguridad en casa', 'vuelta a casa persona mayor', 'lista seguridad tras cirugía'],
     intro:
       'Los primeros días después del alta son el momento en que pequeños obstáculos de la vivienda pueden convertirse en problemas importantes. Usa esta lista para revisar entrada, dormitorio, baño, medicación, ayuda y rutinas de la primera semana.',
@@ -874,7 +874,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     ],
     faqs: [
       {
-        question: '¿Qué preparar antes de que una persona mayor vuelva del hospital?',
+        question: '¿Qué preparar antes de volver a casa desde el hospital?',
         answer:
           'Empieza por entrada, entrar y salir de la cama, baño e inodoro, iluminación nocturna, notas de medicación, contactos de emergencia y apoyo de la primera semana.',
       },
@@ -887,26 +887,26 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
     cta: { label: 'Empezar revisión de vuelta a casa', to: '/home-safety-after-hospital-discharge' },
   },
   'when-home-adaptations-are-not-enough': {
-    title: 'Cuando adaptar la vivienda no es suficiente: guía familiar de decisión',
+    title: 'Cuando adaptar la vivienda no es suficiente: guía de decisión',
     description:
       'Una guía práctica para decidir si conviene adaptar la vivienda, añadir apoyo, planificar por fases o valorar una residencia u otra opción de cuidado.',
-    category: 'Decisiones familiares',
+    category: 'Decisiones de cuidado',
     readTime: '8 min de lectura',
-    imageAlt: 'Familia comparando opciones de seguridad y cuidado en casa',
+    imageAlt: 'Comparación de opciones de seguridad y cuidado en casa',
     keywords: ['envejecer en casa decisión', 'adaptar vivienda o residencia', 'cuando la casa ya no es segura'],
     intro:
-      'Envejecer en casa debe ser seguro, familiar y realista. La pregunta no es si casa siempre es mejor, sino si el apoyo adecuado puede hacer la vida diaria más segura sin agotar a la persona ni a la familia.',
+      'Seguir en casa debe ser seguro, familiar y realista. La pregunta no es si casa siempre es mejor, sino si el apoyo adecuado puede hacer la vida diaria más segura sin agotar a la persona ni a sus apoyos.',
     takeaways: [
       'Las adaptaciones funcionan mejor cuando la persona aún puede usar la vivienda con rutas claras, apoyos y rutinas sencillas.',
       'Una residencia o un mayor nivel de apoyo puede ser más seguro cuando supervisión, transferencias, confusión o riesgo nocturno no se gestionan de forma fiable en casa.',
-      'La mejor decisión compara seguridad, dignidad, capacidad familiar, coste, plazos y deseos de la persona.',
+      'La mejor decisión compara seguridad, dignidad, capacidad de apoyo, coste, plazos y deseos de la persona.',
     ],
     sections: [
       {
         title: 'Empieza por la rutina diaria, no por la vivienda',
         body: [
           'Una casa puede parecer adecuada en una visita rápida y fallar justo en los momentos importantes: levantarse de la cama, llegar al baño de noche, ducharse, cocinar, usar escaleras o pedir ayuda.',
-          'Si esos momentos pueden hacerse más seguros con adaptaciones, rutinas y apoyo, seguir en casa puede ser realista. Si dependen de improvisar cada día, la familia necesita una conversación más amplia.',
+          'Si esos momentos pueden hacerse más seguros con adaptaciones, rutinas y apoyo, seguir en casa puede ser realista. Si dependen de improvisar cada día, hace falta una conversación más amplia.',
         ],
       },
       {
@@ -935,9 +935,9 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       '¿Puede llegar con seguridad al baño, cama, cocina y entrada en un día normal?',
       '¿Puede pedir ayuda desde las estancias donde hay más riesgo?',
       '¿Las caídas, sustos o incidentes nocturnos son más frecuentes?',
-      '¿La familia o cuidadores pueden sostener la rutina sin agotarse?',
+      '¿Los contactos autorizados o apoyos pueden sostener la rutina sin agotarse?',
       '¿Un plan por fases resolvería los principales riesgos o solo retrasaría una decisión mayor?',
-      '¿La familia ha comparado coste y plazos de adaptar casa frente a residencia o más apoyo?',
+      '¿Se han comparado coste y plazos de adaptar casa frente a residencia o más apoyo?',
     ],
     faqs: [
       {
@@ -948,18 +948,18 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
       {
         question: '¿Hay que adaptar la casa antes de pensar en una residencia?',
         answer:
-          'No siempre. Algunas familias deben comparar ambas rutas pronto. Una revisión de seguridad puede mostrar qué se resuelve en casa, qué necesita apoyo profesional y qué quizá conviene tratar con una opción de mayor cuidado.',
+          'No siempre. En algunas situaciones conviene comparar ambas rutas pronto. Una revisión de seguridad puede mostrar qué se resuelve en casa, qué necesita apoyo profesional y qué quizá conviene tratar con una opción de mayor cuidado.',
       },
     ],
     cta: { label: 'Empezar revisión de seguridad', to: '/tools/senior-friendly-home-check' },
   },
   'emergency-plan-aging-parents-home': {
-    title: 'Plan de emergencia para padres mayores que viven en casa',
+    title: 'Plan de emergencia para vivir con más seguridad en casa',
     description:
       'Cómo preparar contactos, accesos, avisos y decisiones para que una emergencia en casa tenga una respuesta clara.',
     category: 'Plan de emergencia',
     readTime: '6 min de lectura',
-    imageAlt: 'Familia preparando un plan de emergencia para una persona mayor',
+    imageAlt: 'Plan de emergencia para una vivienda con respuesta acordada',
     keywords: ['plan emergencia padres mayores', 'seguridad personas mayores casa', 'aviso emergencia hogar'],
     intro:
       'Un plan de emergencia no tiene que ser complejo. Debe responder a tres preguntas: qué puede pasar, cómo se pide ayuda y quién responde.',
@@ -987,7 +987,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
         title: 'Prueba el sistema de aviso',
         body: [
           'El botón, teléfono, wearable o llamada debe probarse antes de necesitarlo. También hay que saber quién recibe el aviso y qué hará.',
-          'CasaMia ayuda a conectar seguridad física, dispositivos y respuesta familiar o profesional.',
+          'CasaMia ayuda a conectar seguridad física, dispositivos y respuesta acordada o profesional.',
         ],
       },
     ],
