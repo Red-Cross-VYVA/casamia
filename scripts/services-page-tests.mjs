@@ -32,8 +32,8 @@ assert.match(
 assert.match(page, /service\.name/, 'Cards must use each admin-managed service name.')
 assert.match(
   page,
-  /service\.(?:shortDescription|customerBenefit)/,
-  'Cards must explain the live catalogue service rather than use marketing-card copy.',
+  /getServicePreviewDescription\(service\)/,
+  'Cards must explain the live catalogue service through the shared customer-facing preview helper.',
 )
 assert.match(
   page,
