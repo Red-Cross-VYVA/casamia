@@ -4,7 +4,7 @@ const defaultGraphApiVersion = 'v26.0'
 const graphApiVersionPattern = /^v\d+\.\d+$/
 const defaultWhatsappAppId = '1061863269720823'
 const defaultWhatsappBusinessId = '1411528653558134'
-const defaultWhatsappPublicNumber = '34664338991'
+const defaultWhatsappPublicNumber = '34648027076'
 
 export function getWhatsappConfiguration(env = process.env) {
   const apiVersion = clean(env.WHATSAPP_GRAPH_API_VERSION) || defaultGraphApiVersion

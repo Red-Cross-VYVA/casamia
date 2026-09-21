@@ -27,7 +27,7 @@ const env = {
   WHATSAPP_PHONE_NUMBER_ID: '123456789',
   WHATSAPP_TEST_ACCESS_TOKEN: 'test-channel-token',
   WHATSAPP_TEST_PHONE_NUMBER_ID: 'test-channel-phone',
-  WHATSAPP_PUBLIC_PHONE_NUMBER: '34664338991',
+  WHATSAPP_PUBLIC_PHONE_NUMBER: '34648027076',
   WHATSAPP_TEMPLATE_LANGUAGE_EN: 'en',
   WHATSAPP_TEMPLATE_LANGUAGE_ES: 'es',
   WHATSAPP_WEBHOOK_VERIFY_TOKEN: 'verify-me',
@@ -52,7 +52,7 @@ const signupResult = await completeWhatsappEmbeddedSignup({
     }
     if (parsedUrl.pathname.endsWith('/business-1/client_whatsapp_business_accounts')) return Response.json({ data: [] })
     if (parsedUrl.pathname.endsWith('/waba-1/phone_numbers')) {
-      return Response.json({ data: [{ display_phone_number: '+34 664 33 89 91', id: 'phone-1' }] })
+      return Response.json({ data: [{ display_phone_number: '+34 648 027 076', id: 'phone-1' }] })
     }
     return Response.json({ error: { message: 'Unexpected test URL.' } }, { status: 404 })
   },

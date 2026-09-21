@@ -4,8 +4,8 @@ import { buildCustomerRecords, normalizeCustomerPhone } from '../src/services/cu
 
 const now = new Date('2026-08-30T12:00:00+02:00')
 
-assert.equal(normalizeCustomerPhone('+34 664 33 89 91'), '664338991')
-assert.equal(normalizeCustomerPhone('664 33 89 91'), '664338991')
+assert.equal(normalizeCustomerPhone('+34 600 123 456'), '600123456')
+assert.equal(normalizeCustomerPhone('600 123 456'), '600123456')
 
 const records = buildCustomerRecords({
   assessments: [{
@@ -15,7 +15,7 @@ const records = buildCustomerRecords({
     id: 'assessment-1',
     message: 'Bathroom support needed',
     name: 'Maria Garcia',
-    phone: '664 33 89 91',
+    phone: '600 123 456',
     preferredContactMethod: 'Phone',
     preferredDate: '',
     selectedPlan: 'Bathroom package',
@@ -32,7 +32,7 @@ const records = buildCustomerRecords({
     locale: 'es',
     name: 'Maria Garcia',
     note: 'Please call after lunch',
-    phone: '+34 664 33 89 91',
+    phone: '+34 600 123 456',
     preferredCallbackDate: '2026-08-30',
     preferredTimeWindow: 'Afternoon',
     reference: 'CB-1',
@@ -51,7 +51,7 @@ const records = buildCustomerRecords({
     notes: '',
     notificationDelivery: {},
     partnerNotes: '',
-    phone: '+34 664338991',
+    phone: '+34 600123456',
     preferredAt: '',
     selectedPlan: 'Bathroom package',
     source: 'assessment',
@@ -90,7 +90,7 @@ const proposalRecords = buildCustomerRecords({
     lineItems: [],
     overallRiskLevel: 'Moderate',
     paymentTerms: '',
-    phone: '+34664338991',
+    phone: '+34600123456',
     preparedBy: 'CasaMia',
     proposalDate: '2026-08-28',
     safetyScore: '',
