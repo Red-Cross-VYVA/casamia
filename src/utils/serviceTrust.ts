@@ -154,14 +154,14 @@ function compactPreviewDescription(description: string) {
     .trim()
 
   const words = summary.split(/\s+/).filter(Boolean)
-  const wordLimited = words.length > 13 ? words.slice(0, 13).join(' ') : summary
+  const wordLimited = words.length > 11 ? words.slice(0, 11).join(' ') : summary
 
-  if (wordLimited.length <= 92) return wordLimited
+  if (wordLimited.length <= 74) return wordLimited
 
-  const clipped = wordLimited.slice(0, 86)
+  const clipped = wordLimited.slice(0, 70)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return `${clipped.slice(0, lastSpace > 56 ? lastSpace : clipped.length).trim()}...`
+  return `${clipped.slice(0, lastSpace > 44 ? lastSpace : clipped.length).trim()}...`
 }
 
 function compactCardPreview(description: string) {
@@ -171,20 +171,20 @@ function compactCardPreview(description: string) {
 
   const words = cleaned.split(/\s+/).filter(Boolean)
 
-  if (words.length <= 10 && cleaned.length <= 78) {
+  if (words.length <= 8 && cleaned.length <= 64) {
     return cleaned
   }
 
-  const wordLimited = words.slice(0, 10).join(' ')
+  const wordLimited = words.slice(0, 8).join(' ')
 
-  if (wordLimited.length <= 78) {
+  if (wordLimited.length <= 64) {
     return wordLimited
   }
 
-  const clipped = wordLimited.slice(0, 74)
+  const clipped = wordLimited.slice(0, 60)
   const lastSpace = clipped.lastIndexOf(' ')
 
-  return clipped.slice(0, lastSpace > 48 ? lastSpace : clipped.length).trim()
+  return clipped.slice(0, lastSpace > 38 ? lastSpace : clipped.length).trim()
 }
 
 function formatTrustList(items: string[], language: string) {
