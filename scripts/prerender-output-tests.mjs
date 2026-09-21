@@ -90,6 +90,7 @@ for (const [file, route] of protectedShellRoutes) {
 
 const vercel = await readFile(new URL('../vercel.json', import.meta.url), 'utf8')
 const vercelConfig = JSON.parse(vercel)
+const middleware = await readFile(new URL('../middleware.ts', import.meta.url), 'utf8')
 function assertPermanentRedirect(source, destination) {
   assert.ok(
     vercelConfig.redirects.some((redirect) =>
@@ -101,20 +102,9 @@ function assertPermanentRedirect(source, destination) {
   )
 }
 
-function assertRoomRedirect(room, destination) {
-  assert.ok(
-    vercelConfig.redirects.some((redirect) =>
-      redirect.source === '/configure' &&
-      redirect.destination === destination &&
-      redirect.permanent === true &&
-      redirect.has?.some((condition) =>
-        condition.type === 'query' &&
-        condition.key === 'room' &&
-        condition.value === room
-      )
-    ),
-    `/configure?room=${room} must permanently redirect to ${destination}`,
-  )
+function assertMiddlewareConfigureRedirect(room, destination) {
+  const matcher = new RegExp(`${room}:\\s*'${destination.replaceAll('/', '\\/')}'`)
+  assert.match(middleware, matcher, `/configure?room=${room} must redirect to ${destination}`)
 }
 
 assert.match(vercel, /"source"\s*:\s*"\/es\/estimate\/:token"/)
@@ -130,12 +120,15 @@ assertPermanentRedirect('/tools/home-vs-residence-cost-calculator', '/blog/when-
 assertPermanentRedirect('/tools/senior-friendly-home-check', '/tools/is-my-parent-safe-at-home')
 assertPermanentRedirect('/es/tools/senior-friendly-home-check', '/es/tools/is-my-parent-safe-at-home')
 assertPermanentRedirect('/es/partner', '/partner')
-assertRoomRedirect('bedroom', '/services/bedroom-safety')
-assertRoomRedirect('bathroom', '/services/bathroom-safety')
-assertRoomRedirect('connected', '/services/smart-home-safety')
-assertRoomRedirect('movement', '/services/stair-safety')
-assertRoomRedirect('entrance', '/services/entrance-accessibility')
-assertPermanentRedirect('/configure', '/home-safety-wizard')
+assert.match(middleware, /'\/configure'/, 'Middleware must match the retired configurator path.')
+assert.match(middleware, /pathname === '\/configure'/, 'Middleware must handle direct configurator requests.')
+assert.match(middleware, /searchParams\.get\('room'\)/, 'Middleware must read the retired room query.')
+assert.match(middleware, /Response\.redirect\(new URL\(roomTarget \?\? '\/home-safety-wizard'/, 'Unknown retired configurator rooms must go to the wizard.')
+assertMiddlewareConfigureRedirect('bedroom', '/services/bedroom-safety')
+assertMiddlewareConfigureRedirect('bathroom', '/services/bathroom-safety')
+assertMiddlewareConfigureRedirect('connected', '/services/smart-home-safety')
+assertMiddlewareConfigureRedirect('movement', '/services/stair-safety')
+assertMiddlewareConfigureRedirect('entrance', '/services/entrance-accessibility')
 assert.match(vercel, /"source"\s*:\s*"\/internal"/)
 assert.match(vercel, /"source"\s*:\s*"\/internal\/\(\.\*\)"/)
 assert.match(vercel, /"source"\s*:\s*"\/partner"/)
