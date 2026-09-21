@@ -53,6 +53,116 @@
       "source": "/free-home-safety-assessment",
       "destination": "/home-safety-assessment",
       "permanent": true
+    },
+    {
+      "source": "/bathroom-safety-for-seniors",
+      "destination": "/services/bathroom-safety",
+      "permanent": true
+    },
+    {
+      "source": "/senior-bedroom-safety",
+      "destination": "/services/bedroom-safety",
+      "permanent": true
+    },
+    {
+      "source": "/connected-home-for-seniors",
+      "destination": "/services/smart-home-safety",
+      "permanent": true
+    },
+    {
+      "source": "/grants-for-home-adaptations-spain",
+      "destination": "/grants",
+      "permanent": true
+    },
+    {
+      "source": "/family-dashboard",
+      "destination": "/tech",
+      "permanent": true
+    },
+    {
+      "source": "/tools/home-vs-residence-cost-calculator",
+      "destination": "/blog/when-home-adaptations-are-not-enough",
+      "permanent": true
+    },
+    {
+      "source": "/tools/senior-friendly-home-check",
+      "destination": "/tools/is-my-parent-safe-at-home",
+      "permanent": true
+    },
+    {
+      "source": "/es/tools/senior-friendly-home-check",
+      "destination": "/es/tools/is-my-parent-safe-at-home",
+      "permanent": true
+    },
+    {
+      "source": "/es/partner",
+      "destination": "/partner",
+      "permanent": true
+    },
+    {
+      "source": "/configure",
+      "has": [
+        {
+          "type": "query",
+          "key": "room",
+          "value": "bedroom"
+        }
+      ],
+      "destination": "/services/bedroom-safety",
+      "permanent": true
+    },
+    {
+      "source": "/configure",
+      "has": [
+        {
+          "type": "query",
+          "key": "room",
+          "value": "bathroom"
+        }
+      ],
+      "destination": "/services/bathroom-safety",
+      "permanent": true
+    },
+    {
+      "source": "/configure",
+      "has": [
+        {
+          "type": "query",
+          "key": "room",
+          "value": "connected"
+        }
+      ],
+      "destination": "/services/smart-home-safety",
+      "permanent": true
+    },
+    {
+      "source": "/configure",
+      "has": [
+        {
+          "type": "query",
+          "key": "room",
+          "value": "movement"
+        }
+      ],
+      "destination": "/services/stair-safety",
+      "permanent": true
+    },
+    {
+      "source": "/configure",
+      "has": [
+        {
+          "type": "query",
+          "key": "room",
+          "value": "entrance"
+        }
+      ],
+      "destination": "/services/entrance-accessibility",
+      "permanent": true
+    },
+    {
+      "source": "/configure",
+      "destination": "/home-safety-wizard",
+      "permanent": true
     }
   ],
   "rewrites": [

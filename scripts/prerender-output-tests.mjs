@@ -89,10 +89,53 @@ for (const [file, route] of protectedShellRoutes) {
 }
 
 const vercel = await readFile(new URL('../vercel.json', import.meta.url), 'utf8')
+const vercelConfig = JSON.parse(vercel)
+function assertPermanentRedirect(source, destination) {
+  assert.ok(
+    vercelConfig.redirects.some((redirect) =>
+      redirect.source === source &&
+      redirect.destination === destination &&
+      redirect.permanent === true
+    ),
+    `${source} must permanently redirect to ${destination}`,
+  )
+}
+
+function assertRoomRedirect(room, destination) {
+  assert.ok(
+    vercelConfig.redirects.some((redirect) =>
+      redirect.source === '/configure' &&
+      redirect.destination === destination &&
+      redirect.permanent === true &&
+      redirect.has?.some((condition) =>
+        condition.type === 'query' &&
+        condition.key === 'room' &&
+        condition.value === room
+      )
+    ),
+    `/configure?room=${room} must permanently redirect to ${destination}`,
+  )
+}
+
 assert.match(vercel, /"source"\s*:\s*"\/es\/estimate\/:token"/)
 assert.match(vercel, /"source"\s*:\s*"\/estimate\/:token"/)
 assert.match(vercel, /"source"\s*:\s*"\/home-safety-inspection"/)
 assert.match(vercel, /"destination"\s*:\s*"\/home-safety-assessment"/)
+assertPermanentRedirect('/bathroom-safety-for-seniors', '/services/bathroom-safety')
+assertPermanentRedirect('/senior-bedroom-safety', '/services/bedroom-safety')
+assertPermanentRedirect('/connected-home-for-seniors', '/services/smart-home-safety')
+assertPermanentRedirect('/grants-for-home-adaptations-spain', '/grants')
+assertPermanentRedirect('/family-dashboard', '/tech')
+assertPermanentRedirect('/tools/home-vs-residence-cost-calculator', '/blog/when-home-adaptations-are-not-enough')
+assertPermanentRedirect('/tools/senior-friendly-home-check', '/tools/is-my-parent-safe-at-home')
+assertPermanentRedirect('/es/tools/senior-friendly-home-check', '/es/tools/is-my-parent-safe-at-home')
+assertPermanentRedirect('/es/partner', '/partner')
+assertRoomRedirect('bedroom', '/services/bedroom-safety')
+assertRoomRedirect('bathroom', '/services/bathroom-safety')
+assertRoomRedirect('connected', '/services/smart-home-safety')
+assertRoomRedirect('movement', '/services/stair-safety')
+assertRoomRedirect('entrance', '/services/entrance-accessibility')
+assertPermanentRedirect('/configure', '/home-safety-wizard')
 assert.match(vercel, /"source"\s*:\s*"\/internal"/)
 assert.match(vercel, /"source"\s*:\s*"\/internal\/\(\.\*\)"/)
 assert.match(vercel, /"source"\s*:\s*"\/partner"/)

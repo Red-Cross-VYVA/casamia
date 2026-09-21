@@ -43,6 +43,11 @@ const canonicalRedirectPaths = new Map([
   ['/bathroom-safety-for-seniors', '/services/bathroom-safety'],
   ['/senior-bedroom-safety', '/services/bedroom-safety'],
   ['/connected-home-for-seniors', '/services/smart-home-safety'],
+  ['/grants-for-home-adaptations-spain', '/grants'],
+  ['/family-dashboard', '/tech'],
+  ['/tools/home-vs-residence-cost-calculator', '/blog/when-home-adaptations-are-not-enough'],
+  ['/tools/senior-friendly-home-check', '/tools/is-my-parent-safe-at-home'],
+  ['/es/tools/senior-friendly-home-check', '/es/tools/is-my-parent-safe-at-home'],
 ])
 const retiredFlowPaths = new Set(['/configure'])
 
