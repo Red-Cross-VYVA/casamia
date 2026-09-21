@@ -79,6 +79,7 @@ type AssistedLivingCopy = {
     title: string
     body: string
     compatibility: string
+    detailsLabel: string
     items: Array<{
       kind: TechnologyKind
       tag: string
@@ -265,16 +266,17 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'High-value pilot options',
       title: 'Choose the first use case worth proving.',
       body:
-        'Choose the risk or staff-response problem that matters most. CasaMia checks device fit, room coverage, permissions and who owns the response before anything expands.',
+        'Choose the risk or staff-response problem that matters most. CasaMia keeps the pilot small until device fit, room coverage and response ownership are clear.',
       compatibility:
         'Before the pilot: compatibility, coverage, consent, certification and response ownership are confirmed.',
+      detailsLabel: 'What CasaMia checks',
       items: [
         {
           kind: 'fall',
           tag: 'Camera-free options',
           title: 'Ambient fall detection',
           body:
-            'Radar, bed-exit, presence and environment sensors can add passive room coverage without asking the resident to press a button.',
+            'Passive room coverage without asking the resident to press a button.',
           points: ['Wall or ceiling radar', 'Bed-exit and occupancy sensing', 'Door, temperature, air or leak events'],
           visualLabel: 'Examples: radar · bed exit · environment',
         },
@@ -283,7 +285,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Dignity by design',
           title: 'Bathroom and continence insights',
           body:
-            'Continence sensors can prompt a change. Selected toilet or urine-analysis devices can surface measurements or trends for authorised review.',
+            'Bathroom signals and change prompts without cameras in private spaces.',
           points: ['Saturation and change prompts', 'Toileting-event patterns', 'Professional review for flagged changes'],
           visualLabel: 'Bathroom signals, not cameras',
         },
@@ -292,7 +294,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Opt-in health check',
           title: 'rPPG mirror and connected health',
           body:
-            'A smart mirror can support deliberate optical rPPG check-ins. Blood-pressure monitors, oximeters, thermometers and scales can feed the same authorised workflow.',
+            'Optional check-ins and connected readings routed into an authorised workflow.',
           points: ['Opt-in, not continuous room monitoring', 'Selected pulse and breathing signals', 'Certification and intended use reviewed'],
           visualLabel: 'rPPG mirror concept · optical check-in',
         },
@@ -301,7 +303,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Optional personal devices',
           title: 'Wearables when they add value',
           body:
-            'Watches, wristbands and pendants are considered only when residents will accept them and use them reliably for SOS, location, activity or selected readings.',
+            'Personal devices only where acceptance and reliable use are realistic.',
           points: ['Optional—not required for ambient detection', 'Works beyond one room', 'Integrated only with consent and an agreed response'],
           visualLabel: 'Wearable, pendant and fixed-call options',
         },
@@ -543,16 +545,17 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
       eyebrow: 'Opciones de piloto de alto valor',
       title: 'Elige el primer caso de uso que merece validarse.',
       body:
-        'Elige el riesgo o problema de respuesta que más importa. CasaMia comprueba encaje del dispositivo, cobertura, permisos y quién se responsabiliza antes de ampliar.',
+        'Elige el riesgo o problema de respuesta que más importa. CasaMia mantiene el piloto pequeño hasta aclarar encaje, cobertura y responsable.',
       compatibility:
         'Antes del piloto se confirman compatibilidad, cobertura, consentimiento, certificación y responsable de respuesta.',
+      detailsLabel: 'Qué comprueba CasaMia',
       items: [
         {
           kind: 'fall',
           tag: 'Opciones sin cámara',
           title: 'Detección ambiental de caídas',
           body:
-            'Radar, salida de cama, presencia y sensores ambientales pueden aportar cobertura pasiva sin pedir al residente que pulse un botón.',
+            'Cobertura pasiva sin pedir al residente que pulse un botón.',
           points: ['Radar de pared o techo', 'Salida de cama y ocupación', 'Puerta, temperatura, aire o fugas'],
           visualLabel: 'Ejemplos: radar · salida de cama · ambiente',
         },
@@ -561,7 +564,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Dignidad desde el diseño',
           title: 'Información de baño y continencia',
           body:
-            'Los sensores de continencia pueden avisar de un cambio. Determinados dispositivos de inodoro o análisis de orina pueden mostrar mediciones o tendencias para revisión autorizada.',
+            'Señales de baño y avisos de cambio sin cámaras en espacios privados.',
           points: ['Avisos de saturación y cambio', 'Patrones de uso del baño', 'Revisión profesional cuando corresponda'],
           visualLabel: 'Señales de baño, no cámaras',
         },
@@ -570,7 +573,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Control de salud opcional',
           title: 'Espejo rPPG y salud conectada',
           body:
-            'Un espejo inteligente puede apoyar controles ópticos rPPG deliberados. Tensiómetros, pulsioxímetros, termómetros y básculas pueden alimentar el mismo flujo autorizado.',
+            'Controles opcionales y lecturas conectadas dentro de un flujo autorizado.',
           points: ['Uso opcional, no monitorización continua', 'Señales seleccionadas de pulso y respiración', 'Revisión de certificación y finalidad prevista'],
           visualLabel: 'Concepto de espejo rPPG · control óptico',
         },
@@ -579,7 +582,7 @@ const assistedLivingCopy: Record<LanguageKey, AssistedLivingCopy> = {
           tag: 'Dispositivos personales opcionales',
           title: 'Wearables cuando aportan valor',
           body:
-            'Relojes, pulseras y colgantes solo aportan valor cuando la persona los acepta y los usa de forma fiable para SOS, localización, actividad o lecturas seleccionadas.',
+            'Dispositivos personales solo cuando la aceptación y el uso fiable son realistas.',
           points: ['Opcional: no necesario para la detección ambiental', 'Útil también fuera de la habitación', 'Integración con consentimiento y respuesta acordada'],
           visualLabel: 'Wearable, colgante y llamada fija',
         },
@@ -854,6 +857,33 @@ function TechnologyVisual({ kind, label, lang }: { kind: TechnologyKind; label: 
   )
 }
 
+function PilotFocus({ copy }: { copy: AssistedLivingCopy['operatingModel'] }) {
+  return (
+    <section className="alx-pilot-focus" aria-labelledby="alx-pilot-focus-title">
+      <div className="site-shell alx-pilot-focus-grid">
+        <div>
+          <p className="eyebrow">{copy.eyebrow}</p>
+          <h2 id="alx-pilot-focus-title">{copy.title}</h2>
+          <p>{copy.body}</p>
+        </div>
+        <div className="alx-pilot-focus-cards">
+          {copy.cards.map((card, index) => {
+            const Icon = [Activity, Radio, UserRoundCheck][index] ?? BadgeCheck
+            return (
+              <article key={card.title}>
+                <span><Icon size={21} aria-hidden="true" /></span>
+                <small>{card.metric}</small>
+                <h3>{card.title}</h3>
+                <p>{card.body}</p>
+              </article>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function AssistedLivingSolutionsPage() {
   const { i18n } = useTranslation()
   const languageKey = getLanguageKey(i18n.language)
@@ -979,6 +1009,8 @@ export function AssistedLivingSolutionsPage() {
           </div>
         </section>
 
+        <PilotFocus copy={copy.operatingModel} />
+
         <section className="alx-section alx-technology" id="technology" aria-labelledby="alx-technology-title">
           <div className="site-shell">
             <header className="alx-section-heading">
@@ -994,7 +1026,10 @@ export function AssistedLivingSolutionsPage() {
                     <span className="alx-tech-tag">{item.tag}</span>
                     <h3>{item.title}</h3>
                     <p>{item.body}</p>
-                    <ul>{item.points.map((point) => <li key={point}><CheckCircle2 size={16} aria-hidden="true" />{point}</li>)}</ul>
+                    <details className="alx-tech-checks">
+                      <summary>{copy.technology.detailsLabel}<ChevronRight size={18} aria-hidden="true" /></summary>
+                      <ul>{item.points.map((point) => <li key={point}><CheckCircle2 size={16} aria-hidden="true" />{point}</li>)}</ul>
+                    </details>
                   </div>
                 </article>
               ))}
