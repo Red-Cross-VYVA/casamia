@@ -42,12 +42,12 @@ export function ServicesPreview() {
           <div>
             <CheckCircle2 size={24} aria-hidden="true" />
             <p>
-              Not sure which room to start with? The {visitFee} in-home visit ranks
-              the main risks before any paid adaptation is proposed.
+              Not sure which room to start with? Use the guided review first, then book the {visitFee}
+              in-home visit when measurements or installation advice are needed.
             </p>
           </div>
-          <Link className="btn btn-green" to="/home-safety-assessment">
-            Book Visit
+          <Link className="btn btn-green" to="/home-safety-wizard">
+            Start guided review
             <ArrowRight size={20} aria-hidden="true" />
           </Link>
         </div>

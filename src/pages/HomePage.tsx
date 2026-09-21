@@ -676,7 +676,7 @@ export function HomePage() {
               to={configuratorPath}
               onClick={() => handleConfiguratorClick('configurator_intro')}
             >
-              Start My Safer Home Plan
+              Start guided home review
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
@@ -769,7 +769,7 @@ export function HomePage() {
                       handleConfiguratorClick('configurator_summary')
                     }}
                   >
-                    Build My Safer Home
+                    Start guided review
                   </Link>
                   <Link
                     className="home-redesign-secondary"
@@ -882,11 +882,11 @@ export function HomePage() {
           <p className="home-redesign-kicker">Next step</p>
           <h2>Start with the room or routine that worries you most.</h2>
           <p>
-            Share the home, the routine and the concern. CasaMia will help confirm the first priority.
+            Share the home, the routine and the concern. CasaMia will turn that into a practical first priority.
           </p>
           <div className="home-redesign-actions">
             <Link className="btn btn-green" to={configuratorPath} onClick={() => handleConfiguratorClick('final_cta')}>
-              Build My Safer Home
+              Start guided home review
               <ArrowRight size={19} aria-hidden="true" />
             </Link>
             <Link className="home-redesign-secondary" to={talkPath} onClick={() => handleTalkClick('final_cta')}>
@@ -905,7 +905,7 @@ export function HomePage() {
             </p>
             <div>
               <Link to={configuratorPath} onClick={() => handleConfiguratorClick('assistant')}>
-                Build safer home
+                Start guided review
               </Link>
               <Link to={talkPath} onClick={() => handleTalkClick('assistant')}>Talk to CasaMia</Link>
             </div>
