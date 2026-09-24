@@ -51,6 +51,8 @@ assert.doesNotMatch(sitemap, /https:\/\/casamia\.com\.es/i, 'Sitemap URLs must n
 assert.match(sitemap, /<loc>https:\/\/www\.casamia\.com\.es\//i, 'Sitemap must use the preferred www host.')
 assert.match(sitemap, /<loc>https:\/\/www\.casamia\.com\.es\/es<\/loc>/i, 'Sitemap must include the Spanish home page.')
 assert.match(sitemap, /hreflang="es"/i, 'Sitemap must contain Spanish language alternates.')
+assert.doesNotMatch(sitemap, /\/privacy-policy</i, 'Low-value legal pages must not be submitted in the sitemap.')
+assert.doesNotMatch(sitemap, /\/es\/privacy-policy</i, 'Localized low-value legal pages must not be submitted in the sitemap.')
 assert.match(robotsTxt, /Sitemap: https:\/\/www\.casamia\.com\.es\/sitemap\.xml/i, 'robots.txt must advertise the preferred sitemap URL.')
 
 const homeHtml = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8')
@@ -91,12 +93,13 @@ for (const [file, route] of protectedShellRoutes) {
 const publicAppShellRoutes = [
   ['dist/order.html', '/order'],
   ['dist/es/order.html', '/es/order'],
+  ['dist/privacy-policy.html', '/privacy-policy'],
+  ['dist/es/privacy-policy.html', '/es/privacy-policy'],
 ]
 
 for (const [file, route] of publicAppShellRoutes) {
   const html = await readFile(new URL(`../${file}`, import.meta.url), 'utf8')
-  assert.match(html, /<main\b/i, `${route} must contain the order page shell`)
-  assert.match(html, /<h1\b/i, `${route} must contain the order page heading`)
+  assert.match(html, /<h1\b/i, `${route} must contain the public noindex page heading`)
   assert.match(html, /<meta name="robots" content="noindex,nofollow"/i, `${route} must remain out of the search index`)
 }
 

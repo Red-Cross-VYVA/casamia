@@ -92,7 +92,7 @@ assert.match(
 )
 assert.match(
   parentSafetyQuiz,
-  /'@type': 'WebApplication'[\s\S]*is-my-parent-safe-at-home#tool/,
+  /const toolPath = '\/tools\/is-my-parent-safe-at-home'[\s\S]*'@type': 'WebApplication'[\s\S]*`\$\{siteUrl\}\$\{toolPath\}#tool`/,
   'The parent safety quiz must publish WebApplication structured data.',
 )
 assert.match(
@@ -107,22 +107,22 @@ assert.doesNotMatch(
 )
 assert.match(
   toolsPage,
-  /Free Senior Home Safety Tools[\s\S]*Grant-readiness check[\s\S]*Photo safety report/,
+  /Free Home Safety Tools[\s\S]*Grant document check[\s\S]*Photo safety report/,
   'The free tools index must gather CasaMia practical tools in one page.',
 )
 assert.match(
   toolsPage,
-  /const chooserRoutes = \[[\s\S]*Something feels different[\s\S]*Funding may matter[\s\S]*You want a full plan/,
+  /const chooserQuestions = \[[\s\S]*Movement or routine feels different[\s\S]*Funding may matter[\s\S]*You want a full plan/,
   'The free tools index must help families choose the right practical route before opening a tool.',
 )
 assert.match(
   toolsPage,
-  /const nextToolSteps = \[[\s\S]*A clearer starting point[\s\S]*Evidence you can share[\s\S]*A route into action/,
+  /const nextToolSteps = \[[\s\S]*The next review to use[\s\S]*Evidence you can share[\s\S]*Priorities ready to use/,
   'The free tools index must show what families can do with a tool result.',
 )
 assert.match(
   toolsPage,
-  /Not sure which one\?[\s\S]*¿No sabes cuál elegir\?[\s\S]*tools-chooser-section/,
+  /Match the tool to the concern[\s\S]*¿No sabes cuál elegir\?[\s\S]*tools-chooser-section/,
   'The tool chooser guidance must be available in English and Spanish.',
 )
 assert.match(
@@ -142,7 +142,7 @@ assert.match(
 )
 assert.match(
   toolsPage,
-  /'@type': 'HowTo'[\s\S]*#choose-a-tool[\s\S]*chooserRoutes\.map/,
+  /'@type': 'HowTo'[\s\S]*#choose-a-tool[\s\S]*chooserQuestions\.map/,
   'The free tools index must publish HowTo structured data for choosing the right tool.',
 )
 assert.match(
@@ -187,7 +187,7 @@ assert.match(
 )
 assert.match(
   page,
-  /Is my parent safe at home\?[\s\S]*\/tools\/is-my-parent-safe-at-home/,
+  /Is this home safe day to day\?[\s\S]*\/tools\/is-my-parent-safe-at-home/,
   'The Resources hub must expose the parent safety quiz as a practical decision tool.',
 )
 assert.match(
@@ -232,7 +232,7 @@ assert.match(
 )
 assert.match(
   needLandingContent,
-  /home-safety-assessment-vs-general-contractor[\s\S]*A contractor is useful once the work is clear[\s\S]*Read the fall checklist[\s\S]*Three quotes are only comparable/,
+  /home-safety-assessment-vs-general-contractor[\s\S]*A contractor is the right call once the adaptation is clear[\s\S]*Read the fall checklist[\s\S]*Three quotes only help when they price the same work/,
   'The assessment-vs-contractor decision page must explain when scope-setting matters before installer quotes.',
 )
 assert.match(
@@ -272,12 +272,12 @@ assert.match(
 )
 assert.match(
   page,
-  /Something changed recently[\s\S]*hospital-discharge-home-safety-checklist[\s\S]*One room is creating worry[\s\S]*The family needs a plan/,
+  /A fall, hospital stay or new difficulty[\s\S]*hospital-discharge-home-safety-checklist[\s\S]*One room feels least safe[\s\S]*The bathroom is the main worry/,
   'The Resources hub must route users by real-life situation, not only by article type.',
 )
 assert.match(
   page,
-  /home is still the right route[\s\S]*when-home-adaptations-are-not-enough[\s\S]*home-safety-wizard/,
+  /staying home is still realistic[\s\S]*when-home-adaptations-are-not-enough[\s\S]*home-safety-wizard/,
   'The Resources hub must help families consider higher-care decisions without exposing the removed calculator.',
 )
 assert.match(
@@ -292,22 +292,22 @@ assert.match(
 )
 assert.match(
   page,
-  /const familyStarterPrompts = \[[\s\S]*What changed recently\?[\s\S]*What decision is needed this week\?/,
+  /const familyStarterPrompts = \[[\s\S]*What changed in daily movement\?[\s\S]*Where does worry appear\?[\s\S]*What decision is needed this week\?/,
   'The Resources hub must include a practical family starter prompt sequence.',
 )
 assert.match(
   page,
-  /const actionRouteSteps = \[[\s\S]*Learn what matters[\s\S]*Capture the real home[\s\S]*Prioritise the first works[\s\S]*Let CasaMia coordinate/,
+  /const actionRouteSteps = \[[\s\S]*Learn what matters[\s\S]*Capture the real home[\s\S]*Prioritise the first changes[\s\S]*Let CasaMia coordinate/,
   'The Resources hub must show how families move from education into a managed CasaMia plan.',
 )
 assert.match(
   page,
-  /const educationHubSteps = \[[\s\S]*Start with the worry[\s\S]*Use one practical tool[\s\S]*Add real-home evidence[\s\S]*Move into a managed plan/,
+  /const educationHubSteps = \[[\s\S]*Start with the worry[\s\S]*Use one focused tool[\s\S]*Add real-home evidence[\s\S]*Turn notes into a clear plan/,
   'The Resources hub must include a clear education path from learning to managed CasaMia action.',
 )
 assert.match(
   page,
-  /CasaMia education hub[\s\S]*Centro de aprendizaje CasaMia[\s\S]*#education-path[\s\S]*resource-education-section/,
+  /resource-education-section[\s\S]*id="education-path"[\s\S]*Ruta de aprendizaje CasaMia[\s\S]*CasaMia learning path/,
   'The Resources education hub must be visible, bilingual and anchorable.',
 )
 assert.match(
@@ -317,17 +317,17 @@ assert.match(
 )
 assert.match(
   page,
-  /From reading to action[\s\S]*De la lectura a la acción[\s\S]*resource-action-route-section[\s\S]*home-safety-assessment\?open=self-inspection#self-inspection-tool/,
+  /From reading to action[\s\S]*De la lectura a la acción[\s\S]*resource-action-route-section[\s\S]*\/tools\/is-my-parent-safe-at-home/,
   'The Resources action route must be bilingual and guide users into the practical home safety review.',
 )
 assert.match(
   page,
-  /10-minute family starter[\s\S]*Primeros 10 minutos en familia/,
+  /10-minute safety conversation[\s\S]*10 minutos de conversación clara/,
   'The family starter guidance must be available in English and Spanish.',
 )
 assert.match(
   page,
-  /const localSpainRoutes = \[[\s\S]*Start with the real home[\s\S]*Prepare grant support early[\s\S]*Move into one managed plan/,
+  /const localSpainRoutes = \[[\s\S]*Start with the real home[\s\S]*Prepare grant support early[\s\S]*Move into one clear plan/,
   'The Resources hub must include a Spain-specific route from general advice to practical CasaMia action.',
 )
 assert.match(
@@ -342,7 +342,7 @@ assert.match(
 )
 assert.match(
   page,
-  /Algo ha cambiado hace poco[\s\S]*Una estancia preocupa más[\s\S]*La familia necesita un plan/,
+  /Caída, hospital o nueva dificultad[\s\S]*Una estancia parece menos segura[\s\S]*Varias personas deben ponerse de acuerdo/,
   'The guided Resources journeys must be available in Spanish.',
 )
 assert.match(
@@ -422,7 +422,7 @@ assert.match(
 )
 assert.match(
   needLandingPage,
-  /evidenceEyebrow[\s\S]*Three details make the plan clearer[\s\S]*La rutina[\s\S]*The routine[\s\S]*#what-to-share[\s\S]*copy\.evidenceItems\.map[\s\S]*need-landing-evidence/,
+  /evidenceEyebrow[\s\S]*Three details are enough to start[\s\S]*La rutina[\s\S]*The routine[\s\S]*#what-to-share[\s\S]*copy\.evidenceItems\.map[\s\S]*need-landing-evidence/,
   'Need landing pages must give families a practical evidence checklist before recommending a next step.',
 )
 assert.match(
@@ -462,7 +462,7 @@ assert.match(
 )
 assert.match(
   page,
-  /resource-family-starter-section[\s\S]*home-safety-assessment\?open=self-inspection#self-inspection-tool/,
+  /resource-family-starter-section[\s\S]*\/tools\/is-my-parent-safe-at-home/,
   'The family starter section must guide users into the practical home safety review.',
 )
 assert.match(
@@ -602,7 +602,7 @@ assert.match(
 )
 assert.match(
   nav,
-  /solutionMenuCopy[\s\S]*Rutas frecuentes[\s\S]*Qué necesitas hacer más seguro[\s\S]*solutionMenuItems[\s\S]*Baño seguro[\s\S]*Cocina segura[\s\S]*Entrada segura/,
+  /solutionMenuCopy[\s\S]*Necesidades frecuentes[\s\S]*Qué necesitas hacer más seguro[\s\S]*solutionMenuItems[\s\S]*Baño seguro[\s\S]*Cocina segura[\s\S]*Entrada segura/,
   'The Solutions navigation must localise high-intent room pages and group labels.',
 )
 assert.match(
@@ -682,7 +682,7 @@ assert.match(
 )
 assert.match(
   articlePage,
-  /Turn this guide into a practical plan[\s\S]*blog-next-step-card[\s\S]*home-safety-assessment\?open=self-inspection#self-inspection-tool/,
+  /Turn this guide into a clear action[\s\S]*blog-next-step-card[\s\S]*\/tools\/is-my-parent-safe-at-home/,
   'Resource article pages must include a practical next-step action block.',
 )
 assert.match(

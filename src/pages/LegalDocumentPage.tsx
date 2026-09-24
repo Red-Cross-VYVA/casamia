@@ -52,7 +52,7 @@ export function LegalDocumentPage({ documentId }: { documentId: LegalDocumentId 
 
   return (
     <>
-      <SEO title={document.title} description={document.intro} path={path} schema={schema} />
+      <SEO title={document.title} description={document.intro} path={path} schema={schema} noindex />
       <section className="legal-hero">
         <div className="site-shell">
           <p className="eyebrow">{copy.eyebrow}</p>

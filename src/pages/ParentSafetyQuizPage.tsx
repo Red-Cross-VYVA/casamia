@@ -8,7 +8,7 @@ import { trackEvent } from '../utils/analytics'
 import '../styles/parent-safety-quiz.css'
 
 const siteUrl = 'https://www.casamia.com.es'
-const toolPath = '/tools/home-safety-check'
+const toolPath = '/tools/is-my-parent-safe-at-home'
 
 type Language = 'en' | 'es'
 

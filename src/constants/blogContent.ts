@@ -605,7 +605,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     cta: {
       label: 'Start the guided review',
-      to: '/tools/home-safety-check',
+      to: '/tools/is-my-parent-safe-at-home',
     },
   },
   {
@@ -1049,7 +1049,7 @@ export const blogArticles: BlogArticle[] = [
     ],
     cta: {
       label: 'Start a home safety review',
-      to: '/tools/home-safety-check',
+      to: '/tools/is-my-parent-safe-at-home',
     },
   },
   {

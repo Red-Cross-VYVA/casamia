@@ -44,10 +44,10 @@ for (const route of [
   '/complaints-contact',
   '/accessibility-statement',
 ]) {
-  assert.match(
+  assert.doesNotMatch(
     sitemap,
     new RegExp(`https://www\\.casamia\\.com\\.es${route.replaceAll('-', '\\-')}`),
-    `Sitemap must include the public legal route ${route}.`,
+    `Sitemap must not submit low-value legal route ${route} for indexing.`,
   )
 }
 assert.match(robots, /^User-agent:\s*\*/m, 'Robots policy must apply to all crawlers.')
@@ -93,25 +93,25 @@ assert.match(
   /\{copy\.amountNow\} \{formatConfiguratorCurrency\(quote\.visitFee\)\} · \{copy\.vatIncluded\}/,
   'Visit reservations must disclose the VAT-included amount payable now.',
 )
-assert.match(checkout, /Request quote/, 'Checkout must offer the no-payment quote action.')
+assert.match(checkout, /Get remote review/, 'Checkout must offer the no-payment quote action.')
 assert.match(checkout, /Reserve visit/, 'Checkout must offer the measured-visit reservation action.')
 assert.match(checkout, /createPaidVisitCheckout/, 'Visit reservations must use the paid Stripe checkout flow.')
 assert.doesNotMatch(checkout, /createMockDepositCheckout/, 'Visit reservations must not use a mock checkout adapter.')
 assert.match(withdrawal, /validate\(\)/, 'Withdrawal form must validate before submission.')
 assert.match(
   terms,
-  /<SEO title=\{title\} description=\{description\} path="\/terms-and-conditions" \/>/,
-  'Terms page must use shared SEO metadata.',
+  /<SEO title=\{title\} description=\{description\} path="\/terms-and-conditions" noindex \/>/,
+  'Terms page must use noindex SEO metadata.',
 )
 assert.match(
   withdrawal,
-  /<SEO title=\{copy\.title\} description=\{copy\.body\} path="\/withdrawal-form" \/>/,
-  'Withdrawal form must use shared SEO metadata.',
+  /<SEO title=\{copy\.title\} description=\{copy\.body\} path="\/withdrawal-form" noindex \/>/,
+  'Withdrawal form must use noindex SEO metadata.',
 )
 assert.match(
   legalDocumentPage,
-  /<SEO title=\{document\.title\} description=\{document\.intro\} path=\{path\} schema=\{schema\} \/>/,
-  'Shared legal document pages must use canonical SEO metadata.',
+  /<SEO title=\{document\.title\} description=\{document\.intro\} path=\{path\} schema=\{schema\} noindex \/>/,
+  'Shared legal document pages must use noindex canonical SEO metadata.',
 )
 assert.match(legalDocumentPage, /document\.id === 'complaints-contact'.*<ComplaintForm/s, 'Complaints page must expose the stored complaint form.')
 assert.match(complaintForm, /type: 'complaint_request'/, 'Complaint submissions must be identified separately from general contact requests.')
@@ -156,7 +156,7 @@ assert.match(
 assert.match(grantsPage, /secure process/, 'Sensitive grant documents must not use ordinary contact forms.')
 assert.match(
   grantsPage,
-  /Applying for a grant is separate from purchasing CasaMia/,
+  /A grant check is separate from buying CasaMia services/,
   'Grant page must separate grant enquiries from installation contracts.',
 )
 assert.match(

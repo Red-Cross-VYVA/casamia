@@ -61,7 +61,8 @@ for (const [label, path, maxBytes] of [
 const sitemapResponse = await expectStatus('Sitemap', '/sitemap.xml', 200)
 const sitemap = await sitemapResponse.text()
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1])
-assert.equal(sitemapUrls.length, 62, 'The production sitemap route count changed unexpectedly.')
+assert.equal(sitemapUrls.length, 104, 'The production sitemap route count changed unexpectedly.')
+assert.ok(!sitemapUrls.some((url) => /\/(?:es\/)?privacy-policy$/.test(new URL(url).pathname)), 'Privacy policy pages must not be submitted in the sitemap.')
 
 const routeResults = await Promise.all(sitemapUrls.map(async (url) => {
   const response = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) })

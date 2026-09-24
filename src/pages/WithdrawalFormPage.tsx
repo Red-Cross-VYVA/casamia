@@ -200,7 +200,7 @@ export function WithdrawalFormPage() {
 
   return (
     <main className="legal-page withdrawal-page">
-      <SEO title={copy.title} description={copy.body} path="/withdrawal-form" />
+      <SEO title={copy.title} description={copy.body} path="/withdrawal-form" noindex />
       <div className="site-shell">
         <p className="eyebrow">{copy.eyebrow}</p>
         <h1>{copy.title}</h1>

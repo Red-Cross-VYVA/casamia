@@ -16,7 +16,7 @@ export function TermsAndConditionsPage() {
 
   return (
     <>
-      <SEO title={title} description={description} path="/terms-and-conditions" />
+      <SEO title={title} description={description} path="/terms-and-conditions" noindex />
       <section className="page-hero">
         <div className="page-hero-inner">
           <h1 className="display-title">{title}</h1>
