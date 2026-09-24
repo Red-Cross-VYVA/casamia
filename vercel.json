@@ -90,7 +90,17 @@
       "permanent": true
     },
     {
+      "source": "/tools/home-safety-check",
+      "destination": "/tools/is-my-parent-safe-at-home",
+      "permanent": true
+    },
+    {
       "source": "/es/tools/senior-friendly-home-check",
+      "destination": "/es/tools/is-my-parent-safe-at-home",
+      "permanent": true
+    },
+    {
+      "source": "/es/tools/home-safety-check",
       "destination": "/es/tools/is-my-parent-safe-at-home",
       "permanent": true
     },
@@ -101,6 +111,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/es/order",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/order",
+      "destination": "/index.html"
+    },
     {
       "source": "/es/estimate/:token",
       "destination": "/index.html"
