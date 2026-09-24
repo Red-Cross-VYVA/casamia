@@ -8,6 +8,10 @@ const sitemap = await readFile(path.join(projectRoot, 'public', 'sitemap.xml'), 
 const template = await readFile(path.join(distRoot, 'index.html'), 'utf8')
 const { render } = await import(pathToFileURL(path.join(projectRoot, 'dist-ssr', 'entry-server.js')).href)
 const routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => new URL(match[1]).pathname)
+const publicAppShellRoutes = [
+  '/order',
+  '/es/order',
+]
 const protectedAppShellRoutes = [
   '/_app-shell/private',
   '/admin/config-preview',
@@ -59,6 +63,16 @@ for (const route of routes) {
 }
 
 console.log(`Prerendered ${routes.length} sitemap routes with crawlable HTML.`)
+
+for (const route of publicAppShellRoutes) {
+  const { html: appHtml, seo } = await render(route)
+  const outputPath = getRouteHtmlOutputPath(route)
+
+  await mkdir(path.dirname(outputPath), { recursive: true })
+  await writeFile(outputPath, buildDocument(template, appHtml, seo))
+}
+
+console.log(`Wrote ${publicAppShellRoutes.length} public app shell routes.`)
 
 for (const route of protectedAppShellRoutes) {
   const outputPath = getRouteHtmlOutputPath(route)

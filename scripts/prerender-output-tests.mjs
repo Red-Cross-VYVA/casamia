@@ -88,6 +88,18 @@ for (const [file, route] of protectedShellRoutes) {
   assert.match(html, /<meta name="robots" content="noindex,nofollow" \/>/i, `${route} must be noindexed`)
 }
 
+const publicAppShellRoutes = [
+  ['dist/order.html', '/order'],
+  ['dist/es/order.html', '/es/order'],
+]
+
+for (const [file, route] of publicAppShellRoutes) {
+  const html = await readFile(new URL(`../${file}`, import.meta.url), 'utf8')
+  assert.match(html, /<main\b/i, `${route} must contain the order page shell`)
+  assert.match(html, /<h1\b/i, `${route} must contain the order page heading`)
+  assert.match(html, /<meta name="robots" content="noindex,nofollow"/i, `${route} must remain out of the search index`)
+}
+
 const vercel = await readFile(new URL('../vercel.json', import.meta.url), 'utf8')
 const vercelConfig = JSON.parse(vercel)
 const middleware = await readFile(new URL('../middleware.ts', import.meta.url), 'utf8')
