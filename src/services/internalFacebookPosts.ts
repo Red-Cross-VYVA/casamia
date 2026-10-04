@@ -12,6 +12,7 @@ export type FacebookStarterPost = {
 export type FacebookPublishingStatus = {
   apiVersion: string
   configured: boolean
+  instagramDiagnostics?: InstagramPublishingDiagnostics
   missing: string[]
   pageId: string
   pageUrl: string
@@ -32,14 +33,35 @@ export type FacebookPublishingStatus = {
   unsupportedApiVersion?: string
 }
 
+export type InstagramPublishingDiagnostics = {
+  accountAccessible: boolean
+  accountId?: string
+  accountType?: string
+  checked: boolean
+  configured: boolean
+  errors?: string[]
+  grantedPermissions?: string[]
+  missing: string[]
+  missingPermissions: string[]
+  pageLinked: boolean
+  permissionsChecked?: boolean
+  permissionsMessage?: string
+  ready: boolean
+  username?: string
+}
+
 export type FacebookPublishResult = {
   facebookId: string
   facebookPostId: string
   facebookUrl: string
-  kind: 'feed' | 'photo'
+  instagramId?: string
+  instagramUrl?: string
+  kind: 'feed' | 'photo' | 'instagram_photo'
   ok: boolean
   provider: string
 }
+
+export type SocialPublishingPlatform = 'facebook' | 'instagram'
 
 function bilingualPost(campaign: Omit<FacebookStarterPost, 'caption' | 'id' | 'language'> & {
   captions: { en: string; es: string }
@@ -82,7 +104,7 @@ const previousCampaignPostIds = [
   '605133552680332_122185145600808505',
 ] as const
 
-export const facebookStarterPosts: FacebookStarterPost[] = [
+const facebookStarterCampaignPosts: FacebookStarterPost[] = [
   ...bilingualPost({
     id: 'welcome-safer-homes',
     imagePath: '/brand-assets/social/facebook-starter-posts/01-welcome-safer-homes.jpg',
@@ -150,6 +172,42 @@ export const facebookStarterPosts: FacebookStarterPost[] = [
   }),
 ]
 
+const facebookRiskStatPosts: FacebookStarterPost[] = [
+  {
+    id: 'risk-thirty-percent-es',
+    imagePath: '/brand-assets/social/facebook-risk-stat-posts/01-treinta-por-ciento-es.jpg',
+    language: 'Spanish',
+    title: 'Riesgo real: 30%',
+    caption: 'El 30% de las personas mayores de 65 años sufre al menos una caída al año.\n\nNo se trata de alarmar. Se trata de mirar la casa con calma: baño, dormitorio, cocina, accesos y rutinas diarias.\n\nCasaMia ayuda a detectar riesgos y convertirlos en un plan claro de adaptación.\n\nEmpieza la revisión: https://www.casamia.com.es/es/home-safety-wizard?utm_source=facebook&utm_medium=organic_social&utm_campaign=risk_stats_spain&utm_content=thirty_percent_es\n\nFuente: Ministerio de Sanidad.\n\n#CasaMia #PrevencionDeCaidas #HogarSeguro #España',
+  },
+  {
+    id: 'risk-fifty-percent-es',
+    imagePath: '/brand-assets/social/facebook-risk-stat-posts/02-cincuenta-por-ciento-es.jpg',
+    language: 'Spanish',
+    title: 'Riesgo real: 50%',
+    caption: 'A partir de los 80 años, Sanidad indica que el 50% de las personas mayores sufre al menos una caída al año.\n\nEl riesgo suele estar en detalles muy concretos: una alfombra, un acceso, una rutina nocturna, una ducha difícil o un apoyo mal colocado.\n\nCasaMia revisa el hogar y prioriza cambios prácticos antes de que llegue la urgencia.\n\nEmpieza la revisión: https://www.casamia.com.es/es/home-safety-wizard?utm_source=facebook&utm_medium=organic_social&utm_campaign=risk_stats_spain&utm_content=fifty_percent_es\n\nFuente: Ministerio de Sanidad.\n\n#CasaMia #HogarSeguro #Mayores #PrevencionDeCaidas',
+  },
+  {
+    id: 'risk-hip-fracture-es',
+    imagePath: '/brand-assets/social/facebook-risk-stat-posts/03-fractura-cadera-es.jpg',
+    language: 'Spanish',
+    title: 'Riesgo real: autonomía',
+    caption: 'Cerca del 40% de las personas que sufren una fractura de cadera no recupera su nivel funcional previo.\n\nPor eso CasaMia empieza por revisar riesgos reales del hogar: baño, dormitorio, cocina, accesos y recorridos diarios.\n\nLa idea no es comprar por comprar. Es priorizar lo que puede proteger autonomía.\n\nEmpieza la revisión: https://www.casamia.com.es/es/home-safety-wizard?utm_source=facebook&utm_medium=organic_social&utm_campaign=risk_stats_spain&utm_content=hip_fracture_es\n\nFuente: Ministerio de Sanidad.\n\n#CasaMia #Autonomia #SeguridadEnCasa #PrevencionDeCaidas',
+  },
+  {
+    id: 'risk-first-cause-es',
+    imagePath: '/brand-assets/social/facebook-risk-stat-posts/04-primera-causa-es.jpg',
+    language: 'Spanish',
+    title: 'Riesgo real: primera causa',
+    caption: 'En España, las caídas son la primera causa de muerte por causas externas en personas mayores.\n\nAnticiparse no significa hacer una gran obra de golpe. Significa revisar la vivienda real, entender las rutinas y decidir qué cambios tienen más sentido primero.\n\nCasaMia ayuda a convertir esa revisión en un plan práctico.\n\nEmpieza la revisión: https://www.casamia.com.es/es/home-safety-wizard?utm_source=facebook&utm_medium=organic_social&utm_campaign=risk_stats_spain&utm_content=first_cause_es\n\nFuente: Ministerio de Sanidad.\n\n#CasaMia #HogarSeguro #CuidadoEnCasa #PrevencionDeCaidas',
+  },
+]
+
+export const facebookStarterPosts: FacebookStarterPost[] = [
+  ...facebookStarterCampaignPosts,
+  ...facebookRiskStatPosts,
+]
+
 export async function getFacebookPublishingStatus(): Promise<FacebookPublishingStatus> {
   ensureInternalPublishingAvailable()
 
@@ -161,15 +219,18 @@ export async function getFacebookPublishingStatus(): Promise<FacebookPublishingS
 export async function publishFacebookStarterPost({
   imagePath,
   message,
+  platform = 'facebook',
 }: {
   imagePath: string
   message: string
+  platform?: SocialPublishingPlatform
 }) {
   ensureInternalPublishingAvailable()
 
   return postFacebookPublishJson<FacebookPublishResult>('/api/internal/facebook-posts', {
     imagePath,
     message,
+    platform,
   }, {
     headers: getInternalAuthHeaders(),
   })
@@ -194,7 +255,7 @@ export async function replacePreviousFacebookCampaign(): Promise<FacebookCampaig
   }
 
   const published: FacebookCampaignReplacementResult['published'] = []
-  for (const post of facebookStarterPosts) {
+  for (const post of facebookStarterCampaignPosts) {
     const result = await publishFacebookStarterPost({
       imagePath: post.imagePath,
       message: post.caption,

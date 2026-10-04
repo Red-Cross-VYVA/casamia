@@ -3,7 +3,9 @@ import {
   FacebookPublishError,
   getFacebookPublishingConfiguration,
   inspectFacebookPublishingAccess,
+  inspectInstagramPublishingAccess,
   publishFacebookPost,
+  publishInstagramPost,
 } from '../_lib/facebook.js'
 import {
   readJsonBody,
@@ -30,11 +32,15 @@ export default async function handler(request, response) {
 
   if (request.method === 'GET') {
     const config = getFacebookPublishingConfiguration()
-    const tokenDiagnostics = await inspectFacebookPublishingAccess()
+    const [tokenDiagnostics, instagramDiagnostics] = await Promise.all([
+      inspectFacebookPublishingAccess(),
+      inspectInstagramPublishingAccess(),
+    ])
     delete config.accessToken
 
     sendJson(response, 200, {
       ...config,
+      instagramDiagnostics,
       pageUrl,
       tokenDiagnostics,
     })
@@ -54,26 +60,37 @@ export default async function handler(request, response) {
       return
     }
 
-    const result = await publishFacebookPost({
-      imagePath: body.imagePath,
-      message: body.message,
-      request,
-    })
+    const platform = typeof body.platform === 'string' ? body.platform : 'facebook'
+    const result = platform === 'instagram'
+      ? await publishInstagramPost({
+        imagePath: body.imagePath,
+        message: body.message,
+        request,
+      })
+      : platform === 'facebook'
+        ? await publishFacebookPost({
+          imagePath: body.imagePath,
+          message: body.message,
+          request,
+        })
+        : (() => {
+          throw new FacebookPublishError(400, 'Unsupported publishing platform.')
+        })()
 
     sendJson(response, 200, result)
   } catch (error) {
     const statusCode = error instanceof FacebookPublishError ? error.statusCode : 500
     const details = error instanceof FacebookPublishError ? error.details : undefined
 
-    console.error('Facebook publish failed', {
+    console.error('Social publish failed', {
       details,
-      message: error instanceof Error ? error.message : 'Unable to publish Facebook post.',
+      message: error instanceof Error ? error.message : 'Unable to publish social post.',
       statusCode,
     })
 
     sendJson(response, statusCode, {
       details,
-      message: error instanceof Error ? error.message : 'Unable to publish Facebook post.',
+      message: error instanceof Error ? error.message : 'Unable to publish social post.',
     })
   }
 }

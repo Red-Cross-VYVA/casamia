@@ -1,11 +1,12 @@
 import {
+  Camera,
   ExternalLink,
   RefreshCw,
   Repeat2,
   Send,
   ShieldCheck,
 } from 'lucide-react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { type ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { InternalLayout } from '../../components/internal/InternalLayout'
 import { CASAMIA_FACEBOOK_URL } from '../../constants/contact'
@@ -15,13 +16,81 @@ import {
   publishFacebookStarterPost,
   replacePreviousFacebookCampaign,
   type FacebookPublishingStatus,
+  type SocialPublishingPlatform,
 } from '../../services/internalFacebookPosts'
 
 type PublishResults = Record<string, {
-  facebookPostId: string
-  facebookUrl: string
+  postId: string
+  url: string
   message: string
 }>
+
+const platformLabels: Record<SocialPublishingPlatform, string> = {
+  facebook: 'Facebook',
+  instagram: 'Instagram',
+}
+
+function publishResultKey(postId: string, platform: SocialPublishingPlatform) {
+  return `${postId}:${platform}`
+}
+
+function PublishButton({
+  confirmationKey,
+  confirmingPostId,
+  disabled,
+  icon,
+  isPublishing,
+  label,
+  onCancel,
+  onConfirm,
+  onRequestConfirm,
+}: {
+  confirmationKey: string
+  confirmingPostId: string
+  disabled: boolean
+  icon: ReactNode
+  isPublishing: boolean
+  label: string
+  onCancel: () => void
+  onConfirm: () => void
+  onRequestConfirm: () => void
+}) {
+  if (confirmingPostId === confirmationKey) {
+    return (
+      <div className="grid gap-2" role="group" aria-label={`Confirm ${label.toLowerCase()}`}>
+        <button
+          className="btn btn-white justify-center"
+          disabled={disabled}
+          type="button"
+          onClick={onCancel}
+        >
+          Cancel
+        </button>
+        <button
+          className="btn btn-green justify-center"
+          disabled={disabled}
+          type="button"
+          onClick={onConfirm}
+        >
+          {icon}
+          Confirm publish
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <button
+      className="btn btn-green justify-center"
+      disabled={disabled}
+      type="button"
+      onClick={onRequestConfirm}
+    >
+      {icon}
+      {isPublishing ? 'Publishing...' : label}
+    </button>
+  )
+}
 
 export function InternalFacebookPostsPage() {
   const initialCaptions = useMemo(
@@ -60,7 +129,7 @@ export function InternalFacebookPostsPage() {
     void loadStatus()
   }, [loadStatus])
 
-  async function handlePublish(postId: string) {
+  async function handlePublish(postId: string, platform: SocialPublishingPlatform) {
     const post = facebookStarterPosts.find((item) => item.id === postId)
     if (!post) return
 
@@ -71,23 +140,31 @@ export function InternalFacebookPostsPage() {
     }
 
     setConfirmingPostId('')
-    setPublishingPostId(post.id)
+    setPublishingPostId(publishResultKey(post.id, platform))
     try {
       const result = await publishFacebookStarterPost({
         imagePath: post.imagePath,
         message: caption,
+        platform,
       })
+      const channelLabel = platformLabels[platform]
+      const postResultId = platform === 'instagram'
+        ? result.instagramId ?? ''
+        : result.facebookPostId || result.facebookId
+      const postUrl = platform === 'instagram'
+        ? result.instagramUrl ?? ''
+        : result.facebookUrl
       setResults((current) => ({
         ...current,
-        [post.id]: {
-          facebookPostId: result.facebookPostId || result.facebookId,
-          facebookUrl: result.facebookUrl,
-          message: 'Published to Facebook.',
+        [publishResultKey(post.id, platform)]: {
+          message: `Published to ${channelLabel}.`,
+          postId: postResultId,
+          url: postUrl,
         },
       }))
-      setMessage(`Published "${post.title}" in ${post.language} to Facebook.`)
+      setMessage(`Published "${post.title}" in ${post.language} to ${channelLabel}.`)
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Facebook post could not be published.')
+      setMessage(error instanceof Error ? error.message : `${platformLabels[platform]} post could not be published.`)
     } finally {
       setPublishingPostId('')
     }
@@ -100,9 +177,9 @@ export function InternalFacebookPostsPage() {
     try {
       const result = await replacePreviousFacebookCampaign()
       setMessage(`Campaign replaced: ${result.deleted} old posts removed and ${result.published.length} redesigned posts published.`)
-      setResults(Object.fromEntries(result.published.map((post) => [post.id, {
-        facebookPostId: post.facebookPostId || post.facebookId,
-        facebookUrl: post.facebookUrl,
+      setResults(Object.fromEntries(result.published.map((post) => [publishResultKey(post.id, 'facebook'), {
+        postId: post.facebookPostId || post.facebookId,
+        url: post.facebookUrl,
         message: 'Published as part of the redesigned campaign.',
       }])))
     } catch (error) {
@@ -113,12 +190,14 @@ export function InternalFacebookPostsPage() {
   }
 
   const publishingEnabled = Boolean(status?.configured)
+  const instagramDiagnostics = status?.instagramDiagnostics
+  const instagramPublishingEnabled = Boolean(instagramDiagnostics?.ready)
   const tokenDiagnostics = status?.tokenDiagnostics
 
   return (
     <InternalLayout
       title="Facebook posts"
-      subtitle="Publish every approved CasaMia campaign in both English and Spanish."
+      subtitle="Publish approved CasaMia organic Facebook posts."
       actions={
         <>
           <button className="btn btn-white" disabled={isLoadingStatus} type="button" onClick={() => void loadStatus()}>
@@ -138,7 +217,7 @@ export function InternalFacebookPostsPage() {
             <p className="text-xs font-black uppercase tracking-[0.16em] text-blue">Campaign update</p>
             <h2 className="mt-1 font-display text-2xl font-bold text-text-dark">Replace the previous starter campaign</h2>
             <p className="mt-2 max-w-3xl text-sm font-semibold leading-relaxed text-text-muted">
-              Removes only the ten known CasaMia campaign posts and publishes the ten redesigned English and Spanish replacements below. Two unrelated Page posts are preserved.
+              Removes only the ten known CasaMia starter campaign posts and publishes the ten redesigned English and Spanish replacements. Risk-stat posts below are not included in this bulk replacement.
             </p>
           </div>
           {showReplacementConfirmation ? (
@@ -162,8 +241,11 @@ export function InternalFacebookPostsPage() {
       <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="grid gap-6 lg:grid-cols-2">
           {facebookStarterPosts.map((post) => {
-            const result = results[post.id]
-            const isPublishing = publishingPostId === post.id
+            const facebookKey = publishResultKey(post.id, 'facebook')
+            const instagramKey = publishResultKey(post.id, 'instagram')
+            const facebookResult = results[facebookKey]
+            const instagramResult = results[instagramKey]
+            const postLabel = post.id.startsWith('risk-') ? 'Risk stat post' : 'Starter post'
 
             return (
               <article className="overflow-hidden rounded-lg border border-border bg-white shadow-soft" key={post.id}>
@@ -171,7 +253,7 @@ export function InternalFacebookPostsPage() {
                 <div className="grid gap-4 p-5">
                   <div>
                     <p className="text-xs font-black uppercase tracking-[0.16em] text-blue">
-                      Starter post · {post.language}
+                      {postLabel} · {post.language}
                     </p>
                     <h2 className="mt-2 font-display text-2xl font-bold text-text-dark">{post.title}</h2>
                   </div>
@@ -183,49 +265,42 @@ export function InternalFacebookPostsPage() {
                       onChange={(event) => setCaptions((current) => ({ ...current, [post.id]: event.target.value }))}
                     />
                   </label>
-                  {result ? (
-                    <div className="rounded-lg bg-light-blue p-4 text-sm font-bold text-navy">
+                  {[facebookResult, instagramResult].filter(Boolean).map((result) => (
+                    <div className="rounded-lg bg-light-blue p-4 text-sm font-bold text-navy" key={result.message}>
                       {result.message}
-                      {result.facebookUrl ? (
-                        <a className="ml-2 text-blue underline" href={result.facebookUrl} target="_blank" rel="noopener noreferrer">
+                      {result.url ? (
+                        <a className="ml-2 text-blue underline" href={result.url} target="_blank" rel="noopener noreferrer">
                           Open post
                         </a>
-                      ) : result.facebookPostId ? (
-                        <span className="ml-2 text-text-muted">Post ID: {result.facebookPostId}</span>
+                      ) : result.postId ? (
+                        <span className="ml-2 text-text-muted">Post ID: {result.postId}</span>
                       ) : null}
                     </div>
-                  ) : null}
-                  {confirmingPostId === post.id ? (
-                    <div className="grid gap-2 sm:grid-cols-2" role="group" aria-label={`Confirm publishing ${post.title}`}>
-                      <button
-                        className="btn btn-white justify-center"
-                        disabled={Boolean(publishingPostId)}
-                        type="button"
-                        onClick={() => setConfirmingPostId('')}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        className="btn btn-green justify-center"
-                        disabled={!publishingEnabled || Boolean(publishingPostId)}
-                        type="button"
-                        onClick={() => void handlePublish(post.id)}
-                      >
-                        <Send size={18} aria-hidden="true" />
-                        Confirm publish
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      className="btn btn-green justify-center"
-                      disabled={!publishingEnabled || isPublishing || Boolean(publishingPostId)}
-                      type="button"
-                      onClick={() => setConfirmingPostId(post.id)}
-                    >
-                      <Send size={18} aria-hidden="true" />
-                      {isPublishing ? 'Publishing...' : 'Publish to Facebook'}
-                    </button>
-                  )}
+                  ))}
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <PublishButton
+                      confirmationKey={facebookKey}
+                      confirmingPostId={confirmingPostId}
+                      disabled={!publishingEnabled || Boolean(publishingPostId)}
+                      icon={<Send size={18} aria-hidden="true" />}
+                      isPublishing={publishingPostId === facebookKey}
+                      label="Publish to Facebook"
+                      onCancel={() => setConfirmingPostId('')}
+                      onConfirm={() => void handlePublish(post.id, 'facebook')}
+                      onRequestConfirm={() => setConfirmingPostId(facebookKey)}
+                    />
+                    <PublishButton
+                      confirmationKey={instagramKey}
+                      confirmingPostId={confirmingPostId}
+                      disabled={!instagramPublishingEnabled || Boolean(publishingPostId)}
+                      icon={<Camera size={18} aria-hidden="true" />}
+                      isPublishing={publishingPostId === instagramKey}
+                      label="Publish to Instagram"
+                      onCancel={() => setConfirmingPostId('')}
+                      onConfirm={() => void handlePublish(post.id, 'instagram')}
+                      onRequestConfirm={() => setConfirmingPostId(instagramKey)}
+                    />
+                  </div>
                 </div>
               </article>
             )
@@ -289,6 +364,38 @@ export function InternalFacebookPostsPage() {
                 {tokenDiagnostics.errors?.length ? (
                   <dd className="mt-2 text-xs font-bold text-gold">
                     {tokenDiagnostics.errors.join(' ')}
+                  </dd>
+                ) : null}
+              </div>
+            ) : null}
+            {instagramDiagnostics?.checked ? (
+              <div className="rounded-lg bg-white/10 p-4">
+                <dt className="font-black uppercase tracking-[0.14em] text-white/50">Instagram publishing</dt>
+                <dd className={`mt-1 font-bold ${instagramDiagnostics.ready ? 'text-green' : 'text-gold'}`}>
+                  {instagramDiagnostics.ready ? 'Ready to publish' : 'Needs attention'}
+                </dd>
+                {instagramDiagnostics.username || instagramDiagnostics.accountId ? (
+                  <dd className="mt-2 text-xs font-bold text-white/70">
+                    Account: {instagramDiagnostics.username ? `@${instagramDiagnostics.username}` : instagramDiagnostics.accountId}
+                    {instagramDiagnostics.accountType ? ` · ${instagramDiagnostics.accountType}` : ''}
+                  </dd>
+                ) : null}
+                <dd className="mt-2 text-xs font-bold text-white/70">
+                  Page link: {instagramDiagnostics.pageLinked ? 'Detected from Facebook Page' : 'Using configured account or not linked'}
+                </dd>
+                {instagramDiagnostics.missingPermissions.length ? (
+                  <dd className="mt-2 text-xs font-bold text-gold">
+                    Missing from token: {instagramDiagnostics.missingPermissions.join(', ')}
+                  </dd>
+                ) : null}
+                {instagramDiagnostics.permissionsChecked === false ? (
+                  <dd className="mt-2 text-xs font-bold text-white/70">
+                    Meta does not expose a permission list for this token type.
+                  </dd>
+                ) : null}
+                {instagramDiagnostics.errors?.length ? (
+                  <dd className="mt-2 text-xs font-bold text-gold">
+                    {instagramDiagnostics.errors.join(' ')}
                   </dd>
                 ) : null}
               </div>

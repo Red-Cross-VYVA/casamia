@@ -210,12 +210,14 @@ status updates. Set `VITE_CASAMIA_WHATSAPP_DELIVERY_ENABLED=true` only after a
 real English and Spanish delivery test succeeds. Click-to-chat links do not
 depend on this flag.
 
-## Facebook Page Publishing
+## Facebook and Instagram Publishing
 
 The internal admin panel includes a protected Facebook posts tool at
-`/internal/facebook-posts`. It publishes approved CasaMia starter posts through
-the Meta Pages API. The Page access token must stay server-side and should never
-be exposed through a `VITE_` variable.
+`/internal/facebook-posts`. It publishes approved CasaMia organic posts to the
+Facebook Page through the Meta Pages API and, when the linked Instagram
+professional account is available, to Instagram through the Instagram Graph
+Content Publishing API. The Page access token must stay server-side and should
+never be exposed through a `VITE_` variable.
 
 Server-only Vercel variables:
 
@@ -223,7 +225,11 @@ Server-only Vercel variables:
 META_PAGE_ID=605133552680332
 META_PAGE_ACCESS_TOKEN=...
 META_GRAPH_API_VERSION=v26.0
+# Optional when the Instagram professional account is linked to the Page.
+META_INSTAGRAM_ACCOUNT_ID=...
 ```
 
 `META_PAGE_ACCESS_TOKEN` must be generated for the CasaMia Facebook Page with
-Page publishing access.
+Page publishing access. Instagram publishing also requires a linked Instagram
+Professional account and Meta permissions for `instagram_basic`,
+`instagram_content_publish`, `pages_read_engagement` and Page access.

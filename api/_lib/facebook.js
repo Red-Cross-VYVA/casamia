@@ -1,7 +1,11 @@
 const defaultGraphApiVersion = 'v26.0'
 const defaultPageId = '605133552680332'
 const requiredPagePermissions = ['pages_read_engagement', 'pages_manage_posts']
-const allowedStarterImagePattern = /^\/brand-assets\/social\/facebook-starter-posts\/0[1-5]-[a-z0-9-]+\.jpg$/
+const requiredInstagramPermissions = ['instagram_basic', 'instagram_content_publish', 'pages_read_engagement']
+const allowedPostImagePatterns = [
+  /^\/brand-assets\/social\/facebook-starter-posts\/0[1-5]-[a-z0-9-]+\.jpg$/,
+  /^\/brand-assets\/social\/facebook-risk-stat-posts\/0[1-4]-[a-z0-9-]+-es\.jpg$/,
+]
 const supportedGraphApiVersions = new Set([
   'v26.0',
   'v25.0',
@@ -24,6 +28,7 @@ export class FacebookPublishError extends Error {
 export function getFacebookPublishingConfiguration(env = process.env) {
   const pageId = text(env.META_PAGE_ID) || defaultPageId
   const accessToken = text(env.META_PAGE_ACCESS_TOKEN)
+  const instagramAccountId = text(env.META_INSTAGRAM_ACCOUNT_ID)
   const requestedApiVersion = text(env.META_GRAPH_API_VERSION)
     || text(env.FACEBOOK_GRAPH_API_VERSION)
     || defaultGraphApiVersion
@@ -41,6 +46,7 @@ export function getFacebookPublishingConfiguration(env = process.env) {
       accessToken ? '' : 'META_PAGE_ACCESS_TOKEN',
       unsupportedApiVersion ? `supported META_GRAPH_API_VERSION (use ${defaultGraphApiVersion})` : '',
     ].filter(Boolean),
+    instagramAccountId,
     pageId,
     unsupportedApiVersion,
   }
@@ -102,6 +108,71 @@ export async function inspectFacebookPublishingAccess({
   }
 }
 
+export async function inspectInstagramPublishingAccess({
+  env = process.env,
+  fetchImpl = fetch,
+} = {}) {
+  const config = getFacebookPublishingConfiguration(env)
+
+  if (!config.configured) {
+    return {
+      accountAccessible: false,
+      checked: false,
+      configured: false,
+      missing: config.missing,
+      missingPermissions: [...requiredInstagramPermissions],
+      pageLinked: false,
+      ready: false,
+    }
+  }
+
+  const [permissionsResult, linkedAccountResult] = await Promise.all([
+    readGraphApi({ config, fetchImpl, path: 'me/permissions' }),
+    resolveInstagramAccount({ config, fetchImpl }),
+  ])
+  const permissionRows = Array.isArray(permissionsResult.body?.data)
+    ? permissionsResult.body.data
+    : []
+  const permissionsChecked = permissionsResult.ok
+  const grantedPermissions = permissionRows
+    .filter((row) => text(row?.status).toLowerCase() === 'granted')
+    .map((row) => text(row?.permission))
+    .filter(Boolean)
+  const missingPermissions = permissionsChecked
+    ? requiredInstagramPermissions.filter((permission) => !grantedPermissions.includes(permission))
+    : []
+  const accountId = linkedAccountResult.accountId
+  const accountResult = accountId
+    ? await readGraphApi({
+      config,
+      fetchImpl,
+      path: accountId,
+      searchParams: { fields: 'id,username,account_type' },
+    })
+    : { body: {}, message: linkedAccountResult.message, ok: false }
+  const accountAccessible = accountResult.ok && text(accountResult.body?.id) === accountId
+  const errors = [linkedAccountResult, accountResult]
+    .filter((result) => !result.ok && result.message)
+    .map((result) => result.message)
+
+  return {
+    accountAccessible,
+    accountId,
+    accountType: text(accountResult.body?.account_type),
+    checked: true,
+    configured: config.configured,
+    errors,
+    grantedPermissions,
+    missing: config.missing,
+    missingPermissions,
+    pageLinked: linkedAccountResult.pageLinked,
+    permissionsChecked,
+    permissionsMessage: permissionsChecked ? '' : permissionsResult.message,
+    ready: Boolean(accountAccessible && (!permissionsChecked || missingPermissions.length === 0)),
+    username: text(accountResult.body?.username) || linkedAccountResult.username,
+  }
+}
+
 export async function publishFacebookPost({
   env = process.env,
   imagePath,
@@ -133,6 +204,46 @@ export async function publishFacebookPost({
   return publishFacebookFeedMessage({
     config,
     message: cleanMessage,
+  })
+}
+
+export async function publishInstagramPost({
+  env = process.env,
+  fetchImpl = fetch,
+  imagePath,
+  message,
+  request,
+} = {}) {
+  const config = getFacebookPublishingConfiguration(env)
+  const cleanMessage = text(message)
+  const cleanImagePath = normalizeStarterImagePath(imagePath)
+
+  if (!config.configured) {
+    throw new FacebookPublishError(500, `Instagram publishing is not configured. Add ${config.missing.join(' and ')} in Vercel.`)
+  }
+
+  if (!cleanMessage) {
+    throw new FacebookPublishError(400, 'Post caption is required.')
+  }
+
+  if (!cleanImagePath) {
+    throw new FacebookPublishError(400, 'Instagram publishing requires an approved image asset.')
+  }
+
+  const instagramAccount = await resolveInstagramAccount({ config, fetchImpl })
+
+  if (!instagramAccount.accountId) {
+    throw new FacebookPublishError(400, 'No linked Instagram professional account was found for the CasaMia Facebook Page. Link the Instagram account to the Page or set META_INSTAGRAM_ACCOUNT_ID.')
+  }
+
+  return publishInstagramPhoto({
+    config,
+    env,
+    fetchImpl,
+    imagePath: cleanImagePath,
+    instagramAccountId: instagramAccount.accountId,
+    message: cleanMessage,
+    request,
   })
 }
 
@@ -245,6 +356,106 @@ async function publishFacebookFeedMessage({
     kind: 'feed',
     ok: true,
     provider: 'facebook_pages_api',
+  }
+}
+
+async function publishInstagramPhoto({
+  config,
+  env,
+  fetchImpl,
+  imagePath,
+  instagramAccountId,
+  message,
+  request,
+}) {
+  const publicOrigin = getPublicOrigin(request, env)
+
+  if (!publicOrigin) {
+    throw new FacebookPublishError(500, 'Public site URL is not configured, so Meta cannot fetch the Instagram image.')
+  }
+
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(publicOrigin)) {
+    throw new FacebookPublishError(400, 'Instagram image posts can only be published from the deployed site because Meta cannot fetch localhost images.')
+  }
+
+  const container = await callGraphApi({
+    body: new URLSearchParams({
+      caption: message,
+      image_url: new URL(imagePath, publicOrigin).href,
+    }),
+    config,
+    fetchImpl,
+    method: 'POST',
+    path: `${instagramAccountId}/media`,
+  })
+  const creationId = text(container.id)
+
+  if (!creationId) {
+    throw new FacebookPublishError(502, 'Instagram did not return a media container ID.')
+  }
+
+  const published = await callGraphApi({
+    body: new URLSearchParams({ creation_id: creationId }),
+    config,
+    fetchImpl,
+    method: 'POST',
+    path: `${instagramAccountId}/media_publish`,
+  })
+  const instagramId = text(published.id)
+  const permalinkResult = instagramId
+    ? await readGraphApi({
+      config,
+      fetchImpl,
+      path: instagramId,
+      searchParams: { fields: 'permalink' },
+    })
+    : { body: {}, ok: false }
+
+  return {
+    facebookId: '',
+    facebookPostId: '',
+    facebookUrl: '',
+    instagramId,
+    instagramUrl: text(permalinkResult.body?.permalink),
+    kind: 'instagram_photo',
+    ok: true,
+    provider: 'instagram_graph_api',
+  }
+}
+
+async function resolveInstagramAccount({
+  config,
+  fetchImpl = fetch,
+}) {
+  if (config.instagramAccountId) {
+    return {
+      accountId: config.instagramAccountId,
+      message: '',
+      ok: true,
+      pageLinked: false,
+      username: '',
+    }
+  }
+
+  const result = await readGraphApi({
+    config,
+    fetchImpl,
+    path: config.pageId,
+    searchParams: {
+      fields: 'instagram_business_account{id,username},connected_instagram_account{id,username}',
+    },
+  })
+  const account = result.body?.instagram_business_account || result.body?.connected_instagram_account
+  const accountId = text(account?.id)
+
+  return {
+    accountId,
+    message: result.ok && !accountId
+      ? 'No Instagram professional account is linked to the configured Facebook Page.'
+      : result.message,
+    ok: result.ok && Boolean(accountId),
+    pageLinked: Boolean(accountId),
+    username: text(account?.username),
   }
 }
 
@@ -387,8 +598,8 @@ function normalizeStarterImagePath(value) {
 
   const path = cleanValue.startsWith('/') ? cleanValue : `/${cleanValue}`
 
-  if (!allowedStarterImagePattern.test(path)) {
-    throw new FacebookPublishError(400, 'That image is not in the approved Facebook starter post folder.')
+  if (!allowedPostImagePatterns.some((pattern) => pattern.test(path))) {
+    throw new FacebookPublishError(400, 'That image is not in an approved Facebook post asset folder.')
   }
 
   return path
