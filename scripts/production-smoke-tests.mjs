@@ -16,6 +16,12 @@ async function expectStatus(label, path, expected, init = {}) {
   return response
 }
 
+async function expectRedirect(label, path, expectedLocation) {
+  const response = await request(path, { redirect: 'manual' })
+  assert.ok([301, 302, 307, 308].includes(response.status), `${label} redirect returned ${response.status}.`)
+  assert.match(response.headers.get('location') || '', new RegExp(`${expectedLocation.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`))
+}
+
 const home = await expectStatus('Homepage', '/', 200)
 for (const [name, expected] of [
   ['strict-transport-security', /max-age=31536000/i],
@@ -71,9 +77,28 @@ const routeResults = await Promise.all(sitemapUrls.map(async (url) => {
 const failedRoutes = routeResults.filter((result) => result.status !== 200)
 assert.deepEqual(failedRoutes, [], `Sitemap routes failed: ${JSON.stringify(failedRoutes)}`)
 
-const contactRedirect = await request('/contact', { redirect: 'manual' })
-assert.ok([301, 302, 307, 308].includes(contactRedirect.status), `Contact redirect returned ${contactRedirect.status}.`)
-assert.match(contactRedirect.headers.get('location') || '', /\/why-us#contact-form$/)
+for (const [label, path, destination] of [
+  ['Contact redirect', '/contact', '/why-us#contact-form'],
+  ['Bathroom safety legacy URL', '/bathroom-safety-for-seniors', '/services/bathroom-safety'],
+  ['Connected home legacy URL', '/connected-home-for-seniors', '/services/smart-home-safety'],
+  ['Home safety check legacy URL', '/tools/home-safety-check', '/tools/is-my-parent-safe-at-home'],
+  ['Spanish home safety check legacy URL', '/es/tools/home-safety-check', '/es/tools/is-my-parent-safe-at-home'],
+  ['Spanish partner legacy URL', '/es/partner', '/partner'],
+  ['Bedroom configurator legacy URL', '/configure?room=bedroom', '/services/bedroom-safety'],
+  ['Bathroom configurator legacy URL', '/configure?room=bathroom', '/services/bathroom-safety'],
+  ['Connected configurator legacy URL', '/configure?room=connected', '/services/smart-home-safety'],
+  ['Movement configurator legacy URL', '/configure?room=movement', '/services/stair-safety'],
+]) {
+  await expectRedirect(label, path, destination)
+}
+
+for (const [label, path] of [
+  ['Public order app shell', '/order'],
+  ['Spanish public order app shell', '/es/order'],
+]) {
+  const response = await expectStatus(label, path, 200)
+  assert.match(await response.text(), /<meta name="robots" content="noindex,nofollow"/i)
+}
 
 const catalogueResponse = await expectStatus('Public catalogue', '/api/public/service-catalogue', 200)
 const catalogue = await catalogueResponse.json()

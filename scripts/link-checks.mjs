@@ -50,6 +50,7 @@ const canonicalRedirectPaths = new Map([
   ['/tools/home-safety-check', '/tools/is-my-parent-safe-at-home'],
   ['/es/tools/senior-friendly-home-check', '/es/tools/is-my-parent-safe-at-home'],
   ['/es/tools/home-safety-check', '/es/tools/is-my-parent-safe-at-home'],
+  ['/es/partner', '/partner'],
 ])
 const retiredFlowPaths = new Set(['/configure'])
 
