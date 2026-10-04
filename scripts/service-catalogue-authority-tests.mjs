@@ -31,6 +31,10 @@ function setStoredCatalogue(catalogue) {
 const defaultCatalogue = getDefaultServiceCatalogue()
 const defaults = defaultCatalogue.services
 const defaultBathroomPackage = defaultCatalogue.packageConfigs.find((config) => config.area === 'bathroom')
+
+assertUnique(defaults.map((service) => service.id), 'compiled default service IDs')
+assertUnique(defaults.map((service) => service.slug), 'compiled default service slugs')
+
 const movedService = {
   ...defaults[0],
   active: false,
@@ -137,3 +141,18 @@ assert.equal(savedCatalogue.masterCatalogue?.commercialSettings?.assessmentVisit
 assert.equal(savedCatalogue.masterCatalogue?.commercialSettings?.proposalDepositRate, 0.4)
 
 console.log('Service catalogue authority checks passed.')
+
+function assertUnique(values, label) {
+  const seen = new Set()
+  const duplicates = []
+
+  values.forEach((value) => {
+    if (seen.has(value) && !duplicates.includes(value)) {
+      duplicates.push(value)
+    }
+
+    seen.add(value)
+  })
+
+  assert.deepEqual(duplicates, [], `${label} must be unique.`)
+}
