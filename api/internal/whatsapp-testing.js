@@ -35,6 +35,7 @@ export default async function handler(request, response, dependencies = {}) {
     })
     sendJson(response, 200, {
       ...diagnostics,
+      publicDeliveryEnabled: String(env.VITE_CASAMIA_WHATSAPP_DELIVERY_ENABLED ?? '').trim() === 'true',
       usingTestCredentials: testing.usingTestCredentials,
       webhookUrl: 'https://www.casamia.com.es/api/webhooks/whatsapp',
     })

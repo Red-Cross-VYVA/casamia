@@ -44,6 +44,7 @@ type WhatsappDiagnostics = {
   configured?: boolean
   metaError?: string
   phoneNumberId?: string
+  publicDeliveryEnabled?: boolean
   sender?: {
     codeVerificationStatus?: string
     displayPhoneNumber?: string
@@ -66,6 +67,20 @@ type WhatsappTestResult = {
   reason?: string
   status?: string
 }
+
+type TemplateType = 'proposal' | 'report'
+type TemplateLanguage = 'en' | 'es'
+
+const templateRows: Array<{
+  label: string
+  language: TemplateLanguage
+  type: TemplateType
+}> = [
+  { label: 'Report ready · English', language: 'en', type: 'report' },
+  { label: 'Report ready · Spanish', language: 'es', type: 'report' },
+  { label: 'Proposal ready · English', language: 'en', type: 'proposal' },
+  { label: 'Proposal ready · Spanish', language: 'es', type: 'proposal' },
+]
 
 declare global {
   interface Window {
@@ -109,6 +124,8 @@ export function InternalWhatsAppSetupPage() {
   const authorizationReceivedRef = useRef(false)
   const sessionFinishedRef = useRef(false)
   const transferTimeoutRef = useRef<number | null>(null)
+  const configuredTemplateCount = diagnostics ? getConfiguredTemplateCount(diagnostics) : 0
+  const deliveryReady = Boolean(diagnostics?.configured && configuredTemplateCount === templateRows.length && diagnostics.publicDeliveryEnabled)
 
   function finishWithIdentifiers(identifiers: EmbeddedSignupCompletion) {
     sessionFinishedRef.current = true
@@ -409,12 +426,35 @@ export function InternalWhatsAppSetupPage() {
 
           {diagnosticsError ? <p className="mt-5 font-bold text-red-700">{diagnosticsError}</p> : null}
           {diagnostics ? (
-            <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-5">
-              <StatusField label="Cloud API" ready={diagnostics.configured} />
+            <>
+            <div className={`mt-6 rounded-lg border px-5 py-4 ${deliveryReady ? 'border-green/30 bg-green/10' : 'border-amber-200 bg-amber-50'}`}>
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-text-muted">Readiness summary</p>
+              <h3 className="mt-2 font-display text-2xl font-bold text-text-dark">
+                {deliveryReady ? 'WhatsApp delivery is ready to test live.' : 'WhatsApp delivery is not live yet.'}
+              </h3>
+              <p className="mt-2 text-sm font-semibold leading-relaxed text-text-mid">
+                {deliveryReady
+                  ? 'Credentials, templates, and the public delivery switch are configured. Send English and Spanish tests before enabling this for customers.'
+                  : getReadinessMessage(diagnostics, configuredTemplateCount)}
+              </p>
+            </div>
+
+            <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-6">
+              <StatusField label="Cloud API" ready={diagnostics.configured} value={diagnostics.phoneNumberId} />
               <StatusField
                 label="Sender mode"
                 ready={diagnostics.usingTestCredentials}
                 value={diagnostics.usingTestCredentials ? 'Meta test number' : 'Live fallback'}
+              />
+              <StatusField
+                label="Public delivery"
+                ready={diagnostics.publicDeliveryEnabled}
+                value={diagnostics.publicDeliveryEnabled ? 'Enabled' : 'Disabled'}
+              />
+              <StatusField
+                label="Templates"
+                ready={configuredTemplateCount === templateRows.length}
+                value={`${configuredTemplateCount}/${templateRows.length} configured`}
               />
               <StatusField label="Webhook token" ready={diagnostics.webhookConfigured} />
               <StatusField label="Signed webhook" ready={diagnostics.signatureConfigured} />
@@ -424,6 +464,34 @@ export function InternalWhatsAppSetupPage() {
                 value={diagnostics.sender?.displayPhoneNumber || diagnostics.metaError}
               />
             </dl>
+
+            <div className="mt-6 rounded-lg border border-border bg-pale-blue/40 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 className="font-display text-xl font-bold text-text-dark">CasaMia templates</h3>
+                  <p className="mt-1 text-sm font-semibold text-text-mid">
+                    These names must match Meta and Vercel exactly.
+                  </p>
+                </div>
+                <span className="rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-wide text-text-muted">
+                  {configuredTemplateCount}/{templateRows.length}
+                </span>
+              </div>
+              <div className="mt-4 grid gap-3 md:grid-cols-2">
+                {templateRows.map((template) => {
+                  const config = diagnostics.templates?.[template.type]?.[template.language]
+                  return (
+                    <TemplateStatusCard
+                      key={`${template.type}-${template.language}`}
+                      label={template.label}
+                      languageCode={config?.languageCode}
+                      templateName={config?.templateName}
+                    />
+                  )
+                })}
+              </div>
+            </div>
+            </>
           ) : null}
 
           <div className="mt-7 grid gap-5 border-t border-border pt-6 md:grid-cols-3">
@@ -500,6 +568,55 @@ function StatusField({ label, ready, value }: { label: string; ready?: boolean; 
       </dd>
     </div>
   )
+}
+
+function TemplateStatusCard({
+  label,
+  languageCode,
+  templateName,
+}: {
+  label: string
+  languageCode?: string
+  templateName?: string
+}) {
+  const ready = Boolean(templateName && languageCode)
+
+  return (
+    <div className="rounded-lg border border-border bg-white p-4">
+      <div className="flex items-start gap-3">
+        <CheckCircle2 className={ready ? 'text-green' : 'text-text-muted'} size={18} aria-hidden="true" />
+        <div className="min-w-0">
+          <p className="font-extrabold text-text-dark">{label}</p>
+          <p className="mt-1 break-all text-sm font-semibold text-text-mid">
+            {ready ? templateName : 'Template env var missing'}
+          </p>
+          <p className="mt-1 text-xs font-black uppercase tracking-wide text-text-muted">
+            Language: {languageCode || 'missing'}
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function getConfiguredTemplateCount(diagnostics: WhatsappDiagnostics) {
+  return templateRows.filter(({ language, type }) => {
+    const config = diagnostics.templates?.[type]?.[language]
+    return Boolean(config?.templateName && config?.languageCode)
+  }).length
+}
+
+function getReadinessMessage(diagnostics: WhatsappDiagnostics, configuredTemplateCount: number) {
+  const issues: string[] = []
+
+  if (!diagnostics.configured) issues.push('Cloud API credentials or phone-number ID are missing')
+  if (!diagnostics.publicDeliveryEnabled) issues.push('public WhatsApp delivery is still disabled')
+  if (configuredTemplateCount !== templateRows.length) issues.push('one or more CasaMia template env vars are missing')
+  if (diagnostics.metaError) issues.push(`Meta sender check returned: ${diagnostics.metaError}`)
+
+  return issues.length
+    ? `Waiting on: ${issues.join('; ')}.`
+    : 'The page has enough configuration to run tests; check Meta approval before customer delivery.'
 }
 
 function ResultField({ label, value }: { label: string; value?: string }) {
