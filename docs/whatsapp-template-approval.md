@@ -4,8 +4,8 @@ CasaMia uses WhatsApp templates only for customer-requested secure links. Keep `
 
 ## Sender
 
-- Public contact number: `+34 648 027 076`
-- Public click-to-chat URL: `https://wa.me/34648027076`
+- Public contact number: `+34 608 471 713`
+- Public click-to-chat URL: `https://wa.me/34608471713`
 - Automated delivery requires the approved Meta Cloud API sender `WHATSAPP_PHONE_NUMBER_ID`.
 
 ## Template Category

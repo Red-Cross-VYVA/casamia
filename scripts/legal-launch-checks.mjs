@@ -80,7 +80,7 @@ assert.match(companyConfig, /commercialName:\s*'CasaMia'/, 'Commercial brand sho
 assert.match(companyConfig, /legalName:\s*'MOKA DIGITECK, SOCIEDAD LIMITADA'/, 'Verified legal name should be centralised.')
 assert.match(companyConfig, /nif:\s*'B16929804'/, 'Verified company NIF should be centralised.')
 assert.match(companyConfig, /registryDetails:\s*'Registro Mercantil de Málaga, tomo 6075, libro 4982, folio 162, sección 8, hoja MA-163207, inscripción 1'/, 'Verified Mercantile Registry details should be centralised.')
-assert.match(companyConfig, /customerServicePhone:\s*'\+34 648 027 076'/, 'The published customer-service number should be centralised.')
+assert.match(companyConfig, /customerServicePhone:\s*'\+34 608 471 713'/, 'The published customer-service number should be centralised.')
 assert.doesNotMatch(companyConfig, /\[(?:insert|confirm|pending)[^\]]*\]/i, 'Public company details must not contain bracketed placeholders.')
 assert.match(legalDocuments, /Telephone: \$\{casamiaCompanyConfig\.customerServicePhone\}/, 'English legal identification must show the customer-service telephone.')
 assert.match(legalDocuments, /Teléfono: \$\{casamiaCompanyConfig\.customerServicePhone\}/, 'Spanish legal identification must show the customer-service telephone.')
