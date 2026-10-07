@@ -8,7 +8,7 @@ import { getLegalRouteLabels } from '../constants/legalDocuments'
 import { needLandingPages } from '../constants/needLandingPages'
 import { localizeNeedLandingPages } from '../constants/needLandingPagesLocalization'
 import { trackEvent } from '../utils/analytics'
-import { CASAMIA_CONTACT_EMAIL, CASAMIA_FACEBOOK_URL } from '../constants/contact'
+import { CASAMIA_CONTACT_EMAIL, CASAMIA_FACEBOOK_URL, buildCasaMiaWhatsappUrl } from '../constants/contact'
 import { completeHomeChecklistDownloads } from '../constants/resourceDownloads'
 
 const footerLinkCopy = {
@@ -37,6 +37,7 @@ const footerLinkCopy = {
     connectedOrMonitoring: 'Connected safety or monitoring',
     adminLogin: 'Admin login',
     partnerLogin: 'Partner login',
+    whatsapp: 'WhatsApp',
     facebook: 'Facebook',
     preferences: 'Cookie preferences',
   },
@@ -65,6 +66,7 @@ const footerLinkCopy = {
     connectedOrMonitoring: 'Seguridad conectada o monitorización',
     adminLogin: 'Acceso admin',
     partnerLogin: 'Acceso colaborador',
+    whatsapp: 'WhatsApp',
     facebook: 'Facebook',
     preferences: 'Preferencias de cookies',
   },
@@ -74,6 +76,11 @@ export function Footer() {
   const { i18n, t } = useTranslation()
   const language = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en'
   const links = footerLinkCopy[language]
+  const whatsappHref = buildCasaMiaWhatsappUrl(
+    language === 'es'
+      ? 'Hola CasaMia, me gustaría consultar sobre seguridad en casa.'
+      : 'Hello CasaMia, I would like to ask about home safety.',
+  )
   const companyLinks = [
     { label: t('nav.home', { defaultValue: 'Home' }), to: '/' },
     { label: links.howItWorks, to: '/how-it-works' },
@@ -131,6 +138,17 @@ export function Footer() {
           >
             {CASAMIA_CONTACT_EMAIL}
           </a>
+          {whatsappHref ? (
+            <a
+              className="mt-3 inline-block font-display text-2xl font-black text-green"
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('whatsapp_clicked', { location: 'footer' })}
+            >
+              {links.whatsapp}
+            </a>
+          ) : null}
         </div>
 
         <FooterColumn title={t('footer.company.title')}>

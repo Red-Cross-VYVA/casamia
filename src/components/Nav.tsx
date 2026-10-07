@@ -1,4 +1,4 @@
-import { BadgeEuro, Bath, BedDouble, ChevronDown, CookingPot, DoorOpen, Mail, Menu, Wifi, X } from 'lucide-react'
+import { BadgeEuro, Bath, BedDouble, ChevronDown, CookingPot, DoorOpen, Mail, Menu, MessageCircle, Wifi, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { BrandLogo } from './BrandLogo'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { allNeedLandingPages } from '../constants/needLandingPages'
 import { trackEvent } from '../utils/analytics'
-import { CASAMIA_CONTACT_EMAIL } from '../constants/contact'
+import { CASAMIA_CONTACT_EMAIL, buildCasaMiaWhatsappUrl } from '../constants/contact'
 
 type HeaderLink = {
   label: string
@@ -134,6 +134,11 @@ export function Nav() {
     resources: t('nav.resources'),
     cta: t('nav.cta'),
   }
+  const whatsappHref = buildCasaMiaWhatsappUrl(
+    isSpanish
+      ? 'Hola CasaMia, me gustaría consultar sobre seguridad en casa.'
+      : 'Hello CasaMia, I would like to ask about home safety.',
+  )
 
   const links: HeaderLink[] = [
     { label: navLabels.home, to: '/#top', match: ['/'] },
@@ -352,6 +357,18 @@ export function Nav() {
             <Mail size={17} aria-hidden="true" />
             {CASAMIA_CONTACT_EMAIL}
           </a>
+          {whatsappHref ? (
+            <a
+              className="site-header-phone site-header-whatsapp"
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent('whatsapp_clicked', { location: 'nav' })}
+            >
+              <MessageCircle size={17} aria-hidden="true" />
+              WhatsApp
+            </a>
+          ) : null}
           <Link
             className="site-header-cta btn btn-green"
             to={assessmentPath}
@@ -427,6 +444,17 @@ export function Nav() {
             >
               {CASAMIA_CONTACT_EMAIL}
             </a>
+            {whatsappHref ? (
+              <a
+                className="nav-link min-h-12 py-2 text-lg"
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('whatsapp_clicked', { location: 'mobile_nav' })}
+              >
+                WhatsApp
+              </a>
+            ) : null}
             <Link
               className="btn btn-green w-full"
               to={assessmentPath}
