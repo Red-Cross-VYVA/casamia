@@ -667,7 +667,7 @@ const spanishBlogArticles: Record<string, BlogArticleTranslation> = {
           'Sí, puede ayudar a identificar el borde del escalón, especialmente con poca luz o visión reducida.',
       },
     ],
-    cta: { label: 'Ver servicios de entrada y movilidad', to: '/services/entryway-safety' },
+    cta: { label: 'Ver servicios de entrada y movilidad', to: '/services/entrance-accessibility' },
   },
   'kitchen-safety-aging-in-place': {
     title: 'Seguridad en cocina: menos alcance, agacharse y riesgo con electrodomésticos',

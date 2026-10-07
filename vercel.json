@@ -70,6 +70,16 @@
       "permanent": true
     },
     {
+      "source": "/services/entryway-safety",
+      "destination": "/services/entrance-accessibility",
+      "permanent": true
+    },
+    {
+      "source": "/es/services/entryway-safety",
+      "destination": "/es/services/entrance-accessibility",
+      "permanent": true
+    },
+    {
       "source": "/grants-for-home-adaptations-spain",
       "destination": "/grants",
       "permanent": true
@@ -107,6 +117,11 @@
     {
       "source": "/es/partner",
       "destination": "/partner",
+      "permanent": true
+    },
+    {
+      "source": "/es/internal",
+      "destination": "/internal",
       "permanent": true
     }
   ],
