@@ -16,6 +16,7 @@ import { BrandLogo } from './components/BrandLogo'
 import { CookieConsent } from './components/CookieConsent'
 import { MetaPageTracking } from './components/MetaPageTracking'
 import { Footer } from './components/Footer'
+import { FloatingWhatsAppCTA } from './components/FloatingWhatsAppCTA'
 import { InternalAccessGate } from './components/internal/InternalAccessGate'
 import { Nav } from './components/Nav'
 import { PartnerAccessGate } from './components/partner/PartnerAccessGate'
@@ -393,6 +394,7 @@ export function AppRoutes() {
       </main>
       {isInternalRoute || isPartnerRoute || isFocusedWizardRoute ? null : <Footer />}
       {isInternalRoute || isPartnerRoute ? null : <CookieConsent />}
+      {isInternalRoute || isPartnerRoute || isFocusedWizardRoute || isPublicAgreementRoute ? null : <FloatingWhatsAppCTA />}
       {isInternalRoute || isPartnerRoute || isFocusedWizardRoute || isPublicAgreementRoute ? null : <StickyMobileCTA />}
     </CommercialSettingsProvider>
   )

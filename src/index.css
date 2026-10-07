@@ -3664,6 +3664,39 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   grid-column: 1 / -1;
 }
 
+.floating-whatsapp-cta {
+  position: fixed;
+  right: clamp(16px, 2.4vw, 32px);
+  bottom: clamp(16px, 2.4vw, 32px);
+  z-index: 46;
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(96, 178, 48, 0.36);
+  border-radius: 999px;
+  background: #25d366;
+  padding: 0 20px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 18px 42px rgba(13, 30, 46, 0.2);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.floating-whatsapp-cta:hover,
+.floating-whatsapp-cta:focus-visible {
+  background: #1fb85a;
+  box-shadow: 0 20px 50px rgba(13, 30, 46, 0.24);
+  transform: translateY(-2px);
+}
+
 .before-after-visual {
   display: block;
   height: auto;
@@ -24075,6 +24108,14 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
   .sticky-mobile-cta {
     display: grid;
+  }
+
+  .floating-whatsapp-cta {
+    right: 14px;
+    bottom: 86px;
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 14px;
   }
 
   .plan-landing-hero {
