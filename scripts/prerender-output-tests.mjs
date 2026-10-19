@@ -124,6 +124,7 @@ function assertMiddlewareConfigureRedirect(room, destination) {
 
 assert.match(vercel, /"source"\s*:\s*"\/es\/estimate\/:token"/)
 assert.match(vercel, /"source"\s*:\s*"\/estimate\/:token"/)
+assert.ok(vercelConfig.rewrites.some((rewrite) => rewrite.source === '/es/proposal/:token' && rewrite.destination === '/index.html'), 'Spanish proposal links must support direct navigation from WhatsApp.')
 assert.match(vercel, /"source"\s*:\s*"\/home-safety-inspection"/)
 assert.match(vercel, /"destination"\s*:\s*"\/home-safety-assessment"/)
 assertPermanentRedirect('/bathroom-safety-for-seniors', '/services/bathroom-safety')

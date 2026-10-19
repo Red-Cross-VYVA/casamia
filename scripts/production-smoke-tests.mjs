@@ -103,6 +103,11 @@ for (const [label, path] of [
   assert.match(await response.text(), /<meta name="robots" content="noindex,nofollow"/i)
 }
 
+for (const path of ['/estimate/smoke-test-token', '/es/estimate/smoke-test-token', '/proposal/smoke-test-token', '/es/proposal/smoke-test-token']) {
+  const response = await expectStatus(`Direct customer link ${path}`, path, 200)
+  assert.match(await response.text(), /id="root"/, 'Customer links must load the app shell before looking up their token.')
+}
+
 const catalogueResponse = await expectStatus('Public catalogue', '/api/public/service-catalogue', 200)
 const catalogue = await catalogueResponse.json()
 const master = catalogue.masterCatalogue

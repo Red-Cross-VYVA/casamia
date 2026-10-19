@@ -143,6 +143,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/es/proposal/:token",
+      "destination": "/index.html"
+    },
+    {
       "source": "/proposal/:token",
       "destination": "/index.html"
     },
