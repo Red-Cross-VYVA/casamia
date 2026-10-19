@@ -2,7 +2,7 @@ import { ArrowRight, CheckCircle2, Printer } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { useConfigurator } from '../context/ConfiguratorContext'
+import { useConfigurator } from '../context/configurator'
 import {
   calculateConfiguratorQuote,
   formatConfiguratorCurrency,

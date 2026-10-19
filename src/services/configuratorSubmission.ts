@@ -4,7 +4,7 @@ import {
 } from './configuratorAdapters'
 import { calculateConfiguratorQuote } from './configuratorPricing'
 import { hasPublicSiteApi, postPublicSiteJson } from './publicSiteApi'
-import { getSubmittedConfigurationStorageKey } from '../context/ConfiguratorContext'
+import { getSubmittedConfigurationStorageKey } from './configuratorState'
 import type { ConfiguratorState, WizardSubmission } from '../types/configurator'
 import { createVisitCheckout } from './visitCheckout.ts'
 

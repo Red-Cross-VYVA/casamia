@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { useCommercialSettings } from '../context/CommercialSettingsContext'
+import { useCommercialSettings } from '../context/commercialSettings'
 import { applyCommercialCopy } from '../services/commercialCopy'
 
 type TrustSectionCopy = {

@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 import { SEO } from '../components/SEO'
 import { ComplaintForm } from '../components/ComplaintForm'
-import { useCommercialSettings } from '../context/CommercialSettingsContext'
+import { useCommercialSettings } from '../context/commercialSettings'
 import {
   getLegalDocumentMeta,
   getLocalizedLegalDocument,

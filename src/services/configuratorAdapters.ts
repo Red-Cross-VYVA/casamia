@@ -1,4 +1,4 @@
-import { getSubmittedConfigurationStorageKey } from '../context/ConfiguratorContext'
+import { getSubmittedConfigurationStorageKey } from './configuratorState'
 import type { WizardSubmission } from '../types/configurator'
 
 export type AirtableConfiguratorAdapter = {

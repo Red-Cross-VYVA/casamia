@@ -19,7 +19,7 @@ import {
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 
-import { useConfigurator } from '../context/ConfiguratorContext'
+import { useConfigurator } from '../context/configurator'
 import {
   calculateConfiguratorQuote,
   formatConfiguratorCurrency,

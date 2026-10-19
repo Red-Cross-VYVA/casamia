@@ -24,7 +24,7 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useCommercialSettings } from '../context/CommercialSettingsContext'
+import { useCommercialSettings } from '../context/commercialSettings'
 import { applyCommercialCopy } from '../services/commercialCopy'
 import { Link } from 'react-router-dom'
 

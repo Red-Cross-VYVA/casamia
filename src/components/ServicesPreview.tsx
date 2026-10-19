@@ -2,7 +2,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { primaryServices } from '../constants/siteContent'
-import { useCommercialSettings } from '../context/CommercialSettingsContext'
+import { useCommercialSettings } from '../context/commercialSettings'
 import { formatCommercialCurrency } from '../services/commercialSettings'
 import { ServiceIcon } from './ServiceIcon'
 

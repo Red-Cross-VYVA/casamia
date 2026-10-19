@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { useConfigurator } from '../context/ConfiguratorContext'
+import { useConfigurator } from '../context/configurator'
 import {
   calculateConfiguratorQuote,
   formatConfiguratorCurrency,

@@ -1,11 +1,9 @@
-import { createContext, useContext, useEffect, useMemo, type ReactNode } from 'react'
+import { useEffect, useMemo, type ReactNode } from 'react'
 
 import i18n, { updateCommercialTranslationSettings } from '../i18n/index.ts'
 import { getCommercialSettings } from '../services/commercialSettings.ts'
 import { useServiceCatalogue } from '../services/serviceCatalogue.ts'
-import type { CommercialSettings } from '../types/serviceCatalogue.ts'
-
-const CommercialSettingsContext = createContext<CommercialSettings>(getCommercialSettings())
+import { CommercialSettingsContext } from './commercialSettings'
 
 export function CommercialSettingsProvider({ children }: { children: ReactNode }) {
   const catalogue = useServiceCatalogue()
@@ -24,8 +22,4 @@ export function CommercialSettingsProvider({ children }: { children: ReactNode }
       {children}
     </CommercialSettingsContext.Provider>
   )
-}
-
-export function useCommercialSettings() {
-  return useContext(CommercialSettingsContext)
 }

@@ -119,7 +119,7 @@ try {
   assert.equal((await getSocialPostArchive()).length,1005,'Archive includes every page of database history')
 
   let pageReads=0
-  const history = await listPublishedSocialPosts({platform:'facebook',fetchImpl:async (url) => {
+  const history = await listPublishedSocialPosts({platform:'facebook',fetchImpl:async () => {
     pageReads++
     return pageReads===1 ? json({data:[{id:'one'}],paging:{next:'unused',cursors:{after:'next-page'}}}) : json({data:[{id:'two'}]})
   }})

@@ -56,7 +56,7 @@ import { WizardLayout } from '../components/wizard/WizardLayout'
 import { WizardPackageDialog, wizardPackageDialogId } from '../components/wizard/WizardPackageDialog'
 import { WizardStep } from '../components/wizard/WizardStep'
 import { getWizardCopy } from '../config/wizardCopy'
-import { useCommercialSettings } from '../context/CommercialSettingsContext'
+import { useCommercialSettings } from '../context/commercialSettings'
 import { useSafetyWizard } from '../hooks/useSafetyWizard'
 import {
   clearCallbackContact,
