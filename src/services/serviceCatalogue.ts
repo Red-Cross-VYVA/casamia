@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { startTransition, useEffect, useMemo, useState } from 'react'
 
 import { casaMiaServices } from '../config/serviceCatalogue.ts'
 import { defaultSpanishServiceCopy } from '../config/serviceCatalogueSpanishCopy.ts'
@@ -255,19 +255,21 @@ export function getConfiguredServiceById(serviceId: string) {
 }
 
 export function useServiceCatalogue() {
-  const [catalogue, setCatalogue] = useState<EditableServiceCatalogue>(() => getServiceCatalogue())
+  // Match the prerender before applying browser-specific catalogue edits.
+  const [catalogue, setCatalogue] = useState<EditableServiceCatalogue>(getDefaultServiceCatalogue)
 
   useEffect(() => {
     let active = true
 
+    refreshCatalogue()
     loadServiceCatalogue().then((result) => {
       if (active) {
-        setCatalogue(result.catalogue)
+        startTransition(() => setCatalogue(result.catalogue))
       }
     })
 
     function refreshCatalogue() {
-      setCatalogue(getServiceCatalogue())
+      startTransition(() => setCatalogue(getServiceCatalogue()))
     }
 
     window.addEventListener(serviceCatalogueUpdatedEvent, refreshCatalogue)

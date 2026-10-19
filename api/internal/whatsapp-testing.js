@@ -1,4 +1,4 @@
-import { getWhatsappDiagnostics, getWhatsappTemplate, sendWhatsappTemplate } from '../_lib/whatsapp.js'
+import { getWhatsappDiagnostics, getWhatsappTemplate, registerWhatsappSender, sendWhatsappTemplate } from '../_lib/whatsapp.js'
 import { requireInternalApiKey, sendJson } from '../_lib/supabase.js'
 
 function getTestingEnvironment(env) {
@@ -48,6 +48,22 @@ export default async function handler(request, response, dependencies = {}) {
   }
 
   const body = request.body && typeof request.body === 'object' ? request.body : {}
+  if (body.action === 'register') {
+    if (testing.usingTestCredentials) {
+      sendJson(response, 409, { message: 'Switch the admin test panel to live credentials before registering the live number.' })
+      return
+    }
+    try {
+      const result = await (dependencies.registerWhatsapp ?? registerWhatsappSender)({
+        env, fetchImpl: dependencies.fetchImpl, pin: body.pin, phoneNumberId: body.phoneNumberId,
+      })
+      sendJson(response, 200, result)
+    } catch (error) {
+      // A PIN is used only for this request; never persist it or include it in logs.
+      sendJson(response, error.statusCode || 502, { message: String(error.message || 'Meta registration failed.').replace(/\b\d{6}\b/g, '[redacted]') })
+    }
+    return
+  }
   const language = String(body.language ?? 'en').toLowerCase().startsWith('es') ? 'es' : 'en'
   const mode = ['connectivity', 'proposal', 'report'].includes(body.mode) ? body.mode : 'connectivity'
   const template = mode === 'connectivity'

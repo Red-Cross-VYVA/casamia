@@ -1,0 +1,114 @@
+[
+  {
+    "id": "welcome-safer-homes-en",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/01-welcome-safer-homes-en.jpg",
+    "language": "English",
+    "title": "Welcome to CasaMia",
+    "campaign": "welcome",
+    "content": "en"
+  },
+  {
+    "id": "welcome-safer-homes-es",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/01-welcome-safer-homes-es.jpg",
+    "language": "Spanish",
+    "title": "Welcome to CasaMia",
+    "campaign": "welcome",
+    "content": "es"
+  },
+  {
+    "id": "home-safety-review-en",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/02-home-safety-review-en.jpg",
+    "language": "English",
+    "title": "Home Safety Review",
+    "campaign": "home_safety_review",
+    "content": "en"
+  },
+  {
+    "id": "home-safety-review-es",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/02-home-safety-review-es.jpg",
+    "language": "Spanish",
+    "title": "Home Safety Review",
+    "campaign": "home_safety_review",
+    "content": "es"
+  },
+  {
+    "id": "bathroom-safety-en",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/03-bathroom-safety-en.jpg",
+    "language": "English",
+    "title": "Bathroom Safety",
+    "campaign": "bathroom_safety",
+    "content": "en"
+  },
+  {
+    "id": "bathroom-safety-es",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/03-bathroom-safety-es.jpg",
+    "language": "Spanish",
+    "title": "Bathroom Safety",
+    "campaign": "bathroom_safety",
+    "content": "es"
+  },
+  {
+    "id": "grant-guidance-en",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/04-grant-guidance-en.jpg",
+    "language": "English",
+    "title": "Grant Guidance",
+    "campaign": "grant_guidance",
+    "content": "en"
+  },
+  {
+    "id": "grant-guidance-es",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/04-grant-guidance-es.jpg",
+    "language": "Spanish",
+    "title": "Grant Guidance",
+    "campaign": "grant_guidance",
+    "content": "es"
+  },
+  {
+    "id": "starter-packs-en",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/05-core-safety-packs-en.jpg",
+    "language": "English",
+    "title": "Starter Packs",
+    "campaign": "starter_packs",
+    "content": "en"
+  },
+  {
+    "id": "starter-packs-es",
+    "imagePath": "/brand-assets/social/facebook-starter-posts/05-core-safety-packs-es.jpg",
+    "language": "Spanish",
+    "title": "Starter Packs",
+    "campaign": "starter_packs",
+    "content": "es"
+  },
+  {
+    "id": "risk-thirty-percent-es",
+    "imagePath": "/brand-assets/social/facebook-risk-stat-posts/01-treinta-por-ciento-es.jpg",
+    "language": "Spanish",
+    "title": "Riesgo real: 30%",
+    "campaign": "risk_stats_spain",
+    "content": "thirty_percent_es"
+  },
+  {
+    "id": "risk-fifty-percent-es",
+    "imagePath": "/brand-assets/social/facebook-risk-stat-posts/02-cincuenta-por-ciento-es.jpg",
+    "language": "Spanish",
+    "title": "Riesgo real: 50%",
+    "campaign": "risk_stats_spain",
+    "content": "fifty_percent_es"
+  },
+  {
+    "id": "risk-hip-fracture-es",
+    "imagePath": "/brand-assets/social/facebook-risk-stat-posts/03-fractura-cadera-es.jpg",
+    "language": "Spanish",
+    "title": "Riesgo real: autonomía",
+    "campaign": "risk_stats_spain",
+    "content": "hip_fracture_es"
+  },
+  {
+    "id": "risk-first-cause-es",
+    "imagePath": "/brand-assets/social/facebook-risk-stat-posts/04-primera-causa-es.jpg",
+    "language": "Spanish",
+    "title": "Riesgo real: primera causa",
+    "campaign": "risk_stats_spain",
+    "content": "first_cause_es"
+  }
+]

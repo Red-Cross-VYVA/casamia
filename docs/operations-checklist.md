@@ -72,6 +72,7 @@ Primary timezone: Europe/Madrid
 - [x] Production logs can be accessed by the technical owner.
 - [x] CasaMia Facebook Page is owned by the Casamia business portfolio and the restricted `CasaMia Publisher` system user can publish Page content through the production API.
 - [x] Every Facebook campaign is prepared and published as an English and Spanish pair, with matching tracked destination links.
+- [x] Successful social publications are archived in the protected admin post library, with the published caption, image, time and post link. Use **Sync published posts** to import existing Facebook and connected Instagram history; use the channel filter to publish to another channel.
 - [ ] Assign a Meta token-rotation owner and replace the 60-day publishing token before 27 October 2026.
 
 ## 4. Stripe Live Configuration

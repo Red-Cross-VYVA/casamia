@@ -1,4 +1,5 @@
 import {
+  Archive,
   Camera,
   ExternalLink,
   RefreshCw,
@@ -12,9 +13,12 @@ import { InternalLayout } from '../../components/internal/InternalLayout'
 import { CASAMIA_FACEBOOK_URL } from '../../constants/contact'
 import {
   facebookStarterPosts,
+  getArchivedSocialPosts,
   getFacebookPublishingStatus,
   publishFacebookStarterPost,
   replacePreviousFacebookCampaign,
+  syncArchivedSocialPosts,
+  type ArchivedSocialPost,
   type FacebookPublishingStatus,
   type SocialPublishingPlatform,
 } from '../../services/internalFacebookPosts'
@@ -106,6 +110,25 @@ export function InternalFacebookPostsPage() {
   const [isLoadingStatus, setIsLoadingStatus] = useState(true)
   const [isReplacingCampaign, setIsReplacingCampaign] = useState(false)
   const [showReplacementConfirmation, setShowReplacementConfirmation] = useState(false)
+  const [archive, setArchive] = useState<ArchivedSocialPost[]>([])
+  const [archiveLoaded, setArchiveLoaded] = useState(false)
+  const [archiveError, setArchiveError] = useState('')
+  const [isSyncingArchive, setIsSyncingArchive] = useState(false)
+  const [view, setView] = useState<'queue' | 'archive'>('queue')
+  const [platformFilter, setPlatformFilter] = useState<'all' | SocialPublishingPlatform>('all')
+  const [search, setSearch] = useState('')
+
+  const loadArchive = useCallback(async () => {
+    try {
+      const result = await getArchivedSocialPosts()
+      setArchive(result.posts)
+      setArchiveLoaded(true)
+      setArchiveError('')
+    } catch (error) {
+      setArchiveError(error instanceof Error ? error.message : 'The archive could not be loaded.')
+      setArchiveLoaded(false)
+    }
+  }, [])
 
   const loadStatus = useCallback(async () => {
     setIsLoadingStatus(true)
@@ -127,7 +150,23 @@ export function InternalFacebookPostsPage() {
   useEffect(() => {
     document.title = 'Facebook Posts | CasaMia Operations'
     void loadStatus()
-  }, [loadStatus])
+    void loadArchive()
+  }, [loadStatus, loadArchive])
+
+  async function handleSyncArchive() {
+    setIsSyncingArchive(true)
+    try {
+      const result = await syncArchivedSocialPosts()
+      setArchive(result.posts)
+      setArchiveLoaded(true)
+      setArchiveError('')
+      setMessage(`Archive synced. ${result.posts.length} published posts saved.${result.warnings.length ? ` ${result.warnings.join(' ')}` : ''}`)
+    } catch (error) {
+      setArchiveError(error instanceof Error ? error.message : 'Published posts could not be synced.')
+    } finally {
+      setIsSyncingArchive(false)
+    }
+  }
 
   async function handlePublish(postId: string, platform: SocialPublishingPlatform) {
     const post = facebookStarterPosts.find((item) => item.id === postId)
@@ -162,7 +201,10 @@ export function InternalFacebookPostsPage() {
           url: postUrl,
         },
       }))
-      setMessage(`Published "${post.title}" in ${post.language} to ${channelLabel}.`)
+      if (result.publication) {
+        setArchive((current) => [result.publication!, ...current.filter((item) => item.id !== result.publication!.id)])
+      }
+      setMessage(result.archiveWarning || `${result.alreadyPublished ? 'Already published' : 'Published'} "${post.title}" in ${post.language} to ${channelLabel}. Saved in Archived posts.`)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : `${platformLabels[platform]} post could not be published.`)
     } finally {
@@ -186,13 +228,23 @@ export function InternalFacebookPostsPage() {
       setMessage(error instanceof Error ? error.message : 'The Facebook campaign could not be replaced.')
     } finally {
       setIsReplacingCampaign(false)
+      await loadArchive()
     }
   }
 
-  const publishingEnabled = Boolean(status?.configured)
+  const publishingEnabled = Boolean(status?.configured) && archiveLoaded && !isSyncingArchive
   const instagramDiagnostics = status?.instagramDiagnostics
-  const instagramPublishingEnabled = Boolean(instagramDiagnostics?.ready)
+  const instagramPublishingEnabled = Boolean(instagramDiagnostics?.ready) && archiveLoaded && !isSyncingArchive
   const tokenDiagnostics = status?.tokenDiagnostics
+  const published = new Set(archive.map((post) => publishResultKey(post.sourcePostId, post.platform)))
+  const queuedPosts = facebookStarterPosts.filter((post) => platformFilter === 'all'
+    ? !archive.some((item) => item.sourcePostId === post.id)
+    : !published.has(publishResultKey(post.id, platformFilter)))
+  const matchesSearch = (value: string) => value.toLowerCase().includes(search.trim().toLowerCase())
+  const visibleQueue = queuedPosts.filter((post) => matchesSearch(`${post.title} ${post.language} ${captions[post.id]}`))
+  const filteredArchive = archive.filter((post) => platformFilter === 'all' || post.platform === platformFilter)
+  const visibleArchive = filteredArchive.filter((post) => matchesSearch(`${post.title} ${post.language} ${post.caption} ${post.postId}`))
+  const busy = Boolean(publishingPostId) || isReplacingCampaign || isSyncingArchive
 
   return (
     <InternalLayout
@@ -200,7 +252,7 @@ export function InternalFacebookPostsPage() {
       subtitle="Publish approved CasaMia organic Facebook posts."
       actions={
         <>
-          <button className="btn btn-white" disabled={isLoadingStatus} type="button" onClick={() => void loadStatus()}>
+          <button className="btn btn-white" disabled={isLoadingStatus || busy} type="button" onClick={() => { void loadStatus(); void loadArchive() }}>
             <RefreshCw className={isLoadingStatus ? 'animate-spin' : ''} size={18} aria-hidden="true" />
             Refresh
           </button>
@@ -211,6 +263,34 @@ export function InternalFacebookPostsPage() {
         </>
       }
     >
+      <section className="mb-6 rounded-lg border border-border bg-white p-5 shadow-soft" aria-label="Post library">
+        <div className="flex flex-wrap items-center gap-3">
+          <button className={`btn ${view === 'queue' ? 'btn-navy' : 'btn-white'}`} type="button" aria-pressed={view === 'queue'} onClick={() => { setView('queue'); setConfirmingPostId('') }}>
+            Ready to publish ({queuedPosts.length})
+          </button>
+          <button className={`btn ${view === 'archive' ? 'btn-navy' : 'btn-white'}`} type="button" aria-pressed={view === 'archive'} onClick={() => { setView('archive'); setConfirmingPostId('') }}>
+            <Archive size={18} aria-hidden="true" /> Archived posts ({filteredArchive.length})
+          </button>
+          <button className="btn btn-white" type="button" disabled={busy} onClick={() => void handleSyncArchive()}>
+            <RefreshCw size={18} className={isSyncingArchive ? 'animate-spin' : ''} aria-hidden="true" />
+            {isSyncingArchive ? 'Syncing...' : 'Sync published posts'}
+          </button>
+        </div>
+        <p className="mt-3 text-sm text-text-muted">Published posts move to the archive automatically. Sync to include posts already live on your connected accounts.</p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-[200px_1fr]">
+          <label className="grid gap-1 text-sm font-bold">Channel
+            <select className="rounded-lg border border-border bg-white p-3" value={platformFilter} onChange={(event) => { setPlatformFilter(event.target.value as typeof platformFilter); setConfirmingPostId('') }}>
+              <option value="all">All channels</option><option value="facebook">Facebook</option><option value="instagram">Instagram</option>
+            </select>
+          </label>
+          <label className="grid gap-1 text-sm font-bold">Search posts
+            <input className="rounded-lg border border-border p-3" type="search" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search captions, titles or languages" />
+          </label>
+        </div>
+        {archiveError ? <p className="mt-3 text-sm font-bold text-red-700" role="alert">{archiveError}</p> : null}
+        {!archiveLoaded && !archiveError ? <p className="mt-3 text-sm" role="status">Loading published posts...</p> : null}
+      </section>
+      {view === 'queue' ? (
       <section className="mb-6 rounded-lg border border-border bg-white p-5 shadow-soft">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
@@ -238,9 +318,10 @@ export function InternalFacebookPostsPage() {
           )}
         </div>
       </section>
+      ) : null}
       <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
         <div className="grid gap-6 lg:grid-cols-2">
-          {facebookStarterPosts.map((post) => {
+          {view === 'queue' && archiveLoaded && visibleQueue.map((post) => {
             const facebookKey = publishResultKey(post.id, 'facebook')
             const instagramKey = publishResultKey(post.id, 'instagram')
             const facebookResult = results[facebookKey]
@@ -278,10 +359,11 @@ export function InternalFacebookPostsPage() {
                     </div>
                   ))}
                   <div className="grid gap-2 sm:grid-cols-2">
+                    {platformFilter !== 'instagram' ? (
                     <PublishButton
                       confirmationKey={facebookKey}
                       confirmingPostId={confirmingPostId}
-                      disabled={!publishingEnabled || Boolean(publishingPostId)}
+                      disabled={!publishingEnabled || busy || published.has(facebookKey)}
                       icon={<Send size={18} aria-hidden="true" />}
                       isPublishing={publishingPostId === facebookKey}
                       label="Publish to Facebook"
@@ -289,10 +371,12 @@ export function InternalFacebookPostsPage() {
                       onConfirm={() => void handlePublish(post.id, 'facebook')}
                       onRequestConfirm={() => setConfirmingPostId(facebookKey)}
                     />
+                    ) : null}
+                    {platformFilter !== 'facebook' ? (
                     <PublishButton
                       confirmationKey={instagramKey}
                       confirmingPostId={confirmingPostId}
-                      disabled={!instagramPublishingEnabled || Boolean(publishingPostId)}
+                      disabled={!instagramPublishingEnabled || busy || published.has(instagramKey)}
                       icon={<Camera size={18} aria-hidden="true" />}
                       isPublishing={publishingPostId === instagramKey}
                       label="Publish to Instagram"
@@ -300,11 +384,27 @@ export function InternalFacebookPostsPage() {
                       onConfirm={() => void handlePublish(post.id, 'instagram')}
                       onRequestConfirm={() => setConfirmingPostId(instagramKey)}
                     />
+                    ) : null}
                   </div>
                 </div>
               </article>
             )
           })}
+          {view === 'archive' && visibleArchive.map((post) => (
+            <article className="overflow-hidden rounded-lg border border-border bg-white shadow-soft" key={post.id}>
+              {post.imageUrl || post.imagePath ? <img className="aspect-square w-full object-cover" src={post.imageUrl || post.imagePath} alt={`${post.title} published post`} loading="lazy" referrerPolicy="no-referrer" /> : null}
+              <div className="grid gap-4 p-5">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-blue">Archived · {platformLabels[post.platform]}{post.language ? ` · ${post.language}` : ''}</p>
+                <h2 className="font-display text-2xl font-bold text-text-dark">{post.title}</h2>
+                <time className="text-sm font-semibold text-text-muted" dateTime={post.publishedAt}>{new Date(post.publishedAt).toLocaleString('en-GB', { timeZone: 'Europe/Madrid', dateStyle: 'medium', timeStyle: 'short' })} · Madrid</time>
+                <p className="whitespace-pre-wrap break-words text-sm leading-relaxed text-text-dark">{post.caption || 'No caption'}</p>
+                {post.url ? <a className="btn btn-white justify-center" href={post.url} target="_blank" rel="noopener noreferrer">Open published post <ExternalLink size={18} aria-hidden="true" /></a> : <p className="break-all text-xs text-text-muted">Post ID: {post.postId}</p>}
+              </div>
+            </article>
+          ))}
+          {archiveLoaded && (view === 'archive' ? !visibleArchive.length : !visibleQueue.length) ? (
+            <p className="rounded-lg border border-border bg-white p-6 text-sm font-semibold text-text-muted lg:col-span-2">{search ? 'No posts match your search.' : view === 'archive' ? 'No archived posts yet. Sync published posts to import existing history.' : 'No posts waiting to publish for this channel. View Archived posts for published history.'}</p>
+          ) : null}
         </div>
 
         <aside className="h-fit rounded-lg border border-border bg-navy p-6 text-white shadow-soft">

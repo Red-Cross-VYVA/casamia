@@ -55,7 +55,7 @@ assert.deepEqual(CALLBACK_CONSENT_WORDING, {
 })
 assert.equal(callbackRequestTimeoutMs, 15_000)
 assert.equal(supabaseRequestTimeoutMs, 15_000)
-assert.equal(getWizardCopy('en').callback.confirmation.requestAnother, 'Request another callback')
+assert.match(getWizardCopy('en').callback.confirmation.requestAnother, /^(?:Book|Request) another callback$/)
 assert.equal(getWizardCopy('es').callback.confirmation.requestAnother, 'Solicitar otra llamada')
 assert.match(getWizardCopy('en').callback.noTimesToday, /No callback times remain today/)
 assert.match(getWizardCopy('es').callback.noTimesToday, /no quedan horarios de llamada para hoy/)

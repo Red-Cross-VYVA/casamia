@@ -18,7 +18,15 @@ assert.deepEqual(missingConfig.missing, ['ELEVENLABS_API_KEY', 'ELEVENLABS_VOICE
 
 const missingAgentConfig = getElevenLabsAgentConfiguration({})
 assert.equal(missingAgentConfig.configured, false)
-assert.deepEqual(missingAgentConfig.missing, ['ELEVENLABS_API_KEY', 'ELEVENLABS_AGENT_ID'])
+assert.deepEqual(missingAgentConfig.missing, ['ELEVENLABS_AGENT_API_KEY or ELEVENLABS_API_KEY', 'ELEVENLABS_AGENT_ID'])
+const dedicatedAgentConfig = getElevenLabsAgentConfiguration({
+  ELEVENLABS_AGENT_API_KEY: 'dedicated-agent-key',
+  ELEVENLABS_API_KEY: 'speech-key',
+  ELEVENLABS_AGENT_ID: 'agent_test',
+})
+assert.equal(dedicatedAgentConfig.configured, true)
+assert.equal(dedicatedAgentConfig.apiKey, 'dedicated-agent-key', 'The agent-specific key must take precedence over the speech key.')
+assert.deepEqual(dedicatedAgentConfig.missing, [])
 assert.equal(missingAgentConfig.serverLocation, 'us')
 assert.equal(getElevenLabsApiBaseUrl('us'), 'https://api.elevenlabs.io/v1')
 assert.equal(getElevenLabsApiBaseUrl('eu-residency'), 'https://api.eu.residency.elevenlabs.io/v1')
@@ -200,6 +208,7 @@ function makeResponse() {
 const originalFetch = globalThis.fetch
 const originalConsoleError = console.error
 const voiceEnvironmentKeys = [
+  'ELEVENLABS_AGENT_API_KEY',
   'ELEVENLABS_AGENT_ID',
   'ELEVENLABS_API_KEY',
   'ELEVENLABS_SERVER_LOCATION',
@@ -212,6 +221,7 @@ const originalVoiceEnvironment = Object.fromEntries(
 
 try {
   Object.assign(process.env, {
+    ELEVENLABS_AGENT_API_KEY: 'dedicated-agent-test-key',
     ELEVENLABS_AGENT_ID: 'agent_test',
     ELEVENLABS_API_KEY: 'agent-test-key',
     ELEVENLABS_SERVER_LOCATION: 'us',

@@ -40,6 +40,11 @@ export default async function handler(request, response, dependencies = {}) {
   }
 
   const statuses = extractWhatsappStatuses(payload)
+  for (const status of statuses) {
+    console.info('[whatsapp-webhook] message status', {
+      at: status.at, messageId: status.messageId, status: status.status, errors: status.errors,
+    })
+  }
   const messages = extractWhatsappMessages(payload)
   const applyStatus = dependencies.applyStatus ?? applyWhatsappStatus
   await Promise.all(statuses.map((status) => applyStatus(status)))

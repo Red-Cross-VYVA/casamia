@@ -36,17 +36,29 @@ assert.match(
   'The assessment page must render a visible FAQ section for family decision questions.',
 )
 
-assert.match(
-  en,
-  /"afterReview"[\s\S]*Clear next steps, without the coordination headache[\s\S]*CasaMia coordinates the work[\s\S]*"faq"[\s\S]*What does CasaMia manage if we continue/,
-  'The assessment page copy must support English process reassurance and family FAQs.',
-)
+for (const [language, source] of Object.entries({ en, es })) {
+  const { afterReview, faq } = JSON.parse(source).assessment
+  assert.equal(afterReview.cards.length, 4, `${language}: explain all four steps after the review.`)
+  for (const section of [afterReview, ...afterReview.cards, faq]) {
+    assert.ok(section.title?.trim(), `${language}: journey cards and FAQs need a title.`)
+    assert.ok(section.body?.trim(), `${language}: journey cards and FAQs need explanatory copy.`)
+  }
+  assert.match(`${afterReview.title} ${afterReview.body}`, /priorit|prioridad/i,
+    `${language}: explain how the review establishes priorities.`)
+  assert.match(afterReview.cards.at(-1).title, /CasaMia/,
+    `${language}: explain CasaMia's role in the next steps.`)
+  assert.match(afterReview.note, language === 'en'
+    ? /no installation.*approved/i
+    : /no.*instalaci[oó]n.*aceptad/i,
+  `${language}: installation must remain conditional on customer approval.`)
 
-assert.match(
-  es,
-  /"afterReview"[\s\S]*ximos pasos claros[\s\S]*CasaMia coordina el trabajo[\s\S]*"faq"[\s\S]*gestiona CasaMia si seguimos adelante/,
-  'The assessment page copy must support Spanish process reassurance and family FAQs.',
-)
+  const coordinationFaq = faq.items.find((item) => language === 'en'
+    ? /what does CasaMia manage/i.test(item.question)
+    : /qu[eé] gestiona CasaMia/i.test(item.question))
+  assert.ok(coordinationFaq, `${language}: include a FAQ about CasaMia's coordination role.`)
+  assert.match(coordinationFaq.answer, /coordina/i,
+    `${language}: the FAQ must explain coordination, not only ask about it.`)
+}
 
 assert.match(
   styles,

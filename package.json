@@ -26,7 +26,7 @@
     "test:auth": "node --experimental-strip-types scripts/internal-auth-tests.mjs",
     "test:api-security": "node scripts/api-security-tests.mjs",
     "test:environment": "node scripts/environment-config-tests.mjs",
-    "test:facebook": "node scripts/facebook-publishing-tests.mjs",
+    "test:facebook": "node scripts/facebook-publishing-tests.mjs && node scripts/social-post-archive-tests.mjs",
     "test:meta": "node scripts/meta-conversions-tests.mjs",
     "test:whatsapp": "node scripts/whatsapp-delivery-tests.mjs",
     "test:leads": "node scripts/lead-pipeline-tests.mjs",

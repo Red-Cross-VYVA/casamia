@@ -45,11 +45,18 @@ assert.match(
   'The service areas page must render city-level SEO content from the same city data.',
 )
 
-assert.match(
-  page,
-  /cityFaqTitle: \(city: string\)[\s\S]*Questions families ask[\s\S]*cityFaqItems: \(city: string\)[\s\S]*Preguntas frecuentes de familias[\s\S]*const cityFaqItems = copy\.cityFaqItems\(selectedCity\.city\)[\s\S]*service-area-city-faq-list/,
-  'City-level service area pages must include local-intent FAQ content in English and Spanish.',
-)
+const cityFaqTitles = [...page.matchAll(/cityFaqTitle: \(city: string\) => `([^`]+)`/g)]
+assert.equal(cityFaqTitles.length, 2, 'City FAQ headings must exist in both languages.')
+assert.match(cityFaqTitles[0][1], /Questions.*\$\{city\}/)
+assert.match(cityFaqTitles[1][1], /Preguntas.*\$\{city\}/)
+const cityFaqBlocks = [...page.matchAll(/cityFaqItems: \(city: string\) => \[([\s\S]*?)\],/g)]
+assert.equal(cityFaqBlocks.length, 2, 'Both languages must supply local-intent FAQs.')
+for (const block of cityFaqBlocks) {
+  const questions = [...block[1].matchAll(/question: `([^`]+)`/g)]
+  assert.equal(questions.length, 3, 'Cover the review, local installation and grants in each city.')
+  questions.forEach((question) => assert.ok(question[1].includes('${city}')))
+}
+assert.match(page, /const cityFaqItems = copy\.cityFaqItems\(selectedCity\.city\)[\s\S]*service-area-city-faq-list/)
 
 assert.match(
   page,
@@ -65,7 +72,7 @@ assert.match(
 
 assert.match(
   page,
-  /CasaMia is building reliable local coverage across Spain[\s\S]*CasaMia construye cobertura local fiable/,
+  /en: \{[\s\S]*seoTitle: '[^']*Spain'[\s\S]*es: \{[\s\S]*seoTitle: '[^']*España'/,
   'The service areas page must have English and Spanish public copy.',
 )
 

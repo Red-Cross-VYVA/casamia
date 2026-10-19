@@ -612,7 +612,7 @@
         "title": "See which room risks deserve attention first.",
         "body": "Upload wide photos of key rooms. CasaMia reviews visible hazards with your context and returns a room-by-room report with the next action to consider.",
         "time": "Usually takes 3-5 minutes. No obligation.",
-        "start": "Start report",
+        "start": "Start",
         "steps": [
           "Upload room photos",
           "Add mobility and routine context",
@@ -629,7 +629,7 @@
       ],
       "back": "Back",
       "continue": "Continue",
-      "createEstimate": "Create and send my report",
+      "createEstimate": "Send",
       "sendThisReport": "Send me this report",
       "sendReport": "Send report",
       "choose": "Choose one",

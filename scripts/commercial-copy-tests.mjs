@@ -51,8 +51,12 @@ for (const language of ['en', 'es']) {
   const locale = JSON.parse(readFileSync(new URL(`../src/i18n/locales/${language}.json`, import.meta.url), 'utf8'))
   const assessmentSubtitle = applyCommercialText(locale.assessment.hero.subtitle, customSettings)
   assert.match(assessmentSubtitle, /125 EUR/)
-  assert.match(assessmentSubtitle, /10%/)
   assert.doesNotMatch(assessmentSubtitle, /\{\{/)
+
+  const assessmentPricing = applyCommercialText(locale.assessment.pricing.body, customSettings)
+  assert.match(assessmentPricing, /125 EUR/)
+  assert.match(assessmentPricing, /10%/)
+  assert.doesNotMatch(assessmentPricing, /\{\{/)
 }
 
 console.log('Commercial copy tests passed.')

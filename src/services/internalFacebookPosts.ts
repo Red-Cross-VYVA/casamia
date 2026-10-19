@@ -51,6 +51,10 @@ export type InstagramPublishingDiagnostics = {
 }
 
 export type FacebookPublishResult = {
+  archived?: boolean
+  archiveWarning?: string
+  publication?: ArchivedSocialPost
+  alreadyPublished?: boolean
   facebookId: string
   facebookPostId: string
   facebookUrl: string
@@ -62,6 +66,30 @@ export type FacebookPublishResult = {
 }
 
 export type SocialPublishingPlatform = 'facebook' | 'instagram'
+
+export type ArchivedSocialPost = {
+  id: string
+  platform: SocialPublishingPlatform
+  sourcePostId: string
+  title: string
+  language: string
+  imagePath: string
+  imageUrl: string
+  caption: string
+  publishedAt: string
+  postId: string
+  url: string
+}
+
+export async function getArchivedSocialPosts(): Promise<{ posts: ArchivedSocialPost[] }> {
+  ensureInternalPublishingAvailable()
+  return getPublicSiteJson('/api/internal/facebook-posts?view=archive', { headers: getInternalAuthHeaders() })
+}
+
+export async function syncArchivedSocialPosts(): Promise<{ posts: ArchivedSocialPost[]; imported: number; warnings: string[] }> {
+  ensureInternalPublishingAvailable()
+  return postFacebookPublishJson('/api/internal/facebook-posts', { action: 'sync-archive' }, { headers: getInternalAuthHeaders() })
+}
 
 function bilingualPost(campaign: Omit<FacebookStarterPost, 'caption' | 'id' | 'language'> & {
   captions: { en: string; es: string }

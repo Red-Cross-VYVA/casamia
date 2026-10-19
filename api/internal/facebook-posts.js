@@ -4,9 +4,8 @@ import {
   getFacebookPublishingConfiguration,
   inspectFacebookPublishingAccess,
   inspectInstagramPublishingAccess,
-  publishFacebookPost,
-  publishInstagramPost,
 } from '../_lib/facebook.js'
+import { getSocialPostArchive, publishAndArchiveSocialPost, syncSocialPostArchive } from '../_lib/social-post-archive.js'
 import {
   readJsonBody,
   requireInternalApiKey,
@@ -31,6 +30,11 @@ export default async function handler(request, response) {
   }
 
   if (request.method === 'GET') {
+    if (new URL(request.url, 'http://localhost').searchParams.get('view') === 'archive') {
+      try { sendJson(response, 200, { posts: await getSocialPostArchive() }) }
+      catch (error) { sendJson(response, 503, { message: error.message }) }
+      return
+    }
     const config = getFacebookPublishingConfiguration()
     const [tokenDiagnostics, instagramDiagnostics] = await Promise.all([
       inspectFacebookPublishingAccess(),
@@ -60,22 +64,15 @@ export default async function handler(request, response) {
       return
     }
 
+    if (body.action === 'sync-archive') {
+      sendJson(response, 200, await syncSocialPostArchive())
+      return
+    }
+
     const platform = typeof body.platform === 'string' ? body.platform : 'facebook'
-    const result = platform === 'instagram'
-      ? await publishInstagramPost({
-        imagePath: body.imagePath,
-        message: body.message,
-        request,
-      })
-      : platform === 'facebook'
-        ? await publishFacebookPost({
-          imagePath: body.imagePath,
-          message: body.message,
-          request,
-        })
-        : (() => {
-          throw new FacebookPublishError(400, 'Unsupported publishing platform.')
-        })()
+    const result = await publishAndArchiveSocialPost({
+      imagePath: body.imagePath, message: body.message, platform, request,
+    })
 
     sendJson(response, 200, result)
   } catch (error) {

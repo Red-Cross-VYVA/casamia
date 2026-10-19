@@ -73,13 +73,24 @@ try {
     config.matcher,
     [
       '/admin/config-preview',
+      '/configure',
       '/agreement/:path*',
       '/estimate/:path*',
       '/internal/proposals/:path*',
       '/proposal/:path*',
     ],
-    'Middleware should cover legacy Basic Auth and dynamic app-shell fallbacks.',
+    'Middleware should cover legacy redirects, Basic Auth and dynamic app-shell fallbacks.',
   )
+
+  for (const [query, target] of [
+    ['', '/home-safety-wizard'],
+    ['?room=bathroom', '/services/bathroom-safety'],
+    ['?room=unknown', '/home-safety-wizard'],
+  ]) {
+    const redirect = await middleware(new Request(`https://www.casamia.com.es/configure${query}`))
+    assert.equal(redirect?.status, 308, 'Legacy configurator links must redirect permanently.')
+    assert.equal(redirect?.headers.get('location'), `https://www.casamia.com.es${target}`)
+  }
 
   for (const pathname of ['/internal', '/internal/service-catalog']) {
     assert.equal(

@@ -207,6 +207,32 @@ export async function publishFacebookPost({
   })
 }
 
+export async function listPublishedSocialPosts({ platform, env = process.env, fetchImpl = fetch }) {
+  const config = getFacebookPublishingConfiguration(env)
+  if (!config.configured) throw new FacebookPublishError(503, 'Meta publishing is not configured.')
+  const instagram = platform === 'instagram' ? await resolveInstagramAccount({ config, fetchImpl }) : null
+  if (instagram && !instagram.accountId) throw new FacebookPublishError(400, instagram.message || 'No Instagram account is linked.')
+  const path = instagram ? `${instagram.accountId}/media` : `${config.pageId}/published_posts`
+  const fields = instagram
+    ? 'id,caption,timestamp,permalink,media_url,thumbnail_url'
+    : 'id,message,created_time,permalink_url,full_picture'
+  const posts = []
+  const cursors = new Set()
+  let after = ''
+  do {
+    const result = await readGraphApi({ config, fetchImpl, path, searchParams: { fields, limit: '100', ...(after ? { after } : {}) } })
+    if (!result.ok) throw new FacebookPublishError(502, result.message)
+    posts.push(...(result.body.data ?? []).map((post) => instagram ? {
+      id: post.id, message: post.caption, created_time: post.timestamp,
+      permalink_url: post.permalink, full_picture: post.thumbnail_url || post.media_url,
+    } : post))
+    after = result.body.paging?.next ? text(result.body.paging?.cursors?.after) : ''
+    if (after && cursors.has(after)) throw new FacebookPublishError(502, 'Meta returned a repeated archive cursor. Please try again later.')
+    if (after) cursors.add(after)
+  } while (after)
+  return posts
+}
+
 export async function publishInstagramPost({
   env = process.env,
   fetchImpl = fetch,

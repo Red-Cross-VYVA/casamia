@@ -13,6 +13,7 @@ import {
   getWhatsappConfiguration,
   getWhatsappTemplate,
   normaliseWhatsappRecipient,
+  registerWhatsappSender,
   sendWhatsappTemplate,
   verifyWhatsappWebhookSignature,
 } from '../api/_lib/whatsapp.js'
@@ -126,8 +127,10 @@ const diagnostics = await getWhatsappDiagnostics({
     assert.equal(init.headers.Authorization, 'Bearer test-token')
     return Response.json({
       display_phone_number: '+1 555 667 6038',
+      code_verification_status: 'VERIFIED',
       id: '123456789',
       quality_rating: 'GREEN',
+      status: 'PENDING',
       verified_name: 'CasaMia Test',
     })
   },
@@ -135,6 +138,28 @@ const diagnostics = await getWhatsappDiagnostics({
 assert.equal(diagnostics.configured, true)
 assert.equal(diagnostics.sender.displayPhoneNumber, '+1 555 667 6038')
 assert.equal(diagnostics.accessToken, undefined)
+assert.equal(diagnostics.sender.status, 'PENDING')
+assert.equal(diagnostics.sender.codeVerificationStatus, 'VERIFIED')
+
+let registrationRequests = 0
+const registerFetch = async (url, init) => {
+  registrationRequests += 1
+  assert.equal(url, 'https://graph.facebook.com/v26.0/123456789/register')
+  assert.equal(init.headers.Authorization, 'Bearer test-token')
+  assert.equal(init.method, 'POST')
+  assert.deepEqual(JSON.parse(init.body), { messaging_product: 'whatsapp', pin: '482615' })
+  return Response.json({ success: true })
+}
+for (const pin of ['', '12345', '1234567', '12x456', 482615]) {
+  await assert.rejects(registerWhatsappSender({env,fetchImpl:registerFetch,pin,phoneNumberId:env.WHATSAPP_PHONE_NUMBER_ID}), /six-digit/)
+}
+await assert.rejects(registerWhatsappSender({env,fetchImpl:registerFetch,pin:'482615',phoneNumberId:'different-sender'}), /sender changed/)
+assert.equal(registrationRequests, 0, 'Validate sender and PIN before contacting Meta')
+const registered = await registerWhatsappSender({env,fetchImpl:registerFetch,pin:'482615',phoneNumberId:env.WHATSAPP_PHONE_NUMBER_ID})
+assert.deepEqual(registered,{registered:true,phoneNumberId:'123456789'})
+assert.equal(registered.pin,undefined,'Never return the registration PIN')
+await assert.rejects(registerWhatsappSender({env,pin:'482615',phoneNumberId:env.WHATSAPP_PHONE_NUMBER_ID,fetchImpl:async()=>Response.json({error:{message:'Registration denied'}},{status:400})}), /Registration denied/)
+await assert.rejects(registerWhatsappSender({env,pin:'482615',phoneNumberId:env.WHATSAPP_PHONE_NUMBER_ID,fetchImpl:async()=>Response.json({success:false})}), /did not confirm/)
 
 assert.equal((await sendWhatsappTemplate({ env: {}, to: '600123456' })).status, 'not_configured')
 assert.equal((await sendWhatsappTemplate({ env, templateName: '', to: '600123456' })).status, 'template_not_configured')
@@ -264,6 +289,34 @@ assert.equal(adminTestSend.languageCode, 'en_US')
 assert.equal(adminTestSend.env.WHATSAPP_ACCESS_TOKEN, 'test-channel-token')
 assert.equal(adminTestSend.env.WHATSAPP_PHONE_NUMBER_ID, 'test-channel-phone')
 assert.deepEqual(adminTestSend.bodyParameters, [])
+
+const registerBody = {action:'register',phoneNumberId:'123456789',pin:'482615'}
+const registerUnauthorized = responseRecorder()
+await whatsappTestingHandler({method:'POST',headers:{},body:registerBody},registerUnauthorized,{env})
+assert.equal(registerUnauthorized.statusCode,401)
+const registerTestSender = responseRecorder()
+await whatsappTestingHandler({method:'POST',headers:{'x-api-key':'whatsapp-test-key'},body:registerBody},registerTestSender,{env})
+assert.equal(registerTestSender.statusCode,409,'Never register a test sender as the live number')
+const liveEnv = {...env,WHATSAPP_TEST_ACCESS_TOKEN:'',WHATSAPP_TEST_PHONE_NUMBER_ID:''}
+const registeredResponse = responseRecorder()
+await whatsappTestingHandler({method:'POST',headers:{'x-api-key':'whatsapp-test-key'},body:registerBody},registeredResponse,{env:liveEnv,fetchImpl:registerFetch})
+assert.equal(registeredResponse.statusCode,200)
+assert.equal(JSON.parse(registeredResponse.body).registered,true)
+assert.doesNotMatch(registeredResponse.body,/482615/)
+const registrationFailure = responseRecorder()
+await whatsappTestingHandler({method:'POST',headers:{'x-api-key':'whatsapp-test-key'},body:registerBody},registrationFailure,{env:liveEnv,registerWhatsapp:async()=>{throw new Error('Invalid pin 482615')}})
+assert.equal(registrationFailure.statusCode,502)
+assert.doesNotMatch(registrationFailure.body,/482615/,'Do not echo a PIN in provider errors')
+const detailedFailure = responseRecorder()
+await whatsappTestingHandler({method:'POST',headers:{'x-api-key':'whatsapp-test-key'},body:registerBody},detailedFailure,{
+  env:liveEnv,
+  fetchImpl:async()=>Response.json({error:{message:'(#100) Invalid parameter',error_subcode:2388001,error_data:{details:'Phone ownership must be verified. Submitted PIN: 482615'},fbtrace_id:'trace-example'}},{status:400}),
+})
+assert.equal(detailedFailure.statusCode,422)
+assert.match(detailedFailure.body,/Phone ownership must be verified/)
+assert.match(detailedFailure.body,/2388001/)
+assert.match(detailedFailure.body,/trace-example/)
+assert.doesNotMatch(detailedFailure.body,/482615/,'Retain provider detail without exposing the PIN')
 
 let storedReportPayload
 let reportSend

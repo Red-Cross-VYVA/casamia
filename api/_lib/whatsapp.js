@@ -237,7 +237,7 @@ export async function getWhatsappDiagnostics({ env = process.env, fetchImpl = fe
   if (!config.configured) return diagnostics
 
   const url = new URL(`https://graph.facebook.com/${config.apiVersion}/${config.phoneNumberId}`)
-  url.searchParams.set('fields', 'id,display_phone_number,verified_name,code_verification_status,quality_rating,platform_type')
+  url.searchParams.set('fields', 'id,display_phone_number,verified_name,code_verification_status,quality_rating,platform_type,status')
 
   try {
     const payload = await requestMetaJson(url, {
@@ -251,6 +251,7 @@ export async function getWhatsappDiagnostics({ env = process.env, fetchImpl = fe
         id: clean(payload?.id),
         platformType: clean(payload?.platform_type),
         qualityRating: clean(payload?.quality_rating),
+        status: clean(payload?.status),
         verifiedName: clean(payload?.verified_name),
       },
     }
@@ -260,6 +261,22 @@ export async function getWhatsappDiagnostics({ env = process.env, fetchImpl = fe
       metaError: error instanceof Error ? error.message : 'Meta diagnostics could not be loaded.',
     }
   }
+}
+
+export async function registerWhatsappSender({ env = process.env, fetchImpl = fetch, pin, phoneNumberId }) {
+  const config = getWhatsappConfiguration(env)
+  if (!config.configured) throw new WhatsappSignupError('Live WhatsApp credentials are not configured.', 503)
+  if (phoneNumberId !== config.phoneNumberId) throw new WhatsappSignupError('The sender changed. Refresh the status before registering.', 409)
+  if (typeof pin !== 'string' || !/^\d{6}$/.test(pin)) throw new WhatsappSignupError('Enter a six-digit two-step verification PIN.', 400)
+  const payload = await requestMetaJson(`https://graph.facebook.com/${config.apiVersion}/${config.phoneNumberId}/register`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${config.accessToken}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ messaging_product: 'whatsapp', pin }),
+  }, fetchImpl)
+  if (payload?.success !== true && payload?.success !== 'true') {
+    throw new WhatsappSignupError('Meta did not confirm registration. Refresh the status before trying again.', 502)
+  }
+  return { registered: true, phoneNumberId: config.phoneNumberId }
 }
 
 export function getWhatsappTemplate(env, type, language) {
@@ -358,8 +375,15 @@ async function requestMetaJson(url, init, fetchImpl) {
 
   const payload = await readJson(response)
   if (!response.ok || payload?.error) {
+    const metaError = payload?.error
+    const explanation = [
+      typeof metaError?.error_data?.details === 'string' ? metaError.error_data.details : '',
+      typeof metaError?.error_user_msg === 'string' ? metaError.error_user_msg : '',
+      metaError?.error_subcode ? `Subcode: ${metaError.error_subcode}` : '',
+      metaError?.fbtrace_id ? `Meta reference: ${metaError.fbtrace_id}` : '',
+    ].filter(Boolean)
     throw new WhatsappSignupError(
-      clean(payload?.error?.message) || `Meta rejected the WhatsApp setup request (${response.status}).`,
+      [clean(metaError?.message) || `Meta rejected the WhatsApp setup request (${response.status}).`, ...explanation].join(' · '),
       response.status >= 400 && response.status < 500 ? 422 : 502,
     )
   }

@@ -22941,6 +22941,10 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   text-align: center;
 }
 
+.estimate-wizard-footer.is-contact-step .btn:last-child {
+  grid-column: 3;
+}
+
 .estimate-wizard-footer.is-single-action {
   justify-content: flex-end;
 }
@@ -22949,6 +22953,11 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
   min-height: 48px;
   padding-top: 10px;
   padding-bottom: 10px;
+  white-space: nowrap;
+}
+
+.estimate-wizard-footer .btn svg {
+  flex-shrink: 0;
 }
 
 .estimate-wizard-footer .btn:disabled {
@@ -25787,6 +25796,20 @@ html[data-nav-menu-dismissed='resources'] .site-header-menu-group--resources:foc
 
   .estimate-wizard-footer .btn {
     width: 100%;
+  }
+
+  .estimate-wizard-footer.is-contact-step {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .estimate-wizard-footer.is-contact-step .wizard-action-hint {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .estimate-wizard-footer.is-contact-step .btn:last-child {
+    grid-column: 2;
   }
 
   .estimate-analysis-retry {

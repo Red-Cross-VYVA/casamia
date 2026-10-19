@@ -1,10 +1,14 @@
 import assert from 'node:assert/strict'
+import { createElement } from 'react'
+import { renderToString } from 'react-dom/server'
 
 import {
   getDefaultServiceCatalogue,
   getServiceCatalogue,
   saveServiceCatalogue,
+  useServiceCatalogue,
 } from '../src/services/serviceCatalogue.ts'
+import { buildPlansStarterPacks } from '../src/services/plansBuilderPricing.ts'
 
 const storageKey = 'casamia-service-catalogue'
 const storedValues = new Map()
@@ -139,6 +143,37 @@ assert.equal(
 )
 assert.equal(savedCatalogue.masterCatalogue?.commercialSettings?.assessmentVisitFeeGross, 125)
 assert.equal(savedCatalogue.masterCatalogue?.commercialSettings?.proposalDepositRate, 0.4)
+
+// A returning visitor can have a different catalogue from the prerendered HTML.
+const cachedCatalogue = structuredClone(defaultCatalogue)
+const cachedStarter = cachedCatalogue.masterCatalogue.packages.find((item) => item.id === 'bathroom-essentials-pack')
+cachedStarter.customerName = { en: 'Cached bathroom package', es: 'Paquete de baño guardado' }
+setStoredCatalogue(cachedCatalogue)
+assert.equal(
+  buildPlansStarterPacks(getServiceCatalogue(), 'en')[0].packageRecord.customerName.en,
+  'Cached bathroom package',
+  'The regression fixture must differ from the bundled catalogue and remain readable from storage.',
+)
+
+function PlansCataloguePreview({ language }) {
+  const catalogue = useServiceCatalogue()
+  return createElement('div', null, buildPlansStarterPacks(catalogue, language).map((pack) =>
+    createElement('span', { key: pack.packageRecord.id }, pack.packageLabel),
+  ))
+}
+
+for (const language of ['en', 'es']) {
+  const browserWindow = globalThis.window
+  delete globalThis.window
+  const prerendered = renderToString(createElement(PlansCataloguePreview, { language }))
+  globalThis.window = browserWindow
+  const initialBrowserRender = renderToString(createElement(PlansCataloguePreview, { language }))
+  assert.equal(
+    initialBrowserRender,
+    prerendered,
+    `The initial ${language} Plans catalogue must match the prerender despite a saved browser catalogue.`,
+  )
+}
 
 console.log('Service catalogue authority checks passed.')
 

@@ -612,7 +612,7 @@
         "title": "Ve qué riesgos de la vivienda merecen atención primero.",
         "body": "Sube fotos amplias de estancias clave. CasaMia revisa riesgos visibles junto con tu contexto y devuelve un informe por estancia con el siguiente paso a considerar.",
         "time": "Suele tardar 3-5 minutos. Sin compromiso.",
-        "start": "Empezar informe",
+        "start": "Empezar",
         "steps": [
           "Sube fotos de estancias",
           "Añade contexto de movilidad y rutina",
@@ -629,7 +629,7 @@
       ],
       "back": "Atrás",
       "continue": "Continuar",
-      "createEstimate": "Crear y enviar mi informe",
+      "createEstimate": "Enviar",
       "sendThisReport": "Enviarme este informe",
       "sendReport": "Enviar informe",
       "choose": "Elige una opción",

@@ -28,8 +28,8 @@ export const beforeAfterVisuals: BeforeAfterVisual[] = [
     mode: 'compare',
   },
   {
-    before: '/images/before-after/kitchen-before.png',
-    after: '/images/before-after/kitchen-after.png',
+    before: '/images/before-after/kitchen-before-photo.webp',
+    after: '/images/before-after/kitchen-after-photo.webp',
     mode: 'compare',
   },
   {

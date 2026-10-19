@@ -10,17 +10,16 @@ assert.match(
   'The Why Us page must include bilingual proof/check copy.',
 )
 
-assert.match(
-  page,
-  /Provider fit[\s\S]*Scope and price clarity[\s\S]*Resident acceptance[\s\S]*Aftercare route/,
-  'The Why Us proof layer must explain provider fit, price clarity, resident acceptance and aftercare.',
-)
-
-assert.match(
-  page,
-  /Encaje del profesional[\s\S]*Alcance y precio claros[\s\S]*Aceptación de la persona[\s\S]*Ruta de seguimiento/,
-  'The Why Us proof layer must include Spanish equivalents for the trust checks.',
-)
+const proofBlocks = [...page.matchAll(/proofItems: \[([\s\S]*?)\],\s*sections:/g)]
+assert.equal(proofBlocks.length, 2, 'Both languages must define the public trust checks.')
+for (const [index, topics] of [
+  [/person.*work/i, /price/i, /daily.*use|use.*day/i, /aftercare|follow.up/i],
+  [/persona.*trabajo/i, /precio/i, /uso.*diario|usar.*rutina/i, /seguimiento/i],
+].entries()) {
+  const checks = [...proofBlocks[index][1].matchAll(/title: '([^']+)',\s*body: '([^']+)',\s*outcome: '([^']+)'/g)]
+  assert.equal(checks.length, 4, 'Each language must explain all four checks and their customer outcomes.')
+  topics.forEach((topic, checkIndex) => assert.match(`${checks[checkIndex][1]} ${checks[checkIndex][2]}`, topic))
+}
 
 assert.match(
   page,

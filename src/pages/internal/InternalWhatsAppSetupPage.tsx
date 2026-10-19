@@ -50,6 +50,7 @@ type WhatsappDiagnostics = {
     displayPhoneNumber?: string
     id?: string
     qualityRating?: string
+    status?: string
     verifiedName?: string
   }
   signatureConfigured?: boolean
@@ -121,11 +122,38 @@ export function InternalWhatsAppSetupPage() {
   const [testMode, setTestMode] = useState<'connectivity' | 'proposal' | 'report'>('connectivity')
   const [testRecipient, setTestRecipient] = useState('')
   const [testResult, setTestResult] = useState<WhatsappTestResult | null>(null)
+  const [registrationPin, setRegistrationPin] = useState('')
+  const [isRegistering, setIsRegistering] = useState(false)
+  const [registrationMessage, setRegistrationMessage] = useState('')
   const authorizationReceivedRef = useRef(false)
   const sessionFinishedRef = useRef(false)
   const transferTimeoutRef = useRef<number | null>(null)
   const configuredTemplateCount = diagnostics ? getConfiguredTemplateCount(diagnostics) : 0
-  const deliveryReady = Boolean(diagnostics?.configured && configuredTemplateCount === templateRows.length && diagnostics.publicDeliveryEnabled)
+  const senderConnected = diagnostics?.sender?.status === 'CONNECTED'
+  const deliveryReady = Boolean(diagnostics?.configured && senderConnected && configuredTemplateCount === templateRows.length && diagnostics.publicDeliveryEnabled)
+
+  async function registerLiveNumber() {
+    if (!/^\d{6}$/.test(registrationPin) || !diagnostics?.phoneNumberId) return
+    setIsRegistering(true)
+    setRegistrationMessage('Registering the approved number with Meta...')
+    try {
+      const response = await fetch(`${getPublicSiteApiBaseUrl()}/api/internal/whatsapp-testing`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...getInternalAuthHeaders() },
+        body: JSON.stringify({ action: 'register', pin: registrationPin, phoneNumberId: diagnostics.phoneNumberId }),
+      })
+      const payload = await response.json() as { registered?: boolean; message?: string }
+      if (!response.ok || !payload.registered) throw new Error(payload.message || 'Meta did not confirm registration.')
+      setRegistrationMessage('Number registered. You can now send a live test below.')
+      setTestResult(null)
+      await loadDiagnostics()
+    } catch (error) {
+      setRegistrationMessage(error instanceof Error ? error.message : 'Registration could not be completed.')
+    } finally {
+      setRegistrationPin('')
+      setIsRegistering(false)
+    }
+  }
 
   function finishWithIdentifiers(identifiers: EmbeddedSignupCompletion) {
     sessionFinishedRef.current = true
@@ -407,9 +435,9 @@ export function InternalWhatsAppSetupPage() {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.16em] text-green">Cloud API test</p>
-              <h2 className="mt-2 font-display text-2xl font-bold text-text-dark">Test WhatsApp without the live number</h2>
+              <h2 className="mt-2 font-display text-2xl font-bold text-text-dark">Test WhatsApp delivery</h2>
               <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-text-mid">
-                Use Meta's test sender while the production-number permissions are under review. Connectivity uses Meta's standard English template; CasaMia templates can be checked in English or Spanish.
+                Send a test from the configured sender. Check CasaMia reports and proposals in English or Spanish, then confirm that the messages arrive.
               </p>
             </div>
             <button
@@ -443,8 +471,8 @@ export function InternalWhatsAppSetupPage() {
               <StatusField label="Cloud API" ready={diagnostics.configured} value={diagnostics.phoneNumberId} />
               <StatusField
                 label="Sender mode"
-                ready={diagnostics.usingTestCredentials}
-                value={diagnostics.usingTestCredentials ? 'Meta test number' : 'Live fallback'}
+                ready={diagnostics.configured}
+                value={diagnostics.usingTestCredentials ? 'Meta test number' : 'Live number'}
               />
               <StatusField
                 label="Public delivery"
@@ -460,8 +488,13 @@ export function InternalWhatsAppSetupPage() {
               <StatusField label="Signed webhook" ready={diagnostics.signatureConfigured} />
               <StatusField
                 label="Meta sender"
-                ready={Boolean(diagnostics.sender?.id)}
-                value={diagnostics.sender?.displayPhoneNumber || diagnostics.metaError}
+                ready={senderConnected}
+                value={diagnostics.metaError || `${diagnostics.sender?.displayPhoneNumber || ''} · ${diagnostics.sender?.status || 'Status unavailable'}`}
+              />
+              <StatusField
+                label="Phone ownership"
+                ready={diagnostics.sender?.codeVerificationStatus === 'VERIFIED'}
+                value={diagnostics.sender?.codeVerificationStatus || 'Status unavailable'}
               />
             </dl>
 
@@ -493,6 +526,20 @@ export function InternalWhatsAppSetupPage() {
             </div>
             </>
           ) : null}
+
+          {diagnostics?.configured && !diagnostics.usingTestCredentials && !senderConnected ? (
+            <section className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-5" aria-label="Register live WhatsApp number">
+              <h3 className="font-display text-xl font-bold text-text-dark">Register the approved live number</h3>
+              <p className="mt-2 text-sm font-semibold text-text-mid">The display name is approved, but messaging also needs Cloud API registration. Register {diagnostics.sender?.displayPhoneNumber || 'the configured number'} using a six-digit two-step verification PIN. If this number already has a PIN, use that PIN; otherwise choose one and keep it somewhere safe. The PIN is sent securely to Meta and is not saved by CasaMia.</p>
+              <form className="mt-4 flex flex-wrap items-end gap-3" onSubmit={(event) => { event.preventDefault(); void registerLiveNumber() }}>
+                <label className="grid gap-2 text-sm font-extrabold text-text-dark">Two-step verification PIN
+                  <input className="rounded-lg border border-border bg-white px-4 py-3" type="password" inputMode="numeric" autoComplete="off" maxLength={6} pattern="[0-9]{6}" required value={registrationPin} disabled={isRegistering} onChange={(event) => setRegistrationPin(event.target.value.replace(/\D/g, ''))} />
+                </label>
+                <button className="btn btn-green" type="submit" disabled={isRegistering || !/^\d{6}$/.test(registrationPin)}>{isRegistering ? 'Registering...' : 'Register live number'}</button>
+              </form>
+            </section>
+          ) : null}
+          {registrationMessage ? <p className="mt-4 text-sm font-bold text-text-dark" role="status">{registrationMessage}</p> : null}
 
           <div className="mt-7 grid gap-5 border-t border-border pt-6 md:grid-cols-3">
             <label className="text-sm font-extrabold text-text-dark">
@@ -610,6 +657,7 @@ function getReadinessMessage(diagnostics: WhatsappDiagnostics, configuredTemplat
   const issues: string[] = []
 
   if (!diagnostics.configured) issues.push('Cloud API credentials or phone-number ID are missing')
+  if (diagnostics.sender?.status !== 'CONNECTED') issues.push('the sender is not connected to the Cloud API')
   if (!diagnostics.publicDeliveryEnabled) issues.push('public WhatsApp delivery is still disabled')
   if (configuredTemplateCount !== templateRows.length) issues.push('one or more CasaMia template env vars are missing')
   if (diagnostics.metaError) issues.push(`Meta sender check returned: ${diagnostics.metaError}`)

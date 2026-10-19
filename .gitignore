@@ -28,3 +28,7 @@ dist-ssr
 
 .vercel
 supabase/.temp/
+
+# Local verification artifacts
+.codex_tmp/
+/output/*.jpg
