@@ -10,9 +10,9 @@ try {
   const { ProposalPreview } = await server.ssrLoadModule('/src/components/internal/ProposalPreview.tsx')
   const proposal = {
     id: 'CM-LANGUAGE-TEST', customerName: 'Customer test', address: 'Test only',
-    selectedPlan: 'Home adaptations', overallRiskLevel: 'Moderate', safetyScore: '',
+    selectedPlan: 'Home adaptations', overallRiskLevel: 'Moderate', safetyScore: 'N/A',
     executiveSummary: 'Test summary', status: 'Sent', acceptanceStatus: 'Sent',
-    depositRate: 0.5, lineItems: [{ id: 'bathroom', name: 'Bathroom', category: 'Test',
+    depositRate: 0.5, lineItems: [{ id: 'bathroom', name: 'Test service', category: 'Bathroom',
       priority: 'High', quantity: 1, unitPrice: 749, grantEligible: false }],
   }
   for (const language of ['en', 'es']) {
@@ -21,7 +21,9 @@ try {
       React.createElement(ProposalPreview, { proposal })))
     if (language === 'es') {
       for (const label of ['Propuesta de seguridad del hogar', 'Mejoras seleccionadas', 'Condiciones de pago', 'Aceptación del cliente', 'Moderado', 'Enviada', '749 €']) assert.ok(html.includes(label), label)
-      assert.doesNotMatch(html, /Home Safety Proposal|Customer acceptance|Payment terms|Home adaptations/)
+      assert.match(html, />Baño</)
+      assert.match(html, /Sin definir|No disponible/)
+      assert.doesNotMatch(html, /Home Safety Proposal|Customer acceptance|Payment terms|Home adaptations|>Bathroom<|N\/A/)
     } else {
       assert.match(html, /Home Safety Proposal/)
       assert.match(html, /Customer acceptance/)

@@ -68,7 +68,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
               </div>
               <div>
                 <p className="font-black text-white/65">{label("Score")}</p>
-                <p className="font-black">{proposal.safetyScore || label("N/A")}/10</p>
+                <p className="font-black">{label(proposal.safetyScore || "N/A")}/10</p>
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
               <article className="min-w-0 rounded-lg border border-border p-4" key={`mobile-${item.id}`}>
                 <div className="flex min-w-0 items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-xs font-black uppercase text-navy">{item.category}</p>
+                    <p className="text-xs font-black uppercase text-navy">{label(item.category)}</p>
                     <p className="mt-1 break-words text-sm font-black text-text-dark">{item.name || label("Service item")}</p>
                   </div>
                   <p className="shrink-0 text-sm font-black text-text-dark">
@@ -133,7 +133,7 @@ export const ProposalPreview = forwardRef<HTMLDivElement, { proposal: ProposalDa
                 ) : null}
                 {proposal.lineItems.map((item) => (
                   <tr key={item.id}>
-                    <td className="px-4 py-4 text-sm font-bold text-text-mid">{item.category}</td>
+                    <td className="px-4 py-4 text-sm font-bold text-text-mid">{label(item.category)}</td>
                     <td className="px-4 py-4">
                       <p className="text-sm font-black text-text-dark">{item.name || label("Service item")}</p>
                       {item.description ? (
