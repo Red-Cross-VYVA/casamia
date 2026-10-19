@@ -7,6 +7,8 @@ const appShellFallbackPath = '/_app-shell/private'
 const appShellFallbackPrefixes = [
   '/agreement/',
   '/estimate/',
+  '/es/estimate/',
+  '/es/proposal/',
   '/internal/proposals/',
   '/proposal/',
 ]
@@ -62,6 +64,8 @@ export const config = {
     '/configure',
     '/agreement/:path*',
     '/estimate/:path*',
+    '/es/estimate/:path*',
+    '/es/proposal/:path*',
     '/internal/proposals/:path*',
     '/proposal/:path*',
   ],

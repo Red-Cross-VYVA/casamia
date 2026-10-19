@@ -76,11 +76,28 @@ try {
       '/configure',
       '/agreement/:path*',
       '/estimate/:path*',
+      '/es/estimate/:path*',
+      '/es/proposal/:path*',
       '/internal/proposals/:path*',
       '/proposal/:path*',
     ],
     'Middleware should cover legacy redirects, Basic Auth and dynamic app-shell fallbacks.',
   )
+
+  const originalFetch = globalThis.fetch
+  try {
+    globalThis.fetch = async (url) => {
+      assert.equal(String(url), 'https://www.casamia.com.es/_app-shell/private')
+      return new Response('<div id="root"></div>', { headers: { 'content-type': 'text/html' } })
+    }
+    for (const path of ['/estimate/test-report', '/es/estimate/test-report', '/proposal/test-proposal', '/es/proposal/test-proposal']) {
+      const response = await middleware(new Request(`https://www.casamia.com.es${path}`))
+      assert.equal(response?.status, 200, `${path} must serve the customer app shell on direct navigation.`)
+      assert.match(await response.text(), /id="root"/)
+    }
+  } finally {
+    globalThis.fetch = originalFetch
+  }
 
   for (const [query, target] of [
     ['', '/home-safety-wizard'],
