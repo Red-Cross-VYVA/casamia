@@ -1,3 +1,4 @@
+import { getRequestQueryValue as getQueryValue } from '../_lib/request-query.js'
 import {
   readJsonBody,
   requireInternalApiKey,
@@ -34,18 +35,6 @@ function isUuid(value) {
 
 function safeText(value) {
   return typeof value === 'string' ? value : ''
-}
-
-function getQueryValue(request, name) {
-  const direct = request.query?.[name]
-  if (Array.isArray(direct)) return direct[0]
-  if (direct !== undefined && direct !== null) return String(direct)
-
-  try {
-    return new URL(request.url ?? '', 'http://localhost').searchParams.get(name) ?? ''
-  } catch {
-    return ''
-  }
 }
 
 function getCallbackRequestPage(request) {

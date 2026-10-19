@@ -1,3 +1,4 @@
+import { getRequestQueryValue as getParam } from './request-query.js'
 import { applyPublicCors, getRequestHeader } from './public-origin.js'
 import { hashPublicRequestClient, reservePublicRequest } from './public-rate-limit.js'
 import { buildAbsolutePublicUrl, sendPublicReportEmail } from './email.js'
@@ -481,10 +482,6 @@ function applyReportCors(request, response, methods) {
   return allowed
 }
 
-function getParam(request, name) {
-  const value = request.query?.[name]
-  return Array.isArray(value) ? value[0] : String(value ?? '')
-}
 
 function isRecord(value) {
   return Boolean(value && typeof value === 'object' && !Array.isArray(value))

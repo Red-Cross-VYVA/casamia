@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import './request-query-tests.mjs'
 import { readFileSync } from 'node:fs'
 import { readdir } from 'node:fs/promises'
 import path from 'node:path'

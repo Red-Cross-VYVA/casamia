@@ -1,3 +1,4 @@
+import { getRequestQueryValue as getParam } from '../../_lib/request-query.js'
 import {
   getProposalRecordById,
   isProposalId,
@@ -44,10 +45,6 @@ export default async function handler(request, response) {
   sendJson(response, 200, mapProposalRecord(result.record))
 }
 
-function getParam(request, name) {
-  const value = request.query?.[name]
-  return Array.isArray(value) ? value[0] : String(value ?? '')
-}
 
 function text(value) {
   return typeof value === 'string' ? value.trim() : ''

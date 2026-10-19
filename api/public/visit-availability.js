@@ -1,3 +1,4 @@
+import { getRequestQueryValue as queryValue } from '../_lib/request-query.js'
 import { applyPublicCors, getRequestHeader, isAllowedPublicOrigin } from '../_lib/public-origin.js'
 import { selectSupabaseRows, sendJson } from '../_lib/supabase.js'
 import { StripeConfigurationError } from '../_lib/stripe.js'
@@ -50,9 +51,4 @@ export default async function handler(request, response) {
       message: unavailable ? 'Payment verification is temporarily unavailable.' : 'Visit availability could not be loaded.',
     })
   }
-}
-
-function queryValue(request, key) {
-  const value = request.query?.[key]
-  return Array.isArray(value) ? String(value[0] || '') : String(value || '')
 }

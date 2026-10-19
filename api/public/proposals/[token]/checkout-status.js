@@ -1,3 +1,4 @@
+import { getRequestQueryValue as getParam } from '../../../_lib/request-query.js'
 import { getProposalRecordByToken, isPublicProposalToken, mapProposalRecord, updateProposalRecord } from '../../../_lib/proposals.js'
 import { getStripeClient, StripeConfigurationError } from '../../../_lib/stripe.js'
 import { sendJson } from '../../../_lib/supabase.js'
@@ -70,9 +71,4 @@ async function recordPaidProposal(record, proposal, session) {
     status: 'Deposit Paid',
   })
   if (!result.ok) throw new Error('The paid proposal could not be updated.')
-}
-
-function getParam(request, name) {
-  const value = request.query?.[name]
-  return Array.isArray(value) ? String(value[0] || '') : String(value || '')
 }

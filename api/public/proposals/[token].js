@@ -1,3 +1,4 @@
+import { getRequestQueryValue as getParam } from '../../_lib/request-query.js'
 import {
   getProposalRecordByToken,
   isPublicProposalToken,
@@ -24,9 +25,4 @@ export default async function handler(request, response) {
     return
   }
   sendJson(response, 200, mapPublicProposalRecord(result.record))
-}
-
-function getParam(request, name) {
-  const value = request.query?.[name]
-  return Array.isArray(value) ? value[0] : String(value ?? '')
 }

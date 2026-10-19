@@ -1,3 +1,4 @@
+import { getRequestQueryValue } from '../_lib/request-query.js'
 import { requireInternalApiKey, selectSupabaseRows, sendJson } from '../_lib/supabase.js'
 
 const funnelStages = [
@@ -17,9 +18,11 @@ export default async function handler(request, response) {
     return
   }
 
-  const days = [7, 30, 90].includes(Number(request.query?.days)) ? Number(request.query.days) : 30
-  const language = ['en', 'es'].includes(request.query?.language) ? request.query.language : ''
-  const flow = cleanFilter(request.query?.flow)
+  const requestedDays = Number(getRequestQueryValue(request, 'days'))
+  const days = [7, 30, 90].includes(requestedDays) ? requestedDays : 30
+  const requestedLanguage = getRequestQueryValue(request, 'language')
+  const language = ['en', 'es'].includes(requestedLanguage) ? requestedLanguage : ''
+  const flow = cleanFilter(getRequestQueryValue(request, 'flow'))
   const since = new Date(Date.now() - days * 86400000).toISOString()
   const eventFilters = [
     `created_at=gte.${encodeURIComponent(since)}`,

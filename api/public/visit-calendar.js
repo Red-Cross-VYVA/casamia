@@ -1,3 +1,4 @@
+import { getRequestQueryValue } from '../_lib/request-query.js'
 import { applyPublicCors, getRequestHeader, isAllowedPublicOrigin } from '../_lib/public-origin.js'
 import { sendJson } from '../_lib/supabase.js'
 import { loadAssessmentAppointment, activeAppointment } from '../_lib/visit-appointments.js'
@@ -11,7 +12,7 @@ export default async function handler(request, response) {
   if (hasOrigin && !isAllowedPublicOrigin(request)) return sendJson(response, 403, { message: 'Origin not allowed.' })
   if (hasOrigin) applyPublicCors(request, response)
   try {
-    const sessionId = Array.isArray(request.query?.session_id) ? request.query.session_id[0] : request.query?.session_id
+    const sessionId = getRequestQueryValue(request, 'session_id')
     const verified = await verifyPaidAssessmentSession(String(sessionId || ''))
     if (verified.error) return sendJson(response, verified.status, { message: verified.error })
     const loaded = await loadAssessmentAppointment(verified.assessmentId)

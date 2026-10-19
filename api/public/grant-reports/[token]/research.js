@@ -1,3 +1,4 @@
+import { getRequestQueryValue } from '../../../_lib/request-query.js'
 import { enrichGrantReport } from '../../../_lib/grant-research.js'
 import { applyPublicCors } from '../../../_lib/public-origin.js'
 import { reservePublicRequest } from '../../../_lib/public-rate-limit.js'
@@ -22,9 +23,7 @@ export default async function handler(request, response, dependencies = {}) {
     return
   }
 
-  const token = Array.isArray(request.query?.token)
-    ? request.query.token[0]
-    : String(request.query?.token ?? '')
+  const token = getRequestQueryValue(request, 'token')
 
   try {
     const reservation = await reservePublicRequest(request, {

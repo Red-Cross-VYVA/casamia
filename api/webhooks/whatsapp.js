@@ -1,3 +1,4 @@
+import { getRequestQueryValue as queryValue } from '../_lib/request-query.js'
 import { extractWhatsappMessages, extractWhatsappStatuses, getWhatsappConfiguration, verifyWhatsappWebhookSignature } from '../_lib/whatsapp.js'
 import { selectSupabaseRows, sendJson, updateSupabaseRows } from '../_lib/supabase.js'
 
@@ -122,10 +123,6 @@ function objectValue(value) {
   return value && typeof value === 'object' && !Array.isArray(value) ? value : {}
 }
 
-function queryValue(request, name) {
-  const value = request.query?.[name]
-  return Array.isArray(value) ? value[0] : String(value ?? '')
-}
 
 function headerValue(request, name) {
   const value = request.headers?.[name] ?? request.headers?.[name.toLowerCase()]

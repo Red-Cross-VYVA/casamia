@@ -1,3 +1,4 @@
+import { getRequestQueryValue as getParam } from '../../_lib/request-query.js'
 import {
   getAgreementRecordByToken,
   isPublicAgreementToken,
@@ -40,9 +41,4 @@ export default async function handler(request, response) {
   }
 
   sendJson(response, 200, mapPublicAgreementRecord(viewed.record))
-}
-
-function getParam(request, name) {
-  const value = request.query?.[name]
-  return Array.isArray(value) ? value[0] : String(value ?? '')
 }

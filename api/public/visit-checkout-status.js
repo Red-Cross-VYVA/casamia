@@ -1,3 +1,4 @@
+import { getRequestQueryValue as getQueryValue } from '../_lib/request-query.js'
 import { getStripeClient, StripeConfigurationError } from '../_lib/stripe.js'
 import { sendJson } from '../_lib/supabase.js'
 
@@ -36,9 +37,4 @@ export default async function handler(request, response) {
       message: configurationError ? 'Payment verification is temporarily unavailable.' : 'The visit payment could not be verified.',
     })
   }
-}
-
-function getQueryValue(request, key) {
-  const value = request.query?.[key]
-  return Array.isArray(value) ? String(value[0] || '') : String(value || '')
 }

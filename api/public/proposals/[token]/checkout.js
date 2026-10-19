@@ -1,3 +1,4 @@
+import { getRequestQueryValue as getParam } from '../../../_lib/request-query.js'
 import { getProposalRecordByToken, isPublicProposalToken, mapProposalRecord, updateProposalRecord } from '../../../_lib/proposals.js'
 import { buildProposalDepositCheckoutSession, calculateProposalDepositCents, proposalPaymentConfig } from '../../../_lib/proposal-payment.js'
 import { applyPublicCors, isAllowedPublicOrigin, normalizeOrigin } from '../../../_lib/public-origin.js'
@@ -132,10 +133,6 @@ function getPublicOrigin(request) {
   return normalizeOrigin(host ? `${protocol}://${host}` : '') || 'https://www.casamia.com.es'
 }
 
-function getParam(request, name) {
-  const value = request.query?.[name]
-  return Array.isArray(value) ? value[0] : String(value ?? '')
-}
 
 function object(value) {
   return value && typeof value === 'object' ? value : {}
