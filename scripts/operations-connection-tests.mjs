@@ -275,8 +275,8 @@ for (const language of ['en', 'es']) {
   assert.equal('delivery' in body.proposal, false)
   assert.equal('events' in body.proposal, false)
   const prefix = language === 'es' ? '/es' : ''
-  assert.equal(body.publicUrl, `${prefix}/proposal/${body.publicToken}`)
-  assert.equal(body.publicUrlAbsolute, `https://www.casamia.com.es${body.publicUrl}`)
+  assert.equal(body.publicUrl, `/proposal/${body.publicToken}`, 'In-site links must stay relative to the language router.')
+  assert.equal(body.publicUrlAbsolute, `https://www.casamia.com.es${prefix}${body.publicUrl}`)
   assert.equal(whatsappSend.languageCode, language)
   assert.equal(whatsappSend.bodyParameters[2], body.publicUrlAbsolute, 'The outgoing WhatsApp link must preserve the customer language.')
 }

@@ -119,7 +119,8 @@ export default async function handler(request, response, dependencies = {}) {
     let proposal = mapProposalRecord(saveResult.record)
     const language = draft.proposalPayload?.plans_builder?.language
     const publicUrl = buildAbsoluteProposalUrl(request, proposal.public_token, dependencies.env ?? process.env, language)
-    const relativePublicUrl = publicUrl ? new URL(publicUrl).pathname : ''
+    // BrowserRouter adds the active language basename to in-site links.
+    const relativePublicUrl = proposal.public_token ? `/proposal/${proposal.public_token}` : ''
     const emailDelivery = await sendProposalEmail({
       language,
       proposal: mapPublicProposalRecord({
