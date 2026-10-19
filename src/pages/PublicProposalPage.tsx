@@ -232,7 +232,7 @@ export function PublicProposalPage() {
           <div className="rounded-lg bg-navy p-5 text-white">
             <p className="text-sm font-black uppercase text-white/65">{copy.proposalLabel}</p>
             <p className="mt-2 break-words font-display text-2xl font-black sm:text-3xl">{proposal.id}</p>
-            <p className="mt-3 text-sm text-white/75">{proposal.selectedPlan}</p>
+            <p className="mt-3 text-sm text-white/75">{isSpanish && proposal.selectedPlan === 'Home adaptations' ? 'Adaptaciones del hogar' : proposal.selectedPlan}</p>
           </div>
         </div>
         </section>

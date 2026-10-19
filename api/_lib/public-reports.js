@@ -88,6 +88,7 @@ export function buildPublicReportRecord(body, reportType, now = new Date()) {
   const summary = getPublicReportSummary(reportType, body, recommendations)
   const reportPayload = {
     version: 1,
+    language: getPublicReportLanguage(body),
     type: reportType,
     public_token: token,
     token,
@@ -207,6 +208,7 @@ export function mapPublicReportRecord(record) {
     expires_at: parseTimestamp(payload.expires_at),
     report_title: cleanText(payload.report_title, 180),
     report_url: cleanText(payload.report_url, 2_000),
+    language: getPublicReportLanguage(payload),
     context: isRecord(payload.context) ? payload.context : {},
     risk_score: safeNumber(payload.risk_score),
     risk_level: cleanText(payload.risk_level, 40),
@@ -312,6 +314,7 @@ async function deliverPublicReport({
       dependencies.request,
       reportUrl,
       dependencies.env ?? process.env,
+      getPublicReportLanguage(payload),
     )
     emailDelivery = await sendEmail({
       customer: reportRecord,
@@ -341,6 +344,7 @@ async function deliverPublicReport({
       dependencies.request,
       cleanText(payload.report_url, 2_000),
       env,
+      language,
     )
     const sendWhatsapp = dependencies.sendWhatsapp ?? sendWhatsappTemplate
     whatsappDelivery = await sendWhatsapp({

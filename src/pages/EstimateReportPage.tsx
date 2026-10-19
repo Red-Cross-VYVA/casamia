@@ -24,7 +24,7 @@ export function EstimateReportPage() {
   const activeLanguage = getBaseLanguage(i18n.language)
   const reportLanguage = report?.locale ? getBaseLanguage(report.locale) : activeLanguage
   const hasLanguageMismatch = status === 'success' && report && reportLanguage !== activeLanguage
-  const newReportPath = activeLanguage === 'es' ? '/es#estimate-upload' : '/#estimate-upload'
+  const newReportPath = '/#estimate-upload'
 
   useEffect(() => {
     let active = true
@@ -99,7 +99,9 @@ export function EstimateReportPage() {
               <article className="estimate-report-card">
                 {hasLanguageMismatch ? (
                   <div className="estimate-report-language-note">
-                    <strong>{t('estimator.report.languageMismatchTitle')}</strong>
+                    <strong>{t('estimator.report.languageMismatchTitle', {
+                      reportLanguage: getLanguageName(reportLanguage, i18n.language),
+                    })}</strong>
                     <p>
                       {t('estimator.report.languageMismatchBody', {
                         reportLanguage: getLanguageName(reportLanguage, i18n.language),

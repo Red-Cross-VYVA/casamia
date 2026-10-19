@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { sendProposalEmail } from '../api/_lib/email.js'
+import { buildAbsoluteProposalUrl, buildAbsolutePublicUrl, sendProposalEmail } from '../api/_lib/email.js'
 import { sendFormSubmissionEmails } from '../api/_lib/form-email.js'
 
 const originalFetch = globalThis.fetch
@@ -19,6 +19,12 @@ const env = {
   CASAMIA_PUBLIC_SITE_URL: 'https://www.casamia.com.es',
   RESEND_API_KEY: 'test-resend-key',
 }
+
+assert.equal(buildAbsoluteProposalUrl({}, 'test-token', env, 'es'), 'https://www.casamia.com.es/es/proposal/test-token')
+assert.equal(buildAbsoluteProposalUrl({}, 'test-token', env, 'en'), 'https://www.casamia.com.es/proposal/test-token')
+assert.equal(buildAbsolutePublicUrl({}, '/estimate/test-token', env, 'es'), 'https://www.casamia.com.es/es/estimate/test-token')
+assert.equal(buildAbsolutePublicUrl({}, '/es/estimate/test-token', env, 'es'), 'https://www.casamia.com.es/es/estimate/test-token')
+assert.equal(buildAbsolutePublicUrl({}, 'https://www.casamia.com.es/estimate/test-token?source=email#report', env, 'es'), 'https://www.casamia.com.es/es/estimate/test-token?source=email#report')
 
 for (const file of [
   'api/public/assessment-requests.js',

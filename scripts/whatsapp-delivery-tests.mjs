@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 
 import whatsappWebhookHandler from '../api/webhooks/whatsapp.js'
 import whatsappTestingHandler from '../api/internal/whatsapp-testing.js'
-import { queuePublicReport } from '../api/_lib/public-reports.js'
+import { mapPublicReportRecord, queuePublicReport } from '../api/_lib/public-reports.js'
 import {
   completeWhatsappEmbeddedSignup,
   extractWhatsappMessages,
@@ -322,7 +322,8 @@ let storedReportPayload
 let reportSend
 const reportResult = await queuePublicReport({
   consent_at: '2026-08-28T10:00:00.000Z',
-  context: { locale: 'es', region: 'Madrid' },
+  language: 'es',
+  context: { region: 'Madrid' },
   customer_email: '',
   customer_name: 'Ana',
   customer_phone: '600 123 456',
@@ -358,10 +359,12 @@ assert.equal(reportSend.templateName, 'casamia_report_ready_es')
 assert.equal(reportSend.languageCode, 'es')
 assert.equal(reportSend.to, '600 123 456')
 assert.equal(reportSend.bodyParameters[0], 'Ana')
-assert.match(reportSend.bodyParameters[2], /https:\/\/www\.casamia\.com\.es\/estimate\//)
+assert.match(reportSend.bodyParameters[2], /https:\/\/www\.casamia\.com\.es\/es\/estimate\//, 'Spanish WhatsApp reports must open Spanish customer pages.')
 assert.equal(storedReportPayload.whatsapp_delivery.message_id, 'wamid.report-message')
 assert.equal(storedReportPayload.delivery_events.at(-1).channel, 'whatsapp')
 assert.equal(storedReportPayload.delivery.whatsapp, 'sent')
+assert.equal(storedReportPayload.language, 'es', 'Persist the language supplied by the customer form.')
+assert.equal(mapPublicReportRecord({ payload_json: storedReportPayload }).language, 'es', 'The shared report must retain its original language.')
 
 const proposalSource = await readFile(new URL('../api/public/proposal-drafts.js', import.meta.url), 'utf8')
 const reportSource = await readFile(new URL('../api/_lib/public-reports.js', import.meta.url), 'utf8')

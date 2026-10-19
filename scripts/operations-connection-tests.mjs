@@ -211,8 +211,9 @@ function jsonResponse(body, status = 200) {
   assert.match(parsedBody(response).message, /Select at least one/)
 }
 
-{
+for (const language of ['en', 'es']) {
   let submitted
+  let whatsappSend
   globalThis.fetch = async (url, init) => {
     const requestUrl = String(url)
 
@@ -242,7 +243,8 @@ function jsonResponse(body, status = 200) {
       name: 'Ana Lopez',
       phone: '+34 600 000 000',
     },
-    language: 'en',
+    language,
+    delivery_whatsapp: true,
     selection: {
       'bath-core-package': {
         addOnOutcomeIds: ['bath-connected-sensor', 'bath-quote-entry'],
@@ -251,7 +253,14 @@ function jsonResponse(body, status = 200) {
       },
     },
     total_estimate: 1,
-  }, false), response, { callRpc: async () => ({ body: true, ok: true }) })
+  }, false), response, {
+    callRpc: async () => ({ body: true, ok: true }),
+    env: { ...process.env, CASAMIA_PUBLIC_SITE_URL: 'https://www.casamia.com.es' },
+    sendWhatsapp: async (request) => {
+      whatsappSend = request
+      return { ok: true, status: 'sent', messageId: 'wamid.locale-test' }
+    },
+  })
 
   const body = parsedBody(response)
   assert.equal(response.statusCode, 200)
@@ -260,12 +269,16 @@ function jsonResponse(body, status = 200) {
   assert.equal(submitted.payload_json.total_estimate, 334)
   assert.equal(submitted.payload_json.acceptance_status, 'Sent')
   assert.equal(submitted.payload_json.plans_builder.recurring_monthly_estimate, 24)
-  assert.deepEqual(submitted.payload_json.plans_builder.review_items, ['Shower entry review'])
+  assert.deepEqual(submitted.payload_json.plans_builder.review_items, [language === 'es' ? 'Revision de entrada de ducha' : 'Shower entry review'])
   assert.match(body.publicToken, /^[A-Za-z0-9_-]{20,128}$/)
   assert.equal(body.proposal.status, 'Sent')
   assert.equal('delivery' in body.proposal, false)
   assert.equal('events' in body.proposal, false)
-  assert.equal(body.publicUrl, `/proposal/${body.publicToken}`)
+  const prefix = language === 'es' ? '/es' : ''
+  assert.equal(body.publicUrl, `${prefix}/proposal/${body.publicToken}`)
+  assert.equal(body.publicUrlAbsolute, `https://www.casamia.com.es${body.publicUrl}`)
+  assert.equal(whatsappSend.languageCode, language)
+  assert.equal(whatsappSend.bodyParameters[2], body.publicUrlAbsolute, 'The outgoing WhatsApp link must preserve the customer language.')
 }
 
 {

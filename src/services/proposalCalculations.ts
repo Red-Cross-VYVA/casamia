@@ -147,8 +147,8 @@ export function calculateProposalTotals(proposal: ProposalData): ProposalTotals 
   }
 }
 
-export function formatCurrency(value: number) {
-  return new Intl.NumberFormat('en-GB', {
+export function formatCurrency(value: number, locale = 'en-GB') {
+  return new Intl.NumberFormat(locale, {
     currency: 'EUR',
     maximumFractionDigits: 0,
     style: 'currency',

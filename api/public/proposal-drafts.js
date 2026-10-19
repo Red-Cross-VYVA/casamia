@@ -117,10 +117,11 @@ export default async function handler(request, response, dependencies = {}) {
     }
 
     let proposal = mapProposalRecord(saveResult.record)
-    const relativePublicUrl = proposal.public_token ? `/proposal/${proposal.public_token}` : ''
-    const publicUrl = buildAbsoluteProposalUrl(request, proposal.public_token)
+    const language = draft.proposalPayload?.plans_builder?.language
+    const publicUrl = buildAbsoluteProposalUrl(request, proposal.public_token, dependencies.env ?? process.env, language)
+    const relativePublicUrl = publicUrl ? new URL(publicUrl).pathname : ''
     const emailDelivery = await sendProposalEmail({
-      language: draft.proposalPayload?.plans_builder?.language,
+      language,
       proposal: mapPublicProposalRecord({
         ...saveResult.record,
         payload_json: proposal,
@@ -131,7 +132,7 @@ export default async function handler(request, response, dependencies = {}) {
     const whatsappTemplate = getWhatsappTemplate(
       dependencies.env ?? process.env,
       'proposal',
-      draft.proposalPayload?.plans_builder?.language,
+      language,
     )
     const whatsappDelivery = whatsappRequested
       ? await (dependencies.sendWhatsapp ?? sendWhatsappTemplate)({

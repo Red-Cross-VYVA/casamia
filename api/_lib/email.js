@@ -3,18 +3,18 @@ import { getRequestHeader, normalizeOrigin } from './public-origin.js'
 const defaultFrom = 'CasaMia <hola@casamia.com.es>'
 const defaultReplyTo = 'hola@casamia.com.es'
 
-export function buildAbsoluteProposalUrl(request, publicToken, env = process.env) {
+export function buildAbsoluteProposalUrl(request, publicToken, env = process.env, language = 'en') {
   if (!publicToken) return ''
 
-  return buildAbsolutePublicUrl(request, `/proposal/${publicToken}`, env)
+  return buildAbsolutePublicUrl(request, `/proposal/${publicToken}`, env, language)
 }
 
-export function buildAbsolutePublicUrl(request, publicPath, env = process.env) {
+export function buildAbsolutePublicUrl(request, publicPath, env = process.env, language = 'en') {
   const path = text(publicPath)
   if (!path) return ''
 
   try {
-    return new URL(path).toString()
+    return localiseDeliveryUrl(new URL(path).toString(), language)
   } catch {
     // Relative report paths are resolved below.
   }
@@ -29,17 +29,26 @@ export function buildAbsolutePublicUrl(request, publicPath, env = process.env) {
 
   const relativePath = path.startsWith('/') ? path : `/${path}`
 
-  if (configuredOrigin) return `${configuredOrigin}${relativePath}`
+  if (configuredOrigin) return localiseDeliveryUrl(`${configuredOrigin}${relativePath}`, language)
 
   const requestOrigin = normalizeOrigin(getRequestHeader(request, 'origin'))
-  if (requestOrigin) return `${requestOrigin}${relativePath}`
+  if (requestOrigin) return localiseDeliveryUrl(`${requestOrigin}${relativePath}`, language)
 
   const forwardedProtocol = getRequestHeader(request, 'x-forwarded-proto').split(',')[0].trim()
   const protocol = forwardedProtocol || (env.VERCEL ? 'https' : 'http')
   const host = getRequestHeader(request, 'host')
   const hostOrigin = normalizeOrigin(host ? `${protocol}://${host}` : '')
 
-  return `${hostOrigin || 'https://www.casamia.com.es'}${relativePath}`
+  return localiseDeliveryUrl(`${hostOrigin || 'https://www.casamia.com.es'}${relativePath}`, language)
+}
+
+function localiseDeliveryUrl(value, language) {
+  if (!String(language).toLowerCase().startsWith('es')) return value
+  const url = new URL(value)
+  if (url.pathname !== '/es' && !url.pathname.startsWith('/es/')) {
+    url.pathname = `/es${url.pathname}`
+  }
+  return url.toString()
 }
 
 export function isProposalEmailConfigured(env = process.env) {
