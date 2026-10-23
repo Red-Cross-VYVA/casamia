@@ -73,7 +73,7 @@ export function ProposalLineItems({
               </button>
             </div>
 
-            <div className="grid gap-4 xl:grid-cols-[160px_minmax(180px,1fr)_minmax(240px,1.2fr)_90px_110px_120px_130px]">
+            <div className="grid gap-4 xl:grid-cols-[150px_minmax(170px,1fr)_minmax(220px,1.2fr)_80px_105px_105px_110px_120px]">
               <Field label="Category">
                 <select
                   className={inputClass}
@@ -119,6 +119,20 @@ export function ProposalLineItems({
                   value={item.unitPrice}
                   onChange={(event) => updateItem(item.id, { unitPrice: Number(event.target.value) })}
                 />
+              </Field>
+              <Field label="VAT">
+                <select
+                  className={inputClass}
+                  value={item.vatRate ?? ''}
+                  onChange={(event) => updateItem(item.id, {
+                    vatRate: event.target.value ? Number(event.target.value) : undefined,
+                  })}
+                >
+                  <option value="">Review</option>
+                  <option value="0.21">21%</option>
+                  <option value="0.1">10%</option>
+                  <option value="0.04">4%</option>
+                </select>
               </Field>
               <Field label="Priority">
                 <select

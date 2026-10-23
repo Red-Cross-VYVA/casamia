@@ -78,6 +78,7 @@ export type PlansBuilderEstimateLine = {
   roomId: string
   sourceOutcomeId?: string
   unitPrice: number
+  vatRate?: number
 }
 
 export type PlansBuilderEstimate = {
@@ -258,6 +259,7 @@ export function calculatePlansBuilderEstimate(
       reviewReason: group.requiresReview ? reviewCopy(language).package : undefined,
       roomId: group.room.id,
       unitPrice: group.packageUnitPrice,
+      vatRate: group.packageConfig?.vatRate ?? group.homePackage.vatRate,
     })
 
     lineItems.push(homeLine)
@@ -300,6 +302,7 @@ export function calculatePlansBuilderEstimate(
           reviewReason: selectedOutcomes.some(outcomeNeedsReview) ? reviewCopy(language).compatibility : undefined,
           roomId: addOnPackage.packageRecord.roomId,
           unitPrice: addOnPackage.unitPrice,
+          vatRate: addOnPackage.packageRecord.vatRate,
         })
 
         lineItems.push(packageLine)
@@ -338,6 +341,7 @@ export function calculatePlansBuilderEstimate(
           roomId: outcome.roomId,
           sourceOutcomeId: outcome.id,
           unitPrice: outcomeUnitPrice,
+          vatRate: outcome.vatRate,
         })
 
         lineItems.push(outcomeLine)
@@ -364,6 +368,7 @@ export function calculatePlansBuilderEstimate(
       reviewReason: starterPack.requiresReview ? reviewCopy(language).package : undefined,
       roomId: starterPack.room.id,
       unitPrice: starterPack.packageUnitPrice,
+      vatRate: starterPack.packageRecord.vatRate,
     })
     lineItems.push(starterLine)
     if (starterLine.requiresReview) reviewItems.add(starterLine.label)
@@ -516,6 +521,7 @@ function buildEstimateLine({
   roomId,
   sourceOutcomeId,
   unitPrice,
+  vatRate,
 }: BuildEstimateLineInput): PlansBuilderEstimateLine {
   const safeQuantity = normalisePlansQuantity(quantity)
   const safePrice = safeCurrencyNumber(unitPrice)
@@ -534,6 +540,7 @@ function buildEstimateLine({
     roomId,
     sourceOutcomeId,
     unitPrice: safePrice,
+    vatRate,
   }
 }
 
@@ -550,6 +557,7 @@ function toProposalLineItem(line: PlansBuilderEstimateLine): ProposalLineItem {
     sourceOutcomeId: line.sourceOutcomeId,
     sourcePackageId: line.packageId,
     unitPrice: line.unitPrice,
+    vatRate: line.vatRate,
   })
 }
 

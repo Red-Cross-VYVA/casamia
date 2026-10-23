@@ -11,7 +11,8 @@ import {
 import {
   buildProposalDepositCheckoutSession,
   calculateProposalDepositCents,
-  getProposalTaxRateId,
+  getProposalTaxRateIds,
+  getProposalVatGroups,
   mapProposalDepositPaymentEvent,
   validateInclusiveProposalTaxRate,
 } from '../api/_lib/proposal-payment.js'
@@ -103,8 +104,8 @@ const proposal = {
   customer_email: 'proposal@example.com',
   id: 'CM-2026-PROPOSAL',
   line_items: [
-    { quantity: 1, unit_price: 325 },
-    { quantity: 2, unit_price: 87 },
+    { quantity: 1, unit_price: 325, vat_rate: 0.21 },
+    { quantity: 2, unit_price: 87, vat_rate: 0.1 },
   ],
   public_token: 'abcdefghijklmnopqrstuvwxyz123456',
   selected_plan: 'Home adaptations',
@@ -112,25 +113,36 @@ const proposal = {
 }
 assert.equal(calculateProposalDepositCents(proposal), 24_950)
 assert.equal(calculateProposalDepositCents({ ...proposal, deposit_rate: 0.4 }), 19_960)
-assert.equal(getProposalTaxRateId({ STRIPE_PROPOSAL_TAX_RATE_ID: 'txr_proposal_vat' }), 'txr_proposal_vat')
-assert.equal(getProposalTaxRateId({ STRIPE_VISIT_TAX_RATE_ID: 'txr_visit_vat' }), '')
+assert.deepEqual(getProposalTaxRateIds({
+  STRIPE_PROPOSAL_TAX_RATE_10_ID: 'txr_10',
+  STRIPE_PROPOSAL_TAX_RATE_21_ID: 'txr_21',
+}), { 4: '', 10: 'txr_10', 21: 'txr_21' })
+assert.deepEqual(getProposalVatGroups(proposal), [
+  { amount: 8_700, percentage: 10 },
+  { amount: 16_250, percentage: 21 },
+])
+assert.throws(
+  () => getProposalVatGroups({ ...proposal, line_items: [{ quantity: 1, unit_price: 100 }] }),
+  /Every proposal line must have an approved/,
+)
 for (const percentage of [4, 10, 21]) {
-  assert.doesNotThrow(() => validateInclusiveProposalTaxRate({ active: true, inclusive: true, percentage }))
+  assert.doesNotThrow(() => validateInclusiveProposalTaxRate({ active: true, inclusive: true, percentage }, percentage))
 }
 assert.throws(
-  () => validateInclusiveProposalTaxRate({ active: true, inclusive: true, percentage: 7 }),
-  /active, inclusive 4%, 10%, or 21% VAT rate/,
+  () => validateInclusiveProposalTaxRate({ active: true, inclusive: true, percentage: 21 }, 10),
+  /inclusive 10% Stripe tax rate/,
 )
 
 const proposalCheckout = buildProposalDepositCheckoutSession({
   locale: 'es',
   origin: 'https://www.casamia.com.es',
   proposal,
-  taxRateId: 'txr_proposal_vat',
+  taxRateIds: { 10: 'txr_10', 21: 'txr_21' },
 })
-assert.equal(proposalCheckout.line_items[0].price_data.unit_amount, 24_950)
+assert.equal(proposalCheckout.line_items[0].price_data.unit_amount, 8_700)
+assert.equal(proposalCheckout.line_items[1].price_data.unit_amount, 16_250)
 assert.equal(proposalCheckout.line_items[0].price_data.tax_behavior, 'inclusive')
-assert.deepEqual(proposalCheckout.line_items[0].tax_rates, ['txr_proposal_vat'])
+assert.deepEqual(proposalCheckout.line_items.map((item) => item.tax_rates[0]), ['txr_10', 'txr_21'])
 assert.equal(proposalCheckout.metadata.casa_mia_payment_type, 'proposal_deposit')
 assert.equal(proposalCheckout.payment_intent_data.receipt_email, 'proposal@example.com')
 assert.match(proposalCheckout.cancel_url, /payment=cancelled$/)
@@ -140,9 +152,9 @@ const editedProposalCheckout = buildProposalDepositCheckoutSession({
   locale: 'en',
   origin: 'https://www.casamia.com.es',
   proposal: { ...proposal, deposit_rate: 0.4 },
-  taxRateId: 'txr_proposal_vat',
+  taxRateIds: { 10: 'txr_10', 21: 'txr_21' },
 })
-assert.equal(editedProposalCheckout.line_items[0].price_data.unit_amount, 19_960)
+assert.equal(editedProposalCheckout.line_items.reduce((sum, item) => sum + item.price_data.unit_amount, 0), 19_960)
 assert.match(editedProposalCheckout.line_items[0].price_data.product_data.description, /40%/)
 
 const proposalPaidEvent = {

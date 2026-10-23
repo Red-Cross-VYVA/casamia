@@ -134,6 +134,10 @@ assert.match(
   assert.equal(serverDraft.ok, true, 'The server proposal path must accept a Starter Pack-only selection.')
   assert.equal(serverDraft.proposalPayload?.total, 399, 'The server must use the approved Kitchen Starter Pack price.')
   assert.equal(serverDraft.proposalPayload?.line_items[0]?.sourcePackageId, 'kitchen-safety-starter-pack')
+  assert.ok(
+    [0.04, 0.1, 0.21].includes(serverDraft.proposalPayload?.line_items[0]?.vat_rate),
+    'Public proposal line items must preserve their approved catalogue VAT rate.',
+  )
 }
 
 {

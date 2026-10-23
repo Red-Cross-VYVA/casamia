@@ -1,6 +1,6 @@
 import { getRequestQueryValue as getParam } from '../../../_lib/request-query.js'
 import { getProposalRecordByToken, isPublicProposalToken, mapProposalRecord, updateProposalRecord } from '../../../_lib/proposals.js'
-import { buildProposalDepositCheckoutSession, calculateProposalDepositCents, getProposalTaxRateId, proposalPaymentConfig, validateInclusiveProposalTaxRate } from '../../../_lib/proposal-payment.js'
+import { buildProposalDepositCheckoutSession, calculateProposalDepositCents, getProposalTaxRateIds, getProposalVatGroups, proposalPaymentConfig, validateInclusiveProposalTaxRate } from '../../../_lib/proposal-payment.js'
 import { applyPublicCors, isAllowedPublicOrigin, normalizeOrigin } from '../../../_lib/public-origin.js'
 import { getStripeClient, StripeConfigurationError } from '../../../_lib/stripe.js'
 import { readJsonBody, sendJson } from '../../../_lib/supabase.js'
@@ -57,9 +57,13 @@ export default async function handler(request, response) {
 
     const body = await readJsonBody(request)
     const stripe = getStripeClient()
-    const taxRateId = getProposalTaxRateId()
-    if (!taxRateId) throw new StripeConfigurationError('Proposal VAT must be approved separately. Add STRIPE_PROPOSAL_TAX_RATE_ID in Vercel only after review.')
-    validateInclusiveProposalTaxRate(await stripe.taxRates.retrieve(taxRateId))
+    const vatGroups = getProposalVatGroups(proposal)
+    const taxRateIds = getProposalTaxRateIds()
+    for (const { percentage } of vatGroups) {
+      const taxRateId = taxRateIds[percentage]
+      if (!taxRateId) throw new StripeConfigurationError(`Add the approved STRIPE_PROPOSAL_TAX_RATE_${percentage}_ID in Vercel.`)
+      validateInclusiveProposalTaxRate(await stripe.taxRates.retrieve(taxRateId), percentage)
+    }
     const existingPayment = object(proposal.proposalPayment)
     if (text(existingPayment.sessionId)) {
       try {
@@ -77,7 +81,7 @@ export default async function handler(request, response) {
       locale: body.locale,
       origin: getPublicOrigin(request),
       proposal,
-      taxRateId,
+      taxRateIds,
     })
     const attempt = Math.max(0, Number(existingPayment.attempt) || 0) + 1
     const session = await stripe.checkout.sessions.create(checkout, {

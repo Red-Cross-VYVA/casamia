@@ -4,17 +4,47 @@ export const proposalPaymentConfig = Object.freeze({
   vatIncluded: true,
 })
 
-export function getProposalTaxRateId(env = process.env) {
-  return text(env.STRIPE_PROPOSAL_TAX_RATE_ID)
+export function getProposalTaxRateIds(env = process.env) {
+  return {
+    4: text(env.STRIPE_PROPOSAL_TAX_RATE_4_ID),
+    10: text(env.STRIPE_PROPOSAL_TAX_RATE_10_ID),
+    21: text(env.STRIPE_PROPOSAL_TAX_RATE_21_ID),
+  }
 }
 
-export function validateInclusiveProposalTaxRate(taxRate) {
+export function validateInclusiveProposalTaxRate(taxRate, expectedPercentage) {
   const supportedRates = new Set([4, 10, 21])
+  const percentage = Number(expectedPercentage)
   if (!taxRate || taxRate.deleted || taxRate.active !== true || taxRate.inclusive !== true
-    || !supportedRates.has(Number(taxRate.percentage))) {
-    throw new Error('STRIPE_PROPOSAL_TAX_RATE_ID must reference an active, inclusive 4%, 10%, or 21% VAT rate.')
+    || !supportedRates.has(percentage) || Number(taxRate.percentage) !== percentage) {
+    throw new Error(`The proposal VAT setting must reference an active, inclusive ${percentage}% Stripe tax rate.`)
   }
   return taxRate
+}
+
+export function getProposalVatGroups(proposal) {
+  const lineItems = Array.isArray(proposal?.line_items) ? proposal.line_items : []
+  const groups = new Map()
+  for (const item of lineItems) {
+    const percentage = normaliseVatPercentage(item?.vat_rate ?? item?.vatRate)
+    if (!percentage) throw new Error('Every proposal line must have an approved 4%, 10%, or 21% VAT rate.')
+    const quantity = finiteNumber(item?.quantity)
+    const unitPrice = finiteNumber(item?.unit_price ?? item?.unitPrice)
+    groups.set(percentage, (groups.get(percentage) || 0) + Math.round(quantity * unitPrice * 100))
+  }
+  if (!groups.size || [...groups.values()].some((amount) => amount <= 0)) {
+    throw new Error('Each proposal VAT group must have a positive payable amount.')
+  }
+  const multiplier = proposal?.selected_plan === 'Assessment visit' || proposal?.plan === 'Assessment visit'
+    ? 1
+    : getProposalDepositRate(proposal)
+  const result = [...groups.entries()].map(([percentage, grossCents]) => ({
+    amount: Math.round(grossCents * multiplier),
+    percentage,
+  }))
+  const difference = calculateProposalDepositCents(proposal) - result.reduce((sum, group) => sum + group.amount, 0)
+  if (difference) result.sort((a, b) => b.amount - a.amount)[0].amount += difference
+  return result.sort((a, b) => a.percentage - b.percentage)
 }
 
 export function calculateProposalDepositCents(proposal) {
@@ -40,16 +70,17 @@ export function getProposalDepositRate(proposal) {
     : proposalPaymentConfig.depositRate
 }
 
-export function buildProposalDepositCheckoutSession({ locale = 'en', origin, proposal, taxRateId }) {
+export function buildProposalDepositCheckoutSession({ locale = 'en', origin, proposal, taxRateIds }) {
   const proposalId = text(proposal?.id)
   const publicToken = text(proposal?.public_token)
   const customerEmail = text(proposal?.customer_email ?? proposal?.email)
 
-  if (!proposalId || !publicToken || !customerEmail || !origin || !taxRateId) {
+  const vatGroups = getProposalVatGroups(proposal)
+  if (!proposalId || !publicToken || !customerEmail || !origin
+    || vatGroups.some((group) => !text(taxRateIds?.[group.percentage]))) {
     throw new Error('The proposal checkout is missing required information.')
   }
 
-  const amount = calculateProposalDepositCents(proposal)
   const localeCode = String(locale).toLowerCase().split(/[-_]/)[0]
   const checkoutLocale = ['de', 'es', 'fr', 'nl'].includes(localeCode) ? localeCode : 'en'
   const isAssessment = proposal?.selected_plan === 'Assessment visit' || proposal?.plan === 'Assessment visit'
@@ -72,22 +103,23 @@ export function buildProposalDepositCheckoutSession({ locale = 'en', origin, pro
     proposal_id: proposalId,
     public_token: publicToken,
     vat_included: 'true',
+    vat_rates: vatGroups.map((group) => group.percentage).join(','),
   }
 
   return {
     cancel_url: `${origin}/proposal/${encodeURIComponent(publicToken)}?payment=cancelled`,
     client_reference_id: proposalId,
     customer_email: customerEmail,
-    line_items: [{
+    line_items: vatGroups.map((group) => ({
       price_data: {
         currency: proposalPaymentConfig.currency,
         product_data: productCopy,
         tax_behavior: 'inclusive',
-        unit_amount: amount,
+        unit_amount: group.amount,
       },
       quantity: 1,
-      tax_rates: [taxRateId],
-    }],
+      tax_rates: [taxRateIds[group.percentage]],
+    })),
     locale: checkoutLocale,
     metadata,
     mode: 'payment',
@@ -127,6 +159,13 @@ export function mapProposalDepositPaymentEvent(event) {
 function finiteNumber(value) {
   const parsed = Number(value)
   return Number.isFinite(parsed) ? parsed : 0
+}
+
+function normaliseVatPercentage(value) {
+  const numeric = Number(value)
+  const percentage = numeric > 0 && numeric < 1 ? numeric * 100 : numeric
+  const rounded = Math.round(percentage * 100) / 100
+  return [4, 10, 21].includes(rounded) ? rounded : 0
 }
 
 function text(value) {

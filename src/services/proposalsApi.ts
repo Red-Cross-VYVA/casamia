@@ -43,6 +43,8 @@ type BackendLineItem = {
   total?: number | string
   unit_price?: number | string
   unitPrice?: number | string
+  vat_rate?: number | string
+  vatRate?: number | string
 }
 
 type BackendProposal = {
@@ -330,6 +332,7 @@ export function toBackendProposal(proposal: ProposalData) {
       source_package_id: item.sourcePackageId,
       total: calculateLineTotal(item),
       unit_price: item.unitPrice,
+      vat_rate: item.vatRate,
     })),
   }
 }
@@ -372,6 +375,7 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
         sourceOutcomeId: safeText(item.source_outcome_id ?? item.sourceOutcomeId) || undefined,
         sourcePackageId: safeText(item.source_package_id ?? item.sourcePackageId) || undefined,
         unitPrice: safeNumber(item.unit_price ?? item.unitPrice),
+        vatRate: optionalVatRate(item.vat_rate ?? item.vatRate),
       }),
     ),
     overallRiskLevel: (safeText(raw.overall_risk_level, 'Moderate') || 'Moderate') as ProposalData['overallRiskLevel'],
@@ -389,6 +393,11 @@ export function fromBackendProposal(raw: BackendProposal): ProposalData {
     updatedAt: safeText(raw.updated_at, new Date().toISOString()),
     validUntil: safeText(raw.valid_until),
   })
+}
+
+function optionalVatRate(value: unknown) {
+  const parsed = Number(value)
+  return [0.04, 0.1, 0.21].includes(parsed) ? parsed : undefined
 }
 
 function hasProposalShape(raw: BackendActionResponse) {

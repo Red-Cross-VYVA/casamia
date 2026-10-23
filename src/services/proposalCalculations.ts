@@ -47,6 +47,7 @@ export type ProposalLineItem = {
   sourceOutcomeId?: string
   sourcePackageId?: string
   unitPrice: number
+  vatRate?: number
 }
 
 export type ProposalData = {

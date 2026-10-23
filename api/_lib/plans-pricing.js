@@ -124,6 +124,7 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
       quantity,
       sourcePackageId: group.homePackage.id,
       unitPrice: homeUnitPrice,
+      vatRate: getPackageConfig(catalogue, group.room.id)?.vatRate ?? group.homePackage.vatRate,
     })
     lineItems.push(homeLine)
     if (homeRequiresReview) reviewItems.add(homeLine.name)
@@ -151,6 +152,7 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
           quantity,
           sourcePackageId: packageRecord.id,
           unitPrice: packageUnitPrice,
+          vatRate: packageRecord.vatRate,
         })
         lineItems.push(line)
         if (requiresReview) reviewItems.add(line.name)
@@ -172,6 +174,7 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
           sourceOutcomeId: outcome.id,
           sourcePackageId: packageRecord.id,
           unitPrice,
+          vatRate: outcome.vatRate,
         })
         lineItems.push(line)
         if (requiresReview) reviewItems.add(line.name)
@@ -198,6 +201,7 @@ function calculatePlansDraftEstimate(catalogue, selection, language) {
       quantity,
       sourcePackageId: packageRecord.id,
       unitPrice,
+      vatRate: packageRecord.vatRate,
     })
     lineItems.push(line)
     if (requiresReview) reviewItems.add(line.name)
@@ -290,7 +294,13 @@ function createLineItem(patch) {
     ...item,
     grant_eligible: Boolean(item.grantEligible),
     unit_price: safeMoney(item.unitPrice),
+    vat_rate: normaliseVatRate(item.vatRate),
   }
+}
+
+function normaliseVatRate(value) {
+  const numeric = Number(value)
+  return [0.04, 0.1, 0.21].includes(numeric) ? numeric : null
 }
 
 function getVisibleStarterPacks(catalogue) {
