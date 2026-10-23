@@ -7,7 +7,6 @@ import {
   FileText,
   Home,
   LoaderCircle,
-  MessageSquareText,
   RefreshCw,
   ShieldCheck,
   Upload,
@@ -15,8 +14,6 @@ import {
   X,
 } from 'lucide-react'
 import {
-  lazy,
-  Suspense,
   useEffect,
   useRef,
   useState,
@@ -139,12 +136,6 @@ const fallbackMobilityProfiles: Option[] = [
 const fallbackStepLabels = ['Photos', 'Home', 'Contact', 'Report']
 const estimatorDraftStorageKey = 'casamia-estimator-draft'
 const helpMeChooseOption = 'Help me choose'
-const SpecialistVoiceAgentModal = lazy(() =>
-  import('./SpecialistVoiceAgentModal').then((module) => ({
-    default: module.SpecialistVoiceAgentModal,
-  })),
-)
-
 export function UploadEstimator() {
   const { i18n, t } = useTranslation()
   const location = useLocation()
@@ -154,7 +145,6 @@ export function UploadEstimator() {
   const [form, setForm] = useState<EstimateForm>(() => getSavedEstimatorForm())
   const [wizardOpen, setWizardOpen] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
-  const [specialistOpen, setSpecialistOpen] = useState(false)
   const [step, setStep] = useState<WizardStep>(() => getSavedEstimatorStep())
   const [status, setStatus] = useState<SubmissionStatus>('idle')
   const [deliveryStatus, setDeliveryStatus] = useState<DeliveryStatus>('idle')
@@ -481,24 +471,6 @@ export function UploadEstimator() {
             <ArrowRight size={20} />
           </span>
         </button>
-        <button
-          type="button"
-          className="free-check-card is-proposal"
-          onClick={() => {
-            setSpecialistOpen(true)
-            trackEvent('elevenlabs_specialist_opened', { location: 'hero' })
-          }}
-        >
-          <span className="free-check-icon is-grant">
-            <MessageSquareText size={23} aria-hidden="true" />
-          </span>
-          <span className="free-check-copy">
-            <strong>{t('hero.buildPlan.title')}</strong>
-          </span>
-          <span className="free-check-arrow" aria-hidden="true">
-            <ArrowRight size={20} />
-          </span>
-        </button>
       </div>
       <input
         ref={inputRef}
@@ -675,25 +647,6 @@ export function UploadEstimator() {
         document.body,
       ) : null}
 
-      {specialistOpen ? (
-        <Suspense
-          fallback={(
-            <div className="specialist-voice-backdrop" role="presentation">
-              <div className="specialist-voice-loading" role="status">
-                <LoaderCircle size={28} aria-hidden="true" />
-                <span>{t('common.loading', { defaultValue: 'Loading...' })}</span>
-              </div>
-            </div>
-          )}
-        >
-          <SpecialistVoiceAgentModal
-            entryPoint="home_hero"
-            isOpen={specialistOpen}
-            language={i18n.language}
-            onClose={() => setSpecialistOpen(false)}
-          />
-        </Suspense>
-      ) : null}
     </div>
   )
 }

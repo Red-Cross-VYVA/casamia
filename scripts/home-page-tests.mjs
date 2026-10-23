@@ -73,16 +73,16 @@ assert.equal(esCopy.hero.buildPlan.title, 'Habla con un especialista')
 assert.equal(esCopy.offer.proposalSnapshot.heading, 'Plan de seguridad')
 assert.deepEqual(esCopy.offer.proposalSnapshot.items, ['Acceso al baño', 'Alcance en cocina', 'Ruta nocturna'])
 
-assert.match(
+assert.doesNotMatch(
   uploadEstimator,
   /SpecialistVoiceAgentModal/,
-  'The second homepage hero action should open the ElevenLabs specialist modal.',
+  'The homepage should not expose the unavailable ElevenLabs specialist modal.',
 )
 
-assert.match(
+assert.doesNotMatch(
   uploadEstimator,
   /elevenlabs_specialist_opened/,
-  'The specialist CTA should be tracked separately from the proposal wizard.',
+  'The homepage should not track an unavailable specialist CTA.',
 )
 
 assert.match(

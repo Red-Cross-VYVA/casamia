@@ -125,10 +125,10 @@ assert.match(
   /setActivePackageGroup\(servicePackageGroup\)/,
   'The service hero package CTA should open the current package detail modal directly.',
 )
-assert.match(
+assert.doesNotMatch(
   serviceDetailPage,
-  /askSafetyExpert: 'Ask the Safety Expert'[\s\S]*setSpecialistOpen\(true\)[\s\S]*entryPoint=\{specialistEntryPoint\}/,
-  'The service hero expert CTA should open the ElevenLabs specialist with a service-specific entry point.',
+  /setSpecialistOpen\(true\)|SpecialistVoiceAgentModal|specialistEntryPoint/,
+  'Service pages should not expose the unavailable ElevenLabs specialist modal.',
 )
 assert.match(
   packageDetailModal,

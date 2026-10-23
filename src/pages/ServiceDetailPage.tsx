@@ -3,12 +3,10 @@ import {
   CheckCircle2,
   ClipboardCheck,
   Home,
-  LoaderCircle,
-  MessageSquareText,
   MousePointer2,
   ShieldCheck,
 } from 'lucide-react'
-import { lazy, Suspense, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 
@@ -31,12 +29,6 @@ import type { CasaMiaService, ServicePackageArea, ServiceRoom } from '../types/s
 import { getServicePreviewDescription } from '../utils/serviceTrust'
 import '../styles/home-hero-ctas.css'
 import '../styles/services-catalogue.css'
-
-const SpecialistVoiceAgentModal = lazy(() =>
-  import('../components/SpecialistVoiceAgentModal').then((module) => ({
-    default: module.SpecialistVoiceAgentModal,
-  })),
-)
 
 const detailSteps = [
   {
@@ -1122,7 +1114,6 @@ export function ServiceDetailPage() {
     ? packageGroups.find((group) => group.packageArea === servicePackageArea) ?? null
     : null
   const [activePackageGroup, setActivePackageGroup] = useState<PlansBuilderGroup | null>(null)
-  const [specialistOpen, setSpecialistOpen] = useState(false)
   const roomServices = useLocalizedServicesByRoom(serviceRoom, i18n.language)
   const baseService = primaryServices.find((item) => item.id === serviceId)
 
@@ -1152,7 +1143,6 @@ export function ServiceDetailPage() {
       ? 'Mejoras para estar de pie, iluminación, alcance, agua, electrodomésticos y rutinas con menos riesgo.'
       : 'Improvements for standing, lighting, reach, water, appliances and lower-risk routines.'
     : service.intro
-  const specialistEntryPoint = `service_detail_${service.id.replace(/-/g, '_')}`
   const orderRoomLabel = servicePackageGroup?.roomLabel ?? getOrderRoomLabel(serviceRoom, i18n.language)
   const orderCtaLabel = uiCopy.orderPackage(orderRoomLabel)
 
@@ -1202,15 +1192,6 @@ export function ServiceDetailPage() {
                     <ArrowRight size={20} aria-hidden="true" />
                   </Link>
                 )}
-                <button
-                  className="btn btn-white"
-                  type="button"
-                  onClick={() => setSpecialistOpen(true)}
-                >
-                  <MessageSquareText size={20} aria-hidden="true" />
-                  {uiCopy.askSafetyExpert}
-                  <ArrowRight size={20} aria-hidden="true" />
-                </button>
               </div>
             </div>
 
@@ -1397,25 +1378,6 @@ export function ServiceDetailPage() {
         language={i18n.language}
         onClose={() => setActivePackageGroup(null)}
       />
-      {specialistOpen ? (
-        <Suspense
-          fallback={(
-            <div className="specialist-voice-backdrop" role="presentation">
-              <div className="specialist-voice-loading" role="status">
-                <LoaderCircle size={28} aria-hidden="true" />
-                <span>{isSpanish ? 'Cargando...' : 'Loading...'}</span>
-              </div>
-            </div>
-          )}
-        >
-          <SpecialistVoiceAgentModal
-            entryPoint={specialistEntryPoint}
-            isOpen={specialistOpen}
-            language={i18n.language}
-            onClose={() => setSpecialistOpen(false)}
-          />
-        </Suspense>
-      ) : null}
     </>
   )
 }
