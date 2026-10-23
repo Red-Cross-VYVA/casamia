@@ -100,6 +100,14 @@ export async function autoReplyToWhatsapp(message, dependencies = {}) {
     || !normaliseWhatsappRecipient(message.from) || message.from === normaliseWhatsappRecipient(env.WHATSAPP_PUBLIC_PHONE_NUMBER || '34608471713')
     || !Number.isFinite(at) || now - at >= 24 * 60 * 60 * 1_000 || at > now + 5 * 60 * 1_000) return { status: 'ignored' }
 
+  // This shared number also sends VYVA templates. CasaMia uses typed menu
+  // numbers, so button/list callbacks belong to their originating flow even
+  // when the sender previously used the CasaMia assistant.
+  if (message.type === 'button' || message.type === 'interactive') {
+    console.info('[whatsapp-auto-reply] ignored template response', { inboundMessageId: message.messageId, type: message.type })
+    return { status: 'ignored', reason: 'template_response' }
+  }
+
   const create = dependencies.create ?? createSupabaseRowIfAbsent
   const select = dependencies.select ?? selectSupabaseRows
   const update = dependencies.update ?? updateSupabaseRows

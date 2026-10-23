@@ -100,6 +100,27 @@ await autoReplyToWhatsapp(message('INICIAR'), f.dependencies)
 assert.equal(f.sends.length, pausedCount + 1)
 assert.match(f.sends.at(-1).text, /asistente automático/)
 
+// Template buttons on this shared number must stay in the originating VYVA
+// flow, including for a customer with an existing active CasaMia conversation.
+const shared = fixture()
+await autoReplyToWhatsapp(message('Hola'), shared.dependencies)
+const sharedState = structuredClone([...shared.rows.values()])
+for (const [type, text] of [['button', 'Yes'], ['button', 'No'], ['button', 'STOP'], ['interactive', '2'], ['interactive', 'English']]) {
+  const result = await autoReplyToWhatsapp(message(text, { type }), shared.dependencies)
+  assert.deepEqual(result, { status: 'ignored', reason: 'template_response' })
+}
+assert.equal(shared.sends.length, 1, 'VYVA buttons must not send a CasaMia reply')
+assert.deepEqual([...shared.rows.values()], sharedState, 'VYVA buttons must not change CasaMia language, preferences or leads')
+await autoReplyToWhatsapp(message('2'), shared.dependencies)
+assert.match(shared.sends.at(-1).text, /precios con IVA/, 'Typed CasaMia menu choices still work in Spanish')
+await autoReplyToWhatsapp(message('Hello'), shared.dependencies)
+await autoReplyToWhatsapp(message('2'), shared.dependencies)
+assert.match(shared.sends.at(-1).text, /VAT-inclusive/, 'Typed CasaMia menu choices still work in English')
+const buttonOnly = fixture()
+await autoReplyToWhatsapp(message('Yes', { type: 'button' }), buttonOnly.dependencies)
+assert.equal(buttonOnly.rows.size, 0, 'A VYVA button must not start a CasaMia conversation')
+assert.equal(buttonOnly.sends.length, 0)
+
 for (const changes of [
   { phoneNumberId: 'other-business' }, { phoneNumberId: '' },
   { type: 'reaction' }, { from: '34608471713' }, { from: 'invalid' },
@@ -149,6 +170,17 @@ const response = res()
 await webhook({ method: 'POST', headers: { 'x-hub-signature-256': signature }, body: raw }, response, live.dependencies)
 assert.equal(response.statusCode, 200)
 assert.equal(live.sends.length, 1, 'A real-shaped signed webhook reaches the automatic reply')
+const buttonPayload = structuredClone(payload)
+buttonPayload.entry[0].changes[0].value.messages = [
+  { id: 'wamid.vyva-yes', from: '34664338991', timestamp: String(now / 1000), type: 'button', context: { id: 'wamid.vyva-template' }, button: { text: 'Yes', payload: 'yes' } },
+  { id: 'wamid.vyva-no', from: '34664338991', timestamp: String(now / 1000), type: 'interactive', interactive: { type: 'button_reply', button_reply: { id: 'no', title: 'No' } } },
+]
+const buttonRaw = Buffer.from(JSON.stringify(buttonPayload))
+const buttonSignature = `sha256=${crypto.createHmac('sha256', env.WHATSAPP_APP_SECRET).update(buttonRaw).digest('hex')}`
+const buttonResponse = res()
+await webhook({ method: 'POST', headers: { 'x-hub-signature-256': buttonSignature }, body: buttonRaw }, buttonResponse, live.dependencies)
+assert.equal(buttonResponse.statusCode, 200, 'Acknowledge VYVA callbacks without causing webhook retries')
+assert.equal(live.sends.length, 1, 'Signed VYVA callbacks do not trigger the CasaMia fallback menu')
 const invalid = res()
 await webhook({ method: 'POST', headers: { 'x-hub-signature-256': 'bad' }, body: raw }, invalid, live.dependencies)
 assert.equal(invalid.statusCode, 401)

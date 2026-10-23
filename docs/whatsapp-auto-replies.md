@@ -20,6 +20,12 @@ the assistant does not confirm payments, bookings, orders or grant eligibility.
 Media messages receive a text-only explanation and the free photo-report link.
 Unknown requests receive the menu. Every welcome identifies the automation.
 
+The number is shared with VYVA template flows. Template quick replies and
+interactive button/list callbacks are ignored by the CasaMia assistant before
+it stores a lead, changes conversation state or sends a reply. CasaMia's own
+menu uses typed numbers; these continue to work. Template definitions, button
+payloads and other apps' webhook subscriptions are unchanged.
+
 `STOP` / `BAJA` suppress subsequent automatic conversation replies until the
 customer sends `START` / `INICIAR`. This switch does not unsubscribe customers
 from report/proposal notifications they request separately. Asking for a person
