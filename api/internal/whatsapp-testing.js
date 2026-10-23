@@ -1,4 +1,4 @@
-import { getWhatsappDiagnostics, getWhatsappTemplate, registerWhatsappSender, sendWhatsappTemplate } from '../_lib/whatsapp.js'
+import { connectWhatsappIncomingMessages, getWhatsappDiagnostics, getWhatsappWebhookSubscription, getWhatsappTemplate, registerWhatsappSender, sendWhatsappTemplate } from '../_lib/whatsapp.js'
 import { requireInternalApiKey, sendJson } from '../_lib/supabase.js'
 import { whatsappAutoRepliesEnabled } from '../_lib/whatsapp-auto-replies.js'
 
@@ -50,6 +50,21 @@ export default async function handler(request, response, dependencies = {}) {
   }
 
   const body = request.body && typeof request.body === 'object' ? request.body : {}
+  if (['check-incoming', 'connect-incoming'].includes(body.action)) {
+    if (testing.usingTestCredentials) {
+      sendJson(response, 409, { message: 'Switch to live credentials before checking the incoming-message connection.' })
+      return
+    }
+    try {
+      const incoming = body.action === 'check-incoming'
+        ? await (dependencies.getSubscription ?? getWhatsappWebhookSubscription)({ env, fetchImpl: dependencies.fetchImpl })
+        : await (dependencies.connectIncoming ?? connectWhatsappIncomingMessages)({ env, fetchImpl: dependencies.fetchImpl, phoneNumberId: body.phoneNumberId })
+      sendJson(response, 200, { incoming })
+    } catch (error) {
+      sendJson(response, error.statusCode || 502, { message: error.message || 'The incoming-message connection could not be checked.' })
+    }
+    return
+  }
   if (body.action === 'register') {
     if (testing.usingTestCredentials) {
       sendJson(response, 409, { message: 'Switch the admin test panel to live credentials before registering the live number.' })

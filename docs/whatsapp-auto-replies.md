@@ -5,6 +5,13 @@ customer messages when `CASAMIA_WHATSAPP_AUTO_REPLY_ENABLED=true`. It uses the
 live `WHATSAPP_PHONE_NUMBER_ID` and live Cloud API credentials, independently
 of the admin panel's optional test sender. Other phone-number IDs are ignored.
 The Meta app must be subscribed to the WABA's `messages` webhook field.
+The live WABA must also subscribe to the CasaMia app via `/{WABA-ID}/subscribed_apps`.
+The admin setup page's **Check incoming connection** verifies that the live
+token belongs to the expected app, that the account contains the configured
+phone ID, and that the app is subscribed. **Connect incoming messages** adds
+only a missing subscription and verifies it afterward. These controls require
+the existing internal authentication and cannot operate on the isolated test
+sender. Existing subscriptions are preserved.
 
 This is an English/Spanish FAQ assistant with a numbered menu, not a generative
 AI agent. Replies cover services, prices/proposals, free reports, in-home visits,

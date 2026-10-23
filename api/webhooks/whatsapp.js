@@ -29,6 +29,7 @@ export default async function handler(request, response, dependencies = {}) {
 
   const rawBody = await readRawBody(request)
   if (!verifyWhatsappWebhookSignature(rawBody, headerValue(request, 'x-hub-signature-256'), env)) {
+    console.warn('[whatsapp-webhook] rejected invalid signature')
     sendJson(response, 401, { message: 'Invalid webhook signature.' })
     return
   }
@@ -48,6 +49,7 @@ export default async function handler(request, response, dependencies = {}) {
     })
   }
   const messages = extractWhatsappMessages(payload)
+  console.info('[whatsapp-webhook] received', { messages: messages.length, statuses: statuses.length })
   const applyStatus = dependencies.applyStatus ?? applyWhatsappStatus
   await Promise.all(statuses.map((status) => applyStatus(status)))
   const applyMessage = dependencies.applyMessage ?? (async (message) => {

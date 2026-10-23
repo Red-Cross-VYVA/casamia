@@ -5,6 +5,7 @@ const graphApiVersionPattern = /^v\d+\.\d+$/
 const defaultWhatsappAppId = '1061863269720823'
 const defaultWhatsappBusinessId = '1411528653558134'
 const defaultWhatsappPublicNumber = '34608471713'
+const defaultWhatsappAccountId = '4431158413771675'
 
 export function getWhatsappConfiguration(env = process.env) {
   const apiVersion = clean(env.WHATSAPP_GRAPH_API_VERSION) || defaultGraphApiVersion
@@ -19,6 +20,7 @@ export function getWhatsappConfiguration(env = process.env) {
     businessId: clean(env.WHATSAPP_BUSINESS_ID) || defaultWhatsappBusinessId,
     configured: Boolean(accessToken && phoneNumberId),
     phoneNumberId,
+    wabaId: clean(env.WHATSAPP_BUSINESS_ACCOUNT_ID) || defaultWhatsappAccountId,
     verifyToken: clean(env.WHATSAPP_WEBHOOK_VERIFY_TOKEN),
   }
 }
@@ -261,6 +263,61 @@ export async function getWhatsappDiagnostics({ env = process.env, fetchImpl = fe
       metaError: error instanceof Error ? error.message : 'Meta diagnostics could not be loaded.',
     }
   }
+}
+
+export async function getWhatsappWebhookSubscription({ env = process.env, fetchImpl = fetch } = {}) {
+  const config = getWhatsappConfiguration(env)
+  if (!config.configured) throw new WhatsappSignupError('Configure the live WhatsApp sender first.', 409)
+  const headers = { Authorization: `Bearer ${config.accessToken}` }
+  const debugUrl = new URL(`https://graph.facebook.com/${config.apiVersion}/debug_token`)
+  debugUrl.searchParams.set('input_token', config.accessToken)
+  const debug = await requestMetaJson(debugUrl, { headers }, fetchImpl)
+  const tokenAppId = clean(debug?.data?.app_id)
+  if (!debug?.data?.is_valid || tokenAppId !== config.appId) {
+    throw new WhatsappSignupError(`The live sender token belongs to app ${tokenAppId || 'unknown'}, but CasaMia expects app ${config.appId}. Reconnect the correct app before enabling incoming messages.`, 409)
+  }
+  const accountIds = new Set([config.wabaId])
+  let wabaId = ''
+  async function findSender(accountId) {
+    const phones = await graphCollection({ accessToken: config.accessToken, apiVersion: config.apiVersion, fetchImpl, path: `${accountId}/phone_numbers` })
+    return phones.some((phone) => clean(phone.id) === config.phoneNumberId)
+  }
+  try {
+    if (await findSender(config.wabaId)) wabaId = config.wabaId
+  } catch {
+    // A migrated number may be in another account owned by this business.
+  }
+  if (!wabaId) {
+    for (const edge of ['owned_whatsapp_business_accounts', 'client_whatsapp_business_accounts']) {
+      try {
+        const accounts = await graphCollection({ accessToken: config.accessToken, apiVersion: config.apiVersion, fetchImpl, path: `${config.businessId}/${edge}` })
+        for (const account of accounts) if (clean(account.id)) accountIds.add(clean(account.id))
+      } catch {
+        // Business-scoped tokens may grant only the owned or the client edge.
+      }
+    }
+    for (const accountId of accountIds) {
+      if (accountId !== config.wabaId && await findSender(accountId)) { wabaId = accountId; break }
+    }
+  }
+  if (!wabaId) throw new WhatsappSignupError('The live phone number was not found in CasaMia’s WhatsApp accounts.', 409)
+  const subscriptions = await requestMetaJson(`https://graph.facebook.com/${config.apiVersion}/${wabaId}/subscribed_apps`, { headers }, fetchImpl)
+  const subscribedAppIds = (Array.isArray(subscriptions?.data) ? subscriptions.data : []).map((row) => clean(row?.whatsapp_business_api_data?.id)).filter(Boolean)
+  return { appId: config.appId, phoneNumberId: config.phoneNumberId, subscribed: subscribedAppIds.includes(config.appId), subscribedAppIds, wabaId }
+}
+
+export async function connectWhatsappIncomingMessages({ env = process.env, fetchImpl = fetch, phoneNumberId } = {}) {
+  const config = getWhatsappConfiguration(env)
+  if (phoneNumberId !== config.phoneNumberId) throw new WhatsappSignupError('The sender changed. Refresh the status before connecting incoming messages.', 409)
+  const current = await getWhatsappWebhookSubscription({ env, fetchImpl })
+  if (current.subscribed) return current
+  const result = await requestMetaJson(`https://graph.facebook.com/${config.apiVersion}/${current.wabaId}/subscribed_apps`, {
+    method: 'POST', headers: { Authorization: `Bearer ${config.accessToken}`, 'Content-Type': 'application/json' }, body: '{}',
+  }, fetchImpl)
+  if (result?.success !== true) throw new WhatsappSignupError('Meta did not confirm the incoming-message subscription.', 502)
+  const verified = await getWhatsappWebhookSubscription({ env, fetchImpl })
+  if (!verified.subscribed) throw new WhatsappSignupError('The CasaMia app subscription was not present after saving.', 502)
+  return verified
 }
 
 // Free-form replies are used only for a recent, verified inbound customer message.

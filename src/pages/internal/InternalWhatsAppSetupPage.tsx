@@ -126,12 +126,37 @@ export function InternalWhatsAppSetupPage() {
   const [registrationPin, setRegistrationPin] = useState('')
   const [isRegistering, setIsRegistering] = useState(false)
   const [registrationMessage, setRegistrationMessage] = useState('')
+  const [incomingConnection, setIncomingConnection] = useState<{ subscribed: boolean; wabaId: string; appId: string } | null>(null)
+  const [incomingMessage, setIncomingMessage] = useState('')
+  const [isCheckingIncoming, setIsCheckingIncoming] = useState(false)
   const authorizationReceivedRef = useRef(false)
   const sessionFinishedRef = useRef(false)
   const transferTimeoutRef = useRef<number | null>(null)
   const configuredTemplateCount = diagnostics ? getConfiguredTemplateCount(diagnostics) : 0
   const senderConnected = diagnostics?.sender?.status === 'CONNECTED'
   const deliveryReady = Boolean(diagnostics?.configured && senderConnected && configuredTemplateCount === templateRows.length && diagnostics.publicDeliveryEnabled)
+
+  async function checkIncomingConnection(connect = false) {
+    setIsCheckingIncoming(true)
+    setIncomingMessage(connect ? 'Connecting incoming messages with Meta...' : 'Checking the live WhatsApp account subscription...')
+    try {
+      const response = await fetch(`${getPublicSiteApiBaseUrl()}/api/internal/whatsapp-testing`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...getInternalAuthHeaders() },
+        body: JSON.stringify({ action: connect ? 'connect-incoming' : 'check-incoming', phoneNumberId: diagnostics?.phoneNumberId }),
+      })
+      const payload = await response.json()
+      if (!response.ok) throw new Error(payload.message || 'Unable to check the incoming-message connection.')
+      setIncomingConnection(payload.incoming)
+      setIncomingMessage(payload.incoming.subscribed
+        ? 'Meta confirms that the CasaMia app is subscribed to this live WhatsApp account. Send a new customer message to test the reply.'
+        : 'The live WhatsApp account is not subscribed to the CasaMia app. Connect incoming messages below.')
+    } catch (error) {
+      setIncomingMessage(error instanceof Error ? error.message : 'Unable to check the incoming-message connection.')
+    } finally {
+      setIsCheckingIncoming(false)
+    }
+  }
 
   async function registerLiveNumber() {
     if (!/^\d{6}$/.test(registrationPin) || !diagnostics?.phoneNumberId) return
@@ -602,6 +627,19 @@ export function InternalWhatsAppSetupPage() {
                 : testResult.reason || `Meta returned status: ${testResult.status || 'failed'}`}
             </div>
           ) : null}
+
+          <div className="mt-6 rounded-lg border border-border p-4">
+            <h3 className="font-extrabold text-text-dark">Incoming customer messages</h3>
+            <p className="mt-2 text-sm text-text-muted">A successful sample webhook test does not confirm that the live WhatsApp account is connected. Check the account subscription here.</p>
+            <button className="btn btn-green mt-4" type="button" disabled={isCheckingIncoming || !diagnostics?.configured || diagnostics.usingTestCredentials} onClick={() => void checkIncomingConnection()}>
+              {isCheckingIncoming ? 'Checking...' : 'Check incoming connection'}
+            </button>
+            {incomingConnection && !incomingConnection.subscribed ? (
+              <button className="btn btn-green ml-3 mt-4" type="button" disabled={isCheckingIncoming} onClick={() => void checkIncomingConnection(true)}>Connect incoming messages</button>
+            ) : null}
+            {incomingMessage ? <p className="mt-3 text-sm font-bold text-text-dark" role="status">{incomingMessage}</p> : null}
+            {incomingConnection ? <p className="mt-2 text-xs text-text-muted">WhatsApp account: {incomingConnection.wabaId} · App: {incomingConnection.appId}</p> : null}
+          </div>
 
           {diagnostics?.webhookUrl ? (
             <p className="mt-5 break-all text-xs font-semibold text-text-muted">Webhook: {diagnostics.webhookUrl}</p>

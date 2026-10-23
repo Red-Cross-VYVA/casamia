@@ -7,11 +7,13 @@ import whatsappTestingHandler from '../api/internal/whatsapp-testing.js'
 import { mapPublicReportRecord, queuePublicReport } from '../api/_lib/public-reports.js'
 import {
   completeWhatsappEmbeddedSignup,
+  connectWhatsappIncomingMessages,
   extractWhatsappMessages,
   extractWhatsappStatuses,
   getWhatsappDiagnostics,
   getWhatsappConfiguration,
   getWhatsappTemplate,
+  getWhatsappWebhookSubscription,
   normaliseWhatsappRecipient,
   registerWhatsappSender,
   sendWhatsappTemplate,
@@ -373,6 +375,47 @@ const deliveryFormSource = await readFile(new URL('../src/components/ReportDeliv
 const embeddedSignupSource = await readFile(new URL('../src/pages/internal/InternalWhatsAppSetupPage.tsx', import.meta.url), 'utf8')
 assert.doesNotMatch(embeddedSignupSource, /redirect_uri:/)
 assert.doesNotMatch(embeddedSignupSource, /window\.open\s*=/)
+
+const subscriptionEnv = { ...liveEnv, WHATSAPP_APP_ID: 'expected-app', WHATSAPP_BUSINESS_ACCOUNT_ID: 'waba-live' }
+let subscriptionPresent = false
+let subscriptionWrites = 0
+const subscriptionFetch = async (url, init = {}) => {
+  const parsed = new URL(url)
+  assert.equal(init.headers.Authorization, 'Bearer test-token')
+  if (parsed.pathname.endsWith('/debug_token')) {
+    assert.equal(parsed.searchParams.get('input_token'), 'test-token')
+    return Response.json({ data: { app_id: 'expected-app', is_valid: true } })
+  }
+  if (parsed.pathname.endsWith('/waba-live/phone_numbers')) return Response.json({ data: [{ id: subscriptionEnv.WHATSAPP_PHONE_NUMBER_ID }] })
+  if (parsed.pathname.endsWith('/waba-live/subscribed_apps')) {
+    if (init.method === 'POST') {
+      subscriptionWrites++
+      subscriptionPresent = true
+      return Response.json({ success: true })
+    }
+    return Response.json({ data: subscriptionPresent ? [{ whatsapp_business_api_data: { id: 'expected-app' } }] : [] })
+  }
+  throw new Error('Unexpected subscription test request')
+}
+const subscriptionBefore = await getWhatsappWebhookSubscription({ env: subscriptionEnv, fetchImpl: subscriptionFetch })
+assert.equal(subscriptionBefore.subscribed, false)
+assert.equal(subscriptionBefore.wabaId, 'waba-live')
+assert.doesNotMatch(JSON.stringify(subscriptionBefore), /test-token|test-app-secret/)
+const connectedIncoming = await connectWhatsappIncomingMessages({ env: subscriptionEnv, fetchImpl: subscriptionFetch, phoneNumberId: subscriptionEnv.WHATSAPP_PHONE_NUMBER_ID })
+assert.equal(connectedIncoming.subscribed, true)
+assert.equal(subscriptionWrites, 1)
+await connectWhatsappIncomingMessages({ env: subscriptionEnv, fetchImpl: subscriptionFetch, phoneNumberId: subscriptionEnv.WHATSAPP_PHONE_NUMBER_ID })
+assert.equal(subscriptionWrites, 1, 'An existing subscription must not be changed')
+await assert.rejects(connectWhatsappIncomingMessages({ env: subscriptionEnv, phoneNumberId: 'changed-sender', fetchImpl: subscriptionFetch }), /sender changed/)
+await assert.rejects(connectWhatsappIncomingMessages({ env: subscriptionEnv, phoneNumberId: subscriptionEnv.WHATSAPP_PHONE_NUMBER_ID, fetchImpl: async () => Response.json({ data: { is_valid: true, app_id: 'other-app' } }) }), /belongs to app other-app/)
+assert.equal(subscriptionWrites, 1, 'Never subscribe a token issued for another app')
+const incomingUnauthorized = responseRecorder()
+await whatsappTestingHandler({ method: 'POST', headers: {}, body: { action: 'connect-incoming' } }, incomingUnauthorized, { env: subscriptionEnv })
+assert.equal(incomingUnauthorized.statusCode, 401)
+const incomingCheckResponse = responseRecorder()
+await whatsappTestingHandler({ method: 'POST', headers: { 'x-api-key': 'whatsapp-test-key' }, body: { action: 'check-incoming' } }, incomingCheckResponse, { env: subscriptionEnv, fetchImpl: subscriptionFetch })
+assert.equal(incomingCheckResponse.statusCode, 200)
+assert.equal(JSON.parse(incomingCheckResponse.body).incoming.subscribed, true)
 assert.match(proposalSource, /delivery_whatsapp/)
 assert.match(proposalSource, /proposalWhatsapp/)
 assert.match(reportSource, /sendWhatsappTemplate/)
