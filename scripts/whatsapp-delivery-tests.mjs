@@ -381,11 +381,12 @@ let subscriptionPresent = false
 let subscriptionWrites = 0
 const subscriptionFetch = async (url, init = {}) => {
   const parsed = new URL(url)
-  assert.equal(init.headers.Authorization, 'Bearer test-token')
   if (parsed.pathname.endsWith('/debug_token')) {
+    assert.equal(init.headers.Authorization, 'Bearer expected-app|test-app-secret')
     assert.equal(parsed.searchParams.get('input_token'), 'test-token')
     return Response.json({ data: { app_id: 'expected-app', is_valid: true } })
   }
+  assert.equal(init.headers.Authorization, 'Bearer test-token')
   if (parsed.pathname.endsWith('/waba-live/phone_numbers')) return Response.json({ data: [{ id: subscriptionEnv.WHATSAPP_PHONE_NUMBER_ID }] })
   if (parsed.pathname.endsWith('/waba-live/subscribed_apps')) {
     if (init.method === 'POST') {

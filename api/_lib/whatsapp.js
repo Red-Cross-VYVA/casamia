@@ -269,9 +269,10 @@ export async function getWhatsappWebhookSubscription({ env = process.env, fetchI
   const config = getWhatsappConfiguration(env)
   if (!config.configured) throw new WhatsappSignupError('Configure the live WhatsApp sender first.', 409)
   const headers = { Authorization: `Bearer ${config.accessToken}` }
+  if (!config.appSecret) throw new WhatsappSignupError('The Meta app secret is required to verify the incoming-message connection.', 409)
   const debugUrl = new URL(`https://graph.facebook.com/${config.apiVersion}/debug_token`)
   debugUrl.searchParams.set('input_token', config.accessToken)
-  const debug = await requestMetaJson(debugUrl, { headers }, fetchImpl)
+  const debug = await requestMetaJson(debugUrl, { headers: { Authorization: `Bearer ${config.appId}|${config.appSecret}` } }, fetchImpl)
   const tokenAppId = clean(debug?.data?.app_id)
   if (!debug?.data?.is_valid || tokenAppId !== config.appId) {
     throw new WhatsappSignupError(`The live sender token belongs to app ${tokenAppId || 'unknown'}, but CasaMia expects app ${config.appId}. Reconnect the correct app before enabling incoming messages.`, 409)
