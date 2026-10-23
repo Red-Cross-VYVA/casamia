@@ -11,7 +11,9 @@ import {
 import {
   buildProposalDepositCheckoutSession,
   calculateProposalDepositCents,
+  getProposalTaxRateId,
   mapProposalDepositPaymentEvent,
+  validateInclusiveProposalTaxRate,
 } from '../api/_lib/proposal-payment.js'
 
 assert.deepEqual(visitPaymentConfig, {
@@ -110,6 +112,15 @@ const proposal = {
 }
 assert.equal(calculateProposalDepositCents(proposal), 24_950)
 assert.equal(calculateProposalDepositCents({ ...proposal, deposit_rate: 0.4 }), 19_960)
+assert.equal(getProposalTaxRateId({ STRIPE_PROPOSAL_TAX_RATE_ID: 'txr_proposal_vat' }), 'txr_proposal_vat')
+assert.equal(getProposalTaxRateId({ STRIPE_VISIT_TAX_RATE_ID: 'txr_visit_vat' }), '')
+for (const percentage of [4, 10, 21]) {
+  assert.doesNotThrow(() => validateInclusiveProposalTaxRate({ active: true, inclusive: true, percentage }))
+}
+assert.throws(
+  () => validateInclusiveProposalTaxRate({ active: true, inclusive: true, percentage: 7 }),
+  /active, inclusive 4%, 10%, or 21% VAT rate/,
+)
 
 const proposalCheckout = buildProposalDepositCheckoutSession({
   locale: 'es',

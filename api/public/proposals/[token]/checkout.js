@@ -1,10 +1,9 @@
 import { getRequestQueryValue as getParam } from '../../../_lib/request-query.js'
 import { getProposalRecordByToken, isPublicProposalToken, mapProposalRecord, updateProposalRecord } from '../../../_lib/proposals.js'
-import { buildProposalDepositCheckoutSession, calculateProposalDepositCents, proposalPaymentConfig } from '../../../_lib/proposal-payment.js'
+import { buildProposalDepositCheckoutSession, calculateProposalDepositCents, getProposalTaxRateId, proposalPaymentConfig, validateInclusiveProposalTaxRate } from '../../../_lib/proposal-payment.js'
 import { applyPublicCors, isAllowedPublicOrigin, normalizeOrigin } from '../../../_lib/public-origin.js'
 import { getStripeClient, StripeConfigurationError } from '../../../_lib/stripe.js'
 import { readJsonBody, sendJson } from '../../../_lib/supabase.js'
-import { getVisitTaxRateId, validateInclusiveVisitTaxRate } from '../../../_lib/visit-payment.js'
 
 export default async function handler(request, response) {
   response.setHeader('Cache-Control', 'no-store')
@@ -58,9 +57,9 @@ export default async function handler(request, response) {
 
     const body = await readJsonBody(request)
     const stripe = getStripeClient()
-    const taxRateId = getVisitTaxRateId()
-    if (!taxRateId) throw new StripeConfigurationError('Add STRIPE_VISIT_TAX_RATE_ID in Vercel.')
-    validateInclusiveVisitTaxRate(await stripe.taxRates.retrieve(taxRateId))
+    const taxRateId = getProposalTaxRateId()
+    if (!taxRateId) throw new StripeConfigurationError('Proposal VAT must be approved separately. Add STRIPE_PROPOSAL_TAX_RATE_ID in Vercel only after review.')
+    validateInclusiveProposalTaxRate(await stripe.taxRates.retrieve(taxRateId))
     const existingPayment = object(proposal.proposalPayment)
     if (text(existingPayment.sessionId)) {
       try {

@@ -4,6 +4,19 @@ export const proposalPaymentConfig = Object.freeze({
   vatIncluded: true,
 })
 
+export function getProposalTaxRateId(env = process.env) {
+  return text(env.STRIPE_PROPOSAL_TAX_RATE_ID)
+}
+
+export function validateInclusiveProposalTaxRate(taxRate) {
+  const supportedRates = new Set([4, 10, 21])
+  if (!taxRate || taxRate.deleted || taxRate.active !== true || taxRate.inclusive !== true
+    || !supportedRates.has(Number(taxRate.percentage))) {
+    throw new Error('STRIPE_PROPOSAL_TAX_RATE_ID must reference an active, inclusive 4%, 10%, or 21% VAT rate.')
+  }
+  return taxRate
+}
+
 export function calculateProposalDepositCents(proposal) {
   const lineItems = Array.isArray(proposal?.line_items) ? proposal.line_items : []
   const subtotalCents = lineItems.reduce((sum, item) => {
