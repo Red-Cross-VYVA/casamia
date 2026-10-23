@@ -263,6 +263,36 @@ export async function getWhatsappDiagnostics({ env = process.env, fetchImpl = fe
   }
 }
 
+// Free-form replies are used only for a recent, verified inbound customer message.
+export async function sendWhatsappText({ to, text, replyTo, env = process.env, fetchImpl = fetch }) {
+  const config = getWhatsappConfiguration(env)
+  const recipient = normaliseWhatsappRecipient(to)
+  const body = clean(text)
+  if (!config.configured) return whatsappResult('not_configured', 'WhatsApp Cloud API credentials are not configured.')
+  if (!recipient) return whatsappResult('recipient_invalid', 'A valid WhatsApp recipient is required.')
+  if (!body || body.length > 4_096) return whatsappResult('invalid_text', 'A reply must contain between 1 and 4096 characters.')
+  let response
+  try {
+    response = await fetchImpl(`https://graph.facebook.com/${config.apiVersion}/${encodeURIComponent(config.phoneNumberId)}/messages`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${config.accessToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp', recipient_type: 'individual', to: recipient,
+        type: 'text', text: { body, preview_url: false },
+        ...(clean(replyTo) ? { context: { message_id: clean(replyTo) } } : {}),
+      }),
+      signal: AbortSignal.timeout(10_000),
+    })
+  } catch {
+    // A timeout can occur after Meta accepted a message. Never blindly resend it.
+    return whatsappResult('failed', 'The reply could not be confirmed by Meta.')
+  }
+  const payload = await readJson(response)
+  const messageId = clean(payload?.messages?.[0]?.id)
+  if (!response.ok || !messageId) return whatsappResult('failed', clean(payload?.error?.message) || 'Meta did not accept the reply.')
+  return { ok: true, provider: 'meta-whatsapp', status: 'sent', recipient, messageId }
+}
+
 export async function registerWhatsappSender({ env = process.env, fetchImpl = fetch, pin, phoneNumberId }) {
   const config = getWhatsappConfiguration(env)
   if (!config.configured) throw new WhatsappSignupError('Live WhatsApp credentials are not configured.', 503)
@@ -328,11 +358,12 @@ export function extractWhatsappMessages(payload) {
       const value = change?.value
       const contactName = clean(value?.contacts?.[0]?.profile?.name)
       return (Array.isArray(value?.messages) ? value.messages : []).map((message) => ({
-        at: normaliseTimestamp(message?.timestamp),
+        at: Number(message?.timestamp) > 0 ? normaliseTimestamp(message.timestamp) : '',
         contactName,
         from: normaliseWhatsappRecipient(message?.from),
         messageId: clean(message?.id),
-        text: clean(message?.text?.body).slice(0, 4_000),
+        phoneNumberId: clean(value?.metadata?.phone_number_id),
+        text: clean(message?.text?.body || message?.button?.text || message?.interactive?.button_reply?.title || message?.interactive?.list_reply?.title).slice(0, 4_000),
         type: clean(message?.type),
       }))
     })

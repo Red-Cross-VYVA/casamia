@@ -28,7 +28,7 @@
     "test:environment": "node scripts/environment-config-tests.mjs",
     "test:facebook": "node scripts/facebook-publishing-tests.mjs && node scripts/social-post-archive-tests.mjs",
     "test:meta": "node scripts/meta-conversions-tests.mjs",
-    "test:whatsapp": "node scripts/whatsapp-delivery-tests.mjs",
+    "test:whatsapp": "node scripts/whatsapp-delivery-tests.mjs && node scripts/whatsapp-auto-reply-tests.mjs",
     "test:leads": "node scripts/lead-pipeline-tests.mjs",
     "test:lead-emails": "node scripts/lead-notification-tests.mjs",
     "test:form-emails": "node scripts/form-email-tests.mjs",

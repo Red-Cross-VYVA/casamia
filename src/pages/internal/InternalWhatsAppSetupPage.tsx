@@ -40,6 +40,7 @@ type EmbeddedSignupSessionEvent = {
 }
 
 type WhatsappDiagnostics = {
+  autoRepliesEnabled?: boolean
   apiVersion?: string
   configured?: boolean
   metaError?: string
@@ -486,6 +487,11 @@ export function InternalWhatsAppSetupPage() {
               />
               <StatusField label="Webhook token" ready={diagnostics.webhookConfigured} />
               <StatusField label="Signed webhook" ready={diagnostics.signatureConfigured} />
+              <StatusField
+                label="Automatic replies"
+                ready={diagnostics.autoRepliesEnabled}
+                value={diagnostics.autoRepliesEnabled ? 'English / Spanish · Enabled' : 'Disabled'}
+              />
               <StatusField
                 label="Meta sender"
                 ready={senderConnected}

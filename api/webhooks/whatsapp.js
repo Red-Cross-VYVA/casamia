@@ -1,6 +1,7 @@
 import { getRequestQueryValue as queryValue } from '../_lib/request-query.js'
 import { extractWhatsappMessages, extractWhatsappStatuses, getWhatsappConfiguration, verifyWhatsappWebhookSignature } from '../_lib/whatsapp.js'
 import { selectSupabaseRows, sendJson, updateSupabaseRows } from '../_lib/supabase.js'
+import { autoReplyToWhatsapp } from '../_lib/whatsapp-auto-replies.js'
 
 export default async function handler(request, response, dependencies = {}) {
   response.setHeader('Cache-Control', 'no-store')
@@ -49,8 +50,18 @@ export default async function handler(request, response, dependencies = {}) {
   const messages = extractWhatsappMessages(payload)
   const applyStatus = dependencies.applyStatus ?? applyWhatsappStatus
   await Promise.all(statuses.map((status) => applyStatus(status)))
-  const applyMessage = dependencies.applyMessage ?? logInboundWhatsappMessage
-  await Promise.all(messages.map((message) => applyMessage(message)))
+  const applyMessage = dependencies.applyMessage ?? (async (message) => {
+    logInboundWhatsappMessage(message)
+    return autoReplyToWhatsapp(message, { ...dependencies, env })
+  })
+  try {
+    // Preserve the order of STOP/START and language changes inside a webhook batch.
+    for (const message of messages) await applyMessage(message)
+  } catch {
+    console.error('[whatsapp-webhook] inbound processing failed')
+    sendJson(response, 503, { message: 'Incoming message processing is temporarily unavailable.' })
+    return
+  }
   sendJson(response, 200, {
     messages: messages.length,
     received: true,

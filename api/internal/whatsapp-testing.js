@@ -1,5 +1,6 @@
 import { getWhatsappDiagnostics, getWhatsappTemplate, registerWhatsappSender, sendWhatsappTemplate } from '../_lib/whatsapp.js'
 import { requireInternalApiKey, sendJson } from '../_lib/supabase.js'
+import { whatsappAutoRepliesEnabled } from '../_lib/whatsapp-auto-replies.js'
 
 function getTestingEnvironment(env) {
   const testAccessToken = String(env.WHATSAPP_TEST_ACCESS_TOKEN ?? '').trim()
@@ -35,6 +36,7 @@ export default async function handler(request, response, dependencies = {}) {
     })
     sendJson(response, 200, {
       ...diagnostics,
+      autoRepliesEnabled: whatsappAutoRepliesEnabled(env),
       publicDeliveryEnabled: String(env.VITE_CASAMIA_WHATSAPP_DELIVERY_ENABLED ?? '').trim() === 'true',
       usingTestCredentials: testing.usingTestCredentials,
       webhookUrl: 'https://www.casamia.com.es/api/webhooks/whatsapp',

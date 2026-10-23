@@ -199,6 +199,7 @@ assert.deepEqual(extractWhatsappMessages(inboundPayload)[0], {
   contactName: 'Ana',
   from: '34600123456',
   messageId: 'wamid.inbound',
+  phoneNumberId: '',
   text: 'Necesito ayuda con el baño.',
   type: 'text',
 })
